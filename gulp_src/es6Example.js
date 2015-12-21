@@ -1,69 +1,94 @@
 var gulp = require('gulp');
-var fs = require('fs');
-var browserify = require('browserify');
-var watchify = require('watchify');
 var babelify = require('babelify');
-var rimraf = require('rimraf');
-var source = require('vinyl-source-stream');
-var _ = require('lodash');
-var browserSync = require('browser-sync');
-var reload = browserSync.reload;
+var browserify = require('browserify');
+var vinylSourceStream = require('vinyl-source-stream');
+var vinylBuffer = require('vinyl-buffer');
 
-var config = {
-    entryFile: './src/app.js',
-    outputDir: './dist/',
-    outputFile: 'app.js'
-};
+// Load all gulp plugins into the plugins object.
+var plugins = require('gulp-load-plugins')();
 
-// clean the output directory
-gulp.task('clean', function(cb){
-    rimraf(config.outputDir, cb);
-});
-
-var bundler;
-function getBundler() {
-    if (!bundler) {
-        bundler = watchify(browserify(config.entryFile, _.extend({ debug: true }, watchify.args)));
+var src = {
+    html: 'src/**/*.html',
+    libs: 'node_modules/angular/angular.js',
+    scripts: {
+        all: 'src/app/**/*.js',
+        app: 'src/app.js'
     }
-    return bundler;
 };
 
-function bundle() {
-    return getBundler()
-        .transform(babelify)
-        .bundle()
-        .on('error', function(err) { console.log('Error: ' + err.message); })
-        .pipe(source(config.outputFile))
-        .pipe(gulp.dest(config.outputDir))
-        .pipe(reload({ stream: true }));
+var build = 'build/';
+var out = {
+    libs: build + 'libs/',
+    scripts: {
+        file: 'app.min.js',
+        folder: build + 'scripts/'
+    }
 }
 
-gulp.task('build-persistent', ['clean'], function() {
-    return bundle();
+gulp.task('html', function() {
+    return gulp.src(src.html)
+        .pipe(gulp.dest(build))
+        .pipe(plugins.connect.reload());
 });
 
-gulp.task('build', ['build-persistent'], function() {
-    process.exit(0);
+/* The jshint task runs jshint with ES6 support. */
+gulp.task('jshint', function() {
+    return gulp.src(src.scripts.all)
+        .pipe(plugins.jshint({
+            esnext: true // Enable ES6 support
+        }))
+        .pipe(plugins.jshint.reporter('jshint-stylish'));
 });
 
-gulp.task('watch', ['build-persistent'], function() {
+gulp.task('libs', function() {
+    /* In a real project you of course would use npm or bower to manage libraries. */
+    return gulp.src(src.libs)
+        .pipe(gulp.dest(out.libs))
+        .pipe(plugins.connect.reload());
+});
 
-    browserSync({
-        server: {
-            baseDir: './'
-        }
+/* Compile all script files into one output minified JS file. */
+gulp.task('scripts', function() {
+
+    var sources = browserify({
+        entries: src.scripts.app,
+        debug: true // Build source maps
+    })
+        .transform(babelify.configure({
+            // You can configure babel here!
+            // https://babeljs.io/docs/usage/options/
+        }));
+
+    return sources.bundle()
+        .pipe(vinylSourceStream(out.scripts.file))
+        .pipe(vinylBuffer())
+        .pipe(plugins.sourcemaps.init({
+            loadMaps: true // Load the sourcemaps browserify already generated
+        }))
+        .pipe(plugins.ngAnnotate())
+        .pipe(plugins.uglify())
+        .pipe(plugins.sourcemaps.write('./', {
+            includeContent: true
+        }))
+        .pipe(gulp.dest(out.scripts.folder))
+        .pipe(plugins.connect.reload());
+
+});
+
+gulp.task('serve', ['build', 'watch'], function() {
+    plugins.connect.server({
+        root: build,
+        port: 4242,
+        livereload: true,
+        fallback: build + 'index.html'
     });
-
-    getBundler().on('update', function() {
-        gulp.start('build-persistent')
-    });
 });
 
-// WEB SERVER
-gulp.task('serve', function () {
-    browserSync({
-        server: {
-            baseDir: './'
-        }
-    });
-});
+gulp.task('watch', function() {
+    gulp.watch(src.libs, ['libs']);
+    gulp.watch(src.html, ['html']);
+    gulp.watch(src.scripts.all, ['scripts']);
+})
+
+gulp.task('build', ['scripts', 'html', 'libs']);
+gulp.task('default', ['serve']);
