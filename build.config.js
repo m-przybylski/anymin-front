@@ -1,8 +1,20 @@
+var pkg = require('./package.json');
+var argv = require('yargs').argv;
+
+
 module.exports = {
     compile_dir: 'build',
     tpl_name: 'templates-module.js',
     tpl_module: 'templates-module',
     project_theme_name: 'profitelo_theme',
+    variables: {
+        tests: !!((typeof argv.tests === "undefined") || (argv.tests === true)),
+        docs: !!((typeof argv.docs === "undefined") || (argv.docs === true)),
+        uglify: !!((typeof argv.uglify === "undefined") || (argv.uglify === true)),
+        production: false,
+        b2d: false,
+        jadeCache: true
+    },
     app_files: {
         js: ['src/**/*.js', '!src/**/*.spec.js'],
         jsunit: ['src/**/*.spec.js'],

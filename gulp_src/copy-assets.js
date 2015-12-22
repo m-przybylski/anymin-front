@@ -1,6 +1,6 @@
 
 var config = require('../build.config');
-var arguments = require('./variables').arguments;
+
 
 var gulp = require('gulp');
 var copy = require('gulp-copy');
@@ -20,7 +20,7 @@ gulp.task('copy-angular-i18', function() {
 
 
 gulp.task('vendor-js', function() {
-    return gulp.src(config.vendor_files.js).pipe(gulpif(!arguments.production, copy(config.compile_dir)));
+    return gulp.src(config.vendor_files.js).pipe(gulpif(!config.variables.production, copy(config.compile_dir)));
 });
 
 gulp.task('copy-assets', [

@@ -1,5 +1,4 @@
 var buildConfig = require('../build.config');
-var arguments   = require('./variables').arguments;
 var gulp        = require('gulp');
 var runSequence = require('run-sequence');
 var watch       = require('gulp-watch');
@@ -53,7 +52,7 @@ gulp.task('watchers', function() {
     jadeWatcher.on('change', function(e) {
         console.log(chalk.yellow('[JADE] ' + chalk.yellow(e.path)));
         if (e.path.match(/partial.jade/)) {
-            arguments.jadeCache = false;
+            buildConfig.variables.jadeCache = false;
             return console.log(chalk.blue('[JADE] Partial file had been modified. Running JADE without cache'));
         }
     });

@@ -1,6 +1,5 @@
 
 var config          = require('../build.config');
-var variables       = require('./variables');
 var gulp            = require('gulp');
 var cache           = require('gulp-cached');
 var jade            = require('gulp-jade');
@@ -23,10 +22,10 @@ jadeCore = function() {
         config.app_files.jade_common_tpl,
         '!src/**/*.partial.jade'
         ]).
-        pipe(gulpif(!variables.arguments.production && variables.arguments.jadeCache, cache('jade-templates'))).pipe(jade({
+        pipe(gulpif(!config.variables.production && config.variables.jadeCache, cache('jade-templates'))).pipe(jade({
         client: false,
         pretty: true
-    })).pipe(gulpif(!variables.arguments.production && variables.arguments.jadeCache, remember('jade-templates'))).pipe(templateCache(config.tpl_name, {
+    })).pipe(gulpif(!config.variables.production && config.variables.jadeCache, remember('jade-templates'))).pipe(templateCache(config.tpl_name, {
         module: config.tpl_module,
         standalone: true,
         transformUrl: function(url) {
@@ -41,7 +40,7 @@ gulp.task('compile-jade', function() {
         .pipe(connect.reload())
         .pipe(cback(function() {
         console.warn = consoleWarn;
-        return variables.arguments.jadeCache = true;
+        return config.variables.jadeCache = true;
     }));
 });
 

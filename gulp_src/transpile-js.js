@@ -1,5 +1,4 @@
 var config      = require('../build.config');
-var arguments   = require('./variables');
 
 var gulp        = require('gulp');
 var babel       = require('gulp-babel');
@@ -13,7 +12,7 @@ gulp.task('transpile-scripts', function() {
 
     return gulp.src(config.app_files.js)
         .pipe(plumber(function(error) {
-            if (arguments.production) {
+            if (config.variables.production) {
                 throw new Error(error.message);
             }
         }))
