@@ -1,21 +1,27 @@
-angular.module('profitelo.controller.home', [
-    'ui.router'
-])
+(() => {
 
-.config(function($stateProvider) {
-    $stateProvider.state('app.home', {
-        url: '/home',
-        controllerAs: 'vm',
-        controller: 'HomeController',
-        templateUrl: 'home/home.tpl.html'
-    });
-}).controller('HomeController', () => {
-    var vm = this;
+	var module = angular.module('profitelo.controller.home', [
+		'ui.router'
+	])
 
-    console.log('here I EM');
-
-
-    return vm;
-});
+		.config(function($stateProvider) {
+			$stateProvider.state('app.home', {
+				url: '/home',
+				controllerAs: 'vm',
+				controller: 'HomeController',
+				templateUrl: 'home/home.tpl.html'
+			});
+		});
 
 
+	var HomeController = () => {
+		var vm = this;
+
+		console.log('WOWOWO');
+
+		return vm;
+	};
+
+	module.controller('HomeController', HomeController);
+
+})();
