@@ -10,7 +10,7 @@ module.exports = {
         jade_all: 'src/**/*.jade',
         assets: ['src/assets/**'],
         index_html: ['src/index.html'],
-        sass_all: ['src/sass/**/*.sass']
+        sass_all: ['src/template/**/*.sass']
     },
     test_files: {
         js: ['vendor/angular-mocks/angular-mocks.js', 'vendor/jasmine-jquery/lib/jasmine-jquery.js']

@@ -6,6 +6,7 @@ var babel       = require('gulp-babel');
 var annotate    = require('gulp-ng-annotate');
 var plumber     = require('gulp-plumber');
 var cache       = require('gulp-cached');
+var connect     = require('gulp-connect');
 
 
 gulp.task('transpile-scripts', function() {
@@ -21,6 +22,7 @@ gulp.task('transpile-scripts', function() {
             presets: ['es2015']
         }))
         .pipe(annotate())
-        .pipe(gulp.dest(config.compile_dir));
+        .pipe(gulp.dest(config.compile_dir))
+        .pipe(connect.reload());
 
 });

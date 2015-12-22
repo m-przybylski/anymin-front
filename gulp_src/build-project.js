@@ -1,13 +1,20 @@
 
-var config = require('./variables');
-var gulp = require('gulp');
+var config      = require('../build.config');
+var gulp        = require('gulp');
 var runSequence = require('run-sequence');
-var chalk = require('chalk');
+var chalk       = require('chalk');
+var connect     = require('gulp-connect');
+
+//buildArgs = {
+//    stage1: ['clean-all'],
+//    stage2: ['coffee', 'git-commit', 'compile-jade', 'build-styles', 'build-assets'],
+//    stage3: ['build-html']
+//};
 
 buildArgs = {
     stage1: ['clean-all'],
-    stage2: ['coffee', 'git-commit', 'compile-jade', 'build-styles', 'build-assets'],
-    stage3: ['build-html']
+    stage2: ['transpile-scripts', 'compile-jade', 'copy-assets', 'build-styles'],
+    stage3: ['inject-html']
 };
 
 gulp.task('build', function(done) {
@@ -34,10 +41,23 @@ gulp.task('test', function(done) {
 
 });
 
-//gulp.task('watch', function(done) {
-//    console.log(chalk.white.bgGreen('[GULP] Starting watch and build task'));
-//    return runSequence('build', 'watchers', function() {
-//        console.log(chalk.white.bgGreen('[GULP] Watchers had been turned on'));
-//        return done();
-//    });
-//});
+gulp.task('watch', function(done) {
+    console.log(chalk.white.bgGreen('[GULP] Starting watch and build task'));
+    runSequence('build', 'watchers', function() {
+        console.log(chalk.white.bgGreen('[GULP] Watchers had been turned on'));
+        return done();
+    });
+});
+
+
+gulp.task('serve', function(done) {
+    runSequence('watch', function() {
+        connect.server({
+            root: config.compile_dir,
+            port: 4242,
+            livereload: true,
+            fallback: config.compile_dir + '/index.html'
+        });
+    })
+
+});
