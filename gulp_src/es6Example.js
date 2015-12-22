@@ -3,6 +3,7 @@ var babelify = require('babelify');
 var browserify = require('browserify');
 var vinylSourceStream = require('vinyl-source-stream');
 var vinylBuffer = require('vinyl-buffer');
+var babel = require('gulp-babel');
 
 // Load all gulp plugins into the plugins object.
 var plugins = require('gulp-load-plugins')();
@@ -11,7 +12,7 @@ var src = {
     html: 'src/**/*.html',
     libs: 'node_modules/angular/angular.js',
     scripts: {
-        all: 'src/app/**/*.js',
+        all: 'src/**/*.js',
         app: 'src/app.js'
     }
 };
@@ -50,18 +51,10 @@ gulp.task('libs', function() {
 /* Compile all script files into one output minified JS file. */
 gulp.task('scripts', function() {
 
-    var sources = browserify({
-        entries: src.scripts.app,
-        debug: true // Build source maps
-    })
-        .transform(babelify.configure({
-            // You can configure babel here!
-            // https://babeljs.io/docs/usage/options/
-        }));
-
-    return sources.bundle()
-        .pipe(vinylSourceStream(out.scripts.file))
-        .pipe(vinylBuffer())
+        return gulp.src(src.scripts.all)
+            .pipe(babel({
+                presets: ['es2015']
+            }))
         .pipe(plugins.sourcemaps.init({
             loadMaps: true // Load the sourcemaps browserify already generated
         }))
