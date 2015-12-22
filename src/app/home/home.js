@@ -11,12 +11,11 @@ angular.module('profitelo.controller.home', [
   })
   .controller('HomeController', HomeController);
 
-function HomeController() {
+function HomeController(AccountRest) {
   var vm = this;
+  //example GET method
+  AccountRest.get();
 
-  console.log('WOWOWO');
-
-  console.log('no closure');
 
   return vm;
 

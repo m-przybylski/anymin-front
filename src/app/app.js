@@ -1,27 +1,34 @@
 angular.module('profitelo', [
     'templates-module',
+
+
     'profitelo.controller.dashboard',
     'profitelo.controller.home',
-    'profitelo.controller.expert-profile'
-])
+    'profitelo.controller.expert-profile',
 
 
-.config(($urlRouterProvider, $stateProvider) => {
+
+    'profitelo.rest.account'
+
+  ])
+
+
+  .config(($urlRouterProvider, $stateProvider) => {
     $stateProvider.state('app', {
-        url: '',
-        abstract: true,
-        controller: 'AppController',
-        templateUrl: 'templates/app.tpl.html'
+      url: '',
+      abstract: true,
+      controller: 'AppController',
+      templateUrl: 'templates/app.tpl.html'
     });
     $urlRouterProvider
-        .when('', '/')
-        .when('/', '/home');
-})
+      .when('', '/')
+      .when('/', '/home');
+  })
 
-.controller('AppController', AppController);
+  .controller('AppController', AppController);
 
 function AppController($scope) {
-    var vm = this;
+  var vm = this;
 
-    return vm;
+  return vm;
 }
