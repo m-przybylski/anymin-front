@@ -22,5 +22,6 @@ var profiteloApp = angular.module('profitelo', [
 .controller('AppController', ['$scope', ($scope) =>{
 
 
-
+        
 }]);
+
