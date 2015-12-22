@@ -2,7 +2,7 @@
 nav.navbar.navbar-default.navbar-fixed-top
   .container
     .navbar-header
-      button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+      button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#navbar", aria-expanded="false", aria-controls="navbar")
         span.sr-only Toggle navigation
         span.icon-bar
         span.icon-bar
@@ -10,29 +10,23 @@ nav.navbar.navbar-default.navbar-fixed-top
       a.navbar-brand(data-ui-sref="app.dashboard") Profitelo
     #navbar.navbar-collapse.collapse
       ul.nav.navbar-nav.navbar-right
-        li
-          a(data-ui-sref="app.messages")
-            Default
-        li
-          a(href='../navbar-static-top/') Static top
-        li.active
-          a(href='./')
-            | Fixed top
-            span.sr-only (current)
-        li.dropdown
-          a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-            | John Doe (ID 012345)
+        li.disabled
+          a(href="" data-ui-sref="app.messages")
+            i.fa.fa-bell
+        li.disabled
+          a(href="" data-ui-sref="app.favourite")
+            i.fa.fa-heart
+        li.dropdown.active
+          a.dropdown-toggle(href="#", data-toggle="dropdown", role="button", aria-haspopup="true", aria-expanded="false")
+            i.fa.fa-user &nbsp;
+            | John Doe
+            | (ID 012345)
             span.caret
           ul.dropdown-menu
             li
-              a(href='#') Action
-            li
-              a(href='#') Another action
-            li
-              a(href='#') Something else here
-            li.divider(role='separator')
-            li.dropdown-header Nav header
-            li
-              a(href='#') Separated link
-            li
-              a(href='#') One more separated link
+              a(href="" data-ui-sref="app.expert-profile") Expert's profile
+            li.disabled
+              a(href="") Settings
+            li.divider(role="separator")
+            li.disabled
+              a(href="") Logout
