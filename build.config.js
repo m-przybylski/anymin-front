@@ -1,6 +1,7 @@
 module.exports = {
     compile_dir: 'build',
     tpl_name: 'templates-module.js',
+    tpl_module: 'templates-module',
     project_theme_name: 'profitelo_theme',
     app_files: {
         js: ['src/**/*.js', '!src/**/*.spec.js'],
