@@ -1,10 +1,7 @@
 # Profitelo Frontend [![Built with Gulp][build-with-gulp-png]][gulpjs-page]
 
-
-
-
-
-
+    npm install
+    gulp serve
 
 
 [gulpjs-page]: https://www.gulpjs.com

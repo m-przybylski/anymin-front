@@ -31,7 +31,8 @@ module.exports = {
     },
     vendor_files: {
         js: [
-            "node_modules/jquery/dist/jquery.min.js",
+            "node_modules/jquery/dist/jquery.js",
+            "node_modules/bootstrap-sass/assets/javascripts/bootstrap.js",
             "node_modules/angular/angular.js",
             "node_modules/ui-router/release/angular-ui-router.js"
         ],

@@ -14,6 +14,11 @@ gulp.task('move-assets', function() {
 });
 
 
+gulp.task('copy-fontsawesome', function() {
+    return gulp.src('node_modules/font-awesome/fonts/*').pipe(gulp.dest(config.compile_dir + '/assets/fonts'));
+});
+
+
 gulp.task('copy-angular-i18', function() {
     return gulp.src('vendor/angular-i18n/**').pipe(gulp.dest(config.compile_dir + '/assets/angular-i18n'));
 });
@@ -25,6 +30,7 @@ gulp.task('vendor-js', function() {
 
 gulp.task('copy-assets', [
     'move-assets',
+    'copy-fontsawesome',
     'copy-angular-i18',
     'vendor-js'
 ]);
