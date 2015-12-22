@@ -12,11 +12,13 @@
         url: '',
         abstract: true,
         controller: 'AppController',
-        templateUrl: 'templates/app.tpl.html',
+        templateUrl: 'templates/app.tpl.html'
       });
       $urlRouterProvider
-        .when('', '/');
+        .when('', '/')
+        .when('/', '/home');
     })
+
 
 
     .controller('AppController', ['$scope', ($scope) => {
