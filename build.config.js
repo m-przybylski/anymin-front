@@ -8,6 +8,8 @@ module.exports = {
         jsunit: ['src/**/*.spec.js'],
         git_commit: 'src/assets/gitcommit.js',
         jade_all: 'src/**/*.jade',
+        jade_app_tpl: 'src/app/**/*.jade',
+        jade_common_tpl: 'src/common/**/*.jade',
         assets: ['src/assets/**'],
         index_html: ['src/index.html'],
         sass_all: ['src/template/**/*.sass']

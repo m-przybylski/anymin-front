@@ -1,24 +1,26 @@
 var profiteloApp = angular.module('profitelo', [
+    'templates-module',
     'profitelo.controller.dashboard',
     'profitelo.controller.home'
 ])
 
 
+.config(($urlRouterProvider, $stateProvider) => {
+    $stateProvider.state('app', {
+        url: '',
+        abstract: true,
+        controller: 'AppController',
+        templateUrl: 'templates/app.tpl.html',
+    });
+    $urlRouterProvider
+        .when('', '/')
+        .when('/', '/home')
+        .otherwise('/404');})
 
 
-.controller('HomeController', ['$scope', function($scope) {
 
-        for (let i = 0; i <= 10; i++) {
-            console.log(i);
-        }
+.controller('AppController', ['$scope', ($scope) =>{
 
-        $scope.test = () => {
-            alert("22 " + i);
-        };
 
-        setTimeout( () => {
-            "use strict";
-            $scope.test()
-        },
-        1000);
+
 }]);

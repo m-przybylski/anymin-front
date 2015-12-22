@@ -1,4 +1,8 @@
-angular.module('profitelo.controller.home', ['ui.router']).config(function($stateProvider) {
+angular.module('profitelo.controller.home', [
+    'ui.router'
+])
+
+.config(function($stateProvider) {
     $stateProvider.state('app.home', {
         url: '/home',
         controllerAs: 'vm',
@@ -6,10 +10,11 @@ angular.module('profitelo.controller.home', ['ui.router']).config(function($stat
         templateUrl: 'home/home.tpl.html'
     });
 }).controller('HomeController', () => {
-    alert('test');
     var vm = this;
     console.log('here I EM');
 
 
     return vm;
 });
+
+

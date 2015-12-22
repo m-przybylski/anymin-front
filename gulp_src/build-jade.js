@@ -18,7 +18,12 @@ console.warn = function(args) {
     return process.exit();
 };
 jadeCore = function() {
-    return gulp.src([config.app_files.jade_all, '!src/**/*.partial.jade']).pipe(gulpif(!variables.arguments.production && variables.arguments.jadeCache, cache('jade-templates'))).pipe(jade({
+    return gulp.src([
+        config.app_files.jade_app_tpl,
+        config.app_files.jade_common_tpl,
+        '!src/**/*.partial.jade'
+        ]).
+        pipe(gulpif(!variables.arguments.production && variables.arguments.jadeCache, cache('jade-templates'))).pipe(jade({
         client: false,
         pretty: true
     })).pipe(gulpif(!variables.arguments.production && variables.arguments.jadeCache, remember('jade-templates'))).pipe(templateCache(config.tpl_name, {
