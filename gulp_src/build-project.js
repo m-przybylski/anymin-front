@@ -16,9 +16,10 @@ gulp.task('build', function(done) {
 
     var buildStart;
     buildStart = Date.now();
-    //if (config.arguments.tests) {
-    //    buildArgs.stage3.push('run-tests');
-    //}
+
+    if (config.variables.tests) {
+        buildArgs.stage3.push('run-tests');
+    }
     //if (config.arguments.docs) {
     //    buildArgs.stage2.push('build-docs');
     //}

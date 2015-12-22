@@ -4,6 +4,7 @@ var argv = require('yargs').argv;
 
 module.exports = {
     compile_dir: 'build',
+    tests_dir: 'tests',
     tpl_name: 'templates-module.js',
     tpl_module: 'templates-module',
     project_theme_name: 'profitelo_theme',
@@ -26,10 +27,11 @@ module.exports = {
         sass_all: ['src/template/**/*.sass']
     },
     test_files: {
-        js: ['vendor/angular-mocks/angular-mocks.js', 'vendor/jasmine-jquery/lib/jasmine-jquery.js']
+        js: ['node_modules/angular-mocks/angular-mocks.js', 'node_modules/jasmine-jquery/lib/jasmine-jquery.js']
     },
     vendor_files: {
         js: [
+            "node_modules/jquery/dist/jquery.min.js",
             "node_modules/angular/angular.js",
             "node_modules/ui-router/release/angular-ui-router.js"
         ],

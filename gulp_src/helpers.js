@@ -14,6 +14,15 @@ gulp.task('clean-all', function() {
     })
 });
 
+gulp.task('clean-tests', function() {
+    return del.sync([
+        buildConfig.tests_dir
+    ], {
+        force: true
+    })
+});
+
+
 
 gulp.task('git-commit-create', shell.task('git log --pretty=format:"%H - %an, %ad : %s" -1 > .gitcommit'));
 

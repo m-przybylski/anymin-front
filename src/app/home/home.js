@@ -11,6 +11,7 @@ angular.module('profitelo.controller.home', [
     });
 }).controller('HomeController', () => {
     var vm = this;
+
     console.log('here I EM');
 
 
