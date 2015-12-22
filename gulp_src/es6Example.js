@@ -59,10 +59,6 @@ gulp.task('scripts', function() {
             loadMaps: true // Load the sourcemaps browserify already generated
         }))
         .pipe(plugins.ngAnnotate())
-        .pipe(plugins.uglify())
-        .pipe(plugins.sourcemaps.write('./', {
-            includeContent: true
-        }))
         .pipe(gulp.dest(out.scripts.folder))
         .pipe(plugins.connect.reload());
 
