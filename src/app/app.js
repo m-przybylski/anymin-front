@@ -1,5 +1,6 @@
-angular.module('profitelo.controller.test',[
-
+var profiteloApp = angular.module('profitelo', [
+    'profitelo.controller.dashboard',
+    'profitelo.controller.home'
 ])
 
 

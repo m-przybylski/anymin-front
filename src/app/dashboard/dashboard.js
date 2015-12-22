@@ -1,21 +1,13 @@
-angular.module('profitelo.controller.dashboard', ['ui.router']).config(function($stateProvider) {
-    var access;
-    access = routingConfig.accessLevels;
-    return $stateProvider.state('dashboard', {
+'use strict';
+
+angular.module('profitelo.controller.dashboard', ['ui.router']).config(["$stateProvider", function ($stateProvider) {
+    $stateProvider.state('app.dashboard', {
         abstract: true,
-        parent: 'app',
+        controllerAs: 'vm',
         url: '/dashboard',
         templateUrl: 'dashboard/dashboard.tpl.html',
-        controller: 'DashboardController',
-        ncyBreadcrumb: {
-            label: 'PAGE.TITLE.DASHBOARD'
-        },
-        data: {
-            access: access.user,
-            showSearch: true
-        }
+        controller: 'DashboardController'
     });
-}).controller('DashboardController', function($scope, PagetitleService, UserService) {
-    PagetitleService.setTitle('PAGE.TITLE.DASHBOARD');
-    $scope.accountId = UserService.getData('account_id');
-});
+}]).controller('DashboardController', ["$scope", function ($scope) {
+
+}]);
