@@ -22,3 +22,4 @@ var profiteloApp = angular.module('profitelo', [
         },
         1000);
 }]);
+
