@@ -7,9 +7,9 @@ GLOBAL.coffeeOK = true;
 
 module.exports = {
     "arguments": {
-        tests: (typeof argv.tests === "undefined") || (argv.tests === true) ? true : false,
-        docs: (typeof argv.docs === "undefined") || (argv.docs === true) ? true : false,
-        uglify: (typeof argv.uglify === "undefined") || (argv.uglify === true) ? true : false,
+        tests: !!((typeof argv.tests === "undefined") || (argv.tests === true)),
+        docs: !!((typeof argv.docs === "undefined") || (argv.docs === true)),
+        uglify: !!((typeof argv.uglify === "undefined") || (argv.uglify === true)),
         production: false,
         b2d: false,
         jadeCache: true

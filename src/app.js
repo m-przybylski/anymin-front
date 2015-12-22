@@ -6,3 +6,5 @@ var profiteloApp = angular.module('profitelo', [
     'profitelo.controller.test',
     'profitelo.controller.dashboard'
 ]);
+
+

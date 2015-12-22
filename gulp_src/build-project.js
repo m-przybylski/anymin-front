@@ -29,6 +29,11 @@ gulp.task('build', function(done) {
     });
 });
 
+gulp.task('test', function(done) {
+   runSequence(['clean-all', 'transpile-scripts'])
+
+});
+
 //gulp.task('watch', function(done) {
 //    console.log(chalk.white.bgGreen('[GULP] Starting watch and build task'));
 //    return runSequence('build', 'watchers', function() {

@@ -4,6 +4,7 @@ angular.module('profitelo.controller.test',[
 
 
 
+
 .controller('HomeController', ['$scope', function($scope) {
 
         for (let i = 0; i <= 10; i++) {
