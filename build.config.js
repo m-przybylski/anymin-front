@@ -6,7 +6,6 @@ module.exports = {
     app_files: {
         js: ['src/**/*.js', '!src/**/*.spec.js'],
         jsunit: ['src/**/*.spec.js'],
-        git_commit: 'src/assets/gitcommit.js',
         jade_all: 'src/**/*.jade',
         assets: ['src/assets/**'],
         index_html: ['src/index.html'],

@@ -5,15 +5,10 @@ var runSequence = require('run-sequence');
 var chalk       = require('chalk');
 var connect     = require('gulp-connect');
 
-//buildArgs = {
-//    stage1: ['clean-all'],
-//    stage2: ['coffee', 'git-commit', 'compile-jade', 'build-styles', 'build-assets'],
-//    stage3: ['build-html']
-//};
 
 buildArgs = {
     stage1: ['clean-all'],
-    stage2: ['transpile-scripts', 'compile-jade', 'copy-assets', 'build-styles'],
+    stage2: ['transpile-scripts', 'git-commit', 'compile-jade', 'copy-assets', 'build-styles'],
     stage3: ['inject-html']
 };
 
@@ -52,12 +47,13 @@ gulp.task('watch', function(done) {
 
 gulp.task('serve', function(done) {
     runSequence('watch', function() {
+
         connect.server({
             root: config.compile_dir,
             port: 4242,
             livereload: true,
             fallback: config.compile_dir + '/index.html'
-        });
+        })
     })
 
 });
