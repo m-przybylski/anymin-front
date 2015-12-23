@@ -1,9 +1,9 @@
 angular.module('profitelo.rest.account', [
   'ngResource'
 ])
-.factory('AccountRest', AccountFactory);
+.factory('AccountRest', AccountRest);
 
-function AccountFactory($resource) {
+function AccountRest($resource) {
   return $resource('api/account/:id', {id: '@_id'}, {
     update: {method: 'PUT'}
   });
