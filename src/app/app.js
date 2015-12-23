@@ -5,6 +5,7 @@ angular.module('profitelo', [
     'profitelo.controller.dashboard',
     'profitelo.controller.home',
     'profitelo.controller.expert-profile',
+    'profitelo.controller.login',
 
 
 
