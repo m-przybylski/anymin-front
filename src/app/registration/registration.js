@@ -1,4 +1,4 @@
-angular.module('profitelo.controller.login', [
+angular.module('profitelo.controller.registration.jade', [
     'ui.router'
   ])
   .config(($stateProvider) => {
