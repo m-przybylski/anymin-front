@@ -7,7 +7,7 @@ var connect     = require('gulp-connect');
 
 
 buildArgs = {
-    stage1: ['clean-all'],
+    stage1: ['clean-all', 'eslinter'],
     stage2: ['transpile-scripts', 'git-commit', 'compile-jade', 'copy-assets', 'build-styles'],
     stage3: ['inject-html']
 };
@@ -33,7 +33,7 @@ gulp.task('build', function(done) {
 });
 
 gulp.task('test', function(done) {
-   runSequence(['clean-all', 'transpile-scripts'])
+   runSequence(['clean-all', 'eslinter', 'transpile-scripts'])
 
 });
 

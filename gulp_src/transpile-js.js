@@ -4,6 +4,7 @@ var gulp        = require('gulp');
 var babel       = require('gulp-babel');
 var annotate    = require('gulp-ng-annotate');
 var plumber     = require('gulp-plumber');
+var eslint      = require('gulp-eslint');
 var cache       = require('gulp-cached');
 var connect     = require('gulp-connect');
 
@@ -24,4 +25,15 @@ gulp.task('transpile-scripts', function() {
         .pipe(gulp.dest(config.compile_dir))
         .pipe(connect.reload());
 
+});
+
+gulp.task('eslinter', function () {
+  return gulp.src([
+    'src/**/*.js',
+    '!src/assets/gitcommit.js'
+  ])
+  .pipe(plumber())
+  .pipe(eslint())
+  .pipe(eslint.format())
+  .pipe(eslint.failAfterError());
 });
