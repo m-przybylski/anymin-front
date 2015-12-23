@@ -7,7 +7,7 @@ describe('Unit tests: login>', ()=> {
 
         beforeEach(() => {
             module('profitelo.controller.login');
-            inject(function($rootScope, $controller, $state) {
+            inject(($rootScope, $controller, $state) => {
                 $scope = $rootScope.$new();
                 LoginController = $controller('LoginController', {
                     $scope: $scope,

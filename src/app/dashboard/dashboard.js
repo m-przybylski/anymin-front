@@ -1,7 +1,7 @@
 angular.module('profitelo.controller.dashboard', [
     'ui.router'
   ])
-  .config(function ($stateProvider) {
+  .config(($stateProvider) =>{
     $stateProvider.state('app.dashboard', {
       controllerAs: 'vm',
       url: '/dashboard',

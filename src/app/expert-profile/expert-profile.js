@@ -1,7 +1,7 @@
 angular.module('profitelo.controller.expert-profile', [
     'ui.router'
   ])
-  .config(function ($stateProvider) {
+  .config(($stateProvider) =>{
     $stateProvider.state('app.expert-profile', {
       url: '/expert-profile',
       controllerAs: 'vm',

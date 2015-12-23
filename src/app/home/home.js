@@ -4,7 +4,7 @@ angular.module('profitelo.controller.home', [
     //test dependency
     'profitelo.rest.account'
   ])
-  .config(function ($stateProvider) {
+  .config(($stateProvider) => {
     $stateProvider.state('app.home', {
       url: '/home',
       controllerAs: 'vm',
