@@ -14,8 +14,22 @@ angular.module('profitelo.directive.registration', [
 
 .controller('RegistrationDirectiveController', RegistrationDirectiveController);
 
-function RegistrationDirectiveController() {
+function RegistrationDirectiveController(AuthorizationService) {
   var vm = this;
+  vm.registrationMetaData = {
+    step1: true
+  };
+  vm.userData = {
+    email: "",
+    password: "",
+    pin: ""
+  };
+  vm.step2 = () =>{
+
+
+  };
+
+
   console.log("here i am directive");
 
 
