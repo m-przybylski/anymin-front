@@ -9,7 +9,11 @@ var chalk       = require('chalk');
 gulp.task('watchers', function() {
 
     var jsWatcher = gulp.watch(buildConfig.app_files.js, function() {
-        return runSequence('eslinter', 'transpile-scripts');
+        return runSequence('eslinter-js', 'transpile-scripts');
+    });
+
+    var jsunitWatcher = gulp.watch(buildConfig.app_files.jsunit, function() {
+        return runSequence('eslinter-jsunit');
     });
 
     var jadeWatcher = gulp.watch(buildConfig.app_files.jade_all, function() {

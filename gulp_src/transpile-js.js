@@ -27,10 +27,23 @@ gulp.task('transpile-scripts', function() {
 
 });
 
-gulp.task('eslinter', function () {
+gulp.task('eslinter' , ['eslinter-js', 'eslinter-jsunit'])
+
+gulp.task('eslinter-js', function () {
   return gulp.src([
     'src/**/*.js',
+    '!src/**/*.spec.js',
     '!src/assets/gitcommit.js'
+  ])
+  .pipe(plumber())
+  .pipe(eslint())
+  .pipe(eslint.format())
+  .pipe(eslint.failAfterError());
+});
+
+gulp.task('eslinter-jsunit', function () {
+  return gulp.src([
+    'src/**/*.spec.js'
   ])
   .pipe(plumber())
   .pipe(eslint())
