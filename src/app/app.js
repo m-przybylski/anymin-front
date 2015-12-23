@@ -1,4 +1,6 @@
 angular.module('profitelo', [
+    'ngMessages',
+
     'templates-module',
 
     //modules
