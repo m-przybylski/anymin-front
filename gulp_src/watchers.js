@@ -1,4 +1,4 @@
-var buildConfig = require('../build.config');
+var config      = require('../build.config');
 var gulp        = require('gulp');
 var runSequence = require('run-sequence');
 var watch       = require('gulp-watch');
@@ -8,19 +8,29 @@ var chalk       = require('chalk');
 
 gulp.task('watchers', function() {
 
-    var jsWatcher = gulp.watch(buildConfig.app_files.js, function() {
-        return runSequence('eslinter-js', 'transpile-scripts');
+    var jsWatchArgs = {
+        source: config.app_files.js,
+        tasks: ['eslinter-js', 'transpile-scripts']
+    };
+
+    if (config.variables.tests) {
+        jsWatchArgs.tasks.push('run-tests-watch');
+        jsWatchArgs.source = config.app_files.allJs;
+    }
+
+    var jsWatcher = gulp.watch(jsWatchArgs.source, function() {
+        return runSequence(jsWatchArgs.tasks);
     });
 
-    var jsunitWatcher = gulp.watch(buildConfig.app_files.jsunit, function() {
+    var jsunitWatcher = gulp.watch(config.app_files.jsunit, function() {
         return runSequence('eslinter-jsunit');
     });
 
-    var jadeWatcher = gulp.watch(buildConfig.app_files.jade_all, function() {
-        return runSequence('compile-jade');
+    var jadeWatcher = gulp.watch(config.app_files.jade_all, function() {
+
     });
 
-    var sassWatcher = gulp.watch(buildConfig.app_files.sass_all, function() {
+    var sassWatcher = gulp.watch(config.app_files.sass_all, function() {
         return runSequence('build-styles');
     });
 
@@ -42,8 +52,9 @@ gulp.task('watchers', function() {
     jadeWatcher.on('change', function(e) {
         console.log(chalk.yellow('[JADE] ' + chalk.yellow(e.path)));
         if (e.path.match(/partial.jade/)) {
-            buildConfig.variables.jadeCache = false;
-            return console.log(chalk.blue('[JADE] Partial file had been modified. Running JADE without cache'));
+            config.variables.jadeCache = false;
+            console.log(chalk.blue('[JADE] Partial file had been modified. Running JADE without cache'));
         }
+        runSequence('compile-jade');
     });
 });
