@@ -32,12 +32,20 @@ module.exports = {
   vendor_files: {
     js: [
       "node_modules/jquery/dist/jquery.js",
+      'node_modules/lodash/index.js',
       "node_modules/bootstrap-sass/assets/javascripts/bootstrap.js",
       "node_modules/angular/angular.js",
       "node_modules/ui-router/release/angular-ui-router.js",
-      "node_modules/angular-resource/angular-resource.js"
-    ],
-    css: [],
+      "node_modules/angular-resource/angular-resource.js",
+
+      'node_modules/angular-translate/dist/angular-translate.js',
+      'node_modules/messageformat/messageformat.js',
+      'node_modules/messageformat/locale/en.js', // need to upload all messageformat for all interface languages
+      'node_modules/messageformat/locale/pl.js',
+      'node_modules/angular-translate-interpolation-messageformat/angular-translate-interpolation-messageformat.js',
+      'node_modules/angular-dynamic-locale/dist/tmhDynamicLocale.js'
+],
+css: [],
     assets: []
   }
 };
