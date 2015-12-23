@@ -1,28 +1,29 @@
-describe('Unit tests: Home section >', function() {
-    describe('Testing Controller: HomeController', function() {
+describe('Unit tests: Home section >', () => {
+  describe('Testing Controller: HomeController', () => {
 
-        var $scope;
-        var HomeController;
-        var _$state;
+    var $scope;
+    var HomeController;
+    var _$state;
 
-        beforeEach(function() {
-            module('profitelo.controller.home');
-            inject(function($rootScope, $controller, $state) {
-                $scope = $rootScope.$new();
-                HomeController = $controller('HomeController', {
-                    $scope: $scope,
-                    $rootScope: $rootScope,
-                    $state: $state
-                });
-                _$state = $state;
-            });
+    beforeEach(() => {
+      module('profitelo.controller.home');
+      inject(($rootScope, $controller, $state, _AccountRest_) => {
+        $scope = $rootScope.$new();
+        HomeController = $controller('HomeController', {
+          $scope: $scope,
+          $rootScope: $rootScope,
+          $state: $state,
+          AccountRest: _AccountRest_
+
         });
-
-
-
-        it("shdould exsist", function() {
-            return expect(!!HomeController).toBe(true);
-        });
-
+        _$state = $state;
+      });
     });
+
+
+    it("shdould exists", () => {
+      return expect(!!HomeController).toBe(true);
+    });
+
+  });
 });
