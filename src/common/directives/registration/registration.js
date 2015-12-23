@@ -16,7 +16,7 @@ angular.module('profitelo.directive.registration', [
 
 function RegistrationDirectiveController() {
   var vm = this;
-  console.log("here i am directive");
+  console.log('here i am directive');
 
 
   return vm;
