@@ -43,7 +43,7 @@ gulp.task('compile-jade', function() {
         .pipe(connect.reload())
         .pipe(cback(function() {
             console.warn = consoleWarn;
-            return config.variables.jadeCache = true;
+            config.variables.jadeCache = true;
         }));
 });
 
