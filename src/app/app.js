@@ -1,14 +1,20 @@
 angular.module('profitelo', [
     'templates-module',
 
+    //modules
+    'authorization',
 
+    //controllers
     'profitelo.controller.dashboard',
     'profitelo.controller.home',
     'profitelo.controller.expert-profile',
-    'profitelo.controller.login',
+    'profitelo.controller.registration',
+
+    //directives
+    'profitelo.directive.registration',
 
 
-
+    //rest
     'profitelo.rest.account'
 
   ])

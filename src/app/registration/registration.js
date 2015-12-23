@@ -1,20 +1,19 @@
-angular.module('profitelo.controller.registration.jade', [
+angular.module('profitelo.controller.registration', [
     'ui.router'
   ])
   .config(($stateProvider) => {
-    $stateProvider.state('app.login', {
-      url: '/login',
+    $stateProvider.state('app.registration', {
+      url: '/registration',
       controllerAs: 'vm',
-      controller: 'LoginController',
-      templateUrl: 'login/login.tpl.html'
+      controller: 'RegistrationController',
+      templateUrl: 'registration/registration.tpl.html'
     });
   })
-  .controller('LoginController', LoginController);
+  .controller('RegistrationController', RegistrationController);
 
-function LoginController() {
+function RegistrationController() {
   var vm = this;
-
-  console.log('Expert Profile');
+  console.log('here I am controller');
 
   return vm;
 

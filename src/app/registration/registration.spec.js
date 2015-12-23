@@ -1,15 +1,15 @@
-describe('Unit tests: login>', ()=> {
-    describe('Testing Controller: LoginController', ()=> {
+describe('Unit tests: registration>', () => {
+    describe('Testing Controller: RegistrationController', () => {
 
         var $scope;
-        var LoginController;
+        var RegistrationController;
         var _$state;
 
         beforeEach(() => {
-            module('profitelo.controller.login');
+            module('profitelo.controller.registration');
             inject(($rootScope, $controller, $state) => {
                 $scope = $rootScope.$new();
-                LoginController = $controller('LoginController', {
+                RegistrationController = $controller('RegistrationController', {
                     $scope: $scope,
                     $rootScope: $rootScope,
                     $state: $state
@@ -19,7 +19,7 @@ describe('Unit tests: login>', ()=> {
         });
 
         it("should exsist", ()=> {
-            return expect(!!LoginController).toBe(true);
+            return expect(!!RegistrationController).toBe(true);
         });
 
     });
