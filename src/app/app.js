@@ -34,8 +34,10 @@ angular.module('profitelo', [
 
   .controller('AppController', AppController);
 
-function AppController($scope) {
+function AppController($scope, $rootScope) {
   var vm = this;
+
+  $rootScope.gitCommit = lastCommitMessage;
 
   return vm;
 }
