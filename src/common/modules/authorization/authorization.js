@@ -9,8 +9,11 @@ function AuthorizationService(AccountRest){
 
 
 
-  var _register = () =>{
+  var _register = (object) =>{
     //TODO register instead of GET
+    var AccountRest = new AccountRest(object);
+    product.$save();
+
     AccountRest.get().$promise.then((data)=>{
 
 

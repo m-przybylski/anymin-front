@@ -25,12 +25,11 @@ function RegistrationDirectiveController(AuthorizationService) {
     pin: ""
   };
   vm.step2 = () =>{
-
+    AuthorizationService.register({email:"test@gmail.com", password:"dupa"})
 
   };
 
 
-  console.log("here i am directive");
 
 
   return vm;
