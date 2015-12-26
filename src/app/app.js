@@ -10,11 +10,12 @@ angular.module('profitelo', [
     'profitelo.controller.dashboard',
     'profitelo.controller.home',
     'profitelo.controller.expert-profile',
-    'profitelo.controller.registration',
+    'profitelo.controller.expert-progress',
 
+    'profitelo.controller.registration',
     //directives
     'profitelo.directive.registration',
-
+    'profitelo.directive.expert-progress',
 
     //rest
     'profitelo.rest.account'
