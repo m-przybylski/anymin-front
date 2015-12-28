@@ -30,6 +30,7 @@ function RegistrationDirectiveController(AuthorizationService) {
   };
 
 
+  console.log('here i am directive');
 
 
   return vm;

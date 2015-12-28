@@ -1,15 +1,15 @@
 angular.module('profitelo.controller.dashboard', [
-    'ui.router'
-  ])
-  .config(($stateProvider) =>{
-    $stateProvider.state('app.dashboard', {
-      controllerAs: 'vm',
-      url: '/dashboard',
-      templateUrl: 'dashboard/dashboard.tpl.html',
-      controller: 'DashboardController'
-    });
-  })
-  .controller('DashboardController', DashboardController);
+  'ui.router'
+])
+.config(($stateProvider) =>{
+  $stateProvider.state('app.dashboard', {
+    controllerAs: 'vm',
+    url: '/dashboard',
+    templateUrl: 'dashboard/dashboard.tpl.html',
+    controller: 'DashboardController'
+  });
+})
+.controller('DashboardController', DashboardController);
 
 
 function DashboardController() {

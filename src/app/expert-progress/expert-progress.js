@@ -1,5 +1,5 @@
 angular.module('profitelo.controller.expert-progress', [
-    'ui.router'
+  'ui.router'
 ])
 .config(($stateProvider) =>{
   $stateProvider.state('app.expert-progress', {
@@ -9,4 +9,3 @@ angular.module('profitelo.controller.expert-progress', [
     templateUrl: 'expert-progress/expert-progress.tpl.html'
   });
 });
-

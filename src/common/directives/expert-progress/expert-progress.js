@@ -1,5 +1,4 @@
 angular.module('profitelo.directive.expert-progress', [
-
 ])
 
 .directive('proExpertProgress', () =>{
@@ -14,10 +13,8 @@ angular.module('profitelo.directive.expert-progress', [
 
 .controller('ExpertProgressDirectiveController', ExpertProgressDirectiveController);
 
-function ExpertProgressDirectiveController(AuthorizationService) {
+function ExpertProgressDirectiveController() {
   var vm = this;
-
-
 
   return vm;
 

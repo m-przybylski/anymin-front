@@ -3,7 +3,6 @@ describe('Unit tests: expert-profile >', () => {
 
     var $scope;
     var ExpertProfileController;
-    var _$state;
 
     beforeEach(() => {
       module('profitelo.controller.expert-profile');
@@ -14,11 +13,10 @@ describe('Unit tests: expert-profile >', () => {
           $rootScope: $rootScope,
           $state: $state
         });
-        _$state = $state;
       });
     });
 
-    it("should exsist", () => {
+    it('should exsist', () => {
       return expect(!!ExpertProfileController).toBe(true);
     });
 

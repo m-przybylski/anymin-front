@@ -1,5 +1,5 @@
 angular.module('profitelo.controller.registration', [
-    'ui.router'
+  'ui.router'
 ])
 .config(($stateProvider) => {
   $stateProvider.state('app.registration', {
@@ -9,4 +9,3 @@ angular.module('profitelo.controller.registration', [
     templateUrl: 'registration/registration.tpl.html'
   });
 });
-

@@ -3,7 +3,6 @@ describe('Unit tests: Home section >', () => {
 
     var $scope;
     var HomeController;
-    var _$state;
 
     beforeEach(() => {
       module('profitelo.controller.home');
@@ -14,14 +13,12 @@ describe('Unit tests: Home section >', () => {
           $rootScope: $rootScope,
           $state: $state,
           AccountRest: _AccountRest_
-
         });
-        _$state = $state;
       });
     });
 
 
-    it("shdould exists", () => {
+    it('should exists', () => {
       return expect(!!HomeController).toBe(true);
     });
 
