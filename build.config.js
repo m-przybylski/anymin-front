@@ -38,6 +38,7 @@ module.exports = {
       "node_modules/angular/angular.js",
       "node_modules/ui-router/release/angular-ui-router.js",
       "node_modules/angular-resource/angular-resource.js",
+      "node_modules/ng-file-upload/dist/ng-file-upload-all.js",
 
       'node_modules/angular-translate/dist/angular-translate.js',
       'node_modules/messageformat/messageformat.js',
