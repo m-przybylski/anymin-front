@@ -1,7 +1,8 @@
 angular.module('profitelo.controller.expert-profile', [
-  'ui.router'
+  'ui.router',
+  'profitelo.directive.pro-question-mark'
 ])
-.config(($stateProvider) =>{
+.config(($stateProvider) => {
   $stateProvider.state('app.expert-profile', {
     url: '/expert-profile',
     controllerAs: 'vm',
@@ -14,7 +15,8 @@ angular.module('profitelo.controller.expert-profile', [
 function ExpertProfileController() {
   var vm = this;
 
-  console.log('Expert Profile');
+  vm.profile = {}
+  vm.profile.progressPercentage = 40
 
   return vm;
 

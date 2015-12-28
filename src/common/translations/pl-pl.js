@@ -10,7 +10,10 @@ angular.module('profitelo.translations.pl-pl', [])
 
     // If nothing set it'll show default strings in HTML templates
 
-    'SAMPLE_TEST': 'Przykładowy test'
+    'EXPERT_PROFILE.EXPERT_PROFILE': 'Profil Experta',
+    'EXPERT_PROFILE.INACTIVE_PROFILE': 'Profil nieaktywny',
+    'EXPERT_PROFILE.FIRSTNAME_LASTNAME_OR_COMPANY_PLACEHOLDER': 'Imię i nazwisko (lub nazwa firmy)',
+    'EXPERT_PROFILE.GENERAL_INFO_PLACEHOLDER': 'Informacje ogólne'
 
   })
 })

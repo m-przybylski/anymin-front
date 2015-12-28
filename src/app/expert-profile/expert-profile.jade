@@ -1,6 +1,67 @@
 .container
-  // Main component for a primary marketing message or call to action
+
   .row
     .col-sm-12
-      h2 Expert's profile
-      p {{ 'SAMPLE_TEST' | translate }}
+      .page-header
+        h2 {{'EXPERT_PROFILE.EXPERT_PROFILE' | translate}}
+        .profle-status.text-danger
+          i.fa.fa-ban.fa-lg
+          span  {{ 'EXPERT_PROFILE.INACTIVE_PROFILE' | translate | uppercase }}&nbsp;
+          pro-question-mark(title="Tooltip about active and inactive profile")
+
+        .progress-container.pull-right
+          span {{ vm.profile.progressPercentage }}%
+          .progress
+            .progress-bar.progress-bar-success(role='progressbar', aria-valuenow='{{vm.profile.progressPercentage}}', aria-valuemin='0', aria-valuemax='100', style='width: {{vm.profile.progressPercentage}}%')
+
+  .row
+    .col-sm-12
+      .page-body
+        .profile-background
+          pro-question-mark(title="Tooltip about profile background")
+          .add-icon
+            i.fa.fa-plus-square
+
+        .page-content
+          .row
+            .col-sm-3.left-side
+              .profile-avatar
+                pro-question-mark(title="Tooltip about user avatar")
+                .user-icon
+                  i.fa.fa-user
+
+              .profile-behance
+                pro-question-mark(title="Tooltip about user profile on behance")
+                .behance-icon
+                  i.fa.fa-behance
+
+            .col-sm-9.right-side
+              .profile-fullname
+                .input-group-lg
+                  input.form-control(type="text" placeholder="{{ 'EXPERT_PROFILE.FIRSTNAME_LASTNAME_OR_COMPANY_PLACEHOLDER' | translate }}")
+
+              .profile-general-info
+                .input-group-lg
+                  textarea.form-control(placeholder="{{ 'EXPERT_PROFILE.GENERAL_INFO_PLACEHOLDER' | translate }}")
+
+        .page-content
+          .row
+            .col-sm-3.left-side
+              .profile-video
+                pro-question-mark(title="Tooltip about user videos")
+                .video-icon
+                  i.fa.fa-play-circle-o
+
+              .profile-social-media
+                pro-question-mark(title="Tooltip about user social media relations")
+                .share-icon
+                  i.fa.fa-share-alt-square
+
+            .col-sm-9.right-side
+              .profile-certificates
+                pro-question-mark(title="Tooltip about user certificates, documents, diplomas")
+                .files-icon
+                  i.fa.fa-files-o
+
+
+
