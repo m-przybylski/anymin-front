@@ -23,7 +23,7 @@ angular.module('profitelo', [
   'profitelo.directive.registration',
 
   // rest
-  'profitelo.rest.account',
+  'profitelo.services.rest.account',
 
   // translations
   'profitelo.translations.en-us',
@@ -32,7 +32,7 @@ angular.module('profitelo', [
 ])
 
 
-.config(($urlRouterProvider, $stateProvider, $translateProvider, tmhDynamicLocaleProvider, toastrConfig) => {
+.config(($urlRouterProvider, $stateProvider, $resourceProvider, $translateProvider, tmhDynamicLocaleProvider, toastrConfig) => {
   $stateProvider.state('app', {
     url: '',
     abstract: true,
@@ -43,6 +43,11 @@ angular.module('profitelo', [
     .when('', '/')
     .when('/', '/home');
 
+
+  // ngResource
+  $resourceProvider.defaults.stripTrailingSlashes = true;
+
+  // Toastr
   angular.extend(toastrConfig, {
     newestOnTop: true,
     positionClass: 'toast-bottom-right',
