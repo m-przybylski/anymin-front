@@ -3,7 +3,7 @@ describe('Unit tests: expert-profile >', () => {
 
     var $scope = null
     var ExpertProfileController = null
-    var AccountRestServiceResolver = {}
+    var AccountsRestServiceResolver = {}
 
     beforeEach(() => {
       module('profitelo.controller.expert-profile')
@@ -13,7 +13,7 @@ describe('Unit tests: expert-profile >', () => {
           $scope: $scope,
           $rootScope: $rootScope,
           $state: $state,
-          AccountRestServiceResolver: AccountRestServiceResolver
+          AccountsRestServiceResolver: AccountsRestServiceResolver
         })
       })
     })
@@ -23,8 +23,8 @@ describe('Unit tests: expert-profile >', () => {
     })
 
     describe('controller resolve services', () => {
-      it('AccountRestServiceResolver should exsist', () => {
-        return expect(!!AccountRestServiceResolver).toBe(true)
+      it('AccountsRestServiceResolver should exsist', () => {
+        return expect(!!AccountsRestServiceResolver).toBe(true)
       })
     })
 

@@ -14,10 +14,10 @@ angular.module('profitelo.controller.home', [
 })
 .controller('HomeController', HomeController);
 
-function HomeController(AccountRestService) {
+function HomeController(AccountsRestService) {
   var vm = this;
   // example GET method
-  AccountRestService.get();
+  AccountsRestService.get();
 
 
   return vm;

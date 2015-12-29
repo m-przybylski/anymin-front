@@ -18,9 +18,8 @@ angular.module('profitelo.controller.expert-profile', [
     controller: 'ExpertProfileController',
     templateUrl: 'expert-profile/expert-profile.tpl.html',
     resolve: {
-
-      AccountRestServiceResolver: function(AccountRestService) {
-        return AccountRestService.get()
+      AccountsRestServiceResolver: function(AccountsRestService) {
+        return AccountsRestService.get()
       }
     }
   });
@@ -28,12 +27,13 @@ angular.module('profitelo.controller.expert-profile', [
 
 .controller('ExpertProfileController', ExpertProfileController);
 
-function ExpertProfileController($scope, $timeout, $filter, Upload, toastr, AccountRestServiceResolver, _) {
+function ExpertProfileController($scope, $timeout, $filter, Upload, toastr, AccountsRestServiceResolver, _) {
   var vm = this;
 
   // private variables
   var _account = AccountsRestServiceResolver
 
+  vm.account = _account
 
   // public variables
   vm.profile = {}
