@@ -19,7 +19,5 @@ function HomeController(AccountsRestService) {
   // example GET method
   AccountsRestService.get();
 
-
   return vm;
-
 }

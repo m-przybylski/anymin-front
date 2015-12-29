@@ -61,7 +61,7 @@ function ExpertProfileController($scope, $timeout, $filter, Upload, toastr, Acco
 
   // private methods
   var _isContainEmptyStrings = (array) => {
-    return _.includes(array, "")
+    return _.includes(array, '')
   }
 
 

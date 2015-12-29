@@ -8,7 +8,7 @@ function CommonSettingsService() {
   }
 
   var api = {
-    get: function (property) {
+    get: function(property) {
       return angular.copy(_settings[property])
     }
   }
