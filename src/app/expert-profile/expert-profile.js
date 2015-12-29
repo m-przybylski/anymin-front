@@ -24,7 +24,8 @@ angular.module('profitelo.controller.expert-profile', [
       },
       AccountsRestServiceResolver: function(SessionsRestServiceResolver, AccountsRestService) {
         console.log('SessionsRestServiceResolver', SessionsRestServiceResolver)
-        return AccountsRestService.getById({telcoLogin: SessionsRestServiceResolver.telcoLogin})
+        //mocked param, should be fetched from SessionsRestServiceResolver.telcoLogin
+        return AccountsRestService.get({id: 1})
       }
     }
   });
