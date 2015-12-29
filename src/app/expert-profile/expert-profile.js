@@ -7,6 +7,7 @@ angular.module('profitelo.controller.expert-profile', [
 
   // internal scripts
   'profitelo.services.rest.accounts',
+  'profitelo.services.rest.sessions',
   'profitelo.directive.pro-profile-status',
   'profitelo.directive.pro-question-mark'
 ])
@@ -18,8 +19,12 @@ angular.module('profitelo.controller.expert-profile', [
     controller: 'ExpertProfileController',
     templateUrl: 'expert-profile/expert-profile.tpl.html',
     resolve: {
-      AccountsRestServiceResolver: function(AccountsRestService) {
-        return AccountsRestService.get()
+      SessionsRestServiceResolver: function(SessionsRestService) {
+        return SessionsRestService.get()
+      },
+      AccountsRestServiceResolver: function(SessionsRestServiceResolver, AccountsRestService) {
+        console.log('SessionsRestServiceResolver', SessionsRestServiceResolver)
+        return AccountsRestService.getById({telcoLogin: SessionsRestServiceResolver.telcoLogin})
       }
     }
   });
@@ -27,11 +32,12 @@ angular.module('profitelo.controller.expert-profile', [
 
 .controller('ExpertProfileController', ExpertProfileController);
 
-function ExpertProfileController($scope, $timeout, $filter, Upload, toastr, AccountsRestServiceResolver, _) {
+function ExpertProfileController($scope, $timeout, $filter, Upload, toastr, AccountsRestServiceResolver, SessionsRestServiceResolver, _) {
   var vm = this;
 
+  console.log(AccountsRestServiceResolver)
   // private variables
-  var _account = AccountsRestServiceResolver
+  var _account = "AccountsRestServiceResolver"
 
   vm.account = _account
 
