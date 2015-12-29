@@ -2,7 +2,7 @@ angular.module('profitelo.controller.home', [
   'ui.router',
 
   // test dependency
-  'profitelo.rest.account'
+  'profitelo.services.rest.account'
 ])
 .config(($stateProvider) => {
   $stateProvider.state('app.home', {
@@ -14,10 +14,10 @@ angular.module('profitelo.controller.home', [
 })
 .controller('HomeController', HomeController);
 
-function HomeController(AccountRest) {
+function HomeController(AccountRestService) {
   var vm = this;
   // example GET method
-  AccountRest.get();
+  AccountRestService.get();
 
 
   return vm;

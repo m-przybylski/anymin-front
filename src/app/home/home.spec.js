@@ -6,13 +6,13 @@ describe('Unit tests: Home section >', () => {
 
     beforeEach(() => {
       module('profitelo.controller.home');
-      inject(($rootScope, $controller, $state, _AccountRest_) => {
+      inject(($rootScope, $controller, $state, _AccountRestService_) => {
         $scope = $rootScope.$new();
         HomeController = $controller('HomeController', {
           $scope: $scope,
           $rootScope: $rootScope,
           $state: $state,
-          AccountRest: _AccountRest_
+          AccountRestService: _AccountRestService_
         });
       });
     });
