@@ -23,7 +23,7 @@ angular.module('profitelo', [
   'profitelo.directive.registration',
 
   // rest
-  'profitelo.services.rest.account',
+  'profitelo.services.rest.accounts',
 
   // translations
   'profitelo.translations.en-us',

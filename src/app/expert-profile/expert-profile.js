@@ -6,7 +6,7 @@ angular.module('profitelo.controller.expert-profile', [
   'lodash',
 
   // internal scripts
-  'profitelo.services.rest.account',
+  'profitelo.services.rest.accounts',
   'profitelo.directive.pro-profile-status',
   'profitelo.directive.pro-question-mark'
 ])

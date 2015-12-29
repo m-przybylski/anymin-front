@@ -1,4 +1,4 @@
-angular.module('profitelo.services.rest.account', [
+angular.module('profitelo.services.rest.accounts', [
   'ngResource',
   'profitelo.services.commonSettings'
 ])
