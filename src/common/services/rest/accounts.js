@@ -2,9 +2,9 @@ angular.module('profitelo.services.rest.account', [
   'ngResource',
   'profitelo.services.commonSettings'
 ])
-.factory('AccountRestService', AccountRestService);
+.factory('AccountsRestService', AccountsRestService);
 
-function AccountRestService($resource, CommonSettingsService) {
+function AccountsRestService($resource, CommonSettingsService) {
   return $resource(CommonSettingsService.get('apiUrl') + '/accounts/:id', {id: '@id'}, {
     'get':    {method: 'GET', isArray: true},
     'save':   {method: 'POST'},
