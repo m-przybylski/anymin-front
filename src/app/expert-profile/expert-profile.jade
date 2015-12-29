@@ -4,64 +4,89 @@
     .col-sm-12
       .page-header
         h2 {{'EXPERT_PROFILE.EXPERT_PROFILE' | translate}}
-        .profle-status.text-danger
-          i.fa.fa-ban.fa-lg
-          span  {{ 'EXPERT_PROFILE.INACTIVE_PROFILE' | translate | uppercase }}&nbsp;
-          pro-question-mark(title="Tooltip about active and inactive profile")
+        pro-profile-status(status="vm.profile.profileStatus")
 
         .progress-container.pull-right
-          span {{ vm.profile.progressPercentage }}%
+          span {{ vm.profile.profileProgressPercentage }}%
           .progress
-            .progress-bar.progress-bar-success(role='progressbar', aria-valuenow='{{vm.profile.progressPercentage}}', aria-valuemin='0', aria-valuemax='100', style='width: {{vm.profile.progressPercentage}}%')
+            .progress-bar.progress-bar-success(role='progressbar', aria-valuenow='{{vm.profile.profileProgressPercentage}}', aria-valuemin='0', aria-valuemax='100', style='width: {{vm.profile.profileProgressPercentage}}%')
 
   .row
     .col-sm-12
       .page-body
-        .profile-background
-          pro-question-mark(title="Tooltip about profile background")
+        .profile-overall-upload-progress-bar(data-ng-show="vm.allFilesProgress")
+          .progress
+            .progress-bar.progress-bar-success(role='progressbar', aria-valuenow='{{vm.allFilesProgress}}', aria-valuemin='0', aria-valuemax='100', style='width: {{vm.allFilesProgress}}%')
+        .profile-cover(ngf-drop ng-model="vm.profile.formdata.coverFile"
+        ngf-drag-over-class="'dragover'"
+        ngf-multiple="false"
+        ngf-allow-dir="false"
+        accept="image/*"
+        ngf-pattern="'image/*'")
+          pro-question-mark(title="{{ 'EXPERT_PROFILE.PROFILE_BACKGROUND_TOOLTIP' | translate }}")
           .add-icon
-            i.fa.fa-plus-square
+            a(href="" ngf-select ng-model="vm.profile.formdata.coverFile" ngf-multiple="false")
+              i.fa.fa-plus-square
 
         .page-content
           .row
             .col-sm-3.left-side
-              .profile-avatar
-                pro-question-mark(title="Tooltip about user avatar")
+              .profile-avatar(ngf-drop ng-model="vm.profile.formdata.avatarFile"
+              ngf-drag-over-class="'dragover'"
+              ngf-multiple="false"
+              ngf-allow-dir="false"
+              accept="image/*"
+              ngf-pattern="'image/*'")
+                pro-question-mark(title="{{ 'EXPERT_PROFILE.PROFILE_AVATAR_TOOLTIP' | translate }}")
                 .user-icon
-                  i.fa.fa-user
+                  a(href="" ngf-select ng-model="vm.profile.formdata.avatarFile" ngf-multiple="false")
+                    i.fa.fa-user
 
               .profile-behance
-                pro-question-mark(title="Tooltip about user profile on behance")
+                pro-question-mark(title="{{ 'EXPERT_PROFILE.PROFILE_ON_BEHANCE_TOOLTIP' | translate }}")
                 .behance-icon
                   i.fa.fa-behance
 
             .col-sm-9.right-side
               .profile-fullname
                 .input-group-lg
-                  input.form-control(type="text" placeholder="{{ 'EXPERT_PROFILE.FIRSTNAME_LASTNAME_OR_COMPANY_PLACEHOLDER' | translate }}")
+                  input.form-control(type="text" data-ng-model="vm.profile.userdata.fullname" placeholder="{{ 'EXPERT_PROFILE.FIRSTNAME_LASTNAME_OR_COMPANY_PLACEHOLDER' | translate }}")
 
               .profile-general-info
                 .input-group-lg
-                  textarea.form-control(placeholder="{{ 'EXPERT_PROFILE.GENERAL_INFO_PLACEHOLDER' | translate }}")
+                  textarea.form-control(data-ng-model="vm.profile.userdata.generalInfo" placeholder="{{ 'EXPERT_PROFILE.GENERAL_INFO_PLACEHOLDER' | translate }}")
 
         .page-content
           .row
             .col-sm-3.left-side
               .profile-video
-                pro-question-mark(title="Tooltip about user videos")
+                pro-question-mark(title="{{ 'EXPERT_PROFILE.PROFILE_VIDEOS_TOOLTIP' | translate }}")
                 .video-icon
                   i.fa.fa-play-circle-o
 
               .profile-social-media
-                pro-question-mark(title="Tooltip about user social media relations")
+                pro-question-mark(title="{{ 'EXPERT_PROFILE.PROFILE_SOCIAL_MEDIA_TOOLTIP' | translate }}")
                 .share-icon
                   i.fa.fa-share-alt-square
 
             .col-sm-9.right-side
-              .profile-certificates
-                pro-question-mark(title="Tooltip about user certificates, documents, diplomas")
+              .profile-certificates(ngf-drop ng-model="vm.profile.formdata.documentFiles"
+              ngf-drag-over-class="'dragover'"
+              ngf-multiple="true"
+              ngf-allow-dir="true"
+              accept="image/*"
+              ngf-pattern="'image/*'")
+                pro-question-mark(title="{{ 'EXPERT_PROFILE.PROFILE_CERTIFICATES_TOOLTIP' | translate }}")
                 .files-icon
-                  i.fa.fa-files-o
+                  a(href="" ngf-select ng-model="vm.profile.formdata.documentFiles" ngf-multiple="true")
+                    i.fa.fa-files-o
+  .row
+    .col-sm-12
+      .page-credentials
+        button.btn.btn-lg.btn-primary.pull-right(type="button" data-ng-click="vm.send()")
+          | {{ 'GENERAL.SAVE_AND_NEXT' | translate }}
 
+      pre
+        | vm: {{ vm | json }}
 
 
