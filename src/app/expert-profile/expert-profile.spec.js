@@ -3,7 +3,33 @@ describe('Unit tests: expert-profile >', () => {
 
     var $scope = null
     var ExpertProfileController = null
-    var AccountsRestServiceResolver = {}
+    var AccountsRestServiceResolver = null
+
+    beforeEach(() => {
+      AccountsRestServiceResolver = {
+        "telcoLogin": "0000000",
+        "email": "admin@itelo.pl",
+        "telcoPin": 1234,
+        "createdAt": "1970-01-01T00:00:00",
+        "lastLoggedAt" : "2015-12-17T20:10:17.681",
+        "isBlocked": 0,
+        "isDeleted": 0,
+
+        "organizations": {
+          "profiles": [
+            {
+              "url": "http://api.profitelo.pl/accounts/4941258/",
+              "servicesUrl": "http://api.profitelo.pl/accounts/4941258/services/",
+              "messagesUrl": "http://api.profitelo.pl/accounts/4941258/messages/",
+              "phonesUrl": "http://api.profitelo.pl/accounts/4941258/phones/",
+              "currency": "PLN",
+              "language": "en_EN",
+              "generalInfo": "bla bla bla, it's should a very long text but it's not"
+            }
+          ]
+        }
+      }
+    })
 
     beforeEach(() => {
       module('profitelo.controller.expert-profile')
