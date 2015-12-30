@@ -112,6 +112,12 @@ angular.module('profitelo', [
   tmhDynamicLocaleProvider.localeLocationPattern('assets/angular-i18n/angular-locale_{{locale}}.js')
 })
 
+.run(($rootScope) => {
+  $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
+    console.log('$stateChangeError', error);
+  });
+})
+
 .controller('AppController', AppController);
 
 function AppController($scope, $rootScope) {

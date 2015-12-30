@@ -15,21 +15,6 @@ angular.module('profitelo.controller.expert-profile', [
 .config(config)
 .controller('ExpertProfileController', ExpertProfileController);
 
-function AccountsRestServiceResolver(toastr, SessionsRestService, AccountsRestService) {
-  SessionsRestService.get().$promise.then(function(response) {
-    // console.log("response", response)
-    AccountsRestService.query({telcoLogin: response.telcoLogin}).$promise.then(function(result) {
-      // console.log("result", result)
-      return result
-    }, function(e) {
-      toastr.error('Error details: ' + e, 'AccountsRestService failed')
-      return false
-    })
-  }, function(error) {
-    toastr.error('Error details: ' + error, 'SessionsRestService failed')
-    return false
-  })
-}
 
 function config($stateProvider) {
   $stateProvider.state('app.expert-profile', {
@@ -38,7 +23,25 @@ function config($stateProvider) {
     controller: 'ExpertProfileController',
     controllerAs: 'vm',
     resolve: {
-      AccountsRestServiceResolver: AccountsRestServiceResolver
+      AccountsRestServiceResolver: function($q, $timeout, SessionsRestService, AccountsRestService) {
+
+        var deferred = $q.defer();
+
+        SessionsRestService.get().$promise.then(function(response) {
+          AccountsRestService.query({telcoLogin: response.telcoLogin}).$promise.then(function(result) {
+            deferred.resolve(result);
+          }, function(error) {
+
+            deferred.reject(error);
+          })
+        }, function(error) {
+
+          deferred.reject(error);
+
+        });
+
+        return deferred.promise
+      }
     }
   });
 }
