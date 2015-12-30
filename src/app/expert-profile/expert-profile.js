@@ -8,8 +8,9 @@ angular.module('profitelo.controller.expert-profile', [
   // internal scripts
   'profitelo.services.rest.accounts',
   'profitelo.services.rest.sessions',
-  'profitelo.directive.pro-profile-status',
-  'profitelo.directive.pro-question-mark'
+  'profitelo.directives.proProfileStatus',
+  'profitelo.directives.proQuestionMark',
+  'profitelo.directives.proWaitingSpinnerDiv'
 ])
 .config(config)
 .controller('ExpertProfileController', ExpertProfileController);
@@ -42,13 +43,16 @@ function config($stateProvider) {
   });
 }
 
-function ExpertProfileController($scope, $filter, $http, Upload, toastr, AccountsRestServiceResolver, _) {
+function ExpertProfileController($scope, $filter, $timeout, $http, Upload, toastr, AccountsRestServiceResolver, _) {
   var vm = this;
 
   console.log('AccountsRestServiceResolver', AccountsRestServiceResolver)
 
   // private variables
+  vm.pending = false
+
   vm.account = AccountsRestServiceResolver
+
 
   // public variables
   vm.profile = {}
@@ -81,6 +85,7 @@ function ExpertProfileController($scope, $filter, $http, Upload, toastr, Account
 
 
   // public method
+  // TODO this method need to be updated if graphic and UX specify finall requirements (for multi-source upload)
   vm.upload = function(files) {
     if (files && files.length && !_isContainEmptyStrings(files)) {
       for (var i = 0; i < files.length; i++) {
@@ -99,6 +104,7 @@ function ExpertProfileController($scope, $filter, $http, Upload, toastr, Account
             vm.allFilesProgress = null
             $timeout(function() {
               vm.log = 'file: ' + conf.data.file.name + ', Response: ' + JSON.stringify(data) + '\n' + vm.log;
+              toastr.success('file uploaded successfully')
             });
           });
         }
@@ -117,7 +123,7 @@ function ExpertProfileController($scope, $filter, $http, Upload, toastr, Account
 
   // profile background
   $scope.$watch('vm.profile.formdata.coverFiles', function() {
-    vm.upload(vm.profile.formdata.coverFiles);
+    vm.upload(vm.profile.formdata.coverFiles)
   });
   $scope.$watch('vm.profile.formdata.coverFile', function() {
     if (vm.profile.formdata.coverFile != null) {

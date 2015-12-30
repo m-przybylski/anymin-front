@@ -1,5 +1,9 @@
-.container
+.container(data-ng-show="vm.pending")
+  .row
+    .col-sm-12
+      pro-waiting-spinner-div(is-pending="vm.pending")
 
+.container(data-ng-hide="vm.pending")
   .row
     .col-sm-12
       .page-header
