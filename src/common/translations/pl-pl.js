@@ -26,6 +26,9 @@ angular.module('profitelo.translations.pl-pl', [])
     'EXPERT_PROFILE.PROFILE_ON_BEHANCE_TOOLTIP': 'Tooltip about user\'s profil,e on behance',
     'EXPERT_PROFILE.PROFILE_VIDEOS_TOOLTIP': 'Tooltip about profile\'s videos',
     'EXPERT_PROFILE.PROFILE_SOCIAL_MEDIA_TOOLTIP': 'Tooltip about profile\'s social media relations',
-    'EXPERT_PROFILE.PROFILE_CERTIFICATES_TOOLTIP': 'Tooltip about profile\'s certificates, documents, diplomas'
+    'EXPERT_PROFILE.PROFILE_CERTIFICATES_TOOLTIP': 'Tooltip about profile\'s certificates, documents, diplomas',
+    'EXPERT_PROFILE.MESSAGES.FULLNAME_REQUIRED': 'Pole z imieniem i nazwiskiem (lub nazwą firmą) nie może być puste',
+    'EXPERT_PROFILE.MESSAGES.DATA_SAVED_SUCCESSFULLY': 'Dane zapisano pomyślnie'
+
   })
 })

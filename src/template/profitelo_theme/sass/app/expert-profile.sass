@@ -89,6 +89,13 @@ $page-content-top: -80px
       i
         @include background-icon(800%)
 
+  .profile-cover.active
+    border:   none
+    overflow: hidden
+    img
+      width:  100%
+      height: auto
+
   // left side
   $profile-avatar-height: 180px
   .profile-avatar
@@ -102,6 +109,14 @@ $page-content-top: -80px
     .user-icon
       i
         @include background-icon(500%)
+
+  .profile-avatar.active
+    border:   none
+    overflow: hidden
+    img
+      height: 100%
+      width:  auto
+
 
   $profile-behance-height: 120px
   .profile-behance

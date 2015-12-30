@@ -15,6 +15,19 @@ angular.module('profitelo.controller.expert-profile', [
 .config(config)
 .controller('ExpertProfileController', ExpertProfileController);
 
+function AccountsRestServiceResolver($q, SessionsRestService, AccountsRestService) {
+  var deferred = $q.defer();
+  SessionsRestService.get().$promise.then(function(response) {
+    AccountsRestService.query({telcoLogin: response.telcoLogin}).$promise.then(function(result) {
+      deferred.resolve(result);
+    }, function(error) {
+      deferred.reject(error);
+    })
+  }, function(error) {
+    deferred.reject(error);
+  });
+  return deferred.promise
+}
 
 function config($stateProvider) {
   $stateProvider.state('app.expert-profile', {
@@ -46,16 +59,12 @@ function config($stateProvider) {
   });
 }
 
-function ExpertProfileController($scope, $filter, $timeout, $http, Upload, toastr, AccountsRestServiceResolver, _) {
+function ExpertProfileController($scope, $filter, $timeout, $http, Upload, toastr, _, AccountsRestServiceResolver) {
   var vm = this;
 
-  console.log('AccountsRestServiceResolver', AccountsRestServiceResolver)
-
-  // private variables
   vm.pending = false
 
-  vm.account = AccountsRestServiceResolver
-
+  var _account = AccountsRestServiceResolver
 
   // public variables
   vm.profile = {}
@@ -64,8 +73,7 @@ function ExpertProfileController($scope, $filter, $timeout, $http, Upload, toast
 
   // store only form data
   vm.profile.formdata = {}
-  vm.profile.formdata.fullname = ''
-  vm.profile.formdata.generalInfo = ''
+  vm.profile.formdata.generalInfo = _account.organizations.profiles[0].generalInfo
 
   vm.log = ''
   vm.profile.formdata.coverFile = ''
@@ -81,14 +89,24 @@ function ExpertProfileController($scope, $filter, $timeout, $http, Upload, toast
   vm.avatarFilesProgress = null
   vm.documentFilesProgress = null
 
+
   // private methods
   var _isContainEmptyStrings = (array) => {
     return _.includes(array, '')
   }
 
 
+  vm.isFilesExist = (array) => {
+    if (!_isContainEmptyStrings(array) && array.length > 0) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+
   // public method
-  // TODO this method need to be updated if graphic and UX specify finall requirements (for multi-source upload)
+  // TODO this method NEED TO BE updated if graphic and UX specify finall requirements (for multi type-source upload)
   vm.upload = function(files) {
     if (files && files.length && !_isContainEmptyStrings(files)) {
       for (var i = 0; i < files.length; i++) {
@@ -115,10 +133,13 @@ function ExpertProfileController($scope, $filter, $timeout, $http, Upload, toast
     }
   }
 
-  vm.send = function() {
-    msg   = $filter('translate')('')
-    title = $filter('translate')('')
-    toastr.success(msg, title);
+  vm.sendAndGoNext = function() {
+    vm.submitted = true
+    var msg   = $filter('translate')('EXPERT_PROFILE.MESSAGES.DATA_SAVED_SUCCESSFULLY'),
+        title = $filter('translate')('EXPERT_PROFILE.EXPERT_PROFILE')
+    if ($scope.expertProfileForm.$valid) {
+      toastr.success(msg, title);
+    }
   }
 
 
