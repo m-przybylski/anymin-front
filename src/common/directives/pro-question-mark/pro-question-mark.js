@@ -1,4 +1,4 @@
-angular.module('profitelo.directive.pro-question-mark', [])
+angular.module('profitelo.directives.proQuestionMark', [])
 
 .directive('proQuestionMark', () => {
   return {

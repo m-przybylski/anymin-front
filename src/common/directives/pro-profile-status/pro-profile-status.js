@@ -1,4 +1,4 @@
-angular.module('profitelo.directive.pro-profile-status', [])
+angular.module('profitelo.directives.proProfileStatus', [])
 
 .directive('proProfileStatus', () => {
   return {
