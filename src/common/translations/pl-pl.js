@@ -10,6 +10,7 @@ angular.module('profitelo.translations.pl-pl', [])
 
     // If nothing set it'll show default strings in HTML templates
 
+    'GENERAL.LOADING': 'Wczytywanie',
     'GENERAL.SEND': 'Wyślij',
     'GENERAL.SAVE': 'Zapisz',
     'GENERAL.SAVE_AND_NEXT': 'Zapisz i przejdź dalej',
