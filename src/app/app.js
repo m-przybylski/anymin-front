@@ -120,6 +120,7 @@ angular.module('profitelo', [
 
 .controller('AppController', AppController);
 
+
 function AppController($scope, $rootScope) {
   var vm = this;
 
