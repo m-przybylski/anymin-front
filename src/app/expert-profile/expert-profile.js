@@ -1,19 +1,3 @@
-function AccountsRestServiceResolver (SessionsRestService, AccountsRestService, toastr) {
-  SessionsRestService.get().$promise.then(function(response) {
-    // console.log("response", response)
-    AccountsRestService.query({telcoLogin: response.telcoLogin}).$promise.then(function(result) {
-      // console.log("result", result)
-      return result
-    }, function(e) {
-      toastr.error("Error details: " + e, "AccountsRestService failed")
-      return false
-    })
-  }, function(error) {
-    toastr.error("Error details: " + error, "SessionsRestService failed")
-    return false
-  })
-}
-
 angular.module('profitelo.controller.expert-profile', [
   'ui.router',
   'ngFileUpload',
@@ -27,25 +11,42 @@ angular.module('profitelo.controller.expert-profile', [
   'profitelo.directive.pro-profile-status',
   'profitelo.directive.pro-question-mark'
 ])
+.config(config)
+.controller('ExpertProfileController', ExpertProfileController);
 
-.config(($stateProvider) => {
+function AccountsRestServiceResolver(toastr, SessionsRestService, AccountsRestService) {
+  SessionsRestService.get().$promise.then(function(response) {
+    // console.log("response", response)
+    AccountsRestService.query({telcoLogin: response.telcoLogin}).$promise.then(function(result) {
+      // console.log("result", result)
+      return result
+    }, function(e) {
+      toastr.error('Error details: ' + e, 'AccountsRestService failed')
+      return false
+    })
+  }, function(error) {
+    toastr.error('Error details: ' + error, 'SessionsRestService failed')
+    return false
+  })
+}
+
+function config($stateProvider) {
   $stateProvider.state('app.expert-profile', {
     url: '/expert-profile',
-    controllerAs: 'vm',
-    controller: 'ExpertProfileController',
     templateUrl: 'expert-profile/expert-profile.tpl.html',
+    controller: 'ExpertProfileController',
+    controllerAs: 'vm',
     resolve: {
       AccountsRestServiceResolver: AccountsRestServiceResolver
     }
   });
-})
+}
 
-.controller('ExpertProfileController', ExpertProfileController);
-
-function ExpertProfileController($scope, $timeout, $filter, Upload, toastr, AccountsRestServiceResolver, _) {
+function ExpertProfileController($scope, $filter, $http, Upload, toastr, AccountsRestServiceResolver, _) {
   var vm = this;
 
   console.log('AccountsRestServiceResolver', AccountsRestServiceResolver)
+
   // private variables
   vm.account = AccountsRestServiceResolver
 
@@ -94,10 +95,10 @@ function ExpertProfileController($scope, $timeout, $filter, Upload, toastr, Acco
           }).progress(function(evt) {
             vm.allFilesProgress = parseInt(100.0 * evt.loaded / evt.total, 10);
             vm.log = 'progress: ' + vm.allFilesProgress + '% ' + evt.config.data.file.name + '\n' + vm.log;
-          }).success(function(data, status, headers, config) {
+          }).success(function(data, status, headers, conf) {
             vm.allFilesProgress = null
             $timeout(function() {
-              vm.log = 'file: ' + config.data.file.name + ', Response: ' + JSON.stringify(data) + '\n' + vm.log;
+              vm.log = 'file: ' + conf.data.file.name + ', Response: ' + JSON.stringify(data) + '\n' + vm.log;
             });
           });
         }
@@ -145,5 +146,4 @@ function ExpertProfileController($scope, $timeout, $filter, Upload, toastr, Acco
   });
 
   return vm;
-
 }
