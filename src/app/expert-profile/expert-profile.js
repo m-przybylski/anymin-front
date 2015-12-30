@@ -1,3 +1,19 @@
+function AccountsRestServiceResolver (SessionsRestService, AccountsRestService, toastr) {
+  SessionsRestService.get().$promise.then(function(response) {
+    // console.log("response", response)
+    AccountsRestService.query({telcoLogin: response.telcoLogin}).$promise.then(function(result) {
+      // console.log("result", result)
+      return result
+    }, function(e) {
+      toastr.error("Error details: " + e, "AccountsRestService failed")
+      return false
+    })
+  }, function(error) {
+    toastr.error("Error details: " + error, "SessionsRestService failed")
+    return false
+  })
+}
+
 angular.module('profitelo.controller.expert-profile', [
   'ui.router',
   'ngFileUpload',
@@ -19,28 +35,19 @@ angular.module('profitelo.controller.expert-profile', [
     controller: 'ExpertProfileController',
     templateUrl: 'expert-profile/expert-profile.tpl.html',
     resolve: {
-      SessionsRestServiceResolver: function(SessionsRestService) {
-        return SessionsRestService.get()
-      },
-      AccountsRestServiceResolver: function(SessionsRestServiceResolver, AccountsRestService) {
-        console.log('SessionsRestServiceResolver', SessionsRestServiceResolver)
-        //mocked param, should be fetched from SessionsRestServiceResolver.telcoLogin
-        return AccountsRestService.get({id: 1})
-      }
+      AccountsRestServiceResolver: AccountsRestServiceResolver
     }
   });
 })
 
 .controller('ExpertProfileController', ExpertProfileController);
 
-function ExpertProfileController($scope, $timeout, $filter, Upload, toastr, AccountsRestServiceResolver, SessionsRestServiceResolver, _) {
+function ExpertProfileController($scope, $timeout, $filter, Upload, toastr, AccountsRestServiceResolver, _) {
   var vm = this;
 
-  console.log(AccountsRestServiceResolver)
+  console.log('AccountsRestServiceResolver', AccountsRestServiceResolver)
   // private variables
-  var _account = "AccountsRestServiceResolver"
-
-  vm.account = _account
+  vm.account = AccountsRestServiceResolver
 
   // public variables
   vm.profile = {}

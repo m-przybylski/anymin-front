@@ -6,17 +6,9 @@ angular.module('profitelo.services.rest.sessions', [
 
 function SessionsRestService($resource, CommonSettingsService) {
   return $resource(CommonSettingsService.get('apiUrl') + '/sessions', null, {
-    'get':    {
+    'get': {
       method: 'GET',
-      isObject: true,
-      interceptor: {
-        response: function (data) {
-          return data;
-        },
-        responseError: function (data) {
-          return data;
-        }
-      }
+      isArray: false
     },
     'save':   {method: 'POST'},
     'query':  {method: 'GET', isArray: true},
