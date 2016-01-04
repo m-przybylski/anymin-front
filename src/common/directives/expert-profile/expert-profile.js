@@ -119,8 +119,8 @@ angular.module('profitelo.directive.expert-profile', [
   'lodash',
 
   // internal scripts
-  'profitelo.services.rest.accounts',
-  'profitelo.services.rest.sessions',
+  'profitelo.api.accounts',
+  'profitelo.api.sessions',
   'profitelo.directives.proProfileStatus',
   'profitelo.directives.proQuestionMark',
   'profitelo.directives.proWaitingSpinnerDiv'

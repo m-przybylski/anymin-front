@@ -24,7 +24,7 @@ angular.module('profitelo', [
   'profitelo.directive.expert-profile',
 
   // rest
-  'profitelo.services.rest.accounts',
+  'profitelo.api.accounts',
 
   // translations
   'profitelo.translations.en-us',

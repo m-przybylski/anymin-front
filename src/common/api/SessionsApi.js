@@ -1,10 +1,10 @@
-angular.module('profitelo.services.rest.sessions', [
+angular.module('profitelo.api.sessions', [
   'ngResource',
   'profitelo.services.commonSettings'
 ])
-.factory('SessionsRestService', SessionsRestService);
+.factory('SessionsApi', SessionsApi);
 
-function SessionsRestService($resource, CommonSettingsService) {
+function SessionsApi($resource, CommonSettingsService) {
   return $resource(CommonSettingsService.get('apiUrl') + '/sessions', null, {
     'get': {
       method: 'GET',

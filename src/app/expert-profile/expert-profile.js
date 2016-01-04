@@ -1,15 +1,15 @@
 angular.module('profitelo.controller.expert-profile', [
   'ui.router',
-  'profitelo.services.rest.accounts',
-  'profitelo.services.rest.sessions'
+  'profitelo.api.accounts',
+  'profitelo.api.sessions'
 ])
 .config(config)
 .controller('ExpertProfileController', ExpertProfileController);
 
-function AccountsRestServiceResolver($q, SessionsRestService, AccountsRestService) {
+function AccountsApiResolver($q, SessionsApi, AccountsApi) {
   var deferred = $q.defer();
-  SessionsRestService.get().$promise.then(function(response) {
-    AccountsRestService.query({telcoLogin: response.telcoLogin}).$promise.then(function(result) {
+  SessionsApi.get().$promise.then(function(response) {
+    AccountsApi.query({telcoLogin: response.telcoLogin}).$promise.then(function(result) {
       deferred.resolve(result);
     }, function(error) {
       deferred.reject(error);
@@ -27,7 +27,7 @@ function config($stateProvider) {
     controller: 'ExpertProfileController',
     controllerAs: 'vm',
     resolve: {
-      Account: AccountsRestServiceResolver
+      Account: AccountsApiResolver
     }
   });
 }
