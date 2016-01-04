@@ -39,14 +39,21 @@ module.exports = {
       "node_modules/ui-router/release/angular-ui-router.js",
       "node_modules/angular-resource/angular-resource.js",
       "node_modules/angular-messages/angular-messages.js",
+      "node_modules/angular-animate/angular-animate.js",
+      "node_modules/ng-file-upload/dist/ng-file-upload-all.js",
+      "node_modules/angular-toastr/dist/angular-toastr.js",
+      "node_modules/angular-toastr/dist/angular-toastr.tpls.js",
+
       'node_modules/angular-translate/dist/angular-translate.js',
       'node_modules/messageformat/messageformat.js',
       'node_modules/messageformat/locale/en.js', // need to upload all messageformat for all interface languages
       'node_modules/messageformat/locale/pl.js',
       'node_modules/angular-translate-interpolation-messageformat/angular-translate-interpolation-messageformat.js',
       'node_modules/angular-dynamic-locale/dist/tmhDynamicLocale.js'
-],
-css: [],
+    ],
+    css: [
+      'node_modules/angular-toastr/dist/angular-toastr.css'
+    ],
     assets: []
   }
 };

@@ -1,0 +1,8 @@
+.pro-profle-status(data-ng-class="colorClass(status)")
+  div(data-ng-show="status === 'off'")
+    i.fa.fa-ban.fa-lg
+    span  {{ 'EXPERT_PROFILE.INACTIVE_PROFILE' | translate | uppercase }}&nbsp;
+  div(data-ng-show="status === 'on'")
+    i.fa.fa-check.fa-lg
+    span  {{ 'EXPERT_PROFILE.ACTIVE_PROFILE' | translate | uppercase }}&nbsp;
+  pro-question-mark(title="{{ 'EXPERT_PROFILE.PROFILE_STATUS_TOOLTIP' | translate }}")
