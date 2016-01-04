@@ -14,7 +14,9 @@ module.exports = {
     uglify: !!((typeof argv.uglify === "undefined") || (argv.uglify === true)),
     production: false,
     b2d: false,
-    jadeCache: true
+    jadeCache: true,
+    testing_dir: typeof argv['testing-dir'] === "undefined" ? '/' :  argv['testing-dir'] + '/'
+
   },
   app_files: {
     js: ['src/**/*.js', '!src/**/*.spec.js'],
