@@ -11,14 +11,17 @@
   "license": "ISC",
   "dependencies": {
     "angular": "^1.4.8",
+    "angular-animate": "^1.4.8",
     "angular-dynamic-locale": "^0.1.29",
     "angular-resource": "^1.4.8",
+    "angular-toastr": "^1.6.0",
     "angular-translate": "^2.8.1",
     "angular-translate-interpolation-messageformat": "^2.8.1",
     "font-awesome": "^4.5.0",
     "jquery": "^2.1.4",
     "lodash": "^3.10.1",
     "messageformat": "^0.2.2",
+    "ng-file-upload": "^11.0.0",
     "ui-router": "^0.2.15"
   },
   "devDependencies": {
