@@ -6,6 +6,7 @@ angular.module('profitelo', [
   'tmh.dynamicLocale',
   'ngAnimate',
   'toastr',  // some parts depends on ngAnimate
+  'ngCookies',
 
   // services
   'profitelo.services.customTranslationHandler',
@@ -23,7 +24,7 @@ angular.module('profitelo', [
 
   // rest
   'profitelo.services.rest.accounts',
-
+  'profitelo.services.rest.registration',
   // translations
   'profitelo.translations.en-us',
   'profitelo.translations.pl-pl'
