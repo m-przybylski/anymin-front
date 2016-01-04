@@ -39,7 +39,7 @@ describe('Unit tests: expert-profile >', () => {
           $scope: $scope,
           $rootScope: $rootScope,
           $state: $state,
-          AccountsRestServiceResolver: AccountsRestServiceResolver
+          Account: AccountsRestServiceResolver
         })
       })
     })
