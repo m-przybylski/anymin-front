@@ -25,12 +25,12 @@ function RegistrationDirectiveController(AuthorizationService) {
     pin: ""
   };
   vm.step2 = () =>{
-    AuthorizationService.register({email:"test@gmail.com", password:"dupa"})
+    vm.registrationMetaData.step1 = false;
+    AuthorizationService.register({email:vm.userData.email, password:vm.userData.password});
 
   };
 
 
-  console.log('here i am directive');
 
 
   return vm;

@@ -4,19 +4,32 @@ angular.module('authorization', [
 
 .factory('AuthorizationService', AuthorizationService);
 
-function AuthorizationService(AccountRest) {
+function AuthorizationService(SessionsRestService, RegistrationRestService, $cookies) {
 
   var _register = (object) => {
-    var accountRest = new AccountRest(object);
-    accountRest.$save();
+    // object should contain username, password, organization name
+
+    RegistrationRestService.save(object).$promise.then((success) =>{
+      $cookies.put("sessionKey", success);
+    }, (error) =>{
+      console.log(error);
+    });
+  };
+  var _login = (object) => {
+    SessionsRestService.save(object).$promise.then((success) =>{
+      $cookies.put("sessionKey", success);
+    }, (error) =>{
+      console.log(error);
+    });
+
+
+
+    // after logging set cookie with sessionKey
   };
 
-  AccountRest.get().$promise.then((data)=>{
-    console.log(data);
-  });
-
   var api = {
-    register: _register
+    register: _register,
+    login:    _login
   };
   return api;
 }
