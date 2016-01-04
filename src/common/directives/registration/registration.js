@@ -12,13 +12,13 @@ angular.module('profitelo.directive.registration', [
   }
 })
 
-.controller('RegistrationDirectiveController', RegistrationDirectiveController);
+.controller('RegistrationDirectiveController', RegistrationDirectiveController)
 
 function RegistrationDirectiveController() {
-  var vm = this;
-  console.log('here i am directive');
+  var vm = this
+  console.log('here i am directive')
 
 
-  return vm;
+  return vm
 
 }

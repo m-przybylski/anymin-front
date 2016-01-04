@@ -1,24 +1,24 @@
 describe('Unit tests: registration>', () => {
   describe('Testing Controller: RegistrationController', () => {
 
-    var $scope;
-    var RegistrationController;
+    var $scope
+    var RegistrationController
 
     beforeEach(() => {
-      module('profitelo.controller.registration');
+      module('profitelo.controller.registration')
       inject(($rootScope, $controller, $state) => {
-        $scope = $rootScope.$new();
+        $scope = $rootScope.$new()
         RegistrationController = $controller('RegistrationController', {
           $scope: $scope,
           $rootScope: $rootScope,
           $state: $state
-        });
-      });
-    });
+        })
+      })
+    })
 
     it('should exsist', ()=> {
-      return expect(!!RegistrationController).toBe(true);
-    });
+      return expect(!!RegistrationController).toBe(true)
+    })
 
-  });
-});
+  })
+})

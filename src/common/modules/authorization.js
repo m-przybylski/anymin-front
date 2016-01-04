@@ -2,7 +2,7 @@ angular.module('authorization', [
 
 ])
 
-.factory('AuthorizationService', AuthorizationService);
+.factory('AuthorizationService', AuthorizationService)
 
 function AuthorizationService(AccountRest) {
 
@@ -12,11 +12,11 @@ function AuthorizationService(AccountRest) {
       console.log('data', data)
     }, (error) =>{
       console.log('Error', error)
-    });
-  };
+    })
+  }
 
   var api = {
     register: _register
-  };
-  return api;
+  }
+  return api
 }

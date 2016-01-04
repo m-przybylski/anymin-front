@@ -10,14 +10,14 @@ angular.module('profitelo.controller.home', [
     controllerAs: 'vm',
     controller: 'HomeController',
     templateUrl: 'home/home.tpl.html'
-  });
+  })
 })
-.controller('HomeController', HomeController);
+.controller('HomeController', HomeController)
 
 function HomeController(AccountsApi) {
-  var vm = this;
+  var vm = this
   // example GET method
-  AccountsApi.get();
+  AccountsApi.get()
 
-  return vm;
+  return vm
 }

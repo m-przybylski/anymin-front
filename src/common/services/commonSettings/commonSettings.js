@@ -1,6 +1,6 @@
 angular.module('profitelo.services.commonSettings', [])
 
-.factory('CommonSettingsService', CommonSettingsService);
+.factory('CommonSettingsService', CommonSettingsService)
 
 function CommonSettingsService() {
   var _settings = {
@@ -12,5 +12,5 @@ function CommonSettingsService() {
       return angular.copy(_settings[property])
     }
   }
-  return api;
+  return api
 }
