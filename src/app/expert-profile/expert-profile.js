@@ -36,25 +36,7 @@ function config($stateProvider) {
     controller: 'ExpertProfileController',
     controllerAs: 'vm',
     resolve: {
-      AccountsRestServiceResolver: function($q, $timeout, SessionsRestService, AccountsRestService) {
-
-        var deferred = $q.defer();
-
-        SessionsRestService.get().$promise.then(function(response) {
-          AccountsRestService.query({telcoLogin: response.telcoLogin}).$promise.then(function(result) {
-            deferred.resolve(result);
-          }, function(error) {
-
-            deferred.reject(error);
-          })
-        }, function(error) {
-
-          deferred.reject(error);
-
-        });
-
-        return deferred.promise
-      }
+      AccountsRestServiceResolver: AccountsRestServiceResolver
     }
   });
 }
@@ -135,8 +117,8 @@ function ExpertProfileController($scope, $filter, $timeout, $http, Upload, toast
 
   vm.sendAndGoNext = function() {
     vm.submitted = true
-    var msg   = $filter('translate')('EXPERT_PROFILE.MESSAGES.DATA_SAVED_SUCCESSFULLY'),
-        title = $filter('translate')('EXPERT_PROFILE.EXPERT_PROFILE')
+    var msg = $filter('translate')('EXPERT_PROFILE.MESSAGES.DATA_SAVED_SUCCESSFULLY')
+    var title = $filter('translate')('EXPERT_PROFILE.EXPERT_PROFILE')
     if ($scope.expertProfileForm.$valid) {
       toastr.success(msg, title);
     }
