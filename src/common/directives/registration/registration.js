@@ -20,9 +20,9 @@ function RegistrationDirectiveController(AuthorizationService) {
     step1: true
   };
   vm.userData = {
-    email: "",
-    password: "",
-    pin: ""
+    email: '',
+    password: '',
+    pin: ''
   };
   vm.step2 = () =>{
     vm.registrationMetaData.step1 = false;

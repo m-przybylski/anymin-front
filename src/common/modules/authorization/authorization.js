@@ -10,14 +10,14 @@ function AuthorizationService(SessionsRestService, RegistrationRestService, $coo
     // object should contain username, password, organization name
 
     RegistrationRestService.save(object).$promise.then((success) =>{
-      $cookies.put("sessionKey", success);
+      $cookies.put('sessionKey', success);
     }, (error) =>{
       console.log(error);
     });
   };
   var _login = (object) => {
     SessionsRestService.save(object).$promise.then((success) =>{
-      $cookies.put("sessionKey", success);
+      $cookies.put('sessionKey', success);
     }, (error) =>{
       console.log(error);
     });
