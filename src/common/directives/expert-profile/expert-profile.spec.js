@@ -1,5 +1,5 @@
-describe("Unit testing: profitelo.directive.expert-profile>", function() {
-  return describe("for expertProfile directive >", function() {
+describe('Unit testing: profitelo.directive.expert-profile>', function() {
+  return describe('for expertProfile directive >', function() {
 
     var compile = null;
     var scope = null;
@@ -48,7 +48,7 @@ describe("Unit testing: profitelo.directive.expert-profile>", function() {
       return compiledElement;
     }
 
-    it("should have a dummy test", inject(function() {
+    it('should have a dummy test', inject(function() {
       expect(true).toBeTruthy();
     }));
 
