@@ -21,6 +21,7 @@ angular.module('profitelo', [
   // directives
   'profitelo.directive.registration',
   'profitelo.directive.expert-progress',
+  'profitelo.directive.proProgressBox',
 
   // rest
   'profitelo.services.rest.accounts',

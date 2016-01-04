@@ -1,7 +1,10 @@
 div.col-lg-3.col-centered.box
   div.round
-    p.center-in-circle 1
-  h3.box-title Profil experta
-  p(data-ng-show="true") Stwórz swoją wizytówkę! Opisz firmę, dodaj referencje...
-  p.progress(data-ng-show="false") Ukończone {{ vm.model.expert }}
-  a(data-ui-sref="app.expert-profile") Uzupelnil Profil
+    p.center-in-circle {{ container.number }}
+  h3.box-title {{ container.title | translate }}
+  p(data-ng-show='container.status == 0 ') {{ container.description | translate }}
+  .progress(data-ng-hide='container.status == 0 ')
+    .progress-bar.progress-bar-success(role='progressbar', aria-valuenow='{{container.status}}', aria-valuemin='0', aria-valuemax='100', style='width: {{container.status}}%')
+      | Ukończone: {{ container.status }}%
+  a(data-ui-sref='{{container.uiSref}}') {{ container.uiTitle | translate }}
+
