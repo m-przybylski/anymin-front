@@ -32,9 +32,11 @@ angular.module('profitelo.translations.pl-pl', [])
     'EXPERT_PROGRESS.EXPERT.TITLE':'Profil experta',
     'EXPERT_PROGRESS.EXPERT.DESCRIPTION':  'Stwórz swoją wizytówkę! Opisz firmę, dodaj referencje...',
     'EXPERT_PROGRESS.EXPERT.UISREF.TITLE': 'Uzupełnij profil',
+    'EXPERT_PROGRESS.EXPERT.UISREF.TITLE.DONE':'Zobacz profil',
     'EXPERT_PROGRESS.SERVICES.TITLE':'Usługi',
     'EXPERT_PROGRESS.SERVICES.DESCRIPTION': 'Opisz czym się zajmujesz i jakiej pomocy inni moga oczekiwać',
     'EXPERT_PROGRESS.SERVICES.UISREF.TITLE': 'Dodaj usługę',
+    'EXPERT_PROGRESS.SERVICES.UISREF.TITLE.DONE':'Zobacz usługę',
     'EXPERT_PROGRESS.VERIFICATION.TITLE': 'Weryfikacja',
     'EXPERT_PROGRESS.VERIFICATION.DESCRIPTION': 'Zweryfikuj profil. Sprawdzimy czy wszystko się zgadza',
     'EXPERT_PROGRESS.VERIFICATION.UISREF.TITLE': 'Zgłoś do weryfikacji'

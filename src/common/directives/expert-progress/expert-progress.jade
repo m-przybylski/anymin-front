@@ -4,4 +4,15 @@ span.expert-progress.text-center
   .row.row-centered
     div(pro-progress-box container="vm.box.expert")
     div(pro-progress-box container="vm.box.services")
-    div(pro-progress-box container="vm.box.verification")
+
+    // unique box
+    div.col-lg-3.col-centered.box
+      div.round
+        p.center-in-circle(data-ng-show='vm.verifyBox.verified && !vm.verifyBox.accepted')
+          i.fa.fa-times
+        p.center-in-circle(data-ng-show='!vm.verifyBox.verified') {{ vm.verifyBox.number }}
+      h3.box-title {{ vm.verifyBox.title | translate }}
+      p(data-ng-show='!vm.verifyBox.sended') {{ vm.verifyBox.description | translate }}
+      p(data-ng-show='vm.verifyBox.sended && !vm.verifyBox.verified') {{ vm.verifyBox.description | translate }}
+      p(data-ng-show='!vm.verifyBox.accepted') {{ vm.verifyBox.description | translate }}
+      a(data-ng-show='vm.verifyBox.ableToSend' data-ui-sref='{{vm.verifyBox.uiSref}}') {{ vm.verifyBox.uiTitleDone | translate }}

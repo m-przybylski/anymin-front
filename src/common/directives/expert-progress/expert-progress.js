@@ -17,30 +17,39 @@ function ExpertProgressDirectiveController() {
   var vm = this
   vm.box = {}
   vm.box.expert = {
-    number: '1',
-    title:'EXPERT_PROGRESS.EXPERT.TITLE',
-    description:'EXPERT_PROGRESS.EXPERT.DESCRIPTION',
-    uiTitle:'EXPERT_PROGRESS.EXPERT.UISREF.TITLE',
-    uiSref:'app.expert-profile',
-    // probably number
-    status:0
+    number:       '1',
+    title:        'EXPERT_PROGRESS.EXPERT.TITLE',
+    description:  'EXPERT_PROGRESS.EXPERT.DESCRIPTION',
+    uiTitle:      'EXPERT_PROGRESS.EXPERT.UISREF.TITLE',
+    uiTitleDone:  'EXPERT_PROGRESS.EXPERT.UISREF.TITLE.DONE',
+    uiSref:       'app.expert-profile',
+    status:       60,
+    verify:       false
   }
   vm.box.services = {
-    number: '2',
-    title:'EXPERT_PROGRESS.SERVICES.TITLE',
-    description:'EXPERT_PROGRESS.SERVICES.DESCRIPTION',
-    uiTitle:'EXPERT_PROGRESS.SERVICES.UISREF.TITLE',
-    uiSref:'app.services',
-    status: 100
+    number:       '2',
+    title:        'EXPERT_PROGRESS.SERVICES.TITLE',
+    description:  'EXPERT_PROGRESS.SERVICES.DESCRIPTION',
+    uiTitle:      'EXPERT_PROGRESS.SERVICES.UISREF.TITLE',
+    uiTitleDone:  'EXPERT_PROGRESS.SERVICES.UISREF.TITLE.DONE',
+    uiSref:       'app.services',
+    status:       100,
+    verify:       true
   }
-  vm.box.verification = {
-    number: '3',
-    title: 'EXPERT_PROGRESS.VERIFICATION.TITLE',
-    description: 'EXPERT_PROGRESS.VERIFICATION.DESCRIPTION',
-    uiTitle: 'EXPERT_PROGRESS.VERIFICATION.UISREF.TITLE',
-    uiSref:'app.somewhere',
-    status: 0
+
+
+  vm.verifyBox = {
+    number:       '3',
+    title:        'EXPERT_PROGRESS.VERIFICATION.TITLE',
+    description:  'EXPERT_PROGRESS.VERIFICATION.DESCRIPTION',
+    uiTitleDone:  'EXPERT_PROGRESS.VERIFICATION.UISREF.TITLE',
+    uiSref:       'app.somewhere',
+    ableToSend:   false,
+    sended:       false,
+    verified:     false,
+    accepted:     true
   }
+
   return vm
 
 }

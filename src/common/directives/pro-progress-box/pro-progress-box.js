@@ -4,7 +4,7 @@ angular.module('profitelo.directive.proProgressBox', [
 .directive('proProgressBox', () =>{
   function link(scope, element) {
     if (scope.container.status === 100) {
-      element.css({'background-color':'lightgreen'})
+      element.addClass('full-progress')
     }
 
   }

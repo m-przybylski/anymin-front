@@ -32,9 +32,11 @@ angular.module('profitelo.translations.en-us', [])
     'EXPERT_PROGRESS.EXPERT.TITLE':'Expert profile',
     'EXPERT_PROGRESS.EXPERT.DESCRIPTION':  'Create your business card! Describe company, add reference...',
     'EXPERT_PROGRESS.EXPERT.UISREF.TITLE': 'Fill profile informations',
+    'EXPERT_PROGRESS.EXPERT.UISREF.TITLE.DONE':'View profile',
     'EXPERT_PROGRESS.SERVICES.TITLE':'Services',
     'EXPERT_PROGRESS.SERVICES.DESCRIPTION': 'Describe what are you doing and what help ppl can get from you',
     'EXPERT_PROGRESS.SERVICES.UISREF.TITLE': 'Add service',
+    'EXPERT_PROGRESS.SERVICES.UISREF.TITLE.DONE':'View service',
     'EXPERT_PROGRESS.VERIFICATION.TITLE': 'Verification',
     'EXPERT_PROGRESS.VERIFICATION.DESCRIPTION': 'Verify profile. We will check if everything is OK',
     'EXPERT_PROGRESS.VERIFICATION.UISREF.TITLE': 'Send to verification'
