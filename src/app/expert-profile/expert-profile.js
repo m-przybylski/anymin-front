@@ -8,13 +8,13 @@ angular.module('profitelo.controller.expert-profile', [
 
 function AccountsApiResolver($q, SessionsApi, AccountsApi) {
   var deferred = $q.defer()
-  SessionsApi.get().$promise.then(function(response) {
-    AccountsApi.query({telcoLogin: response.telcoLogin}).$promise.then(function(result) {
+  SessionsApi.get().$promise.then((response) => {
+    AccountsApi.query({telcoLogin: response.telcoLogin}).$promise.then((result) => {
       deferred.resolve(result)
-    }, function(error) {
+    }, (error) => {
       deferred.reject(error)
     })
-  }, function(error) {
+  }, (error) => {
     deferred.reject(error)
   })
   return deferred.promise
