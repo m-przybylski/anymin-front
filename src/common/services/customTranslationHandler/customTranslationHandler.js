@@ -12,7 +12,6 @@ angular.module('profitelo.services.customTranslationHandler', [
     if (translationId !== void 0 && !_.include(_exceptionsStrings, translationId)) {
       var _str = 'Missing [' + uses + '] translations for: ' + translationId
       $log.error(_str)
-      return
     }
   }
 })
