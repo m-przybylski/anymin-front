@@ -8,34 +8,44 @@ angular.module('profitelo.directive.registration', [
     restrict:     'A',
     controller:   'RegistrationDirectiveController',
     controllerAs: 'vm',
+    scope:        {step1:'='},
     replace:      true
   }
 })
 
 .controller('RegistrationDirectiveController', RegistrationDirectiveController)
 
-function RegistrationDirectiveController($stateParams) {
+function RegistrationDirectiveController($scope, $state, $stateParams, AuthorizationService) {
   var vm = this
-  if ($stateParams.token==="") {
-    console.log('jestem undefined')
-  }
+
   vm.registrationMetaData = {
     emailSended:  false,
-    step1:        true
+    step1:        $scope.step1
   }
   vm.userData = {
     email: '',
     password: ''
   }
 
-
+  if (!vm.registrationMetaData.step1) {
+    AuthorizationService.checkToken($stateParams).then((success)=>{
+      console.log(success)
+    }, (error) => {
+    // redirecting to home, token is wrong!
+      console.log(error)
+      $state.go('app.home')
+    })
+  }
 
   vm.sendEmail= () =>{
     // TODO SEND EMAIL WITH LINK
-    vm.registrationMetaData.emailSended = true
+    AuthorizationService.register({email:vm.userData.email, password:vm.userData.password}).then(()=>{
+      vm.registrationMetaData.emailSended = true
 
-    // vm.registrationMetaData.step1 = false
-    // AuthorizationService.register({email:vm.userData.email, password:vm.userData.password})
+    }, (error) =>{
+      console.log('could not send email', error)
+    })
+
 
   }
 

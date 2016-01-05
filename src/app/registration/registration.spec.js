@@ -11,7 +11,8 @@ describe('Unit tests: registration>', () => {
         RegistrationController = $controller('RegistrationController', {
           $scope: $scope,
           $rootScope: $rootScope,
-          $state: $state
+          $state: $state,
+          Step1: true
         })
       })
     })
