@@ -1,12 +1,12 @@
-angular.module('profitelo.api.accountsSession', [
+angular.module('profitelo.api.accountsStatus', [
   'ngResource',
   'profitelo.services.commonSettings'
 ])
 
-.factory('AccountsSessionApi', AccountsSessionApi)
+.factory('AccountsStatusApi', AccountsStatusApi)
 
-function AccountsSessionApi($resource, CommonSettingsService) {
-  return $resource(CommonSettingsService.get('apiUrl') + '/accounts/:telcoLogin/session', {telcoLogin: '@telcoLogin'}, {
+function AccountsStatusApi($resource, CommonSettingsService) {
+  return $resource(CommonSettingsService.get('apiUrl') + '/accounts/:telcoLogin/status', {telcoLogin: '@telcoLogin'}, {
     'get': {method: 'GET', isArray: false},
     'query': {method: 'GET', isArray: false}
     // /accounts/{accountId}/status
