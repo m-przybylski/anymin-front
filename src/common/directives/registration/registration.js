@@ -28,10 +28,14 @@ function RegistrationDirectiveController($scope, $state, $stateParams, Authoriza
   }
 
   if (!vm.registrationMetaData.step1) {
-    AuthorizationService.checkToken($stateParams).then((success)=>{
-      console.log(success)
+    AuthorizationService.checkToken($stateParams).then(()=>{
+      // token OK
+
+
     }, (error) => {
-    // redirecting to home, token is wrong!
+      // redirecting to home, token is wrong!
+
+
       console.log(error)
       $state.go('app.home')
     })
