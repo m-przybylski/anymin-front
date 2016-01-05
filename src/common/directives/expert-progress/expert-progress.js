@@ -23,7 +23,7 @@ function ExpertProgressDirectiveController() {
     uiTitle:'EXPERT_PROGRESS.EXPERT.UISREF.TITLE',
     uiSref:'app.expert-profile',
     // probably number
-    status:40
+    status:0
   };
   vm.box.services = {
     number: '2',
