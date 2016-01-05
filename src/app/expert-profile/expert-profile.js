@@ -4,19 +4,19 @@ angular.module('profitelo.controller.expert-profile', [
   'profitelo.api.sessions'
 ])
 .config(config)
-.controller('ExpertProfileController', ExpertProfileController);
+.controller('ExpertProfileController', ExpertProfileController)
 
 function AccountsApiResolver($q, SessionsApi, AccountsApi) {
-  var deferred = $q.defer();
+  var deferred = $q.defer()
   SessionsApi.get().$promise.then(function(response) {
     AccountsApi.query({telcoLogin: response.telcoLogin}).$promise.then(function(result) {
-      deferred.resolve(result);
+      deferred.resolve(result)
     }, function(error) {
-      deferred.reject(error);
+      deferred.reject(error)
     })
   }, function(error) {
-    deferred.reject(error);
-  });
+    deferred.reject(error)
+  })
   return deferred.promise
 }
 
@@ -29,13 +29,13 @@ function config($stateProvider) {
     resolve: {
       Account: AccountsApiResolver
     }
-  });
+  })
 }
 
 function ExpertProfileController(Account) {
 
-  var vm = this;
+  var vm = this
 
-  vm.account = Account;
+  vm.account = Account
 
 }

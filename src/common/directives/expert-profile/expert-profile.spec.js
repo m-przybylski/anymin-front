@@ -1,8 +1,8 @@
 describe('Unit testing: profitelo.directive.expert-profile>', function() {
   return describe('for expertProfile directive >', function() {
 
-    var compile = null;
-    var scope = null;
+    var compile = null
+    var scope = null
 
     var account =  {
       'telcoLogin': '0000000',
@@ -26,51 +26,51 @@ describe('Unit testing: profitelo.directive.expert-profile>', function() {
           }
         ]
       }
-    };
+    }
 
-    var validHTML = '<div data-expert-profile="" data-account="account"></div>';
+    var validHTML = '<div data-expert-profile="" data-account="account"></div>'
 
     beforeEach(function() {
-      module('templates-module');
-      module('profitelo.directive.expert-profile');
+      module('templates-module')
+      module('profitelo.directive.expert-profile')
 
       inject(function($rootScope, $compile) {
-        scope = $rootScope.$new();
-        compile = $compile;
-        scope.account = account;
-      });
-    });
+        scope = $rootScope.$new()
+        compile = $compile
+        scope.account = account
+      })
+    })
 
     function create() {
-      var elem = angular.element(validHTML);
-      var compiledElement = compile(elem)(scope);
-      scope.$digest();
-      return compiledElement;
+      var elem = angular.element(validHTML)
+      var compiledElement = compile(elem)(scope)
+      scope.$digest()
+      return compiledElement
     }
 
     it('should have a dummy test', inject(function() {
-      expect(true).toBeTruthy();
-    }));
+      expect(true).toBeTruthy()
+    }))
 
     it('compile the directive', function() {
-      var el;
-      el = create();
-      expect(el.html()).toBeDefined(true);
-    });
+      var el
+      el = create()
+      expect(el.html()).toBeDefined(true)
+    })
 
     it('should have a scope on root element', function() {
-      var el;
-      el = create();
-      expect(el.isolateScope()).toBeDefined();
-      expect(el.isolateScope().$id).not.toEqual(scope.$id);
-    });
+      var el
+      el = create()
+      expect(el.isolateScope()).toBeDefined()
+      expect(el.isolateScope().$id).not.toEqual(scope.$id)
+    })
 
     it('should have account resource on scope', function() {
-      var el;
-      el = create();
-      expect(el.isolateScope().account).toEqual(account);
-    });
+      var el
+      el = create()
+      expect(el.isolateScope().account).toEqual(account)
+    })
 
 
-  });
-});
+  })
+})

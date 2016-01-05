@@ -7,14 +7,13 @@ angular.module('profitelo.controller.registration', [
     controllerAs: 'vm',
     controller: 'RegistrationController',
     templateUrl: 'registration/registration.tpl.html'
-  });
+  })
 })
-.controller('RegistrationController', RegistrationController);
+.controller('RegistrationController', RegistrationController)
 
 function RegistrationController() {
-  var vm = this;
-  console.log('here I am controller');
+  var vm = this
 
-  return vm;
+  return vm
 
 }

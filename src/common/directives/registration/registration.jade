@@ -1,6 +1,5 @@
 span
-  h1(data-ng-click="vm.test()") NO ELO
-  div(data-ng-show="registrationMetaData.step1")
+  div(data-ng-show="vm.registrationMetaData.step1")
     include step1.partial.jade
-  div(data-ng-show="registrationMetaData.step2")
+  div(data-ng-show="!vm.registrationMetaData.step1")
     include step2.partial.jade

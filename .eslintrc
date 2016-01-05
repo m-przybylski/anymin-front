@@ -12,9 +12,8 @@ rules:
   "no-undef": 0 // we use angular modules so must be disabled
   "no-debugger": 2
   "no-extra-semi": 2
-  "semi": 0
+  "semi": [1, "never"]
   "no-unreachable": 2
-
 
   // Stylistic Issues
   "block-spacing": [2, "always"]
@@ -23,11 +22,11 @@ rules:
   "camelcase": 1
   "comma-spacing": [2, {"before": false, "after": true}]
   "comma-style": [2, "last"]
-  "eol-last": 2
+  "eol-last": 0
   "func-style": [2, "declaration", { "allowArrowFunctions": true }]
   "no-nested-ternary": 2
   "new-cap": 2
-  "no-multiple-empty-lines": [2, {max: 4, maxEOF: 1}]
+  "no-multiple-empty-lines": [2, {max: 4, maxEOF: 10}]
   "no-redeclare": [2, {"builtinGlobals": true}]
   "no-underscore-dangle": 0
   "no-trailing-spaces": 2

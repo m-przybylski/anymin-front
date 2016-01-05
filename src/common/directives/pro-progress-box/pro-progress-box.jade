@@ -1,0 +1,12 @@
+div.col-lg-3.col-centered.box
+  div.round
+    p.center-in-circle(data-ng-hide='container.status != 100')
+      i.fa.fa-check
+    p.center-in-circle(data-ng-show='container.status != 100') {{ container.number }}
+  h3.box-title {{ container.title | translate }}
+  p(data-ng-show='container.status == 0') {{ container.description | translate }}
+  .progress(data-ng-hide='container.status == 0')
+    .progress-bar.progress-bar-success(role='progressbar', aria-valuenow='{{container.status}}', aria-valuemin='0', aria-valuemax='100', style='width: {{container.status}}%')
+      | Ukończone: {{ container.status }}%
+  a(data-ui-sref='{{container.uiSref}}') {{ container.uiTitle | translate }}
+

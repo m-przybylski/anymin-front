@@ -2,7 +2,7 @@ angular.module('profitelo.api.sessions', [
   'ngResource',
   'profitelo.services.commonSettings'
 ])
-.factory('SessionsApi', SessionsApi);
+.factory('SessionsApi', SessionsApi)
 
 function SessionsApi($resource, CommonSettingsService) {
   return $resource(CommonSettingsService.get('apiUrl') + '/sessions', null, {
@@ -15,5 +15,5 @@ function SessionsApi($resource, CommonSettingsService) {
     'update': {method: 'PUT'},
     'remove': {method: 'DELETE'},
     'delete': {method: 'DELETE'}
-  });
+  })
 }

@@ -28,7 +28,15 @@ angular.module('profitelo.translations.pl-pl', [])
     'EXPERT_PROFILE.PROFILE_SOCIAL_MEDIA_TOOLTIP': 'Tooltip about profile\'s social media relations',
     'EXPERT_PROFILE.PROFILE_CERTIFICATES_TOOLTIP': 'Tooltip about profile\'s certificates, documents, diplomas',
     'EXPERT_PROFILE.MESSAGES.FULLNAME_REQUIRED': 'Pole z imieniem i nazwiskiem (lub nazwą firmą) nie może być puste',
-    'EXPERT_PROFILE.MESSAGES.DATA_SAVED_SUCCESSFULLY': 'Dane zapisano pomyślnie'
-
+    'EXPERT_PROFILE.MESSAGES.DATA_SAVED_SUCCESSFULLY': 'Dane zapisano pomyślnie',
+    'EXPERT_PROGRESS.EXPERT.TITLE':'Profil experta',
+    'EXPERT_PROGRESS.EXPERT.DESCRIPTION':  'Stwórz swoją wizytówkę! Opisz firmę, dodaj referencje...',
+    'EXPERT_PROGRESS.EXPERT.UISREF.TITLE': 'Uzupełnij profil',
+    'EXPERT_PROGRESS.SERVICES.TITLE':'Usługi',
+    'EXPERT_PROGRESS.SERVICES.DESCRIPTION': 'Opisz czym się zajmujesz i jakiej pomocy inni moga oczekiwać',
+    'EXPERT_PROGRESS.SERVICES.UISREF.TITLE': 'Dodaj usługę',
+    'EXPERT_PROGRESS.VERIFICATION.TITLE': 'Weryfikacja',
+    'EXPERT_PROGRESS.VERIFICATION.DESCRIPTION': 'Zweryfikuj profil. Sprawdzimy czy wszystko się zgadza',
+    'EXPERT_PROGRESS.VERIFICATION.UISREF.TITLE': 'Zgłoś do weryfikacji'
   })
 })

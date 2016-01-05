@@ -7,15 +7,15 @@ angular.module('profitelo.controller.dashboard', [
     url: '/dashboard',
     templateUrl: 'dashboard/dashboard.tpl.html',
     controller: 'DashboardController'
-  });
+  })
 })
-.controller('DashboardController', DashboardController);
+.controller('DashboardController', DashboardController)
 
 
 function DashboardController() {
-  var vm = this;
-  console.log("It's WORKING! DashboardController");
+  var vm = this
+  console.log("It's WORKING! DashboardController")
 
 
-  return vm;
+  return vm
 }
