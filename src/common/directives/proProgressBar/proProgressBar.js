@@ -1,8 +1,13 @@
-function proProgressBarLink(scope) {
+function proProgressBarController($scope) {
 
-  if (!scope.progress) {
-    scope.progress = 0
+  var vm = this
+  vm.progress = $scope.progress
+
+  if (!vm.progress) {
+    vm.progress = 0
   }
+  return vm
+
 
 }
 
@@ -14,9 +19,10 @@ angular.module('profitelo.directives.proProgressBar', [
     restrict:     'EA',
     replace:      true,
     templateUrl:  'directives/proProgressBar/proProgressBar.tpl.html',
-    link:         proProgressBarLink,
+    controller:   proProgressBarController,
+    controllerAs: 'vm',
     scope: {
-      progress: '=proProgressBar'
+      progress: '=?proProgressBar'
     }
   }
 })

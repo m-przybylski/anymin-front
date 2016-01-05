@@ -17,11 +17,6 @@ function ServiceWizardController($interval) {
 
   vm.progress = 0
 
-  $interval(() => {
-    if (vm.progress++ >= 100) {
-      vm.progress = 0
-    }
-  }, 100)
 
   return vm
 }
