@@ -14,19 +14,28 @@ angular.module('profitelo.directive.registration', [
 
 .controller('RegistrationDirectiveController', RegistrationDirectiveController)
 
-function RegistrationDirectiveController(AuthorizationService) {
+function RegistrationDirectiveController($stateParams) {
   var vm = this
+  if ($stateParams.token==="") {
+    console.log('jestem undefined')
+  }
   vm.registrationMetaData = {
-    step1: true
+    emailSended:  false,
+    step1:        true
   }
   vm.userData = {
     email: '',
-    password: '',
-    pin: ''
+    password: ''
   }
-  vm.step2 = () =>{
-    vm.registrationMetaData.step1 = false
-    AuthorizationService.register({email:vm.userData.email, password:vm.userData.password})
+
+
+
+  vm.sendEmail= () =>{
+    // TODO SEND EMAIL WITH LINK
+    vm.registrationMetaData.emailSended = true
+
+    // vm.registrationMetaData.step1 = false
+    // AuthorizationService.register({email:vm.userData.email, password:vm.userData.password})
 
   }
 

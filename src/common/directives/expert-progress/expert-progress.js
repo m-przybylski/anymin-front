@@ -23,7 +23,7 @@ function ExpertProgressDirectiveController() {
     uiTitle:      'EXPERT_PROGRESS.EXPERT.UISREF.TITLE',
     uiTitleDone:  'EXPERT_PROGRESS.EXPERT.UISREF.TITLE.DONE',
     uiSref:       'app.expert-profile',
-    status:       60,
+    status:       100,
     verify:       false
   }
   vm.box.services = {
@@ -34,7 +34,7 @@ function ExpertProgressDirectiveController() {
     uiTitleDone:  'EXPERT_PROGRESS.SERVICES.UISREF.TITLE.DONE',
     uiSref:       'app.services',
     status:       100,
-    verify:       true
+    verify:       false
   }
 
 
@@ -44,7 +44,7 @@ function ExpertProgressDirectiveController() {
     description:  'EXPERT_PROGRESS.VERIFICATION.DESCRIPTION',
     uiTitleDone:  'EXPERT_PROGRESS.VERIFICATION.UISREF.TITLE',
     uiSref:       'app.somewhere',
-    ableToSend:   false,
+    ableToSend:   true,
     sended:       false,
     verified:     false,
     accepted:     true

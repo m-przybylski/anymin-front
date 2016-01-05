@@ -3,7 +3,7 @@ angular.module('profitelo.controller.registration', [
 ])
 .config(($stateProvider) => {
   $stateProvider.state('app.registration', {
-    url: '/registration',
+    url: '/registration/:token',
     controllerAs: 'vm',
     controller: 'RegistrationController',
     templateUrl: 'registration/registration.tpl.html'

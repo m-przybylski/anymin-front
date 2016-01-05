@@ -2,9 +2,10 @@
   #loginbox.mainbox.col-md-6.col-md-offset-3.col-sm-8.col-sm-offset-2(style='margin-top:50px;')
     .panel.panel-info
       .panel-heading
-        .panel-title(data-ng-click="vm.step2()") Profitelo / Rejestracja
+        .panel-title Profitelo / Rejestracja
       .panel-body(style='padding-top:30px')
-        form#loginform.form-horizontal(role="form" name="registerForm")
+        p.text-center(data-ng-show="vm.registrationMetaData.emailSended") Email sended. Click on link my friend
+        form#loginform.form-horizontal(role="form" name="registerForm" data-ng-show="!vm.registrationMetaData.emailSended")
           .input-group(style='margin-bottom: 25px')
             span.input-group-addon
               i.fa.fa-envelope-o
@@ -17,7 +18,7 @@
             p.text-center lub
             p.text-center  Zaloguj się za pomocą fejsbuka
           .form-group.center-block(style='margin-top:10px')
-            input.btn.btn-info.col-lg-8.col-lg-offset-2(type="submit" data-ng-disabled="registerForm.$invalid" data-ng-click="vm.step2()")
+            input.btn.btn-info.col-lg-8.col-lg-offset-2(type="submit" data-ng-disabled="registerForm.$invalid" data-ng-click="vm.sendEmail()")
 
           div.text-center
             i.fa.fa-circle
