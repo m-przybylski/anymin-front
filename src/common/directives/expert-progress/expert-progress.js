@@ -11,11 +11,11 @@ angular.module('profitelo.directive.expert-progress', [
   }
 })
 
-.controller('ExpertProgressDirectiveController', ExpertProgressDirectiveController);
+.controller('ExpertProgressDirectiveController', ExpertProgressDirectiveController)
 
 function ExpertProgressDirectiveController() {
-  var vm = this;
-  vm.box = {};
+  var vm = this
+  vm.box = {}
   vm.box.expert = {
     number: '1',
     title:'EXPERT_PROGRESS.EXPERT.TITLE',
@@ -24,7 +24,7 @@ function ExpertProgressDirectiveController() {
     uiSref:'app.expert-profile',
     // probably number
     status:0
-  };
+  }
   vm.box.services = {
     number: '2',
     title:'EXPERT_PROGRESS.SERVICES.TITLE',
@@ -32,7 +32,7 @@ function ExpertProgressDirectiveController() {
     uiTitle:'EXPERT_PROGRESS.SERVICES.UISREF.TITLE',
     uiSref:'app.services',
     status: 100
-  };
+  }
   vm.box.verification = {
     number: '3',
     title: 'EXPERT_PROGRESS.VERIFICATION.TITLE',
@@ -41,6 +41,6 @@ function ExpertProgressDirectiveController() {
     uiSref:'app.somewhere',
     status: 0
   }
-  return vm;
+  return vm
 
 }

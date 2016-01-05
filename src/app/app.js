@@ -22,10 +22,14 @@ angular.module('profitelo', [
   'profitelo.directive.registration',
   'profitelo.directive.expert-progress',
   'profitelo.directive.proProgressBox',
+  'profitelo.directive.expert-profile',
+
 
   // rest
-  'profitelo.services.rest.accounts',
-  'profitelo.services.rest.registration',
+  'profitelo.api.accounts',
+  'profitelo.api.registration',
+  'profitelo.api.sessions',
+
   // translations
   'profitelo.translations.en-us',
   'profitelo.translations.pl-pl'
@@ -39,14 +43,14 @@ angular.module('profitelo', [
     abstract: true,
     controller: 'AppController',
     templateUrl: 'templates/app.tpl.html'
-  });
+  })
   $urlRouterProvider
     .when('', '/')
-    .when('/', '/home');
+    .when('/', '/home')
 
 
   // ngResource
-  $resourceProvider.defaults.stripTrailingSlashes = true;
+  $resourceProvider.defaults.stripTrailingSlashes = true
 
   // Toastr
   angular.extend(toastrConfig, {
@@ -76,7 +80,7 @@ angular.module('profitelo', [
     timeOut: 5000,
     titleClass: 'toast-title',
     toastClass: 'toast'
-  });
+  })
 
 
   /**
@@ -115,17 +119,17 @@ angular.module('profitelo', [
 
 .run(($rootScope) => {
   $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
-    console.log('$stateChangeError', error);
-  });
+    console.log('$stateChangeError', error)
+  })
 })
 
-.controller('AppController', AppController);
+.controller('AppController', AppController)
 
 
 function AppController($scope, $rootScope) {
-  var vm = this;
+  var vm = this
 
-  $rootScope.gitCommit = lastCommitMessage;
+  $rootScope.gitCommit = lastCommitMessage
 
-  return vm;
+  return vm
 }

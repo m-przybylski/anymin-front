@@ -52,7 +52,7 @@ config.test_files.js.forEach(function(val) {
 
 
 gulp.task('build-tests', function() {
-    return gulp.src(config.app_files.jsunit)
+    return gulp.src('src/' + config.variables.testing_dir + '**/*.spec.js')
         .pipe(plumber(function(error) {
             if (arguments.production) {
                 throw new Error(error.message);
@@ -73,7 +73,7 @@ gulp.task('run-karma', function(done) {
     ];
     sources.push(__dirname + '/../' + config.tests_dir + "/build/**/*.js");
     var files = vendorFiles.concat(sources);
-    karmaSettings.preprocessors[__dirname + '/../' + config.tests_dir + '/build/**/*.js'] = ['coverage'];
+    karmaSettings.preprocessors[__dirname + '/../' + config.compile_dir + '/' + config.variables.testing_dir + '**/*.js'] = ['coverage'];
     karmaSettings.coverageReporter['dir'] = __dirname + '/../' + config.tests_dir + '/test-coverage';
     return gulp.src(files).pipe(karma(karmaSettings));
 });

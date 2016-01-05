@@ -3,10 +3,10 @@ describe('Unit tests: expert-profile >', () => {
 
     var $scope = null
     var ExpertProfileController = null
-    var AccountsRestServiceResolver = null
+    var AccountsApiResolver = null
 
     beforeEach(() => {
-      AccountsRestServiceResolver = {
+      AccountsApiResolver = {
         'telcoLogin': '0000000',
         'email': 'admin@itelo.pl',
         'telcoPin': 1234,
@@ -39,7 +39,7 @@ describe('Unit tests: expert-profile >', () => {
           $scope: $scope,
           $rootScope: $rootScope,
           $state: $state,
-          AccountsRestServiceResolver: AccountsRestServiceResolver
+          Account: AccountsApiResolver
         })
       })
     })
@@ -49,8 +49,8 @@ describe('Unit tests: expert-profile >', () => {
     })
 
     describe('controller resolve services', () => {
-      it('AccountsRestServiceResolver should exsist', () => {
-        return expect(!!AccountsRestServiceResolver).toBe(true)
+      it('AccountsApiResolver should exsist', () => {
+        return expect(!!AccountsApiResolver).toBe(true)
       })
     })
 

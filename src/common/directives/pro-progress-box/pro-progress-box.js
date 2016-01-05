@@ -4,7 +4,7 @@ angular.module('profitelo.directive.proProgressBox', [
 .directive('proProgressBox', () =>{
   function link(scope, element) {
     if (scope.container.status === 100) {
-      element.css({'background-color':'lightgreen'});
+      element.css({'background-color':'lightgreen'})
     }
 
   }
@@ -19,10 +19,10 @@ angular.module('profitelo.directive.proProgressBox', [
   }
 })
 
-.controller('ProgressBoxDirectiveController', ProgressBoxDirectiveController);
+.controller('ProgressBoxDirectiveController', ProgressBoxDirectiveController)
 
 function ProgressBoxDirectiveController() {
-  var vm = this;
-  return vm;
+  var vm = this
+  return vm
 
 }

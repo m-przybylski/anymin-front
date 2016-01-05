@@ -7,5 +7,5 @@ angular.module('profitelo.controller.expert-progress', [
     controllerAs: 'vm',
     controller: '',
     templateUrl: 'expert-progress/expert-progress.tpl.html'
-  });
-});
+  })
+})
