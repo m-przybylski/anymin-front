@@ -72,6 +72,7 @@ gulp.task('run-karma', function (done) {
     __dirname + '/../' + config.compile_dir + '/assets/gitcommit.js',
     __dirname + '/../' + config.compile_dir + '/app/**/*.js',
     __dirname + '/../' + config.compile_dir + '/common/**/*.js',
+    '!' + __dirname + '/../' + config.compile_dir + '/common/translations/**/*.js',
     __dirname + '/../' + config.compile_dir + '/' + config.tpl_name,
     __dirname + '/../' + config.tests_dir + '/build/**/*.js'
   ]
