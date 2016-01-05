@@ -13,16 +13,19 @@ angular.module('profitelo', [
 
   // controllers
   'profitelo.controller.dashboard',
+  'profitelo.controller.dashboard.service-wizard',
   'profitelo.controller.home',
   'profitelo.controller.expert-profile',
   'profitelo.controller.expert-progress',
   'profitelo.controller.registration',
+
 
   // directives
   'profitelo.directive.registration',
   'profitelo.directive.expert-progress',
   'profitelo.directive.proProgressBox',
   'profitelo.directive.expert-profile',
+  'profitelo.directives.proProgressBar',
 
 
   // rest
