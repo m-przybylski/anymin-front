@@ -58,5 +58,5 @@ rules:
   // Variables
   "no-undefined": 2
   "no-use-before-define": 2
-  "no-unused-vars": [2, {"vars": "local", "args": "after-used"}]
+  "no-unused-vars": [0, {"vars": "local", "args": "after-used"}]
   "no-shadow": [1, {"builtinGlobals": false, "hoist": "functions", "allow": []}]
