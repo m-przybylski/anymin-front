@@ -5,7 +5,7 @@ angular.module('profitelo.api.sessions', [
 .factory('SessionsApi', SessionsApi)
 
 function SessionsApi($resource, CommonSettingsService) {
-  return $resource(CommonSettingsService.get('apiUrl') + '/sessions', null, {
+  return $resource(CommonSettingsService.get('apiUrl') + '/session', null, {
     'get':    {method: 'GET', isArray: false},
     'save':   {method: 'POST'},
     'query':  {method: 'GET', isArray: true},
