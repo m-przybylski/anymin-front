@@ -51,6 +51,7 @@ function _prepareVerifyBox(container, vm) {
     ableToSend:       _ableToSend,
     displayDefault:   _displayDefault,
     rejected:         _rejected,
+    accepted:         _accepted,
     inProgress:       _inProgress
   }
 
