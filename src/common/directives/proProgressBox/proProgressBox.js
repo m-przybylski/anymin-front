@@ -9,7 +9,7 @@ angular.module('profitelo.directive.proProgressBox', [
 
   }
   return {
-    templateUrl:  'directives/pro-progress-box/pro-progress-box.tpl.html',
+    templateUrl:  'directives/proProgressBox/proProgressBox.tpl.html',
     restrict:     'A',
     scope:        { container: '='},
     controller:   'ProgressBoxDirectiveController',
