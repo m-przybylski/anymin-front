@@ -1,10 +1,10 @@
-angular.module('profitelo.directive.registration', [
+angular.module('profitelo.directive.proRegistration', [
 
 ])
 
 .directive('proRegistration', () =>{
   return {
-    templateUrl:  'directives/registration/registration.tpl.html',
+    templateUrl:  'directives/proRegistration/proRegistration.tpl.html',
     restrict:     'A',
     controller:   'RegistrationDirectiveController',
     controllerAs: 'vm',

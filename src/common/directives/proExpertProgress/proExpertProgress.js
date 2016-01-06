@@ -1,9 +1,9 @@
-angular.module('profitelo.directive.expertProgress', [
+angular.module('profitelo.directive.proExpertProgress', [
 ])
 
 .directive('proExpertProgress', () =>{
   return {
-    templateUrl:  'directives/expertProgress/expertProgress.tpl.html',
+    templateUrl:  'directives/proExpertProgress/proExpertProgress.tpl.html',
     restrict:     'A',
     controller:   'ExpertProgressDirectiveController',
     controllerAs: 'vm',
