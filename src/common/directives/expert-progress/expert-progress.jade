@@ -11,12 +11,15 @@ span.expert-progress.text-center
 
     // unique box
     div.pull-left.col-lg-3.box
-      div.round
-        p.center-in-circle(data-ng-show='vm.verifyBox.verified && !vm.verifyBox.accepted')
+      div.round(data-ng-class='{rejectedCircle: vm.verifyBox.rejected}')
+        p.center-in-circle(data-ng-show='vm.verifyBox.rejected')
           i.fa.fa-times
-        p.center-in-circle(data-ng-show='!vm.verifyBox.verified') {{ vm.verifyBox.number }}
-      h3.box-title {{ vm.verifyBox.title | translate }}
-      p(data-ng-show='!vm.verifyBox.sended') {{ vm.verifyBox.description | translate }}
-      p(data-ng-show='vm.verifyBox.sended && !vm.verifyBox.verified') {{ vm.verifyBox.description | translate }}
-      p(data-ng-show='!vm.verifyBox.accepted') {{ vm.verifyBox.description | translate }}
-      a(data-ng-show='vm.verifyBox.ableToSend' data-ui-sref='{{vm.verifyBox.uiSref}}') {{ vm.verifyBox.uiTitleDone | translate }}
+        p.center-in-circle(data-ng-hide='vm.verifyBox.rejected') {{ vm.verifyBox.number }}
+      h3.rejected.box-title {{ vm.verifyBox.title | translate }}
+      p(data-ng-show='vm.verifyBox.displayDefault') {{ vm.verifyBox.description | translate }}
+      p(data-ng-show='vm.verifyBox.inProgress') PROFIL W TRAKCIE WERYFIKACJI
+      p.text-left(data-ng-show='vm.verifyBox.rejected' data-ng-repeat="singleError in vm.verifyBox.feedback")  {{ ($index+1)+' '+singleError }}
+      a(data-ng-show='vm.verifyBox.ableToSend && vm.verifyBox.displayDefault' data-ui-sref='{{vm.verifyBox.uiSref}}') {{ vm.verifyBox.uiTitleDone | translate }}
+
+
+

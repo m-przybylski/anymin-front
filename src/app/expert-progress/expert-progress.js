@@ -8,7 +8,6 @@ angular.module('profitelo.controller.expert-progress', [
 
 
 function AccountStatusApiResolver($q, SessionsApi, AccountsStatusApi) {
-  console.log('tutaj')
   var deferred = $q.defer()
   SessionsApi.get().$promise.then(function(response) {
     AccountsStatusApi.query({telcoLogin: response.telcoLogin}).$promise.then(function(result) {
