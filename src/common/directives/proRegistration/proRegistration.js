@@ -1,20 +1,3 @@
-angular.module('profitelo.directive.proRegistration', [
-
-])
-
-.directive('proRegistration', () =>{
-  return {
-    templateUrl:  'directives/proRegistration/proRegistration.tpl.html',
-    restrict:     'A',
-    controller:   'RegistrationDirectiveController',
-    controllerAs: 'vm',
-    scope:        {step1:'='},
-    replace:      true
-  }
-})
-
-.controller('RegistrationDirectiveController', RegistrationDirectiveController)
-
 function RegistrationDirectiveController($scope, $state, $stateParams, AuthorizationService) {
   var vm = this
 
@@ -57,3 +40,28 @@ function RegistrationDirectiveController($scope, $state, $stateParams, Authoriza
   return vm
 
 }
+
+angular.module('profitelo.directive.proRegistration', [
+  'ngMessages',
+  'authorization',
+  'templates-module',
+  'pascalprecht.translate',
+  'tmh.dynamicLocale',
+  'ngAnimate',
+  'toastr',  // some parts depends on ngAnimate
+  'ngCookies'
+])
+
+.directive('proRegistration', () =>{
+  return {
+    templateUrl:  'directives/proRegistration/proRegistration.tpl.html',
+    restrict:     'A',
+    controller:   RegistrationDirectiveController,
+    controllerAs: 'vm',
+    scope:        {step1:'='},
+    replace:      true
+  }
+})
+
+
+
