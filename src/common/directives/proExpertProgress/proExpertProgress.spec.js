@@ -8,13 +8,13 @@ describe('Unit testing: profitelo.directive.proExpertProgress', () => {
 
 
     var _accountSession = {
-      "profileProgressPercentage": 25,
-      "serviceProgressPercentage": 36,
-      "verification": {
-        "status": "IN_PROGRESS",
-        "details": [
-          "Nieodpowiednie zdjęcie profilowe",
-          "Ubogi opis"
+      profileProgressPercentage: 25,
+      serviceProgressPercentage: 36,
+      verification: {
+        status: 'IN_PROGRESS',
+        details: [
+          'Nieodpowiednie zdjęcie profilowe',
+          'Ubogi opis'
         ]
       }
     }
