@@ -14,7 +14,6 @@ angular.module('profitelo.controller.dashboard', [
 
 function DashboardController() {
   var vm = this
-  console.log("It's WORKING! DashboardController")
 
 
   return vm

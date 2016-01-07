@@ -21,8 +21,8 @@ angular.module('profitelo', [
 
 
   // directives
-  'profitelo.directive.registration',
-  'profitelo.directive.expert-progress',
+  'profitelo.directive.proRegistration',
+  'profitelo.directive.proExpertProgress',
   'profitelo.directive.proProgressBox',
   'profitelo.directive.expert-profile',
   'profitelo.directives.proProgressBar',
@@ -32,7 +32,7 @@ angular.module('profitelo', [
   'profitelo.api.accounts',
   'profitelo.api.registration',
   'profitelo.api.sessions',
-
+  'profitelo.api.accountsStatus',
   // translations
   'profitelo.translations.en-us',
   'profitelo.translations.pl-pl'

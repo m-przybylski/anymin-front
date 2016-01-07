@@ -6,7 +6,8 @@ angular.module('profitelo.api.registration', [
 .factory('RegistrationApi', RegistrationApi)
 
 function RegistrationApi($resource, CommonSettingsService) {
-  return $resource(CommonSettingsService.get('apiUrl') + '/registration', {}, {
-    'save':   {method: 'POST'}
+  return $resource(CommonSettingsService.get('apiUrl') + '/registration/:token', {token: '@token'}, {
+    'save':       {method: 'POST'},
+    'checkToken': {method: 'GET'}
   })
 }
