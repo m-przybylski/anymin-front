@@ -4,31 +4,79 @@ describe('Unit tests: expert-profile >', () => {
     var $scope = null
     var ExpertProfileController = null
     var AccountsApiResolver = null
+    var ProfilesApiResolver = null
 
     beforeEach(() => {
+      // single account data
       AccountsApiResolver = {
         'telcoLogin': '0000000',
         'email': 'admin@itelo.pl',
+        'password': 'password',
         'telcoPin': 1234,
+        'apiKey': 'string',
         'createdAt': '1970-01-01T00:00:00',
-        'lastLoggedAt' : '2015-12-17T20:10:17.681',
-        'isBlocked': 0,
-        'isDeleted': 0,
-
-        'organizations': {
-          'profiles': [
-            {
-              'url': 'http://api.profitelo.pl/accounts/4941258/',
-              'servicesUrl': 'http://api.profitelo.pl/accounts/4941258/services/',
-              'messagesUrl': 'http://api.profitelo.pl/accounts/4941258/messages/',
-              'phonesUrl': 'http://api.profitelo.pl/accounts/4941258/phones/',
-              'currency': 'PLN',
-              'language': 'en_EN',
-              'generalInfo': 'bla bla bla, it\'s should a very long text but it\'s not'
-            }
-          ]
+        'lastLoggedAt': '2015-12-17T20:10:17.681',
+        'isBlocked': false,
+        'isDeleted': false,
+        'config': {
+          'agreeAudioRecord': false,
+          'agreeProcessData': false,
+          'agreeSendCommercialInformation': false,
+          'agreeVideoRecord': false,
+          'emailChargebacksAndReclamations': false,
+          'emailFinance': false,
+          'emailMarksAndComments': false,
+          'emailRating': false,
+          'emailUpcomingTerms': false,
+          'ivrChosenCategory': false,
+          'ivrCostEstimation': false,
+          'ivrPrice': false,
+          'ivrRecording': false
+        },
+        'status': {
+          'wizardComplete': false
         }
       }
+
+      ProfilesApiResolver = [
+        {
+          'url': '/organizations/{organizationId}/profiles/{profileId}',
+          'organization': {
+            'ownerId': 'UUID'
+          },
+          'isActive': true,
+          'contract': {
+            'current': {
+              'serviceId': 'UUID',
+              'type': 'FREELANCER',
+              'group': '',
+              'margin': '.6',
+              'calendar': {
+                'terms': [
+                  {
+                    'repeat': 'EVERYDAY|EVERYWORKDAY|EVERYWEEKEND|WEEKLY',
+                    'isExclusive': false,
+                    'dayOfWeek': 'dayOfweek',
+                    'from': 'time',
+                    'to': 'time'
+                  }
+                ]
+              }
+            },
+            'toAccept': {}
+          },
+          'msisdn': '48515515515',
+          'details': {
+            'current': {
+              'name': 'name',
+              'description': 'description',
+              'avatarFileId': 'UUID',
+              'coverFileId': 'UUID'
+            },
+            'toVerify': {}
+          }
+        }
+      ]
     })
 
     beforeEach(() => {
@@ -39,7 +87,8 @@ describe('Unit tests: expert-profile >', () => {
           $scope: $scope,
           $rootScope: $rootScope,
           $state: $state,
-          Account: AccountsApiResolver
+          AccountsApiResolver: AccountsApiResolver,
+          ProfilesApiResolver: ProfilesApiResolver
         })
       })
     })

@@ -3,7 +3,8 @@ function ExpertProfileDirectiveController($scope, $filter, $timeout, $http, Uplo
 
   vm.pending = false
 
-  var _account = $scope.account
+  var _account    = $scope.account
+  var _userProfiles   = $scope.userProfiles
 
   // public variables
   vm.profile = {}
@@ -12,7 +13,7 @@ function ExpertProfileDirectiveController($scope, $filter, $timeout, $http, Uplo
 
   // store only form data
   vm.profile.formdata = {}
-  vm.profile.formdata.generalInfo = _account.organizations.profiles[0].generalInfo
+  vm.profile.formdata.generalInfo = ''
 
   vm.log = ''
   vm.profile.formdata.coverFile = ''
@@ -133,7 +134,8 @@ angular.module('profitelo.directive.expert-profile', [
     controller: ExpertProfileDirectiveController,
     controllerAs: 'vm',
     scope: {
-      account: '='
+      account:      '=',
+      userProfile:  '='
     }
   }
 })

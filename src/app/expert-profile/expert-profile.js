@@ -1,7 +1,8 @@
 angular.module('profitelo.controller.expert-profile', [
   'ui.router',
   'profitelo.api.accounts',
-  'profitelo.api.sessions'
+  'profitelo.api.sessions',
+  'profitelo.api.profiles'
 ])
 .config(config)
 .controller('ExpertProfileController', ExpertProfileController)
@@ -20,6 +21,16 @@ function AccountsApiResolver($q, SessionsApi, AccountsApi) {
   return deferred.promise
 }
 
+function ProfilesApiResolver($q, ProfilesApi) {
+  var deferred = $q.defer()
+  ProfilesApi.get({profileId: '000000'}).$promise.then((profilesApiResponse) => {
+    deferred.resolve(profilesApiResponse)
+  }, (profilesApiError) => {
+    deferred.reject(profilesApiError)
+  })
+  return deferred.promise
+}
+
 function config($stateProvider) {
   $stateProvider.state('app.expert-profile', {
     url: '/expert-profile',
@@ -27,15 +38,17 @@ function config($stateProvider) {
     controller: 'ExpertProfileController',
     controllerAs: 'vm',
     resolve: {
-      Account: AccountsApiResolver
+      AccountsApiResolver: AccountsApiResolver,
+      ProfilesApiResolver: ProfilesApiResolver
     }
   })
 }
 
-function ExpertProfileController(Account) {
+function ExpertProfileController(AccountsApiResolver, ProfilesApiResolver) {
 
   var vm = this
 
-  vm.account = Account
+  vm.account        = AccountsApiResolver
+  vm.userProfile    = ProfilesApiResolver
 
 }

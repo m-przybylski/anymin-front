@@ -33,6 +33,7 @@ angular.module('profitelo', [
   'profitelo.api.registration',
   'profitelo.api.sessions',
   'profitelo.api.accountsStatus',
+
   // translations
   'profitelo.translations.en-us',
   'profitelo.translations.pl-pl'
