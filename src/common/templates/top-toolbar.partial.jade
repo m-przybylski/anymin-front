@@ -7,7 +7,8 @@ nav.navbar
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      a.navbar-brand(data-ui-sref="app.dashboard") Profitelo
+      a.navbar-brand(data-ui-sref="app.dashboard")
+        img(src="assets/logo.png" alt="profitelo logo")
     #navbar.navbar-collapse.collapse.top-navbar
       ul.nav.navbar-nav.navbar-right
         //li.disabled
@@ -17,6 +18,7 @@ nav.navbar
         li.disabled
           a(href="" data-ui-sref="app.messages")
             i.fa.fa-bell
+              span.badge 3
         li.disabled
           a(href="" data-ui-sref="app.favourite")
             i.fa.fa-heart
@@ -25,7 +27,7 @@ nav.navbar
             .pull-left.user-details
               span John Doe <br/>
               span ID 012 345
-            .pull-left
+            .pull-left.avatar
               i.fa.fa-user.fa-3x
 
             span.caret
@@ -42,16 +44,16 @@ nav.navbar
     .section.nav.pull-left
       ul.nav.navbar-nav.navbar-left
         li
-          a Home
+          a(data-ui-sref="app.home") Home
         li
-          a Dashboard
+          a(data-ui-sref="app.dashboard.start") Dashboard
         li
           a Konsultacje
         li
           a Finanse
     .section.search.pull-left
       form
-        i.fa.fa-search
+        i.fa.fa-search.fa-2x
         input(type="text" placeholder="Znajdź eksperta z branży(pediatra, mechanik, ...)")
     .section.database.pull-left
       a Baza ekspertów
