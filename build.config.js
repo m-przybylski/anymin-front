@@ -9,13 +9,13 @@ module.exports = {
   tpl_module: 'templates-module',
   project_theme_name: 'profitelo_theme',
   variables: {
-    tests: !!((typeof argv.tests === "undefined") || (argv.tests === true)),
-    docs: !!((typeof argv.docs === "undefined") || (argv.docs === true)),
-    uglify: !!((typeof argv.uglify === "undefined") || (argv.uglify === true)),
+    tests: !!((typeof argv.tests === 'undefined') || (argv.tests === true)),
+    docs: !!((typeof argv.docs === 'undefined') || (argv.docs === true)),
+    uglify: !!((typeof argv.uglify === 'undefined') || (argv.uglify === true)),
     production: false,
     b2d: false,
     jadeCache: true,
-    testing_dir: typeof argv['testing-dir'] === "undefined" ? '/' :  argv['testing-dir'] + '/'
+    testing_dir: typeof argv['testing-dir'] === 'undefined' ? '/' :  argv['testing-dir'] + '/'
 
   },
   app_files: {
@@ -34,17 +34,17 @@ module.exports = {
   },
   vendor_files: {
     js: [
-      "node_modules/jquery/dist/jquery.js",
+      'node_modules/jquery/dist/jquery.js',
       'node_modules/lodash/index.js',
-      "node_modules/bootstrap-sass/assets/javascripts/bootstrap.js",
-      "node_modules/angular/angular.js",
-      "node_modules/ui-router/release/angular-ui-router.js",
-      "node_modules/angular-resource/angular-resource.js",
-      "node_modules/angular-messages/angular-messages.js",
-      "node_modules/angular-animate/angular-animate.js",
-      "node_modules/ng-file-upload/dist/ng-file-upload-all.js",
-      "node_modules/angular-toastr/dist/angular-toastr.js",
-      "node_modules/angular-toastr/dist/angular-toastr.tpls.js",
+      'node_modules/bootstrap-sass/assets/javascripts/bootstrap.js',
+      'node_modules/angular/angular.js',
+      'node_modules/ui-router/release/angular-ui-router.js',
+      'node_modules/angular-resource/angular-resource.js',
+      'node_modules/angular-messages/angular-messages.js',
+      'node_modules/angular-animate/angular-animate.js',
+      'node_modules/ng-file-upload/dist/ng-file-upload-all.js',
+      'node_modules/angular-toastr/dist/angular-toastr.js',
+      'node_modules/angular-toastr/dist/angular-toastr.tpls.js',
 
       'node_modules/angular-translate/dist/angular-translate.js',
       'node_modules/messageformat/messageformat.js',
