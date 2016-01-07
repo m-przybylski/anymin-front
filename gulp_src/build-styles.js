@@ -9,7 +9,7 @@ var gulpif  = require('gulp-if');
 var connect = require('gulp-connect');
 
 gulp.task('build-styles', function() {
-    return gulp.src('src/template/' + config.project_theme_name + "/sass/main.sass")
+    return gulp.src('src/template/' + config.project_theme_name + "/stylesheets/main.sass")
         .pipe(sass({
             indentedSyntax: true
         }).on('error', sass.logError))

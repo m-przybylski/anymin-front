@@ -1,5 +1,5 @@
 var config      = require('../build.config');
-
+var sourcemaps = require('gulp-sourcemaps');
 var gulp        = require('gulp');
 var babel       = require('gulp-babel');
 var annotate    = require('gulp-ng-annotate');
@@ -18,10 +18,12 @@ gulp.task('transpile-scripts', function() {
             }
         }))
         .pipe(cache('coffeeBuild'))
+        .pipe(sourcemaps.init())
         .pipe(babel({
             presets: ['es2015']
         }))
         .pipe(annotate())
+        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(config.compile_dir))
         .pipe(connect.reload());
 
