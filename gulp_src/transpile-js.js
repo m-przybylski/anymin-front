@@ -33,7 +33,8 @@ gulp.task('eslinter-js', function () {
   return gulp.src([
     'src/**/*.js',
     '!src/**/*.spec.js',
-    '!src/assets/gitcommit.js'
+    '!src/assets/gitcommit.js',
+    '!src/common/translations/*',  // translation object can contain generated JSON obj from Translaton Manager
   ])
   .pipe(plumber())
   .pipe(eslint())
