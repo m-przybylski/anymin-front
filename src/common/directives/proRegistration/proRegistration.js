@@ -9,31 +9,20 @@ function RegistrationDirectiveController($scope, $state, $stateParams, Authoriza
     email: '',
     password: ''
   }
-
   if (!vm.registrationMetaData.step1) {
     AuthorizationService.checkToken($stateParams).then(()=>{
-      // token OK
-
-
     }, (error) => {
-      // redirecting to home, token is wrong!
-
-
       console.log(error)
       $state.go('app.home')
     })
   }
 
-  vm.sendEmail= () =>{
-    // TODO SEND EMAIL WITH LINK
+  vm.sendEmail = () =>{
     AuthorizationService.register({email:vm.userData.email, password:vm.userData.password}).then(()=>{
       vm.registrationMetaData.emailSended = true
-
     }, (error) =>{
       console.log('could not send email', error)
     })
-
-
   }
 
 
@@ -42,14 +31,12 @@ function RegistrationDirectiveController($scope, $state, $stateParams, Authoriza
 }
 
 angular.module('profitelo.directive.proRegistration', [
-  'ngMessages',
+  'ui.router',
   'authorization',
-  'templates-module',
-  'pascalprecht.translate',
-  'tmh.dynamicLocale',
-  'ngAnimate',
-  'toastr',  // some parts depends on ngAnimate
-  'ngCookies'
+  'ngCookies',
+
+  'profitelo.api.sessions',
+  'profitelo.api.registration'
 ])
 
 .directive('proRegistration', () =>{
