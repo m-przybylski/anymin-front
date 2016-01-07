@@ -1,4 +1,6 @@
 angular.module('profitelo.directive.proExpertProgress', [
+  'ui.router',
+  'pascalprecht.translate'
 ])
 
 .directive('proExpertProgress', () =>{
@@ -15,10 +17,10 @@ angular.module('profitelo.directive.proExpertProgress', [
 .controller('ExpertProgressDirectiveController', ExpertProgressDirectiveController)
 
 function _validateStatus(obj) {
-  if (isNaN(obj.profileProgressPercentage)) {
+  if (isNaN(parseInt(obj.profileProgressPercentage, 10))) {
     obj.profileProgressPercentage = 0
   }
-  if (isNaN(obj.profileProgressPercentage)) {
+  if (isNaN(parseInt(obj.serviceProgressPercentage, 10))) {
     obj.serviceProgressPercentage = 0
   }
 
@@ -54,12 +56,10 @@ function _prepareVerifyBox(container, vm) {
     accepted:         _accepted,
     inProgress:       _inProgress
   }
-
 }
 function ExpertProgressDirectiveController($scope) {
   var vm = this
   _validateStatus($scope.container)
-  console.log($scope.container)
   vm.container = $scope.container
   vm.box = {}
   vm.box.expert = {
@@ -82,14 +82,6 @@ function ExpertProgressDirectiveController($scope) {
     status:       vm.container.serviceProgressPercentage,
     verify:       false
   }
-
-  // "verification": {
-  //  "status": "IN_PROGRESS|ACCEPTED|REJECTED",
-  //    "details": [
-  //    "Nieodpowiednie zdjęcie profilowe",
-  //    "Ubogi opis"
-  //  ]
-  // }
 
   _prepareVerifyBox(vm.container, vm)
 
