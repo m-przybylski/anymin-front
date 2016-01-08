@@ -29,7 +29,7 @@ angular.module('profitelo', [
   'profitelo.directive.proRegistration',
   'profitelo.directive.proExpertProgress',
   'profitelo.directive.proProgressBox',
-  'profitelo.directives.proProgressBar',
+  'profitelo.directives.pro-progress-bar',
   'profitelo.directives.pro-expert-profile',
 
   // rest
