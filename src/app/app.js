@@ -48,12 +48,18 @@ angular.module('profitelo', [
     controller: 'AppController',
     templateUrl: 'templates/app.tpl.html',
     resolve: {
-      typeKit: () => {
+      typeKit: ($q) => {
+
+        var deferred = $q.defer()
+
         function adobeTypekit(d) {
           let config = {
               kitId: 'gxk2sou',
               scriptTimeout: 3000,
-              async: true
+              async: true,
+              active: function() {
+                deferred.resolve()
+              }
             },
             h = d.documentElement, t = setTimeout(() => {
               h.className = h.className.replace(/\bwf-loading\b/g, '') + ' wf-inactive'
@@ -71,12 +77,14 @@ angular.module('profitelo', [
             try {
               Typekit.load(config)
             } catch (e) {
-              console.log(e)
+              deferred.reject(e)
             }
           }
           s.parentNode.insertBefore(tk, s)
         }
         adobeTypekit(document)
+
+        return deferred.promise
       }
     }
   })
