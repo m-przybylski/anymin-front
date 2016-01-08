@@ -113,7 +113,7 @@ function ExpertProfileDirectiveController($scope, $filter, $timeout, $http, Uplo
   return vm
 }
 
-angular.module('profitelo.directive.expert-profile', [
+angular.module('profitelo.directives.pro-expert-profile', [
   'ngFileUpload',
   'ngAnimate',
   'toastr',  // some parts depends on ngAnimate
@@ -127,16 +127,18 @@ angular.module('profitelo.directive.expert-profile', [
   'profitelo.directives.proWaitingSpinnerDiv'
 ])
 
-.directive('expertProfile', () => {
+.directive('pro-expert-profile', () => {
   return {
-    templateUrl: 'directives/expert-profile/expert-profile.tpl.html',
-    replace: true,
-    controller: ExpertProfileDirectiveController,
-    controllerAs: 'vm',
+    replace:        true,
+    templateUrl:    'directives/pro-expert-profile/pro-expert-profile.tpl.html',
+    controller:     ExpertProfileDirectiveController,
+    controllerAs:   'vm',
     scope: {
       account:      '=',
       userProfile:  '='
     }
   }
 })
+
+.controller('ExpertProfileDirectiveController', ExpertProfileDirectiveController)
 
