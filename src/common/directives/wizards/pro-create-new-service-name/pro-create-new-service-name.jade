@@ -1,0 +1,10 @@
+.container
+  form(novalidate="" role="form" name="createNewServiceForm" data-ng-submit="vm.sendAndGoNext()")
+    .row
+      .col-sm-12
+        .input-group-lg
+          input.form-control(type="text" name="fullname" placeholder="{{ 'some text' | translate }}" data-ng-model="vm.formdata.name" data-ng-required="true")
+        .text-validation.text-danger(data-ng-show="(createNewServiceForm.serviceNameInput.$dirty && createNewServiceForm.serviceNameInput.$invalid || vm.submitted) && createNewServiceForm.serviceNameInput.$error.required")
+          | {{ 'WIZARDS.CREATE_NEW_SERVICE.VALIDATION.SERVICE_NAME_REQUIRED' | translate }}
+
+

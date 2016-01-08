@@ -4,10 +4,7 @@ function proProgressBox() {
 
 }
 
-
-angular.module('profitelo.directive.proProgressBox', [
-])
-
+angular.module('profitelo.directive.proProgressBox', [])
 .directive('proProgressBox', () =>{
   function link(scope, element) {
     if (scope.container.status === 100) {
