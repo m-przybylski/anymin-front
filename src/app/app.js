@@ -15,10 +15,13 @@ angular.module('profitelo', [
   'profitelo.controller.dashboard',
   'profitelo.controller.dashboard.start',
   'profitelo.controller.dashboard.service-wizard',
+
   'profitelo.controller.home',
   'profitelo.controller.expert-profile',
   'profitelo.controller.expert-progress',
   'profitelo.controller.registration',
+  'profitelo.controller.wizards',
+  'profitelo.controller.wizards.create-new-service',
 
 
   // directives
@@ -26,9 +29,8 @@ angular.module('profitelo', [
   'profitelo.directive.proRegistration',
   'profitelo.directive.proExpertProgress',
   'profitelo.directive.proProgressBox',
-  'profitelo.directive.expert-profile',
   'profitelo.directives.proProgressBar',
-
+  'profitelo.directives.pro-expert-profile',
 
   // rest
   'profitelo.api.accounts',
