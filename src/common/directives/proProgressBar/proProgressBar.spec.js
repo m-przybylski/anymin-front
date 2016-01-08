@@ -4,8 +4,8 @@ describe('Unit testing: profitelo.directives.proProgressBar', function() {
     var compile = null
     var scope = null
 
-    var validHTML = '<div data-pro-progress-bar="\'40\'"></div>'
-    var validHTMLEmpty = '<div data-pro-progress-bar=""></div>'
+    var validHTML = '<div data-pro-progress-bar="progress" data-caption="caption"></div>'
+    var validHTMLEmpty = '<div data-pro-progress-bar=""  data-caption="caption"></div>'
 
     beforeEach(function() {
       module('templates-module')
@@ -19,6 +19,10 @@ describe('Unit testing: profitelo.directives.proProgressBar', function() {
 
     function create(html) {
       var elem = angular.element(html)
+
+      scope.caption   = "TRANSLATE.STRING"
+      scope.progress  = 40
+
       var compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
@@ -39,7 +43,6 @@ describe('Unit testing: profitelo.directives.proProgressBar', function() {
       el = create(validHTMLEmpty)
       expect(el.html()).toBeDefined(true)
     })
-
 
 
   })
