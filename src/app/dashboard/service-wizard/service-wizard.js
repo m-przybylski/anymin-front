@@ -15,7 +15,7 @@ angular.module('profitelo.controller.dashboard.service-wizard', [
 function ServiceWizardController($interval) {
   var vm = this
 
-  vm.progress = 0
+  vm.progress = 30
 
 
   return vm

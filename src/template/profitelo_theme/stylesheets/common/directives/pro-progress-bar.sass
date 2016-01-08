@@ -1,0 +1,33 @@
+.pro-progress-bar
+  position: fixed
+  bottom:   0
+  left:     0
+  width:    100%
+  background-color: $c-light-background
+  border-top: 1px solid $c-secondary-text
+  padding: 50px 110px
+  text-transform: uppercase
+
+  .pro-progress-bar-inner
+    margin: 0 auto
+    width: 100%
+    max-width: $max-width
+
+  .caption
+    width: 100%
+    font-size: 20px
+    color: $c-secondary-text
+
+  .progress-line-background
+    $progress-line-height: 2px
+
+    width: 80%
+    height: $progress-line-height
+    background-color: $c-secondary-text
+    position: relative
+    margin-top: 10px
+    .progress-line
+      position: absolute
+      left: 0
+      background-color: $c-primary
+      height: $progress-line-height

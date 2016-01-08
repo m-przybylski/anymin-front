@@ -1,13 +1,18 @@
-function proProgressBarController($scope) {
+function proProgressBarLink(scope) {
 
-  var vm = this
-  vm.progress = $scope.progress
-
-  if (!vm.progress) {
-    vm.progress = 0
+  if (scope.caption.length === 0) {
+    throw new Error('proProgressBar needs caption parameter to work.')
   }
-  return vm
 
+  if (!scope.progress) {
+    scope.progress = {
+      value: 0
+    }
+  } else {
+    scope.progress = {
+      value: scope.progress
+    }
+  }
 
 }
 
@@ -19,10 +24,10 @@ angular.module('profitelo.directives.proProgressBar', [
     restrict:     'EA',
     replace:      true,
     templateUrl:  'directives/proProgressBar/proProgressBar.tpl.html',
-    controller:   proProgressBarController,
-    controllerAs: 'vm',
+    link: proProgressBarLink,
     scope: {
-      progress: '=?proProgressBar'
+      progress: '=?proProgressBar',
+      caption: '@'
     }
   }
 })
