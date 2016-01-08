@@ -1,4 +1,4 @@
-describe('Unit testing: profitelo.directives.proProgressBar', function() {
+describe('Unit testing: profitelo.directives.pro-progress-bar', function() {
   return describe('for expertProfile directive >', function() {
 
     var compile = null
@@ -9,7 +9,7 @@ describe('Unit testing: profitelo.directives.proProgressBar', function() {
 
     beforeEach(function() {
       module('templates-module')
-      module('profitelo.directives.proProgressBar')
+      module('profitelo.directives.pro-progress-bar')
 
       inject(function($rootScope, $compile) {
         scope = $rootScope.$new()
