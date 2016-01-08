@@ -4,6 +4,7 @@ angular.module('profitelo.controller.dashboard', [
 .config(($stateProvider) =>{
   $stateProvider.state('app.dashboard', {
     controllerAs: 'vm',
+    abstract: true,
     url: '/dashboard',
     templateUrl: 'dashboard/dashboard.tpl.html',
     controller: 'DashboardController'

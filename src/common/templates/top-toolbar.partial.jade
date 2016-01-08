@@ -1,30 +1,35 @@
 //- Fixed navbar
-nav.navbar.navbar-default.navbar-fixed-top
+nav.navbar
   .container
     .navbar-header
-      button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#navbar", aria-expanded="false", aria-controls="navbar")
+      button.navbar-toggle.collapsed(type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar")
         span.sr-only Toggle navigation
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      a.navbar-brand(data-ui-sref="app.dashboard") Profitelo
-    #navbar.navbar-collapse.collapse
+      a.navbar-brand(data-ui-sref="app.dashboard")
+        img(src="assets/logo.png" alt="profitelo logo")
+    #navbar.navbar-collapse.collapse.top-navbar
       ul.nav.navbar-nav.navbar-right
-        li.disabled
-          a Client
-        li.disabled
-          a Expert
+        //li.disabled
+        //  a Client
+        //li.disabled
+        //  a Expert
         li.disabled
           a(href="" data-ui-sref="app.messages")
             i.fa.fa-bell
+              span.badge 3
         li.disabled
           a(href="" data-ui-sref="app.favourite")
             i.fa.fa-heart
-        li.dropdown.active
-          a.dropdown-toggle(href="", data-toggle="dropdown", role="button", aria-haspopup="true", aria-expanded="false")
-            i.fa.fa-user
-            |  John Doe
-            | (ID 012345)
+        li.dropdown.active.user-panel
+          .dropdown-toggle.clearfix(data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false")
+            .pull-left.user-details
+              span John Doe <br/>
+              span ID 012 345
+            .pull-left.avatar
+              i.fa.fa-user.fa-3x
+
             span.caret
           ul.dropdown-menu
             li
@@ -34,3 +39,23 @@ nav.navbar.navbar-default.navbar-fixed-top
             li.divider(role="separator")
             li.disabled
               a(href="") Logout
+
+  .container.bottom-navbar.clearfix
+    .section.nav.pull-left
+      ul.nav.navbar-nav.navbar-left
+        li
+          a(data-ui-sref="app.home") Home
+        li
+          a(data-ui-sref="app.dashboard.start") Dashboard
+        li
+          a Konsultacje
+        li
+          a Finanse
+    .section.search.pull-left
+      form
+        i.fa.fa-search.fa-2x
+        input(type="text" placeholder="Znajdź eksperta z branży(pediatra, mechanik, ...)")
+    .section.database.pull-left
+      a Baza ekspertów
+
+
