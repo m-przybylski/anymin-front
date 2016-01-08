@@ -25,7 +25,7 @@
     "comma-spacing": [2, {"before": false, "after": true}],
     "comma-style": [2, "last"],
     "eol-last": 0,
-    "func-style": [2, "declaration", { "allowArrowFunctions": true }],
+    "func-style": 0,
     "no-nested-ternary": 2,
     "new-cap": 2,
     "no-multiple-empty-lines": [2, {max: 4, maxEOF: 10}],
