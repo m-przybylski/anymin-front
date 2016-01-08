@@ -14,6 +14,8 @@ angular.module('profitelo.translations.en-us', [])
     'GENERAL.SEND': 'Send',
     'GENERAL.SAVE': 'Save',
     'GENERAL.SAVE_AND_NEXT': 'Save and next',
+    'GENERAL.NEXT_STEP': 'Next step',
+    'GENERAL.PREVIOUS_STEP': 'Previous step',
 
     'EXPERT_PROFILE.EXPERT_PROFILE': 'Expert\'s profile',
     'EXPERT_PROFILE.ACTIVE_PROFILE': 'Active profile',
@@ -39,6 +41,24 @@ angular.module('profitelo.translations.en-us', [])
     'EXPERT_PROGRESS.SERVICES.UISREF.TITLE.DONE':'View service',
     'EXPERT_PROGRESS.VERIFICATION.TITLE': 'Verification',
     'EXPERT_PROGRESS.VERIFICATION.DESCRIPTION': 'Verify profile. We will check if everything is OK',
-    'EXPERT_PROGRESS.VERIFICATION.UISREF.TITLE': 'Send to verification'
+    'EXPERT_PROGRESS.VERIFICATION.UISREF.TITLE': 'Send to verification',
+
+
+    // app/wizard/create-new-service.jade
+    'WIZARDS.CREATE_NEW_SERVICE.NEW_SERVICE_COMPLETE_IN': "Create new service complete in",
+
+
+    // common/directives/wizards/pro-create-new-service-name.jade
+    "COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_NAME.SERVICE_NAME": "Service name",
+    "COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_NAME.FULLNAME": "Fullname of the service",
+    "COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_NAME.FULLNAME_PLACEHOLDER": "Consulting Services - a flat tax",
+    "COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_NAME.VALIDATION.SERVICE_NAME_REQUIRED": "Service name required",
+
+    // common/directives/wizards/pro-create-new-service-description.jade
+    "COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_DESCRIPTION.SERVICE_DESCRIPTION": "Service description",
+    "COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_DESCRIPTION.DESCRIPTION_TEXT":
+      "Describe as accurately as possible what is service and what help to expect. The detailed description, the greater the chances of interest among customers...",
+    "COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_DESCRIPTION.DESCRIPTION_PLACEHOLDER": "Consulting Services - a flat tax",
+    "COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_DESCRIPTION.VALIDATION.SERVICE_DESCRIPTION_REQUIRED": "Service description required"
   })
 })
