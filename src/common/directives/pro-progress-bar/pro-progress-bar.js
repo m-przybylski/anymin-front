@@ -1,6 +1,6 @@
 function proProgressBarLink(scope) {
 
-  if (scope.caption.length === 0) {
+  if (!scope.caption || scope.caption.length === 0) {
     throw new Error('proProgressBar needs caption parameter to work.')
   }
 
@@ -29,7 +29,8 @@ angular.module('profitelo.directives.pro-progress-bar', [
     templateUrl:  'directives/pro-progress-bar/pro-progress-bar.tpl.html',
     scope: {
       progress: '=?proProgressBar',
-      caption: '@'
+      caption: '@',
+      next: '='
     }
   }
 })

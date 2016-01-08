@@ -1,4 +1,4 @@
-.container
+.container.create-new-service
   pro-create-new-service-name()
   pro-create-new-service-description()
 
@@ -6,12 +6,7 @@
     .col-sm-9
       span
         | {{ 'WIZARDS.CREATE_NEW_SERVICE.NEW_SERVICE_COMPLETE_IN' | translate }} {{ vm.calculateFillPercentage() }}%
-      pro-progress-bar
-    .col-sm-3
-      button.btn.btn-primary.pull-right(data-ng-click="vm.emitContextSaveAndGoNext()")
-        | {{ 'GENERAL.NEXT_STEP' | translate }}
-      button.btn.btn-primary.pull-right(data-ng-click="vm.goBack()")
-        | {{ 'GENERAL.PREVIOUS_STEP' | translate }}
+      div(data-pro-progress-bar="vm.progress" data-caption="PROGRESS_BAR.SERVICE_COMPLETED" data-next="vm.emitContextSaveAndGoNext")
 
   pre
     | vm: {{vm|json}}

@@ -4,5 +4,5 @@
     .progress-line-background.pull-left
       .progress-line(role="progressbar"
       aria-valuenow="{{ progress.value }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ progress.value }}%;")
-     .next-step.pull-right
-       button.btn.btn-primary Następny krok
+     .next-step.pull-right(data-ng-show="next")
+       button.btn.btn-primary(data-ng-click="next()") {{ 'GENERAL.NEXT_STEP' | translate }}

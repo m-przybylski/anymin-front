@@ -21,7 +21,7 @@ function createNewServiceController($interval, _) {
   ]
 
   vm.emitContextSaveAndGoNext = () => {
-    if (vm.currentActiveService > vm.directivesMapping.lenght) {
+    if (vm.currentActiveService > vm.directivesMapping.length) {
       vm.currentActiveService += 1
     } else {
       // finish creating service

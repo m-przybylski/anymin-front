@@ -14,7 +14,6 @@ angular.module('profitelo', [
   // controllers
   'profitelo.controller.dashboard',
   'profitelo.controller.dashboard.start',
-  'profitelo.controller.dashboard.service-wizard',
 
   'profitelo.controller.home',
   'profitelo.controller.expert-profile',
