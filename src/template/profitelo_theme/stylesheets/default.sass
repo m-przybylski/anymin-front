@@ -1,7 +1,52 @@
+// circle
+
+.round
+  border-radius: 50%
+  height: $icon-container-height
+  width: $icon-container-width
+  background-color: $c-primary-text
+
+.center-in-circle
+  line-height: $icon-container-height
+
+//icons
+
 i
   color: $c-secondary-text
 div.round
   i
     color: white
-h2
+h1
   font-weight: 200
+
+//  buttons
+.pro-button
+  background-color: $c-primary
+  border-radius: $button-radius
+
+
+//  inputs
+
+div.input-container
+  display: flex
+  align-items: center
+  justify-content: center
+  width: $input-width
+  height: $input-height
+
+  border-bottom: solid
+  border-bottom-width: 1px
+  border-bottom-color: $c-lines
+  span
+    margin: 0px 15px 0px 15px
+    color: $c-secondary-text
+  i
+    vertical-align: middle
+    line-height: $input-height
+
+
+input
+  border: none
+
+input:focus
+  outline: none
