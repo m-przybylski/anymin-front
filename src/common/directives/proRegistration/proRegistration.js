@@ -1,4 +1,4 @@
-function RegistrationDirectiveController($scope, $state, $stateParams, AuthorizationService) {
+function proRegistration($scope, $state, $stateParams, AuthorizationService) {
   var vm = this
 
   vm.registrationMetaData = {
@@ -43,7 +43,7 @@ angular.module('profitelo.directive.proRegistration', [
   return {
     templateUrl:  'directives/proRegistration/proRegistration.tpl.html',
     restrict:     'A',
-    controller:   RegistrationDirectiveController,
+    controller:   proRegistration,
     controllerAs: 'vm',
     scope:        {step1:'='},
     replace:      true

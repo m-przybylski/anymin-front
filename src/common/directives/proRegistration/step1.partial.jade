@@ -1,25 +1,44 @@
-.container
-  #loginbox.mainbox.col-md-6.col-md-offset-3.col-sm-8.col-sm-offset-2(style='margin-top:50px;')
-    .panel.panel-info
-      .panel-heading
-        .panel-title Profitelo / Rejestracja
-      .panel-body(style='padding-top:30px')
-        p.text-center(data-ng-show="vm.registrationMetaData.emailSended") Email sended. Click on link my friend
-        form#loginform.form-horizontal(role="form" name="registerForm" data-ng-show="!vm.registrationMetaData.emailSended")
-          .input-group(style='margin-bottom: 25px')
-            span.input-group-addon
-              i.fa.fa-male
-            input#login-username.form-control(type="email", name="email", placeholder="E-mail" required data-ng-model="vm.userData.email")
-          .input-group(style='margin-bottom: 25px')
-            span.input-group-addon
-              i.fa.fa-lock
-            input#login-password.form-control(type="password", name="password", placeholder="Hasło" data-ng-model="vm.userData.password")
-          .col-lg-12
-            p.text-center lub
-            p.text-center  Zaloguj się za pomocą fejsbuka
-          .form-group.center-block(style='margin-top:10px')
-            input.btn.btn-info.col-lg-8.col-lg-offset-2(type="submit" data-ng-disabled="registerForm.$invalid" data-ng-click="vm.sendEmail()")
+.container.text-center
+  h2
+    | Rejestracja
+  div.round
+    i.icon-2x.icon-talk-man.center-in-circle
 
-          div.text-center
-            i.fa.fa-circle
-            i.fa.fa-circle-o.margin-left-10
+  div
+    i.icon-2x.icon-mail-withatsign
+    input(type='text')
+  div
+    i.icon-2x.icon-lock-3
+    input(type='text')
+
+  p
+    | LUB
+  p
+    | Zaloguj się za pomocą fejsbuka
+  input.btn.btn-info.col-lg-4.col-lg-offset-4(type="submit" data-ng-disabled="registerForm.$invalid" data-ng-click="vm.sendEmail()")
+
+
+  //#loginbox.mainbox.col-md-6.col-md-offset-3.col-sm-8.col-sm-offset-2(style='margin-top:50px;')
+  //  .panel.panel-info
+  //    .panel-heading
+  //      .panel-title Profitelo / Rejestracja
+  //    .panel-body(style='padding-top:30px')
+  //      p.text-center(data-ng-show="vm.registrationMetaData.emailSended") Email sended. Click on link my friend
+  //      form#loginform.form-horizontal(role="form" name="registerForm" data-ng-show="!vm.registrationMetaData.emailSended")
+  //        .input-group(style='margin-bottom: 25px')
+  //          span.input-group-addon
+  //            i.fa.fa-male
+  //          input#login-username.form-control(type="email", name="email", placeholder="E-mail" required data-ng-model="vm.userData.email")
+  //        .input-group(style='margin-bottom: 25px')
+  //          span.input-group-addon
+  //            i.fa.fa-lock
+  //          input#login-password.form-control(type="password", name="password", placeholder="Hasło" data-ng-model="vm.userData.password")
+  //        .col-lg-12
+  //          p.text-center lub
+  //          p.text-center  Zaloguj się za pomocą fejsbuka
+  //        .form-group.center-block(style='margin-top:10px')
+  //          input.btn.btn-info.col-lg-8.col-lg-offset-2(type="submit" data-ng-disabled="registerForm.$invalid" data-ng-click="vm.sendEmail()")
+  //
+  //        div.text-center
+  //          i.fa.fa-circle
+  //          i.fa.fa-circle-o.margin-left-10

@@ -12,14 +12,12 @@ angular.module('profitelo.directive.proProgressBox', [
     templateUrl:  'directives/proProgressBox/proProgressBox.tpl.html',
     restrict:     'A',
     scope:        { container: '='},
-    controller:   'ProgressBoxDirectiveController',
+    controller:   ProgressBoxDirectiveController,
     controllerAs: 'vm',
     replace:      true,
     link:         link
   }
 })
-
-.controller('ProgressBoxDirectiveController', ProgressBoxDirectiveController)
 
 function ProgressBoxDirectiveController() {
   var vm = this
