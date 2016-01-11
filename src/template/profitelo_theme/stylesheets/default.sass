@@ -9,6 +9,9 @@
 .center-in-circle
   line-height: $icon-container-height
 
+//
+  font bold 16px marginesy lewo prawo po 40px wysokość przycisku 60px a koloro primary
+
 //icons
 
 i
@@ -19,10 +22,20 @@ div.round
 h1
   font-weight: 200
 
+//
+
+
 //  buttons
+
 .pro-button
   background-color: $c-primary
   border-radius: $button-radius
+  padding: 0px $button-right-left-padding 0px $button-right-left-padding
+  height: $button-height
+  color: $button-text-color
+  font-size: $button-text-size
+  font-weight: bold
+  margin-top: $button-margin-top
 
 
 //  inputs
@@ -31,22 +44,24 @@ div.input-container
   display: flex
   align-items: center
   justify-content: center
-  width: $input-width
-  height: $input-height
-
+  width: $input-container-width
+  height: $input-container-height
+  background-color: $c-secondary-background
   border-bottom: solid
   border-bottom-width: 1px
   border-bottom-color: $c-lines
+  margin-top: $input-container-margin-top
   span
     margin: 0px 15px 0px 15px
     color: $c-secondary-text
   i
     vertical-align: middle
-    line-height: $input-height
+    line-height: $input-container-height
 
 
 input
   border: none
+  background-color: $c-secondary-background
 
 input:focus
   outline: none

@@ -1,22 +1,46 @@
-.container
-  #loginbox.mainbox.col-md-6.col-md-offset-3.col-sm-8.col-sm-offset-2(style='margin-top:50px;')
-    .panel.panel-info
-      .panel-heading
-        .panel-title Profitelo / Rejestracja
-      .panel-body(style='padding-top:30px')
-        form#loginform.form-horizontal(role='form')
-          .input-group(style='margin-bottom: 25px')
-            span.input-group-addon
-              i.fa.fa-keyboard-o
-            input#login-username.form-control(type='text', name='username', value='', placeholder='4-cyfrowy Pin')
+.container.text-center.margin-top-60.margin-bottom-100.registration
+  p.text-center(data-ng-show="vm.registrationMetaData.emailSended") Email sended. Click on link my friend
+  form(role="form" name="registerForm" data-ng-show="!vm.registrationMetaData.emailSended")
+    div.round.center-block
+      i.icon-2x.icon-talk-man.center-in-circle
+    h1.margin-top-10
+      | Prawie gotowe...
+    h3.margin-top-20
+      | Numer ID
+    h3.margin-top-10
+      | 254 233
+    div.input-container.center-block(style="width: 350px")
+      i.icon-2x.icon-lock-3
+      span 4-CYFROWY PIN:
+      input(type="password" required data-ng-model="vm.userData.password")
+    div.row
+    p.margin-top-20.margin-bottom-0(style="width: 500px")
+      | Założenie konta oznacza akceptację Regulaminu Serwisu oraz wyrażenie
+      | zgody na przetwarzanie danych osobowych (spokojnie, nie spamujemy :) ).
 
+    div.row
+    button.btn.pro-button.margin-top-20(type="submit")
+      | Załóż konto
 
-          span  Założenie konta oznacza akceptacje Regulaminu Serwisu oraz wyrażenie zgody na przetwarzanie danych
-          | osobowych.
-          .form-group(style='margin-top:10px')
-            // Button
-            .col-sm-12.controls
-              a#btn-login.btn.btn-success(href='#') Załóż konto
-          div.text-center
-            i.fa.fa-circle-o
-            i.fa.fa-circle.margin-left-10
+//.container
+//  #loginbox.mainbox.col-md-6.col-md-offset-3.col-sm-8.col-sm-offset-2(style='margin-top:50px;')
+//    .panel.panel-info
+//      .panel-heading
+//        .panel-title Profitelo / Rejestracja
+//      .panel-body(style='padding-top:30px')
+//        form#loginform.form-horizontal(role='form')
+//          .input-group(style='margin-bottom: 25px')
+//            span.input-group-addon
+//              i.fa.fa-keyboard-o
+//            input#login-username.form-control(type='text', name='username', value='', placeholder='4-cyfrowy Pin')
+//
+//
+//          span  Założenie konta oznacza akceptacje Regulaminu Serwisu oraz wyrażenie zgody na przetwarzanie danych
+//          | osobowych.
+//          .form-group(style='margin-top:10px')
+//            // Button
+//            .col-sm-12.controls
+//              a#btn-login.btn.btn-success(href='#') Załóż konto
+//          div.text-center
+//            i.fa.fa-circle-o
+//            i.fa.fa-circle.margin-left-10
