@@ -20,6 +20,7 @@
   font-variant: normal !important;
   text-transform: none !important;
   speak: none;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -32,6 +33,7 @@
   font-variant: normal !important;
   text-transform: none !important;
   speak: none;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
