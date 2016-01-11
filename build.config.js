@@ -55,7 +55,8 @@ module.exports = {
       'node_modules/angular-cookies/angular-cookies.js'
     ],
     css: [
-      'node_modules/angular-toastr/dist/angular-toastr.css'
+      'node_modules/angular-toastr/dist/angular-toastr.css',
+      'src/template/profitelo_theme/stylesheets/fonts.css'
     ],
     assets: []
   }
