@@ -1,3 +1,10 @@
+function proProgressBox() {
+  var vm = this
+  return vm
+
+}
+
+
 angular.module('profitelo.directive.proProgressBox', [
 ])
 
@@ -12,15 +19,11 @@ angular.module('profitelo.directive.proProgressBox', [
     templateUrl:  'directives/proProgressBox/proProgressBox.tpl.html',
     restrict:     'A',
     scope:        { container: '='},
-    controller:   ProgressBoxDirectiveController,
+    controller:   proProgressBox,
     controllerAs: 'vm',
     replace:      true,
     link:         link
   }
 })
 
-function ProgressBoxDirectiveController() {
-  var vm = this
-  return vm
 
-}

@@ -1,3 +1,14 @@
+function proInput($scope) {
+  var vm = this
+
+
+  vm.iconClass  = $scope.iconClass
+
+  console.log($scope.toolTip)
+  return vm
+}
+
+
 angular.module('profitelo.directives.proInput', [
   'pascalprecht.translate'
 ])
@@ -15,12 +26,4 @@ angular.module('profitelo.directives.proInput', [
     }
   }
 })
-function proInput($scope){
-  var vm = this
 
-
-  vm.iconClass  = $scope.iconClass
-
-  console.log($scope.toolTip)
-  return vm
-}
