@@ -1,7 +1,9 @@
+.inline-block
+  display: inline-block
 // circle
 
 .round
-  border-radius: 50%
+  @include border-radius(50%)
   height: $icon-container-height
   width: $icon-container-width
   background-color: $c-primary-text
@@ -9,8 +11,36 @@
 .center-in-circle
   line-height: $icon-container-height
 
-//
-  font bold 16px marginesy lewo prawo po 40px wysokość przycisku 60px a koloro primary
+
+.small-round
+  display: inherit
+  @include border-radius(50%)
+  height: 20px
+  width: 20px
+  background-color: white
+  border-color: $c-lines
+  border-style: solid
+
+.center-in-sm-circle
+  line-height: 20px !important
+  font-size: 10px
+
+.filled-round
+  @extend .small-round
+  display: inherit
+  border-width: 6px
+  border-style: solid
+  border-color: $c-primary
+
+.pro-tooltip
+  @extend .small-round
+  display: inline-flex
+  justify-content: center
+  margin-left: 10px
+  // TODO fix icon color
+  i
+    color: blue
+
 
 //icons
 
@@ -22,14 +52,12 @@ div.round
 h1
   font-weight: 200
 
-//
-
 
 //  buttons
 
 .pro-button
   background-color: $c-primary
-  border-radius: $button-radius
+  @include border-radius($button-radius)
   padding: 0px $button-right-left-padding 0px $button-right-left-padding
   height: $button-height
   color: $button-text-color
@@ -51,13 +79,15 @@ div.input-container
   border-bottom-width: 1px
   border-bottom-color: $c-lines
   margin-top: $input-container-margin-top
+
+  padding-left: 20px
+  padding-right: 20px
   span
+    @extend .pull-left
     margin: 0px 15px 0px 15px
     color: $c-secondary-text
   i
-    vertical-align: middle
-    line-height: $input-container-height
-
+    @extend .pull-left
 
 input
   border: none
