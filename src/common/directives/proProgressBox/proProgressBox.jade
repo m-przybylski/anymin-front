@@ -10,6 +10,7 @@ div.col-lg-3.box
   p.text-progress(data-ng-hide='container.status == 0') UKOŃCZONE: {{ container.status }}%
   .progress(data-ng-hide='container.status == 0')
     .progress-bar.progress-bar-success(role='progressbar', aria-valuenow='{{container.status}}', aria-valuemin='0', aria-valuemax='100', style='width: {{container.status}}%')
-  a(data-ng-show='container.status != 100' data-ui-sref='{{container.uiSref}}') {{ container.uiTitle | translate }}
+  a.pro-button.center-flex(data-ng-show='container.status != 100' data-ui-sref='{{container.uiSref}}')
+    span {{ container.uiTitle | translate }}
   a(data-ng-show='container.status == 100 && !container.verify' data-ui-sref='{{container.uiSref}}') {{ container.uiTitleDone | translate }}
 
