@@ -1,3 +1,8 @@
+.default-border
+  border-style: solid
+  border-width: 1px
+  border-color: $c-lines
+
 .inline-block
   display: inline-block
 // circle
@@ -15,8 +20,8 @@
 .small-round
   display: inherit
   @include border-radius(50%)
-  height: 20px
-  width: 20px
+  height: $sm-round-size
+  width: $sm-round-size
   background-color: white
   border-color: $c-lines
   border-style: solid
@@ -36,6 +41,8 @@
   @extend .small-round
   display: inline-flex
   justify-content: center
+  align-content: center
+  align-items: center
   margin-left: 10px
   // TODO fix icon color
   i

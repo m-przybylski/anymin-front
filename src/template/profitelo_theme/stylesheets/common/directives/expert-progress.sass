@@ -1,19 +1,20 @@
 .expert-progress
+
   .center-flex
     display: flex
     justify-content: center
     flex-flow: row
-  .progress
-    color: green
-  .box
-    height: 200px
-    border-style: groove
 
-  .center-in-circle
-    margin-top: 10px !important
-    font-size: 20px
+  .progress
+    color: $c-primary !important
+
+  .box
+    @extend .default-border
+    height: 250px
+
 
   .round
+    @extend .default-border
     position: absolute !important
     left: 0
     right: 0
@@ -24,21 +25,24 @@
     height: 50px
     width: 50px
     margin-bottom: -5px
-    background-color: gray
+    background-color: white
 
   .box-title
     padding-top: 30px
 
   .rejected
     color: red
+
   .rejectedCircle
     background-color: red
 
-  .text-green
-    color: darkgreen
+  .text-progress
+    font-weight: bold
+    color: $c-primary-text
+
   .full-progress
-    background-color: lightgreen
     .round
-      background-color: green
+
+      background-color: $c-success
 
 

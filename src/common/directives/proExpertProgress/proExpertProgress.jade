@@ -1,19 +1,20 @@
-span.expert-progress.text-center
+.container.expert-progress.text-center
+  i.icon-4x.icon-add-user
   h1.text-center.margin-bottom-100
-    | Tworzenie profilu experta
-  .row.clearfix.center-flex
-    div.pull-left(pro-progress-box container="vm.box.expert")
-    div.pull-left(pro-progress-box container="vm.box.services")
+    | Tworzenie profilu eksperta
+  .row.center-flex
+    div(pro-progress-box container="vm.box.expert")
+    div(pro-progress-box container="vm.box.services")
 
 
 
 
 
     // unique box
-    div.pull-left.col-lg-3.box
+    div.col-lg-3.box
       div.round(data-ng-class='{rejectedCircle: vm.verifyBox.rejected}')
         p.center-in-circle(data-ng-show='vm.verifyBox.rejected')
-          i.fa.fa-times
+          i.icon-3x.icon-close
         p.center-in-circle(data-ng-hide='vm.verifyBox.rejected') {{ vm.verifyBox.number }}
       h3.box-title(data-ng-class='{rejected: vm.verifyBox.rejected}') {{ vm.verifyBox.title | translate }}
       p(data-ng-show='vm.verifyBox.displayDefault') {{ vm.verifyBox.description | translate }}
