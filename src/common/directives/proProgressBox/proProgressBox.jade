@@ -3,6 +3,8 @@ div.col-lg-3.box
     p.center-in-circle(data-ng-hide='container.status != 100')
       i.icon-3x.icon-yes
     p.center-in-circle(data-ng-show='container.status != 100') {{ container.number }}
+  div
+    i.icon-3x.margin-top-20(ng-class='container.class')
   h3.box-title {{ container.title | translate }}
   p(data-ng-show='container.status == 0') {{ container.description | translate }}
   p.text-progress(data-ng-hide='container.status == 0') UKOŃCZONE: {{ container.status }}%

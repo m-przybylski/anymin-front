@@ -69,6 +69,7 @@ function ExpertProgressDirectiveController($scope) {
     uiTitle:      'EXPERT_PROGRESS.EXPERT.UISREF.TITLE',
     uiTitleDone:  'EXPERT_PROGRESS.EXPERT.UISREF.TITLE.DONE',
     uiSref:       'app.expert-profile',
+    class:        'icon-talk-man',
     status:       vm.container.profileProgressPercentage,
     verify:       false
   }
@@ -79,6 +80,7 @@ function ExpertProgressDirectiveController($scope) {
     uiTitle:      'EXPERT_PROGRESS.SERVICES.UISREF.TITLE',
     uiTitleDone:  'EXPERT_PROGRESS.SERVICES.UISREF.TITLE.DONE',
     uiSref:       'app.services',
+    class:        'icon-gears',
     status:       vm.container.serviceProgressPercentage,
     verify:       false
   }

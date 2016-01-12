@@ -3,6 +3,11 @@
   border-width: 1px
   border-color: $c-lines
 
+.center-flex
+  display: flex
+  justify-content: center
+  flex-flow: row
+
 .inline-block
   display: inline-block
 // circle
@@ -14,7 +19,7 @@
   background-color: $c-primary-text
 
 .center-in-circle
-  line-height: $icon-container-height
+  line-height: $icon-container-height - 5
 
 
 .small-round
@@ -27,7 +32,7 @@
   border-style: solid
 
 .center-in-sm-circle
-  line-height: 20px !important
+  line-height: $sm-round-size !important
   font-size: 10px
 
 .filled-round
@@ -44,7 +49,7 @@
   align-content: center
   align-items: center
   margin-left: 10px
-  // TODO fix icon color
+  // TODO fix question mark color
   span
     color: blue !important
     font-weight: bold

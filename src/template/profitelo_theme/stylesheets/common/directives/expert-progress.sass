@@ -1,17 +1,20 @@
 .expert-progress
 
-  .center-flex
-    display: flex
-    justify-content: center
-    flex-flow: row
-
   .progress
-    color: $c-primary !important
-
+    @include border-radius(15px)
+    width: 200px
+    height: 10px
   .box
     @extend .default-border
-    height: 250px
+    height: 300px
+    margin-right: 20px
+    padding-top: 40px
+    background-color: $c-secondary-background
 
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    flex-direction: column
 
   .round
     @extend .default-border
@@ -27,9 +30,12 @@
     margin-bottom: -5px
     background-color: white
 
-  .box-title
-    padding-top: 30px
+    p
+      font-weight: bold
+      font-size: 20px
 
+  .box-title
+    margin-top: 5px
   .rejected
     color: red
 
@@ -42,7 +48,11 @@
 
   .full-progress
     .round
-
       background-color: $c-success
+
+
+  .progress-bar-success
+    background-color: $c-primary !important
+
 
 

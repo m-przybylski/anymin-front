@@ -2,7 +2,8 @@
   i.icon-4x.icon-add-user
   h1.text-center.margin-bottom-100
     | Tworzenie profilu eksperta
-  .row.center-flex
+  .row
+  .center-flex
     div(pro-progress-box container="vm.box.expert")
     div(pro-progress-box container="vm.box.services")
 
@@ -16,6 +17,8 @@
         p.center-in-circle(data-ng-show='vm.verifyBox.rejected')
           i.icon-3x.icon-close
         p.center-in-circle(data-ng-hide='vm.verifyBox.rejected') {{ vm.verifyBox.number }}
+      div
+        i.icon-3x.icon-repeat-2.margin-top-20
       h3.box-title(data-ng-class='{rejected: vm.verifyBox.rejected}') {{ vm.verifyBox.title | translate }}
       p(data-ng-show='vm.verifyBox.displayDefault') {{ vm.verifyBox.description | translate }}
       p(data-ng-show='vm.verifyBox.inProgress') PROFIL W TRAKCIE WERYFIKACJI
