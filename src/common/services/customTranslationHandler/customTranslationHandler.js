@@ -11,7 +11,8 @@ angular.module('profitelo.services.customTranslationHandler', [
   return function(translationId, uses) {
     if (translationId !== void 0 && !_.include(_exceptionsStrings, translationId)) {
       var _str = 'Missing [' + uses + '] translations for: ' + translationId
-      $log.error(_str)
+      // TODO: move error reporting to sentry
+      // $log.error(_str)
     }
   }
 })
