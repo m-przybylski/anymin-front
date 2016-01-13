@@ -1,12 +1,16 @@
-function ProCreateNewServiceNameController($scope, $filter, $http, toastr, _) {
-  var vm = this
-
-  var _account      = $scope.account
-  var _userProfiles = $scope.userProfiles
-
-  vm.costam = ''
-
-  return vm
+function proCreateNewServiceName($http) {
+  return {
+    replace: true,
+    templateUrl: 'directives/wizards/pro-create-new-service-name/pro-create-new-service-name.tpl.html',
+    scope: {
+      serviceState: '=',
+      userProfile: '='
+    },
+    link: (scope, elem, attrs) => {
+      console.log($http)
+      scope.costam = ''
+    }
+  }
 }
 
 angular.module('profitelo.directives.wizards.pro-create-new-service-name', [
@@ -18,16 +22,4 @@ angular.module('profitelo.directives.wizards.pro-create-new-service-name', [
   'profitelo.api.profiles'
 ])
 
-.directive('proCreateNewServiceName', function() {
-  return {
-    replace:        true,
-    templateUrl:    'directives/wizards/pro-create-new-service-name/pro-create-new-service-name.tpl.html',
-    controller:     ProCreateNewServiceNameController,
-    controllerAs:   'vm',
-    scope: {
-      serviceState: '=',
-      userProfile:  '='
-    }
-  }
-})
-
+.directive('proCreateNewServiceName', proCreateNewServiceName)
