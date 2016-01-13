@@ -39,7 +39,7 @@
 .filled-round
   @extend .small-round
   display: inherit
-  border-width: 6px
+  border-width: $sm-filled-round-border
   border-style: solid
   border-color: $c-primary
 
@@ -61,7 +61,10 @@ i
   color: $c-secondary-text
 div.round
   i
-    color: white
+    color: #ffffff
+
+//headers
+
 h1
   font-weight: 200
 
@@ -71,7 +74,7 @@ h1
 .pro-button
   background-color: $c-primary
   @include border-radius($button-radius)
-  padding: 0px $button-right-left-padding 0px $button-right-left-padding
+  padding: $button-padding
   height: $button-height
   color: $button-text-color
   font-size: $button-text-size
@@ -95,10 +98,10 @@ div.input-container
   border-bottom-color: $c-lines
   margin-top: $input-container-margin-top
 
-  padding-left: 20px
-  padding-right: 20px
+  padding-left: $input-container-left-right-padding
+  padding-right: $input-container-left-right-padding
   span
-    margin: 0px 15px 0px 15px
+    margin: $input-container-text-margin
     color: $c-secondary-text
   i
 
