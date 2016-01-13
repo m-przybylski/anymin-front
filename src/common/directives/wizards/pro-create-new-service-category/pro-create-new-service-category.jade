@@ -1,8 +1,10 @@
-form(novalidate="" role="form" name="createNewServiceForm" data-ng-submit="vm.save()")
+form.category-wizard(novalidate="" role="form" name="createNewServiceForm" data-ng-submit="vm.save()")
   h2.text-center.margin-top-100 KATEGORIA
   div.category-box-container
-    div.category-box(ng-repeat="singleCategory in vm.categories")
+    div.category-box(data-ng-repeat="singleCategory in vm.categories")
+      span
       span {{ singleCategory }}
+      i.icon.icon-yes
 
 
 
