@@ -164,6 +164,13 @@ angular.module('profitelo', [
   $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
     console.log('$stateChangeError', error)
   })
+
+  $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, error) {
+    if (angular.isDefined(toState.data) && angular.isDefined(toState.data.hideDashboardMenu)) {
+      $rootScope.hideDashboardMenu = toState.data.hideDashboardMenu
+    }
+  })
+
 })
 
 .controller('AppController', AppController)

@@ -1,12 +1,16 @@
 .container.create-new-service
+  .top-section.clearfix
+    h2.text-bold.pull-left NOWA USŁUGA
+    i.icon-close.icon-2x.pull-right.link(data-ui-sref="app.dashboard.start")
+
+
+
+
+
   pro-create-new-service-name()
-  pro-create-new-service-description()
+  //pro-create-new-service-description()
 
-  .row
-    .col-sm-9
-      span
-        | {{ 'WIZARDS.CREATE_NEW_SERVICE.NEW_SERVICE_COMPLETE_IN' | translate }} {{ vm.calculateFillPercentage() }}%
-      div(data-pro-progress-bar="vm.progress" data-caption="PROGRESS_BAR.SERVICE_COMPLETED" data-next="vm.emitContextSaveAndGoNext")
-
-  pre
-    | vm: {{vm|json}}
+  div(data-pro-progress-bar="vm.progress" data-caption="PROGRESS_BAR.SERVICE_COMPLETED" data-next="vm.emitContextSaveAndGoNext")
+  //
+  //pre
+  //  | vm: {{vm|json}}
