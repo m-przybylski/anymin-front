@@ -1,12 +1,20 @@
 .expert-progress
-
+  $inside-box-margin-top: 15px
   .progress
     @include border-radius(15px)
+
     width: 200px
     height: 10px
+    margin-top: $inside-box-margin-top
+    margin-bottom: 10px
+
+  .box-container
+    display: flex
+    flex-wrap: wrap
+    justify-content: center
   .box
     @extend .default-border
-    height: 300px
+    display: flex
     width: 250px
     margin-right: 20px
     padding-top: 40px
@@ -15,7 +23,7 @@
     justify-content: flex-start
     align-items: center
     flex-direction: column
-
+    padding-bottom: 20px
   .round
     @extend .default-border
     position: absolute !important
@@ -28,23 +36,27 @@
     height: 50px
     width: 50px
     margin-bottom: -5px
-    background-color: white
+    background-color: #ffffff
 
     p
       font-weight: bold
       font-size: 20px
-
+  .description-text
+    line-height: $inside-box-margin-top + 7
   .box-title
     margin-top: 5px
+    margin-bottom: 15px
+
   .rejected
-    color: red
+    color: $c-error
 
   .rejectedCircle
-    background-color: red
+    background-color: $c-error
 
   .text-progress
     font-weight: bold
     color: $c-primary-text
+    margin: 0px
 
   .full-progress
     .round
