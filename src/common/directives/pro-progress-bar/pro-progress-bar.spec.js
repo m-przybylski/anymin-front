@@ -20,7 +20,7 @@ describe('Unit testing: profitelo.directives.pro-progress-bar', function() {
     function create(html) {
       var elem = angular.element(html)
 
-      scope.caption   = "TRANSLATE.STRING"
+      scope.caption   = 'TRANSLATE.STRING'
       scope.progress  = 40
 
       var compiledElement = compile(elem)(scope)
