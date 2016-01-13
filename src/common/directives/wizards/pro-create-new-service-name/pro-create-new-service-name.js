@@ -4,6 +4,8 @@ function ProCreateNewServiceNameController($scope, $filter, $http, toastr, _) {
   var _account      = $scope.account
   var _userProfiles = $scope.userProfiles
 
+  vm.costam = ''
+
   return vm
 }
 

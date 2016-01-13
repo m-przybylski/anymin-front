@@ -5,20 +5,18 @@ function createNewServiceController($interval, _) {
 
   vm.currentActiveService = 1
 
-  vm.directivesMapping = [
-    {
+  vm.directivesMapping = {
+    1: {
       id:             'addServiceName',
-      order:          1,
       methodOnSave:   'saveServiceName',
       percentage:     10
     },
-    {
+    2: {
       id:             'addServiceIndustry',
-      order:          2,
       methodOnSave:   'saveServiceIndystry',
       percentage:     10
     }
-  ]
+  }
 
   vm.emitContextSaveAndGoNext = () => {
     if (vm.currentActiveService > vm.directivesMapping.length) {
@@ -70,7 +68,10 @@ angular.module('profitelo.controller.wizards.create-new-service', [
     url:          '/create-new-service',
     templateUrl:  'wizards/create-new-service/create-new-service.tpl.html',
     controller:   createNewServiceController,
-    controllerAs: 'vm'
+    controllerAs: 'vm',
+    data: {
+      hideDashboardMenu: true
+    }
   })
 })
 
