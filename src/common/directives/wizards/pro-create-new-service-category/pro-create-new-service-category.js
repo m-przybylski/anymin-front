@@ -3,11 +3,11 @@ function proCreateNewServiceCategory($http) {
   function linkFunction(scope, elem, attrs) {
     scope.categories = ['Podatki', 'Prawo finansowe', 'Księgowość', 'Prawo podatkowe', 'Dokumenty', 'Pomoc biurowa', 'Biuro rachunkowe', 'Inwestycje']
 
-    scope.selectedCategory = ""
+    scope.selectedCategory = ''
     scope.selectCategory = (category) =>{
-      if(scope.selectedCategory==category) {
-        scope.selectedCategory = ""
-      }else{
+      if (scope.selectedCategory===category) {
+        scope.selectedCategory = ''
+      }else {
         scope.selectedCategory = category
       }
     }
