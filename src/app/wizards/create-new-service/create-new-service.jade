@@ -1,6 +1,5 @@
 .container.create-new-service
-  pro-create-new-service-name()
-  pro-create-new-service-description()
+  pro-create-new-service-category()
 
   .row
     .col-sm-9
@@ -8,5 +7,3 @@
         | {{ 'WIZARDS.CREATE_NEW_SERVICE.NEW_SERVICE_COMPLETE_IN' | translate }} {{ vm.calculateFillPercentage() }}%
       div(data-pro-progress-bar="vm.progress" data-caption="PROGRESS_BAR.SERVICE_COMPLETED" data-next="vm.emitContextSaveAndGoNext")
 
-  pre
-    | vm: {{vm|json}}

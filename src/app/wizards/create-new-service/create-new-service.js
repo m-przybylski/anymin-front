@@ -61,6 +61,7 @@ angular.module('profitelo.controller.wizards.create-new-service', [
 
   'profitelo.directives.pro-progress-bar',
   'profitelo.directives.wizards.pro-create-new-service-name',
+  'profitelo.directives.wizards.pro-create-new-service-category',
   'profitelo.directives.wizards.pro-create-new-service-description'
 ])
 
