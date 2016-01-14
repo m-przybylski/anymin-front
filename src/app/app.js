@@ -167,6 +167,8 @@ angular.module('profitelo', [
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, error) {
     if (angular.isDefined(toState.data) && angular.isDefined(toState.data.hideDashboardMenu)) {
       $rootScope.hideDashboardMenu = toState.data.hideDashboardMenu
+    } else {
+      $rootScope.hideDashboardMenu = false
     }
   })
 

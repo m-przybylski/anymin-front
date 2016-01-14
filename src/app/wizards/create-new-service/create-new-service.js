@@ -3,50 +3,13 @@ function createNewServiceController($interval, _) {
 
   vm.progress = 0
 
-  vm.currentActiveService = 1
-
-  vm.directivesMapping = {
-    1: {
-      id:             'addServiceName',
-      methodOnSave:   'saveServiceName',
-      percentage:     10
-    },
-    2: {
-      id:             'addServiceIndustry',
-      methodOnSave:   'saveServiceIndystry',
-      percentage:     10
-    }
+  vm.queue = {
+    currentActiveSection: 1,
+    sectionBeingEdited:   0
   }
 
-  vm.emitContextSaveAndGoNext = () => {
-    if (vm.currentActiveService > vm.directivesMapping.length) {
-      vm.currentActiveService += 1
-    } else {
-      // finish creating service
-    }
-  }
-
-  vm.goBack = () => {
-    if (vm.currentActiveService > 1) {
-      vm.currentActiveService -= 1
-    }
-  }
-
-
-  vm.calculateFillPercentage = () => {
-    var result = 0
-    var i = 0
-    if (i<0) {
-      while (i<vm.currentActiveService) {
-        console.log('time:', i)
-        var index = _.findIndex(vm.directivesMapping, function(item) {
-          return item.order === i
-        })
-        result += vm.directivesMapping[index].percentage
-        i++
-      }
-    }
-    return result
+  vm.nextSection = () => {
+    vm.queue.currentActiveSection++
   }
 
   return vm

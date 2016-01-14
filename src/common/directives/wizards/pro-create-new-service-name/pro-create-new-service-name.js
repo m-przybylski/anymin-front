@@ -1,15 +1,26 @@
-function proCreateNewServiceName($http) {
+function proCreateNewServiceName($http, $timeout) {
 
   function linkFunction(scope, elem, attrs) {
-    console.log($http)
+
+    let order = parseInt(scope.order, 10)
+
+    scope.show = false
+    scope.past = false
+
+    scope.$watch('queue', (newValue) => {
+      scope.show = angular.equals(scope.queue.currentActiveSection, order)
+      scope.past = scope.queue.currentActiveSection > order
+
+    }, true)
+
   }
 
   return {
     replace: true,
     templateUrl: 'directives/wizards/pro-create-new-service-name/pro-create-new-service-name.tpl.html',
     scope: {
-      current: '=',
-      order: '='
+      queue:      '=',
+      order:        '@'
     },
     link: linkFunction
   }
