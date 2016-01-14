@@ -5,7 +5,7 @@ function createNewServiceController($interval, _) {
 
   vm.queue = {
     currentActiveSection: 1,
-    sectionBeingEdited:   0
+    sectionBeingEdited:   -1
   }
 
   vm.nextSection = () => {

@@ -3,7 +3,6 @@
     h2.text-bold.pull-left NOWA USŁUGA
     i.icon-close.icon-2x.pull-right.link(data-ui-sref="app.dashboard.start")
 
-
   pro-create-new-service-name.widget-divider(data-queue="vm.queue" data-order="1")
 
   pro-create-new-service-name.widget-divider(data-queue="vm.queue" data-order="2")
@@ -19,7 +18,7 @@
 
   //pro-create-new-service-description()
 
-  div(data-pro-progress-bar="vm.progress" data-caption="PROGRESS_BAR.SERVICE_COMPLETED" data-next="vm.nextSection")
+  pro-progress-bar(data-progress="vm.progress" data-queue="vm.queue" data-caption="PROGRESS_BAR.SERVICE_COMPLETED" data-next="vm.nextSection")
   //
   //pre
   //  | vm: {{vm|json}}
