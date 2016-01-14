@@ -35,6 +35,7 @@ angular.module('profitelo', [
   'profitelo.api.registration',
   'profitelo.api.sessions',
   'profitelo.api.accountsStatus',
+  'profitelo.api.industry',
 
   // translations
   'profitelo.translations.en-us',
