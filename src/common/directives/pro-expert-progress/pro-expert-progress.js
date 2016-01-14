@@ -1,21 +1,3 @@
-angular.module('profitelo.directive.proExpertProgress', [
-  'ui.router',
-  'pascalprecht.translate'
-])
-
-.directive('proExpertProgress', () =>{
-  return {
-    templateUrl:  'directives/proExpertProgress/proExpertProgress.tpl.html',
-    restrict:     'A',
-    controller:   'ExpertProgressDirectiveController',
-    controllerAs: 'vm',
-    scope:        {container:'='},
-    replace:      true
-  }
-})
-
-.controller('ExpertProgressDirectiveController', ExpertProgressDirectiveController)
-
 function _validateStatus(obj) {
   if (isNaN(parseInt(obj.profileProgressPercentage, 10))) {
     obj.profileProgressPercentage = 0
@@ -90,3 +72,22 @@ function ExpertProgressDirectiveController($scope) {
   return vm
 
 }
+
+angular.module('profitelo.directives.pro-expert-progress', [
+  'ui.router',
+  'pascalprecht.translate'
+])
+
+.directive('proExpertProgress', () =>{
+  return {
+    templateUrl:  'directives/pro-expert-progress/pro-expert-progress.tpl.html',
+    restrict:     'A',
+    controller:   ExpertProgressDirectiveController,
+    controllerAs: 'vm',
+    scope:        {container:'='},
+    replace:      true
+  }
+})
+
+
+

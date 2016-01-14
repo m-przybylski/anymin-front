@@ -24,10 +24,9 @@ angular.module('profitelo', [
 
 
   // directives
-  'profitelo.directives.proInput',
-  'profitelo.directive.proRegistration',
-  'profitelo.directive.proExpertProgress',
-  'profitelo.directive.proProgressBox',
+  'profitelo.directives.pro-registration',
+  'profitelo.directives.pro-expert-progress',
+  'profitelo.directives.pro-progress-box',
   'profitelo.directives.pro-progress-bar',
   'profitelo.directives.pro-expert-profile',
 

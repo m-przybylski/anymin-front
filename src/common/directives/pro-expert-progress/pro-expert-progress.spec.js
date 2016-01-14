@@ -1,10 +1,10 @@
-describe('Unit testing: profitelo.directive.proExpertProgress', () => {
-  return describe('for proExpertProgress directive >', () => {
+describe('Unit testing: profitelo.directives.pro-expert-progress', () => {
+  return describe('for pro-expert-progress directive >', () => {
 
     var compile       = null
     var scope         = null
 
-    var validHTML = '<div pro-expert-progress container="accountSession"></div>'
+    var validHTML = '<div data-pro-expert-progress data-container="accountSession"></div>'
 
 
     var _accountSession = {
@@ -21,7 +21,7 @@ describe('Unit testing: profitelo.directive.proExpertProgress', () => {
 
     beforeEach(() => {
       module('templates-module')
-      module('profitelo.directive.proExpertProgress')
+      module('profitelo.directives.pro-expert-progress')
 
       inject(($rootScope, $compile) => {
         scope                 = $rootScope.$new()

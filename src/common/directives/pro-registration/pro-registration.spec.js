@@ -1,5 +1,5 @@
-describe('Unit testing: profitelo.directive.proRegistration', () => {
-  return describe('for proRegistration directive >', () => {
+describe('Unit testing: profitelo.directive.pro-registration', () => {
+  return describe('for pro-registration directive >', () => {
 
     var compile       = null
     var scope         = null
@@ -13,7 +13,7 @@ describe('Unit testing: profitelo.directive.proRegistration', () => {
 
     beforeEach(() => {
       module('templates-module')
-      module('profitelo.directive.proRegistration')
+      module('profitelo.directives.pro-registration')
 
       inject(($rootScope, $compile, _$httpBackend_, _$state_) => {
         scope         = $rootScope.$new()
