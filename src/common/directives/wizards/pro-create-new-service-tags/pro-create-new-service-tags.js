@@ -14,7 +14,7 @@ function proCreateNewServiceIndustry($http) {
   }
   return {
     replace:        true,
-    templateUrl:    'directives/wizards/pro-create-new-service-industry/pro-create-new-service-industry.tpl.html',
+    templateUrl:    'directives/wizards/pro-create-new-service-tags/pro-create-new-service-tags.tpl.html',
     scope: {
       userProfile:  '='
     },
@@ -23,8 +23,8 @@ function proCreateNewServiceIndustry($http) {
 
 }
 
-angular.module('profitelo.directives.wizards.pro-create-new-service-industry', [
+angular.module('profitelo.directives.wizards.pro-create-new-service-tags', [
 ])
 
-.directive('proCreateNewServiceIndustry', proCreateNewServiceIndustry)
+.directive('proCreateNewServiceTags', proCreateNewServiceIndustry)
 

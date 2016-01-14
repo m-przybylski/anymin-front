@@ -1,0 +1,11 @@
+form.industry-wizard(novalidate="" role="form" name="createNewServiceForm" data-ng-submit="vm.save()")
+  h2.text-center.margin-top-100 ZAGADNIENIA
+  .industry-container
+    .industry-box(data-ng-repeat="singleTag in tags" data-ng-click="selectTag(singleTag)"
+    data-ng-class="singleTag == selectedTag ? 'tag-box-selected' : 'tag-box'")
+      span cos tam
+
+
+  div.margin-bottom-100
+
+

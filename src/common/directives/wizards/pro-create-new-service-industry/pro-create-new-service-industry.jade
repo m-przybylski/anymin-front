@@ -1,7 +1,8 @@
 form.industry-wizard(novalidate="" role="form" name="createNewServiceForm" data-ng-submit="vm.save()")
   h2.text-center.margin-top-100 BRANŻA
   .industry-container
-    .industry-box(data-ng-repeat="singleIndustry in industries")
+    .industry-box(data-ng-repeat="singleIndustry in industries" data-ng-click="selectIndustry(singleIndustry)"
+    data-ng-class="singleIndustry == selectedIndustry ? 'industry-box-selected' : 'industry-box'")
       i.icon-3x.icon-add-user
       h3 {{ singleIndustry }}
       p LOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUM
