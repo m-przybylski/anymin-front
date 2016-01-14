@@ -1,8 +1,12 @@
 .pro-progress-bar
-  .pro-progress-bar-inner.clearfix
+  .pro-progress-bar-inner.clearfix(data-ng-show="queue.sectionBeingEdited === -1")
     .caption.pull-left {{ caption | translate:progress }}
     .progress-line-background.pull-left
       .progress-line(role="progressbar"
       aria-valuenow="{{ progress.value }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ progress.value }}%;")
      .next-step.pull-right(data-ng-show="next")
        button.btn.btn-primary(data-ng-click="next()") {{ 'GENERAL.NEXT_STEP' | translate }}
+  .pro-progress-bar-inner.clearfix(data-ng-show="queue.sectionBeingEdited !== -1")
+    button.btn.btn-primary(data-ng-click="cancelEditing()") Cancel editing
+    button.btn.btn-primary(data-ng-click="saveEditing()") Save editing
+
