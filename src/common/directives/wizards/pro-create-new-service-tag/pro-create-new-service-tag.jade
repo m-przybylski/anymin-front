@@ -1,0 +1,13 @@
+form.tag-wizard(novalidate="" role="form" name="createNewServiceForm" data-ng-submit="vm.save()")
+  h2.text-center.margin-top-100 ZAGADNIENIA
+  div.tag-box-container
+    div(data-ng-class="tagMap[singleTag] ? 'tag-box-selected' : 'tag-box'"
+    data-ng-repeat="singleTag in tags" data-ng-click="selectTag(singleTag)")
+      span
+      span {{ singleTag }}
+      i.icon.icon-yes
+
+
+
+
+  div.margin-bottom-100
