@@ -1,0 +1,21 @@
+.industry-wizard
+  .industry-container
+    display: flex
+    flex-wrap: wrap
+    justify-content: center
+
+    .industry-box
+      @extend .default-border
+      @extend .center-flex
+      align-items: center
+      flex-direction: column
+      cursor: pointer
+      margin: 25px 25px 0px 0px
+      width: 200px
+      display: flex
+      background-color: $c-primary-background
+      padding: 15px
+
+    .industry-box:hover
+      border-color: blue
+      box-shadow: 0px 0px 5px #d7d7d7

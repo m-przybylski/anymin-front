@@ -1,0 +1,15 @@
+form.category-wizard(novalidate="" role="form" name="createNewServiceForm" data-ng-submit="vm.save()")
+  h2.text-center.margin-top-100 KATEGORIA
+  div.category-box-container
+    div(data-ng-class="singleCategory == selectedCategory ? 'category-box-selected' : 'category-box'"
+    data-ng-repeat="singleCategory in categories" data-ng-click="selectCategory(singleCategory)")
+      span
+      span {{ singleCategory }}
+      i.icon.icon-yes
+
+
+
+
+  div.margin-bottom-100
+
+
