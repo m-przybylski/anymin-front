@@ -1,8 +1,8 @@
-div(data-ng-if="true")
-  form.form-horizontal(novalidate="" role="form" name="createNewServiceForm" data-ng-submit="vm.sendAndGoNext()")
+div(data-ng-show="show || past")
+  form.form-horizontal(novalidate="" role="form" name="createNewServiceForm")
     div.text-center
       h3.color-secondary.uppercase.text-bold {{ 'COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_NAME.SERVICE_NAME' | translate }}
-    .input-group-lg
+    .input-group-lg.clearfix
       label.col-sm-3.control-label {{ 'COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_NAME.FULLNAME' | translate | uppercase }}
       .col-sm-9
         input.form-control(type="text" name="fullname" placeholder="{{ 'COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_NAME.FULLNAME_PLACEHOLDER' | translate }}" data-ng-model="costam" data-ng-required="true")
