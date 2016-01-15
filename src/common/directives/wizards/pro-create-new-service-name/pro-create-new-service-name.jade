@@ -5,13 +5,13 @@ div(data-ng-show="config.toggles.show || config.toggles.past" data-ng-class="{'i
     .input-group-lg.clearfix
       label.col-sm-3.control-label {{ 'COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_NAME.FULLNAME' | translate | uppercase }}
       .col-sm-9
-        input.form-control(type="text" name="fullname" placeholder="{{ 'COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_NAME.FULLNAME_PLACEHOLDER' | translate }}" data-ng-model="name" data-ng-required="true")
+        input.form-control(type="text" name="fullname" placeholder="{{ 'COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_NAME.FULLNAME_PLACEHOLDER' | translate }}" data-ng-model="model.serviceName" data-ng-required="true")
     //-.text-validation.text-danger(data-ng-show="(createNewServiceForm.fullname.$dirty && createNewServiceForm.fullname.$invalid || vm.submitted) && createNewServiceForm.fullname.$error.required")
     //-  | {{ 'COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_NAME.VALIDATION.SERVICE_NAME_REQUIRED' | translate }}
 
   div(data-ng-hide="!config.toggles.past || config.toggles.beingEdited")
     h5.color-secondary.uppercase.text-bold {{ 'COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_NAME.SERVICE_NAME' | translate }}
-    span {{ name }}
+    span {{ model.serviceName }}
 
 
 

@@ -1,6 +1,8 @@
-function proProgressBar($rootScope) {
+function proProgressBar($rootScope, $q, toastr) {
 
   function proProgressBarLink(scope) {
+
+    let _deferred = $q.defer()
 
     if (!scope.caption || scope.caption.length === 0) {
       throw new Error('proProgressBar needs caption parameter to work.')
@@ -20,9 +22,24 @@ function proProgressBar($rootScope) {
       $rootScope.$broadcast('cancelEditing')
     }
 
-    scope.saveEditing = () => {
-      $rootScope.$broadcast('saveEditing')
+    scope.saveSection = () => {
+      $rootScope.$broadcast('isSectionValid')
     }
+
+    scope.$on('sectionValidateResponse', (event, data) => {
+      if (data.isValid) {
+        if (scope.queue.sectionBeingEdited === -1) {
+          scope.next()
+        } else {
+          $rootScope.$broadcast('saveEditing')
+        }
+
+      } else {
+        toastr.error('not valid')
+      }
+    })
+
+
 
   }
 
@@ -40,5 +57,8 @@ function proProgressBar($rootScope) {
   }
 }
 
-angular.module('profitelo.directives.pro-progress-bar', ['pascalprecht.translate']).directive('proProgressBar', proProgressBar)
+angular.module('profitelo.directives.pro-progress-bar', [
+  'pascalprecht.translate',
+  'toastr'
+]).directive('proProgressBar', proProgressBar)
 
