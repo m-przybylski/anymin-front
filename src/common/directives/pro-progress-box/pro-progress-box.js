@@ -4,7 +4,7 @@ function proProgressBox() {
 
 }
 
-angular.module('profitelo.directive.proProgressBox', [])
+angular.module('profitelo.directives.pro-progress-box', [])
 .directive('proProgressBox', () =>{
   function link(scope, element) {
     if (scope.container.status === 100) {
@@ -13,7 +13,7 @@ angular.module('profitelo.directive.proProgressBox', [])
 
   }
   return {
-    templateUrl:  'directives/proProgressBox/proProgressBox.tpl.html',
+    templateUrl:  'directives/pro-progress-box/pro-progress-box.tpl.html',
     restrict:     'A',
     scope:        { container: '='},
     controller:   proProgressBox,

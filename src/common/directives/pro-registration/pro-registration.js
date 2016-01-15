@@ -30,7 +30,7 @@ function proRegistration($scope, $state, $stateParams, AuthorizationService) {
 
 }
 
-angular.module('profitelo.directive.proRegistration', [
+angular.module('profitelo.directives.pro-registration', [
   'ui.router',
   'authorization',
   'ngCookies',
@@ -41,7 +41,7 @@ angular.module('profitelo.directive.proRegistration', [
 
 .directive('proRegistration', () =>{
   return {
-    templateUrl:  'directives/proRegistration/proRegistration.tpl.html',
+    templateUrl:  'directives/pro-registration/pro-registration.tpl.html',
     restrict:     'A',
     controller:   proRegistration,
     controllerAs: 'vm',

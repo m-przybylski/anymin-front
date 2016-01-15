@@ -3,6 +3,14 @@ function proCreateNewServiceIndustry($http) {
   function linkFunction(scope, elem, attrs) {
     scope.industries = ['Prawo', 'Biznes', 'Medycyna', 'Motoryzacja', 'Budownictwo', 'Edukacja', 'AGD/RTV', 'Informatyka']
 
+    scope.selectedIndustry = ''
+    scope.selectIndustry = (industry) =>{
+      if (scope.selectedIndustry===industry) {
+        scope.selectedIndustry = ''
+      }else {
+        scope.selectedIndustry = industry
+      }
+    }
   }
   return {
     replace:        true,
