@@ -2,4 +2,23 @@
   display: flex
   justify-content: center
 
+  div.input-container
+    @extend .default-border
+    width: $input-container-width
+    height: $input-container-height
+    background-color: $c-secondary-background
+    margin-top: $input-container-margin-top
+    font-size: $input-container-font-size
+
+    padding-left: $input-container-left-right-padding
+    padding-right: $input-container-left-right-padding
+    span
+      margin: $input-container-text-margin
+      color: $c-secondary-text
+    i
+
+  button
+    margin-top: 20px
+    width: $button-width
+
 

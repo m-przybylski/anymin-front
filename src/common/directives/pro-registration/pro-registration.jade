@@ -1,5 +1,5 @@
 span
-  div(data-ng-show="vm.registrationMetaData.step1")
+  div.registration(data-ng-show="vm.registrationMetaData.step1")
     include step1.partial.jade
-  div(data-ng-show="!vm.registrationMetaData.step1")
+  div.registration(data-ng-show="!vm.registrationMetaData.step1")
     include step2.partial.jade
