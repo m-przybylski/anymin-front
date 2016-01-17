@@ -1,7 +1,27 @@
 .create-new-service
+  position: relative
   padding: $wizard-box-padding
   background-color: #fff
   margin-bottom: 200px
+  &::before
+    content: ''
+    display: none
+    background-color: rgba(0, 0, 0, 0.5)
+    width: 100%
+    height: 100%
+    position: absolute
+    top: 0
+    left: 0
+    z-index: 99
 
   .top-section
     line-height: 80px
+
+  .widget-divider
+    border-top: 1px solid $c-lines
+    padding: 40px 20px
+    &.is-past
+      &:hover
+        background-color: $c-primary-background
+    &.being-edited
+      background-color: $c-primary-background

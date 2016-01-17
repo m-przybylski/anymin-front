@@ -1,17 +1,44 @@
-function proCreateNewServiceName($http, $timeout) {
+function proCreateNewServiceName($timeout, $q, wizardSectionControlService) {
 
-  function linkFunction(scope, elem, attrs) {
+  function linkFunction(scope, element, attrs) {
 
-    let order = parseInt(scope.order, 10)
+    scope.model = {
+      serviceName: ''
+    }
 
-    scope.show = false
-    scope.past = false
+    scope.saveSection = () => {
+      console.log('save section: ', parseInt(scope.order, 10))
+    }
 
-    scope.$watch('queue', (newValue) => {
-      scope.show = angular.equals(scope.queue.currentActiveSection, order)
-      scope.past = scope.queue.currentActiveSection > order
+    let _isValid = () => {
+      return scope.model.serviceName.length > 0
+    }
 
-    }, true)
+    let _getModel = () => {
+      return scope.model
+    }
+
+    let _setModel = (model) => {
+      scope.model = angular.copy(model)
+    }
+
+    scope.config = {
+      order:    parseInt(scope.order, 10),
+      model:    scope.model,
+      element:  element,
+      queue:    scope.queue,
+      save:     scope.saveSection,
+      isValid:  _isValid,
+      getModel: _getModel,
+      setModel: _setModel,
+      toggles: {
+        show:         false,
+        past:         false,
+        beingEdited:  false
+      }
+    }
+
+    wizardSectionControlService(scope.config)
 
   }
 
@@ -19,8 +46,9 @@ function proCreateNewServiceName($http, $timeout) {
     replace: true,
     templateUrl: 'directives/wizards/pro-create-new-service-name/pro-create-new-service-name.tpl.html',
     scope: {
-      queue:      '=',
-      order:        '@'
+      queue:    '=',
+      order:    '@',
+      service:  '='
     },
     link: linkFunction
   }
@@ -32,7 +60,8 @@ angular.module('profitelo.directives.wizards.pro-create-new-service-name', [
   'lodash',
 
   // internal scripts
-  'profitelo.api.profiles'
+  'profitelo.api.profiles',
+  'profitelo.services.wizardSectionControl'
 ])
 
-.directive('proCreateNewServiceName', proCreateNewServiceName)
+  .directive('proCreateNewServiceName', proCreateNewServiceName)

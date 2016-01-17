@@ -10,6 +10,7 @@ angular.module('profitelo', [
 
   // services
   'profitelo.services.customTranslationHandler',
+  'profitelo.services.wizardSectionControl',
 
   // controllers
   'profitelo.controller.dashboard',
