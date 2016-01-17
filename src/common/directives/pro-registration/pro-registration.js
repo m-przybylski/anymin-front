@@ -1,6 +1,5 @@
 function proRegistration($scope, $state, $stateParams, AuthorizationService) {
   var vm = this
-
   vm.registrationMetaData = {
     emailSended:  false,
     step1:        $scope.step1

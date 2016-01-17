@@ -24,13 +24,12 @@
 
 
 .small-round
-  display: inherit
+  @extend .default-border
   @include border-radius(50%)
+  display: inherit
   height: $sm-round-size
   width: $sm-round-size
   background-color: #ffffff
-  border-color: $c-lines
-  border-style: solid
 
 .center-in-sm-circle
   line-height: $sm-round-size !important
@@ -39,9 +38,8 @@
 .filled-round
   @extend .small-round
   display: inherit
-  border-width: $sm-filled-round-border
-  border-style: solid
   border-color: $c-primary
+  background-color: $c-primary
 
 .pro-tooltip
   @extend .small-round
@@ -87,45 +85,69 @@ div.round
 .uppercase
   text-transform: uppercase
 
+// font-size
+
+.font-size-header
+  font-size: $font-size-header
+
+.font-size-subheader
+  font-size: $font-size-subheader
+
+.font-size-primary
+  font-size: $font-size-primary
+
 //  buttons
 
 .pro-button
-  background-color: $c-primary
   @include border-radius($button-radius)
+  margin-top: $button-margin-top
   padding: $button-padding
   height: $button-height
+  background-color: $c-primary
   color: $button-text-color
   font-size: $button-text-size
   font-weight: bold
   text-transform: uppercase
+  border-style: solid
+  border-width: 1px
+  border-color: $c-primary
 
-  margin-top: $button-margin-top
+.pro-button-light
+  @extend .pro-button
+  background-color: $c-white
+  color: $c-primary
+
+// headers
+
+.pro-header
+  @extend h1, .font-size-header, .text-light
+
+
 
 
 //  inputs
 
-div.input-container
-  display: flex
-  align-items: center
-  justify-content: center
-  width: $input-container-width
-  height: $input-container-height
-  background-color: $c-secondary-background
-  border-bottom: solid
-  border-bottom-width: 1px
-  border-bottom-color: $c-lines
-  margin-top: $input-container-margin-top
-
-  padding-left: $input-container-left-right-padding
-  padding-right: $input-container-left-right-padding
-  span
-    margin: $input-container-text-margin
-    color: $c-secondary-text
-  i
+// div.input-container
+//  display: flex
+//  align-items: center
+//  justify-content: center
+//  width: $input-container-width
+//  height: $input-container-height
+//  background-color: $c-secondary-background
+//  border-bottom: solid
+//  border-bottom-width: 1px
+//  border-bottom-color: $c-lines
+//  margin-top: $input-container-margin-top
+//
+//  padding-left: $input-container-left-right-padding
+//  padding-right: $input-container-left-right-padding
+//  span
+//    margin: $input-container-text-margin
+//    color: $c-secondary-text
+//  i
 
 input
-  border: none
-  background-color: $c-secondary-background
+  @extend .default-border
 
 input:focus
-  outline: none
+  border-color: $c-primary
