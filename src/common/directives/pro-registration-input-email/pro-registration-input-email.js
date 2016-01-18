@@ -5,10 +5,8 @@ function proProgressBox() {
 }
 
 angular.module('profitelo.directives.pro-registration-input-email', [])
-.directive('proRegistrationInputEmail', ($interval) =>{
+.directive('proRegistrationInputEmail', () =>{
   function linkFn(scope, element) {
-    console.log(scope.isPassword)
-    scope.isPassword = Boolean(scope.isPassword)
     var _input = element.find('input')
     _input.bind("focus", () => {
       element.addClass('selected')
@@ -16,9 +14,6 @@ angular.module('profitelo.directives.pro-registration-input-email', [])
     _input.bind("blur", () => {
       element.removeClass('selected')
     })
-    $interval(() => {
-      console.log(scope.isPassword)
-    }, 1000)
   }
   return {
     templateUrl:  'directives/pro-registration-input-email/pro-registration-input-email.tpl.html',
