@@ -13,6 +13,7 @@ function AccountStatusApiResolver($q, SessionsApi, AccountsStatusApi) {
     AccountsStatusApi.query({telcoLogin: response.telcoLogin}).$promise.then(function(result) {
       deferred.resolve(result)
     }, function(error) {
+      console.log('jestem!')
       deferred.reject(error)
     })
   }, function(error) {

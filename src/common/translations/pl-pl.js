@@ -40,7 +40,7 @@ angular.module('profitelo.translations.pl-pl', [])
     'EXPERT_PROGRESS.VERIFICATION.TITLE': 'Weryfikacja',
     'EXPERT_PROGRESS.VERIFICATION.DESCRIPTION': 'Zweryfikuj profil. Sprawdzimy czy wszystko się zgadza',
     'EXPERT_PROGRESS.VERIFICATION.UISREF.TITLE': 'Zgłoś do weryfikacji',
-    'PROGRESS_BAR.SERVICE_COMPLETED': 'Nowa usługa utworzona w {{value}}%'
+    'PROGRESS_BAR.SERVICE_COMPLETED': 'Nowa usługa {{value}}%'
 
   })
 })

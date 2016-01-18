@@ -10,31 +10,35 @@ angular.module('profitelo', [
 
   // services
   'profitelo.services.customTranslationHandler',
+  'profitelo.services.wizardSectionControl',
 
   // controllers
   'profitelo.controller.dashboard',
   'profitelo.controller.dashboard.start',
-  'profitelo.controller.dashboard.service-wizard',
+
   'profitelo.controller.home',
   'profitelo.controller.expert-profile',
   'profitelo.controller.expert-progress',
   'profitelo.controller.registration',
+  'profitelo.controller.wizards',
+  'profitelo.controller.wizards.create-new-service',
 
 
   // directives
-  'profitelo.directives.proInput',
-  'profitelo.directive.proRegistration',
-  'profitelo.directive.proExpertProgress',
-  'profitelo.directive.proProgressBox',
-  'profitelo.directive.expert-profile',
-  'profitelo.directives.proProgressBar',
-
+  'profitelo.directives.pro-registration',
+  'profitelo.directives.pro-registration-input-email',
+  'profitelo.directives.pro-registration-input-pass',
+  'profitelo.directives.pro-expert-progress',
+  'profitelo.directives.pro-progress-box',
+  'profitelo.directives.pro-progress-bar',
+  'profitelo.directives.pro-expert-profile',
 
   // rest
   'profitelo.api.accounts',
   'profitelo.api.registration',
   'profitelo.api.sessions',
   'profitelo.api.accountsStatus',
+  'profitelo.api.industry',
 
   // translations
   'profitelo.translations.en-us',
@@ -163,6 +167,15 @@ angular.module('profitelo', [
   $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
     console.log('$stateChangeError', error)
   })
+
+  $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, error) {
+    if (angular.isDefined(toState.data) && angular.isDefined(toState.data.hideDashboardMenu)) {
+      $rootScope.hideDashboardMenu = toState.data.hideDashboardMenu
+    } else {
+      $rootScope.hideDashboardMenu = false
+    }
+  })
+
 })
 
 .controller('AppController', AppController)

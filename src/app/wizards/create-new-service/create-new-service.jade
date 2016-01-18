@@ -1,0 +1,23 @@
+.container.create-new-service
+  .top-section.clearfix
+    h2.text-bold.pull-left NOWA USŁUGA
+    i.icon-close.icon-2x.pull-right.link(data-ui-sref="app.dashboard.start")
+
+
+  pro-create-new-service-tag()
+  pro-create-new-service-name.widget-divider(data-queue="vm.queue" data-order="1")
+  pro-create-new-service-industry.widget-divider(data-queue="vm.queue" data-order="2")
+  pro-create-new-service-category.widget-divider(data-queue="vm.queue" data-order="3")
+
+
+
+
+  //pro-create-new-service-name.widget-divider()
+
+
+  //pro-create-new-service-description()
+
+  pro-progress-bar(data-progress="vm.progress" data-queue="vm.queue" data-caption="PROGRESS_BAR.SERVICE_COMPLETED" data-next="vm.nextSection")
+  //
+  //pre
+  //  | vm: {{vm|json}}
