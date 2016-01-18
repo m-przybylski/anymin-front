@@ -7,6 +7,8 @@ angular.module('profitelo', [
   'ngAnimate',
   'toastr',  // some parts depends on ngAnimate
   'ngCookies',
+  // modules
+  'hellojs',
 
   // services
   'profitelo.services.customTranslationHandler',
