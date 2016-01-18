@@ -26,7 +26,8 @@ angular.module('profitelo', [
 
   // directives
   'profitelo.directives.pro-registration',
-  'profitelo.directives.pro-registration-input',
+  'profitelo.directives.pro-registration-input-email',
+  'profitelo.directives.pro-registration-input-pass',
   'profitelo.directives.pro-expert-progress',
   'profitelo.directives.pro-progress-box',
   'profitelo.directives.pro-progress-bar',

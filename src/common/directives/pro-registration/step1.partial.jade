@@ -5,20 +5,11 @@
       i.icon-2x.icon-talk-man.center-in-circle
     .pro-header.margin-top-10
       | Rejestracja
-    div(data-pro-registration-input)
-    div(data-pro-registration-input)
+    div(data-pro-registration-input-email data-name="email:" data-label-icon="icon-mail-withatsign" data-input-value="vm.userData.email")
+    div(data-pro-registration-input-pass data-name="hasło:" data-label-icon="icon-lock-3" data-input-value="vm.userData.password")
 
 
-    //div.input-container.center-block
-    //  .icon-container
-    //    i.icon-2x.icon-mail-withatsign
-    //    span E-MAIL:
-    //  input(type="email" required data-ng-model="vm.userData.email" )
-    //div.input-container.center-block
-    //  .icon-container
-    //    i.icon-2x.icon-lock-3
-    //    span HASŁO:
-    //  input(type="password" required data-ng-model="vm.userData.password")
+
     div.row.margin-top-20
     button.btn.pro-button(type="button")
       | ZALOGUJ SIĘ ZA POMOCĄ FEJSBUKA
