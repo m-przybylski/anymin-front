@@ -4,7 +4,7 @@ angular.module('profitelo.services.commonSettings', [])
 
 function CommonSettingsService() {
   var _settings = {
-    apiUrl: 'http://api.profitelo.pl'
+    apiUrl: 'http://api.dev.profitelo.pl'
   }
 
   var api = {

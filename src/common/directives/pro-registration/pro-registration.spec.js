@@ -1,11 +1,11 @@
 describe('Unit testing: profitelo.directive.pro-registration', () => {
   return describe('for pro-registration directive >', () => {
 
-    var compile       = null
-    var scope         = null
-    var _$httpBackend = null
-    var _$state       = null
-
+    var compile                 = null
+    var scope                   = null
+    var _$httpBackend           = null
+    var _$state                 = null
+    var _CommonSettingsService  = null
     var validHTML = '<div data-pro-registration data-step1="step1"></div>'
 
     var registrationPOST = null
@@ -15,21 +15,23 @@ describe('Unit testing: profitelo.directive.pro-registration', () => {
       module('templates-module')
       module('profitelo.directives.pro-registration')
 
-      inject(($rootScope, $compile, _$httpBackend_, _$state_) => {
+      inject(($rootScope, $compile, _$httpBackend_, _$state_, CommonSettingsService) => {
         scope         = $rootScope.$new()
         compile       = $compile
         scope.step1   = true
         _$state       = _$state_
         _$httpBackend = _$httpBackend_
+        _CommonSettingsService = CommonSettingsService
+
 
 
       })
       _$state.current.name = 'app.registration'
 
-      registrationGET  = _$httpBackend.when('GET', 'http://api.profitelo.pl/registration')
+      registrationGET  = _$httpBackend.when('GET', _CommonSettingsService.get('apiUrl')+'/registration')
       .respond(200, {})
 
-      registrationPOST =_$httpBackend.when('POST', 'http://api.profitelo.pl/registration')
+      registrationPOST =_$httpBackend.when('POST', _CommonSettingsService.get('apiUrl')+'/registration')
       .respond(200, {})
 
 

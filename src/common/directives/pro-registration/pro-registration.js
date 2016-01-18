@@ -33,7 +33,7 @@ angular.module('profitelo.directives.pro-registration', [
   'ui.router',
   'authorization',
   'ngCookies',
-
+  'profitelo.services.commonSettings',
   'profitelo.api.sessions',
   'profitelo.api.registration'
 ])
