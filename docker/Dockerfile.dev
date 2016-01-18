@@ -1,0 +1,38 @@
+#
+# Profitelo frontend development image
+#
+# Version: 0.0.1
+#
+
+FROM profitelo_base
+MAINTAINER Jarosław Płocki <jaroslaw.plocki@itelo.pl>
+
+RUN apt-get update && apt-get install -y build-essential curl git python
+
+WORKDIR /
+
+RUN curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+RUN apt-get install -y nodejs
+
+RUN npm cache clean -f
+RUN npm install -g n
+RUN n lts
+
+RUN npm install -g gulp
+
+RUN mkdir /profitelo-frontend
+
+ADD package.json /profitelo-frontend/
+
+WORKDIR /profitelo-frontend
+
+RUN npm prune
+RUN npm install
+
+ADD . /profitelo-frontend
+
+ADD docker/nginx.conf /etc/nginx/sites-enabled/default
+ADD docker/init_scripts/nginx.sh /etc/service/nginx/run
+ADD docker/init_scripts/frontend.sh /etc/service/frontend/run
+
+CMD ["/sbin/my_init", "--enable-insecure-key"]
