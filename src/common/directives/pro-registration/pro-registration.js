@@ -1,4 +1,4 @@
-function proRegistration($scope, $state, $stateParams, AuthorizationService) {
+function proRegistration($scope, $state, $stateParams, AuthorizationService, HellojsService) {
   var vm = this
   vm.registrationMetaData = {
     emailSended:  false,
@@ -8,6 +8,7 @@ function proRegistration($scope, $state, $stateParams, AuthorizationService) {
     email: '',
     password: ''
   }
+
   if (!vm.registrationMetaData.step1) {
     AuthorizationService.checkToken($stateParams).then(()=>{
     }, (error) => {
@@ -22,6 +23,10 @@ function proRegistration($scope, $state, $stateParams, AuthorizationService) {
     }, (error) =>{
       console.log('could not send email', error)
     })
+  }
+
+  vm.registerSocial = () => {
+    HellojsService.getMe('facebook')
   }
 
 

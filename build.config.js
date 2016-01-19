@@ -53,7 +53,7 @@ module.exports = {
       'node_modules/angular-translate-interpolation-messageformat/angular-translate-interpolation-messageformat.js',
       'node_modules/angular-dynamic-locale/dist/tmhDynamicLocale.js',
       'node_modules/angular-cookies/angular-cookies.js',
-      'node_modules/hellojs/dist/hello.js'
+      'node_modules/hellojs/dist/hello.all.min.js'
     ],
     css: [
       'node_modules/angular-toastr/dist/angular-toastr.css',

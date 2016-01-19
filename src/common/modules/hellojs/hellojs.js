@@ -8,7 +8,7 @@ function HellojsService($q) {
 
   hello.init(
     {
-      'facebook': '661427837225126',
+      'facebook': '559859100836336',
       'google': '996661759407-pf3q2igbo7e1oq5o9v6p1pjjnrvd7qe3.apps.googleusercontent.com',
       'linkedin': '75q0l9bhc33fyn'
     },
@@ -26,13 +26,11 @@ function HellojsService($q) {
   }
 
 
-  let _logout
-
-  _logout = (socialNetworkName, silently) => {
+  let _logout = (socialNetworkName, silently) => {
     if (silently === 'undefined' || typeof silently === null) {
       silently = false
     }
-    return hello(socialNetworkName).logout().then(() => {
+    hello(socialNetworkName).logout().then(() => {
       var _msg
       if (silently) {
         _msg = {
@@ -42,9 +40,9 @@ function HellojsService($q) {
             socialNetwork: socialNetworkName
           }
         }
-        return GlobalNotificationsService.add(_msg)
+        // GlobalNotificationsService.add(_msg)
       } else {
-        return console.log('Singed out from ' + socialNetworkName)
+        console.log('Singed out from ' + socialNetworkName)
       }
     }, (e) => {
       var _msg
@@ -56,16 +54,14 @@ function HellojsService($q) {
             errorMessage: e.error.message
           }
         }
-        return GlobalNotificationsService.add(_msg)
+        // GlobalNotificationsService.add(_msg)
       } else {
         return console.log('Signed out error:' + e.error.message)
       }
     })
   }
 
-
-  let _login
-  _login = function(socialNetworkName) {
+  let _login = function(socialNetworkName) {
     var authResponse, deferred
     authResponse = hello.getAuthResponse(socialNetworkName)
     if (_authResponseIsValid(authResponse)) {
@@ -87,7 +83,23 @@ function HellojsService($q) {
     }
   }
 
-  let api = {
+
+  var _me
+
+  _me = function(socialNetworkName) {
+    hello(socialNetworkName).api('me').then(function(data) {
+
+      console.log(data)
+
+    }, function(error) {
+
+      console.log(error)
+
+    })
+  }
+
+
+  return {
     authResponseIsValid: _authResponseIsValid,
     logout: _logout,
     login: _login,
@@ -96,14 +108,13 @@ function HellojsService($q) {
       authResponse = hello.getAuthResponse(socialNetworkName)
       if (_authResponseIsValid(authResponse)) {
         console.log('resend auth response', authResponse)
-        return _me(socialNetworkName, false)
+        _me(socialNetworkName, false)
       } else {
-        return hello(socialNetworkName).login().then(function(auth) {
+        hello(socialNetworkName).login().then(function(auth) {
           if (_authResponseIsValid(auth.authResponse)) {
-            return _me(socialNetworkName, false)
+            _me(socialNetworkName, false)
           } else {
             console.log('Error in: hello(socialNetworkName).login()')
-            return false
           }
         }, function(e) {
           console.log('Error', e)
@@ -111,7 +122,4 @@ function HellojsService($q) {
       }
     }
   }
-
-  return api
-
 }
