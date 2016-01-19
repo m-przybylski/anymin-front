@@ -50,7 +50,7 @@ angular.module('profitelo', [
 
 ])
 
-.config(($urlRouterProvider, $stateProvider, $resourceProvider, $translateProvider, tmhDynamicLocaleProvider, toastrConfig) => {
+.config(($urlRouterProvider, $stateProvider, $resourceProvider, $translateProvider, $locationProvider, tmhDynamicLocaleProvider, toastrConfig) => {
   $stateProvider.state('app', {
     url: '',
     abstract: true,
@@ -61,7 +61,7 @@ angular.module('profitelo', [
     .when('', '/')
     .when('/', '/home')
 
-
+  $locationProvider.html5Mode(true)
   // ngResource
   $resourceProvider.defaults.stripTrailingSlashes = true
 
