@@ -1,4 +1,5 @@
-function proRegistration($scope, $state, $stateParams, AuthorizationService, HellojsService) {
+function proRegistration($scope, $state, $stateParams, $filter, AuthorizationService, toastr, HellojsService) {
+
   var vm = this
   vm.registrationMetaData = {
     emailSended:  false,
@@ -25,10 +26,21 @@ function proRegistration($scope, $state, $stateParams, AuthorizationService, Hel
     })
   }
 
+
   vm.registerSocial = () => {
     HellojsService.getMe('facebook')
   }
 
+  vm.sendAndGoNext = function() {
+    vm.submitted = true
+    var msg = $filter('translate')('EXPERT_PROFILE.MESSAGES.DATA_SAVED_SUCCESSFULLY')
+    var title = $filter('translate')('EXPERT_PROFILE.EXPERT_PROFILE')
+    if ($scope.registration.$valid) {
+      vm.sendEmail()
+    } else {
+      toastr.error('Wrong credentials', 'Registration error')
+    }
+  }
 
   return vm
 
@@ -38,6 +50,7 @@ angular.module('profitelo.directives.pro-registration', [
   'ui.router',
   'authorization',
   'ngCookies',
+  'toastr',
   'profitelo.services.commonSettings',
   'profitelo.api.sessions',
   'profitelo.api.registration'

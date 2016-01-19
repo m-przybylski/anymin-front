@@ -21,7 +21,7 @@ angular.module('profitelo.directives.pro-registration-input-pass', [])
     restrict:     'A',
     scope:        { name:       '@',
                     labelIcon:  '@',
-                    isDupa: '@',
+                    form:       '=',
                     inputValue: '='
                   },
     link:         linkFn
