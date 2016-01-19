@@ -1,6 +1,9 @@
 footer.center-flex
   div(data-ng-show="true")
     div.row.margin-top-20
-      div.inline-block
+      div.inline-block(data-ng-show="false")
         div.filled-round
         div.small-round
+      div.inline-block(data-ng-show="true")
+        div.small-round
+        div.filled-round

@@ -9,11 +9,11 @@ function proRegistration($scope, $state, $stateParams, $filter, AuthorizationSer
     password: ''
   }
   if (!vm.registrationMetaData.step1) {
-    AuthorizationService.checkToken($stateParams).then(()=>{
-    }, (error) => {
-      console.log(error)
-      $state.go('app.home')
-    })
+    // AuthorizationService.checkToken($stateParams).then(()=>{
+    // }, (error) => {
+    //  console.log(error)
+    //  $state.go('app.home')
+    // })
   }
 
   vm.sendEmail = () =>{
