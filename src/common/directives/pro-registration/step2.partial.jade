@@ -1,7 +1,6 @@
 .text-center.margin-top-60.center-flex
 
-  p.text-center(data-ng-show="vm.registrationMetaData.emailSended") Email sended. Click on link my friend
-  form(role="form" name="registerForm" data-ng-show="!vm.registrationMetaData.emailSended")
+  form(role="form" name="registerForm")
     div.round.center-block
       i.icon-2x.icon-smile.center-in-circle
     .pro-header.margin-top-10
@@ -21,7 +20,7 @@
     //  | zgody na przetwarzanie danych osobowych (spokojnie, nie spamujemy :) ).
 
     div.row
-    button.btn.pro-button.margin-top-20(type="submit")
+    button.btn.pro-button.margin-top-20(data-ng-click="vm.verifyPinAndGo")
       | Załóż konto
     div.row.margin-top-20
 

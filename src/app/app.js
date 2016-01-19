@@ -11,6 +11,7 @@ angular.module('profitelo', [
 
   // modules
   'appSettings',
+  'user',
 
   // services
   'profitelo.services.customTranslationHandler',
