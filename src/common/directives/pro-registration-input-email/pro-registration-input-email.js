@@ -20,7 +20,7 @@ angular.module('profitelo.directives.pro-registration-input-email', [])
     restrict:     'A',
     scope:        { name:       '@',
                     labelIcon:  '@',
-                    isDupa:     '@',
+                    form:       '=',
                     inputValue: '='
                   },
     link:         linkFn

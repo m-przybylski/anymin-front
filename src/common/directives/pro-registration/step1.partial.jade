@@ -1,13 +1,16 @@
 .container.text-center.margin-top-60.center-flex
+  //form(name="form")
+  //  input(type="text" name="name" data-ng-model="vm.userData.password" required)
+    //h1() {{ form.name }}
   p.text-center(data-ng-show="vm.registrationMetaData.emailSended") Email sended. Click on link my friend
-  form(role="form" name="registerForm" data-ng-show="!vm.registrationMetaData.emailSended")
+  form(name="registration" data-ng-show="!vm.registrationMetaData.emailSended")
     div.round.center-block
       i.icon-2x.icon-talk-man.center-in-circle
     .pro-header.margin-top-10
       | Rejestracja
-    div(data-pro-registration-input-email data-name="email:" data-label-icon="icon-mail-withatsign" data-input-value="vm.userData.email")
-    div(data-pro-registration-input-pass data-name="hasło:" data-label-icon="icon-lock-3" data-input-value="vm.userData.password")
+    div(data-pro-registration-input-email data-form="registration" data-name="email:" data-label-icon="icon-mail-withatsign" data-input-value="vm.userData.email")
 
+    div(data-pro-registration-input-pass data-form="registration" data-name="hasło:" data-label-icon="icon-lock-3" data-input-value="vm.userData.password")
 
 
     div.row.margin-top-20
