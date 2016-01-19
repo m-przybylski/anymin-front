@@ -1,7 +1,7 @@
 .registration
   display: flex
   justify-content: center
-
+  margin-bottom: 143px
   div.input-container
     position: relative
     
@@ -20,6 +20,7 @@
       padding-bottom: 5px
       text-transform: uppercase
     input
+      @include border-radius($input-container-radius)
       margin-top: $input-container-margin-top
       background-color: $c-white
       padding-left: $input-container-left-right-padding
@@ -63,5 +64,13 @@
   button
     margin-top: 20px
     width: $button-width
+
+    span
+      i
+        position: relative
+        color: white
+        top: 1px
+        left: -2px
+
 
 

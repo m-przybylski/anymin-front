@@ -104,6 +104,7 @@ div.round
 .pro-button
   @include border-radius($button-radius)
   @extend .text-bold
+  @extend .default-border
   margin-top: $button-margin-top
   padding: $button-padding
   height: $button-height
@@ -111,8 +112,7 @@ div.round
   color: $button-text-color
   font-size: $button-text-size
   text-transform: uppercase
-  border-style: solid
-  border-width: 1px
+  border-width: 2px
   border-color: $c-primary
 
 .pro-button-light
