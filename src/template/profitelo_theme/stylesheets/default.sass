@@ -69,11 +69,14 @@ div.round
 // font-weight
 
 .text-light
-  font-weight: 200
-.text-normal
   font-weight: 300
+.text-normal
+  font-weight: 400
+.text-semi-bold
+  font-weight: 600
 .text-bold
   font-weight: 700
+
 
 // font-color
 
@@ -100,13 +103,13 @@ div.round
 
 .pro-button
   @include border-radius($button-radius)
+  @extend .text-bold
   margin-top: $button-margin-top
   padding: $button-padding
   height: $button-height
   background-color: $c-primary
   color: $button-text-color
   font-size: $button-text-size
-  font-weight: bold
   text-transform: uppercase
   border-style: solid
   border-width: 1px
@@ -116,6 +119,10 @@ div.round
   @extend .pro-button
   background-color: $c-white
   color: $c-primary
+
+.pro-button-light:hover
+  background-color: $c-primary
+  color: $button-text-color
 
 // headers
 

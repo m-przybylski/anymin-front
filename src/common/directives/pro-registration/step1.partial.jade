@@ -8,16 +8,16 @@
       i.icon-2x.icon-talk-man.center-in-circle
     .pro-header.margin-top-10
       | Rejestracja
-    div(data-pro-registration-input-email data-form="registration" data-name="email:" data-label-icon="icon-mail-withatsign" data-input-value="vm.userData.email")
+    div(data-pro-registration-input-email data-form="registration" data-name="email:" data-label-icon="icon-mail-with-at-sign" data-input-value="vm.userData.email")
 
     div(data-pro-registration-input-pass data-form="registration" data-name="hasło:" data-label-icon="icon-lock-3" data-input-value="vm.userData.password")
 
 
     div.row.margin-top-20
-    button.btn.pro-button(type="button")
+    button.pro-button(type="button")
       | ZALOGUJ SIĘ ZA POMOCĄ FEJSBUKA
     div.row
-    button.btn.pro-button-light.margin-top-20(type="submit" data-ng-click="vm.sendEmail()")
+    button.pro-button-light.margin-top-20(type="submit" data-ng-click="vm.sendEmail()")
       | Kontynuuj
 
 
