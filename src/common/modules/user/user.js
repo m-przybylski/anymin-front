@@ -23,7 +23,7 @@ angular.module('user', [
 
 
   let _setData = (parameters) => {
-    angular.extend(_userdata, parameters)
+    angular.extend(_userData, parameters)
 
   }
   let _getAllData = () => {

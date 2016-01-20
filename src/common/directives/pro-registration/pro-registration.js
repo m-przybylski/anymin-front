@@ -1,4 +1,4 @@
-function proRegistration($scope, $rootScope, $state, $stateParams, $filter, UserService, AuthorizationService, ProfilesApi, toastr) {
+function proRegistration($scope, $rootScope, $http, $state, $stateParams, $filter, UserService, AuthorizationService, ProfilesApi, toastr) {
   var vm = this
 
   // step 1
@@ -35,8 +35,10 @@ function proRegistration($scope, $rootScope, $state, $stateParams, $filter, User
   // step 2
 
   if (!vm.registrationMetaData.step1) {
-    $rootScope.registrationFooterData.step1 = false
-
+    // $rootScope.registrationFooterData.step1 = false
+    // $http.get('http://api.dev.profitelo.pl/registration/'+$stateParams.token, { withCredentials: true}).then((success)=>{
+    //  AuthorizationService.setApiKeyHeader(success.data.apiKey)
+    // })
     AuthorizationService.checkToken($stateParams).then((response)=>{
       UserService.setData(response)
       AuthorizationService.setApiKeyHeader(response.apiKey)

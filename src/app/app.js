@@ -51,7 +51,10 @@ angular.module('profitelo', [
 
 ])
 
-.config(($urlRouterProvider, $stateProvider, $resourceProvider, $translateProvider, $locationProvider, tmhDynamicLocaleProvider, toastrConfig) => {
+.config(($urlRouterProvider, $httpProvider, $stateProvider, $resourceProvider, $translateProvider, $locationProvider, tmhDynamicLocaleProvider, toastrConfig) => {
+
+  $httpProvider.defaults.withCredentials = true
+
   $stateProvider.state('app', {
     url: '',
     abstract: true,

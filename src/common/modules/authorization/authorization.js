@@ -6,10 +6,15 @@ angular.module('authorization', [
 
 function AuthorizationService($q, $cookies, $http, SessionsApi, RegistrationApi) {
 
+  var _setApiKeyHeader = (apiKey) => {
+    $http.defaults.headers.common['X-Api-Key'] = apiKey
+  }
+
   var _checkToken = (object) => {
     // object should contain token field
     var deferred = $q.defer()
     RegistrationApi.checkToken(object).$promise.then((success)=>{
+      _setApiKeyHeader(success.apiKey)
       deferred.resolve(success)
     }, (error) => {
       console.log(error)
@@ -39,9 +44,7 @@ function AuthorizationService($q, $cookies, $http, SessionsApi, RegistrationApi)
     // after logging set cookie with sessionKey
   }
 
-  var _setApiKeyHeader = (apiKey) => {
-    $http.defaults.headers.common['X-ApiKey'] = apiKey
-  }
+
 
   var api = {
     register:         _register,
