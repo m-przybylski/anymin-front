@@ -1,4 +1,4 @@
-function proRegistration($scope, $state, $stateParams, $filter, UserService, AuthorizationService, ProfilesApi, toastr) {
+function proRegistration($scope, $rootScope, $state, $stateParams, $filter, UserService, AuthorizationService, ProfilesApi, toastr) {
   var vm = this
 
   // step 1
@@ -35,6 +35,8 @@ function proRegistration($scope, $state, $stateParams, $filter, UserService, Aut
   // step 2
 
   if (!vm.registrationMetaData.step1) {
+    $rootScope.registrationFooterData.step1 = false
+
     AuthorizationService.checkToken($stateParams).then((response)=>{
       UserService.setData(response)
       AuthorizationService.setApiKeyHeader(response.apiKey)
@@ -42,6 +44,8 @@ function proRegistration($scope, $state, $stateParams, $filter, UserService, Aut
       console.log(error)
       $state.go('app.home')
     })
+  } else {
+    $rootScope.registrationFooterData.step1 = true
   }
 
   vm.verifyPinAndGo = () => {

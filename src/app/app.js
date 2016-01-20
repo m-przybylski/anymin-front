@@ -142,6 +142,18 @@ angular.module('profitelo', [
     } else {
       $rootScope.hideDashboardMenu = false
     }
+
+    if (angular.isDefined(toState.data) && angular.isDefined(toState.data.showRegistrationFooter)) {
+      $rootScope.registrationFooterData = {
+        show:   toState.data.showRegistrationFooter,
+        step1:  ''
+      }
+    } else {
+      $rootScope.registrationFooterData = {
+        show:   false,
+        step1:  ''
+      }
+    }
   })
 
 })
