@@ -1,4 +1,4 @@
-function proRegistration($scope, $rootScope, $http, $state, $stateParams, $filter, UserService, AuthorizationService, ProfilesApi, toastr) {
+function proRegistration($scope, $rootScope, $http, $state, $stateParams, $filter, UserService, AuthorizationService, ProfilesApi, AccountsApi, toastr) {
   var vm = this
 
   // step 1
@@ -42,6 +42,10 @@ function proRegistration($scope, $rootScope, $http, $state, $stateParams, $filte
     AuthorizationService.checkToken($stateParams).then((response)=>{
       UserService.setData(response)
       AuthorizationService.setApiKeyHeader(response.apiKey)
+      AccountsApi.query({id: response.id}).$promise.then((response)=>{
+
+
+      })
     }, (error) => {
       console.log(error)
       $state.go('app.home')
@@ -72,6 +76,7 @@ angular.module('profitelo.directives.pro-registration', [
   'ngCookies',
   'toastr',
   'user',
+  'profitelo.api.accounts',
   'profitelo.api.profiles',
   'profitelo.services.commonSettings',
   'profitelo.api.sessions',
