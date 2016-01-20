@@ -51,6 +51,7 @@ angular.module('profitelo.directives.pro-registration', [
   'authorization',
   'ngCookies',
   'toastr',
+  'hellojs',
   'profitelo.services.commonSettings',
   'profitelo.api.sessions',
   'profitelo.api.registration'
@@ -66,6 +67,4 @@ angular.module('profitelo.directives.pro-registration', [
     replace:      true
   }
 })
-
-
 
