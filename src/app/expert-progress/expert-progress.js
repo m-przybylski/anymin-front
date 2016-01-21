@@ -10,10 +10,9 @@ angular.module('profitelo.controller.expert-progress', [
 function AccountStatusApiResolver($q, SessionsApi, AccountsStatusApi) {
   var deferred = $q.defer()
   SessionsApi.get().$promise.then(function(response) {
-    AccountsStatusApi.query({telcoLogin: response.telcoLogin}).$promise.then(function(result) {
+    AccountsStatusApi.query({id: response.id}).$promise.then(function(result) {
       deferred.resolve(result)
     }, function(error) {
-      console.log('jestem!')
       deferred.reject(error)
     })
   }, function(error) {

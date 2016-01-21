@@ -53,6 +53,12 @@ angular.module('profitelo.translations.en-us', [])
     "COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_NAME.FULLNAME": "Fullname of the service",
     "COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_NAME.FULLNAME_PLACEHOLDER": "Consulting Services - a flat tax",
     "COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_NAME.VALIDATION.SERVICE_NAME_REQUIRED": "Service name required",
+    // common/directives/wizards/pro-create-new-service-industry.jade
+    "COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_NAME.INDUSTRY_NAME": "Industry",
+
+    // common/directives/wizards/pro-create-new-service-category.jade
+    "COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_NAME.CATEGORY_NAME": "Category",
+
 
     // common/directives/wizards/pro-create-new-service-description.jade
     "COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_DESCRIPTION.SERVICE_DESCRIPTION": "Service description",
