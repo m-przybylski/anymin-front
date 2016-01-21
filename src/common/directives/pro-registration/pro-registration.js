@@ -51,8 +51,9 @@ function proRegistration($scope, $rootScope, $state, $stateParams, $filter, User
     UserService.setData({telcoPin: vm.userData.pin})
     if ($scope.pinForm.$valid) {
       let _data = UserService.getAllData()
-      AccountsApi.update({id: _data.id },_data)
-      // save data, redirect to expert-progress?
+      AccountsApi.update({id: _data.id }, _data).$promise.then(()=>{
+        $state.go('app.home')
+      })
     } else {
       toastr.error('Wrong pin', 'Should be number!')
     }
