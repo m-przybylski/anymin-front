@@ -24,7 +24,8 @@ angular.module('profitelo.directives.pro-registration-input-pass', [])
                     form:       '=',
                     inputValue: '=',
                     maxLength:  '=',
-                    minLength:  '='
+                    minLength:  '=',
+                    pattern:    '='
                   },
     link:         linkFn
   }

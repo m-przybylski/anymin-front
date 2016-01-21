@@ -5,8 +5,11 @@
       i.icon-2x.icon-talk-man.center-in-circle
     .pro-header.margin-top-10
       | Rejestracja
-    div(data-pro-registration-input-email data-form="registration" data-name="email:" data-label-icon="icon-mail-with-at-sign" data-input-value="vm.userData.email")
-    div(data-pro-registration-input-pass data-form="registration" data-name="hasło:" data-label-icon="icon-lock-3" data-input-value="vm.userData.password")
+    div(data-pro-registration-input-email data-form="registration"
+    data-name="email:" data-label-icon="icon-mail-with-at-sign" data-input-value="vm.userData.email" data-pattern="vm.settings.emailPattern")
+
+    div(data-pro-registration-input-pass data-form="registration"
+    data-name="hasło:" data-label-icon="icon-lock-3" data-input-value="vm.userData.password" data-pattern="vm.settings.passwordPattern")
 
     div.row.margin-top-20
 

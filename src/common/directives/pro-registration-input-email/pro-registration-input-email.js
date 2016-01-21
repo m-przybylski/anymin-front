@@ -22,7 +22,8 @@ angular.module('profitelo.directives.pro-registration-input-email', [])
     scope:        { name:       '@',
                     labelIcon:  '@',
                     form:       '=',
-                    inputValue: '='
+                    inputValue: '=',
+                    pattern:    '='
                   },
     link:         linkFn
   }
