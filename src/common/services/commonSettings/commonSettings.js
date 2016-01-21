@@ -9,7 +9,7 @@ function CommonSettingsService() {
 
   let _localSettings = {
     emailPattern: "^([a-z0-9!#$%&'*+/=?^_`{|}~.-]+)@([a-z0-9-]+)\\.([a-zA-Z.]+)$",
-    passwordPattern: '[a-zA-Z]{6,64}',
+    passwordPattern: '[a-zA-Z0-9]{6,64}',
     pinPattern: '\\d{4}'
   }
 
