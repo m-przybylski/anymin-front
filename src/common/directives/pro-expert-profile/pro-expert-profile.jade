@@ -89,13 +89,14 @@ form(novalidate="" role="form" name="expertProfileForm")
                 pro-question-mark(title="{{ 'EXPERT_PROFILE.PROFILE_CERTIFICATES_TOOLTIP' | translate }}")
                 .files-icon
                   a(href="" ngf-select data-ng-model="vm.profile.formdata.documentFiles" ngf-multiple="true")
-                    i.fa.fa-files-o
+                    i.icon.icon-keypad
 
-              .profile-certificates(data-ng-show="vm.isFilesExist(vm.profile.formdata.documentFiles)" data-ng-repeat="item in vm.currentlyUploadedDocuments")
-                a
-                  | {{ item.name }}
-                .progress
-                  .progress-bar.progress-bar-success(role='progressbar', aria-valuenow='{{item.progressPercentage}}', aria-valuemin='0', aria-valuemax='100', style='width: {{vm.progressPercentage}}%')
+              .profile-certificates(data-ng-show="vm.isFilesExist(vm.profile.formdata.documentFiles)")
+                .uploading-document(data-ng-repeat="item in vm.currentlyUploadedDocuments")
+                  a
+                    | {{ item.name }}
+                  .progress
+                    .progress-bar.progress-bar-success(role='progressbar', aria-valuenow='{{item.progressPercentage}}', aria-valuemin='0', aria-valuemax='100', style='width: {{item.progressPercentage}}%')
 
 
 
