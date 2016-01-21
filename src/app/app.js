@@ -137,7 +137,7 @@ angular.module('profitelo', [
 
 .run(($rootScope, $cookies, AuthorizationService) => {
   let _apiKey = $cookies.get('X-Api-Key')
-  if (_apiKey!==undefined) {
+  if (typeof _apiKey !== 'undefined') {
     AuthorizationService.setApiKeyHeader(_apiKey)
   }
   $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
