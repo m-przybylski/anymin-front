@@ -1,6 +1,6 @@
 .text-center.margin-top-60.center-flex
 
-  form(role="form" name="registerForm")
+  form(role="form" name="pinForm")
     div.round.center-block
       i.icon-2x.icon-smile.center-in-circle
     .pro-header.margin-top-10
@@ -12,7 +12,7 @@
     div.pro-tooltip
       span ?
 
-    div(data-pro-registration-input-pass data-form="registration" data-name="4-cyfrowy pin:" data-label-icon="icon-keypad" data-input-value="vm.userData.pin")
+    div(data-pro-registration-input-pass data-form="pinForm" data-name="4-cyfrowy pin:" data-label-icon="icon-keypad" data-input-value="vm.userData.pin")
 
     div.row
     //p.margin-top-20.margin-bottom-0(style="width: 500px")
@@ -20,6 +20,6 @@
     //  | zgody na przetwarzanie danych osobowych (spokojnie, nie spamujemy :) ).
 
     div.row
-    button.btn.pro-button.margin-top-20(data-ng-click="vm.verifyPinAndGo")
+    button.btn.pro-button.margin-top-20(data-ng-click="vm.verifyPinAndGo()")
       | Załóż konto
 

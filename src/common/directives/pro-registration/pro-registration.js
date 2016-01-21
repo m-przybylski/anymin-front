@@ -1,4 +1,4 @@
-function proRegistration($scope, $rootScope, $http, $state, $stateParams, $filter, UserService, AuthorizationService, ProfilesApi, AccountsApi, toastr) {
+function proRegistration($scope, $rootScope, $state, $stateParams, $filter, UserService, AuthorizationService, AccountsApi, toastr) {
   var vm = this
 
   // step 1
@@ -35,17 +35,9 @@ function proRegistration($scope, $rootScope, $http, $state, $stateParams, $filte
   // step 2
 
   if (!vm.registrationMetaData.step1) {
-    // $rootScope.registrationFooterData.step1 = false
-    // $http.get('http://api.dev.profitelo.pl/registration/'+$stateParams.token, { withCredentials: true}).then((success)=>{
-    //  AuthorizationService.setApiKeyHeader(success.data.apiKey)
-    // })
     AuthorizationService.checkToken($stateParams).then((response)=>{
       UserService.setData(response)
       AuthorizationService.setApiKeyHeader(response.apiKey)
-      AccountsApi.query({id: response.id}).$promise.then((response)=>{
-
-
-      })
     }, (error) => {
       console.log(error)
       $state.go('app.home')
@@ -56,9 +48,10 @@ function proRegistration($scope, $rootScope, $http, $state, $stateParams, $filte
 
   vm.verifyPinAndGo = () => {
     vm.submitted = true
-    UserService.setData(vm.userData.pin)
-    if ($scope.registration.$valid) {
-      ProfilesApi.update(UserService.getAllData)
+    UserService.setData({telcoPin: vm.userData.pin})
+    if ($scope.pinForm.$valid) {
+      let _data = UserService.getAllData()
+      AccountsApi.update({id: _data.id },_data)
       // save data, redirect to expert-progress?
     } else {
       toastr.error('Wrong pin', 'Should be number!')
