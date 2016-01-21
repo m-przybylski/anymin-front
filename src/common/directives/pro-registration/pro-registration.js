@@ -13,14 +13,6 @@ function proRegistration($scope, $rootScope, $state, $stateParams, $filter, User
     pin:      ''
   }
 
-  if (!vm.registrationMetaData.step1) {
-    AuthorizationService.checkToken($stateParams).then(()=>{
-    }, (error) => {
-      console.log(error)
-      $state.go('app.home')
-    })
-  }
-
   vm.sendEmail = () =>{
     AuthorizationService.register({email:vm.userData.email, password:vm.userData.password}).then(()=>{
       vm.registrationMetaData.emailSended = true
