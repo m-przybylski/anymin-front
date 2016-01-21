@@ -13,6 +13,7 @@ angular.module('profitelo', [
 
   // modules
   'appSettings',
+  'user',
 
   // services
   'profitelo.services.customTranslationHandler',
@@ -51,7 +52,10 @@ angular.module('profitelo', [
 
 ])
 
-.config(($urlRouterProvider, $stateProvider, $resourceProvider, $translateProvider, $locationProvider, tmhDynamicLocaleProvider, toastrConfig) => {
+.config(($urlRouterProvider, $httpProvider, $stateProvider, $resourceProvider, $translateProvider, $locationProvider, tmhDynamicLocaleProvider, toastrConfig) => {
+
+  $httpProvider.defaults.withCredentials = true
+
   $stateProvider.state('app', {
     url: '',
     abstract: true,
@@ -141,6 +145,18 @@ angular.module('profitelo', [
       $rootScope.hideDashboardMenu = toState.data.hideDashboardMenu
     } else {
       $rootScope.hideDashboardMenu = false
+    }
+
+    if (angular.isDefined(toState.data) && angular.isDefined(toState.data.showRegistrationFooter)) {
+      $rootScope.registrationFooterData = {
+        show:   toState.data.showRegistrationFooter,
+        step1:  ''
+      }
+    } else {
+      $rootScope.registrationFooterData = {
+        show:   false,
+        step1:  ''
+      }
     }
   })
 

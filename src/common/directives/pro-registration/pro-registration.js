@@ -1,13 +1,16 @@
-function proRegistration($scope, $state, $stateParams, $filter, AuthorizationService, toastr, HellojsService) {
-
+function proRegistration($scope, $rootScope, $state, $stateParams, $filter, UserService, AuthorizationService, HellojsService, AccountsApi, toastr) {
   var vm = this
+
+  // step 1
+
   vm.registrationMetaData = {
     emailSended:  false,
     step1:        $scope.step1
   }
   vm.userData = {
     email: '',
-    password: ''
+    password: '',
+    pin:      ''
   }
 
   if (!vm.registrationMetaData.step1) {
@@ -26,12 +29,11 @@ function proRegistration($scope, $state, $stateParams, $filter, AuthorizationSer
     })
   }
 
-
   vm.registerSocial = () => {
     HellojsService.getMe('facebook')
   }
 
-  vm.sendAndGoNext = function() {
+  vm.sendAndGoNext = () => {
     vm.submitted = true
     var msg = $filter('translate')('EXPERT_PROFILE.MESSAGES.DATA_SAVED_SUCCESSFULLY')
     var title = $filter('translate')('EXPERT_PROFILE.EXPERT_PROFILE')
@@ -40,6 +42,34 @@ function proRegistration($scope, $state, $stateParams, $filter, AuthorizationSer
     } else {
       toastr.error('Wrong credentials', 'Registration error')
     }
+  }
+
+  // step 2
+
+  if (!vm.registrationMetaData.step1) {
+    AuthorizationService.checkToken($stateParams).then((response)=>{
+      UserService.setData(response)
+      AuthorizationService.setApiKeyHeader(response.apiKey)
+    }, (error) => {
+      console.log(error)
+      $state.go('app.home')
+    })
+  } else {
+    $rootScope.registrationFooterData.step1 = true
+  }
+
+  vm.verifyPinAndGo = () => {
+    vm.submitted = true
+    UserService.setData({telcoPin: vm.userData.pin})
+    if ($scope.pinForm.$valid) {
+      let _data = UserService.getAllData()
+      AccountsApi.update({id: _data.id }, _data).$promise.then(()=>{
+        $state.go('app.home')
+      })
+    } else {
+      toastr.error('Wrong pin', 'Should be number!')
+    }
+
   }
 
   return vm
@@ -52,6 +82,9 @@ angular.module('profitelo.directives.pro-registration', [
   'ngCookies',
   'toastr',
   'hellojs',
+  'user',
+  'profitelo.api.accounts',
+  'profitelo.api.profiles',
   'profitelo.services.commonSettings',
   'profitelo.api.sessions',
   'profitelo.api.registration'

@@ -1,16 +1,15 @@
 function accountsApi($resource, CommonSettingsService) {
-  return $resource(CommonSettingsService.get('apiUrl') + '/accounts/:telcoLogin', {telcoLogin: '@telcoLogin'}, {
-    'get': {method: 'GET', isArray: true},
-    'query': {method: 'GET', isArray: false}
-  // /accounts/{accountId}/status
+  return $resource(CommonSettingsService.get('apiUrl') + '/accounts/:id', {id: '@id'}, {
+    'getAccount': {method: 'GET', isArray: true},
+    'query': {method: 'GET', isArray: false},
+    'update': {method: 'PUT', isArray: false}
   })
 }
 
 function accountsStatusApi($resource, CommonSettingsService) {
-  return $resource(CommonSettingsService.get('apiUrl') + '/accounts/:telcoLogin/status', {telcoLogin: '@telcoLogin'}, {
+  return $resource(CommonSettingsService.get('apiUrl') + '/accounts/:id/status', {id: '@id'}, {
     'get': {method: 'GET', isArray: false},
     'query': {method: 'GET', isArray: false}
-    // /accounts/{accountId}/status
   })
 }
 

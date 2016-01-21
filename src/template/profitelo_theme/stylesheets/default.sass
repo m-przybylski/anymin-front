@@ -20,7 +20,7 @@
   background-color: $c-primary-text
 
 .center-in-circle
-  line-height: $icon-container-height - 5
+  line-height: $icon-container-height
 
 
 .small-round
@@ -103,7 +103,7 @@ div.round
 
 .pro-button
   @include border-radius($button-radius)
-  @extend .text-bold
+  @extend .text-semi-bold
   @extend .default-border
   margin-top: $button-margin-top
   padding: $button-padding
@@ -119,6 +119,7 @@ div.round
   @extend .pro-button
   background-color: $c-white
   color: $c-primary
+  @include transition($transitions-time linear)
 
 .pro-button-light:hover
   background-color: $c-primary
@@ -128,10 +129,13 @@ div.round
 
 .pro-header
   @extend h1, .font-size-header, .text-light
+.pro-secondary-header
+  @extend h3, .font-size-subheader, .text-light
 
 input
-  outline-color: white
   @extend .default-border
+  @include transition($transitions-time linear)
+  outline-color: white
 
 input:focus
   border-color: $c-primary

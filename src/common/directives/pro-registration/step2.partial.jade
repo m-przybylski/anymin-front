@@ -1,33 +1,26 @@
-.container.text-center.margin-top-60.margin-bottom-100.center-flex
-  p.text-center(data-ng-show="vm.registrationMetaData.emailSended") Email sended. Click on link my friend
-  form(role="form" name="registerForm" data-ng-show="!vm.registrationMetaData.emailSended")
+.text-center.margin-top-60.center-flex
+
+  form(role="form" name="pinForm")
     div.round.center-block
       i.icon-2x.icon-smile.center-in-circle
-    h1.margin-top-10
+    .pro-header.margin-top-10
       | Prawie gotowe...
-    h3.margin-top-20
+    .margin-top-20.pro-secondary-header
       | Numer ID
-    h3.margin-top-10.inline-block
+    .margin-top-10.inline-block.pro-secondary-header
       | 254 233
     div.pro-tooltip
       span ?
-    div.input-container.center-block.width-350
-      i.icon-2x.icon-keypad
-      span 4-CYFROWY PIN:
-      input.width-100(type="password" required data-ng-model="vm.userData.password" maxlength="4")
-      div.pro-tooltip.pull-right
-        span ?
+
+    div(data-pro-registration-input-pass
+    data-max-length="4" data-min-length="4" data-form="pinForm" data-name="4-cyfrowy pin:" data-label-icon="icon-keypad" data-input-value="vm.userData.pin")
 
     div.row
-    p.margin-top-20.margin-bottom-0(style="width: 500px")
-      | Założenie konta oznacza akceptację Regulaminu Serwisu oraz wyrażenie
-      | zgody na przetwarzanie danych osobowych (spokojnie, nie spamujemy :) ).
+    //p.margin-top-20.margin-bottom-0(style="width: 500px")
+    //  | Założenie konta oznacza akceptację Regulaminu Serwisu oraz wyrażenie
+    //  | zgody na przetwarzanie danych osobowych (spokojnie, nie spamujemy :) ).
 
     div.row
-    button.btn.pro-button.margin-top-20(type="submit")
+    button.btn.pro-button.margin-top-20(data-ng-click="vm.verifyPinAndGo()")
       | Załóż konto
-    div.row.margin-top-20
-    div.inline-block
-      div.small-round
-      div.filled-round
 
