@@ -7,6 +7,7 @@ angular.module('authorization', [
 function AuthorizationService($q, $cookies, $http, SessionsApi, RegistrationApi) {
 
   var _setApiKeyHeader = (apiKey) => {
+    $cookies.put('X-Api-Key', apiKey)
     $http.defaults.headers.common['X-Api-Key'] = apiKey
   }
 

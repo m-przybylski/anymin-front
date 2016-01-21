@@ -135,7 +135,11 @@ angular.module('profitelo', [
   tmhDynamicLocaleProvider.localeLocationPattern('assets/angular-i18n/angular-locale_{{locale}}.js')
 })
 
-.run(($rootScope) => {
+.run(($rootScope, $cookies, AuthorizationService) => {
+  let _apiKey = $cookies.get('X-Api-Key')
+  if (_apiKey!==undefined) {
+    AuthorizationService.setApiKeyHeader(_apiKey)
+  }
   $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
     console.log('$stateChangeError', error)
   })
