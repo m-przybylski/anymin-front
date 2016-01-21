@@ -16,8 +16,6 @@ angular.module('profitelo.controller.home', [
 
 function HomeController(AccountsApi) {
   var vm = this
-  // example GET method
-  AccountsApi.get()
 
   return vm
 }

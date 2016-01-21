@@ -22,7 +22,9 @@ angular.module('profitelo.directives.pro-registration-input-pass', [])
     scope:        { name:       '@',
                     labelIcon:  '@',
                     form:       '=',
-                    inputValue: '='
+                    inputValue: '=',
+                    maxLength:  '=',
+                    minLength:  '='
                   },
     link:         linkFn
   }

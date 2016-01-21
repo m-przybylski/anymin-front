@@ -9,7 +9,6 @@ function StepResolver($q, $stateParams) {
   var deferred = $q.defer()
   if ($stateParams.token==='') {
     deferred.resolve(true)
-
   } else {
     deferred.resolve(false)
   }
@@ -31,6 +30,9 @@ function config($stateProvider) {
     templateUrl: 'registration/registration.tpl.html',
     resolve: {
       Step1: StepResolver
+    },
+    data: {
+      showRegistrationFooter: true
     }
   })
 }

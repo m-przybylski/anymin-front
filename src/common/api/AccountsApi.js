@@ -6,9 +6,10 @@ angular.module('profitelo.api.accounts', [
 .factory('AccountsApi', AccountsApi)
 
 function AccountsApi($resource, CommonSettingsService) {
-  return $resource(CommonSettingsService.get('apiUrl') + '/accounts/:telcoLogin', {telcoLogin: '@telcoLogin'}, {
-    'get': {method: 'GET', isArray: true},
-    'query': {method: 'GET', isArray: false}
+  return $resource(CommonSettingsService.get('apiUrl') + '/accounts/:id', {id: '@id'}, {
+    'getAccount': {method: 'GET', isArray: true},
+    'query': {method: 'GET', isArray: false},
+    'update': {method: 'PUT', isArray: false}
   // /accounts/{accountId}/status
   })
 }
