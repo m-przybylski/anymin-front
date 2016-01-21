@@ -126,7 +126,6 @@ angular.module('profitelo.directives.pro-expert-profile', [
   'profitelo.directives.proQuestionMark',
   'profitelo.directives.proWaitingSpinnerDiv'
 ])
-
 .directive('pro-expert-profile', () => {
   return {
     replace:        true,
@@ -140,5 +139,4 @@ angular.module('profitelo.directives.pro-expert-profile', [
   }
 })
 
-.controller('ExpertProfileDirectiveController', ExpertProfileDirectiveController)
 
