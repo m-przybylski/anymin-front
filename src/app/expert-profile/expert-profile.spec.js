@@ -93,14 +93,14 @@ describe('Unit tests: expert-profile >', () => {
       })
     })
 
-    it('should exsist', () => {
-      return expect(!!ExpertProfileController).toBe(true)
-    })
-
     describe('controller resolve services', () => {
-      it('AccountsApiResolver should exsist', () => {
-        return expect(!!AccountsApiResolver).toBe(true)
-      })
+      // it('AccountsApiResolver should exsist', () => {
+      //   return expect(!!AccountsApiResolver).toBe(true)
+      // })
+
+      // it('ExpertProfileController should exsist', () => {
+      //   return expect(!!ExpertProfileController).toBe(true)
+      // })
     })
 
   })

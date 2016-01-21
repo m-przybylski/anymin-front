@@ -93,5 +93,3 @@ angular.module('profitelo.directives.pro-registration', [
   }
 })
 
-
-

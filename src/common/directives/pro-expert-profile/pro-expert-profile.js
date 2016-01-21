@@ -1,9 +1,9 @@
-function ExpertProfileDirectiveController($scope, $filter, $timeout, $http, Upload, toastr, _) {
+function expertProfileDirectiveController($scope, $filter, $timeout, $http, Upload, FilesGetTokenApi, toastr, _) {
   var vm = this
 
   vm.pending = false
 
-  var _account    = $scope.account
+  var _account        = $scope.account
   var _userProfiles   = $scope.userProfiles
 
   // public variables
@@ -18,10 +18,10 @@ function ExpertProfileDirectiveController($scope, $filter, $timeout, $http, Uplo
   vm.log = ''
   vm.profile.formdata.coverFile = ''
   vm.profile.formdata.coverFiles = ''
-  vm.profile.formdata.avatarFiles = ''
   vm.profile.formdata.avatarFile = ''
-  vm.profile.formdata.documentFiles = ''
+  vm.profile.formdata.avatarFiles = ''
   vm.profile.formdata.documentFile = ''
+  vm.profile.formdata.documentFiles = ''
 
   // TODO if further graphic structure will be available need to reconfigure
   vm.allFilesProgress = null
@@ -29,6 +29,7 @@ function ExpertProfileDirectiveController($scope, $filter, $timeout, $http, Uplo
   vm.avatarFilesProgress = null
   vm.documentFilesProgress = null
 
+  vm.currentlyUploadedDocuments = [] // no need to have this kind of var for single cover, avatar
 
   // private methods
   var _isContainEmptyStrings = (array) => {
@@ -47,21 +48,14 @@ function ExpertProfileDirectiveController($scope, $filter, $timeout, $http, Uplo
       for (var i = 0; i < files.length; i++) {
         var file = files[i]
         if (!file.$error) {
-          Upload.upload({
-            url: 'https://angular-file-upload-cors-srv.appspot.com/upload', // temporary adres
-            data: {
-              // username:   $scope.username,
-              file:       file
-            }
-          }).progress(function(evt) {
-            vm.allFilesProgress = parseInt(100.0 * evt.loaded / evt.total, 10)
-            vm.log = 'progress: ' + vm.allFilesProgress + '% ' + evt.config.data.file.name + '\n' + vm.log
-          }).success(function(data, status, headers, conf) {
-            vm.allFilesProgress = null
-            $timeout(function() {
-              vm.log = 'file: ' + conf.data.file.name + ', Response: ' + JSON.stringify(data) + '\n' + vm.log
-              toastr.success('file uploaded successfully')
-            })
+          FilesGetTokenApi.get().$promise.then( function(getTokenResponse) {
+            console.log('getTokenResponse', getTokenResponse)
+            // TODO add uploading file with file progress bars
+            var msg   = $filter('translate')('EXPERT_PROFILE.MESSAGES.DATA_SAVED_SUCCESSFULLY')
+            var title = $filter('translate')('EXPERT_PROFILE.EXPERT_PROFILE')
+            toastr.success(msg, title)
+          }, function(getTokenError) {
+            console.log('Error:', getTokenError)
           })
         }
       }
@@ -70,16 +64,20 @@ function ExpertProfileDirectiveController($scope, $filter, $timeout, $http, Uplo
 
   vm.sendAndGoNext = function() {
     vm.submitted = true
-    var msg = $filter('translate')('EXPERT_PROFILE.MESSAGES.DATA_SAVED_SUCCESSFULLY')
-    var title = $filter('translate')('EXPERT_PROFILE.EXPERT_PROFILE')
     if ($scope.expertProfileForm.$valid) {
-      toastr.success(msg, title)
+      // TODO updating profile on save
+      ProfilesApi.update().$promise.then( function(profilesResponse) {
+        console.log('profilesResponse', profilesResponse)
+        var msg   = $filter('translate')('EXPERT_PROFILE.MESSAGES.DATA_SAVED_SUCCESSFULLY')
+        var title = $filter('translate')('EXPERT_PROFILE.EXPERT_PROFILE')
+        toastr.success(msg, title)
+      }, function(getTokenError) {
+        console.log('Error:', getTokenError)
+      })
     }
   }
 
-
   // watches
-
   // profile background
   $scope.$watch('vm.profile.formdata.coverFiles', function() {
     vm.upload(vm.profile.formdata.coverFiles)
@@ -122,15 +120,17 @@ angular.module('profitelo.directives.pro-expert-profile', [
   // internal scripts
   'profitelo.api.accounts',
   'profitelo.api.sessions',
+  'profitelo.api.files',
   'profitelo.directives.proProfileStatus',
   'profitelo.directives.proQuestionMark',
   'profitelo.directives.proWaitingSpinnerDiv'
 ])
-.directive('pro-expert-profile', () => {
+
+.directive('proExpertProfile', () => {
   return {
     replace:        true,
     templateUrl:    'directives/pro-expert-profile/pro-expert-profile.tpl.html',
-    controller:     ExpertProfileDirectiveController,
+    controller:     expertProfileDirectiveController,
     controllerAs:   'vm',
     scope: {
       account:      '=',
@@ -138,5 +138,4 @@ angular.module('profitelo.directives.pro-expert-profile', [
     }
   }
 })
-
 

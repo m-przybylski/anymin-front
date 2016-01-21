@@ -4,3 +4,4 @@ build
 .gitcommit
 gitcommit.js
 /tests
+.DS_Store

@@ -1,12 +1,3 @@
-angular.module('profitelo.controller.expert-profile', [
-  'ui.router',
-  'profitelo.api.accounts',
-  'profitelo.api.sessions',
-  'profitelo.api.profiles'
-])
-.config(config)
-.controller('ExpertProfileController', ExpertProfileController)
-
 function AccountsApiResolverFunction($q, SessionsApi, AccountsApi) {
   var deferred = $q.defer()
   SessionsApi.get().$promise.then((response) => {
@@ -31,24 +22,42 @@ function ProfilesApiResolverFunction($q, ProfilesApi) {
   return deferred.promise
 }
 
+function createExpertProfileFirstTime(ProfilesApi) {
+  var deferred = $q.defer()
+  ProfilesApi.get({profileId: '000000'}).$promise.then((profilesApiResponse) => {
+    deferred.resolve(profilesApiResponse)
+  }, (profilesApiError) => {
+    deferred.reject(profilesApiError)
+  })
+  return deferred.promise
+}
+
+function expertProfileController() {
+  var vm = this
+
+  vm.account        = {} // AccountsApiResolver
+  vm.userProfile    = {} // ProfilesApiResolver
+}
+
 function config($stateProvider) {
   $stateProvider.state('app.expert-profile', {
     url: '/expert-profile',
-    templateUrl: 'expert-profile/expert-profile.tpl.html',
-    controller: 'ExpertProfileController',
-    controllerAs: 'vm',
-    resolve: {
-      AccountsApiResolver: AccountsApiResolverFunction,
-      ProfilesApiResolver: ProfilesApiResolverFunction
-    }
+    templateUrl:'expert-profile/expert-profile.tpl.html',
+    controller:     expertProfileController,
+    controllerAs:   'vm'
+    // resolve: {
+    //   AccountsApiResolver: AccountsApiResolverFunction
+    //   ProfilesApiResolver: ProfilesApiResolverFunction
+    // }
   })
 }
 
-function ExpertProfileController(AccountsApiResolver, ProfilesApiResolver) {
+angular.module('profitelo.controller.expert-profile', [
+  'ui.router',
+  'profitelo.api.accounts',
+  'profitelo.api.sessions',
+  'profitelo.api.profiles',
+  'profitelo.directives.pro-expert-profile'
+])
+.config(config)
 
-  var vm = this
-
-  vm.account        = AccountsApiResolver
-  vm.userProfile    = ProfilesApiResolver
-
-}

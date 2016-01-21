@@ -2,7 +2,7 @@
 
 ## Intallation
 
-    npm install
+    npm install       // npm --version: 4
     gulp serve
 
 ## Writing rules
@@ -150,7 +150,7 @@
 ### Angular elements
 
 1. All directives will be named with `pro` prefix (from Profitelo) in its name
-2. 
+2.
 
 
 [gulpjs-page]: https://www.gulpjs.com
