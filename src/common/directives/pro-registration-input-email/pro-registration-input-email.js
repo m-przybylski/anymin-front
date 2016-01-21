@@ -5,9 +5,9 @@ function proProgressBox() {
 }
 
 angular.module('profitelo.directives.pro-registration-input-email', [])
-.directive('proRegistrationInputEmail', (AppSettingsService) =>{
+.directive('proRegistrationInputEmail', (CommonSettingsService) =>{
   function linkFn(scope, element) {
-    scope.emailPattern = AppSettingsService.localSettings.emailPattern
+    scope.emailPattern = CommonSettingsService.localSettings.emailPattern
     var _input = element.find('input')
     _input.bind('focus', () => {
       element.addClass('selected')

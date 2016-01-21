@@ -1,8 +1,8 @@
-function proRegistration($scope, $rootScope, $state, $stateParams, $filter, UserService, AuthorizationService, HellojsService, AccountsApi, AppSettingsService, toastr) {
+function proRegistration($scope, $rootScope, $state, $stateParams, $filter, UserService, AuthorizationService, HellojsService, AccountsApi, CommonSettingsService, toastr) {
   var vm = this
 
   // step 1
-  vm.settings = AppSettingsService.localSettings
+  vm.settings = CommonSettingsService.localSettings
   vm.registrationMetaData = {
     emailSended:  false,
     step1:        $scope.step1
@@ -75,12 +75,11 @@ angular.module('profitelo.directives.pro-registration', [
   'toastr',
   'hellojs',
   'user',
-  'appSettings',
   'profitelo.api.accounts',
   'profitelo.api.profiles',
-  'profitelo.services.commonSettings',
   'profitelo.api.sessions',
-  'profitelo.api.registration'
+  'profitelo.api.registration',
+  'profitelo.services.commonSettings'
 ])
 
 .directive('proRegistration', () =>{
