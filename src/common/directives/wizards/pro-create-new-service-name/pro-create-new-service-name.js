@@ -11,7 +11,7 @@ function proCreateNewServiceName($timeout, $q, wizardSectionControlService) {
     }
 
     let _isValid = () => {
-      return scope.model.serviceName.length > 0
+      return angular.isDefined(scope.model.serviceName) && scope.model.serviceName.length > 0
     }
 
     let _getModel = () => {

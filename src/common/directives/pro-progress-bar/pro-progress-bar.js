@@ -23,7 +23,12 @@ function proProgressBar($rootScope, $q, toastr) {
     }
 
     scope.saveSection = () => {
-      $rootScope.$broadcast('isSectionValid')
+
+      let _sectionOfInterest = scope.queue.sectionBeingEdited === -1 ? scope.queue.currentActiveSection : scope.queue.sectionBeingEdited
+
+      $rootScope.$broadcast('isSectionValid', {
+        section: _sectionOfInterest
+      })
     }
 
     scope.$on('sectionValidateResponse', (event, data) => {
@@ -31,7 +36,7 @@ function proProgressBar($rootScope, $q, toastr) {
         if (scope.queue.sectionBeingEdited === -1) {
           scope.next()
         } else {
-          $rootScope.$broadcast('saveEditing')
+          $rootScope.$broadcast('saveSection')
         }
 
       } else {

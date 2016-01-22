@@ -2,30 +2,29 @@ function proCreateNewServiceIndustry(wizardSectionControlService) {
 
   function linkFunction(scope, element, attrs) {
     scope.industries = ['Prawo', 'Biznes', 'Medycyna', 'Motoryzacja', 'Budownictwo', 'Edukacja', 'AGD/RTV', 'Informatyka']
-    scope.selectedIndustry = ''
-    scope.selectIndustry = (industry) =>{
-      if (scope.selectedIndustry===industry) {
-        scope.selectedIndustry = ''
-      }else {
-        scope.selectedIndustry = industry
-      }
+
+    scope.model = {
+      industry: ''
     }
 
+    scope.isSelected = (industry) => {
+      return scope.model.industry === industry ? 'industry-box-selected' : ''
+    }
 
     scope.saveSection = () => {
       console.log('save section: ', parseInt(scope.order, 10))
     }
 
     let _isValid = () => {
-      return scope.selectedIndustry !== ''
+      return scope.model.industry !== ''
     }
 
     let _getModel = () => {
-      return scope.selectedIndustry
+      return scope.model
     }
 
     let _setModel = (model) => {
-      scope.selectedIndustry = angular.copy(model)
+      scope.model = angular.copy(model)
     }
 
     scope.config = {

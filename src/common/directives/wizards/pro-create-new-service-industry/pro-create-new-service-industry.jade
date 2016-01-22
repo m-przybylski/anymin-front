@@ -1,15 +1,15 @@
-div(data-ng-show="config.toggles.show || config.toggles.past" data-ng-class="{'is-past': config.toggles.past, 'being-edited': config.toggles.beingEdited}")
+extends ../../../templates/wizard/section-controlls.partial.jade
+
+block edit-section
   form.industry-wizard(novalidate="" role="form" name="createNewServiceForm" data-ng-hide="config.toggles.past && !config.toggles.beingEdited")
     h2.text-center.margin-top-100 BRANŻA
     .industry-container
-      .industry-box(data-ng-repeat="singleIndustry in industries" data-ng-click="selectIndustry(singleIndustry)"
-      data-ng-class="singleIndustry == selectedIndustry ? 'industry-box-selected' : 'industry-box'")
+      .industry-box(data-ng-repeat="industry in industries" data-ng-click="model.industry = industry"
+      data-ng-class="isSelected(industry)")
         i.icon-3x.icon-add-user
-        h3 {{ singleIndustry }}
+        h3 {{ industry }}
         p LOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUM
 
-  div(data-ng-hide="!config.toggles.past || config.toggles.beingEdited")
-    h5.color-secondary.uppercase.text-bold {{ 'COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_NAME.INDUSTRY_NAME' | translate }}
-    span {{ selectedIndustry }}
-
-
+block done-section
+  h5.color-secondary.uppercase.text-bold {{ 'COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_NAME.INDUSTRY_NAME' | translate }}
+  span {{ model.industry }}
