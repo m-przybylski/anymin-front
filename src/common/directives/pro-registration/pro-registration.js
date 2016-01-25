@@ -17,7 +17,7 @@ function proRegistration($scope, $rootScope, $state, $stateParams, $filter, User
     AuthorizationService.register({email:vm.userData.email, password:vm.userData.password}).then(()=>{
       vm.registrationMetaData.emailSended = true
     }, (error) =>{
-      console.log('could not send email', error)
+      toastr.error('Email already in use', 'Registration error')
     })
   }
 
