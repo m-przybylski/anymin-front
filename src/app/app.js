@@ -46,6 +46,7 @@ angular.module('profitelo', [
   'profitelo.api.registration',
   'profitelo.api.sessions',
   'profitelo.api.industry',
+  'profitelo.api.categories',
 
   // translations
   'profitelo.translations.en-us',
