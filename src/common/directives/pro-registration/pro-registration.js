@@ -1,8 +1,14 @@
-function proRegistration($scope, $rootScope, $state, $stateParams, $filter, UserService, AuthorizationService, HellojsService, AccountsApi, toastr) {
+function proRegistration($scope, $rootScope, $state, $stateParams, $filter, UserService, AuthorizationService, HellojsService, AccountsApi, RegistrationCheckApi, CommonSettingsService, toastr) {
   var vm = this
 
-  // step 1
+  vm.onBlurFunction = ()=>{
+    if (typeof(vm.userData.email)!=='undefined') {
+      RegistrationCheckApi.checkEmail({email:vm.userData.email})
+    }
+  }
 
+  // step 1
+  vm.settings = CommonSettingsService.localSettings
   vm.registrationMetaData = {
     emailSended:  false,
     step1:        $scope.step1
@@ -12,12 +18,11 @@ function proRegistration($scope, $rootScope, $state, $stateParams, $filter, User
     password: '',
     pin:      ''
   }
-
   vm.sendEmail = () =>{
     AuthorizationService.register({email:vm.userData.email, password:vm.userData.password}).then(()=>{
       vm.registrationMetaData.emailSended = true
     }, (error) =>{
-      console.log('could not send email', error)
+      toastr.error('Email already in use', 'Registration error')
     })
   }
 
@@ -77,9 +82,9 @@ angular.module('profitelo.directives.pro-registration', [
   'user',
   'profitelo.api.accounts',
   'profitelo.api.profiles',
-  'profitelo.services.commonSettings',
   'profitelo.api.sessions',
-  'profitelo.api.registration'
+  'profitelo.api.registration',
+  'profitelo.services.commonSettings'
 ])
 
 .directive('proRegistration', () =>{

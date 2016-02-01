@@ -6,12 +6,16 @@ function proCreateNewServiceName($timeout, $q, wizardSectionControlService) {
       serviceName: ''
     }
 
+    scope.loading = true
+
+
+
     scope.saveSection = () => {
       console.log('save section: ', parseInt(scope.order, 10))
     }
 
     let _isValid = () => {
-      return scope.model.serviceName.length > 0
+      return angular.isDefined(scope.model.serviceName) && scope.model.serviceName.length > 0
     }
 
     let _getModel = () => {
@@ -20,6 +24,12 @@ function proCreateNewServiceName($timeout, $q, wizardSectionControlService) {
 
     let _setModel = (model) => {
       scope.model = angular.copy(model)
+    }
+
+    scope.loadData = () => {
+      $timeout(() => {
+        scope.loading = false
+      }, 1000)
     }
 
     scope.config = {
@@ -31,6 +41,7 @@ function proCreateNewServiceName($timeout, $q, wizardSectionControlService) {
       isValid:  _isValid,
       getModel: _getModel,
       setModel: _setModel,
+      loadData: scope.loadData,
       toggles: {
         show:         false,
         past:         false,

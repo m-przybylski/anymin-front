@@ -1,6 +1,9 @@
 function wizardSectionControlService($rootScope, $timeout, $q) {
 
   return (config) => {
+    // TODO: throw errors on mandatory parts missing
+
+    config.isLoaded = typeof config.isLoaded === 'undefined' ? false : config.isLoaded
 
     let scope = $rootScope.$new(true)
 
@@ -18,20 +21,27 @@ function wizardSectionControlService($rootScope, $timeout, $q) {
 
     scope.$on('cancelEditing', _cancelEdit)
 
-    scope.$on('saveEditing', () => {
-      if (config.queue.sectionBeingEdited === config.order) {
+    scope.$on('saveSection', (event, currentSection) => {
+      if (config.queue.sectionBeingEdited === config.order || currentSection === config.order) {
         config.save()
         _dismissEdit()
       }
     })
 
-    let _validateSection = () => {
-      $q.when(config.isValid()).then((isValid) => {
-        $rootScope.$broadcast('sectionValidateResponse', {
-          current: config.order,
-          isValid: isValid
+    let _loadData = () => {
+      config.isLoaded = true
+      config.loadData()
+    }
+
+    let _validateSection = (event, data) => {
+      if (config.order === data.section) {
+        $q.when(config.isValid()).then((isValid) => {
+          $rootScope.$broadcast('sectionValidateResponse', {
+            current: config.order,
+            isValid: isValid
+          })
         })
-      })
+      }
     }
 
     scope.$on('isSectionValid', _validateSection)
@@ -39,13 +49,11 @@ function wizardSectionControlService($rootScope, $timeout, $q) {
     scope.$watch(() => {
       return config.queue
     }, (newValue, oldValue) => {
-      if (oldValue.currentActiveSection < newValue.currentActiveSection) {
-        config.save()
-      }
-
       config.toggles.show = angular.equals(newValue.currentActiveSection, config.order)
       config.toggles.past = newValue.currentActiveSection > config.order
-
+      if ((config.toggles.show || config.toggles.past) && !config.isLoaded) {
+        _loadData()
+      }
     }, true)
 
     config.element.on('click', (event) => {

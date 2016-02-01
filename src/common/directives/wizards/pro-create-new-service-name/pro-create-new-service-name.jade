@@ -1,4 +1,6 @@
-div(data-ng-show="config.toggles.show || config.toggles.past" data-ng-class="{'is-past': config.toggles.past, 'being-edited': config.toggles.beingEdited}")
+extends ../../../templates/wizard/section-controlls.partial.jade
+
+block edit-section
   form.form-horizontal(novalidate="" role="form" name="createNewServiceForm" data-ng-hide="config.toggles.past && !config.toggles.beingEdited")
     div.text-center
       h3.color-secondary.uppercase.text-bold {{ 'COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_NAME.SERVICE_NAME' | translate }}
@@ -9,9 +11,9 @@ div(data-ng-show="config.toggles.show || config.toggles.past" data-ng-class="{'i
     //-.text-validation.text-danger(data-ng-show="(createNewServiceForm.fullname.$dirty && createNewServiceForm.fullname.$invalid || vm.submitted) && createNewServiceForm.fullname.$error.required")
     //-  | {{ 'COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_NAME.VALIDATION.SERVICE_NAME_REQUIRED' | translate }}
 
-  div(data-ng-hide="!config.toggles.past || config.toggles.beingEdited")
-    h5.color-secondary.uppercase.text-bold {{ 'COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_NAME.SERVICE_NAME' | translate }}
-    span {{ model.serviceName }}
+block done-section
+  h5.color-secondary.uppercase.text-bold {{ 'COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_NAME.SERVICE_NAME' | translate }}
+  span {{ model.serviceName }}
 
 
 
