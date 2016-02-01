@@ -1,5 +1,11 @@
-function proRegistration($scope, $rootScope, $state, $stateParams, $filter, UserService, AuthorizationService, HellojsService, AccountsApi, CommonSettingsService, toastr) {
+function proRegistration($scope, $rootScope, $state, $stateParams, $filter, UserService, AuthorizationService, HellojsService, AccountsApi, RegistrationCheckApi, CommonSettingsService, toastr) {
   var vm = this
+
+  vm.onBlurFunction = ()=>{
+    if (typeof(vm.userData.email)!=='undefined') {
+      RegistrationCheckApi.checkEmail({email:vm.userData.email})
+    }
+  }
 
   // step 1
   vm.settings = CommonSettingsService.localSettings
@@ -12,7 +18,6 @@ function proRegistration($scope, $rootScope, $state, $stateParams, $filter, User
     password: '',
     pin:      ''
   }
-
   vm.sendEmail = () =>{
     AuthorizationService.register({email:vm.userData.email, password:vm.userData.password}).then(()=>{
       vm.registrationMetaData.emailSended = true

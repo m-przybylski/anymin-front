@@ -1,29 +1,32 @@
 .expert-progress
   $inside-box-margin-top: 15px
+
   .progress
     @include border-radius(15px)
-
     width: 200px
     height: 10px
     margin-top: $inside-box-margin-top
     margin-bottom: 10px
 
   .box-container
-    display: flex
-    flex-wrap: wrap
-    justify-content: center
+    +css3-prefix(display, flex)
+    +css3-prefix(flex-wrap, wrap)
+    +css3-prefix(justify-content, center)
+
   .box
     @extend .default-border
-    display: flex
+    +css3-prefix(display, flex)
+    +css3-prefix(align-items, center)
+    +css3-prefix(justify-content, flex-start)
+    +css3-prefix(flex-direction, column)
     width: 250px
     margin-right: 20px
     padding-top: 40px
     background-color: $c-secondary-background
-    display: flex
-    justify-content: flex-start
-    align-items: center
-    flex-direction: column
     padding-bottom: 20px
+
+    a
+      margin-top: auto
   .round
     @extend .default-border
     position: absolute !important
@@ -32,17 +35,19 @@
     top: -25px
     margin-left: auto
     margin-right: auto
+    margin-bottom: -5px
     border-radius: 50%
     height: 50px
     width: 50px
-    margin-bottom: -5px
     background-color: #ffffff
-
     p
       font-weight: bold
       font-size: 20px
+
   .description-text
     line-height: $inside-box-margin-top + 7
+    margin-bottom: 30px
+
   .box-title
     margin-top: 5px
     margin-bottom: 15px

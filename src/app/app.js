@@ -25,6 +25,7 @@ angular.module('profitelo', [
   'profitelo.controller.home',
   'profitelo.controller.expert-profile',
   'profitelo.controller.expert-progress',
+  'profitelo.controller.login',
   'profitelo.controller.registration',
   'profitelo.controller.wizards',
   'profitelo.controller.wizards.create-new-service',
@@ -34,6 +35,7 @@ angular.module('profitelo', [
   'profitelo.directives.pro-registration',
   'profitelo.directives.pro-registration-input-email',
   'profitelo.directives.pro-registration-input-pass',
+  'profitelo.directives.pro-login',
   'profitelo.directives.pro-expert-progress',
   'profitelo.directives.pro-progress-box',
   'profitelo.directives.pro-progress-bar',
@@ -134,11 +136,13 @@ angular.module('profitelo', [
   tmhDynamicLocaleProvider.localeLocationPattern('assets/angular-i18n/angular-locale_{{locale}}.js')
 })
 
-.run(($rootScope, $cookies, AuthorizationService) => {
+.run(($rootScope, $cookies, AuthorizationService, UserService) => {
   let _apiKey = $cookies.get('X-Api-Key')
   if (typeof _apiKey !== 'undefined') {
     AuthorizationService.setApiKeyHeader(_apiKey)
+    UserService.fetchData()
   }
+
   $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
     console.log('$stateChangeError', error)
   })
