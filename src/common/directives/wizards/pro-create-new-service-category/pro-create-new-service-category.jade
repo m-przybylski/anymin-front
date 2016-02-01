@@ -7,9 +7,9 @@ block edit-section
       div(data-ng-class="singleCategory == selectedCategory ? 'category-box-selected' : 'category-box'"
       data-ng-repeat="singleCategory in categories" data-ng-click="selectCategory(singleCategory)")
         span
-        span {{ singleCategory }}
+        span {{ singleCategory.name }}
         i.icon.icon-yes
 
 block done-section
   h5.color-secondary.uppercase.text-bold {{ 'COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_NAME.CATEGORY_NAME' | translate }}
-  span {{ selectedCategory }}
+  span {{ selectedCategory.name }}
