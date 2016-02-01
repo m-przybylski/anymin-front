@@ -123,7 +123,7 @@ angular.module('profitelo.directives.pro-expert-profile', [
   'profitelo.api.files',
   'profitelo.directives.proProfileStatus',
   'profitelo.directives.proQuestionMark',
-  'profitelo.directives.proWaitingSpinnerDiv'
+  'profitelo.directives.pro-waiting-spinner-div'
 ])
 
 .directive('proExpertProfile', () => {
