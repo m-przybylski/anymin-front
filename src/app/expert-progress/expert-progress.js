@@ -25,7 +25,7 @@ function AccountStatusApiResolver($q, AccountsStatusApi, UserService) {
   var deferred = $q.defer()
   // TODO should be changed to BITMASK from profitelo
   let _data = UserService.getAllData()
-  AccountsStatusApi.query({id: 1}).$promise.then((result) => {
+  AccountsStatusApi.query({id: _data.id}).$promise.then((result) => {
     deferred.resolve(result)
   }, (error) => {
     deferred.resolve(false)
