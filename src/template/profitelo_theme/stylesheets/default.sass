@@ -4,10 +4,10 @@
   border-color: $c-lines
 
 .center-flex
-  display: flex
-  justify-content: center
-  align-items: center
-  flex-flow: row
+  @include css3-prefix(display, flex)
+  @include css3-prefix(justify-content, center)
+  @include css3-prefix(align-items, center)
+  @include css3-prefix(flex-flow, row)
 
 .inline-block
   display: inline-block
@@ -43,10 +43,10 @@
 
 .pro-tooltip
   @extend .small-round
-  display: inline-flex
-  justify-content: center
-  align-content: center
-  align-items: center
+  @include css3-prefix(display, inline-flex)
+  @include css3-prefix(justify-content, center)
+  @include css3-prefix(align-items, center)
+  @include css3-prefix(align-content, center)
   margin-left: 10px
   // TODO fix question mark color
   span

@@ -38,6 +38,7 @@ function AuthorizationService($q, $cookies, $http, SessionsApi, RegistrationApi)
 
   var _login = (object) => {
     SessionsApi.save(object).$promise.then((success) =>{
+      _setApiKeyHeader(success.apiKey)
     }, (error) =>{
       console.log(error)
     })

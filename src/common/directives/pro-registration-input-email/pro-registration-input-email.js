@@ -19,11 +19,12 @@ angular.module('profitelo.directives.pro-registration-input-email', [])
   return {
     templateUrl:  'directives/pro-registration-input-email/pro-registration-input-email.tpl.html',
     restrict:     'A',
-    scope:        { name:       '@',
-                    labelIcon:  '@',
-                    form:       '=',
-                    inputValue: '=',
-                    pattern:    '='
+    scope:        { name:           '@',
+                    labelIcon:      '@',
+                    form:           '=',
+                    inputValue:     '=',
+                    pattern:        '=',
+                    onBlurFunction: '&'
                   },
     link:         linkFn
   }
