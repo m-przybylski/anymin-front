@@ -1,14 +1,16 @@
-function proCreateNewServiceCategory(wizardSectionControlService) {
+function proCreateNewServiceCategory($timeout, wizardSectionControlService, CategoriesApi) {
 
   function linkFunction(scope, element, attrs) {
 
-    scope.categories = ['Podatki', 'Prawo finansowe', 'Księgowość', 'Prawo podatkowe', 'Dokumenty', 'Pomoc biurowa', 'Biuro rachunkowe', 'Inwestycje']
+    scope.loading = true
+
+    scope.categories = []
 
     scope.selectedCategory = ''
     scope.selectCategory = (category) =>{
       if (scope.selectedCategory===category) {
         scope.selectedCategory = ''
-      }else {
+      } else {
         scope.selectedCategory = category
       }
     }
@@ -30,6 +32,13 @@ function proCreateNewServiceCategory(wizardSectionControlService) {
       scope.selectedCategory = angular.copy(model)
     }
 
+    scope.loadData = () => {
+      CategoriesApi.get().$promise.then((data) => {
+        scope.categories = data
+        scope.loading = false
+      })
+    }
+
     scope.config = {
       order:    parseInt(scope.order, 10),
       model:    scope.selectedCategory,
@@ -39,6 +48,7 @@ function proCreateNewServiceCategory(wizardSectionControlService) {
       isValid:  _isValid,
       getModel: _getModel,
       setModel: _setModel,
+      loadData: scope.loadData,
       toggles: {
         show:         false,
         past:         false,
@@ -63,6 +73,7 @@ function proCreateNewServiceCategory(wizardSectionControlService) {
 }
 
 angular.module('profitelo.directives.wizards.pro-create-new-service-category', [
+  'profitelo.api.categories'
 ])
 
 .directive('proCreateNewServiceCategory', proCreateNewServiceCategory)

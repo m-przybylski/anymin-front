@@ -1,7 +1,9 @@
-function proCreateNewServiceIndustry(wizardSectionControlService) {
+function proCreateNewServiceIndustry($timeout, wizardSectionControlService) {
 
   function linkFunction(scope, element, attrs) {
     scope.industries = ['Prawo', 'Biznes', 'Medycyna', 'Motoryzacja', 'Budownictwo', 'Edukacja', 'AGD/RTV', 'Informatyka']
+
+    scope.loading = true
 
     scope.model = {
       industry: ''
@@ -27,6 +29,12 @@ function proCreateNewServiceIndustry(wizardSectionControlService) {
       scope.model = angular.copy(model)
     }
 
+    scope.loadData = () => {
+      $timeout(() => {
+        scope.loading = false
+      }, 1000)
+    }
+
     scope.config = {
       order:    parseInt(scope.order, 10),
       model:    scope.model,
@@ -36,6 +44,7 @@ function proCreateNewServiceIndustry(wizardSectionControlService) {
       isValid:  _isValid,
       getModel: _getModel,
       setModel: _setModel,
+      loadData: scope.loadData,
       toggles: {
         show:         false,
         past:         false,
