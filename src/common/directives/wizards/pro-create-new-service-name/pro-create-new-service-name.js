@@ -12,6 +12,7 @@ function proCreateNewServiceName($timeout, $q, wizardSectionControlService) {
 
     scope.saveSection = () => {
       console.log('save section: ', parseInt(scope.order, 10))
+      scope.serviceModel.serviceName = scope.model.serviceName
     }
 
     let _isValid = () => {
@@ -59,7 +60,7 @@ function proCreateNewServiceName($timeout, $q, wizardSectionControlService) {
     scope: {
       queue:    '=',
       order:    '@',
-      service:  '='
+      serviceModel: '='
     },
     link: linkFunction
   }

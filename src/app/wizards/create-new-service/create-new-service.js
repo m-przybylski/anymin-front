@@ -3,6 +3,8 @@ function createNewServiceController($interval, _) {
 
   vm.progress = 0
 
+  vm.serviceModel = {}
+
   vm.queue = {
     currentActiveSection: 1,
     sectionBeingEdited:   -1

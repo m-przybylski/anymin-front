@@ -15,6 +15,7 @@ function proCreateNewServiceIndustry($timeout, wizardSectionControlService) {
 
     scope.saveSection = () => {
       console.log('save section: ', parseInt(scope.order, 10))
+      scope.serviceModel.industry = scope.model.industry
     }
 
     let _isValid = () => {
@@ -61,7 +62,7 @@ function proCreateNewServiceIndustry($timeout, wizardSectionControlService) {
     scope: {
       queue:    '=',
       order:    '@',
-      service:  '='
+      serviceModel: '='
     },
     link: linkFunction
   }

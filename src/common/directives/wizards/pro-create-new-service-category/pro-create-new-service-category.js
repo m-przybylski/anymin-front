@@ -6,30 +6,26 @@ function proCreateNewServiceCategory($timeout, wizardSectionControlService, Cate
 
     scope.categories = []
 
-    scope.selectedCategory = ''
-    scope.selectCategory = (category) =>{
-      if (scope.selectedCategory===category) {
-        scope.selectedCategory = ''
-      } else {
-        scope.selectedCategory = category
-      }
+    scope.model = {
+      category: null
     }
 
 
     scope.saveSection = () => {
       console.log('save section: ', parseInt(scope.order, 10))
+      scope.serviceModel.category = scope.model.category
     }
 
     let _isValid = () => {
-      return scope.selectedCategory
+      return scope.model.category !== null
     }
 
     let _getModel = () => {
-      return scope.selectedCategory
+      return scope.model
     }
 
     let _setModel = (model) => {
-      scope.selectedCategory = angular.copy(model)
+      scope.model = angular.copy(model)
     }
 
     scope.loadData = () => {
@@ -41,7 +37,7 @@ function proCreateNewServiceCategory($timeout, wizardSectionControlService, Cate
 
     scope.config = {
       order:    parseInt(scope.order, 10),
-      model:    scope.selectedCategory,
+      model:    scope.model,
       element:  element,
       queue:    scope.queue,
       save:     scope.saveSection,
@@ -66,7 +62,7 @@ function proCreateNewServiceCategory($timeout, wizardSectionControlService, Cate
     scope: {
       queue:    '=',
       order:    '@',
-      service:  '='
+      serviceModel: '='
     },
     link: linkFunction
   }
