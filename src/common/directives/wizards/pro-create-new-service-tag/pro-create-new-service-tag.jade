@@ -1,13 +1,21 @@
-form.tag-wizard(novalidate="" role="form" name="createNewServiceForm" data-ng-submit="vm.save()")
-  h2.text-center.margin-top-100 ZAGADNIENIA
-  div.tag-box-container
-    div(data-ng-class="tagMap[singleTag] ? 'tag-box-selected' : 'tag-box'"
-    data-ng-repeat="singleTag in tags" data-ng-click="selectTag(singleTag)")
-      span
-      span {{ singleTag }}
-      i.icon.icon-yes
+extends ../../../templates/wizard/section-controlls.partial.jade
 
 
 
 
-  div.margin-bottom-100
+
+block edit-section
+  form.tag-wizard(novalidate="" role="form" name="createNewServiceForm" data-ng-hide="config.toggles.past && !config.toggles.beingEdited")
+    h2.text-center.margin-top-100 ZAGADNIENIA
+    div.tag-box-container
+      div(data-ng-class="model.tagMap[singleTag] ? 'tag-box-selected' : 'tag-box'"
+      data-ng-repeat="singleTag in tags" data-ng-click="selectTag(singleTag)")
+        span
+        span {{ singleTag }}
+        i.icon.icon-yes
+
+
+
+block done-section
+  h5.color-secondary.uppercase.text-bold {{ 'COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_NAME.INDUSTRY_NAME' | translate }}
+  span(data-ng-repeat="(key, value) in model.tagMap" data-ng-show="value==true") {{ key }},
