@@ -1,7 +1,7 @@
 .container.expert-progress.text-center
   i.icon-4x.icon-add-user
   h1.text-center.margin-bottom-100
-    | Tworzenie profilu eksperta
+    | {{'COMMON.DIRECTIVES.PRO_EXPERT_PROGRESS.CREATING_EXPERT_PROFILE' | translate}}
   .row
   .box-container
     div(pro-progress-box container="vm.box.expert")
@@ -17,7 +17,7 @@
         i.icon-3x.icon-repeat-2.margin-top-20
       h3.box-title {{ vm.verifyBox.title | translate }}
       p.description-text(data-ng-show='vm.verifyBox.displayDefault') {{ vm.verifyBox.description | translate }}
-      p(data-ng-show='vm.verifyBox.inProgress') PROFIL W TRAKCIE WERYFIKACJI
+      p(data-ng-show='vm.verifyBox.inProgress') {{'COMMON.DIRECTIVES.PRO_EXPERT_PROGRESS.PROFILE_DURING_THE_REVIEW' | translate }}
       p(data-ng-show='vm.verifyBox.rejected' data-ng-repeat="singleError in vm.verifyBox.feedback")  {{ ($index+1)+'). '+singleError }}
       a.pro-button.center-flex(data-ng-show='vm.verifyBox.ableToSend && vm.verifyBox.displayDefault' data-ui-sref='{{vm.verifyBox.uiSref}}')
         span {{ vm.verifyBox.uiTitleDone | translate }}
