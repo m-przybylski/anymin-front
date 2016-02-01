@@ -1,6 +1,10 @@
 function proRegistration($scope, $rootScope, $state, $stateParams, $filter, UserService, AuthorizationService, HellojsService, AccountsApi, RegistrationCheckApi, CommonSettingsService, toastr) {
   var vm = this
 
+  vm.onBlurFunction = (_email)=>{
+    RegistrationCheckApi.checkEmail({email:_email})
+  }
+
   // step 1
   vm.settings = CommonSettingsService.localSettings
   vm.registrationMetaData = {

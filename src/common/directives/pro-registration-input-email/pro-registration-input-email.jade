@@ -2,6 +2,6 @@ div.input-container.center-block
   .icon-container
     i.icon-2x(class="{{ labelIcon }}")
     span {{ name }}
-  input(type="email" name="inputEmail" data-ng-required="true" data-ng-model="inputValue" data-ng-pattern="emailPattern" data-ng-blur="checkEmail()")
+  input(type="email" name="inputEmail" data-ng-required="true" data-ng-model="inputValue" data-ng-pattern="emailPattern" data-ng-blur="onBlurFunction()")
   i.icon-2x.icon-close.mark-position.reject(data-ng-if="form.inputEmail.$touched && form.inputEmail.$invalid")
   i.icon-2x.icon-yes.mark-position.ok(data-ng-if="form.inputEmail.$touched && form.inputEmail.$valid")

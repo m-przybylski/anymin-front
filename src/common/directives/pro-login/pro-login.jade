@@ -1,0 +1,12 @@
+.registration.text-center.margin-top-60.center-flex
+  form(name="login" novalidate)
+    .pro-header.margin-top-10
+      | Logowanie
+    div(data-pro-registration-input-email data-form="login"
+    data-name="email:" data-label-icon="icon-mail-with-at-sign" data-input-value="vm.userData.email" data-pattern="vm.settings.emailPattern")
+
+    div(data-pro-registration-input-pass data-form="registration"
+    data-name="hasło:" data-label-icon="icon-lock-3" data-input-value="vm.userData.password" data-pattern="vm.settings.passwordPattern")
+
+    button.pro-button-light.margin-top-20(type="submit" data-ng-click="vm.login()")
+      | Zaloguj
