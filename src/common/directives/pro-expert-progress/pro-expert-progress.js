@@ -44,12 +44,12 @@ function _prepareVerifyBox(container, vm) {
 function ExpertProgressDirectiveController($scope) {
   var vm = this
 
-  if ($scope.container == false) {
+  if ($scope.container === false) {
     $scope.container = {
-      "profileProgressPercentage": 0,
-      "serviceProgressPercentage": 0,
-      "verification": {
-        "status": ""
+      profileProgressPercentage: 0,
+      serviceProgressPercentage: 0,
+      verification: {
+        status: ''
       }
     }
   }

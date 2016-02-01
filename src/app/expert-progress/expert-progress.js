@@ -24,16 +24,12 @@ angular.module('profitelo.controller.expert-progress', [
 function AccountStatusApiResolver($q, AccountsStatusApi, UserService) {
   var deferred = $q.defer()
   // TODO should be changed to BITMASK from profitelo
-  if (UserService.isLoggedIn()) {
-    let _data = UserService.getAllData()
-    AccountsStatusApi.query({id: _data.id}).$promise.then((result) => {
-      deferred.resolve(result)
-    }, (error) => {
-
-      deferred.resolve(false)
-    })
-  }
-  // ---------
+  let _data = UserService.getAllData()
+  AccountsStatusApi.query({id: 1}).$promise.then((result) => {
+    deferred.resolve(result)
+  }, (error) => {
+    deferred.resolve(false)
+  })
 
   return deferred.promise
 }
