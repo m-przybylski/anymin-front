@@ -1,6 +1,7 @@
-function proCreateNewServiceTag($http, wizardSectionControlService, _) {
+function proCreateNewServiceTag($http, $timeout, wizardSectionControlService, _) {
 
   function linkFunction(scope, element, attrs) {
+    scope.loading = true
     scope.tags = ['VAT', 'Prawo finansowe', 'Księgowość', 'Prawo podatkowe', 'PIT', 'CIT', 'Biuro rachunkowe', 'Inwestycje']
     scope.model = {
       tagMap: new Object()
@@ -30,6 +31,12 @@ function proCreateNewServiceTag($http, wizardSectionControlService, _) {
       return scope.model
     }
 
+    scope.loadData = () => {
+      $timeout(() => {
+        scope.loading = false
+      }, 1000)
+    }
+
     let _setModel = (model) => {
       scope.model = angular.copy(model)
     }
@@ -43,6 +50,7 @@ function proCreateNewServiceTag($http, wizardSectionControlService, _) {
       isValid:  _isValid,
       getModel: _getModel,
       setModel: _setModel,
+      loadData: scope.loadData,
       toggles: {
         show:         false,
         past:         false,
