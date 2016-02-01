@@ -8,6 +8,8 @@ module.exports = {
   tpl_name: 'templates-module.js',
   tpl_module: 'templates-module',
   project_theme_name: 'profitelo_theme',
+  swagger_location: 'http://api.dev.profitelo.pl/swagger/swagger.json',
+  swagger_module: 'profitelo.swagger',
   variables: {
     tests: !!((typeof argv.tests === 'undefined') || (argv.tests === true)),
     docs: !!((typeof argv.docs === 'undefined') || (argv.docs === true)),
