@@ -2,8 +2,6 @@ function proProgressBar($rootScope, $q, toastr) {
 
   function proProgressBarLink(scope) {
 
-    let _deferred = $q.defer()
-
     if (!scope.caption || scope.caption.length === 0) {
       throw new Error('proProgressBar needs caption parameter to work.')
     }
@@ -25,7 +23,6 @@ function proProgressBar($rootScope, $q, toastr) {
     scope.saveSection = () => {
 
       let _sectionOfInterest = scope.queue.sectionBeingEdited === -1 ? scope.queue.currentActiveSection : scope.queue.sectionBeingEdited
-
       $rootScope.$broadcast('isSectionValid', {
         section: _sectionOfInterest
       })
@@ -34,6 +31,7 @@ function proProgressBar($rootScope, $q, toastr) {
     scope.$on('sectionValidateResponse', (event, data) => {
       if (data.isValid) {
         if (scope.queue.sectionBeingEdited === -1) {
+          $rootScope.$broadcast('saveSection', scope.queue.currentActiveSection)
           scope.next()
         } else {
           $rootScope.$broadcast('saveSection')

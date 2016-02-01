@@ -1,6 +1,9 @@
 function wizardSectionControlService($rootScope, $timeout, $q) {
 
   return (config) => {
+    // TODO: throw errors on mandatory parts missing
+
+    config.isLoaded = typeof config.isLoaded === 'undefined' ? false : config.isLoaded
 
     let scope = $rootScope.$new(true)
 
@@ -25,6 +28,11 @@ function wizardSectionControlService($rootScope, $timeout, $q) {
       }
     })
 
+    let _loadData = () => {
+      config.isLoaded = true
+      config.loadData()
+    }
+
     let _validateSection = (event, data) => {
       if (config.order === data.section) {
         $q.when(config.isValid()).then((isValid) => {
@@ -43,7 +51,9 @@ function wizardSectionControlService($rootScope, $timeout, $q) {
     }, (newValue, oldValue) => {
       config.toggles.show = angular.equals(newValue.currentActiveSection, config.order)
       config.toggles.past = newValue.currentActiveSection > config.order
-
+      if ((config.toggles.show || config.toggles.past) && !config.isLoaded) {
+        _loadData()
+      }
     }, true)
 
     config.element.on('click', (event) => {
