@@ -1,8 +1,10 @@
 function proRegistration($scope, $rootScope, $state, $stateParams, $filter, UserService, AuthorizationService, HellojsService, AccountsApi, RegistrationCheckApi, CommonSettingsService, toastr) {
   var vm = this
 
-  vm.onBlurFunction = (_email)=>{
-    RegistrationCheckApi.checkEmail({email:_email})
+  vm.onBlurFunction = ()=>{
+    if (typeof(vm.userData.email)!=='undefined') {
+      RegistrationCheckApi.checkEmail({email:vm.userData.email})
+    }
   }
 
   // step 1
