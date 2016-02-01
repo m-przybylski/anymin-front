@@ -80,6 +80,7 @@ angular.module('profitelo.directives.pro-registration', [
   'toastr',
   'hellojs',
   'user',
+  'profitelo.services.customTranslationHandler',
   'profitelo.api.accounts',
   'profitelo.api.profiles',
   'profitelo.api.sessions',
