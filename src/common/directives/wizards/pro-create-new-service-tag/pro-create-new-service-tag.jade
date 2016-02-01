@@ -18,4 +18,4 @@ block edit-section
 
 block done-section
   h5.color-secondary.uppercase.text-bold {{ 'COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_NAME.INDUSTRY_NAME' | translate }}
-  span(data-ng-repeat="(key, value) in model.tagMap" data-ng-show="value==true") {{ key }},
+  span(data-ng-repeat="(key, value) in model.tagMap" data-ng-if="value==true") {{ key }},
