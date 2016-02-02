@@ -1,17 +1,12 @@
 .tag-wizard
   .tag-box-container
-    display: flex
-    justify-content: center
-    flex-wrap: wrap
+    @include css3-prefix(display, flex)
+    @include css3-prefix(justify-content, center)
+    @include css3-prefix(flex-wrap, wrap)
 
   .tag-box
-    @extend .center-flex
-    @extend .default-border
-    margin: 25px 25px 0px 0px
-    display: inline-flex
-    width: 200px
-    height: 50px
-    cursor: pointer
+    @include box(200px, 50px)
+    @include css3-prefix(display, inline-flex)
   i
     display: none
 
