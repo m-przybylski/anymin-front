@@ -1,7 +1,7 @@
-function proCreateNewServiceIndustry($timeout, wizardSectionControlService) {
+function proCreateNewServiceIndustry($rootScope, wizardSectionControlService, CategoriesApi) {
 
   function linkFunction(scope, element, attrs) {
-    scope.industries = ['Prawo', 'Biznes', 'Medycyna', 'Motoryzacja', 'Budownictwo', 'Edukacja', 'AGD/RTV', 'Informatyka']
+    scope.industries = []
 
     scope.loading = true
 
@@ -16,6 +16,8 @@ function proCreateNewServiceIndustry($timeout, wizardSectionControlService) {
     scope.saveSection = () => {
       console.log('save section: ', parseInt(scope.order, 10))
       scope.serviceModel.industry = scope.model.industry
+      $rootScope.$broadcast('industrySectionChanged')
+
     }
 
     let _isValid = () => {
@@ -31,9 +33,10 @@ function proCreateNewServiceIndustry($timeout, wizardSectionControlService) {
     }
 
     scope.loadData = () => {
-      $timeout(() => {
+      CategoriesApi.get().$promise.then((data) => {
+        scope.industries = data
         scope.loading = false
-      }, 1000)
+      })
     }
 
     scope.config = {
@@ -70,6 +73,7 @@ function proCreateNewServiceIndustry($timeout, wizardSectionControlService) {
 }
 
 angular.module('profitelo.directives.wizards.pro-create-new-service-industry', [
+  'profitelo.api.categories'
 ])
 
 .directive('proCreateNewServiceIndustry', proCreateNewServiceIndustry)
