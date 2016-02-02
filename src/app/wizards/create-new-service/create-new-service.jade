@@ -3,7 +3,7 @@
     h2.text-bold.pull-left {{ 'APP.WIZARDS.CREATE_NEW_SERVICE.NEW_SERVICE' | translate }}
     i.icon-close.icon-2x.pull-right.link(data-ui-sref="app.dashboard.start")
 
-  //-pre {{ vm.serviceModel | json }}
+  pre {{ vm.serviceModel | json }}
   //-pro-create-new-service-tag()
   pro-create-new-service-name.widget-divider(data-queue="vm.queue" data-order="1" data-service-model="vm.serviceModel")
   pro-create-new-service-industry.widget-divider(data-queue="vm.queue" data-order="2" data-service-model="vm.serviceModel")

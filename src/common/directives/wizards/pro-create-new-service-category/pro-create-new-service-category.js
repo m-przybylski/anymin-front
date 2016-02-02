@@ -1,15 +1,12 @@
-function proCreateNewServiceCategory($timeout, wizardSectionControlService, CategoriesApi) {
+function proCreateNewServiceCategory($timeout, wizardSectionControlService, CategoriesSubcategoriesApi) {
 
   function linkFunction(scope, element, attrs) {
 
     scope.loading = true
 
+    let _hadBeenLoaded = false
+
     scope.categories = []
-
-    scope.model = {
-      category: null
-    }
-
 
     scope.saveSection = () => {
       console.log('save section: ', parseInt(scope.order, 10))
@@ -28,12 +25,31 @@ function proCreateNewServiceCategory($timeout, wizardSectionControlService, Cate
       scope.model = angular.copy(model)
     }
 
+    let _resetModel = () => {
+      scope.model = {
+        category: null
+      }
+      if (_hadBeenLoaded) {
+        scope.serviceModel.category = scope.model.category
+      }
+    }
+
     scope.loadData = () => {
-      CategoriesApi.get().$promise.then((data) => {
+      _resetModel()
+      CategoriesSubcategoriesApi.get({id: scope.serviceModel.industry.id}).$promise.then((data) => {
         scope.categories = data
         scope.loading = false
+        _hadBeenLoaded = true
       })
     }
+
+
+
+    scope.$on('industrySectionChanged', () => {
+      if (_hadBeenLoaded) {
+        scope.loadData()
+      }
+    })
 
     scope.config = {
       order:    parseInt(scope.order, 10),

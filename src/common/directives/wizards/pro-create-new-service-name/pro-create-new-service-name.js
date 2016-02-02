@@ -28,9 +28,7 @@ function proCreateNewServiceName($timeout, $q, wizardSectionControlService) {
     }
 
     scope.loadData = () => {
-      $timeout(() => {
-        scope.loading = false
-      }, 1000)
+      scope.loading = false
     }
 
     scope.config = {

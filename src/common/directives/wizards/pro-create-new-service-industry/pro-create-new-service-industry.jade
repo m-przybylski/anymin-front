@@ -7,9 +7,9 @@ block edit-section
       .industry-box(data-ng-repeat="industry in industries" data-ng-click="model.industry = industry"
       data-ng-class="isSelected(industry)")
         i.icon-3x.icon-add-user
-        h3 {{ industry }}
+        h3 {{ industry.name }}
         p LOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUM
 
 block done-section
   h5.color-secondary.uppercase.text-bold {{ 'COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_NAME.INDUSTRY_NAME' | translate }}
-  span {{ model.industry }}
+  span {{ model.industry.name }}
