@@ -1,0 +1,20 @@
+extends ../../../templates/wizard/section-controlls.partial.jade
+
+block edit-section
+  div.text-center
+    h3.color-secondary.uppercase.text-bold KTO ŚWIADCZY USŁUGĘ
+  form.form-horizontal.type-wizard(novalidate="" role="form" name="createNewServiceForm" data-ng-hide="config.toggles.past && !config.toggles.beingEdited")
+
+    .type-box(data-ng-class="model.type == 'self' ? 'type-box-selected' : 'type-box'" data-ng-click="updateModel('self')")
+      | Ty
+    .type-box(data-ng-class="model.type == 'self-consultants' ? 'type-box-selected' : 'type-box'" data-ng-click="updateModel('self-consultants')")
+      | Ty + Konsultanci
+    .type-box(data-ng-class="model.type == 'consultants' ? 'type-box-selected' : 'type-box'" data-ng-click="updateModel('consultants')")
+      | Konsultanci
+
+
+
+
+block done-section
+  h5.color-secondary.uppercase.text-bold {{ 'COMMON.DIRECTIVES.PRO_CREATE_NEW_SERVICE_NAME.INDUSTRY_NAME' | translate }}
+  span {{ model.type }},
