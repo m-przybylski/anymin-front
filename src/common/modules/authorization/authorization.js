@@ -12,7 +12,6 @@ function AuthorizationService($q, $cookies, $http, SessionsApi, RegistrationApi)
   }
 
   var _checkToken = (object) => {
-    // object should contain token field
     var deferred = $q.defer()
     RegistrationApi.checkToken(object).$promise.then((success)=>{
       _setApiKeyHeader(success.apiKey)
@@ -25,7 +24,6 @@ function AuthorizationService($q, $cookies, $http, SessionsApi, RegistrationApi)
   }
 
   var _register = (object) => {
-    // object should contain username, password, organization name
     var deferred = $q.defer()
     RegistrationApi.save(object).$promise.then((success) =>{
       deferred.resolve(success)
@@ -37,13 +35,15 @@ function AuthorizationService($q, $cookies, $http, SessionsApi, RegistrationApi)
   }
 
   var _login = (object) => {
+    var deferred = $q.defer()
     SessionsApi.save(object).$promise.then((success) =>{
       _setApiKeyHeader(success.apiKey)
+      deferred.resolve(success)
     }, (error) =>{
       console.log(error)
+      deferred.reject(error)
     })
-
-    // after logging set cookie with sessionKey
+    return deferred.promise
   }
 
 
@@ -90,7 +90,7 @@ function AuthorizationService($q, $cookies, $http, SessionsApi, RegistrationApi)
     login:            _login,
     checkToken:       _checkToken,
     setApiKeyHeader:  _setApiKeyHeader,
-    loginSocial: _loginSocial
+    loginSocial:      _loginSocial
   }
   return api
 }
