@@ -39,7 +39,7 @@ gulp.task('test', function(done) {
 
 gulp.task('watch', function(done) {
     console.log(chalk.white.bgGreen('[GULP] Starting watch and build task'));
-    runSequence('watchers', 'build', function() {
+    runSequence('build', 'watchers', function() {
         console.log(chalk.white.bgGreen('[GULP] Watchers had been turned on'));
         return done();
     });
