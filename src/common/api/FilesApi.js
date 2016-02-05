@@ -39,7 +39,7 @@ angular.module('profitelo.api.files', [
 ])
 .factory('FilesApi', filesApi)
 .factory('FilesTokenApi', filesTokenApi)
-.factory('FilesGetTokenApi', filesTokenApi)
+.factory('FilesGetTokenApi', filesGetTokenApi)
 .factory('FilesUploadApi', filesUploadApi)
 
 // Depricated in new version (it will has sizes of downloaded files in meta properties of object)
