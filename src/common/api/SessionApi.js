@@ -1,10 +1,4 @@
-angular.module('profitelo.api.sessions', [
-  'ngResource',
-  'profitelo.services.commonSettings'
-])
-.factory('SessionsApi', SessionsApi)
-
-function SessionsApi($resource, CommonSettingsService) {
+function SessionApi($resource, CommonSettingsService) {
   return $resource(CommonSettingsService.get('apiUrl') + '/session', null, {
     'get':    {method: 'GET', isArray: false},
     'save':   {method: 'POST'},
@@ -14,3 +8,10 @@ function SessionsApi($resource, CommonSettingsService) {
     'delete': {method: 'DELETE'}
   })
 }
+
+
+angular.module('profitelo.api.session', [
+  'ngResource',
+  'profitelo.services.commonSettings'
+])
+.factory('SessionApi', SessionApi)

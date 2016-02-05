@@ -2,7 +2,7 @@ angular.module('user', [
   'authorization'
 ])
 
-.factory('UserService', ($q, SessionsApi) => {
+.factory('UserService', ($q, SessionApi) => {
 
 
   let _userData = {
@@ -22,7 +22,7 @@ angular.module('user', [
   let _isLoggedIn = false
 
   let _fetchData = () => {
-    SessionsApi.get().$promise.then((response) => {
+    SessionApi.get().$promise.then((response) => {
       angular.extend(_userData, response)
       _isLoggedIn = true
     }, (error) => {

@@ -7,9 +7,9 @@ angular.module('profitelo.controller.expert-progress', [
 
 
 
-// function AccountStatusApiResolver($q, SessionsApi, AccountsStatusApi) {
+// function AccountStatusApiResolver($q, SessionApi, AccountsStatusApi) {
 //  var deferred = $q.defer()
-//  SessionsApi.get().$promise.then(function(response) {
+//  SessionApi.get().$promise.then(function(response) {
 //    AccountsStatusApi.query({id: response.id}).$promise.then(function(result) {
 //      deferred.resolve(result)
 //    }, function(error) {

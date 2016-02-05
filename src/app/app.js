@@ -44,7 +44,7 @@ angular.module('profitelo', [
   // rest
   'profitelo.api.accounts',
   'profitelo.api.registration',
-  'profitelo.api.sessions',
+  'profitelo.api.session',
   'profitelo.api.industry',
   'profitelo.api.categories',
 
@@ -69,6 +69,7 @@ angular.module('profitelo', [
     .when('/', '/home')
 
   $locationProvider.html5Mode(true)
+
   // ngResource
   $resourceProvider.defaults.stripTrailingSlashes = true
 
@@ -145,7 +146,7 @@ angular.module('profitelo', [
   }
 
   $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
-    console.log('$stateChangeError', error)
+    console.log('$stateChangeError', 'event:', event, ' toState', toState, 'toParams', toParams, ' fromState', fromState, ' fromParams', fromParams, ' error:', error)
   })
 
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, error) {

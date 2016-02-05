@@ -4,7 +4,7 @@ angular.module('authorization', [
 
 .factory('AuthorizationService', AuthorizationService)
 
-function AuthorizationService($q, $cookies, $http, SessionsApi, RegistrationApi) {
+function AuthorizationService($q, $cookies, $http, SessionApi, RegistrationApi) {
 
   var _setApiKeyHeader = (apiKey) => {
     $cookies.put('X-Api-Key', apiKey)
@@ -36,7 +36,7 @@ function AuthorizationService($q, $cookies, $http, SessionsApi, RegistrationApi)
 
   var _login = (object) => {
     var deferred = $q.defer()
-    SessionsApi.save(object).$promise.then((success) =>{
+    SessionApi.save(object).$promise.then((success) =>{
       _setApiKeyHeader(success.apiKey)
       deferred.resolve(success)
     }, (error) =>{

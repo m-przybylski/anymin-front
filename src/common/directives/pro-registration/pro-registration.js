@@ -83,7 +83,7 @@ angular.module('profitelo.directives.pro-registration', [
   'profitelo.services.customTranslationHandler',
   'profitelo.api.accounts',
   'profitelo.api.profiles',
-  'profitelo.api.sessions',
+  'profitelo.api.session',
   'profitelo.api.registration',
   'profitelo.services.commonSettings'
 ])
