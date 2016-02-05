@@ -31,7 +31,7 @@
     "no-multiple-empty-lines": [2, {max: 4, maxEOF: 10}],
     "no-redeclare": [2, {"builtinGlobals": true}],
     "no-underscore-dangle": 0,
-    "no-trailing-spaces": 2,
+    "no-trailing-spaces": 0,
     "space-after-keywords": [2, "always"],
     "space-before-function-paren": [1, "never"],
     "space-before-blocks": 2,
