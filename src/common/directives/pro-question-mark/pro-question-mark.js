@@ -1,4 +1,4 @@
-function proQuestionMarkLinkFn($scope) => {
+function proQuestionMarkLinkFn($scope) {
   if ($scope.tooltipTitle === 'undefined' || !$scope.tooltipTitle) {
     $scope.tooltipTitle = ''
   }
