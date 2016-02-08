@@ -1,8 +1,8 @@
 function proUploadProgressBar($rootScope, $filter, $q, toastr) {
 
   function proUploadProgressBarLinkFn(scope) {
-    scope.caption = (!scope.caption || scope.caption.length === 0) ? scope.caption : ''
-    scope.percentage = (angular.isUndefined(scope.percentage) || !scope.percentage) ? 0 : scope.percentage
+    scope.caption = ( angular.isUndefined(scope.caption) || !scope.caption || scope.caption.length === 0 ) ? '' : scope.caption
+    scope.percentage = ( angular.isUndefined(scope.percentage) || !scope.percentage ) ? 0 : scope.percentage
   }
 
   return {
