@@ -145,34 +145,32 @@ function expertProfileDirectiveController($scope, $filter, $timeout, $http, $q, 
         }
       }
 
-      $q.all(tokenPromisses).then(
-        function(tokenPromissesResponse) {
-          console.log("tokenPromissesResponse", tokenPromissesResponse)
-          for(var k = 0; k < files.length; k++ ) {
-            files[k].progress = 0
-            Upload.upload({
-              url:  tokenPromissesResponse[k].uploadUrl,
-              data: {
-                file: files[k]
-              }
-            }).then(
-              function(documentUploadResponse) {
-                toastr.success('Uploading profile\'s document successfully compleated')
-              },
-              function(documentUploadError) {
-                toastr.error('Uploading profile\'s document failed')
-                console.log('Error', documentUploadError)
-              },
-              function(documentUploadEvent) {
-                console.log('documentUploadEvent', documentUploadEvent)
-                let progressPercentage = parseInt((100.0 * documentUploadEvent.loaded / documentUploadEvent.total), 10)
-                documentUploadEvent.config.data.file.progress = progressPercentage
-                console.log('progress: ' + progressPercentage + '%, of file ' + documentUploadEvent.config.data.file.name)
-              }
-            )
-          }
+      $q.all(tokenPromisses).then( function(tokenPromissesResponse) {
+        console.log('tokenPromissesResponse', tokenPromissesResponse)
+        for (var k = 0; k < files.length; k++ ) {
+          files[k].progress = 0
+          Upload.upload({
+            url:  tokenPromissesResponse[k].uploadUrl,
+            data: {
+              file: files[k]
+            }
+          }).then(
+            function(documentUploadResponse) {
+              toastr.success('Uploading profile\'s document successfully compleated')
+            },
+            function(documentUploadError) {
+              toastr.error('Uploading profile\'s document failed')
+              console.log('Error', documentUploadError)
+            },
+            function(documentUploadEvent) {
+              let progressPercentage = parseInt((100.0 * documentUploadEvent.loaded / documentUploadEvent.total), 10)
+              documentUploadEvent.config.data.file.progress = progressPercentage
+              console.log('progress: ' + progressPercentage + '%, of file ' + documentUploadEvent.config.data.file.name)
+            }
+          )
+        }
       }, function(tokenPromissesError) {
-        console.log("tokenPromissesError", tokenPromissesError)
+        console.log('tokenPromissesError', tokenPromissesError)
       })
     }
   }
