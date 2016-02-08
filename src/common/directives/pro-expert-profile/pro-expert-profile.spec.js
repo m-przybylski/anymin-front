@@ -5,7 +5,7 @@ describe('Unit testing: profitelo.directives.pro-expert-profile>', function() {
     var scope = null
 
     var _account = {}
-    var _userProfile = []
+    var _profilesNew = []
 
     beforeEach(function() {
       _account =  {
@@ -38,48 +38,74 @@ describe('Unit testing: profitelo.directives.pro-expert-profile>', function() {
         }
       }
 
-      _userProfile = [
-        {
-          'url': '/organizations/{organizationId}/profiles/{profileId}',
-          'organization': {
-            'ownerId': 'UUID'
+      _profilesNew = {
+        'id': 'UUID',
+        'organization': {
+          'ownerId': 'UUID'
+        },
+        'agentId': 'UUID',
+        'isActive': true,
+        'contract': {
+          'current': {
+            'serviceId': 'UUID',
+            'type': 'FREELANCER',
+            'group': '',
+            'margin': 0.6,
+            'calendar': {
+              'terms': [
+                {
+                  'repeat': 'EVERYDAY',
+                  'isExclusive': false,
+                  'dayOfWeek': 1,
+                  'from': '00:00:00',
+                  'to': '00:00:00'
+                }
+              ]
+            }
           },
-          'isActive': true,
-          'contract': {
-            'current': {
-              'serviceId': 'UUID',
-              'type': 'FREELANCER',
-              'group': '',
-              'margin': '.6',
-              'calendar': {
-                'terms': [
-                  {
-                    'repeat': 'EVERYDAY|EVERYWORKDAY|EVERYWEEKEND|WEEKLY',
-                    'isExclusive': false,
-                    'dayOfWeek': 'dayOfweek',
-                    'from': 'time',
-                    'to': 'time'
-                  }
-                ]
-              }
-            },
-            'toAccept': {}
+          'toAccept': {
+            'serviceId': 'UUID',
+            'type': 'FREELANCER',
+            'group': '',
+            'margin': 0.6,
+            'calendar': {
+              'terms': [
+                {
+                  'repeat': 'EVERYDAY',
+                  'isExclusive': false,
+                  'dayOfWeek': 1,
+                  'from': '00:00:00',
+                  'to': '00:00:00'
+                }
+              ]
+            }
+          }
+        },
+        'msisdn': '48515515515',
+        'details': {
+          'current': {
+            'name': 'name',
+            'description': 'description',
+            'avatarFileId': 'UUID',
+            'coverFileId': 'UUID'
           },
-          'msisdn': '48515515515',
-          'details': {
-            'current': {
-              'name': 'name',
-              'description': 'description',
-              'avatarFileId': 'UUID',
-              'coverFileId': 'UUID'
-            },
-            'toVerify': {}
+          'toVerify': {
+            'name': 'name',
+            'description': 'description',
+            'avatarFileId': 'UUID',
+            'coverFileId': 'UUID'
+          },
+          'verificationStatus': {
+            'status': 'REJECTED',
+            'comments': [
+              'ubogi opis'
+            ]
           }
         }
-      ]
+      }
     })
 
-    var validHTML = '<div data-pro-expert-profile="" data-account="account" data-user-profile="userProfile"></div>'
+    var validHTML = '<div data-pro-expert-profile="" data-profiles-new="profilesNew"></div>'
 
     beforeEach(function() {
       module('templates-module')
@@ -88,8 +114,7 @@ describe('Unit testing: profitelo.directives.pro-expert-profile>', function() {
       inject(function($rootScope, $compile) {
         scope = $rootScope.$new()
         compile = $compile
-        scope.account       = _account
-        scope.userProfile   = _userProfile
+        scope.profilesNew  = _profilesNew
       })
     })
 

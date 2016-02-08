@@ -1,10 +1,7 @@
-function expertProfileDirectiveController($scope, $filter, $timeout, $http, Upload, FilesGetTokenApi, toastr, _) {
+function expertProfileDirectiveController($scope, $filter, $timeout, $http, $q, Upload, FilesGetTokenApi, toastr, _) {
   var vm = this
 
   vm.pending = false
-
-  var _account        = $scope.account
-  var _userProfiles   = $scope.userProfiles
 
   // public variables
   vm.profile = {}
@@ -13,7 +10,8 @@ function expertProfileDirectiveController($scope, $filter, $timeout, $http, Uplo
 
   // store only form data
   vm.profile.formdata = {}
-  vm.profile.formdata.generalInfo = ''
+  vm.profile.formdata.fullname = ''
+  vm.profile.formdata.infoDescription = ''
 
   vm.log = ''
   vm.profile.formdata.coverFile = ''
@@ -24,36 +22,68 @@ function expertProfileDirectiveController($scope, $filter, $timeout, $http, Uplo
   vm.profile.formdata.documentFiles = ''
 
   // TODO if further graphic structure will be available need to reconfigure
-  vm.allFilesProgress = null
-  vm.coverFilesProgress = null
-  vm.avatarFilesProgress = null
-  vm.documentFilesProgress = null
+  vm.allFilesProgress       = 0
+  vm.coverFilesProgress     = 0
+  vm.avatarFilesProgress    = 0
 
   vm.currentlyUploadedDocuments = [] // no need to have this kind of var for single cover, avatar
 
+
+  if ($scope.profilesNew !== 'undefined') {
+    vm.profile.formdata.fullname    =  $scope.profilesNew.details.current.name
+    vm.profile.formdata.generalInfo =  $scope.profilesNew.details.current.description
+  }
+
+
   // private methods
-  var _isContainEmptyStrings = (array) => {
+  var _isContainEmptyStrings = function(array) {
     return _.includes(array, '')
   }
 
-  vm.isFilesExist = (array) => {
+
+  var _calculatePercentage = function() {
+
+  }
+
+
+  vm.isFilesExist = function(array) {
     return !!(!_isContainEmptyStrings(array) && array.length > 0)
   }
 
 
   // public method
   // TODO this method NEED TO BE updated if graphic and UX specify finall requirements (for multi type-source upload)
-  vm.upload = function(files) {
+  vm.uploadCover = function(files) {
     if (files && files.length && !_isContainEmptyStrings(files)) {
       for (var i = 0; i < files.length; i++) {
-        var file = files[i]
-        if (!file.$error) {
+        var oneFile = files[i]
+        if (!oneFile.$error) {
           FilesGetTokenApi.get().$promise.then( function(getTokenResponse) {
             console.log('getTokenResponse', getTokenResponse)
             // TODO add uploading file with file progress bars
-            var msg   = $filter('translate')('EXPERT_PROFILE.MESSAGES.DATA_SAVED_SUCCESSFULLY')
-            var title = $filter('translate')('EXPERT_PROFILE.EXPERT_PROFILE')
-            toastr.success(msg, title)
+            Upload.upload({
+              url:  getTokenResponse.uploadUrl,
+              data: {
+                file: oneFile
+              }
+            }).then(
+              function(coverUploadResponse) {
+                // var msg   = $filter('translate')('EXPERT_PROFILE.MESSAGES.DATA_SAVED_SUCCESSFULLY')
+                // var title = $filter('translate')('EXPERT_PROFILE.EXPERT_PROFILE')
+                // toastr.success(msg, title)
+                toastr.success('Uploading profile\'s cover compleate successfully')
+              },
+              function(coverUploadError) {
+                toastr.error('Uploading profile\'s cover failed')
+                console.log('Error', coverUploadError)
+              },
+              function(coverUploadEvent) {
+                console.log('coverUploadEvent', coverUploadEvent)
+                let progressPercentage = parseInt((100.0 * coverUploadEvent.loaded / coverUploadEvent.total), 10)
+                vm.coverFilesProgress = progressPercentage
+                console.log('progress: ' + progressPercentage + '% ' + coverUploadEvent.config.data.file.name)
+              }
+            )
           }, function(getTokenError) {
             console.log('Error:', getTokenError)
           })
@@ -61,6 +91,92 @@ function expertProfileDirectiveController($scope, $filter, $timeout, $http, Uplo
       }
     }
   }
+
+
+  // public method
+  // TODO this method NEED TO BE updated if graphic and UX specify finall requirements (for multi type-source upload)
+  vm.uploadAvatar = function(files) {
+    if (files && files.length && !_isContainEmptyStrings(files)) {
+      for (var i = 0; i < files.length; i++) {
+        var oneFile = files[i]
+        if (!oneFile.$error) {
+          FilesGetTokenApi.get().$promise.then( function(getTokenResponse) {
+            console.log('getTokenResponse', getTokenResponse)
+            // TODO add uploading file with file progress bars
+            Upload.upload({
+              url:  getTokenResponse.uploadUrl,
+              data: {
+                file: oneFile
+              }
+            }).then(
+              function(avatarUploadResponse) {
+                toastr.success('Uploading profile\'s document compleate successfully')
+              },
+              function(avatarUploadError) {
+                toastr.error('Uploading profile\'s document failed')
+                console.log('Error', coverUploadError)
+              },
+              function(avatarUploadEvent) {
+                console.log('avatarUploadEvent', avatarUploadEvent)
+                let progressPercentage = parseInt((100.0 * avatarUploadEvent.loaded / avatarUploadEvent.total), 10)
+                vm.avatarFilesProgress = progressPercentage
+                console.log('progress: ' + progressPercentage + '% ' + avatarUploadEvent.config.data.file.name)
+              }
+            )
+          }, function(getTokenError) {
+            console.log('Error:', getTokenError)
+          })
+        }
+      }
+    }
+  }
+
+
+  vm.uploadDocuments = function() {
+    var files = vm.profile.formdata.documentFiles
+
+    var tokenPromisses = []
+
+    if (files && files.length && !_isContainEmptyStrings(files)) {
+      var deferred = $q.defer()
+      for (var i = 0; i < files.length; i++) {
+        if (!files[i].$error) {
+          tokenPromisses.push(FilesGetTokenApi.get().$promise)
+        }
+      }
+
+      $q.all(tokenPromisses).then(
+        function(tokenPromissesResponse) {
+          console.log("tokenPromissesResponse", tokenPromissesResponse)
+          for(var k = 0; k < files.length; k++ ) {
+            files[k].progress = 0
+            Upload.upload({
+              url:  tokenPromissesResponse[k].uploadUrl,
+              data: {
+                file: files[k]
+              }
+            }).then(
+              function(documentUploadResponse) {
+                toastr.success('Uploading profile\'s document successfully compleated')
+              },
+              function(documentUploadError) {
+                toastr.error('Uploading profile\'s document failed')
+                console.log('Error', documentUploadError)
+              },
+              function(documentUploadEvent) {
+                console.log('documentUploadEvent', documentUploadEvent)
+                let progressPercentage = parseInt((100.0 * documentUploadEvent.loaded / documentUploadEvent.total), 10)
+                documentUploadEvent.config.data.file.progress = progressPercentage
+                console.log('progress: ' + progressPercentage + '%, of file ' + documentUploadEvent.config.data.file.name)
+              }
+            )
+          }
+      }, function(tokenPromissesError) {
+        console.log("tokenPromissesError", tokenPromissesError)
+      })
+    }
+  }
+
 
   vm.sendAndGoNext = function() {
     vm.submitted = true
@@ -80,7 +196,7 @@ function expertProfileDirectiveController($scope, $filter, $timeout, $http, Uplo
   // watches
   // profile background
   $scope.$watch('vm.profile.formdata.coverFiles', function() {
-    vm.upload(vm.profile.formdata.coverFiles)
+    vm.uploadCover(vm.profile.formdata.coverFiles)
   })
   $scope.$watch('vm.profile.formdata.coverFile', function() {
     if (vm.profile.formdata.coverFile != null) {
@@ -90,7 +206,7 @@ function expertProfileDirectiveController($scope, $filter, $timeout, $http, Uplo
 
   // profile avatar
   $scope.$watch('vm.profile.formdata.avatarFiles', function() {
-    vm.upload(vm.profile.formdata.avatarFiles)
+    vm.uploadAvatar(vm.profile.formdata.avatarFiles)
   })
   $scope.$watch('vm.profile.formdata.avatarFile', function() {
     if (vm.profile.formdata.avatarFile != null) {
@@ -100,12 +216,7 @@ function expertProfileDirectiveController($scope, $filter, $timeout, $http, Uplo
 
   // certyficates dyplomas documents
   $scope.$watch('vm.profile.formdata.documentFiles', function() {
-    vm.upload(vm.profile.formdata.documentFiles)
-  })
-  $scope.$watch('vm.profile.formdata.documentFile', function() {
-    if (vm.profile.formdata.documentFile != null) {
-      vm.profile.formdata.documentFiles = [vm.profile.formdata.documentFile]
-    }
+    vm.uploadDocuments()
   })
 
   return vm
@@ -114,27 +225,28 @@ function expertProfileDirectiveController($scope, $filter, $timeout, $http, Uplo
 angular.module('profitelo.directives.pro-expert-profile', [
   'ngFileUpload',
   'ngAnimate',
-  'toastr',  // some parts depends on ngAnimate
+  'toastr',         // some parts depends on ngAnimate
   'lodash',
 
   // internal scripts
   'profitelo.api.accounts',
-  'profitelo.api.sessions',
+  'profitelo.api.session',
   'profitelo.api.files',
-  'profitelo.directives.proProfileStatus',
-  'profitelo.directives.proQuestionMark',
-  'profitelo.directives.pro-waiting-spinner-div'
+  'profitelo.api.profiles',
+  'profitelo.directives.pro-profile-status',
+  'profitelo.directives.pro-question-mark',
+  'profitelo.directives.pro-upload-progress-bar',
+  'profitelo.directives.pro-waiting-spinner-span'
 ])
 
-.directive('proExpertProfile', () => {
+.directive('proExpertProfile', function(ProfilesNewApi) {
   return {
     replace:        true,
     templateUrl:    'directives/pro-expert-profile/pro-expert-profile.tpl.html',
     controller:     expertProfileDirectiveController,
     controllerAs:   'vm',
     scope: {
-      account:      '=',
-      userProfile:  '='
+      profilesNew:  '='
     }
   }
 })
