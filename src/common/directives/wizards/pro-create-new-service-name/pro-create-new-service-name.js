@@ -1,4 +1,4 @@
-function proCreateNewServiceName($timeout, $q, wizardSectionControlService) {
+function proCreateNewServiceName(wizardSectionControlService) {
 
   function linkFunction(scope, element, attrs) {
 
@@ -15,14 +15,15 @@ function proCreateNewServiceName($timeout, $q, wizardSectionControlService) {
       scope.serviceModel.serviceName = scope.model.serviceName
     }
 
+
     let _isValid = () => {
       return angular.isDefined(scope.model.serviceName) && scope.model.serviceName.length > 0
     }
-
+    /* istanbul ignore next */
     let _getModel = () => {
       return scope.model
     }
-
+    /* istanbul ignore next */
     let _setModel = (model) => {
       scope.model = angular.copy(model)
     }
@@ -52,6 +53,7 @@ function proCreateNewServiceName($timeout, $q, wizardSectionControlService) {
 
   }
 
+
   return {
     replace: true,
     templateUrl: 'directives/wizards/pro-create-new-service-name/pro-create-new-service-name.tpl.html',
@@ -68,6 +70,7 @@ angular.module('profitelo.directives.wizards.pro-create-new-service-name', [
   'ngAnimate',
   'toastr',  // some parts depends on ngAnimate
   'lodash',
+  'pascalprecht.translate',
 
   // internal scripts
   'profitelo.api.profiles',
