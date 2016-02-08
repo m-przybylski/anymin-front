@@ -38,6 +38,7 @@ angular.module('profitelo.translations.pl-pl', [])
     "COMMON.DIRECTIVES.PRO_REGISTRATION.PARTIAL.STEP2.ALMOST_DONE": "Prawie gotowe",
     "COMMON.DIRECTIVES.PRO_REGISTRATION.PARTIAL.STEP2.ID_NUMER": "Numer ID",
     "COMMON.DIRECTIVES.PRO_WAITING_SPINNER_DIV.LOADING": "Wczytywanie",
+    "COMMON.DIRECTIVES.PRO_EXPERT_PROFILE.SAVE_AND_NEXT": "Zapisz i dalej",
 
     // Strings not verified yet
     'EXPERT_PROGRESS.EXPERT.TITLE':'Profil experta',
