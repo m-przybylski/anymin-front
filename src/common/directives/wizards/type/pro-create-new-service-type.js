@@ -2,16 +2,18 @@ function proCreateNewServiceType($timeout, wizardSectionControlService) {
 
   function linkFunction(scope, element, attrs) {
     scope.loading = true
-
+    scope.serviceTypes = [
+      {key:'self', name: 'self'},
+      {key:'self-consultants', name: 'self-consultants'},
+      {key:'consultants', name: 'consultants'},
+    ]
     scope.updateModel = (type) =>{
-      scope.model.type = type
+      scope.model.type = type.key
+      scope.serviceModel.type = type.key
     }
     scope.model = {
       type: ''
     }
-    angular.forEach(scope.tags, (value, key) =>{
-      scope.model.tagMap[value] = false
-    })
 
     scope.saveSection = () => {
       console.log('save section: ', parseInt(scope.order, 10))
@@ -51,7 +53,6 @@ function proCreateNewServiceType($timeout, wizardSectionControlService) {
         beingEdited:  false
       }
     }
-    console.log(scope.config)
     wizardSectionControlService(scope.config)
 
   }
@@ -59,10 +60,10 @@ function proCreateNewServiceType($timeout, wizardSectionControlService) {
     replace:        true,
     templateUrl:    'directives/wizards/type/pro-create-new-service-type.tpl.html',
     scope: {
-      userProfile:  '=',
-      queue:    '=',
-      order:    '@',
-      service:  '='
+      userProfile:    '=',
+      queue:          '=',
+      order:          '@',
+      serviceModel:   '='
     },
     link: linkFunction
   }

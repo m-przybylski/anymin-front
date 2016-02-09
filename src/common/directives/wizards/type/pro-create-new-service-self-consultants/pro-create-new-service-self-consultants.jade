@@ -8,11 +8,7 @@ block edit-section
   form.tag-wizard(novalidate="" role="form" name="createNewServiceForm" data-ng-hide="config.toggles.past && !config.toggles.beingEdited")
     h2.text-center.margin-top-100 NEXT STEP
     div.tag-box-container
-      div(data-ng-class="model.tagMap[singleTag] ? 'tag-box-selected' : 'tag-box'"
-      data-ng-repeat="singleTag in tags" data-ng-click="selectTag(singleTag)")
-        span
-        span {{ singleTag }}
-        i.icon.icon-yes
+      input(type="email" name="inputEmail" data-ng-pattern="emailPattern")
 
 
 

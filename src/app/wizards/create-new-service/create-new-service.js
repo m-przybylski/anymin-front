@@ -29,6 +29,7 @@ angular.module('profitelo.controller.wizards.create-new-service', [
   'profitelo.directives.wizards.pro-create-new-service-tag',
   'profitelo.directives.wizards.pro-create-new-service-description',
   'profitelo.directives.wizards.pro-create-new-service-type',
+  'profitelo.directives.wizards.pro-create-new-service-type-chooser',
   'profitelo.directives.wizards.pro-create-new-service-self-consultants'
 ])
 

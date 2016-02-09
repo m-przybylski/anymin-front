@@ -3,8 +3,6 @@ function proCreateNewServiceTypeSelfConsultants() {
   function linkFunction(scope, element, attrs) {
 
 
-
-
   }
   return {
     replace:        true,
@@ -13,7 +11,8 @@ function proCreateNewServiceTypeSelfConsultants() {
       userProfile:  '=',
       queue:    '=',
       order:    '@',
-      service:  '='
+      service:  '=',
+      config:   '='
     },
     link: linkFunction
   }

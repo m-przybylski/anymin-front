@@ -1,16 +1,14 @@
-function proCreateNewServiceTag($http, $timeout, wizardSectionControlService, _) {
+function proCreateNewServiceTypeChooser($timeout, wizardSectionControlService) {
 
   function linkFunction(scope, element, attrs) {
+    console.log('tpttototo: '+scope.serviceModel.type=='self-consultants')
     scope.loading = true
-    scope.tags = ['VAT', 'Prawo finansowe', 'Księgowość', 'Prawo podatkowe', 'PIT', 'CIT', 'Biuro rachunkowe', 'Inwestycje']
-    scope.model = {
-      tagMap: new Object()
+
+    scope.updateModel = (type) =>{
+      scope.model.type = type
     }
-    angular.forEach(scope.tags, (value, key) =>{
-      scope.model.tagMap[value] = false
-    })
-    scope.selectTag = (tag) =>{
-      scope.model.tagMap[tag] = !scope.model.tagMap[tag]
+    scope.model = {
+      type: ''
     }
 
     scope.saveSection = () => {
@@ -18,13 +16,7 @@ function proCreateNewServiceTag($http, $timeout, wizardSectionControlService, _)
     }
 
     let _isValid = () => {
-      let _valid = false
-      angular.forEach(scope.tags, (value, key) =>{
-        if (scope.model.tagMap[value] === true) {
-          return _valid = true
-        }
-      })
-      return _valid
+      return scope.model.type!==''
     }
 
     let _getModel = () => {
@@ -62,20 +54,20 @@ function proCreateNewServiceTag($http, $timeout, wizardSectionControlService, _)
   }
   return {
     replace:        true,
-    templateUrl:    'directives/wizards/pro-create-new-service-tag/pro-create-new-service-tag.tpl.html',
+    templateUrl:    'directives/wizards/type/pro-create-new-service-type-chooser/pro-create-new-service-type-chooser.tpl.html',
     scope: {
       userProfile:  '=',
-      queue:    '=',
-      order:    '@',
-      service:  '='
+      queue:        '=',
+      order:        '@',
+      serviceModel: '='
     },
     link: linkFunction
   }
 
 }
 
-angular.module('profitelo.directives.wizards.pro-create-new-service-tag', [
+angular.module('profitelo.directives.wizards.pro-create-new-service-type-chooser', [
 ])
 
-.directive('proCreateNewServiceTag', proCreateNewServiceTag)
+.directive('proCreateNewServiceTypeChooser', proCreateNewServiceTypeChooser)
 
