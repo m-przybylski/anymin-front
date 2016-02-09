@@ -1,7 +1,7 @@
 function proCreateNewServiceTypeChooser($timeout, wizardSectionControlService) {
 
   function linkFunction(scope, element, attrs) {
-    console.log('tpttototo: '+scope.serviceModel.type=='self-consultants')
+    console.log('tpttototo: '+scope.serviceModel.type==='self-consultants')
     scope.loading = true
 
     scope.updateModel = (type) =>{

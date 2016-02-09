@@ -5,7 +5,7 @@ function proCreateNewServiceType($timeout, wizardSectionControlService) {
     scope.serviceTypes = [
       {key:'self', name: 'self'},
       {key:'self-consultants', name: 'self-consultants'},
-      {key:'consultants', name: 'consultants'},
+      {key:'consultants', name: 'consultants'}
     ]
     scope.updateModel = (type) =>{
       scope.model.type = type.key
