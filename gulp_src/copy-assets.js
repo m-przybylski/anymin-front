@@ -20,7 +20,8 @@ gulp.task('copy-fontsawesome', function() {
 
 
 gulp.task('copy-angular-i18', function() {
-    return gulp.src('vendor/angular-i18n/**').pipe(gulp.dest(config.compile_dir + '/assets/angular-i18n'));
+    return gulp.src('node_modules/angular-i18n/angular-locale_*.js')
+    .pipe(gulp.dest(config.compile_dir + '/assets/angular-i18n'));
 });
 
 

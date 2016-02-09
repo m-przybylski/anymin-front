@@ -23,7 +23,7 @@ describe('Unit testing: profitelo.services.interfaceLanguage >', function() {
       })
 
       it('should return array of objects with ietfCode and nameNative properties', function() {
-        let foo = function () {
+        let foo = function() {
           let bool = true
           let arr = InterfaceLanguageService.getInterfaceLanguages()
           if (!arr[0].hasOwnProperty('nativeName')) { bool = false }
