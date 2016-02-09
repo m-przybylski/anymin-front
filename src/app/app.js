@@ -12,9 +12,9 @@ angular.module('profitelo', [
 
 
   // modules
-  'user',
 
   // services
+  'profitelo.services.user',
   'profitelo.services.customTranslationHandler',
   'profitelo.services.wizardSectionControl',
 
