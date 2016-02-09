@@ -60,7 +60,7 @@ function proRegistration($scope, $rootScope, $state, $stateParams, $filter, User
     UserService.setData({telcoPin: vm.userData.pin})
     if ($scope.pinForm.$valid) {
       let _data = UserService.getAllData()
-      AccountsApi.update({id: _data.id }, _data).$promise.then(()=>{
+      AccountsApi.update({id: _data.id }, {telcoPin: vm.userData.pin}).$promise.then(()=>{
         $state.go('app.home')
       })
     } else {
