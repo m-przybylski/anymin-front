@@ -1,4 +1,5 @@
-function expertProfileDirectiveController($scope, $filter, $timeout, $http, $q, Upload, FilesGetTokenApi, toastr, _) {
+function expertProfileDirectiveController($scope, $filter, $timeout, $http, $q,
+Upload, toastr, FilesGetTokenApi, ProfilesExpertApi, UserService, _) {
   var vm = this
 
   vm.pending = false
@@ -11,7 +12,7 @@ function expertProfileDirectiveController($scope, $filter, $timeout, $http, $q, 
   // store only form data
   vm.profile.formdata = {}
   vm.profile.formdata.fullname = ''
-  vm.profile.formdata.infoDescription = ''
+  vm.profile.formdata.generalInfo = ''
 
   vm.log = ''
   vm.profile.formdata.coverFile = ''
@@ -41,8 +42,8 @@ function expertProfileDirectiveController($scope, $filter, $timeout, $http, $q, 
   }
 
 
-  var _calculatePercentage = function() {
-
+  var _calculatePercentage = function(loaded, total) {
+    return parseInt((100.0 * loaded / total), 10)
   }
 
 
@@ -79,7 +80,7 @@ function expertProfileDirectiveController($scope, $filter, $timeout, $http, $q, 
               },
               function(coverUploadEvent) {
                 console.log('coverUploadEvent', coverUploadEvent)
-                let progressPercentage = parseInt((100.0 * coverUploadEvent.loaded / coverUploadEvent.total), 10)
+                let progressPercentage = _calculatePercentage(coverUploadEvent.loaded, coverUploadEvent.total)
                 vm.coverFilesProgress = progressPercentage
                 console.log('progress: ' + progressPercentage + '% ' + coverUploadEvent.config.data.file.name)
               }
@@ -118,7 +119,7 @@ function expertProfileDirectiveController($scope, $filter, $timeout, $http, $q, 
               },
               function(avatarUploadEvent) {
                 console.log('avatarUploadEvent', avatarUploadEvent)
-                let progressPercentage = parseInt((100.0 * avatarUploadEvent.loaded / avatarUploadEvent.total), 10)
+                let progressPercentage = _calculatePercentage(avatarUploadEvent.loaded, avatarUploadEvent.total)
                 vm.avatarFilesProgress = progressPercentage
                 console.log('progress: ' + progressPercentage + '% ' + avatarUploadEvent.config.data.file.name)
               }
@@ -163,7 +164,7 @@ function expertProfileDirectiveController($scope, $filter, $timeout, $http, $q, 
               console.log('Error', documentUploadError)
             },
             function(documentUploadEvent) {
-              let progressPercentage = parseInt((100.0 * documentUploadEvent.loaded / documentUploadEvent.total), 10)
+              let progressPercentage = _calculatePercentage(documentUploadEvent.loaded, documentUploadEvent.total)
               documentUploadEvent.config.data.file.progress = progressPercentage
               console.log('progress: ' + progressPercentage + '%, of file ' + documentUploadEvent.config.data.file.name)
             }
@@ -180,7 +181,10 @@ function expertProfileDirectiveController($scope, $filter, $timeout, $http, $q, 
     vm.submitted = true
     if ($scope.expertProfileForm.$valid) {
       // TODO updating profile on save
-      ProfilesApi.update().$promise.then( function(profilesResponse) {
+      var obj = angular.copy($scope.profilesNew)
+      obj.details.current.name        = vm.profile.formdata.fullname
+      obj.details.current.description = vm.profile.formdata.generalInfo
+      ProfilesExpertApi.update({expertId: UserService.getAllData().id}, obj).$promise.then( function(profilesResponse) {
         console.log('profilesResponse', profilesResponse)
         var msg   = $filter('translate')('EXPERT_PROFILE.MESSAGES.DATA_SAVED_SUCCESSFULLY')
         var title = $filter('translate')('EXPERT_PROFILE.EXPERT_PROFILE')
@@ -231,6 +235,7 @@ angular.module('profitelo.directives.pro-expert-profile', [
   'profitelo.api.session',
   'profitelo.api.files',
   'profitelo.api.profiles',
+  'profitelo.services.user',
   'profitelo.directives.pro-profile-status',
   'profitelo.directives.pro-question-mark',
   'profitelo.directives.pro-upload-progress-bar',

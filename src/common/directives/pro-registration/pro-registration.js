@@ -79,7 +79,7 @@ angular.module('profitelo.directives.pro-registration', [
   'ngCookies',
   'toastr',
   'hellojs',
-  'user',
+  'profitelo.services.user',
   'profitelo.services.customTranslationHandler',
   'profitelo.api.accounts',
   'profitelo.api.profiles',
