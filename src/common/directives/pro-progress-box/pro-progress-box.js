@@ -1,10 +1,6 @@
-function proProgressBox() {
-  var vm = this
-  return vm
-
-}
-
-angular.module('profitelo.directives.pro-progress-box', [])
+angular.module('profitelo.directives.pro-progress-box', [
+  'pascalprecht.translate'
+])
 .directive('proProgressBox', () =>{
   function link(scope, element) {
     if (scope.container.status === 100) {
@@ -16,8 +12,6 @@ angular.module('profitelo.directives.pro-progress-box', [])
     templateUrl:  'directives/pro-progress-box/pro-progress-box.tpl.html',
     restrict:     'A',
     scope:        { container: '='},
-    controller:   proProgressBox,
-    controllerAs: 'vm',
     replace:      true,
     link:         link
   }

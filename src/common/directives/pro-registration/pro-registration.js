@@ -1,7 +1,7 @@
 function proRegistration($scope, $rootScope, $state, $stateParams, $filter, UserService, AuthorizationService, HellojsService, AccountsApi, RegistrationCheckApi, CommonSettingsService, toastr) {
   var vm = this,
-      msg,
-      title
+    msg,
+    title
 
   // step 1
   vm.settings = CommonSettingsService.localSettings

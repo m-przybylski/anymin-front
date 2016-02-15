@@ -11,10 +11,10 @@ function _prepareVerifyBox(container, vm) {
   // TODO in case there's error - in future we'll add error number
 
   var _displayDefault = false,
-      _rejected = false,
-      _inProgress = false,
-      _accepted = false,
-      _ableToSend = false
+    _rejected         = false,
+    _inProgress       = false,
+    _accepted         = false,
+    _ableToSend       = false
 
   if (container.profileProgressPercentage === 100 && container.serviceProgressPercentage === 100) {
     _ableToSend = true
@@ -48,7 +48,6 @@ function _prepareVerifyBox(container, vm) {
 }
 function ExpertProgressDirectiveController($scope) {
   var vm = this
-
   if ($scope.container === false) {
     $scope.container = {
       profileProgressPercentage: 0,
