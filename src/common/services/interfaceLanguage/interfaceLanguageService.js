@@ -30,16 +30,16 @@ $translate, $locale, $cookies, $location, tmhDynamicLocale, amMoment, _) {
 
 
   // @method         _unifyToIetfCode
-  // @param          {String}  langCode    some string with language key; like `pl-PL`
+  // @param          {String}  inputCode    some string with language key; like `pl-PL`
   // @description    Unify languages code notation from different browser to one
   //                 like "xx-yy" or "xx" (ex: "en-us", "en"); For
   // @returns        { String }
   var _unifyToIetfCode = function(inputCode) {
-    let _code = angular.copy(inputCode)
-    if (_code.indexOf('_')) {
-      _code = _code.replace('_', '-')
+    if (angular.isUndefined(inputCode) || !inputCode) {
+      // throw new Error('inputCode must be provided')
+      inputCode = ''
     }
-    return _code.toLowerCase()
+    return String(inputCode).trim().replace(/[_]/g, '-').toLowerCase()
   }
 
 
@@ -55,15 +55,19 @@ $translate, $locale, $cookies, $location, tmhDynamicLocale, amMoment, _) {
 
   // @method       _getStartupLanguage
   // @setter
-  // @param        {String}    [userInterfaceLanguage]   string with a language code; ex: en, en-us, pl-pl
+  // @param        {String}    [ietfCode]   string with a language code; ex: en, en-us, pl-pl
   // @description  Determinate user startup language
   // @returns      { String }
-  var _getStartupLanguage = function(userInterfaceLanguage) {
-    if (typeof userInterfaceLanguage === 'undefined' || !userInterfaceLanguage) {
-      userInterfaceLanguage = null
+  var _getStartupLanguage = function(ietfCode) {
+    if (typeof ietfCode === 'undefined' || !ietfCode) {
+      ietfCode = null
     }
 
-    let _cookie = $cookies.get(_selectedInterfaceLanguageCookie)
+    let _queryLang  = $location.search().lang
+    // console.log("_queryLang", _queryLang)
+    let _cookie     = $cookies.get(_selectedInterfaceLanguageCookie)
+    console.log("_cookie", _cookie)
+
 
     let _logDefaultTranslation = function() {
       let previousLanguage = null
@@ -80,26 +84,34 @@ $translate, $locale, $cookies, $location, tmhDynamicLocale, amMoment, _) {
       return _defaultTranslation
     }
 
-    let _queryLang = $location.search().lang
-    if (userInterfaceLanguage !== null && !userInterfaceLanguage) {
+    console.log('before return')
+    if (ietfCode !== null && ietfCode) {
       // pre-defined language
-      return userInterfaceLanguage
-    } else if (_.findWhere(_interfaceLanguages, {ietfCode: _queryLang}, 'ietfCode')) {
+      console.log('pre-defined language', ietfCode)
+      return ietfCode
+    } else if (_queryLang && _.findWhere(_interfaceLanguages, {ietfCode: _queryLang}, 'ietfCode')) {
+      // variable lang from URL
+      console.log('_queryLang', _queryLang)
       return _queryLang
     } else if (angular.isDefined(_cookie)) {
       if (_.findWhere(_interfaceLanguages, {ietfCode: _cookie}, 'ietfCode')) {
         // found right language into cookie
+        console.log('found right language into cookie', _cookie)
         return _cookie
       } else {
         // language into cookie was not found into `_interfaceLanguages` so we set default
+        console.log('language into cookie was not found into `_interfaceLanguages` so we set default', _logDefaultTranslation())
         return _logDefaultTranslation()
       }
     } else {
+      console.log("$translate.use()", $translate.use())
       if (_.findWhere(_interfaceLanguages, {ietfCode: _unifyToIetfCode($translate.use())}, 'ietfCode')) {
         // found language
+        console.log('found language', _unifyToIetfCode($translate.use()))
         return _unifyToIetfCode($translate.use())
       } else {
         // not found a language
+        console.log('not found a language', _logDefaultTranslation())
         return _logDefaultTranslation()
       }
     }
@@ -111,6 +123,7 @@ $translate, $locale, $cookies, $location, tmhDynamicLocale, amMoment, _) {
   // @param        {String}   langCode    some string with language key; like `pl-PL`
   // @description  Set user language for the website.
   var _setLanguage = function(ietfCode) {
+    console.log('a moze tutaj?')
     let _code = _unifyToIetfCode(ietfCode)
     let _countryCode = _code.split('-')[0]
     $cookies.put(_selectedInterfaceLanguageCookie, _code)
@@ -127,18 +140,5 @@ $translate, $locale, $cookies, $location, tmhDynamicLocale, amMoment, _) {
     getStartupLanguage:     _getStartupLanguage,
     setLanguage:            _setLanguage,
     unifyToIetfCode:        _unifyToIetfCode
-  }
-})
-
-
-// LanguageObjectFilter
-// --------------------
-.filter('interfaceLanguageObjectFilter', function(InterfaceLanguageService) {
-  return function(input) {
-    let _langCode = InterfaceLanguageService.langCode()
-    if (angular.isDefined(input) && angular.isDefined(input[_langCode])) {
-      return input[_langCode]
-    }
-    return 'No translation key-string provided'
   }
 })
