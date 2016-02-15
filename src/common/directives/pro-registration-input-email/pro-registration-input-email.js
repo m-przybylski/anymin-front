@@ -1,10 +1,6 @@
-function proProgressBox() {
-  var vm = this
-  return vm
-
-}
-
-angular.module('profitelo.directives.pro-registration-input-email', [])
+angular.module('profitelo.directives.pro-registration-input-email', [
+  'profitelo.services.commonSettings'
+])
 .directive('proRegistrationInputEmail', (CommonSettingsService) =>{
   function linkFn(scope, element) {
     scope.emailPattern = CommonSettingsService.localSettings.emailPattern
@@ -29,5 +25,3 @@ angular.module('profitelo.directives.pro-registration-input-email', [])
     link:         linkFn
   }
 })
-
-

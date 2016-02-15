@@ -1,6 +1,5 @@
 angular.module('profitelo', [
   'ngMessages',
-  'authorization',
   'templates-module',
   'pascalprecht.translate',
   'tmh.dynamicLocale',
@@ -12,6 +11,7 @@ angular.module('profitelo', [
 
 
   // modules
+  'profitelo.modules.authorization',
 
   // services
   'profitelo.services.user',

@@ -78,17 +78,17 @@ function proRegistration($scope, $rootScope, $state, $stateParams, $filter, User
 
 angular.module('profitelo.directives.pro-registration', [
   'ui.router',
-  'authorization',
   'ngCookies',
   'toastr',
   'hellojs',
+  'profitelo.modules.authorization',
   'profitelo.services.user',
   'profitelo.services.customTranslationHandler',
+  'profitelo.services.commonSettings',
   'profitelo.api.accounts',
   'profitelo.api.profiles',
   'profitelo.api.session',
-  'profitelo.api.registration',
-  'profitelo.services.commonSettings'
+  'profitelo.api.registration'
 ])
 
 .directive('proRegistration', () =>{

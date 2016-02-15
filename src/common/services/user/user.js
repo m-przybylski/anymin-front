@@ -1,5 +1,5 @@
 angular.module('profitelo.services.user', [
-  'authorization'
+  'profitelo.modules.authorization'
 ])
 
 .factory('UserService', ($q, SessionApi) => {
