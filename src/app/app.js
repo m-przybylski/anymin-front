@@ -1,22 +1,33 @@
+function AppController($scope, $rootScope, InterfaceLanguageService) {
+  var vm = this
+
+  InterfaceLanguageService.setLanguage(InterfaceLanguageService.getStartupLanguage())
+  $rootScope.gitCommit = lastCommitMessage
+
+  return vm
+}
+
+
 angular.module('profitelo', [
-  'ngMessages',
-  'templates-module',
   'pascalprecht.translate',
+  'angularMoment',
   'tmh.dynamicLocale',
   'ngAnimate',
-  'toastr',  // some parts depends on ngAnimate
+  'ngMessages',
   'ngCookies',
-  // modules
+  'toastr',  // some parts depends on ngAnimate
   'hellojs',
 
 
   // modules
   'profitelo.modules.authorization',
+  'templates-module',
 
   // services
   'profitelo.services.user',
   'profitelo.services.customTranslationHandler',
   'profitelo.services.wizardSectionControl',
+  'profitelo.services.interfaceLanguage',
 
   // controllers
   'profitelo.controller.dashboard',
@@ -125,7 +136,6 @@ angular.module('profitelo', [
     'en-us',
     'pl-pl'
   ], {
-    'en_US':  'en-us',
     'en-en':  'en-us',
     'en':     'en-us', // NOTE: change/remove if international version will be added
     'pl_PL':  'pl-pl',
@@ -168,16 +178,6 @@ angular.module('profitelo', [
       }
     }
   })
-
 })
 
 .controller('AppController', AppController)
-
-
-function AppController($scope, $rootScope) {
-  var vm = this
-
-  $rootScope.gitCommit = lastCommitMessage
-
-  return vm
-}
