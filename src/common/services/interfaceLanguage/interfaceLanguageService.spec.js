@@ -13,11 +13,14 @@ describe('Unit testing: profitelo.services.interfaceLanguage >', function() {
       InterfaceLanguageService = $injector.get('InterfaceLanguageService')
     }))
 
+    afterEach(function() {
+      InterfaceLanguageService = null
+    })
+
 
     it('should have a dummy test', inject(function() {
       expect(true).toBeTruthy()
     }))
-
 
     describe('getInterfaceLanguages method >', function() {
       it('should be defined', function() {
@@ -95,6 +98,10 @@ describe('Unit testing: profitelo.services.interfaceLanguage >', function() {
       InterfaceLanguageService = $injector.get('InterfaceLanguageService')
     }))
 
+    afterEach(function() {
+      InterfaceLanguageService = null
+    })
+
     describe('getStartupLanguage method with mocked services >', function() {
       it('should set translation language from URL variable', function() {
         expect(InterfaceLanguageService.getStartupLanguage()).toEqual('en-us')
@@ -126,6 +133,10 @@ describe('Unit testing: profitelo.services.interfaceLanguage >', function() {
       InterfaceLanguageService = $injector.get('InterfaceLanguageService')
     }))
 
+    afterEach(function() {
+      InterfaceLanguageService = null
+    })
+
     describe('getStartupLanguage method with mocked services >', function() {
       it('should set language from cookie if its code exists into `_interfaceLanguages` array', function() {
         expect(InterfaceLanguageService.getStartupLanguage()).toEqual('en-us')
@@ -154,6 +165,10 @@ describe('Unit testing: profitelo.services.interfaceLanguage >', function() {
       InterfaceLanguageService = $injector.get('InterfaceLanguageService')
     }))
 
+    afterEach(function() {
+      InterfaceLanguageService = null
+    })
+
     describe('getStartupLanguage method with mocked services >', function() {
       it('should set default language into cookie was not found into `_interfaceLanguages` if not found', function() {
         expect(InterfaceLanguageService.getStartupLanguage()).toEqual('pl-pl')
@@ -179,62 +194,116 @@ describe('Unit testing: profitelo.services.interfaceLanguage >', function() {
       realTranslate = $injector.get('$translate')
     }))
 
+    // afterEach(function() {
+    //   InterfaceLanguageService = null
+    // })
+
     it('this accually just inject $translate object before evaluate next test', function() {})
   })
 
 
   // found language
   describe('for InterfaceLanguageService service >', function() {
-
-    let InterfaceLanguageService  = null
-
-    beforeEach(function() {
-      let mockedTranslation = realTranslate
-      mockedTranslation.use = function(value) { // mock variable
-        return 'en-us' // language that should exsist into array
-      }
-
-      module('profitelo.services.interfaceLanguage', function ($provide) {
-        $provide.value('$translate',  mockedTranslation)
-      })
-    })
-
-    beforeEach(inject(function($injector) {
-      InterfaceLanguageService = $injector.get('InterfaceLanguageService')
-    }))
-
     describe('getStartupLanguage method with mocked services >', function() {
+
+      let InterfaceLanguageService = null
+
+      beforeEach(function() {
+        let mockedTranslation = realTranslate
+        mockedTranslation.use = function(value) { // mock variable
+          return 'en-us' // language that should exsist into array
+        }
+
+        module('profitelo.services.interfaceLanguage', function ($provide) {
+          $provide.value('$translate',  mockedTranslation)
+        })
+      })
+
+      beforeEach(inject(function($injector) {
+        InterfaceLanguageService = $injector.get('InterfaceLanguageService')
+      }))
+
+      afterEach(function() {
+        InterfaceLanguageService = null
+      })
+
+
       it('should set translation language if any parameter, URL or cookie has not been provided and exists into `_interfaceLanguages` array', function() {
         expect(InterfaceLanguageService.getStartupLanguage()).toEqual('en-us')
       })
-    })
 
+    })
   })
 
 
   // not found a language
   describe('for InterfaceLanguageService service >', function() {
+    describe('getStartupLanguage method with mocked services >', function() {
+
+      let InterfaceLanguageService = null
+
+      beforeEach(function() {
+        let mockedTranslation = realTranslate
+        mockedTranslation.use = function(value) { // mock variable
+          return 'kuz-kaz'  // language that wont exsist into array
+        }
+
+        module('profitelo.services.interfaceLanguage', function ($provide) {
+          $provide.value('$translate',  mockedTranslation)
+        })
+      })
+
+      beforeEach(inject(function($injector) {
+        InterfaceLanguageService = $injector.get('InterfaceLanguageService')
+      }))
+
+      afterEach(function() {
+        InterfaceLanguageService = null
+      })
+
+
+      it('should set default translation language if any parameter, URL or cookie has not been provided and not exists into `_interfaceLanguages` array', function() {
+        expect(InterfaceLanguageService.getStartupLanguage()).toEqual('pl-pl')
+      })
+
+    })
+  })
+})
+
+
+// variable lang from URL
+describe('Unit testing: profitelo.services.interfaceLanguage >', function() {
+  describe('for InterfaceLanguageService service >', function() {
 
     let InterfaceLanguageService  = null
+    let http = null
+    let moment = null
+    let translate = null
+    let cookies = null
 
     beforeEach(function() {
-      let mockedTranslation = realTranslate
-      mockedTranslation.use = function(value) { // mock variable
-        return 'kuz-kaz'  // language that wont exsist into array
-      }
-
-      module('profitelo.services.interfaceLanguage', function ($provide) {
-        $provide.value('$translate',  mockedTranslation)
-      })
+      module('profitelo.services.interfaceLanguage')
     })
 
     beforeEach(inject(function($injector) {
       InterfaceLanguageService = $injector.get('InterfaceLanguageService')
+      http        = $injector.get('$http')
+      moment      = $injector.get('moment')
+      translate   = $injector.get('$translate')
+      cookies     = $injector.get('$cookies')
     }))
 
+    afterEach(function() {
+      InterfaceLanguageService = null
+    })
+
     describe('getStartupLanguage method with mocked services >', function() {
-      it('should set translation language if any parameter, URL or cookie has not been provided and exists into `_interfaceLanguages` array', function() {
-        expect(InterfaceLanguageService.getStartupLanguage()).toEqual('pl-pl')
+      it('setLanguage method should be defined', function() {
+        InterfaceLanguageService.setLanguage('en-us')
+        expect(http.defaults.headers.common['X-LANG']).toEqual('en-us')
+        expect(moment.locale()).toEqual('en')
+        expect(translate.use()).toEqual('en-us')
+        expect(cookies.get('selectedInterfaceLanguage')).toEqual('en-us')
       })
     })
 
