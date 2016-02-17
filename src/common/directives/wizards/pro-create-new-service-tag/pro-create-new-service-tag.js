@@ -57,7 +57,6 @@ function proCreateNewServiceTag($http, $timeout, wizardSectionControlService, _)
         beingEdited:  false
       }
     }
-    console.log(scope.config)
     wizardSectionControlService(scope.config)
 
   }

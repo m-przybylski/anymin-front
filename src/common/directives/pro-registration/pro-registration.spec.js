@@ -1,15 +1,15 @@
 describe('Unit testing: profitelo.directive.pro-registration', () => {
   return describe('for pro-registration directive >', () => {
 
-    var compile                 = null
-    var scope                   = null
-    var _$httpBackend           = null
-    var _$state                 = null
-    var _CommonSettingsService  = null
+    var compile               = null,
+      scope                   = null,
+      _$httpBackend           = null,
+      _$state                 = null,
+      _CommonSettingsService  = null
     var validHTML = '<div data-pro-registration data-step1="step1"></div>'
 
-    var registrationPOST = null
-    var registrationGET  = null
+    var registrationPOST = null,
+      registrationGET  = null
 
     beforeEach(() => {
       module('templates-module')

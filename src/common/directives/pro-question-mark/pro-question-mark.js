@@ -1,4 +1,13 @@
-angular.module('profitelo.directives.proQuestionMark', [])
+function proQuestionMarkLinkFn($scope) {
+  if ($scope.tooltipTitle === 'undefined' || !$scope.tooltipTitle) {
+    $scope.tooltipTitle = ''
+  }
+  if ($scope.tooltipPlacement === 'undefined' || !$scope.tooltipPlacement) {
+    $scope.tooltipPlacement = 'bottom'
+  }
+}
+
+angular.module('profitelo.directives.pro-question-mark', [])
 
 .directive('proQuestionMark', () => {
   return {
@@ -9,13 +18,6 @@ angular.module('profitelo.directives.proQuestionMark', [])
       tooltipTitle:     '@title',
       tooltipPlacement: '@placement'
     },
-    link: ($scope) => {
-      if ($scope.tooltipTitle === 'undefined' || !$scope.tooltipTitle) {
-        $scope.tooltipTitle = ''
-      }
-      if ($scope.tooltipPlacement === 'undefined' || !$scope.tooltipPlacement) {
-        $scope.tooltipPlacement = 'bottom'
-      }
-    }
+    link: proQuestionMarkLinkFn
   }
 })

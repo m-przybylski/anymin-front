@@ -1,6 +1,6 @@
-function AccountsApiResolverFunction($q, SessionsApi, AccountsApi) {
+function AccountsApiResolverFunction($q, SessionApi, AccountsApi) {
   var deferred = $q.defer()
-  SessionsApi.get().$promise.then((response) => {
+  SessionApi.get().$promise.then((response) => {
     AccountsApi.query({telcoLogin: response.telcoLogin}).$promise.then((result) => {
       deferred.resolve(result)
     }, (error) => {
@@ -12,6 +12,7 @@ function AccountsApiResolverFunction($q, SessionsApi, AccountsApi) {
   return deferred.promise
 }
 
+
 function ProfilesApiResolverFunction($q, ProfilesApi) {
   var deferred = $q.defer()
   ProfilesApi.get({profileId: '000000'}).$promise.then((profilesApiResponse) => {
@@ -21,6 +22,18 @@ function ProfilesApiResolverFunction($q, ProfilesApi) {
   })
   return deferred.promise
 }
+
+
+function ProfilesNewApiResolverFunction($q, ProfilesNewApi) {
+  var deferred = $q.defer()
+  ProfilesNewApi.get().$promise.then((profilesNewApiResponse) => {
+    deferred.resolve(profilesNewApiResponse)
+  }, (profilesNewApiError) => {
+    deferred.reject(profilesNewApiError)
+  })
+  return deferred.promise
+}
+
 
 function createExpertProfileFirstTime(ProfilesApi) {
   var deferred = $q.defer()
@@ -32,30 +45,31 @@ function createExpertProfileFirstTime(ProfilesApi) {
   return deferred.promise
 }
 
-function expertProfileController() {
+function expertProfileController(ProfilesNewApiResolver) {
   var vm = this
 
-  vm.account        = {} // AccountsApiResolver
-  vm.userProfile    = {} // ProfilesApiResolver
+  // vm.account        = {} // AccountsApiResolver
+  vm.profilesNew    = ProfilesNewApiResolver
 }
 
 function config($stateProvider) {
   $stateProvider.state('app.expert-profile', {
     url: '/expert-profile',
-    templateUrl:'expert-profile/expert-profile.tpl.html',
+    templateUrl:    'expert-profile/expert-profile.tpl.html',
     controller:     expertProfileController,
-    controllerAs:   'vm'
-    // resolve: {
-    //   AccountsApiResolver: AccountsApiResolverFunction
-    //   ProfilesApiResolver: ProfilesApiResolverFunction
-    // }
+    controllerAs:   'vm',
+    resolve: {
+      // AccountsApiResolver:    AccountsApiResolverFunction,
+      // ProfilesApiResolver:    ProfilesApiResolverFunction,
+      ProfilesNewApiResolver: ProfilesNewApiResolverFunction
+    }
   })
 }
 
 angular.module('profitelo.controller.expert-profile', [
   'ui.router',
-  'profitelo.api.accounts',
-  'profitelo.api.sessions',
+  // 'profitelo.api.accounts',
+  // 'profitelo.api.session',
   'profitelo.api.profiles',
   'profitelo.directives.pro-expert-profile'
 ])

@@ -5,6 +5,7 @@ angular.module('profitelo.controller.registration', [
 
 .controller('RegistrationController', RegistrationController)
 
+/* istanbul ignore next */
 function StepResolver($q, $stateParams) {
   var deferred = $q.defer()
   if ($stateParams.token==='') {
@@ -14,7 +15,6 @@ function StepResolver($q, $stateParams) {
   }
   return deferred.promise
 }
-
 
 function RegistrationController(Step1) {
   var vm = this

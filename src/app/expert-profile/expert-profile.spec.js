@@ -5,6 +5,7 @@ describe('Unit tests: expert-profile >', () => {
     var ExpertProfileController = null
     var AccountsApiResolver = null
     var ProfilesApiResolver = null
+    var ProfilesNewApiResolver = null
 
     beforeEach(() => {
       // single account data
@@ -38,7 +39,7 @@ describe('Unit tests: expert-profile >', () => {
         }
       }
 
-      ProfilesApiResolver = [
+      ProfilesNewApiResolver = [
         {
           'url': '/organizations/{organizationId}/profiles/{profileId}',
           'organization': {
@@ -77,30 +78,25 @@ describe('Unit tests: expert-profile >', () => {
           }
         }
       ]
+
     })
 
     beforeEach(() => {
       module('profitelo.controller.expert-profile')
       inject(($rootScope, $controller, $state) => {
         $scope = $rootScope.$new()
-        ExpertProfileController = $controller('ExpertProfileController', {
-          $scope: $scope,
-          $rootScope: $rootScope,
-          $state: $state,
-          AccountsApiResolver: AccountsApiResolver,
-          ProfilesApiResolver: ProfilesApiResolver
-        })
+        ExpertProfileController = expertProfileController
       })
     })
 
     describe('controller resolve services', () => {
-      // it('AccountsApiResolver should exsist', () => {
-      //   return expect(!!AccountsApiResolver).toBe(true)
-      // })
+      it('ExpertProfileController should exsist', () => {
+        return expect(!!ExpertProfileController).toBe(true)
+      })
 
-      // it('ExpertProfileController should exsist', () => {
-      //   return expect(!!ExpertProfileController).toBe(true)
-      // })
+      it('ProfilesNewApiResolver should exsist', () => {
+        return expect(!!ProfilesNewApiResolver).toBe(true)
+      })
     })
 
   })

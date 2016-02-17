@@ -1,53 +1,56 @@
-angular.module('authorization', [
-
+angular.module('profitelo.modules.authorization', [
+  'ngCookies',
+  'hellojs',
+  'profitelo.api.session',
+  'profitelo.api.registration'
 ])
 
 .factory('AuthorizationService', AuthorizationService)
 
-function AuthorizationService($q, $cookies, $http, SessionsApi, RegistrationApi) {
+function AuthorizationService($q, $cookies, $http, SessionApi, RegistrationApi) {
+  var
+    _setApiKeyHeader,
+    _checkToken,
+    _register,
+    _login,
+    _loginSocial
 
-  var _setApiKeyHeader = (apiKey) => {
+  _setApiKeyHeader = (apiKey) => {
     $cookies.put('X-Api-Key', apiKey)
     $http.defaults.headers.common['X-Api-Key'] = apiKey
   }
 
-  var _checkToken = (object) => {
+  _checkToken = (object) => {
     var deferred = $q.defer()
     RegistrationApi.checkToken(object).$promise.then((success)=>{
       _setApiKeyHeader(success.apiKey)
       deferred.resolve(success)
     }, (error) => {
-      console.log(error)
       deferred.reject(error)
     })
     return deferred.promise
   }
 
-  var _register = (object) => {
+  _register = (object) => {
     var deferred = $q.defer()
     RegistrationApi.save(object).$promise.then((success) =>{
       deferred.resolve(success)
     }, (error) =>{
-      console.log(error)
       deferred.reject(error)
     })
     return deferred.promise
   }
 
-  var _login = (object) => {
+  _login = (object) => {
     var deferred = $q.defer()
-    SessionsApi.save(object).$promise.then((success) =>{
+    SessionApi.save(object).$promise.then((success) =>{
       _setApiKeyHeader(success.apiKey)
       deferred.resolve(success)
     }, (error) =>{
-      console.log(error)
       deferred.reject(error)
     })
     return deferred.promise
   }
-
-
-  var _loginSocial
 
   _loginSocial = function(socialNetworkName, successCallback, errorCallback) {
     if (typeof successCallback === 'undefined') {

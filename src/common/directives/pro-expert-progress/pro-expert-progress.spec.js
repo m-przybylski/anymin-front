@@ -1,11 +1,9 @@
 describe('Unit testing: profitelo.directives.pro-expert-progress', () => {
   return describe('for pro-expert-progress directive >', () => {
 
-    var compile       = null
-    var scope         = null
-
+    var compile   = null
+    var scope     = null
     var validHTML = '<div data-pro-expert-progress data-container="accountSession"></div>'
-
 
     var _accountSession = {
       profileProgressPercentage: 25,
@@ -43,25 +41,25 @@ describe('Unit testing: profitelo.directives.pro-expert-progress', () => {
     }))
 
     it('should compile the directive', () => {
-      var el
+      let el
       el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
 
     it('should be able to send for verification', () => {
+      let el
       _accountSession.verification.status = 'REJECTED'
       _accountSession.profileProgressPercentage = 100
       _accountSession.serviceProgressPercentage = 100
-      var el
       el = create(validHTML)
       expect(el.isolateScope().vm.verifyBox.ableToSend).toEqual(true)
     })
 
     it('should set profile and service progress percentage to 0 if other type than number is passed', () =>{
+      let el
       _accountSession.verification.status = 'ACCEPTED'
       _accountSession.profileProgressPercentage = null
       _accountSession.serviceProgressPercentage = 'asd'
-      var el
       el = create(validHTML)
       expect(el.isolateScope().container.profileProgressPercentage).toEqual(0)
       expect(el.isolateScope().container.serviceProgressPercentage).toEqual(0)
@@ -70,10 +68,19 @@ describe('Unit testing: profitelo.directives.pro-expert-progress', () => {
 
 
     it('should display default text if something went wrong', () =>{
+      let el
       _accountSession.verification.status = null
-      var el
       el = create(validHTML)
       expect(el.isolateScope().vm.verifyBox.displayDefault).toEqual(true)
+
+    })
+
+    it('should create default container if container === false', () =>{
+      let el
+      scope.accountSession = false
+      el = create(validHTML)
+      expect(el.isolateScope().container.profileProgressPercentage).toEqual(0)
+      expect(el.isolateScope().container.serviceProgressPercentage).toEqual(0)
 
     })
 

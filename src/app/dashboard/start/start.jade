@@ -2,8 +2,12 @@ h2 Dashboard
 ul
   li
     a(data-ui-sref="app.wizards.create-new-service") Create new service
-  li
-    a(data-ui-sref="app.expert-profile") Create expert profile
+  li To rework when session will returns something similar to: `amIExpert`
+    ol
+      li
+        a(data-ng-if="true" data-ui-sref="app.expert-profile") Create new expert profile (own company profile)
+      li
+        a(data-ng-if="true" data-ui-sref="app.expert-profile") Edit my expert profile (own company profile)
   li
     a(data-ui-sref="app.expert-progress") Expert progress
   li

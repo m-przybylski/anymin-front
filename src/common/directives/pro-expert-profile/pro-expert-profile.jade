@@ -1,8 +1,8 @@
-form(novalidate="" role="form" name="expertProfileForm")
+form.pro-expert-profile(novalidate="" role="form" name="expertProfileForm")
   .row
     .col-sm-12
       .page-header
-        h2 {{'EXPERT_PROFILE.EXPERT_PROFILE' | translate}}
+        h2 {{'COMMON.DIRECTIVES.PRO_EXPERT_PROFILE.EXPERT_PROFILE' | translate}}
         pro-profile-status(status="vm.profile.profileStatus")
         .progress-container.pull-right
           span {{ vm.profile.profileProgressPercentage }}%
@@ -13,14 +13,11 @@ form(novalidate="" role="form" name="expertProfileForm")
     .col-sm-12
       .exeptions
         .alert.alert-danger(role="alert" data-ng-show="(expertProfileForm.fullname.$dirty && expertProfileForm.fullname.$invalid || vm.submitted) && expertProfileForm.fullname.$error.required")
-          | {{ 'EXPERT_PROFILE.MESSAGES.FULLNAME_REQUIRED' | translate }}
+          | {{ 'COMMON.DIRECTIVES.PRO_EXPERT_PROFILE.MESSAGES.FULLNAME_REQUIRED' | translate }}
 
   .row
     .col-sm-12
       .page-body
-        .profile-overall-upload-progress-bar(data-ng-show="vm.allFilesProgress" )
-          .progress
-            .progress-bar.progress-bar-success(role='progressbar', aria-valuenow='{{vm.allFilesProgress}}', aria-valuemin='0', aria-valuemax='100', style='width: {{vm.allFilesProgress}}%')
         .profile-cover(data-ng-hide="vm.isFilesExist(vm.profile.formdata.coverFiles)" ngf-drop ng-model="vm.profile.formdata.coverFile"
         ngf-drag-over-class="'dragover'"
         ngf-multiple="false"
@@ -30,9 +27,10 @@ form(novalidate="" role="form" name="expertProfileForm")
           pro-question-mark(title="{{ 'EXPERT_PROFILE.PROFILE_BACKGROUND_TOOLTIP' | translate }}")
           .add-icon
             a(href="" ngf-select ng-model="vm.profile.formdata.coverFile" ngf-multiple="false")
-              i.fa.fa-plus-square
+              i.icon.icon-smile
         .profile-cover.active(data-ng-show="vm.isFilesExist(vm.profile.formdata.coverFiles)" )
-          pro-question-mark(title="{{ 'EXPERT_PROFILE.PROFILE_BACKGROUND_TOOLTIP' | translate }}")
+          pro-question-mark(title="{{ 'COMMON.DIRECTIVES.PRO_EXPERT_PROFILE.PROFILE_BACKGROUND_TOOLTIP' | translate }}")
+          pro-upload-progress-bar(data-percentage="vm.coverFilesProgress" data-caption="")
           img(ngf-src="vm.profile.formdata.coverFiles[0]")
 
         .page-content
@@ -44,40 +42,41 @@ form(novalidate="" role="form" name="expertProfileForm")
               ngf-allow-dir="false"
               accept="image/*"
               ngf-pattern="'image/*'")
-                pro-question-mark(title="{{ 'EXPERT_PROFILE.PROFILE_AVATAR_TOOLTIP' | translate }}")
+                pro-question-mark(title="{{ 'COMMON.DIRECTIVES.PRO_EXPERT_PROFILE.PROFILE_AVATAR_TOOLTIP' | translate }}")
                 .user-icon
                   a(href="" ngf-select ng-model="vm.profile.formdata.avatarFile" ngf-multiple="false")
-                    i.fa.fa-user
+                    i.icon.icon-smile
               .profile-avatar.active(data-ng-show="vm.isFilesExist(vm.profile.formdata.avatarFiles)")
-                pro-question-mark(title="{{ 'EXPERT_PROFILE.PROFILE_BACKGROUND_TOOLTIP' | translate }}")
+                pro-question-mark(title="{{ 'COMMON.DIRECTIVES.PRO_EXPERT_PROFILE.PROFILE_BACKGROUND_TOOLTIP' | translate }}")
+                pro-upload-progress-bar(data-percentage="vm.avatarFilesProgress" data-caption="")
                 img(ngf-src="vm.profile.formdata.avatarFiles[0]")
 
               .profile-behance
-                pro-question-mark(title="{{ 'EXPERT_PROFILE.PROFILE_ON_BEHANCE_TOOLTIP' | translate }}")
+                pro-question-mark(title="{{ 'COMMON.DIRECTIVES.PRO_EXPERT_PROFILE.PROFILE_ON_BEHANCE_TOOLTIP' | translate }}")
                 .behance-icon
-                  i.fa.fa-behance
+                  i.icon.icon-keypad
 
             .col-sm-9.right-side
               .profile-fullname
                 .input-group-lg
-                  input.form-control(type="text" name="fullname" data-ng-required="true" data-ng-model="vm.profile.formdata.fullname" placeholder="{{ 'EXPERT_PROFILE.FIRSTNAME_LASTNAME_OR_COMPANY_PLACEHOLDER' | translate }}")
+                  input.form-control(type="text" name="fullname" data-ng-required="true" data-ng-model="vm.profile.formdata.fullname" placeholder="{{ 'COMMON.DIRECTIVES.PRO_EXPERT_PROFILE.FIRSTNAME_LASTNAME_OR_COMPANY_PLACEHOLDER' | translate }}")
 
               .profile-general-info
                 .input-group-lg
-                  textarea.form-control(data-ng-model="vm.profile.formdata.generalInfo" placeholder="{{ 'EXPERT_PROFILE.GENERAL_INFO_PLACEHOLDER' | translate }}")
+                  textarea.form-control(data-ng-model="vm.profile.formdata.generalInfo" placeholder="{{ 'COMMON.DIRECTIVES.PRO_EXPERT_PROFILE.GENERAL_INFO_PLACEHOLDER' | translate }}")
 
         .page-content
           .row
             .col-sm-3.left-side
               .profile-video
-                pro-question-mark(title="{{ 'EXPERT_PROFILE.PROFILE_VIDEOS_TOOLTIP' | translate }}")
+                pro-question-mark(title="{{ 'COMMON.DIRECTIVES.PRO_EXPERT_PROFILE.PROFILE_VIDEOS_TOOLTIP' | translate }}")
                 .video-icon
-                  i.fa.fa-play-circle-o
+                  i.icon.icon-keypad
 
               .profile-social-media
-                pro-question-mark(title="{{ 'EXPERT_PROFILE.PROFILE_SOCIAL_MEDIA_TOOLTIP' | translate }}")
+                pro-question-mark(title="{{ 'COMMON.DIRECTIVES.PRO_EXPERT_PROFILE.PROFILE_SOCIAL_MEDIA_TOOLTIP' | translate }}")
                 .share-icon
-                  i.fa.fa-share-alt-square
+                  i.icon.icon-keypad
 
             .col-sm-9.right-side
               .profile-certificates(data-ng-hide="vm.isFilesExist(vm.profile.formdata.documentFiles)" ngf-drop ng-model="vm.profile.formdata.documentFiles"
@@ -86,29 +85,24 @@ form(novalidate="" role="form" name="expertProfileForm")
               ngf-allow-dir="true"
               accept="image/*"
               ngf-pattern="'image/*'")
-                pro-question-mark(title="{{ 'EXPERT_PROFILE.PROFILE_CERTIFICATES_TOOLTIP' | translate }}")
+                pro-question-mark(title="{{ 'COMMON.DIRECTIVES.PRO_EXPERT_PROFILE.PROFILE_CERTIFICATES_TOOLTIP' | translate }}")
                 .files-icon
                   a(href="" ngf-select data-ng-model="vm.profile.formdata.documentFiles" ngf-multiple="true")
-                    i.icon.icon-keypad
+                    i.icon.icon-smile
 
               .profile-certificates(data-ng-show="vm.isFilesExist(vm.profile.formdata.documentFiles)")
-                .uploading-document(data-ng-repeat="item in vm.currentlyUploadedDocuments")
-                  a
-                    | {{ item.name }}
-                  .progress
-                    .progress-bar.progress-bar-success(role='progressbar', aria-valuenow='{{item.progressPercentage}}', aria-valuemin='0', aria-valuemax='100', style='width: {{item.progressPercentage}}%')
+                .uploading-document(data-ng-repeat="item in vm.profile.formdata.documentFiles track by $index")
+                  pro-upload-progress-bar(data-percentage="item.progress" data-caption="{{item.name}}")
 
 
-
-
-  .row(style="padding-bottom: 200px")
+  .row
     .col-sm-12
       .page-credentials
         button.btn.btn-lg.btn-primary.pull-right(type="button" data-ng-click="vm.sendAndGoNext()")
-          | {{ 'GENERAL.SAVE_AND_NEXT' | translate }}
+          | {{ 'COMMON.DIRECTIVES.PRO_EXPERT_PROFILE.SAVE_AND_NEXT' | translate }}
 
-    //- h2 Debug variables
-    //- pre
-    //-   | vm: {{ vm | json }}
+      //- h2 Debug variables
+      //- pre
+      //-   | vm: {{ vm | json }}
 
 

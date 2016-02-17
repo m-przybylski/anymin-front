@@ -19,7 +19,7 @@ function proWaitingSpinnerSpan($rootScope, $filter, $q, toastr) {
   }
 }
 
-angular.module('profitelo.directives.pro-upload-progress-bar', [
+angular.module('profitelo.directives.pro-waiting-spinner-span', [
   'pascalprecht.translate'
 ])
 .directive('proWaitingSpinnerSpan', proWaitingSpinnerSpan)

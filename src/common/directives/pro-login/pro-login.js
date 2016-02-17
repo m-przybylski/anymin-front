@@ -15,9 +15,9 @@ function LoginDirectiveController($state, AuthorizationService, toastr) {
 angular.module('profitelo.directives.pro-login', [
   'ui.router',
   'ngCookies',
-  'authorization',
   'toastr',
-  'profitelo.api.sessions',
+  'profitelo.modules.authorization',
+  'profitelo.api.session',
   'profitelo.api.registration',
   'pascalprecht.translate'
 ])

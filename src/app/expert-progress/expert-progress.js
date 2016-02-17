@@ -4,23 +4,7 @@ angular.module('profitelo.controller.expert-progress', [
 .config(config)
 .controller('ExpertProgressController', ExpertProgressController)
 
-
-
-
-// function AccountStatusApiResolver($q, SessionsApi, AccountsStatusApi) {
-//  var deferred = $q.defer()
-//  SessionsApi.get().$promise.then(function(response) {
-//    AccountsStatusApi.query({id: response.id}).$promise.then(function(result) {
-//      deferred.resolve(result)
-//    }, function(error) {
-//      deferred.reject(error)
-//    })
-//  }, function(error) {
-//    deferred.reject(error)
-//  })
-//  return deferred.promise
-// }
-
+/* istanbul ignore next */
 function AccountStatusApiResolver($q, AccountsStatusApi, UserService) {
   var deferred = $q.defer()
   // TODO should be changed to BITMASK from profitelo
@@ -33,9 +17,6 @@ function AccountStatusApiResolver($q, AccountsStatusApi, UserService) {
 
   return deferred.promise
 }
-
-
-
 
 function config($stateProvider) {
   $stateProvider.state('app.expert-progress', {

@@ -1,9 +1,3 @@
-function proProgressBox() {
-  var vm = this
-  return vm
-
-}
-
 angular.module('profitelo.directives.pro-registration-input-pass', [])
 .directive('proRegistrationInputPass', () =>{
   function linkFn(scope, element) {
@@ -23,8 +17,6 @@ angular.module('profitelo.directives.pro-registration-input-pass', [])
                     labelIcon:  '@',
                     form:       '=',
                     inputValue: '=',
-                    maxLength:  '=',
-                    minLength:  '=',
                     pattern:    '='
                   },
     link:         linkFn

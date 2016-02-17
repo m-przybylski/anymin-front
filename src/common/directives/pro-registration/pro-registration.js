@@ -1,11 +1,7 @@
 function proRegistration($scope, $rootScope, $state, $stateParams, $filter, UserService, AuthorizationService, HellojsService, AccountsApi, RegistrationCheckApi, CommonSettingsService, toastr) {
-  var vm = this
-
-  vm.onBlurFunction = ()=>{
-    if (typeof(vm.userData.email)!=='undefined') {
-      RegistrationCheckApi.checkEmail({email:vm.userData.email})
-    }
-  }
+  var vm = this,
+    msg,
+    title
 
   // step 1
   vm.settings = CommonSettingsService.localSettings
@@ -18,6 +14,13 @@ function proRegistration($scope, $rootScope, $state, $stateParams, $filter, User
     password: '',
     pin:      ''
   }
+
+  vm.onBlurFunction = ()=>{
+    if (typeof(vm.userData.email)!=='undefined') {
+      RegistrationCheckApi.checkEmail({email:vm.userData.email})
+    }
+  }
+
   vm.sendEmail = () =>{
     AuthorizationService.register({email:vm.userData.email, password:vm.userData.password}).then(()=>{
       vm.registrationMetaData.emailSended = true
@@ -32,8 +35,8 @@ function proRegistration($scope, $rootScope, $state, $stateParams, $filter, User
 
   vm.sendAndGoNext = () => {
     vm.submitted = true
-    var msg = $filter('translate')('EXPERT_PROFILE.MESSAGES.DATA_SAVED_SUCCESSFULLY')
-    var title = $filter('translate')('EXPERT_PROFILE.EXPERT_PROFILE')
+    msg = $filter('translate')('EXPERT_PROFILE.MESSAGES.DATA_SAVED_SUCCESSFULLY')
+    title = $filter('translate')('EXPERT_PROFILE.EXPERT_PROFILE')
     if ($scope.registration.$valid) {
       vm.sendEmail()
     } else {
@@ -60,7 +63,7 @@ function proRegistration($scope, $rootScope, $state, $stateParams, $filter, User
     UserService.setData({telcoPin: vm.userData.pin})
     if ($scope.pinForm.$valid) {
       let _data = UserService.getAllData()
-      AccountsApi.update({id: _data.id }, _data).$promise.then(()=>{
+      AccountsApi.update({id: _data.id }, {telcoPin: vm.userData.pin}).$promise.then(()=>{
         $state.go('app.home')
       })
     } else {
@@ -75,17 +78,17 @@ function proRegistration($scope, $rootScope, $state, $stateParams, $filter, User
 
 angular.module('profitelo.directives.pro-registration', [
   'ui.router',
-  'authorization',
   'ngCookies',
   'toastr',
   'hellojs',
-  'user',
+  'profitelo.modules.authorization',
+  'profitelo.services.user',
   'profitelo.services.customTranslationHandler',
+  'profitelo.services.commonSettings',
   'profitelo.api.accounts',
   'profitelo.api.profiles',
-  'profitelo.api.sessions',
-  'profitelo.api.registration',
-  'profitelo.services.commonSettings'
+  'profitelo.api.session',
+  'profitelo.api.registration'
 ])
 
 .directive('proRegistration', () =>{
