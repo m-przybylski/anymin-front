@@ -19,11 +19,11 @@ function proCreateNewServiceName(wizardSectionControlService) {
     let _isValid = () => {
       return angular.isDefined(scope.model.serviceName) && scope.model.serviceName.length > 0
     }
-    /* istanbul ignore next */
+
     let _getModel = () => {
       return scope.model
     }
-    /* istanbul ignore next */
+
     let _setModel = (model) => {
       scope.model = angular.copy(model)
     }

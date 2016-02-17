@@ -88,13 +88,46 @@ describe('Unit testing: profitelo.directives.pro-create-new-service-name >', fun
 
       let el = create(validHTML)
       let isoScope = el.isolateScope()
+      spyOn(isoScope.config, 'isValid')
 
       rootScope.$broadcast('isSectionValid', {
         section: 1
       })
 
-      scope.$apply()
+      expect(isoScope.config.isValid).toHaveBeenCalled()
 
+    })
+
+    it('should validate non-empty service name', () => {
+      let el = create(validHTML)
+      let isoScope = el.isolateScope()
+
+      isoScope.model.serviceName = 'non-empty service name'
+
+      let isValid = isoScope.config.isValid()
+
+      expect(isValid).toEqual(true)
+
+    })
+
+    it('should not validate an empty service name', () => {
+      let el = create(validHTML)
+      let isoScope = el.isolateScope()
+
+      let isValid = isoScope.config.isValid()
+
+      expect(isValid).toEqual(false)
+
+    })
+
+    it('should enter edit mode when clicked on', () => {
+      let el = create(validHTML)
+
+      let isoScope = el.isolateScope()
+
+      isoScope.queue.currentActiveSection = 2
+      scope.$apply()
+      el.click()
 
     })
 
