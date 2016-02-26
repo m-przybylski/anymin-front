@@ -1,8 +1,8 @@
-var gulp = require('gulp');
+var gulp = require('gulp')
 
-gulp.task('default', ['serve']);
+gulp.task('default', ['serve'])
 
-gulp.task('tests', ['run-tests']);
+gulp.task('tests', ['run-tests'])
 
-gulp.task('assets', ['copy-assets']);
+gulp.task('assets', ['copy-assets'])
 

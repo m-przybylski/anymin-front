@@ -1,39 +1,39 @@
 
-var config = require('../build.config');
+var config = require('../build.config')
 
 
-var gulp = require('gulp');
-var copy = require('gulp-copy');
-var gulpif = require('gulp-if');
-var assets = config.app_files.assets;
+var gulp = require('gulp')
+var copy = require('gulp-copy')
+var gulpif = require('gulp-if')
+var assets = config.app_files.assets
 
-assets = assets.concat(config.vendor_files.assets);
+assets = assets.concat(config.vendor_files.assets)
 
 gulp.task('move-assets', function() {
-    return gulp.src(assets).pipe(gulp.dest(config.compile_dir + '/assets'));
-});
+    return gulp.src(assets).pipe(gulp.dest(config.compile_dir + '/assets'))
+})
 
 
 gulp.task('copy-fontsawesome', function() {
-    return gulp.src('node_modules/font-awesome/fonts/*').pipe(gulp.dest(config.compile_dir + '/assets/fonts'));
-});
+    return gulp.src('node_modules/font-awesome/fonts/*').pipe(gulp.dest(config.compile_dir + '/assets/fonts'))
+})
 
 
 gulp.task('copy-angular-i18', function() {
     return gulp.src('node_modules/angular-i18n/angular-locale_*.js')
-    .pipe(gulp.dest(config.compile_dir + '/assets/angular-i18n'));
-});
+    .pipe(gulp.dest(config.compile_dir + '/assets/angular-i18n'))
+})
 
 
 gulp.task('vendor-js', function() {
-    return gulp.src(config.vendor_files.js).pipe(gulpif(!config.variables.production, copy(config.compile_dir)));
-});
+    return gulp.src(config.vendor_files.js).pipe(gulpif(!config.variables.production, copy(config.compile_dir)))
+})
 
 gulp.task('copy-assets', [
     'move-assets',
     'copy-fontsawesome',
     'copy-angular-i18',
     'vendor-js'
-]);
+])
 
 
