@@ -42,7 +42,7 @@ gulp.task('watchers', function() {
         setTimeout(function() {
             return runSequence('html-injector');
         }, 1000);
-        return console.log(chalk.yellow('[NEW JS FILE INJECTED] ' + chalk.yellow(e)));
+        console.log(chalk.yellow('[NEW JS FILE INJECTED] ' + chalk.yellow(e)));
     });
 
     sassWatcher.on('change', function(e) {

@@ -12,6 +12,7 @@ module.exports = {
   swagger_module: 'profitelo.swagger',
   variables: {
     tests: !!((typeof argv.tests === 'undefined') || (argv.tests === true)),
+    wait: !!((typeof argv.wait === 'undefined') || (argv.wait === true)),
     docs: !!((typeof argv.docs === 'undefined') || (argv.docs === true)),
     uglify: !!((typeof argv.uglify === 'undefined') || (argv.uglify === true)),
     production: false,
