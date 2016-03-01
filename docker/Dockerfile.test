@@ -19,8 +19,8 @@ RUN npm cache clean -f
 # run
 WORKDIR /
 RUN mkdir /profitelo-frontend
-ADD gulp_src /profitelo-frontend/gulp_src
 ADD .git /profitelo-frontend/.git
+ADD .npmrc /profitelo-frontend/.npmrc
 ADD src /profitelo-frontend/src
 ADD .eslintrc /profitelo-frontend/
 ADD build.config.js /profitelo-frontend/
