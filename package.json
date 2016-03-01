@@ -24,7 +24,7 @@
     "angular-translate-interpolation-messageformat": "^2.8.1",
     "hellojs": "^1.10.1",
     "jquery": "^2.1.4",
-    "lodash": "^4.0.0",
+    "lodash": "^3.10.1",
     "messageformat": "^0.2.2",
     "moment": "^2.11.2",
     "ng-file-upload": "^11.0.0",
