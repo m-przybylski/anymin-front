@@ -8,6 +8,7 @@ angular.module('profitelo.modules.authorization', [
 .factory('AuthorizationService', AuthorizationService)
 
 function AuthorizationService($q, $cookies, $http, SessionApi, RegistrationApi) {
+
   var
     _setApiKeyHeader,
     _checkToken,
@@ -63,7 +64,7 @@ function AuthorizationService($q, $cookies, $http, SessionApi, RegistrationApi) 
         return null
       }
     }
-    return HellojsService.login(socialNetworkName).then(function(data) {
+    HellojsService.login(socialNetworkName).then(function(data) {
       var dataStripped
       console.log('HellojsService.login(socialNetworkName) recerived data:', data)
       dataStripped = {

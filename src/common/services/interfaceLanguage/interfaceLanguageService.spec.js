@@ -89,7 +89,7 @@ describe('Unit testing: profitelo.services.interfaceLanguage >', function() {
           return {lang: 'en-us'}
         }
       }
-      module('profitelo.services.interfaceLanguage', function ($provide) {
+      module('profitelo.services.interfaceLanguage', function($provide) {
         $provide.value('$location', mocekdLocation)
       })
     })
@@ -124,7 +124,7 @@ describe('Unit testing: profitelo.services.interfaceLanguage >', function() {
           return 'en-us'
         }
       }
-      module('profitelo.services.interfaceLanguage', function ($provide) {
+      module('profitelo.services.interfaceLanguage', function($provide) {
         $provide.value('$cookies',  mockedCookie)
       })
     })
@@ -156,7 +156,7 @@ describe('Unit testing: profitelo.services.interfaceLanguage >', function() {
           return 'kaz-kaz'
         }
       }
-      module('profitelo.services.interfaceLanguage', function ($provide) {
+      module('profitelo.services.interfaceLanguage', function($provide) {
         $provide.value('$cookies',  mockedCookie)
       })
     })
@@ -214,7 +214,7 @@ describe('Unit testing: profitelo.services.interfaceLanguage >', function() {
           return 'en-us' // language that should exsist into array
         }
 
-        module('profitelo.services.interfaceLanguage', function ($provide) {
+        module('profitelo.services.interfaceLanguage', function($provide) {
           $provide.value('$translate',  mockedTranslation)
         })
       })
@@ -248,7 +248,7 @@ describe('Unit testing: profitelo.services.interfaceLanguage >', function() {
           return 'kuz-kaz'  // language that wont exsist into array
         }
 
-        module('profitelo.services.interfaceLanguage', function ($provide) {
+        module('profitelo.services.interfaceLanguage', function($provide) {
           $provide.value('$translate',  mockedTranslation)
         })
       })
