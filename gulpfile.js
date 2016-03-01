@@ -1,3 +1,1 @@
-require('fs').readdirSync(__dirname + '/gulp_src').forEach(function(val) {
-    require("./gulp_src/" + val);
-});
+require('gulp').tasks = require('./node_modules/contactis-gulp/index')(__dirname).tasks

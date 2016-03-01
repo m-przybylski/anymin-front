@@ -3,6 +3,7 @@ var argv = require('yargs').argv;
 
 
 module.exports = {
+  pkg: pkg,
   compile_dir: 'build',
   tests_dir: 'tests',
   tpl_name: 'templates-module.js',
@@ -18,7 +19,7 @@ module.exports = {
     production: false,
     b2d: false,
     jadeCache: true,
-    testing_dir: typeof argv['testing-dir'] === 'undefined' ? '/' :  argv['testing-dir'] + '/'
+    testing_dir: typeof argv['testing-dir'] === 'undefined' ? '/' : argv['testing-dir'] + '/'
 
   },
   app_files: {
