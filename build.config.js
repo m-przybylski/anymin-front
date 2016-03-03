@@ -11,17 +11,6 @@ module.exports = {
   project_theme_name: 'profitelo_theme',
   swagger_location: 'http://api.dev.profitelo.pl/swagger/swagger.json',
   swagger_module: 'profitelo.swagger',
-  variables: {
-    tests: !!((typeof argv.tests === 'undefined') || (argv.tests === true)),
-    wait: !!((typeof argv.wait === 'undefined') || (argv.wait === true)),
-    docs: !!((typeof argv.docs === 'undefined') || (argv.docs === true)),
-    uglify: !!((typeof argv.uglify === 'undefined') || (argv.uglify === true)),
-    production: false,
-    b2d: false,
-    jadeCache: true,
-    testing_dir: typeof argv['testing-dir'] === 'undefined' ? '/' : argv['testing-dir'] + '/'
-
-  },
   app_files: {
     js: ['src/**/*.js', '!src/**/*.spec.js'],
     allJs: ['src/**/*.js'],
@@ -34,7 +23,18 @@ module.exports = {
     sass_all: ['src/template/**/*.sass']
   },
   test_files: {
-    js: ['node_modules/angular-mocks/angular-mocks.js', 'node_modules/jasmine-jquery/lib/jasmine-jquery.js']
+    js: [
+      'node_modules/angular-mocks/angular-mocks.js',
+      'node_modules/jasmine-jquery/lib/jasmine-jquery.js'
+    ],
+    sources: {
+      include: [
+        '**/*.js'
+      ],
+      exclude: [
+        'node_modules/**/*.js'
+      ]
+    }
   },
   vendor_files: {
     js: [
