@@ -23,6 +23,7 @@ RUN npm install -g gulp
 RUN mkdir /profitelo-frontend
 
 ADD package.json /profitelo-frontend/
+ADD .npmrc /profitelo-frontend/
 
 WORKDIR /profitelo-frontend
 
