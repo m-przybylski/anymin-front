@@ -68,6 +68,19 @@ module.exports = {
       'src/template/profitelo_theme/stylesheets/fonts.css'
     ],
     assets: []
+  },
+  translations: {
+    'module': 'profitelo.translations',
+    'collection': [
+      {
+        languageCode: 'pl-pl',
+        url: 'https://tr.contactis.pl/api/Translations/export?projectId=4&projectLanguageId=3'
+      },
+      {
+        languageCode: 'en-us',
+        url: 'https://tr.contactis.pl/api/Translations/export?projectId=4&projectLanguageId=3'
+      }
+    ]
   }
 };
 
