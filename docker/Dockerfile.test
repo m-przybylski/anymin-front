@@ -9,7 +9,8 @@ RUN apt-get install -y nodejs libfreetype6 libfontconfig
 
 RUN npm cache clean -f
 RUN npm install -g n
-RUN n stable
+RUN n lts
+RUN npm install -g npm
 
 
 # install gulp
