@@ -5,7 +5,7 @@
     .config(['$translateProvider', function($translateProvider) {
 
         return $translateProvider.translations('en-us', {
-        		'APP.WIZARDS.CREATE_NEW_SERVICE.NEW_SERVICE':'Nowa usługa',
+        		'APP.WIZARDS.CREATE_NEW_SERVICE.NEW_SERVICE':'Nowa usługaa',
         		'COMMON.DIRECTIVES.PRO_EXPERT_PROFILE.EXPERT_PROFILE':'Profil Eksperta',
         		'COMMON.DIRECTIVES.PRO_EXPERT_PROFILE.FIRSTNAME_LASTNAME_OR_COMPANY_PLACEHOLDER':'Imię i nazwisko (lub nazwa firmy)',
         		'COMMON.DIRECTIVES.PRO_EXPERT_PROFILE.GENERAL_INFO_PLACEHOLDER':'Informacje ogólne',
@@ -28,7 +28,7 @@
         		'COMMON.DIRECTIVES.PRO_PROGRESS_BAR.SAVE_EDITING':'Zapisz edycję',
         		'COMMON.DIRECTIVES.PRO_PROGRESS_BOX.COMPLETED':'Ukończone',
         		'COMMON.DIRECTIVES.PRO_REGISTRATION.PARTIAL.STEP1.CONTINUE':'Kontynuuj',
-        		'COMMON.DIRECTIVES.PRO_REGISTRATION.PARTIAL.STEP1.EMAIL_SENT':'E-mail został wysłany. Sprawdź swoją skrzyknę mailową.',
+        		'COMMON.DIRECTIVES.PRO_REGISTRATION.PARTIAL.STEP1.EMAIL_SENT':'E-mail został wysłany. Sprawdź swoją skrzynkę mailową.',
         		'COMMON.DIRECTIVES.PRO_REGISTRATION.PARTIAL.STEP1.LOGIN_WITH_FACEBOOK':'Zaloguj się za pomocą fejsbuka',
         		'COMMON.DIRECTIVES.PRO_REGISTRATION.PARTIAL.STEP1.REGISTRATION':'Rejestracja',
         		'COMMON.DIRECTIVES.PRO_REGISTRATION.PARTIAL.STEP2.ALMOST_DONE':'Prawie gotowe',
