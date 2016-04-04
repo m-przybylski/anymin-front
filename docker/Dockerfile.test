@@ -35,4 +35,4 @@ RUN npm install
 
 WORKDIR /profitelo-frontend
 
-ENTRYPOINT ["gulp", "build", "--no-wait"]
+ENTRYPOINT ["gulp", "build", "--no-tests"]
