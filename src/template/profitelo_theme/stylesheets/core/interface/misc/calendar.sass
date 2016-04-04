@@ -1,0 +1,57 @@
+div
+  .dropdown-menu
+    position: absolute
+    top: 100% !important
+    left: 0 !important
+    z-index: 1000
+    min-width: 160px
+    padding: 5px 0 0 0
+    margin: 2px 0 0
+    list-style: none
+    text-align: center
+    background-color: $c-white
+    border: 1px solid $c-lines
+    width: 600px
+    max-width: 100%
+    overflow: hidden
+    outline: none
+    li
+      outline: none
+      div
+        table
+          outline: none
+          th
+            padding: 10px
+            .btn
+              background-color:  $c-white
+              color: $c-primary-txt
+              border: none
+              outline: none
+              i
+                color: $c-primary
+                outline: none
+          tr
+            td
+              border: 1px solid $c-lines
+              width: 200px
+              height: 45px
+              min-width: 100%
+              &:first-child
+                border-left: none
+              .btn
+                position: relative
+                background-color:  $c-white
+                color: $c-primary-txt
+                border: none
+                height: 100%
+                padding: 0
+                &:hover
+                  background-color: $c-primary
+                  color: $c-white
+                  .text-muted
+                    color: $c-white
+                .text-muted
+                  color: $c-secondary-txt
+            &:last-child
+              td
+                border-bottom: none

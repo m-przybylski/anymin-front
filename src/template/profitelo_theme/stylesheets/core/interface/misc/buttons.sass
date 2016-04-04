@@ -1,0 +1,41 @@
+.pro-btn
+  +border-radius(0.2em)
+  padding: 20px 40px
+  border: none
+  outline: none
+  display: inline-block
+  margin-bottom: 10px
+  margin-top: 10px
+  text-align: center
+  vertical-align: middle
+  touch-action: manipulation
+  cursor: pointer
+  background-image: none
+  white-space: nowrap
+
+  &.btn-big
+    padding: 20px 40px
+    width: 100%
+  &.btn-medium
+    padding: 15px 30px
+    width: 100%
+  &.btn-small
+    padding: 10px 20px
+  &.btn-icon
+    padding: 15px 15px
+  &.btn-main
+    color: $c-white
+    background-color: $c-primary
+
+    &:hover
+      background-color: $c-primary-hover
+      cursor: pointer
+      border: none
+  &.btn-light
+    border: 1px solid $c-lines
+    color: $c-primary
+    background-color: $c-background
+    margin-top: 20px
+    &:hover
+      background-color: $c-background
+      cursor: pointer
