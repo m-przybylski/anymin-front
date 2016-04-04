@@ -81,6 +81,10 @@ module.exports = {
         url: 'https://tr.contactis.pl/api/Translations/export?projectId=4&projectLanguageId=3'
       }
     ]
+  },
+  swagger: {
+    json:   'http://api.dev.profitelo.pl/swagger/swagger.json',
+    module: 'profitelo.swaggerResources'
   }
 };
 

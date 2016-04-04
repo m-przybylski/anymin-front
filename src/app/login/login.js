@@ -8,6 +8,8 @@ angular.module('profitelo.controller.login', [
 function LoginController() {
   var vm = this
 
+
+
   return vm
 }
 
