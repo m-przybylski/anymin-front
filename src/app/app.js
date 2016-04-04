@@ -2,7 +2,10 @@ function AppController($scope, $rootScope, InterfaceLanguageService) {
   var vm = this
 
   InterfaceLanguageService.setLanguage(InterfaceLanguageService.getStartupLanguage())
-  $rootScope.gitCommit = lastCommitMessage
+  if (typeof lastCommitMessage !== 'undefined') {
+    $rootScope.gitCommit = lastCommitMessage
+  }
+
 
   return vm
 }
