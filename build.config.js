@@ -1,9 +1,5 @@
-var pkg = require('./package.json');
-var argv = require('yargs').argv;
-
-
 module.exports = {
-  pkg: pkg,
+  pkg: require('./package.json'),
   compile_dir: 'build',
   tests_dir: 'tests',
   tpl_name: 'templates-module.js',
