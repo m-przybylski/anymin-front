@@ -140,7 +140,7 @@ function configFunction($urlRouterProvider, $httpProvider, $stateProvider, $reso
   $translateProvider.useMissingTranslationHandler('CustomTranslationHandlerService')
 
   // Set a fallback language in case there find no other
-  $translateProvider.fallbackLanguage('en-us')
+  $translateProvider.fallbackLanguage('pl-pl')
 
   /**
    *  Set default language**
@@ -205,6 +205,9 @@ angular.module('profitelo', [
   'profitelo.directives.pro-progress-box',
   'profitelo.directives.pro-progress-bar',
   'profitelo.directives.pro-expert-profile',
+
+  // directives - interface
+  'profitelo.directives.interface.pro-input',
 
   // rest
   'profitelo.api.accounts',

@@ -3,19 +3,25 @@
         .top-content
             img.logo(src="/assets/images/logo_profitelo_black.png")
             .top-div
-                h6 Zaufaj ekspertom i rozwiąż swoje problemy
-                h4 Prowadzimy już
-                    span.purple  16 457
-                    span  usług!
-            div(data-ui-view="")
+                h6(data-translate="LOGIN.TRUST_EXPERTS")
+                h4 
+                    span(data-translate="LOGIN.OUR_SERVICES_1")
+                    span.purple &#32; {{ 16000 + 557 }}	&#32;
+                    span(data-translate="LOGIN.OUR_SERVICES_2")
+            
+                    .login-1
+                      pro-input.prefix-phone.correct(data-label="prefix" data-placeholder="+48" data-pro-model="prefix")
+                      pro-input.phone.correct(data-label="wpisz swój numer" data-placeholder="np: 599-546-342" data-pro-model="phoneNumber")
+                      a.pro-btn.btn-main.btn-medium(href="/app/login/login-2.html") Dalej
+            
 
         .bottom-content
             .log-bottom
-                h5 Pobierz bezpłatną aplikację na telefon:
+                h5(data-translate="LOGIN.TRUST_EXPERTS")
                 .app-buttons
                     img(src="/assets/images/google_play.png")
                     img(src="/assets/images/app_store.png")
             .footer
-                h6 2016- iTelo sp z.o.o. All rights reserved.
+                h6(data-translate="COMMON.COPYRIGHT")
     .img-wrapper
         .main-img
