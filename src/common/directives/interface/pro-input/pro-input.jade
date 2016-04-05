@@ -1,4 +1,4 @@
-.input-group.correct
-  input(placeholder="{{placeholder}}" data-ng-model="proModel")
+.input-group.correct(data-ng-click="focusInput()" data-ng-class="{onFocus: focus, onFocusOut: onOut}")
+  input(placeholder="{{placeholder}}" data-ng-model="proModel" data-ng-focus="onFocus()" data-ng-blur="onFocusOut()")
   label {{label}}
   span.cross-addon.icon.icon-tiny-close.icon-tiny(data-ng-show="proModel" data-ng-click="proModel = ''")
