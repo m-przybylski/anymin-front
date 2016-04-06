@@ -3,9 +3,10 @@
   function LoginController() {
     var vm = this
     
-
+    
     return vm
   }
+
 
   function config($stateProvider) {
     $stateProvider.state('app.login', {

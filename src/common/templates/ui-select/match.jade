@@ -1,0 +1,6 @@
+a.select2-choice.ui-select-match(ng-class="{'select2-default': $select.isEmpty()}", ng-click='$select.toggle($event)', aria-label='{{ $select.baseTitle }} select')
+    span.select2-chosen(ng-show='$select.isEmpty()') {{$select.placeholder}}
+    span.select2-chosen(ng-hide='$select.isEmpty()', ng-transclude='')
+    abbr.select2-search-choice-close(ng-if='$select.allowClear && !$select.isEmpty()', ng-click='$select.clear($event)')
+    span.select2-arrow.ui-select-toggle
+        b

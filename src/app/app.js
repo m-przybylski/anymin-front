@@ -210,7 +210,7 @@
 
     // directives - interface
     'profitelo.directives.interface.pro-input',
-    'profitelo.directives.interface.pro-input-password',
+    'profitelo.directives.interface.pro-dropdown',
 
     // rest
     'profitelo.api.accounts',

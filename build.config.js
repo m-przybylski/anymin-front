@@ -51,6 +51,11 @@ module.exports = {
       'node_modules/angular-toastr/dist/angular-toastr.js',
       'node_modules/angular-toastr/dist/angular-toastr.tpls.js',
 
+      'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
+      'node_modules/angular-sanitize/angular-sanitize.js',
+      'node_modules/ui-select/dist/select.js',
+      'node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.js',
+
       'node_modules/angular-translate/dist/angular-translate.js',
       'node_modules/messageformat/messageformat.js',
       'node_modules/messageformat/locale/en.js',
@@ -62,7 +67,9 @@ module.exports = {
     ],
     css: [
       'node_modules/angular-toastr/dist/angular-toastr.css',
-      'src/template/profitelo_theme/stylesheets/fonts.css'
+      'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css',
+      'node_modules/ui-select/dist/select.css',
+      'node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.css'
     ],
     assets: []
   },
