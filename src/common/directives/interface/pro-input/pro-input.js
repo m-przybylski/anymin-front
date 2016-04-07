@@ -2,6 +2,10 @@ function proInput() {
 
   function linkFunction(scope, element, attr) {
     let _inputGroup = $(element)
+    let _setAddon = function(value) {
+      scope.addon = value
+      scope.activeAddon = value
+    }
     scope.focus = false
     scope.onOut = false
     scope.focusInput = function() {
@@ -15,7 +19,11 @@ function proInput() {
       scope.focus = false
       scope.ngOut = true
     }
-
+    if (scope.addonText || scope.iconClass) {
+      _setAddon(true)
+    } else {
+      _setAddon(false)
+    }
   }
 
   return {
@@ -27,13 +35,14 @@ function proInput() {
       proModel: '=',
       placeholder: '@',
       defaultValue: '@',
-      label: '@'
+      label: '@',
+      addonText: '@',
+      iconClass: '@'
     }
 
   }
 
 }
-
 
 angular.module('profitelo.directives.interface.pro-input', [])
 .directive('proInput', proInput)
