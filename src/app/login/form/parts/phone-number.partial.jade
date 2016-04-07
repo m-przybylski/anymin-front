@@ -1,2 +1,4 @@
-pro-input.prefix-phone.correct(data-label="prefix" data-placeholder="+48" data-pro-model="prefix" no-delete)
-pro-input.phone.correct(data-label="wpisz swój numer" data-placeholder="np: 599-546-342" data-pro-model="phoneNumber")
+pro-input.prefix-phone.correct(data-label="{{'LOGIN.PREFIX' | translate}}" data-placeholder="{{'LOGIN.PREFIX_PLACEHOLDER' | translate}}" data-pro-model="vm.phoneNumber.prefix" no-delete)
+pro-input.phone.correct(data-label="{{'LOGIN.ENTER_NUMBER' | translate}}" data-placeholder="{{'LOGIN.ENTER_NUMBER_PLACEHOLDER' | translate}}" data-pro-model="vm.phoneNumber.number")
+a.pro-btn.btn-main.btn-medium(data-ng-click="vm.getPhoneNumberStatus()" data-translate="LOGIN.NEXT")
+
