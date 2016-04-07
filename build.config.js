@@ -55,6 +55,7 @@ module.exports = {
       'node_modules/angular-sanitize/angular-sanitize.js',
       'node_modules/ui-select/dist/select.js',
       'node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.js',
+      'node_modules/moment/min/moment-with-locales.js',
 
       'node_modules/angular-translate/dist/angular-translate.js',
       'node_modules/messageformat/messageformat.js',
