@@ -2,7 +2,7 @@ function proInput() {
 
   function linkFunction(scope, element, attr) {
     let _inputGroup = $(element)
-    let _setAddon = function (value) {
+    let _setAddon = function(value) {
       scope.addon = value
       scope.activeAddon = value
     }
