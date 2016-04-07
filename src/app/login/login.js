@@ -2,8 +2,8 @@
 
   function LoginController() {
     var vm = this
-    
-    
+
+
     return vm
   }
 
