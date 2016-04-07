@@ -8,14 +8,14 @@ function proInput() {
     }
     scope.focus = false
     scope.onOut = false
-    scope.focusInput = function () {
+    scope.focusInput = function() {
       _inputGroup.find('input').focus()
     }
-    scope.onFocus = function () {
+    scope.onFocus = function() {
       scope.focus = true
       scope.ngOut = false
     }
-    scope.onFocusOut = function () {
+    scope.onFocusOut = function() {
       scope.focus = false
       scope.ngOut = true
     }
@@ -24,7 +24,7 @@ function proInput() {
     } else {
       _setAddon(false)
     }
-    scope.hideCross = function () {
+    scope.hideCross = function() {
       return ('noDelete' in attr)
     }
   }
