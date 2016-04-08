@@ -18,40 +18,58 @@ div
     li
       outline: none
       div
-        table
+        .grid
+          display: flex
+          flex-direction: column
+          justify-content: space-around
           outline: none
-          th
-            padding: 10px
-            .btn
-              background-color:  $c-white
-              color: $c-primary-txt
-              border: none
-              outline: none
-              i
-                color: $c-primary
-                outline: none
-          tr
-            td
-              border: 1px solid $c-lines
-              width: 200px
-              height: 45px
-              min-width: 100%
-              &:first-child
-                border-left: none
-              .btn
-                position: relative
-                background-color:  $c-white
-                color: $c-primary-txt
-                border: none
-                height: 100%
-                padding: 0
-                &:hover
-                  background-color: $c-primary
-                  color: $c-white
-                  .text-muted
+          .top-table-section
+            display: flex
+            justify-content:  space-around
+            flex-direction: column
+            .tab-row
+              display: flex
+              justify-content: space-between
+              padding: 10px
+              .cell
+                .btn
+                  background-color:  $c-white
+                  color: $c-primary-txt
+                  border: none
+                  outline: none
+                  i
+                    color: $c-primary
+                    outline: none
+            .tab-row-weeks
+              display: flex
+              justify-content: space-around
+              .cell
+                width: 200px
+                height: 30px
+          .main-table-section
+            display: flex
+            justify-content: space-around
+            flex-direction: column
+            .tab-row
+              display: flex
+              justify-content: space-around
+              .cell
+                border: 1px solid $c-lines
+                width: 200px
+                height: 45px
+                &:first-child
+                  border-left: none
+                .btn
+                  position: relative
+                  background-color:  $c-white
+                  color: $c-primary-txt
+                  border: none
+                  height: 100%
+                  padding: 0
+                  &:hover
+                    background-color: $c-primary
                     color: $c-white
-                .text-muted
-                  color: $c-secondary-txt
-            &:last-child
-              td
-                border-bottom: none
+                    .text-muted
+                      color: $c-white
+                  .text-muted
+                    color: $c-secondary-txt

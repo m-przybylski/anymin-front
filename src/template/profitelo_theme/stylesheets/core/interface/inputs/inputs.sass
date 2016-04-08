@@ -29,6 +29,9 @@
     outline: none
     &:focus
       background-color: $c-background
+    &.calendar-input
+      &:focus
+       background-color: $c-white
     &:required +label
       &:after
         content: "*"

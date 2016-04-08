@@ -1,0 +1,4 @@
+.uib-datepicker(ng-switch='datepickerMode', role='application', ng-keydown='keydown($event)')
+  uib-daypicker(ng-switch-when='day', tabindex='0' template-url="templates/calendar/day.tpl.html")
+  uib-monthpicker(ng-switch-when='month', tabindex='0' template-url="templates/calendar/month.tpl.html")
+  uib-yearpicker(ng-switch-when='year', tabindex='0' template-url="templates/calendar/year.tpl.html")
