@@ -4,19 +4,24 @@
     let _bindedProgress
     let _immediateInProgress = false
     let _currentProgress = 0
+    let immediateInterval
 
     let _stopLoadingProcess = () => {
+      $interval.cancel(immediateInterval)
       _immediateInProgress = false
+      _currentProgress = 100
+      _bindedProgress(_currentProgress)
       _currentProgress = 0
       _bindedProgress(_currentProgress)
+
     }
 
     let _startImmediateLoading = () => {
       if (!_immediateInProgress) {
         _immediateInProgress = true
-        let interval = $interval(function() {
+        immediateInterval = $interval(function() {
           if (_currentProgress > 100) {
-            $interval.cancel(interval)
+            $interval.cancel(immediateInterval)
             _stopLoadingProcess()
           } else {
             _currentProgress = _currentProgress + Math.floor((Math.random() * 20) + 20)
