@@ -1,0 +1,26 @@
+.grid.uib-daypicker(role='grid', aria-labelledby='{{::uniqueId}}-title', aria-activedescendant="{{activeDateId}}")
+    .top-table-section
+        .tab-row
+            .cell
+                button.btn.btn-default.btn-sm.pull-left.uib-left(type='button', ng-click='move(-1)', tabindex='-1')
+                    i.icon-tiny-arrow-left
+            .cell(colspan='{{::5 + showWeeks}}')
+                button.btn.btn-default.btn-sm.uib-title(id='{{::uniqueId}}-title', role='heading', aria-live='assertive', aria-atomic='true', type='button', ng-click='toggleMode()', ng-disabled='datepickerMode === maxMode', tabindex='-1')
+                    strong {{title}}
+            .cell
+                button.btn.btn-default.btn-sm.pull-right.uib-right(type='button', ng-click='move(1)', tabindex='-1')
+                    i.icon-tiny-arrow-right
+        .tab-row-weeks
+            .cell.text-center(ng-if='showWeeks')
+            .cell.text-center(ng-repeat='label in ::labels track by $index')
+                small(aria-label='{{::label.full}}') {{::label.abbr}}
+    .main-table-section
+        .tab-row.uib-weeks(ng-repeat='row in rows track by $index')
+            .cell.text-center.h6(ng-if='showWeeks')
+                em {{ weekNumbers[$index] }}
+            .cell.uib-day.text-center(ng-repeat='dt in row', role='gridcell', id='{{::dt.uid}}', ng-class='::dt.customClass')
+                button.btn.btn-default.btn-sm(type='button', uib-is-class="\
+        'btn-info' for selectedDt,\
+        'active' for activeDt\
+        on dt", ng-click='select(dt.date)', ng-disabled='::dt.disabled', tabindex='-1')
+                    span(ng-class="::{'text-muted': dt.secondary, 'text-info': dt.current}") {{::dt.label}}
