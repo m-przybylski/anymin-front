@@ -2,8 +2,7 @@
   a.pro-btn.btn-light.btn-icon(data-ng-click="vm.prev()")
     i.icon-arrow-left
 .phone-number(data-ng-show="vm.current == 1")
-  pro-calendar()
-  //include ./parts/phone-number.partial.jade
+  include ./parts/phone-number.partial.jade
 .password(data-ng-show="vm.current == 2")
   include ./parts/password.partial.jade
 
