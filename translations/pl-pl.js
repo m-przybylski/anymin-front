@@ -6,6 +6,9 @@
 
         return $translateProvider.translations('pl-pl', {
         		'COMMON.COPYRIGHT':'2016 - iTelo sp z.o.o. All rights reserved.',
+        		'COMMON.DIRECTIVES.INTERFACE.CALENDAR_LABEL':'Kalendarz',
+        		'COMMON.DIRECTIVES.INTERFACE.UPLOADER.HEADER':'Przeciągnij &amp; Upuść',
+        		'COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO':'lub kliknij by wgrać pliki',
         		'LOGIN.DOWNLOAD_FREE_APP':'Pobierz bezpłatną aplikację na telefon:',
         		'LOGIN.ENTER_NUMBER':'wpisz swój numer',
         		'LOGIN.ENTER_NUMBER_PLACEHOLDER':'np. 599-546-342',
