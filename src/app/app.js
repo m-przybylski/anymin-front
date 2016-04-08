@@ -183,6 +183,7 @@
     'profitelo.services.customTranslationHandler',
     'profitelo.services.wizardSectionControl',
     'profitelo.services.interfaceLanguage',
+    'profitelo.directives.pro-top-waiting-loader-service',
 
     // controllers
     'profitelo.controller.dashboard',
@@ -207,6 +208,7 @@
     'profitelo.directives.pro-progress-box',
     'profitelo.directives.pro-progress-bar',
     'profitelo.directives.pro-expert-profile',
+    'profitelo.directives.pro-top-waiting-loader',
 
     // directives - interface
     'profitelo.directives.interface.pro-input',

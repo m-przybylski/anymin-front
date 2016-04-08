@@ -1,0 +1,19 @@
+.top-waiting-loader
+  +transition()
+  animation-duration: 10s
+  $loaderHeight: 8px
+  position: fixed
+  top: -$loaderHeight
+  left: 0
+  height: $loaderHeight
+  width: 100%
+  background-color: $c-primary-txt
+  z-index: 9999
+  &.slide-out
+    top: 0px
+  .top.waiting-loader-progress
+    +transition()
+    animation-duration: 10s
+    height: 100%
+    width: 0%
+    background-color: $c-primary
