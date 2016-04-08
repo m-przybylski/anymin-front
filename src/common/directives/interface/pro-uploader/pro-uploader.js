@@ -1,6 +1,14 @@
-function proUploader() {
+function proUploader($timeout) {
 
   function  linkFunction(scope, element, attr) {
+    scope.animate = function(){
+      scope.header = "COMMON.DIRECTIVES.INTERFACE.UPLOADER.HEADER"
+      let fillContent = $(element).find('.upload-field-fill')
+      fillContent.animate({
+        height: "100%"
+      }, 1000)
+    }
+
 
   }
 
@@ -11,13 +19,13 @@ function proUploader() {
     link: linkFunction,
     scope: {
       proModel: '=',
-      defaultValue: '@'
+      defaultValue: '@',
+      accept: '@',
+      pattern: '@'
 
     }
   }
 }
 
-angular.module('profitelo.directives.interface.pro-uploader', [
-  'ngFileUpload'
-])
+angular.module('profitelo.directives.interface.pro-uploader', [])
   .directive('proUploader', proUploader)
