@@ -1,6 +1,6 @@
 (function() {
 
-  function LoginFormController($q, $timeout) {
+  function LoginFormController($q, $timeout, proTopWaitingLoaderService) {
     var vm = this
 
     vm.current = 1
@@ -13,14 +13,15 @@
       prefix: '',
       number: ''
     }
-    
 
     vm.getPhoneNumberStatus = () => {
       if (!vm.isPending) {
         vm.isPending = true
+        proTopWaitingLoaderService.immediate()
         $timeout(function() {
           vm.isPending = false
           vm.next(2)
+          proTopWaitingLoaderService.stopLoader()
         }, Math.floor((Math.random() * 20) + 1) * 100)
       }
     }

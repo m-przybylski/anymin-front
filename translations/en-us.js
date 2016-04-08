@@ -15,6 +15,7 @@
         		'LOGIN.OUR_SERVICES_2':'usług!',
         		'LOGIN.PREFIX':'prefix',
         		'LOGIN.PREFIX_PLACEHOLDER':'+48',
+        		'LOGIN.SERVICE_PASSWORD':'Podaj hasło do usługi',
         		'LOGIN.TRUST_EXPERTS':'Zaufaj ekspertom i rozwiąż swoje problemy'
         })
     }])
