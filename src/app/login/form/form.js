@@ -7,7 +7,7 @@
     vm.groupsHistory = []
 
     vm.isPending = false
-    
+
     // User input variables
     vm.phoneNumber = {
       prefix: '',
@@ -38,7 +38,7 @@
 
     vm.prev = () => {
 
-      if (vm.groupsHistory[vm.groupsHistory.length -1] >= 1) {
+      if (vm.groupsHistory[vm.groupsHistory.length - 1] >= 1) {
         vm.current = vm.groupsHistory.pop()
       }
 
