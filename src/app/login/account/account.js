@@ -1,6 +1,6 @@
 (function() {
 
-  function LoginFormController($q, $timeout, proTopWaitingLoaderService) {
+  function AccountFormController($q, $timeout, proTopWaitingLoaderService) {
     var vm = this
 
     vm.current = 1
@@ -48,19 +48,19 @@
   }
 
   function config($stateProvider) {
-    $stateProvider.state('app.login.form', {
+    $stateProvider.state('app.login.account', {
       url: '/account',
       controllerAs: 'vm',
-      controller: 'LoginFormController',
-      templateUrl: 'login/form/form.tpl.html'
+      controller: 'AccountFormController',
+      templateUrl: 'login/account/account.tpl.html'
     })
   }
 
 
-  angular.module('profitelo.controller.login.form', [
+  angular.module('profitelo.controller.login.account', [
     'ui.router'
   ])
   .config(config)
-  .controller('LoginFormController', LoginFormController)
+  .controller('AccountFormController', AccountFormController)
 
 }())

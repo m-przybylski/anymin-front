@@ -194,8 +194,9 @@
     'profitelo.controller.expert-profile',
     'profitelo.controller.expert-progress',
     'profitelo.controller.login',
-    'profitelo.controller.login.form',
-    'profitelo.controller.registration',
+    'profitelo.controller.login.account',
+    'profitelo.controller.login.register',
+    'profitelo.controller.login.forgot-password',
     'profitelo.controller.wizards',
     'profitelo.controller.wizards.create-new-service',
 
