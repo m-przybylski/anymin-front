@@ -172,6 +172,7 @@
     'ngCookies',
     'toastr',  // some parts depends on ngAnimate
     'hellojs',
+    'ui.mask',
 
 
     // modules
