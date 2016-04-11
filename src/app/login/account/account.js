@@ -49,7 +49,7 @@
 
   function config($stateProvider) {
     $stateProvider.state('app.login.form', {
-      url: '/form',
+      url: '/account',
       controllerAs: 'vm',
       controller: 'LoginFormController',
       templateUrl: 'login/form/form.tpl.html'
