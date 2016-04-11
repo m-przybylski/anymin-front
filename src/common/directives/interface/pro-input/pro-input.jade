@@ -1,4 +1,5 @@
-.input-group.correct(data-ng-click="focusInput()" data-ng-class="{onFocus: focus, onFocusOut: onOut}")
+.input-group(data-ng-click="focusInput()"
+  class="{{focus ? 'onFocus' : ''}} {{onOut ? 'onFocusOut' : ''}}")
   input(placeholder="{{placeholder}}"
   data-ng-model="proModel"
   data-ng-focus="onFocus()"

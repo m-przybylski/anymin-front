@@ -8,16 +8,17 @@ function proInput() {
     }
     scope.focus = false
     scope.onOut = false
+
     scope.focusInput = function() {
       _inputGroup.find('input').focus()
     }
     scope.onFocus = function() {
       scope.focus = true
-      scope.ngOut = false
+      scope.onOut = false
     }
     scope.onFocusOut = function() {
       scope.focus = false
-      scope.ngOut = true
+      scope.onOut = true
     }
     if (scope.addonText || scope.iconClass) {
       _setAddon(true)
