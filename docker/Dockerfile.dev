@@ -4,22 +4,8 @@
 # Version: 0.0.1
 #
 
-FROM profitelo_base
+FROM dockerhub.contactis.pl/node
 MAINTAINER Jarosław Płocki <jaroslaw.plocki@itelo.pl>
-
-RUN apt-get update && apt-get install -y build-essential curl git python
-
-WORKDIR /
-
-RUN curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
-RUN apt-get install -y nodejs
-
-RUN npm cache clean -f
-RUN npm install -g n
-RUN n lts
-RUN npm install -g npm
-
-RUN npm install -g gulp
 
 RUN mkdir /profitelo-frontend
 

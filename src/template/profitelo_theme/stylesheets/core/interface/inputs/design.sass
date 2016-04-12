@@ -1,0 +1,204 @@
+.input-group
+  +border-radius(0.2em)
+  background-color: $c-white
+  height: 60px
+  width: 600px
+  margin: 20px 0
+  border: 1px solid $c-lines
+  padding: 5px 10px 5px 10px
+  position: relative
+  z-index: 1
+  cursor: pointer
+  max-width: 100%
+  label
+    position: absolute
+    top: 10px
+    padding-bottom: 13px
+    cursor: pointer
+    &:after
+      content: ""
+  input
+    position: absolute
+    cursor: pointer
+    bottom: 7px
+    background-color: $c-white
+    border: none
+    font-size: 14px
+    padding-right: 5px
+    width: 90%
+    outline: none
+    &:focus
+      background-color: $c-background
+    &.calendar-input
+      &:focus
+        background-color: $c-white
+    &:required +label
+      &:after
+        content: "*"
+        color: $c-button-1
+        padding-left: 5px
+        font-size: 18px
+  span
+    &.cross-addon
+      position: relative
+      float: right
+      color: $c-primary
+      top: 18px
+      visibility: hidden
+      +xsm
+        visibility: visible
+    &.input-group-addon
+      border-left: 1px solid $c-lines
+      border-bottom: 1px solid $c-lines
+      position: relative
+      float: right
+      z-index: 2
+      background-color: $c-background
+      height: 59px
+      display: block
+      width: 50px
+      right: -10px
+      top: -5px
+      font-size: $f-h5-size
+      text-align: center
+      color: $c-primary
+      &.active-addon
+        &:hover
+          background-color: $c-primary
+          color: $c-background
+      >i
+        display: flex
+        flex-direction: column
+        justify-content: center
+        height: 100%
+        text-transform: uppercase
+  &.invalid
+    label
+      color: $c-input-error
+    span
+      &.cross-addon
+        color: $c-input-error
+  &.correct
+    label
+      color: $c-primary-txt
+      white-space: nowrap
+    span
+      &.cross-addon
+        color: $c-primary-txt
+  &.disable
+    label
+      color: $c-input
+    span
+      &.cross-addon
+        color: $c-input
+  span.elements-wrapper
+    span.cross-addon
+      right: 60px
+
+  &.onFocus
+    background-color: $c-background
+  &.onFocusOut
+    background-color: $c-white
+
+  >.select
+    position: absolute
+    cursor: pointer
+    bottom: 3px
+    background-color: $c-white
+    border: none
+    font-size: 18px
+    width: 100%
+    -webkit-appearance: none
+    margin-left: -10px
+    outline: none
+    &:focus
+      background-color: $c-background
+  .ui-select-match
+    background-color: $c-background
+    outline: none
+    &:focus
+      background-color: $c-background
+  .dropdown-icon
+    position: absolute
+    right: 15px
+    top: 23px
+    color: $c-primary
+  .ui-select-bootstrap
+    .ui-select-choices-row.active
+      >a
+        background-color: $c-white
+        color: $c-primary-txt
+        outline: none
+    .ui-select-choices
+      margin: 0
+      overflow-x: hidden !important
+      .gm-scrollbar.-vertical
+        background-color: transparent
+        width: 0.1em
+      /* scrollbar thumb */
+      .gm-scrollbar .thumb
+        background-color: $c-secondary-txt
+        width: 0.1em
+      .gm-scrollbar .thumb:hover
+        background-color: $c-primary
+    .ui-select-choices-row
+      outline: none
+      margin: 5px 10px
+    .ui-select-choices-row
+      >a
+        text-align: left
+        border: none
+        padding: 10px 0 10px 20px
+        outline: none
+        text-transform: capitalize
+        &:hover
+          background-color: $c-primary
+          color: $c-white
+  .btn-default
+    outline: none
+    text-transform: capitalize
+    background-color: transparent
+    z-index: 100
+    .ui-select-match-text
+      padding-left: 10px
+  .btn-default-focus
+    box-shadow: none
+    background-color: $c-background
+  .ui-select-container
+    outline: none
+    input
+      padding-left: 10px
+  .ui-select-placeholder
+    padding-left: 10px
+    color: $c-secondary-txt
+.input-group .form-control
+  float: left
+  position: relative
+  width: 100%
+  margin-bottom: 0
+  top: 0
+  margin-top: 0
+  padding-top: 30px
+  height: 55px
+
+.form-control
+  display: block
+  width: 100%
+  height: 30px
+  padding-top: 6px
+  font-size: 14px
+  line-height: 1.42857143
+
+.ps-scrollbar-y-rail
+  max-width: 0.2em
+  .ps-scrollbar-y
+    max-width: 0.2em
+    background-color: $c-lines
+
+.prefix-phone
+  max-width: 25%
+  float: left
+.phone
+  max-width: 75%
+  margin-left: -1px
+  float: left

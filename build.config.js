@@ -50,7 +50,7 @@ module.exports = {
       'node_modules/ng-file-upload/dist/ng-file-upload-all.js',
       'node_modules/angular-toastr/dist/angular-toastr.js',
       'node_modules/angular-toastr/dist/angular-toastr.tpls.js',
-
+      'node_modules/angular-ui-mask/dist/mask.js',
       'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
       'node_modules/angular-sanitize/angular-sanitize.js',
       'node_modules/ui-select/dist/select.js',

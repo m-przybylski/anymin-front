@@ -1,5 +1,12 @@
-.input-group.correct(data-ng-click="focusInput()" data-ng-class="{onFocus: focus, onFocusOut: onOut}")
-  input(placeholder="{{placeholder}}" data-ng-model="proModel" data-ng-focus="onFocus()" data-ng-blur="onFocusOut()")
+.input-group(data-ng-click="focusInput()"
+  class="{{focus ? 'onFocus' : ''}} {{onOut ? 'onFocusOut' : ''}}")
+  input(placeholder="{{placeholder}}"
+  type="{{type}}"
+  data-ng-model="proModel"
+  data-ng-focus="onFocus()"
+  data-ng-blur="onFocusOut()"
+  data-ng-required="required"
+  name="{{name}}")
   label {{label}}
   span(data-ng-class="{'input-group-addon' :addon}")
     i.icon(data-ng-class="iconClass") {{addonText}}

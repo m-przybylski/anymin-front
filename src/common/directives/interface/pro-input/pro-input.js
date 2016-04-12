@@ -1,6 +1,17 @@
 function proInput() {
 
   function linkFunction(scope, element, attr) {
+    
+    scope.required = false
+
+    if (!scope.type) {
+      scope.type = 'text'
+    }
+
+    if ('required' in attr.$attr) {
+      scope.required = true
+    }
+
     let _inputGroup = $(element)
     let _setAddon = function(value) {
       scope.addon = value
@@ -8,16 +19,17 @@ function proInput() {
     }
     scope.focus = false
     scope.onOut = false
+
     scope.focusInput = function() {
       _inputGroup.find('input').focus()
     }
     scope.onFocus = function() {
       scope.focus = true
-      scope.ngOut = false
+      scope.onOut = false
     }
     scope.onFocusOut = function() {
       scope.focus = false
-      scope.ngOut = true
+      scope.onOut = true
     }
     if (scope.addonText || scope.iconClass) {
       _setAddon(true)
@@ -39,7 +51,9 @@ function proInput() {
       defaultValue: '@',
       label: '@',
       addonText: '@',
-      iconClass: '@'
+      iconClass: '@',
+      name: '@',
+      type: '@'
     }
 
   }

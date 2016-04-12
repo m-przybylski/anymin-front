@@ -13,7 +13,6 @@
       _bindedProgress(_currentProgress)
       _currentProgress = 0
       _bindedProgress(_currentProgress)
-
     }
 
     let _startImmediateLoading = () => {

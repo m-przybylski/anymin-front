@@ -18,10 +18,13 @@
         		'LOGIN.NEXT':'Dalej',
         		'LOGIN.OUR_SERVICES_1':'Prowadzimy już',
         		'LOGIN.OUR_SERVICES_2':'usług!',
+        		'LOGIN.PASSWORD_ATTEMPTS_EXCEEDED':'Wpisałeś błędnie hasło zbyt wiele razy. Poczekaj jeszcze {{time}} aby móc spróbować pownownie.',
+        		'LOGIN.PHONE_NUMBER_REQUIRED':'Podaj poprawny numer telefonu',
         		'LOGIN.PREFIX':'prefix',
         		'LOGIN.PREFIX_PLACEHOLDER':'+48',
         		'LOGIN.SERVICE_PASSWORD':'Podaj hasło do usługi',
-        		'LOGIN.TRUST_EXPERTS':'Zaufaj ekspertom i rozwiąż swoje problemy'
+        		'LOGIN.TRUST_EXPERTS':'Zaufaj ekspertom i rozwiąż swoje problemy',
+        		'LOGIN.VERIFICATION_ATTEMPTS_EXCEEDED':'Wpisałeś błędnie kod zbyt wiele razy. Poczekaj jeszcze {{time}} aby móc spróbować pownownie.'
         })
     }])
 })(angular);
