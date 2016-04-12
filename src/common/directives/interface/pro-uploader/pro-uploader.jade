@@ -8,6 +8,7 @@ ngf-pattern="{{pattern}}")
         i.icon.icon-upload-arrow-24.icon-overlay(data-ng-hide="upload" ng-class="{'arrow-hide': hideArrow, 'arrow-show': showArrow}")
         i.icon.icon-upload-progress-24.icon-overlay-load.fa-spin(data-ng-show="upload" ng-class="{'hide-loader' : hideLoader}")
     .upload-description(ng-class="{'fade-effect': fadeText}")
-        h3(data-translate="{{header}}")
+        h3 {{header | translate}}
+            span(data-ng-hide="!upload") {{progress}}%
         p(data-translate="{{info | translate: translationInfo}}")
     .upload-field-fill(style="height: {{ progress }}%")
