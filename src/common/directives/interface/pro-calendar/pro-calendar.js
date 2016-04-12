@@ -91,7 +91,6 @@ function proCalendar() {
   }
 
 
-
   return {
     templateUrl:  'directives/interface/pro-calendar/pro-calendar.tpl.html',
     restrict:     'E',
