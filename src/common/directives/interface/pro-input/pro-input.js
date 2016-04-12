@@ -1,6 +1,17 @@
 function proInput() {
 
   function linkFunction(scope, element, attr) {
+    
+    scope.required = false
+
+    if (!scope.type) {
+      scope.type = 'text'
+    }
+
+    if ('required' in attr.$attr) {
+      scope.required = true
+    }
+
     let _inputGroup = $(element)
     let _setAddon = function(value) {
       scope.addon = value
@@ -40,7 +51,9 @@ function proInput() {
       defaultValue: '@',
       label: '@',
       addonText: '@',
-      iconClass: '@'
+      iconClass: '@',
+      name: '@',
+      type: '@'
     }
 
   }
