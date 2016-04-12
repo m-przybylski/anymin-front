@@ -1,11 +1,9 @@
 (function() {
 
-  function AccountFormController($q, $timeout, proTopWaitingLoaderService) {
+  function AccountFormController($scope, $timeout, proTopWaitingLoaderService) {
     var vm = this
 
     vm.current = 1
-    vm.groupsHistory = []
-
     vm.isPending = false
 
     // User input variables
@@ -14,34 +12,21 @@
       number: ''
     }
 
+    vm.backToPhoneNumber = () => {
+      $scope.phoneNumberForm.$setPristine()
+      vm.current = 1
+    }
+
     vm.getPhoneNumberStatus = () => {
       if (!vm.isPending) {
         vm.isPending = true
         proTopWaitingLoaderService.immediate()
         $timeout(function() {
           vm.isPending = false
-          vm.next(2)
+          vm.current = 2
           proTopWaitingLoaderService.stopLoader()
         }, Math.floor((Math.random() * 20) + 1) * 100)
       }
-    }
-
-    vm.next = (stepNumber = -1) => {
-      vm.groupsHistory.push(vm.current)
-      if (stepNumber >= 0) {
-        vm.current = stepNumber
-      } else {
-        vm.current++
-      }
-
-    }
-
-    vm.prev = () => {
-
-      if (vm.groupsHistory[vm.groupsHistory.length - 1] >= 1) {
-        vm.current = vm.groupsHistory.pop()
-      }
-
     }
 
     return vm
