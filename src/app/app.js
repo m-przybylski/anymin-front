@@ -218,6 +218,7 @@
     'profitelo.directives.interface.pro-dropdown',
     'profitelo.directives.interface.pro-input-password',
     'profitelo.directives.interface.pro-calendar',
+    'profitelo.directives.interface.pro-uploader',
 
     // rest
     'profitelo.api.accounts',
