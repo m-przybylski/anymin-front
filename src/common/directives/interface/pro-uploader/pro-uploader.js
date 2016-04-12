@@ -26,8 +26,7 @@ function proUploader($timeout, $interval) {
       scope.showArrow = true
 
     }
-    let _startImmediateLoading = () => {
-      scope.fadeText = false
+    let _startImmediateLoading = () =>
       immediateInterval = $interval(() => {
         if (scope.progress >= 100) {
           $interval.cancel(immediateInterval)
@@ -37,7 +36,7 @@ function proUploader($timeout, $interval) {
           scope.progress = scope.progress + 1
         }
       }, 100)
-    }
+
     scope.animate = function() {
       scope.showArrow = false
       scope.hideArrow = true
@@ -54,6 +53,9 @@ function proUploader($timeout, $interval) {
             file: _file,
             files: _files
           }
+          $timeout(()=>{
+            scope.fadeText = false
+          }, 200)
         }, 200)
       }, 200)
 
