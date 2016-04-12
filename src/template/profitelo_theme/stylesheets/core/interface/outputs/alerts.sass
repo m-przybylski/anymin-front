@@ -1,0 +1,54 @@
+.alert
+  height: 50px
+  width: 100%
+  margin: 10px 0
+  background-color: $c-lines
+  position: relative
+  overflow: hidden
+  padding-top: 15px
+  .content-wrapper
+    width: 100%
+    display: flex
+    position: relative
+    padding: 0 10px
+    flex-direction: row
+    justify-content: space-around
+    div
+      width: 100%
+      display: inline-flex
+      .status-icon
+        padding-right: 10px
+      .alert-header
+        margin: 0
+        padding-right: 3px
+        text-transform: uppercase
+        font-weight: bold
+        line-height: 23px
+        font-size: 16px
+        font-family: "sofia-pro-soft",sans-serif
+        font-style: normal
+        letter-spacing: -25%
+      .alert-info
+        font-size: 15px
+        line-height: 23px
+        margin: 0
+        font-family: "proxima-nova",sans-serif
+        font-style: normal
+        font-weight: 400
+        letter-spacing: -10%
+    .cross-icon
+      font-size: 12px
+      margin-top: 6px
+  &.success
+    background-color: $c-success-alert
+    color: $c-success
+  &.error
+    background-color: $c-error-alert
+    color: $c-error
+  &.warrning
+    background-color: $c-warning-alert
+    color: $c-warning
+  &.info
+    background-color: $c-info-alert
+    color: $c-info
+
