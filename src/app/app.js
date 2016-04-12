@@ -93,6 +93,7 @@
     $urlRouterProvider
       .when('', '/')
       .when('/', '/home')
+      .otherwise('/home')
 
     $locationProvider.html5Mode(true)
 
