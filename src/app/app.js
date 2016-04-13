@@ -43,9 +43,22 @@
     })
   }
 
-  function configFunction($urlRouterProvider, $httpProvider, $stateProvider, $resourceProvider, $translateProvider, $locationProvider, tmhDynamicLocaleProvider, toastrConfig) {
+  function configFunction($urlRouterProvider, $httpProvider, $stateProvider, $resourceProvider, $translateProvider, $locationProvider, tmhDynamicLocaleProvider, toastrConfig, UserProvider, UserRolesProvider, apiUrl) {
 
     $httpProvider.defaults.withCredentials = true
+
+    UserRolesProvider.setRoles(['anon', 'user', 'manager', 'admin'])
+    UserRolesProvider.setAccessLevels({
+      public      : '*',
+      anon        : ['anon'],
+      userOnly    : ['user'],
+      user        : ['user', 'manager', 'admin'],
+      managerOnly : ['manager'],
+      manager     : ['manager', 'admin'],
+      admin       : ['admin']
+    })
+
+    UserProvider.setApi('baseUrl', apiUrl)
 
     $stateProvider.state('app', {
       url: '',
@@ -174,6 +187,7 @@
     'toastr',  // some parts depends on ngAnimate
     'hellojs',
     'ui.mask',
+    'c7s.ng.userAuth',
 
 
     // modules
@@ -229,9 +243,7 @@
 
     // translations
     'profitelo.translations.en-us',
-    'profitelo.translations.pl-pl',
-
-    'profitelo.swaggerResources'
+    'profitelo.translations.pl-pl'
 
   ])
   .run(runFunction)

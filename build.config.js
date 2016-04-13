@@ -63,7 +63,8 @@ module.exports = {
       'node_modules/angular-translate-interpolation-messageformat/angular-translate-interpolation-messageformat.js',
       'node_modules/angular-dynamic-locale/dist/tmhDynamicLocale.js',
 
-      'node_modules/hellojs/dist/hello.all.min.js'
+      'node_modules/hellojs/dist/hello.all.min.js',
+      'node_modules/c7s-ng/build/c7s-ng.js'
     ],
     css: [
       'node_modules/angular-toastr/dist/angular-toastr.css',
