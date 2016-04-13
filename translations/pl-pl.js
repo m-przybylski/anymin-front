@@ -54,12 +54,14 @@
         		'LOGIN.VERIFICATION_ATTEMPTS_EXCEEDED':'Wpisałeś błędnie kod zbyt wiele razy. Poczekaj jeszcze {{time}} aby móc spróbować pownownie.',
         		'REGISTER.CHANGE_PASSWORD':'Zmień',
         		'REGISTER.CODE_REQUIRED':'Podaj poprawny kod weryfikacyjny',
+        		'REGISTER.EMAIL_REQUIRED':'Podaj poprawny adres email',
         		'REGISTER.SERVICE_CODE':'Wpisz kod weryfikacyjny z smsa',
         		'REGISTER.SERVICE_CODE_PLACEHOLDER':'np. 476239',
         		'REGISTER.SERVICE_EMAIL':'Wpisz swój adres email',
         		'REGISTER.SERVICE_EMAIL_PLACEHOLDER':'np. jan.kowalski@profitelo.pl',
         		'REGISTER.SERVICE_PASSWORD':'ustaw nowe hasło do swojego konta',
-        		'REGISTER.SERVICE_PASSWORD_PLACEHOLDER':'Hasło powinno składać się z minimum 8 znaków'
+        		'REGISTER.SERVICE_PASSWORD_PLACEHOLDER':'Hasło powinno składać się z minimum 8 znaków',
+        		'REGISTER.SERVICE_PASSWORD_STRENGTH':'Siła Hasła'
         })
     }])
 })(angular);

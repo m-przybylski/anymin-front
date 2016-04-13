@@ -14,7 +14,6 @@ angular.module('profitelo.controller.dashboard.create-profile', [
 
 function DashboardCreateProfileController() {
   var vm = this
-
-
+  
   return vm
 }
