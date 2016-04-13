@@ -7,7 +7,7 @@
         return $translateProvider.translations('en-us', {
         		'COMMON.COPYRIGHT':'2016 - iTelo sp z.o.o. All rights reserved.',
         		'COMMON.DIRECTIVES.INTERFACE.CALENDAR_LABEL':'Kalendarz',
-        		'COMMON.DIRECTIVES.INTERFACE.UPLOADER.HEADER':'Przeciągnij & Upuść',
+        		'COMMON.DIRECTIVES.INTERFACE.UPLOADER.HEADER':'Przeciągnij &amp; Upuść',
         		'COMMON.DIRECTIVES.INTERFACE.UPLOADER.HEADER_UPLOAD':'Ukończono',
         		'COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO':'lub kliknij by wgrać pliki',
         		'COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO_UPLOAD':'plik {{ file }} z {{ files }}',
