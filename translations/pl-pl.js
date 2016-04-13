@@ -13,9 +13,14 @@
         		'COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO_UPLOAD':'plik {{ file }} z {{ files }}',
         		'DASHBOARD.CREATE_PROFILE.CREATE_PROFILE_TITLE':'Tworzenie konta usługodawcy',
         		'DASHBOARD.CREATE_PROFILE.NEXT_STEP':'Kolejny Etap',
+        		'DASHBOARD.CREATE_PROFILE.STEP1_1OF6':'Krok 01/06',
+        		'DASHBOARD.CREATE_PROFILE.STEP1_CHOOSE_PROFILE_DESCRIPTION':'Usługa może być świadczona tylko przez Ciebie, jak i przez Twoich pracowników.',
+        		'DASHBOARD.CREATE_PROFILE.STEP1_CHOOSE_PROFILE_TITLE':'Zamierzam świadczyć konsultacje jako:',
+        		'DASHBOARD.CREATE_PROFILE.STEP1_MORE_PERSON':'Świadczę usługę wieloosobowo',
         		'DASHBOARD.CREATE_PROFILE.STEP1_PROGRESS_BAR_TITLE':'Etap 1 - Tworzenie profilu firmy',
         		'DASHBOARD.MENU.CLIENT':'Klient',
         		'DASHBOARD.MENU.EXPERT':'Ekspert',
+        		'DASHBOARD.MENU.STEP1_ONE_PERSON':'Świadczę usługę jednoosobowo',
         		'LOGIN.DOWNLOAD_FREE_APP':'Pobierz bezpłatną aplikację na telefon:',
         		'LOGIN.ENTER_NUMBER':'wpisz swój numer',
         		'LOGIN.ENTER_NUMBER_PLACEHOLDER':'np. 599-546-342',
@@ -32,7 +37,11 @@
         		'LOGIN.VERIFICATION_ATTEMPTS_EXCEEDED':'Wpisałeś błędnie kod zbyt wiele razy. Poczekaj jeszcze {{time}} aby móc spróbować pownownie.',
         		'REGISTER.CHANGE_PASSWORD':'Zmień',
         		'REGISTER.SERVICE_CODE':'Wpisz kod weryfikacyjny z smsa',
-        		'REGISTER.SERVICE_CODE_PLACEHOLDER':'np. 476239'
+        		'REGISTER.SERVICE_CODE_PLACEHOLDER':'np. 476239',
+        		'REGISTER.SERVICE_EMAIL':'Wpisz swój adres email',
+        		'REGISTER.SERVICE_EMAIL_PLACEHOLDER':'np. jan.kowalski@profitelo.pl',
+        		'REGISTER.SERVICE_PASSWORD':'ustaw nowe hasło do swojego konta',
+        		'REGISTER.SERVICE_PASSWORD_PLACEHOLDER':'Hasło powinno składać się z minimum 8 znaków'
         })
     }])
 })(angular);
