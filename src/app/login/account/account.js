@@ -3,7 +3,7 @@
   function AccountFormController($scope, $timeout, proTopWaitingLoaderService) {
     var vm = this
 
-    vm.current = 1
+    vm.current = 2
     vm.isPending = false
 
     // User input variables
