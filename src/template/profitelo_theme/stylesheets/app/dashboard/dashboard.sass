@@ -21,7 +21,7 @@
     align-items: center
     text-align: center
     margin-left: -15px
-    padding: 0px 30px
+    padding: 0px 30px 0 45px
     height: 100vh
 
     .left-column-switcher
@@ -43,9 +43,9 @@
           height: 15px
           background-color: $c-white
           position: relative
-          top: 83px
+          top: 89px
           float: right
-          right: 90px
+          right: 92px
           +border-radius(50%)
           .user-online
             margin: 4px 4px
@@ -58,21 +58,20 @@
           width: 105px
           height: 105px
           +border-radius(50%)
-          border: 1px solid $c-lines
           padding: 3px
 
       .username
         margin-top: 20px
         span
-          color: $c-primary
+          color: $c-secondary-txt
           font-weight: bold
           font-size: 19px
-          margin-top: -5px
         h5
           font-size: 11px
           line-height: 18px
           text-transform: uppercase
           font-weight: bold
+          margin-bottom: 0
       .notification
         .icon
           color: $c-primary
@@ -91,8 +90,8 @@
       .option-left
         width: 50%
         border: 1px solid $c-lines
-        border-top-left-radius: 50px
-        border-bottom-left-radius: 50px
+        border-top-left-radius: 5px
+        border-bottom-left-radius: 5px
         padding: 16px 0
         margin-left: -1px
         text-transform: uppercase
@@ -102,8 +101,8 @@
       .option-right
         width: 50%
         border: 1px solid $c-lines
-        border-top-right-radius: 50px
-        border-bottom-right-radius: 50px
+        border-top-right-radius: 5px
+        border-bottom-right-radius: 5px
         padding: 16px 0
         margin-left: -1px
         text-transform: uppercase
@@ -117,7 +116,7 @@
 
 .left-column-switcher
   visibility: visible
-  +border-radius(0.2em)
+  +border-radius(0.3em)
   +mdm
     visibility: hidden
     width: 0
