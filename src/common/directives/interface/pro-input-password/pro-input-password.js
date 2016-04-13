@@ -37,7 +37,8 @@ function proInputPassword() {
       proModel: '=',
       placeholder: '@',
       defaultValue: '@',
-      label: '@'
+      label: '@',
+      onChange: '=?'
     }
 
   }
