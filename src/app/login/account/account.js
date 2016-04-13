@@ -3,7 +3,7 @@
   function AccountFormController($scope, $timeout, $state, $filter, proTopWaitingLoaderService, User) {
     var vm = this
 
-    vm.current = 2
+    vm.current = 1
     vm.isPending = false
 
     // User input variables
@@ -17,6 +17,7 @@
 
     vm.backToPhoneNumber = () => {
       $scope.phoneNumberForm.$setPristine()
+      $scope.passwordForm.$setPristine()
       vm.current = 1
     }
 
@@ -46,7 +47,7 @@
         }, (error) => {
           vm.isPending = false
           proTopWaitingLoaderService.stopLoader()
-          //TODO: move console log to alerts service
+          // TODO: move console log to alerts service
           console.log($filter('translate')('LOGIN.BAD_LOGIN_CREDENTIALS'))
         })
       }

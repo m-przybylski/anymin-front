@@ -14,18 +14,18 @@ function proInputPassword() {
       scope.required = true
     }
 
-    scope.focusInput = function () {
+    scope.focusInput = function() {
       _input.focus()
     }
-    scope.onFocus = function () {
+    scope.onFocus = function() {
       scope.focus = true
       scope.onOut = false
     }
-    scope.onFocusOut = function () {
+    scope.onFocusOut = function() {
       scope.focus = false
       scope.onOut = true
     }
-    scope.passwordHandler = function () {
+    scope.passwordHandler = function() {
       if (scope.inputType === 'password') {
         scope.inputType = 'text'
       } else {
@@ -35,9 +35,9 @@ function proInputPassword() {
   }
 
   return {
-    templateUrl: 'directives/interface/pro-input-password/pro-input-password.tpl.html',
-    restrict: 'E',
-    replace: true,
+    templateUrl:  'directives/interface/pro-input-password/pro-input-password.tpl.html',
+    restrict:     'E',
+    replace:      true,
     link: linkFunction,
     scope: {
       proModel: '=',
@@ -47,11 +47,8 @@ function proInputPassword() {
       onChange: '=?',
       name: '@'
     }
-
   }
-
 }
 
-
 angular.module('profitelo.directives.interface.pro-input-password', [])
-  .directive('proInputPassword', proInputPassword)
+.directive('proInputPassword', proInputPassword)
