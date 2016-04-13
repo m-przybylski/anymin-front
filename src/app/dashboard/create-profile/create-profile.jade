@@ -1,0 +1,30 @@
+.title-row
+  a.pro-btn.btn-main.btn-small(data-ng-click="vm.click()").left-column-switcher
+    i.icon.icon-menu
+  .title
+    h2(data-translate="DASHBOARD.CREATE_PROFILE.CREATE_PROFILE_TITLE")
+  .close-button
+    .btn-handler
+      a(href="").pro-btn.btn-light.btn-icon
+        i.icon.icon-tiny-close
+        
+include partials/step1
+include partials/step2
+include partials/step3
+include partials/step3
+include partials/step5
+include partials/step6
+
+
+.footer
+  .title-row-column
+    .title
+      h4(data-translate="DASHBOARD.CREATE_PROFILE.STEP1_PROGRESS_BAR_TITLE")
+      h4 48%
+    .loader-container
+      .password-verify
+        .loader
+          .progress-bar(style="width: 48%;")
+      .next-step
+        .button-next-step
+          a.pro-btn.btn-main.btn-medium(data-translate="DASHBOARD.CREATE_PROFILE.NEXT_STEP")
