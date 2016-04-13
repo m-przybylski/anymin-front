@@ -1,5 +1,7 @@
 .right-container(data-ng-class="{'slide-out':dashboardController.isSidebarOpen}")
   .title-row
+    a.pro-btn.btn-main.btn-small.left-column-switcher(data-ng-click="dashboardController.toogleSidebar()")
+      i.icon.icon-menu
     .title
       h2(data-translate="DASHBOARD.CREATE_PROFILE.CREATE_PROFILE_TITLE")
     .close-button
