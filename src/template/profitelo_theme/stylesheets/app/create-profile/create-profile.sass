@@ -8,9 +8,7 @@
     z-index: 20
     position: fixed
     margin-top: 30px
-    margin-left: 20px
-
-
+    margin-left: 30px
 .right-container
   position: absolute
   -moz-transition: all 0.5s
@@ -149,7 +147,7 @@
         align-content: center
         align-items: center
         a
-          margin: 20px 10px
+          margin: 20px 0px
           text-transform: none
 
         .btn-main
@@ -298,11 +296,19 @@
   .footer
     color: $c-lines
     padding-top: 5px
-    padding: 13px 28px
+    padding: 15px 30px 30px
     border-bottom: 1px solid $c-lines
-    padding-bottom: 30px
-    padding-top: 30px
     background-color: $c-primary
+
+    .next-step
+      margin-top: 0
+      +mdm
+        margin-top: -30px
+
+    .btn-medium
+      background-color: $c-white
+      color: $c-primary
+      +border-radius(50px)
 
     .title
       display: flex
@@ -334,6 +340,8 @@
         width: 100%
         +mdm
           width: 75%
+        .loader
+          background-color: $c-primary-hover
 
         .progress-bar
           background-color: $c-white
