@@ -17,5 +17,5 @@
         .option-left(data-translate="DASHBOARD.MENU.CLIENT")
         .option-right.active(data-translate="DASHBOARD.MENU.EXPERT")
   
-  .right-column
+  .right-container(data-ng-class="{'slide-out':dashboardController.isSidebarOpen}")
     div(data-ui-view="")
