@@ -205,6 +205,7 @@
     // controllers
     'profitelo.controller.dashboard',
     'profitelo.controller.dashboard.start',
+    'profitelo.controller.dashboard.create-profile',
 
     'profitelo.controller.home',
     'profitelo.controller.expert-profile',

@@ -1,0 +1,81 @@
+.create-profile
+  background-color: $c-white
+  .title-row
+    padding: 24px 30px
+    text-transform: uppercase
+    border-bottom: 1px solid $c-lines
+    display: flex
+    flex-direction: row
+    flex-wrap: nowrap
+    justify-content: space-between
+    align-content: center
+    align-items: center
+    height: 96px
+    +mdm
+      padding: 24px 15px
+    .title
+      h2
+        text-align: center
+        font-size: 23px
+        margin: 0
+        margin-left: 70px
+        color: $c-primary
+        font-weight: bold
+        +mdm
+          margin-left: 30px
+    .close-button
+      a
+        text-decoration: none
+        background-color: $c-white
+        +border-radius(50px)
+        &:hover
+          background-color: $c-background
+      .btn-light
+        margin: 0
+  .bottom-row
+    color: $c-lines
+    padding-top: 5px
+    padding: 15px 30px 30px
+    border-bottom: 1px solid $c-lines
+    background-color: $c-primary
+    .next-step
+      margin-top: 0
+      +mdm
+        margin-top: -30px
+    .btn-medium
+      background-color: $c-white
+      color: $c-primary
+      +border-radius(50px)
+    .title
+      display: flex
+      flex-direction: row
+      flex-wrap: nowrap
+      justify-content: space-between
+      align-content: space-between
+      align-items: center
+      width: 100%
+      color: $c-white
+      +mdm
+        width: 75%
+      h4
+        color: $c-white
+    .loader-container
+      display: flex
+      flex-direction: column
+      flex-wrap: nowrap
+      justify-content: space-between
+      align-content: center
+      align-items: center
+      +mdm
+        flex-direction: row
+        margin-top: -30px
+      .password-verify
+        width: 100%
+        +mdm
+          width: 75%
+        .loader
+          background-color: $c-primary-hover
+        .progress-bar
+          background-color: $c-white
+          +border-radius(5px)
+          max-width: 100%

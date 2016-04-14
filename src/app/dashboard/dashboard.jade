@@ -1,2 +1,49 @@
-div(data-ui-view="")
-
+.container.main-container
+  a.pro-btn.btn-main.btn-small.menu-toogle(data-ng-click="dashboardController.toogleSidebar()")
+    i.icon.icon-menu
+  .sidebar
+    .left-column
+      .top-row
+        .logo
+          img(src="assets/images/logo_profitelo_black.png")
+        .user
+          .photo
+              img(src='assets/images/John_Doe.jpg' alt='user-avatar')
+              .user-status
+                .user-online(style='background-color: #03ad53;')
+          .username
+              h5 john.doe@itelo.pl
+              span ID 0000 245
+        .switcher
+          .option-left(data-translate="DASHBOARD.MENU.CLIENT")
+          .option-right.active(data-translate="DASHBOARD.MENU.EXPERT")
+      .middle-row
+        ul
+          li
+            a(data-translate="DASHBOARD.MENU.EXPERT_BASE")
+          li
+            a(data-translate="DASHBOARD.MENU.MY_ACCOUNT")
+          li
+            a(data-translate="DASHBOARD.MENU.AVAILABILITY")
+          li
+            a(data-translate="DASHBOARD.MENU.NOTIFICATION")
+            p.bandge 174
+          li
+            a(data-translate="DASHBOARD.MENU.FAVOURITES")
+            p.bandge 471
+      .bottom-row
+        .switcher
+          a.pro-btn.btn-main.btn-small
+            i.icon.icon-tiny-arrow-right
+            p Wyszukiwarka
+        .switcher-tools
+          .option-left
+            a
+              i.icon.icon-tiny-close
+          .option-right
+            a
+              i.icon.icon-tiny-arrow-right
+          
+  
+  .right-container(data-ng-class="{'slide-out':dashboardController.isSidebarOpen}")
+    div(data-ui-view="")

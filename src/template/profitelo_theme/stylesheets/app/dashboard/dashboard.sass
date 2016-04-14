@@ -1,0 +1,205 @@
+.sidebar
+  position: fixed
+  overflow-y: overlay
+  background-color: $c-white
+  border-right: 1px solid $c-lines
+  border-left: 1px solid $c-lines
+  +transition
+  max-width: 320px
+  min-width: 320px
+  visibility: visible
+  margin-left: 0
+  z-index: 0
+  .left-column
+    display: flex
+    flex-direction: column
+    flex-wrap: nowrap
+    justify-content: space-between
+    align-content: space-between
+    align-items: center
+    text-align: left
+    margin-left: -15px
+    padding: 0px 30px 0 45px
+    height: 100vh
+
+    .left-column-switcher
+      text-align: left
+      z-index: 11
+      position: fixed
+
+    .middle-row
+      width: 100%
+      margin-left: -60px
+      ul
+        list-style-type: none
+        li
+          padding: 5px 0
+          display: flex
+          flex-direction: row
+          flex-wrap: nowrap
+          justify-content: space-between
+          align-content: space-between
+          align-items: center
+          height: 30px
+          .bandge
+            margin-right: -30px
+            background-color: $c-primary
+            color: $c-white
+            +border-radius(50px)
+            padding: 0 5px
+            font-size: 10px
+            font-weight: bold
+            width: 35px
+            text-align: center
+            line-height: 17px
+
+
+
+          a
+            color: $c-secondary-txt
+            &:hover
+              color: $c-primary-hover
+
+    .top-row
+      text-align: center
+      width: 100%
+      .logo
+        margin-top: 30px
+        img
+          width: 115px
+
+      .user
+        .photo
+          margin-top: 30px
+          margin-left: 15px
+          .user-status
+            width: 15px
+            height: 15px
+            background-color: $c-white
+            position: relative
+            top: 89px
+            float: right
+            right: 92px
+            +border-radius(50%)
+            .user-online
+              margin: 4px 4px
+              width: 8px
+              height: 8px
+              padding: 0px
+              +border-radius(50%)
+
+          img
+            width: 105px
+            height: 105px
+            +border-radius(50%)
+            padding: 3px
+
+        .username
+          margin-top: 20px
+          span
+            color: $c-secondary-txt
+            font-weight: bold
+            font-size: 19px
+          h5
+            font-size: 11px
+            line-height: 18px
+            text-transform: uppercase
+            font-weight: bold
+            margin-bottom: 0
+        .notification
+          .icon
+            color: $c-primary
+            padding-left: 0px
+
+      .switcher
+        margin-top: 30px
+        display: flex
+        flex-direction: row
+        flex-wrap: nowrap
+        justify-content: center
+        align-content: center
+        align-items: center
+        margin-bottom: 20px
+        .option-left
+          width: 50%
+          border: 1px solid $c-lines
+          border-top-left-radius: 5px
+          border-bottom-left-radius: 5px
+          padding: 16px 0
+          margin-left: -1px
+          text-transform: uppercase
+          color: $c-secondary-txt
+          font-weight: bold
+          font-size: 12px
+        .option-right
+          width: 50%
+          border: 1px solid $c-lines
+          border-top-right-radius: 5px
+          border-bottom-right-radius: 5px
+          padding: 16px 0
+          margin-left: -1px
+          text-transform: uppercase
+          color: $c-secondary-txt
+          font-weight: bold
+          font-size: 12px
+
+        .active
+          background-color: $c-background
+          color: $c-primary
+    .bottom-row
+      .switcher
+        p
+          color: $c-white
+          padding: 0 10px
+        a
+          display: flex
+          flex-direction: row
+          flex-wrap: nowrap
+          justify-content: space-around
+          align-content: flex-start
+          align-items: center
+          padding: 5px 5px
+      .switcher-tools
+        display: flex
+        flex-direction: row
+        flex-wrap: nowrap
+        justify-content: center
+        align-content: center
+        align-items: center
+        margin-bottom: 20px
+        text-align: center
+        a
+          color: $c-secondary-txt
+          border-bottom: none
+          &:hover
+            text-decoration: none
+        .option-left
+          width: 50%
+          border: 1px solid $c-lines
+          border-top-left-radius: 5px
+          border-bottom-left-radius: 5px
+          padding: 16px 0
+          margin-left: -1px
+          text-transform: uppercase
+          color: $c-secondary-txt
+          font-weight: bold
+          font-size: 12px
+        .option-right
+          width: 50%
+          border: 1px solid $c-lines
+          border-top-right-radius: 5px
+          border-bottom-right-radius: 5px
+          padding: 16px 0
+          margin-left: -1px
+          text-transform: uppercase
+          color: $c-secondary-txt
+          font-weight: bold
+          font-size: 12px
+
+
+.left-column-switcher
+  visibility: visible
+  +border-radius(0.3em)
+  +mdm
+    visibility: hidden
+    width: 0
