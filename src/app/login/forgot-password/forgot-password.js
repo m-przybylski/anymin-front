@@ -6,7 +6,7 @@
 
   function config($stateProvider) {
     $stateProvider.state('app.login.forgot-password', {
-      url: '/forgot-password/:token',
+      url: '/forgot-password',
       controllerAs: 'vm',
       controller: 'ForgotPasswordController',
       templateUrl: 'login/forgot-password/forgot-password.tpl.html'
