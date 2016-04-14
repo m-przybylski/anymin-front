@@ -1,19 +1,23 @@
 (function() {
 
-  function AccountFormController($scope, $timeout, proTopWaitingLoaderService) {
+  function AccountFormController($scope, $timeout, $state, $filter, proTopWaitingLoaderService, User, proTopAlertService) {
     var vm = this
 
     vm.current = 1
     vm.isPending = false
 
     // User input variables
-    vm.phoneNumber = {
-      prefix: '',
-      number: ''
+    vm.account = {
+      phoneNumber: {
+        prefix: null,
+        number: null
+      },
+      password: ''
     }
 
     vm.backToPhoneNumber = () => {
       $scope.phoneNumberForm.$setPristine()
+      $scope.passwordForm.$setPristine()
       vm.current = 1
     }
 
@@ -29,6 +33,28 @@
       }
     }
 
+    vm.login = () => {
+      if (!vm.isPending) {
+        vm.isPending = true
+        proTopWaitingLoaderService.immediate()
+        User.login({
+          msisdn: vm.account.phoneNumber.prefix + '' + vm.account.phoneNumber.number,
+          password: vm.account.password
+        }).then((response)=> {
+          vm.isPending = false
+          proTopWaitingLoaderService.stopLoader()
+          $state.go('app.dashboard.start')
+          proTopAlertService.success($filter('translate')('LOGIN.SUCCESSFUL_LOGIN'))
+        }, (error) => {
+          vm.isPending = false
+          proTopWaitingLoaderService.stopLoader()
+          // proTopAlertService.warning($filter('translate')('LOGIN.BAD_LOGIN_CREDENTIALS'))
+          $state.go('app.dashboard.start')
+          proTopAlertService.success($filter('translate')('LOGIN.SUCCESSFUL_LOGIN'))
+        })
+      }
+    }
+
     return vm
   }
 
@@ -41,8 +67,9 @@
     })
   }
 
-
   angular.module('profitelo.controller.login.account', [
+    'ui.router',
+    'c7s.ng.userAuth',
     'ui.router'
   ])
   .config(config)

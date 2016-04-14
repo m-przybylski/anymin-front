@@ -1,11 +1,11 @@
 .input-group
   +border-radius(0.2em)
   background-color: $c-white
-  height: 60px
+  height: 64px
   width: 600px
-  margin: 20px 0
+  margin: 0
   border: 1px solid $c-lines
-  padding: 5px 10px 5px 10px
+  padding: 12px
   position: relative
   z-index: 1
   cursor: pointer
@@ -17,6 +17,8 @@
     height: 175px
     line-height: 200%
     outline: none
+  &.hoverInput
+    background-color: red
   label
     position: absolute
     top: 10px
@@ -27,7 +29,7 @@
   input
     position: absolute
     cursor: pointer
-    bottom: 7px
+    bottom: 12px
     background-color: $c-white
     border: none
     font-size: 14px
@@ -55,17 +57,18 @@
       +xsm
         visibility: visible
     &.input-group-addon
+      +transition(0.3s)
       border-left: 1px solid $c-lines
       border-bottom: 1px solid $c-lines
       position: relative
       float: right
       z-index: 2
       background-color: $c-background
-      height: 59px
+      height: 63px
       display: block
-      width: 50px
-      right: -10px
-      top: -5px
+      width: 63px
+      right: -12px
+      top: -12px
       font-size: $f-h5-size
       text-align: center
       color: $c-primary

@@ -53,7 +53,8 @@ function proInput() {
       addonText: '@',
       iconClass: '@',
       name: '@',
-      type: '@'
+      type: '@',
+      maxlength: '@'
     }
 
   }

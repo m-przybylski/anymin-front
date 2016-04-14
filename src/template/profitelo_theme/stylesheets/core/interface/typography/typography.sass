@@ -67,6 +67,7 @@ button
   letter-spacing: -25%
   color: $c-white
   font-weight: bold
+  text-transform: uppercase
   &.btn-pink
     color: $c-button-1
   &.bold
@@ -86,13 +87,21 @@ input
 a
   font-size: $f-btn-size
   +sofia-bold()
+  +transition(0.3s)
   color: $c-primary
   text-transform: uppercase
   text-decoration: none
-  border-bottom: 2px dotted transparent
+  border-bottom: 1px dotted transparent
   &:hover
-    border-bottom: 2px dotted $c-primary
+    border-bottom: 1px dotted $c-primary
 i
   +proxima-bold()
   font-size: $f-btn-size
     text-decoration: none
+
+.input-error-messages
+  font-size: $f-h6-size
+  +sofia()
+  font-weight: bold
+  text-transform: uppercase
+

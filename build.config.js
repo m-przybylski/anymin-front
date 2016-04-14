@@ -55,7 +55,7 @@ module.exports = {
       'node_modules/angular-sanitize/angular-sanitize.js',
       'node_modules/ui-select/dist/select.js',
       'node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.js',
-
+      'node_modules/lodash/index.js',
       'node_modules/angular-translate/dist/angular-translate.js',
       'node_modules/messageformat/messageformat.js',
       'node_modules/messageformat/locale/en.js',
@@ -63,6 +63,9 @@ module.exports = {
       'node_modules/angular-translate-interpolation-messageformat/angular-translate-interpolation-messageformat.js',
       'node_modules/angular-dynamic-locale/dist/tmhDynamicLocale.js',
 
+      'node_modules/hellojs/dist/hello.all.min.js',
+      'node_modules/c7s-ng/build/c7s-ng.js',
+      'node_modules/angular-lodash/angular-lodash.js',
       'node_modules/hellojs/dist/hello.all.min.js'
     ],
     css: [

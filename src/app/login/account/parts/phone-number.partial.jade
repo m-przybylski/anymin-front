@@ -1,18 +1,19 @@
-form.pro-input-form(name="phoneNumberForm" data-ng-submit="phoneNumberForm.$valid && vm.getPhoneNumberStatus()" novalidate=)
+form.pro-input-form(name="phoneNumberForm" data-ng-submit="phoneNumberForm.$valid && vm.getPhoneNumberStatus()" novalidate)
 
   pro-input.prefix-phone(data-label="{{'LOGIN.PREFIX' | translate}}"
   data-placeholder="{{'LOGIN.PREFIX_PLACEHOLDER' | translate}}"
   data-name="phonePrefix"
   data-type="number"
-  data-pro-model="vm.phoneNumber.prefix" data-ng-class="{'invalid': phoneNumberForm.phonePrefix.$invalid && (phoneNumberForm.phonePrefix.$dirty || phoneNumberForm.$submitted)}" no-delete required)
+  data-pro-model="vm.account.phoneNumber.prefix" data-ng-class="{'invalid': phoneNumberForm.phonePrefix.$invalid && (phoneNumberForm.phonePrefix.$dirty || phoneNumberForm.$submitted)}" no-delete required)
 
   pro-input.phone(data-label="{{'LOGIN.ENTER_NUMBER' | translate}}"
   data-name="phoneNumber"
   data-type="number"
   data-placeholder="{{'LOGIN.ENTER_NUMBER_PLACEHOLDER' | translate}}"
-  data-pro-model="vm.phoneNumber.number" data-ng-class="{'invalid': phoneNumberForm.phoneNumber.$invalid && (phoneNumberForm.phoneNumber.$dirty || phoneNumberForm.$submitted)}" required)
+  data-pro-model="vm.account.phoneNumber.number" data-ng-class="{'invalid': phoneNumberForm.phoneNumber.$invalid && (phoneNumberForm.phoneNumber.$dirty || phoneNumberForm.$submitted)}" required)
 
   .input-error-messages
-    .error.right(data-ng-show="phoneNumberForm.$submitted && phoneNumberForm.$invalid" data-translate="LOGIN.PHONE_NUMBER_REQUIRED")
+    .error.left(data-ng-show="phoneNumberForm.$submitted && phoneNumberForm.$invalid" data-translate="LOGIN.PHONE_NUMBER_REQUIRED")
+
   button.pro-btn.btn-main.btn-medium(data-translate="LOGIN.NEXT" type="submit")
 

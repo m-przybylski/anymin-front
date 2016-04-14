@@ -43,9 +43,22 @@
     })
   }
 
-  function configFunction($urlRouterProvider, $httpProvider, $stateProvider, $resourceProvider, $translateProvider, $locationProvider, tmhDynamicLocaleProvider, toastrConfig) {
+  function configFunction($urlRouterProvider, $httpProvider, $stateProvider, $resourceProvider, $translateProvider, $locationProvider, tmhDynamicLocaleProvider, toastrConfig, UserProvider, UserRolesProvider, apiUrl) {
 
     $httpProvider.defaults.withCredentials = true
+
+    UserRolesProvider.setRoles(['anon', 'user', 'manager', 'admin'])
+    UserRolesProvider.setAccessLevels({
+      public      : '*',
+      anon        : ['anon'],
+      userOnly    : ['user'],
+      user        : ['user', 'manager', 'admin'],
+      managerOnly : ['manager'],
+      manager     : ['manager', 'admin'],
+      admin       : ['admin']
+    })
+
+    UserProvider.setApi('baseUrl', apiUrl)
 
     $stateProvider.state('app', {
       url: '',
@@ -92,8 +105,8 @@
     })
     $urlRouterProvider
       .when('', '/')
-      .when('/', '/home')
-      .otherwise('/home')
+      .when('/', '/login/account')
+      .otherwise('/login/account')
 
     $locationProvider.html5Mode(true)
 
@@ -174,6 +187,7 @@
     'toastr',  // some parts depends on ngAnimate
     'hellojs',
     'ui.mask',
+    'c7s.ng.userAuth',
 
 
     // modules
@@ -186,6 +200,7 @@
     'profitelo.services.wizardSectionControl',
     'profitelo.services.interfaceLanguage',
     'profitelo.directives.pro-top-waiting-loader-service',
+    'profitelo.directives.pro-top-alert-service',
 
     // controllers
     'profitelo.controller.dashboard',
@@ -213,6 +228,7 @@
     'profitelo.directives.pro-progress-bar',
     'profitelo.directives.pro-expert-profile',
     'profitelo.directives.pro-top-waiting-loader',
+    'profitelo.directives.password-strength-bar',
 
     // directives - interface
     'profitelo.directives.interface.pro-input',
@@ -220,6 +236,8 @@
     'profitelo.directives.interface.pro-input-password',
     'profitelo.directives.interface.pro-calendar',
     'profitelo.directives.interface.pro-uploader',
+    'profitelo.directives.interface.pro-alert',
+    'profitelo.directives.interface.pro-checkbox',
 
     // rest
     'profitelo.api.accounts',
@@ -230,9 +248,7 @@
 
     // translations
     'profitelo.translations.en-us',
-    'profitelo.translations.pl-pl',
-
-    'profitelo.swaggerResources'
+    'profitelo.translations.pl-pl'
 
   ])
   .run(runFunction)

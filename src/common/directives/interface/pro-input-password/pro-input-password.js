@@ -1,11 +1,19 @@
 function proInputPassword() {
 
   function linkFunction(scope, element, attr) {
-    let _inputGroup = $(element)
-    let _input = _inputGroup.find('input')
+
+
+    scope.required = false
     scope.focus = false
     scope.onOut = false
-    scope.showPassword = false
+    scope.inputType = 'password'
+
+    let _input = $(element).find('input')
+
+    if ('required' in attr.$attr) {
+      scope.required = true
+    }
+
     scope.focusInput = function() {
       _input.focus()
     }
@@ -18,12 +26,10 @@ function proInputPassword() {
       scope.onOut = true
     }
     scope.passwordHandler = function() {
-      if (_input.attr('type') === 'password') {
-        _input.attr('type', 'text')
-        scope.showPassword = true
-      }else {
-        _input.attr('type', 'password')
-        scope.showPassword = false
+      if (scope.inputType === 'password') {
+        scope.inputType = 'text'
+      } else {
+        scope.inputType = 'password'
       }
     }
   }
@@ -37,13 +43,12 @@ function proInputPassword() {
       proModel: '=',
       placeholder: '@',
       defaultValue: '@',
-      label: '@'
+      label: '@',
+      onChange: '=?',
+      name: '@'
     }
-
   }
-
 }
-
 
 angular.module('profitelo.directives.interface.pro-input-password', [])
 .directive('proInputPassword', proInputPassword)
