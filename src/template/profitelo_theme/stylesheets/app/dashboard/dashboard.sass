@@ -11,13 +11,13 @@
   margin-left: 0
   z-index: 0
   .left-column
-    display:flex
+    display: flex
     flex-direction: column
     flex-wrap: nowrap
-    justify-content: center
-    align-content: center
+    justify-content: space-around
+    align-content: space-between
     align-items: center
-    text-align: center
+    text-align: left
     margin-left: -15px
     padding: 0px 30px 0 45px
     height: 100vh
@@ -27,90 +27,121 @@
       z-index: 11
       position: fixed
 
-    .logo
-      margin-top: 30px
-      img
-        width: 115px
+    .middle-row
+      width: 100%
+      margin-left: -60px
+      ul
+        list-style-type: none
+        li
+          padding: 5px 0
+          display: flex
+          flex-direction: row
+          flex-wrap: nowrap
+          justify-content: space-between
+          align-content: space-between
+          align-items: center
+          .bandge
+            margin-right: -30px
+            background-color: $c-primary
+            color: $c-white
+            +border-radius(50px)
+            padding: 1px 5px
+            font-size: 12px
+            font-weight: bold
 
-    .user
-      .photo
+
+
+          a
+            color: $c-secondary-txt
+            &:hover
+              color: $c-primary-hover
+
+    .top-row
+      text-align: center
+      width: 100%
+      .logo
         margin-top: 30px
-        margin-left: 15px
-        .user-status
-          width: 15px
-          height: 15px
-          background-color: $c-white
-          position: relative
-          top: 89px
-          float: right
-          right: 92px
-          +border-radius(50%)
-          .user-online
-            margin: 4px 4px
-            width: 8px
-            height: 8px
-            padding: 0px
-            +border-radius(50%)
-
         img
-          width: 105px
-          height: 105px
-          +border-radius(50%)
-          padding: 3px
+          width: 115px
 
-      .username
-        margin-top: 20px
-        span
+      .user
+        .photo
+          margin-top: 30px
+          margin-left: 15px
+          .user-status
+            width: 15px
+            height: 15px
+            background-color: $c-white
+            position: relative
+            top: 89px
+            float: right
+            right: 92px
+            +border-radius(50%)
+            .user-online
+              margin: 4px 4px
+              width: 8px
+              height: 8px
+              padding: 0px
+              +border-radius(50%)
+
+          img
+            width: 105px
+            height: 105px
+            +border-radius(50%)
+            padding: 3px
+
+        .username
+          margin-top: 20px
+          span
+            color: $c-secondary-txt
+            font-weight: bold
+            font-size: 19px
+          h5
+            font-size: 11px
+            line-height: 18px
+            text-transform: uppercase
+            font-weight: bold
+            margin-bottom: 0
+        .notification
+          .icon
+            color: $c-primary
+            padding-left: 0px
+
+      .switcher
+        margin-top: 30px
+        display: flex
+        flex-direction: row
+        flex-wrap: nowrap
+        justify-content: center
+        align-content: center
+        align-items: center
+        margin-bottom: 20px
+        .option-left
+          width: 50%
+          border: 1px solid $c-lines
+          border-top-left-radius: 5px
+          border-bottom-left-radius: 5px
+          padding: 16px 0
+          margin-left: -1px
+          text-transform: uppercase
           color: $c-secondary-txt
           font-weight: bold
-          font-size: 19px
-        h5
-          font-size: 11px
-          line-height: 18px
+          font-size: 12px
+        .option-right
+          width: 50%
+          border: 1px solid $c-lines
+          border-top-right-radius: 5px
+          border-bottom-right-radius: 5px
+          padding: 16px 0
+          margin-left: -1px
           text-transform: uppercase
+          color: $c-secondary-txt
           font-weight: bold
-          margin-bottom: 0
-      .notification
-        .icon
+          font-size: 12px
+
+        .active
+          background-color: $c-background
           color: $c-primary
-          padding-left: 0px
-
-    .switcher
-      margin-top: 30px
-      display: flex
-      flex-direction: row
-      flex-wrap: nowrap
-      justify-content: center
-      align-content: center
-      align-items: center
-      margin-bottom: 20px
-
-      .option-left
-        width: 50%
-        border: 1px solid $c-lines
-        border-top-left-radius: 5px
-        border-bottom-left-radius: 5px
-        padding: 16px 0
-        margin-left: -1px
-        text-transform: uppercase
-        color: $c-secondary-txt
-        font-weight: bold
-        font-size: 12px
-      .option-right
-        width: 50%
-        border: 1px solid $c-lines
-        border-top-right-radius: 5px
-        border-bottom-right-radius: 5px
-        padding: 16px 0
-        margin-left: -1px
-        text-transform: uppercase
-        color: $c-secondary-txt
-        font-weight: bold
-        font-size: 12px
-
-      .active
-        background-color: $c-background
-        color: $c-primary
 
 .left-column-switcher
   visibility: visible
