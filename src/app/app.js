@@ -105,8 +105,8 @@
     })
     $urlRouterProvider
       .when('', '/')
-      .when('/', '/home')
-      .otherwise('/home')
+      .when('/', '/login/account')
+      .otherwise('/login/account')
 
     $locationProvider.html5Mode(true)
 
