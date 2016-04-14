@@ -52,6 +52,7 @@
         		'LOGIN.PREFIX':'prefix',
         		'LOGIN.PREFIX_PLACEHOLDER':'+48',
         		'LOGIN.SERVICE_PASSWORD':'Podaj hasło do usługi',
+        		'LOGIN.SUCCESSFUL_LOGIN':'Zostałeś poprawnie zalogowany',
         		'LOGIN.TRUST_EXPERTS':'Zaufaj ekspertom i rozwiąż swoje problemy',
         		'LOGIN.VERIFICATION_ATTEMPTS_EXCEEDED':'Wpisałeś błędnie kod zbyt wiele razy. Poczekaj jeszcze {{time}} aby móc spróbować pownownie.',
         		'REGISTER.CHANGE_PASSWORD':'Zmień',
