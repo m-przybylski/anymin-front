@@ -38,6 +38,7 @@
         		'DASHBOARD.MENU.MY_ACCOUNT':'Moje Konto',
         		'DASHBOARD.MENU.NOTIFICATION':'Powiadomienia',
         		'DASHBOARD.MENU.STEP1_ONE_PERSON':'Świadczę usługę jednoosobowo',
+        		'LOGIN.ACCEPT_RULES':'Zapoznałem się i akceptuje &lt;a href&#x3D;&quot;{{link}}&quot; target&#x3D;&quot;_blank&quot;&gt;regulamin&lt;/a&gt; serwisu',
         		'LOGIN.BAD_LOGIN_CREDENTIALS':'Błędne hasło. Spróbuj ponownie.',
         		'LOGIN.DOWNLOAD_FREE_APP':'Pobierz bezpłatną aplikację na telefon:',
         		'LOGIN.ENTER_NUMBER':'wpisz swój numer',
