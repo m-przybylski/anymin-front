@@ -7,7 +7,7 @@
     return {
       setAccountObject: (account) => {
         _account = account
-      },
+    },
       getAccountObject: () => {
         return angular.copy(_account)
       }

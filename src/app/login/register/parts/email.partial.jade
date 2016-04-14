@@ -1,6 +1,6 @@
 .btn-handler
     a.pro-btn.btn-light.btn-icon(data-ng-click="vm.back()")
-        i.icon-arrow-left
+        i.icon.icon-arrow-left-24.icon-standard
 form.pro-input-form(name="emailForm" data-ng-submit="emailForm.$valid && vm.getEmailStatus()" novalidate)
     pro-input(data-label="{{ 'REGISTER.SERVICE_EMAIL' | translate }}"
     placeholder="{{ 'REGISTER.SERVICE_EMAIL_PLACEHOLDER' | translate }}"
@@ -10,5 +10,5 @@ form.pro-input-form(name="emailForm" data-ng-submit="emailForm.$valid && vm.getE
     data-ng-class="{'invalid':emailForm.email.$invalid && (emailForm.email.$dirty || emailForm.$submitted)}"
     required)
     .input-error-messages
-        .error.right(data-ng-show="emailForm.$submitted && emailForm.$invalid" data-translate="REGISTER.EMAIL_REQUIRED")
+        .error.left(data-ng-show="emailForm.$submitted && emailForm.$invalid" data-translate="REGISTER.EMAIL_REQUIRED")
     button.pro-btn.btn-main.btn-medium(data-translate="LOGIN.NEXT" type="submit")
