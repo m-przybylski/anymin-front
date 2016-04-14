@@ -13,7 +13,7 @@ form.pro-input-form(name="phoneNumberForm" data-ng-submit="phoneNumberForm.$vali
   data-pro-model="vm.account.phoneNumber.number" data-ng-class="{'invalid': phoneNumberForm.phoneNumber.$invalid && (phoneNumberForm.phoneNumber.$dirty || phoneNumberForm.$submitted)}" required)
 
   .input-error-messages
-    .error.right(data-ng-show="phoneNumberForm.$submitted && phoneNumberForm.$invalid" data-translate="LOGIN.PHONE_NUMBER_REQUIRED")
+    .error.left(data-ng-show="phoneNumberForm.$submitted && phoneNumberForm.$invalid" data-translate="LOGIN.PHONE_NUMBER_REQUIRED")
 
   button.pro-btn.btn-main.btn-medium(data-translate="LOGIN.NEXT" type="submit")
 

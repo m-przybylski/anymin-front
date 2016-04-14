@@ -11,16 +11,16 @@ function passwordStrengthBar() {
     scope.currentClass = 0
 
   }
-    return {
-      templateUrl: 'directives/password-strength-bar/password-strength-bar.tpl.html',
-      restrict: 'E',
-      replace: true,
-      link: linkFunction,
-      scope: {
-        currentClass: '=?'
-      }
-
+  return {
+    templateUrl: 'directives/password-strength-bar/password-strength-bar.tpl.html',
+    restrict: 'E',
+    replace: true,
+    link: linkFunction,
+    scope: {
+      currentClass: '=?'
     }
+
+  }
 }
 angular.module('profitelo.directives.password-strength-bar', [])
   .directive('passwordStrengthBar', passwordStrengthBar)

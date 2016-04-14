@@ -64,7 +64,7 @@
 
   angular.module('profitelo.controller.login.register', [
     'ui.router',
-      'profitelo.directives.password-strength-service'
+    'profitelo.directives.password-strength-service'
   ])
   .config(config)
   .controller('RegisterController', RegisterController)
