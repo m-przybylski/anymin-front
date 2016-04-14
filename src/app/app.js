@@ -200,6 +200,7 @@
     'profitelo.services.wizardSectionControl',
     'profitelo.services.interfaceLanguage',
     'profitelo.directives.pro-top-waiting-loader-service',
+    'profitelo.directives.pro-top-alert-service',
 
     // controllers
     'profitelo.controller.dashboard',
@@ -234,6 +235,7 @@
     'profitelo.directives.interface.pro-input-password',
     'profitelo.directives.interface.pro-calendar',
     'profitelo.directives.interface.pro-uploader',
+    'profitelo.directives.interface.pro-alert',
 
     // rest
     'profitelo.api.accounts',

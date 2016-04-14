@@ -1,0 +1,55 @@
+.alert
+  position: relative
+  height: 48px
+  width: 100%
+  padding-top: 12px
+  background-color: $c-lines
+  overflow: hidden
+  z-index: 1000
+  margin: 0
+  .content-wrapper
+    width: 100%
+    display: flex
+    position: relative
+    padding: 0 24px
+    flex-direction: row
+    justify-content: space-around
+    div
+      width: 100%
+      display: inline-flex
+      .status-icon
+        padding-right: 16px
+      .alert-header
+        margin: 0
+        padding-right: 16px
+        text-transform: uppercase
+        line-height: 23px
+        &:after
+          content: "!"
+      .alert-info
+        line-height: 23px
+        margin: 0
+    .cross-icon
+      font-size: 12px
+      margin-top: 6px
+  &.success
+    background-color: $c-success-alert
+    color: $c-success
+    h5
+      color: $c-success
+  &.error
+    background-color: $c-error-alert
+    color: $c-error
+    h5
+      color: $c-error
+  &.warning
+    background-color: $c-warning-alert
+    color: $c-warning
+    h5
+      color: $c-warning
+  &.info
+    background-color: $c-info-alert
+    color: $c-info
+    h5
+      color: $c-info
+
