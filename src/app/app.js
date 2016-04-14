@@ -236,6 +236,7 @@
     'profitelo.directives.interface.pro-calendar',
     'profitelo.directives.interface.pro-uploader',
     'profitelo.directives.interface.pro-alert',
+    'profitelo.directives.interface.pro-checkbox',
 
     // rest
     'profitelo.api.accounts',
