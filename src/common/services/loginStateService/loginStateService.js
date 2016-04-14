@@ -1,4 +1,4 @@
-(function () {
+(function() {
 
   function loginStateService() {
 
@@ -14,7 +14,7 @@
     }
   }
 
-angular.module('profitelo.services.login-state', [])
-.service('loginStateService', loginStateService)
+  angular.module('profitelo.services.login-state', [])
+  .service('loginStateService', loginStateService)
 
 }())

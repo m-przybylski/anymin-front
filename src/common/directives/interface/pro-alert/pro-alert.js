@@ -26,7 +26,9 @@
     }
   }
 
-  angular.module('profitelo.directives.interface.pro-alert', [])
+  angular.module('profitelo.directives.interface.pro-alert', [
+    'profitelo.directives.pro-top-alert-service'
+  ])
   .directive('proAlert', proAlert)
 
 }())

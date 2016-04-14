@@ -1,16 +1,17 @@
-function passwordStrengthBar() {
+(function() {
+  function passwordStrengthBar() {
 
-  function linkFunction(scope, element, attr) {
-    scope.classes = [
-      'start',
-      'very-weak',
-      'weak',
-      'strong',
-      'very-strong'
-    ]
-    scope.currentClass = 0
+    function linkFunction(scope, element, attr) {
+      scope.classes = [
+        'start',
+        'very-weak',
+        'weak',
+        'strong',
+        'very-strong'
+      ]
+      scope.currentClass = 0
 
-  }
+    }
     return {
       templateUrl: 'directives/password-strength-bar/password-strength-bar.tpl.html',
       restrict: 'E',
@@ -21,6 +22,9 @@ function passwordStrengthBar() {
       }
 
     }
-}
-angular.module('profitelo.directives.password-strength-bar', [])
+  }
+
+  angular.module('profitelo.directives.password-strength-bar', [])
   .directive('passwordStrengthBar', passwordStrengthBar)
+
+}())
