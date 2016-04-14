@@ -139,6 +139,10 @@
     return (password) => {
       let strength = _getStrength(password)
 
+      if (!password) {
+        return 0
+      }
+
       switch (Math.ceil(strength/ 25)) {
       case 0:
       case 1:
@@ -148,8 +152,7 @@
       }
 
     }
-
-
+    
   }
 
 

@@ -1,11 +1,12 @@
 (function() {
 
-  function RegisterController($scope, $timeout, proTopWaitingLoaderService, passwordStrengthService) {
+  function RegisterController($filter, $timeout, proTopWaitingLoaderService, passwordStrengthService) {
     var vm = this
     vm.passwordStrength = 0
     vm.current = 1
     vm.isPending = false
-
+    vm.rulesAccepted = false
+    
     vm.back = () => {
       vm.current -= 1
     }

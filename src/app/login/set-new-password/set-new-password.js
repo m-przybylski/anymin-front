@@ -14,10 +14,12 @@
       controller: 'SetNewPasswordController',
       templateUrl: 'login/set-new-password/set-new-password.tpl.html',
       resolve: {
-        validateToken: ($stateParams, $state) => {
-          if ($stateParams.method.length === '' || $stateParams.method.length === '') {
+        validateToken: ($stateParams, $state, stateDelay, proTopAlertService) => {
+          if ($stateParams.method.length === '' || $stateParams.token.length === '') {
             $state.go('app.login.account')
-            // TODO: state delay alert
+            stateDelay.onTransition(function() {
+              proTopAlertService.warning('No token. Try again')
+            })
           } else {
             // TODO api call to check if code is correct
             return {
@@ -32,7 +34,8 @@
 
   angular.module('profitelo.controller.login.set-new-password', [
     'ui.router',
-    'profitelo.services.login-state'
+    'profitelo.services.login-state',
+    'c7s.providers.stateDelay'
   ])
   .config(config)
   .controller('SetNewPasswordController', SetNewPasswordController)

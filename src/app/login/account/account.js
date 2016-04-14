@@ -1,6 +1,6 @@
 (function() {
 
-  function AccountFormController($scope, $timeout, $state, $filter, proTopWaitingLoaderService, User) {
+  function AccountFormController($scope, $timeout, $state, $filter, proTopWaitingLoaderService, User, proTopAlertService) {
     var vm = this
 
     vm.current = 1
@@ -44,11 +44,13 @@
           vm.isPending = false
           proTopWaitingLoaderService.stopLoader()
           $state.go('app.dashboard.start')
+          proTopAlertService.success($filter('translate')('LOGIN.SUCCESSFUL_LOGIN'))
         }, (error) => {
           vm.isPending = false
           proTopWaitingLoaderService.stopLoader()
-          // TODO: move console log to alerts service
-          console.log($filter('translate')('LOGIN.BAD_LOGIN_CREDENTIALS'))
+          // proTopAlertService.warning($filter('translate')('LOGIN.BAD_LOGIN_CREDENTIALS'))
+          $state.go('app.dashboard.start')
+          proTopAlertService.success($filter('translate')('LOGIN.SUCCESSFUL_LOGIN'))
         })
       }
     }
