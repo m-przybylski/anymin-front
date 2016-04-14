@@ -186,6 +186,7 @@
     'profitelo.services.wizardSectionControl',
     'profitelo.services.interfaceLanguage',
     'profitelo.directives.pro-top-waiting-loader-service',
+    'profitelo.directives.pro-top-alert-service',
 
     // controllers
     'profitelo.controller.dashboard',
