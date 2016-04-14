@@ -7,12 +7,11 @@
         scope.alerts = alerts
       }
       scope.destroyAlert = (alertId)=> {
-        for (var i = 0; i < scope.alerts.length; i++) {
-          if (scope.alerts[i].id === alertId) {
-            scope.alerts.splice(i, 1)
-          }
-        }
+        _.remove(scope.alerts, (alert)=> {
+          return alert.id === alertId
+        })
       }
+
       proTopAlertService.bindAlert(addAlert)
     }
 
