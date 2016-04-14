@@ -1,7 +1,55 @@
 (function() {
 
-  function RegisterController() {
+  function RegisterController($scope, $timeout, proTopWaitingLoaderService, passwordStrengthService) {
+    var vm = this
+    vm.passwordStrength = 0
+    vm.current = 1
+    vm.isPending = false
 
+    vm.back = () => {
+      vm.current -= 1
+    }
+
+    vm.onPasswordChange = (password) => {
+      vm.passwordStrength = passwordStrengthService(password)
+    }
+
+    vm.getSmsCodeStatus = () => {
+      if (!vm.isPending) {
+        vm.isPending = true
+        proTopWaitingLoaderService.immediate()
+        $timeout(function() {
+          vm.isPending = false
+          vm.current = 2
+          proTopWaitingLoaderService.stopLoader()
+        }, Math.floor((Math.random() * 20) + 1) * 100)
+      }
+    }
+
+    vm.getEmailStatus = () => {
+      if (!vm.isPending) {
+        vm.isPending = true
+        proTopWaitingLoaderService.immediate()
+        $timeout(function() {
+          vm.isPending = false
+          vm.current = 3
+          proTopWaitingLoaderService.stopLoader()
+        }, Math.floor((Math.random() * 20) + 1) * 100)
+      }
+    }
+
+    vm.getPasswordStatus = () => {
+      if (!vm.isPending) {
+        vm.isPending = true
+        proTopWaitingLoaderService.immediate()
+        $timeout(function() {
+          vm.isPending = false
+          vm.current = 1
+          proTopWaitingLoaderService.stopLoader()
+        }, Math.floor((Math.random() * 20) + 1) * 100)
+      }
+    }
+    return vm
   }
 
   function config($stateProvider) {
@@ -15,7 +63,8 @@
 
 
   angular.module('profitelo.controller.login.register', [
-    'ui.router'
+    'ui.router',
+      'profitelo.directives.password-strength-service'
   ])
   .config(config)
   .controller('RegisterController', RegisterController)

@@ -226,6 +226,7 @@
     'profitelo.directives.pro-progress-bar',
     'profitelo.directives.pro-expert-profile',
     'profitelo.directives.pro-top-waiting-loader',
+    'profitelo.directives.password-strength-bar',
 
     // directives - interface
     'profitelo.directives.interface.pro-input',
