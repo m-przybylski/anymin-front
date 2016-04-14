@@ -64,6 +64,7 @@ module.exports = {
       'node_modules/angular-dynamic-locale/dist/tmhDynamicLocale.js',
 
       'node_modules/hellojs/dist/hello.all.min.js',
+      'node_modules/c7s-ng/build/c7s-ng.js',
       'node_modules/angular-lodash/angular-lodash.js',
       'node_modules/hellojs/dist/hello.all.min.js'
     ],
