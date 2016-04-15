@@ -21,11 +21,11 @@
 
     let _timeoutDestroy = (timeout, id) => {
       let realTimeout = timeout * 1000
-      $timeout(() => {
-        if (typeof timeout !== 'undefined') {
+      if (typeof timeout !== 'undefined') {
+        $timeout(() => {
           _destroyAlert(id)
-        }
-      }, realTimeout)
+        }, realTimeout)
+      }
     }
 
     return {
