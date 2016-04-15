@@ -316,6 +316,9 @@
           'getRegistrationStatusByMsisdn': angular.extend({
             method: 'GET',
             url: apiUrl + '/accounts/check',
+            params: {
+              'msisdn': '@msisdn',
+            },
           }, $resourceActionConfig('0', 'getRegistrationStatusByMsisdn')),
 
           /**

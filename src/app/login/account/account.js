@@ -1,11 +1,11 @@
 (function() {
 
-  function AccountFormController($scope, $timeout, $state, $filter, proTopWaitingLoaderService, User, proTopAlertService, loginStateService) {
+  function AccountFormController($scope, $timeout, $state, $filter, AccountApi, proTopWaitingLoaderService, User, proTopAlertService, loginStateService) {
     var vm = this
 
-    vm.current = 1
+
     vm.isPending = false
-    
+    vm.current = 1
     vm.account = loginStateService.getAccountObject()
 
     vm.backToPhoneNumber = () => {
@@ -14,16 +14,33 @@
       vm.current = 1
     }
 
+    let _determinePhoneNumerStatus = (status) => {
+      switch (status) {
+      case 'REGISTERED':
+        vm.current = 2
+        break
+      case 'UNREGISTERED':
+      default:
+        $state.go('app.login.register')
+      }
+    }
+
     vm.getPhoneNumberStatus = () => {
       if (!vm.isPending) {
         vm.isPending = true
         proTopWaitingLoaderService.immediate()
-        $timeout(function() {
+        loginStateService.setAccountObject(vm.account)
+        AccountApi.getRegistrationStatusByMsisdn({
+          msisdn: vm.account.phoneNumber.prefix + vm.account.phoneNumber.number
+        }).$promise.then((response) => {
           vm.isPending = false
-          vm.current = 2
-          loginStateService.setAccountObject(vm.account)
+          _determinePhoneNumerStatus(response.status)
           proTopWaitingLoaderService.stopLoader()
-        }, Math.floor((Math.random() * 20) + 1) * 100)
+        }, (error) => {
+          vm.isPending = false
+          proTopAlertService.error($filter('translate')('INTERFACE.API_ERROR'), null, 2)
+          proTopWaitingLoaderService.stopLoader()
+        })
       }
     }
 
@@ -31,7 +48,6 @@
       if (!vm.isPending) {
         vm.isPending = true
         proTopWaitingLoaderService.immediate()
-        console.log(vm.account)
         User.login({
           msisdn: vm.account.phoneNumber.prefix + '' + vm.account.phoneNumber.number,
           password: vm.account.password
@@ -65,7 +81,8 @@
     'c7s.ng.userAuth',
     'ui.router',
     'profitelo.services.login-state',
-    'profitelo.directives.pro-top-alert-service'
+    'profitelo.directives.pro-top-alert-service',
+    'profitelo.swaggerResources'
   ])
   .config(config)
   .controller('AccountFormController', AccountFormController)
