@@ -1,6 +1,6 @@
 (function() {
 
-  function SetNewPasswordController($state, $stateParams, validateToken) {
+  function SetNewPasswordController($state, $stateParams, validateToken, loginStateService) {
 
     console.log(validateToken)
     
@@ -35,7 +35,8 @@
   angular.module('profitelo.controller.login.set-new-password', [
     'ui.router',
     'profitelo.services.login-state',
-    'c7s.providers.stateDelay'
+    'c7s.providers.stateDelay',
+    'profitelo.services.login-state'
   ])
   .config(config)
   .controller('SetNewPasswordController', SetNewPasswordController)

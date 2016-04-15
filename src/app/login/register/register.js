@@ -1,6 +1,6 @@
 (function() {
 
-  function RegisterController($filter, $timeout, proTopWaitingLoaderService, passwordStrengthService) {
+  function RegisterController($filter, $timeout, proTopWaitingLoaderService, passwordStrengthService, loginStateService) {
     var vm = this
     vm.passwordStrength = 0
     vm.current = 1
@@ -65,7 +65,8 @@
 
   angular.module('profitelo.controller.login.register', [
     'ui.router',
-    'profitelo.directives.password-strength-service'
+    'profitelo.directives.password-strength-service',
+    'profitelo.services.login-state'
   ])
   .config(config)
   .controller('RegisterController', RegisterController)

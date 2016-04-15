@@ -1,6 +1,6 @@
 (function() {
 
-  function AccountFormController($scope, $timeout, $state, $filter, proTopWaitingLoaderService, User, proTopAlertService) {
+  function AccountFormController($scope, $timeout, $state, $filter, proTopWaitingLoaderService, User, proTopAlertService, loginStateService) {
     var vm = this
 
     vm.current = 1
@@ -70,7 +70,8 @@
   angular.module('profitelo.controller.login.account', [
     'ui.router',
     'c7s.ng.userAuth',
-    'ui.router'
+    'ui.router',
+    'profitelo.services.login-state'
   ])
   .config(config)
   .controller('AccountFormController', AccountFormController)

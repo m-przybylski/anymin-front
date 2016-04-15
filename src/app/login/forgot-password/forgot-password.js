@@ -1,6 +1,6 @@
 (function() {
 
-  function ForgotPasswordController() {
+  function ForgotPasswordController(loginStateService) {
 
   }
 
@@ -15,7 +15,8 @@
 
 
   angular.module('profitelo.controller.login.forgot-password', [
-    'ui.router'
+    'ui.router',
+    'profitelo.services.login-state'
   ])
   .config(config)
   .controller('ForgotPasswordController', ForgotPasswordController)
