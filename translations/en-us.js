@@ -67,7 +67,8 @@
         		'REGISTER.SERVICE_EMAIL_PLACEHOLDER':'np. jan.kowalski@profitelo.pl',
         		'REGISTER.SERVICE_PASSWORD':'ustaw nowe hasło do swojego konta',
         		'REGISTER.SERVICE_PASSWORD_PLACEHOLDER':'Hasło powinno składać się z minimum 8 znaków',
-        		'REGISTER.SERVICE_PASSWORD_STRENGTH':'Siła Hasła'
+        		'REGISTER.SERVICE_PASSWORD_STRENGTH':'Siła Hasła',
+        		'REGISTER.USER_PHONE':'Twój numer:'
         })
     }])
 })(angular);
