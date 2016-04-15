@@ -39,11 +39,11 @@
           vm.isPending = false
           proTopWaitingLoaderService.stopLoader()
           $state.go('app.dashboard.start')
-          proTopAlertService.success($filter('translate')('LOGIN.SUCCESSFUL_LOGIN'), null, 5)
+          proTopAlertService.success($filter('translate')('LOGIN.SUCCESSFUL_LOGIN'), null, 3)
         }, (error) => {
           vm.isPending = false
           proTopWaitingLoaderService.stopLoader()
-          proTopAlertService.warning($filter('translate')('LOGIN.BAD_LOGIN_CREDENTIALS'), null, 5)
+          proTopAlertService.warning($filter('translate')('LOGIN.BAD_LOGIN_CREDENTIALS'), null, 3)
         })
       }
     }
@@ -64,7 +64,8 @@
     'ui.router',
     'c7s.ng.userAuth',
     'ui.router',
-    'profitelo.services.login-state'
+    'profitelo.services.login-state',
+    'profitelo.directives.pro-top-alert-service'
   ])
   .config(config)
   .controller('AccountFormController', AccountFormController)

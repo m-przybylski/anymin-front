@@ -1,13 +1,13 @@
 (function() {
 
-  function RegisterController($filter, $timeout, proTopWaitingLoaderService, passwordStrengthService, loginStateService) {
+  function RegisterController($filter, $timeout, $state, proTopWaitingLoaderService, passwordStrengthService, proTopAlertService, accountObject) {
     var vm = this
     vm.passwordStrength = 0
     vm.current = 1
     vm.isPending = false
     vm.rulesAccepted = false
 
-    vm.account = loginStateService.getAccountObject()
+    vm.account = accountObject
 
     vm.back = () => {
       vm.current -= 1
@@ -52,6 +52,13 @@
         }, Math.floor((Math.random() * 20) + 1) * 100)
       }
     }
+
+    vm.completeRegistration = () => {
+      proTopAlertService.success($filter('translate')('REGISTER.REGISTRATION_SUCCESS'))
+      $state.go('app.dashboard.start')
+      
+    }
+
     return vm
   }
 
@@ -60,7 +67,18 @@
       url: '/register',
       controllerAs: 'vm',
       controller: 'RegisterController',
-      templateUrl: 'login/register/register.tpl.html'
+      templateUrl: 'login/register/register.tpl.html',
+      resolve: {
+        accountObject: (loginStateService, $state, $filter, proTopAlertService) => {
+          let _account = loginStateService.getAccountObject()
+          $state.go('app.login.account')
+          if (_account.phoneNumber.number === null) {
+            proTopAlertService.warning($filter('translate')('REGISTER.ENTER_PHONE_NUMBER_FIRST'), null, 3)
+            $state.transitionTo('app.login.account', null, {reload: true, notify:true})
+          }
+          return _account
+        }
+      }
     })
   }
 
@@ -68,7 +86,8 @@
   angular.module('profitelo.controller.login.register', [
     'ui.router',
     'profitelo.directives.password-strength-service',
-    'profitelo.services.login-state'
+    'profitelo.services.login-state',
+    'profitelo.directives.pro-top-alert-service'
   ])
   .config(config)
   .controller('RegisterController', RegisterController)

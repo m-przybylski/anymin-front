@@ -1,4 +1,4 @@
-function DashboardController(User) {
+function DashboardController($state, $filter, User, proTopAlertService) {
   let vm = this
 
   vm.isSidebarOpen = false
@@ -11,7 +11,13 @@ function DashboardController(User) {
   }
   
   vm.logout = () => {
-    User.logout()
+
+    let action = () => {
+      proTopAlertService.success($filter('translate')('LOGIN.SUCCESSFUL_LOGOUT'), null, 2)
+      $state.go('app.login.account')
+    }
+
+    User.logout().then(action, action)
   }
   
   return vm
@@ -20,7 +26,9 @@ function DashboardController(User) {
 
 angular.module('profitelo.controller.dashboard', [
   'ui.router',
-  'c7s.ng.userAuth'
+  'c7s.ng.userAuth',
+  'profitelo.directives.pro-top-alert-service'
+  
 ])
 .config( function($stateProvider) {
   $stateProvider.state('app.dashboard', {

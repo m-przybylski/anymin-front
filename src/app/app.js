@@ -6,43 +6,12 @@
     if (typeof lastCommitMessage !== 'undefined') {
       $rootScope.gitCommit = lastCommitMessage
     }
-
-
+    
     return vm
   }
 
-  function runFunction($rootScope, User) {
+  function runFunction($rootScope, $cookies, AuthorizationService, UserService) {
 
-    // Check if user have proper rights to see next view
-    var _userTransfer
-    _userTransfer = function(event, toState) {
-      User.pageAccessCheck(event, toState).then(function(pageAccessCheckResponse) {
-        // Error handling if needed. Why it is always in success promise take
-        // a look on documentation of method.
-        if (pageAccessCheckError.code === 'x401') {
-          toastr.success(pageAccessCheckResponse.msg, 'Page redirect')
-          $state.go('app.login')
-        }
-        // else if (pageAccessCheckResponse.code === 'x200') {
-        // console.log(pageAccessCheckResponse.code, pageAccessCheckResponse.msg)
-        // }
-        console.log('pageAccessCheck')
-      })
-    }
-
-    // Check if user has proper ApiKey form backend
-    var _validateUserAccess
-    _validateUserAccess = (event, toState) => {
-      let apikey = User.getApiKeyHeader()
-      if (apikey) {
-        User.setApiKeyHeader(apikey)
-      }
-      User.getStatus().then( (getStatusResponse) => {
-        _userTransfer(event, toState)
-      }, (getStatusError) => {
-        _userTransfer(event, toState)
-      })
-    }
 
     $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
       console.log('$stateChangeError', 'event:', event, ' toState', toState, 'toParams', toParams, ' fromState', fromState, ' fromParams', fromParams, ' error:', error)
