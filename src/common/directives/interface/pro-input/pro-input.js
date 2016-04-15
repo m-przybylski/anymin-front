@@ -39,6 +39,17 @@ function proInput() {
     scope.hideCross = function() {
       return ('noDelete' in attr)
     }
+    scope.onMouseover = ()=> {
+      scope.onHover = true
+      scope.focus = false
+      scope.onOut = false
+    }
+    scope.onMouseout = ()=> {
+      scope.onHover = false
+      scope.focus = false
+      scope.onOut = true
+    }
+
   }
   return {
     templateUrl:  'directives/interface/pro-input/pro-input.tpl.html',
