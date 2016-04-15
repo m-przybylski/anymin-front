@@ -35,6 +35,7 @@
         		'DASHBOARD.MENU.EXPERT':'Ekspert',
         		'DASHBOARD.MENU.EXPERT_BASE':'Baza Ekspertów',
         		'DASHBOARD.MENU.FAVOURITES':'Ulubione',
+        		'DASHBOARD.MENU.LOGOUT':'Wyloguj',
         		'DASHBOARD.MENU.MY_ACCOUNT':'Moje Konto',
         		'DASHBOARD.MENU.NOTIFICATION':'Powiadomienia',
         		'DASHBOARD.MENU.STEP1_ONE_PERSON':'Świadczę usługę jednoosobowo',
