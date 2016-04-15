@@ -14,7 +14,7 @@
       vm.current = 1
     }
 
-    let _determinePhoneNumerStatus = (status) => {
+    let _determinePhoneNumberStatus = (status) => {
       switch (status) {
       case 'REGISTERED':
         vm.current = 2
@@ -34,11 +34,11 @@
           msisdn: vm.account.phoneNumber.prefix + vm.account.phoneNumber.number
         }).$promise.then((response) => {
           vm.isPending = false
-          _determinePhoneNumerStatus(response.status)
+          _determinePhoneNumberStatus(response.status)
           proTopWaitingLoaderService.stopLoader()
         }, (error) => {
           vm.isPending = false
-          proTopAlertService.error($filter('translate')('INTERFACE.API_ERROR'), null, 2)
+          proTopAlertService.error($filter('translate')('INTERFACE.API_ERROR'), null, 4)
           proTopWaitingLoaderService.stopLoader()
         })
       }

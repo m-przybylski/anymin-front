@@ -1,11 +1,11 @@
 (function() {
 
-  function loginStateService() {
+  function loginStateService($state, $timeout) {
 
     let _account = {
       phoneNumber: {
-        prefix: '+00',
-        number: '000000000'
+        prefix: null,
+        number: null
       },
       password: ''
     }
@@ -20,7 +20,9 @@
     }
   }
 
-  angular.module('profitelo.services.login-state', [])
+  angular.module('profitelo.services.login-state', [
+    'ui.router'
+  ])
   .service('loginStateService', loginStateService)
 
 }())
