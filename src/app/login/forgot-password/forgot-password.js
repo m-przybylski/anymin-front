@@ -1,6 +1,16 @@
 (function() {
 
-  function ForgotPasswordController(loginStateService) {
+  function ForgotPasswordController($state, loginStateService) {
+
+    let vm = this
+
+    vm.account = loginStateService.getAccountObject()
+
+    // if (vm.account.phoneNumber.number === null || vm.account.phoneNumber.prefix === null) {
+    //   $state.go('app.login.account')
+    // }
+
+    return vm
 
   }
 

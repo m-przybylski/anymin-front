@@ -45,6 +45,7 @@
         		'LOGIN.ENTER_NUMBER':'wpisz swój numer',
         		'LOGIN.ENTER_NUMBER_PLACEHOLDER':'np. 599-546-342',
         		'LOGIN.FORGOT_PASSWORD':'Nie pamiętasz hasła?',
+        		'LOGIN.FORGOT_PASSWORD.EMAIL_HAD_BEEN_SENT':'Na twój adres email został wysłany link do zmiany hasła.',
         		'LOGIN.NEXT':'Dalej',
         		'LOGIN.NO_EMPTY_PASSWORD':'Hasło nie może być puste',
         		'LOGIN.OUR_SERVICES_1':'Prowadzimy już',

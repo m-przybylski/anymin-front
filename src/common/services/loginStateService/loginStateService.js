@@ -2,7 +2,13 @@
 
   function loginStateService() {
 
-    let _account = {}
+    let _account = {
+      phoneNumber: {
+        prefix: null,
+        number: null
+      },
+      password: ''
+    }
 
     return {
       setAccountObject: (account) => {

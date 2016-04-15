@@ -4,12 +4,11 @@
 
     console.log(validateToken)
     
-    
   }
 
   function config($stateProvider) {
     $stateProvider.state('app.login.set-new-password', {
-      url: '/set-new-password/:method/:token',
+      url: '/set-new-password/token/:token',
       controllerAs: 'vm',
       controller: 'SetNewPasswordController',
       templateUrl: 'login/set-new-password/set-new-password.tpl.html',

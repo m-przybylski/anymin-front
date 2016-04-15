@@ -5,15 +5,8 @@
 
     vm.current = 1
     vm.isPending = false
-
-    // User input variables
-    vm.account = {
-      phoneNumber: {
-        prefix: null,
-        number: null
-      },
-      password: ''
-    }
+    
+    vm.account = loginStateService.getAccountObject()
 
     vm.backToPhoneNumber = () => {
       $scope.phoneNumberForm.$setPristine()
@@ -28,6 +21,7 @@
         $timeout(function() {
           vm.isPending = false
           vm.current = 2
+          loginStateService.setAccountObject(vm.account)
           proTopWaitingLoaderService.stopLoader()
         }, Math.floor((Math.random() * 20) + 1) * 100)
       }
@@ -37,6 +31,7 @@
       if (!vm.isPending) {
         vm.isPending = true
         proTopWaitingLoaderService.immediate()
+        console.log(vm.account)
         User.login({
           msisdn: vm.account.phoneNumber.prefix + '' + vm.account.phoneNumber.number,
           password: vm.account.password
@@ -44,13 +39,11 @@
           vm.isPending = false
           proTopWaitingLoaderService.stopLoader()
           $state.go('app.dashboard.start')
-          proTopAlertService.success($filter('translate')('LOGIN.SUCCESSFUL_LOGIN'))
+          proTopAlertService.success($filter('translate')('LOGIN.SUCCESSFUL_LOGIN'), null, 5)
         }, (error) => {
           vm.isPending = false
           proTopWaitingLoaderService.stopLoader()
-          // proTopAlertService.warning($filter('translate')('LOGIN.BAD_LOGIN_CREDENTIALS'))
-          $state.go('app.dashboard.start')
-          proTopAlertService.success($filter('translate')('LOGIN.SUCCESSFUL_LOGIN'))
+          proTopAlertService.warning($filter('translate')('LOGIN.BAD_LOGIN_CREDENTIALS'), null, 5)
         })
       }
     }

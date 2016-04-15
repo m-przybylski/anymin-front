@@ -6,7 +6,9 @@
     vm.current = 1
     vm.isPending = false
     vm.rulesAccepted = false
-    
+
+    vm.account = loginStateService.getAccountObject()
+
     vm.back = () => {
       vm.current -= 1
     }
