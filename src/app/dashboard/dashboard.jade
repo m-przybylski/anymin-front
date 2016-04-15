@@ -1,6 +1,6 @@
 .container.main-container
-  a.pro-btn.btn-main.btn-small.menu-toogle(data-ng-click="dashboardController.toogleSidebar()")
-    i.icon.icon-menu
+  a.pro-btn.btn-main.btn-small.menu-toogle(data-ng-click="vm.toogleSidebar()")
+    i.icon.icon-menu-16
   .sidebar
     .left-column
       .top-row
@@ -34,15 +34,15 @@
       .bottom-row
         .switcher
           a.pro-btn.btn-main.btn-small
-            i.icon.icon-tiny-arrow-right
+            i.icon.icon-arrow-right-24
             p Wyszukiwarka
         .switcher-tools
           .option-left
             a
-              i.icon.icon-tiny-close
+              i.icon.icon-close-12
           .option-right
             a
-              i.icon.icon-tiny-arrow-right
+              i.icon.icon-arrow-right-24
           
   
   .right-container(data-ng-class="{'slide-out':dashboardController.isSidebarOpen}")

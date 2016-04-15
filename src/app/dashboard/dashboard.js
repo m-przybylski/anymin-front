@@ -1,7 +1,10 @@
 function DashboardController() {
-  var vm = this
+  let vm = this
 
   vm.isSidebarOpen = false
+
+  let _sidebar = $('.sidebar')
+  _sidebar.perfectScrollbar()
 
   vm.toogleSidebar=function() {
     vm.isSidebarOpen = !vm.isSidebarOpen
