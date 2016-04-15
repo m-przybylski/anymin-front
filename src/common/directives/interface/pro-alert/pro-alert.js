@@ -6,10 +6,9 @@
       let addAlert = (alerts)=> {
         scope.alerts = alerts
       }
+
       scope.destroyAlert = (alertId)=> {
-        _.remove(scope.alerts, (alert)=> {
-          return alert.id === alertId
-        })
+        proTopAlertService.destroyAlert(alertId)
       }
 
       proTopAlertService.bindAlert(addAlert)
