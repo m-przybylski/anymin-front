@@ -1,4 +1,4 @@
-function DashboardController() {
+function DashboardController(User) {
   let vm = this
 
   vm.isSidebarOpen = false
@@ -9,12 +9,18 @@ function DashboardController() {
   vm.toogleSidebar=function() {
     vm.isSidebarOpen = !vm.isSidebarOpen
   }
+  
+  vm.logout = () => {
+    User.logout()
+  }
+  
   return vm
 }
 
 
 angular.module('profitelo.controller.dashboard', [
-  'ui.router'
+  'ui.router',
+  'c7s.ng.userAuth'
 ])
 .config( function($stateProvider) {
   $stateProvider.state('app.dashboard', {

@@ -11,11 +11,37 @@
     return vm
   }
 
-  function runFunction($rootScope, $cookies, AuthorizationService, UserService) {
-    let _apiKey = $cookies.get('X-Api-Key')
-    if (typeof _apiKey !== 'undefined') {
-      AuthorizationService.setApiKeyHeader(_apiKey)
-      UserService.fetchData()
+  function runFunction($rootScope, User) {
+
+    // Check if user have proper rights to see next view
+    var _userTransfer
+    _userTransfer = function(event, toState) {
+      User.pageAccessCheck(event, toState).then(function(pageAccessCheckResponse) {
+        // Error handling if needed. Why it is always in success promise take
+        // a look on documentation of method.
+        if (pageAccessCheckError.code === 'x401') {
+          toastr.success(pageAccessCheckResponse.msg, 'Page redirect')
+          $state.go('app.login')
+        }
+        // else if (pageAccessCheckResponse.code === 'x200') {
+        // console.log(pageAccessCheckResponse.code, pageAccessCheckResponse.msg)
+        // }
+        console.log('pageAccessCheck')
+      })
+    }
+
+    // Check if user has proper ApiKey form backend
+    var _validateUserAccess
+    _validateUserAccess = (event, toState) => {
+      let apikey = User.getApiKeyHeader()
+      if (apikey) {
+        User.setApiKeyHeader(apikey)
+      }
+      User.getStatus().then( (getStatusResponse) => {
+        _userTransfer(event, toState)
+      }, (getStatusError) => {
+        _userTransfer(event, toState)
+      })
     }
 
     $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
@@ -23,23 +49,7 @@
     })
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, error) {
-      if (angular.isDefined(toState.data) && angular.isDefined(toState.data.hideDashboardMenu)) {
-        $rootScope.hideDashboardMenu = toState.data.hideDashboardMenu
-      } else {
-        $rootScope.hideDashboardMenu = false
-      }
 
-      if (angular.isDefined(toState.data) && angular.isDefined(toState.data.showRegistrationFooter)) {
-        $rootScope.registrationFooterData = {
-          show:   toState.data.showRegistrationFooter,
-          step1:  ''
-        }
-      } else {
-        $rootScope.registrationFooterData = {
-          show:   false,
-          step1:  ''
-        }
-      }
     })
   }
 
@@ -100,6 +110,9 @@
           s.parentNode.insertBefore(tk, s)
 
           return deferred.promise
+        },
+        session: (User) => {
+          User.getStatus()
         }
       }
     })
