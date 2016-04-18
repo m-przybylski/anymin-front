@@ -1,7 +1,7 @@
 .create-profile
   background-color: $c-white
   .title-row
-    padding: 24px 30px
+    padding: 24px 15px
     text-transform: uppercase
     border-bottom: 1px solid $c-lines
     display: flex
@@ -12,7 +12,7 @@
     align-items: center
     height: 96px
     +mdm
-      padding: 24px 15px
+      padding: 24px 30px
     .title
       h2
         text-align: center
@@ -21,8 +21,9 @@
         margin-left: 70px
         color: $c-primary
         font-weight: bold
+        line-height: 22px
         +mdm
-          margin-left: 30px
+          margin-left: 0
     .close-button
       a
         text-decoration: none
@@ -32,16 +33,20 @@
           background-color: $c-background
       .btn-light
         margin: 0
+        i
+          font-size: 16px
+
   .bottom-row
     color: $c-lines
     padding-top: 5px
-    padding: 15px 30px 30px
-    border-bottom: 1px solid $c-lines
+    padding: 24px 24px
     background-color: $c-primary
+    height: 96px
+    // position: fixed
     .next-step
       margin-top: 0
       +mdm
-        margin-top: -30px
+        margin-top: -32px
     .btn-medium
       background-color: $c-white
       color: $c-primary
@@ -55,10 +60,13 @@
       align-items: center
       width: 100%
       color: $c-white
+      margin-top: -24px
       +mdm
         width: 75%
-      h4
+      h5
         color: $c-white
+        font-weight: bold
+        text-transform: uppercase
     .loader-container
       display: flex
       flex-direction: column
@@ -68,13 +76,14 @@
       align-items: center
       +mdm
         flex-direction: row
-        margin-top: -30px
+        margin-top: -27px
       .password-verify
         width: 100%
         +mdm
           width: 75%
         .loader
           background-color: $c-primary-hover
+          margin-top: -4px
         .progress-bar
           background-color: $c-white
           +border-radius(5px)
