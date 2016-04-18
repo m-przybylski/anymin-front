@@ -38,7 +38,10 @@
           proTopWaitingLoaderService.stopLoader()
         }, (error) => {
           vm.isPending = false
-          proTopAlertService.error($filter('translate')('INTERFACE.API_ERROR'), null, 4)
+          proTopAlertService.error({
+            message: $filter('translate')('INTERFACE.API_ERROR'),
+            timeout: 4
+          })
           proTopWaitingLoaderService.stopLoader()
         })
       }
@@ -55,11 +58,17 @@
           vm.isPending = false
           proTopWaitingLoaderService.stopLoader()
           $state.go('app.dashboard.start')
-          proTopAlertService.success($filter('translate')('LOGIN.SUCCESSFUL_LOGIN'), null, 3)
+          proTopAlertService.success({
+            message: $filter('translate')('LOGIN.SUCCESSFUL_LOGIN'),
+            timeout: 5
+          })
         }, (error) => {
           vm.isPending = false
           proTopWaitingLoaderService.stopLoader()
-          proTopAlertService.warning($filter('translate')('LOGIN.BAD_LOGIN_CREDENTIALS'), null, 3)
+          proTopAlertService.warning({
+            message: $filter('translate')('LOGIN.BAD_LOGIN_CREDENTIALS'),
+            timeout: 5
+          })
         })
       }
     }

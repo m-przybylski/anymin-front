@@ -2,12 +2,11 @@ function proInputPassword() {
 
   function linkFunction(scope, element, attr) {
 
-
     scope.required = false
     scope.focus = false
-    scope.onOut = false
+    scope.onClick = false
     scope.inputType = 'password'
-
+    let placeholder = scope.placeholder
     let _input = $(element).find('input')
 
     if ('required' in attr.$attr) {
@@ -19,17 +18,27 @@ function proInputPassword() {
     }
     scope.onFocus = function() {
       scope.focus = true
-      scope.onOut = false
+      scope.onClick = true
+      scope.placeholder = ''
     }
     scope.onFocusOut = function() {
       scope.focus = false
-      scope.onOut = true
+      scope.onClick = false
+      scope.placeholder = placeholder
     }
     scope.passwordHandler = function() {
       if (scope.inputType === 'password') {
         scope.inputType = 'text'
       } else {
         scope.inputType = 'password'
+      }
+    }
+    scope.onMouseover = ()=> {
+      scope.focus = true
+    }
+    scope.onMouseout = ()=> {
+      if (!scope.onClick) {
+        scope.focus = false
       }
     }
   }
