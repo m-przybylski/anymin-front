@@ -1,38 +1,18 @@
 (function() {
 
-  function ForgotPasswordController($state, loginStateService, proTopWaitingLoaderService, $timeout) {
+  function ForgotPasswordController($state, account) {
 
     let vm = this
     vm.isPending = false
-    vm.account = loginStateService.getAccountObject()
-    vm.current = 1
-    // if (vm.account.phoneNumber.number === null || vm.account.phoneNumber.prefix === null) {
-    //   $state.go('app.login.account')
-    // }
+    vm.account = account
 
-    vm.getSmsCodeStatus = () => {
-      if (!vm.isPending) {
-        vm.isPending = true
-        proTopWaitingLoaderService.immediate()
-        $timeout(function() {
-          vm.isPending = false
-          $state.go('app.login.set-new-password')
-          proTopWaitingLoaderService.stopLoader()
-        }, Math.floor((Math.random() * 20) + 1) * 100)
-      }
+    vm.forceSmsRecovery = () => {
+      $state.go('app.login.forgot-password', { method: 'sms' }, { reload: true })
     }
 
-    vm.goToSms = () => {
-      if (!vm.isPending) {
-        vm.isPending = true
-        proTopWaitingLoaderService.immediate()
-        $timeout(function() {
-          vm.isPending = false
-          vm.current = 2
-          proTopWaitingLoaderService.stopLoader()
-        }, Math.floor((Math.random() * 20) + 1) * 100)
-      }
-    }
+    // vm.submitSmsVerificationCode
+
+    console.log(account)
 
     return vm
 
@@ -40,17 +20,22 @@
 
   function config($stateProvider) {
     $stateProvider.state('app.login.forgot-password', {
-      url: '/forgot-password',
+      url: '/forgot-password/{method:sms}',
       controllerAs: 'vm',
       controller: 'ForgotPasswordController',
-      templateUrl: 'login/forgot-password/forgot-password.tpl.html'
+      templateUrl: 'login/forgot-password/forgot-password.tpl.html',
+      resolve: {
+        account: (AppLoginForgotPasswordResolverService, $stateParams) => {
+          return AppLoginForgotPasswordResolverService.resolve($stateParams)
+        }
+      }
     })
   }
 
 
   angular.module('profitelo.controller.login.forgot-password', [
     'ui.router',
-    'profitelo.services.login-state'
+    'profitelo.services.resolvers.app.login.forgot-password'
   ])
   .config(config)
   .controller('ForgotPasswordController', ForgotPasswordController)

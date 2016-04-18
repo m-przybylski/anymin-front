@@ -4,8 +4,8 @@
 
     let _account = {
       phoneNumber: {
-        prefix: null,
-        number: null
+        prefix: '+21',
+        number: '345678765'
       },
       password: ''
     }

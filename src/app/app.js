@@ -183,6 +183,10 @@
     'profitelo.directives.pro-top-waiting-loader-service',
     'profitelo.directives.pro-top-alert-service',
 
+    // services - resolvers
+
+    'profitelo.services.resolvers.app.login.forgot-password',
+
     // controllers
     'profitelo.controller.dashboard',
     'profitelo.controller.dashboard.start',
