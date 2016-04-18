@@ -223,11 +223,7 @@
     'profitelo.directives.interface.pro-checkbox',
 
     // rest
-    'profitelo.api.accounts',
-    'profitelo.api.registration',
-    'profitelo.api.session',
-    'profitelo.api.industry',
-    'profitelo.api.categories',
+    'profitelo.swaggerResources',
 
     // translations
     'profitelo.translations.en-us',

@@ -85,7 +85,6 @@ function proCreateNewServiceCategory($timeout, wizardSectionControlService, Cate
 }
 
 angular.module('profitelo.directives.wizards.pro-create-new-service-category', [
-  'profitelo.api.categories'
 ])
 
 .directive('proCreateNewServiceCategory', proCreateNewServiceCategory)

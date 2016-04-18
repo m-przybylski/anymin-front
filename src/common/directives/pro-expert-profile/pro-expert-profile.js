@@ -231,10 +231,6 @@ angular.module('profitelo.directives.pro-expert-profile', [
   'lodash',
 
   // internal scripts
-  'profitelo.api.accounts',
-  'profitelo.api.session',
-  'profitelo.api.files',
-  'profitelo.api.profiles',
   'profitelo.services.user',
   'profitelo.directives.pro-profile-status',
   'profitelo.directives.pro-question-mark',

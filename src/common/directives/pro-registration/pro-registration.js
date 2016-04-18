@@ -84,11 +84,7 @@ angular.module('profitelo.directives.pro-registration', [
   'profitelo.modules.authorization',
   'profitelo.services.user',
   'profitelo.services.customTranslationHandler',
-  'profitelo.services.commonSettings',
-  'profitelo.api.accounts',
-  'profitelo.api.profiles',
-  'profitelo.api.session',
-  'profitelo.api.registration'
+  'profitelo.services.commonSettings'
 ])
 
 .directive('proRegistration', () =>{

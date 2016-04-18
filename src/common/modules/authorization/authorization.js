@@ -1,8 +1,6 @@
 angular.module('profitelo.modules.authorization', [
   'ngCookies',
-  'hellojs',
-  'profitelo.api.session',
-  'profitelo.api.registration'
+  'hellojs'
 ])
 
 .factory('AuthorizationService', AuthorizationService)

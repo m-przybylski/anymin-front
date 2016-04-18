@@ -17,8 +17,6 @@ angular.module('profitelo.directives.pro-login', [
   'ngCookies',
   'toastr',
   'profitelo.modules.authorization',
-  'profitelo.api.session',
-  'profitelo.api.registration',
   'pascalprecht.translate'
 ])
 

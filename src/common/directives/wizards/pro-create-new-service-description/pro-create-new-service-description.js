@@ -71,7 +71,6 @@ function proCreateNewServiceDescription($timeout, wizardSectionControlService, C
 }
 
 angular.module('profitelo.directives.wizards.pro-create-new-service-description', [
-  'profitelo.api.categories'
 ])
 
 .directive('proCreateNewServiceDescription', proCreateNewServiceDescription)

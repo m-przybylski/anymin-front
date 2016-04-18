@@ -73,7 +73,6 @@ function proCreateNewServiceIndustry($rootScope, wizardSectionControlService, Ca
 }
 
 angular.module('profitelo.directives.wizards.pro-create-new-service-industry', [
-  'profitelo.api.categories'
 ])
 
 .directive('proCreateNewServiceIndustry', proCreateNewServiceIndustry)

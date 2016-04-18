@@ -68,9 +68,6 @@ function config($stateProvider) {
 
 angular.module('profitelo.controller.expert-profile', [
   'ui.router',
-  // 'profitelo.api.accounts',
-  // 'profitelo.api.session',
-  'profitelo.api.profiles',
   'profitelo.directives.pro-expert-profile'
 ])
 .config(config)

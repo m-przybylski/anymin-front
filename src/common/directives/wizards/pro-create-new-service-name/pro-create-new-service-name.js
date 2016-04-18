@@ -73,7 +73,6 @@ angular.module('profitelo.directives.wizards.pro-create-new-service-name', [
   'pascalprecht.translate',
 
   // internal scripts
-  'profitelo.api.profiles',
   'profitelo.services.wizardSectionControl'
 ])
 

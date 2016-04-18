@@ -1,8 +1,5 @@
 angular.module('profitelo.controller.home', [
-  'ui.router',
-
-  // test dependency
-  'profitelo.api.accounts'
+  'ui.router'
 ])
 .config(($stateProvider) => {
   $stateProvider.state('app.home', {
