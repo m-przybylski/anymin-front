@@ -28,7 +28,8 @@ module.exports = {
         '**/*.js'
       ],
       exclude: [
-        'node_modules/**/*.js'
+        'node_modules/**/*.js',
+        'assets/angular-i18n/*.js'
       ]
     }
   },
