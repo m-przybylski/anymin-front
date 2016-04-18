@@ -4,6 +4,7 @@ angular.module('hellojs', [
 
 .factory('HellojsService', HellojsService)
 
+
 function HellojsService($q) {
 
   hello.init(
