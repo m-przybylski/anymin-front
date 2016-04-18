@@ -20,18 +20,17 @@
     }
 
     let _timeoutDestroy = (timeout, id) => {
-      let realTimeout = timeout * 1000
       if (typeof timeout !== 'undefined' && timeout !== null) {
+        let realTimeout = timeout * 1000
         $timeout(() => {
           _destroyAlert(id)
         }, realTimeout)
       }
     }
 
-    let _init = (mainOptions, options) => {
-      _pushAlert(mainOptions)
-      angular.extend(mainOptions, options)
-      _timeoutDestroy(mainOptions.timeout, mainOptions.id)
+    let _init = (options) => {
+      _pushAlert(options)
+      _timeoutDestroy(options.timeout, options.id)
     }
 
     return {
@@ -48,7 +47,7 @@
           type:     'success',
           timeout:  null
         }
-        _init(defaultOptions, options)
+        _init(angular.extend(defaultOptions, options))
       },
       warning: (options) => {
         let id = _setId()
@@ -60,7 +59,7 @@
           type:     'warning',
           timeout:  null
         }
-        _init(defaultOptions, options)
+        _init(angular.extend(defaultOptions, options))
       },
       error: (options) => {
         let id = _setId()
@@ -72,7 +71,7 @@
           type:     'error',
           timeout:  null
         }
-        _init(defaultOptions, options)
+        _init(angular.extend(defaultOptions, options))
       },
       info: (options) => {
         let id = _setId()
@@ -84,7 +83,7 @@
           type:     'info',
           timeout:  null
         }
-        _init(defaultOptions, options)
+        _init(angular.extend(defaultOptions, options))
       },
       destroyAlert: (alertId) => {
         _destroyAlert(alertId)
