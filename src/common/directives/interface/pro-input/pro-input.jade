@@ -1,5 +1,7 @@
 .input-group(data-ng-click="focusInput()"
-  class="{{focus ? 'onFocus' : ''}} {{onOut ? 'onFocusOut' : ''}}")
+  class="{{focus ? 'onFocus' : ''}} {{onClick ? 'onClick' : ''}}"
+  data-ng-mouseover="onMouseover()"
+  data-ng-mouseleave="onMouseout()")
   input(placeholder="{{placeholder}}"
   type="{{type}}"
   data-ng-model="proModel"

@@ -57,7 +57,7 @@
 
 
     // Variables
-    "no-undefined": 1,
+    "no-undefined": 0,
     "no-use-before-define": 1,
     "no-unused-vars": [0, {"vars": "local", "args": "after-used"}],
     "no-shadow": [1, {"builtinGlobals": false, "hoist": "functions", "allow": []}]
