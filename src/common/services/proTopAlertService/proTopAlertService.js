@@ -2,7 +2,7 @@
   function proTopAlertService($filter, $timeout) {
 
     let _alertArray = []
-
+    let defaultOptions = {}
     let _pushAlert = (alert) => {
       _alertArray.push(alert)
     }
@@ -21,66 +21,70 @@
 
     let _timeoutDestroy = (timeout, id) => {
       let realTimeout = timeout * 1000
-      if (typeof timeout !== 'undefined') {
+      if (typeof timeout !== 'undefined' && timeout !== null) {
         $timeout(() => {
           _destroyAlert(id)
         }, realTimeout)
       }
     }
 
+    let _init = (mainOptions, options) => {
+      _pushAlert(mainOptions)
+      angular.extend(mainOptions, options)
+      _timeoutDestroy(mainOptions.timeout, mainOptions.id)
+    }
+
     return {
       bindAlert: (alerts) => {
         alerts(_alertArray)
       },
-      success: (message, header, timeout, icon = 'icon-success-24') => {
-
-        // header = header === undefined ? $filter('translate')('KLUCZ.TRANSLACJI') : header;
+      success: (options) => {
         let id = _setId()
-        _pushAlert({
+        defaultOptions = {
           id:       id,
+          icon:    'icon-success-24',
+          message:  '',
+          header:   'Success',
           type:     'success',
-          header:   header,
-          message:  message,
-          icon:     icon
-        })
-        _timeoutDestroy(timeout, id)
-
+          timeout:  null
+        }
+        _init(defaultOptions, options)
       },
-      warning: (message, header, timeout, icon = 'icon-warning-24') => {
-
+      warning: (options) => {
         let id = _setId()
-        _pushAlert({
+        defaultOptions = {
           id:       id,
+          icon:    'icon-warning-24',
+          message:  '',
+          header:   'Warning',
           type:     'warning',
-          header:   header,
-          message:  message,
-          icon:     icon
-        })
-        _timeoutDestroy(timeout, id)
+          timeout:  null
+        }
+        _init(defaultOptions, options)
       },
-      error: (message, header, timeout, icon = 'icon-danger-24') => {
-
+      error: (options) => {
         let id = _setId()
-        _pushAlert({
+        defaultOptions = {
           id:       id,
+          icon:    'icon-danger-24',
+          message:  '',
+          header:   'Error',
           type:     'error',
-          header:   header,
-          message:  message,
-          icon:     icon
-        })
-        _timeoutDestroy(timeout, id)
+          timeout:  null
+        }
+        _init(defaultOptions, options)
       },
-      info: (message, header, timeout, icon = 'icon-info-24') => {
-
+      info: (options) => {
         let id = _setId()
-        _pushAlert({
+        defaultOptions = {
           id:       id,
+          icon:    'icon-info-24',
+          message:  '',
+          header:   'Info',
           type:     'info',
-          header:   header,
-          message:  message,
-          icon:     icon
-        })
-        _timeoutDestroy(timeout, id)
+          timeout:  null
+        }
+        _init(defaultOptions, options)
       },
       destroyAlert: (alertId) => {
         _destroyAlert(alertId)
