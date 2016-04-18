@@ -5,7 +5,7 @@
 
 
     vm.isPending = false
-    vm.current = 2
+    vm.current = 1
     vm.account = loginStateService.getAccountObject()
 
     vm.backToPhoneNumber = () => {
@@ -39,7 +39,7 @@
         }, (error) => {
           vm.isPending = false
           proTopAlertService.error({
-            header: $filter('translate')('INTERFACE.API_ERROR'),
+            message: $filter('translate')('INTERFACE.API_ERROR'),
             timeout: 4
           })
           proTopWaitingLoaderService.stopLoader()
@@ -59,14 +59,14 @@
           proTopWaitingLoaderService.stopLoader()
           $state.go('app.dashboard.start')
           proTopAlertService.success({
-            header: $filter('translate')('LOGIN.SUCCESSFUL_LOGIN'),
+            message: $filter('translate')('LOGIN.SUCCESSFUL_LOGIN'),
             timeout: 5
           })
         }, (error) => {
           vm.isPending = false
           proTopWaitingLoaderService.stopLoader()
           proTopAlertService.warning({
-            header: $filter('translate')('LOGIN.BAD_LOGIN_CREDENTIALS'),
+            message: $filter('translate')('LOGIN.BAD_LOGIN_CREDENTIALS'),
             timeout: 5
           })
         })

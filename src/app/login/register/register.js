@@ -41,7 +41,7 @@
         }, (error) => {
           vm.isPending = false
           proTopAlertService.error({
-            header: $filter('translate')('INTERFACE.API_ERROR'),
+            message: $filter('translate')('INTERFACE.API_ERROR'),
             timeout: 4
           })
           proTopWaitingLoaderService.stopLoader()
@@ -82,7 +82,7 @@
       }, () => {
         vm.isPending = false
         proTopAlertService.success({
-          header: $filter('translate')('REGISTER.REGISTRATION_SUCCESS')
+          message: $filter('translate')('REGISTER.REGISTRATION_SUCCESS')
         })
         $state.go('app.dashboard.start')
       })
@@ -114,7 +114,7 @@
 
           if (_account.phoneNumber.number === null) {
             proTopAlertService.warning({
-              header: $filter('translate')('REGISTER.ENTER_PHONE_NUMBER_FIRST'),
+              message: $filter('translate')('REGISTER.ENTER_PHONE_NUMBER_FIRST'),
               timeout: 3
             })
             _handleError()
@@ -128,7 +128,7 @@
               })
             }, (error) => {
               proTopAlertService.warning({
-                header: $filter('translate')('INTERFACE.API_ERROR'),
+                message: $filter('translate')('INTERFACE.API_ERROR'),
                 timeout: 3
               })
               _handleError()

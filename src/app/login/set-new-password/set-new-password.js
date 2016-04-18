@@ -27,7 +27,7 @@
             $state.go('app.login.account')
             stateDelay.onTransition(function() {
               proTopAlertService.warning({
-                header: 'No token. Try again'
+                message: 'No token. Try again'
               })
             })
           } else {
