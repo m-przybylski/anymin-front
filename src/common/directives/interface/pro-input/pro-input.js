@@ -5,9 +5,8 @@ function proInput() {
     scope.required = false
     scope.focus = false
     scope.onClick = false
-    let placeholder
+    let placeholder = scope.placeholder
     let _inputGroup = $(element)
-
 
     if (!scope.type) {
       scope.type = 'text'
@@ -28,7 +27,6 @@ function proInput() {
     scope.onFocus = function() {
       scope.focus = true
       scope.onClick = true
-      placeholder = scope.placeholder
       scope.placeholder = ''
     }
     scope.onFocusOut = function() {
@@ -48,7 +46,7 @@ function proInput() {
       scope.focus = true
     }
     scope.onMouseout = ()=> {
-      if(!scope.onClick){
+      if (!scope.onClick) {
         scope.focus = false
       }
     }

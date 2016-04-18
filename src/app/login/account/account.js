@@ -5,7 +5,7 @@
 
 
     vm.isPending = false
-    vm.current = 1
+    vm.current = 2
     vm.account = loginStateService.getAccountObject()
 
     vm.backToPhoneNumber = () => {

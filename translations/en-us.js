@@ -41,6 +41,7 @@
         		"DASHBOARD.MENU.STEP1_ONE_PERSON":"Świadczę usługę jednoosobowo",
         		"INTERFACE.API_ERROR":"Błąd podczas komunikacji z serwisem. Spróbuj ponownie",
         		"LOGIN.ACCEPT_RULES":"Zapoznałem się i akceptuje <a>regulamin</a> serwisu",
+        		"LOGIN.BACK":"Cofnij",
         		"LOGIN.BAD_LOGIN_CREDENTIALS":"Błędne hasło. Spróbuj ponownie.",
         		"LOGIN.DOWNLOAD_FREE_APP":"Pobierz bezpłatną aplikację na telefon:",
         		"LOGIN.ENTER_NUMBER":"wpisz swój numer",

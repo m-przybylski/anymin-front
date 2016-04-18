@@ -1,6 +1,3 @@
-.btn-handler
-    a.pro-btn.btn-light.btn-icon(data-ui-sref="app.login.account")
-        i.icon.icon-arrow-left-24.icon-standard
 form.pro-input-form(name="smsCodeForm" data-ng-submit="smsCodeForm.$valid && vm.getSmsCodeStatus()" novalidate)
     pro-input(data-label="{{ 'REGISTER.SERVICE_CODE' | translate }}"
     placeholder="{{ 'REGISTER.SERVICE_CODE_PLACEHOLDER' | translate }}"
@@ -12,4 +9,7 @@ form.pro-input-form(name="smsCodeForm" data-ng-submit="smsCodeForm.$valid && vm.
     required)
     .input-error-messages
         .error.left(data-ng-show="smsCodeForm.$submitted && smsCodeForm.$invalid" data-translate="REGISTER.CODE_REQUIRED")
-    button.pro-btn.btn-main.btn-medium(data-translate="LOGIN.NEXT" type="submit")
+
+    .btn-handler
+        button.pro-btn.btn-light.btn-medium(data-ui-sref="app.login.account" data-translate="LOGIN.BACK")
+        button.pro-btn.btn-main.btn-medium(type="submit" data-translate="LOGIN.NEXT")

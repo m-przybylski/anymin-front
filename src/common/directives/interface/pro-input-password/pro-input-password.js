@@ -2,12 +2,11 @@ function proInputPassword() {
 
   function linkFunction(scope, element, attr) {
 
-
     scope.required = false
     scope.focus = false
     scope.onClick = false
     scope.inputType = 'password'
-    let placeholder
+    let placeholder = scope.placeholder
     let _input = $(element).find('input')
 
     if ('required' in attr.$attr) {
@@ -20,7 +19,6 @@ function proInputPassword() {
     scope.onFocus = function() {
       scope.focus = true
       scope.onClick = true
-      placeholder = scope.placeholder
       scope.placeholder = ''
     }
     scope.onFocusOut = function() {
@@ -39,7 +37,7 @@ function proInputPassword() {
       scope.focus = true
     }
     scope.onMouseout = ()=> {
-      if(!scope.onClick){
+      if (!scope.onClick) {
         scope.focus = false
       }
     }
