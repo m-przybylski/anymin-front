@@ -3,6 +3,11 @@ function proInput() {
   function linkFunction(scope, element, attr) {
     
     scope.required = false
+    scope.focus = false
+    scope.onClick = false
+    let placeholder
+    let _inputGroup = $(element)
+
 
     if (!scope.type) {
       scope.type = 'text'
@@ -12,24 +17,24 @@ function proInput() {
       scope.required = true
     }
 
-    let _inputGroup = $(element)
     let _setAddon = function(value) {
       scope.addon = value
       scope.activeAddon = value
     }
-    scope.focus = false
-    scope.onOut = false
 
     scope.focusInput = function() {
       _inputGroup.find('input').focus()
     }
     scope.onFocus = function() {
       scope.focus = true
-      scope.onOut = false
+      scope.onClick = true
+      placeholder = scope.placeholder
+      scope.placeholder = ''
     }
     scope.onFocusOut = function() {
       scope.focus = false
-      scope.onOut = true
+      scope.onClick = false
+      scope.placeholder = placeholder
     }
     if (scope.addonText || scope.iconClass) {
       _setAddon(true)
@@ -40,14 +45,12 @@ function proInput() {
       return ('noDelete' in attr)
     }
     scope.onMouseover = ()=> {
-      scope.onHover = true
-      scope.focus = false
-      scope.onOut = false
+      scope.focus = true
     }
     scope.onMouseout = ()=> {
-      scope.onHover = false
-      scope.focus = false
-      scope.onOut = true
+      if(!scope.onClick){
+        scope.focus = false
+      }
     }
 
   }
