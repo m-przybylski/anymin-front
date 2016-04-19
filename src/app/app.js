@@ -1,16 +1,17 @@
 (function() {
-  function AppController($scope, $rootScope, InterfaceLanguageService) {
+  function AppController($rootScope, InterfaceLanguageService) {
     var vm = this
 
     InterfaceLanguageService.setLanguage(InterfaceLanguageService.getStartupLanguage())
+
     if (typeof lastCommitMessage !== 'undefined') {
       $rootScope.gitCommit = lastCommitMessage
     }
-    
+
     return vm
   }
 
-  function runFunction($rootScope, $cookies, AuthorizationService, UserService) {
+  function runFunction($rootScope) {
 
 
     $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
@@ -173,11 +174,9 @@
 
 
     // modules
-    'profitelo.modules.authorization',
     'templates-module',
 
     // services
-    'profitelo.services.user',
     'profitelo.services.customTranslationHandler',
     'profitelo.services.wizardSectionControl',
     'profitelo.services.interfaceLanguage',
@@ -190,7 +189,7 @@
     'profitelo.controller.dashboard.create-profile',
 
     'profitelo.controller.home',
-    'profitelo.controller.expert-profile',
+    // 'profitelo.controller.expert-profile',
     'profitelo.controller.expert-progress',
     'profitelo.controller.login',
     'profitelo.controller.login.account',
@@ -202,14 +201,10 @@
 
 
     // directives
-    'profitelo.directives.pro-registration',
-    'profitelo.directives.pro-registration-input-email',
-    'profitelo.directives.pro-registration-input-pass',
-    'profitelo.directives.pro-login',
     'profitelo.directives.pro-expert-progress',
     'profitelo.directives.pro-progress-box',
     'profitelo.directives.pro-progress-bar',
-    'profitelo.directives.pro-expert-profile',
+    // 'profitelo.directives.pro-expert-profile',
     'profitelo.directives.pro-top-waiting-loader',
     'profitelo.directives.password-strength-bar',
 

@@ -11,6 +11,20 @@
       ]
       scope.currentClass = 0
 
+      scope.$watch(()=> {
+        return scope.currentClass
+      }, (newValue, oldValue)=>{
+
+        scope.currentClass = Math.floor(scope.currentClass)
+
+        if (newValue > 4) {
+          scope.currentClass = 4
+        }
+        if (newValue < 0) {
+          scope.currentClass = 0
+        }
+      })
+
     }
     return {
       templateUrl: 'directives/password-strength-bar/password-strength-bar.tpl.html',
@@ -20,7 +34,6 @@
       scope: {
         currentClass: '=?'
       }
-
     }
   }
 

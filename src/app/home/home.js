@@ -11,7 +11,7 @@ angular.module('profitelo.controller.home', [
 })
 .controller('HomeController', HomeController)
 
-function HomeController(AccountsApi) {
+function HomeController() {
   var vm = this
 
   return vm
