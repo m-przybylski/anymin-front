@@ -19,11 +19,13 @@
     .slide-out
       display: none
       visibility: hidden
+      margin-left: 319px
+      +mdm
+        margin-left: 0
       @media screen and (min-width: 321px)
         display: block
         visibility: visible
       +transition
-      margin-left: 319px
       z-index: 10
 
     .right-container

@@ -1,7 +1,7 @@
 .container.main-container
   a.pro-btn.btn-main.btn-small.menu-toogle(data-ng-click="dashboardController.toogleSidebar()")
     i.icon.icon-menu-16
-  .sidebar(hm-swipeleft="dashboardController.toogleSidebar()" hm-swiperight="dashboardController.toogleSidebar()")
+  .sidebar(hm-swipeleft="dashboardController.toogleSidebar()")
     .left-column
       .top-row
         .logo
@@ -45,5 +45,5 @@
               i.icon.icon-settings-24
           
   
-  .right-container(data-ng-class="{'slide-out':dashboardController.isSidebarOpen}" hm-swipeleft="dashboardController.toogleSidebar()" hm-swiperight="dashboardController.toogleSidebar()")
+  .right-container(data-ng-class="{'slide-out':dashboardController.isSidebarOpen}" hm-swiperight="dashboardController.toogleSidebar()")
     div(data-ui-view="")
