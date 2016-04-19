@@ -27,6 +27,7 @@ function DashboardController($state, $filter, User, proTopAlertService) {
 angular.module('profitelo.controller.dashboard', [
   'ui.router',
   'c7s.ng.userAuth',
+  'hmTouchEvents',
   'profitelo.directives.pro-top-alert-service'
 
 ])

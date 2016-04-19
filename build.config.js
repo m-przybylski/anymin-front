@@ -66,7 +66,9 @@ module.exports = {
       'node_modules/hellojs/dist/hello.all.min.js',
       'node_modules/c7s-ng/build/c7s-ng.js',
       'node_modules/angular-lodash/angular-lodash.js',
-      'node_modules/hellojs/dist/hello.all.min.js'
+      'node_modules/hellojs/dist/hello.all.min.js',
+      'node_modules/hammerjs/hammer.js',
+      'node_modules/angular-hammer/angular.hammer.js'
     ],
     css: [
       'node_modules/angular-toastr/dist/angular-toastr.css',
