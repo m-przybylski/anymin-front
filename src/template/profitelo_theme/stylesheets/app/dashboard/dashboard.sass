@@ -20,7 +20,9 @@
     text-align: left
     margin-left: -15px
     padding: 0px 30px 0 45px
-    height: 100vh
+    height: auto
+    +xsm
+      height: 100vh
 
     .left-column-switcher
       text-align: left
@@ -30,6 +32,7 @@
     .middle-row
       width: 100%
       margin-left: -60px
+      float: left
       ul
         list-style-type: none
         li
@@ -60,6 +63,7 @@
     .top-row
       text-align: center
       width: 100%
+      float: left
       .logo
         margin-top: 30px
         img
@@ -146,6 +150,7 @@
           background-color: $c-background
           color: $c-primary
     .bottom-row
+      float: left
       .switcher
         p
           color: $c-white

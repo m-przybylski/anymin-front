@@ -7,9 +7,11 @@
     justify-content: space-between
     align-content: center
     align-items: center
-    min-height: 120%
+    min-height: 100%
     width: 100%
     background-color: $c-white
+    @media screen and (min-height: 570px)
+      min-height: 100vh
     +xsm
       width: 480px
       min-height: 100vh
@@ -56,9 +58,8 @@
       width: 100%
       padding: 0 20px
       position: relative
-      margin-top: 20px
+      margin-top: 10px
       float: left
-      padding-top: 50px
       +xsm
         width: 480px
         padding: 0 40px
