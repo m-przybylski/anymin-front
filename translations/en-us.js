@@ -57,6 +57,7 @@
         		"LOGIN.OUR_SERVICES_1":"Prowadzimy już",
         		"LOGIN.OUR_SERVICES_2":"usług!",
         		"LOGIN.PASSWORD_ATTEMPTS_EXCEEDED":"Wpisałeś błędnie hasło zbyt wiele razy. Poczekaj jeszcze {{time}} aby móc spróbować pownownie.",
+        		"LOGIN.PASSWORD_RECOVERY.ERROR":"Błąd podczas próby odzyskania twojego hasła. Spróbuj ponownie lub skontaktuj się z BOK.",
         		"LOGIN.PHONE_NUMBER_REQUIRED":"Podaj poprawny numer telefonu",
         		"LOGIN.PREFIX":"prefix",
         		"LOGIN.PREFIX_PLACEHOLDER":"+48",
