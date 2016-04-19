@@ -9,7 +9,7 @@ function DashboardController($state, $filter, User, proTopAlertService) {
   vm.toogleSidebar=function() {
     vm.isSidebarOpen = !vm.isSidebarOpen
   }
-  
+
   vm.logout = () => {
 
     let action = () => {
@@ -19,7 +19,7 @@ function DashboardController($state, $filter, User, proTopAlertService) {
 
     User.logout().then(action, action)
   }
-  
+
   return vm
 }
 
@@ -28,7 +28,7 @@ angular.module('profitelo.controller.dashboard', [
   'ui.router',
   'c7s.ng.userAuth',
   'profitelo.directives.pro-top-alert-service'
-  
+
 ])
 .config( function($stateProvider) {
   $stateProvider.state('app.dashboard', {
