@@ -58,7 +58,7 @@
         		"LOGIN.BAD_LOGIN_CREDENTIALS":"Błędne hasło. Spróbuj ponownie.",
         		"LOGIN.DOWNLOAD_FREE_APP":"Pobierz bezpłatną aplikację na telefon:",
         		"LOGIN.ENTER_NUMBER":"wpisz swój numer",
-        		"LOGIN.ENTER_NUMBER_PLACEHOLDER":"np. 599-546-342",
+        		"LOGIN.ENTER_NUMBER_PLACEHOLDER":"np. 599546342",
         		"LOGIN.FORGOT_PASSWORD":"Nie pamiętasz hasła?",
         		"LOGIN.FORGOT_PASSWORD.EMAIL_HAD_BEEN_SENT":"Na twój adres email został wysłany link do zmiany hasła.",
         		"LOGIN.NEXT":"Dalej",

@@ -15,9 +15,17 @@ angular.module('profitelo.controller.dashboard.expert-account', [
 function DashboardExpertAccountController() {
   var vm = this
 
-  vm.isActive = false
-  vm.activeButton = function() {
-    vm.isActive = !vm.isActive
+
+  vm.tab = 0
+  vm.setTab = function(tabId) {
+    if (vm.tab === tabId) {
+      vm.tab = 0
+    } else {
+      vm.tab = tabId
+    }
+  }
+  vm.isSet = function(tabId) {
+    return vm.tab === tabId
   }
 
   return vm
