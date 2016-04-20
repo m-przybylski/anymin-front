@@ -21,7 +21,8 @@ module.exports = {
   test_files: {
     js: [
       'node_modules/angular-mocks/angular-mocks.js',
-      'node_modules/jasmine-jquery/lib/jasmine-jquery.js'
+      'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
+      'swagger/swagger.def.js'
     ],
     sources: {
       include: [

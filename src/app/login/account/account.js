@@ -91,9 +91,11 @@
     'ui.router',
     'profitelo.services.login-state',
     'profitelo.directives.pro-top-alert-service',
-    'profitelo.swaggerResources'
+    'profitelo.swaggerResources',
+    'profitelo.directives.pro-top-waiting-loader-service'
   ])
   .config(config)
   .controller('AccountFormController', AccountFormController)
+
 
 }())
