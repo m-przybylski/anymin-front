@@ -1,4 +1,3 @@
-/* istanbul ignore next */
 (function(angular) {
   'use strict';
 
@@ -31,7 +30,6 @@
         };
       };
     })
-
     .provider('RecoverPasswordApi', function() {
 
       /**
@@ -210,7 +208,6 @@
 
           /**
           * @ngdoc method
-
           * @name .8.method:downloadFilePath
           * @methodOf .8
           * @description
@@ -223,7 +220,6 @@
             params: {
               'token': '@token',
             },
-
           }, $resourceActionConfig('8', 'downloadFilePath')),
 
           /**
@@ -240,7 +236,6 @@
             params: {
               'token': '@token',
             },
-
           }, $resourceActionConfig('9', 'uploadFilePath')),
 
           /**
@@ -296,7 +291,6 @@
 
           'requestVerification': angular.extend({
             method: 'POST',
-
             url: apiUrl + '/msisdns/verify',
           }, $resourceActionConfig('1', 'requestVerification')),
 
@@ -379,11 +373,11 @@
         });
       }];
     })
-        .provider('CategoryApi', function() {
+        .provider('AccountApi', function() {
 
       /**
       * @ngdoc service
-      * @name .Category
+      * @name .Account
       * @requires $resource
       * @requires apiUrl
       **/
@@ -409,10 +403,10 @@
           * @name .1.method:listAccounts
           * @methodOf .1
           * @description
-          * Get list of categories
+          * List accounts
           **/
 
-          'listCategoriesPath': angular.extend({
+          'listAccounts': angular.extend({
             method: 'GET',
             url: apiUrl + '/accounts',
             isArray: true,
@@ -423,14 +417,14 @@
           * @name .2.method:partialUpdateAccount
           * @methodOf .2
           * @description
-          * Get list of subCategories
+          * Partial update account
           **/
 
-          'subcategoryPath': angular.extend({
-            method: 'GET',
-            url: apiUrl + '/categories/:categoryId/subcategories',
+          'partialUpdateAccount': angular.extend({
+            method: 'PATCH',
+            url: apiUrl + '/accounts/:accountId',
             params: {
-              'categoryId': '@categoryId',
+              'accountId': '@accountId',
             },
           }, $resourceActionConfig('2', 'partialUpdateAccount')),
 
@@ -458,11 +452,11 @@
           * Retrieve account by id
           **/
 
-          'getCategoryPath': angular.extend({
+          'getAccount': angular.extend({
             method: 'GET',
-            url: apiUrl + '/index/categories/:categoryId',
+            url: apiUrl + '/accounts/:accountId',
             params: {
-              'categoryId': '@categoryId',
+              'accountId': '@accountId',
             },
           }, $resourceActionConfig('4', 'getAccount')),
 
@@ -659,7 +653,7 @@
             method: 'GET',
             url: apiUrl + '/services/:serviceId',
             params: {
-              'accountId': '@accountId',
+              'serviceId': '@serviceId',
             },
           }, $resourceActionConfig('2', 'getPath')),
         });
