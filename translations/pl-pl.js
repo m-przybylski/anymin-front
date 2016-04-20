@@ -11,6 +11,8 @@
         		"COMMON.DIRECTIVES.INTERFACE.UPLOADER.HEADER_UPLOAD":"Ukończono",
         		"COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO":"lub kliknij by wgrać pliki",
         		"COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO_UPLOAD":"plik {{ file }} z {{ files }}",
+        		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_NAME":"Nazwa Konsultacji",
+        		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_NAME_DESCRIPTION":"Możesz wpisać kilka problemów, w których się specjalizujesz.",
         		"DASHBOARD.CREATE_PROFILE.CREATE_PROFILE_TITLE":"Tworzenie konta usługodawcy",
         		"DASHBOARD.CREATE_PROFILE.FILE_PREVIEW":"Podgląd Pliku",
         		"DASHBOARD.CREATE_PROFILE.NEXT_STEP":"Kolejny Etap",
