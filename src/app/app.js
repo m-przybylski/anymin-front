@@ -192,6 +192,7 @@
     // services - resolvers
 
     'profitelo.services.resolvers.app.login.forgot-password',
+    'profitelo.services.resolvers.app.login.register',
 
     // controllers
     'profitelo.controller.dashboard',
