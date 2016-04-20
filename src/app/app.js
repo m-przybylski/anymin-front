@@ -46,9 +46,13 @@
       controller: 'AppController',
       templateUrl: 'templates/app.tpl.html',
       resolve: {
-        typeKit: ($q) => {
+        typeKit: ($q, $timeout) => {
 
-          var deferred = $q.defer()
+          let deferred = $q.defer()
+
+          let backupTimer = $timeout(()=>{
+            deferred.resolve()
+          })
 
           let config = {
               kitId: 'gxk2sou',
@@ -56,6 +60,7 @@
               async: true,
               active: function() {
                 deferred.resolve()
+                $timeout.cancel(backupTimer)
               }
             },
             h = document.documentElement, t = setTimeout(() => {
@@ -74,7 +79,8 @@
             try {
               Typekit.load(config)
             } catch (e) {
-              deferred.reject(e)
+              deferred.resolve(e)
+              $timeout.cancel(backupTimer)
             }
           }
           s.parentNode.insertBefore(tk, s)
