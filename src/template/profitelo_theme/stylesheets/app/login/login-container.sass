@@ -1,16 +1,20 @@
 .login-page
   .left-column
     display: flex
+    display: -webkit-flex
     flex-direction: column
     flex-wrap: nowrap
     justify-content: space-between
     align-content: center
     align-items: center
-    min-height: 100vh
+    min-height: 100%
     width: 100%
     background-color: $c-white
+    @media screen and (min-height: 570px)
+      min-height: 100vh
     +xsm
       width: 480px
+      min-height: 100vh
 
     .btn-handler
       display: inline-flex
@@ -24,9 +28,8 @@
           margin-left: 8px
     .top-content
       width: 100%
-      height: 100%
-      position: relative
       padding: 20px
+      float: left
       +xsm
         width: 480px
         padding: 40px
@@ -65,7 +68,8 @@
       width: 100%
       padding: 0 20px
       position: relative
-      margin-top: 20px
+      margin-top: 10px
+      float: left
       +xsm
         width: 480px
         padding: 0 40px
@@ -77,14 +81,19 @@
           padding-bottom: 32px
       .app-buttons
         display: flex
+        display: -webkit-flex
         justify-content: center
-        margin-bottom: 32px
+        margin-bottom: 0
+        +xsm
+          margin-bottom: 32px
         img
           height: 48px
           width: 140px
           &:nth-child(2)
             margin-left: 16px
       .footer
+        float: left
+        margin-top: 24px
         border-top: 1px solid $c-lines
         padding-top: 0
         text-align: center

@@ -7,14 +7,28 @@
     .menu-toogle
       z-index: 20
       position: fixed
-      margin-top: 30px
-      margin-left: 30px
-      padding: 12px 14px
+      margin-top: 24px
+      margin-left: 15px
+      padding: 12px 9px 3px
+      width: 48px
+      height: 48px
       +border-radius(50px)
       +mdm
         z-index: 0
+        margin-left: 24px
+    .slide-out
+      display: none
+      visibility: hidden
+      margin-left: 319px
+      +mdm
+        margin-left: 0
+      @media screen and (min-width: 321px)
+        display: block
+        visibility: visible
+      +transition
+      z-index: 10
+
     .right-container
-      padding-top: 30px
       position: absolute
       min-height: 100vh
       +transition
@@ -26,19 +40,13 @@
       -moz-box-shadow: 0px 0px 20px 0px rgba(234,234,234,1)
       box-shadow: 0px 0px 20px 0px rgba(234,234,234,1)
       width: 100%
-      padding-left: 15px
-      padding-right: 15px
       +mdm
         position: static
         z-index: 10
         -webkit-box-shadow: none
         -moz-box-shadow: none
         box-shadow: none
-        padding-left: 347px
-        padding-right: 30px
+        padding-left: 318px
+        padding-right: 0px
       h2
         margin: 0
-    .slide-out
-      +transition
-      margin-left: 319px
-      z-index: 10

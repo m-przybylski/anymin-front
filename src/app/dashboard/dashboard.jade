@@ -1,7 +1,7 @@
 .container.main-container
   a.pro-btn.btn-main.btn-small.menu-toogle(data-ng-click="dashboardController.toogleSidebar()")
     i.icon.icon-menu-16
-  .sidebar
+  .sidebar(hm-swipeleft="dashboardController.toogleSidebar()")
     .left-column
       .top-row
         .logo
@@ -18,20 +18,32 @@
           .option-left(data-translate="DASHBOARD.MENU.CLIENT")
           .option-right.active(data-translate="DASHBOARD.MENU.EXPERT")
       .middle-row
-        include ../../common/templates/dashboard/dashboard-menu.partial.jade
+        ul
+          li
+            a(data-translate="DASHBOARD.MENU.EXPERT_BASE")
+          li
+            a(data-translate="DASHBOARD.MENU.MY_ACCOUNT")
+          li
+            a(data-translate="DASHBOARD.MENU.AVAILABILITY")
+          li
+            a(data-translate="DASHBOARD.MENU.NOTIFICATION")
+            p.bandge 174
+          li
+            a(data-translate="DASHBOARD.MENU.FAVOURITES")
+            p.bandge 471
       .bottom-row
         .switcher
           a.pro-btn.btn-main.btn-small
-            i.icon.icon-arrow-right-24
-            p Wyszukiwarka
+            i.icon.icon-search-24
+            p(data-translate="DASHBOARD.MENU.SEARCH")
         .switcher-tools
           .option-left
             a
-              i.icon.icon-close-12
+              i.icon.icon-logout-24
           .option-right
             a
-              i.icon.icon-arrow-right-24
+              i.icon.icon-settings-24
           
   
-  .right-container(data-ng-class="{'slide-out':dashboardController.isSidebarOpen}")
+  .right-container(data-ng-class="{'slide-out':dashboardController.isSidebarOpen}" hm-swipeleft="dashboardController.toogleSidebar()" hm-swiperight="dashboardController.toogleSidebar()")
     div(data-ui-view="")

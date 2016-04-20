@@ -1,5 +1,5 @@
 .sidebar
-  position: fixed
+  position: absolute
   overflow-y: auto
   background-color: $c-white
   border-right: 1px solid $c-lines
@@ -10,6 +10,10 @@
   visibility: visible
   margin-left: 0
   z-index: 0
+  @media screen and (min-width: 321px)
+    position: fixed
+    overflow: scroll
+    height: 100%
   .left-column
     display: flex
     flex-direction: column
@@ -20,7 +24,9 @@
     text-align: left
     margin-left: -15px
     padding: 0px 30px 0 45px
-    height: 100vh
+    height: auto
+    @media screen and (min-height: 700px)
+      min-height: 100vh
 
     .left-column-switcher
       text-align: left
@@ -30,6 +36,7 @@
     .middle-row
       width: 100%
       margin-left: -60px
+      float: left
       ul
         list-style-type: none
         li
@@ -49,7 +56,7 @@
             padding: 0 5px
             font-size: 10px
             font-weight: bold
-            width: 35px
+            width: 32px
             text-align: center
             line-height: 17px
           a
@@ -60,6 +67,7 @@
     .top-row
       text-align: center
       width: 100%
+      float: left
       .logo
         margin-top: 30px
         img
@@ -128,6 +136,7 @@
           color: $c-secondary-txt
           font-weight: bold
           font-size: 12px
+          cursor: pointer
         .option-right
           width: 50%
           border: 1px solid $c-lines
@@ -139,11 +148,13 @@
           color: $c-secondary-txt
           font-weight: bold
           font-size: 12px
+          cursor: pointer
 
         .active
           background-color: $c-background
           color: $c-primary
     .bottom-row
+      float: left
       .switcher
         p
           color: $c-white
@@ -175,28 +186,22 @@
           border: 1px solid $c-lines
           border-top-left-radius: 5px
           border-bottom-left-radius: 5px
-          padding: 16px 0
+          padding: 16px 0 10px
           margin-left: -1px
           text-transform: uppercase
           color: $c-secondary-txt
           font-weight: bold
           font-size: 12px
+          cursor: pointer
         .option-right
           width: 50%
           border: 1px solid $c-lines
           border-top-right-radius: 5px
           border-bottom-right-radius: 5px
-          padding: 16px 0
+          padding: 16px 0 10px
           margin-left: -1px
           text-transform: uppercase
           color: $c-secondary-txt
           font-weight: bold
           font-size: 12px
-
-
-//.left-column-switcher
-//  visibility: visible
-//  +border-radius(0.3em)
-//  +mdm
-//    visibility: hidden
-//    width: 0
+          cursor: pointer
