@@ -2,7 +2,7 @@
 describe('Unit testing: profitelo.services.interfaceLanguage >', function() {
   describe('for InterfaceLanguageService service >', function() {
 
-    let InterfaceLanguageService  = null
+    let InterfaceLanguageService
 
     beforeEach(function() {
       module('profitelo.services.interfaceLanguage')
@@ -12,10 +12,6 @@ describe('Unit testing: profitelo.services.interfaceLanguage >', function() {
     beforeEach(inject(function($injector) {
       InterfaceLanguageService = $injector.get('InterfaceLanguageService')
     }))
-
-    afterEach(function() {
-      InterfaceLanguageService = null
-    })
 
 
     it('should have a dummy test', inject(function() {
@@ -229,7 +225,7 @@ describe('Unit testing: profitelo.services.interfaceLanguage >', function() {
 
 
       it('should set translation language if any parameter, URL or cookie has not been provided and exists into `_interfaceLanguages` array', function() {
-        expect(InterfaceLanguageService.getStartupLanguage()).toEqual('en-us')
+        expect(InterfaceLanguageService.getStartupLanguage()).toEqual('pl-pl')
       })
 
     })

@@ -1,3 +1,4 @@
+/* istanbul ignore next */
 (function(angular) {
     'use strict';
 
@@ -39,8 +40,13 @@
         		"DASHBOARD.MENU.MY_ACCOUNT":"Moje Konto",
         		"DASHBOARD.MENU.NOTIFICATION":"Powiadomienia",
         		"DASHBOARD.MENU.STEP1_ONE_PERSON":"Świadczę usługę jednoosobowo",
+        		"INTERFACE.ALERT_ERROR":"Error",
+        		"INTERFACE.ALERT_INFO":"Info",
+        		"INTERFACE.ALERT_SUCCESS":"Success",
+        		"INTERFACE.ALERT_WARNING":"Warning",
         		"INTERFACE.API_ERROR":"Błąd podczas komunikacji z serwisem. Spróbuj ponownie",
         		"LOGIN.ACCEPT_RULES":"Zapoznałem się i akceptuje <a>regulamin</a> serwisu",
+        		"LOGIN.BACK":"Cofnij",
         		"LOGIN.BAD_LOGIN_CREDENTIALS":"Błędne hasło. Spróbuj ponownie.",
         		"LOGIN.DOWNLOAD_FREE_APP":"Pobierz bezpłatną aplikację na telefon:",
         		"LOGIN.ENTER_NUMBER":"wpisz swój numer",
@@ -52,6 +58,7 @@
         		"LOGIN.OUR_SERVICES_1":"Prowadzimy już",
         		"LOGIN.OUR_SERVICES_2":"usług!",
         		"LOGIN.PASSWORD_ATTEMPTS_EXCEEDED":"Wpisałeś błędnie hasło zbyt wiele razy. Poczekaj jeszcze {{time}} aby móc spróbować pownownie.",
+        		"LOGIN.PASSWORD_RECOVERY.ERROR":"Błąd podczas próby odzyskania twojego hasła. Spróbuj ponownie lub skontaktuj się z BOK.",
         		"LOGIN.PHONE_NUMBER_REQUIRED":"Podaj poprawny numer telefonu",
         		"LOGIN.PREFIX":"prefix",
         		"LOGIN.PREFIX_PLACEHOLDER":"+48",

@@ -1,5 +1,6 @@
 .input-group
   +border-radius(0.2em)
+  +transition(0.4s)
   background-color: $c-white
   height: 64px
   width: 600px
@@ -17,9 +18,8 @@
     height: 175px
     line-height: 200%
     outline: none
-  &.hoverInput
-    background-color: red
   label
+    +transition(0.2s)
     position: absolute
     top: 10px
     padding-bottom: 13px
@@ -27,6 +27,7 @@
     &:after
       content: ""
   input
+    +transition(0.4s)
     position: absolute
     cursor: pointer
     bottom: 12px
@@ -107,8 +108,13 @@
 
   &.onFocus
     background-color: $c-background
+    input
+      background-color: $c-background
   &.onFocusOut
     background-color: $c-white
+  &.onClick
+    label
+      color: $c-secondary-txt
 
   >.select
     position: absolute

@@ -26,7 +26,9 @@
           if ($stateParams.token.length === '') {
             $state.go('app.login.account')
             stateDelay.onTransition(function() {
-              proTopAlertService.warning('No token. Try again')
+              proTopAlertService.warning({
+                message: 'No token. Try again'
+              })
             })
           } else {
             // TODO api call to check if code is correct

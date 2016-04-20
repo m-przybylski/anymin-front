@@ -1,3 +1,4 @@
+/* istanbul ignore next */
 (function(angular) {
     'use strict';
 
@@ -20,8 +21,8 @@
                 $httpBackend.whenGET(apiUrl + '/files/:token/download').respond();
                 $httpBackend.whenPOST(apiUrl + '/files/:token/upload').respond();
                 $httpBackend.whenPOST(apiUrl + '/msisdns').respond();
-                $httpBackend.whenGET(apiUrl + '/msisdns').respond();
                 $httpBackend.whenPOST(apiUrl + '/msisdns/verify').respond();
+                $httpBackend.whenPATCH(apiUrl + '/msisdns/:msisdnId').respond();
                 $httpBackend.whenDELETE(apiUrl + '/msisdns/:msisdnId').respond();
                 $httpBackend.whenPUT(apiUrl + '/msisdns/:msisdnId').respond();
                 $httpBackend.whenPATCH(apiUrl + '/msisdns/:msisdnId').respond();

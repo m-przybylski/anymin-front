@@ -1,7 +1,7 @@
 (function() {
   
   function PasswordStrengthFormulaService() {
-
+    /* istanbul ignore next */
     let stringReverse = function(str) {
       for (var i = str.length - 1, out = ''; i >= 0; out += str[i--]) {
         i
@@ -9,6 +9,8 @@
       return out
     }
 
+
+    /* istanbul ignore next */
     let _getStrength = (p) => {
 
       let matches = {
@@ -135,6 +137,7 @@
 
       return Math.max(0, Math.min(100, Math.round(strength)))
     }
+    /* istanbul ignore next */
 
     return (password) => {
       let strength = _getStrength(password)
@@ -143,6 +146,7 @@
         return 0
       }
 
+      
       switch (Math.ceil(strength/ 25)) {
       case 0:
       case 1:

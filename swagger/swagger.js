@@ -1,3 +1,4 @@
+/* istanbul ignore next */
 (function(angular) {
   'use strict';
 
@@ -253,6 +254,7 @@
               'token': '@token',
             },
           }, $resourceActionConfig('10', 'uploadFilePath')),
+
         });
       }];
     })
@@ -276,7 +278,7 @@
           * Add new msisdn
           **/
 
-          'addPath': angular.extend({
+          'requestVerification': angular.extend({
             method: 'POST',
             url: apiUrl + '/msisdns',
           }, $resourceActionConfig('0', 'addPath')),
@@ -286,12 +288,12 @@
           * @name .1.method:detailsPath
           * @methodOf .1
           * @description
-          * Get Details of msisdn
+          * Update status msisdn
           **/
 
-          'detailsPath': angular.extend({
-            method: 'GET',
-            url: apiUrl + '/msisdns',
+          'patchPath': angular.extend({
+            method: 'PATCH',
+            url: apiUrl + '/msisdns/:msisdnId',
             params: {
               'msisdnId': '@msisdnId',
             },
@@ -347,11 +349,11 @@
           * @name .5.method:patchPath
           * @methodOf .5
           * @description
-          * Update status msisdn
+          * Get Details of msisdn
           **/
 
-          'patchPath': angular.extend({
-            method: 'PATCH',
+          'detailsPath': angular.extend({
+            method: 'GET',
             url: apiUrl + '/msisdns/:msisdnId',
             params: {
               'msisdnId': '@msisdnId',
@@ -479,11 +481,11 @@
         });
       }];
     })
-        .provider('ProfileApi', function() {
+        .provider('CategoryApi', function() {
 
       /**
       * @ngdoc service
-      * @name .Profile
+      * @name .Category
       * @requires $resource
       * @requires apiUrl
       **/
@@ -499,11 +501,38 @@
           * Update profile
           **/
 
-          'updatePath': angular.extend({
-            method: 'PUT',
-            url: apiUrl + '/profiles/:expertId',
+          'listCategoriesPath': angular.extend({
+            method: 'GET',
+            url: apiUrl + '/index/categories',
+          }, $resourceActionConfig('1', 'listCategoriesPath')),
+
+          /**
+          * @ngdoc method
+          * @name .2.method:listPath
+          * @methodOf .2
+          * @description
+          * Get list of categories
+          **/
+
+          'listPath': angular.extend({
+            method: 'GET',
+            url: apiUrl + '/categories',
+            isArray: true,
+          }, $resourceActionConfig('2', 'listPath')),
+
+          /**
+          * @ngdoc method
+          * @name .3.method:subcategoryPath
+          * @methodOf .3
+          * @description
+          * Get list of subCategories
+          **/
+
+          'subcategoryPath': angular.extend({
+            method: 'GET',
+            url: apiUrl + '/categories/:categoryId/subcategories',
             params: {
-              'expertId': '@expertId',
+              'categoryId': '@categoryId',
             },
           }, $resourceActionConfig('0', 'updatePath')),
 
@@ -512,14 +541,14 @@
           * @name .1.method:detailsPath
           * @methodOf .1
           * @description
-          * Get Details of profile
+          * Retrieve category by id
           **/
 
-          'detailsPath': angular.extend({
+          'getCategoryPath': angular.extend({
             method: 'GET',
-            url: apiUrl + '/profiles/:expertId',
+            url: apiUrl + '/index/categories/:categoryId',
             params: {
-              'expertId': '@expertId',
+              'categoryId': '@categoryId',
             },
           }, $resourceActionConfig('1', 'detailsPath')),
 
@@ -538,16 +567,19 @@
 
           /**
           * @ngdoc method
-          * @name .3.method:addPath
-          * @methodOf .3
+          * @name .5.method:servicesCategoryPath
+          * @methodOf .5
           * @description
-          * Add new profile
+          * Get list of categories linked with service
           **/
 
-          'addPath': angular.extend({
+          'servicesCategoryPath': angular.extend({
             method: 'GET',
-            url: apiUrl + '/profiles/new',
-          }, $resourceActionConfig('3', 'addPath')),
+            url: apiUrl + '/categories/:categoryId/services',
+            params: {
+              'serviceId': '@serviceId',
+            },
+          }, $resourceActionConfig('5', 'servicesCategoryPath')),
         });
       }];
     })
