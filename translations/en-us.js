@@ -38,6 +38,7 @@
         		"DASHBOARD.MENU.LOGOUT":"Wyloguj",
         		"DASHBOARD.MENU.MY_ACCOUNT":"Moje Konto",
         		"DASHBOARD.MENU.NOTIFICATION":"Powiadomienia",
+        		"DASHBOARD.MENU.SEARCH":"Wyszukiwarka",
         		"DASHBOARD.MENU.STEP1_ONE_PERSON":"Świadczę usługę jednoosobowo",
         		"INTERFACE.ALERT_ERROR":"Error",
         		"INTERFACE.ALERT_INFO":"Info",

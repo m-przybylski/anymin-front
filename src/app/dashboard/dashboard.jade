@@ -35,7 +35,7 @@
         .switcher
           a.pro-btn.btn-main.btn-small
             i.icon.icon-search-24
-            p Wyszukiwarka
+            p(data-translate="DASHBOARD.MENU.SEARCH")
         .switcher-tools
           .option-left
             a
@@ -45,5 +45,5 @@
               i.icon.icon-settings-24
           
   
-  .right-container(data-ng-class="{'slide-out':dashboardController.isSidebarOpen}" hm-swiperight="dashboardController.toogleSidebar()")
+  .right-container(data-ng-class="{'slide-out':dashboardController.isSidebarOpen}" hm-swipeleft="dashboardController.toogleSidebar()" hm-swiperight="dashboardController.toogleSidebar()")
     div(data-ui-view="")
