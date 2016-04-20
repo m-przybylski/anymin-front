@@ -1,4 +1,3 @@
-/* istanbul ignore next */
 (function(angular) {
     'use strict';
 
@@ -31,6 +30,14 @@
         		"DASHBOARD.CREATE_PROFILE.STEP5_UPLOAD_DOCUMENT":"Wgrane dokumenty:",
         		"DASHBOARD.CREATE_PROFILE.STEP6_DESCRIPTION":"Podziel się linkami społecznościowymi lub inną stroną www.",
         		"DASHBOARD.CREATE_PROFILE.STEP6_TITLE":"Linki zewnętrzne:",
+        		"DASHBOARD.EXPERT_ACCOUNT.EXPERT_DESCRIPTION":"Opis Experta",
+        		"DASHBOARD.EXPERT_ACCOUNT.EXPERT_DOCUMENT_TITLE_DESCRIPTION":"Wgraj certyfikaty, dokumenty lub swoją wizytówkę.",
+        		"DASHBOARD.EXPERT_ACCOUNT.EXPERT_LANGUAGES":"Języki w jakich świadczysz konsultacje",
+        		"DASHBOARD.EXPERT_ACCOUNT.EXPERT_TITLE_DESCRIPTION":"Krótki opis Twojej działalności, czego można spodziewać po konsultacji.",
+        		"DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT":"Imię Nazwisko",
+        		"DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT_DESCRIPTION":"Podaj swoje Imię i Nazwisko pod którym będziesz prowadził konsultacje.",
+        		"DASHBOARD.EXPERT_ACCOUNT.PROFILE_PHOTO":"Zdjęcie Profilowe",
+        		"DASHBOARD.EXPERT_ACCOUNT.PROFILE_PHOTO_DESCRIPTION":"Zdjęcie powinno być w formacie jpg, png i nie przekraczać 2mb.",
         		"DASHBOARD.MENU.AVAILABILITY":"Dostępność",
         		"DASHBOARD.MENU.CLIENT":"Klient",
         		"DASHBOARD.MENU.EXPERT":"Ekspert",
