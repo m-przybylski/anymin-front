@@ -38,6 +38,7 @@
         		"DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT_DESCRIPTION":"Podaj swoje Imię i Nazwisko pod którym będziesz prowadził konsultacje.",
         		"DASHBOARD.EXPERT_ACCOUNT.PROFILE_PHOTO":"Zdjęcie Profilowe",
         		"DASHBOARD.EXPERT_ACCOUNT.PROFILE_PHOTO_DESCRIPTION":"Zdjęcie powinno być w formacie jpg, png i nie przekraczać 2mb.",
+        		"DASHBOARD.EXPERT_ACCOUNT.STEP1_PROGRESS_BAR_TITLE":"Etap 1 - Tworzenie profilu eksperta",
         		"DASHBOARD.MENU.AVAILABILITY":"Dostępność",
         		"DASHBOARD.MENU.CLIENT":"Klient",
         		"DASHBOARD.MENU.EXPERT":"Ekspert",
