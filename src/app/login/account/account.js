@@ -1,6 +1,6 @@
 (function() {
 
-  function AccountFormController($scope, $timeout, $state, $filter, AccountApi, proTopWaitingLoaderService, User, proTopAlertService, loginStateService) {
+  function AccountFormController($scope, $state, $filter, AccountApi, proTopWaitingLoaderService, User, proTopAlertService, loginStateService) {
     var vm = this
 
 

@@ -17,7 +17,7 @@ describe('Unit tests: login>', () => {
     })
 
     it('should exsist', ()=> {
-      return expect(!!LoginController).toBe(true)
+      expect(!!LoginController).toBe(true)
     })
 
   })
