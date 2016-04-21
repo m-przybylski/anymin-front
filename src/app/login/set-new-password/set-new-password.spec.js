@@ -6,7 +6,7 @@ describe('Unit tests: profitelo.controller.login.set-new-password >', () => {
 
     let _url = 'awesomeUrl'
 
-    let validateToken = {
+    let tokenStatus = {
       accountObject: {
         phoneNumber: {
           prefix: '+45',
@@ -24,6 +24,10 @@ describe('Unit tests: profitelo.controller.login.set-new-password >', () => {
       }
     }
 
+    beforeEach(module(function($provide) {
+      $provide.value('apiUrl', _url)
+    }))
+
     beforeEach(() => {
       module('profitelo.controller.login.set-new-password')
       module('profitelo.swaggerResources.definitions')
@@ -32,7 +36,7 @@ describe('Unit tests: profitelo.controller.login.set-new-password >', () => {
 
         SetNewPasswordController = $controller('SetNewPasswordController', {
           $state: $state,
-          validateToken: validateToken,
+          tokenStatus: tokenStatus,
           passwordStrengthService: _passwordStrengthService_
         })
       })

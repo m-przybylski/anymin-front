@@ -16,6 +16,9 @@
       },
       getAccountObject: () => {
         return angular.copy(_account)
+      },
+      getFullPhoneNumber: () => {
+        return String(_account.phoneNumber.prefix) + String(_account.phoneNumber.number)
       }
     }
   }

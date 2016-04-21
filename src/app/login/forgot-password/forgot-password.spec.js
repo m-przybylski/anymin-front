@@ -3,6 +3,8 @@ describe('Unit tests: profitelo.controller.login.forgot-password >', () => {
 
     let scope
     let ForgotPasswordController
+    let _RecoverPasswordApi
+
 
     let _url = 'awesomeUrl'
 
@@ -24,17 +26,27 @@ describe('Unit tests: profitelo.controller.login.forgot-password >', () => {
       }
     }
 
+    beforeEach(module(function($provide) {
+      $provide.value('apiUrl', _url)
+    }))
+
     beforeEach(() => {
       module('profitelo.controller.login.forgot-password')
       module('profitelo.swaggerResources.definitions')
-      inject(($rootScope, $controller) => {
+      inject(($rootScope, $controller, _RecoverPasswordApi_, _proTopWaitingLoaderService_, _proTopAlertService_) => {
         scope = $rootScope.$new()
 
         ForgotPasswordController = $controller('ForgotPasswordController', {
           $state: $state,
-          account: account
+          account: account,
+          RecoverPasswordApi: _RecoverPasswordApi_,
+          proTopWaitingLoaderService: _proTopWaitingLoaderService_,
+          proTopAlertService: _proTopAlertService_
 
         })
+
+        _RecoverPasswordApi = _RecoverPasswordApi_
+
       })
     })
 

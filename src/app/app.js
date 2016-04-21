@@ -239,8 +239,6 @@
   .run(runFunction)
   .config(configFunction)
   .controller('AppController', AppController)
-  .constant('apiUrl', ()=>{
-    return 'http://api.dev.profitelo.pl'
-  })
+  .constant('apiUrl', 'http://api.dev.profitelo.pl')
 
 }())
