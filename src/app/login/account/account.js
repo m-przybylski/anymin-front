@@ -8,6 +8,11 @@
     vm.current = 1
     vm.account = loginStateService.getAccountObject()
 
+    vm.prefix = [
+      {id: 1, name: '+48'},
+      {id: 2, name: '+48'}
+    ]
+
     vm.backToPhoneNumber = () => {
       $scope.phoneNumberForm.$setPristine()
       $scope.passwordForm.$setPristine()
@@ -85,6 +90,9 @@
     })
   }
 
+
+
+
   angular.module('profitelo.controller.login.account', [
     'ui.router',
     'c7s.ng.userAuth',
@@ -96,6 +104,6 @@
   ])
   .config(config)
   .controller('AccountFormController', AccountFormController)
-
+  .controller('SelectCtrl', SelectController)
 
 }())

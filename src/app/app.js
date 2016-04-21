@@ -198,6 +198,8 @@
     'profitelo.controller.dashboard',
     'profitelo.controller.dashboard.start',
     'profitelo.controller.dashboard.create-profile',
+    'profitelo.controller.dashboard.expert-account',
+    'profitelo.controller.dashboard.consultation-range',
 
     'profitelo.controller.home',
     // 'profitelo.controller.expert-profile',
