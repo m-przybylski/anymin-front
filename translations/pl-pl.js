@@ -12,8 +12,11 @@
         		"COMMON.DIRECTIVES.INTERFACE.UPLOADER.HEADER_UPLOAD":"Ukończono",
         		"COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO":"lub kliknij by wgrać pliki",
         		"COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO_UPLOAD":"plik {{ file }} z {{ files }}",
+        		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_COST_DESCRIPTION":"Sugerowana stawka 5zł",
         		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_NAME":"Nazwa Konsultacji",
         		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_NAME_DESCRIPTION":"Możesz wpisać kilka problemów, w których się specjalizujesz.",
+        		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_RANGE_COST_PER_MINUTE":"Stawka za minutę połączenia",
+        		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_RANGE_TITLE":"Zakres Konsultacji",
         		"DASHBOARD.CREATE_PROFILE.CREATE_PROFILE_TITLE":"Tworzenie konta usługodawcy",
         		"DASHBOARD.CREATE_PROFILE.FILE_PREVIEW":"Podgląd Pliku",
         		"DASHBOARD.CREATE_PROFILE.NEXT_STEP":"Kolejny Etap",
@@ -64,6 +67,8 @@
         		"LOGIN.ENTER_NUMBER":"wpisz swój numer",
         		"LOGIN.ENTER_NUMBER_PLACEHOLDER":"np. 599546342",
         		"LOGIN.FORGOT_PASSWORD":"Nie pamiętasz hasła?",
+        		"LOGIN.FORGOT_PASSWORD.BAD_EMAIL_TOKEN":"Błędny link. Sprawdź poprawność lub wygeneruj nowy.",
+        		"LOGIN.FORGOT_PASSWORD.BAD_SMS_CODE":"Błędnie wpisany kod",
         		"LOGIN.FORGOT_PASSWORD.EMAIL_HAD_BEEN_SENT":"Na twój adres email został wysłany link do zmiany hasła.",
         		"LOGIN.NEXT":"Dalej",
         		"LOGIN.NO_EMPTY_PASSWORD":"Hasło nie może być puste",
@@ -71,6 +76,7 @@
         		"LOGIN.OUR_SERVICES_2":"usług!",
         		"LOGIN.PASSWORD_ATTEMPTS_EXCEEDED":"Wpisałeś błędnie hasło zbyt wiele razy. Poczekaj jeszcze {{time}} aby móc spróbować pownownie.",
         		"LOGIN.PASSWORD_RECOVERY.ERROR":"Błąd podczas próby odzyskania twojego hasła. Spróbuj ponownie lub skontaktuj się z BOK.",
+        		"LOGIN.PASSWORD_RECOVERY.PASSWORD_HAD_BEEN_CHANGED":"Hasło zostało pomyślnie zmienione. Możesz zalogować się do swojego konta korzystając z nowego hasła.",
         		"LOGIN.PHONE_NUMBER_REQUIRED":"Podaj poprawny numer telefonu",
         		"LOGIN.PREFIX":"prefix",
         		"LOGIN.PREFIX_PLACEHOLDER":"+48",
@@ -92,7 +98,8 @@
         		"REGISTER.SERVICE_PASSWORD":"ustaw nowe hasło do swojego konta",
         		"REGISTER.SERVICE_PASSWORD_PLACEHOLDER":"Hasło powinno składać się z minimum 8 znaków",
         		"REGISTER.SERVICE_PASSWORD_STRENGTH":"Siła Hasła",
-        		"REGISTER.USER_PHONE":"Twój numer:"
+        		"REGISTER.USER_PHONE":"Twój numer:",
+        		"REGISTER.VALID_ERROR":"Wprowadz hasło oraz zaakceptuj regulamin"
         })
     }])
 })(angular);
