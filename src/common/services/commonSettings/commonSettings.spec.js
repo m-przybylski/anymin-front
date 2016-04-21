@@ -1,5 +1,5 @@
 describe('Unit testing: profitelo.services.commonSettings >', () => {
-  describe('for CommonSettingsService service >',() => {
+  describe('for CommonSettingsService service >', () => {
 
     let CommonSettingsService  = null
 
