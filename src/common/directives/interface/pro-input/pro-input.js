@@ -66,7 +66,8 @@ function proInput() {
       iconClass: '@',
       name: '@',
       type: '@',
-      maxlength: '@'
+      maxlength: '@',
+      ngPattern: '=?'
     }
 
   }
