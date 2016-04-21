@@ -1,38 +1,40 @@
 (function() {
-
-  function ForgotPasswordController($state, loginStateService, proTopWaitingLoaderService, $timeout) {
+  function ForgotPasswordController($state, account, $filter, RecoverPasswordApi, proTopWaitingLoaderService, proTopAlertService) {
 
     let vm = this
     vm.isPending = false
-    vm.account = loginStateService.getAccountObject()
-    vm.current = 1
-    // if (vm.account.phoneNumber.number === null || vm.account.phoneNumber.prefix === null) {
-    //   $state.go('app.login.account')
-    // }
+    vm.account = account
 
-    vm.getSmsCodeStatus = () => {
+    vm.forceSmsRecovery = () => {
+      $state.go('app.login.forgot-password', { method: 'sms' }, { reload: true })
+    }
+
+    vm.submitSmsVerificationCode = () => {
       if (!vm.isPending) {
         vm.isPending = true
         proTopWaitingLoaderService.immediate()
-        $timeout(function() {
+        RecoverPasswordApi.postRecoverPasswordVerifyMsisdn({
+          token: String(vm.smsCode),
+          msisdn: String(account.accountObject.phoneNumber.prefix) + String(account.accountObject.phoneNumber.number)
+        }).$promise.then(() => {
           vm.isPending = false
-          $state.go('app.login.set-new-password')
           proTopWaitingLoaderService.stopLoader()
-        }, Math.floor((Math.random() * 20) + 1) * 100)
+          $state.go('app.login.set-new-password', {
+            token: vm.smsCode,
+            method: 'sms'
+          })
+        }, () => {
+          vm.isPending = false
+          proTopWaitingLoaderService.stopLoader()
+          proTopAlertService.warning({
+            message: $filter('translate')('LOGIN.FORGOT_PASSWORD.BAD_SMS_CODE'),
+            timeout: 3
+          })
+        })
       }
+
     }
 
-    vm.goToSms = () => {
-      if (!vm.isPending) {
-        vm.isPending = true
-        proTopWaitingLoaderService.immediate()
-        $timeout(function() {
-          vm.isPending = false
-          vm.current = 2
-          proTopWaitingLoaderService.stopLoader()
-        }, Math.floor((Math.random() * 20) + 1) * 100)
-      }
-    }
 
     return vm
 
@@ -40,17 +42,25 @@
 
   function config($stateProvider) {
     $stateProvider.state('app.login.forgot-password', {
-      url: '/forgot-password',
+      url: '/forgot-password/{method:|sms}',
       controllerAs: 'vm',
       controller: 'ForgotPasswordController',
-      templateUrl: 'login/forgot-password/forgot-password.tpl.html'
+      templateUrl: 'login/forgot-password/forgot-password.tpl.html',
+      resolve: {
+        account: (AppLoginForgotPasswordResolverService, $stateParams) => {
+          return AppLoginForgotPasswordResolverService.resolve($stateParams)
+        }
+      }
     })
   }
 
 
   angular.module('profitelo.controller.login.forgot-password', [
     'ui.router',
-    'profitelo.services.login-state'
+    'profitelo.services.resolvers.app.login.forgot-password',
+    'profitelo.swaggerResources',
+    'profitelo.directives.pro-top-alert-service',
+    'profitelo.directives.pro-top-waiting-loader-service'
   ])
   .config(config)
   .controller('ForgotPasswordController', ForgotPasswordController)

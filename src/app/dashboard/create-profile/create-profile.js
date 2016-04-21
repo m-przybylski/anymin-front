@@ -14,6 +14,20 @@ angular.module('profitelo.controller.dashboard.create-profile', [
 
 function DashboardCreateProfileController() {
   var vm = this
-  
+
+
+  vm.tab = 0
+  vm.setTab = function(tabId) {
+    if (vm.tab === tabId) {
+      vm.tab = 0
+    } else {
+      vm.tab = tabId
+    }
+  }
+  vm.isSet = function(tabId) {
+    return vm.tab === tabId
+  }
+
+
   return vm
 }

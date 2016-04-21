@@ -1,5 +1,5 @@
 .ui-select-container.ui-select-bootstrap.dropdown(ng-class='{open: $select.open}')
     .ui-select-match
     input.form-control.ui-select-search(type='text', autocomplete='off', tabindex='-1', aria-expanded='true', aria-label='{{ $select.baseTitle }}', aria-owns='ui-select-choices-{{ $select.generatedId }}', aria-activedescendant='ui-select-choices-row-{{ $select.generatedId }}-{{ $select.activeIndex }}', placeholder='{{$select.placeholder}}', ng-model='$select.search', ng-show='$select.searchEnabled && $select.open', ng-change='update()')
-    span.dropdown-icon.icon.icon-tiny-arrow-down
+    span.dropdown-icon.icon-arrow-down-12
     .ui-select-choices

@@ -1,20 +1,23 @@
-function WizardsController() {
-  var vm = this
+/* istanbul ignore next */
+(function() {
+  function WizardsController() {
+    var vm = this
 
-  return vm
-}
+    return vm
+  }
 
-angular.module('profitelo.controller.wizards', [
-  'ui.router'
-])
-
-.config(function($stateProvider) {
-  $stateProvider.state('app.wizards', {
-    abstract:       true,
-    url:            '/wizards',
-    controller:     WizardsController,
-    controllerAs:   'vm',
-    templateUrl:    'wizards/wizards.tpl.html'
+  angular.module('profitelo.controller.wizards', [
+    'ui.router'
+  ])
+  .config(function($stateProvider) {
+    $stateProvider.state('app.wizards', {
+      abstract:       true,
+      url:            '/wizards',
+      controller:     WizardsController,
+      controllerAs:   'vm',
+      templateUrl:    'wizards/wizards.tpl.html'
+    })
   })
-})
 
+
+}())

@@ -1,14 +1,47 @@
 (function() {
 
-  function SetNewPasswordController($state, $stateParams, validateToken, loginStateService, passwordStrengthService) {
+  function SetNewPasswordController($state, $filter, tokenStatus, passwordStrengthService, proTopWaitingLoaderService, proTopAlertService, RecoverPasswordApi) {
 
-    console.log(validateToken)
     let vm = this
-    vm.back = ()=> {
-      $state.go('app.login.forgot-password')
+
+    let _passwordChangeError = () => {
+      $state.go('app.login.account')
+      proTopAlertService.error({
+        message: $filter('translate')('INTERFACE.API_ERROR'),
+        timeout: 2
+      })
     }
+    
+    let _passwordChangeSuccess = () => {
+      $state.go('app.login.account')
+      proTopAlertService.success({
+        message: $filter('translate')('LOGIN.PASSWORD_RECOVERY.PASSWORD_HAD_BEEN_CHANGED'),
+        timeout: 3
+      })
+    }
+    
+    let _submitPasswordChangeBySms = () => {
+      tokenStatus.payload.password = vm.newPassword
+      RecoverPasswordApi.putRecoverPasswordMsisdn(tokenStatus.payload).$promise.then(_passwordChangeSuccess, _passwordChangeError)
+    }
+
+    let _submitPasswordChangeByEmail = () => {
+      tokenStatus.payload.password = vm.newPassword
+      RecoverPasswordApi.putRecoverPasswordEmail(tokenStatus.payload).$promise.then(_passwordChangeSuccess, _passwordChangeError)
+    }
+
     vm.onPasswordChange = (password) => {
       vm.passwordStrength = passwordStrengthService(password)
+    }
+
+    vm.submitPasswordChange = () => {
+
+      if (tokenStatus.method === 'SMS') {
+        _submitPasswordChangeBySms()
+      } else {
+        _submitPasswordChangeByEmail()
+      }
+
     }
 
     return vm
@@ -17,25 +50,13 @@
 
   function config($stateProvider) {
     $stateProvider.state('app.login.set-new-password', {
-      url: '/set-new-password/token/:token',
+      url: '/set-new-password/token/:token/{method:|sms}',
       controllerAs: 'vm',
       controller: 'SetNewPasswordController',
       templateUrl: 'login/set-new-password/set-new-password.tpl.html',
       resolve: {
-        validateToken: ($stateParams, $state, stateDelay, proTopAlertService) => {
-          if ($stateParams.token.length === '') {
-            $state.go('app.login.account')
-            stateDelay.onTransition(function() {
-              proTopAlertService.warning({
-                message: 'No token. Try again'
-              })
-            })
-          } else {
-            // TODO api call to check if code is correct
-            return {
-              userId: 21312390432
-            }
-          }
+        tokenStatus: ($stateParams, AppLoginSetNewPasswordResolver) => {
+          return AppLoginSetNewPasswordResolver.resolve($stateParams)
         }
       }
     })
@@ -47,7 +68,11 @@
     'profitelo.services.login-state',
     'c7s.providers.stateDelay',
     'profitelo.services.login-state',
-    'profitelo.directives.password-strength-service'
+    'profitelo.directives.pro-top-alert-service',
+    'profitelo.directives.pro-top-waiting-loader-service',
+    'profitelo.directives.password-strength-service',
+    'profitelo.services.resolvers.app.login.set-new-password',
+    'profitelo.swaggerResources'
   ])
   .config(config)
   .controller('SetNewPasswordController', SetNewPasswordController)
