@@ -3,6 +3,8 @@ function DashboardController($state, $filter, User, proTopAlertService) {
 
   vm.isSidebarOpen = false
 
+  vm.isPending = false
+
   let _sidebar = $('.sidebar')
   _sidebar.perfectScrollbar()
 
@@ -12,12 +14,20 @@ function DashboardController($state, $filter, User, proTopAlertService) {
 
   vm.logout = () => {
 
+
+
     let action = () => {
+      vm.isPending = false
       proTopAlertService.success($filter('translate')('LOGIN.SUCCESSFUL_LOGOUT'), null, 2)
       $state.go('app.login.account')
     }
+    
+    if (!vm.isPending) {
+      vm.isPending = true
+      User.logout().then(action, action)
+    }
 
-    User.logout().then(action, action)
+
   }
 
   return vm
