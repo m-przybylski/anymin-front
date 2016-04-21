@@ -19,8 +19,8 @@
       templateUrl:  'directives/interface/pro-alert/pro-alert.tpl.html',
       restrict:     'E',
       replace:      true,
-      link: linkFunction
-
+      link: linkFunction,
+      scope: {}
     }
   }
 

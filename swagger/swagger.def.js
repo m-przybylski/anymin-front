@@ -2,46 +2,18 @@
 (function(angular) {
   'use strict';
 
-  var moduleName = 'profitelo.swaggerResources';
+  var moduleName = 'profitelo.swaggerResources.definitions';
 
   angular
-    .module(moduleName, ['ngResource'])
-    .provider('$resourceActionConfig', function () {
-      var actionConfigs = {$global: {}};
-
-      this.addActionConfig = function (resourceName, actionName, config) {
-        if (arguments.length === 1) {
-          actionConfigs.$global = resourceName; // resourceName === config
-          return this;
-        } else if (arguments.length === 2) {
-          config = actionName;
-          actionName = '$global';
-        }
-
-        actionConfigs[resourceName] = actionConfigs[resourceName] || {};
-        actionConfigs[resourceName][actionName] = config;
-        return this;
-      };
-
-      this.$get = function () {
-        return function (resourceName, actionName) {
-          return actionConfigs[resourceName]
-            ? (actionConfigs[resourceName][actionName] || actionConfigs[resourceName].$global)
-            : actionConfigs.$global;
-        };
-      };
-    })
-    .provider('RecoverPasswordApi', function() {
-
-      /**
+    .module(moduleName, [])
+    /**
       * @ngdoc service
       * @name .RecoverPassword
       * @requires $resource
       * @requires apiUrl
       **/
-
-      this.$get = ['$resource', 'apiUrl', '$resourceActionConfig', function($resource, apiUrl, $resourceActionConfig) {
-        return $resource(null, null, {
+    .service('RecoverPasswordApiDef', ['apiUrl', function(apiUrl) {
+        return {
 
           /**
           * @ngdoc method
@@ -51,10 +23,10 @@
           * Update password
           **/
 
-          'putRecoverPasswordMsisdn': angular.extend({
+          'putRecoverPasswordMsisdn': {
             method: 'PUT',
             url: apiUrl + '/recover-password/msisdn',
-          }, $resourceActionConfig('0', 'putRecoverPasswordMsisdn')),
+          },
 
           /**
           * @ngdoc method
@@ -64,10 +36,10 @@
           * Update password
           **/
 
-          'putRecoverPasswordEmail': angular.extend({
+          'putRecoverPasswordEmail': {
             method: 'PUT',
             url: apiUrl + '/recover-password/email',
-          }, $resourceActionConfig('1', 'putRecoverPasswordEmail')),
+          },
 
           /**
           * @ngdoc method
@@ -77,10 +49,10 @@
           * Verify Msisdn token
           **/
 
-          'postRecoverPasswordVerifyMsisdn': angular.extend({
+          'postRecoverPasswordVerifyMsisdn': {
             method: 'POST',
             url: apiUrl + '/recover-password/verify/msisdn',
-          }, $resourceActionConfig('2', 'postRecoverPasswordVerifyMsisdn')),
+          },
 
           /**
           * @ngdoc method
@@ -90,10 +62,10 @@
           * Create recover password
           **/
 
-          'postRecoverPassword': angular.extend({
+          'postRecoverPassword': {
             method: 'POST',
             url: apiUrl + '/recover-password',
-          }, $resourceActionConfig('3', 'postRecoverPassword')),
+          },
 
           /**
           * @ngdoc method
@@ -103,24 +75,20 @@
           * Verify email token
           **/
 
-          'postRecoverPasswordVerifyEmail': angular.extend({
+          'postRecoverPasswordVerifyEmail': {
             method: 'POST',
             url: apiUrl + '/recover-password/verify/email',
-          }, $resourceActionConfig('4', 'postRecoverPasswordVerifyEmail')),
-        });
-      }];
-    })
-        .provider('FilesApi', function() {
-
-      /**
+          }
+        };
+    }])
+        /**
       * @ngdoc service
       * @name .Files
       * @requires $resource
       * @requires apiUrl
       **/
-
-      this.$get = ['$resource', 'apiUrl', '$resourceActionConfig', function($resource, apiUrl, $resourceActionConfig) {
-        return $resource(null, null, {
+    .service('FilesApiDef', ['apiUrl', function(apiUrl) {
+        return {
 
           /**
           * @ngdoc method
@@ -130,13 +98,13 @@
           * Get profile gallery files
           **/
 
-          'profileGalleryPath': angular.extend({
+          'profileGalleryPath': {
             method: 'GET',
             url: apiUrl + '/profiles/:profileId/gallery',
             params: {
               'profileId': '@profileId',
             },
-          }, $resourceActionConfig('0', 'profileGalleryPath')),
+          },
 
           /**
           * @ngdoc method
@@ -146,13 +114,13 @@
           * Update file
           **/
 
-          'updateFilePath': angular.extend({
+          'updateFilePath': {
             method: 'PUT',
             url: apiUrl + '/files/:token',
             params: {
               'token': '@token',
             },
-          }, $resourceActionConfig('1', 'updateFilePath')),
+          },
 
           /**
           * @ngdoc method
@@ -162,13 +130,13 @@
           * Get details of file
           **/
 
-          'fileInfoPath': angular.extend({
+          'fileInfoPath': {
             method: 'GET',
             url: apiUrl + '/files/:token',
             params: {
               'token': '@token',
             },
-          }, $resourceActionConfig('2', 'fileInfoPath')),
+          },
 
           /**
           * @ngdoc method
@@ -178,13 +146,13 @@
           * Get profile avatar files
           **/
 
-          'profileAvatarsPath': angular.extend({
+          'profileAvatarsPath': {
             method: 'GET',
             url: apiUrl + '/profiles/:profileId/avatars',
             params: {
               'profileId': '@profileId',
             },
-          }, $resourceActionConfig('3', 'profileAvatarsPath')),
+          },
 
           /**
           * @ngdoc method
@@ -194,13 +162,13 @@
           * Get service gallery files
           **/
 
-          'serviceGalleryPath': angular.extend({
+          'serviceGalleryPath': {
             method: 'GET',
             url: apiUrl + '/services/:serviceId/gallery',
             params: {
               'serviceId': '@serviceId',
             },
-          }, $resourceActionConfig('4', 'serviceGalleryPath')),
+          },
 
           /**
           * @ngdoc method
@@ -210,7 +178,7 @@
           * Download resized file
           **/
 
-          'downloadResizedFilePath': angular.extend({
+          'downloadResizedFilePath': {
             method: 'GET',
             url: apiUrl + '/files/:token/download/:widthx:height',
             params: {
@@ -218,7 +186,7 @@
               'width': '@width',
               'heigth': '@heigth',
             },
-          }, $resourceActionConfig('5', 'downloadResizedFilePath')),
+          },
 
           /**
           * @ngdoc method
@@ -228,10 +196,10 @@
           * List all files
           **/
 
-          'listFilesPath': angular.extend({
+          'listFilesPath': {
             method: 'GET',
             url: apiUrl + '/files',
-          }, $resourceActionConfig('6', 'listFilesPath')),
+          },
 
           /**
           * @ngdoc method
@@ -241,10 +209,10 @@
           * Get file upload url
           **/
 
-          'tokenPath': angular.extend({
+          'tokenPath': {
             method: 'GET',
             url: apiUrl + '/files/token',
-          }, $resourceActionConfig('7', 'tokenPath')),
+          },
 
           /**
           * @ngdoc method
@@ -254,13 +222,13 @@
           * Get profile cover files
           **/
 
-          'profileCoversPath': angular.extend({
+          'profileCoversPath': {
             method: 'GET',
             url: apiUrl + '/profiles/:profileId/covers',
             params: {
               'profileId': '@profileId',
             },
-          }, $resourceActionConfig('8', 'profileCoversPath')),
+          },
 
           /**
           * @ngdoc method
@@ -270,13 +238,13 @@
           * Download file
           **/
 
-          'downloadFilePath': angular.extend({
+          'downloadFilePath': {
             method: 'GET',
             url: apiUrl + '/files/:token/download',
             params: {
               'token': '@token',
             },
-          }, $resourceActionConfig('9', 'downloadFilePath')),
+          },
 
           /**
           * @ngdoc method
@@ -286,27 +254,23 @@
           * Upload file
           **/
 
-          'uploadFilePath': angular.extend({
+          'uploadFilePath': {
             method: 'POST',
             url: apiUrl + '/files/:token/upload',
             params: {
               'token': '@token',
             },
-          }, $resourceActionConfig('10', 'uploadFilePath')),
-        });
-      }];
-    })
-        .provider('MsisdnApi', function() {
-
-      /**
+          }
+        };
+    }])
+        /**
       * @ngdoc service
       * @name .Msisdn
       * @requires $resource
       * @requires apiUrl
       **/
-
-      this.$get = ['$resource', 'apiUrl', '$resourceActionConfig', function($resource, apiUrl, $resourceActionConfig) {
-        return $resource(null, null, {
+    .service('MsisdnApiDef', ['apiUrl', function(apiUrl) {
+        return {
 
           /**
           * @ngdoc method
@@ -316,10 +280,10 @@
           * Add new msisdn
           **/
 
-          'addPath': angular.extend({
+          'addPath': {
             method: 'POST',
             url: apiUrl + '/msisdns',
-          }, $resourceActionConfig('0', 'addPath')),
+          },
 
           /**
           * @ngdoc method
@@ -329,10 +293,10 @@
           * Request msisdn verification
           **/
 
-          'requestVerification': angular.extend({
+          'requestVerification': {
             method: 'POST',
             url: apiUrl + '/msisdns/verify',
-          }, $resourceActionConfig('1', 'requestVerification')),
+          },
 
           /**
           * @ngdoc method
@@ -342,10 +306,10 @@
           * Confirm msisdn verification
           **/
 
-          'confirmVerification': angular.extend({
+          'confirmVerification': {
             method: 'POST',
             url: apiUrl + '/msisdns/verify/code',
-          }, $resourceActionConfig('2', 'confirmVerification')),
+          },
 
           /**
           * @ngdoc method
@@ -355,13 +319,13 @@
           * Update status msisdn
           **/
 
-          'patchPath': angular.extend({
+          'patchPath': {
             method: 'PATCH',
             url: apiUrl + '/msisdns/:msisdnId',
             params: {
               'msisdnId': '@msisdnId',
             },
-          }, $resourceActionConfig('3', 'patchPath')),
+          },
 
           /**
           * @ngdoc method
@@ -371,13 +335,13 @@
           * Delete msisdn
           **/
 
-          'deletePath': angular.extend({
+          'deletePath': {
             method: 'DELETE',
             url: apiUrl + '/msisdns/:msisdnId',
             params: {
               'msisdnId': '@msisdnId',
             },
-          }, $resourceActionConfig('4', 'deletePath')),
+          },
 
           /**
           * @ngdoc method
@@ -387,13 +351,13 @@
           * Update msisdn
           **/
 
-          'updatePath': angular.extend({
+          'updatePath': {
             method: 'PUT',
             url: apiUrl + '/msisdns/:msisdnId',
             params: {
               'msisdnId': '@msisdnId',
             },
-          }, $resourceActionConfig('5', 'updatePath')),
+          },
 
           /**
           * @ngdoc method
@@ -403,27 +367,23 @@
           * Get Details of msisdn
           **/
 
-          'detailsPath': angular.extend({
+          'detailsPath': {
             method: 'GET',
             url: apiUrl + '/msisdns/:msisdnId',
             params: {
               'msisdnId': '@msisdnId',
             },
-          }, $resourceActionConfig('6', 'detailsPath')),
-        });
-      }];
-    })
-        .provider('CategoryApi', function() {
-
-      /**
+          }
+        };
+    }])
+        /**
       * @ngdoc service
       * @name .Category
       * @requires $resource
       * @requires apiUrl
       **/
-
-      this.$get = ['$resource', 'apiUrl', '$resourceActionConfig', function($resource, apiUrl, $resourceActionConfig) {
-        return $resource(null, null, {
+    .service('CategoryApiDef', ['apiUrl', function(apiUrl) {
+        return {
 
           /**
           * @ngdoc method
@@ -433,13 +393,13 @@
           * Get list of categories linked with service
           **/
 
-          'servicesCategoryPath': angular.extend({
+          'servicesCategoryPath': {
             method: 'GET',
             url: apiUrl + '/categories/:categoryId/services',
             params: {
               'serviceId': '@serviceId',
             },
-          }, $resourceActionConfig('0', 'servicesCategoryPath')),
+          },
 
           /**
           * @ngdoc method
@@ -449,13 +409,13 @@
           * Get Details of category
           **/
 
-          'detailsPath': angular.extend({
+          'detailsPath': {
             method: 'GET',
             url: apiUrl + '/categories/:categoryId',
             params: {
               'categoryId': '@categoryId',
             },
-          }, $resourceActionConfig('1', 'detailsPath')),
+          },
 
           /**
           * @ngdoc method
@@ -465,10 +425,10 @@
           * Get list of categories
           **/
 
-          'listCategoriesPath': angular.extend({
+          'listCategoriesPath': {
             method: 'GET',
             url: apiUrl + '/index/categories',
-          }, $resourceActionConfig('2', 'listCategoriesPath')),
+          },
 
           /**
           * @ngdoc method
@@ -478,11 +438,11 @@
           * Get list of categories
           **/
 
-          'listPath': angular.extend({
+          'listPath': {
             method: 'GET',
             url: apiUrl + '/categories',
             isArray: true,
-          }, $resourceActionConfig('3', 'listPath')),
+          },
 
           /**
           * @ngdoc method
@@ -492,14 +452,14 @@
           * Get list of subCategories
           **/
 
-          'subcategoryPath': angular.extend({
+          'subcategoryPath': {
             method: 'GET',
             url: apiUrl + '/categories/:categoryId/subcategories',
             params: {
               'categoryId': '@categoryId',
             },
             isArray: true,
-          }, $resourceActionConfig('4', 'subcategoryPath')),
+          },
 
           /**
           * @ngdoc method
@@ -509,27 +469,23 @@
           * Retrieve category by id
           **/
 
-          'getCategoryPath': angular.extend({
+          'getCategoryPath': {
             method: 'GET',
             url: apiUrl + '/index/categories/:categoryId',
             params: {
               'categoryId': '@categoryId',
             },
-          }, $resourceActionConfig('5', 'getCategoryPath')),
-        });
-      }];
-    })
-        .provider('AccountApi', function() {
-
-      /**
+          }
+        };
+    }])
+        /**
       * @ngdoc service
       * @name .Account
       * @requires $resource
       * @requires apiUrl
       **/
-
-      this.$get = ['$resource', 'apiUrl', '$resourceActionConfig', function($resource, apiUrl, $resourceActionConfig) {
-        return $resource(null, null, {
+    .service('AccountApiDef', ['apiUrl', function(apiUrl) {
+        return {
 
           /**
           * @ngdoc method
@@ -539,13 +495,13 @@
           * Partial update account
           **/
 
-          'partialUpdateAccount': angular.extend({
+          'partialUpdateAccount': {
             method: 'PATCH',
             url: apiUrl + '/accounts/:accountId',
             params: {
               'accountId': '@accountId',
             },
-          }, $resourceActionConfig('0', 'partialUpdateAccount')),
+          },
 
           /**
           * @ngdoc method
@@ -555,13 +511,13 @@
           * Update account
           **/
 
-          'updateAccount': angular.extend({
+          'updateAccount': {
             method: 'PUT',
             url: apiUrl + '/accounts/:accountId',
             params: {
               'accountId': '@accountId',
             },
-          }, $resourceActionConfig('1', 'updateAccount')),
+          },
 
           /**
           * @ngdoc method
@@ -571,13 +527,13 @@
           * Retrieve account by id
           **/
 
-          'getAccount': angular.extend({
+          'getAccount': {
             method: 'GET',
             url: apiUrl + '/accounts/:accountId',
             params: {
               'accountId': '@accountId',
             },
-          }, $resourceActionConfig('2', 'getAccount')),
+          },
 
           /**
           * @ngdoc method
@@ -587,13 +543,13 @@
           * Retrieve
           **/
 
-          'getRegistrationStatusByMsisdn': angular.extend({
+          'getRegistrationStatusByMsisdn': {
             method: 'GET',
             url: apiUrl + '/accounts/check',
             params: {
               'msisdn': '@msisdn',
             },
-          }, $resourceActionConfig('3', 'getRegistrationStatusByMsisdn')),
+          },
 
           /**
           * @ngdoc method
@@ -603,13 +559,13 @@
           * Retrieve status of account by id
           **/
 
-          'statusPath': angular.extend({
+          'statusPath': {
             method: 'GET',
             url: apiUrl + '/accounts/:accountId/status',
             params: {
               'accountId': '@accountId',
             },
-          }, $resourceActionConfig('4', 'statusPath')),
+          },
 
           /**
           * @ngdoc method
@@ -619,10 +575,10 @@
           * Create account
           **/
 
-          'addAccount': angular.extend({
+          'addAccount': {
             method: 'POST',
             url: apiUrl + '/accounts',
-          }, $resourceActionConfig('5', 'addAccount')),
+          },
 
           /**
           * @ngdoc method
@@ -632,25 +588,21 @@
           * List accounts
           **/
 
-          'listAccounts': angular.extend({
+          'listAccounts': {
             method: 'GET',
             url: apiUrl + '/accounts',
             isArray: true,
-          }, $resourceActionConfig('6', 'listAccounts')),
-        });
-      }];
-    })
-        .provider('ServiceApi', function() {
-
-      /**
+          }
+        };
+    }])
+        /**
       * @ngdoc service
       * @name .Service
       * @requires $resource
       * @requires apiUrl
       **/
-
-      this.$get = ['$resource', 'apiUrl', '$resourceActionConfig', function($resource, apiUrl, $resourceActionConfig) {
-        return $resource(null, null, {
+    .service('ServiceApiDef', ['apiUrl', function(apiUrl) {
+        return {
 
           /**
           * @ngdoc method
@@ -660,10 +612,10 @@
           * Create a service
           **/
 
-          'postPath': angular.extend({
+          'postPath': {
             method: 'POST',
             url: apiUrl + '/services',
-          }, $resourceActionConfig('0', 'postPath')),
+          },
 
           /**
           * @ngdoc method
@@ -673,13 +625,13 @@
           * Update Details of a service
           **/
 
-          'putPath': angular.extend({
+          'putPath': {
             method: 'PUT',
             url: apiUrl + '/services/:serviceId',
             params: {
               'serviceId': '@serviceId',
             },
-          }, $resourceActionConfig('1', 'putPath')),
+          },
 
           /**
           * @ngdoc method
@@ -689,27 +641,23 @@
           * Get Details of a service
           **/
 
-          'getPath': angular.extend({
+          'getPath': {
             method: 'GET',
             url: apiUrl + '/services/:serviceId',
             params: {
               'serviceId': '@serviceId',
             },
-          }, $resourceActionConfig('2', 'getPath')),
-        });
-      }];
-    })
-        .provider('ProfileApi', function() {
-
-      /**
+          }
+        };
+    }])
+        /**
       * @ngdoc service
       * @name .Profile
       * @requires $resource
       * @requires apiUrl
       **/
-
-      this.$get = ['$resource', 'apiUrl', '$resourceActionConfig', function($resource, apiUrl, $resourceActionConfig) {
-        return $resource(null, null, {
+    .service('ProfileApiDef', ['apiUrl', function(apiUrl) {
+        return {
 
           /**
           * @ngdoc method
@@ -719,10 +667,10 @@
           * List profiles
           **/
 
-          'list': angular.extend({
+          'list': {
             method: 'GET',
             url: apiUrl + '/profiles',
-          }, $resourceActionConfig('0', 'list')),
+          },
 
           /**
           * @ngdoc method
@@ -732,13 +680,13 @@
           * Update profile
           **/
 
-          'updatePath': angular.extend({
+          'updatePath': {
             method: 'PUT',
             url: apiUrl + '/profiles/:profileId',
             params: {
               'expertId': '@expertId',
             },
-          }, $resourceActionConfig('1', 'updatePath')),
+          },
 
           /**
           * @ngdoc method
@@ -748,13 +696,13 @@
           * Get Details of profile
           **/
 
-          'detailsPath': angular.extend({
+          'detailsPath': {
             method: 'GET',
             url: apiUrl + '/profiles/:profileId',
             params: {
               'expertId': '@expertId',
             },
-          }, $resourceActionConfig('2', 'detailsPath')),
+          },
 
           /**
           * @ngdoc method
@@ -764,24 +712,20 @@
           * Add new profile
           **/
 
-          'addPath': angular.extend({
+          'addPath': {
             method: 'GET',
             url: apiUrl + '/profiles/new',
-          }, $resourceActionConfig('3', 'addPath')),
-        });
-      }];
-    })
-        .provider('RegistrationApi', function() {
-
-      /**
+          }
+        };
+    }])
+        /**
       * @ngdoc service
       * @name .Registration
       * @requires $resource
       * @requires apiUrl
       **/
-
-      this.$get = ['$resource', 'apiUrl', '$resourceActionConfig', function($resource, apiUrl, $resourceActionConfig) {
-        return $resource(null, null, {
+    .service('RegistrationApiDef', ['apiUrl', function(apiUrl) {
+        return {
 
           /**
           * @ngdoc method
@@ -791,10 +735,10 @@
           * Request msisdn verification
           **/
 
-          'requestVerification': angular.extend({
+          'requestVerification': {
             method: 'POST',
             url: apiUrl + '/msisdns/verify',
-          }, $resourceActionConfig('0', 'requestVerification')),
+          },
 
           /**
           * @ngdoc method
@@ -804,24 +748,20 @@
           * Confirm msisdn verification
           **/
 
-          'confirmVerification': angular.extend({
+          'confirmVerification': {
             method: 'POST',
             url: apiUrl + '/msisdns/verify/code',
-          }, $resourceActionConfig('1', 'confirmVerification')),
-        });
-      }];
-    })
-        .provider('SessionApi', function() {
-
-      /**
+          }
+        };
+    }])
+        /**
       * @ngdoc service
       * @name .Session
       * @requires $resource
       * @requires apiUrl
       **/
-
-      this.$get = ['$resource', 'apiUrl', '$resourceActionConfig', function($resource, apiUrl, $resourceActionConfig) {
-        return $resource(null, null, {
+    .service('SessionApiDef', ['apiUrl', function(apiUrl) {
+        return {
 
           /**
           * @ngdoc method
@@ -831,10 +771,10 @@
           * Login with username and password
           **/
 
-          'login': angular.extend({
+          'login': {
             method: 'POST',
             url: apiUrl + '/session',
-          }, $resourceActionConfig('0', 'login')),
+          },
 
           /**
           * @ngdoc method
@@ -844,10 +784,10 @@
           * Logout
           **/
 
-          'logout': angular.extend({
+          'logout': {
             method: 'DELETE',
             url: apiUrl + '/session',
-          }, $resourceActionConfig('1', 'logout')),
+          },
 
           /**
           * @ngdoc method
@@ -857,24 +797,20 @@
           * Check login state
           **/
 
-          'check': angular.extend({
+          'check': {
             method: 'GET',
             url: apiUrl + '/session',
-          }, $resourceActionConfig('2', 'check')),
-        });
-      }];
-    })
-        .provider('ProfileCreationRequestsApi', function() {
-
-      /**
+          }
+        };
+    }])
+        /**
       * @ngdoc service
       * @name .ProfileCreationRequests
       * @requires $resource
       * @requires apiUrl
       **/
-
-      this.$get = ['$resource', 'apiUrl', '$resourceActionConfig', function($resource, apiUrl, $resourceActionConfig) {
-        return $resource(null, null, {
+    .service('ProfileCreationRequestsApiDef', ['apiUrl', function(apiUrl) {
+        return {
 
           /**
           * @ngdoc method
@@ -884,13 +820,12 @@
           * Create profile creation requests
           **/
 
-          'profileCreationRequestPath': angular.extend({
+          'profileCreationRequestPath': {
             method: 'POST',
             url: apiUrl + '/profileCreationRequests',
-          }, $resourceActionConfig('0', 'profileCreationRequestPath')),
-        });
-      }];
-    })
+          }
+        };
+    }])
     ;
 
     if (typeof exports !== 'undefined') {
