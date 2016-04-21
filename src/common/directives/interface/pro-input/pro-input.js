@@ -16,20 +16,20 @@ function proInput() {
       scope.required = true
     }
 
-    let _setAddon = function(value) {
+    let _setAddon = (value) => {
       scope.addon = value
       scope.activeAddon = value
     }
 
-    scope.focusInput = function() {
+    scope.focusInput = () => {
       _inputGroup.find('input').focus()
     }
-    scope.onFocus = function() {
+    scope.onFocus = () => {
       scope.focus = true
       scope.onClick = true
       scope.placeholder = ''
     }
-    scope.onFocusOut = function() {
+    scope.onFocusOut = () => {
       scope.focus = false
       scope.onClick = false
       scope.placeholder = placeholder
@@ -39,7 +39,7 @@ function proInput() {
     } else {
       _setAddon(false)
     }
-    scope.hideCross = function() {
+    scope.hideCross = () => {
       return ('noDelete' in attr)
     }
     scope.onMouseover = ()=> {
@@ -66,7 +66,8 @@ function proInput() {
       iconClass: '@',
       name: '@',
       type: '@',
-      maxlength: '@'
+      maxlength: '@',
+      ngPattern: '=?'
     }
 
   }

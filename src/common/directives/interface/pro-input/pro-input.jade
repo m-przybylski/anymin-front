@@ -1,3 +1,4 @@
+
 .input-group(data-ng-click="focusInput()"
   class="{{focus ? 'onFocus' : ''}} {{onClick ? 'onClick' : ''}}"
   data-ng-mouseover="onMouseover()"
@@ -10,8 +11,10 @@
   data-ng-maxlength = "maxlength"
   maxlength="{{maxlength}}"
   data-ng-required="required"
+  data-ng-pattern="ngPattern"
   name="{{name}}")
   label {{label}}
   span(data-ng-class="{'input-group-addon' :addon}")
     i.icon(data-ng-class="iconClass") {{addonText}}
-  span.cross-addon.icon.icon-close-12(data-ng-show="proModel && !hideCross()" data-ng-click="proModel = ''")
+  span.cross-addon.icon-close-12(data-ng-show="proModel && !hideCross()" data-ng-click="proModel = ''")
+
