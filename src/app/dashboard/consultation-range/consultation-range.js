@@ -14,6 +14,10 @@ angular.module('profitelo.controller.dashboard.consultation-range', [
 
 function DashboardConsultationRangeController() {
   var vm = this
-
+  vm.currency = [
+    {id: 1, name: 'PLN'},
+    {id: 2, name: 'USD'},
+    {id: 3, name: 'EUR'}
+  ]
   return vm
 }

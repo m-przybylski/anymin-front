@@ -1,0 +1,19 @@
+.step.step-done
+  .title-step
+    .title-order
+      h3(data-translate="DASHBOARD.CONSULTATION_RANGE.CONSULTATION_RANGE_COST_PER_MINUTE")
+      p(data-translate="DASHBOARD.CONSULTATION_RANGE.CONSULTATION_COST_DESCRIPTION")
+    div
+      .step-description
+        h5(data-translate="DASHBOARD.CREATE_PROFILE.STEP")
+        i.icon.icon-success-24
+  .cost-per-minute
+    .left-input
+      .input-group
+        .cost-input
+          input(placeholder="np: 5" ng-model="cost" value="0")
+    .right-choose
+      pro-dropdown(data-model='currency' data-label='Waluta' data-placeholder='PLN' data-pro-items="vm.currency")
+      
+      
+  h4 {{ (cost/1.25) | number }} zł po odtrąceniu prowizji przez Profitelo (25%)
