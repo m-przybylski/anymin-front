@@ -9,9 +9,7 @@
         i.icon.icon-success-24
   .cost-per-minute
     .left-input
-      .input-group
-        .cost-input
-          input(placeholder="np: 5" ng-model="cost" value="0")
+      pro-input.cost-input(placeholder="np: 5" data-pro-model="cost" value="0")
     .right-choose
       pro-dropdown(data-model='currency' data-label='Waluta' data-placeholder='PLN' data-pro-items="vm.currency")
       
