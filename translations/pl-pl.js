@@ -12,6 +12,7 @@
         		"COMMON.DIRECTIVES.INTERFACE.UPLOADER.HEADER_UPLOAD":"Ukończono",
         		"COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO":"lub kliknij by wgrać pliki",
         		"COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO_UPLOAD":"plik {{ file }} z {{ files }}",
+        		"DASHBOARD.CONSULTATION_RANGE.ADD_NEXT_CONSULTATION":"Dodaj kolejną konsultację",
         		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_COST_DESCRIPTION":"Sugerowana stawka 5zł",
         		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_NAME":"Nazwa Konsultacji",
         		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_NAME_DESCRIPTION":"Możesz wpisać kilka problemów, w których się specjalizujesz.",

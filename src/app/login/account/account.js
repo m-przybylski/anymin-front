@@ -1,13 +1,13 @@
 (function() {
 
-  function AccountFormController($scope, $state, $filter, AccountApi, proTopWaitingLoaderService, User, proTopAlertService, loginStateService) {
+  function AccountFormController($scope, $state, $filter, AccountApi, proTopWaitingLoaderService, User, proTopAlertService, loginStateService, CommonSettingsService) {
     var vm = this
 
 
     vm.isPending = false
     vm.current = 1
     vm.account = loginStateService.getAccountObject()
-
+    vm.pattern = CommonSettingsService.localSettings.phonePattern
     vm.backToPhoneNumber = () => {
       $scope.phoneNumberForm.$setPristine()
       $scope.passwordForm.$setPristine()
@@ -92,7 +92,8 @@
     'profitelo.services.login-state',
     'profitelo.directives.pro-top-alert-service',
     'profitelo.swaggerResources',
-    'profitelo.directives.pro-top-waiting-loader-service'
+    'profitelo.directives.pro-top-waiting-loader-service',
+    'profitelo.services.commonSettings'
   ])
   .config(config)
   .controller('AccountFormController', AccountFormController)
