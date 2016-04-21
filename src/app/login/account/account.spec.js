@@ -58,7 +58,6 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
             getRegistrationStatusByMsisdn: $httpBackend.when(_AccountApiDef_.getRegistrationStatusByMsisdn.method, _AccountApiDef_.getRegistrationStatusByMsisdn.url + '?msisdn=321321642')
           }
         }
-        console.log(resourcesExpectations)
         AccountFormController.account = _mockParams
       })
     })
@@ -72,58 +71,56 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
     })
 
     it('should current equals 1', ()=> {
-      expect(AccountFormController.current === 1).toBeTruthy()
+      expect(AccountFormController.current).toEqual(1)
     })
 
-    it('should back to phone-number view', ()=> {
+    it('should clear form and back to phone-number view', ()=> {
+      spyOn(scope.phoneNumberForm, '$setPristine')
       AccountFormController.current = 2
       AccountFormController.backToPhoneNumber()
-      expect(AccountFormController.current === 1).toBeTruthy()
+      expect(scope.phoneNumberForm.$setPristine).toHaveBeenCalled()
+      expect(AccountFormController.current).toEqual(1)
     })
 
     it('should go to password view', () => {
       resourcesExpectations.AccountApi.getRegistrationStatusByMsisdn.respond(200, {status: 'REGISTERED'})
       AccountFormController.getPhoneNumberStatus()
       $httpBackend.flush()
-      expect(AccountFormController.current === 2).toBeTruthy()
+      expect(AccountFormController.current).toEqual(2)
     })
 
     it('should redirect to register ', () => {
+      spyOn($state, 'go')
       resourcesExpectations.AccountApi.getRegistrationStatusByMsisdn.respond(200, {status: 'UNREGISTERED'})
       AccountFormController.getPhoneNumberStatus()
       $httpBackend.flush()
-
-      spyOn($state, 'go')
-      scope.save()
-      expect($state.go).toHaveBeenCalled()
+      expect($state.go).toHaveBeenCalledWith('app.login.register')
     })
 
-    //it('should get error response', () => {
-    //  resourcesExpectations.AccountApi.getRegistrationStatusByMsisdn.respond(400, {status: 'UNREGISTERED'})
-    //  AccountFormController.getPhoneNumberStatus()
-    //  $httpBackend.flush()
-    //  spyOn(AccountFormController, 'error')
-    //  expect(proTopAlertService.error).toHaveBeenCalled()
-    //})
-    //it('should login user', () => {
-    //  registrationResendPOST = $httpBackend.when('POST', 'http://api.webpage.com/session')
-    //  AccountFormController.current = 2
-    //  registrationResendPOST.respond(200, {})
-    //  AccountFormController.login()
-    //  $httpBackend.flush()
-    //
-    //  spyOn($state, 'go')
-    //  expect($state.go).toHaveBeenCalled()
-    //})
-    //it('should display warning', () => {
-    //  registrationResendPOST = $httpBackend.when('POST', 'http://api.webpage.com/session')
-    //  AccountFormController.current = 2
-    //  registrationResendPOST.respond(400, {})
-    //  AccountFormController.login()
-    //  $httpBackend.flush()
-    //
-    //  spyOn(proTopAlertService, 'warning')
-    //  expect(proTopAlertService.warning).toHaveBeenCalled()
-    //})
+    it('should get error response', () => {
+      spyOn(proTopAlertService, 'error')
+      resourcesExpectations.AccountApi.getRegistrationStatusByMsisdn.respond(400, {status: 'UNREGISTERED'})
+      AccountFormController.getPhoneNumberStatus()
+      $httpBackend.flush()
+      expect(proTopAlertService.error).toHaveBeenCalled()
+    })
+    it('should login user', () => {
+      spyOn($state, 'go')
+      registrationResendPOST = $httpBackend.when('POST', 'http://api.webpage.com/session')
+      AccountFormController.current = 2
+      registrationResendPOST.respond(200, {})
+      AccountFormController.login()
+      $httpBackend.flush()
+      expect($state.go).toHaveBeenCalledWith('app.dashboard.start')
+    })
+    it('should display warning', () => {
+      spyOn(proTopAlertService, 'warning')
+      registrationResendPOST = $httpBackend.when('POST', 'http://api.webpage.com/session')
+      AccountFormController.current = 2
+      registrationResendPOST.respond(400, {})
+      AccountFormController.login()
+      $httpBackend.flush()
+      expect(proTopAlertService.warning).toHaveBeenCalled()
+    })
   })
 })

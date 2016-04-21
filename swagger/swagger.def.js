@@ -43,8 +43,21 @@
 
           /**
           * @ngdoc method
-          * @name .2.method:postRecoverPassword
+          * @name .2.method:postRecoverPasswordVerifyMsisdn
           * @methodOf .2
+          * @description
+          * Verify Msisdn token
+          **/
+
+          'postRecoverPasswordVerifyMsisdn': {
+            method: 'POST',
+            url: apiUrl + '/recover-password/verify/msisdn',
+          },
+
+          /**
+          * @ngdoc method
+          * @name .3.method:postRecoverPassword
+          * @methodOf .3
           * @description
           * Create recover password
           **/
@@ -52,6 +65,19 @@
           'postRecoverPassword': {
             method: 'POST',
             url: apiUrl + '/recover-password',
+          },
+
+          /**
+          * @ngdoc method
+          * @name .4.method:postRecoverPasswordVerifyEmail
+          * @methodOf .4
+          * @description
+          * Verify email token
+          **/
+
+          'postRecoverPasswordVerifyEmail': {
+            method: 'POST',
+            url: apiUrl + '/recover-password/verify/email',
           }
         };
     }])
@@ -511,24 +537,8 @@
 
           /**
           * @ngdoc method
-          * @name .3.method:statusPath
+          * @name .3.method:getRegistrationStatusByMsisdn
           * @methodOf .3
-          * @description
-          * Retrieve status of account by id
-          **/
-
-          'statusPath': {
-            method: 'GET',
-            url: apiUrl + '/accounts/:accountId/status',
-            params: {
-              'accountId': '@accountId',
-            },
-          },
-
-          /**
-          * @ngdoc method
-          * @name .4.method:getRegistrationStatusByMsisdn
-          * @methodOf .4
           * @description
           * Retrieve
           **/
@@ -538,6 +548,22 @@
             url: apiUrl + '/accounts/check',
             params: {
               'msisdn': '@msisdn',
+            },
+          },
+
+          /**
+          * @ngdoc method
+          * @name .4.method:statusPath
+          * @methodOf .4
+          * @description
+          * Retrieve status of account by id
+          **/
+
+          'statusPath': {
+            method: 'GET',
+            url: apiUrl + '/accounts/:accountId/status',
+            params: {
+              'accountId': '@accountId',
             },
           },
 
