@@ -99,7 +99,8 @@
         		"REGISTER.SERVICE_PASSWORD_PLACEHOLDER":"Hasło powinno składać się z minimum 8 znaków",
         		"REGISTER.SERVICE_PASSWORD_STRENGTH":"Siła Hasła",
         		"REGISTER.USER_PHONE":"Twój numer:",
-        		"REGISTER.VALID_ERROR":"Wprowadz hasło oraz zaakceptuj regulamin"
+        		"REGISTER.VALID_CHECKBOX":"Zaakceptuj regulamin",
+        		"REGISTER.VALID_PASSWORD":"Podaj Hasło"
         })
     }])
 })(angular);
