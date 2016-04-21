@@ -104,6 +104,5 @@
   ])
   .config(config)
   .controller('AccountFormController', AccountFormController)
-  .controller('SelectCtrl', SelectController)
 
 }())

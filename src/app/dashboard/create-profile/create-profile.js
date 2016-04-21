@@ -24,7 +24,7 @@ function DashboardCreateProfileController() {
       vm.tab = tabId
     }
   }
-  vm.isSet = function (tabId) {
+  vm.isSet = function(tabId) {
     return vm.tab === tabId
   }
 
