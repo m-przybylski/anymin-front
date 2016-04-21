@@ -1,12 +1,15 @@
 .person-summary
-  padding: 24px 30px
+  padding: 7px 0px
   display: flex
-  flex-direction: row
+  flex-direction: column
   flex-wrap: nowrap
   justify-content: space-between
   align-content: flex-start
   align-items: center
   border-bottom: 1px solid $c-lines
+  +smm
+    flex-direction: row
+    padding: 24px 30px
   img
     width: 150px
   .description
@@ -26,7 +29,7 @@
   align-items: center
   .left-input
     .input-group
-      width: 300px
+      width: 200px
       color: $c-secondary-txt
       padding: 12px 12px
       input
