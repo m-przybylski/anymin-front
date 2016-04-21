@@ -8,7 +8,7 @@
     vm.current = 1
     vm.account = loginStateService.getAccountObject()
 
-    vm.ala = [
+    vm.prefix = [
       {id: 1, name: '+48'},
       {id: 2, name: '+48'}
     ]
