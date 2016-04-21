@@ -1,4 +1,9 @@
 .pro-checkbox
+  &.invalid
+    label
+      border: 2px solid $c-error
+    .text
+      border: 0
   margin: 20px 10px
   position: relative
   input[type=checkbox]
@@ -49,6 +54,8 @@
       opacity: 0
   input[type=checkbox]:checked + label:after
       opacity: 1
+
+
 
 .pro-radio
   @extend .pro-checkbox
