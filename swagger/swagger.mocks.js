@@ -8,7 +8,9 @@
         .run(['apiUrl', '$httpBackend', function(apiUrl, $httpBackend) {
                 $httpBackend.whenPUT(apiUrl + '/recover-password/msisdn').respond();
                 $httpBackend.whenPUT(apiUrl + '/recover-password/email').respond();
+                $httpBackend.whenPOST(apiUrl + '/recover-password/verify/msisdn').respond();
                 $httpBackend.whenPOST(apiUrl + '/recover-password').respond();
+                $httpBackend.whenPOST(apiUrl + '/recover-password/verify/email').respond();
                 $httpBackend.whenGET(apiUrl + '/profiles/:profileId/gallery').respond();
                 $httpBackend.whenPUT(apiUrl + '/files/:token').respond();
                 $httpBackend.whenGET(apiUrl + '/files/:token').respond();
@@ -36,8 +38,8 @@
                 $httpBackend.whenPATCH(apiUrl + '/accounts/:accountId').respond();
                 $httpBackend.whenPUT(apiUrl + '/accounts/:accountId').respond();
                 $httpBackend.whenGET(apiUrl + '/accounts/:accountId').respond();
-                $httpBackend.whenGET(apiUrl + '/accounts/:accountId/status').respond();
                 $httpBackend.whenGET(apiUrl + '/accounts/check').respond();
+                $httpBackend.whenGET(apiUrl + '/accounts/:accountId/status').respond();
                 $httpBackend.whenPOST(apiUrl + '/accounts').respond();
                 $httpBackend.whenGET(apiUrl + '/accounts').respond();
                 $httpBackend.whenPOST(apiUrl + '/services').respond();

@@ -70,8 +70,21 @@
 
           /**
           * @ngdoc method
-          * @name .2.method:postRecoverPassword
+          * @name .2.method:postRecoverPasswordVerifyMsisdn
           * @methodOf .2
+          * @description
+          * Verify Msisdn token
+          **/
+
+          'postRecoverPasswordVerifyMsisdn': angular.extend({
+            method: 'POST',
+            url: apiUrl + '/recover-password/verify/msisdn',
+          }, $resourceActionConfig('2', 'postRecoverPasswordVerifyMsisdn')),
+
+          /**
+          * @ngdoc method
+          * @name .3.method:postRecoverPassword
+          * @methodOf .3
           * @description
           * Create recover password
           **/
@@ -79,7 +92,20 @@
           'postRecoverPassword': angular.extend({
             method: 'POST',
             url: apiUrl + '/recover-password',
-          }, $resourceActionConfig('2', 'postRecoverPassword')),
+          }, $resourceActionConfig('3', 'postRecoverPassword')),
+
+          /**
+          * @ngdoc method
+          * @name .4.method:postRecoverPasswordVerifyEmail
+          * @methodOf .4
+          * @description
+          * Verify email token
+          **/
+
+          'postRecoverPasswordVerifyEmail': angular.extend({
+            method: 'POST',
+            url: apiUrl + '/recover-password/verify/email',
+          }, $resourceActionConfig('4', 'postRecoverPasswordVerifyEmail')),
         });
       }];
     })
@@ -554,24 +580,8 @@
 
           /**
           * @ngdoc method
-          * @name .3.method:statusPath
+          * @name .3.method:getRegistrationStatusByMsisdn
           * @methodOf .3
-          * @description
-          * Retrieve status of account by id
-          **/
-
-          'statusPath': angular.extend({
-            method: 'GET',
-            url: apiUrl + '/accounts/:accountId/status',
-            params: {
-              'accountId': '@accountId',
-            },
-          }, $resourceActionConfig('3', 'statusPath')),
-
-          /**
-          * @ngdoc method
-          * @name .4.method:getRegistrationStatusByMsisdn
-          * @methodOf .4
           * @description
           * Retrieve
           **/
@@ -582,7 +592,23 @@
             params: {
               'msisdn': '@msisdn',
             },
-          }, $resourceActionConfig('4', 'getRegistrationStatusByMsisdn')),
+          }, $resourceActionConfig('3', 'getRegistrationStatusByMsisdn')),
+
+          /**
+          * @ngdoc method
+          * @name .4.method:statusPath
+          * @methodOf .4
+          * @description
+          * Retrieve status of account by id
+          **/
+
+          'statusPath': angular.extend({
+            method: 'GET',
+            url: apiUrl + '/accounts/:accountId/status',
+            params: {
+              'accountId': '@accountId',
+            },
+          }, $resourceActionConfig('4', 'statusPath')),
 
           /**
           * @ngdoc method
