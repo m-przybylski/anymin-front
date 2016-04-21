@@ -1,5 +1,5 @@
 describe('Unit testing: profitelo.directives.pro-progress-bar', function() {
-  return describe('for expertProfile directive >', function() {
+  describe('for expertProfile directive >', function() {
 
     var compile = null
     var scope = null

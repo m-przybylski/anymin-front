@@ -37,52 +37,48 @@
         alerts(_alertArray)
       },
       success: (options) => {
-        let header = options.header === undefined ? $filter('translate')('INTERFACE.ALERT_SUCCESS') : options.header
-        let id = _setId()
+        options = options === undefined ? {} : options
         defaultOptions = {
-          id:       id,
+          id:       _setId(),
           icon:    'icon-success-24',
           message:  '',
-          header:   header,
+          header:   $filter('translate')('INTERFACE.ALERT_SUCCESS'),
           type:     'success',
           timeout:  null
         }
         _init(angular.extend(defaultOptions, options))
       },
       warning: (options) => {
-        let header = options.header === undefined ? $filter('translate')('INTERFACE.ALERT_WARNING') : options.header
-        let id = _setId()
+        options = options === undefined ? {} : options
         defaultOptions = {
-          id:       id,
+          id:       _setId(),
           icon:    'icon-warning-24',
           message:  '',
-          header:   header,
+          header:   $filter('translate')('INTERFACE.ALERT_WARNING'),
           type:     'warning',
           timeout:  null
         }
         _init(angular.extend(defaultOptions, options))
       },
       error: (options) => {
-        let header = options.header === undefined ? $filter('translate')('INTERFACE.ALERT_ERROR') : options.header
-        let id = _setId()
+        options = options === undefined ? {} : options
         defaultOptions = {
-          id:       id,
+          id:       _setId(),
           icon:    'icon-danger-24',
           message:  '',
-          header:   header,
+          header:   $filter('translate')('INTERFACE.ALERT_ERROR'),
           type:     'error',
           timeout:  null
         }
         _init(angular.extend(defaultOptions, options))
       },
       info: (options) => {
-        let header = options.header === undefined ? $filter('translate')('INTERFACE.ALERT_INFO') : options.header
-        let id = _setId()
+        options = options === undefined ? {} : options
         defaultOptions = {
-          id:       id,
+          id:       _setId(),
           icon:    'icon-info-24',
           message:  '',
-          header:   header,
+          header:   $filter('translate')('INTERFACE.ALERT_INFO'),
           type:     'info',
           timeout:  null
         }
@@ -94,6 +90,8 @@
 
     }
   }
-  angular.module('profitelo.directives.pro-top-alert-service', [])
+  angular.module('profitelo.directives.pro-top-alert-service', [
+    'pascalprecht.translate'
+  ])
     .service('proTopAlertService', proTopAlertService)
 }())

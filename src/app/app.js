@@ -11,11 +11,11 @@
     return vm
   }
 
-  function runFunction($rootScope) {
+  function runFunction($rootScope, $log) {
 
 
     $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
-      console.log('$stateChangeError', 'event:', event, ' toState', toState, 'toParams', toParams, ' fromState', fromState, ' fromParams', fromParams, ' error:', error)
+      $log.error(error)
     })
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, error) {
@@ -46,9 +46,13 @@
       controller: 'AppController',
       templateUrl: 'templates/app.tpl.html',
       resolve: {
-        typeKit: ($q) => {
+        typeKit: ($q, $timeout) => {
 
-          var deferred = $q.defer()
+          let deferred = $q.defer()
+
+          let backupTimer = $timeout(()=>{
+            deferred.resolve()
+          })
 
           let config = {
               kitId: 'gxk2sou',
@@ -56,6 +60,7 @@
               async: true,
               active: function() {
                 deferred.resolve()
+                $timeout.cancel(backupTimer)
               }
             },
             h = document.documentElement, t = setTimeout(() => {
@@ -74,7 +79,8 @@
             try {
               Typekit.load(config)
             } catch (e) {
-              deferred.reject(e)
+              deferred.resolve(e)
+              $timeout.cancel(backupTimer)
             }
           }
           s.parentNode.insertBefore(tk, s)
@@ -182,6 +188,11 @@
     'profitelo.services.interfaceLanguage',
     'profitelo.directives.pro-top-waiting-loader-service',
     'profitelo.directives.pro-top-alert-service',
+
+    // services - resolvers
+
+    'profitelo.services.resolvers.app.login.forgot-password',
+    'profitelo.services.resolvers.app.login.register',
 
     // controllers
     'profitelo.controller.dashboard',

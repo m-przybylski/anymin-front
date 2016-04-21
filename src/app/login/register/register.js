@@ -1,6 +1,6 @@
 (function() {
 
-  function RegisterController($filter, $timeout, $state, proTopWaitingLoaderService, passwordStrengthService, User, proTopAlertService, UserRoles, smsSessionId, RegistrationApi, AccountApi) {
+  function RegisterController($filter, $state, proTopWaitingLoaderService, passwordStrengthService, User, proTopAlertService, UserRoles, smsSessionId, RegistrationApi, AccountApi) {
     var vm = this
     vm.passwordStrength = 0
     vm.current = 1
@@ -20,10 +20,10 @@
     }
 
     vm.getSmsCodeStatus = () => {
+      /* istanbul ignore next if */
       if (!vm.isPending) {
         vm.isPending = true
         proTopWaitingLoaderService.immediate()
-
         RegistrationApi.confirmVerification({
           sessionId: vm.registrationSteps.sessionId,
           code: vm.registrationSteps.smsCode
@@ -51,6 +51,7 @@
     }
 
     let _updateNewUserObject = (patchObject, successCallback) => {
+      /* istanbul ignore next if */
       if (!vm.isPending) {
         vm.isPending = true
         proTopWaitingLoaderService.immediate()
@@ -60,7 +61,10 @@
         AccountApi.partialUpdateAccount(patchObject).$promise.then(successCallback, (error) => {
           vm.isPending = false
           proTopWaitingLoaderService.stopLoader()
-          console.log(error)
+          proTopAlertService.error({
+            message: $filter('translate')('INTERFACE.API_ERROR'),
+            timeout: 4
+          })
         })
 
       }
@@ -99,48 +103,17 @@
       controller: 'RegisterController',
       templateUrl: 'login/register/register.tpl.html',
       resolve: {
-        smsSessionId: (loginStateService, $state, $filter, $q, $timeout, proTopAlertService, RegistrationApi) => {
-
-          let _deferred = $q.defer()
-
-          let _handleError = () => {
-            _deferred.reject()
-            $timeout(()=>{
-              $state.go('app.login.account')
-            })
-          }
-
-          let _account = loginStateService.getAccountObject()
-
-          if (_account.phoneNumber.number === null) {
-            proTopAlertService.warning({
-              message: $filter('translate')('REGISTER.ENTER_PHONE_NUMBER_FIRST'),
-              timeout: 3
-            })
-            _handleError()
-          } else {
-            RegistrationApi.requestVerification({
-              msisdn: _account.phoneNumber.prefix + _account.phoneNumber.number
-            }).$promise.then((response) => {
-              _deferred.resolve({
-                sessionId: response.sessionId,
-                accountObject: _account
-              })
-            }, (error) => {
-              proTopAlertService.warning({
-                message: $filter('translate')('INTERFACE.API_ERROR'),
-                timeout: 3
-              })
-              _handleError()
-            })
-          }
-
-          return _deferred.promise
+        /* istanbul ignore next */
+        smsSessionId: (AppLoginRegisterResolver) => {
+          /* istanbul ignore next */
+          return AppLoginRegisterResolver.resolve()
         }
       }
     })
   }
 
+
+  
 
   angular.module('profitelo.controller.login.register', [
     'ui.router',
@@ -148,6 +121,8 @@
     'profitelo.directives.password-strength-service',
     'profitelo.services.login-state',
     'profitelo.directives.pro-top-alert-service',
+    'profitelo.directives.pro-top-waiting-loader-service',
+    'profitelo.services.resolvers.app.login.register',
     'profitelo.swaggerResources'
   ])
   .config(config)

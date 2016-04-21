@@ -1,6 +1,6 @@
 (function() {
 
-  function AccountFormController($scope, $timeout, $state, $filter, AccountApi, proTopWaitingLoaderService, User, proTopAlertService, loginStateService) {
+  function AccountFormController($scope, $state, $filter, AccountApi, proTopWaitingLoaderService, User, proTopAlertService, loginStateService) {
     var vm = this
 
 
@@ -99,7 +99,8 @@
     'ui.router',
     'profitelo.services.login-state',
     'profitelo.directives.pro-top-alert-service',
-    'profitelo.swaggerResources'
+    'profitelo.swaggerResources',
+    'profitelo.directives.pro-top-waiting-loader-service'
   ])
   .config(config)
   .controller('AccountFormController', AccountFormController)
