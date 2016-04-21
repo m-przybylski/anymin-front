@@ -11,11 +11,11 @@
     return vm
   }
 
-  function runFunction($rootScope) {
+  function runFunction($rootScope, $log) {
 
 
     $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
-      console.log('$stateChangeError', 'event:', event, ' toState', toState, 'toParams', toParams, ' fromState', fromState, ' fromParams', fromParams, ' error:', error)
+      $log.error(error)
     })
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, error) {
