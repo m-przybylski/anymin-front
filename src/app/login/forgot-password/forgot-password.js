@@ -12,7 +12,6 @@
 
     // vm.submitSmsVerificationCode
 
-    console.log(account)
 
     return vm
 

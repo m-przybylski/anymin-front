@@ -1,8 +1,8 @@
 (function() {
 
-  function SetNewPasswordController($state, $stateParams, validateToken, loginStateService, passwordStrengthService) {
+  function SetNewPasswordController($state, validateToken, passwordStrengthService) {
 
-    console.log(validateToken)
+    
     let vm = this
     vm.back = ()=> {
       $state.go('app.login.forgot-password')
@@ -22,20 +22,8 @@
       controller: 'SetNewPasswordController',
       templateUrl: 'login/set-new-password/set-new-password.tpl.html',
       resolve: {
-        validateToken: ($stateParams, $state, stateDelay, proTopAlertService) => {
-          if ($stateParams.token.length === '') {
-            $state.go('app.login.account')
-            stateDelay.onTransition(function() {
-              proTopAlertService.warning({
-                message: 'No token. Try again'
-              })
-            })
-          } else {
-            // TODO api call to check if code is correct
-            return {
-              userId: 21312390432
-            }
-          }
+        validateToken: ($stateParams, AppLoginSetNewPasswordResolver) => {
+          return AppLoginSetNewPasswordResolver.resolve($stateParams)
         }
       }
     })
@@ -47,7 +35,8 @@
     'profitelo.services.login-state',
     'c7s.providers.stateDelay',
     'profitelo.services.login-state',
-    'profitelo.directives.password-strength-service'
+    'profitelo.directives.password-strength-service',
+    'profitelo.services.resolvers.app.login.set-new-password'
   ])
   .config(config)
   .controller('SetNewPasswordController', SetNewPasswordController)
