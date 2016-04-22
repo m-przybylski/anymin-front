@@ -1,8 +1,6 @@
 .phone-number(data-ng-show="vm.current == 1")
   form.pro-input-form(name="phoneNumberForm" data-ng-submit="phoneNumberForm.$valid && vm.getPhoneNumberStatus()" novalidate)
 
-    pre {{ vm.account.phoneNumber | json }}
-
     pro-dropdown.prefix-phone(data-pro-model='vm.account.phoneNumber.prefix' data-label='prefix' data-placeholder='+48' data-pro-items="vm.prefix")
 
 
