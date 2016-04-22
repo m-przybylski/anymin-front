@@ -1,10 +1,12 @@
 describe('Unit testing: profitelo.directives.interface.pro-input', () => {
   return describe('for interface.pro-input directive >', () => {
 
+    let _placeholder = 'PLACEHOLDER'
+
     let scope     = null
     let rootScope
     let compile   = null
-    let validHTML = '<pro-input data-label="LABEL" data-placeholder="PLACEHOLDER"  required></pro-input>'
+    let validHTML = '<pro-input data-label="LABEL" data-placeholder="' + _placeholder + '"  required></pro-input>'
 
     beforeEach(() => {
       module('templates-module')
@@ -60,5 +62,40 @@ describe('Unit testing: profitelo.directives.interface.pro-input', () => {
       $(el).trigger('mouseout')
       expect(isoScope.focus).toBeFalsy()
     })
+
+    it('should toggle flags on input focus', () => {
+      let el = create(validHTML)
+      let isoScope = el.isolateScope()
+      el.find('input').triggerHandler('focus')
+
+      expect(isoScope.focus).toBeTruthy()
+      expect(isoScope.onClick).toBeTruthy()
+      expect(isoScope.placeholder).toEqual('')
+
+    })
+
+    it('should toggle flags on input blur', () => {
+      let el = create(validHTML)
+      let isoScope = el.isolateScope()
+      el.find('input').triggerHandler('focus')
+      el.find('input').blur()
+
+      expect(isoScope.focus).toBeFalsy()
+      expect(isoScope.onClick).toBeFalsy()
+      expect(isoScope.placeholder).toEqual(_placeholder)
+
+    })
+
+    it('should hide removal cross if noDelete in template is declared', () => {
+      let noDeleteInput= '<pro-input data-addon-text="RANDOM-TEXT" noDelete></pro-input>'
+
+      let el = create(noDeleteInput)
+
+      let isoScope = el.isolateScope()
+
+      expect(isoScope.hideCross()).toEqual(false)
+
+    })
+
   })
 })
