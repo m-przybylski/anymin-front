@@ -9,8 +9,14 @@
     vm.account = loginStateService.getAccountObject()
 
     vm.prefix = [
-      {id: 1, name: '+48'},
-      {id: 2, name: '+48'}
+      {
+        name:   '+48',
+        value:  '+48'
+      },
+      {
+        name:   '+22',
+        value:  '+22'
+      }
     ]
 
     vm.pattern = CommonSettingsService.localSettings.phonePattern
