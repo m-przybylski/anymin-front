@@ -143,13 +143,13 @@ describe('Unit tests: profitelo.controller.login.register>', () => {
 
     it('should request handle failure on sms code status', () => {
 
-      spyOn(_proTopAlertService, 'error')
+      spyOn(_proTopAlertService, 'warning')
 
       resourcesExpectations.RegistrationApi.confirmVerification.respond(403)
       RegisterController.getSmsCodeStatus()
       _$httpBackend.flush()
 
-      expect(_proTopAlertService.error).toHaveBeenCalledWith({ message: 'INTERFACE.API_ERROR', timeout: 4 })
+      expect(_proTopAlertService.warning).toHaveBeenCalledWith({ message: 'LOGIN.FORGOT_PASSWORD.BAD_SMS_CODE', timeout: 4 })
 
 
     })
