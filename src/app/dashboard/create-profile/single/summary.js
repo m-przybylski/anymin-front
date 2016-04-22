@@ -4,7 +4,7 @@ angular.module('profitelo.controller.dashboard.summary', [
 .config(($stateProvider) =>{
   $stateProvider.state('app.dashboard.summary', {
     controllerAs: 'vm',
-    url: '/single/summary',
+    url: '/summary',
     templateUrl: 'dashboard/create-profile/single/summary/summary.tpl.html',
     controller: 'DashboardSummaryController'
   })
