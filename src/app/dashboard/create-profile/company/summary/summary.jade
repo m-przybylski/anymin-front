@@ -11,21 +11,22 @@
   include partials/step1
   include partials/step2 
   include partials/step3
-  include partials/step4
 
 
   .next-consultation
-    a.pro-btn.btn-main.btn-large(data-translate="DASHBOARD.CONSULTATION_RANGE.ADD_NEXT_CONSULTATION")
+    a.pro-btn.btn-main.btn-large WERYFIKUJ
+    p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nibh lacus, sollicitudin ut pretium id, placerat sit amet turpis. Nam eu arcu at nisl gravida tincidunt. Nam fermentum turpis felis, bibendum convallis mi viverra volutpat.
+
   
   .bottom-row.bottom-consultation
     .title-row-column
       .title
         h5(data-translate="DASHBOARD.CREATE_PROFILE.STEP1_PROGRESS_BAR_TITLE")
-        h5 66%
+        h5 100%
       .loader-container
         .password-verify
           .loader
-            .progress-bar(style="width: 66%;")
+            .progress-bar(style="width: 100%;")
         .next-step
           .button-next-step
-            a.pro-btn.btn-main.btn-medium(data-ui-sref="app.dashboard.company-summary" data-translate="DASHBOARD.CREATE_PROFILE.NEXT_STEP") 
+            a.pro-btn.btn-main.btn-medium(data-translate="DASHBOARD.CREATE_PROFILE.NEXT_STEP") 

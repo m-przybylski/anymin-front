@@ -1,3 +1,4 @@
+/* istanbul ignore next */
 (function(angular) {
   'use strict';
 
@@ -894,7 +895,7 @@
 
     if (typeof exports !== 'undefined') {
         if (typeof module !== 'undefined' && module.exports) {
-            var exports = module.exports = moduleName;
+            exports = module.exports = moduleName;
         }
         exports = moduleName;
     }
