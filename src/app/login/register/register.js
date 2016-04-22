@@ -26,7 +26,7 @@
         proTopWaitingLoaderService.immediate()
         RegistrationApi.confirmVerification({
           sessionId: vm.registrationSteps.sessionId,
-          code: vm.registrationSteps.smsCode
+          token: vm.registrationSteps.smsCode
         }).$promise.then((response) => {
           vm.isPending = false
           vm.current = 2
