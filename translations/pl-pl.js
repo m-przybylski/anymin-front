@@ -13,12 +13,21 @@
         		"COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO_UPLOAD":"plik {{ file }} z {{ files }}",
         		"DASHBOARD.CONSULTATION_RANGE.ADD_NEXT_CONSULTATION":"Dodaj kolejną konsultację",
         		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_COST_DESCRIPTION":"Sugerowana stawka 5zł",
+        		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_COST_PLACEHOLDER":"np. 5",
+        		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_CURRENCY_LABEL":"Waluta",
         		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_NAME":"Nazwa Konsultacji",
         		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_NAME_DESCRIPTION":"Możesz wpisać kilka problemów, w których się specjalizujesz.",
+        		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_NAME_PLACEHOLDER":"np: Poszukiwanie funduszy inwestycyjnych",
         		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_RANGE_COST_PER_MINUTE":"Stawka za minutę połączenia",
+        		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_RANGE_PLACEHOLDER":"np: PIT",
         		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_RANGE_TITLE":"Zakres Konsultacji",
+        		"DASHBOARD.CONSULTATION_RANGE.COST_SUMMARY":"{{ (cost/1.25) | number }} zł po odtrąceniu prowizji przez Profitelo (25%)",
+        		"DASHBOARD.CONSULTATION_RANGE.CURRENCY_PLACEHOLDER":"PLN",
+        		"DASHBOARD.CREATE_PROFILE.CREATE_PROFILE_PLACEHOLDER":"http://",
         		"DASHBOARD.CREATE_PROFILE.CREATE_PROFILE_TITLE":"Tworzenie konta usługodawcy",
+        		"DASHBOARD.CREATE_PROFILE.CREATE_PROFILE_YOUR_LINKS":"Twoje linki:",
         		"DASHBOARD.CREATE_PROFILE.FILE_PREVIEW":"Podgląd Pliku",
+        		"DASHBOARD.CREATE_PROFILE.NAME_COMPANY_PLACEHOLDER":"np. Profitelo",
         		"DASHBOARD.CREATE_PROFILE.NEXT_STEP":"Kolejny Etap",
         		"DASHBOARD.CREATE_PROFILE.STEP":"Krok:  {{ step }} / {{ steps }}",
         		"DASHBOARD.CREATE_PROFILE.STEP1_CHOOSE_PROFILE_DESCRIPTION":"Usługa może być świadczona tylko przez Ciebie, jak i przez Twoich pracowników.",
@@ -39,6 +48,8 @@
         		"DASHBOARD.EXPERT_ACCOUNT.EXPERT_DESCRIPTION":"Opis Experta",
         		"DASHBOARD.EXPERT_ACCOUNT.EXPERT_DOCUMENT_TITLE_DESCRIPTION":"Wgraj certyfikaty, dokumenty lub swoją wizytówkę.",
         		"DASHBOARD.EXPERT_ACCOUNT.EXPERT_LANGUAGES":"Języki w jakich świadczysz konsultacje",
+        		"DASHBOARD.EXPERT_ACCOUNT.EXPERT_LANGUAGE_PLACEHOLDER":"np. Język Angielski",
+        		"DASHBOARD.EXPERT_ACCOUNT.EXPERT_PLACEHOLDER":"np. Jan Kowalski",
         		"DASHBOARD.EXPERT_ACCOUNT.EXPERT_TITLE_DESCRIPTION":"Krótki opis Twojej działalności, czego można spodziewać po konsultacji.",
         		"DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT":"Imię Nazwisko",
         		"DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT_DESCRIPTION":"Podaj swoje Imię i Nazwisko pod którym będziesz prowadził konsultacje.",
@@ -104,3 +115,7 @@
         })
     }])
 })(angular);
+
+
+
+
