@@ -23,7 +23,11 @@ function proDropdown($timeout) {
         _getScrollbarChoices().perfectScrollbar()
       })
     }
-
+    scope.searchEnable = () => {
+      if('noSearch' in attr) {
+        return false
+      }
+    }
   }
 
   return {

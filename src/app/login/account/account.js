@@ -3,7 +3,6 @@
   function AccountFormController($scope, $state, $filter, AccountApi, proTopWaitingLoaderService, User, proTopAlertService, loginStateService, CommonSettingsService) {
     var vm = this
 
-
     vm.isPending = false
     vm.current = 1
     vm.account = loginStateService.getAccountObject()
@@ -18,6 +17,8 @@
         value:  '+22'
       }
     ]
+
+    vm.account.phoneNumber.prefix = _.find(vm.prefix, function(o) { return o.name ===  vm.account.phoneNumber.prefix})
 
     vm.pattern = CommonSettingsService.localSettings.phonePattern
 
