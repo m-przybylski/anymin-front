@@ -13,10 +13,16 @@
         		"COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO_UPLOAD":"plik {{ file }} z {{ files }}",
         		"DASHBOARD.CONSULTATION_RANGE.ADD_NEXT_CONSULTATION":"Dodaj kolejną konsultację",
         		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_COST_DESCRIPTION":"Sugerowana stawka 5zł",
+        		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_COST_PLACEHOLDER":"np. 5",
+        		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_CURRENCY_LABEL":"Waluta",
         		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_NAME":"Nazwa Konsultacji",
         		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_NAME_DESCRIPTION":"Możesz wpisać kilka problemów, w których się specjalizujesz.",
+        		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_NAME_PLACEHOLDER":"np: Poszukiwanie funduszy inwestycyjnych",
         		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_RANGE_COST_PER_MINUTE":"Stawka za minutę połączenia",
+        		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_RANGE_PLACEHOLDER":"np: PIT",
         		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_RANGE_TITLE":"Zakres Konsultacji",
+        		"DASHBOARD.CONSULTATION_RANGE.COST_SUMMARY":"{{ (cost/1.25) | number }} zł po odtrąceniu prowizji przez Profitelo (25%)",
+        		"DASHBOARD.CONSULTATION_RANGE.CURRENCY_PLACEHOLDER":"PLN",
         		"DASHBOARD.CREATE_PROFILE.CREATE_PROFILE_TITLE":"Tworzenie konta usługodawcy",
         		"DASHBOARD.CREATE_PROFILE.FILE_PREVIEW":"Podgląd Pliku",
         		"DASHBOARD.CREATE_PROFILE.NEXT_STEP":"Kolejny Etap",
@@ -104,3 +110,7 @@
         })
     }])
 })(angular);
+
+
+
+
