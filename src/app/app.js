@@ -211,6 +211,7 @@
     'profitelo.controller.login.register',
     'profitelo.controller.login.forgot-password',
     'profitelo.controller.login.set-new-password',
+    'profitelo.controller.login.confirm-email',
     'profitelo.controller.wizards',
     'profitelo.controller.wizards.create-new-service',
 

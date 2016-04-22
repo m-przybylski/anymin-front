@@ -82,6 +82,8 @@
         		"LOGIN.BACK":"Cofnij",
         		"LOGIN.BAD_LOGIN_CREDENTIALS":"Błędne hasło. Spróbuj ponownie.",
         		"LOGIN.DOWNLOAD_FREE_APP":"Pobierz bezpłatną aplikację na telefon:",
+        		"LOGIN.EMAIL_CONFIRMATION_FAIL":"Email nie został potwierdzony. Sprawdź link lub skontaktuj się z BOK",
+        		"LOGIN.EMAIL_CONFIRMATION_SUCCESS":"Email został poprawnie potwierdzony, zostałeś zalogowany.",
         		"LOGIN.ENTER_NUMBER":"wpisz swój numer",
         		"LOGIN.ENTER_NUMBER_PLACEHOLDER":"np. 599546342",
         		"LOGIN.FORGOT_PASSWORD":"Nie pamiętasz hasła?",
