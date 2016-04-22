@@ -24,7 +24,7 @@ function proDropdown($timeout) {
       })
     }
     scope.searchEnable = () => {
-      if('noSearch' in attr) {
+      if ('noSearch' in attr) {
         return false
       }
     }

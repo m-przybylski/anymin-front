@@ -18,7 +18,7 @@
       }
     ]
 
-    vm.account.phoneNumber.prefix = _.find(vm.prefix, function(o) { return o.name ===  vm.account.phoneNumber.prefix})
+    vm.account.phoneNumber.prefix = _.find(vm.prefix, function(o) { return o.name ===  vm.account.phoneNumber.prefix })
 
     vm.pattern = CommonSettingsService.localSettings.phonePattern
 
