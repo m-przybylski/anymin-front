@@ -197,9 +197,9 @@
     // controllers
     'profitelo.controller.dashboard',
     'profitelo.controller.dashboard.start',
-    'profitelo.controller.dashboard.create-profile',
-    'profitelo.controller.dashboard.expert-account',
-    'profitelo.controller.dashboard.consultation-range',
+    'profitelo.controller.dashboard.company-profile',
+    'profitelo.controller.dashboard.single-profile',
+    'profitelo.controller.dashboard.cost-data',
 
     'profitelo.controller.home',
     // 'profitelo.controller.expert-profile',
