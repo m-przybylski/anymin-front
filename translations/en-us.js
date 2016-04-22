@@ -1,4 +1,3 @@
-/* istanbul ignore next */
 (function(angular) {
     'use strict';
 
@@ -13,6 +12,9 @@
         		"COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO":"lub kliknij by wgrać pliki",
         		"COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO_UPLOAD":"plik {{ file }} z {{ files }}",
         		"DASHBOARD.CONSULTATION_RANGE.ADD_NEXT_CONSULTATION":"Dodaj kolejną konsultację",
+        		"DASHBOARD.CONSULTATION_RANGE.CONSULTANTS_LIST_PLACEHOLDER":"np. Jan Kowalski",
+        		"DASHBOARD.CONSULTATION_RANGE.CONSULTANTS_LIST_TITLE":"Lista konsultatnów - Kto świadczy konsultacje",
+        		"DASHBOARD.CONSULTATION_RANGE.CONSULTANTS_LOAD_CSV":"Wczytaj plik CSV",
         		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_COST_DESCRIPTION":"Sugerowana stawka 5zł",
         		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_COST_PLACEHOLDER":"np. 5",
         		"DASHBOARD.CONSULTATION_RANGE.CONSULTATION_CURRENCY_LABEL":"Waluta",

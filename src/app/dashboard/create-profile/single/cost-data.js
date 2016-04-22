@@ -4,7 +4,7 @@ angular.module('profitelo.controller.dashboard.cost-data', [
 .config(($stateProvider) =>{
   $stateProvider.state('app.dashboard.cost-data', {
     controllerAs: 'vm',
-    url: '/single/cost-data',
+    url: '/cost-data',
     templateUrl: 'dashboard/create-profile/single/cost-data/cost-data.tpl.html',
     controller: 'DashboardCostDataController'
   })

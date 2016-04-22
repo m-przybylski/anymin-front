@@ -7,22 +7,25 @@
         a(data-ui-sref="app.dashboard.start").pro-btn.btn-light.btn-icon
           i.icon.icon-close-16
           
+  include partials/summary
   include partials/step1
-  include partials/step2
+  include partials/step2 
   include partials/step3
   include partials/step4
-  include partials/step5
-  include partials/step6
 
-  .bottom-row
+
+  .next-consultation
+    a.pro-btn.btn-main.btn-large(data-translate="DASHBOARD.CONSULTATION_RANGE.ADD_NEXT_CONSULTATION")
+  
+  .bottom-row.bottom-consultation
     .title-row-column
       .title
         h5(data-translate="DASHBOARD.CREATE_PROFILE.STEP1_PROGRESS_BAR_TITLE")
-        h5 48%
+        h5 66%
       .loader-container
         .password-verify
           .loader
-            .progress-bar(style="width: 48%;")
+            .progress-bar(style="width: 66%;")
         .next-step
           .button-next-step
-            a.pro-btn.btn-main.btn-medium(data-ui-sref="app.dashboard.company-cost-data" data-translate="DASHBOARD.CREATE_PROFILE.NEXT_STEP")
+            a.pro-btn.btn-main.btn-medium(data-translate="DASHBOARD.CREATE_PROFILE.NEXT_STEP") 
