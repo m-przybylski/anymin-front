@@ -40,8 +40,8 @@
 
         }, (error) => {
           vm.isPending = false
-          proTopAlertService.error({
-            message: $filter('translate')('INTERFACE.API_ERROR'),
+          proTopAlertService.warning({
+            message: $filter('translate')('LOGIN.FORGOT_PASSWORD.BAD_SMS_CODE'),
             timeout: 4
           })
           proTopWaitingLoaderService.stopLoader()
