@@ -42,8 +42,10 @@
       .input-group
         color: $c-secondary-txt
         width: 100%
+        margin-bottom: 18px
         input
-          bottom: 24px
+          bottom: 18px
+          font-size: 20px
 
 
       .upload-field-description
@@ -55,11 +57,16 @@
           position: absolute
       .upload-trash
         text-align: right
-        margin-top: -70px
-        margin-right: 7px
+        margin-top: -100px
+        margin-right: 16px
         right: 0
+        position: relative
+        float: right
+        background-color: $c-white
         i
           font-size: 20px
+        .btn-icon
+          padding: 12px 0
       .button-next-step
         margin-top: 35px
         margin-bottom: 25px
@@ -73,23 +80,23 @@
         flex-wrap: wrap
         align-content: flex-start
         align-items: center
-        margin-bottom: 0
+        margin-top: -24px
         h3
           margin-top: 40px
-        p
+        span
           color: $c-white
           text-transform: uppercase
           font-size: 11px
-          padding: 0px 15px
+          padding: 0px 8px
         i
-          padding: 4px 16px 0px
+          padding: 4px 10px 0px 14px
         .icon
           font-size: 12px
         a
-          margin: 24px 12px 24px 12px
+          margin: 24px 8px 24px 8px
           text-transform: none
           +mdm
-            margin: 24px 12px 24px 12px
+            margin: 24px 8px 24px 8px
         .btn-medium
           display: flex
           flex-direction: row
@@ -97,7 +104,7 @@
           justify-content: center
           align-content: flex-start
           align-items: center
-          padding: 5px
+          padding: 17px
 
         .btn-main
           background-color: $c-secondary-txt
@@ -105,7 +112,7 @@
           text-transform: uppercase
           font-size: 11px
           width: auto
-          padding: 10px
+          padding: 15px
 
       .document-submit
         @extend .links-submit
@@ -114,22 +121,27 @@
           text-align: center
         .btn-main
           width: auto
-
+        .document-container
+          margin-top: 10px
+          margin-bottom: -6px
     .step-content
       margin-top: 30px
       display: flex
       flex-direction: column
       flex-wrap: wrap
       align-content: center
+      justify-content: space-between
       align-items: center
-      margin-bottom: 32px
       +smm
         flex-direction: row
       .input-group
         color: $c-secondary-txt
         width: 100%
+        height: 100%
+        margin-bottom: 16px
         input
-          bottom: 24px
+          bottom: 18px
+          font-size: 16px
       .option
         background-color: $c-white
         border: 1px solid $c-lines
@@ -140,8 +152,9 @@
         margin-top: 10px
         height: 256px
         margin-left: -1px
+        margin-bottom: 16px
         +smm
-          width: 50%
+          width: 48%
           margin-top: 0
         i
           font-size: 128px
@@ -150,7 +163,6 @@
           font-weight: bold
           text-transform: uppercase
           margin-top: 12px
-
     .upload-field
       display: flex
       flex-direction: column
@@ -158,11 +170,13 @@
       justify-content: space-around
       align-content: center
       align-items: center
-      background: $c-background
+      background: $c-white
       width: 100%
       border: 2px dashed $c-lines
       padding: 55px 0 60px 0
       text-align: center
+      height: 255px
+      margin-bottom: 16px
       img
         max-width: 90%
       .upload-description
@@ -173,11 +187,6 @@
           margin-top: -40px
           color: $c-secondary-txt
           margin-top: -10px
-      i
-        margin-top: 55px
-        margin-bottom: 30px
-        font-size: 70px
-        color: $c-primary-hover
       .icon-overlay
         font-size: 30px
         position: absolute

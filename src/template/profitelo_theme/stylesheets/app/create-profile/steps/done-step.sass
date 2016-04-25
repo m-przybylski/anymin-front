@@ -37,9 +37,16 @@
         +transition
         i
           color: $c-secondary-txt
+        &:hover
+          background-color: $c-background
+          h5, i
+            color: $c-primary
       .selected
-        cursor: pointer
-        +transition
         background-color: $c-primary
+        border: 1px solid $c-primary
         h5, i
           color: $c-white
+        &:hover
+          background-color: $c-primary
+          h5, i
+            color: $c-white
