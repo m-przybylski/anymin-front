@@ -378,6 +378,139 @@
     }])
         /**
       * @ngdoc service
+      * @name .Account
+      * @requires $resource
+      * @requires apiUrl
+      **/
+    .service('AccountApiDef', ['apiUrl', function(apiUrl) {
+        return {
+
+          /**
+          * @ngdoc method
+          * @name .0.method:addAccount
+          * @methodOf .0
+          * @description
+          * Create account
+          **/
+
+          'addAccount': {
+            method: 'POST',
+            url: apiUrl + '/accounts',
+          },
+
+          /**
+          * @ngdoc method
+          * @name .1.method:listAccounts
+          * @methodOf .1
+          * @description
+          * List accounts
+          **/
+
+          'listAccounts': {
+            method: 'GET',
+            url: apiUrl + '/accounts',
+            isArray: true,
+          },
+
+          /**
+          * @ngdoc method
+          * @name .2.method:postAccountVerifyEmail
+          * @methodOf .2
+          * @description
+          * Confirm email
+          **/
+
+          'postAccountVerifyEmail': {
+            method: 'POST',
+            url: apiUrl + '/accounts/confirm/email/:token',
+            params: {
+              'token': '@token',
+            },
+          },
+
+          /**
+          * @ngdoc method
+          * @name .3.method:partialUpdateAccount
+          * @methodOf .3
+          * @description
+          * Partial update account
+          **/
+
+          'partialUpdateAccount': {
+            method: 'PATCH',
+            url: apiUrl + '/accounts/:accountId',
+            params: {
+              'accountId': '@accountId',
+            },
+          },
+
+          /**
+          * @ngdoc method
+          * @name .4.method:updateAccount
+          * @methodOf .4
+          * @description
+          * Update account
+          **/
+
+          'updateAccount': {
+            method: 'PUT',
+            url: apiUrl + '/accounts/:accountId',
+            params: {
+              'accountId': '@accountId',
+            },
+          },
+
+          /**
+          * @ngdoc method
+          * @name .5.method:getAccount
+          * @methodOf .5
+          * @description
+          * Retrieve account by id
+          **/
+
+          'getAccount': {
+            method: 'GET',
+            url: apiUrl + '/accounts/:accountId',
+            params: {
+              'accountId': '@accountId',
+            },
+          },
+
+          /**
+          * @ngdoc method
+          * @name .6.method:getRegistrationStatusByMsisdn
+          * @methodOf .6
+          * @description
+          * Retrieve
+          **/
+
+          'getRegistrationStatusByMsisdn': {
+            method: 'GET',
+            url: apiUrl + '/accounts/check',
+            params: {
+              'msisdn': '@msisdn',
+            },
+          },
+
+          /**
+          * @ngdoc method
+          * @name .7.method:statusPath
+          * @methodOf .7
+          * @description
+          * Retrieve status of account by id
+          **/
+
+          'statusPath': {
+            method: 'GET',
+            url: apiUrl + '/accounts/:accountId/status',
+            params: {
+              'accountId': '@accountId',
+            },
+          }
+        };
+    }])
+        /**
+      * @ngdoc service
       * @name .Category
       * @requires $resource
       * @requires apiUrl
@@ -387,24 +520,8 @@
 
           /**
           * @ngdoc method
-          * @name .0.method:servicesCategoryPath
+          * @name .0.method:detailsPath
           * @methodOf .0
-          * @description
-          * Get list of categories linked with service
-          **/
-
-          'servicesCategoryPath': {
-            method: 'GET',
-            url: apiUrl + '/categories/:categoryId/services',
-            params: {
-              'serviceId': '@serviceId',
-            },
-          },
-
-          /**
-          * @ngdoc method
-          * @name .1.method:detailsPath
-          * @methodOf .1
           * @description
           * Get Details of category
           **/
@@ -419,8 +536,8 @@
 
           /**
           * @ngdoc method
-          * @name .2.method:listCategoriesPath
-          * @methodOf .2
+          * @name .1.method:listCategoriesPath
+          * @methodOf .1
           * @description
           * Get list of categories
           **/
@@ -432,8 +549,8 @@
 
           /**
           * @ngdoc method
-          * @name .3.method:listPath
-          * @methodOf .3
+          * @name .2.method:listPath
+          * @methodOf .2
           * @description
           * Get list of categories
           **/
@@ -446,8 +563,8 @@
 
           /**
           * @ngdoc method
-          * @name .4.method:subcategoryPath
-          * @methodOf .4
+          * @name .3.method:subcategoryPath
+          * @methodOf .3
           * @description
           * Get list of subCategories
           **/
@@ -463,8 +580,8 @@
 
           /**
           * @ngdoc method
-          * @name .5.method:getCategoryPath
-          * @methodOf .5
+          * @name .4.method:getCategoryPath
+          * @methodOf .4
           * @description
           * Retrieve category by id
           **/
@@ -475,123 +592,22 @@
             params: {
               'categoryId': '@categoryId',
             },
-          }
-        };
-    }])
-        /**
-      * @ngdoc service
-      * @name .Account
-      * @requires $resource
-      * @requires apiUrl
-      **/
-    .service('AccountApiDef', ['apiUrl', function(apiUrl) {
-        return {
-
-          /**
-          * @ngdoc method
-          * @name .0.method:partialUpdateAccount
-          * @methodOf .0
-          * @description
-          * Partial update account
-          **/
-
-          'partialUpdateAccount': {
-            method: 'PATCH',
-            url: apiUrl + '/accounts/:accountId',
-            params: {
-              'accountId': '@accountId',
-            },
           },
 
           /**
           * @ngdoc method
-          * @name .1.method:updateAccount
-          * @methodOf .1
-          * @description
-          * Update account
-          **/
-
-          'updateAccount': {
-            method: 'PUT',
-            url: apiUrl + '/accounts/:accountId',
-            params: {
-              'accountId': '@accountId',
-            },
-          },
-
-          /**
-          * @ngdoc method
-          * @name .2.method:getAccount
-          * @methodOf .2
-          * @description
-          * Retrieve account by id
-          **/
-
-          'getAccount': {
-            method: 'GET',
-            url: apiUrl + '/accounts/:accountId',
-            params: {
-              'accountId': '@accountId',
-            },
-          },
-
-          /**
-          * @ngdoc method
-          * @name .3.method:getRegistrationStatusByMsisdn
-          * @methodOf .3
-          * @description
-          * Retrieve
-          **/
-
-          'getRegistrationStatusByMsisdn': {
-            method: 'GET',
-            url: apiUrl + '/accounts/check',
-            params: {
-              'msisdn': '@msisdn',
-            },
-          },
-
-          /**
-          * @ngdoc method
-          * @name .4.method:statusPath
-          * @methodOf .4
-          * @description
-          * Retrieve status of account by id
-          **/
-
-          'statusPath': {
-            method: 'GET',
-            url: apiUrl + '/accounts/:accountId/status',
-            params: {
-              'accountId': '@accountId',
-            },
-          },
-
-          /**
-          * @ngdoc method
-          * @name .5.method:addAccount
+          * @name .5.method:servicesCategoryPath
           * @methodOf .5
           * @description
-          * Create account
+          * Get list of categories linked with service
           **/
 
-          'addAccount': {
-            method: 'POST',
-            url: apiUrl + '/accounts',
-          },
-
-          /**
-          * @ngdoc method
-          * @name .6.method:listAccounts
-          * @methodOf .6
-          * @description
-          * List accounts
-          **/
-
-          'listAccounts': {
+          'servicesCategoryPath': {
             method: 'GET',
-            url: apiUrl + '/accounts',
-            isArray: true,
+            url: apiUrl + '/categories/:categoryId/services',
+            params: {
+              'serviceId': '@serviceId',
+            },
           }
         };
     }])
@@ -756,6 +772,29 @@
     }])
         /**
       * @ngdoc service
+      * @name .ProfileCreationRequests
+      * @requires $resource
+      * @requires apiUrl
+      **/
+    .service('ProfileCreationRequestsApiDef', ['apiUrl', function(apiUrl) {
+        return {
+
+          /**
+          * @ngdoc method
+          * @name .0.method:profileCreationRequestPath
+          * @methodOf .0
+          * @description
+          * Create profile creation requests
+          **/
+
+          'profileCreationRequestPath': {
+            method: 'POST',
+            url: apiUrl + '/profileCreationRequests',
+          }
+        };
+    }])
+        /**
+      * @ngdoc service
       * @name .Session
       * @requires $resource
       * @requires apiUrl
@@ -800,29 +839,6 @@
           'check': {
             method: 'GET',
             url: apiUrl + '/session',
-          }
-        };
-    }])
-        /**
-      * @ngdoc service
-      * @name .ProfileCreationRequests
-      * @requires $resource
-      * @requires apiUrl
-      **/
-    .service('ProfileCreationRequestsApiDef', ['apiUrl', function(apiUrl) {
-        return {
-
-          /**
-          * @ngdoc method
-          * @name .0.method:profileCreationRequestPath
-          * @methodOf .0
-          * @description
-          * Create profile creation requests
-          **/
-
-          'profileCreationRequestPath': {
-            method: 'POST',
-            url: apiUrl + '/profileCreationRequests',
           }
         };
     }])
