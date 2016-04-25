@@ -28,6 +28,7 @@ function proDropdown($timeout) {
         return false
       }
     }
+
   }
 
   return {

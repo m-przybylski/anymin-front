@@ -26,6 +26,8 @@
         value:  '+22'
       }
     ]
+    vm.account.phoneNumber.prefix = vm.prefix[0]
+    console.log(vm.account.phoneNumber.prefix)
 
     //vm.account.phoneNumber.prefix = _.find(vm.prefix, function(o) { return o.name ===  vm.account.phoneNumber.prefix })
     //if (vm.account.phoneNumber.prefix !== null && vm.account.phoneNumber.prefix !== undefined) {
