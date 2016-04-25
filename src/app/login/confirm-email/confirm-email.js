@@ -1,6 +1,6 @@
 (function() {
 
-  function ConfirmEmailResolver($state, $stateParams, $q, $filter, $timeout, proTopAlertService, User, UserRoles, AccountApi) {
+  function ConfirmEmailResolver($state, $stateParams, $q, $filter, $timeout, proTopAlertService, User, UserRoles, AccountApi, SessionApi) {
 
     let _deferred = $q.defer()
     
@@ -16,20 +16,29 @@
     }
 
     let _handleGoodToken = (response) => {
-      delete response.$promise
-      delete response.$resolved
-      User.setData(response)
+
       User.setApiKeyHeader(response.apiKey)
-      User.setData({role: UserRoles.getRole('user')})
+      SessionApi.check().$promise.then((response) => {
 
-      proTopAlertService.success({
-        message: $filter('translate')('LOGIN.EMAIL_CONFIRMATION_SUCCESS'),
-        timeout: 4
-      })
+        _deferred.resolve()
 
-      $timeout(() => {
-        $state.go('app.dashboard.start')
-      })
+        delete response.$promise
+        delete response.$resolved
+        User.setData(response)
+        User.setData({role: UserRoles.getRole('user')})
+
+        proTopAlertService.success({
+          message: $filter('translate')('LOGIN.EMAIL_CONFIRMATION_SUCCESS'),
+          timeout: 4
+        })
+
+        $timeout(() => {
+          $state.go('app.dashboard.start')
+        })
+
+      }, _handleBadToken)
+
+
     }
 
     let _verifyEmailToken = (token) => {
