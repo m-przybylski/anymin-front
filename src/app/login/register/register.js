@@ -72,7 +72,7 @@
 
     vm.setNewEmail = () => {
       _updateNewUserObject({
-        email: vm.registrationSteps.email
+        unverifiedEmail: vm.registrationSteps.email
       }, () => {
         vm.isPending = false
         vm.current = 3
