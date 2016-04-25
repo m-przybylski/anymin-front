@@ -6,7 +6,18 @@
     vm.isPending = false
     vm.current = 1
     vm.account = loginStateService.getAccountObject()
-
+    let clearAccount = ()=> {
+      let logoutObject = {
+        phoneNumber: {
+          prefix: vm.prefix[0].name,
+          number: null
+        },
+        password: null
+      }
+      loginStateService.setAccountObject(logoutObject)
+    }
+    console.log(loginStateService.getAccountObject())
+    console.log(vm.account)
     vm.prefix = [
       {
         name:   '+48',
@@ -18,7 +29,34 @@
       }
     ]
 
-    vm.account.phoneNumber.prefix = _.find(vm.prefix, function(o) { return o.name ===  vm.account.phoneNumber.prefix })
+    proTopAlertService.success({
+      message: $filter('translate')('LOGIN.SUCCESSFUL_LOGIN'),
+      timeout: 5
+    })
+    proTopAlertService.info({
+      message: $filter('translate')('LOGIN.SUCCESSFUL_LOGIN'),
+      timeout: 5
+    })
+    proTopAlertService.success({
+      message: $filter('translate')('LOGIN.SUCCESSFUL_LOGIN'),
+      timeout: 5
+    })
+    proTopAlertService.error({
+      message: $filter('translate')('LOGIN.SUCCESSFUL_LOGIN')
+    })
+    proTopAlertService.success({
+      message: $filter('translate')('LOGIN.SUCCESSFUL_LOGIN')
+    })
+    proTopAlertService.error({
+      message: $filter('translate')('LOGIN.SUCCESSFUL_LOGIN')
+    })
+
+    //vm.account.phoneNumber.prefix = _.find(vm.prefix, function(o) { return o.name ===  vm.account.phoneNumber.prefix })
+    //if (vm.account.phoneNumber.prefix !== null && vm.account.phoneNumber.prefix !== undefined) {
+    //   vm.account.phoneNumber.prefix = _.find(vm.prefix, function(o) { return o.name ===  vm.account.phoneNumber.prefix })
+    //}else {
+    //  vm.account.phoneNumber.prefix = vm.prefix[0]
+    //}
 
     vm.pattern = CommonSettingsService.localSettings.phonePattern
 
@@ -43,7 +81,7 @@
     }
 
     vm.getPhoneNumberStatus = () => {
-      if (!vm.isPending) {
+      if (!vm.isPending && vm.account.phoneNumber.prefix !== undefined) {
         vm.isPending = true
         proTopWaitingLoaderService.immediate()
         loginStateService.setAccountObject(vm.account)
@@ -75,6 +113,7 @@
           vm.isPending = false
           proTopWaitingLoaderService.stopLoader()
           $state.go('app.dashboard.start')
+          clearAccount()
           proTopAlertService.success({
             message: $filter('translate')('LOGIN.SUCCESSFUL_LOGIN'),
             timeout: 5

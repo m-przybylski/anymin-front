@@ -13,7 +13,12 @@
       return n
     }
 
+
     let _destroyAlert = (alertId)=> {
+      if(2 < _alertArray.length){
+        _alertArray[2].show = true
+      }
+
       _.remove(_alertArray, (alert)=> {
         return alert.id === alertId
       })
@@ -29,6 +34,9 @@
     }
 
     let _init = (options) => {
+      if(_alertArray.length < 2){
+        options.show = true
+      }
       _pushAlert(options)
       _timeoutDestroy(options.timeout, options.id)
     }
@@ -44,7 +52,8 @@
           message:  '',
           header:   $filter('translate')('INTERFACE.ALERT_SUCCESS'),
           type:     'success',
-          timeout:  null
+          timeout:  null,
+          show:     false
         }
         _init(angular.extend(defaultOptions, options))
       },
@@ -56,7 +65,8 @@
           message:  '',
           header:   $filter('translate')('INTERFACE.ALERT_WARNING'),
           type:     'warning',
-          timeout:  null
+          timeout:  null,
+          show:     false
         }
         _init(angular.extend(defaultOptions, options))
       },
@@ -68,7 +78,8 @@
           message:  '',
           header:   $filter('translate')('INTERFACE.ALERT_ERROR'),
           type:     'error',
-          timeout:  null
+          timeout:  null,
+          show:     false
         }
         _init(angular.extend(defaultOptions, options))
       },
@@ -80,7 +91,8 @@
           message:  '',
           header:   $filter('translate')('INTERFACE.ALERT_INFO'),
           type:     'info',
-          timeout:  null
+          timeout:  null,
+          show:     false
         }
         _init(angular.extend(defaultOptions, options))
       },
