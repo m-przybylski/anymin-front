@@ -3,22 +3,18 @@
 
     let _alertArray = []
     let defaultOptions = {}
-    let _pushAlert = (alert) => {
-      _alertArray.push(alert)
-    }
-
+    let alertsLimit = 2
     let _setId = ()=> {
       let d = new Date()
       let n = d.getMilliseconds() + Math.floor(Math.random() * 1000)
       return n
     }
 
-
     let _destroyAlert = (alertId)=> {
-      if(2 < _alertArray.length){
-        _alertArray[2].show = true
+      if (alertsLimit < _alertArray.length) {
+        _alertArray[alertsLimit].visible = true
+        _timeoutDestroy(_alertArray[alertsLimit].timeout, _alertArray[alertsLimit].id)
       }
-
       _.remove(_alertArray, (alert)=> {
         return alert.id === alertId
       })
@@ -33,13 +29,14 @@
       }
     }
 
-    let _init = (options) => {
-      if(_alertArray.length < 2){
-        options.show = true
+    let _pushAlert = (options) => {
+      if (_alertArray.length < alertsLimit) {
+        options.visible = true
+        _timeoutDestroy(options.timeout, options.id)
       }
-      _pushAlert(options)
-      _timeoutDestroy(options.timeout, options.id)
+      _alertArray.push(options)
     }
+
     return {
       bindAlert: (alerts) => {
         alerts(_alertArray)
@@ -53,9 +50,9 @@
           header:   $filter('translate')('INTERFACE.ALERT_SUCCESS'),
           type:     'success',
           timeout:  null,
-          show:     false
+          visible:     false
         }
-        _init(angular.extend(defaultOptions, options))
+        _pushAlert(angular.extend(defaultOptions, options))
       },
       warning: (options) => {
         options = options === undefined ? {} : options
@@ -66,9 +63,9 @@
           header:   $filter('translate')('INTERFACE.ALERT_WARNING'),
           type:     'warning',
           timeout:  null,
-          show:     false
+          visible:     false
         }
-        _init(angular.extend(defaultOptions, options))
+        _pushAlert(angular.extend(defaultOptions, options))
       },
       error: (options) => {
         options = options === undefined ? {} : options
@@ -79,9 +76,9 @@
           header:   $filter('translate')('INTERFACE.ALERT_ERROR'),
           type:     'error',
           timeout:  null,
-          show:     false
+          visible:     false
         }
-        _init(angular.extend(defaultOptions, options))
+        _pushAlert(angular.extend(defaultOptions, options))
       },
       info: (options) => {
         options = options === undefined ? {} : options
@@ -92,9 +89,9 @@
           header:   $filter('translate')('INTERFACE.ALERT_INFO'),
           type:     'info',
           timeout:  null,
-          show:     false
+          visible:     false
         }
-        _init(angular.extend(defaultOptions, options))
+        _pushAlert(angular.extend(defaultOptions, options))
       },
       destroyAlert: (alertId) => {
         _destroyAlert(alertId)
