@@ -30,19 +30,20 @@
                 $httpBackend.whenDELETE(apiUrl + '/msisdns/:msisdnId').respond();
                 $httpBackend.whenPUT(apiUrl + '/msisdns/:msisdnId').respond();
                 $httpBackend.whenGET(apiUrl + '/msisdns/:msisdnId').respond();
-                $httpBackend.whenGET(apiUrl + '/categories/:categoryId/services').respond();
-                $httpBackend.whenGET(apiUrl + '/categories/:categoryId').respond();
-                $httpBackend.whenGET(apiUrl + '/index/categories').respond();
-                $httpBackend.whenGET(apiUrl + '/categories').respond();
-                $httpBackend.whenGET(apiUrl + '/categories/:categoryId/subcategories').respond();
-                $httpBackend.whenGET(apiUrl + '/index/categories/:categoryId').respond();
+                $httpBackend.whenPOST(apiUrl + '/accounts').respond();
+                $httpBackend.whenGET(apiUrl + '/accounts').respond();
+                $httpBackend.whenPOST(apiUrl + '/accounts/confirm/email/:token').respond();
                 $httpBackend.whenPATCH(apiUrl + '/accounts/:accountId').respond();
                 $httpBackend.whenPUT(apiUrl + '/accounts/:accountId').respond();
                 $httpBackend.whenGET(apiUrl + '/accounts/:accountId').respond();
                 $httpBackend.whenGET(apiUrl + '/accounts/check').respond();
                 $httpBackend.whenGET(apiUrl + '/accounts/:accountId/status').respond();
-                $httpBackend.whenPOST(apiUrl + '/accounts').respond();
-                $httpBackend.whenGET(apiUrl + '/accounts').respond();
+                $httpBackend.whenGET(apiUrl + '/categories/:categoryId').respond();
+                $httpBackend.whenGET(apiUrl + '/index/categories').respond();
+                $httpBackend.whenGET(apiUrl + '/categories').respond();
+                $httpBackend.whenGET(apiUrl + '/categories/:categoryId/subcategories').respond();
+                $httpBackend.whenGET(apiUrl + '/index/categories/:categoryId').respond();
+                $httpBackend.whenGET(apiUrl + '/categories/:categoryId/services').respond();
                 $httpBackend.whenPOST(apiUrl + '/services').respond();
                 $httpBackend.whenPUT(apiUrl + '/services/:serviceId').respond();
                 $httpBackend.whenGET(apiUrl + '/services/:serviceId').respond();
@@ -52,10 +53,10 @@
                 $httpBackend.whenGET(apiUrl + '/profiles/new').respond();
                 $httpBackend.whenPOST(apiUrl + '/msisdns/verify').respond();
                 $httpBackend.whenPOST(apiUrl + '/msisdns/verify/code').respond();
+                $httpBackend.whenPOST(apiUrl + '/profileCreationRequests').respond();
                 $httpBackend.whenPOST(apiUrl + '/session').respond();
                 $httpBackend.whenDELETE(apiUrl + '/session').respond();
                 $httpBackend.whenGET(apiUrl + '/session').respond();
-                $httpBackend.whenPOST(apiUrl + '/profileCreationRequests').respond();
         }]);
 
     if( typeof exports !== 'undefined' ) {
