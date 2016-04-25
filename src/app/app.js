@@ -204,6 +204,12 @@
     'profitelo.controller.dashboard.summary',
     'profitelo.controller.dashboard.company-summary',
 
+    'profitelo.controller.dashboard.service-provider',
+    'profitelo.controller.dashboard.service-provider.choose-path',
+    'profitelo.controller.dashboard.service-provider.individual-path',
+    'profitelo.controller.dashboard.service-provider.company-path',
+    
+    
     'profitelo.controller.home',
     // 'profitelo.controller.expert-profile',
     'profitelo.controller.expert-progress',
