@@ -413,112 +413,6 @@
         });
       }];
     })
-        .provider('CategoryApi', function() {
-
-      /**
-      * @ngdoc service
-      * @name .Category
-      * @requires $resource
-      * @requires apiUrl
-      **/
-
-      this.$get = ['$resource', 'apiUrl', '$resourceActionConfig', function($resource, apiUrl, $resourceActionConfig) {
-        return $resource(null, null, {
-
-          /**
-          * @ngdoc method
-          * @name .0.method:servicesCategoryPath
-          * @methodOf .0
-          * @description
-          * Get list of categories linked with service
-          **/
-
-          'servicesCategoryPath': angular.extend({
-            method: 'GET',
-            url: apiUrl + '/categories/:categoryId/services',
-            params: {
-              'serviceId': '@serviceId',
-            },
-          }, $resourceActionConfig('0', 'servicesCategoryPath')),
-
-          /**
-          * @ngdoc method
-          * @name .1.method:detailsPath
-          * @methodOf .1
-          * @description
-          * Get Details of category
-          **/
-
-          'detailsPath': angular.extend({
-            method: 'GET',
-            url: apiUrl + '/categories/:categoryId',
-            params: {
-              'categoryId': '@categoryId',
-            },
-          }, $resourceActionConfig('1', 'detailsPath')),
-
-          /**
-          * @ngdoc method
-          * @name .2.method:listCategoriesPath
-          * @methodOf .2
-          * @description
-          * Get list of categories
-          **/
-
-          'listCategoriesPath': angular.extend({
-            method: 'GET',
-            url: apiUrl + '/index/categories',
-          }, $resourceActionConfig('2', 'listCategoriesPath')),
-
-          /**
-          * @ngdoc method
-          * @name .3.method:listPath
-          * @methodOf .3
-          * @description
-          * Get list of categories
-          **/
-
-          'listPath': angular.extend({
-            method: 'GET',
-            url: apiUrl + '/categories',
-            isArray: true,
-          }, $resourceActionConfig('3', 'listPath')),
-
-          /**
-          * @ngdoc method
-          * @name .4.method:subcategoryPath
-          * @methodOf .4
-          * @description
-          * Get list of subCategories
-          **/
-
-          'subcategoryPath': angular.extend({
-            method: 'GET',
-            url: apiUrl + '/categories/:categoryId/subcategories',
-            params: {
-              'categoryId': '@categoryId',
-            },
-            isArray: true,
-          }, $resourceActionConfig('4', 'subcategoryPath')),
-
-          /**
-          * @ngdoc method
-          * @name .5.method:getCategoryPath
-          * @methodOf .5
-          * @description
-          * Retrieve category by id
-          **/
-
-          'getCategoryPath': angular.extend({
-            method: 'GET',
-            url: apiUrl + '/index/categories/:categoryId',
-            params: {
-              'categoryId': '@categoryId',
-            },
-          }, $resourceActionConfig('5', 'getCategoryPath')),
-        });
-      }];
-    })
         .provider('AccountApi', function() {
 
       /**
@@ -533,8 +427,51 @@
 
           /**
           * @ngdoc method
-          * @name .0.method:partialUpdateAccount
+          * @name .0.method:addAccount
           * @methodOf .0
+          * @description
+          * Create account
+          **/
+
+          'addAccount': angular.extend({
+            method: 'POST',
+            url: apiUrl + '/accounts',
+          }, $resourceActionConfig('0', 'addAccount')),
+
+          /**
+          * @ngdoc method
+          * @name .1.method:listAccounts
+          * @methodOf .1
+          * @description
+          * List accounts
+          **/
+
+          'listAccounts': angular.extend({
+            method: 'GET',
+            url: apiUrl + '/accounts',
+            isArray: true,
+          }, $resourceActionConfig('1', 'listAccounts')),
+
+          /**
+          * @ngdoc method
+          * @name .2.method:postAccountVerifyEmail
+          * @methodOf .2
+          * @description
+          * Confirm email
+          **/
+
+          'postAccountVerifyEmail': angular.extend({
+            method: 'POST',
+            url: apiUrl + '/accounts/confirm/email/:token',
+            params: {
+              'token': '@token',
+            },
+          }, $resourceActionConfig('2', 'postAccountVerifyEmail')),
+
+          /**
+          * @ngdoc method
+          * @name .3.method:partialUpdateAccount
+          * @methodOf .3
           * @description
           * Partial update account
           **/
@@ -545,12 +482,12 @@
             params: {
               'accountId': '@accountId',
             },
-          }, $resourceActionConfig('0', 'partialUpdateAccount')),
+          }, $resourceActionConfig('3', 'partialUpdateAccount')),
 
           /**
           * @ngdoc method
-          * @name .1.method:updateAccount
-          * @methodOf .1
+          * @name .4.method:updateAccount
+          * @methodOf .4
           * @description
           * Update account
           **/
@@ -561,12 +498,12 @@
             params: {
               'accountId': '@accountId',
             },
-          }, $resourceActionConfig('1', 'updateAccount')),
+          }, $resourceActionConfig('4', 'updateAccount')),
 
           /**
           * @ngdoc method
-          * @name .2.method:getAccount
-          * @methodOf .2
+          * @name .5.method:getAccount
+          * @methodOf .5
           * @description
           * Retrieve account by id
           **/
@@ -577,12 +514,12 @@
             params: {
               'accountId': '@accountId',
             },
-          }, $resourceActionConfig('2', 'getAccount')),
+          }, $resourceActionConfig('5', 'getAccount')),
 
           /**
           * @ngdoc method
-          * @name .3.method:getRegistrationStatusByMsisdn
-          * @methodOf .3
+          * @name .6.method:getRegistrationStatusByMsisdn
+          * @methodOf .6
           * @description
           * Retrieve
           **/
@@ -593,12 +530,12 @@
             params: {
               'msisdn': '@msisdn',
             },
-          }, $resourceActionConfig('3', 'getRegistrationStatusByMsisdn')),
+          }, $resourceActionConfig('6', 'getRegistrationStatusByMsisdn')),
 
           /**
           * @ngdoc method
-          * @name .4.method:statusPath
-          * @methodOf .4
+          * @name .7.method:statusPath
+          * @methodOf .7
           * @description
           * Retrieve status of account by id
           **/
@@ -609,34 +546,113 @@
             params: {
               'accountId': '@accountId',
             },
-          }, $resourceActionConfig('4', 'statusPath')),
+          }, $resourceActionConfig('7', 'statusPath')),
+        });
+      }];
+    })
+        .provider('CategoryApi', function() {
+
+      /**
+      * @ngdoc service
+      * @name .Category
+      * @requires $resource
+      * @requires apiUrl
+      **/
+
+      this.$get = ['$resource', 'apiUrl', '$resourceActionConfig', function($resource, apiUrl, $resourceActionConfig) {
+        return $resource(null, null, {
 
           /**
           * @ngdoc method
-          * @name .5.method:addAccount
+          * @name .0.method:detailsPath
+          * @methodOf .0
+          * @description
+          * Get Details of category
+          **/
+
+          'detailsPath': angular.extend({
+            method: 'GET',
+            url: apiUrl + '/categories/:categoryId',
+            params: {
+              'categoryId': '@categoryId',
+            },
+          }, $resourceActionConfig('0', 'detailsPath')),
+
+          /**
+          * @ngdoc method
+          * @name .1.method:listCategoriesPath
+          * @methodOf .1
+          * @description
+          * Get list of categories
+          **/
+
+          'listCategoriesPath': angular.extend({
+            method: 'GET',
+            url: apiUrl + '/index/categories',
+          }, $resourceActionConfig('1', 'listCategoriesPath')),
+
+          /**
+          * @ngdoc method
+          * @name .2.method:listPath
+          * @methodOf .2
+          * @description
+          * Get list of categories
+          **/
+
+          'listPath': angular.extend({
+            method: 'GET',
+            url: apiUrl + '/categories',
+            isArray: true,
+          }, $resourceActionConfig('2', 'listPath')),
+
+          /**
+          * @ngdoc method
+          * @name .3.method:subcategoryPath
+          * @methodOf .3
+          * @description
+          * Get list of subCategories
+          **/
+
+          'subcategoryPath': angular.extend({
+            method: 'GET',
+            url: apiUrl + '/categories/:categoryId/subcategories',
+            params: {
+              'categoryId': '@categoryId',
+            },
+            isArray: true,
+          }, $resourceActionConfig('3', 'subcategoryPath')),
+
+          /**
+          * @ngdoc method
+          * @name .4.method:getCategoryPath
+          * @methodOf .4
+          * @description
+          * Retrieve category by id
+          **/
+
+          'getCategoryPath': angular.extend({
+            method: 'GET',
+            url: apiUrl + '/index/categories/:categoryId',
+            params: {
+              'categoryId': '@categoryId',
+            },
+          }, $resourceActionConfig('4', 'getCategoryPath')),
+
+          /**
+          * @ngdoc method
+          * @name .5.method:servicesCategoryPath
           * @methodOf .5
           * @description
-          * Create account
+          * Get list of categories linked with service
           **/
 
-          'addAccount': angular.extend({
-            method: 'POST',
-            url: apiUrl + '/accounts',
-          }, $resourceActionConfig('5', 'addAccount')),
-
-          /**
-          * @ngdoc method
-          * @name .6.method:listAccounts
-          * @methodOf .6
-          * @description
-          * List accounts
-          **/
-
-          'listAccounts': angular.extend({
+          'servicesCategoryPath': angular.extend({
             method: 'GET',
-            url: apiUrl + '/accounts',
-            isArray: true,
-          }, $resourceActionConfig('6', 'listAccounts')),
+            url: apiUrl + '/categories/:categoryId/services',
+            params: {
+              'serviceId': '@serviceId',
+            },
+          }, $resourceActionConfig('5', 'servicesCategoryPath')),
         });
       }];
     })
@@ -811,6 +827,33 @@
         });
       }];
     })
+        .provider('ProfileCreationRequestsApi', function() {
+
+      /**
+      * @ngdoc service
+      * @name .ProfileCreationRequests
+      * @requires $resource
+      * @requires apiUrl
+      **/
+
+      this.$get = ['$resource', 'apiUrl', '$resourceActionConfig', function($resource, apiUrl, $resourceActionConfig) {
+        return $resource(null, null, {
+
+          /**
+          * @ngdoc method
+          * @name .0.method:profileCreationRequestPath
+          * @methodOf .0
+          * @description
+          * Create profile creation requests
+          **/
+
+          'profileCreationRequestPath': angular.extend({
+            method: 'POST',
+            url: apiUrl + '/profileCreationRequests',
+          }, $resourceActionConfig('0', 'profileCreationRequestPath')),
+        });
+      }];
+    })
         .provider('SessionApi', function() {
 
       /**
@@ -861,33 +904,6 @@
             method: 'GET',
             url: apiUrl + '/session',
           }, $resourceActionConfig('2', 'check')),
-        });
-      }];
-    })
-        .provider('ProfileCreationRequestsApi', function() {
-
-      /**
-      * @ngdoc service
-      * @name .ProfileCreationRequests
-      * @requires $resource
-      * @requires apiUrl
-      **/
-
-      this.$get = ['$resource', 'apiUrl', '$resourceActionConfig', function($resource, apiUrl, $resourceActionConfig) {
-        return $resource(null, null, {
-
-          /**
-          * @ngdoc method
-          * @name .0.method:profileCreationRequestPath
-          * @methodOf .0
-          * @description
-          * Create profile creation requests
-          **/
-
-          'profileCreationRequestPath': angular.extend({
-            method: 'POST',
-            url: apiUrl + '/profileCreationRequests',
-          }, $resourceActionConfig('0', 'profileCreationRequestPath')),
         });
       }];
     })
