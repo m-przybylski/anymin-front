@@ -26,16 +26,19 @@
         value:  '+22'
       }
     ]
-    vm.account.phoneNumber.prefix = vm.prefix[0]
-    console.log(vm.account.phoneNumber.prefix)
 
-    //vm.account.phoneNumber.prefix = _.find(vm.prefix, function(o) { return o.name ===  vm.account.phoneNumber.prefix })
-    //if (vm.account.phoneNumber.prefix !== null && vm.account.phoneNumber.prefix !== undefined) {
-    //   vm.account.phoneNumber.prefix = _.find(vm.prefix, function(o) { return o.name ===  vm.account.phoneNumber.prefix })
-    //}else {
-    //  vm.account.phoneNumber.prefix = vm.prefix[0]
-    //}
+    let _transformPrefix = function(prefix) {
+      if (typeof prefix === 'object') {
+        return prefix.name
+      }
+      return prefix
+    }
 
+    if (vm.account.phoneNumber.prefix !== null && vm.account.phoneNumber.prefix !== undefined) {
+       vm.account.phoneNumber.prefix = _.find(vm.prefix, function(o) { return o.name ===  vm.account.phoneNumber.prefix })
+    } else {
+      vm.account.phoneNumber.prefix = vm.prefix[0]
+    }
     vm.pattern = CommonSettingsService.localSettings.phonePattern
 
     vm.backToPhoneNumber = () => {
@@ -43,6 +46,7 @@
       $scope.passwordForm.$setPristine()
       vm.current = 1
     }
+
 
     let _determinePhoneNumberStatus = (status) => {
       switch (status) {
@@ -60,6 +64,7 @@
 
     vm.getPhoneNumberStatus = () => {
       if (!vm.isPending && vm.account.phoneNumber.prefix !== undefined && vm.account.phoneNumber.prefix !== null) {
+        vm.account.phoneNumber.prefix = _transformPrefix(vm.account.phoneNumber.prefix)
         vm.isPending = true
         proTopWaitingLoaderService.immediate()
         loginStateService.setAccountObject(vm.account)
@@ -83,6 +88,7 @@
     vm.login = () => {
       if (!vm.isPending) {
         vm.isPending = true
+        vm.account.phoneNumber.prefix = _transformPrefix(vm.account.phoneNumber.prefix)
         proTopWaitingLoaderService.immediate()
         User.login({
           msisdn: vm.account.phoneNumber.prefix + '' + vm.account.phoneNumber.number,
