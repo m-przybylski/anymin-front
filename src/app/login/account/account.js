@@ -9,15 +9,13 @@
     let clearAccount = ()=> {
       let logoutObject = {
         phoneNumber: {
-          prefix: vm.prefix[0].name,
+          prefix: null,
           number: null
         },
         password: null
       }
       loginStateService.setAccountObject(logoutObject)
     }
-    console.log(loginStateService.getAccountObject())
-    console.log(vm.account)
     vm.prefix = [
       {
         name:   '+48',
@@ -28,28 +26,6 @@
         value:  '+22'
       }
     ]
-
-    proTopAlertService.success({
-      message: $filter('translate')('LOGIN.SUCCESSFUL_LOGIN'),
-      timeout: 5
-    })
-    proTopAlertService.info({
-      message: $filter('translate')('LOGIN.SUCCESSFUL_LOGIN'),
-      timeout: 5
-    })
-    proTopAlertService.success({
-      message: $filter('translate')('LOGIN.SUCCESSFUL_LOGIN'),
-      timeout: 5
-    })
-    proTopAlertService.error({
-      message: $filter('translate')('LOGIN.SUCCESSFUL_LOGIN')
-    })
-    proTopAlertService.success({
-      message: $filter('translate')('LOGIN.SUCCESSFUL_LOGIN')
-    })
-    proTopAlertService.error({
-      message: $filter('translate')('LOGIN.SUCCESSFUL_LOGIN')
-    })
 
     //vm.account.phoneNumber.prefix = _.find(vm.prefix, function(o) { return o.name ===  vm.account.phoneNumber.prefix })
     //if (vm.account.phoneNumber.prefix !== null && vm.account.phoneNumber.prefix !== undefined) {
@@ -81,7 +57,7 @@
     }
 
     vm.getPhoneNumberStatus = () => {
-      if (!vm.isPending && vm.account.phoneNumber.prefix !== undefined) {
+      if (!vm.isPending && vm.account.phoneNumber.prefix !== undefined && vm.account.phoneNumber.prefix !== null) {
         vm.isPending = true
         proTopWaitingLoaderService.immediate()
         loginStateService.setAccountObject(vm.account)

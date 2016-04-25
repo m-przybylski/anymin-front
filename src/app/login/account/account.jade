@@ -12,7 +12,7 @@
     data-ng-pattern="vm.pattern" required)
 
     .input-error-messages
-      .error.left(data-ng-show="phoneNumberForm.$submitted && phoneNumberForm.$invalid || phoneNumberForm.$submitted &&  vm.account.phoneNumber.prefix === undefined" data-translate="LOGIN.PHONE_NUMBER_REQUIRED")
+      .error.left(data-ng-show="phoneNumberForm.$submitted && phoneNumberForm.$invalid || phoneNumberForm.$submitted &&  vm.account.phoneNumber.prefix === null " data-translate="LOGIN.PHONE_NUMBER_REQUIRED")
 
     button.pro-btn.btn-main.btn-medium(data-translate="LOGIN.NEXT" type="submit")
 
