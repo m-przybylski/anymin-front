@@ -15,9 +15,9 @@
       })
     }
 
-    let _handleGoodToken = (response) => {
+    let _handleGoodToken = (apiKey) => {
 
-      User.setApiKeyHeader(response.apiKey)
+      User.setApiKeyHeader(apiKey)
       SessionApi.check().$promise.then((response) => {
 
         _deferred.resolve()
@@ -45,7 +45,9 @@
 
       AccountApi.postAccountVerifyEmail({
         token: token
-      }).$promise.then(_handleGoodToken, _handleBadToken)
+      }).$promise.then((response) => {
+        _handleGoodToken(response.apiKey)
+      }, _handleBadToken)
 
     }
 
