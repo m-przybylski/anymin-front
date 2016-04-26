@@ -58,7 +58,7 @@
       position: relative
       float: right
       color: $c-primary
-      top: 13px
+      top: 14px
       visibility: hidden
       +xsm
         visibility: visible
@@ -124,15 +124,16 @@
   >.select
     position: absolute
     cursor: pointer
-    bottom: 3px
+    bottom: 0
     background-color: $c-white
     border: none
     font-size: 18px
     width: 100%
+    top: 0
     -webkit-appearance: none
     margin-left: -10px
     outline: none
-    &:focus
+    &:hover
       background-color: $c-background
   .ui-select-match
     background-color: $c-background
@@ -142,7 +143,8 @@
   .dropdown-icon
     position: absolute
     right: 15px
-    top: 19px
+    left: 75px
+    padding-top: 25px
     color: $c-primary
   .ui-select-bootstrap
     .ui-select-choices-row.active
@@ -152,6 +154,8 @@
         outline: none
     .ui-select-choices
       margin: 0
+      min-width: 100px
+      margin-left: -1px
       overflow-x: hidden !important
       .gm-scrollbar.-vertical
         background-color: transparent
@@ -164,14 +168,16 @@
         background-color: $c-primary
     .ui-select-choices-row
       outline: none
-      margin: 5px 10px
+      margin: 4px 8px
     .ui-select-choices-row
       >a
         text-align: left
         border: none
-        padding: 10px 0 10px 20px
+        padding: 10px 0 10px 0
         outline: none
         text-transform: capitalize
+        >span
+          padding-left: 8px
         &:hover
           background-color: $c-primary
           color: $c-white
@@ -182,6 +188,8 @@
     z-index: 100
     .ui-select-match-text
       padding-left: 10px
+      position: relative
+      top: 25px
   .btn-default-focus
     box-shadow: none
     background-color: $c-background
@@ -197,10 +205,9 @@
   position: relative
   width: 100%
   margin-bottom: 0
-  top: 0
-  margin-top: 0
-  padding-top: 30px
-  height: 55px
+  height: 64px
+
+
 
 .form-control
   display: block

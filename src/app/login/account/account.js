@@ -27,7 +27,7 @@
       }
     ]
 
-
+    vm.prefix.selected = {name: '+48'}
 
     let _transformPrefix = function(prefix) {
       if (typeof prefix === 'object') {
@@ -40,7 +40,7 @@
       if (vm.account.phoneNumber.prefix !== null && vm.account.phoneNumber.prefix !== undefined) {
         vm.account.phoneNumber.prefix = _.find(vm.prefix, function(o) { return o.name ===  vm.account.phoneNumber.prefix })
       } else {
-        //vm.account.phoneNumber.prefix = vm.prefix[0]
+        vm.account.phoneNumber.prefix = vm.prefix[0]
       }
     }
 

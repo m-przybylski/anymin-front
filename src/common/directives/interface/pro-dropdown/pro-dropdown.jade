@@ -1,4 +1,4 @@
-.input-group
+.input-group( class="{{focus ? 'onFocus' : ''}} {{onClick ? 'onClick' : ''}}" data-ng-click="onFocus()")
    .select
         ui-select(data-ng-model="proModel" data-theme="templates/ui-select" data-on-select="select($item, $model)" data-ng-click="openBar()" data-search-enabled="searchEnable()")
             ui-select-match(placeholder="{{placeholder}}")
