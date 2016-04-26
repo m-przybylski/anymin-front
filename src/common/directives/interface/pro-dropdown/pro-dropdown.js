@@ -10,12 +10,18 @@ function proDropdown($timeout) {
       return myScrollbarChoices
     }
 
+    //console.log(selected.name)
+
     scope.openBar = function() {
       _getScrollbarChoices().perfectScrollbar()
     }
     scope.select = function(item, model) {
+      if (typeof item === 'object') {
+        return item.value
+      }
       scope.proModel = item.value
       _getScrollbarChoices().perfectScrollbar()
+
     }
     scope.update = function() {
       _getScrollbarChoices().perfectScrollbar('destroy')
@@ -28,6 +34,7 @@ function proDropdown($timeout) {
         return false
       }
     }
+
 
   }
 
