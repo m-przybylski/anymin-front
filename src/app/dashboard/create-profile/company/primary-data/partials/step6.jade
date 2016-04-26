@@ -9,13 +9,25 @@
     
   .step-content-column
     .links-submit
-      pro-input(placeholder="{{'DASHBOARD.CREATE_PROFILE.CREATE_PROFILE_PLACEHOLDER' | translate}}")
+      pro-input(placeholder="{{'DASHBOARD.CREATE_PROFILE.CREATE_PROFILE_PLACEHOLDER' | translate}}" data-pro-model="link")
 
-    .links-submit
-      div
+    .document-submit
+      .document-container
         h3(data-translate="DASHBOARD.CREATE_PROFILE.CREATE_PROFILE_YOUR_LINKS")
-        .step-content
-          a.pro-btn.btn-main.btn-medium http://www.facebook.com
-          a.pro-btn.btn-main.btn-medium http://www.facebook.com
-          a.pro-btn.btn-main.btn-medium http://www.facebook.com
-          a.pro-btn.btn-main.btn-medium http://www.facebook.com
+        .links-submit.links-last-step
+          a.pro-btn.btn-main.btn-medium
+            i.icon.icon-upload-cloud-64.left-icon
+              span http://www.facebook.com
+            i.icon.icon-close-12
+          a.pro-btn.btn-main.btn-medium
+            i.icon.icon-info-24.left-icon
+              span http://www.facebook.com
+            i.icon.icon-close-12
+          a.pro-btn.btn-main.btn-medium
+            i.icon.icon-upload-cloud-64.left-icon
+              span http://www.facebook.com
+            i.icon.icon-close-12
+          a.pro-btn.btn-main.btn-medium
+            i.icon.icon-info-24.left-icon
+              span http://www.facebook.com
+            i.icon.icon-close-12

@@ -201,6 +201,7 @@
     'profitelo.controller.dashboard.single-profile',
     'profitelo.controller.dashboard.cost-data',
     'profitelo.controller.dashboard.company-cost-data',
+    'profitelo.controller.dashboard.summary',
     'profitelo.controller.dashboard.company-summary',
 
     'profitelo.controller.home',

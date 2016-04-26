@@ -17,7 +17,6 @@
         .switcher
           .option-left(data-translate="DASHBOARD.MENU.CLIENT")
           .option-right.active(data-translate="DASHBOARD.MENU.EXPERT")
-      .middle-row
         ul
           li
             a(data-translate="DASHBOARD.MENU.EXPERT_BASE")
@@ -37,12 +36,10 @@
             i.icon.icon-search-24
             p(data-translate="DASHBOARD.MENU.SEARCH")
         .switcher-tools
-          .option-left
-            a(data-ng-click="dashboardController.logout()")
+          a.option-left(data-ng-click="dashboardController.logout()")
               i.icon.icon-logout-24
-          .option-right
-            a
-              i.icon.icon-settings-24
+          a.option-right
+            i.icon.icon-settings-24
           
   
   .right-container(data-ng-class="{'slide-out':dashboardController.isSidebarOpen}" hm-swipeleft="dashboardController.toogleSidebar()" hm-swiperight="dashboardController.toogleSidebar()")

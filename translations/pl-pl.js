@@ -112,7 +112,7 @@
         		"REGISTER.ENTER_PHONE_NUMBER_FIRST":"Podaj najpierw numer telefonu.",
         		"REGISTER.REGISTRATION_SUCCESS":"Twoje konto zostało poprawnie założone. Zweryfikuj email, albo korzystać w pełni.",
         		"REGISTER.SERVICE_CODE":"Wpisz kod weryfikacyjny z smsa",
-        		"REGISTER.SERVICE_CODE_PLACEHOLDER":"np. 476239",
+        		"REGISTER.SERVICE_CODE_PLACEHOLDER":"1234",
         		"REGISTER.SERVICE_EMAIL":"Wpisz swój adres email",
         		"REGISTER.SERVICE_EMAIL_PLACEHOLDER":"np. jan.kowalski@profitelo.pl",
         		"REGISTER.SERVICE_PASSWORD":"ustaw nowe hasło do swojego konta",

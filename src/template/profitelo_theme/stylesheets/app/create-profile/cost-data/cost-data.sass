@@ -29,25 +29,29 @@
   align-items: center
   .left-input
     .input-group
-      width: 200px
       color: $c-secondary-txt
-      padding: 12px 12px
       input
-        font-size: 20px
-        padding: 7px
+        bottom: 24px
   .right-choose
     .input-group
-      width: 100px
+      width: 150px
       margin-left: -1px
       border-right: 1px solid $c-lines
-      padding: 10px
+      input
+        bottom: 24px
 .next-consultation
   display: flex
-  flex-direction: row
+  flex-direction: column
   flex-wrap: nowrap
   justify-content: center
   align-content: flex-start
   align-items: center
   margin-top: 30px
+  padding: 7px 10px
+  +mdm
+    padding: 24px 30px
+  p
+    font-size: 11px
+    text-align: center
 .bottom-consultation
   margin-top: 30px
