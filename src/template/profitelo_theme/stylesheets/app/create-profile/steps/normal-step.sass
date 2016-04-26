@@ -24,6 +24,7 @@
       p
         color: $c-lines
         margin-top: -20px
+        font-family: "sofia-pro-soft", sans-serif
       .title-order
         order: 1
         margin-top: -32px
@@ -118,12 +119,37 @@
         @extend .links-submit
         a
           width: auto
-          text-align: center
+          text-align: left
         .btn-main
           width: auto
         .document-container
           margin-top: 10px
           margin-bottom: -6px
+          .links-last-step
+            margin: 34px 0px 0px 0px
+            display: flex
+            flex-direction: row
+            flex-wrap: wrap
+            justify-content: space-between
+            align-content: flex-start
+            align-items: center
+            .left-icon
+              font-size: 24px
+              padding: 3px 0 0 10px
+            span
+              padding: -10px 0 0 24px
+            i
+              padding: 0 0 0 24px
+
+            a
+              display: flex
+              flex-direction: row
+              flex-wrap: wrap
+              justify-content: space-between
+              align-content: flex-start
+              align-items: center
+              margin: 0 0 16px 0
+              width: calc(50% - 8px)
     .step-content
       margin-top: 30px
       display: flex
