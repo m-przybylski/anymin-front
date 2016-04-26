@@ -10,24 +10,35 @@ function proDropdown($timeout) {
       return myScrollbarChoices
     }
 
+    scope.onFocus = ()=> {
+      scope.focus = true
+      scope.onClick = true
+    }
     scope.openBar = function() {
       _getScrollbarChoices().perfectScrollbar()
     }
     scope.select = function(item, model) {
+      if (typeof item === 'object') {
+        return item.value
+      }
       scope.proModel = item.value
       _getScrollbarChoices().perfectScrollbar()
+
+
     }
     scope.update = function() {
       _getScrollbarChoices().perfectScrollbar('destroy')
       $timeout(()=> {
         _getScrollbarChoices().perfectScrollbar()
       })
+
     }
     scope.searchEnable = () => {
       if ('noSearch' in attr) {
         return false
       }
     }
+
   }
 
   return {

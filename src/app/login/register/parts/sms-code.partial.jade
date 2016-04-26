@@ -2,7 +2,7 @@ form.pro-input-form(name="smsCodeForm" data-ng-submit="smsCodeForm.$valid && vm.
     pro-input(data-label="{{ 'REGISTER.SERVICE_CODE' | translate }}"
     placeholder="{{ 'REGISTER.SERVICE_CODE_PLACEHOLDER' | translate }}"
     data-pro-model="vm.registrationSteps.smsCode"
-    data-maxlength="5"
+    data-maxlength="4"
     data-type="text"
     data-name="smsCode"
     data-ng-class="{'invalid':smsCodeForm.smsCode.$invalid && (smsCodeForm.smsCode.$dirty || smsCodeForm.$submitted)}"
@@ -11,5 +11,5 @@ form.pro-input-form(name="smsCodeForm" data-ng-submit="smsCodeForm.$valid && vm.
         .error.left(data-ng-show="smsCodeForm.$submitted && smsCodeForm.$invalid" data-translate="REGISTER.CODE_REQUIRED")
 
     .btn-handler
-        button.pro-btn.btn-light.btn-medium(data-ui-sref="app.login.account" data-translate="LOGIN.BACK")
         button.pro-btn.btn-main.btn-medium(type="submit" data-translate="LOGIN.NEXT")
+        button.pro-btn.btn-light.btn-medium(data-ui-sref="app.login.account" data-translate="LOGIN.BACK")

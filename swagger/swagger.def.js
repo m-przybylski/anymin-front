@@ -8,11 +8,11 @@
     .module(moduleName, [])
     /**
       * @ngdoc service
-      * @name .RecoverPassword
+      * @name .Recover-password
       * @requires $resource
       * @requires apiUrl
       **/
-    .service('RecoverPasswordApiDef', ['apiUrl', function(apiUrl) {
+    .service('Recover-PasswordApiDef', ['apiUrl', function(apiUrl) {
         return {
 
           /**

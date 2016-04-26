@@ -1,7 +1,8 @@
 .phone-number(data-ng-show="vm.current == 1")
   form.pro-input-form(name="phoneNumberForm" data-ng-submit="phoneNumberForm.$valid && vm.getPhoneNumberStatus()" novalidate)
 
-    pro-dropdown.prefix-phone(data-pro-model='vm.account.phoneNumber.prefix' data-label='prefix' data-placeholder='+48' data-pro-items="vm.prefix" data-no-search)
+    pro-dropdown.prefix-phone(data-pro-model='vm.account.phoneNumber.prefix' data-label='prefix' data-placeholder='+48'
+    data-pro-items="vm.prefix" data-no-search)
 
 
     pro-input.phone(data-label="{{'LOGIN.ENTER_NUMBER' | translate}}"
@@ -11,7 +12,7 @@
     data-ng-pattern="vm.pattern" required)
 
     .input-error-messages
-      .error.left(data-ng-show="phoneNumberForm.$submitted && phoneNumberForm.$invalid" data-translate="LOGIN.PHONE_NUMBER_REQUIRED")
+      .error.left(data-ng-show="phoneNumberForm.$submitted && phoneNumberForm.$invalid || phoneNumberForm.$submitted &&  vm.account.phoneNumber.prefix === null " data-translate="LOGIN.PHONE_NUMBER_REQUIRED")
 
     button.pro-btn.btn-main.btn-medium(data-translate="LOGIN.NEXT" type="submit")
 
@@ -29,9 +30,8 @@
       .error.left(data-ng-show="passwordForm.$submitted && passwordForm.$invalid" data-translate="LOGIN.NO_EMPTY_PASSWORD")
 
     .btn-handler
-      button.pro-btn.btn-light.btn-medium(data-ng-click="vm.backToPhoneNumber()" data-translate="LOGIN.BACK")
       button.pro-btn.btn-main.btn-medium(type="submit" data-translate="LOGIN.NEXT")
-
+      button.pro-btn.btn-light.btn-medium(data-ng-click="vm.backToPhoneNumber()" data-translate="LOGIN.BACK")
   .forgot-password
     a(data-ui-sref="app.login.forgot-password" data-translate="LOGIN.FORGOT_PASSWORD")
 
