@@ -12,7 +12,6 @@
   ])
   .config( function($stateProvider) {
     $stateProvider.state('app.dashboard.service-provider.choose-path', {
-      abstract:     true,
       url:          '/choose-path',
       templateUrl:  'dashboard/service-provider/choose-path/choose-path.tpl.html',
       controller:   'ChoosePathController',

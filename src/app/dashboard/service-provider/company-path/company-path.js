@@ -1,7 +1,8 @@
 (function() {
-  function CompanyPathController() {
+  function CompanyPathController(serviceProviderStateService) {
     let vm = this
 
+    vm.amountOfSteps = 8
 
     return vm
   }
@@ -13,7 +14,6 @@
   ])
   .config( function($stateProvider) {
     $stateProvider.state('app.dashboard.service-provider.company-path', {
-      abstract:     true,
       url:          '/company-path',
       templateUrl:  'dashboard/service-provider/company-path/company-path.tpl.html',
       controller:   'CompanyPathController',

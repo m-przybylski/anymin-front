@@ -1,13 +1,18 @@
 describe('Unit tests: IndividualPathController >', () => {
   describe('Testing Controller: IndividualPathController', () => {
 
-    var IndividualPathController
+    let IndividualPathController
+    let _serviceProviderStateService
 
     beforeEach(() => {
       module('profitelo.controller.dashboard.service-provider.individual-path')
-      inject(($rootScope, $controller) => {
+      inject(($rootScope, $controller, _serviceProviderStateService_) => {
         IndividualPathController = $controller('IndividualPathController', {
+          serviceProviderStateService: _serviceProviderStateService_
         })
+        
+        _serviceProviderStateService = _serviceProviderStateService_
+        
       })
     })
 

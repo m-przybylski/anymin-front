@@ -1,7 +1,8 @@
 (function() {
-  function IndividualPathController() {
+  function IndividualPathController(serviceProviderStateService) {
     let vm = this
 
+    vm.amountOfSteps = 7
 
     return vm
   }
@@ -13,7 +14,6 @@
   ])
   .config( function($stateProvider) {
     $stateProvider.state('app.dashboard.service-provider.individual-path', {
-      abstract:     true,
       url:          '/individual-path',
       templateUrl:  'dashboard/service-provider/individual-path/individual-path.tpl.html',
       controller:   'IndividualPathController',
