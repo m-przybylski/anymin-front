@@ -27,6 +27,8 @@
       }
     ]
 
+
+
     let _transformPrefix = function(prefix) {
       if (typeof prefix === 'object') {
         return prefix.name
@@ -34,14 +36,20 @@
       return prefix
     }
 
-    if (vm.account.phoneNumber.prefix !== null && vm.account.phoneNumber.prefix !== undefined) {
-       vm.account.phoneNumber.prefix = _.find(vm.prefix, function(o) { return o.name ===  vm.account.phoneNumber.prefix })
-    } else {
-      vm.account.phoneNumber.prefix = vm.prefix[0]
+    let _changePrefixInput = () => {
+      if (vm.account.phoneNumber.prefix !== null && vm.account.phoneNumber.prefix !== undefined) {
+        vm.account.phoneNumber.prefix = _.find(vm.prefix, function(o) { return o.name ===  vm.account.phoneNumber.prefix })
+      } else {
+        //vm.account.phoneNumber.prefix = vm.prefix[0]
+      }
     }
+
+    _changePrefixInput()
     vm.pattern = CommonSettingsService.localSettings.phonePattern
 
     vm.backToPhoneNumber = () => {
+      _changePrefixInput()
+      console.log(vm.account.phoneNumber.prefix)
       $scope.phoneNumberForm.$setPristine()
       $scope.passwordForm.$setPristine()
       vm.current = 1
@@ -64,9 +72,9 @@
 
     vm.getPhoneNumberStatus = () => {
       if (!vm.isPending && vm.account.phoneNumber.prefix !== undefined && vm.account.phoneNumber.prefix !== null) {
-        vm.account.phoneNumber.prefix = _transformPrefix(vm.account.phoneNumber.prefix)
         vm.isPending = true
         proTopWaitingLoaderService.immediate()
+        vm.account.phoneNumber.prefix = _transformPrefix(vm.account.phoneNumber.prefix)
         loginStateService.setAccountObject(vm.account)
         AccountApi.getRegistrationStatusByMsisdn({
           msisdn: vm.account.phoneNumber.prefix + vm.account.phoneNumber.number
