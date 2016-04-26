@@ -31,11 +31,11 @@
         };
       };
     })
-    .provider('Recover-PasswordApi', function() {
+    .provider('RecoverPasswordApi', function() {
 
       /**
       * @ngdoc service
-      * @name .Recover-password
+      * @name .RecoverPassword
       * @requires $resource
       * @requires apiUrl
       **/

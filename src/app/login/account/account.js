@@ -49,9 +49,9 @@
 
     vm.backToPhoneNumber = () => {
       _changePrefixInput()
-      console.log(vm.account.phoneNumber.prefix)
       $scope.phoneNumberForm.$setPristine()
       $scope.passwordForm.$setPristine()
+      vm.account.password = null
       vm.current = 1
     }
 
