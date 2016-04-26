@@ -10,6 +10,18 @@ function proDropdown($timeout) {
       return myScrollbarChoices
     }
 
+    scope.$watch(() => {
+      return scope.selectedItem
+    }, (newValue, oldValue) => {
+      if (newValue !== undefined) {
+        scope.proModel = newValue.value
+      }
+    }, true)
+
+    if (scope.proModel !== null && scope.proModel !== undefined) {
+      scope.selectedItem= _.find(scope.proItems, function(o) { return o.value === scope.proModel })
+    }
+
     scope.onFocus = ()=> {
       scope.focus = true
       scope.onClick = true
@@ -19,10 +31,7 @@ function proDropdown($timeout) {
     }
     
     scope.select = function(item, model) {
-      if (typeof item === 'object') {
-        return item.value
-      }
-      scope.proModel = item.value
+      scope.selectedItem = item
       _getScrollbarChoices().perfectScrollbar()
 
     }
@@ -32,11 +41,18 @@ function proDropdown($timeout) {
       $timeout(()=> {
         _getScrollbarChoices().perfectScrollbar()
       })
-
     }
     scope.searchEnable = () => {
       if ('noSearch' in attr) {
         return false
+      }
+    }
+    scope.onMouseover = ()=> {
+      scope.focus = true
+    }
+    scope.onMouseout = ()=> {
+      if (!scope.onClick) {
+        scope.focus = false
       }
     }
 
