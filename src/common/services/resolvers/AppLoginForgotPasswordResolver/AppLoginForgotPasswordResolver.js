@@ -58,8 +58,10 @@
 
   angular.module('profitelo.services.resolvers.app.login.forgot-password', [
     'profitelo.swaggerResources',
-    'profitelo.services.login-state'
+    'profitelo.services.login-state',
+    'profitelo.directives.pro-top-alert-service'
   ])
   .service('AppLoginForgotPasswordResolverService', AppLoginForgotPasswordResolverService)
 
+  
 }())
