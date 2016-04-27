@@ -37,10 +37,13 @@
       vm.current = 1
     }
 
+    vm.getValue = false
+
 
     let _determinePhoneNumberStatus = (status) => {
       switch (status) {
       case 'REGISTERED':
+        vm.getValue = true
         vm.current = 2
         break
       case 'NO_PASSWORD':

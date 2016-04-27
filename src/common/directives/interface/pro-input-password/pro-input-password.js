@@ -1,4 +1,4 @@
-function proInputPassword() {
+function proInputPassword($timeout) {
 
   function linkFunction(scope, element, attr) {
 
@@ -33,6 +33,21 @@ function proInputPassword() {
         scope.inputType = 'password'
       }
     }
+
+    scope.$watch(() => {
+      return scope.autoFocus
+    }, (value) => {
+      console.log(attr)
+      if (newValue == true) {
+        _input.focus()
+      }
+    }, true)
+
+    //if ('autoFocus' in attr.$attr && !!) {
+    //  console.log(scope.autoFocus)
+    //  _input.find('input').focus()
+    //}
+
     scope.onMouseover = ()=> {
       scope.focus = true
     }
@@ -54,7 +69,8 @@ function proInputPassword() {
       defaultValue: '@',
       label: '@',
       onChange: '=?',
-      name: '@'
+      name: '@',
+      autoFocus: '=?'
     }
   }
 }

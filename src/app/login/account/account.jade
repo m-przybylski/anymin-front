@@ -10,7 +10,7 @@
     data-type="number"
     data-placeholder="{{'LOGIN.ENTER_NUMBER_PLACEHOLDER' | translate}}"
     data-pro-model="vm.account.phoneNumber.number" data-ng-class="{'invalid': phoneNumberForm.phoneNumber.$invalid && (phoneNumberForm.phoneNumber.$dirty || phoneNumberForm.$submitted)}"
-    data-ng-pattern="vm.pattern" required)
+    data-ng-pattern="vm.pattern" required )
 
     .input-error-messages
       .error.left(data-ng-show="phoneNumberForm.$submitted && phoneNumberForm.$invalid || phoneNumberForm.$submitted &&  vm.account.phoneNumber.prefix === null " data-translate="LOGIN.PHONE_NUMBER_REQUIRED")
@@ -25,7 +25,7 @@
     data-pro-model="vm.account.password"
     data-name="password"
     data-ng-class="{'invalid': passwordForm.password.$invalid && (passwordForm.password.$dirty || passwordForm.$submitted)}"
-    required)
+    required auto-focus="vm.getValue")
 
     .input-error-messages
       .error.left(data-ng-show="passwordForm.$submitted && passwordForm.$invalid" data-translate="LOGIN.NO_EMPTY_PASSWORD")
