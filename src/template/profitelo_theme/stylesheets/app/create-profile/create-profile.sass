@@ -42,12 +42,14 @@
     padding-top: 5px
     padding: 24px 24px
     background-color: $c-primary
-    height: 160px
+    height: 80px
     position: block
     width: 100%
     bottom: 0
     z-index: 120
     position: fixed
+    +smm
+      height: 160px
     +mdm
       height: 96px
       max-width: calc(1170px - 280px)
@@ -78,18 +80,26 @@
         text-transform: uppercase
     .loader-container
       display: flex
-      flex-direction: column
+      flex-direction: row
       flex-wrap: nowrap
       justify-content: space-between
       align-content: center
       align-items: center
-      +mdm
-        flex-direction: row
-        margin-top: -27px
+      margin-top: -27px
+      .button-next-step
+        visibility: hidden
+        display: none
+        +smm
+          visibility: visible
+          display: block
+
       .password-verify
-        width: 100%
-        +mdm
-          width: 75%
+        width: 75%
+        visibility: hidden
+        display: none
+        +smm
+          visibility: visible
+          display: block
         .loader
           background-color: $c-primary-hover
           margin-top: -4px
