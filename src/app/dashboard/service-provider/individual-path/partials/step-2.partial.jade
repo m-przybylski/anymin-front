@@ -1,0 +1,11 @@
+.step.step-done
+  .title-step
+    .title-order
+      h3(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT") *:
+      p(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT_DESCRIPTION")
+    div
+      .step-description
+        h5(data-translate="DASHBOARD.CREATE_PROFILE.STEP" data-translate-values="{step: 2, steps: {{ vm.amountOfSteps }} }")
+        i.icon.icon-success-24
+  .step-content-column
+    pro-input(placeholder="{{'DASHBOARD.EXPERT_ACCOUNT.EXPERT_PLACEHOLDER' | translate}}" data-pro-model="nameExport")
