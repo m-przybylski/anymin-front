@@ -28,7 +28,7 @@
     ]
 
     vm.account.phoneNumber.prefix = vm.prefix[0].value
-    vm.pattern = CommonSettingsService.localSettings.phonePattern
+    vm.pattern = CommonSettingsService.localSettings.pinPattern
 
     vm.backToPhoneNumber = () => {
       $scope.phoneNumberForm.$setPristine()

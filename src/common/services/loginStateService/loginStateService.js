@@ -23,7 +23,7 @@
         return String(_account.phoneNumber.prefix) + String(_account.phoneNumber.number)
       },
       clearServiceObject: () => {
-        _service = angular.copy(_emptyService)
+        _account = angular.copy(_emptyAccount)
       }
     }
   }

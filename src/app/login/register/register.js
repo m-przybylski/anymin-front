@@ -1,6 +1,6 @@
 (function() {
 
-  function RegisterController($filter, $state, proTopWaitingLoaderService, passwordStrengthService, User, proTopAlertService, UserRoles, smsSessionId, RegistrationApi, AccountApi) {
+  function RegisterController($filter, $state, proTopWaitingLoaderService, passwordStrengthService, User, proTopAlertService, UserRoles, smsSessionId, RegistrationApi, AccountApi, loginStateService) {
     var vm = this
     vm.passwordStrength = 0
     vm.current = 1
@@ -88,6 +88,7 @@
         proTopAlertService.success({
           message: $filter('translate')('REGISTER.REGISTRATION_SUCCESS')
         })
+        loginStateService.clearServiceObject()
         $state.go('app.dashboard.start')
       })
 
