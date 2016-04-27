@@ -4,7 +4,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
     let compile
     let scope
     let rootScope
-    let validHTML = '<pro-service-provider-name data-queue="queue" data-order="1" data-service-model="serviceModel"></pro-service-provider-name>'
+    let validHTML = '<pro-service-provider-name data-queue="queue" data-order="1" data-pro-model="proModel"></pro-service-provider-name>'
 
 
     beforeEach(() => {
@@ -23,7 +23,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
         currentActiveSection: 1,
         sectionBeingEdited: -1
       }
-      scope.serviceModel = {}
+      scope.proModel = {}
 
       let elem = angular.element(html)
 
@@ -72,12 +72,12 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
 
       let _testName = 'test name'
 
-      isoScope.model.serviceName = _testName
+      isoScope.model.name = _testName
       scope.$apply()
       rootScope.$broadcast('saveSection', 1)
       scope.$apply()
 
-      expect(isoScope.serviceModel.serviceName).toEqual(_testName)
+      expect(isoScope.proModel.name).toEqual(_testName)
 
 
     })
@@ -100,7 +100,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
       let el = create(validHTML)
       let isoScope = el.isolateScope()
 
-      isoScope.model.serviceName = 'non-empty service name'
+      isoScope.model.name = 'non-empty service name'
 
       let isValid = isoScope.config.isValid()
 

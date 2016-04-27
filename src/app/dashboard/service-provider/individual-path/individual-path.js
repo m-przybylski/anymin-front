@@ -4,13 +4,29 @@
 
     vm.amountOfSteps = 7
 
+    vm.progress = 0
+
+    vm.individualPathModel = {}
+
+    vm.queue = {
+      currentActiveSection: 2,
+      sectionBeingEdited:   -1
+    }
+
+    vm.nextSection = () => {
+      vm.queue.currentActiveSection++
+    }
+
+
     return vm
   }
 
 
   angular.module('profitelo.controller.dashboard.service-provider.individual-path', [
     'ui.router',
-    'profitelo.services.service-provider-state'
+    'profitelo.services.service-provider-state',
+    'profitelo.directives.service-provider.pro-service-provider-name',
+    'profitelo.directives.service-provider.pro-service-provider-description'
   ])
   .config( function($stateProvider) {
     $stateProvider.state('app.dashboard.service-provider.individual-path', {

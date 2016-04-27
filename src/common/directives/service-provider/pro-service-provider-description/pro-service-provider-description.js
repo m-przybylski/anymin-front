@@ -1,21 +1,21 @@
 (function() {
-  function proServiceProviderName(wizardSectionControlService) {
+  function proServiceProviderDescription(wizardSectionControlService) {
 
     function linkFunction(scope, element, attrs) {
 
       scope.model = {
-        name: ''
+        description: ''
       }
 
       scope.loading = true
       
       scope.saveSection = () => {
-        scope.proModel.name = scope.model.name
+        scope.proModel.description = scope.model.description
       }
 
 
       let _isValid = () => {
-        return angular.isDefined(scope.model.name) && scope.model.name.length > 0
+        return angular.isDefined(scope.model.description) && scope.model.description.length > 0
       }
 
       let _getModel = () => {
@@ -55,7 +55,7 @@
     return {
       replace: true,
       restrict: 'E',
-      templateUrl: 'directives/service-provider/pro-service-provider-name/pro-service-provider-name.tpl.html',
+      templateUrl: 'directives/service-provider/pro-service-provider-description/pro-service-provider-description.tpl.html',
       scope: {
         queue:    '=',
         order:    '@',
@@ -68,10 +68,10 @@
     }
   }
 
-  angular.module('profitelo.directives.service-provider.pro-service-provider-name', [
+  angular.module('profitelo.directives.service-provider.pro-service-provider-description', [
     'lodash',
     'pascalprecht.translate',
     'profitelo.services.wizardSectionControl'
   ])
-  .directive('proServiceProviderName', proServiceProviderName)
+  .directive('proServiceProviderDescription', proServiceProviderDescription)
 }())
