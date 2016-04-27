@@ -120,6 +120,8 @@
     background-color: $c-background
     input
       background-color: $c-background
+    .select
+      background-color: $c-background
   &.onFocusOut
     background-color: $c-white
   &.onClick
@@ -138,8 +140,7 @@
     -webkit-appearance: none
     margin-left: -10px
     outline: none
-    &:hover
-      background-color: $c-background
+
   .ui-select-match
     background-color: $c-background
     outline: none
@@ -147,8 +148,7 @@
       background-color: $c-background
   .dropdown-icon
     position: absolute
-    right: 15px
-    left: 75px
+    left: 80%
     padding-top: 25px
     color: $c-primary
   .ui-select-bootstrap
@@ -214,8 +214,6 @@
   margin-bottom: 0
   height: 64px
 
-
-
 .form-control
   display: block
   width: 100%
@@ -223,7 +221,7 @@
   padding-top: 6px
   font-size: 14px
   line-height: 1.42857143
-
+  min-width: 98px
 .ps-scrollbar-y-rail
   max-width: 0.2em
   .ps-scrollbar-y

@@ -10,9 +10,15 @@ function proDropdown($timeout) {
       return myScrollbarChoices
     }
 
+    function _onFocusOut() {
+      scope.focus = false
+      scope.onClick = false
+    }
+
     scope.$watch(() => {
       return scope.selectedItem
     }, (newValue, oldValue) => {
+      _onFocusOut()
       if (newValue !== undefined) {
         scope.proModel = newValue.value
       }
@@ -26,12 +32,14 @@ function proDropdown($timeout) {
       scope.focus = true
       scope.onClick = true
     }
+
     scope.openBar = function() {
       _getScrollbarChoices().perfectScrollbar()
     }
     
     scope.select = function(item, model) {
       scope.selectedItem = item
+      _onFocusOut()
       _getScrollbarChoices().perfectScrollbar()
 
     }
