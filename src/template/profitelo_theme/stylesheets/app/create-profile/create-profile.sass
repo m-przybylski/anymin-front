@@ -42,21 +42,26 @@
     padding-top: 5px
     padding: 24px 24px
     background-color: $c-primary
-    height: 80px
+    height: 64px
     position: block
     width: 100%
     bottom: 0
     z-index: 120
     position: fixed
-    +smm
-      height: 160px
     +mdm
-      height: 96px
       max-width: calc(1170px - 280px)
       width: calc(100% - 280px)
+    +smm
+      height: 96px
+    .arrow-next-step
+      font-size: 10px
+      margin-top: 0
+      +smm
+        visibility: none
+        display: none
     .next-step
       margin-top: 0
-      +mdm
+      +smm
         margin-top: -32px
     .btn-medium
       background-color: $c-white
@@ -71,7 +76,10 @@
       align-items: center
       width: 100%
       color: $c-white
-      margin-top: -24px
+      margin-top: -30px
+      +smm
+        margin-top: -24px
+        width: 75%
       +mdm
         width: 75%
       h5
@@ -92,6 +100,7 @@
         +smm
           visibility: visible
           display: block
+
 
       .password-verify
         width: 75%
