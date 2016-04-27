@@ -1,25 +1,21 @@
-/* istanbul ignore next */
 (function() {
-  function proCreateNewServiceName(wizardSectionControlService) {
+  function proServiceProviderName(wizardSectionControlService) {
 
     function linkFunction(scope, element, attrs) {
 
       scope.model = {
-        serviceName: ''
+        name: ''
       }
 
       scope.loading = true
-
-
-
+      
       scope.saveSection = () => {
-        console.log('save section: ', parseInt(scope.order, 10))
-        scope.serviceModel.serviceName = scope.model.serviceName
+        scope.proModel.name = scope.model.name
       }
 
 
       let _isValid = () => {
-        return angular.isDefined(scope.model.serviceName) && scope.model.serviceName.length > 0
+        return angular.isDefined(scope.model.name) && scope.model.name.length > 0
       }
 
       let _getModel = () => {
@@ -58,24 +54,24 @@
 
     return {
       replace: true,
-      templateUrl: 'directives/wizards/pro-create-new-service-name/pro-create-new-service-name.tpl.html',
+      restrict: 'E',
+      templateUrl: 'directives/service-provider/pro-service-provider-name/pro-service-provider-name.tpl.html',
       scope: {
         queue:    '=',
         order:    '@',
-        serviceModel: '='
+        proModel: '=',
+        steps: '@',
+        trTitle: '@',
+        trDesc: '@'
       },
       link: linkFunction
     }
   }
 
-  angular.module('profitelo.directives.wizards.pro-create-new-service-name', [
-    'ngAnimate',
-    'toastr',  // some parts depends on ngAnimate
+  angular.module('profitelo.directives.service-provider.pro-service-provider-name', [
     'lodash',
     'pascalprecht.translate',
-
-    // internal scripts
     'profitelo.services.wizardSectionControl'
   ])
-  .directive('proCreateNewServiceName', proCreateNewServiceName)
+  .directive('proServiceProviderName', proServiceProviderName)
 }())

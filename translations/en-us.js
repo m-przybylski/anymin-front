@@ -38,7 +38,7 @@
         		"DASHBOARD.CREATE_PROFILE.STEP1_CHOOSE_PROFILE_DESCRIPTION":"Usługa może być świadczona tylko przez Ciebie, jak i przez Twoich pracowników.",
         		"DASHBOARD.CREATE_PROFILE.STEP1_CHOOSE_PROFILE_TITLE":"Zamierzam świadczyć konsultacje jako:",
         		"DASHBOARD.CREATE_PROFILE.STEP1_MORE_PERSON":"Świadczę usługę wieloosobowo",
-        		"DASHBOARD.CREATE_PROFILE.STEP1_PROGRESS_BAR_TITLE":"Etap 1 - Tworzenie profilu firmy",
+        		"DASHBOARD.CREATE_PROFILE.STEP1_PROGRESS_BAR_TITLE":"Etap 1",
         		"DASHBOARD.CREATE_PROFILE.STEP2_DESCRIPTION":"Podaj swoją nazwę firmy pod którą będziesz prowadził konsultacje.",
         		"DASHBOARD.CREATE_PROFILE.STEP2_TITLE":"Nazwa Firmy*:",
         		"DASHBOARD.CREATE_PROFILE.STEP3_DESCRIPTION":"Logo powinno być w formacie jpg, png i nie przekraczać 2mb.",

@@ -1,17 +1,15 @@
-describe('Unit testing: profitelo.directives.pro-create-new-service-name >', function() {
-  describe('for pro-create-new-service-name directive >', function() {
+describe('Unit testing: profitelo.directives.service-provider.pro-service-provider-name >', function() {
+  describe('for pro-service-provider-name directive >', function() {
 
     let compile
     let scope
     let rootScope
-    let validHTML = '<data-pro-create-new-service-name data-queue="queue" data-order="1" data-service-model="serviceModel"></data-pro-create-new-service-name>'
-
-
+    let validHTML = '<pro-service-provider-name data-queue="queue" data-order="1" data-pro-model="proModel"></pro-service-provider-name>'
 
 
     beforeEach(() => {
       module('templates-module')
-      module('profitelo.directives.wizards.pro-create-new-service-name')
+      module('profitelo.directives.service-provider.pro-service-provider-name')
 
       inject(($rootScope, $compile) => {
         rootScope = $rootScope
@@ -25,7 +23,7 @@ describe('Unit testing: profitelo.directives.pro-create-new-service-name >', fun
         currentActiveSection: 1,
         sectionBeingEdited: -1
       }
-      scope.serviceModel = {}
+      scope.proModel = {}
 
       let elem = angular.element(html)
 
@@ -74,12 +72,12 @@ describe('Unit testing: profitelo.directives.pro-create-new-service-name >', fun
 
       let _testName = 'test name'
 
-      isoScope.model.serviceName = _testName
+      isoScope.model.name = _testName
       scope.$apply()
       rootScope.$broadcast('saveSection', 1)
       scope.$apply()
 
-      expect(isoScope.serviceModel.serviceName).toEqual(_testName)
+      expect(isoScope.proModel.name).toEqual(_testName)
 
 
     })
@@ -102,7 +100,7 @@ describe('Unit testing: profitelo.directives.pro-create-new-service-name >', fun
       let el = create(validHTML)
       let isoScope = el.isolateScope()
 
-      isoScope.model.serviceName = 'non-empty service name'
+      isoScope.model.name = 'non-empty service name'
 
       let isValid = isoScope.config.isValid()
 

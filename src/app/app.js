@@ -219,15 +219,12 @@
     'profitelo.controller.login.forgot-password',
     'profitelo.controller.login.set-new-password',
     'profitelo.controller.login.confirm-email',
-    'profitelo.controller.wizards',
-    'profitelo.controller.wizards.create-new-service',
 
 
     // directives
     'profitelo.directives.pro-expert-progress',
     'profitelo.directives.pro-progress-box',
     'profitelo.directives.pro-progress-bar',
-    // 'profitelo.directives.pro-expert-profile',
     'profitelo.directives.pro-top-waiting-loader',
     'profitelo.directives.password-strength-bar',
 

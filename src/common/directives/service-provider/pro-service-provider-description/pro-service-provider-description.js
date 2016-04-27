@@ -1,43 +1,34 @@
-/* istanbul ignore next */
 (function() {
-  function proCreateNewServiceDescription($timeout, wizardSectionControlService, CategoriesSubcategoriesApi) {
+  function proServiceProviderDescription(wizardSectionControlService) {
 
     function linkFunction(scope, element, attrs) {
 
-      scope.loading = true
-
-
-
-      scope.saveSection = () => {
-        scope.serviceModel.category = scope.model.category
+      scope.model = {
+        description: ''
       }
 
+      scope.loading = true
+      
+      scope.saveSection = () => {
+        scope.proModel.description = scope.model.description
+      }
+
+
       let _isValid = () => {
-        return true
+        return angular.isDefined(scope.model.description) && scope.model.description.length > 0
       }
 
       let _getModel = () => {
-        return {}
+        return scope.model
       }
 
       let _setModel = (model) => {
-      }
-
-      let _resetModel = () => {
+        scope.model = angular.copy(model)
       }
 
       scope.loadData = () => {
-        _resetModel()
         scope.loading = false
       }
-
-
-
-      scope.$on('industrySectionChanged', () => {
-        if (_hadBeenLoaded) {
-          scope.loadData()
-        }
-      })
 
       scope.config = {
         order:    parseInt(scope.order, 10),
@@ -58,22 +49,29 @@
 
       wizardSectionControlService(scope.config)
 
-
     }
+
+
     return {
       replace: true,
-      templateUrl: 'directives/wizards/pro-create-new-service-description/pro-create-new-service-description.tpl.html',
+      restrict: 'E',
+      templateUrl: 'directives/service-provider/pro-service-provider-description/pro-service-provider-description.tpl.html',
       scope: {
         queue:    '=',
         order:    '@',
-        serviceModel: '='
+        proModel: '=',
+        steps: '@',
+        trTitle: '@',
+        trDesc: '@'
       },
       link: linkFunction
     }
   }
 
-  angular.module('profitelo.directives.wizards.pro-create-new-service-description', [])
-  .directive('proCreateNewServiceDescription', proCreateNewServiceDescription)
-
-
+  angular.module('profitelo.directives.service-provider.pro-service-provider-description', [
+    'lodash',
+    'pascalprecht.translate',
+    'profitelo.services.wizardSectionControl'
+  ])
+  .directive('proServiceProviderDescription', proServiceProviderDescription)
 }())
