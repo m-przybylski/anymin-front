@@ -112,10 +112,10 @@
         .icon
           font-size: 12px
         a
-          margin: 24px 8px 24px 8px
+          margin: 24px 8px -8px 8px
           text-transform: none
           +mdm
-            margin: 24px 8px 24px 8px
+            margin: 24px 8px -8px 8px
         .btn-medium
           display: flex
           flex-direction: row
@@ -139,10 +139,13 @@
           width: auto
           text-align: left
         .btn-main
-          width: auto
+          width: 100%
+          +mdm
+            width: auto
         .document-container
           margin-top: 10px
           margin-bottom: -6px
+          width: 100%
           .links-last-step
             margin: 34px 0px 0px 0px
             display: flex
@@ -151,6 +154,7 @@
             justify-content: space-between
             align-content: flex-start
             align-items: center
+            margin-bottom: 96px
             .left-icon
               padding: 3px 0 0 10px
             span
@@ -166,7 +170,9 @@
               align-content: flex-start
               align-items: center
               margin: 0 0 16px 0
-              width: calc(50% - 8px)
+              width: 100%
+              +mdm
+                width: calc(50% - 8px)
     .step-content
       margin-top: 30px
       display: flex
