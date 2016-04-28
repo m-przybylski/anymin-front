@@ -8,12 +8,18 @@ function proInput() {
     let placeholder = scope.placeholder
     let _inputGroup = $(element)
 
+
+
     if (!scope.type) {
       scope.type = 'text'
     }
 
     if ('required' in attr.$attr) {
       scope.required = true
+    }
+
+    if ('autoFocus' in attr.$attr) {
+      _inputGroup.find('input').focus()
     }
 
     let _setAddon = (value) => {

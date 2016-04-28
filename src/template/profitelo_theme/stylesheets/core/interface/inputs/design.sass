@@ -61,7 +61,7 @@
       position: relative
       float: right
       color: $c-primary
-      top: 13px
+      top: 14px
       right: 6px
       visibility: hidden
       font-size: 12px
@@ -78,8 +78,8 @@
       height: 63px
       display: block
       width: 63px
-      right: -12px
-      top: -12px
+      right: -10px
+      top: -10px
       font-size: $f-h5-size
       text-align: center
       color: $c-primary
@@ -120,6 +120,8 @@
     background-color: $c-background
     input
       background-color: $c-background
+    .select
+      background-color: $c-background
   &.onFocusOut
     background-color: $c-white
   &.onClick
@@ -138,8 +140,7 @@
     -webkit-appearance: none
     margin-left: -10px
     outline: none
-    &:hover
-      background-color: $c-background
+
   .ui-select-match
     background-color: $c-background
     outline: none
@@ -147,8 +148,7 @@
       background-color: $c-background
   .dropdown-icon
     position: absolute
-    right: 15px
-    left: 75px
+    left: 80%
     padding-top: 25px
     color: $c-primary
   .ui-select-bootstrap
@@ -205,14 +205,14 @@
   .ui-select-placeholder
     padding-left: 10px
     color: $c-secondary-txt
+    top: 26px
+    position: relative
 .input-group .form-control
   float: left
   position: relative
   width: 100%
   margin-bottom: 0
   height: 64px
-
-
 
 .form-control
   display: block
@@ -221,7 +221,7 @@
   padding-top: 6px
   font-size: 14px
   line-height: 1.42857143
-
+  min-width: 98px
 .ps-scrollbar-y-rail
   max-width: 0.2em
   .ps-scrollbar-y

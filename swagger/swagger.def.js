@@ -56,21 +56,8 @@
 
           /**
           * @ngdoc method
-          * @name .3.method:putRecoverPasswordMsisdn
+          * @name .3.method:putRecoverPasswordEmail
           * @methodOf .3
-          * @description
-          * Update password
-          **/
-
-          'putRecoverPasswordMsisdn': {
-            method: 'PUT',
-            url: apiUrl + '/recover-password/msisdn',
-          },
-
-          /**
-          * @ngdoc method
-          * @name .4.method:putRecoverPasswordEmail
-          * @methodOf .4
           * @description
           * Update password
           **/
@@ -78,6 +65,19 @@
           'putRecoverPasswordEmail': {
             method: 'PUT',
             url: apiUrl + '/recover-password/email',
+          },
+
+          /**
+          * @ngdoc method
+          * @name .4.method:putRecoverPasswordMsisdn
+          * @methodOf .4
+          * @description
+          * Update password
+          **/
+
+          'putRecoverPasswordMsisdn': {
+            method: 'PUT',
+            url: apiUrl + '/recover-password/msisdn',
           }
         };
     }])
@@ -265,118 +265,89 @@
     }])
         /**
       * @ngdoc service
-      * @name .Account
+      * @name .Profile
       * @requires $resource
       * @requires apiUrl
       **/
-    .service('AccountApiDef', ['apiUrl', function(apiUrl) {
+    .service('ProfileApiDef', ['apiUrl', function(apiUrl) {
         return {
 
           /**
           * @ngdoc method
-          * @name .0.method:getRegistrationStatusByMsisdn
+          * @name .0.method:postProfile
           * @methodOf .0
           * @description
-          * Retrieve
+          * Add profile
           **/
 
-          'getRegistrationStatusByMsisdn': {
-            method: 'GET',
-            url: apiUrl + '/accounts/check',
-            params: {
-              'msisdn': '@msisdn',
-            },
+          'postProfile': {
+            method: 'POST',
+            url: apiUrl + '/profiles',
           },
 
           /**
           * @ngdoc method
-          * @name .1.method:addAccount
+          * @name .1.method:putProfile
           * @methodOf .1
           * @description
-          * Create account
+          * Add profile
           **/
 
-          'addAccount': {
-            method: 'POST',
-            url: apiUrl + '/accounts',
+          'putProfile': {
+            method: 'PUT',
+            url: apiUrl + '/profiles',
           },
 
           /**
           * @ngdoc method
-          * @name .2.method:listAccounts
+          * @name .2.method:getProfile
           * @methodOf .2
           * @description
-          * List accounts
+          * Get Details of profile
           **/
 
-          'listAccounts': {
+          'getProfile': {
             method: 'GET',
-            url: apiUrl + '/accounts',
-            isArray: true,
-          },
+            url: apiUrl + '/profiles/:profileId',
+            params: {
+              'profileId': '@profileId',
+            },
+          }
+        };
+    }])
+        /**
+      * @ngdoc service
+      * @name .Registration
+      * @requires $resource
+      * @requires apiUrl
+      **/
+    .service('RegistrationApiDef', ['apiUrl', function(apiUrl) {
+        return {
 
           /**
           * @ngdoc method
-          * @name .3.method:postAccountVerifyEmail
-          * @methodOf .3
+          * @name .0.method:confirmVerification
+          * @methodOf .0
           * @description
-          * Confirm email
+          * Confirm msisdn verification
           **/
 
-          'postAccountVerifyEmail': {
+          'confirmVerification': {
             method: 'POST',
-            url: apiUrl + '/accounts/confirm/email/:token',
-            params: {
-              'token': '@token',
-            },
+            url: apiUrl + '/msisdns/verify/code',
           },
 
           /**
           * @ngdoc method
-          * @name .4.method:partialUpdateAccount
-          * @methodOf .4
+          * @name .1.method:requestVerification
+          * @methodOf .1
           * @description
-          * Partial update account
+          * Request msisdn verification
           **/
 
-          'partialUpdateAccount': {
-            method: 'PATCH',
-            url: apiUrl + '/accounts/:accountId',
-            params: {
-              'accountId': '@accountId',
-            },
-          },
-
-          /**
-          * @ngdoc method
-          * @name .5.method:updateAccount
-          * @methodOf .5
-          * @description
-          * Update account
-          **/
-
-          'updateAccount': {
-            method: 'PUT',
-            url: apiUrl + '/accounts/:accountId',
-            params: {
-              'accountId': '@accountId',
-            },
-          },
-
-          /**
-          * @ngdoc method
-          * @name .6.method:getAccount
-          * @methodOf .6
-          * @description
-          * Retrieve account by id
-          **/
-
-          'getAccount': {
-            method: 'GET',
-            url: apiUrl + '/accounts/:accountId',
-            params: {
-              'accountId': '@accountId',
-            },
+          'requestVerification': {
+            method: 'POST',
+            url: apiUrl + '/msisdns/verify',
           }
         };
     }])
@@ -391,8 +362,21 @@
 
           /**
           * @ngdoc method
-          * @name .0.method:addPath
+          * @name .0.method:confirmVerification
           * @methodOf .0
+          * @description
+          * Confirm msisdn verification
+          **/
+
+          'confirmVerification': {
+            method: 'POST',
+            url: apiUrl + '/msisdns/verify/code',
+          },
+
+          /**
+          * @ngdoc method
+          * @name .1.method:addPath
+          * @methodOf .1
           * @description
           * Add new msisdn
           **/
@@ -404,8 +388,8 @@
 
           /**
           * @ngdoc method
-          * @name .1.method:requestVerification
-          * @methodOf .1
+          * @name .2.method:requestVerification
+          * @methodOf .2
           * @description
           * Request msisdn verification
           **/
@@ -413,19 +397,6 @@
           'requestVerification': {
             method: 'POST',
             url: apiUrl + '/msisdns/verify',
-          },
-
-          /**
-          * @ngdoc method
-          * @name .2.method:confirmVerification
-          * @methodOf .2
-          * @description
-          * Confirm msisdn verification
-          **/
-
-          'confirmVerification': {
-            method: 'POST',
-            url: apiUrl + '/msisdns/verify/code',
           },
 
           /**
@@ -495,62 +466,117 @@
     }])
         /**
       * @ngdoc service
-      * @name .Registration
+      * @name .Account
       * @requires $resource
       * @requires apiUrl
       **/
-    .service('RegistrationApiDef', ['apiUrl', function(apiUrl) {
+    .service('AccountApiDef', ['apiUrl', function(apiUrl) {
         return {
 
           /**
           * @ngdoc method
-          * @name .0.method:requestVerification
+          * @name .0.method:addAccount
           * @methodOf .0
           * @description
-          * Request msisdn verification
+          * Create account
           **/
 
-          'requestVerification': {
+          'addAccount': {
             method: 'POST',
-            url: apiUrl + '/msisdns/verify',
+            url: apiUrl + '/accounts',
           },
 
           /**
           * @ngdoc method
-          * @name .1.method:confirmVerification
+          * @name .1.method:listAccounts
           * @methodOf .1
           * @description
-          * Confirm msisdn verification
+          * List accounts
           **/
 
-          'confirmVerification': {
-            method: 'POST',
-            url: apiUrl + '/msisdns/verify/code',
-          }
-        };
-    }])
-        /**
-      * @ngdoc service
-      * @name .Profile
-      * @requires $resource
-      * @requires apiUrl
-      **/
-    .service('ProfileApiDef', ['apiUrl', function(apiUrl) {
-        return {
+          'listAccounts': {
+            method: 'GET',
+            url: apiUrl + '/accounts',
+            isArray: true,
+          },
 
           /**
           * @ngdoc method
-          * @name .0.method:detailsPath
-          * @methodOf .0
+          * @name .2.method:getRegistrationStatusByMsisdn
+          * @methodOf .2
           * @description
-          * Get Details of profile
+          * Retrieve
           **/
 
-          'detailsPath': {
+          'getRegistrationStatusByMsisdn': {
             method: 'GET',
-            url: apiUrl + '/profiles/:profileId',
+            url: apiUrl + '/accounts/check',
             params: {
-              'profileId': '@profileId',
+              'msisdn': '@msisdn',
+            },
+          },
+
+          /**
+          * @ngdoc method
+          * @name .3.method:postAccountVerifyEmail
+          * @methodOf .3
+          * @description
+          * Confirm email
+          **/
+
+          'postAccountVerifyEmail': {
+            method: 'POST',
+            url: apiUrl + '/accounts/confirm/email/:token',
+            params: {
+              'token': '@token',
+            },
+          },
+
+          /**
+          * @ngdoc method
+          * @name .4.method:partialUpdateAccount
+          * @methodOf .4
+          * @description
+          * Partial update account
+          **/
+
+          'partialUpdateAccount': {
+            method: 'PATCH',
+            url: apiUrl + '/accounts/:accountId',
+            params: {
+              'accountId': '@accountId',
+            },
+          },
+
+          /**
+          * @ngdoc method
+          * @name .5.method:updateAccount
+          * @methodOf .5
+          * @description
+          * Update account
+          **/
+
+          'updateAccount': {
+            method: 'PUT',
+            url: apiUrl + '/accounts/:accountId',
+            params: {
+              'accountId': '@accountId',
+            },
+          },
+
+          /**
+          * @ngdoc method
+          * @name .6.method:getAccount
+          * @methodOf .6
+          * @description
+          * Retrieve account by id
+          **/
+
+          'getAccount': {
+            method: 'GET',
+            url: apiUrl + '/accounts/:accountId',
+            params: {
+              'accountId': '@accountId',
             },
           }
         };

@@ -6,16 +6,6 @@
     vm.isPending = false
     vm.current = 1
     vm.account = loginStateService.getAccountObject()
-    let clearAccount = ()=> {
-      let logoutObject = {
-        phoneNumber: {
-          prefix: null,
-          number: null
-        },
-        password: null
-      }
-      loginStateService.setAccountObject(logoutObject)
-    }
     vm.prefix = [
       {
         name:   '+48',
@@ -27,34 +17,15 @@
       }
     ]
 
-    vm.prefix.selected = {name: '+48'}
-
-    let _transformPrefix = function(prefix) {
-      if (typeof prefix === 'object') {
-        return prefix.name
-      }
-      return prefix
-    }
-
-    let _changePrefixInput = () => {
-      if (vm.account.phoneNumber.prefix !== null && vm.account.phoneNumber.prefix !== undefined) {
-        vm.account.phoneNumber.prefix = _.find(vm.prefix, function(o) { return o.name ===  vm.account.phoneNumber.prefix })
-      } else {
-        vm.account.phoneNumber.prefix = vm.prefix[0]
-      }
-    }
-
-    _changePrefixInput()
+    vm.account.phoneNumber.prefix = vm.prefix[0].value
     vm.pattern = CommonSettingsService.localSettings.phonePattern
 
     vm.backToPhoneNumber = () => {
-      _changePrefixInput()
       $scope.phoneNumberForm.$setPristine()
       $scope.passwordForm.$setPristine()
       vm.account.password = null
       vm.current = 1
     }
-
 
     let _determinePhoneNumberStatus = (status) => {
       switch (status) {
@@ -71,10 +42,9 @@
     }
 
     vm.getPhoneNumberStatus = () => {
-      if (!vm.isPending && vm.account.phoneNumber.prefix !== undefined && vm.account.phoneNumber.prefix !== null) {
+      if (!vm.isPending) {
         vm.isPending = true
         proTopWaitingLoaderService.immediate()
-        vm.account.phoneNumber.prefix = _transformPrefix(vm.account.phoneNumber.prefix)
         loginStateService.setAccountObject(vm.account)
         AccountApi.getRegistrationStatusByMsisdn({
           msisdn: vm.account.phoneNumber.prefix + vm.account.phoneNumber.number
@@ -96,7 +66,6 @@
     vm.login = () => {
       if (!vm.isPending) {
         vm.isPending = true
-        vm.account.phoneNumber.prefix = _transformPrefix(vm.account.phoneNumber.prefix)
         proTopWaitingLoaderService.immediate()
         User.login({
           msisdn: vm.account.phoneNumber.prefix + '' + vm.account.phoneNumber.number,
@@ -105,7 +74,7 @@
           vm.isPending = false
           proTopWaitingLoaderService.stopLoader()
           $state.go('app.dashboard.start')
-          clearAccount()
+          loginStateService.clearServiceObject()
           proTopAlertService.success({
             message: $filter('translate')('LOGIN.SUCCESSFUL_LOGIN'),
             timeout: 5

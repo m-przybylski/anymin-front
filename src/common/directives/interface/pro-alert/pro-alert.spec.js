@@ -37,19 +37,21 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
       expect(el.html()).toBeDefined(true)
     })
 
-    //  it('should destroy alert', () => {
-    //  let el = create(validHTML)
-    //  let isoScope = el.isolateScope()
-    //  spyOn(isoScope, 'destroyAlert').and.callThrough()
-    //  isoScope.alerts.push({
-    //    header: 'RANDOM_HEADER',
-    //    id: 1
-    //  })
-    //  scope.$digest()
-    //  el.find('.icon-close-16').click()
-    //  scope.$digest()
-    //  expect(isoScope.destroyAlert).toHaveBeenCalledWith(1)
-    //  })
+    /*
+    it('should destroy alert', () => {
+      let el = create(validHTML)
+      let isoScope = el.isolateScope()
+      spyOn(isoScope, 'destroyAlert').and.callThrough()
+      isoScope.alerts.push({
+        header: 'RANDOM_HEADER',
+        id: 1
+      })
+      scope.$digest()
+      el.find('.icon-close-16').click()
+      scope.$digest()
+      expect(isoScope.destroyAlert).toHaveBeenCalledWith(1)
+    })
+    */
 
     it('should create success alert', () => {
       let el = create(validHTML)
