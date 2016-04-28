@@ -18,10 +18,12 @@
         text-align: center
         font-size: 23px
         margin: 0
-        margin-left: 60px
+        margin-left: 45px
         color: $c-primary
         font-weight: bold
         line-height: 22px
+        +xsm
+          margin-left: 60px
         +mdm
           margin-left: 0
     .close-button
@@ -40,7 +42,7 @@
   .bottom-row
     color: $c-lines
     padding-top: 5px
-    padding: 24px 24px
+    padding: 24px 0 24px 16px
     background-color: $c-primary
     height: 64px
     position: block
@@ -49,6 +51,7 @@
     z-index: 120
     position: fixed
     +mdm
+      padding: 24px 24px
       max-width: calc(1170px - 280px)
       width: calc(100% - 280px)
     +smm
@@ -56,9 +59,15 @@
     .arrow-next-step
       font-size: 10px
       margin-top: 0
+      width: 55px
       +smm
         visibility: none
         display: none
+      a
+        padding: 9px 11px
+        width: 32px
+        height: 32px
+        margin-left: 8px
     .next-step
       margin-top: 0
       +smm

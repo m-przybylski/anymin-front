@@ -91,10 +91,14 @@
             height: 15px
             background-color: $c-white
             position: relative
-            top: 89px
+            top: 80px
             float: right
-            right: 92px
+            right: 90px
             +border-radius(50%)
+            +mdm
+              top: 80px
+              right: 71px
+
             .user-online
               margin: 4px 4px
               width: 8px
@@ -174,6 +178,7 @@
     .bottom-row
       float: left
       margin-bottom: 24px
+      width: 100%
       .switcher
         i
           padding: 0 16px 0 16px
@@ -187,7 +192,7 @@
           display: flex
           flex-direction: row
           flex-wrap: nowrap
-          justify-content: space-around
+          justify-content: flex-start
           align-content: flex-start
           align-items: center
           padding: 4px 5px 0 0
@@ -200,6 +205,7 @@
         align-items: center
         margin-bottom: 20px
         text-align: center
+        margin-top: 39px
         a
           color: $c-secondary-txt
           border-bottom: none
