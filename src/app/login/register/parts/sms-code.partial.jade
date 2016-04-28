@@ -6,7 +6,7 @@ form.pro-input-form(name="smsCodeForm" data-ng-submit="smsCodeForm.$valid && vm.
     data-type="text"
     data-name="smsCode"
     data-ng-class="{'invalid':smsCodeForm.smsCode.$invalid && (smsCodeForm.smsCode.$dirty || smsCodeForm.$submitted)}"
-    required)
+    required auto-focus)
     .input-error-messages
         .error.left(data-ng-show="smsCodeForm.$submitted && smsCodeForm.$invalid" data-translate="REGISTER.CODE_REQUIRED")
 

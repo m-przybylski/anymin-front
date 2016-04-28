@@ -34,19 +34,9 @@ function proInputPassword($timeout) {
       }
     }
 
-    scope.$watch(() => {
-      return scope.autoFocus
-    }, (value) => {
-      console.log(attr)
-      if (newValue == true) {
-        _input.focus()
-      }
-    }, true)
-
-    //if ('autoFocus' in attr.$attr && !!) {
-    //  console.log(scope.autoFocus)
-    //  _input.find('input').focus()
-    //}
+    if ('autoFocus' in attr.$attr) {
+      _input.focus()
+    }
 
     scope.onMouseover = ()=> {
       scope.focus = true
@@ -69,8 +59,7 @@ function proInputPassword($timeout) {
       defaultValue: '@',
       label: '@',
       onChange: '=?',
-      name: '@',
-      autoFocus: '=?'
+      name: '@'
     }
   }
 }
