@@ -29,6 +29,8 @@
     flex-direction: column
     height: 48px
     width: 48px
+  &.btn-round
+    +border-radius(50px)
   &.btn-main
     color: $c-white
     background-color: $c-primary
@@ -41,7 +43,6 @@
     border: 1px solid $c-lines
     color: $c-primary
     background-color: transparent
-    margin-top: 20px
     &:hover
       background-color: $c-background
       cursor: pointer

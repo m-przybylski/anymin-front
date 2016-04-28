@@ -1,4 +1,4 @@
-.step.step-done(data-ng-class="{'step-done': config.toggles.past || config.toggles.beingEdited}")
+.step(data-ng-show="config.toggles.show || config.toggles.past" data-ng-class="{'step-done': config.toggles.past, 'step-active': !config.toggles.past || config.toggles.beingEdited}")
   .title-step
     .title-order
       h3(data-translate="{{trTitle}}") *:
@@ -8,3 +8,7 @@
         h5(data-translate="DASHBOARD.CREATE_PROFILE.STEP" data-translate-values="{step: order, steps: steps }")
         i.icon.icon-success-24
   block content
+
+  .step-control(data-ng-show="!config.toggles.past || config.toggles.beingEdited")
+    a.pro-btn.btn-round.btn-medium.btn-main Zapisz
+    a.pro-btn.btn-round.btn-medium.btn-light Anuluj
