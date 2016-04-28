@@ -19,7 +19,6 @@
 
       let action = () => {
         vm.isPending = false
-        proTopAlertService.success($filter('translate')('LOGIN.SUCCESSFUL_LOGOUT'), null, 2)
         $state.go('app.login.account')
       }
 

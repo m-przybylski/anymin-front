@@ -1,6 +1,6 @@
 (function() {
 
-  function RegisterController($filter, $state, proTopWaitingLoaderService, passwordStrengthService, User, proTopAlertService, UserRoles, smsSessionId, RegistrationApi, AccountApi, loginStateService) {
+  function RegisterController($filter, $state, proTopWaitingLoaderService, passwordStrengthService, User, proTopAlertService, UserRoles, smsSessionId, CommonSettingsService, RegistrationApi, AccountApi, loginStateService) {
     var vm = this
     vm.passwordStrength = 0
     vm.current = 1
@@ -15,19 +15,25 @@
       password: null
     }
 
+    vm.patternSms = CommonSettingsService.localSettings.smsCodePattern
+    vm.patternEmail = CommonSettingsService.localSettings.emailPattern
+    vm.patternPassword = CommonSettingsService.localSettings.passwordPattern
+
     vm.onPasswordChange = (password) => {
       vm.passwordStrength = passwordStrengthService(password)
     }
 
     vm.getSmsCodeStatus = () => {
+      vm.serverError = false
       /* istanbul ignore next if */
       if (!vm.isPending) {
         vm.isPending = true
         proTopWaitingLoaderService.immediate()
         RegistrationApi.confirmVerification({
           sessionId: vm.registrationSteps.sessionId,
-          token: vm.registrationSteps.smsCode
+          token: String(vm.registrationSteps.smsCode)
         }).$promise.then((response) => {
+          vm.serverError = false
           vm.isPending = false
           vm.current = 2
           proTopWaitingLoaderService.stopLoader()
@@ -40,10 +46,7 @@
 
         }, (error) => {
           vm.isPending = false
-          proTopAlertService.warning({
-            message: $filter('translate')('LOGIN.FORGOT_PASSWORD.BAD_SMS_CODE'),
-            timeout: 4
-          })
+          vm.serverError = true
           proTopWaitingLoaderService.stopLoader()
         })
 
@@ -86,7 +89,8 @@
       }, () => {
         vm.isPending = false
         proTopAlertService.success({
-          message: $filter('translate')('REGISTER.REGISTRATION_SUCCESS')
+          message: $filter('translate')('REGISTER.REGISTRATION_SUCCESS'),
+          timeout: 3
         })
         loginStateService.clearServiceObject()
         $state.go('app.dashboard.start')
@@ -124,7 +128,8 @@
     'profitelo.directives.pro-top-alert-service',
     'profitelo.directives.pro-top-waiting-loader-service',
     'profitelo.services.resolvers.app.login.register',
-    'profitelo.swaggerResources'
+    'profitelo.swaggerResources',
+    'profitelo.services.commonSettings'
   ])
   .config(config)
   .controller('RegisterController', RegisterController)

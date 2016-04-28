@@ -4,6 +4,7 @@ form.pro-input-form(name="emailForm" data-ng-submit="emailForm.$valid && vm.setN
     data-pro-model="vm.registrationSteps.email"
     data-name="email"
     data-type="email"
+    data-ng-pattern="vm.patternEmail"
     data-ng-class="{'invalid':emailForm.email.$invalid && (emailForm.email.$dirty || emailForm.$submitted)}"
     required auto-focus)
     .input-error-messages

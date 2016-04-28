@@ -41,9 +41,13 @@
     font-size: 14px
     padding-right: 5px
     width: 90%
+    left: 10px
     outline: none
     margin-left: 0px
     margin-right: 16px
+    &:-webkit-autofill
+      -webkit-box-shadow: 0 0 0px 1000px $c-background inset
+      color: $c-primary-txt !important
     &:focus
       background-color: $c-background
       color: $c-primary-txt

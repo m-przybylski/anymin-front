@@ -19,10 +19,8 @@
 
     vm.account.phoneNumber.prefix = vm.prefix[0].value
     vm.pattern = CommonSettingsService.localSettings.phonePattern
-
+    vm.patternPassword = CommonSettingsService.localSettings.passwordPattern
     vm.backToPhoneNumber = () => {
-      $scope.phoneNumberForm.$setPristine()
-      $scope.passwordForm.$setPristine()
       vm.account.password = null
       vm.current = 1
     }
@@ -64,6 +62,7 @@
     }
 
     vm.login = () => {
+      vm.serverError = false
       if (!vm.isPending) {
         vm.isPending = true
         proTopWaitingLoaderService.immediate()
@@ -71,6 +70,7 @@
           msisdn: vm.account.phoneNumber.prefix + '' + vm.account.phoneNumber.number,
           password: vm.account.password
         }).then((response)=> {
+          vm.serverError = false
           vm.isPending = false
           proTopWaitingLoaderService.stopLoader()
           $state.go('app.dashboard.start')
@@ -81,11 +81,9 @@
           })
         }, (error) => {
           vm.isPending = false
+          vm.serverError = true
           proTopWaitingLoaderService.stopLoader()
-          proTopAlertService.warning({
-            message: $filter('translate')('LOGIN.BAD_LOGIN_CREDENTIALS'),
-            timeout: 5
-          })
+          vm.serverError = true
         })
       }
     }
