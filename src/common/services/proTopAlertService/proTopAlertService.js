@@ -47,7 +47,6 @@
           id:       _setId(),
           icon:    'icon-success-24',
           message:  '',
-          header:   $filter('translate')('INTERFACE.ALERT_SUCCESS'),
           type:     'success',
           timeout:  null,
           visible:     false
@@ -60,7 +59,6 @@
           id:       _setId(),
           icon:    'icon-warning-24',
           message:  '',
-          header:   $filter('translate')('INTERFACE.ALERT_WARNING'),
           type:     'warning',
           timeout:  null,
           visible:     false
@@ -73,7 +71,6 @@
           id:       _setId(),
           icon:    'icon-danger-24',
           message:  '',
-          header:   $filter('translate')('INTERFACE.ALERT_ERROR'),
           type:     'error',
           timeout:  null,
           visible:     false
@@ -86,7 +83,6 @@
           id:       _setId(),
           icon:    'icon-info-24',
           message:  '',
-          header:   $filter('translate')('INTERFACE.ALERT_INFO'),
           type:     'info',
           timeout:  null,
           visible:     false

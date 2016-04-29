@@ -1,16 +1,16 @@
 .phone-number(data-ng-if="vm.current == 1")
   form.pro-input-form(name="phoneNumberForm" data-ng-submit="phoneNumberForm.$valid && vm.getPhoneNumberStatus()" novalidate)
+    .inputs-handler
+      pro-dropdown.prefix-phone(data-pro-model='vm.account.phoneNumber.prefix' data-label='prefix' data-placeholder='+48'
+      data-pro-items="vm.prefix" data-no-search)
 
-    pro-dropdown.prefix-phone(data-pro-model='vm.account.phoneNumber.prefix' data-label='prefix' data-placeholder='+48'
-    data-pro-items="vm.prefix" data-no-search)
 
-
-    pro-input.phone(data-label="{{'LOGIN.ENTER_NUMBER' | translate}}"
-    data-name="phoneNumber"
-    data-type="number"
-    data-placeholder="{{'LOGIN.ENTER_NUMBER_PLACEHOLDER' | translate}}"
-    data-pro-model="vm.account.phoneNumber.number" data-ng-class="{'invalid': phoneNumberForm.phoneNumber.$invalid && (phoneNumberForm.phoneNumber.$dirty || phoneNumberForm.$submitted)}"
-    data-ng-pattern="vm.pattern" required auto-focus only-digits)
+      pro-input.phone(data-label="{{'LOGIN.ENTER_NUMBER' | translate}}"
+      data-name="phoneNumber"
+      data-type="number"
+      data-placeholder="{{'LOGIN.ENTER_NUMBER_PLACEHOLDER' | translate}}"
+      data-pro-model="vm.account.phoneNumber.number" data-ng-class="{'invalid': phoneNumberForm.phoneNumber.$invalid && (phoneNumberForm.phoneNumber.$dirty || phoneNumberForm.$submitted)}"
+      data-ng-pattern="vm.pattern" required auto-focus only-digits)
 
     .input-error-messages
       .error.left(data-ng-show="phoneNumberForm.$submitted && phoneNumberForm.$invalid || phoneNumberForm.$submitted &&  vm.account.phoneNumber.prefix === null " data-translate="LOGIN.PHONE_NUMBER_REQUIRED")

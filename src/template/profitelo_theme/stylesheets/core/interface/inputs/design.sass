@@ -21,21 +21,24 @@
     color: $c-secondary-txt
     height: 180px
     float: left
-  &.hoverInput
-    background-color: red
   label
     +transition(0.2s)
     position: absolute
     top: 10px
     padding-bottom: 13px
     cursor: pointer
+    color: $c-secondary-txt
     &:after
       content: ""
   input
     +transition(0.4s)
     position: absolute
     cursor: pointer
-    bottom: 12px
+    display: flex
+    flex-direction: column
+    justify-content: center
+    height: 70%
+    bottom: 0
     background-color: $c-white
     border: none
     font-size: 14px
@@ -43,8 +46,10 @@
     width: 90%
     left: 10px
     outline: none
-    margin-left: 0px
+    margin-left: 0
+    padding-left: 0
     margin-right: 16px
+
     &:-webkit-autofill
       -webkit-box-shadow: 0 0 0px 1000px $c-background inset
       color: $c-primary-txt !important
@@ -57,7 +62,7 @@
     &:required +label
       &:after
         content: "*"
-        color: $c-button-1
+        color: $c-error
         padding-left: 5px
         font-size: 18px
     &[type=number]
@@ -138,7 +143,7 @@
     background-color: $c-white
   &.onClick
     label
-      color: $c-secondary-txt
+      color: $c-primary-txt
 
   >.select
     position: absolute
@@ -160,7 +165,7 @@
       background-color: $c-background
   .dropdown-icon
     position: absolute
-    left: 80%
+    right: 16px
     padding-top: 25px
     color: $c-primary
   .ui-select-bootstrap
@@ -171,7 +176,7 @@
         outline: none
     .ui-select-choices
       margin: 0
-      min-width: 100px
+      min-width: 101px
       margin-left: -1px
       overflow-x: hidden !important
       .gm-scrollbar.-vertical
@@ -206,7 +211,7 @@
     .ui-select-match-text
       padding-left: 10px
       position: relative
-      top: 25px
+      top: 23px
   .btn-default-focus
     box-shadow: none
     background-color: $c-background
@@ -240,10 +245,3 @@
     max-width: 0.2em
     background-color: $c-lines
 
-.prefix-phone
-  max-width: 25%
-  float: left
-.phone
-  max-width: 75%
-  margin-left: -1px
-  float: left

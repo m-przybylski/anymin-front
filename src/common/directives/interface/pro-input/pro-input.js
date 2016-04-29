@@ -23,7 +23,7 @@ function proInput() {
     if ('onlyDigits' in attr.$attr) {
       element.bind('keypress', function(e) {
         let code = e.keyCode || e.which
-        if (code === 101 || code === 32) {
+        if (code === 101 || code === 32 || code === 46 || code === 45 || code === 44) {
           e.preventDefault()
         }
       })
