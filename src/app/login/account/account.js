@@ -70,20 +70,18 @@
           msisdn: vm.account.phoneNumber.prefix + '' + vm.account.phoneNumber.number,
           password: vm.account.password
         }).then((response)=> {
-          vm.serverError = false
           vm.isPending = false
           proTopWaitingLoaderService.stopLoader()
           $state.go('app.dashboard.start')
           loginStateService.clearServiceObject()
           proTopAlertService.success({
             message: $filter('translate')('LOGIN.SUCCESSFUL_LOGIN'),
-            timeout: 5
+            timeout: 2
           })
         }, (error) => {
           vm.isPending = false
           vm.serverError = true
           proTopWaitingLoaderService.stopLoader()
-          vm.serverError = true
         })
       }
     }

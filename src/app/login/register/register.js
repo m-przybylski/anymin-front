@@ -33,11 +33,9 @@
           sessionId: vm.registrationSteps.sessionId,
           token: String(vm.registrationSteps.smsCode)
         }).$promise.then((response) => {
-          vm.serverError = false
           vm.isPending = false
           vm.current = 2
           proTopWaitingLoaderService.stopLoader()
-
           delete response.$promise
           delete response.$resolved
           User.setData(response)
