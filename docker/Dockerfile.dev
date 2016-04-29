@@ -14,10 +14,11 @@ ADD .npmrc /profitelo-frontend/
 
 WORKDIR /profitelo-frontend
 
-RUN npm prune
 RUN npm install
 
 ADD . /profitelo-frontend
+
+RUN npm update
 
 ADD docker/nginx.conf /etc/nginx/sites-enabled/default
 ADD docker/init_scripts/nginx.sh /etc/service/nginx/run

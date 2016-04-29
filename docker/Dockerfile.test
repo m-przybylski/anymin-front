@@ -9,6 +9,7 @@ ADD .npmrc /profitelo-frontend/
 RUN npm install
 
 ADD . /profitelo-frontend/
+RUN npm update
 
 RUN ln -s phantomjs-prebuilt node_modules/phantomjs
 
