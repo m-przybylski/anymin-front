@@ -1,5 +1,5 @@
 (function() {
-  function AppLoginSetNewPasswordResolver($state, $timeout, $q, loginStateService, proTopAlertService, RecoverPasswordApi) {
+  function AppLoginSetNewPasswordResolver($state, $filter, $timeout, $q, loginStateService, proTopAlertService, RecoverPasswordApi) {
 
 
     let _resolve = (stateParams) => {
@@ -29,12 +29,12 @@
           })
         }, () => {
           _deferred.reject()
+          proTopAlertService.warning({
+            message: $filter('translate')('LOGIN.FORGOT_PASSWORD.BAD_EMAIL_TOKEN'),
+            timeout: 5
+          })
           $timeout(() => {
             $state.go('app.login.account')
-            proTopAlertService.warning({
-              message: $filter('translate')('LOGIN.FORGOT_PASSWORD.BAD_EMAIL_TOKEN'),
-              timeout: 3
-            })
           })
         })
         

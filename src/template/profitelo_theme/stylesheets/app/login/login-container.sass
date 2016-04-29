@@ -19,13 +19,14 @@
     .btn-handler
       display: inline-flex
       width: 100%
-      button
+      flex-direction: row-reverse
+      .pro-btn
         &:first-child
           max-width: 50%
-          margin-right: 8px
+          margin-left: 8px
         &:nth-child(2)
           max-width: 50%
-          margin-left: 8px
+          margin-right: 8px
     .top-content
       width: 100%
       padding: 20px
@@ -50,8 +51,10 @@
               font-weight: 600
       form
         margin-top: 32px
-        button
+        .pro-btn
           margin-top: 7px
+        button
+          margin-top: 0
         .password-verify
           margin-top: 32px
           margin-bottom: 32px

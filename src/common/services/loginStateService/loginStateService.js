@@ -10,6 +10,8 @@
       password: ''
     }
 
+    let _emptyAccount = angular.copy(_account)
+
     return {
       setAccountObject: (account) => {
         _account = account
@@ -19,6 +21,9 @@
       },
       getFullPhoneNumber: () => {
         return String(_account.phoneNumber.prefix) + String(_account.phoneNumber.number)
+      },
+      clearServiceObject: () => {
+        _account = angular.copy(_emptyAccount)
       }
     }
   }

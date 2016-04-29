@@ -1,6 +1,6 @@
-.sms-code(data-ng-show="vm.current==1")
+.sms-code(data-ng-if="vm.current==1")
     include ./parts/sms-code.partial.jade
-.email(data-ng-show="vm.current==2")
+.email(data-ng-if="vm.current==2")
     include ./parts/email.partial.jade
-.new-password(data-ng-show="vm.current==3")
+.new-password(data-ng-if="vm.current==3")
     include ./parts/new-password.partial.jade

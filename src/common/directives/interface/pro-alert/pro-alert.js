@@ -12,7 +12,9 @@
       }
 
       proTopAlertService.bindAlert(addAlert)
+
     }
+
 
 
     return {

@@ -1,5 +1,5 @@
 .pro-alert
-    .alert(ng-class="alert.type" data-ng-repeat="alert in alerts track by $index")
+    .alert(ng-class="alert.type" data-ng-repeat="alert in alerts | filter:{visible: true} track by $index")
         .content-wrapper
             div
                 i.status-icon.icon(ng-class="alert.icon")

@@ -197,10 +197,19 @@
     // controllers
     'profitelo.controller.dashboard',
     'profitelo.controller.dashboard.start',
-    'profitelo.controller.dashboard.create-profile',
-    'profitelo.controller.dashboard.expert-account',
-    'profitelo.controller.dashboard.consultation-range',
+    'profitelo.controller.dashboard.company-profile',
+    'profitelo.controller.dashboard.single-profile',
+    'profitelo.controller.dashboard.cost-data',
+    'profitelo.controller.dashboard.company-cost-data',
+    'profitelo.controller.dashboard.summary',
+    'profitelo.controller.dashboard.company-summary',
 
+    'profitelo.controller.dashboard.service-provider',
+    'profitelo.controller.dashboard.service-provider.choose-path',
+    'profitelo.controller.dashboard.service-provider.individual-path',
+    'profitelo.controller.dashboard.service-provider.company-path',
+    
+    
     'profitelo.controller.home',
     // 'profitelo.controller.expert-profile',
     'profitelo.controller.expert-progress',
@@ -209,15 +218,13 @@
     'profitelo.controller.login.register',
     'profitelo.controller.login.forgot-password',
     'profitelo.controller.login.set-new-password',
-    'profitelo.controller.wizards',
-    'profitelo.controller.wizards.create-new-service',
+    'profitelo.controller.login.confirm-email',
 
 
     // directives
     'profitelo.directives.pro-expert-progress',
     'profitelo.directives.pro-progress-box',
     'profitelo.directives.pro-progress-bar',
-    // 'profitelo.directives.pro-expert-profile',
     'profitelo.directives.pro-top-waiting-loader',
     'profitelo.directives.password-strength-bar',
 

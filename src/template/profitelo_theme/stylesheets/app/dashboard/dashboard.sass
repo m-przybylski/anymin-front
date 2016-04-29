@@ -37,8 +37,21 @@
       width: 100%
       margin-left: -60px
       float: left
+
+
+    .top-row
+      text-align: center
+      width: 100%
+      float: left
+      .logo
+        margin-top: 30px
+        img
+          width: 115px
+
       ul
         list-style-type: none
+        margin-left: -30px
+        margin-top: 38px
         li
           padding: 5px 0
           display: flex
@@ -49,7 +62,7 @@
           align-items: center
           height: 30px
           .bandge
-            margin-right: -30px
+            margin-right: 0px
             background-color: $c-primary
             color: $c-white
             +border-radius(50px)
@@ -63,15 +76,6 @@
             color: $c-secondary-txt
             &:hover
               color: $c-primary-hover
-
-    .top-row
-      text-align: center
-      width: 100%
-      float: left
-      .logo
-        margin-top: 30px
-        img
-          width: 115px
 
       .user
         .photo
@@ -155,6 +159,7 @@
           color: $c-primary
     .bottom-row
       float: left
+      margin-bottom: 24px
       .switcher
         p
           color: $c-white

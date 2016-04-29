@@ -1,0 +1,21 @@
+include partials/step-1.partial.jade
+
+pro-service-provider-name(
+data-queue="vm.queue"
+data-order="2"
+data-steps="{{vm.amountOfSteps}}"
+data-pro-model="vm.individualPathModel"
+tr-title="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT"
+tr-desc="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT_DESCRIPTION"
+)
+pro-service-provider-description(
+data-queue="vm.queue"
+data-order="3"
+data-steps="{{vm.amountOfSteps}}"
+data-pro-model="vm.individualPathModel"
+tr-title="DASHBOARD.EXPERT_ACCOUNT.EXPERT_DESCRIPTION"
+tr-desc="DASHBOARD.EXPERT_ACCOUNT.EXPERT_TITLE_DESCRIPTION"
+)
+
+
+include partials/progress-bar.partial.jade

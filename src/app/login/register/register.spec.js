@@ -141,18 +141,6 @@ describe('Unit tests: profitelo.controller.login.register>', () => {
 
     })
 
-    it('should request handle failure on sms code status', () => {
-
-      spyOn(_proTopAlertService, 'error')
-
-      resourcesExpectations.RegistrationApi.confirmVerification.respond(403)
-      RegisterController.getSmsCodeStatus()
-      _$httpBackend.flush()
-
-      expect(_proTopAlertService.error).toHaveBeenCalledWith({ message: 'INTERFACE.API_ERROR', timeout: 4 })
-
-
-    })
 
     it('should set new email', () => {
       resourcesExpectations.AccountApi.partialUpdateAccount.respond(200)
@@ -179,7 +167,7 @@ describe('Unit tests: profitelo.controller.login.register>', () => {
       RegisterController.completeRegistration()
       _$httpBackend.flush()
 
-      expect(_proTopAlertService.success).toHaveBeenCalledWith({ message: 'REGISTER.REGISTRATION_SUCCESS' })
+
       expect($state.go).toHaveBeenCalledWith('app.dashboard.start')
 
     })

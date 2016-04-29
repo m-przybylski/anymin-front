@@ -75,11 +75,11 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
     })
 
     it('should clear form and back to phone-number view', ()=> {
-      spyOn(scope.phoneNumberForm, '$setPristine')
       AccountFormController.current = 2
+      AccountFormController.account.password = 'dasdasdasdsadasdas'
       AccountFormController.backToPhoneNumber()
-      expect(scope.phoneNumberForm.$setPristine).toHaveBeenCalled()
       expect(AccountFormController.current).toEqual(1)
+      expect(AccountFormController.account.password).toBeNull()
     })
 
     it('should go to password view', () => {
@@ -112,15 +112,6 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
       AccountFormController.login()
       $httpBackend.flush()
       expect($state.go).toHaveBeenCalledWith('app.dashboard.start')
-    })
-    it('should display warning', () => {
-      spyOn(proTopAlertService, 'warning')
-      registrationResendPOST = $httpBackend.when('POST', 'http://api.webpage.com/session')
-      AccountFormController.current = 2
-      registrationResendPOST.respond(400, {})
-      AccountFormController.login()
-      $httpBackend.flush()
-      expect(proTopAlertService.warning).toHaveBeenCalled()
     })
   })
 })

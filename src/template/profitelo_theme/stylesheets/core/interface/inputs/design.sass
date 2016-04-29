@@ -8,7 +8,6 @@
   border: 1px solid $c-lines
   padding: 10px
   position: relative
-  z-index: 1
   cursor: pointer
   max-width: 100%
   textarea
@@ -42,9 +41,16 @@
     font-size: 14px
     padding-right: 5px
     width: 90%
+    left: 10px
     outline: none
+    margin-left: 0px
+    margin-right: 16px
+    &:-webkit-autofill
+      -webkit-box-shadow: 0 0 0px 1000px $c-background inset
+      color: $c-primary-txt !important
     &:focus
       background-color: $c-background
+      color: $c-primary-txt
     &.calendar-input
       &:focus
         background-color: $c-white
@@ -54,13 +60,23 @@
         color: $c-button-1
         padding-left: 5px
         font-size: 18px
+    &[type=number]
+      -moz-appearance: textfield
+    &[type=number]::-webkit-outer-spin-button
+      -webkit-appearance: none
+      margin: 0
+    &[type=number]::-webkit-inner-spin-button
+      -webkit-appearance: none
+      margin: 0
   span
     &.cross-addon
       position: relative
       float: right
       color: $c-primary
-      top: 7px
+      top: 14px
+      right: 6px
       visibility: hidden
+      font-size: 12px
       +xsm
         visibility: visible
     &.input-group-addon
@@ -74,8 +90,8 @@
       height: 63px
       display: block
       width: 63px
-      right: -12px
-      top: -12px
+      right: -10px
+      top: -10px
       font-size: $f-h5-size
       text-align: center
       color: $c-primary
@@ -116,6 +132,8 @@
     background-color: $c-background
     input
       background-color: $c-background
+    .select
+      background-color: $c-background
   &.onFocusOut
     background-color: $c-white
   &.onClick
@@ -125,16 +143,16 @@
   >.select
     position: absolute
     cursor: pointer
-    bottom: 3px
+    bottom: 0
     background-color: $c-white
     border: none
     font-size: 18px
     width: 100%
+    top: 0
     -webkit-appearance: none
     margin-left: -10px
     outline: none
-    &:focus
-      background-color: $c-background
+
   .ui-select-match
     background-color: $c-background
     outline: none
@@ -142,8 +160,8 @@
       background-color: $c-background
   .dropdown-icon
     position: absolute
-    right: 15px
-    top: 19px
+    left: 80%
+    padding-top: 25px
     color: $c-primary
   .ui-select-bootstrap
     .ui-select-choices-row.active
@@ -153,6 +171,8 @@
         outline: none
     .ui-select-choices
       margin: 0
+      min-width: 100px
+      margin-left: -1px
       overflow-x: hidden !important
       .gm-scrollbar.-vertical
         background-color: transparent
@@ -165,14 +185,16 @@
         background-color: $c-primary
     .ui-select-choices-row
       outline: none
-      margin: 5px 10px
+      margin: 4px 8px
     .ui-select-choices-row
       >a
         text-align: left
         border: none
-        padding: 10px 0 10px 20px
+        padding: 10px 0 10px 0
         outline: none
         text-transform: capitalize
+        >span
+          padding-left: 8px
         &:hover
           background-color: $c-primary
           color: $c-white
@@ -183,6 +205,8 @@
     z-index: 100
     .ui-select-match-text
       padding-left: 10px
+      position: relative
+      top: 25px
   .btn-default-focus
     box-shadow: none
     background-color: $c-background
@@ -193,15 +217,14 @@
   .ui-select-placeholder
     padding-left: 10px
     color: $c-secondary-txt
+    top: 26px
+    position: relative
 .input-group .form-control
   float: left
   position: relative
   width: 100%
   margin-bottom: 0
-  top: 0
-  margin-top: 0
-  padding-top: 30px
-  height: 55px
+  height: 64px
 
 .form-control
   display: block
@@ -210,7 +233,7 @@
   padding-top: 6px
   font-size: 14px
   line-height: 1.42857143
-
+  min-width: 98px
 .ps-scrollbar-y-rail
   max-width: 0.2em
   .ps-scrollbar-y

@@ -1,0 +1,57 @@
+.person-summary
+  padding: 7px 0px
+  display: flex
+  flex-direction: column
+  flex-wrap: nowrap
+  justify-content: space-between
+  align-content: flex-start
+  align-items: center
+  border-bottom: 1px solid $c-lines
+  +smm
+    flex-direction: row
+    padding: 24px 30px
+  img
+    width: 150px
+  .description
+    padding: 12px 15px
+    .person-description
+      float: left
+      p
+        color: $c-secondary-txt
+        text-align: justify
+
+.cost-per-minute
+  display: flex
+  flex-direction: row
+  flex-wrap: nowrap
+  justify-content: center
+  align-content: flex-start
+  align-items: center
+  .left-input
+    .input-group
+      color: $c-secondary-txt
+      input
+        bottom: 24px
+  .right-choose
+    .input-group
+      width: 150px
+      margin-left: -1px
+      border-right: 1px solid $c-lines
+      input
+        bottom: 24px
+.next-consultation
+  display: flex
+  flex-direction: column
+  flex-wrap: nowrap
+  justify-content: center
+  align-content: flex-start
+  align-items: center
+  margin-top: 30px
+  padding: 7px 10px
+  +mdm
+    padding: 24px 30px
+  p
+    font-size: 11px
+    text-align: center
+.bottom-consultation
+  margin-top: 30px

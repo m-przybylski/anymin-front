@@ -1,8 +1,22 @@
 h2 Dashboard
 ul
   li
-    a(data-ui-sref="app.dashboard.create-profile") Create new expert profile (own company profile)
+    a(data-ui-sref="app.dashboard.company-profile") Create new expert profile (own company profile)
+    ul
+      li
+        a(data-ui-sref="app.dashboard.company-summary") Summary
+      li
+        a(data-ui-sref="app.dashboard.company-cost-data") Cost data
   li
-    a(data-ui-sref="app.dashboard.expert-account") Create new expert profile (single person)
-  li
-    a(data-ui-sref="app.dashboard.consultation-range") Choose your consultation range (single person)
+    a(data-ui-sref="app.dashboard.single-profile") Create new expert profile (single person)
+    ul
+      li
+        a(data-ui-sref="app.dashboard.summary") Summary
+      li
+        a(data-ui-sref="app.dashboard.cost-data") Cost data
+
+p
+  h4 Working pages
+  ul
+    li
+      a(data-ui-sref="app.dashboard.service-provider.choose-path") Service provider

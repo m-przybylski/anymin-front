@@ -1,0 +1,220 @@
+.create-profile
+  .step
+    color: $c-lines
+    padding-top: 5px
+    border-bottom: 1px solid $c-lines
+    padding-bottom: 30px
+    padding-left: 15px
+    padding-right: 15px
+    +smm
+      padding-left: 30px
+      padding-right: 30px
+    h3
+      color: $c-lines
+    .title-step
+      display: flex
+      flex-direction: column
+      flex-wrap: nowrap
+      justify-content: space-between
+      align-content: center
+      align-items: flex-start
+      margin-top: 10px
+      +smm
+        flex-direction: row
+      p
+        color: $c-lines
+        margin-top: -20px
+        font-family: "sofia-pro-soft", sans-serif
+      .title-order
+        order: 1
+        margin-top: -32px
+        +smm
+          order: 0
+          margin-top: 0
+    .step-description
+      p
+        text-transform: uppercase
+        font-weight: bold
+        color: $c-lines
+        margin-top: 30px
+
+    .step-content-column
+      margin-top: 30px
+      .input-group
+        color: $c-secondary-txt
+        width: 100%
+        margin-bottom: 18px
+        input
+          bottom: 18px
+          font-size: 20px
+
+
+      .upload-field-description
+        p
+          text-transform: uppercase
+          font-weight: bold
+          margin-left: 25px
+          margin-top: 20px
+          position: absolute
+      .upload-trash
+        text-align: right
+        margin-top: -100px
+        margin-right: 16px
+        right: 0
+        position: relative
+        float: right
+        background-color: $c-white
+        i
+          font-size: 20px
+        .btn-icon
+          padding: 12px 0
+      .button-next-step
+        margin-top: 35px
+        margin-bottom: 25px
+        text-align: right
+        .btn-secondary
+          margin-right: 10px
+
+      .links-submit
+        display: flex
+        flex-direction: row
+        flex-wrap: wrap
+        align-content: flex-start
+        align-items: center
+        margin-top: -24px
+        h3
+          margin-top: 40px
+        span
+          color: $c-white
+          text-transform: uppercase
+          font-size: 11px
+          padding: 0px 8px
+        i
+          padding: 4px 10px 0px 14px
+        .icon
+          font-size: 12px
+        a
+          margin: 24px 8px 24px 8px
+          text-transform: none
+          +mdm
+            margin: 24px 8px 24px 8px
+        .btn-medium
+          display: flex
+          flex-direction: row
+          flex-wrap: nowrap
+          justify-content: center
+          align-content: flex-start
+          align-items: center
+          padding: 17px
+
+        .btn-main
+          background-color: $c-secondary-txt
+          +border-radius(0.3em)
+          text-transform: uppercase
+          font-size: 11px
+          width: auto
+          padding: 15px
+
+      .document-submit
+        @extend .links-submit
+        a
+          width: auto
+          text-align: left
+        .btn-main
+          width: auto
+        .document-container
+          margin-top: 10px
+          margin-bottom: -6px
+          .links-last-step
+            margin: 34px 0px 0px 0px
+            display: flex
+            flex-direction: row
+            flex-wrap: wrap
+            justify-content: space-between
+            align-content: flex-start
+            align-items: center
+            .left-icon
+              font-size: 24px
+              padding: 3px 0 0 10px
+            span
+              padding: -10px 0 0 24px
+            i
+              padding: 0 0 0 24px
+
+            a
+              display: flex
+              flex-direction: row
+              flex-wrap: wrap
+              justify-content: space-between
+              align-content: flex-start
+              align-items: center
+              margin: 0 0 16px 0
+              width: calc(50% - 8px)
+    .step-content
+      margin-top: 30px
+      display: flex
+      flex-direction: column
+      flex-wrap: wrap
+      align-content: center
+      justify-content: space-between
+      align-items: center
+      +smm
+        flex-direction: row
+      .input-group
+        color: $c-secondary-txt
+        width: 100%
+        height: 100%
+        margin-bottom: 16px
+        input
+          bottom: 18px
+          font-size: 16px
+      .option
+        background-color: $c-white
+        border: 1px solid $c-lines
+        padding: 30px 10px 20px 10px
+        width: 100%
+        text-align: center
+        +border-radius(0.3em)
+        margin-top: 10px
+        height: 256px
+        margin-left: -1px
+        margin-bottom: 16px
+        +smm
+          width: 48%
+          margin-top: 0
+        i
+          font-size: 128px
+        h5
+          color: $c-secondary-txt
+          font-weight: bold
+          text-transform: uppercase
+          margin-top: 12px
+    .upload-field
+      display: flex
+      flex-direction: column
+      flex-wrap: nowrap
+      justify-content: space-around
+      align-content: center
+      align-items: center
+      background: $c-white
+      width: 100%
+      border: 2px dashed $c-lines
+      padding: 55px 0 60px 0
+      text-align: center
+      height: 255px
+      margin-bottom: 16px
+      img
+        max-width: 90%
+      .upload-description
+        margin-top: -35px
+        h3
+          color: $c-primary-hover
+        p
+          margin-top: -40px
+          color: $c-secondary-txt
+          margin-top: -10px
+      .icon-overlay
+        font-size: 30px
+        position: absolute
+        margin-top: 31px
+        margin-left: -50px

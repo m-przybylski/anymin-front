@@ -1,9 +1,10 @@
-.section-widget(data-ng-show="config.toggles.show || config.toggles.past" data-ng-class="{'is-past': config.toggles.past, 'being-edited': config.toggles.beingEdited}")
-  .wizard-cover(data-ng-show="loading")
-  block edit-section
-  div(data-ng-hide="!config.toggles.past || config.toggles.beingEdited")
-    block done-section
-
-
-
-
+.step.step-done(data-ng-class="{'step-done': config.toggles.past || config.toggles.beingEdited}")
+  .title-step
+    .title-order
+      h3(data-translate="{{trTitle}}") *:
+      p(data-translate="{{trDesc}}")
+    div
+      .step-description
+        h5(data-translate="DASHBOARD.CREATE_PROFILE.STEP" data-translate-values="{step: order, steps: steps }")
+        i.icon.icon-success-24
+  block content

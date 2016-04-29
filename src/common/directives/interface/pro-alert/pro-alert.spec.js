@@ -37,6 +37,7 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
       expect(el.html()).toBeDefined(true)
     })
 
+    /*
     it('should destroy alert', () => {
       let el = create(validHTML)
       let isoScope = el.isolateScope()
@@ -50,6 +51,7 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
       scope.$digest()
       expect(isoScope.destroyAlert).toHaveBeenCalledWith(1)
     })
+    */
 
     it('should create success alert', () => {
       let el = create(validHTML)
