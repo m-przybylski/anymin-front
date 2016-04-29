@@ -62,7 +62,6 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
 
     it('should create success alert with params', () => {
       let params = {
-        header: 'RANDOM_HEADER',
         message: 'RANDOM_MESSAGE',
         timeout: 2
       }
@@ -70,8 +69,7 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
       let isoScope = el.isolateScope()
       _proTopAlertsService.success(params)
       expect(_.find(isoScope.alerts, function(o) {
-        return o.header === 'RANDOM_HEADER' &&
-          o.message === 'RANDOM_MESSAGE' &&
+        return o.message === 'RANDOM_MESSAGE' &&
           o.timeout === 2
       }) !== undefined).toBe(true)
     })
@@ -85,7 +83,6 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
 
     it('should create error alert with params', () => {
       let params = {
-        header: 'RANDOM_HEADER',
         message: 'RANDOM_MESSAGE',
         timeout: 2
       }
@@ -93,8 +90,7 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
       let isoScope = el.isolateScope()
       _proTopAlertsService.error(params)
       expect(_.find(isoScope.alerts, function(o) {
-        return o.header === 'RANDOM_HEADER' &&
-        o.message === 'RANDOM_MESSAGE' &&
+        return o.message === 'RANDOM_MESSAGE' &&
         o.timeout === 2
       }) !== undefined).toBe(true)
     })
@@ -107,7 +103,6 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
 
     it('should create warning alert with params', () => {
       let params = {
-        header: 'RANDOM_HEADER',
         message: 'RANDOM_MESSAGE',
         timeout: 2
       }
@@ -115,8 +110,7 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
       let isoScope = el.isolateScope()
       _proTopAlertsService.warning(params)
       expect(_.find(isoScope.alerts, function(o) {
-        return o.header === 'RANDOM_HEADER' &&
-        o.message === 'RANDOM_MESSAGE' &&
+        return o.message === 'RANDOM_MESSAGE' &&
         o.timeout === 2
       }) !== undefined).toBe(true)
     })
@@ -129,7 +123,6 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
 
     it('should create info alert with params and destroy it after timeout', () => {
       let params = {
-        header: 'RANDOM_HEADER',
         message: 'RANDOM_MESSAGE',
         timeout: 2
       }
@@ -137,8 +130,7 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
       let isoScope = el.isolateScope()
       _proTopAlertsService.info(params)
       expect(_.find(isoScope.alerts, function(o) {
-        return o.header === 'RANDOM_HEADER' &&
-        o.message === 'RANDOM_MESSAGE' &&
+        return o.message === 'RANDOM_MESSAGE' &&
         o.timeout === 2
       }) !== undefined).toBe(true)
       $timeout.flush()
