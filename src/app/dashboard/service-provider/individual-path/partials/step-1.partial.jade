@@ -5,7 +5,7 @@
       p(data-translate="DASHBOARD.CREATE_PROFILE.STEP1_CHOOSE_PROFILE_DESCRIPTION")
     div
       .step-description
-        h5(data-translate="DASHBOARD.CREATE_PROFILE.STEP" data-translate-values="{step: 1, steps: {{ vm.amountOfSteps }} }")
+        h5(data-translate="DASHBOARD.CREATE_PROFILE.STEP" data-translate-values="{step: 1, steps: vm.queue.amountOfSteps }")
         i.icon.icon-success-24
   .step-content
     .option.selected(data-ui-sref="app.dashboard.service-provider.individual-path")

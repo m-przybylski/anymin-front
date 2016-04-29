@@ -1,53 +1,57 @@
 (function() {
-  function proServiceProviderDescription(wizardSectionControlService) {
+  function proServiceProviderDescription($q) {
 
     function linkFunction(scope, element, attrs) {
+
+      scope.onClick = () => {
+        scope.queue.currentStep = scope.order
+      }
+
+      let required = false
+
+      if ('required' in attrs) {
+        required = true
+      }
 
       scope.model = {
         description: ''
       }
 
-      scope.loading = true
-      
-      scope.saveSection = () => {
-        scope.proModel.description = scope.model.description
-      }
+      let _proceed = () => {
+        if (scope.queue.completedSteps < scope.order) {
+          scope.queue.completedSteps = scope.order
+        }
 
+        scope.queue.currentStep = scope.order + 1
+
+      }
 
       let _isValid = () => {
-        return angular.isDefined(scope.model.description) && scope.model.description.length > 0
-      }
+        let _isValidDeferred = $q.defer()
 
-      let _getModel = () => {
-        return scope.model
-      }
-
-      let _setModel = (model) => {
-        scope.model = angular.copy(model)
-      }
-
-      scope.loadData = () => {
-        scope.loading = false
-      }
-
-      scope.config = {
-        order:    parseInt(scope.order, 10),
-        model:    scope.model,
-        element:  element,
-        queue:    scope.queue,
-        save:     scope.saveSection,
-        isValid:  _isValid,
-        getModel: _getModel,
-        setModel: _setModel,
-        loadData: scope.loadData,
-        toggles: {
-          show:         false,
-          past:         false,
-          beingEdited:  false
+        if (angular.isDefined(scope.model.description) && scope.model.description.length > 0) {
+          _isValidDeferred.resolve()
+        } else {
+          _isValidDeferred.reject()
         }
+
+        return _isValidDeferred.promise
       }
 
-      wizardSectionControlService(scope.config)
+
+      scope.saveSection = () => {
+        _isValid().then(() => {
+
+          scope.proModel.description = scope.model.description
+          _proceed()
+
+        }, () => {
+          console.log('not valid')
+        })
+      }
+
+      scope.skipSection = _proceed
+
 
     }
 
@@ -58,7 +62,7 @@
       templateUrl: 'directives/service-provider/pro-service-provider-description/pro-service-provider-description.tpl.html',
       scope: {
         queue:    '=',
-        order:    '@',
+        order:    '=',
         proModel: '=',
         steps: '@',
         trTitle: '@',

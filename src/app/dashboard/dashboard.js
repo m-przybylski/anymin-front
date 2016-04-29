@@ -1,5 +1,5 @@
 (function() {
-  function DashboardController($state, $filter, User, proTopAlertService) {
+  function DashboardController($state, User) {
     let vm = this
 
     vm.isSidebarOpen = false
@@ -14,8 +14,6 @@
     }
 
     vm.logout = () => {
-
-
 
       let action = () => {
         vm.isPending = false
@@ -37,8 +35,7 @@
   angular.module('profitelo.controller.dashboard', [
     'ui.router',
     'c7s.ng.userAuth',
-    'hmTouchEvents',
-    'profitelo.directives.pro-top-alert-service'
+    'hmTouchEvents'
   ])
   .config( function($stateProvider) {
     $stateProvider.state('app.dashboard', {

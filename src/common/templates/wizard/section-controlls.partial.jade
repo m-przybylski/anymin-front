@@ -1,10 +1,14 @@
-.step.step-done(data-ng-class="{'step-done': config.toggles.past || config.toggles.beingEdited}")
+.step(data-ng-show="queue.completedSteps >= order - 1"
+data-ng-class="{'step-done': queue.completedSteps >= order - 1 && queue.currentStep !== order, 'step-active': queue.currentStep === order}")
   .title-step
     .title-order
       h3(data-translate="{{trTitle}}") *:
       p(data-translate="{{trDesc}}")
     div
       .step-description
-        h5(data-translate="DASHBOARD.CREATE_PROFILE.STEP" data-translate-values="{step: order, steps: steps }")
+        h5(data-translate="DASHBOARD.CREATE_PROFILE.STEP" data-translate-values="{step: order, steps: queue.amountOfSteps}")
         i.icon.icon-success-24
   block content
+  .step-control(data-ng-show="queue.currentStep === order")
+    a.pro-btn.btn-round.btn-medium.btn-main(data-translate="INTERFACE.SAVE" data-ng-click="saveSection()")
+    a.pro-btn.btn-round.btn-medium.btn-light(data-translate="INTERFACE.SKIP" data-ng-click="skipSection()" data-ng-show="!required")

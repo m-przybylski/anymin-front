@@ -1,22 +1,48 @@
 (function() {
-  function IndividualPathController(serviceProviderStateService) {
+  function IndividualPathController($scope, ProfileApi, User, savedProfile) {
     let vm = this
 
-    vm.amountOfSteps = 7
+    let _updateMethod
 
-    vm.progress = 0
+    if (savedProfile) {
+      _updateMethod = ProfileApi.putProfile
+    } else {
+      _updateMethod = ProfileApi.postProfile
+    }
 
+
+    
     vm.individualPathModel = {}
 
     vm.queue = {
-      currentActiveSection: 2,
-      sectionBeingEdited:   -1
+      amountOfSteps: 7,
+      currentStep: 2,
+      completedSteps: 1 
     }
 
-    vm.nextSection = () => {
-      vm.queue.currentActiveSection++
+    let _calculateProgressPercentage = () => {
+      vm.progressBarWidth = Math.ceil(vm.queue.completedSteps / vm.queue.amountOfSteps * 100)
     }
 
+    _calculateProgressPercentage()
+
+    $scope.$watch(() => {
+      return vm.queue.completedSteps
+    }, _calculateProgressPercentage)
+
+
+    vm.saveAccountObject = () => {
+      _updateMethod({
+        id: User.getData('id'),
+        type: 'INDIVIDUAL',
+        expertDetails: {
+          firstName: vm.individualPathModel.name,
+          lastName: vm.individualPathModel.name,
+          description: vm.individualPathModel.description
+        }
+      }
+      )
+    }
 
     return vm
   }
@@ -26,14 +52,37 @@
     'ui.router',
     'profitelo.services.service-provider-state',
     'profitelo.directives.service-provider.pro-service-provider-name',
-    'profitelo.directives.service-provider.pro-service-provider-description'
+    'profitelo.directives.service-provider.pro-service-provider-description',
+    'profitelo.swaggerResources',
+    'c7s.ng.userAuth'
   ])
   .config( function($stateProvider) {
     $stateProvider.state('app.dashboard.service-provider.individual-path', {
       url:          '/individual-path',
       templateUrl:  'dashboard/service-provider/individual-path/individual-path.tpl.html',
       controller:   'IndividualPathController',
-      controllerAs: 'vm'
+      controllerAs: 'vm',
+      resolve: {
+        /* istanbul ignore next */
+        savedProfile: ($q, ProfileApi, User) => {
+
+          let _deferred = $q.defer()
+
+          User.getStatus().then(() => {
+            ProfileApi.getProfile({
+              profileId: User.getData('id')
+            }).$promise.then((response) => {
+              _deferred.resolve(response)
+            }, () => {
+              _deferred.resolve(false)
+            })
+          }, (error) => {
+            _deferred.reject(error)
+          })
+
+          return _deferred.promise
+        }
+      }
     })
   })
   .controller('IndividualPathController', IndividualPathController)

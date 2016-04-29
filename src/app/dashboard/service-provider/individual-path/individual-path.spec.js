@@ -2,16 +2,27 @@ describe('Unit tests: IndividualPathController >', () => {
   describe('Testing Controller: IndividualPathController', () => {
 
     let IndividualPathController
-    let _serviceProviderStateService
+    let _scope
 
+    let url = 'awesomeUrl/'
+    
+    beforeEach(module(function($provide) {
+      $provide.value('apiUrl', url)
+    }))
+    
     beforeEach(() => {
       module('profitelo.controller.dashboard.service-provider.individual-path')
-      inject(($rootScope, $controller, _serviceProviderStateService_) => {
+      inject(($rootScope, $controller, _ProfileApi_, _User_) => {
+
+        _scope = $rootScope.$new()
+
         IndividualPathController = $controller('IndividualPathController', {
-          serviceProviderStateService: _serviceProviderStateService_
+          $scope: _scope,
+          ProfileApi: _ProfileApi_,
+          User: _User_,
+          savedProfile: {}
         })
         
-        _serviceProviderStateService = _serviceProviderStateService_
         
       })
     })
