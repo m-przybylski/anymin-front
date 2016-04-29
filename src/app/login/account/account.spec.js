@@ -113,14 +113,5 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
       $httpBackend.flush()
       expect($state.go).toHaveBeenCalledWith('app.dashboard.start')
     })
-    it('should display warning', () => {
-      spyOn(proTopAlertService, 'warning')
-      registrationResendPOST = $httpBackend.when('POST', 'http://api.webpage.com/session')
-      AccountFormController.current = 2
-      registrationResendPOST.respond(400, {})
-      AccountFormController.login()
-      $httpBackend.flush()
-      expect(proTopAlertService.warning).toHaveBeenCalled()
-    })
   })
 })

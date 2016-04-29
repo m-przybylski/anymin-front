@@ -1,15 +1,17 @@
 (function() {
-  function ForgotPasswordController($state, account, $filter, RecoverPasswordApi, proTopWaitingLoaderService, proTopAlertService) {
+  function ForgotPasswordController($state, account, $filter, RecoverPasswordApi, proTopWaitingLoaderService, proTopAlertService, CommonSettingsService) {
 
     let vm = this
     vm.isPending = false
     vm.account = account
+    vm.patternSms = CommonSettingsService.localSettings.smsCodePattern
 
     vm.forceSmsRecovery = () => {
       $state.go('app.login.forgot-password', { method: 'sms' }, { reload: true })
     }
 
     vm.submitSmsVerificationCode = () => {
+      vm.serverError = false
       if (!vm.isPending) {
         vm.isPending = true
         proTopWaitingLoaderService.immediate()
@@ -26,10 +28,7 @@
         }, () => {
           vm.isPending = false
           proTopWaitingLoaderService.stopLoader()
-          proTopAlertService.warning({
-            message: $filter('translate')('LOGIN.FORGOT_PASSWORD.BAD_SMS_CODE'),
-            timeout: 3
-          })
+          vm.serverError = true
         })
       }
 
@@ -60,7 +59,8 @@
     'profitelo.services.resolvers.app.login.forgot-password',
     'profitelo.swaggerResources',
     'profitelo.directives.pro-top-alert-service',
-    'profitelo.directives.pro-top-waiting-loader-service'
+    'profitelo.directives.pro-top-waiting-loader-service',
+    'profitelo.services.commonSettings'
   ])
   .config(config)
   .controller('ForgotPasswordController', ForgotPasswordController)

@@ -1,8 +1,9 @@
 (function() {
 
-  function SetNewPasswordController($state, $filter, tokenStatus, passwordStrengthService, proTopWaitingLoaderService, proTopAlertService, RecoverPasswordApi) {
+  function SetNewPasswordController($state, $filter, tokenStatus, passwordStrengthService, proTopWaitingLoaderService, proTopAlertService, RecoverPasswordApi, CommonSettingsService) {
 
     let vm = this
+    vm.patternPassword = CommonSettingsService.localSettings.passwordPattern
 
     let _passwordChangeError = () => {
       $state.go('app.login.account')
@@ -29,6 +30,7 @@
       tokenStatus.payload.password = vm.newPassword
       RecoverPasswordApi.putRecoverPasswordEmail(tokenStatus.payload).$promise.then(_passwordChangeSuccess, _passwordChangeError)
     }
+
 
     vm.onPasswordChange = (password) => {
       vm.passwordStrength = passwordStrengthService(password)
@@ -72,7 +74,8 @@
     'profitelo.directives.pro-top-waiting-loader-service',
     'profitelo.directives.password-strength-service',
     'profitelo.services.resolvers.app.login.set-new-password',
-    'profitelo.swaggerResources'
+    'profitelo.swaggerResources',
+    'profitelo.services.commonSettings'
   ])
   .config(config)
   .controller('SetNewPasswordController', SetNewPasswordController)

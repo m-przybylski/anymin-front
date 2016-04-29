@@ -8,8 +8,6 @@ function proInput() {
     let placeholder = scope.placeholder
     let _inputGroup = $(element)
 
-
-
     if (!scope.type) {
       scope.type = 'text'
     }
@@ -21,6 +19,7 @@ function proInput() {
     if ('autoFocus' in attr.$attr) {
       _inputGroup.find('input').focus()
     }
+
 
     let _setAddon = (value) => {
       scope.addon = value
@@ -56,7 +55,6 @@ function proInput() {
         scope.focus = false
       }
     }
-
   }
   return {
     templateUrl:  'directives/interface/pro-input/pro-input.tpl.html',

@@ -59,7 +59,8 @@ function proInputPassword($timeout) {
       defaultValue: '@',
       label: '@',
       onChange: '=?',
-      name: '@'
+      name: '@',
+      ngPattern: '=?'
     }
   }
 }

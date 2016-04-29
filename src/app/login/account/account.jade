@@ -10,7 +10,7 @@
     data-type="number"
     data-placeholder="{{'LOGIN.ENTER_NUMBER_PLACEHOLDER' | translate}}"
     data-pro-model="vm.account.phoneNumber.number" data-ng-class="{'invalid': phoneNumberForm.phoneNumber.$invalid && (phoneNumberForm.phoneNumber.$dirty || phoneNumberForm.$submitted)}"
-    data-ng-pattern="vm.pattern" required auto-focus)
+    data-ng-pattern="vm.pattern" required auto-focus only-digits)
 
     .input-error-messages
       .error.left(data-ng-show="phoneNumberForm.$submitted && phoneNumberForm.$invalid || phoneNumberForm.$submitted &&  vm.account.phoneNumber.prefix === null " data-translate="LOGIN.PHONE_NUMBER_REQUIRED")
@@ -24,11 +24,12 @@
     pro-input-password(data-label="{{ 'LOGIN.SERVICE_PASSWORD' | translate }}"
     data-pro-model="vm.account.password"
     data-name="password"
-    data-ng-class="{'invalid': passwordForm.password.$invalid && (passwordForm.password.$dirty || passwordForm.$submitted)}"
+    data-ng-pattern="vm.patternPassword"
+    data-ng-class="{'invalid': passwordForm.password.$invalid && (passwordForm.password.$dirty || passwordForm.$submitted ||vm.serverError)}"
     required auto-focus)
 
     .input-error-messages
-      .error.left(data-ng-show="passwordForm.$submitted && passwordForm.$invalid" data-translate="LOGIN.NO_EMPTY_PASSWORD")
+      .error.left(data-ng-show="passwordForm.$submitted && passwordForm.$invalid ||vm.serverError " data-translate="LOGIN.BAD_LOGIN_CREDENTIALS")
 
     .btn-handler
       button.pro-btn.btn-main.btn-medium(type="submit" data-translate="LOGIN.NEXT")
