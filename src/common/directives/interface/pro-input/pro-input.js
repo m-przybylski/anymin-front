@@ -20,6 +20,14 @@ function proInput() {
       _inputGroup.find('input').focus()
     }
 
+    if ('onlyDigits' in attr.$attr) {
+      element.bind('keypress', function(e) {
+        let code = e.keyCode || e.which
+        if (code === 101 || code === 32) {
+          e.preventDefault()
+        }
+      })
+    }
 
     let _setAddon = (value) => {
       scope.addon = value
