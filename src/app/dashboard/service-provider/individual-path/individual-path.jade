@@ -3,19 +3,30 @@ include partials/step-1.partial.jade
 pro-service-provider-name(
 data-queue="vm.queue"
 data-order="2"
-data-steps="{{vm.amountOfSteps}}"
 data-pro-model="vm.individualPathModel"
 tr-title="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT"
 tr-desc="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT_DESCRIPTION"
+required
 )
+
 pro-service-provider-description(
 data-queue="vm.queue"
 data-order="3"
-data-steps="{{vm.amountOfSteps}}"
 data-pro-model="vm.individualPathModel"
 tr-title="DASHBOARD.EXPERT_ACCOUNT.EXPERT_DESCRIPTION"
 tr-desc="DASHBOARD.EXPERT_ACCOUNT.EXPERT_TITLE_DESCRIPTION"
 )
 
 
-include partials/progress-bar.partial.jade
+.bottom-row
+  .title-row-column
+    .title
+      h5(data-translate="DASHBOARD.EXPERT_ACCOUNT.STEP1_PROGRESS_BAR_TITLE")
+      h5 {{ vm.progressBarWidth }}%
+    .loader-container
+      .password-verify
+        .loader
+          .progress-bar(style="width: {{ vm.progressBarWidth }}%;")
+      .next-step(data-ng-show="vm.amountOfSteps == vm.completedSteps")
+        .button-next-step
+          a.pro-btn.btn-main.btn-medium(data-ui-sref="app.dashboard.cost-data" data-translate="DASHBOARD.CREATE_PROFILE.NEXT_STEP")

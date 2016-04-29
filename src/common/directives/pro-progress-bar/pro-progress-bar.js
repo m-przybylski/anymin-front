@@ -41,9 +41,6 @@ function proProgressBar($rootScope, $q, toastr) {
         toastr.error('not valid')
       }
     })
-
-
-
   }
 
   return {

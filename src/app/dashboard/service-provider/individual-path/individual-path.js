@@ -1,23 +1,26 @@
 (function() {
-  function IndividualPathController(serviceProviderStateService) {
+  function IndividualPathController($scope) {
     let vm = this
-
-    vm.amountOfSteps = 7
-
-    vm.progress = 0
 
     vm.individualPathModel = {}
 
     vm.queue = {
-      currentActiveSection: 2,
-      sectionBeingEdited:   -1
-    }
-
-    vm.nextSection = () => {
-      vm.queue.currentActiveSection++
+      amountOfSteps: 7,
+      currentStep: 2,
+      completedSteps: 1 
     }
 
 
+    let _calculateProgressPercentage = () => {
+      vm.progressBarWidth = Math.ceil(vm.queue.completedSteps / vm.queue.amountOfSteps * 100)
+    }
+
+    _calculateProgressPercentage()
+
+    $scope.$watch(() => {
+      return vm.queue.completedSteps
+    }, _calculateProgressPercentage)
+    
     return vm
   }
 

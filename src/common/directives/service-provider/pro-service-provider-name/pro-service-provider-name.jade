@@ -1,9 +1,5 @@
 extends ../../../templates/wizard/section-controlls.partial.jade
 
 block content
-  .step-content-column
-    pro-input(placeholder="{{'DASHBOARD.EXPERT_ACCOUNT.EXPERT_PLACEHOLDER' | translate}}" data-pro-model="nameExport")
-
-
-
-
+  .step-content-column(data-ng-click="onClick()")
+    pro-input(placeholder="{{'DASHBOARD.EXPERT_ACCOUNT.EXPERT_PLACEHOLDER' | translate}}" data-pro-model="model.name")
