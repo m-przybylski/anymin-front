@@ -26,7 +26,7 @@
     "eol-last": 0,
     "func-style": 0,
     "no-nested-ternary": 1,
-    "new-cap": 1,
+    "new-cap": 0,
     "no-multiple-empty-lines": [1, {max: 4, maxEOF: 10}],
     "no-redeclare": [1, {"builtinGlobals": true}],
     "no-underscore-dangle": 0,

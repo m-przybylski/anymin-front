@@ -49,7 +49,7 @@
           message:  '',
           type:     'success',
           timeout:  null,
-          visible:     false
+          visible:  false
         }
         _pushAlert(angular.extend(defaultOptions, options))
       },
@@ -61,7 +61,7 @@
           message:  '',
           type:     'warning',
           timeout:  null,
-          visible:     false
+          visible:  false
         }
         _pushAlert(angular.extend(defaultOptions, options))
       },
@@ -73,7 +73,7 @@
           message:  '',
           type:     'error',
           timeout:  null,
-          visible:     false
+          visible:  false
         }
         _pushAlert(angular.extend(defaultOptions, options))
       },
@@ -85,7 +85,7 @@
           message:  '',
           type:     'info',
           timeout:  null,
-          visible:     false
+          visible:  false
         }
         _pushAlert(angular.extend(defaultOptions, options))
       },

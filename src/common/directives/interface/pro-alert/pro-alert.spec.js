@@ -37,21 +37,21 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
       expect(el.html()).toBeDefined(true)
     })
 
-    /*
+
     it('should destroy alert', () => {
       let el = create(validHTML)
       let isoScope = el.isolateScope()
       spyOn(isoScope, 'destroyAlert').and.callThrough()
       isoScope.alerts.push({
-        header: 'RANDOM_HEADER',
-        id: 1
+        id: 1,
+        visible:  true
       })
       scope.$digest()
       el.find('.icon-close-16').click()
       scope.$digest()
       expect(isoScope.destroyAlert).toHaveBeenCalledWith(1)
     })
-    */
+
 
     it('should create success alert', () => {
       let el = create(validHTML)
@@ -135,6 +135,27 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
       }) !== undefined).toBe(true)
       $timeout.flush()
       expect(isoScope.alerts.length === 0).toBe(true)
+    })
+
+    it('should create 3 alerts with params and show third after destroy by timeout first and second', () => {
+      let params = {
+        message: 'RANDOM_MESSAGE',
+        timeout: 2
+      }
+      let lastParams = {
+        message: 'RANDOM_MESSAGE'
+      }
+      let el = create(validHTML)
+      let isoScope = el.isolateScope()
+      _proTopAlertsService.info(params)
+      _proTopAlertsService.error(params)
+      _proTopAlertsService.info(lastParams)
+      expect(_.find(isoScope.alerts, function(o) {
+        return o.message === 'RANDOM_MESSAGE' &&
+          o.timeout === 2
+      }) !== undefined).toBe(true)
+      $timeout.flush()
+      expect(isoScope.alerts.length === 1).toBe(true)
     })
   })
 })

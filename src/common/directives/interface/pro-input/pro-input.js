@@ -7,6 +7,7 @@ function proInput() {
     scope.onClick = false
     let placeholder = scope.placeholder
     let _inputGroup = $(element)
+    let _digitsArray = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57]
 
     if (!scope.type) {
       scope.type = 'text'
@@ -23,7 +24,7 @@ function proInput() {
     if ('onlyDigits' in attr.$attr) {
       element.bind('keypress', function(e) {
         let code = e.keyCode || e.which
-        if (code === 101 || code === 32 || code === 46 || code === 45 || code === 44) {
+        if (_digitsArray.indexOf(code) < 0) {
           e.preventDefault()
         }
       })

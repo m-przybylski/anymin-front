@@ -104,6 +104,15 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
       $httpBackend.flush()
       expect(proTopAlertService.error).toHaveBeenCalled()
     })
+
+    it('should redirect to forgot-password', () => {
+      spyOn($state, 'go')
+      resourcesExpectations.AccountApi.getRegistrationStatusByMsisdn.respond(200, {status: 'NO_PASSWORD'})
+      AccountFormController.getPhoneNumberStatus()
+      $httpBackend.flush()
+      expect($state.go).toHaveBeenCalledWith('app.login.forgot-password')
+    })
+
     it('should login user', () => {
       spyOn($state, 'go')
       registrationResendPOST = $httpBackend.when('POST', 'http://api.webpage.com/session')
@@ -113,5 +122,14 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
       $httpBackend.flush()
       expect($state.go).toHaveBeenCalledWith('app.dashboard.start')
     })
+    it('should display error', () => {
+      registrationResendPOST = $httpBackend.when('POST', 'http://api.webpage.com/session')
+      AccountFormController.current = 2
+      registrationResendPOST.respond(400, {})
+      AccountFormController.login()
+      $httpBackend.flush()
+      expect(AccountFormController.serverError).toBe(true)
+    })
+
   })
 })
