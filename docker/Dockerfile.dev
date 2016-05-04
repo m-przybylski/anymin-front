@@ -18,8 +18,6 @@ RUN npm install
 
 ADD . /profitelo-frontend
 
-RUN npm update
-
 ADD docker/nginx.conf /etc/nginx/sites-enabled/default
 ADD docker/init_scripts/nginx.sh /etc/service/nginx/run
 ADD docker/init_scripts/frontend.sh /etc/service/frontend/run
