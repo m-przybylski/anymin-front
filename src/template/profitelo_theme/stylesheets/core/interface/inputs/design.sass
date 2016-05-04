@@ -86,20 +86,22 @@
         visibility: visible
     &.input-group-addon
       +transition(0.3s)
-      border-left: 1px solid $c-lines
-      border-bottom: 1px solid $c-lines
       position: relative
       float: right
       z-index: 2
       background-color: $c-background
-      height: 63px
+      height: 62px
       display: block
-      width: 63px
+      width: 62px
       right: -10px
-      top: -10px
+      margin-top: -10px
       font-size: $f-h5-size
       text-align: center
       color: $c-primary
+      border: 0
+      border-bottom-right-radius: 0.15em
+      border-top-right-radius: 0.15em
+
       &.active-addon
         &:hover
           background-color: $c-primary
@@ -111,6 +113,7 @@
         height: 100%
         text-transform: uppercase
   &.invalid
+    border-color: rgba(255, 63, 43, 0.5)
     label
       color: $c-input-error
     span
