@@ -123,7 +123,7 @@
         		"REGISTER.SERVICE_PASSWORD_STRENGTH":"Siła Hasła",
         		"REGISTER.USER_PHONE":"Twój numer:",
         		"REGISTER.VALID_CHECKBOX":"Zaakceptuj regulamin",
-        		"REGISTER.VALID_PASSWORD":"Podaj Hasło"
+        		"REGISTER.VALID_PASSWORD":"Hasło jest niepoprawne"
         })
     }])
 })(angular);
