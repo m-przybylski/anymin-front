@@ -1,5 +1,4 @@
 angular.module('profitelo.services.commonSettings', [])
-
 .factory('CommonSettingsService', CommonSettingsService)
 
 function CommonSettingsService() {
@@ -12,7 +11,8 @@ function CommonSettingsService() {
     passwordPattern: '^.{6,64}$',
     pinPattern: '\d{4}',
     phonePattern: '[0-9]{9,9}',
-    smsCodePattern: '[0-9]{4}'
+    smsCodePattern: '[0-9]{4}',
+    urlPattern: /^(?:(ftp|http|https):\/\/)?(?:[\w-]+\.)+[a-z]{2,6}$/
   }
 
   return {
