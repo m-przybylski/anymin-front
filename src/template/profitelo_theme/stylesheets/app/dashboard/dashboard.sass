@@ -11,7 +11,6 @@
   margin-left: 0
   z-index: 0
   +mdm
-    max-width: 280px
     min-width: 280px
   @media screen and (min-width: 321px)
     position: fixed
@@ -116,7 +115,7 @@
           margin-top: 20px
           span
             color: $c-secondary-txt
-            font-family: "sofia-pro-soft", sans-serif
+            +sofia-font
             font-weight: bold
             font-size: 19px
           h5
@@ -140,7 +139,7 @@
         align-items: center
         margin-bottom: 20px
         .option-left
-          font-family: "sofia-pro-soft", sans-serif
+          +sofia-font
           width: 50%
           border: 1px solid $c-lines
           border-top-left-radius: 5px
@@ -156,7 +155,7 @@
             background-color: $c-background
             color: $c-primary
         .option-right
-          font-family: "sofia-pro-soft", sans-serif
+          +sofia-font
           width: 50%
           border: 1px solid $c-lines
           border-top-right-radius: 5px
@@ -184,7 +183,7 @@
           padding: 0 16px 0 16px
         p
           color: $c-white
-          font-family: "sofia-pro-soft", sans-serif
+          +sofia-font
           padding: 0 10px 4px 0
           font-weight: bold
           font-size: 0.9em
