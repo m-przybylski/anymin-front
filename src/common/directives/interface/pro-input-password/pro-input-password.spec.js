@@ -6,7 +6,7 @@ describe('Unit testing: profitelo.directives.interface.pro-input-password', () =
     let scope     = null
     let rootScope
     let compile   = null
-    let validHTML = '<pro-input-password data-label="LABEL" data-placeholder="' + _placeholder + '"  required></pro-input-password>'
+    let validHTML = '<pro-input-password data-label="LABEL" data-placeholder="' + _placeholder + '"  required auto-focus></pro-input-password>'
 
     beforeEach(() => {
       module('templates-module')

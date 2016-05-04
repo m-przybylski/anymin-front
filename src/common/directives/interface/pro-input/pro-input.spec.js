@@ -6,7 +6,7 @@ describe('Unit testing: profitelo.directives.interface.pro-input', () => {
     let scope     = null
     let rootScope
     let compile   = null
-    let validHTML = '<pro-input data-label="LABEL" data-placeholder="' + _placeholder + '"  required></pro-input>'
+    let validHTML = '<pro-input data-label="LABEL" data-placeholder="' + _placeholder + '"  required auto-focus only-digits></pro-input>'
 
     beforeEach(() => {
       module('templates-module')
@@ -97,5 +97,19 @@ describe('Unit testing: profitelo.directives.interface.pro-input', () => {
 
     })
 
+    it('should allow to press only numbers', ()=> {
+      let el = create(validHTML)
+      let triggerKeyDown = function(element, keyCode) {
+        let e = angular.element.Event('keypress')
+        e.which = keyCode
+        element.trigger(e)
+      }
+      triggerKeyDown(el.find('input'), 60)
+      expect(el.find('input').val()).toBe('')
+      /*  Value will always be ''*/
+    })
+
   })
 })
+
+
