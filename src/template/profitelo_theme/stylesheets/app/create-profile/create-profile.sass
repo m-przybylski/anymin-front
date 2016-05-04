@@ -127,15 +127,17 @@
         width: 75%
         visibility: hidden
         display: none
+
         .progress-bar
-          +transition
         +smm
           visibility: visible
           display: block
         .loader
           background-color: $c-primary-hover
           margin-top: -4px
+
         .progress-bar
           background-color: $c-white
           +border-radius(5px)
           max-width: 100%
+          +transition('all 1s ease-in-out 0s')

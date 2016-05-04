@@ -15,7 +15,6 @@ angular.module('profitelo.controller.dashboard.company-profile', [
 function DashboardCompanyProfileController() {
   var vm = this
 
-
   vm.tab = 0
   vm.setTab = function(tabId) {
     if (vm.tab === tabId) {
