@@ -54,6 +54,7 @@
     'profitelo.directives.service-provider.pro-service-provider-name',
     'profitelo.directives.service-provider.pro-service-provider-description',
     'profitelo.directives.service-provider.pro-service-external-links',
+    'profitelo.directives.service-provider.pro-service-provider-languages',
     'profitelo.swaggerResources',
     'c7s.ng.userAuth'
   ])
