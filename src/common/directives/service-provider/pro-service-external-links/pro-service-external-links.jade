@@ -1,0 +1,13 @@
+extends ../../../templates/wizard/section-controlls.partial.jade
+
+block content
+  .step-content-column
+    .links-submit
+      pro-input(placeholder="http://" data-pro-model="linkModel" data-ng-click="onClick()" data-ng-enter="onEnter()")
+
+    .links-submit(data-ng-show="model.links.length > 0")
+      div
+        h3(data-translate="DASHBOARD.CREATE_PROFILE.CREATE_PROFILE_YOUR_LINKS" data-ng-click="onClick()")
+        .step-content
+          a.pro-btn.btn-main.btn-medium(data-ng-repeat="link in model.links")
+            span(data-ng-bind="link")

@@ -1,7 +1,7 @@
 function proInput() {
 
   function linkFunction(scope, element, attr) {
-    
+
     scope.required = false
     scope.focus = false
     scope.onClick = false
@@ -38,6 +38,9 @@ function proInput() {
     scope.focusInput = () => {
       _inputGroup.find('input').focus()
     }
+
+    $(element).on('click', scope.focusInput)
+
     scope.onFocus = () => {
       scope.focus = true
       scope.onClick = true
@@ -65,10 +68,11 @@ function proInput() {
       }
     }
   }
+
   return {
-    templateUrl:  'directives/interface/pro-input/pro-input.tpl.html',
-    restrict:     'E',
-    replace:      true,
+    templateUrl: 'directives/interface/pro-input/pro-input.tpl.html',
+    restrict: 'E',
+    replace: true,
     link: linkFunction,
     scope: {
       proModel: '=',

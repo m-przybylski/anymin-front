@@ -16,6 +16,9 @@ function proInputPassword($timeout) {
     scope.focusInput = function() {
       _input.focus()
     }
+    
+    $(element).on('click', scope.focusInput)
+    
     scope.onFocus = function() {
       scope.focus = true
       scope.onClick = true
