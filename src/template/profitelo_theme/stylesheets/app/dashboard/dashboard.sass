@@ -10,6 +10,9 @@
   visibility: visible
   margin-left: 0
   z-index: 0
+  +mdm
+    min-width: 280px
+    width: 280px
   @media screen and (min-width: 321px)
     position: fixed
     overflow: scroll
@@ -50,7 +53,7 @@
 
       ul
         list-style-type: none
-        margin-left: -30px
+        margin-left: -43px
         margin-top: 38px
         li
           padding: 5px 0
@@ -76,6 +79,8 @@
             color: $c-secondary-txt
             &:hover
               color: $c-primary-hover
+              border-bottom: transparent
+              text-decoration: none
 
       .user
         .photo
@@ -86,10 +91,14 @@
             height: 15px
             background-color: $c-white
             position: relative
-            top: 89px
+            top: 80px
             float: right
-            right: 92px
+            right: 90px
             +border-radius(50%)
+            +mdm
+              top: 80px
+              right: 71px
+
             .user-online
               margin: 4px 4px
               width: 8px
@@ -107,6 +116,7 @@
           margin-top: 20px
           span
             color: $c-secondary-txt
+            +sofia
             font-weight: bold
             font-size: 19px
           h5
@@ -130,6 +140,7 @@
         align-items: center
         margin-bottom: 20px
         .option-left
+          +sofia
           width: 50%
           border: 1px solid $c-lines
           border-top-left-radius: 5px
@@ -141,7 +152,11 @@
           font-weight: bold
           font-size: 12px
           cursor: pointer
+          &:hover
+            background-color: $c-background
+            color: $c-primary
         .option-right
+          +sofia
           width: 50%
           border: 1px solid $c-lines
           border-top-right-radius: 5px
@@ -153,25 +168,34 @@
           font-weight: bold
           font-size: 12px
           cursor: pointer
+          &:hover
+            background-color: $c-background
+            color: $c-primary
 
         .active
-          background-color: $c-background
-          color: $c-primary
+          background-color: $c-primary
+          color: $c-white
     .bottom-row
       float: left
       margin-bottom: 24px
+      width: 100%
       .switcher
+        i
+          padding: 0 16px 0 16px
         p
           color: $c-white
-          padding: 0 10px
+          +sofia
+          padding: 0 10px 4px 0
+          font-weight: bold
+          font-size: 0.9em
         a
           display: flex
           flex-direction: row
           flex-wrap: nowrap
-          justify-content: space-around
+          justify-content: flex-start
           align-content: flex-start
           align-items: center
-          padding: 5px 5px
+          padding: 4px 5px 0 0
       .switcher-tools
         display: flex
         flex-direction: row
@@ -181,6 +205,7 @@
         align-items: center
         margin-bottom: 20px
         text-align: center
+        margin-top: 39px
         a
           color: $c-secondary-txt
           border-bottom: none
@@ -198,6 +223,9 @@
           font-weight: bold
           font-size: 12px
           cursor: pointer
+          &:hover
+            background-color: $c-background
+            color: $c-primary
         .option-right
           width: 50%
           border: 1px solid $c-lines
@@ -210,3 +238,6 @@
           font-weight: bold
           font-size: 12px
           cursor: pointer
+          &:hover
+            background-color: $c-background
+            color: $c-primary

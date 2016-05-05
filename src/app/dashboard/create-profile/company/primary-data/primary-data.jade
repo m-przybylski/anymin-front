@@ -13,12 +13,16 @@
   include partials/step4
   include partials/step5
   include partials/step6
+  
 
   .bottom-row
     .title-row-column
       .title
         h5(data-translate="DASHBOARD.CREATE_PROFILE.STEP1_PROGRESS_BAR_TITLE")
         h5 33%
+        .arrow-next-step
+          a.pro-btn.btn-main.btn-medium(data-ui-sref="app.dashboard.company-cost-data")
+            i.icon.icon-arrow-right-12
       .loader-container
         .password-verify
           .loader
