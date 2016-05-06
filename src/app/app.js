@@ -236,6 +236,7 @@
     'profitelo.directives.interface.pro-uploader',
     'profitelo.directives.interface.pro-alert',
     'profitelo.directives.interface.pro-checkbox',
+    'profitelo.directives.interface.pro-tags-dropdown',
 
     // rest
     'profitelo.swaggerResources',
