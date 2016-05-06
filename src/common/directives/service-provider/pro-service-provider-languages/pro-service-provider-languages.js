@@ -3,6 +3,11 @@
 
     function linkFunction(scope, element, attrs) {
 
+      scope.langModel = ''
+
+      scope.onClick = () => {
+        scope.queue.currentStep = scope.order
+      }
 
       scope.languages = [
         {name: 'Polish'},
@@ -13,8 +18,8 @@
         languages: []
       }
 
-      scope.onClick = () => {
-        scope.queue.currentStep = scope.order
+      if ('required' in attrs) {
+        required = true
       }
 
       let _proceed = () => {
@@ -26,38 +31,12 @@
 
       }
 
-      let _isValid = () => {
-        let _isValidDeferred = $q.defer()
-
-        _isValidDeferred.resolve()
-
-        return _isValidDeferred.promise
-      }
-
-      scope.onEnter = () => {
-
-        _validateUrl().then(() => {
-          console.log(scope.langModel)
-          scope.model.languages.push(scope.langModel)
-          scope.langModel = ''
-        }, () => {
-          // display error message
-        })
-
-      }
-
       scope.saveSection = () => {
-        _isValid().then(() => {
-        console.log(scope.model.languages)
-          _proceed()
-          scope.proModel.name = scope.model.name
-        }, () => {
-          console.log('not valid')
-        })
+        scope.model.languages = scope.langModel
+        _proceed()
+
       }
-
       scope.skipSection = _proceed
-
 
     }
 
@@ -78,11 +57,11 @@
   }
 
   angular.module('profitelo.directives.service-provider.pro-service-provider-languages', [
-      'lodash',
-      'pascalprecht.translate',
-      'profitelo.services.wizardSectionControl',
-      'profitelo.directives.ng-enter',
-      'profitelo.services.commonSettings'
-    ])
+    'lodash',
+    'pascalprecht.translate',
+    'profitelo.services.wizardSectionControl',
+    'profitelo.directives.ng-enter',
+    'profitelo.services.commonSettings'
+  ])
     .directive('proServiceProviderLanguages', proServiceProviderLanguages)
 }())

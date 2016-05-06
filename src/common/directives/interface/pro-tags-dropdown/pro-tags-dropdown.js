@@ -15,13 +15,8 @@ function proTagsDropdown($timeout) {
       scope.onClick = false
     }
 
-    scope.tagTransform = function (newTag) {
-      return  {
-        name: newTag
-      }
-    }
 
-
+    scope.proModel = []
     scope.onFocus = ()=> {
       scope.focus = true
       scope.onClick = true
@@ -30,9 +25,9 @@ function proTagsDropdown($timeout) {
     scope.openBar = function() {
       _getScrollbarChoices().perfectScrollbar()
     }
-    
+
     scope.select = function(item, model) {
-      scope.proModel = item.name
+      scope.proModel.push(item.name)
       _onFocusOut()
       _getScrollbarChoices().perfectScrollbar()
 
