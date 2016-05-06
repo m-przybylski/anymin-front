@@ -3,11 +3,20 @@ extends ../../../templates/wizard/section-controlls.partial.jade
 block content
   .step-content-column
     .links-submit
-      pro-input(placeholder="http://" data-pro-model="linkModel" data-ng-click="onClick()" data-ng-enter="onEnter()")
-
-    .links-submit(data-ng-show="model.links.length > 0")
-      div
+      pro-input(placeholder="http://"
+      data-pro-model="linkModel"
+      data-ng-click="onClick()"
+      data-ng-enter="onEnter()"
+      data-ng-class="{'invalid': badUrl}"
+      icon-class="icon icon-add-24 link-add-icon"
+      addon-action="onEnter")
+      .input-error-messages
+        .error(data-translate="DASHBOARD.CREATE_PROFILE.ERROR_EXTERNAL_LINKS" data-ng-show="badUrl")
+    .document-submit(data-ng-show="model.links.length > 0")
+      .document-container
         h3(data-translate="DASHBOARD.CREATE_PROFILE.CREATE_PROFILE_YOUR_LINKS" data-ng-click="onClick()")
-        .step-content
-          a.pro-btn.btn-main.btn-medium(data-ng-repeat="link in model.links")
-            span(data-ng-bind="link")
+        .links-submit.links-last-step
+          a.pro-btn.btn-main.btn-medium(data-ng-repeat="link in model.links track by $index")
+            i.left-icon(pro-social-icon-getter data-url="link")
+            span {{ link }}
+            i.icon.icon-close-12(data-ng-click="removeLink(link)")
