@@ -47,6 +47,7 @@
         		"DASHBOARD.CREATE_PROFILE.STEP4_DESCRIPTION":"Krótki opis działalności firmy, czego można spodziewać po konsultacji.",
         		"DASHBOARD.CREATE_PROFILE.STEP4_TITLE":"Opis Twojej działalności:",
         		"DASHBOARD.CREATE_PROFILE.STEP5_DESCRIPTION":"Wgraj certyfikaty, dokumenty lub wizytówkę firmy.",
+        		"DASHBOARD.CREATE_PROFILE.STEP5_PLACEHOLDER":"np. Język polski",
         		"DASHBOARD.CREATE_PROFILE.STEP5_TITLE":"Języki w jakich świadczysz konsultacje",
         		"DASHBOARD.CREATE_PROFILE.STEP5_UPLOAD_DOCUMENT":"Wgrane dokumenty:",
         		"DASHBOARD.CREATE_PROFILE.STEP6_DESCRIPTION":"Podziel się linkami społecznościowymi lub inną stroną www.",
