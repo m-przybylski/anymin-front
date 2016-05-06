@@ -1,9 +1,10 @@
 (function() {
-  function proServiceExternalLinks($q, CommonSettingsService) {
+  function proServiceExternalLinks($timeout, $q, CommonSettingsService, _) {
 
     function linkFunction(scope, element, attrs) {
 
       scope.linkModel = ''
+      scope.badUrl    = false
 
       scope.model = {
         links: []
@@ -23,6 +24,12 @@
         return _isValidDeferred.promise
       }
 
+      scope.removeLink = (linkToDelete) => {
+        let _index = scope.model.links.indexOf(linkToDelete)
+        console.log(_index)
+        scope.model.links.splice(_index, 1)
+      }
+
       scope.onEnter = () => {
 
         _validateUrl().then(() => {
@@ -31,8 +38,12 @@
           scope.linkModel = ''
 
         }, () => {
-          console.log('bad url: ', scope.linkModel)
-          // display error message
+          scope.badUrl = true
+
+          $timeout(() => {
+            scope.badUrl = false
+          }, 1000)
+
         })
 
       }
@@ -70,7 +81,7 @@
       scope.saveSection = () => {
         _isValid().then(() => {
 
-          scope.proModel.name = scope.model.name
+          scope.proModel.links = scope.model.links
           _proceed()
 
         }, () => {
@@ -104,7 +115,8 @@
     'pascalprecht.translate',
     'profitelo.services.wizardSectionControl',
     'profitelo.directives.ng-enter',
-    'profitelo.services.commonSettings'
+    'profitelo.services.commonSettings',
+    'profitelo.directives.pro-social-icon-getter'
   ])
   .directive('proServiceExternalLinks', proServiceExternalLinks)
 }())
