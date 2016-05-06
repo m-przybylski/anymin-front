@@ -7,7 +7,7 @@
 
       pro-input.phone(data-label="{{'LOGIN.ENTER_NUMBER' | translate}}"
       data-name="phoneNumber"
-      data-type="number"
+      data-type="text"
       data-placeholder="{{'LOGIN.ENTER_NUMBER_PLACEHOLDER' | translate}}"
       data-pro-model="vm.account.phoneNumber.number" data-ng-class="{'invalid': phoneNumberForm.phoneNumber.$invalid && (phoneNumberForm.phoneNumber.$dirty || phoneNumberForm.$submitted)}"
       data-ng-pattern="vm.pattern" required auto-focus only-digits)

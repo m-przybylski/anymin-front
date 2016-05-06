@@ -3,7 +3,7 @@ form.pro-input-form(name="smsCodeForm" data-ng-submit="smsCodeForm.$valid && vm.
     placeholder="{{ 'REGISTER.SERVICE_CODE_PLACEHOLDER' | translate }}"
     data-pro-model="vm.registrationSteps.smsCode"
     data-maxlength="4"
-    data-type="number"
+    data-type="text"
     data-name="smsCode"
     data-ng-pattern="vm.patternSms"
     data-ng-class="{'invalid':smsCodeForm.smsCode.$invalid && (smsCodeForm.smsCode.$dirty || smsCodeForm.$submitted) || vm.serverError}"
