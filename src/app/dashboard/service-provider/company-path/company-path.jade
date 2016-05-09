@@ -5,7 +5,7 @@
       p(data-translate="DASHBOARD.CREATE_PROFILE.STEP1_CHOOSE_PROFILE_DESCRIPTION")
     div
       .step-description
-        h5(data-translate="DASHBOARD.CREATE_PROFILE.STEP" data-translate-values="{step: 1, steps: {{ vm.amountOfSteps }} }")
+        h5(data-translate="DASHBOARD.CREATE_PROFILE.STEP" data-translate-values="{step: 1, steps: {{ vm.queue.amountOfSteps }} }")
         i.icon.icon-success-24
   .step-content
     .option(data-ui-sref="app.dashboard.service-provider.individual-path")
@@ -14,3 +14,26 @@
     .option.selected(data-ui-sref="app.dashboard.service-provider.company-path")
       i.icon.icon-multiperson-128
       h5(data-translate="DASHBOARD.CREATE_PROFILE.STEP1_MORE_PERSON")
+
+
+pro-service-provider-company-name(
+data-queue="vm.queue"
+data-order="2"
+data-pro-model="vm.companyPathModel"
+tr-title="DASHBOARD.CREATE_PROFILE.STEP2_TITLE"
+tr-desc="DASHBOARD.CREATE_PROFILE.STEP2_DESCRIPTION"
+required
+)
+
+.bottom-row
+  .title-row-column
+    .title
+      h5(data-translate="DASHBOARD.EXPERT_ACCOUNT.STEP1_PROGRESS_BAR_TITLE")
+      h5 {{ vm.progressBarWidth }}%
+    .loader-container
+      .password-verify
+        .loader
+          .progress-bar(style="width: {{ vm.progressBarWidth }}%;")
+      .next-step(data-ng-show="vm.amountOfSteps == vm.completedSteps")
+        .button-next-step
+          a.pro-btn.btn-main.btn-medium(data-ng-click="vm.saveAccountObject()" data-translate="DASHBOARD.CREATE_PROFILE.NEXT_STEP")

@@ -11,7 +11,18 @@
     }
 
 
-    vm.amountOfSteps = 8
+    vm.companyPathModel = {}
+
+    vm.queue = {
+      amountOfSteps: 8,
+      currentStep: 2,
+      completedSteps: 1
+    }
+
+    let _calculateProgressPercentage = () => {
+      vm.progressBarWidth = Math.ceil(vm.queue.completedSteps / vm.queue.amountOfSteps * 100)
+    }
+    _calculateProgressPercentage()
 
     return vm
   }
@@ -20,6 +31,7 @@
   angular.module('profitelo.controller.dashboard.service-provider.company-path', [
     'ui.router',
     'profitelo.services.service-provider-state',
+    'profitelo.directives.service-provider.pro-service-provider-company-name',
     'profitelo.swaggerResources',
     'c7s.ng.userAuth'
   ])
