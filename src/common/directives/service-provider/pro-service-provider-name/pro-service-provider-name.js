@@ -6,7 +6,7 @@
       scope.onClick = () => {
         scope.queue.currentStep = scope.order
       }
-      
+
 
       let required = false
 

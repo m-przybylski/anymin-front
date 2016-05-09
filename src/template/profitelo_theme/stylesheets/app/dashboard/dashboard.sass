@@ -1,20 +1,18 @@
 .sidebar
-  position: absolute
+  position: fixed
   overflow-y: auto
-  background-color: $c-white
-  border-right: 1px solid $c-lines
-  border-left: 1px solid $c-lines
+  background-color: $c-background-black-1
   +transition
-  max-width: 320px
-  min-width: 320px
+  max-width: 96px
+  left: 0
+  min-width: 96px
   visibility: visible
   margin-left: 0
   z-index: 0
   +mdm
-    min-width: 280px
-    width: 280px
+    min-width: 96px
+    width: 96px
   @media screen and (min-width: 321px)
-    position: fixed
     overflow: scroll
     height: 100%
   .left-column
