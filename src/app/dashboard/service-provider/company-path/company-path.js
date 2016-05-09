@@ -1,5 +1,5 @@
 (function() {
-  function CompanyPathController(ProfileApi, savedProfile) {
+  function CompanyPathController($scope, ProfileApi, savedProfile) {
     let vm = this
 
     let _updateMethod
@@ -14,7 +14,7 @@
     vm.companyPathModel = {}
 
     vm.queue = {
-      amountOfSteps: 8,
+      amountOfSteps: 6,
       currentStep: 2,
       completedSteps: 1
     }
@@ -23,6 +23,23 @@
       vm.progressBarWidth = Math.ceil(vm.queue.completedSteps / vm.queue.amountOfSteps * 100)
     }
     _calculateProgressPercentage()
+    
+    $scope.$watch(() => {
+      return vm.queue.completedSteps
+    }, _calculateProgressPercentage)
+
+    vm.saveAccountObject = () => {
+      _updateMethod({
+        id: User.getData('id'),
+        type: 'COMPANY',
+        expertDetails: {
+          firstName: vm.individualPathModel.name,
+          lastName: vm.individualPathModel.name,
+          description: vm.individualPathModel.description
+        }
+      }
+      )
+    }
 
     return vm
   }
@@ -32,6 +49,8 @@
     'ui.router',
     'profitelo.services.service-provider-state',
     'profitelo.directives.service-provider.pro-service-provider-company-name',
+    'profitelo.directives.service-provider.pro-service-provider-description',
+    'profitelo.directives.service-provider.pro-service-provider-languages',
     'profitelo.swaggerResources',
     'c7s.ng.userAuth'
   ])
