@@ -23,7 +23,7 @@
       vm.progressBarWidth = Math.ceil(vm.queue.completedSteps / vm.queue.amountOfSteps * 100)
     }
     _calculateProgressPercentage()
-    
+
     $scope.$watch(() => {
       return vm.queue.completedSteps
     }, _calculateProgressPercentage)
@@ -51,6 +51,7 @@
     'profitelo.directives.service-provider.pro-service-provider-company-name',
     'profitelo.directives.service-provider.pro-service-provider-description',
     'profitelo.directives.service-provider.pro-service-provider-languages',
+    'profitelo.directives.service-provider.pro-bottom-summary-row',
     'profitelo.swaggerResources',
     'c7s.ng.userAuth'
   ])

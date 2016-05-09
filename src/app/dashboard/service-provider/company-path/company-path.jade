@@ -41,15 +41,6 @@ tr-title="DASHBOARD.CREATE_PROFILE.STEP6_TITLE"
 tr-desc="DASHBOARD.CREATE_PROFILE.STEP6_DESCRIPTION"
 )
 
-.bottom-row
-  .title-row-column
-    .title
-      h5(data-translate="DASHBOARD.EXPERT_ACCOUNT.STEP1_PROGRESS_BAR_TITLE")
-      h5 {{ vm.progressBarWidth }}%
-    .loader-container
-      .password-verify
-        .loader
-          .progress-bar(style="width: {{ vm.progressBarWidth }}%;")
-      .next-step(data-ng-show="vm.amountOfSteps == vm.completedSteps")
-        .button-next-step
-          a.pro-btn.btn-main.btn-medium(data-ng-click="vm.saveAccountObject()" data-translate="DASHBOARD.CREATE_PROFILE.NEXT_STEP")
+pro-bottom-summary-row(
+data-width="vm.progressBarWidth"
+)

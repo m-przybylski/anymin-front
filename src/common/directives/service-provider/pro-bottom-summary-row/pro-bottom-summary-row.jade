@@ -1,0 +1,13 @@
+block content
+  .bottom-row
+    .title-row-column
+      .title
+        h5(data-translate="DASHBOARD.EXPERT_ACCOUNT.STEP1_PROGRESS_BAR_TITLE")
+        h5 {{ width }}%
+      .loader-container
+        .password-verify
+          .loader
+            .progress-bar(style="width: {{ width }}%;")
+        .next-step(data-ng-show="vm.amountOfSteps == vm.completedSteps")
+          .button-next-step
+            a.pro-btn.btn-main.btn-medium(data-ng-click="vm.saveAccountObject()" data-translate="DASHBOARD.CREATE_PROFILE.NEXT_STEP")
