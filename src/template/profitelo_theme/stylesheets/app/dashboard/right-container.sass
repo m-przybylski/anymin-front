@@ -2,8 +2,10 @@
   width: 100%
   padding: 0
   position: relative
+  +smm
+    width: 100%
   +lgm
-    width: 1104px
+    width: 1004px
   &.main-container
     .menu-toogle
       z-index: 20
@@ -17,25 +19,13 @@
       outline: none
       border: none
       box-shadow: none
-      +mdm
+      +lgm
         z-index: 0
         margin-left: 24px
-      *:focus
-        outline: none
-        border: none
-        box-shadow: none
-      a
-        outline: none
-        border: none
-        box-shadow: none
     .slide-out
       margin-left: 96px
-      @media screen and (min-width: 321px)
-        display: block
-        visibility: visible
       +transition
-      z-index: 10
-
+      z-index: 11
     .right-container
       position: absolute
       min-height: 100vh
