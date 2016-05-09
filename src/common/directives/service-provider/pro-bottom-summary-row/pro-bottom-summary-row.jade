@@ -8,6 +8,6 @@ block content
         .password-verify
           .loader
             .progress-bar(style="width: {{ width }}%;")
-        .next-step(data-ng-show="vm.amountOfSteps == vm.completedSteps")
+        .next-step(data-ng-show="queue.amountOfSteps == queue.completedSteps")
           .button-next-step
-            a.pro-btn.btn-main.btn-medium(data-ng-click="vm.saveAccountObject()" data-translate="DASHBOARD.CREATE_PROFILE.NEXT_STEP")
+            a.pro-btn.btn-main.btn-medium(data-ng-click="onClick()" data-translate="DASHBOARD.CREATE_PROFILE.NEXT_STEP")
