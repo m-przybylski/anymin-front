@@ -16,6 +16,16 @@
         .switcher
           //- .option-left(data-translate="DASHBOARD.MENU.CLIENT")
           //- .option-right.active(data-translate="DASHBOARD.MENU.EXPERT")
+        .menu-icon
+          a.option-left
+            i.icon.icon-menu-16
+          a.option-left
+            i.icon.icon-password-show
+          a.option-left
+            i.icon.icon-search-24
+          a.option-left
+            i.icon.icon-settings-24
+        
       .bottom-row
         .switcher
           //- a.pro-btn.btn-main.btn-small
@@ -26,6 +36,10 @@
           //-     i.icon.icon-logout-24
           //- a.option-right
           //-   i.icon.icon-settings-24
+        .logout-icon
+          a.option-left(data-ng-click="dashboardController.logout()")
+            i.icon.icon-logout-24
+        
           
   
   .right-container(data-ng-class="{'slide-out':dashboardController.isSidebarOpen}" hm-swiperight="dashboardController.toogleSidebar()")

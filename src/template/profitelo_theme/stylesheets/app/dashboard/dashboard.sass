@@ -36,6 +36,25 @@
       text-align: center
       width: 100%
       float: left
+      .menu-icon
+        border-top: 1px solid $c-background-4
+        padding: 16px 0
+        display: flex
+        flex-direction: column
+        flex-wrap: nowrap
+        justify-content: center
+        align-content: flex-start
+        align-items: center
+        a
+          padding: 18px 32px
+          border: none
+          &:hover
+            i
+              color: $c-primary
+        i
+          color: $c-nav-icons
+          font-size: 24px
+
       .logo
         background-color: $c-background-3
         padding: 30px 0
@@ -146,8 +165,22 @@
           color: $c-white
     .bottom-row
       float: left
-      margin-bottom: 24px
       width: 100%
+      margin-bottom: 8px
+      .logout-icon
+        text-align: center
+        border-top: 1px solid $c-background-4
+        border-bottom: 1px solid $c-background-4
+        padding: 32px 0
+        a
+          padding: 32px
+          border: none
+          &:hover
+            i
+              color: $c-primary
+        i
+          color: $c-nav-icons
+          font-size: 24px
       .switcher
         i
           padding: 0 16px 0 16px
