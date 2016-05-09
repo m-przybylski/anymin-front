@@ -29,10 +29,7 @@
         border: none
         box-shadow: none
     .slide-out
-      display: none
-      visibility: hidden
-      +mdm
-        margin-left: 0
+      margin-left: 96px
       @media screen and (min-width: 321px)
         display: block
         visibility: visible
@@ -45,19 +42,6 @@
       +transition
       background-color: $c-white
       z-index: 10
-      border-left: none
-      border-right: 1px solid $c-lines
-      -webkit-box-shadow: 0px 0px 20px 0px rgba(234,234,234,1)
-      -moz-box-shadow: 0px 0px 20px 0px rgba(234,234,234,1)
-      box-shadow: 0px 0px 20px 0px rgba(234,234,234,1)
       width: 100%
-      +mdm
-        position: static
-        z-index: 10
-        -webkit-box-shadow: none
-        -moz-box-shadow: none
-        box-shadow: none
-        padding-right: 0px
-        border-left: 1px solid $c-lines
       h2
         margin: 0
