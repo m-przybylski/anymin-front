@@ -18,7 +18,7 @@
 
 pro-service-provider-name(
 data-queue="vm.queue"
-data-order="2"
+data-order="6"
 data-pro-model="vm.individualPathModel"
 data-placeholder="DASHBOARD.CONSULTATION_RANGE.CONSULTANTS_LIST_PLACEHOLDER"
 tr-title="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT"
@@ -49,8 +49,30 @@ data-pro-model="vm.individualPathModel"
 tr-title="DASHBOARD.CREATE_PROFILE.STEP5_TITLE"
 )
 
+pro-service-provider-file-uploader(
+data-queue="vm.queue"
+data-order="2"
+data-pro-model="vm.individualPathModel"
+tr-title="DASHBOARD.CREATE_PROFILE.FILE_UPLOADER_TITLE"
+tr-desc="DASHBOARD.CREATE_PROFILE.FILE_UPLOADER_DESCRIPTION"
+)
+
 pro-bottom-summary-row(
 data-width="vm.progressBarWidth"
 data-queue="vm.queue"
 data-button-action="vm.saveAccountObject"
 )
+
+.bottom-row
+  .title-row-column
+    .title
+      h5(data-translate="DASHBOARD.EXPERT_ACCOUNT.STEP1_PROGRESS_BAR_TITLE")
+      h5 {{ vm.progressBarWidth }}%
+    .loader-container
+      .password-verify
+        .loader
+          .progress-bar(style="width: {{ vm.progressBarWidth }}%;")
+      .next-step(data-ng-show="vm.amountOfSteps == vm.completedSteps")
+        .button-next-step
+          a.pro-btn.btn-main.btn-medium(data-ng-click="vm.saveAccountObject()" data-translate="DASHBOARD.CREATE_PROFILE.NEXT_STEP")
+

@@ -1,4 +1,4 @@
-function proUploader($timeout, $interval) {
+function proUploader($timeout, $interval, $q, FilesApi) {
 
   function  linkFunction(scope, element, attr) {
     let _file = 0
@@ -11,8 +11,53 @@ function proUploader($timeout, $interval) {
     scope.upload = false
     scope.hideArrow = false
     scope.$watch('files', ()=> {
-
+      scope.uploadDocuments()
     })
+
+    scope.uploadDocuments = function() {
+      var files = scope.files
+
+      var tokenPromisses = []
+
+      if (files && files.length) {
+        var deferred = $q.defer()
+        for (var i = 0; i < files.length; i++) {
+          if (!files[i].$error) {
+            tokenPromisses.push(FilesApi.tokenPath().$promise)
+          }
+        }
+
+        $q.all(tokenPromisses).then( function(tokenPromissesResponse) {
+          console.log('tokenPromissesResponse', tokenPromissesResponse)
+          for (var k = 0; k < files.length; k++ ) {
+            console.log(files[0])
+            FilesApi.uploadFilePath({
+              token:  '4cba04ca2c084ab4a3a06d67d0ace4fd',
+              file: files
+
+            }).$promise.then(
+              function(res) {
+                console.log(res)
+                //toastr.success('Uploading profile\'s document successfully compleated')
+              },
+              function(res) {
+                console.log(res)
+                //toastr.error('Uploading profile\'s document failed')
+                //console.log('Error', documentUploadError)
+              },
+              function(res) {
+                console.log(res)
+                //let progressPercentage = _calculatePercentage(documentUploadEvent.loaded, documentUploadEvent.total)
+                //documentUploadEvent.config.data.file.progress = progressPercentage
+                //console.log('progress: ' + progressPercentage + '%, of file ' + documentUploadEvent.config.data.file.name)
+              }
+            )
+          }
+        }, function(tokenPromissesError) {
+          console.log('tokenPromissesError', tokenPromissesError)
+        })
+      }
+    }
     let _endImmediateLoading = () => {
       scope.progress = 0
       scope.fadeText = true

@@ -1,0 +1,15 @@
+extends ../../../templates/wizard/section-controlls.partial.jade
+
+block content
+    .step-content-column
+        pro-uploader(data-pro-model="fileModel" data-ng-click="onClick()")
+    .input-error-messages
+        .error(data-translate="DASHBOARD.CREATE_PROFILE.ERROR_EXTERNAL_FILES_TYPE" data-ng-show="badFileType")
+        .error(data-translate="DASHBOARD.CREATE_PROFILE.ERROR_EXTERNAL_FILES_SIZE" data-ng-show="badFileSize")
+    .document-submit(data-ng-show="model.files.length > 0")
+        .document-container
+            h3(data-translate="DASHBOARD.CREATE_PROFILE.CREATE_PROFILE_YOUR_FILES" data-ng-click="onClick()")
+            .links-submit.links-last-step
+                a.pro-btn.btn-main.btn-medium(data-ng-repeat="file in model.files track by $index")
+                    span {{ link }}
+                    i.icon.icon-close-12(data-ng-click="removeFile(file)")
