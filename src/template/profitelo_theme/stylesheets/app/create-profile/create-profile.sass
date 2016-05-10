@@ -54,7 +54,7 @@
   .bottom-row
     color: $c-primary-txt
     background-color: $c-white
-    width: 100%
+    width: calc(100% - 96px)
     bottom: 0
     z-index: 120
     position: fixed
@@ -67,15 +67,6 @@
       top: 0
       margin-top: -1px
       +transition('all 1s ease-in-out 0s')
-    .next-step
-      margin-top: 0
-      margin-left: 24px
-      +smm
-        margin-top: -32px
-    .btn-medium
-      background-color: $c-white
-      color: $c-primary
-      +border-radius(50px)
     .title-row-column
       padding: 0 30px
       display: flex
@@ -100,3 +91,10 @@
         padding: 9px 4px
       .width
         color: $c-nav-icons
+
+    .next-step
+      width: 200px
+      .button-next-step
+        .btn-main
+          background-color: $c-primary
+          color: $c-white
