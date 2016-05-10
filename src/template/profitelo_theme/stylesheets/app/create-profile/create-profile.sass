@@ -2,7 +2,7 @@
   background-color: $c-white
   padding-bottom: 146px
   +smm
-    padding-bottom: 96px
+    padding-bottom: 92px
   .title-row
     padding: 24px 15px
     text-transform: uppercase
@@ -52,12 +52,21 @@
           &:hover
             padding: -2px
   .bottom-row
-    color: $c-lines
-    background-color: $c-primary
+    color: $c-primary-txt
+    background-color: $c-white
     width: 100%
     bottom: 0
     z-index: 120
     position: fixed
+    border-top: 1px solid $c-lines
+    .progress-bar
+      height: 1px
+      background-color: $c-primary
+      float: left
+      position: absolute
+      top: 0
+      margin-top: -1px
+      +transition('all 1s ease-in-out 0s')
     .next-step
       margin-top: 0
       margin-left: 24px
@@ -68,48 +77,26 @@
       color: $c-primary
       +border-radius(50px)
     .title-row-column
-      padding: 0px 15px 28px
-      +smm
-        padding: 0 30px 14px
-    .title
+      padding: 0 30px
       display: flex
       flex-direction: row
       flex-wrap: nowrap
       justify-content: space-between
-      align-content: space-between
-      align-items: center
-      width: 100%
-      color: $c-white
-      +smm
-        width: 75%
-      h5
-        color: $c-white
-        font-weight: bold
-        text-transform: uppercase
-    .loader-container
-      display: flex
-      flex-direction: column
-      flex-wrap: nowrap
-      justify-content:space-between
       align-content: center
       align-items: center
-      margin-top: -17px
-      margin-bottom: -12px
-      +smm
-        margin-top: -27px
-        flex-direction: row
-      .password-verify
-        width: 100%
-        +smm
-          width: 75%
-        .button-next-step
-          margin-top: -12px
-        .progress-bar
-        .loader
-          background-color: $c-primary-hover
-          margin-top: -4px
-        .progress-bar
-          background-color: $c-white
-          +border-radius(5px)
-          max-width: 100%
-          +transition('all 1s ease-in-out 0s')
+    .title
+      display: flex
+      flex-direction: row
+      flex-wrap: nowrap
+      justify-content: flex-start
+      align-content: flex-start
+      align-items: center
+      width: 100%
+      color: $c-primary-txt
+      h5
+        color: $c-primary-txt
+        font-weight: bold
+        text-transform: uppercase
+        padding: 9px 4px
+      .width
+        color: $c-nav-icons
