@@ -62,24 +62,24 @@
         .photo
           margin-top: 30px
           .user-status
-            width: 30px
-            height: 30px
-            background-color: $c-primary-txt
             position: absolute
-            top: 28px
-            right: 8px
+            top: 22px
+            right: 3px
             +border-radius(50%)
             span
+              width: 28px
+              height: 28px
               color: $c-white
               font-size: 12px
-              font-weight: bold
+              +colfax-bold
               text-align: center
               background-color: $c-primary
               +border-radius(50%)
               position: absolute
               top: 3px
-              right: 4px
-              padding: 5px
+              right: 3px
+              padding: 6px 0
+              border: 2px solid $c-primary-txt
             .user-online
               margin: 4px 4px
               width: 10px
@@ -87,22 +87,22 @@
               padding: 0px
               +border-radius(50%)
           img
-            width: 70px
-            height: 70px
+            width: 68px
+            height: 68px
             +border-radius(50%)
             padding: 3px
         .username
           margin-top: 20px
           span
             color: $c-secondary-txt
-            +sofia
-            font-weight: bold
+            +colfax
+            +colfax-bold
             font-size: 19px
           h5
             font-size: 11px
             line-height: 18px
             text-transform: uppercase
-            font-weight: bold
+            +colfax-bold
             margin-bottom: 0
         .notification
           .icon
@@ -118,7 +118,7 @@
         align-items: center
         margin-bottom: 20px
         .option-left
-          +sofia
+          +colfax
           width: 50%
           border: 1px solid $c-lines
           border-top-left-radius: 5px
@@ -127,14 +127,14 @@
           margin-left: -1px
           text-transform: uppercase
           color: $c-secondary-txt
-          font-weight: bold
+          +colfax-bold
           font-size: 12px
           cursor: pointer
           &:hover
             background-color: $c-background
             color: $c-primary
         .option-right
-          +sofia
+          +colfax
           width: 50%
           border: 1px solid $c-lines
           border-top-right-radius: 5px
@@ -143,7 +143,7 @@
           margin-left: -1px
           text-transform: uppercase
           color: $c-secondary-txt
-          font-weight: bold
+          +colfax-bold
           font-size: 12px
           cursor: pointer
           &:hover
@@ -155,18 +155,20 @@
     .bottom-row
       float: left
       width: 100%
-      margin-bottom: 8px
       .logout-icon
         text-align: center
         border-top: 1px solid $c-background-4
-        border-bottom: 1px solid $c-background-4
         padding: 32px 0
+        +transition
+        &:hover
+          background-color: $c-secondary
+          color: $c-white
         a
           padding: 32px
           border: none
-          &:hover
-            i
-              color: $c-primary
+        &:hover
+          i
+            color: $c-white
         i
           color: $c-nav-icons
           font-size: 24px
@@ -175,9 +177,9 @@
           padding: 0 16px 0 16px
         p
           color: $c-white
-          +sofia
+          +colfax
           padding: 0 10px 4px 0
-          font-weight: bold
+          +colfax-bold
           font-size: 0.9em
         a
           display: flex
@@ -211,7 +213,7 @@
           margin-left: -1px
           text-transform: uppercase
           color: $c-secondary-txt
-          font-weight: bold
+          +colfax-bold
           font-size: 12px
           cursor: pointer
           &:hover
@@ -226,7 +228,7 @@
           margin-left: -1px
           text-transform: uppercase
           color: $c-secondary-txt
-          font-weight: bold
+          +colfax-bold
           font-size: 12px
           cursor: pointer
           &:hover

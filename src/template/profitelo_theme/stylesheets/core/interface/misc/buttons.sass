@@ -18,7 +18,7 @@
     padding: 20px 40px
     width: 100%
   &.btn-medium
-    padding: 15px 30px
+    padding: 16px 30px 11px
     width: 100%
   &.btn-small
     padding: 10px 20px
@@ -41,9 +41,18 @@
       border: none
   &.btn-light
     border: 1px solid $c-lines
-    color: $c-primary
-    background-color: transparent
+    color: $c-secondary
+    background-color: $c-white
+    display: flex
+    flex-direction: row
+    flex-wrap: nowrap
+    justify-content: center
+    align-content: center
+    align-items: center
+    height: 48px
     &:hover
-      background-color: $c-background
+      background-color: $c-white
       cursor: pointer
-      color: $c-primary-hover
+      color: $c-secondary
+      border: 2px solid $c-secondary
+      +transition('all 0.1s ease-in-out 0s')

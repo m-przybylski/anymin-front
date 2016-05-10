@@ -18,22 +18,17 @@
 
     .step-content
       .option
-        cursor: pointer
-        +transition
+        h5
+          color: $c-lines
         i
-          color: $c-secondary-txt
+          color: $c-lines
         &:hover
-          background-color: $c-background
-          border: 1px solid $c-primary-hover
-          +transition('all 0.1s ease-in-out 0s')
           h5, i
             color: $c-primary
+
       .selected
-        background-color: $c-primary-hover
-        border: 1px solid $c-primary-hover
         h5, i
-          color: $c-white
+          color: $c-primary-txt
         &:hover
-          background-color: $c-primary-hover
           h5, i
-            color: $c-white
+            color: $c-primary
