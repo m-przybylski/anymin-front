@@ -1,5 +1,5 @@
 (function() {
-  function proServiceExternalLinks($timeout, $q, CommonSettingsService, _) {
+  function proServiceExternalLinks($rootScope, $timeout, $q, CommonSettingsService, _) {
 
     function linkFunction(scope, element, attrs) {
 
@@ -48,9 +48,7 @@
 
       }
 
-      scope.onClick = () => {
-        scope.queue.currentStep = scope.order
-      }
+
 
       let required = false
 
@@ -90,6 +88,45 @@
       }
 
       scope.skipSection = _proceed
+
+
+      /////////////////////////////////////
+      scope.onClick = () => {
+        $rootScope.$broadcast('manualOrderChangeRequest', scope.order)
+      }
+
+      let shadowModel
+
+      function saveShadowModel() {
+        shadowModel = angular.copy(scope.model)
+      }
+
+      function restoreShadowModel() {
+        scope.model = angular.copy(shadowModel)
+      }
+
+
+      scope.$on('manualOrderChangeRequestGrant', (event, targetStep) => {
+        if (scope.order === targetStep) {
+          saveShadowModel()
+          scope.queue.currentStep = scope.order
+        }
+      })
+
+      let _manualOrderChangeRequestHandle = (targetStep) => {
+        restoreShadowModel()
+        $rootScope.$broadcast('manualOrderChangeRequestGrant', targetStep)
+      }
+
+      scope.$on('manualOrderChangeRequest', (event, targetStep) => {
+        if (scope.order === scope.queue.currentStep && targetStep != scope.order) {
+          _manualOrderChangeRequestHandle(targetStep)
+        }
+      })
+
+
+
+
 
 
     }

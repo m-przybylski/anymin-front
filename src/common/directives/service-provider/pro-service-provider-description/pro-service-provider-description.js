@@ -1,10 +1,10 @@
 (function() {
-  function proServiceProviderDescription($q) {
+  function proServiceProviderDescription($q, $rootScope) {
 
     function linkFunction(scope, element, attrs) {
 
       scope.onClick = () => {
-        scope.queue.currentStep = scope.order
+        $rootScope.$broadcast('manualOrderChangeRequest', scope.order)
       }
 
       let required = false
@@ -17,6 +17,8 @@
         description: ''
       }
 
+      let shadowModel
+
       let _proceed = () => {
         if (scope.queue.completedSteps < scope.order) {
           scope.queue.completedSteps = scope.order
@@ -25,6 +27,22 @@
         scope.queue.currentStep = scope.order + 1
 
       }
+
+
+      function saveShadowModel() {
+        shadowModel = angular.copy(scope.model)
+      }
+
+      function restoreShadowModel() {
+        scope.model = angular.copy(shadowModel)
+      }
+
+      scope.$on('manualOrderChangeRequestGrant', (event, targetStep) => {
+        if (scope.order === targetStep) {
+          saveShadowModel()
+          scope.queue.currentStep = scope.order
+        }
+      })
 
       let _isValid = () => {
         let _isValidDeferred = $q.defer()
@@ -37,6 +55,17 @@
 
         return _isValidDeferred.promise
       }
+
+      let _manualOrderChangeRequestHandle = (targetStep) => {
+        restoreShadowModel()
+        $rootScope.$broadcast('manualOrderChangeRequestGrant', targetStep)
+      }
+
+      scope.$on('manualOrderChangeRequest', (event, targetStep) => {
+        if (scope.order === scope.queue.currentStep && targetStep != scope.order) {
+          _manualOrderChangeRequestHandle(targetStep)
+        }
+      })
 
 
       scope.saveSection = () => {
