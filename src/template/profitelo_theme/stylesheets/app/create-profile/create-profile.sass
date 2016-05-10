@@ -50,7 +50,9 @@
   .bottom-row
     color: $c-primary-txt
     background-color: $c-white
-    width: calc(100% - 96px)
+    width: 100%
+    +smm
+      width: calc(100% - 96px)
     bottom: 0
     z-index: 120
     position: fixed
