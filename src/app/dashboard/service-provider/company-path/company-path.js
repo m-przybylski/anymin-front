@@ -48,7 +48,7 @@
   angular.module('profitelo.controller.dashboard.service-provider.company-path', [
     'ui.router',
     'profitelo.services.service-provider-state',
-    'profitelo.directives.service-provider.pro-service-provider-company-name',
+    'profitelo.directives.service-provider.pro-service-provider-name',
     'profitelo.directives.service-provider.pro-service-provider-description',
     'profitelo.directives.service-provider.pro-service-provider-languages',
     'profitelo.directives.service-provider.pro-bottom-summary-row',
