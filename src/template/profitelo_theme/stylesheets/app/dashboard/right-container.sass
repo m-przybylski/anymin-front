@@ -2,16 +2,15 @@
   width: 100%
   padding: 0
   position: relative
-  +smm
-    width: 100%
-  +lgm
-    width: 1004px
   &.main-container
+    margin: 0
+    +smm
+      margin: 0 0 0 96px
     .menu-toogle
       z-index: 20
       position: fixed
       margin-top: 24px
-      margin-left: 15px
+      margin-left: 12px
       padding: 12px 9px 3px
       width: 48px
       height: 48px
@@ -19,13 +18,15 @@
       outline: none
       border: none
       box-shadow: none
-      +lgm
+      +smm
         z-index: 0
         margin-left: 24px
     .slide-out
       margin-left: 96px
       +transition
       z-index: 11
+      +smm
+        margin-left: 0
     .right-container
       position: absolute
       min-height: 100vh
@@ -33,5 +34,7 @@
       background-color: $c-white
       z-index: 10
       width: 100%
+      +smm
+        width: calc(100% - 96px)
       h2
         margin: 0

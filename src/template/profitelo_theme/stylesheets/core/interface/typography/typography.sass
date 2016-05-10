@@ -1,92 +1,98 @@
 @import "type-faces"
 //HEADERS:
+@font-face
+  font-family: "Colfax", sans-serif
+  src: url("#{$profitelo-font-path}/Colfax-Regular.eot")
+  src: url("#{$profitelo-font-path}/Colfax-Regular.eot?#iefix") format("embedded-opentype"), url("#{$profitelo-font-path}/Colfax-Regular.woff") format("woff"), url("#{$profitelo-font-path}/Colfax-Regular.ttf") format("truetype"), url("#{$profitelo-font-path}/Colfax-Regular.svg#profitelo-icons") format("svg")
+  font-weight: normal
+  font-style: normal
 h1
   font-size: $f-h1-size
-  +sofia()
+  +colfax
   line-height: 52px
-  //letter-spacing: -50%
+  letter-spacing: -50%
   color: $c-primary-txt
   &.bold
-    +sofia-bold()
+    +colfax-bold()
 h2
   font-size: $f-h2-size
-  +sofia()
+  +colfax
   line-height: 36px
-  //letter-spacing: -50%
+  letter-spacing: -50%
   color: $c-primary-txt
   &.bold
-    +sofia-bold()
+    +colfax-bold()
 h3
   font-size: $f-h3-size
-  +sofia()
+  +colfax
   line-height: 28px
-  //letter-spacing: -25%
+  letter-spacing: -25%
   color: $c-primary-txt
   &.bold
-    +sofia-bold()
+    +colfax-bold()
 h4
   font-size: $f-h4-size
-  +sofia()
+  +colfax
   line-height: 24px
-  //letter-spacing: -25%
+  letter-spacing: -25%
   color: $c-primary-txt
   &.bold
-    +sofia-bold()
+    +colfax-bold
 h5
   font-size: $f-h5-size
-  +sofia()
+  +colfax
   line-height: 20px
-  //letter-spacing: -25%
+  letter-spacing: -25%
   color: $c-primary-txt
   &.light
     color: $c-secondary-txt
   &.bold
-    +sofia-bold()
+    +colfax-bold()
 h6
   font-size: $f-h6-size
-  +sofia()
+  +colfax()
   line-height: 16px
-  //letter-spacing: -25%
+  letter-spacing: -25%
   font-weight: bold
   color: $c-secondary-txt
   &.bold
-    +sofia-bold()
+    +colfax-bold()
 p
   font-size: $f-h5-size
-  +proxima()
+  +colfax()
   line-height: 22px
-  //letter-spacing: -10%
+  letter-spacing: -10%
   color: $c-primary-txt
   &.bold
-    +proxima-bold
+    +colfax-bold
 
 button
   font-size: $f-btn-size
-  +sofia()
+  +colfax
   line-height: 18px
-  //letter-spacing: -25%
+  letter-spacing: -25%
   color: $c-white
   font-weight: bold
   text-transform: uppercase
   &.btn-pink
     color: $c-button-1
   &.bold
-    +sofia-bold()
+    +colfax-bold()
 label
   font-size: $f-btn-size
-  +sofia()
+  +colfax()
   line-height: 18px
-  //letter-spacing: -25%
+  letter-spacing: -25%
   color: $c-primary-txt
   font-weight: bold
   text-transform: uppercase
   &.bold
-    +sofia-bold()
+    +colfax-bold()
 input
-  +proxima()
+  +colfax()
 a
   font-size: $f-btn-size
-  +sofia-bold()
+  +colfax-bold()
   +transition(0.3s)
   color: $c-primary
   text-transform: uppercase
@@ -95,12 +101,12 @@ a
   &:hover
     border-bottom: 1px dotted $c-primary
 i
-  +proxima-bold()
+  +colfax-bold()
   font-size: $f-btn-size
     text-decoration: none
 
 .input-error-messages
   font-size: $f-h6-size
-  +sofia()
+  +colfax()
   font-weight: bold
   text-transform: uppercase
