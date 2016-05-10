@@ -6,7 +6,7 @@
       scope.onClick = () => {
         scope.queue.currentStep = scope.order
       }
-      
+
 
       let required = false
 
@@ -66,7 +66,8 @@
         order:    '=?',
         proModel: '=',
         trTitle: '@',
-        trDesc: '@'
+        trDesc: '@',
+        placeholder: '='
       },
       link: linkFunction
     }
