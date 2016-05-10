@@ -1,22 +1,17 @@
 .sidebar
-  position: absolute
+  position: fixed
   overflow-y: auto
-  background-color: $c-white
-  border-right: 1px solid $c-lines
-  border-left: 1px solid $c-lines
-  +transition
-  max-width: 320px
-  min-width: 320px
+  background-color: $c-primary-txt
+  max-width: 96px
+  left: 0
+  min-width: 96px
   visibility: visible
   margin-left: 0
-  z-index: 0
+  height: 100%
+  color: $c-background-2
   +mdm
-    min-width: 280px
-    width: 280px
-  @media screen and (min-width: 321px)
-    position: fixed
-    overflow: scroll
-    height: 100%
+    min-width: 96px
+    width: 96px
   .left-column
     display: flex
     flex-direction: column
@@ -25,93 +20,77 @@
     align-content: space-between
     align-items: center
     text-align: left
-    margin-left: -15px
-    padding: 0px 30px 0 45px
-    height: auto
-    @media screen and (min-height: 700px)
-      min-height: 100vh
-
+    min-height: 100vh
     .left-column-switcher
       text-align: left
       z-index: 11
       position: fixed
-
     .middle-row
       width: 100%
-      margin-left: -60px
       float: left
-
-
     .top-row
       text-align: center
       width: 100%
       float: left
+      .menu-icon
+        border-top: 1px solid $c-background-4
+        padding: 16px 0
+        display: flex
+        flex-direction: column
+        flex-wrap: nowrap
+        justify-content: center
+        align-content: flex-start
+        align-items: center
+        a
+          padding: 18px 32px
+          border: none
+          &:hover
+            i
+              color: $c-primary
+        i
+          color: $c-nav-icons
+          font-size: 24px
       .logo
-        margin-top: 30px
+        background-color: $c-background-3
+        padding: 30px 0
         img
-          width: 115px
-
-      ul
-        list-style-type: none
-        margin-left: -43px
-        margin-top: 38px
-        li
-          padding: 5px 0
-          display: flex
-          flex-direction: row
-          flex-wrap: nowrap
-          justify-content: space-between
-          align-content: space-between
-          align-items: center
-          height: 30px
-          .bandge
-            margin-right: 0px
-            background-color: $c-primary
-            color: $c-white
-            +border-radius(50px)
-            padding: 0 5px
-            font-size: 10px
-            font-weight: bold
-            width: 32px
-            text-align: center
-            line-height: 17px
-          a
-            color: $c-secondary-txt
-            &:hover
-              color: $c-primary-hover
-              border-bottom: transparent
-              text-decoration: none
-
+          width: 20px
+          max-width: 20px
       .user
+        margin-left: 0px
+        position: relative
         .photo
           margin-top: 30px
-          margin-left: 15px
           .user-status
-            width: 15px
-            height: 15px
-            background-color: $c-white
-            position: relative
-            top: 80px
-            float: right
-            right: 90px
+            width: 30px
+            height: 30px
+            background-color: $c-primary-txt
+            position: absolute
+            top: 28px
+            right: 8px
             +border-radius(50%)
-            +mdm
-              top: 80px
-              right: 71px
-
+            span
+              color: $c-white
+              font-size: 12px
+              font-weight: bold
+              text-align: center
+              background-color: $c-primary
+              +border-radius(50%)
+              position: absolute
+              top: 3px
+              right: 4px
+              padding: 5px
             .user-online
               margin: 4px 4px
-              width: 8px
-              height: 8px
+              width: 10px
+              height: 10px
               padding: 0px
               +border-radius(50%)
-
           img
-            width: 105px
-            height: 105px
+            width: 70px
+            height: 70px
             +border-radius(50%)
             padding: 3px
-
         .username
           margin-top: 20px
           span
@@ -129,7 +108,6 @@
           .icon
             color: $c-primary
             padding-left: 0px
-
       .switcher
         margin-top: 30px
         display: flex
@@ -171,14 +149,27 @@
           &:hover
             background-color: $c-background
             color: $c-primary
-
         .active
           background-color: $c-primary
           color: $c-white
     .bottom-row
       float: left
-      margin-bottom: 24px
       width: 100%
+      margin-bottom: 8px
+      .logout-icon
+        text-align: center
+        border-top: 1px solid $c-background-4
+        border-bottom: 1px solid $c-background-4
+        padding: 32px 0
+        a
+          padding: 32px
+          border: none
+          &:hover
+            i
+              color: $c-primary
+        i
+          color: $c-nav-icons
+          font-size: 24px
       .switcher
         i
           padding: 0 16px 0 16px

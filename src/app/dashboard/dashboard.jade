@@ -6,41 +6,31 @@
     .left-column
       .top-row
         .logo
-          img(src="assets/images/logo_profitelo_black.png")
+          img(src="assets/images/logo-symbol.png")
         .user
           .photo
               img(src='assets/images/John_Doe.jpg' alt='user-avatar')
               .user-status
-                .user-online(style='background-color: #03ad53;')
-          .username
-              h5 john.doe@itelo.pl
-              span ID 0000 245
+                .user-online
+                  span 72
         .switcher
-          .option-left(data-translate="DASHBOARD.MENU.CLIENT")
-          .option-right.active(data-translate="DASHBOARD.MENU.EXPERT")
-        ul
-          li
-            a(data-translate="DASHBOARD.MENU.EXPERT_BASE")
-          li
-            a(data-translate="DASHBOARD.MENU.MY_ACCOUNT")
-          li
-            a(data-translate="DASHBOARD.MENU.AVAILABILITY")
-          li
-            a(data-translate="DASHBOARD.MENU.NOTIFICATION")
-            p.bandge 174
-          li
-            a(data-translate="DASHBOARD.MENU.FAVOURITES")
-            p.bandge 471
+        .menu-icon
+          a.option-left
+            i.icon.icon-menu-16
+          a.option-left
+            i.icon.icon-password-show
+          a.option-left
+            i.icon.icon-search-24
+          a.option-left
+            i.icon.icon-settings-24
+        
       .bottom-row
         .switcher
-          a.pro-btn.btn-main.btn-small
-            i.icon.icon-search-24
-            p(data-translate="DASHBOARD.MENU.SEARCH")
         .switcher-tools
+        .logout-icon
           a.option-left(data-ng-click="dashboardController.logout()")
-              i.icon.icon-logout-24
-          a.option-right
-            i.icon.icon-settings-24
+            i.icon.icon-logout-24
+        
           
   
   .right-container(data-ng-class="{'slide-out':dashboardController.isSidebarOpen}" hm-swiperight="dashboardController.toogleSidebar()")
