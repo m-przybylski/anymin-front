@@ -43,8 +43,16 @@
     border: 1px solid $c-lines
     color: $c-secondary
     background-color: $c-white
+    display: flex
+    flex-direction: row
+    flex-wrap: nowrap
+    justify-content: center
+    align-content: center
+    align-items: center
+    height: 48px
     &:hover
       background-color: $c-white
       cursor: pointer
       color: $c-secondary
-      border: 1px solid $c-secondary
+      border: 2px solid $c-secondary
+      +transition('all 0.1s ease-in-out 0s')

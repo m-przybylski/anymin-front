@@ -1,17 +1,12 @@
 .create-profile
   .step
     color: $c-lines
-    padding-top: 5px
-    padding-bottom: 30px
-    padding-left: 15px
-    padding-right: 15px
     width: 100%
     @media screen and (min-width: 1100px)
       width: 1004px
     margin: 0 auto
     +smm
-      padding-left: 30px
-      padding-right: 30px
+      padding: 0 24px
     h3
       color: $c-lines
       +colfax-bold
@@ -61,13 +56,12 @@
 
 
     .step-content-column
-      margin-top: 30px
+      margin-top: 24px
       .input-group
         color: $c-secondary-txt
         width: 100%
-        margin-bottom: 18px
         input
-          bottom: 10px
+          bottom: 7px
           font-size: 20px
 
 
@@ -119,7 +113,8 @@
         .link-add-icon
           color: $c-primary
           font-size: 24px
-          margin: -1px 0 0 -4px
+          margin: -2px -2px 0 -10px
+          border-left: 1px solid $c-lines
         a
           margin: 24px 0 -8px 0
           text-transform: none
@@ -204,7 +199,6 @@
         color: $c-secondary-txt
         width: 100%
         height: 100%
-        margin-bottom: 16px
         min-height: 200px
         input
           bottom: 18px
