@@ -159,15 +159,16 @@
         text-align: center
         border-top: 1px solid $c-background-4
         padding: 32px 0
-        +transition()
+        +transition
         &:hover
           background-color: $c-secondary
+          color: $c-white
         a
           padding: 32px
           border: none
-          &:hover
-            i
-              color: $c-white
+        &:hover
+          i
+            color: $c-white
         i
           color: $c-nav-icons
           font-size: 24px
