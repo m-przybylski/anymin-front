@@ -1,6 +1,6 @@
 .create-profile
   .step-active
-    background-color: $c-background
+    background-color: $c-background-2
     h3
       color: $c-primary
     .title-step
@@ -17,7 +17,7 @@
         margin-top: 8px
       h5
         color: $c-secondary-txt
-        font-weight: bold
+        +colfax-bold
         text-transform: uppercase
     .step-content
       .option
@@ -31,10 +31,9 @@
             color: $c-primary
 
       .selected
-        background-color: $c-primary
-        border: 1px solid $c-primary
+        border: 1px solid $c-primary-txt
         h5, i
-          color: $c-white
+          color: $c-primary-txt
         &:hover
           background-color: $c-primary
           h5, i

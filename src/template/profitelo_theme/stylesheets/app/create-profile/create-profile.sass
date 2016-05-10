@@ -22,8 +22,8 @@
         font-size: 23px
         margin: 0
         margin-left: 45px
-        color: $c-primary
-        font-weight: bold
+        color: $c-primary-txt
+        +colfax-bold
         line-height: 22px
         +xsm
           margin-left: 60px
@@ -31,13 +31,15 @@
           margin-left: 0
     .close-button
       margin-left: 0px
+      i
+        color: $c-secondary
       a
         text-decoration: none
         background-color: $c-white
         +border-radius(50px)
         &:hover
           background-color: $c-background
-          border: 2px solid $c-primary-hover
+          border: 2px solid $c-secondary
           +transition('all 0.1s ease-in-out 0s')
       .btn-light
         display: flex
@@ -86,7 +88,7 @@
       color: $c-primary-txt
       h5
         color: $c-primary-txt
-        font-weight: bold
+        +colfax-bold
         text-transform: uppercase
         padding: 9px 4px
       .width
