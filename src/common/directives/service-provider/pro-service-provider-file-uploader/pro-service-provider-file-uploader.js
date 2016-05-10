@@ -3,7 +3,6 @@
 
     function linkFunction(scope, element, attrs) {
 
-      scope.langModel = ''
 
       scope.onClick = () => {
         scope.queue.currentStep = scope.order
@@ -17,19 +16,53 @@
         required = true
       }
 
+      scope.removeFile = (fileToDelete) => {
+        let _index = scope.model.files.indexOf(fileToDelete)
+        scope.model.files.splice(_index, 1)
+      }
+
+
+      scope.onClick = () => {
+        scope.queue.currentStep = scope.order
+      }
+
+      let required = false
+
+      if ('required' in attrs) {
+        required = true
+      }
+
+
+
       let _proceed = () => {
         if (scope.queue.completedSteps < scope.order) {
           scope.queue.completedSteps = scope.order
         }
+
         scope.queue.currentStep = scope.order + 1
+
       }
+
+      let _isValid = () => {
+        let _isValidDeferred = $q.defer()
+
+        _isValidDeferred.resolve()
+
+        return _isValidDeferred.promise
+      }
+
 
       scope.saveSection = () => {
-        scope.model.languages = scope.langModel
-        _proceed()
+        _isValid().then(() => {
+          _proceed()
 
+        }, () => {
+          console.log('not valid')
+        })
       }
+
       scope.skipSection = _proceed
+
 
     }
 

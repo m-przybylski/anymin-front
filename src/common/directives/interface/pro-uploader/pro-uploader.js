@@ -1,4 +1,4 @@
-function proUploader($timeout, $interval, $q, FilesApi) {
+function proUploader($timeout, $interval, $q, FilesApi, Upload) {
 
   function  linkFunction(scope, element, attr) {
     let _file = 0
@@ -10,51 +10,53 @@ function proUploader($timeout, $interval, $q, FilesApi) {
     scope.info = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO'
     scope.upload = false
     scope.hideArrow = false
-    scope.$watch('files', ()=> {
-      scope.uploadDocuments()
+    scope.$watch('proModel', ()=> {
+      _uploadFiles()
     })
 
-    scope.uploadDocuments = function() {
-      var files = scope.files
+    if ('type' in attr.$attr) {
+      scope.pattern = attr.type
+    }
 
+    let _calculatePercentage = function(loaded, total) {
+      return parseInt((100.0 * loaded / total), 10)
+    }
+
+    _uploadFiles = function() {
+      var files = scope.proModel
+      _file = 0
       var tokenPromisses = []
-
       if (files && files.length) {
-        var deferred = $q.defer()
         for (var i = 0; i < files.length; i++) {
           if (!files[i].$error) {
             tokenPromisses.push(FilesApi.tokenPath().$promise)
           }
         }
-
-        $q.all(tokenPromisses).then( function(tokenPromissesResponse) {
+        $q.all(tokenPromisses).then( (tokenPromissesResponse) =>{
           console.log('tokenPromissesResponse', tokenPromissesResponse)
           for (var k = 0; k < files.length; k++ ) {
-            console.log(files[0])
-            FilesApi.uploadFilePath({
-              token:  '4cba04ca2c084ab4a3a06d67d0ace4fd',
-              file: files
-
-            }).$promise.then(
+            _files = files.length
+            scope.animate()
+            Upload.upload({
+              url:  tokenPromissesResponse[k].uploadUrl,
+              data: {
+                file: files[k]
+              }
+            }).then(
               function(res) {
-                console.log(res)
-                //toastr.success('Uploading profile\'s document successfully compleated')
+                _file++
+                scope.filesUploaded.push(scope.proModel[0])
+                console.log(scope.filesUploaded)
               },
               function(res) {
-                console.log(res)
-                //toastr.error('Uploading profile\'s document failed')
-                //console.log('Error', documentUploadError)
+              // TODO walidacje na odpowiedzi z serwera
               },
               function(res) {
-                console.log(res)
-                //let progressPercentage = _calculatePercentage(documentUploadEvent.loaded, documentUploadEvent.total)
-                //documentUploadEvent.config.data.file.progress = progressPercentage
-                //console.log('progress: ' + progressPercentage + '%, of file ' + documentUploadEvent.config.data.file.name)
+                scope.progress = _calculatePercentage(res.loaded, res.total)
               }
             )
           }
         }, function(tokenPromissesError) {
-          console.log('tokenPromissesError', tokenPromissesError)
         })
       }
     }
@@ -76,9 +78,6 @@ function proUploader($timeout, $interval, $q, FilesApi) {
         if (scope.progress >= 100) {
           $interval.cancel(immediateInterval)
           _endImmediateLoading()
-
-        } else {
-          scope.progress = scope.progress + 1
         }
       }, 100)
 
@@ -115,7 +114,8 @@ function proUploader($timeout, $interval, $q, FilesApi) {
       proModel: '=',
       defaultValue: '@',
       accept: '@',
-      pattern: '@'
+      pattern: '@',
+      filesUploaded: '=?'
 
     }
   }
