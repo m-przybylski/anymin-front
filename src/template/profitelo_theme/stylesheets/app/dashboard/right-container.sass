@@ -2,11 +2,11 @@
   width: 100%
   padding: 0
   position: relative
-  +smm
-    width: 100%
-  +lgm
-    width: 1004px
+
   &.main-container
+    margin: 0
+    +smm
+      margin: 0 0 0 96px
     .menu-toogle
       z-index: 20
       position: fixed
@@ -19,7 +19,7 @@
       outline: none
       border: none
       box-shadow: none
-      +lgm
+      +smm
         z-index: 0
         margin-left: 24px
     .slide-out
@@ -33,5 +33,7 @@
       background-color: $c-white
       z-index: 10
       width: 100%
+      +smm
+        width: calc(100% - 96px)
       h2
         margin: 0
