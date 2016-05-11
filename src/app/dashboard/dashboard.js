@@ -10,6 +10,7 @@
     _sidebar.perfectScrollbar()
 
     vm.toogleSidebar=function() {
+      console.log('DUPA DUPA')
       vm.isSidebarOpen = !vm.isSidebarOpen
     }
 
@@ -34,8 +35,8 @@
 
   angular.module('profitelo.controller.dashboard', [
     'ui.router',
-    'c7s.ng.userAuth',
-    'hmTouchEvents'
+    'ngTouch',
+    'c7s.ng.userAuth'
   ])
   .config( function($stateProvider) {
     $stateProvider.state('app.dashboard', {
