@@ -17,6 +17,14 @@
       restoreShadowModel()
       $rootScope.$broadcast('manualOrderChangeRequestGrant', targetStep)
     }
+
+    $scope.proceed = () => {
+      if ($scope.queue.completedSteps < $scope.order) {
+        $scope.queue.completedSteps = $scope.order
+      }
+      $scope.queue.currentStep = $scope.order + 1
+
+    }
     
     $scope.onClick = () => {
       $rootScope.$broadcast('manualOrderChangeRequest', $scope.order)

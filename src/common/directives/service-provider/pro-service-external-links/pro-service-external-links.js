@@ -57,16 +57,6 @@
       }
 
 
-
-      let _proceed = () => {
-        if (scope.queue.completedSteps < scope.order) {
-          scope.queue.completedSteps = scope.order
-        }
-
-        scope.queue.currentStep = scope.order + 1
-
-      }
-
       let _isValid = () => {
         let _isValidDeferred = $q.defer()
 
@@ -80,55 +70,14 @@
         _isValid().then(() => {
 
           scope.proModel.links = scope.model.links
-          _proceed()
+          scope.proceed()
 
         }, () => {
           console.log('not valid')
         })
       }
 
-      scope.skipSection = _proceed
-
-
-      /////////////////////////////////////
-      scope.onClick = () => {
-        $rootScope.$broadcast('manualOrderChangeRequest', scope.order)
-      }
-
-      let shadowModel
-
-      function saveShadowModel() {
-        shadowModel = angular.copy(scope.model)
-      }
-
-      function restoreShadowModel() {
-        scope.model = angular.copy(shadowModel)
-      }
-
-
-      scope.$on('manualOrderChangeRequestGrant', (event, targetStep) => {
-        if (scope.order === targetStep) {
-          saveShadowModel()
-          scope.queue.currentStep = scope.order
-        }
-      })
-
-      let _manualOrderChangeRequestHandle = (targetStep) => {
-        restoreShadowModel()
-        $rootScope.$broadcast('manualOrderChangeRequestGrant', targetStep)
-      }
-
-      scope.$on('manualOrderChangeRequest', (event, targetStep) => {
-        if (scope.order === scope.queue.currentStep && targetStep != scope.order) {
-          _manualOrderChangeRequestHandle(targetStep)
-        }
-      })
-
-
-
-
-
-
+      
     }
 
 
@@ -143,7 +92,9 @@
         trTitle: '@',
         trDesc: '@'
       },
-      link: linkFunction
+      link: linkFunction,
+      controller: 'ServiceProviderStepController',
+      controllerAs: 'vm'
     }
   }
 
@@ -153,7 +104,8 @@
     'profitelo.services.wizardSectionControl',
     'profitelo.directives.ng-enter',
     'profitelo.services.commonSettings',
-    'profitelo.directives.pro-social-icon-getter'
+    'profitelo.directives.pro-social-icon-getter',
+    'profitelo.common.controller.service-provider.service-provider-step-controller'
   ])
   .directive('proServiceExternalLinks', proServiceExternalLinks)
 }())
