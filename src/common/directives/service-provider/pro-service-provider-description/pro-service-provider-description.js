@@ -2,11 +2,7 @@
   function proServiceProviderDescription($q) {
 
     function linkFunction(scope, element, attrs) {
-
-      scope.onClick = () => {
-        scope.queue.currentStep = scope.order
-      }
-
+      
       let required = false
 
       if ('required' in attrs) {
@@ -16,15 +12,7 @@
       scope.model = {
         description: ''
       }
-
-      let _proceed = () => {
-        if (scope.queue.completedSteps < scope.order) {
-          scope.queue.completedSteps = scope.order
-        }
-
-        scope.queue.currentStep = scope.order + 1
-
-      }
+      
 
       let _isValid = () => {
         let _isValidDeferred = $q.defer()
@@ -37,21 +25,17 @@
 
         return _isValidDeferred.promise
       }
-
-
+      
       scope.saveSection = () => {
         _isValid().then(() => {
 
           scope.proModel.description = scope.model.description
-          _proceed()
+          scope.proceed()
 
         }, () => {
           console.log('not valid')
         })
       }
-
-      scope.skipSection = _proceed
-
 
     }
 
@@ -68,14 +52,17 @@
         trTitle: '@',
         trDesc: '@'
       },
-      link: linkFunction
+      link: linkFunction,
+      controller: 'ServiceProviderStepController',
+      controllerAs: 'vm'
     }
   }
 
   angular.module('profitelo.directives.service-provider.pro-service-provider-description', [
     'lodash',
     'pascalprecht.translate',
-    'profitelo.services.wizardSectionControl'
+    'profitelo.services.wizardSectionControl',
+    'profitelo.common.controller.service-provider.service-provider-step-controller'
   ])
   .directive('proServiceProviderDescription', proServiceProviderDescription)
 }())

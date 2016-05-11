@@ -2,6 +2,14 @@
   function IndividualPathController($scope, ProfileApi, User, savedProfile) {
     let vm = this
 
+    vm.individualPathModel = {}
+
+    vm.queue = {
+      amountOfSteps: 7,
+      currentStep: 2,
+      completedSteps: 1
+    }
+
     let _updateMethod
 
     if (savedProfile) {
@@ -9,7 +17,6 @@
     } else {
       _updateMethod = ProfileApi.postProfile
     }
-
 
 
     vm.individualPathModel = {}

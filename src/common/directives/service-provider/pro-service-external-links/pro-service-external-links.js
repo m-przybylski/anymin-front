@@ -48,9 +48,7 @@
 
       }
 
-      scope.onClick = () => {
-        scope.queue.currentStep = scope.order
-      }
+
 
       let required = false
 
@@ -58,16 +56,6 @@
         required = true
       }
 
-
-
-      let _proceed = () => {
-        if (scope.queue.completedSteps < scope.order) {
-          scope.queue.completedSteps = scope.order
-        }
-
-        scope.queue.currentStep = scope.order + 1
-
-      }
 
       let _isValid = () => {
         let _isValidDeferred = $q.defer()
@@ -82,16 +70,14 @@
         _isValid().then(() => {
 
           scope.proModel.links = scope.model.links
-          _proceed()
+          scope.proceed()
 
         }, () => {
           console.log('not valid')
         })
       }
 
-      scope.skipSection = _proceed
-
-
+      
     }
 
 
@@ -106,7 +92,9 @@
         trTitle: '@',
         trDesc: '@'
       },
-      link: linkFunction
+      link: linkFunction,
+      controller: 'ServiceProviderStepController',
+      controllerAs: 'vm'
     }
   }
 
@@ -116,7 +104,8 @@
     'profitelo.services.wizardSectionControl',
     'profitelo.directives.ng-enter',
     'profitelo.services.commonSettings',
-    'profitelo.directives.pro-social-icon-getter'
+    'profitelo.directives.pro-social-icon-getter',
+    'profitelo.common.controller.service-provider.service-provider-step-controller'
   ])
   .directive('proServiceExternalLinks', proServiceExternalLinks)
 }())

@@ -1,7 +1,6 @@
 (function() {
   function ServiceProviderController() {
     let vm = this
-    
 
     return vm
   }
