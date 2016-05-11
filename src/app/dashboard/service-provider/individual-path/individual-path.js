@@ -19,6 +19,14 @@
     }
 
 
+    vm.individualPathModel = {}
+
+    vm.queue = {
+      amountOfSteps: 7,
+      currentStep: 2,
+      completedSteps: 1
+    }
+
     let _calculateProgressPercentage = () => {
       vm.progressBarWidth = Math.ceil(vm.queue.completedSteps / vm.queue.amountOfSteps * 100)
     }
