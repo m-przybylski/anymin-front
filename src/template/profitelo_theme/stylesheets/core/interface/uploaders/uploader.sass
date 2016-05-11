@@ -9,10 +9,16 @@
   align-items: center
   background: $c-background
   width: 100%
+  height: 256px
   border: 2px dashed $c-lines
   text-align: center
+  transition: all 0.2s linear
+  &.acceptClass
+    border-color: $c-primary
+  &.rejectClass
+    border-color: $c-error
   .upload-description
-    margin-top: -40px
+    margin-top: -90px
     position: relative
     padding-bottom: 30px
     z-index: 100
@@ -42,8 +48,8 @@
       font-size: 24px
       position: absolute
       margin-left: -47px
-      top: 13px
-      transition: all 0.2s ease-in
+      top: 24px
+      transition: all 0.2s linear
       &.arrow-show
         -webkit-animation: showmove 0.5s linear
         animation: showmove 0.5s linear
@@ -51,18 +57,16 @@
       z-index: 100
       font-size: 24px
       position: absolute
-      margin-top: 30qpx
+      margin-top: 30px
       margin-left: -46px
       line-height: -20
   .upload-field-fill
     position: absolute
     overflow: hidden
-    width: 96%
-    margin-left: 8px
-    margin-right: 8px
-    max-height: 92%
-    margin-top: 8px
+    width: calc(100% - 16px)
+    max-height: 235px
     height: 0
+    left: 8px
     bottom: 8px
     background-color: $c-lines
     transition: all 0.2s ease-in

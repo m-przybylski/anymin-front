@@ -1,4 +1,4 @@
-function proUploader($timeout, $interval) {
+function proUploader($timeout, $interval, $q, FilesApi, Upload) {
 
   function  linkFunction(scope, element, attr) {
     let _file = 0
@@ -10,9 +10,58 @@ function proUploader($timeout, $interval) {
     scope.info = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO'
     scope.upload = false
     scope.hideArrow = false
-    scope.$watch('files', ()=> {
 
+    scope.$watch('proModel', ()=> {
+      _uploadFiles()
     })
+
+    if ('type' in attr.$attr) {
+      scope.ngfPattern = attr.type
+      scope.accept = attr.type
+    }
+
+    let _calculatePercentage = function(loaded, total) {
+      return parseInt((100.0 * loaded / total), 10)
+    }
+
+
+    _uploadFiles = function() {
+      let files = scope.proModel
+
+      var tokenPromisses = []
+      if (files && files.length) {
+        for (var i = 0; i < files.length; i++) {
+          if (!files[i].$error) {
+            tokenPromisses.push(FilesApi.tokenPath().$promise)
+          }
+        }
+        $q.all(tokenPromisses).then( (tokenPromissesResponse) =>{
+          for (var k = 0; k < files.length; k++ ) {
+
+            _files = files.length
+            scope.animate()
+            Upload.upload({
+              url:  tokenPromissesResponse[k].uploadUrl,
+              data: {
+                file: files[k]
+              }
+            }).then(
+              function(res) {
+                _file++
+                scope.filesUploaded.push(files[0])
+              },
+              function(res) {
+              // TODO walidacje na odpowiedzi z serwera
+              },
+              function(res) {
+                scope.progress = _calculatePercentage(res.loaded, res.total)
+              }
+            )
+          }
+        }, function(tokenPromissesError) {
+        })
+      }
+    }
     let _endImmediateLoading = () => {
       scope.progress = 0
       scope.fadeText = true
@@ -31,9 +80,6 @@ function proUploader($timeout, $interval) {
         if (scope.progress >= 100) {
           $interval.cancel(immediateInterval)
           _endImmediateLoading()
-
-        } else {
-          scope.progress = scope.progress + 1
         }
       }, 100)
 
@@ -70,7 +116,9 @@ function proUploader($timeout, $interval) {
       proModel: '=',
       defaultValue: '@',
       accept: '@',
-      pattern: '@'
+      ngfPattern: '@',
+      filesUploaded: '=?',
+      maxSize: '@'
 
     }
   }
