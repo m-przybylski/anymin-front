@@ -32,6 +32,8 @@
         		"DASHBOARD.CREATE_PROFILE.CREATE_PROFILE_YOUR_LINKS":"Twoje linki:",
         		"DASHBOARD.CREATE_PROFILE.ERROR_EXTERNAL_LINKS":"Podaj poprawny adres zewnętrzny",
         		"DASHBOARD.CREATE_PROFILE.FILE_PREVIEW":"Podgląd Pliku",
+        		"DASHBOARD.CREATE_PROFILE.FILE_UPLOADER_DESCRIPTION":"Wgraj certyfikaty, dokumenty lub wizytówkę firmy",
+        		"DASHBOARD.CREATE_PROFILE.FILE_UPLOADER_TITLE":"Dokumenty",
         		"DASHBOARD.CREATE_PROFILE.INVITED_CONSULTATNS":"Zaproszeni Konsultanci:",
         		"DASHBOARD.CREATE_PROFILE.NAME_COMPANY_PLACEHOLDER":"np. Profitelo",
         		"DASHBOARD.CREATE_PROFILE.NEXT_STEP":"Kolejny Etap",
