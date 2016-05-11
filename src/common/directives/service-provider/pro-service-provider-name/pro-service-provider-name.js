@@ -47,7 +47,7 @@
           _displayErrorMessage()
         })
       }
-      
+
 
     }
 
@@ -62,7 +62,8 @@
         proModel: '=',
         trTitle: '@',
         trDesc: '@',
-        placeholder: '@'
+        placeholder: '@',
+        errorMessage: '@'
       },
       link: linkFunction,
       controller: 'ServiceProviderStepController',
