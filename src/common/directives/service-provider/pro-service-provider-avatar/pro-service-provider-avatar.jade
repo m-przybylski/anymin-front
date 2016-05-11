@@ -1,0 +1,14 @@
+extends ../../../templates/wizard/section-controlls.partial.jade
+
+block content
+  .step-content-column.pro-service-provider-avatar
+    .upload-field-description
+      p(data-translate="DASHBOARD.CREATE_PROFILE.FILE_PREVIEW")
+    pro-uploader(type="application/pdf,image/jpeg" data-files-uploaded="model.avatar")
+    .image-preview
+      .upload-field
+        img(src="assets/images/John_Doe.jpg")
+      .upload-trash
+        .btn-handler
+          a.pro-btn.btn-light.btn-icon
+            i.icon.icon-trash-24

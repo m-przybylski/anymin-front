@@ -1,8 +1,7 @@
 .file-uploader
-    .upload-field(ngf-drop ngf-select ng-model="proModel" class="drop-box"
+    .upload-field(ngf-drop ngf-select ng-model="filesBaseModel" class="drop-box"
     ngf-multiple="true" ngf-allow-dir="true"
     ngf-pattern="'{{ngfPattern}}'"
-    items="{{filesUploaded}}"
     ngf-drag-over-class="{pattern: '{{pattern}}', accept:'acceptClass', reject:'rejectClass', delay:100}")
         .upload-icons
             i.icon.icon-upload-cloud-64
