@@ -23,6 +23,7 @@
     "angular-resource": "^1.4.8",
     "angular-sanitize": "^1.5.3",
     "angular-toastr": "^1.6.0",
+    "angular-touch": "^1.5.5",
     "angular-translate": "^2.8.1",
     "angular-translate-interpolation-messageformat": "^2.8.1",
     "angular-ui-bootstrap": "^1.2.5",

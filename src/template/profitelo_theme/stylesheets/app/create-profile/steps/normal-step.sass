@@ -62,6 +62,35 @@
       .input-group
         color: $c-secondary-txt
         width: 100%
+        .ui-select-container
+          outline: none
+          display: flex
+          flex-direction: row
+          flex-wrap: nowrap
+          justify-content: flex-start
+          align-content: center
+          align-items: center
+          input
+            padding-left: 10px
+            padding-top: 25px
+          .ui-select-match
+            position: absolute
+            margin-top: -35px
+          .ui-select-match-item
+            background-color: $c-primary-txt
+            padding: 3px 5px
+            margin-left: 6px
+            +border-radius(0.3em)
+            position: relative
+            span
+              text-transform: uppercase
+              color: $c-white
+              font-weight: bold
+              padding-left: 9px
+            .ui-select-match-close
+              padding: 3px 3px 3px 0px
+              position: absolute
+              left: 0
         input
           bottom: 7px
           font-size: 20px

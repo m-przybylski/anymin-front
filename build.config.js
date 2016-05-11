@@ -52,6 +52,7 @@ module.exports = {
       'node_modules/ng-file-upload/dist/ng-file-upload-all.js',
       'node_modules/angular-toastr/dist/angular-toastr.js',
       'node_modules/angular-toastr/dist/angular-toastr.tpls.js',
+      'node_modules/angular-touch/angular-touch.js',
       'node_modules/angular-ui-mask/dist/mask.js',
       'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
       'node_modules/angular-sanitize/angular-sanitize.js',
@@ -61,7 +62,7 @@ module.exports = {
       'node_modules/angular-translate/dist/angular-translate.js',
       'node_modules/messageformat/messageformat.js',
       'node_modules/messageformat/locale/*.js',
-      
+
       'node_modules/angular-translate-interpolation-messageformat/angular-translate-interpolation-messageformat.js',
       'node_modules/angular-dynamic-locale/dist/tmhDynamicLocale.js',
 
@@ -70,7 +71,8 @@ module.exports = {
       'node_modules/angular-lodash/angular-lodash.js',
       'node_modules/hellojs/dist/hello.all.min.js',
       'node_modules/hammerjs/hammer.js',
-      'node_modules/angular-hammer/angular.hammer.js'
+      'node_modules/angular-hammer/angular.hammer.js',
+      'node_modules/angular-touch/angular-touch.js'
     ],
     css: [
       'node_modules/angular-toastr/dist/angular-toastr.css',
