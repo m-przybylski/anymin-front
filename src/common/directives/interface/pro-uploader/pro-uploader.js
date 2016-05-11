@@ -10,21 +10,24 @@ function proUploader($timeout, $interval, $q, FilesApi, Upload) {
     scope.info = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO'
     scope.upload = false
     scope.hideArrow = false
+
     scope.$watch('proModel', ()=> {
       _uploadFiles()
     })
 
     if ('type' in attr.$attr) {
-      scope.pattern = attr.type
+      scope.ngfPattern = attr.type
+      scope.accept = attr.type
     }
 
     let _calculatePercentage = function(loaded, total) {
       return parseInt((100.0 * loaded / total), 10)
     }
 
+
     _uploadFiles = function() {
-      var files = scope.proModel
-      _file = 0
+      let files = scope.proModel
+
       var tokenPromisses = []
       if (files && files.length) {
         for (var i = 0; i < files.length; i++) {
@@ -33,8 +36,8 @@ function proUploader($timeout, $interval, $q, FilesApi, Upload) {
           }
         }
         $q.all(tokenPromisses).then( (tokenPromissesResponse) =>{
-          console.log('tokenPromissesResponse', tokenPromissesResponse)
           for (var k = 0; k < files.length; k++ ) {
+
             _files = files.length
             scope.animate()
             Upload.upload({
@@ -45,8 +48,7 @@ function proUploader($timeout, $interval, $q, FilesApi, Upload) {
             }).then(
               function(res) {
                 _file++
-                scope.filesUploaded.push(scope.proModel[0])
-                console.log(scope.filesUploaded)
+                scope.filesUploaded.push(files[0])
               },
               function(res) {
               // TODO walidacje na odpowiedzi z serwera
@@ -114,8 +116,9 @@ function proUploader($timeout, $interval, $q, FilesApi, Upload) {
       proModel: '=',
       defaultValue: '@',
       accept: '@',
-      pattern: '@',
-      filesUploaded: '=?'
+      ngfPattern: '@',
+      filesUploaded: '=?',
+      maxSize: '@'
 
     }
   }

@@ -12,6 +12,11 @@
   height: 256px
   border: 2px dashed $c-lines
   text-align: center
+  transition: all 0.2s linear
+  &.acceptClass
+    border-color: $c-primary
+  &.rejectClass
+    border-color: $c-error
   .upload-description
     margin-top: -90px
     position: relative
