@@ -3,27 +3,8 @@
 
     function linkFunction(scope, element, attrs) {
 
-
-      scope.onClick = () => {
-        scope.queue.currentStep = scope.order
-      }
-
       scope.model = {
         files: []
-      }
-
-      if ('required' in attrs) {
-        required = true
-      }
-
-      scope.removeFile = (fileToDelete) => {
-        let _index = scope.model.files.indexOf(fileToDelete)
-        scope.model.files.splice(_index, 1)
-      }
-
-
-      scope.onClick = () => {
-        scope.queue.currentStep = scope.order
       }
 
       let required = false
@@ -32,15 +13,9 @@
         required = true
       }
 
-
-
-      let _proceed = () => {
-        if (scope.queue.completedSteps < scope.order) {
-          scope.queue.completedSteps = scope.order
-        }
-
-        scope.queue.currentStep = scope.order + 1
-
+      scope.removeFile = (fileToDelete) => {
+        let _index = scope.model.files.indexOf(fileToDelete)
+        scope.model.files.splice(_index, 1)
       }
 
       let _isValid = () => {
@@ -54,14 +29,12 @@
 
       scope.saveSection = () => {
         _isValid().then(() => {
-          _proceed()
+          scope.proceed()
 
         }, () => {
           console.log('not valid')
         })
       }
-
-      scope.skipSection = _proceed
 
 
     }
@@ -78,7 +51,9 @@
         trTitle: '@',
         trDesc: '@'
       },
-      link: linkFunction
+      link: linkFunction,
+      controller: 'ServiceProviderStepController',
+      controllerAs: 'vm'
     }
   }
 
