@@ -222,6 +222,20 @@
     outline: none
     input
       padding-left: 10px
+    .ui-select-match-item
+      background-color: $c-primary-txt
+      padding: 3px 5px
+      margin-left: 10px
+      +border-radius(0.3em)
+      
+      span
+        text-transform: uppercase
+        color: $c-white
+        font-weight: bold
+      .ui-select-match-close
+        padding: 3px 2px
+
+
   .ui-select-placeholder
     padding-left: 10px
     color: $c-secondary-txt
@@ -247,4 +261,3 @@
   .ps-scrollbar-y
     max-width: 0.2em
     background-color: $c-lines
-

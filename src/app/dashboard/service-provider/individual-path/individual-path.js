@@ -17,7 +17,7 @@
     vm.queue = {
       amountOfSteps: 7,
       currentStep: 2,
-      completedSteps: 7
+      completedSteps: 1
     }
 
     let _calculateProgressPercentage = () => {
