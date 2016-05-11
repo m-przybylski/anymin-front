@@ -1,5 +1,5 @@
 (function() {
-  function proServiceProviderLanguages($q, CommonSettingsService) {
+  function proServiceProviderLanguages() {
 
     function linkFunction(scope, element, attrs) {
 

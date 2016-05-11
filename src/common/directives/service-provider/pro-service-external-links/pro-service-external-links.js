@@ -1,5 +1,5 @@
 (function() {
-  function proServiceExternalLinks($rootScope, $timeout, $q, CommonSettingsService, _) {
+  function proServiceExternalLinks($timeout, $q, CommonSettingsService, _) {
 
     function linkFunction(scope, element, attrs) {
 

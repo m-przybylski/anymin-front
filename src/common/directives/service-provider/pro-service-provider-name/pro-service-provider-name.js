@@ -1,5 +1,5 @@
 (function() {
-  function proServiceProviderName($q, $timeout, $rootScope) {
+  function proServiceProviderName($q, $timeout) {
 
     function linkFunction(scope, element, attrs) {
 

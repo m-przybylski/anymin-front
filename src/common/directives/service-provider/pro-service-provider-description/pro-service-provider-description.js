@@ -1,5 +1,5 @@
 (function() {
-  function proServiceProviderDescription($q, $rootScope) {
+  function proServiceProviderDescription($q) {
 
     function linkFunction(scope, element, attrs) {
       
