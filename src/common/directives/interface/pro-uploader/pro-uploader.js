@@ -27,19 +27,18 @@ function proUploader($timeout, $interval, $q, FilesApi, Upload) {
 
     _uploadFiles = function() {
       let files = scope.proModel
-
+      let _file = 0
       var tokenPromisses = []
       if (files && files.length) {
-        for (var i = 0; i < files.length; i++) {
-          if (!files[i].$error) {
+        for (var i = 0; i < scope.proModel.length; i++) {
+          if (!scope.proModel[i].$error) {
             tokenPromisses.push(FilesApi.tokenPath().$promise)
           }
         }
         $q.all(tokenPromisses).then( (tokenPromissesResponse) =>{
-          for (var k = 0; k < files.length; k++ ) {
-
-            _files = files.length
-            scope.animate()
+          scope.animate()
+          for (var k = 0; k < scope.proModel.length; k++ ) {
+            _files = scope.proModel.length
             Upload.upload({
               url:  tokenPromissesResponse[k].uploadUrl,
               data: {
@@ -47,8 +46,8 @@ function proUploader($timeout, $interval, $q, FilesApi, Upload) {
               }
             }).then(
               function(res) {
+                scope.filesUploaded.push(scope.proModel[_file])
                 _file++
-                scope.filesUploaded.push(files[0])
               },
               function(res) {
               // TODO walidacje na odpowiedzi z serwera
