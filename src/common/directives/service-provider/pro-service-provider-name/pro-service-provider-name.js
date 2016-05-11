@@ -1,31 +1,15 @@
 (function() {
-  function proServiceProviderName($q) {
+  function proServiceProviderName($q, $timeout) {
 
     function linkFunction(scope, element, attrs) {
 
-      scope.onClick = () => {
-        scope.queue.currentStep = scope.order
-      }
-
-
-      let required = false
-
-      if ('required' in attrs) {
-        required = true
-      }
+      scope.required = false
+      scope.badName = false
 
       scope.model = {
         name: ''
       }
 
-      let _proceed = () => {
-        if (scope.queue.completedSteps < scope.order) {
-          scope.queue.completedSteps = scope.order
-        }
-
-        scope.queue.currentStep = scope.order + 1
-
-      }
 
       let _isValid = () => {
         let _isValidDeferred = $q.defer()
@@ -40,19 +24,30 @@
       }
 
 
+
+      let _displayErrorMessage = () => {
+        scope.badName = true
+        $timeout(() => {
+          scope.badName = false
+        }, 1000)
+      }
+
+
+      if ('required' in attrs) {
+        scope.required = true
+      }
+
       scope.saveSection = () => {
         _isValid().then(() => {
 
           scope.proModel.name = scope.model.name
-          _proceed()
+          scope.proceed()
 
         }, () => {
-          console.log('not valid')
+          _displayErrorMessage()
         })
       }
-
-      scope.skipSection = _proceed
-
+      
 
     }
 
@@ -62,21 +57,23 @@
       restrict: 'E',
       templateUrl: 'directives/service-provider/pro-service-provider-name/pro-service-provider-name.tpl.html',
       scope: {
-        queue:    '=',
-        order:    '=?',
+        queue: '=',
+        order: '=?',
         proModel: '=',
         trTitle: '@',
         trDesc: '@',
-        placeholder: '='
+        placeholder: '@'
       },
-      link: linkFunction
+      link: linkFunction,
+      controller: 'ServiceProviderStepController',
+      controllerAs: 'vm'
     }
   }
 
   angular.module('profitelo.directives.service-provider.pro-service-provider-name', [
     'lodash',
     'pascalprecht.translate',
-    'profitelo.services.wizardSectionControl'
+    'profitelo.common.controller.service-provider.service-provider-step-controller'
   ])
   .directive('proServiceProviderName', proServiceProviderName)
 }())

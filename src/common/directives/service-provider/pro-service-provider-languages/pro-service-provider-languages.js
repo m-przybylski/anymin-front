@@ -1,14 +1,12 @@
 (function() {
-  function proServiceProviderLanguages($q, CommonSettingsService) {
+  function proServiceProviderLanguages() {
 
     function linkFunction(scope, element, attrs) {
 
       scope.langModel = ''
-
-      scope.onClick = () => {
-        scope.queue.currentStep = scope.order
-      }
-
+      
+      let required = false
+      
       scope.languages = [
         {name: 'Polish'},
         {name: 'English'}
@@ -18,26 +16,17 @@
         languages: []
       }
 
+      
       if ('required' in attrs) {
         required = true
       }
-
-      let _proceed = () => {
-        if (scope.queue.completedSteps < scope.order) {
-          scope.queue.completedSteps = scope.order
-        }
-
-        scope.queue.currentStep = scope.order + 1
-
-      }
-
+      
       scope.saveSection = () => {
         scope.model.languages = scope.langModel
-        _proceed()
+        scope.proceed()
 
       }
-      scope.skipSection = _proceed
-
+      
     }
 
 
@@ -52,7 +41,9 @@
         trTitle: '@',
         trDesc: '@'
       },
-      link: linkFunction
+      link: linkFunction,
+      controller: 'ServiceProviderStepController',
+      controllerAs: 'vm'
     }
   }
 
@@ -61,7 +52,8 @@
     'pascalprecht.translate',
     'profitelo.services.wizardSectionControl',
     'profitelo.directives.ng-enter',
-    'profitelo.services.commonSettings'
+    'profitelo.services.commonSettings',
+    'profitelo.common.controller.service-provider.service-provider-step-controller'
   ])
     .directive('proServiceProviderLanguages', proServiceProviderLanguages)
 }())
