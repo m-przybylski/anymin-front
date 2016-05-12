@@ -52,7 +52,10 @@
                 }
               }).then(
                 function(res) {
-                  scope.filesUploaded.push(files[_file])
+                  scope.filesUploaded.push({
+                    file: files[_file],
+                    response: res.data
+                  })
                   _file++
                   if ('avatar' in attr.$attr) {
                     $timeout(()=>{

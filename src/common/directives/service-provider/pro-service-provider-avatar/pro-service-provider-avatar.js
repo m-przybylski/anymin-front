@@ -9,21 +9,17 @@
       scope.model = {
         avatar: []
       }
-
-
+      
       let _isValid = () => {
         let _isValidDeferred = $q.defer()
-
-        if (angular.isDefined(scope.model.avatar) && scope.model.avatar.length > 0) {
-          _isValidDeferred.resolve()
+        if (angular.isDefined(scope.model.avatar) && scope.model.avatar[0].response.id) {
+          _isValidDeferred.resolve(scope.model.avatar[0].response.id)
         } else {
           _isValidDeferred.reject()
         }
 
         return _isValidDeferred.promise
       }
-
-
 
       let _displayErrorMessage = () => {
         scope.badName = true
@@ -38,8 +34,9 @@
       }
 
       scope.saveSection = () => {
-        _isValid().then(() => {
-
+        _isValid().then((avatarId) => {
+          
+          scope.proModel.avatar = avatarId
           scope.proceed()
 
         }, () => {
