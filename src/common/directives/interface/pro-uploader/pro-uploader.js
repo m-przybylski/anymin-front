@@ -23,11 +23,11 @@
       }
 
 
-      let _calculatePercentage = function (loaded, total) {
+      let _calculatePercentage = function(loaded, total) {
         return parseInt((100.0 * loaded / total), 10)
       }
 
-      scope.uploadFiles = function ($files) {
+      scope.uploadFiles = function($files) {
         scope.uploadImg = false
         let files = $files
         _file = 0
@@ -48,7 +48,7 @@
                   file: files[k]
                 }
               }).then(
-                function (res) {
+                function(res) {
                   scope.filesUploaded.push(files[_file])
                   _file++
                   if ('avatar' in attr.$attr) {
@@ -57,15 +57,15 @@
                     }, 500)
                   }
                 },
-                function (res) {
+                function(res) {
                   // TODO walidacje na odpowiedzi z serwera
                 },
-                function (res) {
+                function(res) {
                   scope.progress = _calculatePercentage(res.loaded, res.total)
                 }
               )
             }
-          }, function (tokenPromissesError) {
+          }, function(tokenPromissesError) {
           })
         }
       }
