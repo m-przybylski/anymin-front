@@ -1,9 +1,7 @@
 (function() {
-
   function proUploader($timeout, $interval, $q, FilesApi, Upload) {
 
     function  linkFunction(scope, element, attr) {
-      
       let _file = 0
       let _files = 0
       let immediateInterval
@@ -14,17 +12,6 @@
       scope.upload = false
       scope.hideArrow = false
 
-      scope.filesBaseModel = []
-
-      console.log(scope.filesUploaded)
-
-      scope.$watch(() => {
-        return scope.filesBaseModel
-      }, () => {
-
-        _uploadFiles(scope.filesBaseModel)
-      })
-
       if ('type' in attr.$attr) {
         scope.ngfPattern = attr.type
         scope.accept = attr.type
@@ -34,45 +21,42 @@
         return parseInt((100.0 * loaded / total), 10)
       }
 
+      scope.uploadFiles = function($files) {
 
-      _uploadFiles = function(files) {
-
+        let files = $files
         _file = 0
-
-        var tokenPromises = []
-
-        for (var i = 0; i < files.length; i++) {
-          if (!files[i].$error) {
-            tokenPromises.push(FilesApi.tokenPath().$promise)
+        var tokenPromisses = []
+        if (files && files.length) {
+          for (var i = 0; i < files.length; i++) {
+            if (!files[i].$error) {
+              tokenPromisses.push(FilesApi.tokenPath().$promise)
+            }
           }
+          $q.all(tokenPromisses).then( (tokenPromissesResponse) =>{
+            scope.animate()
+            for (var k = 0; k < files.length; k++ ) {
+              _files = files.length
+              Upload.upload({
+                url:  tokenPromissesResponse[k].uploadUrl,
+                data: {
+                  file: files[k]
+                }
+              }).then(
+                function(res) {
+                  scope.filesUploaded.push(files[_file])
+                  _file++
+                },
+                function(res) {
+                  // TODO walidacje na odpowiedzi z serwera
+                },
+                function(res) {
+                  scope.progress = _calculatePercentage(res.loaded, res.total)
+                }
+              )
+            }
+          }, function(tokenPromissesError) {
+          })
         }
-
-        $q.all(tokenPromises).then( (tokenPromissesResponse) =>{
-          scope.animate()
-          _files = files.length
-          for (var k = 0; k < files.length; k++ ) {
-            Upload.upload({
-              url:  tokenPromissesResponse[k].uploadUrl,
-              data: {
-                file: files[k]
-              }
-            }).then(
-              function(res) {
-                console.log(scope.filesUploaded)
-                scope.filesUploaded.push(files[_file])
-                _file++
-              },
-              function(res) {
-                // TODO walidacje na odpowiedzi z serwera
-              },
-              function(res) {
-                scope.progress = _calculatePercentage(res.loaded, res.total)
-              }
-            )
-          }
-        }, function(tokenPromissesError) {
-        })
-
       }
       let _endImmediateLoading = () => {
         scope.progress = 0
@@ -122,12 +106,13 @@
     return {
       templateUrl: 'directives/interface/pro-uploader/pro-uploader.tpl.html',
       restrict: 'E',
+      replace: true,
       link: linkFunction,
       scope: {
         defaultValue: '@',
         accept: '@',
         ngfPattern: '@',
-        filesUploaded: '=',
+        filesUploaded: '=?',
         maxSize: '@'
 
       }
@@ -137,6 +122,5 @@
   angular.module('profitelo.directives.interface.pro-uploader', [
     'ngFileUpload'
   ])
-  .directive('proUploader', proUploader)
-
+    .directive('proUploader', proUploader)
 }())

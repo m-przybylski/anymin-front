@@ -10,6 +10,7 @@
         avatar: []
       }
 
+
       let _isValid = () => {
         let _isValidDeferred = $q.defer()
 
