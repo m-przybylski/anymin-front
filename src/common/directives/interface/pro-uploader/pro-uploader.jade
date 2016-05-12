@@ -16,7 +16,12 @@
         .upload-field-fill(style="height: {{ progress }}%")
         .avatar-img(data-ng-show="uploadImg")
             img(ngf-src="uploadedFiles")
+    .upload-trash(data-ng-show="uploadImg" data-ng-click="deleteImage()")
+        .btn-handler
+            a.pro-btn.btn-light.btn-icon
+                i.icon.icon-trash-24.icon-24
+
     .input-error-messages
-        .error(data-translate="COMMON.DIRECTIVES.INTERFACE.UPLOADER.ERROR_EXTERNAL_FILES_TYPE" data-ng-show="scope.proModel.$error === 'pattern'")
+        .error(data-translate="COMMON.DIRECTIVES.INTERFACE.UPLOADER.ERROR_EXTERNAL_FILES_TYPE" data-ng-show="scope.uploadedFiles.$error === 'pattern'")
         .error(data-translate="COMMON.DIRECTIVES.INTERFACE.UPLOADER.ERROR_EXTERNAL_FILES_SIZE" data-ng-show="badFileSize")
 

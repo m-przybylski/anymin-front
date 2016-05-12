@@ -91,6 +91,9 @@
         })
       }
 
+      scope.deleteImage = ()=> {
+        scope.uploadImg = false
+      }
 
       scope.animate = function() {
         scope.showArrow = false
