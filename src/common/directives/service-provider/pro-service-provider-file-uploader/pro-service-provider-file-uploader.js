@@ -62,7 +62,8 @@
     'pascalprecht.translate',
     'profitelo.services.wizardSectionControl',
     'profitelo.directives.ng-enter',
-    'profitelo.services.commonSettings'
+    'profitelo.services.commonSettings',
+    'profitelo.directives.interface.pro-uploader'
   ])
     .directive('proServiceProviderFileUploader', proServiceProviderFileUploader)
 }())
