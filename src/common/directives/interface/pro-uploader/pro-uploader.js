@@ -22,6 +22,9 @@
         scope.multiple = true
       }
 
+      if ('required' in attr.$attr) {
+        scope.required = true
+      }
 
       let _calculatePercentage = function(loaded, total) {
         return parseInt((100.0 * loaded / total), 10)
@@ -96,6 +99,7 @@
 
       scope.deleteImage = ()=> {
         scope.uploadImg = false
+        scope.filesUploaded = []
       }
 
       scope.animate = function() {

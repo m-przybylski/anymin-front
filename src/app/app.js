@@ -239,6 +239,7 @@
     'profitelo.directives.interface.pro-alert',
     'profitelo.directives.interface.pro-checkbox',
     'profitelo.directives.interface.pro-tags-dropdown',
+    'profitelo.directives.interface.pro-textarea',
 
     // rest
     'profitelo.swaggerResources',

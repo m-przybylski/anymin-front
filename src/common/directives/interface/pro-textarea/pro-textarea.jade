@@ -1,0 +1,14 @@
+.input-group(class="{{focus ? 'onFocus' : ''}} {{onClick ? 'onClick' : ''}}"
+  data-ng-mouseover="onMouseover()"
+  data-ng-mouseleave="onMouseout()")
+  textarea(placeholder="{{placeholder}}"
+  data-ng-model="proModel"
+  data-ng-focus="onFocus()"
+  data-ng-blur="onFocusOut()"
+  data-ng-maxlength = "maxlength"
+  maxlength="{{maxlength}}"
+  data-ng-required="required"
+  data-ng-pattern="ngPattern"
+  name="{{name}}")
+
+

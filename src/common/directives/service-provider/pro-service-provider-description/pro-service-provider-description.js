@@ -3,16 +3,16 @@
 
     function linkFunction(scope, element, attrs) {
       
-      let required = false
+      scope.required = false
 
-      if ('required' in attrs) {
-        required = true
-      }
 
       scope.model = {
         description: ''
       }
-      
+      if ('required' in attrs) {
+        scope.required = true
+      }
+
 
       let _isValid = () => {
         let _isValidDeferred = $q.defer()

@@ -14,7 +14,7 @@
       let _isValid = () => {
         let _isValidDeferred = $q.defer()
 
-        if (angular.isDefined(scope.model.name) && scope.model.name.length > 0) {
+        if (angular.isDefined(scope.model.avatar) && scope.model.avatar.length > 0) {
           _isValidDeferred.resolve()
         } else {
           _isValidDeferred.reject()
@@ -40,7 +40,6 @@
       scope.saveSection = () => {
         _isValid().then(() => {
 
-          scope.proModel.name = scope.model.name
           scope.proceed()
 
         }, () => {
