@@ -2,7 +2,7 @@ extends ../../../templates/wizard/section-controlls.partial.jade
 
 block content
     .step-content-column(data-ng-click="onClick()")
-        pro-uploader(type="application/pdf,image/jpeg" files-uploaded="model.files")
+        pro-uploader(type="application/pdf,image/jpeg" files-uploaded="model.files" data-multiple)
         .document-submit(data-ng-show="model.files.length > 0")
             a.pro-btn.btn-main.btn-medium(data-ng-repeat="file in model.files track by $index" disable)
                 span {{ file.name }}

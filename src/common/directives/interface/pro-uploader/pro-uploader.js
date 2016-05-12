@@ -11,18 +11,24 @@
       scope.info = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO'
       scope.upload = false
       scope.hideArrow = false
+      scope.imageSize = {width: 320, height: 320, quality: 1}
 
       if ('type' in attr.$attr) {
         scope.ngfPattern = attr.type
         scope.accept = attr.type
       }
 
-      let _calculatePercentage = function(loaded, total) {
+      if ('multiple' in attr.$attr) {
+        scope.multiple = true
+      }
+
+
+      let _calculatePercentage = function (loaded, total) {
         return parseInt((100.0 * loaded / total), 10)
       }
 
-      scope.uploadFiles = function($files) {
-
+      scope.uploadFiles = function ($files) {
+        scope.uploadImg = false
         let files = $files
         _file = 0
         var tokenPromisses = []
@@ -32,36 +38,41 @@
               tokenPromisses.push(FilesApi.tokenPath().$promise)
             }
           }
-          $q.all(tokenPromisses).then( (tokenPromissesResponse) =>{
+          $q.all(tokenPromisses).then((tokenPromissesResponse) => {
             scope.animate()
-            for (var k = 0; k < files.length; k++ ) {
+            for (var k = 0; k < files.length; k++) {
               _files = files.length
               Upload.upload({
-                url:  tokenPromissesResponse[k].uploadUrl,
+                url: tokenPromissesResponse[k].uploadUrl,
                 data: {
                   file: files[k]
                 }
               }).then(
-                function(res) {
+                function (res) {
                   scope.filesUploaded.push(files[_file])
                   _file++
+                  if ('avatar' in attr.$attr) {
+                    $timeout(()=>{
+                      scope.uploadImg = true
+                    }, 500)
+                  }
                 },
-                function(res) {
+                function (res) {
                   // TODO walidacje na odpowiedzi z serwera
                 },
-                function(res) {
+                function (res) {
                   scope.progress = _calculatePercentage(res.loaded, res.total)
                 }
               )
             }
-          }, function(tokenPromissesError) {
+          }, function (tokenPromissesError) {
           })
         }
       }
       let _endImmediateLoading = () => {
         scope.progress = 0
         scope.fadeText = true
-        $timeout(()=>{
+        $timeout(()=> {
           scope.header = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.HEADER'
           scope.info = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO'
         }, 200)
@@ -71,13 +82,15 @@
         scope.showArrow = true
 
       }
-      let _startImmediateLoading = () =>
+      let _startImmediateLoading = () => {
         immediateInterval = $interval(() => {
           if (scope.progress >= 100) {
             $interval.cancel(immediateInterval)
             _endImmediateLoading()
           }
-        }, 100)
+        })
+      }
+
 
       scope.animate = function() {
         scope.showArrow = false
