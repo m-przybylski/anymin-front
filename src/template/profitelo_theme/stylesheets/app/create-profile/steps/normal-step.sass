@@ -1,12 +1,13 @@
 .create-profile
-  +transition('all 2s ease-in-out 0s')
   .step
     color: $c-lines
     width: 100%
     +lgm
       width: 1104px
     margin: 0 auto
-    padding: 0 32px 0 32px
+    padding: 0 16px 0 16px
+    +smm
+      padding: 0 32px 0 32px
     h3
       color: $c-lines
       +colfax
@@ -74,7 +75,6 @@
             padding-top: 25px
           .ui-select-match
             position: absolute
-            margin-top: -35px
           .ui-select-match-item
             background-color: $c-primary-txt
             padding: 3px 5px
@@ -94,7 +94,6 @@
               font-size: 16px
         input
           bottom: 9px
-          padding-left: 12px
           font-size: 20px
 
 
