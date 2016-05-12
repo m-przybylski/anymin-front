@@ -3,9 +3,11 @@
     margin-top: 32px
     background-color: $c-background-2
     border: 1px solid $c-lines
+    padding: 0 32px 0 32px
     h3
       color: $c-primary-txt
     .title-step
+      margin-top: 2px
       p
         color: $c-secondary-txt
     .step-description
@@ -31,11 +33,12 @@
           color: $c-primary
         &:hover
           background-color: $c-background
+          +transition('all 0.1s ease-in-out 0s')
           h5, i
             color: $c-primary
 
       .selected
-        border: 1px solid $c-primary-txt
+        border: 2px solid $c-primary-txt
         h5, i
           color: $c-primary-txt
         &:hover

@@ -76,7 +76,7 @@
         		"DASHBOARD.MENU.MY_ACCOUNT":"Moje Konto",
         		"DASHBOARD.MENU.NOTIFICATION":"Powiadomienia",
         		"DASHBOARD.MENU.SEARCH":"Wyszukaj Ekspertów",
-        		"DASHBOARD.MENU.STEP1_ONE_PERSON":"Jednoosobowo",
+        		"DASHBOARD.MENU.STEP1_ONE_PERSON":"Samodzielnie",
         		"DASHBOARD.SERVICE_PROVIDER.NAME.BAD_COMPANY_NAME":"Podaj poprawną nazwę firmy",
         		"DASHBOARD.SERVICE_PROVIDER.NAME.BAD_NAME":"Podaj poprawnę imię",
         		"INTERFACE.ABORT":"Anuluj",
