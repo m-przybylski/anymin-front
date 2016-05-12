@@ -20,11 +20,19 @@
 
     .step-content
       .option
+        display: flex
+        flex-direction: column
+        flex-wrap: nowrap
+        justify-content: center
+        align-content: flex-start
+        align-items: center
+        height: 256px
         h5
           color: $c-lines
         i
           color: $c-lines
         &:hover
+          border: 2px solid $c-primary
           h5, i
             color: $c-primary
 

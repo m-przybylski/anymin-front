@@ -31,11 +31,12 @@
           color: $c-primary
         &:hover
           background-color: $c-background
+          +transition('all 0.1s ease-in-out 0s')
           h5, i
             color: $c-primary
 
       .selected
-        border: 1px solid $c-primary-txt
+        border: 2px solid $c-primary-txt
         h5, i
           color: $c-primary-txt
         &:hover
