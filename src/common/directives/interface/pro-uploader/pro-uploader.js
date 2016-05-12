@@ -85,8 +85,11 @@
       let _startImmediateLoading = () => {
         immediateInterval = $interval(() => {
           if (scope.progress >= 100) {
-            $interval.cancel(immediateInterval)
             _endImmediateLoading()
+            $timeout(()=>{
+              $interval.cancel(immediateInterval)
+            })
+
           }
         })
       }
