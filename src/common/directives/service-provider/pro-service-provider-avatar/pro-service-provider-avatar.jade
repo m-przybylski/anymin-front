@@ -1,0 +1,7 @@
+extends ../../../templates/wizard/section-controlls.partial.jade
+
+block content
+  .step-content-column.pro-service-provider-avatar
+    .upload-field-description
+      p(data-translate="DASHBOARD.CREATE_PROFILE.FILE_PREVIEW")
+    pro-uploader(type="image/jpeg" files-uploaded="model.avatar" avatar)

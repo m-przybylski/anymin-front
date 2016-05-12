@@ -63,6 +63,7 @@
     'profitelo.directives.service-provider.pro-service-external-links',
     'profitelo.directives.service-provider.pro-service-provider-languages',
     'profitelo.directives.service-provider.pro-service-provider-file-uploader',
+    'profitelo.directives.service-provider.pro-service-provider-avatar',
     'profitelo.swaggerResources',
     'c7s.ng.userAuth'
   ])
