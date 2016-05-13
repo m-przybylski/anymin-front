@@ -4,6 +4,7 @@
     ngf-pattern="'{{ngfPattern}}'"
     items="{{filesUploaded}}"
     ngf-resize="{{imageSize}}"
+    data-ng-required="required"
     ngf-drag-over-class="{pattern: '{{pattern}}', accept:'acceptClass', reject:'rejectClass', delay:100}")
         .upload-icons(data-ng-hide="uploadImg")
             i.icon.icon-upload-cloud-64
@@ -16,7 +17,12 @@
         .upload-field-fill(style="height: {{ progress }}%")
         .avatar-img(data-ng-show="uploadImg")
             img(ngf-src="uploadedFiles")
+    .upload-trash(data-ng-show="uploadImg" data-ng-click="deleteImage()")
+        .btn-handler
+            a.pro-btn.btn-light.btn-icon
+                i.icon.icon-trash-24.icon-24
+
     .input-error-messages
-        .error(data-translate="COMMON.DIRECTIVES.INTERFACE.UPLOADER.ERROR_EXTERNAL_FILES_TYPE" data-ng-show="scope.proModel.$error === 'pattern'")
+        .error(data-translate="COMMON.DIRECTIVES.INTERFACE.UPLOADER.ERROR_EXTERNAL_FILES_TYPE" data-ng-show="scope.uploadedFiles.$error === 'pattern'")
         .error(data-translate="COMMON.DIRECTIVES.INTERFACE.UPLOADER.ERROR_EXTERNAL_FILES_SIZE" data-ng-show="badFileSize")
 

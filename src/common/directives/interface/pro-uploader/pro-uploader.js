@@ -22,6 +22,9 @@
         scope.multiple = true
       }
 
+      if ('required' in attr.$attr) {
+        scope.required = true
+      }
 
       let _calculatePercentage = function(loaded, total) {
         return parseInt((100.0 * loaded / total), 10)
@@ -85,12 +88,19 @@
       let _startImmediateLoading = () => {
         immediateInterval = $interval(() => {
           if (scope.progress >= 100) {
-            $interval.cancel(immediateInterval)
             _endImmediateLoading()
+            $timeout(()=>{
+              $interval.cancel(immediateInterval)
+            })
+
           }
         })
       }
 
+      scope.deleteImage = ()=> {
+        scope.uploadImg = false
+        scope.filesUploaded = []
+      }
 
       scope.animate = function() {
         scope.showArrow = false
