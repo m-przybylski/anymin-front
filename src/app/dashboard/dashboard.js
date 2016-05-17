@@ -10,7 +10,6 @@
     _sidebar.perfectScrollbar()
 
     vm.toogleSidebar=function() {
-      console.log('DUPA DUPA')
       vm.isSidebarOpen = !vm.isSidebarOpen
     }
 
