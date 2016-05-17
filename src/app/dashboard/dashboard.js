@@ -3,7 +3,6 @@
     let vm = this
 
     vm.isSidebarOpen = false
-
     vm.isPending = false
 
     let _sidebar = $('.sidebar')
