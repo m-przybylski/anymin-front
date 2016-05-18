@@ -1,1 +1,51 @@
 .pro-input-form
+  +border-radius(0.2em)
+  +transition(0.4s)
+  background-color: $c-white
+  height: 64px
+  width: 100%
+  margin: 0
+  border: 1px solid $c-lines
+  padding: 10px
+  position: relative
+  cursor: pointer
+  max-width: 100%
+  textarea
+    border: 0
+    resize: none
+    width: 100%
+    line-height: 200%
+    outline: none
+    position: relative
+    background-color: transparent
+    color: $c-secondary-txt
+    height: 180px
+    float: left
+  label
+    +transition(0.2s)
+    position: absolute
+    top: 10px
+    padding-bottom: 13px
+    cursor: pointer
+    color: $c-secondary-txt
+    &:after
+      content: ""
+  input
+    +transition(0.4s)
+    position: absolute
+    cursor: pointer
+    display: flex
+    flex-direction: column
+    justify-content: center
+    height: 70%
+    bottom: 0
+    background-color: $c-white
+    border: none
+    font-size: 14px
+    padding-right: 5px
+    width: 90%
+    left: 10px
+    outline: none
+    margin-left: 0
+    padding-left: 0
+    margin-right: 16px
