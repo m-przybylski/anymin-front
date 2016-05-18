@@ -9,16 +9,7 @@
       currentStep: 2,
       completedSteps: 1
     }
-
-    let _updateMethod
-
-    if (savedProfile) {
-      _updateMethod = ProfileApi.putProfile
-    } else {
-      _updateMethod = ProfileApi.postProfile
-    }
-
-
+    
     vm.individualPathModel = {}
 
     vm.queue = {
@@ -39,6 +30,15 @@
 
 
     vm.saveAccountObject = () => {
+
+      let _updateMethod
+
+      if (savedProfile) {
+        _updateMethod = ProfileApi.putProfile
+      } else {
+        _updateMethod = ProfileApi.postProfile
+      }
+      
       _updateMethod({
         id: User.getData('id'),
         type: 'INDIVIDUAL',

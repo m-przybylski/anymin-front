@@ -57,11 +57,6 @@
                     response: res.data
                   })
                   _file++
-                  if ('avatar' in attr.$attr) {
-                    $timeout(()=>{
-                      scope.uploadImg = true
-                    }, 500)
-                  }
                 },
                 function(res) {
                   // TODO walidacje na odpowiedzi z serwera

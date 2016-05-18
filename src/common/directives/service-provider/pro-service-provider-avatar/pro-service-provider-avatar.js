@@ -29,8 +29,13 @@
       }
 
 
+      
       if ('required' in attrs) {
         scope.required = true
+      }
+
+      scope.removeAvatar = () => {
+        scope.model.avatar.splice(0, 1)
       }
 
       scope.saveSection = () => {

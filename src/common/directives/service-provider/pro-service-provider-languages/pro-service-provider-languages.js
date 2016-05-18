@@ -3,8 +3,6 @@
 
     function linkFunction(scope, element, attrs) {
 
-      scope.langModel = ''
-
       let required = false
 
       scope.languages = [
@@ -19,15 +17,13 @@
         languages: []
       }
 
-
       if ('required' in attrs) {
         required = true
       }
 
       scope.saveSection = () => {
-        scope.model.languages = scope.langModel
+        scope.proModel.languages = scope.model.languages
         scope.proceed()
-
       }
 
     }

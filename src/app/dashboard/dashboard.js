@@ -5,6 +5,7 @@
     vm.isSidebarOpen = false
     vm.isPending = false
 
+
     let _sidebar = $('.sidebar')
     _sidebar.perfectScrollbar()
 
