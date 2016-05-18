@@ -2,9 +2,7 @@
   function ConsultationRangeController($scope, ProfileApi, savedProfile) {
     let vm = this
 
-    vm.costModel = {
-      name=''
-    }
+    vm.costModel = {}
 
     vm.queue = {
       amountOfSteps: 3,

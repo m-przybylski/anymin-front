@@ -6,8 +6,9 @@ block content
       .currency-input-box
         pro-input(data-placeholder="{{placeholder | translate}}" data-pro-model="model.name" data-ng-class="{invalid: badName}")
       .currency-dropdown-box
-        pro-dropdown(data-pro-model='cost' data-label='Waluta' data-placeholder='PLN'
+        pro-dropdown(data-pro-model='model.name' data-label='Waluta' data-placeholder='PLN'
         data-pro-items="list" data-no-search)
-    p(data-translate="{{ (proModel / 1.25) | number}} {{summaryText}}")
+    span.summary-text {{((model.name / 1.25) | number)}}
+    span.summary-text(data-translate="{{ summaryText }}")
   .input-error-messages
     .error(data-translate="{{errorMessage}}" data-ng-show="badName")
