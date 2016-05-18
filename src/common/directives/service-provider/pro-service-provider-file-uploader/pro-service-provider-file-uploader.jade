@@ -5,7 +5,7 @@ block content
         pro-uploader(type="application/pdf,image/jpeg" files-uploaded="model.files" data-multiple)
         .document-submit(data-ng-show="model.files.length > 0")
             a.pro-btn.btn-main.btn-medium(data-ng-repeat="file in model.files track by $index" disable)
-                span {{ file.name }}
+                span {{ file.file.name }}
                 i.icon.icon-close-12(data-ng-click="removeFile(file)")
 
 

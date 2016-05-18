@@ -1,7 +1,14 @@
 extends ../../../templates/wizard/section-controlls.partial.jade
 
 block content
-  .step-content-column.pro-service-provider-avatar
+  .step-content-column.pro-service-provider-avatar(data-ng-click="onClick()")
     .upload-field-description
       p(data-translate="DASHBOARD.CREATE_PROFILE.FILE_PREVIEW")
-    pro-uploader(type="image/jpeg" files-uploaded="model.avatar" avatar)
+    pro-uploader(type="image/jpeg" files-uploaded="model.avatar" data-ng-hide="model.avatar.length")
+    .image-preview
+      .upload-field(data-ng-show="model.avatar.length")
+        img(data-ng-src="{{model.avatar[0].response.meta.downloadUrl}}")
+        .btn-handler(data-ng-show="queue.currentStep === order")
+          a.pro-btn.btn-light.btn-icon(data-ng-click="removeAvatar()")
+            i.icon.icon-trash-24.icon-24
+
