@@ -2,13 +2,21 @@
   function ConsultationRangeController($scope, ProfileApi, savedProfile) {
     let vm = this
 
-    vm.costModel = {}
+    vm.costModel = {
+      name='cost'
+    }
 
     vm.queue = {
       amountOfSteps: 3,
       currentStep: 3,
       completedSteps: 2
     }
+
+    vm.currency = [
+      {id: 1, name: 'PLN'},
+      {id: 2, name: 'USD'},
+      {id: 3, name: 'EUR'}
+    ]
 
     let _calculateProgressPercentage = () => {
       vm.progressBarWidth = Math.ceil(vm.queue.completedSteps / vm.queue.amountOfSteps * 100)

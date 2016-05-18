@@ -63,6 +63,8 @@
         trTitle: '@',
         trDesc: '@',
         placeholder: '@',
+        summaryText: '@',
+        list: '=',
         errorMessage: '@'
       },
       link: linkFunction,
