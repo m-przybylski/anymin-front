@@ -42,7 +42,8 @@
         order: '=?',
         proModel: '=',
         trTitle: '@',
-        trDesc: '@'
+        trDesc: '@',
+        placeholder: '@'
       },
       link: linkFunction,
       controller: 'ServiceProviderStepController',
