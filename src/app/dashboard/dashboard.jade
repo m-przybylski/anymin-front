@@ -14,6 +14,11 @@
                 .user-online
                   span 74
         .switcher
+          .onoffswitch
+            input(type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" data-ng-model="vm.userSwitcher" checked)
+            label(class="onoffswitch-label" for="myonoffswitch")
+          span(data-ng-if="vm.userSwitcher" data-translate="DASHBOARD.MENU.EXPERT")
+          span(data-ng-if="!vm.userSwitcher" data-translate="DASHBOARD.MENU.CLIENT")
         .menu-icon
           a.option-left
             i.icon.icon-menu-16
@@ -31,8 +36,5 @@
           a.option-left(data-ng-click="dashboardController.logout()")
             i.icon.icon-logout-24
         
-          
-  
-  //- .right-container(data-ng-class="{'slide-out':dashboardController.isSidebarOpen}")
   .right-container(data-ng-class="{'slide-out':dashboardController.isSidebarOpen}" )
     div(data-ui-view="")

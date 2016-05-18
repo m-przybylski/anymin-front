@@ -3,14 +3,12 @@
     let vm = this
 
     vm.isSidebarOpen = false
-
     vm.isPending = false
 
     let _sidebar = $('.sidebar')
     _sidebar.perfectScrollbar()
 
     vm.toogleSidebar=function() {
-      console.log('DUPA DUPA')
       vm.isSidebarOpen = !vm.isSidebarOpen
     }
 

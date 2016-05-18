@@ -1,0 +1,60 @@
+.summary-previous-step
+  background-color: $c-background-2
+  border-bottom: 1px solid $c-lines
+  padding: 12px 0
+  .summary-previous-step-content
+    width: 100%
+    margin: 0 auto
+    display: flex
+    padding: 24px 24px 0
+    flex-direction: row
+    flex-wrap: nowrap
+    justify-content: flex-start
+    align-content: center
+    align-items: center
+    +lgm
+      width: 1104px
+    .summary-previous-step-image
+      width: 100px
+      height: 100px
+      position: relative
+      overflow: hidden
+      +border-radius(100px)
+      img
+        position: absolute
+        top: 0%
+        left: 0%
+        max-width: 100px
+        max-height: 100px
+
+    .summary-previous-step-name
+      margin-left: 24px
+      width: 80%
+      margin-top: 12px
+      .summary-languages
+        display: flex
+        flex-direction: row
+        flex-wrap: nowrap
+        justify-content: flex-start
+        align-content: center
+        align-items: center
+        p
+          padding: 0 8px
+
+    .summary-previous-step-edit
+      .btn-light
+        background-color: $c-background-2
+        i
+          padding: 20px 0 15px
+
+  .summary-previous-step-description
+    position: relative
+    text-align: justify
+    padding: 24px 0 24px 50px
+    &::before
+      content: '"'
+      position: absolute
+      font-size: 100px
+      top: 15px
+      left: 0
+      color: $c-secondary

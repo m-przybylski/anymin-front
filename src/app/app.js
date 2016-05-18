@@ -28,7 +28,7 @@
     $httpProvider.defaults.withCredentials = true
 
     $animateProvider.classNameFilter(/animation/)
-    
+
     UserRolesProvider.setRoles(['anon', 'user', 'manager', 'admin'])
     UserRolesProvider.setAccessLevels({
       public      : '*',
@@ -210,8 +210,9 @@
     'profitelo.controller.dashboard.service-provider.choose-path',
     'profitelo.controller.dashboard.service-provider.individual-path',
     'profitelo.controller.dashboard.service-provider.company-path',
-    
-    
+    'profitelo.controller.dashboard.service-provider.consultation-range',
+
+
     'profitelo.controller.home',
     // 'profitelo.controller.expert-profile',
     'profitelo.controller.expert-progress',
