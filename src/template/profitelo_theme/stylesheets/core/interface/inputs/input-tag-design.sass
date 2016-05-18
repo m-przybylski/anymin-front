@@ -9,6 +9,7 @@
   position: relative
   cursor: pointer
   max-width: 100%
+  color: $c-primary-txt
   .ui-select-match
     background-color: $c-background
     outline: none
@@ -28,7 +29,6 @@
     .ui-select-choices
       margin: 0
       min-width: 101px
-      margin-left: -1px
       overflow-x: hidden !important
       .gm-scrollbar.-vertical
         background-color: transparent
@@ -65,12 +65,12 @@
   .btn-default-focus
     box-shadow: none
     background-color: $c-background
-  .ui-select-match
-    position: absolute
   .ui-select-match-item
     background-color: $c-primary-txt
-    padding: 3px 5px
-    margin-left: 6px
+    padding: 6px 4px
+    display: inline-flex
+    margin: -3px 3px 3px 0 !important
+    flex-direction: row-reverse
     +border-radius(0.3em)
     position: relative
     span
@@ -80,10 +80,11 @@
       padding-left: 6px
       font-size: 16px
     .ui-select-match-close
-      padding: 3px 3px 5px 0px
-      position: absolute
+      padding: 4px 5px 4px 4px
       left: 0
+      position: relative
       font-size: 16px
+      line-height: 0.55 !important
   .ui-select-placeholder
     padding-left: 10px
     color: $c-secondary-txt
