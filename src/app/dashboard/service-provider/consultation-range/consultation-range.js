@@ -3,7 +3,7 @@
     let vm = this
 
     vm.costModel = {
-      name='cost'
+      name=''
     }
 
     vm.queue = {

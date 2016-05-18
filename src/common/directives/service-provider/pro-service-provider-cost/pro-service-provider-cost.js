@@ -6,9 +6,7 @@
       scope.required = false
       scope.badName = false
 
-      scope.model = {
-        name: ''
-      }
+      scope.model = {}
 
 
       let _isValid = () => {
