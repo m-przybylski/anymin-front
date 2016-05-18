@@ -22,7 +22,7 @@
           vm.isPending = false
           proTopWaitingLoaderService.stopLoader()
           $state.go('app.login.set-new-password', {
-            token: vm.smsCode,
+            token: String(vm.smsCode),
             method: 'sms'
           })
         }, () => {
