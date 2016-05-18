@@ -38,23 +38,32 @@
         justify-content: flex-start
         align-content: center
         align-items: center
-        p
-          padding: 0 8px
+        margin: 16px 0
+        img
+          padding: 0 4px
+          max-height: 16px
 
     .summary-previous-step-edit
       .btn-light
         background-color: $c-background-2
+        &:hover
+          border: 2px solid $c-primary
         i
-          padding: 20px 0 15px
+          padding: 20px 0 13px
+          color: $c-primary
 
   .summary-previous-step-description
     position: relative
     text-align: justify
     padding: 24px 0 24px 50px
-    &::before
-      content: '"'
-      position: absolute
-      font-size: 100px
-      top: 15px
-      left: 0
-      color: $c-secondary
+    p
+      color: $c-secondary-txt
+
+
+  .summary-previous-step-quote
+    content: "\58"
+    position: absolute
+    font-size: 25px
+    top: 35px
+    left: 0
+    color: $c-secondary

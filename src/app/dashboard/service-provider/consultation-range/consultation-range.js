@@ -2,21 +2,12 @@
   function ConsultationRangeController($scope, ProfileApi, savedProfile) {
     let vm = this
 
-    let _updateMethod
-
-    if (savedProfile) {
-      _updateMethod = ProfileApi.putProfile
-    } else {
-      _updateMethod = ProfileApi.postProfile
-    }
-
-
-    vm.companyPathModel = {}
+    vm.costModel = {}
 
     vm.queue = {
       amountOfSteps: 3,
-      currentStep: 1,
-      completedSteps: 0
+      currentStep: 3,
+      completedSteps: 2
     }
 
     let _calculateProgressPercentage = () => {
@@ -29,16 +20,7 @@
     }, _calculateProgressPercentage)
 
     vm.saveAccountObject = () => {
-      _updateMethod({
-        id: User.getData('id'),
-        type: 'COMPANY',
-        expertDetails: {
-          firstName: vm.individualPathModel.name,
-          lastName: vm.individualPathModel.name,
-          description: vm.individualPathModel.description
-        }
-      }
-      )
+
     }
 
     return vm

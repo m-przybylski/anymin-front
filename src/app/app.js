@@ -199,6 +199,7 @@
     'profitelo.directives.pro-progress-bar',
     'profitelo.directives.pro-top-waiting-loader',
     'profitelo.directives.password-strength-bar',
+    'profitelo.directives.service-provider.pro-service-provider-cost',
 
     // directives - interface
     'profitelo.directives.interface.pro-input',
