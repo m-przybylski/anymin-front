@@ -1,8 +1,8 @@
 (function() {
-  function IndividualPathController($scope, ProfileApi, User, savedProfile) {
+  function IndividualPathController($scope, $state, ProfileApi, User, savedProfile, proTopAlertService) {
     let vm = this
 
-    let _profileTypes = $scope.$parent.serviceProviderController.profileTypes
+    let _profileType = $scope.$parent.serviceProviderController.profileTypes['INDIVIDUAL']
 
     vm.individualPathModel = {}
 
@@ -43,7 +43,7 @@
 
       _updateMethod({
         id: User.getData('id'),
-        type: _profileTypes['INDIVIDUAL'],
+        type: _profileType,
         expertDetails: {
           name: vm.individualPathModel.name,
           description: vm.individualPathModel.description,
@@ -52,6 +52,13 @@
           files: vm.individualPathModel.files,
           links: vm.individualPathModel.links
         }
+      }).$promise.then(() => {
+        $state.go('app.dashboard.service-provider.consultation-range')
+      }, () => {
+        proTopAlertService.error({
+          message: 'error',
+          timeout: 4
+        })
       })
     }
 
@@ -74,6 +81,7 @@
     'profitelo.directives.interface.pro-input',
     'profitelo.directives.pro-progress-bar',
     'profitelo.swaggerResources',
+    'profitelo.directives.pro-top-alert-service',
     'c7s.ng.userAuth'
   ])
   .config( function($stateProvider) {

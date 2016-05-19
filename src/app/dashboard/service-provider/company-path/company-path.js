@@ -1,6 +1,8 @@
 (function() {
-  function CompanyPathController($scope, ProfileApi, savedProfile) {
+  function CompanyPathController($scope, $state, ProfileApi, savedProfile, User, proTopAlertService) {
     let vm = this
+
+    let _profileType = $scope.$parent.serviceProviderController.profileTypes['COMPANY']
 
     let _updateMethod
 
@@ -9,7 +11,6 @@
     } else {
       _updateMethod = ProfileApi.postProfile
     }
-
 
     vm.companyPathModel = {}
 
@@ -31,14 +32,22 @@
     vm.saveAccountObject = () => {
       _updateMethod({
         id: User.getData('id'),
-        type: 'COMPANY',
+        type: _profileType,
         expertDetails: {
-          firstName: vm.individualPathModel.name,
-          lastName: vm.individualPathModel.name,
-          description: vm.individualPathModel.description
+          name: vm.companyPathModel.name,
+          avatar: vm.companyPathModel.avatar,
+          description: vm.companyPathModel.description,
+          files: vm.companyPathModel.files,
+          links: vm.companyPathModel.links
         }
-      }
-      )
+      }).$promise.then(() => {
+        $state.go('app.dashboard.service-provider.consultation-range')
+      }, () => {
+        proTopAlertService.error({
+          message: 'error',
+          timeout: 4
+        })
+      })
     }
 
     return vm
@@ -53,13 +62,14 @@
     'profitelo.directives.service-provider.pro-service-provider-languages',
     'profitelo.directives.service-provider.pro-bottom-summary-row',
     'profitelo.swaggerResources',
+    'profitelo.directives.pro-top-alert-service',
     'c7s.ng.userAuth'
   ])
-  .config( function($stateProvider) {
+  .config(function($stateProvider) {
     $stateProvider.state('app.dashboard.service-provider.company-path', {
-      url:          '/company-path',
-      templateUrl:  'dashboard/service-provider/company-path/company-path.tpl.html',
-      controller:   'CompanyPathController',
+      url: '/company-path',
+      templateUrl: 'dashboard/service-provider/company-path/company-path.tpl.html',
+      controller: 'CompanyPathController',
       controllerAs: 'vm',
       resolve: {
         savedProfile: ($q, ProfileApi, User) => {
