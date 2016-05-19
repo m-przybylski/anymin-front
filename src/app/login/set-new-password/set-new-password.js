@@ -1,6 +1,6 @@
 (function() {
 
-  function SetNewPasswordController($state, $filter, tokenStatus, passwordStrengthService, proTopWaitingLoaderService, proTopAlertService, RecoverPasswordApi, CommonSettingsService) {
+  function SetNewPasswordController($state, $filter, tokenStatus, passwordStrengthService, proTopAlertService, RecoverPasswordApi, CommonSettingsService) {
 
     let vm = this
     vm.patternPassword = CommonSettingsService.localSettings.passwordPattern
@@ -75,7 +75,10 @@
     'profitelo.directives.password-strength-service',
     'profitelo.services.resolvers.app.login.set-new-password',
     'profitelo.swaggerResources',
-    'profitelo.services.commonSettings'
+    'profitelo.services.commonSettings',
+    'profitelo.directives.interface.pro-alert',
+    'profitelo.directives.interface.pro-input-password',
+    'profitelo.directives.password-strength-bar'
   ])
   .config(config)
   .controller('SetNewPasswordController', SetNewPasswordController)

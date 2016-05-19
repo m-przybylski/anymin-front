@@ -1,5 +1,5 @@
 (function() {
-  function ForgotPasswordController($state, account, $filter, RecoverPasswordApi, proTopWaitingLoaderService, proTopAlertService, CommonSettingsService) {
+  function ForgotPasswordController($state, account, RecoverPasswordApi, proTopWaitingLoaderService, CommonSettingsService) {
 
     let vm = this
     vm.isPending = false
@@ -60,7 +60,8 @@
     'profitelo.swaggerResources',
     'profitelo.directives.pro-top-alert-service',
     'profitelo.directives.pro-top-waiting-loader-service',
-    'profitelo.services.commonSettings'
+    'profitelo.services.commonSettings',
+    'profitelo.directives.interface.pro-input'
   ])
   .config(config)
   .controller('ForgotPasswordController', ForgotPasswordController)

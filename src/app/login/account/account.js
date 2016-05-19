@@ -109,7 +109,11 @@
     'profitelo.directives.pro-top-alert-service',
     'profitelo.swaggerResources',
     'profitelo.directives.pro-top-waiting-loader-service',
-    'profitelo.services.commonSettings'
+    'profitelo.services.commonSettings',
+    'profitelo.directives.interface.pro-alert',
+    'profitelo.directives.interface.pro-input-password',
+    'profitelo.directives.interface.pro-dropdown',
+    'profitelo.directives.interface.pro-input'
   ])
   .config(config)
   .controller('AccountFormController', AccountFormController)

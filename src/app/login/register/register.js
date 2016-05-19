@@ -127,7 +127,12 @@
     'profitelo.directives.pro-top-waiting-loader-service',
     'profitelo.services.resolvers.app.login.register',
     'profitelo.swaggerResources',
-    'profitelo.services.commonSettings'
+    'profitelo.services.commonSettings',
+    'profitelo.directives.interface.pro-checkbox',
+    'profitelo.directives.interface.pro-alert',
+    'profitelo.directives.interface.pro-input-password',
+    'profitelo.directives.interface.pro-input',
+    'profitelo.directives.password-strength-bar',
   ])
   .config(config)
   .controller('RegisterController', RegisterController)

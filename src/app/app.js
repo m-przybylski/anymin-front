@@ -139,32 +139,16 @@
 
   angular.module('profitelo', [
     'pascalprecht.translate',
-    'angularMoment',
     'tmh.dynamicLocale',
     'ngAnimate',
-    'ngMessages',
-    'ngCookies',
-    'toastr',  // some parts depends on ngAnimate
-    'hellojs',
-    'ui.mask',
     'c7s.ng.userAuth',
-
 
     // modules
     'templates-module',
 
     // services
-    'profitelo.services.customTranslationHandler',
-    'profitelo.services.wizardSectionControl',
     'profitelo.services.interfaceLanguage',
-    'profitelo.directives.pro-top-waiting-loader-service',
-    'profitelo.directives.pro-top-alert-service',
-
-    // services - resolvers
-
-    'profitelo.services.resolvers.app.login.forgot-password',
-    'profitelo.services.resolvers.app.login.register',
-
+    'profitelo.services.customTranslationHandler',
     // controllers
     'profitelo.controller.dashboard',
     'profitelo.controller.dashboard.start',
@@ -181,7 +165,6 @@
     'profitelo.controller.dashboard.service-provider.company-path',
     'profitelo.controller.dashboard.service-provider.consultation-range',
 
-
     'profitelo.controller.home',
     // 'profitelo.controller.expert-profile',
     'profitelo.controller.expert-progress',
@@ -194,25 +177,7 @@
 
 
     // directives
-    'profitelo.directives.pro-expert-progress',
-    'profitelo.directives.pro-progress-box',
-    'profitelo.directives.pro-progress-bar',
     'profitelo.directives.pro-top-waiting-loader',
-    'profitelo.directives.password-strength-bar',
-
-    // directives - interface
-    'profitelo.directives.interface.pro-input',
-    'profitelo.directives.interface.pro-dropdown',
-    'profitelo.directives.interface.pro-input-password',
-    'profitelo.directives.interface.pro-calendar',
-    'profitelo.directives.interface.pro-uploader',
-    'profitelo.directives.interface.pro-alert',
-    'profitelo.directives.interface.pro-checkbox',
-    'profitelo.directives.interface.pro-tags-dropdown',
-    'profitelo.directives.interface.pro-textarea',
-
-    // rest
-    'profitelo.swaggerResources',
 
     // translations
     'profitelo.translations.en-us',

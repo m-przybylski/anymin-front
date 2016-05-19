@@ -68,6 +68,11 @@
     'profitelo.directives.service-provider.pro-service-provider-languages',
     'profitelo.directives.service-provider.pro-service-provider-file-uploader',
     'profitelo.directives.service-provider.pro-service-provider-avatar',
+    'profitelo.directives.interface.pro-textarea',
+    'profitelo.directives.interface.pro-tags-dropdown',
+    'profitelo.directives.interface.pro-alert',
+    'profitelo.directives.interface.pro-input',
+    'profitelo.directives.pro-progress-bar',
     'profitelo.swaggerResources',
     'c7s.ng.userAuth'
   ])
