@@ -132,7 +132,7 @@
     'profitelo.directives.interface.pro-alert',
     'profitelo.directives.interface.pro-input-password',
     'profitelo.directives.interface.pro-input',
-    'profitelo.directives.password-strength-bar',
+    'profitelo.directives.password-strength-bar'
   ])
   .config(config)
   .controller('RegisterController', RegisterController)
