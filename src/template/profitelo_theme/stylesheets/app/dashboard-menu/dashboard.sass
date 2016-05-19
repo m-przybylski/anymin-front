@@ -1,6 +1,7 @@
-.sidebar
+.dashboard-menu
   position: fixed
   overflow-y: auto
+  overflow-x: hidden
   background-color: $c-primary-txt
   max-width: 96px
   left: 0
@@ -22,13 +23,6 @@
     align-items: center
     text-align: left
     min-height: 100vh
-    .left-column-switcher
-      text-align: left
-      z-index: 11
-      position: fixed
-    .middle-row
-      width: 100%
-      float: left
     .top-row
       text-align: center
       width: 100%
@@ -74,7 +68,7 @@
               font-size: 12px
               +colfax-bold
               text-align: center
-              background-color: $c-primary
+              background-color: $c-secondary
               +border-radius(50%)
               position: absolute
               top: 3px
