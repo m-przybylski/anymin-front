@@ -32,6 +32,12 @@ function proTagsDropdown($timeout) {
 
     }
 
+    scope.onKeypress = (event)=> {
+      if ('disableTyping' in attr && event) {
+        event.preventDefault()
+      }
+    }
+
     scope.update = function() {
       _getScrollbarChoices().perfectScrollbar('destroy')
       $timeout(()=> {

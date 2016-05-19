@@ -1,6 +1,7 @@
 .input-tag-group( class="{{focus ? 'onFocus' : ''}} {{onClick ? 'onClick' : ''}}"  data-ng-mouseover="onMouseover()"
 data-ng-mouseleave="onMouseout()" data-ng-blur="focusout()")
-    ui-select(data-ng-model="proModel" data-tagging='tagTransform' multiple  data-theme="bootstrap" data-on-select="select($item, $model)" data-ng-click="openBar()")
+    ui-select(data-ng-model="proModel" data-tagging='tagTransform' multiple
+    data-theme="bootstrap" data-on-select="select($item, $model)" data-ng-click="openBar()" ng-keypress="onKeypress($event)"  )
         ui-select-match(placeholder="{{placeholder}}") {{$item.name}}
         ui-select-choices(data-repeat='item in (proItems | filter: $select.search) track by $index' )
             span(ng-bind='item.name')
