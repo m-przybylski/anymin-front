@@ -12,10 +12,10 @@
         .input-error-messages
             .error.left(data-ng-show="smsCodeForm.$submitted && smsCodeForm.$invalid ||vm.serverError" data-translate="REGISTER.CODE_REQUIRED")
 
-        pro-checkgit box(id="acceptRules"
+        pro-checkbox(id="acceptRules"
         data-pro-model="vm.rulesAccepted"
         data-label="{{'LOGIN.ACCEPT_RULES' | translate}}"
-        data-name="acceptRules",
+        data-name="acceptRules"
         data-ng-class="{'invalid': !vm.rulesAccepted && smsCodeForm.$submitted}"
         required)
 
