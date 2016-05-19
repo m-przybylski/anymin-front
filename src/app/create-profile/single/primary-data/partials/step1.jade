@@ -1,0 +1,16 @@
+.step.step-done
+  .title-step
+    .title-order
+      h3(data-translate="DASHBOARD.CREATE_PROFILE.STEP1_CHOOSE_PROFILE_TITLE")
+      p(data-translate="DASHBOARD.CREATE_PROFILE.STEP1_CHOOSE_PROFILE_DESCRIPTION")
+    div
+      .step-description
+        h5(data-translate="DASHBOARD.CREATE_PROFILE.STEP")
+        i.icon.icon-success-24
+  .step-content
+    .option(ng-class="{'selected': vm.isSet(1)}" ng-click="vm.setTab(1)")
+      i.icon.icon-person-128
+      h5(data-translate="DASHBOARD.MENU.STEP1_ONE_PERSON")
+    .option(ng-class="{'selected': vm.isSet(2)}" ng-click="vm.setTab(2)")
+      i.icon.icon-multiperson-128
+      h5(data-translate="DASHBOARD.CREATE_PROFILE.STEP1_MORE_PERSON")

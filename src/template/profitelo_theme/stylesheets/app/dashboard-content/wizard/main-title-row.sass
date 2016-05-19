@@ -1,0 +1,44 @@
+.title-row
+  padding: 24px 12px
+  text-transform: uppercase
+  border-bottom: 1px solid $c-lines
+  display: flex
+  flex-direction: row
+  flex-wrap: nowrap
+  justify-content: space-between
+  align-content: center
+  align-items: center
+  height: 96px
+  +mdm
+    padding: 24px 24px
+  .title
+    h2
+      text-align: center
+      font-size: 23px
+      color: $c-primary-txt
+      +colfax-bold
+      line-height: 22px
+  .close-button
+    margin-left: 0px
+    i
+      color: $c-secondary
+    a
+      text-decoration: none
+      background-color: $c-white
+      +border-radius(50px)
+      &:hover
+        background-color: $c-background
+        border: 2px solid $c-secondary
+        +transition('all 0.1s ease-in-out 0s')
+    .btn-light
+      display: flex
+      flex-direction: row
+      flex-wrap: nowrap
+      justify-content: center
+      align-content: flex-start
+      align-items: center
+      padding-top: 19px
+      i
+        font-size: 16px
+        &:hover
+          padding: -2px
