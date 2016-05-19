@@ -1,8 +1,8 @@
-describe('Unit tests: CompanyPathController >', () => {
-  describe('Testing Controller: CompanyPathController', () => {
+describe('Unit tests: ConsultationRangeController >', () => {
+  describe('Testing Controller: ConsultationRangeController', () => {
 
-    var CompanyPathController
-    let scope
+    var ConsultationRangeController
+    let _scope
     let url = 'awesomeUrl/'
 
     beforeEach(module(function($provide) {
@@ -10,11 +10,13 @@ describe('Unit tests: CompanyPathController >', () => {
     }))
 
     beforeEach(() => {
-      module('profitelo.controller.dashboard.service-provider.company-path')
+      module('profitelo.controller.dashboard.service-provider.consultation-range')
       inject(($rootScope, $controller, _ProfileApi_) => {
-        scope = $rootScope.$new()
-        CompanyPathController = $controller('CompanyPathController', {
-          $scope: scope,
+
+        _scope = $rootScope.$new()
+
+        ConsultationRangeController = $controller('ConsultationRangeController', {
+          $scope: _scope,
           ProfileApi: _ProfileApi_,
           savedProfile: {}
         })
@@ -23,7 +25,7 @@ describe('Unit tests: CompanyPathController >', () => {
     })
 
     it('should exists', () => {
-      return expect(!!CompanyPathController).toBe(true)
+      return expect(!!ConsultationRangeController).toBe(true)
     })
 
   })

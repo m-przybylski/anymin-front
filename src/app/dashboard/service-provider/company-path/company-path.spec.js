@@ -2,7 +2,7 @@ describe('Unit tests: CompanyPathController >', () => {
   describe('Testing Controller: CompanyPathController', () => {
 
     var CompanyPathController
-    let scope
+    let _scope
     let url = 'awesomeUrl/'
 
     beforeEach(module(function($provide) {
@@ -12,9 +12,18 @@ describe('Unit tests: CompanyPathController >', () => {
     beforeEach(() => {
       module('profitelo.controller.dashboard.service-provider.company-path')
       inject(($rootScope, $controller, _ProfileApi_) => {
-        scope = $rootScope.$new()
+
+        _scope = $rootScope.$new()
+
+        _scope.$parent.serviceProviderController = {
+          profileTypes: {
+            'INDIVIDUAL': 'INDIVIDUAL',
+            'COMPANY': 'COMPANY'
+          }
+        }
+
         CompanyPathController = $controller('CompanyPathController', {
-          $scope: scope,
+          $scope: _scope,
           ProfileApi: _ProfileApi_,
           savedProfile: {}
         })

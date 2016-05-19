@@ -15,7 +15,6 @@
       i.icon.icon-multiperson-128
       h5(data-translate="DASHBOARD.CREATE_PROFILE.STEP1_MORE_PERSON")
 
-
 pro-service-provider-name(
 data-queue="vm.queue"
 data-order="2"
@@ -27,11 +26,10 @@ tr-desc="DASHBOARD.CREATE_PROFILE.STEP2_DESCRIPTION"
 required
 )
 
-
 pro-service-provider-avatar(
 data-queue="vm.queue"
 data-order="3"
-data-pro-model="vm.individualPathModel"
+data-pro-model="vm.companyPathModel"
 tr-title="DASHBOARD.CREATE_PROFILE.STEP3_TITLE"
 tr-desc="DASHBOARD.CREATE_PROFILE.STEP3_DESCRIPTION"
 required
@@ -49,7 +47,7 @@ required
 pro-service-provider-file-uploader(
 data-queue="vm.queue"
 data-order="5"
-data-pro-model="vm.individualPathModel"
+data-pro-model="vm.companyPathModel"
 tr-title="DASHBOARD.CREATE_PROFILE.FILE_UPLOADER_TITLE"
 tr-desc="DASHBOARD.CREATE_PROFILE.FILE_UPLOADER_DESCRIPTION"
 )
@@ -66,4 +64,5 @@ pro-bottom-summary-row(
 data-width="vm.progressBarWidth"
 data-queue="vm.queue"
 data-button-action="vm.saveAccountObject"
+data-order="7"
 )

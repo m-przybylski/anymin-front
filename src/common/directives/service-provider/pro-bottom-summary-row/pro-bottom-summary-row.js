@@ -13,10 +13,12 @@
       templateUrl: 'directives/service-provider/pro-bottom-summary-row/pro-bottom-summary-row.tpl.html',
       scope: {
         queue: '=',
+        order: '=?',
         width: '=',
         buttonAction: '='
       },
-      link: linkFunction
+      link: linkFunction,
+      controller: 'ServiceProviderStepController'
     }
   }
 
