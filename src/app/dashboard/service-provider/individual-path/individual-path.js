@@ -2,6 +2,8 @@
   function IndividualPathController($scope, ProfileApi, User, savedProfile) {
     let vm = this
 
+    let _profileTypes = $scope.$parent.serviceProviderController.profileTypes
+
     vm.individualPathModel = {}
 
     vm.queue = {
@@ -38,17 +40,19 @@
       } else {
         _updateMethod = ProfileApi.postProfile
       }
-      
+
       _updateMethod({
         id: User.getData('id'),
-        type: 'INDIVIDUAL',
+        type: _profileTypes['INDIVIDUAL'],
         expertDetails: {
-          firstName: vm.individualPathModel.name,
-          lastName: vm.individualPathModel.name,
-          description: vm.individualPathModel.description
+          name: vm.individualPathModel.name,
+          description: vm.individualPathModel.description,
+          avatar: vm.individualPathModel.avatar,
+          languages: vm.individualPathModel.languages,
+          files: vm.individualPathModel.files,
+          links: vm.individualPathModel.links
         }
-      }
-      )
+      })
     }
 
     return vm
@@ -64,6 +68,11 @@
     'profitelo.directives.service-provider.pro-service-provider-languages',
     'profitelo.directives.service-provider.pro-service-provider-file-uploader',
     'profitelo.directives.service-provider.pro-service-provider-avatar',
+    'profitelo.directives.interface.pro-textarea',
+    'profitelo.directives.interface.pro-tags-dropdown',
+    'profitelo.directives.interface.pro-alert',
+    'profitelo.directives.interface.pro-input',
+    'profitelo.directives.pro-progress-bar',
     'profitelo.swaggerResources',
     'c7s.ng.userAuth'
   ])

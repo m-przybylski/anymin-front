@@ -76,7 +76,8 @@
     'ui.router',
     'profitelo.directives.pro-top-alert-service',
     'profitelo.swaggerResources',
-    'c7s.ng.userAuth'
+    'c7s.ng.userAuth',
+    'profitelo.directives.interface.pro-alert'
   ])
   .config(config)
 

@@ -16,6 +16,13 @@ describe('Unit tests: IndividualPathController >', () => {
 
         _scope = $rootScope.$new()
 
+        _scope.$parent.serviceProviderController = {
+          profileTypes: {
+            'INDIVIDUAL': 'INDIVIDUAL',
+            'COMPANY': 'COMPANY'
+          }
+        }
+
         IndividualPathController = $controller('IndividualPathController', {
           $scope: _scope,
           ProfileApi: _ProfileApi_,

@@ -3,7 +3,7 @@
     
     let vm = this
 
-    let shadowModel
+    let shadowModel = null
 
     function saveShadowModel() {
       shadowModel = angular.copy($scope.model)
@@ -11,6 +11,7 @@
 
     function restoreShadowModel() {
       $scope.model = angular.copy(shadowModel)
+      shadowModel = null
     }
     
     let _manualOrderChangeRequestHandle = (targetStep) => {
@@ -22,8 +23,16 @@
       if ($scope.queue.completedSteps < $scope.order) {
         $scope.queue.completedSteps = $scope.order
       }
+
       $scope.queue.currentStep = $scope.order + 1
 
+    }
+    
+    $scope.skip = () => {
+      if (shadowModel !== null) {
+        restoreShadowModel()
+      }
+      $scope.proceed()
     }
     
     $scope.onClick = () => {

@@ -2,6 +2,12 @@
   function ServiceProviderController() {
     let vm = this
 
+    vm.profileTypes = {
+      'INDIVIDUAL': 'INDIVIDUAL',
+      'COMPANY': 'COMPANY'
+    }
+    
+    
     return vm
   }
 

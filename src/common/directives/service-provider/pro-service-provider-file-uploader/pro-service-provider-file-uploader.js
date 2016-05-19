@@ -30,7 +30,9 @@
       scope.saveSection = () => {
         _isValid().then(() => {
           scope.proceed()
-
+          scope.proModel.files = scope.model.files.map((file) => {
+            return file.response.id
+          })
         }, () => {
           console.log('not valid')
         })
