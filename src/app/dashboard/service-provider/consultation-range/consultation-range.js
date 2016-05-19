@@ -6,8 +6,8 @@
 
     vm.queue = {
       amountOfSteps: 3,
-      currentStep: 3,
-      completedSteps: 2
+      currentStep: 1,
+      completedSteps: 0
     }
 
     vm.currency = [
