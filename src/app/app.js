@@ -152,12 +152,6 @@
     // controllers
     'profitelo.controller.dashboard',
     'profitelo.controller.dashboard.start',
-    'profitelo.controller.dashboard.company-profile',
-    'profitelo.controller.dashboard.single-profile',
-    'profitelo.controller.dashboard.cost-data',
-    'profitelo.controller.dashboard.company-cost-data',
-    'profitelo.controller.dashboard.summary',
-    'profitelo.controller.dashboard.company-summary',
 
     'profitelo.controller.dashboard.service-provider',
     'profitelo.controller.dashboard.service-provider.choose-path',
