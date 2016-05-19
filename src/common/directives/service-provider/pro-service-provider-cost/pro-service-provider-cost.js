@@ -74,7 +74,8 @@
   angular.module('profitelo.directives.service-provider.pro-service-provider-cost', [
     'lodash',
     'pascalprecht.translate',
-    'profitelo.common.controller.service-provider.service-provider-step-controller'
+    'profitelo.common.controller.service-provider.service-provider-step-controller',
+    'profitelo.directives.service-provider.pro-service-provider-cost'
   ])
   .directive('proServiceProviderCost', proServiceProviderCost)
 }())
