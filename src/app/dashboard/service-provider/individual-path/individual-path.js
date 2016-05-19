@@ -2,6 +2,8 @@
   function IndividualPathController($scope, ProfileApi, User, savedProfile) {
     let vm = this
 
+    let _profileTypes = $scope.$parent.serviceProviderController.profileTypes
+
     vm.individualPathModel = {}
 
     vm.queue = {
@@ -38,17 +40,19 @@
       } else {
         _updateMethod = ProfileApi.postProfile
       }
-      
+
       _updateMethod({
         id: User.getData('id'),
-        type: 'INDIVIDUAL',
+        type: _profileTypes['INDIVIDUAL'],
         expertDetails: {
-          firstName: vm.individualPathModel.name,
-          lastName: vm.individualPathModel.name,
-          description: vm.individualPathModel.description
+          name: vm.individualPathModel.name,
+          description: vm.individualPathModel.description,
+          avatar: vm.individualPathModel.avatar,
+          languages: vm.individualPathModel.languages,
+          files: vm.individualPathModel.files,
+          links: vm.individualPathModel.links
         }
-      }
-      )
+      })
     }
 
     return vm
