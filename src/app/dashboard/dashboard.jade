@@ -2,7 +2,7 @@
   a.pro-btn.btn-main.btn-small.menu-toogle(data-ng-click="dashboardController.toogleSidebar()")
     i.icon.icon-menu-16
   .dashboard-menu(data-ng-swipe-left="dashboardController.toogleSidebar()")
-    .left-column
+    .main-column
       .top-row
         a(data-ui-sref="app.dashboard.start")
           .logo
@@ -12,7 +12,7 @@
               img(src='assets/images/John_Doe.jpg' alt='user-avatar')
               .user-status
                 .user-online
-                  span 74
+                  span 15
         .switcher
           .onoffswitch
             input(type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" data-ng-model="vm.userSwitcher" checked)
@@ -35,6 +35,8 @@
         .logout-icon
           a.option-left(data-ng-click="dashboardController.logout()")
             i.icon.icon-logout-24
-        
+            
+            
+          
   .right-container(data-ng-class="{'slide-out':dashboardController.isSidebarOpen}" )
     div(data-ui-view="")
