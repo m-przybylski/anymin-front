@@ -58,21 +58,8 @@
 
           /**
           * @ngdoc method
-          * @name .1.method:postRecoverPasswordVerifyMsisdn
+          * @name .1.method:postRecoverPasswordVerifyEmail
           * @methodOf .1
-          * @description
-          * Verify Msisdn token
-          **/
-
-          'postRecoverPasswordVerifyMsisdn': angular.extend({
-            method: 'POST',
-            url: apiUrl + '/recover-password/verify/msisdn',
-          }, $resourceActionConfig('1', 'postRecoverPasswordVerifyMsisdn')),
-
-          /**
-          * @ngdoc method
-          * @name .2.method:postRecoverPasswordVerifyEmail
-          * @methodOf .2
           * @description
           * Verify email token
           **/
@@ -80,7 +67,20 @@
           'postRecoverPasswordVerifyEmail': angular.extend({
             method: 'POST',
             url: apiUrl + '/recover-password/verify/email',
-          }, $resourceActionConfig('2', 'postRecoverPasswordVerifyEmail')),
+          }, $resourceActionConfig('1', 'postRecoverPasswordVerifyEmail')),
+
+          /**
+          * @ngdoc method
+          * @name .2.method:postRecoverPasswordVerifyMsisdn
+          * @methodOf .2
+          * @description
+          * Verify Msisdn token
+          **/
+
+          'postRecoverPasswordVerifyMsisdn': angular.extend({
+            method: 'POST',
+            url: apiUrl + '/recover-password/verify/msisdn',
+          }, $resourceActionConfig('2', 'postRecoverPasswordVerifyMsisdn')),
 
           /**
           * @ngdoc method
@@ -262,11 +262,11 @@
         });
       }];
     })
-        .provider('MsisdnApi', function() {
+        .provider('RegistrationApi', function() {
 
       /**
       * @ngdoc service
-      * @name .Msisdn
+      * @name .Registration
       * @requires $resource
       * @requires apiUrl
       **/
@@ -276,16 +276,16 @@
 
           /**
           * @ngdoc method
-          * @name .0.method:addPath
+          * @name .0.method:confirmVerification
           * @methodOf .0
           * @description
-          * Add new msisdn
+          * Confirm msisdn verification
           **/
 
-          'addPath': angular.extend({
+          'confirmVerification': angular.extend({
             method: 'POST',
-            url: apiUrl + '/msisdns',
-          }, $resourceActionConfig('0', 'addPath')),
+            url: apiUrl + '/msisdns/code',
+          }, $resourceActionConfig('0', 'confirmVerification')),
 
           /**
           * @ngdoc method
@@ -302,21 +302,87 @@
 
           /**
           * @ngdoc method
-          * @name .2.method:confirmVerification
+          * @name .2.method:verifyVerification
           * @methodOf .2
+          * @description
+          * Confirm msisdn verification
+          **/
+
+          'verifyVerification': angular.extend({
+            method: 'POST',
+            url: apiUrl + '/msisdns/verify/code',
+          }, $resourceActionConfig('2', 'verifyVerification')),
+        });
+      }];
+    })
+        .provider('MsisdnApi', function() {
+
+      /**
+      * @ngdoc service
+      * @name .Msisdn
+      * @requires $resource
+      * @requires apiUrl
+      **/
+
+      this.$get = ['$resource', 'apiUrl', '$resourceActionConfig', function($resource, apiUrl, $resourceActionConfig) {
+        return $resource(null, null, {
+
+          /**
+          * @ngdoc method
+          * @name .0.method:confirmVerification
+          * @methodOf .0
           * @description
           * Confirm msisdn verification
           **/
 
           'confirmVerification': angular.extend({
             method: 'POST',
-            url: apiUrl + '/msisdns/verify/code',
-          }, $resourceActionConfig('2', 'confirmVerification')),
+            url: apiUrl + '/msisdns/code',
+          }, $resourceActionConfig('0', 'confirmVerification')),
 
           /**
           * @ngdoc method
-          * @name .3.method:patchPath
+          * @name .1.method:addPath
+          * @methodOf .1
+          * @description
+          * Add new msisdn
+          **/
+
+          'addPath': angular.extend({
+            method: 'POST',
+            url: apiUrl + '/msisdns',
+          }, $resourceActionConfig('1', 'addPath')),
+
+          /**
+          * @ngdoc method
+          * @name .2.method:requestVerification
+          * @methodOf .2
+          * @description
+          * Request msisdn verification
+          **/
+
+          'requestVerification': angular.extend({
+            method: 'POST',
+            url: apiUrl + '/msisdns/verify',
+          }, $resourceActionConfig('2', 'requestVerification')),
+
+          /**
+          * @ngdoc method
+          * @name .3.method:verifyVerification
           * @methodOf .3
+          * @description
+          * Confirm msisdn verification
+          **/
+
+          'verifyVerification': angular.extend({
+            method: 'POST',
+            url: apiUrl + '/msisdns/verify/code',
+          }, $resourceActionConfig('3', 'verifyVerification')),
+
+          /**
+          * @ngdoc method
+          * @name .4.method:patchPath
+          * @methodOf .4
           * @description
           * Update status msisdn
           **/
@@ -327,12 +393,12 @@
             params: {
               'msisdnId': '@msisdnId',
             },
-          }, $resourceActionConfig('3', 'patchPath')),
+          }, $resourceActionConfig('4', 'patchPath')),
 
           /**
           * @ngdoc method
-          * @name .4.method:deletePath
-          * @methodOf .4
+          * @name .5.method:deletePath
+          * @methodOf .5
           * @description
           * Delete msisdn
           **/
@@ -343,12 +409,12 @@
             params: {
               'msisdnId': '@msisdnId',
             },
-          }, $resourceActionConfig('4', 'deletePath')),
+          }, $resourceActionConfig('5', 'deletePath')),
 
           /**
           * @ngdoc method
-          * @name .5.method:updatePath
-          * @methodOf .5
+          * @name .6.method:updatePath
+          * @methodOf .6
           * @description
           * Update msisdn
           **/
@@ -359,12 +425,12 @@
             params: {
               'msisdnId': '@msisdnId',
             },
-          }, $resourceActionConfig('5', 'updatePath')),
+          }, $resourceActionConfig('6', 'updatePath')),
 
           /**
           * @ngdoc method
-          * @name .6.method:detailsPath
-          * @methodOf .6
+          * @name .7.method:detailsPath
+          * @methodOf .7
           * @description
           * Get Details of msisdn
           **/
@@ -375,47 +441,7 @@
             params: {
               'msisdnId': '@msisdnId',
             },
-          }, $resourceActionConfig('6', 'detailsPath')),
-        });
-      }];
-    })
-        .provider('RegistrationApi', function() {
-
-      /**
-      * @ngdoc service
-      * @name .Registration
-      * @requires $resource
-      * @requires apiUrl
-      **/
-
-      this.$get = ['$resource', 'apiUrl', '$resourceActionConfig', function($resource, apiUrl, $resourceActionConfig) {
-        return $resource(null, null, {
-
-          /**
-          * @ngdoc method
-          * @name .0.method:requestVerification
-          * @methodOf .0
-          * @description
-          * Request msisdn verification
-          **/
-
-          'requestVerification': angular.extend({
-            method: 'POST',
-            url: apiUrl + '/msisdns/verify',
-          }, $resourceActionConfig('0', 'requestVerification')),
-
-          /**
-          * @ngdoc method
-          * @name .1.method:confirmVerification
-          * @methodOf .1
-          * @description
-          * Confirm msisdn verification
-          **/
-
-          'confirmVerification': angular.extend({
-            method: 'POST',
-            url: apiUrl + '/msisdns/verify/code',
-          }, $resourceActionConfig('1', 'confirmVerification')),
+          }, $resourceActionConfig('7', 'detailsPath')),
         });
       }];
     })

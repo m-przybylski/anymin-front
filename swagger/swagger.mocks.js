@@ -8,8 +8,8 @@
         .module(moduleName, ['ngMockE2E'])
         .run(['apiUrl', '$httpBackend', function(apiUrl, $httpBackend) {
                 $httpBackend.whenPOST(apiUrl + '/recover-password').respond();
-                $httpBackend.whenPOST(apiUrl + '/recover-password/verify/msisdn').respond();
                 $httpBackend.whenPOST(apiUrl + '/recover-password/verify/email').respond();
+                $httpBackend.whenPOST(apiUrl + '/recover-password/verify/msisdn').respond();
                 $httpBackend.whenPUT(apiUrl + '/recover-password/email').respond();
                 $httpBackend.whenPUT(apiUrl + '/recover-password/msisdn').respond();
                 $httpBackend.whenGET(apiUrl + '/profiles/:profileId/gallery').respond();
@@ -21,6 +21,10 @@
                 $httpBackend.whenGET(apiUrl + '/files/token').respond();
                 $httpBackend.whenGET(apiUrl + '/profiles/:profileId/covers').respond();
                 $httpBackend.whenPOST(apiUrl + '/files/:token/upload').respond();
+                $httpBackend.whenPOST(apiUrl + '/msisdns/code').respond();
+                $httpBackend.whenPOST(apiUrl + '/msisdns/verify').respond();
+                $httpBackend.whenPOST(apiUrl + '/msisdns/verify/code').respond();
+                $httpBackend.whenPOST(apiUrl + '/msisdns/code').respond();
                 $httpBackend.whenPOST(apiUrl + '/msisdns').respond();
                 $httpBackend.whenPOST(apiUrl + '/msisdns/verify').respond();
                 $httpBackend.whenPOST(apiUrl + '/msisdns/verify/code').respond();
@@ -28,8 +32,6 @@
                 $httpBackend.whenDELETE(apiUrl + '/msisdns/:msisdnId').respond();
                 $httpBackend.whenPUT(apiUrl + '/msisdns/:msisdnId').respond();
                 $httpBackend.whenGET(apiUrl + '/msisdns/:msisdnId').respond();
-                $httpBackend.whenPOST(apiUrl + '/msisdns/verify').respond();
-                $httpBackend.whenPOST(apiUrl + '/msisdns/verify/code').respond();
                 $httpBackend.whenPOST(apiUrl + '/accounts').respond();
                 $httpBackend.whenGET(apiUrl + '/accounts').respond();
                 $httpBackend.whenPOST(apiUrl + '/accounts/confirm/email/:token').respond();

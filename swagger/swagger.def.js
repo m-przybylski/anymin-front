@@ -30,21 +30,8 @@
 
           /**
           * @ngdoc method
-          * @name .1.method:postRecoverPasswordVerifyMsisdn
+          * @name .1.method:postRecoverPasswordVerifyEmail
           * @methodOf .1
-          * @description
-          * Verify Msisdn token
-          **/
-
-          'postRecoverPasswordVerifyMsisdn': {
-            method: 'POST',
-            url: apiUrl + '/recover-password/verify/msisdn',
-          },
-
-          /**
-          * @ngdoc method
-          * @name .2.method:postRecoverPasswordVerifyEmail
-          * @methodOf .2
           * @description
           * Verify email token
           **/
@@ -52,6 +39,19 @@
           'postRecoverPasswordVerifyEmail': {
             method: 'POST',
             url: apiUrl + '/recover-password/verify/email',
+          },
+
+          /**
+          * @ngdoc method
+          * @name .2.method:postRecoverPasswordVerifyMsisdn
+          * @methodOf .2
+          * @description
+          * Verify Msisdn token
+          **/
+
+          'postRecoverPasswordVerifyMsisdn': {
+            method: 'POST',
+            url: apiUrl + '/recover-password/verify/msisdn',
           },
 
           /**
@@ -231,24 +231,24 @@
     }])
         /**
       * @ngdoc service
-      * @name .Msisdn
+      * @name .Registration
       * @requires $resource
       * @requires apiUrl
       **/
-    .service('MsisdnApiDef', ['apiUrl', function(apiUrl) {
+    .service('RegistrationApiDef', ['apiUrl', function(apiUrl) {
         return {
 
           /**
           * @ngdoc method
-          * @name .0.method:addPath
+          * @name .0.method:confirmVerification
           * @methodOf .0
           * @description
-          * Add new msisdn
+          * Confirm msisdn verification
           **/
 
-          'addPath': {
+          'confirmVerification': {
             method: 'POST',
-            url: apiUrl + '/msisdns',
+            url: apiUrl + '/msisdns/code',
           },
 
           /**
@@ -266,21 +266,83 @@
 
           /**
           * @ngdoc method
-          * @name .2.method:confirmVerification
+          * @name .2.method:verifyVerification
           * @methodOf .2
+          * @description
+          * Confirm msisdn verification
+          **/
+
+          'verifyVerification': {
+            method: 'POST',
+            url: apiUrl + '/msisdns/verify/code',
+          }
+        };
+    }])
+        /**
+      * @ngdoc service
+      * @name .Msisdn
+      * @requires $resource
+      * @requires apiUrl
+      **/
+    .service('MsisdnApiDef', ['apiUrl', function(apiUrl) {
+        return {
+
+          /**
+          * @ngdoc method
+          * @name .0.method:confirmVerification
+          * @methodOf .0
           * @description
           * Confirm msisdn verification
           **/
 
           'confirmVerification': {
             method: 'POST',
+            url: apiUrl + '/msisdns/code',
+          },
+
+          /**
+          * @ngdoc method
+          * @name .1.method:addPath
+          * @methodOf .1
+          * @description
+          * Add new msisdn
+          **/
+
+          'addPath': {
+            method: 'POST',
+            url: apiUrl + '/msisdns',
+          },
+
+          /**
+          * @ngdoc method
+          * @name .2.method:requestVerification
+          * @methodOf .2
+          * @description
+          * Request msisdn verification
+          **/
+
+          'requestVerification': {
+            method: 'POST',
+            url: apiUrl + '/msisdns/verify',
+          },
+
+          /**
+          * @ngdoc method
+          * @name .3.method:verifyVerification
+          * @methodOf .3
+          * @description
+          * Confirm msisdn verification
+          **/
+
+          'verifyVerification': {
+            method: 'POST',
             url: apiUrl + '/msisdns/verify/code',
           },
 
           /**
           * @ngdoc method
-          * @name .3.method:patchPath
-          * @methodOf .3
+          * @name .4.method:patchPath
+          * @methodOf .4
           * @description
           * Update status msisdn
           **/
@@ -295,8 +357,8 @@
 
           /**
           * @ngdoc method
-          * @name .4.method:deletePath
-          * @methodOf .4
+          * @name .5.method:deletePath
+          * @methodOf .5
           * @description
           * Delete msisdn
           **/
@@ -311,8 +373,8 @@
 
           /**
           * @ngdoc method
-          * @name .5.method:updatePath
-          * @methodOf .5
+          * @name .6.method:updatePath
+          * @methodOf .6
           * @description
           * Update msisdn
           **/
@@ -327,8 +389,8 @@
 
           /**
           * @ngdoc method
-          * @name .6.method:detailsPath
-          * @methodOf .6
+          * @name .7.method:detailsPath
+          * @methodOf .7
           * @description
           * Get Details of msisdn
           **/
@@ -339,42 +401,6 @@
             params: {
               'msisdnId': '@msisdnId',
             },
-          }
-        };
-    }])
-        /**
-      * @ngdoc service
-      * @name .Registration
-      * @requires $resource
-      * @requires apiUrl
-      **/
-    .service('RegistrationApiDef', ['apiUrl', function(apiUrl) {
-        return {
-
-          /**
-          * @ngdoc method
-          * @name .0.method:requestVerification
-          * @methodOf .0
-          * @description
-          * Request msisdn verification
-          **/
-
-          'requestVerification': {
-            method: 'POST',
-            url: apiUrl + '/msisdns/verify',
-          },
-
-          /**
-          * @ngdoc method
-          * @name .1.method:confirmVerification
-          * @methodOf .1
-          * @description
-          * Confirm msisdn verification
-          **/
-
-          'confirmVerification': {
-            method: 'POST',
-            url: apiUrl + '/msisdns/verify/code',
           }
         };
     }])

@@ -23,7 +23,7 @@
     })
   }
 
-  function configFunction($urlRouterProvider, $httpProvider, $stateProvider, $resourceProvider, $translateProvider, $locationProvider, $animateProvider, tmhDynamicLocaleProvider, toastrConfig, UserProvider, UserRolesProvider, apiUrl) {
+  function configFunction($urlRouterProvider, $httpProvider, $stateProvider, $resourceProvider, $translateProvider, $locationProvider, $animateProvider, tmhDynamicLocaleProvider, UserProvider, UserRolesProvider, apiUrl) {
 
     $httpProvider.defaults.withCredentials = true
 
