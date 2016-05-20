@@ -41,7 +41,7 @@
         
       }
 
-      if (stateParams.token.length === '') {
+      if (stateParams.token.length === 0) {
         _deferred.reject()
 
         proTopAlertService.warning({
