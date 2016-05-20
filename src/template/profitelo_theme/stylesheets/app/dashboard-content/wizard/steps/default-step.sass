@@ -1,6 +1,9 @@
+
 .step
   color: $c-lines
   width: 100%
+  position: relative
+  z-index: 1
   +lgm
     width: 1104px
   margin: 0 auto
@@ -10,6 +13,13 @@
   h3
     color: $c-lines
     +colfax
+  .focus-layer
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    z-index: 999
   .title-step
     width: 100%
     display: flex
@@ -54,8 +64,6 @@
     &.done
       i, p
         color: $c-success
-
-
   .step-content-column
     margin-top: 24px
     .input-group
