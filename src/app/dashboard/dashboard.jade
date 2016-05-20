@@ -16,9 +16,9 @@
         .switcher
           .onoffswitch
             input(type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" data-ng-model="vm.userSwitcher" checked)
-            label(class="onoffswitch-label" for="myonoffswitch")
-          span(data-ng-if="vm.userSwitcher" data-translate="DASHBOARD.MENU.EXPERT")
-          span(data-ng-if="!vm.userSwitcher" data-translate="DASHBOARD.MENU.CLIENT")
+            label(class="onoffswitch-label" for="myonoffswitch" data-ng-click="dashboardController.changeAccount()")
+          span(data-ng-show="dashboardController.switchUser == true" data-translate="DASHBOARD.MENU.EXPERT")
+          span(data-ng-show="dashboardController.switchUser == false" data-translate="DASHBOARD.MENU.CLIENT")
         .menu-icon
           a.option-left
             i.icon.icon-menu-16

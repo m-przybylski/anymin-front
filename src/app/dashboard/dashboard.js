@@ -1,9 +1,15 @@
 (function() {
+
   function DashboardController($state, User) {
     let vm = this
 
     vm.isSidebarOpen = false
     vm.isPending = false
+    vm.switchUser = false
+
+    vm.changeAccount=function() {
+      vm.switchUser = !vm.switchUser
+    }
 
     let _sidebar = $('.sidebar')
     _sidebar.perfectScrollbar()
