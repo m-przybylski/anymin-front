@@ -262,11 +262,7 @@
         });
       }];
     })
-<<<<<<< 92008c0578c80351419c09b1b05993ff166486d9
-        .provider('RegistrationApi', function() {
-=======
         .provider('MsisdnApi', function() {
->>>>>>> Fix cost calculate step in consultation range
 
       /**
       * @ngdoc service
@@ -288,13 +284,8 @@
 
           'addPath': angular.extend({
             method: 'POST',
-<<<<<<< 92008c0578c80351419c09b1b05993ff166486d9
-            url: apiUrl + '/msisdns/code',
-          }, $resourceActionConfig('0', 'confirmVerification')),
-=======
             url: apiUrl + '/msisdns',
           }, $resourceActionConfig('0', 'addPath')),
->>>>>>> Fix cost calculate step in consultation range
 
           /**
           * @ngdoc method
@@ -308,36 +299,6 @@
             method: 'POST',
             url: apiUrl + '/msisdns/verify',
           }, $resourceActionConfig('1', 'requestVerification')),
-<<<<<<< 92008c0578c80351419c09b1b05993ff166486d9
-
-          /**
-          * @ngdoc method
-          * @name .2.method:verifyVerification
-          * @methodOf .2
-          * @description
-          * Confirm msisdn verification
-          **/
-
-          'verifyVerification': angular.extend({
-            method: 'POST',
-            url: apiUrl + '/msisdns/verify/code',
-          }, $resourceActionConfig('2', 'verifyVerification')),
-        });
-      }];
-    })
-        .provider('MsisdnApi', function() {
-
-      /**
-      * @ngdoc service
-      * @name .Msisdn
-      * @requires $resource
-      * @requires apiUrl
-      **/
-
-      this.$get = ['$resource', 'apiUrl', '$resourceActionConfig', function($resource, apiUrl, $resourceActionConfig) {
-        return $resource(null, null, {
-=======
->>>>>>> Fix cost calculate step in consultation range
 
           /**
           * @ngdoc method
@@ -349,39 +310,8 @@
 
           'confirmVerification': angular.extend({
             method: 'POST',
-<<<<<<< 92008c0578c80351419c09b1b05993ff166486d9
-            url: apiUrl + '/msisdns/code',
-          }, $resourceActionConfig('0', 'confirmVerification')),
-
-          /**
-          * @ngdoc method
-          * @name .1.method:addPath
-          * @methodOf .1
-          * @description
-          * Add new msisdn
-          **/
-
-          'addPath': angular.extend({
-            method: 'POST',
-            url: apiUrl + '/msisdns',
-          }, $resourceActionConfig('1', 'addPath')),
-
-          /**
-          * @ngdoc method
-          * @name .2.method:requestVerification
-          * @methodOf .2
-          * @description
-          * Request msisdn verification
-          **/
-
-          'requestVerification': angular.extend({
-            method: 'POST',
-            url: apiUrl + '/msisdns/verify',
-          }, $resourceActionConfig('2', 'requestVerification')),
-=======
             url: apiUrl + '/msisdns/verify/code',
           }, $resourceActionConfig('2', 'confirmVerification')),
->>>>>>> Fix cost calculate step in consultation range
 
           /**
           * @ngdoc method

@@ -136,23 +136,19 @@
           border-radius: 36px
           background-color: $c-background-4
           +transition
-        .onoffswitch-label:before
-          content: ""
-          display: block
-          width: 20px
-          margin: 0px
-          background: $c-white
-          position: absolute
-          top: 0
-          bottom: 0
-          right: 27px
-          border: 1px solid $c-background-4
-          border-radius: 36px
-          +transition()
-        .onoffswitch-checkbox:checked + .onoffswitch-label
-          background-color: $c-background-4
-        .onoffswitch-checkbox:checked + .onoffswitch-label, .onoffswitch-checkbox:checked + .onoffswitch-label:before
-          border-color: $c-background-4
+          &::before
+            content: ""
+            display: block
+            width: 20px
+            margin: 0px
+            background: $c-white
+            position: absolute
+            top: 0
+            bottom: 0
+            right: 27px
+            border: 1px solid $c-background-4
+            border-radius: 36px
+            +transition
         .onoffswitch-checkbox:checked + .onoffswitch-label:before
           right: 0px
         .option-left

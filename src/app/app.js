@@ -145,7 +145,6 @@
 
     // modules
     'templates-module',
-
     // services
     'profitelo.services.interfaceLanguage',
     'profitelo.services.customTranslationHandler',
@@ -158,7 +157,6 @@
     'profitelo.controller.dashboard.service-provider.individual-path',
     'profitelo.controller.dashboard.service-provider.company-path',
     'profitelo.controller.dashboard.service-provider.consultation-range',
-
     'profitelo.controller.home',
     // 'profitelo.controller.expert-profile',
     'profitelo.controller.expert-progress',
