@@ -139,9 +139,9 @@
       }
     }
   }
-
   angular.module('profitelo.directives.interface.pro-uploader', [
-    'ngFileUpload'
+    'ngFileUpload',
+    'profitelo.swaggerResources'
   ])
     .directive('proUploader', proUploader)
 }())

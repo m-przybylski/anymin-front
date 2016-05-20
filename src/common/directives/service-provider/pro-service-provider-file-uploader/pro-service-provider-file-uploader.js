@@ -59,13 +59,14 @@
     }
   }
 
+
   angular.module('profitelo.directives.service-provider.pro-service-provider-file-uploader', [
     'lodash',
     'pascalprecht.translate',
-    'profitelo.services.wizardSectionControl',
     'profitelo.directives.ng-enter',
     'profitelo.services.commonSettings',
-    'profitelo.directives.interface.pro-uploader'
+    'profitelo.directives.interface.pro-uploader',
+    'profitelo.common.controller.service-provider.service-provider-step-controller'
   ])
-    .directive('proServiceProviderFileUploader', proServiceProviderFileUploader)
+  .directive('proServiceProviderFileUploader', proServiceProviderFileUploader)
 }())
