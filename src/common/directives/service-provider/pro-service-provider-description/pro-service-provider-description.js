@@ -2,7 +2,7 @@
   function proServiceProviderDescription($q) {
 
     function linkFunction(scope, element, attrs) {
-      
+
       scope.required = false
 
 
@@ -25,7 +25,7 @@
 
         return _isValidDeferred.promise
       }
-      
+
       scope.saveSection = () => {
         _isValid().then(() => {
 

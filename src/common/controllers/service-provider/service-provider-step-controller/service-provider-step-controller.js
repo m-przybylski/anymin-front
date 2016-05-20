@@ -1,6 +1,6 @@
 (function() {
   function ServiceProviderStepController($scope, $rootScope) {
-    
+
     let vm = this
 
     let shadowModel = null
@@ -13,7 +13,7 @@
       $scope.model = angular.copy(shadowModel)
       shadowModel = null
     }
-    
+
     let _manualOrderChangeRequestHandle = (targetStep) => {
       restoreShadowModel()
       $rootScope.$broadcast('manualOrderChangeRequestGrant', targetStep)
@@ -25,16 +25,24 @@
       }
 
       $scope.queue.currentStep = $scope.order + 1
-
     }
-    
+
     $scope.skip = () => {
       if (shadowModel !== null) {
         restoreShadowModel()
       }
+      if($scope.queue.skippedSteps.indexOf($scope.order) == -1) {
+        $scope.queue.skippedSteps.push($scope.order)
+      }
+
       $scope.proceed()
     }
-    
+
+    $scope.removeSkipped = () => {
+      $scope.queue.skippedSteps.splice($scope.queue.skippedSteps.indexOf($scope.queue.currentStep), 1)
+      $scope.proceed()
+    }
+
     $scope.onClick = () => {
       $rootScope.$broadcast('manualOrderChangeRequest', $scope.order)
     }

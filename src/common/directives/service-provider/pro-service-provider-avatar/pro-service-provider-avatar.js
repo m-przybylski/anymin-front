@@ -9,7 +9,7 @@
       scope.model = {
         avatar: []
       }
-      
+
       let _isValid = () => {
         let _isValidDeferred = $q.defer()
         if (angular.isDefined(scope.model.avatar) && scope.model.avatar[0].response.id) {
@@ -29,7 +29,7 @@
       }
 
 
-      
+
       if ('required' in attrs) {
         scope.required = true
       }
@@ -40,7 +40,7 @@
 
       scope.saveSection = () => {
         _isValid().then((avatarId) => {
-          
+
           scope.proModel.avatar = avatarId
           scope.proceed()
 
@@ -48,7 +48,7 @@
           _displayErrorMessage()
         })
       }
-      
+
 
     }
 
