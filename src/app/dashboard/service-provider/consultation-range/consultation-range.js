@@ -37,6 +37,7 @@
     'ui.router',
     'profitelo.services.service-provider-state',
     'profitelo.directives.service-provider.pro-bottom-summary-row',
+    'profitelo.directives.service-provider.pro-service-provider-cost',
     'profitelo.swaggerResources',
     'c7s.ng.userAuth'
   ])

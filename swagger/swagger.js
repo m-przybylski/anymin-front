@@ -58,21 +58,8 @@
 
           /**
           * @ngdoc method
-          * @name .1.method:postRecoverPasswordVerifyEmail
+          * @name .1.method:postRecoverPasswordVerifyMsisdn
           * @methodOf .1
-          * @description
-          * Verify email token
-          **/
-
-          'postRecoverPasswordVerifyEmail': angular.extend({
-            method: 'POST',
-            url: apiUrl + '/recover-password/verify/email',
-          }, $resourceActionConfig('1', 'postRecoverPasswordVerifyEmail')),
-
-          /**
-          * @ngdoc method
-          * @name .2.method:postRecoverPasswordVerifyMsisdn
-          * @methodOf .2
           * @description
           * Verify Msisdn token
           **/
@@ -80,7 +67,20 @@
           'postRecoverPasswordVerifyMsisdn': angular.extend({
             method: 'POST',
             url: apiUrl + '/recover-password/verify/msisdn',
-          }, $resourceActionConfig('2', 'postRecoverPasswordVerifyMsisdn')),
+          }, $resourceActionConfig('1', 'postRecoverPasswordVerifyMsisdn')),
+
+          /**
+          * @ngdoc method
+          * @name .2.method:postRecoverPasswordVerifyEmail
+          * @methodOf .2
+          * @description
+          * Verify email token
+          **/
+
+          'postRecoverPasswordVerifyEmail': angular.extend({
+            method: 'POST',
+            url: apiUrl + '/recover-password/verify/email',
+          }, $resourceActionConfig('2', 'postRecoverPasswordVerifyEmail')),
 
           /**
           * @ngdoc method
@@ -262,11 +262,15 @@
         });
       }];
     })
+<<<<<<< 92008c0578c80351419c09b1b05993ff166486d9
         .provider('RegistrationApi', function() {
+=======
+        .provider('MsisdnApi', function() {
+>>>>>>> Fix cost calculate step in consultation range
 
       /**
       * @ngdoc service
-      * @name .Registration
+      * @name .Msisdn
       * @requires $resource
       * @requires apiUrl
       **/
@@ -276,16 +280,21 @@
 
           /**
           * @ngdoc method
-          * @name .0.method:confirmVerification
+          * @name .0.method:addPath
           * @methodOf .0
           * @description
-          * Confirm msisdn verification
+          * Add new msisdn
           **/
 
-          'confirmVerification': angular.extend({
+          'addPath': angular.extend({
             method: 'POST',
+<<<<<<< 92008c0578c80351419c09b1b05993ff166486d9
             url: apiUrl + '/msisdns/code',
           }, $resourceActionConfig('0', 'confirmVerification')),
+=======
+            url: apiUrl + '/msisdns',
+          }, $resourceActionConfig('0', 'addPath')),
+>>>>>>> Fix cost calculate step in consultation range
 
           /**
           * @ngdoc method
@@ -299,6 +308,7 @@
             method: 'POST',
             url: apiUrl + '/msisdns/verify',
           }, $resourceActionConfig('1', 'requestVerification')),
+<<<<<<< 92008c0578c80351419c09b1b05993ff166486d9
 
           /**
           * @ngdoc method
@@ -326,17 +336,20 @@
 
       this.$get = ['$resource', 'apiUrl', '$resourceActionConfig', function($resource, apiUrl, $resourceActionConfig) {
         return $resource(null, null, {
+=======
+>>>>>>> Fix cost calculate step in consultation range
 
           /**
           * @ngdoc method
-          * @name .0.method:confirmVerification
-          * @methodOf .0
+          * @name .2.method:confirmVerification
+          * @methodOf .2
           * @description
           * Confirm msisdn verification
           **/
 
           'confirmVerification': angular.extend({
             method: 'POST',
+<<<<<<< 92008c0578c80351419c09b1b05993ff166486d9
             url: apiUrl + '/msisdns/code',
           }, $resourceActionConfig('0', 'confirmVerification')),
 
@@ -365,6 +378,10 @@
             method: 'POST',
             url: apiUrl + '/msisdns/verify',
           }, $resourceActionConfig('2', 'requestVerification')),
+=======
+            url: apiUrl + '/msisdns/verify/code',
+          }, $resourceActionConfig('2', 'confirmVerification')),
+>>>>>>> Fix cost calculate step in consultation range
 
           /**
           * @ngdoc method
@@ -442,6 +459,46 @@
               'msisdnId': '@msisdnId',
             },
           }, $resourceActionConfig('7', 'detailsPath')),
+        });
+      }];
+    })
+        .provider('RegistrationApi', function() {
+
+      /**
+      * @ngdoc service
+      * @name .Registration
+      * @requires $resource
+      * @requires apiUrl
+      **/
+
+      this.$get = ['$resource', 'apiUrl', '$resourceActionConfig', function($resource, apiUrl, $resourceActionConfig) {
+        return $resource(null, null, {
+
+          /**
+          * @ngdoc method
+          * @name .0.method:requestVerification
+          * @methodOf .0
+          * @description
+          * Request msisdn verification
+          **/
+
+          'requestVerification': angular.extend({
+            method: 'POST',
+            url: apiUrl + '/msisdns/verify',
+          }, $resourceActionConfig('0', 'requestVerification')),
+
+          /**
+          * @ngdoc method
+          * @name .1.method:confirmVerification
+          * @methodOf .1
+          * @description
+          * Confirm msisdn verification
+          **/
+
+          'confirmVerification': angular.extend({
+            method: 'POST',
+            url: apiUrl + '/msisdns/verify/code',
+          }, $resourceActionConfig('1', 'confirmVerification')),
         });
       }];
     })
