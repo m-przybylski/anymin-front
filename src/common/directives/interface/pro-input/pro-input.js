@@ -18,6 +18,7 @@
         scope.required = true
       }
 
+
       if ('autoFocus' in attr.$attr) {
         _inputGroup.find('input').focus()
       }

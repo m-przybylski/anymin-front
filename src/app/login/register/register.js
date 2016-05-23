@@ -6,6 +6,7 @@
     vm.current = 1
     vm.isPending = false
     vm.rulesAccepted = false
+    vm.serverError = false
 
     vm.registrationSteps = {
       account: smsSessionId.accountObject,
@@ -24,14 +25,10 @@
     }
 
     vm.verifyCode = () => {
-      console.log(vm.registrationSteps.smsCode)
-      //if (vm.registrationSteps.smsCode.length === 4){
-      //  console.log('ok')
-      //}
+      vm.serverError = false
     }
 
     vm.getSmsCodeStatus = () => {
-      vm.serverError = false
       /* istanbul ignore next if */
       if (!vm.isPending) {
         vm.isPending = true
