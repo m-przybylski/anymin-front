@@ -37,10 +37,9 @@
         scrollTo(0, stopY)
         return null
       }
-      let speed = Math.round(distance / 100)
-      if (speed >= 20) {
-        speed = 20
-      }
+      let speed = 20
+
+
       let step = Math.round(distance / 25)
       let leapY = stopY > startY ? startY + step : startY - step
       let timer = 0

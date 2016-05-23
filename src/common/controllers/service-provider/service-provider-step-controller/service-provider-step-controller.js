@@ -23,12 +23,15 @@
       if ($scope.queue.completedSteps < $scope.order) {
         $scope.queue.completedSteps = $scope.order
 
+      }
+      $scope.queue.currentStep = $scope.order + 1
+      console.log( $scope.queue.amountOfSteps)
+      if ($scope.queue.currentStep <= $scope.queue.amountOfSteps) {
         $timeout(()=>{
+          console.log($scope.queue.currentStep)
           smoothScrolling.scrollTo($scope.queue.currentStep)
         })
       }
-      $scope.queue.currentStep = $scope.order + 1
-
 
     }
     
