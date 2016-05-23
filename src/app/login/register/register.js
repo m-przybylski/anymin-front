@@ -23,6 +23,13 @@
       vm.passwordStrength = passwordStrengthService(password)
     }
 
+    vm.verifyCode = () => {
+      console.log(vm.registrationSteps.smsCode)
+      //if (vm.registrationSteps.smsCode.length === 4){
+      //  console.log('ok')
+      //}
+    }
+
     vm.getSmsCodeStatus = () => {
       vm.serverError = false
       /* istanbul ignore next if */

@@ -1,7 +1,7 @@
 form.pro-input-form(name="emailForm" data-ng-submit="emailForm.$valid && vm.setNewEmail()" novalidate)
     pro-input(data-label="{{ 'REGISTER.SERVICE_EMAIL' | translate }}"
     placeholder="{{ 'REGISTER.SERVICE_EMAIL_PLACEHOLDER' | translate }}"
-    data-pro-model="vm.registrationSteps.email"
+    data-ng-model="vm.registrationSteps.email"
     data-name="email"
     data-type="email"
     data-ng-pattern="vm.patternEmail"
