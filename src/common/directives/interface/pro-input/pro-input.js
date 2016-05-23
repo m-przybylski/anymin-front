@@ -76,12 +76,13 @@
     }
 
     return {
+      require: '?ngModel',
       templateUrl: 'directives/interface/pro-input/pro-input.tpl.html',
       restrict: 'E',
       replace: true,
       link: linkFunction,
       scope: {
-        proModel: '=',
+        ngModel: '=',
         placeholder: '@',
         defaultValue: '@',
         label: '@',
@@ -91,7 +92,8 @@
         type: '@',
         maxlength: '@',
         ngPattern: '=?',
-        addonAction: '=?'
+        addonAction: '=?',
+        ngChange: '=?'
       }
 
     }
