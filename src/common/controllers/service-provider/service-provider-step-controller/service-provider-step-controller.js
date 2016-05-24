@@ -37,15 +37,14 @@
       if (shadowModel !== null) {
         restoreShadowModel()
       }
-      if($scope.queue.skippedSteps.indexOf($scope.order) == -1) {
-        $scope.queue.skippedSteps.push($scope.order)
-      }
 
+      $scope.queue.skippedSteps[$scope.order] = true
       $scope.proceed()
     }
 
-    $scope.removeSkipped = () => {
-      $scope.queue.skippedSteps.splice($scope.queue.skippedSteps.indexOf($scope.queue.currentStep), 1)
+    $scope.saveStep = () => {
+      $scope.queue.skippedSteps[$scope.order] = false
+      $scope.saveSection()
       $scope.proceed()
     }
 

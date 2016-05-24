@@ -10,7 +10,7 @@
       amountOfSteps: 7,
       currentStep: 2,
       completedSteps: 1,
-      skippedSteps: []
+      skippedSteps: {}
     }
 
     let _calculateProgressPercentage = () => {

@@ -9,9 +9,9 @@ id="{{order}}")
       p(data-translate="{{trDesc}}")
     div
       .step-description
-        h5(data-translate="DASHBOARD.CREATE_PROFILE.STEP" data-translate-values="{step: order, steps: queue.amountOfSteps}" data-ng-class="{'icon-warning': queue.skippedSteps.indexOf(order) != -1}")
-        i.icon(data-ng-class="{'icon-edit-24 current-step-edit-icon': queue.currentStep === order, 'icon-success-24': queue.completedSteps >= order - 1 && queue.currentStep !== order, 'icon-warning-24 icon-warning': queue.skippedSteps.indexOf(order) != -1}")
+        h5(data-translate="DASHBOARD.CREATE_PROFILE.STEP" data-translate-values="{step: order, steps: queue.amountOfSteps}" data-ng-class="{'icon-warning': queue.skippedSteps[order]}")
+        i.icon(data-ng-class="{'icon-edit-24 current-step-edit-icon': queue.currentStep === order, 'icon-success-24': queue.completedSteps >= order - 1 && queue.currentStep !== order, 'icon-warning-24 icon-warning': queue.skippedSteps[order]}")
   block content
   .step-control(data-ng-show="queue.currentStep === order")
     a.pro-btn.btn-round.btn-medium.btn-light(data-translate="INTERFACE.SKIP" data-ng-click="skip()" data-ng-show="!required")
-    a.pro-btn.btn-round.btn-medium.btn-main(data-translate="INTERFACE.SAVE" data-ng-click="saveSection(); removeSkipped()")
+    a.pro-btn.btn-round.btn-medium.btn-main(data-translate="INTERFACE.SAVE" data-ng-click="saveStep()")
