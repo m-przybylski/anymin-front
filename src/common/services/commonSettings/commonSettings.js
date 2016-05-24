@@ -16,7 +16,7 @@ function CommonSettingsService(CommonConfig) {
     pinPattern: _validation.pin.regex,
     phonePattern: '[0-9]{9,9}',
     smsCodePattern: _validation.pin.regex,
-    urlPattern: /^(?:(ftp|http|https):\/\/)?(?:[\w-]+\.)+[a-z]{2,6}$/,
+    urlPattern: /^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.\&\?\=\+\#-]*)*\/?$/,
     socialNetworks: [
       {
         iconClass: 'icon-behance-24',

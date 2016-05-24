@@ -36,11 +36,11 @@
         type: _profileType,
         expertDetails: {
           name: vm.individualPathModel.name,
-          description: vm.individualPathModel.description,
-          avatar: vm.individualPathModel.avatar,
-          languages: vm.individualPathModel.languages,
-          files: vm.individualPathModel.files,
-          links: vm.individualPathModel.links
+          description: vm.individualPathModel.description || null,
+          avatar: vm.individualPathModel.avatar || null,
+          languages: vm.individualPathModel.languages || [],
+          files: vm.individualPathModel.files || [],
+          links: vm.individualPathModel.links || []
         }
       }).$promise.then(() => {
         $state.go('app.dashboard.service-provider.consultation-range')

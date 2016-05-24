@@ -23,11 +23,7 @@
 
       let _displayErrorMessage = () => {
         scope.badName = true
-        $timeout(() => {
-          scope.badName = false
-        }, 1000)
       }
-
 
       if ('required' in attrs) {
         scope.required = true
@@ -35,7 +31,7 @@
 
       scope.saveSection = () => {
         _isValid().then(() => {
-
+          scope.badName = false
           scope.proModel.name = scope.model.name
           scope.proceed()
 

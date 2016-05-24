@@ -13,6 +13,10 @@
         scope.required = true
       }
 
+      let _displayErrorMessage = () => {
+        scope.noDescription = true
+      }
+
 
       let _isValid = () => {
         let _isValidDeferred = $q.defer()
@@ -28,12 +32,12 @@
 
       scope.saveSection = () => {
         _isValid().then(() => {
-
+          scope.noDescription = false
           scope.proModel.description = scope.model.description
           scope.proceed()
 
         }, () => {
-          console.log('not valid')
+          _displayErrorMessage()
         })
       }
 

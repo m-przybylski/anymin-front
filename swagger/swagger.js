@@ -204,8 +204,26 @@
 
           /**
           * @ngdoc method
-          * @name .5.method:listFilesPath
+          * @name .5.method:downloadResizedFilePath
           * @methodOf .5
+          * @description
+          * Download resized file
+          **/
+
+          'downloadResizedFilePath': angular.extend({
+            method: 'GET',
+            url: apiUrl + '/files/:token/download/:widthx:height',
+            params: {
+              'token': '@token',
+              'width': '@width',
+              'height': '@height',
+            },
+          }, $resourceActionConfig('5', 'downloadResizedFilePath')),
+
+          /**
+          * @ngdoc method
+          * @name .6.method:listFilesPath
+          * @methodOf .6
           * @description
           * List all files
           **/
@@ -213,12 +231,12 @@
           'listFilesPath': angular.extend({
             method: 'GET',
             url: apiUrl + '/files',
-          }, $resourceActionConfig('5', 'listFilesPath')),
+          }, $resourceActionConfig('6', 'listFilesPath')),
 
           /**
           * @ngdoc method
-          * @name .6.method:tokenPath
-          * @methodOf .6
+          * @name .7.method:tokenPath
+          * @methodOf .7
           * @description
           * Get file upload url
           **/
@@ -226,12 +244,12 @@
           'tokenPath': angular.extend({
             method: 'GET',
             url: apiUrl + '/files/token',
-          }, $resourceActionConfig('6', 'tokenPath')),
+          }, $resourceActionConfig('7', 'tokenPath')),
 
           /**
           * @ngdoc method
-          * @name .7.method:profileCoversPath
-          * @methodOf .7
+          * @name .8.method:profileCoversPath
+          * @methodOf .8
           * @description
           * Get profile cover files
           **/
@@ -242,12 +260,28 @@
             params: {
               'profileId': '@profileId',
             },
-          }, $resourceActionConfig('7', 'profileCoversPath')),
+          }, $resourceActionConfig('8', 'profileCoversPath')),
 
           /**
           * @ngdoc method
-          * @name .8.method:uploadFilePath
-          * @methodOf .8
+          * @name .9.method:downloadFilePath
+          * @methodOf .9
+          * @description
+          * Download file
+          **/
+
+          'downloadFilePath': angular.extend({
+            method: 'GET',
+            url: apiUrl + '/files/:token/download',
+            params: {
+              'token': '@token',
+            },
+          }, $resourceActionConfig('9', 'downloadFilePath')),
+
+          /**
+          * @ngdoc method
+          * @name .10.method:uploadFilePath
+          * @methodOf .10
           * @description
           * Upload file
           **/
@@ -258,7 +292,63 @@
             params: {
               'token': '@token',
             },
-          }, $resourceActionConfig('8', 'uploadFilePath')),
+          }, $resourceActionConfig('10', 'uploadFilePath')),
+        });
+      }];
+    })
+        .provider('ProfileApi', function() {
+
+      /**
+      * @ngdoc service
+      * @name .Profile
+      * @requires $resource
+      * @requires apiUrl
+      **/
+
+      this.$get = ['$resource', 'apiUrl', '$resourceActionConfig', function($resource, apiUrl, $resourceActionConfig) {
+        return $resource(null, null, {
+
+          /**
+          * @ngdoc method
+          * @name .0.method:postProfile
+          * @methodOf .0
+          * @description
+          * Add profile
+          **/
+
+          'postProfile': angular.extend({
+            method: 'POST',
+            url: apiUrl + '/profiles',
+          }, $resourceActionConfig('0', 'postProfile')),
+
+          /**
+          * @ngdoc method
+          * @name .1.method:putProfile
+          * @methodOf .1
+          * @description
+          * Add profile
+          **/
+
+          'putProfile': angular.extend({
+            method: 'PUT',
+            url: apiUrl + '/profiles',
+          }, $resourceActionConfig('1', 'putProfile')),
+
+          /**
+          * @ngdoc method
+          * @name .2.method:getProfile
+          * @methodOf .2
+          * @description
+          * Get Details of profile
+          **/
+
+          'getProfile': angular.extend({
+            method: 'GET',
+            url: apiUrl + '/profiles/:profileId',
+            params: {
+              'profileId': '@profileId',
+            },
+          }, $resourceActionConfig('2', 'getProfile')),
         });
       }];
     })
@@ -276,16 +366,16 @@
 
           /**
           * @ngdoc method
-          * @name .0.method:confirmVerification
+          * @name .0.method:verifyVerification
           * @methodOf .0
           * @description
           * Confirm msisdn verification
           **/
 
-          'confirmVerification': angular.extend({
+          'verifyVerification': angular.extend({
             method: 'POST',
-            url: apiUrl + '/msisdns/code',
-          }, $resourceActionConfig('0', 'confirmVerification')),
+            url: apiUrl + '/msisdns/verify/code',
+          }, $resourceActionConfig('0', 'verifyVerification')),
 
           /**
           * @ngdoc method
@@ -302,16 +392,16 @@
 
           /**
           * @ngdoc method
-          * @name .2.method:verifyVerification
+          * @name .2.method:confirmVerification
           * @methodOf .2
           * @description
           * Confirm msisdn verification
           **/
 
-          'verifyVerification': angular.extend({
+          'confirmVerification': angular.extend({
             method: 'POST',
-            url: apiUrl + '/msisdns/verify/code',
-          }, $resourceActionConfig('2', 'verifyVerification')),
+            url: apiUrl + '/msisdns/code',
+          }, $resourceActionConfig('2', 'confirmVerification')),
         });
       }];
     })
@@ -329,47 +419,8 @@
 
           /**
           * @ngdoc method
-          * @name .0.method:confirmVerification
+          * @name .0.method:verifyVerification
           * @methodOf .0
-          * @description
-          * Confirm msisdn verification
-          **/
-
-          'confirmVerification': angular.extend({
-            method: 'POST',
-            url: apiUrl + '/msisdns/code',
-          }, $resourceActionConfig('0', 'confirmVerification')),
-
-          /**
-          * @ngdoc method
-          * @name .1.method:addPath
-          * @methodOf .1
-          * @description
-          * Add new msisdn
-          **/
-
-          'addPath': angular.extend({
-            method: 'POST',
-            url: apiUrl + '/msisdns',
-          }, $resourceActionConfig('1', 'addPath')),
-
-          /**
-          * @ngdoc method
-          * @name .2.method:requestVerification
-          * @methodOf .2
-          * @description
-          * Request msisdn verification
-          **/
-
-          'requestVerification': angular.extend({
-            method: 'POST',
-            url: apiUrl + '/msisdns/verify',
-          }, $resourceActionConfig('2', 'requestVerification')),
-
-          /**
-          * @ngdoc method
-          * @name .3.method:verifyVerification
-          * @methodOf .3
           * @description
           * Confirm msisdn verification
           **/
@@ -377,12 +428,12 @@
           'verifyVerification': angular.extend({
             method: 'POST',
             url: apiUrl + '/msisdns/verify/code',
-          }, $resourceActionConfig('3', 'verifyVerification')),
+          }, $resourceActionConfig('0', 'verifyVerification')),
 
           /**
           * @ngdoc method
-          * @name .4.method:patchPath
-          * @methodOf .4
+          * @name .1.method:patchPath
+          * @methodOf .1
           * @description
           * Update status msisdn
           **/
@@ -393,12 +444,12 @@
             params: {
               'msisdnId': '@msisdnId',
             },
-          }, $resourceActionConfig('4', 'patchPath')),
+          }, $resourceActionConfig('1', 'patchPath')),
 
           /**
           * @ngdoc method
-          * @name .5.method:deletePath
-          * @methodOf .5
+          * @name .2.method:deletePath
+          * @methodOf .2
           * @description
           * Delete msisdn
           **/
@@ -409,12 +460,12 @@
             params: {
               'msisdnId': '@msisdnId',
             },
-          }, $resourceActionConfig('5', 'deletePath')),
+          }, $resourceActionConfig('2', 'deletePath')),
 
           /**
           * @ngdoc method
-          * @name .6.method:updatePath
-          * @methodOf .6
+          * @name .3.method:updatePath
+          * @methodOf .3
           * @description
           * Update msisdn
           **/
@@ -425,12 +476,12 @@
             params: {
               'msisdnId': '@msisdnId',
             },
-          }, $resourceActionConfig('6', 'updatePath')),
+          }, $resourceActionConfig('3', 'updatePath')),
 
           /**
           * @ngdoc method
-          * @name .7.method:detailsPath
-          * @methodOf .7
+          * @name .4.method:detailsPath
+          * @methodOf .4
           * @description
           * Get Details of msisdn
           **/
@@ -441,7 +492,46 @@
             params: {
               'msisdnId': '@msisdnId',
             },
-          }, $resourceActionConfig('7', 'detailsPath')),
+          }, $resourceActionConfig('4', 'detailsPath')),
+
+          /**
+          * @ngdoc method
+          * @name .5.method:addPath
+          * @methodOf .5
+          * @description
+          * Add new msisdn
+          **/
+
+          'addPath': angular.extend({
+            method: 'POST',
+            url: apiUrl + '/msisdns',
+          }, $resourceActionConfig('5', 'addPath')),
+
+          /**
+          * @ngdoc method
+          * @name .6.method:requestVerification
+          * @methodOf .6
+          * @description
+          * Request msisdn verification
+          **/
+
+          'requestVerification': angular.extend({
+            method: 'POST',
+            url: apiUrl + '/msisdns/verify',
+          }, $resourceActionConfig('6', 'requestVerification')),
+
+          /**
+          * @ngdoc method
+          * @name .7.method:confirmVerification
+          * @methodOf .7
+          * @description
+          * Confirm msisdn verification
+          **/
+
+          'confirmVerification': angular.extend({
+            method: 'POST',
+            url: apiUrl + '/msisdns/code',
+          }, $resourceActionConfig('7', 'confirmVerification')),
         });
       }];
     })
@@ -486,24 +576,8 @@
 
           /**
           * @ngdoc method
-          * @name .2.method:postAccountVerifyEmail
+          * @name .2.method:getRegistrationStatusByMsisdn
           * @methodOf .2
-          * @description
-          * Confirm email
-          **/
-
-          'postAccountVerifyEmail': angular.extend({
-            method: 'POST',
-            url: apiUrl + '/accounts/confirm/email/:token',
-            params: {
-              'token': '@token',
-            },
-          }, $resourceActionConfig('2', 'postAccountVerifyEmail')),
-
-          /**
-          * @ngdoc method
-          * @name .3.method:getRegistrationStatusByMsisdn
-          * @methodOf .3
           * @description
           * Retrieve
           **/
@@ -514,7 +588,23 @@
             params: {
               'msisdn': '@msisdn',
             },
-          }, $resourceActionConfig('3', 'getRegistrationStatusByMsisdn')),
+          }, $resourceActionConfig('2', 'getRegistrationStatusByMsisdn')),
+
+          /**
+          * @ngdoc method
+          * @name .3.method:postAccountVerifyEmail
+          * @methodOf .3
+          * @description
+          * Confirm email
+          **/
+
+          'postAccountVerifyEmail': angular.extend({
+            method: 'POST',
+            url: apiUrl + '/accounts/confirm/email/:token',
+            params: {
+              'token': '@token',
+            },
+          }, $resourceActionConfig('3', 'postAccountVerifyEmail')),
 
           /**
           * @ngdoc method
@@ -563,62 +653,6 @@
               'accountId': '@accountId',
             },
           }, $resourceActionConfig('6', 'getAccount')),
-        });
-      }];
-    })
-        .provider('ProfileApi', function() {
-
-      /**
-      * @ngdoc service
-      * @name .Profile
-      * @requires $resource
-      * @requires apiUrl
-      **/
-
-      this.$get = ['$resource', 'apiUrl', '$resourceActionConfig', function($resource, apiUrl, $resourceActionConfig) {
-        return $resource(null, null, {
-
-          /**
-          * @ngdoc method
-          * @name .0.method:getProfile
-          * @methodOf .0
-          * @description
-          * Get Details of profile
-          **/
-
-          'getProfile': angular.extend({
-            method: 'GET',
-            url: apiUrl + '/profiles/:profileId',
-            params: {
-              'profileId': '@profileId',
-            },
-          }, $resourceActionConfig('0', 'getProfile')),
-
-          /**
-          * @ngdoc method
-          * @name .1.method:postProfile
-          * @methodOf .1
-          * @description
-          * Add profile
-          **/
-
-          'postProfile': angular.extend({
-            method: 'POST',
-            url: apiUrl + '/profiles',
-          }, $resourceActionConfig('1', 'postProfile')),
-
-          /**
-          * @ngdoc method
-          * @name .2.method:putProfile
-          * @methodOf .2
-          * @description
-          * Add profile
-          **/
-
-          'putProfile': angular.extend({
-            method: 'PUT',
-            url: apiUrl + '/profiles',
-          }, $resourceActionConfig('2', 'putProfile')),
         });
       }];
     })

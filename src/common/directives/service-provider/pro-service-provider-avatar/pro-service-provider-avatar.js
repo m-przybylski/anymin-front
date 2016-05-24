@@ -9,10 +9,9 @@
       scope.model = {
         avatar: []
       }
-
       let _isValid = () => {
         let _isValidDeferred = $q.defer()
-        if (angular.isDefined(scope.model.avatar) && scope.model.avatar[0].response.id) {
+        if (angular.isDefined(scope.model.avatar) && scope.model.avatar.length > 0) {
           _isValidDeferred.resolve(scope.model.avatar[0].response.id)
         } else {
           _isValidDeferred.reject()
@@ -22,25 +21,22 @@
       }
 
       let _displayErrorMessage = () => {
-        scope.badName = true
-        $timeout(() => {
-          scope.badName = false
-        }, 1000)
+        scope.noFile = true
+
       }
-
-
 
       if ('required' in attrs) {
         scope.required = true
       }
 
       scope.removeAvatar = () => {
+
         scope.model.avatar.splice(0, 1)
       }
 
       scope.saveSection = () => {
         _isValid().then((avatarId) => {
-
+          scope.noFile = false
           scope.proModel.avatar = avatarId
           scope.proceed()
 
