@@ -101,7 +101,9 @@
 
   }
 
-  angular.module('profitelo.directives.interface.pro-input', [])
+  angular.module('profitelo.directives.interface.pro-input', [
+    'autofocus'
+  ])
   .directive('proInput', proInput)
 
 }())

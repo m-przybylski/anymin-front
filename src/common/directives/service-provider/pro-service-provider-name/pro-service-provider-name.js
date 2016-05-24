@@ -1,8 +1,6 @@
 (function() {
   function proServiceProviderName($q, $timeout) {
-
     function linkFunction(scope, element, attrs) {
-
       scope.required = false
       scope.badName = false
 
@@ -22,8 +20,6 @@
 
         return _isValidDeferred.promise
       }
-
-
 
       let _displayErrorMessage = () => {
         scope.badName = true

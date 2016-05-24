@@ -7,7 +7,6 @@
       'COMPANY': 'COMPANY'
     }
 
-
     return vm
   }
 
