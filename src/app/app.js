@@ -22,8 +22,8 @@
 
     })
   }
-
-  function configFunction($urlRouterProvider, $httpProvider, $stateProvider, $resourceProvider, $translateProvider, $locationProvider, $animateProvider, tmhDynamicLocaleProvider, UserProvider, UserRolesProvider, apiUrl) {
+    
+  function configFunction($urlRouterProvider, $httpProvider, $stateProvider, $resourceProvider, $translateProvider, $locationProvider, $animateProvider, tmhDynamicLocaleProvider, UserProvider, UserRolesProvider, CommonConfigProvider) {
 
     $httpProvider.defaults.withCredentials = true
 
@@ -40,7 +40,7 @@
       admin       : ['admin']
     })
 
-    UserProvider.setApi('baseUrl', apiUrl)
+    UserProvider.setApi('baseUrl', CommonConfigProvider.getAllData().urls.backend)
 
     $stateProvider.state('app', {
       url: '',
@@ -145,6 +145,8 @@
 
     // modules
     'templates-module',
+    'commonConfig',
+
     // services
     'profitelo.services.interfaceLanguage',
     'profitelo.services.customTranslationHandler',

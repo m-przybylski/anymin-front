@@ -1,17 +1,21 @@
-angular.module('profitelo.services.commonSettings', [])
+angular.module('profitelo.services.commonSettings', ['commonConfig'])
 .factory('CommonSettingsService', CommonSettingsService)
 
-function CommonSettingsService() {
+function CommonSettingsService(CommonConfig) {
+  let _commonConfigSettings = CommonConfig.getAllData()
+  
+  let _validation = _commonConfigSettings.validation
+
   let _settings = {
     
   }
 
   let _localSettings = {
-    emailPattern: "^([a-z0-9!#$%&'*+/=?^_`{|}~.-]+)@([a-z0-9-]+)\\.([a-zA-Z.]+)$",
-    passwordPattern: '^.{6,64}$',
-    pinPattern: '\d{4}',
+    emailPattern: _validation.email.regex,
+    passwordPattern: _validation.password.regex,
+    pinPattern: _validation.pin.regex,
     phonePattern: '[0-9]{9,9}',
-    smsCodePattern: '[0-9]{4}',
+    smsCodePattern: _validation.pin.regex,
     urlPattern: /^(?:(ftp|http|https):\/\/)?(?:[\w-]+\.)+[a-z]{2,6}$/,
     socialNetworks: [
       {

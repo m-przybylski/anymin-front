@@ -1,3 +1,13 @@
+var fs = require('fs')
+
+try {
+  var commonConfigPath = './common-config/config.json'
+  fs.accessSync(commonConfigPath, fs.F_OK)
+  var commonConfig = require(commonConfigPath)
+} catch (e) {
+  throw new Error(e)
+}
+
 module.exports = {
   pkg: require('./package.json'),
   compile_dir: 'build',
@@ -5,7 +15,7 @@ module.exports = {
   tpl_name: 'templates-module.js',
   tpl_module: 'templates-module',
   project_theme_name: 'profitelo_theme',
-  swagger_location: 'http://api.dev.profitelo.pl/swagger/swagger.json',
+  swagger_location: commonConfig.urls.backend + '/swagger/swagger.json',
   swagger_module: 'profitelo.swagger',
   app_files: {
     js: ['src/**/*.js', '!src/**/*.spec.js'],
@@ -70,7 +80,8 @@ module.exports = {
       'node_modules/c7s-ng/build/c7s-ng.js',
       'node_modules/angular-lodash/angular-lodash.js',
       'node_modules/hellojs/dist/hello.all.min.js',
-      'node_modules/angular-touch/angular-touch.js'
+      'node_modules/angular-touch/angular-touch.js',
+      'generated-modules/common-config/common-config.js'
     ],
     css: [
       'node_modules/angular-toastr/dist/angular-toastr.css',
@@ -94,7 +105,14 @@ module.exports = {
     ]
   },
   swagger: {
-    json:   'http://api.dev.profitelo.pl/swagger/swagger.json',
+    json:   commonConfig.urls.backend + '/swagger/swagger.json',
     module: 'profitelo.swaggerResources'
+  },
+  strategyConfig: {
+    ngModuleName: 'commonConfig',
+    ngProviderName: 'CommonConfig',
+    outputDir: 'generated-modules/common-config',
+    outputFileName: 'common-config.js',
+    jsonSettings: 'common-config/config.json'
   }
 };

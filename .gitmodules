@@ -1,0 +1,3 @@
+[submodule "common-config"]
+	path = common-config
+	url = git@git.contactis.pl:itelo/common-config.git
