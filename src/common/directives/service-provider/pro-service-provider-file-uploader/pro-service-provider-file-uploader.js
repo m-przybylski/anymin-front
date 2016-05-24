@@ -68,5 +68,5 @@
     'profitelo.directives.interface.pro-uploader',
     'profitelo.common.controller.service-provider.service-provider-step-controller'
   ])
-  .directive('proServiceProviderFileUploader', proServiceProviderFileUploader)
+    .directive('proServiceProviderFileUploader', proServiceProviderFileUploader)
 }())
