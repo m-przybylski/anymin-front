@@ -58,7 +58,7 @@
       replace: true,
       link: linkFunction,
       scope: {
-        proModel: '=',
+        ngModel: '=',
         placeholder: '@',
         defaultValue: '@',
         label: '@',

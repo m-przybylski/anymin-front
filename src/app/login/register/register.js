@@ -6,6 +6,7 @@
     vm.current = 1
     vm.isPending = false
     vm.rulesAccepted = false
+    vm.serverError = false
 
     vm.registrationSteps = {
       account: smsSessionId.accountObject,
@@ -23,8 +24,11 @@
       vm.passwordStrength = passwordStrengthService(password)
     }
 
-    vm.getSmsCodeStatus = () => {
+    vm.verifyCode = () => {
       vm.serverError = false
+    }
+
+    vm.getSmsCodeStatus = () => {
       /* istanbul ignore next if */
       if (!vm.isPending) {
         vm.isPending = true

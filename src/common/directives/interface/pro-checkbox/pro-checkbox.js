@@ -7,7 +7,7 @@
 
       scope.onClickCallback = () => {
         scope.isChecked = !scope.isChecked
-        scope.proModel = scope.isChecked
+        scope.ngModel = scope.isChecked
       }
 
       if ('id' in attr.$attr) {
@@ -30,7 +30,7 @@
       replace:      true,
       link: linkFunction,
       scope: {
-        proModel: '=',
+        ngModel: '=',
         label: '@',
         value: '=?',
         name: '@'
