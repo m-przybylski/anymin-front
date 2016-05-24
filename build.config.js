@@ -21,6 +21,7 @@ module.exports = {
     js: ['src/**/*.js', '!src/**/*.spec.js'],
     allJs: ['src/**/*.js'],
     jsunit: ['src/**/*.spec.js'],
+    jse2e: ['e2e/**/*.e2e.js'],
     jade_all: 'src/**/*.jade',
     jade_app_tpl: 'src/app/**/*.jade',
     jade_common_tpl: 'src/common/**/*.jade',
@@ -114,5 +115,10 @@ module.exports = {
     outputDir: 'generated-modules/common-config',
     outputFileName: 'common-config.js',
     jsonSettings: 'common-config/config.json'
+  },
+  protractor: {
+    configFile: 'protractor.config.js',
+    autoStartStopServer: true
+    // debug: true
   }
 };
