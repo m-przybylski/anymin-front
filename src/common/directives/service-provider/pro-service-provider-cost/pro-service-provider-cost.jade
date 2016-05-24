@@ -4,9 +4,9 @@ block content
   .step-content-column(data-ng-click="onClick()")
     .inputs-row
       .currency-input-box
-        pro-input(data-placeholder="{{placeholder | translate}}" data-pro-model="model.name" data-ng-class="{invalid: badName}")
+        pro-input(data-placeholder="{{placeholder | translate}}" data-ng-model="model.name" data-ng-class="{invalid: badName}")
       .currency-dropdown-box
-        pro-dropdown(data-pro-model='model.costname' 
+        pro-dropdown(data-pro-model='model.costname'
         data-label="{{'DASHBOARD.CONSULTATION_RANGE.CONSULTATION_CURRENCY_LABEL' | translate}}" 
         data-placeholder="{{'DASHBOARD.CONSULTATION_RANGE.CURRENCY_PLACEHOLDER' | translate}}"
         data-pro-items="list" data-no-search)

@@ -336,19 +336,6 @@
 
           'verifyVerification': {
             method: 'POST',
-            url: apiUrl + '/msisdns/code',
-          },
-
-          /**
-          * @ngdoc method
-          * @name .4.method:patchPath
-          * @methodOf .4
-          * @description
-          * Confirm msisdn verification
-          **/
-
-          'verifyVerification': {
-            method: 'POST',
             url: apiUrl + '/msisdns/verify/code',
           },
 

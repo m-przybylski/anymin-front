@@ -3,16 +3,17 @@
   data-ng-mouseleave="onMouseout()")
   input(placeholder="{{placeholder}}"
   type="{{type}}"
-  data-ng-model="proModel"
+  data-ng-model="ngModel"
   data-ng-focus="onFocus()"
   data-ng-blur="onFocusOut()"
   data-ng-maxlength = "maxlength"
   maxlength="{{maxlength}}"
   data-ng-required="required"
   data-ng-pattern="ngPattern"
+  data-ng-change="ngChange()"
   name="{{name}}")
   label {{label}}
   span(data-ng-class="{'input-group-addon': addon}" data-ng-click="addonCall()")
     i.icon(data-ng-class="iconClass") {{addonText}}
-  span.cross-addon.icon.icon-close-12.icon-12(data-ng-show="proModel !== null && proModel !== '' && !hideCross()" data-ng-click="proModel = ''")
+  span.cross-addon.icon.icon-close-12.icon-12(data-ng-show="ngModel !== null && ngModel !== '' && !hideCross()" data-ng-click="ngModel = ''")
 

@@ -2,6 +2,6 @@ extends ../../../templates/wizard/section-controlls.partial.jade
 
 block content
   .step-content-column(data-ng-click="onClick()")
-    pro-input(data-placeholder="{{placeholder | translate}}" data-pro-model="model.name" data-ng-class="{invalid: badName}")
+    pro-input(data-placeholder="{{placeholder | translate}}" data-ng-model="model.name" data-ng-class="{invalid: badName}")
   .input-error-messages
     .error(data-translate="{{errorMessage}}" data-ng-show="badName")
