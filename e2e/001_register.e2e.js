@@ -1,8 +1,12 @@
 var
   chalk = require('chalk'),
   externalProjectConfig = require('../common-config/config.json'),
-  statePath = 'http://localhost:4242/login/account',
-  testUrl = statePath
+  statePath = '/login/account',
+  testUrl = externalProjectConfig.urls.frontend + statePath
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 describe('Sign-up page', function () {
   it('should get dummy text', function () {
@@ -15,7 +19,7 @@ describe('Sign-up page', function () {
   it('should redirect to register page for unregistered number', function () {
     var phoneNumber = browser.findElement(by.model('ngModel'))
     var form = element(by.name('phoneNumberForm'))
-    phoneNumber.sendKeys('123456789')
+    phoneNumber.sendKeys(getRandomInt(500000000, 999999999))
     form.submit()
     var text = browser.findElement(by.css('.pro-input-form .input-group label'))
 
