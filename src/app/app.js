@@ -11,19 +11,65 @@
     return vm
   }
 
-  function runFunction($rootScope, $log) {
+  function runFunction($rootScope, $log, $state, User, proTopAlertService) {
 
+    function userTransfer(event, toState, fromState) {
+      let pac = User.pageAccessCheck(event, toState)
+      switch (pac.code) {
+      case 'x401':
+        event.preventDefault()
+        proTopAlertService.error({
+          message: pac.msg,
+          header: 'Page redirect',
+          timeout: 3
+        })
+        $state.go('app.login.account')
+        break
+      case 'x403':
+        event.preventDefault()
+        proTopAlertService.error({
+          message: pac.msg,
+          header: 'Access forbidden',
+          timeout: 3
+        })
+        if (fromState.name !== '') {
+          $state.go(fromState.name)
+        } else {
+          $state.go('app.home')
+        }
+        break
+      case 'x200':
+        break
+      default :
+        $log.error('Unhandled error', pac)
+        break
+      }
+    }
+
+    // Check if user has proper ApiKey from backend
+    function validateUserAccess(event, toState, fromState) {
+      let apikey = User.getApiKeyHeader()
+      if (apikey) {
+        User.setApiKeyHeader(apikey)
+      }
+      User.getStatus().then((getStatusResponse) => {
+        userTransfer(event, toState, fromState)
+      }, (getStatusError) => {
+        userTransfer(event, toState, fromState)
+      })
+    }
 
     $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
       $log.error(error)
     })
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, error) {
-
+      validateUserAccess(event, toState, fromState)
     })
   }
-    
-  function configFunction($urlRouterProvider, $httpProvider, $stateProvider, $resourceProvider, $translateProvider, $locationProvider, $animateProvider, tmhDynamicLocaleProvider, UserProvider, UserRolesProvider, CommonConfigProvider) {
+
+  function configFunction($urlRouterProvider, $httpProvider, $stateProvider, $resourceProvider, $translateProvider,
+                          $locationProvider, $animateProvider, tmhDynamicLocaleProvider, UserProvider, UserRolesProvider, CommonConfigProvider) {
 
     $httpProvider.defaults.withCredentials = true
 
@@ -31,13 +77,13 @@
 
     UserRolesProvider.setRoles(['anon', 'user', 'manager', 'admin'])
     UserRolesProvider.setAccessLevels({
-      public      : '*',
-      anon        : ['anon'],
-      userOnly    : ['user'],
-      user        : ['user', 'manager', 'admin'],
-      managerOnly : ['manager'],
-      manager     : ['manager', 'admin'],
-      admin       : ['admin']
+      public: '*',
+      anon: ['anon'],
+      userOnly: ['user'],
+      user: ['user', 'manager', 'admin'],
+      managerOnly: ['manager'],
+      manager: ['manager', 'admin'],
+      admin: ['admin']
     })
 
     UserProvider.setApi('baseUrl', CommonConfigProvider.getAllData().urls.backend)
@@ -52,7 +98,7 @@
 
           let deferred = $q.defer()
 
-          let backupTimer = $timeout(()=>{
+          let backupTimer = $timeout(()=> {
             deferred.resolve()
           })
 
@@ -90,7 +136,7 @@
           return deferred.promise
         },
         session: (User) => {
-          User.getStatus()
+          return User.getStatus()
         }
       }
     })
@@ -125,10 +171,10 @@
       'en-us',
       'pl-pl'
     ], {
-      'en-en':  'en-us',
-      'en':     'en-us', // NOTE: change/remove if international version will be added
-      'pl_PL':  'pl-pl',
-      'pl':     'pl-pl'
+      'en-en': 'en-us',
+      'en': 'en-us', // NOTE: change/remove if international version will be added
+      'pl_PL': 'pl-pl',
+      'pl': 'pl-pl'
     }).determinePreferredLanguage()
 
     $translateProvider.useSanitizeValueStrategy(null)
@@ -172,6 +218,7 @@
 
     // directives
     'profitelo.directives.pro-top-waiting-loader',
+    'profitelo.directives.pro-top-alert-service',
 
     // translations
     'profitelo.translations.en-us',
