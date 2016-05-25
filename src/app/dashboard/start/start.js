@@ -1,12 +1,15 @@
 angular.module('profitelo.controller.dashboard.start', [
   'ui.router'
 ])
-.config(($stateProvider) =>{
+.config(($stateProvider, UserRolesProvider) =>{
   $stateProvider.state('app.dashboard.start', {
     controllerAs: 'vm',
     url: '/start',
     templateUrl: 'dashboard/start/start.tpl.html',
-    controller: 'DashboardController'
+    controller: 'DashboardController',
+    data          : {
+      access : UserRolesProvider.getAccessLevel('user')
+    }
   })
 })
 .controller('DashboardStartController', DashboardStartController)
