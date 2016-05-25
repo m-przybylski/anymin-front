@@ -226,6 +226,7 @@
     // directives
     'profitelo.directives.pro-top-waiting-loader',
     'profitelo.directives.pro-top-alert-service',
+    'profitelo.directives.page-title',
 
     // translations
     'profitelo.translations.en-us',
