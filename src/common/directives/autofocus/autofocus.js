@@ -7,9 +7,9 @@
     }
     return {
       restrict: 'A',
-      link: linkFunction,
-      }
+      link: linkFunction
     }
+  }
 
   angular.module('autofocus', [])
   .directive('autofocus', autofocus)

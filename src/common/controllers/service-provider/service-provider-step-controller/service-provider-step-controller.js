@@ -4,7 +4,6 @@
     let vm = this
 
     let shadowModel = null
-
     function saveShadowModel() {
       shadowModel = angular.copy($scope.model)
     }
@@ -21,12 +20,10 @@
     $scope.proceed = () => {
       if ($scope.queue.completedSteps < $scope.order) {
         $scope.queue.completedSteps = $scope.order
-
       }
       $scope.queue.currentStep = $scope.order + 1
       if ($scope.queue.currentStep <= $scope.queue.amountOfSteps) {
         $timeout(()=>{
-          $("textarea").focus()
           smoothScrolling.scrollTo($scope.queue.currentStep)
         })
       }
@@ -34,11 +31,13 @@
 
     $scope.skip = () => {
       $scope.queue.skippedSteps[$scope.order] = true
+      restoreShadowModel()
       $scope.proceed()
     }
 
     $scope.outClick = () => {
       $scope.queue.skippedSteps[$scope.order] = true
+      saveShadowModel()
     }
 
     $scope.saveStep = () => {
