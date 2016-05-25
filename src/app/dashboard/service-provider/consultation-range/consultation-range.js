@@ -41,7 +41,7 @@
     'profitelo.swaggerResources',
     'c7s.ng.userAuth'
   ])
-  .config( function($stateProvider) {
+  .config( function($stateProvider, UserRolesProvider) {
     $stateProvider.state('app.dashboard.service-provider.consultation-range', {
       url:          '/consultation-range',
       templateUrl:  'dashboard/service-provider/consultation-range/consultation-range.tpl.html',
@@ -66,6 +66,9 @@
 
           return _deferred.promise
         }
+      },
+      data: {
+        access : UserRolesProvider.getAccessLevel('user')
       }
     })
   })

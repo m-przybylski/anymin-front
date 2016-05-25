@@ -66,7 +66,7 @@
     'profitelo.directives.pro-top-alert-service',
     'c7s.ng.userAuth'
   ])
-  .config(function($stateProvider) {
+  .config(function($stateProvider, UserRolesProvider) {
     $stateProvider.state('app.dashboard.service-provider.company-path', {
       url: '/company-path',
       templateUrl: 'dashboard/service-provider/company-path/company-path.tpl.html',
@@ -91,6 +91,9 @@
 
           return _deferred.promise
         }
+      },
+      data: {
+        access : UserRolesProvider.getAccessLevel('user')
       }
     })
   })

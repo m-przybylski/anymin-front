@@ -1,5 +1,6 @@
 angular.module('profitelo.controller.expert-progress', [
-  'ui.router'
+  'ui.router',
+  'c7s.ng.userAuth'
 ])
 .config(config)
 .controller('ExpertProgressController', ExpertProgressController)
@@ -18,7 +19,7 @@ function AccountStatusApiResolver($q, AccountsStatusApi, UserService) {
   return deferred.promise
 }
 
-function config($stateProvider) {
+function config($stateProvider, UserRolesProvider) {
   $stateProvider.state('app.expert-progress', {
     url: '/expert-progress',
     controllerAs: 'vm',

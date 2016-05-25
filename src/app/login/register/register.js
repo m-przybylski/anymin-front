@@ -103,7 +103,7 @@
     return vm
   }
 
-  function config($stateProvider) {
+  function config($stateProvider, UserRolesProvider) {
     $stateProvider.state('app.login.register', {
       url: '/register',
       controllerAs: 'vm',
@@ -115,6 +115,9 @@
           /* istanbul ignore next */
           return AppLoginRegisterResolver.resolve()
         }
+      },
+      data : {
+        access : UserRolesProvider.getAccessLevel('anon')
       }
     })
   }

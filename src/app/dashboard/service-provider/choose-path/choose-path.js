@@ -8,14 +8,18 @@
 
   angular.module('profitelo.controller.dashboard.service-provider.choose-path', [
     'ui.router',
-    'profitelo.services.service-provider-state'
+    'profitelo.services.service-provider-state',
+    'c7s.ng.userAuth'
   ])
-  .config( function($stateProvider) {
+  .config( function($stateProvider, UserRolesProvider) {
     $stateProvider.state('app.dashboard.service-provider.choose-path', {
       url:          '/choose-path',
       templateUrl:  'dashboard/service-provider/choose-path/choose-path.tpl.html',
       controller:   'ChoosePathController',
-      controllerAs: 'vm'
+      controllerAs: 'vm',
+      data          : {
+        access : UserRolesProvider.getAccessLevel('user')
+      }
     })
   })
   .controller('ChoosePathController', ChoosePathController)
