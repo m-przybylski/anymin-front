@@ -18,7 +18,8 @@
       controller:   'ChoosePathController',
       controllerAs: 'vm',
       data          : {
-        access : UserRolesProvider.getAccessLevel('user')
+        access : UserRolesProvider.getAccessLevel('user'),
+        pageTitle: 'PAGE_TITLE.DASHBOARD.SERVICE_PROVIDER.CHOOSE_PATH'
       }
     })
   })
