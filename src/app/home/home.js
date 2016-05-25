@@ -9,14 +9,15 @@ angular.module('profitelo.controller.home', [
     controller: 'HomeController',
     templateUrl: 'home/home.tpl.html',
     data          : {
-      access : UserRolesProvider.getAccessLevel('public')
+      access : UserRolesProvider.getAccessLevel('public'),
+      pageTitle: 'PAGE_TITLE.HOME'
     }
   })
 })
 .controller('HomeController', HomeController)
 
-function HomeController() {
+function HomeController($scope) {
   var vm = this
-
+  
   return vm
 }

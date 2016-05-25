@@ -51,7 +51,8 @@
         }
       },
       data : {
-        access : UserRolesProvider.getAccessLevel('anon')
+        access : UserRolesProvider.getAccessLevel('anon'),
+        pageTitle: 'PAGE_TITLE.LOGIN.FORGOT_PASSWORD'
       }
     })
   }

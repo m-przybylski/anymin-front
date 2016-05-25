@@ -69,7 +69,8 @@
         account: ConfirmEmailResolver
       },
       data : {
-        access : UserRolesProvider.getAccessLevel('public')
+        access : UserRolesProvider.getAccessLevel('public'),
+        pageTitle: 'PAGE_TITLE.LOGIN.CONFIRM_EMAIL'
       }
     })
   }

@@ -93,6 +93,9 @@
       abstract: true,
       controller: 'AppController',
       templateUrl: 'templates/app.tpl.html',
+      data: {
+        pageTitle: 'PAGE_TITLE.BASE'
+      },
       resolve: {
         typeKit: ($q, $timeout) => {
           /* istanbul ignore next */
@@ -213,8 +216,6 @@
     'profitelo.controller.dashboard.service-provider.company-path',
     'profitelo.controller.dashboard.service-provider.consultation-range',
     'profitelo.controller.home',
-    // 'profitelo.controller.expert-profile',
-    'profitelo.controller.expert-progress',
     'profitelo.controller.login',
     'profitelo.controller.login.account',
     'profitelo.controller.login.register',
