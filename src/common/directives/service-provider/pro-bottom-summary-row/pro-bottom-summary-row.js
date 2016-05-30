@@ -22,7 +22,7 @@
     }
   }
 
-  
+
   angular.module('profitelo.directives.service-provider.pro-bottom-summary-row', [
     'lodash',
     'pascalprecht.translate',

@@ -22,7 +22,7 @@
 
     })
   }
-    
+
   function configFunction($urlRouterProvider, $httpProvider, $stateProvider, $resourceProvider, $translateProvider, $locationProvider, $animateProvider, tmhDynamicLocaleProvider, UserProvider, UserRolesProvider, CommonConfigProvider) {
 
     $httpProvider.defaults.withCredentials = true
@@ -159,6 +159,7 @@
     'profitelo.controller.dashboard.service-provider.individual-path',
     'profitelo.controller.dashboard.service-provider.company-path',
     'profitelo.controller.dashboard.service-provider.consultation-range',
+    'profitelo.controller.dashboard.service-provider.summary',
     'profitelo.controller.home',
     // 'profitelo.controller.expert-profile',
     'profitelo.controller.expert-progress',

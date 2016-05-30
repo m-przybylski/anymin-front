@@ -1,0 +1,11 @@
+pro-service-provider-summary-head
+
+div(ng-repeat="row in vm.consultation")
+  pro-service-provider-summary-step(
+  data-name="vm.consultation.name"
+  data-cost="vm.consultation.cost"
+  )
+    
+.step
+  .summary-button
+    a.pro-btn.btn-round.btn.small.btn-main(data-translate="DASHBOARD.CREATE_PROFILE.SUMMARY.VERIFY_YOU_PROFILE")
