@@ -3,7 +3,6 @@
     let vm = this
 
     let _profileType = $scope.$parent.serviceProviderController.profileTypes['INDIVIDUAL']
-
     vm.individualPathModel = {}
 
     vm.queue = {
@@ -12,7 +11,6 @@
       completedSteps: 1,
       skippedSteps: {}
     }
-
     let _calculateProgressPercentage = () => {
       vm.progressBarWidth = Math.ceil(vm.queue.completedSteps / vm.queue.amountOfSteps * 100)
     }
