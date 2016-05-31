@@ -16,6 +16,7 @@
     let _manualOrderChangeRequestHandle = (targetStep) => {
       $rootScope.$broadcast('manualOrderChangeRequestGrant', targetStep)
     }
+
     $scope.proceed = () => {
       if ($scope.queue.completedSteps < $scope.order) {
         $scope.queue.completedSteps = $scope.order
