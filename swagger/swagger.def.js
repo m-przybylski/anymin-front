@@ -172,8 +172,26 @@
 
           /**
           * @ngdoc method
-          * @name .5.method:listFilesPath
+          * @name .5.method:downloadResizedFilePath
           * @methodOf .5
+          * @description
+          * Download resized file
+          **/
+
+          'downloadResizedFilePath': {
+            method: 'GET',
+            url: apiUrl + '/files/:token/download/:widthx:height',
+            params: {
+              'token': '@token',
+              'width': '@width',
+              'height': '@height',
+            },
+          },
+
+          /**
+          * @ngdoc method
+          * @name .6.method:listFilesPath
+          * @methodOf .6
           * @description
           * List all files
           **/
@@ -185,8 +203,8 @@
 
           /**
           * @ngdoc method
-          * @name .6.method:tokenPath
-          * @methodOf .6
+          * @name .7.method:tokenPath
+          * @methodOf .7
           * @description
           * Get file upload url
           **/
@@ -198,8 +216,8 @@
 
           /**
           * @ngdoc method
-          * @name .7.method:profileCoversPath
-          * @methodOf .7
+          * @name .8.method:profileCoversPath
+          * @methodOf .8
           * @description
           * Get profile cover files
           **/
@@ -214,8 +232,24 @@
 
           /**
           * @ngdoc method
-          * @name .8.method:uploadFilePath
-          * @methodOf .8
+          * @name .9.method:downloadFilePath
+          * @methodOf .9
+          * @description
+          * Download file
+          **/
+
+          'downloadFilePath': {
+            method: 'GET',
+            url: apiUrl + '/files/:token/download',
+            params: {
+              'token': '@token',
+            },
+          },
+
+          /**
+          * @ngdoc method
+          * @name .10.method:uploadFilePath
+          * @methodOf .10
           * @description
           * Upload file
           **/
@@ -231,6 +265,58 @@
     }])
         /**
       * @ngdoc service
+      * @name .Profile
+      * @requires $resource
+      * @requires apiUrl
+      **/
+    .service('ProfileApiDef', ['apiUrl', function(apiUrl) {
+        return {
+
+          /**
+          * @ngdoc method
+          * @name .0.method:postProfile
+          * @methodOf .0
+          * @description
+          * Add profile
+          **/
+
+          'postProfile': {
+            method: 'POST',
+            url: apiUrl + '/profiles',
+          },
+
+          /**
+          * @ngdoc method
+          * @name .1.method:putProfile
+          * @methodOf .1
+          * @description
+          * Add profile
+          **/
+
+          'putProfile': {
+            method: 'PUT',
+            url: apiUrl + '/profiles',
+          },
+
+          /**
+          * @ngdoc method
+          * @name .2.method:getProfile
+          * @methodOf .2
+          * @description
+          * Get Details of profile
+          **/
+
+          'getProfile': {
+            method: 'GET',
+            url: apiUrl + '/profiles/:profileId',
+            params: {
+              'profileId': '@profileId',
+            },
+          }
+        };
+    }])
+        /**
+      * @ngdoc service
       * @name .Registration
       * @requires $resource
       * @requires apiUrl
@@ -240,15 +326,15 @@
 
           /**
           * @ngdoc method
-          * @name .0.method:confirmVerification
+          * @name .0.method:verifyVerification
           * @methodOf .0
           * @description
           * Confirm msisdn verification
           **/
 
-          'confirmVerification': {
+          'verifyVerification': {
             method: 'POST',
-            url: apiUrl + '/msisdns/code',
+            url: apiUrl + '/msisdns/verify/code',
           },
 
           /**
@@ -266,15 +352,15 @@
 
           /**
           * @ngdoc method
-          * @name .2.method:verifyVerification
+          * @name .2.method:confirmVerification
           * @methodOf .2
           * @description
           * Confirm msisdn verification
           **/
 
-          'verifyVerification': {
+          'confirmVerification': {
             method: 'POST',
-            url: apiUrl + '/msisdns/verify/code',
+            url: apiUrl + '/msisdns/code',
           }
         };
     }])
@@ -289,47 +375,8 @@
 
           /**
           * @ngdoc method
-          * @name .0.method:confirmVerification
+          * @name .0.method:verifyVerification
           * @methodOf .0
-          * @description
-          * Confirm msisdn verification
-          **/
-
-          'confirmVerification': {
-            method: 'POST',
-            url: apiUrl + '/msisdns/code',
-          },
-
-          /**
-          * @ngdoc method
-          * @name .1.method:addPath
-          * @methodOf .1
-          * @description
-          * Add new msisdn
-          **/
-
-          'addPath': {
-            method: 'POST',
-            url: apiUrl + '/msisdns',
-          },
-
-          /**
-          * @ngdoc method
-          * @name .2.method:requestVerification
-          * @methodOf .2
-          * @description
-          * Request msisdn verification
-          **/
-
-          'requestVerification': {
-            method: 'POST',
-            url: apiUrl + '/msisdns/verify',
-          },
-
-          /**
-          * @ngdoc method
-          * @name .3.method:verifyVerification
-          * @methodOf .3
           * @description
           * Confirm msisdn verification
           **/
@@ -341,8 +388,8 @@
 
           /**
           * @ngdoc method
-          * @name .4.method:patchPath
-          * @methodOf .4
+          * @name .1.method:patchPath
+          * @methodOf .1
           * @description
           * Update status msisdn
           **/
@@ -357,8 +404,8 @@
 
           /**
           * @ngdoc method
-          * @name .5.method:deletePath
-          * @methodOf .5
+          * @name .2.method:deletePath
+          * @methodOf .2
           * @description
           * Delete msisdn
           **/
@@ -373,8 +420,8 @@
 
           /**
           * @ngdoc method
-          * @name .6.method:updatePath
-          * @methodOf .6
+          * @name .3.method:updatePath
+          * @methodOf .3
           * @description
           * Update msisdn
           **/
@@ -389,8 +436,8 @@
 
           /**
           * @ngdoc method
-          * @name .7.method:detailsPath
-          * @methodOf .7
+          * @name .4.method:detailsPath
+          * @methodOf .4
           * @description
           * Get Details of msisdn
           **/
@@ -401,6 +448,45 @@
             params: {
               'msisdnId': '@msisdnId',
             },
+          },
+
+          /**
+          * @ngdoc method
+          * @name .5.method:addPath
+          * @methodOf .5
+          * @description
+          * Add new msisdn
+          **/
+
+          'addPath': {
+            method: 'POST',
+            url: apiUrl + '/msisdns',
+          },
+
+          /**
+          * @ngdoc method
+          * @name .6.method:requestVerification
+          * @methodOf .6
+          * @description
+          * Request msisdn verification
+          **/
+
+          'requestVerification': {
+            method: 'POST',
+            url: apiUrl + '/msisdns/verify',
+          },
+
+          /**
+          * @ngdoc method
+          * @name .7.method:confirmVerification
+          * @methodOf .7
+          * @description
+          * Confirm msisdn verification
+          **/
+
+          'confirmVerification': {
+            method: 'POST',
+            url: apiUrl + '/msisdns/code',
           }
         };
     }])
@@ -442,24 +528,8 @@
 
           /**
           * @ngdoc method
-          * @name .2.method:postAccountVerifyEmail
+          * @name .2.method:getRegistrationStatusByMsisdn
           * @methodOf .2
-          * @description
-          * Confirm email
-          **/
-
-          'postAccountVerifyEmail': {
-            method: 'POST',
-            url: apiUrl + '/accounts/confirm/email/:token',
-            params: {
-              'token': '@token',
-            },
-          },
-
-          /**
-          * @ngdoc method
-          * @name .3.method:getRegistrationStatusByMsisdn
-          * @methodOf .3
           * @description
           * Retrieve
           **/
@@ -469,6 +539,22 @@
             url: apiUrl + '/accounts/check',
             params: {
               'msisdn': '@msisdn',
+            },
+          },
+
+          /**
+          * @ngdoc method
+          * @name .3.method:postAccountVerifyEmail
+          * @methodOf .3
+          * @description
+          * Confirm email
+          **/
+
+          'postAccountVerifyEmail': {
+            method: 'POST',
+            url: apiUrl + '/accounts/confirm/email/:token',
+            params: {
+              'token': '@token',
             },
           },
 
@@ -518,58 +604,6 @@
             params: {
               'accountId': '@accountId',
             },
-          }
-        };
-    }])
-        /**
-      * @ngdoc service
-      * @name .Profile
-      * @requires $resource
-      * @requires apiUrl
-      **/
-    .service('ProfileApiDef', ['apiUrl', function(apiUrl) {
-        return {
-
-          /**
-          * @ngdoc method
-          * @name .0.method:getProfile
-          * @methodOf .0
-          * @description
-          * Get Details of profile
-          **/
-
-          'getProfile': {
-            method: 'GET',
-            url: apiUrl + '/profiles/:profileId',
-            params: {
-              'profileId': '@profileId',
-            },
-          },
-
-          /**
-          * @ngdoc method
-          * @name .1.method:postProfile
-          * @methodOf .1
-          * @description
-          * Add profile
-          **/
-
-          'postProfile': {
-            method: 'POST',
-            url: apiUrl + '/profiles',
-          },
-
-          /**
-          * @ngdoc method
-          * @name .2.method:putProfile
-          * @methodOf .2
-          * @description
-          * Add profile
-          **/
-
-          'putProfile': {
-            method: 'PUT',
-            url: apiUrl + '/profiles',
           }
         };
     }])

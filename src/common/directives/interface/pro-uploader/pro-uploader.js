@@ -1,10 +1,11 @@
 (function() {
-  function proUploader($timeout, $interval, $q, FilesApi, Upload) {
+  function proUploader($timeout, $interval, $q, FilesApi, Upload, CommonConfig) {
 
     function  linkFunction(scope, element, attr) {
       let _file = 0
       let _files = 0
       let immediateInterval
+      let _commonConfig = CommonConfig.getAllData()
       scope.progress = 0
       scope.fadeText = false
       scope.header = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.HEADER'
@@ -30,6 +31,7 @@
         return parseInt((100.0 * loaded / total), 10)
       }
 
+
       scope.uploadFiles = function($files) {
         scope.uploadImg = false
         let files = $files
@@ -46,7 +48,7 @@
             for (var k = 0; k < files.length; k++) {
               _files = files.length
               Upload.upload({
-                url: tokenPromissesResponse[k].uploadUrl,
+                url: _commonConfig.urls.backend + _commonConfig.urls['file-upload'].replace('%s', tokenPromissesResponse[k].fileId),
                 data: {
                   file: files[k]
                 }
@@ -141,7 +143,8 @@
   }
   angular.module('profitelo.directives.interface.pro-uploader', [
     'ngFileUpload',
-    'profitelo.swaggerResources'
+    'profitelo.swaggerResources',
+    'commonConfig'
   ])
     .directive('proUploader', proUploader)
 }())

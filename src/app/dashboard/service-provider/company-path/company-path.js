@@ -38,8 +38,8 @@
           name: vm.companyPathModel.name,
           avatar: vm.companyPathModel.avatar,
           description: vm.companyPathModel.description,
-          files: vm.companyPathModel.files,
-          links: vm.companyPathModel.links
+          files: vm.companyPathModel.files || [],
+          links: vm.companyPathModel.links || []
         }
       }).$promise.then(() => {
         $state.go('app.dashboard.service-provider.consultation-range')

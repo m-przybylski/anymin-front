@@ -14,7 +14,6 @@
     }
 
     let _manualOrderChangeRequestHandle = (targetStep) => {
-      restoreShadowModel()
       $rootScope.$broadcast('manualOrderChangeRequestGrant', targetStep)
     }
     $scope.proceed = () => {
@@ -43,7 +42,6 @@
     $scope.saveStep = () => {
       $scope.queue.skippedSteps[$scope.order] = false
       $scope.saveSection()
-      $scope.proceed()
     }
 
     $scope.onClick = () => {

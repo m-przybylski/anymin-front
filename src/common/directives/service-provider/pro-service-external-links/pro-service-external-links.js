@@ -10,6 +10,7 @@
         links: []
       }
 
+
       let _urlPattern = CommonSettingsService.localSettings.urlPattern
 
       let _validateUrl = () => {
@@ -26,12 +27,13 @@
 
       scope.removeLink = (linkToDelete) => {
         let _index = scope.model.links.indexOf(linkToDelete)
-        console.log(_index)
         scope.model.links.splice(_index, 1)
       }
 
       scope.onEnter = () => {
-
+        if (!scope.linkModel.match(_urlPattern)) {
+          scope.linkModel = 'http://' + scope.linkModel
+        }
         _validateUrl().then(() => {
 
           scope.model.links.push(scope.linkModel)
@@ -48,8 +50,6 @@
 
       }
 
-
-
       let required = false
 
       if ('required' in attrs) {
@@ -65,10 +65,8 @@
         return _isValidDeferred.promise
       }
 
-
       scope.saveSection = () => {
         _isValid().then(() => {
-
           scope.proModel.links = scope.model.links
           scope.proceed()
 

@@ -29,7 +29,6 @@ function proTagsDropdown($timeout) {
       scope.proModel.push(item.name)
       _onFocusOut()
       _getScrollbarChoices().perfectScrollbar()
-
     }
 
     scope.onKeypress = (event)=> {
