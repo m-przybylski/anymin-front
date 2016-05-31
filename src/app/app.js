@@ -101,7 +101,7 @@
           /* istanbul ignore next */
           let deferred = $q.defer()
           /* istanbul ignore next */
-          let backupTimer = $timeout(()=> {
+          let backupTimer = $timeout(() => {
             deferred.resolve()
           })
           /* istanbul ignore next */
