@@ -2,8 +2,9 @@
   function SummaryController() {
     let vm = this
     vm.consultation={
-      name: 'test',
-      cost: '9'
+      name: ['Rozliczanie i optymalizacja podatków.', 'Naprawa komputerów i laptopów'],
+      cost: ['9', '19'],
+      tags: [['New Pedro', 'West Ceasar', 'East Douglas'], ['Philippines', 'Dickinsonmoth', 'West Ceasar']]
     }
     return vm
   }

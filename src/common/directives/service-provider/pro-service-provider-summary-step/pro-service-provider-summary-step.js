@@ -10,7 +10,8 @@
       templateUrl: 'directives/service-provider/pro-service-provider-summary-step/pro-service-provider-summary-step.tpl.html',
       scope: {
         name: '=',
-        cost: '='
+        cost: '=',
+        tags: '='
       },
       link: linkFunction
     }

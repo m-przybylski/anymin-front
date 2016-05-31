@@ -37,6 +37,7 @@
         		"DASHBOARD.CREATE_PROFILE.INVITED_CONSULTATNS":"Zaproszeni Konsultanci:",
         		"DASHBOARD.CREATE_PROFILE.NAME_COMPANY_PLACEHOLDER":"np. Profitelo",
         		"DASHBOARD.CREATE_PROFILE.NEXT_STEP":"Kolejny Etap",
+        		"DASHBOARD.CREATE_PROFILE.NO_DESCRIPTION_ERROR":"Brak Opisu",
         		"DASHBOARD.CREATE_PROFILE.NO_FILE_ERROR":"Brak Pliku",
         		"DASHBOARD.CREATE_PROFILE.STEP":"Krok:  {{ step }} / {{ steps }}",
         		"DASHBOARD.CREATE_PROFILE.STEP1_CHOOSE_PROFILE_DESCRIPTION":"Usługa może być świadczona tylko przez Ciebie, jak i przez Twoich pracowników.",

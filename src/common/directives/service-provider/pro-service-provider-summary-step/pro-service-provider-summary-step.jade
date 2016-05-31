@@ -9,11 +9,4 @@ block content
     .summary-tag
       h6(data-translate="DASHBOARD.CREATE_PROFILE.SUMMARY.CONSULTATION_TAGS")
       .tags
-        p New Pedro
-        p West Ceasar
-        p East Douglas
-        p Paucekchester
-        p West Leslieton
-        p Dickinsonmouth
-        p Philippines
-        p East Douglas
+        p(ng-repeat="item in tags") {{ tags[$index] }}

@@ -1,9 +1,10 @@
 pro-service-provider-summary-head
 
-div(ng-repeat="row in vm.consultation")
+div(ng-repeat="item in vm.consultation.name")
   pro-service-provider-summary-step(
-  data-name="vm.consultation.name"
-  data-cost="vm.consultation.cost"
+  data-name="vm.consultation.name[$index]"
+  data-cost="vm.consultation.cost[$index]"
+  data-tags="vm.consultation.tags[$index]"
   )
     
 .step
