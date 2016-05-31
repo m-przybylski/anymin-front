@@ -4,7 +4,6 @@
     let vm = this
 
     let shadowModel = null
-
     function saveShadowModel() {
       shadowModel = angular.copy($scope.model)
     }
@@ -18,11 +17,9 @@
       restoreShadowModel()
       $rootScope.$broadcast('manualOrderChangeRequestGrant', targetStep)
     }
-
     $scope.proceed = () => {
       if ($scope.queue.completedSteps < $scope.order) {
         $scope.queue.completedSteps = $scope.order
-
       }
       $scope.queue.currentStep = $scope.order + 1
       if ($scope.queue.currentStep <= $scope.queue.amountOfSteps) {
@@ -30,16 +27,17 @@
           smoothScrolling.scrollTo($scope.queue.currentStep)
         })
       }
-
     }
 
     $scope.skip = () => {
-      if (shadowModel !== null) {
-        restoreShadowModel()
-      }
-
       $scope.queue.skippedSteps[$scope.order] = true
+      restoreShadowModel()
       $scope.proceed()
+    }
+
+    $scope.outClick = () => {
+      $scope.queue.skippedSteps[$scope.order] = true
+      saveShadowModel()
     }
 
     $scope.saveStep = () => {
@@ -61,6 +59,7 @@
 
     $scope.$on('manualOrderChangeRequest', (event, targetStep) => {
       if ($scope.order === $scope.queue.currentStep && targetStep !== $scope.order) {
+        $scope.outClick()
         _manualOrderChangeRequestHandle(targetStep)
       }
     })

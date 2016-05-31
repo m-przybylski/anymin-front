@@ -50,7 +50,7 @@
 
   }
 
-  function config($stateProvider) {
+  function config($stateProvider, UserRolesProvider) {
     $stateProvider.state('app.login.set-new-password', {
       url: '/set-new-password/token/:token/{method:|sms}',
       controllerAs: 'vm',
@@ -60,6 +60,10 @@
         tokenStatus: ($stateParams, AppLoginSetNewPasswordResolver) => {
           return AppLoginSetNewPasswordResolver.resolve($stateParams)
         }
+      },
+      data : {
+        access : UserRolesProvider.getAccessLevel('anon'),
+        pageTitle: 'PAGE_TITLE.LOGIN.SET_NEW_PASSWORD'
       }
     })
   }
@@ -78,7 +82,8 @@
     'profitelo.services.commonSettings',
     'profitelo.directives.interface.pro-alert',
     'profitelo.directives.interface.pro-input-password',
-    'profitelo.directives.password-strength-bar'
+    'profitelo.directives.password-strength-bar',
+    'c7s.ng.userAuth'
   ])
   .config(config)
   .controller('SetNewPasswordController', SetNewPasswordController)

@@ -62,11 +62,15 @@
 
   }
 
-  function config($stateProvider) {
+  function config($stateProvider, UserRolesProvider) {
     $stateProvider.state('app.login.confirm-email', {
       url: '/confirm-email/token/:token',
       resolve: {
         account: ConfirmEmailResolver
+      },
+      data : {
+        access : UserRolesProvider.getAccessLevel('public'),
+        pageTitle: 'PAGE_TITLE.LOGIN.CONFIRM_EMAIL'
       }
     })
   }

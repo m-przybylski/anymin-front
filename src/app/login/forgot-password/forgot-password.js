@@ -39,7 +39,7 @@
 
   }
 
-  function config($stateProvider) {
+  function config($stateProvider, UserRolesProvider) {
     $stateProvider.state('app.login.forgot-password', {
       url: '/forgot-password/{method:|sms}',
       controllerAs: 'vm',
@@ -49,6 +49,10 @@
         account: (AppLoginForgotPasswordResolverService, $stateParams) => {
           return AppLoginForgotPasswordResolverService.resolve($stateParams)
         }
+      },
+      data : {
+        access : UserRolesProvider.getAccessLevel('anon'),
+        pageTitle: 'PAGE_TITLE.LOGIN.FORGOT_PASSWORD'
       }
     })
   }
@@ -61,7 +65,8 @@
     'profitelo.directives.pro-top-alert-service',
     'profitelo.directives.pro-top-waiting-loader-service',
     'profitelo.services.commonSettings',
-    'profitelo.directives.interface.pro-input'
+    'profitelo.directives.interface.pro-input',
+    'c7s.ng.userAuth'
   ])
   .config(config)
   .controller('ForgotPasswordController', ForgotPasswordController)

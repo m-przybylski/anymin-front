@@ -1,18 +1,23 @@
 angular.module('profitelo.controller.home', [
-  'ui.router'
+  'ui.router',
+  'c7s.ng.userAuth'
 ])
-.config(($stateProvider) => {
+.config(($stateProvider, UserRolesProvider) => {
   $stateProvider.state('app.home', {
     url: '/home',
     controllerAs: 'vm',
     controller: 'HomeController',
-    templateUrl: 'home/home.tpl.html'
+    templateUrl: 'home/home.tpl.html',
+    data          : {
+      access : UserRolesProvider.getAccessLevel('public'),
+      pageTitle: 'PAGE_TITLE.HOME'
+    }
   })
 })
 .controller('HomeController', HomeController)
 
-function HomeController() {
+function HomeController($scope) {
   var vm = this
-
+  
   return vm
 }

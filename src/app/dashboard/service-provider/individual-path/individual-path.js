@@ -3,7 +3,6 @@
     let vm = this
 
     let _profileType = $scope.$parent.serviceProviderController.profileTypes['INDIVIDUAL']
-
     vm.individualPathModel = {}
 
     vm.queue = {
@@ -12,7 +11,6 @@
       completedSteps: 1,
       skippedSteps: {}
     }
-
     let _calculateProgressPercentage = () => {
       vm.progressBarWidth = Math.ceil(vm.queue.completedSteps / vm.queue.amountOfSteps * 100)
     }
@@ -75,7 +73,7 @@
     'profitelo.directives.pro-top-alert-service',
     'c7s.ng.userAuth'
   ])
-  .config( function($stateProvider) {
+  .config( function($stateProvider, UserRolesProvider) {
     $stateProvider.state('app.dashboard.service-provider.individual-path', {
       url:          '/individual-path',
       templateUrl:  'dashboard/service-provider/individual-path/individual-path.tpl.html',
@@ -101,6 +99,10 @@
 
           return _deferred.promise
         }
+      },
+      data: {
+        access : UserRolesProvider.getAccessLevel('user'),
+        pageTitle: 'PAGE_TITLE.DASHBOARD.SERVICE_PROVIDER.INDIVIDUAL_PATH'
       }
     })
   })

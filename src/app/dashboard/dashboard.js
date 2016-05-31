@@ -42,13 +42,17 @@
     'ngTouch',
     'c7s.ng.userAuth'
   ])
-  .config( function($stateProvider) {
+  .config( function($stateProvider, UserRolesProvider) {
     $stateProvider.state('app.dashboard', {
       abstract:     true,
       url:          '/dashboard',
       templateUrl:  'dashboard/dashboard.tpl.html',
       controller:   'DashboardController',
-      controllerAs: 'dashboardController'
+      controllerAs: 'dashboardController',
+      data : {
+        access : UserRolesProvider.getAccessLevel('user'),
+        pageTitle: 'PAGE_TITLE.DASHBOARD'
+      }
     })
   })
   .controller('DashboardController', DashboardController)

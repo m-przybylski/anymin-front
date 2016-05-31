@@ -89,12 +89,16 @@
     return vm
   }
 
-  function config($stateProvider) {
+  function config($stateProvider, UserRolesProvider) {
     $stateProvider.state('app.login.account', {
       url: '/account',
       controllerAs: 'vm',
       controller: 'AccountFormController',
-      templateUrl: 'login/account/account.tpl.html'
+      templateUrl: 'login/account/account.tpl.html',
+      data : {
+        access : UserRolesProvider.getAccessLevel('anon'),
+        pageTitle: 'PAGE_TITLE.LOGIN.ACCOUNT'
+      }
     })
   }
 
