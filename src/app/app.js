@@ -101,7 +101,7 @@
           /* istanbul ignore next */
           let deferred = $q.defer()
           /* istanbul ignore next */
-          let backupTimer = $timeout(()=> {
+          let backupTimer = $timeout(() => {
             deferred.resolve()
           })
           /* istanbul ignore next */
@@ -215,6 +215,7 @@
     'profitelo.controller.dashboard.service-provider.individual-path',
     'profitelo.controller.dashboard.service-provider.company-path',
     'profitelo.controller.dashboard.service-provider.consultation-range',
+    'profitelo.controller.dashboard.service-provider.summary',
     'profitelo.controller.home',
     'profitelo.controller.login',
     'profitelo.controller.login.account',
