@@ -7,7 +7,8 @@
     vm.queue = {
       amountOfSteps: 3,
       currentStep: 1,
-      completedSteps: 0
+      completedSteps: 0,
+      skippedSteps: {}
     }
 
     vm.currency = [
@@ -59,6 +60,7 @@
     'profitelo.directives.service-provider.pro-bottom-summary-row',
     'profitelo.directives.service-provider.pro-service-provider-cost',
     'profitelo.swaggerResources',
+    'profitelo.directives.service-provider.pro-service-provider-tags',
     'c7s.ng.userAuth'
   ])
   .config( function($stateProvider, UserRolesProvider) {
