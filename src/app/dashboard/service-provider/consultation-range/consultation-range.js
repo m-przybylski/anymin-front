@@ -27,26 +27,7 @@
     }, _calculateProgressPercentage)
 
     vm.saveAccountObject = () => {
-      let _updateMethod = ProfileApi.putProfile
-      _updateMethod({
-        id: User.getData('id'),
-        type: _profileType,
-        expertDetails: {
-          name: vm.individualPathModel.name,
-          description: vm.individualPathModel.description,
-          avatar: vm.individualPathModel.avatar,
-          languages: vm.individualPathModel.languages,
-          files: vm.individualPathModel.files,
-          links: vm.individualPathModel.links
-        }
-      }).$promise.then(() => {
-        $state.go('app.dashboard.service-provider.consultation-range')
-      }, () => {
-        proTopAlertService.error({
-          message: 'error',
-          timeout: 4
-        })
-      })
+
 
     }
 

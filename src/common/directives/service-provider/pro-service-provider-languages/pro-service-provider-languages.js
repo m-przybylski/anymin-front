@@ -5,13 +5,8 @@
 
       let required = false
 
-      scope.languages = [
-        {name: 'Polish'},
-        {name: 'English'},
-        {name: 'Italian'},
-        {name: 'Spanish'},
-        {name: 'Chineese'}
-      ]
+      scope.languages = ['Polish', 'English', 'Italian', 'Spanish']
+
 
       scope.model = {
         languages: []

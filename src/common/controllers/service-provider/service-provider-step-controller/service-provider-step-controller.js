@@ -57,7 +57,7 @@
     })
 
     $scope.$on('manualOrderChangeRequest', (event, targetStep) => {
-      if ($scope.order === $scope.queue.currentStep && targetStep !== $scope.order) {
+      if (targetStep !== $scope.order) { // TODO $scope.order === $scope.queue.currentStep && <-- co to robi ?
         $scope.outClick()
         _manualOrderChangeRequestHandle(targetStep)
       }

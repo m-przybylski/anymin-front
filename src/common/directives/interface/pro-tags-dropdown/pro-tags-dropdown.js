@@ -26,12 +26,15 @@ function proTagsDropdown($timeout) {
     }
 
     scope.select = function(item, model) {
-      scope.proModel.push(item.name)
+      scope.proModel.push(item)
       _onFocusOut()
       _getScrollbarChoices().perfectScrollbar()
     }
 
     scope.onKeypress = (event)=> {
+      if (event.keyCode === 38) {
+        event.preventDefault()
+      }
       if ('disableTyping' in attr && event) {
         event.preventDefault()
       }
@@ -69,7 +72,8 @@ function proTagsDropdown($timeout) {
       proItems: '=',
       placeholder: '@',
       defaultValue: '@',
-      label: '@'
+      label: '@',
+      tagLabel: '@'
     }
   }
 

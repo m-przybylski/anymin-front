@@ -6,15 +6,11 @@
       let required = false
 
       scope.tags = [
-        {name: '#Pies'},
-        {name: '#KOT'},
-        {name: '#PLACEK'},
-        {name: '#NEwME'},
-        {name: '#JUSTDOIT'}
+        'Kot', 'Telefon', 'Placki', 'JUSTDOIT', 'Pralka'
       ]
 
       scope.model = {
-        languages: []
+        tags: []
       }
 
       if ('required' in attrs) {
@@ -22,7 +18,7 @@
       }
 
       scope.saveSection = () => {
-        scope.proModel.tags = scope.model.languages
+        scope.proModel.tags = scope.model.tags
         scope.proceed()
       }
 
@@ -48,12 +44,12 @@
   }
 
   angular.module('profitelo.directives.service-provider.pro-service-provider-tags', [
-      'lodash',
-      'pascalprecht.translate',
-      'profitelo.services.wizardSectionControl',
-      'profitelo.directives.ng-enter',
-      'profitelo.services.commonSettings',
-      'profitelo.common.controller.service-provider.service-provider-step-controller'
-    ])
+    'lodash',
+    'pascalprecht.translate',
+    'profitelo.services.wizardSectionControl',
+    'profitelo.directives.ng-enter',
+    'profitelo.services.commonSettings',
+    'profitelo.common.controller.service-provider.service-provider-step-controller'
+  ])
     .directive('proServiceProviderTags', proServiceProviderTags)
 }())

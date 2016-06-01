@@ -33,8 +33,7 @@
     vm.saveAccountObject = () => {
       _updateMethod({
         id: User.getData('id'),
-        type: _profileType,
-        OrganizationDetails: {
+        organizationDetails: {
           name: vm.companyPathModel.name,
           avatar: vm.companyPathModel.avatar,
           description: vm.companyPathModel.description,
