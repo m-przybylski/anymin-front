@@ -7,7 +7,12 @@
       scope.model = {
         name: ''
       }
-
+      element.bind('keydown keypress', function(event) {
+        if (event.which === 13) {
+          event.preventDefault()
+          scope.saveSection()
+        }
+      })
 
       let _isValid = () => {
         let _isValidDeferred = $q.defer()
