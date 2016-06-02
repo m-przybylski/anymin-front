@@ -36,16 +36,16 @@
       scope.saveSection = () => {
         scope.noTags = false
         _isValid().then(() => {
-        scope.proModel.tags = scope.model.tags
-        scope.proceed()
+          scope.proModel.tags = scope.model.tags
+          scope.proceed()
 
-      }, () => {
-        _displayErrorMessage()
-      })
+        }, () => {
+          _displayErrorMessage()
+        })
       }
 
       if ('required' in attrs) {
-        scope.required = true;
+        scope.required = true
       }
 
     }

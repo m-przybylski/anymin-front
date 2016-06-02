@@ -1,22 +1,25 @@
-.summary-previous-step
-  .summary-previous-step-content
-    .summary-previous-step-image
+.step.summary-step
+  a.summary-edit-icon.pro-btn.btn-light.btn-icon(data-ng-click="vm.backToFirstStep()")
+    i.icon.icon-edit-16
+  .summary-name
+    .summary-avatar
       img(src='assets/images/John_Doe.jpg' alt='user-avatar')
-    .summary-previous-step-name
-      h2 {{vm.profile.name}}
-      .summary-languages
-        sapn Języki:
-        span(data-ng-repeat="language in vm.profile.languages") &nbsp {{language}}
-    .summary-previous-step-edit
-      .close-button
-        .btn-handler
-          a(data-ng-click="vm.backToFirstStep()").pro-btn.btn-light.btn-icon
-            i.icon.icon-edit-16
-  .summary-previous-step-content
-    .summary-previous-step-description
-      p {{vm.profile.description}}
-      .summary-previous-step-quote
-        i.icon.icon-quote-24
+    .summary-firstname
+      .firstname-lastname
+        h2 {{vm.profile.name}}
+      .languages
+        h6 Języki:
+          span(data-ng-repeat="language in vm.profile.languages") &nbsp {{language}}
+  .summary-descriptions
+    p {{vm.profile.description}}
+
+
+.consultations-container(data-ng-repeat="consultation in vm.consultations")
+  pro-service-provider-summary-step(
+  data-name="consultation.name"
+  data-cost="consultation.cost"
+  data-tags="consultation.tags"
+  )
 
 pro-service-provider-name(
 data-queue="vm.queue"
@@ -56,7 +59,7 @@ required
 
 .step(data-ng-show="vm.queue.amountOfSteps == vm.queue.completedSteps")
   .summary-button
-    a.pro-btn.btn-round.btn.small.btn-main(data-translate="DASHBOARD.CREATE_PROFILE.NEXT_CONSULTATION" data-ng-click="vm.addAnotherConsultation")
+    a.pro-btn.btn-round.btn.small.btn-main(data-translate="DASHBOARD.CREATE_PROFILE.NEXT_CONSULTATION" data-ng-click="vm.addAnotherConsultation()")
 
 pro-bottom-summary-row(
 data-width="vm.progressBarWidth"

@@ -1,8 +1,12 @@
 (function() {
-  function ConsultationRangeController($scope, ProfileApi, savedProfile, User, $state) {
+  function ConsultationRangeController($scope, ProfileApi, savedProfile, User, $state, ServiceApi) {
     let vm = this
 
-    vm.costModel = {}
+    vm.costModel = {
+      name: '',
+      tags: [],
+      cost: 0
+    }
 
     vm.queue = {
       amountOfSteps: 3,
@@ -10,12 +14,16 @@
       completedSteps: 0,
       skippedSteps: {}
     }
-
+    vm.consultations = []
     vm.profile = {}
 
     ProfileApi.getProfile({profileId: User.getData('id')}).$promise.then((response)=>{
-      vm.profile = response.expertDetails.toVerify
-      console.log(vm.profile)
+      if (response.type === 'INDIVIDUAL') {
+        vm.profile = response.expertDetails.toVerify
+      } else {
+        vm.profile = response.organizationDetails.toVerify
+      }
+
     }, (err)=> {
       $state.go('app.dashboard')
       proTopAlertService.error({
@@ -50,7 +58,25 @@
     }
 
     vm.addAnotherConsultation = () => {
-
+      ServiceApi.postPath({
+        ownerId: User.getData('id'),
+        details: {
+          name: vm.costModel.name,
+          tags: vm.costModel.tags,
+          cost: vm.costModel.cost
+        }
+      }).$promise.then((res)=> {
+        //vm.consultations.push(res)
+      }, (err)=> {
+        console.log(err)
+      })
+      vm.costModel = {}
+      vm.queue = {
+        amountOfSteps: 3,
+        currentStep: 1,
+        completedSteps: 0,
+        skippedSteps: {}
+      }
     }
 
     return vm
