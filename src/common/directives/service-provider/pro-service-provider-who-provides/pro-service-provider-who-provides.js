@@ -1,12 +1,18 @@
 (function() {
-  function proServiceProviderCost($q, $timeout) {
-
+  function proServiceProviderWhoProvides($q, $timeout) {
     function linkFunction(scope, element, attrs) {
-
       scope.required = false
+      scope.badName = false
 
-      scope.model = {}
-
+      scope.model = {
+        name: ''
+      }
+      element.bind('keydown keypress', function(event) {
+        if (event.which === 13) {
+          event.preventDefault()
+          scope.saveSection()
+        }
+      })
 
       let _isValid = () => {
         let _isValidDeferred = $q.defer()
@@ -20,6 +26,9 @@
         return _isValidDeferred.promise
       }
 
+      let _displayErrorMessage = () => {
+        scope.badName = true
+      }
 
       if ('required' in attrs) {
         scope.required = true
@@ -27,7 +36,7 @@
 
       scope.saveSection = () => {
         _isValid().then(() => {
-
+          scope.badName = false
           scope.proModel.name = scope.model.name
           scope.proceed()
 
@@ -43,7 +52,7 @@
     return {
       replace: true,
       restrict: 'E',
-      templateUrl: 'directives/service-provider/pro-service-provider-cost/pro-service-provider-cost.tpl.html',
+      templateUrl: 'directives/service-provider/pro-service-provider-who-provides/pro-service-provider-who-provides.tpl.html',
       scope: {
         queue: '=',
         order: '=?',
@@ -51,9 +60,8 @@
         trTitle: '@',
         trDesc: '@',
         placeholder: '@',
-        summaryText: '@',
-        list: '=',
-        errorMessage: '@'
+        errorMessage: '@',
+        label: '@'
       },
       link: linkFunction,
       controller: 'ServiceProviderStepController',
@@ -61,10 +69,10 @@
     }
   }
 
-  angular.module('profitelo.directives.service-provider.pro-service-provider-cost', [
+  angular.module('profitelo.directives.service-provider.pro-service-provider-who-provides', [
     'lodash',
     'pascalprecht.translate',
     'profitelo.common.controller.service-provider.service-provider-step-controller'
   ])
-  .directive('proServiceProviderCost', proServiceProviderCost)
+  .directive('proServiceProviderWhoProvides', proServiceProviderWhoProvides)
 }())

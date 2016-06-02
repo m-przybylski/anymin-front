@@ -1,14 +1,16 @@
-describe('Unit testing: profitelo.directives.interface.pro-dropdown', () => {
-  return describe('for interface.pro-dropdown directive >', () => {
+describe('Unit testing: profitelo.directives.interface.pro-checkbox', () => {
+  return describe('for interface.pro-checkbox directive >', () => {
+
+    let _placeholder = 'PLACEHOLDER'
 
     let scope     = null
     let rootScope
     let compile   = null
-    let validHTML = '<pro-dropdown></pro-dropdown>'
+    let validHTML = '<pro-checkbox required id ng-model="RANDOM"></pro-checkbox>'
 
     beforeEach(() => {
       module('templates-module')
-      module('profitelo.directives.interface.pro-dropdown')
+      module('profitelo.directives.interface.pro-checkbox')
 
       inject(($rootScope, $compile ) => {
         rootScope             = $rootScope.$new()
@@ -31,6 +33,13 @@ describe('Unit testing: profitelo.directives.interface.pro-dropdown', () => {
     it('should compile the directive', () => {
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)
+    })
+
+    it('should be isChecked after click in checkbox', () => {
+      let el = create(validHTML)
+      let isoScope = el.isolateScope()
+      $(el).triggerHandler('click')
+      expect(isoScope.isChecked).toEqual(true)
     })
   })
 })

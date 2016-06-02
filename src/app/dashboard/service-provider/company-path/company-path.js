@@ -1,5 +1,5 @@
 (function() {
-  function CompanyPathController($scope, $state, ProfileApi, savedProfile, User, proTopAlertService) {
+  function CompanyPathController($scope, $state, ProfileApi, savedProfile, User, proTopAlertService, $timeout, smoothScrolling) {
     let vm = this
 
     let _profileType = $scope.$parent.serviceProviderController.profileTypes['COMPANY']
@@ -21,15 +21,9 @@
       skippedSteps: {}
     }
 
-    if (savedProfile.organizationDetails) {
-      vm.companyPathModel = savedProfile.organizationDetails.toVerify
-      vm.queue = {
-        amountOfSteps: 7,
-        currentStep: 7,
-        completedSteps: 7,
-        skippedSteps: {}
-      }
-    }
+    $timeout(()=>{
+      smoothScrolling.scrollTo(vm.queue.currentStep)
+    })
 
     let _calculateProgressPercentage = () => {
       vm.progressBarWidth = Math.ceil(vm.queue.completedSteps / vm.queue.amountOfSteps * 100)
@@ -43,9 +37,10 @@
     vm.saveAccountObject = () => {
       _updateMethod({
         id: User.getData('id'),
-        organizationDetails: {
+        type: _profileType,
+        OrganizationDetails: {
           name: vm.companyPathModel.name,
-          logo: vm.companyPathModel.logo,
+          avatar: vm.companyPathModel.avatar,
           description: vm.companyPathModel.description,
           files: vm.companyPathModel.files || [],
           links: vm.companyPathModel.links || []
@@ -72,7 +67,6 @@
     'profitelo.directives.service-provider.pro-service-provider-languages',
     'profitelo.directives.service-provider.pro-bottom-summary-row',
     'profitelo.swaggerResources',
-    'profitelo.directives.service-provider.pro-service-provider-logo',
     'profitelo.directives.pro-top-alert-service',
     'c7s.ng.userAuth'
   ])

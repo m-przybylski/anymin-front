@@ -1,8 +1,9 @@
 (function() {
-  function IndividualPathController($scope, $state, ProfileApi, User, savedProfile, proTopAlertService) {
+  function IndividualPathController($scope, $state, ProfileApi, User, savedProfile, proTopAlertService, $timeout, smoothScrolling) {
     let vm = this
 
     let _profileType = $scope.$parent.serviceProviderController.profileTypes['INDIVIDUAL']
+    vm.individualPathModel = {}
 
     vm.queue = {
       amountOfSteps: 7,
@@ -10,7 +11,11 @@
       completedSteps: 1,
       skippedSteps: {}
     }
-    vm.individualPathModel = {}
+
+    $timeout(()=>{
+      smoothScrolling.scrollTo(vm.queue.currentStep)
+    })
+
     let _calculateProgressPercentage = () => {
       vm.progressBarWidth = Math.ceil(vm.queue.completedSteps / vm.queue.amountOfSteps * 100)
     }
@@ -21,16 +26,6 @@
       return vm.queue.completedSteps
     }, _calculateProgressPercentage)
 
-
-    if (savedProfile.expertDetails) {
-      vm.individualPathModel = savedProfile.expertDetails.toVerify
-      vm.queue = {
-        amountOfSteps: 7,
-        currentStep: 8,
-        completedSteps: 7,
-        skippedSteps: {}
-      }
-    }
 
     vm.saveAccountObject = () => {
 
@@ -43,6 +38,7 @@
 
       _updateMethod({
         id: User.getData('id'),
+        type: _profileType,
         expertDetails: {
           name: vm.individualPathModel.name,
           description: vm.individualPathModel.description || null,
@@ -67,6 +63,7 @@
   angular.module('profitelo.controller.dashboard.service-provider.individual-path', [
     'ui.router',
     'profitelo.services.service-provider-state',
+    'profitelo.directives.services.smooth-scrolling',
     'profitelo.directives.service-provider.pro-service-provider-name',
     'profitelo.directives.service-provider.pro-service-provider-description',
     'profitelo.directives.service-provider.pro-service-external-links',

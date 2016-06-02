@@ -2,7 +2,6 @@
   function ChoosePathController() {
     let vm = this
 
-
     return vm
   }
 

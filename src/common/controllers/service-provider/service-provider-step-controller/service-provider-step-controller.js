@@ -4,6 +4,17 @@
     let vm = this
 
     let shadowModel = null
+
+    $scope.clearError = {
+      badName: '',
+      noDescription: '',
+      noFile: '',
+      badUrl: '',
+      badLanguages: '',
+      noUrl: '',
+      noFile: ''
+    }
+
     function saveShadowModel() {
       shadowModel = angular.copy($scope.model)
     }
@@ -16,7 +27,6 @@
     let _manualOrderChangeRequestHandle = (targetStep) => {
       $rootScope.$broadcast('manualOrderChangeRequestGrant', targetStep)
     }
-
     $scope.proceed = () => {
       if ($scope.queue.completedSteps < $scope.order) {
         $scope.queue.completedSteps = $scope.order
@@ -30,12 +40,15 @@
     }
 
     $scope.skip = () => {
-
       $scope.queue.skippedSteps[$scope.order] = true
-      if (shadowModel !== null) {
-        restoreShadowModel()
-      }
+      restoreShadowModel()
       $scope.proceed()
+
+      for (var property in $scope.clearError) {
+        if ($scope.clearError.hasOwnProperty(property)) {
+          $scope.clearError[property] = false
+        }
+      }
     }
 
     $scope.outClick = () => {
@@ -52,7 +65,6 @@
       $rootScope.$broadcast('manualOrderChangeRequest', $scope.order)
     }
 
-
     $scope.$on('manualOrderChangeRequestGrant', (event, targetStep) => {
       if ($scope.order === targetStep) {
         saveShadowModel()
@@ -66,11 +78,6 @@
         _manualOrderChangeRequestHandle(targetStep)
       }
     })
-
-    $scope.editConsultation = ()=> {
-      console.log('sdfsdfsdf')
-    }
-
     return vm
   }
 

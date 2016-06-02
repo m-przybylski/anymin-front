@@ -113,5 +113,3 @@ describe('Unit testing: profitelo.directives.interface.pro-input', () => {
 
   })
 })
-
-

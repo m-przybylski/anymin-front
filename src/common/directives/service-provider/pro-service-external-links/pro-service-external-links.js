@@ -30,26 +30,28 @@
         let _index = scope.model.links.indexOf(linkToDelete)
         scope.model.links.splice(_index, 1)
       }
+      let httpAdded = false
 
       scope.onEnter = () => {
-        if (!scope.linkModel.match(_urlPattern)) {
+        if (!scope.linkModel.match(_urlPattern) && httpAdded === false) {
           scope.linkModel = 'http://' + scope.linkModel
+          httpAdded = true
         }
-        _validateUrl().then(() => {
 
+        _validateUrl().then(() => {
+          scope.clearError.badUrl = false
+          httpAdded = false
           scope.model.links.push(scope.linkModel)
           scope.linkModel = ''
 
         }, () => {
-          scope.badUrl = true
-
-          $timeout(() => {
-            scope.badUrl = false
-          }, 1000)
-
+          scope.clearError.badUrl = true
+          scope.clearError.noUrl = false
         })
 
       }
+
+
 
       let required = false
 
@@ -59,20 +61,29 @@
 
 
       let _isValid = () => {
-        let _isValidDeferred = $q.defer()
+        let _isValidDeferredEmpty = $q.defer()
 
-        _isValidDeferred.resolve()
+        if (angular.isDefined(scope.model.links) && scope.model.links.length > 0) {
+          _isValidDeferredEmpty.resolve()
+        } else {
+          _isValidDeferredEmpty.reject()
+        }
 
-        return _isValidDeferred.promise
+        return _isValidDeferredEmpty.promise
+      }
+
+      let _displayErrorMessage = () => {
+        scope.clearError.noUrl = true
       }
 
       scope.saveSection = () => {
         _isValid().then(() => {
+          scope.clearError.noUrl = false
           scope.proModel.links = scope.model.links
           scope.proceed()
 
         }, () => {
-          console.log('not valid')
+          _displayErrorMessage()
         })
       }
 

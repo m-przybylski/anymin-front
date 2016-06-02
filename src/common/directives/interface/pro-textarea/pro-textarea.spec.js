@@ -1,5 +1,5 @@
-describe('Unit testing: profitelo.directives.interface.pro-input', () => {
-  return describe('for interface.pro-input directive >', () => {
+describe('Unit testing: profitelo.directives.interface.pro-textarea', () => {
+  return describe('for interface.pro-textarea directive >', () => {
 
     let _placeholder = 'PLACEHOLDER'
 
@@ -36,5 +36,3 @@ describe('Unit testing: profitelo.directives.interface.pro-input', () => {
     })
   })
 })
-
-

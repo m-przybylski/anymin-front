@@ -5,7 +5,4 @@ block content
   .step-content(data-ng-click="onClick()")
       pro-textarea(data-ng-model='model.description')
   .input-error-messages
-     .error(data-translate="DASHBOARD.CREATE_PROFILE.NO_DESCRIPTION_ERROR" data-ng-show="noDescription")
-
-
-
+     .error(data-translate="DASHBOARD.CREATE_PROFILE.NO_DESCRIPTION_ERROR" data-ng-show="clearError.noDescription")

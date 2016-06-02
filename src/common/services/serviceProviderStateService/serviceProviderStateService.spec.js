@@ -14,7 +14,6 @@ describe('Unit testing: profitelo.services.service-provider-state >', function()
 
 
     it('should have a dummy test', inject(function() {
-      console.log(serviceProviderStateService)
       expect(true).toBeTruthy()
     }))
 

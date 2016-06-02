@@ -16,6 +16,6 @@
             h5.bold(data-translate="{{info | translate: translationInfo}}")
         .upload-field-fill(style="height: {{ progress }}%")
 
-    .input-error-messages
+    .input-error-messages.uploader-error-massages
       .error(data-translate="COMMON.DIRECTIVES.INTERFACE.UPLOADER.ERROR_EXTERNAL_FILES_TYPE" data-ng-show="scope.uploadedFiles.$error === 'pattern'")
       .error(data-translate="COMMON.DIRECTIVES.INTERFACE.UPLOADER.ERROR_EXTERNAL_FILES_SIZE" data-ng-show="badFileSize")

@@ -4,4 +4,6 @@ block content
     .step-content-column
         pro-tags-dropdown(data-pro-items="languages"
         data-placeholder="{{'DASHBOARD.CREATE_PROFILE.STEP5_PLACEHOLDER' | translate}}"
-        data-pro-model="model.languages" data-ng-click="onClick()" disable-typing)
+        data-pro-model="model.languages" data-ng-click="onClick()")
+    .input-error-messages
+      .error(data-translate="DASHBOARD.CREATE_PROFILE.LANGUAGES_ERROR" data-ng-show="clearError.badLanguages")

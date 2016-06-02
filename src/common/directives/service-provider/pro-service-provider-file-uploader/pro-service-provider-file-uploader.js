@@ -23,21 +23,30 @@
       let _isValid = () => {
         let _isValidDeferred = $q.defer()
 
-        _isValidDeferred.resolve()
+        if (angular.isDefined(scope.model.files) && scope.model.files.length > 0) {
+          _isValidDeferred.resolve()
+        } else {
+          _isValidDeferred.reject()
+        }
 
         return _isValidDeferred.promise
+      }
+
+      let _displayErrorMessage = () => {
+        scope.clearError.badFiles = true
       }
 
 
       scope.saveSection = () => {
         console.log(scope.model.files)
         _isValid().then(() => {
+          scope.clearError.badFiles = false
           scope.proceed()
           scope.proModel.files = scope.model.files.map((file) => {
             return file.response.id
           })
         }, () => {
-          console.log('not valid')
+          _displayErrorMessage()
         })
       }
 
