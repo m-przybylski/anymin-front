@@ -4,7 +4,7 @@
     function linkFunction(scope, element, attrs) {
 
       scope.required = false
-      scope.badName = false
+      scope.noCost = false
 
       scope.model = {}
 
@@ -24,10 +24,7 @@
 
 
       let _displayErrorMessage = () => {
-        scope.badName = true
-        $timeout(() => {
-          scope.badName = false
-        }, 1000)
+        scope.noCost = true
       }
 
 
@@ -36,6 +33,7 @@
       }
 
       scope.saveSection = () => {
+        scope.noCost = false
         _isValid().then(() => {
 
           scope.proModel.name = scope.model.name

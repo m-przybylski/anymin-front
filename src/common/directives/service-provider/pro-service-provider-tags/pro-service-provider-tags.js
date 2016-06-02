@@ -1,5 +1,5 @@
 (function() {
-  function proServiceProviderTags() {
+  function proServiceProviderTags($q, $timeout) {
 
     function linkFunction(scope, element, attrs) {
 
@@ -17,9 +17,35 @@
         required = true
       }
 
+      let _isValid = () => {
+        let _isValidDeferred = $q.defer()
+
+        if (angular.isDefined(scope.model.tags) && scope.model.tags.length > 0) {
+          _isValidDeferred.resolve()
+        } else {
+          _isValidDeferred.reject()
+        }
+
+        return _isValidDeferred.promise
+      }
+
+      let _displayErrorMessage = () => {
+        scope.noTags = true
+      }
+
       scope.saveSection = () => {
+        scope.noTags = false
+        _isValid().then(() => {
         scope.proModel.tags = scope.model.tags
         scope.proceed()
+
+      }, () => {
+        _displayErrorMessage()
+      })
+      }
+
+      if ('required' in attrs) {
+        scope.required = true;
       }
 
     }
@@ -35,7 +61,8 @@
         proModel: '=',
         trTitle: '@',
         trDesc: '@',
-        placeholder: '@'
+        placeholder: '@',
+        errorMessage: '@'
       },
       link: linkFunction,
       controller: 'ServiceProviderStepController',

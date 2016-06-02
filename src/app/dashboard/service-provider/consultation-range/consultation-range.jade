@@ -3,17 +3,18 @@
     .summary-previous-step-image
       img(src='assets/images/John_Doe.jpg' alt='user-avatar')
     .summary-previous-step-name
-      h2 Imie Nazwisko
+      h2 {{vm.profile.name}}
       .summary-languages
-        p Języki: pl, sk, cz, fr
+        sapn Języki:
+        span(data-ng-repeat="language in vm.profile.languages") &nbsp {{language}}
     .summary-previous-step-edit
       .close-button
         .btn-handler
-          a(data-ui-sref="#").pro-btn.btn-light.btn-icon
+          a(data-ng-click="vm.backToFirstStep()").pro-btn.btn-light.btn-icon
             i.icon.icon-edit-16
   .summary-previous-step-content
     .summary-previous-step-description
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam et orci at dolor blandit pellentesque. Nullam ante ipsum, pretium quis ornare a, sodales eget dolor. Nunc non ipsum blandit, faucibus nunc in, auctor dui.
+      p {{vm.profile.description}}
       .summary-previous-step-quote
         i.icon.icon-quote-24
 
@@ -32,9 +33,11 @@ pro-service-provider-tags(
 data-queue="vm.queue"
 data-order="2"
 data-pro-model="vm.costModel"
+data-error-message="DASHBOARD.SERVICE_PROVIDER.NAME.EMPTY_TAGS"
 data-placeholder="DASHBOARD.CONSULTATION_RANGE.CONSULTATION_NAME_PLACEHOLDER"
 tr-title="DASHBOARD.CONSULTATION_RANGE.CONSULTATION_RANGE_TITLE"
 tr-desc="DASHBOARD.CONSULTATION_RANGE.CONSULTATION_NAME_DESCRIPTION"
+required
 )
 
 pro-service-provider-cost(
@@ -47,10 +50,17 @@ data-error-message="DASHBOARD.SERVICE_PROVIDER.NAME.BAD_COMPANY_NAME"
 data-summary-text="DASHBOARD.CONSULTATION_RANGE.COST_SUMMARY"
 tr-title="DASHBOARD.CONSULTATION_RANGE.CONSULTATION_RANGE_COST_PER_MINUTE"
 tr-desc="DASHBOARD.CONSULTATION_RANGE.CONSULTATION_COST_DESCRIPTION"
+required
+
 )
+
+.step(data-ng-show="vm.queue.amountOfSteps == vm.queue.completedSteps")
+  .summary-button
+    a.pro-btn.btn-round.btn.small.btn-main(data-translate="DASHBOARD.CREATE_PROFILE.NEXT_CONSULTATION" data-ng-click="vm.addAnotherConsultation")
 
 pro-bottom-summary-row(
 data-width="vm.progressBarWidth"
 data-queue="vm.queue"
 data-button-action="vm.saveAccountObject"
+data-order="4"
 )

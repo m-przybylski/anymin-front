@@ -1,5 +1,5 @@
 (function() {
-  function ConsultationRangeController($scope, ProfileApi, savedProfile) {
+  function ConsultationRangeController($scope, ProfileApi, savedProfile, User, $state) {
     let vm = this
 
     vm.costModel = {}
@@ -10,6 +10,19 @@
       completedSteps: 0,
       skippedSteps: {}
     }
+
+    vm.profile = {}
+
+    ProfileApi.getProfile({profileId: User.getData('id')}).$promise.then((response)=>{
+      vm.profile = response.expertDetails.toVerify
+      console.log(vm.profile)
+    }, (err)=> {
+      $state.go('app.dashboard')
+      proTopAlertService.error({
+        message: 'error',
+        timeout: 4
+      })
+    })
 
     vm.currency = [
       {id: 1, name: 'PLN'},
@@ -26,8 +39,17 @@
       return vm.queue.completedSteps
     }, _calculateProgressPercentage)
 
+    vm.backToFirstStep = () => {
+
+      $state.go('app.dashboard.service-provider.individual-path')
+    }
+
     vm.saveAccountObject = () => {
 
+
+    }
+
+    vm.addAnotherConsultation = () => {
 
     }
 
