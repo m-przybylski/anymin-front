@@ -58,12 +58,14 @@
     }
 
     vm.addAnotherConsultation = () => {
+      console.log(vm.costModel.name)
+      console.log(vm.costModel.tags)
+      console.log(vm.costModel.cost)
       ServiceApi.postPath({
-        ownerId: User.getData('id'),
         details: {
-          name: vm.costModel.name,
-          tags: vm.costModel.tags,
-          cost: vm.costModel.cost
+            name: vm.costModel.name,
+            tags: vm.costModel.tags,
+            price: parseInt(vm.costModel.cost)
         }
       }).$promise.then((res)=> {
         //vm.consultations.push(res)
