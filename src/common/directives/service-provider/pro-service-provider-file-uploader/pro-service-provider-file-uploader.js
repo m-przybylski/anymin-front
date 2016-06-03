@@ -7,6 +7,8 @@
         files: []
       }
 
+      scope.model.files = scope.proModel.files
+
       let required = false
 
       if ('required' in attrs) {
@@ -28,6 +30,7 @@
 
 
       scope.saveSection = () => {
+        console.log(scope.model.files)
         _isValid().then(() => {
           scope.proceed()
           scope.proModel.files = scope.model.files.map((file) => {

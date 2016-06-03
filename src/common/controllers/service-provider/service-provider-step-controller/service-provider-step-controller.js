@@ -30,8 +30,11 @@
     }
 
     $scope.skip = () => {
+
       $scope.queue.skippedSteps[$scope.order] = true
-      restoreShadowModel()
+      if (shadowModel !== null) {
+        restoreShadowModel()
+      }
       $scope.proceed()
     }
 
@@ -48,6 +51,7 @@
     $scope.onClick = () => {
       $rootScope.$broadcast('manualOrderChangeRequest', $scope.order)
     }
+
 
     $scope.$on('manualOrderChangeRequestGrant', (event, targetStep) => {
       if ($scope.order === targetStep) {

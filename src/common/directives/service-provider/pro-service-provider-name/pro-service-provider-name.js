@@ -13,6 +13,7 @@
           scope.saveSection()
         }
       })
+      scope.model.name = scope.proModel.name
 
       let _isValid = () => {
         let _isValidDeferred = $q.defer()

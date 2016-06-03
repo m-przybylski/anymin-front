@@ -17,6 +17,7 @@
         scope.noDescription = true
       }
 
+      scope.model.description = scope.proModel.description
 
       let _isValid = () => {
         let _isValidDeferred = $q.defer()

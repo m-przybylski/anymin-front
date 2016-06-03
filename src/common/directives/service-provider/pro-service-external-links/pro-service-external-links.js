@@ -9,7 +9,8 @@
       scope.model = {
         links: []
       }
-
+      console.log(scope.proModel.links)
+      scope.model.links = scope.proModel.links
 
       let _urlPattern = CommonSettingsService.localSettings.urlPattern
 

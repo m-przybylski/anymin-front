@@ -18,7 +18,7 @@
     vm.profile = {}
 
     ProfileApi.getProfile({profileId: User.getData('id')}).$promise.then((response)=>{
-      if (response.type === 'INDIVIDUAL') {
+      if (response.expertDetails) {
         vm.profile = response.expertDetails.toVerify
       } else {
         vm.profile = response.organizationDetails.toVerify
@@ -70,13 +70,7 @@
       }, (err)=> {
         console.log(err)
       })
-      vm.costModel = {}
-      vm.queue = {
-        amountOfSteps: 3,
-        currentStep: 1,
-        completedSteps: 0,
-        skippedSteps: {}
-      }
+      $state.reload()
     }
 
     return vm
@@ -90,6 +84,7 @@
     'profitelo.directives.service-provider.pro-service-provider-cost',
     'profitelo.swaggerResources',
     'profitelo.directives.service-provider.pro-service-provider-tags',
+    'profitelo.directives.service-provider.pro-bottom-consultation-button',
     'c7s.ng.userAuth'
   ])
   .config( function($stateProvider, UserRolesProvider) {

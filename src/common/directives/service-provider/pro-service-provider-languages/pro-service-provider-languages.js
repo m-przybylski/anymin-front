@@ -16,6 +16,8 @@
         required = true
       }
 
+      scope.model.languages = scope.proModel.languages
+
       scope.saveSection = () => {
         scope.proModel.languages = scope.model.languages
         scope.proceed()

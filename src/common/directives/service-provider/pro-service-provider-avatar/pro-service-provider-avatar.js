@@ -1,5 +1,5 @@
 (function() {
-  function proServiceProviderAvatar($q, $timeout) {
+  function proServiceProviderAvatar($q, $timeout, FilesApi) {
 
     function linkFunction(scope, element, attrs) {
 
@@ -9,6 +9,15 @@
       scope.model = {
         avatar: []
       }
+
+      if (scope.proModel.avatar) {
+        FilesApi.fileInfoPath({token: scope.proModel.avatar}).$promise.then((res)=>{
+          scope.model.avatar.push({file: null, response:res})
+        }, (err)=> {
+
+        })
+      }
+
       let _isValid = () => {
         let _isValidDeferred = $q.defer()
         if (angular.isDefined(scope.model.avatar) && scope.model.avatar.length > 0) {

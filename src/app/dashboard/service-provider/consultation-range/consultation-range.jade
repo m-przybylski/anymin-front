@@ -54,12 +54,12 @@ data-summary-text="DASHBOARD.CONSULTATION_RANGE.COST_SUMMARY"
 tr-title="DASHBOARD.CONSULTATION_RANGE.CONSULTATION_RANGE_COST_PER_MINUTE"
 tr-desc="DASHBOARD.CONSULTATION_RANGE.CONSULTATION_COST_DESCRIPTION"
 required
-
 )
 
-.step(data-ng-show="vm.queue.amountOfSteps == vm.queue.completedSteps")
-  .summary-button
-    a.pro-btn.btn-round.btn.small.btn-main(data-translate="DASHBOARD.CREATE_PROFILE.NEXT_CONSULTATION" data-ng-click="vm.addAnotherConsultation()")
+pro-bottom-consultation-button(
+data-button-action="vm.addAnotherConsultation"
+data-queue="vm.queue"
+data-order="4")
 
 pro-bottom-summary-row(
 data-width="vm.progressBarWidth"

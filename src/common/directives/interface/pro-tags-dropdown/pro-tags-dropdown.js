@@ -15,7 +15,6 @@ function proTagsDropdown($timeout) {
       scope.onClick = false
     }
 
-    scope.proModel = []
     scope.onFocus = ()=> {
       scope.focus = true
       scope.onClick = true

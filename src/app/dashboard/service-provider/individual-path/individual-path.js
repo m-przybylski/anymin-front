@@ -3,7 +3,6 @@
     let vm = this
 
     let _profileType = $scope.$parent.serviceProviderController.profileTypes['INDIVIDUAL']
-    vm.individualPathModel = {}
 
     vm.queue = {
       amountOfSteps: 7,
@@ -11,6 +10,7 @@
       completedSteps: 1,
       skippedSteps: {}
     }
+    vm.individualPathModel = {}
     let _calculateProgressPercentage = () => {
       vm.progressBarWidth = Math.ceil(vm.queue.completedSteps / vm.queue.amountOfSteps * 100)
     }
@@ -21,6 +21,16 @@
       return vm.queue.completedSteps
     }, _calculateProgressPercentage)
 
+
+    if (savedProfile.expertDetails) {
+      vm.individualPathModel = savedProfile.expertDetails.toVerify
+      vm.queue = {
+        amountOfSteps: 7,
+        currentStep: 8,
+        completedSteps: 7,
+        skippedSteps: {}
+      }
+    }
 
     vm.saveAccountObject = () => {
 
