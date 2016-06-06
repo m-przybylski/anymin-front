@@ -33,7 +33,6 @@
       }
 
       scope.model.languages = scope.proModel.languages
-
       scope.saveSection = () => {
         _isValid().then(() => {
           scope.clearError.badLanguages = false

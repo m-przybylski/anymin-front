@@ -5,7 +5,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-extern
     var scope = null
 
     var validHTML = '<pro-service-external-links data-queue="vm.queue" ' +
-      'data-order="2" data-pro-model="vm.individualPathModel" ' +
+      'data-order="2" data-pro-model="proModel" ' +
       'data-placeholder="DASHBOARD.CONSULTATION_RANGE.CONSULTANTS_LIST_PLACEHOLDER"' +
       ' data-error-message="DASHBOARD.SERVICE_PROVIDER.NAME.BAD_NAME" tr-title="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT" ' +
       'tr-desc="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT_DESCRIPTION" required="required"></pro-service-external-links>'
@@ -13,7 +13,6 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-extern
     beforeEach(function() {
       module('templates-module')
       module('profitelo.directives.service-provider.pro-service-external-links')
-
       inject(function($rootScope, $compile) {
         scope = $rootScope.$new()
         compile = $compile
@@ -22,7 +21,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-extern
 
     function create(html) {
       var elem = angular.element(html)
-
+      scope.proModel = {links: []}
       var compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement

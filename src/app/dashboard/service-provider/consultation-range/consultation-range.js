@@ -24,9 +24,10 @@
     vm.profile = {}
     let isExpert = false
 
-    ProfileApi.getProfile({profileId: User.getData('id')}).$promise.then((response)=>{
+    ProfileApi.getProfileWithServices({profileId: User.getData('id')}).$promise.then((response)=>{
       if (response.expertDetails) {
         vm.profile = response.expertDetails.toVerify
+        vm.consultations = response.services
         isExpert = true
       } else {
         vm.profile = response.organizationDetails.toVerify
@@ -49,7 +50,7 @@
     }, _calculateProgressPercentage)
 
     vm.backToFirstStep = () => {
-      if(isExpert){
+      if (isExpert) {
         $state.go('app.dashboard.service-provider.individual-path')
       } else {
         $state.go('app.dashboard.service-provider.company-path')
@@ -57,30 +58,52 @@
 
     }
 
-    vm.saveAccountObject = () => {
 
+
+    vm.saveConsultationObject = () => {
+      $state.go('app.dashboard.service-provider.summary')
+      if (vm.queue.completedSteps === 3) {
+        ServiceApi.postService({
+          details: {
+            name: vm.costModel.name,
+            tags: vm.costModel.tags,
+            price: parseInt(vm.costModel.cost, 10)
+          }
+        }).$promise.then((res)=> {
+        }, (err)=> {
+
+        })
+      }
+    }
+
+    vm.checkIsConsultation = () => {
+      return vm.consultations.length > 0
+    }
+
+    vm.editConsultation = () => {
 
     }
 
+    vm.deleteConsultation = (id, index) => {
+      ServiceApi.deleteService({
+        serviceId: id
+      }).$promise.then((res)=> {
+        vm.consultations.splice(index, 1)
+      })
+    }
+
     vm.addAnotherConsultation = () => {
-      ServiceApi.postPath({
+      ServiceApi.postService({
         details: {
-            name: vm.costModel.name,
-            tags: vm.costModel.tags,
-            price: parseInt(vm.costModel.cost)
+          name: vm.costModel.name,
+          tags: vm.costModel.tags,
+          price: parseInt(vm.costModel.cost, 10)
         }
       }).$promise.then((res)=> {
-        vm.consultations.push(res)
-        vm.queue = {
-          amountOfSteps: 3,
-          currentStep: 1,
-          completedSteps: 0,
-          skippedSteps: {}
-        }
+        $state.reload()
       }, (err)=> {
 
       })
-      //$state.reload()
     }
 
     return vm

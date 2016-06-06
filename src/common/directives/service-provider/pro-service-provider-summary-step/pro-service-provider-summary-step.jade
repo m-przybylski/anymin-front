@@ -1,12 +1,17 @@
 block content
-  .step.summary-step
-    .summary-edit-icon
-      a
-        i.icon.icon-edit-16  
-    .summary-step-title
-      h4 {{ name }}
-      h3 {{ cost }} PLN/MIN
-    .summary-tag
-      h6(data-translate="DASHBOARD.CREATE_PROFILE.SUMMARY.CONSULTATION_TAGS")
-      .tags
-        p(ng-repeat="item in tags") {{ tags[$index] }}
+  .consultations-container(data-ng-repeat="consultation in consultations")
+    .step.summary-step
+      .btn-handler
+        .summary-icon
+          a(data-ng-click="$parent.deleteConsultation(consultation.id, $index)")
+            i.icon.icon-trash-24
+        .summary-icon
+          a(data-ng-click="$parent.editConsultation(consultation.id)")
+            i.icon.icon-edit-16
+      .summary-step-title
+        h4 {{ consultation.details.toVerify.name}}
+        h3 {{ consultation.details.toVerify.price }} PLN/MIN
+      .summary-tag
+        h6(data-translate="DASHBOARD.CREATE_PROFILE.SUMMARY.CONSULTATION_TAGS")
+        .tags
+          p(ng-repeat="tag in consultation.details.toVerify.tags") {{ tag }}

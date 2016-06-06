@@ -1,4 +1,4 @@
-.step.step-done
+.step.step-done(data-ng-hide="vm.isEdit")
   .focus-layer(data-ng-click="hideDiv=true; onClick()" data-ng-hide="hideDiv")
   .title-step
     .title-order
@@ -75,4 +75,5 @@ data-width="vm.progressBarWidth"
 data-queue="vm.queue"
 data-button-action="vm.saveAccountObject"
 data-order="8"
+data-header="DASHBOARD.EXPERT_ACCOUNT.STEP1_PROGRESS_BAR_TITLE"
 )

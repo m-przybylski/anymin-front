@@ -1,5 +1,5 @@
 (function() {
-  function proServiceProviderFileUploader($q, CommonSettingsService) {
+  function proServiceProviderFileUploader($q, CommonSettingsService, FilesApi) {
 
     function linkFunction(scope, element, attrs) {
 
@@ -7,8 +7,14 @@
         files: []
       }
 
-      scope.model.files = scope.proModel.files
-
+      if (scope.proModel.files) {
+        for (let i = 0; i < scope.proModel.files.length;i++) {
+          FilesApi.fileInfoPath({token: scope.proModel.files[i]}).$promise.then((res)=>{
+            scope.model.files.push({file: res.details, response: null})
+          }, (err)=>{
+          })
+        }
+      }
       let required = false
 
       if ('required' in attrs) {

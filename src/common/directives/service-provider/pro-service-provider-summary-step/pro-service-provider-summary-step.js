@@ -2,9 +2,13 @@
   function proServiceProviderSummaryStep($q) {
     function linkFunction(scope) {
 
-      scope.deleteConsultation = (id)=> {
-
+      scope.deleteConsultation = (id, index)=> {
+        scope.deleteAction(id, index)
       }
+      scope.editConsultation = (id)=> {
+        scope.editAction(id)
+      }
+
     }
 
     return {
@@ -12,10 +16,9 @@
       restrict: 'E',
       templateUrl: 'directives/service-provider/pro-service-provider-summary-step/pro-service-provider-summary-step.tpl.html',
       scope: {
-        name: '=',
-        price: '=',
-        tags: '=',
-        id: '='
+        consultations: '=',
+        editAction: '=',
+        deleteAction: '='
       },
       link: linkFunction
     }

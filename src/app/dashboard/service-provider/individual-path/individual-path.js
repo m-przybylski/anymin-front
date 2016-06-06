@@ -2,8 +2,6 @@
   function IndividualPathController($scope, $state, ProfileApi, User, savedProfile, proTopAlertService, $timeout, smoothScrolling) {
     let vm = this
 
-    let _profileType = $scope.$parent.serviceProviderController.profileTypes['INDIVIDUAL']
-    vm.individualPathModel = {}
 
     vm.queue = {
       amountOfSteps: 7,
@@ -11,10 +9,14 @@
       completedSteps: 1,
       skippedSteps: {}
     }
-
-    $timeout(()=>{
-      smoothScrolling.scrollTo(vm.queue.currentStep)
-    })
+    vm.individualPathModel = {
+      name: null,
+      description:  null,
+      avatar:  null,
+      languages:  [],
+      files:  [],
+      links:  []
+    }
 
     let _calculateProgressPercentage = () => {
       vm.progressBarWidth = Math.ceil(vm.queue.completedSteps / vm.queue.amountOfSteps * 100)
@@ -25,6 +27,24 @@
     $scope.$watch(() => {
       return vm.queue.completedSteps
     }, _calculateProgressPercentage)
+
+
+    if (savedProfile.expertDetails) {
+      vm.individualPathModel = savedProfile.expertDetails.toVerify
+      vm.queue = {
+        amountOfSteps: 7,
+        currentStep: 8,
+        completedSteps: 7,
+        skippedSteps: {}
+      }
+      vm.isEdit = true
+    } else {
+      vm.isEdit = false
+      $timeout(()=>{
+        smoothScrolling.scrollTo(vm.queue.currentStep)
+      })
+    }
+
 
 
     vm.saveAccountObject = () => {
@@ -38,14 +58,13 @@
 
       _updateMethod({
         id: User.getData('id'),
-        type: _profileType,
         expertDetails: {
           name: vm.individualPathModel.name,
-          description: vm.individualPathModel.description || null,
-          avatar: vm.individualPathModel.avatar || null,
-          languages: vm.individualPathModel.languages || [],
-          files: vm.individualPathModel.files || [],
-          links: vm.individualPathModel.links || []
+          description: vm.individualPathModel.description,
+          avatar: vm.individualPathModel.avatar,
+          languages: vm.individualPathModel.languages,
+          files: vm.individualPathModel.files,
+          links: vm.individualPathModel.links
         }
       }).$promise.then(() => {
         $state.go('app.dashboard.service-provider.consultation-range')

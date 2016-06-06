@@ -15,7 +15,9 @@
         queue: '=',
         order: '=?',
         width: '=',
-        buttonAction: '='
+        buttonAction: '=',
+        header: '@',
+        showAllTime: '=?'
       },
       link: linkFunction,
       controller: 'ServiceProviderStepController'

@@ -14,7 +14,7 @@
         FilesApi.fileInfoPath({token: scope.proModel.avatar}).$promise.then((res)=>{
           scope.model.avatar.push({file: null, response:res})
         }, (err)=> {
-
+            //TODO ALERT !
         })
       }
 

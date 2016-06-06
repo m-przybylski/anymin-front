@@ -3,27 +3,35 @@
   margin-top: 30px
   position: relative
   border-radius: 0.4em
-
-  .summary-edit-icon
-    border: 1px solid $c-lines
-    border-radius: 50px
-    width: 48px
-    height: 48px
-    position: absolute
-    right: 30px
-    top: 30px
-    font-size: 16px
-    padding: 13px 0px 0px 12px
-    .icon-edit-24
-      display: flex
-      position: absolute
-      flex-direction: row
-      flex-wrap: nowrap
-      justify-content: center
-      align-content: center
-      align-items: center
-    i
-      color: $c-primary
+  .btn-handler
+    float: right
+    display: flex
+    justify-content: flex-end
+    .summary-icon
+      border: 1px solid $c-lines
+      border-radius: 50px
+      width: 48px
+      height: 48px
+      position: relative
+      right: 5px
+      margin-left: 10px
+      top: 30px
+      font-size: 16px
+      padding: 13px 0px 0px 12px
+      &:hover
+        border-color: $c-primary
+      a
+        border: none
+      .icon-edit-24
+        display: flex
+        position: absolute
+        flex-direction: row
+        flex-wrap: nowrap
+        justify-content: center
+        align-content: center
+        align-items: center
+      i
+        color: $c-primary
 
   .summary-step-title
     border-bottom: 1px solid $c-lines
