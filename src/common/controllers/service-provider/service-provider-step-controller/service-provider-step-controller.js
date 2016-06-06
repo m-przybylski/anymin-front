@@ -67,6 +67,10 @@
       }
     })
 
+    $scope.editConsultation = ()=> {
+      console.log('sdfsdfsdf')
+    }
+
     return vm
   }
 

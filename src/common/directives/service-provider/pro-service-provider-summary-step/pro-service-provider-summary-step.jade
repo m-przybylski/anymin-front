@@ -1,11 +1,13 @@
 block content
   .step.summary-step
+    a(data-ng-click="deleteConsultation(id)")
+      i.icon.icon-trash-24
     .summary-edit-icon
-      a
-        i.icon.icon-edit-24  
+      a(data-ng-click="editConsultation()")
+        i.icon.icon-edit-24
     .summary-step-title
       h4 {{ name }}
-      h3 {{ cost }} PLN/MIN
+      h3 {{ price }} PLN/MIN
     .summary-tag
       h6(data-translate="DASHBOARD.CREATE_PROFILE.SUMMARY.CONSULTATION_TAGS")
       .tags

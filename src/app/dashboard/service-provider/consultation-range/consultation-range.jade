@@ -16,9 +16,10 @@
 
 .consultations-container(data-ng-repeat="consultation in vm.consultations")
   pro-service-provider-summary-step(
-  data-name="consultation.name"
-  data-cost="consultation.cost"
-  data-tags="consultation.tags"
+  data-name="consultation.name.toVerify"
+  data-cost="consultation.price.toVerify"
+  data-tags="consultation.tags.toVerify"
+  data-id="consultation.id"
   )
 
 pro-service-provider-name(

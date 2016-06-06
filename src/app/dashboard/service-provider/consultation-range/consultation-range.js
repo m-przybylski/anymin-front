@@ -24,7 +24,6 @@
     vm.profile = {}
     let isExpert = false
 
-
     ProfileApi.getProfile({profileId: User.getData('id')}).$promise.then((response)=>{
       if (response.expertDetails) {
         vm.profile = response.expertDetails.toVerify
@@ -71,7 +70,7 @@
             price: parseInt(vm.costModel.cost)
         }
       }).$promise.then((res)=> {
-        vm.consultations.push(res.details.toVerify)
+        vm.consultations.push(res)
         vm.queue = {
           amountOfSteps: 3,
           currentStep: 1,
