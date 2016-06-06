@@ -14,16 +14,24 @@
       completedSteps: 0,
       skippedSteps: {}
     }
+
+    vm.currency = [
+      {id: 1, name: 'PLN'},
+      {id: 2, name: 'USD'},
+      {id: 3, name: 'EUR'}
+    ]
     vm.consultations = []
     vm.profile = {}
+    let isExpert = false
+
 
     ProfileApi.getProfile({profileId: User.getData('id')}).$promise.then((response)=>{
       if (response.expertDetails) {
         vm.profile = response.expertDetails.toVerify
+        isExpert = true
       } else {
         vm.profile = response.organizationDetails.toVerify
       }
-
     }, (err)=> {
       $state.go('app.dashboard')
       proTopAlertService.error({
@@ -31,12 +39,6 @@
         timeout: 4
       })
     })
-
-    vm.currency = [
-      {id: 1, name: 'PLN'},
-      {id: 2, name: 'USD'},
-      {id: 3, name: 'EUR'}
-    ]
 
     let _calculateProgressPercentage = () => {
       vm.progressBarWidth = Math.ceil(vm.queue.completedSteps / vm.queue.amountOfSteps * 100)
@@ -48,8 +50,12 @@
     }, _calculateProgressPercentage)
 
     vm.backToFirstStep = () => {
+      if(isExpert){
+        $state.go('app.dashboard.service-provider.individual-path')
+      } else {
+        $state.go('app.dashboard.service-provider.company-path')
+      }
 
-      $state.go('app.dashboard.service-provider.individual-path')
     }
 
     vm.saveAccountObject = () => {
@@ -58,9 +64,6 @@
     }
 
     vm.addAnotherConsultation = () => {
-      console.log(vm.costModel.name)
-      console.log(vm.costModel.tags)
-      console.log(vm.costModel.cost)
       ServiceApi.postPath({
         details: {
             name: vm.costModel.name,
@@ -68,11 +71,17 @@
             price: parseInt(vm.costModel.cost)
         }
       }).$promise.then((res)=> {
-        //vm.consultations.push(res)
+        vm.consultations.push(res.details.toVerify)
+        vm.queue = {
+          amountOfSteps: 3,
+          currentStep: 1,
+          completedSteps: 0,
+          skippedSteps: {}
+        }
       }, (err)=> {
-        console.log(err)
+
       })
-      $state.reload()
+      //$state.reload()
     }
 
     return vm

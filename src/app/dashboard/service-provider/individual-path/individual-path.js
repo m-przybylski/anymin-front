@@ -43,7 +43,6 @@
 
       _updateMethod({
         id: User.getData('id'),
-        type: _profileType,
         expertDetails: {
           name: vm.individualPathModel.name,
           description: vm.individualPathModel.description || null,

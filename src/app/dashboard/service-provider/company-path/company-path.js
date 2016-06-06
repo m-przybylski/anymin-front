@@ -21,6 +21,16 @@
       skippedSteps: {}
     }
 
+    if (savedProfile.organizationDetails) {
+      vm.companyPathModel = savedProfile.organizationDetails.toVerify
+      vm.queue = {
+        amountOfSteps: 7,
+        currentStep: 7,
+        completedSteps: 7,
+        skippedSteps: {}
+      }
+    }
+
     let _calculateProgressPercentage = () => {
       vm.progressBarWidth = Math.ceil(vm.queue.completedSteps / vm.queue.amountOfSteps * 100)
     }
@@ -35,7 +45,7 @@
         id: User.getData('id'),
         organizationDetails: {
           name: vm.companyPathModel.name,
-          avatar: vm.companyPathModel.avatar,
+          logo: vm.companyPathModel.logo,
           description: vm.companyPathModel.description,
           files: vm.companyPathModel.files || [],
           links: vm.companyPathModel.links || []
@@ -62,6 +72,7 @@
     'profitelo.directives.service-provider.pro-service-provider-languages',
     'profitelo.directives.service-provider.pro-bottom-summary-row',
     'profitelo.swaggerResources',
+    'profitelo.directives.service-provider.pro-service-provider-logo',
     'profitelo.directives.pro-top-alert-service',
     'c7s.ng.userAuth'
   ])
