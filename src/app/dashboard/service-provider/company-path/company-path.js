@@ -13,7 +13,8 @@
       logo: null,
       description: null,
       files: [],
-      links: [] }
+      links: []
+    }
 
     vm.queue = {
       amountOfSteps: 6,
@@ -22,17 +23,17 @@
       skippedSteps: {}
     }
 
-    if (savedProfile.organizationDetails) {
-      vm.companyPathModel = savedProfile.organizationDetails.toVerify
+    if (savedProfile && savedProfile.organizationDetails) {
+      vm.companyPathModel = savedProfile.organizationDetails
       vm.queue = {
         amountOfSteps: 7,
         currentStep: 7,
         completedSteps: 7,
         skippedSteps: {}
       }
-      vm.isEdit = true
+      vm.inEditMode = true
     } else {
-      vm.isEdit = false
+      vm.inEditMode = false
       $timeout(()=>{
         smoothScrolling.scrollTo(vm.queue.currentStep)
       })
@@ -92,7 +93,7 @@
       controller: 'CompanyPathController',
       controllerAs: 'vm',
       resolve: {
-        savedProfile: ($q, ProfileApi, User) => {
+        savedProfile: ($q, $state,  ProfileApi, User) => {
 
           let _deferred = $q.defer()
 
@@ -102,10 +103,14 @@
             }).$promise.then((response) => {
               _deferred.resolve(response)
             }, () => {
-              _deferred.resolve(false)
+              _deferred.resolve(null)
             })
           }, (error) => {
-            _deferred.reject(error)
+            $state.go('app.dashboard')
+            proTopAlertService.error({
+              message: 'error',
+              timeout: 4
+            })
           })
 
           return _deferred.promise

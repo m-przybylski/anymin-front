@@ -1,5 +1,5 @@
 (function() {
-  function proServiceProviderLogo($q, $timeout, FilesApi) {
+  function proServiceProviderLogo($q, proTopAlertService, FilesApi) {
 
     function linkFunction(scope, element, attrs) {
 
@@ -14,6 +14,10 @@
         FilesApi.fileInfoPath({token: scope.proModel.logo}).$promise.then((res)=>{
           scope.model.logo.push({file: null, response:res})
         }, (err)=> {
+          proTopAlertService.error({
+            message: 'error',
+            timeout: 4
+          })
         })
       }
 
@@ -79,7 +83,8 @@
     'lodash',
     'pascalprecht.translate',
     'profitelo.common.controller.service-provider.service-provider-step-controller',
-    'profitelo.directives.interface.pro-uploader'
+    'profitelo.directives.interface.pro-uploader',
+    'profitelo.directives.pro-top-alert-service'
   ])
   .directive('proServiceProviderLogo', proServiceProviderLogo)
 }())

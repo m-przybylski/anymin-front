@@ -9,9 +9,10 @@ block content
           a(data-ng-click="$parent.editConsultation(consultation.id)")
             i.icon.icon-edit-16
       .summary-step-title
-        h4 {{ consultation.details.toVerify.name}}
-        h3 {{ consultation.details.toVerify.price }} PLN/MIN
+        h4 {{ consultation.details.name}}
+        h3 {{ consultation.details.price }}
+          span(data-translate="DASHBOARD.CREATE_PROFILE.SUMMARY.CURRENCY")
       .summary-tag
         h6(data-translate="DASHBOARD.CREATE_PROFILE.SUMMARY.CONSULTATION_TAGS")
         .tags
-          p(ng-repeat="tag in consultation.details.toVerify.tags") {{ tag }}
+          p(ng-repeat="tag in consultation.details.tags") {{ tag }}

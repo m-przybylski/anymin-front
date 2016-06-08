@@ -1,15 +1,15 @@
-describe('Unit testing: profitelo.directives.service-provider.pro-bottom-summary-row', function() {
-  return describe('for proBottomSummaryRow directive >', function() {
+describe('Unit testing: profitelo.directives.service-provider.pro-bottom-consultation-button', function() {
+  return describe('for proBottomConsultationButton directive >', function() {
 
     var compile = null
     var scope = null
 
-    var validHTML = '<pro-bottom-summary-row data-width="vm.progressBarWidth" ' +
-      'data-queue="vm.queue" data-button-action="saveAccountObject" data-order="8"></pro-bottom-summary-row>'
+    var validHTML = '<pro-bottom-consultation-button data-width="vm.progressBarWidth" ' +
+      'data-queue="vm.queue" data-button-action="saveAccountObject" data-order="8"></pro-bottom-consultation-button>'
 
     beforeEach(function() {
       module('templates-module')
-      module('profitelo.directives.service-provider.pro-bottom-summary-row')
+      module('profitelo.directives.service-provider.pro-bottom-consultation-button')
 
       inject(function($rootScope, $compile) {
         scope = $rootScope.$new()
@@ -36,22 +36,6 @@ describe('Unit testing: profitelo.directives.service-provider.pro-bottom-summary
       el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
-
-    it('call onClick', function() {
-      var el
-      el = create(validHTML)
-
-      let isoScope = el.isolateScope()
-
-      spyOn(isoScope, 'buttonAction')
-
-      el.find('.button-next-step a').click()
-
-      expect(isoScope.buttonAction).toHaveBeenCalled()
-    })
-
-
-    
 
   })
 })

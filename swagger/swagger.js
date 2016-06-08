@@ -235,16 +235,19 @@
 
           /**
           * @ngdoc method
-          * @name .7.method:tokenPath
+          * @name .7.method:downloadFilePath
           * @methodOf .7
           * @description
-          * Get file upload url
+          * Download file
           **/
 
-          'tokenPath': angular.extend({
+          'downloadFilePath': angular.extend({
             method: 'GET',
-            url: apiUrl + '/files/token',
-          }, $resourceActionConfig('7', 'tokenPath')),
+            url: apiUrl + '/files/:token/download',
+            params: {
+              'token': '@token',
+            },
+          }, $resourceActionConfig('7', 'downloadFilePath')),
 
           /**
           * @ngdoc method
@@ -264,24 +267,8 @@
 
           /**
           * @ngdoc method
-          * @name .9.method:downloadFilePath
+          * @name .9.method:uploadFilePath
           * @methodOf .9
-          * @description
-          * Download file
-          **/
-
-          'downloadFilePath': angular.extend({
-            method: 'GET',
-            url: apiUrl + '/files/:token/download',
-            params: {
-              'token': '@token',
-            },
-          }, $resourceActionConfig('9', 'downloadFilePath')),
-
-          /**
-          * @ngdoc method
-          * @name .10.method:uploadFilePath
-          * @methodOf .10
           * @description
           * Upload file
           **/
@@ -292,7 +279,20 @@
             params: {
               'token': '@token',
             },
-          }, $resourceActionConfig('10', 'uploadFilePath')),
+          }, $resourceActionConfig('9', 'uploadFilePath')),
+
+          /**
+          * @ngdoc method
+          * @name .10.method:tokenPath
+          * @methodOf .10
+          * @description
+          * Get file upload url
+          **/
+
+          'tokenPath': angular.extend({
+            method: 'GET',
+            url: apiUrl + '/files/token',
+          }, $resourceActionConfig('10', 'tokenPath')),
         });
       }];
     })
@@ -561,16 +561,16 @@
 
           /**
           * @ngdoc method
-          * @name .0.method:profileCreationRequestPath
+          * @name .0.method:postEmployments
           * @methodOf .0
           * @description
           * Create profile creation requests
           **/
 
-          'profileCreationRequestPath': angular.extend({
+          'postEmployments': angular.extend({
             method: 'POST',
             url: apiUrl + '/employments',
-          }, $resourceActionConfig('0', 'profileCreationRequestPath')),
+          }, $resourceActionConfig('0', 'postEmployments')),
         });
       }];
     })
@@ -601,8 +601,21 @@
 
           /**
           * @ngdoc method
-          * @name .1.method:getUserServicesPath
+          * @name .1.method:postServicesVerify
           * @methodOf .1
+          * @description
+          * Verify services
+          **/
+
+          'postServicesVerify': angular.extend({
+            method: 'POST',
+            url: apiUrl + '/services/verify',
+          }, $resourceActionConfig('1', 'postServicesVerify')),
+
+          /**
+          * @ngdoc method
+          * @name .2.method:getUserServicesPath
+          * @methodOf .2
           * @description
           * Get Details of services of users
           **/
@@ -613,12 +626,12 @@
             params: {
               'accountId': '@accountId',
             },
-          }, $resourceActionConfig('1', 'getUserServicesPath')),
+          }, $resourceActionConfig('2', 'getUserServicesPath')),
 
           /**
           * @ngdoc method
-          * @name .2.method:deleteService
-          * @methodOf .2
+          * @name .3.method:deleteService
+          * @methodOf .3
           * @description
           * Remove service by id
           **/
@@ -629,12 +642,12 @@
             params: {
               'serviceId': '@serviceId',
             },
-          }, $resourceActionConfig('2', 'deleteService')),
+          }, $resourceActionConfig('3', 'deleteService')),
 
           /**
           * @ngdoc method
-          * @name .3.method:putService
-          * @methodOf .3
+          * @name .4.method:putService
+          * @methodOf .4
           * @description
           * Update Details of a service
           **/
@@ -645,12 +658,12 @@
             params: {
               'serviceId': '@serviceId',
             },
-          }, $resourceActionConfig('3', 'putService')),
+          }, $resourceActionConfig('4', 'putService')),
 
           /**
           * @ngdoc method
-          * @name .4.method:getService
-          * @methodOf .4
+          * @name .5.method:getService
+          * @methodOf .5
           * @description
           * Get Details of a service
           **/
@@ -661,7 +674,7 @@
             params: {
               'serviceId': '@serviceId',
             },
-          }, $resourceActionConfig('4', 'getService')),
+          }, $resourceActionConfig('5', 'getService')),
         });
       }];
     })

@@ -1,5 +1,5 @@
 (function() {
-  function proServiceProviderFileUploader($q, CommonSettingsService, FilesApi) {
+  function proServiceProviderFileUploader($q, proTopAlertService, FilesApi) {
 
     function linkFunction(scope, element, attrs) {
 
@@ -12,6 +12,10 @@
           FilesApi.fileInfoPath({token: scope.proModel.files[i]}).$promise.then((res)=>{
             scope.model.files.push({file: res.details, response: null})
           }, (err)=>{
+            proTopAlertService.error({
+              message: 'error',
+              timeout: 4
+            })
           })
         }
       }
@@ -44,7 +48,6 @@
 
 
       scope.saveSection = () => {
-        console.log(scope.model.files)
         _isValid().then(() => {
           scope.clearError.badFiles = false
           scope.proceed()
@@ -84,7 +87,8 @@
     'profitelo.directives.ng-enter',
     'profitelo.services.commonSettings',
     'profitelo.directives.interface.pro-uploader',
-    'profitelo.common.controller.service-provider.service-provider-step-controller'
+    'profitelo.common.controller.service-provider.service-provider-step-controller',
+    'profitelo.directives.pro-top-alert-service'
   ])
     .directive('proServiceProviderFileUploader', proServiceProviderFileUploader)
 }())

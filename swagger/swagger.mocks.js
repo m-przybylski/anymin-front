@@ -19,10 +19,10 @@
                 $httpBackend.whenGET(apiUrl + '/services/:serviceId/gallery').respond();
                 $httpBackend.whenGET(apiUrl + '/files/:token/download/:widthx:height').respond();
                 $httpBackend.whenGET(apiUrl + '/files').respond();
-                $httpBackend.whenGET(apiUrl + '/files/token').respond();
-                $httpBackend.whenGET(apiUrl + '/profiles/:profileId/avatars').respond();
                 $httpBackend.whenGET(apiUrl + '/files/:token/download').respond();
+                $httpBackend.whenGET(apiUrl + '/profiles/:profileId/avatars').respond();
                 $httpBackend.whenPOST(apiUrl + '/files/:token/upload').respond();
+                $httpBackend.whenGET(apiUrl + '/files/token').respond();
                 $httpBackend.whenPOST(apiUrl + '/msisdns').respond();
                 $httpBackend.whenPOST(apiUrl + '/msisdns/verify').respond();
                 $httpBackend.whenPOST(apiUrl + '/msisdns/verify/code').respond();
@@ -40,6 +40,7 @@
                 $httpBackend.whenGET(apiUrl + '/accounts/check').respond();
                 $httpBackend.whenPOST(apiUrl + '/employments').respond();
                 $httpBackend.whenPOST(apiUrl + '/services').respond();
+                $httpBackend.whenPOST(apiUrl + '/services/verify').respond();
                 $httpBackend.whenGET(apiUrl + '/services/profile/:accountId').respond();
                 $httpBackend.whenDELETE(apiUrl + '/services/:serviceId').respond();
                 $httpBackend.whenPUT(apiUrl + '/services/:serviceId').respond();

@@ -28,24 +28,21 @@
       return vm.queue.completedSteps
     }, _calculateProgressPercentage)
 
-
-    if (savedProfile.expertDetails) {
-      vm.individualPathModel = savedProfile.expertDetails.toVerify
+    if (savedProfile && savedProfile.expertDetails) {
+      vm.individualPathModel = savedProfile.expertDetails
       vm.queue = {
         amountOfSteps: 7,
         currentStep: 8,
         completedSteps: 7,
         skippedSteps: {}
       }
-      vm.isEdit = true
+      vm.inEditMode = true
     } else {
-      vm.isEdit = false
+      vm.inEditMode = false
       $timeout(()=>{
         smoothScrolling.scrollTo(vm.queue.currentStep)
       })
     }
-
-
 
     vm.saveAccountObject = () => {
 
@@ -106,20 +103,23 @@
       controllerAs: 'vm',
       resolve: {
         /* istanbul ignore next */
-        savedProfile: ($q, ProfileApi, User) => {
+        savedProfile: ($q, $state, ProfileApi, User) => {
 
           let _deferred = $q.defer()
-
           User.getStatus().then(() => {
             ProfileApi.getProfile({
               profileId: User.getData('id')
             }).$promise.then((response) => {
               _deferred.resolve(response)
             }, () => {
-              _deferred.resolve(false)
+              _deferred.resolve(null)
             })
           }, (error) => {
-            _deferred.reject(error)
+            $state.go('app.dashboard')
+            proTopAlertService.error({
+              message: 'error',
+              timeout: 4
+            })
           })
 
           return _deferred.promise

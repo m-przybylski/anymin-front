@@ -4,7 +4,7 @@ block content
       .title
         h5(data-translate="{{header}}")
         h5.width {{ width }}%
-      .next-step(data-ng-show="queue.amountOfSteps == queue.completedSteps || showAllTime")
+      .next-step(data-ng-show="queue.amountOfSteps === queue.completedSteps || showAllTime")
         .button-next-step
           a(data-translate="DASHBOARD.CREATE_PROFILE.NEXT_STEP" data-ng-click="onClick()" class="pro-btn btn-round btn-main btn-medium")
     .progress-bar(style="width: {{ width }}%;")
