@@ -15,6 +15,13 @@
       skippedSteps: {}
     }
 
+    vm.queues = {
+      amountOfSteps: 3,
+      currentStep: 3,
+      completedSteps: 3,
+      skippedSteps: {}
+    }
+
     vm.currency = [
       {id: 1, name: 'PLN'},
       {id: 2, name: 'USD'},
@@ -82,7 +89,8 @@
       return vm.consultations.length > 0
     }
 
-    vm.editConsultation = () => {
+    vm.editConsultation = (id) => {
+
 
     }
 

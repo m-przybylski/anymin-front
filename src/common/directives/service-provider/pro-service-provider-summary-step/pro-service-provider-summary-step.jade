@@ -16,3 +16,5 @@ block content
         h6(data-translate="DASHBOARD.CREATE_PROFILE.SUMMARY.CONSULTATION_TAGS")
         .tags
           p(ng-repeat="tag in consultation.details.tags") {{ tag }}
+      .edit-consultation-form(ng-transclude ng-if="$parent.currentEdit")
+

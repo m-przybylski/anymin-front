@@ -6,8 +6,11 @@
         scope.deleteAction(id, index)
       }
       scope.editConsultation = (id)=> {
+        scope.currentEdit = true
         scope.editAction(id)
       }
+
+
 
     }
 
@@ -15,6 +18,7 @@
       replace: true,
       restrict: 'E',
       templateUrl: 'directives/service-provider/pro-service-provider-summary-step/pro-service-provider-summary-step.tpl.html',
+      transclude: true,
       scope: {
         consultations: '=',
         editAction: '=',
