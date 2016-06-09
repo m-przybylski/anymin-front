@@ -39,14 +39,14 @@
         }
 
         _validateUrl().then(() => {
-          scope.clearError.badUrl = false
+          scope.badUrl = false
           httpAdded = false
           scope.model.links.push(scope.linkModel)
           scope.linkModel = ''
 
         }, () => {
-          scope.clearError.badUrl = true
-          scope.clearError.noUrl = false
+          scope.badUrl = true
+          scope.noUrl = false
         })
 
       }
@@ -64,21 +64,21 @@
         let _isValidDeferredEmpty = $q.defer()
 
         if (angular.isDefined(scope.model.links) && scope.model.links.length > 0) {
-          _isValidDeferredEmpty.resolve()
+          _isValidDeferred.resolve()
         } else {
-          _isValidDeferredEmpty.reject()
+          _isValidDeferred.reject()
         }
 
-        return _isValidDeferredEmpty.promise
+        return _isValidDeferred.promise
       }
 
       let _displayErrorMessage = () => {
-        scope.clearError.noUrl = true
+        scope.noUrl = true
       }
 
       scope.saveSection = () => {
         _isValid().then(() => {
-          scope.clearError.noUrl = false
+          scope.noUrl = false
           scope.proModel.links = scope.model.links
           scope.proceed()
 

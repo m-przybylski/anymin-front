@@ -4,7 +4,7 @@
     function linkFunction(scope, element, attrs) {
 
       scope.required = false
-      scope.clearError.noFile = false
+      scope.noFile = false
 
       scope.model = {
         avatar: []
@@ -33,7 +33,7 @@
       }
 
       let _displayErrorMessage = () => {
-        scope.clearError.noFile = true
+        scope.noFile = true
       }
 
       if ('required' in attrs) {
@@ -41,13 +41,13 @@
       }
 
       scope.removeAvatar = () => {
-        scope.clearError.noFile = true
+        scope.noFile = true
         scope.model.avatar.splice(0, 1)
       }
 
       scope.saveSection = () => {
         _isValid().then((avatarId) => {
-          scope.clearError.noFile = false
+          scope.noFile = false
           scope.proModel.avatar = avatarId
           scope.proceed()
 

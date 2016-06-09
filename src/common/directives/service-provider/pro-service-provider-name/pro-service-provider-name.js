@@ -2,7 +2,7 @@
   function proServiceProviderName($q, $timeout) {
     function linkFunction(scope, element, attrs) {
       scope.required = false
-      scope.clearError.badName = false
+      scope.badName = false
 
       scope.model = {
         name: ''
@@ -28,7 +28,7 @@
       }
 
       let _displayErrorMessage = () => {
-        scope.clearError.badName = true
+        scope.badName = true
       }
 
       if ('required' in attrs) {
@@ -37,7 +37,7 @@
 
       scope.saveSection = () => {
         _isValid().then(() => {
-          scope.clearError.badName = false
+          scope.badName = false
           scope.proModel.name = scope.model.name
           scope.proceed()
 

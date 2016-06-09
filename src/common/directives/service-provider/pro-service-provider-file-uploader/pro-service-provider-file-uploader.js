@@ -43,13 +43,13 @@
       }
 
       let _displayErrorMessage = () => {
-        scope.clearError.badFiles = true
+        scope.badFiles = true
       }
 
 
       scope.saveSection = () => {
         _isValid().then(() => {
-          scope.clearError.badFiles = false
+          scope.badFiles = false
           scope.proceed()
           scope.proModel.files = scope.model.files.map((file) => {
             return file.response.id
