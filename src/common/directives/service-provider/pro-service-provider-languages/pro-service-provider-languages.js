@@ -1,29 +1,46 @@
 (function() {
-  function proServiceProviderLanguages() {
+  function proServiceProviderLanguages($q) {
 
     function linkFunction(scope, element, attrs) {
 
       let required = false
 
-      scope.languages = [
-        {name: 'Polish'},
-        {name: 'English'},
-        {name: 'Italian'},
-        {name: 'Spanish'},
-        {name: 'Chineese'}
-      ]
+      scope.languages = ['Polish', 'English', 'Italian', 'Spanish']
+
 
       scope.model = {
         languages: []
+      }
+
+      let _isValid = () => {
+        let _isValidDeferred = $q.defer()
+
+        if (angular.isDefined(scope.model.languages) && scope.model.languages.length > 0) {
+          _isValidDeferred.resolve()
+        } else {
+          _isValidDeferred.reject()
+        }
+
+        return _isValidDeferred.promise
+      }
+
+      let _displayErrorMessage = () => {
+        scope.clearError.badLanguages = true
       }
 
       if ('required' in attrs) {
         required = true
       }
 
+      scope.model.languages = scope.proModel.languages
       scope.saveSection = () => {
-        scope.proModel.languages = scope.model.languages
-        scope.proceed()
+        _isValid().then(() => {
+          scope.clearError.badLanguages = false
+          scope.proModel.languages = scope.model.languages
+          scope.proceed()
+        }, () => {
+          _displayErrorMessage()
+        })
       }
 
     }

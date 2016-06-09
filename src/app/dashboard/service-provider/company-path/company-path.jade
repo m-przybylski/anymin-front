@@ -1,4 +1,4 @@
-.step.step-done
+.step.step-done(data-ng-hide="vm.inEditMode")
   .title-step
     .title-order
       h3(data-translate="DASHBOARD.CREATE_PROFILE.STEP1_CHOOSE_PROFILE_TITLE")
@@ -27,7 +27,7 @@ required
 autofocus
 )
 
-pro-service-provider-avatar(
+pro-service-provider-logo(
 data-queue="vm.queue"
 data-order="3"
 data-pro-model="vm.companyPathModel"
@@ -66,4 +66,6 @@ data-width="vm.progressBarWidth"
 data-queue="vm.queue"
 data-button-action="vm.saveAccountObject"
 data-order="7"
+data-header="DASHBOARD.EXPERT_ACCOUNT.STEP1_PROGRESS_BAR_TITLE"
 )
+

@@ -1,24 +1,42 @@
 (function() {
-  function CompanyPathController($scope, $state, ProfileApi, savedProfile, User, proTopAlertService) {
+  function CompanyPathController($scope, $state, ProfileApi, savedProfile, User, proTopAlertService, $timeout, smoothScrolling) {
     let vm = this
-
-    let _profileType = $scope.$parent.serviceProviderController.profileTypes['COMPANY']
-
     let _updateMethod
-
     if (savedProfile) {
       _updateMethod = ProfileApi.putProfile
     } else {
       _updateMethod = ProfileApi.postProfile
     }
 
-    vm.companyPathModel = {}
+    vm.companyPathModel = {
+      name: null,
+      logo: null,
+      description: null,
+      files: [],
+      links: []
+    }
 
     vm.queue = {
       amountOfSteps: 6,
       currentStep: 2,
       completedSteps: 1,
       skippedSteps: {}
+    }
+
+    if (savedProfile && savedProfile.organizationDetails) {
+      vm.companyPathModel = savedProfile.organizationDetails
+      vm.queue = {
+        amountOfSteps: 7,
+        currentStep: 7,
+        completedSteps: 7,
+        skippedSteps: {}
+      }
+      vm.inEditMode = true
+    } else {
+      vm.inEditMode = false
+      $timeout(()=>{
+        smoothScrolling.scrollTo(vm.queue.currentStep)
+      })
     }
 
     let _calculateProgressPercentage = () => {
@@ -33,13 +51,12 @@
     vm.saveAccountObject = () => {
       _updateMethod({
         id: User.getData('id'),
-        type: _profileType,
-        OrganizationDetails: {
+        organizationDetails: {
           name: vm.companyPathModel.name,
-          avatar: vm.companyPathModel.avatar,
+          logo: vm.companyPathModel.logo,
           description: vm.companyPathModel.description,
-          files: vm.companyPathModel.files || [],
-          links: vm.companyPathModel.links || []
+          files: vm.companyPathModel.files,
+          links: vm.companyPathModel.links
         }
       }).$promise.then(() => {
         $state.go('app.dashboard.service-provider.consultation-range')
@@ -50,6 +67,8 @@
         })
       })
     }
+
+
 
     return vm
   }
@@ -63,6 +82,7 @@
     'profitelo.directives.service-provider.pro-service-provider-languages',
     'profitelo.directives.service-provider.pro-bottom-summary-row',
     'profitelo.swaggerResources',
+    'profitelo.directives.service-provider.pro-service-provider-logo',
     'profitelo.directives.pro-top-alert-service',
     'c7s.ng.userAuth'
   ])
@@ -73,7 +93,7 @@
       controller: 'CompanyPathController',
       controllerAs: 'vm',
       resolve: {
-        savedProfile: ($q, ProfileApi, User) => {
+        savedProfile: ($q, $state,  ProfileApi, User) => {
 
           let _deferred = $q.defer()
 
@@ -83,10 +103,14 @@
             }).$promise.then((response) => {
               _deferred.resolve(response)
             }, () => {
-              _deferred.resolve(false)
+              _deferred.resolve(null)
             })
           }, (error) => {
-            _deferred.reject(error)
+            $state.go('app.dashboard')
+            proTopAlertService.error({
+              message: 'error',
+              timeout: 4
+            })
           })
 
           return _deferred.promise

@@ -4,15 +4,17 @@
     function linkFunction(scope, element, attrs) {
 
       scope.required = false
-      scope.badName = false
+      scope.noCost = false
 
-      scope.model = {}
+      scope.model = {
+        cost: ''
+      }
 
 
       let _isValid = () => {
         let _isValidDeferred = $q.defer()
 
-        if (angular.isDefined(scope.model.name) && scope.model.name.length > 0) {
+        if (angular.isDefined(scope.model.cost) && scope.model.cost.length > 0) {
           _isValidDeferred.resolve()
         } else {
           _isValidDeferred.reject()
@@ -24,10 +26,7 @@
 
 
       let _displayErrorMessage = () => {
-        scope.badName = true
-        $timeout(() => {
-          scope.badName = false
-        }, 1000)
+        scope.noCost = true
       }
 
 
@@ -36,9 +35,10 @@
       }
 
       scope.saveSection = () => {
+        scope.noCost = false
         _isValid().then(() => {
 
-          scope.proModel.name = scope.model.name
+          scope.proModel.cost = scope.model.cost
           scope.proceed()
 
         }, () => {

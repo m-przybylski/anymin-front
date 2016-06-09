@@ -5,7 +5,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
     var scope = null
 
     var validHTML = '<pro-service-provider-cost data-queue="vm.queue" ' +
-      'data-order="2" data-pro-model="vm.individualPathModel" ' +
+      'data-order="2" data-pro-model="proModel" ' +
       'data-placeholder="DASHBOARD.CONSULTATION_RANGE.CONSULTANTS_LIST_PLACEHOLDER"' +
       ' data-error-message="DASHBOARD.SERVICE_PROVIDER.NAME.BAD_NAME" tr-title="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT" ' +
       'tr-desc="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT_DESCRIPTION" required="required"></pro-service-provider-cost>'
@@ -22,7 +22,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
 
     function create(html) {
       var elem = angular.element(html)
-
+      scope.proModel = {cost: null}
       var compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement

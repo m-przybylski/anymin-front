@@ -3,8 +3,8 @@
     let vm = this
 
     vm.profileTypes = {
-      'INDIVIDUAL': 'INDIVIDUAL',
-      'COMPANY': 'COMPANY'
+      'INDIVIDUAL': 'EXPERT',
+      'COMPANY': 'ORGANIZATION'
     }
 
     return vm

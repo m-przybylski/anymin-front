@@ -1,12 +1,25 @@
-pro-service-provider-summary-head
+.step.summary-step
+  .btn-handler
+    a.summary-icon(data-ng-click="vm.backToFirstStep()")
+      i.icon.icon-edit-16
+  .summary-name
+    .summary-avatar
+      img(src='assets/images/John_Doe.jpg' alt='user-avatar')
+    .summary-firstname
+      .firstname-lastname
+        h2 {{vm.profile.name}}
+      .languages
+        h6 Języki:
+          span(data-ng-repeat="language in vm.profile.languages") &nbsp {{language}}
+  .summary-descriptions
+    p {{vm.profile.description}}
 
-div(ng-repeat="item in vm.consultation.name")
-  pro-service-provider-summary-step(
-  data-name="vm.consultation.name[$index]"
-  data-cost="vm.consultation.cost[$index]"
-  data-tags="vm.consultation.tags[$index]"
-  )
+pro-service-provider-summary-step(
+data-consultations="vm.consultations"
+data-edit-action="vm.editConsultation"
+data-delete-action="vm.deleteConsultation"
+)
     
 .step
   .summary-button
-    a.pro-btn.btn-round.btn.small.btn-main(data-translate="DASHBOARD.CREATE_PROFILE.SUMMARY.VERIFY_YOU_PROFILE")
+    a.pro-btn.btn-round.btn.small.btn-main(data-translate="DASHBOARD.CREATE_PROFILE.SUMMARY.VERIFY_YOU_PROFILE" data-ng-click="vm.verifyProfile()")

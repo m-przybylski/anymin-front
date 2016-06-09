@@ -20,3 +20,5 @@ block content
             i.left-icon(pro-social-icon-getter data-url="link")
             span {{ link }}
             i.icon.icon-close-12(data-ng-click="removeLink(link)")
+    .input-error-messages
+      .error(data-translate="DASHBOARD.CREATE_PROFILE.NO_LINKS_ERROR" data-ng-show="clearError.noUrl")

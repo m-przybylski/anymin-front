@@ -1,14 +1,26 @@
 (function() {
-  function proServiceProviderAvatar($q, $timeout) {
+  function proServiceProviderAvatar($q, proTopAlertService, FilesApi) {
 
     function linkFunction(scope, element, attrs) {
 
       scope.required = false
-      scope.badName = false
+      scope.clearError.noFile = false
 
       scope.model = {
         avatar: []
       }
+
+      if (scope.proModel.avatar) {
+        FilesApi.fileInfoPath({token: scope.proModel.avatar}).$promise.then((res)=>{
+          scope.model.avatar.push({file: null, response:res})
+        }, (err)=> {
+          proTopAlertService.error({
+            message: 'error',
+            timeout: 4
+          })
+        })
+      }
+
       let _isValid = () => {
         let _isValidDeferred = $q.defer()
         if (angular.isDefined(scope.model.avatar) && scope.model.avatar.length > 0) {
@@ -21,8 +33,7 @@
       }
 
       let _displayErrorMessage = () => {
-        scope.noFile = true
-
+        scope.clearError.noFile = true
       }
 
       if ('required' in attrs) {
@@ -30,13 +41,13 @@
       }
 
       scope.removeAvatar = () => {
-
+        scope.clearError.noFile = true
         scope.model.avatar.splice(0, 1)
       }
 
       scope.saveSection = () => {
         _isValid().then((avatarId) => {
-          scope.noFile = false
+          scope.clearError.noFile = false
           scope.proModel.avatar = avatarId
           scope.proceed()
 
@@ -71,7 +82,8 @@
     'lodash',
     'pascalprecht.translate',
     'profitelo.common.controller.service-provider.service-provider-step-controller',
-    'profitelo.directives.interface.pro-uploader'
+    'profitelo.directives.interface.pro-uploader',
+    'profitelo.directives.pro-top-alert-service'
   ])
   .directive('proServiceProviderAvatar', proServiceProviderAvatar)
 }())

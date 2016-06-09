@@ -1,13 +1,18 @@
 (function() {
-  function ConsultationRangeController($scope, ProfileApi, savedProfile) {
+  function ConsultationRangeController($scope, $state, savedProfile, ServiceApi, proTopAlertService) {
     let vm = this
 
-    vm.costModel = {}
+    vm.costModel = {
+      name: '',
+      tags: [],
+      cost: 0
+    }
 
     vm.queue = {
       amountOfSteps: 3,
       currentStep: 1,
-      completedSteps: 0
+      completedSteps: 0,
+      skippedSteps: {}
     }
 
     vm.currency = [
@@ -15,6 +20,30 @@
       {id: 2, name: 'USD'},
       {id: 3, name: 'EUR'}
     ]
+    vm.consultations = []
+    vm.profile = {}
+    let isExpert = false
+
+    let _postConsultationMethod = (callback) => {
+      ServiceApi.postService({
+        details: {
+          name: vm.costModel.name,
+          tags: vm.costModel.tags,
+          price: parseInt(vm.costModel.cost, 10)
+        },
+        invitations: []
+      }).$promise.then((res)=> {
+        if (typeof callback === 'function') {
+          callback()
+        }
+      }, (err)=> {
+        proTopAlertService.error({
+          message: 'error',
+          timeout: 4
+        })
+      })
+    }
+
 
     let _calculateProgressPercentage = () => {
       vm.progressBarWidth = Math.ceil(vm.queue.completedSteps / vm.queue.amountOfSteps * 100)
@@ -25,8 +54,53 @@
       return vm.queue.completedSteps
     }, _calculateProgressPercentage)
 
-    vm.saveAccountObject = () => {
+    vm.backToFirstStep = () => {
+      if (isExpert) {
+        $state.go('app.dashboard.service-provider.individual-path')
+      } else {
+        $state.go('app.dashboard.service-provider.company-path')
+      }
 
+    }
+
+    if (savedProfile && savedProfile.expertDetails) {
+      vm.profile = savedProfile.expertDetails
+      vm.consultations = savedProfile.services
+      isExpert = true
+    } else if (savedProfile.organizationDetails) {
+      vm.profile = savedProfile.organizationDetails
+    }
+
+    vm.saveConsultationObject = () => {
+      if (vm.queue.completedSteps === vm.queue.amountOfSteps) {
+        _postConsultationMethod()
+      }
+      $state.go('app.dashboard.service-provider.summary')
+    }
+
+    vm.isConsultationPresent = () => {
+      return vm.consultations.length > 0
+    }
+
+    vm.editConsultation = () => {
+
+    }
+
+    vm.deleteConsultation = (id, index) => {
+      ServiceApi.deleteService({
+        serviceId: id
+      }).$promise.then((res)=> {
+        vm.consultations.splice(index, 1)
+      }, (err) => {
+        proTopAlertService.error({
+          message: 'error',
+          timeout: 4
+        })
+      })
+    }
+
+    vm.addAnotherConsultation = () => {
+      _postConsultationMethod($state.reload)
     }
 
     return vm
@@ -38,8 +112,12 @@
     'profitelo.services.service-provider-state',
     'profitelo.directives.service-provider.pro-bottom-summary-row',
     'profitelo.directives.service-provider.pro-service-provider-cost',
+    'profitelo.directives.service-provider.pro-service-provider-who-provides',
     'profitelo.swaggerResources',
-    'c7s.ng.userAuth'
+    'profitelo.directives.service-provider.pro-service-provider-tags',
+    'profitelo.directives.service-provider.pro-bottom-consultation-button',
+    'c7s.ng.userAuth',
+    'profitelo.directives.interface.pro-alert'
   ])
   .config( function($stateProvider, UserRolesProvider) {
     $stateProvider.state('app.dashboard.service-provider.consultation-range', {
@@ -48,21 +126,32 @@
       controller:   'ConsultationRangeController',
       controllerAs: 'vm',
       resolve: {
-        savedProfile: ($q, ProfileApi, User) => {
+        savedProfile: ($q, $state, ProfileApi, User) => {
 
           let _deferred = $q.defer()
-
           User.getStatus().then(() => {
-            ProfileApi.getProfile({
+            ProfileApi.getProfileWithServices({
               profileId: User.getData('id')
-            }).$promise.then((response) => {
+            }).$promise.then((response)=>{
               _deferred.resolve(response)
             }, () => {
-              _deferred.resolve(false)
+              _deferred.resolve(null)
+            }, (error)=> {
+              _deferred.reject(error)
+              $state.go('app.dashboard')
+              proTopAlertService.error({
+                message: 'error',
+                timeout: 4
+              })
             })
           }, (error) => {
-            _deferred.reject(error)
+            $state.go('app.dashboard')
+            proTopAlertService.error({
+              message: 'error',
+              timeout: 4
+            })
           })
+
 
           return _deferred.promise
         }

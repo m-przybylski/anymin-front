@@ -1,4 +1,4 @@
-.step.step-done
+.step.step-done(data-ng-hide="vm.inEditMode")
   .focus-layer(data-ng-click="hideDiv=true; onClick()" data-ng-hide="hideDiv")
   .title-step
     .title-order
@@ -50,6 +50,7 @@ data-order="5"
 data-pro-model="vm.individualPathModel"
 data-placeholder="DASHBOARD.EXPERT_ACCOUNT.EXPERT_LANGUAGE_PLACEHOLDER"
 tr-title="DASHBOARD.CREATE_PROFILE.STEP5_TITLE"
+tr-desc="DASHBOARD.CREATE_PROFILE.LANGUAGES_DESCRIPTION"
 )
 
 pro-service-provider-file-uploader(
@@ -74,4 +75,5 @@ data-width="vm.progressBarWidth"
 data-queue="vm.queue"
 data-button-action="vm.saveAccountObject"
 data-order="8"
+data-header="DASHBOARD.EXPERT_ACCOUNT.STEP1_PROGRESS_BAR_TITLE"
 )

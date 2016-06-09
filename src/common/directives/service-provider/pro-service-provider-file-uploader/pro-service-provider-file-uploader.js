@@ -1,5 +1,5 @@
 (function() {
-  function proServiceProviderFileUploader($q, CommonSettingsService) {
+  function proServiceProviderFileUploader($q, proTopAlertService, FilesApi) {
 
     function linkFunction(scope, element, attrs) {
 
@@ -7,6 +7,18 @@
         files: []
       }
 
+      if (scope.proModel.files) {
+        for (let i = 0; i < scope.proModel.files.length;i++) {
+          FilesApi.fileInfoPath({token: scope.proModel.files[i]}).$promise.then((res)=>{
+            scope.model.files.push({file: res.details, response: null})
+          }, (err)=>{
+            proTopAlertService.error({
+              message: 'error',
+              timeout: 4
+            })
+          })
+        }
+      }
       let required = false
 
       if ('required' in attrs) {
@@ -21,20 +33,29 @@
       let _isValid = () => {
         let _isValidDeferred = $q.defer()
 
-        _isValidDeferred.resolve()
+        if (angular.isDefined(scope.model.files) && scope.model.files.length > 0) {
+          _isValidDeferred.resolve()
+        } else {
+          _isValidDeferred.reject()
+        }
 
         return _isValidDeferred.promise
+      }
+
+      let _displayErrorMessage = () => {
+        scope.clearError.badFiles = true
       }
 
 
       scope.saveSection = () => {
         _isValid().then(() => {
+          scope.clearError.badFiles = false
           scope.proceed()
           scope.proModel.files = scope.model.files.map((file) => {
             return file.response.id
           })
         }, () => {
-          console.log('not valid')
+          _displayErrorMessage()
         })
       }
 
@@ -66,7 +87,8 @@
     'profitelo.directives.ng-enter',
     'profitelo.services.commonSettings',
     'profitelo.directives.interface.pro-uploader',
-    'profitelo.common.controller.service-provider.service-provider-step-controller'
+    'profitelo.common.controller.service-provider.service-provider-step-controller',
+    'profitelo.directives.pro-top-alert-service'
   ])
     .directive('proServiceProviderFileUploader', proServiceProviderFileUploader)
 }())

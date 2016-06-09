@@ -1,10 +1,8 @@
 (function() {
   function proServiceProviderDescription($q) {
-
     function linkFunction(scope, element, attrs) {
-
       scope.required = false
-
+      scope.clearError.noDescription = false
 
       scope.model = {
         description: ''
@@ -14,9 +12,10 @@
       }
 
       let _displayErrorMessage = () => {
-        scope.noDescription = true
+        scope.clearError.noDescription = true
       }
 
+      scope.model.description = scope.proModel.description
 
       let _isValid = () => {
         let _isValidDeferred = $q.defer()
@@ -32,7 +31,7 @@
 
       scope.saveSection = () => {
         _isValid().then(() => {
-          scope.noDescription = false
+          scope.clearError.noDescription = false
           scope.proModel.description = scope.model.description
           scope.proceed()
 

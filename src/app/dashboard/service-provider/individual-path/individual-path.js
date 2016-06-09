@@ -1,9 +1,7 @@
 (function() {
-  function IndividualPathController($scope, $state, ProfileApi, User, savedProfile, proTopAlertService) {
+  function IndividualPathController($scope, $state, ProfileApi, User, savedProfile, proTopAlertService, $timeout, smoothScrolling) {
     let vm = this
 
-    let _profileType = $scope.$parent.serviceProviderController.profileTypes['INDIVIDUAL']
-    vm.individualPathModel = {}
 
     vm.queue = {
       amountOfSteps: 7,
@@ -11,6 +9,15 @@
       completedSteps: 1,
       skippedSteps: {}
     }
+    vm.individualPathModel = {
+      name: null,
+      description:  null,
+      avatar:  null,
+      languages:  [],
+      files:  [],
+      links:  []
+    }
+
     let _calculateProgressPercentage = () => {
       vm.progressBarWidth = Math.ceil(vm.queue.completedSteps / vm.queue.amountOfSteps * 100)
     }
@@ -21,6 +28,21 @@
       return vm.queue.completedSteps
     }, _calculateProgressPercentage)
 
+    if (savedProfile && savedProfile.expertDetails) {
+      vm.individualPathModel = savedProfile.expertDetails
+      vm.queue = {
+        amountOfSteps: 7,
+        currentStep: 8,
+        completedSteps: 7,
+        skippedSteps: {}
+      }
+      vm.inEditMode = true
+    } else {
+      vm.inEditMode = false
+      $timeout(()=>{
+        smoothScrolling.scrollTo(vm.queue.currentStep)
+      })
+    }
 
     vm.saveAccountObject = () => {
 
@@ -33,14 +55,13 @@
 
       _updateMethod({
         id: User.getData('id'),
-        type: _profileType,
         expertDetails: {
           name: vm.individualPathModel.name,
-          description: vm.individualPathModel.description || null,
-          avatar: vm.individualPathModel.avatar || null,
-          languages: vm.individualPathModel.languages || [],
-          files: vm.individualPathModel.files || [],
-          links: vm.individualPathModel.links || []
+          description: vm.individualPathModel.description,
+          avatar: vm.individualPathModel.avatar,
+          languages: vm.individualPathModel.languages,
+          files: vm.individualPathModel.files,
+          links: vm.individualPathModel.links
         }
       }).$promise.then(() => {
         $state.go('app.dashboard.service-provider.consultation-range')
@@ -58,6 +79,7 @@
   angular.module('profitelo.controller.dashboard.service-provider.individual-path', [
     'ui.router',
     'profitelo.services.service-provider-state',
+    'profitelo.directives.services.smooth-scrolling',
     'profitelo.directives.service-provider.pro-service-provider-name',
     'profitelo.directives.service-provider.pro-service-provider-description',
     'profitelo.directives.service-provider.pro-service-external-links',
@@ -81,20 +103,23 @@
       controllerAs: 'vm',
       resolve: {
         /* istanbul ignore next */
-        savedProfile: ($q, ProfileApi, User) => {
+        savedProfile: ($q, $state, ProfileApi, User) => {
 
           let _deferred = $q.defer()
-
           User.getStatus().then(() => {
             ProfileApi.getProfile({
               profileId: User.getData('id')
             }).$promise.then((response) => {
               _deferred.resolve(response)
             }, () => {
-              _deferred.resolve(false)
+              _deferred.resolve(null)
             })
           }, (error) => {
-            _deferred.reject(error)
+            $state.go('app.dashboard')
+            proTopAlertService.error({
+              message: 'error',
+              timeout: 4
+            })
           })
 
           return _deferred.promise

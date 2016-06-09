@@ -7,7 +7,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
     let _url = 'awesomeUrl'
 
     var validHTML = '<pro-service-provider-avatar data-queue="vm.queue" ' +
-      'data-order="2" data-pro-model="vm.individualPathModel" ' +
+      'data-order="2" data-pro-model="proModel" ' +
       'data-placeholder="DASHBOARD.CONSULTATION_RANGE.CONSULTANTS_LIST_PLACEHOLDER"' +
       ' data-error-message="DASHBOARD.SERVICE_PROVIDER.NAME.BAD_NAME" tr-title="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT" ' +
       'tr-desc="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT_DESCRIPTION" required="required"></pro-service-provider-avatar>'
@@ -28,7 +28,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
 
     function create(html) {
       var elem = angular.element(html)
-
+      scope.proModel = {file: []}
       var compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
@@ -43,8 +43,6 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
       el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
-
-
 
 
   })

@@ -1,21 +1,24 @@
-.summary-previous-step
-  .summary-previous-step-content
-    .summary-previous-step-image
+.step.summary-step
+  .btn-handler
+    a.summary-icon(data-ng-click="vm.backToFirstStep()")
+      i.icon.icon-edit-16
+  .summary-name
+    .summary-avatar
       img(src='assets/images/John_Doe.jpg' alt='user-avatar')
-    .summary-previous-step-name
-      h2 Imie Nazwisko
-      .summary-languages
-        p Języki: pl, sk, cz, fr
-    .summary-previous-step-edit
-      .close-button
-        .btn-handler
-          a(data-ui-sref="#").pro-btn.btn-light.btn-icon
-            i.icon.icon-edit-16
-  .summary-previous-step-content
-    .summary-previous-step-description
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam et orci at dolor blandit pellentesque. Nullam ante ipsum, pretium quis ornare a, sodales eget dolor. Nunc non ipsum blandit, faucibus nunc in, auctor dui.
-      .summary-previous-step-quote
-        i.icon.icon-quote-24
+    .summary-firstname
+      .firstname-lastname
+        h2 {{vm.profile.name}}
+      .languages
+        h6 Języki:
+          span(data-ng-repeat="language in vm.profile.languages") &nbsp {{language}}
+  .summary-descriptions
+    p {{vm.profile.description}}
+
+pro-service-provider-summary-step(
+data-consultations="vm.consultations"
+data-edit-action="vm.editConsultation"
+data-delete-action="vm.deleteConsultation"
+)
 
 pro-service-provider-name(
 data-queue="vm.queue"
@@ -28,13 +31,15 @@ tr-desc="DASHBOARD.CONSULTATION_RANGE.CONSULTATION_NAME_DESCRIPTION"
 required
 )
 
-pro-service-provider-languages(
+pro-service-provider-tags(
 data-queue="vm.queue"
 data-order="2"
 data-pro-model="vm.costModel"
+data-error-message="DASHBOARD.SERVICE_PROVIDER.NAME.EMPTY_TAGS"
 data-placeholder="DASHBOARD.CONSULTATION_RANGE.CONSULTATION_NAME_PLACEHOLDER"
 tr-title="DASHBOARD.CONSULTATION_RANGE.CONSULTATION_RANGE_TITLE"
 tr-desc="DASHBOARD.CONSULTATION_RANGE.CONSULTATION_NAME_DESCRIPTION"
+required
 )
 
 pro-service-provider-cost(
@@ -47,10 +52,32 @@ data-error-message="DASHBOARD.SERVICE_PROVIDER.NAME.BAD_COMPANY_NAME"
 data-summary-text="DASHBOARD.CONSULTATION_RANGE.COST_SUMMARY"
 tr-title="DASHBOARD.CONSULTATION_RANGE.CONSULTATION_RANGE_COST_PER_MINUTE"
 tr-desc="DASHBOARD.CONSULTATION_RANGE.CONSULTATION_COST_DESCRIPTION"
+required
 )
+
+div(data-ng-show="onCompany()")
+  pro-service-provider-who-provides(
+  data-queue="vm.queue"
+  data-order="4"
+  data-pro-model="vm.costModel"
+  data-placeholder="DASHBOARD.CONSULTATION_RANGE.EMAIL_EXAMPLE"
+  data-error-message="DASHBOARD.SERVICE_PROVIDER.NAME.BAD_COMPANY_NAME"
+  data-label="DASHBOARD.CONSULTATION_RANGE.I_PROVIDES_CONSULTATION"
+  tr-title="DASHBOARD.CONSULTATION_RANGE.WHO_PROVIDES_DESCRIPTION"
+  tr-desc="DASHBOARD.CONSULTATION_RANGE.CONSULTATION_NAME_DESCRIPTION"
+  )
+
+pro-bottom-consultation-button(
+data-button-action="vm.addAnotherConsultation"
+data-queue="vm.queue"
+data-order="4")
+
 
 pro-bottom-summary-row(
 data-width="vm.progressBarWidth"
 data-queue="vm.queue"
-data-button-action="vm.saveAccountObject"
+data-button-action="vm.saveConsultationObject "
+data-order="4"
+data-header="DASHBOARD.EXPERT_ACCOUNT.STEP2_PROGRESS_BAR_TITLE"
+data-show-all-time="vm.isConsultationPresent()"
 )

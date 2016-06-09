@@ -2,7 +2,6 @@
   color: $c-lines
   width: 100%
   position: relative
-  z-index: 1
   +lgm
     width: 1104px
   margin: 0 auto
@@ -68,6 +67,10 @@
       +colfax-bold
   .step-content-column
     margin-top: 24px
+    .upload-trash
+      padding: 13px 10px
+      i
+        font-size: 20px
     .input-group
       color: $c-secondary-txt
       width: 100%
@@ -115,18 +118,6 @@
         margin-left: 25px
         margin-top: 20px
         position: absolute
-    .upload-trash
-      text-align: right
-      margin-top: -100px
-      margin-right: 16px
-      right: 0
-      position: relative
-      float: right
-      background-color: $c-white
-      i
-        font-size: 20px
-      .btn-icon
-        padding: 12px 0
     .button-next-step
       margin-top: 35px
       margin-bottom: 25px
@@ -141,14 +132,11 @@
       justify-content: flex-start
       align-items: center
       margin-top: 0
-      +mdm
-
       h3
         margin-top: 43px
         margin-bottom: -10px
       span
         color: $c-white
-        text-transform: uppercase
         font-size: 11px
         padding: 0px 8px
       i
@@ -173,11 +161,9 @@
         align-content: flex-start
         align-items: center
         padding: 17px
-
       .btn-main
         background-color: $c-primary-txt
         +border-radius(100px)
-        text-transform: uppercase
         font-size: 11px
         width: auto
         padding: 15px
@@ -257,28 +243,32 @@
     .option
       background-color: $c-white
       border: 1px solid $c-lines
-      padding: 30px 10px 20px 10px
       width: 100%
       text-align: center
-      height: 256px
       +border-radius(0.3em)
       margin-top: 10px
       margin-left: -1px
-      height: 256px
       cursor: pointer
+      padding: 20px 10px 0px 10px
       +transition(all 0.1s ease-in-out 0s)
       +smm
         width: 48.6%
         height: 256px
         margin-top: 0
+        padding: 30px 10px 20px 10px
       i
-        padding-top: 22px
-        font-size: 128px
+        padding: 0
+        margin: 0
+        font-size: 64px
+        +smm
+          font-size: 128px
+          padding-top: 22px
       h5
         color: $c-secondary-txt
         +colfax-bold
         text-transform: uppercase
         margin-top: 12px
+
   .step-control
     padding: 22px 0
     +css3-prefix(flex-direction, column-reverse)

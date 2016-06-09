@@ -2,9 +2,9 @@ block content
   .bottom-row
     .title-row-column
       .title
-        h5(data-translate="DASHBOARD.EXPERT_ACCOUNT.STEP1_PROGRESS_BAR_TITLE")
+        h5(data-translate="{{header}}")
         h5.width {{ width }}%
-      .next-step(data-ng-show="queue.amountOfSteps == queue.completedSteps")
+      .next-step(data-ng-show="queue.amountOfSteps === queue.completedSteps || showAllTime")
         .button-next-step
           a(data-translate="DASHBOARD.CREATE_PROFILE.NEXT_STEP" data-ng-click="onClick()" class="pro-btn btn-round btn-main btn-medium")
     .progress-bar(style="width: {{ width }}%;")
