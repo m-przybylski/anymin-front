@@ -1,0 +1,89 @@
+.top-navbar
+  height: 80px
+  display: flex
+  flex-direction: row
+  flex-wrap: nowrap
+  justify-content: space-between
+  align-content: center
+  align-items: center
+  border-bottom: 1px solid $c-lines
+  background-color: $c-white
+
+  .logo
+    margin: 0 45px 0 30px
+    img
+      max-height: 32px
+
+  .menu-items
+    width: 30%
+    font-size: $f-nav-size
+    a
+      color: $c-input
+      padding: 0 16px
+      font-weight: bold
+      border: none
+      &:hover
+        color: $c-primary-txt
+      &:first-child
+        color: $c-primary-txt
+
+  .search
+    display: flex
+    flex-direction: row
+    flex-wrap: nowrap
+    align-items: center
+    border-left: 1px solid $c-lines
+    height: 100%
+    width: 30%
+    margin: 0 0 0 45px
+    padding: 0 15px
+    input
+      box-sizing: border-box
+      -moz-box-sizing: border-box
+      -webkit-box-sizing: border-box
+      width: 300px
+      height: 48px
+      margin-left: 16px
+      outline: none
+      border: none
+
+  .search-options
+    display: flex
+    flex-direction: row
+    flex-wrap: nowrap
+    justify-content: space-between
+    align-content: center
+    align-items: center
+    border-left: 1px solid $c-lines
+    height: 100%
+    width: 15%
+    margin: 0
+    padding: 0 15px
+    i
+      font-size: $f-nav-size
+    span
+      font-size: $f-nav-size
+      color: $c-input
+      text-transform: uppercase
+      font-weight: bold
+
+  .buttons
+    display: flex
+    flex-direction: row
+    flex-wrap: nowrap
+    align-items: center
+    height: 100%
+    font-size: $f-nav-size
+    a
+      display: flex
+      flex-direction: row
+      flex-wrap: nowrap
+      align-items: center
+      color: $c-input
+      padding: 0 24px
+      font-weight: bold
+      border: none
+      border-left: 1px solid $c-lines
+      height: 100%
+      &:hover
+        color: $c-primary-txt

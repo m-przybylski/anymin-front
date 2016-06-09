@@ -1,5 +1,8 @@
 angular.module('profitelo.controller.expert-profile', [
-  'ui.router'
+  'ui.router',
+  'profitelo.directives.interface.pro-top-navbar',
+  'profitelo.directives.expert-profile.pro-expert-header',
+  'profitelo.directives.expert-profile.pro-expert-single-consultation'
 ])
 .config(($stateProvider, UserRolesProvider) => {
   $stateProvider.state('app.expert-profile', {

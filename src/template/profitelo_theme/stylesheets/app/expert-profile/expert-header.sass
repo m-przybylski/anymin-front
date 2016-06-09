@@ -1,0 +1,137 @@
+.header-container
+  background-color: $c-white
+  border-bottom: 1px solid $c-lines
+  &:last-child
+    margin-bottom: 60px
+
+  .header-content
+    display: flex
+    flex-direction: row
+    flex-wrap: nowrap
+    justify-content: space-between
+    align-content: center
+    align-items: flex-start
+    width: 1200px
+    margin: 0 auto
+    padding: 60px 0
+
+    .company-list
+      display: flex
+      flex-direction: row
+      flex-wrap: nowrap
+      justify-content: flex-start
+      align-content: center
+      align-items: center
+      width: calc(100%/3 - 100px)
+      p
+        font-size: $f-nav-size
+        font-weight: bold
+        text-transform: uppercase
+        white-space: nowrap
+      .company-logo
+        margin-left: 15px
+        img
+          width: 55px
+          height: 55px
+          +border-radius(50%)
+          margin-right: -24px
+          border: 3px solid $c-white
+
+    .personal-info
+      display: flex
+      flex-direction: column
+      justify-content: center
+      align-content: center
+      align-items: center
+      width: calc(100%/3 + 200px)
+      img
+        width: 130px
+        height: 130px
+        +border-radius(50%)
+      h3
+        color: $c-secondary-txt
+      .status
+        margin-top: -24px
+        color: $c-success
+        font-size: $f-nav-size
+        font-weight: bold
+        text-transform: uppercase
+
+        &::before
+          content: ""
+          width: 1px
+          height: 4px
+          padding: 0 7px
+          margin-right: 8px
+          background-color: $c-success
+          +border-radius(50%)
+
+      .languages
+        margin-top: 16px
+        span
+          font-size: $f-h6-size
+          color: $c-primary-txt
+          background-color: $c-background-2
+          padding: 8px 16px
+          +border-radius("0.2em")
+
+    .statistic
+      display: flex
+      flex-direction: row
+      justify-content: flex-end
+      width: calc(100%/3 - 100px)
+      .social-icon
+        margin: 0 4px
+        display: flex
+        flex-direction: column
+        align-items: center
+        i
+          +border-radius(50%)
+          border: 1px solid $c-lines
+          padding: 15px 15px
+          font-size: 16px
+          width: 48px
+          height: 48px
+          display: flex
+          justify-content: center
+          align-content: center
+          align-items: center
+        p
+          font-size: $f-nav-size
+          font-weight: bold
+          margin-top: 4px
+
+    .quote-icon
+      width: 100%
+      display: flex
+      flex-direction: column
+      flex-wrap: nowrap
+      justify-content: center
+      align-content: center
+      align-items: center
+      margin-top: -85px
+      margin-bottom: -65px
+      i
+        background-color: $c-primary-txt
+        color: $c-white
+        height: 48px
+        width: 48px
+        +border-radius(50%)
+        display: flex
+        flex-direction: row
+        flex-wrap: nowrap
+        justify-content: center
+        align-content: center
+        align-items: center
+
+      .description
+        color: $c-secondary-txt
+        font-size: $f-h4-size
+        text-align: center
+        margin-top: 15px
+        p
+          line-height: 150%
+
+      .more-icon
+        margin-top: -65px
+        font-size: $f-h1-size
