@@ -44,8 +44,15 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
       expect(el.html()).toBeDefined(true)
     })
 
-
-
+    //it('remove file', ()=> {
+    //  let el = create(validHTML)
+    //  let isoScope = el.isolateScope()
+    //  spyOn(isoScope, 'removeFile').and.callThrough()
+    //  scope.$digest()
+    //  el.find('.icon-trash-24').click()
+    //  scope.$digest()
+    //  expect(isoScope.removeFile).toHaveBeenCalledWith(1)
+    //})
 
   })
 })

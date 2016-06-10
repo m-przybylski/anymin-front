@@ -3,10 +3,10 @@ block content
     .step.summary-step
       .btn-handler
         .summary-icon
-          a(data-ng-click="$parent.deleteConsultation(consultation.id, $index)")
+          a(data-ng-click="vm.deleteConsultation(consultation.id, $index)")
             i.icon.icon-trash-24
         .summary-icon
-          a(data-ng-click="$parent.editConsultation(consultation.id)")
+          a(data-ng-click="vm.editConsultation(consultation.id, consultation.details.name, consultation.details.price, consultation.details.tags)")
             i.icon.icon-edit-16
       .summary-step-title
         h4 {{ consultation.details.name}}
@@ -16,5 +16,5 @@ block content
         h6(data-translate="DASHBOARD.CREATE_PROFILE.SUMMARY.CONSULTATION_TAGS")
         .tags
           p(ng-repeat="tag in consultation.details.tags") {{ tag }}
-      .edit-consultation-form(ng-transclude ng-if="$parent.currentEdit")
+      .edit-consultation-form(ng-transclude ng-if="vm.currentEditConsultationId == consultation.id")
 

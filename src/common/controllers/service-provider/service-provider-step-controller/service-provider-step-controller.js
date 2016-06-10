@@ -33,11 +33,13 @@
         $scope.queue.completedSteps = $scope.order
       }
       $scope.queue.currentStep = $scope.order + 1
-      //if ($scope.queue.currentStep <= $scope.queue.amountOfSteps) {
-      //  $timeout(()=>{
-      //    smoothScrolling.scrollTo($scope.queue.currentStep)
-      //  })
-      //}
+      /* TODO FIX on CONSULTATION
+       if ($scope.queue.currentStep <= $scope.queue.amountOfSteps) {
+       $timeout(()=>{
+       smoothScrolling.scrollTo($scope.queue.currentStep)
+       })
+       }
+       */
     }
 
     $scope.skip = () => {

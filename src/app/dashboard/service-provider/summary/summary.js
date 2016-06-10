@@ -32,15 +32,44 @@
       })
     }
 
-    vm.editConsultation = () => {
-
+    vm.editConsultation = (id, name, price, tags) => {
+      vm.currentEditConsultationId = vm.currentEditConsultationId === id ? -1 : id
+      vm.editQueue = {
+        amountOfSteps: 3,
+        currentStep: 4,
+        completedSteps: 3,
+        skippedSteps: {}
+      }
+      vm.editModel = {
+        name: name,
+        tags: tags,
+        cost: price
+      }
+      vm.updateConsultation = () => {
+        ServiceApi.putService({
+          serviceId: id
+        }, {
+          details: {
+            name: vm.editModel.name,
+            tags: vm.editModel.tags,
+            price: parseInt(vm.editModel.cost, 10)
+          },
+          invitations: []
+        }).$promise.then(() => {
+          $state.reload()
+        })
+      }
     }
-
     vm.deleteConsultation = (id, index) => {
       ServiceApi.deleteService({
         serviceId: id
       }).$promise.then((res)=> {
         vm.consultations.splice(index, 1)
+      }, (err) => {
+        proTopAlertService.error({
+          message: 'error',
+          timeout: 4
+        })
       })
     }
 

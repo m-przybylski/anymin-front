@@ -16,13 +16,6 @@ describe('Unit tests: IndividualPathController >', () => {
 
         _scope = $rootScope.$new()
 
-        _scope.$parent.serviceProviderController = {
-          profileTypes: {
-            'INDIVIDUAL': 'INDIVIDUAL',
-            'COMPANY': 'COMPANY'
-          }
-        }
-
         IndividualPathController = $controller('IndividualPathController', {
           $scope: _scope,
           ProfileApi: _ProfileApi_,
@@ -37,6 +30,8 @@ describe('Unit tests: IndividualPathController >', () => {
     it('should exists', () => {
       return expect(!!IndividualPathController).toBe(true)
     })
+
+
 
   })
 })

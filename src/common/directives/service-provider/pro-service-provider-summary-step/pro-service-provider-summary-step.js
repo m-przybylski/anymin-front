@@ -1,18 +1,5 @@
 (function() {
   function proServiceProviderSummaryStep($q) {
-    function linkFunction(scope) {
-
-      scope.deleteConsultation = (id, index)=> {
-        scope.deleteAction(id, index)
-      }
-      scope.editConsultation = (id)=> {
-        scope.currentEdit = true
-        scope.editAction(id)
-      }
-
-
-
-    }
 
     return {
       replace: true,
@@ -24,11 +11,13 @@
         editAction: '=',
         deleteAction: '='
       },
-      link: linkFunction
+      controller: 'ProServiceProviderSummaryController',
+      controllerAs: 'vm'
     }
   }
 
   angular.module('profitelo.directives.service-provider.pro-service-provider-summary-step', [
+    'profitelo.common.controller.service-provider.pro-service-provider-summary-controller',
     'lodash',
     'pascalprecht.translate',
     'profitelo.common.controller.service-provider.service-provider-step-controller'

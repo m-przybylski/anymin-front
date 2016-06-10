@@ -21,9 +21,9 @@ data-delete-action="vm.deleteConsultation"
 )
 
   pro-service-provider-name(
-  data-queue="vm.queues"
+  data-queue="vm.editQueue"
   data-order="1"
-  data-pro-model="vm.costModel"
+  data-pro-model="vm.editModel"
   data-placeholder="DASHBOARD.CONSULTATION_RANGE.CONSULTATION_NAME_PLACEHOLDER"
   data-error-message="DASHBOARD.SERVICE_PROVIDER.NAME.BAD_COMPANY_NAME"
   tr-title="DASHBOARD.CONSULTATION_RANGE.CONSULTATION_NAME"
@@ -32,9 +32,9 @@ data-delete-action="vm.deleteConsultation"
   )
 
   pro-service-provider-tags(
-  data-queue="vm.queues"
+  data-queue="vm.editQueue"
   data-order="2"
-  data-pro-model="vm.costModel"
+  data-pro-model="vm.editModel"
   data-error-message="DASHBOARD.SERVICE_PROVIDER.NAME.EMPTY_TAGS"
   data-placeholder="DASHBOARD.CONSULTATION_RANGE.CONSULTATION_NAME_PLACEHOLDER"
   tr-title="DASHBOARD.CONSULTATION_RANGE.CONSULTATION_RANGE_TITLE"
@@ -43,9 +43,9 @@ data-delete-action="vm.deleteConsultation"
   )
 
   pro-service-provider-cost(
-  data-queue="vm.queues"
+  data-queue="vm.editQueue"
   data-order="3"
-  data-pro-model="vm.costModel"
+  data-pro-model="vm.editModel"
   data-list="vm.currency"
   data-placeholder="DASHBOARD.CONSULTATION_RANGE.CONSULTATION_COST_PLACEHOLDER"
   data-error-message="DASHBOARD.SERVICE_PROVIDER.NAME.BAD_COMPANY_NAME"
@@ -54,10 +54,13 @@ data-delete-action="vm.deleteConsultation"
   tr-desc="DASHBOARD.CONSULTATION_RANGE.CONSULTATION_COST_DESCRIPTION"
   required
   )
+
   pro-bottom-consultation-button(
   data-button-action="vm.updateConsultation"
-  data-queue="vm.queues"
-  data-order="4")
+  data-queue="vm.editQueue"
+  data-order="4"
+  data-button-label="DASHBOARD.CREATE_PROFILE.EDIT_CONSULTATION"
+  )
 
 pro-service-provider-name(
 data-queue="vm.queue"
@@ -109,7 +112,8 @@ div(data-ng-show="onCompany()")
 pro-bottom-consultation-button(
 data-button-action="vm.addAnotherConsultation"
 data-queue="vm.queue"
-data-order="4")
+data-order="4"
+data-button-label="DASHBOARD.CREATE_PROFILE.NEXT_CONSULTATION")
 
 
 pro-bottom-summary-row(
