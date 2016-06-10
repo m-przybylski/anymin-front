@@ -41,9 +41,10 @@ describe('Sign-up page', function () {
 
     password.sendKeys('admin123')
     form.submit()
-    
-    expect(element(by.css('.dashboard-menu')).isPresent()).toBeTruthy();
 
+    expect(element(by.css('.dashboard-menu')).isPresent()).toBeTruthy()
+
+    element(by.css('.logout-icon a')).click()
 
   })
 
