@@ -67,10 +67,9 @@
       $scope.saveSection()
     }
 
-    $scope.onClick = () => {
-      $rootScope.$broadcast('manualOrderChangeRequest', $scope.order)
+    $scope.onClick = (order) => {
+      $rootScope.$broadcast('manualOrderChangeRequest', order)
     }
-
 
     $scope.$on('manualOrderChangeRequestGrant', (event, targetStep) => {
       if ($scope.order === targetStep) {
