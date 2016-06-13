@@ -164,6 +164,7 @@
       controller:   'ConsultationRangeController',
       controllerAs: 'vm',
       resolve: {
+        /* istanbul ignore next */
         savedProfile: ($q, $state, ProfileApi, User) => {
 
           let _deferred = $q.defer()
