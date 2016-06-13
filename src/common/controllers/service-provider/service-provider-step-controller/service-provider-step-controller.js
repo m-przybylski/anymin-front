@@ -15,11 +15,11 @@
       noCost: false
     }
 
-    function saveShadowModel() {
+    $scope.saveShadowModel = () => {
       shadowModel = angular.copy($scope.model)
     }
 
-    function restoreShadowModel() {
+    $scope.restoreShadowModel = () => {
       $scope.model = angular.copy(shadowModel)
       shadowModel = null
     }
@@ -41,24 +41,23 @@
       }
     }
 
+    
     $scope.skip = () => {
 
       $scope.queue.skippedSteps[$scope.order] = true
       if (shadowModel !== null) {
-        restoreShadowModel()
+        $scope.restoreShadowModel()
       }
       $scope.proceed()
 
       for (let property in $scope.clearError) {
-        if ($scope.clearError.hasOwnProperty(property)) {
-          $scope.clearError[property] = false
-        }
+        $scope.clearError[property] = false
       }
     }
 
     $scope.outClick = () => {
       $scope.queue.skippedSteps[$scope.order] = true
-      saveShadowModel()
+      $scope.saveShadowModel()
     }
 
     $scope.saveStep = () => {
@@ -72,7 +71,7 @@
 
     $scope.$on('manualOrderChangeRequestGrant', (event, targetStep) => {
       if ($scope.order === targetStep) {
-        saveShadowModel()
+        $scope.saveShadowModel()
         $scope.queue.currentStep = $scope.order
       }
     })
