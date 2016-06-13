@@ -14,7 +14,8 @@
       scope: {
         queue: '=',
         order: '=?',
-        buttonAction: '='
+        buttonAction: '=',
+        buttonLabel: '@'
       },
       link: linkFunction,
       controller: 'ServiceProviderStepController'

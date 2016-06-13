@@ -10,7 +10,7 @@
         cost: ''
       }
 
-
+      scope.model.cost = scope.proModel.cost
       let _isValid = () => {
         let _isValidDeferred = $q.defer()
 

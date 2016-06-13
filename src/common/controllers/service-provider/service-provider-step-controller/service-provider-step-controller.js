@@ -15,11 +15,11 @@
       noCost: false
     }
 
-    function saveShadowModel() {
+    $scope.saveShadowModel = () => {
       shadowModel = angular.copy($scope.model)
     }
 
-    function restoreShadowModel() {
+    $scope.restoreShadowModel = () => {
       $scope.model = angular.copy(shadowModel)
       shadowModel = null
     }
@@ -33,6 +33,7 @@
         $scope.queue.completedSteps = $scope.order
       }
       $scope.queue.currentStep = $scope.order + 1
+      
       if ($scope.queue.currentStep <= $scope.queue.amountOfSteps) {
         $timeout(()=>{
           smoothScrolling.scrollTo($scope.queue.currentStep)
@@ -40,24 +41,23 @@
       }
     }
 
+    
     $scope.skip = () => {
 
       $scope.queue.skippedSteps[$scope.order] = true
       if (shadowModel !== null) {
-        restoreShadowModel()
+        $scope.restoreShadowModel()
       }
       $scope.proceed()
 
       for (let property in $scope.clearError) {
-        if ($scope.clearError.hasOwnProperty(property)) {
-          $scope.clearError[property] = false
-        }
+        $scope.clearError[property] = false
       }
     }
 
     $scope.outClick = () => {
       $scope.queue.skippedSteps[$scope.order] = true
-      saveShadowModel()
+      $scope.saveShadowModel()
     }
 
     $scope.saveStep = () => {
@@ -65,14 +65,13 @@
       $scope.saveSection()
     }
 
-    $scope.onClick = () => {
-      $rootScope.$broadcast('manualOrderChangeRequest', $scope.order)
+    $scope.onClick = (order) => {
+      $rootScope.$broadcast('manualOrderChangeRequest', order)
     }
-
 
     $scope.$on('manualOrderChangeRequestGrant', (event, targetStep) => {
       if ($scope.order === targetStep) {
-        saveShadowModel()
+        $scope.saveShadowModel()
         $scope.queue.currentStep = $scope.order
       }
     })

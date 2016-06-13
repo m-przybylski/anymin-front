@@ -5,6 +5,12 @@
     vm.costModel = {
       name: '',
       tags: [],
+      cost: ''
+    }
+
+    vm.editModel = {
+      name: '',
+      tags: [],
       cost: 0
     }
 
@@ -15,11 +21,19 @@
       skippedSteps: {}
     }
 
+    vm.editQueue = {
+      amountOfSteps: 3,
+      currentStep: 4,
+      completedSteps: 3,
+      skippedSteps: {}
+    }
+
     vm.currency = [
       {id: 1, name: 'PLN'},
       {id: 2, name: 'USD'},
       {id: 3, name: 'EUR'}
     ]
+
     vm.consultations = []
     vm.profile = {}
     let isExpert = false
@@ -82,10 +96,34 @@
       return vm.consultations.length > 0
     }
 
-    vm.editConsultation = () => {
-
+    vm.editConsultation = (id, name, price, tags) => {
+      vm.currentEditConsultationId = vm.currentEditConsultationId === id ? -1 : id
+      vm.editQueue = {
+        amountOfSteps: 3,
+        currentStep: 4,
+        completedSteps: 3,
+        skippedSteps: {}
+      }
+      vm.editModel = {
+        name: name,
+        tags: tags,
+        cost: price
+      }
+      vm.updateConsultation = () => {
+        ServiceApi.putService({
+          serviceId: id
+        }, {
+          details: {
+            name: vm.editModel.name,
+            tags: vm.editModel.tags,
+            price: parseInt(vm.editModel.cost, 10)
+          },
+          invitations: []
+        }).$promise.then(() => {
+          $state.reload()
+        })
+      }
     }
-
     vm.deleteConsultation = (id, index) => {
       ServiceApi.deleteService({
         serviceId: id
@@ -126,6 +164,7 @@
       controller:   'ConsultationRangeController',
       controllerAs: 'vm',
       resolve: {
+        /* istanbul ignore next */
         savedProfile: ($q, $state, ProfileApi, User) => {
 
           let _deferred = $q.defer()
