@@ -154,7 +154,8 @@
     'profitelo.directives.service-provider.pro-service-provider-tags',
     'profitelo.directives.service-provider.pro-bottom-consultation-button',
     'c7s.ng.userAuth',
-    'profitelo.directives.interface.pro-alert'
+    'profitelo.directives.interface.pro-alert',
+    'profitelo.directives.service-provider.pro-service-provider-profile'
   ])
   .config( function($stateProvider, UserRolesProvider) {
     $stateProvider.state('app.dashboard.service-provider.consultation-range', {

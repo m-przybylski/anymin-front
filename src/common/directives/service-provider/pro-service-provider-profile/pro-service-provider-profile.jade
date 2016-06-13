@@ -1,0 +1,15 @@
+.step.summary-step
+    .btn-handler
+        a.summary-icon(data-ng-click="onClick()")
+            i.icon.icon-edit-16
+    .summary-name
+        .summary-avatar
+            img(ng-src="{{avatar}}" alt='user-avatar')
+        .summary-firstname
+            .firstname-lastname
+                h2 {{name}}
+            .languages
+                h6 Języki:
+                    span(data-ng-repeat="language in languages") &nbsp {{language}}
+    .summary-descriptions
+        p {{description}}

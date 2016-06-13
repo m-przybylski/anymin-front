@@ -1,12 +1,8 @@
 (function() {
   function ServiceProviderController() {
 
-    this.profileTypes = {
-      'INDIVIDUAL': 'EXPERT',
-      'COMPANY': 'ORGANIZATION'
-    }
-
     return this
+
   }
 
 
