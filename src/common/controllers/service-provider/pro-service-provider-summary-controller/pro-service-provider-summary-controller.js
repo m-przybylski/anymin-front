@@ -1,10 +1,11 @@
 (function() {
-  function ProServiceProviderSummaryController($scope) {
+  function ProServiceProviderSummaryController() {
     let vm = this
 
     vm.deleteConsultation = (id, index)=> {
       vm.deleteAction(id, index)
     }
+    
     vm.editConsultation = (id, name, price, tags)=> {
       vm.editAction(id, name, price, tags)
     }
