@@ -51,12 +51,12 @@ function CommonSettingsService(CommonConfig) {
         name: 'facebook',
         pattern: new RegExp(/((https?:\/\/)|([w]{3}\.))?facebook\.\w+/gi)
       }, {
-        iconClass: 'icon-google-plus',
+        iconClass: 'icon-google-plus-24',
         name: 'google',
         pattern: new RegExp(/((https?:\/\/)|([w]{3}\.))?plus\.google\.\w+/gi)
       }, {
-        name: 'icon-linkedin-24',
-        iconClass: 'linkedin',
+        iconClass: 'icon-linkedin-24',
+        name: 'linkedin',
         pattern: new RegExp(/((https?:\/\/)|([w]{3}\.))?linkedin\.\w+/gi)
       }, {
         iconClass: 'icon-goldenline-24',
