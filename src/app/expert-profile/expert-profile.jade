@@ -1,6 +1,6 @@
 pro-top-navbar
 
-pro-expert-header(data-name="vm.profile.name" data-description="vm.profile.description" data-languages="vm.profile.languages" data-avatar="vm.profile.avatar")
+pro-expert-header(data-profile="vm.profile")
 div(ng-repeat="service in vm.services")
   pro-expert-single-consultation(
   data-name="service.details.name"

@@ -12,12 +12,14 @@
     } else if (savedProfile.organizationDetails) {
       vm.profile = savedProfile.organizationDetails
     }
+    console.log(vm.profile)
     return vm
   }
 
   angular.module('profitelo.controller.expert-profile', [
     'ui.router',
     'profitelo.swaggerResources',
+    'c7s.ng.userAuth',
     'profitelo.directives.interface.pro-top-navbar',
     'profitelo.directives.expert-profile.pro-expert-header',
     'profitelo.directives.expert-profile.pro-expert-footer',

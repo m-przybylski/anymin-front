@@ -4,17 +4,17 @@ div
       .company-list
         p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.COOPERATE_WITH")
         .company-logo
-          img(src="http://www.alluserpics.com/data/media/29/00857.jpg")
-          img(src="http://bridgingapps.org/wp-content/uploads/2011/02/mzi.uyuawjzh.100x100-751.jpg")
-          img(src="http://koolmobile.net/wp-content/uploads/2011/12/AngryBirds-Logo-100x100.jpg")
+          img(src="/assets/images/John_Doe.jpg")
+          img(src="/assets/images/John_Doe.jpg")
+          img(src="/assets/images/John_Doe.jpg")
       .personal-info
-        img(ng-src='{{avatar}}' alt='user-avatar')
-        h3 {{ name }}  
+        img(ng-src='{{profile.avatar}}' alt='user-avatar')
+        h3 {{ profile.name }}  
         .status
           span Dostępny
         .languages
           span(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.PROVIDER_LAGUAGES")
-          span(ng-repeat="lang in languages") {{ lang + ", "}} 
+          span(ng-repeat="lang in profile.languages") {{ lang + ", "}} 
       .statistic
         .social-icon
           i.icon.icon-tumblr-24
@@ -28,6 +28,6 @@ div
       .quote-icon
         i.icon.icon-quote-24
         .description
-          p {{ description }}
+          p {{ profile.description }}
         .more-icon
           p ...
