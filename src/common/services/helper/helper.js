@@ -16,6 +16,7 @@
           return social
         }
       }
+      /* istanbul ignore next */
       return _default
     }
 
