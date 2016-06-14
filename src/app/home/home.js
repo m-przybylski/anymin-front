@@ -1,6 +1,7 @@
 angular.module('profitelo.controller.home', [
   'ui.router',
-  'c7s.ng.userAuth'
+  'c7s.ng.userAuth',
+  'profitelo.directives.pro-expert-card'
 ])
 .config(($stateProvider, UserRolesProvider) => {
   $stateProvider.state('app.home', {
@@ -17,6 +18,19 @@ angular.module('profitelo.controller.home', [
 .controller('HomeController', HomeController)
 
 function HomeController($scope) {
-  
+  this.expertCard = [
+    {
+      status: 'available',
+      label: 'HOME.EXPERT_CARD_AVAILABLE'
+    },
+    {
+      status: 'not-available',
+      label: 'HOME.EXPERT_CARD_NOT_AVAILABLE'
+    },
+    {
+      status: 'busy',
+      label: 'HOME.EXPERT_CARD_BUSY'
+    }
+  ]
   return this
 }

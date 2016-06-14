@@ -1,7 +1,9 @@
-section.top-content-home
+main.top-content-home
   .default-container.flex-col.home-header
     include ./parts/top-container.partial.jade
   .default-container
     include ./parts/home-search-bar.partial.jade
   .default-container
     include ./parts/branch-overview.partial.jade
+  .default-container.flex-row
+    pro-expert-card(data-ng-repeat="expert in vm.expertCard" data-ng-model="expert")
