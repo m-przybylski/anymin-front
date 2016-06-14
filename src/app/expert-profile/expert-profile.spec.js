@@ -1,23 +1,42 @@
 describe('Unit tests: ExpertProfileController >', () => {
   describe('Testing Controller: ExpertProfileController', () => {
 
-    var $scope
-    var ExpertProfileController
+    let ExpertProfileController
+    let _scope
+
+    let url = 'awesomeUrl/'
+
+    beforeEach(module(function($provide) {
+      $provide.value('apiUrl', url)
+    }))
 
     beforeEach(() => {
       module('profitelo.controller.expert-profile')
-      console.log('sd')
-      inject(($rootScope, $controller, _$state_) => {
-        $scope = $rootScope.$new()
-        ExpertProfileController = $controller('ExpertProfileController', {
-          $state: _$state_
+      inject(($rootScope, $controller, _ProfileApi_, _User_) => {
+
+        _scope = $rootScope.$new()
+
+        _scope.$parent.serviceProviderController = {
+          profileTypes: {
+            'INDIVIDUAL': 'INDIVIDUAL',
+            'COMPANY': 'COMPANY'
+          }
+        }
+
+        IndividualPathController = $controller('IndividualPathController', {
+          $scope: _scope,
+          ProfileApi: _ProfileApi_,
+          User: _User_,
+          savedProfile: {}
         })
+
+
       })
     })
 
-    // it('should exists', () => {
-    //   expect(!!ExpertProfileController).toBe(true)
-    // })
+    it('should exists', () => {
+      return expect(!!IndividualPathController).toBe(true)
+    })
 
   })
 })
