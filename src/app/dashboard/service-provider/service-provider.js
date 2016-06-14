@@ -5,7 +5,6 @@
 
   }
 
-
   angular.module('profitelo.controller.dashboard.service-provider', [
     'ui.router',
     'profitelo.directives.service-provider.pro-top-title-row',

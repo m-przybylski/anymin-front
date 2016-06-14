@@ -3,9 +3,13 @@ extends ../../../templates/wizard/section-controlls.partial.jade
 block content
   .step-content-column(data-ng-click="onClick()")
     .who-provides-checkbox
-      pro-checkbox(data-ng-model="checkboxModel" label="{{label | translate}}")
+      pro-checkbox(data-ng-model="checkCurrentUser" label="{{label | translate}}")
     .who-provides-inputs
-      pro-input(data-placeholder="{{placeholder | translate}}" data-ng-model="model.name" data-ng-class="{invalid: badName}")
+      pro-tags-dropdown(data-pro-items="emails"
+      data-placeholder="{{'DASHBOARD.CONSULTATION.EMPLOYEES_PLACEHOLDER' | translate}}"
+      data-pro-model="model.invitations" data-ng-click="onClick()" employee)
+        .input-error-messages
+          .error(data-translate="{{errorMessage}}" data-ng-show="noTags")
       button.pro-btn.btn-small.btn-light.who-provides-csv(data-translate="DASHBOARD.CONSULTATION_RANGE.CONSULTANTS_LOAD_CSV" data-ng-click="skip()" data-ng-show="!required")
   .input-error-messages
     .error(data-translate="{{errorMessage}}" data-ng-show="badName")

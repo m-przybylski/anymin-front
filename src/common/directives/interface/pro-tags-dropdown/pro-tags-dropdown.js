@@ -25,7 +25,11 @@ function proTagsDropdown($timeout) {
     }
 
     scope.select = function(item, model) {
-      scope.proModel.push(item)
+      if ('employee' in attr) {
+        scope.proModel.push({email: item})
+      } else {
+        scope.proModel.push(item)
+      }
       _onFocusOut()
       _getScrollbarChoices().perfectScrollbar()
     }

@@ -62,7 +62,7 @@
           links: this.individualPathModel.links
         }
       }).$promise.then(() => {
-        $state.go('app.dashboard.service-provider.consultation-range')
+        $state.go('app.dashboard.service-provider.consultation-range.individual')
       }, () => {
         proTopAlertService.error({
           message: 'error',
