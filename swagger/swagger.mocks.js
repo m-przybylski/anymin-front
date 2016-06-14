@@ -52,6 +52,7 @@
                 $httpBackend.whenPOST(apiUrl + '/msisdns/verify').respond();
                 $httpBackend.whenPOST(apiUrl + '/msisdns/verify/code').respond();
                 $httpBackend.whenPOST(apiUrl + '/msisdns/code').respond();
+                $httpBackend.whenGET(apiUrl + '/search').respond();
                 $httpBackend.whenPOST(apiUrl + '/session').respond();
                 $httpBackend.whenDELETE(apiUrl + '/session').respond();
                 $httpBackend.whenGET(apiUrl + '/session').respond();

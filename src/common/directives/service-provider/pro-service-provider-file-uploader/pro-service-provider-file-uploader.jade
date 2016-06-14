@@ -3,7 +3,6 @@ extends ../../../templates/wizard/section-controlls.partial.jade
 block content
     .step-content-column(data-ng-click="onClick()")
         pro-uploader(type="application/pdf,image/jpeg,image/png" files-uploaded="model.files" data-multiple data-ngf-pattern=".pdf,.jpg,.jpeg,.png")
-        pro-uploader(type="application/pdf,image/jpeg,image/png" files-uploaded="model.files" data-multiple)
         .document-submit(data-ng-show="model.files.length > 0")
             a.pro-btn.btn-main.btn-medium(data-ng-repeat="file in model.files track by $index" disable)
                 span {{ file.file.name }}

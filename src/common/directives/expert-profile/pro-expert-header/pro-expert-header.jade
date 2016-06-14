@@ -2,18 +2,19 @@ div
   .header-container
     .header-content
       .company-list
-        p Współpracuje z
+        p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.COOPERATE_WITH")
         .company-logo
           img(src="http://www.alluserpics.com/data/media/29/00857.jpg")
           img(src="http://bridgingapps.org/wp-content/uploads/2011/02/mzi.uyuawjzh.100x100-751.jpg")
           img(src="http://koolmobile.net/wp-content/uploads/2011/12/AngryBirds-Logo-100x100.jpg")
       .personal-info
-        img(src='assets/images/John_Doe.jpg' alt='user-avatar')
-        h3 Mitchell Freeman
+        img(ng-src='{{avatar}}' alt='user-avatar')
+        h3 {{ name }}  
         .status
           span Dostępny
         .languages
-          span Świadczy usługę w językach: Polski, Angielski, Niemiecki
+          span(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.PROVIDER_LAGUAGES")
+          span(ng-repeat="lang in languages") {{ lang + ", "}} 
       .statistic
         .social-icon
           i.icon.icon-tumblr-24
@@ -27,6 +28,6 @@ div
       .quote-icon
         i.icon.icon-quote-24
         .description
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          p {{ description }}
         .more-icon
           p ...

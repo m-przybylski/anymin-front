@@ -107,13 +107,28 @@
         		"HOME.CARD_LAW":"Prawo, polityka i społeczeństwo",
         		"HOME.CARD_SCIENCE":"Nauka, edukacja i rozwój",
         		"HOME.CARD_TECHNOLOGIES":"Nowe technologie",
-        		"HOME.EXPERT_CONVERSATIONS":"ROZMÓW",
-        		"HOME.EXPERT_SERVICE_SATISFACTION":"zadowolenia",
+        		"HOME.EXPERT_CARD_AVAILABLE":"Dostępny",
+        		"HOME.EXPERT_CARD_BUSY":"Zajęty",
+        		"HOME.EXPERT_CARD_NOT_AVAILABLE":"Niedostępny",
+        		"HOME.EXPERT_CONVERSATIONS":"50 rozmów",
+        		"HOME.EXPERT_SERVICE_SATISFACTION":"100% zadowolenia",
+        		"HOME.FOOTER.ABOUT_US":"O nas",
+        		"HOME.FOOTER.ADVANTAGE_TO_PARTNERS":"Korzyści dla Patrtnerów",
+        		"HOME.FOOTER.BLOG":"Blog",
+        		"HOME.FOOTER.FAQ":"FAQ",
+        		"HOME.FOOTER.INTEGRATION":"Integracja",
+        		"HOME.FOOTER.RECORD_CALLS":"Nagrywanie Rozmów",
+        		"HOME.FOOTER.REFUND":"Zwrot Pieniędzy",
+        		"HOME.FOOTER.RULE":"Regulamin",
+        		"HOME.FOOTER.privacy_policy":"Polityka Prywatności",
         		"HOME.MAIN_HEADER":"Profitelo Everywhere",
         		"HOME.MAIN_SUBHEADER":"3 Simple Ways To Save A Bunch Of Money When Buying A New Computer.",
         		"HOME.PLAY_ICO":"Zobacz jak to działa",
         		"HOME.SEARCH_PLACEHOLDER":"Wpisz szukaną frazę np.: planowanie diety",
+        		"HOME.TOP_CONTAINER.EXPERT_PROFILE.AVERANGE_CONSULTATION_TIME":"średni czas konsultacji:",
         		"HOME.TOP_CONTAINER.EXPERT_PROFILE.COOPERATE_WITH":"Współpracuje z",
+        		"HOME.TOP_CONTAINER.EXPERT_PROFILE.EXPERT_HELPS":"Pomógł",
+        		"HOME.TOP_CONTAINER.EXPERT_PROFILE.EXPERT_NOT_HELPS":"Nie pomógł",
         		"HOME.TOP_CONTAINER.EXPERT_PROFILE.FOOTER_CALL_TEXT":"Zadzwoń (0zł/min)",
         		"HOME.TOP_CONTAINER.EXPERT_PROFILE.FOOTER_COPYRIGHT":"Profitelo należy do: Itelo Sp. Z O. O.  Ul. Kunickiego 5/212, 30-134 Kraków",
         		"HOME.TOP_CONTAINER.EXPERT_PROFILE.MAIL_FOOTER":"kontakt@itelo.pl",
@@ -123,6 +138,9 @@
         		"HOME.TOP_CONTAINER.MAIN_HEADER.FOOTER_COMPLAINTS":"Reklamacje",
         		"HOME.TOP_CONTAINER.MAIN_HEADER.FOOTER_OTHER":"Inne",
         		"HOME.TOP_CONTAINER.MAIN_HEADER.FOOTER_PARTNER_SPACE":"Strefa Partnera",
+        		"HOME.TOP_CONTAINER.MAIN_HEADER.PROVIDER_LAGUAGES":"Świadczy usługę w językach:",
+        		"HOME.TOP_CONTAINER.MAIN_HEADER.SHOW_ALL":"pokaż wszystkie",
+        		"HOME.TOP_CONTAINER.MAIN_HEADER.SHOW_ALL_COMMENTS":"Zobacz wszystkie komentarze",
         		"INTERFACE.ABORT":"Anuluj",
         		"INTERFACE.ALERT_ERROR":"Error",
         		"INTERFACE.ALERT_INFO":"Info",
@@ -189,3 +207,7 @@
         })
     }])
 })(angular);
+
+
+
+

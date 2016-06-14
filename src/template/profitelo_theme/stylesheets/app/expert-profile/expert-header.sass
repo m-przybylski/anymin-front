@@ -69,11 +69,15 @@
       .languages
         margin-top: 16px
         span
+          padding: 8px 0px
           font-size: $f-h6-size
           color: $c-primary-txt
           background-color: $c-background-2
-          padding: 8px 16px
           +border-radius("0.2em")
+          &:first-child
+            padding-left: 16px
+          &:last-child
+            padding-right: 16px
 
     .statistic
       display: flex

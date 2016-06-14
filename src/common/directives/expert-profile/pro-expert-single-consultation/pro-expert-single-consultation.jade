@@ -1,35 +1,25 @@
-.single-consultation
+.single-container
   .title-row-consultation
     .company-logo
       img(src="http://www.alluserpics.com/data/media/29/00857.jpg")
     .details-consultations
-      h3 Układanie planów żywieniowych dla osób na diecie wegetariańskiej.
+      h3 {{ name }}
       .options-consultation
-        span 100% zadowolenia
-        span 194 rozmów
-        span średni czas konsultacji: 15 min.
+        span {{ satisfaction }}{{'HOME.TOP_CONTAINER.EXPERT_PROFILE.SATISFACTION_PERCENT' | translate}}
+        span {{ talks }} {{'HOME.EXPERT_CONVERSATIONS' | translate}}
+        span {{'HOME.TOP_CONTAINER.EXPERT_PROFILE.AVERANGE_CONSULTATION_TIME' | translate}} {{ timeAverage }} min.
     .cost-consultations
-      h3 19 zł/min
+      h3 {{ minuteCost }} zł/min
       i.icon.icon-success-24
   .title-row-consultation
     .tags-consultation
-      p gorgeous
-      p night
-      p orange
-      p pink
-      p instasky
-      p pretty
-      p gorgeous
-      p night
-      p orange
-      p pink
-      p instasky
+      p(ng-repeat="tag in tags") {{tag}}
 
     .more-consultation
-      span pokaż wszystkie (+10)
+      span {{'HOME.TOP_CONTAINER.MAIN_HEADER.SHOW_ALL' | translate}} (+10)
   .title-row-consultation.footer-consultation
     div
-      p Pomógł (200)
-      p Nie Pomógł (0)
+      p {{'HOME.TOP_CONTAINER.EXPERT_PROFILE.EXPERT_HELPS' | translate}} ({{positiveMark}})
+      p {{'HOME.TOP_CONTAINER.EXPERT_PROFILE.EXPERT_NOT_HELPS' | translate}} ({{negativeMark}})
     div
-      p Zobacz wszystkie komentarze (200)
+      p {{'HOME.TOP_CONTAINER.MAIN_HEADER.SHOW_ALL_COMMENTS' | translate}} ({{positiveMark + negativeMark}})

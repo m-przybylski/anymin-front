@@ -10,7 +10,14 @@
       replace: true,
       link: linkFunction,
       scope: {
-
+        name: '=?',
+        satisfaction: '@',
+        talks: '@',
+        timeAverage: '@',
+        minuteCost: '=?',
+        tags: '=?',
+        positiveMark: '=',
+        negativeMark: '='
       }
 
     }

@@ -1,18 +1,21 @@
 pro-top-navbar
-pro-expert-header
 
-pro-expert-single-consultation(
-data-name="nazwa"  
-)
+pro-expert-header(data-name="vm.profile.name" data-description="vm.profile.description" data-languages="vm.profile.languages" data-avatar="vm.profile.avatar")
+div(ng-repeat="service in vm.services")
+  pro-expert-single-consultation(
+  data-name="service.details.name"
+  data-satisfaction="96"
+  data-talks="194"
+  data-time-average="16"
+  data-minute-cost="service.details.price"
+  data-tags="service.details.tags"
+  data-positive-mark="201"
+  data-negative-mark="5"
+  )
 
-pro-expert-single-consultation(
-data-name="nazwa"  
-)
 
-pro-expert-single-consultation(
-data-name="nazwa"  
-)
+pro-expert-slider
 
-pro-expert-single-consultation(
-data-name="nazwa"  
-)
+pro-expert-social-icons(data-links="vm.profile.links")
+
+pro-expert-footer
