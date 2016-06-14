@@ -9,9 +9,9 @@
     }
 
     vm.companyPathModel = {
-      name: null,
+      name: '',
       logo: null,
-      description: null,
+      description: '',
       files: [],
       links: []
     }
@@ -67,8 +67,6 @@
         })
       })
     }
-
-
 
     return vm
   }

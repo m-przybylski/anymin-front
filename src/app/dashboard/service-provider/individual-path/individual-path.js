@@ -10,8 +10,8 @@
       skippedSteps: {}
     }
     vm.individualPathModel = {
-      name: null,
-      description:  null,
+      name: '',
+      description:  '',
       avatar:  null,
       languages:  [],
       files:  [],
