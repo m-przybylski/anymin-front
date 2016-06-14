@@ -36,7 +36,6 @@
 
     vm.consultations = []
     vm.profile = {}
-    let isExpert = false
 
     let _postConsultationMethod = (callback) => {
       ServiceApi.postService({
@@ -69,7 +68,7 @@
     }, _calculateProgressPercentage)
 
     vm.backToFirstStep = () => {
-      if (isExpert) {
+      if (savedProfile.expertDetails && !savedProfile.organizationDetails) {
         $state.go('app.dashboard.service-provider.individual-path')
       } else {
         $state.go('app.dashboard.service-provider.company-path')
@@ -77,12 +76,11 @@
 
     }
 
-    if (savedProfile && savedProfile.expertDetails) {
+    if (savedProfile && savedProfile.expertDetails && !savedProfile.organizationDetails) {
       vm.profile = savedProfile.expertDetails
       vm.consultations = savedProfile.services
-      isExpert = true
     } else if (savedProfile.organizationDetails) {
-      vm.profile = savedProfile.organizationDetails
+      $state.go('app.dashboard.service-provider.consultation-range.company')
     }
 
     vm.saveConsultationObject = () => {

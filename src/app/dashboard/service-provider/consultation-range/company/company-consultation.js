@@ -39,7 +39,6 @@
 
     vm.consultations = []
     vm.profile = {}
-    let isExpert = false
     let _postConsultationMethod = (callback) => {
       ServiceApi.postService({
         details: {
@@ -71,20 +70,19 @@
     }, _calculateProgressPercentage)
 
     vm.backToFirstStep = () => {
-      if (isExpert) {
+      if (savedProfile.expertDetails && !savedProfile.organizationDetails) {
         $state.go('app.dashboard.service-provider.individual-path')
       } else {
         $state.go('app.dashboard.service-provider.company-path')
       }
-
     }
 
-    if (savedProfile && savedProfile.expertDetails) {
+    if (savedProfile && savedProfile.expertDetails && !savedProfile.organizationDetails) {
       vm.profile = savedProfile.expertDetails
       vm.consultations = savedProfile.services
-      isExpert = true
-    } else if (savedProfile.organizationDetails) {
+    } else {
       vm.profile = savedProfile.organizationDetails
+      vm.consultations = savedProfile.services
     }
 
     vm.saveConsultationObject = () => {
@@ -98,7 +96,7 @@
       return vm.consultations.length > 0
     }
 
-    vm.editConsultation = (id, name, price, tags) => {
+    vm.editConsultation = (id, name, price, tags, invitations) => {
       vm.currentEditConsultationId = vm.currentEditConsultationId === id ? -1 : id
       vm.editQueue = {
         amountOfSteps: 4,
@@ -109,7 +107,8 @@
       vm.editModel = {
         name: name,
         tags: tags,
-        cost: price
+        cost: price,
+        invitations: invitations
       }
       vm.updateConsultation = () => {
         ServiceApi.putService({
@@ -120,7 +119,7 @@
             tags: vm.editModel.tags,
             price: parseInt(vm.editModel.cost, 10)
           },
-          invitations: vm.costModel.invitations
+          invitations: vm.editModel.invitations
         }).$promise.then(() => {
           $state.reload()
         })

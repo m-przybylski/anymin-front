@@ -7,9 +7,9 @@ block content
     .who-provides-inputs
       pro-tags-dropdown(data-pro-items="emails"
       data-placeholder="{{'DASHBOARD.CONSULTATION.EMPLOYEES_PLACEHOLDER' | translate}}"
-      data-pro-model="model.invitations" data-ng-click="onClick()" employee)
+      data-pro-model="model.invitations" data-ng-click="onClick()")
         .input-error-messages
           .error(data-translate="{{errorMessage}}" data-ng-show="noTags")
       button.pro-btn.btn-small.btn-light.who-provides-csv(data-translate="DASHBOARD.CONSULTATION_RANGE.CONSULTANTS_LOAD_CSV" data-ng-click="skip()" data-ng-show="!required")
   .input-error-messages
-    .error(data-translate="{{errorMessage}}" data-ng-show="badName")
+    .error(data-translate="{{errorMessage}}" data-ng-show="badEmployee")

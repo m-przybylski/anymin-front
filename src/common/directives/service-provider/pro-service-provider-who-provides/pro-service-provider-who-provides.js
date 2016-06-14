@@ -2,7 +2,7 @@
   function proServiceProviderWhoProvides($q, $timeout) {
     function linkFunction(scope, element, attrs) {
       scope.required = false
-      scope.badName = false
+      scope.badEmployee = false
 
       scope.emails = ['bartek@itelo.pl', 'pawel@itelo.pl', 'mikolaj@itelo.pl', 'grazyna@itelo.pl']
 
@@ -10,6 +10,8 @@
       scope.model = {
         invitations: []
       }
+
+      scope.model.invitations = _.map(scope.proModel.invitations, 'email')
 
       element.bind('keydown keypress', function(event) {
         if (event.which === 13) {
@@ -40,12 +42,16 @@
 
       scope.saveSection = () => {
         _isValid().then(() => {
-          scope.badName = false
-          // TODO jak bedzie backedn
+          scope.badEmployee = false
+          // TODO jak bedzie backend
           //  if (scope.checkCurrentUser === true) {
           //
           //  }
-          scope.proModel.invitations = scope.model.invitations
+
+          scope.proModel.invitations = scope.model.invitations.map((elem)=> {
+            return {email: elem}
+          })
+
           scope.proceed()
 
         }, () => {

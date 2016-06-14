@@ -1,9 +1,9 @@
 (function() {
   function ConsultationRangeController() {
-    let vm = this
 
 
-    return vm
+
+    return this
 
   }
   angular.module('profitelo.controller.dashboard.service-provider.consultation-range', [
@@ -25,7 +25,7 @@
       url:          '/consultation-range',
       template:     '<div data-ui-view=""></div>',
       controller:   'ConsultationRangeController',
-      controllerAs: 'vm',
+      controllerAs: 'ConsultationRangeController',
       data: {
         access : UserRolesProvider.getAccessLevel('user'),
         pageTitle: 'PAGE_TITLE.DASHBOARD.SERVICE_PROVIDER.CONSULTATION_RANGE'
