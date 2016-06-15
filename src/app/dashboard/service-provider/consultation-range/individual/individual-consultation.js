@@ -139,15 +139,18 @@
 
 
   angular.module('profitelo.controller.dashboard.service-provider.consultation-range.individual', [
+    
     'ui.router',
+    'c7s.ng.userAuth',
     'profitelo.services.service-provider-state',
+    'profitelo.swaggerResources',
+    'profitelo.directives.pro-top-alert-service',
+    
     'profitelo.directives.service-provider.pro-bottom-summary-row',
     'profitelo.directives.service-provider.pro-service-provider-cost',
     'profitelo.directives.service-provider.pro-service-provider-who-provides',
-    'profitelo.swaggerResources',
     'profitelo.directives.service-provider.pro-service-provider-tags',
     'profitelo.directives.service-provider.pro-bottom-consultation-button',
-    'c7s.ng.userAuth',
     'profitelo.directives.interface.pro-alert',
     'profitelo.directives.service-provider.pro-service-provider-profile'
   ])
@@ -161,8 +164,9 @@
         resolve: {
           /* istanbul ignore next */
           savedProfile: ($q, $state, ProfileApi, User) => {
-
+            /* istanbul ignore next */
             let _deferred = $q.defer()
+            /* istanbul ignore next */
             User.getStatus().then(() => {
               ProfileApi.getProfileWithServices({
                 profileId: User.getData('id')
@@ -186,7 +190,7 @@
               })
             })
 
-
+            /* istanbul ignore next */
             return _deferred.promise
           }
         },

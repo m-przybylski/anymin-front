@@ -2,7 +2,7 @@
   function CompanyConsultationController($scope, $state, savedProfile, ServiceApi, proTopAlertService) {
 
     let _createDefaultModel = (cost)=> {
-      return  {
+      return {
         name: '',
         tags: [],
         cost: cost,
@@ -43,6 +43,7 @@
         },
         invitations: this.costModel.invitations
       }).$promise.then((res)=> {
+
         if (typeof callback === 'function') {
           callback()
         }
@@ -135,38 +136,42 @@
       _postConsultationMethod($state.reload)
     }
 
+    
     return this
   }
 
-
   angular.module('profitelo.controller.dashboard.service-provider.consultation-range.company', [
+
     'ui.router',
-    'profitelo.services.service-provider-state',
+    'c7s.ng.userAuth',
+    'profitelo.swaggerResources',
+    'profitelo.directives.pro-top-alert-service',
+
     'profitelo.directives.service-provider.pro-bottom-summary-row',
     'profitelo.directives.service-provider.pro-service-provider-cost',
     'profitelo.directives.service-provider.pro-service-provider-who-provides',
-    'profitelo.swaggerResources',
     'profitelo.directives.service-provider.pro-service-provider-tags',
     'profitelo.directives.service-provider.pro-bottom-consultation-button',
-    'c7s.ng.userAuth',
     'profitelo.directives.interface.pro-alert',
     'profitelo.directives.service-provider.pro-service-provider-profile'
   ])
-    .config( function($stateProvider, UserRolesProvider) {
+    .config(function($stateProvider, UserRolesProvider) {
       $stateProvider.state('app.dashboard.service-provider.consultation-range.company', {
 
-        url:          '/company',
-        templateUrl:  'dashboard/service-provider/consultation-range/company/company-consultation.tpl.html',
-        controller:   'CompanyConsultationController',
+        url: '/company',
+        templateUrl: 'dashboard/service-provider/consultation-range/company/company-consultation.tpl.html',
+        controller: 'CompanyConsultationController',
         controllerAs: 'vm',
         resolve: {
           /* istanbul ignore next */
           savedProfile: ($q, $state, ProfileApi, User) => {
+            /* istanbul ignore next */
             let _deferred = $q.defer()
+            /* istanbul ignore next */
             User.getStatus().then(() => {
               ProfileApi.getProfileWithServices({
                 profileId: User.getData('id')
-              }).$promise.then((response)=>{
+              }).$promise.then((response)=> {
                 _deferred.resolve(response)
               }, () => {
                 _deferred.resolve(null)
@@ -185,13 +190,12 @@
                 timeout: 4
               })
             })
-
-
+            /* istanbul ignore next */
             return _deferred.promise
           }
         },
         data: {
-          access : UserRolesProvider.getAccessLevel('user'),
+          access: UserRolesProvider.getAccessLevel('user'),
           pageTitle: 'PAGE_TITLE.DASHBOARD.SERVICE_PROVIDER.CONSULTATION_RANGE'
         }
       })
