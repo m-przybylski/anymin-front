@@ -1,9 +1,8 @@
 (function() {
 
-  function DashboardStartController($state, User) {
-    let vm = this
+  function DashboardStartController() {
 
-    return vm
+    return this
   }
 
 

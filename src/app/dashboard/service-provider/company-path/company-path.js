@@ -1,6 +1,6 @@
 (function() {
   function CompanyPathController($scope, $state, ProfileApi, savedProfile, User, proTopAlertService, $timeout, smoothScrolling) {
-    let vm = this
+    
     let _updateMethod
     if (savedProfile) {
       _updateMethod = ProfileApi.putProfile
@@ -8,7 +8,7 @@
       _updateMethod = ProfileApi.postProfile
     }
 
-    vm.companyPathModel = {
+    this.companyPathModel = {
       name: '',
       logo: null,
       description: '',
@@ -16,7 +16,7 @@
       links: []
     }
 
-    vm.queue = {
+    this.queue = {
       amountOfSteps: 6,
       currentStep: 2,
       completedSteps: 1,
@@ -24,39 +24,39 @@
     }
 
     if (savedProfile && savedProfile.organizationDetails) {
-      vm.companyPathModel = savedProfile.organizationDetails
-      vm.queue = {
+      this.companyPathModel = savedProfile.organizationDetails
+      this.queue = {
         amountOfSteps: 7,
         currentStep: 7,
         completedSteps: 7,
         skippedSteps: {}
       }
-      vm.inEditMode = true
+      this.inEditMode = true
     } else {
-      vm.inEditMode = false
+      this.inEditMode = false
       $timeout(()=>{
-        smoothScrolling.scrollTo(vm.queue.currentStep)
+        smoothScrolling.scrollTo(this.queue.currentStep)
       })
     }
 
     let _calculateProgressPercentage = () => {
-      vm.progressBarWidth = Math.ceil(vm.queue.completedSteps / vm.queue.amountOfSteps * 100)
+      this.progressBarWidth = Math.ceil(this.queue.completedSteps / this.queue.amountOfSteps * 100)
     }
     _calculateProgressPercentage()
 
     $scope.$watch(() => {
-      return vm.queue.completedSteps
+      return this.queue.completedSteps
     }, _calculateProgressPercentage)
 
-    vm.saveAccountObject = () => {
+    this.saveAccountObject = () => {
       _updateMethod({
         id: User.getData('id'),
         organizationDetails: {
-          name: vm.companyPathModel.name,
-          logo: vm.companyPathModel.logo,
-          description: vm.companyPathModel.description,
-          files: vm.companyPathModel.files,
-          links: vm.companyPathModel.links
+          name: this.companyPathModel.name,
+          logo: this.companyPathModel.logo,
+          description: this.companyPathModel.description,
+          files: this.companyPathModel.files,
+          links: this.companyPathModel.links
         }
       }).$promise.then(() => {
         $state.go('app.dashboard.service-provider.consultation-range')
@@ -68,7 +68,9 @@
       })
     }
 
-    return vm
+
+
+    return this
   }
 
 

@@ -1,13 +1,12 @@
 (function() {
   function ServiceProviderController() {
-    let vm = this
 
-    vm.profileTypes = {
+    this.profileTypes = {
       'INDIVIDUAL': 'EXPERT',
       'COMPANY': 'ORGANIZATION'
     }
 
-    return vm
+    return this
   }
 
 

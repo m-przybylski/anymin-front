@@ -1,41 +1,40 @@
 (function() {
   function ForgotPasswordController($state, account, RecoverPasswordApi, proTopWaitingLoaderService, CommonSettingsService) {
 
-    let vm = this
-    vm.isPending = false
-    vm.account = account
-    vm.patternSms = CommonSettingsService.localSettings.smsCodePattern
+    this.isPending = false
+    this.account = account
+    this.patternSms = CommonSettingsService.localSettings.smsCodePattern
 
-    vm.forceSmsRecovery = () => {
+    this.forceSmsRecovery = () => {
       $state.go('app.login.forgot-password', { method: 'sms' }, { reload: true })
     }
 
-    vm.submitSmsVerificationCode = () => {
-      vm.serverError = false
-      if (!vm.isPending) {
-        vm.isPending = true
+    this.submitSmsVerificationCode = () => {
+      this.serverError = false
+      if (!this.isPending) {
+        this.isPending = true
         proTopWaitingLoaderService.immediate()
         RecoverPasswordApi.postRecoverPasswordVerifyMsisdn({
-          token: String(vm.smsCode),
+          token: String(this.smsCode),
           msisdn: String(account.accountObject.phoneNumber.prefix) + String(account.accountObject.phoneNumber.number)
         }).$promise.then(() => {
-          vm.isPending = false
+          this.isPending = false
           proTopWaitingLoaderService.stopLoader()
           $state.go('app.login.set-new-password', {
-            token: String(vm.smsCode),
+            token: String(this.smsCode),
             method: 'sms'
           })
         }, () => {
-          vm.isPending = false
+          this.isPending = false
           proTopWaitingLoaderService.stopLoader()
-          vm.serverError = true
+          this.serverError = true
         })
       }
 
     }
 
 
-    return vm
+    return this
 
   }
 

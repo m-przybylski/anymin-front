@@ -1,6 +1,5 @@
 (function() {
   function AppController($rootScope, InterfaceLanguageService) {
-    var vm = this
 
     InterfaceLanguageService.setLanguage(InterfaceLanguageService.getStartupLanguage())
 
@@ -8,7 +7,7 @@
       $rootScope.gitCommit = lastCommitMessage
     }
 
-    return vm
+    return this
   }
 
   function runFunction($rootScope, $log, $state, User, proTopAlertService) {

@@ -1,19 +1,18 @@
 (function() {
   function ExpertProfileController($scope, $state, savedProfile, ServiceApi, proTopAlertService, CommonConfig) {
-    let vm = this
 
     let _commonConfig = CommonConfig.getAllData()
-    vm.profile = {}
+    this.profile = {}
 
     if (savedProfile && savedProfile.expertDetails) {
-      vm.profile = savedProfile.expertDetails
-      vm.services = savedProfile.services
-      vm.consultations = savedProfile.services
+      this.profile = savedProfile.expertDetails
+      this.services = savedProfile.services
+      this.consultations = savedProfile.services
     } else if (savedProfile.organizationDetails) {
       vm.profile = savedProfile.organizationDetails
     }
-    console.log(vm.profile)
-    return vm
+
+    return this
   }
 
   angular.module('profitelo.controller.expert-profile', [

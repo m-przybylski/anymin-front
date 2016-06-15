@@ -1,8 +1,6 @@
 (function() {
   function ServiceProviderStepController($scope, $timeout, $rootScope, smoothScrolling) {
 
-    let vm = this
-
     let shadowModel = null
 
     $scope.saveShadowModel = () => {
@@ -72,7 +70,7 @@
         _manualOrderChangeRequestHandle(targetStep)
       }
     })
-    return vm
+    return this
   }
 
 
