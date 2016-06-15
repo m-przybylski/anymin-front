@@ -100,8 +100,8 @@ describe('Unit testing: profitelo.services.resolvers.app.login.confirm-email', (
         () => {
           spy.spy()
         }, () => {
-
-        })
+        
+      })
 
       $httpBackend.flush()
       _timeout.flush()

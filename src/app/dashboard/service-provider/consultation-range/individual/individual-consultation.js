@@ -1,48 +1,44 @@
 (function() {
   function IndividualConsultationController($scope, $state, savedProfile, ServiceApi, proTopAlertService) {
-    let vm = this
 
-    vm.costModel = {
-      name: '',
-      tags: [],
-      cost: ''
+    let _createDefaultModel = (cost)=> {
+      return  {
+        name: '',
+        tags: [],
+        cost: cost
+      }
+    }
+    
+    let _createDefaultQueue = (amountOfSteps, currentStep, completedSteps)=> {
+      return {
+        amountOfSteps: amountOfSteps,
+        currentStep: currentStep,
+        completedSteps: completedSteps,
+        skippedSteps: {}
+      }
     }
 
-    vm.editModel = {
-      name: '',
-      tags: [],
-      cost: 0
-    }
+    this.costModel = _createDefaultModel('')
+    this.editModel = _createDefaultModel(0)
+    
+    this.queue = _createDefaultQueue(3, 1, 0)
+    this.editQueue = _createDefaultQueue(3, 4, 3)
 
-    vm.queue = {
-      amountOfSteps: 3,
-      currentStep: 1,
-      completedSteps: 0,
-      skippedSteps: {}
-    }
-
-    vm.editQueue = {
-      amountOfSteps: 3,
-      currentStep: 4,
-      completedSteps: 3,
-      skippedSteps: {}
-    }
-
-    vm.currency = [
+    this.currency = [
       {id: 1, name: 'PLN'},
       {id: 2, name: 'USD'},
       {id: 3, name: 'EUR'}
     ]
 
-    vm.consultations = []
-    vm.profile = {}
+    this.consultations = []
+    this.profile = {}
 
     let _postConsultationMethod = (callback) => {
       ServiceApi.postService({
         details: {
-          name: vm.costModel.name,
-          tags: vm.costModel.tags,
-          price: parseInt(vm.costModel.cost, 10)
+          name: this.costModel.name,
+          tags: this.costModel.tags,
+          price: parseInt(this.costModel.cost, 10)
         },
         invitations: []
       }).$promise.then((res)=> {
@@ -59,62 +55,61 @@
 
 
     let _calculateProgressPercentage = () => {
-      vm.progressBarWidth = Math.ceil(vm.queue.completedSteps / vm.queue.amountOfSteps * 100)
+      this.progressBarWidth = Math.ceil(this.queue.completedSteps / this.queue.amountOfSteps * 100)
     }
     _calculateProgressPercentage()
 
     $scope.$watch(() => {
-      return vm.queue.completedSteps
+      return this.queue.completedSteps
     }, _calculateProgressPercentage)
 
-    vm.backToFirstStep = () => {
+    this.backToFirstStep = () => {
       if (savedProfile.expertDetails && !savedProfile.organizationDetails) {
         $state.go('app.dashboard.service-provider.individual-path')
       } else {
         $state.go('app.dashboard.service-provider.company-path')
       }
-
     }
 
     if (savedProfile && savedProfile.expertDetails && !savedProfile.organizationDetails) {
-      vm.profile = savedProfile.expertDetails
-      vm.consultations = savedProfile.services
+      this.profile = savedProfile.expertDetails
+      this.consultations = savedProfile.services
     } else if (savedProfile.organizationDetails) {
       $state.go('app.dashboard.service-provider.consultation-range.company')
     }
 
-    vm.saveConsultationObject = () => {
-      if (vm.queue.completedSteps === vm.queue.amountOfSteps) {
+    this.saveConsultationObject = () => {
+      if (this.queue.completedSteps === this.queue.amountOfSteps) {
         _postConsultationMethod()
       }
       $state.go('app.dashboard.service-provider.summary')
     }
 
-    vm.isConsultationPresent = () => {
-      return vm.consultations.length > 0
+    this.isConsultationPresent = () => {
+      return this.consultations.length > 0
     }
 
-    vm.editConsultation = (id, name, price, tags) => {
-      vm.currentEditConsultationId = vm.currentEditConsultationId === id ? -1 : id
-      vm.editQueue = {
+    this.editConsultation = (id, name, price, tags) => {
+      this.currentEditConsultationId = this.currentEditConsultationId === id ? -1 : id
+      this.editQueue = {
         amountOfSteps: 3,
         currentStep: 4,
         completedSteps: 3,
         skippedSteps: {}
       }
-      vm.editModel = {
+      this.editModel = {
         name: name,
         tags: tags,
         cost: price
       }
-      vm.updateConsultation = () => {
+      this.updateConsultation = () => {
         ServiceApi.putService({
           serviceId: id
         }, {
           details: {
-            name: vm.editModel.name,
-            tags: vm.editModel.tags,
-            price: parseInt(vm.editModel.cost, 10)
+            name: this.editModel.name,
+            tags: this.editModel.tags,
+            price: parseInt(this.editModel.cost, 10)
           },
           invitations: []
         }).$promise.then(() => {
@@ -122,11 +117,11 @@
         })
       }
     }
-    vm.deleteConsultation = (id, index) => {
+    this.deleteConsultation = (id, index) => {
       ServiceApi.deleteService({
         serviceId: id
       }).$promise.then((res)=> {
-        vm.consultations.splice(index, 1)
+        this.consultations.splice(index, 1)
       }, (err) => {
         proTopAlertService.error({
           message: 'error',
@@ -135,11 +130,11 @@
       })
     }
 
-    vm.addAnotherConsultation = () => {
+    this.addAnotherConsultation = () => {
       _postConsultationMethod($state.reload)
     }
 
-    return vm
+    return this
   }
 
 

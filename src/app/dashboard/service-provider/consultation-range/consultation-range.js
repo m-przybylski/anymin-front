@@ -2,7 +2,6 @@
   function ConsultationRangeController() {
 
 
-
     return this
 
   }
