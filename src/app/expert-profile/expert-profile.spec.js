@@ -35,7 +35,7 @@ describe('Unit tests: ExpertProfileController >', () => {
     })
 
     it('should exists', () => {
-      return expect(!!IndividualPathController).toBe(true)
+      expect(!!ExpertProfileController).toBe(true)
     })
 
   })

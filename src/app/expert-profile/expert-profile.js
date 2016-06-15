@@ -26,6 +26,7 @@
     'profitelo.directives.expert-profile.pro-expert-slider',
     'profitelo.directives.expert-profile.pro-expert-single-consultation',
     'profitelo.directives.expert-profile.pro-expert-social-icons',
+    'profitelo.directives.pro-top-alert-service',
     'commonConfig'
   ])
   .config(($stateProvider, UserRolesProvider) => {
