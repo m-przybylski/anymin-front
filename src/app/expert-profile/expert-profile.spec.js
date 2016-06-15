@@ -23,7 +23,7 @@ describe('Unit tests: ExpertProfileController >', () => {
           }
         }
 
-        IndividualPathController = $controller('IndividualPathController', {
+        ExpertProfileController = $controller('ExpertProfileController', {
           $scope: _scope,
           ProfileApi: _ProfileApi_,
           User: _User_,
