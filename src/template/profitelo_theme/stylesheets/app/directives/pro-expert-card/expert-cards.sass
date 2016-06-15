@@ -39,17 +39,17 @@
         left: 0
         top: 3px
       &.available
-        color: $c-green
+        color: $c-success
         &::before
-          background: $c-green
+          background: $c-success
       &.not-available
-        color: $c-gray
+        color: $c-secondary-txt
         &::before
-          background: $c-gray
+          background: $c-secondary-txt
       &.busy
-        color: $c-red
+        color: $c-error
         &::before
-          background: $c-red
+          background: $c-error
     .expert-service
       +colfax-light
       font-size: $f-main-subheader
@@ -63,7 +63,7 @@
     font-weight: 700
     width: 100%
     justify-content: space-between
-    color: $c-gray
+    color: $c-secondary-txt
     .service-satisfaction,
     .conversations-amount
       position: relative

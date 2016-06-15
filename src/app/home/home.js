@@ -1,7 +1,8 @@
 angular.module('profitelo.controller.home', [
   'ui.router',
   'c7s.ng.userAuth',
-  'profitelo.directives.pro-expert-card'
+  'profitelo.directives.pro-expert-card',
+  'profitelo.directives.pro-expert-see-more'
 ])
 .config(($stateProvider, UserRolesProvider) => {
   $stateProvider.state('app.home', {
