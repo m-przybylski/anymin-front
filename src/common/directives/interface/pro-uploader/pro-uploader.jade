@@ -2,6 +2,7 @@
     .upload-field(ngf-drop="uploadFiles($files)" ngf-select="uploadFiles($files)" ng-model="uploadedFiles" class="drop-box"
     ngf-multiple="{{multiple}}" ngf-allow-dir="true"
     ngf-pattern="'{{ngfPattern}}'"
+    accept="{{ngfPattern}}"
     items="{{filesUploaded}}"
     ngf-resize="{{imageSize}}"
     data-ng-required="required"

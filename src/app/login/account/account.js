@@ -1,12 +1,11 @@
 (function() {
 
   function AccountFormController($scope, $state, $filter, AccountApi, proTopWaitingLoaderService, User, proTopAlertService, loginStateService, CommonSettingsService) {
-    var vm = this
 
-    vm.isPending = false
-    vm.current = 1
-    vm.account = loginStateService.getAccountObject()
-    vm.prefix = [
+    this.isPending = false
+    this.current = 1
+    this.account = loginStateService.getAccountObject()
+    this.prefix = [
       {
         name:   '+48',
         value:  '+48'
@@ -17,18 +16,18 @@
       }
     ]
 
-    vm.account.phoneNumber.prefix = vm.prefix[0].value
-    vm.pattern = CommonSettingsService.localSettings.phonePattern
-    vm.patternPassword = CommonSettingsService.localSettings.passwordPattern
-    vm.backToPhoneNumber = () => {
-      vm.account.password = null
-      vm.current = 1
+    this.account.phoneNumber.prefix = this.prefix[0].value
+    this.pattern = CommonSettingsService.localSettings.phonePattern
+    this.patternPassword = CommonSettingsService.localSettings.passwordPattern
+    this.backToPhoneNumber = () => {
+      this.account.password = null
+      this.current = 1
     }
 
     let _determinePhoneNumberStatus = (status) => {
       switch (status) {
       case 'REGISTERED':
-        vm.current = 2
+        this.current = 2
         break
       case 'NO_PASSWORD':
         $state.go('app.login.forgot-password')
@@ -39,19 +38,19 @@
       }
     }
 
-    vm.getPhoneNumberStatus = () => {
-      if (!vm.isPending) {
-        vm.isPending = true
+    this.getPhoneNumberStatus = () => {
+      if (!this.isPending) {
+        this.isPending = true
         proTopWaitingLoaderService.immediate()
-        loginStateService.setAccountObject(vm.account)
+        loginStateService.setAccountObject(this.account)
         AccountApi.getRegistrationStatusByMsisdn({
-          msisdn: vm.account.phoneNumber.prefix + vm.account.phoneNumber.number
+          msisdn: this.account.phoneNumber.prefix + this.account.phoneNumber.number
         }).$promise.then((response) => {
-          vm.isPending = false
+          this.isPending = false
           _determinePhoneNumberStatus(response.status)
           proTopWaitingLoaderService.stopLoader()
         }, (error) => {
-          vm.isPending = false
+          this.isPending = false
           proTopAlertService.error({
             message: $filter('translate')('INTERFACE.API_ERROR'),
             timeout: 4
@@ -61,16 +60,16 @@
       }
     }
 
-    vm.login = () => {
-      vm.serverError = false
-      if (!vm.isPending) {
-        vm.isPending = true
+    this.login = () => {
+      this.serverError = false
+      if (!this.isPending) {
+        this.isPending = true
         proTopWaitingLoaderService.immediate()
         User.login({
-          msisdn: vm.account.phoneNumber.prefix + '' + vm.account.phoneNumber.number,
-          password: vm.account.password
+          msisdn: this.account.phoneNumber.prefix + '' + this.account.phoneNumber.number,
+          password: this.account.password
         }).then((response)=> {
-          vm.isPending = false
+          this.isPending = false
           proTopWaitingLoaderService.stopLoader()
           $state.go('app.dashboard.start')
           loginStateService.clearServiceObject()
@@ -79,14 +78,14 @@
             timeout: 2
           })
         }, (error) => {
-          vm.isPending = false
-          vm.serverError = true
+          this.isPending = false
+          this.serverError = true
           proTopWaitingLoaderService.stopLoader()
         })
       }
     }
 
-    return vm
+    return this
   }
 
   function config($stateProvider, UserRolesProvider) {

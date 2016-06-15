@@ -4,4 +4,4 @@ block content
   .step-content-column(data-ng-click="onClick()")
     pro-input(data-placeholder="{{placeholder | translate}}" data-ng-model="model.name" data-ng-class="{invalid: badName}")
   .input-error-messages
-    .error(data-translate="{{errorMessage}}" data-ng-show="clearError.badName")
+    .error(data-translate="{{errorMessage}}" data-ng-show="badName")

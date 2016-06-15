@@ -1,6 +1,5 @@
 (function() {
   function AppController($rootScope, InterfaceLanguageService) {
-    var vm = this
 
     InterfaceLanguageService.setLanguage(InterfaceLanguageService.getStartupLanguage())
 
@@ -8,7 +7,7 @@
       $rootScope.gitCommit = lastCommitMessage
     }
 
-    return vm
+    return this
   }
 
   function runFunction($rootScope, $log, $state, User, proTopAlertService) {
@@ -216,7 +215,10 @@
     'profitelo.controller.dashboard.service-provider.company-path',
     'profitelo.controller.dashboard.service-provider.consultation-range',
     'profitelo.controller.dashboard.service-provider.summary',
+
     'profitelo.controller.home',
+    'profitelo.controller.expert-profile',
+
     'profitelo.controller.login',
     'profitelo.controller.login.account',
     'profitelo.controller.login.register',

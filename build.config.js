@@ -13,7 +13,7 @@ module.exports = {
   compile_dir: 'build',
   tests_dir: 'tests',
   tpl_name: 'templates-module.js',
-  requiredTestCoverage: 71,
+  requiredTestCoverage: 73,
   tpl_module: 'templates-module',
   project_theme_name: 'profitelo_theme',
   swagger_location: commonConfig.urls.backend + '/swagger/swagger.json',

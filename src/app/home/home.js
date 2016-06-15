@@ -17,7 +17,6 @@ angular.module('profitelo.controller.home', [
 .controller('HomeController', HomeController)
 
 function HomeController($scope) {
-  var vm = this
   
-  return vm
+  return this
 }

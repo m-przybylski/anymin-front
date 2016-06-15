@@ -1,16 +1,15 @@
 (function() {
   function ProServiceProviderSummaryController() {
-    let vm = this
 
-    vm.deleteConsultation = (id, index)=> {
-      vm.deleteAction(id, index)
+    this.deleteConsultation = (id, index)=> {
+      this.deleteAction(id, index)
     }
     
-    vm.editConsultation = (id, name, price, tags)=> {
-      vm.editAction(id, name, price, tags)
+    this.editConsultation = (id, name, price, tags)=> {
+      this.editAction(id, name, price, tags)
     }
 
-    return vm
+    return this
   }
 
 

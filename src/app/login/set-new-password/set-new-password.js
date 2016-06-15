@@ -2,8 +2,7 @@
 
   function SetNewPasswordController($state, $filter, tokenStatus, passwordStrengthService, proTopAlertService, RecoverPasswordApi, CommonSettingsService) {
 
-    let vm = this
-    vm.patternPassword = CommonSettingsService.localSettings.passwordPattern
+    this.patternPassword = CommonSettingsService.localSettings.passwordPattern
 
     let _passwordChangeError = () => {
       $state.go('app.login.account')
@@ -22,21 +21,21 @@
     }
     
     let _submitPasswordChangeBySms = () => {
-      tokenStatus.payload.password = vm.newPassword
+      tokenStatus.payload.password = this.newPassword
       RecoverPasswordApi.putRecoverPasswordMsisdn(tokenStatus.payload).$promise.then(_passwordChangeSuccess, _passwordChangeError)
     }
 
     let _submitPasswordChangeByEmail = () => {
-      tokenStatus.payload.password = vm.newPassword
+      tokenStatus.payload.password = this.newPassword
       RecoverPasswordApi.putRecoverPasswordEmail(tokenStatus.payload).$promise.then(_passwordChangeSuccess, _passwordChangeError)
     }
 
 
-    vm.onPasswordChange = (password) => {
-      vm.passwordStrength = passwordStrengthService(password)
+    this.onPasswordChange = (password) => {
+      this.passwordStrength = passwordStrengthService(password)
     }
 
-    vm.submitPasswordChange = () => {
+    this.submitPasswordChange = () => {
 
       if (tokenStatus.method === 'SMS') {
         _submitPasswordChangeBySms()
@@ -46,7 +45,7 @@
 
     }
 
-    return vm
+    return this
 
   }
 

@@ -1,39 +1,38 @@
 (function() {
 
   function DashboardController($state, User) {
-    let vm = this
 
-    vm.isSidebarOpen = false
-    vm.isPending = false
-    vm.switchUser = false
+    this.isSidebarOpen = false
+    this.isPending = false
+    this.switchUser = false
 
-    vm.changeAccount=function() {
-      vm.switchUser = !vm.switchUser
+    this.changeAccount=function() {
+      this.switchUser = !this.switchUser
     }
 
     let _sidebar = $('.sidebar')
     _sidebar.perfectScrollbar()
 
-    vm.toogleSidebar=function() {
-      vm.isSidebarOpen = !vm.isSidebarOpen
+    this.toogleSidebar=function() {
+      this.isSidebarOpen = !this.isSidebarOpen
     }
 
-    vm.logout = () => {
+    this.logout = () => {
 
       let action = () => {
-        vm.isPending = false
+        this.isPending = false
         $state.go('app.login.account')
       }
 
-      if (!vm.isPending) {
-        vm.isPending = true
+      if (!this.isPending) {
+        this.isPending = true
         User.logout().then(action, action)
       }
 
 
     }
 
-    return vm
+    return this
   }
 
 

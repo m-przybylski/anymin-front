@@ -803,6 +803,47 @@
         });
       }];
     })
+        .provider('SearchApi', function() {
+
+      /**
+      * @ngdoc service
+      * @name .Search
+      * @requires $resource
+      * @requires apiUrl
+      **/
+
+      this.$get = ['$resource', 'apiUrl', '$resourceActionConfig', function($resource, apiUrl, $resourceActionConfig) {
+        return $resource(null, null, {
+
+          /**
+          * @ngdoc method
+          * @name .0.method:search
+          * @methodOf .0
+          * @description
+          * Search for services
+          **/
+
+          'search': angular.extend({
+            method: 'GET',
+            url: apiUrl + '/search',
+            params: {
+              'q': '@q',
+              'service.name': '@service.name',
+              'profile.name': '@profile.name',
+              'profile.desc': '@profile.desc',
+              'tag.id': '@tag.id',
+              'service.category.id': '@service.category.id',
+              'profile.type': '@profile.type',
+              'onlyAvailable': '@onlyAvailable',
+              'sortBy': '@sortBy',
+              'language': '@language',
+              'offset': '@offset',
+              'limit': '@limit',
+            },
+          }, $resourceActionConfig('0', 'search')),
+        });
+      }];
+    })
         .provider('SessionApi', function() {
 
       /**

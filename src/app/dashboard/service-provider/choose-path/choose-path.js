@@ -1,7 +1,7 @@
 (function() {
   function ChoosePathController() {
-    let vm = this
-    return vm
+    
+    return this
   }
 
   angular.module('profitelo.controller.dashboard.service-provider.choose-path', [

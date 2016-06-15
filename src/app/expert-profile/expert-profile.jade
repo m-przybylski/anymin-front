@@ -1,0 +1,21 @@
+pro-top-navbar
+
+pro-expert-header(data-profile="vm.profile")
+div(ng-repeat="service in vm.services")
+  pro-expert-single-consultation(
+  data-name="service.details.name"
+  data-satisfaction="96"
+  data-talks="194"
+  data-time-average="16"
+  data-minute-cost="service.details.price"
+  data-tags="service.details.tags"
+  data-positive-mark="201"
+  data-negative-mark="5"
+  )
+
+
+pro-expert-slider
+
+pro-expert-social-icons(data-links="vm.profile.links")
+
+pro-expert-footer

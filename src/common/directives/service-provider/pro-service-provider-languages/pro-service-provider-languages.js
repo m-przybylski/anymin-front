@@ -25,7 +25,7 @@
       }
 
       let _displayErrorMessage = () => {
-        scope.clearError.badLanguages = true
+        scope.badLanguages = true
       }
 
       if ('required' in attrs) {
@@ -35,7 +35,7 @@
       scope.model.languages = scope.proModel.languages
       scope.saveSection = () => {
         _isValid().then(() => {
-          scope.clearError.badLanguages = false
+          scope.badLanguages = false
           scope.proModel.languages = scope.model.languages
           scope.proceed()
         }, () => {

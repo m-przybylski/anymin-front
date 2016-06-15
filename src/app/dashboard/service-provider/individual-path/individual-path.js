@@ -1,17 +1,15 @@
 (function() {
   function IndividualPathController($scope, $state, ProfileApi, User, savedProfile, proTopAlertService, $timeout, smoothScrolling) {
-    let vm = this
 
-
-    vm.queue = {
+    this.queue = {
       amountOfSteps: 7,
       currentStep: 2,
       completedSteps: 1,
       skippedSteps: {}
     }
-    vm.individualPathModel = {
-      name: null,
-      description:  null,
+    this.individualPathModel = {
+      name: '',
+      description:  '',
       avatar:  null,
       languages:  [],
       files:  [],
@@ -19,32 +17,32 @@
     }
 
     let _calculateProgressPercentage = () => {
-      vm.progressBarWidth = Math.ceil(vm.queue.completedSteps / vm.queue.amountOfSteps * 100)
+      this.progressBarWidth = Math.ceil(this.queue.completedSteps / this.queue.amountOfSteps * 100)
     }
 
     _calculateProgressPercentage()
 
     $scope.$watch(() => {
-      return vm.queue.completedSteps
+      return this.queue.completedSteps
     }, _calculateProgressPercentage)
 
     if (savedProfile && savedProfile.expertDetails) {
-      vm.individualPathModel = savedProfile.expertDetails
-      vm.queue = {
+      this.individualPathModel = savedProfile.expertDetails
+      this.queue = {
         amountOfSteps: 7,
         currentStep: 8,
         completedSteps: 7,
         skippedSteps: {}
       }
-      vm.inEditMode = true
+      this.inEditMode = true
     } else {
-      vm.inEditMode = false
+      this.inEditMode = false
       $timeout(()=>{
-        smoothScrolling.scrollTo(vm.queue.currentStep)
+        smoothScrolling.scrollTo(this.queue.currentStep)
       })
     }
 
-    vm.saveAccountObject = () => {
+    this.saveAccountObject = () => {
 
       let _updateMethod
       if (savedProfile) {
@@ -56,12 +54,12 @@
       _updateMethod({
         id: User.getData('id'),
         expertDetails: {
-          name: vm.individualPathModel.name,
-          description: vm.individualPathModel.description,
-          avatar: vm.individualPathModel.avatar,
-          languages: vm.individualPathModel.languages,
-          files: vm.individualPathModel.files,
-          links: vm.individualPathModel.links
+          name: this.individualPathModel.name,
+          description: this.individualPathModel.description,
+          avatar: this.individualPathModel.avatar,
+          languages: this.individualPathModel.languages,
+          files: this.individualPathModel.files,
+          links: this.individualPathModel.links
         }
       }).$promise.then(() => {
         $state.go('app.dashboard.service-provider.consultation-range')
@@ -72,7 +70,7 @@
         })
       })
     }
-    return vm
+    return this
   }
 
 

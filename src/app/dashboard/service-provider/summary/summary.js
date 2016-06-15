@@ -1,18 +1,18 @@
 (function() {
   function SummaryController($state, savedProfile, ServiceApi, proTopAlertService) {
-    let vm = this
+
     let isExpert = false
 
     if (savedProfile.expertDetails) {
-      vm.profile = savedProfile.expertDetails
-      vm.consultations = savedProfile.services
+      this.profile = savedProfile.expertDetails
+      this.consultations = savedProfile.services
       isExpert = true
     } else {
-      vm.profile = savedProfile.organizationDetails
+      this.profile = savedProfile.organizationDetails
     }
 
 
-    vm.backToFirstStep = () => {
+    this.backToFirstStep = () => {
       if (isExpert) {
         $state.go('app.dashboard.service-provider.individual-path')
       } else {
@@ -21,7 +21,7 @@
 
     }
 
-    vm.verifyProfile = ()=> {
+    this.verifyProfile = ()=> {
       ServiceApi.postServicesVerify().$promise.then((res)=> {
         $state.go('app.dashboard.start')
       }, (err) => {
@@ -32,27 +32,27 @@
       })
     }
 
-    vm.editConsultation = (id, name, price, tags) => {
-      vm.currentEditConsultationId = vm.currentEditConsultationId === id ? -1 : id
-      vm.editQueue = {
+    this.editConsultation = (id, name, price, tags) => {
+      this.currentEditConsultationId = this.currentEditConsultationId === id ? -1 : id
+      this.editQueue = {
         amountOfSteps: 3,
         currentStep: 4,
         completedSteps: 3,
         skippedSteps: {}
       }
-      vm.editModel = {
+      this.editModel = {
         name: name,
         tags: tags,
         cost: price
       }
-      vm.updateConsultation = () => {
+      this.updateConsultation = () => {
         ServiceApi.putService({
           serviceId: id
         }, {
           details: {
-            name: vm.editModel.name,
-            tags: vm.editModel.tags,
-            price: parseInt(vm.editModel.cost, 10)
+            name: this.editModel.name,
+            tags: this.editModel.tags,
+            price: parseInt(this.editModel.cost, 10)
           },
           invitations: []
         }).$promise.then(() => {
@@ -60,11 +60,11 @@
         })
       }
     }
-    vm.deleteConsultation = (id, index) => {
+    this.deleteConsultation = (id, index) => {
       ServiceApi.deleteService({
         serviceId: id
       }).$promise.then((res)=> {
-        vm.consultations.splice(index, 1)
+        this.consultations.splice(index, 1)
       }, (err) => {
         proTopAlertService.error({
           message: 'error',
@@ -73,7 +73,7 @@
       })
     }
 
-    return vm
+    return this
   }
 
 

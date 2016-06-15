@@ -1,14 +1,14 @@
 (function() {
 
   function RegisterController($filter, $state, proTopWaitingLoaderService, passwordStrengthService, User, proTopAlertService, UserRoles, smsSessionId, CommonSettingsService, RegistrationApi, AccountApi, loginStateService) {
-    var vm = this
-    vm.passwordStrength = 0
-    vm.current = 1
-    vm.isPending = false
-    vm.rulesAccepted = false
-    vm.serverError = false
+    
+    this.passwordStrength = 0
+    this.current = 1
+    this.isPending = false
+    this.rulesAccepted = false
+    this.serverError = false
 
-    vm.registrationSteps = {
+    this.registrationSteps = {
       account: smsSessionId.accountObject,
       smsCode: null,
       sessionId: smsSessionId.sessionId,
@@ -16,29 +16,29 @@
       password: null
     }
 
-    vm.patternSms = CommonSettingsService.localSettings.smsCodePattern
-    vm.patternEmail = CommonSettingsService.localSettings.emailPattern
-    vm.patternPassword = CommonSettingsService.localSettings.passwordPattern
+    this.patternSms = CommonSettingsService.localSettings.smsCodePattern
+    this.patternEmail = CommonSettingsService.localSettings.emailPattern
+    this.patternPassword = CommonSettingsService.localSettings.passwordPattern
 
-    vm.onPasswordChange = (password) => {
-      vm.passwordStrength = passwordStrengthService(password)
+    this.onPasswordChange = (password) => {
+      this.passwordStrength = passwordStrengthService(password)
     }
 
-    vm.verifyCode = () => {
-      vm.serverError = false
+    this.verifyCode = () => {
+      this.serverError = false
     }
 
-    vm.getSmsCodeStatus = () => {
+    this.getSmsCodeStatus = () => {
       /* istanbul ignore next if */
-      if (!vm.isPending) {
-        vm.isPending = true
+      if (!this.isPending) {
+        this.isPending = true
         proTopWaitingLoaderService.immediate()
         RegistrationApi.confirmVerification({
-          sessionId: vm.registrationSteps.sessionId,
-          token: String(vm.registrationSteps.smsCode)
+          sessionId: this.registrationSteps.sessionId,
+          token: String(this.registrationSteps.smsCode)
         }).$promise.then((response) => {
-          vm.isPending = false
-          vm.current = 2
+          this.isPending = false
+          this.current = 2
           proTopWaitingLoaderService.stopLoader()
           delete response.$promise
           delete response.$resolved
@@ -47,8 +47,8 @@
           User.setData({role: UserRoles.getRole('user')})
 
         }, (error) => {
-          vm.isPending = false
-          vm.serverError = true
+          this.isPending = false
+          this.serverError = true
           proTopWaitingLoaderService.stopLoader()
         })
 
@@ -57,14 +57,14 @@
 
     let _updateNewUserObject = (patchObject, successCallback) => {
       /* istanbul ignore next if */
-      if (!vm.isPending) {
-        vm.isPending = true
+      if (!this.isPending) {
+        this.isPending = true
         proTopWaitingLoaderService.immediate()
 
         patchObject.accountId = User.getData('id')
 
         AccountApi.partialUpdateAccount(patchObject).$promise.then(successCallback, (error) => {
-          vm.isPending = false
+          this.isPending = false
           proTopWaitingLoaderService.stopLoader()
           proTopAlertService.error({
             message: $filter('translate')('INTERFACE.API_ERROR'),
@@ -75,21 +75,21 @@
       }
     }
 
-    vm.setNewEmail = () => {
+    this.setNewEmail = () => {
       _updateNewUserObject({
-        unverifiedEmail: vm.registrationSteps.email
+        unverifiedEmail: this.registrationSteps.email
       }, () => {
-        vm.isPending = false
-        vm.current = 3
+        this.isPending = false
+        this.current = 3
         proTopWaitingLoaderService.stopLoader()
       })
     }
 
-    vm.completeRegistration = () => {
+    this.completeRegistration = () => {
       _updateNewUserObject({
-        password: vm.registrationSteps.password
+        password: this.registrationSteps.password
       }, () => {
-        vm.isPending = false
+        this.isPending = false
         proTopAlertService.success({
           message: $filter('translate')('REGISTER.REGISTRATION_SUCCESS'),
           timeout: 3
@@ -100,7 +100,7 @@
 
     }
 
-    return vm
+    return this
   }
 
   function config($stateProvider, UserRolesProvider) {
