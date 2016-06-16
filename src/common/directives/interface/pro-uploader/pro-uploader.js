@@ -102,6 +102,7 @@
         scope.filesUploaded = []
       }
 
+      /* istanbul ignore next */
       scope.animate = function() {
         scope.showArrow = false
         scope.hideArrow = true
@@ -141,10 +142,13 @@
       }
     }
   }
+
+
   angular.module('profitelo.directives.interface.pro-uploader', [
     'ngFileUpload',
     'profitelo.swaggerResources',
-    'commonConfig'
+    'commonConfig',
+    'pascalprecht.translate'
   ])
     .directive('proUploader', proUploader)
 }())
