@@ -21,16 +21,16 @@ angular.module('profitelo.controller.home', [
 function HomeController($scope) {
   this.expertCard = [
     {
-      status: 'available',
-      label: 'HOME.EXPERT_CARD_AVAILABLE'
+      name: 'Ragnar Lodbrok',
+      status: 'available'
     },
     {
-      status: 'not-available',
-      label: 'HOME.EXPERT_CARD_NOT_AVAILABLE'
+      name: 'Penelope Cruz',
+      status: 'not-available'
     },
     {
-      status: 'busy',
-      label: 'HOME.EXPERT_CARD_BUSY'
+      name: 'Ironman',
+      status: 'busy'
     }
   ]
   return this
