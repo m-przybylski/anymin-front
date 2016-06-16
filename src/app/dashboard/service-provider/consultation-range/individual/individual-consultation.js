@@ -1,5 +1,5 @@
 (function() {
-  function IndividualConsultationController($scope, $state, savedProfile, ServiceApi, proTopAlertService) {
+  function IndividualConsultationController($scope, $state, savedProfile, ServiceApi, proTopAlertService, profileImage) {
 
     let _createDefaultModel = (cost)=> {
       return  {
@@ -32,7 +32,7 @@
 
     this.consultations = []
     this.profile = {}
-
+    this.profileImage = profileImage
     let _postConsultationMethod = (callback) => {
       ServiceApi.postService({
         details: {
@@ -192,7 +192,11 @@
 
             /* istanbul ignore next */
             return _deferred.promise
+          },
+          profileImage: (AppServiceProviderImageResolver, savedProfile) => {
+            return AppServiceProviderImageResolver.resolve(savedProfile.expertDetails.avatar)
           }
+
         },
         data: {
           access : UserRolesProvider.getAccessLevel('user'),

@@ -12,11 +12,12 @@ describe('Unit tests: profitelo.controller.dashboard.service-provider.consultati
     let _ServiceApi
     let _controller
 
-    function createController(controller, savedProfile) {
+    function createController(controller, savedProfile, profileImage) {
       IndividualConsultationController = controller('IndividualConsultationController', {
         $scope: _scope,
         ServiceApi: _ServiceApi,
         savedProfile: savedProfile,
+        profileImage: profileImage,
         $state: _state,
         proTopAlertService: _proTopAlertService
       })

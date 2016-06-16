@@ -64,12 +64,12 @@
         let _isValidDeferredEmpty = $q.defer()
 
         if (angular.isDefined(scope.model.links) && scope.model.links.length > 0) {
-          _isValidDeferred.resolve()
+          _isValidDeferredEmpty.resolve()
         } else {
-          _isValidDeferred.reject()
+          _isValidDeferredEmpty.reject()
         }
 
-        return _isValidDeferred.promise
+        return _isValidDeferredEmpty.promise
       }
 
       let _displayErrorMessage = () => {

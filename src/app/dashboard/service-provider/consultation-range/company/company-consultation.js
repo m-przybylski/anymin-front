@@ -1,5 +1,5 @@
 (function() {
-  function CompanyConsultationController($scope, $state, savedProfile, ServiceApi, proTopAlertService) {
+  function CompanyConsultationController($scope, $state, savedProfile, ServiceApi, proTopAlertService, profileImage) {
 
     let _createDefaultModel = (cost)=> {
       return {
@@ -33,7 +33,8 @@
 
     this.profile = savedProfile.organizationDetails
     this.consultations = savedProfile.services
-
+    this.profileImage = profileImage
+    console.log(profileImage)
     let _postConsultationMethod = (callback) => {
       ServiceApi.postService({
         details: {
@@ -41,6 +42,7 @@
           tags: this.costModel.tags,
           price: parseInt(this.costModel.cost, 10)
         },
+        ownerEmployee: this.checkModel,
         invitations: this.costModel.invitations
       }).$promise.then((res)=> {
 
@@ -54,7 +56,6 @@
         })
       })
     }
-
 
     let _calculateProgressPercentage = () => {
       this.progressBarWidth = Math.ceil(this.queue.completedSteps / this.queue.amountOfSteps * 100)
@@ -73,12 +74,19 @@
       }
     }
 
-
     this.saveConsultationObject = () => {
       if (this.queue.completedSteps === this.queue.amountOfSteps) {
-        _postConsultationMethod()
+        $timeout(()=>{
+          _postConsultationMethod()
+        })
+
       }
-      $state.go('app.dashboard.service-provider.summary')
+      if (!!_.find(this.consultations, {'ownerEmployee': true}) && !savedProfile.expertDetails ) {
+        $state.go('app.dashboard.service-provider.individual-path')
+      } else {
+        $state.go('app.dashboard.service-provider.summary')
+      }
+
     }
 
     this.isConsultationPresent = () => {
@@ -100,6 +108,7 @@
         invitations: invitations
       }
       this.updateConsultation = () => {
+
         ServiceApi.putService({
           serviceId: id
         }, {
@@ -108,6 +117,7 @@
             tags: this.editModel.tags,
             price: parseInt(this.editModel.cost, 10)
           },
+          ownerEmployee: this.checkModel,
           invitations: this.editModel.invitations
         }).$promise.then(() => {
           $state.reload()
@@ -146,7 +156,7 @@
     'c7s.ng.userAuth',
     'profitelo.swaggerResources',
     'profitelo.directives.pro-top-alert-service',
-
+    'profitelo.services.resolvers.app.service-provider-image-resolver',
     'profitelo.directives.service-provider.pro-bottom-summary-row',
     'profitelo.directives.service-provider.pro-service-provider-cost',
     'profitelo.directives.service-provider.pro-service-provider-who-provides',
@@ -164,7 +174,7 @@
         controllerAs: 'vm',
         resolve: {
           /* istanbul ignore next */
-          savedProfile: ($q, $state, ProfileApi, User) => {
+          savedProfile: ($q, $state, ProfileApi, User, AppServiceProviderImageResolver) => {
             /* istanbul ignore next */
             let _deferred = $q.defer()
             /* istanbul ignore next */
@@ -192,6 +202,9 @@
             })
             /* istanbul ignore next */
             return _deferred.promise
+          },
+          profileImage: (AppServiceProviderImageResolver, savedProfile) => {
+            return AppServiceProviderImageResolver.resolve(savedProfile.organizationDetails.logo)
           }
         },
         data: {

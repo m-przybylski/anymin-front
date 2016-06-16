@@ -6,10 +6,11 @@
 
       scope.emails = ['bartek@itelo.pl', 'pawel@itelo.pl', 'mikolaj@itelo.pl', 'grazyna@itelo.pl']
 
-
       scope.model = {
         invitations: []
       }
+
+      scope.checkModel = false
 
       scope.model.invitations = _.map(scope.proModel.invitations, 'email')
 
@@ -43,10 +44,6 @@
       scope.saveSection = () => {
         _isValid().then(() => {
           scope.badEmployee = false
-          // TODO jak bedzie backend
-          //  if (scope.checkCurrentUser === true) {
-          //
-          //  }
 
           scope.proModel.invitations = scope.model.invitations.map((elem)=> {
             return {email: elem}
@@ -62,7 +59,6 @@
 
     }
 
-
     return {
       replace: true,
       restrict: 'E',
@@ -71,6 +67,7 @@
         queue: '=',
         order: '=?',
         proModel: '=',
+        checkModel: '=?',
         trTitle: '@',
         trDesc: '@',
         placeholder: '@',

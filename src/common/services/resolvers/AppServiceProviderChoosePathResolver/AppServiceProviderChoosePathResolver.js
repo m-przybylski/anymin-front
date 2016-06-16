@@ -10,8 +10,12 @@
         }).$promise.then((response) => {
           if (response.expertDetails && !!response.organizataionDetails) {
             $state.go('app.dashboard.service-provider.individual-path')
+          } else if (response.organizataionDetails) {
+            $state.go('app.dashboard.service-provider.company-path')
           } else {
             $state.go('app.dashboard.service-provider.company-path')
+            // TODO when wizzard is done
+            // $state.go('app.dashboard.start')
           }
           _deferred.resolve(response)
         }, () => {
@@ -28,12 +32,10 @@
       return _deferred.promise
     }
 
-
     return {
       resolve: _resolve
     }
   }
-
 
   angular.module('profitelo.services.resolvers.app.service-provider-choose-path', [
     'profitelo.swaggerResources',
