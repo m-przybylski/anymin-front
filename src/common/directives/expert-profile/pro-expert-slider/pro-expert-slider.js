@@ -4,7 +4,10 @@
     return {
       templateUrl: 'directives/expert-profile/pro-expert-slider/pro-expert-slider.tpl.html',
       restrict: 'E',
-      replace: true
+      replace: true,
+      scope: {
+        sliders: '@'
+      }
     }
   }
 

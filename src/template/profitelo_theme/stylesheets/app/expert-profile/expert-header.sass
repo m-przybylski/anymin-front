@@ -6,30 +6,39 @@
 
   .header-content
     display: flex
-    flex-direction: row
+    flex-direction: column
     flex-wrap: nowrap
     justify-content: space-between
     align-content: center
-    align-items: flex-start
-    width: 1200px
+    align-items: center
+    width: 100%
     margin: 0 auto
     padding: 60px 0
+    +lgm
+      width: 1200px
+    +smm
+      flex-direction: row
+      align-items: flex-start
 
     .company-list
       display: flex
-      flex-direction: row
+      flex-direction: column
       flex-wrap: nowrap
       justify-content: flex-start
       align-content: center
       align-items: center
-      width: calc(100%/3 - 100px)
+      width: 100%
+      +smm
+        flex-direction: row
+        width: calc(100%/3 - 100px)
       p
         font-size: $f-nav-size
         font-weight: bold
         text-transform: uppercase
         white-space: nowrap
       .company-logo
-        margin-left: 15px
+        +smm
+          margin-left: 15px
         img
           width: 55px
           height: 55px
@@ -43,7 +52,9 @@
       justify-content: center
       align-content: center
       align-items: center
-      width: calc(100%/3 + 200px)
+      width: 100%
+      +smm
+        width: calc(100%/3 + 200px)
       img
         width: 130px
         height: 130px
@@ -82,8 +93,13 @@
     .statistic
       display: flex
       flex-direction: row
-      justify-content: flex-end
-      width: calc(100%/3 - 100px)
+      justify-content: center
+      margin-top: 15px
+      width: 100%
+      +smm
+        width: calc(100%/3 - 100px)
+        margin-top: 0
+        justify-content: flex-end
       .social-icon
         margin: 0 4px
         display: flex

@@ -1,19 +1,23 @@
 .single-container
-  width: 1200px
+  width: 100%
   margin: 16px auto
   background-color: $c-white
   -webkit-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1)
   -moz-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1)
   box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1)
   padding: 30px
+  +lgm
+    width: 1200px
 
   .title-row-consultation
     display: flex
-    flex-direction: row
+    flex-direction: column
     flex-wrap: nowrap
     justify-content: space-between
     align-content: center
     align-items: center
+    +smm
+      flex-direction: row
 
     .company-logo
       width: 5%
@@ -26,15 +30,24 @@
       color: $c-primary-txt
 
     .details-consultations
-      width: 80%
-      margin-left: 16px
+      width: 100%
+      margin: 0
+      text-align: center
+      margin-top: 16px
+      +smm
+        margin-top: 0
+        margin-left: 16px
+        text-align: left
+        width: 80%
       .options-consultation
         display: flex
         flex-direction: row
         flex-wrap: nowrap
-        justify-content: flex-start
+        justify-content: center
         align-content: center
         align-items: center
+        +smm
+          justify-content: flex-start
         span
           padding-right: 16px
           color: $c-secondary-txt
@@ -45,16 +58,21 @@
       display: flex
       flex-direction: row
       flex-wrap: nowrap
-      justify-content: flex-start
+      justify-content: center
       align-content: center
       align-items: center
-      width: 15%
+      width: 100%
+      white-space: nowrap
+      margin-top: 16px
+      +smm
+        margin-top: 0
+        width: 15%
+        justify-content: flex-end
       i
         margin-left: 8px
         background-color: $c-success
         +border-radius(50%)
-        width: 48px
-        height: 48px
+        padding: 10px
         color: $c-white
         display: flex
         flex-direction: row
@@ -66,6 +84,9 @@
     .tags-consultation
       margin: 32px 0
       width: 85%
+      text-align: center
+      +smm
+        text-align: left
       p
         display: inline-block
         background-color: $c-lines
@@ -87,31 +108,3 @@
       text-transform: uppercase
       font-weight: bold
       padding: 0 8px
-
-.social-icons
-  display: flex
-  flex-direction: row
-  flex-wrap: nowrap
-  justify-content: center
-  align-content: center
-  align-items: center
-  margin-bottom: 60px
-  a
-    color: $c-primary-txt
-  i
-    display: flex
-    flex-direction: row
-    flex-wrap: nowrap
-    justify-content: center
-    align-content: center
-    align-items: center
-    margin: 0px 4px
-    background-color: $c-white
-    padding: 10px
-    +border-radius(50%)
-    width: 48px
-    height: 48px
-    +transition
-    &:hover
-      background-color: $c-primary-txt
-      color: $c-white

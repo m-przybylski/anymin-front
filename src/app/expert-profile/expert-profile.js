@@ -12,6 +12,11 @@
       vm.profile = savedProfile.organizationDetails
     }
 
+    this.sliders = {
+      a: 'tag in tags',
+      b: 'tag in tags'
+    }
+
     return this
   }
 
