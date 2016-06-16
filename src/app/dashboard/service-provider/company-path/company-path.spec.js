@@ -27,7 +27,7 @@ describe('Unit tests: CompanyPathController >', () => {
     }
 
 
-    beforeEach(module(function ($provide) {
+    beforeEach(module(function($provide) {
       $provide.value('apiUrl', url)
     }))
 
