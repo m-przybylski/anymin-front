@@ -107,8 +107,9 @@
       resolve: {
         /* istanbul ignore next */
         savedProfile: ($q, $state, ProfileApi, User) => {
-
+          /* istanbul ignore next */
           let _deferred = $q.defer()
+          /* istanbul ignore next */
           User.getStatus().then(() => {
             ProfileApi.getProfile({
               profileId: User.getData('id')
@@ -124,7 +125,7 @@
               timeout: 4
             })
           })
-
+          /* istanbul ignore next */
           return _deferred.promise
         }
       },
