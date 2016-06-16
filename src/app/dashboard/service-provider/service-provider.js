@@ -1,14 +1,9 @@
 (function() {
   function ServiceProviderController() {
 
-    this.profileTypes = {
-      'INDIVIDUAL': 'EXPERT',
-      'COMPANY': 'ORGANIZATION'
-    }
-
     return this
-  }
 
+  }
 
   angular.module('profitelo.controller.dashboard.service-provider', [
     'ui.router',

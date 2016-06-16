@@ -62,7 +62,12 @@
           links: this.individualPathModel.links
         }
       }).$promise.then(() => {
-        $state.go('app.dashboard.service-provider.consultation-range')
+        if (savedProfile && savedProfile.organizationDetails) {
+          $state.go('app.dashboard.service-provider.summary')
+        } else {
+          $state.go('app.dashboard.service-provider.consultation-range.individual')
+        }
+
       }, () => {
         proTopAlertService.error({
           message: 'error',

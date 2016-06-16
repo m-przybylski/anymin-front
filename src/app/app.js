@@ -214,6 +214,8 @@
     'profitelo.controller.dashboard.service-provider.individual-path',
     'profitelo.controller.dashboard.service-provider.company-path',
     'profitelo.controller.dashboard.service-provider.consultation-range',
+    'profitelo.controller.dashboard.service-provider.consultation-range.individual',
+    'profitelo.controller.dashboard.service-provider.consultation-range.company',
     'profitelo.controller.dashboard.service-provider.summary',
 
     'profitelo.controller.home',

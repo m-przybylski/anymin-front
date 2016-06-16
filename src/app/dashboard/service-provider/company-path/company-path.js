@@ -59,7 +59,7 @@
           links: this.companyPathModel.links
         }
       }).$promise.then(() => {
-        $state.go('app.dashboard.service-provider.consultation-range')
+        $state.go('app.dashboard.service-provider.consultation-range.company')
       }, () => {
         proTopAlertService.error({
           message: 'error',

@@ -2,11 +2,17 @@
   function proServiceProviderWhoProvides($q, $timeout) {
     function linkFunction(scope, element, attrs) {
       scope.required = false
-      scope.badName = false
+      scope.badEmployee = false
+
+      scope.emails = ['bartek@itelo.pl', 'pawel@itelo.pl', 'mikolaj@itelo.pl', 'grazyna@itelo.pl']
+
 
       scope.model = {
-        name: ''
+        invitations: []
       }
+
+      scope.model.invitations = _.map(scope.proModel.invitations, 'email')
+
       element.bind('keydown keypress', function(event) {
         if (event.which === 13) {
           event.preventDefault()
@@ -17,7 +23,7 @@
       let _isValid = () => {
         let _isValidDeferred = $q.defer()
 
-        if (angular.isDefined(scope.model.name) && scope.model.name.length > 0) {
+        if (angular.isDefined(scope.model.invitations) && scope.model.invitations.length > 0) {
           _isValidDeferred.resolve()
         } else {
           _isValidDeferred.reject()
@@ -27,7 +33,7 @@
       }
 
       let _displayErrorMessage = () => {
-        scope.badName = true
+        scope.bad= true
       }
 
       if ('required' in attrs) {
@@ -36,8 +42,16 @@
 
       scope.saveSection = () => {
         _isValid().then(() => {
-          scope.badName = false
-          scope.proModel.name = scope.model.name
+          scope.badEmployee = false
+          // TODO jak bedzie backend
+          //  if (scope.checkCurrentUser === true) {
+          //
+          //  }
+
+          scope.proModel.invitations = scope.model.invitations.map((elem)=> {
+            return {email: elem}
+          })
+
           scope.proceed()
 
         }, () => {

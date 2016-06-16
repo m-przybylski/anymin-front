@@ -39,7 +39,9 @@
       $scope.proceed()
 
       for (let property in $scope.clearError) {
-        $scope.clearError[property] = false
+        if ($scope.clearError.hasOwnProperty(property)) {
+          $scope.clearError[property] = false
+        }
       }
     }
 

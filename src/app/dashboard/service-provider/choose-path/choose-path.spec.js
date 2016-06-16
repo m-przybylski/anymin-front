@@ -7,6 +7,7 @@ describe('Unit tests: ChoosePathController >', () => {
       module('profitelo.controller.dashboard.service-provider.choose-path')
       inject(($rootScope, $controller) => {
         ChoosePathController = $controller('ChoosePathController', {
+          profileStatus: {}
         })
       })
     })

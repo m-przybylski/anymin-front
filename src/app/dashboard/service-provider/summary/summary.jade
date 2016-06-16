@@ -1,18 +1,9 @@
-.step.summary-step
-  .btn-handler
-    a.summary-icon(data-ng-click="vm.backToFirstStep()")
-      i.icon.icon-edit-16
-  .summary-name
-    .summary-avatar
-      img(src='assets/images/John_Doe.jpg' alt='user-avatar')
-    .summary-firstname
-      .firstname-lastname
-        h2 {{vm.profile.name}}
-      .languages
-        h6 Języki:
-          span(data-ng-repeat="language in vm.profile.languages") &nbsp {{language}}
-  .summary-descriptions
-    p {{vm.profile.description}}
+pro-service-provider-profile(
+data-name="vm.profile.name"
+data-description="vm.profile.description"
+data-languages="vm.profile.languages"
+data-button-action="vm.backToFirstStep"
+)
 
 pro-service-provider-summary-step(
 data-consultations="vm.consultations"
@@ -61,6 +52,12 @@ data-delete-action="vm.deleteConsultation"
   data-button-label="DASHBOARD.CREATE_PROFILE.EDIT_CONSULTATION"
   )
 
+pro-service-provider-profile(
+data-name="vm.expertProfile.name"
+data-description="vm.expertProfile.description"
+data-languages="vm.expertProfile.languages"
+data-button-action="vm.goToExpertEdit"
+)
     
 .step
   .summary-button

@@ -1,27 +1,32 @@
 (function() {
   function SummaryController($state, savedProfile, ServiceApi, proTopAlertService) {
+    let vm = this
 
-    let isExpert = false
-
-    if (savedProfile.expertDetails) {
-      this.profile = savedProfile.expertDetails
-      this.consultations = savedProfile.services
-      isExpert = true
+    if (savedProfile && savedProfile.expertDetails && !savedProfile.organizationDetails) {
+      vm.profile = savedProfile.expertDetails
+      vm.consultations = savedProfile.services
     } else {
-      this.profile = savedProfile.organizationDetails
+      vm.profile = savedProfile.organizationDetails
+      vm.consultations = savedProfile.services
+      if (savedProfile.expertDetails) {
+        vm.expertProfile = savedProfile.expertDetails
+      }
     }
 
 
-    this.backToFirstStep = () => {
-      if (isExpert) {
+    vm.backToFirstStep = () => {
+      if (savedProfile.expertDetails && !savedProfile.organizationDetails) {
         $state.go('app.dashboard.service-provider.individual-path')
       } else {
         $state.go('app.dashboard.service-provider.company-path')
       }
-
     }
 
-    this.verifyProfile = ()=> {
+    vm.goToExpertEdit = () => {
+      $state.go('app.dashboard.service-provider.individual-path')
+    }
+
+    vm.verifyProfile = ()=> {
       ServiceApi.postServicesVerify().$promise.then((res)=> {
         $state.go('app.dashboard.start')
       }, (err) => {
@@ -32,27 +37,27 @@
       })
     }
 
-    this.editConsultation = (id, name, price, tags) => {
-      this.currentEditConsultationId = this.currentEditConsultationId === id ? -1 : id
-      this.editQueue = {
+    vm.editConsultation = (id, name, price, tags) => {
+      vm.currentEditConsultationId = vm.currentEditConsultationId === id ? -1 : id
+      vm.editQueue = {
         amountOfSteps: 3,
         currentStep: 4,
         completedSteps: 3,
         skippedSteps: {}
       }
-      this.editModel = {
+      vm.editModel = {
         name: name,
         tags: tags,
         cost: price
       }
-      this.updateConsultation = () => {
+      vm.updateConsultation = () => {
         ServiceApi.putService({
           serviceId: id
         }, {
           details: {
-            name: this.editModel.name,
-            tags: this.editModel.tags,
-            price: parseInt(this.editModel.cost, 10)
+            name: vm.editModel.name,
+            tags: vm.editModel.tags,
+            price: parseInt(vm.editModel.cost, 10)
           },
           invitations: []
         }).$promise.then(() => {
@@ -60,11 +65,11 @@
         })
       }
     }
-    this.deleteConsultation = (id, index) => {
+    vm.deleteConsultation = (id, index) => {
       ServiceApi.deleteService({
         serviceId: id
       }).$promise.then((res)=> {
-        this.consultations.splice(index, 1)
+        vm.consultations.splice(index, 1)
       }, (err) => {
         proTopAlertService.error({
           message: 'error',
@@ -73,7 +78,7 @@
       })
     }
 
-    return this
+    return vm
   }
 
 
