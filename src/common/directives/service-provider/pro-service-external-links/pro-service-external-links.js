@@ -14,18 +14,6 @@
 
       let _urlPattern = CommonSettingsService.localSettings.urlPattern
 
-      let _validateUrl = () => {
-        let _isValidDeferred = $q.defer()
-
-        if (_urlPattern.test(scope.linkModel)) {
-          _isValidDeferred.resolve()
-        } else {
-          _isValidDeferred.reject()
-        }
-
-        return _isValidDeferred.promise
-      }
-
       scope.removeLink = (linkToDelete) => {
         let _index = scope.model.links.indexOf(linkToDelete)
         scope.model.links.splice(_index, 1)
@@ -38,23 +26,19 @@
           httpAdded = true
         }
 
-        _validateUrl().then(() => {
+        if ( _urlPattern.test(scope.linkModel)) {
           scope.badUrl = false
           httpAdded = false
           scope.model.links.push(scope.linkModel)
           scope.linkModel = ''
-
-        }, () => {
+        } else {
           scope.badUrl = true
           scope.noUrl = false
-        })
-
+        }
       }
 
-
-
       let required = false
-
+      /* istanbul ignore else */
       if ('required' in attrs) {
         required = true
       }
