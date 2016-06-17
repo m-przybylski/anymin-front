@@ -1,34 +1,38 @@
 .pro-btn
-  +border-radius(0.2em)
-  +transition(0.3s)
-  padding: 20px 40px
+  +transition(.3s ease-in-out)
+  padding: 17px 32px 12px
   border: none
   outline: none
   display: inline-block
+  //do wyrzucenia w przyszlosci
   margin-bottom: 10px
   margin-top: 10px
   text-align: center
-  vertical-align: middle
   touch-action: manipulation
   cursor: pointer
-  background-image: none
   white-space: nowrap
-
   &.btn-big
     padding: 20px 40px
     width: 100%
   &.btn-medium
-    padding: 16px 42px 16px
     width: 100%
   &.btn-small
     padding: 10px 20px
   &.btn-icon
-    padding: 15px 15px
+    position: relative
+    padding: 0
     border-radius: 50%
-    display: flex
-    flex-direction: column
     height: 48px
     width: 48px
+    *
+      position: absolute
+      left: 50%
+      top: 50%
+      transform: translate(-50%, -50%)
+      height: 16px
+      font-size: 16px
+      width: auto
+
   &.btn-round
     +border-radius(50px)
   &.btn-main
@@ -42,11 +46,16 @@
     border: 1px solid $c-lines
     color: $c-secondary
     background-color: $c-white
-    height: 48px
-    text-align: center
     &:hover
       background-color: $c-white
       cursor: pointer
       color: $c-secondary
       box-shadow: 0px 0px 0px 2px $c-secondary
-      +transition('all 0.1s ease-in-out 0s')
+      border: 1px solid $c-secondary
+  &.btn-white
+    color: $c-primary-txt
+    border: 1px solid $c-lines
+    &:hover
+      background: $c-primary-txt
+      color: $c-white
+>>>>>>> simplify buttons

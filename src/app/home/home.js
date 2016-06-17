@@ -1,6 +1,8 @@
 angular.module('profitelo.controller.home', [
   'ui.router',
-  'c7s.ng.userAuth'
+  'c7s.ng.userAuth',
+  'profitelo.directives.pro-expert-card',
+  'profitelo.directives.pro-expert-see-more'
 ])
 .config(($stateProvider, UserRolesProvider) => {
   $stateProvider.state('app.home', {
@@ -17,6 +19,19 @@ angular.module('profitelo.controller.home', [
 .controller('HomeController', HomeController)
 
 function HomeController($scope) {
-  
+  this.expertCard = [
+    {
+      name: 'Ragnar Lodbrok',
+      status: 'available'
+    },
+    {
+      name: 'Penelope Cruz',
+      status: 'not-available'
+    },
+    {
+      name: 'Ironman',
+      status: 'busy'
+    }
+  ]
   return this
 }

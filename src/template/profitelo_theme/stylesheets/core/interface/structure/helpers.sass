@@ -1,13 +1,11 @@
-html
-    +css3-prefix(font-smoothing, antialiased)
-    +css3-prefix(osx-font-smoothing, grayscale)
-    
 .default-container
-  max-width: 1264px
+  max-width: 1200px
   width: 100%
   padding: 0 20px
   margin: 0 auto
   position: relative
+  +lgm
+    padding: 0
 
 .flex-col
   display: flex
@@ -19,3 +17,9 @@ html
 
   &.wrap
     flex-flow: row wrap
+
+html
+  +css3-prefix(font-smoothing, antialiased)
+  +css3-prefix(osx-font-smoothing, grayscale)
+  +default-font-regular
+  line-height: 1.2

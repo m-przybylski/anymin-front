@@ -1,4 +1,3 @@
-
 body
   background-color: $c-background
   overflow-x: hidden
@@ -9,3 +8,16 @@ body
 *:before,
 *:after
   +css3-prefix(box-sizing, border-box)
+
+input[type="text"]
+  color: $c-primary-txt
+  border: 0
+
+::-webkit-input-placeholder
+  color: $c-secondary-txt
+::-moz-placeholder
+  color: $c-secondary-txt
+:-ms-input-placeholder
+  color: $c-secondary-txt
+:-moz-placeholder
+  color: $c-secondary-txt
