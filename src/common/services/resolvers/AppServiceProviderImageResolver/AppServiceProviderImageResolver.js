@@ -10,11 +10,6 @@
           _deferred.resolve(response.meta.downloadUrl)
         }, () => {
           _deferred.resolve(null)
-        }, (error) => {
-          proTopAlertService.error({
-            message: 'error',
-            timeout: 4
-          })
         })
         return _deferred.promise
 
