@@ -41,8 +41,9 @@
       controller: 'ExpertProfileController',
       resolve: {
         savedProfile: ($q, $state, ProfileApi, User, $stateParams) => {
-
+          /* istanbul ignore next */
           let _deferred = $q.defer()
+          /* istanbul ignore next */
           User.getStatus().then(() => {
             ProfileApi.getProfileWithServices({
               profileId: $stateParams.contactId
@@ -65,12 +66,11 @@
               timeout: 4
             })
           })
-
-
+          /* istanbul ignore next */
           return _deferred.promise
         }
       },
-      data          : {
+      data: {
         access : UserRolesProvider.getAccessLevel('public')
       }
     })
