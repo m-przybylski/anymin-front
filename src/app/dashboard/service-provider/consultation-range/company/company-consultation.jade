@@ -3,7 +3,7 @@ data-name="vm.profile.name"
 data-description="vm.profile.description"
 data-languages="vm.profile.languages"
 data-button-action="vm.backToFirstStep"
-data-avatar="vm.profile.avatar"
+data-avatar="vm.profileImage"
 )
 
 pro-service-provider-summary-step(
@@ -50,6 +50,7 @@ data-delete-action="vm.deleteConsultation"
     pro-service-provider-who-provides(
     data-queue="vm.editQueue"
     data-order="4"
+    data-check-model="vm.checkModel"
     data-pro-model="vm.editModel"
     data-placeholder="DASHBOARD.CONSULTATION_RANGE.EMAIL_EXAMPLE"
     data-error-message="DASHBOARD.SERVICE_PROVIDER.CONSULTATION.EMPTY_FIELD"
@@ -105,6 +106,7 @@ div(data-ng-click="vm.currentEditConsultationId = -1")
     pro-service-provider-who-provides(
     data-queue="vm.queue"
     data-order="4"
+    data-check-model="vm.checkModel"
     data-pro-model="vm.costModel"
     data-placeholder="DASHBOARD.CONSULTATION_RANGE.EMAIL_EXAMPLE"
     data-error-message="DASHBOARD.SERVICE_PROVIDER.CONSULTATION.EMPTY_FIELD"

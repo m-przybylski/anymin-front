@@ -1,5 +1,5 @@
 (function() {
-  function IndividualConsultationController($scope, $state, savedProfile, ServiceApi, proTopAlertService) {
+  function IndividualConsultationController($scope, $state, savedProfile, ServiceApi, proTopAlertService, profileImage) {
 
     let _createDefaultModel = (cost)=> {
       return  {
@@ -33,6 +33,7 @@
     this.consultations = []
     this.profile = {}
 
+    this.profileImage = profileImage
     let _postConsultationMethod = (callback) => {
       ServiceApi.postService({
         details: {
@@ -145,7 +146,7 @@
     'profitelo.services.service-provider-state',
     'profitelo.swaggerResources',
     'profitelo.directives.pro-top-alert-service',
-    
+    'profitelo.services.resolvers.app.service-provider-image-resolver',
     'profitelo.directives.service-provider.pro-bottom-summary-row',
     'profitelo.directives.service-provider.pro-service-provider-cost',
     'profitelo.directives.service-provider.pro-service-provider-who-provides',
@@ -192,7 +193,11 @@
 
             /* istanbul ignore next */
             return _deferred.promise
+          },
+          profileImage: (AppServiceProviderImageResolver, savedProfile) => {
+            return AppServiceProviderImageResolver.resolve(savedProfile.expertDetails.avatar)
           }
+
         },
         data: {
           access : UserRolesProvider.getAccessLevel('user'),

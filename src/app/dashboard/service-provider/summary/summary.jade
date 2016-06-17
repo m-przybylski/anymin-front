@@ -52,12 +52,13 @@ data-delete-action="vm.deleteConsultation"
   data-button-label="DASHBOARD.CREATE_PROFILE.EDIT_CONSULTATION"
   )
 
-pro-service-provider-profile(
-data-name="vm.expertProfile.name"
-data-description="vm.expertProfile.description"
-data-languages="vm.expertProfile.languages"
-data-button-action="vm.goToExpertEdit"
-)
+div(data-ng-show="!!vm.expertProfile")
+  pro-service-provider-profile(
+  data-name="vm.expertProfile.name"
+  data-description="vm.expertProfile.description"
+  data-languages="vm.expertProfile.languages"
+  data-button-action="vm.goToExpertEdit"
+  )
     
 .step
   .summary-button

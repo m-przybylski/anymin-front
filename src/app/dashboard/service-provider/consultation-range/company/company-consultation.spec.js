@@ -12,11 +12,12 @@ describe('Unit tests: app.dashboard.service-provider.consultation-range.company 
     let _ServiceApi
     let _controller
 
-    function createController(controller, savedProfile) {
+    function createController(controller, savedProfile, profileImage) {
       CompanyConsultationController = controller('CompanyConsultationController', {
         $scope: _scope,
         ServiceApi: _ServiceApi,
         savedProfile: savedProfile,
+        profileImage: profileImage,
         $state: _state,
         proTopAlertService: _proTopAlertService
       })
