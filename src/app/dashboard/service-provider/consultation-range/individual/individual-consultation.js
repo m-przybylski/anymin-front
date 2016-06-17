@@ -32,6 +32,7 @@
 
     this.consultations = []
     this.profile = {}
+
     this.profileImage = profileImage
     let _postConsultationMethod = (callback) => {
       ServiceApi.postService({
@@ -145,7 +146,7 @@
     'profitelo.services.service-provider-state',
     'profitelo.swaggerResources',
     'profitelo.directives.pro-top-alert-service',
-    
+    'profitelo.services.resolvers.app.service-provider-image-resolver',
     'profitelo.directives.service-provider.pro-bottom-summary-row',
     'profitelo.directives.service-provider.pro-service-provider-cost',
     'profitelo.directives.service-provider.pro-service-provider-who-provides',

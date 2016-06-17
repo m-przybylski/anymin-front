@@ -8,13 +8,13 @@
         ProfileApi.getProfile({
           profileId: User.getData('id')
         }).$promise.then((response) => {
-          if (response.expertDetails && !!response.organizataionDetails) {
+          if (!!response.expertDetails && !response.organizataionDetails) {
             $state.go('app.dashboard.service-provider.individual-path')
           } else if (response.organizataionDetails) {
             $state.go('app.dashboard.service-provider.company-path')
           } else {
             $state.go('app.dashboard.service-provider.company-path')
-            // TODO when wizzard is done
+            // TODO when wizard is done
             // $state.go('app.dashboard.start')
           }
           _deferred.resolve(response)

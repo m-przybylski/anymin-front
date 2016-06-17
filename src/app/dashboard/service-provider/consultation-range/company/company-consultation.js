@@ -34,7 +34,7 @@
     this.profile = savedProfile.organizationDetails
     this.consultations = savedProfile.services
     this.profileImage = profileImage
-    console.log(profileImage)
+
     let _postConsultationMethod = (callback) => {
       ServiceApi.postService({
         details: {

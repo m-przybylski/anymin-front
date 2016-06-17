@@ -3,23 +3,24 @@
 
     let _resolve = (token) => {
       let _deferred = $q.defer()
-
-      FilesApi.fileInfoPath({
-        token: token
-      }).$promise.then((response)=> {
-        _deferred.resolve(response)
-      }, () => {
-        _deferred.resolve(null)
-      }, (error) => {
-        proTopAlertService.error({
-          message: 'error',
-          timeout: 4
+      if (token !== null) {
+        FilesApi.fileInfoPath({
+          token: token
+        }).$promise.then((response)=> {
+          _deferred.resolve(response.meta.downloadUrl)
+        }, () => {
+          _deferred.resolve(null)
+        }, (error) => {
+          proTopAlertService.error({
+            message: 'error',
+            timeout: 4
+          })
         })
-      })
+        return _deferred.promise
 
-      _deferred.promise.then((result)=>{
-        return result.meta.downloadUrl
-      })
+      } else {
+        return ''
+      }
 
     }
 
