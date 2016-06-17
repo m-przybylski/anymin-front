@@ -1,10 +1,10 @@
 .single-container.slider-container
-  div
+  .slider-control
     i.icon.icon-file-24
     p(data-translate="DASHBOARD.CREATE_PROFILE.FILE_UPLOADER_TITLE")
     p(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.AND_PHOTOS")
     .switcher
-      i.icon.icon-arrow-left-12
-      i.icon.icon-arrow-right-12
-  div(data-ng-repeat="slide in vm.sliders")
+      i.icon.icon-arrow-left-12(data-ng-click="vm.prevSlide")
+      i.icon.icon-arrow-right-12(data-ng-click="vm.nextSlide")
+  .slider-slides(data-ng-repeat="slide in sliders")
     img(src='/assets/images/John_Doe.jpg')

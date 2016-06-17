@@ -6,7 +6,7 @@
       restrict: 'E',
       replace: true,
       scope: {
-        sliders: '@'
+        sliders: '=?'
       }
     }
   }

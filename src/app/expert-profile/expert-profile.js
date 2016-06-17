@@ -14,7 +14,11 @@
 
     this.sliders = {
       a: 'tag in tags',
-      b: 'tag in tags'
+      b: 'tag in tags',
+      c: 'tag in tags',
+      d: 'tag in tags',
+      e: 'tag in tags',
+      f: 'tag in tags'
     }
 
     return this
@@ -41,8 +45,9 @@
       controller: 'ExpertProfileController',
       resolve: {
         savedProfile: ($q, $state, ProfileApi, User, $stateParams) => {
-
+          /* istanbul ignore next */
           let _deferred = $q.defer()
+          /* istanbul ignore next */
           User.getStatus().then(() => {
             ProfileApi.getProfileWithServices({
               profileId: $stateParams.contactId
@@ -65,12 +70,11 @@
               timeout: 4
             })
           })
-
-
+          /* istanbul ignore next */
           return _deferred.promise
         }
       },
-      data          : {
+      data: {
         access : UserRolesProvider.getAccessLevel('public')
       }
     })
