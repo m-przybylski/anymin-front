@@ -3,13 +3,24 @@
   display: flex
   flex-direction: row
   flex-wrap: nowrap
-  justify-content: space-between
+  justify-content: flex-start
   align-content: center
   align-items: center
   padding: 0
   margin: 60px auto
   height: 290px
-  div
+  position: relative
+  overflow: hidden
+
+  .slider-slides
+    position: relative
+    left: 25%
+    padding: 0 20px
+    width: 75%
+    img
+      max-width: 100%
+
+  .slider-control
     width: 25%
     border-right: 1px solid $c-lines
     display: flex
@@ -19,8 +30,9 @@
     justify-content: center
     padding: 15px
     height: 100%
-    &:last-child
-      border: none
+    position: absolute
+    z-index: 10
+    float: left
     i
       color: $c-secondary-txt
       font-size: 32px

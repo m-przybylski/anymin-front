@@ -14,7 +14,11 @@
 
     this.sliders = {
       a: 'tag in tags',
-      b: 'tag in tags'
+      b: 'tag in tags',
+      c: 'tag in tags',
+      d: 'tag in tags',
+      e: 'tag in tags',
+      f: 'tag in tags'
     }
 
     return this
