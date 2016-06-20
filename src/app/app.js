@@ -217,7 +217,8 @@
     'profitelo.controller.dashboard.service-provider.consultation-range.individual',
     'profitelo.controller.dashboard.service-provider.consultation-range.company',
     'profitelo.controller.dashboard.service-provider.summary',
-
+    'profitelo.controller.dashboard.service-provider.summary.company',
+    'profitelo.controller.dashboard.service-provider.summary.individual',
     'profitelo.controller.home',
     'profitelo.controller.expert-profile',
 

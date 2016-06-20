@@ -16,5 +16,9 @@ block content
         h6(data-translate="DASHBOARD.CREATE_PROFILE.SUMMARY.CONSULTATION_TAGS")
         .tags
           p(ng-repeat="tag in consultation.details.tags") {{ tag }}
+      .summary-tag(data-ng-if="consultation.invitations.length > 0")
+        h6(data-translate="DASHBOARD.CREATE_PROFILE.SUMMARY.CONSULTATION_EMPLOYEE")
+        .tags
+          p(ng-repeat="employee in consultation.invitations") {{ employee.email }}
       .edit-consultation-form(ng-transclude ng-if="vm.currentEditConsultationId == consultation.id")
 

@@ -84,7 +84,7 @@
       if (!!_.find(this.consultations, {'ownerEmployee': true}) && !savedProfile.expertDetails ) {
         $state.go('app.dashboard.service-provider.individual-path')
       } else {
-        $state.go('app.dashboard.service-provider.summary')
+        $state.go('app.dashboard.service-provider.summary.company')
       }
 
     }
@@ -203,6 +203,7 @@
             /* istanbul ignore next */
             return _deferred.promise
           },
+          /* istanbul ignore next */
           profileImage: (AppServiceProviderImageResolver, savedProfile) => {
             return AppServiceProviderImageResolver.resolve(savedProfile.organizationDetails.logo)
           }

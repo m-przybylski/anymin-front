@@ -83,7 +83,7 @@
       if (this.queue.completedSteps === this.queue.amountOfSteps) {
         _postConsultationMethod()
       }
-      $state.go('app.dashboard.service-provider.summary')
+      $state.go('app.dashboard.service-provider.summary.individual')
     }
 
     this.isConsultationPresent = () => {
