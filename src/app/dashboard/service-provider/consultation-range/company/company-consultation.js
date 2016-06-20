@@ -42,7 +42,7 @@
           tags: this.costModel.tags,
           price: parseInt(this.costModel.cost, 10)
         },
-        ownerEmployee: this.checkModel,
+        ownerEmployee: this.ownerEmployee,
         invitations: this.costModel.invitations
       }).$promise.then((res)=> {
 
@@ -93,7 +93,7 @@
       return this.consultations.length > 0
     }
 
-    this.editConsultation = (id, name, price, tags, invitations) => {
+    this.editConsultation = (id, name, price, tags, invitations, ownerEmployee) => {
       this.currentEditConsultationId = this.currentEditConsultationId === id ? -1 : id
       this.editQueue = {
         amountOfSteps: 4,
@@ -107,6 +107,7 @@
         cost: price,
         invitations: invitations
       }
+      this.ownerEmployee = ownerEmployee
       this.updateConsultation = () => {
 
         ServiceApi.putService({
@@ -117,7 +118,7 @@
             tags: this.editModel.tags,
             price: parseInt(this.editModel.cost, 10)
           },
-          ownerEmployee: this.checkModel,
+          ownerEmployee: this.ownerEmployee,
           invitations: this.editModel.invitations
         }).$promise.then(() => {
           $state.reload()
