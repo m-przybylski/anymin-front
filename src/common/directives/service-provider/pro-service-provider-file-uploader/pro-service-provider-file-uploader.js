@@ -3,11 +3,13 @@
 
     function linkFunction(scope, element, attrs) {
 
+      scope.badFiles = false
+
       scope.model = {
         files: []
       }
 
-      if (scope.proModel.files) {
+      if (angular.isDefined(scope.proModel) && angular.isDefined(scope.proModel.files)) {
         for (let i = 0; i < scope.proModel.files.length;i++) {
           FilesApi.fileInfoPath({token: scope.proModel.files[i]}).$promise.then((res)=>{
             scope.model.files.push({file: res.details, response: null})
@@ -21,6 +23,7 @@
       }
       let required = false
 
+      /* istanbul ignore else */
       if ('required' in attrs) {
         required = true
       }
@@ -58,8 +61,6 @@
           _displayErrorMessage()
         })
       }
-
-
     }
 
 
