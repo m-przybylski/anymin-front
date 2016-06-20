@@ -8,7 +8,7 @@
       scope.onClick = false
       let placeholder = scope.placeholder
       let _inputGroup = $(element)
-      let _excludedKeyCodes = [13, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57]
+      let _excludedKeyCodes = [8, 13, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57]
 
       if (!scope.type) {
         scope.type = 'text'
@@ -32,7 +32,7 @@
         })
       }
 
-      let _setAddon = (value) => {
+      let _setAddon = (value) => { 
         scope.addon = value
       }
 
