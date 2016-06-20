@@ -6,7 +6,7 @@ block content
           a(data-ng-click="vm.deleteConsultation(consultation.id, $index)")
             i.icon.icon-trash-24
         .summary-icon
-          a(data-ng-click="vm.editConsultation(consultation.id, consultation.details.name, consultation.details.price, consultation.details.tags, consultation.invitations)")
+          a(data-ng-click="vm.editConsultation(consultation.id, consultation.details.name, consultation.details.price, consultation.details.tags, consultation.invitations, consultation.ownerEmployee)")
             i.icon.icon-edit-16
       .summary-step-title
         h4 {{ consultation.details.name}}

@@ -16,6 +16,8 @@
       links:  []
     }
 
+    this.hasProfile = false
+
     let _calculateProgressPercentage = () => {
       this.progressBarWidth = Math.ceil(this.queue.completedSteps / this.queue.amountOfSteps * 100)
     }
@@ -40,6 +42,10 @@
       $timeout(()=>{
         smoothScrolling.scrollTo(this.queue.currentStep)
       })
+    }
+
+    if (angular.isDefined(savedProfile)) {
+      this.hasProfile = true
     }
 
     this.saveAccountObject = () => {
