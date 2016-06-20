@@ -1,8 +1,10 @@
 (function() {
-  function ExpertProfileController($scope, $state, savedProfile, ServiceApi, proTopAlertService, CommonConfig) {
+  function ExpertProfileController($scope, $state, savedProfile, ServiceApi, proTopAlertService, CommonConfig, profileImage) {
 
     let _commonConfig = CommonConfig.getAllData()
     this.profile = {}
+
+    this.profileImage = profileImage
 
     if (savedProfile && savedProfile.expertDetails) {
       this.profile = savedProfile.expertDetails
@@ -16,9 +18,10 @@
       a: 'tag in tags',
       b: 'tag in tags',
       c: 'tag in tags',
-      d: 'tag in tags',
-      e: 'tag in tags',
-      f: 'tag in tags'
+      d: 'das',
+      e: '123123',
+      f: '111',
+      g: '123163412646'
     }
 
     return this
@@ -34,6 +37,7 @@
     'profitelo.directives.expert-profile.pro-expert-slider',
     'profitelo.directives.expert-profile.pro-expert-single-consultation',
     'profitelo.directives.expert-profile.pro-expert-social-icons',
+    'profitelo.services.resolvers.app.service-provider-image-resolver',
     'profitelo.directives.pro-top-alert-service',
     'commonConfig'
   ])
@@ -55,13 +59,6 @@
               _deferred.resolve(response)
             }, () => {
               _deferred.resolve(null)
-            }, (error)=> {
-              _deferred.reject(error)
-              $state.go('app.dashboard')
-              proTopAlertService.error({
-                message: 'error',
-                timeout: 4
-              })
             })
           }, (error) => {
             $state.go('app.dashboard')
@@ -72,6 +69,9 @@
           })
           /* istanbul ignore next */
           return _deferred.promise
+        },
+        profileImage: (AppServiceProviderImageResolver, savedProfile) => {
+          return AppServiceProviderImageResolver.resolve(savedProfile.expertDetails.avatar)
         }
       },
       data: {
