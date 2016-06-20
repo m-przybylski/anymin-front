@@ -1,9 +1,14 @@
 describe('Unit testing: profitelo.directives.service-provider.pro-service-provider-file-uploader', function() {
-  return describe('for proServiceProviderName directive >', function() {
+  return describe('for proServiceProviderFileUploader directive >', function() {
 
     var compile = null
     var scope = null
+    let _rootScope
+    let _httpBackend
+    let _FilesApiDef
+    let resourcesExpectations
 
+    let fileId = ':token'
     let _url = 'awesomeUrl'
 
     var validHTML = '<pro-service-provider-file-uploader data-queue="vm.queue" ' +
@@ -12,29 +17,43 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
       ' data-error-message="DASHBOARD.SERVICE_PROVIDER.NAME.BAD_NAME" tr-title="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT" ' +
       'tr-desc="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT_DESCRIPTION" required="required"></pro-service-provider-file-uploader>'
 
-    beforeEach(module(function($provide) {
+    beforeEach(module(($provide) => {
       $provide.value('apiUrl', _url)
     }))
 
-    beforeEach(function() {
+    beforeEach(() => {
       module('templates-module')
       module('profitelo.directives.service-provider.pro-service-provider-file-uploader')
+      module('profitelo.swaggerResources.definitions')
 
-      inject(function($rootScope, $compile) {
-        scope = $rootScope.$new()
+      inject(($rootScope, $compile, $injector) => {
+
+        _rootScope = $rootScope
+
+        scope = _rootScope.$new()
         compile = $compile
+
+        _FilesApiDef = $injector.get('FilesApiDef')
+        _httpBackend = $injector.get('$httpBackend')
+
+        resourcesExpectations = {
+          FilesApi: {
+            fileInfoPath: _httpBackend.when(_FilesApiDef.fileInfoPath.method, _FilesApiDef.fileInfoPath.url)
+          }
+        }
+
       })
     })
 
-    function create(html) {
+    function create(html, proModel) {
       var elem = angular.element(html)
-      scope.proModel = {file: []}
+      scope.proModel = proModel
       var compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
 
-    it('should have a dummy test', inject(function() {
+    it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
 
@@ -43,6 +62,111 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
       el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
+
+
+    it('should not save invalid section', () => {
+      let el = create(validHTML)
+      let isoScope = el.isolateScope()
+
+      expect(isoScope.badFiles).toEqual(false)
+
+      isoScope.saveSection()
+      _rootScope.$digest()
+
+      expect(isoScope.badFiles).toEqual(true)
+
+    })
+
+    it('should save valid section', () => {
+
+      let el = create(validHTML, {
+        files: []
+      })
+      let isoScope = el.isolateScope()
+
+      isoScope.model = {
+        files: [
+          {
+            response: {
+              id: fileId
+            }
+          }
+        ]
+      }
+
+      isoScope.queue = {
+        completedSteps: 3
+      }
+
+      isoScope.saveSection()
+
+      _rootScope.$digest()
+
+
+      expect(isoScope.proModel.files.indexOf(fileId) >= 0).toEqual(true)
+
+    })
+
+    it('should remove previously added file', () => {
+
+
+      resourcesExpectations.FilesApi.fileInfoPath.respond(200)
+
+      let el = create(validHTML, {
+        files: [fileId]
+      })
+
+      let isoScope = el.isolateScope()
+
+      isoScope.model.files = [fileId]
+
+      expect(isoScope.model.files.indexOf(fileId) >= 0).toEqual(true)
+
+      isoScope.removeFile(fileId)
+
+      expect(isoScope.model.files.indexOf(fileId) === -1).toEqual(true)
+
+    })
+
+    it('should add saved elements to scope model', () => {
+
+      let details = {
+        id: fileId
+      }
+
+      resourcesExpectations.FilesApi.fileInfoPath.respond(200, {
+        details: details
+      })
+
+      let el = create(validHTML, {
+        files: [fileId]
+      })
+
+      let isoScope = el.isolateScope()
+
+      _httpBackend.flush()
+
+
+      expect(isoScope.model.files[0].file.id).toEqual(fileId)
+
+
+    })
+
+    it('should alert on backend error', () => {
+      let details = {
+        id: fileId
+      }
+
+      resourcesExpectations.FilesApi.fileInfoPath.respond(500)
+
+      let el = create(validHTML, {
+        files: [fileId]
+      })
+
+      _httpBackend.flush()
+
+    })
+
 
   })
 })
