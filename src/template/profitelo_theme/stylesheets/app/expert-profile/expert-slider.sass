@@ -13,12 +13,16 @@
   overflow: hidden
 
   .slider-slides
+    display: flex
+    flex-direction: row
     position: relative
-    left: 25%
-    padding: 0 20px
+    padding: 0 10px
     width: 75%
+    margin-left: 0
+
     img
-      max-width: 100%
+      width: 275px
+      margin: 0 10px
 
   .slider-control
     width: 25%
@@ -30,9 +34,10 @@
     justify-content: center
     padding: 15px
     height: 100%
-    position: absolute
+    position: relative
     z-index: 10
     float: left
+    background-color: $c-white
     i
       color: $c-secondary-txt
       font-size: 32px
