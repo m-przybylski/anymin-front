@@ -139,5 +139,15 @@ describe('Unit tests: profitelo.controller.dashboard.service-provider.consultati
 
     })
 
+    it('should transfer to first individual step based on creator type', () => {
+
+      spyOn(_state, 'go')
+
+      IndividualConsultationController.backToFirstStep()
+
+      expect(_state.go).toHaveBeenCalledWith('app.dashboard.service-provider.individual-path')
+
+    })
+
   })
 })

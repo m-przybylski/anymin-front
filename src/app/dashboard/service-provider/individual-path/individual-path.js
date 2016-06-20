@@ -63,7 +63,7 @@
         }
       }).$promise.then(() => {
         if (savedProfile && savedProfile.organizationDetails) {
-          $state.go('app.dashboard.service-provider.summary')
+          $state.go('app.dashboard.service-provider.summary.company')
         } else {
           $state.go('app.dashboard.service-provider.consultation-range.individual')
         }

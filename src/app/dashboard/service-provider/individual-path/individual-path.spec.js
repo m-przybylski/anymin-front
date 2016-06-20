@@ -93,7 +93,7 @@ describe('Unit tests: IndividualPathController >', () => {
       IndividualPathController.saveAccountObject()
       _httpBackend.flush()
 
-      expect(_state.go).toHaveBeenCalledWith('app.dashboard.service-provider.summary')
+      expect(_state.go).toHaveBeenCalledWith('app.dashboard.service-provider.summary.company')
 
     })
 
