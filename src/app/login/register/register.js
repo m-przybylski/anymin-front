@@ -129,13 +129,14 @@
   angular.module('profitelo.controller.login.register', [
     'ui.router',
     'c7s.ng.userAuth',
-    'profitelo.directives.password-strength-service',
     'profitelo.services.login-state',
-    'profitelo.directives.pro-top-alert-service',
-    'profitelo.directives.pro-top-waiting-loader-service',
     'profitelo.services.resolvers.app.login.register',
     'profitelo.swaggerResources',
     'profitelo.services.commonSettings',
+
+    'profitelo.directives.password-strength-service',
+    'profitelo.directives.pro-top-alert-service',
+    'profitelo.directives.pro-top-waiting-loader-service',
     'profitelo.directives.interface.pro-checkbox',
     'profitelo.directives.interface.pro-alert',
     'profitelo.directives.interface.pro-input-password',

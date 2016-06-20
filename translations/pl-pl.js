@@ -98,6 +98,7 @@
         		"DASHBOARD.SERVICE_PROVIDER.CONSULTATION.EMPTY_FIELD":"To pole jest wymagane",
         		"DASHBOARD.SERVICE_PROVIDER.NAME.BAD_COMPANY_NAME":"Podaj poprawną nazwę firmy",
         		"DASHBOARD.SERVICE_PROVIDER.NAME.BAD_NAME":"Podaj poprawnę imię",
+        		"HOME.ADVICE_TILE":"Porada",
         		"HOME.BRANCH_BOX_TITLE":"Przeglądaj dziedziny:",
         		"HOME.CARD_BUSSINES":"Biznes i kariera",
         		"HOME.CARD_ENTERTAINMENT":"Rozrywka, rekreacja i hobby",

@@ -14,7 +14,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-extern
     beforeEach(function() {
       module('templates-module')
       module('profitelo.directives.service-provider.pro-service-external-links')
-      inject(function ($rootScope, $compile) {
+      inject(function($rootScope, $compile) {
         rootScope = $rootScope
         scope = rootScope.$new()
         compile = $compile
