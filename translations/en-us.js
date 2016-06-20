@@ -14,6 +14,7 @@
         		"COMMON.DIRECTIVES.INTERFACE.UPLOADER.HEADER_UPLOAD":"Ukończono",
         		"COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO":"lub kliknij by wgrać pliki",
         		"COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO_UPLOAD":"plik {{ file }} z {{ files }}",
+        		"DASHBOARD.CONSULTATION.EMPLOYEES_PLACEHOLDER":"np. jan.kowalski@profitelo.pl",
         		"DASHBOARD.CONSULTATION_RANGE.ADD_NEXT_CONSULTATION":"Dodaj kolejną konsultację",
         		"DASHBOARD.CONSULTATION_RANGE.CONSULTANTS_LIST_PLACEHOLDER":"np. Jan Kowalski",
         		"DASHBOARD.CONSULTATION_RANGE.CONSULTANTS_LIST_TITLE":"Lista konsultatnów - Kto świadczy konsultacje",

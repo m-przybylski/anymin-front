@@ -25,17 +25,21 @@
     }
 
     this.verifyProfile = ()=> {
-      ServiceApi.postServicesVerify().$promise.then((res)=> {
-        $state.go('app.dashboard.start')
-      }, (err) => {
-        proTopAlertService.error({
-          message: 'error',
-          timeout: 4
+      if (!!_.find(this.consultations, {'ownerEmployee': true}) && !savedProfile.expertDetails ) {
+        $state.go('app.dashboard.service-provider.individual-path')
+      } else {
+        ServiceApi.postServicesVerify().$promise.then((res)=> {
+          $state.go('app.dashboard.start')
+        }, (err) => {
+          proTopAlertService.error({
+            message: 'error',
+            timeout: 4
+          })
         })
-      })
+      }
     }
 
-    this.editConsultation = (id, name, price, tags, invitations) => {
+    this.editConsultation = (id, name, price, tags, invitations, ownerEmployee) => {
       this.currentEditConsultationId = this.currentEditConsultationId === id ? -1 : id
       this.editQueue = {
         amountOfSteps: 4,
@@ -49,6 +53,7 @@
         cost: price,
         invitations: invitations
       }
+      this.ownerEmployee = ownerEmployee
       this.updateConsultation = () => {
 
         ServiceApi.putService({
@@ -59,7 +64,7 @@
             tags: this.editModel.tags,
             price: parseInt(this.editModel.cost, 10)
           },
-          ownerEmployee: this.checkModel,
+          ownerEmployee: this.ownerEmployee,
           invitations: this.editModel.invitations
         }).$promise.then(() => {
           $state.reload()
@@ -142,7 +147,10 @@
           },
           profileAvatar: (AppServiceProviderImageResolver, savedProfile) => {
             /* istanbul ignore next */
-            return AppServiceProviderImageResolver.resolve(savedProfile.expertDetails.avatar)
+            if (angular.isObject(savedProfile.expertDetails)) {
+              return AppServiceProviderImageResolver.resolve(savedProfile.expertDetails.avatar)
+            }
+            return ''
           }
         },
         data: {

@@ -10,7 +10,9 @@
         invitations: []
       }
 
-      scope.checkModel = false
+
+      scope.ownerEmployee = angular.isDefined(scope.ownerEmployee) ? scope.ownerEmployee : false
+
 
       scope.model.invitations = _.map(scope.proModel.invitations, 'email')
 
@@ -67,7 +69,7 @@
         queue: '=',
         order: '=?',
         proModel: '=',
-        checkModel: '=?',
+        ownerEmployee: '=?',
         trTitle: '@',
         trDesc: '@',
         placeholder: '@',
