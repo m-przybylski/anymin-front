@@ -8,7 +8,8 @@ block content
       data-ng-click="onClick()"
       data-ng-enter="onEnter()"
       data-ng-class="{'invalid': badUrl}"
-      icon-class="icon icon-add-24 link-add-icon"
+      data-addon-text="{{'DASHBOARD.CREATE_PROFILE.EXTERNAL_LINKS.ADDON_TEXT' | translate}}"
+      icon-class=" link-add-icon"
       addon-action="onEnter")
       .input-error-messages
         .error(data-translate="DASHBOARD.CREATE_PROFILE.ERROR_EXTERNAL_LINKS" data-ng-show="badUrl")

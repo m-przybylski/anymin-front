@@ -10,11 +10,15 @@
         cost: ''
       }
 
-      scope.model.cost = scope.proModel.cost
+      scope.costSummary = 'DASHBOARD.CONSULTATION_RANGE.COST_SUMMARY'
+      scope.translationUrl = {
+        hrefUrl: 'http://miroslawkwiatek.republika.pl/pdf_y/grawitacja_kwantowa.pdf'
+      }
+
+      scope.model.cost = parseFloat(scope.proModel.cost / 100)
       let _isValid = () => {
         let _isValidDeferred = $q.defer()
-
-        if (angular.isDefined(scope.model.cost) && scope.model.cost.length > 0) {
+        if (angular.isDefined(scope.model.cost) && scope.model.cost > 0) {
           _isValidDeferred.resolve()
         } else {
           _isValidDeferred.reject()
@@ -38,7 +42,7 @@
         scope.noCost = false
         _isValid().then(() => {
 
-          scope.proModel.cost = scope.model.cost
+          scope.proModel.cost = scope.model.cost * 100
           scope.proceed()
 
         }, () => {

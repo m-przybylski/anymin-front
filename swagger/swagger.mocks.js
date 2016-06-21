@@ -34,6 +34,7 @@
                 $httpBackend.whenPOST(apiUrl + '/accounts').respond();
                 $httpBackend.whenGET(apiUrl + '/accounts').respond();
                 $httpBackend.whenPOST(apiUrl + '/accounts/confirm/email/:token').respond();
+                $httpBackend.whenGET(apiUrl + '/accounts/exists/email/:email').respond();
                 $httpBackend.whenPATCH(apiUrl + '/accounts/:accountId').respond();
                 $httpBackend.whenPUT(apiUrl + '/accounts/:accountId').respond();
                 $httpBackend.whenGET(apiUrl + '/accounts/:accountId').respond();

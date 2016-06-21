@@ -13,6 +13,11 @@
           scope.saveSection()
         }
       })
+
+      scope.onEnter = ()=> {
+        element.find('input').blur()
+      }
+
       scope.model.name = scope.proModel.name
 
       let _isValid = () => {
@@ -68,6 +73,7 @@
 
   angular.module('profitelo.directives.service-provider.pro-service-provider-name', [
     'lodash',
+    'profitelo.directives.ng-enter',
     'pascalprecht.translate',
     'profitelo.common.controller.service-provider.service-provider-step-controller'
   ])

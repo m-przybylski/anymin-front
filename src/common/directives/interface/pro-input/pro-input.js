@@ -8,8 +8,8 @@
       scope.onClick = false
       let placeholder = scope.placeholder
       let _inputGroup = $(element)
-      let _excludedKeyCodes = [8, 13, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57]
-
+      let _excludedKeyCodesForPhone = [8, 13, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57]
+      let _excludedKeyCodesForCurrency = [13, 46, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 44]
       if (!scope.type) {
         scope.type = 'text'
       }
@@ -26,7 +26,16 @@
       if ('onlyDigits' in attr.$attr) {
         element.bind('keypress', function(e) {
           let code = e.keyCode || e.which
-          if (_excludedKeyCodes.indexOf(code) < 0) {
+          if (_excludedKeyCodesForPhone.indexOf(code) < 0) {
+            e.preventDefault()
+          }
+        })
+      }
+
+      if ('currency' in attr.$attr) {
+        element.bind('keypress', function(e) {
+          let code = e.keyCode || e.which
+          if (_excludedKeyCodesForCurrency.indexOf(code) < 0) {
             e.preventDefault()
           }
         })

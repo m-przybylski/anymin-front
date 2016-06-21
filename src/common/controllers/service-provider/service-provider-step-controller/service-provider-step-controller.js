@@ -46,7 +46,7 @@
     }
 
     $scope.outClick = () => {
-      $scope.queue.skippedSteps[$scope.order] = true
+      $scope.queue.skippedSteps[$scope.order] = false
       $scope.saveShadowModel()
     }
 

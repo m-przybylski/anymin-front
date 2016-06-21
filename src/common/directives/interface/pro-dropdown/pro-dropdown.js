@@ -44,6 +44,12 @@ function proDropdown($timeout) {
 
     }
 
+    scope.isDisable = ()=> {
+      if ('disable' in attr) {
+        return true
+      }
+    }
+
     scope.update = function() {
       _getScrollbarChoices().perfectScrollbar('destroy')
       $timeout(()=> {
