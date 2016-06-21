@@ -18,7 +18,7 @@ angular.module('profitelo.controller.home', [
 })
 .controller('HomeController', HomeController)
 
-function HomeController($scope) {
+function HomeController() {
   this.expertCard = [
     {
       name: 'Ragnar Lodbrok',

@@ -1,6 +1,6 @@
 (function() {
 
-  function AccountFormController($scope, $state, $filter, AccountApi, proTopWaitingLoaderService, User, proTopAlertService, loginStateService, CommonSettingsService) {
+  function AccountFormController($rootScope, $state, $filter, AccountApi, proTopWaitingLoaderService, User, proTopAlertService, loginStateService, CommonSettingsService) {
 
     this.isPending = false
     this.current = 1
@@ -69,6 +69,7 @@
           msisdn: this.account.phoneNumber.prefix + '' + this.account.phoneNumber.number,
           password: this.account.password
         }).then((response)=> {
+          $rootScope.loggedIn = true
           this.isPending = false
           proTopWaitingLoaderService.stopLoader()
           $state.go('app.dashboard.start')
@@ -109,10 +110,11 @@
     'c7s.ng.userAuth',
     'ui.router',
     'profitelo.services.login-state',
-    'profitelo.directives.pro-top-alert-service',
     'profitelo.swaggerResources',
-    'profitelo.directives.pro-top-waiting-loader-service',
     'profitelo.services.commonSettings',
+    
+    'profitelo.directives.pro-top-waiting-loader-service',
+    'profitelo.directives.pro-top-alert-service',
     'profitelo.directives.interface.pro-alert',
     'profitelo.directives.interface.pro-input-password',
     'profitelo.directives.interface.pro-dropdown',

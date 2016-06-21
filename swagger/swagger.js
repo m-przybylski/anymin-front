@@ -483,8 +483,24 @@
 
           /**
           * @ngdoc method
-          * @name .3.method:partialUpdateAccount
+          * @name .3.method:getAccountEmailExists
           * @methodOf .3
+          * @description
+          * Check if email is taken
+          **/
+
+          'getAccountEmailExists': angular.extend({
+            method: 'GET',
+            url: apiUrl + '/accounts/exists/email/:email',
+            params: {
+              'email': '@email',
+            },
+          }, $resourceActionConfig('3', 'getAccountEmailExists')),
+
+          /**
+          * @ngdoc method
+          * @name .4.method:partialUpdateAccount
+          * @methodOf .4
           * @description
           * Partial update account
           **/
@@ -495,12 +511,12 @@
             params: {
               'accountId': '@accountId',
             },
-          }, $resourceActionConfig('3', 'partialUpdateAccount')),
+          }, $resourceActionConfig('4', 'partialUpdateAccount')),
 
           /**
           * @ngdoc method
-          * @name .4.method:updateAccount
-          * @methodOf .4
+          * @name .5.method:updateAccount
+          * @methodOf .5
           * @description
           * Update account
           **/
@@ -511,12 +527,12 @@
             params: {
               'accountId': '@accountId',
             },
-          }, $resourceActionConfig('4', 'updateAccount')),
+          }, $resourceActionConfig('5', 'updateAccount')),
 
           /**
           * @ngdoc method
-          * @name .5.method:getAccount
-          * @methodOf .5
+          * @name .6.method:getAccount
+          * @methodOf .6
           * @description
           * Retrieve account by id
           **/
@@ -527,12 +543,12 @@
             params: {
               'accountId': '@accountId',
             },
-          }, $resourceActionConfig('5', 'getAccount')),
+          }, $resourceActionConfig('6', 'getAccount')),
 
           /**
           * @ngdoc method
-          * @name .6.method:getRegistrationStatusByMsisdn
-          * @methodOf .6
+          * @name .7.method:getRegistrationStatusByMsisdn
+          * @methodOf .7
           * @description
           * Retrieve
           **/
@@ -543,7 +559,7 @@
             params: {
               'msisdn': '@msisdn',
             },
-          }, $resourceActionConfig('6', 'getRegistrationStatusByMsisdn')),
+          }, $resourceActionConfig('7', 'getRegistrationStatusByMsisdn')),
         });
       }];
     })

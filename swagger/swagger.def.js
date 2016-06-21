@@ -443,8 +443,24 @@
 
           /**
           * @ngdoc method
-          * @name .3.method:partialUpdateAccount
+          * @name .3.method:getAccountEmailExists
           * @methodOf .3
+          * @description
+          * Check if email is taken
+          **/
+
+          'getAccountEmailExists': {
+            method: 'GET',
+            url: apiUrl + '/accounts/exists/email/:email',
+            params: {
+              'email': '@email',
+            },
+          },
+
+          /**
+          * @ngdoc method
+          * @name .4.method:partialUpdateAccount
+          * @methodOf .4
           * @description
           * Partial update account
           **/
@@ -459,8 +475,8 @@
 
           /**
           * @ngdoc method
-          * @name .4.method:updateAccount
-          * @methodOf .4
+          * @name .5.method:updateAccount
+          * @methodOf .5
           * @description
           * Update account
           **/
@@ -475,8 +491,8 @@
 
           /**
           * @ngdoc method
-          * @name .5.method:getAccount
-          * @methodOf .5
+          * @name .6.method:getAccount
+          * @methodOf .6
           * @description
           * Retrieve account by id
           **/
@@ -491,8 +507,8 @@
 
           /**
           * @ngdoc method
-          * @name .6.method:getRegistrationStatusByMsisdn
-          * @methodOf .6
+          * @name .7.method:getRegistrationStatusByMsisdn
+          * @methodOf .7
           * @description
           * Retrieve
           **/
