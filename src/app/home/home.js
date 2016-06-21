@@ -18,8 +18,10 @@ angular.module('profitelo.controller.home', [
 })
 .controller('HomeController', HomeController)
 
+
 function HomeController($scope) {
-  this.expertCard = [
+  var vm = this
+  vm.expertCard = [
     {
       name: 'Ragnar Lodbrok',
       status: 'available'

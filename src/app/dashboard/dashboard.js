@@ -1,9 +1,8 @@
 (function() {
 
-  function DashboardController($state, User) {
+  function DashboardController() {
 
     this.isSidebarOpen = false
-    this.isPending = false
     this.switchUser = false
 
     this.changeAccount=function() {
@@ -16,21 +15,7 @@
     this.toogleSidebar=function() {
       this.isSidebarOpen = !this.isSidebarOpen
     }
-
-    this.logout = () => {
-
-      let action = () => {
-        this.isPending = false
-        $state.go('app.login.account')
-      }
-
-      if (!this.isPending) {
-        this.isPending = true
-        User.logout().then(action, action)
-      }
-
-
-    }
+    
 
     return this
   }
