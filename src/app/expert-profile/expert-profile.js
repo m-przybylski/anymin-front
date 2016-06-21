@@ -14,16 +14,6 @@
       vm.profile = savedProfile.organizationDetails
     }
 
-    this.sliders = {
-      a: 'tag in tags',
-      b: 'tag in tags',
-      c: 'tag in tags',
-      d: 'das',
-      e: '123123',
-      f: '111',
-      g: '123163412646'
-    }
-
     return this
   }
 
