@@ -564,7 +564,7 @@
           * @name .0.method:postEmployments
           * @methodOf .0
           * @description
-          * Create profile creation requests
+          * Invite employees
           **/
 
           'postEmployments': angular.extend({
