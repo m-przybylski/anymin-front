@@ -11,8 +11,7 @@ main.top-content-home
     pro-expert-see-more()
 main.content-blog
   .default-container.advice-tiles
-    div(pro-masonry)
-    .grid
+    .grid(pro-masonry="" data-grid-item=".grid-item")
       .grid-item.grid-item--long2
         pro-news-tile(data-ng-repeat="tile in vm.newsTile" data-ng-model="tile")
       .grid-item

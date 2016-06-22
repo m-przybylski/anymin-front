@@ -1,16 +1,24 @@
 (function() {
 
-  function proMasonry() {
+  function proMasonry($timeout) {
+
+    function linkFunction(scope, element, attr) {
+
+      if (angular.isUndefined(attr.gridItem)) {
+        throw new Error('gridItem attribute has to be given in order for the directive to initialize')
+      }
+
+      $timeout(() => {
+        element.masonry({
+          itemSelector: attr.gridItem
+        })
+      })
+
+    }
+
     return {
       restrict: 'A',
-      link: function (scope, el, attr){
-        angular.element(document).ready(function (){
-          var elem = document.querySelector('.grid')
-          var msnry = new Masonry( elem, {
-            itemSelector: '.grid-item'
-          })
-        })
-      }
+      link: linkFunction
     }
   }
 
