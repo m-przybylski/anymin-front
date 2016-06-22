@@ -14,6 +14,7 @@
       scope.onClickCallback = () => {
         scope.ngModel = !scope.ngModel
         scope.changeCheckedState(scope.ngModel)
+
       }
 
       scope.changeCheckedState(scope.ngModel)

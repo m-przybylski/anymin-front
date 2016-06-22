@@ -15,7 +15,7 @@
 
         pro-checkbox(id="acceptRules"
         data-ng-model="vm.rulesAccepted"
-        data-label="{{'LOGIN.ACCEPT_RULES' | translate}}"
+        data-label="{{vm.acceptRulesTr | translate: vm.translationUrl}}"
         data-name="acceptRules"
         data-ng-class="{'invalid': !vm.rulesAccepted && smsCodeForm.$submitted}"
         required)
