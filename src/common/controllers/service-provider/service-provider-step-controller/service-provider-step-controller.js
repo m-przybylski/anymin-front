@@ -9,11 +9,6 @@
 
     $scope.restoreShadowModel = () => {
       $scope.model = angular.copy(shadowModel)
-      shadowModel = null
-    }
-
-    let _manualOrderChangeRequestHandle = (targetStep) => {
-      $rootScope.$broadcast('manualOrderChangeRequestGrant', targetStep)
     }
 
     $scope.proceed = () => {
@@ -47,7 +42,7 @@
 
     $scope.outClick = () => {
       $scope.queue.skippedSteps[$scope.order] = false
-      $scope.saveShadowModel()
+      $scope.restoreShadowModel()
     }
 
     $scope.saveStep = () => {
@@ -69,7 +64,7 @@
     $scope.$on('manualOrderChangeRequest', (event, targetStep) => {
       if ($scope.order === $scope.queue.currentStep && targetStep !== $scope.order) {
         $scope.outClick()
-        _manualOrderChangeRequestHandle(targetStep)
+        $rootScope.$broadcast('manualOrderChangeRequestGrant', targetStep)
       }
     })
     return this
