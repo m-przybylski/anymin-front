@@ -7,14 +7,13 @@
 
       scope.languages = ['Polish', 'English', 'Italian', 'Spanish']
 
-
       scope.model = {
         languages: []
       }
 
       let _isValid = () => {
         let _isValidDeferred = $q.defer()
-
+        console.log()
         if (angular.isDefined(scope.model.languages) && scope.model.languages.length > 0) {
           _isValidDeferred.resolve()
         } else {

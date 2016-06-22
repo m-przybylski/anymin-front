@@ -24,7 +24,10 @@ function proTagsDropdown($timeout) {
       _getScrollbarChoices().perfectScrollbar()
     }
 
-    scope.select = function(item, model) {
+    scope.disableTagging = !!('disableTagging' in attr)
+
+
+    scope.select = function(item, model, select) {
       if ('employee' in attr) {
         scope.proModel.push({email: item})
       } else {
@@ -45,6 +48,10 @@ function proTagsDropdown($timeout) {
       if ('disableTyping' in attr && event) {
         event.preventDefault()
       }
+    }
+
+    scope.groupFind = function(item) {
+      return item
     }
 
     scope.update = function() {
