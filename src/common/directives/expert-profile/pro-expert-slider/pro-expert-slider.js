@@ -6,8 +6,6 @@
 
       scope.prevSlide = () => {
         if (controlsClick > 0) {
-          let width = $('.slider-slides').width()
-          width = width/3
           $('.slider-slides').animate({'left': '+=295px'}, 'slow')
           controlsClick = controlsClick - 1
         }
@@ -16,10 +14,7 @@
       scope.nextSlide = () => {
         let itemCount = $('.slides').length
         let currentSlides = itemCount-3
-
         if (currentSlides > controlsClick) {
-          let width = $('.slider-slides').width()
-          width = width/3
           $('.slider-slides').animate({'left': '-=295px'}, 'slow')
           controlsClick = controlsClick + 1
         }
