@@ -38,8 +38,6 @@ angular.module('profitelo.controller.home', [
   })
 })
 .controller('HomeController', HomeController)
-<<<<<<< 43142d416c3551c0aa2c1b05cde462446e0e999b
-=======
 
 function HomeController($scope) {
   this.expertCard = [
@@ -76,4 +74,3 @@ function HomeController($scope) {
   ]
   return this
 }
->>>>>>> add blog/news tiles
