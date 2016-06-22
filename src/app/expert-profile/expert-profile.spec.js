@@ -27,7 +27,8 @@ describe('Unit tests: ExpertProfileController >', () => {
           $scope: _scope,
           ProfileApi: _ProfileApi_,
           User: _User_,
-          savedProfile: {}
+          savedProfile: {},
+          profileImage: {}
         })
 
 

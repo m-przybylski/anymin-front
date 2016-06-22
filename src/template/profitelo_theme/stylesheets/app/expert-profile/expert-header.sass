@@ -1,6 +1,8 @@
 .header-container
   background-color: $c-white
   border-bottom: 1px solid $c-lines
+  &:first-child
+    padding-top: 60px
   &:last-child
     margin-bottom: 60px
 
@@ -10,8 +12,10 @@
     flex-wrap: nowrap
     justify-content: space-between
     align-content: center
-    align-items: center
+    align-items: flex-start
     width: 100%
+    +lgm
+      width: 1200px
     margin: 0 auto
     padding: 60px 0
     +lgm

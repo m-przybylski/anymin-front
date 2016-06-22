@@ -1,16 +1,39 @@
 (function() {
-  function AppController($rootScope, InterfaceLanguageService) {
+  function AppController($rootScope, $state, $filter, InterfaceLanguageService, User, proTopAlertService) {
 
     InterfaceLanguageService.setLanguage(InterfaceLanguageService.getStartupLanguage())
 
+    this.isPending = false
+
     if (typeof lastCommitMessage !== 'undefined') {
       $rootScope.gitCommit = lastCommitMessage
+    }
+
+    this.logout = (targetState = 'app.login.account') => {
+
+      let action = () => {
+        this.isPending = false
+        $rootScope.loggedIn = false
+        proTopAlertService.success({
+          message: $filter('translate')('LOGIN.SUCCESSFUL_LOGOUT'),
+          timeout: 2
+        })
+        $state.go(targetState)
+      }
+
+      if (!this.isPending) {
+        this.isPending = true
+        User.logout().then(action, action)
+      }
+
     }
 
     return this
   }
 
   function runFunction($rootScope, $log, $state, User, proTopAlertService) {
+
+    $rootScope.loggedIn = false
 
     function userTransfer(event, toState, fromState) {
       let pac = User.pageAccessCheck(event, toState)
@@ -91,6 +114,7 @@
       url: '',
       abstract: true,
       controller: 'AppController',
+      controllerAs: 'appController',
       templateUrl: 'templates/app.tpl.html',
       data: {
         pageTitle: 'PAGE_TITLE.BASE'
@@ -143,9 +167,20 @@
           /* istanbul ignore next */
           return deferred.promise
         },
-        session: (User) => {
+        session: ($rootScope, $q, User) => {
           /* istanbul ignore next */
-          return User.getStatus()
+          let deferred = $q.defer()
+          /* istanbul ignore next */
+          User.getStatus().then((response)=> {
+            /* istanbul ignore next */
+            if (angular.isDefined(response.status) && response.status !== 401) {
+              $rootScope.loggedIn = true
+            }
+            /* istanbul ignore next */
+            deferred.resolve()
+          })
+          /* istanbul ignore next */
+          return deferred.promise
         }
       }
     })
