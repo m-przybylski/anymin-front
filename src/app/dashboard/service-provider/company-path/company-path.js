@@ -26,9 +26,9 @@
     if (savedProfile && savedProfile.organizationDetails) {
       this.companyPathModel = savedProfile.organizationDetails
       this.queue = {
-        amountOfSteps: 7,
+        amountOfSteps: 6,
         currentStep: 7,
-        completedSteps: 7,
+        completedSteps: 6,
         skippedSteps: {}
       }
       this.inEditMode = true

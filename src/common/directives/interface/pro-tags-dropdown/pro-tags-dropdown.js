@@ -34,6 +34,10 @@ function proTagsDropdown($timeout) {
       _getScrollbarChoices().perfectScrollbar()
     }
 
+    scope.remove = ($item, $model)=> {
+      scope.proModel.splice(scope.proModel.indexOf($item), 1)
+    }
+
     scope.onKeypress = (event)=> {
       if (event.keyCode === 38) {
         event.preventDefault()
@@ -77,6 +81,7 @@ function proTagsDropdown($timeout) {
       defaultValue: '@',
       label: '@',
       tagLabel: '@'
+
     }
   }
 
