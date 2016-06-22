@@ -3,19 +3,10 @@ describe('Unit tests: Dashboard >', () => {
 
     let $scope
     let _DashboardController
-    let _httpBackend
-    let _state
-
-    let _url = 'http://api.webpage.com'
-
 
     beforeEach(() => {
       module('profitelo.controller.dashboard')
-      inject(($rootScope, $controller, $injector) => {
-
-        _httpBackend = $injector.get('$httpBackend')
-        _state = $injector.get('$state')
-
+      inject(($rootScope, $controller) => {
         $scope = $rootScope.$new()
         _DashboardController = $controller('DashboardController', {})
       })
@@ -36,26 +27,7 @@ describe('Unit tests: Dashboard >', () => {
       _DashboardController.toogleSidebar()
       expect(_DashboardController.isSidebarOpen).toBeTruthy()
     })
-
-    it('should start logout action if not pending', () => {
-
-      spyOn(_state, 'go')
-      let session = _httpBackend.when('DELETE', _url + '/session')
-
-      session.respond(200)
-
-      _DashboardController.logout()
-      _httpBackend.flush()
-      expect(_state.go).toHaveBeenCalledWith('app.login.account')
-    })
-
-    it('should not start logout action if pending', () => {
-
-      _DashboardController.isPending = true
-      spyOn(_state, 'go')
-      _DashboardController.logout()
-      expect(_state.go).not.toHaveBeenCalledWith('app.login.account')
-    })
+    
 
   })
 })

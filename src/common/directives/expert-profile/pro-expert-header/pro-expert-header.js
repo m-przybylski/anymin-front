@@ -6,7 +6,8 @@
       restrict: 'E',
       replace: true,
       scope: {
-        profile: '=?'
+        profile: '=?',
+        avatar: '=?'
       }
     }
   }

@@ -4,7 +4,8 @@
     p(data-translate="DASHBOARD.CREATE_PROFILE.FILE_UPLOADER_TITLE")
     p(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.AND_PHOTOS")
     .switcher
-      i.icon.icon-arrow-left-12(data-ng-click="vm.prevSlide")
-      i.icon.icon-arrow-right-12(data-ng-click="vm.nextSlide")
-  .slider-slides(data-ng-repeat="slide in sliders")
-    img(src='/assets/images/John_Doe.jpg')
+      i.icon.icon-arrow-left-12(data-ng-click="prevSlide()")
+      i.icon.icon-arrow-right-12(data-ng-click="nextSlide()")
+  .slider-slides
+    .slides(data-ng-repeat="slide in sliders")
+      img(src='http://api.dev.profitelo.pl/files/{{slide}}/download')

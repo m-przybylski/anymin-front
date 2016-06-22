@@ -1,7 +1,7 @@
 (function() {
 
-  function DashboardStartController() {
-
+  function DashboardStartController(User) {
+    this.userId = User.getData('id')
     return this
   }
 
