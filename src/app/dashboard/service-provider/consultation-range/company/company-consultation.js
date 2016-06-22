@@ -1,5 +1,5 @@
 (function() {
-  function CompanyConsultationController($scope, $state, savedProfile, ServiceApi, proTopAlertService, profileImage) {
+  function CompanyConsultationController($scope, $state, $timeout, savedProfile, ServiceApi, proTopAlertService, profileImage) {
 
     let _createDefaultModel = (cost)=> {
       return {

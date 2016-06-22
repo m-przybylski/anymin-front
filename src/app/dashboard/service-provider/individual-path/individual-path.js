@@ -44,7 +44,7 @@
       })
     }
 
-    if (angular.isDefined(savedProfile)) {
+    if (angular.isObject(savedProfile)) {
       this.hasProfile = true
     }
 

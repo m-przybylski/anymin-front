@@ -8,7 +8,7 @@
         .summary-firstname
             .firstname-lastname
                 h2 {{name}}
-            .languages
+            .languages(data-ng-show="!!languages")
                 h6 Języki:
                     span(data-ng-repeat="language in languages") &nbsp {{language}}
     .summary-descriptions
