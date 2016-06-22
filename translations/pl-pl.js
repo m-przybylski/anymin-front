@@ -36,6 +36,7 @@
         		"DASHBOARD.CONSULTATION_RANGE.WHO_PROVIDES_TITLE":"Kto będzie świadczył konsultację",
         		"DASHBOARD.CREATE_PROFILE.CREATE_PROFILE_PLACEHOLDER":"http://",
         		"DASHBOARD.CREATE_PROFILE.CREATE_PROFILE_TITLE":"Tworzenie konta usługodawcy",
+        		"DASHBOARD.CREATE_PROFILE.CREATE_PROFILE_YOUR_DOCS":"Twoje dokumenty",
         		"DASHBOARD.CREATE_PROFILE.CREATE_PROFILE_YOUR_LINKS":"Twoje linki:",
         		"DASHBOARD.CREATE_PROFILE.EDIT_CONSULTATION":"Zapisz zmiany",
         		"DASHBOARD.CREATE_PROFILE.ERROR_EXTERNAL_LINKS":"Podaj poprawny adres zewnętrzny",
