@@ -83,6 +83,7 @@ module.exports = {
       'node_modules/angular-lodash/angular-lodash.js',
       'node_modules/hellojs/dist/hello.all.min.js',
       'node_modules/angular-touch/angular-touch.js',
+      'node_modules/masonry-layout/dist/masonry.pkgd.js',
       'generated-modules/common-config/common-config.js'
     ],
     css: [
