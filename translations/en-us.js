@@ -79,7 +79,7 @@
         		"DASHBOARD.CREATE_PROFILE.SUMMARY.CURRENCY":"PLN/MIN",
         		"DASHBOARD.CREATE_PROFILE.SUMMARY.VERIFY_YOU_PROFILE":"Weryfikuj swój profil",
         		"DASHBOARD.CREATE_PROFILE.SUMMARY_TITLE":"Podsumowanie:",
-        		"DASHBOARD.CREATE_PROFILE.SUMMARY_VERIFY":"Twoje konto zostało wysłane do weryfikacji",
+        		"DASHBOARD.CREATE_PROFILE.SUMMARY_VERIFY":"Twoje konto zostało syłane do weryfikacji",
         		"DASHBOARD.CREATE_PROFILE.VERIFY_BUTTON_TITLE":"Weryfikuj",
         		"DASHBOARD.EXPERT_ACCOUNT.EXPERT_DESCRIPTION":"Opis Experta",
         		"DASHBOARD.EXPERT_ACCOUNT.EXPERT_DOCUMENT_TITLE_DESCRIPTION":"Wgraj certyfikaty, dokumenty lub swoją wizytówkę.",
@@ -233,7 +233,3 @@
         })
     }])
 })(angular);
-
-
-
-

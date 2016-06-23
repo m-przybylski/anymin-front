@@ -79,23 +79,7 @@
         		"DASHBOARD.CREATE_PROFILE.SUMMARY.CURRENCY":"PLN/MIN",
         		"DASHBOARD.CREATE_PROFILE.SUMMARY.VERIFY_YOU_PROFILE":"Weryfikuj swój profil",
         		"DASHBOARD.CREATE_PROFILE.SUMMARY_TITLE":"Podsumowanie:",
-        		"DASHBOARD.CREATE_PROFILE.SUMMARY_VERIFY":"Twoje konto zostało wysłane do weryfikacji",
-        		"DASHBOARD.CREATE_PROFILE.VERIFY_BUTTON_TITLE":"Weryfikuj",
-        		"DASHBOARD.EXPERT_ACCOUNT.EXPERT_DESCRIPTION":"Opis Experta",
-        		"DASHBOARD.EXPERT_ACCOUNT.EXPERT_DOCUMENT_TITLE_DESCRIPTION":"Wgraj certyfikaty, dokumenty lub swoją wizytówkę.",
-        		"DASHBOARD.EXPERT_ACCOUNT.EXPERT_LANGUAGES":"Języki w jakich świadczysz konsultacje",
-        		"DASHBOARD.EXPERT_ACCOUNT.EXPERT_LANGUAGE_PLACEHOLDER":"np. Język Angielski",
-        		"DASHBOARD.EXPERT_ACCOUNT.EXPERT_PLACEHOLDER":"np. Jan Kowalski",
-        		"DASHBOARD.EXPERT_ACCOUNT.EXPERT_TITLE_DESCRIPTION":"Krótki opis Twojej działalności, czego można spodziewać po konsultacji.",
-        		"DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT":"Imię Nazwisko",
-        		"DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT_DESCRIPTION":"Podaj swoje Imię i Nazwisko pod którym będziesz prowadził konsultacje.",
-        		"DASHBOARD.EXPERT_ACCOUNT.PROFILE_PHOTO":"Zdjęcie Profilowe",
-        		"DASHBOARD.EXPERT_ACCOUNT.PROFILE_PHOTO_DESCRIPTION":"Zdjęcie powinno być w formacie jpg, png i nie przekraczać 2mb.",
-        		"DASHBOARD.EXPERT_ACCOUNT.STEP1_PROGRESS_BAR_TITLE":"Etap 1 - Tworzenie profilu eksperta",
-        		"DASHBOARD.EXPERT_ACCOUNT.STEP2_PROGRESS_BAR_TITLE":"ETAP 2 - DODAWANIE KONSULTACJI",
-        		"DASHBOARD.EXPERT_ACCOUNT.STEP2_PROGRESS_BAR_TITLE_WITH_SAVE":"Zapisz i przejdz dalej",
-        		"DASHBOARD.INVITATION.ACCEPT":"Zaakceptuj zaproszenie",
-        		"DASHBOARD.INVITATION.REJECT":"Odrzuć",
+        		"DASHBOARD.CREATE_PROFILE.SUMMARY_VERIFY":"Twoje konto zostało syłane do weryfikacji",
         		"DASHBOARD.MENU.AVAILABILITY":"Dostępność",
         		"DASHBOARD.MENU.CLIENT":"Klient",
         		"DASHBOARD.MENU.DASHBOARD":"Dashboard",
@@ -233,7 +217,3 @@
         })
     }])
 })(angular);
-
-
-
-
