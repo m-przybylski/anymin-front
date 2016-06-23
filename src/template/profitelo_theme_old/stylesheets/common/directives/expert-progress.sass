@@ -9,16 +9,16 @@
     margin-bottom: 10px
 
   .box-container
-    +css3-prefix(display, flex)
-    +css3-prefix(flex-wrap, wrap)
-    +css3-prefix(justify-content, center)
+    display: flex
+    flex-wrap: wrap
+    justify-content: center
 
   .box
     @extend .default-border
-    +css3-prefix(display, flex)
-    +css3-prefix(align-items, center)
-    +css3-prefix(justify-content, flex-start)
-    +css3-prefix(flex-direction, column)
+    display: flex
+    align-items: center
+    justify-content: flex-start
+    flex-direction: column
     width: 250px
     margin-right: 20px
     padding-top: 40px

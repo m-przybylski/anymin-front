@@ -1,7 +1,7 @@
 .top-waiting-loader
   $loaderHeight: 8px
   +transition()
-  +css3-prefix(animation-duration, 10s)
+  animation-duration: 10s
 
   position: fixed
   top: -$loaderHeight
@@ -14,7 +14,7 @@
     top: 0px
   .waiting-loader-progress
     +transition()
-    +css3-prefix(animation-duration, 10s)
+    animation-duration: 10s
     height: 100%
     width: 0%
     background-color: $c-primary

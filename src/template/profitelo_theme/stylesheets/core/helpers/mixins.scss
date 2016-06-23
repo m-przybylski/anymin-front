@@ -19,19 +19,21 @@
 ////
 
 
-/// Adds a browser prefix to the property
-/// @param {*} $property Property
-/// @param {*} $value Value
-
-@mixin css3-prefix($property, $value) {
-  -webkit-#{$property}: #{$value};
-  -khtml-#{$property}: #{$value};
-  -moz-#{$property}: #{$value};
-  -ms-#{$property}: #{$value};
-  -o-#{$property}: #{$value};
-  #{$property}: #{$value};
+@mixin flexbox {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
 }
 
+@mixin flexbox-inline($property) {
+  display: -webkit-#{$property}-box;
+  display: -moz-#{$property}-box;
+  display: -ms-#{$property}-flexbox;
+  display: -webkit-#{$property}-flex;
+  display: #{$property}-flex;
+}
 
 /// Background Gradient
 /// @param {Color} $startColor [#3C3C3C] - Start Color
@@ -88,9 +90,9 @@
 
 @mixin background-size($width: 100%, $height: $width) {
   @if type-of($width) == 'number' and $height != null {
-    @include css3-prefix('background-size', $width $height);
+    background-size: $width $height;
   } @else {
-    @include css3-prefix('background-size', $width);
+    background-size: $width;
   }
 }
 
@@ -110,7 +112,7 @@
 /// @require {mixin} css3-prefix
 
 @mixin border-radius($radius: 5px) {
-  @include css3-prefix('border-radius', $radius);
+  border-radius: $radius;
 }
 
 
@@ -149,9 +151,9 @@
   display: -moz-box;
   display: box;
 
-  @include css3-prefix('box-orient', $orient);
-  @include css3-prefix('box-pack', $pack);
-  @include css3-prefix('box-align', $align);
+  box-orient: $orient;
+  box-pack: $pack;
+  box-align: $align;
 }
 
 
@@ -179,9 +181,9 @@
 
 @mixin box-shadow($x: 2px, $y: 2px, $blur: 5px, $color: rgba(0,0,0,.4), $inset: "") {
   @if ($inset != "") {
-    @include css3-prefix('box-shadow', $inset $x $y $blur $color);
+    box-shadow: $inset $x $y $blur $color;
   } @else {
-    @include css3-prefix('box-shadow', $x $y $blur $color);
+    box-shadow: $x $y $blur $color;
   }
 }
 
@@ -191,7 +193,7 @@
 /// @require {mixin} css3-prefix
 
 @mixin box-sizing($type: border-box) {
-  @include css3-prefix('box-sizing', $type);
+  box-sizing: $type;
 }
 
 
@@ -201,8 +203,8 @@
 /// @require {mixin} css3-prefix
 
 @mixin columns($count: 3, $gap: 10) {
-  @include css3-prefix('column-count', $count);
-  @include css3-prefix('column-gap', $gap);
+  column-count: $count;
+  column-gap: $gap;
 }
 
 
@@ -216,8 +218,7 @@
 @mixin double-borders($colorOne: #3C3C3C, $colorTwo: #999999, $radius: 0) {
   border: 1px solid $colorOne;
 
-  @include css3-prefix('box-shadow', 0 0 0 1px $colorTwo);
-
+  box-shadow: 0 0 0 1px $colorTwo;
   @include border-radius( $radius );
 }
 
@@ -227,7 +228,7 @@
 /// @require {mixin} css3-prefix
 
 @mixin flex($value: 1) {
-  @include css3-prefix('box-flex', $value);
+  box-flex: $value;
 }
 
 
@@ -236,7 +237,7 @@
 /// @require {mixin} css3-prefix
 
 @mixin flip($scaleX: -1) {
-  @include css3-prefix('transform', scaleX($scaleX));
+  transform: scaleX($scaleX);
   filter:            FlipH;
   -ms-filter:        "FlipH";
 }
@@ -267,7 +268,7 @@
 
   filter:         alpha(opacity=$opacityMultiplied);
   -ms-filter:     "progid:DXImageTransform.Microsoft.Alpha(Opacity=" + $opacityMultiplied + ")";
-  @include css3-prefix('opacity', $opacity);
+  opacity: $opacity;
 }
 
 
@@ -276,7 +277,7 @@
 /// @require {mixin} css3-prefix
 
 @mixin outline-radius($radius: 5px) {
-  @include css3-prefix('outline-radius', $radius);
+  outline-radius: $radius;
 }
 
 
@@ -285,7 +286,7 @@
 /// @require {mixin} css3-prefix
 
 @mixin resize($direction: both) {
-  @include css3-prefix('resize', $direction);
+  resize: $direction;
 }
 
 
@@ -300,7 +301,7 @@
 /// @require {mixin} css3-prefix
 
 @mixin rotate($deg: 0, $m11: 0, $m12: 0, $m21: 0, $m22: 0) {
-  @include css3-prefix('transform', rotate($deg + deg));
+  transform: rotate($deg + deg);
   filter: progid:DXImageTransform.Microsoft.Matrix(
                   M11=#{$m11}, M12=#{$m12}, M21=#{$m21}, M22=#{$m22}, sizingMethod='auto expand');
   zoom: 1;
@@ -323,7 +324,7 @@
 /// @require {mixin} css3-prefix
 
 @mixin transform($params) {
-  @include css3-prefix('transform', $params);
+  transform: $params;
 }
 
 
@@ -332,7 +333,7 @@
 /// @require {mixin} css3-prefix
 
 @mixin transform-origin($params) {
-  @include css3-prefix('transform-origin', $params);
+  transform-origin: $params;
 }
 
 
@@ -341,7 +342,7 @@
 /// @require {mixin} css3-prefix
 
 @mixin transform-style($style: preserve-3d) {
-  @include css3-prefix('transform-style', $style);
+  transform-style: $style;
 }
 
 /// Transition
@@ -351,11 +352,11 @@
 @mixin transition($properties...) {
 
   @if length($properties) >= 1 {
-    @include css3-prefix('transition', $properties);
+    transition: $properties;
   }
 
   @else {
-    @include css3-prefix('transition',  "all 0.2s ease-in-out 0s");
+    transition:  all 0.2s ease-in-out 0s;
   }
 }
 
@@ -373,7 +374,7 @@
 
   @include border-radius($radius);
 
-  @include css3-prefix('box-shadow', "0 0 0 1px #{$colorTwo}, 0 0 0 2px #{$colorThree}");
+  box-shadow: "0 0 0 1px #{$colorTwo}, 0 0 0 2px #{$colorThree}";
 }
 
 
@@ -405,7 +406,7 @@
 /// @require {mixin} css3-prefix
 
 @mixin animation($str) {
-  @include css3-prefix('animation', $str);
+  animation: $str;
 }
 // Scrollbars
 /// @param {Length} $size - Horizontal scrollbar's height and vertical scrollbar's width
