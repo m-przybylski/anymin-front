@@ -59,11 +59,11 @@ describe('Unit tests: ServiceProviderStepController >', () => {
 
       _scopeSlave.order = 4
 
-      spyOn(_scope, 'saveShadowModel')
+      spyOn(_scopeSlave, 'saveShadowModel')
       _scope.onClick(4)
 
       expect(_scope.queue.currentStep).toEqual(4)
-      expect(_scope.saveShadowModel).toHaveBeenCalled()
+      expect(_scopeSlave.saveShadowModel).toHaveBeenCalled()
 
     })
 
