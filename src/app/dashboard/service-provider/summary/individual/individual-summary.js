@@ -1,5 +1,5 @@
 (function() {
-  function IndividualSummaryController($state, savedProfile, ServiceApi, proTopAlertService, profileImage) {
+  function IndividualSummaryController($state, $filter, savedProfile, ServiceApi, proTopAlertService, profileImage) {
 
     if (savedProfile && savedProfile.expertDetails && !savedProfile.organizationDetails) {
       this.profile = savedProfile.expertDetails
@@ -24,6 +24,10 @@
     this.verifyProfile = ()=> {
       ServiceApi.postServicesVerify().$promise.then((res)=> {
         $state.go('app.dashboard.start')
+        proTopAlertService.success({
+          message: $filter('translate')('DASHBOARD.CREATE_PROFILE.SUMMARY_VERIFY'),
+          timeout: 4
+        })
       }, (err) => {
         proTopAlertService.error({
           message: 'error',
@@ -65,6 +69,9 @@
         serviceId: id
       }).$promise.then((res)=> {
         this.consultations.splice(index, 1)
+        if (this.consultations.length === 0) {
+          $state.go('app.dashboard.service-provider.consultation-range.individual')
+        }
       }, (err) => {
         proTopAlertService.error({
           message: 'error',

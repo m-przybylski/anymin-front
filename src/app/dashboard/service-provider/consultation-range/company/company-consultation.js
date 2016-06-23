@@ -75,16 +75,18 @@
     }
 
     this.saveConsultationObject = () => {
-      if (this.queue.completedSteps === this.queue.amountOfSteps) {
-        $timeout(()=>{
-          _postConsultationMethod()
-        })
-
+      let _redirectByOwnerEmployeeStatus = () => {
+        if (!!_.find(this.consultations, {'ownerEmployee': true}) && !savedProfile.expertDetails ) {
+          $state.go('app.dashboard.service-provider.individual-path')
+        } else {
+          $state.go('app.dashboard.service-provider.summary.company')
+        }
       }
-      if (!!_.find(this.consultations, {'ownerEmployee': true}) && !savedProfile.expertDetails ) {
-        $state.go('app.dashboard.service-provider.individual-path')
+
+      if (this.queue.completedSteps === this.queue.amountOfSteps) {
+        _postConsultationMethod(_redirectByOwnerEmployeeStatus)
       } else {
-        $state.go('app.dashboard.service-provider.summary.company')
+        _redirectByOwnerEmployeeStatus()
       }
 
     }

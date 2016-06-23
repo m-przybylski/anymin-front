@@ -9,7 +9,7 @@
             .firstname-lastname
                 h2 {{name}}
             .languages(data-ng-show="!!languages && languages.length > 0")
-                h6 Języki:
+                h6 {{"DASHBOARD.CREATE_PROFILE.PROFILE_LANGUAGE_HEADER" | translate}}
                     span(data-ng-repeat="language in languages") &nbsp {{language}}
     .summary-descriptions
         p {{description}}

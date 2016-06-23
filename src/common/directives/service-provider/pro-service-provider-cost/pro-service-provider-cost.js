@@ -40,6 +40,14 @@
         scope.required = true
       }
 
+      scope.$watch(() => {
+        return scope.model.cost
+      }, (newValue, oldValue) => {
+        if (newValue !== undefined && typeof newValue !== 'number') {
+          scope.model.cost = scope.model.cost.replace(',', '.')
+        }
+      }, true)
+
       scope.saveSection = () => {
         scope.noCost = false
         _isValid().then(() => {
