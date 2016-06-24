@@ -1,27 +1,27 @@
 div
   .header-container
     .header-content
+      .statistic
+        .social-icon
+          i.icon.icon-heart-16
+          p 235
+        .social-icon
+          i.icon.icon-share-16
+          p 76
+      .personal-info
+        img(ng-src='{{avatar}}' alt='{{profile.name}}')
+        h3 {{ profile.name }}
+        .status
+          span Dostępny
+        .languages
+          span(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.PROVIDER_LAGUAGES")
+          span(ng-repeat="lang in profile.languages") {{ lang + ", "}} 
       .company-list
         p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.COOPERATE_WITH")
         .company-logo
           img(src="/assets/images/John_Doe.jpg")
           img(src="/assets/images/John_Doe.jpg")
           img(src="/assets/images/John_Doe.jpg")
-      .personal-info
-        img(ng-src='{{avatar}}' alt='{{profile.name}}')
-        h3 {{ profile.name }}  
-        .status
-          span Dostępny
-        .languages
-          span(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.PROVIDER_LAGUAGES")
-          span(ng-repeat="lang in profile.languages") {{ lang + ", "}} 
-      .statistic
-        .social-icon
-          i.icon.icon-tumblr-24
-          p 235
-        .social-icon
-          i.icon.icon-facebook-24
-          p 76
         
   .header-container
     .header-content
@@ -30,4 +30,4 @@ div
         .description
           p {{ profile.description }}
         .more-icon
-          p ...
+          i.icon.icon-arrow-down-12

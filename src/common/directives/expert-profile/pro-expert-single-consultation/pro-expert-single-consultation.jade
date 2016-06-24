@@ -1,25 +1,36 @@
 .single-container
-  .title-row-consultation
-    .company-logo
-      img(src="/assets/images/John_Doe.jpg")
-    .details-consultations
+  .title-row-consultation.black-row
+    .options-consultation
+      div
+        i.icon.icon-satisfaction-16
+        span {{ satisfaction }}%
+      div
+        i.icon.icon-calls-16
+        span {{ talks }}
+      div
+        i.icon.icon-time-16
+        span {{ timeAverage }} min.
+    .title-row
       h3 {{ name }}
-      .options-consultation
-        span {{ satisfaction }}{{'HOME.TOP_CONTAINER.EXPERT_PROFILE.SATISFACTION_PERCENT' | translate}}
-        span {{ talks }} {{'HOME.EXPERT_CONVERSATIONS' | translate}}
-        span {{'HOME.TOP_CONTAINER.EXPERT_PROFILE.AVERANGE_CONSULTATION_TIME' | translate}} {{ timeAverage }} min.
     .cost-consultations
-      h3 {{ minuteCost }} zł/min
-      i.icon.icon-headphone-16
-  .title-row-consultation
+      .prize
+        i.icon.icon-price-32
+        h3 {{ minuteCost / 100 }}
+        h3.currency zł/min
+      .call
+        p ZADZWOŃ
+        i.icon.icon-headphone-16
+      
+  .title-row-consultation.footer-consultation
+    p Tagi (18)
     .tags-consultation
       p(ng-repeat="tag in tags") {{tag}}
-
-    .more-consultation
-      span {{'HOME.TOP_CONTAINER.MAIN_HEADER.SHOW_ALL' | translate}} (+10)
-  .title-row-consultation.footer-consultation
-    div
-      p {{'HOME.TOP_CONTAINER.EXPERT_PROFILE.EXPERT_HELPS' | translate}} ({{positiveMark}})
-      p {{'HOME.TOP_CONTAINER.EXPERT_PROFILE.EXPERT_NOT_HELPS' | translate}} ({{negativeMark}})
-    div
-      p {{'HOME.TOP_CONTAINER.MAIN_HEADER.SHOW_ALL_COMMENTS' | translate}} ()
+    
+    p Komentarze (100)
+    .comments
+      .help
+        i.icon.icon-good-32
+        p {{positiveMark}}
+      .help
+        i.icon.icon-bad-32
+        p {{negativeMark}}

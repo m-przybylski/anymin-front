@@ -5,17 +5,21 @@
       var controlsClick = 0
 
       scope.prevSlide = () => {
-        if (controlsClick > 0) {
-          $('.slider-slides').animate({'left': '+=295px'}, 'slow')
+        if(controlsClick > 0) {
+          let width = $('.slides').width() + 32
+          $('.slider-slides').animate({'left': '+='+width+'px'}, 'slow')
           controlsClick = controlsClick - 1
         }
       }
 
       scope.nextSlide = () => {
+        let width = $('.slides').width() + 32
+        let containerWidth = $('.slider-control').width() + 32
+        let countVisableItem = Math.round(containerWidth/width)
         let itemCount = $('.slides').length
-        let currentSlides = itemCount-3
-        if (currentSlides > controlsClick) {
-          $('.slider-slides').animate({'left': '-=295px'}, 'slow')
+        let currentSlides = itemCount - countVisableItem
+        if (controlsClick < currentSlides) {
+          $('.slider-slides').animate({'left': '-='+width+'px'}, 'slow')
           controlsClick = controlsClick + 1
         }
       }

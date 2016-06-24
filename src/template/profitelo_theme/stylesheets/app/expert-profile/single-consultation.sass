@@ -2,34 +2,40 @@
   width: 100%
   margin: 16px auto
   background-color: $c-white
-  -webkit-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1)
-  -moz-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1)
-  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1)
-  padding: 30px
+  -webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.1)
+  -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.1)
+  box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.1)
+  padding: 8px 16px
+  background-color: $c-background-2
+
+  .black-row
+    background-color: $c-primary-txt
+    padding: 16px
+    color: $c-white
 
   +lgm
     width: 1200px
 
-  .title-row-consultation
+  .title-row
     display: flex
-    flex-direction: column
+    flex-direction: row
     flex-wrap: nowrap
-    justify-content: space-between
+    justify-content: flex-start
     align-content: center
     align-items: center
-    +smm
-      flex-direction: row
-
-    .company-logo
-      width: 5%
-      img
-        width: 48px
-        height: 48px
-        +border-radius(50%)
     h3
-      margin: 0
-      color: $c-primary-txt
+      color: $c-white
+      +default-font-regular
 
+  .title-row-consultation
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+    justify-content: flex-start
+    align-content: center
+    align-items: center
+    margin-top: 16px
+    +default-font-light
     .details-consultations
       width: 100%
       margin: 0
@@ -40,61 +46,108 @@
         margin-left: 16px
         text-align: left
         width: 80%
-      .options-consultation
-        display: flex
-        flex-direction: row
-        flex-wrap: nowrap
-        justify-content: center
-        align-content: center
-        align-items: center
-        +smm
-          justify-content: flex-start
-        span
-          padding-right: 16px
-          color: $c-secondary-txt
-          font-size: $f-nav-size
-          font-weight: bold
-
-    .cost-consultations
+    .options-consultation
       display: flex
       flex-direction: row
       flex-wrap: nowrap
-      justify-content: center
+      justify-content: flex-start
+      align-content: center
+      align-items: center
+      width: 100%
+      color: $c-secondary-txt
+      i
+        font-size: $f-nav-size
+        padding: 0 8px
+        &:first-child
+          padding-left: 0
+      span
+        padding-right: 16px
+        color: $c-secondary-txt
+        font-size: $f-nav-size
+        font-weight: bold
+
+    .cost-consultations
+      display: flex
+      flex-direction: column
+      flex-wrap: nowrap
+      justify-content: space-between
       align-content: center
       align-items: center
       width: 100%
       white-space: nowrap
-      margin-top: 16px
-      +smm
-        margin-top: 0
-        width: 15%
-        justify-content: flex-end
-      i
-        margin-left: 8px
-        background-color: $c-success
-        +border-radius(50%)
-        padding: 10px
+      h3
         color: $c-white
+      .prize
         display: flex
         flex-direction: row
         flex-wrap: nowrap
         justify-content: center
         align-content: center
         align-items: center
+        margin-left: -16px
+        i
+          font-size: 32px
+          padding: 0 16px
+        h3
+          +default-font-regular
+        .currency
+          margin-bottom: 5px
+          margin-left: 4px
+          font-size: $f-nav-size
+          text-transform: uppercase
+          +default-font-heavy
+      .call
+        display: flex
+        flex-direction: row
+        flex-wrap: nowrap
+        justify-content: center
+        align-content: center
+        align-items: center
+        width: 100%
+        background-color: $c-success
+        p
+          padding: 0 8px
+          color: $c-white
+          +default-font-heavy
+        i
+          padding: 0 8px
+
 
     .tags-consultation
-      margin: 32px 0
-      width: 85%
       text-align: center
       +smm
         text-align: left
       p
         display: inline-block
-        background-color: $c-lines
-        padding: 1px 16px 0
-        margin: 6px 2px
+        padding: 8px 16px
+        margin: 6px 6px
         font-size: $f-h6-size
-        font-weight: bold
+        border: 1px solid $c-lines
+        text-transform: none
+        +default-font-regular
+        &:first-child
+          margin-left: 0
+
+    .comments
+      display: flex
+      flex-direction: row
+      justify-content: center
+      align-content: center
+      align-items: center
+      width: 100%
+      .help
+        display: flex
+        justify-content: center
+        align-content: center
+        align-items: center
+        width: 100%
+        text-align: center
+        border: 1px solid $c-lines
+        padding: 4px 0
+        &:last-child
+          margin-left: -1px
+        i
+          padding: 0 16px
 
     .more-consultation
       font-size: $f-nav-size
@@ -102,10 +155,12 @@
       font-weight: bold
 
   .footer-consultation
-    border-top: 1px solid $c-lines
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    align-items: flex-start
+    width: 100%
+    padding: 0 16px
     p
-      font-size: $f-nav-size
-      display: inline-block
       text-transform: uppercase
-      font-weight: bold
-      padding: 0 8px
+      +default-font-heavy
