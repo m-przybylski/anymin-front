@@ -1,5 +1,5 @@
 (function() {
-  function CompanySummaryController($state, savedProfile, ServiceApi, proTopAlertService, profileAvatar, companyLogo) {
+  function CompanySummaryController($state, $filter, savedProfile, ServiceApi, proTopAlertService, profileAvatar, companyLogo) {
 
 
     if (savedProfile && savedProfile.expertDetails && !savedProfile.organizationDetails) {
@@ -30,6 +30,10 @@
       } else {
         ServiceApi.postServicesVerify().$promise.then((res)=> {
           $state.go('app.dashboard.start')
+          proTopAlertService.success({
+            message: $filter('translate')('DASHBOARD.CREATE_PROFILE.SUMMARY_VERIFY'),
+            timeout: 4
+          })
         }, (err) => {
           proTopAlertService.error({
             message: 'error',
@@ -82,6 +86,9 @@
         serviceId: id
       }).$promise.then((res)=> {
         this.consultations.splice(index, 1)
+        if (this.consultations.length === 0) {
+          $state.go('app.dashboard.service-provider.consultation-range.company')
+        }
       }, (err) => {
         proTopAlertService.error({
           message: 'error',

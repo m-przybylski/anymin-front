@@ -3,13 +3,14 @@
 
     function linkFunction(scope, element, attr) {
 
+      const digitsCodes = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57]
       scope.required = false
       scope.focus = false
       scope.onClick = false
       let placeholder = scope.placeholder
       let _inputGroup = $(element)
-      let _excludedKeyCodesForPhone = [8, 13, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57]
-      let _excludedKeyCodesForCurrency = [13, 46, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 44]
+      let _excludedKeyCodesForPhone = digitsCodes.concat([13, 8])
+      let _excludedKeyCodesForCurrency = digitsCodes.concat([8, 13, 46, 44])
       if (!scope.type) {
         scope.type = 'text'
       }
@@ -17,7 +18,6 @@
       if ('required' in attr.$attr) {
         scope.required = true
       }
-
 
       if ('autoFocus' in attr.$attr) {
         _inputGroup.find('input').focus()

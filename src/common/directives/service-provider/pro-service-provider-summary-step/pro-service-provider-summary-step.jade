@@ -10,7 +10,7 @@ block content
             i.icon.icon-edit-16
       .summary-step-title
         h4 {{ consultation.details.name}}
-        h3 {{ consultation.details.price/100}}&nbsp
+        h3 {{ consultation.details.price/100 | number:2 }}&nbsp
           span(data-translate="DASHBOARD.CREATE_PROFILE.SUMMARY.CURRENCY")
       .summary-tag
         h6(data-translate="DASHBOARD.CREATE_PROFILE.SUMMARY.CONSULTATION_TAGS")

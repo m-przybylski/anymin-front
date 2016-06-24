@@ -12,7 +12,7 @@
       if (angular.isDefined(scope.proModel) && angular.isDefined(scope.proModel.files)) {
         for (let i = 0; i < scope.proModel.files.length;i++) {
           FilesApi.fileInfoPath({token: scope.proModel.files[i]}).$promise.then((res)=>{
-            scope.model.files.push({file: res.details, response: null})
+            scope.model.files.push({file: res.details, response: res})
           }, (err)=>{
             proTopAlertService.error({
               message: 'error',
@@ -21,6 +21,7 @@
           })
         }
       }
+
       let required = false
 
       /* istanbul ignore else */

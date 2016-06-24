@@ -13,7 +13,9 @@
         tags: []
       }
 
-      scope.model.tags = scope.proModel.tags
+      if (scope.proModel.tags.length > 0) {
+        scope.model.tags = scope.proModel.tags
+      }
 
       if ('required' in attrs) {
         required = true

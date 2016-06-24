@@ -15,7 +15,9 @@
         hrefUrl: 'http://miroslawkwiatek.republika.pl/pdf_y/grawitacja_kwantowa.pdf'
       }
 
-      scope.model.cost = parseFloat(scope.proModel.cost / 100)
+
+      scope.model.cost = parseFloat(scope.proModel.cost / 100) || ''
+
       let _isValid = () => {
         let _isValidDeferred = $q.defer()
         if (angular.isDefined(scope.model.cost) && scope.model.cost > 0) {
@@ -37,6 +39,14 @@
       if ('required' in attrs) {
         scope.required = true
       }
+
+      scope.$watch(() => {
+        return scope.model.cost
+      }, (newValue, oldValue) => {
+        if (newValue !== undefined && typeof newValue !== 'number') {
+          scope.model.cost = scope.model.cost.replace(',', '.')
+        }
+      }, true)
 
       scope.saveSection = () => {
         scope.noCost = false

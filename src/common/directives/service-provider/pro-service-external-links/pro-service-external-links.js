@@ -63,6 +63,7 @@
       scope.saveSection = () => {
         _isValid().then(() => {
           scope.noUrl = false
+          scope.badUrl= false
           scope.proModel.links = scope.model.links
           scope.proceed()
 

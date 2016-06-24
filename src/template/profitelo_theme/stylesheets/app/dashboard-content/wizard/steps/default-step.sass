@@ -76,7 +76,12 @@
       width: 100%
       .input-group-addon
         width: 112px
+        +transition(all 0.2s ease-in-out 0s)
         text-decoration: none
+        i
+          text-transform: uppercase
+          font-size: 16px
+          padding: 0 0 0 10px
       .ui-select-container
         outline: none
         display: flex
@@ -141,11 +146,12 @@
       span
         color: $c-white
         font-size: 11px
-        padding: 0px 8px
-        &:hover
-          background-color: $c-primary
-          .link-add-icon
-            color: $c-white
+        padding: 0px 9px
+        &.input-group-addon
+          &:hover
+            background-color: $c-primary
+            i
+              color: $c-white
       i
         padding: 4px 10px 0px 14px
       .icon
@@ -153,7 +159,7 @@
       .link-add-icon
         color: $c-primary
         font-size: 22px
-        margin: -2px -2px 0 -10px
+        margin: 0 -2px 0 -10px
         text-transform: none
         font-style: normal
         border-left: 1px solid $c-lines

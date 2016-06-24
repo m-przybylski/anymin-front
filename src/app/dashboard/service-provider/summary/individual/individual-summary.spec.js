@@ -66,7 +66,7 @@ describe('Unit tests: IndividualSummaryController >', () => {
 
       resourcesExpectations.ServiceApi.deleteService.respond(200)
 
-      IndividualSummaryController.consultations = []
+      IndividualSummaryController.consultations = [{name: '123'}]
 
       IndividualSummaryController.deleteConsultation(':serviceId', 1)
       _httpBackend.flush()
