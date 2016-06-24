@@ -158,6 +158,7 @@
     'ui.router',
     'c7s.ng.userAuth',
     'profitelo.swaggerResources',
+    'profitelo.directives.interface.pro-dialog',
     'profitelo.directives.pro-top-alert-service',
     'profitelo.services.resolvers.app.service-provider-image-resolver',
     'profitelo.directives.service-provider.pro-bottom-summary-row',
