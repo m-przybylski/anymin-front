@@ -1,9 +1,11 @@
 (function() {
 
   let proSummaryTag = {
+    transclude: true,
     templateUrl:    'components/pro-summary-tag/pro-summary-tag.tpl.html',
     bindings: {
-      tags: '<'
+      tags: '<',
+      title: '@'
     }
   }
 
