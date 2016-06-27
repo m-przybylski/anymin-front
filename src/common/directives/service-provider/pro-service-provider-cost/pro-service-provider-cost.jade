@@ -1,7 +1,7 @@
 extends ../../../templates/wizard/section-controlls.partial.jade
 
 block content
-  .step-content-column(data-ng-click="onClick()")
+  .step-content-column.pro-service-provider-cost(data-ng-click="onClick()")
     .inputs-row
       .currency-input-box
         pro-input(data-placeholder="{{placeholder | translate}}" data-ng-model="model.cost" data-ng-class="{invalid: badName}" data-type='text' currency)
