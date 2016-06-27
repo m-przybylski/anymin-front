@@ -31,7 +31,7 @@
     "no-redeclare": [1, {"builtinGlobals": true}],
     "no-underscore-dangle": 0,
     "no-trailing-spaces": 0,
-    "space-after-keywords": [1, "always"],
+    "keyword-spacing": [1, { "before": true }],
     "space-before-function-paren": [1, "never"],
     "space-before-blocks": 1,
     "spaced-comment": [1, "always", { exceptions: ["-", "+"]}],

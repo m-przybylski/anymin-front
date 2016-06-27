@@ -244,6 +244,8 @@
     'profitelo.controller.dashboard',
     'profitelo.controller.dashboard.start',
 
+    'profitelo.controller.dashboard.invitation',
+
     'profitelo.controller.dashboard.service-provider',
     'profitelo.controller.dashboard.service-provider.choose-path',
     'profitelo.controller.dashboard.service-provider.individual-path',
@@ -254,6 +256,7 @@
     'profitelo.controller.dashboard.service-provider.summary',
     'profitelo.controller.dashboard.service-provider.summary.company',
     'profitelo.controller.dashboard.service-provider.summary.individual',
+
     'profitelo.controller.home',
     'profitelo.controller.expert-profile',
 
@@ -263,6 +266,7 @@
     'profitelo.controller.login.forgot-password',
     'profitelo.controller.login.set-new-password',
     'profitelo.controller.login.confirm-email',
+
 
 
     // directives

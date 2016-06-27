@@ -1,15 +1,16 @@
-.step.summary-step.pro-service-provider-profile
+.pro-service-provider-profile
+  .step.summary-step
     .btn-handler
-        a.summary-icon(data-ng-click="onClick()")
+        a.summary-icon(data-ng-click="onClick()" data-ng-show="!!buttonAction")
             i.icon.icon-edit-16
     .summary-name
-        .summary-avatar
+        .summary-avatar(data-ng-show="!!avatar")
             img(ng-src="{{avatar}}" alt='user-avatar')
         .summary-firstname
-            .firstname-lastname
+            .firstname-lastname(data-ng-show="!!name")
                 h2 {{name}}
             .languages(data-ng-show="!!languages && languages.length > 0")
                 h6 {{"DASHBOARD.CREATE_PROFILE.PROFILE_LANGUAGE_HEADER" | translate}}
                     span(data-ng-repeat="language in languages") &nbsp {{language}}
-    .summary-descriptions
+    .summary-descriptions(data-ng-show="!!description")
         p {{description}}
