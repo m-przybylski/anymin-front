@@ -83,8 +83,7 @@
     }
     return this
   }
-
-
+  
   angular.module('profitelo.controller.dashboard.service-provider.individual-path', [
     'ui.router',
     'profitelo.services.service-provider-state',
@@ -99,7 +98,6 @@
     'profitelo.directives.interface.pro-tags-dropdown',
     'profitelo.directives.interface.pro-alert',
     'profitelo.directives.interface.pro-input',
-    'profitelo.directives.pro-progress-bar',
     'profitelo.swaggerResources',
     'profitelo.directives.pro-top-alert-service',
     'c7s.ng.userAuth'
@@ -142,5 +140,4 @@
     })
   })
   .controller('IndividualPathController', IndividualPathController)
-
 }())

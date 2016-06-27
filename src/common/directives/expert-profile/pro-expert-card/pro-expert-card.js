@@ -10,7 +10,7 @@
     }
 
     return {
-      templateUrl:  'directives/pro-expert-card/pro-expert-card.tpl.html',
+      templateUrl:  'directives/expert-profile/pro-expert-card/pro-expert-card.tpl.html',
       restrict:     'E',
       replace:      true,
       link: linkFunction,
