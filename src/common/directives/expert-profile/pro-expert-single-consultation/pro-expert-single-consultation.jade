@@ -16,7 +16,7 @@
       .prize
         i.icon.icon-price-32
         h3 {{ minuteCost / 100 }}
-        h3.currency zł/min
+        h3.currency(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE")
       .call
         p ZADZWOŃ
         i.icon.icon-headphone-16
@@ -26,7 +26,7 @@
     .tags-consultation
       p(ng-repeat="tag in tags") {{tag}}
     
-    p Komentarze (100)
+    p {{'HOME.TOP_CONTAINER.EXPERT_PROFILE.COMMENTS' | translate}} (100)
     .comments
       .help
         i.icon.icon-good-32
