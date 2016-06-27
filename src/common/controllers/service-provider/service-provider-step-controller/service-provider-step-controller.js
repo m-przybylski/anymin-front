@@ -51,7 +51,9 @@
     }
 
     $scope.onClick = (order) => {
-      $rootScope.$broadcast('manualOrderChangeRequest', order)
+      if (angular.isDefined(order)) {
+        $rootScope.$broadcast('manualOrderChangeRequest', order)
+      }
     }
 
     $scope.$on('manualOrderChangeRequestGrant', (event, targetStep) => {
