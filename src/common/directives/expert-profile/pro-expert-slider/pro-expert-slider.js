@@ -5,7 +5,7 @@
       var controlsClick = 0
 
       scope.prevSlide = () => {
-        if(controlsClick > 0) {
+        if (controlsClick > 0) {
           let width = $('.slides').width() + 32
           $('.slider-slides').animate({'left': '+='+width+'px'}, 'slow')
           controlsClick = controlsClick - 1

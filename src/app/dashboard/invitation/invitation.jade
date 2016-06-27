@@ -1,5 +1,8 @@
-pro-service-provider-profile(
-data-name="vm.profile.name"
-data-description="vm.profile.description"
-data-avatar="vm.profile.logo"
-)
+.pad
+  pro-service-provider-profile(
+  data-name="vm.profile.name"
+  data-description="vm.profile.description"
+  data-avatar="vm.profile.logo"
+  )
+
+  pro-invitation-acceptance-box(data-ng-repeat="invitation in vm.profile.invitations track by $index" data-invitation="invitation")

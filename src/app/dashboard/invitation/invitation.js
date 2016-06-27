@@ -1,11 +1,32 @@
-(function () {
+(function() {
 
   function InvitationController() {
 
     this.profile = {
       name: 'Jakaś firma',
-      description: 'Some description',
-      logo: '/assets/images/John_Doe.jpg'
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.',
+      logo: '/assets/images/John_Doe.jpg',
+      invitations: [
+        {
+          icon: '',
+          industry: 'Biznes > Metody zarządzania firmą',
+          tags: [
+            'Biznesplan',
+            'Małe firmy',
+            'Srednie firmy'
+          ]
+        },
+        {
+          icon: '',
+          industry: 'Prawo > Prawo Rodzinne',
+          tags: [
+            'Rozwody',
+            'Alimenty',
+            'Spadki i darowizny'
+          ]
+        }
+      ]
+
     }
     
     return this
@@ -26,15 +47,11 @@
 
 
   angular.module('profitelo.controller.dashboard.invitation', [
-    'ui.router',
     'c7s.ng.userAuth',
     'ui.router',
     'profitelo.swaggerResources',
 
-    'profitelo.directives.pro-top-alert-service',
-    'profitelo.directives.ng-enter',
-    'profitelo.directives.interface.pro-alert',
-    'profitelo.directives.service-provider.pro-service-provider-profile'
+    'profitelo.directives.dashboard.invitation.pro-invitation-acceptance-box'
 
   ])
     .config(config)
