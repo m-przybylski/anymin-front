@@ -17,23 +17,24 @@
       display: flex
       flex-direction: column
       justify-content: center
-      justify-content: center
       align-content: center
       text-align: center
       border-bottom: 1px solid $c-lines
       padding-bottom: 60px
       width: 100%
-      .left
+      .top-footer-left
         display: flex
         flex-direction: column
         justify-content: center
-        justify-content: center
         align-content: center
-      .right
+        div
+          img
+            margin: 0 8px 18px
+
+      .top-footer-right
         display: flex
         flex-direction: column
         flex-wrap: nowrap
-        justify-content: center
         justify-content: center
         align-content: center
         div
@@ -54,16 +55,30 @@
         margin: 8px 0
     .bottom-footer
       display: flex
-      flex-direction: row
-      justify-content: space-between
+      flex-direction: column
+      justify-content: center
       width: 100%
       margin: 40px 0
       text-transform: uppercase
       p
         font-size: $f-nav-size
         font-weight: bold
-      .right
+      .bottom-footer-right
         display: flex
         flex-direction: row
+        justify-content: center
+        align-content: center
+        align-items: center
+
         p
-          margin-left: 60px
+          margin: 0 8px
+        i
+          margin: 0 8px
+
+      .bottom-footer-left
+        margin: 32px 0 0
+        width: 100%
+        text-align: center
+        p
+          width: 60%
+          margin: 0 auto
