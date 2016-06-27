@@ -1,5 +1,5 @@
 (function() {
-  function CompanyConsultationController($scope, $state, $timeout, savedProfile, ServiceApi, proTopAlertService, profileImage) {
+  function CompanyConsultationController($scope, $state, $uibModal, $timeout, savedProfile, ServiceApi, proTopAlertService, profileImage) {
 
     let _createDefaultModel = (cost)=> {
       return {
@@ -133,15 +133,32 @@
       }
     }
     this.deleteConsultation = (id, index) => {
-      ServiceApi.deleteService({
-        serviceId: id
-      }).$promise.then((res)=> {
-        this.consultations.splice(index, 1)
-      }, (err) => {
-        proTopAlertService.error({
-          message: 'error',
-          timeout: 4
-        })
+      $uibModal.open({
+        backdrop: 'static',
+        keyboard: true,
+        scope: $scope,
+        controller: ($uibModalInstance)=> {
+          this.ok = function () {
+            ServiceApi.deleteService({
+              serviceId: id
+            }).$promise.then((res)=> {
+              this.consultations.splice(index, 1)
+            }, (err) => {
+              proTopAlertService.error({
+                message: 'error',
+                timeout: 4
+              })
+            })
+            $uibModalInstance.close('cancel')
+          }
+          this.cancel = function () {
+            $uibModalInstance.dismiss('cancel')
+          }
+        },
+        modalFade: true,
+        animation: true,
+        templateUrl: 'templates/dialog/pro-dialog.tpl.html',
+        size: 300
       })
     }
 
@@ -154,11 +171,10 @@
   }
 
   angular.module('profitelo.controller.dashboard.service-provider.consultation-range.company', [
-
+    'ui.bootstrap',
     'ui.router',
     'c7s.ng.userAuth',
     'profitelo.swaggerResources',
-    'profitelo.directives.interface.pro-dialog',
     'profitelo.directives.pro-top-alert-service',
     'profitelo.services.resolvers.app.service-provider-image-resolver',
     'profitelo.directives.service-provider.pro-bottom-summary-row',
