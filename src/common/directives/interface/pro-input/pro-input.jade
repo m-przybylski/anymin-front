@@ -11,7 +11,9 @@
   data-ng-required="required"
   data-ng-pattern="ngPattern"
   data-ng-change="ngChange()"
-  name="{{name}}")
+  name="{{name}}"
+  autocapitalize="off"
+  autocorrect="off")
   label {{label}}
   span(data-ng-class="{'input-group-addon': addon}" data-ng-click="addonCall()")
     i.icon(data-ng-class="iconClass") {{addonText}}

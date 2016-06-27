@@ -15,9 +15,7 @@
         positiveMark: '=',
         negativeMark: '='
       }
-
     }
-
   }
 
   angular.module('profitelo.directives.expert-profile.pro-expert-single-consultation', [])

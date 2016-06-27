@@ -1,12 +1,12 @@
 .top-navbar
+  .hamburger-menu
+    i.icon.icon-menu-16
   .logo
     img(src="/assets/images/logo_profitelo_black.png")
-
-  .menu-items
-    a(data-ng-repeat="element in menuElements" data-ng-bind="element.label" data-ui-sref="{{element.link}}")
-
   .buttons
-    a(data-ng-hide="$root.loggedIn" data-ui-sref='app.login.account' data-translate="PAGE_TITLE.LOGIN.ACCOUNT")
-    a(data-ng-hide="$root.loggedIn" data-ui-sref='app.login.account' data-translate="PAGE_TITLE.LOGIN.REGISTER")
-    a(data-ng-show="$root.loggedIn" data-ng-click="appController.logout('app.home')" data-translate="DASHBOARD.MENU.LOGOUT")
-    a(data-ng-show="$root.loggedIn" data-ui-sref='app.dashboard.start' data-translate="PAGE_TITLE.DASHBOARD")
+    a
+      i.icon.icon-search-24
+    a(data-ng-hide="$root.loggedIn" data-ui-sref='app.login.account')
+      i.icon.icon-login-32
+    a(data-ng-show="$root.loggedIn" data-ui-sref='app.dashboard.start')
+      i.icon.icon-login-32

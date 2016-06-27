@@ -2,11 +2,12 @@ div
   .footer-container
     .header-content
       .top-footer
-        .left
+        .top-footer-left
           p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.TALKS_MORE_COMFORTABLE")
-          img(src="assets/images/app_store.png")
-          img(src="assets/images/google_play.png") 
-        .right
+          div
+            img(src="assets/images/app_store.png")
+            img(src="assets/images/google_play.png") 
+        .top-footer-right
           div
             p.parent(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.FOOTER_PARTNER_SPACE")
             p(data-translate="HOME.FOOTER.ADVANTAGE_TO_PARTNERS")
@@ -23,8 +24,10 @@ div
             p(data-translate="HOME.FOOTER.RULE")
             p(data-translate="HOME.FOOTER.privacy_policy")
       .bottom-footer
-        .left
-          p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.FOOTER_COPYRIGHT")
-        .right
+        .bottom-footer-right
+          i.icon.icon-headphone-16
           p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.FOOTER_CALL_TEXT")
+          i.icon.icon-mail-16
           p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.MAIL_FOOTER")
+        .bottom-footer-left
+          p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.FOOTER_COPYRIGHT")

@@ -1,7 +1,7 @@
 (function() {
 
   function RegisterController($filter, $state, proTopWaitingLoaderService, passwordStrengthService, User, proTopAlertService, UserRoles, smsSessionId, CommonSettingsService, RegistrationApi, AccountApi, loginStateService) {
-    
+
     this.passwordStrength = 0
     this.current = 1
     this.isPending = false
@@ -15,6 +15,10 @@
       email: null,
       password: null
     }
+    this.translationUrl = {
+      hrefUrl: 'http://miroslawkwiatek.republika.pl/pdf_y/grawitacja_kwantowa.pdf'
+    }
+    this.acceptRulesTr = 'LOGIN.ACCEPT_RULES'
 
     this.patternSms = CommonSettingsService.localSettings.smsCodePattern
     this.patternEmail = CommonSettingsService.localSettings.emailPattern
@@ -124,7 +128,7 @@
   }
 
 
-  
+
 
   angular.module('profitelo.controller.login.register', [
     'ui.router',
