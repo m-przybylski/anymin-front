@@ -1,0 +1,4 @@
+.pro-summary-tag
+  h6(data-translate="{{ title }}" data-ng-show="title")
+  .tags
+    p(ng-repeat="tag in $ctrl.tags track by $index") {{ tag }}
