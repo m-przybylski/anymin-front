@@ -12,13 +12,13 @@ block content
         h4 {{ consultation.details.name}}
         h3 {{ consultation.details.price/100 | number:2 }}&nbsp
           span(data-translate="DASHBOARD.CREATE_PROFILE.SUMMARY.CURRENCY")
-      .summary-tag
-        h6(data-translate="DASHBOARD.CREATE_PROFILE.SUMMARY.CONSULTATION_TAGS")
-        .tags
-          p(ng-repeat="tag in consultation.details.tags") {{ tag }}
-      .summary-tag(data-ng-if="consultation.invitations.length > 0")
-        h6(data-translate="DASHBOARD.CREATE_PROFILE.SUMMARY.CONSULTATION_EMPLOYEE")
-        .tags
-          p(ng-repeat="employee in consultation.invitations") {{ employee.email }}
+      pro-summary-tag(
+      data-title="DASHBOARD.CREATE_PROFILE.SUMMARY.CONSULTATION_TAGS"
+      data-tags="consultation.details.tags")
+
+      pro-summary-tag(
+      data-title="DASHBOARD.CREATE_PROFILE.SUMMARY.CONSULTATION_EMPLOYEE"
+      data-tags="consultation.invitationTags" data-ng-if="consultation.invitationTags")
+
       .edit-consultation-form(ng-transclude ng-if="vm.currentEditConsultationId == consultation.id")
 
