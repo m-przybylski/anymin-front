@@ -1,16 +1,17 @@
-pro-service-provider-profile(
-data-name="vm.profile.name"
-data-description="vm.profile.description"
-data-languages="vm.profile.languages"
-data-button-action="vm.backToFirstStep"
-data-avatar="vm.profileImage"
-)
+.dashboard-summary-individual
+  pro-service-provider-profile(
+  data-name="vm.profile.name"
+  data-description="vm.profile.description"
+  data-languages="vm.profile.languages"
+  data-button-action="vm.backToFirstStep"
+  data-avatar="vm.profileImage"
+  )
 
-pro-service-provider-summary-step(
-data-consultations="vm.consultations"
-data-edit-action="vm.editConsultation"
-data-delete-action="vm.deleteConsultation"
-)
+  pro-service-provider-summary-step(
+  data-consultations="vm.consultations"
+  data-edit-action="vm.editConsultation"
+  data-delete-action="vm.deleteConsultation"
+  )
     pro-service-provider-name(
     data-queue="vm.editQueue"
     data-order="1"
@@ -54,6 +55,6 @@ data-delete-action="vm.deleteConsultation"
     data-button-label="DASHBOARD.CREATE_PROFILE.EDIT_CONSULTATION"
     )
 
-.step
-    .summary-button
-        a.pro-btn.btn-round.btn.small.btn-main(data-translate="DASHBOARD.CREATE_PROFILE.SUMMARY.VERIFY_YOU_PROFILE" data-ng-click="vm.verifyProfile()")
+  .step
+    .summary-button.summary-next-step-button
+      a.pro-btn.btn-round.btn.small.btn-main(data-translate="DASHBOARD.CREATE_PROFILE.SUMMARY.VERIFY_YOU_PROFILE" data-ng-click="vm.verifyProfile()")
