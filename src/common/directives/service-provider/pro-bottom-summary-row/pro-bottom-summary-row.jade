@@ -1,13 +1,14 @@
 block content
-  .bottom-row.pro-bottom-summary-row
-    .title-row-column
-      .title
-        h5(data-translate="{{header}}")
-        h5.width {{ width }}%
-      .next-step(data-ng-show="queue.amountOfSteps === queue.completedSteps || showAllTime")
-        .button-next-step
-          a(data-translate="DASHBOARD.CREATE_PROFILE.NEXT_STEP" data-ng-click="onClick()" data-ng-if="queue.amountOfSteps !== queue.completedSteps" class="pro-btn btn-round btn-main btn-medium")
-          a(data-translate="DASHBOARD.EXPERT_ACCOUNT.STEP2_PROGRESS_BAR_TITLE_WITH_SAVE"  data-ng-if="queue.amountOfSteps === queue.completedSteps" data-ng-click="onClick()" class="pro-btn btn-round btn-main btn-medium")
-    .progress-bar(style="width: {{ width }}%;")
+  .pro-bottom-summary-row
+    .bottom-row
+      .title-row-column
+        .title
+          h5(data-translate="{{header}}")
+          h5.width {{ width }}%
+        .next-step(data-ng-show="queue.amountOfSteps === queue.completedSteps || showAllTime")
+          .button-next-step
+            a(data-translate="DASHBOARD.CREATE_PROFILE.NEXT_STEP" data-ng-click="onClick()" data-ng-if="queue.amountOfSteps !== queue.completedSteps" class="pro-btn btn-round btn-main btn-medium")
+            a(data-translate="DASHBOARD.EXPERT_ACCOUNT.STEP2_PROGRESS_BAR_TITLE_WITH_SAVE"  data-ng-if="queue.amountOfSteps === queue.completedSteps" data-ng-click="onClick()" class="pro-btn btn-round btn-main btn-medium")
+      .progress-bar(style="width: {{ width }}%;")
     
     

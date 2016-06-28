@@ -1,8 +1,9 @@
 extends ../../../templates/wizard/section-controlls.partial.jade
 
 block content
-    .step-content-column.pro-service-provider-tags
-        pro-tags-dropdown(data-pro-items="tags" data-tag-label=""
-        data-pro-model="model.tags" data-ng-click="onClick()")
-        .input-error-messages
-            .error(data-translate="{{errorMessage}}" data-ng-show="noTags")
+  .pro-service-provider-tags
+    .step-content-column
+      pro-tags-dropdown(data-pro-items="tags" data-tag-label=""
+      data-pro-model="model.tags" data-ng-click="onClick()")
+      .input-error-messages
+        .error(data-translate="{{errorMessage}}" data-ng-show="noTags")

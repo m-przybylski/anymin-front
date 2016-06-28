@@ -1,5 +1,5 @@
 (function() {
-  function IndividualSummaryController($state, $filter, savedProfile, ServiceApi, proTopAlertService, profileImage) {
+  function IndividualSummaryController($state, $scope, $filter, savedProfile, ServiceApi, proTopAlertService, profileImage, DialogService) {
 
     if (savedProfile && savedProfile.expertDetails && !savedProfile.organizationDetails) {
       this.profile = savedProfile.expertDetails
@@ -70,17 +70,19 @@
       }
     }
     this.deleteConsultation = (id, index) => {
-      ServiceApi.deleteService({
-        serviceId: id
-      }).$promise.then((res)=> {
-        this.consultations.splice(index, 1)
-        if (this.consultations.length === 0) {
-          $state.go('app.dashboard.service-provider.consultation-range.individual')
-        }
-      }, (err) => {
-        proTopAlertService.error({
-          message: 'error',
-          timeout: 4
+      let _callback = ()=> {
+        ServiceApi.deleteService({
+          serviceId: id
+        }).$promise.then((res)=> {
+          this.consultations.splice(index, 1)
+          if (this.consultations.length === 0) {
+            $state.go('app.dashboard.service-provider.consultation-range.company')
+          }
+        }, (err) => {
+          proTopAlertService.error({
+            message: 'error',
+            timeout: 4
+          })
         })
       }
       DialogService.openDialog($scope, _callback)

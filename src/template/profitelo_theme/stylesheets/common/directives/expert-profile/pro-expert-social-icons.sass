@@ -1,0 +1,36 @@
+.pro-expert-social-icons
+  .social-icons
+    display: flex
+    flex-direction: column
+    flex-wrap: nowrap
+    justify-content: center
+    align-content: center
+    align-items: center
+    margin-bottom: 60px
+    width: 100%
+    .icons
+      display: flex
+      flex-direction: row
+    h5
+      text-align: center
+      text-transform: uppercase
+
+    a
+      color: $c-primary-txt
+    i
+      display: flex
+      flex-direction: row
+      flex-wrap: nowrap
+      justify-content: center
+      align-content: center
+      align-items: center
+      margin: 0px 4px
+      background-color: $c-white
+      padding: 10px
+      +border-radius(50%)
+      width: 48px
+      height: 48px
+      +transition
+      &:hover
+        background-color: $c-primary-txt
+        color: $c-white

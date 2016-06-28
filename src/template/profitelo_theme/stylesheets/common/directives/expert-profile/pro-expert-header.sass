@@ -1,160 +1,161 @@
-.header-container
-  background-color: $c-white
-  border-bottom: 1px solid $c-lines
-  &:first-child
-    padding-top: 60px
-  &:last-child
-    margin-bottom: 60px
+.pro-expert-header
+  .header-container
+    background-color: $c-white
+    border-bottom: 1px solid $c-lines
+    &:first-child
+      padding-top: 100px
+    &:last-child
+      margin-bottom: 60px
 
-  .header-content
-    display: flex
-    flex-direction: column
-    flex-wrap: nowrap
-    justify-content: space-between
-    align-content: center
-    align-items: flex-start
-    width: 100%
-    +lgm
-      width: 1200px
-    margin: 0 auto
-    padding: 60px 0
-    +lgm
-      width: 1200px
-    +smm
-      flex-direction: row-reverse
-      align-items: flex-start
-      justify-content: center
-
-    .company-list
-      display: flex
-      flex-direction: row
-      flex-wrap: wrap
-      justify-content: center
-      align-content: center
-      align-items: center
-      width: 100%
-      margin: 40px 0 30px
-      padding: 0 16px
-      +smm
-        flex-direction: row
-        margin: 0
-        width: calc(100%/3 - 100px)
-      p
-        font-size: $f-nav-size
-        font-weight: bold
-        text-transform: uppercase
-        white-space: nowrap
-        margin-right: 8px
-      .company-logo
-        +smm
-          margin-left: 15px
-        img
-          width: 55px
-          height: 55px
-          +border-radius(50%)
-          margin-right: 4px
-          border: 3px solid $c-white
-
-    .personal-info
-      display: flex
-      flex-direction: column
-      justify-content: center
-      align-content: center
-      align-items: center
-      width: 100%
-      +smm
-        width: calc(100%/3 + 200px)
-      img
-        width: 130px
-        height: 130px
-        +border-radius(50%)
-      h3
-        color: $c-primary-txt
-        +default-font-light
-      .status
-        margin-top: -14px
-        color: $c-success
-        font-size: $f-nav-size
-        font-weight: bold
-        text-transform: uppercase
-        margin-left: 16px
-
-        &::before
-          position: absolute
-          content: ""
-          font-size: 8px
-          width: 0px
-          height: 8px
-          padding: 0 4px
-          margin-left: -16px
-          margin-top: 3px
-          background-color: $c-success
-          +border-radius(50%)
-
-      .languages
-        margin-top: 16px
-        span
-          padding: 8px 0px
-          font-size: $f-h6-size
-          color: $c-primary-txt
-          background-color: $c-background-2
-          +border-radius("0.2em")
-          &:first-child
-            padding-left: 16px
-          &:last-child
-            padding-right: 16px
-
-    .statistic
-      display: flex
-      flex-direction: row
-      justify-content: center
-      align-content: center
-      align-items: center
-      width: 100%
-      .social-icon
-        margin: 0 4px
-        display: flex
-        flex-direction: column
-        align-items: center
-        align-content: center
-        i
-          +border-radius(50%)
-          border: 1px solid $c-lines
-          padding: 15px 15px
-          font-size: 16px
-          width: 48px
-          height: 48px
-          display: flex
-          justify-content: center
-          align-content: center
-          align-items: center
-        p
-          font-size: $f-nav-size
-          font-weight: bold
-          margin-top: 4px
-
-    .quote-icon
-      width: 100%
+    .header-content
       display: flex
       flex-direction: column
       flex-wrap: nowrap
-      justify-content: center
+      justify-content: space-between
       align-content: center
-      align-items: center
-      margin-top: -85px
-      margin-bottom: -65px
-      i
-        background-color: $c-primary-txt
-        color: $c-white
-        height: 48px
-        width: 48px
-        +border-radius(50%)
+      align-items: flex-start
+      width: 100%
+      +lgm
+        width: 1200px
+      margin: 0 auto
+      padding: 60px 0
+      +lgm
+        width: 1200px
+      +smm
+        flex-direction: row-reverse
+        align-items: flex-start
+        justify-content: center
+
+      .company-list
         display: flex
         flex-direction: row
+        flex-wrap: wrap
+        justify-content: center
+        align-content: center
+        align-items: center
+        width: 100%
+        margin: 40px 0 30px
+        padding: 0 16px
+        +smm
+          flex-direction: row
+          margin: 0
+          width: calc(100%/3 - 100px)
+        p
+          font-size: $f-nav-size
+          font-weight: bold
+          text-transform: uppercase
+          white-space: nowrap
+          margin-right: 8px
+        .company-logo
+          +smm
+            margin-left: 15px
+          img
+            width: 55px
+            height: 55px
+            +border-radius(50%)
+            margin-right: 4px
+            border: 3px solid $c-white
+
+      .personal-info
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-content: center
+        align-items: center
+        width: 100%
+        +smm
+          width: calc(100%/3 + 200px)
+        img
+          width: 130px
+          height: 130px
+          +border-radius(50%)
+        h3
+          color: $c-primary-txt
+          +default-font-light
+        .status
+          margin-top: -14px
+          color: $c-success
+          font-size: $f-nav-size
+          font-weight: bold
+          text-transform: uppercase
+          margin-left: 16px
+
+          &::before
+            position: absolute
+            content: ""
+            font-size: 8px
+            width: 0px
+            height: 8px
+            padding: 0 4px
+            margin-left: -16px
+            margin-top: 3px
+            background-color: $c-success
+            +border-radius(50%)
+
+        .languages
+          margin-top: 16px
+          span
+            padding: 8px 0px
+            font-size: $f-h6-size
+            color: $c-primary-txt
+            background-color: $c-background-2
+            +border-radius("0.2em")
+            &:first-child
+              padding-left: 16px
+            &:last-child
+              padding-right: 16px
+
+      .statistic
+        display: flex
+        flex-direction: row
+        justify-content: center
+        align-content: center
+        align-items: center
+        width: 100%
+        .social-icon
+          margin: 0 4px
+          display: flex
+          flex-direction: column
+          align-items: center
+          align-content: center
+          i
+            +border-radius(50%)
+            border: 1px solid $c-lines
+            padding: 15px 15px
+            font-size: 16px
+            width: 48px
+            height: 48px
+            display: flex
+            justify-content: center
+            align-content: center
+            align-items: center
+          p
+            font-size: $f-nav-size
+            font-weight: bold
+            margin-top: 4px
+
+      .quote-icon
+        width: 100%
+        display: flex
+        flex-direction: column
         flex-wrap: nowrap
         justify-content: center
         align-content: center
         align-items: center
+        margin-top: -85px
+        margin-bottom: -65px
+        i
+          background-color: $c-primary-txt
+          color: $c-white
+          height: 48px
+          width: 48px
+          +border-radius(50%)
+          display: flex
+          flex-direction: row
+          flex-wrap: nowrap
+          justify-content: center
+          align-content: center
+          align-items: center
 
       .description
         color: $c-secondary-txt
@@ -165,13 +166,13 @@
         p
           +default-font-light
 
-      .more-icon
-        font-size: $f-h1-size
-        padding-bottom: 64px
-        i
-          padding: -10px 32px
-          font-size: 12px
-          background-color: $c-white
-          color: $c-primary-txt
-          +border-radius(0)
-          border: 1px solid $c-lines
+        .more-icon
+          font-size: $f-h1-size
+          padding-bottom: 64px
+          i
+            padding: -10px 32px
+            font-size: 12px
+            background-color: $c-white
+            color: $c-primary-txt
+            +border-radius(0)
+            border: 1px solid $c-lines

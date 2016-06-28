@@ -1,25 +1,26 @@
 extends ../../../templates/wizard/section-controlls.partial.jade
 
 block content
-  .step-content-column.pro-service-external-links
-    .links-submit
-      pro-input(placeholder="http://"
-      data-ng-model="linkModel"
-      data-ng-click="onClick()"
-      data-ng-enter="onEnter()"
-      data-ng-class="{'invalid': badUrl}"
-      data-addon-text="{{'DASHBOARD.CREATE_PROFILE.EXTERNAL_LINKS.ADDON_TEXT' | translate}}"
-      icon-class=" link-add-icon"
-      addon-action="onEnter")
+  .pro-service-external-links
+    .step-content-column
+      .links-submit
+        pro-input(placeholder="http://"
+        data-ng-model="linkModel"
+        data-ng-click="onClick()"
+        data-ng-enter="onEnter()"
+        data-ng-class="{'invalid': badUrl}"
+        data-addon-text="{{'DASHBOARD.CREATE_PROFILE.EXTERNAL_LINKS.ADDON_TEXT' | translate}}"
+        icon-class=" link-add-icon"
+        addon-action="onEnter")
+        .input-error-messages
+          .error(data-translate="DASHBOARD.CREATE_PROFILE.ERROR_EXTERNAL_LINKS" data-ng-show="badUrl")
+      .document-submit(data-ng-show="model.links.length > 0")
+        .document-container
+          h3(data-translate="DASHBOARD.CREATE_PROFILE.CREATE_PROFILE_YOUR_LINKS" data-ng-click="onClick()")
+          .links-submit.links-last-step
+            a.pro-btn.btn-main.btn-medium(data-ng-repeat="link in model.links track by $index")
+              i.left-icon(pro-social-icon-getter data-url="link")
+              span {{ link }}
+              i.icon.icon-close-12(data-ng-click="removeLink(link)")
       .input-error-messages
-        .error(data-translate="DASHBOARD.CREATE_PROFILE.ERROR_EXTERNAL_LINKS" data-ng-show="badUrl")
-    .document-submit(data-ng-show="model.links.length > 0")
-      .document-container
-        h3(data-translate="DASHBOARD.CREATE_PROFILE.CREATE_PROFILE_YOUR_LINKS" data-ng-click="onClick()")
-        .links-submit.links-last-step
-          a.pro-btn.btn-main.btn-medium(data-ng-repeat="link in model.links track by $index")
-            i.left-icon(pro-social-icon-getter data-url="link")
-            span {{ link }}
-            i.icon.icon-close-12(data-ng-click="removeLink(link)")
-    .input-error-messages
-      .error(data-translate="DASHBOARD.CREATE_PROFILE.NO_LINKS_ERROR" data-ng-show="noUrl")
+        .error(data-translate="DASHBOARD.CREATE_PROFILE.NO_LINKS_ERROR" data-ng-show="noUrl")
