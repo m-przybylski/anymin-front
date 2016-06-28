@@ -10,9 +10,7 @@
         invitations: []
       }
 
-
       scope.ownerEmployee = angular.isDefined(scope.ownerEmployee) ? scope.ownerEmployee : false
-
 
       scope.model.invitations = _.map(scope.proModel.invitations, 'email')
 
