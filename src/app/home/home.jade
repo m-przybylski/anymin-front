@@ -9,3 +9,18 @@ main.top-content-home
   .default-container.flex-row
     pro-expert-card(data-ng-repeat="expert in vm.expertCard" data-ng-model="expert")
     pro-expert-see-more()
+main.content-blog
+  .default-container.advice-tiles
+    .grid(pro-masonry="" data-grid-item=".grid-item")
+      .grid-item.grid-item--long2
+        pro-news-tile(data-ng-repeat="tile in vm.newsTile" data-ng-model="tile")
+      .grid-item
+        pro-advice-tile(data-ng-repeat="tile in vm.adviceTile" data-ng-model="tile")
+      .grid-item
+        pro-news-tile(data-ng-repeat="tile in vm.newsTile" data-ng-model="tile")
+      .grid-item.grid-item--width2
+        pro-news-tile(data-ng-repeat="tile in vm.newsTile" data-ng-model="tile")
+      .grid-item
+        pro-advice-tile(data-ng-repeat="tile in vm.adviceTile" data-ng-model="tile")
+      .grid-item
+        pro-advice-tile(data-ng-repeat="tile in vm.adviceTile" data-ng-model="tile")

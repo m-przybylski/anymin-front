@@ -1,0 +1,32 @@
+.advice-tiles
+  padding-top: 40px
+  justify-content: center
+
+.grid-advice-tile
+  align-items: flex-start
+  justify-content: space-between
+  background: $c-white
+  height: inherit
+  padding: 16px
+  .advice-tile-label
+    color: $c-white
+    background: $c-warning
+    display: inline-block
+    padding: 5px 8px
+    font-size: $f-small
+    text-transform: uppercase
+    margin-bottom: 52px
+    +default-font-heavy
+  .advice-tile-title
+    font-size: $f-paragraph
+    +default-font-heavy
+    margin-bottom: 20px
+  p.advice-tile-desc
+    color: $c-secondary-txt
+    margin: 0 0 32px
+    overflow: hidden
+  .additional-info
+    .comments-counter,
+    .fav-couner,
+    .when-published,
+      margin-right: 16px

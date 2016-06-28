@@ -1,0 +1,12 @@
+.grid-advice-tile.flex-col
+  .advice-tile-label(data-translate="HOME.ADVICE_TILE_LABEL")
+  .news-inner
+    .advice-tile-title="{{ngModel.title}}"
+    p.advice-tile-desc="{{ngModel.teaser}}"
+    .additional-info.flex-row
+      .comments-counter="{{ngModel.numberOfComments}}"
+      .fav-couner="{{ngModel.numberOfLikes}}"
+      .when-published="{{ngModel.publishDate}}"
+  
+    
+      

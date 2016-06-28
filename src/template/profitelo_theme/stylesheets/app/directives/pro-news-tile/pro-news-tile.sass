@@ -1,0 +1,59 @@
+.grid-news-tile
+  align-items: flex-start
+  justify-content: space-between
+  background-image: url('http://placekitten.com/600/600')
+  background-color: rgba(0, 0, 0, 0.4s)
+  background-blend-mode: darken
+  background-size: cover
+  background-position: center
+  height: inherit
+  padding: 16px
+  position: relative
+  .bg-image
+    position: absolute
+    left: 0
+    top: 0
+  .news-tile-label
+    color: $c-white
+    background: #ed5565
+    display: inline-block
+    padding: 5px 8px
+    font-size: $f-small
+    text-transform: uppercase
+    +default-font-heavy
+  .news-tile-title
+    font-size: $f-paragraph
+    +default-font-heavy
+    color: $c-white
+    margin-bottom: 20px
+  p.news-tile-desc
+    color: $c-secondary-txt
+    margin: 0 0 32px
+    overflow: hidden
+  .additional-info
+    color: $c-white
+    .comments-counter,
+    .fav-couner,
+    .when-published,
+      margin-right: 16px
+
+.grid
+  margin: 0 -8px
+  padding: 8px 0
+.grid-item
+  width: auto
+  height: 288px
+  float: left
+  margin: 8px
+  +smm
+    width: calc(50% - 16px)
+  +lgm
+    width: 288px
+
+.grid-item--width2
+  +lgm
+    width: 592px
+
+.grid-item--long2
+  +lgm
+    height: 592px

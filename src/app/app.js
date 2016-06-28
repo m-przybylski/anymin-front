@@ -272,6 +272,7 @@
     'profitelo.directives.pro-top-waiting-loader',
     'profitelo.directives.pro-top-alert-service',
     'profitelo.directives.page-title',
+    'profitelo.directives.pro-masonry',
 
     // translations
     'profitelo.translations.en-us',
