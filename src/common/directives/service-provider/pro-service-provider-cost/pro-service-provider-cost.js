@@ -20,7 +20,7 @@
 
       let _isValid = () => {
         let _isValidDeferred = $q.defer()
-        if (angular.isDefined(scope.model.cost) && scope.model.cost > 0) {
+        if (angular.isDefined(scope.model.cost) && scope.model.cost >= 0) {
           _isValidDeferred.resolve()
         } else {
           _isValidDeferred.reject()

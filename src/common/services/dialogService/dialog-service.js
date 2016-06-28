@@ -8,13 +8,13 @@
           keyboard: true,
           scope: scope,
           controller: ($uibModalInstance)=> {
-            scope.ok = ()=> {
+            scope.confirm = ()=> {
               if (angular.isFunction(callback)) {
                 callback()
               }
               $uibModalInstance.close('cancel')
             }
-            scope.cancel = ()=> {
+            scope.reject = ()=> {
               $uibModalInstance.dismiss('cancel')
             }
           },
