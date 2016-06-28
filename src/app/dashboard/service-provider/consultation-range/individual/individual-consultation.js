@@ -1,5 +1,5 @@
 (function() {
-  function IndividualConsultationController($scope, $state, savedProfile, ServiceApi, proTopAlertService, profileImage) {
+  function IndividualConsultationController($scope, $state, savedProfile, ServiceApi, proTopAlertService, profileImage, DialogService) {
 
     let _createDefaultModel = (cost)=> {
       return  {
@@ -119,16 +119,19 @@
       }
     }
     this.deleteConsultation = (id, index) => {
-      ServiceApi.deleteService({
-        serviceId: id
-      }).$promise.then((res)=> {
-        this.consultations.splice(index, 1)
-      }, (err) => {
-        proTopAlertService.error({
-          message: 'error',
-          timeout: 4
+      let _callback = ()=> {
+        ServiceApi.deleteService({
+          serviceId: id
+        }).$promise.then((res)=> {
+          this.consultations.splice(index, 1)
+        }, (err) => {
+          proTopAlertService.error({
+            message: 'error',
+            timeout: 4
+          })
         })
-      })
+      }
+      DialogService.openDialog($scope, _callback)
     }
 
     this.addAnotherConsultation = () => {
@@ -140,7 +143,7 @@
 
 
   angular.module('profitelo.controller.dashboard.service-provider.consultation-range.individual', [
-    
+    'profitelo.services.dialog-service',
     'ui.router',
     'c7s.ng.userAuth',
     'profitelo.services.service-provider-state',

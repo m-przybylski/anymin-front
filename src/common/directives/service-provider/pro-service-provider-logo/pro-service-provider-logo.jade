@@ -1,10 +1,10 @@
 extends ../../../templates/wizard/section-controlls.partial.jade
 
 block content
-  .step-content-column.pro-service-provider-logo(data-ng-click="onClick()")
+  .step-content-column.pro-service-provider-avatar(data-ng-click="onClick()")
     .upload-field-description
       p(data-translate="DASHBOARD.CREATE_PROFILE.FILE_PREVIEW")
-    pro-uploader(type="image/*" files-uploaded="model.logo" data-ng-hide="model.logo.length")
+    pro-uploader(type="image/*" files-uploaded="model.logo" data-ng-hide="model.logo.length" data-ngf-pattern=".jpg,.jpeg,.png")
     .image-preview
       .upload-field(data-ng-show="model.logo.length")
         img(data-ng-src="{{model.logo[0].response.meta.downloadUrl}}")

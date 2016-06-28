@@ -1,5 +1,5 @@
 (function() {
-  function CompanySummaryController($state, $filter, savedProfile, ServiceApi, proTopAlertService, profileAvatar, companyLogo) {
+  function CompanySummaryController($state, $scope, $filter, savedProfile, ServiceApi, proTopAlertService, profileAvatar, companyLogo, DialogService) {
 
 
     if (savedProfile && savedProfile.expertDetails && !savedProfile.organizationDetails) {
@@ -82,19 +82,22 @@
     }
 
     this.deleteConsultation = (id, index) => {
-      ServiceApi.deleteService({
-        serviceId: id
-      }).$promise.then((res)=> {
-        this.consultations.splice(index, 1)
-        if (this.consultations.length === 0) {
-          $state.go('app.dashboard.service-provider.consultation-range.company')
-        }
-      }, (err) => {
-        proTopAlertService.error({
-          message: 'error',
-          timeout: 4
+      let _callback = ()=> {
+        ServiceApi.deleteService({
+          serviceId: id
+        }).$promise.then((res)=> {
+          this.consultations.splice(index, 1)
+          if (this.consultations.length === 0) {
+            $state.go('app.dashboard.service-provider.consultation-range.company')
+          }
+        }, (err) => {
+          proTopAlertService.error({
+            message: 'error',
+            timeout: 4
+          })
         })
-      })
+      }
+      DialogService.openDialog($scope, _callback)
     }
 
     return this
@@ -103,6 +106,7 @@
 
   angular.module('profitelo.controller.dashboard.service-provider.summary.company', [
     'ui.router',
+    'profitelo.services.dialog-service',
     'profitelo.services.service-provider-state',
     'profitelo.directives.service-provider.pro-service-provider-summary-head',
     'profitelo.directives.service-provider.pro-service-provider-summary-step',

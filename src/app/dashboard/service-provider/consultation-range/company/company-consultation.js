@@ -1,5 +1,5 @@
 (function() {
-  function CompanyConsultationController($scope, $state, $timeout, savedProfile, ServiceApi, proTopAlertService, profileImage) {
+  function CompanyConsultationController($scope, $state, $uibModal, $timeout, DialogService, savedProfile, ServiceApi, proTopAlertService, profileImage) {
 
     let _createDefaultModel = (cost)=> {
       return {
@@ -133,16 +133,19 @@
       }
     }
     this.deleteConsultation = (id, index) => {
-      ServiceApi.deleteService({
-        serviceId: id
-      }).$promise.then((res)=> {
-        this.consultations.splice(index, 1)
-      }, (err) => {
-        proTopAlertService.error({
-          message: 'error',
-          timeout: 4
+      let _callback = ()=> {
+        ServiceApi.deleteService({
+          serviceId: id
+        }).$promise.then((res)=> {
+          this.consultations.splice(index, 1)
+        }, (err) => {
+          proTopAlertService.error({
+            message: 'error',
+            timeout: 4
+          })
         })
-      })
+      }
+      DialogService.openDialog($scope, _callback)
     }
 
     this.addAnotherConsultation = () => {
@@ -154,9 +157,10 @@
   }
 
   angular.module('profitelo.controller.dashboard.service-provider.consultation-range.company', [
-
+    'ui.bootstrap',
     'ui.router',
     'c7s.ng.userAuth',
+    'profitelo.services.dialog-service',
     'profitelo.swaggerResources',
     'profitelo.directives.pro-top-alert-service',
     'profitelo.services.resolvers.app.service-provider-image-resolver',

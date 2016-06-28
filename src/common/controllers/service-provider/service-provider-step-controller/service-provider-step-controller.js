@@ -8,7 +8,11 @@
     }
 
     $scope.restoreShadowModel = () => {
-      $scope.model = angular.copy(shadowModel)
+      /* Przy polach z ui-selectem wurzuca błąd bo funkcja restore odpala się na select */
+      if (shadowModel !== null) {
+        $scope.model = angular.copy(shadowModel)
+      }
+
     }
 
     $scope.proceed = () => {
