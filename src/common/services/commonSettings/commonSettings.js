@@ -1,13 +1,10 @@
-angular.module('profitelo.services.commonSettings', ['commonConfig'])
-.factory('CommonSettingsService', CommonSettingsService)
-
 function CommonSettingsService(CommonConfig) {
   let _commonConfigSettings = CommonConfig.getAllData()
-  
+
   let _validation = _commonConfigSettings.validation
 
   let _settings = {
-    
+
   }
 
   let _localSettings = {
@@ -94,3 +91,7 @@ function CommonSettingsService(CommonConfig) {
 
 
 }
+
+angular.module('profitelo.services.commonSettings', ['commonConfig'])
+.factory('CommonSettingsService', CommonSettingsService)
+

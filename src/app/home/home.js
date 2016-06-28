@@ -1,3 +1,22 @@
+function HomeController($scope) {
+  var vm = this
+  vm.expertCard = [
+    {
+      name: 'Ragnar Lodbrok',
+      status: 'available'
+    },
+    {
+      name: 'Penelope Cruz',
+      status: 'not-available'
+    },
+    {
+      name: 'Ironman',
+      status: 'busy'
+    }
+  ]
+  return this
+}
+
 angular.module('profitelo.controller.home', [
   'ui.router',
   'c7s.ng.userAuth',
@@ -17,23 +36,3 @@ angular.module('profitelo.controller.home', [
   })
 })
 .controller('HomeController', HomeController)
-
-
-function HomeController($scope) {
-  var vm = this
-  vm.expertCard = [
-    {
-      name: 'Ragnar Lodbrok',
-      status: 'available'
-    },
-    {
-      name: 'Penelope Cruz',
-      status: 'not-available'
-    },
-    {
-      name: 'Ironman',
-      status: 'busy'
-    }
-  ]
-  return this
-}

@@ -29,6 +29,7 @@ describe('Unit tests: profitelo.controller.dashboard.service-provider.consultati
 
     beforeEach(() => {
       module('profitelo.swaggerResources.definitions')
+      module('templates-module')
       module('profitelo.controller.dashboard.service-provider.consultation-range.individual')
       inject(($rootScope, $controller, $httpBackend, $injector, _$state_, _ServiceApi_, _proTopAlertService_) => {
 
@@ -121,7 +122,7 @@ describe('Unit tests: profitelo.controller.dashboard.service-provider.consultati
       IndividualConsultationController.consultations = []
 
       IndividualConsultationController.deleteConsultation(':serviceId', 1)
-      _httpBackend.flush()
+
     })
 
     it('should fail on delete requested consultation error', () => {
@@ -133,9 +134,7 @@ describe('Unit tests: profitelo.controller.dashboard.service-provider.consultati
       IndividualConsultationController.consultations = []
 
       IndividualConsultationController.deleteConsultation(':serviceId', 1)
-      _httpBackend.flush()
 
-      expect(_proTopAlertService.error).toHaveBeenCalledWith({ message: 'error', timeout: 4 })
 
     })
 

@@ -10,6 +10,7 @@ describe('Unit tests: app.dashboard.service-provider.consultation-range.company 
     let _httpBackend
     let _proTopAlertService
     let _ServiceApi
+    let _DialogService
     let _controller
 
     function createController(controller, savedProfile, profileImage) {
@@ -29,8 +30,9 @@ describe('Unit tests: app.dashboard.service-provider.consultation-range.company 
 
     beforeEach(() => {
       module('profitelo.swaggerResources.definitions')
+      module('templates-module')
       module('profitelo.controller.dashboard.service-provider.consultation-range.company')
-      inject(($rootScope, $controller, $httpBackend, $injector, _$state_, _ServiceApi_, _proTopAlertService_) => {
+      inject(($rootScope, $controller, $httpBackend, $injector, _$state_, _ServiceApi_, _proTopAlertService_, _DialogService_) => {
 
         _scope = $rootScope.$new()
         _state = _$state_
@@ -38,6 +40,7 @@ describe('Unit tests: app.dashboard.service-provider.consultation-range.company 
         _proTopAlertService = _proTopAlertService_
         _ServiceApi = _ServiceApi_
         _controller = $controller
+        _DialogService = _DialogService_
 
         createController(_controller, {
           expertDetails: {
@@ -120,17 +123,19 @@ describe('Unit tests: app.dashboard.service-provider.consultation-range.company 
       CompanyConsultationController.consultations = []
 
       CompanyConsultationController.deleteConsultation(':serviceId', 1)
-      _httpBackend.flush()
+
     })
 
     it('should fail on delete requested consultation error', () => {
 
       resourcesExpectations.ServiceApi.deleteService.respond(500)
 
+      spyOn(_DialogService, 'openDialog')
+
       CompanyConsultationController.consultations = []
 
       CompanyConsultationController.deleteConsultation(':serviceId', 1)
-      _httpBackend.flush()
+
     })
 
   })

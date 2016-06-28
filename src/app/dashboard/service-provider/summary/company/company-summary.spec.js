@@ -31,6 +31,7 @@ describe('Unit tests: CompanySummaryController >', () => {
 
     beforeEach(() => {
       module('profitelo.swaggerResources.definitions')
+      module('templates-module')
       module('profitelo.controller.dashboard.service-provider.summary.company')
       inject(($rootScope, $controller, $httpBackend, $injector, _$state_, _ServiceApi_, _proTopAlertService_) => {
 
@@ -77,7 +78,7 @@ describe('Unit tests: CompanySummaryController >', () => {
       CompanySummaryController.consultations = [{name: '121'}]
 
       CompanySummaryController.deleteConsultation(':serviceId', 1)
-      _httpBackend.flush()
+
     })
 
     it('should fail on delete requested consultation error', () => {
@@ -87,7 +88,7 @@ describe('Unit tests: CompanySummaryController >', () => {
       CompanySummaryController.consultations = []
 
       CompanySummaryController.deleteConsultation(':serviceId', 1)
-      _httpBackend.flush()
+
     })
 
     it('should transfer to first company step', () => {
