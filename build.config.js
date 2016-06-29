@@ -1,3 +1,5 @@
+require('./commonconfig-merge.js')
+
 var fs = require('fs')
 
 try {
