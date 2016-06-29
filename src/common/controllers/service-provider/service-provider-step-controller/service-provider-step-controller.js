@@ -8,11 +8,9 @@
     }
 
     $scope.restoreShadowModel = () => {
-      /* Przy polach z ui-selectem wurzuca błąd bo funkcja restore odpala się na select */
       if (shadowModel !== null) {
         $scope.model = angular.copy(shadowModel)
       }
-
     }
 
     $scope.proceed = () => {
@@ -32,9 +30,7 @@
     $scope.skip = () => {
 
       $scope.queue.skippedSteps[$scope.order] = true
-      if (shadowModel !== null) {
-        $scope.restoreShadowModel()
-      }
+      $scope.restoreShadowModel()
       $scope.proceed()
 
       for (let property in $scope.clearError) {

@@ -3,16 +3,19 @@
 
     function linkFunction(scope, element, attrs) {
 
+      scope.imageField = 'avatar'
       scope.required = false
       scope.noFile = false
 
-      scope.model = {
-        avatar: []
+      if ('imageField' in attrs) {
+        scope.imageField = attrs.imageField
       }
+      scope.model = {}
+      scope.model[scope.imageField] = []
 
-      if (scope.proModel.avatar) {
-        FilesApi.fileInfoPath({token: scope.proModel.avatar}).$promise.then((res)=>{
-          scope.model.avatar.push({file: null, response:res})
+      let _getImageIfExist = (model)=> {
+        FilesApi.fileInfoPath({token: model}).$promise.then((res)=>{
+          scope.model[scope.imageField].push({file: null, response:res})
         }, (err)=> {
           proTopAlertService.error({
             message: 'error',
@@ -21,10 +24,12 @@
         })
       }
 
+      !!scope.proModel[scope.imageField] ? _getImageIfExist(scope.proModel[scope.imageField]) : scope.model[scope.imageField] = []
+
       let _isValid = () => {
         let _isValidDeferred = $q.defer()
-        if (angular.isDefined(scope.model.avatar) && scope.model.avatar.length > 0) {
-          _isValidDeferred.resolve(scope.model.avatar[0].response.id)
+        if (angular.isDefined(scope.model[scope.imageField]) && scope.model[scope.imageField].length > 0) {
+          _isValidDeferred.resolve(scope.model[scope.imageField][0].response.id)
         } else {
           _isValidDeferred.reject()
         }
@@ -42,15 +47,14 @@
 
       scope.removeAvatar = () => {
         scope.noFile = true
-        scope.model.avatar.splice(0, 1)
+        scope.model[scope.imageField].splice(0, 1)
       }
 
       scope.saveSection = () => {
         _isValid().then((avatarId) => {
           scope.noFile = false
-          scope.proModel.avatar = avatarId
+          scope.proModel[scope.imageField] = avatarId
           scope.proceed()
-
         }, () => {
           _displayErrorMessage()
         })

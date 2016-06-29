@@ -82,7 +82,7 @@
     'profitelo.directives.service-provider.pro-service-provider-languages',
     'profitelo.directives.service-provider.pro-bottom-summary-row',
     'profitelo.swaggerResources',
-    'profitelo.directives.service-provider.pro-service-provider-logo',
+    'profitelo.directives.service-provider.pro-service-provider-avatar',
     'profitelo.directives.pro-top-alert-service',
     'c7s.ng.userAuth'
   ])
