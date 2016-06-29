@@ -89,6 +89,7 @@ module.exports = {
       'generated-modules/common-config/common-config.js'
     ],
     css: [
+      'node_modules/reset.css/reset.css',
       'node_modules/angular-toastr/dist/angular-toastr.css',
       'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css',
       'node_modules/ui-select/dist/select.css',
