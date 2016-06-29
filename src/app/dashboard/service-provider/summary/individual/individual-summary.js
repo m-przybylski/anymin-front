@@ -21,6 +21,10 @@
       }
     }
 
+    if (this.consultations.length < 1) {
+      $state.go('app.dashboard.service-provider.consultation-range.individual')
+    }
+
     this.verifyProfile = ()=> {
       ServiceApi.postServicesVerify().$promise.then((res)=> {
         $state.go('app.dashboard.start')
