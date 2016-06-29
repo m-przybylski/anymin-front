@@ -6,5 +6,9 @@
       p.expert-availability(class='{{ngModel.status}}', data-translate='{{translations[ngModel.status]}}')
       p.expert-service(data-translate="HOME.SERVICE_DESCRIPTION")
     .expert-data.flex-row
-      .conversations-amount(data-translate="HOME.EXPERT_SERVICE_SATISFACTION")
-      .service-satisfaction(data-translate="HOME.EXPERT_CONVERSATIONS")
+      .service-satisfaction
+        i.icon.icon-zadowolenie-16
+        p(data-translate="HOME.EXPERT_SERVICE_SATISFACTION")
+      .conversations-amount
+        i.icon.icon-rozmowy-16
+        p(data-translate="HOME.EXPERT_CONVERSATIONS")
