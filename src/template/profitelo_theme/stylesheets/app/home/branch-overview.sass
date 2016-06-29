@@ -3,6 +3,7 @@
   font-size: $f-main-subheader
   text-align: center
   +default-font-light
+  margin: 40px 0
 .branch-card-box
   justify-content: space-between
   flex-flow: row wrap
@@ -12,11 +13,18 @@
   .branch-card-outer
     padding: 0 8px
     margin: 0 0 16px
+    position: relative
     flex: 0 0 100%
-    +smm
+    +xsm
       flex: 0 0 50%
     +mdm
       flex: 0 0 25%
+    .icon
+      &::before
+        color: white
+        position: absolute
+        top: 30px
+        left: 40px
   .branch-card
     +default-font-heavy
     color: $c-white
@@ -25,7 +33,7 @@
     box-shadow:  0px 2px 2px 0px rgba(0, 0, 0, .2)
     font-size: $f-base
     justify-content: flex-end
-    background: $c-primary-hover url('/assets/images/paper.svg') no-repeat left 30px top 30px / 32px 26px
+    background: $c-primary-hover
     width: 100%
     +lgm
       max-width: 288px
