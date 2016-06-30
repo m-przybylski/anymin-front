@@ -1,59 +1,41 @@
 .login-page
+  height: 100vh
+
   .left-column
-    display: flex
-    display: -webkit-flex
-    flex-direction: column
-    flex-wrap: nowrap
-    justify-content: space-between
-    align-content: center
+    flex: 0 0 100%
     align-items: center
-    min-height: 100%
-    width: 100%
     background-color: $c-white
-    @media screen and (min-height: 570px)
-      min-height: 100vh
-    +xsm
-      width: 480px
-      min-height: 100vh
+
+    +smm
+      flex: 0 0 33%
+
     .btn-handler
-      display: inline-flex
       width: 100%
       flex-direction: row-reverse
-      .pro-btn
-        &:first-child
-          max-width: 50%
-          margin-left: 8px
-        &:nth-child(2)
-          max-width: 50%
-          margin-right: 8px
+
     .top-content
       width: 100%
       padding: 20px
       float: left
+
       +xsm
         width: 480px
         padding: 40px
+
       img
         height: 40px
+        margin-bottom: 36px
+
       .top-div
         border-bottom: 1px solid $c-lines
         margin-bottom: 32px
-        h5
-          margin-top: 32px
 
-        h4
-          margin: -24px 0 0 0
-          padding-bottom: 32px
-          span
-            &.purple
-              color: $c-primary
-              font-weight: 600
-      form
-        margin-top: 32px
-        .pro-btn
-          margin-top: 0
-        button
-          margin-top: 0
+        h5, h4
+          margin-bottom: 8px
+
+        .purple
+          color: $c-primary
+
         .password-verify
           margin-top: 32px
           margin-bottom: 32px
@@ -72,50 +54,34 @@
       position: relative
       margin-top: 10px
       float: left
+
       +xsm
         width: 480px
         padding: 0 40px
 
       .log-bottom
         text-align: center
+
         h5
           margin: 0
           padding-bottom: 32px
+
       .app-buttons
-        display: flex
-        display: -webkit-flex
-        justify-content: center
-        margin-bottom: 0
+        justify-content: space-around
+
         +xsm
           margin-bottom: 32px
+
         img
           height: 48px
           width: 140px
-          &:nth-child(2)
-            margin-left: 16px
-      .footer
-        float: left
-        margin-top: 24px
-        border-top: 1px solid $c-lines
-        padding-top: 0
-        text-align: center
-        width: 100%
-        h6
-          margin-top: 16px
-          margin-bottom: 16px
 
   .img-column
-    overflow-x: hidden
-    width: 0
-    background-image: url("/assets/images/login-background.jpg")
-    position: absolute
-    background-size: cover
-    left: 480px
-    height: 100%
-    top: 0
     display: none
+    background-image: url("/assets/images/login-background.jpg")
+    background-size: cover
+    background-position: center
 
-    +xsm
+    +smm
       display: block
-      width: calc(100% - 480px)
-      overflow-x: hidden
+      flex: 1 0 66%

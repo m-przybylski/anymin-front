@@ -1,5 +1,5 @@
-.login-page
-  .left-column
+.login-page.flex-row
+  .left-column.flex-col
     .top-content
       img.logo(src="/assets/images/logo_profitelo_black.png" data-ui-sref="app.home")
       .top-div
@@ -14,9 +14,9 @@
     .bottom-content
       .log-bottom
         h5(data-translate="LOGIN.DOWNLOAD_FREE_APP")
-        .app-buttons
-          img(src="/assets/images/google_play.png")
-          img(src="/assets/images/app_store.png")
-      .footer
-        h6(data-translate="COMMON.COPYRIGHT")
+        .app-buttons.flex-row
+          a
+            img(src="/assets/images/google_play.png")
+          a
+            img(src="/assets/images/app_store.png")
   .img-column
