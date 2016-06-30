@@ -76,7 +76,7 @@
         }).$promise.then((res)=> {
           this.consultations.splice(index, 1)
           if (this.consultations.length === 0) {
-            $state.go('app.dashboard.service-provider.consultation-range.individual')
+            $state.go('app.dashboard.service-provider.consultation-range.company')
           }
         }, (err) => {
           proTopAlertService.error({

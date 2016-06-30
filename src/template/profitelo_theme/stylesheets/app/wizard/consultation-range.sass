@@ -1,0 +1,90 @@
+.summary-previous-step
+  background-color: $c-background-2
+  border-bottom: 1px solid $c-lines
+  padding: 12px 0
+  .summary-previous-step-content
+    width: 100%
+    margin: 0 auto
+    display: flex
+    padding: 24px 24px 0
+    flex-direction: row
+    flex-wrap: nowrap
+    justify-content: flex-start
+    align-content: center
+    align-items: center
+    +lgm
+      width: 1104px
+    .summary-previous-step-image
+      width: 100px
+      height: 100px
+      position: relative
+      overflow: hidden
+      +border-radius(100px)
+      img
+        position: absolute
+        top: 0%
+        left: 0%
+        max-width: 100px
+        max-height: 100px
+
+    .summary-previous-step-name
+      margin-left: 24px
+      width: 80%
+      margin-top: 12px
+      .summary-languages
+        display: flex
+        flex-direction: row
+        flex-wrap: nowrap
+        justify-content: flex-start
+        align-content: center
+        align-items: center
+        margin: 16px 0
+        img
+          padding: 0 4px
+          max-height: 16px
+    .summary-previous-step-edit
+      .btn-light
+        background-color: $c-background-2
+        &:hover
+          box-shadow: 0px 0px 0px 2px $c-primary
+        i
+          padding: 20px 0 13px
+          color: $c-primary
+  .summary-previous-step-description
+    position: relative
+    text-align: justify
+    padding: 24px 0 24px 40px
+    p
+      color: $c-secondary-txt
+  .summary-previous-step-quote
+    position: absolute
+    font-size: 25px
+    top: 35px
+    left: 0
+    color: $c-secondary
+    i
+      font-size: 24px
+
+.inputs-row
+  display: flex
+  flex-direction: row
+  flex-wrap: nowrap
+  justify-content: space-between
+  align-content: center
+  align-items: center
+  width: 100%
+  .currency-input-box
+    width: 85%
+  .currency-dropdown-box
+    width: 15%
+  .ui-select-match
+    background-color: transparent
+  .input-group
+    .dropdown-icon
+      padding-top: 36px
+
+.summary-text
+  color: $c-primary-txt
+  padding: 0 2px
+  span
+    margin-top: 10px

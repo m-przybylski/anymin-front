@@ -1,0 +1,34 @@
+.dashboard-left-menu(data-ng-swipe-left="dashboardController.toogleSidebar()")
+  .main-column
+    .top-row
+      a(data-ui-sref="app.dashboard.start")
+        .logo
+          img(src="assets/images/logo-symbol.png")
+      .user
+        .photo
+            img(src='assets/images/John_Doe.jpg' alt='user-avatar')
+            .user-status
+              .user-online
+                span 15
+      .switcher
+        .onoffswitch
+          input(type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" data-ng-model="vm.userSwitcher" checked)
+          label(class="onoffswitch-label" for="myonoffswitch" data-ng-click="dashboardController.changeAccount()")
+        span(data-ng-show="dashboardController.switchUser == true" data-translate="DASHBOARD.MENU.EXPERT")
+        span(data-ng-show="dashboardController.switchUser == false" data-translate="DASHBOARD.MENU.CLIENT")
+      .menu-icon
+        a.option-left
+          i.icon.icon-menu-16
+        a.option-left
+          i.icon.icon-password-show
+        a.option-left
+          i.icon.icon-search-24
+        a.option-left
+          i.icon.icon-settings-24
+      
+    .bottom-row
+      .switcher
+      .switcher-tools
+      .logout-icon
+        a.option-left(data-ng-click="appController.logout()")
+          i.icon.icon-logout-24

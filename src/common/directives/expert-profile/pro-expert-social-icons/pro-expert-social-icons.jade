@@ -1,6 +1,7 @@
-.social-icons.pro-expert-social-icons
-  h5(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.MY_SOCIAL_MEDIA")
-  .icons
-    div(ng-repeat="link in links")
-      a(href="{{link}}" target="_blank")
-        i.icon(pro-social-icon-getter data-url="link")
+.pro-expert-social-icons
+  .social-icons
+    h5(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.MY_SOCIAL_MEDIA")
+    .icons
+      div(ng-repeat="link in links")
+        a(href="{{link}}" target="_blank")
+          i.icon(pro-social-icon-getter data-url="link")

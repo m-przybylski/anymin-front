@@ -15,13 +15,14 @@
     this.toogleSidebar=function() {
       this.isSidebarOpen = !this.isSidebarOpen
     }
-    
+
 
     return this
   }
 
 
   angular.module('profitelo.controller.dashboard', [
+    'profitelo.directives.dashboard.dashboard-left-menu',
     'ui.router',
     'ngTouch',
     'c7s.ng.userAuth'
