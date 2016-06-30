@@ -34,6 +34,7 @@
 
     +smm
       flex-direction: row
+
     p
       color: $c-lines
       margin-top: -20px
@@ -51,7 +52,6 @@
     flex-direction: row
     flex-wrap: nowrap
     justify-content: space-between
-    align-content: center
     align-items: center
     text-transform: uppercase
 
@@ -62,9 +62,8 @@
 
     span
       color: $c-secondary-txt
-      font-size: 24px
-      margin-left: 16px
-      margin-top: 8px
+      font-size: $f-h3-size
+      margin: 8px 0 0 16px
 
     h5
       color: $c-secondary-txt
@@ -72,6 +71,7 @@
     &.done
       span, p
         color: $c-success
+
     .icon-warning
       color: $c-warning
 
@@ -82,21 +82,21 @@
       padding: 13px 10px
 
       span
-        font-size: 20px
+        font-size: $f-h4-size
 
     .input-group
       color: $c-secondary-txt
       width: 100%
 
       .input-group-addon
-        width: 112px
+        width: 1$f-small
 
         +transition(all 0.2s ease-in-out 0s)
         text-decoration: none
 
         span
           text-transform: uppercase
-          font-size: 16px
+          font-size: $f-h5-size
           padding: 0 0 0 10px
 
       .ui-select-container
@@ -105,54 +105,49 @@
         flex-direction: row
         flex-wrap: nowrap
         justify-content: flex-start
-        align-content: center
         align-items: center
         margin-top: -5px
 
         input
-          padding-left: 10px
-          padding-top: 0px
-          font-size: 15px
+          padding: 0 0 0 10px
+          font-size: $f-base
 
         .ui-select-match
           position: absolute
 
         .ui-select-match-item
-          +border-radius(0.3em)
+          +border-radius($-radius-4)
           background-color: $c-primary-txt
           padding: 3px 5px
           margin-left: 6px
-
           position: relative
 
           span
+            +default-font-heavy
             text-transform: uppercase
             color: $c-white
-            font-weight: bold
             padding-left: 6px
-            font-size: 12px
+            font-size: $f-small
 
           .ui-select-match-close
             padding: 5px 3px 5px 0px
             position: absolute
             left: 0
-            font-size: 16px
+            font-size: $f-h5-size
 
       input
         bottom: 9px
-        font-size: 20px
+        font-size: $f-h4-size
 
 
     .upload-field-description
       p
         text-transform: uppercase
-        margin-left: 25px
-        margin-top: 20px
+        margin: 20px 0 0 25px
         position: absolute
 
     .button-next-step
-      margin-top: 35px
-      margin-bottom: 25px
+      margin: 35px 0 25px
       text-align: right
 
       .btn-secondary
@@ -168,12 +163,11 @@
       margin-top: 0
 
       h3
-        margin-top: 43px
-        margin-bottom: -10px
+        margin: 43px 0 -10px
 
       span
         color: $c-white
-        font-size: $f-base
+        font-size: $f-vsmall
         padding: 0px 9px
 
         &.input-group-addon
@@ -186,11 +180,11 @@
         padding: 4px 10px 0px 14px
 
       .icon
-        font-size: 12px
+        font-size: $f-small
 
       .link-add-icon
         color: $c-primary
-        font-size: 22px
+        font-size: $f-h2-size
         margin: 0 -2px 0 -10px
         text-transform: none
         font-style: normal
@@ -213,15 +207,14 @@
         padding: 17px
 
       .btn-main
-        +border-radius(100px)
         background-color: $c-primary-txt
-        font-size: $f-base
+        font-size: $f-vsmall
         width: auto
         padding: 15px
         height: 48px
 
     .document
-      margin-top: 12px
+      margin-top: $f-small
 
     .document-submit
       display: inline-flex
@@ -285,7 +278,6 @@
     display: flex
     flex-direction: column
     flex-wrap: wrap
-    align-content: center
     justify-content: space-between
     align-items: center
 
@@ -300,16 +292,16 @@
 
       input
         bottom: 18px
-        font-size: 16px
+        font-size: $f-h5-size
 
       textarea
-        font-size: 20px
+        font-size: $f-h4-size
         color: $c-primary-txt
         min-height: 180px
         position: relative
 
     .option
-      +border-radius(0.3em)
+      +border-radius($-radius-4)
       +transition(all 0.1s ease-in-out 0s)
       background-color: $c-white
       border: 1px solid $c-lines
@@ -335,16 +327,16 @@
       span
         padding: 0
         margin: 0
-        font-size: 38px
+        font-size: $f-h2-size
 
         +smm
-          font-size: 128px
+          font-size: $f-counter
           padding-top: 22px
 
       h5
         color: $c-secondary-txt
         text-transform: uppercase
-        margin-top: 12px
+        margin-top: $f-small
 
   .step-control
     padding: 22px 0
