@@ -13,7 +13,7 @@
       }
     }
 
-    if (this.consultations.length < 1) {
+    if (angular.isDefined(savedProfile.services) && savedProfile.services.length < 1) {
       $state.go('app.dashboard.service-provider.consultation-range.company')
     }
 

@@ -1,29 +1,11 @@
 (function() {
-  function CompanyConsultationController($scope, $state, $uibModal, $timeout, DialogService, savedProfile, ServiceApi, proTopAlertService, profileImage) {
+  function CompanyConsultationController($scope, $state, $uibModal, $timeout, DialogService, savedProfile, ServiceApi, proTopAlertService, profileImage, serviceProviderService) {
 
-    let _createDefaultModel = (cost)=> {
-      return {
-        name: '',
-        tags: [],
-        cost: cost,
-        invitations: []
-      }
-    }
+    this.costModel = serviceProviderService.createDefaultModel('')
+    this.editModel = serviceProviderService.createDefaultModel(0)
 
-    let _createDefaultQueue = (amountOfSteps, currentStep, completedSteps)=> {
-      return {
-        amountOfSteps: amountOfSteps,
-        currentStep: currentStep,
-        completedSteps: completedSteps,
-        skippedSteps: {}
-      }
-    }
-
-    this.costModel = _createDefaultModel('')
-    this.editModel = _createDefaultModel(0)
-
-    this.queue = _createDefaultQueue(4, 1, 0)
-    this.editQueue = _createDefaultQueue(4, 5, 4)
+    this.queue = serviceProviderService.createDefaultQueue(4, 1, 0)
+    this.editQueue = serviceProviderService.createDefaultQueue(4, 5, 4)
 
     this.currency = [
       {id: 1, name: 'PLN'},
@@ -66,13 +48,11 @@
       return this.queue.completedSteps
     }, _calculateProgressPercentage)
 
-    this.backToFirstStep = () => {
-      if (savedProfile.expertDetails && !savedProfile.organizationDetails) {
-        $state.go('app.dashboard.service-provider.individual-path')
-      } else {
-        $state.go('app.dashboard.service-provider.company-path')
-      }
+
+    this.backToFirstStep = () =>  {
+      serviceProviderService.backToFirstStep(savedProfile.expertDetails, savedProfile.organizationDetails)
     }
+
 
     this.saveConsultationObject = () => {
       let _redirectByOwnerEmployeeStatus = () => {
@@ -158,6 +138,7 @@
 
   angular.module('profitelo.controller.dashboard.service-provider.consultation-range.company', [
     'ui.bootstrap',
+    'profitelo.services.service-provider-service',
     'ui.router',
     'c7s.ng.userAuth',
     'profitelo.services.dialog-service',
