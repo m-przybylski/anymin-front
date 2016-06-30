@@ -19,8 +19,8 @@ block content
           h3(data-translate="DASHBOARD.CREATE_PROFILE.CREATE_PROFILE_YOUR_LINKS" data-ng-click="onClick()")
           .links-submit.links-last-step
             a.pro-btn.btn-main.btn-medium(data-ng-repeat="link in model.links track by $index")
-              i.left-icon(pro-social-icon-getter data-url="link")
+              span.left-icon(pro-social-icon-getter data-url="link")
               span {{ link }}
-              i.icon.icon-close-12(data-ng-click="removeLink(link)")
+              span.icon.icon-close-12(data-ng-click="removeLink(link)")
       .input-error-messages
         .error(data-translate="DASHBOARD.CREATE_PROFILE.NO_LINKS_ERROR" data-ng-show="noUrl")

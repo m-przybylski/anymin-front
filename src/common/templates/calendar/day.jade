@@ -3,13 +3,13 @@
         .tab-row
             .cell
                 button.btn.btn-default.btn-sm.pull-left.uib-left(type='button', ng-click='move(-1)', tabindex='-1')
-                    i.icon-tiny-arrow-left
+                    span.icon-tiny-arrow-left
             .cell(colspan='{{::5 + showWeeks}}')
                 button.btn.btn-default.btn-sm.uib-title(id='{{::uniqueId}}-title', role='heading', aria-live='assertive', aria-atomic='true', type='button', ng-click='toggleMode()', ng-disabled='datepickerMode === maxMode', tabindex='-1')
                     strong {{title}}
             .cell
                 button.btn.btn-default.btn-sm.pull-right.uib-right(type='button', ng-click='move(1)', tabindex='-1')
-                    i.icon-tiny-arrow-right
+                    span.icon-tiny-arrow-right
         .tab-row-weeks
             .cell.text-center(ng-if='showWeeks')
             .cell.text-center(ng-repeat='label in ::labels track by $index')
