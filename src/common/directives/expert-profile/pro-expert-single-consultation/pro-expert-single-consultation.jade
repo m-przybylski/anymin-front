@@ -3,35 +3,35 @@
     .title-row-consultation.black-row
       .options-consultation
         div
-          i.icon.icon-satisfaction-16
+          span.icon.icon-satisfaction-16
           span {{ satisfaction }}%
         div
-          i.icon.icon-calls-16
+          span.icon.icon-calls-16
           span {{ talks }}
         div
-          i.icon.icon-time-16
+          span.icon.icon-time-16
           span {{ timeAverage }} min.
       .title-row
         h3 {{ name }}
       .cost-consultations
         .prize
-          i.icon.icon-price-32
+          span.icon.icon-price-32
           h3 {{ minuteCost / 100 }}
           h3.currency(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE")
         .call
           p ZADZWOŃ
-          i.icon.icon-headphone-16
+          span.icon.icon-headphone-16
 
-    .title-row-consultation.footer-consultation
-      p Tagi (18)
-      .tags-consultation
-        p(ng-repeat="tag in tags") {{tag}}
+      .title-row-consultation.footer-consultation
+        p Tagi (18)
+        .tags-consultation
+          p(ng-repeat="tag in tags") {{tag}}
 
-      p {{'HOME.TOP_CONTAINER.EXPERT_PROFILE.COMMENTS' | translate}} (100)
-      .comments
-        .help
-          i.icon.icon-good-32
-          p {{positiveMark}}
-        .help
-          i.icon.icon-bad-32
-          p {{negativeMark}}
+        p {{'HOME.TOP_CONTAINER.EXPERT_PROFILE.COMMENTS' | translate}} (100)
+        .comments
+          .help
+            span.icon.icon-good-32
+            p {{positiveMark}}
+          .help
+            span.icon.icon-bad-32
+            p {{negativeMark}}
