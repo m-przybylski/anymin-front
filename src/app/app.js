@@ -266,7 +266,7 @@
     'profitelo.controller.login.forgot-password',
     'profitelo.controller.login.set-new-password',
     'profitelo.controller.login.confirm-email',
-
+    'profitelo.controller.search-result',
 
 
     // directives
