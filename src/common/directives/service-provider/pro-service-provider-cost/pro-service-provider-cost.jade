@@ -11,7 +11,7 @@ block content
         data-placeholder="{{'DASHBOARD.CONSULTATION_RANGE.CURRENCY_PLACEHOLDER' | translate}}"
         data-pro-items="list" data-no-search disable)
     .count-price(data-ng-if="model.cost >= 1")
-      span.summary-text {{((model.cost / 1.25) | number: 2)}}
+      span.summary-text {{model.cost /1.25 | number:2}}
       span.summary-text(data-translate="{{costSummary | translate: translationUrl}}")
     .cost-details(data-ng-if="model.cost < 1 && model.cost !== null && model.cost !== ''")
       span.summary-text(data-translate="DASHBOARD.CONSULTATION_RANGE.CURRENCY_DETAILS")

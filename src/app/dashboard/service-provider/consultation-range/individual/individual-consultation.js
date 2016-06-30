@@ -1,39 +1,28 @@
 (function() {
-  function IndividualConsultationController($scope, $state, savedProfile, ServiceApi, proTopAlertService, profileImage, DialogService) {
+  function IndividualConsultationController($scope, $state, $timeout, savedProfile, ServiceApi, proTopAlertService, profileImage, DialogService, serviceProviderService) {
 
-    let _createDefaultModel = (cost)=> {
-      return  {
-        name: '',
-        tags: [],
-        cost: cost
-      }
-    }
-    
-    let _createDefaultQueue = (amountOfSteps, currentStep, completedSteps)=> {
-      return {
-        amountOfSteps: amountOfSteps,
-        currentStep: currentStep,
-        completedSteps: completedSteps,
-        skippedSteps: {}
-      }
-    }
+    this.costModel = serviceProviderService.createDefaultModel('')
+    this.editModel = serviceProviderService.createDefaultModel(0)
 
-    this.costModel = _createDefaultModel('')
-    this.editModel = _createDefaultModel(0)
-    
-    this.queue = _createDefaultQueue(3, 1, 0)
-    this.editQueue = _createDefaultQueue(3, 4, 3)
+    this.queue = serviceProviderService.createDefaultQueue(3, 1, 0)
+    this.editQueue = serviceProviderService.createDefaultQueue(3, 4, 3)
 
     this.currency = [
       {id: 1, name: 'PLN'},
       {id: 2, name: 'USD'},
       {id: 3, name: 'EUR'}
     ]
-
     this.consultations = []
     this.profile = {}
-
     this.profileImage = profileImage
+
+    if (savedProfile && savedProfile.expertDetails && !savedProfile.organizationDetails) {
+      this.profile = savedProfile.expertDetails
+      this.consultations = savedProfile.services
+    } else if (savedProfile.organizationDetails) {
+      $state.go('app.dashboard.service-provider.consultation-range.company')
+    }
+
     let _postConsultationMethod = (callback) => {
       ServiceApi.postService({
         details: {
@@ -43,7 +32,8 @@
         },
         invitations: []
       }).$promise.then((res)=> {
-        if (typeof callback === 'function') {
+
+        if (angular.isDefined(res) && typeof callback === 'function') {
           callback()
         }
       }, (err)=> {
@@ -54,36 +44,29 @@
       })
     }
 
-
     let _calculateProgressPercentage = () => {
       this.progressBarWidth = Math.ceil(this.queue.completedSteps / this.queue.amountOfSteps * 100)
     }
     _calculateProgressPercentage()
-
     $scope.$watch(() => {
       return this.queue.completedSteps
     }, _calculateProgressPercentage)
 
-    this.backToFirstStep = () => {
-      if (savedProfile.expertDetails && !savedProfile.organizationDetails) {
-        $state.go('app.dashboard.service-provider.individual-path')
-      } else {
-        $state.go('app.dashboard.service-provider.company-path')
-      }
+    this.backToFirstStep = ()=> {
+      serviceProviderService.backToFirstStep(savedProfile.expertDetails, savedProfile.organizationDetails)
     }
 
-    if (savedProfile && savedProfile.expertDetails && !savedProfile.organizationDetails) {
-      this.profile = savedProfile.expertDetails
-      this.consultations = savedProfile.services
-    } else if (savedProfile.organizationDetails) {
-      $state.go('app.dashboard.service-provider.consultation-range.company')
-    }
 
     this.saveConsultationObject = () => {
-      if (this.queue.completedSteps === this.queue.amountOfSteps) {
-        _postConsultationMethod()
+      let _redirectCallBack = () => {
+        $state.go('app.dashboard.service-provider.summary.individual')
       }
-      $state.go('app.dashboard.service-provider.summary.individual')
+      if (this.queue.completedSteps === this.queue.amountOfSteps) {
+        _postConsultationMethod(_redirectCallBack)
+      } else {
+        _redirectCallBack()
+      }
+
     }
 
     this.isConsultationPresent = () => {
@@ -145,6 +128,7 @@
   angular.module('profitelo.controller.dashboard.service-provider.consultation-range.individual', [
     'profitelo.services.dialog-service',
     'ui.router',
+    'profitelo.services.service-provider-service',
     'c7s.ng.userAuth',
     'profitelo.services.service-provider-state',
     'profitelo.swaggerResources',

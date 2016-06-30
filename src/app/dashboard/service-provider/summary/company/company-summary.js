@@ -13,6 +13,10 @@
       }
     }
 
+    if (angular.isDefined(savedProfile.services) && savedProfile.services.length < 1) {
+      $state.go('app.dashboard.service-provider.consultation-range.company')
+    }
+
     this.companyLogo = companyLogo
     this.profileAvatar = profileAvatar
 
