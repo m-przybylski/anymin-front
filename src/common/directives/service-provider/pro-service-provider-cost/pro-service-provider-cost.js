@@ -1,5 +1,5 @@
 (function() {
-  function proServiceProviderCost($q, $timeout) {
+  function proServiceProviderCost($q, $filter, $timeout) {
 
     function linkFunction(scope, element, attrs) {
 
@@ -44,7 +44,7 @@
         return scope.model.cost
       }, (newValue, oldValue) => {
         if (newValue !== undefined && typeof newValue !== 'number') {
-          scope.model.cost = scope.model.cost.replace(',', '.')
+          scope.model.cost = $filter('semicolonToCommaInputFilter')(scope.model.cost)
         }
       }, true)
 
@@ -87,6 +87,7 @@
 
   angular.module('profitelo.directives.service-provider.pro-service-provider-cost', [
     'lodash',
+    'profitelo.filters.input-filter.semicolon-to-comma-input-filter',
     'pascalprecht.translate',
     'profitelo.common.controller.service-provider.service-provider-step-controller'
   ])

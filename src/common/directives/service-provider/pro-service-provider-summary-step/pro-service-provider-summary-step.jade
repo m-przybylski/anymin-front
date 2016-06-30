@@ -2,11 +2,9 @@ block content
   .consultations-container.pro-service-provider-summary-step(data-ng-repeat="consultation in consultations")
     .step.summary-step
       .btn-handler
-        .summary-icon
-          a(data-ng-click="vm.deleteConsultation(consultation.id, $index)")
+        a.summary-icon(data-ng-click="vm.deleteConsultation(consultation.id, $index)")
             i.icon.icon-trash-24
-        .summary-icon
-          a(data-ng-click="vm.editConsultation(consultation.id, consultation.details.name, consultation.details.price, consultation.details.tags, consultation.invitations, consultation.ownerEmployee)")
+        a.summary-icon(data-ng-click="vm.editConsultation(consultation.id, consultation.details.name, consultation.details.price, consultation.details.tags, consultation.invitations, consultation.ownerEmployee)")
             i.icon.icon-edit-16
       .summary-step-title
         h4 {{ consultation.details.name}}

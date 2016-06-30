@@ -12,6 +12,10 @@
       }
     }
 
+    if (angular.isDefined(savedProfile.services) && savedProfile.services.length < 1) {
+      $state.go('app.dashboard.service-provider.consultation-range.individual')
+    }
+
     this.profileImage = profileImage
     this.backToFirstStep = () => {
       if (savedProfile.expertDetails && !savedProfile.organizationDetails) {
@@ -20,6 +24,7 @@
         $state.go('app.dashboard.service-provider.company-path')
       }
     }
+
 
     this.verifyProfile = ()=> {
       ServiceApi.postServicesVerify().$promise.then((res)=> {
@@ -71,7 +76,7 @@
         }).$promise.then((res)=> {
           this.consultations.splice(index, 1)
           if (this.consultations.length === 0) {
-            $state.go('app.dashboard.service-provider.consultation-range.company')
+            $state.go('app.dashboard.service-provider.consultation-range.individual')
           }
         }, (err) => {
           proTopAlertService.error({
