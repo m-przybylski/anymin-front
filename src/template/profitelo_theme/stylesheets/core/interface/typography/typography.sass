@@ -7,93 +7,51 @@
   src: url("#{$profitelo-font-path}/LatoLatin-Regular.eot?#iefix") format("embedded-opentype"), url("#{$profitelo-font-path}/LatoLatin-Regular.woff") format("woff"), url("#{$profitelo-font-path}/LatoLatin-Regular.ttf") format("truetype")
   font-weight: 400
   font-style: normal
+
 h1
   font-size: $f-h1-size
-  line-height: 52px
-  letter-spacing: -50%
-  color: $c-primary-txt
+
   &.bold
     +default-font-heavy
 h2
   font-size: $f-h2-size
-  line-height: 36px
-  letter-spacing: -50%
-  color: $c-primary-txt
+
   &.bold
     +default-font-heavy
 h3
   font-size: $f-h3-size
-  line-height: 28px
-  letter-spacing: -25%
-  color: $c-primary-txt
+
   &.bold
     +default-font-heavy
 h4
   font-size: $f-h4-size
-  line-height: 24px
-  letter-spacing: -25%
-  color: $c-primary-txt
+
   &.bold
     +default-font-heavy
 h5
   font-size: $f-h5-size
-  line-height: 20px
-  letter-spacing: -25%
-  color: $c-primary-txt
+
   &.light
     color: $c-secondary-txt
+
   &.bold
     +default-font-heavy
 h6
   font-size: $f-h6-size
-  line-height: 16px
-  letter-spacing: -25%
-  font-weight: bold
-  color: $c-secondary-txt
-  &.bold
-    +default-font-heavy
-p
-  font-size: $f-h5-size
-  line-height: 22px
-  letter-spacing: -10%
-  color: $c-primary-txt
+
   &.bold
     +default-font-heavy
 
-button
-  line-height: 18px
-  letter-spacing: -25%
-  color: $c-white
-  font-weight: bold
-  text-transform: uppercase
-  &.btn-pink
-    color: $c-button-1
   &.bold
     +default-font-heavy
-label
-  font-size: $f-btn-size
-  line-height: 18px
-  letter-spacing: -25%
-  color: $c-primary-txt
-  font-weight: bold
-  text-transform: uppercase
-  &.bold
-    +default-font-heavy
-a
-  font-size: $f-btn-size
-  +default-font-heavy
-  +transition(0.3s)
-  color: $c-primary
-  text-transform: uppercase
+p
+  font-size: $f-paragraph
+
+a,
+  &:hover,
+  &:active,
+  &:focus
   text-decoration: none
-  border-bottom: 1px dotted transparent
-  &:hover
-    border-bottom: 1px dotted $c-primary
-i
-  +default-font-heavy
-  font-size: $f-btn-size
-    text-decoration: none
-textarea
 
 .input-error-messages
   font-size: $f-h6-size
