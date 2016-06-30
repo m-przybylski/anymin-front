@@ -1,8 +1,9 @@
 (function() {
-  function searchFilter($q, $timeout) {
-
+  function searchFilter() {
     function linkFunction(scope, element, attrs) {
-
+      scope.lang = [
+        'Polish'
+      ]
 
     }
 
