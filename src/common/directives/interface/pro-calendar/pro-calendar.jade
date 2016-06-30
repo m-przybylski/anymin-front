@@ -1,5 +1,4 @@
-.pro-calendar
-  .calendar-container
+.calendar-container
     .input-group
       input(type='text' uib-datepicker-popup='{{format}}'
       data-ng-model='dt' is-open='popup1.opened' datepicker-options='dateOptions'
@@ -8,4 +7,4 @@
       datepicker-template-url="templates/calendar/datepicker.tpl.html" class="calendar-input")
       label {{label}}
       span.input-group-addon(data-ng-click="focusInput()" )
-        i.icon-tiny-arrow-down(type='button', data-ng-click='open1()')
+        span.icon-tiny-arrow-down(type='button', data-ng-click='open1()')

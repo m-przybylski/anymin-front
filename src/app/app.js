@@ -243,7 +243,7 @@
     // controllers
     'profitelo.controller.dashboard',
     'profitelo.controller.dashboard.start',
-
+    'profitelo.controller.dashboard.videochat',
     'profitelo.controller.dashboard.invitation',
 
     'profitelo.controller.dashboard.service-provider',

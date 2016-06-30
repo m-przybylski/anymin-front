@@ -11,6 +11,6 @@ block content
           img(data-ng-src="{{model.avatar[0].response.meta.downloadUrl}}")
           .btn-handler(data-ng-show="queue.currentStep === order")
             a.pro-btn.btn-light.btn-icon.upload-trash(data-ng-click="removeAvatar()")
-              i.icon.icon-trash-24.icon-24
+              span.icon.icon-trash-24.icon-24
       .input-error-messages
         .error(data-translate="DASHBOARD.CREATE_PROFILE.NO_FILE_ERROR" data-ng-show="noFile")

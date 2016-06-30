@@ -3,9 +3,9 @@ block content
     .step.summary-step
       .btn-handler
         a.summary-icon(data-ng-click="vm.deleteConsultation(consultation.id, $index)")
-            i.icon.icon-trash-24
+            span.icon.icon-trash-24
         a.summary-icon(data-ng-click="vm.editConsultation(consultation.id, consultation.details.name, consultation.details.price, consultation.details.tags, consultation.invitations, consultation.ownerEmployee)")
-            i.icon.icon-edit-16
+            span.icon.icon-edit-16
       .summary-step-title
         h4 {{ consultation.details.name}}
         h3 {{ consultation.details.price/100 | number:2 }}&nbsp

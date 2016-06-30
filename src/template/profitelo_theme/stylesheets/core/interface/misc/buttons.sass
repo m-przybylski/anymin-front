@@ -12,50 +12,56 @@
   cursor: pointer
   text-transform: uppercase
   white-space: nowrap
+
   &.btn-big
     padding: 20px 40px
     width: 100%
+
   &.btn-medium
     width: 100%
+
   &.btn-small
     padding: 10px 20px
+
   &.btn-icon
+    display: flex
+    align-items: center
+    justify-content: center
     position: relative
     padding: 0
     border-radius: 50%
     height: 48px
     width: 48px
-    *
-      position: absolute
-      left: 50%
-      top: 50%
-      transform: translate(-50%, -50%)
-      height: 16px
-      font-size: 16px
-      width: auto
+    border: 1px solid $c-lines
 
   &.btn-round
     +border-radius(50px)
+
   &.btn-main
     color: $c-white
     background-color: $c-primary
+
     &:hover, &:active, &:focus
       background-color: $c-primary-hover
       cursor: pointer
       border: none
+
   &.btn-light
     border: 1px solid $c-lines
     color: $c-secondary
     background-color: $c-white
+
     &:hover, &:active, &:focus
       background-color: $c-white
       cursor: pointer
       color: $c-secondary
       box-shadow: 0px 0px 0px 2px $c-secondary
       border: 1px solid $c-secondary
+
   &.btn-white
     color: $c-primary-txt
     border: 1px solid $c-lines
+
     &:hover
       background: $c-primary-txt
       color: $c-white

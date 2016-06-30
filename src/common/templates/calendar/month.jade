@@ -3,13 +3,13 @@
         .tab-row
             .cell
                 button.btn.btn-default.btn-sm.pull-left.uib-left(type='button', ng-click='move(-1)', tabindex='-1')
-                    i.icon-arrow-left
+                    span.icon-arrow-left
             .cell
                 button.btn.btn-default.btn-sm.uib-title(id='{{::uniqueId}}-title', role='heading', aria-live='assertive', aria-atomic='true', type='button', ng-click='toggleMode()', ng-disabled='datepickerMode === maxMode', tabindex='-1')
                     strong {{title}}
             .cell
                 button.btn.btn-default.btn-sm.pull-right.uib-right(type='button', ng-click='move(1)', tabindex='-1')
-                    i.icon-arrow-right
+                    span.icon-arrow-right
     .main-table-section
         .tab-row.uib-months(ng-repeat='row in rows track by $index')
             .cell.uib-month.text-center(ng-repeat='dt in row', role='gridcell', id='{{::dt.uid}}', ng-class='::dt.customClass')
