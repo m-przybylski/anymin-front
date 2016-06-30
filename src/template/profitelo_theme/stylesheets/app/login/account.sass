@@ -1,12 +1,17 @@
 .phone-number
   .inputs-handler
     display: flex
+    border-radius: 5px
+    border: 1px solid $c-lines
+    overflow: hidden
+
     .prefix-phone
-      border-bottom-right-radius: 0
-      border-top-right-radius: 0
-      width: 128px
-      border-right: 0
+      border: 0
+      border-radius: 0
+      flex: 1 0
+
     .phone
-      border-bottom-left-radius: 0
-      border-top-left-radius: 0
-      width: 100%
+      border: 0
+      border-left: 1px solid $c-lines
+      border-radius: 0
+      flex: 3 0
