@@ -326,6 +326,7 @@
         		"HOME.SEARCH_PLACEHOLDER":"Wpisz szukaną frazę np.: planowanie diety",
         		"HOME.SERVICE_DESCRIPTION":"Układanie planów  żywieniowych dla osób na diecie  wegetariańskiej.",
         		"HOME.TOP_CONTAINER.EXPERT_PROFILE.AVERANGE_CONSULTATION_TIME":"średni czas konsultacji:",
+        		"HOME.TOP_CONTAINER.EXPERT_PROFILE.CALL":"Zadzwoń",
         		"HOME.TOP_CONTAINER.EXPERT_PROFILE.COMMENTS":"Komentarze",
         		"HOME.TOP_CONTAINER.EXPERT_PROFILE.COOPERATE_WITH":"Współpracuje z",
         		"HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE":"zł/min",

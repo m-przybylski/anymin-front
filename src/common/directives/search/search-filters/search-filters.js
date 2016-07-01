@@ -5,6 +5,8 @@
         'Polish'
       ]
 
+      scope.switcherModel = true
+
     }
 
 
@@ -13,13 +15,17 @@
       restrict: 'E',
       templateUrl: 'directives/search/search-filters/search-filters.tpl.html',
       scope: {
+
       },
       link: linkFunction
     }
   }
 
   angular.module('profitelo.directives.search.search-filters', [
-    'profitelo.directives.interface.pro-dropdown'
+    'profitelo.directives.interface.pro-dropdown',
+    'profitelo.directives.interface.pro-slider',
+    'rzModule',
+    'profitelo.directives.interface.pro-switcher'
   ])
     .directive('searchFilter', searchFilter)
 }())

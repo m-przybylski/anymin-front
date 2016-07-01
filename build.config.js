@@ -76,6 +76,7 @@ module.exports = {
       'node_modules/angular-translate/dist/angular-translate.js',
       'node_modules/messageformat/messageformat.js',
       'node_modules/messageformat/locale/*.js',
+      'node_modules/angularjs-slider/dist/rzslider.js',
 
       'node_modules/angular-translate-interpolation-messageformat/angular-translate-interpolation-messageformat.js',
       'node_modules/angular-dynamic-locale/dist/tmhDynamicLocale.js',
@@ -93,7 +94,8 @@ module.exports = {
       'node_modules/angular-toastr/dist/angular-toastr.css',
       'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css',
       'node_modules/ui-select/dist/select.css',
-      'node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.css'
+      'node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.css',
+      'node_modules/angularjs-slider/dist/rzslider.css'
     ],
     assets: []
   },
