@@ -345,6 +345,8 @@
         		"HOME.TOP_CONTAINER.MAIN_HEADER.PROVIDER_LAGUAGES":"Świadczy usługę w językach:",
         		"HOME.TOP_CONTAINER.MAIN_HEADER.SHOW_ALL":"pokaż wszystkie",
         		"HOME.TOP_CONTAINER.MAIN_HEADER.SHOW_ALL_COMMENTS":"Zobacz wszystkie komentarze",
+        		"HOME_EXPERT_PROFILE.MINUTES":"min.",
+        		"HOME_EXPERT_PROFILE.TAGS":"Tagi",
         		"INTERFACE.ABORT":"Anuluj",
         		"INTERFACE.ALERT_ERROR":"Error",
         		"INTERFACE.ALERT_INFO":"Info",
