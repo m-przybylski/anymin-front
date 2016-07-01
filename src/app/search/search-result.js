@@ -10,6 +10,7 @@
   angular.module('profitelo.controller.search-result', [
     'ui.router',
     'c7s.ng.userAuth',
+    'profitelo.directives.search.single-consultation',
     'profitelo.directives.search.search-filters'
   ])
     .config( function($stateProvider, UserRolesProvider) {
@@ -19,7 +20,7 @@
         controller:   'SearchResultController',
         controllerAs: 'SearchResultController',
         data : {
-          access : UserRolesProvider.getAccessLevel('user'),
+          access : UserRolesProvider.getAccessLevel('public'),
           pageTitle: 'PAGE_TITLE.SEARCH_RESULT'
         }
       })
