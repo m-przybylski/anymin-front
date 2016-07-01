@@ -45,16 +45,16 @@
 
           /**
           * @ngdoc method
-          * @name .0.method:putRecoverPasswordMsisdn
+          * @name .0.method:postRecoverPassword
           * @methodOf .0
           * @description
-          * Update password
+          * Create recover password
           **/
 
-          'putRecoverPasswordMsisdn': angular.extend({
-            method: 'PUT',
-            url: apiUrl + '/recover-password/msisdn',
-          }, $resourceActionConfig('0', 'putRecoverPasswordMsisdn')),
+          'postRecoverPassword': angular.extend({
+            method: 'POST',
+            url: apiUrl + '/recover-password',
+          }, $resourceActionConfig('0', 'postRecoverPassword')),
 
           /**
           * @ngdoc method
@@ -84,21 +84,8 @@
 
           /**
           * @ngdoc method
-          * @name .3.method:postRecoverPassword
+          * @name .3.method:postRecoverPasswordVerifyEmail
           * @methodOf .3
-          * @description
-          * Create recover password
-          **/
-
-          'postRecoverPassword': angular.extend({
-            method: 'POST',
-            url: apiUrl + '/recover-password',
-          }, $resourceActionConfig('3', 'postRecoverPassword')),
-
-          /**
-          * @ngdoc method
-          * @name .4.method:postRecoverPasswordVerifyEmail
-          * @methodOf .4
           * @description
           * Verify email token
           **/
@@ -106,7 +93,20 @@
           'postRecoverPasswordVerifyEmail': angular.extend({
             method: 'POST',
             url: apiUrl + '/recover-password/verify/email',
-          }, $resourceActionConfig('4', 'postRecoverPasswordVerifyEmail')),
+          }, $resourceActionConfig('3', 'postRecoverPasswordVerifyEmail')),
+
+          /**
+          * @ngdoc method
+          * @name .4.method:putRecoverPasswordMsisdn
+          * @methodOf .4
+          * @description
+          * Update password
+          **/
+
+          'putRecoverPasswordMsisdn': angular.extend({
+            method: 'PUT',
+            url: apiUrl + '/recover-password/msisdn',
+          }, $resourceActionConfig('4', 'putRecoverPasswordMsisdn')),
         });
       }];
     })
@@ -222,34 +222,8 @@
 
           /**
           * @ngdoc method
-          * @name .6.method:listFilesPath
+          * @name .6.method:profileAvatarsPath
           * @methodOf .6
-          * @description
-          * List all files
-          **/
-
-          'listFilesPath': angular.extend({
-            method: 'GET',
-            url: apiUrl + '/files',
-          }, $resourceActionConfig('6', 'listFilesPath')),
-
-          /**
-          * @ngdoc method
-          * @name .7.method:tokenPath
-          * @methodOf .7
-          * @description
-          * Get file upload url
-          **/
-
-          'tokenPath': angular.extend({
-            method: 'GET',
-            url: apiUrl + '/files/token',
-          }, $resourceActionConfig('7', 'tokenPath')),
-
-          /**
-          * @ngdoc method
-          * @name .8.method:profileAvatarsPath
-          * @methodOf .8
           * @description
           * Get profile avatar files
           **/
@@ -260,7 +234,33 @@
             params: {
               'profileId': '@profileId',
             },
-          }, $resourceActionConfig('8', 'profileAvatarsPath')),
+          }, $resourceActionConfig('6', 'profileAvatarsPath')),
+
+          /**
+          * @ngdoc method
+          * @name .7.method:listFilesPath
+          * @methodOf .7
+          * @description
+          * List all files
+          **/
+
+          'listFilesPath': angular.extend({
+            method: 'GET',
+            url: apiUrl + '/files',
+          }, $resourceActionConfig('7', 'listFilesPath')),
+
+          /**
+          * @ngdoc method
+          * @name .8.method:tokenPath
+          * @methodOf .8
+          * @description
+          * Get file upload url
+          **/
+
+          'tokenPath': angular.extend({
+            method: 'GET',
+            url: apiUrl + '/files/token',
+          }, $resourceActionConfig('8', 'tokenPath')),
 
           /**
           * @ngdoc method
@@ -293,6 +293,64 @@
               'token': '@token',
             },
           }, $resourceActionConfig('10', 'uploadFilePath')),
+        });
+      }];
+    })
+        .provider('SearchApi', function() {
+
+      /**
+      * @ngdoc service
+      * @name .Search
+      * @requires $resource
+      * @requires apiUrl
+      **/
+
+      this.$get = ['$resource', 'apiUrl', '$resourceActionConfig', function($resource, apiUrl, $resourceActionConfig) {
+        return $resource(null, null, {
+
+          /**
+          * @ngdoc method
+          * @name .0.method:searchSuggestions
+          * @methodOf .0
+          * @description
+          * Get search suggestions
+          **/
+
+          'searchSuggestions': angular.extend({
+            method: 'GET',
+            url: apiUrl + '/search/suggestions',
+            params: {
+              'q': '@q',
+              'type': '@type',
+            },
+          }, $resourceActionConfig('0', 'searchSuggestions')),
+
+          /**
+          * @ngdoc method
+          * @name .1.method:search
+          * @methodOf .1
+          * @description
+          * Search for services
+          **/
+
+          'search': angular.extend({
+            method: 'GET',
+            url: apiUrl + '/search',
+            params: {
+              'q': '@q',
+              'service.name': '@service.name',
+              'profile.name': '@profile.name',
+              'profile.desc': '@profile.desc',
+              'tag.id': '@tag.id',
+              'service.category.id': '@service.category.id',
+              'profile.type': '@profile.type',
+              'onlyAvailable': '@onlyAvailable',
+              'sortBy': '@sortBy',
+              'language': '@language',
+              'offset': '@offset',
+              'limit': '@limit',
+            },
+          }, $resourceActionConfig('1', 'search')),
         });
       }];
     })
@@ -788,11 +846,11 @@
         });
       }];
     })
-        .provider('SearchApi', function() {
+        .provider('CategoryApi', function() {
 
       /**
       * @ngdoc service
-      * @name .Search
+      * @name .Category
       * @requires $resource
       * @requires apiUrl
       **/
@@ -802,30 +860,17 @@
 
           /**
           * @ngdoc method
-          * @name .0.method:search
+          * @name .0.method:listCategories
           * @methodOf .0
           * @description
-          * Search for services
+          * List categories
           **/
 
-          'search': angular.extend({
+          'listCategories': angular.extend({
             method: 'GET',
-            url: apiUrl + '/search',
-            params: {
-              'q': '@q',
-              'service.name': '@service.name',
-              'profile.name': '@profile.name',
-              'profile.desc': '@profile.desc',
-              'tag.id': '@tag.id',
-              'service.category.id': '@service.category.id',
-              'profile.type': '@profile.type',
-              'onlyAvailable': '@onlyAvailable',
-              'sortBy': '@sortBy',
-              'language': '@language',
-              'offset': '@offset',
-              'limit': '@limit',
-            },
-          }, $resourceActionConfig('0', 'search')),
+            url: apiUrl + '/categories',
+            isArray: true,
+          }, $resourceActionConfig('0', 'listCategories')),
         });
       }];
     })

@@ -1,11 +1,11 @@
 .pro-expert-single-consultation
-  .single-container
+  .single-container-consultation
     width: 100%
     margin: 16px auto
     background-color: $c-white
-    -webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.1)
-    -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.1)
-    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.1)
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.1)
+    -moz-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.1)
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.1)
     padding: 8px 16px
     background-color: $c-background-2
 
@@ -14,15 +14,9 @@
       padding: 16px
       color: $c-white
 
-    +lgm
-      width: 1200px
-
     .title-row
       display: flex
-      flex-direction: row
-      flex-wrap: nowrap
       justify-content: flex-start
-      align-content: center
       align-items: center
 
       h3
@@ -31,45 +25,19 @@
 
     .title-row-consultation
       display: flex
-      flex-direction: row
       flex-wrap: wrap
-      justify-content: flex-start
-      align-content: center
       align-items: center
       margin-top: 16px
       +default-font-light
 
-      .details-consultations
-        width: 100%
-        margin: 0
-        text-align: center
-        margin-top: 16px
-
-        +smm
-          margin-top: 0
-          margin-left: 16px
-          text-align: left
-          width: 80%
-
-      .options-consultation
+      .stats-consultation
         display: flex
-        flex-direction: row
-        flex-wrap: nowrap
-        justify-content: flex-start
-        align-content: center
         align-items: center
         width: 100%
         color: $c-secondary-txt
 
-        i
-          font-size: $f-nav-size
-          padding: 0 8px
-
-          &:first-child
-            padding-left: 0
-
         span
-          padding-right: 16px
+          padding-right: 8px
           color: $c-secondary-txt
           font-size: $f-nav-size
           font-weight: bold
@@ -77,29 +45,19 @@
       .cost-consultations
         display: flex
         flex-direction: column
-        flex-wrap: nowrap
-        justify-content: space-between
-        align-content: center
         align-items: center
         width: 100%
-        white-space: nowrap
-
-        +smm
-          flex-direction: row
 
         h3
           color: $c-white
 
         .prize
           display: flex
-          flex-direction: row
-          flex-wrap: nowrap
           justify-content: center
-          align-content: center
           align-items: center
           margin-left: -16px
 
-          i
+          span
             font-size: 32px
             padding: 0 16px
 
@@ -111,28 +69,18 @@
             margin-left: 4px
             font-size: $f-nav-size
             text-transform: uppercase
-            +default-font-heavy
 
         .call
           display: flex
-          flex-direction: row
-          flex-wrap: nowrap
           justify-content: center
-          align-content: center
           align-items: center
           width: 100%
           background-color: $c-success
-
-          +smm
-            width: 200px
 
           p
             padding: 0 8px
             color: $c-white
             +default-font-heavy
-
-          i
-            padding: 0 8px
 
       .tags-consultation
         text-align: center
@@ -173,7 +121,7 @@
           &:last-child
             margin-left: -1px
 
-          i
+          span
             padding: 0 16px
 
       .more-consultation
@@ -188,7 +136,7 @@
       align-items: flex-start
       width: 100%
       padding: 0 16px
-      
+
       p
         text-transform: uppercase
         +default-font-heavy

@@ -3,23 +3,29 @@
     color: $c-lines
     width: 100%
     position: relative
+    margin: 0 auto
+    padding: 0 16px
+
     +lgm
       width: 1104px
-    margin: 0 auto
-    padding: 0 16px 0 16px
+
     +smm
       padding: 0 32px 0 32px
+
     h3
       color: $c-lines
+
   .summary-step
     border: 1px solid $c-lines
     margin-top: 30px
     position: relative
     border-radius: 0.4em
+
     .btn-handler
       float: right
       display: flex
       justify-content: flex-end
+
       .summary-icon
         border: 1px solid $c-lines
         border-radius: 50px
@@ -30,11 +36,14 @@
         margin-left: 10px
         top: 30px
         font-size: 16px
-        padding: 13px 0px 0px 12px
+        padding: 13px 0 0 12px
+
         &:hover
           border-color: $c-primary
+
         a
           border: none
+
         .icon-edit-24
           display: flex
           position: absolute
@@ -43,11 +52,13 @@
           justify-content: center
           align-content: center
           align-items: center
-        i
+
+        span
           color: $c-primary
 
     .summary-step-title
       border-bottom: 1px solid $c-lines
+
       h3
         margin-top: -25px
         color: $c-primary-txt
@@ -56,6 +67,7 @@
     .summary-tag
       h6
         text-transform: uppercase
+
       .tags
         display: flex
         flex-direction: row
@@ -65,6 +77,7 @@
         align-items: center
         margin-top: -12px
         margin-bottom: 24px
+
         p
           border: 1px solid $c-lines
           padding: 4px 8px
@@ -73,6 +86,7 @@
           font-weight: bold
           text-transform: uppercase
           +border-radius('0.4em')
+
     .summary-name
       display: flex
       flex-direction: row
@@ -81,14 +95,17 @@
       align-content: center
       align-items: center
       margin-top: 24px
+
       .summary-avatar
         img
           width: 100px
           height: 100px
           +border-radius(50%)
           padding: 3px
+
       .summary-firstname
         padding-left: 32px
+
         .languages
           text-transform: uppercase
           margin-top: -14px
@@ -97,4 +114,3 @@
       p
         color: $c-secondary-txt
         text-align: justify
-    

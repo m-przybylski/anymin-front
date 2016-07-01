@@ -5,11 +5,11 @@
   border: 1px solid $c-lines
   height: 64px
   width: 100%
-  margin: 0
   padding: 10px
   position: relative
   cursor: pointer
   max-width: 100%
+
   textarea
     border: 0
     resize: none
@@ -20,6 +20,7 @@
     color: $c-secondary-txt
     height: 180px
     float: left
+
   label
     +transition(0.2s)
     position: absolute
@@ -29,6 +30,7 @@
     color: $c-secondary-txt
     &:after
       content: ""
+
   input
     +transition(0.4s)
     position: absolute
@@ -50,28 +52,33 @@
     margin-right: 16px
 
     &:-webkit-autofill
-      -webkit-box-shadow: 0 0 0px 1000px $c-background inset
+      -webkit-box-shadow: 0 0 0 1000px $c-background inset
       color: $c-primary-txt !important
+
     &:focus
       background-color: $c-background
       color: $c-primary-txt
+
     &.calendar-input
       &:focus
         background-color: $c-white
+
     &:required +label
       &:after
         content: "*"
         color: $c-error
         padding-left: 5px
         font-size: 18px
+
     &[type=number]
       -moz-appearance: textfield
+
     &[type=number]::-webkit-outer-spin-button
       -webkit-appearance: none
-      margin: 0
+
     &[type=number]::-webkit-inner-spin-button
       -webkit-appearance: none
-      margin: 0
+
   span
     &.cross-addon
       position: relative
@@ -81,8 +88,10 @@
       right: 6px
       visibility: hidden
       font-size: 12px
+
       +xsm
         visibility: visible
+
     &.input-group-addon
       +transition(0.3s)
       position: relative
@@ -105,44 +114,57 @@
         &:hover
           background-color: $c-primary
           color: $c-background
+
       >i
         display: flex
         flex-direction: column
         justify-content: center
         height: 100%
         text-transform: uppercase
+
   &.invalid
     border-color: $c-invalid-border
+
     label
       color: $c-input-error
+
     span
       &.cross-addon
         color: $c-input-error
+
   &.correct
     label
       color: $c-primary-txt
       white-space: nowrap
+
     span
       &.cross-addon
         color: $c-primary-txt
+
   &.disable
     label
       color: $c-input
+
     span
       &.cross-addon
         color: $c-input
+
   span.elements-wrapper
     span.cross-addon
       right: 60px
 
   &.onFocus
     background-color: $c-background
+
     input
       background-color: $c-background
+
     .select
       background-color: $c-background
+
   &.onFocusOut
     background-color: $c-white
+
   &.onClick
     label
       color: $c-primary-txt
@@ -163,36 +185,44 @@
   .ui-select-match
     background-color: $c-background
     outline: none
+
     &:focus
       background-color: $c-background
+
   .dropdown-icon
     position: absolute
     right: 16px
     padding-top: 25px
     color: $c-primary
+
   .ui-select-bootstrap
     .ui-select-choices-row.active
       >a
         background-color: $c-white
         color: $c-primary-txt
         outline: none
+
     .ui-select-choices
-      margin: 0
       min-width: 101px
       margin-left: -1px
       overflow-x: hidden !important
+
       .gm-scrollbar.-vertical
         background-color: transparent
         width: 0.1em
+
       /* scrollbar thumb */
       .gm-scrollbar .thumb
         background-color: $c-secondary-txt
         width: 0.1em
+
       .gm-scrollbar .thumb:hover
         background-color: $c-primary
+
     .ui-select-choices-row
       outline: none
       margin: 4px 8px
+
     .ui-select-choices-row
       >a
         text-align: left
@@ -200,30 +230,35 @@
         padding: 10px 0 10px 0
         outline: none
         text-transform: capitalize
+
         >span
           padding-left: 8px
+
         &:hover
           background-color: $c-primary
           color: $c-white
+
   .btn-default
     outline: none
     text-transform: capitalize
     background-color: transparent
     z-index: 100
+
     .ui-select-match-text
       padding-left: 10px
       position: relative
       top: 23px
+
   .btn-default-focus
     box-shadow: none
     background-color: $c-background
-
 
   .ui-select-placeholder
     padding-left: 10px
     color: $c-secondary-txt
     top: 26px
     position: relative
+
 .input-group .form-control
   float: left
   position: relative
@@ -238,8 +273,10 @@
   padding-top: 6px
   font-size: 14px
   min-width: 98px
+
 .ps-scrollbar-y-rail
   max-width: 0.2em
+
   .ps-scrollbar-y
     max-width: 0.2em
     background-color: $c-lines

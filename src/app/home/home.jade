@@ -1,4 +1,5 @@
-pro-top-navbar
+pro-top-navbar()
+
 main.top-content-home
   .default-container.flex-col.home-header
     include ./parts/top-container.partial.jade
@@ -9,6 +10,7 @@ main.top-content-home
   .default-container.flex-row
     pro-expert-card(data-ng-repeat="expert in vm.expertCard" data-ng-model="expert")
     pro-expert-see-more()
+    
 main.content-blog
   .default-container.advice-tiles
     .grid(pro-masonry="" data-grid-item=".grid-item")

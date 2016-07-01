@@ -1,4 +1,4 @@
-.top-navbar
+.pro-top-navbar
   .hamburger-menu
     span.icon.icon-menu-16
   .logo
@@ -7,6 +7,6 @@
     a
       span.icon.icon-search-24
     a(data-ng-hide="$root.loggedIn" data-ui-sref='app.login.account')
-      span.icon.icon-login-32
+      span(data-translate="PAGE_TITLE.LOGIN.ACCOUNT")
     a(data-ng-show="$root.loggedIn" data-ui-sref='app.dashboard.start')
       span.icon.icon-login-32

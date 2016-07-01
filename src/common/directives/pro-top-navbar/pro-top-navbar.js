@@ -23,9 +23,9 @@
       ]
 
     }
-    
+
     return {
-      templateUrl: 'directives/interface/pro-top-navbar/pro-top-navbar.tpl.html',
+      templateUrl: 'directives/pro-top-navbar/pro-top-navbar.tpl.html',
       restrict: 'E',
       replace: true,
       link: linkFunction
@@ -33,7 +33,7 @@
 
   }
 
-  angular.module('profitelo.directives.interface.pro-top-navbar', [])
+  angular.module('profitelo.directives.pro-top-navbar', [])
   .directive('proTopNavbar', proTopNavbar)
 
 }())

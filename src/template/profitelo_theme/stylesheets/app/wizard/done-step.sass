@@ -1,18 +1,26 @@
 .step-done
   h3
     color: $c-primary-txt
+
   .step-content-column
     margin-top: 30px
+
   .title-step
+
     p
       color: $c-secondary-txt
+
   .step-description
-    p, i
+
+    p, span
       color: $c-success
+
     h5
       white-space: nowrap
       color: $c-success
+
   .step-content
+
     .option
       display: flex
       flex-direction: column
@@ -20,18 +28,25 @@
       justify-content: center
       align-content: flex-start
       align-items: center
+
       h5
         color: $c-lines
-      i
+
+      span
         color: $c-lines
+
       &:hover, &:focus
-        box-shadow: 0px 0px 0px 2px $c-primary
-        h5, i
+        box-shadow: 0 0 0 2px $c-primary
+
+        h5, span
           color: $c-primary
 
     .selected
-      h5, i
+
+      h5, span
         color: $c-primary-txt
+
       &:hover
-        h5, i
+
+        h5, span
           color: $c-primary
