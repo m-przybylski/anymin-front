@@ -1,14 +1,14 @@
-describe('Unit testing: profitelo.directives.expert-profile.pro-expert-footer', () => {
-  return describe('for expert-profile.pro-expert-footer directive >', () => {
+describe('Unit testing: profitelo.directives.pro-footer', () => {
+  return describe('for pro-footer directive >', () => {
 
     let scope = null
     let rootScope
     let compile = null
-    let validHTML = '<pro-expert-footer></pro-expert-footer>'
+    let validHTML = '<pro-footer></pro-footer>'
 
     beforeEach(() => {
       module('templates-module')
-      module('profitelo.directives.expert-profile.pro-expert-footer')
+      module('profitelo.directives.pro-footer')
 
       inject(($rootScope, $compile) => {
         rootScope = $rootScope.$new()

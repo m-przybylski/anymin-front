@@ -67,6 +67,7 @@
       color: $c-secondary-txt
 
     &.done
+
       span, p
         color: $c-success
 
@@ -127,7 +128,7 @@
             font-size: $f-small
 
           .ui-select-match-close
-            padding: 5px 3px 5px 0px
+            padding: 5px 3px 5px 0
             position: absolute
             left: 0
             font-size: $f-h5-size
@@ -136,8 +137,8 @@
         bottom: 9px
         font-size: $f-h4-size
 
-
     .upload-field-description
+
       p
         text-transform: uppercase
         margin: 20px 0 0 25px
@@ -164,17 +165,19 @@
 
       span
         color: $c-white
-        font-size: $f-base
-        padding: 0px 9px
+        font-size: $f-vsmall
+        padding: 0 9px
 
         &.input-group-addon
+
           &:hover
             background-color: $c-primary
 
             span
               color: $c-white
+
       span
-        padding: 4px 10px 0px 14px
+        padding: 4px 10px 0 14px
 
       .icon
         font-size: $f-small
@@ -216,6 +219,7 @@
     .document-submit
       display: inline-flex
       @extend .links-submit
+
       a
         width: auto
         text-align: left
@@ -240,7 +244,7 @@
         width: 100%
 
         .links-last-step
-          margin: 34px 0px 0px 0px
+          margin: 34px 0 0 0
           display: flex
           flex-direction: row
           flex-wrap: wrap
@@ -308,7 +312,7 @@
       margin-top: 10px
       margin-left: -1px
       cursor: pointer
-      padding: 20px 10px 0px 10px
+      padding: 20px 10px 0 10px
 
       &:first-child
         margin-top: -24px
@@ -323,8 +327,6 @@
         padding: 30px 10px 20px 10px
 
       span
-        padding: 0
-        margin: 0
         font-size: $f-h2-size
 
         +smm
@@ -351,5 +353,6 @@
 
       +smm
         width: 10em
+
         &:last-of-type
           margin-left: 10px

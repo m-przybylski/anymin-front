@@ -2,6 +2,7 @@
   background-image: linear-gradient(to bottom, transparent, $c-primary), url('/assets/images/black_n_white.png')
   position: relative
   width: 100%
+
   &::before
     display: block
     width: 100%
@@ -11,8 +12,10 @@
     position: absolute
     top: 0
     content: ''
+
 .home-header
   align-items: center
+
   h1
     +default-font-thin
     text-align: center
@@ -21,6 +24,7 @@
     color: $c-white
     max-width: 364px
     margin: 100px auto 40px
+
   h2
     +default-font-light
     max-width: 420px
@@ -37,7 +41,9 @@
   position: relative
   margin-bottom: 60px
   font-weight: 300
+
   .icon
+
     &::before
       display: block
       font-size: 66px
@@ -45,6 +51,7 @@
       left: 50%
       top: 0
       margin-left: -33px
+
   p
     color: $c-white
     text-transform: uppercase

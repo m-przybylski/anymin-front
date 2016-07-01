@@ -17,15 +17,15 @@
 
           /**
           * @ngdoc method
-          * @name .0.method:putRecoverPasswordMsisdn
+          * @name .0.method:postRecoverPassword
           * @methodOf .0
           * @description
-          * Update password
+          * Create recover password
           **/
 
-          'putRecoverPasswordMsisdn': {
-            method: 'PUT',
-            url: apiUrl + '/recover-password/msisdn',
+          'postRecoverPassword': {
+            method: 'POST',
+            url: apiUrl + '/recover-password',
           },
 
           /**
@@ -56,21 +56,8 @@
 
           /**
           * @ngdoc method
-          * @name .3.method:postRecoverPassword
+          * @name .3.method:postRecoverPasswordVerifyEmail
           * @methodOf .3
-          * @description
-          * Create recover password
-          **/
-
-          'postRecoverPassword': {
-            method: 'POST',
-            url: apiUrl + '/recover-password',
-          },
-
-          /**
-          * @ngdoc method
-          * @name .4.method:postRecoverPasswordVerifyEmail
-          * @methodOf .4
           * @description
           * Verify email token
           **/
@@ -78,6 +65,19 @@
           'postRecoverPasswordVerifyEmail': {
             method: 'POST',
             url: apiUrl + '/recover-password/verify/email',
+          },
+
+          /**
+          * @ngdoc method
+          * @name .4.method:putRecoverPasswordMsisdn
+          * @methodOf .4
+          * @description
+          * Update password
+          **/
+
+          'putRecoverPasswordMsisdn': {
+            method: 'PUT',
+            url: apiUrl + '/recover-password/msisdn',
           }
         };
     }])
@@ -190,8 +190,24 @@
 
           /**
           * @ngdoc method
-          * @name .6.method:listFilesPath
+          * @name .6.method:profileAvatarsPath
           * @methodOf .6
+          * @description
+          * Get profile avatar files
+          **/
+
+          'profileAvatarsPath': {
+            method: 'GET',
+            url: apiUrl + '/profiles/:profileId/avatars',
+            params: {
+              'profileId': '@profileId',
+            },
+          },
+
+          /**
+          * @ngdoc method
+          * @name .7.method:listFilesPath
+          * @methodOf .7
           * @description
           * List all files
           **/
@@ -203,8 +219,8 @@
 
           /**
           * @ngdoc method
-          * @name .7.method:tokenPath
-          * @methodOf .7
+          * @name .8.method:tokenPath
+          * @methodOf .8
           * @description
           * Get file upload url
           **/
@@ -212,22 +228,6 @@
           'tokenPath': {
             method: 'GET',
             url: apiUrl + '/files/token',
-          },
-
-          /**
-          * @ngdoc method
-          * @name .8.method:profileAvatarsPath
-          * @methodOf .8
-          * @description
-          * Get profile avatar files
-          **/
-
-          'profileAvatarsPath': {
-            method: 'GET',
-            url: apiUrl + '/profiles/:profileId/avatars',
-            params: {
-              'profileId': '@profileId',
-            },
           },
 
           /**
@@ -259,6 +259,60 @@
             url: apiUrl + '/files/:token/upload',
             params: {
               'token': '@token',
+            },
+          }
+        };
+    }])
+        /**
+      * @ngdoc service
+      * @name .Search
+      * @requires $resource
+      * @requires apiUrl
+      **/
+    .service('SearchApiDef', ['apiUrl', function(apiUrl) {
+        return {
+
+          /**
+          * @ngdoc method
+          * @name .0.method:searchSuggestions
+          * @methodOf .0
+          * @description
+          * Get search suggestions
+          **/
+
+          'searchSuggestions': {
+            method: 'GET',
+            url: apiUrl + '/search/suggestions',
+            params: {
+              'q': '@q',
+              'type': '@type',
+            },
+          },
+
+          /**
+          * @ngdoc method
+          * @name .1.method:search
+          * @methodOf .1
+          * @description
+          * Search for services
+          **/
+
+          'search': {
+            method: 'GET',
+            url: apiUrl + '/search',
+            params: {
+              'q': '@q',
+              'service.name': '@service.name',
+              'profile.name': '@profile.name',
+              'profile.desc': '@profile.desc',
+              'tag.id': '@tag.id',
+              'service.category.id': '@service.category.id',
+              'profile.type': '@profile.type',
+              'onlyAvailable': '@onlyAvailable',
+              'sortBy': '@sortBy',
+              'language': '@language',
+              'offset': '@offset',
+              'limit': '@limit',
             },
           }
         };
@@ -733,38 +787,25 @@
     }])
         /**
       * @ngdoc service
-      * @name .Search
+      * @name .Category
       * @requires $resource
       * @requires apiUrl
       **/
-    .service('SearchApiDef', ['apiUrl', function(apiUrl) {
+    .service('CategoryApiDef', ['apiUrl', function(apiUrl) {
         return {
 
           /**
           * @ngdoc method
-          * @name .0.method:search
+          * @name .0.method:listCategories
           * @methodOf .0
           * @description
-          * Search for services
+          * List categories
           **/
 
-          'search': {
+          'listCategories': {
             method: 'GET',
-            url: apiUrl + '/search',
-            params: {
-              'q': '@q',
-              'service.name': '@service.name',
-              'profile.name': '@profile.name',
-              'profile.desc': '@profile.desc',
-              'tag.id': '@tag.id',
-              'service.category.id': '@service.category.id',
-              'profile.type': '@profile.type',
-              'onlyAvailable': '@onlyAvailable',
-              'sortBy': '@sortBy',
-              'language': '@language',
-              'offset': '@offset',
-              'limit': '@limit',
-            },
+            url: apiUrl + '/categories',
+            isArray: true,
           }
         };
     }])

@@ -3,7 +3,6 @@
     $loaderHeight: 8px
     +transition()
     animation-duration: 10s
-
     position: fixed
     top: -$loaderHeight
     left: 0
@@ -11,8 +10,10 @@
     width: 100%
     background-color: $c-primary-txt
     z-index: 9999
+
     &.slide-out
-      top: 0px
+      top: 0
+
     .waiting-loader-progress
       +transition()
       animation-duration: 10s

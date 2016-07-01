@@ -2,8 +2,10 @@
   .header-container
     background-color: $c-white
     border-bottom: 1px solid $c-lines
+
     &:first-child
-      padding-top: 100px
+      padding-top: 30px
+
     &:last-child
       margin-bottom: 60px
 
@@ -12,19 +14,10 @@
       flex-direction: column
       flex-wrap: nowrap
       justify-content: space-between
-      align-content: center
       align-items: flex-start
       width: 100%
-      +lgm
-        width: 1200px
       margin: 0 auto
       padding: 60px 0
-      +lgm
-        width: 1200px
-      +smm
-        flex-direction: row-reverse
-        align-items: flex-start
-        justify-content: center
 
       .company-list
         display: flex
@@ -34,21 +27,18 @@
         align-content: center
         align-items: center
         width: 100%
-        margin: 40px 0 30px
+        margin: 40px 0 0
         padding: 0 16px
-        +smm
-          flex-direction: row
-          margin: 0
-          width: calc(100%/3 - 100px)
+
         p
           font-size: $f-nav-size
           font-weight: bold
           text-transform: uppercase
           white-space: nowrap
           margin-right: 8px
+
         .company-logo
-          +smm
-            margin-left: 15px
+
           img
             width: 55px
             height: 55px
@@ -63,15 +53,16 @@
         align-content: center
         align-items: center
         width: 100%
-        +smm
-          width: calc(100%/3 + 200px)
+
         img
           width: 130px
           height: 130px
           +border-radius(50%)
+
         h3
           color: $c-primary-txt
           +default-font-light
+
         .status
           margin-top: -14px
           color: $c-success
@@ -84,7 +75,7 @@
             position: absolute
             content: ""
             font-size: 8px
-            width: 0px
+            width: 0
             height: 8px
             padding: 0 4px
             margin-left: -16px
@@ -94,14 +85,17 @@
 
         .languages
           margin-top: 16px
+
           span
-            padding: 8px 0px
+            padding: 8px 0
             font-size: $f-h6-size
             color: $c-primary-txt
             background-color: $c-background-2
             +border-radius("0.2em")
+
             &:first-child
               padding-left: 16px
+
             &:last-child
               padding-right: 16px
 
@@ -112,13 +106,15 @@
         align-content: center
         align-items: center
         width: 100%
+
         .social-icon
           margin: 0 4px
           display: flex
           flex-direction: column
           align-items: center
           align-content: center
-          i
+
+          span
             +border-radius(50%)
             border: 1px solid $c-lines
             padding: 15px 15px
@@ -129,6 +125,7 @@
             justify-content: center
             align-content: center
             align-items: center
+
           p
             font-size: $f-nav-size
             font-weight: bold
@@ -142,9 +139,10 @@
         justify-content: center
         align-content: center
         align-items: center
-        margin-top: -85px
+        margin-top: -94px
         margin-bottom: -65px
-        i
+
+        span
           background-color: $c-primary-txt
           color: $c-white
           height: 48px
@@ -163,16 +161,18 @@
         text-align: center
         margin-top: 15px
         padding: 0 32px
+
         p
           +default-font-light
 
-        .more-icon
-          font-size: $f-h1-size
-          padding-bottom: 64px
-          i
-            padding: -10px 32px
-            font-size: 12px
-            background-color: $c-white
-            color: $c-primary-txt
-            +border-radius(0)
-            border: 1px solid $c-lines
+      .more-icon
+        font-size: $f-h1-size
+        padding-bottom: 34px
+
+        span
+          padding: -10px 32px
+          font-size: 12px
+          background-color: $c-white
+          color: $c-primary-txt
+          +border-radius(0)
+          border: 1px solid $c-lines

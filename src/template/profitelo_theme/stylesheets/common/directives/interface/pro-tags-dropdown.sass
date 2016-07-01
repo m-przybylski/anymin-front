@@ -1,11 +1,11 @@
 .pro-tags-dropdown
   width: 100%
+
   .input-tag-group
     +border-radius(0.2em)
     +transition(0.4s)
     background-color: $c-white
     width: 100%
-    margin: 0
     border: 1px solid $c-lines
     padding: 10px
     position: relative
@@ -13,40 +13,49 @@
     max-width: 100%
     min-height: 64px
     color: $c-primary-txt
+
     input
       bottom: 9px
       font-size: 20px
+
     .ui-select-match
       background-color: $c-background
       outline: none
       &:focus
         background-color: $c-background
+
     .dropdown-icon
       position: absolute
       right: 16px
       padding-top: 25px
       color: $c-primary
+
     .ui-select-bootstrap
       .ui-select-choices-row.active
         >a
           background-color: $c-white
           color: $c-primary-txt
           outline: none
+
       .ui-select-choices
-        margin: 0
         min-width: 101px
         overflow-x: hidden !important
+
         .gm-scrollbar.-vertical
           background-color: transparent
           width: 0.1em
+
         .gm-scrollbar .thumb
           background-color: $c-secondary-txt
           width: 0.1em
+
         .gm-scrollbar .thumb:hover
           background-color: $c-primary
+
       .ui-select-choices-row
         outline: none
         margin: 4px 8px
+
       .ui-select-choices-row
         >a
           text-align: left
@@ -54,23 +63,29 @@
           padding: 10px 0 10px 0
           outline: none
           text-transform: none
+
           >span
             padding-left: 8px
+
           &:hover
             background-color: $c-primary
             color: $c-white
+
     .btn-default
       outline: none
       text-transform: capitalize
       background-color: transparent
       z-index: 100
+
       .ui-select-match-text
         padding-left: 10px
         position: relative
         top: 23px
+
     .btn-default-focus
       box-shadow: none
       background-color: $c-background
+
     .ui-select-match-item
       background-color: $c-primary-txt
       padding: 7px 4px
@@ -79,6 +94,7 @@
       margin: 0 8px 3px 0 !important
       +border-radius(0.3em)
       position: relative
+
       span
         text-transform: uppercase
         color: $c-white
@@ -86,12 +102,14 @@
         padding-left: 6px
         font-size: 12px
         line-height: 1.8
+
       .ui-select-match-close
         padding: 4px 5px 4px 4px
         left: 0
         position: relative
         font-size: 16px !important
         line-height: 0.7 !important
+
     .ui-select-placeholder
       padding-left: 10px
       color: $c-secondary-txt

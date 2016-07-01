@@ -1,5 +1,5 @@
-describe('Unit testing: profitelo.directives.interface.pro-top-navbar', () => {
-  return describe('for interface.pro-top-navbar directive >', () => {
+describe('Unit testing: profitelo.directives.pro-top-navbar', () => {
+  return describe('for pro-top-navbar directive >', () => {
 
     let scope = null
     let rootScope
@@ -8,7 +8,7 @@ describe('Unit testing: profitelo.directives.interface.pro-top-navbar', () => {
 
     beforeEach(() => {
       module('templates-module')
-      module('profitelo.directives.interface.pro-top-navbar')
+      module('profitelo.directives.pro-top-navbar')
 
       inject(($rootScope, $compile) => {
         rootScope = $rootScope.$new()

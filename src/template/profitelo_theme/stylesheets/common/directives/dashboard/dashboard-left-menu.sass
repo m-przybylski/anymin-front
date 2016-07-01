@@ -1,6 +1,6 @@
 .dashboard-left-menu
   position: fixed
-  overflow-y: auto
+  overflow-y: hidden
   overflow-x: hidden
   background-color: $c-primary-txt
   max-width: 96px
@@ -60,7 +60,6 @@
           max-width: 20px
 
       .user
-        margin-left: 0px
         position: relative
 
         .photo
@@ -92,7 +91,6 @@
               margin: 4px 4px
               width: 10px
               height: 10px
-              padding: 0px
 
           img
             +border-radius(50%)
@@ -117,7 +115,6 @@
         .notification
           .icon
             color: $c-primary
-            padding-left: 0px
 
       .switcher
         margin-top: 12px
@@ -156,13 +153,11 @@
           border-radius: 36px
           background-color: $c-background-4
 
-
           &::before
             +transition
             content: ""
             display: block
             width: 20px
-            margin: 0px
             background: $c-white
             position: absolute
             top: 0
@@ -172,7 +167,7 @@
             border-radius: 36px
 
         .onoffswitch-checkbox:checked + .onoffswitch-label:before
-          right: 0px
+          right: 0
 
         .option-left
           +default-font-heavy
@@ -221,7 +216,6 @@
         text-align: center
         border-top: 1px solid $c-background-4
         padding: 32px 0
-
 
         &:hover
           background-color: $c-secondary

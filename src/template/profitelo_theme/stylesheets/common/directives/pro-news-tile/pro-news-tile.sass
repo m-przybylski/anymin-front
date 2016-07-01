@@ -9,10 +9,12 @@
   height: inherit
   padding: 16px
   position: relative
+
   .bg-image
     position: absolute
     left: 0
     top: 0
+
   .news-tile-label
     color: $c-white
     background: #ed5565
@@ -21,15 +23,18 @@
     font-size: $f-small
     text-transform: uppercase
     +default-font-heavy
+
   .news-tile-title
     font-size: $f-paragraph
     +default-font-heavy
     color: $c-white
     margin-bottom: 20px
+
   p.news-tile-desc
     color: $c-secondary-txt
     margin: 0 0 32px
     overflow: hidden
+
   .additional-info
     color: $c-white
     .comments-counter,
@@ -38,10 +43,11 @@
       margin-right: 16px
       position: relative
       color: $c-secondary-txt
+
       p
         padding-left: 24px
-        margin: 0
         color: $c-secondary-txt
+
       .icon
         &::before
         position: absolute
@@ -52,13 +58,16 @@
 .grid
   margin: 0 -8px
   padding: 8px 0
+
 .grid-item
   width: auto
   height: 288px
   float: left
   margin: 8px
+
   +smm
     width: calc(50% - 16px)
+
   +lgm
     width: 288px
 
