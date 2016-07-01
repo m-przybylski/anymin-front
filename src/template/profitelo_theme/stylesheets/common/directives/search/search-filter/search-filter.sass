@@ -1,1 +1,66 @@
 .search-filter
+  background: $c-white
+
+  h5
+    text-transform: uppercase
+
+  .advanced-search-bar-wrap
+    +smm
+      display: flex
+      justify-content: space-around
+
+    .input-group
+      margin: 0 0 30px
+
+//Tagi
+.search-tags
+  display: flex
+  justify-content: space-around
+
+  .slider-tag
+    overflow: hidden
+    flex: 1 0
+
+    ul
+      margin: 0
+      padding: 0
+      list-style: none
+      display: flex
+      flex: 1 0
+      justify-content: space-around
+
+    a
+      flex: 0
+
+// CHECKBOX PRZESUWANY
+.checkbox-switcher
+  input[type="checkbox"]
+    display: none
+
+    + label
+      cursor: pointer
+      width: 60px
+      height: 30px
+      display: inline-block
+      vertical-align: middle
+      background: $c-success
+      border-radius: 30px
+      position: relative
+
+      &::after
+        +transition(all 0.3s)
+        content: ""
+        position: absolute
+        left: 2px
+        top: 2px
+        width: 26px
+        height: 26px
+        border-radius: 50%
+        background: $c-white
+
+    &:checked
+      + label
+        background: $c-secondary
+
+        &::after
+          left: 32px

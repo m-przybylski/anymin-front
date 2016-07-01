@@ -2,7 +2,7 @@
   function proExpertSingleConsultation() {
 
     return {
-      templateUrl: 'directives/expert-profile/pro-expert-single-consultation/pro-expert-single-consultation.tpl.html',
+      templateUrl: 'directives/expert-profile/pro-expert-single-consultation.sass/pro-expert-single-consultation.sass.tpl.html',
       restrict: 'E',
       replace: true,
       scope: {
