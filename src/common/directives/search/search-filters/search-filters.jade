@@ -1,14 +1,45 @@
 .search-filter
-    br
-    br
-    br
-    br
-    p TUTAJ
-    pro-dropdown(data-pro-model='pro-sort-as' data-label='Sortuj według' data-placeholder='+placeholder'
-    data-pro-items="lang" data-no-search)
+    .default-container
+        br
+        br
+        br
+        br
+        br
+        br
 
-    pro-dropdown(data-pro-model='pro-language' data-label='Języki' data-placeholder='+placeholder'
-    data-pro-items="lang" data-no-search)
+        h5 Podobne wyszukiwania:
+        .search-tags
+            a.pro-btn.btn-white.icon.icon-arrow-left-12(href="#")
+            .slider-tag
+                ul
+                    li
+                        a.pro-btn.btn-white gorgeus
+                    li
+                        a.pro-btn.btn-white night
+                    li
+                        a.pro-btn.btn-white gorgeus
+                    li
+                        a.pro-btn.btn-white night
+                    li
+                        a.pro-btn.btn-white gorgeus
+                    li
+                        a.pro-btn.btn-white night
+                    li
+                        a.pro-btn.btn-white asd
 
-    pro-dropdown(data-pro-model='pro-domain' data-label='Dziedziny' data-placeholder='+placeholder'
-    data-pro-items="las" data-no-search)
+            a.pro-btn.btn-white.icon.icon-arrow-right-12(href="#")
+
+        .advanced-search-bar-wrap
+            pro-dropdown(data-pro-model='pro-sort-as' data-label='Sortuj według' data-placeholder='+placeholder' data-pro-items="lang" data-no-search)
+
+            pro-dropdown(data-pro-model='pro-language' data-label='Języki' data-placeholder='+placeholder' data-pro-items="lang" data-no-search)
+
+            pro-dropdown(data-pro-model='pro-domain' data-label='Dziedziny' data-placeholder='+placeholder' data-pro-items="las" data-no-search)
+
+            .input-group
+                input(type="range")
+
+        .switcher
+           .onoffswitch
+               input(type="checkbox", id="expertsonline")
+               label(for="expertsonline") Aktualnie dostępni eksperci
