@@ -28,7 +28,8 @@ describe('Unit tests: ExpertProfileController >', () => {
           ProfileApi: _ProfileApi_,
           User: _User_,
           savedProfile: {},
-          profileImage: {}
+          profileImage: {},
+          companyImage: {}
         })
 
 

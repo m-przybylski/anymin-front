@@ -33,11 +33,11 @@
 
         p {{'HOME.TOP_CONTAINER.EXPERT_PROFILE.COMMENTS' | translate}} (100)
         .comments
-          .help
+          .help(data-ng-click="showPositive()")
             span.icon.icon-good-32
             span.mobile-hidden(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.EXPERT_HELPS")
             p {{positiveMark}}
-          .help
+          .help(data-ng-click="showNegative()")
             span.icon.icon-bad-32
             span.mobile-hidden(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.EXPERT_NOT_HELPS")
             p {{negativeMark}}

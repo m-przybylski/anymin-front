@@ -1,18 +1,18 @@
 (function() {
-  function ExpertProfileController($scope, $state, savedProfile, ServiceApi, proTopAlertService, CommonConfig, profileImage) {
+  function ExpertProfileController($scope, $state, savedProfile, ServiceApi, proTopAlertService, CommonConfig, profileImage, companyImage) {
 
     let _commonConfig = CommonConfig.getAllData()
     this.profile = {}
 
-    this.profileImage = profileImage
+    this.profileImage = profileImage || companyImage
 
     if (savedProfile && savedProfile.expertDetails) {
       this.profile = savedProfile.expertDetails
       this.services = savedProfile.services
       this.consultations = savedProfile.services
     } else if (savedProfile.organizationDetails) {
-      vm.profile = savedProfile.organizationDetails
-      vm.profile.type = 'company'
+      this.profile = savedProfile.organizationDetails
+      this.profile.type = 'company'
     }
 
     return this
@@ -62,7 +62,21 @@
           return _deferred.promise
         },
         profileImage: (AppServiceProviderImageResolver, savedProfile) => {
-          return AppServiceProviderImageResolver.resolve(savedProfile.expertDetails.avatar)
+          if (savedProfile.expertDetails !== null) {
+            if (savedProfile.expertDetails.avatar == null) {
+              savedProfile.expertDetails.avatar = 'no-avatar'
+            }
+            return AppServiceProviderImageResolver.resolve(savedProfile.expertDetails.avatar)
+          }
+
+        },
+        companyImage: (AppServiceProviderImageResolver, savedProfile) => {
+          if (savedProfile.organizationDetails !== null) {
+            if (savedProfile.organizationDetails.logo == null) {
+              savedProfile.expertDetails.logo = 'no-logo'
+            }
+            return AppServiceProviderImageResolver.resolve(savedProfile.organizationDetails.logo)
+          }
         }
       },
       data: {
