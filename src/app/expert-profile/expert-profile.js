@@ -12,6 +12,7 @@
       this.consultations = savedProfile.services
     } else if (savedProfile.organizationDetails) {
       vm.profile = savedProfile.organizationDetails
+      vm.profile.type = 'company'
     }
 
     return this

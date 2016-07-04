@@ -331,7 +331,8 @@
         		"HOME.TOP_CONTAINER.EXPERT_PROFILE.FOOTER_COPYRIGHT":"Profitelo należy do: Itelo Sp. Z O. O.  Ul. Kunickiego 5/212, 30-134 Kraków",
         		"HOME.TOP_CONTAINER.EXPERT_PROFILE.MAIL_FOOTER":"kontakt@itelo.pl",
         		"HOME.TOP_CONTAINER.EXPERT_PROFILE.MY_SOCIAL_MEDIA":"Moje media społeczenościowe:",
-        		"HOME.TOP_CONTAINER.EXPERT_PROFILE.SATISFACTION_PERCENT":"% zadowolenia",
+        		"HOME.TOP_CONTAINER.EXPERT_PROFILE.SATISFACTION_PERCENT":"zadowolenia",
+        		"HOME.TOP_CONTAINER.EXPERT_PROFILE.TALKS":"rozmów",
         		"HOME.TOP_CONTAINER.EXPERT_PROFILE.TALKS_MORE_COMFORTABLE":"Chcesz rozmawiać wygodniej?",
         		"HOME.TOP_CONTAINER.MAIN_HEADER.AND_PHOTOS":"oraz zdjęcie",
         		"HOME.TOP_CONTAINER.MAIN_HEADER.FOOTER_COMPLAINTS":"Reklamacje",
@@ -407,11 +408,19 @@
         		"REGISTER.USER_PHONE":"Twój numer:",
         		"REGISTER.VALID_CHECKBOX":"Zaakceptuj regulamin",
         		"REGISTER.VALID_PASSWORD":"Hasło jest niepoprawne",
+        		"SEARCH.ALL":"Wszystkie",
+        		"SEARCH.ALL_LANGUAGES":"Wszystkie języki",
+        		"SEARCH.DOMAINS":"Dziedziny",
         		"SEARCH.EXPERTS":"Eksperci",
+        		"SEARCH.EXPERTS_CURRENTLY_AVAILABLE":"Aktualnie dostępni eksperci",
         		"SEARCH.IN_ALL_CATEGORIES":"we wszystkich kategoriach",
         		"SEARCH.IN_CATEGORY":"w kategorii",
         		"SEARCH.ORGANIZATIONS":"Firmy",
-        		"SEARCH.SERVICES":"Konsultacje"
+        		"SEARCH.PRICE_RANGE":"Zakres cenowy",
+        		"SEARCH.SATISFIED_PERCENT":"% zadowolonych",
+        		"SEARCH.SEARCH_RECENT":"Podobne wyszukiwania",
+        		"SEARCH.SERVICES":"Konsultacje",
+        		"SEARCH.SORT_BY":"Sortuj według"
         })
     }])
 })(angular);

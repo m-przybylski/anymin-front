@@ -3,23 +3,28 @@
     function linkFunction(scope) {
 
       var controlsClick = 0
+      var slideWidth = 0
+
+      scope.leftOffset = {left: 0}
 
       scope.prevSlide = () => {
         if (controlsClick > 0) {
           let width = $('.slides').width() + 32
-          $('.slider-slides').animate({'left': '+='+width+'px'}, 'slow')
+          slideWidth = slideWidth + width
+          scope.leftOffset = {left: slideWidth}
           controlsClick = controlsClick - 1
         }
       }
 
       scope.nextSlide = () => {
         let width = $('.slides').width() + 32
-        let containerWidth = $('.slider-control').width() + 32
-        let countVisableItem = Math.round(containerWidth/width)
+        let containerWidth = $('.slider-slides').width() + 32
+        let countVisableItem = Math.floor(containerWidth/width)
         let itemCount = $('.slides').length
         let currentSlides = itemCount - countVisableItem
         if (controlsClick < currentSlides) {
-          $('.slider-slides').animate({'left': '-='+width+'px'}, 'slow')
+          slideWidth = slideWidth - width
+          scope.leftOffset = {left: slideWidth}
           controlsClick = controlsClick + 1
         }
       }

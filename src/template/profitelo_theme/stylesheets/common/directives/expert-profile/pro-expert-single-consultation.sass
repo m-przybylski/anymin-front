@@ -22,6 +22,7 @@
       h3
         color: $c-white
         +default-font-regular
+        padding: 16px 0
 
     .title-row-consultation
       display: flex
@@ -48,6 +49,10 @@
         align-items: center
         width: 100%
 
+        +smm
+          flex-direction: row
+          justify-content: space-between
+
         h3
           color: $c-white
 
@@ -65,7 +70,7 @@
             +default-font-regular
 
           .currency
-            margin-bottom: 5px
+            margin-bottom: -10px
             margin-left: 4px
             font-size: $f-nav-size
             text-transform: uppercase
@@ -77,13 +82,19 @@
           width: 100%
           background-color: $c-success
 
+          +smm
+            width: auto
+            padding: 8px 32px
+
           p
             padding: 0 8px
             color: $c-white
             +default-font-heavy
+            text-transform: uppercase
 
       .tags-consultation
         text-align: center
+        padding: 16px 0
 
         +smm
           text-align: left
@@ -107,6 +118,7 @@
         align-content: center
         align-items: center
         width: 100%
+        padding: 16px 0
 
         .help
           display: flex
@@ -121,8 +133,16 @@
           &:last-child
             margin-left: -1px
 
+          .icon
+            color: $c-secondary-txt
+
           span
-            padding: 0 16px
+            padding: 0 8px
+            text-transform: uppercase
+            +default-font-heavy
+
+          p
+            color: $c-secondary-txt
 
       .more-consultation
         font-size: $f-nav-size
