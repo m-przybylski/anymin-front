@@ -6,10 +6,17 @@
 
   .advanced-search-bar-wrap
     +smm
-
+      display: flex
+      justify-content: space-around
+      flex-wrap: wrap
 
     .input-group
       margin: 0 0 30px
+
+      +smm
+        flex: 1 0 50%
+      +mdm
+        flex: 1 0 25%
 
 //Tagi
 .search-tags

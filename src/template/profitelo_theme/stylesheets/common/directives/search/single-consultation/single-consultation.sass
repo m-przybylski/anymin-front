@@ -19,8 +19,11 @@
 
   .black-row
     background: $c-primary-txt
-    padding: 15px 30px
+    padding: 16px
     color: $c-white
+
+    +smm
+      padding: 16px 32px
 
   .title-row-consultation
     .options-details
@@ -72,17 +75,25 @@
             order: 2
 
         .author
-          text-align: right
+          text-align: left
           order: 2
 
           +smm
+            text-align: right
             order: 1
 
         h6
           color: $c-white
 
+    .entry-title
+      margin: 32px 0
+
+      h3
+        +default-font-regular
+        color: $c-white
+
     .title-row
-      margin: 15px 0 30px
+      margin: 32px 0
 
       h3
         +default-font-regular
@@ -100,7 +111,7 @@
       .price
         display: flex
         align-items: center
-        margin: 0 0 15px
+        margin: 0 0 16px
 
         +xsm
           margin: 0
@@ -126,7 +137,10 @@
 
 
   .consultation-tags
-    padding: 15px 30px
+    padding: 0 16px 32px
+
+    +smm
+      padding: 0px 32px 32px
 
     h5
       text-transform: uppercase
