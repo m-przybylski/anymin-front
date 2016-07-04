@@ -6,13 +6,33 @@
 
   .advanced-search-bar-wrap
     display: flex
+    flex-wrap: wrap
+
     +smm
 
-    > *
-      flex: 1 0 25%
+    .pro-slider,
+    .pro-dropdown
+      flex: 1 0 100%
+
+      +smm
+        flex: 1 0 50%
+        padding: 0 16px 0 0
+
+        &:nth-child(2n)
+          padding: 0
+
+      +mdm
+        flex: 1 0 25%
+
+        &:nth-child(2n)
+          padding: 0 16px 0 0
+
+        &:nth-child(4n)
+          padding: 0
+
 
     .input-group
-      margin: 0 0 30px
+      margin: 0 0 32px
 
       +smm
         flex: 1 0 50%
@@ -23,18 +43,20 @@
 .search-tags
   display: flex
   justify-content: space-around
+  margin: 0 0 32px
 
   .slider-tag
     overflow: hidden
     flex: 1 0
 
     ul
-      margin: 0
+      margin: 0 16px
       padding: 0
       list-style: none
-      display: flex
-      flex: 1 0
-      justify-content: space-around
+      
+      li
+        display: inline-block
+        margin: 0 13px 0 0
 
     a
       flex: 0
