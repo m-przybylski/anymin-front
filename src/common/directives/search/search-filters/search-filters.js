@@ -25,6 +25,7 @@
     'profitelo.directives.interface.pro-dropdown',
     'profitelo.directives.interface.pro-slider',
     'rzModule',
+    'profitelo.directives.pro-tags-slider',
     'profitelo.directives.interface.pro-switcher'
   ])
     .directive('searchFilter', searchFilter)
