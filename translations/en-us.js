@@ -412,11 +412,19 @@
         		"REGISTER.USER_PHONE":"Twój numer:",
         		"REGISTER.VALID_CHECKBOX":"Zaakceptuj regulamin",
         		"REGISTER.VALID_PASSWORD":"Hasło jest niepoprawne",
+        		"SEARCH.ALL":"Wszystkie",
+        		"SEARCH.ALL_LANGUAGES":"Wszystkie języki",
+        		"SEARCH.DOMAINS":"Dziedziny",
         		"SEARCH.EXPERTS":"Eksperci",
+        		"SEARCH.EXPERTS_CURRENTLY_AVAILABLE":"Aktualnie dostępni eksperci",
         		"SEARCH.IN_ALL_CATEGORIES":"we wszystkich kategoriach",
         		"SEARCH.IN_CATEGORY":"w kategorii",
         		"SEARCH.ORGANIZATIONS":"Firmy",
-        		"SEARCH.SERVICES":"Konsultacje"
+        		"SEARCH.PRICE_RANGE":"Zakres cenowy",
+        		"SEARCH.SATISFIED_PERCENT":"% zadowolonych",
+        		"SEARCH.SEARCH_RECENT":"Podobne wyszukiwania",
+        		"SEARCH.SERVICES":"Konsultacje",
+        		"SEARCH.SORT_BY":"Sortuj według"
         })
     }])
 })(angular);

@@ -43,6 +43,7 @@
     'profitelo.directives.interface.pro-dropdown',
     'profitelo.directives.interface.pro-range-slider',
     'rzModule',
+    'pascalprecht.translate',
     'profitelo.directives.pro-tags-slider',
     'profitelo.directives.interface.pro-switcher'
   ])

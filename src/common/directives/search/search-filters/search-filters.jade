@@ -4,11 +4,11 @@
         pro-tags-slider(data-tags="models.tagsModel" data-on-tag-click-action="tagsAction")
 
         .advanced-search-bar-wrap
-            pro-dropdown(data-pro-model='models.sortModel' data-label='SEARCH.SORT_BY' data-placeholder='SEARCH.SATISFIED_PERCENT' data-pro-items="sortList" data-no-search)
+            pro-dropdown(data-pro-model='models.sortModel' data-label="{{'SEARCH.SORT_BY' | translate }}" data-placeholder="{{'SEARCH.SATISFIED_PERCENT' | translate }}" data-pro-items="sortList" data-no-search)
 
-            pro-dropdown(data-pro-model='models.languageModel' data-label='PROFILE_LANGUAGE_HEADER' data-placeholder='SEARCH.ALL_LANGUAGES' data-pro-items="languagesList" data-no-search)
+            pro-dropdown(data-pro-model='models.languageModel' data-label="{{'DASHBOARD.CREATE_PROFILE.PROFILE_LANGUAGE_HEADER' | translate }}" data-placeholder="{{'SEARCH.ALL_LANGUAGES' | translate }}" data-pro-items="languagesList" data-no-search)
 
-            pro-dropdown(data-pro-model='models.categoryModel' data-label='SEARCH.DOMAINS' data-placeholder='SEARCH.ALL' data-pro-items="categoryList" data-no-search)
+            pro-dropdown(data-pro-model='models.categoryModel' data-label="{{'SEARCH.DOMAINS' | translate }}" data-placeholder="{{'SEARCH.ALL' | translate }}" data-pro-items="categoryList" data-no-search)
 
             pro-range-slider(data-min-value="{{models.minRange}}" data-max-value="{{models.maxRange}}")
 
