@@ -23,7 +23,7 @@
 
   angular.module('profitelo.directives.search.search-filters', [
     'profitelo.directives.interface.pro-dropdown',
-    'profitelo.directives.interface.pro-slider',
+    'profitelo.directives.interface.pro-range-slider',
     'rzModule',
     'profitelo.directives.pro-tags-slider',
     'profitelo.directives.interface.pro-switcher'

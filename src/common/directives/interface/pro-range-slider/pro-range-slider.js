@@ -1,5 +1,5 @@
 (function() {
-  function proSlider() {
+  function proRangeSlider() {
 
     function linkFunction($timeout, scope, elem, attrs) {
 
@@ -16,7 +16,7 @@
     }
 
     return {
-      templateUrl: 'directives/interface/pro-slider/pro-slider.tpl.html',
+      templateUrl: 'directives/interface/pro-range-slider/pro-range-slider.tpl.html',
       restrict: 'E',
       replace: true,
       link: linkFunction,
@@ -28,9 +28,9 @@
 
   }
 
-  angular.module('profitelo.directives.interface.pro-slider', [
+  angular.module('profitelo.directives.interface.pro-range-slider', [
     'rzModule'
   ])
-    .directive('proSlider', proSlider)
+    .directive('proRangeSlider', proRangeSlider)
 
 }())
