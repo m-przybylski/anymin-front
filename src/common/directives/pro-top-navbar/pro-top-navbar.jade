@@ -1,10 +1,13 @@
-.pro-top-navbar
-  .hamburger-menu
-    span.icon.icon-menu-16
+.top-navbar
+  nav
+    .hamburger-menu
+      span.icon.icon-menu-16
+
   .logo
-    img(src="/assets/images/logo_profitelo_black.png")
+      img(data-ui-sref="app.home", src="/assets/images/logo_profitelo_black.png", alt="Profitelo logo")
+
   .buttons
-    a
+    a.search-btn
       span.icon.icon-search-24
     a(data-ng-hide="$root.loggedIn" data-ui-sref='app.login.account')
       span(data-translate="PAGE_TITLE.LOGIN.ACCOUNT")
