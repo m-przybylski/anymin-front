@@ -12,6 +12,10 @@
         sliderContainer.animate({'left':  '0px'}, 'fast')
       })
 
+      scope.tagAction = (id)=> {
+        scope.onTagClickAction(id)
+      }
+
       scope.prevSlide = () => {
         if (parseInt(sliderContainer.css('left'), 10) !== 0 && !(sliderContainer.is(':animated'))) {
           currentSlidePage--
@@ -38,6 +42,9 @@
       restrict: 'E',
       replace: true,
       scope: {
+        tags: '=?',
+        onTagClickAction: '=?'
+
       },
       link: linkFunction
     }

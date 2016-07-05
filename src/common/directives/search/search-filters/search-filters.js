@@ -1,11 +1,28 @@
 (function() {
   function searchFilter() {
     function linkFunction(scope, element, attrs) {
-      scope.lang = [
-        'Polish'
+
+      scope.languagesList = [
+        {
+          name: 'polish'
+        }
       ]
 
-      scope.switcherModel = true
+      scope.sortList = [
+        {
+          name: 'sort'
+        }
+      ]
+
+      scope.categoryList = [
+        {
+          name: 'category'
+        }
+      ]
+
+      scope.tagsAction = (id)=> {
+        scope.tagClickAction(id)
+      }
 
     }
 
@@ -15,13 +32,14 @@
       restrict: 'E',
       templateUrl: 'directives/search/search-filters/search-filters.tpl.html',
       scope: {
-
+        models: '=',
+        tagClickAction: '='
       },
       link: linkFunction
     }
   }
 
-  angular.module('profitelo.directives.search.search-filters', [
+  angular.module('profitelo.directives.search.search-filter', [
     'profitelo.directives.interface.pro-dropdown',
     'profitelo.directives.interface.pro-range-slider',
     'rzModule',

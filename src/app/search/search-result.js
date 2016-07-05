@@ -3,6 +3,20 @@
   function SearchResultController() {
 
 
+    this.models = {
+      sortModel: '',
+      languagesModel: '',
+      categoryModel: '',
+      switcherModel: false,
+      tagsModel: [],
+      minRange: 0,
+      maxRange: 100
+    }
+
+    this.tagsClick = (id)=> {
+
+    }
+
     return this
   }
 
@@ -11,7 +25,7 @@
     'ui.router',
     'c7s.ng.userAuth',
     'profitelo.directives.search.single-consultation',
-    'profitelo.directives.search.search-filters',
+    'profitelo.directives.search.search-filter',
     'profitelo.directives.pro-footer'
   ])
     .config( function($stateProvider, UserRolesProvider) {
@@ -19,7 +33,7 @@
         url:          '/search-result',
         templateUrl:  'search/search-result.tpl.html',
         controller:   'SearchResultController',
-        controllerAs: 'SearchResultController',
+        controllerAs: 'vm',
         data : {
           access : UserRolesProvider.getAccessLevel('public'),
           pageTitle: 'PAGE_TITLE.SEARCH_RESULT'

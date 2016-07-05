@@ -8,15 +8,16 @@
         br
 
         h5 Podobne wyszukiwania:
-        pro-tags-slider()
+        pro-tags-slider(data-tags="models.tagsModel" data-on-tag-click-action="tagsAction")
 
         .advanced-search-bar-wrap
-            pro-dropdown(data-pro-model='pro-sort-as' data-label='Sortuj według' data-placeholder='+placeholder' data-pro-items="lang" data-no-search)
+            pro-dropdown(data-pro-model='models.sortModel' data-label='Sortuj według' data-placeholder='+placeholder' data-pro-items="sortList" data-no-search)
 
-            pro-dropdown(data-pro-model='pro-language' data-label='Języki' data-placeholder='+placeholder' data-pro-items="lang" data-no-search)
+            pro-dropdown(data-pro-model='models.languageModel' data-label='Języki' data-placeholder='+placeholder' data-pro-items="languagesList" data-no-search)
 
-            pro-dropdown(data-pro-model='pro-domain' data-label='Dziedziny' data-placeholder='+placeholder' data-pro-items="las" data-no-search)
+            pro-dropdown(data-pro-model='models.categoryModel' data-label='Dziedziny' data-placeholder='+placeholder' data-pro-items="categoryList" data-no-search)
 
-            pro-range-slider(data-min-value="0" data-max-value="100")
+            pro-range-slider(data-min-value="{{models.minRange}}" data-max-value="{{models.maxRange}}")
 
-        pro-switcher(id="switcher" data-ng-model="switcherModel")
+        pro-switcher(id="switcher" data-ng-model="models.switcherModel")
+

@@ -1,14 +1,14 @@
-describe('Unit testing: profitelo.directives.pro-tags-slider', () => {
-  return describe('for pro-tags-slider directive >', () => {
+describe('Unit testing: profitelo.directives.search.search-filter', () => {
+  return describe('for search-filter directive >', () => {
 
     let scope = null
     let rootScope
     let compile = null
-    let validHTML = '<pro-tags-slider ></pro-tags-slider>'
+    let validHTML = '<search-filter data-models="model"></search-filter>'
 
     beforeEach(() => {
       module('templates-module')
-      module('profitelo.directives.pro-tags-slider')
+      module('profitelo.directives.search.search-filter')
 
       inject(($rootScope, $compile) => {
         rootScope = $rootScope.$new()
@@ -18,6 +18,15 @@ describe('Unit testing: profitelo.directives.pro-tags-slider', () => {
 
     function create(html) {
       scope = rootScope.$new()
+      scope.model = {
+        sortModel: '',
+        languagesModel: '',
+        categoryModel: '',
+        switcherModel: false,
+        tagsModel: [],
+        minRange: 0,
+        maxRange: 100
+      }
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
       scope.$digest()

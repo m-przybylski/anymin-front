@@ -4,32 +4,6 @@
         .slider-tag
             .slides-container
                 ul.slide-page
-                    li
-                        a.pro-btn.btn-white gorgeus
-                    li
-                        a.pro-btn.btn-white night
-                    li
-                        a.pro-btn.btn-white gorgeus
-                    li
-                        a.pro-btn.btn-white night
-                    li
-                        a.pro-btn.btn-white gorgeus
-                    li
-                        a.pro-btn.btn-white night
-                    li
-                        a.pro-btn.btn-white asd
-                    li
-                        a.pro-btn.btn-white gorgeus
-                    li
-                        a.pro-btn.btn-white night
-                    li
-                        a.pro-btn.btn-white gorgeus
-                    li
-                        a.pro-btn.btn-white night
-                    li
-                        a.pro-btn.btn-white gorgeus
-                    li
-                        a.pro-btn.btn-white night
-                    li
-                        a.pro-btn.btn-white asd
+                    li(data-ng-repeat="tag in tags" data-ng-click="tagAction(tag.id)")
+                        a.pro-btn.btn-white {{tag.name}}
         a.pro-btn.btn-white.icon.icon-arrow-right-12(data-ng-click="nextSlide()")
