@@ -282,6 +282,8 @@
   .run(runFunction)
   .config(configFunction)
   .controller('AppController', AppController)
-  .constant('apiUrl', 'http://api.dev.profitelo.pl')
+  .factory('apiUrl', (CommonConfig) => {
+    return CommonConfig.getAllData().urls.backend
+  })
 
 }())
