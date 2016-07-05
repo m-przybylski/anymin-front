@@ -5,10 +5,10 @@ block content
     .step-content-column(data-ng-click="onClick()")
       .upload-field-description
         p(data-translate="DASHBOARD.CREATE_PROFILE.FILE_PREVIEW")
-      pro-uploader(type="image/*" files-uploaded="model.avatar" data-ng-hide="model.avatar.length" data-ngf-pattern=".jpg,.jpeg,.png")
+      pro-uploader(type="image/*" files-uploaded="model[imageField]" data-ng-hide="model[imageField].length" data-ngf-pattern=".jpg,.jpeg,.png")
       .image-preview
-        .upload-field(data-ng-show="model.avatar.length")
-          img(data-ng-src="{{model.avatar[0].response.meta.downloadUrl}}")
+        .upload-field(data-ng-show="model[imageField].length")
+          img(data-ng-src="{{model[imageField][0].response.meta.downloadUrl}}")
           .btn-handler(data-ng-show="queue.currentStep === order")
             a.pro-btn.btn-light.btn-icon.upload-trash(data-ng-click="removeAvatar()")
               span.icon.icon-trash-24.icon-24
