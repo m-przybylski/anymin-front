@@ -1,23 +1,16 @@
 .search-filter
     .default-container
-        br
-        br
-        br
-        br
-        br
-        br
-
-        h5 Podobne wyszukiwania:
+        h4 {{'SEARCH.SEARCH_RECENT' | translate}}
         pro-tags-slider(data-tags="models.tagsModel" data-on-tag-click-action="tagsAction")
 
         .advanced-search-bar-wrap
-            pro-dropdown(data-pro-model='models.sortModel' data-label='Sortuj według' data-placeholder='+placeholder' data-pro-items="sortList" data-no-search)
+            pro-dropdown(data-pro-model='models.sortModel' data-label='SEARCH.SORT_BY' data-placeholder='SEARCH.SATISFIED_PERCENT' data-pro-items="sortList" data-no-search)
 
-            pro-dropdown(data-pro-model='models.languageModel' data-label='Języki' data-placeholder='+placeholder' data-pro-items="languagesList" data-no-search)
+            pro-dropdown(data-pro-model='models.languageModel' data-label='PROFILE_LANGUAGE_HEADER' data-placeholder='SEARCH.ALL_LANGUAGES' data-pro-items="languagesList" data-no-search)
 
-            pro-dropdown(data-pro-model='models.categoryModel' data-label='Dziedziny' data-placeholder='+placeholder' data-pro-items="categoryList" data-no-search)
+            pro-dropdown(data-pro-model='models.categoryModel' data-label='SEARCH.DOMAINS' data-placeholder='SEARCH.ALL' data-pro-items="categoryList" data-no-search)
 
             pro-range-slider(data-min-value="{{models.minRange}}" data-max-value="{{models.maxRange}}")
 
-        pro-switcher(id="switcher" data-ng-model="models.switcherModel")
+        pro-switcher(id="switcher" data-ng-model="models.switcherModel" data-label="SEARCH.EXPERTS_CURRENTLY_AVAILABLE")
 

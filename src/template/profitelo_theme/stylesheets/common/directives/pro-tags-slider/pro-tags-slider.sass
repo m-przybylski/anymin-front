@@ -1,35 +1,40 @@
-.search-tags
-  display: flex
-  justify-content: space-around
-
-  .slider-tag
+.pro-tags-slider
+  .search-tags
     display: flex
-    flex-direction: column
-    flex-wrap: nowrap
-    justify-content: flex-start
-    align-content: center
-    align-items: center
-    width: 100%
-    max-width: 1200px
-    position: relative
-    overflow: hidden
-    padding: 0 16px
-    .slides-container
+    margin: 0 0 32px
+
+    .slider-tag
       width: 100%
       max-width: 1200px
-      display: flex
-      flex-direction: row
-      flex-wrap: nowrap
-      justify-content: flex-start
-      align-content: center
-      align-items: center
       position: relative
-      padding: 0
-      left: 0
-      .slide-page
-        list-style: none
+      overflow: hidden
+      margin: 0 16px
+
+      .slides-container
         display: flex
-        width: auto
+        width: 100%
+        max-width: 1200px
+        position: relative
         padding: 0
-        li
-          margin: 0 16px 0 0
+        left: 0
+
+        .slide-page
+          display: flex
+
+          li
+            margin: 0 16px 0 0
+            +default-font-regular
+
+
+
+//do refactoringu
+.search-filter a:not(.icon)
+  margin: 0
+.search-filter .icon
+  font-size: 12px
+  margin: 0
+.default-container
+  a
+    margin: 0
+.success
+  background: $c-success

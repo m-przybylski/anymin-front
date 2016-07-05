@@ -1,16 +1,27 @@
 .search-filter
+  margin-top: 80px
+  padding-top: 60px
   background: $c-white
 
-  h5
+  h4
+    +default-font-heavy
     text-transform: uppercase
+    padding: 0 0 30px
 
   .advanced-search-bar-wrap
     display: flex
     flex-wrap: wrap
+    margin: 0 0 48px
 
     +smm
+      margin: 0
 
-    .pro-slider,
+    .pro-range-slider
+      margin: 48px 0 0 0
+
+      +smm
+        margin: 0
+    .pro-range-slider,
     .pro-dropdown
       flex: 1 0 100%
 
@@ -39,5 +50,15 @@
       +mdm
         flex: 1 0 25%
 
+  .pro-switcher
+    cursor: pointer
+    display: inline-block
+    margin: 0 0 32px
 
+    +smm
+      margin: 0 0 64px
+
+    span
+      +default-font-heavy
+      margin: 0 0 0 16px
 

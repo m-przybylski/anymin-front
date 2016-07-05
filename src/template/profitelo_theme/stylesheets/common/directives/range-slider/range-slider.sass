@@ -1,4 +1,15 @@
 .pro-range-slider
+  position: relative
+
+  > span
+    +default-font-heavy
+    color: $c-secondary-txt
+    text-transform: uppercase
+    content: 'Zakres cenowy'
+    position: absolute
+    top: 0
+    left: 0
+
   .rzslider
     .rz-bar
       background: $c-lines
@@ -13,3 +24,25 @@
       height: 15px
       top: -6px
       border-radius: 50%
+
+    .rz-bubble
+      &.rz-from
+        left: auto !important
+        right: 25px !important
+        visibility: visible !important
+
+        &::after
+          content: "-"
+          margin: 0 8px
+
+      &.rz-to
+        left: auto !important
+        right: 0px !important
+        opacity: 1 !important
+        visibility: visible !important
+
+      &.rz-limit
+        &.rz-floor
+          display: none
+        &.rz-ceil
+          display: none

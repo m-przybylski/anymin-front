@@ -3,8 +3,8 @@
      .select(data-ng-click="onFocus()" data-ng-mouseover="onMouseover()"
      data-ng-mouseleave="onMouseout()" data-ng-blur="focusout()")
           ui-select(data-ng-model="selectedItem" data-theme="templates/ui-select" data-on-select="select($item, $model)" data-ng-click="openBar()" data-search-enabled="searchEnable()" ng-disabled="isDisable()")
-              ui-select-match(placeholder="{{placeholder}}")
+              ui-select-match(placeholder="{{placeholder | translate }}")
                  span(ng-bind='$select.selected.name')
               ui-select-choices(data-repeat='item in (proItems | filter: $select.search) track by $index' )
                   span(ng-bind='item.name')
-     label {{label}}
+     label {{ label | translate }}
