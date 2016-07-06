@@ -1,5 +1,5 @@
 .search-bar-container
-  input.search-bar-shadow(type="text", disabled, data-ng-model="suggestion")
+  input.search-bar-shadow(type="text", disabled, data-ng-model="suggestions.primary")
   input.search-bar(type="text", placeholder="{{'HOME.SEARCH_PLACEHOLDER' | translate}}", data-ng-model="q", data-ng-trim="false")
   .dropdown-container(data-ng-class="{collapsed: collapsed}")
     .dropdown-default(data-ng-if="suggestions.terms.length")
