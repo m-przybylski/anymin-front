@@ -1,8 +1,8 @@
-.pro-tags-slider
+.pro-tags-slider(data-ng-swipe-left="nextSlide()" data-ng-swipe-right="prevSlide()")
     .search-tags
         a.pro-btn.btn-white.icon.icon-arrow-left-12(data-ng-click="prevSlide()")
         .slider-tag
-            .slides-container
+            .slides-container(data-ng-style="leftOffset")
                 ul.slide-page
                     li(data-ng-repeat="tag in tags" data-ng-click="tagAction(tag.id)")
                         a.pro-btn.btn-white {{tag.name}}

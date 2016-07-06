@@ -2,15 +2,19 @@
   .search-tags
     display: flex
     margin: 0 0 32px
-
+    >a
+      display: none
+      +smm
+        display: block
     .slider-tag
       width: 100%
       max-width: 1200px
       position: relative
       overflow: hidden
-      margin: 0 16px
+      padding: 0 16px
 
       .slides-container
+        +transition(left 0.5s ease-in-out 0s)
         display: flex
         width: 100%
         max-width: 1200px
@@ -20,6 +24,7 @@
 
         .slide-page
           display: flex
+          padding: 0
 
           li
             margin: 0 16px 0 0

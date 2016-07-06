@@ -1,37 +1,49 @@
 (function() {
-  function proTagsSlider($window) {
-    function linkFunction(scope, element, attr) {
-      let sliderContainer = $('.slides-container')
+  function proTagsSlider($window, $timeout) {
+    function linkFunction(scope, element) {
       let currentWidth = 0
-      let widthOfAll = $('.slide-page').width()
-      let currentSlidePage = 1
+      let elementsMap = []
+      let currentElement = 0
+
+      scope.leftOffset = {left: 0}
 
       angular.element($window).on('resize', ()=> {
         currentWidth = $('.slider-tag').width()
-        currentSlidePage = 1
-        sliderContainer.animate({'left':  '0px'}, 'fast')
+        scope.leftOffset = {left: 0}
       })
+
+      $timeout(()=>{
+        elementsMap = $.map($(element).find('.slide-page li'), (li)=>{
+          return li.clientWidth
+        })
+      })
+
+      let _calculateOffset = (elem) => {
+        let offset = 0
+        for (let i = 0; i < elem; i++) {
+          offset = offset + elementsMap[i] + 16
+        }
+        return offset
+      }
 
       scope.tagAction = (id)=> {
         scope.onTagClickAction(id)
       }
 
-      scope.prevSlide = () => {
-        if (parseInt(sliderContainer.css('left'), 10) !== 0 && !(sliderContainer.is(':animated'))) {
-          currentSlidePage--
-          currentWidth = $('.slider-tag').width()
-          sliderContainer.animate({'left': '+=' + currentWidth + 'px'}, 'slow')
+      scope.prevSlide = (next=1) => {
+        if (currentElement > 0) {
+          currentElement = currentElement - next
+          scope.leftOffset = {left: _calculateOffset(currentElement) * -1}
         }
       }
 
-      scope.nextSlide = () => {
-        if (currentSlidePage >= Math.round(widthOfAll/currentWidth) ) {
-          currentSlidePage = 1
-          sliderContainer.animate({'left':  '0px'}, 'slow')
+      scope.nextSlide = (next=1) => {
+        if (currentElement < elementsMap.length - next) {
+          currentElement = currentElement + next
+          scope.leftOffset = {left: _calculateOffset(currentElement) * -1}
         } else {
-          currentSlidePage++
-          currentWidth = $('.slider-tag').width()
-          sliderContainer.animate({'left': '-=' + currentWidth + 'px'}, 'slow')
+          scope.leftOffset = {left: 0}
+          currentElement = 0
         }
       }
     }
