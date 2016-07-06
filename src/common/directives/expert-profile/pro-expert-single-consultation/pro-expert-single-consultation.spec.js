@@ -1,10 +1,10 @@
 describe('Unit testing: profitelo.directives.expert-profile.pro-expert-single-consultation', () => {
-  return describe('for expert-profile.pro-expert-single-consultation.sass directive >', () => {
+  return describe('for expert-profile.pro-expert-single-consultation directive >', () => {
 
     let scope = null
     let rootScope
     let compile = null
-    let validHTML = '<pro-expert-single-consultation.sass></pro-expert-single-consultation.sass>'
+    let validHTML = '<pro-expert-single-consultation></pro-expert-single-consultation>'
 
     beforeEach(() => {
       module('templates-module')
