@@ -49,7 +49,7 @@
     'ui.router',
     'profitelo.swaggerResources',
 
-    'profitelo.directives.dashboard.invitation.pro-invitation-acceptance-box'
+    'profitelo.components.dashboard.invitation.pro-invitation-acceptance-box'
 
   ])
     .config(config)
