@@ -1,7 +1,7 @@
 (function() {
   function proSearchDropdown($q, searchService, categoryService) {
 
-    function linkFunction(scope, element) {
+    function linkFunction(scope, element, attr) {
       const qInput = element.find('[data-ng-model="q"]')[0]
 
       scope.collapsed = true
@@ -54,6 +54,7 @@
   }
 
   angular.module('profitelo.directives.pro-search-dropdown', [
+    'commonConfig',
     'profitelo.services.search',
     'profitelo.services.categories',
     'profitelo.filters.normalize-translation-key-filter'
