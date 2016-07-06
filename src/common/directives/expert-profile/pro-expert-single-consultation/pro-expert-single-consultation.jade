@@ -1,37 +1,43 @@
 .pro-expert-single-consultation
-  .single-container-consultation
-    .title-row-consultation.black-row
-      .stats-consultation
-        div
-          span.icon.icon-satisfaction-16
-          span {{ satisfaction }}%
-        div
-          span.icon.icon-calls-16
-          span {{ talks }}
-        div
-          span.icon.icon-time-16
-          span {{ timeAverage }} {{'HOME_EXPERT_PROFILE.MINUTES' | translate}}
-      .title-row
-        h3 {{ name }}
-      .cost-consultations
-        .prize
-          span.icon.icon-price-32
-          h3 {{ minuteCost / 100 }}
-          h3.currency(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE")
-        .call
-          p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CALL")
-          span.icon.icon-headphone-16
+  .default-container
+    .single-container-consultation
+      .title-row-consultation.black-row
+        .stats-consultation
+          div
+            span.icon.icon-satisfaction-16
+            span {{ satisfaction }}%
+            span.mobile-hidden(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.SATISFACTION_PERCENT")
+          div
+            span.icon.icon-calls-16
+            span {{ talks }}
+            span.mobile-hidden(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.TALKS")
+          div
+            span.icon.icon-time-16
+            span.mobile-hidden(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.AVERANGE_CONSULTATION_TIME")
+            span {{ timeAverage }} {{'HOME_EXPERT_PROFILE.MINUTES' | translate}}
+        .title-row
+          h3 {{ name }}
+        .cost-consultations
+          .prize
+            span.icon.icon-price-32
+            h3 {{ minuteCost / 100 }}
+            h3.currency(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE")
+          .call
+            p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CALL")
+            span.icon.icon-headphone-16
 
-    .title-row-consultation.footer-consultation
-      p {{'HOME_EXPERT_PROFILE.TAGS' | translate}} (18)
-      .tags-consultation
-        p(ng-repeat="tag in tags") {{tag}}
+      .title-row-consultation.footer-consultation
+        p {{'HOME_EXPERT_PROFILE.TAGS' | translate}} (18)
+        .tags-consultation
+          p(ng-repeat="tag in tags") {{tag}}
 
-      p {{'HOME.TOP_CONTAINER.EXPERT_PROFILE.COMMENTS' | translate}} (100)
-      .comments
-        .help
-          span.icon.icon-good-32
-          p {{positiveMark}}
-        .help
-          span.icon.icon-bad-32
-          p {{negativeMark}}
+        p {{'HOME.TOP_CONTAINER.EXPERT_PROFILE.COMMENTS' | translate}} (100)
+        .comments
+          .help
+            span.icon.icon-good-32
+            span.mobile-hidden(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.EXPERT_HELPS")
+            p {{positiveMark}}
+          .help
+            span.icon.icon-bad-32
+            span.mobile-hidden(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.EXPERT_NOT_HELPS")
+            p {{negativeMark}}
