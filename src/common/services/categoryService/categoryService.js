@@ -4,10 +4,6 @@ function categoryService($q, CategoryApi) {
   let _categories = []
   let _categorySlugs = {}
 
-  function _normalizeSlug(slug) {
-    return String(slug).toUpperCase().split('-').join('_')
-  }
-
   function _resolveCategories() {
     let _deferred = $q.defer()
 
@@ -19,12 +15,12 @@ function categoryService($q, CategoryApi) {
         _categories = response
         angular.forEach(_categories, (category) => {
           if (category.parentCategoryId === null) {
-            _categorySlugs[category.id] = _normalizeSlug(category.slug)
+            _categorySlugs[category.id] = category.slug
           }
         })
         angular.forEach(_categories, (category) => {
           if (category.parentCategoryId !== null) {
-            _categorySlugs[category.id] = _categorySlugs[category.parentCategoryId] + '.' + _normalizeSlug(category.slug)
+            _categorySlugs[category.id] = _categorySlugs[category.parentCategoryId] + '.' + category.slug
           }
         })
         _deferred.resolve()

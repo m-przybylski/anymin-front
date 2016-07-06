@@ -6,7 +6,9 @@
       .search-query-cat
         p.choose-category(data-ng-repeat="term in suggestions.terms")
           span.search-query {{term.term}}
-          span(data-ng-if="!!term.category") {{'SEARCH.IN_CATEGORY' | translate}} {{'CATEGORY.' + categorySlugs[term.category] | translate}}
+          span(data-ng-if="!!term.category")
+            | {{'SEARCH.IN_CATEGORY' | translate}}
+            | {{'CATEGORY.' + categorySlugs[term.category] | normalizeTranslationKey | translate}}
           span(data-ng-if="!term.category") {{'SEARCH.IN_ALL_CATEGORIES' | translate}}
     .dropdown-default(data-ng-if="suggestions.tags.length")
       .search-sugesstions
