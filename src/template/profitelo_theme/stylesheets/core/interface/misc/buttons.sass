@@ -1,17 +1,16 @@
 .pro-btn
-  +transition(.3s ease-in-out)
+  +transition(background .3s ease-in-out)
+  +text-truncate
   padding: 15px 32px 14px
   border: none
   outline: none
   display: inline-block
-  //do wyrzucenia w przyszlosci
-  margin-bottom: 10px
-  margin-top: 10px
   text-align: center
   touch-action: manipulation
   cursor: pointer
   text-transform: uppercase
   white-space: nowrap
+  font-size: $f-paragraph
 
   &.btn-big
     padding: 20px 40px
@@ -65,3 +64,174 @@
     &:hover
       background: $c-primary-txt
       color: $c-white
+
+//nowe style
+
+.default-container
+  &.playground
+    padding: 32px 0
+
+    .playground-row
+      margin-bottom: 64px
+      justify-content: space-between
+      flex-flow: row-wrap
+
+      &.space-around
+        justify-content: space-around
+        
+    h3
+      +default-font-heavy
+      text-transform: uppercase
+      margin-bottom: 32px
+
+    .pro-button
+      &:not(:last-of-type)
+        margin-right: 16px
+
+.pro-button
+  +default-font-heavy
+  +transition(background .2s linear, color .1s linear)
+  +text-truncate
+  border: none
+  outline: none
+  display: inline-block
+  text-align: center
+  touch-action: manipulation
+  cursor: pointer
+  text-transform: uppercase
+  white-space: nowrap
+  font-size: $f-paragraph
+  border-radius: $border-radius-default
+  color: $c-white
+  border: 1px solid transparent
+
+  &.rectangle
+    padding: 15px 32px 14px
+    min-width: 200px
+
+  &.round
+    border-radius: 100%
+
+    &.icon
+      padding: 32px
+      .icon
+        position: absolute
+        top: 50%
+        left: 50%
+        margin: -15px 0 0 -16px
+        width: 32px
+        height: 32px
+        &::before
+          font-size: 32px
+
+  &.default
+    background: $c-primary-txt
+    border: 1px solid $c-lines
+
+    &:hover
+      background: $c-white
+      color: $c-primary-txt
+      border: 1px solid $c-lines
+
+  &.primary
+    background: $c-white
+    color: $c-primary-txt
+    border: 1px solid $c-lines
+
+    &:hover
+      background: $c-primary-txt
+      color: $c-white
+
+  &.succes
+    background: $c-success
+
+    &:hover
+      background: lighten($c-success, 8%)
+
+  &.warning
+    background: $c-warning
+
+    &:hover
+      background: lighten($c-warning, 8%)
+
+  &.error
+    background: $c-error
+
+    &:hover
+      background: lighten($c-error, 8%)
+
+  &.btn-full
+    width: 100%
+
+  &.icon
+    padding: 15px 32px 14px 64px
+    position: relative
+
+    .icon
+      height: 32px
+      left: 16px
+      margin-top: -14px
+      position: absolute
+      top: 50%
+      width: 32px
+
+.pro-button-group
+  overflow: hidden
+
+  .arrow
+    display: inline-block
+    position: relative
+    height: 48px
+    width: 48px
+    float: left
+
+    &:active
+      .icon
+        color: $c-white
+
+    .icon
+      width: 10px
+      height: 14px
+      color: $c-lines
+      display: inline-block
+      position: absolute
+      top: 4px
+      left: 17px
+
+      &:before
+        font-size: $f-small
+
+  .arrow-left,
+  .arrow-right
+    border-top: 1px solid $c-lines
+    border-bottom: 1px solid $c-lines
+
+    &:hover
+      background-color: $c-primary-txt
+      border: 1px solid $c-primary-txt
+
+  .arrow-left
+    border-top-left-radius: $border-radius-default
+    border-bottom-left-radius: $border-radius-default
+    border-right: 1px solid $c-lines
+    border-left: 1px solid $c-lines
+
+  .arrow-right
+    border-top-right-radius: $border-radius-default
+    border-bottom-right-radius: $border-radius-default
+    border-right: 1px solid $c-lines
+
+  &.black
+    .arrow
+      &:active
+        .icon
+          color: $c-primary-txt
+
+    .arrow-left,
+    .arrow-right
+      border: 1px solid transparent
+      background: $c-primary-txt
+
+      &:hover
+        background: $c-white
+        border-color: $c-lines
