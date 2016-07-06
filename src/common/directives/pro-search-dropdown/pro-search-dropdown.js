@@ -55,7 +55,8 @@
 
   angular.module('profitelo.directives.pro-search-dropdown', [
     'profitelo.services.search',
-    'profitelo.services.categories'
+    'profitelo.services.categories',
+    'profitelo.filters.normalize-translation-key-filter'
   ])
   .directive('proSearchDropdown', proSearchDropdown)
 
