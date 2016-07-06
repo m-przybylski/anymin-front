@@ -4,7 +4,7 @@ describe('Unit testing: profitelo.directives.search.search-filter', () => {
     let scope = null
     let rootScope
     let compile = null
-    let validHTML = '<search-filter data-models="model"></search-filter>'
+    let validHTML = '<search-filter data-model="model"></search-filter>'
 
     beforeEach(() => {
       module('templates-module')

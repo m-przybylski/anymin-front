@@ -32,7 +32,7 @@
       restrict: 'E',
       templateUrl: 'directives/search/search-filters/search-filters.tpl.html',
       scope: {
-        models: '=',
+        model: '=',
         tagClickAction: '='
       },
       link: linkFunction

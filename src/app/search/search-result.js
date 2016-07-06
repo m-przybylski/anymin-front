@@ -3,7 +3,7 @@
   function SearchResultController() {
 
 
-    this.models = {
+    this.model = {
       sortModel: '',
       languagesModel: '',
       categoryModel: '',
