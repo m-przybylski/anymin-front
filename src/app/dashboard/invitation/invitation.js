@@ -1,33 +1,9 @@
 (function() {
 
-  function InvitationController() {
 
-    this.profile = {
-      name: 'Jakaś firma',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.',
-      logo: '/assets/images/John_Doe.jpg',
-      invitations: [
-        {
-          icon: '',
-          industry: 'Biznes > Metody zarządzania firmą',
-          tags: [
-            'Biznesplan',
-            'Małe firmy',
-            'Srednie firmy'
-          ]
-        },
-        {
-          icon: '',
-          industry: 'Prawo > Prawo Rodzinne',
-          tags: [
-            'Rozwody',
-            'Alimenty',
-            'Spadki i darowizny'
-          ]
-        }
-      ]
+  function InvitationController(invitations) {
 
-    }
+    this.invitations = invitations
     
     return this
   }
@@ -41,6 +17,28 @@
       data: {
         access: UserRolesProvider.getAccessLevel('user'),
         pageTitle: 'PAGE_TITLE.LOGIN.ACCOUNT'
+      },
+      resolve: {
+        invitations: ($q, $state, ProfileApi, User) => {
+          /* istanbul ignore next */
+          let _deferred = $q.defer()
+          /* istanbul ignore next */
+          User.getStatus().then(() => {
+            ProfileApi.getProfilesInvitations().$promise.then((response) => {
+              _deferred.resolve(response[0])
+            }, () => {
+              _deferred.resolve(null)
+            })
+          }, (error) => {
+            $state.go('app.dashboard')
+            proTopAlertService.error({
+              message: 'error',
+              timeout: 4
+            })
+          })
+          /* istanbul ignore next */
+          return _deferred.promise
+        }
       }
     })
   }
