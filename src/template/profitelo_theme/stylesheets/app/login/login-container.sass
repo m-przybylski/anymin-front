@@ -11,7 +11,13 @@
 
     .btn-handler
       width: 100%
-      flex-direction: row-reverse
+      justify-content: space-between
+
+      button
+        flex: 0 1 50%
+
+        &:not(:last-of-type)
+          margin-right: 16px
 
     .top-content
       width: 100%

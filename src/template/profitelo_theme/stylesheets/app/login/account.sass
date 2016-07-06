@@ -1,16 +1,28 @@
 .phone-number
+  .input-group
+    border-radius: 0
+    border: 1px solic $c-lines
+
+    &:first-of-type
+      border-right: 0
+
   .inputs-handler
     display: flex
-    border-radius: 5px
-    border: 1px solid $c-lines
 
     .prefix-phone
-      border: 0
-      border-radius: 0
-      flex: 1 0
+      width: 124px
+
+      .input-group
+        border-top-left-radius: $border-radius-default
+        border-bottom-left-radius: $border-radius-default
 
     .phone
-      border: 0
-      border-left: 1px solid $c-lines
-      border-radius: 0
-      flex: 3 0
+      flex: 0 1 calc(100% - 124px)
+      border-top-right-radius: $border-radius-default
+      border-bottom-right-radius: $border-radius-default
+
+  .dropdown-menu
+    max-width: 125px
+    width: 125px
+    margin: 0
+    padding: 0

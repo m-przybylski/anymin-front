@@ -15,7 +15,7 @@
     .input-error-messages
       .error.left(data-ng-show="phoneNumberForm.$submitted && phoneNumberForm.$invalid || phoneNumberForm.$submitted &&  vm.account.phoneNumber.prefix === null " data-translate="LOGIN.PHONE_NUMBER_REQUIRED")
 
-    button.pro-btn.btn-main.btn-medium(data-translate="LOGIN.NEXT" type="submit")
+    button.pro-button.rectangle.default.btn-full(data-translate="LOGIN.NEXT" type="submit")
 
 .password(data-ng-if="vm.current == 2")
 
@@ -31,11 +31,8 @@
     .input-error-messages
       .error.left(data-ng-show="passwordForm.$submitted && passwordForm.$invalid ||vm.serverError " data-translate="LOGIN.BAD_LOGIN_CREDENTIALS")
 
-    .btn-handler
-      button.pro-btn.btn-main.btn-medium(type="submit" data-translate="LOGIN.NEXT")
-      a.pro-btn.btn-light.btn-medium(data-ng-click="vm.backToPhoneNumber()" data-translate="LOGIN.BACK")
+    .btn-handler.flex-row
+      button.pro-button.rectangle.primary(data-ng-click="vm.backToPhoneNumber()" data-translate="LOGIN.BACK")
+      button.pro-button.rectangle.default(type="submit" data-translate="LOGIN.NEXT")
   .forgot-password
     a(data-ui-sref="app.login.forgot-password" data-translate="LOGIN.FORGOT_PASSWORD")
-
-
-
