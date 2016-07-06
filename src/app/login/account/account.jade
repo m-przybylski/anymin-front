@@ -31,8 +31,8 @@
     .input-error-messages
       .error.left(data-ng-show="passwordForm.$submitted && passwordForm.$invalid ||vm.serverError " data-translate="LOGIN.BAD_LOGIN_CREDENTIALS")
 
-    .btn-handler.flex-row
-      button.pro-button.rectangle.primary(data-ng-click="vm.backToPhoneNumber()" data-translate="LOGIN.BACK")
+    .btn-handler.flex-row.login-handler
       button.pro-button.rectangle.default(type="submit" data-translate="LOGIN.NEXT")
+      button.pro-button.rectangle.primary(data-ng-click="vm.backToPhoneNumber()" data-translate="LOGIN.BACK")
   .forgot-password
     a(data-ui-sref="app.login.forgot-password" data-translate="LOGIN.FORGOT_PASSWORD")
