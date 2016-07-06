@@ -13,5 +13,5 @@ id="{{order}}")
         span.icon(data-ng-class="{'icon-edit-24 current-step-edit-icon': queue.currentStep === order, 'icon-success-24': queue.completedSteps >= order - 1 && queue.currentStep !== order, 'icon-warning-24 icon-warning': queue.skippedSteps[order]}")
   block content
   .step-control(data-ng-show="queue.currentStep === order")
-    button.pro-btn.btn-round.btn-medium.btn-main(type="submit" data-translate="INTERFACE.SAVE" data-ng-click="saveStep()")
-    button.pro-btn.btn-round.btn-medium.btn-light(data-translate="INTERFACE.SKIP" data-ng-click="skip()" data-ng-show="!required")
+    button.pro-button.rectangle.default(type="submit" data-translate="INTERFACE.SAVE" data-ng-click="saveStep()")
+    button.pro-button.rectangle.primary(data-translate="INTERFACE.SKIP" data-ng-click="skip()" data-ng-show="!required")
