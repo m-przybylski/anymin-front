@@ -61,7 +61,7 @@
         profileImage: (AppServiceProviderImageResolver, savedProfile, $state, $stateParams) => {
           if (savedProfile.expertDetails !== null) {
             if (savedProfile.expertDetails.avatar == null) {
-              savedProfile.expertDetails.avatar = 'no-avatar'
+              savedProfile.expertDetails.avatar = null
             }
             return AppServiceProviderImageResolver.resolve(savedProfile.expertDetails.avatar)
           } $state.go('app.company-profile', {

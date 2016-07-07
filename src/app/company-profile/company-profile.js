@@ -62,7 +62,7 @@
         companyImage: (AppServiceProviderImageResolver, savedProfile, $state, $stateParams) => {
           if (savedProfile.organizationDetails !== null) {
             if (savedProfile.organizationDetails.logo == null) {
-              savedProfile.expertDetails.logo = 'no-logo'
+              savedProfile.expertDetails.logo = null
             }
             return AppServiceProviderImageResolver.resolve(savedProfile.organizationDetails.logo)
           } else {
