@@ -40,8 +40,6 @@
 
   }
 
-  controllerFunction.$inject = ['EmploymentApi']
-
   let proInvitationAcceptanceBox = {
     templateUrl: 'components/dashboard/invitation/pro-invitation-acceptance-box/pro-invitation-acceptance-box.tpl.html',
     restrict: 'E',
@@ -49,7 +47,7 @@
     bindings: {
       invitation: '<'
     },
-    controller: controllerFunction
+    controller: ['EmploymentApi', controllerFunction]
   }
 
 
