@@ -17,7 +17,8 @@
           keyboard: true,
           modalFade: true,
           animation: true,
-          size: 300
+          size: 300,
+          controllerAs: 'vm'
         }
 
         _options = angular.extend({}, _options, options)
