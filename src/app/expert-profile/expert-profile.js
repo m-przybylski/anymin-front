@@ -10,6 +10,7 @@
       this.profile = savedProfile.expertDetails
       this.services = savedProfile.services
       this.consultations = savedProfile.services
+      this.profile.type = 'single'
     }
 
     return this
