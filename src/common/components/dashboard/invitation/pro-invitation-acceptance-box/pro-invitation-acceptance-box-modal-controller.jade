@@ -1,0 +1,20 @@
+.pro-invitation-acceptance-box-modal
+  h3(data-translate="DASHBOARD.INVITATION.MODAL.REJECT_REASON")
+  span(data-translate="DASHBOARD.INVITATION.MODAL.OPTIONAL")
+
+  form(name="invitationAcceptanceBoxModal", novalidate)
+    .group
+      input(type="radio" name="reason" id="reasonRadio" checked="true")
+      label(for="reasonRadio") Nie jestem ekspertem w tej kategorii / branży.
+    .group
+      input(type="radio" name="reason" id="reasonRadio2")
+      label(for="reasonRadio2")
+        | {{ 'DASHBOARD.INVITATION.MODAL.OTHER_REASON' | translate }}
+        input(type="text")
+
+
+
+  .buttons
+    button(data-ng-click="vm.submitReasonForm()" data-translate="DASHBOARD.INVITATION.REJECT")
+    button(data-ng-click="vm.dismissWindow()" data-translate="INTERFACE.ABORT")
+

@@ -1,7 +1,17 @@
 (function() {
 
-  function proInvitationAcceptanceBoxModalController() {
+  function proInvitationAcceptanceBoxModalController($scope, $uibModalInstance) {
+
+    this.submitReasonForm = () => {
+      $scope.$parent.vm.postEmploymentsReject()
+      $uibModalInstance.dismiss('cancel')
+    }
     
+    this.dismissWindow = () => {
+      $uibModalInstance.dismiss('cancel')
+    }
+
+    return this
   }
 
 

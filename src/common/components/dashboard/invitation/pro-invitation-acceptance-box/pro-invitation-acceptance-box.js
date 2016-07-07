@@ -1,6 +1,6 @@
 (function() {
 
-  function controllerFunction(EmploymentApi) {
+  function controllerFunction($scope, EmploymentApi, DialogService) {
 
     let _isPending = false
 
@@ -9,7 +9,7 @@
       if (!_isPending) {
         _isPending = true
         EmploymentApi.postEmploymentsAccept({
-          employmentId: 1
+          employmentId: employmentId
         }).$promise.then((res) => {
           _isPending = false
           console.log(res)
@@ -22,17 +22,32 @@
 
     this.reject = (employmentId) => {
 
-      if (!_isPending) {
-        _isPending = true
-        EmploymentApi.postEmploymentsReject({
-          employmentId: 1
-        }).$promise.then((res) => {
-          _isPending = false
-          console.log(res)
-        }, () => {
-          _isPending = false
-        })
-      }
+
+      ((id) => {
+        let _employmentId = id
+
+        this.postEmploymentsReject = () => {
+          if (!_isPending) {
+            _isPending = true
+            EmploymentApi.postEmploymentsReject({
+              employmentId: _employmentId
+            }).$promise.then((res) => {
+              _isPending = false
+            }, () => {
+              _isPending = false
+            })
+          }
+        }
+        
+      })(employmentId)
+
+      DialogService.openDialog({
+        scope: $scope,
+        controller: 'proInvitationAcceptanceBoxModalController',
+        templateUrl: 'components/dashboard/invitation/pro-invitation-acceptance-box/pro-invitation-acceptance-box-modal-controller.tpl.html'
+      })
+
+
 
     }
 
@@ -47,7 +62,8 @@
     bindings: {
       invitation: '<'
     },
-    controller: ['EmploymentApi', controllerFunction]
+    controller: ['$scope', 'EmploymentApi', 'DialogService', controllerFunction],
+    controllerAs: 'vm'
   }
 
 
