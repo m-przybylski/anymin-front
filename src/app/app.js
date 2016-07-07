@@ -259,6 +259,7 @@
 
     'profitelo.controller.home',
     'profitelo.controller.expert-profile',
+    'profitelo.controller.company-profile',
     'profitelo.controller.login',
     'profitelo.controller.login.account',
     'profitelo.controller.login.register',
