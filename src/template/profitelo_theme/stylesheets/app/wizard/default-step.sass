@@ -3,17 +3,11 @@
   width: 100%
   position: relative
   margin: 0 auto
-  padding: 0 16px 0 16px
+  padding: 24px 32px
 
   +lgm
-    width: 1104px
-
-  +smm
-    padding: 0 32px 0 32px
-
-  h3
-    color: $c-lines
-    margin-bottom: 32px
+    max-width: 1104px
+    width: 100%
 
   .focus-layer
     position: absolute
@@ -26,18 +20,19 @@
   .title-step
     width: 100%
     display: flex
-    flex-direction: column
-    flex-wrap: nowrap
+    flex-flow: column
     justify-content: space-between
-    align-content: center
-    align-items: flex-start
-    margin-top: 32px
 
     +smm
-      flex-direction: row
+      flex-flow: row
+
+    h3
+      color: $c-primary-txt
+      margin-bottom: 32px
 
     p
       color: $c-lines
+      margin-bottom: 24px
 
     .title-order
       order: 1
@@ -49,15 +44,8 @@
   .step-description
     display: flex
     flex-direction: row
-    flex-wrap: nowrap
-    justify-content: space-between
     align-items: center
     text-transform: uppercase
-
-    p
-      color: $c-primary-txt
-      margin-top: 30px
-      white-space: nowrap
 
     span
       color: $c-secondary-txt
@@ -68,7 +56,6 @@
       color: $c-secondary-txt
 
     &.done
-
       span, p
         color: $c-success
 
@@ -76,40 +63,11 @@
       color: $c-warning
 
   .step-content-column
-    margin-top: 24px
-
     .upload-trash
       padding: 13px 10px
 
       span
         font-size: $f-h4-size
-
-    .input-group
-      color: $c-secondary-txt
-      width: 100%
-
-      .input-group-addon
-        width: 1$f-small
-
-        +transition(all 0.2s ease-in-out 0s)
-        text-decoration: none
-
-        span
-          text-transform: uppercase
-          font-size: $f-h5-size
-          padding: 0 0 0 10px
-
-      .ui-select-container
-        outline: none
-        display: flex
-        flex-direction: row
-        flex-wrap: nowrap
-        justify-content: flex-start
-        align-items: center
-
-        input
-          padding: 0 0 0 10px
-          font-size: $f-base
 
         .ui-select-match
           position: absolute
@@ -135,7 +93,6 @@
             font-size: $f-h5-size
 
       input
-        bottom: 9px
         font-size: $f-h4-size
 
     .upload-field-description
@@ -166,22 +123,6 @@
         border-left: 1px solid $c-lines
 
 
-      .btn-medium
-        display: flex
-        flex-direction: row
-        flex-wrap: nowrap
-        justify-content: center
-        align-content: flex-start
-        align-items: center
-        padding: 17px
-
-      .btn-main
-        background-color: $c-primary-txt
-        font-size: $f-vsmall
-        width: auto
-        padding: 15px
-        height: 48px
-
     .document
       margin-top: $f-small
 
@@ -189,48 +130,14 @@
         width: auto
         text-align: left
 
-      .btn-main
-        width: 100%
-        margin-right: 0
-        display: flex
-        flex-direction: row
-        flex-wrap: nowrap
-        justify-content: space-between
-        align-content: flex-start
-        align-items: center
-
-        +mdm
-          width: auto
-          margin-right: 16px
 
     .document-container
       margin-bottom: 24px
 
+      .links-last-step,
       .document-label-wrap
-        margin: 0 -8px
-
-        .links-last-step
-          margin: 34px 0 0 0
-
-          .left-icon
-            padding: 3px 0 0 10px
-
-          span
-            padding: -10px 0 0 24px
-
-          .icon
-            padding: 0 0 0 24px
-
-          a
-            display: flex
-            flex-direction: row
-            flex-wrap: wrap
-            justify-content: space-between
-            align-content: flex-start
-            align-items: center
-            margin: 0 8px 16px 8px
-            width: auto
-            border-radius: 50px
+        display: flex
+        margin: -8px
 
   .step-content
     margin-top: 30px
@@ -242,22 +149,6 @@
 
     +smm
       flex-direction: row
-
-    .input-group
-      color: $c-secondary-txt
-      width: 100%
-      height: 100%
-      min-height: 200px
-
-      input
-        bottom: 18px
-        font-size: $f-h5-size
-
-      textarea
-        font-size: $f-h4-size
-        color: $c-primary-txt
-        min-height: 180px
-        position: relative
 
     .option
       +border-radius($-radius-4)
@@ -296,20 +187,10 @@
         margin-top: $f-small
 
   .step-control
-    padding: 22px 0
-    flex-direction: column-reverse
-    justify-content: flex-start
-
     +smm
       display: flex
-      flex-direction: row-reverse
+      justify-content: flex-end
 
-    .pro-btn
-      width: 100%
-      margin-right: 10px
-
-      +smm
-        width: 10em
-
-        &:last-of-type
-          margin-left: 10px
+      button
+        &:not(:last-of-type)
+          margin-right: 16px
