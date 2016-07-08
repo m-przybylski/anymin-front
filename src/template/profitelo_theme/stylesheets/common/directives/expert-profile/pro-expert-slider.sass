@@ -13,6 +13,8 @@
     position: relative
     overflow: hidden
     background-color: $c-white
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1)
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1)
 
     +smm
       flex-direction: row
@@ -93,4 +95,7 @@
         justify-content: center
         align-content: center
         align-items: center
-        border-right: 1px solid $c-lines
+        border-left: 1px solid $c-lines
+        border-top: 1px solid $c-lines
+        +smm
+          border-top: 0

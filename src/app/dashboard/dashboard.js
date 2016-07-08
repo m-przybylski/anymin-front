@@ -9,7 +9,7 @@
       this.switchUser = !this.switchUser
     }
 
-    let _sidebar = $('.sidebar')
+    let _sidebar = $('.dashboard-left-menu')
     _sidebar.perfectScrollbar()
 
     this.toogleSidebar=function() {

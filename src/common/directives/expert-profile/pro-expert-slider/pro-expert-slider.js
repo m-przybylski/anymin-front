@@ -9,7 +9,7 @@
 
       scope.prevSlide = () => {
         if (controlsClick > 0) {
-          let width = $('.slides').width() + 32
+          let width = $('.slides').width() + 2
           slideWidth = slideWidth + width
           scope.leftOffset = {left: slideWidth}
           controlsClick = controlsClick - 1
@@ -17,8 +17,8 @@
       }
 
       scope.nextSlide = () => {
-        let width = $('.slides').width() + 32
-        let containerWidth = $('.slider-slides').width() + 32
+        let width = $('.slides').width() + 2
+        let containerWidth = $('.slider-slides').width() + 8
         let countVisableItem = Math.floor(containerWidth/width)
         let itemCount = $('.slides').length
         let currentSlides = itemCount - countVisableItem

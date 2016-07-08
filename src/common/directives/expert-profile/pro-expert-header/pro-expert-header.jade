@@ -10,24 +10,24 @@
             span.pro-btn.btn-icon.icon.icon-share-16
             p 76
         .personal-info
-          img.circle(data-ng-src='{{avatar}}' alt='{{profile.name}}')
+          img.circle.empty-avatar-placeholder(data-ng-src='{{avatar}}' alt='{{profile.name}}')
           h3 {{ profile.name }}
-          .status(data-ng-hide='profile.type')
+          .status(data-ng-hide="profile.type == 'company'")
             span Dostępny
-          .languages(data-ng-hide='profile.type')
+          .languages(data-ng-hide="profile.type == 'company'")
             span(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.PROVIDER_LAGUAGES")
             span(data-ng-repeat="lang in profile.languages") {{" " + lang + " "}} 
-        .company-list(data-ng-hide='profile.type')
+        .company-list(data-ng-hide="profile.type == 'company'")
           p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.COOPERATE_WITH")
           .company-logo
-            img.circle(data-ng-src="/assets/images/John_Doe.jpg")
+            img.circle.thumb.empty-avatar-placeholder(data-ng-src="{{ company-logo }}")
 
-    .header-container
-      .default-container
-        .header-content
-          .quote-icon
-            span.pro-btn.btn-icon.icon.icon-quote-24
-            .description
-              p {{ profile.description }}
-            .more-icon
-              span.pro-btn.btn-light.icon.icon-arrow-down-12
+  .header-container
+    .default-container
+      .header-content
+        .quote-icon
+          span.pro-btn.btn-icon.icon.icon-quote-24
+          .description
+            p {{ profile.description }}
+          .more-icon
+            span.pro-btn.btn-light.icon.icon-arrow-down-12

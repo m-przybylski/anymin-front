@@ -1,22 +1,22 @@
 (function() {
-  function ExpertProfileController($scope, $state, savedProfile, ServiceApi, proTopAlertService, CommonConfig, checkAccount, profileImage) {
+  function CompanyProfileController($scope, $state, savedProfile, ServiceApi, proTopAlertService, CommonConfig, checkAccount, companyImage) {
 
     let _commonConfig = CommonConfig.getAllData()
     this.profile = {}
 
-    this.profileImage = profileImage
+    this.profileImage = companyImage
 
-    if (savedProfile && savedProfile.expertDetails) {
-      this.profile = savedProfile.expertDetails
+    if (savedProfile && savedProfile.organizationDetails) {
+      this.profile = savedProfile.organizationDetails
       this.services = savedProfile.services
       this.consultations = savedProfile.services
-      this.profile.type = 'single'
+      this.profile.type = 'company'
     }
 
     return this
   }
 
-  angular.module('profitelo.controller.expert-profile', [
+  angular.module('profitelo.controller.company-profile', [
     'ui.router',
     'profitelo.swaggerResources',
     'c7s.ng.userAuth',
@@ -31,11 +31,11 @@
     'commonConfig'
   ])
   .config(($stateProvider, UserRolesProvider) => {
-    $stateProvider.state('app.expert-profile', {
+    $stateProvider.state('app.company-profile', {
       controllerAs: 'vm',
-      url: '/expert-profile/{contactId:int}',
-      templateUrl: 'expert-profile/expert-profile.tpl.html',
-      controller: 'ExpertProfileController',
+      url: '/company-profile/{contactId:int}',
+      templateUrl: 'company-profile/company-profile.tpl.html',
+      controller: 'CompanyProfileController',
       resolve: {
         savedProfile: ($q, $state, ProfileApi, User, $stateParams) => {
           /* istanbul ignore next */
@@ -61,18 +61,18 @@
           return _deferred.promise
         },
         checkAccount: (savedProfile, $state, $stateParams) => {
-          if (savedProfile.expertDetails === null) {
-            $state.go('app.company-profile', {
+          if (savedProfile.organizationDetails === null) {
+            $state.go('app.expert-profile', {
               contactId: $stateParams.contactId
             })
           }
         },
-        profileImage: (AppServiceProviderImageResolver, savedProfile, $state, $stateParams) => {
-          if (savedProfile.expertDetails !== null) {
-            if (savedProfile.expertDetails.avatar == null) {
-              savedProfile.expertDetails.avatar = null
+        companyImage: (AppServiceProviderImageResolver, savedProfile, $state, $stateParams) => {
+          if (savedProfile.organizationDetails !== null) {
+            if (savedProfile.organizationDetails.logo == null) {
+              savedProfile.expertDetails.logo = null
             }
-            return AppServiceProviderImageResolver.resolve(savedProfile.expertDetails.avatar)
+            return AppServiceProviderImageResolver.resolve(savedProfile.organizationDetails.logo)
           }
         }
       },
@@ -81,5 +81,5 @@
       }
     })
   })
-  .controller('ExpertProfileController', ExpertProfileController)
+  .controller('CompanyProfileController', CompanyProfileController)
 }())

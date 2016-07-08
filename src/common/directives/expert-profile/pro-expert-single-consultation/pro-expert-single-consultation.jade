@@ -27,17 +27,23 @@
             span.icon.icon-headphone-16
 
       .title-row-consultation.footer-consultation
-        p {{'HOME_EXPERT_PROFILE.TAGS' | translate}} (18)
+        p {{'HOME_EXPERT_PROFILE.TAGS' | translate}} ({{ tags.length }})
         .tags-consultation
           p(ng-repeat="tag in tags") {{tag}}
 
-        p {{'HOME.TOP_CONTAINER.EXPERT_PROFILE.COMMENTS' | translate}} (100)
+        p {{'HOME.TOP_CONTAINER.EXPERT_PROFILE.COMMENTS' | translate}} ({{ comments.length }})
         .comments
-          .help
+          .help(data-ng-click="showPositive()")
             span.icon.icon-good-32
             span.mobile-hidden(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.EXPERT_HELPS")
-            p {{positiveMark}}
-          .help
+            p {{ comments.positive.length }}
+          .help(data-ng-click="showNegative()")
             span.icon.icon-bad-32
             span.mobile-hidden(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.EXPERT_NOT_HELPS")
-            p {{negativeMark}}
+            p {{ comments.negative.length }}
+        div.consultants(data-ng-show="type == 'company'")
+          p {{'COMMON.DIRECTIVES.PRO_EXPERT_PROFILE.CONSULTANTS_LIST' | translate}} ({{ consultants.length }})
+          .consultants-row
+            div(data-ng-repeat="consultant in consultants")
+              img.circle.thumb.empty-avatar-placeholder(data-ng-src="{{ avatar }}")
+              p {{ consultant.email }}

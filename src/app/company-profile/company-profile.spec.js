@@ -1,7 +1,7 @@
-describe('Unit tests: ExpertProfileController >', () => {
-  describe('Testing Controller: ExpertProfileController', () => {
+describe('Unit tests: CompanyProfileController >', () => {
+  describe('Testing Controller: CompanyProfileController', () => {
 
-    let ExpertProfileController
+    let CompanyProfileController
     let _scope
 
     let url = 'awesomeUrl/'
@@ -11,7 +11,7 @@ describe('Unit tests: ExpertProfileController >', () => {
     }))
 
     beforeEach(() => {
-      module('profitelo.controller.expert-profile')
+      module('profitelo.controller.company-profile')
       inject(($rootScope, $controller, _ProfileApi_, _User_) => {
 
         _scope = $rootScope.$new()
@@ -23,12 +23,12 @@ describe('Unit tests: ExpertProfileController >', () => {
           }
         }
 
-        ExpertProfileController = $controller('ExpertProfileController', {
+        CompanyProfileController = $controller('CompanyProfileController', {
           $scope: _scope,
           ProfileApi: _ProfileApi_,
           User: _User_,
           savedProfile: {},
-          profileImage: {},
+          companyImage: {},
           checkAccount: {}
         })
 
@@ -37,7 +37,7 @@ describe('Unit tests: ExpertProfileController >', () => {
     })
 
     it('should exists', () => {
-      expect(!!ExpertProfileController).toBe(true)
+      expect(!!CompanyProfileController).toBe(true)
     })
 
   })

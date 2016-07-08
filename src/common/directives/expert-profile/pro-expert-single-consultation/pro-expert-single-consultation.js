@@ -12,8 +12,8 @@
         timeAverage: '@',
         minuteCost: '=?',
         tags: '=?',
-        positiveMark: '=',
-        negativeMark: '='
+        type: '=',
+        consultants: '='
       }
     }
   }
