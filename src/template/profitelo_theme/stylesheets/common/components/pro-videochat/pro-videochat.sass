@@ -1,49 +1,289 @@
-.pro-videochat
-  background: green
-  padding: 40px
-  height: 100vh
-  width: 100%
+.pro-video-chat
+  overflow: hidden
   display: flex
-  flex-wrap: wrap
 
-  .client-timer
-    flex: 1 0
+  //chatVisible start
+  &.chatVisible
+    pro-video-chat
+      flex: 2 0 100%
 
-    ul
-      li
-        &::after
-          content: ":"
+      +lgm
+        flex: 2 0 100%
 
-        &:last-child,
-        &:nth-last-child(2)
-          &::after
-            content: none
+    &.pro-video-chat
+      .pro-player
+        .videochat-details
+          background: $c-white
+          border-bottom: 1px solid $c-lines
+          box-shadow: 0 0 2px $c-lines
+          z-index: 99
+          position: fixed
+          left: 0
+          top: 0
+          width: 100%
+          min-height: 64px
+          padding: 0 16px
 
-    img
-      max-width: 70px
+          +lgm
+            background: none
+            border: none
+            box-shadow: none
+            position: static
+            padding: 0
+            min-height: inherit
 
-  .fullscreen
-      flex: 1 0
-      text-align: right
+          .videochat-client-profile
+            h4, img
+              display: none
 
-  .client-list
-    flex: 1 0 100%
-    justify-content: space-between
-    align-self: flex-end
+              +lgm
+                display: block
 
-    img
-      max-width: 250px
+            .disconnect
+              display: block
 
-  nav
+              +lgm
+                display: none
+
+          ul
+            li
+              color: $c-primary-txt
+
+              +lgm
+                color: $c-white
+
+          .videochat-counter
+            color: $c-primary-txt
+
+            +lgm
+              color: $c-white
+
+          .videochat-fullscreen
+            .full-screen
+              display: none
+
+              +lgm
+                display: block
+
+            .close-chat
+              display: block
+              color: $c-primary-txt
+
+              +lgm
+                display: none
+
+  pro-video-chat
+    +transition(flex 0.3s)
+    flex: 2 0 100%
+
+    +lgm
+      flex: 2 0 60%
+
+    +xlgm
+      flex: 2 0 75%
+
+  //chatVisible end
+
+  .pro-player
+    padding: 16px
+    width: 100%
+    height: 100vh
     display: flex
-    flex: 1 0
-    justify-content: space-between
-    align-items: center
+    flex-wrap: wrap
+    align-content: space-between
+    position: relative
 
-    .main-nav
+    +smm
+      padding: 32px
 
-  .icon
-    background: rgba(#000, 0.8)
+    &::before
+      content: " "
+      position: absolute
+      left: 0
+      top: 0
+      height: 96px
+      width: 100%
+      +background-gradient(#000, rgba(#000, 0))
 
-  li
-    display: inline-block
+    &::after
+      content: " "
+      position: absolute
+      left: 0
+      bottom: 0
+      height: 96px
+      width: 100%
+      +background-gradient(rgba(#000, 0), #000)
+      z-index: -1
+
+    .video-player
+      position: fixed
+      left: 0
+      top: 0
+      width: 100%
+      height: 100vh
+      z-index: -90
+
+    .videochat-details
+      +transition(flex 0.3s)
+      display: flex
+      flex: 1 0 100%
+      z-index: 1
+      justify-content: space-between
+      flex-wrap: wrap
+
+      .videochat-client-profile
+        display: flex
+        align-items: center
+        flex: 1 0
+
+        h4
+          +default-font-heavy
+          color: $c-white
+          margin: 0 0 0 16px
+          display: none
+
+          +smm
+            display: block
+
+      .disconnect
+        display: none
+
+      .videochat-counter
+        flex: 10 0
+        display: flex
+        align-items: center
+        justify-content: center
+        flex-wrap: wrap
+        color: $c-white
+        font-size: $f-h3-size
+
+        +xsm
+          flex-wrap: nowrap
+
+        .videochat-client-timer
+          display: flex
+          align-items: center
+          margin: 0 16px
+
+          ul
+            &.counter
+              display: flex
+
+              li
+                &::after
+                  content: ":"
+
+                &:last-child
+                  &::after
+                    content: none
+        .icon
+          margin: 0 8px 0 0
+
+          +smm
+            margin: 0 16px 0 0
+
+        .videochat-price-counter
+          display: flex
+          align-items: center
+          margin: 0 16px
+
+      .videochat-fullscreen
+        flex: 1 0
+        text-align: right
+        justify-content: flex-end
+        color: $c-white
+        display: flex
+        align-items: center
+
+        .close-chat
+          display: none
+
+    .videochat-client-current
+      position: absolute
+      right: 16px
+      top: 128px
+
+      +lgm
+        right: 32px
+
+    .videochat-main-nav
+      display: flex
+      flex: 1 0 100%
+      justify-content: center
+
+      ul
+        display: flex
+        flex-wrap: wrap
+        padding: 0 32px
+
+        +xsm
+          padding: 0 48px
+
+        +xsm-landscape
+          padding: 0 32px
+
+        +smm
+          padding: 0
+          flex-wrap: nowrap
+
+        li
+          text-align: center
+          flex: 1 0 33%
+          margin: 0 0 16px
+          order: 1
+
+          +xsm-landscape
+            flex: 1 0
+
+          +smm
+            margin: 0 8px
+            flex: 1 0
+
+          &:nth-last-child(2)
+            order: 2
+
+            +xsm-landscape
+              order: 1
+            +smm
+              order: 1
+        a
+          margin: 0 auto
+
+        span:not(.icon)
+          +default-font-heavy
+          font-size: $f-h5-size
+          color: $c-secondary-txt
+
+    .btn-player
+      display: block
+      background: rgba($c-black, 0.5)
+      width: 64px
+      height: 64px
+      display: flex
+      align-items: center
+      justify-content: center
+      color: $c-white
+
+      +xsm
+        width: 96px
+        height: 96px
+
+      +xsm-landscape
+        width: 64px
+        height: 64px
+
+      +smm
+        width: 64px
+        height: 64px
+
+
+      &:hover
+        background: $c-white
+        color: $c-primary-txt
+
+      &.active
+        background: $c-white
+        color: $c-primary-txt
+
+      &.disconnect
+        background: $c-secondary
