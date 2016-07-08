@@ -3,6 +3,8 @@
   data-ng-mouseleave="onMouseout()")
   input(placeholder="{{placeholder}}"
   type="{{type}}"
+  data-ng-class="{label: label.length > 0}"
+  autocomplete="off"
   data-ng-model="ngModel"
   data-ng-focus="onFocus()"
   data-ng-blur="onFocusOut()"

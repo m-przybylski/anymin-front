@@ -1,90 +1,89 @@
-div
-  .dropdown-menu
-    position: absolute
-    top: 100% !important
-    left: 0 !important
-    z-index: 1000
-    padding: 5px 0 0 0
-    margin: 2px 0 0
-    list-style: none
-    text-align: center
-    background-color: $c-white
-    border: 1px solid $c-lines
-    width: 600px
-    max-width: 100%
-    overflow: hidden
+.dropdown-menu
+  position: absolute
+  top: 100% !important
+  left: 0 !important
+  z-index: 1000
+  padding: 5px 0 0 0
+  margin: 2px 0 0
+  list-style: none
+  text-align: center
+  background-color: $c-white
+  border: 1px solid $c-lines
+  width: 600px
+  max-width: 100%
+  overflow: hidden
+  outline: none
+
+  li
     outline: none
 
-    li
-      outline: none
+    div
+      .grid
+        display: flex
+        flex-direction: column
+        justify-content: space-around
+        outline: none
 
-      div
-        .grid
+        .top-table-section
           display: flex
+          justify-content:  space-around
           flex-direction: column
-          justify-content: space-around
-          outline: none
 
-          .top-table-section
+          .tab-row
             display: flex
-            justify-content:  space-around
-            flex-direction: column
+            justify-content: space-between
+            padding: 10px
 
-            .tab-row
-              display: flex
-              justify-content: space-between
-              padding: 10px
+            .cell
+              .btn
+                background-color:  $c-white
+                color: $c-primary-txt
+                border: none
+                outline: none
 
-              .cell
-                .btn
-                  background-color:  $c-white
-                  color: $c-primary-txt
-                  border: none
+                span
+                  color: $c-primary
                   outline: none
 
-                  span
-                    color: $c-primary
-                    outline: none
-
-            .tab-row-weeks
-              display: flex
-              justify-content: space-around
-
-              .cell
-                width: 200px
-                height: 30px
-
-          .main-table-section
+          .tab-row-weeks
             display: flex
             justify-content: space-around
-            flex-direction: column
 
-            .tab-row
-              display: flex
-              justify-content: space-around
+            .cell
+              width: 200px
+              height: 30px
 
-              .cell
-                border: 1px solid $c-lines
-                width: 200px
-                height: 45px
+        .main-table-section
+          display: flex
+          justify-content: space-around
+          flex-direction: column
 
-                &:first-child
-                  border-left: none
+          .tab-row
+            display: flex
+            justify-content: space-around
 
-                .btn
-                  position: relative
-                  background-color:  $c-white
-                  color: $c-primary-txt
-                  border: none
-                  height: 100%
-                  padding: 0
+            .cell
+              border: 1px solid $c-lines
+              width: 200px
+              height: 45px
 
-                  &:hover
-                    background-color: $c-primary
-                    color: $c-white
+              &:first-child
+                border-left: none
 
-                    .text-muted
-                      color: $c-white
+              .btn
+                position: relative
+                background-color:  $c-white
+                color: $c-primary-txt
+                border: none
+                height: 100%
+                padding: 0
+
+                &:hover
+                  background-color: $c-primary
+                  color: $c-white
 
                   .text-muted
-                    color: $c-secondary-txt
+                    color: $c-white
+
+                .text-muted
+                  color: $c-secondary-txt

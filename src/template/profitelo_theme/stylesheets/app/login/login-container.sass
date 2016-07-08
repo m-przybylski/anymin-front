@@ -11,7 +11,16 @@
 
     .btn-handler
       width: 100%
-      flex-direction: row-reverse
+      justify-content: space-between
+
+      &.login-handler
+        flex-direction: row-reverse
+      
+        button
+          flex: 0 1 50%
+
+          &:last-of-type
+            margin-right: 16px
 
     .top-content
       width: 100%
