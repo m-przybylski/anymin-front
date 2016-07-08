@@ -2,10 +2,16 @@
   .search-tags
     display: flex
     margin: 0 0 32px
-    >a
+
+    > a
       display: none
+
       +smm
         display: block
+        min-width: inherit
+        height: auto
+        border-radius: 0
+
     .slider-tag
       width: 100%
       max-width: 1200px
@@ -30,16 +36,5 @@
             margin: 0 16px 0 0
             +default-font-regular
 
-
-
-//do refactoringu
-.search-filter a:not(.icon)
-  margin: 0
-.search-filter .icon
-  font-size: 12px
-  margin: 0
-.default-container
-  a
-    margin: 0
-.success
-  background: $c-success
+            a
+              min-width: inherit

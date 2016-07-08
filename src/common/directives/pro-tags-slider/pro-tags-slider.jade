@@ -1,9 +1,11 @@
 .pro-tags-slider(data-ng-swipe-left="nextSlide()" data-ng-swipe-right="prevSlide()")
     .search-tags
-        a.pro-btn.btn-white.icon.icon-arrow-left-12(data-ng-click="prevSlide()")
+        a.pro-button.rectangle.primary.arrow(data-ng-click="prevSlide()")
+          span.icon.icon-arrow-left-12
         .slider-tag
             .slides-container(data-ng-style="leftOffset")
                 ul.slide-page
                     li(data-ng-repeat="tag in tags" data-ng-click="tagAction(tag.id)")
-                        a.pro-btn.btn-white {{tag.name}}
-        a.pro-btn.btn-white.icon.icon-arrow-right-12(data-ng-click="nextSlide()")
+                        a.pro-button.rectangle.primary {{tag.name}}
+        a.pro-button.rectangle.arrow.arrow-right(data-ng-click="nextSlide()")
+          span.icon.icon-arrow-right-12

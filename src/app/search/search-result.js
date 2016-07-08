@@ -8,7 +8,7 @@
       languagesModel: '',
       categoryModel: '',
       switcherModel: false,
-      tagsModel: [],
+      tagsModel: [{name: 'asasas', id: 1}],
       minRange: 0,
       maxRange: 100
     }

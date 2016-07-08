@@ -11,6 +11,13 @@
     left: 0
 
   .rzslider
+    > :nth-last-child(2)
+      background: red
+      display: none
+
+    .rz-bar-wrapper
+      width: 100% !important
+
     .rz-bar
       background: $c-lines
 
@@ -25,7 +32,12 @@
       top: -6px
       border-radius: 50%
 
+      &::after
+        content: none !important
+
     .rz-bubble
+      +default-font-heavy
+
       &.rz-from
         left: auto !important
         right: 25px !important
@@ -37,7 +49,7 @@
 
       &.rz-to
         left: auto !important
-        right: 0px !important
+        right: 0 !important
         opacity: 1 !important
         visibility: visible !important
 
