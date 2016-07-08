@@ -8,7 +8,7 @@
       languagesModel: '',
       categoryModel: '',
       switcherModel: false,
-      tagsModel: [{name: 'asasas', id: 1}],
+      tagsModel: [],
       minRange: 0,
       maxRange: 100
     }
@@ -24,7 +24,7 @@
   angular.module('profitelo.controller.search-result', [
     'ui.router',
     'c7s.ng.userAuth',
-    'profitelo.directives.search.single-consultation',
+    'profitelo.components.search.single-consultation',
     'profitelo.directives.search.search-filter',
     'profitelo.directives.pro-footer'
   ])
