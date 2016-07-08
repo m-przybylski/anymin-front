@@ -45,5 +45,5 @@
           p {{'COMMON.DIRECTIVES.PRO_EXPERT_PROFILE.CONSULTANTS_LIST' | translate}} ({{ consultants.length }})
           .consultants-row
             div(data-ng-repeat="consultant in consultants")
-              img.circle.thumb.fix-broken-avatar(data-ng-src="{{ avatar }}")
+              img.circle.thumb.empty-avatar-placeholder(data-ng-src="{{ avatar }}")
               p {{ consultant.email }}

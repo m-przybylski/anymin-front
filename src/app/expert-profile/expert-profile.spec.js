@@ -29,7 +29,7 @@ describe('Unit tests: ExpertProfileController >', () => {
           User: _User_,
           savedProfile: {},
           profileImage: {},
-          companyImage: {}
+          checkAccount: {}
         })
 
 

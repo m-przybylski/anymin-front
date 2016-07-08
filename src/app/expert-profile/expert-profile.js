@@ -1,5 +1,5 @@
 (function() {
-  function ExpertProfileController($scope, $state, savedProfile, ServiceApi, proTopAlertService, CommonConfig, profileImage) {
+  function ExpertProfileController($scope, $state, savedProfile, ServiceApi, proTopAlertService, CommonConfig, checkAccount, profileImage) {
 
     let _commonConfig = CommonConfig.getAllData()
     this.profile = {}
@@ -48,9 +48,10 @@
               _deferred.resolve(response)
             }, () => {
               _deferred.resolve(null)
+              $state.go('app.dashboard.start')
             })
           }, (error) => {
-            $state.go('app.dashboard')
+            $state.go('app.dashboard.start')
             proTopAlertService.error({
               message: 'error',
               timeout: 4
@@ -59,16 +60,20 @@
           /* istanbul ignore next */
           return _deferred.promise
         },
+        checkAccount: (savedProfile, $state, $stateParams) => {
+          if (savedProfile.expertDetails === null) {
+            $state.go('app.company-profile', {
+              contactId: $stateParams.contactId
+            })
+          }
+        },
         profileImage: (AppServiceProviderImageResolver, savedProfile, $state, $stateParams) => {
           if (savedProfile.expertDetails !== null) {
             if (savedProfile.expertDetails.avatar == null) {
               savedProfile.expertDetails.avatar = null
             }
             return AppServiceProviderImageResolver.resolve(savedProfile.expertDetails.avatar)
-          } $state.go('app.company-profile', {
-            contactId: $stateParams.contactId
-          })
-
+          }
         }
       },
       data: {
