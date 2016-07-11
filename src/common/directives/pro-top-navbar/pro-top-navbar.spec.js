@@ -32,5 +32,12 @@ describe('Unit testing: profitelo.directives.pro-top-navbar', () => {
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
+
+    it('should set ShowSearch', () => {
+      let el = create(validHTML)
+      let isoScope = el.isolateScope()
+      isoScope.setShowSearch()
+      expect(isoScope.showSearch).toBeDefined(true)
+    })
   })
 })

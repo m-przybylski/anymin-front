@@ -1,50 +1,11 @@
 .pro-player
-  .video-player
-    iframe(width='100%', height='100%', src='https://www.youtube.com/embed/JIfwIHTB-1c', frameborder='0', controls="0", allowfullscreen='true')
-    //?rel=0&autoplay=1
+  
+  pro-video-player()
+  
+  .default-container
+    pro-videochat-top-navbar()
+    
+  pro-video-preview()
 
-  .videochat-details        
-    .videochat-client-profile
-      a.disconnect.circle.icon.icon-headphone-16
-      img.thumb.circle(src="/assets/images/John_Doe.jpg")
-      h4 Jan Kowalski
-
-    .videochat-counter
-      .videochat-client-timer
-        span.icon.icon-settings-24
-        ul.counter
-          li 00
-          li 07
-          li 29
-
-      .videochat-price-counter
-        span.icon.icon-settings-24
-        | 5,89zł PLN
-
-    .videochat-fullscreen
-      a.full-screen.circle.icon.icon-settings-24
-      a.close-chat.circle.icon.icon-close-16(data-ng-click="chatSwitcher()")
-
-  .videochat-client-current
-    iframe(width='300px', height='auto', src='https://www.youtube.com/embed/vI25nMmklwE', frameborder='0', allowfullscreen='true', controls="0")
-
-  nav.videochat-main-nav
-    ul
-      li
-        a.active.circle.btn-player.icon.icon-settings-24(data-ng-click="chatSwitcher()")
-        span chat
-      li
-        a.circle.btn-player.icon.icon-settings-24
-        span kamera
-      li
-        a.circle.btn-player.icon.icon-settings-24
-        span wycisz
-      li
-        a.circle.btn-player.icon.icon-settings-24
-        span przełącz
-      li
-        a.circle.btn-player.icon.icon-settings-24
-        span opcje
-      li
-        a.disconnect.circle.btn-player.icon.icon-headphone-16
-        span rozłącz
+  .default-container
+    pro-video-controls()

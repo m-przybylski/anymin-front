@@ -6,10 +6,14 @@
   .logo
       img(data-ui-sref="app.home", src="/assets/images/logo_profitelo_black.png", alt="Profitelo logo")
 
-  .buttons
+  .buttons(data-ng-class="{'search-activ':showSearch}")
     a.search-btn
-      span.icon.icon-search-24
+      span.icon.icon-search-24(data-ng-click="setShowSearch()") 
+      div
+        pro-input(data-ng-model="searchModel" placeholder="{{ 'HOME.SEARCH_PLACEHOLDER' | translate }}" no-delete)
+        
     a(data-ng-hide="$root.loggedIn" data-ui-sref='app.login.account')
       span(data-translate="PAGE_TITLE.LOGIN.ACCOUNT")
+      
     a(data-ng-show="$root.loggedIn" data-ui-sref='app.dashboard.start')
       span.icon.icon-login-32
