@@ -1,8 +1,28 @@
+.step-description
+  display: flex
+  align-items: center
+  color: $c-success
+
+  .step-counter,
+  .icon
+    font-size: $f-paragraph
+    line-height: $f-paragraph
+    color: $c-success
+
+  .icon
+    width: 17px
+    height: 17px
+
+  .step-counter
+    text-transform: uppercase
+    margin-right: 16px
+
+
 .step
   color: $c-lines
   width: 100%
   position: relative
-  margin: 0 auto
+  margin: 0 auto 32px
   padding: 24px 32px
 
   +lgm
@@ -20,8 +40,8 @@
   .title-step
     width: 100%
     display: flex
-    flex-flow: column
     justify-content: space-between
+    align-items: flex-start
 
     +smm
       flex-flow: row
@@ -40,27 +60,6 @@
       +smm
         order: 0
         margin-top: 0
-
-  .step-description
-    display: flex
-    flex-direction: row
-    align-items: center
-    text-transform: uppercase
-
-    span
-      color: $c-secondary-txt
-      font-size: $f-h3-size
-      margin: 8px 0 0 16px
-
-    h5
-      color: $c-secondary-txt
-
-    &.done
-      span, p
-        color: $c-success
-
-    .icon-warning
-      color: $c-warning
 
   .step-content-column
     .upload-trash
@@ -134,6 +133,11 @@
     .document-container
       margin-bottom: 24px
 
+      .summary-list
+        font-size: $f-paragraph
+        color: $c-primary-txt
+        margin-bottom: 24px
+
       .links-last-step,
       .document-label-wrap
         display: flex
@@ -142,10 +146,7 @@
   .step-content
     margin-top: 30px
     display: flex
-    flex-direction: column
-    flex-wrap: wrap
-    justify-content: space-between
-    align-items: center
+
 
     +smm
       flex-direction: row

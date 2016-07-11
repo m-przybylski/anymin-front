@@ -7,7 +7,7 @@ block content
         .document-container
           h3(data-translate="DASHBOARD.CREATE_PROFILE.CREATE_PROFILE_YOUR_DOCS")
           .document-label-wrap.flex-row.wrap
-            .label-files(data-ng-repeat="file in model.files track by $index" disable)
+            span.label-files(data-ng-repeat="file in model.files track by $index" disable)
               span {{ file.file.name }}
               a.icon.icon-trash-24(data-ng-click="removeFile(file)")
     .input-error-messages

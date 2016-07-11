@@ -146,14 +146,15 @@
     width: 64px
 
     .icon
-      width: 24px
-      height: 24px
+      width: 16px
+      height: 16px
       top: 50%
       left: 50%
       transform: translate(-50%, -50%)
+      line-height: 1px
 
       &::before
-        font-size: 24px
+        font-size: 16px
 
   &.default
     background: $c-primary-txt
@@ -171,6 +172,7 @@
 
     &:hover
       background: $c-primary-txt
+      border: $c-primary-txt
       color: $c-white
 
   &.succes

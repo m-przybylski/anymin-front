@@ -2,9 +2,9 @@ block content
   .consultations-container.pro-service-provider-summary-step(data-ng-repeat="consultation in consultations")
     .step.summary-step
       .btn-handler
-        a.summary-icon(data-ng-click="vm.deleteConsultation(consultation.id, $index)")
+        a.pro-button.round.icon.primary(data-ng-click="vm.deleteConsultation(consultation.id, $index)")
             span.icon.icon-trash-24
-        a.summary-icon(data-ng-click="vm.editConsultation(consultation.id, consultation.details.name, consultation.details.price, consultation.details.tags, consultation.invitations, consultation.ownerEmployee)")
+        a.pro-button.round.icon.primary(data-ng-click="vm.editConsultation(consultation.id, consultation.details.name, consultation.details.price, consultation.details.tags, consultation.invitations, consultation.ownerEmployee)")
             span.icon.icon-edit-16
       .summary-step-title
         h4 {{ consultation.details.name}}
@@ -19,4 +19,3 @@ block content
       data-tags="consultation.invitationTags" data-ng-if="consultation.invitationTags")
 
       .edit-consultation-form(ng-transclude ng-if="vm.currentEditConsultationId == consultation.id")
-
