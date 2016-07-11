@@ -1,5 +1,5 @@
 (function() {
-  function searchFilter() {
+  function searchFilters() {
     function linkFunction(scope, element, attrs) {
 
       scope.languagesList = [
@@ -39,7 +39,7 @@
     }
   }
 
-  angular.module('profitelo.directives.search.search-filter', [
+  angular.module('profitelo.directives.search.search-filters', [
     'profitelo.directives.interface.pro-dropdown',
     'profitelo.directives.interface.pro-range-slider',
     'rzModule',
@@ -47,5 +47,5 @@
     'profitelo.directives.pro-tags-slider',
     'profitelo.directives.interface.pro-switcher'
   ])
-    .directive('searchFilter', searchFilter)
+    .directive('searchFilters', searchFilters)
 }())

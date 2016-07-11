@@ -2,7 +2,7 @@
   function proRangeSlider() {
 
     function linkFunction($timeout, scope, elem, attrs) {
-
+      /* istanbul ignore next */
       scope.refreshSlider = ()=> {
         $timeout(()=> {
           scope.$broadcast('rzSliderForceRender')
@@ -22,7 +22,8 @@
       link: linkFunction,
       scope: {
         minValue: '@',
-        maxValue: '@'
+        maxValue: '@',
+        label: '@'
       }
     }
 

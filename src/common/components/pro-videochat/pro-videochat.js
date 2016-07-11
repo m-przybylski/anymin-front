@@ -7,8 +7,8 @@
       chatAction: '='
     },
     controller: ['$scope', '$timeout', function($scope, $timeout) {
+      /* istanbul ignore next */
       $scope.chatSwitcher = () =>{
-        console.log($scope)
         this.chatAction()
       }
     }]

@@ -1,5 +1,5 @@
-describe('Unit testing: profitelo.directives.search.search-filter', () => {
-  return describe('for search-filter directive >', () => {
+describe('Unit testing: profitelo.directives.search.search-filters', () => {
+  return describe('for search-filters directive >', () => {
 
     let scope = null
     let rootScope
@@ -8,7 +8,7 @@ describe('Unit testing: profitelo.directives.search.search-filter', () => {
 
     beforeEach(() => {
       module('templates-module')
-      module('profitelo.directives.search.search-filter')
+      module('profitelo.directives.search.search-filters')
 
       inject(($rootScope, $compile) => {
         rootScope = $rootScope.$new()

@@ -25,7 +25,7 @@
     'ui.router',
     'c7s.ng.userAuth',
     'profitelo.components.search.single-consultation',
-    'profitelo.directives.search.search-filter',
+    'profitelo.directives.search.search-filters',
     'profitelo.directives.pro-footer'
   ])
     .config( function($stateProvider, UserRolesProvider) {
