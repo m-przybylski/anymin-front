@@ -13,7 +13,10 @@ describe('Unit tests: profitelo.controller.dashboard.invitation >', () => {
 
         InvitationController = $controller('InvitationController', {
           $rootScope: $rootScope,
-          $scope: scope
+          $scope: scope,
+          invitations: {
+            v
+          }
         })
 
       })
