@@ -1,6 +1,6 @@
 (function() {
 
-  function controllerFunction($scope, EmploymentApi, DialogService) {
+  function controllerFunction($scope, EmploymentApi, DialogService, AppServiceProviderImageResolver) {
 
     let _isPending = false
 

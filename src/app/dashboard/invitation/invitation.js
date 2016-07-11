@@ -1,9 +1,12 @@
 (function() {
 
 
-  function InvitationController(invitations) {
+  function InvitationController(invitations, companyLogo, AppServiceProviderImageResolver) {
 
     this.invitations = invitations
+
+    this.invitations.organizationDetails.logoUrl = companyLogo
+    
     
     return this
   }
@@ -38,6 +41,9 @@
           })
           /* istanbul ignore next */
           return _deferred.promise
+        },
+        companyLogo: (AppServiceProviderImageResolver, invitations) => {
+          return AppServiceProviderImageResolver.resolve(invitations.organizationDetails.logo)
         }
       }
     })
@@ -48,6 +54,8 @@
     'c7s.ng.userAuth',
     'ui.router',
     'profitelo.swaggerResources',
+
+    'profitelo.services.resolvers.app.service-provider-image-resolver',
 
     'profitelo.components.dashboard.invitation.pro-invitation-acceptance-box'
 
