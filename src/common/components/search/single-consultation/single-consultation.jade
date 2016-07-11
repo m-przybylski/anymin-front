@@ -1,0 +1,44 @@
+.default-container.single-consultation
+    .title-row-consultation.black-row
+        .options-details
+            .options-consultation
+                .option-item
+                    span.icon.icon-satisfaction-16
+                    span {{ satisfaction }}%
+                .option-item
+                    span.icon.icon-calls-16
+                    span {{ talks }}
+                .option-item
+                    span.icon.icon-time-16
+                    span {{ timeAverage }} min.
+            .consultation-profile
+                .author
+                    h6 Salvador Crawfords
+                    span.status.availability {{ 'HOME.EXPERT_CARD_AVAILABLE' | translate }}
+                img.thumb.circle(src="/assets/images/John_Doe.jpg" alt="")
+
+        .title-row
+            h3 {{ name }}
+
+        .cost-consultations
+            .price
+                span.icon.icon-price-32
+                h3 {{ minuteCost / 100 }}
+                    span.currency(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE")
+            a.pro-button.rectangle.succes.icon {{ 'HOME.TOP_CONTAINER.EXPERT_PROFILE.CALL' | translate }}
+                span.icon.icon-headphone-16
+
+    .consultation-tags.title-row-consultation.footer-consultation
+        h4.title-row {{ 'HOME_EXPERT_PROFILE.TAGS' | translate }}
+            span (18)
+
+        .search-tags
+            .slider-tag
+                ul
+                    li
+                        a.pro-button.rectangle.primary gorgeus
+                    li
+                        a.pro-button.rectangle.primary night
+                    li
+                        a.pro-button.rectangle.primary gorgeus
+  

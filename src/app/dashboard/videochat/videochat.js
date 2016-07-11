@@ -1,10 +1,12 @@
 (function() {
   function videochatController() {
-      this.showChat = false
-
-      this.onClick = ()=> {
-        this.showChat = !this.showChat
-      }
+    /* istanbul ignore next */
+    this.showChat = false
+    /* istanbul ignore next */
+    this.onClick = ()=> {
+      this.showChat = !this.showChat
+    }
+    /* istanbul ignore next */
     return this
   }
 

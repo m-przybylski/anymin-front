@@ -29,6 +29,7 @@
     "angular-ui-bootstrap": "^1.2.5",
     "angular-ui-mask": "^1.8.3",
     "angular-ui-router": "^0.2.18",
+    "angularjs-slider": "^5.0.0",
     "bootstrap-sass": "^3.3.6",
     "c7s-ng": "latest",
     "font-awesome": "^4.5.0",

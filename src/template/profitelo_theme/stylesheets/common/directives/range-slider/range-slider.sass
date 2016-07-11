@@ -1,0 +1,56 @@
+.pro-range-slider
+  position: relative
+
+  > span
+    +default-font-heavy
+    color: $c-secondary-txt
+    text-transform: uppercase
+    position: absolute
+    top: 0
+    left: 0
+
+  .rzslider
+    > :nth-last-child(2)
+      background: red
+      display: none
+
+    .rz-bar
+      background: $c-lines
+
+      &.rz-selection
+        background: $c-primary-txt
+
+    .rz-pointer
+      background: $c-white
+      border: 3px solid $c-primary-txt
+      width: 15px
+      height: 15px
+      top: -6px
+      border-radius: 50%
+
+      &::after
+        content: none !important
+
+    .rz-bubble
+      +default-font-heavy
+
+      &.rz-from
+        left: auto !important
+        right: 25px !important
+        visibility: visible !important
+
+        &::after
+          content: "-"
+          margin: 0 8px
+
+      &.rz-to
+        left: auto !important
+        right: 0 !important
+        opacity: 1 !important
+        visibility: visible !important
+
+      &.rz-limit
+        &.rz-floor
+          display: none
+        &.rz-ceil
+          display: none

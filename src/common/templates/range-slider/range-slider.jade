@@ -1,0 +1,26 @@
+.rzslider
+    span.rz-bar-wrapper
+        span.rz-bar
+    // // 0 The slider bar
+    span.rz-bar-wrapper
+        span.rz-bar.rz-selection(ng-style='barStyle')
+    // // 1 Highlight between two handles
+    span.rz-pointer.rz-pointer-min(ng-style='minPointerStyle')
+    // // 2 Left slider handle
+    span.rz-pointer.rz-pointer-max(ng-style='maxPointerStyle')
+    // // 3 Right slider handle
+    span.rz-bubble.rz-limit.rz-floor
+    // // 4 Floor label
+    span.rz-bubble.rz-limit.rz-ceil
+    // // 5 Ceiling label
+    span.rz-bubble.rz-from
+    // // 6 Label above left slider handle
+    span.rz-bubble.rz-to
+    // // 7 Label above right slider handle
+    span.rz-bubble
+    // // 8 Range label when the slider handles are close ex. 15 - 17
+    ul.rz-ticks(ng-show='showTicks')
+        // // 9 The ticks
+        li.rz-tick(ng-repeat='t in ticks track by $index', ng-class="{'rz-selected': t.selected}", ng-style='t.style', ng-attr-uib-tooltip='{{ t.tooltip }}', ng-attr-tooltip-placement='{{t.tooltipPlacement}}', ng-attr-tooltip-append-to-body='{{ t.tooltip ? true : undefined}}')
+            span.rz-tick-value(ng-if='t.value != null', ng-attr-uib-tooltip='{{ t.valueTooltip }}', ng-attr-tooltip-placement='{{t.valueTooltipPlacement}}') {{ t.value }}
+            span.rz-tick-legend(ng-if='t.legend != null') {{ t.legend }}

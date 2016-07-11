@@ -1,0 +1,36 @@
+.pro-switcher
+  .checkbox-switcher
+
+    span
+      user-select: none
+
+    input[type="checkbox"]
+      display: none
+
+      + label
+        cursor: pointer
+        width: 60px
+        height: 30px
+        display: inline-block
+        vertical-align: middle
+        background: $c-success
+        border-radius: 30px
+        position: relative
+
+        &::after
+          +transition(all 0.3s)
+          content: ""
+          position: absolute
+          left: 2px
+          top: 2px
+          width: 26px
+          height: 26px
+          border-radius: 50%
+          background: $c-white
+
+      &:checked
+        + label
+          background: $c-secondary
+
+          &::after
+            left: 32px
