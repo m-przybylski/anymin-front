@@ -1,8 +1,5 @@
-.pad
-  pro-service-provider-profile(
-  data-name="vm.invitations.organizationDetails.name"
-  data-description="vm.invitations.organizationDetails.description"
-  data-avatar="vm.invitations.organizationDetails.logoUrl"
-  )
+.main-container.invitation
+  pro-expert-header(data-profile="vm.profile")
 
-  pro-invitation-acceptance-box(data-ng-repeat="invitation in vm.invitations.services track by $index" data-invitation="invitation")
+  .default-container
+    pro-invitation-acceptance-box(data-ng-repeat="invitation in vm.invitations.services track by $index" data-invitation="invitation")
