@@ -1,0 +1,13 @@
+.pro-text-chat-message
+  .chat-line(class="{{model.isUserMessage ? 'me' : 'interlocutor'}}")
+    .message-content(class="{{model.isUserMessage ? 'me-chat' : 'interlocutor-chat'}}")
+      img.thumb.circle(ng-src="{{ model.userImage }}")
+
+      .chat-cloud
+        p {{ model.messageText }}
+
+        .chat-file-download(data-ng-show="!!model.file")
+          a(href="{{model.file}}")
+            span.icon.icon-settings-24
+
+    span.chat-date {{ model.messageTime }}

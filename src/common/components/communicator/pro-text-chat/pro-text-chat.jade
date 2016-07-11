@@ -1,0 +1,13 @@
+.pro-text-chat
+  .chat-conversation
+    pro-text-chat-message(data-ng-repeat = "message in messages" data-model="message")
+
+  .chat-input
+    .input-group
+      a.upload-file(href="#")
+        span.icon.icon-settings-24
+
+      input(type="text", placeholder="Wpisz wiadomość tutaj")
+
+      a.send-message(href="#")
+        span.icon.icon-settings-24
