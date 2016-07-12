@@ -584,7 +584,7 @@
             method: 'POST',
             url: apiUrl + '/employments/:employmentId/accept',
             params: {
-              'body': '@body',
+              'employmentId': '@employmentId',
             },
           },
 
@@ -600,7 +600,7 @@
             method: 'POST',
             url: apiUrl + '/employments/:employmentId/reject',
             params: {
-              'body': '@body',
+              'employmentId': '@employmentId',
             },
           }
         };

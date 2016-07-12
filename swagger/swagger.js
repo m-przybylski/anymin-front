@@ -632,7 +632,7 @@
             method: 'POST',
             url: apiUrl + '/employments/:employmentId/accept',
             params: {
-              'body': '@body',
+              'employmentId': '@employmentId',
             },
           }, $resourceActionConfig('1', 'postEmploymentsAccept')),
 
@@ -648,7 +648,7 @@
             method: 'POST',
             url: apiUrl + '/employments/:employmentId/reject',
             params: {
-              'body': '@body',
+              'employmentId': '@employmentId',
             },
           }, $resourceActionConfig('2', 'postEmploymentsReject')),
         });
