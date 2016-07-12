@@ -1,97 +1,38 @@
-.pro-service-provider-summary-step
-  .summary-step
-    border: 1px solid $c-lines
-    margin-top: 30px
+.summary-step
+  color: $c-secondary-txt
+
+  .summary-name
+    align-items: center
+    justify-content: space-between
+    margin-bottom: 32px
+
+    h2
+      font-size: $f-main-header
+      line-height: 1
+
+  .summary-data
+    align-items: center
+
+  .summary-avatar
+    width: 120px
+    height: 120px
+    +border-radius(50%)
+    overflow: hidden
     position: relative
-    border-radius: 0.4em
+    margin-right: 32px
 
-    .btn-handler
-      display: flex
-      justify-content: flex-end
+    img
+      height: inherit
+      width: auto
+      position: absolute
+      top: 50%
+      left: 50%
+      transform: translate(-50%, -50%)
 
-      .summary-icon
-        border: 1px solid $c-lines
-        border-radius: 50px
-        width: 48px
-        height: 48px
-        position: relative
-        right: 5px
-        margin-left: 10px
-        top: 30px
-        font-size: 16px
-        padding: 13px 0 0 12px
+  .languages
+    text-transform: uppercase
 
-        &:hover
-          border-color: $c-primary
-
-        a
-          border: none
-
-        .icon-edit-24
-          display: flex
-          position: absolute
-          flex-direction: row
-          flex-wrap: nowrap
-          justify-content: center
-          align-content: center
-          align-items: center
-
-        span
-          color: $c-primary
-
-    .summary-step-title
-      border-bottom: 1px solid $c-lines
-
-      h3
-        color: $c-primary-txt
-        font-weight: bold
-
-
-    .summary-tag
-      h6
-        text-transform: uppercase
-
-      .tags
-        display: flex
-        flex-direction: row
-        flex-wrap: wrap
-        justify-content: flex-start
-        align-content: center
-        align-items: center
-        margin-bottom: 24px
-
-        p
-          border: 1px solid $c-lines
-          padding: 4px 8px
-          margin: 4px
-          font-size: $f-h6-size
-          font-weight: bold
-          text-transform: uppercase
-          +border-radius('0.4em')
-
-    .summary-name
-      display: flex
-      flex-direction: row
-      flex-wrap: nowrap
-      justify-content: flex-start
-      align-content: center
-      align-items: center
-      margin-top: 24px
-
-      .summary-avatar
-        img
-          width: 100px
-          height: 100px
-          +border-radius(50%)
-          padding: 3px
-
-      .summary-firstname
-        padding-left: 32px
-
-        .languages
-          text-transform: uppercase
-
-    .summary-descriptions
-      p
-        color: $c-secondary-txt
-        text-align: justify
+  .summary-descriptions
+    p
+      color: $c-secondary-txt
+      text-align: justify
