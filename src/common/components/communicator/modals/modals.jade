@@ -1,0 +1,302 @@
+.pro-modals
+  .modal-open
+
+    .modal.fade.ng-isolate-scope.in(modal-render='true', tabindex='-1', role='dialog', uib-modal-animation-class='fade', modal-in-class='in', ng-style="{'z-index': 1050 + index*10, display: 'block'}", uib-modal-window='modal-window', size='300', index='0', animate='animate', modal-animation='true', style='z-index: 1050; display: block;')
+      //usunac powyzsze
+      
+      .pro-chat-message-modal.no-credits.modal-checkbox
+        .modal-header
+          h4(data-translate="DASHBOARD.INVITATION.MODAL.NO_CREDITS")
+
+        .modal-contents     
+          .modal-description
+            p(data-translate="DASHBOARD.INVITATION.MODAL.CREDIT_RECHARGE")
+            
+          .modal-buttons
+            button.pro-button.rectangle.primary(data-ng-click="vm.dismissWindow()" data-translate="INTERFACE.ABORT")
+            button.pro-button.rectangle.default(data-ng-click="vm.submitReasonForm()" data-translate="DASHBOARD.INVITATION.MODAL.RECHARGE_YOUR_CREDITS")
+
+
+
+
+    .modal.fade.ng-isolate-scope.in(modal-render='true', tabindex='-1', role='dialog', uib-modal-animation-class='fade', modal-in-class='in', ng-style="{'z-index': 1050 + index*10, display: 'block'}", uib-modal-window='modal-window', size='300', index='0', animate='animate', modal-animation='true', style='z-index: 1050; display: block;')
+      //usunac powyzsze
+      
+      .pro-chat-message-modal.thanks-for-comment.modal-checkbox
+        .modal-header
+          h4(data-translate="DASHBOARD.INVITATION.MODAL.THANKS_FOR_COMMENT")
+          
+        .modal-contents                    
+          .modal-buttons
+            button.pro-button.rectangle.primary(data-ng-click="vm.dismissWindow()" data-translate="DASHBOARD.INVITATION.MODAL.REPORT_COMPLAINTS") 
+            button.pro-button.rectangle.default(data-ng-click="vm.submitReasonForm()" data-translate="DASHBOARD.INVITATION.MODAL.BACK_TO_SEARCH_LIST")
+            
+
+
+
+    .modal.fade.ng-isolate-scope.in(modal-render='true', tabindex='-1', role='dialog', uib-modal-animation-class='fade', modal-in-class='in', ng-style="{'z-index': 1050 + index*10, display: 'block'}", uib-modal-window='modal-window', size='300', index='0', animate='animate', modal-animation='true', style='z-index: 1050; display: block;')
+      //usunac powyzsze
+      
+      .pro-chat-message-modal.thanks-for-vote.modal-checkbox
+        .modal-header
+          h4(data-translate="DASHBOARD.INVITATION.MODAL.THANKS_FOR_VOTE")
+          
+        .modal-contents                    
+          .modal-buttons.single-button          
+            button.pro-button.rectangle.default(data-ng-click="vm.submitReasonForm()" data-translate="DASHBOARD.INVITATION.MODAL.BACK_TO_SEARCH_LIST")
+            
+
+
+
+    .modal.fade.ng-isolate-scope.in(modal-render='true', tabindex='-1', role='dialog', uib-modal-animation-class='fade', modal-in-class='in', ng-style="{'z-index': 1050 + index*10, display: 'block'}", uib-modal-window='modal-window', size='300', index='0', animate='animate', modal-animation='true', style='z-index: 1050; display: block;')
+      //usunac powyzsze
+      
+      .pro-chat-message-modal.complaints-report.modal-checkbox
+        .modal-header
+          h4(data-translate="DASHBOARD.INVITATION.MODAL.THANKS_FOR_VOTE")
+          
+        .modal-contents                    
+          .modal-buttons.single-button          
+            button.pro-button.rectangle.default(data-ng-click="vm.submitReasonForm()" data-translate="DASHBOARD.INVITATION.MODAL.BACK_TO_SEARCH_LIST")
+            
+
+
+
+    .modal.fade.ng-isolate-scope.in(modal-render='true', tabindex='-1', role='dialog', uib-modal-animation-class='fade', modal-in-class='in', ng-style="{'z-index': 1050 + index*10, display: 'block'}", uib-modal-window='modal-window', size='300', index='0', animate='animate', modal-animation='true', style='z-index: 1050; display: block;')
+      //usunac powyzsze
+      
+      .pro-chat-message-modal.no-available-expert.modal-checkbox
+        .modal-header
+          h4(data-translate="DASHBOARD.INVITATION.MODAL.NO_AVAILABLE_EXPERT")
+          
+        .modal-contents      
+          .modal-description             
+            p(data-translate="DASHBOARD.INVITATION.MODAL.SEND_NOTIFICATION_WHEN_AVAILABLE")
+            
+          .modal-buttons        
+            button.pro-button.rectangle.primary(data-ng-click="vm.dismissWindow()" data-translate="INTERFACE.ABORT")
+            button.pro-button.rectangle.default(data-ng-click="vm.submitReasonForm()" data-translate="DASHBOARD.INVITATION.MODAL.SEND_NOTIFICATION")
+            
+
+
+
+    .modal.fade.ng-isolate-scope.in(modal-render='true', tabindex='-1', role='dialog', uib-modal-animation-class='fade', modal-in-class='in', ng-style="{'z-index': 1050 + index*10, display: 'block'}", uib-modal-window='modal-window', size='300', index='0', animate='animate', modal-animation='true', style='z-index: 1050; display: block;')
+      //usunac powyzsze
+      
+      .pro-chat-message-modal.summary-conversation.no-help.modal-checkbox
+        .modal-header
+          h4(data-translate="DASHBOARD.INVITATION.MODAL.SUMMARY_CONVERSATION")
+          a.modal-close.circle
+            span.icon.icon.icon-close-16 
+          
+        .modal-contents                   
+          .conversation-profile
+            img.thumb.circle(data-ng-src="0")
+            h5 Michael Buligrosz
+          
+          .modal-description
+            p(data-translate="DASHBOARD.INVITATION.MODAL.SEND_NOTIFICATION_WHEN_AVAILABLE")
+          
+            .conversation-stats        
+              .conversation-timer
+                  span.icon.icon.icon-heart-16 
+                  span.value 17:29
+              .conversation-counter
+                  span.icon.icon.icon-heart-16 
+                  span.value 35,52 PLN
+                
+          strong(data-translate="DASHBOARD.INVITATION.MODAL.CONSULTATION_RANGE_NOT_HELP")
+            
+          pro-textarea(ngModel="true", placeholder="{{'DASHBOARD.INVITATION.MODAL.ADD_YOUR_MESSAGE' | translate}}")
+          
+          .modal-buttons        
+            button.pro-button.rectangle.primary(data-ng-click="vm.dismissWindow()" data-translate="DASHBOARD.INVITATION.MODAL.BACK")
+            button.pro-button.rectangle.default(data-ng-click="vm.submitReasonForm()" data-translate="DASHBOARD.INVITATION.MODAL.ADD_OPINION")
+            
+
+
+
+    .modal.fade.ng-isolate-scope.in(modal-render='true', tabindex='-1', role='dialog', uib-modal-animation-class='fade', modal-in-class='in', ng-style="{'z-index': 1050 + index*10, display: 'block'}", uib-modal-window='modal-window', size='300', index='0', animate='animate', modal-animation='true', style='z-index: 1050; display: block;')
+      //usunac powyzsze
+      
+      .pro-chat-message-modal.summary-conversation.helped.modal-checkbox
+        .modal-header
+          h4(data-translate="DASHBOARD.INVITATION.MODAL.SUMMARY_CONVERSATION")
+          a.modal-close.circle
+            span.icon.icon.icon-close-16 
+          
+        .modal-contents                   
+          .conversation-profile
+            img.thumb.circle(data-ng-src="0")
+            h5 Michael Buligrosz
+          
+          .modal-description
+            p(data-translate="DASHBOARD.INVITATION.MODAL.SEND_NOTIFICATION_WHEN_AVAILABLE")
+          
+            .conversation-stats        
+              .conversation-timer
+                  span.icon.icon.icon-heart-16 
+                  span.value 17:29
+              .conversation-counter
+                  span.icon.icon.icon-heart-16 
+                  span.value 35,52 PLN
+                  
+          strong(data-translate="DASHBOARD.INVITATION.MODAL.CONSULTATION_RANGE_HELP")
+            
+          pro-textarea(ngModel="true", placeholder="{{'DASHBOARD.INVITATION.MODAL.ADD_YOUR_MESSAGE' | translate}}")
+          
+          .modal-buttons        
+            button.pro-button.rectangle.primary(data-ng-click="vm.dismissWindow()" data-translate="DASHBOARD.INVITATION.MODAL.BACK")
+            button.pro-button.rectangle.default(data-ng-click="vm.submitReasonForm()" data-translate="DASHBOARD.INVITATION.MODAL.ADD_OPINION")
+            
+            
+
+
+    .modal.fade.ng-isolate-scope.in(modal-render='true', tabindex='-1', role='dialog', uib-modal-animation-class='fade', modal-in-class='in', ng-style="{'z-index': 1050 + index*10, display: 'block'}", uib-modal-window='modal-window', size='300', index='0', animate='animate', modal-animation='true', style='z-index: 1050; display: block;')
+      //usunac powyzsze
+      
+      .pro-chat-message-modal.conversation-helpful.modal-checkbox
+        .modal-header
+          h4(data-translate="DASHBOARD.INVITATION.MODAL.SUMMARY_CONVERSATION")
+          
+        .modal-contents                   
+          .conversation-profile
+            img.thumb.circle(data-ng-src="0")
+            h5 Michael Buligrosz
+            
+          .modal-description
+            p(data-translate="DASHBOARD.INVITATION.MODAL.SEND_NOTIFICATION_WHEN_AVAILABLE")
+          
+            .conversation-stats        
+              .conversation-timer
+                  span.icon.icon.icon-heart-16 
+                  span.value 17:29
+              .conversation-counter
+                  span.icon.icon.icon-heart-16 
+                  span.value 35,52 PLN
+                
+          strong(data-translate="DASHBOARD.INVITATION.MODAL.CONVERSATION_HELPFUL	")
+
+          .modal-buttons        
+            button.pro-button.rectangle.error.icon(data-ng-click="vm.dismissWindow()" data-translate="INTERFACE.NO")
+            button.pro-button.rectangle.succes.icon(data-ng-click="vm.submitReasonForm()" data-translate="INTERFACE.YES")
+            
+            
+            
+
+
+    .modal.fade.ng-isolate-scope.in(modal-render='true', tabindex='-1', role='dialog', uib-modal-animation-class='fade', modal-in-class='in', ng-style="{'z-index': 1050 + index*10, display: 'block'}", uib-modal-window='modal-window', size='300', index='0', animate='animate', modal-animation='true', style='z-index: 1050; display: block;')
+      //usunac powyzsze
+      
+      .pro-chat-message-modal.client-advice.modal-checkbox
+        .modal-header
+          h4(data-translate="DASHBOARD.INVITATION.MODAL.CLIENT_ADVICE")
+          
+        .modal-contents         
+          .modal-description          
+            p(data-translate="DASHBOARD.INVITATION.MODAL.SEND_NOTIFICATION_WHEN_AVAILABLE")
+
+          .modal-buttons        
+            button.pro-button.rectangle.error.icon(data-ng-click="vm.dismissWindow()" data-translate="DASHBOARD.INVITATION.REJECT")
+            button.pro-button.rectangle.succes.icon(data-ng-click="vm.submitReasonForm()" data-translate="DASHBOARD.INVITATION.MODAL.PICK_UP_CALL")
+            
+
+            
+    .modal.fade.ng-isolate-scope.in(modal-render='true', tabindex='-1', role='dialog', uib-modal-animation-class='fade', modal-in-class='in', ng-style="{'z-index': 1050 + index*10, display: 'block'}", uib-modal-window='modal-window', size='300', index='0', animate='animate', modal-animation='true', style='z-index: 1050; display: block;')
+      //usunac powyzsze
+      
+      .pro-chat-message-modal.client-advice-options.modal-checkbox
+        .modal-header
+          h4(data-translate="DASHBOARD.INVITATION.MODAL.CLIENT_ADVICE")
+          
+        .modal-contents
+          .modal-description                   
+            p(data-translate="DASHBOARD.INVITATION.MODAL.SEND_NOTIFICATION_WHEN_AVAILABLE")
+
+          .modal-buttons        
+            button.pro-button.rectangle.error.icon(data-ng-click="vm.dismissWindow()" data-translate="DASHBOARD.INVITATION.REJECT")
+            button.pro-button.rectangle.succes.icon(data-ng-click="vm.submitReasonForm()" data-translate="DASHBOARD.INVITATION.MODAL.PICK_UP_CALL")
+          
+          .additional-options
+            button.pro-button.rectangle.primary(data-ng-click="" data-translate="DASHBOARD.INVITATION.MODAL.REJECT_ONLY_THIS_CONVERSATION")
+            button.pro-button.rectangle.primary(data-ng-click="" data-translate="DASHBOARD.INVITATION.MODAL.REJECT_MAJORITY")
+            button.pro-button.rectangle.primary(data-ng-click="" data-translate="DASHBOARD.INVITATION.MODAL.REJECT_GO_TO_SETTINGS")
+            
+
+
+            
+    .modal.fade.ng-isolate-scope.in(modal-render='true', tabindex='-1', role='dialog', uib-modal-animation-class='fade', modal-in-class='in', ng-style="{'z-index': 1050 + index*10, display: 'block'}", uib-modal-window='modal-window', size='300', index='0', animate='animate', modal-animation='true', style='z-index: 1050; display: block;')
+      //usunac powyzsze
+      
+      .pro-chat-message-modal.switching-conversation.modal-checkbox
+        .modal-header
+          h4(data-translate="DASHBOARD.INVITATION.MODAL.SWITCHING_CONVERSATION_FOR")
+            a.modal-close.circle
+              span.icon.icon.icon-close-16
+              
+        .modal-contents                   
+          button.pro-button.rectangle.primary.icon 
+            span.icon.icon.icon-heart-16
+            | {{ "DASHBOARD.INVITATION.MODAL.SWITCHER_WIN10" | translate }}
+          button.pro-button.rectangle.primary.icon 
+            span.icon.icon.icon-heart-16
+            | {{ "DASHBOARD.INVITATION.MODAL.SWITCHER_ANDROID" | translate }}
+          button.pro-button.rectangle.primary.icon 
+            span.icon.icon.icon-heart-16
+            | {{ "APP.WIZARDS.CREATE_NEW_SERVICE.SWITCHER_IOS" | translate }}
+
+
+
+
+    .modal.fade.ng-isolate-scope.in(modal-render='true', tabindex='-1', role='dialog', uib-modal-animation-class='fade', modal-in-class='in', ng-style="{'z-index': 1050 + index*10, display: 'block'}", uib-modal-window='modal-window', size='300', index='0', animate='animate', modal-animation='true', style='z-index: 1050; display: block;')
+      //usunac powyzsze
+      
+      .pro-chat-message-modal.complaint.modal-checkbox
+        .modal-header
+          h4(data-translate="DASHBOARD.INVITATION.MODAL.COMPLAINT")
+
+        .modal-contents   
+          .modal-description
+            p(data-translate="DASHBOARD.INVITATION.MODAL.CHECK_COMPLAINT_REASON")
+        
+          .modal-checkbox      
+            .item-group
+              pro-checkbox(data-ng-model="false" label="{{'DASHBOARD.INVITATION.MODAL.EXPERT_NOT_COMPETENT' | translate}} ")        
+            .item-group
+              pro-checkbox(data-ng-model="false" label="{{'DASHBOARD.INVITATION.MODAL.EXPERT_RUDE' | translate}} ")        
+            .item-group
+              pro-checkbox(data-ng-model="false" label="{{'DASHBOARD.INVITATION.MODAL.CONVERSATION_CONNECTION_PROBLEMS' | translate}} ")        
+            .item-group
+              pro-checkbox(data-ng-model="false" label="{{'HOME.TOP_CONTAINER.MAIN_HEADER.FOOTER_OTHER' | translate}} ")        
+
+            pro-textarea(ngModel="true", placeholder="{{'DASHBOARD.INVITATION.MODAL.ENTER_YOUR_REASON' | translate}}")
+            span.icon.icon.icon-heart-16
+
+          .modal-buttons
+            button.pro-button.rectangle.primary(data-ng-click="vm.dismissWindow()" data-translate="DASHBOARD.INVITATION.MODAL.BACK")
+            button.pro-button.rectangle.default(data-ng-click="vm.submitReasonForm()" data-translate="DASHBOARD.INVITATION.MODAL.ADD_COMMENT")
+            
+
+
+
+    .modal.fade.ng-isolate-scope.in(modal-render='true', tabindex='-1', role='dialog', uib-modal-animation-class='fade', modal-in-class='in', ng-style="{'z-index': 1050 + index*10, display: 'block'}", uib-modal-window='modal-window', size='300', index='0', animate='animate', modal-animation='true', style='z-index: 1050; display: block;')
+      //usunac powyzsze
+      
+      .pro-chat-message-modal.connecting-settings.modal-checkbox
+        .modal-header
+          h4(data-translate="DASHBOARD.INVITATION.MODAL.CONNECTION_SETTINGS")
+
+        .modal-contents       
+          .conversation-video-profile
+            img.thumb(data-ng-src="0")
+            
+          pro-dropdown(data-pro-model='vm.account.phoneNumber.prefix' data-label='Video' data-placeholder='DASHBOARD.INVITATION.MODAL.INTEGRATED_CAMERA'
+            data-pro-items="vm.prefix" data-no-search)
+          
+          .device-intensity
+            span.icon.icon.icon-heart-16
+            input
+
+          .modal-buttons
+            button.pro-button.rectangle.primary(data-ng-click="vm.dismissWindow()" data-translate="DASHBOARD.INVITATION.MODAL.BACK")
+            button.pro-button.rectangle.default(data-ng-click="vm.submitReasonForm()" data-translate="DASHBOARD.INVITATION.MODAL.ADD_COMMENT")
