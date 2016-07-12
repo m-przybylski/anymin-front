@@ -1,0 +1,141 @@
+.modal-open
+  padding: 0 !important
+  overflow-y: visible
+
+  /* modal do usuniecia */
+  .modal
+    position: static
+    background: rgba(#000, 0.5)
+
+    .modal-dialog
+      display: flex
+      align-items: center
+      width: 100%
+      justify-content: center
+      margin: 0
+      min-height: 100%
+
+      +mdm
+        min-height: 100vh
+
+      .modal-content
+        background: $c-white
+        border: 0
+        border-radius: 0
+        box-shadow: none
+        min-width: 35%
+
+        .modal-header
+          padding: 32px 16px
+          text-align: center
+          border-bottom: 1px solid $c-lines
+          position: relative
+
+          h4
+            +default-font-heavy
+            text-transform: uppercase
+
+            span
+              color: $c-secondary-txt
+
+        .modal-close.circle
+          width: 48px
+          height: 48px
+          line-height: 48px
+          border: 1px solid $c-lines
+          position: absolute
+          right: 16px
+          top: 0
+          bottom: 0
+          left: auto
+          margin: auto
+
+        .modal-contents
+          padding: 16px
+
+          p
+            text-align: center
+
+          strong
+            display: block
+            text-align: center
+            margin: 48px 0 32px 0
+
+          button
+            display: block
+            width: 100%
+            margin: 0 0 16px
+
+            &:last-child
+              margin: 0
+
+          .conversation-profile
+            text-align: center
+            margin: 16px 0 32px
+
+            h5
+              +default-font-heavy
+
+          .conversation-stats
+            display: flex
+            justify-content: center
+            margin: 8px 0 0
+
+            .conversation-timer
+              margin: 0 8px
+
+            .conversation-counter
+              margin: 0 8px
+
+            span
+              font-size: $f-h4-size
+
+              &.icon
+                margin: 0 8px 0 0
+
+              &.value
+                +default-font-heavy
+
+          form
+            .item-group
+              .pro-checkbox
+                margin: 0 0 16px
+
+            .input-group
+              height: 48px
+              margin: 32px 0 0
+
+          .modal-buttons
+            margin: 16px 0 0
+
+            +smm
+              display: flex
+              justify-content: space-between
+
+            &.single-button
+              button
+                &:first-child
+                  margin: 0
+
+            button
+              width: 100%
+              margin: 0 0 16px
+
+              +xsm
+                flex-grow: 1
+                width: auto
+                margin: 0
+
+                &:first-child
+                  margin: 0 8px 0 0
+
+                &:last-child
+                  margin: 0 0 0 8px
+
+          .additional-options
+            margin: 16px 0 0
+
+            button
+              display: block
+              width: 100%
+              margin: 0 0 16px
