@@ -1,9 +1,9 @@
 (function() {
 
 
-  function InvitationController(invitations, companyLogo, AppServiceProviderImageResolver) {
+  function InvitationController(pendingInvitations, companyLogo) {
 
-    this.invitations = invitations
+    this.invitations = pendingInvitations
 
     this.invitations.organizationDetails.logoUrl = companyLogo
     
@@ -22,7 +22,7 @@
         pageTitle: 'PAGE_TITLE.LOGIN.ACCOUNT'
       },
       resolve: {
-        invitations: ($q, $state, ProfileApi, User) => {
+        pendingInvitations: ($q, $state, ProfileApi, User) => {
           /* istanbul ignore next */
           let _deferred = $q.defer()
           /* istanbul ignore next */
@@ -42,8 +42,8 @@
           /* istanbul ignore next */
           return _deferred.promise
         },
-        companyLogo: (AppServiceProviderImageResolver, invitations) => {
-          return AppServiceProviderImageResolver.resolve(invitations.organizationDetails.logo)
+        companyLogo: (AppServiceProviderImageResolver, pendingInvitations) => {
+          return AppServiceProviderImageResolver.resolve(pendingInvitations.organizationDetails.logo)
         }
       }
     })

@@ -12,7 +12,6 @@
           employmentId: employmentId
         }).$promise.then((res) => {
           _isPending = false
-          console.log(res)
         }, () => {
           _isPending = false
         })
@@ -70,7 +69,7 @@
   angular.module('profitelo.components.dashboard.invitation.pro-invitation-acceptance-box', [
     'profitelo.components.pro-summary-tag',
     'profitelo.directives.interface.pro-input',
-    'profitelo.directives.dashboard.invitation.pro-invitation-acceptance-box-modal-controller',
+    'profitelo.components.dashboard.invitation.pro-invitation-acceptance-box-modal-controller',
     'profitelo.swaggerResources',
     'profitelo.services.dialog-service'
   ])

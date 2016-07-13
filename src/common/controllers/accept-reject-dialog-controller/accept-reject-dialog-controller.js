@@ -16,7 +16,9 @@
     return this
   }
 
-  angular.module('profitelo.common.controller.accept-reject-dialog-controller', [])
+  angular.module('profitelo.common.controller.accept-reject-dialog-controller', [
+    'ui.bootstrap'
+  ])
   .controller('acceptRejectDialogController', acceptRejectDialogController)
 
 }())
