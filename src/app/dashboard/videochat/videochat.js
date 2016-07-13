@@ -1,19 +1,13 @@
 (function() {
   function videochatController() {
-    /* istanbul ignore next */
-    this.showChat = false
-    /* istanbul ignore next */
-    this.onClick = ()=> {
-      this.showChat = !this.showChat
-    }
-    /* istanbul ignore next */
+    
     return this
   }
 
   angular.module('profitelo.controller.dashboard.videochat', [
     'ui.router',
     'profitelo.components.pro-videochat',
-    'profitelo.components.pro-text-chat',
+    'profitelo.components.communicator.pro-text-chat',
     'c7s.ng.userAuth'
   ])
     .config( function($stateProvider, UserRolesProvider) {
