@@ -86,22 +86,34 @@
     }
 
     this.deleteConsultation = (id, index) => {
-      let _callback = ()=> {
-        ServiceApi.deleteService({
-          serviceId: id
-        }).$promise.then((res)=> {
-          this.consultations.splice(index, 1)
-          if (this.consultations.length === 0) {
-            $state.go('app.dashboard.service-provider.consultation-range.company')
-          }
-        }, (err) => {
-          proTopAlertService.error({
-            message: 'error',
-            timeout: 4
+
+      ((serviceId, localIndex) => {
+        let _id = serviceId
+        let _index = localIndex
+
+        this.modalCallback = () => {
+          ServiceApi.deleteService({
+            serviceId: _id
+          }).$promise.then((res)=> {
+            this.consultations.splice(_index, 1)
+            if (this.consultations.length === 0) {
+              $state.go('app.dashboard.service-provider.consultation-range.company')
+            }
+          }, (err) => {
+            proTopAlertService.error({
+              message: 'error',
+              timeout: 4
+            })
           })
-        })
-      }
-      DialogService.openDialog($scope, _callback)
+        }
+      })(id, index)
+
+      DialogService.openDialog({
+        scope: $scope,
+        controller: 'acceptRejectDialogController',
+        templateUrl: 'controllers/accept-reject-dialog-controller/accept-reject-dialog-controller.tpl.html'
+      })
+      
     }
 
     return this
@@ -111,6 +123,7 @@
   angular.module('profitelo.controller.dashboard.service-provider.summary.company', [
     'ui.router',
     'profitelo.services.dialog-service',
+    'profitelo.common.controller.accept-reject-dialog-controller',
     'profitelo.services.service-provider-state',
     'profitelo.directives.service-provider.pro-service-provider-summary-head',
     'profitelo.directives.service-provider.pro-service-provider-summary-step',

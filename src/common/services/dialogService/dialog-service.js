@@ -2,27 +2,28 @@
   function DialogService($uibModal) {
 
     return {
-      openDialog: (scope, callback)=> {
-        $uibModal.open({
+
+      /**
+       *
+       * Full options list can be found in the angular bootstrap docs
+       * @link https://angular-ui.github.io/bootstrap/#/modal
+       *
+       * @param {Object} options - uibModal's options object
+       */
+      openDialog: (options = {}) => {
+
+        let _options = {
           backdrop: 'static',
           keyboard: true,
-          scope: scope,
-          controller: ($uibModalInstance)=> {
-            scope.confirm = ()=> {
-              if (angular.isFunction(callback)) {
-                callback()
-              }
-              $uibModalInstance.close('cancel')
-            }
-            scope.reject = ()=> {
-              $uibModalInstance.dismiss('cancel')
-            }
-          },
           modalFade: true,
           animation: true,
-          templateUrl: 'templates/dialog/pro-dialog.tpl.html',
-          size: 300
-        })
+          size: 300,
+          controllerAs: 'vm'
+        }
+
+        _options = angular.extend({}, _options, options)
+
+        $uibModal.open(_options)
       }
     }
   }

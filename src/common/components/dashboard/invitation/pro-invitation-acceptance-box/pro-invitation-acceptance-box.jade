@@ -1,0 +1,7 @@
+.pro-invitation-acceptance-box.clearfix
+  .description.pull-left
+    h3(data-ng-bind="vm.invitation.details.name")
+    pro-summary-tag(data-tags="vm.invitation.details.tags")
+  .buttons.pull-right
+    button.pro-btn(data-ng-click="vm.reject(vm.invitation.id)" data-translate="DASHBOARD.INVITATION.REJECT")
+    button.pro-btn.btn-main(data-ng-click="vm.accept(vm.invitation.id)" data-translate="DASHBOARD.INVITATION.ACCEPT")

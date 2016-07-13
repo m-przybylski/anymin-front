@@ -102,19 +102,31 @@
       }
     }
     this.deleteConsultation = (id, index) => {
-      let _callback = ()=> {
-        ServiceApi.deleteService({
-          serviceId: id
-        }).$promise.then((res)=> {
-          this.consultations.splice(index, 1)
-        }, (err) => {
-          proTopAlertService.error({
-            message: 'error',
-            timeout: 4
+
+      ((serviceId, localIndex) => {
+        let _id = serviceId
+        let _index = localIndex
+
+        this.modalCallback = () => {
+          ServiceApi.deleteService({
+            serviceId: _id
+          }).$promise.then((res)=> {
+            this.consultations.splice(_index, 1)
+          }, (err) => {
+            proTopAlertService.error({
+              message: 'error',
+              timeout: 4
+            })
           })
-        })
-      }
-      DialogService.openDialog($scope, _callback)
+        }
+      })(id, index)
+
+      DialogService.openDialog({
+        scope: $scope,
+        controller: 'acceptRejectDialogController',
+        templateUrl: 'controllers/accept-reject-dialog-controller/accept-reject-dialog-controller.tpl.html'
+      })
+
     }
 
     this.addAnotherConsultation = () => {
@@ -129,6 +141,7 @@
     'profitelo.services.dialog-service',
     'ui.router',
     'profitelo.services.service-provider-service',
+    'profitelo.common.controller.accept-reject-dialog-controller',
     'c7s.ng.userAuth',
     'profitelo.services.service-provider-state',
     'profitelo.swaggerResources',
