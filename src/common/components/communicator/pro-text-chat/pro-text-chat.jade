@@ -1,8 +1,8 @@
-.pro-text-chat(data-ng-show="$ctrl.showChat")
+.pro-text-chat(data-ng-show="vm.showChat")
   .chat-conversation
-    pro-text-chat-message(data-ng-repeat = "message in messages" data-model="message")
+    pro-text-chat-message(data-ng-repeat = "message in vm.messages" data-model="::message")
   .chat-input
     pro-text-chat-input(data-placeholder="{{ 'COMMUNICATOR.TEXT_CHAT.INPUT_PLACEHOLDER' | translate }}"
-    data-ng-model="newMessage"
-    send-message-action="sendMessage"
-    upload-file-action="uploadFile")
+    data-ng-model="vm.newMessage"
+    send-message-action="vm.sendMessage"
+    upload-file-action="vm.uploadFile")

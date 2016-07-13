@@ -1,8 +1,8 @@
 (function() {
 
-  function proTextChatComponentController($scope, $filter) {
+  function proTextChatComponentController($filter) {
 
-    $scope.messages = []
+    this.messages = []
 
     let _isValidMessage = (message) => {
       return (angular.isDefined(message) && message !== null && message.length > 0)
@@ -10,7 +10,7 @@
 
     let _interlocutorWritesMessage = () => {
       // TODO do zrobienia jak będzie backend
-      $scope.messages.push({
+      this.messages.push({
         isUserMessage: false,
         messageText: '...',
         messageTime: $filter('translate')('COMMUNICATOR.TEXT_CHAT.WRITES_MESSAGE')
@@ -19,23 +19,24 @@
     
     _interlocutorWritesMessage()
 
-    $scope.sendMessage = () => {
-      if (_isValidMessage($scope.newMessage)) {
-        $scope.messages.push({
+    this.sendMessage = () => {
+      if (_isValidMessage(this.newMessage)) {
+        this.messages.push({
           isUserMessage: true,
-          messageText: $scope.newMessage,
+          messageText: this.newMessage,
           messageTime: '12:12'
         })
-        $scope.newMessage = null
+        this.newMessage = null
       } else {
         // TODO Error Msg - Komunikat dla usera
       }
     }
     
-    $scope.uploadFile = () => {
+    this.uploadFile = () => {
       // TODO files uploading jak będzie backend
     }
 
+    return this
 
 
   }
@@ -43,7 +44,8 @@
   let proTextChat = {
     transclude: true,
     templateUrl:    'components/communicator/pro-text-chat/pro-text-chat.tpl.html',
-    controller: ['$scope', '$filter', proTextChatComponentController ],
+    controller: ['$filter', proTextChatComponentController ],
+    controllerAs: 'vm',
     bindings: {
       showChat: '<'
     }

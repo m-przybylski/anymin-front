@@ -40,11 +40,9 @@ describe('Unit testing: profitelo.components.communicator.pro-text-chat', () => 
     })
 
     it('should send a message ', () => {
-      let el = create(validHTML)
-      let isoScope = el.isolateScope()
-      isoScope.newMessage = 'THIS IS JUST DUMB MESSAGE'
-      isoScope.sendMessage()
-      expect(isoScope.messages.length > 1).toBe(true)
+      component.newMessage = 'THIS IS JUST DUMB MESSAGE'
+      component.sendMessage()
+      expect(component.messages.length > 1).toBe(true)
     })
 
   })
