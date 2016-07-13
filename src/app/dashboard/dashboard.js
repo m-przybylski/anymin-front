@@ -1,6 +1,6 @@
 (function() {
 
-  function DashboardController() {
+  function DashboardController($rootScope) {
 
     this.isSidebarOpen = false
     this.switchUser = false
@@ -16,6 +16,10 @@
       this.isSidebarOpen = !this.isSidebarOpen
     }
 
+
+    this.toggleChat = () => {
+      $rootScope.$broadcast('toggleChat')
+    }
 
     return this
   }

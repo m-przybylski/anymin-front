@@ -277,6 +277,9 @@
     'profitelo.directives.page-title',
     'profitelo.directives.pro-masonry',
 
+    // components
+    'profitelo.components.communicator.pro-bottom-communicator',
+
     // translations
     'profitelo.translations.en-us',
     'profitelo.translations.pl-pl'

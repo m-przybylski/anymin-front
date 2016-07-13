@@ -1,0 +1,35 @@
+.pro-bottom-communicator-component
+  +transition(height 0.3s ease-in-out, background-color 0.3s ease-in-out)
+
+  display: flex
+  background-color: #fff
+  width: 100%
+  height: 100px
+  position: fixed
+  bottom: 0
+  z-index: 999
+  border-top: 2px solid #000
+
+  &.full-screen
+    height: 100vh
+    border: none
+    background-color: #efefef
+
+
+  .expert-camera-preview
+    flex: 0 0 5%
+    border-right: 1px solid $c-lines
+
+  .controls
+    display: flex
+    flex-direction: column
+    flex: 0 0 95%
+
+    .meta
+      display: flex
+      justify-content: space-around
+
+    .buttons
+      border-top: 1px solid $c-lines
+      display: flex
+      justify-content: space-around
