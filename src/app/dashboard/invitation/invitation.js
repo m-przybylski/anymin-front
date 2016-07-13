@@ -54,9 +54,8 @@
     'c7s.ng.userAuth',
     'ui.router',
     'profitelo.swaggerResources',
-
+    'profitelo.components.invitations.company-profile',
     'profitelo.services.resolvers.app.service-provider-image-resolver',
-
     'profitelo.components.dashboard.invitation.pro-invitation-acceptance-box'
 
   ])
