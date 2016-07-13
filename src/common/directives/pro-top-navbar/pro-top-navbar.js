@@ -3,6 +3,7 @@
 
     function linkFunction(scope, elem, attrs) {
 
+
       scope.menuElements = [
         {
           label: 'Strona Główna',
@@ -22,18 +23,28 @@
         }
       ]
 
+      scope.setShowSearch = () => {
+        scope.showSearch = scope.showSearch !== true ? true : false
+      }
+
     }
 
     return {
       templateUrl: 'directives/pro-top-navbar/pro-top-navbar.tpl.html',
       restrict: 'E',
       replace: true,
-      link: linkFunction
+      link: linkFunction,
+      scope: {
+        showSearch: '=?'
+      }
+
     }
 
   }
 
-  angular.module('profitelo.directives.pro-top-navbar', [])
+  angular.module('profitelo.directives.pro-top-navbar', [
+    'pascalprecht.translate'
+  ])
   .directive('proTopNavbar', proTopNavbar)
 
 }())

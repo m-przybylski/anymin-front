@@ -51,6 +51,7 @@
     display: flex
     align-self: stretch
     justify-content: flex-end
+    +transition(all 1s ease-in-out 0s)
 
     +smm
       flex: 1 0
@@ -64,8 +65,35 @@
       border-left: 1px solid $c-lines
       color: $c-primary-txt
 
+    .input-group
+      display: none
+
       &.search-btn
         display: none
 
         +smm
           display: flex
+
+  .search-activ
+    +transition(all 0.8s ease-in-out 0s)
+    flex: 1 0 85%
+
+    .search-btn
+      width: 100%
+      justify-content: flex-start
+      padding: 16px
+
+      .input-group
+        display: block
+        position: absolute
+        top: 10px
+        border: 0
+
+        +smm
+          width: 50%
+
+        +lgm
+          width: 70%
+
+      span
+        padding: 0 16px 0 0

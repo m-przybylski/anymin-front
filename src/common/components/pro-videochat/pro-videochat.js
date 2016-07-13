@@ -15,7 +15,11 @@
   }
 
   angular.module('profitelo.components.pro-videochat', [
-    'pascalprecht.translate'
+    'pascalprecht.translate',
+    'profitelo.components.communicator.pro-videochat.pro-videochat-top-navbar',
+    'profitelo.components.communicator.pro-videochat.pro-video-player',
+    'profitelo.components.communicator.pro-videochat.pro-video-preview',
+    'profitelo.components.communicator.pro-videochat.pro-video-controls'
   ])
   .component('proVideoChat', proVideoChat)
 
