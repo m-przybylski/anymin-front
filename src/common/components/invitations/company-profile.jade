@@ -1,9 +1,16 @@
 .company-profile
   .header-container
+    .title-row
+      .title
+        h4(data-translate="DASHBOARD.INVITATION.TITLE_HEADER")
+      .close-button
+        .btn-handler
+          a(data-ui-sref="app.dashboard.start").pro-btn.btn-light.btn-icon
+            span.icon.icon-close-16
     .default-container
       .header-content
         .personal-info
-          img.circle.empty-avatar-placeholder(data-ng-src='{{ vm.avatar }}' alt='{{ vm.profile.name }}')
+          img.circle.empty-avatar-placeholder(data-ng-src='{{ vm.profile.logoUrl }}' alt='{{ vm.profile.name }}')
           h3 {{ vm.profile.name }}
   .header-container
     .default-container

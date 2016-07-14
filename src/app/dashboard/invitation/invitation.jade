@@ -1,5 +1,5 @@
 .main-container.invitation
-  company-profile(data-avatar="vm.invitations.organizationDetails.logoUrl" data-profile="vm.invitations.organizationDetails")
+  company-profile(data-profile="vm.invitations.organizationDetails")
 
   .default-container
     pro-invitation-acceptance-box(data-ng-repeat="invitation in vm.invitations.services track by $index" data-invitation="invitation")

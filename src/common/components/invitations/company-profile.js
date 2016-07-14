@@ -4,8 +4,7 @@
     transclude: true,
     templateUrl:    'components/invitations/company-profile.tpl.html',
     bindings: {
-      profile: '<',
-      avatar: '<'
+      profile: '<'
     },
     controllerAs: 'vm'
   }

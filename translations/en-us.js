@@ -319,6 +319,7 @@
         		"DASHBOARD.INVITATION.MODAL.THANKS_FOR_COMMENT":"Dziękujemy za komentarz!",
         		"DASHBOARD.INVITATION.MODAL.THANKS_FOR_VOTE":"Dziękujemy za ocenę!",
         		"DASHBOARD.INVITATION.REJECT":"Odrzuć",
+        		"DASHBOARD.INVITATION.TITLE_HEADER":"zaproszenie od",
         		"DASHBOARD.MENU.AVAILABILITY":"Dostępność",
         		"DASHBOARD.MENU.CLIENT":"Klient",
         		"DASHBOARD.MENU.DASHBOARD":"Dashboard",
