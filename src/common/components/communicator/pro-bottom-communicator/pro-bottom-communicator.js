@@ -3,10 +3,10 @@
   function controllerFunction($scope) {
 
     
-    this.showChat = false
+    this.isHidden = false
     
     $scope.$on('toggleChat', () => {
-      this.showChat = !this.showChat
+      this.isHidden = !this.isHidden
     })
 
     this.isFullScreenMode = false
@@ -29,7 +29,8 @@
   }
 
   angular.module('profitelo.components.communicator.pro-bottom-communicator', [
-    'pascalprecht.translate'
+    'pascalprecht.translate',
+    'profitelo.components.communicator.pro-videochat.pro-video-controls'
   ])
     .component('proBottomCommunicator', proBottomCommunicator)
 

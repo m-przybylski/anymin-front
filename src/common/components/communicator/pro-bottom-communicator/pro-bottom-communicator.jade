@@ -1,4 +1,4 @@
-.pro-bottom-communicator-component(data-ng-class="{'full-screen': vm.isFullScreenMode}" data-ng-show="vm.showChat")
+.pro-bottom-communicator-component(data-ng-class="{'full-screen': vm.isFullScreenMode, 'is-hidden': vm.isHidden}")
   .expert-camera-preview
     button(data-ng-click="vm.toggleFullScreen()") Full Screen
   .controls
@@ -11,16 +11,4 @@
           | 17:29
         .cost
           | 58,89 PLN
-    .buttons
-      .settings
-        span Opcje
-      .camera
-        span(data-translate="COMMUNICATOR.CONTROLS.CAMERA")
-      .disconnect
-        span Rozłącz
-      .mute
-        span(data-translate="COMMUNICATOR.CONTROLS.MUTE")
-      .swap-devide
-        span przełącz
-      .chat
-        span(data-translate="COMMUNICATOR.CONTROLS.CHAT")
+    pro-video-controls.buttons()
