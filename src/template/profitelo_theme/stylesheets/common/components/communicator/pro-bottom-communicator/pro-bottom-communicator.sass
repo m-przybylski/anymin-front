@@ -1,50 +1,55 @@
-.pro-bottom-communicator-component
+.pro-bottom-communicator
 
-  $base-height: 8px * 14
+  $base-height: 25 * 8px
 
-  +transition(height 0.3s ease-in-out, background-color 0.3s ease-in-out, margin 0.3s ease-in-out)
-
-  &.is-hidden
-    margin-bottom: -$base-height
-
-
+  +transition(height 0.3s, margin 0.3s)
   display: flex
-  background-color: #fff
+  background: $c-white
   width: 100%
-  height: $base-height
   position: fixed
   bottom: 0
   z-index: 999
   border-top: 2px solid #000
+  height: $base-height
 
   &.full-screen
     height: 100vh
     border: none
-    background-color: #efefef
 
+  &.is-hidden
+    margin-bottom: -$base-height
 
   .expert-camera-preview
-    flex: 0 0 5%
-    border-right: 1px solid $c-lines
+    flex: 2 0
+    position: relative
+    background: red
+
+    button
+        position: absolute
+        right: 16px
+        top: 16px
 
   .controls
+    flex: 10 0
+
+
+  .btn-player
+    background: none
+    width: $base-height / 2
+    height: $base-height / 2
     display: flex
-    flex-direction: column
-    flex: 0 0 95%
+    align-items: center
+    justify-content: center
+    color: $c-black
+    border: 1px solid $c-lines
 
-    .meta
-      display: flex
-      justify-content: space-around
-      height: $base-height / 2
+    &:hover
+      background: $c-white
+      color: $c-primary-txt
 
-    .buttons
-      height: $base-height / 2
-      border-top: 1px solid $c-lines
-      display: flex
-      justify-content: space-around
-      .pro-video-controls
-        width: 80%
-        ul
-          display: flex
-          align-items: center
-          justify-content: space-around
+    &.active
+      background: $c-white
+      color: $c-primary-txt
+
+    &.disconnect
+      background: $c-secondary
