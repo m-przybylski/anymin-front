@@ -1,5 +1,5 @@
 (function() {
-
+  /*@ngInject*/
   function controllerFunction($scope, EmploymentApi, DialogService, AppServiceProviderImageResolver) {
 
     let _isPending = false
@@ -61,7 +61,7 @@
     bindings: {
       invitation: '<'
     },
-    controller: ['$scope', 'EmploymentApi', 'DialogService', controllerFunction],
+    controller: controllerFunction,
     controllerAs: 'vm'
   }
 

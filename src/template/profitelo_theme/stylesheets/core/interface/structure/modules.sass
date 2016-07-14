@@ -1,0 +1,44 @@
+.main-container
+  background: $c-background-2
+
+.box-list
+  background: $c-white
+  box-shadow: 0 2px 2px 1px $c-lines
+  margin: 0 0 32px
+
+  .box-header
+    border-bottom: 1px solid $c-lines
+    padding: 32px 16px
+
+    +xsm
+      padding: 32px
+
+    +smm
+      padding: 48px 32px
+
+    +mdm
+      display: flex
+      justify-content: space-between
+      align-items: center
+
+    .box-status
+      margin: 16px 0 0
+
+      +smm
+        margin: 32px 0 0
+
+      +mdm
+        margin: 0
+
+      button
+        width: 100%
+        margin: 16px 0 0
+
+        +smm
+          margin: 0 16px 0 0
+          width: inherit
+
+
+.read-more
+  padding: 32px 0 64px 0
+  text-align: center

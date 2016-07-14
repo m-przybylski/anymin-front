@@ -1,21 +1,24 @@
 .pro-summary-tag
-  h6
+  padding: 16px
+
+  +xsm
+    padding: 32px 32px 16px
+
+  h4.title-row
+    +default-font-heavy
+    margin: 0 0 32px 0
     text-transform: uppercase
 
-  .tags
-    display: flex
-    flex-direction: row
-    flex-wrap: wrap
-    justify-content: flex-start
-    align-content: center
-    align-items: center
-    margin-bottom: 24px
+    span
+      margin: 0 0 0 4px
+      color: $c-secondary-txt
 
-    p
-      border: 1px solid $c-lines
-      padding: 4px 8px
-      margin: 4px
-      font-size: $f-h6-size
-      font-weight: bold
-      text-transform: uppercase
-      +border-radius('0.4em')
+  .slider-tag
+    display: block
+
+    li
+      display: inline-block
+      margin: 0 16px 16px 0
+
+      a
+        border-radius: 0

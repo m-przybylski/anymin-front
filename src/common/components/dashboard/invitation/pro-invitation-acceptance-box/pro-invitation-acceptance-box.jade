@@ -1,7 +1,17 @@
-.pro-invitation-acceptance-box.clearfix
-  .description.pull-left
+.pro-invitation-acceptance-box.box-list  
+  .box-header
     h3(data-ng-bind="vm.invitation.details.name")
-    pro-summary-tag(data-tags="vm.invitation.details.tags")
-  .buttons.pull-right
-    button.pro-btn(data-ng-click="vm.reject(vm.invitation.id)" data-translate="DASHBOARD.INVITATION.REJECT")
-    button.pro-btn.btn-main(data-ng-click="vm.accept(vm.invitation.id)" data-translate="DASHBOARD.INVITATION.ACCEPT")
+
+    .box-status
+      button.pro-button.rectangle.error.icon(data-ng-click="vm.reject(vm.invitation.id)")
+        span.icon.icon-heart-16
+        | {{ "DASHBOARD.INVITATION.REJECT" | translate }}
+        
+      button.pro-button.rectangle.succes.icon(data-ng-click="vm.accept(vm.invitation.id)")
+        span.icon.icon-heart-16
+        | {{ "DASHBOARD.INVITATION.ACCEPT" | translate }}
+  
+  pro-summary-tag(data-tags="vm.invitation.details.tags")
+
+.read-more
+  a.pro-button.rectangle.default(src="#") {{ "COMMON.DIRECTIVES.PRO_EXPERT_PROFILE.GO_TO_PROFILE_EXPERT" | translate }}
