@@ -1,5 +1,6 @@
 (function() {
 
+  /*@ngInject*/
   function controllerFunction($scope) {
 
     
@@ -25,12 +26,13 @@
     replace: true,
     templateUrl:    'components/communicator/pro-bottom-communicator/pro-bottom-communicator.tpl.html',
     controllerAs: 'vm',
-    controller: ['$scope', controllerFunction]
+    controller: controllerFunction
   }
 
   angular.module('profitelo.components.communicator.pro-bottom-communicator', [
     'pascalprecht.translate',
-    'profitelo.components.communicator.pro-videochat.pro-video-controls'
+    'profitelo.components.communicator.pro-text-chat',
+    'profitelo.components.communicator.pro-video-chat'
   ])
     .component('proBottomCommunicator', proBottomCommunicator)
 
