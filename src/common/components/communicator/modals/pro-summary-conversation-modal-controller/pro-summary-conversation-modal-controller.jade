@@ -1,0 +1,29 @@
+.pro-chat-message-modal.summary-conversation.no-help.modal-checkbox
+	.modal-header
+		h4(data-translate="DASHBOARD.INVITATION.MODAL.SUMMARY_CONVERSATION")
+		a.modal-close.circle
+			span.icon.icon.icon-close-16
+
+	.modal-contents
+		.conversation-profile
+			img.thumb.circle(data-ng-src="{{ profile.avatar }}")
+			h5 {{ profile.name }}
+
+		.modal-description
+			p(data-translate="DASHBOARD.INVITATION.MODAL.SEND_NOTIFICATION_WHEN_AVAILABLE")
+
+			.conversation-stats
+				.conversation-timer
+					span.icon.icon.icon-heart-16
+					span.value {{ conversation.time }}
+				.conversation-counter
+					span.icon.icon.icon-heart-16
+					span.value {{ conversation.price }} PLN
+
+		strong(data-translate="DASHBOARD.INVITATION.MODAL.CONSULTATION_RANGE_NOT_HELP")
+
+		pro-textarea(ng-model="opinion", placeholder="{{'DASHBOARD.INVITATION.MODAL.ADD_YOUR_MESSAGE' | translate}}")
+
+		.modal-buttons
+			button.pro-button.rectangle.primary(data-ng-click="vm.dismissWindow()" data-translate="DASHBOARD.INVITATION.MODAL.BACK")
+			button.pro-button.rectangle.default(data-ng-click="vm.addOpinion()" data-translate="DASHBOARD.INVITATION.MODAL.ADD_OPINION")

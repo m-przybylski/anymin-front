@@ -1,13 +1,12 @@
 (function() {
 
   function ModalsController() {
-
   }
 
 
   angular.module('profitelo.controller.dashboard.modals', [
     'ui.router',
-    'profitelo.components.communicator.modals',
+    'profitelo.components.communicator.modal',
     'c7s.ng.userAuth'
   ])
   .config(function($stateProvider, UserRolesProvider) {
