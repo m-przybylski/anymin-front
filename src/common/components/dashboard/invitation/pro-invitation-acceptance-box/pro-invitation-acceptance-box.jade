@@ -2,16 +2,22 @@
   .box-header.flex-row
     p(data-ng-bind="vm.invitation.details.name")
 
-    .box-status
-      button.pro-button.rectangle.error.icon(data-ng-click="vm.reject(vm.invitation.id)")
-        span.icon.icon-heart-16
-        | {{ "DASHBOARD.INVITATION.REJECT" | translate }}
+    .box-status(data-ng-show="vm.employment.status === 'NEW'")
+      button.pro-button.rectangle.error.icon(data-ng-click="vm.reject(vm.employment.id)")
+        span.icon.icon-trash-24
+        | {{ ::"DASHBOARD.INVITATION.REJECT" | translate }}
 
-      button.pro-button.rectangle.succes.icon(data-ng-click="vm.accept(vm.invitation.id)")
-        span.icon.icon-heart-16
-        | {{ "DASHBOARD.INVITATION.ACCEPT" | translate }}
+      button.pro-button.rectangle.succes.icon(data-ng-click="vm.accept(vm.employment.id)")
+        span.icon.icon-success-12
+        | {{ ::"DASHBOARD.INVITATION.ACCEPT" | translate }}
 
-  pro-summary-tag(data-tags="vm.invitation.details.tags")
+    .box-status(data-ng-show="vm.employment.status === 'ACCEPTED'")
+      span.icon.icon-success-12.succes
+        | {{ ::"DASHBOARD.INVITATION.HAD_BEEN_ACCEPTED" | translate }}
 
-.read-more
-  a.pro-button.rectangle.default(src="#") {{ "COMMON.DIRECTIVES.PRO_EXPERT_PROFILE.GO_TO_PROFILE_EXPERT" | translate }}
+    .box-status(data-ng-show="vm.employment.status === 'REJECTED'")
+      span.icon.icon-trash-24.error
+        | {{ ::"DASHBOARD.INVITATION.HAD_BEEN_REJECTED" | translate }}
+
+  pro-summary-tag(data-tags="::vm.invitation.details.tags")
+

@@ -1,16 +1,17 @@
-(function() {
+(function () {
   /* @ngInject */
-  function controllerFunction($scope, EmploymentApi, DialogService, AppServiceProviderImageResolver) {
+  function controllerFunction($scope, EmploymentApi, DialogService) {
 
     let _isPending = false
-
+    
     this.accept = (employmentId) => {
 
       if (!_isPending) {
         _isPending = true
         EmploymentApi.postEmploymentsAccept({
           employmentId: employmentId
-        }).$promise.then((res) => {
+        }).$promise.then((response) => {
+          this.employment = response
           _isPending = false
         }, () => {
           _isPending = false
@@ -30,14 +31,15 @@
             _isPending = true
             EmploymentApi.postEmploymentsReject({
               employmentId: _employmentId
-            }).$promise.then((res) => {
+            }).$promise.then((response) => {
+              this.employment = response
               _isPending = false
             }, () => {
               _isPending = false
             })
           }
         }
-        
+
       })(employmentId)
 
       DialogService.openDialog({
@@ -45,7 +47,6 @@
         controller: 'proInvitationAcceptanceBoxModalController',
         templateUrl: 'components/dashboard/invitation/pro-invitation-acceptance-box/pro-invitation-acceptance-box-modal-controller.tpl.html'
       })
-
 
 
     }
@@ -59,7 +60,8 @@
     restrict: 'E',
     replace: true,
     bindings: {
-      invitation: '<'
+      invitation: '<',
+      employment: '<'
     },
     controller: controllerFunction,
     controllerAs: 'vm'

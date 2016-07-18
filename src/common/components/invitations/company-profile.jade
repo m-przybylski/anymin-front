@@ -2,7 +2,7 @@
   .header-container
     .title-row
       .title
-        h4(data-translate="DASHBOARD.INVITATION.TITLE_HEADER")
+        h4 {{ ::"DASHBOARD.INVITATION.TITLE_HEADER" | translate }}
       .close-button
         .btn-handler
           a(data-ui-sref="app.dashboard.start").pro-btn.btn-light.btn-icon
@@ -10,14 +10,14 @@
     .default-container
       .header-content
         .personal-info
-          img.circle.empty-avatar-placeholder(data-ng-src='{{ vm.profile.logoUrl }}' alt='{{ vm.profile.name }}')
-          h3 {{ vm.profile.name }}
+          img.circle.empty-avatar-placeholder(data-ng-src='{{ ::vm.profile.logoUrl }}' alt='{{ ::vm.profile.name }}')
+          h3 {{ ::vm.profile.name }}
   .header-container
     .default-container
       .header-content
         .quote-icon
           span.pro-btn.btn-icon.icon.icon-quote-24
           .description
-            p {{ vm.profile.description }}
+            p {{ ::vm.profile.description }}
           .more-icon
             span.pro-btn.btn-light.icon.icon-arrow-down-12
