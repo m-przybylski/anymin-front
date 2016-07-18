@@ -4,7 +4,7 @@
   function controllerFunction($scope) {
 
     
-    this.isHidden = false
+    this.isHidden = true
     
     $scope.$on('toggleChat', () => {
       this.isHidden = !this.isHidden
