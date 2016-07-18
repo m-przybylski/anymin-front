@@ -1,6 +1,6 @@
 (function() {
 
-  /*@ngInject*/
+  /* @ngInject */
   function controllerFunction($scope) {
 
     
