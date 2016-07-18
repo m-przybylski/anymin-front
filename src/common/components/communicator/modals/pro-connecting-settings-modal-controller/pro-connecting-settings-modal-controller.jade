@@ -1,0 +1,18 @@
+.pro-chat-message-modal.connecting-settings.modal-checkbox
+	.modal-header
+		h4(data-translate="DASHBOARD.INVITATION.MODAL.CONNECTION_SETTINGS")
+
+	.modal-contents
+		.conversation-video-profile
+			img.thumb(data-ng-src="{{ conversation.profile.avatar }}")
+
+		pro-dropdown(data-pro-model='vm.settings' data-label='Video' data-placeholder='DASHBOARD.INVITATION.MODAL.INTEGRATED_CAMERA'
+		data-pro-items="vm.settings.list" data-no-search)
+
+		.device-intensity
+			span.icon.icon.icon-heart-16
+			input
+
+		.modal-buttons
+			button.pro-button.rectangle.primary(data-ng-click="vm.dismissWindow()" data-translate="DASHBOARD.INVITATION.MODAL.BACK")
+			button.pro-button.rectangle.default(data-ng-click="vm.saveSettings()" data-translate="DASHBOARD.INVITATION.MODAL.ADD_COMMENT")

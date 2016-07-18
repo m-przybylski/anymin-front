@@ -1,0 +1,11 @@
+.pro-chat-message-modal.client-advice.modal-checkbox
+	.modal-header
+		h4(data-translate="DASHBOARD.INVITATION.MODAL.CLIENT_ADVICE")
+
+	.modal-contents
+		.modal-description
+			p(data-translate="DASHBOARD.INVITATION.MODAL.SEND_NOTIFICATION_WHEN_AVAILABLE")
+
+		.modal-buttons
+			button.pro-button.rectangle.error.icon(data-ng-click="vm.dismissWindow()" data-translate="DASHBOARD.INVITATION.REJECT")
+			button.pro-button.rectangle.succes.icon(data-ng-click="vm.pickUpCall()" data-translate="DASHBOARD.INVITATION.MODAL.PICK_UP_CALL")

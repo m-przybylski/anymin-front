@@ -1,4 +1,4 @@
-.pro-invitation-acceptance-box.box-list  
+.pro-invitation-acceptance-box.box-list
   .box-header
     h3(data-ng-bind="vm.invitation.details.name")
 
@@ -6,11 +6,11 @@
       button.pro-button.rectangle.error.icon(data-ng-click="vm.reject(vm.invitation.id)")
         span.icon.icon-heart-16
         | {{ "DASHBOARD.INVITATION.REJECT" | translate }}
-        
+
       button.pro-button.rectangle.succes.icon(data-ng-click="vm.accept(vm.invitation.id)")
         span.icon.icon-heart-16
         | {{ "DASHBOARD.INVITATION.ACCEPT" | translate }}
-  
+
   pro-summary-tag(data-tags="vm.invitation.details.tags")
 
 .read-more
