@@ -1,6 +1,6 @@
 (function() {
 
-  function proConnectingSettingsModalController($scope, $uibModalInstance, $state) {
+  function proConnectingSettingsModalController($scope, $uibModalInstance) {
 
     this.saveSettings = () => {
       $uibModalInstance.dismiss('cancel')

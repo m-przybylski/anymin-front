@@ -1,6 +1,6 @@
 (function() {
 
-  function proConversationHelpfulModalController($scope, $uibModalInstance, $state) {
+  function proConversationHelpfulModalController($scope, $uibModalInstance) {
 
     this.accept = () => {
       $uibModalInstance.dismiss('cancel')

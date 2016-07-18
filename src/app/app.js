@@ -256,7 +256,6 @@
     'profitelo.controller.dashboard.service-provider.summary.company',
     'profitelo.controller.dashboard.service-provider.summary.individual',
 
-    'profitelo.controller.dashboard.modals',
 
     'profitelo.controller.home',
     'profitelo.controller.expert-profile',

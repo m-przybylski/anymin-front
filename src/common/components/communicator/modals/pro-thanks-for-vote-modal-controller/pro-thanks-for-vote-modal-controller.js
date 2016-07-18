@@ -1,10 +1,9 @@
 (function() {
 
-  function proThanksForVoteModalController($scope, $uibModalInstance, $state) {
+  function proThanksForVoteModalController($scope, $uibModalInstance) {
 
     this.goToSearchList = () => {
       $uibModalInstance.dismiss('cancel')
-      $state.go('app.dashboard.start')
     }
 
 
