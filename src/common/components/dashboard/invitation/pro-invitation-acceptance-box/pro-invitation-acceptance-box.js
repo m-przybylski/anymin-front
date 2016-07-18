@@ -1,5 +1,5 @@
 (function() {
-  /*@ngInject*/
+  /* @ngInject */
   function controllerFunction($scope, EmploymentApi, DialogService, AppServiceProviderImageResolver) {
 
     let _isPending = false

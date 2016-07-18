@@ -243,7 +243,6 @@
     // controllers
     'profitelo.controller.dashboard',
     'profitelo.controller.dashboard.start',
-    'profitelo.controller.dashboard.videochat',
     'profitelo.controller.dashboard.invitation',
 
     'profitelo.controller.dashboard.service-provider',
@@ -276,6 +275,9 @@
     'profitelo.directives.pro-top-alert-service',
     'profitelo.directives.page-title',
     'profitelo.directives.pro-masonry',
+
+    // components
+    'profitelo.components.communicator.pro-bottom-communicator',
 
     // translations
     'profitelo.translations.en-us',

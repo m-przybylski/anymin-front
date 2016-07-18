@@ -1,0 +1,15 @@
+.pro-bottom-communicator(data-ng-class="{'full-screen': vm.isFullScreenMode, 'is-hidden': vm.isHidden}")
+  .expert-camera-preview
+    button(data-ng-click="vm.toggleFullScreen()") Full Screen
+  .controls
+    .meta
+      .user
+        img(src="avarat")
+        span Jan Kowalski
+      .call-status
+        .time
+          | 17:29
+        .cost
+          | 58,89 PLN
+
+    pro-video-chat()

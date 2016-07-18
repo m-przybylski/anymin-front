@@ -1,0 +1,55 @@
+.pro-bottom-communicator
+
+  $base-height: 25 * 8px
+
+  +transition(height 0.3s, margin 0.3s)
+  display: flex
+  background: $c-white
+  width: 100%
+  position: fixed
+  bottom: 0
+  z-index: 999
+  border-top: 2px solid #000
+  height: $base-height
+
+  &.full-screen
+    height: 100vh
+    border: none
+
+  &.is-hidden
+    margin-bottom: -$base-height
+
+  .expert-camera-preview
+    flex: 2 0
+    position: relative
+    background: red
+
+    button
+        position: absolute
+        right: 16px
+        top: 16px
+
+  .controls
+    flex: 10 0
+
+
+  .btn-player
+    background: none
+    width: $base-height / 2
+    height: $base-height / 2
+    display: flex
+    align-items: center
+    justify-content: center
+    color: $c-black
+    border: 1px solid $c-lines
+
+    &:hover
+      background: $c-white
+      color: $c-primary-txt
+
+    &.active
+      background: $c-white
+      color: $c-primary-txt
+
+    &.disconnect
+      background: $c-secondary
