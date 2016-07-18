@@ -7,17 +7,22 @@ describe('Unit tests: app>', () => {
     let _InterfaceLanguageService
     let _httpBackend
     let _state
-
+    let _commonConfigData
+    let _CommonConfig
     let _url = 'http://api.dev.profitelo.pl'
+    let resourcesExpectations
 
     beforeEach(() => {
       module('profitelo')
       inject(($rootScope, $controller, $injector, _InterfaceLanguageService_) => {
         $scope = $rootScope.$new()
 
+        _CommonConfig = $injector.get('CommonConfig')
         _httpBackend = $injector.get('$httpBackend')
         _state = $injector.get('$state')
-        
+
+        _commonConfigData = _CommonConfig.getAllData()
+
         AppController = $controller('AppController', {
           $scope: $scope,
           $rootScope: $rootScope,
@@ -26,6 +31,15 @@ describe('Unit tests: app>', () => {
         _InterfaceLanguageService = _InterfaceLanguageService_
         
         _InterfaceLanguageService.setLanguage(_InterfaceLanguageService.getStartupLanguage())
+
+        resourcesExpectations = {
+          Session: {
+            deleteSession: _httpBackend.when('DELETE', _commonConfigData.urls['backend'] + '/session'),
+            getSession: _httpBackend.when('GET', _commonConfigData.urls['backend'] + '/session')
+          }
+        }
+
+
       })
     })
 
@@ -35,16 +49,15 @@ describe('Unit tests: app>', () => {
 
     it('should start logout action if not pending', () => {
 
-      _httpBackend.when('GET', _url + '/session').respond(200, {
+      resourcesExpectations.Session.getSession.respond(200, {
         user: {
           apiKey: '123'
         }
       })
 
       spyOn(_state, 'go')
-      let session = _httpBackend.when('DELETE', _url + '/session')
 
-      session.respond(200)
+      resourcesExpectations.Session.deleteSession.respond(200)
 
       AppController.logout()
       _httpBackend.flush()

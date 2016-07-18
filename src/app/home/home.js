@@ -43,7 +43,8 @@
     'profitelo.directives.pro-expert-card',
     'profitelo.directives.pro-expert-see-more',
     'profitelo.directives.pro-advice-tile',
-    'profitelo.directives.pro-news-tile'
+    'profitelo.directives.pro-news-tile',
+    'profitelo.directives.pro-search-dropdown'
   ])
     .config(($stateProvider, UserRolesProvider) => {
       $stateProvider.state('app.home', {

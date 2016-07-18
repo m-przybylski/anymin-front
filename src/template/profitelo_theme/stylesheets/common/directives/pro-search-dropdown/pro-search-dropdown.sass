@@ -1,0 +1,110 @@
+.search-bar-container
+  position: relative
+
+input[type="text"].search-bar-shadow,
+input[type="text"].search-bar
+  padding: 22px 20px 18px 60px
+  font-size: $f-paragraph
+  width: 100%
+  z-index: 1
+  position: relative
+  border-bottom: 1px solid $c-lines
+  box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.1)
+
+input[type="text"].search-bar-shadow
+  position: absolute
+  color: $c-input
+  background: $c-white  url('/assets/images/search.svg') no-repeat left 20px top 50% / 22px 22px
+
+input[type="text"].search-bar
+  background: transparent
+
+.dropdown-container
+  background: $c-white
+  z-index: 1
+  position: absolute
+  width: 100%
+  display: block
+  +lgm
+    width: 100%
+  &.collapsed
+    display: none
+  .dropdown-default
+    padding: 24px 16px
+    &:not(:last-of-type)
+     border-bottom: 1px solid $c-lines
+    .search-query
+      color: $c-primary-txt
+      margin-right: 20px
+    .search-query-cat
+      .choose-category
+        font-size: $f-paragraph
+        color: $c-secondary-txt
+        margin: 0
+        padding: 8px 16px
+    .search-sugesstions
+      .query-suggestion
+        margin: 0
+        padding: 8px 16px
+    .search-category
+      +default-font-heavy
+      font-size: $f-base
+      text-transform: uppercase
+      padding: 16px
+    .consultations-box
+      .consultation-item
+        padding: 16px
+        flex-flow: row wrap
+        +mdm
+          flex-flow: row nowrap
+        .expert-box
+          max-width: 296px
+          width: 100%
+          padding-right: 16px
+          align-items: center
+          .expert-avatar
+            margin-right: 16px
+          .expert-name
+            +default-font-heavy
+            font-size: $f-base
+          .expert-status
+            margin: 0
+          .expert-availability
+            margin: 0
+        .service-description
+          color: $c-secondary-txt
+          width: auto
+          overflow: hidden
+          white-space: nowrap
+          text-overflow: ellipsis
+          .service-tag
+            color: $c-primary-txt
+    .experts-box
+      .expert-profile
+        padding: 16px
+        flex: 0 0 100%
+        align-items: center
+        +xsm
+          flex: 0 0 50%
+        +mdm
+          flex: 0 0 25%
+      .expert-data
+        justify-content: center
+      .expert-avatar
+        margin-right: 16px
+      .expert-category
+        text-transform: uppercase
+        margin: 0
+        color: $c-secondary-txt
+        font-size: $f-base
+  .category-counter
+    color: $c-secondary-txt
+    margin-left: 8px
+
+.consultation-item,
+.choose-category,
+.query-suggestion,
+.expert-profile
+  cursor: pointer
+  &:hover
+    background: $c-background-2
