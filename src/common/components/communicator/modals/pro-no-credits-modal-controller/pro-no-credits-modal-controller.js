@@ -19,7 +19,8 @@
 
   angular.module('profitelo.components.communicator.modals.pro-no-credits-modal-controller', [
     'profitelo.swaggerResources',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'profitelo.services.service-provider-state'
 
   ])
       .controller('proNoCreditsModalController', proNoCreditsModalController)

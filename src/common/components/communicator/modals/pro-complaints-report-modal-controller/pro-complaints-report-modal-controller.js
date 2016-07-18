@@ -15,6 +15,7 @@
 
   angular.module('profitelo.components.communicator.modals.pro-complaints-report-modal-controller', [
     'profitelo.swaggerResources',
+    'profitelo.services.service-provider-state',
     'ui.bootstrap'
 
   ])
