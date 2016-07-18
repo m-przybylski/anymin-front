@@ -1,10 +1,10 @@
 .search-bar-container
   input.search-bar-shadow(type="text", disabled, data-ng-model="suggestions.primary")
-  input.search-bar(type="text", placeholder="{{'HOME.SEARCH_PLACEHOLDER' | translate}}", data-ng-model="q", data-ng-trim="false")
+  input.search-bar(type="text", placeholder="{{'HOME.SEARCH_PLACEHOLDER' | translate}}", data-ng-model-options="{debounce: 200}" data-ng-model="q", data-ng-trim="false")
   .dropdown-container(data-ng-class="{collapsed: collapsed}")
     .dropdown-default(data-ng-if="suggestions.terms.length")
       .search-query-cat
-        p.choose-category(data-ng-repeat="term in suggestions.terms")
+        p.choose-category(data-ng-repeat="term in suggestions.terms track by $index")
           span.search-query {{term.term}}
           span(data-ng-if="!!term.category")
             | {{'SEARCH.IN_CATEGORY' | translate}}
@@ -12,14 +12,14 @@
           span(data-ng-if="!term.category") {{'SEARCH.IN_ALL_CATEGORIES' | translate}}
     .dropdown-default(data-ng-if="suggestions.tags.length")
       .search-sugesstions
-        p.query-suggestion(data-ng-repeat="tag in suggestions.tags")
+        p.query-suggestion(data-ng-repeat="tag in suggestions.tags track by $index")
           span.search-query(data-tag-id="{{tag.id}}") {{tag.name}}
     .dropdown-default(data-ng-if="suggestions.services.count")
       .search-category
         | {{'SEARCH.SERVICES' | translate}}
         span.category-counter ({{suggestions.services.count}})
       .consultations-box
-        .consultation-item.flex-row(data-ng-repeat="service in suggestions.services.results")
+        .consultation-item.flex-row(data-ng-repeat="service in suggestions.services.results track by $index")
           .expert-box.flex-row
             img.expert-avatar(src='http://placekitten.com/48/48')
             .expert-data
@@ -34,17 +34,17 @@
         | {{'SEARCH.EXPERTS' | translate}}
         span.category-counter ({{suggestions.experts.count}})
       .experts-box.flex-row.wrap
-        .expert-profile.flex-row(data-ng-repeat="expert in suggestions.experts.results")
+        .expert-profile.flex-row(data-ng-repeat="expert in suggestions.experts.results track by $index")
           img.expert-avatar(src='http://placekitten.com/48/48')
           .expert-data.flex-col
             p.expert-name {{expert.name}}
-            p.expert-category(data-ng-repeat="category in expert.categories") {{category}}
+            p.expert-category(data-ng-repeat="category in expert.categories track by $index") {{category}}
     .dropdown-default(data-ng-if="suggestions.organizations.count")
       .search-category
         | {{'SEARCH.ORGANIZATIONS' | translate}}
         span.category-counter ({{suggestions.organizations.count}})
       .experts-box.flex-row.wrap
-        .expert-profile.flex-row(data-ng-repeat="organization in suggestions.organizations.results")
+        .expert-profile.flex-row(data-ng-repeat="organization in suggestions.organizations.results track by $index")
           img.expert-avatar(src='http://placekitten.com/48/48')
           .expert-data.flex-col
             p.expert-name {{organization.name}}
