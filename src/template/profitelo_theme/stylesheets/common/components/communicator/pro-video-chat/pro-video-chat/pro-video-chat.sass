@@ -12,65 +12,6 @@
 
     &.pro-video-chat
       .pro-player
-        .videochat-details
-          background: $c-white
-          border-bottom: 1px solid $c-lines
-          box-shadow: 0 0 2px $c-lines
-          z-index: 99
-          position: fixed
-          left: 0
-          top: 0
-          width: 100%
-          min-height: 64px
-          padding: 0 16px
-
-          +lgm
-            background: none
-            border: none
-            box-shadow: none
-            position: static
-            padding: 0
-            min-height: inherit
-
-          .videochat-client-profile
-            h4, img
-              display: none
-
-              +lgm
-                display: block
-
-            .disconnect
-              display: block
-
-              +lgm
-                display: none
-
-          ul
-            li
-              color: $c-primary-txt
-
-              +lgm
-                color: $c-white
-
-          .videochat-counter
-            color: $c-primary-txt
-
-            +lgm
-              color: $c-white
-
-          .videochat-fullscreen
-            .full-screen
-              display: none
-
-              +lgm
-                display: block
-
-            .close-chat
-              display: block
-              color: $c-primary-txt
-
-              +lgm
-                display: none
 
   pro-video-chat
     +transition(flex 0.3s)
@@ -205,37 +146,3 @@
 
       +lgm
         right: 32px
-
-    .btn-player
-      display: block
-      background: rgba($c-black, 0.5)
-      width: 64px
-      height: 64px
-      display: flex
-      align-items: center
-      justify-content: center
-      color: $c-white
-
-      +xsm
-        width: 96px
-        height: 96px
-
-      +xsm-landscape
-        width: 64px
-        height: 64px
-
-      +smm
-        width: 64px
-        height: 64px
-
-
-      &:hover
-        background: $c-white
-        color: $c-primary-txt
-
-      &.active
-        background: $c-white
-        color: $c-primary-txt
-
-      &.disconnect
-        background: $c-secondary

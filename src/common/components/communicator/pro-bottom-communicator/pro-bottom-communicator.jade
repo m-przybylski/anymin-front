@@ -1,15 +1,32 @@
 .pro-bottom-communicator(data-ng-class="{'full-screen': vm.isFullScreenMode, 'is-hidden': vm.isHidden}")
   .expert-camera-preview
-    button(data-ng-click="vm.toggleFullScreen()") Full Screen
-  .controls
-    .meta
-      .user
-        img(src="avarat")
-        span Jan Kowalski
-      .call-status
-        .time
-          | 17:29
-        .cost
-          | 58,89 PLN
+    pro-video-chat()    
+  
+  
+  .videochat-details
+    .pro-video-chat-top-navbar
+      .videochat-client-profile
+        a.disconnect.circle.icon.icon-headphone-16
+        img.thumb.circle(src="/assets/images/no-avatar.jpg")
+        h4 Jan Kowalski
+        
+      .videochat-counter      
+        .videochat-client-timer
+          span.icon.icon-settings-24
+          ul.counter
+            li 00
+            li 07
+            li 29
 
-    pro-video-chat()
+        .videochat-price-counter
+          span.icon.icon-settings-24
+          | 5,89zł PLN
+        
+      .videochat-fullscreen
+        
+        button(data-ng-click="vm.toggleFullScreen()")
+          a.full-screen.circle.icon.icon-settings-24
+        
+    pro-video-controls()
+    
+    

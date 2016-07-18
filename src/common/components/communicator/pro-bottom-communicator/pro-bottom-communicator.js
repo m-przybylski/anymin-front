@@ -4,19 +4,19 @@
   function controllerFunction($scope) {
     
     this.isHidden = true
-    
+
     $scope.$on('toggleChat', () => {
       this.isHidden = !this.isHidden
     })
 
     this.isFullScreenMode = false
-    
+
     this.toggleFullScreen = () => {
-      this.isFullScreenMode = !this.isFullScreenMode  
+      this.isFullScreenMode = !this.isFullScreenMode
     }
-    
+
     return this
-    
+
   }
 
 
@@ -30,6 +30,7 @@
 
   angular.module('profitelo.components.communicator.pro-bottom-communicator', [
     'pascalprecht.translate',
+    'profitelo.components.communicator.pro-video-chat.pro-video-chat-top-navbar',
     'profitelo.components.communicator.pro-text-chat',
     'profitelo.components.communicator.pro-video-chat'
   ])
