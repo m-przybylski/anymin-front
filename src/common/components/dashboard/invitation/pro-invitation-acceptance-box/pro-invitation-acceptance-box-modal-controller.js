@@ -2,6 +2,10 @@
 
   function proInvitationAcceptanceBoxModalController($scope, $uibModalInstance) {
 
+    this.genericRejectReason = true
+    
+    this.otherReasonTextModel = ""
+    
     this.submitReasonForm = () => {
       $scope.$parent.vm.postEmploymentsReject()
       $uibModalInstance.dismiss('cancel')

@@ -2,7 +2,6 @@
 
   /* @ngInject */
   function controllerFunction($scope) {
-
     
     this.isHidden = true
     
