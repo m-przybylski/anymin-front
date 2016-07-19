@@ -1,16 +1,17 @@
 .pro-service-provider-profile
   .step.summary-step
     .btn-handler
-        a.summary-icon(data-ng-click="onClick()" data-ng-show="!!buttonAction")
-          span.icon.icon-edit-16
+      a.summary-icon(data-ng-click="onClick()" data-ng-show="!!buttonAction")
+        span.icon.icon-edit-16
     .summary-name
-        .summary-avatar(data-ng-show="!!avatar")
-            img(ng-src="{{avatar}}" alt='user-avatar')
-        .summary-firstname
-            .firstname-lastname(data-ng-show="!!name")
-                h2 {{name}}
-            .languages(data-ng-show="!!languages && languages.length > 0")
-                h6 {{"DASHBOARD.CREATE_PROFILE.PROFILE_LANGUAGE_HEADER" | translate}}
-                    span(data-ng-repeat="language in languages") &nbsp {{language}}
+      .summary-avatar(data-ng-show="!!avatar")
+        img(ng-src="{{avatar}}" alt='user-avatar')
+      .summary-firstname
+        .firstname-lastname(data-ng-show="!!name")
+          h2 {{name}}
+        .languages(data-ng-show="!!languages && languages.length > 0")
+          h6 {{"DASHBOARD.CREATE_PROFILE.PROFILE_LANGUAGE_HEADER" | translate}}
+            span(data-ng-repeat="language in languages") &nbsp {{language}}
     .summary-descriptions(data-ng-show="!!description")
-        p {{description}}
+      p(ng-bind-html="description | limitTo: textLimit")
+      a(data-ng-show="description.length > textLimit" data-ng-click="showMoreText()") ...
