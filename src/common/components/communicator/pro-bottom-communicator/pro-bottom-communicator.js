@@ -4,19 +4,21 @@
   function controllerFunction($scope) {
 
 
-    this.isVisible = true
-    this.showChat = true
+    this.isVisible = false
+    this.showChat = false
 
-    let _wasVisible = this.showChat
+    let _wasChatShown = false
 
     $scope.$on('toggleChat', () => {
 
-      if (_wasVisible && !this.isVisible) {
-        this.showChat = true
+      if (this.isVisible) {
+        _wasChatShown = this.showChat
+        this.showChat = false
+      } else {
+        this.showChat = _wasChatShown
       }
 
       this.isVisible = !this.isVisible
-      this.showChat = this.isVisible
 
 
     })
@@ -27,11 +29,9 @@
       this.isFullScreenMode = !this.isFullScreenMode
     }
 
-
     this.toggles = {
       chat: () => {
         this.showChat = !this.showChat
-        _wasVisible = this.showChat
       }
     }
 

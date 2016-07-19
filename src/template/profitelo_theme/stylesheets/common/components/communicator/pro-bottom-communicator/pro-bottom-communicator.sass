@@ -1,21 +1,26 @@
 $communicator-base-height: 208px
-
+$communicator-text-input-height: 80px
 .pro-bottom-communicator
+
+
+
+
+
   +transition(bottom 0.3s 0s)
   display: flex
   align-content: space-between
   background: $c-white
   width: 100%
   position: fixed
-  bottom: 0
+  bottom: -$communicator-base-height
   z-index: 999
-  height: 208px
+  height: $communicator-base-height
   border-top: 1px solid $c-lines
   box-shadow: 0 0 5px $c-lines
 
   &.is-visible
     +transition(bottom 0.3s 0s)
-    bottom: -100%
+    bottom: 0
 
   &::before
     content: " "
@@ -159,7 +164,7 @@ $communicator-base-height: 208px
   .pro-text-chat-container
     width: 300px
     margin-right: -300px
-    height: calc(100vh - #{$communicator-base-height})
+    height: calc(100vh - #{$communicator-base-height + $communicator-text-input-height})
     position: fixed
     top: 0
     right: 0
@@ -177,8 +182,11 @@ $communicator-base-height: 208px
         &:last-of-type
           padding-bottom: 40px
 
+
+
     .chat-input
       position: fixed
+      height: $communicator-text-input-height
       bottom: $communicator-base-height
       width: 100%
       z-index: 100

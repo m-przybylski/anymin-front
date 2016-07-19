@@ -1,8 +1,81 @@
 (function() {
 
-  function proTextChatComponentController($filter) {
+  /* @ngInject */
+  function proTextChatComponentController($filter, $element) {
 
-    this.messages = []
+    const _chatConversation = $($element).find('.chat-conversation')
+    const _proTextChat = $($element).find('.pro-text-chat')
+
+    this.messages = [
+      {
+      isUserMessage: true,
+      messageText: 'dkanfuwebow',
+      messageTime: '12:12'
+    },{
+      isUserMessage: true,
+      messageText: 'dkanfuwebow',
+      messageTime: '12:12'
+    },{
+      isUserMessage: true,
+      messageText: 'dkanfuwebow',
+      messageTime: '12:12'
+    },{
+      isUserMessage: true,
+      messageText: 'dkanfuwebow',
+      messageTime: '12:12'
+    },{
+      isUserMessage: true,
+      messageText: 'dkanfuwebow',
+      messageTime: '12:12'
+    },{
+      isUserMessage: true,
+      messageText: 'dkanfuwebow',
+      messageTime: '12:12'
+    },{
+      isUserMessage: true,
+      messageText: 'dkanfuwebow',
+      messageTime: '12:12'
+    },{
+      isUserMessage: true,
+      messageText: 'dkanfuwebow',
+      messageTime: '12:12'
+    },{
+      isUserMessage: true,
+      messageText: 'dkanfuwebow',
+      messageTime: '12:12'
+    },{
+      isUserMessage: true,
+      messageText: 'dkanfuwebow',
+      messageTime: '12:12'
+    },{
+      isUserMessage: true,
+      messageText: 'dkanfuwebow',
+      messageTime: '12:12'
+    },{
+      isUserMessage: true,
+      messageText: 'dkanfuwebow',
+      messageTime: '12:12'
+    },{
+      isUserMessage: true,
+      messageText: 'dkanfuwebow',
+      messageTime: '12:12'
+    },{
+      isUserMessage: true,
+      messageText: 'dkanfuwebow',
+      messageTime: '12:12'
+    },{
+      isUserMessage: true,
+      messageText: 'dkanfuwebow',
+      messageTime: '12:12'
+    },{
+      isUserMessage: true,
+      messageText: 'dkanfuwebow',
+      messageTime: '12:12'
+    }]
+
+
+    _chatConversation.perfectScrollbar()
+
 
     let _isValidMessage = (message) => {
       return (angular.isDefined(message) && message !== null && message.length > 0)
@@ -27,6 +100,8 @@
           messageTime: '12:12'
         })
         this.newMessage = null
+        _proTextChat.scrollTop(_chatConversation.height() + 1000)
+        _chatConversation.perfectScrollbar('update')
       } else {
         // TODO Error Msg - Komunikat dla usera
       }
@@ -44,7 +119,7 @@
   let proTextChat = {
     transclude: true,
     templateUrl:    'components/communicator/pro-text-chat/pro-text-chat.tpl.html',
-    controller: ['$filter', proTextChatComponentController ],
+    controller: proTextChatComponentController,
     controllerAs: 'vm',
     bindings: {
       showChat: '<'
