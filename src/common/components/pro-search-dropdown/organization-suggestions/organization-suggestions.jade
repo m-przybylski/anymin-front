@@ -1,0 +1,12 @@
+.organization-suggestions
+  .dropdown-default(data-ng-if="vm.organizations.count")
+    .search-category
+      | {{'SEARCH.ORGANIZATIONS' | translate}}
+      span.category-counter ({{ vm.organizations.count }})
+    .experts-box.flex-row.wrap
+      .expert-profile.flex-row(data-ng-repeat="organization in vm.organizations.results track by $index")
+        img.expert-avatar(src='http://placekitten.com/48/48')
+        .expert-data.flex-col
+          p.expert-name {{ organization.name }}
+
+
