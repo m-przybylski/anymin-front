@@ -4,16 +4,35 @@
   function controllerFunction($scope) {
 
 
-    this.isVisible = false
+    this.isVisible = true
+    this.showChat = true
+
+    let _wasVisible = this.showChat
 
     $scope.$on('toggleChat', () => {
+
+      if (_wasVisible && !this.isVisible) {
+        this.showChat = true
+      }
+
       this.isVisible = !this.isVisible
+      this.showChat = this.isVisible
+
+
     })
 
     this.isFullScreenMode = false
 
     this.toggleFullScreen = () => {
       this.isFullScreenMode = !this.isFullScreenMode
+    }
+
+
+    this.toggles = {
+      chat: () => {
+        this.showChat = !this.showChat
+        _wasVisible = this.showChat
+      }
     }
 
     return this

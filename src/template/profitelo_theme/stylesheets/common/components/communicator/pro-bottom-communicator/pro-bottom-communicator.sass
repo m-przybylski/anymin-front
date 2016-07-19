@@ -121,6 +121,38 @@
       .pro-video-player
         height: 100%
 
+  .pro-text-chat-container
+    width: 300px
+    margin-right: -300px
+    height: calc(100vh - #{$communicator-base-height})
+    position: fixed
+    top: 0
+    right: 0
+    +transition(margin-right, 0.3s)
+
+    &.is-open
+      margin-right: 0px
+
+    .pro-text-chat
+      height: 100%
+      position: relative
+    .chat-conversation
+
+      pro-text-chat-message
+        &:last-of-type
+          padding-bottom: 40px
+
+
+
+    .chat-input
+      position: fixed
+      bottom: $communicator-base-height
+      width: 100%
+      z-index: 100
+
+
+
+
   &:not(.full-screen)
 
     +lgm
@@ -139,3 +171,6 @@
 
         &.disconnect
           background: $c-secondary
+
+
+

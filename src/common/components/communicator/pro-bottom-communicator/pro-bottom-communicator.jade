@@ -1,8 +1,7 @@
 .pro-bottom-communicator(data-ng-class="{'full-screen': vm.isFullScreenMode, 'is-visible': vm.isVisible}")
   .expert-camera-preview
     pro-video-chat()    
-  
-  
+
   .videochat-details
     .pro-video-chat-top-navbar
       .videochat-client-profile
@@ -27,6 +26,10 @@
         button.full-screen(data-ng-click="vm.toggleFullScreen()")
           a.circle.icon.icon-settings-24
         
-    pro-video-controls()
+    pro-video-controls(data-toggles="vm.toggles")
+
+  .pro-text-chat-container(data-ng-class="{'is-open': vm.showChat}")
+    pro-text-chat()
+
     
     
