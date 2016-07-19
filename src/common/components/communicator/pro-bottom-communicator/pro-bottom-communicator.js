@@ -2,11 +2,12 @@
 
   /* @ngInject */
   function controllerFunction($scope) {
-    
-    this.isHidden = true
+
+
+    this.isVisible = false
 
     $scope.$on('toggleChat', () => {
-      this.isHidden = !this.isHidden
+      this.isVisible = !this.isVisible
     })
 
     this.isFullScreenMode = false
