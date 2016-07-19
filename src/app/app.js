@@ -226,6 +226,7 @@
     'profitelo.controller.login.set-new-password',
     'profitelo.controller.login.confirm-email',
     'profitelo.controller.search-result',
+    'profitelo.controller.field',
 
 
     // directives

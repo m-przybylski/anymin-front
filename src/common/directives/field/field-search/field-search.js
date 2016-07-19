@@ -1,5 +1,5 @@
 (function() {
-  function searchFilters() {
+  function fieldSearch() {
     function linkFunction(scope, element, attrs) {
 
       scope.languagesList = [
@@ -30,23 +30,20 @@
     return {
       replace: true,
       restrict: 'E',
-      templateUrl: 'directives/search/search-filters/search-filters.tpl.html',
+      templateUrl: 'directives/field/field-search/field-search.tpl.html',
       scope: {
         model: '=',
-        tagClickAction: '=',
-        background: '='
+        tagClickAction: '='
       },
       link: linkFunction
     }
   }
 
-  angular.module('profitelo.directives.search.search-filters', [
-    'profitelo.directives.interface.pro-dropdown',
-    'profitelo.directives.interface.pro-range-slider',
-    'rzModule',
+  angular.module('profitelo.directives.field.field-search', [
+    // 'rzModule',
     'pascalprecht.translate',
     'profitelo.directives.pro-tags-slider',
     'profitelo.directives.interface.pro-switcher'
   ])
-    .directive('searchFilters', searchFilters)
+    .directive('fieldSearch', fieldSearch)
 }())
