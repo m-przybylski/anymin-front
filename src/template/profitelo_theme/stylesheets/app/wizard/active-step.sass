@@ -2,11 +2,6 @@
   background-color: $c-background-2
   border: 1px solid $c-lines
 
-  .upload-field
-    img
-      margin-top: 30px
-      max-height: 150px
-
   h3
     color: $c-primary-txt
     margin-bottom: 24px
@@ -16,54 +11,6 @@
       color: $c-secondary-txt
 
   .step-description
-    p
-      color: $c-primary
-      margin-top: 30px
-
-    span
+    .icon,
+    .step-counter
       color: $c-secondary-txt
-      font-size: 24px
-      margin-left: 16px
-      margin-top: 8px
-
-    .current-step-edit-icon
-      font-size: 24px
-      color: $c-secondary-txt
-
-    h5
-      +default-font-heavy
-      color: $c-secondary-txt
-      text-transform: uppercase
-      white-space: nowrap
-
-    .icon-warning
-      color: $c-primary
-
-  .step-content
-
-    .option
-
-      h5
-        color: $c-primary
-
-      span
-        color: $c-primary
-
-      &:hover
-        +transition('all 0.1s ease-in-out 0s')
-        background-color: $c-background
-
-        h5, span
-          color: $c-primary
-
-    .selected
-      box-shadow: 0 0 0 2px $c-primary-txt
-
-      h5, span
-        color: $c-primary-txt
-
-      &:hover
-        background-color: $c-primary
-
-        h5, span
-          color: $c-white

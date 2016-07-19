@@ -1,15 +1,16 @@
 block content
   .consultations-container.pro-service-provider-summary-step(data-ng-repeat="consultation in consultations")
     .step.summary-step
-      .btn-handler
-        a.summary-icon(data-ng-click="vm.deleteConsultation(consultation.id, $index)")
-            span.icon.icon-trash-24
-        a.summary-icon(data-ng-click="vm.editConsultation(consultation.id, consultation.details.name, consultation.details.price, consultation.details.tags, consultation.invitations, consultation.ownerEmployee)")
-            span.icon.icon-edit-16
-      .summary-step-title
-        h4 {{ consultation.details.name}}
-        h3 {{ consultation.details.price/100 | number:2 }}&nbsp
-          span(data-translate="DASHBOARD.CREATE_PROFILE.SUMMARY.CURRENCY")
+      .header-handler.flex-row
+        .summary-step-title
+          p {{ consultation.details.name}}
+          p.consultation-price {{ consultation.details.price/100 | number:2 }}&nbsp
+            span(data-translate="DASHBOARD.CREATE_PROFILE.SUMMARY.CURRENCY")
+        .btn-handler
+          a.pro-button.round.icon.primary(data-ng-click="vm.deleteConsultation(consultation.id, $index)")
+              span.icon.icon-trash-24
+          a.pro-button.round.icon.primary(data-ng-click="vm.editConsultation(consultation.id, consultation.details.name, consultation.details.price, consultation.details.tags, consultation.invitations, consultation.ownerEmployee)")
+              span.icon.icon-edit-16
       pro-summary-tag(
       data-title="DASHBOARD.CREATE_PROFILE.SUMMARY.CONSULTATION_TAGS"
       data-tags="consultation.details.tags")
@@ -19,4 +20,3 @@ block content
       data-tags="consultation.invitationTags" data-ng-if="consultation.invitationTags")
 
       .edit-consultation-form(ng-transclude ng-if="vm.currentEditConsultationId == consultation.id")
-

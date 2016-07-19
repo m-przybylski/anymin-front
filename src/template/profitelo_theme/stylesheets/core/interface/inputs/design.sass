@@ -70,6 +70,7 @@
       line-height: 16px
       width: 16px
       height: 16px
+      cursor: pointer
 
       +xsm
         visibility: visible
@@ -83,15 +84,17 @@
       height: 62px
       display: block
       width: 62px
-      right: -10px
-      margin-top: -10px
+      right: -8px
+      margin-top: -8px
       font-size: $f-h5-size
       text-align: center
       color: $c-primary-txt
-      border: 0
       border-bottom-right-radius: $border-radius-default
       border-top-right-radius: $border-radius-default
       cursor: pointer
+
+      .icon
+        color: $c-primary
 
       &.active-addon
         &:hover
@@ -106,7 +109,7 @@
         left: 50%
         transform: translate(-50%, -50%)
         text-transform: uppercase
-        font-size: $f-h5-size
+        font-size: $f-paragraph
         color: $c-secondary-txt
 
   &.invalid
@@ -115,8 +118,7 @@
     label
       color: $c-input-error
 
-    span
-      &.cross-addon
+    .cross-addon
         color: $c-input-error
 
   &.correct
@@ -124,20 +126,18 @@
       color: $c-primary-txt
       white-space: nowrap
 
-    span
-      &.cross-addon
+    .cross-addon
         color: $c-primary-txt
 
   &.disable
     label
       color: $c-input
 
-    span
-      &.cross-addon
+    .cross-addon
         color: $c-input
 
   span.elements-wrapper
-    span.cross-addon
+    .cross-addon
       right: 60px
 
   &.onFocus
@@ -189,6 +189,8 @@
       min-width: 101px
       margin-left: -1px
       overflow-x: hidden !important
+      width: 125px
+      margin-top: 0
 
       .gm-scrollbar.-vertical
         background-color: transparent

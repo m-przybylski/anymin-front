@@ -90,7 +90,7 @@
 
 .pro-button
   +default-font-heavy
-  +transition(background .2s linear, color .1s linear)
+  +transition(border-color .2s, background .2s linear, color .1s linear)
   +text-truncate
   border: none
   outline: none
@@ -117,7 +117,7 @@
     min-width: 180px
 
     &.icon
-      padding: 15px 32px 14px 52px
+      padding: 15px 32px 14px 64px
 
     .icon
       top: 50%
@@ -127,9 +127,6 @@
 
       &::before
         font-size: 16px
-
-    &.icon
-      padding: 15px 32px 14px 52px
 
     .icon
       top: 50%
@@ -146,14 +143,15 @@
     width: 64px
 
     .icon
-      width: 24px
-      height: 24px
+      width: 16px
+      height: 16px
       top: 50%
       left: 50%
       transform: translate(-50%, -50%)
+      line-height: 1px
 
       &::before
-        font-size: 24px
+        font-size: 16px
 
   &.default
     background: $c-primary-txt
@@ -171,6 +169,7 @@
 
     &:hover
       background: $c-primary-txt
+      border: 1px solid $c-primary-txt
       color: $c-white
 
   &.succes
@@ -255,3 +254,8 @@
       &:hover
         background: $c-white
         border-color: $c-lines
+
+.btn-handler
+  .pro-button
+    &:not(:last-of-type)
+      margin-right: 8px

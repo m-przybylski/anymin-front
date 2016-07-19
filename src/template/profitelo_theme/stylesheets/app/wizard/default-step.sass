@@ -1,9 +1,31 @@
+.step-description
+  display: flex
+  align-items: center
+  color: $c-success
+
+  .step-counter,
+  .icon
+    font-size: $f-paragraph
+    line-height: $f-paragraph
+    color: $c-success
+
+  .icon
+    width: 17px
+    height: 17px
+
+  .step-counter
+    text-transform: uppercase
+    margin-right: 16px
+
+
 .step
   color: $c-lines
   width: 100%
   position: relative
-  margin: 0 auto
+  margin: 0 auto 32px
   padding: 24px 32px
+  border: 1px solid $c-lines
+  border-radius: $border-radius-default
 
   +lgm
     max-width: 1104px
@@ -20,8 +42,8 @@
   .title-step
     width: 100%
     display: flex
-    flex-flow: column
     justify-content: space-between
+    align-items: flex-start
 
     +smm
       flex-flow: row
@@ -40,27 +62,6 @@
       +smm
         order: 0
         margin-top: 0
-
-  .step-description
-    display: flex
-    flex-direction: row
-    align-items: center
-    text-transform: uppercase
-
-    span
-      color: $c-secondary-txt
-      font-size: $f-h3-size
-      margin: 8px 0 0 16px
-
-    h5
-      color: $c-secondary-txt
-
-    &.done
-      span, p
-        color: $c-success
-
-    .icon-warning
-      color: $c-warning
 
   .step-content-column
     .upload-trash
@@ -134,57 +135,68 @@
     .document-container
       margin-bottom: 24px
 
+      .summary-list
+        font-size: $f-paragraph
+        color: $c-primary-txt
+        margin-bottom: 24px
+
       .links-last-step,
       .document-label-wrap
         display: flex
         margin: -8px
 
   .step-content
-    margin-top: 30px
     display: flex
-    flex-direction: column
-    flex-wrap: wrap
     justify-content: space-between
-    align-items: center
+    margin: 0 -8px
 
     +smm
       flex-direction: row
 
-    .option
-      +border-radius($-radius-4)
-      +transition(all 0.1s ease-in-out 0s)
-      background-color: $c-white
+    .service-option
+      border-radius: $border-radius-default
+      +transition(border .2s, color .2s, background .2s)
       border: 1px solid $c-lines
-      width: 100%
-      text-align: center
-      margin-top: 10px
-      margin-left: -1px
       cursor: pointer
-      padding: 20px 10px 0 10px
+      padding: 20px
+      display: flex
+      flex-flow: column
+      align-items: center
+      margin: 0 8px
+      flex: 0 1 50%
 
-      &:first-child
-        margin-top: -24px
+      &:hover
+        +transition('all 0.1s ease-in-out 0s')
+        background-color: $c-background
 
-        +smm
-          margin-top: 0
+        span, p
+          color: $c-primary
 
-      +smm
-        width: 48.6%
-        height: 256px
-        margin-top: 0
-        padding: 30px 10px 20px 10px
+      p
+        font-size: $f-main-subheader
 
       span
         font-size: $f-h2-size
+        color: $c-secondary-txt
 
-        +smm
-          font-size: $f-counter
-          padding-top: 22px
-
-      h5
+      p
         color: $c-secondary-txt
         text-transform: uppercase
         margin-top: $f-small
+
+      &.selected
+        border: 1px solid $c-primary-txt
+
+        span, p
+          color: $c-primary-txt
+
+        &:hover
+          background-color: $c-primary
+          border: 1px solid $c-primary
+
+          span, p
+            color: $c-white
+
 
   .step-control
     +smm
@@ -194,3 +206,17 @@
       button
         &:not(:last-of-type)
           margin-right: 16px
+
+.header-handler
+  justify-content: space-between
+  padding-bottom: 8px
+  border-bottom: 1px solid $c-lines
+  margin-bottom: 32px
+
+.summary-step-title
+  p
+    font-size: 24px
+
+  .consultation-price
+    +default-font-heavy
+    color: $c-black

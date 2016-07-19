@@ -1,6 +1,6 @@
 .pro-invitation-acceptance-box.box-list
-  .box-header
-    h3(data-ng-bind="vm.invitation.details.name")
+  .box-header.flex-row
+    p(data-ng-bind="vm.invitation.details.name")
 
     .box-status
       button.pro-button.rectangle.error.icon(data-ng-click="vm.reject(vm.invitation.id)")
