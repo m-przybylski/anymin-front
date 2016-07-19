@@ -1,148 +1,148 @@
-.pro-video-chat
-  overflow: hidden
-  display: flex
-
-  //chatVisible start
-  &.chatVisible
-    pro-video-chat
-      flex: 2 0 100%
-
-      +lgm
-        flex: 2 0 100%
-
-    &.pro-video-chat
-      .pro-player
-
-  pro-video-chat
-    +transition(flex 0.3s)
-    flex: 2 0 100%
-
-    +lgm
-      flex: 2 0 60%
-
-    +xlgm
-      flex: 2 0 75%
-
-  //chatVisible end
-
-  .pro-player
-    padding: 16px
-    width: 100%
-    height: 100vh
-    display: flex
-    flex-wrap: wrap
-    align-content: space-between
-    position: relative
-
-    +smm
-      padding: 32px
-
-    &::before
-      content: " "
-      position: absolute
-      left: 0
-      top: 0
-      height: 96px
-      width: 100%
-      +background-gradient(#000, rgba(#000, 0))
-
-    &::after
-      content: " "
-      position: absolute
-      left: 0
-      bottom: 0
-      height: 96px
-      width: 100%
-      +background-gradient(rgba(#000, 0), #000)
-      z-index: -1
-
-    .video-player
-      position: fixed
-      left: 0
-      top: 0
-      width: 100%
-      height: 100vh
-      z-index: -90
-
-    .videochat-details
-      +transition(flex 0.3s)
-      display: flex
-      flex: 1 0 100%
-      z-index: 1
-      justify-content: space-between
-      flex-wrap: wrap
-
-      .videochat-client-profile
-        display: flex
-        align-items: center
-        flex: 1 0
-
-        h4
-          +default-font-heavy
-          color: $c-white
-          margin: 0 0 0 16px
-          display: none
-
-          +smm
-            display: block
-
-      .disconnect
-        display: none
-
-      .videochat-counter
-        flex: 10 0
-        display: flex
-        align-items: center
-        justify-content: center
-        flex-wrap: wrap
-        color: $c-white
-        font-size: $f-h3-size
-
-        +xsm
-          flex-wrap: nowrap
-
-        .videochat-client-timer
-          display: flex
-          align-items: center
-          margin: 0 16px
-
-          ul
-            &.counter
-              display: flex
-
-              li
-                &::after
-                  content: ":"
-
-                &:last-child
-                  &::after
-                    content: none
-        .icon
-          margin: 0 8px 0 0
-
-          +smm
-            margin: 0 16px 0 0
-
-        .videochat-price-counter
-          display: flex
-          align-items: center
-          margin: 0 16px
-
-      .videochat-fullscreen
-        flex: 1 0
-        text-align: right
-        justify-content: flex-end
-        color: $c-white
-        display: flex
-        align-items: center
-
-        .close-chat
-          display: none
-
-    .videochat-client-current
-      position: absolute
-      right: 16px
-      top: 128px
-
-      +lgm
-        right: 32px
+// .pro-video-chat
+//   overflow: hidden
+//   display: flex
+//
+//   //chatVisible start
+//   &.chatVisible
+//     pro-video-chat
+//       flex: 2 0 100%
+//
+//       +lgm
+//         flex: 2 0 100%
+//
+//     &.pro-video-chat
+//       .pro-player
+//
+//   pro-video-chat
+//     +transition(flex 0.3s)
+//     flex: 2 0 100%
+//
+//     +lgm
+//       flex: 2 0 60%
+//
+//     +xlgm
+//       flex: 2 0 75%
+//
+//   //chatVisible end
+//
+//   .pro-video-player
+//     padding: 0
+//     width: 100%
+//     height: 100vh
+//     display: flex
+//     flex-wrap: wrap
+//     align-content: space-between
+//     position: relative
+//
+//     +smm
+//       padding: 32px
+//
+//     &::before
+//       content: " "
+//       position: absolute
+//       left: 0
+//       top: 0
+//       height: 96px
+//       width: 100%
+//       +background-gradient(#000, rgba(#000, 0))
+//
+//     &::after
+//       content: " "
+//       position: absolute
+//       left: 0
+//       bottom: 0
+//       height: 96px
+//       width: 100%
+//       +background-gradient(rgba(#000, 0), #000)
+//       z-index: -1
+//
+//     .video-player
+//       position: fixed
+//       left: 0
+//       top: 0
+//       width: 100%
+//       height: 100vh
+//       z-index: -90
+//
+//     .videochat-details
+//       +transition(flex 0.3s)
+//       display: flex
+//       flex: 1 0 100%
+//       z-index: 1
+//       justify-content: space-between
+//       flex-wrap: wrap
+//
+//       .videochat-client-profile
+//         display: flex
+//         align-items: center
+//         flex: 1 0
+//
+//         h4
+//           +default-font-heavy
+//           color: $c-white
+//           margin: 0 0 0 16px
+//           display: none
+//
+//           +smm
+//             display: block
+//
+//       .disconnect
+//         display: none
+//
+//       .videochat-counter
+//         flex: 10 0
+//         display: flex
+//         align-items: center
+//         justify-content: center
+//         flex-wrap: wrap
+//         color: $c-white
+//         font-size: $f-h3-size
+//
+//         +xsm
+//           flex-wrap: nowrap
+//
+//         .videochat-client-timer
+//           display: flex
+//           align-items: center
+//           margin: 0 16px
+//
+//           ul
+//             &.counter
+//               display: flex
+//
+//               li
+//                 &::after
+//                   content: ":"
+//
+//                 &:last-child
+//                   &::after
+//                     content: none
+//         .icon
+//           margin: 0 8px 0 0
+//
+//           +smm
+//             margin: 0 16px 0 0
+//
+//         .videochat-price-counter
+//           display: flex
+//           align-items: center
+//           margin: 0 16px
+//
+//       .videochat-fullscreen
+//         flex: 1 0
+//         text-align: right
+//         justify-content: flex-end
+//         color: $c-white
+//         display: flex
+//         align-items: center
+//
+//         .close-chat
+//           display: none
+//
+//     .videochat-client-current
+//       position: absolute
+//       right: 16px
+//       top: 128px
+//
+//       +lgm
+//         right: 32px

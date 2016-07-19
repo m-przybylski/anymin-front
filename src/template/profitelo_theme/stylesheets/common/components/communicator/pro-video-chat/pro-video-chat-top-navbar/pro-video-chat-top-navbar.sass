@@ -1,45 +1,76 @@
 .pro-video-chat-top-navbar
   display: flex
   justify-content: space-between
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
+
+  +lgm
+    position: static
 
   .videochat-client-profile
     display: flex
     align-items: center
     flex: 1
 
-    h4, img
+    h4
       display: none
 
       +lgm
+        margin: 0 0 0 16px
         display: block
 
-    .disconnect
-      display: block
+    .thumb
+      width: 48px
+      height: 48px
 
-      +lgm
-        display: none
+    .disconnect
+      display: none
 
   .videochat-counter
     display: flex
-    justify-content: center
+    justify-content: flex-end
     flex: 2
+
+    +lgm
+      justify-content: center
 
     .videochat-client-timer
       display: flex
       align-items: center
       margin: 0 8px
 
+      .icon
+        margin: 0 8px 0 0
+
       ul
         display: flex
+
+        li
+          &::after
+            content: ":"
+
+          &:last-child
+            &::after
+              content: none
 
     .videochat-price-counter
       display: flex
       align-items: center
       margin: 0 8px
 
+      .icon
+        margin: 0 8px 0 0
+
   .videochat-fullscreen
-    text-align: right
-    flex: 1
+    display: flex
+    align-items: center
+    justify-content: flex-end
+    flex: 0
+
+    +lgm
+      flex: 1
 
     .full-screen
       display: none

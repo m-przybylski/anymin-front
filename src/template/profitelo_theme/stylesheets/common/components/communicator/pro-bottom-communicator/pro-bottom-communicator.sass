@@ -6,19 +6,26 @@
   position: fixed
   bottom: 0
   z-index: 999
-  height: 192px
   border-top: 1px solid $c-lines
   box-shadow: 0 0 5px $c-lines
 
+  +lgm
+    height: 208px
+
   .pro-video-chat-top-navbar
+    padding: 16px
     flex: 1 0 100%
 
   .videochat-details
     +default-font-heavy
     +transition(all 0.3s)
-    background: $c-white
-    padding: 0 0 0 20vw
+    color: $c-white
     flex: 1
+
+    +lgm
+      color: inherit
+      padding: 0 0 0 20vw
+      background: $c-white
 
   .pro-video-chat
     pro-video-player
@@ -26,9 +33,14 @@
       position: fixed
       bottom: 0
       left: 0
-      width: 20vw
-      height: 192px
-      z-index: 1
+      width: 100vw
+      height: 100vh
+      z-index: -1
+
+      +lgm
+        width: 20vw
+        height: 208px
+        z-index: 1
 
       .pro-video-player
         height: 100%
@@ -37,20 +49,35 @@
     flex: 1 0 100%
 
     .pro-video-controls
-      padding: 16px 0
-      border-top: 1px solid $c-lines
+      padding: 0
+
+      +lgm
+        padding: 16px
+        border-top: 1px solid $c-lines
 
   &.is-hidden
-    margin-bottom: -192px
+    margin-bottom: -208px
 
     .expert-camera-preview
       pro-video-player
-        bottom: -192px
+        display: none
+
+        +lgm
+          display: block
+          bottom: -208px
+          overflow: hidden
+
+    .videochat-details
+      display: none
 
   &.full-screen
     +transition(height 0.3s)
     height: 100vh
     border: none
+
+    .pro-video-chat-top-navbar
+      +lgm
+        color: $c-white
 
     .videochat-details
       display: flex
@@ -79,7 +106,6 @@
     .pro-video-controls
       border: 0
 
-
     .videochat-details
       background: none
       padding: 0
@@ -94,18 +120,20 @@
         height: 100%
 
   &:not(.full-screen)
-    .btn-player
-      background: none
-      color: $c-black
-      border: 1px solid $c-lines
 
-      &:hover
-        background: $c-white
-        color: $c-primary-txt
+    +lgm
+      .btn-player
+        background: none
+        color: $c-black
+        border: 1px solid $c-lines
 
-      &.active
-        background: $c-white
-        color: $c-primary-txt
+        &:hover
+          background: $c-white
+          color: $c-primary-txt
 
-      &.disconnect
-        background: $c-secondary
+        &.active
+          background: $c-white
+          color: $c-primary-txt
+
+        &.disconnect
+          background: $c-secondary

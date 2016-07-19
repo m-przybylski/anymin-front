@@ -18,5 +18,6 @@
         | 5,89zł PLN
 
     .videochat-fullscreen
-      a.full-screen.circle.icon.icon-settings-24
+      button.full-screen(data-ng-click="vm.toggleFullScreen()")
+        a.circle.icon.icon-settings-24
       a.close-chat.circle.icon.icon-close-16(data-ng-click="chatSwitcher()")
