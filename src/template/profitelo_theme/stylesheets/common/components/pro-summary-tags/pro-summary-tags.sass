@@ -1,12 +1,8 @@
 .pro-summary-tag
-  padding: 16px
 
-  +xsm
-    padding: 32px 32px 16px
-
-  h4.title-row
+  .title-row
     +default-font-heavy
-    margin: 0 0 32px 0
+    margin: 0 0 16px 0
     text-transform: uppercase
 
     span
@@ -14,11 +10,19 @@
       color: $c-secondary-txt
 
   .slider-tag
-    display: block
+    margin: 0 -8px 16px
 
-    li
+    span
       display: inline-block
-      margin: 0 16px 16px 0
+      margin: 8px 6px
 
-      a
-        border-radius: 0
+.pro-tag
+  +default-font-heavy
+  border-radius: $border-radius-default
+  display: inline-block
+  font-size: $f-base
+  text-transform: uppercase
+  color: $c-primary-txt
+  padding: 8px 12px
+  background: $c-background
+  border: 1px solid $c-lines
