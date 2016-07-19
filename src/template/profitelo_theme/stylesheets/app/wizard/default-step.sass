@@ -146,48 +146,57 @@
         margin: -8px
 
   .step-content
-    margin-top: 30px
     display: flex
-
+    justify-content: space-between
+    margin: 0 -8px
 
     +smm
       flex-direction: row
 
-    .option
-      +border-radius($-radius-4)
-      +transition(all 0.1s ease-in-out 0s)
-      background-color: $c-white
+    .service-option
+      border-radius: $border-radius-default
+      +transition(border .2s, color .2s, background .2s)
       border: 1px solid $c-lines
-      width: 100%
-      text-align: center
-      margin-top: 10px
-      margin-left: -1px
       cursor: pointer
-      padding: 20px 10px 0 10px
+      padding: 20px
+      display: flex
+      flex-flow: column
+      align-items: center
+      margin: 0 8px
+      flex: 0 1 50%
 
-      &:first-child
-        margin-top: -24px
+      &:hover
+        +transition('all 0.1s ease-in-out 0s')
+        background-color: $c-background
 
-        +smm
-          margin-top: 0
+        span, p
+          color: $c-primary
 
-      +smm
-        width: 48.6%
-        height: 256px
-        margin-top: 0
-        padding: 30px 10px 20px 10px
+      p
+        font-size: $f-main-subheader
 
       span
         font-size: $f-h2-size
+        color: $c-secondary-txt
 
-        +smm
-          font-size: $f-counter
-          padding-top: 22px
-
-      h5
+      p
         color: $c-secondary-txt
         text-transform: uppercase
         margin-top: $f-small
+
+      &.selected
+        border: 1px solid $c-primary-txt
+
+        span, p
+          color: $c-primary-txt
+
+        &:hover
+          background-color: $c-primary
+          border: 1px solid $c-primary
+
+          span, p
+            color: $c-white
+
 
   .step-control
     +smm
