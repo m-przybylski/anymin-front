@@ -1,24 +1,50 @@
+$communicator-base-height: 208px
+
 .pro-bottom-communicator
-
-  $communicator-base-height: 192px
-
-  +transition(margin 0.3s 0s)
+  +transition(bottom 0.3s 0s)
   display: flex
+  align-content: space-between
   background: $c-white
   width: 100%
   position: fixed
   bottom: 0
   z-index: 999
-  height: $communicator-base-height
+  height: 208px
   border-top: 1px solid $c-lines
   box-shadow: 0 0 5px $c-lines
-  margin-bottom: -$communicator-base-height
 
   &.is-visible
-    margin-bottom: 0px
+    +transition(bottom 0.3s 0s)
+    bottom: -100%
+
+  &::before
+    content: " "
+    position: fixed
+    left: 0
+    top: 0
+    height: 96px
+    width: 100%
+    z-index: 0
+    +background-gradient(#000, rgba(#000, 0))
+
+  &::after
+    content: " "
+    position: fixed
+    left: 0
+    bottom: 0
+    height: 96px
+    width: 100%
+    z-index: 0
+    +background-gradient(rgba(#000, 0), #000)
 
   +lgm
     height: 208px
+
+    &::after
+      content: none
+
+    &::before
+      content: none
 
   .pro-video-chat-top-navbar
     padding: 16px
@@ -29,6 +55,9 @@
     +transition(all 0.3s)
     color: $c-white
     flex: 1
+    z-index: 1
+    align-self: flex-end
+    height: $communicator-base-height
 
     +lgm
       color: inherit
@@ -37,13 +66,18 @@
 
   .pro-video-chat
     pro-video-player
-      +transition(width 0.3s, height 0.3s, bottom 0.3s)
       position: absolute
       bottom: 0
       left: 0
-      width: 20vw
-      height: $communicator-base-height
-      z-index: 1
+      width: 100vw
+      height: 100vh
+      z-index: -1
+
+      +lgm
+        +transition(width 0.3s, height 0.3s, bottom 0.3s)
+        width: 20vw
+        height: 208px
+        z-index: 11
 
       .pro-video-player
         height: 100%
@@ -111,6 +145,7 @@
     .videochat-details
       background: none
       padding: 0
+      height: 100vh
       color: $c-white
 
     pro-video-player
@@ -142,16 +177,11 @@
         &:last-of-type
           padding-bottom: 40px
 
-
-
     .chat-input
       position: fixed
       bottom: $communicator-base-height
       width: 100%
       z-index: 100
-
-
-
 
   &:not(.full-screen)
 
