@@ -23,7 +23,7 @@
       let moveSlides = (-currentPossition * (containerWidth/userWindowWidth)) + (containerWidth / 2) - (itemWidth * 2)
       $element.css('margin-left', moveSlides).css('width', containerWidth)
     })
-    
+
     return this
   }
 
