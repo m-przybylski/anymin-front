@@ -1,7 +1,7 @@
 (function() {
   /* @ngInject */
-  function proSearchDropdownController($q, $scope, searchService, categoryService) {
-    const qInput = $('[data-ng-model="q"]')
+  function proSearchDropdownController($q, $scope, $element, searchService, categoryService) {
+    const qInput = $element.find('[data-ng-model="vm.q"]')[0]
 
     this.collapsed = true
     this.categorySlugs = {}
@@ -14,12 +14,14 @@
       organizations: {}
     }
 
-    $scope.$watch('q', () => {
-      if ($scope.q && $scope.q.length > 0) {
+    $scope.$watch(() => {
+      return this.q
+    }, () => {
+      if (this.q && this.q.length > 0) {
         this.collapsed = false
 
         $q.all([
-          searchService.suggest($scope.q),
+          searchService.suggest(this.q),
           categoryService.getCategorySlugs()
         ]).then((data) => {
           this.suggestions.terms = data[0].terms
@@ -47,7 +49,7 @@
   let proSearchDropdown = {
     transclude: true,
     templateUrl: 'components/pro-search-dropdown/pro-search-dropdown.tpl.html',
-    controller:  [proSearchDropdownController],
+    controller:  proSearchDropdownController,
     controllerAs: 'vm',
     bindings: {
     }
