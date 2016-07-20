@@ -2,7 +2,7 @@
   .box-header.flex-row
     p(data-ng-bind="vm.invitation.details.name")
 
-    .box-status(data-ng-show="vm.employment.status === 'NEW'")
+    .box-status(data-ng-show="vm.employment.status === 'NEW' && !vm.rejectTimeoutSet")
       button.pro-button.rectangle.error.icon(data-ng-click="vm.reject(vm.employment.id)")
         span.icon.icon-trash-24
         | {{ ::"DASHBOARD.INVITATION.REJECT" | translate }}
@@ -15,9 +15,10 @@
       span.icon.icon-success-12.succes
         | {{ ::"DASHBOARD.INVITATION.HAD_BEEN_ACCEPTED" | translate }}
 
-    .box-status(data-ng-show="vm.employment.status === 'REJECTED'")
+    .box-status(data-ng-show="vm.employment.status === 'REJECTED' || vm.rejectTimeoutSet")
       span.icon.icon-trash-24.error
         | {{ ::"DASHBOARD.INVITATION.HAD_BEEN_REJECTED" | translate }}
+      span(data-ng-show="vm.rejectTimeoutSet" data-ng-click="vm.abortRejection()") ( {{ ::"LOGIN.BACK" | translate }} )
 
   pro-summary-tag(data-tags="::vm.invitation.details.tags")
 

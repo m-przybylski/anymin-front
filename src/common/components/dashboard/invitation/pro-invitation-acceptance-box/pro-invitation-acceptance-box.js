@@ -1,9 +1,15 @@
-(function () {
+(function() {
+  
   /* @ngInject */
-  function controllerFunction($scope, EmploymentApi, DialogService) {
+  function controllerFunction($timeout, EmploymentApi) {
+
+    const _rejectTimeoutTime = 5000
 
     let _isPending = false
-    
+    let _rejectTimeout
+
+    this.rejectTimeoutSet = false
+
     this.accept = (employmentId) => {
 
       if (!_isPending) {
@@ -22,33 +28,33 @@
 
     this.reject = (employmentId) => {
 
-
-      ((id) => {
-        let _employmentId = id
-
-        this.postEmploymentsReject = () => {
-          if (!_isPending) {
-            _isPending = true
-            EmploymentApi.postEmploymentsReject({
-              employmentId: _employmentId
-            }).$promise.then((response) => {
-              this.employment = response
-              _isPending = false
-            }, () => {
-              _isPending = false
-            })
-          }
+      let _reject = () => {
+        if (!_isPending) {
+          _isPending = true
+          EmploymentApi.postEmploymentsReject({
+            employmentId: employmentId
+          }).$promise.then((response) => {
+            this.employment = response
+            _isPending = false
+            this.rejectTimeoutSet = false
+          }, () => {
+            _isPending = false
+            this.rejectTimeoutSet = false
+          })
         }
+      }
 
-      })(employmentId)
+      _rejectTimeout = $timeout(() => {
+        _reject()
+      }, _rejectTimeoutTime)
 
-      DialogService.openDialog({
-        scope: $scope,
-        controller: 'proInvitationAcceptanceBoxModalController',
-        templateUrl: 'components/dashboard/invitation/pro-invitation-acceptance-box/pro-invitation-acceptance-box-modal-controller.tpl.html'
-      })
+      this.rejectTimeoutSet = true
 
+    }
 
+    this.abortRejection = () => {
+      $timeout.cancel(_rejectTimeout)
+      this.rejectTimeoutSet = false
     }
 
     return this
@@ -70,10 +76,7 @@
 
   angular.module('profitelo.components.dashboard.invitation.pro-invitation-acceptance-box', [
     'profitelo.components.pro-summary-tag',
-    'profitelo.directives.interface.pro-input',
-    'profitelo.components.dashboard.invitation.pro-invitation-acceptance-box-modal-controller',
-    'profitelo.swaggerResources',
-    'profitelo.services.dialog-service'
+    'profitelo.swaggerResources'
   ])
     .component('proInvitationAcceptanceBox', proInvitationAcceptanceBox)
 
