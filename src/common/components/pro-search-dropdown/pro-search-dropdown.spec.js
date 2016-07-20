@@ -1,13 +1,24 @@
-describe('profitelo.directives.pro-search-dropdown', () => {
-  describe('for pro-search-dropdown directive >', () => {
+describe('Unit testing:profitelo.components.pro-search-dropdown', () => {
+  return describe('for pro-search-dropdown >', () => {
 
-    let scope = null
+    let element
     let rootScope
-    let compile = null
+    let compile
+    let scope
+    let componentController
+    let component
     let validHTML = '<pro-search-dropdown></pro-search-dropdown>'
     let httpBackend
     let SearchApiDef
     let CategoryApiDef
+
+    function create(html) {
+      rootScope = rootScope.$new()
+      let elem = angular.element(html)
+      let compiledElement = compile(elem)(rootScope)
+      rootScope.$digest()
+      return compiledElement
+    }
 
     beforeEach(module(($provide) => {
       $provide.value('apiUrl', '')
@@ -16,51 +27,41 @@ describe('profitelo.directives.pro-search-dropdown', () => {
 
     beforeEach(() => {
       module('templates-module')
-      module('profitelo.directives.pro-search-dropdown')
+      module('profitelo.components.pro-search-dropdown')
       module('profitelo.swaggerResources.definitions')
 
-      inject(($rootScope, $compile, $injector) => {
-        rootScope = $rootScope.$new()
+      inject(($rootScope, $compile, $injector, _$componentController_) => {
+        rootScope = $rootScope
+        componentController = _$componentController_
+        scope = $rootScope.$new()
         compile = $compile
-
         SearchApiDef = $injector.get('SearchApiDef')
         CategoryApiDef = $injector.get('CategoryApiDef')
-
         httpBackend = $injector.get('$httpBackend')
       })
+      component = componentController('proSearchDropdown', {$element: create(validHTML), $scope: scope}, {})
     })
 
-    function create(html) {
-      scope = rootScope.$new()
-
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
-      scope.$digest()
-      return compiledElement
-    }
-
-    it('should have a dummy test', () => {
+    it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
-    })
+    }))
 
-    it('should compile the directive', () => {
+    it('should compile the component', () => {
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
 
     it('should watch query', () => {
-      let el = create(validHTML)
-      let isoScope = el.isolateScope()
-
       httpBackend.whenRoute(SearchApiDef.searchSuggestions.method, SearchApiDef.searchSuggestions.url).respond(200, {})
       httpBackend.when(CategoryApiDef.listCategories.method, CategoryApiDef.listCategories.url).respond(200, [])
-
-      isoScope.q = 'foo'
-      isoScope.$digest()
-
+      component.q = 'foo'
+      rootScope.$digest()
       httpBackend.flush()
 
-      expect(isoScope.suggestions.primary).toEqual('foo test')
+
+      expect(component.suggestions.primary).toEqual('foo test')
     })
+
   })
 })
+

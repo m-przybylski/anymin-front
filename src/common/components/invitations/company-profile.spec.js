@@ -1,5 +1,5 @@
 describe('Unit testing: profitelo.components.invitations.company-profile', () => {
-  return describe('for company-profilecomponent >', () => {
+  return describe('for company-profile-component >', () => {
 
     let scope
     let rootScope
@@ -35,7 +35,7 @@ describe('Unit testing: profitelo.components.invitations.company-profile', () =>
       expect(true).toBeTruthy()
     }))
     
-    it('should compile the directive', () => {
+    it('should compile the component', () => {
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })

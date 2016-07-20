@@ -1,0 +1,13 @@
+.pro-search-dropdown
+  .search-bar-container
+    input.search-bar-shadow(type="text", disabled, data-ng-model="vm.suggestions.primary")
+    input.search-bar(type="text", placeholder="{{'HOME.SEARCH_PLACEHOLDER' | translate}}",
+    data-ng-model-options="{debounce: 200}" data-ng-model="vm.q", data-ng-trim="false")
+    .dropdown-container(data-ng-class="{collapsed: vm.collapsed}")
+
+      term-suggestions(data-terms="vm.suggestions.terms")
+      tag-suggestions(data-tags="vm.suggestions.tags")
+      service-suggestions(data-services="vm.suggestions.services")
+      expert-suggestions(data-experts="vm.suggestions.experts")
+      organization-suggestions(data-organizations="vm.suggestions.organizations")
+
