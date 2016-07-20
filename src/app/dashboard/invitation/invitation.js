@@ -3,9 +3,14 @@
 
   function InvitationController(pendingInvitations, companyLogo) {
 
-    this.invitations = pendingInvitations
 
-    this.invitations.organizationDetails.logoUrl = companyLogo
+    if (pendingInvitations.length > 0) {
+
+      this.invitations = pendingInvitations
+
+      this.invitations[0].organizationDetails.logoUrl = companyLogo
+
+    }
     
     
     return this
@@ -19,7 +24,7 @@
       templateUrl: 'dashboard/invitation/invitation.tpl.html',
       data: {
         access: UserRolesProvider.getAccessLevel('user'),
-        pageTitle: 'PAGE_TITLE.LOGIN.ACCOUNT'
+        pageTitle: 'PAGE_TITLE.INVITATIONS'
       },
       resolve: {
         pendingInvitations: ($q, $state, ProfileApi, User) => {
@@ -28,9 +33,9 @@
           /* istanbul ignore next */
           User.getStatus().then(() => {
             ProfileApi.getProfilesInvitations().$promise.then((response) => {
-              _deferred.resolve(response[0])
+              _deferred.resolve(response)
             }, () => {
-              _deferred.resolve(null)
+              _deferred.resolve([])
             })
           }, (error) => {
             $state.go('app.dashboard')
@@ -43,7 +48,11 @@
           return _deferred.promise
         },
         companyLogo: (AppServiceProviderImageResolver, pendingInvitations) => {
-          return AppServiceProviderImageResolver.resolve(pendingInvitations.organizationDetails.logo)
+          if (pendingInvitations.length > 0) {
+            return AppServiceProviderImageResolver.resolve(pendingInvitations[0].organizationDetails.logo)
+          } else {
+            return false
+          }
         }
       }
     })

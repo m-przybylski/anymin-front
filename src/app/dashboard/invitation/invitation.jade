@@ -1,5 +1,15 @@
-.main-container.invitation
-  company-profile(data-profile="vm.invitations.organizationDetails")
+.dashboard-invitation
+  .invitation-list(data-ng-show="vm.invitations.length > 0")
+    .main-container.invitation
+      company-profile(data-profile="::vm.invitations[0].organizationDetails")
 
-  .default-container
-    pro-invitation-acceptance-box(data-ng-repeat="invitation in vm.invitations.services track by $index" data-invitation="invitation")
+      .default-container
+        div(data-ng-repeat="invitation in vm.invitations[0].services")
+          pro-invitation-acceptance-box(data-ng-repeat="employment in invitation.employments | filter:{status: 'new'} track by $index" data-employment="::employment" data-invitation="::invitation")
+    .read-more
+      a.pro-button.rectangle.default() {{ ::"COMMON.DIRECTIVES.PRO_EXPERT_PROFILE.GO_TO_PROFILE_EXPERT" | translate }}
+
+  .no-invitations(data-ng-show="vm.invitations.length === 0")
+    h2 Brak zaproszeń
+    h3(data-ui-sref="app.dashboard.start")
+      a Cofnij
