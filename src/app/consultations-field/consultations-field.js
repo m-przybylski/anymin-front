@@ -1,18 +1,8 @@
 (function() {
-
-  function FieldController() {
-
+  function ConsultationsFieldController() {
     this.expertCard = [
       {
-        name: 'Ragnar Lodbrok',
-        status: 'available'
-      },
-      {
-        name: 'Penelope Cruz',
-        status: 'not-available'
-      },
-      {
-        name: 'Ragnar Lodbrok',
+        name: 'Pierwszy Slide',
         status: 'available'
       },
       {
@@ -28,26 +18,47 @@
         status: 'available'
       },
       {
+        name: 'Środkowy Slide',
+        status: 'available'
+      },
+      {
         name: 'Ragnar Lodbrok',
+        status: 'available'
+      },
+      {
+        name: 'Ragnar Lodbrok',
+        status: 'available'
+      },
+      {
+        name: 'Ragnar Lodbrok',
+        status: 'available'
+      },
+      {
+        name: 'Ragnar Lodbrok',
+        status: 'available'
+      },
+      {
+        name: 'Ostatni',
         status: 'available'
       }
     ]
 
+
     return this
   }
 
-
-  angular.module('profitelo.controller.field', [
+  angular.module('profitelo.controller.consultations-field', [
     'ui.router',
     'c7s.ng.userAuth',
     'profitelo.directives.field.field-search',
-    'profitelo.directives.pro-footer'
+    'profitelo.directives.pro-footer',
+    'profitelo.components.interface.mouse-slider'
   ])
     .config( function($stateProvider, UserRolesProvider) {
-      $stateProvider.state('app.field', {
-        url:          '/field/{fieldId:int}',
-        templateUrl:  'field/field.tpl.html',
-        controller:   'FieldController',
+      $stateProvider.state('app.consultations-field', {
+        url:          '/consultations-field/{fieldId:int}',
+        templateUrl:  'consultations-field/consultations-field.tpl.html',
+        controller:   'ConsultationsFieldController',
         controllerAs: 'vm',
         data : {
           access : UserRolesProvider.getAccessLevel('public'),
@@ -55,6 +66,6 @@
         }
       })
     })
-    .controller('FieldController', FieldController)
+    .controller('ConsultationsFieldController', ConsultationsFieldController)
 
 }())

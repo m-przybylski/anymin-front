@@ -2,13 +2,13 @@ describe('Unit tests: Field section >', () => {
   describe('Testing Controller: FieldController', () => {
 
     var $scope
-    var FieldController
+    var ConsultationsFieldController
 
     beforeEach(() => {
-      module('profitelo.controller.field')
+      module('profitelo.controller.consultations-field')
       inject(($rootScope, $controller, $state) => {
         $scope = $rootScope.$new()
-        FieldController = $controller('FieldController', {
+        FieldController = $controller('ConsultationsFieldController', {
           $scope: $scope,
           $rootScope: $rootScope,
           $state: $state
@@ -18,7 +18,7 @@ describe('Unit tests: Field section >', () => {
 
 
     it('should exists', () => {
-      return expect(!!FieldController).toBe(true)
+      return expect(!!ConsultationsFieldController).toBe(true)
     })
 
   })

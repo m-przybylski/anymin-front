@@ -2,7 +2,7 @@ pro-top-navbar()
 
 field-search(data-model='vm.model' data-tag-click-action="vm.tagsClick" style="background: url('http://all4desktop.com/data_images/original/4238051-background.jpg') no-repeat top center")
 
-.flex-row.expert-card-to-up
+mouse-slider.flex-row(data-items="vm.expertCard" data-ng-transclude)
   pro-expert-card(data-ng-repeat="expert in vm.expertCard" data-ng-model="expert")
   
 .default-container

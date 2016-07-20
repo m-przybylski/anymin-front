@@ -38,14 +38,16 @@
       &:hover
         background: $c-primary-txt
 
-.expert-card-to-up
+.mouse-slider
   margin-top: -200px
+  width: 100%
+  z-index: 1000
 
   .expert-card
     &:hover
-      +transition('scale 1s ease-in-out 0s')
       -webkit-transform: scale(1.05)
       -moz-transform: scale(1.05)
       -ms-transform: scale(1.05)
       -o-transform: scale(1.05)
       transform: scale(1.05)
+      +transition('all 1s ease-in-out 0s')
