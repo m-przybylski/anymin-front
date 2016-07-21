@@ -1,19 +1,21 @@
 .pro-bottom-communicator
-  +transition(bottom 0.3s 0s)
+  +transition(bottom 0.3s)
   display: flex
   align-content: space-between
   background: $c-white
   width: 100%
   position: fixed
-  bottom: 0
-  z-index: 10
-  height: 100vh
+  bottom: -$communicator-base-height
+  z-index: 999
+  height: $communicator-base-height
   border-top: 1px solid $c-lines
   box-shadow: 0 0 5px $c-lines
+  overflow: hidden
 
   &.is-visible
-    +transition(bottom 0.3s 0s)
+    +transition(bottom 0.3s)
     bottom: 0
+    z-index: 10
 
   &::before
     content: " "
@@ -33,12 +35,12 @@
     height: 96px
     width: 100%
     z-index: 0
+    overflow: hidden
     +background-gradient(rgba(#000, 0), #000)
 
   +lgm
     bottom: -$communicator-base-height
     height: $communicator-base-height
-    height: 208px
 
     &::after
       content: none
@@ -62,6 +64,10 @@
       color: inherit
       padding: 0 0 0 20vw
       background: $c-white
+      overflow: visible
+
+    .videochat-counter
+
 
     .videochat-counter
 
@@ -160,6 +166,7 @@
       bottom: 0
 
     pro-video-player
+      +transition(padding 0.3s)
       height: 100vh
       width: 100vw
       z-index: -1
@@ -175,6 +182,8 @@
         +lgm
           padding: 0 $communicator-base-width 0 0
 
+      pro-video-player
+        padding: 0 $communicator-base-width 0 0
 
 
   &.is-open
