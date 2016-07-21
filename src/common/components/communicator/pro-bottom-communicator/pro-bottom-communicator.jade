@@ -1,4 +1,4 @@
-.pro-bottom-communicator(data-ng-class="{'full-screen': vm.isFullScreenMode, 'is-visible': vm.isVisible}")
+.pro-bottom-communicator(data-ng-class="{'full-screen': vm.isFullScreenMode, 'is-visible': vm.isVisible, 'is-open': vm.showChat }")
   .expert-camera-preview
     pro-video-chat()    
 
@@ -22,14 +22,14 @@
           | 5,89zł PLN
         
       .videochat-fullscreen
-        
+        a.close-chat(data-ng-click="vm.toggles.chat()")
+          span.icon.icon-settings-24
         button.full-screen(data-ng-click="vm.toggleFullScreen()")
           a.circle.icon.icon-settings-24
         
     pro-video-controls(data-toggles="vm.toggles")
 
-  .pro-text-chat-container(data-ng-class="{'is-open': vm.showChat}")
-    pro-text-chat()
+  pro-text-chat()
 
     
     

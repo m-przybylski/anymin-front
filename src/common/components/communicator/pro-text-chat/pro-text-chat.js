@@ -31,46 +31,6 @@
       isUserMessage: true,
       messageText: 'dkanfuwebow',
       messageTime: '12:12'
-    },{
-      isUserMessage: true,
-      messageText: 'dkanfuwebow',
-      messageTime: '12:12'
-    },{
-      isUserMessage: true,
-      messageText: 'dkanfuwebow',
-      messageTime: '12:12'
-    },{
-      isUserMessage: true,
-      messageText: 'dkanfuwebow',
-      messageTime: '12:12'
-    },{
-      isUserMessage: true,
-      messageText: 'dkanfuwebow',
-      messageTime: '12:12'
-    },{
-      isUserMessage: true,
-      messageText: 'dkanfuwebow',
-      messageTime: '12:12'
-    },{
-      isUserMessage: true,
-      messageText: 'dkanfuwebow',
-      messageTime: '12:12'
-    },{
-      isUserMessage: true,
-      messageText: 'dkanfuwebow',
-      messageTime: '12:12'
-    },{
-      isUserMessage: true,
-      messageText: 'dkanfuwebow',
-      messageTime: '12:12'
-    },{
-      isUserMessage: true,
-      messageText: 'dkanfuwebow',
-      messageTime: '12:12'
-    },{
-      isUserMessage: true,
-      messageText: 'dkanfuwebow',
-      messageTime: '12:12'
     }]
 
 
@@ -83,13 +43,14 @@
 
     let _interlocutorWritesMessage = () => {
       // TODO do zrobienia jak będzie backend
+      // Dodac klase do elementu p "writing" - animacja z 3ma spanami o clasie .circle
       this.messages.push({
         isUserMessage: false,
         messageText: '...',
         messageTime: $filter('translate')('COMMUNICATOR.TEXT_CHAT.WRITES_MESSAGE')
       })
     }
-    
+
     _interlocutorWritesMessage()
 
     this.sendMessage = () => {
@@ -97,7 +58,8 @@
         this.messages.push({
           isUserMessage: true,
           messageText: this.newMessage,
-          messageTime: '12:12'
+          messageTime: '12:12',
+          incommingMessage: true
         })
         this.newMessage = null
         _proTextChat.scrollTop(_chatConversation.height() + 1000)
@@ -106,7 +68,7 @@
         // TODO Error Msg - Komunikat dla usera
       }
     }
-    
+
     this.uploadFile = () => {
       // TODO files uploading jak będzie backend
     }

@@ -15,12 +15,13 @@
     flex: 0
 
     +xsm
-      flex: 1
+      flex: 0
 
     h4
       display: none
 
       +smm
+        +default-font-heavy
         margin: 0 0 0 16px
         display: block
 
@@ -32,9 +33,13 @@
       display: none
 
   .videochat-counter
+    +default-font-regular
     display: flex
     justify-content: flex-end
-    flex: 2
+    flex: 4
+
+    +xsm
+      font-size: $f-h3-size
 
     +lgm
       justify-content: center
@@ -74,7 +79,7 @@
     flex: 0
 
     +lgm
-      flex: 1
+      flex: 0
 
     .full-screen
       display: none
@@ -83,8 +88,4 @@
         display: block
 
     .close-chat
-      display: block
-      color: $c-primary-txt
-
-      +lgm
-        display: none
+      display: none

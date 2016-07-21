@@ -1,7 +1,13 @@
 .pro-video-controls
+  +transition(bottom 0.3s)
+  position: relative
+  bottom: 0
   display: flex
   flex: 1 0 100%
   justify-content: center
+
+  +lgm
+    position: static
 
   ul
     display: flex
