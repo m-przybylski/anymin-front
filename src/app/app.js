@@ -136,8 +136,8 @@
           return deferred.promise
         },
         browserType: () => {
-          if (navigator.userAgent.indexOf("MSIE") != -1 || !!document.documentMode == true) {
-            document.querySelector("body").classList.add("ie")
+          if (navigator.userAgent.indexOf('MSIE') !== -1 || !!document.documentMode === true) {
+            document.querySelector('body').classList.add('is-ie')
           }
           return true
         }
