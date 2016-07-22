@@ -120,53 +120,6 @@
         pageTitle: 'PAGE_TITLE.BASE'
       },
       resolve: {
-        typeKit: ($q, $timeout) => {
-          /* istanbul ignore next */
-          let deferred = $q.defer()
-          /* istanbul ignore next */
-          let backupTimer = $timeout(() => {
-            deferred.resolve()
-          })
-          /* istanbul ignore next */
-          let config = {
-              kitId: 'gxk2sou',
-              scriptTimeout: 3000,
-              async: true,
-              active: function() {
-                deferred.resolve()
-                $timeout.cancel(backupTimer)
-              }
-            },
-          /* istanbul ignore next */
-            h = document.documentElement, t = setTimeout(() => {
-              h.className = h.className.replace(/\bwf-loading\b/g, '') + ' wf-inactive'
-            }, config.scriptTimeout), tk = document.createElement('script'), f = false, s = document.getElementsByTagName('script')[0], a
-          /* istanbul ignore next */
-          h.className += ' wf-loading'
-          /* istanbul ignore next */
-          tk.src = 'https://use.typekit.net/' + config.kitId + '.js'
-          /* istanbul ignore next */
-          tk.async = true
-          /* istanbul ignore next */
-          tk.onload = tk.onreadystatechange = function() {
-            a = this.readyState
-            if (f || a && a !== 'complete' && a !== 'loaded') {
-              return
-            }
-            f = true
-            clearTimeout(t)
-            try {
-              Typekit.load(config)
-            } catch (e) {
-              deferred.resolve(e)
-              $timeout.cancel(backupTimer)
-            }
-          }
-          /* istanbul ignore next */
-          s.parentNode.insertBefore(tk, s)
-          /* istanbul ignore next */
-          return deferred.promise
-        },
         session: ($rootScope, $q, User) => {
           /* istanbul ignore next */
           let deferred = $q.defer()
@@ -181,6 +134,12 @@
           })
           /* istanbul ignore next */
           return deferred.promise
+        },
+        browserType: () => {
+          if (navigator.userAgent.indexOf("MSIE") != -1 || !!document.documentMode == true) {
+            document.querySelector("body").classList.add("ie")
+          }
+          return true
         }
       }
     })
