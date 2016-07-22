@@ -7,9 +7,6 @@
   position: fixed
   border-top: 1px solid $c-lines
 
-  +smm
-    width: calc(100% - 96px)
-
   .progress-bar
     +transition('all 1s ease-in-out 0s')
     height: 1px
@@ -23,10 +20,9 @@
     padding: 0 24px
     display: flex
     flex-direction: column
-    flex-wrap: nowrap
     justify-content: space-between
-    align-content: center
     align-items: center
+    min-height: 64px
 
     +smm
       flex-direction: row

@@ -2,8 +2,8 @@
   .focus-layer(data-ng-click="hideDiv=!vm.hasProfile; onClick()" data-ng-hide="hideDiv")
   .title-step
     .title-order
-      h3(data-translate="DASHBOARD.CREATE_PROFILE.STEP1_CHOOSE_PROFILE_TITLE")
-      p(data-translate="DASHBOARD.CREATE_PROFILE.STEP1_CHOOSE_PROFILE_DESCRIPTION")
+      h3.choose-path-title(data-translate="DASHBOARD.CREATE_PROFILE.STEP1_CHOOSE_PROFILE_TITLE")
+      p.choose-path-description(data-translate="DASHBOARD.CREATE_PROFILE.STEP1_CHOOSE_PROFILE_DESCRIPTION")
     div
       .step-description
         span.step-counter(data-translate="DASHBOARD.CREATE_PROFILE.STEP" data-translate-values="{step: 1, steps: vm.queue.amountOfSteps }")
