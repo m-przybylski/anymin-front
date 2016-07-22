@@ -8,30 +8,35 @@
 
     this.messages = [
       {
-      isUserMessage: true,
-      messageText: 'dkanfuwebow',
-      messageTime: '12:12'
-    },{
-      isUserMessage: true,
-      messageText: 'dkanfuwebow',
-      messageTime: '12:12'
-    },{
-      isUserMessage: true,
-      messageText: 'dkanfuwebow',
-      messageTime: '12:12'
-    },{
-      isUserMessage: true,
-      messageText: 'dkanfuwebow',
-      messageTime: '12:12'
-    },{
-      isUserMessage: true,
-      messageText: 'dkanfuwebow',
-      messageTime: '12:12'
-    },{
-      isUserMessage: true,
-      messageText: 'dkanfuwebow',
-      messageTime: '12:12'
-    }]
+        isUserMessage: true,
+        messageText: 'Testowa wiadomosc',
+        messageTime: '12:12'
+      },
+      {
+        isUserMessage: true,
+        messageText: 'Testowa wiadomosc',
+        messageTime: '12:12'
+      },
+      {
+        isUserMessage: true,
+        messageText: 'Testowa wiadomosc',
+        messageTime: '12:12'
+      },
+      {
+        isUserMessage: true,
+        messageText: 'Testowa wiadomosc',
+        messageTime: '12:12'
+      },
+      {
+        isUserMessage: true,
+        messageText: 'Testowa wiadomosc',
+        messageTime: '12:12'
+      },
+      {
+        isUserMessage: true,
+        messageText: 'Testowa wiadomosc',
+        messageTime: '12:12'
+      }]
 
 
     _chatConversation.perfectScrollbar()
