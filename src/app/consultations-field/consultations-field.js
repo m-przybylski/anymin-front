@@ -50,8 +50,8 @@
   angular.module('profitelo.controller.consultations-field', [
     'ui.router',
     'c7s.ng.userAuth',
-    'profitelo.directives.field.field-search',
     'profitelo.directives.pro-footer',
+    'profitelo.components.pro-search-dropdown',
     'profitelo.components.interface.mouse-slider'
   ])
     .config( function($stateProvider, UserRolesProvider) {

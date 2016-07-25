@@ -5,7 +5,7 @@
     let userWindowWidth = window.innerWidth
 
     let containerWidth
-    let countOfObject = this.items.length
+    let countOfObject = 10
     let elementsMap = []
     let itemWidth
 
@@ -15,17 +15,23 @@
       })
     })
 
-    $element.on('mousemove', function(event) {
+    $element.on('mouseenter', function(event) {
       itemWidth = elementsMap[0]
       containerWidth = itemWidth * countOfObject
       let leftOffset = $element[0].offsetLeft
-      let rightOffet = containerWidth + leftOffset - userWindowWidth
       let currentPossition = event.pageX
       let moveSlides = (-currentPossition * (containerWidth/userWindowWidth)) + (containerWidth / 2) - (itemWidth * 2)
-      $element.css('margin-left', moveSlides).css('width', containerWidth)
+      $element.css('width', containerWidth).animate({marginLeft: moveSlides}, 100, function() {
+        $element.on('mousemove', function(event) {
+          itemWidth = elementsMap[0]
+          containerWidth = itemWidth * countOfObject
+          let leftOffset = $element[0].offsetLeft
+          let currentPossition = event.pageX
+          let moveSlides = (-currentPossition * (containerWidth/userWindowWidth)) + (containerWidth / 2) - (itemWidth * 2)
+          $element.css('margin-left', moveSlides).css('width', containerWidth)
+        })
+      })
     })
-
-
     return this
   }
 

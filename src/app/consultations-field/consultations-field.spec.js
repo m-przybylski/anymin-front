@@ -1,5 +1,5 @@
 describe('Unit tests: Field section >', () => {
-  describe('Testing Controller: FieldController', () => {
+  describe('Testing Controller: ConsultationsFieldController', () => {
 
     var $scope
     var ConsultationsFieldController
@@ -8,7 +8,7 @@ describe('Unit tests: Field section >', () => {
       module('profitelo.controller.consultations-field')
       inject(($rootScope, $controller, $state) => {
         $scope = $rootScope.$new()
-        FieldController = $controller('ConsultationsFieldController', {
+        ConsultationsFieldController = $controller('ConsultationsFieldController', {
           $scope: $scope,
           $rootScope: $rootScope,
           $state: $state

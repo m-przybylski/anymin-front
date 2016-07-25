@@ -13,6 +13,34 @@
       {
         name: 'Ironman',
         status: 'busy'
+      },
+      {
+        name: 'Ragnar Lodbrok',
+        status: 'available'
+      },
+      {
+        name: 'Penelope Cruz',
+        status: 'not-available'
+      },
+      {
+        name: 'Ironman',
+        status: 'busy'
+      },
+      {
+        name: 'Ragnar Lodbrok',
+        status: 'available'
+      },
+      {
+        name: 'Penelope Cruz',
+        status: 'not-available'
+      },
+      {
+        name: 'Ironman',
+        status: 'busy'
+      },
+      {
+        name: 'Ironman',
+        status: 'busy'
       }
     ]
     this.newsTile = [
