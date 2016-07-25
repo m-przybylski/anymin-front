@@ -15,6 +15,19 @@ function proTagsDropdown($timeout) {
       scope.onClick = false
     }
 
+    scope.tagTransform = function (newTag) {
+      var item = {
+        name: newTag,
+      }
+
+      if (item.name.test(str)) {
+        return item
+      } else {
+        console.log('ERROR')
+      }
+
+    }
+
     scope.onFocus = ()=> {
       scope.focus = true
       scope.onClick = true
