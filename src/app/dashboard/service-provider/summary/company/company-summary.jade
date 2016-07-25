@@ -67,7 +67,7 @@
       data-button-label="DASHBOARD.CREATE_PROFILE.EDIT_CONSULTATION"
       )
 
-  div(data-ng-show="!!vm.expertProfile")
+  div(data-ng-if="!!vm.expertProfile")
       pro-service-provider-profile(
       data-name="vm.expertProfile.name"
       data-description="vm.expertProfile.description"

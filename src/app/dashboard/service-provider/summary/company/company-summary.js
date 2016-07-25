@@ -130,7 +130,8 @@
     'c7s.ng.userAuth',
     'profitelo.services.resolvers.app.service-provider-image-resolver',
     'profitelo.swaggerResources',
-    'profitelo.directives.interface.pro-alert'
+    'profitelo.directives.interface.pro-alert',
+    'profitelo.directives.service-provider.pro-service-provider-profile'
   ])
     .config(function($stateProvider, UserRolesProvider) {
       $stateProvider.state('app.dashboard.service-provider.summary.company', {
