@@ -1,15 +1,16 @@
 (function() {
 
   /* @ngInject */
-  function controllerFunction($scope) {
-
+  function controllerFunction($scope, proRatelService) {
+    
+    proRatelService.authenticate()
 
     this.isVisible = false
     this.showChat = false
 
     let _wasChatShown = false
-
-    $scope.$on('toggleChat', () => {
+    
+    let _toggleChat = () => {
 
       if (this.isVisible) {
         _wasChatShown = this.showChat
@@ -19,9 +20,10 @@
       }
 
       this.isVisible = !this.isVisible
-
-
-    })
+      
+    }
+    
+    $scope.$on('toggleChat', _toggleChat)
 
     this.isFullScreenMode = false
 
@@ -30,8 +32,20 @@
     }
 
     this.toggles = {
+      communicatorState: (isVisible) => {
+        this.isVisible = isVisible
+      },
+      communicator: () => {
+        this.isVisible = !this.isVisible
+      },
+      chatState: (showChat) => {
+        this.showChat = showChat
+      },
       chat: () => {
         this.showChat = !this.showChat
+      },
+      endCall: () => {
+        _toggleChat()
       }
     }
 
@@ -44,7 +58,7 @@
     transclude: true,
     replace: true,
     templateUrl:    'components/communicator/pro-bottom-communicator/pro-bottom-communicator.tpl.html',
-    controllerAs: 'vm',
+    controllerAs: 'proBottomCommunicatorController',
     controller: controllerFunction
   }
 
@@ -52,7 +66,8 @@
     'pascalprecht.translate',
     'profitelo.components.communicator.pro-video-chat.pro-video-chat-top-navbar',
     'profitelo.components.communicator.pro-text-chat',
-    'profitelo.components.communicator.pro-video-chat'
+    'profitelo.components.communicator.pro-video-chat',
+    'profitelo.services.pro-ratel-service'
   ])
     .component('proBottomCommunicator', proBottomCommunicator)
 

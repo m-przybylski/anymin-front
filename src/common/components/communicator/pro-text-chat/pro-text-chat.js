@@ -1,43 +1,59 @@
 (function() {
 
   /* @ngInject */
-  function proTextChatComponentController($filter, $element) {
+  function proTextChatComponentController($scope, $filter, $timeout, $element, $log, User, proRatelService) {
 
     const _chatConversation = $($element).find('.chat-conversation')
     const _proTextChat = $($element).find('.pro-text-chat')
 
-    this.messages = [
-      {
-        isUserMessage: true,
-        messageText: 'Testowa wiadomosc',
-        messageTime: '12:12'
-      },
-      {
-        isUserMessage: true,
-        messageText: 'Testowa wiadomosc',
-        messageTime: '12:12'
-      },
-      {
-        isUserMessage: true,
-        messageText: 'Testowa wiadomosc',
-        messageTime: '12:12'
-      },
-      {
-        isUserMessage: true,
-        messageText: 'Testowa wiadomosc',
-        messageTime: '12:12'
-      },
-      {
-        isUserMessage: true,
-        messageText: 'Testowa wiadomosc',
-        messageTime: '12:12'
-      },
-      {
-        isUserMessage: true,
-        messageText: 'Testowa wiadomosc',
-        messageTime: '12:12'
-      }]
+    this.messages = []
+    let _incommingSocket = null
+    let _roomId          = null
 
+    let _pushChatToBottom = () => {
+      _proTextChat.scrollTop(_chatConversation.height() + 1000)
+      _chatConversation.perfectScrollbar('update')
+    }
+
+    let _startConversation = (socket, roomId) => {
+
+      $log.info('Starting conversation')
+
+      this.toggles.chatState(true)
+      this.toggles.communicatorState(true)
+      _incommingSocket = socket
+      _roomId = roomId
+
+      proRatelService.getRoomHistory(_roomId, _incommingSocket).then(history => {
+        $timeout(() => {
+          this.messages = history
+          $timeout(() => {
+            _pushChatToBottom()
+          })
+        })
+      })
+    }
+
+    let _pushMessageObject = (message) => {
+      this.messages.push(message)
+      _pushChatToBottom()
+    }
+
+    $scope.$on('startConversation', (event, socket, roomId) => {
+      $timeout(() => {
+        _startConversation(socket, roomId)
+      })
+    })
+
+
+    proRatelService.onNewMessage(messagePayload => {
+
+      if(!_incommingSocket) {
+        _startConversation(messagePayload.socket, messagePayload.message.room)
+      }
+
+      _pushMessageObject(messagePayload.message)
+    })
 
     _chatConversation.perfectScrollbar()
 
@@ -56,19 +72,22 @@
       })
     }
 
-    _interlocutorWritesMessage()
+    // _interlocutorWritesMessage()
 
     this.sendMessage = () => {
       if (_isValidMessage(this.newMessage)) {
-        this.messages.push({
-          isUserMessage: true,
-          messageText: this.newMessage,
-          messageTime: '12:12',
+
+        let messageRawObject = {
+          sender: User.getData('id'),
+          body: this.newMessage,
+          timestamp: Date.now(),
           incommingMessage: true
-        })
+        }
+
+        proRatelService.sendNewMessage(this.newMessage, _roomId, _incommingSocket)
+
+        _pushMessageObject(messageRawObject)
         this.newMessage = null
-        _proTextChat.scrollTop(_chatConversation.height() + 1000)
-        _chatConversation.perfectScrollbar('update')
       } else {
         // TODO Error Msg - Komunikat dla usera
       }
@@ -89,14 +108,16 @@
     controller: proTextChatComponentController,
     controllerAs: 'vm',
     bindings: {
-      showChat: '<'
+      showChat: '<',
+      toggles: '='
     }
   }
 
   angular.module('profitelo.components.communicator.pro-text-chat', [
     'profitelo.components.communicator.pro-text-chat.chat-message',
     'profitelo.components.communicator.pro-text-chat.chat-input',
-    'pascalprecht.translate'
+    'pascalprecht.translate',
+    'c7s.ng.userAuth'
 
   ])
   .component('proTextChat', proTextChat)

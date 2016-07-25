@@ -56,6 +56,8 @@ module.exports = {
       'node_modules/moment/min/moment-with-locales.js', // include moment with all locales
       'node_modules/bootstrap-sass/assets/javascripts/bootstrap.js',
 
+      'node_modules/ratel-sdk-js/dist/ratel-sdk.js',
+
       'node_modules/angular/angular.js',
       'node_modules/angular-ui-router/release/angular-ui-router.js',
       'node_modules/angular-moment/angular-moment.js',
