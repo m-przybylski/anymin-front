@@ -8,7 +8,7 @@
       scope.model = {
         files: []
       }
-
+      scope.isPending = false
       if (angular.isDefined(scope.proModel) && angular.isDefined(scope.proModel.files)) {
         for (let i = 0; i < scope.proModel.files.length;i++) {
           FilesApi.fileInfoPath({token: scope.proModel.files[i]}).$promise.then((res)=>{
@@ -37,7 +37,7 @@
       let _isValid = () => {
         let _isValidDeferred = $q.defer()
 
-        if (angular.isDefined(scope.model.files) && scope.model.files.length > 0) {
+        if (angular.isDefined(scope.model.files) && scope.model.files.length > 0 && !scope.isPending) {
           _isValidDeferred.resolve()
         } else {
           _isValidDeferred.reject()

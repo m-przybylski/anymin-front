@@ -2,7 +2,7 @@ extends ../../../templates/wizard/section-controlls.partial.jade
 
 block content
     .step-content-column.pro-service-provider-file-uploader(data-ng-click="onClick()")
-      pro-uploader(type="application/pdf,image/jpeg,image/png" files-uploaded="model.files" data-multiple data-ngf-pattern=".pdf,.jpg,.jpeg,.png")
+      pro-uploader(type="application/pdf,image/jpeg,image/png" files-uploaded="model.files" data-multiple data-ngf-pattern=".pdf,.jpg,.jpeg,.png" data-is-pending="isPending")
       .document-submit(data-ng-show="model.files.length > 0")
         .document-container
           h3(data-translate="DASHBOARD.CREATE_PROFILE.CREATE_PROFILE_YOUR_DOCS")
