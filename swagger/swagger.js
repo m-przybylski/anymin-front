@@ -188,8 +188,24 @@
 
           /**
           * @ngdoc method
-          * @name .4.method:downloadResizedFilePath
+          * @name .4.method:downloadFilePath
           * @methodOf .4
+          * @description
+          * Download file
+          **/
+
+          'downloadFilePath': angular.extend({
+            method: 'GET',
+            url: apiUrl + '/files/:token/download',
+            params: {
+              'token': '@token',
+            },
+          }, $resourceActionConfig('4', 'downloadFilePath')),
+
+          /**
+          * @ngdoc method
+          * @name .5.method:downloadResizedFilePath
+          * @methodOf .5
           * @description
           * Download resized file
           **/
@@ -202,39 +218,23 @@
               'width': '@width',
               'height': '@height',
             },
-          }, $resourceActionConfig('4', 'downloadResizedFilePath')),
+          }, $resourceActionConfig('5', 'downloadResizedFilePath')),
 
           /**
           * @ngdoc method
-          * @name .5.method:downloadFilePath
-          * @methodOf .5
-          * @description
-          * Download file
-          **/
-
-          'downloadFilePath': angular.extend({
-            method: 'GET',
-            url: apiUrl + '/files/:token/download',
-            params: {
-              'token': '@token',
-            },
-          }, $resourceActionConfig('5', 'downloadFilePath')),
-
-          /**
-          * @ngdoc method
-          * @name .6.method:profileAvatarsPath
+          * @name .6.method:profileCoversPath
           * @methodOf .6
           * @description
-          * Get profile avatar files
+          * Get profile cover files
           **/
 
-          'profileAvatarsPath': angular.extend({
+          'profileCoversPath': angular.extend({
             method: 'GET',
-            url: apiUrl + '/profiles/:profileId/avatars',
+            url: apiUrl + '/profiles/:profileId/covers',
             params: {
               'profileId': '@profileId',
             },
-          }, $resourceActionConfig('6', 'profileAvatarsPath')),
+          }, $resourceActionConfig('6', 'profileCoversPath')),
 
           /**
           * @ngdoc method
@@ -264,19 +264,19 @@
 
           /**
           * @ngdoc method
-          * @name .9.method:profileCoversPath
+          * @name .9.method:profileAvatarsPath
           * @methodOf .9
           * @description
-          * Get profile cover files
+          * Get profile avatar files
           **/
 
-          'profileCoversPath': angular.extend({
+          'profileAvatarsPath': angular.extend({
             method: 'GET',
-            url: apiUrl + '/profiles/:profileId/covers',
+            url: apiUrl + '/profiles/:profileId/avatars',
             params: {
               'profileId': '@profileId',
             },
-          }, $resourceActionConfig('9', 'profileCoversPath')),
+          }, $resourceActionConfig('9', 'profileAvatarsPath')),
 
           /**
           * @ngdoc method
@@ -534,16 +534,19 @@
 
           /**
           * @ngdoc method
-          * @name .2.method:postServicesVerify
+          * @name .2.method:addServiceUsageRequest
           * @methodOf .2
           * @description
-          * Verify services
+          * Request usage of service
           **/
 
-          'postServicesVerify': angular.extend({
+          'addServiceUsageRequest': angular.extend({
             method: 'POST',
-            url: apiUrl + '/services/verify',
-          }, $resourceActionConfig('2', 'postServicesVerify')),
+            url: apiUrl + '/services/:serviceId/usage-request',
+            params: {
+              'serviceId': '@serviceId',
+            },
+          }, $resourceActionConfig('2', 'addServiceUsageRequest')),
 
           /**
           * @ngdoc method
@@ -592,6 +595,19 @@
               'serviceId': '@serviceId',
             },
           }, $resourceActionConfig('5', 'getService')),
+
+          /**
+          * @ngdoc method
+          * @name .6.method:postServicesVerify
+          * @methodOf .6
+          * @description
+          * Verify services
+          **/
+
+          'postServicesVerify': angular.extend({
+            method: 'POST',
+            url: apiUrl + '/services/verify',
+          }, $resourceActionConfig('6', 'postServicesVerify')),
         });
       }];
     })
@@ -924,6 +940,66 @@
             method: 'GET',
             url: apiUrl + '/session',
           }, $resourceActionConfig('2', 'check')),
+        });
+      }];
+    })
+        .provider('RatelApi', function() {
+
+      /**
+      * @ngdoc service
+      * @name .Ratel
+      * @requires $resource
+      * @requires apiUrl
+      **/
+
+      this.$get = ['$resource', 'apiUrl', '$resourceActionConfig', function($resource, apiUrl, $resourceActionConfig) {
+        return $resource(null, null, {
+
+          /**
+          * @ngdoc method
+          * @name .0.method:getRatelAuthConfig
+          * @methodOf .0
+          * @description
+          * Get config for ratel authentication
+          **/
+
+          'getRatelAuthConfig': angular.extend({
+            method: 'GET',
+            url: apiUrl + '/ratel/config',
+            params: {
+              'serviceId': '@serviceId',
+            },
+          }, $resourceActionConfig('0', 'getRatelAuthConfig')),
+        });
+      }];
+    })
+        .provider('ConfigApi', function() {
+
+      /**
+      * @ngdoc service
+      * @name .Config
+      * @requires $resource
+      * @requires apiUrl
+      **/
+
+      this.$get = ['$resource', 'apiUrl', '$resourceActionConfig', function($resource, apiUrl, $resourceActionConfig) {
+        return $resource(null, null, {
+
+          /**
+          * @ngdoc method
+          * @name .0.method:getRatelAuthConfig
+          * @methodOf .0
+          * @description
+          * Get config for ratel authentication
+          **/
+
+          'getRatelAuthConfig': angular.extend({
+            method: 'GET',
+            url: apiUrl + '/ratel/config',
+            params: {
+              'serviceId': '@serviceId',
+            },
+          }, $resourceActionConfig('0', 'getRatelAuthConfig')),
         });
       }];
     })

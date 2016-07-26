@@ -156,8 +156,24 @@
 
           /**
           * @ngdoc method
-          * @name .4.method:downloadResizedFilePath
+          * @name .4.method:downloadFilePath
           * @methodOf .4
+          * @description
+          * Download file
+          **/
+
+          'downloadFilePath': {
+            method: 'GET',
+            url: apiUrl + '/files/:token/download',
+            params: {
+              'token': '@token',
+            },
+          },
+
+          /**
+          * @ngdoc method
+          * @name .5.method:downloadResizedFilePath
+          * @methodOf .5
           * @description
           * Download resized file
           **/
@@ -174,31 +190,15 @@
 
           /**
           * @ngdoc method
-          * @name .5.method:downloadFilePath
-          * @methodOf .5
-          * @description
-          * Download file
-          **/
-
-          'downloadFilePath': {
-            method: 'GET',
-            url: apiUrl + '/files/:token/download',
-            params: {
-              'token': '@token',
-            },
-          },
-
-          /**
-          * @ngdoc method
-          * @name .6.method:profileAvatarsPath
+          * @name .6.method:profileCoversPath
           * @methodOf .6
           * @description
-          * Get profile avatar files
+          * Get profile cover files
           **/
 
-          'profileAvatarsPath': {
+          'profileCoversPath': {
             method: 'GET',
-            url: apiUrl + '/profiles/:profileId/avatars',
+            url: apiUrl + '/profiles/:profileId/covers',
             params: {
               'profileId': '@profileId',
             },
@@ -232,15 +232,15 @@
 
           /**
           * @ngdoc method
-          * @name .9.method:profileCoversPath
+          * @name .9.method:profileAvatarsPath
           * @methodOf .9
           * @description
-          * Get profile cover files
+          * Get profile avatar files
           **/
 
-          'profileCoversPath': {
+          'profileAvatarsPath': {
             method: 'GET',
-            url: apiUrl + '/profiles/:profileId/covers',
+            url: apiUrl + '/profiles/:profileId/avatars',
             params: {
               'profileId': '@profileId',
             },
@@ -490,15 +490,18 @@
 
           /**
           * @ngdoc method
-          * @name .2.method:postServicesVerify
+          * @name .2.method:addServiceUsageRequest
           * @methodOf .2
           * @description
-          * Verify services
+          * Request usage of service
           **/
 
-          'postServicesVerify': {
+          'addServiceUsageRequest': {
             method: 'POST',
-            url: apiUrl + '/services/verify',
+            url: apiUrl + '/services/:serviceId/usage-request',
+            params: {
+              'serviceId': '@serviceId',
+            },
           },
 
           /**
@@ -547,6 +550,19 @@
             params: {
               'serviceId': '@serviceId',
             },
+          },
+
+          /**
+          * @ngdoc method
+          * @name .6.method:postServicesVerify
+          * @methodOf .6
+          * @description
+          * Verify services
+          **/
+
+          'postServicesVerify': {
+            method: 'POST',
+            url: apiUrl + '/services/verify',
           }
         };
     }])
@@ -855,6 +871,58 @@
           'check': {
             method: 'GET',
             url: apiUrl + '/session',
+          }
+        };
+    }])
+        /**
+      * @ngdoc service
+      * @name .Ratel
+      * @requires $resource
+      * @requires apiUrl
+      **/
+    .service('RatelApiDef', ['apiUrl', function(apiUrl) {
+        return {
+
+          /**
+          * @ngdoc method
+          * @name .0.method:getRatelAuthConfig
+          * @methodOf .0
+          * @description
+          * Get config for ratel authentication
+          **/
+
+          'getRatelAuthConfig': {
+            method: 'GET',
+            url: apiUrl + '/ratel/config',
+            params: {
+              'serviceId': '@serviceId',
+            },
+          }
+        };
+    }])
+        /**
+      * @ngdoc service
+      * @name .Config
+      * @requires $resource
+      * @requires apiUrl
+      **/
+    .service('ConfigApiDef', ['apiUrl', function(apiUrl) {
+        return {
+
+          /**
+          * @ngdoc method
+          * @name .0.method:getRatelAuthConfig
+          * @methodOf .0
+          * @description
+          * Get config for ratel authentication
+          **/
+
+          'getRatelAuthConfig': {
+            method: 'GET',
+            url: apiUrl + '/ratel/config',
+            params: {
+              'serviceId': '@serviceId',
+            },
           }
         };
     }])

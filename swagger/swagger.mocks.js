@@ -16,12 +16,12 @@
                 $httpBackend.whenPUT(apiUrl + '/files/:token').respond();
                 $httpBackend.whenGET(apiUrl + '/files/:token').respond();
                 $httpBackend.whenGET(apiUrl + '/services/:serviceId/gallery').respond();
-                $httpBackend.whenGET(apiUrl + '/files/:token/download/:widthx:height').respond();
                 $httpBackend.whenGET(apiUrl + '/files/:token/download').respond();
-                $httpBackend.whenGET(apiUrl + '/profiles/:profileId/avatars').respond();
+                $httpBackend.whenGET(apiUrl + '/files/:token/download/:widthx:height').respond();
+                $httpBackend.whenGET(apiUrl + '/profiles/:profileId/covers').respond();
                 $httpBackend.whenGET(apiUrl + '/files').respond();
                 $httpBackend.whenGET(apiUrl + '/files/token').respond();
-                $httpBackend.whenGET(apiUrl + '/profiles/:profileId/covers').respond();
+                $httpBackend.whenGET(apiUrl + '/profiles/:profileId/avatars').respond();
                 $httpBackend.whenPOST(apiUrl + '/files/:token/upload').respond();
                 $httpBackend.whenGET(apiUrl + '/search/suggestions').respond();
                 $httpBackend.whenGET(apiUrl + '/search').respond();
@@ -35,10 +35,11 @@
                 $httpBackend.whenGET(apiUrl + '/accounts/check').respond();
                 $httpBackend.whenGET(apiUrl + '/services/profile/:accountId').respond();
                 $httpBackend.whenPOST(apiUrl + '/services').respond();
-                $httpBackend.whenPOST(apiUrl + '/services/verify').respond();
+                $httpBackend.whenPOST(apiUrl + '/services/:serviceId/usage-request').respond();
                 $httpBackend.whenDELETE(apiUrl + '/services/:serviceId').respond();
                 $httpBackend.whenPUT(apiUrl + '/services/:serviceId').respond();
                 $httpBackend.whenGET(apiUrl + '/services/:serviceId').respond();
+                $httpBackend.whenPOST(apiUrl + '/services/verify').respond();
                 $httpBackend.whenPOST(apiUrl + '/employments').respond();
                 $httpBackend.whenPOST(apiUrl + '/employments/:employmentId/accept').respond();
                 $httpBackend.whenPOST(apiUrl + '/employments/:employmentId/reject').respond();
@@ -57,6 +58,8 @@
                 $httpBackend.whenPOST(apiUrl + '/session').respond();
                 $httpBackend.whenDELETE(apiUrl + '/session').respond();
                 $httpBackend.whenGET(apiUrl + '/session').respond();
+                $httpBackend.whenGET(apiUrl + '/ratel/config').respond();
+                $httpBackend.whenGET(apiUrl + '/ratel/config').respond();
         }]);
 
     if( typeof exports !== 'undefined' ) {
