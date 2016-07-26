@@ -135,7 +135,8 @@
       },
       data: {
         access : UserRolesProvider.getAccessLevel('user'),
-        pageTitle: 'PAGE_TITLE.DASHBOARD.SERVICE_PROVIDER.INDIVIDUAL_PATH'
+        pageTitle: 'PAGE_TITLE.DASHBOARD.SERVICE_PROVIDER.INDIVIDUAL_PATH',
+        showMenu: false
       }
     })
   })

@@ -8,7 +8,14 @@ describe('Unit tests: Dashboard >', () => {
       inject(($rootScope, $controller) => {
 
         _DashboardController = $controller('DashboardController', {
-          '$rootScope': $rootScope
+          '$rootScope': $rootScope,
+          '$state': {
+            current: {
+              data: {
+                showMenu: true
+              }  
+            }
+          }
         })
       })
     })

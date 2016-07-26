@@ -210,7 +210,8 @@
         },
         data: {
           access: UserRolesProvider.getAccessLevel('user'),
-          pageTitle: 'PAGE_TITLE.DASHBOARD.SERVICE_PROVIDER.CONSULTATION_RANGE'
+          pageTitle: 'PAGE_TITLE.DASHBOARD.SERVICE_PROVIDER.CONSULTATION_RANGE',
+          showMenu: false
         }
       })
     })

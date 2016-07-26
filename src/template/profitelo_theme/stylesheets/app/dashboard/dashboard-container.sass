@@ -4,8 +4,11 @@
   position: relative
 
   &.main-container
-    +smm
-      margin: 0 0 0 96px
+    margin-left: $dashboard-navbar-width
+    &.hide-menu
+      margin-left: 0
+      .dashboard-left-menu
+        display: none
 
     .menu-toogle
       z-index: 20
@@ -32,15 +35,9 @@
         margin-left: 0
 
     .right-container
-      position: absolute
       min-height: 100vh
       +transition
       background-color: $c-white
-      z-index: 10
       width: 100%
       overflow-y: hidden
-      -webkit-overflow-scrolling: touch
       padding-bottom: 130px
-
-      +smm
-        width: calc(100% - 95px)
