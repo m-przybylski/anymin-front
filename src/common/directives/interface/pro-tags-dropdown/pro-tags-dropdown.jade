@@ -1,5 +1,5 @@
 .pro-tags-dropdown
-  .input-tag-group( class="{{focus ? 'onFocus' : ''}} {{onClick ? 'onClick' : ''}}"  data-ng-mouseover="onMouseover()"
+  .input-tag-group(data-ng-class="{'valid': valid}" data-ng-mouseover="onMouseover()"
   data-ng-mouseleave="onMouseout()" data-ng-blur="focusout()")
       ui-select(data-ng-model="proModel" data-ng-if="!disableTagging" tagging="tagTransform" tagging-label="{{tagLabel}}" multiple tagging-tokens=",|;"
       data-theme="bootstrap" data-on-select="select($item, $model, $select)" data-ng-click="openBar()" data-on-remove="remove($item, $model)" ng-keydown="onKeypress($event)"  )

@@ -31,16 +31,15 @@ function proTagsDropdown($timeout, CommonSettingsService) {
       if (!angular.isDefined(scope.validPattern) || item.match(scope.validPattern)) {
         var newItem = {}
         newItem[scope.tagParam] = item
-        console.log(newItem)
+        scope.valid = false
         return newItem
       } else {
-        // TODO Walidacja kiedy tag jest niepoprawny, wyświetlanie użytkowinkowi
+        scope.valid = true
         return null
       }
     }
 
     scope.select = function(item, model, select) {
-      console.log(scope.proModel)
       scope.proModel.push(item)
       _onFocusOut()
       _getScrollbarChoices().perfectScrollbar()
@@ -72,14 +71,6 @@ function proTagsDropdown($timeout, CommonSettingsService) {
     scope.searchEnable = () => {
       if ('noSearch' in attr) {
         return false
-      }
-    }
-    scope.onMouseover = ()=> {
-      scope.focus = true
-    }
-    scope.onMouseout = ()=> {
-      if (!scope.onClick) {
-        scope.focus = false
       }
     }
 

@@ -4,7 +4,7 @@ describe('Unit testing: profitelo.directives.interface.pro-tags-dropdown', () =>
     let scope     = null
     let rootScope
     let compile   = null
-    let validHTML = '<pro-tags-dropdown pro-model="RANDOM"></pro-tags-dropdown>'
+    let validHTML = '<pro-tags-dropdown pro-model="RANDOM" disable-tagging></pro-tags-dropdown>'
 
     beforeEach(() => {
       module('templates-module')
