@@ -1,8 +1,9 @@
-.pro-text-chat-message
+.pro-text-chat-message( data-ng-class="{'bounce': vm.model.incommingMessage}")
   .chat-line(class="{{ ::vm.model.isUserMessage ? 'me' : 'interlocutor' }}")
-    .message-content(class="{{ ::vm.model.isUserMessage ? 'me-chat' : 'interlocutor-chat' }}")
+    .message-content(class="{{ ::vm.model.isUserMessage ? 'me-chat' : 'interlocutor-chat' }}",)
       img.thumb.circle(ng-src="{{ ::vm.model.userImage }}")
-
+      img.thumb.circle(src="/assets/images/no-avatar.jpg")
+      
       .chat-cloud
         p {{ ::vm.model.messageText }}
 

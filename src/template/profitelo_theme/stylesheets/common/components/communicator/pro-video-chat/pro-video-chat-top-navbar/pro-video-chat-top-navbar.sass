@@ -1,0 +1,93 @@
+.pro-video-chat-top-navbar
+  display: flex
+  justify-content: space-between
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
+
+  +lgm
+    position: static
+
+  .videochat-client-profile
+    display: flex
+    align-items: center
+    flex: 0
+
+    +xsm
+      flex: 0
+
+    h4
+      display: none
+
+      +smm
+        +default-font-heavy
+        margin: 0 0 0 16px
+        display: block
+
+    .thumb
+      width: 48px
+      height: 48px
+
+    .disconnect
+      display: none
+
+  .videochat-counter
+    +default-font-regular
+    display: flex
+    justify-content: flex-end
+    flex: 4
+
+    +xsm
+      font-size: $f-h3-size
+
+    +lgm
+      +default-font-heavy
+      font-size: $f-h4-size
+      justify-content: center
+
+    .videochat-client-timer
+      display: flex
+      align-items: center
+      margin: 0 8px
+
+      .icon
+        margin: 0 8px 0 0
+
+
+      ul
+        display: flex
+
+        li
+          &::after
+            content: ":"
+
+          &:last-child
+            &::after
+              content: none
+
+    .videochat-price-counter
+      display: flex
+      align-items: center
+      margin: 0 8px
+
+      .icon
+        margin: 0 8px 0 0
+
+  .videochat-fullscreen
+    display: flex
+    align-items: center
+    justify-content: flex-end
+    flex: 0
+
+    +lgm
+      flex: 0
+
+    .full-screen
+      display: none
+
+      +lgm
+        display: block
+
+    .close-chat
+      display: none

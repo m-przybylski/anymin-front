@@ -1,20 +1,30 @@
 .pro-video-controls
+  +transition(bottom 0.3s)
+  position: relative
+  bottom: 0
   display: flex
   flex: 1 0 100%
   justify-content: center
 
+  +lgm
+    position: static
+
   ul
     display: flex
     flex-wrap: wrap
-    padding: 0 32px
+    padding: 0 32px 16px
 
     +xsm
-      padding: 0 48px
+      padding: 0 48px 32px
 
     +xsm-landscape
-      padding: 0 32px
+      padding: 0 16px
 
     +smm
+      padding: 0 104px 32px
+      flex-wrap: nowrap
+
+    +lgm
       padding: 0
       flex-wrap: nowrap
 
@@ -24,21 +34,31 @@
       margin: 0 0 16px
       order: 1
 
+      @for $i from 1 through 10
+        &:nth-child(#{$i})
+          order: $i
+
       +xsm-landscape
         flex: 1 0
+        padding: 0px
+        margin: 0 4px 16px
 
       +smm
+        margin: 0 16px 0
+        flex: 1 0
+
+      +lgm
         margin: 0 8px
         flex: 1 0
 
-      &:nth-last-child(2)
-        order: 2
+      &:last-child
+        order: 4
 
         +xsm-landscape
-          order: 1
+          order: 5
 
         +smm
-          order: 1
+          order: 2
     a
       margin: 0 auto
 

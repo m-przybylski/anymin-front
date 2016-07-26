@@ -1,117 +1,191 @@
-.pro-text-chat
-  background: $c-background
-  top: 0
-  bottom: 0
-  right: 0
-  height: 100vh
-  z-index: 9
-  overflow-y: scroll
-  -webkit-overflow-scrolling: touch
+pro-text-chat
+  .pro-text-chat
+    +transition(right 0.3s, height 0.3s)
+    position: fixed
+    background: $c-background
+    top: 0
+    bottom: 0
+    right: -100%
+    z-index: 9
+    width: 100%
+    height: 100vh
+    overflow-y: scroll
+    -webkit-overflow-scrolling: touch
 
-  +xlgm
-    flex: 1 0 25%
+    +lgm
+      right: -#{$communicator-base-width}
+      width: $communicator-base-width
+      z-index: 999
 
-  .chat-conversation
-    display: flex
-    flex-wrap: wrap
-    padding: 32px 16px 64px
+    +xlgm
+      flex: 1 0 25%
 
-  .chat-cloud
-    border-radius: $-radius-4
-    color: $c-white
-    padding: 13px 16px
-    position: relative
+    .chat-input
+      +transition(bottom 0.3s)
+      position: fixed
+      bottom: 0
+      z-index: 100
+      width: 100%
 
-    .chat-file-download
-      margin: 16px 0 0
+      +lgm
+        position: fixed
+        width: $communicator-base-width - 15px
+        bottom: $communicator-base-height
 
-      a
-        display: flex
-        align-items: center
-        justify-content: flex-end
-        +default-font-heavy
-        text-transform: uppercase
-        font-size: $f-h4-size
-        color: $c-white
+    .chat-conversation
+      display: flex
+      flex-wrap: wrap
+      padding: 32px 16px 64px
 
-      .icon
-        margin: 0 0 0 16px
-        line-height: 1
+      pro-text-chat-message
+        display: block
+        width: 100%
 
-  .chat-date
-    +default-font-heavy
-    display: block
-    color: $c-secondary-txt
-    font-size: $f-btn-size
+        &:last-of-type
+          padding-bottom: 40px
 
-  .chat-line
-    margin: 0 0 12px
-
-    &.interlocutor
-      padding: 0 16px 0 64px
+    .chat-cloud
+      border-radius: $-radius-4
+      color: $c-white
+      padding: 13px 16px
       position: relative
 
-      .thumb
-        position: absolute
-        left: 0
-        top: 0
+      +animation(pulse-cloud 0.6s)
 
-      .interlocutor-chat
-        flex: 1 0 100%
-        display: flex
-        align-items: flex-start
-        padding: 0 0 8px
+      +keyframes(pulse-cloud)
+        0%
+          padding: 13px 16px
+        25%
+          padding: 21px 24px
+        50%
+          padding: 13px 16px
+        75%
+          padding: 17px 20px
+        100%
+          padding: 13px 16px
 
-        .chat-cloud
-          background: $c-primary
-          margin: 0 0 0 16px
+      &.bounce
+        //animacje wyzej
 
-          &::before
-            content: ""
-            position: absolute
-            left: -8px
-            top: 16px
-            width: 0
-            height: 0
-            border-top: 8px solid transparent
-            border-right: 8px solid $c-primary
-            border-bottom: 8px solid transparent
-            z-index: 99
-
-      .chat-date
-        text-align: right
-
-    &.me
-      padding: 0 0 0 80px
-      .thumb
-        position: absolute
-        left: 0
-        top: 0
-
-      .me-chat
-        display: flex
-        flex: 1 0 100%
-        justify-content: flex-end
-        align-items: flex-end
-        padding: 0 0 8px
-
-        .chat-cloud
-          background: $c-nav-icons
+      .writing
+        span
+          background: $c-white
+          border-radius: 50%
+          width: 4px
+          height: 4px
+          display: inline-block
           position: relative
-          margin: 0 16px 0 0
+          +animation(up-down 1s infinite)
 
-          &::before
-            content: ""
-            position: absolute
-            right: -8px
-            top: 16px
-            width: 0
-            height: 0
-            border-top: 8px solid transparent
-            border-left: 8px solid $c-nav-icons
-            border-bottom: 8px solid transparent
-            z-index: 99
+          @for $i from 1 to 4
+            &:nth-child(#{$i})
+              animation-delay: $i * 0.1s
 
-      .chat-date
-        text-align: left
+        +keyframes(up-down)
+          0%
+            top: 0
+          25%
+            top: -8px
+          50%
+            top: 0
 
+          100%
+            top: 0
+
+      .chat-file-download
+        margin: 16px 0 0
+
+        a
+          display: flex
+          align-items: center
+          justify-content: flex-end
+          +default-font-heavy
+          text-transform: uppercase
+          font-size: $f-h4-size
+          color: $c-white
+
+        .icon
+          margin: 0 0 0 16px
+          line-height: 1
+
+    .chat-date
+      +default-font-heavy
+      display: block
+      color: $c-secondary-txt
+      font-size: $f-btn-size
+
+    .chat-line
+      margin: 0 0 12px
+
+      &.interlocutor
+        padding: 0 16px 0 64px
+        position: relative
+
+        .thumb
+          position: absolute
+          left: 0
+          top: 0
+          max-width: 48px
+          max-width: 48px
+
+        .interlocutor-chat
+          flex: 1 0 100%
+          display: flex
+          align-items: flex-start
+          padding: 0 0 8px
+
+          .chat-cloud
+            background: $c-primary
+            margin: 0 0 0 16px
+
+            &::before
+              content: ""
+              position: absolute
+              left: -8px
+              top: 16px
+              width: 0
+              height: 0
+              border-top: 8px solid transparent
+              border-right: 8px solid $c-primary
+              border-bottom: 8px solid transparent
+              z-index: 99
+
+        .chat-date
+          padding: 0 0 0 16px
+          text-align: left
+
+      &.me
+        padding: 0 0 0 80px
+
+        .thumb
+          position: absolute
+          left: 0
+          top: 0
+
+        .me-chat
+          display: flex
+          flex: 1 0 100%
+          justify-content: flex-end
+          align-items: flex-end
+          padding: 0 0 8px
+
+          .chat-cloud
+            background: $c-nav-icons
+            position: relative
+            margin: 0 16px 0 0
+
+            &::before
+              content: ""
+              position: absolute
+              right: -8px
+              top: 16px
+              width: 0
+              height: 0
+              border-top: 8px solid transparent
+              border-left: 8px solid $c-nav-icons
+              border-bottom: 8px solid transparent
+              z-index: 99
+
+        .chat-date
+          text-align: right
+          padding: 0 16px 0 0

@@ -258,6 +258,40 @@
         background: $c-white
         border-color: $c-lines
 
+.btn-player
+  display: block
+  background: rgba($c-black, 0.5)
+  width: 64px
+  height: 64px
+  display: flex
+  align-items: center
+  justify-content: center
+  color: $c-white
+
+  +xsm
+    width: 96px
+    height: 96px
+
+  +xsm-landscape
+    width: 64px
+    height: 64px
+
+  +smm
+    width: 64px
+    height: 64px
+
+
+  &:hover
+    background: $c-white
+    color: $c-primary-txt
+
+  &.active
+    background: $c-white
+    color: $c-primary-txt
+
+  &.disconnect
+    background: $c-secondary
+
 .btn-handler
   .pro-button
     &:not(:last-of-type)

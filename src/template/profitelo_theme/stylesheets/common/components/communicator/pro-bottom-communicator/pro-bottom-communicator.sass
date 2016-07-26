@@ -1,55 +1,286 @@
 .pro-bottom-communicator
-
-  $base-height: 25 * 8px
-
-  +transition(height 0.3s, margin 0.3s)
+  +transition(bottom 0.3s)
   display: flex
+  align-content: space-between
   background: $c-white
   width: 100%
   position: fixed
-  bottom: 0
+  bottom: -$communicator-base-height
   z-index: 999
-  border-top: 2px solid #000
-  height: $base-height
+  height: $communicator-base-height
+  border-top: 1px solid $c-lines
+  box-shadow: 0 0 5px $c-lines
+
+  &.is-visible
+    +transition(bottom 0.3s)
+    bottom: 0
+    z-index: 10
+
+  &::before
+    content: " "
+    position: fixed
+    left: 0
+    top: 0
+    height: 96px
+    width: 100%
+    z-index: 0
+    +background-gradient(#000, rgba(#000, 0))
+
+  &::after
+    content: " "
+    position: fixed
+    left: 0
+    bottom: 0
+    height: 96px
+    width: 100%
+    z-index: 0
+    overflow: hidden
+    +background-gradient(rgba(#000, 0), #000)
+
+  +lgm
+    bottom: -$communicator-base-height
+    height: $communicator-base-height
+
+    &::after
+      content: none
+
+    &::before
+      content: none
+
+  .pro-video-chat-top-navbar
+    padding: 16px
+    flex: 1 0 100%
+    z-index: 10
+
+  .videochat-details
+    +transition(all 0.3s)
+    color: $c-white
+    flex: 1
+    align-self: flex-end
+
+    +lgm
+      min-height: $communicator-base-height
+      color: inherit
+      padding: 0 0 0 20vw
+      background: $c-white
+      overflow: visible
+
+    .videochat-counter
+
+
+    .videochat-counter
+
+
+  .pro-video-chat
+    pro-video-player
+      position: absolute
+      bottom: 0
+      left: 0
+      width: 100vw
+      height: 100vh
+      z-index: -1
+
+      +lgm
+        +transition(width 0.3s, height 0.3s, bottom 0.3s)
+        width: 20vw
+        height: 208px
+        z-index: 11
+
+      .pro-video-player
+        height: 100%
+
+  pro-video-controls
+    flex: 1 0 100%
+
+    .pro-video-controls
+      padding: 0
+
+      +lgm
+        padding: 16px
+        border-top: 1px solid $c-lines
+
+
+
+    .expert-camera-preview
+      pro-video-player
+        display: none
+
+        +lgm
+          display: block
+          bottom: -208px
+          overflow: hidden
+
+    .videochat-details
+      display: none
+
+
 
   &.full-screen
+    +transition(height 0.3s)
     height: 100vh
     border: none
 
-  &.is-hidden
-    margin-bottom: -$base-height
+    .pro-video-chat-top-navbar
+      +lgm
+        color: $c-white
 
-  .expert-camera-preview
-    flex: 2 0
-    position: relative
-    background: red
+    .videochat-details
+      display: flex
+      align-content: space-between
+      flex-wrap: wrap
+      z-index: 1
+      background: none
+      padding: 0
+      height: 100vh
+      color: $c-white
 
-    button
-        position: absolute
-        right: 16px
-        top: 16px
+      .videochat-counter
+        +default-font-regular
 
-  .controls
-    flex: 10 0
+        +xsm
+          font-size: $f-h3-size
+
+    &::before
+      content: " "
+      position: absolute
+      left: 0
+      top: 0
+      height: 96px
+      width: 100%
+      +background-gradient(#000, rgba(#000, 0))
+
+    &::after
+      content: " "
+      position: absolute
+      left: 0
+      bottom: 0
+      height: 96px
+      width: 100%
+      +background-gradient(rgba(#000, 0), #000)
+
+    .pro-video-controls
+      border: 0
+
+    .chat-input
+      bottom: 0
+
+    pro-video-player
+      +transition(padding 0.3s)
+      height: 100vh
+      width: 100vw
+      z-index: -1
+
+      .pro-video-player
+        height: 100%
+
+    &.is-open
+      .pro-text-chat
+        height: 100vh
+
+      .videochat-details
+        +lgm
+          padding: 0 $communicator-base-width 0 0
+
+      pro-video-player
+        padding: 0 $communicator-base-width 0 0
 
 
-  .btn-player
-    background: none
-    width: $base-height / 2
-    height: $base-height / 2
-    display: flex
-    align-items: center
-    justify-content: center
-    color: $c-black
-    border: 1px solid $c-lines
+  &.is-open
+    right: 0
 
-    &:hover
-      background: $c-white
+    .pro-text-chat
+      right: 0
+
+    .videochat-details
       color: $c-primary-txt
 
-    &.active
-      background: $c-white
-      color: $c-primary-txt
+      .pro-video-controls
+        bottom: -100vh
 
-    &.disconnect
-      background: $c-secondary
+      .pro-video-chat-top-navbar
+        animation: chatOn 0.6s, chatBg 0.6s
+        animation-fill-mode: forwards
+
+        +lgm
+          animation: none
+
+        +keyframes(chatBg)
+          0%
+            background: none
+          100%
+            background: $c-white
+            box-shadow: 0 0 5px 2px $c-lines
+
+        +keyframes(chatOn)
+          0%
+            top: 0
+          50%
+            top: -100%
+          100%
+            top: 0
+
+        .videochat-client-profile
+          .thumb
+            display: none
+
+            +lgm
+              display: block
+
+          .disconnect
+            display: block
+
+            +lgm
+              display: none
+
+        .videochat-counter
+          flex: 4
+          justify-content: center
+
+        .videochat-fullscreen
+          flex: 0
+
+          .close-chat
+            display: block
+            color: $c-primary-txt
+
+            +lgm
+              display: none
+
+  &:not(.is-open)
+    .videochat-details
+      z-index: 1
+
+    .pro-video-chat-top-navbar
+      animation: chatOff 0.6s
+      animation-fill-mode: forwards
+
+    +keyframes(chatOff)
+      0%
+        top: 0
+      50%
+        top: -100%
+      100%
+        top: 0
+
+
+  &:not(.full-screen)
+    .pro-text-chat
+      +lgm
+        height: calc(100vh - #{$communicator-base-height})
+
+    +lgm
+      .btn-player
+        background: none
+        color: $c-black
+        border: 1px solid $c-lines
+
+        &:hover
+          background: $c-white
+          color: $c-primary-txt
+
+        &.active
+          background: $c-white
+          color: $c-primary-txt
+
+        &.disconnect
+          background: $c-secondary
