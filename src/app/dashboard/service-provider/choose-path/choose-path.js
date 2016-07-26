@@ -23,7 +23,8 @@
       },
       data : {
         access : UserRolesProvider.getAccessLevel('user'),
-        pageTitle: 'PAGE_TITLE.DASHBOARD.SERVICE_PROVIDER.CHOOSE_PATH'
+        pageTitle: 'PAGE_TITLE.DASHBOARD.SERVICE_PROVIDER.CHOOSE_PATH',
+        showMenu: false
       }
     })
   })

@@ -1,9 +1,11 @@
 (function() {
 
-  function DashboardController($rootScope) {
+  function DashboardController($rootScope, $state) {
 
     this.isSidebarOpen = false
     this.switchUser = false
+
+    this.isSidebarShown = true
 
     this.changeAccount=function() {
       this.switchUser = !this.switchUser
@@ -16,6 +18,19 @@
       this.isSidebarOpen = !this.isSidebarOpen
     }
 
+    let _checkSidebarVisibility = (toState) => {
+      if (angular.isUndefined(toState.data.showMenu)) {
+        this.isSidebarShown = true
+      } else {
+        this.isSidebarShown = toState.data.showMenu
+      }
+    }
+
+    $rootScope.$on('$stateChangeSuccess', (event, toState) => {
+      _checkSidebarVisibility(toState)
+    })
+
+    _checkSidebarVisibility($state.current)
 
     this.toggleChat = () => {
       $rootScope.$broadcast('toggleChat')
