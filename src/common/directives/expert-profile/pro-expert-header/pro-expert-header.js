@@ -11,7 +11,9 @@
       }
     }
   }
-  angular.module('profitelo.directives.expert-profile.pro-expert-header', [])
+  angular.module('profitelo.directives.expert-profile.pro-expert-header', [
+    'profitelo.components.interface.show-more-text'
+  ])
   .directive('proExpertHeader', proExpertHeader)
 
 }())

@@ -27,10 +27,8 @@
             span.icon.icon-headphone-16
 
       .title-row-consultation.footer-consultation
-        p {{'HOME_EXPERT_PROFILE.TAGS' | translate}} ({{ tags.length }})
-        .tags-consultation
-          p(ng-repeat="tag in service.details.tags") {{tag}}
-
+        pro-summary-tag(data-tags="service.details.tags")
+      
         p {{'HOME.TOP_CONTAINER.EXPERT_PROFILE.COMMENTS' | translate}} ({{ comments.length }})
         .comments
           .help(data-ng-click="showPositive()")
@@ -46,4 +44,7 @@
           .consultants-row
             div(data-ng-repeat="consultant in service.invitations")
               img.circle.thumb.empty-avatar-placeholder(data-ng-src="{{ avatar }}")
-              p {{ consultant.email }}
+              div
+                p {{ consultant.email }}
+                .status(data-ng-hide="profile.type == 'company'")
+                  span Dostępny

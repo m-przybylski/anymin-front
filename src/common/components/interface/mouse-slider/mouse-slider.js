@@ -15,23 +15,15 @@
       })
     })
 
-    $element.on('mouseenter', function(event) {
+    $element.on('mousemove', function(event) {
       itemWidth = elementsMap[0]
       containerWidth = itemWidth * countOfObject
       let leftOffset = $element[0].offsetLeft
       let currentPossition = event.pageX
       let moveSlides = (-currentPossition * (containerWidth/userWindowWidth)) + (containerWidth / 2) - (itemWidth * 2)
-      $element.css('width', containerWidth).animate({marginLeft: moveSlides}, 100, function() {
-        $element.on('mousemove', function(event) {
-          itemWidth = elementsMap[0]
-          containerWidth = itemWidth * countOfObject
-          let leftOffset = $element[0].offsetLeft
-          let currentPossition = event.pageX
-          let moveSlides = (-currentPossition * (containerWidth/userWindowWidth)) + (containerWidth / 2) - (itemWidth * 2)
-          $element.css('margin-left', moveSlides).css('width', containerWidth)
-        })
-      })
+      $element.css('margin-left', moveSlides).css('width', containerWidth)
     })
+    
     return this
   }
 

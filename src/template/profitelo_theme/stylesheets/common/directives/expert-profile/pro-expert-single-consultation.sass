@@ -6,7 +6,6 @@
     -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.1)
     -moz-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.1)
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.1)
-    padding: 8px 16px
     background-color: $c-white
 
     .black-row
@@ -154,15 +153,27 @@
           display: flex
           margin: 16px 0
 
+          .status
+            color: $c-success
+            font-size: $f-nav-size
+            font-weight: bold
+            text-transform: uppercase
+            margin: 0 16px
+
           div
             display: flex
             align-items: center
             padding: 0 32px 0 0
 
+            div
+              display: flex
+              flex-direction: column
+              align-items: flex-start
+
             img
               width: 48px
               height: 48px
-              
+
             p
               padding: 0 0 0 16px
               text-transform: none

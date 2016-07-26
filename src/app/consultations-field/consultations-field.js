@@ -62,7 +62,7 @@
         controllerAs: 'vm',
         data : {
           access : UserRolesProvider.getAccessLevel('public'),
-          pageTitle: 'PAGE_TITLE.SEARCH_RESULT'
+          pageTitle: 'HOME.FIELD.PAGE_TITLE'
         }
       })
     })

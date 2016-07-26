@@ -1,0 +1,20 @@
+.show-more-text
+  display: flex
+  flex-direction: column
+  align-items: center
+
+  .description
+    p
+      text-align: justify
+
+  .more-icon
+    transform: rotate(0deg)
+
+  .btn-light
+    &:hover
+      box-shadow: none
+      border: 1px solid $c-lines
+
+  .rotate-icon
+    +transition(transform .5s)
+    transform: rotate(180deg)
