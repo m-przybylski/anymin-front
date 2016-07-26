@@ -1,7 +1,7 @@
 .pro-summary-tag
   .title-row
-    | {{ ::"HOME_EXPERT_PROFILE.TAGS" | translate }}
-    span {{ $ctrl.tags.length }}
+    h4 {{ ::"HOME_EXPERT_PROFILE.TAGS" | translate }}
+      span (18)
        
   ul.slider-tag
     li(ng-repeat="tag in $ctrl.tags track by $index")

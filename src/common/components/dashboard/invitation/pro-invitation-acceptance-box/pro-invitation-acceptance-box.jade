@@ -1,24 +1,26 @@
 .pro-invitation-acceptance-box.box-list
   .box-header.flex-row
-    p(data-ng-bind="vm.invitation.details.name")
+    h3(data-ng-bind="vm.invitation.details.name")
 
     .box-status(data-ng-show="vm.employment.status === 'NEW' && !vm.rejectTimeoutSet")
-      button.pro-button.rectangle.error.icon(data-ng-click="vm.reject(vm.employment.id)")
-        span.icon.icon-trash-24
-        | {{ ::"DASHBOARD.INVITATION.REJECT" | translate }}
+      button.pro-button.error.icon.iconbg(data-ng-click="vm.reject(vm.employment.id)")
+        span.icon.icon-close-16
+        span.back(data-translate="DASHBOARD.INVITATION.REJECT")
 
-      button.pro-button.rectangle.succes.icon(data-ng-click="vm.accept(vm.employment.id)")
+      button.pro-button.success.icon.iconbg(data-ng-click="vm.accept(vm.employment.id)")
         span.icon.icon-success-12
-        | {{ ::"DASHBOARD.INVITATION.ACCEPT" | translate }}
+        span {{ ::"DASHBOARD.INVITATION.ACCEPT" | translate }}
 
-    .box-status(data-ng-show="vm.employment.status === 'ACCEPTED'")
-      span.icon.icon-success-12.succes
-        | {{ ::"DASHBOARD.INVITATION.HAD_BEEN_ACCEPTED" | translate }}
+    .box-status.accepted.inavtive(data-ng-show="vm.employment.status === 'ACCEPTED'")
+      span.pro-button.icon.success.nobackground.iconbg
+        span.icon.icon-success-12.succes
+        span {{ ::"DASHBOARD.INVITATION.HAD_BEEN_ACCEPTED" | translate }}
 
-    .box-status(data-ng-show="vm.employment.status === 'REJECTED' || vm.rejectTimeoutSet")
-      span.icon.icon-trash-24.error
-        | {{ ::"DASHBOARD.INVITATION.HAD_BEEN_REJECTED" | translate }}
-      span(data-ng-show="vm.rejectTimeoutSet" data-ng-click="vm.abortRejection()") ( {{ ::"LOGIN.BACK" | translate }} )
+    .box-status.rejected(data-ng-show="vm.employment.status === 'REJECTED' || vm.rejectTimeoutSet")
+      span.pro-button.icon.error.nobackground.iconbg
+        span.icon.icon-close-16.error
+        span {{ ::"DASHBOARD.INVITATION.HAD_BEEN_REJECTED" | translate }}
+        span.back(data-ng-show="vm.rejectTimeoutSet" data-ng-click="vm.abortRejection()") ( {{ ::"LOGIN.BACK" | translate }} )
 
   pro-summary-tag(data-tags="::vm.invitation.details.tags")
-
+ 

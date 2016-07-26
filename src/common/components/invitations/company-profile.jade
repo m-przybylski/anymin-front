@@ -1,23 +1,28 @@
 .company-profile
   .header-container
     .title-row
+      .pro-logo
+        img(src="/assets/images/logo_profitelo_black.png")
       .title
         h4 {{ ::"DASHBOARD.INVITATION.TITLE_HEADER" | translate }}
       .close-button
         .btn-handler
-          a(data-ui-sref="app.dashboard.start").pro-btn.btn-light.btn-icon
+          a(data-ui-sref="app.dashboard.start").pro-icon.circle
             span.icon.icon-close-16
-    .default-container
-      .header-content
-        .personal-info
+            
+    .header-content
+      .default-container  
+        .company-info
           img.circle.empty-avatar-placeholder(data-ng-src='{{ ::vm.profile.logoUrl }}' alt='{{ ::vm.profile.name }}')
           h3 {{ ::vm.profile.name }}
-  .header-container
-    .default-container
-      .header-content
-        .quote-icon
-          span.pro-btn.btn-icon.icon.icon-quote-24
-          .description
-            p {{ ::vm.profile.description }}
-          .more-icon
-            span.pro-btn.btn-light.icon.icon-arrow-down-12
+          
+    .company-content
+      .default-container      
+        span.quote-icon.pro-icon.default.circle.icon-quote-24
+          
+        .company-description
+          p {{ ::vm.profile.description }}
+          
+        .read-more
+          a.pro-icon.show-more-arrow
+            span.icon.icon-arrow-down-12

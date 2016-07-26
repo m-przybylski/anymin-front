@@ -1,5 +1,5 @@
 (function() {
-  
+
   /* @ngInject */
   function controllerFunction($timeout, EmploymentApi) {
 
@@ -7,10 +7,12 @@
 
     let _isPending = false
     let _rejectTimeout
+    let headerStatus = $(".box-header")
 
     this.rejectTimeoutSet = false
 
     this.accept = (employmentId) => {
+      headerStatus.addClass("is-accepted")
 
       if (!_isPending) {
         _isPending = true
@@ -27,6 +29,7 @@
     }
 
     this.reject = (employmentId) => {
+      headerStatus.addClass("is-rejected")
 
       let _reject = () => {
         if (!_isPending) {
@@ -53,6 +56,8 @@
     }
 
     this.abortRejection = () => {
+      headerStatus.removeClass("is-rejected")
+
       $timeout.cancel(_rejectTimeout)
       this.rejectTimeoutSet = false
     }
