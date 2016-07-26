@@ -7,8 +7,8 @@ block content
         pro-checkbox(data-ng-model="ownerEmployee" label="{{label | translate}}")
       .who-provides-inputs
         pro-tags-dropdown(data-pro-items="emails"
-        data-placeholder="{{'DASHBOARD.CONSULTATION.EMPLOYEES_PLACEHOLDER' | translate}}"
-        data-pro-model="model.invitations" data-ng-click="onClick()")
+        data-placeholder="{{'DASHBOARD.CONSULTATION.EMPLOYEES_PLACEHOLDER' | translate}}" data-tag-label=""
+        data-pro-model="model.invitations" data-ng-click="onClick()" data-tag-param="tagParam" data-valid-pattern="emailPattern")
           .input-error-messages
             .error(data-translate="{{errorMessage}}" data-ng-show="noTags")
         button.pro-btn.btn-small.btn-light.who-provides-csv(data-translate="DASHBOARD.CONSULTATION_RANGE.CONSULTANTS_LOAD_CSV" data-ng-click="skip()" data-ng-show="!required")

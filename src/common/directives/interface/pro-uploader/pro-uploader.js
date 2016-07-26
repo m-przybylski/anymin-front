@@ -32,50 +32,50 @@
       }
 
 
-        scope.uploadFiles = function ($files) {
-          scope.isPending = true
-          scope.uploadImg = false
-          let files = $files
-          _file = 0
-          var tokenPromisses = []
-          if (files && files.length) {
-            for (var i = 0; i < files.length; i++) {
-              if (!files[i].$error) {
-                tokenPromisses.push(FilesApi.tokenPath().$promise)
-              }
+      scope.uploadFiles = function($files) {
+        scope.isPending = true
+        scope.uploadImg = false
+        let files = $files
+        _file = 0
+        var tokenPromisses = []
+        if (files && files.length) {
+          for (var i = 0; i < files.length; i++) {
+            if (!files[i].$error) {
+              tokenPromisses.push(FilesApi.tokenPath().$promise)
             }
-            $q.all(tokenPromisses).then((tokenPromissesResponse) => {
-              scope.animate()
-              for (var k = 0; k < files.length; k++) {
-                _files = files.length
-                Upload.upload({
-                  url: _commonConfig.urls.backend + _commonConfig.urls['file-upload'].replace('%s', tokenPromissesResponse[k].fileId),
-                  data: {
-                    file: files[k]
-                  }
-                }).then(
-                  function (res) {
-                    scope.filesUploaded.push({
-                      file: files[_file],
-                      response: res.data
-                    })
-                    _file++
-                    if(_file === files.length) {
-                      scope.isPending = false
-                    }
-                  },
-                  function (res) {
-                    // TODO walidacje na odpowiedzi z serwera
-                  },
-                  function (res) {
-                    scope.progress = _calculatePercentage(res.loaded, res.total)
-                  }
-                )
-              }
-            }, function (tokenPromissesError) {
-            })
           }
+          $q.all(tokenPromisses).then((tokenPromissesResponse) => {
+            scope.animate()
+            for (var k = 0; k < files.length; k++) {
+              _files = files.length
+              Upload.upload({
+                url: _commonConfig.urls.backend + _commonConfig.urls['file-upload'].replace('%s', tokenPromissesResponse[k].fileId),
+                data: {
+                  file: files[k]
+                }
+              }).then(
+                function(res) {
+                  scope.filesUploaded.push({
+                    file: files[_file],
+                    response: res.data
+                  })
+                  _file++
+                  if (_file === files.length) {
+                    scope.isPending = false
+                  }
+                },
+                function(res) {
+                  // TODO walidacje na odpowiedzi z serwera
+                },
+                function(res) {
+                  scope.progress = _calculatePercentage(res.loaded, res.total)
+                }
+              )
+            }
+          }, function(tokenPromissesError) {
+          })
         }
+      }
 
       let _endImmediateLoading = () => {
         scope.progress = 0

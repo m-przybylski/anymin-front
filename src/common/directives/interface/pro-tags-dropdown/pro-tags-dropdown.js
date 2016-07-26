@@ -1,4 +1,4 @@
-function proTagsDropdown($timeout) {
+function proTagsDropdown($timeout, CommonSettingsService) {
 
   function linkFunction(scope, element, attr) {
     let myScrollbarChoices
@@ -15,19 +15,6 @@ function proTagsDropdown($timeout) {
       scope.onClick = false
     }
 
-    scope.tagTransform = function (newTag) {
-      var item = {
-        name: newTag,
-      }
-
-      if (item.name.test(str)) {
-        return item
-      } else {
-        console.log('ERROR')
-      }
-
-    }
-
     scope.onFocus = ()=> {
       scope.focus = true
       scope.onClick = true
@@ -39,8 +26,21 @@ function proTagsDropdown($timeout) {
 
     scope.disableTagging = !!('disableTagging' in attr)
 
+    scope.tagTransform = (item) => {
+      item = item.trim()
+      if (!angular.isDefined(scope.validPattern) || item.match(scope.validPattern)) {
+        var newItem = {}
+        newItem[scope.tagParam] = item
+        console.log(newItem)
+        return newItem
+      } else {
+        // TODO Walidacja kiedy tag jest niepoprawny, wyświetlanie użytkowinkowi
+        return null
+      }
+    }
 
     scope.select = function(item, model, select) {
+      console.log(scope.proModel)
       scope.proModel.push(item)
       _onFocusOut()
       _getScrollbarChoices().perfectScrollbar()
@@ -93,6 +93,8 @@ function proTagsDropdown($timeout) {
     scope: {
       proModel: '=',
       proItems: '=',
+      validPattern: '=?',
+      tagParam: '=?',
       placeholder: '@',
       defaultValue: '@',
       label: '@',
@@ -108,6 +110,7 @@ function proTagsDropdown($timeout) {
 angular.module('profitelo.directives.interface.pro-tags-dropdown', [
   'ui.bootstrap',
   'ui.select',
+  'profitelo.services.commonSettings',
   'ngSanitize'])
   .directive('proTagsDropdown', proTagsDropdown)
 
