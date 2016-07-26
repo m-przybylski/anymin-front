@@ -19,7 +19,10 @@
       url:          '/summary',
       template:     '<div data-ui-view=""></div>',
       controller:   'SummaryController',
-      controllerAs: 'vm'
+      controllerAs: 'vm',
+      data: {
+        showMenu: false
+      }
     })
   })
   .controller('SummaryController', SummaryController)
