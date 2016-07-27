@@ -1,16 +1,15 @@
 .search-filter
-    .default-container
-        h4 {{'SEARCH.SEARCH_RECENT' | translate}}
-        pro-tags-slider(data-tags="model.tagsModel" data-on-tag-click-action="tagsAction")
+  .default-container
+    h4 {{'SEARCH.SEARCH_RECENT' | translate}}
+    pro-tags-slider(data-tags="model.tagsModel" data-on-tag-click-action="tagsAction")
 
-        .advanced-search-bar-wrap
-            pro-dropdown(data-pro-model='model.sortModel' data-label="{{'SEARCH.SORT_BY' | translate }}" data-placeholder="{{'SEARCH.SATISFIED_PERCENT' | translate }}" data-pro-items="sortList" data-no-search)
+    .advanced-search-bar-wrap
+      pro-dropdown(data-pro-model='model.sortModel' data-label="{{'SEARCH.SORT_BY' | translate }}" data-placeholder="{{'SEARCH.SATISFIED_PERCENT' | translate }}" data-pro-items="sortList" data-no-search)
 
-            pro-dropdown(data-pro-model='model.languageModel' data-label="{{'DASHBOARD.CREATE_PROFILE.PROFILE_LANGUAGE_HEADER' | translate }}" data-placeholder="{{'SEARCH.ALL_LANGUAGES' | translate }}" data-pro-items="languagesList" data-no-search)
+      pro-dropdown(data-pro-model='model.languageModel' data-label="{{'DASHBOARD.CREATE_PROFILE.PROFILE_LANGUAGE_HEADER' | translate }}" data-placeholder="{{'SEARCH.ALL_LANGUAGES' | translate }}" data-pro-items="languagesList" data-no-search)
 
-            pro-dropdown(data-pro-model='model.categoryModel' data-label="{{'SEARCH.DOMAINS' | translate }}" data-placeholder="{{'SEARCH.ALL' | translate }}" data-pro-items="categoryList" data-no-search)
+      pro-dropdown(data-pro-model='model.categoryModel' data-label="{{'SEARCH.DOMAINS' | translate }}" data-placeholder="{{'SEARCH.ALL' | translate }}" data-pro-items="categoryList" data-no-search)
 
-            pro-range-slider(data-min-value="{{model.minRange}}" data-max-value="{{model.maxRange}}" data-label="{{'SEARCH.PRICE_RANGE' | translate}}")
+      pro-range-slider(data-min-value="{{model.minRange}}" data-max-value="{{model.maxRange}}" data-label="{{'SEARCH.PRICE_RANGE' | translate}}")
 
-        pro-switcher(id="switcher" data-ng-model="model.switcherModel" data-label="SEARCH.EXPERTS_CURRENTLY_AVAILABLE")
-
+    pro-switcher(id="switcher" data-ng-model="model.switcherModel" data-label="SEARCH.EXPERTS_CURRENTLY_AVAILABLE")

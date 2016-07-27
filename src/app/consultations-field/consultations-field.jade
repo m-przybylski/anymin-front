@@ -1,0 +1,13 @@
+pro-top-navbar()
+
+.field-search(data-model='vm.model' data-tag-click-action="vm.tagsClick" style="background: url('/assets/images/test-bg.jpg') no-repeat top center")
+  .default-container
+    pro-search-dropdown
+  
+mouse-slider.flex-row(data-items="vm.expertCard" data-ng-transclude)
+  pro-expert-card(data-ng-repeat="expert in vm.expertCard" data-ng-model="expert")
+  
+.default-container
+  pro-expert-slider()
+
+pro-footer()

@@ -6,19 +6,19 @@
       restrict: 'E',
       replace: true,
       scope: {
-        name: '=?',
+        service: '=',
         satisfaction: '@',
         talks: '@',
         timeAverage: '@',
-        minuteCost: '=?',
-        tags: '=?',
         type: '=',
         consultants: '='
       }
     }
   }
 
-  angular.module('profitelo.directives.expert-profile.pro-expert-single-consultation', [])
+  angular.module('profitelo.directives.expert-profile.pro-expert-single-consultation', [
+    'profitelo.components.pro-summary-tag'
+  ])
   .directive('proExpertSingleConsultation', proExpertSingleConsultation)
 
 }())

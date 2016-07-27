@@ -33,7 +33,8 @@
       templateUrl: 'directives/search/search-filters/search-filters.tpl.html',
       scope: {
         model: '=',
-        tagClickAction: '='
+        tagClickAction: '=',
+        background: '='
       },
       link: linkFunction
     }

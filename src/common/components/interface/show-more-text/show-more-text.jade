@@ -1,0 +1,7 @@
+.show-more-text
+  .description
+    p(ng-bind-html="vm.text | limitTo: vm.textLimit") {{ ::vm.text }}
+
+  a(data-ng-show="vm.text.length > vm.textLimit" data-ng-click="vm.showMoreText()")
+    .more-icon
+      span.pro-btn.btn-light.icon.icon-arrow-down-12(data-ng-class="{'rotate-icon':vm.changeIcon}")

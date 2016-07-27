@@ -1,7 +1,7 @@
 describe('Unit testing: profitelo.components.dashboard.invitation.pro-invitation-acceptance-box', () => {
   return describe('for proInvitationAcceptanceBox component >', () => {
 
-    const url = "awesomUrl/"
+    const url = 'awesomUrl/'
 
     let scope
     let rootScope
