@@ -10,7 +10,8 @@ block content
         data-ng-enter="onEnter()"
         data-ng-class="{'invalid': badUrl}"
         icon-class="icon-add-24"
-        addon-action="onEnter")
+        addon-action="onEnter"
+        data-id="serviceProviderLinks")
         .input-error-messages
           .error(data-translate="DASHBOARD.CREATE_PROFILE.ERROR_EXTERNAL_LINKS" data-ng-show="badUrl")
       .document-submit(data-ng-show="model.links.length > 0")

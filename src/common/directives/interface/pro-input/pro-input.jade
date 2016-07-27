@@ -13,10 +13,11 @@
   data-ng-required="required"
   data-ng-pattern="ngPattern"
   data-ng-change="ngChange()"
-  name="{{name}}"
+  name="{{id}}"
+  id="{{id}}"
   autocapitalize="off"
   autocorrect="off")
-  label {{label}}
+  label(for="{{id}}") {{label}}
   span(data-ng-class="{'input-group-addon': addon}" data-ng-click="addonCall()")
     span.icon(data-ng-class="iconClass") {{addonText}}
   span.cross-addon.icon.icon-close-12.icon-12(data-ng-show="ngModel !== null && ngModel !== '' && !hideCross()" data-ng-click="ngModel = ''")

@@ -5,7 +5,8 @@ block content
     .step-content-column(data-ng-click="onClick()")
       .inputs-row
         .currency-input-box
-          pro-input(data-placeholder="{{placeholder | translate}}" data-ng-model="model.cost" data-ng-class="{invalid: badName}" data-type='text' currency)
+          pro-input(data-placeholder="{{placeholder | translate}}" data-ng-model="model.cost"
+          data-ng-class="{invalid: badName}" data-type='text' data-id="serviceProviderCost" currency)
         .currency-dropdown-box
           pro-dropdown(data-pro-model='model.costname'
           data-label="{{'DASHBOARD.CONSULTATION_RANGE.CONSULTATION_CURRENCY_LABEL' | translate}}"
