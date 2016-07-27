@@ -1,5 +1,5 @@
 (function() {
-  function ForgotPasswordController($state, account, RecoverPasswordApi, proTopWaitingLoaderService, CommonSettingsService) {
+  function ForgotPasswordController($state, $scope, account, RecoverPasswordApi, proTopWaitingLoaderService, CommonSettingsService) {
 
     this.isPending = false
     this.account = account
@@ -8,6 +8,17 @@
     this.forceSmsRecovery = () => {
       $state.go('app.login.forgot-password', { method: 'sms' }, { reload: true })
     }
+    //zmienić na ng-change jak bedzie sie dalo testowac i dodac w register !
+    $scope.$watch(this.smsCode
+    , function(){
+      if(this.smsCode.length > 4)
+      RegistrationApi.verifyVerification({
+        sessionid: sesion, //?
+        token: String(this.smsCode)
+      }).$promise.then((res) => {
+        console.log(res)
+      })
+    });
 
     this.submitSmsVerificationCode = () => {
       this.serverError = false
