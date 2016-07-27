@@ -30,7 +30,7 @@
 
     li
       text-align: center
-      flex: 1 0 33%
+      width: 33%
       margin: 0 0 16px
       order: 1
 
@@ -39,17 +39,18 @@
           order: $i
 
       +xsm-landscape
-        flex: 1 0
+        width: auto
         padding: 0px
         margin: 0 4px 16px
 
       +smm
+        width: auto
         margin: 0 16px 0
-        flex: 1 0
+
 
       +lgm
         margin: 0 8px
-        flex: 1 0
+
 
       &:last-child
         order: 4
