@@ -1,41 +1,16 @@
 .pro-bottom-communicator
-  +transition(bottom 0.3s)
+  +transition(bottom 0.3s, z-index 0.3s)
   display: flex
   align-content: space-between
   background: $c-white
   width: 100%
   position: fixed
-  bottom: -$communicator-base-height
-  z-index: 999
-  height: $communicator-base-height
+  bottom: -100vh
+  z-index: -1
+  height: 100vh
   border-top: 1px solid $c-lines
   box-shadow: 0 0 5px $c-lines
-
-  &.is-visible
-    +transition(bottom 0.3s)
-    bottom: 0
-    z-index: 10
-
-  &::before
-    content: " "
-    position: fixed
-    left: 0
-    top: 0
-    height: 96px
-    width: 100%
-    z-index: 0
-    +background-gradient(#000, rgba(#000, 0))
-
-  &::after
-    content: " "
-    position: fixed
-    left: 0
-    bottom: 0
-    height: 96px
-    width: 100%
-    z-index: 0
-    overflow: hidden
-    +background-gradient(rgba(#000, 0), #000)
+  overflow: hidden
 
   +lgm
     bottom: -$communicator-base-height
@@ -46,6 +21,16 @@
 
     &::before
       content: none
+
+  &.is-visible
+    +transition(bottom 0.3s)
+    bottom: 0
+    z-index: 10
+    height: 100vh
+
+    +lgm
+      bottom: 0
+      height: $communicator-base-height
 
   .pro-video-chat-top-navbar
     padding: 16px
