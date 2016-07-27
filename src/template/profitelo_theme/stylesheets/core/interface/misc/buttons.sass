@@ -105,6 +105,7 @@
   color: $c-white
   border: 1px solid transparent
   position: relative
+  padding: 15px 32px 14px
 
   .icon
     line-height: 1
@@ -140,10 +141,6 @@
     border-radius: 100%
     height: 64px
     width: 64px
-
-    &.small
-      width: 48px
-      height: 48px
 
     .icon
       width: 16px
@@ -329,39 +326,51 @@
         background: $c-white
         border-color: $c-lines
 
-.btn-player
-  display: block
-  background: rgba($c-black, 0.5)
-  width: 64px
-  height: 64px
+.btn-handler
+  .pro-button
+    &:not(:last-of-type)
+      margin-right: 8px
+
+
+/*icons*/
+.pro-icon
+  +transition(border 0.3s)
+  width: 48px
+  height: 48px
+  border: 1px solid $c-lines
   display: flex
   align-items: center
   justify-content: center
-  color: $c-white
 
-  +xsm
-    width: 96px
-    height: 96px
+  &.default
+    border: 1px solid $c-black
+    background: $c-black
+    color: $c-white
 
-  +xsm-landscape
-    width: 64px
-    height: 64px
+  .icon
+    +transition(border 0.3s)
+    font-size: $f-h4-size
+    display: flex
+    align-items: center
+    justify-content: center
 
-  +smm
-    width: 64px
-    height: 64px
+  &.show-more-arrow
+    +transition(transform 0.3s)
+    height: 32px
+    width: 56px
+    margin: 0 auto
 
+    &.hide-more
+      .icon
+        +rotate(180)
 
+    .icon
+      font-size: $f-h5-size
+
+/*button icons*/
+[href].pro-icon
   &:hover
-    background: $c-white
-    color: $c-primary-txt
-
-  &.active
-    background: $c-white
-    color: $c-primary-txt
-
-  &.disconnect
-    background: $c-secondary
+    border-color: $c-primary-txt
 
 .btn-handler
   .pro-button

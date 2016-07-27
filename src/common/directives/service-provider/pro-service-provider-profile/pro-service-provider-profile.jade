@@ -14,4 +14,8 @@
       a.pro-button.round.icon.primary(data-ng-click="onClick()" data-ng-show="!!buttonAction")
         span.icon.icon-edit-16
     .summary-descriptions(data-ng-show="!!description")
-      show-more-text(data-text="description")
+      p(ng-bind-html="description | limitTo: textLimit")
+      
+      .read-more
+        a.pro-icon.show-more-arrow(data-ng-show="description.length > textLimit" data-ng-click="showMoreText()" data-ng-class="{'hide-more': invertArrow}")
+          span.icon.icon-arrow-down-12
