@@ -1,6 +1,4 @@
 .grid-news-tile
-  align-items: flex-start
-  justify-content: space-between
   background-image: url('http://placekitten.com/600/600')
   background-color: rgba(0, 0, 0, 0.4s)
   background-blend-mode: darken
@@ -9,6 +7,9 @@
   height: inherit
   padding: 16px
   position: relative
+  display: flex
+  flex-wrap: wrap
+  align-items: flex-end
 
   .bg-image
     position: absolute
@@ -23,6 +24,7 @@
     font-size: $f-small
     text-transform: uppercase
     +default-font-heavy
+    align-self: flex-start
 
   .news-tile-title
     font-size: $f-paragraph
