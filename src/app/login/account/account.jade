@@ -6,8 +6,8 @@
 
 
       pro-input.phone.label(data-label="{{'LOGIN.ENTER_NUMBER' | translate}}"
-      data-name="phoneNumber"
       data-type="tel"
+      data-id="phoneNumber"
       data-placeholder="{{'LOGIN.ENTER_NUMBER_PLACEHOLDER' | translate}}"
       data-ng-model="vm.account.phoneNumber.number" data-ng-class="{'invalid': phoneNumberForm.phoneNumber.$invalid && (phoneNumberForm.phoneNumber.$dirty || phoneNumberForm.$submitted)}"
       data-ng-pattern="vm.pattern" required auto-focus only-digits)
@@ -23,7 +23,7 @@
 
     pro-input-password(data-label="{{ 'LOGIN.SERVICE_PASSWORD' | translate }}"
     data-ng-model="vm.account.password"
-    data-name="password"
+    data-id="password"
     data-ng-pattern="vm.patternPassword"
     data-ng-class="{'invalid': passwordForm.password.$invalid && (passwordForm.password.$dirty || passwordForm.$submitted ||vm.serverError)}"
     required auto-focus)

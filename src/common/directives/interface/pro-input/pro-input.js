@@ -100,6 +100,7 @@
         iconClass: '@',
         name: '@',
         type: '@',
+        id: '@',
         maxlength: '@',
         ngPattern: '=?',
         addonAction: '=?',

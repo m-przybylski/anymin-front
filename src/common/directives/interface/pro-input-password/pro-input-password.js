@@ -63,7 +63,7 @@
         defaultValue: '@',
         label: '@',
         onChange: '=?',
-        name: '@',
+        id: '@',
         ngPattern: '=?'
       }
     }
