@@ -505,19 +505,20 @@
 
           /**
           * @ngdoc method
-          * @name .0.method:getUserServicesPath
+          * @name .0.method:getProfileServices
           * @methodOf .0
           * @description
           * Get Details of services of users
           **/
 
-          'getUserServicesPath': angular.extend({
+          'getProfileServices': angular.extend({
             method: 'GET',
             url: apiUrl + '/services/profile/:accountId',
             params: {
               'accountId': '@accountId',
             },
-          }, $resourceActionConfig('0', 'getUserServicesPath')),
+            isArray: true,
+          }, $resourceActionConfig('0', 'getProfileServices')),
 
           /**
           * @ngdoc method
