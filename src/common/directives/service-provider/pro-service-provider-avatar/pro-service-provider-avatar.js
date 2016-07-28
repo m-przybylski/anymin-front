@@ -5,7 +5,6 @@
 
       scope.imageField = 'avatar'
       scope.required = false
-      scope.noFile = false
       scope.isPending = false
 
       if ('imageField' in attrs) {
@@ -40,7 +39,7 @@
       }
 
       let _displayErrorMessage = () => {
-        scope.noFile = true
+        scope.error.noFile = true
       }
 
       if ('required' in attrs) {
@@ -48,13 +47,13 @@
       }
 
       scope.removeAvatar = () => {
-        scope.noFile = true
+        scope.error.noFile = true
         scope.model[scope.imageField].splice(0, 1)
       }
 
       scope.saveSection = () => {
         _isValid().then((avatarId) => {
-          scope.noFile = false
+          scope.error.noFile = false
           scope.proModel[scope.imageField] = avatarId
           scope.proceed()
         }, () => {

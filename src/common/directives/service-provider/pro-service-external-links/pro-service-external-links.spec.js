@@ -51,7 +51,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-extern
       isoScope.saveSection()
       rootScope.$digest()
 
-      expect(isoScope.noUrl).toEqual(true)
+      expect(isoScope.error.noUrl).toEqual(true)
 
     })
 

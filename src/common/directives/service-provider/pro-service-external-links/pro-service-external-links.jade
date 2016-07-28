@@ -8,12 +8,12 @@ block content
         data-ng-model="linkModel"
         data-ng-click="onClick()"
         data-ng-enter="onEnter()"
-        data-ng-class="{'invalid': badUrl}"
+        data-ng-class="{'invalid': error.badUrl}"
         icon-class="icon-add-24"
         addon-action="onEnter"
         data-id="serviceProviderLinks")
         .input-error-messages
-          .error(data-translate="DASHBOARD.CREATE_PROFILE.ERROR_EXTERNAL_LINKS" data-ng-show="badUrl")
+          .error(data-translate="DASHBOARD.CREATE_PROFILE.ERROR_EXTERNAL_LINKS" data-ng-show="error.badUrl")
       .document-submit(data-ng-show="model.links.length > 0")
         .document-container
           p.summary-list(data-translate="DASHBOARD.CREATE_PROFILE.CREATE_PROFILE_YOUR_LINKS" data-ng-click="onClick()")
@@ -23,4 +23,4 @@ block content
               span {{ link }}
               a.icon.icon-close-12(data-ng-click="removeLink(link)")
       .input-error-messages
-        .error(data-translate="DASHBOARD.CREATE_PROFILE.NO_LINKS_ERROR" data-ng-show="noUrl")
+        .error(data-translate="DASHBOARD.CREATE_PROFILE.NO_LINKS_ERROR" data-ng-show="error.noUrl")

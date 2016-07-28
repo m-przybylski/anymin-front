@@ -4,7 +4,6 @@
     function linkFunction(scope, element, attrs) {
 
       scope.linkModel = ''
-      scope.badUrl    = false
 
       scope.model = {
         links: []
@@ -27,13 +26,13 @@
         }
 
         if ( _urlPattern.test(scope.linkModel)) {
-          scope.badUrl = false
+          scope.error.badUrl = false
           httpAdded = false
           scope.model.links.push(scope.linkModel)
           scope.linkModel = ''
         } else {
-          scope.badUrl = true
-          scope.noUrl = false
+          scope.error.badUrl = true
+          scope.error.noUrl = false
         }
       }
 
@@ -57,13 +56,13 @@
       }
 
       let _displayErrorMessage = () => {
-        scope.noUrl = true
+        scope.error.noUrl = true
       }
 
       scope.saveSection = () => {
         _isValid().then(() => {
-          scope.noUrl = false
-          scope.badUrl= false
+          scope.error.noUrl = false
+          scope.error.badUrl= false
           scope.proModel.links = scope.model.links
           scope.proceed()
 
