@@ -5,10 +5,10 @@
 
       let required = false
 
-      scope.languages = ['Polish', 'English', 'Italian', 'Spanish']
+      scope.languages = ['English', 'Italian', 'Spanish']
 
       scope.model = {
-        languages: []
+        languages: ['Polish']
       }
 
       let _isValid = () => {
@@ -30,7 +30,11 @@
         required = true
       }
 
-      scope.model.languages = scope.proModel.languages
+      if (scope.proModel.languages.length > 0) {
+        scope.model.languages = scope.proModel.languages
+      }
+
+
       scope.saveSection = () => {
         _isValid().then(() => {
           scope.badLanguages = false
