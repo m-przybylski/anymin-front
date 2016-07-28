@@ -450,6 +450,7 @@
         		"REGISTER.CHANGE_PASSWORD":"Zmień",
         		"REGISTER.CODE_REQUIRED":"Podaj poprawny kod weryfikacyjny",
         		"REGISTER.DONE":"Zakończ",
+        		"REGISTER.EMAIL_EXIST":"Email jest używany",
         		"REGISTER.EMAIL_REQUIRED":"Podaj poprawny adres email",
         		"REGISTER.ENTER_PHONE_NUMBER_FIRST":"Podaj najpierw numer telefonu.",
         		"REGISTER.REGISTRATION_SUCCESS":"Twoje konto zostało poprawnie założone. Zweryfikuj email, albo korzystać w pełni.",

@@ -96,14 +96,34 @@
       }
     }
 
-    this.setNewEmail = () => {
-      _updateNewUserObject({
-        unverifiedEmail: this.registrationSteps.email
-      }, () => {
-        this.isPending = false
-        this.current = 3
-        proTopWaitingLoaderService.stopLoader()
+    let _isEmailExist = () => {
+      AccountApi.getAccountEmailExists({
+        email: this.registrationSteps.email
+      }).$promise.then((res) => {
+        console.log(res)
+        return true
+      }, (err) =>{
+        console.log(err)
+        this.emailExist = false
+        return false
       })
+    }
+
+    this.setNewEmail = () => {
+
+      if (!_isEmailExist()) {
+        conole.log('email dodany')
+        _updateNewUserObject({
+          unverifiedEmail: this.registrationSteps.email
+        }, () => {
+          this.isPending = false
+          this.current = 3
+          proTopWaitingLoaderService.stopLoader()
+        })
+      } else {
+        this.emailExist = true
+      }
+
     }
 
     this.completeRegistration = () => {
