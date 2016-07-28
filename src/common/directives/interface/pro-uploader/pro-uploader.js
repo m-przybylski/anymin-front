@@ -33,6 +33,7 @@
 
 
       scope.uploadFiles = function($files) {
+        scope.isPending = true
         scope.uploadImg = false
         let files = $files
         _file = 0
@@ -59,6 +60,9 @@
                     response: res.data
                   })
                   _file++
+                  if (_file === files.length) {
+                    scope.isPending = false
+                  }
                 },
                 function(res) {
                   // TODO walidacje na odpowiedzi z serwera
@@ -72,6 +76,7 @@
           })
         }
       }
+
       let _endImmediateLoading = () => {
         scope.progress = 0
         scope.fadeText = true
@@ -137,7 +142,8 @@
         accept: '@',
         ngfPattern: '@',
         filesUploaded: '=?',
-        maxSize: '@'
+        maxSize: '@',
+        isPending: '=?'
 
       }
     }

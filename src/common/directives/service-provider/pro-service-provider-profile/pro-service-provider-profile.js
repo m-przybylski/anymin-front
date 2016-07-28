@@ -3,6 +3,13 @@
 
     function linkFunction(scope) {
 
+      scope.textLimit = 500
+      scope.description = String($sce.trustAsHtml( scope.description.replace(/\n/g, '<br />')))
+
+      scope.showMoreText = () => {
+        scope.textLimit = scope.textLimit === null ? 500 : null
+      }
+
       scope.onClick = () => {
         scope.buttonAction()
       }

@@ -6,7 +6,11 @@
       let required = false
 
       scope.tags = [
-        'Kot', 'Telefon', 'Placki', 'JUSTDOIT', 'Pralka'
+        {tag:'Kot'},
+        {tag:'Telefon'},
+        {tag:'Placki'},
+        {tag:'JUSTDOIT'},
+        {tag:'Pralka'}
       ]
 
       scope.model = {
@@ -14,8 +18,12 @@
       }
 
       if (scope.proModel.tags.length > 0) {
-        scope.model.tags = scope.proModel.tags
+        scope.model.tags = scope.proModel.tags.map((elem)=> {
+          return {tag: elem}
+        })
       }
+
+      scope.tagParam = 'tag'
 
       if ('required' in attrs) {
         required = true
@@ -40,7 +48,7 @@
       scope.saveSection = () => {
         scope.noTags = false
         _isValid().then(() => {
-          scope.proModel.tags = scope.model.tags
+          scope.proModel.tags = _.map(scope.model.tags, 'tag')
           scope.proceed()
 
         }, () => {

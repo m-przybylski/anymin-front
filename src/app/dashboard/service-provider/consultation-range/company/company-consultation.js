@@ -56,7 +56,7 @@
 
     this.saveConsultationObject = () => {
       let _redirectByOwnerEmployeeStatus = () => {
-        if (!!_.find(this.consultations, {'ownerEmployee': true}) && !savedProfile.expertDetails ) {
+        if ((!!_.find(this.consultations, {'ownerEmployee': true}) || !!this.ownerEmployee) && !savedProfile.expertDetails ) {
           $state.go('app.dashboard.service-provider.individual-path')
         } else {
           $state.go('app.dashboard.service-provider.summary.company')

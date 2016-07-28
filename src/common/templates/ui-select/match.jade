@@ -1,6 +1,7 @@
-a.select2-choice.ui-select-match(ng-class="{'select2-default': $select.isEmpty()}", ng-click='$select.toggle($event)', aria-label='{{ $select.baseTitle }} select')
-    span.select2-chosen(ng-show='$select.isEmpty()') {{$select.placeholder}}
-    span.select2-chosen(ng-hide='$select.isEmpty()', ng-transclude='')
-    abbr.select2-search-choice-close(ng-if='$select.allowClear && !$select.isEmpty()', ng-click='$select.clear($event)')
-    span.select2-arrow.ui-select-toggle
-        b
+.ui-select-match(ng-hide='$select.open && $select.searchEnabled', ng-disabled='$select.disabled', ng-class="{'btn-default-focus':$select.focus}")
+  span.btn.btn-default.form-control.ui-select-toggle(tabindex='-1', aria-label='{{ $select.baseTitle }} activate', ng-disabled='$select.disabled', ng-click='$select.activate()', style='outline: 0;')
+    span.ui-select-placeholder.text-muted(ng-show='$select.isEmpty()') {{$select.placeholder}}
+    span.ui-select-match-text.pull-left(ng-hide='$select.isEmpty()', ng-class="{'ui-select-allow-clear': $select.allowClear && !$select.isEmpty()}", ng-transclude='')
+    i.caret.pull-right(ng-click='$select.toggle($event)')
+    a.btn.btn-xs.btn-link.pull-right(ng-show='$select.allowClear && !$select.isEmpty() && ($select.disabled !== true)', aria-label='{{ $select.baseTitle }} clear', style='margin-right: 10px', ng-click='$select.clear($event)')
+      i.glyphicon.glyphicon-remove(aria-hidden='true')

@@ -1,18 +1,27 @@
 (function() {
-  function proServiceProviderWhoProvides($q, $timeout) {
+  function proServiceProviderWhoProvides($q, $timeout, CommonSettingsService) {
     function linkFunction(scope, element, attrs) {
       scope.required = false
       scope.badEmployee = false
 
-      scope.emails = ['bartek@itelo.pl', 'pawel@itelo.pl', 'mikolaj@itelo.pl', 'grazyna@itelo.pl']
+      scope.emails = [
+          {email: 'bartek@itelo.pl'},
+          {email:'pawel@itelo.pl'},
+          {email:'mikolaj@itelo.pl'},
+          {email:'grazyna@itelo.pl'}
+      ]
 
       scope.model = {
         invitations: []
       }
 
+      scope.emailPattern = CommonSettingsService.localSettings.emailPattern
+
       scope.ownerEmployee = angular.isDefined(scope.ownerEmployee) ? scope.ownerEmployee : false
 
-      scope.model.invitations = _.map(scope.proModel.invitations, 'email')
+      if (angular.isDefined(scope.proModel.invitations) && scope.proModel.invitations.length > 0) {
+        scope.model.invitations = scope.proModel.invitations
+      }
 
       element.bind('keydown keypress', function(event) {
         if (event.which === 13) {
@@ -37,6 +46,9 @@
         scope.bad= true
       }
 
+      scope.tagParam = 'email'
+
+
       if ('required' in attrs) {
         scope.required = true
       }
@@ -44,11 +56,7 @@
       scope.saveSection = () => {
         _isValid().then(() => {
           scope.badEmployee = false
-
-          scope.proModel.invitations = scope.model.invitations.map((elem)=> {
-            return {email: elem}
-          })
-
+          scope.proModel.invitations = scope.model.invitations
           scope.proceed()
 
         }, () => {
@@ -82,6 +90,7 @@
 
   angular.module('profitelo.directives.service-provider.pro-service-provider-who-provides', [
     'lodash',
+    'profitelo.services.commonSettings',
     'pascalprecht.translate',
     'profitelo.common.controller.service-provider.service-provider-step-controller'
   ])

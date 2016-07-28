@@ -14,6 +14,9 @@
     min-height: 64px
     color: $c-primary-txt
 
+    &.valid
+      border-color: $c-error
+
     input
       bottom: 9px
       font-size: 20px
@@ -68,6 +71,11 @@
             padding-left: 8px
 
           &:hover
+            background-color: $c-primary
+            color: $c-white
+
+        &.active
+          >a
             background-color: $c-primary
             color: $c-white
 

@@ -6,6 +6,7 @@
       scope.imageField = 'avatar'
       scope.required = false
       scope.noFile = false
+      scope.isPending = false
 
       if ('imageField' in attrs) {
         scope.imageField = attrs.imageField
@@ -16,6 +17,7 @@
       let _getImageIfExist = (model)=> {
         FilesApi.fileInfoPath({token: model}).$promise.then((res)=>{
           scope.model[scope.imageField].push({file: null, response:res})
+          scope.isPending = false
         }, (err)=> {
           proTopAlertService.error({
             message: 'error',
@@ -28,7 +30,7 @@
 
       let _isValid = () => {
         let _isValidDeferred = $q.defer()
-        if (angular.isDefined(scope.model[scope.imageField]) && scope.model[scope.imageField].length > 0) {
+        if (angular.isDefined(scope.model[scope.imageField]) && scope.model[scope.imageField].length > 0 && !scope.isPending) {
           _isValidDeferred.resolve(scope.model[scope.imageField][0].response.id)
         } else {
           _isValidDeferred.reject()
