@@ -461,18 +461,19 @@
 
           /**
           * @ngdoc method
-          * @name .0.method:getUserServicesPath
+          * @name .0.method:getProfileServices
           * @methodOf .0
           * @description
           * Get Details of services of users
           **/
 
-          'getUserServicesPath': {
+          'getProfileServices': {
             method: 'GET',
             url: apiUrl + '/services/profile/:accountId',
             params: {
               'accountId': '@accountId',
             },
+            isArray: true,
           },
 
           /**

@@ -110,7 +110,6 @@ describe('Unit testing: profitelo.directives.interface.pro-uploader', () => {
 
       isoScope.animate()
       _timeout.flush()
-      _timeout.flush()
       _interval.flush()
       rootScope.$digest()
 

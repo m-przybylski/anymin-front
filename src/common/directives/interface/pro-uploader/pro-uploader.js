@@ -13,6 +13,7 @@
       scope.upload = false
       scope.hideArrow = false
       scope.imageSize = {width: 320, height: 320, quality: 1}
+      scope.errorValidateMessage = false
 
       if ('type' in attr.$attr) {
         scope.ngfPattern = attr.type
@@ -27,11 +28,20 @@
         scope.required = true
       }
 
-      let _calculatePercentage = function(loaded, total) {
-        return parseInt((100.0 * loaded / total), 10)
+
+      let _calculatePercentage = function(loaded, total, currentFile, files) {
+        return  parseInt((100.0 * loaded / total), 10)
+
       }
 
+      let _setFilesStatus = (currentFile, allFiles) => {
+        scope.translationInfo = {
+          file: currentFile,
+          files: allFiles
+        }
+      }
 
+      let uploadingFiles = []
       scope.uploadFiles = function($files) {
         scope.isPending = true
         scope.uploadImg = false
@@ -42,12 +52,14 @@
           for (var i = 0; i < files.length; i++) {
             if (!files[i].$error) {
               tokenPromisses.push(FilesApi.tokenPath().$promise)
+              scope.errorValidateMessage = false
             }
           }
           $q.all(tokenPromisses).then((tokenPromissesResponse) => {
             scope.animate()
             for (var k = 0; k < files.length; k++) {
               _files = files.length
+              _setFilesStatus(_file, _files)
               Upload.upload({
                 url: _commonConfig.urls.backend + _commonConfig.urls['file-upload'].replace('%s', tokenPromissesResponse[k].fileId),
                 data: {
@@ -55,6 +67,7 @@
                 }
               }).then(
                 function(res) {
+                  console.log(_file)
                   scope.filesUploaded.push({
                     file: files[_file],
                     response: res.data
@@ -68,12 +81,15 @@
                   // TODO walidacje na odpowiedzi z serwera
                 },
                 function(res) {
-                  scope.progress = _calculatePercentage(res.loaded, res.total)
+                  scope.progress = _calculatePercentage(res.loaded, res.total, _file, _files)
                 }
               )
             }
           }, function(tokenPromissesError) {
           })
+        } else {
+          scope.isPending = false
+          scope.errorValidateMessage = true
         }
       }
 
@@ -94,10 +110,6 @@
         immediateInterval = $interval(() => {
           if (scope.progress >= 100) {
             _endImmediateLoading()
-            $timeout(()=>{
-              $interval.cancel(immediateInterval)
-            })
-
           }
         })
       }
@@ -113,21 +125,13 @@
         scope.hideArrow = true
         scope.hideLoader = false
         scope.fadeText = false
+        scope.fadeText = true
+        scope.upload = true
+        scope.header = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.HEADER_UPLOAD'
+        scope.info = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO_UPLOAD'
+        _startImmediateLoading()
         $timeout(()=>{
-          scope.fadeText = true
-          $timeout(()=> {
-            scope.upload = true
-            scope.header = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.HEADER_UPLOAD'
-            scope.info = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO_UPLOAD'
-            _startImmediateLoading()
-            scope.translationInfo = {
-              file: _file,
-              files: _files
-            }
-            $timeout(()=>{
-              scope.fadeText = false
-            }, 200)
-          }, 200)
+          scope.fadeText = false
         }, 200)
 
       }
@@ -143,7 +147,9 @@
         ngfPattern: '@',
         filesUploaded: '=?',
         maxSize: '@',
-        isPending: '=?'
+        isPending: '=?',
+        ngfValidate: '=?',
+        errorMessage: '@'
 
       }
     }
