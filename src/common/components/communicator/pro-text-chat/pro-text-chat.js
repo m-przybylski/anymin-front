@@ -7,12 +7,14 @@
     const _proTextChat = $($element).find('.pro-text-chat')
 
     this.messages = []
-    let _incommingSocket = null
-    let _roomId          = null
+    this.incommingSocket = null
+    this.roomId          = null
 
     let _pushChatToBottom = () => {
-      _proTextChat.scrollTop(_chatConversation.height() + 1000)
-      _chatConversation.perfectScrollbar('update')
+      $timeout(() => {
+        _proTextChat.scrollTop(_chatConversation.height() + 1000)
+        _chatConversation.perfectScrollbar('update')
+      })
     }
 
     let _startConversation = (socket, roomId) => {
@@ -21,15 +23,14 @@
 
       this.toggles.chatState(true)
       this.toggles.communicatorState(true)
-      _incommingSocket = socket
-      _roomId = roomId
 
-      proRatelService.getRoomHistory(_roomId, _incommingSocket).then(history => {
+      this.incommingSocket = socket
+      this.roomId = roomId
+
+      proRatelService.getRoomHistory(this.roomId, this.incommingSocket).then(history => {
         $timeout(() => {
           this.messages = history
-          $timeout(() => {
-            _pushChatToBottom()
-          })
+          _pushChatToBottom()
         })
       })
     }
@@ -48,11 +49,20 @@
 
     proRatelService.onNewMessage(messagePayload => {
 
-      if(!_incommingSocket) {
+      if (!this.incommingSocket) {
         _startConversation(messagePayload.socket, messagePayload.message.room)
       }
 
-      _pushMessageObject(messagePayload.message)
+      if (String(this.roomId) === String(messagePayload.message.room)) {
+        _pushMessageObject(messagePayload.message)
+      } else {
+        proRatelService.sendNewMessage(
+          $filter('translate')('COMMUNICATOR.TEXT_CHAT.EXPERT_NOT_AVAILABLE'),
+          messagePayload.message.room,
+          messagePayload.socket)
+      }
+
+
     })
 
     _chatConversation.perfectScrollbar()
@@ -84,7 +94,7 @@
           incommingMessage: true
         }
 
-        proRatelService.sendNewMessage(this.newMessage, _roomId, _incommingSocket)
+        proRatelService.sendNewMessage(this.newMessage, this.roomId, this.incommingSocket)
 
         _pushMessageObject(messageRawObject)
         this.newMessage = null

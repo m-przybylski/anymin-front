@@ -18,8 +18,105 @@
       _ratelSessions[socket].chat.sendMessage(roomId, message)
     }
 
-    let _assignCallBacks = (ratelSession) => {
+    let _removeCall = (peer) => {
+      console.log('Removing a call object.')
+      var call = calls[peer]
+      if (call) {
+        call.stopStreams()
+        document.getElementById('call-container').removeChild(call.box)
+        delete calls[peer]
+      }
+    }
+    
+    let _makeCall = (peer) => {
+      console.log('Creating a call object.')
+      var call = calls[peer]
+      if (call) {
+        return call
+      }
 
+      var box = document.createElement('div')
+
+      var localVideo = document.createElement('video')
+      localVideo.className = 'video-stream'
+      localVideo.id = 'local-video'
+      localVideo.autoplay = true
+      box.appendChild(localVideo)
+
+      var removeVideo = document.createElement('video')
+      removeVideo.className = 'video-stream'
+      removeVideo.id = 'remote-video'
+      removeVideo.autoplay = true
+      box.appendChild(removeVideo)
+
+      var end = document.createElement('button')
+      end.innerHTML = 'Hangup call'
+      end.onclick = function() {
+        console.log( 'Ending call with ' + peer + '...')
+        session.chat.hangupCall(peer, 'hangup')
+        _removeCall(peer)
+      }
+      box.appendChild(end)
+
+      document.getElementById('call-container').appendChild(box)
+
+      var localStream = undefined
+      var remoteStream = undefined
+
+      function showRemoteStream(stream) {
+        remoteStream = stream
+        removeVideo.src = window.URL.createObjectURL(stream)
+      }
+
+      function showLocalStream(stream) {
+        localStream = stream
+        localVideo.src = window.URL.createObjectURL(stream)
+      }
+
+      function stopStreams() {
+        if (localStream) {
+          if (localStream.stop) {
+            localStream.stop()
+          } else {
+            localStream.getTracks().map(function(t) { t.stop() })
+          }
+          localStream = undefined
+          remoteStream = undefined
+        }
+      }
+
+      function createLocalStream(onLocalStream) {
+        navigator.getUserMedia(
+          {'video': f.elements[3].checked,
+            'audio': f.elements[2].checked},
+          function(stream) {
+            console.log('Local stream started!')
+            showLocalStream(stream)
+            onLocalStream(stream)
+          }, function(error) {
+            console.log('Could not start stream: ' + error)
+          })
+      }
+
+      session.chat.onRemoteStream(function(stream) {
+        console.log('Remote stream started!')
+        showRemoteStream(stream)
+      })
+
+      calls[peer] = {
+        box: box,
+        peer: peer,
+        showRemoteStream: showRemoteStream,
+        createLocalStream: createLocalStream,
+        stopStreams: stopStreams
+      }
+
+      return calls[peer]
+    }
+    
+    let _assignCallBacks = (ratelSession) => {
+      
+      ratelSession.calls = {}
       
       ratelSession.chat.onConnect(() => {
         $log.debug('Connected to artichoke!')
@@ -35,12 +132,40 @@
         }
       })
 
+      ratelSession.chat.onMessage('call_offer', function(m) {
+        console.log(m.user + ' is calling...')
+        // if(confirm(m.user + ' is calling, answer?')) {
+        //   makeCall(m.user).createLocalStream(function(stream) {
+        //     ratelSession.chat.answerCall(m, stream)
+        //   })
+        // } else {
+        //   console.log('Rejecting call...')
+        //   session.chat.rejectCall(m)
+        // }
+      })
+
+      ratelSession.chat.onMessage('call_answer', function(m) {
+        console.log(m.user + ' answered the call!')
+      })
+
+      ratelSession.chat.onMessage('call_hangup', function(m) {
+        console.log(m.user + ' hang up, reason: ' + m.reason)
+      })
+
       ratelSession.chat.onMessage('room_action', message => {
         $log.debug('room_action', message)
       })
 
       ratelSession.chat.onMessage('roster_add', function(m) {
         console.log('User ' + m.user + ' added to roster.')
+      })
+
+      ratelSession.chat.onMessage('msg_received', function(m) {
+        console.log('Received ack for message id: ' + m.id)
+      })
+
+      ratelSession.chat.onMessage('msg_delivered', function(m) {
+        console.log('Message delivery ack for id: ' + m.id)
       })
 
       ratelSession.chat.connect()
@@ -101,7 +226,11 @@
         })
         
       },
+      initCall: (serviceObject) => {
+        
+      },
       sendNewMessage: (message, roomId, socket = _userId) => {
+        $log.debug(roomId)
         _sendNewMessage(message, roomId, socket)
       },
       getRoomHistory: (roomId, socket) => {

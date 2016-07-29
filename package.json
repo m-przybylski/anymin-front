@@ -41,7 +41,7 @@
     "moment": "^2.11.2",
     "ng-file-upload": "^11.0.0",
     "perfect-scrollbar": "^0.6.10",
-    "ratel-sdk-js": "0.0.10",
+    "ratel-sdk-js": "0.0.11",
     "reset.css": "^2.0.2",
     "ui-select": "^0.18.1"
   },

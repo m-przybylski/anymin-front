@@ -1,10 +1,12 @@
 (function() {
 
   /* @ngInject */
-  function controller($timeout, User) {
+  function controller($scope, $timeout, User) {
 
-    this.isUserMessage = User.getData('id') === this.model.sender
-    
+    let _incommingSocket = $scope.$parent.$parent.vm.incommingSocket
+
+    this.isUserMessage = [String(_incommingSocket), String(User.getData('id'))].indexOf(String(this.model.sender)) >= 0
+
     if (angular.isDefined(this.model.incommingMessage) && this.model.incommingMessage) {
       $timeout(() => {
         this.model.incommingMessage = false
@@ -27,8 +29,8 @@
 
   angular.module('profitelo.components.communicator.pro-text-chat.chat-message', [
     'pascalprecht.translate',
-    'c7s.ng.userAuth',
-    'angularMoment'
+    'angularMoment',
+    'c7s.ng.userAuth'
 
   ])
     .component('proTextChatMessage', proTextChatMessage)
