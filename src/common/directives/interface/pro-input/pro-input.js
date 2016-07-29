@@ -98,7 +98,6 @@
         label: '@',
         addonText: '@',
         iconClass: '@',
-        name: '@',
         type: '@',
         id: '@',
         maxlength: '@',

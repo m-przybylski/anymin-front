@@ -2,7 +2,7 @@ form.pro-input-form(name="emailForm" data-ng-submit="emailForm.$valid && vm.setN
     pro-input(data-label="{{ 'REGISTER.SERVICE_EMAIL' | translate }}"
     placeholder="{{ 'REGISTER.SERVICE_EMAIL_PLACEHOLDER' | translate }}"
     data-ng-model="vm.registrationSteps.email"
-    data-name="email"
+    data-id="email"
     data-type="email"
     data-ng-pattern="vm.patternEmail"
     data-ng-class="{'invalid':emailForm.email.$invalid && (emailForm.email.$dirty || emailForm.$submitted)}"
