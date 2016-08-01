@@ -90,7 +90,8 @@ describe('Unit tests: profitelo.controller.login.register>', () => {
             confirmVerification: _$httpBackend.when(_RegistrationApiDef_.confirmVerification.method, _RegistrationApiDef_.confirmVerification.url)
           },
           AccountApi: {
-            partialUpdateAccount: _$httpBackend.when(_AccountApiDef_.partialUpdateAccount.method, _url + '/accounts/' + _User.getData())
+            partialUpdateAccount: _$httpBackend.when(_AccountApiDef_.partialUpdateAccount.method,  _url + '/accounts/' + _User.getData()),
+            getAccountEmailExists: _$httpBackend.when(_AccountApiDef_.getAccountEmailExists.method, _AccountApiDef_.getAccountEmailExists.url)
           }
         }
 
@@ -144,6 +145,8 @@ describe('Unit tests: profitelo.controller.login.register>', () => {
 
     it('should set new email', () => {
       resourcesExpectations.AccountApi.partialUpdateAccount.respond(200)
+      resourcesExpectations.AccountApi.getAccountEmailExists.respond(400)
+      RegisterController.registrationSteps.email = ':email'
       RegisterController.setNewEmail()
       _$httpBackend.flush()
 
@@ -154,6 +157,8 @@ describe('Unit tests: profitelo.controller.login.register>', () => {
     it('should handle bad requesnt while setting new email', () => {
       spyOn(_proTopAlertService, 'error')
       resourcesExpectations.AccountApi.partialUpdateAccount.respond(500)
+      resourcesExpectations.AccountApi.getAccountEmailExists.respond(400)
+      RegisterController.registrationSteps.email = ':email'
       RegisterController.setNewEmail()
       _$httpBackend.flush()
       expect(_proTopAlertService.error).toHaveBeenCalledWith({ message: 'INTERFACE.API_ERROR', timeout: 4 })

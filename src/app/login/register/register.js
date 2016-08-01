@@ -99,20 +99,15 @@
     let _isEmailExist = () => {
       AccountApi.getAccountEmailExists({
         email: this.registrationSteps.email
-      }).$promise.then((res) => {
-        console.log(res)
-        return true
-      }, (err) =>{
-        console.log(err)
-        this.emailExist = false
+      }).$promise.then((response) => {
         return false
+      }, (error) =>{
+        return true
       })
     }
 
     this.setNewEmail = () => {
-
       if (!_isEmailExist()) {
-        conole.log('email dodany')
         _updateNewUserObject({
           unverifiedEmail: this.registrationSteps.email
         }, () => {
@@ -123,7 +118,6 @@
       } else {
         this.emailExist = true
       }
-
     }
 
     this.completeRegistration = () => {
