@@ -5,10 +5,10 @@
 
       let required = false
 
-      scope.languages = ['Polish', 'English', 'Italian', 'Spanish']
+      scope.languages = ['English', 'Italian', 'Spanish']
 
       scope.model = {
-        languages: []
+        languages: ['Polish']
       }
 
       let _isValid = () => {
@@ -23,17 +23,21 @@
       }
 
       let _displayErrorMessage = () => {
-        scope.badLanguages = true
+        scope.error.badLanguages = true
       }
 
       if ('required' in attrs) {
         required = true
       }
 
-      scope.model.languages = scope.proModel.languages
+      if (scope.proModel.languages.length > 0) {
+        scope.model.languages = scope.proModel.languages
+      }
+
+
       scope.saveSection = () => {
         _isValid().then(() => {
-          scope.badLanguages = false
+          scope.error.badLanguages = false
           scope.proModel.languages = scope.model.languages
           scope.proceed()
         }, () => {

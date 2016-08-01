@@ -2,7 +2,6 @@
   function proServiceProviderDescription($q) {
     function linkFunction(scope, element, attrs) {
       scope.required = false
-      scope.noDescription = false
 
       scope.model = {
         description: ''
@@ -12,7 +11,7 @@
       }
 
       let _displayErrorMessage = () => {
-        scope.noDescription = true
+        scope.error.noDescription = true
       }
 
       scope.model.description = scope.proModel.description
@@ -31,7 +30,7 @@
 
       scope.saveSection = () => {
         _isValid().then(() => {
-          scope.noDescription = false
+          scope.error.noDescription = false
           scope.proModel.description = scope.model.description
           scope.proceed()
 

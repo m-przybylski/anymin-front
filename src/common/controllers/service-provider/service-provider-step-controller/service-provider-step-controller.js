@@ -3,6 +3,15 @@
 
     let shadowModel = null
 
+    $scope.error = {
+      badLanguages: false,
+      badUrl: false,
+      noURL: false,
+      noFile: false,
+      noDescription: false,
+      badFiles: false
+    }
+
     $scope.saveShadowModel = () => {
       shadowModel = angular.copy($scope.model)
     }
@@ -26,6 +35,14 @@
       }
     }
 
+    let _clearErrors = () => {
+      for (let property in $scope.error) {
+        if ($scope.error.hasOwnProperty(property)) {
+          $scope.error[property] = false
+        }
+      }
+    }
+
 
     $scope.skip = () => {
 
@@ -33,16 +50,13 @@
       $scope.restoreShadowModel()
       $scope.proceed()
 
-      for (let property in $scope.clearError) {
-        if ($scope.clearError.hasOwnProperty(property)) {
-          $scope.clearError[property] = false
-        }
-      }
+      _clearErrors()
     }
 
     $scope.outClick = () => {
       $scope.queue.skippedSteps[$scope.order] = false
       $scope.restoreShadowModel()
+      _clearErrors()
     }
 
     $scope.saveStep = () => {

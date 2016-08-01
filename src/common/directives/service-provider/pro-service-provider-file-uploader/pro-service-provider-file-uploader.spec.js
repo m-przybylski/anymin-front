@@ -68,12 +68,12 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
       let el = create(validHTML)
       let isoScope = el.isolateScope()
 
-      expect(isoScope.badFiles).toEqual(false)
+      expect(isoScope.error.badFiles).toEqual(false)
 
       isoScope.saveSection()
       _rootScope.$digest()
 
-      expect(isoScope.badFiles).toEqual(true)
+      expect(isoScope.error.badFiles).toEqual(true)
 
     })
 

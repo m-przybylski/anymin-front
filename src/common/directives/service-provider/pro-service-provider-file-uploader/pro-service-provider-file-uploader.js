@@ -3,8 +3,6 @@
 
     function linkFunction(scope, element, attrs) {
 
-      scope.badFiles = false
-
       scope.model = {
         files: []
       }
@@ -47,13 +45,13 @@
       }
 
       let _displayErrorMessage = () => {
-        scope.badFiles = true
+        scope.error.badFiles = true
       }
 
 
       scope.saveSection = () => {
         _isValid().then(() => {
-          scope.badFiles = false
+          scope.error.badFiles = false
           scope.proceed()
           scope.proModel.files = scope.model.files.map((file) => {
             return file.response.id
