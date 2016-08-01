@@ -1,3 +1,7 @@
+button
+  background: none
+  border: 0
+  
 .pro-btn
   +transition(background .3s ease-in-out)
   +text-truncate
@@ -105,6 +109,7 @@
   color: $c-white
   border: 1px solid transparent
   position: relative
+  padding: 15px 32px 14px
 
   .icon
     line-height: 1
@@ -125,7 +130,7 @@
       transform: translateY(-50%)
 
       &::before
-        font-size: 16px
+        font-size: 13px
 
     .icon
       top: 50%
@@ -140,10 +145,6 @@
     border-radius: 100%
     height: 64px
     width: 64px
-
-    &.small
-      width: 48px
-      height: 48px
 
     .icon
       width: 16px
@@ -175,8 +176,21 @@
       border: 1px solid $c-primary-txt
       color: $c-white
 
-  &.succes
+  &.success
     background: $c-success
+
+    &.nobackground
+      background: none
+      color: $c-success
+
+      &.iconbg
+        .icon
+          background: $c-success
+          color: $c-white
+
+    &.iconbg
+      .icon
+        color: $c-success
 
     &:hover
       background: lighten($c-success, 8%)
@@ -190,11 +204,69 @@
   &.error
     background: $c-error
 
+    &.nobackground
+      background: none
+      color: $c-error
+
+      &.iconbg
+        .icon
+          background: $c-error
+          color: $c-white
+
+    &.iconbg
+      .icon
+        color: $c-error
+
     &:hover
       background: lighten($c-error, 8%)
 
   &.btn-full
     width: 100%
+
+  &.iconbg
+    display: flex
+    align-items: center
+    padding: 15px 32px 14px
+
+    span
+      +default-font-heavy
+      font-size: $f-h4-size
+
+    .icon
+      position: static
+      margin: 0 16px 0 0
+      background: $c-white
+      border-radius: 50%
+      width: 16px
+      height: 16px
+      display: flex
+      align-items: center
+      justify-content: center
+
+      &::before
+        font-size: $f-icon-size
+
+  &.nobackground
+    display: flex
+    align-items: center
+    background: none
+    padding: 15px 0 14px
+
+    &:hover
+      background: none
+
+    span
+      &.icon
+        position: static
+        margin: 0 16px 0 0
+
+      &.back
+        margin: 0 0 0 8px
+        color: $c-secondary-txt
+        font-size: $f-h5-size
+
+        &:hover
+          color: $c-error
 
 .pro-button-group
   overflow: hidden
@@ -258,6 +330,53 @@
         background: $c-white
         border-color: $c-lines
 
+.btn-handler
+  .pro-button
+    &:not(:last-of-type)
+      margin-right: 8px
+
+
+
+/*icons*/
+.pro-icon
+  +transition(border 0.3s)
+  width: 48px
+  height: 48px
+  border: 1px solid $c-lines
+  display: flex
+  align-items: center
+  justify-content: center
+
+  &.default
+    border: 1px solid $c-black
+    background: $c-black
+    color: $c-white
+
+  .icon
+    +transition(border 0.3s)
+    font-size: $f-h4-size
+    display: flex
+    align-items: center
+    justify-content: center
+
+  &.show-more-arrow
+    height: 32px
+    width: 56px
+
+    .icon
+      font-size: $f-h5-size
+
+/*button icons*/
+[href].pro-icon
+  &:hover
+    border-color: $c-primary-txt
+
+  &.default
+    &:hover
+      border: 1px solid $c-lines
+      background: $c-white
+      color: $c-black
+
 .btn-player
   display: block
   background: rgba($c-black, 0.5)
@@ -291,8 +410,4 @@
 
   &.disconnect
     background: $c-secondary
-
-.btn-handler
-  .pro-button
-    &:not(:last-of-type)
-      margin-right: 8px
+    color: $c-white !important

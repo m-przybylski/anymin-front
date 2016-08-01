@@ -2,14 +2,14 @@
 
   /* @ngInject */
   function controllerFunction($scope, proRatelService) {
-    
+
     proRatelService.authenticate()
 
     this.isVisible = false
     this.showChat = false
 
     let _wasChatShown = false
-    
+
     let _toggleChat = () => {
 
       if (this.isVisible) {
@@ -20,9 +20,9 @@
       }
 
       this.isVisible = !this.isVisible
-      
+
     }
-    
+
     $scope.$on('toggleChat', _toggleChat)
 
     this.isFullScreenMode = false
