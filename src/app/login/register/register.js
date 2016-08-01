@@ -7,6 +7,8 @@
     this.isPending = false
     this.rulesAccepted = false
     this.serverError = false
+    this.alreadyCheck = false
+    this.correctCode = false
 
     this.registrationSteps = {
       account: smsSessionId.accountObject,
@@ -29,7 +31,22 @@
     }
 
     this.verifyCode = () => {
-      this.serverError = false
+      if(angular.isDefined(this.registrationSteps.smsCode) && this.registrationSteps.smsCode !== null && !this.alreadyCheck) {
+        this.alreadyCheck = true
+        RegistrationApi.verifyVerification({
+          sessionId: this.registrationSteps.sessionId,
+          token: String(this.registrationSteps.smsCode)
+        }).$promise.then((res) => {
+          this.correctCode = true
+        }, (err) =>{
+          this.serverError = true
+        })
+      } else if(!angular.isDefined(this.registrationSteps.smsCode) || this.registrationSteps.smsCode === null) {
+        this.alreadyCheck = false
+        this.serverError = false
+        this.correctCode = false
+      }
+
     }
 
     this.getSmsCodeStatus = () => {
