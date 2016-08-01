@@ -28,10 +28,8 @@
         scope.required = true
       }
 
-
-      let _calculatePercentage = function(loaded, total, currentFile, files) {
-        return  parseInt((100.0 * loaded / total), 10)
-
+      let _calculatePercentage = function(loaded, total) {
+        return parseInt((100.0 * loaded / total), 10)
       }
 
       let _setFilesStatus = (currentFile, allFiles) => {
@@ -41,7 +39,6 @@
         }
       }
 
-      let uploadingFiles = []
       scope.uploadFiles = function($files) {
         scope.isPending = true
         scope.uploadImg = false
@@ -67,7 +64,6 @@
                 }
               }).then(
                 function(res) {
-                  console.log(_file)
                   scope.filesUploaded.push({
                     file: files[_file],
                     response: res.data
@@ -81,7 +77,7 @@
                   // TODO walidacje na odpowiedzi z serwera
                 },
                 function(res) {
-                  scope.progress = _calculatePercentage(res.loaded, res.total, _file, _files)
+                  scope.progress = _calculatePercentage(res.loaded, res.total)
                 }
               )
             }
@@ -110,6 +106,10 @@
         immediateInterval = $interval(() => {
           if (scope.progress >= 100) {
             _endImmediateLoading()
+            $timeout(()=>{
+              $interval.cancel(immediateInterval)
+            })
+
           }
         })
       }
@@ -125,13 +125,21 @@
         scope.hideArrow = true
         scope.hideLoader = false
         scope.fadeText = false
-        scope.fadeText = true
-        scope.upload = true
-        scope.header = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.HEADER_UPLOAD'
-        scope.info = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO_UPLOAD'
-        _startImmediateLoading()
         $timeout(()=>{
-          scope.fadeText = false
+          scope.fadeText = true
+          $timeout(()=> {
+            scope.upload = true
+            scope.header = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.HEADER_UPLOAD'
+            scope.info = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO_UPLOAD'
+            _startImmediateLoading()
+            scope.translationInfo = {
+              file: _file,
+              files: _files
+            }
+            $timeout(()=>{
+              scope.fadeText = false
+            }, 200)
+          }, 200)
         }, 200)
 
       }
