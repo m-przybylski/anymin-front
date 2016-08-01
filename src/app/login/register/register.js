@@ -112,8 +112,12 @@
           unverifiedEmail: this.registrationSteps.email
         }, () => {
           this.isPending = false
-          this.current = 3
-          proTopWaitingLoaderService.stopLoader()
+          proTopAlertService.success({
+            message: $filter('translate')('REGISTER.REGISTRATION_SUCCESS'),
+            timeout: 3
+          })
+          loginStateService.clearServiceObject()
+          $state.go('app.dashboard.start')
         })
       } else {
         this.emailExist = true
@@ -125,14 +129,9 @@
         password: this.registrationSteps.password
       }, () => {
         this.isPending = false
-        proTopAlertService.success({
-          message: $filter('translate')('REGISTER.REGISTRATION_SUCCESS'),
-          timeout: 3
-        })
-        loginStateService.clearServiceObject()
-        $state.go('app.dashboard.start')
+        this.current = 3
+        proTopWaitingLoaderService.stopLoader()
       })
-
     }
 
     return this
