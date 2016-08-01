@@ -1,6 +1,15 @@
 (function() {
   function proRatelService($log, $rootScope, $q, $timeout, User, RatelApi, ServiceApi) {
 
+    navigator.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia
+
+    if (navigator.mediaDevices.getUserMedia) {
+      navigator.getUserMedia = function(arg, t, c) {
+        return navigator.mediaDevices.getUserMedia(arg).then(t).catch(c);
+      }
+    }
+
+
     const artichokeConfig = {
       url: 'artichoke.ratel.io',
       debug: true
@@ -13,6 +22,19 @@
     let _ratelSessions = []
     let _userId
     let _ratelRegisterConfig = []
+
+    let controlls = null
+
+    let calls = []
+
+    // streams
+    let remoteStream = null
+    let remoteStreamVideoElement = null
+
+    let localStream = null
+    let localStreamVideoElement = null
+
+
 
     let _sendNewMessage = (message, roomId, socket) => {
       _ratelSessions[socket].chat.sendMessage(roomId, message)
@@ -28,49 +50,34 @@
       }
     }
     
-    let _makeCall = (peer) => {
+    let _makeCall = (peer, ratelSessionId) => {
       console.log('Creating a call object.')
       var call = calls[peer]
       if (call) {
         return call
       }
 
-      var box = document.createElement('div')
+      // var box = document.createElement('div')
+      //
+      //
+      // var end = document.createElement('button')
+      // end.innerHTML = 'Hangup call'
+      // end.onclick = function() {
+      //   console.log( 'Ending call with ' + peer + '...')
+      //   session.chat.hangupCall(peer, 'hangup')
+      //   _removeCall(peer)
+      // }
+      // box.appendChild(end)
 
-      var localVideo = document.createElement('video')
-      localVideo.className = 'video-stream'
-      localVideo.id = 'local-video'
-      localVideo.autoplay = true
-      box.appendChild(localVideo)
-
-      var removeVideo = document.createElement('video')
-      removeVideo.className = 'video-stream'
-      removeVideo.id = 'remote-video'
-      removeVideo.autoplay = true
-      box.appendChild(removeVideo)
-
-      var end = document.createElement('button')
-      end.innerHTML = 'Hangup call'
-      end.onclick = function() {
-        console.log( 'Ending call with ' + peer + '...')
-        session.chat.hangupCall(peer, 'hangup')
-        _removeCall(peer)
-      }
-      box.appendChild(end)
-
-      document.getElementById('call-container').appendChild(box)
-
-      var localStream = undefined
-      var remoteStream = undefined
-
-      function showRemoteStream(stream) {
-        remoteStream = stream
-        removeVideo.src = window.URL.createObjectURL(stream)
-      }
 
       function showLocalStream(stream) {
         localStream = stream
-        localVideo.src = window.URL.createObjectURL(stream)
+        localStreamVideoElement.attr('src', window.URL.createObjectURL(stream))
+      }
+
+      function showRemoteStream(stream) {
+        remoteStream = stream
+        localStreamVideoElement.attr('src', window.URL.createObjectURL(stream))
       }
 
       function stopStreams() {
@@ -85,10 +92,11 @@
         }
       }
 
+
       function createLocalStream(onLocalStream) {
         navigator.getUserMedia(
-          {'video': f.elements[3].checked,
-            'audio': f.elements[2].checked},
+          {'video': true,
+            'audio': true},
           function(stream) {
             console.log('Local stream started!')
             showLocalStream(stream)
@@ -98,13 +106,14 @@
           })
       }
 
-      session.chat.onRemoteStream(function(stream) {
-        console.log('Remote stream started!')
-        showRemoteStream(stream)
+
+      _ratelSessions[ratelSessionId].chat.onRemoteStream(function(stream) {
+        console.log("Remote stream started!");
+        showRemoteStream(stream);
       })
 
+
       calls[peer] = {
-        box: box,
         peer: peer,
         showRemoteStream: showRemoteStream,
         createLocalStream: createLocalStream,
@@ -134,15 +143,16 @@
 
       ratelSession.chat.onMessage('call_offer', function(m) {
         console.log(m.user + ' is calling...')
-        // if(confirm(m.user + ' is calling, answer?')) {
-        //   makeCall(m.user).createLocalStream(function(stream) {
-        //     ratelSession.chat.answerCall(m, stream)
-        //   })
-        // } else {
-        //   console.log('Rejecting call...')
-        //   session.chat.rejectCall(m)
-        // }
+        if(confirm(m.user + ' is calling, answer?')) {
+          _makeCall(m.user, ratelSession.id).createLocalStream(function(stream) {
+            ratelSession.chat.answerCall(m, stream)
+          })
+        } else {
+          console.log('Rejecting call...')
+          ratelSession.chat.rejectCall(m)
+        }
       })
+
 
       ratelSession.chat.onMessage('call_answer', function(m) {
         console.log(m.user + ' answered the call!')
@@ -167,6 +177,7 @@
       ratelSession.chat.onMessage('msg_delivered', function(m) {
         console.log('Message delivery ack for id: ' + m.id)
       })
+
 
       ratelSession.chat.connect()
 
@@ -217,9 +228,15 @@
 
       },
       startConversation: (serviceObject) => {
-        
-        _ratelSessions[_userId].chat.createDirectRoom('s' + serviceObject.id + 'u' + serviceObject.ownerId).then(room => {
+
+        let userTmpId = 's' + serviceObject.id + 'u' + serviceObject.ownerId
+
+        _ratelSessions[_userId].chat.createDirectRoom(userTmpId).then(room => {
           $log.debug(room)
+
+          _makeCall(room.id, _userId).createLocalStream(function(stream) {
+            _ratelSessions[_userId].chat.offerCall(userTmpId, stream)
+          })
 
           $rootScope.$broadcast('startConversation', _userId, room.id)
           
@@ -244,6 +261,16 @@
             })
           }
         }
+      },
+      bindLocalStreamElement: (element) => {
+        localStreamVideoElement = element
+      },
+      bindRemoteStreamElement: (element) => {
+        remoteStreamVideoElement = element
+        localStreamVideoElement = element
+      },
+      bindControlls: (controls) => {
+
       }
     }
   
