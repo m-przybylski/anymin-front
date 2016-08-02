@@ -10,6 +10,9 @@ try {
   throw new Error(e)
 }
 
+var PROJECT_THEME_NAME = 'profitelo_theme'
+var PROJECT_THEME_PATH = 'src/template/' + PROJECT_THEME_NAME
+
 module.exports = {
   pkg: require('./package.json'),
   compile_dir: 'build',
@@ -17,7 +20,8 @@ module.exports = {
   tpl_name: 'templates-module.js',
   requiredTestCoverage: 80,
   tpl_module: 'templates-module',
-  project_theme_name: 'profitelo_theme',
+  project_theme_name: PROJECT_THEME_NAME,
+  project_theme_path: PROJECT_THEME_PATH,
   swagger_location: commonConfig.urls.backend + '/swagger/swagger.json',
   swagger_module: 'profitelo.swagger',
   app_files: {
@@ -30,7 +34,13 @@ module.exports = {
     jade_common_tpl: 'src/common/**/*.jade',
     assets: ['src/assets/**'],
     index_html: ['src/index.html'],
-    sass_all: ['src/template/**/*.sass']
+    sass: {
+      all_observed: [
+        PROJECT_THEME_PATH + '**/*.sass'
+      ],
+
+      to_compile: PROJECT_THEME_PATH + '/stylesheets/main.sass'
+    }
   },
   test_files: {
     js: [
