@@ -1,9 +1,10 @@
-.expert-cards-section.pro-expert-card.flex-col
-  .expert-card.flex-col
-    .top-content-wrap.flex-col
+.expert-cards-section.pro-expert-card
+  .expert-card
+    .top-content-wrap
       img.expert-avatar(src="https://placekitten.com/50/50")
       p.expert-name='{{ngModel.name}}'
-      p.expert-availability(class='{{ngModel.status}}', data-translate='{{translations[ngModel.status]}}')
+      p.expert-availability(class='{{ngModel.status}}')
+        span(data-translate='{{translations[ngModel.status]}}')
       p.expert-service(data-translate="HOME.SERVICE_DESCRIPTION")
     .expert-data.flex-row
       .service-satisfaction

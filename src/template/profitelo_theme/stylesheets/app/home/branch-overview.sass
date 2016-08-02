@@ -6,18 +6,19 @@
   margin: 40px 0
 
 .branch-card-box
+  flex-wrap: wrap
   justify-content: space-between
-  flex-flow: row wrap
   margin: 0 -8px
 
   &:last-of-type
     margin-bottom: 128px
 
   .branch-card-outer
-    padding: 0 8px
+    padding: 0
     margin: 0 0 16px
     position: relative
     flex: 0 0 100%
+
 
     +xsm
       flex: 0 0 50%
@@ -37,13 +38,10 @@
     +default-font-heavy
     color: $c-white
     padding: 26px 32px
+    margin: 0 8px 0
     height: 128px
     box-shadow:  0 2px 2px 0 rgba(0, 0, 0, .2)
     font-size: $f-base
     justify-content: flex-end
     background: $c-primary-hover
-    width: 100%
     text-transform: uppercase
-
-    +lgm
-      max-width: 288px

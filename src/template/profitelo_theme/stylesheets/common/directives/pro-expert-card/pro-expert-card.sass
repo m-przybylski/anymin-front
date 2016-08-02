@@ -1,95 +1,101 @@
-.expert-cards-section
-  .expert-card
-    background: $c-white
-    width: 288px
-    padding: 16px
-    height: 400px
-    align-items: center
-    margin-right: 16px
-    justify-content: space-between
+.pro-expert-card
+  &.expert-cards-section
 
-  .top-content-wrap
-    align-items: center
 
-    .expert-avatar
-      border-radius: 50%
-      margin-bottom: 16px
+    .expert-card
+      background: $c-white
+      padding: 16px
+      height: 400px
+      margin: 0 8px
+      display: flex
+      flex-direction: column
+      justify-content: space-between
 
-    .expert-name
-      +default-font-heavy
-      font-size: $f-base
-      margin-bottom: 2px
-      width: 100%
+    .top-content-wrap
       text-align: center
-      overflow: hidden
-      text-overflow: ellipsis
-      white-space: nowrap
 
-    .expert-availability
-      +default-font-heavy
-      text-transform: uppercase
-      font-size: $f-base
-      padding-left: 20px
-      position: relative
-      margin: 0 0 20px
-
-      &::before
-        display: block
-        content: ''
-        width: 11px
-        height: 11px
+      .expert-avatar
         border-radius: 50%
-        position: absolute
-        left: 0
-        top: 5px
+        margin-bottom: 16px
 
-      &.available
-        color: $c-success
+      .expert-name
+        +default-font-heavy
+        font-size: $f-base
+        margin-bottom: 2px
+        width: 100%
+        text-align: center
+        overflow: hidden
+        text-overflow: ellipsis
+        white-space: nowrap
+
+      .expert-availability
+        +default-font-heavy
+        text-transform: uppercase
+        font-size: $f-base
+        padding: 0
+        position: relative
+        margin: 0 0 20px
+
+        span
+          vertical-align: middle
 
         &::before
-          background: $c-success
+          display: inline-block
+          vertical-align: middle
+          content: ''
+          width: 11px
+          height: 11px
+          border-radius: 50%
+          margin: 0 8px 0 0
 
-      &.not-available
-        color: $c-secondary-txt
+        &.available
+          color: $c-success
 
-        &::before
-          background: $c-secondary-txt
+          &::before
+            background: $c-success
 
-      &.busy
-        color: $c-error
+        &.not-available
+          color: $c-secondary-txt
 
-        &::before
-          background: $c-error
+          &::before
+            background: $c-secondary-txt
 
-    .expert-service
-      +default-font-light
-      font-size: $f-main-subheader
-      text-align: center
-      line-height: 1.3
-      overflow: hidden
-      text-overflow: ellipsis
+        &.busy
+          color: $c-error
+
+          &::before
+            background: $c-error
+
+      .expert-service
+        +default-font-light
+        font-size: $f-main-subheader
+        text-align: center
+        line-height: 1.3
+        overflow: hidden
+        text-overflow: ellipsis
+        width: 100%
+
+    .expert-data
+      font-weight: 700
+      color: $c-secondary-txt
       width: 100%
+      align-self: flex-end
+      justify-content: space-between
 
-  .expert-data
-    font-weight: 700
-    width: 100%
-    justify-content: space-between
-    color: $c-secondary-txt
-
-    .service-satisfaction,
-    .conversations-amount
-      position: relative
-      font-size: $f-base
-      line-height: 1.3
-      white-space: nowrap
-
-      p
+      .service-satisfaction,
+      .conversations-amount
+        position: relative
         font-size: $f-base
         line-height: 1.3
-        padding-left: 24px
+        white-space: nowrap
 
-      .icon
-        &::before
-        position: absolute
-        left: 0
-        font-size: 16px
+        p
+          font-size: $f-base
+          line-height: 1.3
+          padding-left: 24px
+
+        .icon
+          &::before
+          position: absolute
+          left: 0
+          font-size: 16px

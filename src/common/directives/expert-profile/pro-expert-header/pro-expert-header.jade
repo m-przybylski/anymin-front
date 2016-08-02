@@ -25,7 +25,9 @@
   .header-container
     .default-container
       .header-content
-        .quote-icon
-          span.pro-btn.btn-icon.icon.icon-quote-24
-    
-          show-more-text(data-text="profile.description")
+        .description
+          p {{ profile.description }}          
+          .quote-icon
+            span.pro-btn.btn-icon.icon.icon-quote-24      
+          .more-icon
+            span.pro-btn.btn-light.icon.icon-arrow-down-12
