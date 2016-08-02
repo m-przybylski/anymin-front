@@ -2,8 +2,6 @@
 
   function galleryModelController($scope, $uibModalInstance) {
 
-    console.log($scope.slide)
-
     return this
   }
 

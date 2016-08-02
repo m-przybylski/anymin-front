@@ -7,6 +7,7 @@
       .switcher
         span.icon.icon-arrow-left-12(data-ng-click="prevSlide()")
         span.icon.icon-arrow-right-12(data-ng-click="nextSlide()")
-    .slider-slides(data-ng-style="leftOffset")
-      .slides(data-ng-repeat="slide in sliders" data-ng-swipe-left="nextSlide()" data-ng-swipe-right="prevSlide()")
-        img(src='http://api.dev.profitelo.pl/files/{{ slide }}/download' data-ng-click="openDialog(slide)")
+    .slider-slides(data-ng-style="leftOffset") 
+      slider.flex-row(data-ng-transclude data-controlls="controlls")
+        .slides(data-ng-repeat="slide in sliders" data-ng-swipe-left="nextSlide()" data-ng-swipe-right="prevSlide()")
+          img(src='http://api.dev.profitelo.pl/files/{{ slide }}/download' data-ng-click="openDialog(slide)")

@@ -1,34 +1,13 @@
 (function() {
   function proExpertSlider(DialogService) {
     function linkFunction(scope) {
-
-      var controlsClick = 0
-      var slideWidth = 0
-
-      scope.leftOffset = {left: 0}
-
-      scope.prevSlide = () => {
-        if (controlsClick > 0) {
-          let width = $('.slides').width() + 2
-          slideWidth = slideWidth + width
-          scope.leftOffset = {left: slideWidth}
-          controlsClick = controlsClick - 1
-        }
+      scope.controlls = {}
+      scope.nextSlide = function() {
+        scope.controlls.nextSlide()
       }
-
-      scope.nextSlide = () => {
-        let width = $('.slides').width() + 2
-        let containerWidth = $('.slider-slides').width() + 8
-        let countVisableItem = Math.floor(containerWidth/width)
-        let itemCount = $('.slides').length
-        let currentSlides = itemCount - countVisableItem
-        if (controlsClick < currentSlides) {
-          slideWidth = slideWidth - width
-          scope.leftOffset = {left: slideWidth}
-          controlsClick = controlsClick + 1
-        }
+      scope.prevSlide = function() {
+        scope.controlls.prevSlide()
       }
-
       scope.openDialog = (slide) => {
         scope.slide = slide
         DialogService.openDialog({
@@ -52,6 +31,7 @@
 
   angular.module('profitelo.directives.expert-profile.pro-expert-slider', [
     'profitelo.services.dialog-service',
+    'profitelo.components.interface.slider',
     'profitelo.common.controller.gallery-modal'
   ])
   .directive('proExpertSlider', proExpertSlider)
