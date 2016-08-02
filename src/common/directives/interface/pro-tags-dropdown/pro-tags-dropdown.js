@@ -40,6 +40,7 @@ function proTagsDropdown($timeout, CommonSettingsService) {
     }
 
     scope.select = function(item, model, select) {
+      scope.valid = false
       scope.proModel.push(item)
       _onFocusOut()
       _getScrollbarChoices().perfectScrollbar()
