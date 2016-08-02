@@ -1,5 +1,5 @@
 (function() {
-  function CompanyProfileController($scope, $state, savedProfile, ServiceApi, proTopAlertService, CommonConfig, checkAccount, companyImage) {
+  function CompanyProfileController($scope, $state, savedProfile, ServiceApi, proTopAlertService, CommonConfig, checkAccount, companyImage, DialogService) {
 
     let _commonConfig = CommonConfig.getAllData()
     this.profile = {}
@@ -11,6 +11,13 @@
       this.services = savedProfile.services
       this.consultations = savedProfile.services
       this.profile.type = 'company'
+    }
+    this.openDialog = () => {
+      DialogService.openDialog({
+        scope: $scope,
+        controller: 'acceptRejectDialogController',
+        templateUrl: 'controllers/gallery-modal/gallery-modal.tpl.html'
+      })
     }
 
     return this

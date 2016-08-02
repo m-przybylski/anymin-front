@@ -1,5 +1,5 @@
 (function() {
-  function proExpertSlider() {
+  function proExpertSlider(DialogService) {
     function linkFunction(scope) {
 
       var controlsClick = 0
@@ -28,6 +28,15 @@
           controlsClick = controlsClick + 1
         }
       }
+
+      scope.openDialog = (slide) => {
+        scope.slide = slide
+        DialogService.openDialog({
+          scope: scope,
+          controller: 'galleryModelController',
+          templateUrl: 'controllers/gallery-modal/gallery-modal.tpl.html'
+        })
+      }
     }
 
     return {
@@ -41,7 +50,10 @@
     }
   }
 
-  angular.module('profitelo.directives.expert-profile.pro-expert-slider', [])
+  angular.module('profitelo.directives.expert-profile.pro-expert-slider', [
+    'profitelo.services.dialog-service',
+    'profitelo.common.controller.gallery-modal'
+  ])
   .directive('proExpertSlider', proExpertSlider)
 
 }())
