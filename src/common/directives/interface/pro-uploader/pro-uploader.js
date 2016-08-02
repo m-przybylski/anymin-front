@@ -13,6 +13,7 @@
       scope.upload = false
       scope.hideArrow = false
       scope.imageSize = {width: 320, height: 320, quality: 1}
+      scope.errorValidateMessage = false
 
       if ('type' in attr.$attr) {
         scope.ngfPattern = attr.type
@@ -31,6 +32,12 @@
         return parseInt((100.0 * loaded / total), 10)
       }
 
+      let _setFilesStatus = (currentFile, allFiles) => {
+        scope.translationInfo = {
+          file: currentFile,
+          files: allFiles
+        }
+      }
 
       scope.uploadFiles = function($files) {
         scope.isPending = true
@@ -42,12 +49,14 @@
           for (var i = 0; i < files.length; i++) {
             if (!files[i].$error) {
               tokenPromisses.push(FilesApi.tokenPath().$promise)
+              scope.errorValidateMessage = false
             }
           }
           $q.all(tokenPromisses).then((tokenPromissesResponse) => {
             scope.animate()
             for (var k = 0; k < files.length; k++) {
               _files = files.length
+              _setFilesStatus(_file, _files)
               Upload.upload({
                 url: _commonConfig.urls.backend + _commonConfig.urls['file-upload'].replace('%s', tokenPromissesResponse[k].fileId),
                 data: {
@@ -74,6 +83,9 @@
             }
           }, function(tokenPromissesError) {
           })
+        } else {
+          scope.isPending = false
+          scope.errorValidateMessage = true
         }
       }
 
@@ -143,7 +155,9 @@
         ngfPattern: '@',
         filesUploaded: '=?',
         maxSize: '@',
-        isPending: '=?'
+        isPending: '=?',
+        ngfValidate: '=?',
+        errorMessage: '@'
 
       }
     }

@@ -7,6 +7,16 @@
       scope.required = false
       scope.isPending = false
 
+      scope.imageSizeValidation = {
+        width: {
+          min: 100,
+          max: 1000
+        },
+        height: {
+          min: 100,
+          max: 1000
+        }
+      }
       if ('imageField' in attrs) {
         scope.imageField = attrs.imageField
       }

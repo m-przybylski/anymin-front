@@ -7,11 +7,12 @@
   items="{{filesUploaded}}"
   ngf-resize="{{imageSize}}"
   data-ng-required="required"
+  ngf-validate="{{ngfValidate}}"
   ngf-drag-over-class="{pattern: '{{pattern}}', accept:'acceptClass', reject:'rejectClass', delay:100}")
     .upload-icons(data-ng-hide="uploadImg")
       span.icon.icon-upload-cloud-64
       span.icon.icon-upload-arrow-24.icon-overlay(data-ng-hide="upload" ng-class="{'arrow-hide': hideArrow, 'arrow-show': showArrow}")
-      span.icon.icon-upload-progress-24-1.icon-overlay-load.fa-spin.icon-24(data-ng-show="upload" ng-class="{'hide-loader' : hideLoader}")
+      span.icon.icon-upload-progress-24.icon-overlay-load.fa-spin.icon-24(data-ng-show="upload" ng-class="{'hide-loader' : hideLoader}")
     .upload-description(ng-class="{'fade-effect': fadeText}" data-ng-hide="uploadImg")
       h3 {{header | translate}}
         span(data-ng-hide="!upload")  {{progress}}%
@@ -19,5 +20,4 @@
     .upload-field-fill(style="height: {{ progress }}%")
 
   .input-error-messages.uploader-error-massages
-    .error(data-translate="COMMON.DIRECTIVES.INTERFACE.UPLOADER.ERROR_EXTERNAL_FILES_TYPE" data-ng-show="scope.uploadedFiles.$error === 'pattern'")
-    .error(data-translate="COMMON.DIRECTIVES.INTERFACE.UPLOADER.ERROR_EXTERNAL_FILES_SIZE" data-ng-show="badFileSize")
+    .error(data-translate="{{errorMessage}}" data-ng-show="!!errorValidateMessage")
