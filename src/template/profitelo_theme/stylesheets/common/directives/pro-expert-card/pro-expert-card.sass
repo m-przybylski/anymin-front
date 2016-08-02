@@ -1,13 +1,23 @@
-.pro-expert-card
-  &.expert-cards-section
+.expert-slider
+  transform: translateY(200px)
+  margin: -200px 0 200px
 
+.pro-expert-card
+    box-shadow: 0 1px 1px $c-box-shadow
+    cursor: pointer
+    transition: transform .2s, box-shadow .2s
+    margin: 0 8px
+
+    &:hover
+      box-shadow: 0 22px 43px $c-box-shadow
+      transform: translateY(-8px)
 
     .expert-card
       background: $c-white
       padding: 16px
       height: 400px
-      margin: 0 8px
       display: flex
+      width: 288px
       flex-direction: column
       justify-content: space-between
 
