@@ -6,12 +6,11 @@ describe('Unit tests: Field section >', () => {
 
     beforeEach(() => {
       module('profitelo.controller.consultations-field')
-      inject(($rootScope, $controller, $state) => {
+      inject(($rootScope, $controller) => {
         $scope = $rootScope.$new()
         ConsultationsFieldController = $controller('ConsultationsFieldController', {
           $scope: $scope,
-          $rootScope: $rootScope,
-          $state: $state
+          $rootScope: $rootScope
         })
       })
     })

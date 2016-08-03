@@ -12,13 +12,6 @@
       this.consultations = savedProfile.services
       this.profile.type = 'company'
     }
-    this.openDialog = () => {
-      DialogService.openDialog({
-        scope: $scope,
-        controller: 'acceptRejectDialogController',
-        templateUrl: 'controllers/gallery-modal/gallery-modal.tpl.html'
-      })
-    }
 
     return this
   }

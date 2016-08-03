@@ -34,20 +34,5 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-slider', 
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
-
-    it('should prev slide', () => {
-      let el = create(validHTML)
-      let isoScope = el.isolateScope()
-      isoScope.prevSlide()
-      expect(isoScope.prevSlide).toBeDefined(true)
-    })
-
-    it('should next slide', () => {
-      let el = create(validHTML)
-      let isoScope = el.isolateScope()
-      isoScope.nextSlide()
-      expect(isoScope.prevSlide).toBeDefined(true)
-    })
-
   })
 })

@@ -20,7 +20,7 @@
 
 
     $timeout(()=>{
-      elementsMap = $.map($($element).find('.slides'), (div)=>{
+      elementsMap = $.map($($element).find('>div'), (div)=>{
         return div.clientWidth
       })
     })
@@ -41,7 +41,10 @@
     }
 
     this.nextSlide = (next=1) => {
-      if (currentElement < elementsMap.length - next) {
+      let parentWidth = $('slider').parent().width()
+      let visibleItem = Math.floor(parentWidth / elementsMap[1])
+
+      if (currentElement < elementsMap.length - visibleItem) {
         currentElement = currentElement + next
         $element.css('left', _calculateOffset(currentElement) * -1)
       } else {

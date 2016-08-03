@@ -13,6 +13,43 @@
     top: 0
     content: ''
 
+  .card-slider
+    position: relative
+
+    .controlls
+      position: absolute
+      width: 100%
+      height: 400px
+      top: 0
+      display: flex
+      flex-direction: row
+      justify-content: space-between
+      align-items: center
+      opacity: 0
+      +transition(opacity .2s)
+
+      &:hover
+        opacity: 1
+
+      .left-offset
+        height: 100%
+        background: linear-gradient(left, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%)
+        display: flex
+        flex-direction: row
+        align-items: center
+
+      .right-offset
+        height: 100%
+        background: linear-gradient(right, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%)
+        display: flex
+        flex-direction: row
+        align-items: center
+
+      span
+        padding: 0 32px
+        font-size: 32px
+        background: transparent
+
 .home-header
   justify-content: center
 
