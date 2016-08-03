@@ -11,8 +11,8 @@ div(ng-repeat="service in vm.services")
   data-type="vm.profile.type"
   )
 
-pro-expert-slider(data-sliders="vm.profile.files")
+pro-expert-slider(data-ng-show="vm.profile.files.length" data-sliders="vm.profile.files")
 
-pro-expert-social-icons(data-links="vm.profile.links")
+pro-expert-social-icons(data-ng-show="vm.profile.links.length" data-links="vm.profile.links")
 
 pro-footer()

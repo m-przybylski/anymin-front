@@ -7,6 +7,10 @@ main.top-content-home
     pro-search-dropdown()
   .default-container
     include ./parts/branch-overview.partial.jade
+
+  .default-container
+    pro-expert-slider(data-ng-show="vm.profile.files" data-sliders="vm.profile.files")
+    
   .card-slider
     slider.flex-row(data-ng-transclude data-controlls="vm.controlls")
       pro-expert-card(data-ng-repeat="expert in vm.expertCard" data-ng-model="expert")

@@ -1,14 +1,14 @@
-describe('Unit testing: profitelo.directives.expert-profile.pro-expert-single-consultation', () => {
-  return describe('for expert-profile.pro-expert-single-consultation directive >', () => {
+describe('Unit testing: profitelo.directives.pro-expert-see-more', () => {
+  return describe('for pro-expert-see-more directive >', () => {
 
     let scope = null
     let rootScope
     let compile = null
-    let validHTML = '<pro-expert-single-consultation></pro-expert-single-consultation>'
+    let validHTML = '<pro-expert-see-more></pro-expert-see-more>'
 
     beforeEach(() => {
       module('templates-module')
-      module('profitelo.directives.expert-profile.pro-expert-single-consultation')
+      module('profitelo.directives.pro-expert-see-more')
 
       inject(($rootScope, $compile) => {
         rootScope = $rootScope.$new()
