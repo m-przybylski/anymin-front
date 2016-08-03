@@ -5,6 +5,11 @@
 
     proRatelService.authenticate()
 
+    proRatelService.onNewCall(() => {
+      this.isVisible = true
+      console.log('on new call in communicator')
+    })
+
     this.isVisible = false
     this.showChat = false
 

@@ -36,7 +36,7 @@ module.exports = {
     index_html: ['src/index.html'],
     sass: {
       all_observed: [
-        PROJECT_THEME_PATH + '**/*.sass'
+        PROJECT_THEME_PATH + '/**/*.sass'
       ],
 
       to_compile: PROJECT_THEME_PATH + '/stylesheets/main.sass'

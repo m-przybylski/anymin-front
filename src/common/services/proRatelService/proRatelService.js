@@ -5,7 +5,7 @@
 
     if (navigator.mediaDevices.getUserMedia) {
       navigator.getUserMedia = function(arg, t, c) {
-        return navigator.mediaDevices.getUserMedia(arg).then(t).catch(c);
+        return navigator.mediaDevices.getUserMedia(arg).then(t).catch(c)
       }
     }
 
@@ -16,7 +16,8 @@
     }
 
     let callbacks = {
-      onNewMessage: null
+      onNewMessage: null,
+      onNewCall: null
     }
     
     let _ratelSessions = []
@@ -77,7 +78,7 @@
 
       function showRemoteStream(stream) {
         remoteStream = stream
-        localStreamVideoElement.attr('src', window.URL.createObjectURL(stream))
+        remoteStreamVideoElement.attr('src', window.URL.createObjectURL(stream))
       }
 
       function stopStreams() {
@@ -108,8 +109,7 @@
 
 
       _ratelSessions[ratelSessionId].chat.onRemoteStream(function(stream) {
-        console.log("Remote stream started!");
-        showRemoteStream(stream);
+        showRemoteStream(stream)
       })
 
 
@@ -143,9 +143,14 @@
 
       ratelSession.chat.onMessage('call_offer', function(m) {
         console.log(m.user + ' is calling...')
-        if(confirm(m.user + ' is calling, answer?')) {
+        $log.debug('on call offer', m)
+        if (confirm(m.user + ' is calling, answer?')) {
           _makeCall(m.user, ratelSession.id).createLocalStream(function(stream) {
             ratelSession.chat.answerCall(m, stream)
+            // showLocalStream(stream)
+            if (angular.isFunction(callbacks.onNewCall)) {
+              callbacks.onNewCall(stream)
+            }
           })
         } else {
           console.log('Rejecting call...')
@@ -232,7 +237,6 @@
         let userTmpId = 's' + serviceObject.id + 'u' + serviceObject.ownerId
 
         _ratelSessions[_userId].chat.createDirectRoom(userTmpId).then(room => {
-          $log.debug(room)
 
           _makeCall(room.id, _userId).createLocalStream(function(stream) {
             _ratelSessions[_userId].chat.offerCall(userTmpId, stream)
@@ -262,12 +266,20 @@
           }
         }
       },
+      onNewCall: (cb) => {
+        if (angular.isFunction(cb)) {
+          callbacks.onNewCall = (stream) => {
+            $timeout(() => {
+              cb(stream)
+            })
+          }
+        }
+      },
       bindLocalStreamElement: (element) => {
         localStreamVideoElement = element
       },
       bindRemoteStreamElement: (element) => {
         remoteStreamVideoElement = element
-        localStreamVideoElement = element
       },
       bindControlls: (controls) => {
 

@@ -21,7 +21,6 @@
 
       $log.info('Starting conversation')
 
-      this.toggles.chatState(true)
       this.toggles.communicatorState(true)
 
       this.incommingSocket = socket
