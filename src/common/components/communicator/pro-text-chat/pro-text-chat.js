@@ -16,53 +16,31 @@
         _chatConversation.perfectScrollbar('update')
       })
     }
-
-    let _startConversation = (socket, roomId) => {
-
-      $log.info('Starting conversation')
-
-      this.toggles.communicatorState(true)
-
-      this.incommingSocket = socket
-      this.roomId = roomId
-
-      proRatelService.getRoomHistory(this.roomId, this.incommingSocket).then(history => {
-        $timeout(() => {
-          this.messages = history
-          _pushChatToBottom()
-        })
-      })
-    }
+    
 
     let _pushMessageObject = (message) => {
       this.messages.push(message)
       _pushChatToBottom()
     }
-
-    $scope.$on('startConversation', (event, socket, roomId) => {
-      $timeout(() => {
-        _startConversation(socket, roomId)
-      })
-    })
-
-
-    proRatelService.onNewMessage(messagePayload => {
-
-      if (!this.incommingSocket) {
-        _startConversation(messagePayload.socket, messagePayload.message.room)
-      }
-
-      if (String(this.roomId) === String(messagePayload.message.room)) {
-        _pushMessageObject(messagePayload.message)
-      } else {
-        proRatelService.sendNewMessage(
-          $filter('translate')('COMMUNICATOR.TEXT_CHAT.EXPERT_NOT_AVAILABLE'),
-          messagePayload.message.room,
-          messagePayload.socket)
-      }
-
-
-    })
+    
+    //
+    // proRatelService.onNewMessage(messagePayload => {
+    //
+    //   if (!this.incommingSocket) {
+    //     _startConversation(messagePayload.socket, messagePayload.message.room)
+    //   }
+    //
+    //   if (String(this.roomId) === String(messagePayload.message.room)) {
+    //     _pushMessageObject(messagePayload.message)
+    //   } else {
+    //     proRatelService.sendNewMessage(
+    //       $filter('translate')('COMMUNICATOR.TEXT_CHAT.EXPERT_NOT_AVAILABLE'),
+    //       messagePayload.message.room,
+    //       messagePayload.socket)
+    //   }
+    //
+    //
+    // })
 
     _chatConversation.perfectScrollbar()
 

@@ -5,14 +5,10 @@
 
     proRatelService.authenticate()
 
-    proRatelService.onNewCall(() => {
-      this.isVisible = true
-      console.log('on new call in communicator')
-    })
-
     this.isVisible = false
     this.showChat = false
-
+    this.isFullScreenMode = false
+    
     let _wasChatShown = false
 
     let _toggleChat = () => {
@@ -29,8 +25,7 @@
     }
 
     $scope.$on('toggleChat', _toggleChat)
-
-    this.isFullScreenMode = false
+    
 
     this.toggleFullScreen = () => {
       this.isFullScreenMode = !this.isFullScreenMode
