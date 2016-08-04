@@ -39,6 +39,10 @@
         }
       }
 
+      let total = []
+      let totalSum = 0
+      let totalLoaded = 0
+      let wait = true
       scope.uploadFiles = function($files) {
         scope.isPending = true
         scope.uploadImg = false
@@ -77,7 +81,22 @@
                   // TODO walidacje na odpowiedzi z serwera
                 },
                 function(res) {
-                  scope.progress = _calculatePercentage(res.loaded, res.total)
+                  if(typeof _.find(total, {total: res.total}) !== 'object' ) {
+                    total.push( {
+                      total: res.total,
+                      loaded: res.loaded
+                    })
+                    totalSum += res.total
+                    totalLoaded += res.loaded
+                  }
+                  _setFilesStatus(_file, _files)
+                  //console.log(totalSum)
+                  if(total.length === files.length) {
+                    console.log(totalSum +  "::" + totalLoaded)
+                    console.log(_calculatePercentage(totalLoaded, totalSum))
+                      totalLoaded += res.loaded
+                      scope.progress = _calculatePercentage(totalLoaded, totalSum)
+                  }
                 }
               )
             }
