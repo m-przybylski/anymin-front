@@ -1,5 +1,5 @@
 (function() {
-  function proTopNavbar() {
+  function proTopNavbar(searchService) {
 
     function linkFunction(scope, elem, attrs) {
 
@@ -24,8 +24,18 @@
       ]
 
       scope.setShowSearch = () => {
-        scope.showSearch = scope.showSearch !== true ? true : false
+        scope.showSearch = scope.showSearch !== true
       }
+
+      searchService.onQueryParamsChange(scope, (params) => {
+        scope.searchModel = params.q
+      })
+
+      scope.$watch(() => {
+        return scope.searchModel
+      }, (newValue) => {
+        searchService.setSearchQueryParams({q: newValue})
+      })
 
     }
 
@@ -43,7 +53,8 @@
   }
 
   angular.module('profitelo.directives.pro-top-navbar', [
-    'pascalprecht.translate'
+    'pascalprecht.translate',
+    'profitelo.services.search'
   ])
   .directive('proTopNavbar', proTopNavbar)
 

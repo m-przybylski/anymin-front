@@ -3,7 +3,8 @@
     transclude: true,
     templateUrl: 'components/pro-search-dropdown/term-suggestions/term-suggestions.tpl.html',
     bindings: {
-      terms: '<'
+      terms: '<',
+      categorySlugs: '<'
     },
     controllerAs: 'vm'
   }

@@ -6,6 +6,10 @@ describe('Unit testing: profitelo.directives.pro-top-navbar', () => {
     let compile = null
     let validHTML = '<pro-top-navbar></pro-top-navbar>'
 
+    beforeEach(module(($provide) => {
+      $provide.value('apiUrl', '')
+    }))
+
     beforeEach(() => {
       module('templates-module')
       module('profitelo.directives.pro-top-navbar')

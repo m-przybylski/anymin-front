@@ -19,13 +19,13 @@ describe('Unit testing: profitelo.directives.search.search-filters', () => {
     function create(html) {
       scope = rootScope.$new()
       scope.model = {
-        sortModel: '',
-        languagesModel: '',
-        categoryModel: '',
-        switcherModel: false,
-        tagsModel: [],
-        minRange: 0,
-        maxRange: 100
+        sortBy: '',
+        language: '',
+        category: '',
+        onlyAvailable: false,
+        tags: [],
+        minPrice: 0,
+        maxPrice: 100
       }
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
