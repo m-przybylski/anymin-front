@@ -31,7 +31,7 @@
     }
 
     this.verifyCode = () => {
-      if(angular.isDefined(this.registrationSteps.smsCode) && this.registrationSteps.smsCode !== null && !this.alreadyCheck) {
+      if (angular.isDefined(this.registrationSteps.smsCode) && this.registrationSteps.smsCode !== null && !this.alreadyCheck) {
         this.alreadyCheck = true
         RegistrationApi.verifyVerification({
           sessionId: this.registrationSteps.sessionId,
@@ -41,7 +41,7 @@
         }, (err) =>{
           this.serverError = true
         })
-      } else if(!angular.isDefined(this.registrationSteps.smsCode) || this.registrationSteps.smsCode === null) {
+      } else if (!angular.isDefined(this.registrationSteps.smsCode) || this.registrationSteps.smsCode === null) {
         this.alreadyCheck = false
         this.serverError = false
         this.correctCode = false
@@ -96,18 +96,16 @@
       }
     }
 
-    let _isEmailExist = () => {
-      AccountApi.getAccountEmailExists({
-        email: this.registrationSteps.email
-      }).$promise.then((response) => {
-        return false
-      }, (error) =>{
-        return true
-      })
+    let _isEmailExists = (email) => {
+      return AccountApi.getAccountEmailExists({
+        email: email
+      }).$promise
     }
 
     this.setNewEmail = () => {
-      if (!_isEmailExist()) {
+      _isEmailExists(this.registrationSteps.email).then(response => {
+        this.emailExist = true
+      }, ()=> {
         _updateNewUserObject({
           unverifiedEmail: this.registrationSteps.email
         }, () => {
@@ -119,9 +117,9 @@
           loginStateService.clearServiceObject()
           $state.go('app.dashboard.start')
         })
-      } else {
-        this.emailExist = true
-      }
+      })
+
+
     }
 
     this.completeRegistration = () => {

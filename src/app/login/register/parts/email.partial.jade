@@ -6,10 +6,10 @@ form.pro-input-form(name="emailForm" data-ng-submit="emailForm.$valid && vm.setN
   data-name="email"
   data-type="email"
   data-ng-pattern="vm.patternEmail"
-  data-ng-class="{'invalid':emailForm.email.$invalid && (emailForm.email.$dirty || emailForm.$submitted)}"
+  data-ng-class="{'invalid':(emailForm.email.$invalid || !!vm.emailExist) && (emailForm.email.$dirty || emailForm.$submitted) }"
   required auto-focus)
   .input-error-messages
     .error.left(data-ng-show="emailForm.$submitted && emailForm.$invalid" data-translate="REGISTER.EMAIL_REQUIRED")
-    .error.left(data-ng-show="vm.emailExist" data-translate="REGISTER.EMAIL_EXIST")
-  button.pro-btn.btn-main.btn-medium(data-translate="LOGIN.NEXT" type="submit")
+    .error.left(data-ng-show="!!vm.emailExist && (emailForm.email.$dirty || emailForm.$submitted)" data-translate="REGISTER.EMAIL_EXIST")
+  button.pro-btn.btn-main.btn-medium(data-translate="REGISTER.DONE" type="submit")
 
