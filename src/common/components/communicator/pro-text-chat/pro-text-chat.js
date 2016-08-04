@@ -6,10 +6,6 @@
     const _chatConversation = $($element).find('.chat-conversation')
     const _proTextChat = $($element).find('.pro-text-chat')
 
-    this.messages = []
-    this.incommingSocket = null
-    this.roomId          = null
-
     let _pushChatToBottom = () => {
       $timeout(() => {
         _proTextChat.scrollTop(_chatConversation.height() + 1000)
@@ -23,24 +19,12 @@
       _pushChatToBottom()
     }
     
-    //
-    // proRatelService.onNewMessage(messagePayload => {
-    //
-    //   if (!this.incommingSocket) {
-    //     _startConversation(messagePayload.socket, messagePayload.message.room)
-    //   }
-    //
-    //   if (String(this.roomId) === String(messagePayload.message.room)) {
-    //     _pushMessageObject(messagePayload.message)
-    //   } else {
-    //     proRatelService.sendNewMessage(
-    //       $filter('translate')('COMMUNICATOR.TEXT_CHAT.EXPERT_NOT_AVAILABLE'),
-    //       messagePayload.message.room,
-    //       messagePayload.socket)
-    //   }
-    //
-    //
-    // })
+
+    proRatelService.onNewMessage(messagePayload => {
+
+      _pushMessageObject(messagePayload.message)
+
+    })
 
     _chatConversation.perfectScrollbar()
 
@@ -71,7 +55,7 @@
           incommingMessage: true
         }
 
-        proRatelService.sendNewMessage(this.newMessage, this.roomId, this.incommingSocket)
+        this.session.sendMessage(this.newMessage)
 
         _pushMessageObject(messageRawObject)
         this.newMessage = null
@@ -96,13 +80,16 @@
     controllerAs: 'vm',
     bindings: {
       showChat: '<',
-      toggles: '='
+      toggles: '=',
+      session: '=',
+      messages: '='
     }
   }
 
   angular.module('profitelo.components.communicator.pro-text-chat', [
     'profitelo.components.communicator.pro-text-chat.chat-message',
     'profitelo.components.communicator.pro-text-chat.chat-input',
+    'profitelo.services.current-call-state',
     'pascalprecht.translate',
     'c7s.ng.userAuth'
 

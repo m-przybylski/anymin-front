@@ -1,10 +1,10 @@
-(function () {
-  function proRatelService($log, $rootScope, $q, $timeout, User, RatelApi, ServiceApi) {
+(function() {
+  function proRatelService($log, $q, $timeout, User, RatelApi, ServiceApi) {
 
     navigator.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia
 
     if (navigator.mediaDevices.getUserMedia) {
-      navigator.getUserMedia = function (arg, t, c) {
+      navigator.getUserMedia = function(arg, t, c) {
         return navigator.mediaDevices.getUserMedia(arg).then(t).catch(c)
       }
     }
@@ -21,24 +21,54 @@
     let remoteStreamVideoElement = null
     let localStreamVideoElement = null
 
+    // lets proBottomCommunicator grasp new session object created from calls
+    let callbacks = {
+      onDirectRoom: null,
+      onNewMessage: null,
+      onNewCall: null,
+      onRoomJoin: null,
+      onRoomHistory: null
+    }
+
+    callbacks.call = (callback, payload) => {
+      if (angular.isFunction(callbacks[callback])) {
+        callbacks[callback](payload)
+      }
+    }
+
+    
+    // TODO: add function body
     let _removeOtherRatelCalls = () => {
 
+      let deferred = $q.defer()
+      
+      deferred.resolve()
+      
+      return deferred.promise
+      
     }
+    
+    
 
     let _createRatelSession = (ratelSession) => {
 
       let onMessage = (message, cb) => ratelSession.chat.onMessage(message, cb)
 
-      ratelSession.calls = []
-      ratelSession.callbacks = {}
+      ratelSession.call = null
+      ratelSession.roomId = null
 
-      ratelSession.makeCall = (peer) => {
+      ratelSession.createDirectRoom = userId => {
+        ratelSession.chat.createDirectRoom(userId).then(room => {
+          ratelSession.roomId = room.id
 
-        var call = calls[peer]
-        if (call) {
-          return call
-        }
+          ratelSession.chat.getChatHistory(ratelSession.roomId).then(history => callbacks.call('onRoomHistory', history))
+          callbacks.call('onDirectRoom', ratelSession)
 
+        })
+      }
+
+      ratelSession.createCallStream = () => {
+        
         function showLocalStream(stream) {
           ratelSession.localStream = stream
           localStreamVideoElement.attr('src', window.URL.createObjectURL(ratelSession.localStream))
@@ -54,7 +84,7 @@
             if (ratelSession.localStream.stop) {
               ratelSession.localStream.stop()
             } else {
-              ratelSession.localStream.getTracks().map(function (track) {
+              ratelSession.localStream.getTracks().map((track) => {
                 track.stop()
               })
             }
@@ -64,35 +94,35 @@
         }
 
 
-        function createLocalStream(onLocalStream) {
+        function getLocalStream() {
+          let deferred = $q.defer()
+          
           navigator.getUserMedia({
             'video': true,
             'audio': true
-            }, stream => {
-              console.log('Local stream started!')
-              showLocalStream(stream)
-              onLocalStream(stream)
-            }, error => {
-              console.log('Could not start stream: ' + error)
-            })
+          }, stream => {
+            showLocalStream(stream)
+            deferred.resolve(stream)
+          }, error => deferred.reject(error))
+          
+          return deferred.promise
         }
 
         ratelSession.chat.onRemoteStream(stream => showRemoteStream(stream))
 
-        ratelSession.calls[peer] = {
-          peer: peer,
+        ratelSession.call = {
           showRemoteStream: showRemoteStream,
-          createLocalStream: createLocalStream,
+          getLocalStream: getLocalStream,
           endCall: endCall
         }
 
-        return ratelSession.calls[peer]
+        return ratelSession.call
       }
 
-      ratelSession.sendMessage = (message, roomId) => {
-        ratelSession.chat.sendMessage(roomId, message)
-      }
 
+      ratelSession.sendMessage = (message) => {
+        ratelSession.chat.sendMessage(ratelSession.roomId, message)
+      }
 
 
       ratelSession.chat.onConnect(() => {
@@ -101,24 +131,25 @@
 
       onMessage('message', message => {
 
-        if (angular.isFunction(ratelSession.callbacks.onNewMessage)) {
-          ratelSession.callbacks.onNewMessage({
-            message: message,
-            socket: ratelSession.id
-          })
-        }
+        callbacks.call('onNewMessage', {
+          message: message,
+          socket: ratelSession.id
+        })
+
       })
 
       onMessage('call_offer', callOffer => {
-        console.log(callOffer.user + ' is calling...')
-
+        
+        // TODO: change to confirmation modal
         if (confirm(callOffer.user + ' is calling, answer?')) {
-          _removeOtherRatelCalls()
-          ratelSession.makeCall(callOffer.user).createLocalStream(stream => {
-            ratelSession.chat.answerCall(callOffer, stream)
-            if (angular.isFunction(ratelSession.callbacks.onNewCall)) {
-              ratelSession.callbacks.onNewCall(stream, callOffer.user)
-            }
+          _removeOtherRatelCalls().then(() => {
+            ratelSession.createCallStream(callOffer.user).getLocalStream().then(stream => {
+
+              ratelSession.chat.answerCall(callOffer, stream)
+
+              callbacks.call('onDirectRoom', ratelSession)
+
+            }, error => console.log('Could not start stream: ' + error))  
           })
         } else {
           console.log('Rejecting call...')
@@ -128,6 +159,7 @@
 
       onMessage('call_answer', message => {
         $log.debug(message.user + ' answered the call!')
+        ratelSession.createDirectRoom(message.user)
       })
 
       onMessage('call_hangup', message => {
@@ -135,7 +167,14 @@
       })
 
       onMessage('room_action', message => {
-        $log.debug('room_action', message)
+        if (!ratelSession.roomId) {
+          ratelSession.roomId = message.room
+
+          ratelSession.chat.getChatHistory(ratelSession.roomId).then(history => callbacks.call('onRoomHistory', history))
+
+          callbacks.call('onDirectRoom', ratelSession)
+
+        }
       })
 
       onMessage('roster_add', message => {
@@ -157,7 +196,7 @@
     }
 
 
-    return {
+    let api = {
       authenticate: () => {
 
         let _ratelRegisterConfig = []
@@ -198,7 +237,7 @@
         })
 
       },
-      startConversation: (serviceObject, sessionId = User.getData('id')) => {
+      startRatelCall: (serviceObject, sessionId = User.getData('id')) => {
 
         let deferred = $q.defer()
 
@@ -206,41 +245,21 @@
 
         let session = _ratelSessions[sessionId]
 
-        session.chat.createDirectRoom(userTmpId).then(room => {
+        _removeOtherRatelCalls().then(() => {
 
-          session.makeCall(room.id).createLocalStream(stream => {
+          session.createCallStream().getLocalStream().then(stream => {
+
             session.chat.offerCall(userTmpId, stream)
-            deferred.resolve({
-              session: session,
-              room: room
-            })
-          })
 
+            callbacks.call('onNewCall', session)
+
+            deferred.resolve(session)
+
+          }, error => console.log('Could not start stream: ' + error))
         })
 
         return deferred.promise
 
-      },
-      getRoomHistory: (roomId, socket) => {
-        return _ratelSessions[socket].chat.getChatHistory(roomId)
-      },
-      onNewMessage: (cb) => {
-        if (angular.isFunction(cb)) {
-          callbacks.onNewMessage = (message) => {
-            $timeout(() => {
-              cb(message)
-            })
-          }
-        }
-      },
-      onNewCall: (cb) => {
-        if (angular.isFunction(cb)) {
-          callbacks.onNewCall = (stream) => {
-            $timeout(() => {
-              cb(stream)
-            })
-          }
-        }
       },
       bindLocalStreamElement: (element) => {
         localStreamVideoElement = element
@@ -249,6 +268,16 @@
         remoteStreamVideoElement = element
       }
     }
+
+    for (let callback in callbacks) {
+      if (!angular.isFunction(callback)) {
+        api[callback] = cb => {
+          callbacks[callback] = (message) => $timeout(() => cb(message))
+        }
+      }
+    }
+
+    return api
 
   }
 

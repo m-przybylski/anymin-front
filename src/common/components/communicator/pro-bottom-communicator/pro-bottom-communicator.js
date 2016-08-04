@@ -1,15 +1,17 @@
 (function() {
 
   /* @ngInject */
-  function controllerFunction($scope, proRatelService) {
+  function controllerFunction($scope, $log, proRatelService, currentCallSessionService) {
 
     proRatelService.authenticate()
 
     this.isVisible = false
     this.showChat = false
     this.isFullScreenMode = false
-    
+    this.session = null
     let _wasChatShown = false
+    
+    this.messages = []
 
     let _toggleChat = () => {
 
@@ -24,6 +26,18 @@
 
     }
 
+
+    proRatelService.onDirectRoom(session => {
+      this.session = session
+      currentCallSessionService.setSession(session)
+      this.isVisible = true
+    })
+
+    proRatelService.onRoomHistory(history => {
+      this.messages = history
+    })
+
+    
     $scope.$on('toggleChat', _toggleChat)
     
 
@@ -58,7 +72,7 @@
     transclude: true,
     replace: true,
     templateUrl:    'components/communicator/pro-bottom-communicator/pro-bottom-communicator.tpl.html',
-    controllerAs: 'proBottomCommunicatorController',
+    controllerAs: 'vm',
     controller: controllerFunction
   }
 
@@ -67,7 +81,8 @@
     'profitelo.components.communicator.pro-video-chat.pro-video-chat-top-navbar',
     'profitelo.components.communicator.pro-text-chat',
     'profitelo.components.communicator.pro-video-chat',
-    'profitelo.services.pro-ratel-service'
+    'profitelo.services.pro-ratel-service',
+    'profitelo.services.current-call-state'
   ])
     .component('proBottomCommunicator', proBottomCommunicator)
 

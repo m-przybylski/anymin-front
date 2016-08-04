@@ -1,4 +1,4 @@
-.pro-bottom-communicator(data-ng-class="{'full-screen': proBottomCommunicatorController.isFullScreenMode, 'is-visible': proBottomCommunicatorController.isVisible, 'is-open': proBottomCommunicatorController.showChat }")
+.pro-bottom-communicator(data-ng-class="{'full-screen': vm.isFullScreenMode, 'is-visible': vm.isVisible, 'is-open': vm.showChat }")
   .expert-camera-preview
     pro-video-chat()    
 
@@ -23,16 +23,16 @@
           | 5,89zł PLN
         
       .videochat-fullscreen
-        a.close-chat.pro-icon.circle(data-ng-click="proBottomCommunicatorController.toggles.chat()")
+        a.close-chat.pro-icon.circle(data-ng-click="vm.toggles.chat()")
           span.icon.icon-close-16          
-        button.minimalize(data-ng-click="proBottomCommunicatorController.toggleFullScreen()")
+        button.minimalize(data-ng-click="vm.toggleFullScreen()")
           a.circle.icon.icon-shrink-24
-        button.full-screen(data-ng-click="proBottomCommunicatorController.toggleFullScreen()")
+        button.full-screen(data-ng-click="vm.toggleFullScreen()")
           a.circle.icon.icon-expand-24
         
-    pro-video-controls(data-toggles="proBottomCommunicatorController.toggles")
+    pro-video-controls(data-session="vm.session" data-toggles="vm.toggles")
 
-  pro-text-chat(data-toggles="proBottomCommunicatorController.toggles")
+  pro-text-chat(data-session="vm.session" data-messages="vm.messages" data-toggles="vm.toggles")
 
     
     

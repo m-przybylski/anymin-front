@@ -42,7 +42,7 @@
     "eqeqeq": [1, "allow-null"],
     "default-case": 1,
     "no-empty": 1,
-    "guard-for-in": 1,
+    "guard-for-in": 0,
     "no-alert": 1,
     "curly": [1, "all"],
     "no-new": 2,

@@ -1,11 +1,11 @@
 (function() {
 
   /* @ngInject */
-  function controller($scope, $timeout, User) {
+  function controller($scope, $timeout, User, currentCallSessionService) {
 
-    let _incommingSocket = $scope.$parent.$parent.vm.incommingSocket
+    let session = currentCallSessionService.getSession()
 
-    this.isUserMessage = [String(_incommingSocket), String(User.getData('id'))].indexOf(String(this.model.sender)) >= 0
+    this.isUserMessage = [String(session.id), String(User.getData('id'))].indexOf(String(this.model.sender)) >= 0
 
     if (angular.isDefined(this.model.incommingMessage) && this.model.incommingMessage) {
       $timeout(() => {
@@ -30,7 +30,8 @@
   angular.module('profitelo.components.communicator.pro-text-chat.chat-message', [
     'pascalprecht.translate',
     'angularMoment',
-    'c7s.ng.userAuth'
+    'c7s.ng.userAuth',
+    'profitelo.services.current-call-state'
 
   ])
     .component('proTextChatMessage', proTextChatMessage)

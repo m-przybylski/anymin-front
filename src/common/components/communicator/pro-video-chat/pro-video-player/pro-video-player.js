@@ -1,4 +1,4 @@
-(function () {
+(function() {
 
   /* @ngInject */
   function controller($element, proRatelService) {
