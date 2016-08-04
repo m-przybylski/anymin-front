@@ -1,12 +1,15 @@
 form.pro-input-form(name="emailForm" data-ng-submit="emailForm.$valid && vm.setNewEmail()" novalidate)
-    pro-input(data-label="{{ 'REGISTER.SERVICE_EMAIL' | translate }}"
-    placeholder="{{ 'REGISTER.SERVICE_EMAIL_PLACEHOLDER' | translate }}"
-    data-ng-model="vm.registrationSteps.email"
-    data-id="email"
-    data-type="email"
-    data-ng-pattern="vm.patternEmail"
-    data-ng-class="{'invalid':emailForm.email.$invalid && (emailForm.email.$dirty || emailForm.$submitted)}"
-    required auto-focus)
-    .input-error-messages
-        .error.left(data-ng-show="emailForm.$submitted && emailForm.$invalid" data-translate="REGISTER.EMAIL_REQUIRED")
-    button.pro-btn.btn-main.btn-medium(data-translate="LOGIN.NEXT" type="submit")
+
+  pro-input(data-label="{{ 'REGISTER.SERVICE_EMAIL' | translate }}"
+  placeholder="{{ 'REGISTER.SERVICE_EMAIL_PLACEHOLDER' | translate }}"
+  data-ng-model="vm.registrationSteps.email"
+  data-name="email"
+  data-type="email"
+  data-ng-pattern="vm.patternEmail"
+  data-ng-class="{'invalid':(emailForm.email.$invalid || !!vm.emailExist) && (emailForm.email.$dirty || emailForm.$submitted) }"
+  required auto-focus)
+  .input-error-messages
+    .error.left(data-ng-show="emailForm.$submitted && emailForm.$invalid" data-translate="REGISTER.EMAIL_REQUIRED")
+    .error.left(data-ng-show="!!vm.emailExist && (emailForm.email.$dirty || emailForm.$submitted)" data-translate="REGISTER.EMAIL_EXIST")
+  button.pro-btn.btn-main.btn-medium(data-translate="REGISTER.DONE" type="submit")
+

@@ -31,7 +31,7 @@
     }
 
     this.verifyCode = () => {
-      if(angular.isDefined(this.registrationSteps.smsCode) && this.registrationSteps.smsCode !== null && !this.alreadyCheck) {
+      if (angular.isDefined(this.registrationSteps.smsCode) && this.registrationSteps.smsCode !== null && !this.alreadyCheck) {
         this.alreadyCheck = true
         RegistrationApi.verifyVerification({
           sessionId: this.registrationSteps.sessionId,
@@ -41,7 +41,7 @@
         }, (err) =>{
           this.serverError = true
         })
-      } else if(!angular.isDefined(this.registrationSteps.smsCode) || this.registrationSteps.smsCode === null) {
+      } else if (!angular.isDefined(this.registrationSteps.smsCode) || this.registrationSteps.smsCode === null) {
         this.alreadyCheck = false
         this.serverError = false
         this.correctCode = false
@@ -96,14 +96,30 @@
       }
     }
 
+    let _isEmailExists = (email) => {
+      return AccountApi.getAccountEmailExists({
+        email: email
+      }).$promise
+    }
+
     this.setNewEmail = () => {
-      _updateNewUserObject({
-        unverifiedEmail: this.registrationSteps.email
-      }, () => {
-        this.isPending = false
-        this.current = 3
-        proTopWaitingLoaderService.stopLoader()
+      _isEmailExists(this.registrationSteps.email).then(response => {
+        this.emailExist = true
+      }, ()=> {
+        _updateNewUserObject({
+          unverifiedEmail: this.registrationSteps.email
+        }, () => {
+          this.isPending = false
+          proTopAlertService.success({
+            message: $filter('translate')('REGISTER.REGISTRATION_SUCCESS'),
+            timeout: 3
+          })
+          loginStateService.clearServiceObject()
+          $state.go('app.dashboard.start')
+        })
       })
+
+
     }
 
     this.completeRegistration = () => {
@@ -111,14 +127,9 @@
         password: this.registrationSteps.password
       }, () => {
         this.isPending = false
-        proTopAlertService.success({
-          message: $filter('translate')('REGISTER.REGISTRATION_SUCCESS'),
-          timeout: 3
-        })
-        loginStateService.clearServiceObject()
-        $state.go('app.dashboard.start')
+        this.current = 3
+        proTopWaitingLoaderService.stopLoader()
       })
-
     }
 
     return this
