@@ -1,13 +1,22 @@
-pro-top-navbar()
+.consultations-field
+  pro-top-navbar()
 
-.field-search(data-model='vm.model' data-tag-click-action="vm.tagsClick" style="background: url('/assets/images/test-bg.jpg') no-repeat top center")
-  .default-container
-    pro-search-dropdown
-  
-mouse-slider.flex-row(data-items="vm.expertCard" data-ng-transclude)
-  pro-expert-card(data-ng-repeat="expert in vm.expertCard" data-ng-model="expert")
-  
-.default-container
-  pro-expert-slider()
+  .field-search(data-model='vm.model' data-tag-click-action="vm.tagsClick" style="background: url('/assets/images/test-bg.jpg') no-repeat top center")
+    .default-container
+      pro-search-dropdown
 
-pro-footer()
+  .card-slider
+    slider.flex-row(data-ng-transclude data-controlls="vm.controlls")
+      pro-expert-card(data-ng-repeat="expert in vm.expertCard" data-ng-model="expert")
+    
+    .controlls
+      .left-offset(data-ng-click="vm.prevSlide()")
+        span.icon.icon-arrow-left-12
+      
+      .right-offset(data-ng-click="vm.nextSlide()")
+        span.icon.icon-arrow-right-12
+      
+    .default-container
+      pro-expert-slider()
+
+  pro-footer()

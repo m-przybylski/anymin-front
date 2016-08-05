@@ -1,5 +1,5 @@
 (function() {
-  function CompanyProfileController($scope, $state, savedProfile, ServiceApi, proTopAlertService, CommonConfig, checkAccount, companyImage) {
+  function CompanyProfileController($scope, $state, savedProfile, ServiceApi, proTopAlertService, CommonConfig, checkAccount, companyImage, DialogService) {
 
     let _commonConfig = CommonConfig.getAllData()
     this.profile = {}

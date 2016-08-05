@@ -1,6 +1,14 @@
 (function() {
   function HomeController() {
 
+    this.nextSlide = () => {
+      this.controlls.nextSlide()
+    }
+
+    this.prevSlide = () => {
+      this.controlls.prevSlide()
+    }
+
     this.expertCard = [
       {
         name: 'Ragnar Lodbrok',
@@ -72,7 +80,8 @@
     'profitelo.directives.pro-expert-see-more',
     'profitelo.directives.pro-advice-tile',
     'profitelo.directives.pro-news-tile',
-    'profitelo.components.pro-search-dropdown'
+    'profitelo.components.pro-search-dropdown',
+    'profitelo.components.interface.slider'
   ])
     .config(($stateProvider, UserRolesProvider) => {
       $stateProvider.state('app.home', {

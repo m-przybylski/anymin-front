@@ -127,10 +127,6 @@
         immediateInterval = $interval(() => {
           if (scope.progress >= 100) {
             _endImmediateLoading()
-            $timeout(()=>{
-              $interval.cancel(immediateInterval)
-            })
-
           }
         })
       }
@@ -146,21 +142,13 @@
         scope.hideArrow = true
         scope.hideLoader = false
         scope.fadeText = false
+        scope.fadeText = true
+        scope.upload = true
+        scope.header = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.HEADER_UPLOAD'
+        scope.info = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO_UPLOAD'
+        _startImmediateLoading()
         $timeout(()=>{
-          scope.fadeText = true
-          $timeout(()=> {
-            scope.upload = true
-            scope.header = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.HEADER_UPLOAD'
-            scope.info = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO_UPLOAD'
-            _startImmediateLoading()
-            scope.translationInfo = {
-              file: _file,
-              files: _files
-            }
-            $timeout(()=>{
-              scope.fadeText = false
-            }, 200)
-          }, 200)
+          scope.fadeText = false
         }, 200)
 
       }

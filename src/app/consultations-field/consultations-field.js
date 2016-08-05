@@ -1,5 +1,15 @@
 (function() {
   function ConsultationsFieldController() {
+    this.controlls = {}
+
+    this.nextSlide = () => {
+      this.controlls.nextSlide()
+    }
+
+    this.prevSlide = () => {
+      this.controlls.prevSlide()
+    }
+
     this.expertCard = [
       {
         name: 'Pierwszy Slide',
@@ -51,8 +61,8 @@
     'ui.router',
     'c7s.ng.userAuth',
     'profitelo.directives.pro-footer',
-    'profitelo.components.pro-search-dropdown',
-    'profitelo.components.interface.mouse-slider'
+    'profitelo.components.interface.slider',
+    'profitelo.components.pro-search-dropdown'
   ])
     .config( function($stateProvider, UserRolesProvider) {
       $stateProvider.state('app.consultations-field', {

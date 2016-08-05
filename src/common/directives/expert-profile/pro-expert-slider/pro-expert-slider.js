@@ -1,32 +1,32 @@
 (function() {
-  function proExpertSlider() {
+  function proExpertSlider(DialogService, CommonConfig) {
     function linkFunction(scope) {
+      let _commonConfig = CommonConfig.getAllData()
 
-      var controlsClick = 0
-      var slideWidth = 0
-
-      scope.leftOffset = {left: 0}
-
-      scope.prevSlide = () => {
-        if (controlsClick > 0) {
-          let width = $('.slides').width() + 2
-          slideWidth = slideWidth + width
-          scope.leftOffset = {left: slideWidth}
-          controlsClick = controlsClick - 1
-        }
+      scope.imageUrl = (slide) => {
+        return _commonConfig.urls.backend + _commonConfig.urls['file-download'].replace('%s', slide)
       }
 
-      scope.nextSlide = () => {
-        let width = $('.slides').width() + 2
-        let containerWidth = $('.slider-slides').width() + 8
-        let countVisableItem = Math.floor(containerWidth/width)
-        let itemCount = $('.slides').length
-        let currentSlides = itemCount - countVisableItem
-        if (controlsClick < currentSlides) {
-          slideWidth = slideWidth - width
-          scope.leftOffset = {left: slideWidth}
-          controlsClick = controlsClick + 1
-        }
+
+      scope.controlls = {}
+
+
+      scope.nextSlide = function() {
+        scope.controlls.nextSlide()
+      }
+
+      scope.prevSlide = function() {
+        scope.controlls.prevSlide()
+      }
+
+      scope.openDialog = (slide) => {
+        scope.fullSizeUrl = _commonConfig.urls.backend + _commonConfig.urls['file-download'].replace('%s', slide)
+        scope.slide = slide
+        DialogService.openDialog({
+          scope: scope,
+          controller: 'galleryModelController',
+          templateUrl: 'controllers/gallery-modal/gallery-modal.tpl.html'
+        })
       }
     }
 
@@ -41,7 +41,12 @@
     }
   }
 
-  angular.module('profitelo.directives.expert-profile.pro-expert-slider', [])
+  angular.module('profitelo.directives.expert-profile.pro-expert-slider', [
+    'profitelo.services.dialog-service',
+    'profitelo.components.interface.slider',
+    'profitelo.common.controller.gallery-modal',
+    'commonConfig'
+  ])
   .directive('proExpertSlider', proExpertSlider)
 
 }())
