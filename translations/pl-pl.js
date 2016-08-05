@@ -445,7 +445,7 @@
         		"PAGE_TITLE.DASHBOARD.SERVICE_PROVIDER.INDIVIDUAL_PATH":"Konto osobiste",
         		"PAGE_TITLE.HOME":"Start",
         		"PAGE_TITLE.INVITATIONS":"Zaproszenia",
-        		"PAGE_TITLE.LOGIN.ACCOUNT":"Logowanie",
+        		"PAGE_TITLE.LOGIN.ACCOUNT":"Logowanie/rejestracja",
         		"PAGE_TITLE.LOGIN.CONFIRM_EMAIL":"Potwierdzenie emaila",
         		"PAGE_TITLE.LOGIN.FORGOT_PASSWORD":"Przypomnienie hasła",
         		"PAGE_TITLE.LOGIN.REGISTER":"Rejestracja",

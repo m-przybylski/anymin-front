@@ -9,12 +9,12 @@
 
       scope.imageSizeValidation = {
         width: {
-          min: 100,
-          max: 1000
+          min: 120,
+          max: 4000
         },
         height: {
-          min: 100,
-          max: 1000
+          min: 120,
+          max: 4000
         }
       }
       if ('imageField' in attrs) {

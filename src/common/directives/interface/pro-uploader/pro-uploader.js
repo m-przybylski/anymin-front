@@ -1,11 +1,14 @@
 (function() {
-  function proUploader($timeout, $interval, $q, FilesApi, Upload, CommonConfig) {
+  function proUploader($timeout, $interval, $q, FilesApi, Upload, CommonConfig, proTopAlertService) {
 
     function  linkFunction(scope, element, attr) {
+
       let _file = 0
       let _files = 0
       let immediateInterval
       let _commonConfig = CommonConfig.getAllData()
+      let uploadMap = {}
+
       scope.progress = 0
       scope.fadeText = false
       scope.header = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.HEADER'
@@ -28,15 +31,24 @@
         scope.required = true
       }
 
-      let _calculatePercentage = function(loaded, total) {
-        return parseInt((100.0 * loaded / total), 10)
-      }
-
       let _setFilesStatus = (currentFile, allFiles) => {
         scope.translationInfo = {
           file: currentFile,
           files: allFiles
         }
+      }
+
+      let calculateTotalPercentage = (map, filesLength) => {
+        let tmpPercentage = 0
+
+        for (let a in map) {
+          tmpPercentage += map[a] / a * 100
+        }
+
+        if (tmpPercentage > scope.progress) {
+          scope.progress = parseInt( tmpPercentage / filesLength, 10)
+        }
+
       }
 
       scope.uploadFiles = function($files) {
@@ -52,18 +64,19 @@
               scope.errorValidateMessage = false
             }
           }
+          scope.animate()
           $q.all(tokenPromisses).then((tokenPromissesResponse) => {
-            scope.animate()
             for (var k = 0; k < files.length; k++) {
               _files = files.length
               _setFilesStatus(_file, _files)
               Upload.upload({
+
                 url: _commonConfig.urls.backend + _commonConfig.urls['file-upload'].replace('%s', tokenPromissesResponse[k].fileId),
                 data: {
                   file: files[k]
                 }
               }).then(
-                function(res) {
+                (res) => {
                   scope.filesUploaded.push({
                     file: files[_file],
                     response: res.data
@@ -73,11 +86,17 @@
                     scope.isPending = false
                   }
                 },
-                function(res) {
-                  // TODO walidacje na odpowiedzi z serwera
+                (err) => {
+                  proTopAlertService.error({
+                    message: $filter('translate')('INTERFACE.API_ERROR'),
+                    timeout: 4
+                  })
                 },
-                function(res) {
-                  scope.progress = _calculatePercentage(res.loaded, res.total)
+                (res) => {
+                  uploadMap[res.total] = res.loaded
+                  calculateTotalPercentage(uploadMap, files.length)
+                  _setFilesStatus(_file, _files)
+
                 }
               )
             }
@@ -88,9 +107,10 @@
           scope.errorValidateMessage = true
         }
       }
-
+      /* istanbul ignore next */
       let _endImmediateLoading = () => {
         scope.progress = 0
+        uploadMap = {}
         scope.fadeText = true
         $timeout(()=> {
           scope.header = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.HEADER'
@@ -102,6 +122,7 @@
         scope.showArrow = true
 
       }
+      /* istanbul ignore next */
       let _startImmediateLoading = () => {
         immediateInterval = $interval(() => {
           if (scope.progress >= 100) {
@@ -167,6 +188,7 @@
   angular.module('profitelo.directives.interface.pro-uploader', [
     'ngFileUpload',
     'profitelo.swaggerResources',
+    'profitelo.directives.interface.pro-alert',
     'commonConfig',
     'pascalprecht.translate'
   ])
