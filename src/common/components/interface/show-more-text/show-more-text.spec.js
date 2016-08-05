@@ -24,7 +24,7 @@ describe('Unit testing: profitelo.components.interface.show-more-text', () => {
         compile = $compile
       })
 
-      component = componentController('showMoreText', null, {})
+      component = componentController('showMoreText', {$element: create(validHTML), $scope: scope}, {})
 
     })
 

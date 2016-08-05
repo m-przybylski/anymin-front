@@ -33,9 +33,9 @@ describe('Unit testing: profitelo.components.pro-summary-tag', () => {
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
-    // it('should compile the directive', () => {
-    //   let el = create(validHTML)
-    //   expect(el.html()).toBeDefined(true)
-    // })
+    it('should compile the directive', () => {
+      let el = create(validHTML)
+      expect(el.html()).toBeDefined(true)
+    })
   })
 })

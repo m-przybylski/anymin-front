@@ -18,7 +18,6 @@
       }
     })
 
-
     $timeout(()=>{
       elementsMap = $.map($($element).find('>div'), (div)=>{
         return div.offsetWidth
