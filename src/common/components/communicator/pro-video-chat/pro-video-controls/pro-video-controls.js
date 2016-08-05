@@ -2,11 +2,19 @@
 
   function controller() {
 
-    console.log('controlls session', this.session)
-
+    this.isMuted = false
+    this.isVideoHidden = false
 
     this.endCall = () => {
       this.session.hangup()
+    }
+    
+    this.mute = () => {
+      this.isMuted = this.session.mute()
+    }
+
+    this.stopVideo = () => {
+      this.isVideoHidden = this.session.stopVideo()
     }
 
     return this
@@ -16,8 +24,8 @@
     transclude: true,
     templateUrl:    'components/communicator/pro-video-chat/pro-video-controls/pro-video-controls.tpl.html',
     bindings: {
-      toggles: '=',
-      session: '='
+      session: '=',
+      toggles: '='
     },
     controllerAs: 'vm',
     controller: controller

@@ -1,5 +1,5 @@
 (function() {
-  function proRatelService($log, $q, $timeout, User, RatelApi, ServiceApi) {
+  function proRatelService($rootScope, $log, $q, $timeout, User, RatelApi, ServiceApi, DialogService) {
 
     navigator.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia
 
@@ -37,27 +37,32 @@
       }
     }
 
-    
+    let pendingConnectionModal = {}
+
+
     // TODO: add function body
     let _removeOtherRatelCalls = () => {
 
       let deferred = $q.defer()
-      
+
       deferred.resolve()
-      
+
       return deferred.promise
-      
+
     }
-    
-    
+
 
     let _createRatelConnection = (ratelSession) => {
+
+      ratelSession.chat.onError(message => {
+        $log.debug('WS onError', message)
+      })
 
       let onRatelMessage = (message, cb) => ratelSession.chat.onMessage(message, cb)
 
       ratelSession.call = null
       ratelSession.roomId = null
-      ratelSession.userId = null
+      ratelSession.peerId = null
 
       ratelSession.createDirectRoom = userId => {
         ratelSession.chat.createDirectRoom(userId).then(room => {
@@ -69,14 +74,24 @@
         })
       }
 
-      ratelSession.hangup = (userId = ratelSession.userId) => {
-        ratelSession.chat.hangupCall(userId, 'hangup')
+      ratelSession.hangup = (peerId = ratelSession.peerId) => {
+        ratelSession.chat.hangupCall(peerId, 'hangup')
         ratelSession.call.endCall()
         callbacks.call('onHangup', null)
       }
 
+      ratelSession.mute = () => {
+        ratelSession.localStream.getAudioTracks()[0].enabled = !(ratelSession.localStream.getAudioTracks()[0].enabled)
+        return !(ratelSession.localStream.getAudioTracks()[0].enabled)
+      }
+
+      ratelSession.stopVideo = () => {
+        ratelSession.localStream.getVideoTracks()[0].enabled = !(ratelSession.localStream.getVideoTracks()[0].enabled)
+        return !(ratelSession.localStream.getVideoTracks()[0].enabled)
+      }
+
       ratelSession.createCallStream = () => {
-        
+
         function showLocalStream(stream) {
           ratelSession.localStream = stream
           localStreamVideoElement.attr('src', window.URL.createObjectURL(ratelSession.localStream))
@@ -104,7 +119,7 @@
 
         function getLocalStream() {
           let deferred = $q.defer()
-          
+
           navigator.getUserMedia({
             'video': true,
             'audio': true
@@ -112,7 +127,7 @@
             showLocalStream(stream)
             deferred.resolve(stream)
           }, error => deferred.reject(error))
-          
+
           return deferred.promise
         }
 
@@ -146,34 +161,60 @@
 
       })
 
+      onRatelMessage('presence', message => {
+        $log.info('ratel user ' + message.sender + ' is ' + message.status)
+      })
+
       onRatelMessage('call_offer', callOffer => {
-        
-        // TODO: change to confirmation modal
-        if (confirm(callOffer.user + ' is calling, answer?')) {
+
+
+        let tmpScope = $rootScope.$new()
+
+        tmpScope.caller = callOffer.user
+
+        tmpScope.pickUpCall = () => {
           _removeOtherRatelCalls().then(() => {
+            ratelSession.peerId = callOffer.user
             ratelSession.createCallStream(callOffer.user).getLocalStream().then(stream => {
 
               ratelSession.chat.answerCall(callOffer, stream)
 
               callbacks.call('onDirectRoom', ratelSession)
 
-            }, error => console.log('Could not start stream: ' + error))  
+            }, error => $log.error('Could not start stream: ' + error))
           })
-        } else {
-          console.log('Rejecting call...')
+        }
+
+        tmpScope.rejectCall = () => {
           ratelSession.chat.rejectCall(callOffer)
         }
+
+
+        DialogService.openDialog({
+          controller: 'proClientAdviceModalController',
+          templateUrl: 'components/communicator/modals/pro-client-advice-modal-controller/pro-client-advice-modal-controller.tpl.html',
+          scope: tmpScope
+        })
+
+
       })
 
       onRatelMessage('call_answer', message => {
         $log.debug(message.user + ' answered the call!')
-        ratelSession.userId = message.user
+        ratelSession.peerId = message.user
+        if (pendingConnectionModal.close) {
+          pendingConnectionModal.close()
+        }
         ratelSession.createDirectRoom(message.user)
       })
 
       onRatelMessage('call_hangup', message => {
-        $log.debug(message.user + ' hang up, reason: ' + message.reason)
-        ratelSession.hangup(message.user)
+        // ratelSession.hangup(message.user)
+        ratelSession.call.endCall()
+        callbacks.call('onHangup', null)
+        if (pendingConnectionModal.close) {
+          pendingConnectionModal.close()
+        }
       })
 
       onRatelMessage('room_action', message => {
@@ -258,13 +299,17 @@
 
           session.createCallStream().getLocalStream().then(stream => {
 
+            pendingConnectionModal = DialogService.openDialog({
+              templateUrl: 'components/communicator/modals/pro-call-awaits/pro-call-awaits.tpl.html'
+            })
+
             session.chat.offerCall(userTmpId, stream)
 
             callbacks.call('onNewCall', session)
 
             deferred.resolve(session)
 
-          }, error => console.log('Could not start stream: ' + error))
+          }, error => $log.error('Could not start stream: ' + error))
         })
 
         return deferred.promise
@@ -281,6 +326,7 @@
     for (let callback in callbacks) {
       if (!angular.isFunction(callback)) {
         api[callback] = cb => {
+          // needs to be wrapped around $timeout for angular digest loop context
           callbacks[callback] = (message) => $timeout(() => cb(message))
         }
       }
@@ -293,7 +339,8 @@
   angular.module('profitelo.services.pro-ratel-service', [
     'pascalprecht.translate',
     'c7s.ng.userAuth',
-    'profitelo.swaggerResources'
+    'profitelo.swaggerResources',
+    'profitelo.components.communicator.modals.pro-client-advice-modal-controller'
   ])
     .service('proRatelService', proRatelService)
 

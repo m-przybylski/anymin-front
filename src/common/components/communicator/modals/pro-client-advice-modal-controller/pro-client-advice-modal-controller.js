@@ -1,13 +1,16 @@
 (function() {
 
   function proClientAdviceModalController($scope, $uibModalInstance) {
+    
 
-    this.sendNotification = () => {
+    this.pickUpCall = () => {
       $uibModalInstance.dismiss('cancel')
+      $scope.$parent.pickUpCall()
     }
 
-    this.dismissWindow = () => {
+    this.rejectCall = () => {
       $uibModalInstance.dismiss('cancel')
+      $scope.$parent.rejectCall()
     }
 
 
