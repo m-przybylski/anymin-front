@@ -27,7 +27,8 @@
       onNewMessage: null,
       onNewCall: null,
       onRoomJoin: null,
-      onRoomHistory: null
+      onRoomHistory: null,
+      onHangup: null
     }
 
     callbacks.call = (callback, payload) => {
@@ -50,12 +51,13 @@
     
     
 
-    let _createRatelSession = (ratelSession) => {
+    let _createRatelConnection = (ratelSession) => {
 
-      let onMessage = (message, cb) => ratelSession.chat.onMessage(message, cb)
+      let onRatelMessage = (message, cb) => ratelSession.chat.onMessage(message, cb)
 
       ratelSession.call = null
       ratelSession.roomId = null
+      ratelSession.userId = null
 
       ratelSession.createDirectRoom = userId => {
         ratelSession.chat.createDirectRoom(userId).then(room => {
@@ -65,6 +67,12 @@
           callbacks.call('onDirectRoom', ratelSession)
 
         })
+      }
+
+      ratelSession.hangup = (userId = ratelSession.userId) => {
+        ratelSession.chat.hangupCall(userId, 'hangup')
+        ratelSession.call.endCall()
+        callbacks.call('onHangup', null)
       }
 
       ratelSession.createCallStream = () => {
@@ -129,7 +137,7 @@
         $log.debug(ratelSession.id + ' Connected to artichoke!')
       })
 
-      onMessage('message', message => {
+      onRatelMessage('message', message => {
 
         callbacks.call('onNewMessage', {
           message: message,
@@ -138,7 +146,7 @@
 
       })
 
-      onMessage('call_offer', callOffer => {
+      onRatelMessage('call_offer', callOffer => {
         
         // TODO: change to confirmation modal
         if (confirm(callOffer.user + ' is calling, answer?')) {
@@ -157,35 +165,36 @@
         }
       })
 
-      onMessage('call_answer', message => {
+      onRatelMessage('call_answer', message => {
         $log.debug(message.user + ' answered the call!')
+        ratelSession.userId = message.user
         ratelSession.createDirectRoom(message.user)
       })
 
-      onMessage('call_hangup', message => {
-        $log.error(message.user + ' hang up, reason: ' + message.reason)
+      onRatelMessage('call_hangup', message => {
+        $log.debug(message.user + ' hang up, reason: ' + message.reason)
+        ratelSession.hangup(message.user)
       })
 
-      onMessage('room_action', message => {
+      onRatelMessage('room_action', message => {
         if (!ratelSession.roomId) {
           ratelSession.roomId = message.room
 
           ratelSession.chat.getChatHistory(ratelSession.roomId).then(history => callbacks.call('onRoomHistory', history))
 
           callbacks.call('onDirectRoom', ratelSession)
-
         }
       })
 
-      onMessage('roster_add', message => {
+      onRatelMessage('roster_add', message => {
         $log.debug('User ' + message.user + ' added to roster.')
       })
 
-      onMessage('msg_received', message => {
+      onRatelMessage('msg_received', message => {
         $log.debug('Received ack for message id: ' + message.id)
       })
 
-      onMessage('msg_delivered', message => {
+      onRatelMessage('msg_delivered', message => {
         $log.debug('Message delivery ack for id: ' + message.id)
       })
 
@@ -230,7 +239,7 @@
 
           $q.all(_ratelRegisterConfig).then(registeredConfigs => {
             registeredConfigs.forEach(session => {
-              _createRatelSession(session)
+              _createRatelConnection(session)
             })
           })
 

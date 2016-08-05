@@ -37,6 +37,11 @@
       this.messages = history
     })
 
+    proRatelService.onHangup(() => {
+      this.isVisible = false
+      this.showChat = false
+    })
+
     
     $scope.$on('toggleChat', _toggleChat)
     
@@ -46,20 +51,11 @@
     }
 
     this.toggles = {
-      communicatorState: (isVisible) => {
-        this.isVisible = isVisible
-      },
       communicator: () => {
         this.isVisible = !this.isVisible
       },
-      chatState: (showChat) => {
-        this.showChat = showChat
-      },
       chat: () => {
         this.showChat = !this.showChat
-      },
-      endCall: () => {
-        _toggleChat()
       }
     }
 

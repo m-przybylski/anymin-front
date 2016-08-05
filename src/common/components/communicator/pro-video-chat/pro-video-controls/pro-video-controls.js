@@ -1,12 +1,26 @@
 (function() {
 
+  function controller() {
+
+    console.log('controlls session', this.session)
+
+
+    this.endCall = () => {
+      this.session.hangup()
+    }
+
+    return this
+  }
+
   let proVideoControls = {
     transclude: true,
     templateUrl:    'components/communicator/pro-video-chat/pro-video-controls/pro-video-controls.tpl.html',
     bindings: {
-      toggles: '='
+      toggles: '=',
+      session: '='
     },
-    controllerAs: 'vm'
+    controllerAs: 'vm',
+    controller: controller
   }
 
   angular.module('profitelo.components.communicator.pro-video-chat.pro-video-controls', [

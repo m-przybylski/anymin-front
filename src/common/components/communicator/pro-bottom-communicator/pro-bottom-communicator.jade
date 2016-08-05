@@ -30,9 +30,9 @@
         button.full-screen(data-ng-click="vm.toggleFullScreen()")
           a.circle.icon.icon-expand-24
         
-    pro-video-controls(data-session="vm.session" data-toggles="vm.toggles")
+    pro-video-controls(data-ng-if="vm.session" data-session="vm.session")
 
-  pro-text-chat(data-session="vm.session" data-messages="vm.messages" data-toggles="vm.toggles")
+  pro-text-chat(data-ng-if="vm.session" data-session="vm.session" data-messages="vm.messages" data-toggles="vm.toggles")
 
     
     
