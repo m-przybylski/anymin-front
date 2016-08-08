@@ -1,34 +1,59 @@
 .dashboard-left-menu(data-ng-swipe-left="dashboardController.toogleSidebar()")
   .main-column
     .top-row
-      a(data-ui-sref="app.dashboard.start")
-        .logo
-          img(src="assets/images/logo-symbol.png")
-      .user
-        .photo
-            img.circle.empty-avatar-placeholder(src='{{ avatar }}' alt='user-avatar')
-            .user-status
-              .user-online
-                span 15
-      .switcher
-        .onoffswitch
-          input(type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" data-ng-model="vm.userSwitcher" checked)
-          label(class="onoffswitch-label" for="myonoffswitch" data-ng-click="dashboardController.changeAccount()")
-        span(data-ng-show="dashboardController.switchUser == true" data-translate="DASHBOARD.MENU.EXPERT")
-        span(data-ng-show="dashboardController.switchUser == false" data-translate="DASHBOARD.MENU.CLIENT")
-      .menu-icon
-        a.option-left
-          i.icon.icon-menu-16
-        a.option-left(data-ng-click="dashboardController.toggleChat()")
-          i.icon.icon-password-show
-        a.option-left
-          i.icon.icon-search-24
-        a.option-left
-          i.icon.icon-settings-24
-      
+      .expert-profile
+        .profile-thumb
+          img.circle.empty-avatar-placeholder(src='{{ avatar }}' alt='user-avatar')
+        
+        .profile-info
+          h4 Konto Experta
+          a zmień konto
+
+      ul.nav-sidebar
+        li(data-ng-class="{'on': activeMenuSection === 1}")
+          a(data-ng-click="toggleActiveMenuSection(1)")
+            span.icon.icon-headphone-16
+            span Rozmowy
+            
+          ul.submenu
+            li
+              a Podmenu edycja konta
+            li
+              a Podmenu 2
+            li
+              a Podmenu edycja konta
+            li
+              a asd
+            li 
+              a Podmenu edycja konta
+        
+        li(data-ng-class="{'on': activeMenuSection === 2}")
+          a(data-ng-click="toggleActiveMenuSection(2)")
+            span.icon.icon-price-32
+            span Finanse
+        li(data-ng-class="{'on': activeMenuSection === 3}")
+          a(data-ng-click="toggleActiveMenuSection(3)")
+            span.icon.icon-expert-profile-32
+            span Profil experta
+        li(data-ng-class="{'on': activeMenuSection === 4}")
+          a(data-ng-click="toggleActiveMenuSection(4)")
+            span.icon.icon-statistics-32           
+            span Statystyki 
+          
+          ul.submenu
+            li
+              a Podmenu edycja konta
+            li
+              a Podmenu 2           
+        li(data-ng-class="{'on': activeMenuSection === 5}")
+          a(data-ng-click="toggleActiveMenuSection(5)")
+            span.icon.icon-consultants-32
+            span Konsultanci
+            
     .bottom-row
       .switcher
       .switcher-tools
+      
       .logout-icon
         a.option-left(data-ng-click="appController.logout()")
           i.icon.icon-logout-24
