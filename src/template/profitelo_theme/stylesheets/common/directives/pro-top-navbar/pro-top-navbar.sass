@@ -12,11 +12,19 @@
 
   nav
     display: flex
-    align-self: stretch
+    margin: 0 0 0 32px
+    align-self: center
     justify-content: flex-start
+    border-left: 1px solid $c-lines
+
 
     +smm
       flex: 1 0
+
+    a
+      margin: 0 16px
+      text-transform: uppercase
+      +default-font-heavy
 
     .hamburger-menu
       padding: 0
@@ -29,7 +37,6 @@
 
   .logo
     text-align: left
-    flex: 2 0
     padding: 0 0 0 20px
 
     +smm
@@ -46,6 +53,7 @@
     img
       max-width: 100px
       max-height: 90%
+      margin: 0 0 0 32px
 
   .buttons
     display: flex
