@@ -1,39 +1,56 @@
 .login-page
-  height: 100vh
+  height: auto
+  min-height: 100vh
 
   .left-column
-    flex: 0 0 100%
     align-items: center
-    background-color: $c-white
+    background: $c-white
+    display: flex
+    flex-wrap: wrap
+    flex: 1 0 50%
 
-    +smm
-      flex: 0 0 33%
+    +lgm
+      flex: 1 0 35%
+
+    +xlgm
+      flex: 1 0 28%
+      max-width: 480px
 
     .btn-handler
-      width: 100%
       justify-content: space-between
 
       &.login-handler
-        flex-direction: row-reverse
-      
-        button
-          flex: 0 1 50%
+        flex-wrap: wrap
 
-          &:last-of-type
-            margin-right: 16px
+        +smm
+          flex-wrap: nowrap
+
+        button
+          margin: 0 0 16px
+          flex: 1 0 100%
+
+          +smm
+            flex: 1
+
+          +smm-landscape
+            &:first-child
+              margin: 0 8px 0 0
+
+            &:last-child
+              margin: 0 0 0 8px
 
     .top-content
-      width: 100%
+      align-self: flex-start
       padding: 20px
-      float: left
+      width: 100%
 
       +xsm
-        width: 480px
         padding: 40px
 
-      img
+      svg.logo
+        width: 146px
         height: 40px
-        margin-bottom: 36px
+        margin-bottom: 32px
 
       .top-div
         border-bottom: 1px solid $c-lines
@@ -59,15 +76,12 @@
         margin-top: 20px
 
     .bottom-content
+      align-self: flex-end
       width: 100%
-      padding: 0 20px
-      position: relative
-      margin-top: 10px
-      float: left
+      padding: 0 16px 16px
 
       +xsm
-        width: 480px
-        padding: 0 40px
+        padding: 0 40px 0
 
       .log-bottom
         text-align: center
@@ -82,8 +96,7 @@
           margin-bottom: 32px
 
         img
-          height: 48px
-          width: 140px
+          margin: 0 8px
 
   .img-column
     display: none
@@ -94,3 +107,15 @@
     +smm
       display: block
       flex: 1 0 66%
+
+    +smm-landscape
+      flex: 1 0 50%
+
+    +smm-portrait
+      flex: 1 0 50%
+
+    +lgm
+      flex: 1 0 65%
+
+    +xlgm
+      flex: 1 0 78%
