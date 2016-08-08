@@ -1,3 +1,4 @@
+/* istanbul ignore next */
 (function() {
   function currentCallSessionService() {
 
@@ -19,6 +20,7 @@
 
   }
 
+  
   angular.module('profitelo.services.current-call-state', [
     'pascalprecht.translate',
     'c7s.ng.userAuth',

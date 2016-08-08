@@ -90,6 +90,7 @@
     'profitelo.components.communicator.pro-text-chat.chat-message',
     'profitelo.components.communicator.pro-text-chat.chat-input',
     'profitelo.services.current-call-state',
+    'profitelo.services.pro-ratel-service',
     'pascalprecht.translate',
     'c7s.ng.userAuth'
 

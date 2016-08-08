@@ -14,6 +14,8 @@ describe('Testing Controller: proClientAdviceModalController', () => {
 
       scope = $rootScope.$new()
 
+      scope.$parent.rejectCall = () => {}
+
       proClientAdviceModalController = $controller('proClientAdviceModalController', {
         '$scope': scope,
         '$uibModalInstance': uibModalInstance
@@ -30,7 +32,7 @@ describe('Testing Controller: proClientAdviceModalController', () => {
 
     spyOn(uibModalInstance, 'dismiss')
 
-    proClientAdviceModalController.dismissWindow()
+    proClientAdviceModalController.rejectCall()
 
     expect(uibModalInstance.dismiss).toHaveBeenCalledWith('cancel')
 

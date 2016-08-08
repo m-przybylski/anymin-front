@@ -168,6 +168,7 @@
         		"CATEGORY.TECHNOLOGIE.SYSTEMY_OPERACYJNE":"Systemy operacyjne",
         		"CATEGORY.TECHNOLOGIE.TECHNIKA":"Technika",
         		"CATEGORY.TECHNOLOGIE.TELEKOMUNIKACJA":"Telekomunikacja",
+        		"CATEGORY.ZDROWIE_I_URODA":"Zdrowie i uroda",
         		"CATEGORY.ZDROWIE_I_URODA.CIAZA":"Ciąża",
         		"CATEGORY.ZDROWIE_I_URODA.DIETA_I_ODZYWIANIE":"Dieta i odżywianie",
         		"CATEGORY.ZDROWIE_I_URODA.FARMACJA":"Farmacja",

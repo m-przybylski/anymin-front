@@ -1,7 +1,8 @@
+/* istanbul ignore next */
 (function() {
 
   /* @ngInject */
-  function controllerFunction($scope, $log, proRatelService, currentCallSessionService) {
+  function controllerFunction($scope, proRatelService, currentCallSessionService) {
 
     proRatelService.authenticate()
 
@@ -10,6 +11,14 @@
     this.isFullScreenMode = false
     this.session = null
     let _wasChatShown = false
+
+    this.callStatus = {
+      time: {
+        s: 0,
+        m: 0
+      },
+      cost: 0
+    }
     
     this.messages = []
 
@@ -26,6 +35,23 @@
 
     }
 
+    proRatelService.onStartedCall(event => {
+      console.log('call had been started')
+      proRatelService.startTimer(status => {
+        this.callStatus.time.s = parseInt(status.time % 60, 10)
+        this.callStatus.time.m = parseInt(status.time / 60, 10)
+
+        if (this.callStatus.time.m < 10) {
+          this.callStatus.time.m = "0" + this.callStatus.time.m
+        }
+
+        if (this.callStatus.time.s < 10) {
+          this.callStatus.time.s = "0" + this.callStatus.time.s
+        }
+
+        this.callStatus.cost = parseFloat(status.cost / 100).toFixed(2)
+      })
+    })
 
     proRatelService.onDirectRoom(session => {
       this.session = session
@@ -40,6 +66,7 @@
     proRatelService.onHangup(() => {
       this.isVisible = false
       this.showChat = false
+      proRatelService.stopTimer()
     })
 
     
@@ -62,7 +89,6 @@
     return this
 
   }
-
 
   let proBottomCommunicator = {
     transclude: true,

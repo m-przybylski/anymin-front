@@ -1,7 +1,6 @@
 (function() {
-
   /* @ngInject */
-  function controller($scope, $timeout, User, currentCallSessionService) {
+  function controller($timeout, User, currentCallSessionService) {
 
     let session = currentCallSessionService.getSession()
 
@@ -18,7 +17,7 @@
 
   let proTextChatMessage = {
     transclude: true,
-    templateUrl:    'components/communicator/pro-text-chat/chat-message/chat-message.tpl.html',
+    templateUrl: 'components/communicator/pro-text-chat/chat-message/chat-message.tpl.html',
     bindings: {
       model: '<'
     },
@@ -26,6 +25,7 @@
     controller: controller
 
   }
+
 
   angular.module('profitelo.components.communicator.pro-text-chat.chat-message', [
     'pascalprecht.translate',

@@ -1,19 +1,29 @@
+/* istanbul ignore next */
 (function() {
-  function proRatelService($rootScope, $log, $q, $timeout, User, RatelApi, ServiceApi, DialogService) {
+  function proRatelService($rootScope, $interval, $log, $q, $timeout, User, RatelApi, ServiceApi, DialogService) {
 
     navigator.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia
+
+    if (typeof navigator.mediaDevices !== 'object') {
+      navigator.mediaDevices = {}
+    }
 
     if (navigator.mediaDevices.getUserMedia) {
       navigator.getUserMedia = function(arg, t, c) {
         return navigator.mediaDevices.getUserMedia(arg).then(t).catch(c)
       }
     }
+    
 
     // ratel server config, const for now. will be default in sdk
     const artichokeConfig = {
       url: 'artichoke.ratel.io',
       debug: true
     }
+    
+    let _timer
+    let _count
+    const _cost = 345
 
     let _ratelSessions = []
 
@@ -28,7 +38,8 @@
       onNewCall: null,
       onRoomJoin: null,
       onRoomHistory: null,
-      onHangup: null
+      onHangup: null,
+      onStartedCall: null
     }
 
     callbacks.call = (callback, payload) => {
@@ -178,7 +189,7 @@
             ratelSession.createCallStream(callOffer.user).getLocalStream().then(stream => {
 
               ratelSession.chat.answerCall(callOffer, stream)
-
+              callbacks.call('onStartedCall', ratelSession)
               callbacks.call('onDirectRoom', ratelSession)
 
             }, error => $log.error('Could not start stream: ' + error))
@@ -206,6 +217,7 @@
           pendingConnectionModal.close()
         }
         ratelSession.createDirectRoom(message.user)
+        callbacks.call('onStartedCall', ratelSession)
       })
 
       onRatelMessage('call_hangup', message => {
@@ -233,6 +245,10 @@
 
       onRatelMessage('msg_received', message => {
         $log.debug('Received ack for message id: ' + message.id)
+      })
+
+      onRatelMessage('hello', message => {
+        $log.debug('Ratel Hello!: ', message)
       })
 
       onRatelMessage('msg_delivered', message => {
@@ -315,6 +331,18 @@
         return deferred.promise
 
       },
+      startTimer: (cb) => {
+        _count = Date.now() / 1000
+        _timer = $interval(() => {
+          cb({
+            time: Date.now() / 1000 - _count,
+            cost: _cost / 60 * parseInt((Date.now() / 1000 - _count), 10)
+          })
+        }, 500)
+      },
+      stopTimer: () => {
+        $interval.cancel(_timer)
+      },
       bindLocalStreamElement: (element) => {
         localStreamVideoElement = element
       },
@@ -336,11 +364,13 @@
 
   }
 
+
   angular.module('profitelo.services.pro-ratel-service', [
     'pascalprecht.translate',
     'c7s.ng.userAuth',
     'profitelo.swaggerResources',
-    'profitelo.components.communicator.modals.pro-client-advice-modal-controller'
+    'profitelo.components.communicator.modals.pro-client-advice-modal-controller',
+    'profitelo.services.dialog-service'
   ])
     .service('proRatelService', proRatelService)
 
