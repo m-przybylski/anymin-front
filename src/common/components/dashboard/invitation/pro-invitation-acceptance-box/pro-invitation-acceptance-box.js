@@ -7,12 +7,13 @@
 
     let _isPending = false
     let _rejectTimeout
-    let headerStatus = $(".box-header")
 
+    this.isRejected = false
+    this.isAccepted = false
     this.rejectTimeoutSet = false
 
     this.accept = (employmentId) => {
-      headerStatus.addClass("is-accepted")
+      this.isAccepted = true
 
       if (!_isPending) {
         _isPending = true
@@ -25,11 +26,10 @@
           _isPending = false
         })
       }
-
     }
 
     this.reject = (employmentId) => {
-      headerStatus.addClass("is-rejected")
+      this.isRejected = true
 
       let _reject = () => {
         if (!_isPending) {
@@ -56,14 +56,14 @@
     }
 
     this.abortRejection = () => {
-      headerStatus.removeClass("is-rejected")
+      this.isRejected = false
+      this.isAccepted = false
 
       $timeout.cancel(_rejectTimeout)
       this.rejectTimeoutSet = false
     }
 
     return this
-
   }
 
   let proInvitationAcceptanceBox = {

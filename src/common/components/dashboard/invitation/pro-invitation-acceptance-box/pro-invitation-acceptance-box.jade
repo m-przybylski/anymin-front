@@ -1,5 +1,5 @@
 .pro-invitation-acceptance-box.box-list
-  .box-header.flex-row
+  .box-header.flex-row(data-ng-class="{'is-rejected': vm.isRejected, 'is-accepted': vm.isAccepted }")
     h3(data-ng-bind="vm.invitation.details.name")
 
     .box-status(data-ng-show="vm.employment.status === 'NEW' && !vm.rejectTimeoutSet")
@@ -8,7 +8,7 @@
         span.back(data-translate="DASHBOARD.INVITATION.REJECT")
 
       button.pro-button.success.icon.iconbg(data-ng-click="vm.accept(vm.employment.id)")
-        span.icon.icon-success-12
+        span.icon.icon-success-12 
         span {{ ::"DASHBOARD.INVITATION.ACCEPT" | translate }}
 
     .box-status.accepted.inavtive(data-ng-show="vm.employment.status === 'ACCEPTED'")
