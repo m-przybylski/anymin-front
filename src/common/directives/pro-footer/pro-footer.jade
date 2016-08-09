@@ -1,34 +1,56 @@
 .pro-footer
-  .footer-container
-    .header-content
-      .top-footer
-        .default-container
-          .top-footer-top
-            p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.TALKS_MORE_COMFORTABLE")
-            div
-              img(src="assets/images/app_store.png")
-              img(src="assets/images/google_play.png")
-          .top-footer-bottom
-            div
-              p(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.FOOTER_PARTNER_SPACE")
-              p(data-translate="HOME.FOOTER.ADVANTAGE_TO_PARTNERS")
-              p(data-translate="HOME.FOOTER.ABOUT_US")
-              p(data-translate="HOME.FOOTER.INTEGRATION")
-            div
-              p(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.FOOTER_COMPLAINTS")
-              p(data-translate="HOME.FOOTER.REFUND")
-              p(data-translate="HOME.FOOTER.RECORD_CALLS")
-            div
-              p(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.FOOTER_OTHER")
-              p(data-translate="HOME.FOOTER.BLOG")
-              p(data-translate="HOME.FOOTER.FAQ")
-              p(data-translate="HOME.FOOTER.RULE")
-              p(data-translate="HOME.FOOTER.PRIVACY_POLICY")
-      .bottom-footer
-        .bottom-footer-right
-          span.icon.icon-headphone-16
-          p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.FOOTER_CALL_TEXT")
-          span.icon.icon-mail-16
-          p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.MAIL_FOOTER")
-        .bottom-footer-left
-          p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.FOOTER_COPYRIGHT")
+  .default-container
+    .footer-container
+      .footer-applications
+        h5(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.TALKS_MORE_COMFORTABLE")      
+        a
+          img(src="assets/images/app_store.png")
+        a
+          img(src="assets/images/google_play.png")
+    
+      .footer-links
+        ul
+          li.head 
+            h5(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.FOOTER_PARTNER_SPACE")
+          li 
+            a(data-translate="HOME.FOOTER.ADVANTAGE_TO_PARTNERS")
+          li 
+            a(data-translate="HOME.FOOTER.ABOUT_US")
+          li 
+            a(data-translate="HOME.FOOTER.INTEGRATION")
+            
+        ul
+          li.head 
+            h5(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.FOOTER_COMPLAINTS")
+          li 
+            a(data-translate="HOME.FOOTER.REFUND")
+          li 
+            a(data-translate="HOME.FOOTER.RECORD_CALLS")
+            
+        ul
+          li.head 
+            h5(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.FOOTER_OTHER")
+          li 
+            a(data-translate="HOME.FOOTER.BLOG")
+          li 
+            a(data-translate="HOME.FOOTER.FAQ")
+          li 
+            a(data-translate="HOME.FOOTER.RULE")
+          li 
+            a(data-translate="HOME.FOOTER.PRIVACY_POLICY")
+            
+  .default-container
+    .bottom-footer
+      .bottom-footer-about
+        p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.FOOTER_COPYRIGHT")
+
+      .bottom-footer-fast-contact
+        ul
+          li
+            span.icon.icon-headphone-16
+            p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.FOOTER_CALL_TEXT")
+          li          
+            span.icon.icon-mail-16
+            a(href="mailto:{{'HOME.TOP_CONTAINER.EXPERT_PROFILE.MAIL_FOOTER' | translate}}")
+              span(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.MAIL_FOOTER")
+        

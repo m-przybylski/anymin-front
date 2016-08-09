@@ -1,92 +1,150 @@
 .pro-footer
+  background-color: $c-white
+  text-align: center
+
+  +lgm
+    text-align: left
+
   .footer-container
-    background-color: $c-white
+    padding: 64px 0
     border-bottom: 1px solid $c-lines
 
-    .header-content
+    +smm
       display: flex
-      flex-direction: column
-      align-items: center
-      margin: 0 auto
-      width: 100%
+      flex-wrap: wrap
 
-      .top-footer
-        display: flex
-        flex-direction: column
-        align-content: center
-        text-align: center
-        border-bottom: 1px solid $c-lines
-        padding-bottom: 60px
-        width: 100%
+    .footer-applications
+      +smm
+        flex: 1 0 100%
 
-        .top-footer-top
-          display: flex
-          flex-direction: column
-          justify-content: center
-          align-content: center
+      +lgm
+        flex: 1 0
 
-          img
-            width: 110px
-            margin: 8px 0
-
-          div
-            img
-              margin: 0 8px 16px
-
-        .top-footer-bottom
-          display: flex
-          flex-direction: column
-          align-content: center
-          padding: 0 32px
-
-          +smm
-            flex-direction: row
-            text-align: left
-            justify-content: space-between
-
-          p
-            font-size: $f-nav-size
-            text-transform: uppercase
-            font-weight: bold
-
-          div
-            p
-              color: $c-input
-              padding-bottom: 0
-
-              &:first-child
-                color: $c-primary-txt
-
-      .bottom-footer
-        display: flex
-        flex-direction: column
-        justify-content: center
-        width: 100%
-        margin: 40px 0
+      h5
+        +default-font-heavy
         text-transform: uppercase
+        font-size: $f-nav-size
+        margin: 0 0 32px
 
-        p
+        +lgm
+          margin: 0 0 24px
+
+      img
+        margin: 0 8px 0
+        max-width: 128px
+
+        +lgm
+          display: block
+          margin: 0 0 16px
+
+      div
+        img
+          margin: 0 8px 16px
+
+    .footer-links
+      flex: 1 0
+      justify-content: flex-end
+      padding: 64px 0 0
+
+      +smm
+        flex-direction: row
+        text-align: left
+        display: flex
+        justify-content: space-between
+        flex: 1 0 100%
+
+      +lgm
+        flex: 1 0
+        padding: 0
+
+      ul
+        margin: 0 0 64px
+
+        &:last-child
+          margin: 0
+
+        +smm
+          margin: 0
+
+        li
+          text-transform: uppercase
           font-size: $f-nav-size
-          font-weight: bold
+          margin: 0 0 16px
 
-        .bottom-footer-right
+          &:last-child
+            margin: 0
+
+          &.head
+            margin: 0 0 24px
+
+          a
+            +transition(color 0.2s)
+            +default-font-heavy
+            color: $c-input
+
+            &:hover
+              color: $c-primary-txt
+
+          h5
+            +default-font-heavy
+
+  .bottom-footer
+    display: flex
+    align-items: center
+    padding: 64px 0
+    flex-wrap: wrap
+
+    a, p
+      +default-font-heavy
+      color: $c-primary-txt
+      text-transform: uppercase
+      font-size: $f-nav-size
+
+    .bottom-footer-about
+      flex: 1 0 100%
+      order: 2
+
+      +lgm
+        flex: 1 0
+        order: 1
+
+      p
+        padding: 0 48px
+
+        +lgm
+          padding: 0
+
+    .bottom-footer-fast-contact
+      order: 1
+      flex: 1 0 100%
+      display: flex
+      align-items: center
+      justify-content: center
+      margin: 0 0 32px
+
+      +lgm
+        flex: 1 0
+        margin: 0
+        justify-content: flex-end
+
+      ul
+
+        +xsm
           display: flex
-          flex-direction: row
-          justify-content: center
-          align-content: center
           align-items: center
 
-          p
-            margin: 0 8px
+        li
+          margin: 0 0 16px
+          display: flex
+          align-items: center
+          justify-content: center
 
-          span
-            margin: 0 8px
+          +xsm
+            margin: 0 48px 0 0
+            justify-content: flex-start
 
-        .bottom-footer-left
-          margin: 32px 0 0
-          width: 100%
-          text-align: center
+          &:last-child
+            margin: 0
 
-          p
-            width: 60%
-            margin: 0 auto
+          .icon
+            margin: 0 8px 0 0

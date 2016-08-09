@@ -8,7 +8,9 @@
     }
   }
 
-  angular.module('profitelo.directives.pro-footer', [])
+  angular.module('profitelo.directives.pro-footer', [
+    'pascalprecht.translate'
+  ])
   .directive('proFooter', proFooter)
 
 }())
