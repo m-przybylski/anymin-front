@@ -3,6 +3,7 @@
   min-height: 100vh
 
   .left-column
+    display: flex
     flex: 0 0 100%
     align-items: center
     justify-content: space-between
@@ -24,19 +25,24 @@
           flex-wrap: nowrap
           flex-direction: row-reverse
 
+      &.login-handler
+        //flex-direction: row-reverse
+        flex-flow: row wrap
+
+        +smm
+          flex-flow: row nowrap
+          flex-direction: row-reverse
+
         button
           margin: 0 0 16px
-          flex: 1 0 100%
+          flex: 0 0 100%
 
           +smm
-            flex: 1
+            flex: 1 1 50%
+            margin: 0
 
-          +smm-landscape
-            &:first-child
-              margin: 0 8px 0 0
-
-            &:last-child
-              margin: 0 0 0 8px
+            &:last-of-type
+              margin: 0 16px 0 0
 
     .top-content
       align-self: flex-start
