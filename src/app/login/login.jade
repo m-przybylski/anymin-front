@@ -1,8 +1,10 @@
 .login-page.flex-row
-  .left-column.flex-col
+  .left-column
     .top-content
-      img.logo(src="/assets/images/logo_profitelo_black.png" data-ui-sref="app.home")
-      .top-div
+      a(src="/assets/images/logo_profitelo_black.png" data-ui-sref="app.home")
+        include ../../common/templates/logo.svg.jade
+        
+      .top-div 
         h3.light(data-translate="LOGIN.TRUST_EXPERTS")
         h4
           span(data-translate="LOGIN.OUR_SERVICES_1")
@@ -14,9 +16,10 @@
     .bottom-content
       .log-bottom
         p(data-translate="LOGIN.DOWNLOAD_FREE_APP")
-        .app-buttons.flex-row
+        .app-buttons
           a
             img(src="/assets/images/google_play.png")
           a
             img(src="/assets/images/app_store.png")
+            
   .img-column
