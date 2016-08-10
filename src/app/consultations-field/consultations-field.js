@@ -10,6 +10,17 @@
       this.controlls.prevSlide()
     }
 
+
+    this.tagsControlls = {}
+
+    this.tagsNextSlide = () => {
+      this.tagsControlls.nextSlide()
+    }
+
+    this.tagsPrevSlide = () => {
+      this.tagsControlls.prevSlide()
+    }
+
     this.expertCard = [
       {
         name: 'Pierwszy Slide',
@@ -62,7 +73,8 @@
     'c7s.ng.userAuth',
     'profitelo.directives.pro-footer',
     'profitelo.components.interface.slider',
-    'profitelo.components.pro-search-dropdown'
+    'profitelo.components.pro-search-dropdown',
+    'profitelo.directives.pro-tags-slider'
   ])
     .config( function($stateProvider, UserRolesProvider) {
       $stateProvider.state('app.consultations-field', {

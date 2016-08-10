@@ -4,6 +4,11 @@
   .field-search(data-model='vm.model' data-tag-click-action="vm.tagsClick" style="background: url('/assets/images/test-bg.jpg') no-repeat top center")
     .default-container
       pro-search-dropdown
+      
+      .top-search-items
+        h4(data-translate="HOME.FIELD.TOP_SEARCH")
+          pro-tags-slider(data-tags="vm.tags" data-on-tag-click-action="vm.tagsAction")
+        
 
   .card-slider
     slider.flex-row(data-ng-transclude data-controlls="vm.controlls")

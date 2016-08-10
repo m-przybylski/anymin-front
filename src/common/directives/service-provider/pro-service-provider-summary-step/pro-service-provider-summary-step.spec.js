@@ -35,7 +35,5 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
     it('should have a dummy test', inject(function() {
       expect(true).toBeTruthy()
     }))
-
-
   })
 })

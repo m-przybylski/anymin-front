@@ -6,15 +6,15 @@
 
       scope.menuElements = [
         {
-          label: 'Strona Główna',
+          label: 'Poznaj nas',
           link: 'app.home'
         },
         {
-          label: 'O serwisie',
+          label: 'Jak to działa?',
           link: 'app.home'
         },
         {
-          label: 'Dla eksperta',
+          label: 'Dla ekspertów',
           link: 'app.home'
         },
         {
@@ -22,6 +22,8 @@
           link: 'app.home'
         }
       ]
+
+
 
       scope.setShowSearch = () => {
         scope.showSearch = scope.showSearch !== true ? true : false
@@ -35,7 +37,10 @@
       replace: true,
       link: linkFunction,
       scope: {
-        showSearch: '=?'
+        showSearch: '=?',
+        loggedIn: '=?',
+        searchActive: '=?',
+        searchPage: '=?'
       }
 
     }

@@ -16,7 +16,7 @@
         pre: preCompileFunction
       }
     }
-    
+
     return {
       replace: true,
       restrict: 'E',

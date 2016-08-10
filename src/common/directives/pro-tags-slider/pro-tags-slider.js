@@ -1,6 +1,15 @@
 (function() {
   function proTagsSlider($window, $timeout) {
     function linkFunction(scope, element) {
+      scope.controlls = {}
+
+      scope.nextSlide = function() {
+        scope.controlls.nextSlide()
+      }
+
+      scope.prevSlide = function() {
+        scope.controlls.prevSlide()
+      }
     }
 
 
@@ -11,13 +20,14 @@
       scope: {
         tags: '=?',
         onTagClickAction: '=?'
-
       },
       link: linkFunction
     }
   }
 
-  angular.module('profitelo.directives.pro-tags-slider', [])
+  angular.module('profitelo.directives.pro-tags-slider', [
+    'profitelo.components.interface.slider'
+  ])
     .directive('proTagsSlider', proTagsSlider)
 
 }())

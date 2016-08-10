@@ -113,7 +113,7 @@
         controller: 'acceptRejectDialogController',
         templateUrl: 'controllers/accept-reject-dialog-controller/accept-reject-dialog-controller.tpl.html'
       })
-      
+
     }
 
     return this
@@ -125,7 +125,6 @@
     'profitelo.services.dialog-service',
     'profitelo.common.controller.accept-reject-dialog-controller',
     'profitelo.services.service-provider-state',
-    'profitelo.directives.service-provider.pro-service-provider-summary-head',
     'profitelo.directives.service-provider.pro-service-provider-summary-step',
     'c7s.ng.userAuth',
     'profitelo.services.resolvers.app.service-provider-image-resolver',

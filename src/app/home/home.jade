@@ -7,16 +7,32 @@ main.top-content-home
     pro-search-dropdown()
   .default-container
     include ./parts/branch-overview.partial.jade
-  .card-slider
-    slider.flex-row(data-ng-transclude data-controlls="vm.controlls")
-      pro-expert-card(data-ng-repeat="expert in vm.expertCard" data-ng-model="expert")
+
+  .default-container
+    .single-container.slider-container
+      .slider-control
+        span.icon.icon-hands-32
+        p(data-translate="HOME.SLIDER_1")
+        p(data-translate="HOME.SLIDER_2")
+        .switcher
+          span.icon.icon-arrow-left-12(data-ng-click="prevSlide()")
+          span.icon.icon-arrow-right-12(data-ng-click="nextSlide()")
+      .slider-slides(data-ng-style="leftOffset") 
+        slider.flex-row(data-ng-transclude data-controlls="controlls")
+          .slides(data-ng-repeat="slide in vm.sliders" data-ng-swipe-left="nextSlide()" data-ng-swipe-right="prevSlide()")
+            img(ng-src='{{ imageUrl(slide) }}' data-ng-click="openDialog(slide)")
+
     
-    .controlls
-      .left-offset(data-ng-click="vm.prevSlide()")
-        span.icon.icon-arrow-left-12
-      
-      .right-offset(data-ng-click="vm.nextSlide()")
-        span.icon.icon-arrow-right-12
+.card-slider
+  slider.flex-row(data-ng-transclude data-controlls="vm.controlls")
+    pro-expert-card(data-ng-repeat="expert in vm.expertCard" data-ng-model="expert")
+  
+  .controlls
+    .left-offset(data-ng-click="vm.prevSlide()")
+      span.icon.icon-arrow-left-12
+    
+    .right-offset(data-ng-click="vm.nextSlide()")
+      span.icon.icon-arrow-right-12
     
 main.content-blog
   .default-container.advice-tiles
@@ -33,3 +49,6 @@ main.content-blog
         pro-advice-tile(data-ng-repeat="tile in vm.adviceTile" data-ng-model="tile")
       .grid-item
         pro-advice-tile(data-ng-repeat="tile in vm.adviceTile" data-ng-model="tile")
+        
+main.footer
+  pro-footer
