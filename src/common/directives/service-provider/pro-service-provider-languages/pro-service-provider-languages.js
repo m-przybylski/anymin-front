@@ -69,7 +69,6 @@
   angular.module('profitelo.directives.service-provider.pro-service-provider-languages', [
     'lodash',
     'pascalprecht.translate',
-    'profitelo.services.wizardSectionControl',
     'profitelo.directives.ng-enter',
     'profitelo.services.commonSettings',
     'profitelo.common.controller.service-provider.service-provider-step-controller'

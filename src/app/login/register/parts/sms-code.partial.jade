@@ -5,7 +5,7 @@
     data-ng-model="vm.registrationSteps.smsCode"
     data-maxlength="4"
     data-type="tel"
-    data-name="smsCode"
+    data-id="smsCode"
     data-ng-pattern="vm.patternSms"
     data-ng-change="vm.verifyCode()"
     data-ng-class="{'invalid':smsCodeForm.smsCode.$invalid && (smsCodeForm.smsCode.$dirty || smsCodeForm.$submitted) || vm.serverError, 'valid': vm.correctCode}"
