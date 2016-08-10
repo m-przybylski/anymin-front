@@ -1,15 +1,28 @@
 (function() {
   function dashboardLeftMenu() {
-    function linkFunction() {
+
+
+    function linkFunction(scope) {
       let myScrollbarChoices
+
+
+      scope.activeMenuSection = -1
+
+      scope.toggleActiveMenuSection = function(sectionId) {
+        if (scope.activeMenuSection === sectionId) {
+          scope.activeMenuSection = -1
+        } else {
+          scope.activeMenuSection = sectionId
+        }
+      }
 
       function _getScrollbarChoices() {
         if (!myScrollbarChoices) {
           myScrollbarChoices = $('.dashboard-left-menu')
         }
         return myScrollbarChoices
-      }
 
+      }
       _getScrollbarChoices().perfectScrollbar()
     }
 
