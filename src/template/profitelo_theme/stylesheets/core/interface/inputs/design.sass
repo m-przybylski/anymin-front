@@ -21,10 +21,12 @@
     min-height: 180px
 
   label
+    +default-font-heavy
     position: absolute
     top: 8px
     color: $c-secondary-txt
-    font-size: $f-paragraph
+    font-size: $f-base
+    text-transform: uppercase
     line-height: 1
 
   input
@@ -79,7 +81,7 @@
       position: relative
       float: right
       z-index: 2
-      background-color: $c-background
+      background-color: $c-lines
       height: 62px
       display: block
       width: 62px
