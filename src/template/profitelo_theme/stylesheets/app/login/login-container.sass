@@ -3,27 +3,23 @@
   min-height: 100vh
 
   .left-column
+    flex: 0 0 100%
     align-items: center
-    background: $c-white
-    display: flex
-    flex-wrap: wrap
-    flex: 1 0 50%
+    justify-content: space-between
+    background-color: $c-white
 
-    +lgm
-      flex: 1 0 35%
-
-    +xlgm
-      flex: 1 0 28%
-      max-width: 480px
+    +smm
+      flex: 0 0 480px
 
     .btn-handler
       justify-content: space-between
 
-      &.login-handler
+      &.login-handlerbe
         flex-wrap: wrap
 
         +smm
           flex-wrap: nowrap
+          flex-direction: row-reverse
 
         button
           margin: 0 0 16px
@@ -78,7 +74,14 @@
     .bottom-content
       align-self: flex-end
       width: 100%
+<<<<<<< 5bf60b29d903486f0fbe2d5c77b440f896e24fbe
       padding: 0 16px 16px
+=======
+      padding: 0 20px 40px
+      position: relative
+      margin-top: 10px
+      float: left
+>>>>>>> change registration path style and icons
 
       +xsm
         padding: 0 40px 0
@@ -87,16 +90,27 @@
         text-align: center
 
         p
+          +default-font-heavy
+          font-size: $f-base
           margin-bottom: 32px
+          text-transform: uppercase
 
       .app-buttons
-        justify-content: space-around
+        justify-content: center
+
+        a:first-of-type
+          margin-right: 16px
 
         +xsm
           margin-bottom: 32px
 
         img
+<<<<<<< 5bf60b29d903486f0fbe2d5c77b440f896e24fbe
           margin: 0 8px
+=======
+          height: 40px
+          width: auto
+>>>>>>> change registration path style and icons
 
   .img-column
     display: none
