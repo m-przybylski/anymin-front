@@ -6,14 +6,14 @@
           img.circle.empty-avatar-placeholder(src='{{ avatar }}' alt='user-avatar')
         
         .profile-info
-          h4 Konto Experta
-          a zmień konto
+          h4(data-translate="DASHBOARD.MENU.EXPERT_ACCOUNT")
+          a(data-translate="DASHBOARD.MENU.CHANGE_ACCOUNT")
 
       ul.nav-sidebar
         li(data-ng-class="{'on': activeMenuSection === 1}")
           a(data-ng-click="toggleActiveMenuSection(1)")
             span.icon.icon-headphone-16
-            span Rozmowy
+            span(data-translate="DASHBOARD.MENU.CALLS")
             
           ul.submenu
             li
@@ -30,15 +30,15 @@
         li(data-ng-class="{'on': activeMenuSection === 2}")
           a(data-ng-click="toggleActiveMenuSection(2)")
             span.icon.icon-price-32
-            span Finanse
+            span(data-translate="CATEGORY.BIZNES_I_KARIERA.FINANSE")
         li(data-ng-class="{'on': activeMenuSection === 3}")
           a(data-ng-click="toggleActiveMenuSection(3)")
             span.icon.icon-expert-profile-32
-            span Profil experta
+            span(data-translate="DASHBOARD.MENU.EXPERT_PROFILE")
         li(data-ng-class="{'on': activeMenuSection === 4}")
           a(data-ng-click="toggleActiveMenuSection(4)")
-            span.icon.icon-statistics-32           
-            span Statystyki 
+            span.icon.icon-www-24         
+            span(data-translate="DASHBOARD.MENU.STATS")
           
           ul.submenu
             li
@@ -47,13 +47,5 @@
               a Podmenu 2           
         li(data-ng-class="{'on': activeMenuSection === 5}")
           a(data-ng-click="toggleActiveMenuSection(5)")
-            span.icon.icon-consultants-32
-            span Konsultanci
-            
-    .bottom-row
-      .switcher
-      .switcher-tools
-      
-      .logout-icon
-        a.option-left(data-ng-click="appController.logout()")
-          i.icon.icon-logout-24
+            span.icon.icon-multiperson-128
+            span(data-translate="COMMON.DIRECTIVES.PRO_EXPERT_PROFILE.CONSULTANTS_LIST")
