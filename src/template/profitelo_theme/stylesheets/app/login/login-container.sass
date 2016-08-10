@@ -7,12 +7,15 @@
     align-items: center
     justify-content: space-between
     background-color: $c-white
+    display: flex
+    flex-flow: column
 
     +smm
       flex: 0 0 480px
 
     .btn-handler
       justify-content: space-between
+      flex-direction: row-reverse
 
       &.login-handlerbe
         flex-wrap: wrap
@@ -85,14 +88,10 @@
     .bottom-content
       align-self: flex-end
       width: 100%
-<<<<<<< 5bf60b29d903486f0fbe2d5c77b440f896e24fbe
-      padding: 0 16px 16px
-=======
       padding: 0 20px 40px
       position: relative
       margin-top: 10px
       float: left
->>>>>>> change registration path style and icons
 
       +xsm
         padding: 0 40px 0
@@ -116,12 +115,9 @@
           margin-bottom: 32px
 
         img
-<<<<<<< 5bf60b29d903486f0fbe2d5c77b440f896e24fbe
           margin: 0 8px
-=======
           height: 40px
           width: auto
->>>>>>> change registration path style and icons
 
   .img-column
     display: none
