@@ -1,7 +1,7 @@
 block content
   .consultations-container.pro-service-provider-summary-step(data-ng-repeat="consultation in consultations")
     .step.summary-step
-      div(ng-if="vm.currentEditConsultationId != consultation.id")
+      div(data-ng-if="vm.currentEditConsultationId != consultation.id")
         .header-handler.flex-row
           .summary-step-title
             p {{ consultation.details.name}}
@@ -20,4 +20,4 @@ block content
         data-title="DASHBOARD.CREATE_PROFILE.SUMMARY.CONSULTATION_EMPLOYEE"
         data-tags="consultation.invitationTags" data-ng-if="consultation.invitationTags")
 
-      .edit-consultation-form(ng-transclude ng-if="vm.currentEditConsultationId == consultation.id")
+      .edit-consultation-form(data-ng-transclude data-ng-if="vm.currentEditConsultationId == consultation.id")
