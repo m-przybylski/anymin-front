@@ -81,7 +81,8 @@
       position: relative
       float: right
       z-index: 2
-      background-color: $c-lines
+      background-color: $c-white
+      border-left: 1px solid $c-lines
       height: 62px
       display: block
       width: 62px
@@ -95,12 +96,14 @@
       cursor: pointer
 
       .icon
-        color: $c-primary
+        color: $c-primary-txt
 
       &.active-addon
         &:hover
           background-color: $c-primary-txt
-          color: $c-background
+
+          .icon
+            color: $c-white
 
       span
         line-height: 1

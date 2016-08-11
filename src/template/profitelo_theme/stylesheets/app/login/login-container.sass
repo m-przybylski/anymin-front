@@ -3,41 +3,46 @@
   min-height: 100vh
 
   .left-column
-    align-items: center
-    background: $c-white
     display: flex
-    flex-wrap: wrap
-    flex: 1 0 50%
+    flex: 0 0 100%
+    align-items: center
+    justify-content: space-between
+    background-color: $c-white
+    display: flex
+    flex-flow: column
 
-    +lgm
-      flex: 1 0 35%
-
-    +xlgm
-      flex: 1 0 28%
-      max-width: 480px
+    +smm
+      flex: 0 0 480px
 
     .btn-handler
       justify-content: space-between
+      flex-direction: row-reverse
 
-      &.login-handler
+      &.login-handlerbe
         flex-wrap: wrap
 
         +smm
           flex-wrap: nowrap
+          flex-direction: row-reverse
+
+      &.login-handler
+        //flex-direction: row-reverse
+        flex-flow: row wrap
+
+        +smm
+          flex-flow: row nowrap
+          flex-direction: row-reverse
 
         button
           margin: 0 0 16px
-          flex: 1 0 100%
+          flex: 0 0 100%
 
           +smm
-            flex: 1
+            flex: 1 1 50%
+            margin: 0
 
-          +smm-landscape
-            &:first-child
-              margin: 0 8px 0 0
-
-            &:last-child
-              margin: 0 0 0 8px
+            &:last-of-type
+              margin: 0 16px 0 0
 
     .top-content
       align-self: flex-start
@@ -75,10 +80,24 @@
         text-align: center
         margin-top: 20px
 
+        a
+         text-transform: uppercase
+         display: block
+         text-align: center
+         font-size: $f-base
+         color: $c-secondary-txt
+         transition: color .2s
+
+         &:hover
+           color: $c-primary-txt
+
     .bottom-content
       align-self: flex-end
       width: 100%
-      padding: 0 16px 16px
+      padding: 0 20px 40px
+      position: relative
+      margin-top: 10px
+      float: left
 
       +xsm
         padding: 0 40px 0
@@ -87,16 +106,24 @@
         text-align: center
 
         p
+          +default-font-heavy
+          font-size: $f-base
           margin-bottom: 32px
+          text-transform: uppercase
 
       .app-buttons
-        justify-content: space-around
+        justify-content: center
+
+        a:first-of-type
+          margin-right: 16px
 
         +xsm
           margin-bottom: 32px
 
         img
           margin: 0 8px
+          height: 40px
+          width: auto
 
   .img-column
     display: none
