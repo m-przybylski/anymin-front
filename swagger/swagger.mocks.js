@@ -28,6 +28,9 @@
                 $httpBackend.whenPUT(apiUrl + '/accounts/:accountId').respond();
                 $httpBackend.whenPATCH(apiUrl + '/accounts/:accountId').respond();
                 $httpBackend.whenGET(apiUrl + '/accounts/check').respond();
+                $httpBackend.whenGET(apiUrl + '/search/reindex').respond();
+                $httpBackend.whenGET(apiUrl + '/search/suggestions').respond();
+                $httpBackend.whenGET(apiUrl + '/search').respond();
                 $httpBackend.whenPOST(apiUrl + '/employments/:employmentId/reject').respond();
                 $httpBackend.whenPOST(apiUrl + '/employments/:employmentId/accept').respond();
                 $httpBackend.whenPOST(apiUrl + '/employments').respond();
@@ -60,8 +63,6 @@
                 $httpBackend.whenPOST(apiUrl + '/msisdns/verify/code').respond();
                 $httpBackend.whenGET(apiUrl + '/ratel/config').respond();
                 $httpBackend.whenGET(apiUrl + '/ratel/config').respond();
-                $httpBackend.whenGET(apiUrl + '/search/suggestions').respond();
-                $httpBackend.whenGET(apiUrl + '/search').respond();
         }]);
 
     if( typeof exports !== 'undefined' ) {

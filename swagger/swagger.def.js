@@ -353,6 +353,73 @@
     }])
         /**
       * @ngdoc service
+      * @name .Search
+      * @requires $resource
+      * @requires apiUrl
+      **/
+    .service('SearchApiDef', ['apiUrl', function(apiUrl) {
+        return {
+
+          /**
+          * @ngdoc method
+          * @name .0.method:searchReindex
+          * @methodOf .0
+          * @description
+          * Rebuild index
+          **/
+
+          'searchReindex': {
+            method: 'GET',
+            url: apiUrl + '/search/reindex',
+          },
+
+          /**
+          * @ngdoc method
+          * @name .1.method:searchSuggestions
+          * @methodOf .1
+          * @description
+          * Get search suggestions
+          **/
+
+          'searchSuggestions': {
+            method: 'GET',
+            url: apiUrl + '/search/suggestions',
+            params: {
+              'q': '@q',
+              'type': '@type',
+            },
+          },
+
+          /**
+          * @ngdoc method
+          * @name .2.method:search
+          * @methodOf .2
+          * @description
+          * Search for services
+          **/
+
+          'search': {
+            method: 'GET',
+            url: apiUrl + '/search',
+            params: {
+              'q': '@q',
+              'service.name': '@service.name',
+              'profile.name': '@profile.name',
+              'profile.desc': '@profile.desc',
+              'tag.id': '@tag.id',
+              'service.category.id': '@service.category.id',
+              'profile.type': '@profile.type',
+              'onlyAvailable': '@onlyAvailable',
+              'sortBy': '@sortBy',
+              'language': '@language',
+              'offset': '@offset',
+              'limit': '@limit',
+            },
+          }
+        };
+    }])
+        /**
+      * @ngdoc service
       * @name .Employment
       * @requires $resource
       * @requires apiUrl
@@ -905,60 +972,6 @@
             url: apiUrl + '/ratel/config',
             params: {
               'serviceId': '@serviceId',
-            },
-          }
-        };
-    }])
-        /**
-      * @ngdoc service
-      * @name .Search
-      * @requires $resource
-      * @requires apiUrl
-      **/
-    .service('SearchApiDef', ['apiUrl', function(apiUrl) {
-        return {
-
-          /**
-          * @ngdoc method
-          * @name .0.method:searchSuggestions
-          * @methodOf .0
-          * @description
-          * Get search suggestions
-          **/
-
-          'searchSuggestions': {
-            method: 'GET',
-            url: apiUrl + '/search/suggestions',
-            params: {
-              'q': '@q',
-              'type': '@type',
-            },
-          },
-
-          /**
-          * @ngdoc method
-          * @name .1.method:search
-          * @methodOf .1
-          * @description
-          * Search for services
-          **/
-
-          'search': {
-            method: 'GET',
-            url: apiUrl + '/search',
-            params: {
-              'q': '@q',
-              'service.name': '@service.name',
-              'profile.name': '@profile.name',
-              'profile.desc': '@profile.desc',
-              'tag.id': '@tag.id',
-              'service.category.id': '@service.category.id',
-              'profile.type': '@profile.type',
-              'onlyAvailable': '@onlyAvailable',
-              'sortBy': '@sortBy',
-              'language': '@language',
-              'offset': '@offset',
-              'limit': '@limit',
             },
           }
         };

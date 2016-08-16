@@ -388,6 +388,77 @@
         });
       }];
     })
+        .provider('SearchApi', function() {
+
+      /**
+      * @ngdoc service
+      * @name .Search
+      * @requires $resource
+      * @requires apiUrl
+      **/
+
+      this.$get = ['$resource', 'apiUrl', '$resourceActionConfig', function($resource, apiUrl, $resourceActionConfig) {
+        return $resource(null, null, {
+
+          /**
+          * @ngdoc method
+          * @name .0.method:searchReindex
+          * @methodOf .0
+          * @description
+          * Rebuild index
+          **/
+
+          'searchReindex': angular.extend({
+            method: 'GET',
+            url: apiUrl + '/search/reindex',
+          }, $resourceActionConfig('0', 'searchReindex')),
+
+          /**
+          * @ngdoc method
+          * @name .1.method:searchSuggestions
+          * @methodOf .1
+          * @description
+          * Get search suggestions
+          **/
+
+          'searchSuggestions': angular.extend({
+            method: 'GET',
+            url: apiUrl + '/search/suggestions',
+            params: {
+              'q': '@q',
+              'type': '@type',
+            },
+          }, $resourceActionConfig('1', 'searchSuggestions')),
+
+          /**
+          * @ngdoc method
+          * @name .2.method:search
+          * @methodOf .2
+          * @description
+          * Search for services
+          **/
+
+          'search': angular.extend({
+            method: 'GET',
+            url: apiUrl + '/search',
+            params: {
+              'q': '@q',
+              'service.name': '@service.name',
+              'profile.name': '@profile.name',
+              'profile.desc': '@profile.desc',
+              'tag.id': '@tag.id',
+              'service.category.id': '@service.category.id',
+              'profile.type': '@profile.type',
+              'onlyAvailable': '@onlyAvailable',
+              'sortBy': '@sortBy',
+              'language': '@language',
+              'offset': '@offset',
+              'limit': '@limit',
+            },
+          }, $resourceActionConfig('2', 'search')),
+        });
+      }];
+    })
         .provider('EmploymentApi', function() {
 
       /**
@@ -983,64 +1054,6 @@
               'serviceId': '@serviceId',
             },
           }, $resourceActionConfig('0', 'getRatelAuthConfig')),
-        });
-      }];
-    })
-        .provider('SearchApi', function() {
-
-      /**
-      * @ngdoc service
-      * @name .Search
-      * @requires $resource
-      * @requires apiUrl
-      **/
-
-      this.$get = ['$resource', 'apiUrl', '$resourceActionConfig', function($resource, apiUrl, $resourceActionConfig) {
-        return $resource(null, null, {
-
-          /**
-          * @ngdoc method
-          * @name .0.method:searchSuggestions
-          * @methodOf .0
-          * @description
-          * Get search suggestions
-          **/
-
-          'searchSuggestions': angular.extend({
-            method: 'GET',
-            url: apiUrl + '/search/suggestions',
-            params: {
-              'q': '@q',
-              'type': '@type',
-            },
-          }, $resourceActionConfig('0', 'searchSuggestions')),
-
-          /**
-          * @ngdoc method
-          * @name .1.method:search
-          * @methodOf .1
-          * @description
-          * Search for services
-          **/
-
-          'search': angular.extend({
-            method: 'GET',
-            url: apiUrl + '/search',
-            params: {
-              'q': '@q',
-              'service.name': '@service.name',
-              'profile.name': '@profile.name',
-              'profile.desc': '@profile.desc',
-              'tag.id': '@tag.id',
-              'service.category.id': '@service.category.id',
-              'profile.type': '@profile.type',
-              'onlyAvailable': '@onlyAvailable',
-              'sortBy': '@sortBy',
-              'language': '@language',
-              'offset': '@offset',
-              'limit': '@limit',
-            },
-          }, $resourceActionConfig('1', 'search')),
         });
       }];
     })
