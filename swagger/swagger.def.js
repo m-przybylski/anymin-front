@@ -120,6 +120,7 @@
           'postServicesTags': {
             method: 'POST',
             url: apiUrl + '/services/tags',
+            isArray: true,
           },
 
           /**

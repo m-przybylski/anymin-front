@@ -27,13 +27,24 @@
         pageTitle: 'PAGE_TITLE.INVITATIONS'
       },
       resolve: {
-        pendingInvitations: ($q, $state, ProfileApi, User) => {
+        pendingInvitations: ($q, $state, ProfileApi, User, ServiceApi) => {
           /* istanbul ignore next */
           let _deferred = $q.defer()
           /* istanbul ignore next */
           User.getStatus().then(() => {
-            ProfileApi.getProfilesInvitations().$promise.then((response) => {
-              _deferred.resolve(response)
+            ProfileApi.getProfilesInvitations().$promise.then((profileInvitations) => {
+              ServiceApi.postServicesTags({
+                serviceIds: _.flatten(_.map(profileInvitations, (profile) => _.map(profile.services, 'id')))
+              }).$promise.then((servicesTags) => {
+
+                profileInvitations.forEach((profile) => {
+                  profile.services.forEach((service) => {
+                    service.details.tags = _.head(_.filter(servicesTags, (serviceTags) => service.id === serviceTags.serviceId)).tags
+                  })
+                })
+
+                _deferred.resolve(profileInvitations)
+              })
             }, () => {
               _deferred.resolve([])
             })

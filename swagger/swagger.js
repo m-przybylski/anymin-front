@@ -148,6 +148,7 @@
           'postServicesTags': angular.extend({
             method: 'POST',
             url: apiUrl + '/services/tags',
+            isArray: true,
           }, $resourceActionConfig('6', 'postServicesTags')),
 
           /**

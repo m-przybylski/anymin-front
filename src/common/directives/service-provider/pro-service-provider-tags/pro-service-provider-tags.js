@@ -38,9 +38,7 @@
       scope.$watch('searchWord', () => _getTagsThrottled(scope))
 
       if (scope.proModel.tags.length > 0) {
-        scope.model.tags = scope.proModel.tags.map((elem)=> {
-          return {tag: elem}
-        })
+        scope.model.tags = scope.proModel.tags
       }
 
       scope.tagNameParam = 'name'
