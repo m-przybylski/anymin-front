@@ -95,7 +95,6 @@
   angular.module('profitelo.directives.service-provider.pro-service-external-links', [
     'lodash',
     'pascalprecht.translate',
-    'profitelo.services.wizardSectionControl',
     'profitelo.directives.ng-enter',
     'profitelo.services.commonSettings',
     'profitelo.directives.pro-social-icon-getter',

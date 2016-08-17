@@ -63,7 +63,6 @@
   angular.module('profitelo.directives.service-provider.pro-service-provider-description', [
     'lodash',
     'pascalprecht.translate',
-    'profitelo.services.wizardSectionControl',
     'profitelo.common.controller.service-provider.service-provider-step-controller'
   ])
   .directive('proServiceProviderDescription', proServiceProviderDescription)

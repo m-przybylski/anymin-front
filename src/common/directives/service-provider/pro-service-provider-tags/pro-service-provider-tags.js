@@ -1,36 +1,54 @@
 (function() {
-  function proServiceProviderTags($q, $timeout) {
+  function proServiceProviderTags($q, $timeout, TagApi) {
 
     function linkFunction(scope, element, attrs) {
 
       let required = false
 
-      scope.tags = [
-        {tag:'Kot'},
-        {tag:'Telefon'},
-        {tag:'Placki'},
-        {tag:'JUSTDOIT'},
-        {tag:'Pralka'}
-      ]
+      scope.tags = []
 
       scope.model = {
         tags: []
       }
 
-      if (scope.proModel.tags.length > 0) {
-        scope.model.tags = scope.proModel.tags.map((elem)=> {
-          return {tag: elem}
-        })
+      scope.searchWord = {}
+
+      scope.onSearch = (searchWord) => {
+        scope.searchWord = searchWord
       }
 
-      scope.tagParam = 'tag'
+      const _getTags = (searchWord) => {
+        if (searchWord.length >= 3) {
+          TagApi.postTagSuggest({
+            query: searchWord,
+            tags: scope.tags
+          }).$promise.then((res) => {
+            scope.tags = JSON.parse(angular.toJson(res.tags))
+          })
+        } else {
+          scope.tags = []
+        }
+      }
+
+      const getTagsDelayed = () =>
+        scope.$apply(() => _getTags(scope.searchWord))
+
+      const _getTagsThrottled = _.debounce(getTagsDelayed, 200)
+
+      scope.$watch('searchWord', () => _getTagsThrottled(scope))
+
+      if (scope.proModel.tags.length > 0) {
+        scope.model.tags = scope.proModel.tags
+      }
+
+      scope.tagNameParam = 'name'
 
       if ('required' in attrs) {
         required = true
       }
 
-      let _isValid = () => {
-        let _isValidDeferred = $q.defer()
+      const _isValid = () => {
+        const _isValidDeferred = $q.defer()
 
         if (angular.isDefined(scope.model.tags) && scope.model.tags.length > 0) {
           _isValidDeferred.resolve()
@@ -41,16 +59,15 @@
         return _isValidDeferred.promise
       }
 
-      let _displayErrorMessage = () => {
+      const _displayErrorMessage = () => {
         scope.noTags = true
       }
 
       scope.saveSection = () => {
         scope.noTags = false
         _isValid().then(() => {
-          scope.proModel.tags = _.map(scope.model.tags, 'tag')
+          scope.proModel.tags = scope.model.tags
           scope.proceed()
-
         }, () => {
           _displayErrorMessage()
         })
@@ -59,7 +76,6 @@
       if ('required' in attrs) {
         scope.required = true
       }
-
     }
 
 
@@ -85,10 +101,10 @@
   angular.module('profitelo.directives.service-provider.pro-service-provider-tags', [
     'lodash',
     'pascalprecht.translate',
-    'profitelo.services.wizardSectionControl',
     'profitelo.directives.ng-enter',
     'profitelo.services.commonSettings',
-    'profitelo.common.controller.service-provider.service-provider-step-controller'
+    'profitelo.common.controller.service-provider.service-provider-step-controller',
+    'profitelo.swaggerResources'
   ])
     .directive('proServiceProviderTags', proServiceProviderTags)
 }())

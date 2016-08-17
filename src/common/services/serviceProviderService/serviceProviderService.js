@@ -3,7 +3,7 @@
   function serviceProviderService($state) {
 
     let _createDefaultModel = (cost)=> {
-      return  {
+      return {
         name: '',
         tags: [],
         cost: cost
@@ -30,7 +30,7 @@
     return {
       createDefaultModel: _createDefaultModel,
       createDefaultQueue: _createDefaultQueue,
-      backToFirstStep:    _backToFirstStep
+      backToFirstStep: _backToFirstStep
 
     }
   }

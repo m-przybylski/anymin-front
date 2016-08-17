@@ -4,6 +4,6 @@ block content
   .pro-service-provider-tags
     .step-content-column
       pro-tags-dropdown(data-pro-items="tags" data-tag-label=""
-      data-pro-model="model.tags" data-ng-click="onClick()" data-tag-param="tagParam")
+      data-pro-model="model.tags" data-ng-click="onClick()" data-tag-name-param="tagNameParam" data-on-search="onSearch(search)")
       .input-error-messages
         .error(data-translate="{{errorMessage}}" data-ng-show="noTags")

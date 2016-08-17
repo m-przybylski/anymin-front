@@ -123,15 +123,23 @@
         controllerAs: 'vm',
         resolve: {
           /* istanbul ignore next */
-          savedProfile: ($q, $state, ProfileApi, User) => {
+          savedProfile: ($q, $state, ProfileApi, User, ServiceApi) => {
             /* istanbul ignore next */
             let _deferred = $q.defer()
             /* istanbul ignore next */
             User.getStatus().then(() => {
               ProfileApi.getProfileWithServices({
                 profileId: User.getData('id')
-              }).$promise.then((response)=>{
-                _deferred.resolve(response)
+              }).$promise.then((profileWithServices) => {
+                ServiceApi.postServicesTags({
+                  serviceIds: _.map(profileWithServices.services, 'id')
+                }).$promise.then((servicesTags) => {
+
+                  profileWithServices.services.forEach((service) => {
+                    service.details.tags = _.head(_.filter(servicesTags, (serviceTags) => service.id === serviceTags.serviceId)).tags
+                  })
+                  _deferred.resolve(profileWithServices)
+                })
               }, () => {
                 _deferred.resolve(null)
               }, (error)=> {

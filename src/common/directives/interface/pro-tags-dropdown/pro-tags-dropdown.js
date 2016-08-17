@@ -5,7 +5,7 @@ function proTagsDropdown($timeout, CommonSettingsService) {
 
     function _getScrollbarChoices() {
       if (!myScrollbarChoices) {
-        myScrollbarChoices = $('.ui-select-choices')
+        myScrollbarChoices = $(element).find('.ui-select-choices')
       }
       return myScrollbarChoices
     }
@@ -15,12 +15,12 @@ function proTagsDropdown($timeout, CommonSettingsService) {
       scope.onClick = false
     }
 
-    scope.onFocus = ()=> {
+    scope.onFocus = () => {
       scope.focus = true
       scope.onClick = true
     }
 
-    scope.openBar = function() {
+    scope.openBar = () => {
       _getScrollbarChoices().perfectScrollbar()
     }
 
@@ -30,7 +30,7 @@ function proTagsDropdown($timeout, CommonSettingsService) {
       item = item.trim()
       if (!angular.isDefined(scope.validPattern) || item.match(scope.validPattern)) {
         var newItem = {}
-        newItem[scope.tagParam] = item
+        newItem[scope.tagNameParam] = item
         scope.valid = false
         return newItem
       } else {
@@ -39,7 +39,7 @@ function proTagsDropdown($timeout, CommonSettingsService) {
       }
     }
 
-    scope.select = function(item, model, select) {
+    scope.select = (item, model, select) => {
       scope.valid = false
       scope.proModel.push(item)
       _onFocusOut()
@@ -50,20 +50,21 @@ function proTagsDropdown($timeout, CommonSettingsService) {
       scope.proModel.splice(scope.proModel.indexOf($item), 1)
     }
 
-    scope.onKeypress = (event)=> {
+    scope.onKeypress = (event, select) => {
       if (event.keyCode === 38) {
         event.preventDefault()
       }
       if ('disableTyping' in attr && event) {
         event.preventDefault()
       }
+      if (angular.isFunction(scope.onSearch)) {
+        $timeout(() => scope.onSearch({search: select.search}))
+      }
     }
 
-    scope.groupFind = function(item) {
-      return item
-    }
+    scope.groupFind = (item) => item
 
-    scope.update = function() {
+    scope.update = () => {
       _getScrollbarChoices().perfectScrollbar('destroy')
       $timeout(()=> {
         _getScrollbarChoices().perfectScrollbar()
@@ -86,12 +87,12 @@ function proTagsDropdown($timeout, CommonSettingsService) {
       proModel: '=',
       proItems: '=',
       validPattern: '=?',
-      tagParam: '=?',
+      tagNameParam: '=?',
       placeholder: '@',
       defaultValue: '@',
       label: '@',
-      tagLabel: '@'
-
+      tagLabel: '@',
+      onSearch: '&'
     }
   }
 
