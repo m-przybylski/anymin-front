@@ -1,5 +1,5 @@
 (function() {
-  
+
   /* @ngInject */
   function controllerFunction($timeout, EmploymentApi) {
 
@@ -8,9 +8,12 @@
     let _isPending = false
     let _rejectTimeout
 
+    this.isRejected = false
+    this.isAccepted = false
     this.rejectTimeoutSet = false
 
     this.accept = (employmentId) => {
+      this.isAccepted = true
 
       if (!_isPending) {
         _isPending = true
@@ -23,10 +26,10 @@
           _isPending = false
         })
       }
-
     }
 
     this.reject = (employmentId) => {
+      this.isRejected = true
 
       let _reject = () => {
         if (!_isPending) {
@@ -53,12 +56,14 @@
     }
 
     this.abortRejection = () => {
+      this.isRejected = false
+      this.isAccepted = false
+
       $timeout.cancel(_rejectTimeout)
       this.rejectTimeoutSet = false
     }
 
     return this
-
   }
 
   let proInvitationAcceptanceBox = {

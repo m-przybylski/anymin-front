@@ -1,17 +1,41 @@
 .pro-invitation-acceptance-box
-  &:after
-    +transition(background-color .3s ease-in-out)
-    content: ''
-    background-color: rgba(0,0,0,0.0)
-    z-index: -1
-  &.inactive
-    position: relative
-    &:after
-      content: ''
-      background-color: rgba(0,0,0,0.5)
-      width: 100%
-      height: 100%
-      position: absolute
-      top: 0
-      z-index: 10
+  padding: 16px 16px 0
 
+  +mdm
+    padding: 32px 32px 16px
+
+  .box-header
+    display: block
+
+    +lgm
+      display: flex
+
+    h3
+      margin: 0 0 16px
+
+      +mdm
+        margin: 0 0 32px
+
+      +lgm
+        margin: 0
+
+      +lgm
+        flex: 1 0
+
+    .box-status
+      +lgm
+        display: flex
+
+      button
+        width: 100%
+        margin: 0 0 16px
+
+        +lgm
+          width: inherit
+          margin: inherit
+
+    &.is-rejected
+      color: $c-error
+
+    &.is-accepted
+      color: $c-success

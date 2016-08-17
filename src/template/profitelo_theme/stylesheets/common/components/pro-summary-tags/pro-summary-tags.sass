@@ -1,8 +1,8 @@
 .pro-summary-tag
-
   .title-row
     +default-font-heavy
-    margin: 0 0 16px 0
+    display: block
+    margin: 0 0 32px 0
     text-transform: uppercase
 
     span
@@ -10,22 +10,23 @@
       color: $c-secondary-txt
 
   .slider-tag
-    margin: 0 -8px 16px
-
     li
       display: inline-block
+      margin: 0 16px 16px 0
 
-    span
-      display: block
-      margin: 8px 6px
+      a
+        display: block
 
-.pro-tag
-  +default-font-heavy
-  border-radius: $border-radius-default
-  display: inline-block
-  font-size: $f-base
-  text-transform: uppercase
-  color: $c-primary-txt
-  padding: 8px 12px
-  background: $c-background
-  border: 1px solid $c-lines
+  .pro-tag
+    +transition(all 0.3s)
+    +default-font-regular
+    font-size: $f-regular
+    color: $c-primary-txt
+    border-radius: $c-lines
+    border: 1px solid $c-lines
+    padding: 15px 32px 14px
+
+    &:hover
+      background: $c-black
+      color: $c-white
+      border-color: $c-black
