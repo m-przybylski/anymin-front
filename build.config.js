@@ -10,6 +10,9 @@ try {
   throw new Error(e)
 }
 
+const PROJECT_THEME_NAME = 'profitelo_theme'
+const PROJECT_THEME_PATH = 'src/template/' + PROJECT_THEME_NAME + '/'
+
 module.exports = {
   pkg: require('./package.json'),
   compile_dir: 'build',
@@ -17,7 +20,7 @@ module.exports = {
   tpl_name: 'templates-module.js',
   requiredTestCoverage: 80,
   tpl_module: 'templates-module',
-  project_theme_name: 'profitelo_theme',
+  project_theme_name: PROJECT_THEME_NAME,
   swagger_location: commonConfig.urls.backend + '/swagger/swagger.json',
   swagger_module: 'profitelo.swagger',
   app_files: {
@@ -28,9 +31,19 @@ module.exports = {
     jade_all: 'src/**/*.jade',
     jade_app_tpl: 'src/app/**/*.jade',
     jade_common_tpl: 'src/common/**/*.jade',
-    assets: ['src/assets/**'],
     index_html: ['src/index.html'],
-    sass_all: ['src/template/**/*.sass']
+    assets: ['src/assets/**'],
+    sass: {
+      all_observed: [
+        'src/template/**/*.sass',
+      ],
+
+      // INFO: Due to problems with passing Array of strings to SASS compile when
+      // changing PROJECT_THEME_NAME need to update @imports into related main sass
+      // file.
+      // More info with related question: http://stackoverflow.com/a/28521473
+      to_compile: PROJECT_THEME_PATH + 'stylesheets/main.sass'
+    }
   },
   test_files: {
     js: [
