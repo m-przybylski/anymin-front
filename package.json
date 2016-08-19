@@ -45,6 +45,6 @@
     "ui-select": "^0.18.1"
   },
   "devDependencies": {
-    "contactis-gulp": "1.4.7"
+    "contactis-gulp": "1.4.9"
   }
 }
