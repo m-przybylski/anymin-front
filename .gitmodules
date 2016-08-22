@@ -1,3 +1,6 @@
 [submodule "common-config"]
 	path = common-config
 	url = git@git.contactis.pl:itelo/common-config.git
+[submodule "swagger-src"]
+	path = swagger-src
+	url = git@git.contactis.pl:itelo/profitelo-swagger.git

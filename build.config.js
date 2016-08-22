@@ -21,8 +21,6 @@ module.exports = {
   requiredTestCoverage: 80,
   tpl_module: 'templates-module',
   project_theme_name: PROJECT_THEME_NAME,
-  swagger_location: commonConfig.urls.backend + '/swagger/swagger.json',
-  swagger_module: 'profitelo.swagger',
   app_files: {
     js: ['src/**/*.js', '!src/**/*.spec.js'],
     allJs: ['src/**/*.js'],
@@ -126,7 +124,7 @@ module.exports = {
     ]
   },
   swagger: {
-    json:   commonConfig.urls.backend + '/swagger/swagger.json',
+    file: 'swagger-src/swagger.json',
     module: 'profitelo.swaggerResources'
   },
   strategyConfig: {

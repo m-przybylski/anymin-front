@@ -26,7 +26,7 @@ function deepObjectExtend(target, source) {
   return target;
 }
 
-var env = process.env.COMMONCONFIG_ENV || 'default'
+var env = process.env.PROFITELO_ENV || 'default'
 
 console.log('Loading ' + env + ' common-config..')
 
