@@ -25,7 +25,6 @@
         this.isPending = true
         User.logout().then(action, action)
       }
-
     }
 
     return this
