@@ -1,5 +1,5 @@
 (function() {
-  function proUploader($timeout, $interval, $q, FilesApi, Upload, CommonConfig, proTopAlertService) {
+  function proUploader($timeout, $interval, $filter, $q, FilesApi, Upload, CommonConfig, proTopAlertService) {
 
     function  linkFunction(scope, element, attr) {
 
@@ -42,9 +42,10 @@
         let tmpPercentage = 0
 
         for (let a in map) {
-          tmpPercentage += map[a] / a * 100
+          if (a) {
+            tmpPercentage += map[a] / a * 100 
+          }
         }
-
         if (tmpPercentage > scope.progress) {
           scope.progress = parseInt( tmpPercentage / filesLength, 10)
         }
@@ -70,7 +71,6 @@
               _files = files.length
               _setFilesStatus(_file, _files)
               Upload.upload({
-
                 url: _commonConfig.urls.backend + _commonConfig.urls['file-upload'].replace('%s', tokenPromissesResponse[k].fileId),
                 data: {
                   file: files[k]
@@ -85,12 +85,14 @@
                   if (_file === files.length) {
                     scope.isPending = false
                   }
+
                 },
                 (err) => {
                   proTopAlertService.error({
                     message: $filter('translate')('INTERFACE.API_ERROR'),
                     timeout: 4
                   })
+                  scope.isPending = false
                 },
                 (res) => {
                   uploadMap[res.total] = res.loaded
@@ -127,6 +129,9 @@
         immediateInterval = $interval(() => {
           if (scope.progress >= 100) {
             _endImmediateLoading()
+            $timeout(()=>{
+              $interval.cancel(immediateInterval)
+            })
           }
         })
       }
@@ -142,13 +147,21 @@
         scope.hideArrow = true
         scope.hideLoader = false
         scope.fadeText = false
-        scope.fadeText = true
-        scope.upload = true
-        scope.header = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.HEADER_UPLOAD'
-        scope.info = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO_UPLOAD'
-        _startImmediateLoading()
         $timeout(()=>{
-          scope.fadeText = false
+          scope.fadeText = true
+          $timeout(()=> {
+            scope.upload = true
+            scope.header = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.HEADER_UPLOAD'
+            scope.info = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO_UPLOAD'
+            _startImmediateLoading()
+            scope.translationInfo = {
+              file: _file,
+              files: _files
+            }
+            $timeout(()=>{
+              scope.fadeText = false
+            }, 200)
+          }, 200)
         }, 200)
 
       }
