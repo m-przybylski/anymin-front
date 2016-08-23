@@ -46,7 +46,8 @@
 
   .login-btn,
   .profile-btn,
-  .search-btn
+  .search-btn,
+  .notification-btn
     padding: 32px 28px
     border-left: 1px solid $c-lines
     color: $c-black
@@ -96,6 +97,20 @@
       &:hover
         background: $c-primary-txt
         color: $c-white
+
+  .profile-btn
+    padding-left: 72px
+    -webkit-transition: width .2s
+    transition: width .2s
+    .icon
+      display: block
+      height: 24px
+      width: 24px
+      line-height: 24px
+      position: absolute
+      top: 50%
+      left: 28px
+      margin: -12px 0 0
 
 .search-expandable
   position: relative

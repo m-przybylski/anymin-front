@@ -10,11 +10,14 @@ header.top-navbar(role="navigation").clearfix
     ul.main-menu
       li(data-ng-repeat="items in menuElements")
         a {{ items.label }}
-    .search-expandable(data-ng-class="{'search-activ':showSearch}")
+
+    .search-expandable(data-ng-class="{'search-activ':showSearch}" data-ng-hide="$root.loggedIn")
       a.search-btn(data-ng-click="setShowSearch()")
         span.icon.icon-search-24
-        span.search(data-ng-hide="$root.loggedIn") Szukaj
+        span.search Szukaj
       pro-input(data-ng-model="searchModel" placeholder="{{ 'HOME.SEARCH_PLACEHOLDER' | translate }}" no-delete)
+
+
 
     a.profile-btn(data-ng-hide="$root.loggedIn" data-ui-sref='app.login.account')
       span.icon.icon-login-24
@@ -24,4 +27,4 @@ header.top-navbar(role="navigation").clearfix
       span.icon.icon-bell-24
 
     a.login-btn(data-ng-if="$root.loggedIn" data-ui-sref='app.dashboard.start')
-      span.icon-user-profile-24
+      span.icon.icon-user-profile-24
