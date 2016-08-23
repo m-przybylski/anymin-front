@@ -7,10 +7,15 @@
   min-width: $dashboard-navbar-width
   height: 100vh
   width: $dashboard-navbar-width
-  overflow-y: scroll !important
+  overflow-y: hidden !important
+  z-index: 1000
+
+  ::-webkit-scrollbar
+    width: 0
+
 
   +lgm
-    overflow: hidden !important
+    overflow-x: visible !important
     min-width: $dashboard-navbar-width
 
   &:hover
@@ -26,7 +31,7 @@
     -webkit-overflow-scrolling: touch
 
     +lgm
-      overflow: visible
+      overflow: scroll
       -webkit-overflow-scrolling: auto
 
     .top-row
