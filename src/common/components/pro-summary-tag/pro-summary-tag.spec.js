@@ -18,7 +18,7 @@ describe('Unit testing: profitelo.components.pro-summary-tag', () => {
         compile = $compile
       })
 
-      component = componentController('proSummaryTag', null, {})
+      component = componentController('proSummaryTag', {$element: create(validHTML), $scope: scope}, {})
 
     })
 

@@ -1,6 +1,6 @@
 .show-more-text
-  .description
-    p(ng-bind-html="vm.text | limitTo: vm.textLimit") {{ ::vm.text }}
+  .description(data-ng-style="vm.textHeight")
+    p {{ ::vm.text }}
 
   a(data-ng-show="vm.text.length > vm.textLimit" data-ng-click="vm.showMoreText()")
     .more-icon

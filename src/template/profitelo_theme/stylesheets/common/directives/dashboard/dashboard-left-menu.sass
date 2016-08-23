@@ -6,13 +6,12 @@
   top: 0
   min-width: $dashboard-navbar-width
   height: 100vh
-  width: $dashboard-width-nav
+  width: $dashboard-navbar-width
   overflow-y: scroll !important
 
   +lgm
-    overflow: visible !important
+    overflow: hidden !important
     min-width: $dashboard-navbar-width
-    width: $dashboard-navbar-width
 
   &:hover
     width: $dashboard-width-nav
@@ -161,7 +160,7 @@
             ul
               left: $dashboard-width-nav
               +animation(arrow-delay 0.3s 0.3s)
-              animation-fill-mode: forwards;
+              animation-fill-mode: forwards
 
               +keyframes(arrow-delay)
                 0%

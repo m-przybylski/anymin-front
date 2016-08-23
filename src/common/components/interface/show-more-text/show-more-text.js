@@ -1,13 +1,34 @@
 (function() {
+  /* @ngInject */
+  function showMoreTextController($element, $timeout) {
+    this.defaultTextHeight = '92px'
+    this.toogleStatus = false
 
-  function showMoreTextController() {
+    this.textHeight = {
+      'height': this.defaultTextHeight
+    }
+
+    $timeout(()=>{
+      this.heightFullText = $($element.find('p').height())
+
+      this.showMoreText = () => {
+        this.changeIcon = !this.changeIcon
+
+        if (this.toogleStatus === false) {
+          this.textHeight = {
+            'height': this.heightFullText[0]
+          }
+          this.toogleStatus = true
+        } else {
+          this.textHeight = {
+            'height': this.defaultTextHeight
+          }
+          this.toogleStatus = false
+        }
+      }
+    })
 
     this.textLimit = 500
-
-    this.showMoreText = () => {
-      this.textLimit = this.textLimit === null ? 500 : null
-      this.changeIcon = !this.changeIcon
-    }
 
     return this
 
