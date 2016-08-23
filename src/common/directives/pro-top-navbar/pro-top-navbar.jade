@@ -1,18 +1,27 @@
-.top-navbar
-  .logo
-      img(data-ui-sref="app.home", src="/assets/images/logo_profitelo_black.png", alt="Profitelo logo")
+header.top-navbar(role="navigation").clearfix
+  .left-menu
+    a.hamburger-menu.pull-left.hidden Menu
+      .icon.icon-menu-16
 
-  nav
-    a(data-ng-repeat="items in menuElements") {{ items.label }}
-  
-  .buttons(data-ng-class="{'search-activ':showSearch}")
-    a.search-btn
-      span.icon.icon-search-24(data-ng-click="setShowSearch()") 
-      div
-        pro-input(data-ng-model="searchModel" placeholder="{{ 'HOME.SEARCH_PLACEHOLDER' | translate }}" no-delete)
-        
-    a(data-ng-hide="$root.loggedIn" data-ui-sref='app.login.account')
-      span(data-translate="PAGE_TITLE.LOGIN.ACCOUNT")
-      
-    a(data-ng-show="$root.loggedIn" data-ui-sref='app.dashboard.start')
+    a.logo-wrapper.pull-left(role="button", aria-label="home", href="/home")
+      img.logo(data-ui-sref="app.home", src="/assets/images/logo_profitelo_black.png", alt="Profitelo-logo")
+
+  .right-menu
+    ul.main-menu
+      li(data-ng-repeat="items in menuElements")
+        a {{ items.label }}
+    .search-expandable(data-ng-class="{'search-activ':showSearch}")
+      a.search-btn(data-ng-click="setShowSearch()")
+        span.icon.icon-search-24
+        span.search(data-ng-hide="$root.loggedIn") Szukaj
+      pro-input(data-ng-model="searchModel" placeholder="{{ 'HOME.SEARCH_PLACEHOLDER' | translate }}" no-delete)
+
+    a.profile-btn(data-ng-hide="$root.loggedIn" data-ui-sref='app.login.account')
       span.icon.icon-login-24
+      span.login(data-translate="PAGE_TITLE.LOGIN.ACCOUNT")
+
+    a.notification-btn(data-ng-if="$root.loggedIn")
+      span.icon.icon-bell-24
+
+    a.login-btn(data-ng-if="$root.loggedIn" data-ui-sref='app.dashboard.start')
+      span.icon-user-profile-24

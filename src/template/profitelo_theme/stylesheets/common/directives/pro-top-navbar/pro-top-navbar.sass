@@ -1,107 +1,170 @@
 .top-navbar
+  +default-font-heavy
+  text-transform: uppercase
+  font-size: $f-base
   position: fixed
   z-index: 100
   width: 100%
   background: $c-white
   height: 80px
   top: 0
-  display: inline-flex
-  justify-content: space-between
-  align-items: center
-  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1), inset 0 -1px 0 0 $c-lines
+  display: flex
 
-  nav
+  .left-menu
+    flex: 1 1 auto
+
+  .right-menu
+    flex: 1 1 100%
+    position: relative
     display: flex
-    margin: 0 0 0 32px
-    align-self: center
-    justify-content: flex-start
-    border-left: 1px solid $c-lines
+    justify-content: flex-end
 
-
-    +smm
-      flex: 1 0
-
-    a
-      margin: 0 16px
-      text-transform: uppercase
-      +default-font-heavy
-
-    .hamburger-menu
-      padding: 0
-      border-right: 1px solid $c-lines
-      min-width: 79px
-      display: flex
-      align-self: stretch
-      align-items: center
-      justify-content: center
+  .logo-wrapper
+    font-size: 0
+    display: inline-block
+    padding: 24px
+    border-right: 1px solid $c-lines
 
   .logo
-    text-align: left
-    padding: 0 0 0 20px
+    height: 32px
+    width: auto
 
-    +smm
-      padding: 0
-      text-align: center
+  .hamburger-menu
+    border-right: 1px solid $c-lines
+    padding: 32px
+    font-size: 0
 
-    a
+    .icon,
+    &.icon::before
+      font-size: 16px
+      line-height: 16px
+      height: 16px
       display: inline-block
-      vertical-align: bottom
 
-      img
-        display: block
-
-    img
-      max-width: 100px
-      max-height: 90%
-      margin: 0 0 0 32px
-
-  .buttons
+  .search-expandable
     display: flex
-    align-self: stretch
-    justify-content: flex-end
-    +transition(all 1s ease-in-out 0s)
 
-    +smm
-      flex: 1 0
+  .login-btn,
+  .profile-btn,
+  .search-btn
+    padding: 32px 28px
+    border-left: 1px solid $c-lines
+    color: $c-black
+    height: 80px
+    position: relative
+    background: $c-white
+    transition: color .2s, background .2s
 
-    a
-      min-width: 79px
-      display: flex
-      align-self: stretch
-      align-items: center
-      justify-content: center
-      border-left: 1px solid $c-lines
-      color: $c-primary-txt
+    &:hover
+      background: $c-primary-txt
+      color: $c-white
 
-    .input-group
-      display: none
+  .search-btn
+    padding-left: 72px
+    transition: width .2s
 
-      &.search-btn
-        display: none
+    .icon
+      display: block
+      height: 24px
+      width: 24px
+      line-height: 24px
+      position: absolute
+      top: 50%
+      left: 28px
+      margin: -12px 0 0
 
-        +smm
-          display: flex
+    .search
+      display: block
+      width: 50px
+      transition: width 1s
 
-  .search-activ
-    +transition(all 0.8s ease-in-out 0s)
-    flex: 1 0 85%
+    &:hover
+      background: $c-primary-txt
+      transition: background .2s, color .2s
+      color: $c-white
+
+      .icon
+        color: $c-white
+        transition: color .2s
+
+    .profile-btn,
+    .login-btn
+      +default-font-light
+      width: auto
+      transition: color .2s, background .2s
+
+      &:hover
+        background: $c-primary-txt
+        color: $c-white
+
+.search-expandable
+  position: relative
+  background: $c-white
+  transition: width .6s
+  width: 144px
+
+  .input-group
+    display: none
+
+  &.search-activ
+    width: 100%
 
     .search-btn
-      width: 100%
-      justify-content: flex-start
-      padding: 16px
+      width: 80px
+      padding: 0
+      background: $c-primary-txt
+      transition: width .2s
 
-      .input-group
-        display: block
-        position: absolute
-        top: 10px
-        border: 0
+      .icon
+        color: $c-white
 
-        +smm
-          width: 50%
+    .search
+      width: 0
+      color: $c-primary-txt
+      transition: width .6s
 
-        +lgm
-          width: 70%
+    .input-group
+      display: block
+      width: calc(100% - 80px)
+      position: absolute
+      right: 0
+      top: 0
+      border: 0
+      padding-left: 24px
+      background: $c-white
 
-      span
-        padding: 0 16px 0 0
+      input
+        +default-font-light
+        margin: 8px 0 0
+        position: static
+        padding: 0
+        background: $c-white
+
+        &:hover
+          background: $c-white
+
+
+
+.main-menu
+  display: flex
+  flex-flow: nowrap
+  height: 80px
+  align-items: center
+  position: absolute
+  left: 0
+
+  li
+    display: inline-block
+    white-space: nowrap
+
+  a
+    padding: 16px
+
+  li
+    &:first-of-type
+      a
+        padding-left: 16px
+
+    &:last-of-type
+      a
+        padding-right: 16px
