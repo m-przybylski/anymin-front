@@ -5,31 +5,33 @@
   .videochat-details
     .pro-video-chat-top-navbar
       .videochat-client-profile
-        a.disconnect.circle.icon.icon-headphone-16
+        a.disconnect.pro-icon.circle
+          span.icon.icon-reject-16
         img.thumb.circle(src="/assets/images/no-avatar.jpg")
         h4 Jan Kowalski
         
       .videochat-counter      
         .videochat-client-timer
-          span.icon.icon-settings-24
+          span.icon.icon-time-16
           ul.counter
             li 00
-            li 07
-            li 29
+            li {{ vm.callStatus.time.m }}
+            li {{ vm.callStatus.time.s }}
 
         .videochat-price-counter
-          span.icon.icon-settings-24
-          | 5,89zł PLN
+          span.icon.icon-price-16 {{ vm.callStatus.cost }} PLN
         
       .videochat-fullscreen
-        a.close-chat(data-ng-click="vm.toggles.chat()")
-          span.icon.icon-settings-24
+        a.close-chat.pro-icon.circle(data-ng-click="vm.toggles.chat()")
+          span.icon.icon-close-16          
+        button.minimalize(data-ng-click="vm.toggleFullScreen()")
+          a.circle.icon.icon-shrink-24
         button.full-screen(data-ng-click="vm.toggleFullScreen()")
-          a.circle.icon.icon-settings-24
+          a.circle.icon.icon-expand-24
         
-    pro-video-controls(data-toggles="vm.toggles")
+    pro-video-controls(data-ng-if="vm.session" data-session="vm.session" data-toggles="vm.toggles")
 
-  pro-text-chat()
+  pro-text-chat(data-ng-if="vm.session" data-session="vm.session" data-messages="vm.messages" data-toggles="vm.toggles")
 
     
     

@@ -12,10 +12,8 @@
   .videochat-client-profile
     display: flex
     align-items: center
-    flex: 1
 
     +xsm
-      flex: 1
 
     h4
       display: none
@@ -36,7 +34,6 @@
     +default-font-regular
     display: flex
     justify-content: flex-end
-    flex: 4
 
     +xsm
       font-size: $f-h3-size
@@ -51,9 +48,12 @@
       align-items: center
       margin: 0 8px
 
+      +lgm
+        font-size: $f-h4-size
+
       .icon
         margin: 0 8px 0 0
-
+        font-size: $f-h4-size
 
       ul
         display: flex
@@ -71,23 +71,28 @@
       align-items: center
       margin: 0 8px
 
+      +lgm
+        font-size: $f-h4-size
+
       .icon
         margin: 0 8px 0 0
+        font-size: $f-h4-size
 
   .videochat-fullscreen
     display: flex
     align-items: center
     justify-content: flex-end
-    flex: 1
 
-    +lgm 
-      flex: 1
 
-    .full-screen
-      display: none
+    button
+      &.full-screen
+        display: none
 
-      +lgm
-        display: block
+        +lgm
+          display: block
+
+      &.minimalize
+        display: none
 
     .close-chat
       display: none

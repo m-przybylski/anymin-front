@@ -1,14 +1,23 @@
 (function() {
 
+  /* @ngInject */
+  function controller($element, proRatelService) {
+
+    proRatelService.bindLocalStreamElement($($element).find('video'))
+    
+  }
+
   let proVideoPreview = {
-    transclude: true,
-    templateUrl:    'components/communicator/pro-video-chat/pro-video-preview/pro-video-preview.tpl.html'
+    templateUrl: 'components/communicator/pro-video-chat/pro-video-preview/pro-video-preview.tpl.html',
+    controller: controller,
+    controllerAs: 'vm'
   }
 
   angular.module('profitelo.components.communicator.pro-video-chat.pro-video-preview', [
-    'pascalprecht.translate'
+    'pascalprecht.translate',
+    'profitelo.services.pro-ratel-service'
 
   ])
-  .component('proVideoPreview', proVideoPreview)
+    .component('proVideoPreview', proVideoPreview)
 
 }())

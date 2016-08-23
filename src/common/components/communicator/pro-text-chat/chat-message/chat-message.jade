@@ -1,14 +1,14 @@
 .pro-text-chat-message( data-ng-class="{'bounce': vm.model.incommingMessage}")
-  .chat-line(class="{{ ::vm.model.isUserMessage ? 'me' : 'interlocutor' }}")
-    .message-content(class="{{ ::vm.model.isUserMessage ? 'me-chat' : 'interlocutor-chat' }}",)
-      img.thumb.circle(ng-src="{{ ::vm.model.userImage }}")
+  .chat-line(class="{{ ::vm.isUserMessage ? 'me' : 'interlocutor' }}")
+    .message-content(class="{{ ::vm.isUserMessage ? 'me-chat' : 'interlocutor-chat' }}",)
+      // img.thumb.circle(ng-src="{{ ::vm.model.userImage }}")
       img.thumb.circle(src="/assets/images/no-avatar.jpg")
       
       .chat-cloud
-        p {{ ::vm.model.messageText }}
+        p {{ ::vm.model.body}}
 
         .chat-file-download(data-ng-show="vm.model.file")
           a(href="{{ ::vm.model.file }}")
             span.icon.icon-settings-24
 
-    span.chat-date {{ ::vm.model.messageTime }}
+    span.chat-date(data-am-time-ago="vm.model.timestamp")

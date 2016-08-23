@@ -4,41 +4,41 @@
             .options-consultation
                 .option-item
                     span.icon.icon-satisfaction-16
-                    span {{ satisfaction }}%
+                    span {{ vm.consultation.satisfaction }}%
                 .option-item
                     span.icon.icon-calls-16
-                    span {{ talks }}
+                    span {{ vm.consultation.talks }}
                 .option-item
                     span.icon.icon-time-16
-                    span {{ timeAverage }} min.
-            .consultation-profile
+                    span {{ vm.consultation.timeAverage }} min.
+            a.consultation-profile(data-ng-if="vm.consultation.owner.type === 'ORG'" data-ui-sref="app.company-profile({ contactId: vm.consultation.owner.id })")
                 .author
-                    h6 Salvador Crawfords
+                    h6 {{ vm.consultation.owner.name }}
                     span.status.availability {{ 'HOME.EXPERT_CARD_AVAILABLE' | translate }}
-                img.thumb.circle(src="/assets/images/John_Doe.jpg" alt="")
+                img.thumb.circle(data-ng-src="{{ vm.profileImage }}" alt="{{ vm.consultation.owner.name }}")
+            a.consultation-profile(data-ng-if="vm.consultation.owner.type === 'EXP'" data-ui-sref="app.expert-profile({ contactId: vm.consultation.owner.id })")
+                .author
+                    h6 {{ vm.consultation.owner.name }}
+                    span.status.availability {{ 'HOME.EXPERT_CARD_AVAILABLE' | translate }}
+                img.thumb.circle(data-ng-src="{{ vm.profileImage }}" alt="{{ vm.consultation.owner.name }}")
 
         .title-row
-            h3 {{ name }}
+            h3 {{ vm.consultation.name }}
 
         .cost-consultations
             .price
                 span.icon.icon-price-32
-                h3 {{ minuteCost / 100 }}
+                h3 {{ vm.consultation.price / 100 }}
                     span.currency(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE")
             a.pro-button.rectangle.succes.icon {{ 'HOME.TOP_CONTAINER.EXPERT_PROFILE.CALL' | translate }}
                 span.icon.icon-headphone-16
 
     .consultation-tags.title-row-consultation.footer-consultation
         h4.title-row {{ 'HOME_EXPERT_PROFILE.TAGS' | translate }}
-            span (18)
+            span ({{ vm.consultation.tags | objSize }})
 
         .search-tags
             .slider-tag
                 ul
-                    li
-                        a.pro-button.rectangle.primary gorgeus
-                    li
-                        a.pro-button.rectangle.primary night
-                    li
-                        a.pro-button.rectangle.primary gorgeus
-  
+                    li(data-ng-repeat="(tagId, tagName) in vm.consultation.tags track by tagId")
+                        a.pro-button.rectangle.primary {{ tagName }}

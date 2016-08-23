@@ -1,7 +1,5 @@
 .tag-suggestions
   .dropdown-default(data-ng-if="vm.tags.length")
     .search-sugesstions
-      p.query-suggestion(data-ng-repeat="tag in vm.tags track by $index")
+      a.query-suggestion(data-ng-repeat="tag in vm.tags track by $index" data-ui-sref="app.search-result({tagId: tag.id})")
         span.search-query(data-tag-id="{{tag.id}}") {{tag.name}}
-
-

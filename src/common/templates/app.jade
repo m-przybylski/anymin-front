@@ -2,6 +2,6 @@
 pro-top-waiting-loader(immediate)
 pro-alert
 div.main-container(data-ui-view='')
-pro-bottom-communicator()
+pro-bottom-communicator(data-ng-if="$root.loggedIn")
 //include bottom-footer.partial.jade
 //include bottom-footer-commit.partial.jade

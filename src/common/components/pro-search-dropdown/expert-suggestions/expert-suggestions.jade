@@ -4,7 +4,7 @@
       | {{'SEARCH.EXPERTS' | translate}}
       span.category-counter ({{vm.experts.count}})
     .experts-box.flex-row.wrap
-      .expert-profile.flex-row(data-ng-repeat="expert in vm.experts.results track by $index")
+      a.expert-profile.flex-row(data-ng-repeat="expert in vm.experts.results track by $index" data-ui-sref="app.expert-profile({ contactId: expert.id })")
         img.expert-avatar(src='http://placekitten.com/48/48')
         .expert-data.flex-col
           p.expert-name {{expert.name}}

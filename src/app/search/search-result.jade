@@ -1,4 +1,4 @@
 pro-top-navbar(data-show-search="true")
-search-filters(data-model='vm.model' data-tag-click-action="vm.tagsClick")
-single-consultation()
+search-filters(data-tag-click-action="vm.tagsClick")
+single-consultation(data-ng-repeat='result in vm.searchResults.results track by $index' data-consultation='result')
 pro-footer()

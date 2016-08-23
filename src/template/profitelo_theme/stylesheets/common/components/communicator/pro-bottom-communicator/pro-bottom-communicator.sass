@@ -26,7 +26,7 @@
   &.is-visible
     +transition(bottom 0.3s)
     bottom: 0
-    z-index: 10
+    z-index: 999
     height: 100vh
 
     +lgm
@@ -36,16 +36,17 @@
   .pro-video-chat-top-navbar
     padding: 16px
     flex: 1
-    z-index: 10
+    z-index: 999
 
   .videochat-details
     +transition(all 0.3s)
+    position: relative
     color: $c-white
     flex: 1
     align-self: flex-end
 
     +lgm
-      min-height: $communicator-base-height
+      height: $communicator-base-height
       color: inherit
       padding: 0 0 0 20vw
       background: $c-white
@@ -138,6 +139,14 @@
       width: 100%
       +background-gradient(rgba(#000, 0), #000)
 
+    .videochat-fullscreen
+      button
+        &.full-screen
+          display: none
+
+        &.minimalize
+          display: block
+
     .pro-video-controls
       border: 0
 
@@ -145,7 +154,7 @@
       bottom: 0
 
     pro-video-player
-      +transition(padding 0.3s)
+      +transition(all 0.3s)
       height: 100vh
       width: 100vw
       z-index: -1
@@ -163,7 +172,6 @@
 
       pro-video-player
         padding: 0 $communicator-base-width 0 0
-
 
   &.is-open
     right: 0
@@ -207,10 +215,16 @@
               display: block
 
           .disconnect
-            display: block
+            background: $c-error
+            border-color: $c-error
+            color: $c-white
+            display: inherit
 
             +lgm
               display: none
+
+            .icon
+              font-size: $f-h3-size
 
         .videochat-counter
           flex: 4
@@ -218,7 +232,7 @@
 
         .videochat-fullscreen
           .close-chat
-            display: block
+            display: inherit
             color: $c-primary-txt
 
             +lgm
@@ -240,7 +254,6 @@
       100%
         top: 0
 
-
   &:not(.full-screen)
     .pro-text-chat
       +lgm
@@ -249,16 +262,13 @@
     +lgm
       .btn-player
         background: none
-        color: $c-black
+        color: $c-primary-txt
         border: 1px solid $c-lines
 
+        &.active,
         &:hover
-          background: $c-white
-          color: $c-primary-txt
-
-        &.active
-          background: $c-white
-          color: $c-primary-txt
+          background: $c-black
+          color: $c-white
 
         &.disconnect
           background: $c-secondary
