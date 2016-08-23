@@ -24,9 +24,13 @@ function proDropdown($timeout) {
       }
     }, true)
 
-    if (scope.proModel !== null && scope.proModel !== undefined) {
-      scope.selectedItem= _.find(scope.proItems, function(o) { return angular.equals(o.value, scope.proModel) })
-    }
+    scope.$watch(() => {
+      return scope.proItems
+    }, () => {
+      if (scope.proModel) {
+        scope.selectedItem = _.find(scope.proItems, function(o) { return angular.equals(o.value, scope.proModel) })
+      }
+    }, true)
 
     scope.onFocus = ()=> {
       scope.focus = true

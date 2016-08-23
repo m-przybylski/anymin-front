@@ -1,15 +1,15 @@
 (function() {
   function proRangeSlider() {
 
-    function linkFunction($timeout, scope, elem, attrs) {
+    function linkFunction(scope, elem, attrs) {
       /* istanbul ignore next */
-      scope.refreshSlider = ()=> {
-        $timeout(()=> {
+      scope.refreshSlider = () => {
+        $timeout(() => {
           scope.$broadcast('rzSliderForceRender')
         })
       }
 
-      scope.options =   {
+      scope.options = {
         floor: 0,
         ceil: 100
       }
@@ -21,8 +21,8 @@
       replace: true,
       link: linkFunction,
       scope: {
-        minValue: '@',
-        maxValue: '@',
+        minValue: '=',
+        maxValue: '=',
         label: '@'
       }
     }

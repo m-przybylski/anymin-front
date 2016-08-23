@@ -6,6 +6,10 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-single-co
     let compile = null
     let validHTML = '<pro-expert-single-consultation></pro-expert-single-consultation>'
 
+    beforeEach(module(($provide) => {
+      $provide.value('apiUrl', '')
+    }))
+
     beforeEach(() => {
       module('templates-module')
       module('profitelo.directives.expert-profile.pro-expert-single-consultation')

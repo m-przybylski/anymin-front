@@ -4,6 +4,10 @@ describe('Unit tests: search-result>', () => {
     var $scope
     var SearchResultController
 
+    beforeEach(module(($provide) => {
+      $provide.value('apiUrl', '')
+    }))
+
     beforeEach(() => {
       module('profitelo.controller.search-result')
       inject(($rootScope, $controller, $state) => {

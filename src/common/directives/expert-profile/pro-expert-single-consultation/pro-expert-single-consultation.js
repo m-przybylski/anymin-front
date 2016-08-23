@@ -1,10 +1,19 @@
 (function() {
-  function proExpertSingleConsultation() {
+  function proExpertSingleConsultation(proRatelService, currentCallSessionService) {
 
+    function linkFunction(scope, elem, attrs) {
+      scope.initCall = () => {
+        proRatelService.startRatelCall(scope.service).then(session => {
+          currentCallSessionService.setSession(session)
+        })
+      }
+    }
+    
     return {
       templateUrl: 'directives/expert-profile/pro-expert-single-consultation/pro-expert-single-consultation.tpl.html',
       restrict: 'E',
       replace: true,
+      link: linkFunction,
       scope: {
         service: '=',
         satisfaction: '@',
@@ -17,7 +26,9 @@
   }
 
   angular.module('profitelo.directives.expert-profile.pro-expert-single-consultation', [
-    'profitelo.components.pro-summary-tag'
+    'profitelo.components.pro-summary-tag',
+    'profitelo.services.pro-ratel-service',
+    'profitelo.services.current-call-state'
   ])
   .directive('proExpertSingleConsultation', proExpertSingleConsultation)
 

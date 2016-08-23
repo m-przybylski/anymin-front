@@ -1,10 +1,11 @@
 .term-suggestions
   .dropdown-default(data-ng-if="vm.terms.length")
     .search-query-cat
-      p.choose-category(data-ng-repeat="term in vm.terms track by $index")
+      a.choose-category(data-ng-repeat="term in vm.terms track by $index"
+      data-ui-sref="app.search-result({q: term.term, category: term.category})")
         span.search-query {{ term.term }}
         span(data-ng-if="!!term.category")
           | {{'SEARCH.IN_CATEGORY' | translate}}
-          | {{'CATEGORY.' + categorySlugs[term.category] | normalizeTranslationKey | translate}}
+          | {{'CATEGORY.' + vm.categorySlugs[term.category] | normalizeTranslationKey | translate}}
         span(data-ng-if="!term.category") {{'SEARCH.IN_ALL_CATEGORIES' | translate}}
 

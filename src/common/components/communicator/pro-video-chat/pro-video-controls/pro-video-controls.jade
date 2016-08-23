@@ -1,20 +1,20 @@
 nav.pro-video-controls
   ul
     li
-      a.active.circle.btn-player.icon.icon-settings-24(data-ng-click="vm.toggles.chat()")
+      a.active.circle.btn-player.icon.icon-chat-32(data-ng-click="vm.toggles.chat()")
       span(data-translate="COMMUNICATOR.CONTROLS.CHAT")
     li
-      a.circle.btn-player.icon.icon-settings-24
+      a.circle.btn-player.icon.icon-camera-on-32(data-ng-click="vm.stopVideo()" data-ng-class="{'active': !vm.isVideoHidden}")
       span(data-translate="COMMUNICATOR.CONTROLS.CAMERA")
     li
-      a.circle.btn-player.icon.icon-settings-24
+      a.circle.btn-player.icon.icon-mic-off-32(data-ng-click="vm.mute()" data-ng-class="{'active': !vm.isMuted}")
       span(data-translate="COMMUNICATOR.CONTROLS.MUTE")
+    //li
+    //  a.circle.btn-player.icon.icon-switch-device-32
+    //  span(data-translate="COMMUNICATOR.CONTROLS.SWIPE")
+    //li
+    //  a.circle.btn-player.icon.icon-options-32
+    //  span(data-translate="COMMUNICATOR.CONTROLS.OPTIONS")
     li
-      a.circle.btn-player.icon.icon-settings-24
-      span(data-translate="COMMUNICATOR.CONTROLS.SWIPE")
-    li
-      a.circle.btn-player.icon.icon-settings-24
-      span(data-translate="COMMUNICATOR.CONTROLS.OPTIONS")
-    li
-      a.disconnect.circle.btn-player.icon.icon-headphone-16
+      a.disconnect.circle.btn-player.icon.icon-reject-16(data-ng-click="vm.endCall()")
       span(data-translate="COMMUNICATOR.CONTROLS.END_CALL")

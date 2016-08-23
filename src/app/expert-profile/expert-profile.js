@@ -1,5 +1,5 @@
 (function() {
-  function ExpertProfileController($scope, $state, savedProfile, ServiceApi, proTopAlertService, CommonConfig, checkAccount, profileImage, DialogService) {
+  function ExpertProfileController(savedProfile, CommonConfig, profileImage) {
 
     let _commonConfig = CommonConfig.getAllData()
     this.profile = {}

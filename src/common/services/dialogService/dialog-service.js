@@ -9,6 +9,8 @@
        * @link https://angular-ui.github.io/bootstrap/#/modal
        *
        * @param {Object} options - uibModal's options object
+       *
+       * @returns {Object} uibModal
        */
       openDialog: (options = {}) => {
 
@@ -23,7 +25,7 @@
 
         _options = angular.extend({}, _options, options)
 
-        $uibModal.open(_options)
+        return $uibModal.open(_options)
       }
     }
   }
