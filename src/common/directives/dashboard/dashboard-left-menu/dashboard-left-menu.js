@@ -5,7 +5,6 @@
     function linkFunction(scope) {
       let myScrollbarChoices
 
-
       scope.activeMenuSection = -1
 
       scope.toggleActiveMenuSection = function(sectionId) {
@@ -23,7 +22,7 @@
         return myScrollbarChoices
 
       }
-      _getScrollbarChoices().perfectScrollbar()
+      _getScrollbarChoices().perfectScrollbar('update')
     }
 
     return {

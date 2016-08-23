@@ -11,8 +11,8 @@
       this.invitations[0].organizationDetails.logoUrl = companyLogo
 
     }
-    
-    
+
+
     return this
   }
 
