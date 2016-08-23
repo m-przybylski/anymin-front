@@ -8,7 +8,7 @@
   ngf-resize="{{imageSize}}"
   data-ng-required="required"
   ngf-validate="{{ngfValidate}}"
-  ngf-drag-over-class="{pattern: '{{pattern}}', accept:'acceptClass', reject:'rejectClass', delay:100}")
+  ngf-drag-over-class="{pattern: '{{ ngfPattern }}', accept:'acceptClass', reject:'rejectClass', delay:100}")
     .upload-icons(data-ng-hide="uploadImg")
       span.icon.icon-upload-cloud-64
       span.icon.icon-upload-arrow-24.icon-overlay(data-ng-hide="upload" ng-class="{'arrow-hide': hideArrow, 'arrow-show': showArrow}")

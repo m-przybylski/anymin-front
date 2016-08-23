@@ -53,12 +53,12 @@
       }
 
       scope.uploadFiles = function($files) {
-        scope.isPending = true
         scope.uploadImg = false
         let files = $files
         _file = 0
         var tokenPromisses = []
-        if (files && files.length) {
+        if (files && files.length && !scope.isPending) {
+          scope.isPending = true
           for (var i = 0; i < files.length; i++) {
             if (!files[i].$error) {
               tokenPromisses.push(FilesApi.tokenPath().$promise)
