@@ -8,6 +8,14 @@ describe('Unit testing: profitelo.components.pro-summary-tag', () => {
     let component
     let validHTML = '<pro-summary-tag tags="tags" title="title"></pro-summary-tag>'
 
+    function create(html) {
+      scope = rootScope.$new()
+      let elem = angular.element(html)
+      let compiledElement = compile(elem)(scope)
+      scope.$digest()
+      return compiledElement
+    }
+
     beforeEach(() => {
       module('templates-module')
       module('profitelo.components.pro-summary-tag')
@@ -21,14 +29,6 @@ describe('Unit testing: profitelo.components.pro-summary-tag', () => {
       component = componentController('proSummaryTag', {$element: create(validHTML), $scope: scope}, {})
 
     })
-
-    function create(html) {
-      scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
-      scope.$digest()
-      return compiledElement
-    }
 
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()

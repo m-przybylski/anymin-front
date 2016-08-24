@@ -3,7 +3,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
 
     let compile = null
     let scope = null
-    const _url = "url"
+    const _url = 'url'
 
     const validHTML = '<pro-service-provider-tags data-queue="vm.queue" ' +
       'data-order="2" data-pro-model="proModel" ' +
