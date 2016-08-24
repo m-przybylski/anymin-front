@@ -11,7 +11,7 @@
       $element.css('left', '0')
     })
 
-    if (typeof(this.moveSlides) == 'undefined') {
+    if (typeof(this.moveSlides) === 'undefined') {
       this.moveSlides = 0
     }
 

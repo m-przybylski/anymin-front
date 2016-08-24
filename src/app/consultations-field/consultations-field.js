@@ -16,6 +16,18 @@
       },
       {
         name: 'tag5'
+      },
+      {
+        name: 'tag1'
+      },
+      {
+        name: 'tag2'
+      },
+      {
+        name: 'tag3'
+      },
+      {
+        name: 'tag4'
       }
     ]
 

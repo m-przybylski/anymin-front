@@ -4,11 +4,17 @@
   .consultations-top(style="background: url('/assets/images/test-bg.jpg') no-repeat top center")
     .field-search(data-model='vm.model' data-tag-click-action="vm.tagsClick")
       .default-container
+        .consultations-field-title
+          span.icon.icon-technology-32
+          h4 Nazwa Dziedziny
+      
         pro-search-dropdown
         
         .top-search-items
-          h4(data-translate="HOME.FIELD.TOP_SEARCH")
-          pro-tags-slider(data-tags="vm.tags" data-on-tag-click-action="vm.tagsAction")
+          .title-tags
+            h4(data-translate="HOME.FIELD.TOP_SEARCH")
+          .tags
+            pro-tags-slider(data-tags="vm.tags" data-on-tag-click-action="vm.tagsAction")
           
 
   .card-slider
