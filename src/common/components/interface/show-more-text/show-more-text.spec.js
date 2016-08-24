@@ -14,6 +14,14 @@ describe('Unit testing: profitelo.components.interface.show-more-text', () => {
       $provide.value('apiUrl', url)
     }))
 
+    function create(html) {
+      scope = rootScope.$new()
+      let elem = angular.element(html)
+      let compiledElement = compile(elem)(scope)
+      scope.$digest()
+      return compiledElement
+    }
+
     beforeEach(() => {
       module('templates-module')
       module('profitelo.components.interface.show-more-text')
@@ -27,14 +35,6 @@ describe('Unit testing: profitelo.components.interface.show-more-text', () => {
       component = componentController('showMoreText', {$element: create(validHTML), $scope: scope}, {})
 
     })
-
-    function create(html) {
-      scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
-      scope.$digest()
-      return compiledElement
-    }
 
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()

@@ -7,6 +7,10 @@
 
       scope.activeMenuSection = -1
 
+      scope.toogleMenuWhenMouseLeave = function() {
+        scope.activeMenuSection = -1
+      }
+
       scope.toggleActiveMenuSection = function(sectionId) {
         if (scope.activeMenuSection === sectionId) {
           scope.activeMenuSection = -1
