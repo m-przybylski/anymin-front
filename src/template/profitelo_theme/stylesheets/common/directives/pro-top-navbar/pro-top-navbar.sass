@@ -112,6 +112,10 @@
       left: 28px
       margin: -12px 0 0
 
+  .notification-btn,
+  .login-btn
+    padding: 26px 28px
+
 .search-expandable
   position: relative
   background: $c-white
@@ -120,6 +124,10 @@
 
   .input-group
     display: none
+
+  &.logIn
+    .search-btn
+    width: 80px
 
   &.search-activ
     width: 100%
@@ -167,13 +175,20 @@
   align-items: center
   position: absolute
   left: 0
+  &:hover
+    > li
+      color: $c-secondary-txt
+
 
   li
     display: inline-block
     white-space: nowrap
+    &:hover
+      > a
+        color: $c-black
 
   a
-    padding: 16px
+    padding: 32px 16px
 
   li
     &:first-of-type

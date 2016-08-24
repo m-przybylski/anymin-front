@@ -11,13 +11,11 @@ header.top-navbar(role="navigation").clearfix
       li(data-ng-repeat="items in menuElements")
         a {{ items.label }}
 
-    .search-expandable(data-ng-class="{'search-activ':showSearch}" data-ng-hide="$root.loggedIn")
+    .search-expandable(data-ng-class="{'search-activ':showSearch, 'logIn':$root.loggedIn}")
       a.search-btn(data-ng-click="setShowSearch()")
         span.icon.icon-search-24
-        span.search Szukaj
+        span.search(data-ng-hide="$root.loggedIn") Szukaj
       pro-input(data-ng-model="searchModel" placeholder="{{ 'HOME.SEARCH_PLACEHOLDER' | translate }}" no-delete)
-
-
 
     a.profile-btn(data-ng-hide="$root.loggedIn" data-ui-sref='app.login.account')
       span.icon.icon-login-24
