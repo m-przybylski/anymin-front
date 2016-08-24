@@ -8,6 +8,7 @@
             return invitation.email
           })
         }
+        consultation.details.tagNames = consultation.details.tags.map(tag => tag.name)
       }
     }
 
