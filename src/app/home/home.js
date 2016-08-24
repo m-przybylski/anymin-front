@@ -9,6 +9,14 @@
       this.controlls.prevSlide()
     }
 
+    this.newsPrevSlide = () => {
+      this.newsControlls.prevSlide()
+    }
+
+    this.newsNextSlide = () => {
+      this.newsControlls.nextSlide()
+    }
+
     this.expertCard = [
       {
         name: 'Ragnar Lodbrok',
@@ -67,6 +75,29 @@
         numberOfComments: '99',
         numberOfLikes: '99',
         publishDate: '2016-02-24'
+      }
+    ]
+
+    this.newsSlider = [
+      {
+        img: 'http://chicksbymail.com/wp-content/uploads/2016/08/hipster-floral-tumblr-background-ulzzangnet-background-images-floral-tumblrflowers-hipster-floral-print-dress-zara-tattoo-hearts-tumblr-bp8xkytr-1200x600.jpg',
+        title: 'Title 1',
+        descriptions: 'Stu Unger Rise And Fall Of A Poker Genius, Stu Unger Rise And Fall Of A Poker Genius, Stu Unger Rise And Fall Of A Poker Genius'
+      },
+      {
+        img: 'http://chicksbymail.com/wp-content/uploads/2016/08/hipster-floral-tumblr-background-ulzzangnet-background-images-floral-tumblrflowers-hipster-floral-print-dress-zara-tattoo-hearts-tumblr-bp8xkytr-1200x600.jpg',
+        title: 'Title 2',
+        descriptions: 'Stu Unger Rise And Fall Of A Poker Genius, Stu Unger Rise And Fall Of A Poker Genius, Stu Unger Rise And Fall Of A Poker Genius'
+      },
+      {
+        img: 'http://chicksbymail.com/wp-content/uploads/2016/08/hipster-floral-tumblr-background-ulzzangnet-background-images-floral-tumblrflowers-hipster-floral-print-dress-zara-tattoo-hearts-tumblr-bp8xkytr-1200x600.jpg',
+        title: 'Title 3',
+        descriptions: 'Stu Unger Rise And Fall Of A Poker Genius, Stu Unger Rise And Fall Of A Poker Genius, Stu Unger Rise And Fall Of A Poker Genius'
+      },
+      {
+        img: 'http://chicksbymail.com/wp-content/uploads/2016/08/hipster-floral-tumblr-background-ulzzangnet-background-images-floral-tumblrflowers-hipster-floral-print-dress-zara-tattoo-hearts-tumblr-bp8xkytr-1200x600.jpg',
+        title: 'Title 4',
+        descriptions: 'Stu Unger Rise And Fall Of A Poker Genius, Stu Unger Rise And Fall Of A Poker Genius, Stu Unger Rise And Fall Of A Poker Genius'
       }
     ]
 
