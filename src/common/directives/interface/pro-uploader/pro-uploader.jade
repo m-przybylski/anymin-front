@@ -1,8 +1,9 @@
 .pro-uploader
   .upload-field(ngf-drop="uploadFiles($files)" ngf-select="uploadFiles($files)" ng-model="uploadedFiles" class="drop-box"
   ngf-multiple="{{multiple}}" ngf-allow-dir="false"
-  ngf-select-disabled="isPending"
+  ngf-select-disabled="{{ isPending }}"
   ngf-pattern="'{{ngfPattern}}'"
+  ngf-drop-disabled="{{ isPending }}"
   accept="{{ngfPattern}}"
   items="{{filesUploaded}}"
   ngf-resize="{{imageSize}}"
