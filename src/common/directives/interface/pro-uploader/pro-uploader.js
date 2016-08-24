@@ -82,10 +82,6 @@
                     response: res.data
                   })
                   _file++
-                  if (_file === files.length) {
-                    scope.isPending = false
-                  }
-
                 },
                 (err) => {
                   proTopAlertService.error({
@@ -122,7 +118,7 @@
         scope.upload = false
         scope.hideArrow = false
         scope.showArrow = true
-
+        scope.isPending = false
       }
       /* istanbul ignore next */
       let _startImmediateLoading = () => {
