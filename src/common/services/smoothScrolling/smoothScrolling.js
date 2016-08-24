@@ -53,15 +53,16 @@
           if (leapY > stopY) {
             leapY = stopY
           }
-          timer++
+          if (timer * speed < 30) {
+            timer += 1
+          }
           $timeout(() => {
             scrollFunction()
-          }, timer * speed)
+          }, speed * timer)
         }
 
       }
       scrollFunction()
-
     }
 
     return {
