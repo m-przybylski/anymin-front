@@ -8,7 +8,7 @@
         span.back(data-translate="DASHBOARD.INVITATION.REJECT")
 
       button.pro-button.success.icon.iconbg(data-ng-click="vm.accept(vm.employment.id)")
-        span.icon.icon-success-12 
+        span.icon.icon-success-12
         span {{ ::"DASHBOARD.INVITATION.ACCEPT" | translate }}
 
     .box-status.accepted.inavtive(data-ng-show="vm.employment.status === 'ACCEPTED'")
@@ -22,5 +22,8 @@
         span {{ ::"DASHBOARD.INVITATION.HAD_BEEN_REJECTED" | translate }}
         span.back(data-ng-show="vm.rejectTimeoutSet" data-ng-click="vm.abortRejection()") ( {{ ::"LOGIN.BACK" | translate }} )
 
-  pro-summary-tag(data-tags="::vm.invitation.details.tags")
+  pro-summary-tag(
+    data-title="DASHBOARD.CREATE_PROFILE.SUMMARY.CONSULTATION_TAGS"
+    data-tags="::vm.invitation.details.tagNames"
+  )
  

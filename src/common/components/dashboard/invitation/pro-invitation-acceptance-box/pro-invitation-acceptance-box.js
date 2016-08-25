@@ -1,7 +1,7 @@
-(function() {
+(function () {
 
   /* @ngInject */
-  function controllerFunction($timeout, EmploymentApi) {
+  function controllerFunction($timeout, EmploymentApi, $scope) {
 
     const _rejectTimeoutTime = 5000
 
@@ -11,6 +11,14 @@
     this.isRejected = false
     this.isAccepted = false
     this.rejectTimeoutSet = false
+
+    $scope.$watch(
+      () => this.invitation,
+      (newVal) => {
+        if(typeof newVal !== 'undefined') {
+          newVal.details.tagNames = newVal.details.tags.map(tag => tag.name)
+        }
+      }, true)
 
     this.accept = (employmentId) => {
       this.isAccepted = true
