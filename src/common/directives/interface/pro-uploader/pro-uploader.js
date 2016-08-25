@@ -8,6 +8,8 @@
       let immediateInterval
       let _commonConfig = CommonConfig.getAllData()
       let uploadMap = {}
+      let filesQueue = []
+      let isProcess = false
 
       scope.progress = 0
       scope.fadeText = false
@@ -52,57 +54,80 @@
 
       }
 
-      scope.uploadFiles = function($files) {
-        scope.uploadImg = false
-        let files = $files
-        _file = 0
-        var tokenPromisses = []
-        if (files && files.length && !scope.isPending) {
-          scope.isPending = true
+      let _uploadProcess = (files) => {
+        let tokenPromisses = []
+        if (files && files.length) {
+          scope.animate()
+          _file = 0
+          isProcess = true
           for (var i = 0; i < files.length; i++) {
             if (!files[i].$error) {
               tokenPromisses.push(FilesApi.tokenPath().$promise)
               scope.errorValidateMessage = false
             }
           }
-          scope.animate()
+          let k = 0
           $q.all(tokenPromisses).then((tokenPromissesResponse) => {
-            for (var k = 0; k < files.length; k++) {
+            angular.forEach(files, (file) => {
               _files = files.length
               _setFilesStatus(_file, _files)
               Upload.upload({
-                url: _commonConfig.urls.backend + _commonConfig.urls['file-upload'].replace('%s', tokenPromissesResponse[k].fileId),
+                url: _commonConfig.urls.backend + _commonConfig.urls['file-upload'].replace('%s', tokenPromissesResponse[k++].fileId),
                 data: {
-                  file: files[k]
+                  file: file
                 }
               }).then(
                 (res) => {
                   scope.filesUploaded.push({
-                    file: files[_file],
+                    file: file,
                     response: res.data
                   })
                   _file++
+
+                  if (_file === _files) {
+                    if (filesQueue.length > 0) {
+                      _uploadProcess(filesQueue)
+                      filesQueue = []
+                    } else {
+                      isProcess = false
+                    }
+                  }
                 },
                 (err) => {
                   proTopAlertService.error({
                     message: $filter('translate')('INTERFACE.API_ERROR'),
                     timeout: 4
                   })
-                  scope.isPending = false
+                  isProcess = false
                 },
                 (res) => {
                   uploadMap[res.total] = res.loaded
                   calculateTotalPercentage(uploadMap, files.length)
                   _setFilesStatus(_file, _files)
-
                 }
               )
-            }
-          }, function(tokenPromissesError) {
+            })
+          }, (tokenPromissesError) => {
+            proTopAlertService.error({
+              message: $filter('translate')('INTERFACE.API_ERROR'),
+              timeout: 4
+            })
+            isProcess = false
           })
         } else {
-          scope.isPending = false
           scope.errorValidateMessage = true
+        }
+      }
+
+
+      scope.uploadFiles = ($files)=> {
+       // console.log(isProcess)
+        if(isProcess) {
+          if($files !== null) {
+            filesQueue = filesQueue.concat($files)
+          }
+        } else {
+          _uploadProcess($files)
         }
       }
       /* istanbul ignore next */
