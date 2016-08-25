@@ -20,4 +20,4 @@ block content
       .cost-details(data-ng-if="model.cost < 1 && model.cost !== null && model.cost !== ''")
         span.summary-text(data-translate="DASHBOARD.CONSULTATION_RANGE.CURRENCY_DETAILS")
     .input-error-messages
-      .error(data-translate="{{errorMessage}}" data-ng-show="noCost")
+      .error(data-translate="{{errorMessage}}" data-ng-show="error.noCost && model.cost.length === 0 ")

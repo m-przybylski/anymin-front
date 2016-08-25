@@ -6,4 +6,4 @@ block content
         data-placeholder="{{'DASHBOARD.CREATE_PROFILE.STEP5_PLACEHOLDER' | translate}}"
         data-pro-model="model.languages" data-ng-click="onClick()" disable-tagging)
     .input-error-messages
-      .error(data-translate="DASHBOARD.CREATE_PROFILE.LANGUAGES_ERROR" data-ng-show="error.badLanguages")
+      .error(data-translate="DASHBOARD.CREATE_PROFILE.LANGUAGES_ERROR" data-ng-show="error.badLanguages && model.languages.length < 1")

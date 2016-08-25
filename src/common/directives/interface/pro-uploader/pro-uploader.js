@@ -122,8 +122,8 @@
 
       scope.uploadFiles = ($files)=> {
        // console.log(isProcess)
-        if(isProcess) {
-          if($files !== null) {
+        if (isProcess) {
+          if ($files !== null) {
             filesQueue = filesQueue.concat($files)
           }
         } else {

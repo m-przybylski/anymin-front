@@ -1,4 +1,4 @@
-(function () {
+(function() {
 
   /* @ngInject */
   function controllerFunction($timeout, EmploymentApi, $scope) {
@@ -7,7 +7,6 @@
 
     let _isPending = false
     let _rejectTimeout
-
     this.isRejected = false
     this.isAccepted = false
     this.rejectTimeoutSet = false
@@ -15,7 +14,7 @@
     $scope.$watch(
       () => this.invitation,
       (newVal) => {
-        if(typeof newVal !== 'undefined') {
+        if (typeof newVal !== 'undefined') {
           newVal.details.tagNames = newVal.details.tags.map(tag => tag.name)
         }
       }, true)
