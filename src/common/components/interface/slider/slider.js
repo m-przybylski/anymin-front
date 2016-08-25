@@ -11,6 +11,10 @@
       $element.css('left', '0')
     })
 
+    if (typeof(this.moveSlides) === 'undefined') {
+      this.moveSlides = 0
+    }
+
     $timeout(() => {
       this.controlls = {
         prevSlide: this.prevSlide,
@@ -41,7 +45,7 @@
 
     this.nextSlide = (next=1) => {
       let parentWidth = $element[0].offsetWidth
-      let visibleItem = Math.floor(parentWidth / elementsMap[1])
+      let visibleItem = Math.floor(parentWidth / elementsMap[1]) + this.moveSlides
 
       if (currentElement < elementsMap.length - visibleItem) {
         currentElement = currentElement + next
@@ -60,6 +64,7 @@
     transclude: true,
     bindings: {
       items: '<',
+      moveSlides: '<',
       controlls: '='
     },
     controllerAs: 'vm',

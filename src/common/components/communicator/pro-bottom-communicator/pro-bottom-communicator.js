@@ -19,7 +19,7 @@
       },
       cost: 0
     }
-    
+
     this.messages = []
 
     let _toggleChat = () => {
@@ -42,11 +42,11 @@
         this.callStatus.time.m = parseInt(status.time / 60, 10)
 
         if (this.callStatus.time.m < 10) {
-          this.callStatus.time.m = "0" + this.callStatus.time.m
+          this.callStatus.time.m = '0' + this.callStatus.time.m
         }
 
         if (this.callStatus.time.s < 10) {
-          this.callStatus.time.s = "0" + this.callStatus.time.s
+          this.callStatus.time.s = '0' + this.callStatus.time.s
         }
 
         this.callStatus.cost = parseFloat(status.cost / 100).toFixed(2)
@@ -69,9 +69,9 @@
       proRatelService.stopTimer()
     })
 
-    
+
     $scope.$on('toggleChat', _toggleChat)
-    
+
 
     this.toggleFullScreen = () => {
       this.isFullScreenMode = !this.isFullScreenMode

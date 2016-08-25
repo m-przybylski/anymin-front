@@ -14,90 +14,102 @@
     top: 0
     content: ''
 
+  .slider-container
+    padding: 0px 0 48px
 
+    .slider-control
+      margin: 0 0 128px
+      width: (100%/4)
+      display: flex
+      flex-direction: column
+      align-items: center
+      justify-content: center
+      padding: 0
+      height: 290px
+      position: relative
+      z-index: 10
+      float: left
+      background-color: $c-white
 
-  .slider-control
-    margin: 0 0 128px
-    width: 100%
-    display: flex
-    flex-direction: column
-    align-items: center
-    justify-content: center
-    padding: 0
-    height: 290px
-    position: relative
-    z-index: 10
-    float: left
-    background-color: $c-white
+      span
+        color: $c-secondary-txt
+        font-size: 32px
 
-    span
-      color: $c-secondary-txt
-      font-size: 32px
+      p
+        text-align: center
+        width: 280px
+        text-transform: uppercase
+        font-weight: bold
 
-    p
-      text-align: center
-      width: 280px
-      text-transform: uppercase
-      font-weight: bold
+      .switcher
+        display: flex
+        flex-direction: row
+        flex-wrap: nowrap
+        justify-content: center
+        align-content: center
+        align-items: center
+        width: 100%
+        height: auto
+        margin-top: 15px
 
-    .switcher
+        span
+          font-size: 12px
+          border: 1px solid $c-lines
+          padding: 17px 17px 13px 17px
+
+          &:hover
+            color: $c-white
+            background-color: $c-primary-txt
+            cursor: pointer
+
+          &:last-child
+            margin-left: -1px
+
+    .slider-slides
       display: flex
       flex-direction: row
       flex-wrap: nowrap
-      justify-content: center
+      justify-content: flex-start
       align-content: center
       align-items: center
-      width: 100%
-      height: auto
-      margin-top: 15px
+      position: relative
+      width: calc((100%/4)*3)
+      margin: 0px 16px 96px
+      background-color: $c-white
+      overflow: hidden
+      +transition(left 0.5s ease-in-out 0s)
 
-      span
-        font-size: 12px
-        border: 1px solid $c-lines
-        padding: 17px 17px 13px 17px
-
-        &:hover
-          color: $c-white
-          background-color: $c-primary-txt
-          cursor: pointer
-
-        &:last-child
-          margin-left: -1px
-
-  .slider-slides
-    display: flex
-    flex-direction: row
-    flex-wrap: nowrap
-    justify-content: flex-start
-    align-content: center
-    align-items: center
-    position: relative
-    width: 100%
-    margin: 0 16px
-    +transition(left 0.5s ease-in-out 0s)
-
-    +smm
-      width: 75%
-
-    img
-      width: 280px
-      max-height: calc(100% - 16px)
-      padding: 0 16px
-
-    .slides
-      width: 280px
-      height: 280px
-      display: flex
-      flex-direction: column
-      flex-wrap: nowrap
-      justify-content: center
-      align-content: center
-      align-items: center
-      border-left: 1px solid $c-lines
-      border-top: 1px solid $c-lines
       +smm
-        border-top: 0
+        width: 75%
 
+      img
+        width: 300px
+        max-height: calc(100% - 16px)
+        padding: 0
+
+      .slides
+        width: 300px
+        height: 290px
+        display: flex
+        flex-direction: column
+        flex-wrap: nowrap
+        justify-content: space-between
+        align-items: center
+        border-left: 1px solid $c-lines
+        border-top: 1px solid $c-lines
+
+        +smm
+          border-top: 0
+
+        p
+          padding: 8px 16px 0
+          +default-font-heavy
+
+        .desc
+          font-size: $f-base
+          text-align: center
+          padding: 8px 16px
+          +default-font-regular
 
 .home-header
   justify-content: center
