@@ -1,6 +1,7 @@
 .container.main-container(data-ng-class="{'hide-menu': !dashboardController.isSidebarShown}")
 
+  pro-top-navbar()
   dashboard-left-menu()
           
-  .right-container(data-ng-class="{'slide-out':dashboardController.isSidebarOpen}" )
+  .right-container(data-ng-class="{'slide-out': dashboardController.isSidebarOpen}" )
     div(data-ui-view="")

@@ -31,17 +31,17 @@
     })
 
     _checkSidebarVisibility($state.current)
-
     this.toggleChat = () => {
+      
       $rootScope.$broadcast('toggleChat')
     }
-
     return this
   }
 
 
   angular.module('profitelo.controller.dashboard', [
     'profitelo.directives.dashboard.dashboard-left-menu',
+    'profitelo.directives.pro-top-navbar',
     'ui.router',
     'ngTouch',
     'c7s.ng.userAuth'

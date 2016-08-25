@@ -1,4 +1,4 @@
-.top-navbar
+.pro-top-navbar
   +default-font-heavy
   text-transform: uppercase
   font-size: $f-base
@@ -9,6 +9,8 @@
   height: 80px
   top: 0
   display: flex
+  left: 0
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1), inset 0 -1px 0 0 $c-lines
 
   .left-menu
     flex: 1 1 auto
@@ -43,6 +45,7 @@
 
   .search-expandable
     display: flex
+    max-height: 79px
 
   .login-btn,
   .profile-btn,
@@ -51,7 +54,7 @@
     padding: 32px 28px
     border-left: 1px solid $c-lines
     color: $c-black
-    height: 80px
+    height: 79px
     position: relative
     background: $c-white
     transition: color .2s, background .2s
