@@ -1,11 +1,11 @@
 .expert-cards-section.pro-expert-card
   .expert-card
     .top-content-wrap
-      img.expert-avatar(src="https://placekitten.com/50/50")
-      p.expert-name='{{ngModel.name}}'
-      p.expert-availability(class='{{ngModel.status}}')
-        span(data-translate='{{translations[ngModel.status]}}')
-      p.expert-service(data-translate="HOME.SERVICE_DESCRIPTION")
+      img.expert-avatar(ng-src="{{ items.avatar }}")
+      p.expert-name {{ items.name }}
+      p.expert-availability(class='{{ items.status }}')
+        span(data-translate='{{ translations[items.status] }}')
+      p.expert-service {{ items.description }}
     .expert-data.flex-row
       .service-satisfaction
         span.icon.icon-satisfaction-16

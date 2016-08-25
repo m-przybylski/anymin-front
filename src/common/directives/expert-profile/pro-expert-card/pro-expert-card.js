@@ -1,7 +1,7 @@
 (function() {
   function proExpertCard() {
 
-    function linkFunction(scope, attr, elem) {
+    function linkFunction(scope) {
       scope.translations = {
         'available': 'HOME.EXPERT_CARD_AVAILABLE',
         'not-available': 'HOME.EXPERT_CARD_NOT_AVAILABLE',
@@ -15,7 +15,7 @@
       replace:      true,
       link: linkFunction,
       scope: {
-        ngModel: '='
+        items: '='
       }
     }
   }
