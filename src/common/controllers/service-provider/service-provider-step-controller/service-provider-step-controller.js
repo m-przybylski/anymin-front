@@ -9,7 +9,12 @@
       noURL: false,
       noFile: false,
       noDescription: false,
-      badFiles: false
+      badFiles: false,
+      badName: false,
+      urlExist: false,
+      noTags: false,
+      noCost: false,
+      badEmployee: false
     }
 
     $scope.saveShadowModel = () => {

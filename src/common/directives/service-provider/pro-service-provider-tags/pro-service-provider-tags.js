@@ -60,11 +60,11 @@
       }
 
       const _displayErrorMessage = () => {
-        scope.noTags = true
+        scope.error.noTags = true
       }
 
       scope.saveSection = () => {
-        scope.noTags = false
+        scope.error.noTags = false
         _isValid().then(() => {
           scope.proModel.tags = scope.model.tags
           scope.proceed()

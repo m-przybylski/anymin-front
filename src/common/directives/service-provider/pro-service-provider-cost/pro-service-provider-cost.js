@@ -4,7 +4,7 @@
     function linkFunction(scope, element, attrs) {
 
       scope.required = false
-      scope.noCost = false
+      scope.error.noCost = false
 
       scope.model = {
         cost: ''
@@ -18,9 +18,10 @@
 
       scope.model.cost = parseFloat(scope.proModel.cost / 100) || ''
 
-      let _isValid = () => {
+      const _isValid = () => {
+        console.log(scope.model.cost.length)
         let _isValidDeferred = $q.defer()
-        if (angular.isDefined(scope.model.cost) && scope.model.cost >= 0) {
+        if (angular.isDefined(scope.model.cost) && scope.model.cost > 0) {
           _isValidDeferred.resolve()
         } else {
           _isValidDeferred.reject()
@@ -31,8 +32,8 @@
 
 
 
-      let _displayErrorMessage = () => {
-        scope.noCost = true
+      const _displayErrorMessage = () => {
+        scope.error.noCost = true
       }
 
 
@@ -49,7 +50,7 @@
       }, true)
 
       scope.saveSection = () => {
-        scope.noCost = false
+        scope.error.noCost = false
         _isValid().then(() => {
 
           scope.proModel.cost = scope.model.cost * 100

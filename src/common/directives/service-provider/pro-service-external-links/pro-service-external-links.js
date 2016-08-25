@@ -11,7 +11,7 @@
 
       scope.model.links = scope.proModel.links
 
-      let _urlPattern = CommonSettingsService.localSettings.urlPattern
+      const _urlPattern = CommonSettingsService.localSettings.urlPattern
 
       scope.removeLink = (linkToDelete) => {
         let _index = scope.model.links.indexOf(linkToDelete)
@@ -19,20 +19,29 @@
       }
       let httpAdded = false
 
-      scope.onEnter = () => {
-        if (!scope.linkModel.match(_urlPattern) && httpAdded === false) {
-          scope.linkModel = 'http://' + scope.linkModel
-          httpAdded = true
-        }
+      let _checkLinkExist = () => {
+        return scope.model.links.indexOf('http://' + scope.linkModel) !== -1
+      }
 
-        if ( _urlPattern.test(scope.linkModel)) {
-          scope.error.badUrl = false
-          httpAdded = false
-          scope.model.links.push(scope.linkModel)
-          scope.linkModel = ''
+      scope.onEnter = () => {
+        if (_checkLinkExist()) {
+          scope.error.urlExist = true
         } else {
-          scope.error.badUrl = true
-          scope.error.noUrl = false
+          scope.error.urlExist = false
+          if (!scope.linkModel.match(_urlPattern) && httpAdded === false) {
+            scope.linkModel = 'http://' + scope.linkModel
+            httpAdded = true
+          }
+
+          if ( _urlPattern.test(scope.linkModel)) {
+            scope.error.badUrl = false
+            httpAdded = false
+            scope.model.links.push(scope.linkModel)
+            scope.linkModel = ''
+          } else {
+            scope.error.badUrl = true
+            scope.error.noUrl = false
+          }
         }
       }
 
@@ -43,8 +52,8 @@
       }
 
 
-      let _isValid = () => {
-        let _isValidDeferredEmpty = $q.defer()
+      const _isValid = () => {
+        const _isValidDeferredEmpty = $q.defer()
 
         if (angular.isDefined(scope.model.links) && scope.model.links.length > 0) {
           _isValidDeferredEmpty.resolve()
@@ -55,7 +64,7 @@
         return _isValidDeferredEmpty.promise
       }
 
-      let _displayErrorMessage = () => {
+      const _displayErrorMessage = () => {
         scope.error.noUrl = true
       }
 
@@ -63,9 +72,9 @@
         _isValid().then(() => {
           scope.error.noUrl = false
           scope.error.badUrl= false
+          scope.error.urlExist = false
           scope.proModel.links = scope.model.links
           scope.proceed()
-
         }, () => {
           _displayErrorMessage()
         })

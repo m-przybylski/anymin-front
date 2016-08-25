@@ -11,7 +11,7 @@
         languages: ['Polish']
       }
 
-      let _isValid = () => {
+      const _isValid = () => {
         let _isValidDeferred = $q.defer()
         if (angular.isDefined(scope.model.languages) && scope.model.languages.length > 0) {
           _isValidDeferred.resolve()
@@ -22,7 +22,7 @@
         return _isValidDeferred.promise
       }
 
-      let _displayErrorMessage = () => {
+      const _displayErrorMessage = () => {
         scope.error.badLanguages = true
       }
 

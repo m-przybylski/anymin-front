@@ -3,7 +3,7 @@ extends ../../../templates/wizard/section-controlls.partial.jade
 block content
   .step-content-column.pro-service-provider-name(data-ng-click="onClick()")
     pro-input(data-placeholder="{{placeholder | translate}}" data-ng-model="model.name"
-    data-ng-class="{invalid: badName}" auto-focus ng-enter="onEnter()"
+    data-ng-class="{invalid: error.badName && model.name.length < 1}" auto-focus ng-enter="onEnter()"
     data-id="serviceProviderName")
   .input-error-messages
-    .error(data-translate="{{errorMessage}}" data-ng-show="badName")
+    .error(data-translate="{{errorMessage}}" data-ng-show="error.badName && model.name.length < 1")

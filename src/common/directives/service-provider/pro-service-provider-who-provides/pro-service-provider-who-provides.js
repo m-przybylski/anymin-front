@@ -2,7 +2,7 @@
   function proServiceProviderWhoProvides($q, $timeout, CommonSettingsService) {
     function linkFunction(scope, element, attrs) {
       scope.required = false
-      scope.badEmployee = false
+      scope.error.badEmployee = false
 
       scope.emails = [
           {email: 'bartek@itelo.pl'},
@@ -43,7 +43,7 @@
       }
 
       let _displayErrorMessage = () => {
-        scope.bad= true
+        scope.error.badEmployee= true
       }
 
       scope.tagParam = 'email'
@@ -55,7 +55,7 @@
 
       scope.saveSection = () => {
         _isValid().then(() => {
-          scope.badEmployee = false
+          scope.error.badEmployee = false
           scope.proModel.invitations = scope.model.invitations
           scope.proceed()
 
