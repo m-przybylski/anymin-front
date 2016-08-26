@@ -57,7 +57,7 @@
       let _uploadProcess = (files) => {
         let tokenPromisses = []
         if (files && files.length) {
-          scope.animate()
+          //scope.animate()
           _file = 0
           isProcess = true
           for (var i = 0; i < files.length; i++) {
@@ -85,6 +85,7 @@
                   _file++
 
                   if (_file === _files) {
+                    scope.progress = 0
                     if (filesQueue.length > 0) {
                       _uploadProcess(filesQueue)
                       filesQueue = []
