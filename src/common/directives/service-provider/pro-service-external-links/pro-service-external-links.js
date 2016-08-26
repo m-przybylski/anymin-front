@@ -19,29 +19,29 @@
       }
       let httpAdded = false
 
-      let _checkLinkExist = () => {
-        return scope.model.links.indexOf('http://' + scope.linkModel) !== -1
+      let _checkLinkExist = (link) => {
+        return scope.model.links.indexOf(link) !== -1
       }
 
       scope.onEnter = () => {
-        if (_checkLinkExist()) {
-          scope.error.urlExist = true
-        } else {
-          scope.error.urlExist = false
-          if (!scope.linkModel.match(_urlPattern) && httpAdded === false) {
-            scope.linkModel = 'http://' + scope.linkModel
-            httpAdded = true
-          }
+        scope.error.urlExist = false
+        if (!scope.linkModel.match(_urlPattern) && httpAdded === false) {
+          scope.linkModel = 'http://' + scope.linkModel
+          httpAdded = true
+        }
 
-          if ( _urlPattern.test(scope.linkModel)) {
-            scope.error.badUrl = false
-            httpAdded = false
+        if ( _urlPattern.test(scope.linkModel)) {
+          scope.error.badUrl = false
+          httpAdded = false
+          if (_checkLinkExist(scope.linkModel)) {
+            scope.error.urlExist = true
+          } else {
             scope.model.links.push(scope.linkModel)
             scope.linkModel = ''
-          } else {
-            scope.error.badUrl = true
-            scope.error.noUrl = false
           }
+        } else {
+          scope.error.badUrl = true
+          scope.error.noUrl = false
         }
       }
 
