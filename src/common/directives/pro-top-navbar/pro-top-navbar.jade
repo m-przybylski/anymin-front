@@ -26,7 +26,8 @@
 
     .default-state(data-ng-if="!showSearch")
 
-      .status-btn(data-ng-show="$root.loggedIn && isDashboard" )
+      a.status-btn(data-ng-show="$root.loggedIn && isDashboard" )
+        span.status-icon
 
       a.profile-btn(data-ng-hide="$root.loggedIn" data-ui-sref='app.login.account')
         span.icon.icon-login-24
@@ -35,6 +36,16 @@
       a.notification-btn(data-ng-if="$root.loggedIn")
         span.icon.icon-bell-24
 
-      a.login-btn(data-ng-if="$root.loggedIn" data-ui-sref='app.dashboard.start')
+      .login-btn(data-ng-if="$root.loggedIn" data-ng-mouseover="showUserMenu = true" data-ng-mouseleave="showUserMenu = true")
         span.icon.icon-user-profile-24
 
+        .user-menu(data-ng-show="showUserMenu")
+          ul.menu
+            .account-menu
+              li(data-ng-repeat="account in accounts")
+                a {{ account }}
+            .settings-menu
+              li
+                a Ustawienia konta
+              li
+                a(data-ng-click="appController.logout()") Wyloguj

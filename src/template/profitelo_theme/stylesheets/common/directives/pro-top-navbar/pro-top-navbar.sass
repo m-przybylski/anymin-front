@@ -124,6 +124,27 @@
   .login-btn
     padding: 26px 28px
 
+  .user-menu
+    width: 200px
+    display: block
+    position: absolute
+    top: 79px
+    right: 0
+    background-color: $c-primary
+    ul
+      width: 100%
+      &:hover
+        color: $c-secondary-txt
+      .account-menu
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2)
+      div
+        padding: 16px 32px
+      li
+        padding: 4px 0
+        &:hover
+          color: $c-white
+
+
   .default-state,
   .search-active-state
     display: flex
@@ -133,6 +154,20 @@
     .cancel-btn
       width: 110px
       text-align: center
+
+  .default-state
+
+    .status-btn
+      position: relative
+      height: 79px
+      padding: 35px 28px
+
+      .status-icon
+        +border-radius(50%)
+        display: block
+        height: 10px
+        width: 10px
+        background-color: $c-success
 
 .search-expandable
   position: relative

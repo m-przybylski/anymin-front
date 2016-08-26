@@ -7,7 +7,7 @@
 
       scope.isDashboard = $location.url().indexOf('dashboard') !== -1
 
-
+      scope.accounts = ['Konto Klienta', 'Konto Eksperta', 'Firma']
       scope.menuElements = [
         {
           label: 'Poznaj nas',
