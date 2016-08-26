@@ -1,4 +1,4 @@
-.pro-top-navbar(role="navigation").clearfix
+.pro-top-navbar.clearfix(role="navigation" data-ng-class="{'hideNavbar': isHide}")
   .left-menu
     a.hamburger-menu.pull-left.hidden Menu
       .icon.icon-menu-16
@@ -11,18 +11,30 @@
       li(data-ng-repeat="items in menuElements")
         a {{ items.label }}
 
-    .search-expandable(data-ng-class="{'search-activ':showSearch, 'logIn':$root.loggedIn}")
+    .search-expandable(data-ng-class="{'search-activ':showSearch, 'logIn':$root.loggedIn}" data-ng-if="!isDashboard")
       a.search-btn(data-ng-click="setShowSearch()")
         span.icon.icon-search-24
-        span.search(data-ng-hide="$root.loggedIn") Szukaj
-      pro-input(data-ng-model="searchModel" placeholder="{{ 'HOME.SEARCH_PLACEHOLDER' | translate }}" no-delete)
+        span.search(data-ng-hide="$root.loggedIn || showSearch") Szukaj
+      pro-input(data-ng-model="searchModel" placeholder="{{ 'HOME.SEARCH_PLACEHOLDER' | translate }}" auto-focus data-ng-enter="searchAction()")
 
-    a.profile-btn(data-ng-hide="$root.loggedIn" data-ui-sref='app.login.account')
-      span.icon.icon-login-24
-      span.login(data-translate="PAGE_TITLE.LOGIN.ACCOUNT")
+    .search-active-state(data-ng-if="showSearch")
+      a.search-active-btn(data-ng-click="searchAction(searchModel)")
+        span.search Szukaj
 
-    a.notification-btn(data-ng-if="$root.loggedIn")
-      span.icon.icon-bell-24
+      a.cancel-btn(data-ng-click="setShowSearch()")
+        span.cancel Anuluj
 
-    a.login-btn(data-ng-if="$root.loggedIn" data-ui-sref='app.dashboard.start')
-      span.icon.icon-user-profile-24
+    .default-state(data-ng-if="!showSearch")
+
+      .status-btn(data-ng-show="$root.loggedIn && isDashboard" )
+
+      a.profile-btn(data-ng-hide="$root.loggedIn" data-ui-sref='app.login.account')
+        span.icon.icon-login-24
+        span.login(data-translate="PAGE_TITLE.LOGIN.ACCOUNT")
+
+      a.notification-btn(data-ng-if="$root.loggedIn")
+        span.icon.icon-bell-24
+
+      a.login-btn(data-ng-if="$root.loggedIn" data-ui-sref='app.dashboard.start')
+        span.icon.icon-user-profile-24
+

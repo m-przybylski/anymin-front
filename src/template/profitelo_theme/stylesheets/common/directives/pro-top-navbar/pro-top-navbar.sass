@@ -12,6 +12,9 @@
   left: 0
   box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1), inset 0 -1px 0 0 $c-lines
 
+  &.hideNavbar
+    display: none
+
   .left-menu
     flex: 1 1 auto
 
@@ -50,7 +53,9 @@
   .login-btn,
   .profile-btn,
   .search-btn,
-  .notification-btn
+  .notification-btn,
+  .search-active-btn,
+  .cancel-btn
     padding: 32px 28px
     border-left: 1px solid $c-lines
     color: $c-black
@@ -60,7 +65,7 @@
     transition: color .2s, background .2s
 
     &:hover
-      background: $c-primary-txt
+      background: $c-primary
       color: $c-white
 
   .search-btn
@@ -83,7 +88,7 @@
       transition: width 1s
 
     &:hover
-      background: $c-primary-txt
+      background: $c-primary
       transition: background .2s, color .2s
       color: $c-white
 
@@ -98,7 +103,7 @@
       transition: color .2s, background .2s
 
       &:hover
-        background: $c-primary-txt
+        background: $c-primary
         color: $c-white
 
   .profile-btn
@@ -119,6 +124,16 @@
   .login-btn
     padding: 26px 28px
 
+  .default-state,
+  .search-active-state
+    display: flex
+
+  .search-active-state
+    .search-active-btn,
+    .cancel-btn
+      width: 110px
+      text-align: center
+
 .search-expandable
   position: relative
   background: $c-white
@@ -138,11 +153,11 @@
     .search-btn
       width: 80px
       padding: 0
-      background: $c-primary-txt
+      background: $c-white
       transition: width .2s
 
       .icon
-        color: $c-white
+        color: $c-black
 
     .search
       width: 0
@@ -150,18 +165,19 @@
       transition: width .6s
 
     .input-group
+      height: 100%
       display: block
       width: calc(100% - 80px)
       position: absolute
       right: 0
       top: 0
       border: 0
-      padding-left: 24px
+      padding: 0
       background: $c-white
 
       input
         +default-font-light
-        margin: 8px 0 0
+        margin: 0
         position: static
         padding: 0
         background: $c-white

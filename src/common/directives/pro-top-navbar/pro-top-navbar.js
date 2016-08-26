@@ -1,7 +1,11 @@
 (function() {
-  function proTopNavbar(searchService) {
+  function proTopNavbar($location, searchService) {
 
     function linkFunction(scope, elem, attrs) {
+
+      scope.isHide = false
+
+      scope.isDashboard = $location.url().indexOf('dashboard') !== -1
 
 
       scope.menuElements = [
@@ -48,7 +52,7 @@
       link: linkFunction,
       scope: {
         showSearch: '=?',
-        loggedIn: '=?',
+        isHide: '=?',
         searchActive: '=?',
         searchPage: '=?'
       }
