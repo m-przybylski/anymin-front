@@ -19,44 +19,74 @@
 
     this.expertCard = [
       {
-        name: 'Ragnar Lodbrok',
-        status: 'available'
+        id: '1',
+        value: {
+          name: '1 Slide',
+          status: 'not-available'
+        }
       },
       {
-        name: 'Penelope Cruz',
-        status: 'not-available'
+        id: '2',
+        value: {
+          name: '2 Slide',
+          status: 'not-available'
+        }
       },
       {
-        name: 'Ironman',
-        status: 'busy'
+        id: '3',
+        value: {
+          name: '3 Slide',
+          status: 'not-available'
+        }
       },
       {
-        name: 'Ragnar Lodbrok',
-        status: 'available'
+        id: '4',
+        value: {
+          name: '4 Slide',
+          status: 'not-available'
+        }
       },
       {
-        name: 'Penelope Cruz',
-        status: 'not-available'
+        id: '5',
+        value: {
+          name: '5 Slide',
+          status: 'not-available'
+        }
       },
       {
-        name: 'Ironman',
-        status: 'busy'
+        id: '6',
+        value: {
+          name: '6 Slide',
+          status: 'not-available'
+        }
       },
       {
-        name: 'Ragnar Lodbrok',
-        status: 'available'
+        id: '7',
+        value: {
+          name: '7 Slide',
+          status: 'not-available'
+        }
       },
       {
-        name: 'Penelope Cruz',
-        status: 'not-available'
+        id: '8',
+        value: {
+          name: '8 Slide',
+          status: 'not-available'
+        }
       },
       {
-        name: 'Ironman',
-        status: 'busy'
+        id: '9',
+        value: {
+          name: '9 Slide',
+          status: 'not-available'
+        }
       },
       {
-        name: 'Ironman',
-        status: 'busy'
+        id: '10',
+        value: {
+          name: '10 Slide',
+          status: 'not-available'
+        }
       }
     ]
     this.newsTile = [

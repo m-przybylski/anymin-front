@@ -1,18 +1,17 @@
 (function() {
 
   /* @ngInject */
-  function defaultCardSliderFunction() {
-
+  function defaultCardSliderFunction($scope, $window, $timeout, $element) {
+    
     return this
   }
 
   let cardSlider = {
-    transclude: true,
     bindings: {
-      items: '<',
-      moveSlides: '<',
+      cards: '<',
       controlls: '='
     },
+    templateUrl:    'components/interface/card-slider/card-slider.tpl.html',
     controllerAs: 'vm',
     controller: defaultCardSliderFunction
   }
@@ -22,5 +21,4 @@
     'pascalprecht.translate'
   ])
     .component('cardSlider', cardSlider)
-
 }())

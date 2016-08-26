@@ -1,0 +1,12 @@
+.card-slider
+  pro-expert-card(data-ng-repeat="card in vm.cards | orderBy:'id*1'" data-items="card.value")
+
+.controlls
+  .left-offset(data-ng-click="vm.prevSlide()")
+    span.icon.icon-arrow-left-12 
+
+  .right-offset(data-ng-click="vm.nextSlide()")
+    span.icon.icon-arrow-right-12      
+
+p(data-ng-click="vm.prevSlide()") prevSlide
+p(data-ng-click="vm.nextSlide()") nextSlide

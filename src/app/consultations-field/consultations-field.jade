@@ -18,17 +18,11 @@
           
 
   .card-slider
-    slider.flex-row(data-ng-transclude data-controlls="vm.controlls")
-      pro-expert-card(data-ng-repeat="expert in vm.expertCard" data-ng-model="expert")
-    
-    .controlls
-      .left-offset(data-ng-click="vm.prevSlide()")
-        span.icon.icon-arrow-left-12
-      
-      .right-offset(data-ng-click="vm.nextSlide()")
-        span.icon.icon-arrow-right-12
+    card-slider.flex-row(data-cards="vm.expertCard" data-controlls="vm.controlls")
       
     .default-container
       pro-expert-slider()
 
   pro-footer()
+  
+  

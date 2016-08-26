@@ -30,10 +30,9 @@ main.top-content-home
             h4 {{ slide.title }}
             p.description {{ slide.descriptions }}
 
-    
 .card-slider
   slider.flex-row(data-ng-transclude data-controlls="vm.controlls")
-    pro-expert-card(data-ng-repeat="expert in vm.expertCard" data-ng-model="expert")
+    pro-expert-card(data-ng-repeat="expert in vm.expertCard | orderBy:'id*1'" data-ng-model="expert")
   
   .controlls
     .left-offset(data-ng-click="vm.prevSlide()")

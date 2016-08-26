@@ -4,6 +4,7 @@
   function defaultSliderFunction($scope, $window, $timeout, $element) {
     let currentWidth = 0
     let elementsMap = []
+    let allElementsMap = []
     let currentElement = 0
     let parentWidth = $element[0].offsetWidth
     let visibleItem = null
