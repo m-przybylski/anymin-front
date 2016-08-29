@@ -1,0 +1,33 @@
+.choose-bank
+  margin-top: 128px
+  margin-bottom: 64px
+
+  .choose-options
+    margin-top: 64px
+    display: flex
+    justify-content: space-around
+    flex-wrap: wrap
+
+    .option
+      display: flex
+      flex-direction: column
+      justify-content: center
+      align-items: center
+      width: calc(100%/7)
+      border: 1px solid $c-lines
+      padding: 8px
+      margin: 8px
+      +border-radius(0.2em)
+      cursor: pointer
+
+      img
+        width: 100px
+
+      p
+        font-size: $f-base
+        +default-font-heavy
+        padding: 8px 0
+        text-align: center
+
+    .selected
+      border: 2px solid $c-primary

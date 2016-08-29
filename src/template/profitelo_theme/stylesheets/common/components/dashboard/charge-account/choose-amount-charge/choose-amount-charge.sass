@@ -1,0 +1,31 @@
+.choose-amount-charge
+  .choose-options
+    margin-top: 64px
+    display: flex
+
+    .option
+      display: flex
+      flex-direction: column
+      justify-content: center
+      align-content: flex-start
+      align-items: center
+      width: calc(100%/4)
+      border: 1px solid $c-lines
+      padding: 32px
+      margin: 0 8px
+      +border-radius(0.2em)
+      cursor: pointer
+
+      h2
+        font-size: 42px
+
+    .option-own-amount
+      flex-direction: row
+
+      .input-group
+        width: 100%
+
+    .selected
+      border: 2px solid $c-primary
+
+    

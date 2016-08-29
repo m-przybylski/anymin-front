@@ -1,0 +1,9 @@
+.choose-bank
+  .title
+    h3(data-translate="{{ vm.title }}")
+    
+  .choose-options
+    .option(data-ng-repeat="bank in vm.bankList" data-ng-class="{'selected': vm.activeOption == $index}" data-ng-click="vm.activeOption = $index")
+      img(ng-src="{{ bank.img }}")
+      p {{ bank.name }}
+  

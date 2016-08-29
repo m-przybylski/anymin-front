@@ -1,0 +1,31 @@
+.payment-method
+  margin-top: 128px
+
+  .choose-options
+    margin-top: 64px
+    display: flex
+
+    .option
+      display: flex
+      flex-direction: column
+      justify-content: center
+      align-content: flex-start
+      align-items: center
+      width: calc(100%/3)
+      border: 1px solid $c-lines
+      padding: 32px
+      margin: 0 8px
+      +border-radius(0.2em)
+      cursor: pointer
+
+      img
+        width: 100px
+
+      p
+        text-transform: uppercase
+        font-size: $f-base
+        +default-font-heavy
+        padding: 16px 0
+
+    .selected
+      border: 2px solid $c-primary

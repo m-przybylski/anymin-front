@@ -1,0 +1,16 @@
+.payment-method
+  .title
+    h3(data-translate="{{ vm.title }}")
+    
+  .choose-options
+    .option(data-ng-class="{'selected': vm.activeOption == 1}" data-ng-click="vm.activeOption = 1")
+      img(ng-src="https://www.payu.pl/sites/payupoland/files/styles/article_list_medium/public/payu_logo_solid_lime_rgb.jpg?itok=hAlLaoh0")
+      p Przelew Internetowy
+    .option(data-ng-class="{'selected': vm.activeOption == 2}" data-ng-click="vm.activeOption = 2")
+      img(ng-src="https://www.payu.pl/sites/payupoland/files/styles/article_list_medium/public/payu_logo_solid_lime_rgb.jpg?itok=hAlLaoh0")
+      p Szybkie Doładowanie
+    .option(data-ng-class="{'selected': vm.activeOption == 3}" data-ng-click="vm.activeOption = 3")
+      img(ng-src="https://www.payu.pl/sites/payupoland/files/styles/article_list_medium/public/payu_logo_solid_lime_rgb.jpg?itok=hAlLaoh0")
+      p Płatność Kartą
+  
+  

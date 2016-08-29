@@ -1,0 +1,56 @@
+.charge-account
+  .default-container
+    .current-balance
+      h3(data-translate="DASHBOARD.CHARGE_ACCOUNT.YOUR_CURRENT_BALANCE")
+    .current-balance-wallet
+      h3 173,50zł
+
+    choose-amount-charge(data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_AMMOUNT_CHARGE")
+
+    payment-method(data-title="DASHBOARD.CHARGE_ACCOUNT.PAYMENT_METHOD_TITLE")
+    
+    choose-bank(data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_YOUR_BANK")
+    
+    h3(data-translate="DASHBOARD.CHARGE_ACCOUNT.WRITE_YOUR_PERSONAL_DATA")
+    .your-personal-data
+      .name
+        pro-input(placeholder="Imię"
+          data-label="Imię*"
+          data-ng-model="nameModel"
+          data-ng-click="onClick()"
+          data-ng-enter="onEnter()"
+          data-ng-class="{'invalid': error.badName}"
+          addon-action="onEnter"
+          data-id="ownAmount")
+      .name
+        pro-input(placeholder="Nazwisko"
+          data-label="Nazwisko*"
+          data-ng-model="lastnameModel"
+          data-ng-click="onClick()"
+          data-ng-enter="onEnter()"
+          data-ng-class="{'invalid': error.badLastname}"
+          addon-action="onEnter"
+          data-id="ownAmount")
+      .name
+        pro-input(placeholder="Adres E-mail"
+          data-label="Adres E-mail*"
+          data-ng-model="mailModel"
+          data-ng-click="onClick()"
+          data-ng-enter="onEnter()"
+          data-ng-class="{'invalid': error.badEmail}"
+          addon-action="onEnter"
+          data-id="ownAmount")
+          
+    .footer
+          
+      pro-checkbox(id="acceptRules"
+        data-ng-model="vm.rulesAccepted"
+        data-label="Akceptuję regulamin płatności *"
+        data-name="acceptRules"
+        data-ng-class="{'invalid': !vm.rulesAccepted && passwordForm.$submitted}"
+        required) 
+      
+      p(data-translate="DASHBOARD.CHARGE_ACCOUNT.PAYU_NOTIFICATION")
+      
+      p * pole wymagane
+      

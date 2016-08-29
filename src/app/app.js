@@ -226,6 +226,7 @@
     'profitelo.controller.login.confirm-email',
     'profitelo.controller.search-result',
     'profitelo.controller.consultations-field',
+    'profitelo.controller.dashboard.charge-account',
 
 
     // directives
