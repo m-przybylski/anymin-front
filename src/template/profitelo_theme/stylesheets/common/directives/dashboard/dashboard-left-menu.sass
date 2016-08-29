@@ -16,7 +16,7 @@
   +xsm
     width: $dashboard-width-nav
   +mdm
-    display: block !important
+    display: block
     width: $dashboard-navbar-width
   +lgm
     overflow-x: visible !important
@@ -42,6 +42,29 @@
       align-self: flex-start
       width: 100%
       padding: 16px 0
+      .nav-menu
+        .responsive-main-menu
+          display: block
+          top: 78px
+          left: 0
+          background-color: $c-primary
+          a
+            color: $c-white
+          ul
+            width: 100%
+            padding: 16px 32px
+            &:hover
+              li
+                a
+                  color: $c-secondary-txt
+            li
+              padding: 4px 0
+              &:hover
+                a
+                  color: $c-white
+              a
+                font-size: 20px
+
 
       .expert-profile
         display: flex

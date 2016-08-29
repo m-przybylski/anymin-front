@@ -9,6 +9,7 @@ describe('Unit tests: Dashboard >', () => {
 
         _DashboardController = $controller('DashboardController', {
           '$rootScope': $rootScope,
+          'userProfile': {},
           '$state': {
             current: {
               data: {

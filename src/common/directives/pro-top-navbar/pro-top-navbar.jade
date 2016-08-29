@@ -32,7 +32,7 @@
 
     .default-state(data-ng-if="!showSearch")
 
-      a.status-btn(data-ng-show="$root.loggedIn && isDashboard" )
+      a.status-btn(data-ng-show="$root.loggedIn && isDashboard && isExpert" )
         span.status-icon
 
       a.profile-btn(data-ng-hide="$root.loggedIn" data-ui-sref='app.login.account')
@@ -49,7 +49,7 @@
           ul.menu
             .account-menu
               li(data-ng-repeat="account in accounts")
-                a {{ account }}
+                a(data-ui-sref="app.dashboard.start") {{ account }}
             .settings-menu
               li
                 a Ustawienia konta

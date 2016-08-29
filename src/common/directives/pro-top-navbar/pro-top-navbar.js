@@ -1,28 +1,27 @@
 (function() {
-  function proTopNavbar($location, searchService) {
+  function proTopNavbar($location, $filter, searchService) {
 
     function linkFunction(scope, elem, attrs) {
 
       scope.isHide = false
       scope.isDashboard = $location.url().indexOf('dashboard') !== -1
-      scope.hamburgerClass = scope.hamburgerClass === "disactive-btn" ? "active-btn" : "disactive-btn"
-
+      scope.hamburgerClass = scope.hamburgerClass === 'disactive-btn' ? 'active-btn' : 'disactive-btn'
       scope.accounts = ['Konto Klienta', 'Konto Eksperta', 'Firma']
       scope.menuElements = [
         {
-          label: 'Poznaj nas',
+          label: $filter('translate')('NAVIGATION.MEET_US'),
           link: 'app.home'
         },
         {
-          label: 'Jak to działa?',
+          label: $filter('translate')('NAVIGATION.HOW_IT_WORKS'),
           link: 'app.home'
         },
         {
-          label: 'Dla ekspertów',
+          label: $filter('translate')('NAVIGATION.FOR_EXPERTS'),
           link: 'app.home'
         },
         {
-          label: 'Pomoc',
+          label:  $filter('translate')('NAVIGATION.HELP'),
           link: 'app.home'
         }
       ]
@@ -33,7 +32,7 @@
       
       scope.sidebarAction = ()=> {
         if (typeof scope.sidebarHandler !== 'undefined') {
-          scope.hamburgerClass = scope.hamburgerClass === "active-btn" ? "disactive-btn" : "active-btn"
+          scope.hamburgerClass = scope.hamburgerClass === 'active-btn' ? 'disactive-btn' : 'active-btn'
           scope.sidebarHandler()
         } else {
           scope.openSideMenu = true
@@ -67,7 +66,8 @@
         searchActive: '=?',
         searchPage: '=?',
         logoutAction: '=?',
-        sidebarHandler: '=?'
+        sidebarHandler: '=?',
+        isExpert: '=?'
       }
 
     }

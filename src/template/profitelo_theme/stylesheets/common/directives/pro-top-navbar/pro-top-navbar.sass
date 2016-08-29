@@ -198,20 +198,22 @@
       color: $c-white
     ul
       width: 100%
-      li
-        a
-        &:hover
-          color: $c-secondary-txt
+      &:hover
+        li
+          a
+            color: $c-secondary-txt
       .account-menu
         border-bottom: 1px solid rgba(255, 255, 255, 0.2)
       div
         padding: 16px 32px
       li
         padding: 4px 0
+        &:hover
+          a
+            color: $c-white
         a
           font-size: 14px
-        &:hover
-          color: $c-white
+
 
 
   .default-state,
