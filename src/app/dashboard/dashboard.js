@@ -4,7 +4,8 @@
 
     this.isSidebarOpen = false
     this.switchUser = false
-
+    
+    this.isNavbarShown = true
     this.isSidebarShown = true
 
     this.changeAccount=function() {
@@ -18,11 +19,17 @@
       this.isSidebarOpen = !this.isSidebarOpen
     }
 
-    let _checkSidebarVisibility = (toState) => {
+    this.showSidebar = ()=> {
+      this.isSidebarShown = this.isSidebarShown === false
+    }
+
+    const _checkSidebarVisibility = (toState) => {
       if (angular.isUndefined(toState.data.showMenu)) {
         this.isSidebarShown = true
+        this.isNavbarShown = true
       } else {
         this.isSidebarShown = toState.data.showMenu
+        this.isNavbarShown = toState.data.showTopMenu
       }
     }
 

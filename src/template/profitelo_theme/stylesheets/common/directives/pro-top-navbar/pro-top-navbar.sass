@@ -17,6 +17,7 @@
 
   .left-menu
     flex: 1 1 auto
+    display: flex
 
   .right-menu
     flex: 1 1 100%
@@ -26,18 +27,63 @@
 
   .logo-wrapper
     font-size: 0
-    display: inline-block
     padding: 24px
-    border-right: 1px solid $c-lines
+    display: none
+    +smm
+      display: inline-block
+    +mdm
+      border-right: 1px solid $c-lines
 
   .logo
     height: 32px
     width: auto
 
   .hamburger-menu
-    border-right: 1px solid $c-lines
+    cursor: pointer
     padding: 32px
+    height: 79px
     font-size: 0
+    display: flex
+    background: $c-white
+    color: $c-secondary-txt
+    &.active-btn
+      background: $c-primary
+      transition: background .2s, color .2s
+      color: $c-white
+      height: 80px
+      &:hover
+        background: $c-primary
+        transition: background .2s, color .2s
+        color: $c-white
+    &.disactive-btn
+      background: $c-white
+      color: $c-secondary-txt
+      &:hover
+        background: $c-primary
+        transition: background .2s, color .2s
+        color: $c-white
+    .responsive-main-menu
+      width: 200px
+      display: block
+      position: absolute
+      top: 78px
+      left: 0
+      background-color: $c-primary
+      ul
+        width: 100%
+        padding: 16px 32px
+        &:hover
+          color: $c-secondary-txt
+        li
+          padding: 4px 0
+          a
+            font-size: 14px
+          &:hover
+            color: $c-white
+    +mdm
+      display: none
+    +smm
+      border-right: 1px solid $c-lines
 
     .icon,
     &.icon::before
@@ -56,17 +102,30 @@
   .notification-btn,
   .search-active-btn,
   .cancel-btn
-    padding: 32px 28px
-    border-left: 1px solid $c-lines
+    cursor: pointer
+    outline: 0
+    padding: 32px
     color: $c-black
     height: 79px
     position: relative
     background: $c-white
     transition: color .2s, background .2s
-
     &:hover
-      background: $c-primary
-      color: $c-white
+      .icon
+        color: $c-primary
+    +smm
+      border-left: 1px solid $c-lines
+      padding: 32px 28px
+      &:hover
+        background: $c-primary
+        color: $c-white
+        .icon
+          color: $c-white
+
+    .login
+      display: none
+      +smm
+        display: block
 
   .search-btn
     padding-left: 72px
@@ -83,33 +142,37 @@
       margin: -12px 0 0
 
     .search
-      display: block
+      display: none
       width: 50px
       transition: width 1s
-
-    &:hover
-      background: $c-primary
-      transition: background .2s, color .2s
-      color: $c-white
-
-      .icon
+      +smm
+        display: block
+    +smm
+      &:hover
+        background: $c-primary
+        transition: background .2s, color .2s
         color: $c-white
-        transition: color .2s
+
+        .icon
+          color: $c-white
+          transition: color .2s
 
     .profile-btn,
     .login-btn
       +default-font-light
       width: auto
       transition: color .2s, background .2s
-
       &:hover
         background: $c-primary
         color: $c-white
 
+
   .profile-btn
-    padding-left: 72px
     -webkit-transition: width .2s
     transition: width .2s
+    cursor: pointer
+    +smm
+      padding-left: 72px
     .icon
       display: block
       height: 24px
@@ -131,16 +194,22 @@
     top: 79px
     right: 0
     background-color: $c-primary
+    a
+      color: $c-white
     ul
       width: 100%
-      &:hover
-        color: $c-secondary-txt
+      li
+        a
+        &:hover
+          color: $c-secondary-txt
       .account-menu
         border-bottom: 1px solid rgba(255, 255, 255, 0.2)
       div
         padding: 16px 32px
       li
         padding: 4px 0
+        a
+          font-size: 14px
         &:hover
           color: $c-white
 
@@ -154,6 +223,10 @@
     .cancel-btn
       width: 110px
       text-align: center
+    .search-active-btn
+      display: none
+      +smm
+        display: block
 
   .default-state
 
@@ -173,7 +246,9 @@
   position: relative
   background: $c-white
   transition: width .6s
-  width: 144px
+  width: 60px
+  +smm
+    width: 144px
 
   .input-group
     display: none
@@ -223,12 +298,14 @@
 
 
 .main-menu
-  display: flex
   flex-flow: nowrap
   height: 80px
   align-items: center
   position: absolute
   left: 0
+  display: none
+  +mdm
+    display: flex
   &:hover
     > li
       color: $c-secondary-txt

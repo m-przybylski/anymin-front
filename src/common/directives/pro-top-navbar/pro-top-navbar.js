@@ -4,8 +4,8 @@
     function linkFunction(scope, elem, attrs) {
 
       scope.isHide = false
-
       scope.isDashboard = $location.url().indexOf('dashboard') !== -1
+      scope.hamburgerClass = scope.hamburgerClass === "disactive-btn" ? "active-btn" : "disactive-btn"
 
       scope.accounts = ['Konto Klienta', 'Konto Eksperta', 'Firma']
       scope.menuElements = [
@@ -27,8 +27,19 @@
         }
       ]
 
-
-
+      scope.logout = ()=> {
+        scope.logoutAction()
+      }
+      
+      scope.sidebarAction = ()=> {
+        if (typeof scope.sidebarHandler !== 'undefined') {
+          scope.hamburgerClass = scope.hamburgerClass === "active-btn" ? "disactive-btn" : "active-btn"
+          scope.sidebarHandler()
+        } else {
+          scope.openSideMenu = true
+        }
+      }
+      
       scope.setShowSearch = () => {
         scope.showSearch = scope.showSearch !== true
       }
@@ -54,7 +65,9 @@
         showSearch: '=?',
         isHide: '=?',
         searchActive: '=?',
-        searchPage: '=?'
+        searchPage: '=?',
+        logoutAction: '=?',
+        sidebarHandler: '=?'
       }
 
     }

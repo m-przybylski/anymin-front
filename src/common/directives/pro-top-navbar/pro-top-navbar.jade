@@ -1,7 +1,13 @@
 .pro-top-navbar.clearfix(role="navigation" data-ng-class="{'hideNavbar': isHide}")
   .left-menu
-    a.hamburger-menu.pull-left.hidden Menu
+    .hamburger-menu.pull-left(data-ng-click="sidebarAction()"
+    data-ng-class='hamburgerClass' data-ng-hide="showSearch"
+    data-ng-mouseover="showResponsiveMenu = true" data-ng-mouseleave="showResponsiveMenu = false") Menu
       .icon.icon-menu-16
+      .responsive-main-menu(data-ng-show="!isDashboard && showResponsiveMenu")
+        ul
+          li(data-ng-repeat="items in menuElements")
+            a {{ items.label }}
 
     a.logo-wrapper.pull-left(role="button", aria-label="home", href="/home")
       img.logo(data-ui-sref="app.home", src="/assets/images/logo_profitelo_black.png", alt="Profitelo-logo")
@@ -36,7 +42,7 @@
       a.notification-btn(data-ng-if="$root.loggedIn")
         span.icon.icon-bell-24
 
-      .login-btn(data-ng-if="$root.loggedIn" data-ng-mouseover="showUserMenu = true" data-ng-mouseleave="showUserMenu = true")
+      .login-btn(data-ng-if="$root.loggedIn" data-ng-mouseover="showUserMenu = true" data-ng-mouseleave="showUserMenu = false")
         span.icon.icon-user-profile-24
 
         .user-menu(data-ng-show="showUserMenu")
@@ -48,4 +54,4 @@
               li
                 a Ustawienia konta
               li
-                a(data-ng-click="appController.logout()") Wyloguj
+                a(data-ng-click="logout()") Wyloguj
