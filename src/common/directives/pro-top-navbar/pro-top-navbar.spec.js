@@ -43,5 +43,6 @@ describe('Unit testing: profitelo.directives.pro-top-navbar', () => {
       isoScope.setShowSearch()
       expect(isoScope.showSearch).toBeDefined(true)
     })
+    
   })
 })

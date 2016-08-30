@@ -1,107 +1,337 @@
-.top-navbar
+.pro-top-navbar
+  +default-font-heavy
+  text-transform: uppercase
+  font-size: $f-base
   position: fixed
   z-index: 100
   width: 100%
   background: $c-white
   height: 80px
   top: 0
-  display: inline-flex
-  justify-content: space-between
-  align-items: center
+  display: flex
+  left: 0
   box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1), inset 0 -1px 0 0 $c-lines
 
-  nav
+  &.hideNavbar
+    display: none
+
+  .left-menu
+    flex: 1 1 auto
     display: flex
-    margin: 0 0 0 32px
-    align-self: center
-    justify-content: flex-start
-    border-left: 1px solid $c-lines
 
+  .right-menu
+    flex: 1 1 100%
+    position: relative
+    display: flex
+    justify-content: flex-end
 
+  .logo-wrapper
+    font-size: 0
+    padding: 24px
+    display: none
     +smm
-      flex: 1 0
-
-    a
-      margin: 0 16px
-      text-transform: uppercase
-      +default-font-heavy
-
-    .hamburger-menu
-      padding: 0
+      display: inline-block
+    +mdm
       border-right: 1px solid $c-lines
-      min-width: 79px
-      display: flex
-      align-self: stretch
-      align-items: center
-      justify-content: center
 
   .logo
-    text-align: left
-    padding: 0 0 0 20px
+    height: 32px
+    width: auto
 
+  .hamburger-menu
+    cursor: pointer
+    padding: 32px
+    height: 79px
+    font-size: 0
+    display: flex
+    background: $c-white
+    color: $c-secondary-txt
+    &.active-btn
+      background: $c-primary
+      transition: background .2s, color .2s
+      color: $c-white
+      height: 80px
+      &:hover
+        background: $c-primary
+        transition: background .2s, color .2s
+        color: $c-white
+    &.disactive-btn
+      background: $c-white
+      color: $c-secondary-txt
+      &:hover
+        background: $c-primary
+        transition: background .2s, color .2s
+        color: $c-white
+    .responsive-main-menu
+      width: 200px
+      display: block
+      position: absolute
+      top: 78px
+      left: 0
+      background-color: $c-primary
+      ul
+        width: 100%
+        padding: 16px 32px
+        color: $c-white
+        &:hover
+          li
+            a
+              opacity: 0.3
+        li
+          padding: 4px 0
+          a
+            font-size: 14px
+          &:hover
+            a
+              opacity: 1
+    +mdm
+      display: none
     +smm
-      padding: 0
-      text-align: center
+      border-right: 1px solid $c-lines
 
-    a
+    .icon,
+    &.icon::before
+      font-size: 16px
+      line-height: 16px
+      height: 16px
       display: inline-block
-      vertical-align: bottom
 
-      img
+  .search-expandable
+    display: flex
+    max-height: 79px
+
+  .login-btn,
+  .profile-btn,
+  .search-btn,
+  .notification-btn,
+  .search-active-btn,
+  .cancel-btn
+    cursor: pointer
+    outline: 0
+    padding: 32px
+    color: $c-black
+    height: 79px
+    position: relative
+    background: $c-white
+    transition: color .2s, background .2s
+    &:hover
+      .icon
+        color: $c-primary
+    +smm
+      border-left: 1px solid $c-lines
+      padding: 32px 28px
+      &:hover
+        background: $c-primary
+        color: $c-white
+        .icon
+          color: $c-white
+
+    .login
+      display: none
+      +smm
         display: block
 
-    img
-      max-width: 100px
-      max-height: 90%
-      margin: 0 0 0 32px
+  .search-btn
+    padding-left: 65px
+    transition: width .2s
 
-  .buttons
-    display: flex
-    align-self: stretch
-    justify-content: flex-end
-    +transition(all 1s ease-in-out 0s)
+    .icon
+      display: block
+      height: 24px
+      width: 24px
+      line-height: 24px
+      position: absolute
+      top: 50%
+      left: 28px
+      margin: -12px 0 0
 
-    +smm
-      flex: 1 0
-
-    a
-      min-width: 79px
-      display: flex
-      align-self: stretch
-      align-items: center
-      justify-content: center
-      border-left: 1px solid $c-lines
-      color: $c-primary-txt
-
-    .input-group
+    .search
       display: none
+      width: 50px
+      transition: width 1s
+      +smm
+        display: block
+    +smm
+      &:hover
+        background: $c-primary
+        transition: background .2s, color .2s
+        color: $c-white
 
-      &.search-btn
-        display: none
+        .icon
+          color: $c-white
+          transition: color .2s
 
-        +smm
-          display: flex
+    .profile-btn,
+    .login-btn
+      +default-font-light
+      width: auto
+      transition: color .2s, background .2s
+      &:hover
+        background: $c-primary
+        color: $c-white
 
-  .search-activ
-    +transition(all 0.8s ease-in-out 0s)
-    flex: 1 0 85%
+
+  .profile-btn
+    -webkit-transition: width .2s
+    transition: width .2s
+    cursor: pointer
+    +smm
+      padding-left: 65px
+    .icon
+      display: block
+      height: 24px
+      width: 24px
+      line-height: 24px
+      position: absolute
+      top: 50%
+      left: 28px
+      margin: -12px 0 0
+
+  .notification-btn,
+  .login-btn
+    padding: 26px 28px
+
+  .user-menu
+    width: 200px
+    display: block
+    position: absolute
+    top: 79px
+    right: 0
+    background-color: $c-primary
+    a
+      transition: opacity .1s
+      color: $c-white
+    ul
+      width: 100%
+      &:hover
+        li
+          a
+            opacity: 0.3
+      .account-menu
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2)
+      div
+        padding: 16px 32px
+      li
+        padding: 4px 0
+        &:hover
+          a
+            opacity: 1
+        a
+          font-size: 14px
+
+
+
+  .default-state,
+  .search-active-state
+    display: flex
+
+  .search-active-state
+    .search-active-btn,
+    .cancel-btn
+      width: 110px
+      text-align: center
+    .search-active-btn
+      display: none
+      +smm
+        display: block
+
+
+  .status-btn
+    position: relative
+    height: 79px
+    padding: 35px 28px
+
+    .status-icon
+      +border-radius(50%)
+      display: block
+      height: 10px
+      width: 10px
+      background-color: $c-success
+
+.search-expandable
+  position: relative
+  background: $c-white
+  transition: width .6s
+  width: 60px
+  +smm
+    width: 144px
+
+  .input-group
+    display: none
+
+  &.logIn
+    .search-btn
+    width: 80px
+
+  &.search-activ
+    width: 100%
 
     .search-btn
-      width: 100%
-      justify-content: flex-start
-      padding: 16px
+      width: 80px
+      padding: 0
+      background: $c-white
+      transition: width .2s
 
-      .input-group
-        display: block
-        position: absolute
-        top: 10px
-        border: 0
+      .icon
+        color: $c-black
 
-        +smm
-          width: 50%
+    .search
+      width: 0
+      color: $c-primary-txt
+      transition: width .6s
 
-        +lgm
-          width: 70%
+    .input-group
+      height: 100%
+      display: block
+      width: calc(100% - 80px)
+      position: absolute
+      right: 0
+      top: 0
+      border: 0
+      padding: 0
+      background: $c-white
 
-      span
-        padding: 0 16px 0 0
+      input
+        +default-font-light
+        margin: 0
+        position: static
+        padding: 0
+        background: $c-white
+
+        &:hover
+          background: $c-white
+
+
+
+.main-menu
+  flex-flow: nowrap
+  height: 80px
+  align-items: center
+  position: absolute
+  left: 0
+  display: none
+  +mdm
+    display: flex
+  &:hover
+    > li
+      color: $c-secondary-txt
+
+
+  li
+    display: inline-block
+    white-space: nowrap
+    &:hover
+      > a
+        color: $c-black
+
+  a
+    padding: 32px 16px
+
+  li
+    &:first-of-type
+      a
+        padding-left: 32px
+
+    &:last-of-type
+      a
+        padding-right: 16px

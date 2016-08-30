@@ -1,11 +1,14 @@
 (function() {
-  function dashboardLeftMenu() {
+  function dashboardLeftMenu($window) {
 
 
     function linkFunction(scope) {
       let myScrollbarChoices
 
       scope.activeMenuSection = -1
+
+      scope.showNavMenu = {}
+      scope.showNavMenu.value = $window.innerWidth < 992
 
       scope.toogleMenuWhenMouseLeave = function() {
         scope.activeMenuSection = -1
@@ -18,6 +21,38 @@
           scope.activeMenuSection = sectionId
         }
       }
+
+      scope.menuElements = [
+        {
+          label: 'NAVIGATION.MEET_US',
+          link: 'app.home'
+        },
+        {
+          label: 'NAVIGATION.HOW_IT_WORKS',
+          link: 'app.home'
+        },
+        {
+          label: 'NAVIGATION.FOR_EXPERTS',
+          link: 'app.home'
+        },
+        {
+          label: 'NAVIGATION.HELP',
+          link: 'app.home'
+        }
+      ]
+
+      const checkWindowWidth = ()=> {
+        if ($window.innerWidth < 992) {
+          scope.showNavMenu.value = true
+        } else {
+          scope.showNavMenu.value = false
+        }
+      }
+
+      angular.element($window).on('resize', (window)=> {
+        checkWindowWidth()
+        scope.$digest()
+      })
 
       function _getScrollbarChoices() {
         if (!myScrollbarChoices) {
@@ -37,7 +72,9 @@
     }
   }
 
-  angular.module('profitelo.directives.dashboard.dashboard-left-menu', [])
+  angular.module('profitelo.directives.dashboard.dashboard-left-menu', [
+    'pascalprecht.translate'
+  ])
     .directive('dashboardLeftMenu', dashboardLeftMenu)
 
 }())

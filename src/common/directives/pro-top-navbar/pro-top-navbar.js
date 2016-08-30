@@ -1,30 +1,49 @@
 (function() {
-  function proTopNavbar(searchService) {
+  function proTopNavbar($window, searchService) {
 
     function linkFunction(scope, elem, attrs) {
 
-
+      scope.isHide = false
+      scope.isDashboard = scope.dashboardSettings
+      scope.hamburgerClass = scope.sidebarStatus ===  true ? 'active-btn' : 'disactive-btn'
+      scope.accounts = ['Konto Klienta', 'Konto Eksperta', 'Firma']
       scope.menuElements = [
         {
-          label: 'Poznaj nas',
+          label: 'NAVIGATION.MEET_US',
           link: 'app.home'
         },
         {
-          label: 'Jak to działa?',
+          label: 'NAVIGATION.HOW_IT_WORKS',
           link: 'app.home'
         },
         {
-          label: 'Dla ekspertów',
+          label: 'NAVIGATION.FOR_EXPERTS',
           link: 'app.home'
         },
         {
-          label: 'Pomoc',
+          label: 'NAVIGATION.HELP',
           link: 'app.home'
         }
       ]
 
-
-
+      scope.logout = ()=> {
+        scope.logoutAction()
+      }
+      /* istanbul ignore next */
+      angular.element($window).on('resize', (window)=> {
+        if (angular.isDefined(scope.sidebarStatus)) {
+          scope.hamburgerClass = scope.sidebarStatus ===  true ? 'active-btn' : 'disactive-btn'
+          scope.$digest()
+        }
+      })
+      
+      scope.sidebarAction = ()=> {
+        if (typeof scope.sidebarHandler !== 'undefined') {
+          scope.hamburgerClass = scope.hamburgerClass ===  'disactive-btn' ? 'active-btn' : 'disactive-btn'
+          scope.sidebarHandler()
+        }
+      }
+      
       scope.setShowSearch = () => {
         scope.showSearch = scope.showSearch !== true
       }
@@ -48,9 +67,12 @@
       link: linkFunction,
       scope: {
         showSearch: '=?',
-        loggedIn: '=?',
-        searchActive: '=?',
-        searchPage: '=?'
+        isHide: '=?',
+        sidebarStatus: '=?',
+        logoutAction: '=?',
+        sidebarHandler: '=?',
+        isExpert: '=?',
+        dashboardSettings: '=?'
       }
 
     }
