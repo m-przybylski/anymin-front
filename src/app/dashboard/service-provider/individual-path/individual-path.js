@@ -1,4 +1,4 @@
-(function() {
+(function () {
   function IndividualPathController($scope, $state, ProfileApi, User, savedProfile, proTopAlertService, $timeout, smoothScrolling) {
 
     this.queue = {
@@ -9,11 +9,11 @@
     }
     this.individualPathModel = {
       name: '',
-      description:  '',
-      avatar:  null,
-      languages:  [],
-      files:  [],
-      links:  []
+      description: '',
+      avatar: null,
+      languages: [],
+      files: [],
+      links: []
     }
 
     this.hasProfile = false
@@ -39,7 +39,7 @@
       this.inEditMode = true
     } else {
       this.inEditMode = false
-      $timeout(()=>{
+      $timeout(()=> {
         smoothScrolling.scrollTo(this.queue.currentStep)
       })
     }
@@ -64,7 +64,9 @@
           description: this.individualPathModel.description,
           avatar: this.individualPathModel.avatar,
           languages: this.individualPathModel.languages,
-          files: this.individualPathModel.files,
+          files: this.individualPathModel.files.map((file) => {
+            return {fileId: file.id, previewFileId: file.meta.previewFileId}
+          }),
           links: this.individualPathModel.links
         }
       }).$promise.then(() => {
@@ -83,7 +85,7 @@
     }
     return this
   }
-  
+
   angular.module('profitelo.controller.dashboard.service-provider.individual-path', [
     'ui.router',
     'profitelo.services.service-provider-state',
@@ -102,43 +104,43 @@
     'profitelo.directives.pro-top-alert-service',
     'c7s.ng.userAuth'
   ])
-  .config( function($stateProvider, UserRolesProvider) {
-    $stateProvider.state('app.dashboard.service-provider.individual-path', {
-      url:          '/individual-path',
-      templateUrl:  'dashboard/service-provider/individual-path/individual-path.tpl.html',
-      controller:   'IndividualPathController',
-      controllerAs: 'vm',
-      resolve: {
-        /* istanbul ignore next */
-        savedProfile: ($q, $state, ProfileApi, User) => {
+    .config(function ($stateProvider, UserRolesProvider) {
+      $stateProvider.state('app.dashboard.service-provider.individual-path', {
+        url: '/individual-path',
+        templateUrl: 'dashboard/service-provider/individual-path/individual-path.tpl.html',
+        controller: 'IndividualPathController',
+        controllerAs: 'vm',
+        resolve: {
           /* istanbul ignore next */
-          let _deferred = $q.defer()
-          /* istanbul ignore next */
-          User.getStatus().then(() => {
-            ProfileApi.getProfile({
-              profileId: User.getData('id')
-            }).$promise.then((response) => {
-              _deferred.resolve(response)
-            }, () => {
-              _deferred.resolve(null)
+          savedProfile: ($q, $state, ProfileApi, User) => {
+            /* istanbul ignore next */
+            let _deferred = $q.defer()
+            /* istanbul ignore next */
+            User.getStatus().then(() => {
+              ProfileApi.getProfile({
+                profileId: User.getData('id')
+              }).$promise.then((response) => {
+                _deferred.resolve(response)
+              }, () => {
+                _deferred.resolve(null)
+              })
+            }, (error) => {
+              $state.go('app.dashboard')
+              proTopAlertService.error({
+                message: 'error',
+                timeout: 4
+              })
             })
-          }, (error) => {
-            $state.go('app.dashboard')
-            proTopAlertService.error({
-              message: 'error',
-              timeout: 4
-            })
-          })
-          /* istanbul ignore next */
-          return _deferred.promise
+            /* istanbul ignore next */
+            return _deferred.promise
+          }
+        },
+        data: {
+          access: UserRolesProvider.getAccessLevel('user'),
+          pageTitle: 'PAGE_TITLE.DASHBOARD.SERVICE_PROVIDER.INDIVIDUAL_PATH',
+          showMenu: false
         }
-      },
-      data: {
-        access : UserRolesProvider.getAccessLevel('user'),
-        pageTitle: 'PAGE_TITLE.DASHBOARD.SERVICE_PROVIDER.INDIVIDUAL_PATH',
-        showMenu: false
-      }
+      })
     })
-  })
-  .controller('IndividualPathController', IndividualPathController)
+    .controller('IndividualPathController', IndividualPathController)
 }())

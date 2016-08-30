@@ -45,7 +45,7 @@ describe('Unit testing: profitelo.directives.interface.pro-uploader', () => {
             tokenPath: _httpBackend.when(_FilesApiDef.tokenPath.method, _FilesApiDef.tokenPath.url)
           },
           Upload: {
-            upload: _httpBackend.when('POST', _commonConfigData.urls['backend'] + '/files/' + fileId + '/upload')
+            upload: _httpBackend.when('POST', _commonConfigData.urls['backend'] + '/files/' + fileId + '/upload/preview')
           }
         }
         

@@ -1,6 +1,6 @@
-(function() {
+(function () {
   function CompanyPathController($scope, $state, ProfileApi, savedProfile, User, proTopAlertService, $timeout, smoothScrolling) {
-    
+
     let _updateMethod
     if (savedProfile) {
       _updateMethod = ProfileApi.putProfile
@@ -34,7 +34,7 @@
       this.inEditMode = true
     } else {
       this.inEditMode = false
-      $timeout(()=>{
+      $timeout(()=> {
         smoothScrolling.scrollTo(this.queue.currentStep)
       })
     }
@@ -55,7 +55,9 @@
           name: this.companyPathModel.name,
           logo: this.companyPathModel.logo,
           description: this.companyPathModel.description,
-          files: this.companyPathModel.files,
+          files: this.companyPathModel.files.map((file) => {
+            return {fileId: file.id, previewFileId: file.meta.previewFileId}
+          }),
           links: this.companyPathModel.links
         }
       }).$promise.then(() => {
@@ -67,7 +69,6 @@
         })
       })
     }
-
 
 
     return this
@@ -86,43 +87,43 @@
     'profitelo.directives.pro-top-alert-service',
     'c7s.ng.userAuth'
   ])
-  .config(function($stateProvider, UserRolesProvider) {
-    $stateProvider.state('app.dashboard.service-provider.company-path', {
-      url: '/company-path',
-      templateUrl: 'dashboard/service-provider/company-path/company-path.tpl.html',
-      controller: 'CompanyPathController',
-      controllerAs: 'vm',
-      resolve: {
-        savedProfile: ($q, $state,  ProfileApi, User) => {
-          /* istanbul ignore next */
-          let _deferred = $q.defer()
-          /* istanbul ignore next */
-          User.getStatus().then(() => {
-            ProfileApi.getProfile({
-              profileId: User.getData('id')
-            }).$promise.then((response) => {
-              _deferred.resolve(response)
-            }, () => {
-              _deferred.resolve(null)
+    .config(function ($stateProvider, UserRolesProvider) {
+      $stateProvider.state('app.dashboard.service-provider.company-path', {
+        url: '/company-path',
+        templateUrl: 'dashboard/service-provider/company-path/company-path.tpl.html',
+        controller: 'CompanyPathController',
+        controllerAs: 'vm',
+        resolve: {
+          savedProfile: ($q, $state, ProfileApi, User) => {
+            /* istanbul ignore next */
+            let _deferred = $q.defer()
+            /* istanbul ignore next */
+            User.getStatus().then(() => {
+              ProfileApi.getProfile({
+                profileId: User.getData('id')
+              }).$promise.then((response) => {
+                _deferred.resolve(response)
+              }, () => {
+                _deferred.resolve(null)
+              })
+            }, (error) => {
+              $state.go('app.dashboard')
+              proTopAlertService.error({
+                message: 'error',
+                timeout: 4
+              })
             })
-          }, (error) => {
-            $state.go('app.dashboard')
-            proTopAlertService.error({
-              message: 'error',
-              timeout: 4
-            })
-          })
-          /* istanbul ignore next */
-          return _deferred.promise
+            /* istanbul ignore next */
+            return _deferred.promise
+          }
+        },
+        data: {
+          access: UserRolesProvider.getAccessLevel('user'),
+          pageTitle: 'PAGE_TITLE.DASHBOARD.SERVICE_PROVIDER.COMPANY_PATH',
+          showMenu: false
         }
-      },
-      data: {
-        access : UserRolesProvider.getAccessLevel('user'),
-        pageTitle: 'PAGE_TITLE.DASHBOARD.SERVICE_PROVIDER.COMPANY_PATH',
-        showMenu: false
-      }
+      })
     })
-  })
-  .controller('CompanyPathController', CompanyPathController)
+    .controller('CompanyPathController', CompanyPathController)
 
 }())

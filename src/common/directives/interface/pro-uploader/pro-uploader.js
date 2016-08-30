@@ -1,7 +1,7 @@
-(function() {
+(function () {
   function proUploader($timeout, $interval, $filter, $q, FilesApi, Upload, CommonConfig, proTopAlertService) {
 
-    function  linkFunction(scope, element, attr) {
+    function linkFunction(scope, element, attr) {
 
       let _file = 0
       let _files = 0
@@ -45,11 +45,11 @@
 
         for (let a in map) {
           if (a) {
-            tmpPercentage += map[a] / a * 100 
+            tmpPercentage += map[a] / a * 100
           }
         }
         if (tmpPercentage > scope.progress) {
-          scope.progress = parseInt( tmpPercentage / filesLength, 10)
+          scope.progress = parseInt(tmpPercentage / filesLength, 10)
         }
 
       }
@@ -72,7 +72,7 @@
               _files = files.length
               _setFilesStatus(_file, _files)
               Upload.upload({
-                url: _commonConfig.urls.backend + _commonConfig.urls['file-upload'].replace('%s', tokenPromissesResponse[k++].fileId),
+                url: _commonConfig.urls.backend + _commonConfig.urls['file-upload'].replace('%s', tokenPromissesResponse[k++].fileId) + '/preview',
                 data: {
                   file: file
                 }
@@ -121,8 +121,7 @@
       }
 
 
-      scope.uploadFiles = ($files)=> {
-       // console.log(isProcess)
+      scope.uploadFiles = ($files) => {
         if (isProcess) {
           if ($files !== null) {
             filesQueue = filesQueue.concat($files)
@@ -136,7 +135,7 @@
         scope.progress = 0
         uploadMap = {}
         scope.fadeText = true
-        $timeout(()=> {
+        $timeout(() => {
           scope.header = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.HEADER'
           scope.info = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO'
         }, 200)
@@ -151,7 +150,7 @@
         immediateInterval = $interval(() => {
           if (scope.progress >= 100) {
             _endImmediateLoading()
-            $timeout(()=>{
+            $timeout(() => {
               $interval.cancel(immediateInterval)
             })
           }
@@ -164,14 +163,14 @@
       }
 
       /* istanbul ignore next */
-      scope.animate = function() {
+      scope.animate = function () {
         scope.showArrow = false
         scope.hideArrow = true
         scope.hideLoader = false
         scope.fadeText = false
-        $timeout(()=>{
+        $timeout(() => {
           scope.fadeText = true
-          $timeout(()=> {
+          $timeout(() => {
             scope.upload = true
             scope.header = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.HEADER_UPLOAD'
             scope.info = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO_UPLOAD'
@@ -180,7 +179,7 @@
               file: _file,
               files: _files
             }
-            $timeout(()=>{
+            $timeout(() => {
               scope.fadeText = false
             }, 200)
           }, 200)
@@ -188,6 +187,7 @@
 
       }
     }
+
     return {
       templateUrl: 'directives/interface/pro-uploader/pro-uploader.tpl.html',
       restrict: 'E',
@@ -202,7 +202,6 @@
         isPending: '=?',
         ngfValidate: '=?',
         errorMessage: '@'
-
       }
     }
   }

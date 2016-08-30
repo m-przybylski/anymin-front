@@ -9,7 +9,7 @@
       scope.isPending = false
       if (angular.isDefined(scope.proModel) && angular.isDefined(scope.proModel.files)) {
         for (let i = 0; i < scope.proModel.files.length;i++) {
-          FilesApi.fileInfoPath({token: scope.proModel.files[i]}).$promise.then((res)=>{
+          FilesApi.fileInfoPath({token: scope.proModel.files[i].fileId}).$promise.then((res)=>{
             scope.model.files.push({file: res.details, response: res})
           }, (err)=>{
             proTopAlertService.error({
@@ -48,14 +48,11 @@
         scope.error.badFiles = true
       }
 
-
       scope.saveSection = () => {
         _isValid().then(() => {
           scope.error.badFiles = false
           scope.proceed()
-          scope.proModel.files = scope.model.files.map((file) => {
-            return file.response.id
-          })
+          scope.proModel.files = scope.model.files.map(file => file.response)
         }, () => {
           _displayErrorMessage()
         })

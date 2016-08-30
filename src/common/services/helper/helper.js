@@ -1,32 +1,37 @@
 (function() {
-  function HelperService(CommonSettingsService) {
+  function HelperService(CommonSettingsService, CommonConfig) {
 
-    let socialUrlResolver = (remoteUrl) => {
-      let social
+    const _commonConfig = CommonConfig.getAllData()
 
-      let _socialNetworks = CommonSettingsService.localSettings.socialNetworks
-
-      let _default = _.find(_socialNetworks, {
-        name: 'Website'
-      })
+    const socialUrlResolver = (remoteUrl) => {
+      const _socialNetworks = CommonSettingsService.localSettings.socialNetworks
 
       for (let i = 0; i < _socialNetworks.length; i++) {
-        social = _socialNetworks[i]
+        let social = _socialNetworks[i]
         if (remoteUrl.match(social.pattern)) {
           return social
         }
       }
+
       /* istanbul ignore next */
-      return _default
+      return _.find(_socialNetworks, {
+        name: 'Website'
+      })
+    }
+
+    const fileUrlResolver = (fileId) => {
+      return _commonConfig.urls.backend + _commonConfig.urls['file-download'].replace('%s', fileId)
     }
 
     return {
-      socialUrlResolver: socialUrlResolver
+      socialUrlResolver: socialUrlResolver,
+      fileUrlResolver: fileUrlResolver
     }
   }
 
   angular.module('profitelo.services.helper-service', [
-    'profitelo.services.commonSettings'
+    'profitelo.services.commonSettings',
+    'commonConfig'
   ])
   .factory('HelperService', HelperService)
 

@@ -8,7 +8,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
     let _FilesApiDef
     let resourcesExpectations
 
-    let fileId = ':token'
+    let file = {fileId: ':token'}
     let _url = 'awesomeUrl'
 
     var validHTML = '<pro-service-provider-file-uploader data-queue="vm.queue" ' +
@@ -88,7 +88,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
         files: [
           {
             response: {
-              id: fileId
+              id: file
             }
           }
         ]
@@ -103,7 +103,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
       _rootScope.$digest()
 
 
-      expect(isoScope.proModel.files.indexOf(fileId) >= 0).toEqual(true)
+      expect(isoScope.proModel.files.map(file => file.id).indexOf(file) >= 0).toEqual(true)
 
     })
 
@@ -113,25 +113,25 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
       resourcesExpectations.FilesApi.fileInfoPath.respond(200)
 
       let el = create(validHTML, {
-        files: [fileId]
+        files: [file]
       })
 
       let isoScope = el.isolateScope()
 
-      isoScope.model.files = [fileId]
+      isoScope.model.files = [file]
 
-      expect(isoScope.model.files.indexOf(fileId) >= 0).toEqual(true)
+      expect(isoScope.model.files.indexOf(file) >= 0).toEqual(true)
 
-      isoScope.removeFile(fileId)
+      isoScope.removeFile(file)
 
-      expect(isoScope.model.files.indexOf(fileId) === -1).toEqual(true)
+      expect(isoScope.model.files.indexOf(file) === -1).toEqual(true)
 
     })
 
     it('should add saved elements to scope model', () => {
 
       let details = {
-        id: fileId
+        id: file
       }
 
       resourcesExpectations.FilesApi.fileInfoPath.respond(200, {
@@ -139,7 +139,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
       })
 
       let el = create(validHTML, {
-        files: [fileId]
+        files: [file]
       })
 
       let isoScope = el.isolateScope()
@@ -147,20 +147,20 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
       _httpBackend.flush()
 
 
-      expect(isoScope.model.files[0].file.id).toEqual(fileId)
+      expect(isoScope.model.files[0].file.id).toEqual(file)
 
 
     })
 
     it('should alert on backend error', () => {
       let details = {
-        id: fileId
+        id: file
       }
 
       resourcesExpectations.FilesApi.fileInfoPath.respond(500)
 
       let el = create(validHTML, {
-        files: [fileId]
+        files: [file]
       })
 
       _httpBackend.flush()

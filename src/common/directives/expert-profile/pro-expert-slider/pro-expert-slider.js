@@ -1,15 +1,12 @@
 (function() {
-  function proExpertSlider(DialogService, CommonConfig) {
+  function proExpertSlider(DialogService, HelperService) {
     function linkFunction(scope) {
-      let _commonConfig = CommonConfig.getAllData()
 
       scope.imageUrl = (slide) => {
-        return _commonConfig.urls.backend + _commonConfig.urls['file-download'].replace('%s', slide)
+        return HelperService.fileUrlResolver(slide.previewFileId)
       }
 
-
       scope.controlls = {}
-
 
       scope.nextSlide = function() {
         scope.controlls.nextSlide()
@@ -20,7 +17,7 @@
       }
 
       scope.openDialog = (slide) => {
-        scope.fullSizeUrl = _commonConfig.urls.backend + _commonConfig.urls['file-download'].replace('%s', slide)
+        scope.fullSizeUrl = HelperService.fileUrlResolver(slide.previewFileId)
         scope.slide = slide
         DialogService.openDialog({
           scope: scope,
@@ -45,7 +42,7 @@
     'profitelo.services.dialog-service',
     'profitelo.components.interface.slider',
     'profitelo.common.controller.gallery-modal',
-    'commonConfig'
+    'profitelo.services.helper-service'
   ])
   .directive('proExpertSlider', proExpertSlider)
 
