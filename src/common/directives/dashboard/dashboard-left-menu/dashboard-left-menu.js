@@ -1,5 +1,5 @@
 (function() {
-  function dashboardLeftMenu($window, $filter) {
+  function dashboardLeftMenu($window) {
 
 
     function linkFunction(scope) {
@@ -24,19 +24,19 @@
 
       scope.menuElements = [
         {
-          label: $filter('translate')('NAVIGATION.MEET_US'),
+          label: 'NAVIGATION.MEET_US',
           link: 'app.home'
         },
         {
-          label: $filter('translate')('NAVIGATION.HOW_IT_WORKS'),
+          label: 'NAVIGATION.HOW_IT_WORKS',
           link: 'app.home'
         },
         {
-          label: $filter('translate')('NAVIGATION.FOR_EXPERTS'),
+          label: 'NAVIGATION.FOR_EXPERTS',
           link: 'app.home'
         },
         {
-          label:  $filter('translate')('NAVIGATION.HELP'),
+          label: 'NAVIGATION.HELP',
           link: 'app.home'
         }
       ]

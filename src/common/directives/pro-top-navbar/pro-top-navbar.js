@@ -1,27 +1,27 @@
 (function() {
-  function proTopNavbar($location, $filter, $window, searchService) {
+  function proTopNavbar($window, searchService) {
 
     function linkFunction(scope, elem, attrs) {
 
       scope.isHide = false
-      scope.isDashboard = $location.url().indexOf('dashboard') !== -1
+      scope.isDashboard = scope.dashboardSettings
       scope.hamburgerClass = scope.sidebarStatus ===  true ? 'active-btn' : 'disactive-btn'
       scope.accounts = ['Konto Klienta', 'Konto Eksperta', 'Firma']
       scope.menuElements = [
         {
-          label: $filter('translate')('NAVIGATION.MEET_US'),
+          label: 'NAVIGATION.MEET_US',
           link: 'app.home'
         },
         {
-          label: $filter('translate')('NAVIGATION.HOW_IT_WORKS'),
+          label: 'NAVIGATION.HOW_IT_WORKS',
           link: 'app.home'
         },
         {
-          label: $filter('translate')('NAVIGATION.FOR_EXPERTS'),
+          label: 'NAVIGATION.FOR_EXPERTS',
           link: 'app.home'
         },
         {
-          label:  $filter('translate')('NAVIGATION.HELP'),
+          label: 'NAVIGATION.HELP',
           link: 'app.home'
         }
       ]
@@ -71,7 +71,8 @@
         sidebarStatus: '=?',
         logoutAction: '=?',
         sidebarHandler: '=?',
-        isExpert: '=?'
+        isExpert: '=?',
+        dashboardSettings: '=?'
       }
 
     }

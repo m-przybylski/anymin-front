@@ -2,28 +2,28 @@
   .left-menu
     .hamburger-menu.pull-left(data-ng-click="sidebarAction()"
     data-ng-class='hamburgerClass' data-ng-hide="showSearch"
-    data-ng-mouseover="showResponsiveMenu = true" data-ng-mouseleave="showResponsiveMenu = false") Menu
+    data-ng-mouseover="showResponsiveMenu = true" data-ng-mouseleave="showResponsiveMenu = false")
       .icon.icon-menu-16
       .responsive-main-menu(data-ng-show="!isDashboard && showResponsiveMenu")
         ul
-          li(data-ng-repeat="items in menuElements")
-            a {{ items.label }}
+          li(data-ng-repeat="item in menuElements")
+            a(data-translate="{{ item.label }}" )
 
     a.logo-wrapper.pull-left(role="button", aria-label="home", href="/home")
       img.logo(data-ui-sref="app.home", src="/assets/images/logo_profitelo_black.png", alt="Profitelo-logo")
 
   .right-menu
     ul.main-menu
-      li(data-ng-repeat="items in menuElements")
-        a {{ items.label }}
+      li(data-ng-repeat="item in menuElements")
+        a(data-translate="{{ item.label }}" )
 
-    a.status-btn(data-ng-show="$root.loggedIn && isDashboard && isExpert && !showSearch" )
+    a.status-btn(data-ng-show="!!$root.loggedIn  && isExpert && !showSearch" )
       span.status-icon
 
-    .search-expandable(data-ng-class="{'search-activ':showSearch, 'logIn':$root.loggedIn}" )
+    .search-expandable(data-ng-class="{'search-activ':showSearch, 'logIn':!!$root.loggedIn}" )
       a.search-btn(data-ng-click="setShowSearch()")
         span.icon.icon-search-24
-        span.search(data-ng-hide="$root.loggedIn || showSearch" data-translate="NAVIGATION.SEARCH.BUTTON")
+        span.search(data-ng-hide="!!$root.loggedIn || showSearch" data-translate="NAVIGATION.SEARCH.BUTTON")
       pro-input(data-ng-model="searchModel" placeholder="{{ 'HOME.SEARCH_PLACEHOLDER' | translate }}" auto-focus data-ng-enter="searchAction()")
 
     .search-active-state(data-ng-if="showSearch")
@@ -34,14 +34,14 @@
         span.cancel(data-translate="NAVIGATION.CANCEL.BUTTON")
 
     .default-state(data-ng-if="!showSearch")
-      a.profile-btn(data-ng-hide="$root.loggedIn" data-ui-sref='app.login.account')
+      a.profile-btn(data-ng-hide="!!$root.loggedIn" data-ui-sref='app.login.account')
         span.icon.icon-login-24
         span.login(data-translate="PAGE_TITLE.LOGIN.ACCOUNT")
 
-      a.notification-btn(data-ng-if="$root.loggedIn")
+      a.notification-btn(data-ng-if="!!$root.loggedIn")
         span.icon.icon-bell-24
 
-      .login-btn(data-ng-if="$root.loggedIn" data-ng-mouseover="showUserMenu = true" data-ng-mouseleave="showUserMenu = false")
+      .login-btn(data-ng-if="!!$root.loggedIn" data-ng-mouseover="showUserMenu = true" data-ng-mouseleave="showUserMenu = false")
         span.icon.icon-user-profile-24
 
         .user-menu(data-ng-show="showUserMenu")
