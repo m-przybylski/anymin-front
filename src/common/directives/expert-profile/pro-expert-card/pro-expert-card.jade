@@ -4,7 +4,7 @@
       img.expert-avatar(ng-src="{{ items.avatar }}")
       p.expert-name {{ items.name }}
       p.expert-availability(class='{{ items.status }}')
-        span(data-translate='{{ translations[items.status] }}')
+        span(data-translate='{{ vm.translations[items.status] }}')
       p.expert-service {{ items.description }}
     .expert-data.flex-row
       .service-satisfaction

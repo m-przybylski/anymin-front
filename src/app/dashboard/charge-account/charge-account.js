@@ -14,7 +14,8 @@
       templateUrl: 'dashboard/charge-account/charge-account.tpl.html',
       data: {
         access: UserRolesProvider.getAccessLevel('user'),
-        pageTitle: 'PAGE_TITLE.INVITATIONS'
+        pageTitle: 'PAGE_TITLE.CHARGE_ACCOUNT',
+        showMenu: false
       }
     })
   }

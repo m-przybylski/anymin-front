@@ -1,9 +1,20 @@
 .payment-method
-  margin-top: 128px
+  margin: 64px 0
+
+  h3
+    text-align: center
+
+    +lgm
+      text-align: left
+
+  .title
+    margin: 16px 0 0
 
   .choose-options
     margin-top: 64px
     display: flex
+    flex-wrap: wrap
+    justify-content: space-around
 
     .option
       display: flex
@@ -11,15 +22,20 @@
       justify-content: center
       align-content: flex-start
       align-items: center
-      width: calc(100%/3)
-      border: 1px solid $c-lines
+      width: 100%
+      box-shadow: 0 0 0 1px $c-lines
       padding: 32px
-      margin: 0 8px
+      margin: 8px
       +border-radius(0.2em)
       cursor: pointer
+      text-align: center
+      position: relative
 
       img
         width: 100px
+
+      +smm
+        width: calc(100%/3.3)
 
       p
         text-transform: uppercase
@@ -27,5 +43,26 @@
         +default-font-heavy
         padding: 16px 0
 
+      &:hover
+        box-shadow: 0 0 0 1px $c-primary
+
+      .flex-row
+        display: flex
+        align-items: center
+        img
+          width: 50px
+          height: 100%
+          margin: 0 8px
+
     .selected
-      border: 2px solid $c-primary
+      box-shadow: 0 0 0 2px $c-primary
+
+    .top-right
+      background: $c-primary
+      width: 24px
+      height: 24px
+      color: $c-white
+      font-size: 10px
+      padding: 6px 7px
+      position: absolute
+      bottom: -14px

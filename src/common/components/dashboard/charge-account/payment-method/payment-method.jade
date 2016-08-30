@@ -4,13 +4,21 @@
     
   .choose-options
     .option(data-ng-class="{'selected': vm.activeOption == 1}" data-ng-click="vm.activeOption = 1")
-      img(ng-src="https://www.payu.pl/sites/payupoland/files/styles/article_list_medium/public/payu_logo_solid_lime_rgb.jpg?itok=hAlLaoh0")
-      p Przelew Internetowy
+      span.icon.icon-success-12.top-right.circle(data-ng-show="vm.activeOption == 1")
+      img(ng-src="/assets/images/payU-logo.png")
+      p(data-translate="DASHBOARD.CHARGE_ACCOUNT.BANKWIRE")
     .option(data-ng-class="{'selected': vm.activeOption == 2}" data-ng-click="vm.activeOption = 2")
-      img(ng-src="https://www.payu.pl/sites/payupoland/files/styles/article_list_medium/public/payu_logo_solid_lime_rgb.jpg?itok=hAlLaoh0")
-      p Szybkie Doładowanie
+      span.icon.icon-success-12.top-right.circle(data-ng-show="vm.activeOption == 2")
+      img(ng-src="/assets/images/paypal-logo.png")
+      p(data-translate="DASHBOARD.CHARGE_ACCOUNT.FAST_CHARGE")
     .option(data-ng-class="{'selected': vm.activeOption == 3}" data-ng-click="vm.activeOption = 3")
-      img(ng-src="https://www.payu.pl/sites/payupoland/files/styles/article_list_medium/public/payu_logo_solid_lime_rgb.jpg?itok=hAlLaoh0")
-      p Płatność Kartą
+      span.icon.icon-success-12.top-right.circle(data-ng-show="vm.activeOption == 3")
+
+      .flex-row
+        img(ng-src="/assets/images/maestro-logo.png")
+        img(ng-src="/assets/images/mastercard-logo.png")
+        img(ng-src="/assets/images/visa-logo.png")
+
+      p(data-translate="DASHBOARD.CHARGE_ACCOUNT.CARD_PAYMENT")
   
   

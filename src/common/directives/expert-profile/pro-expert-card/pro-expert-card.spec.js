@@ -5,16 +5,14 @@ describe('Unit testing: profitelo.directives.pro-expert-card', () => {
     let rootScope
     let compile = null
     let validHTML = '<pro-expert-card></pro-expert-card>'
-    let _timeout
 
     beforeEach(() => {
       module('templates-module')
       module('profitelo.directives.pro-expert-card')
 
-      inject(($rootScope, $compile, $injector) => {
+      inject(($rootScope, $compile) => {
         rootScope = $rootScope.$new()
         compile = $compile
-        _timeout = $injector.get('$timeout')
       })
     })
 
@@ -29,9 +27,9 @@ describe('Unit testing: profitelo.directives.pro-expert-card', () => {
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
+
     it('should compile the directive', () => {
       let el = create(validHTML)
-      _timeout.flush()
       expect(el.html()).toBeDefined(true)
     })
   })

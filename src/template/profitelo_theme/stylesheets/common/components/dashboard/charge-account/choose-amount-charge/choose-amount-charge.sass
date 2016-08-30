@@ -1,7 +1,18 @@
 .choose-amount-charge
+  margin: 32px 0
+
+  h3
+    text-align: center
+
+    +lgm
+      text-align: left
+
   .choose-options
-    margin-top: 64px
+    margin: 64px 0
     display: flex
+    flex-wrap: wrap
+    justify-content: space-around
+    position: relative
 
     .option
       display: flex
@@ -9,15 +20,25 @@
       justify-content: center
       align-content: flex-start
       align-items: center
-      width: calc(100%/4)
-      border: 1px solid $c-lines
+      width: 100%
+      box-shadow: 0 0 0 1px $c-lines
       padding: 32px
-      margin: 0 8px
+      margin:  8px
       +border-radius(0.2em)
       cursor: pointer
+      position: relative
+
+      +smm
+        width: calc(100%/2.1)
+
+      +lgm
+        width: calc(100%/4.3)
 
       h2
         font-size: 42px
+
+      &:hover
+        box-shadow: 0 0 0 1px $c-primary
 
     .option-own-amount
       flex-direction: row
@@ -26,6 +47,14 @@
         width: 100%
 
     .selected
-      border: 2px solid $c-primary
+      box-shadow: 0 0 0 2px $c-primary
 
-    
+    .top-right
+      background: $c-primary
+      width: 24px
+      height: 24px
+      color: $c-white
+      font-size: 10px
+      padding: 6px 7px
+      position: absolute
+      bottom: -14px

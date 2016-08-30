@@ -1,5 +1,5 @@
-describe('Unit testing: profitelo.components.dashboard.charge-account.payment-method', () => {
-  return describe('for paymentMethod component >', () => {
+describe('Unit testing: profitelo.components.communicator.pro-video-chat.pro-video-controls', () => {
+  return describe('for proVideoControls component >', () => {
 
     const url = 'awesomUrl/'
 
@@ -8,7 +8,7 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payment-me
     let compile
     let componentController
     let component
-    let validHTML = '<payment-method></payment-method>'
+    let validHTML = '<pro-video-controls></pro-video-controls>'
 
     beforeEach(module(function($provide) {
       $provide.value('apiUrl', url)
@@ -16,7 +16,7 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payment-me
 
     beforeEach(() => {
       module('templates-module')
-      module('profitelo.components.dashboard.charge-account.payment-method')
+      module('profitelo.components.communicator.pro-video-chat.pro-video-controls')
 
       inject(($rootScope, $compile, _$componentController_) => {
         componentController = _$componentController_
@@ -24,7 +24,7 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payment-me
         compile = $compile
       })
 
-      component = componentController('paymentMethod', null, {})
+      component = componentController('proVideoControls', null, {})
 
     })
 
@@ -44,8 +44,6 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payment-me
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
-
-
 
   })
 })

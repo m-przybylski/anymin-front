@@ -1,7 +1,7 @@
 (function() {
-  function proExpertCard() {
-    function linkFunction(scope, $scope, $window, $timeout, $element) {
-      scope.translations = {
+  function proExpertCard($timeout) {
+    function linkFunction($window, $element) {
+      this.translations = {
         'available': 'HOME.EXPERT_CARD_AVAILABLE',
         'not-available': 'HOME.EXPERT_CARD_NOT_AVAILABLE',
         'busy': 'HOME.EXPERT_CARD_BUSY'
@@ -16,7 +16,8 @@
         $element.css('left', '0')
       })
 
-      $timeout(()=>{
+      /* istanbul ignore next */
+      $timeout(() => {
         elementsMap = $.map($($element).find('>div'), (div) => {
           return div.offsetWidth
         })
@@ -25,8 +26,6 @@
           return div
         })
       })
-
-      console.log(allElementsMap)
 
       const _calculateOffset = (elem) => {
         let offset = 0

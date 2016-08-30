@@ -104,7 +104,7 @@
   color: $c-white
   border: 1px solid transparent
   position: relative
-  padding: 15px 32px 14px
+  padding: 15px 16px 14px
 
   .icon
     line-height: 1
@@ -128,23 +128,25 @@
 
   &.rectangle
     padding: 15px 24px 14px
+    min-width: 100px
 
     &.icon
-      padding: 15px 32px 14px 64px
+      padding: 15px 22px 14px 48px
 
     .icon
       top: 50%
       width: 32px
-      left: 24px
+      left: 8px
       transform: translateY(-50%)
 
       &::before
-        font-size: 13px
+        font-size: 16px
 
-    .icon
+    .icon-right
       top: 50%
       width: 32px
-      left: 24px
+      right: 0px
+      margin: 0 -8px 0 16px
       transform: translateY(-50%)
 
       &::before

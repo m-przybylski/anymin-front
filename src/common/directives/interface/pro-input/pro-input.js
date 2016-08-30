@@ -41,7 +41,7 @@
         })
       }
 
-      let _setAddon = (value) => { 
+      let _setAddon = (value) => {
         scope.addon = value
       }
 
