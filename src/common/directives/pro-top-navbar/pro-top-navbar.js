@@ -1,11 +1,11 @@
 (function() {
-  function proTopNavbar($location, $filter, searchService) {
+  function proTopNavbar($location, $filter, $window, searchService) {
 
     function linkFunction(scope, elem, attrs) {
 
       scope.isHide = false
       scope.isDashboard = $location.url().indexOf('dashboard') !== -1
-      scope.hamburgerClass = scope.hamburgerClass === 'disactive-btn' ? 'active-btn' : 'disactive-btn'
+      scope.hamburgerClass = scope.sidebarStatus ===  true ? 'active-btn' : 'disactive-btn'
       scope.accounts = ['Konto Klienta', 'Konto Eksperta', 'Firma']
       scope.menuElements = [
         {
@@ -29,13 +29,18 @@
       scope.logout = ()=> {
         scope.logoutAction()
       }
+      /* istanbul ignore next */
+      angular.element($window).on('resize', (window)=> {
+        if (angular.isDefined(scope.sidebarStatus)) {
+          scope.hamburgerClass = scope.sidebarStatus ===  true ? 'active-btn' : 'disactive-btn'
+          scope.$digest()
+        }
+      })
       
       scope.sidebarAction = ()=> {
         if (typeof scope.sidebarHandler !== 'undefined') {
-          scope.hamburgerClass = scope.hamburgerClass === 'active-btn' ? 'disactive-btn' : 'active-btn'
+          scope.hamburgerClass = scope.hamburgerClass ===  'disactive-btn' ? 'active-btn' : 'disactive-btn'
           scope.sidebarHandler()
-        } else {
-          scope.openSideMenu = true
         }
       }
       
@@ -63,8 +68,7 @@
       scope: {
         showSearch: '=?',
         isHide: '=?',
-        searchActive: '=?',
-        searchPage: '=?',
+        sidebarStatus: '=?',
         logoutAction: '=?',
         sidebarHandler: '=?',
         isExpert: '=?'

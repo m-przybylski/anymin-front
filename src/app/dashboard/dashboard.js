@@ -1,6 +1,6 @@
 (function() {
 
-  function DashboardController($rootScope, $state, userProfile) {
+  function DashboardController($rootScope, $scope, $state, $window, userProfile) {
 
     this.isSidebarOpen = false
     this.switchUser = false
@@ -23,6 +23,15 @@
       this.isSidebarShown = this.isSidebarShown === false
     }
     
+    /* istanbul ignore next */
+    angular.element($window).on('resize', (window)=> {
+      if ($window.innerWidth < 992) {
+        this.isSidebarShown = false
+      } else {
+        this.isSidebarShown = true
+        $scope.$digest()
+      }
+    })
 
     const _checkSidebarVisibility = (toState) => {
       if (angular.isUndefined(toState.data.showMenu)) {
