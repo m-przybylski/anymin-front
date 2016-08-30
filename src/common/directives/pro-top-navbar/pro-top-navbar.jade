@@ -17,7 +17,10 @@
       li(data-ng-repeat="items in menuElements")
         a {{ items.label }}
 
-    .search-expandable(data-ng-class="{'search-activ':showSearch, 'logIn':$root.loggedIn}" data-ng-if="!isDashboard")
+    a.status-btn(data-ng-show="$root.loggedIn && isDashboard && isExpert && !showSearch" )
+      span.status-icon
+
+    .search-expandable(data-ng-class="{'search-activ':showSearch, 'logIn':$root.loggedIn}" )
       a.search-btn(data-ng-click="setShowSearch()")
         span.icon.icon-search-24
         span.search(data-ng-hide="$root.loggedIn || showSearch" data-translate="NAVIGATION.SEARCH.BUTTON")
@@ -31,10 +34,6 @@
         span.cancel(data-translate="NAVIGATION.CANCEL.BUTTON")
 
     .default-state(data-ng-if="!showSearch")
-
-      a.status-btn(data-ng-show="$root.loggedIn && isDashboard && isExpert" )
-        span.status-icon
-
       a.profile-btn(data-ng-hide="$root.loggedIn" data-ui-sref='app.login.account')
         span.icon.icon-login-24
         span.login(data-translate="PAGE_TITLE.LOGIN.ACCOUNT")

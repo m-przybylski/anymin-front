@@ -1,5 +1,6 @@
 .dashboard-left-menu
   +transition(width 0.3s)
+  +default-font-heavy
   position: fixed
   background: $c-primary
   left: 0
@@ -49,6 +50,8 @@
           left: 0
           background-color: $c-primary
           a
+            transition: opacity .2s
+            opacity: 1
             color: $c-white
           ul
             width: 100%
@@ -56,14 +59,14 @@
             &:hover
               li
                 a
-                  color: $c-secondary-txt
+                  opacity: 0.3
             li
               padding: 4px 0
               &:hover
                 a
-                  color: $c-white
+                  opacity: 1
               a
-                font-size: 20px
+                font-size: 18px
 
 
       .expert-profile

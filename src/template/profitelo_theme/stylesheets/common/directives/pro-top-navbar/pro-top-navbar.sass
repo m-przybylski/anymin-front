@@ -72,14 +72,18 @@
       ul
         width: 100%
         padding: 16px 32px
+        color: $c-white
         &:hover
-          color: $c-secondary-txt
+          li
+            a
+              opacity: 0.3
         li
           padding: 4px 0
           a
             font-size: 14px
           &:hover
-            color: $c-white
+            a
+              opacity: 1
     +mdm
       display: none
     +smm
@@ -128,7 +132,7 @@
         display: block
 
   .search-btn
-    padding-left: 72px
+    padding-left: 65px
     transition: width .2s
 
     .icon
@@ -172,7 +176,7 @@
     transition: width .2s
     cursor: pointer
     +smm
-      padding-left: 72px
+      padding-left: 65px
     .icon
       display: block
       height: 24px
@@ -195,13 +199,14 @@
     right: 0
     background-color: $c-primary
     a
+      transition: opacity .1s
       color: $c-white
     ul
       width: 100%
       &:hover
         li
           a
-            color: $c-secondary-txt
+            opacity: 0.3
       .account-menu
         border-bottom: 1px solid rgba(255, 255, 255, 0.2)
       div
@@ -210,7 +215,7 @@
         padding: 4px 0
         &:hover
           a
-            color: $c-white
+            opacity: 1
         a
           font-size: 14px
 
@@ -230,19 +235,18 @@
       +smm
         display: block
 
-  .default-state
 
-    .status-btn
-      position: relative
-      height: 79px
-      padding: 35px 28px
+  .status-btn
+    position: relative
+    height: 79px
+    padding: 35px 28px
 
-      .status-icon
-        +border-radius(50%)
-        display: block
-        height: 10px
-        width: 10px
-        background-color: $c-success
+    .status-icon
+      +border-radius(50%)
+      display: block
+      height: 10px
+      width: 10px
+      background-color: $c-success
 
 .search-expandable
   position: relative
@@ -326,7 +330,7 @@
   li
     &:first-of-type
       a
-        padding-left: 16px
+        padding-left: 32px
 
     &:last-of-type
       a
