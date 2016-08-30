@@ -4,7 +4,9 @@
 
     this.isSidebarOpen = false
     this.switchUser = false
-    this.expertProfileExist = !!userProfile.expertDetails
+    if (angular.isDefined(userProfile) && userProfile !== null) {
+      this.expertProfileExist = !!userProfile.expertDetails
+    }
     this.isNavbarShown = true
     this.isSidebarShown = true
 

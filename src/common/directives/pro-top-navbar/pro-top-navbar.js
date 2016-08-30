@@ -4,7 +4,7 @@
     function linkFunction(scope, elem, attrs) {
 
       scope.isHide = false
-      scope.isDashboard = scope.dashboardSettings
+      scope.isDashboard = scope.showNavigationMenu
       scope.hamburgerClass = scope.sidebarStatus ===  true ? 'active-btn' : 'disactive-btn'
       scope.accounts = ['Konto Klienta', 'Konto Eksperta', 'Firma']
       scope.menuElements = [
@@ -72,7 +72,7 @@
         logoutAction: '=?',
         sidebarHandler: '=?',
         isExpert: '=?',
-        dashboardSettings: '=?'
+        showNavigationMenu: '=?'
       }
 
     }
