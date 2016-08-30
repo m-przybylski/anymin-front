@@ -1,6 +1,11 @@
 .dashboard-left-menu(data-ng-mouseleave="toogleMenuWhenMouseLeave()")
   .main-column
     .top-row
+      .nav-menu
+        .responsive-main-menu(data-ng-show="showNavMenu.value")
+          ul
+            li(data-ng-repeat="item in menuElements")
+              a(data-translate="{{ item.label }}" )
       .expert-profile
         .profile-thumb
           img.circle.empty-avatar-placeholder(src='{{ avatar }}' alt='user-avatar')

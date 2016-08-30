@@ -1,6 +1,9 @@
 .container.main-container(data-ng-class="{'hide-menu': !dashboardController.isSidebarShown}")
 
+  pro-top-navbar(data-is-hide="!dashboardController.isNavbarShown" logout-action="appController.logout"
+  data-sidebar-handler="dashboardController.showSidebar" data-sidebar-status="dashboardController.isSidebarShown"
+  data-is-expert="dashboardController.expertProfileExist" data-dashboard-settings="true")
   dashboard-left-menu()
           
-  .right-container(data-ng-class="{'slide-out':dashboardController.isSidebarOpen}" )
+  .right-container(data-ng-class="{'slide-out': dashboardController.isSidebarOpen}" )
     div(data-ui-view="")

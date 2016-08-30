@@ -1,18 +1,24 @@
 .dashboard-left-menu
   +transition(width 0.3s)
+  +default-font-heavy
   position: fixed
   background: $c-primary
   left: 0
-  top: 0
+  top: 80px
   min-width: $dashboard-navbar-width
   height: 100vh
-  width: $dashboard-navbar-width
+  width: 100%
   overflow-y: hidden !important
   z-index: 1000
 
   ::-webkit-scrollbar
     width: 0
 
+  +xsm
+    width: $dashboard-width-nav
+  +mdm
+    display: block
+    width: $dashboard-navbar-width
   +lgm
     overflow-x: visible !important
     min-width: $dashboard-navbar-width
@@ -37,6 +43,31 @@
       align-self: flex-start
       width: 100%
       padding: 16px 0
+      .nav-menu
+        .responsive-main-menu
+          display: block
+          top: 78px
+          left: 0
+          background-color: $c-primary
+          a
+            transition: opacity .2s
+            opacity: 1
+            color: $c-white
+          ul
+            width: 100%
+            padding: 16px 32px
+            &:hover
+              li
+                a
+                  opacity: 0.3
+            li
+              padding: 4px 0
+              &:hover
+                a
+                  opacity: 1
+              a
+                font-size: 18px
+
 
       .expert-profile
         display: flex

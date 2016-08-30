@@ -2,13 +2,15 @@ describe('Unit tests: Dashboard >', () => {
   describe('Testing Controller: DashboardController', () => {
 
     let _DashboardController
-
+    let _scope
     beforeEach(() => {
       module('profitelo.controller.dashboard')
       inject(($rootScope, $controller) => {
 
         _DashboardController = $controller('DashboardController', {
           '$rootScope': $rootScope,
+          '$scope': _scope,
+          'userProfile': {},
           '$state': {
             current: {
               data: {
