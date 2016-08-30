@@ -20,15 +20,15 @@
     .search-expandable(data-ng-class="{'search-activ':showSearch, 'logIn':$root.loggedIn}" data-ng-if="!isDashboard")
       a.search-btn(data-ng-click="setShowSearch()")
         span.icon.icon-search-24
-        span.search(data-ng-hide="$root.loggedIn || showSearch") Szukaj
+        span.search(data-ng-hide="$root.loggedIn || showSearch" data-translate="NAVIGATION.SEARCH.BUTTON")
       pro-input(data-ng-model="searchModel" placeholder="{{ 'HOME.SEARCH_PLACEHOLDER' | translate }}" auto-focus data-ng-enter="searchAction()")
 
     .search-active-state(data-ng-if="showSearch")
       a.search-active-btn(data-ng-click="searchAction(searchModel)")
-        span.search Szukaj
+        span.search(data-translate="NAVIGATION.SEARCH.BUTTON")
 
       a.cancel-btn(data-ng-click="setShowSearch()")
-        span.cancel Anuluj
+        span.cancel(data-translate="NAVIGATION.CANCEL.BUTTON")
 
     .default-state(data-ng-if="!showSearch")
 
@@ -52,6 +52,6 @@
                 a(data-ui-sref="app.dashboard.start") {{ account }}
             .settings-menu
               li
-                a Ustawienia konta
+                a(data-translate="NAVIGATION.USER_SETTINGS")
               li
-                a(data-ng-click="logout()") Wyloguj
+                a(data-ng-click="logout()" data-translate="NAVIGATION.LOGOUT")

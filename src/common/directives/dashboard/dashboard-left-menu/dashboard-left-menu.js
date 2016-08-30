@@ -72,7 +72,9 @@
     }
   }
 
-  angular.module('profitelo.directives.dashboard.dashboard-left-menu', [])
+  angular.module('profitelo.directives.dashboard.dashboard-left-menu', [
+    'pascalprecht.translate'
+  ])
     .directive('dashboardLeftMenu', dashboardLeftMenu)
 
 }())
