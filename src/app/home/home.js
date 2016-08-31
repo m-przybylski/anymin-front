@@ -82,12 +82,12 @@
       {
         img: 'http://chicksbymail.com/wp-content/uploads/2016/08/hipster-floral-tumblr-background-ulzzangnet-background-images-floral-tumblrflowers-hipster-floral-print-dress-zara-tattoo-hearts-tumblr-bp8xkytr-1200x600.jpg',
         title: 'Title 1',
-        descriptions: 'Stu Unger Rise And Fall Of A Poker Genius, Stu Unger Rise And Fall Of A Poker Genius, Stu Unger Rise And Fall Of A Poker Genius'
+        descriptions: 'Stu Unger Rise And Fall Of A Poker Genius'
       },
       {
         img: 'http://chicksbymail.com/wp-content/uploads/2016/08/hipster-floral-tumblr-background-ulzzangnet-background-images-floral-tumblrflowers-hipster-floral-print-dress-zara-tattoo-hearts-tumblr-bp8xkytr-1200x600.jpg',
         title: 'Title 2',
-        descriptions: 'Stu Unger Rise And Fall Of A Poker Genius, Stu Unger Rise And Fall Of A Poker Genius, Stu Unger Rise And Fall Of A Poker Genius'
+        descriptions: 'Stu Unger Rise And Fasd'
       },
       {
         img: 'http://chicksbymail.com/wp-content/uploads/2016/08/hipster-floral-tumblr-background-ulzzangnet-background-images-floral-tumblrflowers-hipster-floral-print-dress-zara-tattoo-hearts-tumblr-bp8xkytr-1200x600.jpg',
@@ -97,7 +97,7 @@
       {
         img: 'http://chicksbymail.com/wp-content/uploads/2016/08/hipster-floral-tumblr-background-ulzzangnet-background-images-floral-tumblrflowers-hipster-floral-print-dress-zara-tattoo-hearts-tumblr-bp8xkytr-1200x600.jpg',
         title: 'Title 4',
-        descriptions: 'Stu Unger Rise And Fall Of A Poker Genius, Stu Unger Rise And Fall Of A Poker Genius, Stu Unger Rise And Fall Of A Poker Genius'
+        descriptions: 'Stu Unger Rise And Fall Of A Poker Genius Stu Unger Rise And Fall Of A Poker Genius'
       }
     ]
 
