@@ -51,6 +51,9 @@
       
       scope.setShowSearch = () => {
         scope.showSearch = scope.showSearch !== true
+        if (scope.showSearch && scope.sidebarStatus) {
+          scope.sidebarAction()
+        }
       }
 
       searchService.onQueryParamsChange(scope, (params) => {

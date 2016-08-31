@@ -115,7 +115,7 @@
             timeout: 3
           })
           loginStateService.clearServiceObject()
-          //$rootScope.loggedIn = true
+          $rootScope.loggedIn = true
           $state.go('app.dashboard.start')
         })
       })
