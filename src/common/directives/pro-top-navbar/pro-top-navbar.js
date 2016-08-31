@@ -7,6 +7,7 @@
       scope.isDashboard = scope.showNavigationMenu
       scope.hamburgerClass = scope.sidebarStatus ===  true ? 'active-btn' : 'disactive-btn'
       scope.accounts = ['Konto Klienta', 'Konto Eksperta', 'Firma']
+      scope.windowSize = $window.innerWidth
       scope.menuElements = [
         {
           label: 'NAVIGATION.MEET_US',
@@ -26,11 +27,15 @@
         }
       ]
 
+      scope.searchModel = null
+      
       scope.logout = ()=> {
         scope.logoutAction()
       }
+
       /* istanbul ignore next */
       angular.element($window).on('resize', (window)=> {
+        scope.windowSize = $window.innerWidth
         if (angular.isDefined(scope.sidebarStatus)) {
           scope.hamburgerClass = scope.sidebarStatus ===  true ? 'active-btn' : 'disactive-btn'
           scope.$digest()
@@ -72,6 +77,7 @@
         logoutAction: '=?',
         sidebarHandler: '=?',
         isExpert: '=?',
+        showResponsiveMenu: '=?',
         showNavigationMenu: '=?'
       }
 
