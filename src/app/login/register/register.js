@@ -1,6 +1,6 @@
 (function() {
 
-  function RegisterController($filter, $state, proTopWaitingLoaderService, passwordStrengthService, User, proTopAlertService, UserRoles, smsSessionId, CommonSettingsService, RegistrationApi, AccountApi, loginStateService) {
+  function RegisterController($filter, $state, $rootScope, proTopWaitingLoaderService, passwordStrengthService, User, proTopAlertService, UserRoles, smsSessionId, CommonSettingsService, RegistrationApi, AccountApi, loginStateService) {
 
     this.passwordStrength = 0
     this.current = 1
@@ -115,6 +115,7 @@
             timeout: 3
           })
           loginStateService.clearServiceObject()
+          $rootScope.loggedIn = true
           $state.go('app.dashboard.start')
         })
       })

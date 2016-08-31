@@ -1,5 +1,5 @@
 (function() {
-  function AppLoginConfirmEmailResolverService($q, $timeout, $filter, $state, proTopAlertService, User, UserRoles, AccountApi, SessionApi) {
+  function AppLoginConfirmEmailResolverService($q, $rootScope, $timeout, $filter, $state, proTopAlertService, User, UserRoles, AccountApi, SessionApi) {
     
     let _resolve = (stateParams) => {
       let _deferred = $q.defer()
@@ -33,6 +33,7 @@
           })
 
           $timeout(() => {
+            $rootScope.loggedIn = true
             $state.go('app.dashboard.start')
           })
 

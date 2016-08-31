@@ -63,12 +63,14 @@
         transition: background .2s, color .2s
         color: $c-white
     .responsive-main-menu
-      width: 200px
+      width: 100%
       display: block
-      position: absolute
+      position: fixed
       top: 78px
       left: 0
       background-color: $c-primary
+      +xsm
+        width: auto
       ul
         width: 100%
         padding: 16px 32px
@@ -98,7 +100,7 @@
 
   .search-expandable
     display: flex
-    max-height: 79px
+    max-height: 78px
 
   .login-btn,
   .profile-btn,
@@ -110,7 +112,7 @@
     outline: 0
     padding: 32px
     color: $c-black
-    height: 79px
+    height: 78px
     position: relative
     background: $c-white
     transition: color .2s, background .2s
@@ -189,15 +191,19 @@
 
   .notification-btn,
   .login-btn
-    padding: 26px 28px
+    padding: 26px 8px
+    +xsm
+      padding: 26px 28px
 
   .user-menu
-    width: 200px
+    width: 100%
     display: block
-    position: absolute
+    position: fixed
     top: 79px
     right: 0
     background-color: $c-primary
+    +xsm
+      width: auto
     a
       transition: opacity .1s
       color: $c-white
@@ -239,7 +245,9 @@
   .status-btn
     position: relative
     height: 79px
-    padding: 35px 28px
+    padding: 35px 8px
+    +xsm
+      padding: 35px 28px
 
     .status-icon
       +border-radius(50%)
@@ -261,7 +269,8 @@
 
   &.logIn
     .search-btn
-    width: 80px
+    +xsm
+      width: 80px
 
   &.search-activ
     width: 100%
@@ -271,7 +280,7 @@
       padding: 0
       background: $c-white
       transition: width .2s
-
+      border: 0
       .icon
         color: $c-black
 
