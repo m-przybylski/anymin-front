@@ -68,6 +68,9 @@
       templateUrl: 'directives/dashboard/dashboard-left-menu/dashboard-left-menu.tpl.html',
       restrict: 'E',
       replace: true,
+      scope: {
+        animateSidebar: '=?'
+      },
       link: linkFunction
     }
   }

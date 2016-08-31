@@ -1,16 +1,16 @@
 .pro-top-navbar.clearfix(role="navigation" data-ng-class="{'hideNavbar': isHide}")
   .left-menu
     .hamburger-menu.pull-left(data-ng-click="sidebarAction()"
-    data-ng-class='hamburgerClass' data-ng-hide="showSearch"
-    data-ng-mouseover="showResponsiveMenu = true" data-ng-mouseleave="showResponsiveMenu = false")
-      .icon.icon-menu-16
+    data-ng-class='hamburgerClass' data-ng-mouseover="showResponsiveMenu = true"
+    data-ng-mouseleave="showResponsiveMenu = false" data-ng-hide="showSearch && windowSize < 480")
+      .icon.icon-menu-16(data-ng-hide="sidebarStatus")
+      .icon.icon-close-16(data-ng-show="sidebarStatus")
       .responsive-main-menu(data-ng-show="!isDashboard && showResponsiveMenu")
-        ul
         ul
           li(data-ng-repeat="item in menuElements")
             a(data-translate="{{ item.label }}" )
 
-    a.logo-wrapper.pull-left(role="button", aria-label="home", href="/home")
+    a.logo-wrapper.pull-left(role="button", aria-label="home", href="/home" data-ng-hide="showSearch && windowSize < 996")
       img.logo(data-ui-sref="app.home", src="/assets/images/logo_profitelo_black.png", alt="Profitelo-logo")
 
   .right-menu
@@ -25,7 +25,8 @@
       a.search-btn(data-ng-click="setShowSearch()")
         span.icon.icon-search-24
         span.search(data-ng-hide="!!$root.loggedIn || showSearch" data-translate="NAVIGATION.SEARCH.BUTTON")
-      pro-input(data-ng-model="searchModel" placeholder="{{ 'HOME.SEARCH_PLACEHOLDER' | translate }}" auto-focus data-ng-enter="searchAction()")
+      pro-input(data-ng-model="searchModel" data-ng-class="{invalid: error.badName && model.name.length < 1}"
+      auto-focus placeholder="{{ 'NAVIGATION.SEARCH_PLACEHOLDER' | translate }}" data-ng-enter="searchAction()" no-delete)
 
     .search-active-state(data-ng-if="showSearch")
       a.search-active-btn(data-ng-click="searchAction(searchModel)")

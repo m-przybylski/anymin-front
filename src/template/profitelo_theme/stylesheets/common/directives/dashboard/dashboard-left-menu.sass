@@ -6,13 +6,16 @@
   left: 0
   top: 80px
   min-width: $dashboard-navbar-width
-  height: 100vh
+  height: 0
   width: 100%
   overflow-y: hidden !important
   z-index: 1000
 
   ::-webkit-scrollbar
     width: 0
+
+  &.open-sidebar
+    height: 100vh
 
   +xsm
     width: $dashboard-width-nav
