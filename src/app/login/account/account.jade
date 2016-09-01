@@ -4,13 +4,12 @@
       pro-dropdown.prefix-phone(data-pro-model='vm.account.phoneNumber.prefix' data-label='prefix' data-placeholder='+48'
       data-pro-items="vm.prefix" data-no-search)
 
-
       pro-input.phone.label(data-label="{{'LOGIN.ENTER_NUMBER' | translate}}"
       data-type="tel"
       data-id="phoneNumber"
       data-placeholder="{{'LOGIN.ENTER_NUMBER_PLACEHOLDER' | translate}}"
       data-ng-model="vm.account.phoneNumber.number" data-ng-class="{'invalid': phoneNumberForm.phoneNumber.$invalid && (phoneNumberForm.phoneNumber.$dirty || phoneNumberForm.$submitted)}"
-      data-ng-pattern="vm.pattern" required auto-focus only-digits)
+      data-ng-pattern="vm.pattern" auto-focus only-digits)
 
     .input-error-messages
       .error.left(data-ng-show="phoneNumberForm.$submitted && phoneNumberForm.$invalid || phoneNumberForm.$submitted &&  vm.account.phoneNumber.prefix === null " data-translate="LOGIN.PHONE_NUMBER_REQUIRED")
@@ -18,9 +17,7 @@
     button.pro-button.rectangle.default.btn-full(data-translate="LOGIN.NEXT" type="submit")
 
 .password(data-ng-if="vm.current == 2")
-
   form.pro-input-form(name="passwordForm" data-ng-submit="passwordForm.$valid && vm.login()" novalidate)
-
     pro-input-password(data-label="{{ 'LOGIN.SERVICE_PASSWORD' | translate }}"
     data-ng-model="vm.account.password"
     data-id="password"
@@ -30,8 +27,10 @@
 
     .input-error-messages
       .error.left(data-ng-show="passwordForm.$submitted && passwordForm.$invalid ||vm.serverError " data-translate="LOGIN.BAD_LOGIN_CREDENTIALS")
+      
     .btn-handler.flex-row.login-handler
       button.pro-button.rectangle.default(type="submit" data-translate="LOGIN.NEXT")
       button.pro-button.rectangle.primary(data-ng-click="vm.backToPhoneNumber()" data-translate="LOGIN.BACK")
+      
   .forgot-password
     a(data-ui-sref="app.login.forgot-password" data-translate="LOGIN.FORGOT_PASSWORD")
