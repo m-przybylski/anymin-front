@@ -1,17 +1,21 @@
 .pro-top-title-row
-  padding: 24px 12px
-  text-transform: uppercase
-  border-bottom: 1px solid $c-lines
+  +default-font-regular
+  padding: 16px
   display: flex
   justify-content: space-between
   align-items: center
-  margin-bottom: 32px
 
   +mdm
-    padding: 12px 24px
+    padding: 32px
+
+  +lgm
+    padding: 64px 32px
 
   .title
-    h2
+    h3
+      +default-font-heavy
       text-align: center
       color: $c-primary-txt
-      +default-font-heavy
+
+  .icon
+    color: $c-primary-txt

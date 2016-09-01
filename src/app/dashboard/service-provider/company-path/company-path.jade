@@ -1,71 +1,76 @@
 .step.step-done(data-ng-hide="vm.inEditMode")
-  .title-step
-    .title-order
-      h3.choose-path-title(data-translate="DASHBOARD.CREATE_PROFILE.STEP1_CHOOSE_PROFILE_TITLE")
-      p.choose-path-description(data-translate="DASHBOARD.CREATE_PROFILE.STEP1_CHOOSE_PROFILE_DESCRIPTION")
-    div
+  .default-container-small
+    .title-step
       .step-description
         span.step-counter(data-translate="DASHBOARD.CREATE_PROFILE.STEP" data-translate-values="{step: 1, steps: {{ vm.queue.amountOfSteps }} }")
         span.icon.icon-success-24
-  .step-content
-    a.service-option(data-ui-sref="app.dashboard.service-provider.individual-path")
-      span.icon.icon-person-128
-      p(data-translate="DASHBOARD.MENU.STEP1_ONE_PERSON")
-    a.service-option.selected(data-ui-sref="app.dashboard.service-provider.company-path")
-      span.icon.icon-multiperson-128
-      p(data-translate="DASHBOARD.CREATE_PROFILE.STEP1_MORE_PERSON")
+        
+      .title-order
+        h3.choose-path-title(data-translate="DASHBOARD.CREATE_PROFILE.STEP1_CHOOSE_PROFILE_TITLE")
+        p.choose-path-description(data-translate="DASHBOARD.CREATE_PROFILE.STEP1_CHOOSE_PROFILE_DESCRIPTION")
+
+    .step-content
+      a.service-option(data-ui-sref="app.dashboard.service-provider.individual-path")
+        span.icon.icon-person-128
+        p(data-translate="DASHBOARD.MENU.STEP1_ONE_PERSON")
+        span.icon.icon-success-12
+        
+      a.service-option.selected(data-ui-sref="app.dashboard.service-provider.company-path")
+        span.icon.icon-multiperson-128
+        p(data-translate="DASHBOARD.CREATE_PROFILE.STEP1_MORE_PERSON")
+        span.icon.icon-success-12
 
 pro-service-provider-name(
-data-queue="vm.queue"
-data-order="2"
-data-pro-model="vm.companyPathModel"
-data-placeholder="DASHBOARD.CREATE_PROFILE.NAME_COMPANY_PLACEHOLDER"
-data-error-message="DASHBOARD.SERVICE_PROVIDER.NAME.BAD_COMPANY_NAME"
-tr-title="DASHBOARD.CREATE_PROFILE.STEP2_TITLE"
-tr-desc="DASHBOARD.CREATE_PROFILE.STEP2_DESCRIPTION"
-required
-autofocus
+  data-queue="vm.queue"
+  data-order="2"
+  data-pro-model="vm.companyPathModel"
+  data-placeholder="DASHBOARD.CREATE_PROFILE.NAME_COMPANY_PLACEHOLDER"
+  data-error-message="DASHBOARD.SERVICE_PROVIDER.NAME.BAD_COMPANY_NAME"
+  tr-title="DASHBOARD.CREATE_PROFILE.STEP2_TITLE"
+  tr-desc="DASHBOARD.CREATE_PROFILE.STEP2_DESCRIPTION"
+  required
+  autofocus
 )
 
 pro-service-provider-avatar(
-data-queue="vm.queue"
-data-order="3"
-data-pro-model="vm.companyPathModel"
-data-image-field="logo"
-tr-title="DASHBOARD.CREATE_PROFILE.STEP3_TITLE"
-tr-desc="DASHBOARD.CREATE_PROFILE.STEP3_DESCRIPTION"
-required
+  data-queue="vm.queue"
+  data-order="3"
+  data-pro-model="vm.companyPathModel"
+  data-image-field="logo"
+  tr-title="DASHBOARD.CREATE_PROFILE.STEP3_TITLE"
+  tr-desc="DASHBOARD.CREATE_PROFILE.STEP3_DESCRIPTION"
+  required
 )
 
 pro-service-provider-description(
-data-queue="vm.queue"
-data-order="4"
-data-pro-model="vm.companyPathModel"
-tr-title="DASHBOARD.CREATE_PROFILE.STEP4_TITLE"
-tr-desc="DASHBOARD.CREATE_PROFILE.STEP4_DESCRIPTION"
-required
+  data-queue="vm.queue"
+  data-order="4"
+  data-pro-model="vm.companyPathModel"
+  tr-title="DASHBOARD.CREATE_PROFILE.STEP4_TITLE"
+  tr-desc="DASHBOARD.CREATE_PROFILE.STEP4_DESCRIPTION"
+  required
 )
 
 pro-service-provider-file-uploader(
-data-queue="vm.queue"
-data-order="5"
-data-pro-model="vm.companyPathModel"
-tr-title="DASHBOARD.CREATE_PROFILE.FILE_UPLOADER_TITLE"
-tr-desc="DASHBOARD.CREATE_PROFILE.FILE_UPLOADER_DESCRIPTION"
+  data-queue="vm.queue"
+  data-order="5"
+  data-pro-model="vm.companyPathModel"
+  tr-title="DASHBOARD.CREATE_PROFILE.FILE_UPLOADER_TITLE"
+  tr-desc="DASHBOARD.CREATE_PROFILE.FILE_UPLOADER_DESCRIPTION"
 )
 
 pro-service-external-links(
-data-queue="vm.queue"
-data-order="6"
-data-pro-model="vm.companyPathModel"
-tr-title="DASHBOARD.CREATE_PROFILE.STEP6_TITLE"
-tr-desc="DASHBOARD.CREATE_PROFILE.STEP6_DESCRIPTION"
+  data-queue="vm.queue"
+  data-order="6"
+  data-pro-model="vm.companyPathModel"
+  tr-title="DASHBOARD.CREATE_PROFILE.STEP6_TITLE"
+  tr-desc="DASHBOARD.CREATE_PROFILE.STEP6_DESCRIPTION"
 )
 
 pro-bottom-summary-row(
-data-width="vm.progressBarWidth"
-data-queue="vm.queue"
-data-button-action="vm.saveAccountObject"
-data-order="7"
-data-header="DASHBOARD.EXPERT_ACCOUNT.STEP1_PROGRESS_BAR_TITLE"
+  data-width="vm.progressBarWidth"
+  data-queue="vm.queue"
+  data-button-action="vm.saveAccountObject"
+  data-order="7"
+  data-header="DASHBOARD.EXPERT_ACCOUNT.STEP1_PROGRESS_BAR_TITLE"
 )

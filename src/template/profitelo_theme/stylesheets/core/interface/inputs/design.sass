@@ -37,7 +37,7 @@
     border: none
     font-size: $f-paragraph
     width: 100%
-    padding: 16px 10px
+    padding: 16px 48px 16px 8px
     outline: none
     height: 100%
 
@@ -52,7 +52,7 @@
       &:focus
         background-color: $c-white
 
-    &:required +label
+    &:required + label
       &:after
         content: "*"
         color: $c-error
@@ -148,7 +148,6 @@
       right: 60px
 
   &.onFocus
-    background-color: $c-background
 
     input
       background-color: $c-background

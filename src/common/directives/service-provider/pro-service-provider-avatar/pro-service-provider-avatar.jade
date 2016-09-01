@@ -3,8 +3,6 @@ extends ../../../templates/wizard/section-controlls.partial.jade
 block content
   .pro-service-provider-avatar
     .step-content-column(data-ng-click="onClick()")
-      .upload-field-description
-        p(data-translate="DASHBOARD.CREATE_PROFILE.FILE_PREVIEW")
       pro-uploader(type="image/*" files-uploaded="model[imageField]" data-ng-hide="model[imageField].length"
       data-ngf-validate="imageSizeValidation" data-ngf-pattern=".jpg,.jpeg,.png" data-is-pending="isPending"
       data-error-message='COMMON.DIRECTIVES.INTERFACE.UPLOADER.VALIDATION_ERROR')

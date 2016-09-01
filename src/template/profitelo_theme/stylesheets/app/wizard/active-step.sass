@@ -1,16 +1,30 @@
-.step-active
-  background-color: $c-background-2
-  border: 1px solid $c-lines
+.step
+  +transition(background 0.3s)
+  padding: 48px 0 98px
+  margin: 0
+  background: none
 
-  h3
-    color: $c-primary-txt
-    margin-bottom: 24px
+  +smm
+    padding: 128px 0 178px
 
-  .title-step
-    p
-      color: $c-secondary-txt
+  &.step-active
+    background: $c-background
+    padding: 48px 0
 
-  .step-description
-    .icon,
-    .step-counter
-      color: $c-secondary-txt
+    +smm
+      padding: 128px 0
+
+    .step-description
+      color: $c-complete
+
+    h3
+      color: $c-primary-txt
+
+    .upload-field
+      background: $c-white
+
+  &.last-step
+    padding: 32px 0
+
+    +smm
+      padding: 64px 0

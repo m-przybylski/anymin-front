@@ -98,9 +98,8 @@
   text-align: center
   touch-action: manipulation
   cursor: pointer
-  text-transform: uppercase
   white-space: nowrap
-  font-size: $f-base
+  font-size: $f-btn-size
   border-radius: $border-radius-default
   color: $c-white
   border: 1px solid transparent
@@ -109,12 +108,26 @@
 
   .icon
     line-height: 1
-    display: block
+    display: flex
+    align-items: center
     position: absolute
 
+  &.next-step
+    display: flex
+    align-items: center
+    padding: 15px 0 14px
+
+    .icon
+      position: static
+      margin: 0 0 0 8px
+
+  &.noborder
+    border: 0
+    padding: 0
+    color: $c-primary
+
   &.rectangle
-    padding: 15px 32px 14px
-    min-width: 180px
+    padding: 15px 24px 14px
 
     &.icon
       padding: 15px 32px 14px 64px
@@ -154,23 +167,20 @@
         font-size: 16px
 
   &.default
-    background: $c-primary-txt
-    border: 1px solid $c-lines
+    background: $c-primary
+    border: 1px solid $c-primary
 
     &:hover
-      background: $c-white
-      color: $c-primary-txt
-      border: 1px solid $c-lines
+      background: rgba($c-primary, 0.8)
+      border: 1px solid rgba($c-primary, 0.8)
 
   &.primary
     background: $c-white
-    color: $c-primary-txt
+    color: $c-primary
     border: 1px solid $c-lines
 
     &:hover
-      background: $c-primary-txt
-      border: 1px solid $c-primary-txt
-      color: $c-white
+      border: 1px solid $c-primary
 
   &.success
     background: $c-success
@@ -349,19 +359,20 @@
     display: flex
     align-items: center
     justify-content: center
+    position: static
 
   &.show-more-arrow
     +transition(transform 0.3s)
-    height: 32px
-    width: 56px
     margin: 0 auto
+
+    .icon
+      +transition(transform 0.3s)
+      transform: none
+      font-size: $f-h5-size
 
     &.hide-more
       .icon
         +rotate(180)
-
-    .icon
-      font-size: $f-h5-size
 
 /*button icons*/
 [href].pro-icon
@@ -396,13 +407,6 @@
     display: flex
     align-items: center
     justify-content: center
-
-  &.show-more-arrow
-    height: 32px
-    width: 56px
-
-    .icon
-      font-size: $f-h5-size
 
 /*button icons*/
 [href].pro-icon

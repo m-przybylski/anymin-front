@@ -1,16 +1,20 @@
 .step(data-ng-show="queue.completedSteps >= order - 1"
 data-ng-class="{'step-done': queue.completedSteps >= order - 1 && queue.currentStep !== order, 'step-active': queue.currentStep === order}"
 id="{{order}}")
-  .div(data-ng-class="{'focus-layer': queue.completedSteps >= order - 1 && queue.currentStep !== order}" data-ng-click="hideDiv=true; onClick(order)")
+  .default-container-small
+    .div(data-ng-class="{'focus-layer': queue.completedSteps >= order - 1 && queue.currentStep !== order}" data-ng-click="hideDiv=true; onClick(order)")
 
-  .title-step
-    .title-order
-      h3(data-translate="{{trTitle}}") *:
-      p(data-translate="{{trDesc}}")
-    .step-description
-      span.step-counter(data-translate="DASHBOARD.CREATE_PROFILE.STEP" data-translate-values="{step: order, steps: queue.amountOfSteps}" data-ng-class="{'icon-warning': queue.skippedSteps[order]}")
-      span.icon(data-ng-class="{'icon-edit-24 current-step-edit-icon': queue.currentStep === order, 'icon-success-24': queue.completedSteps >= order - 1 && queue.currentStep !== order, 'icon-warning-24 icon-warning': queue.skippedSteps[order]}")
-  block content
-  .step-control(data-ng-show="queue.currentStep === order")
-    button.pro-button.rectangle.primary(data-translate="INTERFACE.SKIP" data-ng-click="skip()" data-ng-show="!required")
-    button.pro-button.rectangle.default(type="submit" data-translate="INTERFACE.SAVE" data-ng-click="saveStep()")
+    .title-step
+      .step-description
+        span.step-counter(data-translate="DASHBOARD.CREATE_PROFILE.STEP" data-translate-values="{step: order, steps: queue.amountOfSteps}" data-ng-class="{'icon-warning': queue.skippedSteps[order]}")
+        span.icon(data-ng-class="{'icon-edit-24 current-step-edit-icon': queue.currentStep === order, 'icon-success-24': queue.completedSteps >= order - 1 && queue.currentStep !== order, 'icon-warning-24 icon-warning': queue.skippedSteps[order]}")
+
+      .title-order
+        h3(data-translate="{{trTitle}}") *:
+        p(data-translate="{{trDesc}}")    
+
+    block content
+    
+    .step-control(data-ng-show="queue.currentStep === order")
+      button.pro-button.rectangle.primary(data-translate="INTERFACE.SKIP" data-ng-click="skip()" data-ng-show="!required")
+      button.pro-button.rectangle.default(type="submit" data-translate="INTERFACE.SAVE" data-ng-click="saveStep()")
