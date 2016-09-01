@@ -131,6 +131,8 @@
         z-index: 1
         top: 72px
         left: 12px
+        +xsm
+          left: 21px
     +smm
       border-left: 1px solid $c-lines
       padding: 32px 28px
@@ -148,7 +150,7 @@
         display: block
 
   .search-btn
-    padding-left: 51px
+    padding-left: 65px
     transition: width .2s
     &:hover
       &:before
@@ -204,10 +206,14 @@
       top: 50%
       left: 28px
       margin: -12px 0 0
-
+    &:hover
+      &:before
+        display: none
   .notification-btn,
   .login-btn
     padding: 26px 8px
+    +xsm
+      padding: 26px 18px
     +smm
       padding: 26px 28px
 
@@ -218,6 +224,7 @@
     top: 80px
     right: 0
     background-color: $c-primary
+    text-align: right
     +xsm
       width: auto
     a
@@ -279,7 +286,7 @@
   position: relative
   background: $c-white
   transition: width .6s
-  width: 60px
+  width: 55px
   +smm
     width: 144px
 
@@ -287,7 +294,13 @@
     display: none
 
   &.logIn
+    width: 60px
+    +xsm
+      width: 70px
+    +smm
+      width: 144px
     .search-btn
+      padding-left: 51px
     +smm
       width: 80px
 

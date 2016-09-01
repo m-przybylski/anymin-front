@@ -58,13 +58,13 @@
       scope.setShowSearch = () => {
         scope.showSearch = scope.showSearch !== true
         scope.showUserMenuOnClick = false
-        if (scope.showSearch && scope.sidebarStatus || scope.showResponsiveMenu) {
+        if (scope.showSearch && scope.sidebarStatus && scope.windowSize < 992 || scope.showResponsiveMenu) {
           scope.sidebarAction()
         }
       }
 
       scope.hideOtherMenus = ()=> {
-        if (scope.showResponsiveMenu || scope.sidebarStatus) {
+        if ((scope.showResponsiveMenu || scope.sidebarStatus) && scope.windowSize < 992) {
           scope.sidebarAction()
         }
       }
