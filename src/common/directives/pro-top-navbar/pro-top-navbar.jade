@@ -2,8 +2,11 @@
   .left-menu
     .hamburger-menu.pull-left(data-ng-click="sidebarAction()"
     data-ng-class='hamburgerClass' data-ng-hide="showSearch && windowSize < 480")
-      .icon.icon-menu-16(data-ng-hide="sidebarStatus")
-      .icon.icon-close-16(data-ng-show="sidebarStatus")
+      .nav-icon(data-ng-class="{'open': animateCross}")
+        span
+        span
+        span
+        span
       .responsive-main-menu(data-ng-show="!isDashboard && showResponsiveMenu ")
         ul
           li

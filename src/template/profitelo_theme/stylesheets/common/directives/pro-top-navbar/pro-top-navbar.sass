@@ -42,20 +42,78 @@
     cursor: pointer
     padding: 32px
     height: 79px
+    width: 80px
     font-size: 0
     display: flex
     background: $c-white
     color: $c-secondary-txt
+    .nav-icon
+      font-size: 0
+      display: flex
+      background: $c-white
+      color: $c-secondary-txt
+      position: relative
+      -webkit-transform: rotate(0deg)
+      -moz-transform: rotate(0deg)
+      -o-transform: rotate(0deg)
+      transform: rotate(0deg)
+      -webkit-transition: .5s ease-in-out
+      -moz-transition: .5s ease-in-out
+      -o-transition: .5s ease-in-out
+      transition: .5s ease-in-out
+      cursor: pointer
+      span
+        display: block
+        position: absolute
+        height: 3px
+        width: 20px
+        background: $c-secondary-txt
+        border-radius: 9px
+        opacity: 1
+        left: 0
+        -webkit-transform: rotate(0deg)
+        -moz-transform: rotate(0deg)
+        -o-transform: rotate(0deg)
+        transform: rotate(0deg)
+        -webkit-transition: .25s ease-in-out
+        -moz-transition: .25s ease-in-out
+        -o-transition: .25s ease-in-out
+        transition: .25s ease-in-out
+        &:nth-child(1)
+          top: 0px
+        &:nth-child(2), &:nth-child(3)
+          top: 8px
+        &:nth-child(4)
+          top: 16px
+      &.open span
+        &:nth-child(1)
+          top: 8px
+          width: 0%
+          left: 10px
+        &:nth-child(2)
+          -webkit-transform: rotate(45deg)
+          -moz-transform: rotate(45deg)
+          -o-transform: rotate(45deg)
+          transform: rotate(45deg)
+        &:nth-child(3)
+          -webkit-transform: rotate(-45deg)
+          -moz-transform: rotate(-45deg)
+          -o-transform: rotate(-45deg)
+          transform: rotate(-45deg)
+        &:nth-child(4)
+          top: 8px
+          width: 0%
+          left: 10px
     &.active-btn
-      .icon
-        color: $c-primary
+      span
+        background: $c-primary
       +smm
         background: $c-primary
         transition: background .2s, color .2s
         color: $c-white
         height: 80px
-        .icon
-          color: $c-white
+        span
+          background: $c-white
     &.disactive-btn
       background: $c-white
       color: $c-secondary-txt
@@ -74,7 +132,8 @@
         color: $c-white
         a
           color: $c-white
-        &:hover
+        &:hover,
+        &:focus
           li
             a
               opacity: 0.3
@@ -83,8 +142,8 @@
           a
             font-size: 14px
           &:hover
-            a
-              opacity: 1
+          &:focus
+            opacity: 1
     +mdm
       display: none
     +smm
@@ -115,7 +174,8 @@
     position: relative
     background: $c-white
     transition: color .2s, background .2s
-    &:hover
+    &:hover,
+    &:focus
       +smm
         height: 80px
       .icon
@@ -138,7 +198,8 @@
     +smm
       border-left: 1px solid $c-lines
       padding: 32px 28px
-      &:hover
+      &:hover,
+      &:focus
         background: $c-primary
         color: $c-white
         &:before
@@ -154,7 +215,9 @@
   .search-btn
     padding-left: 65px
     transition: width .2s
-    &:hover
+    &:hover,
+    &:focus
+
       &:before
         display: none
     .icon
@@ -174,7 +237,8 @@
       +smm
         display: block
     +smm
-      &:hover
+      &:hover,
+      &:focus
         background: $c-primary
         transition: background .2s, color .2s
         color: $c-white
@@ -188,7 +252,8 @@
       +default-font-light
       width: auto
       transition: color .2s, background .2s
-      &:hover
+      &:hover,
+      &:focus
         background: $c-primary
         color: $c-white
 
@@ -208,7 +273,8 @@
       top: 50%
       left: 28px
       margin: -12px 0 0
-    &:hover
+    &:hover,
+    &:focus
       &:before
         display: none
   .notification-btn,
@@ -234,7 +300,8 @@
       color: $c-white
     ul
       width: 100%
-      &:hover
+      &:hover,
+      &:focus
         li
           a
             opacity: 0.3
@@ -244,7 +311,8 @@
         padding: 16px 32px
       li
         padding: 4px 0
-        &:hover
+        &:hover,
+        &:focus
           a
             opacity: 1
         a
@@ -261,7 +329,8 @@
     .cancel-btn
       width: 110px
       text-align: center
-      &:hover
+      &:hover,
+      &:focus
         &:before
           display: none
     .search-active-btn
@@ -315,7 +384,8 @@
       background: $c-white
       transition: width .2s
       border: 0
-      &:hover
+      &:hover,
+      &:focus
         height: 79px
         &:before
           display: none
@@ -345,7 +415,8 @@
         padding: 0
         background: $c-white
 
-        &:hover
+        &:hover,
+        &:focus
           background: $c-white
 
 
@@ -359,7 +430,8 @@
   display: none
   +mdm
     display: flex
-  &:hover
+  &:hover,
+  &:focus
     > li
       color: $c-secondary-txt
 
@@ -367,9 +439,6 @@
   li
     display: inline-block
     white-space: nowrap
-    &:hover
-      > a
-        color: $c-black
 
   a
     padding: 32px 16px
