@@ -7,9 +7,7 @@
     if (angular.isDefined(userProfile) && userProfile !== null) {
       this.expertProfileExist = !!userProfile.expertDetails
     }
-    this.isNavbarShown = true
-    this.isSidebarShown = true
-
+    
     this.changeAccount = function() {
       this.switchUser = !this.switchUser
     }
@@ -17,7 +15,7 @@
     let _sidebar = $('.dashboard-left-menu')
     _sidebar.perfectScrollbar()
 
-    this.toogleSidebar=function() {
+    this.toogleSidebar = function() {
       this.isSidebarOpen = !this.isSidebarOpen
     }
 
@@ -37,7 +35,7 @@
 
     const _checkSidebarVisibility = (toState) => {
       if (angular.isUndefined(toState.data.showMenu)) {
-        this.isSidebarShown = true
+        this.isSidebarShown = $window.innerWidth > 992
         this.isNavbarShown = true
       } else {
         this.isSidebarShown = toState.data.showMenu

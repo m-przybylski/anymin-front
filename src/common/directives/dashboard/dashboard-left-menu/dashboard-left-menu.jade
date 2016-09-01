@@ -4,6 +4,8 @@
       .nav-menu
         .responsive-main-menu(data-ng-show="showNavMenu.value")
           ul
+            li
+              a(data-translate="NAVIGATION.HOME_PAGE" data-ui-sref="app.home" data-ng-show="windowSize < 480")
             li(data-ng-repeat="item in menuElements")
               a(data-translate="{{ item.label }}" )
       .expert-profile

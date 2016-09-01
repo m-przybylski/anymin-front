@@ -8,8 +8,9 @@
       scope.activeMenuSection = -1
 
       scope.showNavMenu = {}
+      scope.windowSize = $window.innerWidth
       scope.showNavMenu.value = $window.innerWidth < 992
-
+      
       scope.toogleMenuWhenMouseLeave = function() {
         scope.activeMenuSection = -1
       }
@@ -50,6 +51,7 @@
       }
 
       angular.element($window).on('resize', (window)=> {
+        scope.windowSize = $window.innerWidth
         checkWindowWidth()
         scope.$digest()
       })

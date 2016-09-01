@@ -6,6 +6,8 @@
       .icon.icon-close-16(data-ng-show="sidebarStatus")
       .responsive-main-menu(data-ng-show="!isDashboard && showResponsiveMenu ")
         ul
+          li
+            a(data-translate="NAVIGATION.HOME_PAGE" data-ui-sref="app.home" data-ng-show="windowSize < 480")
           li(data-ng-repeat="item in menuElements")
             a(data-translate="{{ item.label }}" )
 
@@ -46,9 +48,9 @@
         span.icon.icon-user-profile-24
 
         .user-menu(data-ng-show="!!showUserMenu")
-          ul.menu
+          ul.menu(data-ng-click="showUserMenu = false")
             .account-menu
-              li(data-ng-repeat="account in accounts")
+              li(data-ng-repeat="account in accounts" )
                 a(data-ui-sref="app.dashboard.start") {{ account }}
             .settings-menu
               li
