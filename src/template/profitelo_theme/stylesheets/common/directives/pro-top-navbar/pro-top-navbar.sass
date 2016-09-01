@@ -3,7 +3,6 @@
   text-transform: uppercase
   font-size: $f-base
   position: fixed
-  z-index: 100
   width: 100%
   background: $c-white
   height: 80px
@@ -11,6 +10,7 @@
   display: flex
   left: 0
   box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1), inset 0 -1px 0 0 $c-lines
+  z-index: 999
 
   &.hideNavbar
     display: none
@@ -29,7 +29,7 @@
     font-size: 0
     padding: 24px
     display: none
-    +smm
+    +xsm
       display: inline-block
     +mdm
       border-right: 1px solid $c-lines
@@ -47,26 +47,23 @@
     background: $c-white
     color: $c-secondary-txt
     &.active-btn
-      background: $c-primary
-      transition: background .2s, color .2s
-      color: $c-white
-      height: 80px
-      &:hover
+      .icon
+        color: $c-primary
+      +smm
         background: $c-primary
         transition: background .2s, color .2s
         color: $c-white
+        height: 80px
+        .icon
+          color: $c-white
     &.disactive-btn
       background: $c-white
       color: $c-secondary-txt
-      &:hover
-        background: $c-primary
-        transition: background .2s, color .2s
-        color: $c-white
     .responsive-main-menu
       width: 100%
       display: block
       position: fixed
-      top: 78px
+      top: 80px
       left: 0
       background-color: $c-primary
       +xsm
@@ -112,19 +109,36 @@
     outline: 0
     padding: 32px
     color: $c-black
-    height: 78px
+    height: 79px
     position: relative
     background: $c-white
     transition: color .2s, background .2s
     &:hover
+      +smm
+        height: 80px
       .icon
         color: $c-primary
+      &:before
+        -webkit-transition: left 0.3s 0.3s
+        transition: left 0.3s 0.3s
+        content: ""
+        width: 0
+        height: 0
+        border-right: 8px solid transparent
+        border-left: 8px solid transparent
+        border-bottom: 8px solid $c-primary
+        position: absolute
+        z-index: 1
+        top: 72px
+        left: 12px
     +smm
       border-left: 1px solid $c-lines
       padding: 32px 28px
       &:hover
         background: $c-primary
         color: $c-white
+        &:before
+          display: none
         .icon
           color: $c-white
 
@@ -134,9 +148,11 @@
         display: block
 
   .search-btn
-    padding-left: 65px
+    padding-left: 51px
     transition: width .2s
-
+    &:hover
+      &:before
+        display: none
     .icon
       display: block
       height: 24px
@@ -192,14 +208,14 @@
   .notification-btn,
   .login-btn
     padding: 26px 8px
-    +xsm
+    +smm
       padding: 26px 28px
 
   .user-menu
     width: 100%
     display: block
     position: fixed
-    top: 79px
+    top: 80px
     right: 0
     background-color: $c-primary
     +xsm
@@ -236,6 +252,9 @@
     .cancel-btn
       width: 110px
       text-align: center
+      &:hover
+        &:before
+          display: none
     .search-active-btn
       display: none
       +smm
@@ -246,7 +265,7 @@
     position: relative
     height: 79px
     padding: 35px 8px
-    +xsm
+    +smm
       padding: 35px 28px
 
     .status-icon
@@ -269,7 +288,7 @@
 
   &.logIn
     .search-btn
-    +xsm
+    +smm
       width: 80px
 
   &.search-activ
@@ -281,6 +300,10 @@
       background: $c-white
       transition: width .2s
       border: 0
+      &:hover
+        height: 79px
+        &:before
+          display: none
       .icon
         color: $c-black
 

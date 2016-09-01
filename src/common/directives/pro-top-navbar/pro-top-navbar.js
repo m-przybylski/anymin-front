@@ -4,6 +4,8 @@
     function linkFunction(scope, elem, attrs) {
 
       scope.isHide = false
+      scope.showUserMenu = false
+      scope.showResponsiveMenu = false
       scope.isDashboard = scope.showNavigationMenu
       scope.hamburgerClass = scope.sidebarStatus ===  true ? 'active-btn' : 'disactive-btn'
       scope.accounts = ['Konto Klienta', 'Konto Eksperta', 'Firma']
@@ -44,18 +46,29 @@
       
       scope.sidebarAction = ()=> {
         if (typeof scope.sidebarHandler !== 'undefined') {
-          scope.hamburgerClass = scope.hamburgerClass ===  'disactive-btn' ? 'active-btn' : 'disactive-btn'
           scope.sidebarHandler()
         }
+        else {
+          scope.showResponsiveMenu = scope.showResponsiveMenu === false
+        }
+        scope.showUserMenuOnClick = false
+        scope.hamburgerClass = scope.hamburgerClass ===  'disactive-btn' ? 'active-btn' : 'disactive-btn'
       }
       
       scope.setShowSearch = () => {
         scope.showSearch = scope.showSearch !== true
-        if (scope.showSearch && scope.sidebarStatus) {
+        scope.showUserMenuOnClick = false
+        if (scope.showSearch && scope.sidebarStatus || scope.showResponsiveMenu) {
           scope.sidebarAction()
         }
       }
 
+      scope.hideOtherMenus = ()=> {
+        if (scope.showResponsiveMenu || scope.sidebarStatus) {
+          scope.sidebarAction()
+        }
+      }
+      
       searchService.onQueryParamsChange(scope, (params) => {
         scope.searchModel = params.q
       })

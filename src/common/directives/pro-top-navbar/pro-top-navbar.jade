@@ -1,16 +1,15 @@
 .pro-top-navbar.clearfix(role="navigation" data-ng-class="{'hideNavbar': isHide}")
   .left-menu
     .hamburger-menu.pull-left(data-ng-click="sidebarAction()"
-    data-ng-class='hamburgerClass' data-ng-mouseover="showResponsiveMenu = true"
-    data-ng-mouseleave="showResponsiveMenu = false" data-ng-hide="showSearch && windowSize < 480")
+    data-ng-class='hamburgerClass' data-ng-hide="showSearch && windowSize < 480")
       .icon.icon-menu-16(data-ng-hide="sidebarStatus")
       .icon.icon-close-16(data-ng-show="sidebarStatus")
-      .responsive-main-menu(data-ng-show="!isDashboard && showResponsiveMenu")
+      .responsive-main-menu(data-ng-show="!isDashboard && showResponsiveMenu ")
         ul
           li(data-ng-repeat="item in menuElements")
             a(data-translate="{{ item.label }}" )
 
-    a.logo-wrapper.pull-left(role="button", aria-label="home", href="/home" data-ng-hide="showSearch && windowSize < 996")
+    a.logo-wrapper.pull-left(role="button", aria-label="home", href="/home" data-ng-hide="showSearch && windowSize < 992")
       img.logo(data-ui-sref="app.home", src="/assets/images/logo_profitelo_black.png", alt="Profitelo-logo")
 
   .right-menu
@@ -43,10 +42,10 @@
       a.notification-btn(data-ng-if="!!$root.loggedIn")
         span.icon.icon-bell-24
 
-      .login-btn(data-ng-if="!!$root.loggedIn" data-ng-mouseover="showUserMenu = true" data-ng-mouseleave="showUserMenu = false")
+      .login-btn(data-ng-if="!!$root.loggedIn" data-ng-mouseover="showUserMenu = true" data-ng-mouseleave="showUserMenu = false" data-ng-click="hideOtherMenus()")
         span.icon.icon-user-profile-24
 
-        .user-menu(data-ng-show="showUserMenu")
+        .user-menu(data-ng-show="!!showUserMenu")
           ul.menu
             .account-menu
               li(data-ng-repeat="account in accounts")
