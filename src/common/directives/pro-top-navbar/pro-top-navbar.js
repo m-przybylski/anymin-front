@@ -47,8 +47,7 @@
       scope.sidebarAction = ()=> {
         if (typeof scope.sidebarHandler !== 'undefined') {
           scope.sidebarHandler()
-        }
-        else {
+        } else {
           scope.showResponsiveMenu = scope.showResponsiveMenu === false
         }
         scope.showUserMenuOnClick = false

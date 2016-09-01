@@ -6,6 +6,8 @@
       .icon.icon-close-16(data-ng-show="sidebarStatus")
       .responsive-main-menu(data-ng-show="!isDashboard && showResponsiveMenu ")
         ul
+          li
+            a(data-translate="NAVIGATION.HOME_PAGE" data-ui-sref="app.home" data-ng-show="windowSize < 480")
           li(data-ng-repeat="item in menuElements")
             a(data-translate="{{ item.label }}" )
 
