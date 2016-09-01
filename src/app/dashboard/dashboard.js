@@ -31,8 +31,8 @@
         this.isSidebarShown = false
       } else {
         this.isSidebarShown = true
-        $scope.$digest()
       }
+      $scope.$digest()
     })
 
     const _checkSidebarVisibility = (toState) => {

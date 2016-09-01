@@ -27,8 +27,16 @@
     min-width: $dashboard-navbar-width
 
   &:hover
-    width: $dashboard-width-nav
+    width: 100%
     overflow: visible !important
+    +xsm
+      width: $dashboard-width-nav
+    +mdm
+      overflow-x: visible !important
+      min-width: $dashboard-width-nav
+    +lgm
+      overflow-x: visible !important
+      min-width: $dashboard-width-nav
 
   .main-column
     display: flex
