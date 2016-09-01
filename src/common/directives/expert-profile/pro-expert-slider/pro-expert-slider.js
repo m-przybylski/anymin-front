@@ -2,6 +2,8 @@
   function proExpertSlider(DialogService, HelperService) {
     function linkFunction(scope) {
 
+      console.log(scope)
+
       scope.imageUrl = (slide) => {
         return HelperService.fileUrlResolver(slide.previewFileId)
       }
