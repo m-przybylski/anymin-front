@@ -3,6 +3,8 @@
 
     this.rulesAccepted = false
 
+    this.queue = null
+
     return this
   }
 

@@ -1,7 +1,7 @@
 .expert-cards-section.pro-expert-card
   .expert-card
     .top-content-wrap
-      img.expert-avatar(ng-src="{{ items.avatar }}")
+      img.expert-avatar(data-ng-src="{{ items.avatar }}")
       p.expert-name {{ items.name }}
       p.expert-availability(class='{{ items.status }}')
         span(data-translate='{{ vm.translations[items.status] }}')

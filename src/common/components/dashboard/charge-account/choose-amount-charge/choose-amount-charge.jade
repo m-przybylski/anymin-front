@@ -3,24 +3,30 @@
     h3(data-translate="{{ vm.title }}")
 
   .choose-options
-    .option(data-ng-class="{'selected': vm.activeOption == 1}" data-ng-click="vm.activeOption = 1")
-      span.icon.icon-success-12.top-right.circle(data-ng-show="vm.activeOption == 1")
-      h2 20zł
-    .option(data-ng-class="{'selected': vm.activeOption == 2}" data-ng-click="vm.activeOption = 2")
-      span.icon.icon-success-12.top-right.circle(data-ng-show="vm.activeOption == 2")
-      h2 50zł
-    .option(data-ng-class="{'selected': vm.activeOption == 3}" data-ng-click="vm.activeOption = 3")
-      span.icon.icon-success-12.top-right.circle(data-ng-show="vm.activeOption == 3")
-      h2 100zł
-    .option.option-own-amount(data-ng-class="{'selected': vm.activeOption == 4}" data-ng-click="vm.activeOption = 4")
-      span.icon.icon-success-12.top-right.circle(data-ng-show="vm.activeOption == 4")
-      pro-input(placeholder="250zł"
-        data-label="{{'DASHBOARD.CHARGE_ACCOUNT.OWN_AMOUNT' | translate}}"
-        data-ng-model="linkModel"
-        data-ng-click="onClick()"
-        data-ng-enter="onEnter()"
-        data-ng-class="{'invalid': error.badUrl}"
-        addon-action="onEnter"
-        data-id="ownAmount"
-        data-addon-text="PLN"
-        only-digits)
+    .choose-options-item
+      .option(data-ng-class="{'selected': vm.activeOption == 1}" data-ng-click="vm.activeOption = 1")
+        span.icon.icon-success-12.top-right.circle(data-ng-show="vm.activeOption == 1")
+        h2 20zł
+
+    .choose-options-item
+      .option(data-ng-class="{'selected': vm.activeOption == 2}" data-ng-click="vm.activeOption = 2")
+        span.icon.icon-success-12.top-right.circle(data-ng-show="vm.activeOption == 2")
+        h2 50zł
+    .choose-options-item
+      .option(data-ng-class="{'selected': vm.activeOption == 3}" data-ng-click="vm.activeOption = 3")
+        span.icon.icon-success-12.top-right.circle(data-ng-show="vm.activeOption == 3")
+        h2 100zł
+
+    .choose-options-item
+      .option.option-own-amount(data-ng-class="{'selected': vm.activeOption == 4}" data-ng-click="vm.activeOption = 4")
+        span.icon.icon-success-12.top-right.circle(data-ng-show="vm.activeOption == 4")
+        pro-input(placeholder="250zł"
+          data-label="{{'DASHBOARD.CHARGE_ACCOUNT.OWN_AMOUNT' | translate}}"
+          data-ng-model="linkModel"
+          data-ng-click="onClick()"
+          data-ng-enter="onEnter()"
+          data-ng-class="{'invalid': error.badUrl}"
+          addon-action="onEnter"
+          data-id="ownAmount"
+          data-addon-text="PLN"
+          only-digits)

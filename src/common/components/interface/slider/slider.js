@@ -9,6 +9,12 @@
     let parentWidth = $element[0].offsetWidth
     let visibleItem = null
 
+    function _elementsWidth() {
+      elementsMap = $.map($($element).find('>div'), (div)=>{
+        return div.offsetWidth
+      })
+    }
+
     angular.element($window).on('resize', ()=> {
       _elementsWidth()
       $element.css('left', '0')
@@ -20,12 +26,6 @@
         nextSlide: this.nextSlide
       }
     })
-
-    function _elementsWidth() {
-      elementsMap = $.map($($element).find('>div'), (div)=>{
-        return div.offsetWidth
-      })
-    }
 
     $timeout(()=>{
       _elementsWidth()
@@ -52,8 +52,7 @@
       if (currentElement < elementsMap.length - visibleItem) {
         currentElement += next
         $element.css('left', _calculateOffset(currentElement) * -1)
-      }
-      else {
+      } else {
         $element.css('left', '0')
         currentElement = 0
       }

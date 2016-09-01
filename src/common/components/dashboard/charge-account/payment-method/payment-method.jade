@@ -3,22 +3,25 @@
     h3(data-translate="{{ vm.title }}")
     
   .choose-options
-    .option(data-ng-class="{'selected': vm.activeOption == 1}" data-ng-click="vm.activeOption = 1")
-      span.icon.icon-success-12.top-right.circle(data-ng-show="vm.activeOption == 1")
-      img(ng-src="/assets/images/payU-logo.png")
-      p(data-translate="DASHBOARD.CHARGE_ACCOUNT.BANKWIRE")
-    .option(data-ng-class="{'selected': vm.activeOption == 2}" data-ng-click="vm.activeOption = 2")
-      span.icon.icon-success-12.top-right.circle(data-ng-show="vm.activeOption == 2")
-      img(ng-src="/assets/images/paypal-logo.png")
-      p(data-translate="DASHBOARD.CHARGE_ACCOUNT.FAST_CHARGE")
-    .option(data-ng-class="{'selected': vm.activeOption == 3}" data-ng-click="vm.activeOption = 3")
-      span.icon.icon-success-12.top-right.circle(data-ng-show="vm.activeOption == 3")
+    .choose-options-item
+      .option(data-ng-class="{'selected': vm.activeOption == 1}" data-ng-click="vm.activeOption = 1")
+        span.icon.icon-success-12.top-right.circle(data-ng-show="vm.activeOption == 1")
+        img(ng-src="/assets/images/payU-logo.png")
+        p(data-translate="DASHBOARD.CHARGE_ACCOUNT.BANKWIRE")
+    .choose-options-item
+      .option(data-ng-class="{'selected': vm.activeOption == 2}" data-ng-click="vm.activeOption = 2")
+        span.icon.icon-success-12.top-right.circle(data-ng-show="vm.activeOption == 2")
+        img(ng-src="/assets/images/paypal-logo.png")
+        p(data-translate="DASHBOARD.CHARGE_ACCOUNT.FAST_CHARGE")
+    .choose-options-item
+      .option(data-ng-class="{'selected': vm.activeOption == 3}" data-ng-click="vm.activeOption = 3")
+        span.icon.icon-success-12.top-right.circle(data-ng-show="vm.activeOption == 3")
 
-      .flex-row
-        img(ng-src="/assets/images/maestro-logo.png")
-        img(ng-src="/assets/images/mastercard-logo.png")
-        img(ng-src="/assets/images/visa-logo.png")
+        .bank-icons.flex-row
+          img(ng-src="/assets/images/maestro-logo.png")
+          img(ng-src="/assets/images/mastercard-logo.png")
+          img(ng-src="/assets/images/visa-logo.png")
 
-      p(data-translate="DASHBOARD.CHARGE_ACCOUNT.CARD_PAYMENT")
-  
+        p(data-translate="DASHBOARD.CHARGE_ACCOUNT.CARD_PAYMENT")
+
   

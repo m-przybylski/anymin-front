@@ -3,8 +3,9 @@
     h3(data-translate="{{ vm.title }}")
     
   .choose-options
-    .option(data-ng-repeat="bank in vm.bankList" data-ng-class="{'selected': vm.activeOption == $index}" data-ng-click="vm.activeOption = $index")
-      span.icon.icon-success-12.top-right.circle(data-ng-show="vm.activeOption == $index")
-      img(ng-src="{{ bank.img }}")
-      p {{ bank.name }}
+    .choose-options-item(data-ng-repeat="bank in vm.bankList")
+      .option(data-ng-class="{'selected': vm.activeOption == $index}" data-ng-click="vm.activeOption = $index")
+        span.icon.icon-success-12.top-right.circle(data-ng-show="vm.activeOption == $index")
+        img(ng-src="{{ bank.img }}")
+        p {{ bank.name }}
   

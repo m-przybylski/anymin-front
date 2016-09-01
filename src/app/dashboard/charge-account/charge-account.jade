@@ -11,8 +11,8 @@
 
       choose-amount-charge(data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_AMMOUNT_CHARGE")
 
-      payment-method(data-title="DASHBOARD.CHARGE_ACCOUNT.PAYMENT_METHOD_TITLE")
-      
+      payment-method(data-title="DASHBOARD.CHARGE_ACCOUNT.PAYMENT_METHOD_TITLE" data-ng-show="vm.queue=2")
+
     .bottom-charge-account
       .default-container
         choose-bank(data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_YOUR_BANK")
@@ -21,8 +21,8 @@
           h3(data-translate="DASHBOARD.CHARGE_ACCOUNT.WRITE_YOUR_PERSONAL_DATA")
         .your-personal-data
           .name
-            pro-input(placeholder="Imię"
-              data-label="Imię*"
+            pro-input(placeholder="{{ 'DASHBOARD.CHARGE_ACCOUNT.NAME_PLACEHOLDER' | translate }}"
+              data-label="{{ 'DASHBOARD.CHARGE_ACCOUNT.NAME_PLACEHOLDER' | translate }}"
               data-ng-model="nameModel"
               data-ng-click="onClick()"
               data-ng-enter="onEnter()"
@@ -31,8 +31,8 @@
               data-id="name"
               no-delete)
           .name
-            pro-input(placeholder="Nazwisko"
-              data-label="Nazwisko*"
+            pro-input(placeholder="{{ 'DASHBOARD.CHARGE_ACCOUNT.LASTNAME_PLACEHOLDER' | translate }}"
+              data-label="{{ 'DASHBOARD.CHARGE_ACCOUNT.LASTNAME_PLACEHOLDER' | translate }}"
               data-ng-model="lastnameModel"
               data-ng-click="onClick()"
               data-ng-enter="onEnter()"
@@ -41,8 +41,8 @@
               data-id="lastName"
               no-delete)
           .name
-            pro-input(placeholder="Adres E-mail"
-              data-label="Adres E-mail*"
+            pro-input(placeholder="{{ 'DASHBOARD.CHARGE_ACCOUNT.EMAIL_PLACEHOLDER' | translate }}"
+              data-label="{{ 'DASHBOARD.CHARGE_ACCOUNT.EMAIL_PLACEHOLDER' | translate }}"
               data-ng-model="mailModel"
               data-ng-click="vm.onClick()"
               data-ng-enter="vm.onEnter()"
@@ -51,12 +51,11 @@
               data-id="email"
               no-delete
               data-ng-pattern="vm.patternEmail")
-              
+
         .footer
-              
           pro-checkbox(id="acceptRules"
             data-ng-model="vm.rulesAccepted"
-            data-label="Akceptuję regulamin płatności *"
+            data-label="{{ 'DASHBOARD.CHARGE_ACCOUNT.ACCEPT_RULES' | translate }}"
             data-name="acceptRules"
             data-ng-class="{'invalid': !vm.rulesAccepted && passwordForm.$submitted}"
             required)
@@ -68,5 +67,5 @@
     .charge-button
       .default-container
         a.pro-button.rectangle.default
-          | Doładuj konto 
+          | {{ 'DASHBOARD.CHARGE_ACCOUNT.CHARGE_ACCOUNT_BUTTON_TEXT' | translate }}
           span.icon-arrow-right-12.icon-right

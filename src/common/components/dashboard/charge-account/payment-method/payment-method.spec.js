@@ -44,8 +44,5 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payment-me
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
-
-
-
   })
 })

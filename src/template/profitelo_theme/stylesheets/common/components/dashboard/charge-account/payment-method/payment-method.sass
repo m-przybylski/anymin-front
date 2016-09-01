@@ -1,5 +1,5 @@
 .payment-method
-  margin: 64px 0
+  margin: 0 0 64px
 
   h3
     text-align: center
@@ -8,61 +8,88 @@
       text-align: left
 
   .title
-    margin: 16px 0 0
+    margin: 0 0 64px
 
   .choose-options
-    margin-top: 64px
-    display: flex
-    flex-wrap: wrap
-    justify-content: space-around
-
-    .option
+    margin: 0 0 64px
+    
+    +smm
       display: flex
-      flex-direction: column
-      justify-content: center
-      align-content: flex-start
-      align-items: center
-      width: 100%
-      box-shadow: 0 0 0 1px $c-lines
-      padding: 32px
-      margin: 8px
-      +border-radius(0.2em)
-      cursor: pointer
-      text-align: center
-      position: relative
+      flex-wrap: wrap
 
-      img
-        width: 100px
-
+    .choose-options-item
       +smm
-        width: calc(100%/3.3)
+        flex: 1 0 33%
 
-      p
-        text-transform: uppercase
-        font-size: $f-base
-        +default-font-heavy
-        padding: 16px 0
+        &:nth-child(2n)
+          padding: 0 8px 0
 
-      &:hover
-        box-shadow: 0 0 0 1px $c-primary
+        &:nth-child(2n+1)
+          padding: 0 8px 0
 
-      .flex-row
-        display: flex
+        &:nth-child(1)
+          padding: 0 8px 0 0
+
+        &:last-child
+          padding: 0 0 0 8px
+
+      +mdm
+        flex: 1 0 33%
+
+        &:nth-child(2n)
+          padding: 0 8px 0
+
+        &:nth-child(2n+1)
+          padding: 0 8px 0
+
+        &:nth-child(1)
+          padding: 0 8px 0 0
+
+        &:last-child
+          padding: 0 0 0 8px
+
+      .option
+        +border-radius(3px)
+        margin: 0 0 16px
+        box-shadow: 0 0 0 1px $c-lines
         align-items: center
+        cursor: pointer
+        position: relative
+        height: 150px
+        display: flex
+        flex-direction: column
+        justify-content: center
+
         img
-          width: 50px
-          height: 100%
-          margin: 0 8px
+          width: 100px
 
-    .selected
-      box-shadow: 0 0 0 2px $c-primary
+        p
+          +default-font-heavy
+          text-transform: uppercase
+          font-size: $f-base
+          padding: 16px 0
 
-    .top-right
-      background: $c-primary
-      width: 24px
-      height: 24px
-      color: $c-white
-      font-size: 10px
-      padding: 6px 7px
-      position: absolute
-      bottom: -14px
+        &:hover
+          box-shadow: 0 0 0 1px $c-primary
+
+        .flex-row
+          display: flex
+          align-items: center
+
+          img
+            width: 50px
+            height: 100%
+            margin: 0 8px
+
+      .selected
+        box-shadow: 0 0 0 2px $c-primary
+
+      .top-right
+        background: $c-primary
+        width: 24px
+        height: 24px
+        color: $c-white
+        font-size: 10px
+        padding: 6px 7px
+        position: absolute
+        bottom: -14px

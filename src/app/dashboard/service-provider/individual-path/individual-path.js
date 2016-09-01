@@ -1,4 +1,4 @@
-(function () {
+(function() {
   function IndividualPathController($scope, $state, ProfileApi, User, savedProfile, proTopAlertService, $timeout, smoothScrolling) {
 
     this.queue = {
@@ -65,7 +65,7 @@
           avatar: this.individualPathModel.avatar,
           languages: this.individualPathModel.languages,
           files: this.individualPathModel.files.map((file) => {
-            if(typeof file.previewFileId !== 'undefined') {
+            if (typeof file.previewFileId !== 'undefined') {
               return {fileId: file.fileId, previewFileId: file.previewFileId}
             } else {
               return {fileId: file.id, previewFileId: file.meta.previewFileId}
@@ -108,7 +108,7 @@
     'profitelo.directives.pro-top-alert-service',
     'c7s.ng.userAuth'
   ])
-    .config(function ($stateProvider, UserRolesProvider) {
+    .config(function($stateProvider, UserRolesProvider) {
       $stateProvider.state('app.dashboard.service-provider.individual-path', {
         url: '/individual-path',
         templateUrl: 'dashboard/service-provider/individual-path/individual-path.tpl.html',
