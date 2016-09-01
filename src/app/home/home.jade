@@ -12,16 +12,22 @@ main.top-content-home
     .single-container.slider-container
       .slider-control
         span.icon.icon-hands-32
-        p(data-translate="HOME.SLIDER_1")
-        p(data-translate="HOME.SLIDER_2")
-        .switcher
-          span.icon.icon-arrow-left-12(data-ng-click="vm.newsPrevSlide()")
-          span.icon.icon-arrow-right-12(data-ng-click="vm.newsNextSlide()")
+        p
+          span(data-translate="HOME.SLIDER_1")        
+          span(data-translate="HOME.SLIDER_2")
+          
+        .pro-button-group.switcher
+          a.arrow.arrow-left(data-ng-click="vm.newsPrevSlide()")         
+            span.icon.icon-arrow-left-12        
+          a.arrow.arrow-right(data-ng-click="vm.newsNextSlide()")
+            span.icon.icon-arrow-right-12
+            
       .slider-slides(data-ng-style="leftOffset") 
         slider.flex-row(data-ng-transclude data-controlls="vm.newsControlls" data-move-slides="-1")
           .slides(data-ng-repeat="slide in vm.newsSlider" data-ng-swipe-left="nextSlide()" data-ng-swipe-right="prevSlide()")
-            img(data-ng-src="{{slide.img}}")
-            p {{ slide.title }}
+            .thumbnail 
+              img(data-ng-src="{{slide.img}}")
+            h4 {{ slide.title }}
             p.desc {{ slide.descriptions }}
 
     

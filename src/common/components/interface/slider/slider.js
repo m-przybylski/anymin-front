@@ -5,15 +5,13 @@
     let currentWidth = 0
     let elementsMap = []
     let currentElement = 0
+    let parentWidth = $element[0].offsetWidth
+    let visibleItem = null
 
     angular.element($window).on('resize', ()=> {
-      currentWidth = $($element).width()
+      _elementsWidth()
       $element.css('left', '0')
     })
-
-    if (typeof(this.moveSlides) === 'undefined') {
-      this.moveSlides = 0
-    }
 
     $timeout(() => {
       this.controlls = {
@@ -22,36 +20,39 @@
       }
     })
 
-    $timeout(()=>{
+    function _elementsWidth() {
       elementsMap = $.map($($element).find('>div'), (div)=>{
         return div.offsetWidth
       })
+    }
+
+    $timeout(()=>{
+      _elementsWidth()
     })
 
-    let _calculateOffset = (elem) => {
+    const _calculateOffset = (elem) => {
       let offset = 0
       for (let i = 0; i < elem; i++) {
-        offset = offset + elementsMap[i]
+        offset += elementsMap[i]
       }
       return offset
     }
 
     this.prevSlide = (next=1) => {
       if (currentElement > 0) {
-        currentElement = currentElement - next
+        currentElement -= next
         $element.css('left', _calculateOffset(currentElement) * -1)
       }
     }
 
     this.nextSlide = (next=1) => {
-      let parentWidth = $element[0].offsetWidth
-      let visibleItem = Math.floor(parentWidth / elementsMap[1]) + this.moveSlides
+      visibleItem = Math.floor(parentWidth / elementsMap[1])
 
       if (currentElement < elementsMap.length - visibleItem) {
-        currentElement = currentElement + next
-
+        currentElement += next
         $element.css('left', _calculateOffset(currentElement) * -1)
-      } else {
+      }
+      else {
         $element.css('left', '0')
         currentElement = 0
       }

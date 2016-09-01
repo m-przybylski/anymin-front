@@ -268,8 +268,9 @@
   overflow: hidden
 
   .arrow
-    display: inline-block
-    position: relative
+    display: flex
+    justify-content: center
+    align-items: center
     height: 48px
     width: 48px
     float: left
@@ -280,13 +281,8 @@
         color: $c-white
 
     .icon
-      width: 10px
-      height: 14px
+      display: flex
       color: $c-lines
-      display: inline-block
-      position: absolute
-      top: 4px
-      left: 17px
 
       &:before
         font-size: $f-small
