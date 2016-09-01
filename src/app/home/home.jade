@@ -8,7 +8,7 @@ main.top-content-home
   .default-container
     include ./parts/branch-overview.partial.jade
 
-  .default-container
+  .default-container.pro-expert-slider
     .single-container.slider-container
       .slider-control
         span.icon.icon-hands-32
@@ -28,7 +28,7 @@ main.top-content-home
             .thumbnail 
               img(data-ng-src="{{slide.img}}")
             h4 {{ slide.title }}
-            p.desc {{ slide.descriptions }}
+            p.description {{ slide.descriptions }}
 
     
 .card-slider
