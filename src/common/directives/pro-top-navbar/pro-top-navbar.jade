@@ -48,9 +48,9 @@
         span.icon.icon-user-profile-24
 
         .user-menu(data-ng-show="!!showUserMenu")
-          ul.menu
+          ul.menu(data-ng-click="showUserMenu = false")
             .account-menu
-              li(data-ng-repeat="account in accounts")
+              li(data-ng-repeat="account in accounts" )
                 a(data-ui-sref="app.dashboard.start") {{ account }}
             .settings-menu
               li
