@@ -326,17 +326,24 @@
       padding: 26px 28px
 
   .user-menu
-    width: 100%
+    +transition(width 0.5s)
+    width: 0
+    height: 200px
     display: block
     position: fixed
     top: 80px
     right: 0
     background-color: $c-primary
     text-align: right
+    &.show-menu
+      width: 100%
     +xsm
-      width: auto
+      width: 0
+      &.show-menu
+        width: 240px
     a
       transition: opacity .1s
+      white-space: nowrap
       color: $c-white
     ul
       width: 100%

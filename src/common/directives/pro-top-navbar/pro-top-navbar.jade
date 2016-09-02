@@ -51,7 +51,7 @@
       data-ng-mouseleave="showUserMenu = false" data-ng-click="hideOtherMenus()" data-ng-class="{'hover-login-btn': showUserMenu}")
         span.icon.icon-user-profile-24
 
-        .user-menu(data-ng-show="!!showUserMenu")
+        .user-menu(data-ng-class="{ 'show-menu' : !!showUserMenu }")
           ul.menu(data-ng-click="showUserMenu = false")
             .account-menu
               li(data-ng-repeat="account in accounts" data-ui-sref="app.dashboard.start")
