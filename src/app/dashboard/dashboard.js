@@ -4,6 +4,7 @@
 
     this.isSidebarOpen = false
     this.switchUser = false
+    let isSidebarPage = true
     if (angular.isDefined(userProfile) && userProfile !== null) {
       this.expertProfileExist = !!userProfile.expertDetails
     }
@@ -25,10 +26,10 @@
     
     /* istanbul ignore next */
     angular.element($window).on('resize', (window)=> {
-      if ($window.innerWidth < 992) {
-        this.isSidebarShown = false
-      } else {
+      if ($window.innerWidth > 992 && isSidebarPage) {
         this.isSidebarShown = true
+      } else {
+        this.isSidebarShown = false
       }
       $scope.$digest()
     })
@@ -36,10 +37,12 @@
     const _checkSidebarVisibility = (toState) => {
       if (angular.isUndefined(toState.data.showMenu)) {
         this.isSidebarShown = $window.innerWidth > 992
+        isSidebarPage = $window.innerWidth > 992 
         this.isNavbarShown = true
       } else {
-        this.isSidebarShown = toState.data.showMenu
-        this.isNavbarShown = toState.data.showTopMenu
+        this.isSidebarShown = toState.data.showMenu   || false
+        isSidebarPage = toState.data.showMenu   || false
+        this.isNavbarShown = toState.data.showTopMenu || false
       }
     }
 

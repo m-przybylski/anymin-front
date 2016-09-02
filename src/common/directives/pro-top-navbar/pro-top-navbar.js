@@ -2,8 +2,7 @@
   function proTopNavbar($window, searchService) {
 
     function linkFunction(scope, elem, attrs) {
-
-      scope.isHide = false
+      
       scope.showUserMenu = false
       scope.showResponsiveMenu = false
       scope.animateCross = false
@@ -31,7 +30,6 @@
       ]
 
       scope.searchModel = null
-      
       scope.logout = ()=> {
         scope.logoutAction()
       }
