@@ -50,6 +50,7 @@
         }
       }
 
+      /* istanbul ignore next */
       angular.element($window).on('resize', (window)=> {
         scope.windowSize = $window.innerWidth
         checkWindowWidth()

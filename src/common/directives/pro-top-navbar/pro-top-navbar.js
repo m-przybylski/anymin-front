@@ -6,6 +6,7 @@
       scope.isHide = false
       scope.showUserMenu = false
       scope.showResponsiveMenu = false
+      scope.animateCross = false
       scope.isDashboard = scope.showNavigationMenu
       scope.hamburgerClass = scope.sidebarStatus ===  true ? 'active-btn' : 'disactive-btn'
       scope.accounts = ['Konto Klienta', 'Konto Eksperta', 'Firma']
@@ -40,6 +41,7 @@
         scope.windowSize = $window.innerWidth
         if (angular.isDefined(scope.sidebarStatus)) {
           scope.hamburgerClass = scope.sidebarStatus ===  true ? 'active-btn' : 'disactive-btn'
+          scope.animateCross = scope.sidebarStatus ===  true
           scope.$digest()
         }
       })
@@ -50,6 +52,7 @@
         } else {
           scope.showResponsiveMenu = scope.showResponsiveMenu === false
         }
+        scope.animateCross = scope.animateCross === false
         scope.showUserMenuOnClick = false
         scope.hamburgerClass = scope.hamburgerClass ===  'disactive-btn' ? 'active-btn' : 'disactive-btn'
       }
@@ -67,7 +70,7 @@
           scope.sidebarAction()
         }
       }
-      
+
       searchService.onQueryParamsChange(scope, (params) => {
         scope.searchModel = params.q
       })

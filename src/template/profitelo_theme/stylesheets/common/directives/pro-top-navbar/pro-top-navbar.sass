@@ -42,20 +42,78 @@
     cursor: pointer
     padding: 32px
     height: 79px
+    width: 80px
     font-size: 0
     display: flex
     background: $c-white
     color: $c-secondary-txt
+    .nav-icon
+      font-size: 0
+      display: flex
+      background: $c-white
+      color: $c-secondary-txt
+      position: relative
+      -webkit-transform: rotate(0deg)
+      -moz-transform: rotate(0deg)
+      -o-transform: rotate(0deg)
+      transform: rotate(0deg)
+      -webkit-transition: .5s ease-in-out
+      -moz-transition: .5s ease-in-out
+      -o-transition: .5s ease-in-out
+      transition: .5s ease-in-out
+      cursor: pointer
+      span
+        display: block
+        position: absolute
+        height: 3px
+        width: 20px
+        background: $c-secondary-txt
+        border-radius: 9px
+        opacity: 1
+        left: 0
+        -webkit-transform: rotate(0deg)
+        -moz-transform: rotate(0deg)
+        -o-transform: rotate(0deg)
+        transform: rotate(0deg)
+        -webkit-transition: .25s ease-in-out
+        -moz-transition: .25s ease-in-out
+        -o-transition: .25s ease-in-out
+        transition: .25s ease-in-out
+        &:nth-child(1)
+          top: 0px
+        &:nth-child(2), &:nth-child(3)
+          top: 8px
+        &:nth-child(4)
+          top: 16px
+      &.open span
+        &:nth-child(1)
+          top: 8px
+          width: 0%
+          left: 10px
+        &:nth-child(2)
+          -webkit-transform: rotate(45deg)
+          -moz-transform: rotate(45deg)
+          -o-transform: rotate(45deg)
+          transform: rotate(45deg)
+        &:nth-child(3)
+          -webkit-transform: rotate(-45deg)
+          -moz-transform: rotate(-45deg)
+          -o-transform: rotate(-45deg)
+          transform: rotate(-45deg)
+        &:nth-child(4)
+          top: 8px
+          width: 0%
+          left: 10px
     &.active-btn
-      .icon
-        color: $c-primary
+      span
+        background: $c-primary
       +smm
         background: $c-primary
         transition: background .2s, color .2s
         color: $c-white
         height: 80px
-        .icon
-          color: $c-white
+        span
+          background: $c-white
     &.disactive-btn
       background: $c-white
       color: $c-secondary-txt
@@ -101,7 +159,6 @@
     display: flex
     max-height: 78px
 
-  .login-btn,
   .profile-btn,
   .search-btn,
   .notification-btn,
@@ -138,6 +195,7 @@
     +smm
       border-left: 1px solid $c-lines
       padding: 32px 28px
+
       &:hover
         background: $c-primary
         color: $c-white
@@ -145,6 +203,54 @@
           display: none
         .icon
           color: $c-white
+
+    .login
+      display: none
+      +smm
+        display: block
+
+  .login-btn
+    cursor: pointer
+    outline: 0
+    padding: 32px
+    color: $c-black
+    height: 79px
+    position: relative
+    background: $c-white
+    transition: color .2s, background .2s
+    &.hover-login-btn
+      +smm
+        height: 80px
+      .icon
+        color: $c-primary
+      &:before
+        -webkit-transition: left 0.3s 0.3s
+        transition: left 0.3s 0.3s
+        content: ""
+        width: 0
+        height: 0
+        border-right: 8px solid transparent
+        border-left: 8px solid transparent
+        border-bottom: 8px solid $c-primary
+        position: absolute
+        z-index: 1
+        top: 72px
+        left: 12px
+        +xsm
+          left: 21px
+    +smm
+      border-left: 1px solid $c-lines
+      padding: 32px 28px
+      +smm
+        border-left: 1px solid $c-lines
+        padding: 32px 28px
+        &.hover-login-btn
+          background: $c-primary
+          color: $c-white
+          &:before
+            display: none
+          .icon
+            color: $c-white
 
     .login
       display: none
@@ -188,7 +294,7 @@
       +default-font-light
       width: auto
       transition: color .2s, background .2s
-      &:hover
+      .hover-loginBtn
         background: $c-primary
         color: $c-white
 
@@ -220,17 +326,24 @@
       padding: 26px 28px
 
   .user-menu
-    width: 100%
+    +transition(width 0.5s)
+    width: 0
+    height: 200px
     display: block
     position: fixed
     top: 80px
     right: 0
     background-color: $c-primary
     text-align: right
+    &.show-menu
+      width: 100%
     +xsm
-      width: auto
+      width: 0
+      &.show-menu
+        width: 240px
     a
       transition: opacity .1s
+      white-space: nowrap
       color: $c-white
     ul
       width: 100%
