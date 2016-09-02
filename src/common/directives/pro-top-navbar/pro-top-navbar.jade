@@ -47,14 +47,15 @@
       a.notification-btn(data-ng-if="!!$root.loggedIn")
         span.icon.icon-bell-24
 
-      .login-btn(data-ng-if="!!$root.loggedIn" data-ng-mouseover="showUserMenu = true" data-ng-mouseleave="showUserMenu = false" data-ng-click="hideOtherMenus()")
+      .login-btn(data-ng-if="!!$root.loggedIn" data-ng-mouseover="showUserMenu = true"
+      data-ng-mouseleave="showUserMenu = false" data-ng-click="hideOtherMenus()" data-ng-class="{'hover-login-btn': showUserMenu}")
         span.icon.icon-user-profile-24
 
         .user-menu(data-ng-show="!!showUserMenu")
           ul.menu(data-ng-click="showUserMenu = false")
             .account-menu
-              li(data-ng-repeat="account in accounts" )
-                a(data-ui-sref="app.dashboard.start") {{ account }}
+              li(data-ng-repeat="account in accounts" data-ui-sref="app.dashboard.start")
+                a {{ account }}
             .settings-menu
               li
                 a(data-translate="NAVIGATION.USER_SETTINGS")

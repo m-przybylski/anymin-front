@@ -132,8 +132,7 @@
         color: $c-white
         a
           color: $c-white
-        &:hover,
-        &:focus
+        &:hover
           li
             a
               opacity: 0.3
@@ -142,8 +141,8 @@
           a
             font-size: 14px
           &:hover
-          &:focus
-            opacity: 1
+            a
+              opacity: 1
     +mdm
       display: none
     +smm
@@ -160,7 +159,6 @@
     display: flex
     max-height: 78px
 
-  .login-btn,
   .profile-btn,
   .search-btn,
   .notification-btn,
@@ -174,8 +172,7 @@
     position: relative
     background: $c-white
     transition: color .2s, background .2s
-    &:hover,
-    &:focus
+    &:hover
       +smm
         height: 80px
       .icon
@@ -198,8 +195,8 @@
     +smm
       border-left: 1px solid $c-lines
       padding: 32px 28px
-      &:hover,
-      &:focus
+
+      &:hover
         background: $c-primary
         color: $c-white
         &:before
@@ -212,12 +209,58 @@
       +smm
         display: block
 
+  .login-btn
+    cursor: pointer
+    outline: 0
+    padding: 32px
+    color: $c-black
+    height: 79px
+    position: relative
+    background: $c-white
+    transition: color .2s, background .2s
+    &.hover-login-btn
+      +smm
+        height: 80px
+      .icon
+        color: $c-primary
+      &:before
+        -webkit-transition: left 0.3s 0.3s
+        transition: left 0.3s 0.3s
+        content: ""
+        width: 0
+        height: 0
+        border-right: 8px solid transparent
+        border-left: 8px solid transparent
+        border-bottom: 8px solid $c-primary
+        position: absolute
+        z-index: 1
+        top: 72px
+        left: 12px
+        +xsm
+          left: 21px
+    +smm
+      border-left: 1px solid $c-lines
+      padding: 32px 28px
+      +smm
+        border-left: 1px solid $c-lines
+        padding: 32px 28px
+        &.hover-login-btn
+          background: $c-primary
+          color: $c-white
+          &:before
+            display: none
+          .icon
+            color: $c-white
+
+    .login
+      display: none
+      +smm
+        display: block
+
   .search-btn
     padding-left: 65px
     transition: width .2s
-    &:hover,
-    &:focus
-
+    &:hover
       &:before
         display: none
     .icon
@@ -237,8 +280,7 @@
       +smm
         display: block
     +smm
-      &:hover,
-      &:focus
+      &:hover
         background: $c-primary
         transition: background .2s, color .2s
         color: $c-white
@@ -252,8 +294,7 @@
       +default-font-light
       width: auto
       transition: color .2s, background .2s
-      &:hover,
-      &:focus
+      .hover-loginBtn
         background: $c-primary
         color: $c-white
 
@@ -273,8 +314,7 @@
       top: 50%
       left: 28px
       margin: -12px 0 0
-    &:hover,
-    &:focus
+    &:hover
       &:before
         display: none
   .notification-btn,
@@ -300,8 +340,7 @@
       color: $c-white
     ul
       width: 100%
-      &:hover,
-      &:focus
+      &:hover
         li
           a
             opacity: 0.3
@@ -311,8 +350,7 @@
         padding: 16px 32px
       li
         padding: 4px 0
-        &:hover,
-        &:focus
+        &:hover
           a
             opacity: 1
         a
@@ -329,8 +367,7 @@
     .cancel-btn
       width: 110px
       text-align: center
-      &:hover,
-      &:focus
+      &:hover
         &:before
           display: none
     .search-active-btn
@@ -384,8 +421,7 @@
       background: $c-white
       transition: width .2s
       border: 0
-      &:hover,
-      &:focus
+      &:hover
         height: 79px
         &:before
           display: none
@@ -415,8 +451,7 @@
         padding: 0
         background: $c-white
 
-        &:hover,
-        &:focus
+        &:hover
           background: $c-white
 
 
@@ -430,8 +465,7 @@
   display: none
   +mdm
     display: flex
-  &:hover,
-  &:focus
+  &:hover
     > li
       color: $c-secondary-txt
 
@@ -439,6 +473,9 @@
   li
     display: inline-block
     white-space: nowrap
+    &:hover
+      > a
+        color: $c-black
 
   a
     padding: 32px 16px
