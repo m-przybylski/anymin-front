@@ -25,7 +25,7 @@
     a.status-btn(data-ng-show="!!$root.loggedIn  && isExpert && !showSearch" )
       span.status-icon
 
-    .search-expandable(data-ng-class="{'search-activ':showSearch, 'logIn':!!$root.loggedIn}" )
+    .search-expandable(data-ng-class="{'search-activ':showSearch, 'logIn':!!$root.loggedIn, 'logOut':!$root.loggedIn}" )
       a.search-btn(data-ng-click="setShowSearch()")
         span.icon.icon-search-24
         span.search(data-ng-hide="!!$root.loggedIn || showSearch" data-translate="NAVIGATION.SEARCH.BUTTON")
