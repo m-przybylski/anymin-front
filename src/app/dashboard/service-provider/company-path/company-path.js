@@ -56,7 +56,11 @@
           logo: this.companyPathModel.logo,
           description: this.companyPathModel.description,
           files: this.companyPathModel.files.map((file) => {
-            return {fileId: file.id, previewFileId: file.meta.previewFileId}
+            if(typeof file.previewFileId !== 'undefined') {
+              return {fileId: file.fileId, previewFileId: file.previewFileId}
+            } else {
+              return {fileId: file.id, previewFileId: file.meta.previewFileId}
+            }
           }),
           links: this.companyPathModel.links
         }
