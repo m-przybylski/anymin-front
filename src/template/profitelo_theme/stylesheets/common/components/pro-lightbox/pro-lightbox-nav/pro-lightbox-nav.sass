@@ -1,0 +1,34 @@
+.pro-lightbox-nav
+  height: 80px
+  width: 100%
+  padding: 16px 32px
+  background: $c-black
+  display: flex
+  justify-content: space-between
+  align-items: center
+  position: relative
+  z-index: 999
+
+  .pro-lightbox-btn
+    display: flex
+    justify-content: space-between
+
+    .icon
+      background: transparent
+      transition: box-shadow 0.3s
+      color: $c-white
+      display: flex
+      align-items: center
+      justify-content: center
+      margin: 0 0 0 32px
+      border-radius: 50%
+
+      &::before
+        font-size: $f-h3-size
+
+      &:hover
+        box-shadow: 0 0 0 16px rgba($c-white, 0.1), inset 0 0 0 16px rgba($c-white, 0.1)
+
+  .left-wrapper
+    +default-font-heavy
+    color: $c-white

@@ -1,5 +1,5 @@
 (function() {
-  function proExpertSlider(DialogService, HelperService) {
+  function proExpertSlider(DialogService) {
     function linkFunction(scope) {
 
       scope.imageUrl = (slide) => {
@@ -21,8 +21,10 @@
         scope.slide = slide
         DialogService.openDialog({
           scope: scope,
-          controller: 'galleryModelController',
-          templateUrl: 'controllers/gallery-modal/gallery-modal.tpl.html'
+          template: '<pro-lightbox current-slide="$ctrl.currentSlide" actions-settings="$ctrl.navSettings" slider-actions="$ctrl.sliderActions" slides-list="$ctrl.slideList"></pro-lightbox>',
+          controllerAs: '$ctrl',
+          controller: 'lightboxModelController',
+          windowTemplateUrl: 'controllers/lightbox-modal/lightbox-modal.tpl.html'
         })
       }
     }
@@ -41,8 +43,8 @@
   angular.module('profitelo.directives.expert-profile.pro-expert-slider', [
     'profitelo.services.dialog-service',
     'profitelo.components.interface.slider',
-    'profitelo.common.controller.gallery-modal',
-    'profitelo.services.helper-service'
+    'profitelo.common.controller.lightbox-model',
+    'profitelo.components.pro-lightbox'
   ])
   .directive('proExpertSlider', proExpertSlider)
 

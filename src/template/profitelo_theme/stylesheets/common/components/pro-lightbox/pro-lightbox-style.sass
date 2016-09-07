@@ -1,0 +1,52 @@
+pro-lightbox
+  .modal-dialog
+
+    &.add-overflow
+      overflow-y: auto
+      margin-top: 80px
+      min-height: calc(100vh - 80px)
+      height: calc(100vh - 80px)
+
+
+    .right-side
+      display: flex
+      align-items: center
+      width: 48px
+      position: absolute
+      z-index: 1
+      top: 0
+      bottom: 0
+      right: 0
+      margin: auto
+
+    .left-side
+      display: flex
+      align-items: center
+      width: 48px
+      position: absolute
+      z-index: 1
+      top: 0
+      bottom: 0
+      left: 0
+      margin: auto
+
+      .pro-button
+        width: 48px
+        height: 48px
+        padding: 0
+
+        &:hover
+          background: $c-primary
+
+
+.modal-open
+  overflow-y: hidden
+
+  .pro-top-navbar
+    position: absolute
+
+  pro-lightbox
+
+    .modal-dialog
+      display: flex
+      justify-content: center
