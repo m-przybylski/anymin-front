@@ -96,28 +96,22 @@
       background-color: $c-background
 
     .ui-select-match-item
-      background-color: $c-primary-txt
-      padding: 7px 4px
+      background: $c-background-2
+      border: 1px solid $c-lines
+      padding: 0 16px
       display: inline-flex
+      align-items: center
       flex-direction: row-reverse
-      margin: 0 8px 3px 0 !important
-      +border-radius(0.3em)
+      margin: 0 8px 3px 0
+      border-radius: 20px
       position: relative
+      height: 32px
 
       span
+        +default-font-regular
         text-transform: uppercase
-        color: $c-white
-        font-weight: bold
-        padding-left: 6px
-        font-size: 12px
-        line-height: 1.8
-
-      .ui-select-match-close
-        padding: 4px 5px 4px 4px
-        left: 0
-        position: relative
-        font-size: 16px !important
-        line-height: 0.7 !important
+        color: $c-primary-txt
+        font-size: $f-nav-size
 
     .ui-select-placeholder
       padding-left: 10px

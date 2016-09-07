@@ -1,228 +1,232 @@
 .step-description
-  display: flex
-  align-items: center
+  +default-font-heavy
   color: $c-success
+  margin: 0 0 16px
+
 
   .step-counter,
   .icon
-    font-size: $f-paragraph
-    line-height: $f-paragraph
-    color: $c-success
-
-  .icon
-    width: 17px
-    height: 17px
+    font-size: $f-h5-size
 
   .step-counter
     text-transform: uppercase
-    margin-right: 16px
+    margin: 0 16px 0 0
 
+.create-profile
+  padding: 0 0 48px
 
-.step
-  color: $c-lines
-  width: 100%
-  position: relative
-  margin: 0 auto 32px
-  padding: 24px 32px
-  border: 1px solid $c-lines
-  border-radius: $border-radius-default
+  .step
+    color: $c-lines
+    position: relative
 
-  +lgm
-    max-width: 1104px
-    width: 100%
+    .focus-layer
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      z-index: 999
 
-  .focus-layer
-    position: absolute
-    top: 0
-    left: 0
-    width: 100%
-    height: 100%
-    z-index: 999
-
-  .title-step
-    width: 100%
-    display: flex
-    justify-content: space-between
-    align-items: flex-start
-
-    +smm
-      flex-flow: row
-
-    h3
-      color: $c-primary-txt
-      margin-bottom: 32px
-
-      &.choose-path-title
-        margin-bottom: 0
-
-    p
-      color: $c-lines
-      margin-bottom: 24px
-
-      &.choose-path-description
-        margin-bottom: 48px
-
-    .title-order
-      order: 1
-
-      +smm
-        order: 0
-        margin-top: 0
-
-  .step-content-column
-    .upload-trash
-      padding: 13px 10px
-
-      span
-        font-size: $f-h4-size
-
-        .ui-select-match
-          position: absolute
-
-        .ui-select-match-item
-          +border-radius($-radius-4)
-          background-color: $c-primary-txt
-          padding: 3px 5px
-          margin-left: 6px
-          position: relative
-
-          span
-            +default-font-heavy
-            text-transform: uppercase
-            color: $c-white
-            padding-left: 6px
-            font-size: $f-small
-
-          .ui-select-match-close
-            padding: 5px 3px 5px 0
-            position: absolute
-            left: 0
-            font-size: $f-h5-size
-
-      input
-        font-size: $f-h4-size
-
-    .upload-field-description
-
-      p
-        text-transform: uppercase
-        margin: 20px 0 0 25px
-        position: absolute
-
-    .button-next-step
-      margin: 35px 0 25px
-      text-align: right
-
-      .btn-secondary
-        margin-right: 10px
+    .title-step
+      text-align: center
 
       h3
-        margin: 43px 0
-
-      .icon
-        font-size: $f-small
-
-      .link-add-icon
-        color: $c-primary
-        font-size: $f-h2-size
-        text-transform: none
-        font-style: normal
-        border-left: 1px solid $c-lines
-
-
-    .document
-      margin-top: $f-small
-
-      a
-        width: auto
-        text-align: left
-
-
-    .document-container
-      margin-bottom: 24px
-
-      .summary-list
-        font-size: $f-paragraph
         color: $c-primary-txt
-        margin-bottom: 24px
 
-      .links-last-step,
-      .document-label-wrap
-        display: flex
-        margin: -8px
+        &.choose-path-title
+          margin-bottom: 0
 
-  .step-content
-    display: flex
-    justify-content: space-between
-    margin: 0 -8px
+      .title-order
+        margin: 0 0 64px
 
-    +smm
-      flex-direction: row
+        p
+          color: $c-secondary-txt
 
-    .service-option
-      border-radius: $border-radius-default
-      +transition(border .2s, color .2s, background .2s)
-      border: 1px solid $c-lines
-      cursor: pointer
-      padding: 40px 24px
-      display: flex
-      flex-flow: column
-      align-items: center
-      margin: 0 8px
-      flex: 0 1 50%
+    .step-content-column
+      .upload-trash
+        padding: 16px 8px
 
-      &:hover
-        +transition('background-color .1s ease-in-out 0s')
-        background-color: $c-background
+        span
+          font-size: $f-h4-size
 
-        span, p
+          .ui-select-match
+            position: absolute
+
+          .ui-select-match-item
+            +border-radius($-radius-4)
+            background-color: $c-primary-txt
+            padding: 3px 5px
+            margin-left: 6px
+            position: relative
+
+            span
+              +default-font-heavy
+              text-transform: uppercase
+              color: $c-white
+              padding-left: 6px
+              font-size: $f-small
+
+            .ui-select-match-close
+              padding: 5px 3px 5px 0
+              position: absolute
+              left: 0
+              font-size: $f-h5-size
+
+        input
+          font-size: $f-h4-size
+
+      .upload-field-description
+
+        p
+          text-transform: uppercase
+          margin: 20px 0 0 25px
+          position: absolute
+
+      .button-next-step
+        margin: 35px 0 25px
+        text-align: right
+
+        .btn-secondary
+          margin-right: 10px
+
+        h3
+          margin: 43px 0
+
+        .icon
+          font-size: $f-small
+
+        .link-add-icon
           color: $c-primary
+          font-size: $f-h2-size
+          text-transform: none
+          font-style: normal
+          border-left: 1px solid $c-lines
 
-      p
-        font-size: $f-main-subheader
-
-      span
-        font-size: $f-h2-size
-        color: $c-secondary-txt
-
-      p
-        color: $c-secondary-txt
-        text-transform: uppercase
+      .document
         margin-top: $f-small
 
-      &.selected
-        border: 1px solid $c-primary-txt
+        a
+          width: auto
+          text-align: left
 
-        span, p
+      .document-container
+        margin-bottom: 24px
+
+        .summary-list
+          font-size: $f-paragraph
           color: $c-primary-txt
+          margin-bottom: 24px
+
+        .links-submit
+          .label-files
+            color: $c-secondary-txt
+            font-size: $f-h4-size
+            background: none
+            margin: 0 0 16px
+
+    .step-content
+      display: flex
+
+      .service-option
+        border-radius: $border-radius-default
+        border: 1px solid $c-lines
+        cursor: pointer
+        text-align: center
+        flex: 1
+        padding: 48px 0
+        position: relative
+
+        .icon-success-12
+          position: absolute
+          font-size: 12px !important
+          left: 0
+          right: 0
+          margin: auto
+          bottom: -10px
+          width: 20px
+          height: 20px
+          border-radius: 50%
+          background: $c-primary
+          color: $c-white !important
+          display: flex
+          align-items: center
+          justify-content: center
+          display: none
 
         &:hover
-          background-color: $c-primary
-          border: 1px solid $c-primary
+          +transition('background-color .1s ease-in-out 0s')
+          border-color: $c-primary
+          box-shadow: inset 0 0 0 1px $c-primary
 
-          span, p
-            color: $c-white
+          .icon-success-12
+            display: flex
+
+        &.selected
+          border-color: $c-primary
+          box-shadow: inset 0 0 0 1px $c-primary
+
+          .icon-success-12
+            display: flex
+
+        &:first-child
+          margin: 0 8px 0 0
+
+        &:last-child
+          margin: 0 0 0 8px
 
 
-  .step-control
-    +smm
+        p
+          +default-font-heavy
+          color: $c-primary-txt
+
+        .icon
+          font-size: $f-h2-size
+          color: $c-primary-txt
+
+          +smm
+            font-size: $f-h1-size
+
+    .step-control
       display: flex
       justify-content: flex-end
 
+      +smm
+        justify-content: flex-end
+
       button
-        &:not(:last-of-type)
-          margin-right: 16px
+        width: 50%
+        margin: 0
+
+        +smm
+          width: auto
+
+        &:first-child
+          margin: 0 8px 0 0
+
 
 .header-handler
+  display: flex
+  align-items: center
   justify-content: space-between
-  padding-bottom: 8px
+  padding: 0 0 32px
   border-bottom: 1px solid $c-lines
-  margin-bottom: 32px
+  margin: 0 0 32px
 
-.summary-step-title
-  p
-    font-size: 24px
+  .summary-step-title
+    flex: 4
 
-  .consultation-price
-    +default-font-heavy
-    color: $c-black
+    h3
+      font-size: $f-h3-size
+      color: $c-primary-txt
+
+    .consultation-price
+      +default-font-heavy
+      color: $c-success
+      font-size: $f-h5-size
+
+  .btn-handler
+    flex: 1
+    text-align: right
+
+    span
+      text-transform: uppercase

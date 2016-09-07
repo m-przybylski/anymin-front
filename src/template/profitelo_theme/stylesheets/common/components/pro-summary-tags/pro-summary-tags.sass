@@ -2,18 +2,19 @@ pro-summary-tag
   width: 100%
   display: block
 
-  .pro-summary-tag
+  .pro-summary-tag,
     .title-row
       +default-font-heavy
       margin: 0 0 16px 0
       text-transform: uppercase
+      color: $c-secondary-txt
+      font-size: $f-nav-size
 
       span
         margin: 0 0 0 4px
-        color: $c-secondary-txt
 
     .slider-tag
-      margin: 0 -8px 16px
+      margin: 0 0 32px
 
       li
         display: inline-block
@@ -22,5 +23,17 @@ pro-summary-tag
           display: none
 
       span
-        display: block
-        margin: 8px 6px
+        +default-font-regular
+        background: $c-background-2
+        border: 1px solid $c-lines
+        padding: 0 16px
+        display: inline-flex
+        align-items: center
+        flex-direction: row-reverse
+        margin: 0 8px 3px 0
+        border-radius: 20px
+        position: relative
+        height: 32px
+        color: $c-primary-txt
+        font-size: 13px
+        text-transform: uppercase

@@ -12,16 +12,20 @@ block content
         icon-class="icon-add-24"
         addon-action="onEnter"
         data-id="serviceProviderLinks")
+        
         .input-error-messages
           .error(data-translate="DASHBOARD.CREATE_PROFILE.ERROR_EXTERNAL_LINKS" data-ng-show="error.badUrl")
           .error(data-translate="DASHBOARD.CREATE_PROFILE.LINK_ALREADY_EXIST_ERROR" data-ng-show="error.urlExist")
+          
       .document-submit(data-ng-show="model.links.length > 0")
-        .document-container
-          p.summary-list(data-translate="DASHBOARD.CREATE_PROFILE.CREATE_PROFILE_YOUR_LINKS" data-ng-click="onClick()")
-          .links-submit.links-last-step.flex-row.wrap
+        .document-container          
+          .links-submit.links-last-step
             span.label-files.label-icon(data-ng-repeat="link in model.links track by $index")
-              span.left-icon(pro-social-icon-getter data-url="link")
-              span {{ link }}
-              a.icon.icon-close-12(data-ng-click="removeLink(link)")
+              span.left-icon.url-logo(pro-social-icon-getter data-url="link")
+              span.urllink {{ link }}
+              a(data-ng-click="removeLink(link)")
+                span.icon.icon-trash-24.icon-24.trash
+                
+              
       .input-error-messages
         .error(data-translate="DASHBOARD.CREATE_PROFILE.NO_LINKS_ERROR" data-ng-show="error.noUrl && model.links.length < 1")

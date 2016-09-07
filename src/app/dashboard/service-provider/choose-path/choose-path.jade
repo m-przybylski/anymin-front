@@ -1,12 +1,16 @@
 .step.step-done
-  .title-step
-    .title-order
-      h3.choose-path-title(data-translate="DASHBOARD.CREATE_PROFILE.STEP1_CHOOSE_PROFILE_TITLE")
-      p.choose-path-description(data-translate="DASHBOARD.CREATE_PROFILE.STEP1_CHOOSE_PROFILE_DESCRIPTION")
-  .step-content
-    a.service-option(data-ui-sref="app.dashboard.service-provider.individual-path")
-      span.icon.icon-person-128
-      p(data-translate="DASHBOARD.MENU.STEP1_ONE_PERSON")
-    a.service-option(data-ui-sref="app.dashboard.service-provider.company-path")
-      span.icon.icon-multiperson-128
-      p(data-translate="DASHBOARD.CREATE_PROFILE.STEP1_MORE_PERSON")
+  .default-container-small
+    .title-step
+      .title-order
+        h3.choose-path-title(data-translate="DASHBOARD.CREATE_PROFILE.STEP1_CHOOSE_PROFILE_TITLE")
+        p.choose-path-description(data-translate="DASHBOARD.CREATE_PROFILE.STEP1_CHOOSE_PROFILE_DESCRIPTION")
+    .step-content
+      a.service-option(data-ui-sref="app.dashboard.service-provider.individual-path")
+        span.icon.icon-person-128
+        p(data-translate="DASHBOARD.MENU.STEP1_ONE_PERSON")
+        span.icon.icon-success-12
+        
+      a.service-option(data-ui-sref="app.dashboard.service-provider.company-path")
+        span.icon.icon-multiperson-128
+        p(data-translate="DASHBOARD.CREATE_PROFILE.STEP1_MORE_PERSON")
+        span.icon.icon-success-12
