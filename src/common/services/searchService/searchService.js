@@ -322,7 +322,7 @@
           _queryParams.areDirty = false
           _notifyOnQueryParams(_queryParams)
           if (_queryParams.q || _queryParams.serviceName || _queryParams.profileName ||
-              _queryParams.tagIds || _queryParams.category) {
+              _queryParams.tagId || _queryParams.category) {
             _search(_queryParams).then((response) => {
               _searchResults = response
               _notifyOnSearchResults(response)
