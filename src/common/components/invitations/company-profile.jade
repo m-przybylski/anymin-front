@@ -11,9 +11,9 @@
             span.icon.icon-close-16
             
     .header-content
-      .default-container  
+      .default-container
         .company-info
-          img.circle.empty-avatar-placeholder(data-ng-src='{{ ::vm.profile.logoUrl }}' alt='{{ ::vm.profile.name }}')
+          img.circle(data-ng-src='{{ ::vm.profile.logoUrl }}' alt='{{ ::vm.profile.name }}' data-ng-class='{"isNotUploaded": !vm.profile.logoUrl}')
           h3 {{ ::vm.profile.name }}
           
     .company-content

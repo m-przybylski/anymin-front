@@ -10,7 +10,7 @@
             span.pro-btn.btn-icon.icon.icon-share-16
             p 76
         .personal-info
-          img.circle.empty-avatar-placeholder(data-ng-src='{{avatar}}' alt='{{profile.name}}')
+          img.circle(data-ng-src='{{avatar}}' alt='{{profile.name}}' data-ng-class='{"isNotUploaded": "!!avatar"}')
           h3 {{ profile.name }}
           .status(data-ng-hide="profile.type == 'company'")
             span Dostępny
@@ -20,7 +20,7 @@
         .company-list(data-ng-hide="profile.type == 'company'")
           p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.COOPERATE_WITH")
           .company-logo
-            img.circle.thumb.empty-avatar-placeholder(data-ng-src="{{ company-logo }}")
+            img.circle.thumb(data-ng-src="{{ company-logo }}" data-ng-class="{'isNotUploaded': '!!company-logo'}")
 
   .header-container
     .default-container
