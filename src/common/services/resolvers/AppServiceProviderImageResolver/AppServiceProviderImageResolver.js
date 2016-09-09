@@ -11,12 +11,11 @@
         }, () => {
           _deferred.resolve(null)
         })
-        return _deferred.promise
-
       } else {
-        return ''
+        _deferred.resolve('')
       }
 
+      return _deferred.promise
     }
 
     return {
