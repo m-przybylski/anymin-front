@@ -336,10 +336,9 @@
     right: 0
     background-color: $c-primary
     text-align: right
+    overflow: hidden
     &.show-menu
       height: 200px
-      ul
-        display: block
     +xsm
       width: 240px
       &.show-menu
@@ -349,7 +348,6 @@
       white-space: nowrap
       color: $c-white
     ul
-      display: none
       width: 100%
       &:hover
         li
