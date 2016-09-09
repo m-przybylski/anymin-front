@@ -19,9 +19,11 @@
 
   +xsm
     width: $dashboard-width-nav
+
   +mdm
     display: block
     width: $dashboard-navbar-width
+
   +lgm
     overflow-x: visible !important
     min-width: $dashboard-navbar-width
@@ -29,11 +31,14 @@
   &:hover
     width: 100%
     overflow: visible !important
+
     +xsm
       width: $dashboard-width-nav
+
     +mdm
       overflow-x: visible !important
       min-width: $dashboard-width-nav
+
     +lgm
       overflow-x: visible !important
       min-width: $dashboard-width-nav
@@ -54,31 +59,37 @@
       align-self: flex-start
       width: 100%
       padding: 16px 0
+
       .nav-menu
         .responsive-main-menu
           display: block
           top: 78px
           left: 0
           background-color: $c-primary
+
           a
-            transition: opacity .2s
+            transition: opacity 0.2s
             opacity: 1
             color: $c-white
+
           ul
             width: 100%
             padding: 16px 32px
+
             &:hover
               li
                 a
                   opacity: 0.3
+
             li
               padding: 4px 0
+
               &:hover
                 a
                   opacity: 1
-              a
-                font-size: 18px
 
+              a
+                font-size: $f-h5-size
 
       .expert-profile
         display: flex
@@ -116,12 +127,12 @@
 
         &:hover
           li
-            a
-              color: rgba($c-white, 0.5)
+            a, span
+              opacity: 0.5
 
             &:hover
-              > a
-                color: $c-white
+              > a, span
+                opacity: 1
 
         li
           display: block
@@ -134,9 +145,9 @@
 
           a
             +default-font-heavy
-            +transition(color 0.3s)
+            +transition(opacity 0.3s)
             color: $c-white
-            font-size: $f-h4-size
+            font-size: $f-nav-size
             text-transform: uppercase
             padding: 0 24px
             display: flex
@@ -145,6 +156,7 @@
             overflow: hidden
 
             .icon
+              +transition(opacity 0.3s)
               color: $c-white
               font-size: 24px
               margin: 0 36px 0 0
@@ -195,6 +207,7 @@
             li
               background: none
               border-bottom: 1px solid rgba($c-white, 0.2)
+              text-align: left
 
               a
                 color: $c-secondary-txt
