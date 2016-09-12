@@ -1,15 +1,15 @@
 .pro-top-navbar
   +default-font-heavy
   text-transform: uppercase
-  font-size: $f-base
+  font-size: $f-nav-size
   position: fixed
   width: 100%
   background: $c-white
-  height: 80px
+  height: $dashboard-navbar-height
   top: 0
   display: flex
   left: 0
-  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1), inset 0 -1px 0 0 $c-lines
+  box-shadow: 0px 2px 5px 0px rgba($c-black, 0.1), inset 0 -1px 0 0 $c-lines
   z-index: 999
 
   &.hideNavbar
@@ -26,17 +26,18 @@
     justify-content: flex-end
 
   .logo-wrapper
-    font-size: 0
     padding: 24px
     display: none
+
     +xsm
       display: inline-block
+
     +mdm
       border-right: 1px solid $c-lines
 
-  .logo
-    height: 32px
-    width: auto
+    .logo
+      height: 32px
+      width: auto
 
   .hamburger-menu
     cursor: pointer
@@ -47,21 +48,17 @@
     display: flex
     background: $c-white
     color: $c-secondary-txt
+
     .nav-icon
       font-size: 0
       display: flex
       background: $c-white
       color: $c-secondary-txt
       position: relative
-      -webkit-transform: rotate(0deg)
-      -moz-transform: rotate(0deg)
-      -o-transform: rotate(0deg)
       transform: rotate(0deg)
-      -webkit-transition: .5s ease-in-out
-      -moz-transition: .5s ease-in-out
-      -o-transition: .5s ease-in-out
       transition: .5s ease-in-out
       cursor: pointer
+
       span
         display: block
         position: absolute
@@ -71,52 +68,53 @@
         border-radius: 9px
         opacity: 1
         left: 0
-        -webkit-transform: rotate(0deg)
-        -moz-transform: rotate(0deg)
-        -o-transform: rotate(0deg)
         transform: rotate(0deg)
-        -webkit-transition: .25s ease-in-out
-        -moz-transition: .25s ease-in-out
-        -o-transition: .25s ease-in-out
         transition: .25s ease-in-out
+
         &:nth-child(1)
-          top: 0px
-        &:nth-child(2), &:nth-child(3)
+          top: 0
+
+        &:nth-child(2),
+        &:nth-child(3)
           top: 8px
+
         &:nth-child(4)
           top: 16px
+
       &.open span
         &:nth-child(1)
           top: 8px
           width: 0%
           left: 10px
+
         &:nth-child(2)
-          -webkit-transform: rotate(45deg)
-          -moz-transform: rotate(45deg)
-          -o-transform: rotate(45deg)
           transform: rotate(45deg)
+
         &:nth-child(3)
-          -webkit-transform: rotate(-45deg)
-          -moz-transform: rotate(-45deg)
-          -o-transform: rotate(-45deg)
           transform: rotate(-45deg)
+
         &:nth-child(4)
           top: 8px
           width: 0%
           left: 10px
+
     &.active-btn
       span
         background: $c-primary
+
       +smm
         background: $c-primary
-        transition: background .2s, color .2s
+        transition: background 0.2s, color 0.2s
         color: $c-white
         height: 80px
+
         span
           background: $c-white
+
     &.disactive-btn
       background: $c-white
       color: $c-secondary-txt
+
     .responsive-main-menu
       width: 100%
       display: block
@@ -124,27 +122,34 @@
       top: 80px
       left: 0
       background-color: $c-primary
+
       +xsm
         width: auto
+
       ul
         width: 100%
         padding: 16px 32px
         color: $c-white
+
         a
           color: $c-white
+
         &:hover
           li
             a
               opacity: 0.3
         li
           padding: 4px 0
+
           a
             font-size: 14px
+
           &:hover
             a
               opacity: 1
     +mdm
       display: none
+
     +smm
       border-right: 1px solid $c-lines
 
@@ -172,11 +177,14 @@
     position: relative
     background: $c-white
     transition: color .2s, background .2s
+
     &:hover
       +smm
         height: 80px
+
       .icon
         color: $c-primary
+
       &:before
         -webkit-transition: left 0.3s 0.3s
         transition: left 0.3s 0.3s
@@ -190,8 +198,10 @@
         z-index: 1
         top: 72px
         left: 12px
+
         +xsm
           left: 21px
+
     +smm
       border-left: 1px solid $c-lines
       padding: 32px 28px
@@ -199,13 +209,16 @@
       &:hover
         background: $c-primary
         color: $c-white
+
         &:before
           display: none
+
         .icon
           color: $c-white
 
     .login
       display: none
+
       +smm
         display: block
 
@@ -217,12 +230,15 @@
     height: 79px
     position: relative
     background: $c-white
-    transition: color .2s, background .2s
+    transition: color 0.2s, background 0.2s
+
     &.hover-login-btn
       +smm
         height: 80px
+
       .icon
         color: $c-primary
+
       &:before
         -webkit-transition: left 0.3s 0.3s
         transition: left 0.3s 0.3s
@@ -236,33 +252,42 @@
         z-index: 1
         top: 72px
         left: 12px
+
         +xsm
           left: 21px
+
     +smm
       border-left: 1px solid $c-lines
       padding: 32px 28px
+
       +smm
         border-left: 1px solid $c-lines
         padding: 32px 28px
+
         &.hover-login-btn
           background: $c-primary
           color: $c-white
+
           &:before
             display: none
+
           .icon
             color: $c-white
 
     .login
       display: none
+
       +smm
         display: block
 
   .search-btn
     padding-left: 65px
     transition: width .2s
+
     &:hover
       &:before
         display: none
+
     .icon
       display: block
       height: 24px
@@ -277,8 +302,10 @@
       display: none
       width: 50px
       transition: width 1s
+
       +smm
         display: block
+
     +smm
       &:hover
         background: $c-primary
@@ -293,18 +320,20 @@
     .login-btn
       +default-font-light
       width: auto
-      transition: color .2s, background .2s
+      transition: color 0.2s, background 0.2s
+
       .hover-loginBtn
         background: $c-primary
         color: $c-white
-
 
   .profile-btn
     -webkit-transition: width .2s
     transition: width .2s
     cursor: pointer
+
     +smm
       padding-left: 65px
+
     .icon
       display: block
       height: 24px
@@ -314,14 +343,18 @@
       top: 50%
       left: 28px
       margin: -12px 0 0
+
     &:hover
       &:before
         display: none
+
   .notification-btn,
   .login-btn
     padding: 26px 8px
+
     +xsm
       padding: 26px 18px
+
     +smm
       padding: 26px 28px
 
@@ -334,38 +367,45 @@
     position: fixed
     top: 80px
     right: 0
-    background-color: $c-primary
+    background: $c-primary
     text-align: right
     overflow: hidden
-    &.show-menu
-      height: 200px
+
     +xsm
       width: 240px
+
       &.show-menu
         width: 240px
-    a
-      transition: opacity .1s
-      white-space: nowrap
-      color: $c-white
+
+    &.show-menu
+      height: 200px
+
     ul
       width: 100%
+
+      li
+        padding: 4px 0
+
+        &:hover
+          a
+            opacity: 1
+
+        a
+          font-size: $f-nav-size
+          transition: opacity 0.1s
+          white-space: nowrap
+          color: $c-white
+
       &:hover
         li
           a
             opacity: 0.3
+
       .account-menu
         border-bottom: 1px solid rgba(255, 255, 255, 0.2)
+
       div
         padding: 16px 32px
-      li
-        padding: 4px 0
-        &:hover
-          a
-            opacity: 1
-        a
-          font-size: 14px
-
-
 
   .default-state,
   .search-active-state
@@ -376,11 +416,14 @@
     .cancel-btn
       width: 110px
       text-align: center
+
       &:hover
         &:before
           display: none
+
     .search-active-btn
       display: none
+
       +smm
         display: block
 
@@ -389,6 +432,7 @@
     position: relative
     height: 79px
     padding: 35px 8px
+
     +smm
       padding: 35px 28px
 
@@ -397,7 +441,7 @@
       display: block
       height: 10px
       width: 10px
-      background-color: $c-success
+      background: $c-success
 
 .search-expandable
   position: relative
@@ -406,6 +450,7 @@
   &.logOut
     transition: width .6s
     width: 55px
+
     +smm
       width: 144px
 
@@ -414,11 +459,14 @@
 
   &.logIn
     width: 60px
-    transition: width .6s
+    transition: width 0.6s
+
     +xsm
       width: 70px
+
     .search-btn
-      padding-left: 51px
+      padding: 0 0 0 51px
+
     +smm
       width: 80px
 
@@ -431,10 +479,13 @@
       background: $c-white
       transition: width .2s
       border: 0
+
       &:hover
         height: 79px
+
         &:before
           display: none
+
       .icon
         color: $c-black
 
@@ -464,8 +515,6 @@
         &:hover
           background: $c-white
 
-
-
 .main-menu
   flex-flow: nowrap
   height: 80px
@@ -473,16 +522,18 @@
   position: absolute
   left: 0
   display: none
+
   +mdm
     display: flex
+
   &:hover
     > li
       color: $c-secondary-txt
 
-
   li
     display: inline-block
     white-space: nowrap
+
     &:hover
       > a
         color: $c-black
