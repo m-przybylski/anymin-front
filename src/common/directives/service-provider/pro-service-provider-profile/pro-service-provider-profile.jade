@@ -2,8 +2,8 @@
   .step.summary-step
     .summary-name
       .summary-data
-        .summary-avatar(data-ng-show="!!avatar")
-          img(ng-src="{{avatar}}" alt='user-avatar')
+        .summary-avatar
+          img(ng-src="{{avatar}}" alt='user-avatar' data-ng-class="{'isNotUploaded': !avatar}")
   
         .firstname-lastname(data-ng-show="!!name")
           h2 {{name}}
