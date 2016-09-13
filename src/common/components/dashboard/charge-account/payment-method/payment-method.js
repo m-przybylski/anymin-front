@@ -1,10 +1,12 @@
 (function() {
 
   /* @ngInject */
-  function controllerFunction() {
+  function paymentMethodController() {
 
     this.activeOption = 0
-
+    // zmockowane obrazki:
+    this.paymentSystems[0].imgSrc = '/assets/images/payU-logo.png'
+    this.paymentSystems[1].imgSrc = '/assets/images/paypal-logo.png'
     return this
   }
 
@@ -13,10 +15,11 @@
     restrict: 'E',
     replace: true,
     bindings: {
-      title: '@'
+      title: '@',
+      paymentSystems: '<'
     },
-    controller: controllerFunction,
-    controllerAs: 'vm'
+    controller: paymentMethodController,
+    controllerAs: '$ctrl'
   }
 
 

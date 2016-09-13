@@ -1,6 +1,6 @@
 .charge-account
   .top-charge-account
-    .default-container
+    form.default-container()
       .pro-top-title-row.title-row
         .current-balance
           h3(data-translate="DASHBOARD.CHARGE_ACCOUNT.YOUR_CURRENT_BALANCE")
@@ -9,14 +9,14 @@
           a.pro-button.round.icon.primary(data-ui-sref="app.dashboard.start")
             span.icon.icon-close-16
 
-      choose-amount-charge(data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_AMMOUNT_CHARGE")
+      choose-amount-charge(data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_AMMOUNT_CHARGE" data-amounts="vm.amounts")
 
-      payment-method(data-title="DASHBOARD.CHARGE_ACCOUNT.PAYMENT_METHOD_TITLE" data-ng-show="vm.queue=2")
+      payment-method(data-title="DASHBOARD.CHARGE_ACCOUNT.PAYMENT_METHOD_TITLE" data-ng-show="vm.queue=2" data-payment-systems = "vm.paymentSystems")
 
     .bottom-charge-account
       .default-container
-        choose-bank(data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_YOUR_BANK")
-        
+        choose-bank(data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_YOUR_BANK", data-payments-links="vm.paymentsLinks")
+
         .title-footer
           h3(data-translate="DASHBOARD.CHARGE_ACCOUNT.WRITE_YOUR_PERSONAL_DATA")
         .your-personal-data
@@ -61,7 +61,7 @@
             required)
           p(data-translate="DASHBOARD.CHARGE_ACCOUNT.PAYU_NOTIFICATION")
           p(data-translate="DASHBOARD.CHARGE_ACCOUNT.REQUIRE_VALUE")
-          
+
     .charge-button
       .default-container
         a.pro-button.rectangle.default {{ 'DASHBOARD.CHARGE_ACCOUNT.CHARGE_ACCOUNT_BUTTON_TEXT' | translate }}

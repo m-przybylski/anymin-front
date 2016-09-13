@@ -1,32 +1,28 @@
 .choose-amount-charge
   .title
-    h3(data-translate="{{ vm.title }}")
+    h3(data-translate="{{ $ctrl.title }}")
 
   .choose-options
-    .choose-options-item
-      .option(data-ng-class="{'selected': vm.activeOption == 1}" data-ng-click="vm.activeOption = 1")
-        span.icon.icon-success-12.top-right.circle(data-ng-show="vm.activeOption == 1")
-        h2 20zł
+    .choose-options-item(data-ng-repeat = "amount in $ctrl.amounts.paymentOptions")
+      .option(data-ng-class="{'selected': $ctrl.activeOption == $index}" data-ng-click="$ctrl.activeOption = $index")
+        span.icon.icon-success-12.top-right.circle(data-ng-show="$ctrl.activeOption == $index")
+        h2 {{ amount / 100 }}
 
     .choose-options-item
-      .option(data-ng-class="{'selected': vm.activeOption == 2}" data-ng-click="vm.activeOption = 2")
-        span.icon.icon-success-12.top-right.circle(data-ng-show="vm.activeOption == 2")
-        h2 50zł
-    .choose-options-item
-      .option(data-ng-class="{'selected': vm.activeOption == 3}" data-ng-click="vm.activeOption = 3")
-        span.icon.icon-success-12.top-right.circle(data-ng-show="vm.activeOption == 3")
-        h2 100zł
-
-    .choose-options-item
-      .option.option-own-amount(data-ng-class="{'selected': vm.activeOption == 4}" data-ng-click="vm.activeOption = 4")
-        span.icon.icon-success-12.top-right.circle(data-ng-show="vm.activeOption == 4")
+      .option.option-own-amount(data-ng-class="{'selected': $ctrl.activeOption == 3}" data-ng-click="$ctrl.activeOption = 3")
+        span.icon.icon-success-12.top-right.circle(data-ng-show="$ctrl.activeOption == 3")
         pro-input(placeholder="250zł"
           data-label="{{'DASHBOARD.CHARGE_ACCOUNT.OWN_AMOUNT' | translate}}"
-          data-ng-model="linkModel"
+          data-ng-model="$ctrl.amountModal"
           data-ng-click="onClick()"
           data-ng-enter="onEnter()"
-          data-ng-class="{'invalid': error.badUrl}"
+          data-ng-class="{'invalid': invalidPayments}"
           addon-action="onEnter"
           data-id="ownAmount"
           data-addon-text="PLN"
-          only-digits)
+          data-type='text'
+          data-focus='$ctrl.focusInput'
+          currency)
+
+    .input-error-messages(data-ng-show = "$ctrl.minimalAmountValidation()")
+      span {{ 'DASHBOARD.CHARGE_ACCOUNT.INVALID_MINIMAL_PAYMENT' }}

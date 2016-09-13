@@ -4,58 +4,7 @@
   function controllerFunction() {
 
     this.activeOption = -1
-
-    this.bankList = [
-      {
-        name: 'Nazwa Banku',
-        img: 'https://www.payu.pl/sites/payupoland/files/styles/article_list_medium/public/payu_logo_solid_lime_rgb.jpg?itok=hAlLaoh0'
-      },
-      {
-        name: 'Nazwa Banku',
-        img: 'https://www.payu.pl/sites/payupoland/files/styles/article_list_medium/public/payu_logo_solid_lime_rgb.jpg?itok=hAlLaoh0'
-      },
-      {
-        name: 'Nazwa Banku',
-        img: 'https://www.payu.pl/sites/payupoland/files/styles/article_list_medium/public/payu_logo_solid_lime_rgb.jpg?itok=hAlLaoh0'
-      },
-      {
-        name: 'Nazwa Banku',
-        img: 'https://www.payu.pl/sites/payupoland/files/styles/article_list_medium/public/payu_logo_solid_lime_rgb.jpg?itok=hAlLaoh0'
-      },
-      {
-        name: 'Nazwa Banku',
-        img: 'https://www.payu.pl/sites/payupoland/files/styles/article_list_medium/public/payu_logo_solid_lime_rgb.jpg?itok=hAlLaoh0'
-      },
-      {
-        name: 'Nazwa Banku',
-        img: 'https://www.payu.pl/sites/payupoland/files/styles/article_list_medium/public/payu_logo_solid_lime_rgb.jpg?itok=hAlLaoh0'
-      },
-      {
-        name: 'Nazwa Banku',
-        img: 'https://www.payu.pl/sites/payupoland/files/styles/article_list_medium/public/payu_logo_solid_lime_rgb.jpg?itok=hAlLaoh0'
-      },
-      {
-        name: 'Nazwa Banku',
-        img: 'https://www.payu.pl/sites/payupoland/files/styles/article_list_medium/public/payu_logo_solid_lime_rgb.jpg?itok=hAlLaoh0'
-      },
-      {
-        name: 'Nazwa Banku',
-        img: 'https://www.payu.pl/sites/payupoland/files/styles/article_list_medium/public/payu_logo_solid_lime_rgb.jpg?itok=hAlLaoh0'
-      },
-      {
-        name: 'Nazwa Banku',
-        img: 'https://www.payu.pl/sites/payupoland/files/styles/article_list_medium/public/payu_logo_solid_lime_rgb.jpg?itok=hAlLaoh0'
-      },
-      {
-        name: 'Nazwa Banku',
-        img: 'https://www.payu.pl/sites/payupoland/files/styles/article_list_medium/public/payu_logo_solid_lime_rgb.jpg?itok=hAlLaoh0'
-      },
-      {
-        name: 'Nazwa Banku',
-        img: 'https://www.payu.pl/sites/payupoland/files/styles/article_list_medium/public/payu_logo_solid_lime_rgb.jpg?itok=hAlLaoh0'
-      }
-    ]
-
+    console.log(this.paymentsLinks)
     return this
   }
 
@@ -64,10 +13,11 @@
     restrict: 'E',
     replace: true,
     bindings: {
-      title: '@'
+      title: '@',
+      paymentsLinks: '<'
     },
     controller: controllerFunction,
-    controllerAs: 'vm'
+    controllerAs: '$ctrl'
   }
 
 

@@ -1,11 +1,12 @@
 (function() {
 
   /* @ngInject */
-  function controllerFunction() {
+  function chooseAmountChargeController($timeout) {
 
     this.activeOption = 0
-
-    return this
+    this.minimalAmountValidation = () => {
+      return this.amountModal < this.amounts.minimalAmounts / 100 && !this.focusInput && this.activeOption === 3
+    }
   }
 
   let chooseAmountCharge = {
@@ -13,10 +14,11 @@
     restrict: 'E',
     replace: true,
     bindings: {
-      title: '@'
+      title: '@',
+      amounts: '<'
     },
-    controller: controllerFunction,
-    controllerAs: 'vm'
+    controller: chooseAmountChargeController,
+    controllerAs: '$ctrl'
   }
 
 

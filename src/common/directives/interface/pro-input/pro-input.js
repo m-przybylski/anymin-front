@@ -103,7 +103,8 @@
         maxlength: '@',
         ngPattern: '=?',
         addonAction: '=?',
-        ngChange: '=?'
+        ngChange: '=?',
+        focus: '=?'
       }
 
     }
