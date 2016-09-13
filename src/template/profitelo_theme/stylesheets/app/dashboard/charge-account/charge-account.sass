@@ -1,5 +1,5 @@
 .charge-account
-  margin: 0 0 64px 0
+  margin: 0 0 64px
 
   .bottom-charge-account
     padding: 0 0 64px
@@ -8,55 +8,55 @@
     .title-footer
       padding: 0 0 64px 0
 
-  .top-summary
-    display: flex
-    justify-content: space-between
-    align-items: center
-    padding: 64px 0
-
+  .pro-top-title-row
     .current-balance
       display: block
 
-      h4
+      h3
         +default-font-heavy
         text-transform: uppercase
+        font-size: $f-h4-size
 
-    .current-balance-wallet
-      +default-font-heavy
-      color: $c-primary
-
-  h3
-    text-align: left
-
-  h4
-    text-align: left
+    h4
+      &.current-balance-wallet
+        +default-font-heavy
+        color: $c-primary
 
   .your-personal-data
+    margin: 0 0 64px
 
-    +xsm
+    +smm
       display: flex
       flex-wrap: wrap
-      align-items: stretch
-      margin: 0 0 64px 0
+      margin: 0 -8px 64px
 
-    .name
-      width: 100%
-      padding: 8px 8px 8px 0
+    .personal-data-item
+      flex: 1 0 100%
+      margin: 0 0 16px
 
       +smm
-        width: calc(100%/2)
+        flex: 1 0 50%
+        max-width: 50%
+        padding: 0 8px
 
-      +lgm
-        width: calc(100%/4)
+      &:last-child
+        margin: 0
 
   .footer
     margin: 0 0 64px
 
     p
       font-size: $f-base
-      padding: 8px 0 0 48px
+      padding: 8px 0 0 40px
       color: $c-secondary-txt
 
   .charge-button
     text-align: right
     padding: 64px 0
+
+    .pro-button
+      display: inline-flex
+
+      .icon
+        position: static
+        margin: 0 0 0 8px

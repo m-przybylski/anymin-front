@@ -1,10 +1,10 @@
 .charge-account
   .top-charge-account
     .default-container
-      .top-summary
+      .pro-top-title-row.title-row
         .current-balance
-          h4(data-translate="DASHBOARD.CHARGE_ACCOUNT.YOUR_CURRENT_BALANCE")
-          h3.current-balance-wallet 173,50zł
+          h3(data-translate="DASHBOARD.CHARGE_ACCOUNT.YOUR_CURRENT_BALANCE")
+          h4.current-balance-wallet 173,50zł
         .close-button
           a.pro-button.round.icon.primary(data-ui-sref="app.dashboard.start")
             span.icon.icon-close-16
@@ -20,7 +20,7 @@
         .title-footer
           h3(data-translate="DASHBOARD.CHARGE_ACCOUNT.WRITE_YOUR_PERSONAL_DATA")
         .your-personal-data
-          .name
+          .personal-data-item.name
             pro-input(placeholder="{{ 'DASHBOARD.CHARGE_ACCOUNT.NAME_PLACEHOLDER' | translate }}"
               data-label="{{ 'DASHBOARD.CHARGE_ACCOUNT.NAME_PLACEHOLDER' | translate }}"
               data-ng-model="nameModel"
@@ -30,7 +30,7 @@
               addon-action="onEnter"
               data-id="name"
               no-delete)
-          .name
+          .personal-data-item.surname
             pro-input(placeholder="{{ 'DASHBOARD.CHARGE_ACCOUNT.LASTNAME_PLACEHOLDER' | translate }}"
               data-label="{{ 'DASHBOARD.CHARGE_ACCOUNT.LASTNAME_PLACEHOLDER' | translate }}"
               data-ng-model="lastnameModel"
@@ -40,7 +40,7 @@
               addon-action="onEnter"
               data-id="lastName"
               no-delete)
-          .name
+          .personal-data-item.address-email
             pro-input(placeholder="{{ 'DASHBOARD.CHARGE_ACCOUNT.EMAIL_PLACEHOLDER' | translate }}"
               data-label="{{ 'DASHBOARD.CHARGE_ACCOUNT.EMAIL_PLACEHOLDER' | translate }}"
               data-ng-model="mailModel"
@@ -59,13 +59,10 @@
             data-name="acceptRules"
             data-ng-class="{'invalid': !vm.rulesAccepted && passwordForm.$submitted}"
             required)
-          
           p(data-translate="DASHBOARD.CHARGE_ACCOUNT.PAYU_NOTIFICATION")
-          
           p(data-translate="DASHBOARD.CHARGE_ACCOUNT.REQUIRE_VALUE")
           
     .charge-button
       .default-container
-        a.pro-button.rectangle.default
-          | {{ 'DASHBOARD.CHARGE_ACCOUNT.CHARGE_ACCOUNT_BUTTON_TEXT' | translate }}
-          span.icon-arrow-right-12.icon-right
+        a.pro-button.rectangle.default {{ 'DASHBOARD.CHARGE_ACCOUNT.CHARGE_ACCOUNT_BUTTON_TEXT' | translate }}
+          span.icon.icon-arrow-right-24.icon-right
