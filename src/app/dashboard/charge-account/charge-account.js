@@ -1,16 +1,52 @@
 (function() {
-  function chargeAccountController(paymentsOptions, paymentsLinks) {
+  function chargeAccountController($window, $state,CommonSettingsService, paymentsOptions, paymentsLinks, PaymentsApi, proTopAlertService) {
 
     this.rulesAccepted = false
-    this.payments = paymentsOptions
+
     this.amounts = {
-      paymentOptions: this.payments.paymentOptions,
-      minimalAmounts: this.payments.minimalPaymentAmount
+      paymentOptions: paymentsOptions.paymentOptions,
+      minimalAmounts: paymentsOptions.minimalPaymentAmount
     }
-    this.paymentSystems = this.payments.paymentSystems
+    
+    this.paymentSystems = paymentsOptions.paymentSystems
     this.paymentsLinks = paymentsLinks
     this.queue = null
 
+    this.amountModel = {
+      cashAmount: null,
+      amount: null
+    }
+    this.paymentSystemModel = {}
+
+    this.bankModel = {}
+
+    this.sendPayment = () => {
+      this.sendPaymentObject = {
+        paymentOption: this.amountModel.amount,
+        email: this.emailModel,
+        amount: this.amountModel.cashAmount,
+        lastName: this.lastNameModel,
+        firstName: this.firstNameModel,
+        paymentCountryId: 1,
+        payMethodValue: this.bankModel.value,
+        paymentSystemId: this.paymentSystemModel.id
+      }
+
+      PaymentsApi.postPayUOrder(this.sendPaymentObject).$promise.then((response) => {
+        $window.open(response.redirectUrl, '_self',true)
+      }, (error) => {
+        proTopAlertService.error({
+          message: 'error',
+          timeout: 4
+        })
+        // $state.go('app.dashboard.start')
+      })
+      
+    }
+
+    this.patternEmail = CommonSettingsService.localSettings.emailPattern
+
+    
     return this
   }
 
@@ -69,6 +105,7 @@
     'ui.router',
     'profitelo.swaggerResources',
     'profitelo.directives.pro-top-alert-service',
+    'profitelo.services.commonSettings',
     'profitelo.directives.interface.pro-input',
     'profitelo.directives.interface.pro-checkbox',
     'profitelo.components.dashboard.charge-account.choose-amount-charge',

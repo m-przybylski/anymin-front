@@ -3,11 +3,21 @@
   /* @ngInject */
   function paymentMethodController() {
 
-    this.activeOption = 0
+    this.activeOption = null
     // zmockowane obrazki:
     this.paymentSystems[0].imgSrc = '/assets/images/payU-logo.png'
     this.paymentSystems[1].imgSrc = '/assets/images/paypal-logo.png'
+    this.paymentSystems[2].imgSrc1= "/assets/images/maestro-logo.png"
+    this.paymentSystems[2].imgSrc2 = "/assets/images/mastercard-logo.png"
+    this.paymentSystems[2].imgSrc3 = "/assets/images/visa-logo.png"
+    
+    this.selectPaymentMethod =  (index) => {
+      this.activeOption = index
+      this.paymentSystemModel = this.paymentSystems[index]
+    }
+    
     return this
+    
   }
 
   let paymentMethod = {
@@ -16,7 +26,8 @@
     replace: true,
     bindings: {
       title: '@',
-      paymentSystems: '<'
+      paymentSystems: '<',
+      paymentSystemModel: '=?'
     },
     controller: paymentMethodController,
     controllerAs: '$ctrl'

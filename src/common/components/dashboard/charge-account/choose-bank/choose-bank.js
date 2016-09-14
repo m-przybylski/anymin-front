@@ -1,10 +1,13 @@
 (function() {
 
   /* @ngInject */
-  function controllerFunction() {
+  function chooseBankController() {
 
     this.activeOption = -1
-    console.log(this.paymentsLinks)
+    this.selectBank = (index) => {
+      this.activeOption = index
+      this.bankModel = this.paymentsLinks[index]
+    }
     return this
   }
 
@@ -12,11 +15,13 @@
     templateUrl: 'components/dashboard/charge-account/choose-bank/choose-bank.tpl.html',
     restrict: 'E',
     replace: true,
+    transclude: true,
     bindings: {
       title: '@',
-      paymentsLinks: '<'
+      paymentsLinks: '<',
+      bankModel: '=?'
     },
-    controller: controllerFunction,
+    controller: chooseBankController,
     controllerAs: '$ctrl'
   }
 

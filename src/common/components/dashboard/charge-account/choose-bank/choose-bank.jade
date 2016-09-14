@@ -1,10 +1,10 @@
 .choose-bank
   .title
     h3(data-translate="{{ $ctrl.title }}")
-    
+    ng-transclude
   .choose-options
     .choose-options-item(data-ng-repeat="bank in $ctrl.paymentsLinks")
-      .option(data-ng-class="{'selected': $ctrl.activeOption == $index}" data-ng-click="$ctrl.activeOption = $index")
+      .option(data-ng-class="{'selected': $ctrl.activeOption == $index}" data-ng-click="$ctrl.selectBank($index)")
         .option-thumb
           img(ng-src="{{ bank.brandImageUrl }}" alt="{{ bank.name }}")
         span.icon.icon-success-12.top-right.circle(data-ng-show="$ctrl.activeOption == $index")

@@ -4,18 +4,14 @@
     
   .choose-options
     .choose-options-item(data-ng-repeat="paymentSystem in $ctrl.paymentSystems")
-      .option(data-ng-class="{'selected': $ctrl.activeOption == $index}" data-ng-click="$ctrl.activeOption = $index")
-        .option-thumb
+      .option(data-ng-class="{'selected': $ctrl.activeOption == $index}" data-ng-click="$ctrl.selectPaymentMethod($index)")
+        .option-thumb(data-ng-if="$index !== 2")
           img(data-ng-src="{{ paymentSystem.imgSrc }}")
+        .option-thumb(data-ng-if="$index === 2")
+          img(data-ng-src="{{ paymentSystem.imgSrc1 }}")
+          img(data-ng-src="{{ paymentSystem.imgSrc2 }}")
+          img(data-ng-src="{{ paymentSystem.imgSrc3 }}")
         p(data-translate="DASHBOARD.CHARGE_ACCOUNT.BANKWIRE")
         span.icon.icon-success-12.top-right.circle(data-ng-show="$ctrl.activeOption == $index")
 
-    .choose-options-item
-      .option(data-ng-class="{'selected': $ctrl.activeOption == 2}" data-ng-click="$ctrl.activeOption = 2")
-        .bank-icons.option-thumb
-          img(data-ng-src="/assets/images/maestro-logo.png")
-          img(data-ng-src="/assets/images/mastercard-logo.png")
-          img(data-ng-src="/assets/images/visa-logo.png")
-        p(data-translate="DASHBOARD.CHARGE_ACCOUNT.CARD_PAYMENT")
-        span.icon.icon-success-12.top-right.circle(data-ng-show="$ctrl.activeOption == 2")
   

@@ -1,6 +1,6 @@
 .charge-account
-  .top-charge-account
-    form.default-container()
+  form.top-charge-account(name="paymentForm" data-ng-submit="paymentForm.$valid && vm.sendPayment()" novalidate)
+    .default-container
       .pro-top-title-row.title-row
         .current-balance
           h3(data-translate="DASHBOARD.CHARGE_ACCOUNT.YOUR_CURRENT_BALANCE")
@@ -9,41 +9,50 @@
           a.pro-button.round.icon.primary(data-ui-sref="app.dashboard.start")
             span.icon.icon-close-16
 
-      choose-amount-charge(data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_AMMOUNT_CHARGE" data-amounts="vm.amounts")
+      choose-amount-charge(data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_AMMOUNT_CHARGE" data-amounts="vm.amounts" data-amount-model="vm.amountModel")
 
-      payment-method(data-title="DASHBOARD.CHARGE_ACCOUNT.PAYMENT_METHOD_TITLE" data-ng-show="vm.queue=2" data-payment-systems = "vm.paymentSystems")
+      payment-method(data-title="DASHBOARD.CHARGE_ACCOUNT.PAYMENT_METHOD_TITLE"
+                     data-payment-systems = "vm.paymentSystems"
+                     data-payment-system-model = "vm.paymentSystemModel"
+                     data-ng-if="vm.amountModel.amount > 0 ||   vm.amountModel.cashAmount > 0")
 
-    .bottom-charge-account
+    .bottom-charge-account(data-ng-if="!!vm.paymentSystemModel && !!vm.paymentSystemModel.id")
       .default-container
-        choose-bank(data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_YOUR_BANK", data-payments-links="vm.paymentsLinks")
-
+        choose-bank(data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_YOUR_BANK", data-payments-links="vm.paymentsLinks", data-bank-model = "vm.bankModel")
+          .input-error-messages(data-ng-show="paymentForm.$submitted && !vm.bankModel.value")
+            span {{ "DASHBOARD.CHARGE_ACCOUNT.EMPTY_BANK_ERROR" | translate}}
         .title-footer
           h3(data-translate="DASHBOARD.CHARGE_ACCOUNT.WRITE_YOUR_PERSONAL_DATA")
         .your-personal-data
           .personal-data-item.name
             pro-input(placeholder="{{ 'DASHBOARD.CHARGE_ACCOUNT.NAME_PLACEHOLDER' | translate }}"
               data-label="{{ 'DASHBOARD.CHARGE_ACCOUNT.NAME_PLACEHOLDER' | translate }}"
-              data-ng-model="nameModel"
+              data-ng-model="vm.firstNameModel"
               data-ng-click="onClick()"
               data-ng-enter="onEnter()"
               data-ng-class="{'invalid': error.badName}"
               addon-action="onEnter"
               data-id="name"
               no-delete)
+            .input-error-messages(data-ng-show="paymentForm.$submitted && !vm.firstNameModel")
+              span {{ "DASHBOARD.CHARGE_ACCOUNT.NAME_INPUT_ERROR" | translate }}
           .personal-data-item.surname
             pro-input(placeholder="{{ 'DASHBOARD.CHARGE_ACCOUNT.LASTNAME_PLACEHOLDER' | translate }}"
               data-label="{{ 'DASHBOARD.CHARGE_ACCOUNT.LASTNAME_PLACEHOLDER' | translate }}"
-              data-ng-model="lastnameModel"
+              data-ng-model="vm.lastNameModel"
               data-ng-click="onClick()"
               data-ng-enter="onEnter()"
               data-ng-class="{'invalid': error.badLastname}"
               addon-action="onEnter"
               data-id="lastName"
+              required
               no-delete)
+            .input-error-messages(data-ng-show="paymentForm.$submitted && !vm.lastNameModel")
+              span {{ "DASHBOARD.CHARGE_ACCOUNT.LAST_NAME_INPUT_ERROR" | translate }}
           .personal-data-item.address-email
             pro-input(placeholder="{{ 'DASHBOARD.CHARGE_ACCOUNT.EMAIL_PLACEHOLDER' | translate }}"
               data-label="{{ 'DASHBOARD.CHARGE_ACCOUNT.EMAIL_PLACEHOLDER' | translate }}"
-              data-ng-model="mailModel"
+              data-ng-model="vm.emailModel"
               data-ng-click="vm.onClick()"
               data-ng-enter="vm.onEnter()"
               data-ng-class="{'invalid': error.badEmail}"
@@ -51,6 +60,8 @@
               data-id="email"
               no-delete
               data-ng-pattern="vm.patternEmail")
+            .input-error-messages(data-ng-show="paymentForm.$submitted && !vm.emailModel")
+              span {{ "DASHBOARD.CHARGE_ACCOUNT.EMAIL_ERROR" | translate }}
 
         .footer
           pro-checkbox(id="acceptRules"
@@ -59,10 +70,12 @@
             data-name="acceptRules"
             data-ng-class="{'invalid': !vm.rulesAccepted && passwordForm.$submitted}"
             required)
+          .input-error-messages(data-ng-show="paymentForm.$submitted && !vm.rulesAccepted")
+            span {{ "DASHBOARD.CHARGE_ACCOUNT.RULES_ERROR" | translate }}
           p(data-translate="DASHBOARD.CHARGE_ACCOUNT.PAYU_NOTIFICATION")
           p(data-translate="DASHBOARD.CHARGE_ACCOUNT.REQUIRE_VALUE")
 
     .charge-button
       .default-container
-        a.pro-button.rectangle.default {{ 'DASHBOARD.CHARGE_ACCOUNT.CHARGE_ACCOUNT_BUTTON_TEXT' | translate }}
+        button.pro-button.rectangle.default( type="submit") {{ 'DASHBOARD.CHARGE_ACCOUNT.CHARGE_ACCOUNT_BUTTON_TEXT' | translate }}
           span.icon.icon-arrow-right-24.icon-right

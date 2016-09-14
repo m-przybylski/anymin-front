@@ -1,12 +1,30 @@
 (function() {
 
   /* @ngInject */
-  function chooseAmountChargeController($timeout) {
+  function chooseAmountChargeController($scope) {
 
-    this.activeOption = 0
+    this.activeOption = null
     this.minimalAmountValidation = () => {
-      return this.amountModal < this.amounts.minimalAmounts / 100 && !this.focusInput && this.activeOption === 3
+      return this.cashAmountModel < this.amounts.minimalAmounts / 100 && !this.focusInput && this.activeOption === 3
     }
+    
+    this.selectAmountOption =  (index) => {
+      this.activeOption = index
+      if (index !== 3) {
+        this.amountModel.amount = this.amounts.paymentOptions[index]
+        this.amountModel.cashAmount = null
+      } else {
+        $scope.$watch(() =>{
+          return this.cashAmountModel
+        }, (newValue) =>{
+          if (newValue) {
+            this.amountModel.cashAmount = parseInt(newValue * 100)
+            this.amountModel.amount = null
+          }
+        })
+      }
+    }
+    return this
   }
 
   let chooseAmountCharge = {
@@ -15,7 +33,8 @@
     replace: true,
     bindings: {
       title: '@',
-      amounts: '<'
+      amounts: '<',
+      amountModel: '<'
     },
     controller: chooseAmountChargeController,
     controllerAs: '$ctrl'
