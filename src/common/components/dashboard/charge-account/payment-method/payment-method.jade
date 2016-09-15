@@ -1,7 +1,6 @@
 .payment-method
   .title
-    h3(data-translate="{{ vm.title }}")
-    
+    h3(data-translate="{{ $ctrl.title }}")
   .choose-options
     .choose-options-item(data-ng-repeat="paymentSystem in $ctrl.paymentSystems")
       .option(data-ng-class="{'selected': $ctrl.activeOption == $index}" data-ng-click="$ctrl.selectPaymentMethod($index)")

@@ -1,24 +1,32 @@
 (function() {
 
   /* @ngInject */
-  function chooseAmountChargeController($scope) {
+  function chooseAmountChargeController($scope, $timeout) {
 
     this.activeOption = null
     this.minimalAmountValidation = () => {
-      return this.cashAmountModel < this.amounts.minimalAmounts / 100 && !this.focusInput && this.activeOption === 3
+      return this.cashAmountModel < this.amounts.minimalAmounts.amount / 100 && !angular.element('.option-own-amount').find('input:focus')[0] && this.activeOption === 3
     }
     
     this.selectAmountOption =  (index) => {
       this.activeOption = index
       if (index !== 3) {
-        this.amountModel.amount = this.amounts.paymentOptions[index]
+        this.amountModel.amount = {
+          amount: this.amounts.paymentOptions[index].amount,
+          currency: this.amounts.paymentOptions[index].currency
+        }
+
         this.amountModel.cashAmount = null
       } else {
+        angular.element('.option-own-amount').find('input').focus()
         $scope.$watch(() =>{
           return this.cashAmountModel
         }, (newValue) =>{
           if (newValue) {
-            this.amountModel.cashAmount = parseInt(newValue * 100)
+            this.amountModel.cashAmount = {
+              amount:  Number(newValue * 100),
+              currency: this.amounts.minimalAmounts.currency
+            }
             this.amountModel.amount = null
           }
         })

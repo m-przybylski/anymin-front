@@ -7,4 +7,5 @@
       .option(data-ng-class="{'selected': $ctrl.activeOption == $index}" data-ng-click="$ctrl.selectBank($index)")
         .option-thumb
           img(ng-src="{{ bank.brandImageUrl }}" alt="{{ bank.name }}")
+          p {{ bank.name }}
         span.icon.icon-success-12.top-right.circle(data-ng-show="$ctrl.activeOption == $index")

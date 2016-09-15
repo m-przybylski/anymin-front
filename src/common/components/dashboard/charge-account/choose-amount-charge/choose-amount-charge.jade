@@ -6,7 +6,7 @@
     .choose-options-item(data-ng-repeat = "amount in $ctrl.amounts.paymentOptions")
       .option(data-ng-class="{'selected': $ctrl.activeOption == $index}" data-ng-click="$ctrl.selectAmountOption($index)")
         span.icon.icon-success-12.top-right.circle(data-ng-show="$ctrl.activeOption == $index")
-        h2 {{ amount / 100 }}
+        h2 {{ amount.amount / 100 }}
 
     .choose-options-item
       .option.option-own-amount(data-ng-class="{'selected': $ctrl.activeOption == 3}" data-ng-click="$ctrl.selectAmountOption(3)")
@@ -19,7 +19,7 @@
           data-ng-class="{'invalid': invalidPayments}"
           addon-action="onEnter"
           data-id="ownAmount"
-          data-addon-text="PLN"
+          data-addon-text="{{ $ctrl.amounts.minimalAmounts.currency }}"
           data-type='text'
           data-focus='$ctrl.focusInput'
           only-digits)

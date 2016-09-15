@@ -1,13 +1,13 @@
 (function() {
-  function chargeAccountController($window, $state,CommonSettingsService, paymentsOptions, paymentsLinks, PaymentsApi, proTopAlertService) {
-
-    this.rulesAccepted = false
+  function chargeAccountController(paymentsOptions, paymentsLinks, financeBalance) {
 
     this.amounts = {
       paymentOptions: paymentsOptions.paymentOptions,
-      minimalAmounts: paymentsOptions.minimalPaymentAmount
+      minimalAmounts: paymentsOptions.minimalPayment
     }
-    
+
+    this.clientBalance = financeBalance
+
     this.paymentSystems = paymentsOptions.paymentSystems
     this.paymentsLinks = paymentsLinks
     this.queue = null
@@ -16,36 +16,12 @@
       cashAmount: null,
       amount: null
     }
-    this.paymentSystemModel = {}
 
-    this.bankModel = {}
-
-    this.sendPayment = () => {
-      this.sendPaymentObject = {
-        paymentOption: this.amountModel.amount,
-        email: this.emailModel,
-        amount: this.amountModel.cashAmount,
-        lastName: this.lastNameModel,
-        firstName: this.firstNameModel,
-        paymentCountryId: 1,
-        payMethodValue: this.bankModel.value,
-        paymentSystemId: this.paymentSystemModel.id
-      }
-
-      PaymentsApi.postPayUOrder(this.sendPaymentObject).$promise.then((response) => {
-        $window.open(response.redirectUrl, '_self',true)
-      }, (error) => {
-        proTopAlertService.error({
-          message: 'error',
-          timeout: 4
-        })
-        // $state.go('app.dashboard.start')
-      })
-      
+    this.amountMethodModal = {
+      amountModel: this.amountModel,
+      paymentSystemModel: null,
+      minimalAmount: this.amounts.minimalAmounts
     }
-
-    this.patternEmail = CommonSettingsService.localSettings.emailPattern
-
     
     return this
   }
@@ -88,6 +64,22 @@
             })
           })
           return _deferred.promise
+        },
+        financeBalance: ($q, $state, FinancesApi, proTopAlertService) => {
+          /* istanbul ignore next */
+          let _deferred = $q.defer()
+          /* istanbul ignore next */
+          FinancesApi.getClientBalance().$promise.then((response) => {
+            _deferred.resolve(response)
+          }, (error) => {
+            _deferred.resolve(null)
+            $state.go('app.dashboard.start')
+            proTopAlertService.error({
+              message: 'error',
+              timeout: 4
+            })
+          })
+          return _deferred.promise
         }
 
       },
@@ -108,6 +100,7 @@
     'profitelo.services.commonSettings',
     'profitelo.directives.interface.pro-input',
     'profitelo.directives.interface.pro-checkbox',
+    'profitelo.components.dashboard.charge-account.payu-payment-form',
     'profitelo.components.dashboard.charge-account.choose-amount-charge',
     'profitelo.components.dashboard.charge-account.payment-method',
     'profitelo.components.dashboard.charge-account.choose-bank'
