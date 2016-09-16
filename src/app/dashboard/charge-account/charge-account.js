@@ -1,11 +1,11 @@
 (function() {
-  function chargeAccountController(paymentsOptions, paymentsLinks, financeBalance, smoothScrolling) {
+  function chargeAccountController($timeout, $window, paymentsOptions, paymentsLinks, financeBalance, smoothScrolling) {
 
     this.amounts = {
       paymentOptions: paymentsOptions.paymentOptions,
       minimalAmounts: paymentsOptions.minimalPayment
     }
-
+    this.currentSection = 1
     this.clientBalance = financeBalance
 
     this.paymentSystems = paymentsOptions.paymentSystems
@@ -17,14 +17,35 @@
       amount: null
     }
 
+    this.validAction = () => {
+      if (angular.isDefined(this.bankModel)) {
+        if (this.amountMethodModal.amountModel.cashAmount === null) {
+          return this.amountMethodModal.amountModel.amount !== null
+        } else if (this.amountMethodModal.amountModel.cashAmount.amount !==null) {
+          return this.amountMethodModal.amountModel.cashAmount.amount > this.amountMethodModal.minimalAmount.amount
+        }
+      } else {
+        return false
+      }
+    }
+
     this.amountMethodModal = {
       amountModel: this.amountModel,
       paymentSystemModel: null,
       minimalAmount: this.amounts.minimalAmounts
     }
 
-    this.setCurrentStepId = () => {
-      smoothScrolling.scrollTo(1)
+    this.scrollHandler = (slideTo) => {
+      if (angular.isDefined(slideTo)) {
+
+        smoothScrolling.scrollTo(slideTo)
+      } else if(this.currentSection < 3){
+        $timeout(()=>{
+          smoothScrolling.scrollTo(++this.currentSection)
+        })
+      } else {
+        console.log('nothing to do')
+      }
     }
     
     return this

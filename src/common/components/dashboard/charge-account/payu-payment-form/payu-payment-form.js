@@ -7,15 +7,12 @@
     let isPending = false
 
     let isValid = () => {
-      if (angular.isDefined(this.bankModel)) {
-        if (this.amountMethodModal.amountModel.cashAmount === null) {
-          return this.amountMethodModal.amountModel.amount !== null
-        } else if (this.amountMethodModal.amountModel.cashAmount.amount !==null) {
-          return this.amountMethodModal.amountModel.cashAmount.amount > this.amountMethodModal.minimalAmount.amount
-        }
+      if (angular.isDefined(this.validAction)) {
+        return this.validAction()
       } else {
-        return false
+        return true
       }
+
     }
 
 
@@ -59,9 +56,12 @@
     templateUrl: 'components/dashboard/charge-account/payu-payment-form/payu-payment-form.tpl.html',
     restrict: 'E',
     replace: true,
+    transclude: true,
     bindings: {
       paymentsLinks: '=?',
-      amountMethodModal: '=?'
+      validAction: '<',
+      amountMethodModal: '=?',
+
     },
     controller: payuPaymentFormController,
     controllerAs: '$ctrl'

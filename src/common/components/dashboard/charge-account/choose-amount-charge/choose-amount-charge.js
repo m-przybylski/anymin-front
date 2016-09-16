@@ -4,13 +4,25 @@
   function chooseAmountChargeController($scope, $timeout) {
 
     this.activeOption = null
+    this.firstSelect = this.activeOption !== null
+
     this.minimalAmountValidation = (manual) => {
       return  (!angular.isDefined(this.cashAmountModel) || this.cashAmountModel < this.amounts.minimalAmounts.amount / 100) && !angular.element('.option-own-amount').find('input:focus')[0] && this.activeOption === 3
     }
 
+    this.checkType = () => {
+      return angular.isDefined(this.cashAmountModel) && this.cashAmountModel.match('/[0-9]{0,}/')
+    }
+    
+    
+
     this.selectAmountOption =  (index) => {
       this.activeOption = index
       if (index !== 3) {
+        if (!this.firstSelect ) {
+          this.scrollHandler()
+          this.firstSelect = true
+        }
         this.amountModel.amount = {
           amount: this.amounts.paymentOptions[index].amount,
           currency: this.amounts.paymentOptions[index].currency
@@ -42,7 +54,7 @@
     bindings: {
       title: '@',
       amounts: '<',
-      setId: '<',
+      scrollHandler: '<',
       amountModel: '<'
     },
     controller: chooseAmountChargeController,
