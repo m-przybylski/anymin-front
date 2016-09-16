@@ -4,10 +4,10 @@
   function chooseAmountChargeController($scope, $timeout) {
 
     this.activeOption = null
-    this.minimalAmountValidation = () => {
-      return this.cashAmountModel < this.amounts.minimalAmounts.amount / 100 && !angular.element('.option-own-amount').find('input:focus')[0] && this.activeOption === 3
+    this.minimalAmountValidation = (manual) => {
+      return  (!angular.isDefined(this.cashAmountModel) || this.cashAmountModel < this.amounts.minimalAmounts.amount / 100) && !angular.element('.option-own-amount').find('input:focus')[0] && this.activeOption === 3
     }
-    
+
     this.selectAmountOption =  (index) => {
       this.activeOption = index
       if (index !== 3) {
@@ -42,6 +42,7 @@
     bindings: {
       title: '@',
       amounts: '<',
+      setId: '<',
       amountModel: '<'
     },
     controller: chooseAmountChargeController,

@@ -1,13 +1,13 @@
 (function() {
 
   /* @ngInject */
-  function payuPaymentFormController($window, PaymentsApi, proTopAlertService, CommonSettingsService) {
+  function payuPaymentFormController($window, $state, PaymentsApi, proTopAlertService, CommonSettingsService) {
 
     this.rulesAccepted = false
     let isPending = false
 
-    const isValid = () => {
-      if (angular.isDefined(this.bankModel.value)) {
+    let isValid = () => {
+      if (angular.isDefined(this.bankModel)) {
         if (this.amountMethodModal.amountModel.cashAmount === null) {
           return this.amountMethodModal.amountModel.amount !== null
         } else if (this.amountMethodModal.amountModel.cashAmount.amount !==null) {
@@ -21,7 +21,7 @@
 
     this.sendPayment = () => {
 
-      if(isValid && !isPending) {
+      if(isValid() && !isPending) {
 
         this.sendPaymentObject = {
           paymentOption: this.amountMethodModal.amountModel.amount,

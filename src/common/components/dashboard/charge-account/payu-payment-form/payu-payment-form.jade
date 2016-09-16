@@ -3,7 +3,7 @@
     .default-container
       choose-bank(data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_YOUR_BANK", data-payments-links="$ctrl.paymentsLinks", data-bank-model = "$ctrl.bankModel")
         .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.bankModel.value")
-          span {{ "DASHBOARD.CHARGE_ACCOUNT.EMPTY_BANK_ERROR" | translate}}
+          span {{ "DASHBOARD.CHARGE_ACCOUNT.EMPTY_BANK_ERROR" | translate }}
       .title-footer
         h3(data-translate="DASHBOARD.CHARGE_ACCOUNT.WRITE_YOUR_PERSONAL_DATA")
       .your-personal-data

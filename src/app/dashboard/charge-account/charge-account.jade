@@ -9,12 +9,13 @@
           a.pro-button.round.icon.primary(data-ui-sref="app.dashboard.start")
             span.icon.icon-close-16
 
-      choose-amount-charge(data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_AMMOUNT_CHARGE" data-amounts="vm.amounts" data-amount-model="vm.amountModel")
+      choose-amount-charge(data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_AMMOUNT_CHARGE" data-amounts="vm.amounts" data-amount-model="vm.amountModel" id = "1")
 
       payment-method(data-title="DASHBOARD.CHARGE_ACCOUNT.PAYMENT_METHOD_TITLE"
                      data-payment-systems = "vm.paymentSystems"
                      data-payment-system-model = "vm.amountMethodModal.paymentSystemModel"
-                     data-ng-if="vm.amountModel.amount.amount > 0 ||   vm.amountModel.cashAmount.amount > 0")
-
+                     data-ng-if="vm.amountModel.amount.amount > 0 ||   vm.amountModel.cashAmount.amount > 0"
+                     id = "2")
     .bottom-charge-account(data-ng-if="!!vm.amountMethodModal.paymentSystemModel && !!vm.amountMethodModal.paymentSystemModel.id")
-      payu-payment-form(data-payments-links = "vm.paymentsLinks" data-amount-method-modal = "vm.amountMethodModal")
+      payu-payment-form(data-payments-links = "vm.paymentsLinks" data-amount-method-modal = "vm.amountMethodModal" data-ng-show = "vm.amountMethodModal.paymentSystemModel.id == 1"
+      id = "3")

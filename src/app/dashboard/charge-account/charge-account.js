@@ -1,5 +1,5 @@
 (function() {
-  function chargeAccountController(paymentsOptions, paymentsLinks, financeBalance) {
+  function chargeAccountController(paymentsOptions, paymentsLinks, financeBalance, smoothScrolling) {
 
     this.amounts = {
       paymentOptions: paymentsOptions.paymentOptions,
@@ -21,6 +21,10 @@
       amountModel: this.amountModel,
       paymentSystemModel: null,
       minimalAmount: this.amounts.minimalAmounts
+    }
+
+    this.setCurrentStepId = () => {
+      smoothScrolling.scrollTo(1)
     }
     
     return this
@@ -100,6 +104,7 @@
     'profitelo.services.commonSettings',
     'profitelo.directives.interface.pro-input',
     'profitelo.directives.interface.pro-checkbox',
+    'profitelo.directives.services.smooth-scrolling',
     'profitelo.components.dashboard.charge-account.payu-payment-form',
     'profitelo.components.dashboard.charge-account.choose-amount-charge',
     'profitelo.components.dashboard.charge-account.payment-method',
