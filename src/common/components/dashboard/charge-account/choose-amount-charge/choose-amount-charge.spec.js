@@ -8,8 +8,8 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-amo
     let compile
     let componentController
     let component
-    let realTranslate
-    let validHTML = '<choose-amount-charge></choose-amount-charge>'
+    let validHTML = '<choose-amount-charge data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_AMMOUNT_CHARGE" data-amounts="{paymentOptions: {}, ' +
+      'minimalAmounts: {}}" data-amount-model="{cashAmount: null,amount: null}" data-scroll-handler="{}"></choose-amount-charge>'
 
     beforeEach(module(function($provide) {
       $provide.value('apiUrl', url)

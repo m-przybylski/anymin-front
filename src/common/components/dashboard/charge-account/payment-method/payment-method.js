@@ -24,6 +24,11 @@
         this.paymentSystemModel = this.paymentSystems[index]
       }
     }
+
+    if (this.paymentSystemModel !== null) {
+      this.activeOption = this.paymentSystemModel - 1
+      this.paymentSystemModel = this.paymentSystems[this.activeOption]
+    }
     
     return this
     

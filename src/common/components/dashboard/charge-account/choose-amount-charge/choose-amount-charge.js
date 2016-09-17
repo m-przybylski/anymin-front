@@ -1,7 +1,7 @@
 (function() {
 
   /* @ngInject */
-  function chooseAmountChargeController($scope, $timeout) {
+  function chooseAmountChargeController($scope) {
 
     this.activeOption = null
     this.firstSelect = this.activeOption !== null
@@ -13,8 +13,13 @@
     this.checkType = () => {
       return angular.isDefined(this.cashAmountModel) && this.cashAmountModel.match('/[0-9]{0,}/')
     }
-    
-    
+
+    if (angular.isDefined(this.amountModel.amount) && this.amountModel.amount !== null) {
+      this.activeOption = this.amounts.paymentOptions.indexOf(_.find(this.amounts.paymentOptions, {'amount': this.amountModel.amount.amount}))
+    } else if (this.amountModel.cashAmount !== null) {
+      this.activeOption = 3
+      this.cashAmountModel = this.amountModel.cashAmount.amount / 100
+    }
 
     this.selectAmountOption =  (index) => {
       this.activeOption = index
@@ -55,7 +60,7 @@
       title: '@',
       amounts: '<',
       scrollHandler: '<',
-      amountModel: '<'
+      amountModel: '=?'
     },
     controller: chooseAmountChargeController,
     controllerAs: '$ctrl'

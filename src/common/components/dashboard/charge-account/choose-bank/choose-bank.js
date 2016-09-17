@@ -8,6 +8,12 @@
       this.activeOption = index
       this.bankModel = this.paymentsLinks[index]
     }
+
+    if(angular.isDefined(this.bankModel.value)) {
+      this.activeOption = this.paymentsLinks.indexOf(_.find(this.paymentsLinks, { 'value': this.bankModel.value}))
+      this.bankModel = this.paymentsLinks[this.activeOption]
+    }
+
     return this
   }
 

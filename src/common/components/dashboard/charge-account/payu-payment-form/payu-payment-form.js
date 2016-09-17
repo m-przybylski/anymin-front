@@ -5,16 +5,24 @@
 
     this.rulesAccepted = false
     let isPending = false
-
+    this.bankModel = {}
     let isValid = () => {
       if (angular.isDefined(this.validAction)) {
         return this.validAction()
       } else {
         return true
       }
-
     }
 
+    if (angular.isDefined(this.amountMethodModal.firstName)) {
+      this.firstNameModel = this.amountMethodModal.firstName
+    } if (angular.isDefined(this.amountMethodModal.lastName)) {
+      this.lastNameModel = this.amountMethodModal.lastName
+    } if (angular.isDefined(this.amountMethodModal.email)) {
+      this.emailModel = this.amountMethodModal.email
+    } if (angular.isDefined(this.amountMethodModal.payMethodValue)) {
+      this.bankModel.value = this.amountMethodModal.payMethodValue
+    }
 
     this.sendPayment = () => {
 
@@ -59,7 +67,7 @@
     transclude: true,
     bindings: {
       paymentsLinks: '=?',
-      validAction: '<',
+      validAction: '=?',
       amountMethodModal: '=?',
 
     },

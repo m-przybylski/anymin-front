@@ -8,6 +8,8 @@
     this.currentSection = 1
     this.clientBalance = financeBalance
 
+
+    this.lastPayment = paymentsOptions.lastPayment
     this.paymentSystems = paymentsOptions.paymentSystems
     this.paymentsLinks = paymentsLinks
     this.queue = null
@@ -17,22 +19,36 @@
       amount: null
     }
 
-    this.validAction = () => {
-      if (angular.isDefined(this.bankModel)) {
-        if (this.amountMethodModal.amountModel.cashAmount === null) {
-          return this.amountMethodModal.amountModel.amount !== null
-        } else if (this.amountMethodModal.amountModel.cashAmount.amount !==null) {
-          return this.amountMethodModal.amountModel.cashAmount.amount > this.amountMethodModal.minimalAmount.amount
-        }
-      } else {
-        return false
-      }
-    }
-
     this.amountMethodModal = {
       amountModel: this.amountModel,
       paymentSystemModel: null,
       minimalAmount: this.amounts.minimalAmounts
+    }
+
+    if (this.lastPayment !== null) {
+      this.currentSection = 3
+      if (_.find(this.amounts.paymentOptions, {'amount': this.lastPayment.amount.amount})) {
+        this.amountModel.amount = this.lastPayment.amount
+      } else {
+        this.amountModel.cashAmount = this.lastPayment.amount
+      }
+      this.amountMethodModal.paymentSystemModel = this.lastPayment.paymentSystemId
+      if (this.lastPayment.payload !== null) {
+        this.amountMethodModal.firstName = this.lastPayment.payload.firstName
+        this.amountMethodModal.lastName = this.lastPayment.payload.lastName
+        this.amountMethodModal.email = this.lastPayment.payload.email
+        this.amountMethodModal.payMethodValue = this.lastPayment.payload.payMethodValue
+      }
+
+    }
+
+    this.validAction = () => {
+      if ((!angular.isDefined(this.amountModel.amount) || this.amountModel.amount === null) && this.amountModel.cashAmount.amount < this.amounts.minimalAmounts.amount) {
+        $window.scrollTo(0, angular.element('cash-valid').offsetTop)
+        return false
+      } else {
+        return true
+      }
     }
 
     this.scrollHandler = (slideTo) => {
