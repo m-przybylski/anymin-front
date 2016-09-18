@@ -8,11 +8,20 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payment-me
     let compile
     let componentController
     let component
-    let validHTML = '<payment-method></payment-method>'
+    let bindings
+    let validHTML = '<payment-method payment-systems = "[{id: 1, imgSrc: dsadad}, {id: 1, imgSrc: dsadad}, {id: 1, imgSrc: dsadad}]"></payment-method>'
 
     beforeEach(module(function($provide) {
       $provide.value('apiUrl', url)
     }))
+
+    function create(html) {
+      scope = rootScope.$new()
+      let elem = angular.element(html)
+      let compiledElement = compile(elem)(scope)
+      scope.$digest()
+      return compiledElement
+    }
 
     beforeEach(() => {
       module('templates-module')
@@ -23,18 +32,13 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payment-me
         rootScope = $rootScope.$new()
         compile = $compile
       })
+      bindings = {
+        paymentSystems: [{id: 1, imgSrc: 'wwww'},{id: 2, imgSrc: 'wwww'},{id:3, imgSrc: 'wwww'}]
+      }
 
-      component = componentController('paymentMethod', null, {})
+      component = componentController('paymentMethod',null, bindings)
 
     })
-
-    function create(html) {
-      scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
-      scope.$digest()
-      return compiledElement
-    }
 
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()

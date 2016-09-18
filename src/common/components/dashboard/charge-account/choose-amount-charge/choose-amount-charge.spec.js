@@ -7,6 +7,7 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-amo
     let rootScope
     let compile
     let componentController
+    let bindings
     let component
     let validHTML = '<choose-amount-charge data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_AMMOUNT_CHARGE" data-amounts="{paymentOptions: {}, ' +
       'minimalAmounts: {}}" data-amount-model="{cashAmount: null,amount: null}" data-scroll-handler="{}"></choose-amount-charge>'
@@ -29,7 +30,15 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-amo
         compile = $compile
       })
 
-      component = componentController('chooseAmountCharge', null, {})
+      bindings = {
+        amountModel: {
+          cashAmount: {
+            amount: '123'
+          }
+        }
+      }
+
+      component = componentController('chooseAmountCharge', null, bindings)
 
     })
 

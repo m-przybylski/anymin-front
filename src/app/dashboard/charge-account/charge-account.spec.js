@@ -42,7 +42,7 @@ describe('Unit tests: profitelo.controller.dashboard.charge-account >', () => {
         _controller = $controller
 
 
-        createController(_controller, {lastPayment: null}, {}, {})
+        createController(_controller, {lastPayment: {amount: { amount: '123'}, payload: {firstName: 'asas', lastName: 'asasas', email: 'asasas'}}}, {}, {})
         
       })
     })
@@ -53,6 +53,10 @@ describe('Unit tests: profitelo.controller.dashboard.charge-account >', () => {
 
     it('should exsist', ()=> {
       expect(!!InvitationController).toBe(true)
+    })
+
+    it('load all form with data from lastPayments', () => {
+
     })
 
   })

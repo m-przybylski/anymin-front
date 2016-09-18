@@ -8,7 +8,8 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-ban
     let compile
     let componentController
     let component
-    let validHTML = '<choose-bank></choose-bank>'
+    let bindings
+    let validHTML = '<choose-bank bank-model="{value: 1}" payments-links="[{value: 1}]"></choose-bank>'
 
     beforeEach(module(function($provide) {
       $provide.value('apiUrl', url)
@@ -24,7 +25,16 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-ban
         compile = $compile
       })
 
-      component = componentController('chooseBank', null, {})
+      bindings = {
+        bankModel: {
+          value: 1
+        },
+        paymentsLinks: [
+          {value: 1}
+        ]
+      }
+
+      component = componentController('chooseBank', null, bindings)
 
     })
 
