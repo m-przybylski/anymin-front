@@ -1,35 +1,49 @@
-.choose-bank
-  padding: 64px 0 0
-  margin: 0 0 64px
+.bottom-charge-account
+  padding: 0
+  background: $c-background-2
 
-  .choose-options
-    .choose-options-item
-      +smm
-        flex: 1 0 33.3333%
-        margin: 0
+  .title-footer
+    padding: 0 0 64px 0
 
-      +mdm
-        flex: 1 0 16.6667%
+  .choose-bank
+    padding: 64px 0 0
+    margin: 0 0 64px
 
-      .option
-        padding: 32px 16px
-        display: flex
-        flex-direction: column
-        align-items: center
-        justify-content: center
+    .choose-options
+      .choose-options-item
+        flex: 1 0 50%
 
-        .option-thumb
-          max-height: 48px
+        +smm
+          flex: 1 0 33.3333%
           margin: 0
+          max-width: 33.3333%
 
-          img
-            max-height: inherit
+        +mdm
+          flex: 1 0 16.6667%
+          max-width: 16.6667%
 
-            +lgm
-              max-height: 64px
+        .option
+          padding: 16px 16px
+          flex-wrap: wrap
 
-        p
-          +default-font-heavy
-          font-size: $f-base
-          margin: 0 0 8px
-          text-align: center
+          +smm
+            align-items: stretch
+
+          .option-thumb
+            margin: 8px 0 0
+            flex: 1 0 100%
+            text-align: center
+            height: 40px
+            align-self: center
+
+            img
+              max-height: 40px
+
+          p
+            +default-font-heavy
+            font-size: $f-small
+            margin: 0 0 8px
+            text-align: center
+
+            +smm
+              align-self: flex-end

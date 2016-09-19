@@ -1,4 +1,4 @@
-.payu-payment-form
+.payu-payment-form.select-choice
   form(name="paymentForm" data-ng-submit="paymentForm.$valid && $ctrl.sendPayment()" novalidate)
     .default-container
       choose-bank(data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_YOUR_BANK", data-payments-links="$ctrl.paymentsLinks", data-bank-model = "$ctrl.bankModel")
@@ -44,7 +44,7 @@
           .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.emailModel || paymentForm.email.$dirty && !$ctrl.emailModel")
             span {{ "DASHBOARD.CHARGE_ACCOUNT.EMAIL_ERROR" | translate }}
 
-      .footer
+      .your-personal-data-footer
         pro-checkbox(id="acceptRules"
         data-ng-model="$ctrl.rulesAccepted"
         data-label="{{ 'DASHBOARD.CHARGE_ACCOUNT.ACCEPT_RULES' | translate }}"
@@ -57,7 +57,7 @@
         p(data-translate="DASHBOARD.CHARGE_ACCOUNT.REQUIRE_VALUE")
 
     .charge-button
-    .default-container
-      button.pro-button.rectangle.default( type="submit") {{ 'DASHBOARD.CHARGE_ACCOUNT.CHARGE_ACCOUNT_BUTTON_TEXT' | translate }}
-        span.icon.icon-arrow-right-24.icon-right
+      .default-container
+        button.pro-button.rectangle.default( type="submit") {{ 'DASHBOARD.CHARGE_ACCOUNT.CHARGE_ACCOUNT_BUTTON_TEXT' | translate }}
+          span.icon.icon-arrow-right-24.icon-right
 
