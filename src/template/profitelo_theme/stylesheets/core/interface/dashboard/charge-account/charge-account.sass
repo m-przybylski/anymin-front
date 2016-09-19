@@ -1,6 +1,4 @@
-.choose-bank,
-.payment-method,
-.choose-amount-charge
+.select-choice
   +xsm
     margin: 0 -8px
 
@@ -14,17 +12,17 @@
       +xsm
         padding: 0
 
-      +lgm
+      +smm
         text-align: left
 
   .choose-options
-    +smm
+    +xsm
       display: flex
       flex-wrap: wrap
       margin: 0 -8px
 
     .choose-options-item
-      +smm
+      +xsm
         padding: 0 8px
 
       .option
@@ -40,12 +38,15 @@
         position: relative
         height: 128px
 
-        h2
-          font-size: 42px
-
         &:hover
           border-color: $c-primary
           box-shadow: inset 0 0 0 1px $c-primary
+
+        h2
+          font-size: 42px
+
+        .option-thumb
+          margin: 0 0 8px
 
       .selected
         border-color: $c-primary
