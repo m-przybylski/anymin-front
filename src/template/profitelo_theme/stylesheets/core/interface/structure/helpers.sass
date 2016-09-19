@@ -53,8 +53,6 @@ html
   display: none
 
 img
-  max-width: 100%
-
   &.isNotUploaded
     background: url('/assets/images/no-avatar.jpg') 50% 50% / cover
     position: relative
@@ -66,6 +64,7 @@ img
   &:after
     content: ""
     position: absolute
+    border-radius: 50%
     z-index: 2
     top: 0
     left: 0

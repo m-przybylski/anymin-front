@@ -26,10 +26,10 @@
 
   +lgm
     overflow-x: visible !important
-    min-width: $dashboard-navbar-width
+    width: $dashboard-navbar-width
 
   &:hover
-    width: 100%
+
     overflow: visible !important
 
     +xsm
@@ -37,11 +37,11 @@
 
     +mdm
       overflow-x: visible !important
-      min-width: $dashboard-width-nav
+      width: $dashboard-width-nav
 
     +lgm
       overflow-x: visible !important
-      min-width: $dashboard-width-nav
+      width: $dashboard-width-nav
 
   .main-column
     display: flex
@@ -100,6 +100,10 @@
 
         &:hover
           background: none
+
+        .profile-thumb
+          flex: 0
+          margin: 0 16px 0 0
 
         .empty-avatar-placeholder
           width: 48px
