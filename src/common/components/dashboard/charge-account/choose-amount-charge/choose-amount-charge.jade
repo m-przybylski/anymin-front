@@ -11,7 +11,7 @@
     .choose-options-item(id="cash-valid")
       .option.option-own-amount(data-ng-class="{'selected': $ctrl.activeOption == 3}" data-ng-click="$ctrl.selectAmountOption(3)")
         span.icon.icon-success-12.top-right.circle(data-ng-show="$ctrl.activeOption == 3")
-        pro-input(placeholder="250zł"
+        pro-input(placeholder="{{ $ctrl.minimalPaymentAmount }}zł"
           data-label="{{'DASHBOARD.CHARGE_ACCOUNT.OWN_AMOUNT' | translate}}"
           data-ng-model="$ctrl.cashAmountModel"
           data-ng-enter="onEnter()"
@@ -26,5 +26,3 @@
 
     .input-error-messages(data-ng-show = "$ctrl.minimalAmountValidation()")
       span {{ 'DASHBOARD.CHARGE_ACCOUNT.INVALID_MINIMAL_PAYMENT' | translate }}
-    //.input-error-messages(data-ng-show = "$ctrl.patternError()")
-    //  span {{ 'DASHBOARD.CHARGE_ACCOUNT.INVALID_PAYMENT_TYPE' | translate }}

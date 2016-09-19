@@ -65,8 +65,15 @@
       scrollFunction()
     }
 
+    function _simpleScrollingTo(element) {
+      $( 'html, body').animate({
+        scrollTop: $(element).offset().top
+      }, 1000)
+    }
+
     return {
-      scrollTo: _scrollTo
+      scrollTo: _scrollTo,
+      simpleScrollTo: _simpleScrollingTo
     }
 
   }
