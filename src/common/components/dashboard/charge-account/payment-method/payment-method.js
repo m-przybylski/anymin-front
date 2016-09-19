@@ -10,8 +10,6 @@
     this.paymentSystems[0].imgSrc = '/assets/images/payU-logo.png'
     this.paymentSystems[1].imgSrc = '/assets/images/paypal-logo.png'
     this.paymentSystems[2].imgSrc1 = '/assets/images/maestro-logo.png'
-    this.paymentSystems[2].imgSrc2 = '/assets/images/mastercard-logo.png'
-    this.paymentSystems[2].imgSrc3 = '/assets/images/visa-logo.png'
     
     this.selectPaymentMethod =  (index) => {
       if (index === 0) {
