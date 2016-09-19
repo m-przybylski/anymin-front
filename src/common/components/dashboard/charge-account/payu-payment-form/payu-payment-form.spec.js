@@ -12,20 +12,14 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payu-payme
     let PaymentsApi
     let _httpBackend
     let PaymentApiDef
+    let window
+    let proTopAlertService
     let resourcesExpectations
-    let validHTML = '<payu-payment-form ></payu-payment-form>'
 
     beforeEach(module(function($provide) {
       $provide.value('apiUrl', url)
     }))
-
-    function create(html) {
-      scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
-      scope.$digest()
-      return compiledElement
-    }
+    
 
     beforeEach(() => {
       module('templates-module')
@@ -33,14 +27,16 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payu-payme
       module('profitelo.components.dashboard.charge-account.payu-payment-form')
       module('ui.router')
       
-      inject(($rootScope, $compile, _$componentController_, $httpBackend,_PaymentsApi_, _$state_, _PaymentApiDef_) => {
+      inject(($rootScope, $compile, _$componentController_, $httpBackend,_PaymentsApi_, _$state_, _PaymentsApiDef_, _proTopAlertService_, $window) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
         state = _$state_
         PaymentsApi = _PaymentsApi_
         _httpBackend = $httpBackend
-        PaymentApiDef = _PaymentApiDef_
+        PaymentApiDef = _PaymentsApiDef_
+        proTopAlertService = _proTopAlertService_
+        window = $window
       })
 
       resourcesExpectations = {
@@ -61,9 +57,6 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payu-payme
           paymentSystemModel: {
             id: 1
           }
-        },
-        validAction: () => {
-          return true
         }
       }
 
@@ -76,12 +69,25 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payu-payme
       expect(true).toBeTruthy()
     }))
 
-    it('should call isValid', inject(() => {
-      let sendPayment = jasmine.createSpy('sendPayment');
+    it('should redirect to app.dashboard.start on form error', inject(() => {
+      bindings.validAction =  () => {
+        return true
+      }
+      component = componentController('payuPaymentForm',null, bindings)
+      spyOn(state, 'go')
+      resourcesExpectations.PaymentsApi.postPayUOrder.respond(400)
       component.sendPayment()
-      expect(sendPayment).toBeCalled()
+      _httpBackend.flush()
+      expect(state.go).toHaveBeenCalled()
     }))
-
+    
+    it('should open payu cart', inject(() => {
+      spyOn(window, 'open')
+      resourcesExpectations.PaymentsApi.postPayUOrder.respond(200)
+      component.sendPayment()
+      _httpBackend.flush()
+      expect(window.open).toHaveBeenCalled()
+    }))
   })
 })
 
