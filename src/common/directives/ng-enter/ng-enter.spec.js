@@ -3,7 +3,7 @@ describe('Unit testing: profitelo.directives.ng-enter', () => {
 
     var compile   = null
     var scope     = null
-    var validHTML = '<input type="text" data-ng-enter="mockFunction" />'
+    var validHTML = '<input type="text" data-ng-enter="mockFunction()" />'
 
     beforeEach(() => {
       module('profitelo.directives.ng-enter')
@@ -31,19 +31,20 @@ describe('Unit testing: profitelo.directives.ng-enter', () => {
       let el = create()
       expect(el.html()).toBeDefined(true)
     })
-    //
-    // it('should call the mock function on pressing enter', () => {
-    //
-    //   let el = create()
-    //   let isoScope = el.isolateScope()
-    //   spyOn(isoScope, 'ngEnter')
-    //   var e = jQuery.Event('keypress')
-    //   e.which = 13
-    //   e.keyCode = 13
-    //   el.trigger(e)
-    //
-    //   expect(isoScope.ngEnter).toHaveBeenCalled()
-    // })
+    
+    it('should call the mock function on pressing enter', () => {
+    
+      let el = create()
+      let isoScope = el.isolateScope()
+      console.log(isoScope)
+      spyOn(scope, 'mockFunction').and.callThrough()
+      var e = jQuery.Event('keypress')
+      e.which = 13
+      e.keyCode = 13
+      el.trigger(e)
+    
+      expect(scope.mockFunction).toHaveBeenCalled()
+    })
 
   })
 })

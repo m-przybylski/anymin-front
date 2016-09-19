@@ -1,4 +1,4 @@
-(function () {
+(function() {
   function CompanyPathController($scope, $state, ProfileApi, savedProfile, User, proTopAlertService, $timeout, smoothScrolling) {
 
     let _updateMethod
@@ -56,7 +56,7 @@
           logo: this.companyPathModel.logo,
           description: this.companyPathModel.description,
           files: this.companyPathModel.files.map((file) => {
-            if(typeof file.previewFileId !== 'undefined') {
+            if (typeof file.previewFileId !== 'undefined') {
               return {fileId: file.fileId, previewFileId: file.previewFileId}
             } else {
               return {fileId: file.id, previewFileId: file.meta.previewFileId}
@@ -91,7 +91,7 @@
     'profitelo.directives.pro-top-alert-service',
     'c7s.ng.userAuth'
   ])
-    .config(function ($stateProvider, UserRolesProvider) {
+    .config(function($stateProvider, UserRolesProvider) {
       $stateProvider.state('app.dashboard.service-provider.company-path', {
         url: '/company-path',
         templateUrl: 'dashboard/service-provider/company-path/company-path.tpl.html',

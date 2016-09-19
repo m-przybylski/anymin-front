@@ -27,6 +27,7 @@ describe('Unit testing: profitelo.directives.pro-expert-card', () => {
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
+
     it('should compile the directive', () => {
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)

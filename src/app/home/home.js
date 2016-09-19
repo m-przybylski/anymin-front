@@ -19,44 +19,85 @@
 
     this.expertCard = [
       {
-        name: 'Ragnar Lodbrok',
-        status: 'available'
+        id: '0',
+        value: {
+          name: '1 Slide',
+          status: 'not-available',
+          avatar: 'https://placekitten.com/50/50',
+          description: 'Układanie planów żywieniowych dla osób na diecie wegetariańskiej'
+        }
       },
       {
-        name: 'Penelope Cruz',
-        status: 'not-available'
+        id: '1',
+        value: {
+          name: '2 Slide',
+          status: 'not-available',
+          avatar: 'https://placekitten.com/50/50',
+          description: 'Układanie planów żywieniowych dla osób na diecie wegetariańskiej'
+        }
       },
       {
-        name: 'Ironman',
-        status: 'busy'
+        id: '2',
+        value: {
+          name: '3 Slide',
+          status: 'not-available',
+          avatar: 'https://placekitten.com/50/50',
+          description: 'Układanie planów żywieniowych dla osób na diecie wegetariańskiej'
+        }
       },
       {
-        name: 'Ragnar Lodbrok',
-        status: 'available'
+        id: '3',
+        value: {
+          name: '4 Slide',
+          status: 'not-available',
+          avatar: 'https://placekitten.com/50/50',
+          description: 'Układanie planów żywieniowych dla osób na diecie wegetariańskiej'
+        }
       },
       {
-        name: 'Penelope Cruz',
-        status: 'not-available'
+        id: '4',
+        value: {
+          name: '5 Slide',
+          status: 'not-available',
+          avatar: 'https://placekitten.com/50/50',
+          description: 'Układanie planów żywieniowych dla osób na diecie wegetariańskiej'
+        }
       },
       {
-        name: 'Ironman',
-        status: 'busy'
+        id: '5',
+        value: {
+          name: '6 Slide',
+          status: 'not-available',
+          avatar: 'https://placekitten.com/50/50',
+          description: 'Układanie planów żywieniowych dla osób na diecie wegetariańskiej'
+        }
       },
       {
-        name: 'Ragnar Lodbrok',
-        status: 'available'
+        id: '6',
+        value: {
+          name: '7 Slide',
+          status: 'not-available',
+          avatar: 'https://placekitten.com/50/50',
+          description: 'Układanie planów żywieniowych dla osób na diecie wegetariańskiej'
+        }
       },
       {
-        name: 'Penelope Cruz',
-        status: 'not-available'
+        id: '7',
+        value: {
+          name: '8 Slide',
+          status: 'not-available',
+          avatar: 'https://placekitten.com/50/50',
+          description: 'Układanie planów żywieniowych dla osób na diecie wegetariańskiej'
+        }
       },
       {
-        name: 'Ironman',
-        status: 'busy'
-      },
-      {
-        name: 'Ironman',
-        status: 'busy'
+        id: '8',
+        value: {
+          name: '9 Slide',
+          status: 'not-available',
+          avatar: 'https://placekitten.com/50/50',
+          description: 'Układanie planów żywieniowych dla osób na diecie wegetariańskiej'
+        }
       }
     ]
     this.newsTile = [

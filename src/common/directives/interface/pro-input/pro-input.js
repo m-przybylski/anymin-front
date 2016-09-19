@@ -41,7 +41,7 @@
         })
       }
 
-      let _setAddon = (value) => { 
+      let _setAddon = (value) => {
         scope.addon = value
       }
 
@@ -103,7 +103,8 @@
         maxlength: '@',
         ngPattern: '=?',
         addonAction: '=?',
-        ngChange: '=?'
+        ngChange: '=?',
+        focus: '=?'
       }
 
     }

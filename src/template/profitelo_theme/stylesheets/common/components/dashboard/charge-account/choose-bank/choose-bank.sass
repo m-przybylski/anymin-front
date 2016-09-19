@@ -1,0 +1,49 @@
+.bottom-charge-account
+  padding: 0
+  background: $c-background-2
+
+  .title-footer
+    padding: 0 0 64px 0
+
+  .choose-bank
+    padding: 64px 0 0
+    margin: 0 0 64px
+
+    .choose-options
+      .choose-options-item
+        flex: 1 0 50%
+
+        +smm
+          flex: 1 0 33.3333%
+          margin: 0
+          max-width: 33.3333%
+
+        +mdm
+          flex: 1 0 16.6667%
+          max-width: 16.6667%
+
+        .option
+          padding: 16px 16px
+          flex-wrap: wrap
+
+          +smm
+            align-items: stretch
+
+          .option-thumb
+            margin: 8px 0 0
+            flex: 1 0 100%
+            text-align: center
+            height: 40px
+            align-self: center
+
+            img
+              max-height: 40px
+
+          p
+            +default-font-heavy
+            font-size: $f-small
+            margin: 0 0 8px
+            text-align: center
+
+            +smm
+              align-self: flex-end

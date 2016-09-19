@@ -1,0 +1,65 @@
+.payu-payment-form
+  margin: 0
+
+  .choose-bank
+    .choose-options
+      display: flex
+      flex-wrap: wrap
+      margin: 0 -8px
+
+      .choose-options-item
+        padding: 0 8px
+
+  .your-personal-data
+    margin: 0 0 64px
+
+    +smm
+      display: flex
+      flex-wrap: wrap
+      margin: 0 -8px 64px
+
+    .personal-data-item
+      flex: 1 0 100%
+      margin: 0 0 16px
+
+      +smm
+        flex: 1 0 50%
+        max-width: 50%
+        padding: 0 8px
+
+      +mdm
+        flex: 1 0 33.3333%
+
+      &:last-child
+        margin: 0
+
+  .your-personal-data-footer
+    margin: 0 0 64px
+
+    .pro-checkbox
+      min-height: 32px
+
+      label
+        display: flex
+        align-items: center
+
+    p
+      font-size: $f-base
+      padding: 8px 0 0 40px
+      color: $c-secondary-txt
+
+    .input-error-messages
+      padding: 16px 16px 8px 40px
+
+  .charge-button
+    background: $c-white
+    text-align: right
+    padding: 64px 0
+
+    .pro-button
+      display: inline-flex
+
+      .icon
+        position: static
+        margin: 0 0 0 8px
+        display: none

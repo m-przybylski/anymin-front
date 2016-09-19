@@ -1,4 +1,4 @@
-(function () {
+(function() {
   function proUploader($timeout, $interval, $filter, $q, FilesApi, Upload, CommonConfig, proTopAlertService) {
 
     function linkFunction(scope, element, attr) {
@@ -163,7 +163,7 @@
       }
 
       /* istanbul ignore next */
-      scope.animate = function () {
+      scope.animate = function() {
         scope.showArrow = false
         scope.hideArrow = true
         scope.hideLoader = false
