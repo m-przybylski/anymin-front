@@ -13,33 +13,35 @@
           data-ng-model="$ctrl.firstNameModel"
           data-ng-click="onClick()"
           data-ng-enter="onEnter()"
-          data-ng-class="{'invalid': error.badName}"
+          data-ng-class="{'invalid': paymentForm.$submitted && !$ctrl.firstNameModel || paymentForm.name.$dirty && !$ctrl.firstNameModel}"
           addon-action="onEnter"
+          required
           data-id="name"
           no-delete)
-          .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.firstNameModel")
+          .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.firstNameModel || paymentForm.name.$dirty && !$ctrl.firstNameModel")
             span {{ "DASHBOARD.CHARGE_ACCOUNT.NAME_INPUT_ERROR" | translate }}
         .personal-data-item.surname
           pro-input(placeholder="{{ 'DASHBOARD.CHARGE_ACCOUNT.LASTNAME_PLACEHOLDER' | translate }}"
           data-label="{{ 'DASHBOARD.CHARGE_ACCOUNT.LASTNAME_PLACEHOLDER' | translate }}"
           data-ng-model="$ctrl.lastNameModel"
-          data-ng-class="{'invalid': error.badLastname}"
+          data-ng-class="{'invalid': paymentForm.$submitted && !$ctrl.lastNameModel || paymentForm.lastName.$dirty && !$ctrl.lastNameModel}"
           addon-action="onEnter"
           data-id="lastName"
           required
           no-delete)
-          .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.lastNameModel")
+          .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.lastNameModel || paymentForm.lastName.$dirty && !$ctrl.lastNameModel")
             span {{ "DASHBOARD.CHARGE_ACCOUNT.LAST_NAME_INPUT_ERROR" | translate }}
         .personal-data-item.address-email
           pro-input(placeholder="{{ 'DASHBOARD.CHARGE_ACCOUNT.EMAIL_PLACEHOLDER' | translate }}"
           data-label="{{ 'DASHBOARD.CHARGE_ACCOUNT.EMAIL_PLACEHOLDER' | translate }}"
           data-ng-model="$ctrl.emailModel"
-          data-ng-class="{'invalid': error.badEmail}"
+          data-ng-class="{'invalid': paymentForm.$submitted && !$ctrl.emailModel || paymentForm.email.$dirty && !$ctrl.emailMode}"
           addon-action="onEnter"
           data-id="email"
           no-delete
-          data-ng-pattern="$ctrl.patternEmail")
-          .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.emailModel")
+          data-ng-pattern="$ctrl.patternEmail"
+          required)
+          .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.emailModel || paymentForm.email.$dirty && !$ctrl.emailModel")
             span {{ "DASHBOARD.CHARGE_ACCOUNT.EMAIL_ERROR" | translate }}
 
       .footer
@@ -47,7 +49,7 @@
         data-ng-model="$ctrl.rulesAccepted"
         data-label="{{ 'DASHBOARD.CHARGE_ACCOUNT.ACCEPT_RULES' | translate }}"
         data-name="acceptRules"
-        data-ng-class="{'invalid': !$ctrl.rulesAccepted && passwordForm.$submitted}"
+        data-ng-class="{'invalid': !$ctrl.rulesAccepted && paymentForm.$submitted}"
         required)
         .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.rulesAccepted")
           span {{ "DASHBOARD.CHARGE_ACCOUNT.RULES_ERROR" | translate }}
