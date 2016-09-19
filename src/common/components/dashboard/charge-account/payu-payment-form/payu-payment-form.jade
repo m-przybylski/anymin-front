@@ -1,10 +1,11 @@
 .payu-payment-form
   form(name="paymentForm" data-ng-submit="paymentForm.$valid && $ctrl.sendPayment()" novalidate)
     .default-container
-      choose-bank(data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_YOUR_BANK", data-payments-links="$ctrl.paymentsLinks", data-bank-model = "$ctrl.bankModel")
+      choose-bank(data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_YOUR_BANK", data-payments-links="$ctrl.paymentsLinks",
+      data-bank-model = "$ctrl.bankModel", data-scroll-section-id="$ctrl.personalDataSectionId")
         .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.bankModel.value")
           span {{ "DASHBOARD.CHARGE_ACCOUNT.EMPTY_BANK_ERROR" | translate }}
-      .title-footer
+      .title-footer(id="personal-section")
         h3(data-translate="DASHBOARD.CHARGE_ACCOUNT.WRITE_YOUR_PERSONAL_DATA")
       .your-personal-data
         .personal-data-item.name

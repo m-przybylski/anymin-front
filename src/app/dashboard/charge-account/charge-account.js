@@ -8,7 +8,6 @@
     this.currentSection = 1
     this.clientBalance = financeBalance
 
-
     this.lastPayment = paymentsOptions.lastPayment
     this.paymentSystems = paymentsOptions.paymentSystems
     this.paymentsLinks = paymentsLinks
@@ -39,8 +38,8 @@
         this.amountMethodModal.email = this.lastPayment.payload.email
         this.amountMethodModal.payMethodValue = this.lastPayment.payload.payMethodValue
       }
-
     }
+
 
     this.validAction = () => {
       if ((!angular.isDefined(this.amountModel.amount) || this.amountModel.amount === null) && this.amountModel.cashAmount.amount < this.amounts.minimalAmounts.amount) {
@@ -53,14 +52,11 @@
 
     this.scrollHandler = (slideTo) => {
       if (angular.isDefined(slideTo)) {
-
         smoothScrolling.scrollTo(slideTo)
-      } else if(this.currentSection < 3){
-        $timeout(()=>{
+      } else if (this.currentSection < 3) {
+        $timeout(() => {
           smoothScrolling.scrollTo(++this.currentSection)
         })
-      } else {
-        console.log('nothing to do')
       }
     }
     

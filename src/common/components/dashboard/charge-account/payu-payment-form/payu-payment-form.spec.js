@@ -3,7 +3,6 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payu-payme
     const url = 'awesomUrl/'
 
     let scope
-    let rootScope
     let compile
     let componentController
     let component
@@ -29,7 +28,7 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payu-payme
       
       inject(($rootScope, $compile, _$componentController_, $httpBackend,_PaymentsApi_, _$state_, _PaymentsApiDef_, _proTopAlertService_, $window) => {
         componentController = _$componentController_
-        rootScope = $rootScope.$new()
+        scope = $rootScope.$new()
         compile = $compile
         state = _$state_
         PaymentsApi = _PaymentsApi_
@@ -81,7 +80,7 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payu-payme
       expect(state.go).toHaveBeenCalled()
     }))
     
-    it('should open payu cart', inject(() => {
+    it('should redirect to payu', inject(() => {
       spyOn(window, 'open')
       resourcesExpectations.PaymentsApi.postPayUOrder.respond(200)
       component.sendPayment()

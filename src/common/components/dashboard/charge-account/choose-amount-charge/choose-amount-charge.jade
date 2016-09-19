@@ -14,17 +14,17 @@
         pro-input(placeholder="250zł"
           data-label="{{'DASHBOARD.CHARGE_ACCOUNT.OWN_AMOUNT' | translate}}"
           data-ng-model="$ctrl.cashAmountModel"
-          data-ng-click="onClick()"
           data-ng-enter="onEnter()"
           data-ng-class="{'invalid': $ctrl.minimalAmountValidation()}"
           addon-action="onEnter"
           data-id="ownAmount"
           data-addon-text="{{ $ctrl.amounts.minimalAmounts.currency }}"
           data-type='text'
+          data-ng-click="$ctrl.selectAmountOption(3)"
           data-focus='$ctrl.focusInput'
           only-digits)
 
     .input-error-messages(data-ng-show = "$ctrl.minimalAmountValidation()")
       span {{ 'DASHBOARD.CHARGE_ACCOUNT.INVALID_MINIMAL_PAYMENT' | translate }}
-    .input-error-messages(data-ng-show = "")
-      span {{ 'DASHBOARD.CHARGE_ACCOUNT.INVALID_PAYMENT_TYPE' | translate }}
+    //.input-error-messages(data-ng-show = "$ctrl.patternError()")
+    //  span {{ 'DASHBOARD.CHARGE_ACCOUNT.INVALID_PAYMENT_TYPE' | translate }}

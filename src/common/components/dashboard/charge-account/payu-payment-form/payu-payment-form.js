@@ -4,6 +4,7 @@
   function payuPaymentFormController($window, $state, PaymentsApi, proTopAlertService, CommonSettingsService) {
 
     this.rulesAccepted = false
+    this.personalDataSectionId = 'personal-section'
     let isPending = false
     this.bankModel = {}
     let isValid = () => {
@@ -26,7 +27,7 @@
 
     this.sendPayment = () => {
 
-      if(isValid() && !isPending) {
+      if (isValid() && !isPending) {
 
         this.sendPaymentObject = {
           paymentOption: this.amountMethodModal.amountModel.amount,
@@ -43,7 +44,7 @@
 
         PaymentsApi.postPayUOrder(this.sendPaymentObject).$promise.then((response) => {
           isPending = false
-          $window.open(response.redirectUrl, '_self',true)
+          $window.open(response.redirectUrl, '_self', true)
         }, (error) => {
           proTopAlertService.error({
             message: 'error',
@@ -68,8 +69,7 @@
     bindings: {
       paymentsLinks: '=?',
       validAction: '=?',
-      amountMethodModal: '=?',
-
+      amountMethodModal: '=?'
     },
     controller: payuPaymentFormController,
     controllerAs: '$ctrl'
@@ -77,13 +77,13 @@
 
 
   angular.module('profitelo.components.dashboard.charge-account.payu-payment-form', [
-        'profitelo.swaggerResources',
-        'profitelo.directives.pro-top-alert-service',
-        'profitelo.services.commonSettings',
-        'profitelo.directives.interface.pro-input',
-        'profitelo.directives.interface.pro-checkbox',
-        'profitelo.components.dashboard.charge-account.choose-bank'
-      ])
+    'profitelo.swaggerResources',
+    'profitelo.directives.pro-top-alert-service',
+    'profitelo.services.commonSettings',
+    'profitelo.directives.interface.pro-input',
+    'profitelo.directives.interface.pro-checkbox',
+    'profitelo.components.dashboard.charge-account.choose-bank'
+  ])
     .component('payuPaymentForm', payuPaymentForm)
 
 }())

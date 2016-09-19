@@ -1,17 +1,28 @@
 (function() {
 
   /* @ngInject */
-  function chooseBankController() {
+  function chooseBankController(smoothScrolling) {
 
-    this.activeOption = -1
+    this.activeOption = null
+    this.firstSelect = this.activeOption !== null
+    
+    const _scrollAfterChooseBank = (scrollTo) => {
+      if (angular.isDefined(scrollTo) && !this.firstSelect) {
+        smoothScrolling.scrollTo(scrollTo)
+      }
+    }
+
     this.selectBank = (index) => {
+      _scrollAfterChooseBank(this.scrollSectionId)
       this.activeOption = index
+      this.firstSelect = true
       this.bankModel = this.paymentsLinks[index]
     }
 
-    if(angular.isDefined(this.bankModel.value)) {
+    if (angular.isDefined(this.bankModel.value)) {
       this.activeOption = this.paymentsLinks.indexOf(_.find(this.paymentsLinks, { 'value': this.bankModel.value}))
       this.bankModel = this.paymentsLinks[this.activeOption]
+      this.firstSelect = true
     }
 
     return this
@@ -25,14 +36,17 @@
     bindings: {
       title: '@',
       paymentsLinks: '<',
-      bankModel: '=?'
+      bankModel: '=?',
+      scrollSectionId: '<'
     },
     controller: chooseBankController,
     controllerAs: '$ctrl'
   }
 
 
-  angular.module('profitelo.components.dashboard.charge-account.choose-bank', [])
+  angular.module('profitelo.components.dashboard.charge-account.choose-bank', [
+    'profitelo.directives.services.smooth-scrolling'
+  ])
     .component('chooseBank', chooseBank)
 
 }())

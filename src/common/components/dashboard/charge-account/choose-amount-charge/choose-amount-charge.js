@@ -10,16 +10,24 @@
       return  (!angular.isDefined(this.cashAmountModel) || this.cashAmountModel < this.amounts.minimalAmounts.amount / 100) && !angular.element('.option-own-amount').find('input:focus')[0] && this.activeOption === 3
     }
 
-    this.checkType = () => {
-      return angular.isDefined(this.cashAmountModel) && this.cashAmountModel.match('/[0-9]{0,}/')
-    }
-
     if (angular.isDefined(this.amountModel.amount) && this.amountModel.amount !== null) {
       this.activeOption = this.amounts.paymentOptions.indexOf(_.find(this.amounts.paymentOptions, {'amount': this.amountModel.amount.amount}))
     } else if (this.amountModel.cashAmount !== null) {
       this.activeOption = 3
       this.cashAmountModel = this.amountModel.cashAmount.amount / 100
     }
+
+    $scope.$watch(() =>{
+      return this.cashAmountModel
+    }, (newValue) =>{
+      if (newValue) {
+        this.amountModel.cashAmount = {
+          amount:  Number(newValue * 100),
+          currency: this.amounts.minimalAmounts.currency
+        }
+        this.amountModel.amount = null
+      }
+    })
 
     this.selectAmountOption =  (index) => {
       this.activeOption = index
@@ -36,17 +44,6 @@
         this.amountModel.cashAmount = null
       } else {
         angular.element('.option-own-amount').find('input').focus()
-        $scope.$watch(() =>{
-          return this.cashAmountModel
-        }, (newValue) =>{
-          if (newValue) {
-            this.amountModel.cashAmount = {
-              amount:  Number(newValue * 100),
-              currency: this.amounts.minimalAmounts.currency
-            }
-            this.amountModel.amount = null
-          }
-        })
       }
     }
     return this
