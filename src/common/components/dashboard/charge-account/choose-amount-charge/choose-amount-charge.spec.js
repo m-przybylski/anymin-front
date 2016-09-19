@@ -35,6 +35,11 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-amo
           cashAmount: {
             amount: '123'
           }
+        },
+        amounts: {
+          minimalAmounts: {
+            amount: 10
+          }
         }
       }
 

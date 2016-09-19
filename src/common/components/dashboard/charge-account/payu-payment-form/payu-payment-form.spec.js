@@ -26,7 +26,7 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payu-payme
       module('profitelo.components.dashboard.charge-account.payu-payment-form')
       module('ui.router')
       
-      inject(($rootScope, $compile, _$componentController_, $httpBackend,_PaymentsApi_, _$state_, _PaymentsApiDef_, _proTopAlertService_, $window) => {
+      inject(($rootScope, $compile, _$componentController_, $httpBackend, _PaymentsApi_, _$state_, _PaymentsApiDef_, _proTopAlertService_, $window) => {
         componentController = _$componentController_
         scope = $rootScope.$new()
         compile = $compile
@@ -59,9 +59,9 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payu-payme
         }
       }
 
-      component = componentController('payuPaymentForm',null, bindings)
+      component = componentController('payuPaymentForm', null, bindings)
       
-      expect(component.amountMethodModal).toBeDefined();
+      expect(component.amountMethodModal).toBeDefined()
     })
 
     it('should have a dummy test', inject(() => {
@@ -72,7 +72,7 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payu-payme
       bindings.validAction =  () => {
         return true
       }
-      component = componentController('payuPaymentForm',null, bindings)
+      component = componentController('payuPaymentForm', null, bindings)
       spyOn(state, 'go')
       resourcesExpectations.PaymentsApi.postPayUOrder.respond(400)
       component.sendPayment()

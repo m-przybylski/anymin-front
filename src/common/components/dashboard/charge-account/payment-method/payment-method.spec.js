@@ -33,10 +33,10 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payment-me
         compile = $compile
       })
       bindings = {
-        paymentSystems: [{id: 1, imgSrc: 'wwww'},{id: 2, imgSrc: 'wwww'},{id:3, imgSrc: 'wwww'}]
+        paymentSystems: [{id: 1, imgSrc: 'wwww'}, {id: 2, imgSrc: 'wwww'}, {id:3, imgSrc: 'wwww'}]
       }
 
-      component = componentController('paymentMethod',null, bindings)
+      component = componentController('paymentMethod', null, bindings)
 
     })
 

@@ -39,11 +39,10 @@
         this.amountMethodModal.payMethodValue = this.lastPayment.payload.payMethodValue
       }
     }
-
-
+    
     this.validAction = () => {
       if ((!angular.isDefined(this.amountModel.amount) || this.amountModel.amount === null) && this.amountModel.cashAmount.amount < this.amounts.minimalAmounts.amount) {
-        $window.scrollTo(0, angular.element('cash-valid').offsetTop)
+        smoothScrolling.simpleScrollTo('#cash-valid')
         return false
       } else {
         return true

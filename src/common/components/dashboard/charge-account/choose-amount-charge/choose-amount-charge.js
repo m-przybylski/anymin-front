@@ -5,7 +5,8 @@
 
     this.activeOption = null
     this.firstSelect = this.activeOption !== null
-
+    this.minimalPaymentAmount = this.amounts.minimalAmounts.amount / 100
+    
     this.minimalAmountValidation = (manual) => {
       return  (!angular.isDefined(this.cashAmountModel) || this.cashAmountModel < this.amounts.minimalAmounts.amount / 100) && !angular.element('.option-own-amount').find('input:focus')[0] && this.activeOption === 3
     }
@@ -26,6 +27,7 @@
           currency: this.amounts.minimalAmounts.currency
         }
         this.amountModel.amount = null
+        console.log(newValue)
       }
     })
 

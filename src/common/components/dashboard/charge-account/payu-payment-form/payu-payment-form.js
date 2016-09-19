@@ -1,17 +1,27 @@
 (function() {
 
   /* @ngInject */
-  function payuPaymentFormController($window, $state, PaymentsApi, proTopAlertService, CommonSettingsService) {
+  function payuPaymentFormController($window, $state, PaymentsApi, proTopAlertService, smoothScrolling, CommonSettingsService) {
 
     this.rulesAccepted = false
     this.personalDataSectionId = 'personal-section'
     let isPending = false
     this.bankModel = {}
     let isValid = () => {
+      const _isModelBankExist = () => {
+        if (angular.isDefined(this.bankModel.value)) {
+          console.log('sadasd')
+          return true
+        } else {
+          smoothScrolling.simpleScrollTo('#bankValid')
+          return false
+
+        }
+      }
       if (angular.isDefined(this.validAction)) {
-        return this.validAction()
+        return this.validAction() && _isModelBankExist()
       } else {
-        return true
+        return _isModelBankExist()
       }
     }
 
@@ -23,6 +33,12 @@
       this.emailModel = this.amountMethodModal.email
     } if (angular.isDefined(this.amountMethodModal.payMethodValue)) {
       this.bankModel.value = this.amountMethodModal.payMethodValue
+    }
+    
+    this.onEnter = (option) => {
+      if (option < 3) {
+        $('[data-index="' + (option + 1).toString() + '"] input').focus()
+      }
     }
 
     this.sendPayment = () => {
@@ -82,6 +98,7 @@
     'profitelo.services.commonSettings',
     'profitelo.directives.interface.pro-input',
     'profitelo.directives.interface.pro-checkbox',
+    'profitelo.directives.services.smooth-scrolling',
     'profitelo.components.dashboard.charge-account.choose-bank'
   ])
     .component('payuPaymentForm', payuPaymentForm)
