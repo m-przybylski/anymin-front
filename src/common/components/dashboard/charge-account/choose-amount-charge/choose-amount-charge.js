@@ -7,8 +7,8 @@
     this.firstSelect = this.activeOption !== null
     this.minimalPaymentAmount = this.amounts.minimalAmounts.amount / 100
     
-    this.minimalAmountValidation = (manual) => {
-      return  (!angular.isDefined(this.cashAmountModel) || this.cashAmountModel < this.amounts.minimalAmounts.amount / 100) && !angular.element('.option-own-amount').find('input:focus')[0] && this.activeOption === 3
+    this.minimalAmountValidation = () => {
+      return this.activeOption === 3 && this.cashAmountModel < this.amounts.minimalAmounts.amount / 100 && !angular.element('.option-own-amount').find('input:focus')[0]
     }
 
     if (angular.isDefined(this.amountModel.amount) && this.amountModel.amount !== null) {
@@ -26,8 +26,8 @@
           amount:  Number(newValue * 100),
           currency: this.amounts.minimalAmounts.currency
         }
+        this.firstSelect = true
         this.amountModel.amount = null
-        console.log(newValue)
       }
     })
 

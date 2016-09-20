@@ -10,7 +10,6 @@
     let isValid = () => {
       const _isModelBankExist = () => {
         if (angular.isDefined(this.bankModel.value)) {
-          console.log('sadasd')
           return true
         } else {
           smoothScrolling.simpleScrollTo('#bankValid')
@@ -40,6 +39,10 @@
         $('[data-index="' + (option + 1).toString() + '"] input').focus()
       }
     }
+    this.mailValidation = () => {
+      return !angular.element('[data-index="3"]').find('input:focus')[0] && !this.emailModel
+    }
+    
 
     this.sendPayment = () => {
 
