@@ -48,10 +48,10 @@
         return true
       }
     }
-
+    /* istanbul ignore next */
     this.scrollHandler = (slideTo) => {
       if (angular.isDefined(slideTo)) {
-        smoothScrolling.scrollTo(slideTo)
+        smoothScrolling.scrollTo(slideTo) 
       } else if (this.currentSection < 3) {
         $timeout(() => {
           smoothScrolling.scrollTo(++this.currentSection)
