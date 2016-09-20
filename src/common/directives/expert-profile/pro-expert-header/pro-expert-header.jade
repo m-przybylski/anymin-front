@@ -16,6 +16,7 @@
           .status(data-ng-hide="profile.type == 'company'")
             span Dostępny
           .languages(data-ng-hide="profile.type == 'company'")
+            span.icon.icon-language-16
             span(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.PROVIDER_LAGUAGES")
             span(data-ng-repeat="lang in profile.languages") {{" " + lang + " "}} 
         .company-list(data-ng-hide="profile.type == 'company'")
