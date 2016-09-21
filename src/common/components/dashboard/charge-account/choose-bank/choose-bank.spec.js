@@ -9,34 +9,9 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-ban
     let componentController
     let component
     let bindings
-    let validHTML = '<choose-bank bank-model="{value: 1}" payments-links="[{value: 1}]"></choose-bank>'
-
-    beforeEach(module(function($provide) {
-      $provide.value('apiUrl', url)
-    }))
-
-    beforeEach(() => {
-      module('templates-module')
-      module('profitelo.components.dashboard.charge-account.choose-bank')
-
-      inject(($rootScope, $compile, _$componentController_) => {
-        componentController = _$componentController_
-        rootScope = $rootScope.$new()
-        compile = $compile
-      })
-
-      bindings = {
-        bankModel: {
-          value: 1
-        },
-        paymentsLinks: [
-          {value: 1}
-        ]
-      }
-
-      component = componentController('chooseBank', null, bindings)
-
-    })
+    let el
+    let smoothScrolling
+    let validHTML = '<choose-bank bank-model="{value: 1}" payments-links="[{value: 1}, {value: 2}]" scroll-section-id="1"></choose-bank>'
 
     function create(html) {
       scope = rootScope.$new()
@@ -46,16 +21,47 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-ban
       return compiledElement
     }
 
+    beforeEach(module(function($provide) {
+      $provide.value('apiUrl', url)
+    }))
+
+    beforeEach(() => {
+      module('templates-module')
+      module('profitelo.components.dashboard.charge-account.choose-bank')
+
+      inject(($rootScope, $compile, _$componentController_, _smoothScrolling_) => {
+        componentController = _$componentController_
+        rootScope = $rootScope.$new()
+        compile = $compile
+        smoothScrolling = _smoothScrolling_
+      })
+
+      bindings = {
+        bankModel: {
+          value: 1
+        },
+        paymentsLinks: [
+          {value: 1}
+        ],
+        scrollSectionId: 1
+      }
+      el = create(validHTML)
+      component = componentController('chooseBank', {$element: el, $scope: scope}, bindings)
+    })
+    
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
 
     it('should compile the component', () => {
-      let el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
 
-
+    it('should call scroll method and select bank', () => {
+      spyOn(smoothScrolling, 'scrollTo')
+      el.find('.option:first-child').trigger('click')
+      expect(smoothScrolling.scrollTo).toHaveBeenCalled()
+    })
 
   })
 })

@@ -1,5 +1,5 @@
 (function() {
-  function chargeAccountController($timeout, $window, paymentsOptions, paymentsLinks, financeBalance, smoothScrolling) {
+  function chargeAccountController($timeout, paymentsOptions, paymentsLinks, financeBalance, smoothScrolling) {
 
     this.amounts = {
       paymentOptions: paymentsOptions.paymentOptions,
@@ -48,7 +48,7 @@
         return true
       }
     }
-    /* istanbul ignore next */
+
     this.scrollHandler = (slideTo) => {
       if (angular.isDefined(slideTo)) {
         smoothScrolling.scrollTo(slideTo) 
@@ -83,6 +83,7 @@
               timeout: 4
             })
           })
+          /* istanbul ignore next */
           return _deferred.promise
         },
         paymentsLinks: ($q, $state, PaymentsApi, proTopAlertService) => {
@@ -99,6 +100,7 @@
               timeout: 4
             })
           })
+          /* istanbul ignore next */
           return _deferred.promise
         },
         financeBalance: ($q, $state, FinancesApi, proTopAlertService) => {
@@ -115,6 +117,7 @@
               timeout: 4
             })
           })
+          /* istanbul ignore next */
           return _deferred.promise
         }
 

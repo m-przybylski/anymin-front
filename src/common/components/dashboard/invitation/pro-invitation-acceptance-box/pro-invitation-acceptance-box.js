@@ -14,7 +14,8 @@
     $scope.$watch(
       () => this.invitation,
       (newVal) => {
-        if (typeof newVal !== 'undefined') {
+        /* istanbul ignore next if*/
+        if (angular.isDefined(newVal)) {
           newVal.details.tagNames = newVal.details.tags.map(tag => tag.name)
         }
       }, true)

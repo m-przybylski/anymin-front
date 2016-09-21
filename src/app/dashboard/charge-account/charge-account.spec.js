@@ -3,7 +3,7 @@ describe('Unit tests: profitelo.controller.dashboard.charge-account >', () => {
 
     
 
-    var InvitationController
+    var chargeAccountController
     let _scope
     let url = 'awesomeUrl'
     let _timeout
@@ -14,14 +14,13 @@ describe('Unit tests: profitelo.controller.dashboard.charge-account >', () => {
     let _controller
 
     function createController(controller, paymentsOptions, paymentsLinks, financeBalance) {
-      InvitationController = controller('chargeAccountController', {
+      
+      chargeAccountController = controller('chargeAccountController', {
         $scope: _scope,
         paymentsOptions: paymentsOptions,
         paymentsLinks: paymentsLinks,
         financeBalance: financeBalance,
-        $timeout: _timeout,
-        $window: _window,
-        smoothScrolling: _smoothScrolling
+        $timeout: _timeout
       })
     }
 
@@ -33,16 +32,16 @@ describe('Unit tests: profitelo.controller.dashboard.charge-account >', () => {
       module('profitelo.controller.dashboard.charge-account')
       module('profitelo.swaggerResources.definitions')
       module('templates-module')
-      inject(($rootScope, $httpBackend, $controller, $injector, $timeout, $window) => {
+      inject(($rootScope, $httpBackend, $controller, $injector, $timeout, $window, smoothScrolling) => {
 
         _scope = $rootScope.$new()
         _httpBackend = $httpBackend
         _window = $window
         _timeout = $timeout
         _controller = $controller
+        _smoothScrolling = smoothScrolling
 
-
-        createController(_controller, {lastPayment: {amount: { amount: '123'}, payload: {firstName: 'asas', lastName: 'asasas', email: 'asasas'}}}, {}, {})
+        createController(_controller, {lastPayment: {amount: { amount: '123'}, payload: {firstName: 'asas', lastName: 'asasas', email: 'asasas'}}, minimalPayment: {amount:1000}}, {}, {})
         
       })
     })
@@ -52,11 +51,31 @@ describe('Unit tests: profitelo.controller.dashboard.charge-account >', () => {
     })
 
     it('should exsist', ()=> {
-      expect(!!InvitationController).toBe(true)
+      expect(!!chargeAccountController).toBe(true)
     })
 
-    it('load all form with data from lastPayments', () => {
+    it('should call smoothScrolling on minimal-payment validation error', () => {
+      spyOn(_smoothScrolling, 'simpleScrollTo')
 
+      chargeAccountController.amountModel.cashAmount.amount = 2000
+      chargeAccountController.validAction()
+      expect(_smoothScrolling.simpleScrollTo).not.toHaveBeenCalled()
+
+      chargeAccountController.amountModel.cashAmount.amount = 2
+      chargeAccountController.validAction()
+      expect(_smoothScrolling.simpleScrollTo).toHaveBeenCalled()
+    })
+
+    it('should call smoothScrolling. on scrollHandler', ()=> {
+      spyOn(_smoothScrolling, 'scrollTo')
+      
+      chargeAccountController.currentSection = 1
+      chargeAccountController.scrollHandler()
+      _timeout.flush()
+      expect(_smoothScrolling.scrollTo).toHaveBeenCalled()
+      
+      chargeAccountController.scrollHandler('2')
+      expect(_smoothScrolling.scrollTo).toHaveBeenCalledWith('2')
     })
 
   })

@@ -37,9 +37,6 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
       el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
-
-
-
-
   })
+  
 })
