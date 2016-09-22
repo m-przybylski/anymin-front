@@ -236,6 +236,7 @@
     'profitelo.controller.search-result',
     'profitelo.controller.consultations-field',
     'profitelo.controller.dashboard.charge-account',
+    'profitelo.controller.dashboard.charge-account.payments-thank-you-page',
     'profitelo.controller.post-register',
     'profitelo.controller.post-register.set-password',
     'profitelo.controller.post-register.set-email',

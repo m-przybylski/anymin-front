@@ -5,7 +5,7 @@
   position: fixed
   width: 100%
   background: $c-white
-  height: 80px
+  height: $top-modal-navbar
   top: 0
   display: flex
   left: 0
@@ -43,11 +43,12 @@
     cursor: pointer
     padding: 32px
     height: 79px
-    width: 80px
+    width: $top-modal-navbar
     font-size: 0
     display: flex
     background: $c-white
     color: $c-secondary-txt
+
     .nav-icon
       font-size: 0
       display: flex
@@ -112,7 +113,7 @@
         background: $c-primary
         transition: background .2s, color .2s
         color: $c-white
-        height: 80px
+        height: $top-modal-navbar
         span
           background: $c-white
     &.disactive-btn
@@ -122,7 +123,7 @@
       width: 100%
       display: block
       position: fixed
-      top: 80px
+      top: $top-modal-navbar
       left: 0
       background-color: $c-primary
       +xsm
@@ -175,7 +176,7 @@
     transition: color .2s, background .2s
     &:hover
       +smm
-        height: 80px
+        height: $top-modal-navbar
       .icon
         color: $c-primary
       &:before
@@ -221,7 +222,7 @@
     transition: color .2s, background .2s
     &.hover-login-btn
       +smm
-        height: 80px
+        height: $top-modal-navbar
       .icon
         color: $c-primary
       &:before
@@ -333,7 +334,7 @@
     display: block
     height: 0
     position: fixed
-    top: 80px
+    top: $top-modal-navbar
     right: 0
     background-color: $c-primary
     text-align: right
@@ -424,13 +425,13 @@
     .search-btn
       padding-left: 51px
     +smm
-      width: 80px
+      width: $top-modal-navbar
 
   &.search-activ
     width: 100%
 
     .search-btn
-      width: 80px
+      width: $top-modal-navbar
       padding: 0
       background: $c-white
       transition: width .2s
@@ -450,7 +451,7 @@
     .input-group
       height: 100%
       display: block
-      width: calc(100% - 80px)
+      width: calc(100% - #{$top-modal-navbar})
       position: absolute
       right: 0
       top: 0
@@ -472,7 +473,7 @@
 
 .main-menu
   flex-flow: nowrap
-  height: 80px
+  height: $top-modal-navbar
   align-items: center
   position: absolute
   left: 0

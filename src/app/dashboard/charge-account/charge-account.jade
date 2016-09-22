@@ -1,14 +1,8 @@
 .charge-account
   .top-charge-account
-    .default-container
-      .pro-top-title-row.title-row
-        .current-balance
-          h3(data-translate="DASHBOARD.CHARGE_ACCOUNT.YOUR_CURRENT_BALANCE")
-          h4.current-balance-wallet {{ vm.clientBalance.amount / 100 }}zł
-        .close-button
-          a.pro-button.round.icon.primary(data-ui-sref="app.dashboard.start")
-            span.icon.icon-close-16
+    top-modal-navbar(data-title="DASHBOARD.CHARGE_ACCOUNT.YOUR_CURRENT_BALANCE")
 
+    .default-container
       choose-amount-charge(data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_AMMOUNT_CHARGE" data-amounts="vm.amounts"
                            data-amount-model="vm.amountModel"
                            id="1"

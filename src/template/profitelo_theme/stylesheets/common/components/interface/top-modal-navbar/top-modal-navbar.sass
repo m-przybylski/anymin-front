@@ -1,0 +1,53 @@
+.top-modal-navbar
+  transition: top 0.3s
+  position: fixed
+  top: 0
+  left: 0
+  background: $c-white
+  width: 100%
+  z-index: $z-index-900
+  border-bottom: 1px solid $c-lines
+
+  &.isHided
+    top: -#{$top-modal-navbar + 1px}
+
+  .top-modal-navbar-wrapper
+    +default-font-regular
+    padding: 0
+    height: $top-modal-navbar
+    display: flex
+    justify-content: space-between
+    align-items: stretch
+
+  .top-modal-navbar-header
+    display: none
+
+    +smm
+      border-right: 1px solid $c-lines
+      display: flex
+      align-items: center
+      padding: 0 36px
+
+  .title
+    display: flex
+    align-items: center
+    flex: 1
+    padding: 0 36px
+
+    +smm
+      border-right: 1px solid $c-lines
+
+    h3
+      +default-font-heavy
+      font-size: $f-h5-size
+      color: $c-primary-txt
+
+  .close-modal
+    display: flex
+    align-items: center
+    justify-content: center
+    width: $top-modal-navbar
+
+    .icon
+      color: $c-secondary-txt
+      font-size: $f-icon-16
