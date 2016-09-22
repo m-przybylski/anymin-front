@@ -3,7 +3,7 @@
 
     this.isPending = false
     this.account = account
-    this.patternSms = CommonSettingsService.localSettings.smsCodePattern
+    this.smsCodePattern = CommonSettingsService.localSettings.smsCodePattern
 
     this.forceSmsRecovery = () => {
       $state.go('app.login.forgot-password', { method: 'sms' }, { reload: true })

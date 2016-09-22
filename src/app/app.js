@@ -36,6 +36,7 @@
 
     function userTransfer(event, toState, fromState) {
       let pac = User.pageAccessCheck(event, toState)
+
       switch (pac.code) {
       case 'x401':
         event.preventDefault()
@@ -60,6 +61,19 @@
         }
         break
       case 'x200':
+        const user = User.getAllData()
+        if (angular.isDefined(user.id)) {
+          if (angular.isDefined(user.hasPassword) && !user.hasPassword) {
+            if (toState.name.startsWith('app.dashboard')) {
+              $state.go('app.post-register.set-password')
+            }
+          } else if ((angular.isDefined(user.email) && !user.email) &&
+            (angular.isDefined(user.unverifiedEmail) && !user.unverifiedEmail)) {
+            if (toState.name.startsWith('app.dashboard')) {
+              $state.go('app.post-register.set-email')
+            }
+          }
+        }
         break
       default :
         $log.error('Unhandled error', pac)
@@ -73,18 +87,19 @@
       if (apikey) {
         User.setApiKeyHeader(apikey)
       }
-      User.getStatus().then((getStatusResponse) => {
+
+      User.getStatus().then((session) => {
         userTransfer(event, toState, fromState)
       }, (getStatusError) => {
         userTransfer(event, toState, fromState)
       })
     }
 
-    $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
+    $rootScope.$on('$stateChangeError', (event, toState, toParams, fromState, fromParams, error) => {
       $log.error(error)
     })
 
-    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, error) {
+    $rootScope.$on('$stateChangeStart', (event, toState, toParams, fromState, fromParams, error) => {
       validateUserAccess(event, toState, fromState)
     })
   }
@@ -121,18 +136,14 @@
       resolve: {
         session: ($rootScope, $q, User) => {
           /* istanbul ignore next */
-          let deferred = $q.defer()
-          /* istanbul ignore next */
-          User.getStatus().then((response)=> {
+          return User.getStatus().then((response)=> {
             /* istanbul ignore next */
             if (angular.isDefined(response.status) && response.status !== 401) {
               $rootScope.loggedIn = true
             }
             /* istanbul ignore next */
-            deferred.resolve()
+            return $q.resolve()
           })
-          /* istanbul ignore next */
-          return deferred.promise
         },
         browserType: () => {
           if (navigator.userAgent.indexOf('MSIE') !== -1 || !!document.documentMode === true) {
@@ -213,8 +224,6 @@
     'profitelo.controller.dashboard.service-provider.summary',
     'profitelo.controller.dashboard.service-provider.summary.company',
     'profitelo.controller.dashboard.service-provider.summary.individual',
-
-
     'profitelo.controller.home',
     'profitelo.controller.expert-profile',
     'profitelo.controller.company-profile',
@@ -227,7 +236,9 @@
     'profitelo.controller.search-result',
     'profitelo.controller.consultations-field',
     'profitelo.controller.dashboard.charge-account',
-
+    'profitelo.controller.post-register',
+    'profitelo.controller.post-register.set-password',
+    'profitelo.controller.post-register.set-email',
 
     // directives
     'profitelo.directives.pro-top-waiting-loader',
@@ -243,11 +254,10 @@
     'profitelo.translations.pl-pl'
 
   ])
-  .run(runFunction)
-  .config(configFunction)
-  .controller('AppController', AppController)
-  .factory('apiUrl', (CommonConfig) => {
-    return CommonConfig.getAllData().urls.backend
-  })
-
+    .run(runFunction)
+    .config(configFunction)
+    .controller('AppController', AppController)
+    .factory('apiUrl', (CommonConfig) => {
+      return CommonConfig.getAllData().urls.backend
+    })
 }())

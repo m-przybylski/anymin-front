@@ -102,9 +102,6 @@
     })
   }
 
-
-
-
   angular.module('profitelo.controller.login.account', [
     'ui.router',
     'c7s.ng.userAuth',
