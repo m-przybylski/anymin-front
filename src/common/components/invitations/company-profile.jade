@@ -13,7 +13,7 @@
     .header-content
       .default-container
         .company-info
-          img.circle(data-ng-src='{{ ::vm.profile.logoUrl }}' alt='{{ ::vm.profile.name }}' data-ng-class='{"isNotUploaded": !vm.profile.logoUrl}')
+          img.circle.user-avatar(data-ng-src='{{ ::vm.profile.logoUrl }}' alt='{{ ::vm.profile.name }}' data-ng-class='{"isNotUploaded": !vm.profile.logoUrl}')
           h3 {{ ::vm.profile.name }}
           
     .company-content
