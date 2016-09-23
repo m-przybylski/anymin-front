@@ -6,21 +6,26 @@
           .social-icon
             span.pro-btn.btn-icon.icon.icon-heart-16
             p 235
+
           .social-icon
             span.pro-btn.btn-icon.icon.icon-share-16
             p 76
+
         .personal-info
           .personal-avatar.user-avatar
             img.circle(data-ng-src='{{avatar}}' alt='{{profile.name}}' data-ng-class='{"isNotUploaded": !avatar}')
           h3 {{ profile.name }}
-          .status(data-ng-hide="profile.type == 'company'")
-            span Dostępny
+          .status-list(data-ng-hide="profile.type == 'company'")
+            span.status.availability {{ 'HOME.EXPERT_CARD_AVAILABLE' | translate }}
+
           .languages(data-ng-hide="profile.type == 'company'")
             span.icon.icon-language-16
             span(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.PROVIDER_LAGUAGES")
-            span(data-ng-repeat="lang in profile.languages") {{" " + lang + " "}} 
+            span(data-ng-repeat="lang in profile.languages") {{" " + lang + " "}}
+
         .company-list(data-ng-hide="profile.type == 'company'")
           p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.COOPERATE_WITH")
+
           .company-logo
             img.circle.thumb.user-avatar(data-ng-src="{{ company-logo }}" data-ng-class="{'isNotUploaded': '!!company-logo'}")
 

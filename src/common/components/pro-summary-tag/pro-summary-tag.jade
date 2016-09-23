@@ -1,11 +1,10 @@
 .pro-summary-tag
-  .title-row
-    | {{ ::vm.title | translate }}
-    span {{ vm.tags.length }}
+  h4.title-row {{ ::vm.title | translate }}
+    span {{ ::vm.tags.length }}
        
-  ul.slider-tag
-    li(ng-repeat="tag in vm.tags track by $index")
-      span.pro-tag {{ ::tag }}
+  ul.tag-list
+    li(ng-repeat="tag in vm.tags | limitTo: 7")
+      a {{ ::tag.name }}
   
     li.showMoreTagsBtn(data-ng-show="vm.showTags" data-ng-click="vm.showMoreTags()")
       a

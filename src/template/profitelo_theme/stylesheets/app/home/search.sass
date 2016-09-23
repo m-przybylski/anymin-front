@@ -1,0 +1,17 @@
+.main-container
+  > .search-active-mask
+    transition: opacity 0.3s
+    opacity: 0.6
+    content: ''
+    position: fixed
+    width: 100vw
+    height: 100vh
+    background: $c-primary
+    top: 0
+    left: 0
+    z-index: $z-index-800
+
+    &.off
+      transition: opacity 0.3s, z-index 0.3s
+      opacity: 0
+      z-index: -$z-index-900

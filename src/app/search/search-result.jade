@@ -1,4 +1,6 @@
 pro-top-navbar(data-show-search="true" logout-action="appController.logout")
-search-filters(data-tag-click-action="vm.tagsClick")
-single-consultation(data-ng-repeat='result in vm.searchResults.results track by $index' data-consultation='result')
+search-filters(data-tag-click-action="vm.tagsClick" data-search-results="vm.searchResults")
+no-consultations(data-query="vm.searchParams.q" data-ng-if="vm.searchResults.results.length === 0")
+single-consultation(data-ng-repeat="result in vm.searchResults.results track by $index" data-consultation="result")
+button(data-ng-click="vm.loadMore()" class="pro-button primary" ng-disabled="vm.searchResults.results.length >= vm.searchResults.count") LOAD MORE
 pro-footer()

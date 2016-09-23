@@ -1,63 +1,64 @@
 .pro-top-navbar.clearfix(role="navigation" data-ng-class="{'hideNavbar':  isHide }")
-  .left-menu
-    .hamburger-menu.pull-left(data-ng-click="sidebarAction()"
-    data-ng-class='hamburgerClass' data-ng-hide="showSearch && windowSize < 480")
-      .nav-icon(data-ng-class="{'open': animateCross}")
-        span
-        span
-        span
-        span
-      .responsive-main-menu(data-ng-show="!isDashboard && showResponsiveMenu ")
-        ul
-          li
-            a(data-translate="NAVIGATION.HOME_PAGE" data-ui-sref="app.home" data-ng-show="windowSize < 480")
-          li(data-ng-repeat="item in menuElements")
-            a(data-translate="{{ item.label }}" )
+  .hamburger-menu.menu-item(data-ng-click="sidebarAction()"
+  data-ng-class='hamburgerClass')
+    a.nav-icon(data-ng-class="{'open': animateCross}")
+      span
+      span
+      span
+      span
+    .responsive-main-menu(data-ng-show="!isDashboard && showResponsiveMenu ")
+      ul
+        li
+          a(data-translate="NAVIGATION.HOME_PAGE" data-ui-sref="app.home" data-ng-show="windowSize < 480")
+        li(data-ng-repeat="item in menuElements")
+          a(data-translate="{{ item.label }}" )
 
-    a.logo-wrapper.pull-left(role="button", aria-label="home", href="/home" data-ng-hide="showSearch && windowSize < 992")
-      img.logo(data-ui-sref="app.home", src="/assets/images/logo_profitelo_black.png", alt="Profitelo-logo")
+  a.logo-wrapper(role="button", aria-label="home", href="/home")
+    img.logo(data-ui-sref="app.home", src="/assets/images/logo_profitelo_black.png", alt="Profitelo-logo")
 
-  .right-menu
+
+  div.rightside(data-ng-class="{'search-active':showSearch}")
     ul.main-menu
       li(data-ng-repeat="item in menuElements")
         a(data-translate="{{ item.label }}" )
 
-    a.status-btn(data-ng-show="!!$root.loggedIn  && isExpert && !showSearch" )
-      span.status-icon
+    div
+      a.status-btn(data-ng-show="!!$root.loggedIn  && isExpert && !showSearch" )
+          span.status-icon
 
-    .search-expandable(data-ng-class="{'search-activ':showSearch, 'logIn':!!$root.loggedIn, 'logOut':!$root.loggedIn}" )
-      a.search-btn(data-ng-click="setShowSearch()")
-        span.icon.icon-search-24
-        span.search(data-ng-hide="!!$root.loggedIn || showSearch" data-translate="NAVIGATION.SEARCH.BUTTON")
-      pro-input(data-ng-model="searchModel" data-ng-class="{invalid: error.badName && model.name.length < 1}"
-      auto-focus placeholder="{{ 'NAVIGATION.SEARCH_PLACEHOLDER' | translate }}" data-ng-enter="searchAction()" no-delete)
+      .search-expandable(data-ng-class="{'logIn':!!$root.loggedIn, 'logOut':!$root.loggedIn}")
 
-    .search-active-state(data-ng-if="showSearch")
-      a.search-active-btn(data-ng-click="searchAction(searchModel)")
-        span.search(data-translate="NAVIGATION.SEARCH.BUTTON")
+        div.toggle-search
+          pro-search-dropdown(data-ng-enter="searchAction(searchModel)" data-ng-model="searchModel" no-delete)
 
-      a.cancel-btn(data-ng-click="setShowSearch()")
-        span.cancel(data-translate="NAVIGATION.CANCEL.BUTTON")
+          .search-active-state
+            a.search-active-btn.menu-item(data-ng-click="searchAction(searchModel)")
+              span.search(data-translate="NAVIGATION.SEARCH.BUTTON")
 
-    .default-state(data-ng-if="!showSearch")
-      a.profile-btn(data-ng-hide="!!$root.loggedIn" data-ui-sref='app.login.account')
-        span.icon.icon-login-24
-        span.login(data-translate="PAGE_TITLE.LOGIN.ACCOUNT")
+            a.cancel-btn.menu-item(data-ng-click="setShowSearch()")
+              span.cancel(data-translate="NAVIGATION.CANCEL.BUTTON")
 
-      a.notification-btn(data-ng-if="!!$root.loggedIn")
-        span.icon.icon-bell-24
+      .default-state(data-ng-if="!showSearch" data-ng-class="{'logIn':!!$root.loggedIn, 'logOut':!$root.loggedIn}")
+        a.search-btn.menu-item(data-ng-click="setShowSearch()")
+          span.icon.icon-search-24
+          span.search(data-ng-hide="!!$root.loggedIn || showSearch" data-translate="NAVIGATION.SEARCH.BUTTON")
 
-      .login-btn(data-ng-if="!!$root.loggedIn" data-ng-mouseover="showUserMenu = true"
-      data-ng-mouseleave="showUserMenu = false" data-ng-click="hideOtherMenus()" data-ng-class="{'hover-login-btn': showUserMenu}")
-        span.icon.icon-user-profile-24
+        a.profile-btn.menu-item(data-ng-hide="!!$root.loggedIn" data-ui-sref='app.login.account')
+          span.icon.icon-login-24
+          span.login(data-translate="PAGE_TITLE.LOGIN.ACCOUNT")
 
-        .user-menu(data-ng-class="{ 'show-menu' : !!showUserMenu }")
-          ul.menu(data-ng-click="showUserMenu = false")
-            .account-menu
-              li(data-ng-repeat="account in accounts" data-ui-sref="app.dashboard.start")
-                a {{ account }}
-            .settings-menu
-              li
-                a(data-translate="NAVIGATION.USER_SETTINGS")
-              li
-                a(data-ng-click="logout()" data-translate="NAVIGATION.LOGOUT")
+        a.notification-btn.menu-item(data-ng-if="!!$root.loggedIn")
+          span.icon.icon-bell-24
+
+        .login-btn.menu-item(data-ng-if="!!$root.loggedIn" data-ng-mouseover="showUserMenu = true"
+        data-ng-mouseleave="showUserMenu = false" data-ng-click="hideOtherMenus()" data-ng-class="{'hover-login-btn': showUserMenu}")
+          span.icon.icon-user-profile-24
+
+          .user-menu(data-ng-class="{ 'show-menu' : !!showUserMenu }")
+            ul.menu.account-menu(data-ng-click="showUserMenu = false")
+                li(data-ng-repeat="account in accounts" data-ui-sref="app.dashboard.start")
+                  a {{ account }}
+                li.settings-menu
+                  a(data-translate="NAVIGATION.USER_SETTINGS")
+                li
+                  a(data-ng-click="logout()" data-translate="NAVIGATION.LOGOUT")

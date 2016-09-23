@@ -1,5 +1,7 @@
 (function() {
-  function HomeController() {
+  function HomeController($window, $scope) {
+
+    this.searchMask = true
 
     this.nextSlide = () => {
       this.controlls.nextSlide()
@@ -16,6 +18,15 @@
     this.newsNextSlide = () => {
       this.newsControlls.nextSlide()
     }
+
+    this.searchMaskDeactive = () => {
+      this.searchMask = true
+    }
+
+    angular.element(angular.element(document).find('.search-active-mask')).on('whell mousewheel', (e) => {
+      this.searchMask = true
+      $scope.$digest()
+    })
 
     this.expertCard = [
       {

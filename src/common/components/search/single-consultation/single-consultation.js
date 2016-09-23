@@ -1,11 +1,13 @@
 (function() {
 
   /* @ngInject */
-  function singleConsultationController(AppServiceProviderImageResolver) {
+  function singleConsultationController(CommonSettingsService) {
 
-    AppServiceProviderImageResolver.resolve(this.consultation.owner.img).then((res) => {
-      this.profileImage = res
-    })
+    if (this.consultation.owner.img !== null || this.consultation.owner.img === '') {
+      this.profileImage = CommonSettingsService.links.imageUrl.replace('%s', this.consultation.owner.img)
+    } else {
+      this.profileImage = ''
+    }
 
     return this
   }
@@ -22,6 +24,7 @@
 
   angular.module('profitelo.components.search.single-consultation', [
     'pascalprecht.translate',
+    'profitelo.services.commonSettings',
     'profitelo.filters.object-size-filter',
     'profitelo.services.resolvers.app.service-provider-image-resolver'
   ])

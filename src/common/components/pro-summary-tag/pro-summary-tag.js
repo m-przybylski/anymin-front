@@ -6,9 +6,10 @@
     let containerWidth = $element.width()
     this.showTags = false
     this.showTagClass = false
+    this.quantity = 1
     let isShowed = false
     let showMoreBtn = $($element).find('.showMoreTagsBtn').width()
-
+    
     function findTags(selector = 'li') {
       return $.map($($element).find(selector), (li)=>{
         return li
@@ -16,23 +17,25 @@
     }
 
     this.showMoreTags = () => {
-      this.showTagClass = !this.showTagClass
+      if (this.hideMoreTags !== false) {
+        this.showTagClass = !this.showTagClass
 
-      if (!isShowed) {
-        elementsMap = findTags('li.hidden')
+        if (!isShowed) {
+          elementsMap = findTags('li.hidden')
 
-        for (var i=0; i<elementsMap.length; i++) {
-          elementsMap[i].classList.remove('hidden')
+          for (var i=0; i<elementsMap.length; i++) {
+            elementsMap[i].classList.remove('hidden')
+          }
+          isShowed = !isShowed
+
+        } else {
+          elementsMap = findTags('li.tohidden')
+
+          for (i=0; i<elementsMap.length; i++) {
+            elementsMap[i].classList.add('hidden')
+          }
+          isShowed = !isShowed
         }
-        isShowed = !isShowed
-
-      } else {
-        elementsMap = findTags('li.tohidden')
-
-        for (i=0; i<elementsMap.length; i++) {
-          elementsMap[i].classList.add('hidden')
-        }
-        isShowed = !isShowed
       }
     }
 
@@ -66,6 +69,7 @@
     templateUrl:    'components/pro-summary-tag/pro-summary-tag.tpl.html',
     bindings: {
       tags: '<',
+      hideMoreTags: '<',
       title: '@'
     },
     controller: showMoreTagsController,

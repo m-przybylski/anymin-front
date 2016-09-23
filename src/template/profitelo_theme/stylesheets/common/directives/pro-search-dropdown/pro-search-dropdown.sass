@@ -1,111 +1,161 @@
-.search-bar-container
-  position: relative
+.pro-search-dropdown
+  .search-bar-container
+    position: relative
 
-input[type="text"].search-bar-shadow,
-input[type="text"].search-bar
-  padding: 22px 20px 18px 60px
-  font-size: $f-paragraph
-  width: 100%
-  z-index: 1
-  position: relative
-  border-bottom: 1px solid $c-lines
-  box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.1)
+    .icon
+      display: flex
+      align-items: center
+      position: absolute
+      left: 24px
+      top: 0
+      bottom: 0
+      margin: auto
+      z-index: $z-index-100
 
-input[type="text"].search-bar-shadow
-  position: absolute
-  color: $c-input
-  background: $c-white  url('/assets/images/search.svg') no-repeat left 20px top 50% / 22px 22px
-
-input[type="text"].search-bar
-  background: transparent
-
-.dropdown-container
-  background: $c-white
-  z-index: 1
-  position: absolute
-  width: 100%
-  display: block
-  +lgm
+  .search-bar-shadow,
+  .search-bar
+    padding: 20px 24px 20px 64px
+    font-size: $f-paragraph
     width: 100%
-  &.collapsed
-    display: none
-  .dropdown-default
-    padding: 24px 16px
-    &:not(:last-of-type)
-     border-bottom: 1px solid $c-lines
-    .search-query
-      color: $c-primary-txt
-      margin-right: 20px
-    .search-query-cat
-      .choose-category
-        font-size: $f-paragraph
-        color: $c-secondary-txt
-        margin: 0
-        padding: 8px 16px
-    .search-sugesstions
-      .query-suggestion
-        margin: 0
-        padding: 8px 16px
-    .search-category
-      +default-font-heavy
-      font-size: $f-base
-      text-transform: uppercase
-      padding: 16px
-    .consultations-box
-      .consultation-item
-        padding: 16px
-        flex-flow: row wrap
-        +mdm
-          flex-flow: row nowrap
-        .expert-box
-          max-width: 296px
-          width: 100%
-          padding-right: 16px
-          align-items: center
-          .expert-avatar
-            margin-right: 16px
-          .expert-name
-            +default-font-heavy
-            font-size: $f-base
-          .expert-status
-            margin: 0
-          .expert-availability
-            margin: 0
-        .service-description
-          color: $c-secondary-txt
-          width: auto
-          overflow: hidden
-          white-space: nowrap
-          text-overflow: ellipsis
-          .service-tag
-            color: $c-primary-txt
-    .experts-box
-      .expert-profile
-        padding: 16px
-        flex: 0 0 100%
-        align-items: center
-        +xsm
-          flex: 0 0 50%
-        +mdm
-          flex: 0 0 25%
-      .expert-data
-        justify-content: center
-      .expert-avatar
-        margin-right: 16px
-      .expert-category
-        text-transform: uppercase
-        margin: 0
-        color: $c-secondary-txt
-        font-size: $f-base
-  .category-counter
-    color: $c-secondary-txt
-    margin-left: 8px
+    z-index: 1
+    position: relative
+    border-bottom: 1px solid $c-lines
+    box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.1)
 
-.consultation-item,
-.choose-category,
-.query-suggestion,
-.expert-profile
-  display: block
-  color: inherit
-  &:hover
-    background: $c-background-2
+  .search-bar-shadow
+    position: absolute
+    color: $c-input
+    background: $c-white  url('/assets/images/search.svg') no-repeat left 20px top 50% / 22px 22px
+
+  .dropdown-container
+    background: $c-white
+    z-index: $z-index-800
+    position: fixed
+    top: $dashboard-navbar-width
+    -webkit-overflow-scrolling: touch
+    overflow-y: scroll
+    height: calc(100vh - #{$dashboard-navbar-width})
+    width: 100vw
+    left: 0
+
+    &.collapsed
+      display: none
+
+    .title-row
+      padding: 32px 32px 0
+
+    .dropdown-category-list
+      +default-font-regular
+      border-bottom: 1px solid $c-lines
+      display: flex
+      flex-wrap: wrap
+      padding: 32px 16px
+      text-transform: lowercase
+
+      .dropdown-list-item
+        +animation(pro-search-dropdown-search-result-show 0.3s)
+        flex: 1 0 100%
+        padding: 8px 16px
+        display: flex
+        align-items: center
+        position: relative
+
+        &:hover
+          background: $c-background-2
+
+        > span
+          color: $c-primary-txt
+          line-height: 1
+          font-size: $f-paragraph
+
+    .term-suggestions
+      span
+        &.search-hint
+          color: $c-secondary-txt
+          padding: 0 0 0 16px
+
+    .experts-box
+      .expert-name
+        margin: 0 0 8px
+
+    .service-suggestions,
+    .organization-suggestions,
+    .expert-suggestions
+      .dropdown-category-list
+        padding: 16px
+
+        .dropdown-list-item
+          padding: 16px
+
+          +smm
+            flex: 0 0 50%
+            align-items: center
+
+          +lgm
+            flex: 0 0 25%
+
+          .expert-data
+            flex: 1
+            font-size: $f-base
+            margin: 0 0 0 16px
+
+            > span
+              font-size: $f-base
+              display: block
+
+              &.expert-name
+                +default-font-heavy
+                color: $c-primary-txt
+
+              &.expert-category
+                +default-font-heavy
+                display: block
+                text-transform: uppercase
+                color: $c-secondary-txt
+
+    .service-suggestions
+      .dropdown-category-list
+        +mdm
+          flex-wrap: nowrap
+
+        .dropdown-list-item
+          flex: 1
+          align-items: flex-start
+
+          +smm
+            align-items: center
+
+          > div
+            margin: 0 0 0 16px
+            flex: 1
+
+            +mdm
+              display: flex
+              align-items: center
+
+          .expert-data
+            margin: 0
+            flex: 1 0 100%
+            display: flex
+            align-items: center
+
+            +mdm
+              flex: 1
+              display: block
+
+            .expert-name
+              margin: 0 8px 0 0
+
+              +mdm
+                margin: 0
+
+          .service-description
+            +mdm
+              flex: 4
+
+.title-row
+  span
+    color: $c-secondary-txt
+    margin: 0 0 0 4px
+
+

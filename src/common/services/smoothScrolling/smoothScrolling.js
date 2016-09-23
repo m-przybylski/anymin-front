@@ -65,10 +65,21 @@
       scrollFunction()
     }
 
-    function _simpleScrollingTo(element) {
-      $( 'html, body').animate({
-        scrollTop: $(element).offset().top
-      }, 1000)
+    function _simpleScrollingTo(element, isNavbar, time=1000) {
+      let scrollTop = $(element).offset().top
+
+      if (isNavbar) {
+        scrollTop -= 85
+      }
+      
+      $('html, body').animate({
+        scrollTop: scrollTop
+      }, time)
+
+      $(window).on('wheel', () => {
+        $('html, body').stop(true, false)
+      })
+
     }
 
     return {

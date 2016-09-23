@@ -3,6 +3,7 @@ describe('Unit testing: profitelo.directives.pro-top-navbar', () => {
 
     let scope = null
     let rootScope
+    let state
     let compile = null
     let validHTML = '<pro-top-navbar></pro-top-navbar>'
 
@@ -17,6 +18,7 @@ describe('Unit testing: profitelo.directives.pro-top-navbar', () => {
       inject(($rootScope, $compile) => {
         rootScope = $rootScope.$new()
         compile = $compile
+        state = {}
       })
     })
 

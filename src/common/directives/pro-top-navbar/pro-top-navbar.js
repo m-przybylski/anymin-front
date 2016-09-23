@@ -1,13 +1,13 @@
 (function() {
-  function proTopNavbar($window, searchService) {
+  function proTopNavbar($window, $state, $location, searchService, smoothScrolling) {
 
     function linkFunction(scope, elem, attrs) {
-      
+
       scope.showUserMenu = false
       scope.showResponsiveMenu = false
       scope.animateCross = false
       scope.isDashboard = scope.showNavigationMenu
-      scope.hamburgerClass = scope.sidebarStatus ===  true ? 'active-btn' : 'disactive-btn'
+      scope.hamburgerClass = scope.sidebarStatus === true ? 'active-btn' : 'disactive-btn'
       scope.accounts = ['Konto Klienta', 'Konto Eksperta', 'Firma']
       scope.windowSize = $window.innerWidth
       scope.menuElements = [
@@ -38,12 +38,12 @@
       angular.element($window).on('resize', (window)=> {
         scope.windowSize = $window.innerWidth
         if (angular.isDefined(scope.sidebarStatus)) {
-          scope.hamburgerClass = scope.sidebarStatus ===  true ? 'active-btn' : 'disactive-btn'
-          scope.animateCross = scope.sidebarStatus ===  true
+          scope.hamburgerClass = scope.sidebarStatus === true ? 'active-btn' : 'disactive-btn'
+          scope.animateCross = scope.sidebarStatus === true
           scope.$digest()
         }
       })
-      
+
       scope.sidebarAction = ()=> {
         if (typeof scope.sidebarHandler !== 'undefined') {
           scope.sidebarHandler()
@@ -52,15 +52,26 @@
         }
         scope.animateCross = scope.animateCross === false
         scope.showUserMenuOnClick = false
-        scope.hamburgerClass = scope.hamburgerClass ===  'disactive-btn' ? 'active-btn' : 'disactive-btn'
+        scope.hamburgerClass = scope.hamburgerClass === 'disactive-btn' ? 'active-btn' : 'disactive-btn'
       }
-      
+
       scope.setShowSearch = () => {
-        scope.showSearch = scope.showSearch !== true
-        scope.showUserMenuOnClick = false
-        if (scope.showSearch && scope.sidebarStatus && scope.windowSize < 992 || scope.showResponsiveMenu) {
-          scope.sidebarAction()
+        const searchInputOnPage = angular.element(document).find('.search-bar-container .search-bar')[1]
+
+        if (!!searchInputOnPage) {
+          smoothScrolling.simpleScrollTo(searchInputOnPage, true)
+          searchInputOnPage.focus()
+          scope.searchMaskActive = false
+
+        } else {
+          scope.showSearch = scope.showSearch !== true
+          scope.showUserMenuOnClick = false
+
+          if (scope.showSearch && scope.sidebarStatus && scope.windowSize < 992 || scope.showResponsiveMenu) {
+            scope.sidebarAction()
+          }
         }
+
       }
 
       scope.hideOtherMenus = ()=> {
@@ -70,14 +81,20 @@
       }
 
       searchService.onQueryParamsChange(scope, (params) => {
-        scope.searchModel = params.q
+        if ($state.current.name === 'app.search-result') {
+          scope.searchModel = params.q
+        }
       })
 
-      scope.$watch(() => {
-        return scope.searchModel
-      }, (newValue) => {
-        searchService.setSearchQueryParams({q: newValue})
-      })
+      scope.searchAction = () => {
+        if ($state.current.name !== 'app.search-result') {
+          $state.go('app.search-result')
+        } else if (angular.isDefined(angular.element('.search-bar-container').find('input:focus')[0])) {
+          angular.element('.search-bar-container').find('input:focus')[0].blur()
+        }
+        searchService.setSearchQueryParams({q: scope.searchModel})
+        $location.search('tagId', '')
+      }
 
     }
 
@@ -94,7 +111,8 @@
         sidebarHandler: '=?',
         isExpert: '=?',
         showResponsiveMenu: '=?',
-        showNavigationMenu: '=?'
+        showNavigationMenu: '=?',
+        searchMaskActive: '=?'
       }
 
     }
@@ -103,8 +121,10 @@
 
   angular.module('profitelo.directives.pro-top-navbar', [
     'pascalprecht.translate',
-    'profitelo.services.search'
+    'profitelo.services.search',
+    'ui.router',
+    'profitelo.directives.services.smooth-scrolling'
   ])
-  .directive('proTopNavbar', proTopNavbar)
+    .directive('proTopNavbar', proTopNavbar)
 
 }())

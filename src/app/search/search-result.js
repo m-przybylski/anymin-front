@@ -1,8 +1,14 @@
 (function() {
 
-  function SearchResultController($scope, $location, $stateParams, $rootScope, searchService) {
+  function SearchResultController($scope, $location, $timeout, $stateParams, $rootScope, searchService) {
 
-    this.searchResults = {}
+    this.searchResults = {
+      offset: 0,
+      count: 0,
+      results: []
+    }
+
+    this.searchParams = {}
 
     searchService.setSearchQueryParams(angular.extend({}, $stateParams, $location.search()))
 
@@ -13,11 +19,46 @@
       })
     )
 
+    $scope.$on(
+      '$destroy',
+      $rootScope.$on('$stateChangeStart', (event, newState) => {
+        if (newState.name !== 'app.search-result') {
+          $timeout(() => $location.search({}))
+        }
+      })
+    )
+
     searchService.onSearchResults($scope, (results) => {
       this.searchResults = results
     })
 
+    this.tagsClick = (tag) => {
+      $location.search('tagId', tag.id)
+      $location.search('q', tag.name)
+      this.searchResults = []
+    }
+
+    this.loadMore = () => {
+      const countMax = this.searchResults.count
+      const offset = this.searchResults.offset
+      if (angular.isDefined(this.searchResults.results)) {
+        const count = this.searchResults.results.length
+        if (count < countMax) {
+          $location.search('offset', count)
+        }
+      }
+    }
+
+    const element = angular.element(window)
+
+    $scope.$watch(function() {
+      return (angular.isDefined(element.offset())) ? element.offset().top : undefined
+    }, function(newValue) {
+      // console.log(newValue)
+    })
+
     searchService.onQueryParamsChange($scope, (params) => {
+      this.searchParams = params
       const currentParams = $location.search()
       angular.forEach(currentParams, (value, key) => {
         if (!params.hasOwnProperty(key)) {
@@ -39,6 +80,7 @@
     'ui.router',
     'c7s.ng.userAuth',
     'profitelo.components.search.single-consultation',
+    'profitelo.components.search.no-consultations',
     'profitelo.directives.search.search-filters',
     'profitelo.directives.pro-footer',
     'profitelo.services.search'

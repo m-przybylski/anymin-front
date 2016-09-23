@@ -1,16 +1,19 @@
 .service-suggestions
   .dropdown-default(data-ng-if="vm.services.count")
-    .search-category
-      | {{'SEARCH.SERVICES' | translate}}
-      span.category-counter ({{ vm.services.count }})
-    .consultations-box
-      .consultation-item.flex-row(data-ng-repeat="service in vm.services.results track by $index")
-        .expert-box.flex-row
-          img.expert-avatar(src='http://placekitten.com/48/48')
+    h5.title-row  {{'SEARCH.SERVICES' | translate}}
+      span ({{ vm.services.count }})
+
+    .consultations-box.dropdown-category-list
+      .expert-box.dropdown-list-item(data-ng-repeat="service in vm.services.results track by $index")
+        img.expert-avatar.user-avatar.circle(src='http://placekitten.com/48/48')
+
+        .expert
           .expert-data
-            p.expert-name {{ service.owner.name }}
-            p.expert-availability.available dostepny
-        p.service-description
-          | {{ service.name }}
-          //- highlight
-          span.service-tag {{ service.name }}
+            span.expert-name {{ service.owner.name }}
+            .status-list
+              span.status.availability {{ 'HOME.EXPERT_CARD_AVAILABLE' | translate }}
+
+          .service-description
+            p {{ service.name }}
+            //- highlight
+            span.service-tag {{ service.name }}

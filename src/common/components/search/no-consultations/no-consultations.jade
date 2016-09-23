@@ -1,0 +1,14 @@
+.default-container-small
+  .no-consultation
+    .entry-title
+      span {{'SEARCH.EXPRESSION'	| translate}}
+      span.search-query {{ vm.query }}
+      span {{'SEARCH.IS_NOT_EXIST' | translate}}
+
+    h5(data-translate="SEARCH.HINTS")
+
+    ul
+      li(data-translate="SEARCH.ARE_WORDS_CORRECT	")
+      li(data-translate="SEARCH.TRY_TO_USE_ANOTHER_KEYWORDS")
+      li(data-translate="SEARCH.TRY_TO_USE_GENERAL_KEYWORDS")
+      li(data-translate="SEARCH.FEWER_KEYWORDS")
