@@ -8,8 +8,9 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payment-me
     let compile
     let componentController
     let component
+    let element
     let bindings
-    let validHTML = '<payment-method payment-systems = "[{id: 1, imgSrc: dsadad}, {id: 1, imgSrc: dsadad}, {id: 1, imgSrc: dsadad}]"></payment-method>'
+    let validHTML = '<payment-method payment-systems = "[{id: 1, imgSrc: dsadad}, {id: 1, imgSrc: dsadad}, {id: 1, imgSrc: dsadad}]" scroll-handler="ctrl.scrollHandler"></payment-method>'
 
     beforeEach(module(function($provide) {
       $provide.value('apiUrl', url)
@@ -35,8 +36,8 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payment-me
       bindings = {
         paymentSystems: [{id: 1, imgSrc: 'wwww'}, {id: 2, imgSrc: 'wwww'}, {id:3, imgSrc: 'wwww'}]
       }
-
-      component = componentController('paymentMethod', null, bindings)
+      element = create(validHTML)
+      component = componentController('paymentMethod', {$element: element, $scope: scope}, bindings)
 
     })
 
@@ -45,8 +46,16 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payment-me
     }))
 
     it('should compile the component', () => {
-      let el = create(validHTML)
-      expect(el.html()).toBeDefined(true)
+      expect(element.html()).toBeDefined(true)
+    })
+
+    it('should call scroll on payment select', () => {
+      scope.ctrl = {
+        scrollHandler: jasmine.createSpy('scrollHandler')
+      }
+      scope.$digest()
+      element.find('.option').trigger('click')
+      expect(scope.ctrl.scrollHandler).toHaveBeenCalled()
     })
   })
 })

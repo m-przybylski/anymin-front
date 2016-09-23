@@ -9,9 +9,18 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-amo
     let componentController
     let bindings
     let component
-    let validHTML = '<choose-amount-charge data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_AMMOUNT_CHARGE" data-amounts="{paymentOptions: {}, ' +
-      'minimalAmounts: {}}" data-amount-model="{cashAmount: null,amount: null}" data-scroll-handler="{}"></choose-amount-charge>'
+    let scrollHandler
+    let validHTML = '<choose-amount-charge data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_AMMOUNT_CHARGE" data-amounts="{paymentOptions: [{amount:  20000}], ' +
+      'minimalAmounts: {}}" data-amount-model="{cashAmount: null, amount: null}" scroll-handler="ctrl.scrollHandler"></choose-amount-charge>'
 
+    function create(html) {
+      scope = rootScope.$new()
+      let elem = angular.element(html)
+      let compiledElement = compile(elem)(scope)
+      scope.$digest()
+      return compiledElement
+    }
+    
     beforeEach(module(function($provide) {
       $provide.value('apiUrl', url)
     }))
@@ -30,6 +39,7 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-amo
         compile = $compile
       })
 
+      
       bindings = {
         amountModel: {
           cashAmount: {
@@ -41,19 +51,13 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-amo
             amount: 10
           }
         }
+          
       }
 
       component = componentController('chooseAmountCharge', null, bindings)
-
+      expect(component.amountModel).toBeDefined()
     })
-
-    function create(html) {
-      scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
-      scope.$digest()
-      return compiledElement
-    }
+    
 
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
@@ -64,7 +68,15 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-amo
       expect(el.html()).toBeDefined(true)
     })
 
-
-
+    it('should scroll on click in payment amount ', () => {
+      let el = create(validHTML)
+      scope.ctrl = {
+        scrollHandler: jasmine.createSpy('scrollHandler')
+      }
+      scope.$digest()
+      el.find('.option').trigger('click')
+      expect(scope.ctrl.scrollHandler).toHaveBeenCalled()
+    })
+    
   })
 })

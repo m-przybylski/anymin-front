@@ -4,10 +4,10 @@
   function chooseBankController(smoothScrolling) {
 
     this.activeOption = null
-    this.firstSelect = this.activeOption !== null
+    this.firstSelect = this.activeOption === null
     
     const _scrollAfterChooseBank = (scrollTo) => {
-      if (angular.isDefined(scrollTo) && !this.firstSelect) {
+      if (angular.isDefined(scrollTo) && this.firstSelect) {
         smoothScrolling.scrollTo(scrollTo)
       }
     }
@@ -15,7 +15,7 @@
     this.selectBank = (index) => {
       _scrollAfterChooseBank(this.scrollSectionId)
       this.activeOption = index
-      this.firstSelect = true
+      this.firstSelect = false
       this.bankModel = this.paymentsLinks[index]
     }
 

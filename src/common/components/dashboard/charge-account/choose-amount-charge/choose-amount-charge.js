@@ -1,29 +1,31 @@
 (function() {
 
   /* @ngInject */
-  function chooseAmountChargeController($scope) {
+  function chooseAmountChargeController($scope, CommonSettingsService) {
+
+    const amountModifier = CommonSettingsService.localSettings.amountMultiplier
 
     this.activeOption = null
     this.firstSelect = this.activeOption !== null
-    this.minimalPaymentAmount = this.amounts.minimalAmounts.amount / 100
+    this.minimalPaymentAmount = this.amounts.minimalAmounts.amount / amountModifier
     
     this.minimalAmountValidation = () => {
-      return this.activeOption === 3 && this.cashAmountModel < this.amounts.minimalAmounts.amount / 100 && !angular.element('.option-own-amount').find('input:focus')[0]
+      return this.activeOption === 3 && this.cashAmountModel < this.amounts.minimalAmounts.amount / amountModifier && !angular.element('.option-own-amount').find('input:focus')[0]
     }
 
     if (angular.isDefined(this.amountModel.amount) && this.amountModel.amount !== null) {
       this.activeOption = this.amounts.paymentOptions.indexOf(_.find(this.amounts.paymentOptions, {'amount': this.amountModel.amount.amount}))
     } else if (this.amountModel.cashAmount !== null) {
       this.activeOption = 3
-      this.cashAmountModel = this.amountModel.cashAmount.amount / 100
+      this.cashAmountModel = this.amountModel.cashAmount.amount / amountModifier
     }
 
-    $scope.$watch(() =>{
+    $scope.$watch(() => {
       return this.cashAmountModel
     }, (newValue) =>{
       if (newValue) {
         this.amountModel.cashAmount = {
-          amount:  Number(newValue * 100),
+          amount:  Number(newValue * amountModifier),
           currency: this.amounts.minimalAmounts.currency
         }
         this.firstSelect = true
@@ -34,6 +36,7 @@
     this.selectAmountOption =  (index) => {
       this.activeOption = index
       if (index !== 3) {
+        this.cashAmountModel = null
         if (!this.firstSelect ) {
           this.scrollHandler()
           this.firstSelect = true
@@ -66,7 +69,9 @@
   }
 
 
-  angular.module('profitelo.components.dashboard.charge-account.choose-amount-charge', [])
+  angular.module('profitelo.components.dashboard.charge-account.choose-amount-charge', [
+    'profitelo.services.commonSettings'
+  ])
     .component('chooseAmountCharge', chooseAmountCharge)
 
 }())
