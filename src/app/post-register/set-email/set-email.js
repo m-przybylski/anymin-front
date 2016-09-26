@@ -68,8 +68,10 @@
         redirect: (User, $state, $timeout, $q) => {
           /* istanbul ignore next */
           return User.getStatus().then((status) => {
-            if ((angular.isDefined(status.email) && status.email) ||
-              (angular.isDefined(status.unverifiedEmail) && status.unverifiedEmail)) {
+            if (((angular.isDefined(status.email) && status.email) ||
+              (angular.isDefined(status.unverifiedEmail) && status.unverifiedEmail)) || (
+                angular.isDefined(status.hasPassword) && !status.hasPassword
+              )) {
               return $state.go('app.dashboard.start')
             } else {
               return $q.resolve()
