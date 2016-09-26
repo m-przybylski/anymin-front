@@ -43,7 +43,7 @@
           p {{'COMMON.DIRECTIVES.PRO_EXPERT_PROFILE.CONSULTANTS_LIST' | translate}} ({{ consultants.length }})
           .consultants-row
             div(data-ng-repeat="consultant in service.invitations")
-              img.circle.thumb(data-ng-src="{{ avatar }}" data-ng-class='{"isNotUploaded": "!!avatar"}')
+              img.circle.thumb.user-avatar(data-ng-src="{{ avatar }}" data-ng-class='{"isNotUploaded": "!!avatar"}')
               div
                 p {{ consultant.email }}
                 .status(data-ng-hide="profile.type == 'company'")

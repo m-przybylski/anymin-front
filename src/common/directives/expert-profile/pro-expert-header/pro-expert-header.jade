@@ -10,7 +10,7 @@
             span.pro-btn.btn-icon.icon.icon-share-16
             p 76
         .personal-info
-          .personal-avatar
+          .personal-avatar.user-avatar
             img.circle(data-ng-src='{{avatar}}' alt='{{profile.name}}' data-ng-class='{"isNotUploaded": !avatar}')
           h3 {{ profile.name }}
           .status(data-ng-hide="profile.type == 'company'")
@@ -22,7 +22,7 @@
         .company-list(data-ng-hide="profile.type == 'company'")
           p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.COOPERATE_WITH")
           .company-logo
-            img.circle.thumb(data-ng-src="{{ company-logo }}" data-ng-class="{'isNotUploaded': '!!company-logo'}")
+            img.circle.thumb.user-avatar(data-ng-src="{{ company-logo }}" data-ng-class="{'isNotUploaded': '!!company-logo'}")
 
   .header-container
     .default-container
