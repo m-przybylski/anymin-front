@@ -103,7 +103,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
       _rootScope.$digest()
 
 
-      expect(isoScope.proModel.files.map(file => file.id).indexOf(file) >= 0).toEqual(true)
+      expect(isoScope.proModel.files.map(_file => _file.id).indexOf(file) >= 0).toEqual(true)
 
     })
 
