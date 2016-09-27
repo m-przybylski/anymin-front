@@ -1,7 +1,7 @@
 (function() {
 
   /* @ngInject */
-  function payuPaymentFormController($window, $state, PaymentsApi, User, proTopAlertService, smoothScrolling, CommonSettingsService) {
+  function payuPaymentFormController($window, $state, $scope, PaymentsApi, User, proTopAlertService, smoothScrolling, CommonSettingsService) {
 
     this.rulesAccepted = true
     this.personalDataSectionId = 'personal-section'
@@ -37,6 +37,8 @@
       this.emailModel = this.amountMethodModal.email
     } else if (angular.isDefined(User.getData('email')) && User.getData('email') !== null) {
       this.emailModel = User.getData('email')
+    } else if (angular.isDefined(User.getData('unverifiedEmail')) && User.getData('unverifiedEmail') !== null) {
+      this.emailModel = User.getData('unverifiedEmail')
     }
 
     if (angular.isDefined(this.amountMethodModal.payMethodValue)) {

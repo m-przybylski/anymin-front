@@ -4,12 +4,8 @@
   .choose-options
     .choose-options-item(data-ng-repeat="paymentSystem in $ctrl.paymentSystems")
       .option(data-ng-class="{'selected': $ctrl.activeOption == $index}" data-ng-click="$ctrl.selectPaymentMethod($index)")
-        .option-thumb(data-ng-if="$index !== 2")
-          img(data-ng-src="{{ paymentSystem.imgSrc }}")
-        .option-thumb(data-ng-if="$index === 2")
-          img(data-ng-src="{{ paymentSystem.imgSrc1 }}")
-          img(data-ng-src="{{ paymentSystem.imgSrc2 }}")
-          img(data-ng-src="{{ paymentSystem.imgSrc3 }}")
+        .option-thumb
+          img(data-ng-src="{{ $ctrl.setImage(paymentSystem.slug) }}")
         p(data-translate="DASHBOARD.CHARGE_ACCOUNT.BANKWIRE")
         span.icon.icon-success-12.top-right.circle(data-ng-show="$ctrl.activeOption == $index")
 

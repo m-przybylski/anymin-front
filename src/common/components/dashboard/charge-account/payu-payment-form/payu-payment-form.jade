@@ -18,7 +18,7 @@
           data-ng-class="{'invalid': paymentForm.$submitted && !$ctrl.firstNameModel || paymentForm.name.$dirty && !$ctrl.firstNameModel}"
           addon-action="onEnter"
           required
-          data-id="name"
+          data-id="firstName"
           no-delete)
           .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.firstNameModel || paymentForm.name.$dirty && !$ctrl.firstNameModel")
             span {{ "DASHBOARD.CHARGE_ACCOUNT.NAME_INPUT_ERROR" | translate }}
@@ -42,7 +42,6 @@
           addon-action="onEnter"
           data-id="email"
           data-index="3"
-          data-ng-enter="$ctrl.onEnter(3)"
           no-delete
           data-ng-pattern="$ctrl.patternEmail"
           required)

@@ -28,8 +28,19 @@
           amount:  Number(newValue * amountModifier),
           currency: this.amounts.minimalAmounts.currency
         }
+
+        if (!this.firstSelect) {
+          ++this.currentSection
+        }
+        
         this.firstSelect = true
         this.amountModel.amount = null
+        this.onEnter = () => {
+          if (newValue > this.amounts.minimalAmounts.amount / amountModifier) {
+            this.scrollHandler(2)
+          }
+          angular.element('.option-own-amount').find('input').blur()
+        }
       }
     })
 
@@ -62,7 +73,8 @@
       title: '@',
       amounts: '<',
       scrollHandler: '<',
-      amountModel: '=?'
+      amountModel: '=?',
+      currentSection: '=?'
     },
     controller: chooseAmountChargeController,
     controllerAs: '$ctrl'
