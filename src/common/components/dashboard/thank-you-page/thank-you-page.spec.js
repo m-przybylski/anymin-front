@@ -19,7 +19,7 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.thank-you-
 
     beforeEach(() => {
       module('templates-module')
-      module('profitelo.components.dashboard.charge-account.thank-you-page')
+      module('profitelo.components.dashboard.thank-you-page')
 
       inject(($rootScope, $compile, _$componentController_, _$location_) => {
         componentController = _$componentController_
