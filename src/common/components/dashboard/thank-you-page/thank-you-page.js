@@ -8,7 +8,7 @@
 
     this.paymentsValues = {
       currency: $location.search().currency || 0,
-      amount: $location.search().amount
+      amount: parseInt($location.search().amount, 0)
     }
 
     if (this.paymentsValues.currency.length === 3 && this.paymentsValues.amount > 0) {
