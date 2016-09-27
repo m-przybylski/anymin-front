@@ -1,6 +1,6 @@
 .step
   +transition(background 0.3s)
-  padding: 48px 0 98px
+  padding: $top-modal-navbar + 32px 0 98px
   margin: 0
   background: none
 
@@ -9,10 +9,10 @@
 
   &.step-active
     background: $c-background
-    padding: 48px 0
+    padding: $top-modal-navbar +32px 0 48px 0
 
     +lgm
-      padding: 128px 0
+      padding: $top-modal-navbar + 48px 0
 
     .step-description
       color: $c-complete

@@ -1,0 +1,12 @@
+.thank-you-page
+  .thank-you-page-wrapper
+    div(data-ng-if="$ctrl.showRecharge")
+      span(data-translate="DASHBOARD.CHARGE_ACCOUNT.ACCOUNT_BALANCE")
+      h2.price(data-ng-bind="$ctrl.price")
+
+    h3(data-translate="DASHBOARD.CHARGE_ACCOUNT.YOUR_ACCOUNT_RECHARDED")
+
+    .thank-you-page-description
+      p(data-translate="DASHBOARD.CHARGE_ACCOUNT.WAIT_FOR_ACCOUNT_UPDATE")
+
+    button.pro-button.rectangle.default(data-ui-sref="app.dashboard.start" data-translate="DASHBOARD.CHARGE_ACCOUNT.BUTTON_BACK	")

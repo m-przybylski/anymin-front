@@ -1,17 +1,16 @@
 .charge-account
-  .pro-top-title-row
-    .current-balance
-      display: block
+  margin: $dashboard-navbar-width + 64px 0 0 0
 
-      h3
-        +default-font-heavy
-        text-transform: uppercase
-        font-size: $f-h4-size
+  .current-balance
+    text-align: center
+    margin: 0 0 64px
+
+    +smm
+      text-align: left
 
     h4
-      &.current-balance-wallet
-        +default-font-heavy
-        color: $c-primary
+      +default-font-heavy
+      color: $c-primary
 
   .input-error-messages
     text-align: center

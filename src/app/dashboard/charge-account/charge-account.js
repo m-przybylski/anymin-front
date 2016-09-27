@@ -39,7 +39,7 @@
         this.amountMethodModal.payMethodValue = this.lastPayment.payload.payMethodValue
       }
     }
-    
+
     this.validAction = () => {
       if ((!angular.isDefined(this.amountModel.amount) || this.amountModel.amount === null) && this.amountModel.cashAmount.amount < this.amounts.minimalAmounts.amount) {
         smoothScrolling.simpleScrollTo('#cash-valid')
@@ -51,14 +51,14 @@
 
     this.scrollHandler = (slideTo) => {
       if (angular.isDefined(slideTo)) {
-        smoothScrolling.scrollTo(slideTo) 
+        smoothScrolling.scrollTo(slideTo)
       } else if (this.currentSection < 3) {
         $timeout(() => {
           smoothScrolling.scrollTo(++this.currentSection)
         })
       }
     }
-    
+
     return this
   }
 
