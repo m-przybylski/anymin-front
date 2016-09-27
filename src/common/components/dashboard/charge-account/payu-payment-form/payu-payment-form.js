@@ -3,7 +3,7 @@
   /* @ngInject */
   function payuPaymentFormController($window, $state, PaymentsApi, User, proTopAlertService, smoothScrolling, CommonSettingsService) {
 
-    this.rulesAccepted = false
+    this.rulesAccepted = true
     this.personalDataSectionId = 'personal-section'
     this.bankModel = {}
     let isPending = false
