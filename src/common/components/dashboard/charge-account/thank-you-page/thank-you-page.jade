@@ -1,8 +1,8 @@
 .thank-you-page
   .thank-you-page-wrapper
-    span(data-translate="DASHBOARD.CHARGE_ACCOUNT.YOUR_CURRENT_BALANCE")
-    h2.price(ng-bind="$ctrl.price")
-    h2.error-alert(ng-show="$ctrl.error" ng-translate="DASHBOARD.CHARGE_ACCOUNT.THANK_YOU_PAGE_ERROR")
+    span(data-translate="DASHBOARD.CHARGE_ACCOUNT.ACCOUNT_BALANCE")
+    h2.price(data-ng-bind="$ctrl.price")
+    h2.error-alert(data-ng-show="$ctrl.error" data-translate="DASHBOARD.CHARGE_ACCOUNT.THANK_YOU_PAGE_ERROR")
     h3(data-translate="DASHBOARD.CHARGE_ACCOUNT.YOUR_ACCOUNT_RECHARDED")
 
     .thank-you-page-description

@@ -7,10 +7,10 @@
 
   +xsm-portrait
     padding: $top-modal-navbar + 32px 0 0
-    height: 100vh
+    height: calc(100vh - #{$top-modal-navbar} + 32px)
 
   +smm
-    height: 100vh
+    height: calc(100vh - #{$top-modal-navbar} + 32px)
 
   h2
     +default-font-heavy
