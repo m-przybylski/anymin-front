@@ -3,6 +3,10 @@
     top-modal-navbar(data-title="DASHBOARD.CHARGE_ACCOUNT.YOUR_CURRENT_BALANCE")
 
     .default-container
+      .current-balance
+        h3(data-translate="DASHBOARD.CHARGE_ACCOUNT.YOUR_CURRENT_BALANCE")
+        h4.current-balance-wallet {{ vm.clientBalance.amount / 100 }}zł
+
       choose-amount-charge(data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_AMMOUNT_CHARGE" data-amounts="vm.amounts"
                            data-amount-model="vm.amountModel"
                            id="1"
