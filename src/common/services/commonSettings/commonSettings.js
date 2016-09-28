@@ -9,6 +9,7 @@ function CommonSettingsService(CommonConfig) {
 
   let _localSettings = {
     amountMultiplier: 100,
+    alphabetPattern: '^[A-Za-z_]*$',
     emailPattern: _validation.email.regex,
     passwordPattern: _validation.password.regex,
     pinPattern: _validation.pin.regex,

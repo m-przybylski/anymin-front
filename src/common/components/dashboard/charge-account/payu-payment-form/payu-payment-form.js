@@ -89,7 +89,8 @@
     }
 
     this.patternEmail = CommonSettingsService.localSettings.emailPattern
-
+    this.patternName = CommonSettingsService.localSettings.alphabetPattern
+    
     return this
     
   }

@@ -28,11 +28,14 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.thank-you-
         location = _$location_
       })
 
-      component = componentController('thankYouPage', null)
-      component.paymentsValues = {
-        current: 'PLN',
-        amount: 123123
+      location.search = () => {
+        return {
+          currency: 'PLN',
+          amount:  12123
+        }
       }
+
+      component = componentController('thankYouPage', null)
     })
 
     it('should have a dummy test', inject(() => {
