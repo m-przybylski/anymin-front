@@ -84,6 +84,7 @@ module.exports = {
       'node_modules/ui-select/dist/select.js',
       'node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.js',
       'node_modules/lodash/index.js',
+      'node_modules/phonenumber/libphonenumber-bundle.js',
       'node_modules/angular-translate/dist/angular-translate.js',
       'node_modules/messageformat/messageformat.js',
       'node_modules/messageformat/locale/*.js',

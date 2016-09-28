@@ -79,10 +79,7 @@
           _displayErrorMessage()
         })
       }
-
-
     }
-
 
     return {
       replace: true,
