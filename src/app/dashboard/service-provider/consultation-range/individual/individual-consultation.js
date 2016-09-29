@@ -1,7 +1,6 @@
 (function() {
   function IndividualConsultationController($scope, $state, $timeout, savedProfile, ServiceApi, proTopAlertService, profileImage, DialogService, serviceProviderService) {
 
-    console.log(savedProfile)
     this.costModel = serviceProviderService.createDefaultModel('')
     this.editModel = serviceProviderService.createDefaultModel(0)
 

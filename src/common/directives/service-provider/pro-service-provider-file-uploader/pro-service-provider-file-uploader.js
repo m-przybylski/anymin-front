@@ -9,11 +9,9 @@
       scope.isPending = false
       if (angular.isDefined(scope.proModel) && angular.isDefined(scope.proModel.files)) {
         for (let i = 0; i < scope.proModel.files.length;i++) {
-          FilesApi.fileInfoPath({token: scope.proModel.files[i].fileId}).$promise.then((res)=>{
-            res.meta = {
-              previewFileId: scope.proModel.files[i].previewFileId
-            }
-            scope.model.files.push({file: res.details, response: res})
+          FilesApi.fileInfoPath({token: scope.proModel.files[i].token}).$promise.then((res)=>{
+            res.token = scope.proModel.files[i].token
+            scope.model.files.push({file: res, response: res})
           }, (err)=>{
             proTopAlertService.error({
               message: 'error',

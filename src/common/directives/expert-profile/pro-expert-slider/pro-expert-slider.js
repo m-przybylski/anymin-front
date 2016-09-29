@@ -3,7 +3,7 @@
     function linkFunction(scope) {
 
       scope.imageUrl = (slide) => {
-        return HelperService.fileUrlResolver(slide.previewFileId)
+        return slide.previews[0]
       }
 
       scope.controlls = {}
@@ -17,7 +17,7 @@
       }
 
       scope.openDialog = (slide) => {
-        scope.fullSizeUrl = HelperService.fileUrlResolver(slide.previewFileId)
+        scope.fullSizeUrl = slide.previews[0]
         scope.slide = slide
         DialogService.openDialog({
           scope: scope,

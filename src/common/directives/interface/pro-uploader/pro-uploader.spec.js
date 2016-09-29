@@ -14,7 +14,7 @@ describe('Unit testing: profitelo.directives.interface.pro-uploader', () => {
     let _interval
     let _commonConfigData
 
-    let url = 'awesomeUrl/'
+    let url = 'awesomeUrl'
 
 
     let fileId = 123
@@ -42,10 +42,10 @@ describe('Unit testing: profitelo.directives.interface.pro-uploader', () => {
 
         resourcesExpectations = {
           FilesApi: {
-            tokenPath: _httpBackend.when(_FilesApiDef.tokenPath.method, _FilesApiDef.tokenPath.url)
+            tokenPath: _httpBackend.when(_FilesApiDef.tokenPath.method, _FilesApiDef.tokenPath.url.replace(':collectionType', 'AVATAR'))
           },
           Upload: {
-            upload: _httpBackend.when('POST', _commonConfigData.urls['backend'] + '/files/' + fileId + '/upload/preview')
+            upload: _httpBackend.when('POST', _commonConfigData.urls['files'] + '/files/' + fileId + '/upload')
           }
         }
         

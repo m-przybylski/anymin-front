@@ -7,7 +7,7 @@
         FilesApi.fileInfoPath({
           token: token
         }).$promise.then((response)=> {
-          _deferred.resolve(response.meta.downloadUrl)
+          _deferred.resolve(response.previews[0]) // TODO change
         }, () => {
           _deferred.resolve(null)
         })
