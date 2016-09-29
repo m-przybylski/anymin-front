@@ -28,10 +28,22 @@
           amount:  Number(newValue * amountModifier),
           currency: this.amounts.minimalAmounts.currency
         }
-        this.firstSelect = true
+
+        if (!this.firstSelect) {
+          ++this.currentSection
+          this.firstSelect = true
+        }
+        
         this.amountModel.amount = null
       }
     })
+
+    this.onEnter = () => {
+      if (this.cashAmountModel > this.amounts.minimalAmounts.amount / amountModifier) {
+        this.scrollHandler(2)
+      }
+      angular.element('.option-own-amount').find('input').blur()
+    }
 
     this.selectAmountOption =  (index) => {
       this.activeOption = index
@@ -45,7 +57,7 @@
           amount: this.amounts.paymentOptions[index].amount,
           currency: this.amounts.paymentOptions[index].currency
         }
-
+        
         this.amountModel.cashAmount = null
       } else {
         angular.element('.option-own-amount').find('input').focus()
@@ -62,7 +74,8 @@
       title: '@',
       amounts: '<',
       scrollHandler: '<',
-      amountModel: '=?'
+      amountModel: '=?',
+      currentSection: '=?'
     },
     controller: chooseAmountChargeController,
     controllerAs: '$ctrl'

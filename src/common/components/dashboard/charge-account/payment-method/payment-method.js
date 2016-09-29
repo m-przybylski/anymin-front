@@ -5,11 +5,11 @@
 
     this.activeOption = null
     this.firstSelect = this.activeOption !== null
-
-    // zmockowane obrazki:
-    this.paymentSystems[0].imgSrc = '/assets/images/payU-logo.png'
-    this.paymentSystems[1].imgSrc = '/assets/images/paypal-logo.png'
-    this.paymentSystems[2].imgSrc1 = '/assets/images/maestro-logo.png'
+    
+    this.setImage = (slug) => {
+      const imagePath = '/assets/images/%s-logo.png'
+      return imagePath.replace('%s', slug)
+    }
     
     this.selectPaymentMethod =  (index) => {
       if (index === 0) {

@@ -14,7 +14,7 @@
         pro-input(placeholder="{{ $ctrl.minimalPaymentAmount }}zł"
           data-label="{{'DASHBOARD.CHARGE_ACCOUNT.OWN_AMOUNT' | translate}}"
           data-ng-model="$ctrl.cashAmountModel"
-          data-ng-enter="onEnter()"
+          data-ng-enter="$ctrl.onEnter()"
           data-ng-class="{'invalid': $ctrl.minimalAmountValidation()}"
           addon-action="onEnter"
           data-id="ownAmount"

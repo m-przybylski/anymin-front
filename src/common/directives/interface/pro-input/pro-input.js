@@ -9,8 +9,9 @@
       scope.onClick = false
       let placeholder = scope.placeholder
       let _inputGroup = $(element)
-      let _excludedKeyCodesForPhone = digitsCodes.concat([13, 8])
-      let _excludedKeyCodesForCurrency = digitsCodes.concat([8, 13, 46, 44])
+      const _excludedKeyCodesForPhone = digitsCodes.concat([13, 8])
+      const _excludedKeyCodesForCurrency = digitsCodes.concat([8, 13, 46, 44])
+      
       if (!scope.type) {
         scope.type = 'text'
       }
@@ -27,6 +28,15 @@
         element.bind('keypress', function(e) {
           let code = e.keyCode || e.which
           if (_excludedKeyCodesForPhone.indexOf(code) < 0) {
+            e.preventDefault()
+          }
+        })
+      }
+
+      if ('noDigits' in attr.$attr) {
+        element.bind('keypress', function(e) {
+          let code = e.keyCode || e.which
+          if (_excludedKeyCodesForPhone.indexOf(code) > 0) {
             e.preventDefault()
           }
         })
