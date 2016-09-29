@@ -1,23 +1,22 @@
 (function() {
 
-  function AccountFormController($rootScope, $state, $filter, AccountApi, proTopWaitingLoaderService, User, proTopAlertService, loginStateService, CommonSettingsService) {
+  function AccountFormController($rootScope, $state, $filter, AccountApi, proTopWaitingLoaderService, User,
+                                 proTopAlertService, loginStateService, CommonSettingsService, PhoneNumberUtil) {
 
     this.isPending = false
     this.current = 1
     this.account = loginStateService.getAccountObject()
-    this.prefix = [
-      {
-        name:   '+48',
-        value:  '+48'
-      },
-      {
-        name:   '+22',
-        value:  '+22'
-      }
-    ]
+    this.prefixes = CommonSettingsService.localSettings.countryCodes.map((item) => { return { value: item, name: item } })
 
-    this.account.phoneNumber.prefix = this.prefix[0].value
-    this.pattern = CommonSettingsService.localSettings.phonePattern
+    this.isValidPhoneNumber = (prefix, number) => {
+      if (angular.isDefined(prefix) && angular.isDefined(number) && prefix && number && number.length > 1) {
+        const fullPhoneNumber = PhoneNumberUtil.parse(prefix.toString() + number.toString())
+        return PhoneNumberUtil.isValidNumber(fullPhoneNumber)
+      }
+      return false
+    }
+
+    this.account.phoneNumber.prefix = this.prefixes[0].value
     this.patternPassword = CommonSettingsService.localSettings.passwordPattern
     this.backToPhoneNumber = () => {
       this.account.password = null
@@ -106,6 +105,7 @@
     'ui.router',
     'c7s.ng.userAuth',
     'ui.router',
+    'PhoneNumberUtil',
     'profitelo.services.login-state',
     'profitelo.swaggerResources',
     'profitelo.services.commonSettings',

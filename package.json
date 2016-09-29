@@ -42,7 +42,8 @@
     "ng-file-upload": "^11.0.0",
     "perfect-scrollbar": "^0.6.10",
     "reset.css": "^2.0.2",
-    "ui-select": "^0.18.1"
+    "ui-select": "^0.18.1",
+    "phonenumber": "7.7.1"
   },
   "devDependencies": {
     "contactis-gulp": "1.5.0"
