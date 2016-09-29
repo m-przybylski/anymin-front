@@ -16,13 +16,13 @@
           data-index="1"
           data-ng-pattern="$ctrl.patternName"
           data-ng-enter="$ctrl.onEnter(1)"
-          data-ng-class="{'invalid': paymentForm.$submitted && !$ctrl.firstNameModel || paymentForm.name.$dirty && !$ctrl.firstNameModel}"
+          data-ng-class="{'invalid': paymentForm.$submitted && !$ctrl.firstNameModel || paymentForm.firstName.$dirty && !$ctrl.firstNameModel}"
           addon-action="onEnter"
           required
           data-id="firstName"
           no-digits
           no-delete)
-          .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.firstNameModel || paymentForm.name.$dirty && !$ctrl.firstNameModel")
+          .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.firstNameModel || paymentForm.firstName.$dirty && !$ctrl.firstNameModel")
             span {{ "DASHBOARD.CHARGE_ACCOUNT.NAME_INPUT_ERROR" | translate }}
         .personal-data-item.surname
           pro-input(placeholder="{{ 'DASHBOARD.CHARGE_ACCOUNT.LASTNAME_PLACEHOLDER' | translate }}"
