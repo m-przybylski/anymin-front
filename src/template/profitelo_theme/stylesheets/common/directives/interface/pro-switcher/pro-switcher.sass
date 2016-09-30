@@ -1,36 +1,45 @@
 .pro-switcher
+  cursor: pointer
+  display: flex
+  align-items: center
+
   .checkbox-switcher
 
     span
+      +default-font-regular
       user-select: none
+      color: $c-secondary-txt
+      font-size: $f-btn-size
+      text-transform: uppercase
+      margin: 0 0 0 16px
 
     input[type="checkbox"]
       display: none
 
       + label
         cursor: pointer
-        width: 60px
-        height: 30px
+        width: 36px
+        height: 18px
         display: inline-block
         vertical-align: middle
-        background: $c-secondary
+        background: $c-white
         border-radius: 30px
         position: relative
+        border: 1px solid $c-lines
 
         &::after
           +transition(all 0.3s)
           content: ""
           position: absolute
-          left: 2px
+          left: 3px
           top: 2px
-          width: 26px
-          height: 26px
+          width: 12px
+          height: 12px
           border-radius: 50%
-          background: $c-white
+          background: $c-label
 
       &:checked
         + label
-          background: $c-success
-
           &::after
-            left: 32px
+            background: $c-success
+            left: 19px

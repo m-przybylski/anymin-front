@@ -2,7 +2,19 @@
   width: 100%
 
   .input-group
-    min-height: 210px
+    &.on-click
+      textarea
+        border-color: $c-primary
+
+    textarea
+      transition: border-color 0.3s
+      overflow: hidden
+      border-radius: 3px
+      border: 1px solid $c-lines
+      min-height: 210px
+      padding: 16px
+      width: 100%
+      max-width: 100%
 
   .icon
     position: absolute

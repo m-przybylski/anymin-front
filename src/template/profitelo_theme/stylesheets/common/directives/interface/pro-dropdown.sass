@@ -1,1 +1,49 @@
 .pro-dropdown
+  cursor: pointer
+
+  .input-group
+    position: relative
+
+    .ui-select-container
+      transition: border-color 0.2s
+      border-radius: 3px
+      display: flex
+      background: none
+      border: 1px solid $c-lines
+      height: 56px
+      position: relative
+      align-items: stretch
+
+      &:hover
+        border-color: $c-primary
+
+      &.open
+        border-color: $c-primary
+
+    .dropdown-icon
+      position: absolute
+      right: 16px
+      top: 0
+      bottom: 0
+      margin: auto
+
+      &::before
+        content: ''
+        width: 0
+        height: 0
+        border-top: 6px solid $c-primary
+        border-left: 6px solid transparent
+        border-right: 6px solid transparent
+
+  label
+    &.drop-down-label
+      +default-font-heavy
+      color: $c-label
+      font-size: $f-label-size
+      width: 100%
+      line-height: 1
+      position: absolute
+      top: 12px
+      left: 16px
+      text-transform: uppercase
+

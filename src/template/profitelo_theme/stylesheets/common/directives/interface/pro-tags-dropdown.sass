@@ -2,83 +2,42 @@
   width: 100%
 
   .input-tag-group
-    +border-radius(3px)
-    +transition(0.4s)
-    background: $c-white
-    width: 100%
-    border: 1px solid $c-lines
-    padding: 10px
+    padding: 16px 0
     position: relative
     cursor: pointer
     max-width: 100%
-    min-height: 64px
-    color: $c-primary-txt
+
 
     &.valid
       border-color: $c-error
 
-    input
-      bottom: 9px
-      font-size: 20px
+    .ui-select-container
+      background: $c-white
+      padding: 12px 0
+      min-height: inherit
+      border-radius: 3px
+      background: none
+      border: 1px solid $c-lines
+      position: relative
+      
+      &.open
+        border-color: $c-primary
 
-    .ui-select-match
-      background-color: $c-background
-      outline: none
-      &:focus
-        background-color: $c-background
+        .ui-select-choices
 
-    .dropdown-icon
-      position: absolute
-      right: 16px
-      padding-top: 25px
-      color: $c-primary
+          .ui-select-choices-group
+            .ui-select-choices-row
+              &.active
+                > a
+                  background: none
+                  color: $c-secondary-txt
 
-    .ui-select-bootstrap
-      .ui-select-choices-row.active
-        >a
-          background-color: $c-white
-          color: $c-primary-txt
-          outline: none
+                &:hover
+                  > a
+                    color: $c-primary
 
-      .ui-select-choices
-        min-width: 101px
-        overflow-x: hidden !important
-        opacity: 100 !important
-
-        .gm-scrollbar.-vertical
-          background-color: transparent
-          width: 0.1em
-
-        .gm-scrollbar .thumb
-          background-color: $c-secondary-txt
-          width: 0.1em
-
-        .gm-scrollbar .thumb:hover
-          background-color: $c-primary
-
-      .ui-select-choices-row
-        outline: none
-        margin: 4px 8px
-
-      .ui-select-choices-row
-        >a
-          text-align: left
-          border: none
-          padding: 10px 0 10px 0
-          outline: none
-          text-transform: none
-
-          >span
-            padding-left: 8px
-
-          &:hover
-            background-color: $c-primary
-            color: $c-white
-
-        &.active
-          >a
-            background-color: $c-primary
-            color: $c-white
+    .ui-select-search
+      border: 0
 
     .btn-default
       outline: none
@@ -95,20 +54,31 @@
       box-shadow: none
       background-color: $c-background
 
-    .ui-select-match-item
-      background: $c-background-2
-      border: 1px solid $c-lines
-      padding: 0 16px
-      display: inline-flex
-      align-items: center
-      flex-direction: row-reverse
-      margin: 0 8px 3px 0
-      border-radius: 20px
-      position: relative
-      height: 32px
+    .ui-select-match
+      display: block
+      margin: 0 16px
 
-      span
-        +default-font-regular
-        text-transform: uppercase
-        color: $c-primary-txt
-        font-size: $f-nav-size
+      +xsm
+        display: inline
+
+      .ui-select-match-item
+        background: $c-background-2
+        border: 1px solid $c-lines
+        padding: 0 16px
+        display: inline-flex
+        align-items: center
+        flex-direction: row-reverse
+        margin: 0 8px 3px 0
+        border-radius: 20px
+        position: relative
+        height: 32px
+
+        span
+          +default-font-regular
+          text-transform: uppercase
+          color: $c-primary-txt
+          font-size: $f-nav-size
+
+    input
+      &.ui-select-search
+        min-width: 92px

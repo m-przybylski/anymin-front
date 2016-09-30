@@ -1,5 +1,5 @@
 .pro-dropdown
-  .input-group( class="{{focus ? 'onFocus' : ''}} {{onClick ? 'onClick' : ''}}")
+  .input-group(class="{{focus ? 'on-focus' : ''}} {{onClick ? 'on-click' : ''}}")
      .select(data-ng-click="onFocus()" data-ng-mouseover="onMouseover()"
      data-ng-mouseleave="onMouseout()" data-ng-blur="focusout()")
         ui-select(data-ng-model="selectedItem" data-theme="templates/ui-select" data-on-select="select($item, $model)" data-ng-click="openBar()" data-search-enabled="searchEnable()" ng-disabled="isDisable()")
@@ -7,4 +7,4 @@
              span(ng-bind='$select.selected.name')
           ui-select-choices(data-repeat='item in (proItems | filter: $select.search) track by $index' )
              span(ng-bind='item.name')
-     label {{ label }}
+        label.drop-down-label {{ label }}

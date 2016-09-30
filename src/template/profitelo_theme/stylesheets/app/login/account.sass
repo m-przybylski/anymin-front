@@ -1,29 +1,24 @@
 .phone-number
-  .input-group
-    border-radius: 0
-    border: 1px solic $c-lines
-
-    &:first-of-type
-      border-right: 0
-
   .inputs-handler
-    display: flex
+    +xsm
+      display: flex
 
-    .prefix-phone
-      width: 124px
+  .pro-dropdown
+    margin: 0 0 16px
 
-      .input-group
-        border-top-left-radius: $border-radius-default
-        border-bottom-left-radius: $border-radius-default
+    +xsm
+      margin: 0
+      min-width: 124px
 
-    .phone
-      flex: 0 1 calc(100% - 124px)
-      border-top-right-radius: $border-radius-default
-      border-bottom-right-radius: $border-radius-default
-      width: calc(100% - 124px)
+    .input-group
+      .ui-select-container
+        border-radius: 3px 0 0 3px
 
-  .dropdown-menu
-    max-width: 125px
-    width: 125px
-    margin: 0
-    padding: 0
+        +xsm
+          border-right-color: $c-white
+
+  .pro-input
+    border-radius: 0 3px 3px 0
+
+    +xsm
+      min-width: 276px
