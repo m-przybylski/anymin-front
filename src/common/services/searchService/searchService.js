@@ -6,7 +6,10 @@
       _profileTypeOptions = ['ORG', 'EXP'],
       _sortingOptions = ['top', 'new', 'price', '-price'],
       _searchResults,
-      _queryParams = {}
+      _queryParams = {},
+      _previousQueryParams = {}
+
+    const _queryLimit = 20
 
     Object.defineProperties(_queryParams, {
       areDirty: {
@@ -208,7 +211,7 @@
       _maxPrice: {
         enumerable: false,
         writable: true,
-        value: 100
+        value: null
       },
       maxPrice: {
         enumerable: true,
@@ -226,9 +229,15 @@
     })
 
     function _search(query) {
-      let _deferred = $q.defer()
+      function _maxPriceParser(maxPrice) {
+        if (maxPrice === 100) {
+          return null
+        } else {
+          return maxPrice
+        }
+      }
 
-      SearchApi.search({
+      return SearchApi.search({
         'q': query.q,
         // 'service.name': query.serviceName,
         // 'profile.name': query.profileName,
@@ -240,30 +249,23 @@
         'sortBy': query.sortBy,
         'language': query.language,
         'offset': query.offset,
-        'limit': query.limit,
+        'limit': _queryLimit,
         'minPrice': query.minPrice,
-        'maxPrice': query.maxPrice
+        'maxPrice': _maxPriceParser(query.maxPrice)
       }).$promise.then((response) => {
-        _deferred.resolve({
+        return {
           count: response.count,
           offset: response.offset,
-          results: response.results
-        })
+          results: response.results,
+          relatedTags: response.relatedTags
+        }
       })
-
-      return _deferred.promise
     }
 
     function _suggest(q) {
-      let _deferred = $q.defer()
-
-      SearchApi.searchSuggestions({
+      return SearchApi.searchSuggestions({
         q: q
-      }).$promise.then((response) => {
-        _deferred.resolve(response)
-      })
-
-      return _deferred.promise
+      }).$promise
     }
 
     const searchResultsEvent = 'search-results'
@@ -282,6 +284,7 @@
         '$destroy',
         $rootScope.$on(searchResultsEvent, (_, results) => { return callback(results) })
       )
+
       if (_searchResults) {
         _notifyOnSearchResults(_searchResults)
       }
@@ -311,6 +314,18 @@
       return _deferred.promise
     }
 
+    function _isEqualQueryParams(q1, q2) {
+      const copyQ1 = angular.copy(q1)
+      const copyQ2 = angular.copy(q2)
+
+      delete copyQ1.offset
+      delete copyQ1.limit
+      delete copyQ2.offset
+      delete copyQ2.limit
+
+      return angular.equals(copyQ1, copyQ2)
+    }
+
     function _setSearchQueryParams(newQueryParams) {
       _resolveCategoryId(newQueryParams).then(() => {
         angular.forEach(Object.keys(_queryParams), (fieldName) => {
@@ -324,8 +339,13 @@
           if (_queryParams.q || _queryParams.serviceName || _queryParams.profileName ||
               _queryParams.tagId || _queryParams.category) {
             _search(_queryParams).then((response) => {
+              if (_isEqualQueryParams(_queryParams, _previousQueryParams)) {
+                response.results = _searchResults.results.concat(response.results)
+              }
               _searchResults = response
-              _notifyOnSearchResults(response)
+
+              _previousQueryParams = angular.copy(_queryParams)
+              _notifyOnSearchResults(_searchResults)
             })
           }
         }

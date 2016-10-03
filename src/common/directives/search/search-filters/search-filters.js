@@ -39,8 +39,17 @@
 
       })
 
-      scope.tagsAction = (id)=> {
-        scope.tagClickAction(id)
+      scope.tagsAction = (tag)=> {
+        scope.tagClickAction(tag)
+        scope.model.tags = []
+      }
+
+      const _maxPriceValue = (maxPrice) => {
+        if (angular.isUndefined(maxPrice) || maxPrice === null) {
+          return 100
+        } else {
+          return maxPrice
+        }
       }
 
       searchService.onQueryParamsChange(scope, (params) => {
@@ -49,21 +58,16 @@
         scope.model.category = params.category
         scope.model.onlyAvailable = params.onlyAvailable
         scope.model.minPrice = params.minPrice
-        scope.model.maxPrice = params.maxPrice
+        scope.model.maxPrice = _maxPriceValue(params.maxPrice)
       })
 
       searchService.onSearchResults(scope, (results) => {
-        let tagMap = {}
-        angular.forEach(results.results, (r) => {
-          angular.extend(tagMap, r.tags)
-        })
-        scope.model.tags = []
-        angular.forEach(tagMap, (name, id) => {
-          scope.model.tags.push({
-            id: id,
-            name: name
-          })
-        })
+        scope.model.tags = results.relatedTags
+      })
+
+      const setSearchQueryParamsDebounce = _.debounce(searchService.setSearchQueryParams, 300, {
+        'leading': false,
+        'trailing': true
       })
 
       const watchGroup = ['sortBy', 'language', 'category', 'onlyAvailable', 'minPrice', 'maxPrice']
@@ -75,16 +79,18 @@
             searchQueryParams[watchGroup[idx]] = value
           }
         })
-        searchService.setSearchQueryParams(searchQueryParams)
+        setSearchQueryParamsDebounce(searchQueryParams)
       })
-
     }
-
 
     return {
       replace: true,
       restrict: 'E',
       templateUrl: 'directives/search/search-filters/search-filters.tpl.html',
+      scope: {
+        tagClickAction: '=?',
+        searchResults: '=?'
+      },
       link: linkFunction
     }
   }

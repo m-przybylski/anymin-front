@@ -73,9 +73,12 @@ img
     display: flex
     align-items: center
     justify-content: center
-    z-index: 1
 
   &.user-avatar
+    overflow: hidden
+    text-indent: -50%
+    border-radius: 50%
+
     &.isNotUploaded
       background: url('/assets/images/no-avatar.jpg') 50% 50% / cover
       position: relative

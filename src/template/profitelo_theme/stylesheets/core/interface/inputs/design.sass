@@ -1,3 +1,8 @@
+input
+  &:focus
+    border: 0
+    outline: 0
+
 .input-group
   border-radius: $border-radius-default
   transition: border .2s, color .2s, background .2s
@@ -23,7 +28,8 @@
   label
     +default-font-heavy
     position: absolute
-    top: 8px
+    top: 16px
+    left: 16px
     color: $c-secondary-txt
     font-size: $f-base
     text-transform: uppercase
@@ -42,7 +48,7 @@
     height: 100%
 
     &.label
-      padding: 36px 10px 10px
+      padding: 36px 16px 16px
 
     &:focus
       background-color: $c-background
@@ -58,6 +64,10 @@
         color: $c-error
         padding-left: 5px
         font-size: 18px
+        line-height: 1
+        position: absolute
+        right: -10px
+        top: -5px
 
   span
     &.cross-addon
@@ -192,12 +202,14 @@
         outline: none
 
     .ui-select-choices
-      min-width: 101px
+      min-width: 100%
       margin-left: -1px
       overflow-x: hidden !important
-      width: 125px
+      width: 100%
       margin-top: 0
       opacity: 100 !important
+
+
       .gm-scrollbar.-vertical
         background-color: transparent
         width: 0.1em
@@ -234,7 +246,7 @@
     z-index: 100
 
     .ui-select-match-text
-      padding-left: 10px
+      padding-left: 16px
       position: relative
       top: 23px
 
@@ -243,9 +255,9 @@
     background-color: $c-background
 
   .ui-select-placeholder
-    padding-left: 10px
-    color: $c-secondary-txt
-    top: 26px
+    padding-left: 16px
+    color: $c-primary-txt
+    top: 24px
     position: relative
 
 .input-group .form-control

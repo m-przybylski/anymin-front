@@ -14,7 +14,7 @@ describe('Unit testing: profitelo.directives.interface.pro-uploader', () => {
     let _interval
     let _commonConfigData
 
-    let url = 'awesomeUrl/'
+    let url = 'awesomeUrl'
 
 
     let fileId = 123

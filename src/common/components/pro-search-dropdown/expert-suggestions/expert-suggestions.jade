@@ -1,11 +1,12 @@
 .expert-suggestions
   .dropdown-default(data-ng-if="vm.experts.count")
-    .search-category
-      | {{'SEARCH.EXPERTS' | translate}}
-      span.category-counter ({{vm.experts.count}})
-    .experts-box.flex-row.wrap
-      a.expert-profile.flex-row(data-ng-repeat="expert in vm.experts.results track by $index" data-ui-sref="app.expert-profile({ contactId: expert.id })")
-        img.expert-avatar(src='http://placekitten.com/48/48')
-        .expert-data.flex-col
-          p.expert-name {{expert.name}}
-          p.expert-category(data-ng-repeat="category in vm.expert.categories track by $index") {{category}}
+    h5.title-row  {{'SEARCH.EXPERTS' | translate}}
+      span ({{vm.experts.count}})
+
+    .experts-box.dropdown-category-list
+      a.expert-profile.dropdown-list-item(data-ng-repeat="expert in vm.experts.results track by $index" data-ui-sref="app.expert-profile({ contactId: expert.id })")
+        img.expert-avatar.user-avatar.circle(src='http://placekitten.com/48/48')
+
+        span.expert-data
+          span.expert-name {{expert.name}}
+          span.expert-category(data-ng-repeat="category in vm.expert.categories track by $index") {{category}}

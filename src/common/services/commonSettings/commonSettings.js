@@ -3,8 +3,13 @@ function CommonSettingsService(CommonConfig) {
 
   let _validation = _commonConfigSettings.validation
 
+  let _urls = _commonConfigSettings.urls
   let _settings = {
 
+  }
+  
+  let _links = {
+    imageUrl: _urls.backend + _urls['file-download']
   }
 
   let _localSettings = {
@@ -88,7 +93,8 @@ function CommonSettingsService(CommonConfig) {
     get: function(property) {
       return angular.copy(_settings[property])
     },
-    localSettings: _localSettings
+    localSettings: _localSettings,
+    links:        _links
   }
 
 

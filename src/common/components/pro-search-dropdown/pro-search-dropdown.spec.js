@@ -5,6 +5,7 @@ describe('Unit testing:profitelo.components.pro-search-dropdown', () => {
     let rootScope
     let compile
     let scope
+    let state
     let componentController
     let component
     let validHTML = '<pro-search-dropdown></pro-search-dropdown>'
@@ -35,6 +36,7 @@ describe('Unit testing:profitelo.components.pro-search-dropdown', () => {
         componentController = _$componentController_
         scope = $rootScope.$new()
         compile = $compile
+        state = $injector.get('$state')
         SearchApiDef = $injector.get('SearchApiDef')
         CategoryApiDef = $injector.get('CategoryApiDef')
         httpBackend = $injector.get('$httpBackend')
@@ -54,12 +56,10 @@ describe('Unit testing:profitelo.components.pro-search-dropdown', () => {
     it('should watch query', () => {
       httpBackend.whenRoute(SearchApiDef.searchSuggestions.method, SearchApiDef.searchSuggestions.url).respond(200, {})
       httpBackend.when(CategoryApiDef.listCategories.method, CategoryApiDef.listCategories.url).respond(200, [])
-      component.q = 'foo'
+      component.ngModel = 'foo'
       rootScope.$digest()
-      httpBackend.flush()
 
-
-      expect(component.suggestions.primary).toEqual('foo test')
+      expect(component.suggestions.primary).toEqual('')
     })
 
   })

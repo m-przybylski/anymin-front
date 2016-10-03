@@ -1,7 +1,7 @@
 (function() {
   /* @ngInject */
-  function proSearchDropdownController($q, $scope, $element, searchService, categoryService) {
-    const qInput = $element.find('[data-ng-model="vm.q"]')[0]
+  function proSearchDropdownController($q, $scope, $state, $location, $element, searchService, categoryService) {
+    const qInput = $element.find('[data-ng-model="vm.ngModel"]')[0]
 
     this.collapsed = true
     this.categorySlugs = {}
@@ -14,14 +14,12 @@
       organizations: {}
     }
 
-    $scope.$watch(() => {
-      return this.q
-    }, () => {
-      if (this.q && this.q.length > 0) {
+    const _searchAction = () => {
+      if (this.ngModel && this.ngModel.length > 2) {
         this.collapsed = false
 
         $q.all([
-          searchService.suggest(this.q),
+          searchService.suggest(this.ngModel),
           categoryService.getCategorySlugs()
         ]).then((data) => {
           this.suggestions.terms = data[0].terms
@@ -34,14 +32,38 @@
         if (qInput && qInput.scrollLeft > 0) {
           this.suggestions.primary = null
         } else {
-          this.suggestions.primary = this.q + ' test'
+          this.suggestions.primary = this.ngModel + ' test'
         }
       } else {
         this.collapsed = true
       }
+    }
 
+    const _searchActionDebounce = _.debounce(_searchAction, 200, {
+      'leading': false,
+      'trailing': true
     })
 
+    this.search = () => {
+
+      if ($state.current.name !== 'app.search-result') {
+        $state.go('app.search-result', {q: this.ngModel})
+      }
+      $location.search('tagId', null)
+    }
+
+    $scope.$watch(() => {
+      return this.ngModel
+    }, () => {
+      _searchActionDebounce()
+    })
+
+    this.isNotSearchResult = () => {
+      return $state.current.name === 'app.search-result' && !angular.element('.search-bar-container').find('input:focus')[0]
+    }
+
+    $('.dropdown-container').perfectScrollbar()
+    
     return this
 
   }
@@ -52,6 +74,7 @@
     controller:  proSearchDropdownController,
     controllerAs: 'vm',
     bindings: {
+      ngModel: '=?'
     }
   }
 
@@ -59,6 +82,7 @@
     'commonConfig',
     'profitelo.services.search',
     'profitelo.services.categories',
+    'ui.router',
     'profitelo.filters.normalize-translation-key-filter',
     'profitelo.components.pro-search-dropdown.term-suggestions',
     'profitelo.components.pro-search-dropdown.organization-suggestions',

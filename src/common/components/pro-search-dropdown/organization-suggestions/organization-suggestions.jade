@@ -1,12 +1,11 @@
 .organization-suggestions
   .dropdown-default(data-ng-if="vm.organizations.count")
-    .search-category
-      | {{'SEARCH.ORGANIZATIONS' | translate}}
-      span.category-counter ({{ vm.organizations.count }})
-    .experts-box.flex-row.wrap
-      a.expert-profile.flex-row(data-ng-repeat="organization in vm.organizations.results track by $index" data-ui-sref="app.company-profile({ contactId: organization.id })")
-        img.expert-avatar(src='http://placekitten.com/48/48')
-        .expert-data.flex-col
-          p.expert-name {{ organization.name }}
+    h5.title-row  {{'SEARCH.ORGANIZATIONS' | translate}}
+      span ({{ vm.organizations.count }})
 
+    .organization-box.dropdown-category-list
+      a.expert-profile.dropdown-list-item(data-ng-repeat="organization in vm.organizations.results track by $index" data-ui-sref="app.company-profile({ contactId: organization.id })")
+        img.expert-avatar.circle(src='http://placekitten.com/48/48')
 
+        span.expert-data
+          span.expert-name {{ organization.name }}

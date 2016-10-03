@@ -1,4 +1,5 @@
-pro-top-navbar(logout-action="appController.logout")
+pro-top-navbar(logout-action="appController.logout" search-mask-active="vm.searchMask")
+.search-active-mask(data-ng-class="{'off': vm.searchMask}" data-ng-click="vm.searchMaskDeactive()")
 
 main.top-content-home
   .default-container.home-header
