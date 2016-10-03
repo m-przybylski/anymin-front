@@ -89,6 +89,7 @@ module.exports = {
       'node_modules/messageformat/messageformat.js',
       'node_modules/messageformat/locale/*.js',
       'node_modules/angularjs-slider/dist/rzslider.js',
+      'node_modules/ng-infinite-scroll/build/ng-infinite-scroll.js',
 
       'node_modules/angular-translate-interpolation-messageformat/angular-translate-interpolation-messageformat.js',
       'node_modules/angular-dynamic-locale/dist/tmhDynamicLocale.js',

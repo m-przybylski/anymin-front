@@ -58,8 +58,13 @@
       _searchActionDebounce()
     })
 
-    this.isNotSearchResult = () => {
-      return $state.current.name === 'app.search-result' && !angular.element('.search-bar-container').find('input:focus')[0]
+    this.hideSuggestionMenu = () => {
+      if ($state.name === 'app.home') {
+        return !angular.element('.search-bar-container').find('input:focus')[1]
+      } else {
+        return !angular.element('.search-bar-container').find('input:focus')[0]
+      }
+
     }
 
     $('.dropdown-container').perfectScrollbar()
