@@ -2,6 +2,8 @@
 
   function SearchResultController($scope, $location, $timeout, $stateParams, $rootScope, searchService) {
 
+    this.receivedData = false
+
     this.searchResults = {
       offset: 0,
       count: 0,
@@ -30,11 +32,11 @@
 
     searchService.onSearchResults($scope, (results) => {
       this.searchResults = results
+      this.receivedData = true
     })
 
     this.tagsClick = (tag) => {
       $location.search('tagId', tag.id)
-      $location.search('q', tag.name)
     }
 
     this.loadMore = () => {

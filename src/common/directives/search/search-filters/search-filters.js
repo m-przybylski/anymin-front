@@ -65,7 +65,7 @@
         scope.model.tags = results.relatedTags
       })
 
-      const setSearchQueryParamsDebounce = _.debounce(searchService.setSearchQueryParams, 300, {
+      const setSearchQueryParamsDebounce = _.debounce(searchService.setSearchQueryParams, 500, {
         'leading': false,
         'trailing': true
       })
@@ -79,6 +79,7 @@
             searchQueryParams[watchGroup[idx]] = value
           }
         })
+        searchQueryParams['offset'] = 0
         setSearchQueryParamsDebounce(searchQueryParams)
       })
     }

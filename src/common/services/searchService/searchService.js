@@ -2,7 +2,7 @@
   function searchService($rootScope, $q, SearchApi, categoryService) {
 
     let
-      _languageOptions = ['pl'],
+      _languageOptions = ['POLSKI'],
       _profileTypeOptions = ['ORG', 'EXP'],
       _sortingOptions = ['top', 'new', 'price', '-price'],
       _searchResults,
