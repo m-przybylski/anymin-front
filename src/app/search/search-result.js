@@ -49,14 +49,6 @@
       }
     }
 
-    const element = angular.element(window)
-
-    $scope.$watch(function() {
-      return (angular.isDefined(element.offset())) ? element.offset().top : undefined
-    }, function(newValue) {
-      // console.log(newValue)
-    })
-
     searchService.onQueryParamsChange($scope, (params) => {
       this.searchParams = params
       const currentParams = $location.search()
@@ -78,6 +70,7 @@
 
   angular.module('profitelo.controller.search-result', [
     'ui.router',
+    'infinite-scroll',
     'c7s.ng.userAuth',
     'profitelo.components.search.single-consultation',
     'profitelo.components.search.no-consultations',
