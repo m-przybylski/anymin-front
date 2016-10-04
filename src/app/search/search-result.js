@@ -35,7 +35,6 @@
     this.tagsClick = (tag) => {
       $location.search('tagId', tag.id)
       $location.search('q', tag.name)
-      this.searchResults = []
     }
 
     this.loadMore = () => {

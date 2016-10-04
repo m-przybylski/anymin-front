@@ -233,7 +233,7 @@
         if (maxPrice === 100) {
           return null
         } else {
-          return maxPrice
+          return maxPrice*100
         }
       }
 
@@ -250,7 +250,7 @@
         'language': query.language,
         'offset': query.offset,
         'limit': _queryLimit,
-        'minPrice': query.minPrice,
+        'minPrice': query.minPrice*100,
         'maxPrice': _maxPriceParser(query.maxPrice)
       }).$promise.then((response) => {
         return {
