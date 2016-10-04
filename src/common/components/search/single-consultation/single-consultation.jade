@@ -18,7 +18,9 @@
           .status-list
             span.status.availability {{ ::'HOME.EXPERT_CARD_AVAILABLE' | translate }}
 
-        img.thumb.user-avatar(data-ng-src="{{ ::vm.profileImage }}" alt="{{ ::vm.consultation.owner.name }}")
+
+        a.thumb(data-ui-sref="app.company-profile({ contactId: vm.consultation.owner.id })")
+          img.user-avatar(data-ng-src="{{ ::vm.profileImage }}" alt="{{ ::vm.consultation.owner.name }}")
 
     .title-row
       h3

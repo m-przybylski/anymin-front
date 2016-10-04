@@ -12,8 +12,8 @@
             p 76
 
         .personal-info
-          .personal-avatar.user-avatar
-            img.circle(data-ng-src='{{avatar}}' alt='{{profile.name}}' data-ng-class='{"isNotUploaded": !avatar}')
+          .personal-avatar
+            img.circle.user-avatar(data-ng-src='{{avatar}}' alt='{{profile.name}}' data-ng-class='{"isNotUploaded": !avatar}')
           h3 {{ profile.name }}
           .status-list(data-ng-hide="profile.type == 'company'")
             span.status.availability {{ 'HOME.EXPERT_CARD_AVAILABLE' | translate }}
