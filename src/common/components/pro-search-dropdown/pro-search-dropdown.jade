@@ -3,8 +3,8 @@
     span.icon.icon-search-24
     input.search-bar-shadow(type="text", disabled, data-ng-model="vm.suggestions.primary")
     input.search-bar(type="text", placeholder="{{::'HOME.SEARCH_PLACEHOLDER' | translate}}",
-    data-ng-model="vm.ngModel", data-ng-enter="vm.search()" data-ng-trim="false")
-    .dropdown-container(data-ng-class="{collapsed: vm.collapsed}" data-ng-hide="vm.hideSuggestionMenu()")
+    data-ng-model="vm.ngModel", data-ng-enter="vm.search()", data-ng-trim="false", data-ng-focus="vm.autofocus()")
+    .dropdown-container(data-ng-class="{'collapsed': !vm.collapsed}", data-ng-hide="vm.hideSuggestionMenu()")
       term-suggestions(data-terms="vm.suggestions.terms" data-category-slugs="vm.categorySlugs")
       tag-suggestions(data-tags="vm.suggestions.tags")
       service-suggestions(data-services="vm.suggestions.services")
