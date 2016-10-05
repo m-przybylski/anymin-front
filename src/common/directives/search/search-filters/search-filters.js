@@ -17,11 +17,10 @@
       scope.categoryList = []
 
       searchService.getAvailableOptions().then((options) => {
-
-        scope.languagesList = options.language.map((val) => {
+        scope.languagesList = options.language.map((lng) => {
           return {
-            name: $filter('translate')($filter('normalizeTranslationKey')(('SEARCH.LANGUAGE.' + val))),
-            value: val
+            name: $filter('translate')($filter('normalizeTranslationKey')(('SEARCH.LANGUAGE.' + lng.name))),
+            value: lng.value
           }
         })
         scope.sortList = options.sortBy.map((val) => {
@@ -36,7 +35,6 @@
             value: cat.value
           }
         })
-
       })
 
       scope.tagsAction = (tag)=> {

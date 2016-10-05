@@ -12,12 +12,12 @@
 
     this.searchParams = {}
 
-    searchService.setSearchQueryParams(angular.extend({}, $stateParams, $location.search()))
+    searchService.setSearchQueryParams(angular.extend({}, $stateParams, $location.search(), {offset: null}))
 
     $scope.$on(
       '$destroy',
       $rootScope.$on('$locationChangeSuccess', () => {
-        searchService.setSearchQueryParams($location.search())
+        searchService.setSearchQueryParams(angular.extend({}, $location.search(), {offset: null}))
       })
     )
 
@@ -41,11 +41,10 @@
 
     this.loadMore = () => {
       const countMax = this.searchResults.count
-      const offset = this.searchResults.offset
       if (angular.isDefined(this.searchResults.results)) {
         const count = this.searchResults.results.length
         if (count < countMax) {
-          $location.search('offset', count)
+          searchService.setSearchQueryParams(angular.extend($stateParams, $location.search(), {offset: count}))
         }
       }
     }
@@ -59,8 +58,8 @@
         }
       })
       angular.forEach(params, (value, key) => {
-        if (angular.isDefined(value) && value !== null) {
-          $location.search(key, value.toString())
+        if (key !== 'offset' && key !== 'limit') {
+          $location.search(key, value)
         }
       })
     })

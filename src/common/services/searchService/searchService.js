@@ -2,7 +2,7 @@
   function searchService($rootScope, $q, SearchApi, categoryService) {
 
     let
-      _languageOptions = ['POLSKI'],
+      _languageOptions = ['POLISH'],
       _profileTypeOptions = ['ORG', 'EXP'],
       _sortingOptions = ['top', 'new', 'price', '-price'],
       _searchResults,
@@ -354,7 +354,7 @@
 
     function _getAvailableOptions() {
       const options = {
-        language: _languageOptions,
+        language: [{name: 'all', value: null}].concat(_languageOptions.map((lng) => { return {name: lng, value: lng} })),
         sortBy: _sortingOptions,
         category: [{name: 'all', value: null}]
       }
