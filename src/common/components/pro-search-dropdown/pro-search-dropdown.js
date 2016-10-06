@@ -3,7 +3,9 @@
   function proSearchDropdownController($q, $scope, $state, $location, $element, searchService, categoryService) {
     const qInput = $element.find('[data-ng-model="vm.ngModel"]')[0]
 
-    this.collapsed = true
+    this.isCollapsed = true
+    this.isFocused = false
+    this.mouseOverDropdown = false
     this.categorySlugs = {}
     this.suggestions = {
       primary: '',
@@ -15,8 +17,8 @@
     }
 
     const _searchAction = () => {
-      if (this.ngModel && this.ngModel.length > 2) {
-        this.collapsed = false
+      if (this.ngModel && this.ngModel.length > 2 && this.isFocused) {
+        this.isCollapsed = false
 
         $q.all([
           searchService.suggest(this.ngModel),
@@ -35,7 +37,7 @@
           this.suggestions.primary = this.ngModel + ' test'
         }
       } else {
-        this.collapsed = true
+        this.isCollapsed = true
       }
     }
 
@@ -45,11 +47,34 @@
     })
 
     this.search = () => {
-
       if ($state.current.name !== 'app.search-result') {
         $state.go('app.search-result', {q: this.ngModel})
       }
       $location.search('tagId', null)
+      this.isCollapsed = true
+      this.isFocused = false
+    }
+
+    this.onFocus = () => {
+      this.isFocused = true
+      this.isCollapsed = false
+      console.log('on focus')
+    }
+
+    this.onFocusOut = () => {
+      if(!this.mouseOverDropdown) {
+        this.isFocused = false
+        this.isCollapsed = true
+        console.log('on focus out')
+      }
+    }
+
+    this.onDropdownMouseLeave = () => {
+      this.mouseOverDropdown = false
+    }
+
+    this.onDropdownMouseEnter = () => {
+      this.mouseOverDropdown = true
     }
 
     $scope.$watch(() => {
@@ -58,18 +83,9 @@
       _searchActionDebounce()
     })
 
-    this.hideSuggestionMenu = () => {
-      if ($state.name === 'app.home') {
-        return !angular.element('.search-bar-container').find('input:focus')[1]
-      } else {
-        return !angular.element('.search-bar-container').find('input:focus')[0]
-      }
-    }
-
-    $('.dropdown-container').perfectScrollbar()
+    $element.find('.dropdown-container').perfectScrollbar()
     
     return this
-
   }
 
   let proSearchDropdown = {
