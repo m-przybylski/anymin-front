@@ -26,7 +26,6 @@
     this.onSearchFocus = () => {
       this.searchMask = false
 
-
       const searchInputOnPage = angular.element(document).find('.search-bar-container .search-bar')[1]
       smoothScrolling.simpleScrollTo(searchInputOnPage, true)
     }

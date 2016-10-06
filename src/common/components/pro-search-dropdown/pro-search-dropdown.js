@@ -5,7 +5,7 @@
 
     this.isCollapsed = true
     this.isFocused = false
-    this.mouseOverDropdown = false
+    this.isMouseOverDropdown = false
     this.categorySlugs = {}
     this.suggestions = {
       primary: '',
@@ -17,7 +17,7 @@
     }
 
     const _searchAction = () => {
-      if (this.ngModel && this.ngModel.length > 2 && this.isFocused) {
+      if (this.ngModel && this.ngModel.length > 2) {
         this.isCollapsed = false
 
         $q.all([
@@ -46,18 +46,11 @@
       'trailing': true
     })
 
-    this.autofocus = () => {
-      console.log("focus")
-      this.collapsed = false
-    }
-
     this.search = () => {
       if ($state.current.name !== 'app.search-result') {
         $state.go('app.search-result', {q: this.ngModel})
       }
       $location.search('tagId', null)
-      this.isCollapsed = true
-      this.isFocused = false
     }
 
     this.onFocus = () => {
@@ -67,7 +60,7 @@
     }
 
     this.onFocusOut = () => {
-      if(!this.mouseOverDropdown) {
+      if(!this.isMouseOverDropdown) {
         this.isFocused = false
         this.isCollapsed = true
         console.log('on focus out')
@@ -75,11 +68,11 @@
     }
 
     this.onDropdownMouseLeave = () => {
-      this.mouseOverDropdown = false
+      this.isMouseOverDropdown = false
     }
 
     this.onDropdownMouseEnter = () => {
-      this.mouseOverDropdown = true
+      this.isMouseOverDropdown = true
     }
 
     $scope.$watch(() => {
