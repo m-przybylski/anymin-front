@@ -28,7 +28,6 @@
         description: '=?',
         buttonAction: '=?',
         avatar: '=?'
-
       },
       link: linkFunction
     }

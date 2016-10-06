@@ -1,5 +1,5 @@
 (function() {
-  function HomeController($window, $scope) {
+  function HomeController($scope, smoothScrolling) {
 
     this.searchMask = true
 
@@ -21,6 +21,14 @@
 
     this.searchMaskDeactive = () => {
       this.searchMask = true
+    }
+
+    this.onSearchFocus = () => {
+      this.searchMask = false
+
+
+      const searchInputOnPage = angular.element(document).find('.search-bar-container .search-bar')[1]
+      smoothScrolling.simpleScrollTo(searchInputOnPage, true)
     }
 
     angular.element(angular.element(document).find('.search-active-mask')).on('whell mousewheel', (e) => {
@@ -163,6 +171,7 @@
     'profitelo.directives.pro-expert-see-more',
     'profitelo.directives.pro-advice-tile',
     'profitelo.directives.pro-news-tile',
+    'profitelo.directives.pro-top-navbar',
     'profitelo.components.pro-search-dropdown',
     'profitelo.components.interface.slider'
   ])

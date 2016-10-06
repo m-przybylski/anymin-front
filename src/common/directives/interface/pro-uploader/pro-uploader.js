@@ -62,7 +62,9 @@
           isProcess = true
           for (var i = 0; i < files.length; i++) {
             if (!files[i].$error) {
-              tokenPromisses.push(FilesApi.tokenPath().$promise)
+              tokenPromisses.push(FilesApi.tokenPath({
+                collectionType: 'AVATAR' // TODO send proper collectionType
+              }).$promise)
               scope.errorValidateMessage = false
             }
           }
@@ -72,7 +74,7 @@
               _files = files.length
               _setFilesStatus(_file, _files)
               Upload.upload({
-                url: _commonConfig.urls.backend + _commonConfig.urls['file-upload'].replace('%s', tokenPromissesResponse[k++].fileId) + '/preview',
+                url:    _commonConfig.urls.files + _commonConfig.urls['file-upload'].replace('%s', tokenPromissesResponse[k++].fileId),
                 data: {
                   file: file
                 }

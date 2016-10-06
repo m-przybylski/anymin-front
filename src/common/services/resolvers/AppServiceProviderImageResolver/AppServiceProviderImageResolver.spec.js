@@ -48,9 +48,9 @@ describe('Unit testing: profitelo.services.resolvers.app.service-provider-image-
 
       spyOn(spy, 'spy')
       resourcesExpectations.FilesApi.fileInfoPath.respond(200, {
-        meta: {
-          downloadUrl: 'http://i_just_download_image.profitelo.pl'
-        }
+        previews: [
+          'http://i_just_download_image.profitelo.pl'
+        ]
       })
       AppServiceProviderImageResolver.resolve(':token').then((res)=> {
         expect(res).toBe('http://i_just_download_image.profitelo.pl')

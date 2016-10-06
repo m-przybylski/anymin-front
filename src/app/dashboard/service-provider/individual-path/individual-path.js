@@ -65,11 +65,7 @@
           avatar: this.individualPathModel.avatar,
           languages: this.individualPathModel.languages,
           files: this.individualPathModel.files.map((file) => {
-            if (typeof file.previewFileId !== 'undefined') {
-              return {fileId: file.fileId, previewFileId: file.previewFileId}
-            } else {
-              return {fileId: file.id, previewFileId: file.meta.previewFileId}
-            }
+            return {token: file.token, previews: file.previews}
           }),
           links: this.individualPathModel.links
         }
@@ -87,6 +83,7 @@
         })
       })
     }
+
     return this
   }
 

@@ -8,7 +8,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
     let _FilesApiDef
     let resourcesExpectations
 
-    let file = {fileId: ':token'}
+    let file = {token: ':token'}
     let _url = 'awesomeUrl'
 
     var validHTML = '<pro-service-provider-file-uploader data-queue="vm.queue" ' +
@@ -88,7 +88,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
         files: [
           {
             response: {
-              id: file
+              file: file
             }
           }
         ]
@@ -102,8 +102,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
 
       _rootScope.$digest()
 
-
-      expect(isoScope.proModel.files.map(_file => _file.id).indexOf(file) >= 0).toEqual(true)
+      expect(isoScope.proModel.files.length > 0).toEqual(true)
 
     })
 
@@ -131,11 +130,11 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
     it('should add saved elements to scope model', () => {
 
       let details = {
-        id: file
+        token: file
       }
 
       resourcesExpectations.FilesApi.fileInfoPath.respond(200, {
-        details: details
+        token: file
       })
 
       let el = create(validHTML, {
@@ -145,9 +144,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
       let isoScope = el.isolateScope()
 
       _httpBackend.flush()
-
-
-      expect(isoScope.model.files[0].file.id).toEqual(file)
+      expect(isoScope.model.files[0].file.token).toEqual(file.token)
 
 
     })

@@ -40,7 +40,7 @@
       let _isValid = () => {
         let _isValidDeferred = $q.defer()
         if (angular.isDefined(scope.model[scope.imageField]) && scope.model[scope.imageField].length > 0 && !scope.isPending) {
-          _isValidDeferred.resolve(scope.model[scope.imageField][0].response.id)
+          _isValidDeferred.resolve(scope.model[scope.imageField][0].response.token)
         } else {
           _isValidDeferred.reject()
         }
