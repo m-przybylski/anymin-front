@@ -10,6 +10,9 @@
       results: []
     }
 
+    this.waitingForSearchResponse = true
+    this.waitingForLoadMoreResponse = false
+
     this.searchParams = {}
 
     searchService.setSearchQueryParams(angular.extend({}, $stateParams, $location.search(), {offset: null}))
@@ -33,6 +36,8 @@
     searchService.onSearchResults($scope, (results) => {
       this.searchResults = results
       this.receivedData = true
+      this.waitingForSearchResponse = false
+      this.waitingForLoadMoreResponse = false
     })
 
     this.tagsClick = (tag) => {
@@ -45,6 +50,7 @@
       if (angular.isDefined(this.searchResults.results)) {
         const count = this.searchResults.results.length
         if (count < countMax) {
+          this.waitingForLoadMoreResponse = true
           searchService.setSearchQueryParams(angular.extend($stateParams, $location.search(), {offset: count}))
         }
       }
@@ -63,6 +69,7 @@
           $location.search(key, value)
         }
       })
+      this.waitingForSearchResponse = true
     })
 
     return this
