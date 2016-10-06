@@ -56,7 +56,9 @@
       }
 
       scope.setShowSearch = () => {
+        
         const navbarSearchInput = elem.find('.search-bar-container .search-bar')[0]
+        
         const searchInputOnPage = angular.element(document).find('.search-bar-container .search-bar')[1]
 
         if (!!searchInputOnPage) {
@@ -64,7 +66,7 @@
           searchInputOnPage.focus()
           scope.searchMaskActive = false
 
-        } else {
+        } else if (!!navbarSearchInput) {
           scope.showSearch = true
           scope.showUserMenuOnClick = false
           navbarSearchInput.focus()

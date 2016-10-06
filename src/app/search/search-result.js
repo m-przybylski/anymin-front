@@ -9,7 +9,7 @@
       count: 0,
       results: []
     }
-
+    
     this.waitingForSearchResponse = true
     this.waitingForLoadMoreResponse = false
 
@@ -36,8 +36,12 @@
     searchService.onSearchResults($scope, (results) => {
       this.searchResults = results
       this.receivedData = true
-      this.waitingForSearchResponse = false
-      this.waitingForLoadMoreResponse = false
+      $timeout(()=> {
+          this.waitingForSearchResponse = false
+        }, 1000)
+        this.waitingForLoadMoreResponse = false
+
+
     })
 
     this.tagsClick = (tag) => {
@@ -84,6 +88,7 @@
     'profitelo.components.search.no-consultations',
     'profitelo.directives.search.search-filters',
     'profitelo.directives.pro-footer',
+    'profitelo.components.interface.preloader',
     'profitelo.services.search'
   ])
     .config( function($stateProvider, UserRolesProvider) {
