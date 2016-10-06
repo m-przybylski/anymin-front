@@ -56,6 +56,7 @@
       }
 
       scope.setShowSearch = () => {
+        const navbarSearchInput = elem.find('.search-bar-container .search-bar')[0]
         const searchInputOnPage = angular.element(document).find('.search-bar-container .search-bar')[1]
 
         if (!!searchInputOnPage) {
@@ -64,14 +65,20 @@
           scope.searchMaskActive = false
 
         } else {
-          scope.showSearch = scope.showSearch !== true
+          scope.showSearch = true
           scope.showUserMenuOnClick = false
+          navbarSearchInput.focus()
 
           if (scope.showSearch && scope.sidebarStatus && scope.windowSize < 992 || scope.showResponsiveMenu) {
             scope.sidebarAction()
           }
         }
+      }
 
+      scope.setHideSearch = () => {
+        const navbarSearchInput = elem.find('.search-bar-container .search-bar')[0]
+        navbarSearchInput.blur()
+        scope.showSearch = false
       }
 
       scope.hideOtherMenus = ()=> {

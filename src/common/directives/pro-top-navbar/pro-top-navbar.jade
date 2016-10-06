@@ -35,7 +35,7 @@
             a.search-active-btn.menu-item(data-ng-click="searchAction(searchModel)")
               span.search(data-translate="NAVIGATION.SEARCH.BUTTON")
 
-            a.cancel-btn.menu-item(data-ng-click="setShowSearch()")
+            a.cancel-btn.menu-item(data-ng-click="setHideSearch()")
               span.cancel(data-translate="NAVIGATION.CANCEL.BUTTON")
 
       .default-state(data-ng-if="!showSearch" data-ng-class="{'logIn':!!$root.loggedIn, 'logOut':!$root.loggedIn}")
