@@ -6,7 +6,9 @@
     display: flex
     align-items: center
 
+
     &::before
+      +animation(status-blank 1.5s infinite)
       content: ""
       width: 8px
       height: 8px
@@ -19,3 +21,11 @@
 
       &::before
         background: $c-success
+
++keyframes(status-blank)
+  0%
+    opacity: 0.7
+  50%
+    opacity: 1
+  100%
+    opacity: 0.7
