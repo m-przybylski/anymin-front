@@ -100,11 +100,10 @@
           angular.element('.search-bar-container').find('input:focus')[0].blur()
         }
 
-        if($location.search()['q'] !== scope.searchModel) {
+        if ($location.search()['q'] !== scope.searchModel) {
           searchService.setSearchQueryParams({q: scope.searchModel, tagId: null})
           $location.search('tagId', null)
-        }
-        else {
+        } else {
           searchService.setSearchQueryParams({q: scope.searchModel})
         }
       }

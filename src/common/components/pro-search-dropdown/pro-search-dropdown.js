@@ -16,10 +16,12 @@
       organizations: {}
     }
 
-    const _searchAction = () => {
-      if (this.ngModel && this.ngModel.length > 2) {
-        this.isCollapsed = false
+    this.loadingSuggestion = false
+    this.lastSearchWord = ''
 
+    const _updateSuggestions = (searchWord) => {
+      if (angular.isDefined(searchWord) && searchWord.toString().length >= 3) {
+        this.loadingSuggestion = true
         $q.all([
           searchService.suggest(this.ngModel),
           categoryService.getCategorySlugs()
@@ -30,15 +32,33 @@
           this.suggestions.experts = data[0].experts
           this.suggestions.organizations = data[0].organizations
           this.categorySlugs = data[1]
+          this.lastSearchWord = searchWord
+          this.loadingSuggestion = false
+        }, () => {
+          this.loadingSuggestion = false
         })
+      }
+    }
+
+    const _searchAction = () => {
+      if (this.ngModel && this.ngModel.length >= 3 && this.isFocused) {
+        this.isCollapsed = false
+
+        _updateSuggestions(this.ngModel)
         if (qInput && qInput.scrollLeft > 0) {
           this.suggestions.primary = null
         } else {
           this.suggestions.primary = this.ngModel + ' test'
         }
+
       } else {
         this.isCollapsed = true
       }
+    }
+
+    const _focusOut = () => {
+      this.isFocused = false
+      this.isCollapsed = true
     }
 
     const _searchActionDebounce = _.debounce(_searchAction, 200, {
@@ -47,23 +67,29 @@
     })
 
     this.search = () => {
+      _focusOut()
       if ($state.current.name !== 'app.search-result') {
         $state.go('app.search-result', {q: this.ngModel})
       }
       $location.search('tagId', null)
     }
 
-    this.onFocus = () => {
+    const _focus = () => {
       this.isFocused = true
       this.isCollapsed = false
-      console.log('on focus')
+
+      if (!this.loadingSuggestion && angular.isDefined(this.ngModel) && this.ngModel !== this.lastSearchWord) {
+        _updateSuggestions(this.ngModel)
+      }
+    }
+
+    this.onFocus = () => {
+      _focus()
     }
 
     this.onFocusOut = () => {
-      if(!this.isMouseOverDropdown) {
-        this.isFocused = false
-        this.isCollapsed = true
-        console.log('on focus out')
+      if (!this.isMouseOverDropdown) {
+        _focusOut()
       }
     }
 
@@ -86,7 +112,7 @@
     return this
   }
 
-  let proSearchDropdown = {
+  const proSearchDropdown = {
     transclude: true,
     templateUrl: 'components/pro-search-dropdown/pro-search-dropdown.tpl.html',
     controller:  proSearchDropdownController,
