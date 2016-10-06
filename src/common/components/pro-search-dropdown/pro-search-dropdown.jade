@@ -7,9 +7,10 @@
     data-ng-focus="vm.onFocus()", data-ng-blur="vm.onFocusOut()")
     .dropdown-container(data-ng-show="!vm.isCollapsed",
       data-ng-mouseleave="vm.onDropdownMouseLeave()" data-ng-mouseenter="vm.onDropdownMouseEnter()")
-      term-suggestions(data-terms="vm.suggestions.terms" data-category-slugs="vm.categorySlugs")
-      tag-suggestions(data-tags="vm.suggestions.tags")
-      service-suggestions(data-services="vm.suggestions.services")
-      expert-suggestions(data-experts="vm.suggestions.experts")
-      organization-suggestions(data-organizations="vm.suggestions.organizations")
+      preloader(data-wait-for-response = "vm.loadingSuggestion")
+        term-suggestions(data-terms="vm.suggestions.terms" data-category-slugs="vm.categorySlugs")
+        tag-suggestions(data-tags="vm.suggestions.tags")
+        service-suggestions(data-services="vm.suggestions.services")
+        expert-suggestions(data-experts="vm.suggestions.experts")
+        organization-suggestions(data-organizations="vm.suggestions.organizations")
 

@@ -7,6 +7,7 @@
     this.isFocused = false
     this.isMouseOverDropdown = false
     this.categorySlugs = {}
+    this.waitForResponse = false
     this.suggestions = {
       primary: '',
       terms: [],
@@ -15,7 +16,7 @@
       experts: {},
       organizations: {}
     }
-
+    
     this.loadingSuggestion = false
     this.lastSearchWord = ''
 
@@ -36,6 +37,7 @@
           this.loadingSuggestion = false
         }, () => {
           this.loadingSuggestion = false
+
         })
       }
     }
@@ -127,6 +129,7 @@
     'profitelo.services.search',
     'profitelo.services.categories',
     'ui.router',
+    'profitelo.components.interface.preloader',
     'profitelo.filters.normalize-translation-key-filter',
     'profitelo.components.pro-search-dropdown.term-suggestions',
     'profitelo.components.pro-search-dropdown.organization-suggestions',

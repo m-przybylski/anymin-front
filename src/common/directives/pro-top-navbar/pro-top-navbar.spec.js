@@ -6,6 +6,7 @@ describe('Unit testing: profitelo.directives.pro-top-navbar', () => {
     let state
     let compile = null
     let validHTML = '<pro-top-navbar></pro-top-navbar>'
+    let smoothScrolling
 
     beforeEach(module(($provide) => {
       $provide.value('apiUrl', '')
@@ -15,10 +16,11 @@ describe('Unit testing: profitelo.directives.pro-top-navbar', () => {
       module('templates-module')
       module('profitelo.directives.pro-top-navbar')
 
-      inject(($rootScope, $compile) => {
+      inject(($rootScope, $compile, _smoothScrolling_) => {
         rootScope = $rootScope.$new()
         compile = $compile
         state = {}
+        smoothScrolling = _smoothScrolling_
       })
     })
 
@@ -37,13 +39,6 @@ describe('Unit testing: profitelo.directives.pro-top-navbar', () => {
     it('should compile the directive', () => {
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)
-    })
-
-    it('should set ShowSearch', () => {
-      let el = create(validHTML)
-      let isoScope = el.isolateScope()
-      isoScope.setShowSearch()
-      expect(isoScope.showSearch).toBeDefined(true)
     })
     
   })
