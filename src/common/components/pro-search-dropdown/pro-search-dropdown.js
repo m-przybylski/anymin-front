@@ -44,6 +44,11 @@
       'trailing': true
     })
 
+    this.autofocus = () => {
+      console.log("focus")
+      this.collapsed = false
+    }
+
     this.search = () => {
 
       if ($state.current.name !== 'app.search-result') {

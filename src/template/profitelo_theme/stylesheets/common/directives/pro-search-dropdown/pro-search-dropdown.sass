@@ -34,14 +34,16 @@
     top: $dashboard-navbar-width
     -webkit-overflow-scrolling: touch
     overflow-y: scroll
-    height: calc(100vh - #{$dashboard-navbar-width})
+    max-height: calc(100vh - #{$dashboard-navbar-width})
     width: 100vw
     left: 0
+    display: none
 
     &.collapsed
-      display: none
+      display: block
 
     .title-row
+      +default-font-heavy
       padding: 32px 32px 0
 
     .dropdown-category-list
@@ -116,10 +118,10 @@
     .service-suggestions
       .dropdown-category-list
         +mdm
-          flex-wrap: nowrap
+
 
         .dropdown-list-item
-          flex: 1
+          flex: 1 0 100%
           align-items: flex-start
 
           +smm

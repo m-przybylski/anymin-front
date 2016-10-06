@@ -4,8 +4,8 @@ pro-top-navbar(logout-action="appController.logout" search-mask-active="vm.searc
 main.top-content-home
   .default-container.home-header
     include ./parts/top-container.partial.jade
-  .default-container
-    pro-search-dropdown()
+  .default-container(data-ng-click="vm.onSearchFocus()")
+    pro-search-dropdown
   .default-container
     include ./parts/branch-overview.partial.jade
 
