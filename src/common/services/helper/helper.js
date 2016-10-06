@@ -20,7 +20,7 @@
     }
 
     const fileUrlResolver = (fileId) => {
-      return _commonConfig.urls.backend + _commonConfig.urls['file-download'].replace('%s', fileId)
+      return _commonConfig.urls.files + _commonConfig.urls['file-download'].replace('%s', fileId)
     }
 
     return {

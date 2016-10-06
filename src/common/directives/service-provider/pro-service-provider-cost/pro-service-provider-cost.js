@@ -19,7 +19,6 @@
       scope.model.cost = parseFloat(scope.proModel.cost / 100) || ''
 
       const _isValid = () => {
-        console.log(scope.model.cost.length)
         let _isValidDeferred = $q.defer()
         if (angular.isDefined(scope.model.cost) && scope.model.cost > 0) {
           _isValidDeferred.resolve()

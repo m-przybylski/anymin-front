@@ -8,7 +8,7 @@ block content
       data-error-message='COMMON.DIRECTIVES.INTERFACE.UPLOADER.VALIDATION_ERROR')
       .image-preview
         .upload-field(data-ng-show="model[imageField].length")
-          img(data-ng-src="{{model[imageField][0].response.meta.downloadUrl}}")
+          img(data-ng-src="{{model[imageField][0].response.previews[0]}}")
           .btn-handler(data-ng-show="queue.currentStep === order")
             a.pro-button.round.icon.primary(data-ng-click="removeAvatar()")
               span.icon.icon-trash-24.icon-24
