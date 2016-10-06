@@ -1,156 +1,132 @@
 .single-consultation
-  margin: 32px auto
+  margin: 0 auto 16px
+  background: $c-background
+  padding: 32px 16px
 
   +smm
-    margin: 64px auto
+    padding: 32px
+    margin: 0 auto 32px
 
-  .black-row
-    background: $c-primary-txt
-    padding: 16px
-    color: $c-white
-
+  h3
+    margin: 0 0 24px
+    
     +smm
-      padding: 16px 32px 32px
+      margin: 0 0 12px
 
-  .title-row-consultation
-    .options-details
+    a
+      +default-font-light
+      text-align: right
+      color: $c-primary-txt
+
+  h5
+    +default-font-heavy
+    text-transform: uppercase
+    display: inline-block
+    color: $c-primary-txt
+    font-size: $f-paragraph
+
+    .currency
+      margin: 0 0 0 4px
+
+  .consultation-wrapper
+    display: flex
+    flex-wrap: wrap
+    width: 100%
+
+    +mdm
+      align-items: flex-start
+
+    .consultation-details
+      margin: 0 0 32px
+
+      +mdm
+        margin: 0
+        width: 75%
+
+      .consultation-price
+        margin: 0 0 24px
+
+        +mdm
+          margin: 8px 0 24px
+
+      .consultation-options
+        display: flex
+        align-items: center
+
+        .options-item
+          display: flex
+          align-items: center
+          color: $c-secondary-txt
+          font-size: $f-small
+          margin: 0 16px 0 0
+
+          .icon
+            margin: 0 8px 0 0
+      
+    .consultation-actions
       display: flex
-      align-items: center
-      flex: 1 0 100%
-      justify-content: space-between
       flex-wrap: wrap
-      margin: 0 0 16px
+      flex: 1 0 100%
 
       +smm
-        flex-wrap: nowrap
+        justify-content: space-between
 
-      .options-consultation
-        display: flex
-        color: $c-secondary-txt
-        order: 2
-        flex: 1 0 100%
-
-
-        +smm
-          flex: 1
-          order: 1
-
-        .option-item
-          +default-font-heavy
-          padding: 0 0 0 8px
-
-          &:first-child
-            padding: 0
-
-          span
-            color: $c-secondary-txt
-            font-size: $f-nav-size
-            vertical-align: middle
-            padding: 0 8px 0 0
+      +mdm
+        flex: 1
+        width: 25%
+        justify-content: flex-end
 
       .consultation-profile
         display: flex
         align-items: center
-        order: 1
-        margin-bottom: 16px
-        color: inherit
-        flex: 1
+        margin: 0 0 32px
+        flex: 1 0 100%
 
         +smm
-          order: 2
           margin: 0
-          text-align: right
-
-        .thumb
-          display: flex
-          margin: 0 16px 0 0
-          order: 1
           flex: 1
 
-          +smm
-            margin: 0 0 0 16px
-            order: 2
+        +mdm
+          margin: 0 0 32px
+          flex: 1 0 100%
+          justify-content: flex-end
+          align-items: flex-start
 
         .author
-          text-align: left
           order: 2
-          flex: 1
+          flex: 1 0
 
-          +smm
-            text-align: right
+          +mdm
             order: 1
 
-        .status-list
-          .status
-            justify-content: flex-start
+          .status-list
+            order: 1
+
+            +mdm
+              order: 2
+
+            .status
+              +mdm
+                justify-content: flex-end
+
+          h6
+            order: 1
+            color: $c-secondary-txt
+            font-size: $f-paragraph
 
             +smm
-              justify-content: flex-end
+              padding: 0 16px 0 0
 
-        h6
-          +default-font-heavy
-          color: $c-white
+            +mdm
+              padding: 0
+              text-align: right
 
-          a
-            color: $c-white
+            a
+              @extend h6
 
-    .entry-title
-      margin: 32px 0
-
-      h3
-        +default-font-regular
-        color: $c-white
-
-    .title-row
-      margin: 0 0 32px 0
-
-      h3
-        +default-font-regular
-        color: $c-white
-
-        a
-          color: $c-white
-
-    .cost-consultations
-      display: flex
-      align-items: center
-      justify-content: space-between
-      flex-wrap: wrap
-
-      +xsm
-        flex-wrap: nowrap
-
-      .price
-        display: flex
-        align-items: center
-        margin: 0 0 16px
-
-        +xsm
-          margin: 0
-
-        h3
-          +default-font-regular
-          color: $c-white
-          margin: 0 0 0 16px
-          display: flex
-          align-items: flex-end
-          align-items: center
-          line-height: 1
-
-          .currency
-            +default-font-heavy
-            font-size: $f-nav-size
-            margin-left: 5px
-            text-transform: uppercase
-
-      .pro-button
-        width: 100%
-        height: 48px
-        display: flex
-        font-size: $f-btn-size
-        text-transform: uppercase
-        align-items: center
-        justify-content: center
-
-        +xsm
-          width: auto
+        .thumb
+          order: 1
+          margin: 0 16px 0 0
+          
+          +mdm
+            margin: 0 0 0 16px

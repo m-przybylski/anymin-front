@@ -44,12 +44,12 @@ html
   +default-font-regular
   line-height: 1.2
 
-.circle
-  border-radius: 50%
-
 .thumb
-  max-width: 56px
-  max-height: 56px
+  border-radius: 50%
+  display: inline-flex
+  max-width: 48px
+  max-height: 48px
+  overflow: hidden
 
 .hidden
   display: none
@@ -78,12 +78,11 @@ img
     display: block
     overflow: hidden
     text-indent: -50%
-    border-radius: 50%
-    min-width: 56px
-    min-height: 56px
+    min-width: 48px
+    min-height: 48px
 
     &.isNotUploaded
-      background: url('/assets/images/no-avatar.jpg') 50% 50% / cover
+      background: url('/assets/images/no-avatar.jpg') 50% 50% / cover $c-background
       position: relative
       border-radius: 50%
       overflow: hidden
@@ -103,3 +102,8 @@ img
       align-items: center
       justify-content: center
       background: url('/assets/images/no-avatar.jpg') 50% 50% / cover
+
+
+.icon
+  display: inline-flex
+  align-items: center

@@ -1,16 +1,28 @@
 .default-container.single-consultation
-  .title-row-consultation.black-row
-    .options-details
-      .options-consultation
-        .option-item
-          span.icon.icon-satisfaction-16
-          span {{ ::vm.consultation.satisfaction }}%
-        .option-item
-          span.icon.icon-calls-16
-          span {{ ::vm.consultation.talks }}
-        .option-item
-          span.icon.icon-time-16
-          span {{ ::vm.consultation.timeAverage }} min.
+  .consultation-wrapper
+    .consultation-details
+      .consultation-price
+        span.label-price(data-translate="DASHBOARD.CONSULTATION.PRICE")
+        h5 {{ ::vm.consultation.price / 100}}
+          span.currency(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE")
+
+      .consultation-profile
+        .consultation-info
+          h3
+            a(data-ui-sref="app.company-profile({ contactId: vm.consultation.owner.id })") {{ ::vm.consultation.name }}
+
+          .consultation-options
+            .options-item
+              span.icon.icon-satisfaction-16
+              span {{ ::vm.consultation.satisfaction }}%
+            .options-item
+              span.icon.icon-calls-16
+              span {{ ::vm.consultation.talks }}
+            .options-item
+              span.icon.icon-time-16
+              span {{ ::vm.consultation.timeAverage }} min.
+
+    .consultation-actions
       .consultation-profile
         .author
           h6
@@ -18,20 +30,10 @@
           .status-list
             span.status.availability {{ ::'HOME.EXPERT_CARD_AVAILABLE' | translate }}
 
-
         a.thumb(data-ui-sref="app.company-profile({ contactId: vm.consultation.owner.id })")
           img.user-avatar(data-ng-src="{{ ::vm.profileImage }}" alt="{{ ::vm.consultation.owner.name }}")
 
-    .title-row
-      h3
-        a(data-ui-sref="app.company-profile({ contactId: vm.consultation.owner.id })") {{ ::vm.consultation.name }}
+      a.btn.success
+        span.icon.icon-headphone-16.icon-left
+        | {{ ::'HOME.TOP_CONTAINER.EXPERT_PROFILE.CALL' | translate }}
 
-    .cost-consultations
-      .price
-        span.icon.icon-price-32
-        h3 {{ ::vm.consultation.price / 100}}
-          span.currency(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE")
-      a.pro-button.rectangle.success.icon {{ ::'HOME.TOP_CONTAINER.EXPERT_PROFILE.CALL' | translate }}
-        span.icon.icon-headphone-16
-
-  pro-summary-tag(data-tags="::vm.consultation.tags" data-title="Tagi" data-hide-more-tags="false")
