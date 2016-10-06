@@ -226,13 +226,14 @@
             background: $c-primary
             color: $c-white
 
-          &.clear-input-btn
-            span:not(.icon)
-              color: $c-label
+          &.results-input
+            display: none
 
-            .icon
-              margin: 0 0 0 16px
-              font-size: $f-small
+            +mdm
+              display: flex
+
+            span
+              color: $c-label
 
       .search-bar,
       .search-bar-shadow
