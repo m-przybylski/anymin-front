@@ -64,7 +64,6 @@
       } else {
         return !angular.element('.search-bar-container').find('input:focus')[0]
       }
-
     }
 
     $('.dropdown-container').perfectScrollbar()

@@ -86,14 +86,20 @@
         }
       })
 
-      scope.searchAction = () => {
+      scope.searchAction = (search) => {
         if ($state.current.name !== 'app.search-result') {
           $state.go('app.search-result')
         } else if (angular.isDefined(angular.element('.search-bar-container').find('input:focus')[0])) {
           angular.element('.search-bar-container').find('input:focus')[0].blur()
         }
-        searchService.setSearchQueryParams({q: scope.searchModel})
-        $location.search('tagId', '')
+
+        if($location.search()['q'] !== scope.searchModel) {
+          searchService.setSearchQueryParams({q: scope.searchModel, tagId: null})
+          $location.search('tagId', null)
+        }
+        else {
+          searchService.setSearchQueryParams({q: scope.searchModel})
+        }
       }
 
     }
