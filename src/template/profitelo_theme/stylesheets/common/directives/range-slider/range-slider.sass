@@ -6,26 +6,29 @@
     color: $c-secondary-txt
     text-transform: uppercase
     position: absolute
-    top: 0
+    top: 12px
     left: 0
+    font-size: $f-h6-size
 
   .rzslider
+    margin: 40px 0 15px 0
+
     > :nth-last-child(2)
       background: red
       display: none
 
     .rz-bar
-      background: $c-lines
+      background: $c-background-5
 
       &.rz-selection
-        background: $c-primary-txt
+        background: $c-primary
 
     .rz-pointer
-      background: $c-white
-      border: 2px solid $c-primary-txt
-      width: 12px
-      height: 12px
-      top: -4px
+      background: $c-primary
+      border: 2px solid $c-white
+      width: 14px
+      height: 14px
+      top: -5px
       border-radius: 50%
 
       &::after
@@ -35,6 +38,8 @@
       +default-font-heavy
 
       &.rz-from
+        +default-font-regular
+        font-size: $f-paragraph
         left: auto !important
         right: 25px !important
         visibility: visible !important
@@ -44,6 +49,8 @@
           margin: 0 8px
 
       &.rz-to
+        +default-font-regular
+        font-size: $f-paragraph
         left: auto !important
         right: 0 !important
         opacity: 1 !important

@@ -213,23 +213,37 @@
         .menu-item
           width: auto
           padding: 0 16px
+          border-left: 0
 
           +smm
             padding: 0 32px
 
-      .icon
-        display: none
+          &.cancel-btn
+            background: $c-primary-txt
+            color: $c-white
+
+          &.search-active-btn
+            background: $c-primary
+            color: $c-white
+
+          &.clear-input-btn
+            span:not(.icon)
+              color: $c-label
+
+            .icon
+              margin: 0 0 0 16px
+              font-size: $f-small
 
       .search-bar,
       .search-bar-shadow
-        +default-font-regular
+        +default-font-light
         border: 0
         box-shadow: none
         height: 79px
-        padding: 0 $dashboard-navbar-width 0 16px
+        padding: 0 $dashboard-navbar-width 0 64px
 
         +smm
-          padding: 0 $dashboard-navbar-width*3 +16px 0 32px
+          padding: 0 $dashboard-navbar-width*3 +16px 0 64px
 
     &.search-active
       .toggle-search

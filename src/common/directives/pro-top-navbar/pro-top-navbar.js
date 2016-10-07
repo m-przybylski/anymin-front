@@ -82,6 +82,10 @@
         navbarSearchInput.blur()
         scope.showSearch = false
       }
+      
+      scope.clearResults = () => {
+        
+      }
 
       scope.hideOtherMenus = ()=> {
         if ((scope.showResponsiveMenu || scope.sidebarStatus) && scope.windowSize < 992) {
