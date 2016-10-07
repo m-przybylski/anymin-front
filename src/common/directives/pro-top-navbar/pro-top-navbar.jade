@@ -32,13 +32,17 @@
           pro-search-dropdown(data-ng-enter="searchAction(searchModel)" data-ng-model="searchModel" no-delete)
 
           .search-active-state
+            a.clear-input-btn.menu-item(data-ng-click="clearResults()")
+              span {{ "SEARCH.RESULTS" | translate }}
+              span.icon.icon-close-16
+
             a.search-active-btn.menu-item(data-ng-click="searchAction(searchModel)")
-              span.search(data-translate="NAVIGATION.SEARCH.BUTTON")
+              span(data-translate="NAVIGATION.SEARCH.BUTTON")
 
             a.cancel-btn.menu-item(data-ng-click="setHideSearch()")
-              span.cancel(data-translate="NAVIGATION.CANCEL.BUTTON")
+              span(data-translate="NAVIGATION.CANCEL.BUTTON")
 
-      .default-state(data-ng-if="!showSearch" data-ng-class="{'logIn':!!$root.loggedIn, 'logOut':!$root.loggedIn}")
+    .default-state(data-ng-if="!showSearch" data-ng-class="{'logIn':!!$root.loggedIn, 'logOut':!$root.loggedIn}")
         a.search-btn.menu-item(data-ng-click="setShowSearch()")
           span.icon.icon-search-24
           span.search(data-ng-hide="!!$root.loggedIn || showSearch" data-translate="NAVIGATION.SEARCH.BUTTON")
