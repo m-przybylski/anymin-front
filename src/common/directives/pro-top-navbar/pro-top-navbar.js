@@ -84,7 +84,7 @@
       }
       
       scope.clearResults = () => {
-        
+        scope.searchModel = null
       }
 
       scope.hideOtherMenus = ()=> {
@@ -130,7 +130,8 @@
         isExpert: '=?',
         showResponsiveMenu: '=?',
         showNavigationMenu: '=?',
-        searchMaskActive: '=?'
+        searchMaskActive: '=?',
+        searchCount: '=?'
       }
 
     }

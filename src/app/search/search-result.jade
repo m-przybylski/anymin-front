@@ -1,5 +1,5 @@
 .search-result
-  pro-top-navbar(data-show-search="true" logout-action="appController.logout")
+  pro-top-navbar(data-show-search="true" logout-action="appController.logout" data-search-count="vm.searchResults.count")
   preloader(data-wait-for-response= "vm.waitingForSearchResponse")
     search-filters(data-tag-click-action="vm.tagsClick" data-search-results="vm.searchResults")
     no-consultations(data-query="vm.searchParams.q" data-ng-if="vm.searchResults.results.length === 0 && vm.receivedData")

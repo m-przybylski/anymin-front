@@ -21,7 +21,7 @@
     this.lastSearchWord = ''
 
     const _updateSuggestions = (searchWord) => {
-      if (angular.isDefined(searchWord) && searchWord.toString().length >= 3) {
+      if (angular.isDefined(searchWord) && searchWord !== null && searchWord.toString().length >= 3) {
         this.loadingSuggestion = true
         $q.all([
           searchService.suggest(this.ngModel),
@@ -101,6 +101,10 @@
 
     this.onDropdownMouseEnter = () => {
       this.isMouseOverDropdown = true
+    }
+
+    this.clearModel = () => {
+      this.ngModel = null
     }
 
     $scope.$watch(() => {

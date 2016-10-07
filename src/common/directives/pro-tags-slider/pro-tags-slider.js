@@ -52,12 +52,17 @@
         }
       }
 
+      // .slidePage offset right < .slider-tag offset right
+
+      const tagsContainerOffsetRight = (($('.slider-tag').width()));
+      let slidersOffsetRight = (($('.slide-page').width()));
+
+      //console.log($window.innerWidth - ($('.slide-page').offset().left) )
       scope.nextSlide = (next=1) => {
         if (currentElement < elementsMap.length - next) {
           currentElement = currentElement + next
           scope.leftOffset = {left: _calculateOffset(currentElement) * -1}
         } else {
-          _clearSlider()
         }
       }
     }
