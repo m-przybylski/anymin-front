@@ -32,9 +32,8 @@
           pro-search-dropdown(data-ng-enter="searchAction(searchModel)" data-ng-model="searchModel" no-delete)
 
           .search-active-state
-            a.clear-input-btn.menu-item(data-ng-click="clearResults()")
+            a.results-input.menu-item(data-ng-click="clearResults()")
               span {{ "SEARCH.RESULTS" | translate }}
-              span.icon.icon-close-16
 
             a.search-active-btn.menu-item(data-ng-click="searchAction(searchModel)")
               span(data-translate="NAVIGATION.SEARCH.BUTTON")

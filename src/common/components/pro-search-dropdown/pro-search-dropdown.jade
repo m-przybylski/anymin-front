@@ -5,6 +5,7 @@
     input.search-bar(type="text", placeholder="{{::'HOME.SEARCH_PLACEHOLDER' | translate}}",
     data-ng-model="vm.ngModel", data-ng-enter="vm.search()", data-ng-trim="false",
     data-ng-focus="vm.onFocus()", data-ng-blur="vm.onFocusOut()")
+    span.icon.icon-close-16
     .dropdown-container(data-ng-show="!vm.isCollapsed",
       data-ng-mouseleave="vm.onDropdownMouseLeave()" data-ng-mouseenter="vm.onDropdownMouseEnter()")
       preloader(data-wait-for-response = "vm.loadingSuggestion")

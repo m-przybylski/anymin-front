@@ -3,18 +3,23 @@
     position: relative
 
     .icon
-      display: flex
-      align-items: center
       position: absolute
-      left: 24px
       top: 0
       bottom: 0
       margin: auto
       z-index: $z-index-100
 
+      &.icon-search-24
+        display: flex
+        align-items: center
+        left: 24px
+        font-size: 24px
+
+      &.icon-close-16
+        right: $dashboard-navbar-width * 3
+
   .search-bar-shadow,
   .search-bar
-    padding: 20px 24px 20px 64px
     font-size: $f-paragraph
     width: 100%
     z-index: 1
@@ -113,9 +118,6 @@
 
     .service-suggestions
       .dropdown-category-list
-        +mdm
-
-
         .dropdown-list-item
           flex: 1 0 100%
           align-items: flex-start
