@@ -59,8 +59,10 @@
         scope.model.maxPrice = _maxPriceValue(params.maxPrice)
       })
 
-      searchService.onSearchResults(scope, (results) => {
-        scope.model.tags = results.relatedTags
+      searchService.onSearchResults(scope, (err, results) => {
+        if (!err) {
+          scope.model.tags = results.relatedTags
+        }
       })
 
       const setSearchQueryParamsDebounce = _.debounce(searchService.setSearchQueryParams, 500, {

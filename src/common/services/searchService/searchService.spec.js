@@ -45,9 +45,9 @@ describe('Unit testing: profitelo.services.search >', () => {
         sortBy: 'top',
         language: undefined,
         offset: 0,
-        limit: 42,
+        limit: 20,
         minPrice: 0,
-        maxPrice: null
+        maxPrice: 100
       })
     })
 
@@ -66,7 +66,7 @@ describe('Unit testing: profitelo.services.search >', () => {
         sortBy: 'price',
         language: 'pl',
         offset: '143',
-        limit: '43',
+        limit: '20',
         minPrice: '5',
         maxPrice: '10'
       })
@@ -87,7 +87,7 @@ describe('Unit testing: profitelo.services.search >', () => {
         sortBy: 'price',
         language: 'pl',
         offset: 143,
-        limit: 43,
+        limit: 20,
         minPrice: 5,
         maxPrice: 10
       })
@@ -129,7 +129,7 @@ describe('Unit testing: profitelo.services.search >', () => {
         sortBy: 'top',
         language: undefined,
         offset: 0,
-        limit: 42,
+        limit: 20,
         minPrice: 5,
         maxPrice: 0
       })
@@ -166,9 +166,9 @@ describe('Unit testing: profitelo.services.search >', () => {
         sortBy: 'top',
         language: undefined,
         offset: 0,
-        limit: 42,
+        limit: 20,
         minPrice: 0,
-        maxPrice: null
+        maxPrice: 100
       })
     })
 

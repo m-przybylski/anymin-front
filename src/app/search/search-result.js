@@ -1,80 +1,88 @@
 (function() {
 
-  function SearchResultController($scope, $location, $timeout, $stateParams, $rootScope, searchService) {
+  function SearchResultController($scope, $state, $location, $timeout, searchService, searchUrlService) {
 
-    this.receivedData = false
-
+    this.searchParams = $location.search()
     this.searchResults = {
       offset: 0,
       count: 0,
       results: []
     }
     
-    this.waitingForSearchResponse = true
-    this.waitingForLoadMoreResponse = false
+    this.isSearchLoading = true
+    this.isSearchError = false
+    this.isLoadMoreLoading = false
+    this.isLoadMoreError = false
+    this.isPending = false
 
-    this.searchParams = {}
+    searchService.setSearchQueryParams(this.searchParams)
 
-    searchService.setSearchQueryParams(angular.extend({}, $stateParams, $location.search(), {offset: null}))
+    console.log('init search result')
 
-    $scope.$on(
-      '$destroy',
-      $rootScope.$on('$locationChangeSuccess', () => {
-        searchService.setSearchQueryParams(angular.extend({}, $location.search(), {offset: null}))
-      })
-    )
-
-    $scope.$on(
-      '$destroy',
-      $rootScope.$on('$stateChangeStart', (event, newState) => {
-        if (newState.name !== 'app.search-result') {
-          $timeout(() => $location.search({}))
+    searchService.onSearchResults($scope, (err, searchResults, prevResults) => {
+      if (prevResults) {
+        console.log('loaded more')
+        this.isPending = false
+        if (!err) {
+          searchResults.results = this.searchResults.results.concat(searchResults.results)
+          this.searchResults = searchResults
+          this.isLoadMoreError = false
+          $timeout(()=> {
+            this.isLoadMoreLoading = false
+          }, 1000)
+        } else {
+          this.isLoadMoreError = true
         }
-      })
-    )
-
-    searchService.onSearchResults($scope, (results) => {
-      this.searchResults = results
-      this.receivedData = true
-      $timeout(() => {
-        this.waitingForSearchResponse = false
-      }, 1000)
-      this.waitingForLoadMoreResponse = false
-
-
+      } else {
+        if (!err) {
+          this.searchResults = searchResults
+        } else {
+          this.isSearchError = true
+        }
+        $timeout(()=> {
+          this.isSearchLoading = false
+        }, 1000)
+      }
     })
 
     this.tagsClick = (tag) => {
-      $location.search('tagId', tag.id)
-      $location.search('q', tag.name)
+      //$location.search('tagId', tag.id)
+      //$location.search('q', tag.name)
+      $state.go('app.search-result', {tagId: tag.id, q: tag.name})
     }
 
-    this.loadMore = () => {
+    const _loadMore = () => {
       const countMax = this.searchResults.count
-      if (angular.isDefined(this.searchResults.results)) {
+      if (angular.isDefined(this.searchResults.results) && !this.isPending) {
+        this.isPending = true
         const count = this.searchResults.results.length
         if (count < countMax) {
-          this.waitingForLoadMoreResponse = true
-          searchService.setSearchQueryParams(angular.extend($stateParams, $location.search(), {offset: count}))
+          this.isLoadMoreLoading = true
+          searchService.setSearchQueryParams(angular.extend($location.search(), {offset: count}))
         }
       }
     }
 
-    searchService.onQueryParamsChange($scope, (params) => {
-      this.searchParams = params
-      const currentParams = $location.search()
-      angular.forEach(currentParams, (value, key) => {
-        if (!params.hasOwnProperty(key)) {
-          $location.search(key, null)
-        }
-      })
-      angular.forEach(params, (value, key) => {
-        if (key !== 'offset' && key !== 'limit') {
+    this.loadMoreOnScroll = () => {
+      if (!this.isLoadMoreError) {
+        _loadMore()
+      }
+    }
+    
+    this.loadMoreOnClick = () => {
+      this.isLoadMoreError = false
+      _loadMore()
+    }
+
+
+    searchService.onQueryParamsChange($scope, (queryParams) => {
+      const params = searchUrlService.parseParamsForUrl(queryParams)
+
+      $location.search({})
+      if($state.current.name === 'app.search-result') {
+        angular.forEach(params, (value, key) => {
           $location.search(key, value)
-        }
-      })
-      if (!this.waitingForLoadMoreResponse) {
-        this.waitingForSearchResponse = true
+        })
       }
     })
 
@@ -91,28 +99,20 @@
     'profitelo.directives.search.search-filters',
     'profitelo.directives.pro-footer',
     'profitelo.components.interface.preloader',
-    'profitelo.services.search'
+    'profitelo.components.interface.preloader-container',
+    'profitelo.services.search',
+    'profitelo.services.search-url'
   ])
     .config( function($stateProvider, UserRolesProvider) {
       $stateProvider.state('app.search-result', {
-        url:          '/search-result',
-        templateUrl:  'search/search-result.tpl.html',
-        params: {
-          q: undefined,
-          tagId: undefined,
-          category: undefined,
-          categorySlug: undefined,
-          profileType: undefined,
-          onlyAvailable: false,
-          sortBy: undefined,
-          language: undefined,
-          offset: undefined,
-          limit: undefined
-        },
-        controller:   'SearchResultController',
+        url: '/search-result?q&tagId&category&categorySlug&profileType&onlyAvailable&sortBy&language',
+        reloadOnSearch: true,
+        reload: true,
+        templateUrl: 'search/search-result.tpl.html',
+        controller: 'SearchResultController',
         controllerAs: 'vm',
-        data : {
-          access : UserRolesProvider.getAccessLevel('public'),
+        data: {
+          access: UserRolesProvider.getAccessLevel('public'),
           pageTitle: 'PAGE_TITLE.SEARCH_RESULT'
         }
       })

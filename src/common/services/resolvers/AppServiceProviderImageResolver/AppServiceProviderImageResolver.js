@@ -6,13 +6,17 @@
       if (token !== null) {
         FilesApi.fileInfoPath({
           token: token
-        }).$promise.then((response)=> {
-          _deferred.resolve(response.previews[0]) // TODO change
+        }).$promise.then((response) => {
+          if(angular.isDefined(response) && angular.isDefined(response.previews)) {
+            _deferred.resolve(response.previews[0]) // TODO change
+          } else {
+            _deferred.resolve(null)
+          }
         }, () => {
           _deferred.resolve(null)
         })
       } else {
-        _deferred.resolve('')
+        _deferred.resolve(null)
       }
 
       return _deferred.promise

@@ -4,7 +4,8 @@
       span ({{ vm.organizations.count }})
 
     .organization-box.dropdown-category-list
-      a.expert-profile.dropdown-list-item(data-ng-repeat="organization in vm.organizations.results track by $index" data-ui-sref="app.company-profile({ contactId: organization.id })")
+      a.expert-profile.dropdown-list-item(data-ng-repeat="organization in vm.organizations.results track by $index"
+      data-ui-sref="app.company-profile({ contactId: organization.id })")
         img.expert-avatar.circle(src='http://placekitten.com/48/48')
 
         span.expert-data

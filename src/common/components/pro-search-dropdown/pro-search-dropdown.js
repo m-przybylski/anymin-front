@@ -1,6 +1,6 @@
 (function() {
   /* @ngInject */
-  function proSearchDropdownController($q, $scope, $state, $location, $element, searchService, categoryService) {
+  function proSearchDropdownController($q, $scope, $state, $location, $element, searchService, categoryService, searchUrlService) {
     const qInput = $element.find('[data-ng-model="vm.ngModel"]')[0]
 
     this.isCollapsed = true
@@ -70,10 +70,7 @@
 
     this.search = () => {
       _focusOut()
-      if ($state.current.name !== 'app.search-result') {
-        $state.go('app.search-result', {q: this.ngModel})
-      }
-      $location.search('tagId', null)
+      $state.go('app.search-result', {q: this.ngModel, tagId: ''})
     }
 
     const _focus = () => {
@@ -124,7 +121,9 @@
     controller:  proSearchDropdownController,
     controllerAs: 'vm',
     bindings: {
-      ngModel: '=?'
+      ngModel: '=?',
+      hideFn: '&',
+      showFn: '&'
     }
   }
 
