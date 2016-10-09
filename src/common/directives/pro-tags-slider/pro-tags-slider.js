@@ -1,16 +1,21 @@
 (function() {
   function proTagsSlider($window, $location, $timeout) {
     function linkFunction(scope, element) {
-      let currentWidth = 0
+
+      let tagsContainerWidth = element.find('.slider-tag')[0].clientWidth
       let elementsMap = []
       let currentElement = 0
 
+      scope.slidesContainerOffsetWidth = 0
+
       scope.leftOffset = {left: 0}
 
+      $timeout(() => {
+        scope.slidesContainerOffsetWidth = element.find('.slide-page')[0].clientWidth
+      })
+
       angular.element($window).on('resize', ()=> {
-        currentWidth = $('.slider-tag').width()
-        scope.leftOffset = {left: 0}
-        currentElement = 0
+        _clearSlider()
       })
 
       scope.$watch(() => {
@@ -28,9 +33,11 @@
       const _clearSlider = () => {
         scope.leftOffset = {left: 0}
         currentElement = 0
+        tagsContainerWidth = element.find('.slider-tag')[0].clientWidth
+        scope.slidesContainerOffsetWidth = element.find('.slide-page')[0].clientWidth
       }
 
-      let _calculateOffset = (elem) => {
+      const _calculateOffset = (elem) => {
         let offset = 0
         for (let i = 0; i < elem; i++) {
           offset = offset + elementsMap[i] + 16
@@ -49,21 +56,26 @@
         if (currentElement > 0) {
           currentElement = currentElement - next
           scope.leftOffset = {left: _calculateOffset(currentElement) * -1}
+          scope.slidesContainerOffsetWidth = element.find('.slide-page')[0].clientWidth + _calculateOffset(currentElement)
         }
       }
 
-      // .slidePage offset right < .slider-tag offset right
-
-      const tagsContainerOffsetRight = (($('.slider-tag').width()));
-      let slidersOffsetRight = (($('.slide-page').width()));
-
-      //console.log($window.innerWidth - ($('.slide-page').offset().left) )
       scope.nextSlide = (next=1) => {
-        if (currentElement < elementsMap.length - next) {
+
+        if (currentElement < elementsMap.length - next && tagsContainerWidth < scope.slidesContainerOffsetWidth) {
           currentElement = currentElement + next
           scope.leftOffset = {left: _calculateOffset(currentElement) * -1}
+          scope.slidesContainerOffsetWidth = element.find('.slide-page')[0].clientWidth - _calculateOffset(currentElement)
         } else {
         }
+      }
+
+      scope.leftArrowActive = () => {
+        return currentElement > 0
+      }
+
+      scope.rightArrowActive = () => {
+        return tagsContainerWidth < scope.slidesContainerOffsetWidth
       }
     }
 
