@@ -2,7 +2,6 @@
   .consultation-wrapper
     .consultation-details
       .consultation-price
-        span.label-price(data-translate="DASHBOARD.CONSULTATION.PRICE")
         h5 {{ ::vm.consultation.price / 100}}
           span.currency(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE")
 
@@ -11,27 +10,25 @@
           h3
             a(data-ui-sref="app.company-profile({ contactId: vm.consultation.owner.id })") {{ ::vm.consultation.name }}
 
-          .consultation-options
-            .options-item
-              span.icon.icon-satisfaction-16
+          ul.consultation-options
+            li.options-item
               span {{ ::vm.consultation.satisfaction }}%
-            .options-item
-              span.icon.icon-calls-16
+            li.options-item
               span {{ ::vm.consultation.talks }}
-            .options-item
-              span.icon.icon-time-16
+            li.options-item
               span {{ ::vm.consultation.timeAverage }} min.
 
     .consultation-actions
       .consultation-profile
+        a.thumb(data-ui-sref="app.company-profile({ contactId: vm.consultation.owner.id })")
+          img.user-avatar(data-ng-src="{{ ::vm.profileImage }}" alt="{{ ::vm.consultation.owner.name }}")
+
+          .status-list
+            span.status.availability
+
         .author
           h6
             a(data-ui-sref="app.company-profile({ contactId: vm.consultation.owner.id })") {{ ::vm.consultation.owner.name }}
-          .status-list
-            span.status.availability {{ ::'HOME.EXPERT_CARD_AVAILABLE' | translate }}
-
-        a.thumb(data-ui-sref="app.company-profile({ contactId: vm.consultation.owner.id })")
-          img.user-avatar(data-ng-src="{{ ::vm.profileImage }}" alt="{{ ::vm.consultation.owner.name }}")
 
       a.btn.success
         span.icon.icon-headphone-16.icon-left
