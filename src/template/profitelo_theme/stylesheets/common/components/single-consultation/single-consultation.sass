@@ -1,10 +1,9 @@
 .single-consultation
-  margin: 0 auto 16px
-  background: $c-background
-  padding: 32px 16px
+  background: $c-white
+  padding: 0 16px
 
   +smm
-    padding: 32px
+    padding: 0 32px
     margin: 0 auto 32px
 
   h3
@@ -12,10 +11,10 @@
     font-size: $f-h4-size
     
     +smm
-      margin: 0 0 12px
+      margin: 0 0 16px
 
     a
-      +default-font-light
+      +default-font-regular
       text-align: right
       color: $c-primary-txt
 
@@ -30,104 +29,79 @@
       margin: 0 0 0 4px
 
   .consultation-wrapper
-    display: flex
-    flex-wrap: wrap
-    width: 100%
-
-    +mdm
-      align-items: flex-start
+    border-bottom: 1px solid $c-lines
+    padding: 32px 16px
 
     .consultation-details
       margin: 0 0 32px
 
       +mdm
-        margin: 0
-        width: 75%
-
-      .consultation-price
         margin: 0 0 24px
 
-        +mdm
-          margin: 8px 0 24px
+      .consultation-price
+        margin: 0 0 16px
+
+        h5
+          font-size: $f-h4-size
+
+          span
+            color: $c-label
 
       .consultation-options
         display: flex
         align-items: center
 
         .options-item
+          +default-font-regular
           display: flex
           align-items: center
           color: $c-secondary-txt
-          font-size: $f-small
-          margin: 0 16px 0 0
+          font-size: $f-h5-size
+          margin: 0
 
-          .icon
-            margin: 0 8px 0 0
-      
+          &:last-child
+            &::after
+              content: none
+
+          &::after
+            content: '/'
+            margin: 0 4px
+
     .consultation-actions
-      display: flex
-      flex-wrap: wrap
-      flex: 1 0 100%
-
-      +smm
+      +xsm
+        display: flex
         justify-content: space-between
-
-      +mdm
-        flex: 1
-        width: 25%
-        justify-content: flex-end
 
       .consultation-profile
         display: flex
         align-items: center
-        margin: 0 0 32px
-        flex: 1 0 100%
+        margin: 0 0 24px
 
         +smm
           margin: 0
-          flex: 1
-
-        +mdm
-          margin: 0 0 32px
-          flex: 1 0 100%
-          justify-content: flex-end
-          align-items: flex-start
 
         .author
-          order: 2
-          flex: 1 0
+          flex: 1
+
+          +xsm
+            padding: 0 16px 0 0
 
           +mdm
-            order: 1
+            max-width: 75%
 
           .status-list
-            order: 1
-
-            +mdm
-              order: 2
-
             .status
               +mdm
                 justify-content: flex-end
 
           h6
-            order: 1
+            +default-font-regular
             color: $c-secondary-txt
-            font-size: $f-paragraph
-
-            +smm
-              padding: 0 16px 0 0
-
-            +mdm
-              padding: 0
-              text-align: right
+            font-size: $f-h5-size
 
             a
               @extend h6
 
         .thumb
-          order: 1
+          min-width: 48px;
           margin: 0 16px 0 0
-          
-          +mdm
-            margin: 0 0 0 16px

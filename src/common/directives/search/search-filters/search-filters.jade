@@ -12,6 +12,8 @@
 
       pro-dropdown(data-pro-model='model.category' data-label="{{::'SEARCH.DOMAINS' | translate }}" data-placeholder="{{::'SEARCH.ALL' | translate }}" data-pro-items="categoryList" data-no-search)
 
+      pro-dropdown(data-pro-model='model.category' data-label="{{::'SEARCH.CONSULTANT_TYPE' | translate }}" data-placeholder="{{::'SEARCH.ALL' | translate }}" data-pro-items="categoryList" data-no-search)
+
       pro-range-slider(data-min-value='model.minPrice' data-max-value='model.maxPrice' data-label="{{::'SEARCH.PRICE_RANGE' | translate}}")
 
-    pro-switcher(id="switcher" data-ng-model="model.onlyAvailable" data-label="SEARCH.EXPERTS_CURRENTLY_AVAILABLE")
+      pro-switcher(id="switcher" data-ng-model="model.onlyAvailable" data-label="SEARCH.EXPERTS_CURRENTLY_AVAILABLE")
