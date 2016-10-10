@@ -29,11 +29,11 @@
       .search-expandable(data-ng-class="{'logIn':!!$root.loggedIn, 'logOut':!$root.loggedIn}")
 
         div.toggle-search
-          pro-search-dropdown(data-ng-enter="searchAction(searchModel)" data-ng-model="searchModel" no-delete)
+          pro-search-dropdown(data-ng-enter="searchAction(searchModel)" data-ng-model="searchModel")
 
           .search-active-state
-            a.results-input.menu-item(data-ng-click="clearResults()")
-              span {{ "SEARCH.RESULTS" | translate }}
+            .results-input.menu-item(data-ng-if="!!searchCount && searchCount > 0")
+              span {{ searchCount }}{{ "SEARCH.RESULTS" | translate }}
 
             a.search-active-btn.menu-item(data-ng-click="searchAction(searchModel)")
               span(data-translate="NAVIGATION.SEARCH.BUTTON")

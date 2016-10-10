@@ -1,11 +1,11 @@
 .pro-tags-slider(data-ng-swipe-left="nextSlide()" data-ng-swipe-right="prevSlide()")
   .search-tags
-    a.arrow-left.arrow-slider(data-ng-click="prevSlide()")
+    a.arrow-left.arrow-slider(data-ng-click="prevSlide()" data-ng-class="{'active-btn': leftArrowActive()}")
       span.icon.icon-arrow-left-12
     .slider-tag
       .slides-container(data-ng-style="leftOffset")
         ul.slide-page
           li(data-ng-repeat="tag in tags track by $index" data-ng-click="::tagAction(tag)")
             a.slide-btn-tag {{::tag.name}}
-    a.arrow-right.arrow-slider(data-ng-click="nextSlide()")
+    a.arrow-right.arrow-slider(data-ng-click="nextSlide()" data-ng-class="{'active-btn': rightArrowActive()}")
       span.icon.icon-arrow-right-12

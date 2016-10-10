@@ -36,10 +36,10 @@
     searchService.onSearchResults($scope, (results) => {
       this.searchResults = results
       this.receivedData = true
-      $timeout(()=> {
-          this.waitingForSearchResponse = false
-        }, 1000)
-        this.waitingForLoadMoreResponse = false
+      $timeout(() => {
+        this.waitingForSearchResponse = false
+      }, 1000)
+      this.waitingForLoadMoreResponse = false
 
 
     })
@@ -73,7 +73,9 @@
           $location.search(key, value)
         }
       })
-      this.waitingForSearchResponse = true
+      if (!this.waitingForLoadMoreResponse) {
+        this.waitingForSearchResponse = true
+      }
     })
 
     return this
