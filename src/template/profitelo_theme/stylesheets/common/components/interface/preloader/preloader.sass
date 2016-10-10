@@ -1,7 +1,10 @@
 .preloader
-  .loader
-    opacity: 0
+  div
+    opacity: 1
     transition: opacity 0.3s
+    &.loader
+     opacity: 0
+     transition: none
 
   .balls-loader
     display: flex
