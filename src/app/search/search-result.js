@@ -15,7 +15,6 @@
     this.isSearchError = false
     this.isLoadMoreLoading = false
     this.isLoadMoreError = false
-    this.isPending = false
 
     searchService.setSearchQueryParams(this.searchParams)
 
