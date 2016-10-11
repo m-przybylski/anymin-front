@@ -1,14 +1,12 @@
 (function() {
   /* @ngInject */
-  function proSearchDropdownController($q, $scope, $state, $location, $element, searchService, categoryService, searchUrlService) {
-    const qInput = $element.find('[data-ng-model="vm.ngModel"]')[0]
+  function proSearchDropdownController($q, $scope, $state, $timeout, $element, searchService, categoryService) {
 
     this.isCollapsed = true
     this.isFocused = false
     this.isMouseOverDropdown = false
     this.categorySlugs = {}
     this.currentTagId = null
-    this.waitForResponse = false
     this.suggestions = {
       primary: '',
       terms: [],
@@ -63,11 +61,6 @@
       'trailing': true
     })
 
-    this.search = () => {
-      _focusOut()
-      $state.go('app.search-result', {q: this.ngModel, tagId: this.currentTagId})
-    }
-
     const _focus = () => {
       this.isFocused = true
       this.isCollapsed = false
@@ -75,6 +68,11 @@
       if (!this.loadingSuggestion && angular.isDefined(this.ngModel) && this.ngModel !== this.lastSearchWord) {
         _updateSuggestions(this.ngModel)
       }
+    }
+
+    this.search = () => {
+      _focusOut()
+      $state.go('app.search-result', {q: this.ngModel, tagId: this.currentTagId})
     }
 
     this.onFocus = () => {
@@ -97,6 +95,11 @@
 
     this.clearModel = () => {
       this.ngModel = null
+      this.currentTagId = null
+    }
+
+    this.showResultsCounter = () => {
+      return !!this.searchCount && this.searchCount > 0 && this.isCollapsed
     }
 
     $scope.$watch(() => {
@@ -113,13 +116,13 @@
       _searchActionDebounce()
     })
 
-    $element.bind("keydown keypress", (event) => {
+    $element.bind('keydown keypress', (event) => {
       const keyCode = event.which || event.keyCode
       if (keyCode === 39 && this.suggestions.primary !== null) {
         this.ngModel = this.suggestions.primary
         this.currentTagId = this.suggestions.tags[0].id
-        $scope.$apply()
-      } else if(keyCode === 8) {
+        $scope.$digest()
+      } else if (keyCode === 8) {
         this.currentTagId = null
       }
     })
@@ -137,7 +140,8 @@
     bindings: {
       ngModel: '=?',
       hideFn: '&',
-      showFn: '&'
+      showFn: '&',
+      searchCount: '=?'
     }
   }
 
