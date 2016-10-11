@@ -33,8 +33,9 @@
     $scope.$watch(() => {
       return this.isLoading
     }, (newVal, oldVal) => {
-      if (!angular.equals(newVal, oldVal))
+      if (!angular.equals(newVal, oldVal)) {
         _set(newVal)
+      }
     })
 
     this.errorFunction = () => {
@@ -47,9 +48,10 @@
   const component = {
     bindings: {
       isLoading: '<',
-      isError: '<',
+      isError: '=?',
       errorFn: '=?',
-      errorMessage: '@'
+      errorMessage: '@',
+      minTimeout: '=?'
     },
     templateUrl: 'components/interface/preloader-container/preloader-container.tpl.html',
     controllerAs: '$ctrl',

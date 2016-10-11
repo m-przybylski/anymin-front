@@ -2,8 +2,6 @@ function service(searchService) {
 
   const _defaultQueryParams = {}
   searchService.defineQueryProperties(_defaultQueryParams)
-  console.log(_defaultQueryParams)
-
 
   const _parseParamsForUrl = (rawParams) => {
     const result = {}
@@ -23,5 +21,5 @@ function service(searchService) {
 
 
 angular.module('profitelo.services.search-url', [
-  'profitelo.swaggerResources',
+  'profitelo.swaggerResources'
 ]).service('searchUrlService', service)

@@ -8,8 +8,10 @@
       count: 0,
       results: []
     }
-    
-    this.isSearchLoading = true
+
+    $timeout(() => {
+      this.isSearchLoading = true
+    })
     this.isSearchError = false
     this.isLoadMoreLoading = false
     this.isLoadMoreError = false
@@ -17,47 +19,36 @@
 
     searchService.setSearchQueryParams(this.searchParams)
 
-    console.log('init search result')
-
     searchService.onSearchResults($scope, (err, searchResults, prevResults) => {
       if (prevResults) {
-        console.log('loaded more')
-        this.isPending = false
         if (!err) {
           searchResults.results = this.searchResults.results.concat(searchResults.results)
           this.searchResults = searchResults
-          this.isLoadMoreError = false
-          $timeout(()=> {
-            this.isLoadMoreLoading = false
-          }, 1000)
         } else {
           this.isLoadMoreError = true
         }
+        this.isLoadMoreLoading = false
       } else {
         if (!err) {
           this.searchResults = searchResults
         } else {
           this.isSearchError = true
         }
-        $timeout(()=> {
-          this.isSearchLoading = false
-        }, 1000)
+        this.isSearchLoading = false
       }
     })
 
     this.tagsClick = (tag) => {
-      //$location.search('tagId', tag.id)
-      //$location.search('q', tag.name)
       $state.go('app.search-result', {tagId: tag.id, q: tag.name})
     }
 
     const _loadMore = () => {
       const countMax = this.searchResults.count
-      if (angular.isDefined(this.searchResults.results) && !this.isPending) {
-        this.isPending = true
+      if (angular.isDefined(this.searchResults.results) && !this.isLoadMoreLoading) {
         const count = this.searchResults.results.length
         if (count < countMax) {
           this.isLoadMoreLoading = true
+          this.isLoadMoreError = false
           searchService.setSearchQueryParams(angular.extend($location.search(), {offset: count}))
         }
       }
@@ -79,7 +70,7 @@
       const params = searchUrlService.parseParamsForUrl(queryParams)
 
       $location.search({})
-      if($state.current.name === 'app.search-result') {
+      if ($state.current.name === 'app.search-result') {
         angular.forEach(params, (value, key) => {
           $location.search(key, value)
         })

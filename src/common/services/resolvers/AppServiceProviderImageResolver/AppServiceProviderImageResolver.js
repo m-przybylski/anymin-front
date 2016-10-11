@@ -7,7 +7,7 @@
         FilesApi.fileInfoPath({
           token: token
         }).$promise.then((response) => {
-          if(angular.isDefined(response) && angular.isDefined(response.previews)) {
+          if (angular.isDefined(response) && angular.isDefined(response.previews)) {
             _deferred.resolve(response.previews[0]) // TODO change
           } else {
             _deferred.resolve(null)
