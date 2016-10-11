@@ -7,6 +7,7 @@
     this.isFocused = false
     this.isMouseOverDropdown = false
     this.categorySlugs = {}
+    this.currentTagId = null
     this.waitForResponse = false
     this.suggestions = {
       primary: '',
@@ -45,13 +46,7 @@
     const _searchAction = () => {
       if (this.ngModel && this.ngModel.length >= 3 && this.isFocused) {
         this.isCollapsed = false
-
         _updateSuggestions(this.ngModel)
-        if (qInput && qInput.scrollLeft > 0) {
-          this.suggestions.primary = null
-        } else {
-          this.suggestions.primary = this.ngModel + ' test'
-        }
 
       } else {
         this.isCollapsed = true
@@ -70,7 +65,7 @@
 
     this.search = () => {
       _focusOut()
-      $state.go('app.search-result', {q: this.ngModel, tagId: ''})
+      $state.go('app.search-result', {q: this.ngModel, tagId: this.currentTagId})
     }
 
     const _focus = () => {
@@ -106,8 +101,27 @@
 
     $scope.$watch(() => {
       return this.ngModel
-    }, () => {
+    }, (newValue) => {
+      if (angular.isDefined(newValue) && newValue !== null && !this.isCollapsed
+        && newValue.length > 2 && !!this.suggestions.tags && this.suggestions.tags.length > 0
+        && ((this.suggestions.tags[0].name).toLowerCase()).includes(this.ngModel.toLowerCase())) {
+        this.suggestions.primary = this.suggestions.tags[0].name
+      } else {
+        this.currentTagId = null
+        this.suggestions.primary = null
+      }
       _searchActionDebounce()
+    })
+
+    $element.bind("keydown keypress", (event) => {
+      const keyCode = event.which || event.keyCode
+      if (keyCode === 39 && this.suggestions.primary !== null) {
+        this.ngModel = this.suggestions.primary
+        this.currentTagId = this.suggestions.tags[0].id
+        $scope.$apply()
+      } else if(keyCode === 8) {
+        this.currentTagId = null
+      }
     })
 
     $element.find('.dropdown-container').perfectScrollbar()
