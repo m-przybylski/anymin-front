@@ -5,228 +5,232 @@
       _languageOptions = ['pl'],
       _profileTypeOptions = ['ORG', 'EXP'],
       _sortingOptions = ['top', 'new', 'price', '-price'],
-      _searchResults,
+      _searchResults = null,
       _queryParams = {},
       _previousQueryParams = {}
 
     const _queryLimit = 20
 
-    Object.defineProperties(_queryParams, {
-      areDirty: {
-        enumerable: false,
-        writable: true,
-        value: undefined
-      },
-
-      _q: {
-        enumerable: false,
-        writable: true,
-        value: undefined
-      },
-      q: {
-        enumerable: true,
-        get: function() {
-          return this._q
+    const _defineQueryProperties = (obj) => {
+      return Object.defineProperties(obj, {
+        areDirty: {
+          enumerable: false,
+          writable: true,
+          value: undefined
         },
-        set: function(v) {
-          v = v ? String(v) : undefined
-          if (v !== this._q) {
-            this.areDirty = true
-            this._q = v
+
+        _q: {
+          enumerable: false,
+          writable: true,
+          value: undefined
+        },
+        q: {
+          enumerable: true,
+          get: function() {
+            return this._q
+          },
+          set: function(v) {
+            v = v ? String(v) : undefined
+            if (v !== this._q) {
+              this.areDirty = true
+              this._q = v
+            }
+          }
+        },
+
+        _tagId: {
+          enumerable: false,
+          writable: true,
+          value: undefined
+        },
+        tagId: {
+          enumerable: true,
+          get: function() {
+            return this._tagId
+          },
+          set: function(v) {
+            v = v ? String(v) : undefined
+            if (v !== this._tagId) {
+              this.areDirty = true
+              this._tagId = v
+            }
+          }
+        },
+
+        _category: {
+          enumerable: false,
+          writable: true,
+          value: undefined
+        },
+        category: {
+          enumerable: true,
+          get: function() {
+            return this._category
+          },
+          set: function(v) {
+            v = v ? String(v) : undefined
+            if (v !== this._category) {
+              this.areDirty = true
+              this._category = v
+            }
+          }
+        },
+
+        _profileType: {
+          enumerable: false,
+          writable: true,
+          value: undefined
+        },
+        profileType: {
+          enumerable: true,
+          get: function() {
+            return this._profileType
+          },
+          set: function(v) {
+            v = _profileTypeOptions.indexOf(v) !== -1 ? v : undefined
+            if (v !== this._profileType) {
+              this.areDirty = true
+              this._profileType = v
+            }
+          }
+        },
+
+        _onlyAvailable: {
+          enumerable: false,
+          writable: true,
+          value: false
+        },
+        onlyAvailable: {
+          enumerable: true,
+          get: function() {
+            return this._onlyAvailable
+          },
+          set: function(v) {
+            v = v === 'true' || v === true
+            if (v !== this._onlyAvailable) {
+              this.areDirty = true
+              this._onlyAvailable = v
+            }
+          }
+        },
+
+        _sortBy: {
+          enumerable: false,
+          writable: true,
+          value: _sortingOptions[0]
+        },
+        sortBy: {
+          enumerable: true,
+          get: function() {
+            return this._sortBy
+          },
+          set: function(v) {
+            v = _sortingOptions.indexOf(v) !== -1 ? v : _sortingOptions[0]
+            if (v !== this._sortBy) {
+              this.areDirty = true
+              this._sortBy = v
+            }
+          }
+        },
+
+        _language: {
+          enumerable: false,
+          writable: true,
+          value: undefined
+        },
+        language: {
+          enumerable: true,
+          get: function() {
+            return this._language
+          },
+          set: function(v) {
+            v = _languageOptions.indexOf(v) !== -1 ? v : undefined
+            if (v !== this._language) {
+              this.areDirty = true
+              this._language = v
+            }
+          }
+        },
+
+        _offset: {
+          enumerable: false,
+          writable: true,
+          value: 0
+        },
+        offset: {
+          enumerable: true,
+          get: function() {
+            return this._offset
+          },
+          set: function(v) {
+            v = Math.max(0, parseInt(v, 10) || 0)
+            if (v !== this._offset) {
+              this.areDirty = true
+              this._offset = v
+            }
+          }
+        },
+
+        _limit: {
+          enumerable: false,
+          writable: true,
+          value: _queryLimit
+        },
+        limit: {
+          enumerable: true,
+          get: function() {
+            return this._limit
+          },
+          set: function(v) {
+            v = Math.max(0, parseInt(v, 10) || _queryLimit)
+            if (v !== this._limit) {
+              this.areDirty = true
+              this._limit = v
+            }
+          }
+        },
+
+        _minPrice: {
+          enumerable: false,
+          writable: true,
+          value: 0
+        },
+        minPrice: {
+          enumerable: true,
+          get: function() {
+            return this._minPrice
+          },
+          set: function(v) {
+            v = Math.max(0, Math.min(100, parseInt(v, 10) || 0))
+            if (v !== this._minPrice) {
+              this.areDirty = true
+              this._minPrice = v
+            }
+          }
+        },
+
+        _maxPrice: {
+          enumerable: false,
+          writable: true,
+          value: 100
+        },
+        maxPrice: {
+          enumerable: true,
+          get: function() {
+            return this._maxPrice
+          },
+          set: function(v) {
+            v = Math.max(0, Math.min(100, parseInt(v, 10) || 100))
+            if (v !== this._maxPrice) {
+              this.areDirty = true
+              this._maxPrice = v
+            }
           }
         }
-      },
+      })
+    }
 
-      _tagId: {
-        enumerable: false,
-        writable: true,
-        value: undefined
-      },
-      tagId: {
-        enumerable: true,
-        get: function() {
-          return this._tagId
-        },
-        set: function(v) {
-          v = v ? String(v) : undefined
-          if (v !== this._tagId) {
-            this.areDirty = true
-            this._tagId = v
-          }
-        }
-      },
-
-      _category: {
-        enumerable: false,
-        writable: true,
-        value: undefined
-      },
-      category: {
-        enumerable: true,
-        get: function() {
-          return this._category
-        },
-        set: function(v) {
-          v = v ? String(v) : undefined
-          if (v !== this._category) {
-            this.areDirty = true
-            this._category = v
-          }
-        }
-      },
-
-      _profileType: {
-        enumerable: false,
-        writable: true,
-        value: undefined
-      },
-      profileType: {
-        enumerable: true,
-        get: function() {
-          return this._profileType
-        },
-        set: function(v) {
-          v = _profileTypeOptions.indexOf(v) !== -1 ? v : undefined
-          if (v !== this._profileType) {
-            this.areDirty = true
-            this._profileType = v
-          }
-        }
-      },
-
-      _onlyAvailable: {
-        enumerable: false,
-        writable: true,
-        value: false
-      },
-      onlyAvailable: {
-        enumerable: true,
-        get: function() {
-          return this._onlyAvailable
-        },
-        set: function(v) {
-          v = v === 'true' || v === true
-          if (v !== this._onlyAvailable) {
-            this.areDirty = true
-            this._onlyAvailable = v
-          }
-        }
-      },
-
-      _sortBy: {
-        enumerable: false,
-        writable: true,
-        value: _sortingOptions[0]
-      },
-      sortBy: {
-        enumerable: true,
-        get: function() {
-          return this._sortBy
-        },
-        set: function(v) {
-          v = _sortingOptions.indexOf(v) !== -1 ? v : _sortingOptions[0]
-          if (v !== this._sortBy) {
-            this.areDirty = true
-            this._sortBy = v
-          }
-        }
-      },
-
-      _language: {
-        enumerable: false,
-        writable: true,
-        value: undefined
-      },
-      language: {
-        enumerable: true,
-        get: function() {
-          return this._language
-        },
-        set: function(v) {
-          v = _languageOptions.indexOf(v) !== -1 ? v : undefined
-          if (v !== this._language) {
-            this.areDirty = true
-            this._language = v
-          }
-        }
-      },
-
-      _offset: {
-        enumerable: false,
-        writable: true,
-        value: 0
-      },
-      offset: {
-        enumerable: true,
-        get: function() {
-          return this._offset
-        },
-        set: function(v) {
-          v = Math.max(0, parseInt(v, 10) || 0)
-          if (v !== this._offset) {
-            this.areDirty = true
-            this._offset = v
-          }
-        }
-      },
-
-      _limit: {
-        enumerable: false,
-        writable: true,
-        value: 42
-      },
-      limit: {
-        enumerable: true,
-        get: function() {
-          return this._limit
-        },
-        set: function(v) {
-          v = Math.max(0, parseInt(v, 10) || 42)
-          if (v !== this._limit) {
-            this.areDirty = true
-            this._limit = v
-          }
-        }
-      },
-
-      _minPrice: {
-        enumerable: false,
-        writable: true,
-        value: 0
-      },
-      minPrice: {
-        enumerable: true,
-        get: function() {
-          return this._minPrice
-        },
-        set: function(v) {
-          v = Math.max(0, Math.min(100, parseInt(v, 10) || 0))
-          if (v !== this._minPrice) {
-            this.areDirty = true
-            this._minPrice = v
-          }
-        }
-      },
-
-      _maxPrice: {
-        enumerable: false,
-        writable: true,
-        value: null
-      },
-      maxPrice: {
-        enumerable: true,
-        get: function() {
-          return this._maxPrice
-        },
-        set: function(v) {
-          v = Math.max(0, Math.min(100, parseInt(v, 10) || 100))
-          if (v !== this._maxPrice) {
-            this.areDirty = true
-            this._maxPrice = v
-          }
-        }
-      }
-    })
+    _defineQueryProperties(_queryParams)
 
     function _search(query) {
       function _maxPriceParser(maxPrice) {
@@ -239,9 +243,6 @@
 
       return SearchApi.search({
         'q': query.q,
-        // 'service.name': query.serviceName,
-        // 'profile.name': query.profileName,
-        // 'profile.desc': query.profileDesc,
         'tag.id': query.tagId,
         'service.category.id': query.category,
         'profile.type': query.profileType,
@@ -271,8 +272,8 @@
     const searchResultsEvent = 'search-results'
     const queryParamsEvent = 'search-query-params'
 
-    function _notifyOnSearchResults(results) {
-      $rootScope.$emit(searchResultsEvent, results)
+    function _notifyOnSearchResults(err, results, prevResults) {
+      $rootScope.$emit(searchResultsEvent, err, results, prevResults)
     }
 
     function _notifyOnQueryParams(queryParams) {
@@ -282,11 +283,11 @@
     function _subscribeForSearchResults(scope, callback) {
       scope.$on(
         '$destroy',
-        $rootScope.$on(searchResultsEvent, (_, results) => { return callback(results) })
+        $rootScope.$on(searchResultsEvent, (_, err, results, prevResults) => { return callback(err, results, prevResults) })
       )
 
       if (_searchResults) {
-        _notifyOnSearchResults(_searchResults)
+        _notifyOnSearchResults(null, _searchResults, null)
       }
     }
 
@@ -299,9 +300,9 @@
     }
 
     function _resolveCategoryId(params) {
-      let _deferred = $q.defer()
+      const _deferred = $q.defer()
 
-      if (params.categorySlug) {
+      if (angular.isDefined(params.categorySlug) && params.categorySlug) {
         categoryService.getCategoryBySlug(params.categorySlug).then((category) => {
           delete params['categorySlug']
           params['category'] = category.id
@@ -314,16 +315,17 @@
       return _deferred.promise
     }
 
-    function _isEqualQueryParams(q1, q2) {
-      const copyQ1 = angular.copy(q1)
-      const copyQ2 = angular.copy(q2)
+    const _isQueryParamsNextPage = (newQuery, oldQuery) => {
+      const copyQ1 = angular.copy(newQuery)
+      const copyQ2 = angular.copy(oldQuery)
 
-      delete copyQ1.offset
-      delete copyQ1.limit
-      delete copyQ2.offset
-      delete copyQ2.limit
+      copyQ1.offset = undefined
+      copyQ1.limit = undefined
+      copyQ2.offset = undefined
+      copyQ2.limit = undefined
 
-      return angular.equals(copyQ1, copyQ2)
+      return (angular.equals(copyQ1, copyQ2) && angular.isDefined(newQuery.offset) && angular.isDefined(oldQuery.offset) &&
+      (oldQuery.offset + _previousQueryParams.limit) === newQuery.offset)
     }
 
     function _setSearchQueryParams(newQueryParams) {
@@ -334,22 +336,40 @@
           }
         })
         if (angular.isDefined(_queryParams.areDirty) && _queryParams.areDirty) {
-          _queryParams.areDirty = false
-          _notifyOnQueryParams(_queryParams)
           if (_queryParams.q || _queryParams.serviceName || _queryParams.profileName ||
               _queryParams.tagId || _queryParams.category) {
             _search(_queryParams).then((response) => {
-              if (_isEqualQueryParams(_queryParams, _previousQueryParams)) {
-                response.results = _searchResults.results.concat(response.results)
+              _queryParams.areDirty = false
+              _notifyOnQueryParams(_queryParams)
+              if (_isQueryParamsNextPage(_queryParams, _previousQueryParams)) {
+                _notifyOnSearchResults(null, response, _searchResults)
+              } else {
+                _notifyOnSearchResults(null, response)
               }
               _searchResults = response
-
               _previousQueryParams = angular.copy(_queryParams)
-              _notifyOnSearchResults(_searchResults)
+            }, (err) => {
+              if (_isQueryParamsNextPage(_queryParams, _previousQueryParams)) {
+                _notifyOnSearchResults(err, null, _searchResults)
+              } else {
+                _notifyOnSearchResults(err, null)
+              }
             })
           }
         }
       })
+    }
+
+    const _parseQueryParams = (queryParams) => {
+      const parsedQueryParams = {}
+      _defineQueryProperties(parsedQueryParams)
+
+      angular.forEach(Object.keys(parsedQueryParams), (fieldName) => {
+        if (queryParams.hasOwnProperty(fieldName)) {
+          parsedQueryParams[fieldName] = queryParams[fieldName]
+        }
+      })
+      return parsedQueryParams
     }
 
     function _getAvailableOptions() {
@@ -375,7 +395,9 @@
       setSearchQueryParams: _setSearchQueryParams,
       onSearchResults: _subscribeForSearchResults,
       onQueryParamsChange: _subscribeForQueryParams,
-      getAvailableOptions: _getAvailableOptions
+      getAvailableOptions: _getAvailableOptions,
+      defineQueryProperties: _defineQueryProperties,
+      parseQueryParams: _parseQueryParams
     }
   }
 

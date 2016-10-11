@@ -1,0 +1,6 @@
+.preloader-container(data-ng-show="$ctrl.isLoadingTimeouted || $ctrl.isError")
+  .content-loader(data-ng-hide="$ctrl.isError")
+  .error-wrapper(data-ng-show="$ctrl.isError")
+    span.error-message {{::$ctrl.errorMessage | translate }}
+    a(data-ng-click="$ctrl.errorFunction()")
+      span.icon.icon-64.icon-upload-progress-24

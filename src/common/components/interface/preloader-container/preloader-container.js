@@ -1,6 +1,7 @@
 (function() {
   /* @ngInject */
-  function controller($scope, $timeout) {
+  function preloaderContainerController($timeout, $scope) {
+
     this.isLoadingTimeouted = false
 
     let isTimeout = false
@@ -9,7 +10,6 @@
     const defaultMinimalTimeout = 1000
 
     const _set = (v) => {
-
       tmp = !!v
 
       if (!this.isLoadingTimeouted && v) {
@@ -37,21 +37,30 @@
         _set(newVal)
       }
     })
+
+    this.errorFunction = () => {
+      this.errorFn()
+    }
+
+    return this
   }
 
-  let preloader = {
-    transclude: true,
+  const component = {
     bindings: {
-      isLoading: '<'
+      isLoading: '<',
+      isError: '=?',
+      errorFn: '=?',
+      errorMessage: '@',
+      minTimeout: '=?'
     },
-    templateUrl: 'components/interface/preloader/preloader.tpl.html',
+    templateUrl: 'components/interface/preloader-container/preloader-container.tpl.html',
     controllerAs: '$ctrl',
-    controller: controller
+    controller: preloaderContainerController
   }
 
-
-  angular.module('profitelo.components.interface.preloader', [
-    'pascalprecht.translate'
+  angular.module('profitelo.components.interface.preloader-container', [
+    'pascalprecht.translate',
+    'profitelo.components.interface.preloader'
   ])
-    .component('preloader', preloader)
+    .component('preloaderContainer', component)
 }())

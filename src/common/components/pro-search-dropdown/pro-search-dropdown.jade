@@ -8,7 +8,7 @@
     a.icon.icon-close-16(data-ng-click="vm.clearModel()" data-ng-show="!!vm.ngModel && vm.ngModel.length > 0")
     .dropdown-container(data-ng-show="!vm.isCollapsed",
       data-ng-mouseleave="vm.onDropdownMouseLeave()" data-ng-mouseenter="vm.onDropdownMouseEnter()")
-      preloader(data-wait-for-response = "vm.loadingSuggestion")
+      preloader(data-wait-for-response="vm.loadingSuggestion" data-min-timeout="0")
         term-suggestions(data-terms="vm.suggestions.terms" data-category-slugs="vm.categorySlugs")
         tag-suggestions(data-tags="vm.suggestions.tags")
         service-suggestions(data-services="vm.suggestions.services")

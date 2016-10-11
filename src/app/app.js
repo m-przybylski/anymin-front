@@ -209,6 +209,8 @@
     // services
     'profitelo.services.interfaceLanguage',
     'profitelo.services.customTranslationHandler',
+    'profitelo.services.search-url',
+
     // controllers
     'profitelo.controller.dashboard',
     'profitelo.controller.dashboard.start',
@@ -249,6 +251,7 @@
 
     // components
     'profitelo.components.communicator.pro-bottom-communicator',
+    'profitelo.components.interface.preloader-container',
 
     // translations
     'profitelo.translations.en-us',

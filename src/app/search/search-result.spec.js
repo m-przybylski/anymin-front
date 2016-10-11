@@ -10,12 +10,19 @@ describe('Unit tests: search-result>', () => {
 
     beforeEach(() => {
       module('profitelo.controller.search-result')
-      inject(($rootScope, $controller, $state) => {
+      module('profitelo.services.search')
+      module('profitelo.services.search-url')
+      inject(($rootScope, $controller, $state, $location, $timeout, _searchService_, _searchUrlService_) => {
         $scope = $rootScope.$new()
+
         SearchResultController = $controller('SearchResultController', {
           $scope: $scope,
           $rootScope: $rootScope,
-          $state: $state
+          $state: $state,
+          $timeout: $timeout,
+          searchService: _searchService_,
+          $location: $location,
+          searchUrlService: _searchUrlService_
         })
       })
     })

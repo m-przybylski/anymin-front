@@ -1,0 +1,72 @@
+.preloader-container
+  width: 100%
+  height: 300px
+  text-align: center
+  background-color: $c-background-2
+
+  .content-loader
+    height: 100%
+    display: flex
+    justify-content: center
+
+    &:before, &:after
+      display: block
+      position: relative
+      margin: auto 0
+      width: 40px
+      height: 40px
+      content: ""
+      border-radius: 20px
+
+    &:before
+      background-color: #ff3c50
+      animation: spinner-left 1s 0.3s infinite linear
+
+    &:after
+      background-color: $c-primary
+      animation: spinner-right 1s 0.3s infinite linear
+
+  .error-wrapper
+    height: 100%
+    display: flex
+    flex-direction: column
+    justify-content: center
+
+    .error-message
+      font-size: $f-paragraph
+      white-space: nowrap
+
+
+  @keyframes spinner-left
+    0%
+      opacity: 1
+      transform: translate(0, 0)
+
+    25%
+      transform: translate(30px, 0)
+
+    50%
+      transform: translate(0px, 0px)
+
+    75%
+      transform: translate(-30px, 0)
+
+    100%
+      transform: translate(0, 0)
+
+  @keyframes spinner-right
+    0%
+      opacity: 1
+      transform: translate(0, 0)
+
+    25%
+      transform: translate(-30px, 0)
+
+    50%
+      transform: translate(0, 0)
+
+    75%
+      transform: translate(30px, 0)
+
+    100%
+      transform: translate(0, 0)

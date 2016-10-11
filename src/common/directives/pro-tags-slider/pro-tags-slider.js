@@ -14,7 +14,14 @@
         scope.slidesContainerOffsetWidth = element.find('.slide-page')[0].clientWidth
       })
 
-      angular.element($window).on('resize', ()=> {
+      const _clearSlider = () => {
+        scope.leftOffset = {left: 0}
+        currentElement = 0
+        tagsContainerWidth = element.find('.slider-tag')[0].clientWidth
+        scope.slidesContainerOffsetWidth = element.find('.slide-page')[0].clientWidth
+      }
+
+      angular.element($window).on('resize', () => {
         _clearSlider()
       })
 
@@ -29,13 +36,6 @@
           })
         }
       })
-
-      const _clearSlider = () => {
-        scope.leftOffset = {left: 0}
-        currentElement = 0
-        tagsContainerWidth = element.find('.slider-tag')[0].clientWidth
-        scope.slidesContainerOffsetWidth = element.find('.slide-page')[0].clientWidth
-      }
 
       const _calculateOffset = (elem) => {
         let offset = 0
@@ -66,7 +66,6 @@
           currentElement = currentElement + next
           scope.leftOffset = {left: _calculateOffset(currentElement) * -1}
           scope.slidesContainerOffsetWidth = element.find('.slide-page')[0].clientWidth - _calculateOffset(currentElement)
-        } else {
         }
       }
 
