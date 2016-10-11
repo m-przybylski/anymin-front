@@ -33,7 +33,9 @@
         } else {
           this.isSearchError = true
         }
-        this.isSearchLoading = false
+        $timeout(() => {
+          this.isSearchLoading = false
+        })
       }
     })
 
