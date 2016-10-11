@@ -23,16 +23,39 @@
       top: 60px
       box-shadow: 0 12px 24px rgba($c-black, 0.5)
 
+
+      .organization-suggestions,
+      .expert-suggestions
+        .dropdown-category-list
+          padding: 16px
+
+          .dropdown-list-item
+            flex: 0 0 100%
+
+            +smm
+              flex: 0 0 50%
+
+            +mdm
+              flex: 0 0 33%
+
+            +lgm
+              flex: 0 0 25%
+
+      .service-suggestions
+        .dropdown-category-list
+          padding: 16px
+
+          .dropdown-list-item
+            flex: 0 0 100%
+
     .search-bar-container
       z-index: 800
-
-      .icon
-        &.icon-close-16
-          right: 32px
 
       .search-bar
         height: 64px
         padding: 0 64px
+        font-size: $f-h4-size
+        color: $c-primary
 
 .pro-expert-slider
   .slider-container

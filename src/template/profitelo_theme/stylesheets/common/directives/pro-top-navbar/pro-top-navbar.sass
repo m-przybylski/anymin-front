@@ -188,13 +188,12 @@
       .toggle-search
         transition: top 0.2s linear
         position: fixed
-        width: calc(100% - #{$dashboard-navbar-width})
+        width: 100%
         right: 0
         top: -$dashboard-navbar-width
         z-index: $z-index-100
 
         +mdm
-          position: absolute
           width: 100%
 
         .search-active-btn
@@ -216,11 +215,15 @@
           border-left: 0
 
           +smm
-            padding: 0 32px
+            padding: 0 24px
 
           &.cancel-btn
-            background: $c-primary-txt
-            color: $c-white
+            background: $c-white
+            color: $c-primary-txt
+
+            +smm
+              background: $c-primary-txt
+              color: $c-white
 
           &.search-active-btn
             background: $c-primary
@@ -230,9 +233,11 @@
             display: none
 
             +mdm
+              cursor: inherit
               display: flex
 
             span
+              font-size: $f-h6-size
               color: $c-label
 
       .search-bar,
@@ -242,9 +247,11 @@
         box-shadow: none
         height: 79px
         padding: 0 $dashboard-navbar-width 0 64px
+        font-size: $f-h4-size
+        color: $c-primary
 
         +smm
-          padding: 0 $dashboard-navbar-width*3 +16px 0 64px
+          padding: 0 360px + 16px 0 64px
 
     &.search-active
       .toggle-search

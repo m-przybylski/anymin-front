@@ -32,9 +32,6 @@
           pro-search-dropdown(data-ng-enter="searchAction(searchModel)" data-ng-model="searchModel")
 
           .search-active-state
-            .results-input.menu-item(data-ng-if="!!searchCount && searchCount > 0")
-              span {{ searchCount }}{{ "SEARCH.RESULTS" | translate }}
-
             a.search-active-btn.menu-item(data-ng-click="searchAction(searchModel)")
               span(data-translate="NAVIGATION.SEARCH.BUTTON")
 

@@ -43,3 +43,29 @@
                 color: $c-white
                 background: $c-primary
 
+  .arrow-slider
+    display: none
+
+    +lgm
+      align-items: center
+      justify-content: center
+      color: $c-label
+      border-radius: 3px
+      width: 32px
+      height: 32px
+      background: $c-lines
+      font-size: $f-base
+      display: flex
+
+    &:hover
+      background: $c-primary
+
+      span
+        color: $c-white
+
+    span
+      transition: color 0.3s
+      line-height: 1
+      font-size: $f-btn-size
+      color: $c-secondary-txt
+

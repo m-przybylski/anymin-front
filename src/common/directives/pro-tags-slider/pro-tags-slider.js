@@ -61,7 +61,6 @@
       }
 
       scope.nextSlide = (next=1) => {
-
         if (currentElement < elementsMap.length - next && tagsContainerWidth < scope.slidesContainerOffsetWidth) {
           currentElement = currentElement + next
           scope.leftOffset = {left: _calculateOffset(currentElement) * -1}

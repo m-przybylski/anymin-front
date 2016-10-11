@@ -1,5 +1,5 @@
 .pro-footer
-  background-color: $c-white
+  background-color: $c-background
   text-align: center
 
   +lgm
@@ -23,11 +23,15 @@
       h5
         +default-font-heavy
         text-transform: uppercase
-        font-size: $f-nav-size
+        font-size: $f-h6-size
         margin: 0 0 32px
 
         +lgm
           margin: 0 0 24px
+
+      a
+        display: inline-block
+        margin: 0 16px 0 0
 
       img
         margin: 0 8px 0
@@ -79,26 +83,31 @@
 
           a
             +transition(color 0.2s)
-            +default-font-heavy
-            color: $c-input
+            +default-font-regular
+            color: $c-secondary-txt
+            font-size: $f-h6-size
 
             &:hover
               color: $c-primary-txt
 
           h5
             +default-font-heavy
+            font-size: $f-h6-size
 
   .bottom-footer
-    display: flex
-    align-items: center
-    padding: 64px 0
-    flex-wrap: wrap
+    background: $c-white
+
+    .default-container
+      display: flex
+      align-items: center
+      flex-wrap: wrap
+      padding: 24px 32px
 
     a, p
-      +default-font-heavy
+      +default-font-regular
       color: $c-primary-txt
       text-transform: uppercase
-      font-size: $f-nav-size
+      font-size: $f-h6-size
 
     .bottom-footer-about
       flex: 1 0 100%
@@ -136,15 +145,17 @@
         li
           margin: 0 0 16px
           display: flex
+
           align-items: center
           justify-content: center
 
+
           +xsm
-            margin: 0 48px 0 0
+            margin: 0 24px 0 0
             justify-content: flex-start
 
           &:last-child
             margin: 0
 
-          .icon
-            margin: 0 8px 0 0
+          p, a
+            color: $c-secondary-txt
