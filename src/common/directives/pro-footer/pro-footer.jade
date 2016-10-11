@@ -2,7 +2,8 @@
   .default-container
     .footer-container
       .footer-applications
-        h5(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.TALKS_MORE_COMFORTABLE")      
+        h5(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.TALKS_MORE_COMFORTABLE")
+        ul
         a
           img(src="assets/images/app_store.png")
         a
@@ -38,19 +39,17 @@
             a(data-translate="HOME.FOOTER.RULE")
           li 
             a(data-translate="HOME.FOOTER.PRIVACY_POLICY")
-            
-  .default-container
-    .bottom-footer
+
+  .bottom-footer
+    .default-container
       .bottom-footer-about
         p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.FOOTER_COPYRIGHT")
 
       .bottom-footer-fast-contact
         ul
           li
-            span.icon.icon-headphone-16
             p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.FOOTER_CALL_TEXT")
-          li          
-            span.icon.icon-mail-16
+          li
             a(href="mailto:{{'HOME.TOP_CONTAINER.EXPERT_PROFILE.MAIL_FOOTER' | translate}}")
               span(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.MAIL_FOOTER")
-        
+

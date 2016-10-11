@@ -1,7 +1,6 @@
 .expert-suggestions
   .dropdown-default(data-ng-if="vm.experts.count")
     h5.title-row  {{'SEARCH.EXPERTS' | translate}}
-      span ({{vm.experts.count}})
 
     .experts-box.dropdown-category-list
       a.expert-profile.dropdown-list-item(data-ng-repeat="expert in vm.experts.results track by $index" data-ui-sref="app.expert-profile({ contactId: expert.id })")

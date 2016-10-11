@@ -414,30 +414,6 @@
       background: $c-white
       color: $c-black
 
-.arrow-slider
-  display: flex
-  align-items: center
-  justify-content: center
-  color: $c-label
-  border-radius: 3px
-  width: 32px
-  height: 32px
-  background: $c-lines
-  font-size: $f-base
-
-  &:hover
-    background: $c-primary
-
-    span
-      color: $c-white
-
-  span
-    transition: color 0.3s
-    line-height: 1
-    font-size: $f-btn-size
-    color: $c-secondary-txt
-
-    
 .btn
   +default-font-heavy
   display: flex
@@ -461,10 +437,16 @@
     font-size: $f-btn-icon
     margin: 0 16px
 
-    &.icon-right
-      margin: 0 0 0 16px
+  &.icon-right
+    padding: 0 16px 0 24px
 
-    &.icon-left
+    [class*="icon"]
+      margin: 0  0 16px
+
+  &.icon-left
+    padding: 0 24px 0 16px
+
+    [class*="icon"]
       margin: 0 16px 0 0
 
   &.default

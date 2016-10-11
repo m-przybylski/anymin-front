@@ -1,19 +1,16 @@
 .service-suggestions
   .dropdown-default(data-ng-if="vm.services.count")
     h5.title-row  {{'SEARCH.SERVICES' | translate}}
-      span ({{ vm.services.count }})
 
     .consultations-box.dropdown-category-list
       .expert-box.dropdown-list-item(data-ng-repeat="service in vm.services.results track by $index")
-        img.expert-avatar.user-avatar.circle(src='http://placekitten.com/48/48')
-
-        .expert
+        .expert-profile
+          .thumb
+            img.expert-avatar.user-avatar(src='http://placekitten.com/48/48')
+            .status-list
+              span.status.availability
           .expert-data
             span.expert-name {{ service.owner.name }}
-            .status-list
-              span.status.availability {{ 'HOME.EXPERT_CARD_AVAILABLE' | translate }}
 
-          .service-description
-            p {{ service.name }}
-            //- highlight
-            span.service-tag {{ service.name }}
+        .service-description
+          p {{ service.name }}

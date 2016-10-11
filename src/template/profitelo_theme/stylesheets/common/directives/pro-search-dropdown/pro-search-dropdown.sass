@@ -7,16 +7,40 @@
       top: 0
       bottom: 0
       margin: auto
+      padding: 0 16px
+      height: 16px
       z-index: $z-index-100
 
       &.icon-search-24
         display: flex
+        justify-content: center
         align-items: center
-        left: 24px
+        left: 0
+        width: 64px
         font-size: 24px
 
       &.icon-close-16
-        right: $dashboard-navbar-width * 3
+        display: none
+
+        +mdm
+          display: block
+          right: 312px
+          font-size: $f-icon-size
+
+
+        &::before
+          +default-font-heavy
+          display: flex
+          align-items: center
+          justify-content: center
+          background: $c-primary
+          border-radius: 50%
+          color: $c-white
+          width: 16px
+          height: 16px
+
+        &:hover
+          color: $c-primary
 
   .search-bar-shadow,
   .search-bar
@@ -44,58 +68,71 @@
     left: 0
 
     .title-row
-      +default-font-heavy
-      padding: 32px 32px 0
+      +default-font-regular
+      text-transform: none
+      padding: 24px 16px 0
+      color: $c-label
 
     .dropdown-category-list
       +default-font-regular
       border-bottom: 1px solid $c-lines
       display: flex
       flex-wrap: wrap
-      padding: 32px 16px
+      padding: 24px 0
       text-transform: lowercase
+
+      +smm
+        padding: 24px 16px
 
       .dropdown-list-item
         +animation(pro-search-dropdown-search-result-show 0.3s)
         flex: 1 0 100%
-        padding: 8px 16px
+        padding: 16px
         display: flex
         align-items: center
         position: relative
 
         &:hover
-          background: $c-background-2
+          background: $c-background
 
         > span
           color: $c-primary-txt
           line-height: 1
-          font-size: $f-paragraph
+          font-size: $f-nav-size
 
     .term-suggestions
       span
         &.search-hint
-          color: $c-secondary-txt
-          padding: 0 0 0 16px
+          color: $c-label
+          padding: 0 0 0 4px
 
     .experts-box
       .expert-name
         margin: 0 0 8px
 
-    .service-suggestions,
     .organization-suggestions,
     .expert-suggestions
       .dropdown-category-list
-        padding: 16px
+        padding: 16px 0
+
+        +smm
+          padding: 24px 16px
 
         .dropdown-list-item
           padding: 16px
 
-          +smm
+          +xsm
             flex: 0 0 50%
+
+          +smm
+            flex: 0 0 33.3333%
             align-items: center
 
-          +lgm
+          +mdm
             flex: 0 0 25%
+
+          +lgm
+            flex: 0 0 16.6667%
 
           .expert-data
             flex: 1
@@ -107,8 +144,8 @@
               display: block
 
               &.expert-name
-                +default-font-heavy
-                color: $c-primary-txt
+                +default-font-regular
+                color: $c-secondary-txt
 
               &.expert-category
                 +default-font-heavy
@@ -119,43 +156,40 @@
     .service-suggestions
       .dropdown-category-list
         .dropdown-list-item
-          flex: 1 0 100%
-          align-items: flex-start
+          display: block
+
+          +xsm
+            flex: 1 0 100%
 
           +smm
+            display: flex
+            flex: 1 0 100%
+            align-items: flex-start
             align-items: center
 
-          > div
-            margin: 0 0 0 16px
-            flex: 1
+          > .service-description
+            +smm
+              margin: 0 0 0 16px
+              flex: 1
 
             +mdm
-              display: flex
-              align-items: center
 
-          .expert-data
-            margin: 0
-            flex: 1 0 100%
+
+          .expert-profile
             display: flex
             align-items: center
+            margin: 0 0 16px
 
-            +mdm
+            +smm
               flex: 1
-              display: block
+              max-width: 30%
+              margin: 0
 
-            .expert-name
-              margin: 0 8px 0 0
+            .expert-data
+              margin: 0 0 0 16px
 
-              +mdm
-                margin: 0
+              .expert-name
+                margin: 0 8px 0 0
 
-          .service-description
-            +mdm
-              flex: 4
-
-.title-row
-  span
-    color: $c-secondary-txt
-    margin: 0 0 0 4px
-
-
+                +mdm
+                  margin: 0
