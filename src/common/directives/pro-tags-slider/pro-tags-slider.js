@@ -21,7 +21,15 @@
         scope.slidesContainerOffsetWidth = element.find('.slide-page')[0].clientWidth
       }
 
-      angular.element($window).on('resize', () => {
+      const _calculateOffset = (elem) => {
+        let offset = 0
+        for (let i = 0; i < elem; i++) {
+          offset = offset + elementsMap[i] + 16
+        }
+        return offset
+      }
+
+      angular.element($window).on('resize', ()=> {
         _clearSlider()
       })
 
@@ -36,14 +44,6 @@
           })
         }
       })
-
-      const _calculateOffset = (elem) => {
-        let offset = 0
-        for (let i = 0; i < elem; i++) {
-          offset = offset + elementsMap[i] + 16
-        }
-        return offset
-      }
 
       scope.tagAction = (tag)=> {
         if (tag.id !==  $location.search().tagId) {

@@ -29,7 +29,7 @@
       .search-expandable(data-ng-class="{'logIn':!!$root.loggedIn, 'logOut':!$root.loggedIn}")
 
         div.toggle-search
-          pro-search-dropdown(data-ng-enter="searchAction(searchModel)" data-ng-model="searchModel")
+          pro-search-dropdown(data-ng-enter="searchAction(searchModel)" data-ng-model="searchModel" data-search-count="searchCount")
 
           .search-active-state
             a.search-active-btn.menu-item(data-ng-click="searchAction(searchModel)")
