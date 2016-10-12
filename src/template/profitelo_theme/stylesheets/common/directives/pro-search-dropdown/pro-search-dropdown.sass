@@ -20,12 +20,14 @@
         font-size: 24px
 
       &.icon-close-16
-        display: none
+        right: $dashboard-navbar-width
+        font-size: $f-icon-size
+
+        +xsm
+          right: $dashboard-navbar-width + 32px
 
         +smm
-          display: block
           right: $dashboard-navbar-width * 2 + 64px
-          font-size: $f-icon-size
 
         &::before
           +default-font-heavy
