@@ -9,7 +9,7 @@
   .search-filter-slider
     padding: 24px 16px
     background: $c-background
-    margin: 0 0 64px
+    margin: 0 0 0
 
     +smm
       padding: 24px 32px
@@ -41,12 +41,15 @@
     display: flex
     flex-wrap: wrap
     margin: 0 0 48px
-    padding: 0 0 32px
+    padding: 64px 0 32px
     border-bottom: 1px solid $c-lines
 
     +smm
-      padding: 0 0 48px
+      padding: 64px 0 48px
       margin: 0
+
+    > div
+      margin: 0 0 16px
 
     .pro-range-slider
       margin: 0 0 32px
@@ -78,7 +81,7 @@
 
 
     .input-group
-      margin: 0 0 32px
+      margin: 0
 
       +smm
         flex: 1 0 50%
@@ -87,10 +90,5 @@
         flex: 1 0 25%
 
   .pro-switcher
-    cursor: pointer
-    display: flex
-    align-items: center
-
-    span
-      +default-font-heavy
-      margin: 0 0 0 16px
+    +smm
+      padding: 29px 0 0

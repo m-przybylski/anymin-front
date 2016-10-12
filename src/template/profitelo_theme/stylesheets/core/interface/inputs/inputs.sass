@@ -1,2 +1,133 @@
-@import "design"
-@import "input-messages"
+input, textarea
+  +default-font-regular
+  outline: 0
+  border: 0
+  line-height: 1
+  color: $c-secondary-txt
+  font-size: $f-nav-size
+
+.input-group
+  input, textarea
+    width: 100%
+    padding: 0 16px
+
+  .input-group-addon
+    &:hover
+      color: $c-primary
+
+    .icon
+      cursor: pointer
+      min-width: 44px
+      position: absolute
+      padding: 16px
+      right: 0
+      top: 0
+      bottom: 0
+      margin: auto
+
+.input-error-messages
+  +default-font-heavy
+  width: 100%
+  min-height: 32px
+  padding: 16px 8px
+  color: $c-error
+  font-size: $f-h6-size
+
+  .errors
+    color: $c-input-error
+
+    &.right
+      text-align: right
+
+    &.left
+      text-align: left
+
+
+/* dropdown */
+.ui-select-container
+  &.ui-select-multiple
+    min-height: 56px
+    padding: 16px
+    background: $c-white
+
+  &.open,
+  &:hover
+    border-color: $c-primary
+
+  &:not(.ng-pristine)
+    .ui-select-match .ui-select-toggle span
+      color: $c-primary-txt
+
+  .ui-select-match
+    flex: 1 0 100%
+    display: flex
+    align-items: stretch
+    z-index: $z-index-100
+
+    &.btn-default-focus
+      box-shadow: none
+      border: 0
+      outline: 0
+      background: none
+
+    .ui-select-toggle
+      flex: 1 0 100%
+      padding: 12px 16px 9px
+      height: 100%
+      align-items: flex-end
+      justify-content: flex-start
+
+      &:hover
+        opacity: 1
+
+      span
+        +default-font-regular
+        color: $c-secondary-txt
+        font-size: $f-nav-size
+        line-height: 1
+        text-transform: none
+
+  .ui-select-choices
+    opacity: 1 !important
+    text-align: left
+    padding: 0
+    width: calc(100% + 2px)
+    max-height: 10px
+    border-radius: 0 0 3px 3px
+    border-top: 0
+    border-color: $c-primary
+    left: -1px !important
+    max-width: inherit
+    transition: all 0.3s
+
+
+  &.open
+    border-color: $c-primary
+
+    .ui-select-choices
+      max-height: 216px
+
+      .ui-select-choices-group
+        .ui-select-choices-row
+          a
+            +default-font-regular
+            font-size: $f-nav-size
+            padding: 8px 16px
+            color: $c-secondary-txt
+
+            &:hover
+              background: $c-background
+              color: $c-primary
+
+          &.active
+            > a
+              background: $c-background
+              color: $c-primary-txt
+
+.dropdown-menu
+  max-width: calc(100% + 2px)
+  left: -1px !important
+  border-color: $c-primary
+  border-top: 0
+
+/* dropdown end*/

@@ -1,8 +1,43 @@
-.input-group
-  .invalid
+.pro-input-password,
+.pro-input
+  transition: border-color 0.2s
+  border-radius: 3px
+  background: $c-white
+  border: 1px solid $c-lines
+  height: 56px
+  position: relative
+  display: flex
+  padding: 0
+  width: 100%
+  overflow: hidden
+
+  &.on-click
+    border-color: $c-primary
+
+  &.is-label
+    padding: 22px 16px 0
+
+    input
+      padding: 0
+
+
+  label
+    +default-font-heavy
+    color: $c-label
+    font-size: $f-label-size
+    line-height: 1
+    position: absolute
+    top: 12px
+    left: 16px
+    text-transform: uppercase
+
+  &.invalid
     border-color: $c-invalid-border
+
     label
       color: $c-input-error
+
     span
       &.cross-addon
         color: $c-input-error
+
