@@ -4,16 +4,36 @@ describe('Unit testing: profitelo.directives.search.search-filters', () => {
     let scope = null
     let rootScope
     let compile = null
-    let validHTML = '<search-filter data-model="model"></search-filter>'
-
+    let validHTML = '<search-filters data-model="model"></search-filters>'
+    let _httpBackend = null
+    let _CategoriesApiDef
+    let resourcesExpectations
+    const url = 'awesomeUrl'
+    
+    beforeEach(module(function($provide) {
+      $provide.value('apiUrl', url)
+    }))
+    
     beforeEach(() => {
       module('templates-module')
+      module('profitelo.swaggerResources.definitions')
       module('profitelo.directives.search.search-filters')
-
-      inject(($rootScope, $compile) => {
+      
+      inject(($rootScope, $compile, $injector) => {
         rootScope = $rootScope.$new()
         compile = $compile
+        _httpBackend = $injector.get('$httpBackend')
+        _CategoriesApiDef = $injector.get('CategoryApiDef')
       })
+
+      resourcesExpectations = {
+        CategoriesApi: {
+          getCategories: _httpBackend.when(_CategoriesApiDef.listCategories.method, _CategoriesApiDef.listCategories.url)
+        }
+      }
+
+      resourcesExpectations.CategoriesApi.getCategories.respond(200)
+
     })
 
     function create(html) {

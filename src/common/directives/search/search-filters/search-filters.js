@@ -1,5 +1,5 @@
 (function() {
-  function searchFilters($filter, searchService, categoryService) {
+  function searchFilters($filter, searchService) {
     function linkFunction(scope, element, attrs) {
 
       scope.model = {

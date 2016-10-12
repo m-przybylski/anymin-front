@@ -28,7 +28,8 @@
         }
         return offset
       }
-
+      
+      /* istanbul ignore next */
       angular.element($window).on('resize', ()=> {
         _clearSlider()
       })
