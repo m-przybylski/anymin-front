@@ -63,6 +63,12 @@ html
 .hidden
   display: none
 
+
+::selection
+  color: $c-white
+  background: $c-primary
+
+
 img
   max-width: 100%
   position: relative
@@ -86,7 +92,7 @@ img
   &.user-avatar
     display: block
     overflow: hidden
-    text-indent: -50%
+    text-indent: -150%
     min-width: 48px
     min-height: 48px
 
@@ -110,7 +116,7 @@ img
       display: flex
       align-items: center
       justify-content: center
-      background: url('/assets/images/no-avatar.jpg') 50% 50% / cover
+      background: url('/assets/images/no-avatar.jpg') 50% 50% / cover $c-white
 
 
 .icon
