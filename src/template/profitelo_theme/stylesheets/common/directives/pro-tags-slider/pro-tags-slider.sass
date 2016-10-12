@@ -45,7 +45,7 @@
 
   .arrow-slider
     display: none
-
+    opacity: 0.4
     +lgm
       align-items: center
       justify-content: center
@@ -57,11 +57,13 @@
       font-size: $f-base
       display: flex
 
-    &:hover
-      background: $c-primary
+    &.active-btn
+      opacity: 1
+      &:hover
+        background: $c-primary
 
-      span
-        color: $c-white
+        span
+          color: $c-white
 
     span
       transition: color 0.3s
