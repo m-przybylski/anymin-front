@@ -217,7 +217,6 @@
         display: flex
 
         .menu-item
-          width: auto
           padding: 0 16px
           border-left: 0
           width: calc(#{$dashboard-navbar-width} + 32px)
@@ -228,6 +227,10 @@
           &.cancel-btn
             background: $c-white
             color: $c-primary-txt
+            width: $dashboard-navbar-width
+
+            +xsm
+              width: calc(#{$dashboard-navbar-width} + 32px)
 
             +smm
               background: $c-primary-txt
