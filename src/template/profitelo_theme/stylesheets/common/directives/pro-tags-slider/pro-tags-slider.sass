@@ -8,6 +8,10 @@
       position: relative
       overflow: hidden
       margin: 0
+      overflow: hidden
+
+      +mdm
+        margin: 0 8px
 
       .slides-container
         +transition(left 0.5s ease-in-out 0s)
@@ -24,7 +28,7 @@
 
           li
             +default-font-regular
-            margin: 0 16px 0 0
+            margin: 0 8px 0 0
             border-radius: 0
 
             .slide-btn-tag
@@ -68,6 +72,6 @@
     span
       transition: color 0.3s
       line-height: 1
-      font-size: $f-btn-size
+      font-size: $f-paragraph
       color: $c-secondary-txt
 

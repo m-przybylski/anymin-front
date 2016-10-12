@@ -38,27 +38,44 @@
     .rz-bubble
       +default-font-heavy
 
+      &:last-of-type
+        display: none !important
+
       &.rz-from
         +default-font-regular
-        font-size: $f-paragraph
+        font-size: $f-nav-size
+        color: $c-secondary-txt
         left: auto !important
-        right: 25px !important
+        right: 95px !important
         visibility: visible !important
+        bottom: 13px
 
         &::after
           content: "-"
-          margin: 0 8px
+          margin: 0 4px
 
       &.rz-to
         +default-font-regular
-        font-size: $f-paragraph
+        font-size: $f-nav-size
+        color: $c-secondary-txt
         left: auto !important
-        right: 0 !important
+        right: 70px !important
         opacity: 1 !important
         visibility: visible !important
+        bottom: 13px
 
       &.rz-limit
         &.rz-floor
           display: none
         &.rz-ceil
           display: none
+
+  .currency
+    +default-font-regular
+    font-size: $f-nav-size
+    visibility: visible !important
+    color: $c-secondary-txt
+    text-transform: uppercase
+    position: absolute
+    bottom: 14px
+    right: 0

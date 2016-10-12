@@ -24,7 +24,7 @@
       const _calculateOffset = (elem) => {
         let offset = 0
         for (let i = 0; i < elem; i++) {
-          offset = offset + elementsMap[i] + 16
+          offset = offset + elementsMap[i] + 8
         }
         return offset
       }

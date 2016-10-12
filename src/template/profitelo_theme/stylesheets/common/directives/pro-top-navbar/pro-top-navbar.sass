@@ -37,7 +37,7 @@
     display: flex
     align-items: center
     justify-content: center
-    height: $dashboard-navbar-width
+    height: calc( #{$dashboard-navbar-width} - 1px)
     cursor: pointer
     padding: 0 16px
 
@@ -178,9 +178,16 @@
       &.logOut
         .menu-item
           span
+
+            &:not(.icon)
+              display: none
             &:last-child
               margin: 0 0 0 16px
 
+          +smm
+            span
+              &:not(.icon)
+                display: flex
 
     .search-expandable
       display: inline-flex
@@ -213,6 +220,7 @@
           width: auto
           padding: 0 16px
           border-left: 0
+          width: calc(#{$dashboard-navbar-width} + 32px)
 
           +smm
             padding: 0 24px
@@ -242,7 +250,7 @@
 
       .search-bar,
       .search-bar-shadow
-        +default-font-light
+        +default-font-regular
         border: 0
         box-shadow: none
         height: 79px
