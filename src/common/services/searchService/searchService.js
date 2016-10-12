@@ -376,7 +376,8 @@
       const options = {
         language: [{name: 'all', value: null}].concat(_languageOptions.map((lng) => { return {name: lng, value: lng} })),
         sortBy: _sortingOptions,
-        category: [{name: 'all', value: null}]
+        category: [{name: 'all', value: null}],
+        profileType: [{name: 'ALL', value: null}, {name: 'ORGANIZATION', value: 'ORG'}, {name:'EXPERT', value:'EXP'}]
       }
       return categoryService.listTopLevelCategories().then((categories) => {
         options.category = options.category.concat(categories.map((category) => {

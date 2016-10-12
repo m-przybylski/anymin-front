@@ -72,7 +72,10 @@
 
     this.search = () => {
       _focusOut()
-      $state.go('app.search-result', {q: this.ngModel, tagId: this.currentTagId})
+      if (angular.isDefined(this.ngModel) && this.ngModel.length > 0) {
+        $state.go('app.search-result', {q: this.ngModel, tagId: this.currentTagId})
+      }
+
     }
 
     this.onFocus = () => {

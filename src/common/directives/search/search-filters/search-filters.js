@@ -35,6 +35,12 @@
             value: cat.value
           }
         })
+        scope.profileTypeList = options.profileType.map((type) => {
+          return {
+            name: $filter('translate')($filter('normalizeTranslationKey')(('SEARCH.PROFILE_TYPE.' + type.name))),
+            value: type.value
+          }
+        })
       })
 
       scope.tagsAction = (tag)=> {
@@ -55,6 +61,7 @@
         scope.model.language = params.language
         scope.model.category = params.category
         scope.model.onlyAvailable = params.onlyAvailable
+        scope.model.profileType = params.profileType
         scope.model.minPrice = params.minPrice
         scope.model.maxPrice = _maxPriceValue(params.maxPrice)
       })
@@ -70,7 +77,7 @@
         'trailing': true
       })
 
-      const watchGroup = ['sortBy', 'language', 'category', 'onlyAvailable', 'minPrice', 'maxPrice']
+      const watchGroup = ['sortBy', 'language', 'category', 'onlyAvailable', 'minPrice', 'maxPrice', 'profileType']
 
       scope.$watchGroup(watchGroup.map((v) => { return 'model.' + v }), (newValues, oldValues) => {
         let searchQueryParams = {}
