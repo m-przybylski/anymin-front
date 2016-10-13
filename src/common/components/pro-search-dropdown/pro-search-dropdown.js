@@ -15,9 +15,48 @@
       experts: {},
       organizations: {}
     }
+
+    this.suggestionsLength = 0
     
     this.loadingSuggestion = false
     this.lastSearchWord = ''
+
+    const _deserializeSuggestions = (rawData) => {
+      const result = {
+        primary: '',
+        terms: [],
+        tags: [],
+        services: {},
+        experts: {},
+        organizations: {}
+      }
+      if (angular.isUndefined(rawData)) {
+        return result
+      }
+      if (angular.isDefined(rawData.terms)) {
+        result.terms = rawData.terms
+      }
+      if (angular.isDefined(rawData.tags)) {
+        result.tags = rawData.tags
+      }
+      if (angular.isDefined(rawData.services)) {
+        result.services = rawData.services
+      }
+      if (angular.isDefined(rawData.experts)) {
+        result.experts = rawData.experts
+      }
+      if (angular.isDefined(rawData.organizations)) {
+        result.organizations = rawData.organizations
+      }
+      return result
+    }
+
+    const _countSuggestions = (suggestions) => {
+      const servicesCount = angular.isDefined(suggestions.services.count) ? suggestions.services.count : 0
+      const expertsCount = angular.isDefined(suggestions.experts.count) ? suggestions.experts.count : 0
+      const organizationsCount = angular.isDefined(suggestions.organizations.count) ? suggestions.organizations.count : 0
+      return suggestions.terms.length + suggestions.tags.length + servicesCount + expertsCount + organizationsCount
+    }
 
     const _updateSuggestions = (searchWord) => {
       if (angular.isDefined(searchWord) && searchWord !== null && searchWord.toString().length >= 3) {
@@ -26,17 +65,13 @@
           searchService.suggest(this.ngModel),
           categoryService.getCategorySlugs()
         ]).then((data) => {
-          this.suggestions.terms = data[0].terms
-          this.suggestions.tags = data[0].tags
-          this.suggestions.services = data[0].services
-          this.suggestions.experts = data[0].experts
-          this.suggestions.organizations = data[0].organizations
+          this.suggestions = _deserializeSuggestions(data[0])
+          this.suggestionsLength = _countSuggestions(this.suggestions)
           this.categorySlugs = data[1]
           this.lastSearchWord = searchWord
           this.loadingSuggestion = false
         }, () => {
           this.loadingSuggestion = false
-
         })
       }
     }
