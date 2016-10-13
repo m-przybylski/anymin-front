@@ -3,6 +3,7 @@
   padding: 0
   background: $c-white
 
+
   +mdm
     padding: 0
 
@@ -41,6 +42,34 @@
     +lgm
       display: block
 
+  .mobile-filter-button
+    +default-font-regular
+    padding: 32px 32px 32px
+    display: flex
+    justify-content: center
+    border-bottom: 1px solid $c-lines
+    margin: 0 16px
+    outline: 0
+    cursor: pointer
+    color: $c-secondary-txt
+    text-transform: uppercase
+    font-size: $f-paragraph
+
+    .icon
+      margin: 0 16px 0 0
+
+  .default-container
+    max-height: 700px
+    transition: max-height 1s ease-out
+    overflow: hidden
+
+    +smm
+      overflow: visible
+
+    &.hide-filters
+      max-height: 0
+
+
   .advanced-search-bar-wrap
     display: flex
     flex-wrap: wrap
@@ -49,7 +78,7 @@
     border-bottom: 1px solid $c-lines
 
     +smm
-      adding: 64px 0 32px
+      padding: 64px 0 32px
       margin: 0 0 48px
 
     +smm
@@ -86,7 +115,6 @@
 
         &:nth-child(4n)
           padding: 0
-
 
     .input-group
       margin: 0

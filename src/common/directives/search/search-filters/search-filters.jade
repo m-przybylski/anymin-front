@@ -4,7 +4,7 @@
     .default-container
       pro-tags-slider(data-tags="model.tags" data-on-tag-click-action="tagsAction")
 
-  .default-container
+  .default-container(data-ng-class="{'hide-filters' : mobileHandler()}")
     .advanced-search-bar-wrap
       pro-dropdown(data-pro-model='model.sortBy' data-label="{{::'SEARCH.SORT_BY' | translate }}" data-placeholder="{{::'SEARCH.SATISFIED_PERCENT' | translate }}" data-pro-items="sortList" data-no-search)
 
@@ -17,3 +17,8 @@
       pro-range-slider(data-min-value='model.minPrice' data-max-value='model.maxPrice' data-label="{{::'SEARCH.PRICE_RANGE' | translate}}")
 
       pro-switcher(id="switcher" data-ng-model="model.onlyAvailable" data-label="SEARCH.EXPERTS_CURRENTLY_AVAILABLE")
+
+  .mobile-filter-button(data-ng-if="showMobileFilterButton()" data-ng-click="showFilters()")
+    span.icon.icon-filter-24.icon-24
+    span(data-ng-hide="showMobileFilters") {{ 'SEARCH.MOBILE_FILTER_BUTTON.OPEN' | translate }}
+    span(data-ng-show="showMobileFilters") {{ 'SEARCH.MOBILE_FILTER_BUTTON.CLOSE' | translate }}

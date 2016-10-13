@@ -37,7 +37,12 @@ function proDropdown($timeout) {
       scope.onClick = true
     }
 
-    scope.openBar = function() {
+    scope.openBar = function(select) {
+      console.log(select.open, select)
+      // if (select.open) {
+      //   select.close()
+      // }
+      //console.log(select)
       _getScrollbarChoices().perfectScrollbar()
     }
     
