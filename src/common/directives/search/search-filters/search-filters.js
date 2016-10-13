@@ -45,7 +45,6 @@
 
       scope.tagsAction = (tag)=> {
         scope.tagClickAction(tag)
-        scope.model.tags = []
       }
 
       const _maxPriceValue = (maxPrice) => {

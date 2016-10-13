@@ -40,7 +40,7 @@
     })
 
     this.tagsClick = (tag) => {
-      $state.go('app.search-result', {tagId: tag.id, q: tag.name})
+      $state.go('app.search-result', {q: tag.name})
     }
 
     const _loadMore = () => {

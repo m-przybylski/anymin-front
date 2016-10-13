@@ -1,6 +1,6 @@
 .search-result
   pro-top-navbar(data-show-search="true" logout-action="appController.logout" data-search-count="vm.searchResults.count")
-  preloader(data-is-loading= "vm.isSearchLoading")
+  preloader(data-is-loading= "vm.isSearchLoading" data-min-timeout="800")
     search-filters(data-tag-click-action="vm.tagsClick" data-search-results="vm.searchResults")
     no-consultations(data-query="vm.searchParams.q" data-ng-if="vm.searchResults.results.length === 0 && !vm.isSearchLoading")
     div(infinite-scroll="vm.loadMoreOnScroll()"  infinite-scroll-distance="2")
