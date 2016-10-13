@@ -1,0 +1,16 @@
+.communicator-audio
+ .communicator-content
+   p.call.connecting-with(data-translate="COMMUNICATOR.CONNECTING_WITH" data-ng-show="vm.getConnection")
+   p.call.connecting-with(data-translate="COMMUNICATOR.AUDIO_CONVERSATION" data-ng-show="!vm.getConnection")
+   h4.communicator-conversation-client Marek Szparek
+
+   .communicator-current-profile
+     .communicator-equalizer
+       span.circle
+       span.circle
+       span.circle
+
+     .communicator-user
+       img.user-avatar.communicator-avatar(src="/assets/images/no-avatar.jpg")
+
+  communicator-nav()

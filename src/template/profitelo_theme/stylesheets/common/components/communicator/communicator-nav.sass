@@ -1,0 +1,50 @@
+.communicator-nav
+  width: 100%
+  height: 100%
+  position: fixed
+  z-index: $z-index-900
+  left: 0
+  top: 0
+  display: flex
+  align-items: flex-end
+  justify-content: space-between
+  flex-wrap: wrap
+  padding: 32px 0
+
+  +xsm
+    align-content: space-between
+
+  .communicator-upper-nav
+    display: none
+
+    +xsm-portrait
+      flex: 1 0 100%
+      display: flex
+      justify-content: flex-end
+      padding: 0 16px
+
+    +smm
+      flex: 1 0 100%
+      display: flex
+      justify-content: flex-end
+      padding: 0 16px
+
+  .communicator-lower-nav
+    flex: 1 0 100%
+    display: flex
+    justify-content: center
+
+    +smm
+      position: relative
+
+  .btn-circle
+    margin: 0 12px
+
+    &.chat-switcher
+      align-self: flex-end
+
+      +smm
+        position: absolute
+        margin: 0
+        right: 32px
+        top: 0

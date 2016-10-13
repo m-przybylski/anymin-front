@@ -430,9 +430,6 @@
   +xsm
     width: auto
 
-  &:hover
-    opacity: 0.8
-
   [class*="icon"]
     font-size: $f-btn-icon
     margin: 0 16px
@@ -464,3 +461,26 @@
 
   &.warning
     background: $c-warning
+
+  /* circle buttons */
+  &.btn-circle
+    transition: background 0.3s
+    border-radius: 50%
+    height: 56px
+    width: 56px
+    padding: 0
+    background: $c-primary-txt
+    box-shadow: 0 1px 4px 0 rgba($c-primary-txt, 0.15)
+
+    span
+      font-size: $f-icon-22
+      color: $c-white
+
+    &:hover
+      background: $c-primary
+
+    &.cancel-conversation
+      background: $c-error
+
+    &.connect-conversation
+      background: $c-success
