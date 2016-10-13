@@ -4,7 +4,7 @@
     .default-container
       pro-tags-slider(data-tags="model.tags" data-on-tag-click-action="tagsAction")
 
-  .default-container(data-ng-class="{'hide-filters' : mobileHandler()}")
+  .default-container(data-ng-class="{'hide-filters' : handleMobileFiltersDisplay()}")
     .advanced-search-bar-wrap
       pro-dropdown(data-pro-model='model.sortBy' data-label="{{::'SEARCH.SORT_BY' | translate }}" data-placeholder="{{::'SEARCH.SATISFIED_PERCENT' | translate }}" data-pro-items="sortList" data-no-search)
 

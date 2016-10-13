@@ -48,7 +48,7 @@
         scope.tagClickAction(tag)
       }
 
-      scope.mobileHandler = () => {
+      scope.handleMobileFiltersDisplay = () => {
         const windowSize = $window.innerWidth
         return windowSize < 768 && !scope.showMobileFilters
       }

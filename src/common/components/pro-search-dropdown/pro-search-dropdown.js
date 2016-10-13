@@ -143,6 +143,7 @@
     $scope.$watch(() => {
       return this.ngModel
     }, (newValue) => {
+      
       if (angular.isDefined(newValue) && newValue !== null && !this.isCollapsed
         && newValue.length > 2 && !!this.suggestions.tags && this.suggestions.tags.length > 0
         && ((this.suggestions.tags[0].name).toLowerCase()).includes(this.ngModel.toLowerCase())) {
