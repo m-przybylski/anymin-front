@@ -3,7 +3,36 @@
   /* @ngInject */
   function controller() {
 
+    this.isActive = {
+      microphoneDisabled: false,
+      cameraDisabled: false,
+      optionsToggled: false,
+      chatSwitcher: false
+    }
 
+    this.minimizeChat = () => {
+      this.chatMinimize()
+    }
+
+    this.disconnectConversations = () => {
+      this.conversationDisconnect()
+    }
+
+    this.microphoneSwitcher = () => {
+      this.isActive.microphoneDisabled = !this.isActive.microphoneDisabled
+    }
+
+    this.cameraSwitcher = () => {
+      this.isActive.cameraDisabled = !this.isActive.cameraDisabled
+    }
+
+    this.optionsToggled = () => {
+      this.isActive.optionsToggled = !this.isActive.optionsToggled
+    }
+
+    this.chatSwitcher = () => {
+      this.isActive.chatSwitcher = !this.isActive.chatSwitcher
+    }
 
     return this
   }
@@ -14,10 +43,8 @@
     controller: controller,
     controllerAs: 'vm',
     bindings: {
-      showChat: '<',
-      toggles: '=',
-      session: '=',
-      messages: '='
+      chatMinimize: '=?',
+      conversationDisconnect: '=?'
     }
   }
 

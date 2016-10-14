@@ -2,6 +2,7 @@
 
   function DashboardStartController(User) {
     this.userId = User.getData('id')
+
     return this
   }
 
@@ -18,6 +19,9 @@
       controllerAs: 'vm',
       data          : {
         access : UserRolesProvider.getAccessLevel('user')
+      },
+      bindings: {
+        communicatorTurnOn: '=?'
       }
     })
   })
