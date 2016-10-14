@@ -8,14 +8,13 @@
     this.categorySlugs = {}
     this.currentTagId = null
     this.suggestions = {
-      primary: '',
       terms: [],
       tags: [],
       services: {},
       experts: {},
       organizations: {}
     }
-
+    this.primarySuggestion = ''
     this.suggestionsLength = 0
 
     this.loadingSuggestion = false
@@ -23,7 +22,6 @@
 
     const _deserializeSuggestions = (rawData) => {
       const result = {
-        primary: '',
         terms: [],
         tags: [],
         services: {},
@@ -65,6 +63,7 @@
           searchService.suggest(this.ngModel),
           categoryService.getCategorySlugs()
         ]).then((data) => {
+          console.log(data)
           this.suggestions = _deserializeSuggestions(data[0])
           this.suggestionsLength = _countSuggestions(this.suggestions)
           this.categorySlugs = data[1]
@@ -110,7 +109,6 @@
       if (angular.isDefined(this.ngModel) && this.ngModel.length > 0) {
         $state.go('app.search-result', {q: this.ngModel, tagId: this.currentTagId})
       }
-
     }
 
     this.onFocus = () => {
@@ -143,14 +141,13 @@
     $scope.$watch(() => {
       return this.ngModel
     }, (newValue) => {
-
-      if (angular.isDefined(newValue) && newValue !== null && !this.isCollapsed
+      if (angular.isDefined(newValue) && newValue && !this.isCollapsed
         && newValue.length > 2 && !!this.suggestions.tags && this.suggestions.tags.length > 0
         && ((this.suggestions.tags[0].name).toLowerCase()).includes(this.ngModel.toLowerCase())) {
-        this.suggestions.primary = this.suggestions.tags[0].name
+        this.primarySuggestion = this.suggestions.tags[0].name
       } else {
         this.currentTagId = null
-        this.suggestions.primary = null
+        this.primarySuggestion = null
       }
       _searchActionDebounce()
     })
@@ -159,25 +156,35 @@
     $element.bind('keydown keypress', (event) => {
       const keyCode = event.which || event.keyCode
       switch (keyCode) {
-
         case 39:
-          if (this.suggestions.primary !== null) {
-            this.ngModel = this.suggestions.primary
+          if (this.primarySuggestion !== null) {
+            this.ngModel = this.primarySuggestion
             this.currentTagId = this.suggestions.tags[0].id
             $scope.$digest()
           }
           break
-
         case 8:
           this.currentTagId = null
           break
-        
         default:
           break
       }
     })
 
     $element.find('.dropdown-container').perfectScrollbar()
+
+    Object.defineProperty(this, 'open', {
+      get: function() {
+        return this.open
+      },
+      set: function(flag) {
+        if (angular.isDefined(flag) && flag) {
+          _focus()
+        } else {
+          _focusOut()
+        }
+      }
+    })
 
     return this
   }
@@ -189,9 +196,8 @@
     controllerAs: 'vm',
     bindings: {
       ngModel: '=?',
-      hideFn: '&',
-      showFn: '&',
-      searchCount: '=?'
+      searchCount: '=?',
+      open: '<'
     }
   }
 

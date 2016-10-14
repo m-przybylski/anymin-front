@@ -12,6 +12,8 @@
         tags: []
       }
 
+      const searchDebounceTimeout = 500
+
       scope.languagesList = []
       scope.sortList = []
       scope.categoryList = []
@@ -44,7 +46,7 @@
         })
       })
 
-      scope.tagsAction = (tag)=> {
+      scope.tagsAction = (tag) => {
         scope.tagClickAction(tag)
       }
 
@@ -86,7 +88,7 @@
         }
       })
 
-      const setSearchQueryParamsDebounce = _.debounce(searchService.setSearchQueryParams, 500, {
+      const setSearchQueryParamsDebounce = _.debounce(searchService.setSearchQueryParams, searchDebounceTimeout, {
         'leading': false,
         'trailing': true
       })

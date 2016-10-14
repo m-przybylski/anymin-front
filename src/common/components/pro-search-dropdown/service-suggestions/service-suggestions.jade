@@ -3,7 +3,8 @@
     h5.title-row  {{'SEARCH.SERVICES' | translate}}
 
     .consultations-box.dropdown-category-list
-      .expert-box.dropdown-list-item(data-ng-repeat="service in vm.services.results track by $index")
+      a.expert-box.dropdown-list-item(data-ng-repeat="service in vm.services.results track by $index"
+      data-ui-sref="app.expert-profile({ contactId: service.owner.id })")
         .expert-profile
           .thumb
             img.expert-avatar.user-avatar(src='http://placekitten.com/48/48')
