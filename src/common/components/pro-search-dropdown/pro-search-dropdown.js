@@ -63,7 +63,6 @@
           searchService.suggest(this.ngModel),
           categoryService.getCategorySlugs()
         ]).then((data) => {
-          console.log(data)
           this.suggestions = _deserializeSuggestions(data[0])
           this.suggestionsLength = _countSuggestions(this.suggestions)
           this.categorySlugs = data[1]
@@ -138,18 +137,30 @@
       return !!this.searchCount && this.searchCount > 0 && this.isCollapsed
     }
 
-    $scope.$watch(() => {
-      return this.ngModel
-    }, (newValue) => {
-      if (angular.isDefined(newValue) && newValue && !this.isCollapsed
-        && newValue.length > 2 && !!this.suggestions.tags && this.suggestions.tags.length > 0
-        && ((this.suggestions.tags[0].name).toLowerCase()).includes(this.ngModel.toLowerCase())) {
-        this.primarySuggestion = this.suggestions.tags[0].name
+    const _setPrimarySuggestion = (search) => {
+      if (angular.isDefined(search) && search && !this.isCollapsed && search.length > 2 &&
+        !!this.suggestions.tags && this.suggestions.tags.length > 0) {
+
+        this.suggestions.tags.map((tag) => tag.name.toLowerCase()).reverse().forEach((name) => {
+          if (name.includes(this.ngModel.toLowerCase())) {
+            this.primarySuggestion = name
+          }
+        })
       } else {
         this.currentTagId = null
         this.primarySuggestion = null
       }
-      _searchActionDebounce()
+    }
+
+    const _onSearchModelChange = (search) => {
+      _setPrimarySuggestion(search)
+      _searchActionDebounce(search)
+    }
+
+    $scope.$watch(() => {
+      return this.ngModel
+    }, (newValue) => {
+      _onSearchModelChange(newValue)
     })
     
     /* istanbul ignore next */
