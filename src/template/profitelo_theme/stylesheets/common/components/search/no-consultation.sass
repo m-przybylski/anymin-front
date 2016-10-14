@@ -1,20 +1,31 @@
 .no-consultation
-  padding: 100px 0
+  text-align: center
 
-  .entry-title
-    margin: 0 0 16px
+  .no-consultation-content
+    padding: 100px 0
+    display: inline-block
 
-    .search-query
-      +default-font-heavy
-      padding: 0 4px
+    .entry-title
+      +default-font-regular
+      font-size: $f-h4-size
+      margin: 0 0 24px
 
-  h5
-    +default-font-heavy
-    margin: 0 0 16px
+      .search-query
+        +default-font-regular
+        padding: 0 4px
+        color: $c-primary
 
-  ul
-    margin: 0 0 0 16px
+    img
+      margin: 0 auto 64px
+      display: block
 
-    li
-      text-align: left
-      list-style: disc
+    ul
+      margin: 0 0 0 16px
+
+      li
+        +default-font-regular
+        color: $c-secondary-txt
+        font-size: $f-paragraph
+        margin: 0 0 8px
+        text-align: left
+        list-style: disc
