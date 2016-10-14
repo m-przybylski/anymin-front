@@ -11,9 +11,9 @@
     .dropdown-container(data-ng-show="!vm.isCollapsed && vm.suggestionsLength > 0",
       data-ng-mouseleave="vm.onDropdownMouseLeave()" data-ng-mouseenter="vm.onDropdownMouseEnter()")
       preloader(data-wait-for-response="vm.loadingSuggestion" data-min-timeout="0")
-        term-suggestions(data-terms="vm.suggestions.terms" data-category-slugs="vm.categorySlugs")
-        tag-suggestions(data-tags="vm.suggestions.tags")
-        service-suggestions(data-services="vm.suggestions.services")
-        expert-suggestions(data-experts="vm.suggestions.experts")
-        organization-suggestions(data-organizations="vm.suggestions.organizations")
+        term-suggestions(data-terms="vm.suggestions.terms" data-category-slugs="vm.categorySlugs" data-search-model="vm.ngModel")
+        tag-suggestions(data-tags="vm.suggestions.tags" data-search-model="vm.ngModel")
+        service-suggestions(data-services="vm.suggestions.services" data-search-model="vm.ngModel")
+        expert-suggestions(data-experts="vm.suggestions.experts" data-search-model="vm.ngModel")
+        organization-suggestions(data-organizations="vm.suggestions.organizations" data-search-model="vm.ngModel")
 

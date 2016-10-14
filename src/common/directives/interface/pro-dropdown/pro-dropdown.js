@@ -2,6 +2,7 @@ function proDropdown($timeout) {
 
   function linkFunction(scope, element, attr) {
     let myScrollbarChoices
+    let currentDropdownStatus = false
 
     function _getScrollbarChoices() {
       if (!myScrollbarChoices) {
@@ -37,9 +38,16 @@ function proDropdown($timeout) {
       scope.onClick = true
     }
 
-    scope.openBar = function() {
+    scope.openBar = function(select) {
+      if (currentDropdownStatus) {
+        select.close()
+      }
       _getScrollbarChoices().perfectScrollbar()
     }
+    scope.onOpenClose = (isOpen) => {
+      currentDropdownStatus = isOpen
+    }
+
     
     scope.select = function(item, model) {
       scope.selectedItem = item

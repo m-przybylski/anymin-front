@@ -148,11 +148,11 @@
 
       
       switch (Math.ceil(strength/ 25)) {
-      case 0:
-      case 1:
-        return 1
-      default:
-        return Math.ceil(strength/ 25)
+        case 0:
+        case 1:
+          return 1
+        default:
+          return Math.ceil(strength/ 25)
       }
 
     }

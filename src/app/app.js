@@ -38,46 +38,46 @@
       let pac = User.pageAccessCheck(event, toState)
 
       switch (pac.code) {
-      case 'x401':
-        event.preventDefault()
-        proTopAlertService.error({
-          message: pac.msg,
-          header: 'Page redirect',
-          timeout: 3
-        })
-        $state.go('app.login.account')
-        break
-      case 'x403':
-        event.preventDefault()
-        proTopAlertService.error({
-          message: pac.msg,
-          header: 'Access forbidden',
-          timeout: 3
-        })
-        if (fromState.name !== '') {
-          $state.go(fromState.name)
-        } else {
-          $state.go('app.home')
-        }
-        break
-      case 'x200':
-        const user = User.getAllData()
-        if (angular.isDefined(user.id)) {
-          if (angular.isDefined(user.hasPassword) && !user.hasPassword) {
-            if (toState.name.startsWith('app.dashboard')) {
-              $state.go('app.post-register.set-password')
-            }
-          } else if ((angular.isDefined(user.email) && !user.email) &&
-            (angular.isDefined(user.unverifiedEmail) && !user.unverifiedEmail)) {
-            if (toState.name.startsWith('app.dashboard')) {
-              $state.go('app.post-register.set-email')
+        case 'x401':
+          event.preventDefault()
+          proTopAlertService.error({
+            message: pac.msg,
+            header: 'Page redirect',
+            timeout: 3
+          })
+          $state.go('app.login.account')
+          break
+        case 'x403':
+          event.preventDefault()
+          proTopAlertService.error({
+            message: pac.msg,
+            header: 'Access forbidden',
+            timeout: 3
+          })
+          if (fromState.name !== '') {
+            $state.go(fromState.name)
+          } else {
+            $state.go('app.home')
+          }
+          break
+        case 'x200':
+          const user = User.getAllData()
+          if (angular.isDefined(user.id)) {
+            if (angular.isDefined(user.hasPassword) && !user.hasPassword) {
+              if (toState.name.startsWith('app.dashboard')) {
+                $state.go('app.post-register.set-password')
+              }
+            } else if ((angular.isDefined(user.email) && !user.email) &&
+              (angular.isDefined(user.unverifiedEmail) && !user.unverifiedEmail)) {
+              if (toState.name.startsWith('app.dashboard')) {
+                $state.go('app.post-register.set-email')
+              }
             }
           }
-        }
-        break
-      default :
-        $log.error('Unhandled error', pac)
-        break
+          break
+        default :
+          $log.error('Unhandled error', pac)
+          break
       }
     }
 

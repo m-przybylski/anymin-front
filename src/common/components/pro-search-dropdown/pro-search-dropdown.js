@@ -17,7 +17,7 @@
     }
 
     this.suggestionsLength = 0
-    
+
     this.loadingSuggestion = false
     this.lastSearchWord = ''
 
@@ -143,6 +143,7 @@
     $scope.$watch(() => {
       return this.ngModel
     }, (newValue) => {
+
       if (angular.isDefined(newValue) && newValue !== null && !this.isCollapsed
         && newValue.length > 2 && !!this.suggestions.tags && this.suggestions.tags.length > 0
         && ((this.suggestions.tags[0].name).toLowerCase()).includes(this.ngModel.toLowerCase())) {
@@ -153,20 +154,31 @@
       }
       _searchActionDebounce()
     })
-
+    
+    /* istanbul ignore next */
     $element.bind('keydown keypress', (event) => {
       const keyCode = event.which || event.keyCode
-      if (keyCode === 39 && this.suggestions.primary !== null) {
-        this.ngModel = this.suggestions.primary
-        this.currentTagId = this.suggestions.tags[0].id
-        $scope.$digest()
-      } else if (keyCode === 8) {
-        this.currentTagId = null
+      switch (keyCode) {
+
+        case 39:
+          if (this.suggestions.primary !== null) {
+            this.ngModel = this.suggestions.primary
+            this.currentTagId = this.suggestions.tags[0].id
+            $scope.$digest()
+          }
+          break
+
+        case 8:
+          this.currentTagId = null
+          break
+        
+        default:
+          break
       }
     })
 
     $element.find('.dropdown-container').perfectScrollbar()
-    
+
     return this
   }
 

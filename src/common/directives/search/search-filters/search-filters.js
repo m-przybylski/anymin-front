@@ -1,5 +1,5 @@
 (function() {
-  function searchFilters($filter, searchService) {
+  function searchFilters($filter, searchService, $window) {
     function linkFunction(scope, element, attrs) {
 
       scope.model = {
@@ -15,6 +15,7 @@
       scope.languagesList = []
       scope.sortList = []
       scope.categoryList = []
+      scope.showMobileFilters = false
 
       searchService.getAvailableOptions().then((options) => {
         scope.languagesList = options.language.map((lng) => {
@@ -45,6 +46,20 @@
 
       scope.tagsAction = (tag)=> {
         scope.tagClickAction(tag)
+      }
+
+      scope.handleMobileFiltersDisplay = () => {
+        const windowSize = $window.innerWidth
+        return windowSize < 768 && !scope.showMobileFilters
+      }
+
+      scope.showFilters = () => {
+        scope.showMobileFilters = scope.showMobileFilters ? false : true
+      }
+      
+      scope.showMobileFilterButton = () => {
+        const windowSize = $window.innerWidth
+        return windowSize < 768
       }
 
       const _maxPriceValue = (maxPrice) => {
