@@ -25,15 +25,15 @@
 
     let _determinePhoneNumberStatus = (status) => {
       switch (status) {
-      case 'REGISTERED':
-        this.current = 2
-        break
-      case 'NO_PASSWORD':
-        $state.go('app.login.forgot-password')
-        break
-      case 'UNREGISTERED':
-      default:
-        $state.go('app.login.register')
+        case 'REGISTERED':
+          this.current = 2
+          break
+        case 'NO_PASSWORD':
+          $state.go('app.login.forgot-password')
+          break
+        case 'UNREGISTERED':
+        default:
+          $state.go('app.login.register')
       }
     }
 

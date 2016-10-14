@@ -8,4 +8,4 @@
         img.expert-avatar.circle(src='http://placekitten.com/48/48')
 
         span.expert-data
-          span.expert-name {{ organization.name }}
+          span.expert-name(ng-bind-html="organization.name | searchBoldFilter:vm.searchModel") {{ organization.name }}

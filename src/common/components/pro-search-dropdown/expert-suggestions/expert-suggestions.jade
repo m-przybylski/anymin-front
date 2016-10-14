@@ -8,5 +8,5 @@
         img.expert-avatar.user-avatar.circle(src='http://placekitten.com/48/48')
 
         span.expert-data
-          span.expert-name {{expert.name}}
+          span.expert-name(ng-bind-html="expert.name | searchBoldFilter:vm.searchModel") {{expert.name}}
           span.expert-category(data-ng-repeat="category in vm.expert.categories track by $index") {{category}}
