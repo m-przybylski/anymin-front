@@ -1,11 +1,11 @@
-.default-container-small
-  .no-consultation
+.no-consultation.default-container
+  .no-consultation-content
+    img(data-ng-src="/assets/images/search-image.jpg")
+
     .entry-title
       span {{'SEARCH.EXPRESSION'	| translate}}
       span.search-query {{ vm.query }}
       span {{'SEARCH.IS_NOT_EXIST' | translate}}
-
-    h5(data-translate="SEARCH.HINTS")
 
     ul
       li(data-translate="SEARCH.ARE_WORDS_CORRECT	")
