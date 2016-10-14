@@ -59,7 +59,7 @@ describe('Unit testing:profitelo.components.pro-search-dropdown', () => {
       component.ngModel = 'foo'
       rootScope.$digest()
 
-      expect(component.suggestions.primary).toEqual('')
+      expect(component.primarySuggestion).toEqual('')
     })
 
   })
