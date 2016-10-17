@@ -84,8 +84,7 @@
       restrict: 'E',
       replace: true,
       scope: {
-        tags: '=?',
-        onTagClickAction: '=?'
+        tags: '=?'
 
       },
       link: linkFunction

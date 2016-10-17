@@ -46,10 +46,6 @@
         })
       })
 
-      scope.tagsAction = (tag) => {
-        scope.tagClickAction(tag)
-      }
-
       scope.handleMobileFiltersDisplay = () => {
         const windowSize = $window.innerWidth
         return windowSize < 768 && !scope.showMobileFilters
@@ -112,7 +108,6 @@
       restrict: 'E',
       templateUrl: 'directives/search/search-filters/search-filters.tpl.html',
       scope: {
-        tagClickAction: '=?',
         searchResults: '=?'
       },
       link: linkFunction

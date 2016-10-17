@@ -2,7 +2,7 @@
   div.search-filter-slider(data-ng-if="model.tags.length > 3")
     h4 {{::'SEARCH.SEARCH_RECENT' | translate}}
     .default-container
-      pro-tags-slider(data-tags="model.tags" data-on-tag-click-action="tagsAction")
+      pro-tags-slider(data-tags="model.tags")
 
   .default-container(data-ng-class="{'hide-filters' : handleMobileFiltersDisplay()}")
     .advanced-search-bar-wrap

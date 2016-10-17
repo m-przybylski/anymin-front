@@ -39,10 +39,6 @@
       }
     })
 
-    this.tagsClick = (tag) => {
-      $state.go('app.search-result', {q: tag.name, tagId: null})
-    }
-
     const _loadMore = () => {
       const countMax = this.searchResults.count
       if (angular.isDefined(this.searchResults.results) && !this.isLoadMoreLoading) {

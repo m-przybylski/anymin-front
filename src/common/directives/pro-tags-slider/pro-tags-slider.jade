@@ -5,7 +5,7 @@
     .slider-tag
       .slides-container(data-ng-style="leftOffset")
         ul.slide-page
-          li(data-ng-repeat="tag in tags track by $index" data-ng-click="::tagAction(tag)")
-            a.slide-btn-tag {{::tag.name}}
+          li(data-ng-repeat="tag in tags track by $index")
+            a(data-ui-sref="app.search-result({q: tag.name, tagId: tag.id, category: null})").slide-btn-tag {{:: tag.name}}
     a.arrow-right.arrow-slider(data-ng-click="nextSlide()" data-ng-class="{'active-btn': rightArrowActive()}")
       span.icon.icon-arrow-right-16
