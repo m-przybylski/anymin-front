@@ -138,6 +138,7 @@
     }
 
     const _setPrimarySuggestion = (search) => {
+      this.primarySuggestion = null
       if (angular.isDefined(search) && search && !this.isCollapsed && search.length > 2 &&
         !!this.suggestions.tags && this.suggestions.tags.length > 0) {
 

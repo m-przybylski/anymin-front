@@ -1,5 +1,5 @@
 (function() {
-  function searchFilters($filter, searchService, $window) {
+  function searchFilters($filter, searchService, $window, $location) {
     function linkFunction(scope, element, attrs) {
 
       scope.model = {
@@ -103,7 +103,7 @@
           }
         })
         searchQueryParams['offset'] = 0
-        setSearchQueryParamsDebounce(searchQueryParams)
+        setSearchQueryParamsDebounce(angular.extend($location.search(), searchQueryParams))
       })
     }
 

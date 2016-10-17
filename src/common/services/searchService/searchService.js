@@ -333,6 +333,8 @@
         angular.forEach(Object.keys(_queryParams), (fieldName) => {
           if (newQueryParams.hasOwnProperty(fieldName)) {
             _queryParams[fieldName] = newQueryParams[fieldName]
+          } else {
+            _queryParams[fieldName] = undefined
           }
         })
         if (angular.isDefined(_queryParams.areDirty) && _queryParams.areDirty) {
