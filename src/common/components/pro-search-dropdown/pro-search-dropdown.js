@@ -1,6 +1,6 @@
 (function() {
   /* @ngInject */
-  function proSearchDropdownController($q, $scope, $state, $timeout, $element, searchService, categoryService) {
+  function proSearchDropdownController($q, $scope, $state, $element, searchService, categoryService) {
 
     this.isCollapsed = true
     this.isFocused = false
@@ -19,6 +19,8 @@
 
     this.loadingSuggestion = false
     this.lastSearchWord = ''
+
+    let listOfSuggestions = $element.find('.dropdown-container a')
 
     const _deserializeSuggestions = (rawData) => {
       const result = {
@@ -47,6 +49,11 @@
         result.organizations = rawData.organizations
       }
       return result
+    }
+
+    const selectedElement = {
+      currentPosition: -1,
+      lastElement: -1
     }
 
     const _countSuggestions = (suggestions) => {
@@ -103,10 +110,34 @@
       }
     }
 
+    const _handleArrowsOnSuggestions = (list, elementObject) => {
+      const currentElement = list[elementObject.currentPosition]
+
+      if (elementObject.lastElement >= 0) {
+        angular.element(list[elementObject.lastElement]).removeClass('active')
+      }
+
+      angular.element(currentElement).addClass('active')
+      const dropdownOffset = 300
+      $element.find('.dropdown-container').scrollTop(currentElement.offsetTop - angular.element(('.dropdown-container')).height() + dropdownOffset)
+      selectedElement.lastElement = elementObject.currentPosition
+    }
+
+    const _clearSelectedElement = (list) => {
+      $(list[selectedElement.currentPosition]).removeClass('active')
+      $element.find('.dropdown-container').scrollTop(0)
+      selectedElement.currentPosition = -1
+      selectedElement.lastElement = -1
+    }
+
     this.search = () => {
       _focusOut()
       if (angular.isDefined(this.ngModel) && this.ngModel.length > 0) {
-        $state.go('app.search-result', {q: this.ngModel, tagId: this.currentTagId})
+        if (selectedElement.currentPosition > -1) {
+          $element.find('.dropdown-container .active').triggerHandler('click')
+        } else {
+          $state.go('app.search-result', {q: this.ngModel, tagId: this.currentTagId})
+        }
       }
     }
 
@@ -155,6 +186,7 @@
     const _onSearchModelChange = (search) => {
       _setPrimarySuggestion(search)
       _searchActionDebounce(search)
+      _clearSelectedElement($element.find('.dropdown-container a'))
     }
 
     $scope.$watch(() => {
@@ -162,21 +194,60 @@
     }, (newValue) => {
       _onSearchModelChange(newValue)
     })
-    
+
+    /* istanbul ignore next */
+    const _onUpDownKeysPress = (callback) => {
+      listOfSuggestions =  $element.find('.dropdown-container a')
+      if (!!this.ngModel && this.ngModel.length > 2 && angular.isFunction(callback)) {
+        callback()
+      }
+    }
+
+    const keysCode = {
+      arrowRight: 39,
+      arrowDown: 40,
+      arrowUp: 38,
+      backspace: 8
+    }
+
     /* istanbul ignore next */
     $element.bind('keydown keypress', (event) => {
       const keyCode = event.which || event.keyCode
       switch (keyCode) {
-        case 39:
+        case keysCode.arrowRight:
           if (this.primarySuggestion !== null) {
             this.ngModel = this.primarySuggestion
             this.currentTagId = this.suggestions.tags[0].id
             $scope.$digest()
           }
           break
-        case 8:
+        
+        case keysCode.backspace:
           this.currentTagId = null
           break
+
+        case keysCode.arrowDown:
+          event.preventDefault()
+          _onUpDownKeysPress( () => {
+            if (selectedElement.currentPosition <= listOfSuggestions.length - 2) {
+              ++selectedElement.currentPosition
+              _handleArrowsOnSuggestions(listOfSuggestions, selectedElement)
+            }
+          })
+          break
+
+        case keysCode.arrowUp:
+          event.preventDefault()
+          _onUpDownKeysPress(() => {
+            if (selectedElement.currentPosition > 0) {
+              --selectedElement.currentPosition
+              _handleArrowsOnSuggestions(listOfSuggestions, selectedElement)
+            } else {
+              _clearSelectedElement(listOfSuggestions)
+            }
+          })
+          break
+
         default:
           break
       }

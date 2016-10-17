@@ -127,10 +127,11 @@
         align-items: center
         position: relative
 
-        &:hover
+        &:hover,
+        &.active
           background: $c-background
 
-        > span
+        span
           color: $c-primary-txt
           line-height: 1
           font-size: $f-nav-size
@@ -216,7 +217,7 @@
           +smm
             display: flex
             flex: 1 0 100%
-            align-items: flex-start
+            align-items: center
 
           > .service-description
             +smm
