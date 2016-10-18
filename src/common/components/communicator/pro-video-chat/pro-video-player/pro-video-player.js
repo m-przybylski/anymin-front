@@ -1,9 +1,9 @@
 (function() {
 
   /* @ngInject */
-  function controller($element, proRatelService) {
+  function controller($element, communicatorService) {
 
-    proRatelService.bindRemoteStreamElement($($element).find('video'))
+    communicatorService.bindRemoteStreamElement($($element).find('video'))
 
   }
 
@@ -15,7 +15,7 @@
 
   angular.module('profitelo.components.communicator.pro-video-chat.pro-video-player', [
     'pascalprecht.translate',
-    'profitelo.services.pro-ratel-service'
+    'profitelo.services.communicatorService'
 
   ])
     .component('proVideoPlayer', proVideoPlayer)

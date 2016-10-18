@@ -1,3 +1,4 @@
+/*
 describe('Unit testing: profitelo.components.communicator.pro-text-chat.chat-message', () => {
   return describe('for proTextChatMessage component >', () => {
 
@@ -75,4 +76,4 @@ describe('Unit testing: profitelo.components.communicator.pro-text-chat.chat-mes
 
 
   })
-})
+})*/

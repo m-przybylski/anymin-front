@@ -100,7 +100,11 @@ module.exports = {
       'node_modules/hellojs/dist/hello.all.min.js',
       'node_modules/angular-touch/angular-touch.js',
       'node_modules/masonry-layout/dist/masonry.pkgd.js',
-      'generated-modules/common-config/common-config.js'
+      'generated-modules/common-config/common-config.js',
+
+      'node_modules/ratel-sdk-js/dist/ratel-sdk.js',
+      'build/src/common/services/ratelSdk/ratel-sdk-wrap.js', // TODO: merge back to ratel sdk
+      'build/src/common/services/ratelSdk/ratel-sdk-server-mock.js' // TODO: remove on ratel sdk update
     ],
     css: [
       'node_modules/reset.css/reset.css',

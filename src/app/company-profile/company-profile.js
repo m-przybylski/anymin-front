@@ -33,7 +33,7 @@
   .config(($stateProvider, UserRolesProvider) => {
     $stateProvider.state('app.company-profile', {
       controllerAs: 'vm',
-      url: '/company-profile/{contactId:int}',
+      url: '/company-profile/{contactId}',
       templateUrl: 'company-profile/company-profile.tpl.html',
       controller: 'CompanyProfileController',
       resolve: {

@@ -1,11 +1,10 @@
 .status-list
   .status
+    +default-font-regular
     font-size: $f-base
-    font-weight: bold
     text-transform: uppercase
     display: flex
     align-items: center
-
 
     &::before
       +animation(status-blank 1.5s infinite)
@@ -15,7 +14,7 @@
       display: block
       border: 2px solid $c-white
       border-radius: 50%
-      margin: 0
+      margin: 0 8px 0 0
 
     &.availability
       color: $c-success

@@ -1,12 +1,40 @@
 .single-consultation
-
   +lgm
     padding: 0
 
+.consultation-wrapper
+  border-bottom: 1px solid $c-lines
+  padding: 32px 0
+
+  +smm
+    padding: 32px 16px
+
+.consultation-details
+  margin: 0 0 32px
+
+  +mdm
+    margin: 0 0 24px
+
+.consultation-price
+  margin: 0 0 16px
+
+  h5
+    +default-font-heavy
+    text-transform: uppercase
+    display: inline-block
+    color: $c-primary-txt
+    font-size: $f-h4-size
+
+    span
+      &.currency
+        margin: 0 0 0 4px
+        color: $c-label
+
+.consultation-range
   h3
     margin: 0 0 24px
-    font-size: $f-h4-size
-    
+    font-size: $f-h3-size
+
     +smm
       margin: 0 0 16px
 
@@ -19,97 +47,68 @@
       &:hover
         color: $c-secondary-txt
 
-  h5
-    +default-font-heavy
-    text-transform: uppercase
-    display: inline-block
-    color: $c-primary-txt
-    font-size: $f-paragraph
+.consultation-options
+  display: flex
+  align-items: center
 
-    .currency
-      margin: 0 0 0 4px
+  .options-item
+    +default-font-regular
+    display: flex
+    align-items: center
+    color: $c-secondary-txt
+    font-size: $f-h5-size
+    margin: 0
 
-  .consultation-wrapper
-    border-bottom: 1px solid $c-lines
-    padding: 32px 0
+    &:last-child
+      &::after
+        content: none
 
-    +smm
-      padding: 32px 16px
+    &::after
+      content: '/'
+      margin: 0 4px
 
-    .consultation-details
-      margin: 0 0 32px
+.consultation-actions
+  +xsm
+    display: flex
+    justify-content: space-between
 
-      +mdm
-        margin: 0 0 24px
+.consultation-profile
+  display: flex
+  align-items: center
+  margin: 0 0 32px
 
-      .consultation-price
-        margin: 0 0 16px
+  +xsm
+    margin: 0
 
-        h5
-          font-size: $f-h4-size
+  .author
+    flex: 1
 
-          span
-            color: $c-label
+    +xsm
+      padding: 0 16px 0 0
 
-      .consultation-options
-        display: flex
-        align-items: center
+    +mdm
+      max-width: 75%
 
-        .options-item
-          +default-font-regular
-          display: flex
-          align-items: center
-          color: $c-secondary-txt
-          font-size: $f-h5-size
-          margin: 0
+    .status-list
+      .status
+        +mdm
+          justify-content: flex-end
 
-          &:last-child
-            &::after
-              content: none
+    h6
+      +default-font-regular
+      color: $c-secondary-txt
+      font-size: $f-h5-size
 
-          &::after
-            content: '/'
-            margin: 0 4px
+      a
+        @extend h6
+        transition: color 0.2s
 
-    .consultation-actions
-      +xsm
-        display: flex
-        justify-content: space-between
+        &:hover
+          color: $c-primary-txt
 
-      .consultation-profile
-        display: flex
-        align-items: center
-        margin: 0 0 32px
+    h3
+      +default-font-regular
+      font-size: $f-h3-size
 
-        +xsm
-          margin: 0
-
-        .author
-          flex: 1
-
-          +xsm
-            padding: 0 16px 0 0
-
-          +mdm
-            max-width: 75%
-
-          .status-list
-            .status
-              +mdm
-                justify-content: flex-end
-
-          h6
-            +default-font-regular
-            color: $c-secondary-txt
-            font-size: $f-h5-size
-
-            a
-              @extend h6
-              transition: color 0.2s
-
-              &:hover
-                color: $c-primary-txt
-
-        .thumb
-          min-width: 48px
-          margin: 0 16px 0 0
+  .thumb
+    margin: 0 16px 0 0

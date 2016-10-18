@@ -41,7 +41,7 @@ describe('Unit testing: profitelo.components.communicator.pro-bottom-communicato
 
       component = componentController('proBottomCommunicator', {
         '$scope': scope,
-        'proRatelService': {
+        'ratelService': {
           authenticate: () => {
             
           },

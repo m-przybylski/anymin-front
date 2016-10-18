@@ -1,7 +1,6 @@
 (function() {
   function AppController($rootScope, $state, $filter, InterfaceLanguageService, User, proTopAlertService) {
     InterfaceLanguageService.setLanguage(InterfaceLanguageService.getStartupLanguage())
-    $rootScope.callSession = false
 
     this.isPending = false
 
@@ -31,7 +30,7 @@
     return this
   }
 
-  function runFunction($rootScope, $log, $state, $anchorScroll, User, proTopAlertService) {
+  function runFunction($rootScope, $log, $state, $anchorScroll, User, proTopAlertService, communicatorService) {
 
     $rootScope.loggedIn = false
 
@@ -95,6 +94,7 @@
 
       User.getStatus().then((session) => {
         userTransfer(event, toState, fromState)
+        communicatorService.authenticate()
       }, (getStatusError) => {
         userTransfer(event, toState, fromState)
       })
@@ -215,6 +215,7 @@
     'profitelo.services.interfaceLanguage',
     'profitelo.services.customTranslationHandler',
     'profitelo.services.search-url',
+    'profitelo.services.utils',
 
     // controllers
     'profitelo.controller.dashboard',

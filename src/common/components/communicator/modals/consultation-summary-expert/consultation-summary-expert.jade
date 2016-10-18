@@ -1,0 +1,20 @@
+top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION")
+
+.fullscreen-modals
+  .default-container
+    .summary-conversation.expert-view
+      img(data-ng-src="/assets/images/search-image.jpg")
+
+      .consultation-range
+        .consultation-info
+          h3
+            a(data-ui-sref="app.company-profile({ contactId: vm.consultation.owner.id })") jakas konsutacja nazwa dluga asd asd asd
+
+      .consultation-time-details.default-container-small
+        ul.conversation-time
+          li.label(data-translate="COMMUNICATOR.MODALS.CONVERSATION_TIME")
+          li 27 min 8s
+
+        ul.conversation-cost.income
+          li.label(data-translate="COMMUNICATOR.MODALS.INCOME")
+          li 38,30 PLN

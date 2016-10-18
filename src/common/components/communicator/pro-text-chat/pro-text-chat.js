@@ -1,7 +1,7 @@
+/* istanbul ignore next function */
 (function() {
-
   /* @ngInject */
-  function proTextChatComponentController($scope, $filter, $timeout, $element, $log, User, proRatelService) {
+  function proTextChatComponentController($scope, $filter, $timeout, $element, $log, User, communicatorService) {
 
     const _chatConversation = $($element).find('.chat-conversation')
     const _proTextChat = $($element).find('.pro-text-chat')
@@ -18,9 +18,9 @@
       this.messages.push(message)
       _pushChatToBottom()
     }
-    
 
-    proRatelService.onNewMessage(messagePayload => {
+
+    communicatorService.onNewMessage(messagePayload => {
 
       _pushMessageObject(messagePayload.message)
 
@@ -90,7 +90,7 @@
     'profitelo.components.communicator.pro-text-chat.chat-message',
     'profitelo.components.communicator.pro-text-chat.chat-input',
     'profitelo.services.current-call-state',
-    'profitelo.services.pro-ratel-service',
+    'profitelo.services.communicatorService',
     'pascalprecht.translate',
     'c7s.ng.userAuth'
 

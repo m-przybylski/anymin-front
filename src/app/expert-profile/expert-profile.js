@@ -33,7 +33,7 @@
   .config(($stateProvider, UserRolesProvider) => {
     $stateProvider.state('app.expert-profile', {
       controllerAs: 'vm',
-      url: '/expert-profile/{contactId:int}',
+      url: '/expert-profile/{contactId}',
       templateUrl: 'expert-profile/expert-profile.tpl.html',
       controller: 'ExpertProfileController',
       resolve: {

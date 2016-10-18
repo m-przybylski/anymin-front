@@ -1,4 +1,5 @@
-.communicator(data-ng-class="{'is-disconnect': vm.disconnected,'is-closed': vm.closed, 'is-minimize': vm.chatMinimize}")
-  communicator-connecting(data-ng-class="{'conversation-hidden': vm.chatMinimize}")
-  communicator-nav(data-chat-minimize="vm.minimizeChatComponent" data-ng-class="{'nav-hidden': vm.chatMinimize}" data-conversation-disconnect="vm.openDisconnectModal")
-  communicator-minimize(data-ng-class="{'conversation-hidden': !vm.chatMinimize || vm.communicatorFullscreen}" data-fullscreen-actions="vm.minimizeChatComponent")
+.communicator(data-ng-class="{'is-disconnected': vm.isDisconnected, 'is-closed': vm.isClosed, 'is-minimized': vm.isMinimized}" data-ng-hide="vm.isClosed")
+  communicator-maximized(data-ng-class="{'conversation-hidden': vm.isMinimized}"
+    data-minimize-communicator="vm.minimizeCommunicator")
+  communicator-minimized(data-ng-class="{'conversation-hidden': !vm.isMinimized}"
+    data-maximize-communicator="vm.maximizeCommunicator")

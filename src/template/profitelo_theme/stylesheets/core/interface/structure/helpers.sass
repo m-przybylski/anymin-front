@@ -53,11 +53,21 @@ html
   overflow: hidden
   position: relative
 
+  &.thumb-small
+    max-width: 96px
+    max-height: 96px
+    min-width: 96px
+    min-height: 96px
+
   .status-list
     position: absolute
     right: 0
     bottom: 0
     z-index: 100
+
+    .status
+      &::before
+        margin: 0
 
 .hidden
   display: none

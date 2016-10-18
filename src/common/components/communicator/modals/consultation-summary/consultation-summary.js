@@ -1,0 +1,35 @@
+(function() {
+
+  function controller($scope, $uibModalInstance) {
+    $scope.confirm = () => {
+
+      if (angular.isFunction($scope.$parent.vm.modalCallback)) {
+        $scope.$parent.vm.modalCallback()
+      }
+      $uibModalInstance.close('cancel')
+    }
+
+    $scope.rejectCall = () => {
+      $uibModalInstance.dismiss('cancel')
+    }
+
+    $scope.chooseExpertsTag = false
+
+    $scope.recommendExpert = () => {
+      console.log(this.chooseExpertsTag, $scope.chooseExpertsTag)
+      $scope.chooseExpertsTag = true
+      console.log(this.chooseExpertsTag, $scope.chooseExpertsTag)
+    }
+
+    $scope.tags = ['artur', 'jajebie jajecznice']
+
+    return this
+  }
+
+  angular.module('profitelo.components.communicator.modals.consultation-summary', [
+    'profitelo.components.pro-summary-tag',
+    'ui.bootstrap'
+  ])
+    .controller('consultationSummaryController', controller)
+
+}())
