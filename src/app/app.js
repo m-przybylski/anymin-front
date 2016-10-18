@@ -34,6 +34,10 @@
 
     $rootScope.loggedIn = false
 
+    $rootScope.$on('$locationChangeSuccess', () => {
+      $anchorScroll()
+    })
+
     function userTransfer(event, toState, fromState) {
       let pac = User.pageAccessCheck(event, toState)
 
