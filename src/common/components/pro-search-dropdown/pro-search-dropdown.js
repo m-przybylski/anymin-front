@@ -203,7 +203,7 @@
       }
     }
 
-    const keysCode = {
+    const keyCodes = {
       arrowRight: 39,
       arrowDown: 40,
       arrowUp: 38,
@@ -214,7 +214,7 @@
     $element.bind('keydown keypress', (event) => {
       const keyCode = event.which || event.keyCode
       switch (keyCode) {
-        case keysCode.arrowRight:
+        case keyCodes.arrowRight:
           if (this.primarySuggestion !== null) {
             this.ngModel = this.primarySuggestion
             this.currentTagId = this.suggestions.tags[0].id
@@ -222,11 +222,11 @@
           }
           break
         
-        case keysCode.backspace:
+        case keyCodes.backspace:
           this.currentTagId = null
           break
 
-        case keysCode.arrowDown:
+        case keyCodes.arrowDown:
           event.preventDefault()
           _onUpDownKeysPress( () => {
             if (selectedElement.currentPosition <= listOfSuggestions.length - 2) {
@@ -236,7 +236,7 @@
           })
           break
 
-        case keysCode.arrowUp:
+        case keyCodes.arrowUp:
           event.preventDefault()
           _onUpDownKeysPress(() => {
             if (selectedElement.currentPosition > 0) {
