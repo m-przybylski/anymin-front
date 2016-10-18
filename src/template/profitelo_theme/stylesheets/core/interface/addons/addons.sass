@@ -1,0 +1,28 @@
+.connection-dots
+  display: flex
+
+  span
+    display: flex
+    align-items: center
+    justify-content: center
+    width: 8px
+    height: 8px
+    margin: 0 2px
+    position: relative
+
+    &::after
+      content: ""
+      display: block
+      background: $c-connection-dot
+      border-radius: 8px
+      overflow: hidden
+      width: 4px
+      height: 4px
+      animation: connecting-dot 1.4s infinite
+      animation-timing-function: ease-in-out
+      opacity: 0.5
+
+    @for $i from 1 through 3
+      &:nth-child(#{$i})
+        &::after
+          animation-delay: $i * 0.2s

@@ -1,7 +1,7 @@
 (function() {
   function AppController($rootScope, $state, $filter, InterfaceLanguageService, User, proTopAlertService) {
-
     InterfaceLanguageService.setLanguage(InterfaceLanguageService.getStartupLanguage())
+    $rootScope.callSession = false
 
     this.isPending = false
 
@@ -18,6 +18,7 @@
           message: $filter('translate')('LOGIN.SUCCESSFUL_LOGOUT'),
           timeout: 2
         })
+        $rootScope.callSession = false
         $state.go(targetState)
       }
 
@@ -30,9 +31,13 @@
     return this
   }
 
-  function runFunction($rootScope, $log, $state, User, proTopAlertService) {
+  function runFunction($rootScope, $log, $state, $anchorScroll, User, proTopAlertService) {
 
     $rootScope.loggedIn = false
+
+    $rootScope.$on('$locationChangeSuccess', () => {
+      $anchorScroll()
+    })
 
     function userTransfer(event, toState, fromState) {
       let pac = User.pageAccessCheck(event, toState)
@@ -251,7 +256,8 @@
     'profitelo.directives.pro-masonry',
 
     // components
-    'profitelo.components.communicator.pro-bottom-communicator',
+    // 'profitelo.components.communicator.pro-bottom-communicator',
+    'profitelo.components.communicator',
     'profitelo.components.interface.preloader-container',
 
     // translations

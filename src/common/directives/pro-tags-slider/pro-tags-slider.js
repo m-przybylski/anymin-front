@@ -85,7 +85,6 @@
       replace: true,
       scope: {
         tags: '=?'
-
       },
       link: linkFunction
     }

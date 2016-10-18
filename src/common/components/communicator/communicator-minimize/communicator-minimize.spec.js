@@ -1,5 +1,5 @@
-describe('Unit testing: profitelo.components.communicator.communicator-nav', () => {
-  return describe('for communicatorNav component >', () => {
+describe('Unit testing: profitelo.components.communicator.communicator-minimize', () => {
+  return describe('for communicatorMinimize component >', () => {
 
     const url = 'awesomUrl/'
 
@@ -9,7 +9,7 @@ describe('Unit testing: profitelo.components.communicator.communicator-nav', () 
     let bindings
     let componentController
     let component
-    let validHTML = '<communicator-nav data-chat-minimize="ctrl.chatMinimize""></communicator-nav>'
+    let validHTML = '<communicator-minimize data-fullscreen-actions="ctrl.minimizeChatComponent"></communicator-minimize>'
 
     beforeEach(module(function($provide) {
       $provide.value('apiUrl', url)
@@ -19,7 +19,7 @@ describe('Unit testing: profitelo.components.communicator.communicator-nav', () 
 
     beforeEach(() => {
       module('templates-module')
-      module('profitelo.components.communicator.communicator-nav')
+      module('profitelo.components.communicator.communicator-minimize')
 
       inject(($rootScope, $compile, _$componentController_) => {
         componentController = _$componentController_
@@ -27,7 +27,7 @@ describe('Unit testing: profitelo.components.communicator.communicator-nav', () 
         compile = $compile
       })
 
-      component = componentController('communicatorNav', null, bindings)
+      component = componentController('communicatorMinimize', null, bindings)
     })
 
     function create(html) {
@@ -47,14 +47,14 @@ describe('Unit testing: profitelo.components.communicator.communicator-nav', () 
       expect(el.html()).toBeDefined(true)
     })
 
-    it('should call connectionDisconnect on click', () => {
+    it('should call isFullscreen on click', () => {
       let el = create(validHTML)
       scope.ctrl = {
-        chatMinimize: jasmine.createSpy('chatMinimize')
+        minimizeChatComponent: jasmine.createSpy('minimizeChatComponent')
       }
       scope.$digest()
-      el.find('.communicator-upper-nav a:first-child').triggerHandler('click')
-      expect(scope.ctrl.chatMinimize).toHaveBeenCalled()
+      el.find('.communicator-minimize').triggerHandler('click')
+      expect(scope.ctrl.minimizeChatComponent).toHaveBeenCalled()
     })
 
   })

@@ -3,9 +3,10 @@
 
     function linkFunction(scope, elem, attrs) {
       scope.initCall = () => {
-        proRatelService.startRatelCall(scope.service).then(session => {
-          currentCallSessionService.setSession(session)
-        })
+        currentCallSessionService.setSession()
+        // proRatelService.startRatelCall(scope.service).then(session => {
+        //   currentCallSessionService.setSession(session)
+        // })
       }
     }
     

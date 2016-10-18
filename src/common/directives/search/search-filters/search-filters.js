@@ -1,5 +1,5 @@
 (function() {
-  function searchFilters($filter, searchService, $window, $location) {
+  function searchFilters($filter, searchService, $window) {
     function linkFunction(scope, element, attrs) {
 
       scope.model = {
@@ -54,7 +54,7 @@
       scope.showFilters = () => {
         scope.showMobileFilters = scope.showMobileFilters ? false : true
       }
-      
+
       scope.showMobileFilterButton = () => {
         const windowSize = $window.innerWidth
         return windowSize < 768
@@ -84,22 +84,26 @@
         }
       })
 
-      const setSearchQueryParamsDebounce = _.debounce(searchService.setSearchQueryParams, searchDebounceTimeout, {
+      const _setSearchQueryParamsDebounce = _.debounce(scope.setSearchParams, searchDebounceTimeout, {
         'leading': false,
         'trailing': true
       })
 
       const watchGroup = ['sortBy', 'language', 'category', 'onlyAvailable', 'minPrice', 'maxPrice', 'profileType']
 
-      scope.$watchGroup(watchGroup.map((v) => { return 'model.' + v }), (newValues, oldValues) => {
-        let searchQueryParams = {}
-        angular.forEach(newValues, (value, idx) => {
-          if (angular.isDefined(value)) {
-            searchQueryParams[watchGroup[idx]] = value
-          }
-        })
-        searchQueryParams['offset'] = 0
-        setSearchQueryParamsDebounce(angular.extend($location.search(), searchQueryParams))
+      scope.$watchGroup(watchGroup.map((v) => {
+        return 'model.' + v
+      }), (newValues, oldValues) => {
+        if (!angular.equals(newValues, oldValues)) {
+          let searchQueryParams = {}
+          angular.forEach(newValues, (value, idx) => {
+            if (angular.isDefined(value)) {
+              searchQueryParams[watchGroup[idx]] = value
+            }
+          })
+          searchQueryParams['offset'] = 0
+          _setSearchQueryParamsDebounce(searchQueryParams)
+        }
       })
     }
 
@@ -108,7 +112,8 @@
       restrict: 'E',
       templateUrl: 'directives/search/search-filters/search-filters.tpl.html',
       scope: {
-        searchResults: '=?'
+        searchResults: '=?',
+        setSearchParams: '='
       },
       link: linkFunction
     }

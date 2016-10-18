@@ -127,10 +127,11 @@
         align-items: center
         position: relative
 
-        &:hover
+        &:hover,
+        &.active
           background: $c-background
 
-        > span
+        span
           color: $c-primary-txt
           line-height: 1
           font-size: $f-nav-size
@@ -157,12 +158,6 @@
         .dropdown-list-item
           padding: 16px
 
-          &:last-child
-            display: none
-
-          &:first-child
-            display: flex
-
           +smm
             flex: 0 0 50%
             align-items: center
@@ -170,20 +165,11 @@
           +mdm
             flex: 0 0 33.3333%
 
-            &:nth-last-child(2)
-              display: none
-
           +lgm
             flex: 0 0 25%
 
-            &:nth-last-child(2)
-              display: flex
-
           +xlgm
             flex: 0 0 20%
-
-            &:last-child
-              display: flex
 
           .expert-data
             flex: 1
@@ -216,15 +202,12 @@
           +smm
             display: flex
             flex: 1 0 100%
-            align-items: flex-start
+            align-items: center
 
           > .service-description
             +smm
               margin: 0 0 0 16px
               flex: 1
-
-            +mdm
-
 
           .expert-profile
             display: flex
