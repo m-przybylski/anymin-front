@@ -82,7 +82,6 @@
         if (!err) {
           scope.model.tags = results.relatedTags
         }
-        console.log('test')
       })
 
       const _setSearchQueryParamsDebounce = _.debounce(scope.setSearchParams, searchDebounceTimeout, {
@@ -114,7 +113,7 @@
       templateUrl: 'directives/search/search-filters/search-filters.tpl.html',
       scope: {
         searchResults: '=?',
-        setSearchParams: '=?'
+        setSearchParams: '='
       },
       link: linkFunction
     }

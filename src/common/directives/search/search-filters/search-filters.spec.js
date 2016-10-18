@@ -4,7 +4,7 @@ describe('Unit testing: profitelo.directives.search.search-filters', () => {
     let scope = null
     let rootScope
     let compile = null
-    let validHTML = '<search-filters data-model="model"></search-filters>'
+    let validHTML = '<search-filters data-model="model" data-set-search-params="callback"></search-filters>'
     let _httpBackend = null
     let _CategoriesApiDef
     let resourcesExpectations
@@ -18,7 +18,8 @@ describe('Unit testing: profitelo.directives.search.search-filters', () => {
       module('templates-module')
       module('profitelo.swaggerResources.definitions')
       module('profitelo.directives.search.search-filters')
-      
+      module('profitelo.services.search')
+
       inject(($rootScope, $compile, $injector) => {
         rootScope = $rootScope.$new()
         compile = $compile
@@ -33,11 +34,11 @@ describe('Unit testing: profitelo.directives.search.search-filters', () => {
       }
 
       resourcesExpectations.CategoriesApi.getCategories.respond(200)
-
     })
 
     function create(html) {
       scope = rootScope.$new()
+      scope.callback = () => {}
       scope.model = {
         sortBy: '',
         language: '',
