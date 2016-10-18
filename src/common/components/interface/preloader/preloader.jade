@@ -1,4 +1,4 @@
 .preloader
-  .balls-loader(data-ng-show= "$ctrl.isLoadingTimeouted")
-  div(data-ng-class="{'loader': $ctrl.isLoadingTimeouted}")
+  .balls-loader(data-ng-show="$ctrl.isLoading")
+  div(data-ng-class="{'loader': $ctrl.isLoading}")
     ng-transclude

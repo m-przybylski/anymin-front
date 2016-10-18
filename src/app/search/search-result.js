@@ -1,6 +1,6 @@
 (function() {
 
-  function SearchResultController($scope, $state, $location, $timeout, searchService, searchUrlService) {
+  function SearchResultController($scope, $state, $location, searchService, searchUrlService) {
 
     this.searchParams = $location.search()
     this.searchResults = {
@@ -9,9 +9,7 @@
       results: []
     }
 
-    $timeout(() => {
-      this.isSearchLoading = true
-    })
+    this.isSearchLoading = true
     this.isSearchError = false
     this.isLoadMoreLoading = false
     this.isLoadMoreError = false
@@ -33,9 +31,7 @@
         } else {
           this.isSearchError = true
         }
-        $timeout(() => {
-          this.isSearchLoading = false
-        })
+        this.isSearchLoading = false
       }
     })
 
@@ -62,6 +58,10 @@
       _loadMore()
     }
 
+    this.setSearchParams = (params) => {
+      this.isSearchLoading = true
+      searchService.setSearchQueryParams(angular.extend($location.search(), params))
+    }
 
     searchService.onQueryParamsChange($scope, (queryParams) => {
       const params = searchUrlService.parseParamsForUrl(queryParams)
@@ -91,11 +91,9 @@
     'profitelo.services.search',
     'profitelo.services.search-url'
   ])
-    .config( function($stateProvider, UserRolesProvider) {
+    .config(($stateProvider, UserRolesProvider) => {
       $stateProvider.state('app.search-result', {
         url: '/search-result?q&tagId&category&categorySlug&profileType&onlyAvailable&sortBy&language',
-        reloadOnSearch: true,
-        reload: true,
         templateUrl: 'search/search-result.tpl.html',
         controller: 'SearchResultController',
         controllerAs: 'vm',

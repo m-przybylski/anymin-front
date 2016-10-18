@@ -285,10 +285,6 @@
         '$destroy',
         $rootScope.$on(searchResultsEvent, (_, err, results, prevResults) => { return callback(err, results, prevResults) })
       )
-
-      if (_searchResults) {
-        _notifyOnSearchResults(null, _searchResults, null)
-      }
     }
 
     function _subscribeForQueryParams(scope, callback) {
