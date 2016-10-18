@@ -9,7 +9,7 @@ describe('Unit testing: profitelo.components.communicator.communicator-nav', () 
     let bindings
     let componentController
     let component
-    let validHTML = '<communicator-nav data-conversation-disconnect="ctrl.connectionDisconnect""></communicator-nav>'
+    let validHTML = '<communicator-nav data-chat-minimize="ctrl.chatMinimize""></communicator-nav>'
 
     beforeEach(module(function($provide) {
       $provide.value('apiUrl', url)
@@ -47,15 +47,15 @@ describe('Unit testing: profitelo.components.communicator.communicator-nav', () 
       expect(el.html()).toBeDefined(true)
     })
 
-    // it('should call connectionDisconnect on click', () => {
-    //   let el = create(validHTML)
-    //   scope.ctrl = {
-    //     connectionDisconnect: jasmine.createSpy('connectionDisconnect')
-    //   }
-    //   scope.$digest()
-    //   el.find('.communicator-upper-nav a:first-child').triggerHandler('click')
-    //   expect(scope.ctrl.connectionDisconnect).toHaveBeenCalled()
-    // })
+    it('should call connectionDisconnect on click', () => {
+      let el = create(validHTML)
+      scope.ctrl = {
+        chatMinimize: jasmine.createSpy('chatMinimize')
+      }
+      scope.$digest()
+      el.find('.communicator-upper-nav a:first-child').triggerHandler('click')
+      expect(scope.ctrl.chatMinimize).toHaveBeenCalled()
+    })
 
   })
 })
