@@ -1,6 +1,7 @@
 (function() {
   function AppController($rootScope, $state, $filter, InterfaceLanguageService, User, proTopAlertService) {
     InterfaceLanguageService.setLanguage(InterfaceLanguageService.getStartupLanguage())
+    $rootScope.callSession = false
 
     this.isPending = false
 
@@ -17,6 +18,7 @@
           message: $filter('translate')('LOGIN.SUCCESSFUL_LOGOUT'),
           timeout: 2
         })
+        $rootScope.callSession = false
         $state.go(targetState)
       }
 

@@ -1,11 +1,12 @@
 /* istanbul ignore next */
 (function() {
-  function currentCallSessionService() {
+  function currentCallSessionService($rootScope) {
 
     let session = null
 
     return {
       setSession: newSession => {
+        $rootScope.callSession = true
         session = newSession
         return session
       },
@@ -14,6 +15,7 @@
       },
       removeSession: () => {
         session = null
+        $rootScope.callSession = false
         return session
       }
     }

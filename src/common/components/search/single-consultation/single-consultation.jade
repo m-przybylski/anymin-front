@@ -30,7 +30,7 @@
           h6
             a(data-ui-sref="app.company-profile({ contactId: vm.consultation.owner.id })") {{ ::vm.consultation.owner.name }}
 
-      a.btn.success.icon-left
+      a.btn.success.icon-left(data-ng-click="vm.startCall()")
         span.icon.icon-call-16
         | {{ ::'HOME.TOP_CONTAINER.EXPERT_PROFILE.CALL' | translate }}
 
