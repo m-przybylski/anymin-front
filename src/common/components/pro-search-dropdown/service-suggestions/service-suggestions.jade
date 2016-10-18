@@ -13,5 +13,5 @@
           .expert-data
             span.expert-name {{ service.owner.name }}
 
-        .service-description(ng-bind-html="service.name | searchBoldFilter:vm.searchModel")
-          p {{ service.name }}
+        span.service-description
+          span(ng-bind-html="service.name | searchBoldFilter:vm.searchModel") {{ service.name }}
