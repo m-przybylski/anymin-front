@@ -1,16 +1,4 @@
-.communicator-audio
- .communicator-content
-   p.call.connecting-with(data-translate="COMMUNICATOR.CONNECTING_WITH" data-ng-show="vm.getConnection")
-   p.call.connecting-with(data-translate="COMMUNICATOR.AUDIO_CONVERSATION" data-ng-show="!vm.getConnection")
-   h4.communicator-conversation-client Marek Szparek
-
-   .communicator-current-profile
-     .communicator-equalizer
-       span.circle
-       span.circle
-       span.circle
-
-     .communicator-user
-       img.user-avatar.communicator-avatar(src="/assets/images/no-avatar.jpg")
-
-  communicator-nav()
+.communicator(data-ng-class="{'is-disconnect': vm.disconnected,'is-closed': vm.closed, 'is-minimize': vm.chatMinimize}")
+  communicator-connecting(data-ng-class="{'conversation-hidden': vm.chatMinimize}")
+  communicator-nav(data-chat-minimize="vm.minimizeChatComponent" data-ng-class="{'nav-hidden': vm.chatMinimize}" data-conversation-disconnect="vm.connectionDisconnect")
+  communicator-minimize(data-ng-class="{'conversation-hidden': !vm.chatMinimize || vm.communicatorFullscreen}" data-fullscreen-actions="vm.minimizeChatComponent")

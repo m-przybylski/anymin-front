@@ -1,6 +1,5 @@
 (function() {
   function AppController($rootScope, $state, $filter, InterfaceLanguageService, User, proTopAlertService) {
-
     InterfaceLanguageService.setLanguage(InterfaceLanguageService.getStartupLanguage())
 
     this.isPending = false
@@ -255,7 +254,8 @@
     'profitelo.directives.pro-masonry',
 
     // components
-    'profitelo.components.communicator.pro-bottom-communicator',
+    // 'profitelo.components.communicator.pro-bottom-communicator',
+    'profitelo.components.communicator',
     'profitelo.components.interface.preloader-container',
 
     // translations

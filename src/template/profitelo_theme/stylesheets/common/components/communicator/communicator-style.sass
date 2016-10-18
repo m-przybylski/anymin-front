@@ -1,0 +1,70 @@
+.communicator
+  transition: z-index 0s, right 0.3s 0s, bottom 0.3s 0s, opacity 0.3s 0.3s
+  height: 100vh
+  width: 100%
+  position: fixed
+  bottom: 0
+  right: 0
+  z-index: $z-index-900
+  overflow: hidden
+  opacity: 1
+
+  &.is-minimize
+    transition: width 0.3s 0.4s, height 0.3s 0.4s, right 0.3s 0.4s, bottom 0.3s 0.4s, z-index 0s 0.4s
+    bottom: 0
+    right: 0
+    z-index: 0
+    height: 104px
+    width: 320px
+
+    +smm
+      right: 32px
+      bottom: 32px
+
+  &.is-disconnect
+    opacity: 0
+
+    .communicator-current-profile
+      animation: communicator-disconnect 0.3s linear
+      animation-fill-mode: forwards
+
+  &.is-closed
+    z-index: -$z-index-900
+
+  .communicator-connecting
+    transition: height 0.3s 0s, width 0.3s 0s, z-index 0s
+
+    .communicator-content
+      transition: opacity 0.3s 0s
+      opacity: 1
+
+  .conversation-hidden
+    .communicator-connecting
+      transition: height 0.3s 0.6s, width 0.3s 0.6s, z-index 0s
+      height: 104px
+      width: 320px
+      bottom: 0
+      right: 0
+
+      .communicator-content
+        transition: opacity 0.3s 0.6s
+        opacity: 0
+
+      .communicator-current-profile
+        animation: communicator-disconnect 0.4s linear
+        animation-fill-mode: forwards
+
+  .nav-hidden
+    .communicator-nav
+      transition: opacity 0.3s 0.1s, padding 0.4s 0.1s
+      opacity: 0
+      padding: 0
+
+  .communicator-nav
+    transition: opacity 0.3s 0.3s, padding 0.4s 0.3s
+
+.conversation-hidden
+  .communicator-minimize
+    transition: opacity 0.3s 0s, z-index 0.3s 0s
+    opacity: 0
+    z-index: $z-index-100
