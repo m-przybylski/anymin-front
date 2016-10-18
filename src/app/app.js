@@ -30,7 +30,7 @@
     return this
   }
 
-  function runFunction($rootScope, $log, $state, User, proTopAlertService) {
+  function runFunction($rootScope, $log, $state, $anchorScroll, User, proTopAlertService) {
 
     $rootScope.loggedIn = false
 
