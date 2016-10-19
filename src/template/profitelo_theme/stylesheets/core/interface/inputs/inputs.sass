@@ -30,6 +30,20 @@ input, textarea
       bottom: 0
       margin: auto
 
+      &.cross-addon
+        display: none
+
+      &.icon-class
+        font-size: $f-base
+        background: $c-white
+        z-index: $z-index-100
+
+  &.ng-not-empty
+    .input-group-addon
+      .icon
+        &.cross-addon
+          display: flex
+
 .input-error-messages
   +default-font-heavy
   width: 100%
@@ -137,3 +151,4 @@ input, textarea
   border-top: 0
 
 /* dropdown end*/
+

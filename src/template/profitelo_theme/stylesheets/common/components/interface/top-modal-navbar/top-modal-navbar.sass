@@ -44,9 +44,17 @@
 
   .close-modal
     display: flex
-    align-items: center
-    justify-content: center
-    width: $top-modal-navbar
+    align-items: stretch
+
+    a
+      display: flex
+      align-items: center
+      justify-content: center
+      width: $top-modal-navbar
+
+      &:hover
+        span
+          color: $c-primary-txt
 
     .icon
       color: $c-secondary-txt
