@@ -5,10 +5,10 @@
 
       let required = false
 
-      scope.languages = ['English', 'Italian', 'Spanish']
+      scope.languages = ['pl', 'en', 'it', 'de', 'fr']
 
       scope.model = {
-        languages: ['Polish']
+        languages: ['pl']
       }
 
       const _isValid = () => {
