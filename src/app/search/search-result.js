@@ -1,6 +1,6 @@
 (function() {
 
-  function SearchResultController($scope, $state, $location, searchService, searchUrlService) {
+  function SearchResultController($scope, $state, $location, $timeout, searchService, searchUrlService) {
 
     this.searchParams = $location.search()
     this.searchResults = {
@@ -9,12 +9,12 @@
       results: []
     }
 
+    console.log('init ctrl')
+
     this.isSearchLoading = true
     this.isSearchError = false
     this.isLoadMoreLoading = false
     this.isLoadMoreError = false
-
-    searchService.setSearchQueryParams(this.searchParams)
 
     searchService.onSearchResults($scope, (err, searchResults, prevResults) => {
       if (prevResults) {
@@ -31,9 +31,14 @@
         } else {
           this.isSearchError = true
         }
-        this.isSearchLoading = false
+
+        $timeout(() => {this.isSearchLoading = false
+        console.log('loading ended')
+        })
       }
     })
+
+    searchService.setSearchQueryParams(this.searchParams)
 
     const _loadMore = () => {
       const countMax = this.searchResults.count
@@ -59,8 +64,10 @@
     }
 
     this.setSearchParams = (params) => {
-      this.isSearchLoading = true
-      searchService.setSearchQueryParams(angular.extend($location.search(), params))
+      console.log('params changed')
+      //this.isSearchLoading = true
+      $state.go('app.search-result', angular.extend($location.search(), params))
+      //searchService.setSearchQueryParams(angular.extend($location.search(), params))
     }
 
     searchService.onQueryParamsChange($scope, (queryParams) => {
