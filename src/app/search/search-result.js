@@ -9,8 +9,6 @@
       results: []
     }
 
-    console.log('init ctrl')
-
     this.isSearchLoading = true
     this.isSearchError = false
     this.isLoadMoreLoading = false
@@ -32,9 +30,7 @@
           this.isSearchError = true
         }
 
-        $timeout(() => {this.isSearchLoading = false
-        console.log('loading ended')
-        })
+        this.isSearchLoading = false
       }
     })
 
@@ -64,20 +60,15 @@
     }
 
     this.setSearchParams = (params) => {
-      console.log('params changed')
-      //this.isSearchLoading = true
-      $state.go('app.search-result', angular.extend($location.search(), params))
-      //searchService.setSearchQueryParams(angular.extend($location.search(), params))
+      this.isSearchLoading = true
+      searchService.setSearchQueryParams(angular.extend($location.search(), params))
     }
 
     searchService.onQueryParamsChange($scope, (queryParams) => {
       const params = searchUrlService.parseParamsForUrl(queryParams)
 
-      $location.search({})
       if ($state.current.name === 'app.search-result') {
-        angular.forEach(params, (value, key) => {
-          $location.search(key, value)
-        })
+        $location.search(params)
       }
     })
 

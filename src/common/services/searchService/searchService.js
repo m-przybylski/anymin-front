@@ -354,6 +354,9 @@
               }
             })
           }
+        } else {
+          _notifyOnQueryParams(_queryParams)
+          _notifyOnSearchResults(null, _searchResults, null)
         }
       })
     }
