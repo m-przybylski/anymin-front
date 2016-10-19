@@ -247,7 +247,6 @@
     'profitelo.controller.post-register',
     'profitelo.controller.post-register.set-password',
     'profitelo.controller.post-register.set-email',
-    'profitelo.controller.dashboard.conversation-audio',
 
     // directives
     'profitelo.directives.pro-top-waiting-loader',
