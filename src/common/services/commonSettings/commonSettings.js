@@ -9,7 +9,7 @@ function CommonSettingsService(CommonConfig) {
   }
   
   let _links = {
-    imageUrl: _urls.backend + _urls['file-download']
+    imageUrl: _urls.files + _urls['file-download']
   }
 
   let _localSettings = {
