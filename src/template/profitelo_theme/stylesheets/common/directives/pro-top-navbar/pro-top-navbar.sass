@@ -220,9 +220,13 @@
           padding: 0 16px
           border-left: 0
           width: calc(#{$dashboard-navbar-width} + 32px)
+          transition: opacity 0.3s
 
           +smm
             padding: 0 24px
+
+          &:hover
+            opacity: 0.9
 
           &.cancel-btn
             background: $c-white

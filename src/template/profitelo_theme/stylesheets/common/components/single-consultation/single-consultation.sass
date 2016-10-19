@@ -14,6 +14,10 @@
       +default-font-regular
       text-align: right
       color: $c-primary-txt
+      transition: color 0.2s
+
+      &:hover
+        color: $c-secondary-txt
 
   h5
     +default-font-heavy
@@ -101,6 +105,10 @@
 
             a
               @extend h6
+              transition: color 0.2s
+
+              &:hover
+                color: $c-primary-txt
 
         .thumb
           min-width: 48px
