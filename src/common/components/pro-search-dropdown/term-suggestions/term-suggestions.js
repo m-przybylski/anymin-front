@@ -12,7 +12,8 @@
 
   angular.module('profitelo.components.pro-search-dropdown.term-suggestions', [
     'profitelo.services.search-url',
-    'profitelo.filters.search-bold-filter'
+    'profitelo.filters.search-bold-filter',
+    'profitelo.filters.rankSearch'
   ])
     .component('termSuggestions', component)
 

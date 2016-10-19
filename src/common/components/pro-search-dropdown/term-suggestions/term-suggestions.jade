@@ -1,7 +1,7 @@
 .term-suggestions
   .dropdown-default(data-ng-if="vm.terms.length")
     .search-query-cat.dropdown-category-list
-      a.choose-category.dropdown-list-item(data-ng-repeat="term in vm.terms track by $index"
+      a.choose-category.dropdown-list-item(data-ng-repeat="term in vm.terms | rankSearch:vm.searchModel:['term'] | orderBy:'rankSearch'"
       data-ui-sref="app.search-result({q: term.term, category: term.category})")
         span.search-query(ng-bind-html="term.term | searchBoldFilter:vm.searchModel") {{ term.term }}
         span.search-hint(data-ng-if="!!term.category")
