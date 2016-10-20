@@ -421,7 +421,7 @@
   align-items: center
   justify-content: center
   color: $c-white
-  font-size: $f-nav-size
+  font-size: $f-btn-size
   height: 48px
   padding: 0 24px
   text-transform: uppercase
@@ -431,7 +431,7 @@
     width: auto
 
   [class*="icon"]
-    font-size: $f-btn-icon
+    font-size: $f-icon-22
     margin: 0 16px
 
   &.icon-right
@@ -458,6 +458,7 @@
 
   &.primary
     background: $c-white
+    border: 1px solid $c-lines
     color: $c-primary
 
   &.error
@@ -479,6 +480,13 @@
     span
       font-size: $f-icon-22
       color: $c-white
+
+    &.reject
+      background: $c-error
+
+    &.answer
+      background: $c-success
+
 
     &:hover
       background: $c-primary

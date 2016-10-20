@@ -1,11 +1,11 @@
-/* communicator */
-@keyframes communicator-fade
+@keyframes animation-opacity
   0%
     opacity: 0
 
   100%
     opacity: 1
 
+/* communicator */
 @keyframes connecting-dot
   0%
     width: 4px
@@ -51,7 +51,29 @@
   100%
     transform: scale(0)
 
+@keyframes communicator-dialog
+  0%
+    transform: scaleY(0)
+  100%
+    transform: scaleY(1)
+
+@keyframes communicator-dialog-fade
+  0%
+    top: 40px
+
+  100%
+    top: 0
+
 /* communicator end*/
+
+/* modal*/
+@keyframes modal-opacity
+  0%
+    opacity: 0
+  100%
+    opacity: 0.3
+
+/* modal end */
 
 /* go to top button */
 @keyframes go-to-top-entry
