@@ -1,6 +1,10 @@
 (function() {
   /* @ngInject */
   function preloaderContainerController() {
+    
+    this.errorFunction = () => {
+      this.errorFn()
+    }
 
     return this
   }

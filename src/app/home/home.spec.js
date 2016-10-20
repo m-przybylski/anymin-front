@@ -3,7 +3,7 @@ describe('Unit tests: Home section >', () => {
 
     var $scope
     var HomeController
-
+    
     beforeEach(() => {
       module('profitelo.controller.home')
       inject(($rootScope, $controller, $state) => {

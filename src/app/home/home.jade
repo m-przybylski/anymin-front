@@ -1,11 +1,11 @@
-pro-top-navbar(logout-action="appController.logout" search-mask-active="vm.searchMask")
-.search-active-mask(data-ng-class="{'off': vm.searchMask}" data-ng-click="vm.searchMaskDeactive()")
+pro-top-navbar(logout-action="appController.logout" data-search-mask-active="vm.interfaceController.hideSearchMask")
+.search-active-mask(data-ng-class="{'off': vm.interfaceController.hideSearchMask}")
 
 main.top-content-home
   .default-container.home-header
     include ./parts/top-container.partial.jade
   .default-container(data-ng-click="vm.onSearchFocus()")
-    pro-search-dropdown
+    pro-search-dropdown(data-mask-search="vm.interfaceController.hideSearchMask")
   .default-container
     include ./parts/branch-overview.partial.jade
 

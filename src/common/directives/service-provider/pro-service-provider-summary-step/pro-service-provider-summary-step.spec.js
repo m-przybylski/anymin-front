@@ -19,7 +19,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
     })
 
     function create(html) {
-      var elem = angular.element(html)
+      var elem = angular.element(validHTML)
       scope.consultations = [{}]
       scope.editConsultation = () => {
         return null
@@ -35,5 +35,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
     it('should have a dummy test', inject(function() {
       expect(true).toBeTruthy()
     }))
+
+
   })
 })

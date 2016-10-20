@@ -129,7 +129,11 @@
 
         &:hover,
         &.active
-          background: $c-background
+          background: rgba($c-lines, 0.6)
+
+          span
+            color: $c-primary-hover
+
 
         span
           color: $c-primary-txt
@@ -158,6 +162,11 @@
         .dropdown-list-item
           padding: 16px
 
+          &:hover,
+          &.active
+            .expert-data
+              .expert-name
+                color: $c-primary-hover
           +smm
             flex: 0 0 50%
             align-items: center
@@ -176,7 +185,7 @@
             font-size: $f-base
             margin: 0 0 0 16px
 
-            > span
+            span
               font-size: $f-base
               display: block
 
