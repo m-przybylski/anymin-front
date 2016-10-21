@@ -247,6 +247,7 @@
     'profitelo.controller.post-register',
     'profitelo.controller.post-register.set-password',
     'profitelo.controller.post-register.set-email',
+    'profitelo.components.interface.go-to-top',
 
     // directives
     'profitelo.directives.pro-top-waiting-loader',
@@ -258,6 +259,7 @@
     // 'profitelo.components.communicator.pro-bottom-communicator',
     'profitelo.components.communicator',
     'profitelo.components.interface.preloader-container',
+
 
     // translations
     'profitelo.translations.en-us',
