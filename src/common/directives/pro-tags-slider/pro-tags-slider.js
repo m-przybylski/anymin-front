@@ -38,10 +38,8 @@
         return scope.tags
       }, (newValue, oldValue) => {
         if (newValue) {
-          $timeout(() => {
             elementsMap = $.map($(element).find('.slide-page li'), (li)=>{
               return li.clientWidth
-            })
           })
         }
       })

@@ -155,9 +155,9 @@
       }
     }
 
-    this.onDropdownMouseLeave = () => {
-      this.isMouseOverDropdown = false
-    }
+    // this.onDropdownMouseLeave = () => {
+    //   this.isMouseOverDropdown = false
+    // }
 
     this.onDropdownMouseEnter = () => {
       this.isMouseOverDropdown = true

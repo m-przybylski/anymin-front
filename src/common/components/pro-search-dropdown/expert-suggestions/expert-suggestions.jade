@@ -5,7 +5,7 @@
     .experts-box.dropdown-category-list
       a.expert-profile.dropdown-list-item(data-ng-repeat="expert in vm.experts.results track by $index"
       data-ui-sref="app.expert-profile({ contactId: expert.id })")
-        img.expert-avatar.user-avatar.circle(src='http://placekitten.com/48/48')
+        img.expert-avatar.user-avatar.circle(ng-src=" {{ vm.profileImage($index) }}" data-ng-class="{'isNotUploaded': '!!vm.profileImage($index)'}")
 
         span.expert-data
           span.expert-name(ng-bind-html="expert.name | searchBoldFilter:vm.searchModel") {{expert.name}}

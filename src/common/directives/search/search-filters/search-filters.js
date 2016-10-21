@@ -1,5 +1,5 @@
 (function() {
-  function searchFilters($filter, searchService, $window) {
+  function searchFilters($filter, $timeout, searchService, $window) {
     function linkFunction(scope, element, attrs) {
 
       scope.model = {
@@ -78,9 +78,11 @@
         scope.model.maxPrice = _maxPriceValue(params.maxPrice)
       })
 
-      searchService.onSearchResults(scope, (err, results) => {
-        if (!err) {
-          scope.model.tags = results.relatedTags
+      scope.$watch( () => {
+        return scope.searchResults.relatedTags
+      }, (newValue) => {
+        if (newValue) {
+          scope.model.tags = scope.searchResults.relatedTags
         }
       })
 

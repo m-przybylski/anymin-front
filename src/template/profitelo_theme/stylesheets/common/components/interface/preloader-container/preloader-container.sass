@@ -2,29 +2,21 @@
   width: 100%
   height: 300px
   text-align: center
-  background-color: $c-background-2
+  background-color: transparent
 
   .content-loader
+    display: block
+    position: relative
+    top: 0
+    width: 100%
+    right: 0
+    left: 0
+    bottom: 0
+    margin: auto 0
     height: 100%
-    display: flex
-    justify-content: center
-
-    &:before, &:after
-      display: block
-      position: relative
-      margin: auto 0
-      width: 40px
-      height: 40px
-      content: ""
-      border-radius: 20px
-
-    &:before
-      background-color: #ff3c50
-      animation: spinner-left 1s 0.3s infinite linear
-
-    &:after
-      background-color: $c-primary
-      animation: spinner-right 1s 0.3s infinite linear
+    content: ""
+    border-radius: 20px
+    background: transparent url('../../../../../../../assets/gifs/preloader.gif') no-repeat center center
 
   .error-wrapper
     height: 100%
@@ -34,37 +26,3 @@
 
     a
       display: inline-flex
-
-  @keyframes spinner-left
-    0%
-      opacity: 1
-      transform: translate(0, 0)
-
-    25%
-      transform: translate(30px, 0)
-
-    50%
-      transform: translate(0px, 0px)
-
-    75%
-      transform: translate(-30px, 0)
-
-    100%
-      transform: translate(0, 0)
-
-  @keyframes spinner-right
-    0%
-      opacity: 1
-      transform: translate(0, 0)
-
-    25%
-      transform: translate(-30px, 0)
-
-    50%
-      transform: translate(0, 0)
-
-    75%
-      transform: translate(30px, 0)
-
-    100%
-      transform: translate(0, 0)
