@@ -1,0 +1,24 @@
+.go-to-top
+  &.btn-circle
+    transition: transform 0.3s, background 0.3s, opacity 0.3s
+    position: fixed
+    right: 32px
+    bottom: 32px
+    background: rgba($c-black, 0.2)
+    width: 48px
+    height: 48px
+    box-shadow: none
+    cursor: pointer
+    z-index: -$z-index-800
+    opacity: 0
+
+    span
+      font-size: $f-icon-16
+
+    &:hover
+      transform: translate(0, -5px)
+
+    &.is-show
+      z-index: $z-index-800
+      animation: go-to-top-entry 0.3s
+      opacity: 1
