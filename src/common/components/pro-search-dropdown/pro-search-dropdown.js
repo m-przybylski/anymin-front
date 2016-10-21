@@ -94,6 +94,10 @@
     const _focusOut = () => {
       this.isFocused = false
       this.isCollapsed = true
+
+      if (angular.isDefined(this.maskSearch)) {
+        this.maskSearch = true
+      }
     }
 
     const _searchActionDebounce = _.debounce(_searchAction, 200, {
@@ -208,7 +212,8 @@
       arrowRight: 39,
       arrowDown: 40,
       arrowUp: 38,
-      backspace: 8
+      backspace: 8,
+      escape: 27
     }
 
     /* istanbul ignore next */
@@ -249,10 +254,19 @@
           })
           break
 
+        case keyCodes.escape:
+          event.preventDefault()
+          $element.find('.main-input').blur()
+          _focusOut()
+          $scope.$digest()
+          break
+
         default:
           break
       }
     })
+
+
 
     $element.find('.dropdown-container').perfectScrollbar()
 
@@ -280,7 +294,8 @@
     bindings: {
       ngModel: '=?',
       searchCount: '=?',
-      open: '<'
+      open: '<',
+      maskSearch: '=?'
     }
   }
 

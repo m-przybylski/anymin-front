@@ -1,8 +1,9 @@
 (function() {
   function HomeController($scope, smoothScrolling) {
 
-    this.searchMask = true
+    this.interfaceController = {}
 
+    this.interfaceController.hideSearchMask = true
     this.nextSlide = () => {
       this.controlls.nextSlide()
     }
@@ -19,25 +20,21 @@
       this.newsControlls.nextSlide()
     }
 
-    this.searchMaskDeactive = () => {
-      this.searchMask = true
-    }
-
     this.onSearchFocus = () => {
-      this.searchMask = false
-
+      this.interfaceController.hideSearchMask = false
       const searchInputOnPage = angular.element(document).find('.search-bar-container .search-bar')[1]
       smoothScrolling.simpleScrollTo(searchInputOnPage, true)
     }
 
     angular.element(angular.element(document).find('.search-active-mask')).on('whell mousewheel', (e) => {
-      this.searchMask = true
+      this.interfaceController.hideSearchMask = true
       $scope.$digest()
     })
 
+
     this.expertCard = [
       {
-        id: '0',
+        id: '0', 
         value: {
           name: '1 Slide',
           status: 'not-available',

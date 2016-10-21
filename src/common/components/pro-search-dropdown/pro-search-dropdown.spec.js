@@ -8,7 +8,7 @@ describe('Unit testing:profitelo.components.pro-search-dropdown', () => {
     let state
     let componentController
     let component
-    let validHTML = '<pro-search-dropdown></pro-search-dropdown>'
+    let validHTML = '<pro-search-dropdown data-mask-search="vm.interfaceController.hideSearchMask"></pro-search-dropdown>'
     let httpBackend
     let SearchApiDef
     let CategoryApiDef

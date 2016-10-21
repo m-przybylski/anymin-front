@@ -1,6 +1,7 @@
 (function() {
   function proServiceProviderSummaryStep() {
 
+    /* istanbul ignore next function -  We'll need to load babel-polyfill to test it*/
     function preCompileFunction(scope) {
       for (let consultation of scope.consultations) {
         if (consultation.invitations.length > 0) {
