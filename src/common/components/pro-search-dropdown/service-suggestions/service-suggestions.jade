@@ -7,7 +7,7 @@
       data-ui-sref="app.expert-profile({ contactId: service.owner.id })")
         .expert-profile
           .thumb
-            img.expert-avatar.user-avatar(src='http://placekitten.com/48/48')
+            img.expert-avatar.user-avatar(data-ng-src="{{ vm.profileImage($index) }}" data-ng-class="{'isNotUploaded': !vm.profileImage($index)}")
             .status-list
               span.status.availability
           .expert-data

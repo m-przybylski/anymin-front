@@ -78,9 +78,11 @@
         scope.model.maxPrice = _maxPriceValue(params.maxPrice)
       })
 
-      searchService.onSearchResults(scope, (err, results) => {
-        if (!err) {
-          scope.model.tags = results.relatedTags
+      scope.$watch( () => {
+        return scope.searchResults.relatedTags
+      }, (newValue) => {
+        if (newValue) {
+          scope.model.tags = scope.searchResults.relatedTags
         }
       })
 
@@ -112,7 +114,7 @@
       restrict: 'E',
       templateUrl: 'directives/search/search-filters/search-filters.tpl.html',
       scope: {
-        searchResults: '=?',
+        searchResults: '=',
         setSearchParams: '='
       },
       link: linkFunction
