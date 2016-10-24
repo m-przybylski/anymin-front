@@ -53,6 +53,24 @@ html
   overflow: hidden
   position: relative
 
+  &.thumb-small
+    max-width: 64px
+    max-height: 64px
+    min-width: 64px
+    min-height: 64px
+
+  &.thumb-medium
+    max-width: 128px
+    max-height: 128px
+    min-width: 128px
+    min-height: 128px
+
+  &.thumb-big
+    max-width: 256px
+    max-height: 256px
+    min-width: 256px
+    min-height: 256px
+
   .status-list
     position: absolute
     right: 0
@@ -100,7 +118,7 @@ img
     min-height: inherit
     border-radius: 50%
 
-    &.isNotUploaded
+    &.is-not-uploaded
       background: url('/assets/images/no-avatar.jpg') 50% 50% / cover $c-background
       position: relative
       overflow: hidden

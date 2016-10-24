@@ -1,10 +1,8 @@
 (function() {
 
   /* @ngInject */
-  function defaultSliderFunction($scope, $window, $timeout, $element) {
-    let currentWidth = 0
+  function defaultSliderFunction($window, $timeout, $element) {
     let elementsMap = []
-    let allElementsMap = []
     let currentElement = 0
     let parentWidth = $element[0].offsetWidth
     let visibleItem = null

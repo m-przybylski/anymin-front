@@ -1,12 +1,12 @@
 .pro-summary-tag
   h4.title-row {{ ::vm.title | translate }}
-    span {{ ::vm.tags.length }}
+    span ({{ ::vm.tags.length }})
        
-  ul.tag-list
+  ul.tag-list.slide-page
     li(ng-repeat="tag in vm.tags | limitTo: 7")
-      a {{ ::tag }}
+      a.slide-btn-tag {{ ::tag }}
   
     li.showMoreTagsBtn(data-ng-show="vm.showTags" data-ng-click="vm.showMoreTags()")
-      a
+      a.slide-btn-tag
         span.pro-tag(data-ng-show="!(vm.showTagClass)") ...
         span.pro-tag.icon.icon-arrow-up-12(data-ng-show="vm.showTagClass")

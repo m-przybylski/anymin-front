@@ -1,36 +1,37 @@
-.default-container.single-consultation
-  .consultation-wrapper
-    .consultation-details
-      .consultation-price
-        h5 {{ ::vm.consultation.price / 100}}
-          span.currency(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE")
+.default-container
+  .single-consultation
+    .consultation-wrapper
+      .consultation-details
+        .consultation-price
+          h5 {{ ::vm.consultation.price / 100}}
+            span.currency(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE")
 
-      .consultation-range
-        .consultation-info
-          h3
-            a(data-ui-sref="app.company-profile({ contactId: vm.consultation.owner.id })") {{ ::vm.consultation.name }}
+        .consultation-profile
+          .consultation-info
+            h3
+              a(data-ui-sref="app.company-profile({ contactId: vm.consultation.owner.id })") {{ ::vm.consultation.name }}
 
-          ul.consultation-options
-            li.options-item
-              span {{ ::vm.consultation.satisfaction }}% {{"SEARCH.RECOMMENDATION" | translate }}
-            li.options-item
-              span {{ ::vm.consultation.talks }}
-            li.options-item
-              span {{ ::vm.consultation.timeAverage }} min.
+            ul.consultation-options
+              li.options-item
+                span {{ ::vm.consultation.satisfaction }}% {{"SEARCH.RECOMMENDATION" | translate }}
+              li.options-item
+                span {{ ::vm.consultation.talks }}
+              li.options-item
+                span {{ ::vm.consultation.timeAverage }} min.
 
-    .consultation-actions
-      .consultation-profile
-        a.thumb(data-ui-sref="app.company-profile({ contactId: vm.consultation.owner.id })")
-          img.user-avatar(data-ng-src="{{ ::vm.profileImage }}" alt="{{ ::vm.consultation.owner.name }}")
+      .consultation-actions
+        .consultation-profile
+          a.thumb(data-ui-sref="app.company-profile({ contactId: vm.consultation.owner.id })")
+            img.user-avatar(data-ng-src="{{ ::vm.profileImage }}" alt="{{ ::vm.consultation.owner.name }}")
 
-          .status-list
-            span.status.availability
+            .status-list
+              span.status.availability
 
-        .author
-          h6
-            a(data-ui-sref="app.company-profile({ contactId: vm.consultation.owner.id })") {{ ::vm.consultation.owner.name }}
+          .author
+            h6
+              a(data-ui-sref="app.company-profile({ contactId: vm.consultation.owner.id })") {{ ::vm.consultation.owner.name }}
 
-      a.btn.success.icon-left(data-ng-click="vm.startCall()")
-        span.icon.icon-call-16
-        | {{ ::'HOME.TOP_CONTAINER.EXPERT_PROFILE.CALL' | translate }}
+        a.btn.success.icon-left(data-ng-click="vm.startCall()")
+          span.icon.icon-call-16
+          | {{ ::'HOME.TOP_CONTAINER.EXPERT_PROFILE.CALL' | translate }}
 

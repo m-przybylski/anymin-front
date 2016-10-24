@@ -1,50 +1,39 @@
-.pro-expert-single-consultation
-  .default-container
-    .single-container-consultation
-      .title-row-consultation.black-row
-        .stats-consultation
-          div
-            span.icon.icon-satisfaction-16
-            span {{ satisfaction }}%
-            span.mobile-hidden(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.SATISFACTION_PERCENT")
-          div
-            span.icon.icon-calls-16
-            span {{ talks }}
-            span.mobile-hidden(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.TALKS")
-          div
-            span.icon.icon-time-16
-            span.mobile-hidden(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.AVERANGE_CONSULTATION_TIME")
-            span {{ timeAverage }} {{'HOME_EXPERT_PROFILE.MINUTES' | translate}}
-        .title-row
-          h3 {{ service.details.name }}
-        .cost-consultations
-          .prize
-            span.icon.icon-price-32
-            h3 {{ service.details.price | money }}
-            h3.currency(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE")
-          .call(data-ng-click="initCall()")
-            p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CALL")
-            span.icon.icon-headphone-16
+.single-consultation.expert-profile-consultation
+  .consultation-wrapper
+    .consultation-content
+      .consultation-details
+        .consultation-price
+          h5 {{ service.details.price / 100 }}
+            span.currency(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE")
 
-      .title-row-consultation.footer-consultation
-        pro-summary-tag(data-tags="service.details.tags")
+        .consultation-profile
+          .consultation-info
+            h3
+              a(data-ui-sref="app.company-profile({ contactId: vm.consultation.owner.id })") {{ service.details.name }}
 
-        p {{'HOME.TOP_CONTAINER.EXPERT_PROFILE.COMMENTS' | translate}} ({{ comments.length }})
-        .comments
-          .help(data-ng-click="showPositive()")
-            span.icon.icon-good-32
-            span.mobile-hidden(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.EXPERT_HELPS")
-            p {{ comments.positive.length }}
-          .help(data-ng-click="showNegative()")
-            span.icon.icon-bad-32
-            span.mobile-hidden(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.EXPERT_NOT_HELPS")
-            p {{ comments.negative.length }}
-        div.consultants(data-ng-show="type == 'company'")
-          p {{'COMMON.DIRECTIVES.PRO_EXPERT_PROFILE.CONSULTANTS_LIST' | translate}} ({{ consultants.length }})
-          .consultants-row
-            div(data-ng-repeat="consultant in service.invitations")
-              img.circle.thumb.user-avatar(data-ng-src="{{ avatar }}" data-ng-class='{"isNotUploaded": "!!avatar"}')
-              div
-                p {{ consultant.email }}
-                .status(data-ng-hide="profile.type == 'company'")
-                  span Dostępny
+            ul.consultation-options
+              li.options-item
+                span {{ ::vm.consultation.satisfaction }}% {{"SEARCH.RECOMMENDATION" | translate }}
+              li.options-item
+                span {{ ::vm.consultation.talks }}
+              li.options-item
+                span {{ ::vm.consultation.timeAverage }} Stan Twojego konta pozwala na ok. 10 min rozmowy
+
+      .consultation-actions
+        .consultation-profile
+          a.thumb(data-ui-sref="app.company-profile({ contactId: vm.consultation.owner.id })")
+            //img.user-avatar(data-ng-src="{{ ::vm.profileImage }}" alt="{{ ::vm.consultation.owner.name }}" data-ng-class='{"is-not-uploaded": !avatar})
+
+            .status-list
+              span.status.availability
+
+          .author
+            h6
+              a(data-ui-sref="app.company-profile({ contactId: vm.consultation.owner.id })") {{ service.details.name }}
+
+        a.btn.success.icon-left(data-ng-click="vm.startCall()")
+          span.icon.icon-call-16
+          | {{ ::'HOME.TOP_CONTAINER.EXPERT_PROFILE.CALL' | translate }}
+
+    pro-summary-tag(data-title="DASHBOARD.EXPERT_ACCOUNT.CONSULTATION_RANGE"
+    data-tags="tags")

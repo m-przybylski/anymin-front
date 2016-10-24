@@ -24,10 +24,13 @@
     'profitelo.directives.expert-profile.pro-expert-header',
     'profitelo.directives.pro-footer',
     'profitelo.directives.expert-profile.pro-expert-slider',
+    'profitelo.directives.expert-profile.expert-slider',
     'profitelo.directives.expert-profile.pro-expert-single-consultation',
     'profitelo.directives.expert-profile.pro-expert-social-icons',
     'profitelo.services.resolvers.app.service-provider-image-resolver',
     'profitelo.directives.pro-top-alert-service',
+    'profitelo.components.dashboard.expert-profile.social-links',
+    'profitelo.components.interface.collapse-tab',
     'commonConfig'
   ])
   .config(($stateProvider, UserRolesProvider) => {

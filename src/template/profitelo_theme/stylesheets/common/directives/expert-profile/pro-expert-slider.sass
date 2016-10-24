@@ -1,73 +1,99 @@
 .pro-expert-slider
+  position: relative
+
+  &:hover
+    .btn-arrow
+      opacity: 1
+
+  .btn-arrow
+    transition: opacity 0.3s
+    opacity: 0
+    position: absolute
+    top: 0
+    bottom: 0
+    margin: auto
+    z-index: $z-index-100
+
+    &.arrow-left
+      left: -24px
+
+    &.arrow-right
+      right: -24px
+
   .slider-container
-    padding: 0px 0 48px
+    padding: 0
 
-    .slider-control
-      margin: 0
-      width: 100%
-      display: flex
-      flex-direction: column
-      align-items: center
-      justify-content: center
-      padding: 64px
-      position: relative
-      z-index: 10
-      float: left
-      background: $c-white
-
-      +smm
-        height: 320px
-        width: (100%/2)
-        margin: 0 0 128px
-        padding: 0
-
-      +mdm
-        width: (100%/4)
+    p
+      +default-font-regular
+      text-align: center
+      margin: 0 0 32px
 
       span
-        color: $c-secondary-txt
-        font-size: 32px
+        +default-font-regular
+        color: $c-label
+        display: block
+        font-size: $f-h3-size
+        text-transform: uppercase
+        margin: 0
 
-      p
-        text-align: center
-        margin: 0 0 32px
-
-        span
-          color: $c-primary-txt
-          display: block
-          font-size: $f-h4-size
-          text-transform: uppercase
-          font-weight: bold
+    .slider-list
+      margin: 0
+      display: flex
+      margin: 0 -32px 0 0
 
     .slider-slides
+      +transition(left 0.5s ease-in-out 0s)
       width: 100%
       position: relative
-      margin: 0 0 96px
       background: $c-white
       overflow: hidden
-      +transition(left 0.5s ease-in-out 0s)
-
-      +smm
-        margin: 0px 16px 96px
-        width: 50%
-
-      +mdm
-        width: 75%
 
       .slides
         text-align: center
         flex: 1 0 100%
-        border-left: 1px solid $c-lines
+        display: flex
+        align-items: stretch
+        padding: 0 32px 0 0
+        height: 192px
 
         +smm
-          flex: 1 0 100%
-          width: 100%
-          height: 320px
+          flex: 1 0 40%
+          width: 40%
           border-top: 0
+          height: 288px
 
-        +mdm
-          flex: 1 0 33.3333%
-          width: 33.3333%
+        +lgm
+          flex: 1 0 25%
+          width: 25%
+
+        &.slider-header
+          .slider-item
+            > div
+              text-align: center
+
+          .icon
+            color: $c-label
+            margin: 0 0 12px
+
+        .slider-item
+          display: flex
+          align-items: center
+          justify-content: center
+          border: 1px solid $c-lines
+          border-radius: 3px
+          width: 100%
+          position: relative
+          overflow: hidden
+
+          img
+            position: absolute
+            left: 0
+            right: 0
+            top: 0
+            bottom: 0
+            margin: auto
+            max-width: inherit
+            width: auto
 
         h4
           +default-font-heavy
@@ -93,7 +119,6 @@
             +smm
               height: 100%
               width: 100%
-
 
             +mdm
               height: inherit

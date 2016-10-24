@@ -13,20 +13,21 @@
       replace: true,
       link: linkFunction,
       scope: {
-        service: '=',
+        service: '=?',
         satisfaction: '@',
         talks: '@',
         timeAverage: '@',
-        type: '=',
-        consultants: '='
+        type: '=?',
+        consultants: '=?'
       }
     }
   }
 
   angular.module('profitelo.directives.expert-profile.pro-expert-single-consultation', [
     'profitelo.components.pro-summary-tag',
+    'profitelo.services.call',
+    'profitelo.components.interface.collapse-tab',
     'profitelo.filters.money',
-    'profitelo.services.call'
   ])
   .directive('proExpertSingleConsultation', proExpertSingleConsultation)
 
