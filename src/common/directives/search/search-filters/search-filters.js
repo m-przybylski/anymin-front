@@ -1,5 +1,5 @@
 (function() {
-  function searchFilters($filter, $timeout, searchService, $window) {
+  function searchFilters($filter, searchService, $window) {
     function linkFunction(scope, element, attrs) {
 
       scope.model = {
@@ -114,7 +114,7 @@
       restrict: 'E',
       templateUrl: 'directives/search/search-filters/search-filters.tpl.html',
       scope: {
-        searchResults: '=?',
+        searchResults: '=',
         setSearchParams: '='
       },
       link: linkFunction

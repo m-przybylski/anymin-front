@@ -4,7 +4,7 @@ describe('Unit testing: profitelo.directives.search.search-filters', () => {
     let scope = null
     let rootScope
     let compile = null
-    let validHTML = '<search-filters data-model="model" data-set-search-params="callback"></search-filters>'
+    let validHTML = '<search-filters data-model="model" data-set-search-params="callback" data-search-results="searchResults"></search-filters>'
     let _httpBackend = null
     let _CategoriesApiDef
     let resourcesExpectations
@@ -48,6 +48,7 @@ describe('Unit testing: profitelo.directives.search.search-filters', () => {
         minPrice: 0,
         maxPrice: 100
       }
+      scope.searchResults = {}
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
       scope.$digest()

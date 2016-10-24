@@ -22,6 +22,7 @@
   }
 
   angular.module('profitelo.components.pro-search-dropdown.organization-suggestions', [
+    'profitelo.services.commonSettings',
     'profitelo.filters.search-bold-filter'
   ])
     .component('organizationSuggestions', organizationSuggestions)

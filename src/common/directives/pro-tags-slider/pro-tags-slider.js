@@ -38,8 +38,8 @@
         return scope.tags
       }, (newValue, oldValue) => {
         if (newValue) {
-            elementsMap = $.map($(element).find('.slide-page li'), (li)=>{
-              return li.clientWidth
+          elementsMap = $.map($(element).find('.slide-page li'), (li)=>{
+            return li.clientWidth
           })
         }
       })

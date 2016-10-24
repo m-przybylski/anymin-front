@@ -4,7 +4,7 @@
   function expertSuggestionsController(CommonSettingsService) {
 
     this.profileImage = (index) => {
-        return !!this.experts.results[index].img ? CommonSettingsService.links.imageUrl.replace('%s', this.experts.results[index].img) : null
+      return !!this.experts.results[index].img ? CommonSettingsService.links.imageUrl.replace('%s', this.experts.results[index].img) : null
     }
 
     return this
