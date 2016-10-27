@@ -1,0 +1,20 @@
+.pro-lightbox-zoom
+  position: fixed
+  bottom: 0
+  left: 0
+  width: 100%
+  display: flex
+  align-items: center
+  justify-content: center
+  background: linear-gradient(to top, rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.01) 100%,rgba(0,0,0,0) 100%)
+
+  .icon
+    transition: color 0.3s
+    margin: 0 8px
+    cursor: pointer
+
+    &:hover
+      color: $c-white
+
+    &.icon-zoom
+      font-size: $f-h2-size

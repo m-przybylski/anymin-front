@@ -248,7 +248,7 @@
     'profitelo.controller.post-register.set-password',
     'profitelo.controller.post-register.set-email',
     'profitelo.components.interface.go-to-top',
-
+    
     // directives
     'profitelo.directives.pro-top-waiting-loader',
     'profitelo.directives.pro-top-alert-service',
