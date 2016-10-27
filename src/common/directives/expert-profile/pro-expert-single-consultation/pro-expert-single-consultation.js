@@ -5,8 +5,14 @@
       scope.initCall = () => {
         callService.callServiceId(scope.service.id)
       }
+      scope.tags = scope.service.details.tags
+      // Mock data:
+      scope.consultation = {}
+      scope.consultation.satisfaction = Math.floor((Math.random() * 100) + 1)
+      scope.consultation.timeAverage = Math.floor((Math.random() * 10) + 1)
+      scope.consultation.talks = Math.floor((Math.random() * 1000) + 1)
     }
-    
+
     return {
       templateUrl: 'directives/expert-profile/pro-expert-single-consultation/pro-expert-single-consultation.tpl.html',
       restrict: 'E',
@@ -17,7 +23,6 @@
         satisfaction: '@',
         talks: '@',
         timeAverage: '@',
-        type: '=?',
         consultants: '=?'
       }
     }

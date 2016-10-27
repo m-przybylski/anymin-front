@@ -11,11 +11,10 @@
     restrict: 'E',
     replace: true,
     bindings: {
-      invitation: '<',
-      employment: '<'
+      links: '<'
     },
     controller: controller,
-    controllerAs: 'vm'
+    controllerAs: '$ctrl'
   }
 
 

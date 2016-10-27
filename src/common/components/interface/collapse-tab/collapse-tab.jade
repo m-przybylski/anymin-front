@@ -1,12 +1,4 @@
-.collapse-tab(data-ng-class="{'is-collapse': $ctrl.isCollapse}")
-  .single-consultation
-    h1 ramka
-  .single-consultation
-    h1 ramka
-  .single-consultation
-    h1 ramka
-  .single-consultation
-    h1 ramka
-
-
-a(data-ng-click="$ctrl.collapsing()") show more
+.collapse-tab
+  .collapse-wrapper(data-ng-style="$ctrl.objectHeight")
+    ng-transclude
+  a(data-ng-click="$ctrl.collapsing()" data-ng-show="!$ctrl.checkedHeight()") show more

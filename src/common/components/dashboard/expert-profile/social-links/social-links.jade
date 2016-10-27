@@ -1,4 +1,4 @@
 .social-links
   span(data-translate="DASHBOARD.EXPERT_ACCOUNT.VISIT_ME_ON")
-  a.btn.btn-circle.btn-white
-    span.icon.icon-facebook-24
+  a.btn.btn-circle.btn-white(href="{{link}}" target="_blank" data-ng-repeat="link in $ctrl.links")
+    span.icon(pro-social-icon-getter data-url="link")

@@ -29,7 +29,6 @@
   }
 
   angular.module('profitelo.directives.expert-profile.expert-slider', [
-    'profitelo.services.dialog-service',
     'profitelo.components.interface.slider',
     'profitelo.common.controller.gallery-modal',
     'profitelo.services.helper-service'

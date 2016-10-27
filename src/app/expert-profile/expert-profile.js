@@ -1,17 +1,19 @@
 (function() {
-  function ExpertProfileController(savedProfile, CommonConfig, profileImage) {
+  function ExpertProfileController($state, savedProfile, CommonConfig, profileImage) {
 
     let _commonConfig = CommonConfig.getAllData()
     this.profile = {}
 
     this.profileImage = profileImage
-
+    
     if (savedProfile && savedProfile.expertDetails) {
       this.profile = savedProfile.expertDetails
-      this.services = savedProfile.services
       this.consultations = savedProfile.services
       this.profile.type = 'single'
+      this.services = savedProfile.services
     }
+
+
 
     return this
   }
@@ -24,7 +26,6 @@
     'profitelo.directives.expert-profile.pro-expert-header',
     'profitelo.directives.pro-footer',
     'profitelo.directives.expert-profile.pro-expert-slider',
-    'profitelo.directives.expert-profile.expert-slider',
     'profitelo.directives.expert-profile.pro-expert-single-consultation',
     'profitelo.directives.expert-profile.pro-expert-social-icons',
     'profitelo.services.resolvers.app.service-provider-image-resolver',
@@ -40,21 +41,36 @@
       templateUrl: 'expert-profile/expert-profile.tpl.html',
       controller: 'ExpertProfileController',
       resolve: {
-        savedProfile: ($q, $state, ProfileApi, User, $stateParams) => {
+        /* istanbul ignore next */
+        savedProfile: ($q, $state, ProfileApi, User, ServiceApi) => {
           /* istanbul ignore next */
           let _deferred = $q.defer()
           /* istanbul ignore next */
           User.getStatus().then(() => {
             ProfileApi.getProfileWithServices({
-              profileId: $stateParams.contactId
-            }).$promise.then((response)=>{
-              _deferred.resolve(response)
+              profileId: User.getData('id')
+            }).$promise.then((profileWithServices)=> {
+              ServiceApi.postServicesTags({
+                serviceIds: _.map(profileWithServices.services, 'id')
+              }).$promise.then((servicesTags) => {
+
+                profileWithServices.services.forEach((service) => {
+                  service.details.tags = _.head(_.filter(servicesTags, (serviceTags) => service.id === serviceTags.serviceId)).tags
+                })
+                _deferred.resolve(profileWithServices)
+              })
             }, () => {
               _deferred.resolve(null)
-              $state.go('app.dashboard.start')
+            }, (error)=> {
+              _deferred.reject(error)
+              $state.go('app.dashboard')
+              proTopAlertService.error({
+                message: 'error',
+                timeout: 4
+              })
             })
           }, (error) => {
-            $state.go('app.dashboard.start')
+            $state.go('app.dashboard')
             proTopAlertService.error({
               message: 'error',
               timeout: 4

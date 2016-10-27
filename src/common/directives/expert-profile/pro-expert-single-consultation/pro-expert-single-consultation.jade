@@ -13,11 +13,11 @@
 
             ul.consultation-options
               li.options-item
-                span {{ ::vm.consultation.satisfaction }}% {{"SEARCH.RECOMMENDATION" | translate }}
+                span {{ consultation.satisfaction }}% {{"SEARCH.RECOMMENDATION" | translate }}
               li.options-item
-                span {{ ::vm.consultation.talks }}
+                span {{ consultation.talks }} rozmowy
               li.options-item
-                span {{ ::vm.consultation.timeAverage }} Stan Twojego konta pozwala na ok. 10 min rozmowy
+                span Stan Twojego konta pozwala na ok. {{ consultation.timeAverage }} min rozmowy
 
       .consultation-actions
         .consultation-profile

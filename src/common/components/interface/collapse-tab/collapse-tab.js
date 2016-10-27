@@ -1,40 +1,48 @@
 (function (){
   /* @ngInject */
-  function controller($element) {
-
-    this.isCollapse = true
-
-    let collapseTabElement = $(".collapse-tab")
-    let firstElementHeight = $($element).find('.single-consultation:first-child').height()
-    let collapseTabElementHeight = $($element).find('.collapse-tab').height()
-
-    console.log("qwe", firstElementHeight, collapseTabElementHeight)
-
-    collapseTabElement.css("height", firstElementHeight)
-
-    this.collapsing = () => {
-      if (this.isCollapse) {
-        this.isCollapse = !this.isCollapse
-        collapseTabElement.css("height", collapseTabElementHeight)
-      } else {
-        this.isCollapse = !this.isCollapse
-        collapseTabElement.css("height", firstElementHeight)
-      }
+  function controller($element, $window, $timeout) {
+    this.objectHeight = {
+      height: null
     }
+
+    let elementHeight = 0
+    let singleElementHeight = 0
+
+    const setUpHeights = () => {
+      elementHeight = $element.find('.collapse-wrapper').height()
+      singleElementHeight =  $element.find('ng-transclude > div').height() + 32
+      this.objectHeight.height = singleElementHeight
+    }
+
+    $timeout(() => {
+      setUpHeights()
+    })
+
+    // angular.element($window).on('resize', ()=> {
+    //   setUpHeights()
+    // })
+    //
+    this.collapsing = () => {
+      this.objectHeight.height = this.objectHeight.height !== elementHeight ? elementHeight : $element.find('ng-transclude > div').height() + 32
+    }
+
+    this.checkedHeight = () => {
+      return elementHeight === singleElementHeight
+    }
+
 
     return this
   }
 
-  let collapseTab = {
+  const collapseTab = {
     templateUrl: 'components/interface/collapse-tab/collapse-tab.tpl.html',
     controllerAs: '$ctrl',
+    transclude: true,
     controller: controller
   }
 
 
-  angular.module('profitelo.components.interface.collapse-tab', [
-    'profitelo.directives.expert-profile.pro-expert-single-consultation'
-  ])
+  angular.module('profitelo.components.interface.collapse-tab', [])
     .component('collapseTab', collapseTab)
 
 }())

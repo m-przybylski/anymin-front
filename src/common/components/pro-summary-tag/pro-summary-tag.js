@@ -73,7 +73,7 @@
       title: '@'
     },
     controller: showMoreTagsController,
-    controllerAs: 'vm'
+    controllerAs: '$ctrl'
   }
 
   angular.module('profitelo.components.pro-summary-tag', [

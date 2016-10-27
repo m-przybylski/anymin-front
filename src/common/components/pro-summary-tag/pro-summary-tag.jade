@@ -1,10 +1,10 @@
 .pro-summary-tag
-  h4.title-row {{ ::vm.title | translate }}
-    span ({{ ::vm.tags.length }})
+  h4.title-row {{ $ctrl.title | translate }}
+    span ({{ $ctrl.tags.length }})
        
   ul.tag-list.slide-page
-    li(ng-repeat="tag in vm.tags | limitTo: 7")
-      a.slide-btn-tag {{ ::tag }}
+    li(ng-repeat="tag in $ctrl.tags | limitTo: 7")
+      a.slide-btn-tag {{ tag.name }}
   
     li.showMoreTagsBtn(data-ng-show="vm.showTags" data-ng-click="vm.showMoreTags()")
       a.slide-btn-tag
