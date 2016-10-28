@@ -26,7 +26,8 @@
   }
 
   angular.module('profitelo.components.communicator.modals.consultation-summary-expert', [
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'profitelo.components.summary-tag-multiselect'
   ])
     .controller('consultationSummaryExpertController', controller)
 

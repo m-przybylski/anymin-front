@@ -17,9 +17,7 @@
     $scope.chooseExpertsTag = false
 
     $scope.recommendExpert = () => {
-      console.log(this.chooseExpertsTag, $scope.chooseExpertsTag)
       $scope.chooseExpertsTag = true
-      console.log(this.chooseExpertsTag, $scope.chooseExpertsTag)
     }
     
 
@@ -27,7 +25,7 @@
   }
 
   angular.module('profitelo.components.communicator.modals.consultation-summary', [
-    'profitelo.components.pro-summary-tag',
+    'profitelo.components.summary-tag-multiselect',
     'ui.bootstrap'
   ])
     .controller('consultationSummaryController', controller)
