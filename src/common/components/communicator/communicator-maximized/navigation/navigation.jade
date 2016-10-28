@@ -1,0 +1,23 @@
+.communicator-nav
+  .communicator-upper-nav
+
+    .communicator-window-nav
+      a.btn.btn-circle(data-ng-click="vm.minimizeCommunicator()")
+        span.icon.icon-shrink-24
+      a.btn.btn-circle(data-ng-click="vm.toggleOptions()" data-ng-class="{'is-active': vm.areOptions}")
+        span.icon.icon-dots-menu-24
+
+  .communicator-lower-nav
+    a.btn.btn-circle(data-ng-click="vm.toggleAudio()" data-ng-class="{'is-active': !vm.isAudio}")
+      span.icon.icon-mic-on-24(data-ng-show="vm.isAudio")
+      span.icon.icon-mic-off-24(data-ng-hide="vm.isAudio")
+
+    a.btn.btn-circle.cancel-conversation(data-ng-click="vm.hangupCall()")
+      span.icon.icon-reject-24
+
+    a.btn.btn-circle(data-ng-click="vm.toggleVideo()" data-ng-class="{'is-active': !vm.isVideo}")
+      span.icon.icon-camera-on-24(data-ng-show="vm.isVideo")
+      span.icon.icon-camera-off-24(data-ng-hide="vm.isVideo")
+
+    a.btn.btn-circle.chat-switcher(data-ng-click="vm.toggleMessenger()" data-ng-class="{'is-active': vm.isMessenger}")
+      span.icon.icon-chat-24

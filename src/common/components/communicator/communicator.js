@@ -1,55 +1,61 @@
 (function() {
 
   /* @ngInject */
-  function controller($timeout, $rootScope, currentCallSessionService, DialogService, $scope) {
-    
-    this.chatMinimize = false
-    this.disconnected = !$rootScope.callSession
-    this.closed = false
+  function controller($log, callService) {
 
-    this.minimizeChatComponent = () => {
-      this.chatMinimize = !this.chatMinimize
+    this.isMinimized = (angular.isDefined(this.minimized) && this.minimized)
+    this.isClosed = true
+
+    this.minimizeCommunicator = () => {
+      this.isMinimized = true
     }
-    
-    $scope.disconnectCall = () => {
-      this.disconnected = true
-      $timeout(() => {
-        this.closed = true
-        currentCallSessionService.removeSession()
-      }, 400)
+
+    this.maximizeCommunicator = () => {
+      this.isMinimized = false
     }
-        
-    this.openDisconnectModal = () => {
-      DialogService.openDialog({
-        scope: $scope,
-        controller: 'clientCallController',
-        templateUrl: 'controllers/communicator/client-call/client-call.tpl.html'
-      })
+
+    const turnOffComponent = () => {
+      this.isClosed = true
     }
+
+    const turnOnComponent = () => {
+      this.isClosed = false
+    }
+
+    callService.onHangup(_ => {
+      turnOffComponent()
+    })
+
+    callService.onStartCall(_ => {
+      turnOnComponent()
+    })
+
+    callService.onCallPendingError(err => {
+      turnOffComponent()
+      $log.error(err)
+    })
+
+    callService.onCallStarted(_ => {
+      turnOnComponent()
+    })
 
     return this
   }
 
-  let communicator = {
-    transclude: true,
-    templateUrl:    'components/communicator/communicator.tpl.html',
+  const component = {
+    templateUrl: 'components/communicator/communicator.tpl.html',
     controller: controller,
-    controllerAs: 'vm'
+    controllerAs: 'vm',
+    bindings: {
+      minimized: '<?'
+    }
   }
 
   angular.module('profitelo.components.communicator', [
     'pascalprecht.translate',
-    'c7s.ng.userAuth',
-    'profitelo.services.current-call-state',
-    'profitelo.services.dialog-service',
-    'profitelo.common.controller.communicator.client-call',
-    'profitelo.components.communicator.communicator-connecting',
-    'profitelo.components.communicator.communicator-nav',
-    'profitelo.components.communicator.communicator-minimize',
-    'profitelo.services.pro-ratel-service',
-    'profitelo.services.current-call-state'
-
+    'profitelo.services.call',
+    'profitelo.components.communicator.communicator-maximized',
+    'profitelo.components.communicator.communicator-minimized'
   ])
-    .component('communicator', communicator)
-
+    .component('communicator', component)
 }())

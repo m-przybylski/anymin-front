@@ -1,3 +1,4 @@
+/* istanbul ignore next function */
 (function() {
   /* @ngInject */
   function controller($timeout, User, currentCallSessionService) {

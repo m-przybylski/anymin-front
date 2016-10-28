@@ -1,0 +1,56 @@
+.communicator-modals
+  overflow: hidden
+  animation: communicator-dialog 0.4s
+  animation-fill-mode: forwards
+  background: $c-white
+  border: 0
+  border-radius: 0
+  box-shadow: none
+  padding: 32px 16px
+  width: 100%
+  min-height: 100vh
+  display: flex
+  align-items: center
+  justify-content: center
+
+  +smm
+    width: calc(100% - 128px)
+    min-height: inherit
+    padding: 32px 32px 64px
+
+  +mdm
+    min-height: 488px
+    min-width: 640px
+    width: 640px
+
+  +smm
+    padding: 0 64px
+
+  &.client-call
+    text-align: center
+
+  img
+    margin: 0 auto 24px
+    display: block
+
+  h2
+    margin: 0 0 32px
+
+  .communicator-modals-content
+    text-align: center
+    margin: 0 0 72px
+
+    p
+      color: $c-secondary-txt
+
+  > div
+    > *
+      animation: animation-opacity 0.8s 0.4s, communicator-dialog-fade 0.4s 0.4s
+      animation-fill-mode: forwards
+      position: relative
+      top: -20px
+      opacity: 0
+
+      @for $i from 1 through 5
+        &:nth-child(#{$i})
+          animation-delay: $i * 0.1s

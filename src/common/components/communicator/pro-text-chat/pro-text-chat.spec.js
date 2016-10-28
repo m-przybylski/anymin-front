@@ -1,3 +1,4 @@
+/*
 describe('Unit testing: profitelo.components.communicator.pro-text-chat', () => {
   return describe('for pro-text-chat component >', () => {
 
@@ -34,7 +35,7 @@ describe('Unit testing: profitelo.components.communicator.pro-text-chat', () => 
 
       component = componentController('proTextChat', {
         '$element': create(validHTML),
-        'proRatelService': {
+        'ratelService': {
           onNewMessage: () => {
 
           }
@@ -68,4 +69,4 @@ describe('Unit testing: profitelo.components.communicator.pro-text-chat', () => 
     })
 
   })
-})
+})*/

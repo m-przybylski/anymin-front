@@ -4,7 +4,7 @@
 
 .modal-open
   padding: 0 !important
-  overflow-y: visible
+  overflow: hidden
 
   .modal-dialog
     transform: none !important
@@ -19,36 +19,22 @@
       min-height: 100vh
 
     .modal-content
-      animation: communicator-dialog 0.4s
-      animation-fill-mode: forwards
-      background: $c-white
-      border: 0
-      border-radius: 0
-      box-shadow: none
-      padding: 32px 16px
-      width: 100%
+      background: none
+      min-width: 100%
       min-height: 100vh
       display: flex
-      align-items: center
       justify-content: center
+      align-items: center
+      box-shadow: none
+      border: 0
 
-      +smm
-        width: calc(100% - 128px)
-        min-height: inherit
-        padding: 32px 32px 64px
+.modal-action
+  a
+    margin: 0 0 16px
 
-      +mdm
-        min-height: 488px
-        min-width: 640px
-        width: 640px
+    +xsm
+      margin: 0 16px
 
-      .modals-action
-        a
-          margin: 0 0 16px
-
-          +xsm
-            margin: 0 16px
-
-        +xsm
-          display: flex
-          justify-content: center
+  +xsm
+    display: flex
+    justify-content: center

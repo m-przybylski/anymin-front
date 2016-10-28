@@ -1,32 +1,3 @@
-.communicator-modals
-  overflow: hidden
-
-  +smm
-    padding: 0 64px
-
-  &.client-call
-    text-align: center
-
-  img
-    margin: 0 auto 24px
-    display: block
-
-  h2
-    margin: 0 0 32px
-
-  .communicator-modals-content
-    margin: 0 0 72px
-
-    p
-      color: $c-secondary-txt
-
-  > *
-    animation: animation-opacity 0.8s 0.4s, communicator-dialog-fade 0.4s 0.4s
-    animation-fill-mode: forwards
-    position: relative
-    top: -20px
-    opacity: 0
-
-    @for $i from 1 through 5
-      &:nth-child(#{$i})
-        animation-delay: $i * 0.1s
+@import "communicator-style"
+@import "summary-conversation/summary-conversation"
+@import "summary-conversation-expert/summary-conversation-expert"

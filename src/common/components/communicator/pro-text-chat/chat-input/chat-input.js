@@ -1,5 +1,5 @@
+/* istanbul ignore next function */
 (function() {
-
   let proTextChatInput = {
     transclude: true,
     templateUrl:    'components/communicator/pro-text-chat/chat-input/chat-input.tpl.html',

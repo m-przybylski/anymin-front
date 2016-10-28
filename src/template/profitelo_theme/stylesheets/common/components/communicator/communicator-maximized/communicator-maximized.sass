@@ -1,0 +1,197 @@
+.communicator-maximized
+  display: flex
+  align-items: center
+  justify-content: center
+  position: absolute
+  overflow: hidden
+  width: 100%
+  height: 100%
+  bottom: 0
+  right: 0
+  z-index: $z-index-900
+  background: linear-gradient(135deg,  #332267 0%,#601826 100%)
+
+  &::before
+    content: ""
+    position: absolute
+    left: 0
+    top: 0
+    width: 100%
+    height: 196px
+    +background-gradient(rgba($c-black, 0.5), transparent)
+    z-index: $z-index-400
+
+  .video-player-local
+    display: none
+
+    +smm
+      display: block
+      position: fixed
+      left: 36px
+      bottom: 36px
+      width: 240px
+      height: 320px
+      overflow: hidden
+      z-index: $z-index-200
+
+    +lgm
+      width: 320px
+      height: 240px
+
+    video
+      width: 100%
+      height: auto
+      position: absolute
+      bottom: 0
+      /* mirror effect */
+      transform: rotateY(180deg)
+      -webkit-transform: rotateY(180deg) /* Safari and Chrome */
+      -moz-transform: rotateY(180deg) /* Firefox */
+
+
+  .video-player-remote
+    position: fixed
+    width: 100%
+    height: 100%
+    top: 0
+    left: 0
+    z-index: $z-index-100
+
+    video
+      width: 100%
+      height: 100%
+
+  .communicator-content
+    text-align: center
+
+    p
+      font-size: $f-h4-size
+      color: $c-label
+
+    .communicator-conversation-client
+      font-size: $f-commmunicator-header
+      color: $c-white
+
+    .communicator-current-profile
+      display: flex
+      align-items: center
+      justify-content: center
+      width: 124px
+      height: 124px
+      margin: 32px auto
+      position: relative
+
+      +xsm-portrait
+        margin: 32px auto 0
+        width: 248px
+        height: 248px
+
+      +xsm-landscape
+        width: 124px
+        height: 124px
+        margin: 16px auto 16px
+
+      +smm
+        margin: 32px auto
+        width: 248px
+        height: 248px
+
+      .communicator-equalizer
+        position: absolute
+        left: 0
+        top: 0
+        width: 100%
+        height: 100%
+
+        span
+          position: absolute
+          background: rgba($c-white, 0.05)
+          left: 0
+          right: 0
+          top: 0
+          bottom: 0
+          margin: auto
+          animation: communicator-bounce 1s infinite
+
+          &:nth-child(1)
+            width: 100%
+            height: 100%
+
+          &:nth-child(2)
+            width: calc(100% - 40px)
+            height: calc(100% - 40px)
+
+          &:nth-child(3)
+            width: calc(100% - 80px)
+            height: calc(100% - 80px)
+
+          @for $i from 1 through 3
+            &:nth-child(#{$i})
+              animation-delay: $i * 0.15s
+
+      .communicator-user
+        max-width: 64px
+
+        +xsm-portrait
+          max-width: 128px
+
+        +smm
+          max-width: 128px
+
+      .communicator-conversation-title
+        margin: 0 0 24px
+
+        p
+          color: $c-label
+          font-size: $f-paragraph
+
+      .communicator-counter
+        span
+          +default-font-heavy
+          margin: 0 12px
+          font-size: $f-h3-size
+          color: $c-white
+
+  .communicator-conversation-header-details
+    display: block
+    position: fixed
+    left: 36px
+    top: 36px
+    z-index: $z-index-400
+
+    .consultation-profile
+      align-items: stretch
+
+      > div
+        display: flex
+        align-content: space-between
+        flex-wrap: wrap
+
+        > *
+          width: 100%
+          flex: 1 0 100%
+          text-align: left
+
+      .communicator-conversation-title
+        color: $c-white
+        margin: 0 0 2px
+
+      .thumb
+        min-width: 56px
+        min-height: 56px
+
+      .author
+        padding: 0
+        flex: inherit
+
+        h6
+          a
+            line-height: 1
+            color: $c-label
+            font-size: $f-paragraph
+
+      .communicator-counter
+        span
+          +default-font-heavy
+          color: $c-white
+          margin: 0 16px 0 0

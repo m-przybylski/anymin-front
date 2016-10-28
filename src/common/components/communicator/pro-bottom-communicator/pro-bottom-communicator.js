@@ -2,9 +2,9 @@
 (function() {
 
   /* @ngInject */
-  function controllerFunction($scope, proRatelService, currentCallSessionService) {
+  function controllerFunction($scope, communicatorService, currentCallSessionService) {
 
-    proRatelService.authenticate()
+    communicatorService.authenticate()
 
     this.isVisible = false
     this.showChat = false
@@ -35,9 +35,9 @@
 
     }
 
-    proRatelService.onStartedCall(event => {
+    communicatorService.onStartedCall(event => {
       console.log('call had been started')
-      proRatelService.startTimer(status => {
+      communicatorService.startTimer(status => {
         this.callStatus.time.s = parseInt(status.time % 60, 10)
         this.callStatus.time.m = parseInt(status.time / 60, 10)
 
@@ -53,20 +53,20 @@
       })
     })
 
-    proRatelService.onDirectRoom(session => {
+    communicatorService.onDirectRoom(session => {
       this.session = session
       currentCallSessionService.setSession(session)
       this.isVisible = true
     })
 
-    proRatelService.onRoomHistory(history => {
+    communicatorService.onRoomHistory(history => {
       this.messages = history
     })
 
-    proRatelService.onHangup(() => {
+    communicatorService.onHangup(() => {
       this.isVisible = false
       this.showChat = false
-      proRatelService.stopTimer()
+      communicatorService.stopTimer()
     })
 
 
@@ -103,7 +103,7 @@
     'profitelo.components.communicator.pro-video-chat.pro-video-chat-top-navbar',
     'profitelo.components.communicator.pro-text-chat',
     'profitelo.components.communicator.pro-video-chat',
-    'profitelo.services.pro-ratel-service',
+    'profitelo.services.communicatorService',
     'profitelo.services.current-call-state'
   ])
     .component('proBottomCommunicator', proBottomCommunicator)
