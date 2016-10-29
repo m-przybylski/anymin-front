@@ -38,7 +38,7 @@
             serviceId = parts[0]
             expertId = parts[1]
           } else {
-            alert('bad user id: ' + user)
+            console.log('bad user id: ' + user)
           }
         })
         hook('/ratel/hook/start', {
@@ -49,7 +49,7 @@
           serviceId: serviceId
         })
       } else {
-        alert('expected 2 users in call, got: ' + users.length)
+        console.log('expected 2 users in call, got: ' + users.length)
       }
     })
   }

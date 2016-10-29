@@ -1,4 +1,4 @@
-describe('Unit testing: profitelo.components.communicator.communicator-nav', () => {
+describe('Unit testing: profitelo.components.communicator.communicator-maximized.navigation', () => {
   return describe('for communicatorNav component >', () => {
 
     const url = 'awesomUrl/'
@@ -45,16 +45,6 @@ describe('Unit testing: profitelo.components.communicator.communicator-nav', () 
     it('should compile the component', () => {
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)
-    })
-
-    it('should call connectionDisconnect on click', () => {
-      let el = create(validHTML)
-      scope.ctrl = {
-        chatMinimize: jasmine.createSpy('chatMinimize')
-      }
-      scope.$digest()
-      el.find('.communicator-upper-nav a:first-child').triggerHandler('click')
-      expect(scope.ctrl.chatMinimize).toHaveBeenCalled()
     })
 
   })

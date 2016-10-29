@@ -6,13 +6,16 @@ describe('Unit testing: profitelo.components.communicator', () => {
     let scope
     let rootScope
     let compile
+    let bindings
     let componentController
     let component
-    let validHTML = '<communicator-audio></communicator-audio>'
+    let validHTML = '<communicator></communicator>'
 
     beforeEach(module(function($provide) {
       $provide.value('apiUrl', url)
     }))
+
+    bindings = {}
 
     beforeEach(() => {
       module('templates-module')
@@ -24,8 +27,7 @@ describe('Unit testing: profitelo.components.communicator', () => {
         compile = $compile
       })
 
-      component = componentController('communicator', null, {})
-
+      component = componentController('communicator', null, bindings)
     })
 
     function create(html) {

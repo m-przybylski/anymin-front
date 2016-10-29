@@ -1,18 +1,16 @@
 (function() {
 
   /* @ngInject */
-  function singleConsultationController(CommonSettingsService, callService) {
+  function singleConsultationController(HelperService, callService) {
 
     if (this.consultation.owner.img !== null || this.consultation.owner.img === '') {
-      this.profileImage = CommonSettingsService.links.imageUrl.replace('%s', this.consultation.owner.img)
+      this.profileImage = HelperService.fileUrlResolver(this.consultation.owner.img)
     } else {
       this.profileImage = ''
     }
 
-    console.log(this.consultation)
-
     this.startCall = () => {
-      callService.callService()
+      callService.callServiceId(this.consultation.id)
     }
 
     return this
@@ -31,7 +29,7 @@
   angular.module('profitelo.components.search.single-consultation', [
     'pascalprecht.translate',
     'profitelo.services.call',
-    'profitelo.services.commonSettings',
+    'profitelo.services.helper',
     'profitelo.filters.object-size-filter',
     'profitelo.services.resolvers.app.service-provider-image-resolver'
   ])

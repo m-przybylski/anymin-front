@@ -12,7 +12,7 @@ describe('Testing Controller: consultationSummaryExpertController', () => {
   }
 
   beforeEach(() => {
-    module('profitelo.common.controller.communicator.summary-conversation-expert')
+    module('profitelo.components.communicator.modals.consultation-summary-expert')
     inject(($rootScope, $controller) => {
 
       scope = $rootScope.$new()
@@ -28,49 +28,5 @@ describe('Testing Controller: consultationSummaryExpertController', () => {
   it('should exists', () => {
     return expect(!!consultationSummaryExpertController).toBe(true)
   })
-
-  it('should have reject function', () => {
-    spyOn(uibModalInstance, 'dismiss')
-
-    scope.rejectCall()
-
-    expect(uibModalInstance.dismiss).toHaveBeenCalledWith('cancel')
-
-  })
-
-  it('should have confirm function', () => {
-
-    spyOn(uibModalInstance, 'close')
-
-    scope.$parent = {
-      vm: {}
-    }
-
-    scope.confirm()
-
-    expect(uibModalInstance.close).toHaveBeenCalledWith('cancel')
-  })
-
-
-  it('should have call modalCallback if exists', () => {
-
-    scope.$parent = {
-      vm: {
-        modalCallback: () => {
-
-        }
-      }
-    }
-
-    spyOn(scope.$parent.vm, 'modalCallback')
-
-    scope.confirm()
-
-    expect(scope.$parent.vm.modalCallback).toHaveBeenCalled()
-
-
-  })
-
-
 
 })

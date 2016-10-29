@@ -9,7 +9,6 @@ describe('Unit tests: app>', () => {
     let _state
     let _commonConfigData
     let _CommonConfig
-    let _url = 'http://api.dev.profitelo.pl'
     let resourcesExpectations
 
     beforeEach(() => {
@@ -36,6 +35,12 @@ describe('Unit tests: app>', () => {
           Session: {
             deleteSession: _httpBackend.when('DELETE', _commonConfigData.urls['backend'] + '/session'),
             getSession: _httpBackend.when('GET', _commonConfigData.urls['backend'] + '/session')
+          },
+          ServiceApi: {
+            getProfileServices: _httpBackend.when('GET', _commonConfigData.urls['backend'] + '/services/profile')
+          },
+          RatelApi: {
+            getRatelAuthConfig: _httpBackend.when('GET', _commonConfigData.urls['backend'] + '/ratel/config')
           }
         }
 
@@ -49,6 +54,10 @@ describe('Unit tests: app>', () => {
 
     it('should start logout action if not pending', () => {
 
+      resourcesExpectations.RatelApi.getRatelAuthConfig.respond(200, {
+
+      })
+
       resourcesExpectations.Session.getSession.respond(200, {
         user: {
           apiKey: '123'
@@ -58,6 +67,7 @@ describe('Unit tests: app>', () => {
       spyOn(_state, 'go')
 
       resourcesExpectations.Session.deleteSession.respond(200)
+      resourcesExpectations.ServiceApi.getProfileServices.respond(200)
 
       AppController.logout()
       _httpBackend.flush()

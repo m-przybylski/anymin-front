@@ -1,4 +1,4 @@
-(function () {
+(function() {
 
   class SessionStorage {
     constructor() {
@@ -27,18 +27,14 @@
 
     const events = {
       onCall: 'onCall',
-      onRoom: 'onRoom',
+      onRoom: 'onRoom'
     }
 
     const callbacks = UtilsService.callbacksFactory(Object.keys(events))
 
-    /*function authenticate(config) {
-      return ratelSdk.withSignedAuth(config).then(ratelSession => new Session(ratelSession))
-    }*/
-
     const ratelSessions = new SessionStorage()
 
-    const _createRatelConnection = (session, service) => {
+    const _createRatelConnection = (session, _service) => {
 
       const chat = session.chat
 
@@ -55,17 +51,8 @@
         $log.info('ratel user ' + presence.user + ' is ' + presence.status)
       })
 
-      /*chat.onRoom(roomInvitation => {
-        ratelSessions.currentSession.room = roomInvitation.room
-        ratelSessions.currentSession.room.onMessage(message => {
-          callbacks.notify(events.onNewMessage, message)
-        })
-        ratelSessions.currentSession.room.getHistory().then(history => callbacks.notify(events.onRoomHistory, history))
-        callbacks.notify(events.onDirectRoom, ratelSessions.currentSession)
-      })*/
-
       chat.onCall(callInvitation =>
-        callbacks.notify(events.onCall, {invitation: callInvitation, service: service}))
+        callbacks.notify(events.onCall, {invitation: callInvitation, service: _service}))
 
       chat.connect()
     }
@@ -90,12 +77,12 @@
         )
 
         // and as an expert for all services
-        services.forEach(service => {
+        services.forEach(_service => {
           _ratelRegisterConfigs.push(
-            RatelApi.getRatelAuthConfig({serviceId: service.id}).$promise.then(expertConfig => {
+            RatelApi.getRatelAuthConfig({serviceId: _service.id}).$promise.then(expertConfig => {
               return ratelSdk.withSignedAuth(expertConfig).then(session => {
                 ratelSessions.addExpertSession(session)
-                _createRatelConnection(session, service)
+                _createRatelConnection(session, _service)
               })
             })
           )

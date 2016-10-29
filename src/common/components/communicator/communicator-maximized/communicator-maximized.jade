@@ -3,22 +3,22 @@
     .consultation-actions
       .consultation-profile
         .thumb
-          img.user-avatar(src data-ng-src="{{ vm.profileImage }}" alt="{{ ::vm.consultation.owner.name }}")
+          img.user-avatar(data-ng-src="{{ vm.expert.expertDetails.avatar }}" alt="{{ vm.expert.expertDetails.name }}")
 
         div
           .author
             h6
-              a Jan Kowalski
+              a {{ vm.profile.expertDetails.name }}
           .communicator-conversation-title
-            p {{vm.serviceName}}
+            p {{ vm.service.details.name }}
           .communicator-counter
-            span 07:29 MIN
-            span 5,98 PLN
+            span {{ vm.time }} s
+            span {{ vm.cost }} PLN
 
   .communicator-content
     p.call.connecting-with(data-translate="COMMUNICATOR.CONNECTING_WITH" data-ng-show="vm.isConnecting")
     p.call.connecting-with(data-translate="COMMUNICATOR.AUDIO_CONVERSATION" data-ng-hide="vm.isConnecting")
-    span.communicator-conversation-client Jan kowalski
+    span.communicator-conversation-client {{ vm.profile.expertDetails.name }}
 
     .communicator-current-profile
       .communicator-equalizer
@@ -27,15 +27,15 @@
         span.circle
 
       .communicator-user
-        img.user-avatar.communicator-avatar(src="/assets/images/no-avatar.jpg")
+        img.user-avatar.communicator-avatar(data-ng-src="{{ vm.expert.expertDetails.avatar }}")
 
     .communicator-conversation-details(data-ng-hide="vm.isConnecting")
       .communicator-conversation-title
-        p {{vm.serviceName}}
+        p {{ vm.service.details.name }}
 
       .communicator-counter
-        span 07:29 MIN
-        span 5,98 PLN
+        span {{ vm.time }} s
+        span {{ vm.cost }} PLN
 
   .video-player-local(data-ng-show="vm.isLocalVideo")
     video(autoplay="true")
@@ -43,4 +43,4 @@
   .video-player-remote(data-ng-show="vm.isRemoteVideo")
     video(autoplay="true")
 
-  communicator-nav(data-minimize-communicator="vm.minimizeCommunicator" data-is-video="vm.isLocalVideo")
+  communicator-nav(data-minimize-communicator="vm.minimizeCommunicator" data-is-video="vm.isLocalVideo" hangup-call="vm.hangupCall")

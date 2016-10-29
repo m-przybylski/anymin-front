@@ -1,5 +1,5 @@
 (function() {
-  function HelperService(CommonSettingsService, CommonConfig) {
+  function service(CommonSettingsService, CommonConfig) {
 
     const _commonConfig = CommonConfig.getAllData()
 
@@ -29,10 +29,10 @@
     }
   }
 
-  angular.module('profitelo.services.helper-service', [
+  angular.module('profitelo.services.helper', [
     'profitelo.services.commonSettings',
     'commonConfig'
   ])
-  .factory('HelperService', HelperService)
+  .factory('HelperService', service)
 
 }())

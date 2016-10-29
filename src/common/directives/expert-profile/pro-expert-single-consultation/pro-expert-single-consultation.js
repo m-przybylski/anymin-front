@@ -3,7 +3,7 @@
 
     function linkFunction(scope, elem, attrs) {
       scope.initCall = () => {
-        callService.callService(scope.service)
+        callService.callServiceId(scope.service.id)
       }
     }
     

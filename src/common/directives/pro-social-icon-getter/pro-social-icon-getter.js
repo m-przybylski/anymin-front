@@ -22,7 +22,7 @@
   }
 
   angular.module('profitelo.directives.pro-social-icon-getter', [
-    'profitelo.services.helper-service'
+    'profitelo.services.helper'
   ])
   .directive('proSocialIconGetter', proSocialIconGetter)
 

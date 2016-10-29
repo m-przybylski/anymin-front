@@ -1,216 +1,179 @@
 (function() {
 
-  function service($rootScope, $q, $log, $interval, UtilsService, communicatorService, ServiceApi, DialogService) {
+  function service($q, $log, UtilsService, communicatorService, ServiceApi, modalsService) {
 
     let call = null
-    let callLengthInSeconds = 0
-    let callCost = 0
+    let timer = null
+    let serviceUsageData = null
     const freeMinutesCount = 1
 
-    const _hangupCall = () => {
+    const events = {
+      onHangup: 'onHangup',
+      onClientCallHangup: 'onClientCallHangup',
+      onClientCallPending: 'onClientCallPending',
+      onClientCallStart: 'onClientCallStart',
+      onClientCallPendingError: 'onClientCallPendingError',
+      onClientCallStarted: 'onClientCallStarted',
+      onExpertCallIncoming: 'onExpertCallIncoming',
+      onExpertCallAnswer: 'onExpertCallAnswer',
+      onExpertCallReject: 'onExpertCallReject',
+      onTimeCostChange: 'onTimeCostChange'
+    }
+
+    const callbacks = UtilsService.callbacksFactory(Object.keys(events))
+
+    const hangupCall = () => {
       if (call) {
-        call.hangup().then(() => {
+        call.hangup().then(_ => {
           callbacks.notify(events.onHangup, null)
+          timer.stop()
+          serviceUsageData = null
+          timer = null
+          call = null
         })
       }
     }
 
-    const _setLocalStreamElement = (element) => {
+    const setLocalStreamElement = (element) => {
       if (call) {
         call.setLocalStreamElement(element)
       }
     }
 
-    const _setRemoteStreamElement = (element) => {
+    const setRemoteStreamElement = (element) => {
       if (call) {
         call.setRemoteStreamElement(element)
       }
     }
 
-    const _toggleVideo = () => {
+    const toggleVideo = () => {
       if (call) {
         return call.toggleVideo()
       }
     }
 
-    const _toggleAudio = () => {
+    const toggleAudio = () => {
       if (call) {
         return call.toggleAudio()
       }
     }
 
-    const events = {
-      onIncomingCall: 'onIncomingCall',
-      onHangup: 'onHangup',
-      onCallStarted: 'onCallStarted',
-      onCallPending: 'onCallPending',
-      onStartCall: 'onStartCall',
-      onCallPendingError: 'onCallPendingError'
+    const _onExpertCallHangup = () => {
+      callbacks.notify(events.onHangup, null)
     }
 
-    const callbacks = UtilsService.callbacksFactory(Object.keys(events))
-
-    const _createIncomingCallModal = (_service, answerCallback, rejectCallback) => {
-      const dialogScope = $rootScope.$new(true)
-      dialogScope.service = _service
-      dialogScope.answerCall = answerCallback
-      dialogScope.rejectCall = rejectCallback
-      DialogService.openDialog({
-        controller: 'clientCallController',
-        templateUrl: 'components/communicator/modals/client-call/client-call.tpl.html',
-        scope: dialogScope
+    const _answerCall = (callInvitation) => {
+      call = callInvitation.call
+      call.join()
+      call.onLeft(_ => {
+        _onExpertCallHangup()
       })
+      callbacks.notify(events.onExpertCallAnswer, callInvitation)
     }
 
-    const _onClientHangup = () => {
-      callbacks.notify(events.onHangup, null)
-      _createConsultationSummaryModal()
+    const _rejectCall = (callInvitation) => {
+      callInvitation.call.reject()
+      callbacks.notify(events.onExpertCallReject, callInvitation)
     }
 
-    const _onExpertHangup = () => {
-      callbacks.notify(events.onHangup, null)
-    }
-
-    const _onExpertReject = () => {
-      _onConsultationUnavailable()
-    }
-
-    const _onIncomingCall = (callInvitation, _service) =>
-      _createIncomingCallModal(_service, () => {
-        call = callInvitation.call
-        call.join()
-        call.onLeft(_ => {
-          _onExpertHangup()
-        })
-        callbacks.notify(events.onCallStarted, call)
+    const _onExpertCallIncoming = (callInvitation, _service) => {
+      modalsService.createIncomingCallModal(_service, () => {
+        _answerCall(callInvitation)
       }, () => {
-        callInvitation.call.reject()
+        _rejectCall(callInvitation)
       })
 
-    communicatorService.onCall(obj => {
-      _onIncomingCall(obj.invitation, obj.service)
-      callbacks.notify(events.onIncomingCall, null)
-      call = obj.invitation.call
-    })
-
-    const _createNoFundsModal = (acceptCallback, rejectCallback) => {
-      const dialogScope = $rootScope.$new(true)
-      dialogScope.reject = acceptCallback
-      dialogScope.accept = rejectCallback
-      DialogService.openDialog({
-        controller: 'noCreditsController',
-        templateUrl: 'components/communicator/modals/no-credits/no-credits.tpl.html',
-        scope: dialogScope
-      })
+      callbacks.notify(events.onExpertCallIncoming, null)
+      call = callInvitation.call
     }
+
+    communicatorService.onCall(obj =>
+      _onExpertCallIncoming(obj.invitation, obj.service))
 
     const _onNoFunds = () => {
-      _createNoFundsModal(_ => _, _ => _)
-    }
-
-    const _createServiceUnavailableModal = (acceptCallback, rejectCallback) => {
-      const dialogScope = $rootScope.$new(true)
-      dialogScope.reject = acceptCallback
-      dialogScope.accept = rejectCallback
-      DialogService.openDialog({
-        controller: 'unavailableServiceController',
-        templateUrl: 'components/communicator/modals/service-unavailable/service-unavailable.tpl.html',
-        scope: dialogScope
-      })
-    }
-
-    const _createConsultationSummaryModal = () => {
-      const dialogScope = $rootScope.$new(true)
-      DialogService.openDialog({
-        controller: 'consultationSummaryController',
-        templateUrl: 'components/communicator/modals/consultation-summary/consultation-summary.tpl.html',
-        scope: dialogScope
-      })
+      modalsService.createNoFundsModal(_ => _, _ => _)
     }
 
     const _onConsultationUnavailable = () => {
-      _createServiceUnavailableModal(_ => _, _ => _)
+      modalsService.createServiceUnavailableModal(_ => _, _ => _)
     }
 
-    const _onStartCallError = (err) => {
-      callbacks.notify(events.onCallPendingError, err)
+    const _onClientCallReject = () => {
+      _onConsultationUnavailable()
+    }
+
+    const _onClientCallStartError = (err) => {
+      callbacks.notify(events.onClientCallPendingError, err)
       _onConsultationUnavailable()
       _onNoFunds()
     }
 
-    const _timer = (_cost, _freeMinutesCount) => {
-      let _timer
-      const _freeMinutes = _freeMinutesCount || 0
-      return {
-        start: (cb) => {
-          const _start = Date.now()
-          _timer = $interval(() => {
-            const _time = (Date.now() - _start) / 1000
-            cb({
-              time: _time,
-              cost: _cost * Math.max(0, _time - (60 * _freeMinutes)) / 60
-            })
-          }, 200)
-        },
-        stop: () => {
-          $interval.cancel(_timer)
-        }
-      }
+    const _onTimeCostChange = timeCost => {
+      callbacks.notify(events.onTimeCostChange, timeCost)
     }
 
-    const _startCall = (_service) => {
-      if (!communicatorService.getClientSession() || !angular.isDefined(_service) || !_service) {
+    const _onClientCallStarted = (callJoined) => {
+      timer = UtilsService.timerFactory.getInstance(serviceUsageData.service.details.price, freeMinutesCount)
+      timer.start(_onTimeCostChange)
+      $log.debug(callJoined.user + ' answered the call!')
+      callbacks.notify(events.onClientCallStarted, call)
+    }
+
+    const _onClientCallStart = (_serviceId) => {
+      callbacks.notify(events.onClientCallStart, _serviceId)
+    }
+
+    const _onClientCallPending = (serviceUsageRequest) => {
+      // UtilsService.timer(2).start((x) => {console.log(x)})
+      console.log(serviceUsageRequest)
+      serviceUsageData = serviceUsageRequest
+      callbacks.notify(events.onClientCallPending, serviceUsageRequest)
+    }
+
+    const _onClientCallHangup = () => {
+      callbacks.notify(events.onClientCallHangup, null)
+      modalsService.createClientConsultationSummaryModal()
+    }
+
+    const startCall = (_serviceId) => {
+      if (!communicatorService.getClientSession() || !angular.isDefined(_serviceId) || !_serviceId) {
         return $q.resolve(null)
       }
 
-      callbacks.notify(events.onStartCall, _service)
+      _onClientCallStart(_serviceId)
 
-      return ServiceApi.addServiceUsageRequest({serviceId: _service.id}).$promise.then(config => {
-        console.log(config)
+      return ServiceApi.addServiceUsageRequest({serviceId: _serviceId}).$promise.then(serviceUsageRequest => {
 
-        // _timer(2).start((x) => {console.log(x)})
-
-        callbacks.notify(events.onCallPending, null)
+        _onClientCallPending(serviceUsageRequest)
 
         const session = communicatorService.getClientSession()
 
-        session.chat.createDirectCall(config.ratelId).then(_call => {
+        session.chat.createDirectCall(serviceUsageRequest.ratelId).then(_call => {
           call = _call
 
           call.onJoined(callJoined => {
-            $log.debug(callJoined.user + ' answered the call!')
-            callbacks.notify(events.onCallStarted, call)
+            _onClientCallStarted(callJoined)
           })
           call.onLeft(_ => {
-            _onClientHangup()
+            _onClientCallHangup()
           })
         })
 
-          /*session.chat.createDirectRoom(config.ratelId).then(room => {
-            session.room = room
-            session.room.onMessage(message => {
-              callbacks.notify(events.onNewMessage, message)
-            })
-            session.room.getHistory().then(history => callbacks.notify(events.onRoomHistory, history))
-            callbacks.notify(events.onDirectRoom, session)
-          })*/
-
         $q.resolve(session)
       }, (err) => {
-        _onStartCallError(err)
+        _onClientCallStartError(err)
         return $q.resolve(null)
       })
     }
 
-
     const api = {
-      callService: _startCall,
+      callServiceId: startCall,
       getCall: () => call,
-      toggleAudio: _toggleAudio,
-      toggleVideo: _toggleVideo,
-      hangupCall: _hangupCall,
-      bindLocalStreamElement: _setLocalStreamElement,
-      bindRemoteStreamElement: _setRemoteStreamElement
+      toggleAudio: toggleAudio,
+      toggleVideo: toggleVideo,
+      hangupCall: hangupCall,
+      bindLocalStreamElement: setLocalStreamElement,
+      bindRemoteStreamElement: setRemoteStreamElement
     }
 
     return angular.extend(api, callbacks.methods)
@@ -219,12 +182,8 @@
   angular.module('profitelo.services.call', [
     'profitelo.services.communicatorService',
     'profitelo.swaggerResources',
-    'profitelo.services.dialog-service',
-    'profitelo.components.communicator.modals.client-call',
-    'profitelo.components.communicator.modals.service-unavailable',
-    'profitelo.components.communicator.modals.no-credits',
-    'profitelo.components.communicator.modals.consultation-summary',
-    'profitelo.services.utils'
+    'profitelo.services.utils',
+    'profitelo.services.modals'
   ])
     .service('callService', service)
 

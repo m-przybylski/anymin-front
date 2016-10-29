@@ -25,9 +25,6 @@
       this.isMessenger = !this.isMessenger
     }
 
-    this.hangupCall = () =>
-      callService.hangupCall()
-
     return this
   }
 
@@ -37,6 +34,7 @@
     controllerAs: 'vm',
     bindings: {
       minimizeCommunicator: '=',
+      hangupCall: '=',
       isVideo: '='
     }
   }

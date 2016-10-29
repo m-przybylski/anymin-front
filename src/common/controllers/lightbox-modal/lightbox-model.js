@@ -123,7 +123,7 @@
     'ui.bootstrap',
     'profitelo.components.pro-lightbox',
     'profitelo.swaggerResources',
-    'profitelo.services.helper-service',
+    'profitelo.services.helper',
     'profitelo.services.print-service',
     'profitelo.services.image-zoom-service'
 

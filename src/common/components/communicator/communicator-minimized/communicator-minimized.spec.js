@@ -9,7 +9,7 @@ describe('Unit testing: profitelo.components.communicator.communicator-minimized
     let bindings
     let componentController
     let component
-    let validHTML = '<communicator-minimized data-fullscreen-actions="ctrl.component"></communicator-minimized>'
+    let validHTML = '<communicator-minimized data-maximize-communicator="vm.maximizeCommunicator"></communicator-minimized>'
 
     beforeEach(module(function($provide) {
       $provide.value('apiUrl', url)
@@ -45,16 +45,6 @@ describe('Unit testing: profitelo.components.communicator.communicator-minimized
     it('should compile the component', () => {
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)
-    })
-
-    it('should call isFullscreen on click', () => {
-      let el = create(validHTML)
-      scope.ctrl = {
-        component: jasmine.createSpy('component')
-      }
-      scope.$digest()
-      el.find('.communicator-minimize').triggerHandler('click')
-      expect(scope.ctrl.component).toHaveBeenCalled()
     })
 
   })

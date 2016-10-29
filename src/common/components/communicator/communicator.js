@@ -3,8 +3,20 @@
   /* @ngInject */
   function controller($log, callService) {
 
+    this.callType = null
     this.isMinimized = (angular.isDefined(this.minimized) && this.minimized)
     this.isClosed = true
+
+    this.callTypes = {
+      expert: 'expert',
+      client: 'client'
+    }
+
+    const setCallType = callType => {
+      if (this.callTypes.hasOwnProperty(callType)) {
+        this.callType = callType
+      }
+    }
 
     this.minimizeCommunicator = () => {
       this.isMinimized = true
@@ -22,21 +34,35 @@
       this.isClosed = false
     }
 
+    this.hangupCall = () => {
+      turnOffComponent()
+      callService.hangupCall()
+    }
+
     callService.onHangup(_ => {
       turnOffComponent()
     })
 
-    callService.onStartCall(_ => {
-      turnOnComponent()
+    callService.onClientCallStart(_ => {
+      setCallType(this.callTypes.client)
     })
 
-    callService.onCallPendingError(err => {
+    callService.onClientCallPendingError(err => {
       turnOffComponent()
       $log.error(err)
     })
 
-    callService.onCallStarted(_ => {
+    callService.onClientCallPending(_ => {
       turnOnComponent()
+    })
+
+    callService.onExpertCallAnswer(_ => {
+      setCallType(this.callTypes.expert)
+      turnOnComponent()
+    })
+
+    callService.onExpertCallReject(_ => {
+      turnOffComponent()
     })
 
     return this
