@@ -42,11 +42,11 @@
           }
         })
         hook('/ratel/hook/start', {
-          event: 'startCall',
           callId: call.id,
           clientId: clientId,
           expertId: expertId,
-          serviceId: serviceId
+          serviceId: serviceId,
+          timestamp: Date.now()
         })
       } else {
         console.log('expected 2 users in call, got: ' + users.length)
@@ -55,7 +55,10 @@
   }
 
   function stopHook(call) {
-    hook('/ratel/hook/stop', {event: 'stopCall', callId: call.id})
+    hook('/ratel/hook/stop', {
+      callId: call.id,
+      timestamp: Date.now()
+    })
   }
 
   function wrapCall(call) {
