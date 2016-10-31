@@ -9,6 +9,8 @@
       this.profileImage = ''
     }
 
+    
+
     this.startCall = () => {
       callService.callServiceId(this.consultation.id)
     }

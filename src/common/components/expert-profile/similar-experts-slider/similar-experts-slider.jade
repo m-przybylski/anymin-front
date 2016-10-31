@@ -1,0 +1,53 @@
+.similar-expert-slider
+  .pro-expert-slider.single-container.slider-container
+
+    a.btn.btn-arrow.arrow-left(data-ng-click="$ctrl.prevSlide()")
+      span.icon.icon-arrow-left-16
+
+    .slider-slides(data-ng-style="leftOffset" data-ng-swipe-left="nextSlide()")
+      slider.slider-list(data-ng-transclude data-controlls="controlls" data-move-slides="-2")
+        .slides.slider-header
+          .slider-item
+            div
+              span.icon.icon-hands-32
+              p
+                span(data-translate="pliki")
+                span(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.AND_PHOTOS")
+
+        .slides(data-ng-repeat="consultation in $ctrl.consultations"  data-ng-swipe-right="prevSlide()")
+          .slider-item
+            .single-consultation
+              .consultation-wrapper
+                .consultation-content
+                  .consultation-actions
+                    .consultation-profile
+                      a.thumb
+                        img()
+
+                        .status-list
+                          span.status.availability
+
+                      .author
+                        h6
+                          a {{ consultation.expertName }}
+
+                  .consultation-details
+                    .consultation-price
+                      h5 {{ consultation.price }}
+                        span.currency(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE")
+
+                    .consultation-profile
+                      .consultation-info
+                        h3
+                          a {{ consultation.name }}
+
+                        ul.consultation-options
+                          li.options-item
+                            span  {{ consultation.likes }}
+                          li.options-item
+                            span {{ consultation.callNumber }}
+                          li.options-item
+                            span Stan Twojego konta pozwala na ok. {{ consultation.time }} min rozmowy
+
+    a.btn.btn-arrow.arrow-right(data-ng-click="$ctrl.nextSlide()")
+      span.icon.icon-arrow-right-16

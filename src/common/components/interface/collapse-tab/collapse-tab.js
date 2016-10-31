@@ -1,19 +1,19 @@
 (function (){
   /* @ngInject */
-  function controller($element, $timeout, smoothScrolling) {
+  function controller($element, smoothScrolling, $window, $scope, $timeout) {
     this.objectHeight = {
       height: null
     }
-
     this.changeIcon = false
-    this.isCollapsed = true
 
     let elementHeight = 0
     let singleElementHeight = 0
 
     const setUpHeights = () => {
-      elementHeight = $element.find('.collapse-wrapper').height()
-      singleElementHeight =  $element.find('ng-transclude > div').height() + 32
+      const singleElement =  $element.find('ng-transclude > div')
+
+      singleElementHeight =  singleElement.height()
+      elementHeight = singleElementHeight * singleElement.length
       this.objectHeight.height = singleElementHeight
     }
 
@@ -21,15 +21,17 @@
       setUpHeights()
     })
 
+    angular.element($window).on('resize', ()=> {
+      setUpHeights()
+      $scope.$digest()
+    })
+
     this.collapsing = () => {
-      console.log("clicked")
-      this.objectHeight.height = this.objectHeight.height !== elementHeight ? elementHeight : $element.find('ng-transclude > div').height() + 32
-
+      this.objectHeight.height = this.objectHeight.height !== elementHeight ? elementHeight : $element.find('ng-transclude > div').height()
       this.changeIcon = !this.changeIcon
-      this.isCollapsed = !this.isCollapsed
-
-      if (this.isCollapsed)
-        smoothScrolling.simpleScrollTo('.show-more-text')
+      if (this.objectHeight.height !== elementHeight) {
+        smoothScrolling.simpleScrollTo('#collapseWrap', true, 500)
+      }
     }
 
     this.checkedHeight = () => {

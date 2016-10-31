@@ -1,0 +1,88 @@
+.similar-expert-slider
+  position: relative
+
+  &:hover
+    .btn-arrow
+      opacity: 1
+
+  .btn-arrow
+    transition: opacity 0.3s
+    opacity: 0
+    position: absolute
+    top: 0
+    bottom: 0
+    margin: auto
+    z-index: $z-index-100
+
+    &.arrow-left
+      left: -24px
+
+    &.arrow-right
+      right: -24px
+
+  .slider-container
+    padding: 0
+
+    p
+      +default-font-regular
+      text-align: center
+      margin: 0 0 32px
+
+      span
+        +default-font-regular
+        color: $c-label
+        display: block
+        font-size: $f-h3-size
+        text-transform: uppercase
+        margin: 0
+
+    .slider-list
+      display: flex
+      margin: 0 -32px 0 0
+
+    .slider-slides
+      +transition(left 0.5s ease-in-out 0s)
+      width: 100%
+      position: relative
+      background: $c-white
+      overflow: hidden
+
+      .slides
+        text-align: center
+        flex: 0 0 70%
+        display: flex
+        align-items: stretch
+        padding: 0 32px 0 0
+        height: 192px
+
+        +xsm
+          flex: 0 0 65%
+
+        +smm
+          flex: 0 0 40%
+          width: 40%
+          border-top: 0
+          height: 440px
+
+        +lgm
+          flex: 0 0 25%
+          width: 25%
+
+        &.slider-header
+          .slider-item
+            > div
+              text-align: center
+
+          .icon
+            color: $c-label
+            margin: 0 0 12px
+
+        .slider-item
+          display: flex
+          align-items: center
+          justify-content: center
+          border: 1px solid $c-lines
+          border-radius: 3px
+          width: 100%
+          overflow: hidden
+

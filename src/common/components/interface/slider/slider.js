@@ -23,9 +23,6 @@
         prevSlide: this.prevSlide,
         nextSlide: this.nextSlide
       }
-    })
-
-    $timeout(()=>{
       _elementsWidth()
     })
 

@@ -1,19 +1,23 @@
 (function() {
-  function ExpertProfileController($state, savedProfile, CommonConfig, profileImage) {
+  function ExpertProfileController($stateParams, $timeout, smoothScrolling, savedProfile, CommonConfig, profileImage) {
 
     let _commonConfig = CommonConfig.getAllData()
     this.profile = {}
 
     this.profileImage = profileImage
+
+    this.profile = savedProfile.expertDetails
+    this.consultations = savedProfile.services
+    this.profile.type = 'single'
     
-    if (savedProfile && savedProfile.expertDetails) {
-      this.profile = savedProfile.expertDetails
-      this.consultations = savedProfile.services
-      this.profile.type = 'single'
-      this.services = savedProfile.services
+    if (!!$stateParams.primaryConsultationId) {
+      $timeout(() => {
+        smoothScrolling.simpleScrollTo('#consultationScroll', true)
+      })
     }
 
 
+    this.services = savedProfile.services
 
     return this
   }
@@ -25,30 +29,32 @@
     'profitelo.directives.pro-top-navbar',
     'profitelo.directives.expert-profile.pro-expert-header',
     'profitelo.directives.pro-footer',
+    'profitelo.directives.services.smooth-scrolling',
     'profitelo.directives.expert-profile.pro-expert-slider',
     'profitelo.directives.expert-profile.pro-expert-single-consultation',
     'profitelo.directives.expert-profile.pro-expert-social-icons',
     'profitelo.services.resolvers.app.service-provider-image-resolver',
+    'profitelo.components.expert-profile.similar-experts-slider',
     'profitelo.directives.pro-top-alert-service',
-    'profitelo.components.dashboard.expert-profile.social-links',
+    'profitelo.components.expert-profile.social-links',
     'profitelo.components.interface.collapse-tab',
     'commonConfig'
   ])
   .config(($stateProvider, UserRolesProvider) => {
     $stateProvider.state('app.expert-profile', {
       controllerAs: 'vm',
-      url: '/expert-profile/{contactId}',
+      url: '/expert-profile/{contactId}?primaryConsultationId',
       templateUrl: 'expert-profile/expert-profile.tpl.html',
       controller: 'ExpertProfileController',
       resolve: {
         /* istanbul ignore next */
-        savedProfile: ($q, $state, ProfileApi, User, ServiceApi) => {
+        savedProfile: ($q, $state, $stateParams, ProfileApi, User, ServiceApi) => {
           /* istanbul ignore next */
           let _deferred = $q.defer()
           /* istanbul ignore next */
           User.getStatus().then(() => {
             ProfileApi.getProfileWithServices({
-              profileId: User.getData('id')
+              profileId: $stateParams.contactId
             }).$promise.then((profileWithServices)=> {
               ServiceApi.postServicesTags({
                 serviceIds: _.map(profileWithServices.services, 'id')
@@ -57,6 +63,14 @@
                 profileWithServices.services.forEach((service) => {
                   service.details.tags = _.head(_.filter(servicesTags, (serviceTags) => service.id === serviceTags.serviceId)).tags
                 })
+                
+                const primaryConsultation = _.find(profileWithServices.services, (o) => { return o.id === $stateParams.primaryConsultationId })
+                
+                if (angular.isDefined($stateParams.primaryConsultationId) && !!primaryConsultation) {
+                  const currentElement = profileWithServices.services.splice(profileWithServices.services.indexOf(primaryConsultation), 1)
+                  profileWithServices.services.unshift(currentElement[0])
+                }
+
                 _deferred.resolve(profileWithServices)
               })
             }, () => {

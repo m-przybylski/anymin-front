@@ -7,7 +7,7 @@
   }
 
   let socialLinks = {
-    templateUrl: 'components/dashboard/expert-profile/social-links/social-links.tpl.html',
+    templateUrl: 'components/expert-profile/social-links/social-links.tpl.html',
     restrict: 'E',
     replace: true,
     bindings: {
@@ -18,7 +18,7 @@
   }
 
 
-  angular.module('profitelo.components.dashboard.expert-profile.social-links', [
+  angular.module('profitelo.components.expert-profile.social-links', [
     'profitelo.swaggerResources'
   ])
     .component('socialLinks', socialLinks)

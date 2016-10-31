@@ -2,7 +2,7 @@ pro-top-navbar(logout-action="appController.logout")
 
 pro-expert-header(data-profile="vm.profile" data-avatar="vm.profileImage")
 
-collapse-tab
+collapse-tab(id='consultationScroll')
   .default-container(ng-repeat="service in vm.services")
     pro-expert-single-consultation(
     data-service="service"
@@ -15,11 +15,11 @@ collapse-tab
 .default-container.file-slider
   pro-expert-slider(data-ng-show="vm.profile.files.length" data-sliders="vm.profile.files")
 
-.default-container
+.default-container(data-ng-if="!!vm.profile.links && vm.profile.links.length > 0")
   social-links(data-links="vm.profile.links")
 
-.default-container.experts-slider
-  expert-slider()
+.default-container
+  similar-experts-slider()
 
 
 pro-footer()
