@@ -38,7 +38,7 @@
         span {{ vm.callCost | money }}
 
   .video-player-local(data-ng-show="vm.isLocalVideo")
-    video(autoplay="true")
+    video(autoplay="true" muted="true")
 
   .video-player-remote(data-ng-show="vm.isRemoteVideo")
     video(autoplay="true")

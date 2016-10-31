@@ -1,6 +1,8 @@
 .communicator(data-ng-class="{'is-disconnected': vm.isDisconnected, 'is-closed': vm.isClosed, 'is-minimized': vm.isMinimized}" data-ng-hide="vm.isClosed")
   communicator-maximized(data-ng-class="{'conversation-hidden': vm.isMinimized}"
+    data-ng-hide="vm.isMinimized"
     data-minimize-communicator="vm.minimizeCommunicator"
     data-hangup-call="vm.hangupCall")
   communicator-minimized(data-ng-class="{'conversation-hidden': !vm.isMinimized}"
+    data-ng-show="vm.isMinimized"
     data-maximize-communicator="vm.maximizeCommunicator")
