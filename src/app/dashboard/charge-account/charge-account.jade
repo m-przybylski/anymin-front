@@ -20,4 +20,4 @@
                      data-scroll-handler="vm.scrollHandler")
     .bottom-charge-account(data-ng-if="!!vm.amountMethodModal.paymentSystemModel && !!vm.amountMethodModal.paymentSystemModel.id" id="3")
       payu-payment-form(data-payments-links = "vm.paymentsLinks" data-amount-method-modal = "vm.amountMethodModal"
-                        data-ng-show = "vm.amountMethodModal.paymentSystemModel.id == 1" data-scroll-handler="vm.scrollHandler" data-valid-action="vm.validAction")
+                        data-ng-show = "vm.amountMethodModal.paymentSystemModel.slug == 'payu_pl'" data-scroll-handler="vm.scrollHandler" data-valid-action="vm.validAction")
