@@ -1,6 +1,7 @@
 (function() {
   function chargeAccountController($timeout, paymentsOptions, paymentsLinks, financeBalance, smoothScrolling) {
 
+    this.paymentCountryId = paymentsOptions.id
     this.amounts = {
       paymentOptions: paymentsOptions.paymentOptions,
       minimalAmounts: paymentsOptions.minimalPayment

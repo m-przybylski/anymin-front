@@ -68,7 +68,7 @@
           amount: this.amountMethodModal.amountModel.cashAmount,
           lastName: this.lastNameModel,
           firstName: this.firstNameModel,
-          paymentCountryId: 1,
+          paymentCountryId: this.paymentCountryId,
           payMethodValue: this.bankModel.value,
           paymentSystemId: this.amountMethodModal.paymentSystemModel.id
         }
@@ -90,7 +90,7 @@
 
     this.patternEmail = CommonSettingsService.localSettings.emailPattern
     this.patternName = CommonSettingsService.localSettings.alphabetPattern
-    
+
     return this
     
   }
@@ -103,7 +103,8 @@
     bindings: {
       paymentsLinks: '=?',
       validAction: '=?',
-      amountMethodModal: '=?'
+      amountMethodModal: '=?',
+      paymentCountryId: '=?'
     },
     controller: payuPaymentFormController,
     controllerAs: '$ctrl'
