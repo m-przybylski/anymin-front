@@ -3,6 +3,7 @@
 
     function linkFunction(scope, elem, attrs) {
 
+      scope.showSearch = angular.isDefined(scope.show) ? scope.show : false
       scope.showUserMenu = false
       scope.showResponsiveMenu = false
       scope.animateCross = false
@@ -120,6 +121,7 @@
       link: linkFunction,
       scope: {
         showSearch: '=?',
+        show: '@',
         isHide: '=?',
         sidebarStatus: '=?',
         logoutAction: '=?',
