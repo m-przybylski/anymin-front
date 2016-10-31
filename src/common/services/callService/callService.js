@@ -5,6 +5,7 @@
     let call = null
     let timer = null
     let serviceUsageData = null
+    let expertService = null
     const freeMinutesCount = 1
 
     const events = {
@@ -14,6 +15,7 @@
       onClientCallStart: 'onClientCallStart',
       onClientCallPendingError: 'onClientCallPendingError',
       onClientCallStarted: 'onClientCallStarted',
+      onClientCallRejected: 'onClientCallRejected',
       onExpertCallIncoming: 'onExpertCallIncoming',
       onExpertCallAnswer: 'onExpertCallAnswer',
       onExpertCallJoin: 'onExpertCallJoin',
@@ -29,6 +31,7 @@
           callbacks.notify(events.onHangup, null)
           timer.stop()
           serviceUsageData = null
+          expertService = null
           timer = null
           call = null
         })
@@ -60,13 +63,31 @@
     }
 
     const _onExpertCallHangup = () => {
+      timer.stop()
+      timer = null
       callbacks.notify(events.onHangup, null)
+    }
+
+    const _onTimeCostChange = timeCost => {
+      callbacks.notify(events.onTimeCostChange, timeCost)
+    }
+
+    const _onExpertCallJoin = () => {
+      let price = 0
+      if (serviceUsageData) {
+        price = serviceUsageData.service.details.price
+      } else {
+        price = expertService.details.price
+      }
+      timer = UtilsService.timerFactory.getInstance(price, freeMinutesCount)
+      timer.start(_onTimeCostChange)
+      callbacks.notify(events.onExpertCallJoin, null)
     }
 
     const _answerCall = (callInvitation) => {
       call = callInvitation.call
       call.join().then(_ => {
-        callbacks.notify(events.onExpertCallJoin, callInvitation)
+        _onExpertCallJoin()
       })
       call.onLeft(_ => {
         _onExpertCallHangup()
@@ -86,7 +107,9 @@
         _rejectCall(callInvitation)
       })
 
-      callbacks.notify(events.onExpertCallIncoming, null)
+      expertService = _service
+
+      callbacks.notify(events.onExpertCallIncoming, _service)
       call = callInvitation.call
     }
 
@@ -108,11 +131,7 @@
     const _onClientCallStartError = (err) => {
       callbacks.notify(events.onClientCallPendingError, err)
       _onConsultationUnavailable()
-      //_onNoFunds()
-    }
-
-    const _onTimeCostChange = timeCost => {
-      callbacks.notify(events.onTimeCostChange, timeCost)
+      // _onNoFunds()
     }
 
     const _onClientCallStarted = (callJoined) => {
@@ -134,7 +153,14 @@
 
     const _onClientCallHangup = () => {
       callbacks.notify(events.onClientCallHangup, null)
-      //modalsService.createClientConsultationSummaryModal()
+      timer.stop()
+      timer = null
+      // modalsService.createClientConsultationSummaryModal()
+    }
+
+    const _onClientCallRejected = () => {
+      _onConsultationUnavailable()
+      callbacks.notify(events.onClientCallRejected, null)
     }
 
     const startCall = (_serviceId) => {
@@ -153,11 +179,17 @@
         session.chat.createDirectCall(serviceUsageRequest.ratelId).then(_call => {
           call = _call
 
+          let callStarted = false
           call.onJoined(callJoined => {
+            callStarted = true
             _onClientCallStarted(callJoined)
           })
           call.onLeft(_ => {
-            _onClientCallHangup()
+            if (callStarted) {
+              _onClientCallHangup()
+            } else {
+              _onClientCallRejected()
+            }
           })
         })
 

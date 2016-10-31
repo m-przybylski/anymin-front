@@ -3,7 +3,7 @@
     .consultation-actions
       .consultation-profile
         .thumb
-          img.user-avatar(data-ng-src="{{ vm.expert.expertDetails.avatar }}" alt="{{ vm.expert.expertDetails.name }}")
+          img.user-avatar(src data-ng-src="{{ vm.expert.expertDetails.avatar }}")
 
         div
           .author
@@ -12,8 +12,8 @@
           .communicator-conversation-title
             p {{ vm.service.details.name }}
           .communicator-counter
-            span {{ vm.time }} s
-            span {{ vm.cost }} PLN
+            span {{ vm.callLengthInSeconds | secondsToDateTime | date:'HH:mm:ss'}}
+            span {{ vm.callCost | money }}
 
   .communicator-content
     p.call.connecting-with(data-translate="COMMUNICATOR.CONNECTING_WITH" data-ng-show="vm.isConnecting")
@@ -27,15 +27,15 @@
         span.circle
 
       .communicator-user.thumb
-        img.user-avatar.communicator-avatar(data-ng-src="{{ vm.expert.expertDetails.avatar }}")
+        img.user-avatar.communicator-avatar(src data-ng-src="{{ vm.expert.expertDetails.avatar }}")
 
     .communicator-conversation-details(data-ng-hide="vm.isConnecting")
       .communicator-conversation-title
         p {{ vm.service.details.name }}
 
       .communicator-counter
-        span {{ vm.time }} s
-        span {{ vm.cost }} PLN
+        span {{ vm.callLengthInSeconds | secondsToDateTime | date:'HH:mm:ss' }}
+        span {{ vm.callCost | money }}
 
   .video-player-local(data-ng-show="vm.isLocalVideo")
     video(autoplay="true")

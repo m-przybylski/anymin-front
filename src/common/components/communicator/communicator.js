@@ -3,10 +3,10 @@
   /* @ngInject */
   function controller($log, callService, $timeout) {
 
-    this.callType = null
     this.isMinimized = (angular.isDefined(this.minimized) && this.minimized)
     this.isClosed = true
     this.isDisconnected = false
+    this.callType = null
 
     this.callTypes = {
       expert: 'expert',
@@ -38,15 +38,23 @@
     this.hangupCall = () => {
       this.isDisconnected = true
 
-      $timeout(()=>{
+      $timeout(() => {
         callService.hangupCall()
         turnOffComponent()
         this.isClosed = true
         this.isDisconnected = false
-      }, 300)
+      }, 500)
     }
 
     callService.onHangup(_ => {
+      turnOffComponent()
+    })
+
+    callService.onClientCallHangup(_ => {
+      turnOffComponent()
+    })
+
+    callService.onClientCallRejected(_ => {
       turnOffComponent()
     })
 

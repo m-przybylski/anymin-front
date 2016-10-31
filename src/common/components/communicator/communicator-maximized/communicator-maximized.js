@@ -8,8 +8,8 @@
     this.isRemoteVideo = true
     this.isLocalVideo = true
     this.isConnecting = true
-    this.time = 0
-    this.cost = 0
+    this.callLengthInSeconds = 0
+    this.callCost = null
 
     const localStreamElement = $element.find('.video-player-local video')
     const remoteStreamElement = $element.find('.video-player-remote video')
@@ -55,8 +55,15 @@
     })
 
     callService.onTimeCostChange(timeCost => {
-      this.time = parseInt(timeCost.time, 10)
-      this.cost = timeCost.cost ? parseInt(timeCost.cost, 10)/100 : 0
+      this.callLengthInSeconds = parseInt(timeCost.time, 10)
+      this.callCost = {
+        amount: timeCost.cost ? parseInt(timeCost.cost, 10) : 0,
+        currency: 'PLN'
+      }
+    })
+
+    callService.onExpertCallIncoming(service => {
+      this.service = service
     })
 
     return this
@@ -76,6 +83,8 @@
     'pascalprecht.translate',
     'profitelo.services.call',
     'profitelo.services.helper',
+    'profitelo.filters.money',
+    'profitelo.filters.seconds-to-datetime',
     'profitelo.components.communicator.communicator-maximized.navigation'
   ])
     .component('communicatorMaximized', component)
