@@ -65,10 +65,14 @@
     text-align: center
 
     p
-      font-size: $f-h4-size
-      color: $c-label
+      +default-font-heavy
+      font-size: $f-label-size
+      color: $c-white
+      margin: 0 0 8px
+      text-transform: uppercase
 
     .communicator-conversation-client
+      +default-font-regular
       font-size: $f-commmunicator-header
       color: $c-white
 
@@ -95,6 +99,12 @@
         margin: 32px auto
         width: 248px
         height: 248px
+
+      +smm-landscape
+        margin: 0 auto
+
+      +mdm
+        margin: 32px auto
 
       .communicator-equalizer
         position: absolute
@@ -129,28 +139,34 @@
             &:nth-child(#{$i})
               animation-delay: $i * 0.15s
 
-      .communicator-user
-        max-width: 64px
+    .communicator-user
+      min-width: 64px
+      min-height: 64px
 
-        +xsm-portrait
-          max-width: 128px
+      +xsm-portrait
+        min-width: 128px
+        min-height: 128px
 
-        +smm
-          max-width: 128px
+      +smm
+        min-width: 128px
+        min-height: 128px
 
-      .communicator-conversation-title
-        margin: 0 0 24px
+    .communicator-conversation-title
+      margin: 0 0 24px
 
-        p
-          color: $c-label
-          font-size: $f-paragraph
+      p
+        +default-font-regular
+        color: $c-label
+        font-size: $f-paragraph
+        text-transform: none
+        margin: 0
 
-      .communicator-counter
-        span
-          +default-font-heavy
-          margin: 0 12px
-          font-size: $f-h3-size
-          color: $c-white
+    .communicator-counter
+      span
+        +default-font-heavy
+        margin: 0 12px
+        font-size: $f-h3-size
+        color: $c-white
 
   .communicator-conversation-header-details
     display: block
