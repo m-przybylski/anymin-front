@@ -1,9 +1,12 @@
 (function (){
   /* @ngInject */
-  function controller($element, $window, $timeout) {
+  function controller($element, $timeout, smoothScrolling) {
     this.objectHeight = {
       height: null
     }
+
+    this.changeIcon = false
+    this.isCollapsed = true
 
     let elementHeight = 0
     let singleElementHeight = 0
@@ -18,12 +21,15 @@
       setUpHeights()
     })
 
-    // angular.element($window).on('resize', ()=> {
-    //   setUpHeights()
-    // })
-    //
     this.collapsing = () => {
+      console.log("clicked")
       this.objectHeight.height = this.objectHeight.height !== elementHeight ? elementHeight : $element.find('ng-transclude > div').height() + 32
+
+      this.changeIcon = !this.changeIcon
+      this.isCollapsed = !this.isCollapsed
+
+      if (this.isCollapsed)
+        smoothScrolling.simpleScrollTo('.show-more-text')
     }
 
     this.checkedHeight = () => {
@@ -42,7 +48,9 @@
   }
 
 
-  angular.module('profitelo.components.interface.collapse-tab', [])
+  angular.module('profitelo.components.interface.collapse-tab', [
+    'profitelo.directives.services.smooth-scrolling'
+  ])
     .component('collapseTab', collapseTab)
 
 }())

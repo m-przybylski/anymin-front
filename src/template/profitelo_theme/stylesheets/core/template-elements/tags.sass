@@ -9,7 +9,6 @@
       +default-font-regular
       transition: color 0.3s
       background: rgba($c-lines, 0.6)
-      border-radius: 3px
       color: $c-secondary-txt
       height: 32px
       display: inline-flex
@@ -17,25 +16,13 @@
       padding: 0 16px
       white-space: pre
       font-size: $f-h5-size
+      border-radius: 3px
 
-    &.checked,
+    &.is-checked,
     &:hover
-      background: $c-primary
-      border-color:
-
       a
         color: $c-white
         background: $c-primary
 
         span
           color: $c-white
-
-    a
-      +default-font-regular
-      display: flex
-      align-self: stretch
-      align-items: center
-      text-transform: uppercase
-      padding: 4px 16px
-      color: $c-primary-txt
-      font-size: $f-btn-size

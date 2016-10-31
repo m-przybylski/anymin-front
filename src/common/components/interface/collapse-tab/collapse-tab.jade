@@ -1,4 +1,7 @@
 .collapse-tab
   .collapse-wrapper(data-ng-style="$ctrl.objectHeight")
     ng-transclude
-  a(data-ng-click="$ctrl.collapsing()" data-ng-show="!$ctrl.checkedHeight()") show more
+
+  .default-container.show-more
+    a.btn.btn-show-more(data-ng-click="$ctrl.collapsing()" data-ng-show="!$ctrl.checkedHeight()" data-ng-class="{'show-less':$ctrl.changeIcon}")
+      span(data-translate="DASHBOARD.EXPERT_ACCOUNT.READ_MORE")
