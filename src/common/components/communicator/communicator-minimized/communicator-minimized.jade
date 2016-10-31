@@ -1,25 +1,25 @@
 .communicator-minimized(data-ng-click="vm.maximizeCommunicator()")
   .thumb
-    img.circle.user-avatar(data-ng-src="/assets/images/no-avatar.jpg")
+    img.circle.user-avatar(data-ng-src="{{ vm.expert.expertDetails.avatar }}")
 
-    .message-counter
-      span 4
+    //.message-counter
+      span 0
 
   .communicator-details
     span(data-translate="COMMUNICATOR.CONVERSATION_WITH")
-    h4 Jan Kowalski
+    h4 {{ vm.expert.expertDetails.name }}
 
     div
       ul.communicator-counter
         li.hours 0
-        li.minutes 18
-        li.seconds 59
+        li.minutes 0
+        li.seconds {{ vm.callLengthInSeconds }} s
 
       ul.communicator-price
-        li 49
-        li 25
+        //li 0
+        li {{ vm.callCost }} PLN
 
-  .connection-dots
+  //.connection-dots
     span
     span
     span

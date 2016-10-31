@@ -8,7 +8,7 @@
         div
           .author
             h6
-              a {{ vm.profile.expertDetails.name }}
+              a {{ vm.expert.expertDetails.name }}
           .communicator-conversation-title
             p {{ vm.service.details.name }}
           .communicator-counter
@@ -18,7 +18,7 @@
   .communicator-content
     p.call.connecting-with(data-translate="COMMUNICATOR.CONNECTING_WITH" data-ng-show="vm.isConnecting")
     p.call.connecting-with(data-translate="COMMUNICATOR.AUDIO_CONVERSATION" data-ng-hide="vm.isConnecting")
-    span.communicator-conversation-client {{ vm.profile.expertDetails.name }}
+    span.communicator-conversation-client {{ vm.expert.expertDetails.name }}
 
     .communicator-current-profile
       .communicator-equalizer

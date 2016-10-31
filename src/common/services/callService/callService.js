@@ -16,6 +16,7 @@
       onClientCallStarted: 'onClientCallStarted',
       onExpertCallIncoming: 'onExpertCallIncoming',
       onExpertCallAnswer: 'onExpertCallAnswer',
+      onExpertCallJoin: 'onExpertCallJoin',
       onExpertCallReject: 'onExpertCallReject',
       onTimeCostChange: 'onTimeCostChange'
     }
@@ -64,7 +65,9 @@
 
     const _answerCall = (callInvitation) => {
       call = callInvitation.call
-      call.join()
+      call.join().then(_ => {
+        callbacks.notify(events.onExpertCallJoin, callInvitation)
+      })
       call.onLeft(_ => {
         _onExpertCallHangup()
       })
@@ -105,7 +108,7 @@
     const _onClientCallStartError = (err) => {
       callbacks.notify(events.onClientCallPendingError, err)
       _onConsultationUnavailable()
-      _onNoFunds()
+      //_onNoFunds()
     }
 
     const _onTimeCostChange = timeCost => {
@@ -124,7 +127,6 @@
     }
 
     const _onClientCallPending = (serviceUsageRequest) => {
-      // UtilsService.timer(2).start((x) => {console.log(x)})
       console.log(serviceUsageRequest)
       serviceUsageData = serviceUsageRequest
       callbacks.notify(events.onClientCallPending, serviceUsageRequest)
@@ -132,7 +134,7 @@
 
     const _onClientCallHangup = () => {
       callbacks.notify(events.onClientCallHangup, null)
-      modalsService.createClientConsultationSummaryModal()
+      //modalsService.createClientConsultationSummaryModal()
     }
 
     const startCall = (_serviceId) => {

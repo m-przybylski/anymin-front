@@ -25,6 +25,9 @@
       this.expert.expertDetails.avatar = HelperService.fileUrlResolver(this.expert.expertDetails.avatar)
     }
 
+    callService.onClientCallStart(_ =>
+      bindStreamElements())
+
     callService.onClientCallPending(callData => {
       setCallData(callData)
       bindStreamElements()
@@ -34,6 +37,19 @@
     })
 
     callService.onClientCallStarted(_ => {
+      bindStreamElements()
+      this.isConnecting = false
+      this.isRemoteVideo = true
+    })
+
+    callService.onExpertCallIncoming(_ =>
+      bindStreamElements())
+
+    callService.onExpertCallAnswer(_ =>
+      bindStreamElements())
+
+    callService.onExpertCallJoin(_ => {
+      bindStreamElements()
       this.isConnecting = false
       this.isRemoteVideo = true
     })

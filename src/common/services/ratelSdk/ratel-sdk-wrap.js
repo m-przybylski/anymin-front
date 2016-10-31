@@ -28,10 +28,15 @@
 
     const _join = call.join
     call.join = () => {
-      call.getLocalStream(
-        stream => _join.call(call, stream),
-        error => console.log(error)
-      )
+      return new Promise((resolve, reject) => {
+        call.getLocalStream(
+          stream => {
+            _join.call(call, stream)
+            resolve()
+          },
+          error => reject(error)
+        )
+      })
     }
 
     const _onRemoteStream = call.onRemoteStream

@@ -20,7 +20,7 @@
           if (handlers.hasOwnProperty(event) > -1) {
             angular.forEach(handlers[event], handler => {
               if (angular.isFunction(handler)) {
-                handler.apply(null, args)
+                handler.apply(null, angular.copy(args))
               }
             })
           }
