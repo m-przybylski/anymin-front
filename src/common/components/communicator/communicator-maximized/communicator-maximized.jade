@@ -15,7 +15,7 @@
             span {{ vm.callLengthInSeconds | secondsToDateTime | date:'HH:mm:ss'}}
             span {{ vm.callCost | money }}
 
-  .communicator-content
+  .communicator-content(data-ng-show="vm.isConnecting")
     p.call.connecting-with(data-translate="COMMUNICATOR.CONNECTING_WITH" data-ng-show="vm.isConnecting")
     p.call.connecting-with(data-translate="COMMUNICATOR.AUDIO_CONVERSATION" data-ng-hide="vm.isConnecting")
     span.communicator-conversation-client {{ vm.expert.expertDetails.name }}
