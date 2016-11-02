@@ -1,11 +1,11 @@
 pro-lightbox-nav(data-nav-settings="$ctrl.actionsSettings")
 .modal-dialog.size(data-ng-class="{'add-overflow': $ctrl.currentSlide.contentType === 'pdf'}")
   .left-side
-    button.pro-button.round.icon.black(data-ng-click="$ctrl.sliderActions.prevSlide()" data-ng-show="$ctrl.currentSlide.id !== 1")
+    button.btn.btn-circle(data-ng-click="$ctrl.sliderActions.prevSlide()" data-ng-show="$ctrl.currentSlide.id !== 1")
       span.icon.icon-arrow-left-12
   pro-lightbox-content.pro-lightbox-content(data-ng-repeat="slide in $ctrl.slidesList" data-slide="slide" id="slide-{{ slide.id }} " data-ng-class="{'currentSlide': $ctrl.currentSlide.id === slide.id}")
   .right-side
-    button.pro-button.round.icon.black(data-ng-click="$ctrl.sliderActions.nextSlide()" data-ng-show="$ctrl.currentSlide.id !== $ctrl.slidesList.length")
+    button.btn.btn-circle(data-ng-click="$ctrl.sliderActions.nextSlide()" data-ng-show="$ctrl.currentSlide.id !== $ctrl.slidesList.length")
       span.icon.icon-arrow-right-12
 
 .pro-lightbox-zoom
