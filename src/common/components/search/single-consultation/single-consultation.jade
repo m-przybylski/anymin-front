@@ -1,6 +1,6 @@
 .default-container
   .single-consultation
-    .consultation-wrapper
+    .consultation-wrapper(data-ng-click = "vm.goToProfile()")
       .consultation-details
         .consultation-price
           h5 {{ ::vm.consultation.price / 100}}
@@ -9,8 +9,7 @@
         .consultation-profile
           .consultation-info
             h3
-              a(data-ng-if="::vm.consultation.type === 'ORG'" data-ui-sref="app.company-profile({ contactId: vm.consultation.owner.id, primaryConsultationId: vm.consultation.id  })") {{ ::vm.consultation.name }}
-              a(data-ng-if="::vm.consultation.type !== 'ORG'" data-ui-sref="app.expert-profile({ contactId: vm.consultation.owner.id, primaryConsultationId: vm.consultation.id  })") {{ ::vm.consultation.name }}
+              span {{ ::vm.consultation.name }}
 
             ul.consultation-options
               li.options-item
@@ -22,8 +21,8 @@
 
       .consultation-actions
         .consultation-profile
-          a.thumb(data-ng-if="::vm.consultation.type === 'ORG'" data-ui-sref="app.company-profile({ contactId: vm.consultation.owner.id })")
-          a.thumb(data-ng-if="::vm.consultation.type !== 'ORG'" data-ui-sref="app.expert-profile({ contactId: vm.consultation.owner.id })")
+          .thumb(data-ng-if="::vm.consultation.type === 'ORG'")
+          .thumb(data-ng-if="::vm.consultation.type !== 'ORG'")
             img.user-avatar(data-ng-src="{{ ::vm.profileImage }}" alt="{{ ::vm.consultation.owner.name }}")
 
             .status-list
@@ -31,7 +30,7 @@
 
           .author
             h6
-              a(data-ui-sref="app.company-profile({ contactId: vm.consultation.owner.id })") {{ ::vm.consultation.owner.name }}
+              span {{ ::vm.consultation.owner.name }}
 
         a.btn.success.icon-left(data-ng-click="vm.startCall()")
           span.icon.icon-call-16
