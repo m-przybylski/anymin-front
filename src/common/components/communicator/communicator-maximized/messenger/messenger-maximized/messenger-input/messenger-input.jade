@@ -1,0 +1,10 @@
+.messenger-input
+  input(placeholder="COMMUNICATOR.MESSENGER.INPUT.PLACEHOLDER" data-ng-model="$ctrl.inputModel"
+    data-ng-enter="$ctrl.sendMessage($ctrl.inputModel)" data-ng-keyup="$ctrl.onKeyup($event)")
+
+  .messenger-input-action
+    a(data-ng-click="$ctrl.uploadFile()")
+      span.icon.icon-attachment-24
+
+    a(data-ng-click="$ctrl.sendMessage($ctrl.inputModel)")
+      span.icon.icon-send-24

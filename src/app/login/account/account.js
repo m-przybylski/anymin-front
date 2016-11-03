@@ -1,7 +1,8 @@
 (function() {
 
   function AccountFormController($rootScope, $state, $filter, AccountApi, proTopWaitingLoaderService, User,
-                                 proTopAlertService, loginStateService, CommonSettingsService, PhoneNumberUtil) {
+                                 proTopAlertService, loginStateService, CommonSettingsService, PhoneNumberUtil,
+                                 communicatorService) {
 
     this.isPending = false
     this.current = 1
@@ -67,7 +68,8 @@
         User.login({
           msisdn: this.account.phoneNumber.prefix + '' + this.account.phoneNumber.number,
           password: this.account.password
-        }).then((response)=> {
+        }).then((response) => {
+          communicatorService.authenticate()
           $rootScope.loggedIn = true
           this.isPending = false
           proTopWaitingLoaderService.stopLoader()
@@ -109,7 +111,7 @@
     'profitelo.services.login-state',
     'profitelo.swaggerResources',
     'profitelo.services.commonSettings',
-    
+    'profitelo.services.communicator',
     'profitelo.directives.pro-top-waiting-loader-service',
     'profitelo.directives.pro-top-alert-service',
     'profitelo.directives.interface.pro-alert',

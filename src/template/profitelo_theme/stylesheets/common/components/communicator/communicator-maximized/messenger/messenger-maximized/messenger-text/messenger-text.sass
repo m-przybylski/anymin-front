@@ -1,0 +1,77 @@
+.messenger-messages
+
+  .grouped-messages
+    display: flex
+    justify-content: flex-end
+
+    .message
+      text-align: right
+      flex: 1
+      margin: 0 0 8px
+      display: flex
+      justify-content: flex-end
+
+      span
+        +default-font-regular
+        display: inline-block
+        background: $c-white
+        box-shadow: 0 1px 2px 0 rgba($c-primary-txt, 0.1)
+        padding: 10px 12px
+        color: $c-primary-txt
+        font-size: $f-nav-size
+        line-height: 1.29
+        border-radius: 8px 0 0 8px
+        transform-origin: 100% 0
+        animation: bounce 0.4s ease-out
+        word-break: break-word
+        max-width: 298px
+
+      &:last-child
+        span
+          border-radius: 8px 0 8px 8px
+
+      &:first-child
+        span
+          border-radius: 8px 8px 0 8px
+
+    /* green messages */
+    &.interlocutor
+      text-align: left
+      flex: 1
+      margin: 0 0 8px
+      display: flex
+      justify-content: flex-start
+
+      .message
+        justify-content: flex-start
+
+        span
+          transform-origin: 0 0
+          background: $c-messenger-green
+          box-shadow: 0 1px 2px 0 rgba($c-primary-txt, 0.1)
+          color: $c-white
+          border-radius: 0 8px 8px 0
+
+        &:last-child
+          span
+            border-radius: 0 8px 8px 8px
+
+        &:first-child
+          span
+            border-radius: 8px 8px 8px 0
+
+      .thumb
+        margin: 0 8px 0 0
+
+    .message-date
+      p
+        text-align: left
+
+  .message-date
+    p
+      +default-font-heavy
+      padding: 8px 16px 0
+      color: $c-label
+      font-size: $f-label-size
+      text-align: right
+

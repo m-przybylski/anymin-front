@@ -8,6 +8,7 @@
     this.isRemoteVideo = true
     this.isLocalVideo = true
     this.isConnecting = true
+    this.isMessenger = false
     this.callLengthInSeconds = 0
     this.callCost = null
 
@@ -19,21 +20,26 @@
       callService.bindRemoteStreamElement(remoteStreamElement)
     }
 
+    const _init = () => {
+      this.isMessenger = false
+    }
+
     const setCallData = callData => {
       this.service = callData.service
       this.expert = callData.expert
       this.expert.expertDetails.avatar = HelperService.fileUrlResolver(this.expert.expertDetails.avatar)
     }
 
-    callService.onClientCallStart(_ =>
-      bindStreamElements())
+    callService.onClientCallStart(_ => {
+      bindStreamElements()
+      _init()
+    })
 
     callService.onClientCallPending(callData => {
-      setCallData(callData)
+      setCallData(angular.copy(callData))
       bindStreamElements()
       this.isConnecting = true
       this.isRemoteVideo = false
-      console.log(callData)
     })
 
     callService.onClientCallStarted(_ => {
@@ -45,8 +51,10 @@
     callService.onExpertCallIncoming(_ =>
       bindStreamElements())
 
-    callService.onExpertCallAnswer(_ =>
-      bindStreamElements())
+    callService.onExpertCallAnswer(_ => {
+      bindStreamElements()
+      _init()
+    })
 
     callService.onExpertCallJoin(_ => {
       bindStreamElements()
@@ -63,7 +71,7 @@
     })
 
     callService.onExpertCallIncoming(service => {
-      this.service = service
+      this.service = angular.copy(service)
     })
 
     return this
@@ -85,7 +93,8 @@
     'profitelo.services.helper',
     'profitelo.filters.money',
     'profitelo.filters.seconds-to-datetime',
-    'profitelo.components.communicator.communicator-maximized.navigation'
+    'profitelo.components.communicator.communicator-maximized.navigation',
+    'profitelo.components.communicator.communicator-maximized.messenger'
   ])
     .component('communicatorMaximized', component)
 }())

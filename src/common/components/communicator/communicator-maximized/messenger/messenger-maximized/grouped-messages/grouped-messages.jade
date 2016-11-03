@@ -1,0 +1,11 @@
+.grouped-messages(data-ng-class="{'interlocutor': !$ctrl.isMine}")
+    .thumb(data-ng-hide=":: $ctrl.isMine")
+        img.user-avatar(src data-ng-src="{{ :: $ctrl.participantAvatar }}")
+
+    div
+        .message(data-ng-repeat="message in $ctrl.messages track by $index")
+            .content
+                span {{ :: message.body }}
+
+            //time.message-date
+            //    p {{ :: message.timestamp | date:'HH:mm' }}

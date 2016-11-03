@@ -43,4 +43,6 @@
   .video-player-remote(data-ng-show="vm.isRemoteVideo")
     video(autoplay="true")
 
-  communicator-nav(data-minimize-communicator="vm.minimizeCommunicator" data-is-video="vm.isLocalVideo" hangup-call="vm.hangupCall")
+  communicator-nav(data-minimize-communicator="vm.minimizeCommunicator" data-is-video="vm.isLocalVideo" data-hangup-call="vm.hangupCall" data-is-messenger="vm.isMessenger")
+
+  messenger(data-is-messenger="vm.isMessenger" data-call-cost="vm.callCost" data-call-length="vm.callLengthInSeconds")

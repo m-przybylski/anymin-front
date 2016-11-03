@@ -22,7 +22,10 @@
         details: {
           name: this.costModel.name,
           tags: this.costModel.tags,
-          price: parseInt(this.costModel.cost, 10)
+          price: {
+            amount: parseInt(this.costModel.cost, 10),
+            currency: savedProfile.currency
+          }
         },
         ownerEmployee: this.ownerEmployee,
         invitations: this.costModel.invitations
@@ -98,7 +101,10 @@
           details: {
             name: this.editModel.name,
             tags: this.editModel.tags,
-            price: parseInt(this.editModel.cost, 10)
+            price: {
+              amount: parseInt(this.editModel.cost, 10),
+              currency: savedProfile.currency
+            }
           },
           ownerEmployee: this.ownerEmployee,
           invitations: this.editModel.invitations

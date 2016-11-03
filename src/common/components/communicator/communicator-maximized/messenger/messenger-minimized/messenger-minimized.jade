@@ -1,0 +1,9 @@
+.messenger-minimized
+  .messenger-messages
+    .messenger-scroll-minimize
+
+      .grouped-messages
+        div
+          .message(data-ng-repeat="message in $ctrl.messages" data-ng-click="$ctrl.onMessageClick(message)")
+            .content
+              span {{ message.body }}

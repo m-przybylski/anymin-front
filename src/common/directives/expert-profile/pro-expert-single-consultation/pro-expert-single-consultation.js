@@ -25,6 +25,7 @@
 
   angular.module('profitelo.directives.expert-profile.pro-expert-single-consultation', [
     'profitelo.components.pro-summary-tag',
+    'profitelo.filters.money',
     'profitelo.services.call'
   ])
   .directive('proExpertSingleConsultation', proExpertSingleConsultation)

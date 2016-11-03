@@ -2,7 +2,7 @@
 
   function RegisterController($filter, $state, $rootScope, proTopWaitingLoaderService, User, proTopAlertService,
                               UserRoles, smsSessionId, CommonSettingsService, RegistrationApi, AccountApi,
-                              loginStateService) {
+                              loginStateService, communicatorService) {
     this.passwordStrength = 0
     this.isPending = false
     this.rulesAccepted = false
@@ -25,6 +25,7 @@
           sessionId: this.registrationSteps.sessionId,
           token: String(this.registrationSteps.smsCode)
         }).$promise.then((res) => {
+          communicatorService.authenticate()
           this.correctCode = true
         }, (err) => {
           this.serverError = true
@@ -122,6 +123,7 @@
     'profitelo.services.login-state',
     'profitelo.services.resolvers.app.login.register',
     'profitelo.swaggerResources',
+    'profitelo.services.communicator',
     'profitelo.services.commonSettings',
     'profitelo.directives.pro-top-alert-service',
     'profitelo.directives.pro-top-waiting-loader-service',
