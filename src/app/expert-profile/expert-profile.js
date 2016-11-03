@@ -1,7 +1,6 @@
 (function() {
-  function ExpertProfileController($stateParams, $timeout, smoothScrolling, savedProfile, CommonConfig, profileImage) {
+  function ExpertProfileController($stateParams, $timeout, smoothScrolling, savedProfile, profileImage, similarExperts, expertOrganizations) {
 
-    let _commonConfig = CommonConfig.getAllData()
     this.profile = {}
 
     this.profileImage = profileImage
@@ -15,7 +14,8 @@
         smoothScrolling.simpleScrollTo('#consultationScroll', true)
       })
     }
-
+    this.profile.colaboratedOrganizations = expertOrganizations
+    this.similarExperts = similarExperts
 
     this.services = savedProfile.services
 
@@ -37,8 +37,7 @@
     'profitelo.components.expert-profile.similar-experts-slider',
     'profitelo.directives.pro-top-alert-service',
     'profitelo.components.expert-profile.social-links',
-    'profitelo.components.interface.collapse-tab',
-    'commonConfig'
+    'profitelo.components.interface.collapse-tab'
   ])
   .config(($stateProvider, UserRolesProvider) => {
     $stateProvider.state('app.expert-profile', {
@@ -48,7 +47,7 @@
       controller: 'ExpertProfileController',
       resolve: {
         /* istanbul ignore next */
-        savedProfile: ($q, $state, $stateParams, ProfileApi, User, ServiceApi) => {
+        savedProfile: ($q, $state, $stateParams, ProfileApi, User, SearchApi, ServiceApi) => {
           /* istanbul ignore next */
           let _deferred = $q.defer()
           /* istanbul ignore next */
@@ -107,8 +106,56 @@
             }
             return AppServiceProviderImageResolver.resolve(savedProfile.expertDetails.avatar)
           }
+        },
+        /* istanbul ignore next */
+        similarExperts: (SearchApi, savedProfile, $q) => {
+          /* istanbul ignore next */
+          let _deferred = $q.defer()
+          /* istanbul ignore next */
+          const tagsArray = savedProfile.services[0].details.tags
+          const tagId  = tagsArray[Math.floor((Math.random() * (tagsArray.length -1)))].id
+
+          SearchApi.search({
+            'tag.id':tagId,
+            'profile.type': 'EXP',
+            'limit' : 10
+          }).$promise.then((response)=> {
+
+            const currentConsultation = _.find(response.results, (o) => {return o.id === savedProfile.services[0].id })
+
+            if (!!currentConsultation) {
+              response.results = _.remove(response.results, (n) => {return n.id !== savedProfile.services[0].id})
+            }
+
+            _deferred.resolve(response.results)
+
+        }, (error) => {
+            _deferred.reject(error)
+          })
+          /* istanbul ignore next */
+          return _deferred.promise
+        },
+        expertOrganizations: ($q, $state, $stateParams, ProfileApi, User, proTopAlertService) => {
+          let _deferred = $q.defer()
+          User.getStatus().then(() => {
+            ProfileApi.getEmployersProfilesWithServices({
+              profileId: $stateParams.contactId
+            }).$promise.then((response)=> {
+              _deferred.resolve(response)
+            }, (error)=> {
+              _deferred.reject(error)
+              $state.go('app.dashboard')
+              proTopAlertService.error({
+                message: 'error',
+                timeout: 4
+              })
+            })
+          })
+          return _deferred.promise
+
         }
       },
+
       data: {
         access : UserRolesProvider.getAccessLevel('public')
       }

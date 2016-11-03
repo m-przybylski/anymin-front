@@ -11,29 +11,28 @@
             div
               span.icon.icon-hands-32
               p
-                span(data-translate="pliki")
-                span(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.AND_PHOTOS")
+                span {{ $ctrl.title | translate }}
 
         .slides(data-ng-repeat="consultation in $ctrl.consultations"  data-ng-swipe-right="prevSlide()")
-          .slider-item
+          .slider-item(data-ng-click=" $ctrl.goToProfile($ctrl.consultations[$index])")
             .single-consultation
               .consultation-wrapper
                 .consultation-content
                   .consultation-actions
                     .consultation-profile
                       a.thumb
-                        img()
+                        img.user-avatar( data-ng-class="{'is-not-uploaded': !$ctrl.consultationOwnerImage(consultation.owner.img)}" data-ng-src=" {{ $ctrl.consultationOwnerImage(consultation.owner.img) }}")
 
                         .status-list
                           span.status.availability
 
                       .author
                         h6
-                          a {{ consultation.expertName }}
+                          a {{ consultation.owner.name }}
 
                   .consultation-details
                     .consultation-price
-                      h5 {{ consultation.price }}
+                      h5 {{ consultation.price / 100}}
                         span.currency(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE")
 
                     .consultation-profile
@@ -43,11 +42,12 @@
 
                         ul.consultation-options
                           li.options-item
-                            span  {{ consultation.likes }}
+                            span  {{ consultation.satisfaction }}
                           li.options-item
-                            span {{ consultation.callNumber }}
+                            span {{ consultation.numberOfCalls }}
                           li.options-item
-                            span Stan Twojego konta pozwala na ok. {{ consultation.time }} min rozmowy
+                            span Stan Twojego konta pozwala na ok. 10 min rozmowy
+
 
     a.btn.btn-arrow.arrow-right(data-ng-click="$ctrl.nextSlide()")
       span.icon.icon-arrow-right-16

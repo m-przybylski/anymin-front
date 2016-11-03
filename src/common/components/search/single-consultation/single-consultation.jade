@@ -19,10 +19,10 @@
               li.options-item
                 span {{ ::vm.consultation.timeAverage }} min.
 
+
       .consultation-actions
         .consultation-profile
-          .thumb(data-ng-if="::vm.consultation.type === 'ORG'")
-          .thumb(data-ng-if="::vm.consultation.type !== 'ORG'")
+          .thumb
             img.user-avatar(data-ng-src="{{ ::vm.profileImage }}" alt="{{ ::vm.consultation.owner.name }}")
 
             .status-list

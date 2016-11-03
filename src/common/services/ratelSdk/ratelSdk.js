@@ -1,7 +1,7 @@
 (function() {
 
   function factory($window) {
-    return null
+    return $window.RatelSDK
   }
 
   angular.module('ratelSdk', [])
