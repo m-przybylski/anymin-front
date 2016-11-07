@@ -9,10 +9,9 @@
     &::before
       +animation(status-blank 1.5s infinite)
       content: ""
-      width: 12px
-      height: 12px
+      width: 8px
+      height: 8px
       display: block
-      border: 2px solid $c-white
       border-radius: 50%
       margin: 0 8px 0 0
 
@@ -21,11 +20,3 @@
 
       &::before
         background: $c-success
-
-+keyframes(status-blank)
-  0%
-    opacity: 0.7
-  50%
-    opacity: 1
-  100%
-    opacity: 0.7

@@ -69,9 +69,9 @@
       let scrollTop = $(element).offset().top
 
       if (isNavbar) {
-        scrollTop -= 85
+        scrollTop -= 80 + 32
       }
-      
+
       $('html, body').animate({
         scrollTop: scrollTop
       }, time)

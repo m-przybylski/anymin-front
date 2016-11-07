@@ -1,7 +1,7 @@
 (function() {
   /* @ngInject */
   function showMoreTextController($element, $timeout) {
-    this.defaultTextHeight = '44px'
+    this.defaultTextHeight = '40px'
     this.toogleStatus = false
     this.showDotsMore = true
 
