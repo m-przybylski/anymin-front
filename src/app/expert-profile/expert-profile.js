@@ -1,19 +1,18 @@
 (function() {
-  function ExpertProfileController($stateParams, $timeout, smoothScrolling, savedProfile, profileImage, similarExperts, expertOrganizations) {
+  function ExpertProfileController($stateParams, $timeout, smoothScrolling, expertOrganizations, savedProfile, similarExperts) {
 
     this.profile = {}
-
-    this.profileImage = profileImage
 
     this.profile = savedProfile.expertDetails
     this.consultations = savedProfile.services
     this.profile.type = 'single'
-    
+
     if (!!$stateParams.primaryConsultationId) {
       $timeout(() => {
         smoothScrolling.simpleScrollTo('#consultationScroll', true)
       })
     }
+
     this.profile.colaboratedOrganizations = expertOrganizations
     this.similarExperts = similarExperts
 
@@ -47,11 +46,10 @@
       controller: 'ExpertProfileController',
       resolve: {
         /* istanbul ignore next */
-        savedProfile: ($q, $state, $stateParams, ProfileApi, User, SearchApi, ServiceApi) => {
+        savedProfile: ($q, $state, $stateParams, ProfileApi, SearchApi, ServiceApi) => {
           /* istanbul ignore next */
           let _deferred = $q.defer()
           /* istanbul ignore next */
-          User.getStatus().then(() => {
             ProfileApi.getProfileWithServices({
               profileId: $stateParams.contactId
             }).$promise.then((profileWithServices)=> {
@@ -67,7 +65,7 @@
                 
                 if (angular.isDefined($stateParams.primaryConsultationId) && !!primaryConsultation) {
                   const currentElement = profileWithServices.services.splice(profileWithServices.services.indexOf(primaryConsultation), 1)
-                  profileWithServices.services.unshift(currentElement[0])
+                  profileWithServices.services.unshift(currentElement)
                 }
 
                 _deferred.resolve(profileWithServices)
@@ -82,30 +80,8 @@
                 timeout: 4
               })
             })
-          }, (error) => {
-            $state.go('app.dashboard')
-            proTopAlertService.error({
-              message: 'error',
-              timeout: 4
-            })
-          })
           /* istanbul ignore next */
           return _deferred.promise
-        },
-        checkAccount: (savedProfile, $state, $stateParams) => {
-          if (savedProfile.expertDetails === null) {
-            $state.go('app.company-profile', {
-              contactId: $stateParams.contactId
-            })
-          }
-        },
-        profileImage: (AppServiceProviderImageResolver, savedProfile, $state, $stateParams) => {
-          if (savedProfile.expertDetails !== null) {
-            if (savedProfile.expertDetails.avatar == null) {
-              savedProfile.expertDetails.avatar = null
-            }
-            return AppServiceProviderImageResolver.resolve(savedProfile.expertDetails.avatar)
-          }
         },
         /* istanbul ignore next */
         similarExperts: (SearchApi, savedProfile, $q) => {

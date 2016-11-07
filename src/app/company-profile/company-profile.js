@@ -32,7 +32,7 @@
     'profitelo.directives.services.smooth-scrolling',
     'profitelo.components.interface.collapse-tab',
     'profitelo.directives.expert-profile.pro-expert-slider',
-    'profitelo.directives.expert-profile.pro-expert-single-consultation',
+    'profitelo.components.expert-profile.company-single-consultation',
     'profitelo.components.expert-profile.similar-experts-slider',
     'profitelo.components.expert-profile.social-links',
     'profitelo.services.resolvers.app.service-provider-image-resolver',
@@ -51,15 +51,14 @@
           /* istanbul ignore next */
           let _deferred = $q.defer()
           /* istanbul ignore next */
-          User.getStatus().then(() => {
-            ProfileApi.getProfileWithServices({
+          ProfileApi.getEmployersProfilesWithServices({
               profileId: $stateParams.contactId
             }).$promise.then((profileWithServices)=> {
               ServiceApi.postServicesTags({
-                serviceIds: _.map(profileWithServices.services, 'id')
+                serviceIds: _.map(profileWithServices[0].services, 'id')
               }).$promise.then((servicesTags) => {
 
-                profileWithServices.services.forEach((service) => {
+                profileWithServices[0].services.forEach((service) => {
                   service.details.tags = _.head(_.filter(servicesTags, (serviceTags) => service.id === serviceTags.serviceId)).tags
                 })
 
@@ -70,7 +69,7 @@
                   profileWithServices.services.unshift(currentElement[0])
                 }
 
-                _deferred.resolve(profileWithServices)
+                _deferred.resolve(profileWithServices[0])
               })
             }, () => {
               _deferred.resolve(null)
@@ -82,13 +81,7 @@
                 timeout: 4
               })
             })
-          }, (error) => {
-            $state.go('app.dashboard')
-            proTopAlertService.error({
-              message: 'error',
-              timeout: 4
-            })
-          })
+
           /* istanbul ignore next */
           return _deferred.promise
         },

@@ -1,0 +1,39 @@
+.single-consultation.expert-profile-consultation
+  .consultation-wrapper
+    .consultation-content
+      .consultation-details
+        .consultation-price
+          h5 {{ $ctrl.service.details.price / 100 }}
+            span.currency(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE")
+
+        .consultation-profile
+          .consultation-info
+            h3
+              a(data-ui-sref="app.company-profile({ contactId: $ctrl.consultation.owner.id })") {{ $ctrl.service.details.name }}
+
+            ul.consultation-options
+              li.options-item
+                span {{ $ctrl.consultation.satisfaction }}% {{"SEARCH.RECOMMENDATION" | translate }}
+              li.options-item
+                span {{ $ctrl.consultation.talks }} rozmowy
+              li.options-item
+                span Stan Twojego konta pozwala na ok. {{ $ctrl.consultation.timeAverage }} min rozmowy
+
+      .consultation-actions
+        .consultation-profile
+          a.thumb(data-ui-sref="app.company-profile({ contactId: $ctrl.consultation.owner.id })")
+            //img.user-avatar(data-ng-src="{{ ::vm.profileImage }}" alt="{{ ::vm.consultation.owner.name }}" data-ng-class='{"is-not-uploaded": !avatar})
+
+            .status-list
+              span.status.availability
+
+          .author
+            h6
+              a(data-ui-sref="app.company-profile({ contactId: $ctrl.consultation.owner.id })") {{ $ctrl.service.details.name }}
+
+        a.btn.success.icon-left(data-ng-click="vm.startCall()")
+          span.icon.icon-call-16
+          | {{ ::'HOME.TOP_CONTAINER.EXPERT_PROFILE.CALL' | translate }}
+
+    pro-summary-tag(data-title="DASHBOARD.EXPERT_ACCOUNT.CONSULTATION_RANGE"
+    data-tags="$ctrl.tags")

@@ -21,8 +21,6 @@
         ImageZoomService.createZoomInstance(angular.element('.modal-dialog img')[currentSlideIndex])
       }
 
-      angular.element('.modal-dialog').perfectScrollbar()
-
     })
 
     const fileInfoRequest = (slide) => {
@@ -35,9 +33,13 @@
         this.navSettings.name = response.name
         this.currentSlide.contentType = response.contentType
         this.currentSlide.downloadUrl = response.downloadUrl
+        
         ImageZoomService.destroy(angular.element('.modal-dialog img')[currentSlideIndex])
         if ( this.currentSlide.contentType  !== 'application/pdf') {
           ImageZoomService.createZoomInstance(angular.element('.modal-dialog img')[currentSlideIndex])
+          angular.element('.modal-dialog').perfectScrollbar('destroy')
+        } else {
+          angular.element('.modal-dialog').perfectScrollbar()
         }
         _scrollToTop()
       }, (error) => {

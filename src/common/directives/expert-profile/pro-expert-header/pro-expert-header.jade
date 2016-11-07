@@ -14,25 +14,24 @@
               span.icon.icon-share-24
 
         .thumb.thumb-medium
-          img.circle.user-avatar(data-ng-src='{{avatar}}' alt='{{profile.name}}' data-ng-class='{"is-not-uploaded": !avatar}')
+          img.circle.user-avatar(data-ng-src='{{handleUserImage(profile.avatar)}}' alt='{{profile.name}}' data-ng-class='{"is-not-uploaded": !!profile.avatar}')
         h3 {{ profile.name }}
         .status-list(data-ng-hide="profile.type == 'company'")
           span.status.availability {{ 'HOME.EXPERT_CARD_AVAILABLE' | translate }}
 
-        .languages-section
+        .languages-section(data-ng-hide="!profile.languages || profile.languages.length < 1 || profile.type === 'company'")
           span(data-translate="DASHBOARD.EXPERT_ACCOUNT.LANGUAGES")
-
-          ul.languages-list(data-ng-hide="profile.type == 'company'")
+          ul.languages-list
             li(data-ng-repeat="lang in profile.languages")
               span {{" " + lang + " "}}
 
-        .expert-collaborators(data-ng-hide="profile.type == 'company'")
+        .expert-collaborators(data-ng-hide="profile.type === 'company' || !profile.colaboratedOrganizations || profile.colaboratedOrganizations.length < 1")
           p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.COOPERATE_WITH")
 
           ul.collaborators-list(data-ng-if="profile.type !== 'company'")
             li.collaborators-item.thumb(data-ng-repeat = "organization in profile.colaboratedOrganizations")
-              img.user-avatar(data-ng-class="{'is-not-uploaded': collaboratorImage(organization.organizationDetails.logo)}"
-              data-ng-src=" {{ collaboratorImage(organization.organizationDetails.logo) }}")
+              img.user-avatar(data-ng-class="{'is-not-uploaded': handleUserImage(organization.organizationDetails.logo)}"
+              data-ng-src=" {{ handleUserImage(organization.organizationDetails.logo) }}")
 
     .expert-profile-description
       show-more-text(data-text="profile.description")

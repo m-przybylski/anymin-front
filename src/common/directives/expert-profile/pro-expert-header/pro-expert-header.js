@@ -3,9 +3,11 @@
 
     function linkFunction(scope, element) {
 
-      scope.collaboratorImage = (imgToken) => {
+      scope.handleUserImage = (imgToken) => {
         return imgToken !== null ||  imgToken === '' ? HelperService.fileUrlResolver(imgToken) : ''
       }
+
+      console.log(scope.profile)
       
     }
 
@@ -16,7 +18,6 @@
       link: linkFunction,
       scope: {
         profile: '=?',
-        avatar: '=?'
       }
     }
   }

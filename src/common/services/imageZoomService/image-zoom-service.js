@@ -118,6 +118,8 @@
       },
       resetImg: () => {
         updateWidthAndHeight(this.image, primaryImageSize)
+        imageSize.width = primaryImageSize.width
+        imageSize.height = primaryImageSize.height
       }
 
     }
