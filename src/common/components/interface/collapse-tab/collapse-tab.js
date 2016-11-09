@@ -1,4 +1,4 @@
-(function (){
+(function() {
   /* @ngInject */
   function controller($element, smoothScrolling, $window, $scope, $timeout) {
     this.objectHeight = {

@@ -9,6 +9,10 @@
 
       console.log(scope.profile)
       
+      scope.checkCollaboratedExperts = () => {
+        return scope.profile.type === 'company' || !scope.profile.colaboratedOrganizations || !scope.profile.colaboratedOrganizations[0].organizationDetails || scope.profile.colaboratedOrganizations.length < 1
+      }
+      
     }
 
     return {
@@ -17,7 +21,7 @@
       replace: true,
       link: linkFunction,
       scope: {
-        profile: '=?',
+        profile: '=?'
       }
     }
   }

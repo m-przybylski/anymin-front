@@ -11,17 +11,13 @@
 
     // Mock data:
     this.consultation = {}
-    this.consultation.satisfaction = Math.floor((Math.random() * 100) + 1)
     this.consultation.timeAverage = Math.floor((Math.random() * 10) + 1)
-    this.consultation.talks = this.service.serviceUsageCounter
-    console.log(this.service)
 
     return this
   }
 
   const companySingleConsultation = {
     templateUrl: 'components/expert-profile/company-single-consultation/company-single-consultation.tpl.html',
-    restrict: 'E',
     replace: true,
     bindings: {
       service: '<',
@@ -35,6 +31,7 @@
   angular.module('profitelo.components.expert-profile.company-single-consultation', [
     'profitelo.components.interface.slider',
     'profitelo.services.helper',
+    'profitelo.components.expert-profile.experts-consultation-slider',
     'profitelo.services.call',
     'pascalprecht.translate'
   ])

@@ -1,39 +1,35 @@
 .single-consultation.expert-profile-consultation
   .consultation-wrapper
-    .consultation-content
+    .consultation-content(data-ng-class="{'is-company': !!service.organizationDetails}")
       .consultation-details
         .consultation-price
-          h5 {{ service.details.price / 100 }}
-            span.currency(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE")
+          span {{ service.details.price / 100 | number:2}}
+            span.currency PLN {{ 'HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE' | translate }}
 
-        .consultation-profile
-          .consultation-info
+        div
+          .consultation-title
             h3
-              a(data-ui-sref="app.company-profile({ contactId: vm.consultation.owner.id })") {{ service.details.name }}
+              span {{ service.details.name }}
 
-            ul.consultation-options
-              li.options-item
-                span {{ consultation.satisfaction }}% {{"SEARCH.RECOMMENDATION" | translate }}
-              li.options-item
-                span {{ consultation.talks }} rozmowy
-              li.options-item
-                span Stan Twojego konta pozwala na ok. {{ consultation.timeAverage }} min rozmowy
+          ul.consultation-about
+            li.options-item.recomendation
+              span  {{ service.recommendationsCounter }}
+            li.options-item.conversation-count
+              span {{ service.serviceUsageCounter }}
+            li.options-item.balance
+              span Stan Twojego konta pozwala na ok. {{ consultation.timeAverage }} min rozmowy
 
       .consultation-actions
-        .consultation-profile
-          a.thumb(data-ui-sref="app.company-profile({ contactId: vm.consultation.owner.id })")
-            //img.user-avatar(data-ng-src="{{ ::vm.profileImage }}" alt="{{ ::vm.consultation.owner.name }}" data-ng-class='{"is-not-uploaded": !avatar})
+        .profile-preview(data-ng-if="!!service.organizationDetails")
+          .thumb.x48
+            img.user-avatar(data-ng-src="{{ companyImage }}"  data-ng-class="{'is-not-uploaded': !companyImage}")
 
-            .status-list
-              span.status.availability
-
-          .author
-            h6
-              a(data-ui-sref="app.company-profile({ contactId: vm.consultation.owner.id })") {{ service.details.name }}
+          .profile-name
+            span {{ service.organizationDetails.name }}
 
         a.btn.success.icon-left(data-ng-click="vm.startCall()")
           span.icon.icon-call-16
           | {{ ::'HOME.TOP_CONTAINER.EXPERT_PROFILE.CALL' | translate }}
 
     pro-summary-tag(data-title="DASHBOARD.EXPERT_ACCOUNT.CONSULTATION_RANGE"
-    data-tags="tags")
+    data-tags="tags" data-hide-more-tags="$ctrl.hideMoreTags")

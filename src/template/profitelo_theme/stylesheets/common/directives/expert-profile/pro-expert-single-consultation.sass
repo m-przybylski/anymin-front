@@ -1,9 +1,4 @@
 .expert-profile-consultation
-  padding: 0 0 16px 0
-
-  +smm
-    padding: 0 0 32px 0
-
   .consultation-wrapper
     padding: 0
     border: 1px solid $c-lines
@@ -14,6 +9,16 @@
       +lgm
         padding: 32px
 
+      &:not(.is-company)
+        +smm
+          display: flex
+          justify-content: space-between
+          align-items: center
+
+          .consultation-details
+            padding: 0 32px 0 0
+            margin: 0
+
     .pro-summary-tag
       background: $c-background
       padding: 32px 16px
@@ -21,13 +26,10 @@
       +lgm
         padding: 32px
 
-      h4
-        +default-font-regular
-        font-size: $f-h5-size
-        color: $c-label
-        margin: 0 0 12px
+      .tag-list
+        overflow-x: scroll
+        flex-wrap: nowrap
 
-        span
-          font-size: $f-h5-size
-          color: $c-label
-          margin: 0 0 12px 4px
+        +lgm
+          overflow: auto
+          flex-wrap: wrap

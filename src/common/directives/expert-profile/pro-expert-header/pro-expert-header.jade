@@ -13,8 +13,9 @@
             a.btn.btn-circle
               span.icon.icon-share-24
 
-        .thumb.thumb-medium
-          img.circle.user-avatar(data-ng-src='{{handleUserImage(profile.avatar)}}' alt='{{profile.name}}' data-ng-class='{"is-not-uploaded": !!profile.avatar}')
+        .thumb.x128
+          img.circle.user-avatar(data-ng-src='{{handleUserImage(profile.avatar || profile.logo)}}'
+          alt='{{profile.name}}' data-ng-class='{"is-not-uploaded": !profile.avatar && !profile.logo}')
         h3 {{ profile.name }}
         .status-list(data-ng-hide="profile.type == 'company'")
           span.status.availability {{ 'HOME.EXPERT_CARD_AVAILABLE' | translate }}
@@ -24,14 +25,14 @@
           ul.languages-list
             li(data-ng-repeat="lang in profile.languages")
               span {{" " + lang + " "}}
-
-        .expert-collaborators(data-ng-hide="profile.type === 'company' || !profile.colaboratedOrganizations || profile.colaboratedOrganizations.length < 1")
+        .expert-collaborators(data-ng-hide="checkCollaboratedExperts()")
           p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.COOPERATE_WITH")
 
           ul.collaborators-list(data-ng-if="profile.type !== 'company'")
-            li.collaborators-item.thumb(data-ng-repeat = "organization in profile.colaboratedOrganizations")
-              img.user-avatar(data-ng-class="{'is-not-uploaded': handleUserImage(organization.organizationDetails.logo)}"
-              data-ng-src=" {{ handleUserImage(organization.organizationDetails.logo) }}")
+            li.collaborators-item(data-ng-repeat = "organization in profile.colaboratedOrganizations")
+              a.thumb.x48(data-ui-sref="app.company-profile({contactId: organization.id})")
+                img.user-avatar(data-ng-class="{'is-not-uploaded': handleUserImage(organization.organizationDetails.logo)}"
+                data-ng-src=" {{ handleUserImage(organization.organizationDetails.logo) }}")
 
     .expert-profile-description
       show-more-text(data-text="profile.description")

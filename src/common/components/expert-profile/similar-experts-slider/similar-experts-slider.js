@@ -9,20 +9,20 @@
 
     this.controlls = {}
 
-    this.nextSlide = function() {
+    this.nextSlide = () => {
       $scope.controlls.nextSlide()
     }
 
-    this.prevSlide = function() {
+    this.prevSlide = () => {
       $scope.controlls.prevSlide()
     }
 
     this.consultationOwnerImage = (imgToken) => {
-      return imgToken !== null ||  imgToken === '' ? HelperService.fileUrlResolver(imgToken) : ''
+      return imgToken !== null ||  imgToken === '' ? HelperService.fileUrlResolver(imgToken) : false
     }
 
     this.goToProfile = (consultation) => {
-      const stateName  = consultation.type === 'ORG' ? 'app.company-profile' : 'app.expert-profile'
+      const stateName  = consultation.owner.type === 'ORG' ? 'app.company-profile' : 'app.expert-profile'
 
       $state.go(stateName, { contactId: consultation.owner.id, primaryConsultationId: consultation.id  })
     }

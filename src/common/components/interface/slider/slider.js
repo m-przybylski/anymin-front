@@ -14,6 +14,7 @@
     }
 
     angular.element($window).on('resize', ()=> {
+      parentWidth = $element[0].offsetWidth
       _elementsWidth()
       $element.css('left', '0')
     })

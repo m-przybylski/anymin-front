@@ -3,34 +3,32 @@
     .consultation-wrapper(data-ng-click = "vm.goToProfile()")
       .consultation-details
         .consultation-price
-          h5 {{ ::vm.consultation.price / 100}}
-            span.currency(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE")
+          span {{ ::vm.consultation.price / 100}}
+            span.currency PLN {{ "HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE" | translate}}
 
-        .consultation-profile
-          .consultation-info
+        div
+          .consultation-title
             h3
               span {{ ::vm.consultation.name }}
 
-            ul.consultation-options
-              li.options-item
-                span {{ ::vm.consultation.satisfaction }}% {{"SEARCH.RECOMMENDATION" | translate }}
-              li.options-item
-                span {{ ::vm.consultation.talks }}
-              li.options-item
-                span {{ ::vm.consultation.timeAverage }} min.
-
+          ul.consultation-about
+            li.options-item.recomendation
+              span  {{ ::vm.consultation.satisfaction }}% {{"SEARCH.RECOMMENDATION" | translate }}
+            li.options-item.conversation-count
+              span {{ ::vm.consultation.talks }}
+            li.options-item.balance
+              span {{ ::vm.consultation.timeAverage }} min.
 
       .consultation-actions
-        .consultation-profile
-          .thumb
+        .profile-preview
+          .thumb.x48
             img.user-avatar(data-ng-src="{{ ::vm.profileImage }}" alt="{{ ::vm.consultation.owner.name }}")
 
             .status-list
               span.status.availability
 
-          .author
-            h6
-              span {{ ::vm.consultation.owner.name }}
+          .profile-name
+            span {{ ::vm.consultation.owner.name }}
 
         a.btn.success.icon-left(data-ng-click="vm.startCall()")
           span.icon.icon-call-16

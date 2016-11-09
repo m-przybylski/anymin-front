@@ -1,0 +1,25 @@
+.pro-expert-slider.experts-consultation-slider
+  .slider-header
+    span.title-row {{ $ctrl.title | translate }}
+      span ({{ $ctrl.tags.length }})
+
+  .slider-container
+    a.arrow-slider.arrow-left(data-ng-click="$ctrl.prevSlide()")
+      span.icon.icon-arrow-left-16
+
+    .slider-slides(data-ng-style="leftOffset" data-ng-swipe-left="$ctrl.nextSlide()")
+      slider.slider-list(data-ng-transclude data-controlls="controlls" data-move-slides="-2")
+
+        .slides(data-ng-repeat="expert in $ctrl.experts"  data-ng-swipe-right="$ctrl.prevSlide()")
+          .slider-item
+            a.profile-preview(data-ui-sref="app.expert-profile({contactId: expert.id})")
+              .thumb.x48
+                img.user-avatar(data-ng-src="{{ expert.image }}" alt="{{ expert.name }}"  data-ng-class="{'is-not-uploaded': !companyImage}")
+                .status-list
+                  span.status.availability
+
+              .profile-name
+                span {{ expert.name }}
+
+    a.arrow-slider.arrow-right(data-ng-click="$ctrl.nextSlide()")
+      span.icon.icon-arrow-right-16

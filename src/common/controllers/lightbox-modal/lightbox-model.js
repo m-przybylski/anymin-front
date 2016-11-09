@@ -23,6 +23,13 @@
 
     })
 
+    const _scrollToTop = () => {
+      $timeout(() => {
+        angular.element('.modal-dialog').scrollTop(0)
+        angular.element('.modal-dialog').perfectScrollbar('update')
+      })
+    }
+
     const fileInfoRequest = (slide) => {
       this.isPending = true
       FilesApi.fileInfoPath({
@@ -71,13 +78,6 @@
     })
 
     fileInfoRequest(this.currentSlide)
-
-    const _scrollToTop = () => {
-      $timeout(() => {
-        angular.element('.modal-dialog').scrollTop(0)
-        angular.element('.modal-dialog').perfectScrollbar('update')
-      })
-    }
 
     this.sliderActions = {
       nextSlide: () => {

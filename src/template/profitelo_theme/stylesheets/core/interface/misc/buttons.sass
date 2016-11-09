@@ -406,6 +406,8 @@
     align-items: center
     justify-content: center
 
+
+
 /*button icons*/
 [href].pro-icon
   &:hover
@@ -443,13 +445,13 @@
     padding: 0 16px 0 24px
 
     [class*="icon"]
-      margin: 0  0 16px
+      margin: 0 0 0 8px
 
   &.icon-left
     padding: 0 24px 0 16px
 
     [class*="icon"]
-      margin: 0 16px 0 0
+      margin: 0 8px 0 0
 
   &.default
     background: $c-primary
@@ -541,3 +543,35 @@
 
       span
         color: $c-primary
+
+
+
+.arrow-slider
+  display: none
+  opacity: 0.4
+
+  +lgm
+    align-items: center
+    justify-content: center
+    color: $c-label
+    border-radius: 3px
+    width: 32px
+    height: 32px
+    background: $c-lines
+    font-size: $f-base
+    display: flex
+
+  &.active-btn
+    opacity: 1
+
+    &:hover
+      background: $c-primary
+
+      span
+        color: $c-white
+
+  span
+    transition: color 0.3s
+    line-height: 1
+    font-size: $f-paragraph
+    color: $c-secondary-txt

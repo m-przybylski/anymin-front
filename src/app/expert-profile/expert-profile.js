@@ -12,7 +12,7 @@
         smoothScrolling.simpleScrollTo('#consultationScroll', true)
       })
     }
-
+    
     this.profile.colaboratedOrganizations = expertOrganizations
     this.similarExperts = similarExperts
 
@@ -45,41 +45,71 @@
       templateUrl: 'expert-profile/expert-profile.tpl.html',
       controller: 'ExpertProfileController',
       resolve: {
+        expertOrganizations: ($q, $state, $stateParams, ProfileApi, User, proTopAlertService) => {
+          let _deferred = $q.defer()
+          ProfileApi.getEmployersProfilesWithServices({
+            profileId: $stateParams.contactId
+          }).$promise.then((response)=> {
+            _deferred.resolve(response)
+          }, (error)=> {
+            _deferred.reject(error)
+            $state.go('app.dashboard.start')
+            proTopAlertService.error({
+              message: 'Expert does not exist',
+              timeout: 4
+            })
+          })
+          return _deferred.promise
+
+        },
         /* istanbul ignore next */
-        savedProfile: ($q, $state, $stateParams, ProfileApi, SearchApi, ServiceApi) => {
+        savedProfile: ($q, $state, $stateParams, ProfileApi, SearchApi, ServiceApi, expertOrganizations, proTopAlertService) => {
           /* istanbul ignore next */
           let _deferred = $q.defer()
           /* istanbul ignore next */
-            ProfileApi.getProfileWithServices({
-              profileId: $stateParams.contactId
-            }).$promise.then((profileWithServices)=> {
-              ServiceApi.postServicesTags({
-                serviceIds: _.map(profileWithServices.services, 'id')
-              }).$promise.then((servicesTags) => {
-
-                profileWithServices.services.forEach((service) => {
-                  service.details.tags = _.head(_.filter(servicesTags, (serviceTags) => service.id === serviceTags.serviceId)).tags
-                })
-                
-                const primaryConsultation = _.find(profileWithServices.services, (o) => { return o.id === $stateParams.primaryConsultationId })
-                
-                if (angular.isDefined($stateParams.primaryConsultationId) && !!primaryConsultation) {
-                  const currentElement = profileWithServices.services.splice(profileWithServices.services.indexOf(primaryConsultation), 1)
-                  profileWithServices.services.unshift(currentElement)
-                }
-
-                _deferred.resolve(profileWithServices)
+          ProfileApi.getProfile({
+            profileId: $stateParams.contactId
+          }).$promise.then((profileWithServices)=> {
+            profileWithServices.services = null
+            function flatMap(array, lambda) {
+              return array.concat.apply([], array.map(lambda))
+            }
+            
+            profileWithServices.services = flatMap(expertOrganizations, (a)=> {
+              a.services.forEach((service) => {
+                service.organizationDetails = a.organizationDetails
               })
-            }, () => {
-              _deferred.resolve(null)
-            }, (error)=> {
-              _deferred.reject(error)
-              $state.go('app.dashboard')
-              proTopAlertService.error({
-                message: 'error',
-                timeout: 4
-              })
+
+              return a.services
             })
+            
+            ServiceApi.postServicesTags({
+              serviceIds: _.map(profileWithServices.services, 'id')
+            }).$promise.then((servicesTags) => {
+
+              profileWithServices.services.forEach((service) => {
+                service.details.tags = _.head(_.filter(servicesTags, (serviceTags) => service.id === serviceTags.serviceId)).tags
+              })
+
+              const primaryConsultation = _.find(profileWithServices.services, (o) => { return o.id === $stateParams.primaryConsultationId })
+
+              if (angular.isDefined($stateParams.primaryConsultationId) && !!primaryConsultation && profileWithServices.services.length > 1) {
+                const currentElement = profileWithServices.services.splice(profileWithServices.services.indexOf(primaryConsultation), 1)
+                profileWithServices.services.unshift(currentElement)
+              }
+
+              _deferred.resolve(profileWithServices)
+            })
+          }, () => {
+            _deferred.resolve(null)
+          }, (error)=> {
+            _deferred.reject(error)
+            $state.go('app.dashboard.start')
+            proTopAlertService.error({
+              message: 'error',
+              timeout: 4
+            })
+          })
           /* istanbul ignore next */
           return _deferred.promise
         },
@@ -97,38 +127,23 @@
             'limit' : 10
           }).$promise.then((response)=> {
 
-            const currentConsultation = _.find(response.results, (o) => {return o.id === savedProfile.services[0].id })
+            const currentConsultation = _.find(response.results, (o) => {
+              return o.id === savedProfile.services[0].id 
+            })
 
             if (!!currentConsultation) {
-              response.results = _.remove(response.results, (n) => {return n.id !== savedProfile.services[0].id})
+              response.results = _.remove(response.results, (n) => {
+                return n.id !== savedProfile.services[0].id
+              })
             }
 
             _deferred.resolve(response.results)
 
-        }, (error) => {
+          }, (error) => {
             _deferred.reject(error)
           })
           /* istanbul ignore next */
           return _deferred.promise
-        },
-        expertOrganizations: ($q, $state, $stateParams, ProfileApi, User, proTopAlertService) => {
-          let _deferred = $q.defer()
-          User.getStatus().then(() => {
-            ProfileApi.getEmployersProfilesWithServices({
-              profileId: $stateParams.contactId
-            }).$promise.then((response)=> {
-              _deferred.resolve(response)
-            }, (error)=> {
-              _deferred.reject(error)
-              $state.go('app.dashboard')
-              proTopAlertService.error({
-                message: 'error',
-                timeout: 4
-              })
-            })
-          })
-          return _deferred.promise
-
         }
       },
 

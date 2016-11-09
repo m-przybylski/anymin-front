@@ -1,53 +1,49 @@
-.similar-expert-slider
-  .pro-expert-slider.single-container.slider-container
-
+.pro-expert-slider.similar-experts-slider
+  .slider-container
     a.btn.btn-arrow.arrow-left(data-ng-click="$ctrl.prevSlide()")
       span.icon.icon-arrow-left-16
 
-    .slider-slides(data-ng-style="leftOffset" data-ng-swipe-left="nextSlide()")
+    .slider-slides(data-ng-style="leftOffset" data-ng-swipe-left="$ctrl.nextSlide()")
       slider.slider-list(data-ng-transclude data-controlls="controlls" data-move-slides="-2")
         .slides.slider-header
           .slider-item
-            div
-              span.icon.icon-hands-32
-              p
+            .slider-item-consultation
+              div
+                span.icon.icon-hands-32
                 span {{ $ctrl.title | translate }}
 
-        .slides(data-ng-repeat="consultation in $ctrl.consultations"  data-ng-swipe-right="prevSlide()")
+        .slides(data-ng-repeat="consultation in $ctrl.consultations"  data-ng-swipe-right="$ctrl.prevSlide()")
           .slider-item(data-ng-click=" $ctrl.goToProfile($ctrl.consultations[$index])")
-            .single-consultation
-              .consultation-wrapper
-                .consultation-content
-                  .consultation-actions
-                    .consultation-profile
-                      a.thumb
-                        img.user-avatar( data-ng-class="{'is-not-uploaded': !$ctrl.consultationOwnerImage(consultation.owner.img)}" data-ng-src=" {{ $ctrl.consultationOwnerImage(consultation.owner.img) }}")
 
-                        .status-list
-                          span.status.availability
+            .slider-item-consultation
+              .profile-preview
+                .thumb.x48
+                  img.user-avatar( data-ng-class="{'is-not-uploaded': !$ctrl.consultationOwnerImage(consultation.owner.img)}" data-ng-src=" {{ $ctrl.consultationOwnerImage(consultation.owner.img) }}")
 
-                      .author
-                        h6
-                          a {{ consultation.owner.name }}
+                  .status-list
+                    span.status.availability
 
-                  .consultation-details
-                    .consultation-price
-                      h5 {{ consultation.price / 100}}
-                        span.currency(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE")
+                .profile-name
+                  span {{ consultation.owner.name }}
 
-                    .consultation-profile
-                      .consultation-info
-                        h3
-                          a {{ consultation.name }}
+              div
+                .consultation-price
+                  span {{ consultation.price / 100 | number: 2}}
+                    span.currency PLN {{ "HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE" | translate}}
 
-                        ul.consultation-options
-                          li.options-item
-                            span  {{ consultation.satisfaction }}
-                          li.options-item
-                            span {{ consultation.numberOfCalls }}
-                          li.options-item
-                            span Stan Twojego konta pozwala na ok. 10 min rozmowy
+                .consultation-title
+                  h3
+                    span {{ consultation.name }}
 
+              ul.consultation-about
+                li.options-item.recomendation
+                  span.icon.icon-satisfaction-16
+                  span {{ consultation.satisfaction }}
+                  span(data-translate="DASHBOARD.EXPERT_ACCOUNT.RECOMMENDATION")
+                li.options-item.conversation-count
+                  span.icon.icon-calls-16
+                  span {{ consultation.numberOfCalls }}
+                  span(data-translate="DASHBOARD.EXPERT_ACCOUNT.CONVERSATIONS")
 
     a.btn.btn-arrow.arrow-right(data-ng-click="$ctrl.nextSlide()")
       span.icon.icon-arrow-right-16
