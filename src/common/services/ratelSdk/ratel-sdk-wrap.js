@@ -14,7 +14,7 @@
   }
 
   const artichokeConfig = {
-    debug: true,
+    debug: false,
     hostname: 'v0.1.1.artichoke.ratel.io'
   }
 

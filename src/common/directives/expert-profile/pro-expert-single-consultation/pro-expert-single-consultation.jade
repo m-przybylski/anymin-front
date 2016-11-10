@@ -20,7 +20,7 @@
         .cost-consultations
           .prize
             span.icon.icon-price-32
-            h3 {{ service.details.price / 100 }}
+            h3 {{ service.details.price | money }}
             h3.currency(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE")
           .call(data-ng-click="initCall()")
             p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CALL")

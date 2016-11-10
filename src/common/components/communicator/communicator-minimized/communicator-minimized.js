@@ -10,9 +10,8 @@
     this.isConnecting = true
 
     const setCallData = callData => {
-      this.service = callData.service
-      this.expert = callData.expert
-      this.expert.expertDetails.avatar = HelperService.fileUrlResolver(this.expert.expertDetails.avatar)
+      this.avatar = HelperService.fileUrlResolver(callData.expert.expertDetails.avatar)
+      this.name = callData.expert.expertDetails.name
     }
 
     callService.onClientCallStart(_ => {
@@ -24,8 +23,7 @@
     })
 
     callService.onClientCallPending(callData => {
-      this.avatar = HelperService.fileUrlResolver(callData.expert.expertDetails.avatar)
-      this.name = callData.expert.expertDetails.name
+      setCallData(angular.copy(callData))
     })
 
     callService.onTimeCostChange(timeCost => {

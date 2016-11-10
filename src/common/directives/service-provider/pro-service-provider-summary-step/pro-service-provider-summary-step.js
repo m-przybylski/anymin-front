@@ -40,6 +40,7 @@
     'lodash',
     'pascalprecht.translate',
     'profitelo.common.controller.service-provider.service-provider-step-controller',
+    'profitelo.filters.money',
     'profitelo.components.pro-summary-tag'
   ])
   .directive('proServiceProviderSummaryStep', proServiceProviderSummaryStep)

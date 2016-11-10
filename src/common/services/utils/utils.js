@@ -17,10 +17,10 @@
 
       return {
         notify: (event, ...args) => {
-          if (handlers.hasOwnProperty(event) > -1) {
+          if (handlers.hasOwnProperty(event)) {
             angular.forEach(handlers[event], handler => {
               if (angular.isFunction(handler)) {
-                handler.apply(null, angular.copy(args))
+                handler.apply(null, args)
               }
             })
           }

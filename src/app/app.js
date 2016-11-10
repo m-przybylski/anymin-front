@@ -17,7 +17,6 @@
           message: $filter('translate')('LOGIN.SUCCESSFUL_LOGOUT'),
           timeout: 2
         })
-        $rootScope.callSession = false
         $state.go(targetState)
       }
 
@@ -94,7 +93,6 @@
 
       User.getStatus().then((session) => {
         userTransfer(event, toState, fromState)
-        communicatorService.authenticate()
       }, (getStatusError) => {
         userTransfer(event, toState, fromState)
       })
@@ -139,15 +137,18 @@
         pageTitle: 'PAGE_TITLE.BASE'
       },
       resolve: {
-        session: ($rootScope, $q, User) => {
+        session: ($rootScope, $q, User, communicatorService) => {
           /* istanbul ignore next */
           return User.getStatus().then((response)=> {
             /* istanbul ignore next */
             if (angular.isDefined(response.status) && response.status !== 401) {
               $rootScope.loggedIn = true
+              communicatorService.authenticate()
             }
             /* istanbul ignore next */
             return $q.resolve()
+          }, (err) => {
+            $rootScope.loggedIn = false
           })
         },
         browserType: () => {
@@ -215,7 +216,6 @@
     'profitelo.services.interfaceLanguage',
     'profitelo.services.customTranslationHandler',
     'profitelo.services.search-url',
-    'profitelo.services.utils',
 
     // controllers
     'profitelo.controller.dashboard',

@@ -52,7 +52,10 @@
       })
 
       chat.onCall(callInvitation =>
-        callbacks.notify(events.onCall, {invitation: callInvitation, service: _service}))
+        callbacks.notify(events.onCall, {invitation: callInvitation, service: _service, session: session}))
+
+      chat.onRoom(roomInvitation =>
+        callbacks.notify(events.onRoom, {invitation: roomInvitation, service: _service}))
 
       chat.connect()
     }
@@ -100,7 +103,7 @@
     return angular.extend(api, callbacks.methods)
   }
 
-  angular.module('profitelo.services.communicatorService', [
+  angular.module('profitelo.services.communicator', [
     'c7s.ng.userAuth',
     'profitelo.swaggerResources',
     'profitelo.services.dialog-service',

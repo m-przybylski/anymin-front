@@ -1,5 +1,5 @@
 (function() {
-  function IndividualConsultationController($scope, $state, $timeout, savedProfile, ServiceApi, proTopAlertService, profileImage, DialogService, serviceProviderService) {
+  function IndividualConsultationController($scope, $state, User, savedProfile, ServiceApi, proTopAlertService, profileImage, DialogService, serviceProviderService) {
 
     this.costModel = serviceProviderService.createDefaultModel('')
     this.editModel = serviceProviderService.createDefaultModel(0)
@@ -7,10 +7,10 @@
     this.queue = serviceProviderService.createDefaultQueue(3, 1, 0)
     this.editQueue = serviceProviderService.createDefaultQueue(3, 4, 3)
 
+    const currencyCode = User.getData('currency')
+
     this.currency = [
-      {id: 1, name: 'PLN'},
-      {id: 2, name: 'USD'},
-      {id: 3, name: 'EUR'}
+      {id: 1, name: currencyCode}
     ]
     this.consultations = []
     this.profile = {}
@@ -28,7 +28,10 @@
         details: {
           name: this.costModel.name,
           tags: this.costModel.tags,
-          price: parseInt(this.costModel.cost, 10)
+          price: {
+            amount: parseInt(this.costModel.cost, 10),
+            currency: currencyCode
+          }
         },
         invitations: []
       }).$promise.then((res)=> {
@@ -93,7 +96,10 @@
           details: {
             name: this.editModel.name,
             tags: this.editModel.tags,
-            price: parseInt(this.editModel.cost, 10)
+            price: {
+              amount: parseInt(this.editModel.cost, 10),
+              currency: currencyCode
+            }
           },
           invitations: []
         }).$promise.then(() => {

@@ -1,5 +1,5 @@
 (function() {
-  function IndividualSummaryController($state, $scope, $filter, savedProfile, ServiceApi, proTopAlertService, profileImage, DialogService) {
+  function IndividualSummaryController($state, $scope, $filter, savedProfile, ServiceApi, proTopAlertService, profileImage, DialogService, communicatorService) {
 
     if (savedProfile && savedProfile.expertDetails && !savedProfile.organizationDetails) {
       this.profile = savedProfile.expertDetails
@@ -29,6 +29,7 @@
     this.verifyProfile = ()=> {
       ServiceApi.postServicesVerify().$promise.then((res)=> {
         $state.go('app.dashboard.start')
+        communicatorService.authenticate()
         proTopAlertService.success({
           message: $filter('translate')('DASHBOARD.CREATE_PROFILE.SUMMARY_VERIFY'),
           timeout: 4
@@ -61,7 +62,10 @@
           details: {
             name: this.editModel.name,
             tags: this.editModel.tags,
-            price: parseInt(this.editModel.cost, 10)
+            price: {
+              amount: parseInt(this.editModel.cost, 10),
+              currency: 'PLN'
+            }
           },
           invitations: []
         }).$promise.then(() => {
@@ -107,6 +111,7 @@
   angular.module('profitelo.controller.dashboard.service-provider.summary.individual', [
     'ui.router',
     'profitelo.services.dialog-service',
+    'profitelo.services.communicator',
     'profitelo.common.controller.accept-reject-dialog-controller',
     'profitelo.services.service-provider-state',
     'profitelo.directives.service-provider.pro-service-provider-summary-step',

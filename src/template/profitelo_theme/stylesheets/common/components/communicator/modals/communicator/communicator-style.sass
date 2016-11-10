@@ -8,15 +8,24 @@
   box-shadow: none
   padding: 32px 16px
   width: 100%
-  min-height: 100vh
-  display: flex
-  align-items: center
-  justify-content: center
+  height: 100vh
+  overflow-y: scroll
+
+  +xsm-portrait
+    display: flex
+    align-items: center
+    justify-content: center
 
   +smm
-    width: calc(100% - 128px)
+    display: flex
+    align-items: center
+    justify-content: center
+    height: auto
+    overflow: auto
+    width: 100%
     min-height: inherit
     padding: 32px 32px 64px
+
 
   +mdm
     min-height: 488px

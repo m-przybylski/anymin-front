@@ -6,12 +6,12 @@ block content
           .header-handler.flex-row
             .summary-step-title
               h3 {{ consultation.details.name}}
-              p.consultation-price {{ consultation.details.price/100 | number:2 }}&nbsp
+              p.consultation-price {{ consultation.details.price | money}}
                 span(data-translate="DASHBOARD.CREATE_PROFILE.SUMMARY.CURRENCY")
             .btn-handler
               a.pro-button.noborder(data-ng-click="vm.deleteConsultation(consultation.id, $index)")
                   span(data-translate='DASHBOARD.SERVICE_PROVIDER.NAME.DELETE')
-              a.pro-button.noborder(data-ng-click="vm.editConsultation(consultation.id, consultation.details.name, consultation.details.price, consultation.details.tags, consultation.invitations, consultation.ownerEmployee)")
+              a.pro-button.noborder(data-ng-click="vm.editConsultation(consultation.id, consultation.details.name, consultation.details.price.amount, consultation.details.tags, consultation.invitations, consultation.ownerEmployee)")
                   span(data-translate='DASHBOARD.SERVICE_PROVIDER.NAME.EDIT')
                   
           pro-summary-tag(

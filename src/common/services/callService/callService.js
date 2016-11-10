@@ -27,15 +27,18 @@
 
     const hangupCall = () => {
       if (call) {
-        call.hangup().then(_ => {
+        return call.hangup().then(result => {
           callbacks.notify(events.onHangup, null)
           timer.stop()
           serviceUsageData = null
           expertService = null
           timer = null
           call = null
+
+          return $q.resolve(result)
         })
       }
+      return $q.resolve(null)
     }
 
     const setLocalStreamElement = (element) => {
@@ -68,11 +71,10 @@
       callbacks.notify(events.onHangup, null)
     }
 
-    const _onTimeCostChange = timeCost => {
+    const _onTimeCostChange = timeCost =>
       callbacks.notify(events.onTimeCostChange, timeCost)
-    }
 
-    const _onExpertCallJoin = () => {
+    const _onExpertCallJoin = (_inviter, session) => {
       let price = 0
       if (serviceUsageData) {
         price = serviceUsageData.service.details.price
@@ -81,13 +83,13 @@
       }
       timer = UtilsService.timerFactory.getInstance(price, freeMinutesCount)
       timer.start(_onTimeCostChange)
-      callbacks.notify(events.onExpertCallJoin, null)
+      callbacks.notify(events.onExpertCallJoin, {inviter: _inviter, session: session})
     }
 
-    const _answerCall = (callInvitation) => {
+    const _answerCall = (callInvitation, session) => {
       call = callInvitation.call
       call.join().then(_ => {
-        _onExpertCallJoin()
+        _onExpertCallJoin(callInvitation.inviter, session)
       })
       call.onLeft(_ => {
         _onExpertCallHangup()
@@ -100,12 +102,14 @@
       callbacks.notify(events.onExpertCallReject, callInvitation)
     }
 
-    const _onExpertCallIncoming = (callInvitation, _service) => {
+    const _onExpertCallIncoming = (callInvitation, _service, session) => {
       modalsService.createIncomingCallModal(_service, () => {
-        _answerCall(callInvitation)
+        _answerCall(callInvitation, session)
       }, () => {
         _rejectCall(callInvitation)
       })
+
+      $log.info('EXPERT received call invitation: ', callInvitation)
 
       expertService = _service
 
@@ -114,7 +118,7 @@
     }
 
     communicatorService.onCall(obj =>
-      _onExpertCallIncoming(obj.invitation, obj.service))
+      _onExpertCallIncoming(obj.invitation, obj.service, obj.session))
 
     const _onNoFunds = () => {
       modalsService.createNoFundsModal(_ => _, _ => _)
@@ -134,11 +138,10 @@
       // _onNoFunds()
     }
 
-    const _onClientCallStarted = (callJoined) => {
+    const _onClientCallStarted = (_inviterId) => {
       timer = UtilsService.timerFactory.getInstance(serviceUsageData.service.details.price, freeMinutesCount)
       timer.start(_onTimeCostChange)
-      $log.debug(callJoined.user + ' answered the call!')
-      callbacks.notify(events.onClientCallStarted, call)
+      callbacks.notify(events.onClientCallStarted, _inviterId)
     }
 
     const _onClientCallStart = (_serviceId) => {
@@ -146,7 +149,6 @@
     }
 
     const _onClientCallPending = (serviceUsageRequest) => {
-      console.log(serviceUsageRequest)
       serviceUsageData = serviceUsageRequest
       callbacks.notify(events.onClientCallPending, serviceUsageRequest)
     }
@@ -163,6 +165,41 @@
       callbacks.notify(events.onClientCallRejected, null)
     }
 
+    const _onCreateDirectCall = (_call, _inviterId) => {
+      call = _call
+
+      let callStarted = false
+      call.onJoined(_ => {
+        callStarted = true
+        _onClientCallStarted(_inviterId)
+      })
+      call.onLeft(_ => {
+        if (callStarted) {
+          _onClientCallHangup()
+        } else {
+          _onClientCallRejected()
+        }
+      })
+    }
+
+    const _onDirectCallError = (err) =>
+      $log.error(err)
+
+    const _onAddSUR = (serviceUsageRequest) => {
+      _onClientCallPending(serviceUsageRequest)
+
+      const session = communicatorService.getClientSession()
+
+      $log.info('CLIENT call: ', serviceUsageRequest)
+      return session.chat.createDirectCall(serviceUsageRequest.ratelId)
+        .then((_call) => _onCreateDirectCall(_call, serviceUsageRequest.ratelId), _onDirectCallError)
+    }
+
+    const _onAddSURError = (err) => {
+      _onClientCallStartError(err)
+      return $q.resolve(null)
+    }
+
     const startCall = (_serviceId) => {
       if (!communicatorService.getClientSession() || !angular.isDefined(_serviceId) || !_serviceId) {
         return $q.resolve(null)
@@ -170,39 +207,13 @@
 
       _onClientCallStart(_serviceId)
 
-      return ServiceApi.addServiceUsageRequest({serviceId: _serviceId}).$promise.then(serviceUsageRequest => {
-
-        _onClientCallPending(serviceUsageRequest)
-
-        const session = communicatorService.getClientSession()
-
-        session.chat.createDirectCall(serviceUsageRequest.ratelId).then(_call => {
-          call = _call
-
-          let callStarted = false
-          call.onJoined(callJoined => {
-            callStarted = true
-            _onClientCallStarted(callJoined)
-          })
-          call.onLeft(_ => {
-            if (callStarted) {
-              _onClientCallHangup()
-            } else {
-              _onClientCallRejected()
-            }
-          })
-        })
-
-        $q.resolve(session)
-      }, (err) => {
-        _onClientCallStartError(err)
-        return $q.resolve(null)
-      })
+      return ServiceApi.addServiceUsageRequest({serviceId: _serviceId})
+        .$promise
+        .then(_onAddSUR, _onAddSURError)
     }
 
     const api = {
       callServiceId: startCall,
-      getCall: () => call,
       toggleAudio: toggleAudio,
       toggleVideo: toggleVideo,
       hangupCall: hangupCall,
@@ -214,7 +225,7 @@
   }
 
   angular.module('profitelo.services.call', [
-    'profitelo.services.communicatorService',
+    'profitelo.services.communicator',
     'profitelo.swaggerResources',
     'profitelo.services.utils',
     'profitelo.services.modals'

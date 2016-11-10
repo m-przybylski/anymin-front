@@ -1,0 +1,35 @@
+.messenger-input
+  background: $c-white
+  display: flex
+  justify-content: space-between
+  padding: 0 16px
+  position: relative
+  border-radius: 0 0 3px 3px
+
+  &::after
+    content: ""
+    width: 0
+    height: 0
+    position: absolute
+    right: 20px
+    top: 100%
+    border-top: 10px solid $c-white
+    border-right: 10px solid transparent
+    border-left: 10px solid transparent
+
+  input
+    height: 56px
+    flex: 1
+    font-size: $f-h5-size
+
+  .messenger-input-action
+    display: flex
+    align-items: stretch
+
+    a
+      display: inline-flex
+      align-items: center
+      margin: 0 0 0 16px
+
+      span
+        color: $c-secondary-txt

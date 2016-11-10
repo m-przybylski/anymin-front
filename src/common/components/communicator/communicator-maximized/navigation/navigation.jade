@@ -20,4 +20,6 @@
       span.icon.icon-camera-off-24(data-ng-hide="vm.isVideo")
 
     a.btn.btn-circle.chat-switcher(data-ng-click="vm.toggleMessenger()" data-ng-class="{'is-active': vm.isMessenger}")
-      span.icon.icon-chat-24
+      span.icon.icon-chat-24(data-ng-hide="vm.isMessenger")
+      span.icon.icon-close-16(data-ng-show="vm.isMessenger")
+      messenger-maximized-meassage-incoming(data-ng-show="vm.isTypingMessage")

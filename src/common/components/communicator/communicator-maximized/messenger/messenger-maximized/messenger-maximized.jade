@@ -1,0 +1,23 @@
+.messenger-maximized
+  .messenger-header
+    .communicator-counter
+      span {{ $ctrl.callLength | secondsToDateTime | date:'HH:mm:ss'}}
+      span {{ $ctrl.callCost | money }}
+
+    a(data-ng-click="$ctrl.minimizeMessenger()")
+      span.icon.icon-close-16
+
+  .messenger-messages
+    .messenger-scroll
+      grouped-messages(data-ng-repeat="messages in $ctrl.groupedMessages track by $index" data-messages="messages"
+        data-participant-avatar="{{ :: $ctrl.participantAvatar }}")
+
+      .messenger-message-incoming(data-ng-class="{'is-active': $ctrl.isTyping}" data-ng-show="$ctrl.isTyping")
+        .thumb
+          img.user-avatar(src data-ng-src="{{ $ctrl.participantAvatar }}")
+        .connection-dots
+          span
+          span
+          span
+
+  messenger-input(data-on-send-message="$ctrl.onSendMessage" data-on-typing="$ctrl.indicateTypingDebounce")

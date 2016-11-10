@@ -4,8 +4,8 @@
   function controller(callService) {
 
     this.isAudio = true
-    this.isMessenger = false
     this.areOptions = false
+    this.isTypingMessage = false
 
     this.toggleAudio = () => {
       callService.toggleAudio()
@@ -35,7 +35,8 @@
     bindings: {
       minimizeCommunicator: '=',
       hangupCall: '=',
-      isVideo: '='
+      isVideo: '=',
+      isMessenger: '='
     }
   }
 

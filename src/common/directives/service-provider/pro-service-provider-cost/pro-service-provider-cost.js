@@ -53,6 +53,7 @@
         _isValid().then(() => {
 
           scope.proModel.cost = scope.model.cost * 100
+
           scope.proceed()
 
         }, () => {
