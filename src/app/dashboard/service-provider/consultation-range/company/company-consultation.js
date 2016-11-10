@@ -24,7 +24,7 @@
           tags: this.costModel.tags,
           price: {
             amount: parseInt(this.costModel.cost, 10),
-            currency: savedProfile.currency
+            currency: this.costModel.currency
           }
         },
         ownerEmployee: this.ownerEmployee,
@@ -103,7 +103,7 @@
             tags: this.editModel.tags,
             price: {
               amount: parseInt(this.editModel.cost, 10),
-              currency: savedProfile.currency
+              currency: this.editModel.currency
             }
           },
           ownerEmployee: this.ownerEmployee,
