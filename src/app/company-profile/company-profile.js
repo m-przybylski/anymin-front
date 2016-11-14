@@ -93,7 +93,7 @@
           return _deferred.promise
         },
         /* istanbul ignore next */
-        similarExperts: (SearchApi, savedProfile, $q) => {
+        similarExperts: (SearchApi, savedProfile, $q, proTopAlertService, $state) => {
           /* istanbul ignore next */
           let _deferred = $q.defer()
           /* istanbul ignore next */

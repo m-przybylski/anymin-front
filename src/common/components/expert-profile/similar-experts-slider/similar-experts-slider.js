@@ -1,19 +1,9 @@
 (function() {
 
   /* @ngInject */
-  function controller($scope, $state, HelperService, callService) {
+  function controller($scope, $state, HelperService) {
 
-    this.areControllsVisible = true
-
-    if (this.consultations.length <= 3) {
-      this.areControllsVisible = false
-    }
-
-    this.imageUrl = (slide) => {
-      return slide.previews[0]
-    }
-
-    this.controlls = {}
+    this.areControllsVisible = this.consultations.length > 3
 
     this.nextSlide = () => {
       $scope.controlls.nextSlide()
@@ -52,7 +42,6 @@
   angular.module('profitelo.components.expert-profile.similar-experts-slider', [
     'profitelo.components.interface.slider',
     'profitelo.services.helper',
-    'profitelo.services.call',
     'pascalprecht.translate'
   ])
     .component('similarExpertsSlider', similarExpertsSlider)
