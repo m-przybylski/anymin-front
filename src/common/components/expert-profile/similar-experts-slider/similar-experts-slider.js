@@ -3,6 +3,12 @@
   /* @ngInject */
   function controller($scope, $state, HelperService, callService) {
 
+    this.areControllsVisible = true
+
+    if(this.consultations.length <= 3) {
+      this.areControllsVisible = false
+    }
+
     this.imageUrl = (slide) => {
       return slide.previews[0]
     }

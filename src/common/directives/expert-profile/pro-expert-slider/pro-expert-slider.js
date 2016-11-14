@@ -1,6 +1,14 @@
 (function() {
-  function proExpertSlider(DialogService) {
+  function proExpertSlider(DialogService, $timeout) {
     function linkFunction(scope) {
+
+      scope.areControllsVisible = true
+
+      $timeout(() => {
+        if(scope.sliders.length <= 3) {
+          scope.areControllsVisible = false
+        }
+      })
 
       scope.imageUrl = (slide) => {
         return slide.previews[0]
