@@ -131,7 +131,10 @@
         name: 'Stu Unger Rise And Fall Of A Poker Genius',
         numberOfCalls: 2,
         satisfaction: 2,
-        price: 10000,
+        price: {
+          amount: 10000,
+          currency: 'PLN'
+        },
         owner: {
           name: 'Janek Dzbanek',
           img: null,
@@ -142,7 +145,10 @@
         name: 'Stu Unger Rise And Fall Of A Poker Genius',
         numberOfCalls: 2,
         satisfaction: 2,
-        price: 10000,
+        price: {
+          amount: 10000,
+          currency: 'PLN'
+        },
         owner: {
           name: 'Janek Dzbanek',
           img: null,
@@ -153,7 +159,10 @@
         name: 'Stu Unger Rise And Fall Of A Poker Genius',
         numberOfCalls: 2,
         satisfaction: 2,
-        price: 10000,
+        price: {
+          amount: 10000,
+          currency: 'PLN'
+        },
         owner: {
           name: 'Janek Dzbanek',
           img: null,
@@ -164,7 +173,10 @@
         name: 'Stu Unger Rise And Fall Of A Poker Genius',
         numberOfCalls: 2,
         satisfaction: 2,
-        price: 10000,
+        price: {
+          amount: 10000,
+          currency: 'PLN'
+        },
         owner: {
           name: 'Janek Dzbanek',
           img: null,

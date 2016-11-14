@@ -26,7 +26,7 @@
 
       $state.go(stateName, { contactId: consultation.owner.id, primaryConsultationId: consultation.id  })
     }
-    
+
     return this
   }
 
