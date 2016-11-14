@@ -1,6 +1,6 @@
 .pro-expert-slider.similar-experts-slider
   .slider-container
-    a.btn.btn-arrow.arrow-left(data-ng-click="$ctrl.prevSlide()")
+    a.btn.btn-arrow.arrow-left(data-ng-click="$ctrl.prevSlide()" data-ng-show="$ctrl.areControllsVisible")
       span.icon.icon-arrow-left-16
 
     .slider-slides(data-ng-style="leftOffset" data-ng-swipe-left="$ctrl.nextSlide()")
@@ -45,5 +45,5 @@
                   span {{ consultation.numberOfCalls }}
                   span(data-translate="DASHBOARD.EXPERT_ACCOUNT.CONVERSATIONS")
 
-    a.btn.btn-arrow.arrow-right(data-ng-click="$ctrl.nextSlide()")
+    a.btn.btn-arrow.arrow-right(data-ng-click="$ctrl.nextSlide()" data-ng-show="$ctrl.areControllsVisible")
       span.icon.icon-arrow-right-16
