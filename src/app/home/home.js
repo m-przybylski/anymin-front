@@ -12,14 +12,6 @@
       this.controlls.prevSlide()
     }
 
-    this.newsPrevSlide = () => {
-      this.newsControlls.prevSlide()
-    }
-
-    this.newsNextSlide = () => {
-      this.newsControlls.nextSlide()
-    }
-
     this.onSearchFocus = () => {
       this.interfaceController.hideSearchMask = false
       const searchInputOnPage = angular.element(document).find('.search-bar-container .search-bar')[1]
@@ -134,26 +126,62 @@
       }
     ]
 
-    this.newsSlider = [
+    this.similarExperts = [
       {
-        img: 'http://chicksbymail.com/wp-content/uploads/2016/08/hipster-floral-tumblr-background-ulzzangnet-background-images-floral-tumblrflowers-hipster-floral-print-dress-zara-tattoo-hearts-tumblr-bp8xkytr-1200x600.jpg',
-        title: 'Title 1',
-        descriptions: 'Stu Unger Rise And Fall Of A Poker Genius'
+        name: 'Stu Unger Rise And Fall Of A Poker Genius',
+        numberOfCalls: 2,
+        satisfaction: 2,
+        price: {
+          amount: 10000,
+          currency: 'PLN'
+        },
+        owner: {
+          name: 'Janek Dzbanek',
+          img: null,
+          type: 'EXP'
+        }
       },
       {
-        img: 'http://chicksbymail.com/wp-content/uploads/2016/08/hipster-floral-tumblr-background-ulzzangnet-background-images-floral-tumblrflowers-hipster-floral-print-dress-zara-tattoo-hearts-tumblr-bp8xkytr-1200x600.jpg',
-        title: 'Title 2',
-        descriptions: 'Stu Unger Rise And Fasd'
+        name: 'Stu Unger Rise And Fall Of A Poker Genius',
+        numberOfCalls: 2,
+        satisfaction: 2,
+        price: {
+          amount: 10000,
+          currency: 'PLN'
+        },
+        owner: {
+          name: 'Janek Dzbanek',
+          img: null,
+          type: 'EXP'
+        }
       },
       {
-        img: 'http://chicksbymail.com/wp-content/uploads/2016/08/hipster-floral-tumblr-background-ulzzangnet-background-images-floral-tumblrflowers-hipster-floral-print-dress-zara-tattoo-hearts-tumblr-bp8xkytr-1200x600.jpg',
-        title: 'Title 3',
-        descriptions: 'Stu Unger Rise And Fall Of A Poker Genius, Stu Unger Rise And Fall Of A Poker Genius, Stu Unger Rise And Fall Of A Poker Genius'
+        name: 'Stu Unger Rise And Fall Of A Poker Genius',
+        numberOfCalls: 2,
+        satisfaction: 2,
+        price: {
+          amount: 10000,
+          currency: 'PLN'
+        },
+        owner: {
+          name: 'Janek Dzbanek',
+          img: null,
+          type: 'EXP'
+        }
       },
       {
-        img: 'http://chicksbymail.com/wp-content/uploads/2016/08/hipster-floral-tumblr-background-ulzzangnet-background-images-floral-tumblrflowers-hipster-floral-print-dress-zara-tattoo-hearts-tumblr-bp8xkytr-1200x600.jpg',
-        title: 'Title 4',
-        descriptions: 'Stu Unger Rise And Fall Of A Poker Genius Stu Unger Rise And Fall Of A Poker Genius'
+        name: 'Stu Unger Rise And Fall Of A Poker Genius',
+        numberOfCalls: 2,
+        satisfaction: 2,
+        price: {
+          amount: 10000,
+          currency: 'PLN'
+        },
+        owner: {
+          name: 'Janek Dzbanek',
+          img: null,
+          type: 'EXP'
+        }
       }
     ]
 
@@ -167,6 +195,7 @@
     'profitelo.directives.pro-expert-see-more',
     'profitelo.directives.pro-advice-tile',
     'profitelo.directives.pro-news-tile',
+    'profitelo.components.expert-profile.similar-experts-slider',
     'profitelo.directives.pro-top-navbar',
     'profitelo.components.pro-search-dropdown',
     'profitelo.components.interface.slider'

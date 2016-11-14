@@ -3,8 +3,8 @@
     .consultation-content(data-ng-class="{'is-company': !!service.organizationDetails}")
       .consultation-details
         .consultation-price
-          span {{ service.details.price / 100 | number:2}}
-            span.currency PLN {{ 'HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE' | translate }}
+          span {{ service.details.price.amount/100  | number: 2 }}
+            span.currency {{ service.details.price.currency }}{{ 'HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE' | translate }}
 
         div
           .consultation-title
@@ -27,7 +27,7 @@
           .profile-name
             span {{ service.organizationDetails.name }}
 
-        a.btn.success.icon-left(data-ng-click="vm.startCall()")
+        a.btn.success.icon-left(data-ng-click="startCall()")
           span.icon.icon-call-16
           | {{ ::'HOME.TOP_CONTAINER.EXPERT_PROFILE.CALL' | translate }}
 
