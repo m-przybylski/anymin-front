@@ -7,10 +7,10 @@
     this.queue = serviceProviderService.createDefaultQueue(3, 1, 0)
     this.editQueue = serviceProviderService.createDefaultQueue(3, 4, 3)
 
-    const currencyCode = User.getData('currency')
-
     this.currency = [
-      {id: 1, name: currencyCode}
+      {id: 1, name: 'PLN'},
+      {id: 2, name: 'USD'},
+      {id: 3, name: 'EUR'}
     ]
     this.consultations = []
     this.profile = {}
@@ -30,8 +30,8 @@
           tags: this.costModel.tags,
           price: {
             amount: parseInt(this.costModel.cost, 10),
-            currency: currencyCode
-          }
+            currency: this.costModel.currency
+         }
         },
         invitations: []
       }).$promise.then((res)=> {
@@ -98,7 +98,7 @@
             tags: this.editModel.tags,
             price: {
               amount: parseInt(this.editModel.cost, 10),
-              currency: currencyCode
+              currency: this.editModel.currency
             }
           },
           invitations: []

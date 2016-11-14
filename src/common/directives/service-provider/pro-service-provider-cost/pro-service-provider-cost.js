@@ -7,7 +7,8 @@
       scope.error.noCost = false
 
       scope.model = {
-        cost: ''
+        cost: '',
+        currency: 'PLN'
       }
 
       scope.costSummary = 'DASHBOARD.CONSULTATION_RANGE.COST_SUMMARY'
@@ -15,9 +16,8 @@
         hrefUrl: 'http://miroslawkwiatek.republika.pl/pdf_y/grawitacja_kwantowa.pdf'
       }
 
-
-      scope.model.cost = parseFloat(scope.proModel.cost / 100) || ''
-
+      scope.model.cost = parseFloat(scope.proModel.cost.amount / 100) || ''
+console.log(parseFloat(scope.proModel.cost.amount / 100) || '',scope.model.cost)
       const _isValid = () => {
         let _isValidDeferred = $q.defer()
         if (angular.isDefined(scope.model.cost) && scope.model.cost > 0) {
@@ -30,7 +30,7 @@
       }
 
 
-
+      
       const _displayErrorMessage = () => {
         scope.error.noCost = true
       }
@@ -53,7 +53,7 @@
         _isValid().then(() => {
 
           scope.proModel.cost = scope.model.cost * 100
-
+          scope.proModel.currency = scope.model.currency
           scope.proceed()
 
         }, () => {

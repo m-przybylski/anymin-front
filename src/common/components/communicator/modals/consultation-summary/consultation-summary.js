@@ -21,8 +21,7 @@
       $scope.chooseExpertsTag = true
       console.log(this.chooseExpertsTag, $scope.chooseExpertsTag)
     }
-
-    $scope.tags = ['artur', 'jajebie jajecznice']
+    
 
     return this
   }

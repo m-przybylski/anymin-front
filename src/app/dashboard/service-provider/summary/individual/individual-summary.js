@@ -64,7 +64,7 @@
             tags: this.editModel.tags,
             price: {
               amount: parseInt(this.editModel.cost, 10),
-              currency: 'PLN'
+              currency: this.editModel.currency
             }
           },
           invitations: []

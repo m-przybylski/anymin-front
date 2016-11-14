@@ -73,7 +73,7 @@
             tags: this.editModel.tags,
             price: {
               amount: parseInt(this.editModel.cost, 10),
-              currency: savedProfile.currency
+              currency: this.editModel.currency
             }
           },
           ownerEmployee: this.ownerEmployee,
