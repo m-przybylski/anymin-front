@@ -1,12 +1,17 @@
 (function() {
 
   /* @ngInject */
-  function singleConsultationController(HelperService, callService) {
+  function singleConsultationController($state, HelperService, callService) {
 
     if (this.consultation.owner.img !== null || this.consultation.owner.img === '') {
       this.profileImage = HelperService.fileUrlResolver(this.consultation.owner.img)
     } else {
       this.profileImage = ''
+    }
+
+    this.goToProfile =() => {
+      const stateName  = this.consultation.owner.type === 'ORG' ? 'app.company-profile' : 'app.expert-profile'
+      $state.go(stateName, { contactId: this.consultation.owner.id, primaryConsultationId: this.consultation.id  })
     }
 
     this.startCall = () => {

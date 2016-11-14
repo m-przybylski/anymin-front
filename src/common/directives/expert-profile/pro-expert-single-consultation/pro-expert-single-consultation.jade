@@ -1,50 +1,35 @@
-.pro-expert-single-consultation
-  .default-container
-    .single-container-consultation
-      .title-row-consultation.black-row
-        .stats-consultation
-          div
-            span.icon.icon-satisfaction-16
-            span {{ satisfaction }}%
-            span.mobile-hidden(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.SATISFACTION_PERCENT")
-          div
-            span.icon.icon-calls-16
-            span {{ talks }}
-            span.mobile-hidden(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.TALKS")
-          div
-            span.icon.icon-time-16
-            span.mobile-hidden(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.AVERANGE_CONSULTATION_TIME")
-            span {{ timeAverage }} {{'HOME_EXPERT_PROFILE.MINUTES' | translate}}
-        .title-row
-          h3 {{ service.details.name }}
-        .cost-consultations
-          .prize
-            span.icon.icon-price-32
-            h3 {{ service.details.price | money }}
-            h3.currency(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE")
-          .call(data-ng-click="initCall()")
-            p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CALL")
-            span.icon.icon-headphone-16
+.single-consultation.expert-profile-consultation
+  .consultation-wrapper
+    .consultation-content(data-ng-class="{'is-company': !!service.organizationDetails}")
+      .consultation-details
+        .consultation-price
+          span {{ service.details.price / 100 | number:2}}
+            span.currency PLN {{ 'HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE' | translate }}
 
-      .title-row-consultation.footer-consultation
-        pro-summary-tag(data-tags="service.details.tags")
+        div
+          .consultation-title
+            h3
+              span {{ service.details.name }}
 
-        p {{'HOME.TOP_CONTAINER.EXPERT_PROFILE.COMMENTS' | translate}} ({{ comments.length }})
-        .comments
-          .help(data-ng-click="showPositive()")
-            span.icon.icon-good-32
-            span.mobile-hidden(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.EXPERT_HELPS")
-            p {{ comments.positive.length }}
-          .help(data-ng-click="showNegative()")
-            span.icon.icon-bad-32
-            span.mobile-hidden(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.EXPERT_NOT_HELPS")
-            p {{ comments.negative.length }}
-        div.consultants(data-ng-show="type == 'company'")
-          p {{'COMMON.DIRECTIVES.PRO_EXPERT_PROFILE.CONSULTANTS_LIST' | translate}} ({{ consultants.length }})
-          .consultants-row
-            div(data-ng-repeat="consultant in service.invitations")
-              img.circle.thumb.user-avatar(data-ng-src="{{ avatar }}" data-ng-class='{"isNotUploaded": "!!avatar"}')
-              div
-                p {{ consultant.email }}
-                .status(data-ng-hide="profile.type == 'company'")
-                  span Dostępny
+          ul.consultation-about
+            li.options-item.recomendation
+              span  {{ service.recommendationsCounter }}
+            li.options-item.conversation-count
+              span {{ service.serviceUsageCounter }}
+            li.options-item.balance
+              span Stan Twojego konta pozwala na ok. {{ consultation.timeAverage }} min rozmowy
+
+      .consultation-actions
+        .profile-preview(data-ng-if="!!service.organizationDetails")
+          .thumb.x48
+            img.user-avatar(data-ng-src="{{ companyImage }}"  data-ng-class="{'is-not-uploaded': !companyImage}")
+
+          .profile-name
+            span {{ service.organizationDetails.name }}
+
+        a.btn.success.icon-left(data-ng-click="vm.startCall()")
+          span.icon.icon-call-16
+          | {{ ::'HOME.TOP_CONTAINER.EXPERT_PROFILE.CALL' | translate }}
+
+    pro-summary-tag(data-title="DASHBOARD.EXPERT_ACCOUNT.CONSULTATION_RANGE"
+    data-tags="tags" data-hide-more-tags="$ctrl.hideMoreTags")

@@ -1,114 +1,38 @@
 .single-consultation
-  +lgm
-    padding: 0
+  &:not(.expert-profile-consultation)
+    +mdm
+      .consultation-wrapper
+        &:hover
+          background: $c-background-2
 
-.consultation-wrapper
-  border-bottom: 1px solid $c-lines
-  padding: 32px 0
-
-  +smm
-    padding: 32px 16px
-
-.consultation-details
-  margin: 0 0 32px
-
-  +mdm
-    margin: 0 0 24px
-
-.consultation-price
-  margin: 0 0 16px
-
-  h5
-    +default-font-heavy
-    text-transform: uppercase
-    display: inline-block
-    color: $c-primary-txt
-    font-size: $f-h4-size
-
-    span
-      &.currency
-        margin: 0 0 0 4px
-        color: $c-label
-
-.consultation-range
-  h3
-    margin: 0 0 24px
-    font-size: $f-h3-size
+  .consultation-wrapper
+    transition: background 0.2s
+    border-bottom: 1px solid $c-lines
+    padding: 32px 0
+    cursor: pointer
 
     +smm
-      margin: 0 0 16px
+      padding: 32px 16px
 
-    a
-      +default-font-regular
-      text-align: right
-      color: $c-primary-txt
-      transition: color 0.2s
+    .consultation-details
+      margin: 0 0 32px
 
-      &:hover
-        color: $c-secondary-txt
+      +mdm
+        margin: 0 0 24px
 
-.consultation-options
-  display: flex
-  align-items: center
+    .consultation-title
+      margin: 0 0 24px
 
-  .options-item
-    +default-font-regular
-    display: flex
-    align-items: center
-    color: $c-secondary-txt
-    font-size: $f-h5-size
-    margin: 0
+      +smm
+        margin: 0 0 16px
 
-    &:last-child
-      &::after
-        content: none
+    .consultation-actions
+      +xsm
+        display: flex
+        justify-content: space-between
 
-    &::after
-      content: '/'
-      margin: 0 4px
+      .profile-preview
+        margin: 0 0 32px
 
-.consultation-actions
-  +xsm
-    display: flex
-    justify-content: space-between
-
-.consultation-profile
-  display: flex
-  align-items: center
-  margin: 0 0 32px
-
-  +xsm
-    margin: 0
-
-  .author
-    flex: 1
-
-    +xsm
-      padding: 0 16px 0 0
-
-    +mdm
-      max-width: 75%
-
-    .status-list
-      .status
-        +mdm
-          justify-content: flex-end
-
-    h6
-      +default-font-regular
-      color: $c-secondary-txt
-      font-size: $f-h5-size
-
-      a
-        @extend h6
-        transition: color 0.2s
-
-        &:hover
-          color: $c-primary-txt
-
-    h3
-      +default-font-regular
-      font-size: $f-h3-size
-
-  .thumb
-    margin: 0 16px 0 0
+        +xsm
+          margin: 0

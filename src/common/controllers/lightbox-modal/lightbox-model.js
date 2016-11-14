@@ -1,6 +1,6 @@
 (function() {
 
-  function lightboxModelController($scope, $window, $timeout, $uibModalInstance, FilesApi, ImageZoomService, PrintService) {
+  function lightboxModelController($scope, $window, $timeout, $uibModalInstance, FilesApi, ImageZoomService) {
 
     this.slideList = $scope.sliders
     this.isPending = false
@@ -17,11 +17,20 @@
     this.currentSlide = this.slideList[currentSlideIndex]
 
     $timeout(() => {
-      ImageZoomService.createZoomInstance(angular.element('.modal-dialog img')[currentSlideIndex])
-      // angular.element('.modal-dialog').perfectScrollbar() content type pdf
+      if (this.currentSlide.contentType !== 'application/pdf') {
+        ImageZoomService.createZoomInstance(angular.element('.modal-dialog img')[currentSlideIndex])
+      }
+
     })
 
-    let fileInfoRequest = (slide) => {
+    const _scrollToTop = () => {
+      $timeout(() => {
+        angular.element('.modal-dialog').scrollTop(0)
+        angular.element('.modal-dialog').perfectScrollbar('update')
+      })
+    }
+
+    const fileInfoRequest = (slide) => {
       this.isPending = true
       FilesApi.fileInfoPath({
         token: slide.token
@@ -30,7 +39,18 @@
         this.isPending = false
         this.navSettings.name = response.name
         this.currentSlide.contentType = response.contentType
+        this.currentSlide.downloadUrl = response.downloadUrl
+        
+        ImageZoomService.destroy(angular.element('.modal-dialog img')[currentSlideIndex])
+        if ( this.currentSlide.contentType  !== 'application/pdf') {
+          ImageZoomService.createZoomInstance(angular.element('.modal-dialog img')[currentSlideIndex])
+          angular.element('.modal-dialog').perfectScrollbar('destroy')
+        } else {
+          angular.element('.modal-dialog').perfectScrollbar()
+        }
+        _scrollToTop()
       }, (error) => {
+
       }
       )
     }
@@ -59,31 +79,18 @@
 
     fileInfoRequest(this.currentSlide)
 
-    const _scrollToTop = () => {
-      $timeout(() => {
-        angular.element('.modal-dialog').scrollTop(0)
-        angular.element('.modal-dialog').perfectScrollbar('update')
-      })
-    }
-
     this.sliderActions = {
       nextSlide: () => {
         if (currentSlideIndex  < this.slideList.length - 1 && !this.isPending) {
-          let nextSlide = this.slideList[++currentSlideIndex]
+          const nextSlide = this.slideList[++currentSlideIndex]
           fileInfoRequest(nextSlide)
-          _scrollToTop()
-          ImageZoomService.destroy(angular.element('.modal-dialog img')[currentSlideIndex])
-          ImageZoomService.createZoomInstance(angular.element('.modal-dialog img')[currentSlideIndex])
         }
 
       },
       prevSlide: () => {
         if (currentSlideIndex > 0 && !this.isPending) {
-          let prevSlide = this.slideList[--currentSlideIndex]
+          const prevSlide = this.slideList[--currentSlideIndex]
           fileInfoRequest(prevSlide)
-          _scrollToTop()
-          ImageZoomService.destroy(angular.element('.modal-dialog img')[currentSlideIndex])
-          ImageZoomService.createZoomInstance(angular.element('.modal-dialog img')[currentSlideIndex])
         }
       },
       decreaseImg: () => {
@@ -103,13 +110,7 @@
       //   PrintService.print(imgSrc)
       // },
       downloadFile: () => {
-        let imageSrc = null
-        if (this.currentSlide.contentType !== 'pdf') {
-          imageSrc = this.currentSlide.previews[0]
-        } else {
-          imageSrc = this.currentSlide.previews[0]
-        }
-        $window.open(imageSrc)
+        $window.open(this.currentSlide.downloadUrl)
 
       },
       closeLightbox: () => {

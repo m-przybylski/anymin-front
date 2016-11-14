@@ -1,18 +1,21 @@
 .pro-expert-slider
-  .pro-expert-slider.single-container.slider-container
-    .slider-control
-      span.icon.icon-file-24
-      p
-        span(data-translate="DASHBOARD.CREATE_PROFILE.FILE_UPLOADER_TITLE")
-        span(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.AND_PHOTOS")
-      
-      .pro-button-group.switcher
-        a.arrow.arrow-left(data-ng-click="prevSlide()")         
-          span.icon.icon-arrow-left-12        
-        a.arrow.arrow-right(data-ng-click="nextSlide()")
-          span.icon.icon-arrow-right-12
+  .slider-container
+    a.btn.btn-arrow.arrow-left(data-ng-click="prevSlide()")
+      span.icon.icon-arrow-left-16
 
-    .slider-slides(data-ng-style="leftOffset") 
-      slider.flex-row(data-ng-transclude data-controlls="controlls" data-move-slides="-2")
-        .slides(data-ng-repeat="slide in sliders" data-ng-swipe-left="nextSlide()" data-ng-swipe-right="prevSlide()")
-          img(ng-src='{{ imageUrl(slide) }}' data-ng-click="openDialog(slide)")
+    .slider-slides(data-ng-style="leftOffset" data-ng-swipe-left="nextSlide()")
+      slider.slider-list(data-ng-transclude data-controlls="controlls" data-move-slides="-2")
+        .slides.slider-header
+          .slider-item
+            div
+              span.icon.icon-file-24
+              p
+                span(data-translate="pliki")
+                span(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.AND_PHOTOS")
+
+        .slides(data-ng-repeat="slide in sliders"  data-ng-swipe-right="prevSlide()")
+          .slider-item
+            img(ng-src='{{ imageUrl(slide) }}' data-ng-click="openDialog(slide)")
+
+    a.btn.btn-arrow.arrow-right(data-ng-click="nextSlide()")
+      span.icon.icon-arrow-right-16

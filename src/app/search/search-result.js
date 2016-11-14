@@ -80,6 +80,7 @@
     'ui.router',
     'infinite-scroll',
     'c7s.ng.userAuth',
+    'profitelo.components.interface.go-to-top',
     'profitelo.components.search.single-consultation',
     'profitelo.components.search.no-consultations',
     'profitelo.directives.search.search-filters',

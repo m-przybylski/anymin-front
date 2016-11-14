@@ -46,12 +46,44 @@ html
 
 .thumb
   display: inline-flex
-  width: 48px
-  height: 48px
-  min-width: 48px
-  min-height: 48px
   overflow: hidden
   position: relative
+
+  &.x48
+    width: 48px
+    height: 48px
+    min-width: 48px
+    min-height: 48px
+
+  &.x56
+    width: 56px
+    height: 56px
+    min-width: 56px
+    min-height: 56px
+
+  &.x64
+    width: 64px
+    height: 64px
+    min-width: 64px
+    min-height: 64px
+
+  &.x96
+    width: 96px
+    height: 96px
+    min-width: 96px
+    min-height: 96px
+
+  &.x128
+    width: 128px
+    height: 128px
+    min-width: 128px
+    min-height: 128px
+
+  &.x256
+    width: 256px
+    height: 256px
+    min-width: 256px
+    min-height: 256px
 
   .status-list
     position: absolute
@@ -62,6 +94,9 @@ html
     .status
       &::before
         margin: 0
+        border: 2px solid $c-white
+        width: 12px
+        height: 12px
 
 .hidden
   display: none
@@ -70,7 +105,6 @@ html
 ::selection
   color: $c-white
   background: $c-primary
-
 
 img
   max-width: 100%
@@ -100,7 +134,7 @@ img
     min-height: inherit
     border-radius: 50%
 
-    &.isNotUploaded
+    &.is-not-uploaded
       background: url('/assets/images/no-avatar.jpg') 50% 50% / cover $c-background
       position: relative
       overflow: hidden

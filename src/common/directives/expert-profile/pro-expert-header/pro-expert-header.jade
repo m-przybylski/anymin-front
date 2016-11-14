@@ -1,38 +1,38 @@
-.pro-expert-header
-  .header-container
-    .default-container
-      .header-content
-        .statistic
-          .social-icon
-            span.pro-btn.btn-icon.icon.icon-heart-16
-            p 235
+.default-container
+  .expert-profile
+    .expert-profile-details
+      .expert-profile-content
+        ul.share-links
+          li
+            a.btn.btn-circle
+              span.icon.icon-voice-24
+          li
+            a.btn.btn-circle
+              span.icon.icon-heart-24
+          li
+            a.btn.btn-circle
+              span.icon.icon-share-24
 
-          .social-icon
-            span.pro-btn.btn-icon.icon.icon-share-16
-            p 76
+        .thumb.x128
+          img.circle.user-avatar(data-ng-src='{{handleUserImage(profile.avatar || profile.logo)}}'
+          alt='{{profile.name}}' data-ng-class='{"is-not-uploaded": !profile.avatar && !profile.logo}')
+        h3 {{ profile.name }}
+        .status-list(data-ng-hide="profile.type == 'company'")
+          span.status.availability {{ 'HOME.EXPERT_CARD_AVAILABLE' | translate }}
 
-        .personal-info
-          .personal-avatar
-            img.circle.user-avatar(data-ng-src='{{avatar}}' alt='{{profile.name}}' data-ng-class='{"isNotUploaded": !avatar}')
-          h3 {{ profile.name }}
-          .status-list(data-ng-hide="profile.type == 'company'")
-            span.status.availability {{ 'HOME.EXPERT_CARD_AVAILABLE' | translate }}
-
-          .languages(data-ng-hide="profile.type == 'company'")
-            span.icon.icon-language-16
-            span(data-translate="HOME.TOP_CONTAINER.MAIN_HEADER.PROVIDER_LAGUAGES")
-            span(data-ng-repeat="lang in profile.languages") {{" " + lang + " "}}
-
-        .company-list(data-ng-hide="profile.type == 'company'")
+        .languages-section(data-ng-hide="!profile.languages || profile.languages.length < 1 || profile.type === 'company'")
+          span(data-translate="DASHBOARD.EXPERT_ACCOUNT.LANGUAGES")
+          ul.languages-list
+            li(data-ng-repeat="lang in profile.languages")
+              span {{" " + lang + " "}}
+        .expert-collaborators(data-ng-hide="checkCollaboratedExperts()")
           p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.COOPERATE_WITH")
 
-          .company-logo
-            img.circle.thumb.user-avatar(data-ng-src="{{ company-logo }}" data-ng-class="{'isNotUploaded': '!!company-logo'}")
+          ul.collaborators-list(data-ng-if="profile.type !== 'company'")
+            li.collaborators-item(data-ng-repeat = "organization in profile.colaboratedOrganizations")
+              a.thumb.x48(data-ui-sref="app.company-profile({contactId: organization.id})")
+                img.user-avatar(data-ng-class="{'is-not-uploaded': handleUserImage(organization.organizationDetails.logo)}"
+                data-ng-src=" {{ handleUserImage(organization.organizationDetails.logo) }}")
 
-  .header-container
-    .default-container
-      .header-content 
-        .quote-icon
-          span.pro-btn.btn-icon.icon.icon-quote-24      
-        
-        show-more-text(data-text="profile.description")
+    .expert-profile-description
+      show-more-text(data-text="profile.description")

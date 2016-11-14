@@ -1,31 +1,29 @@
 .tag-list
+  display: flex
+  flex-wrap: wrap
+
   li
-    background: $c-background-2
-    border: 1px solid $c-lines
-    display: inline-flex
-    align-items: stretch
     margin: 0 8px 8px 0
-    border-radius: 20px
-    min-height: 32px
-
-    &.checked,
-    &:hover
-      background: $c-primary
-      border-color:
-
-      a
-        color: $c-white
-
-        span
-          color: $c-white
+    border-radius: 0
 
     a
       +default-font-regular
-      display: flex
-      align-self: stretch
+      transition: color 0.3s
+      background: rgba($c-lines, 0.6)
+      color: $c-secondary-txt
+      height: 32px
+      display: inline-flex
       align-items: center
-      text-transform: uppercase
-      padding: 4px 16px
-      font-size: 14px
-      color: $c-primary-txt
-      font-size: $f-btn-size
+      padding: 0 16px
+      white-space: pre
+      font-size: $f-h5-size
+      border-radius: 3px
+
+    &.is-checked,
+    &:hover
+      a
+        color: $c-white
+        background: $c-secondary-txt
+
+        span
+          color: $c-white

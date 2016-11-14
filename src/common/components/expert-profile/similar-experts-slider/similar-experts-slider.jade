@@ -1,0 +1,49 @@
+.pro-expert-slider.similar-experts-slider
+  .slider-container
+    a.btn.btn-arrow.arrow-left(data-ng-click="$ctrl.prevSlide()")
+      span.icon.icon-arrow-left-16
+
+    .slider-slides(data-ng-style="leftOffset" data-ng-swipe-left="$ctrl.nextSlide()")
+      slider.slider-list(data-ng-transclude data-controlls="controlls" data-move-slides="-2")
+        .slides.slider-header
+          .slider-item
+            .slider-item-consultation
+              div
+                span.icon.icon-hands-32
+                span {{ $ctrl.title | translate }}
+
+        .slides(data-ng-repeat="consultation in $ctrl.consultations"  data-ng-swipe-right="$ctrl.prevSlide()")
+          .slider-item(data-ng-click=" $ctrl.goToProfile($ctrl.consultations[$index])")
+
+            .slider-item-consultation
+              .profile-preview
+                .thumb.x48
+                  img.user-avatar( data-ng-class="{'is-not-uploaded': !$ctrl.consultationOwnerImage(consultation.owner.img)}" data-ng-src=" {{ $ctrl.consultationOwnerImage(consultation.owner.img) }}")
+
+                  .status-list
+                    span.status.availability
+
+                .profile-name
+                  span {{ consultation.owner.name }}
+
+              div
+                .consultation-price
+                  span {{ consultation.price / 100 | number: 2}}
+                    span.currency PLN {{ "HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE" | translate}}
+
+                .consultation-title
+                  h3
+                    span {{ consultation.name }}
+
+              ul.consultation-about
+                li.options-item.recomendation
+                  span.icon.icon-satisfaction-16
+                  span {{ consultation.satisfaction }}
+                  span(data-translate="DASHBOARD.EXPERT_ACCOUNT.RECOMMENDATION")
+                li.options-item.conversation-count
+                  span.icon.icon-calls-16
+                  span {{ consultation.numberOfCalls }}
+                  span(data-translate="DASHBOARD.EXPERT_ACCOUNT.CONVERSATIONS")
+
+    a.btn.btn-arrow.arrow-right(data-ng-click="$ctrl.nextSlide()")
+      span.icon.icon-arrow-right-16
