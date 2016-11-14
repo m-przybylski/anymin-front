@@ -2,7 +2,7 @@
   function proExpertSingleConsultation(callService, HelperService) {
 
     function linkFunction(scope, elem, attrs) {
-      scope.initCall = () => {
+      scope.startCall = () => {
         callService.callServiceId(scope.service.id)
       }
       scope.tags = scope.service.details.tags

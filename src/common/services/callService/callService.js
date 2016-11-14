@@ -77,10 +77,11 @@
     const _onExpertCallJoin = (_inviter, session) => {
       let price = 0
       if (serviceUsageData) {
-        price = serviceUsageData.service.details.price
+        price = serviceUsageData.service.details.price.amount
       } else {
-        price = expertService.details.price
+        price = expertService.details.price.amount
       }
+
       timer = UtilsService.timerFactory.getInstance(price, freeMinutesCount)
       timer.start(_onTimeCostChange)
       callbacks.notify(events.onExpertCallJoin, {inviter: _inviter, session: session})
@@ -139,7 +140,7 @@
     }
 
     const _onClientCallStarted = (_inviterId) => {
-      timer = UtilsService.timerFactory.getInstance(serviceUsageData.service.details.price, freeMinutesCount)
+      timer = UtilsService.timerFactory.getInstance(serviceUsageData.service.details.price.amount, freeMinutesCount)
       timer.start(_onTimeCostChange)
       callbacks.notify(events.onClientCallStarted, _inviterId)
     }
