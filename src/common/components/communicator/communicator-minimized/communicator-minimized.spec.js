@@ -1,34 +1,13 @@
 describe('Unit testing: profitelo.components.communicator.communicator-minimized', () => {
-  return describe('for communicatorMinimized component >', () => {
+  return describe('for messengerMaximized component >', () => {
 
-    const url = 'awesomUrl/'
-
+    const url = 'awesomeURL'
     let scope
     let rootScope
     let compile
-    let bindings
     let componentController
     let component
-    let validHTML = '<communicator-minimized data-maximize-communicator="vm.maximizeCommunicator"></communicator-minimized>'
-
-    beforeEach(module(function($provide) {
-      $provide.value('apiUrl', url)
-    }))
-
-    bindings = {}
-
-    beforeEach(() => {
-      module('templates-module')
-      module('profitelo.components.communicator.communicator-minimized')
-
-      inject(($rootScope, $compile, _$componentController_) => {
-        componentController = _$componentController_
-        rootScope = $rootScope.$new()
-        compile = $compile
-      })
-
-      component = componentController('communicatorMinimized', null, bindings)
-    })
+    let validHTML = '<communicator-minimized></communicator-minimized>'
 
     function create(html) {
       scope = rootScope.$new()
@@ -38,6 +17,28 @@ describe('Unit testing: profitelo.components.communicator.communicator-minimized
       return compiledElement
     }
 
+    beforeEach(module(function($provide) {
+      $provide.value('apiUrl', url)
+    }))
+
+    beforeEach(() => {
+      module('templates-module')
+      module('profitelo.components.communicator.communicator-minimized')
+
+      inject(($rootScope, $compile, $timeout, _$componentController_, _$window_) => {
+        componentController = _$componentController_
+        rootScope = $rootScope.$new()
+        compile = $compile
+      })
+
+      component = componentController('communicatorMinimized', {
+        $element: create(validHTML),
+        $scope: rootScope
+      }, {
+        maximizeCommunicator: () => {}
+      })
+    })
+
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
@@ -46,6 +47,6 @@ describe('Unit testing: profitelo.components.communicator.communicator-minimized
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
-
   })
 })
+

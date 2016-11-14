@@ -6,30 +6,20 @@ describe('Unit tests: ExpertProfileController >', () => {
 
     let url = 'awesomeUrl/'
 
-    beforeEach(module(function($provide) {
-      $provide.value('apiUrl', url)
-    }))
-
     beforeEach(() => {
       module('profitelo.controller.expert-profile')
-      inject(($rootScope, $controller, _ProfileApi_, _User_) => {
+      inject(($rootScope, $controller, $timeout, $stateParams, _smoothScrolling_) => {
 
         _scope = $rootScope.$new()
 
-        _scope.$parent.serviceProviderController = {
-          profileTypes: {
-            'INDIVIDUAL': 'INDIVIDUAL',
-            'COMPANY': 'COMPANY'
-          }
-        }
-
         ExpertProfileController = $controller('ExpertProfileController', {
           $scope: _scope,
-          ProfileApi: _ProfileApi_,
-          User: _User_,
-          savedProfile: {},
-          profileImage: {},
-          checkAccount: {}
+          $stateParams: $stateParams,
+          $timeout: $timeout,
+          smoothScrolling: _smoothScrolling_,
+          expertOrganizations: [],
+          similarExperts: [],
+          savedProfile: {type: '', expertDetails: {}},
         })
 
 
@@ -39,6 +29,5 @@ describe('Unit tests: ExpertProfileController >', () => {
     it('should exists', () => {
       expect(!!ExpertProfileController).toBe(true)
     })
-
   })
 })

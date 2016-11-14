@@ -3,8 +3,6 @@
 
     this.profile = {}
 
-
-    
     this.profile = savedProfile.organizationDetails
     this.consultations = savedProfile.services
     this.profile.type = 'company'

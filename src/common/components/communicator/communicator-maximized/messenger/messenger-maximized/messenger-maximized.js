@@ -107,6 +107,7 @@
   angular.module('profitelo.components.communicator.communicator-maximized.messenger.messenger-maximized', [
     'profitelo.services.messenger',
     'profitelo.services.helper',
+    'lodash',
     'profitelo.filters.seconds-to-datetime',
     'profitelo.filters.money',
     'profitelo.components.communicator.communicator-maximized.messenger.messenger-maximized.grouped-messages',

@@ -38,7 +38,6 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-amo
         rootScope = $rootScope.$new()
         compile = $compile
       })
-
       
       bindings = {
         amountModel: {
@@ -51,7 +50,6 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-amo
             amount: 10
           }
         }
-          
       }
 
       component = componentController('chooseAmountCharge', null, bindings)

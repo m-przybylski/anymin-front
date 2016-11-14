@@ -115,6 +115,9 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
 
     it('should login user', () => {
       spyOn($state, 'go')
+
+      $httpBackend.when('GET', 'awesomeURL/ratel/config').respond(200, {})
+      $httpBackend.when('GET', 'awesomeURL/services/profile').respond(200, [])
       registrationResendPOST = $httpBackend.when('POST', 'http://api.webpage.com/session')
       AccountFormController.current = 2
       registrationResendPOST.respond(200, {})
@@ -122,6 +125,7 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
       $httpBackend.flush()
       expect($state.go).toHaveBeenCalledWith('app.dashboard.start')
     })
+
     it('should display error', () => {
       registrationResendPOST = $httpBackend.when('POST', 'http://api.webpage.com/session')
       AccountFormController.current = 2

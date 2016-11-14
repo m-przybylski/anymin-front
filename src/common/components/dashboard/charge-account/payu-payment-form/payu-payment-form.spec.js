@@ -36,12 +36,11 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payu-payme
       module('profitelo.components.dashboard.charge-account.payu-payment-form')
       module('ui.router')
       
-      inject(($rootScope, $compile, _$componentController_, $httpBackend, $window,  _PaymentsApi_, _User_,  _$state_, _PaymentsApiDef_, _proTopAlertService_, _smoothScrolling_) => {
+      inject(($rootScope, $compile, _$componentController_, $httpBackend, $window, _User_,  _$state_, _PaymentsApiDef_, _proTopAlertService_, _smoothScrolling_) => {
         componentController = _$componentController_
         scope = $rootScope.$new()
         compile = $compile
         state = _$state_
-        PaymentsApi = _PaymentsApi_
         httpBackend = $httpBackend
         PaymentApiDef = _PaymentsApiDef_
         proTopAlertService = _proTopAlertService_
