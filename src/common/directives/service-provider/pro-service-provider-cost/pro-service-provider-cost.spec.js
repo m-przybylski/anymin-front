@@ -22,7 +22,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
 
     function create(html) {
       var elem = angular.element(html)
-      scope.proModel = {cost: null}
+      scope.proModel = {cost: {amount: 0, currency: 'PLN'}}
       var compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement

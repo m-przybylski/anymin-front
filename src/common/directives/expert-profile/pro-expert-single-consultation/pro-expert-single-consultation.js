@@ -28,6 +28,7 @@
   angular.module('profitelo.directives.expert-profile.pro-expert-single-consultation', [
     'profitelo.components.pro-summary-tag',
     'profitelo.services.call',
+    'profitelo.services.helper',
     'profitelo.components.interface.collapse-tab'
   ])
   .directive('proExpertSingleConsultation', proExpertSingleConsultation)

@@ -4,7 +4,7 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-header', 
     let scope = null
     let rootScope
     let compile = null
-    let validHTML = '<pro-expert-header></pro-expert-header>'
+    let validHTML = '<pro-expert-header data-profile="{type: \'x\'}"></pro-expert-header>'
 
     beforeEach(() => {
       module('templates-module')

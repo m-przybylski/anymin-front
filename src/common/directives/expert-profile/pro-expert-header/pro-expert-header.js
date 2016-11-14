@@ -6,8 +6,6 @@
       scope.handleUserImage = (imgToken) => {
         return imgToken !== null ||  imgToken === '' ? HelperService.fileUrlResolver(imgToken) : ''
       }
-
-      console.log(scope.profile)
       
       scope.checkCollaboratedExperts = () => {
         return scope.profile.type === 'company' || !scope.profile.colaboratedOrganizations || !scope.profile.colaboratedOrganizations[0].organizationDetails || scope.profile.colaboratedOrganizations.length < 1

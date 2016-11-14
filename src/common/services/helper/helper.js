@@ -1,4 +1,6 @@
 (function() {
+
+  /* @ngInject */
   function service(CommonSettingsService, CommonConfig) {
 
     const _commonConfig = CommonConfig.getAllData()

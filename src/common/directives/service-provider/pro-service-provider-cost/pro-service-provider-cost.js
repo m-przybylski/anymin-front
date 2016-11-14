@@ -1,5 +1,5 @@
 (function() {
-  function proServiceProviderCost($q, $filter, $timeout) {
+  function proServiceProviderCost($q, $filter) {
 
     function linkFunction(scope, element, attrs) {
 
@@ -28,13 +28,10 @@ console.log(parseFloat(scope.proModel.cost.amount / 100) || '',scope.model.cost)
 
         return _isValidDeferred.promise
       }
-
-
       
       const _displayErrorMessage = () => {
         scope.error.noCost = true
       }
-
 
       if ('required' in attrs) {
         scope.required = true
@@ -60,10 +57,7 @@ console.log(parseFloat(scope.proModel.cost.amount / 100) || '',scope.model.cost)
           _displayErrorMessage()
         })
       }
-
-
     }
-
 
     return {
       replace: true,

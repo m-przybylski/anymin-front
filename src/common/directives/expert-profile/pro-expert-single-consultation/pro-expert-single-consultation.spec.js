@@ -4,7 +4,7 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-single-co
     let scope = null
     let rootScope
     let compile = null
-    let validHTML = '<pro-expert-single-consultation></pro-expert-single-consultation>'
+    let validHTML = '<pro-expert-single-consultation data-service="{details: {tags: []}}"></pro-expert-single-consultation>'
 
     beforeEach(module(($provide) => {
       $provide.value('apiUrl', '')
@@ -12,6 +12,7 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-single-co
 
     beforeEach(() => {
       module('templates-module')
+      module('profitelo.services.helper')
       module('profitelo.directives.expert-profile.pro-expert-single-consultation')
 
       inject(($rootScope, $compile) => {
@@ -31,6 +32,7 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-single-co
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
+
     it('should compile the directive', () => {
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)

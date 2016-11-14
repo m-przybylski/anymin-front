@@ -1,10 +1,10 @@
-describe('Unit testing: profitelo.services.helper-service >', () => {
+describe('Unit testing: profitelo.services.helper >', () => {
   describe('for HelperService service >', () => {
 
     let HelperService
 
     beforeEach(() => {
-      module('profitelo.services.helper-service')
+      module('profitelo.services.helper')
 
       inject(($injector) => {
         HelperService = $injector.get('HelperService')
