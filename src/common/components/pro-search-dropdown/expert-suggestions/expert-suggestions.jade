@@ -3,10 +3,10 @@
     h5.title-row  {{'SEARCH.EXPERTS' | translate}}
 
     .experts-box.dropdown-category-list
-      a.expert-profile.dropdown-list-item(data-ng-repeat="expert in vm.experts.results track by $index"
+      a.profile-preview.dropdown-list-item(data-ng-repeat="expert in vm.experts.results track by $index"
       data-ui-sref="app.expert-profile({ contactId: expert.id })")
-        span.thumb
-          img.expert-avatar.user-avatar.circle(data-ng-src=" {{ vm.profileImage($index) }}" data-ng-class="{'isNotUploaded': !vm.profileImage($index)}")
+        .thumb.x48
+          img.expert-avatar.user-avatar(data-ng-src=" {{ vm.profileImage($index) }}" data-ng-class="{'isNotUploaded': !vm.profileImage($index)}")
 
         span.expert-data
           span.expert-name(ng-bind-html="expert.name | searchBoldFilter:vm.searchModel") {{expert.name}}

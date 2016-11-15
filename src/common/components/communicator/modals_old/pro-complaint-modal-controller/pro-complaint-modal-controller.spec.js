@@ -26,6 +26,16 @@ describe('Testing Controller: proComplaintModalController', () => {
     return expect(!!proComplaintModalController).toBe(true)
   })
 
+  it('should have addComment function', () => {
+
+    spyOn(uibModalInstance, 'dismiss')
+
+    proComplaintModalController.addComment()
+
+    expect(uibModalInstance.dismiss).toHaveBeenCalledWith('cancel')
+
+  })
+
   it('should have dismissWindow function', () => {
 
     spyOn(uibModalInstance, 'dismiss')

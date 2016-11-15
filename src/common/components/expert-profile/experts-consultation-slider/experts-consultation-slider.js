@@ -1,11 +1,6 @@
 (function() {
   /* @ngInject */
-  function controller($scope, $state, HelperService) {
-
-    this.imageUrl = (slide) => {
-      return slide.previews[0]
-    }
-
+  function controller($scope) {
     this.controlls = {}
 
     this.nextSlide = () => {
@@ -14,10 +9,6 @@
 
     this.prevSlide = () => {
       $scope.controlls.prevSlide()
-    }
-
-    this.consultationOwnerImage = (imgToken) => {
-      return imgToken !== null ||  imgToken === '' ? HelperService.fileUrlResolver(imgToken) : ''
     }
 
     return this

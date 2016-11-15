@@ -21,7 +21,7 @@
         this.onTyping()
       }
     }
-
+    
     return this
   }
 
@@ -36,7 +36,7 @@
   }
 
   angular.module('profitelo.components.communicator.communicator-maximized.messenger.messenger-maximized.messenger-input', [
-
+    'pascalprecht.translate'
   ])
     .component('messengerInput', component)
 

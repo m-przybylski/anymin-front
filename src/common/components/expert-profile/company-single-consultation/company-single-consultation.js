@@ -3,15 +3,7 @@
   /* @ngInject */
   function controller(HelperService) {
 
-    this.consultationOwnerImage = (imgToken) => {
-      return imgToken !== null ||  imgToken === '' ? HelperService.fileUrlResolver(imgToken) : ''
-    }
-    
     this.tags = this.service.details.tags
-
-    // Mock data:
-    this.consultation = {}
-    this.consultation.timeAverage = Math.floor((Math.random() * 10) + 1)
 
     return this
   }
