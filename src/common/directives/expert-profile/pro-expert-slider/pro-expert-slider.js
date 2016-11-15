@@ -5,7 +5,7 @@
       scope.areControllsVisible = true
 
       $timeout(() => {
-        if(scope.sliders.length <= 3) {
+        if (scope.sliders.length <= 3) {
           scope.areControllsVisible = false
         }
       })

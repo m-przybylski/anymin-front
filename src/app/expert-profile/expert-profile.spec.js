@@ -4,8 +4,6 @@ describe('Unit tests: ExpertProfileController >', () => {
     let ExpertProfileController
     let _scope
 
-    let url = 'awesomeUrl/'
-
     beforeEach(() => {
       module('profitelo.controller.expert-profile')
       inject(($rootScope, $controller, $timeout, $stateParams, _smoothScrolling_) => {
@@ -19,10 +17,8 @@ describe('Unit tests: ExpertProfileController >', () => {
           smoothScrolling: _smoothScrolling_,
           expertOrganizations: [],
           similarExperts: [],
-          savedProfile: {type: '', expertDetails: {}},
+          savedProfile: {type: '', expertDetails: {}}
         })
-
-
       })
     })
 

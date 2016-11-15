@@ -1,37 +1,45 @@
-describe('Unit testing: profitelo.components.communicator.communicator-maximized.messenger.messenger-maximized.messenger-minimized', () => {
+describe('Unit testing: profitelo.components.communicator.communicator-maximized.messenger.messenger-minimized', () => {
   return describe('for messengerMinimized component >', () => {
 
+    const url = 'awesomeURL'
     let scope
-    let rootScope
-    let compile
-    let smoothScrolling
-    let componentController
+    let $rootScope
+    let $compile
+    let $componentController
     let component
-    let window
+    let injectors
     let validHTML = '<messenger-minimized></messenger-minimized>'
+    let bindings = {}
+
+    beforeEach(module(function($provide) {
+      $provide.value('apiUrl', url)
+    }))
 
     function create(html) {
-      scope = rootScope.$new()
+      scope = $rootScope.$new()
       let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      let compiledElement = $compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
 
     beforeEach(() => {
       module('templates-module')
-      module('profitelo.components.communicator.communicator-maximized.messenger.messenger-maximized.messenger-minimized')
+      module('profitelo.services.messenger')
+      module('profitelo.components.communicator.communicator-maximized.messenger.messenger-minimized')
 
-      inject(($rootScope, $compile, _$componentController_, _$window_, _smoothScrolling_) => {
-        componentController = _$componentController_
-        rootScope = $rootScope.$new()
-        compile = $compile
-        window = _$window_
-        smoothScrolling = _smoothScrolling_
+      inject((_$rootScope_, _$compile_, _$timeout_, _$componentController_, _messengerService_) => {
+        $componentController = _$componentController_
+        $rootScope = _$rootScope_
+        $compile = _$compile_
 
+        injectors = {
+          $timeout: _$timeout_,
+          messengerService: _messengerService_
+        }
       })
 
-      component = componentController('messengerMinimized', {$element: create(validHTML), $scope: rootScope}, {})
+      component = $componentController('messengerMinimized', injectors, bindings)
     })
 
     it('should have a dummy test', inject(() => {

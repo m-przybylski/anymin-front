@@ -31,7 +31,7 @@
           price: {
             amount: parseInt(this.costModel.cost, 10),
             currency: this.costModel.currency
-         }
+          }
         },
         invitations: []
       }).$promise.then((res)=> {

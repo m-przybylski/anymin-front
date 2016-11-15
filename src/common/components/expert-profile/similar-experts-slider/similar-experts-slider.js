@@ -5,7 +5,7 @@
 
     this.areControllsVisible = true
 
-    if(this.consultations.length <= 3) {
+    if (this.consultations.length <= 3) {
       this.areControllsVisible = false
     }
 

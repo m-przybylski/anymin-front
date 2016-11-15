@@ -33,7 +33,7 @@ describe('Unit testing: profitelo.components.communicator.communicator-maximized
       module('profitelo.filters.money')
       module('profitelo.components.communicator.communicator-maximized.messenger.messenger-maximized')
 
-      inject(($rootScope, $compile, $timeout, _$componentController_, _$window_, _messengerService_, _HelperService_, ___,) => {
+      inject(($rootScope, $compile, $timeout, _$componentController_, _$window_, _messengerService_, _HelperService_, ___) => {
         componentController = _$componentController_
         messengerService = _messengerService_
         HelperService = _HelperService_

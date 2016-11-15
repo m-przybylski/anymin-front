@@ -6,22 +6,26 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
       AccountApi,
       $httpBackend,
       url = 'awesomeURL',
-      registrationResendPOST  = null,
       _mockParams = null,
       _mockState = null,
       $state = null,
       proTopAlertService,
-      resourcesExpectations
+      resourcesExpectations,
+      communicatorService
 
-    beforeEach(module(function($provide) {
+    beforeEach(module(($provide) => {
       $provide.value('apiUrl', url)
     }))
 
     beforeEach(() => {
       module('profitelo.controller.login.account')
+      module('profitelo.services.communicator')
       module('profitelo.swaggerResources.definitions')
-      inject(($rootScope, $controller,  $filter, $injector, _proTopWaitingLoaderService_, _User_, _proTopAlertService_, _loginStateService_, _$httpBackend_, _AccountApiDef_) => {
+      inject(($rootScope, $controller,  $filter, $injector, _proTopWaitingLoaderService_, _User_, _proTopAlertService_,
+              _loginStateService_, _$httpBackend_, _AccountApiDef_, _communicatorService_, _RatelApiDef_, _ServiceApiDef_,
+              _SessionApiDef_) => {
         $httpBackend  = _$httpBackend_
+        communicatorService = _communicatorService_
         scope = $rootScope.$new()
         _mockParams = {
           phoneNumber: {
@@ -56,6 +60,15 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
         resourcesExpectations = {
           AccountApi: {
             getRegistrationStatusByMsisdn: $httpBackend.when(_AccountApiDef_.getRegistrationStatusByMsisdn.method, _AccountApiDef_.getRegistrationStatusByMsisdn.url + '?msisdn=321321642')
+          },
+          RatelApi: {
+            getRatelAuthConfig: $httpBackend.when(_RatelApiDef_.getRatelAuthConfig.method, _RatelApiDef_.getRatelAuthConfig.url)
+          },
+          ServiceApi: {
+            getProfileServices: $httpBackend.when(_ServiceApiDef_.getProfileServices.method, _ServiceApiDef_.getProfileServices.url)
+          },
+          SessionApi: {
+            login: $httpBackend.when(_SessionApiDef_.login.method, 'http://api.webpage.com/session')
           }
         }
         AccountFormController.account = _mockParams
@@ -115,21 +128,20 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
 
     it('should login user', () => {
       spyOn($state, 'go')
-
-      $httpBackend.when('GET', 'awesomeURL/ratel/config').respond(200, {})
-      $httpBackend.when('GET', 'awesomeURL/services/profile').respond(200, [])
-      registrationResendPOST = $httpBackend.when('POST', 'http://api.webpage.com/session')
+      resourcesExpectations.RatelApi.getRatelAuthConfig.respond(200, {})
+      resourcesExpectations.ServiceApi.getProfileServices.respond(200, [])
+      resourcesExpectations.SessionApi.login.respond(200, {})
+      spyOn(communicatorService, 'authenticate')
       AccountFormController.current = 2
-      registrationResendPOST.respond(200, {})
       AccountFormController.login()
       $httpBackend.flush()
+      expect(communicatorService.authenticate).toHaveBeenCalled()
       expect($state.go).toHaveBeenCalledWith('app.dashboard.start')
     })
 
     it('should display error', () => {
-      registrationResendPOST = $httpBackend.when('POST', 'http://api.webpage.com/session')
+      resourcesExpectations.SessionApi.login.respond(400, {})
       AccountFormController.current = 2
-      registrationResendPOST.respond(400, {})
       AccountFormController.login()
       $httpBackend.flush()
       expect(AccountFormController.serverError).toBe(true)

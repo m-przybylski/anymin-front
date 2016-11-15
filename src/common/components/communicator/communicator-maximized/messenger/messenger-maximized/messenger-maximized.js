@@ -40,6 +40,11 @@
       }
     }
 
+    const _onTypingEnd = () => {
+      this.isTyping = false
+      $timeout(_scrollMessagesBottom)
+    }
+
     const _addMessage = msg => {
       _addGroupedMessage(msg)
       _onTypingEnd()
@@ -55,11 +60,6 @@
     this.onSendMessage = (messageBody) =>
       messengerService.sendMessage(messageBody)
         .then(_onMessageSendSuccess, _onMessageSendError)
-
-    const _onTypingEnd = () => {
-      this.isTyping = false
-      $timeout(_scrollMessagesBottom)
-    }
 
     const _onTyping = () => {
       this.isTyping = true
