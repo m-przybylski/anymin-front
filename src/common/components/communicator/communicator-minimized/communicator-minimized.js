@@ -55,7 +55,7 @@
     controller: controller,
     controllerAs: 'vm',
     bindings: {
-      maximizeCommunicator: '='
+      maximizeCommunicator: '<'
     }
   }
 

@@ -4,12 +4,12 @@
   function clientCallController($scope, $uibModalInstance) {
 
     $scope.rejectCall = () => {
-      $uibModalInstance.dismiss('cancel')
+      $uibModalInstance.dismiss('reject')
       $scope.$parent.rejectCall()
     }
 
     $scope.answerCall = () => {
-      $uibModalInstance.dismiss('cancel')
+      $uibModalInstance.close('answer')
       $scope.$parent.answerCall()
     }
 

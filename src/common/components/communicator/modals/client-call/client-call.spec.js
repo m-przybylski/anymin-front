@@ -1,14 +1,14 @@
 describe('Testing Controller: clientCallController', () => {
 
-  var clientCallController
-  var scope
-  var uibModalInstance = {
-    dismiss: () => {
-
-    },
-    close: () => {
-
-    }
+  let clientCallController
+  let scope
+  let uibModalInstance = {
+    dismiss: _ => _,
+    close: _ => _
+  }
+  let parent = {
+    rejectCall: _ => _,
+    answerCall: _ => _
   }
 
   beforeEach(() => {
@@ -16,16 +16,29 @@ describe('Testing Controller: clientCallController', () => {
     inject(($rootScope, $controller) => {
 
       scope = $rootScope.$new()
-      scope.disconnectCall = () => {}
+      scope.$parent = parent
 
-      clientCallController = $controller('clientCallController', {
-        '$scope': scope,
-        '$uibModalInstance': uibModalInstance
-      })
+      const injectors = {
+        $scope: scope,
+        $uibModalInstance: uibModalInstance
+      }
+
+      clientCallController = $controller('clientCallController', injectors)
     })
   })
  
   it('should exists', () => {
     return expect(!!clientCallController).toBe(true)
+  })
+
+  it('should have rejectCall function', () => {
+
+    spyOn(uibModalInstance, 'dismiss')
+    spyOn(scope.$parent, 'rejectCall')
+
+    scope.rejectCall()
+
+    expect(uibModalInstance.dismiss).toHaveBeenCalledWith('reject')
+    expect(scope.$parent.rejectCall).toHaveBeenCalled()
   })
 })

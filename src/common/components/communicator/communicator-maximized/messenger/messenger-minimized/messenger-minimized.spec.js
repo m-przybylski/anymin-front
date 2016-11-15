@@ -11,7 +11,7 @@ describe('Unit testing: profitelo.components.communicator.communicator-maximized
     let validHTML = '<messenger-minimized></messenger-minimized>'
     let bindings = {}
 
-    beforeEach(module(function($provide) {
+    beforeEach(module(($provide) => {
       $provide.value('apiUrl', url)
     }))
 

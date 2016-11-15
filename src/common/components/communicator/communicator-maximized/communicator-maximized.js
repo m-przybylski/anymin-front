@@ -74,6 +74,9 @@
       this.service = angular.copy(service)
     })
 
+    this.hangupCall = () =>
+      callService.hangupCall()
+
     return this
   }
 
@@ -82,8 +85,7 @@
     controller: controller,
     controllerAs: 'vm',
     bindings: {
-      minimizeCommunicator: '=',
-      hangupCall: '='
+      minimizeCommunicator: '<'
     }
   }
 
