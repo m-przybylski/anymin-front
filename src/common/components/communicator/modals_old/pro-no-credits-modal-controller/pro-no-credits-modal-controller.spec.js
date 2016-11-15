@@ -25,7 +25,7 @@ describe('Testing Controller: proNoCreditsModalController', () => {
   it('should exists', () => {
     return expect(!!proNoCreditsModalController).toBe(true)
   })
-
+  
   it('should have dismissWindow function', () => {
 
     spyOn(uibModalInstance, 'dismiss')
