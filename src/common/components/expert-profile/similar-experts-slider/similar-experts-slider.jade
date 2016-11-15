@@ -28,8 +28,8 @@
 
               div
                 .consultation-price
-                  span {{ consultation.price.amount/100 | number: 2 }}
-                    span.currency {{ consultation.price.currency }} {{ "HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE" | translate}}
+                  span {{ consultation.price/100 | number: 2 }}
+                    span.currency PLN {{ "HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE" | translate}}
 
                 .consultation-title
                   h3
