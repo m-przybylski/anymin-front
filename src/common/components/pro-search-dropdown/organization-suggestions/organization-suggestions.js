@@ -4,7 +4,7 @@
   function organizationSuggestionsController(CommonSettingsService) {
 
     this.profileImage = (index) => {
-      return !!this.organizations.results[index].img ? CommonSettingsService.links.imageUrl.replace('%s', this.organizations.results[index].img) : null
+      return !!this.organizations.results[index].img ? CommonSettingsService.links.imageUrl.replace('%s', this.organizations.results[index].img) : false
     }
     
     return this

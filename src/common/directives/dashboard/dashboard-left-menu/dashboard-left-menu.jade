@@ -8,10 +8,11 @@
               a(data-translate="NAVIGATION.HOME_PAGE" data-ui-sref="app.home" data-ng-show="windowSize < 480")
             li(data-ng-repeat="item in menuElements")
               a(data-translate="{{ item.label }}" )
+
       .expert-profile-sidebar
         .profile-thumb.thumb.x48
           img.user-avatar(src='{{ avatar }}' alt='user-avatar' data-ng-class='{"is-not-uploaded": "!!avatar"}')
-        
+
         .profile-info
           h4(data-translate="DASHBOARD.MENU.EXPERT_ACCOUNT")
           a(data-translate="DASHBOARD.MENU.CHANGE_ACCOUNT")

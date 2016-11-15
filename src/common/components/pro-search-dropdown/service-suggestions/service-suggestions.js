@@ -4,7 +4,7 @@
   function serviceSuggestionsController(CommonSettingsService) {
 
     this.profileImage = (index) => {
-      return !!this.services.results[index].owner.img ? CommonSettingsService.links.imageUrl.replace('%s', this.services.results[index].owner.img) : null
+      return !!this.services.results[index].owner.img ? CommonSettingsService.links.imageUrl.replace('%s', this.services.results[index].owner.img) : false
     }
 
     return this

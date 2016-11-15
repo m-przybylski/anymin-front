@@ -6,7 +6,7 @@
       a.expert-box.dropdown-list-item(data-ng-repeat="service in vm.services.results track by $index"
       data-ui-sref="app.expert-profile({ contactId: service.owner.id })")
         .expert-profile
-          span.thumb
+          .thumb.x48
             img.expert-avatar.user-avatar(data-ng-src="{{ vm.profileImage($index) }}" data-ng-class="{'isNotUploaded': !vm.profileImage($index)}")
             .status-list
               span.status.availability

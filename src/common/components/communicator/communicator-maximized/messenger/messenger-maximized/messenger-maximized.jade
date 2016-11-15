@@ -13,7 +13,7 @@
         data-participant-avatar="{{ :: $ctrl.participantAvatar }}")
 
       .messenger-message-incoming(data-ng-class="{'is-active': $ctrl.isTyping}" data-ng-show="$ctrl.isTyping")
-        .thumb
+        .thumb.x48
           img.user-avatar(src data-ng-src="{{ $ctrl.participantAvatar }}")
         .connection-dots
           span

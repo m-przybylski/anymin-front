@@ -3,9 +3,9 @@
     h5.title-row  {{'SEARCH.ORGANIZATIONS' | translate}}
 
     .organization-box.dropdown-category-list
-      a.expert-profile.dropdown-list-item(data-ng-repeat="organization in vm.organizations.results track by $index"
+      a.profile-preview.dropdown-list-item(data-ng-repeat="organization in vm.organizations.results track by $index"
       data-ui-sref="app.company-profile({ contactId: organization.id })")
-        span.thumb
+        .thumb.x48
           img.expert-avatar.user-avatar.circle(data-ng-src="{{ vm.profileImage($index) }}" data-ng-class="{'isNotUploaded': !vm.profileImage($index)}")
 
         span.expert-data

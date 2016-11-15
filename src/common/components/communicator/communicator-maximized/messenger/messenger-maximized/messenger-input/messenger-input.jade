@@ -1,5 +1,5 @@
 .messenger-input
-  input(placeholder="COMMUNICATOR.MESSENGER.INPUT.PLACEHOLDER" data-ng-model="$ctrl.inputModel"
+  input(placeholder='{{ "COMMUNICATOR.MESSENGER.INPUT.PLACEHOLDER" | translate}}' data-ng-model="$ctrl.inputModel"
     data-ng-enter="$ctrl.sendMessage($ctrl.inputModel)" data-ng-keyup="$ctrl.onKeyup($event)")
 
   .messenger-input-action
