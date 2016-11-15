@@ -33,7 +33,7 @@
     'profitelo.components.expert-profile.company-single-consultation',
     'profitelo.components.expert-profile.similar-experts-slider',
     'profitelo.components.expert-profile.social-links',
-    'profitelo.directives.pro-top-alert-service',
+    'profitelo.services.pro-top-alert-service',
     'commonConfig'
   ])
   .config(($stateProvider, UserRolesProvider) => {

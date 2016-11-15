@@ -10,6 +10,7 @@ describe('Unit testing: profitelo.directives.pro-top-waiting-loader', () => {
     beforeEach(() => {
       module('templates-module')
       module('profitelo.directives.pro-top-waiting-loader')
+      module('profitelo.services.pro-top-waiting-loader-service')
 
       inject(($rootScope, $compile) => {
         rootScope = $rootScope.$new()

@@ -102,7 +102,7 @@
     'profitelo.directives.interface.pro-alert',
     'profitelo.directives.interface.pro-input',
     'profitelo.swaggerResources',
-    'profitelo.directives.pro-top-alert-service',
+    'profitelo.services.pro-top-alert-service',
     'c7s.ng.userAuth'
   ])
     .config(function($stateProvider, UserRolesProvider) {

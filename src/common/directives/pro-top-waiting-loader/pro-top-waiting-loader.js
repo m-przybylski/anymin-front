@@ -21,7 +21,8 @@
   }
 
   angular.module('profitelo.directives.pro-top-waiting-loader', [
-    'pascalprecht.translate'
+    'pascalprecht.translate',
+    'profitelo.services.pro-top-waiting-loader-service'
   ])
   .directive('proTopWaitingLoader', proTopWaitingLoader)
 

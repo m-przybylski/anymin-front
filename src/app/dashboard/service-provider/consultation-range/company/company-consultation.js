@@ -161,7 +161,7 @@
     'c7s.ng.userAuth',
     'profitelo.services.dialog-service',
     'profitelo.swaggerResources',
-    'profitelo.directives.pro-top-alert-service',
+    'profitelo.services.pro-top-alert-service',
     'profitelo.services.resolvers.app.service-provider-image-resolver',
     'profitelo.directives.service-provider.pro-bottom-summary-row',
     'profitelo.directives.service-provider.pro-service-provider-cost',

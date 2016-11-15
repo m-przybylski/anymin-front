@@ -136,7 +136,7 @@
     'c7s.ng.userAuth',
     'ui.router',
     'profitelo.swaggerResources',
-    'profitelo.directives.pro-top-alert-service',
+    'profitelo.services.pro-top-alert-service',
     'profitelo.services.commonSettings',
     'profitelo.directives.interface.pro-input',
     'profitelo.directives.interface.pro-checkbox',

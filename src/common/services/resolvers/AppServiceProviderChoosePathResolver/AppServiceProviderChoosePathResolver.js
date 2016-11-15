@@ -39,7 +39,7 @@
 
   angular.module('profitelo.services.resolvers.app.service-provider-choose-path', [
     'profitelo.swaggerResources',
-    'profitelo.directives.pro-top-alert-service',
+    'profitelo.services.pro-top-alert-service',
     'c7s.ng.userAuth',
     'profitelo.services.login-state'
   ])

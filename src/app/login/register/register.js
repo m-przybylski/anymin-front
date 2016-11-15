@@ -125,8 +125,8 @@
     'profitelo.swaggerResources',
     'profitelo.services.communicator',
     'profitelo.services.commonSettings',
-    'profitelo.directives.pro-top-alert-service',
-    'profitelo.directives.pro-top-waiting-loader-service',
+    'profitelo.services.pro-top-alert-service',
+    'profitelo.services.pro-top-waiting-loader-service',
     'profitelo.directives.interface.pro-checkbox',
     'profitelo.directives.interface.pro-alert',
     'profitelo.directives.interface.pro-input'

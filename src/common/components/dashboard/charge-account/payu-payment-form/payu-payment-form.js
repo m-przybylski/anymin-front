@@ -113,7 +113,7 @@
 
   angular.module('profitelo.components.dashboard.charge-account.payu-payment-form', [
     'profitelo.swaggerResources',
-    'profitelo.directives.pro-top-alert-service',
+    'profitelo.services.pro-top-alert-service',
     'profitelo.services.commonSettings',
     'profitelo.directives.interface.pro-input',
     'profitelo.directives.interface.pro-checkbox',

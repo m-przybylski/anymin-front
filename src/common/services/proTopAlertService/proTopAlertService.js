@@ -1,5 +1,5 @@
 (function() {
-  function proTopAlertService($filter, $timeout) {
+  function service($timeout) {
 
     let _alertArray = []
     let defaultOptions = {}
@@ -95,8 +95,8 @@
 
     }
   }
-  angular.module('profitelo.directives.pro-top-alert-service', [
+  angular.module('profitelo.services.pro-top-alert-service', [
     'pascalprecht.translate'
   ])
-    .service('proTopAlertService', proTopAlertService)
+    .service('proTopAlertService', service)
 }())

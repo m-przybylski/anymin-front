@@ -61,8 +61,7 @@
     'ui.router',
     'profitelo.services.resolvers.app.login.forgot-password',
     'profitelo.swaggerResources',
-    'profitelo.directives.pro-top-alert-service',
-    'profitelo.directives.pro-top-waiting-loader-service',
+    'profitelo.services.pro-top-waiting-loader-service',
     'profitelo.services.commonSettings',
     'profitelo.directives.interface.pro-input',
     'c7s.ng.userAuth'

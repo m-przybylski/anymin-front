@@ -166,7 +166,7 @@
    * @description
    * Service to determine strength of password
    */
-  angular.module('profitelo.directives.password-strength-service', [])
+  angular.module('profitelo.services.password-strength-service', [])
     .service('passwordStrengthService', PasswordStrengthFormulaService)
 
 }())

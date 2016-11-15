@@ -35,6 +35,8 @@ describe('Unit tests: profitelo.controller.post-register.set-password>', () => {
     beforeEach(() => {
       module('profitelo.controller.post-register.set-password')
       module('profitelo.swaggerResources.definitions')
+      module('profitelo.services.pro-top-waiting-loader-service')
+      module('profitelo.services.password-strength-service')
       inject(($rootScope, $controller, $filter, _proTopWaitingLoaderService_, _passwordStrengthService_, _AccountApi_,
               _proTopAlertService_, _$httpBackend_, _AccountApiDef_) => {
 

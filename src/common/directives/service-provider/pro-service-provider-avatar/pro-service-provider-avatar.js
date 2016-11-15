@@ -98,7 +98,7 @@
     'pascalprecht.translate',
     'profitelo.common.controller.service-provider.service-provider-step-controller',
     'profitelo.directives.interface.pro-uploader',
-    'profitelo.directives.pro-top-alert-service'
+    'profitelo.services.pro-top-alert-service'
   ])
   .directive('proServiceProviderAvatar', proServiceProviderAvatar)
 }())

@@ -4,7 +4,7 @@ describe('Unit testing: profitelo.directives.password-strength-service >', funct
     let passwordStrengthService  = null
 
     beforeEach(function() {
-      module('profitelo.directives.password-strength-service')
+      module('profitelo.services.password-strength-service')
 
       inject(($injector) => {
         passwordStrengthService = $injector.get('passwordStrengthService')
@@ -16,9 +16,5 @@ describe('Unit testing: profitelo.directives.password-strength-service >', funct
       expect(true).toBeTruthy()
     })
 
-
   })
 })
-
-
-

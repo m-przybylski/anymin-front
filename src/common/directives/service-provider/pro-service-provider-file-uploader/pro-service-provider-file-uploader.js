@@ -86,7 +86,7 @@
     'profitelo.services.commonSettings',
     'profitelo.directives.interface.pro-uploader',
     'profitelo.common.controller.service-provider.service-provider-step-controller',
-    'profitelo.directives.pro-top-alert-service'
+    'profitelo.services.pro-top-alert-service'
   ])
     .directive('proServiceProviderFileUploader', proServiceProviderFileUploader)
 }())

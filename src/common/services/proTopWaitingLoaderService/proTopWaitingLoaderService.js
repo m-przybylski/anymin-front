@@ -1,5 +1,5 @@
 (function() {
-  function proTopWaitingLoaderService($rootScope, $timeout, $interval) {
+  function service($rootScope, $timeout, $interval) {
 
     let _bindedProgress
     let _immediateInProgress = false
@@ -49,9 +49,9 @@
     }
   }
 
-  angular.module('profitelo.directives.pro-top-waiting-loader-service', [
+  angular.module('profitelo.services.pro-top-waiting-loader-service', [
     'pascalprecht.translate'
   ])
-  .service('proTopWaitingLoaderService', proTopWaitingLoaderService)
+  .service('proTopWaitingLoaderService', service)
 
 }())

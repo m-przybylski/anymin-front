@@ -1,6 +1,6 @@
 (function() {
 
-  function _controller() {
+  function controller() {
 
     return this
   }
@@ -21,21 +21,8 @@
 
   angular.module('profitelo.controller.post-register', [
     'ui.router',
-    'c7s.ng.userAuth',
-    'profitelo.services.login-state',
-    'profitelo.services.resolvers.app.login.register',
-    'profitelo.swaggerResources',
-    'profitelo.services.commonSettings',
-
-    'profitelo.directives.password-strength-service',
-    'profitelo.directives.pro-top-alert-service',
-    'profitelo.directives.pro-top-waiting-loader-service',
-    'profitelo.directives.interface.pro-checkbox',
-    'profitelo.directives.interface.pro-alert',
-    'profitelo.directives.interface.pro-input-password',
-    'profitelo.directives.interface.pro-input',
-    'profitelo.directives.password-strength-bar'
+    'c7s.ng.userAuth'
   ])
     .config(config)
-    .controller('PostRegisterController', _controller)
+    .controller('PostRegisterController', controller)
 }())

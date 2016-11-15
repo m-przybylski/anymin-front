@@ -34,7 +34,7 @@
     'profitelo.directives.expert-profile.pro-expert-social-icons',
     'profitelo.services.resolvers.app.service-provider-image-resolver',
     'profitelo.components.expert-profile.similar-experts-slider',
-    'profitelo.directives.pro-top-alert-service',
+    'profitelo.services.pro-top-alert-service',
     'profitelo.components.expert-profile.social-links',
     'profitelo.components.interface.collapse-tab'
   ])

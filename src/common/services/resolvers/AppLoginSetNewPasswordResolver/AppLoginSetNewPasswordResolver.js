@@ -73,7 +73,7 @@
 
   angular.module('profitelo.services.resolvers.app.login.set-new-password', [
     'profitelo.swaggerResources',
-    'profitelo.directives.pro-top-alert-service',
+    'profitelo.services.pro-top-alert-service',
     'profitelo.services.login-state'
   ])
   .service('AppLoginSetNewPasswordResolver', AppLoginSetNewPasswordResolver)

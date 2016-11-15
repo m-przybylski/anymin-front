@@ -4,9 +4,7 @@ describe('Unit tests: profitelo.controller.login.forgot-password >', () => {
     let scope
     let ForgotPasswordController
     let _RecoverPasswordApi
-
-
-    let _url = 'awesomeUrl'
+    const _url = 'awesomeUrl'
 
     let account = {
       accountObject: {
@@ -19,43 +17,34 @@ describe('Unit tests: profitelo.controller.login.forgot-password >', () => {
       sessionId: '123fsdf'
     }
 
-
-    let $state = {
-      go: () => {
-
-      }
+    const $state = {
+      go: _ => _
     }
 
-    beforeEach(module(function($provide) {
+    beforeEach(module(($provide) => {
       $provide.value('apiUrl', _url)
     }))
 
     beforeEach(() => {
       module('profitelo.controller.login.forgot-password')
       module('profitelo.swaggerResources.definitions')
-      inject(($rootScope, $controller, _RecoverPasswordApi_, _proTopWaitingLoaderService_, _proTopAlertService_) => {
+      module('profitelo.services.pro-top-waiting-loader-service')
+      inject(($rootScope, $controller, _RecoverPasswordApi_, _proTopWaitingLoaderService_) => {
         scope = $rootScope.$new()
 
         ForgotPasswordController = $controller('ForgotPasswordController', {
           $state: $state,
           account: account,
           RecoverPasswordApi: _RecoverPasswordApi_,
-          proTopWaitingLoaderService: _proTopWaitingLoaderService_,
-          proTopAlertService: _proTopAlertService_
-
+          proTopWaitingLoaderService: _proTopWaitingLoaderService_
         })
 
         _RecoverPasswordApi = _RecoverPasswordApi_
-
       })
     })
 
     it('should exsist', ()=> {
       expect(!!ForgotPasswordController).toBe(true)
     })
-
-
-
-
   })
 })

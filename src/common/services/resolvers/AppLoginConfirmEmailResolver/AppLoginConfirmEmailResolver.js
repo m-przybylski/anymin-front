@@ -69,7 +69,7 @@
 
   angular.module('profitelo.services.resolvers.app.login.confirm-email', [
     'profitelo.swaggerResources',
-    'profitelo.directives.pro-top-alert-service',
+    'profitelo.services.pro-top-alert-service',
     'c7s.ng.userAuth',     
     'profitelo.directives.interface.pro-alert'
   ])
