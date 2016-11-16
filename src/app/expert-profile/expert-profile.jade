@@ -1,7 +1,8 @@
-.expert-profile-page
+.expert-profile
   pro-top-navbar(logout-action="appController.logout")
 
-  pro-expert-header(data-profile="vm.profile")
+  .default-container
+    pro-expert-header(data-profile="vm.profile")
 
   collapse-tab(id='consultationScroll')
     .default-container(ng-repeat="service in vm.services")

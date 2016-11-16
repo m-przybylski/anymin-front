@@ -1,7 +1,8 @@
 .company-profile
   pro-top-navbar(logout-action="appController.logout")
 
-  pro-expert-header.company-header(data-profile="vm.profile" data-avatar="vm.profileImage")
+  .default-container
+    pro-expert-header.company-header(data-profile="vm.profile" data-avatar="vm.profileImage")
 
   collapse-tab(id='consultationScroll')
     .default-container(ng-repeat="service in vm.services")

@@ -1,9 +1,9 @@
 .default-container
   .single-consultation
-    .consultation-wrapper(data-ng-click = "vm.goToProfile()")
+    .consultation-wrapper(data-ng-click="vm.goToProfile()")
       .consultation-details
         .consultation-price
-          span {{ ::vm.consultation.price / 100}}
+          span {{ ::vm.consultation.price / 100 | number: 2 }}
             span.currency PLN {{ "HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE" | translate}}
 
         div
@@ -30,7 +30,7 @@
           .profile-name
             span {{ ::vm.consultation.owner.name }}
 
-        a.btn.success.icon-left(data-ng-click="vm.startCall()")
+        a.btn.success.icon-left(data-ng-click="vm.startCall()" data-ng-mouseover="vm.onMouseOver()" data-ng-mouseleave="vm.onMouseLeave()")
           span.icon.icon-call-16
           | {{ ::'HOME.TOP_CONTAINER.EXPERT_PROFILE.CALL' | translate }}
 
