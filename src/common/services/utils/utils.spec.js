@@ -30,8 +30,6 @@ describe('Unit testing: profitelo.services.utils >', () => {
         onTest2: 'onTest2'
       }
 
-      console.log('DUPA')
-
       const callbacks = UtilsService.callbacksFactory(Object.keys(events))
 
       callbacks.methods.onTest1(cbs.callback1)
