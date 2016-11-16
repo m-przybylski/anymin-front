@@ -1,6 +1,6 @@
 (function() {
 
-  function lightboxModelController($scope, $window, $timeout, $uibModalInstance, FilesApi, ImageZoomService) {
+  function lightboxModelController($scope, $window, $timeout, $uibModalInstance, FilesApi, ImageZoomService, _) {
 
     this.slideList = $scope.sliders
     this.isPending = false
@@ -20,7 +20,6 @@
       if (this.currentSlide.contentType !== 'application/pdf') {
         ImageZoomService.createZoomInstance(angular.element('.modal-dialog img')[currentSlideIndex])
       }
-
     })
 
     const _scrollToTop = () => {
@@ -49,8 +48,8 @@
           angular.element('.modal-dialog').perfectScrollbar()
         }
         _scrollToTop()
-      }, (error) => {
-
+      }, () => {
+        $uibModalInstance.close()
       }
       )
     }
@@ -126,7 +125,8 @@
     'profitelo.swaggerResources',
     'profitelo.services.helper',
     'profitelo.services.print-service',
-    'profitelo.services.image-zoom-service'
+    'profitelo.services.image-zoom-service',
+    'lodash'
 
   ])
     .controller('lightboxModelController', lightboxModelController)
