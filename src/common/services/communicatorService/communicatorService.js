@@ -74,7 +74,6 @@
           ratelSdk.withSignedAuth(clientConfig).then(session => {
             ratelSessions.setClientSession(session)
 
-            console.log(ratelSessions.getClientSession())
             _createRatelConnection(session, null)
           })
         )

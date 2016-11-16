@@ -21,7 +21,6 @@ describe('Unit testing: profitelo.services.commonSettings >', () => {
       expect(CommonSettingsService.get).toBeDefined()
     })
 
-
   })
 })
 
