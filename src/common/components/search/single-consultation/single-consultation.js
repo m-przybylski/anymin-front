@@ -12,10 +12,10 @@
       this.isLinkActive = true
     }
     
-    if (this.consultation.owner.img !== null || this.consultation.owner.img === '') {
+    if (!!this.consultation.owner.img && this.consultation.owner.img !== null) {
       this.profileImage = HelperService.fileUrlResolver(this.consultation.owner.img)
     } else {
-      this.profileImage = ''
+      this.profileImage = null
     }
 
     this.goToProfile =() => {

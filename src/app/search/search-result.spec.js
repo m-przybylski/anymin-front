@@ -1,8 +1,12 @@
 describe('Unit tests: search-result>', () => {
   describe('Testing Controller: SearchResultController', () => {
 
-    var $scope
-    var SearchResultController
+    let $scope
+    let SearchResultController
+    let searchService
+    let location
+    let searchUrlService
+    let state
 
     beforeEach(module(($provide) => {
       $provide.value('apiUrl', '')
@@ -11,19 +15,55 @@ describe('Unit tests: search-result>', () => {
     beforeEach(() => {
       module('profitelo.controller.search-result')
       module('profitelo.services.search')
-      module('profitelo.services.search-url')
-      inject(($rootScope, $controller, $state, $location, $timeout, _searchService_, _searchUrlService_) => {
+      
+      inject(($rootScope, $controller, $state, $location, $timeout, searchService) => {
         $scope = $rootScope.$new()
+        location = {
+          search: () => {
+            return {}
+          }
+        }
+
+        state = {
+          current: {
+            name: 'app.search-result'
+          },
+          go: () => {
+            return null
+          }
+        }
+
+        searchService = {
+          onSearchResults: ($scope, cb) => {
+            cb()
+          },
+
+          setSearchQueryParams: (params) => {
+            
+          },
+          
+          onQueryParamsChange: (scope, cb) => {
+            cb(angular.extend(location.search(), {q: 'prawo'}))
+          }
+        }
+
+        searchUrlService = {
+          parseParamsForUrl: () => {
+            
+          }
+        }
 
         SearchResultController = $controller('SearchResultController', {
           $scope: $scope,
           $rootScope: $rootScope,
-          $state: $state,
+          $state: state,
           $timeout: $timeout,
-          searchService: _searchService_,
-          $location: $location,
-          searchUrlService: _searchUrlService_
+          searchService: searchService,
+          $location: location,
+          searchUrlService: searchUrlService
         })
+        
+        
       })
     })
 
@@ -31,5 +71,30 @@ describe('Unit tests: search-result>', () => {
       expect(!!SearchResultController).toBe(true)
     })
 
+    it('should loade more on click', ()=> {
+      SearchResultController.searchResults = {
+        count: 10,
+        results:  [
+          {},
+          {}
+        ]
+      }
+      SearchResultController.loadMoreOnClick()
+      expect(SearchResultController.isLoadMoreLoading).toBe(true)
+      expect(SearchResultController.isLoadMoreError).toBe(false)
+    })
+
+    it('should loade more on scroll', ()=> {
+      SearchResultController.searchResults = {
+        count: 10,
+        results:  [
+          {},
+          {}
+        ]
+      }
+      SearchResultController.loadMoreOnScroll()
+      expect(SearchResultController.isLoadMoreLoading).toBe(true)
+      expect(SearchResultController.isLoadMoreError).toBe(false)
+    })
   })
 })

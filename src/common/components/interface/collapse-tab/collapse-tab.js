@@ -20,7 +20,7 @@
     $timeout(() => {
       setUpHeights()
     })
-
+    /* istanbul ignore next */
     angular.element($window).on('resize', ()=> {
       setUpHeights()
       $scope.$digest()

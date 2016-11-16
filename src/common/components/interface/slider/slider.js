@@ -12,7 +12,8 @@
         return div.offsetWidth
       })
     }
-
+    
+    /* istanbul ignore next */
     angular.element($window).on('resize', ()=> {
       parentWidth = $element[0].offsetWidth
       _elementsWidth()
