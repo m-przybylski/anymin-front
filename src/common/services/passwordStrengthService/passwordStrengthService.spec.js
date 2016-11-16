@@ -9,7 +9,6 @@ describe('Unit testing: profitelo.directives.password-strength-service >', funct
       inject(($injector) => {
         passwordStrengthService = $injector.get('passwordStrengthService')
       })
-
     })
 
     it('should exist', function() {

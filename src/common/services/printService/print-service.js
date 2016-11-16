@@ -32,12 +32,9 @@
       oHiddFrame.style.bottom = '0'
       oHiddFrame.srcdoc = htmlPrintTemplate(imgSrc)
       document.body.appendChild(oHiddFrame)
-
     }
 
-
     return {
-
       print: (src) => {
         _printPage(src)
       }

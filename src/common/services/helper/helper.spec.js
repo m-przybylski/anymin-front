@@ -26,13 +26,10 @@ describe('Unit testing: profitelo.services.helper >', () => {
       var facebook = HelperService.socialUrlResolver('facebook.com/costam').iconClass
       var linkedIn = HelperService.socialUrlResolver('https://linkedin.com/ktostam').iconClass
 
-      
       expect(facebook).toEqual('icon-facebook-24')
       expect(linkedIn).toEqual('icon-linkedin-24')
       expect(generic).toEqual('icon-www-24')
-
     })
-
 
   })
 })

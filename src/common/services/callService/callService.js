@@ -29,10 +29,12 @@
       if (call) {
         return call.hangup().then(result => {
           callbacks.notify(events.onHangup, null)
-          timer.stop()
+          if (timer) {
+            timer.stop()
+            timer = null
+          }
           serviceUsageData = null
           expertService = null
-          timer = null
           call = null
 
           return $q.resolve(result)
