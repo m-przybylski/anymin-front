@@ -1,3 +1,4 @@
+/* istanbul ignore next */
 (function() {
   const _RatelSDK = RatelSDK
 
