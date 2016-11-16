@@ -6,7 +6,6 @@
     this.tags = this.service.details.tags
     this.experts = this.service.details.employees
     
-    console.log(this.experts)
     return this
   }
 
