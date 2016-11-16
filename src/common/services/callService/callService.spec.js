@@ -2,14 +2,21 @@ describe('Unit testing: profitelo.services.call >', () => {
   describe('for profitelo.services.call >', () => {
 
     let callService
+    let onCall
+
+    const communicatorService = {
+      onCall: (cb) => onCall = cb
+    }
+
+    beforeEach(() => {
+      module('profitelo.services.communicator')
+      module('profitelo.services.call')
+    })
 
     beforeEach(module(($provide) => {
       $provide.value('apiUrl', 'awesomeURL')
+      $provide.value('communicatorService', communicatorService)
     }))
-
-    beforeEach(() => {
-      module('profitelo.services.call')
-    })
 
     beforeEach(inject(($injector) => {
       callService = $injector.get('callService')
@@ -209,6 +216,23 @@ describe('Unit testing: profitelo.services.call >', () => {
 
       expect(call.toggleVideo).toHaveBeenCalled()
       expect(call.toggleAudio).toHaveBeenCalled()
+    }))
+
+    it('should show modal on onCall', inject((modalsService) => {
+
+      const obj = {
+        invitation: {
+          call: {}
+        },
+        expert: {},
+        session: {}
+      }
+
+      spyOn(modalsService, 'createIncomingCallModal')
+
+      onCall(obj)
+
+      expect(modalsService.createIncomingCallModal).toHaveBeenCalled()
     }))
   })
 })

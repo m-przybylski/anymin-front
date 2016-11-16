@@ -55,6 +55,29 @@ describe('Unit testing: profitelo.services.messenger >', () => {
       $rootScope.$digest()
     }))
 
+    it('client should get users', inject(($q, $rootScope, communicatorService, messengerService) => {
+      const ratelId = '1'
+      const room = {
+        onTyping: _ => _,
+        onMark: _ => _,
+        onMessage: _ => _,
+        getUsers: () => $q.resolve('test')
+      }
+      const session = {
+        chat: {
+          createDirectRoom: () => $q.resolve(room)
+        }
+      }
+
+      communicatorService.getClientSession = () => session
+
+      onClientCallStarted(ratelId)
+      messengerService.getUsers().then(res => {
+        expect(res).toEqual('test')
+      })
+      $rootScope.$digest()
+    }))
+
     it('expert should get mark', inject(($q, $rootScope, communicatorService, messengerService) => {
       const ratelId = '1'
       const room = {
@@ -73,6 +96,29 @@ describe('Unit testing: profitelo.services.messenger >', () => {
       }
 
       onExpertCallJoin(obj)
+      messengerService.getMark().then(res => {
+        expect(res).toEqual('test')
+      })
+      $rootScope.$digest()
+    }))
+
+    it('client should get mark', inject(($q, $rootScope, communicatorService, messengerService) => {
+      const ratelId = '1'
+      const room = {
+        onTyping: _ => _,
+        onMark: _ => _,
+        onMessage: _ => _,
+        getMark: () => $q.resolve('test')
+      }
+      const session = {
+        chat: {
+          createDirectRoom: () => $q.resolve(room)
+        }
+      }
+
+      communicatorService.getClientSession = () => session
+
+      onClientCallStarted(ratelId)
       messengerService.getMark().then(res => {
         expect(res).toEqual('test')
       })
@@ -103,6 +149,29 @@ describe('Unit testing: profitelo.services.messenger >', () => {
       $rootScope.$digest()
     }))
 
+    it('client should mark', inject(($q, $rootScope, communicatorService, messengerService) => {
+      const ratelId = '1'
+      const room = {
+        onTyping: _ => _,
+        onMark: _ => _,
+        onMessage: _ => _,
+        mark: () => $q.resolve('test')
+      }
+      const session = {
+        chat: {
+          createDirectRoom: () => $q.resolve(room)
+        }
+      }
+
+      communicatorService.getClientSession = () => session
+
+      onClientCallStarted(ratelId)
+      messengerService.mark().then(res => {
+        expect(res).toEqual('test')
+      })
+      $rootScope.$digest()
+    }))
+
     it('expert should indicateTyping', inject(($q, $rootScope, communicatorService, messengerService) => {
       const ratelId = '1'
       const room = {
@@ -121,6 +190,29 @@ describe('Unit testing: profitelo.services.messenger >', () => {
       }
 
       onExpertCallJoin(obj)
+      messengerService.indicateTyping().then(res => {
+        expect(res).toEqual('test')
+      })
+      $rootScope.$digest()
+    }))
+
+    it('client should indicateTyping', inject(($q, $rootScope, communicatorService, messengerService) => {
+      const ratelId = '1'
+      const room = {
+        onTyping: _ => _,
+        onMark: _ => _,
+        onMessage: _ => _,
+        indicateTyping: () => $q.resolve('test')
+      }
+      const session = {
+        chat: {
+          createDirectRoom: () => $q.resolve(room)
+        }
+      }
+
+      communicatorService.getClientSession = () => session
+
+      onClientCallStarted(ratelId)
       messengerService.indicateTyping().then(res => {
         expect(res).toEqual('test')
       })
@@ -149,6 +241,40 @@ describe('Unit testing: profitelo.services.messenger >', () => {
         expect(res).toEqual('test')
       })
       $rootScope.$digest()
+    }))
+
+    it('client should sendMessage', inject(($q, $rootScope, communicatorService, messengerService) => {
+      const ratelId = '1'
+      const room = {
+        onTyping: _ => _,
+        onMark: _ => _,
+        onMessage: _ => _,
+        sendMessage: () => $q.resolve('test')
+      }
+      const session = {
+        chat: {
+          createDirectRoom: () => $q.resolve(room)
+        }
+      }
+
+      communicatorService.getClientSession = () => session
+
+      onClientCallStarted(ratelId)
+      messengerService.sendMessage().then(res => {
+        expect(res).toEqual('test')
+      })
+      $rootScope.$digest()
+    }))
+
+    it('onHangup should remove room', inject(() => {
+      onHangup()
+    }))
+
+    it('onClientCallPending should notify callback facotyr', inject(() => {
+      const serviceUsageRequest = {
+        expert: {}
+      }
+      onClientCallPending(serviceUsageRequest)
     }))
   })
 })
