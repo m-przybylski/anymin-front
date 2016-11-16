@@ -4,7 +4,8 @@
   function controller(HelperService) {
 
     this.tags = this.service.details.tags
-
+    this.experts = this.service.details.employees
+    
     return this
   }
 

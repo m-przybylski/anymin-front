@@ -58,13 +58,28 @@
               profileWithServices.services.forEach((service) => {
                 service.details.tags = _.head(_.filter(servicesTags, (serviceTags) => service.id === serviceTags.serviceId)).tags
               })
-              const primaryConsultation = _.find(profileWithServices.services, (o) => { return o.id === $stateParams.primaryConsultationId })
-              if (angular.isDefined($stateParams.primaryConsultationId) && !!primaryConsultation && profileWithServices.services.length > 1) {
-                const currentElement = profileWithServices.services.splice(profileWithServices.services.indexOf(primaryConsultation), 1)
-                profileWithServices.services.unshift(currentElement[0])
-              }
 
-              _deferred.resolve(profileWithServices)
+              ServiceApi.postServiceWithEmployees({
+                serviceIds: _.map(profileWithServices.services, 'id')
+              }).$promise.then((servicesEmployee) => {
+
+                profileWithServices.services.forEach((service) => {
+                  service.details.employees = _.head(_.filter(servicesEmployee, (serviceEmployee) => service.id === serviceEmployee.serviceDetails.id)).employeesDetails
+                })
+
+                const primaryConsultation = _.find(profileWithServices.services, (o) => { return o.id === $stateParams.primaryConsultationId })
+                if (angular.isDefined($stateParams.primaryConsultationId) && !!primaryConsultation && profileWithServices.services.length > 1) {
+                  const currentElement = profileWithServices.services.splice(profileWithServices.services.indexOf(primaryConsultation), 1)
+                  profileWithServices.services.unshift(currentElement[0])
+                }
+                
+                _deferred.resolve(profileWithServices)
+              }, (error) => {
+                proTopAlertService.error({
+                  message: 'Service employees error',
+                  timeout: 4
+                })
+              })
             }, (error) => {
               _deferred.reject(error)
               $state.go('app.dashboard.start')
