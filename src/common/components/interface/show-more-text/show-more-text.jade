@@ -1,6 +1,8 @@
 .show-more-text
   .description(data-ng-style="vm.textHeight")
-    p(ng-bind-html="vm.text | limitTo: vm.textLimit" data-ng-class="{'is-showed': vm.showDotsMore}")
+    p
+      span.short-text(data-ng-class="{'is-showed': !vm.isCollapsed && vm.readMoreVisivle}") {{ vm.textShort }}
+      span.long-text(ng-bind-html="vm.textLong" data-ng-class="{'visible': vm.isCollapsed}")
 
-  a.btn.btn-show-more(data-ng-show="vm.text.length > vm.textLimit" data-ng-click="vm.showMoreText()" data-ng-class="{'show-less':vm.changeIcon}")
+  a.btn.btn-show-more(data-ng-click="vm.showMoreText()" data-ng-show="vm.readMoreVisivle" data-ng-class="{'show-less':vm.isCollapsed}")
     span(data-translate="DASHBOARD.EXPERT_ACCOUNT.READ_MORE")

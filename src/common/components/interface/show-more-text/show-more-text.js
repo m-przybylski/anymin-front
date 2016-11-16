@@ -1,36 +1,57 @@
 (function() {
   /* @ngInject */
-  function showMoreTextController($element, $timeout) {
-    this.defaultTextHeight = '40px'
-    this.toogleStatus = false
-    this.showDotsMore = true
+  function showMoreTextController($element, $filter, $timeout, $window, $scope) {
+    this.isCollapsed = false
+    this.readMoreVisivle = false
 
-    this.textHeight = {
-      height: this.defaultTextHeight
-    }
+    this.textShort = $filter('limitTo')(this.text, 300, 0)
+    this.textLong = $filter('limitTo')(this.text, this.text.length, 300)
 
-    $timeout(()=>{
-      this.heightFullText = $($element.find('p').height())
-      this.textLimit = 300
+    $timeout(() => {
+      this.heightElements = {
+        shortTextHeight: $($element.find('.short-text').height()),
+        descriptionHeight: $($element.find('.description > p').height())
+      }
+
+      this.textHeight = {
+        height: this.heightElements.shortTextHeight[0]
+      }
+
+      if (this.text.length > 300) {
+        this.readMoreVisivle = true
+      }
 
       this.showMoreText = () => {
-        this.changeIcon = !this.changeIcon
-        this.showDotsMore = !this.showDotsMore
-        this.textLimit = this.textLimit === null ? 300 : null
-
-        if (this.toogleStatus === false) {
-          this.textHeight.height = this.heightFullText[0]
-
-          this.toogleStatus = true
+        if (this.isCollapsed == false) {
+          this.textHeight = {
+            height: this.heightElements.descriptionHeight[0]
+          }
         } else {
-          this.textHeight.height = this.defaultTextHeight
-
-          this.toogleStatus = false
+          this.textHeight = {
+            height: this.heightElements.shortTextHeight[0]
+          }
         }
+        this.isCollapsed = !this.isCollapsed
       }
     })
 
+    /* istanbul ignore next */
+    angular.element($window).on('resize', ()=> {
+      this.heightElements = {
+        shortTextHeight: $($element.find('.short-text').height()),
+        descriptionHeight: $($element.find('.description > p').height())
+      }
+
+      if (this.isCollapsed == true) {
+        this.textHeight.height = this.heightElements.descriptionHeight[0]
+      } else {
+        this.textHeight.height = this.heightElements.shortTextHeight[0]
+      }
+      $scope.$digest()
+    })
+    
     return this
+
 
   }
 
