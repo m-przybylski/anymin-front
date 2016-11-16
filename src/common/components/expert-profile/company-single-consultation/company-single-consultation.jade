@@ -34,5 +34,5 @@
     pro-summary-tag(data-title="DASHBOARD.EXPERT_ACCOUNT.CONSULTATION_RANGE"
                     data-tags="$ctrl.tags" data-hide-more-tags="$ctrl.hideMoreTags")
 
-    experts-consultation-slider(data-title="DASHBOARD.EXPERT_ACCOUNT.CONSULTATION_RANGE"
-                                data-experts="$ctrl.experts" data-ng-hide="!$ctrl.experts")
+    experts-consultation-slider(data-title="COMPANY_PROFILE.CONSULTATION_EMPLOYEES_SLIDER"
+                                data-experts="$ctrl.experts" data-ng-hide="!$ctrl.experts || $ctrl.experts.length < 1")

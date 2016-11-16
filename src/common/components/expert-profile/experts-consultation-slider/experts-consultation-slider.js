@@ -1,6 +1,6 @@
 (function() {
   /* @ngInject */
-  function controller($scope) {
+  function controller($scope, HelperService) {
     this.controlls = {}
 
     this.nextSlide = () => {
@@ -10,6 +10,14 @@
     this.prevSlide = () => {
       $scope.controlls.prevSlide()
     }
+    
+    this.expertImage = (token) => {
+      if (!!token && token !== null) {
+        return HelperService.fileUrlResolver(token)
+      } 
+      
+    }
+    
 
     return this
   }
@@ -28,7 +36,6 @@
   angular.module('profitelo.components.expert-profile.experts-consultation-slider', [
     'profitelo.components.interface.slider',
     'profitelo.services.helper',
-    'profitelo.services.call',
     'pascalprecht.translate'
   ])
     .component('expertsConsultationSlider', expertsConsultationSlider)
