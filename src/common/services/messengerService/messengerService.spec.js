@@ -53,8 +53,6 @@ describe('Unit testing: profitelo.services.messenger >', () => {
         expect(res).toEqual('test')
       })
       $rootScope.$digest()
-
-      expect(callService.onClientCallStarted).toHaveBeenCalled()
     }))
 
     it('expert should get mark', inject(($q, $rootScope, communicatorService, messengerService) => {
@@ -79,8 +77,6 @@ describe('Unit testing: profitelo.services.messenger >', () => {
         expect(res).toEqual('test')
       })
       $rootScope.$digest()
-
-      expect(callService.onClientCallStarted).toHaveBeenCalled()
     }))
 
     it('expert should mark', inject(($q, $rootScope, communicatorService, messengerService) => {
@@ -105,8 +101,6 @@ describe('Unit testing: profitelo.services.messenger >', () => {
         expect(res).toEqual('test')
       })
       $rootScope.$digest()
-
-      expect(callService.onClientCallStarted).toHaveBeenCalled()
     }))
 
     it('expert should indicateTyping', inject(($q, $rootScope, communicatorService, messengerService) => {
@@ -131,8 +125,6 @@ describe('Unit testing: profitelo.services.messenger >', () => {
         expect(res).toEqual('test')
       })
       $rootScope.$digest()
-
-      expect(callService.onClientCallStarted).toHaveBeenCalled()
     }))
 
     it('expert should sendMessage', inject(($q, $rootScope, communicatorService, messengerService) => {
@@ -157,8 +149,6 @@ describe('Unit testing: profitelo.services.messenger >', () => {
         expect(res).toEqual('test')
       })
       $rootScope.$digest()
-
-      expect(callService.onClientCallStarted).toHaveBeenCalled()
     }))
   })
 })
