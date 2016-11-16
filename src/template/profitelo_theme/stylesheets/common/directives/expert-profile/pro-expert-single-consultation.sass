@@ -1,7 +1,10 @@
 .expert-profile-consultation
   .consultation-wrapper
     padding: 0
-    border: 1px solid $c-lines
+    border-top: 1px solid $c-lines
+
+    +smm
+      border: 1px solid $c-lines
 
     .consultation-content
       padding: 32px 16px
@@ -21,7 +24,10 @@
 
     .pro-summary-tag
       background: $c-background
-      padding: 32px 16px
+      padding: 32px 0 32px 16px
+
+      +smm
+        padding: 32px 16px
 
       +lgm
         padding: 32px

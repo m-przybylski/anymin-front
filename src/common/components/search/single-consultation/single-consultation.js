@@ -2,7 +2,16 @@
 
   /* @ngInject */
   function singleConsultationController($state, HelperService, callService) {
+    this.isLinkActive = true
 
+    this.onMouseOver = () => {
+      this.isLinkActive = false
+    }
+
+    this.onMouseLeave = () => {
+      this.isLinkActive = true
+    }
+    
     if (this.consultation.owner.img !== null || this.consultation.owner.img === '') {
       this.profileImage = HelperService.fileUrlResolver(this.consultation.owner.img)
     } else {
@@ -10,8 +19,10 @@
     }
 
     this.goToProfile =() => {
-      const stateName  = this.consultation.owner.type === 'ORG' ? 'app.company-profile' : 'app.expert-profile'
-      $state.go(stateName, { contactId: this.consultation.owner.id, primaryConsultationId: this.consultation.id  })
+      if (this.isLinkActive) {
+        const stateName = this.consultation.owner.type === 'ORG' ? 'app.company-profile' : 'app.expert-profile'
+        $state.go(stateName, {contactId: this.consultation.owner.id, primaryConsultationId: this.consultation.id})
+      }
     }
 
     this.startCall = () => {

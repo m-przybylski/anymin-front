@@ -1,11 +1,10 @@
 .messenger-messages
-
   .grouped-messages
     display: flex
     justify-content: flex-end
 
     .message
-      text-align: right
+      text-align: left
       flex: 1
       margin: 0 0 8px
       display: flex
@@ -36,7 +35,6 @@
 
     /* green messages */
     &.interlocutor
-      text-align: left
       flex: 1
       margin: 0 0 8px
       display: flex
@@ -44,6 +42,7 @@
 
       .message
         justify-content: flex-start
+        text-align: left
 
         span
           transform-origin: 0 0
