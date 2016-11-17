@@ -1,5 +1,5 @@
 (function() {
-  function ExpertProfileController($stateParams, $timeout, smoothScrolling, expertOrganizations, savedProfile, similarExperts) {
+  function ExpertProfileController($stateParams, $timeout, $state, smoothScrolling, expertOrganizations, savedProfile, similarExperts) {
 
     this.profile = {}
 
@@ -101,7 +101,7 @@
               _deferred.resolve(profileWithServices)
             })
           }, () => {
-            _deferred.resolve(null)
+            _deferred.resolve()
           }, (error)=> {
             _deferred.reject(error)
             $state.go('app.dashboard.start')
@@ -117,33 +117,37 @@
         similarExperts: (SearchApi, savedProfile, $q) => {
           /* istanbul ignore next */
           let _deferred = $q.defer()
-          /* istanbul ignore next */
-          const tagsArray = savedProfile.services[0].details.tags
-          const tagId  = tagsArray[Math.floor((Math.random() * (tagsArray.length -1)))].id
+          if (!!savedProfile.services && savedProfile.services.length > 0) {
+            /* istanbul ignore next */
+            const tagsArray = savedProfile.services[0].details.tags
+            const tagId  = tagsArray[Math.floor((Math.random() * (tagsArray.length -1)))].id
 
-          SearchApi.search({
-            'tag.id':tagId,
-            'profile.type': 'EXP',
-            'limit' : 10
-          }).$promise.then((response)=> {
+            SearchApi.search({
+              'tag.id':tagId,
+              'profile.type': 'EXP',
+              'limit' : 10
+            }).$promise.then((response)=> {
 
-            const currentConsultation = _.find(response.results, (o) => {
-              return o.id === savedProfile.services[0].id 
-            })
-
-            if (!!currentConsultation) {
-              response.results = _.remove(response.results, (n) => {
-                return n.id !== savedProfile.services[0].id
+              const currentConsultation = _.find(response.results, (o) => {
+                return o.id === savedProfile.services[0].id
               })
-            }
 
-            _deferred.resolve(response.results)
+              if (!!currentConsultation) {
+                response.results = _.remove(response.results, (n) => {
+                  return n.id !== savedProfile.services[0].id
+                })
+              }
 
-          }, (error) => {
-            _deferred.reject(error)
-          })
-          /* istanbul ignore next */
-          return _deferred.promise
+              _deferred.resolve(response.results)
+
+            }, (error) => {
+              _deferred.reject(error)
+            })
+            /* istanbul ignore next */
+            return _deferred.promise
+          } else {
+            _deferred.resolve()
+          }
         }
       },
 

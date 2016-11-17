@@ -112,7 +112,7 @@
           /* istanbul ignore next */
           let _deferred = $q.defer()
           /* istanbul ignore next */
-          if (!!savedProfile) {
+          if (!!savedProfile.services && savedProfile.services.length > 0) {
             const tagsArray = savedProfile.services[0].details.tags
             const tagId = tagsArray[Math.floor((Math.random() * (tagsArray.length - 1)))].id
 
@@ -142,6 +142,8 @@
                 timeout: 4
               })
             })
+          } else {
+            _deferred.resolve()
           }
           /* istanbul ignore next */
           return _deferred.promise
