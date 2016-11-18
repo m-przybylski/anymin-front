@@ -8,8 +8,9 @@
     this.isCollapsed = false
 
     const getFirstCollapseElementHeight = () => {
-      if ($element.find('ng-transclude > div:first-child')) {
-        return $element.find('ng-transclude > div:first-child').height()
+      const firstCollapseElement = $element.find('ng-transclude > div:first-child')
+      if (firstCollapseElement) {
+        return firstCollapseElement.height()
       } else {
         $log.error('In method getFirstCollapseElementHeight: element div:first-child not found')
         return 0
