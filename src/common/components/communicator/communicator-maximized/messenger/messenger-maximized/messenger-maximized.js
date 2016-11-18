@@ -23,7 +23,10 @@
 
     const _scrollMessagesBottom = () => {
       messagesScroll.perfectScrollbar('update')
-      messagesScroll.scrollTop(messagesScroll[0].scrollHeight)
+      $timeout(() => {
+        messagesScroll.scrollTop(messagesScroll[0].scrollHeight)
+      })
+
     }
 
     const _addGroupedMessage = (message) => {
