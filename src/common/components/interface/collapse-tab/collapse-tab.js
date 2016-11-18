@@ -4,31 +4,36 @@
     this.objectHeight = {
       height: null
     }
-    this.changeIcon = false
+    
+    this.isCollapse = false
 
     let elementHeight = 0
     let singleElementHeight = 0
 
-    const setUpHeights = () => {
-      const singleElement =  $element.find('ng-transclude > div')
-
-      singleElementHeight =  singleElement.height()
-      elementHeight = singleElementHeight * singleElement.length
-      this.objectHeight.height = singleElementHeight
+    let setUpHeights = () => {
+      singleElementHeight =  $element.find('ng-transclude > div:first-child').height()
+      elementHeight = $element.find('.collapse-content').height()
     }
 
     $timeout(() => {
       setUpHeights()
+      this.objectHeight.height = singleElementHeight
     })
-    /* istanbul ignore next */
+
     angular.element($window).on('resize', ()=> {
       setUpHeights()
+
+      if (this.isCollapse) {
+        this.objectHeight.height = elementHeight
+      } else {
+        this.objectHeight.height = singleElementHeight
+      }
       $scope.$digest()
     })
 
     this.collapsing = () => {
       this.objectHeight.height = this.objectHeight.height !== elementHeight ? elementHeight : $element.find('ng-transclude > div').height()
-      this.changeIcon = !this.changeIcon
+      this.isCollapse = !this.isCollapse
       if (this.objectHeight.height !== elementHeight) {
         smoothScrolling.simpleScrollTo('#collapseWrap', true, 500)
       }
