@@ -1,46 +1,54 @@
 (function() {
   /* @ngInject */
-  function controller($element, smoothScrolling, $window, $scope, $timeout) {
-    this.objectHeight = {
+  function controller($element, smoothScrolling, $window, $log, $scope, $timeout) {
+    this.stylesObject = {
       height: null
     }
+
+    this.isCollapsed = false
+
+    const getFirstCollapseElementHeight = () => {
+      if ($element.find('ng-transclude > div:first-child')) {
+        return $element.find('ng-transclude > div:first-child').height()
+      } else {
+        $log.error('In method getFirstCollapseElementHeight: element div:first-child not found')
+        return 0
+      }
+    }
+
+    const getCollapseWrapperHeight = () => {
+      return $element.find('.collapse-content').height()
+    }
     
-    this.isCollapse = false
-
-    let elementHeight = 0
-    let singleElementHeight = 0
-
-    let setUpHeights = () => {
-      singleElementHeight =  $element.find('ng-transclude > div:first-child').height()
-      elementHeight = $element.find('.collapse-content').height()
+    /* istanbul ignore next */
+    const onWindowResize = () => {
+      if (this.isCollapsed) {
+        this.stylesObject.height = getCollapseWrapperHeight()
+      } else {
+        this.stylesObject.height = getFirstCollapseElementHeight()
+      }
+      $scope.$digest()
     }
 
     $timeout(() => {
-      setUpHeights()
-      this.objectHeight.height = singleElementHeight
+      this.stylesObject.height = getFirstCollapseElementHeight()
     })
+    
+    /* istanbul ignore next */
+    angular.element($window).on('resize', onWindowResize)
 
-    angular.element($window).on('resize', ()=> {
-      setUpHeights()
+    this.toggleCollapse = () => {
+      this.stylesObject.height = this.stylesObject.height !== getCollapseWrapperHeight() ?
+        getCollapseWrapperHeight() : getFirstCollapseElementHeight()
 
-      if (this.isCollapse) {
-        this.objectHeight.height = elementHeight
-      } else {
-        this.objectHeight.height = singleElementHeight
-      }
-      $scope.$digest()
-    })
-
-    this.collapsing = () => {
-      this.objectHeight.height = this.objectHeight.height !== elementHeight ? elementHeight : $element.find('ng-transclude > div').height()
-      this.isCollapse = !this.isCollapse
-      if (this.objectHeight.height !== elementHeight) {
-        smoothScrolling.simpleScrollTo('#collapseWrap', true, 500)
+      this.isCollapsed = !this.isCollapsed
+      if (this.stylesObject.height !== getCollapseWrapperHeight()) {
+        smoothScrolling.simpleScrollTo('#collapseWrap', true, 1000)
       }
     }
 
     this.checkedHeight = () => {
-      return elementHeight === singleElementHeight
+      return getFirstCollapseElementHeight() === getCollapseWrapperHeight()
     }
 
 

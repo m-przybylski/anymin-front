@@ -61,19 +61,18 @@ describe('Unit testing: profitelo.components.interface.collapse-tab', () => {
       const el = create(validHTML)
       const isoScope = el.isolateScope()
 
-      spyOn(isoScope.$ctrl, 'collapsing')
+      spyOn(isoScope.$ctrl, 'toggleCollapse')
       el.find('.btn-show-more').triggerHandler('click')
-      expect(isoScope.$ctrl.collapsing).toHaveBeenCalled()
+      expect(isoScope.$ctrl.toggleCollapse).toHaveBeenCalled()
     })
 
     it('should scroll to upper element on collapse', () => {
       spyOn(smoothScrolling, 'simpleScrollTo')
-      component.collapsing()
-      component.collapsing()
+      component.toggleCollapse()
+      component.toggleCollapse()
       expect(smoothScrolling.simpleScrollTo).toHaveBeenCalled()
     })
     
-
   })
 })
 
