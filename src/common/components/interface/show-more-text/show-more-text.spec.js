@@ -32,22 +32,14 @@ describe('Unit testing: profitelo.components.interface.show-more-text', () => {
         window = _$window_
       })
 
-      bindings = {
-        text: 'test'
-      }
-
-      component = componentController('showMoreTextController', {$element: create(validHTML), $scope: rootScope, $window: window}, {} )
+      component = componentController('showMoreText', {$element: create(validHTML), $scope: rootScope, $window: window}, bindings )
       timeout.flush()
     })
 
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
-
-    it('should compile the component', () => {
-      const el = create(validHTML)
-      expect(el.html()).toBeDefined(true)
-    })
+    
 
     it('should expand collapse element on click', () => {
       const el = create(validHTML)
