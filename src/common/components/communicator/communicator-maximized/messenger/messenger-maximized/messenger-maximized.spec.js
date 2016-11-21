@@ -1,16 +1,17 @@
 describe('Unit testing: profitelo.components.communicator.communicator-maximized.messenger.messenger-maximized', () => {
   return describe('for messengerMaximized component >', () => {
 
-    const url = 'awesomeURL'
     let scope
     let rootScope
     let compile
-    let componentController
-    let messengerService
-    let _
-    let HelperService
     let component
     let validHTML = '<messenger-maximized data-call-length="0" data-call-cost="0"></messenger-maximized>'
+
+    const bindings = {
+      callCost: 0,
+      callLength: 0,
+      minimizeMessenger: _ => _
+    }
 
     function create(html) {
       scope = rootScope.$new()
@@ -20,38 +21,38 @@ describe('Unit testing: profitelo.components.communicator.communicator-maximized
       return compiledElement
     }
 
-    beforeEach(module(function($provide) {
-      $provide.value('apiUrl', url)
+    beforeEach(module(($provide) => {
+      $provide.value('apiUrl', 'awesomeURL')
+    }))
+
+    beforeEach(() => {
+      module('profitelo.services.sounds')
+    })
+
+    beforeEach(module(($provide) => {
+      $provide.value('soundsService', {})
     }))
 
     beforeEach(() => {
       module('templates-module')
-      module('profitelo.services.messenger')
       module('profitelo.services.helper')
-      module('lodash')
       module('profitelo.filters.seconds-to-datetime')
       module('profitelo.filters.money')
+      module('lodash')
+      module('profitelo.services.messenger')
       module('profitelo.components.communicator.communicator-maximized.messenger.messenger-maximized')
 
-      inject(($rootScope, $compile, $timeout, _$componentController_, _$window_, _messengerService_, _HelperService_, ___) => {
-        componentController = _$componentController_
-        messengerService = _messengerService_
-        HelperService = _HelperService_
-        _ = ___
+      inject(($rootScope, $compile, $timeout, _$componentController_, _$window_, _HelperService_, _messengerService_, ___) => {
         rootScope = $rootScope.$new()
         compile = $compile
-      })
 
-      component = componentController('messengerMaximized', {
-        $element: create(validHTML),
-        $scope: rootScope,
-        messengerService: messengerService,
-        _: _,
-        HelperService: HelperService
-      }, {
-        callCost: 0,
-        callLength: 0,
-        minimizeMessenger: () => {}
+        const injectors = {
+          messengerService: _messengerService_,
+          _: ___,
+          HelperService: _HelperService_
+        }
+
+        component = _$componentController_('messengerMaximized', injectors, bindings)
       })
     })
 

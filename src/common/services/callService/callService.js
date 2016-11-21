@@ -1,6 +1,6 @@
 (function() {
 
-  function service($q, $log, UtilsService, communicatorService, ServiceApi, modalsService) {
+  function service($q, $log, UtilsService, communicatorService, ServiceApi, modalsService, soundsService) {
 
     let call = null
     let timer = null
@@ -27,6 +27,8 @@
 
     const hangupCall = () => {
       if (call) {
+        soundsService.callConnectingSound().stop()
+        soundsService.playCallEnded()
         return call.hangup().then(result => {
           callbacks.notify(events.onHangup, null)
           if (timer) {
@@ -68,6 +70,7 @@
     }
 
     const _onExpertCallHangup = () => {
+      soundsService.playCallEnded()
       timer.stop()
       timer = null
       callbacks.notify(events.onHangup, null)
@@ -90,6 +93,7 @@
     }
 
     const _answerCall = (callInvitation, session) => {
+      soundsService.callIncomingSound().stop()
       call = callInvitation.call
       call.join().then(_ => {
         _onExpertCallJoin(callInvitation.inviter, session)
@@ -101,11 +105,14 @@
     }
 
     const _rejectCall = (callInvitation) => {
+      soundsService.callIncomingSound().stop()
+      soundsService.playCallRejected()
       callInvitation.call.reject()
       callbacks.notify(events.onExpertCallReject, callInvitation)
     }
 
     const _onExpertCallIncoming = (callInvitation, _service, session) => {
+      soundsService.callIncomingSound().play()
       modalsService.createIncomingCallModal(_service, () => {
         _answerCall(callInvitation, session)
       }, () => {
@@ -128,6 +135,7 @@
     }
 
     const _onConsultationUnavailable = () => {
+      soundsService.playCallRejected()
       modalsService.createServiceUnavailableModal(_ => _, _ => _)
     }
 
@@ -142,12 +150,14 @@
     }
 
     const _onClientCallStarted = (_inviterId) => {
+      soundsService.callConnectingSound().stop()
       timer = UtilsService.timerFactory.getInstance(serviceUsageData.service.details.price.amount, freeMinutesCount)
       timer.start(_onTimeCostChange)
       callbacks.notify(events.onClientCallStarted, _inviterId)
     }
 
     const _onClientCallStart = (_serviceId) => {
+      soundsService.callConnectingSound().play()
       callbacks.notify(events.onClientCallStart, _serviceId)
     }
 
@@ -165,6 +175,7 @@
 
     const _onClientCallRejected = () => {
       _onConsultationUnavailable()
+      soundsService.callConnectingSound().stop()
       callbacks.notify(events.onClientCallRejected, null)
     }
 
@@ -185,8 +196,10 @@
       })
     }
 
-    const _onDirectCallError = (err) =>
+    const _onDirectCallError = (err) => {
       $log.error(err)
+      soundsService.callConnectingSound().stop()
+    }
 
     const _onAddSUR = (serviceUsageRequest) => {
       _onClientCallPending(serviceUsageRequest)
@@ -200,6 +213,7 @@
 
     const _onAddSURError = (err) => {
       _onClientCallStartError(err)
+      soundsService.callConnectingSound().stop()
       return $q.resolve(null)
     }
 
@@ -231,7 +245,8 @@
     'profitelo.services.communicator',
     'profitelo.swaggerResources',
     'profitelo.services.utils',
-    'profitelo.services.modals'
+    'profitelo.services.modals',
+    'profitelo.services.sounds'
   ])
     .service('callService', service)
 

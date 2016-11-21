@@ -1,12 +1,14 @@
-describe('Unit testing: profitelo.components.communicator.communicator-maximized.messenger.messenger-maximized.messenger-input', () => {
-  return describe('for messengerInput component >', () => {
+describe('Unit testing: profitelo.components.communicator.communicator-maximized.messenger.messenger-maximized.grouped-messages', () => {
+  return describe('for groupedMessages component >', () => {
 
     let scope
     let rootScope
     let compile
     let component
-    const validHTML = '<messenger-input></messenger-input>'
-    const bindings = {}
+    const validHTML = '<grouped-messages data-messages="[]"></grouped-messages>'
+    const bindings = {
+      messages: []
+    }
 
     function create(html) {
       scope = rootScope.$new()
@@ -18,7 +20,7 @@ describe('Unit testing: profitelo.components.communicator.communicator-maximized
 
     beforeEach(() => {
       module('templates-module')
-      module('profitelo.components.communicator.communicator-maximized.messenger.messenger-maximized.messenger-input')
+      module('profitelo.components.communicator.communicator-maximized.messenger.messenger-maximized.grouped-messages')
 
       inject(($rootScope, $compile, _$componentController_) => {
         rootScope = $rootScope.$new()
@@ -26,7 +28,7 @@ describe('Unit testing: profitelo.components.communicator.communicator-maximized
 
         const injectors = {}
 
-        component = _$componentController_('messengerInput', injectors, bindings)
+        component = _$componentController_('groupedMessages', injectors, bindings)
       })
     })
 

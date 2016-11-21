@@ -1,33 +1,36 @@
 describe('Unit testing: profitelo.components.communicator.communicator-maximized.navigation', () => {
   return describe('for communicatorNav component >', () => {
 
-    const url = 'awesomUrl/'
-
     let scope
     let rootScope
     let compile
-    let bindings
-    let componentController
     let component
-    let validHTML = '<communicator-nav data-chat-minimize="ctrl.chatMinimize""></communicator-nav>'
+    const validHTML = '<communicator-nav data-chat-minimize="ctrl.chatMinimize""></communicator-nav>'
+    const bindings = {}
 
-    beforeEach(module(function($provide) {
-      $provide.value('apiUrl', url)
+    beforeEach(() => {
+      module('profitelo.services.sounds')
+    })
+
+    beforeEach(module(($provide) => {
+      $provide.value('apiUrl', 'awesomeUrl/')
+      $provide.value('soundsService', {})
     }))
-
-    bindings = {}
 
     beforeEach(() => {
       module('templates-module')
       module('profitelo.components.communicator.communicator-maximized.navigation')
 
-      inject(($rootScope, $compile, _$componentController_) => {
-        componentController = _$componentController_
+      inject(($rootScope, $compile, _$componentController_, _callService_) => {
         rootScope = $rootScope.$new()
         compile = $compile
-      })
 
-      component = componentController('communicatorNav', null, bindings)
+        const injectors = {
+          callService: _callService_
+        }
+
+        component = _$componentController_('communicatorNav', injectors, bindings)
+      })
     })
 
     function create(html) {

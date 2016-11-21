@@ -8,6 +8,20 @@ describe('Unit testing: profitelo.services.call >', () => {
       onCall: (cb) => onCall = cb
     }
 
+    const soundsService = {
+      playMessageNew: _ => _,
+      callConnectingSound: () => { return {
+        play: _ => _,
+        stop: _ => _
+      }},
+      callIncomingSound: () => { return {
+        play: _ => _,
+        stop: _ => _
+      }},
+      playCallRejected: _ => _,
+      playCallEnded: _ => _
+    }
+
     beforeEach(() => {
       module('profitelo.services.communicator')
       module('profitelo.services.call')
@@ -16,6 +30,7 @@ describe('Unit testing: profitelo.services.call >', () => {
     beforeEach(module(($provide) => {
       $provide.value('apiUrl', 'awesomeURL')
       $provide.value('communicatorService', communicatorService)
+      $provide.value('soundsService', soundsService)
     }))
 
     beforeEach(inject(($injector) => {

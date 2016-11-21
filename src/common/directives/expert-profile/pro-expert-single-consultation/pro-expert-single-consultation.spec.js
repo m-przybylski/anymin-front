@@ -6,8 +6,17 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-single-co
     let compile = null
     let validHTML = '<pro-expert-single-consultation data-service="{details: {tags: []}}"></pro-expert-single-consultation>'
 
+    const callService = {
+      callServiceId: _ => _
+    }
+
+    beforeEach(() => {
+      module('profitelo.services.call')
+    })
+
     beforeEach(module(($provide) => {
-      $provide.value('apiUrl', '')
+      $provide.value('callService', callService)
+      $provide.value('apiUrl', 'awesomeURL')
     }))
 
     beforeEach(() => {
@@ -36,6 +45,14 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-single-co
     it('should compile the directive', () => {
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)
+    })
+
+    it('should call service', () => {
+      const el = create(validHTML)
+      const isolatedScope = el.isolateScope()
+      spyOn(callService, 'callServiceId')
+      isolatedScope.startCall()
+      expect(callService.callServiceId).toHaveBeenCalled()
     })
   })
 })

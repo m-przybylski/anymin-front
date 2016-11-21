@@ -1,33 +1,37 @@
 describe('Unit testing: profitelo.components.communicator', () => {
   return describe('for communicator component >', () => {
 
-    const url = 'awesomUrl/'
-
     let scope
     let rootScope
     let compile
-    let bindings
-    let componentController
     let component
-    let validHTML = '<communicator></communicator>'
+    const validHTML = '<communicator></communicator>'
+    const bindings = {}
 
-    beforeEach(module(function($provide) {
-      $provide.value('apiUrl', url)
+    beforeEach(() => {
+      module('profitelo.services.sounds')
+    })
+
+    beforeEach(module(($provide) => {
+      $provide.value('soundsService', {})
+      $provide.value('apiUrl', 'awesomeUrl/')
     }))
-
-    bindings = {}
 
     beforeEach(() => {
       module('templates-module')
+      module('profitelo.services.call')
       module('profitelo.components.communicator')
 
-      inject(($rootScope, $compile, _$componentController_) => {
-        componentController = _$componentController_
+      inject(($rootScope, $compile, _$componentController_, _callService_) => {
         rootScope = $rootScope.$new()
         compile = $compile
-      })
 
-      component = componentController('communicator', null, bindings)
+        const injectors = {
+          callService: _callService_
+        }
+
+        component = _$componentController_('communicator', injectors, bindings)
+      })
     })
 
     function create(html) {
