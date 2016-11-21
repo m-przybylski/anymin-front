@@ -1,18 +1,15 @@
 describe('Unit testing: profitelo.components.communicator.communicator-maximized.messenger.messenger-minimized', () => {
   return describe('for messengerMinimized component >', () => {
 
-    const url = 'awesomeURL'
     let scope
     let $rootScope
     let $compile
-    let $componentController
     let component
-    let injectors
-    let validHTML = '<messenger-minimized></messenger-minimized>'
-    let bindings = {}
+    const validHTML = '<messenger-minimized></messenger-minimized>'
+    const bindings = {}
 
     beforeEach(module(($provide) => {
-      $provide.value('apiUrl', url)
+      $provide.value('apiUrl', 'awesomeURL')
     }))
 
     function create(html) {
@@ -24,22 +21,28 @@ describe('Unit testing: profitelo.components.communicator.communicator-maximized
     }
 
     beforeEach(() => {
+      module('profitelo.services.sounds')
+    })
+
+    beforeEach(module(($provide) => {
+      $provide.value('soundsService', {})
+    }))
+
+    beforeEach(() => {
       module('templates-module')
-      module('profitelo.services.messenger')
       module('profitelo.components.communicator.communicator-maximized.messenger.messenger-minimized')
 
       inject((_$rootScope_, _$compile_, _$timeout_, _$componentController_, _messengerService_) => {
-        $componentController = _$componentController_
         $rootScope = _$rootScope_
         $compile = _$compile_
 
-        injectors = {
+        const injectors = {
           $timeout: _$timeout_,
           messengerService: _messengerService_
         }
-      })
 
-      component = $componentController('messengerMinimized', injectors, bindings)
+        component = _$componentController_('messengerMinimized', injectors, bindings)
+      })
     })
 
     it('should have a dummy test', inject(() => {

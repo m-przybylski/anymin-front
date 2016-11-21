@@ -17,6 +17,10 @@ describe('Unit testing: profitelo.services.messenger >', () => {
       onHangup: (cb) => onHangup = cb
     }
 
+    const soundsService = {
+      playMessageNew: _ => _
+    }
+
     beforeEach(() => {
       module('profitelo.services.call')
       module('profitelo.services.messenger')
@@ -25,6 +29,7 @@ describe('Unit testing: profitelo.services.messenger >', () => {
     beforeEach(module(($provide) => {
       $provide.value('callService', callService)
       $provide.value('apiUrl', 'awesomeURL')
+      $provide.value('soundsService', soundsService)
     }))
 
     it('should have a dummy test', () => {

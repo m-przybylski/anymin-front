@@ -1,6 +1,6 @@
 (function() {
 
-  function service($q, $log, UtilsService, communicatorService, callService) {
+  function service($q, $log, UtilsService, communicatorService, callService, soundsService) {
 
     let room = null
 
@@ -79,8 +79,10 @@
     const _onExpertMark = () =>
       callbacks.notify(events.onExpertMark, null)
 
-    const _onExpertMessage = (message) =>
+    const _onExpertMessage = (message) => {
+      soundsService.playMessageNew()
       callbacks.notify(events.onExpertMessage, message)
+    }
 
     const _onExpertCreateDirectRoom = (_room) => {
       if (_room) {
@@ -115,8 +117,10 @@
     const _onClientMark = () =>
       callbacks.notify(events.onClientMark, null)
 
-    const _onClientMessage = (message) =>
+    const _onClientMessage = (message) => {
+      soundsService.playMessageNew()
       callbacks.notify(events.onClientMessage, message)
+    }
 
     const _onClientCreateDirectRoom = (_room) => {
       if (_room) {
@@ -176,7 +180,8 @@
   angular.module('profitelo.services.messenger', [
     'profitelo.services.communicator',
     'profitelo.services.utils',
-    'profitelo.services.call'
+    'profitelo.services.call',
+    'profitelo.services.sounds'
   ])
     .service('messengerService', service)
 

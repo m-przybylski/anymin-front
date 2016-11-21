@@ -1,13 +1,15 @@
-describe('Unit testing: profitelo.components.communicator.communicator-minimized', () => {
-  return describe('for messengerMaximized component >', () => {
+describe('Unit testing: profitelo.components.communicator.communicator-maximized.messenger', () => {
+  return describe('for messenger component >', () => {
 
     let scope
     let rootScope
     let compile
     let component
-    const validHTML = '<communicator-minimized></communicator-minimized>'
+    const validHTML = '<messenger data-call-length="0" data-call-cost="0" data-is-messenger="false"></messenger>'
     const bindings = {
-      maximizeCommunicator: _ => _
+      callLength: 0,
+      callCost: 0,
+      isMessenger: false
     }
 
     function create(html) {
@@ -32,18 +34,15 @@ describe('Unit testing: profitelo.components.communicator.communicator-minimized
 
     beforeEach(() => {
       module('templates-module')
-      module('profitelo.components.communicator.communicator-minimized')
+      module('profitelo.components.communicator.communicator-maximized.messenger')
 
-      inject(($rootScope, $compile, $timeout, _$componentController_) => {
+      inject(($rootScope, $compile, _$componentController_) => {
         rootScope = $rootScope.$new()
         compile = $compile
 
-        const injectors = {
-          $element: create(validHTML),
-          $scope: rootScope
-        }
+        const injectors = {}
 
-        component = _$componentController_('communicatorMinimized', injectors, bindings)
+        component = _$componentController_('messenger', injectors, bindings)
       })
     })
 

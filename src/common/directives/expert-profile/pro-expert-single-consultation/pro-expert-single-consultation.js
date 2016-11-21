@@ -1,16 +1,19 @@
 (function() {
-  function proExpertSingleConsultation(callService, HelperService) {
+  function directive(callService, HelperService) {
 
     function linkFunction(scope, elem, attrs) {
+
       scope.startCall = () => {
         callService.callServiceId(scope.service.id)
       }
+
       scope.tags = scope.service.details.tags
 
       scope.companyImage = !!scope.service.organizationDetails && scope.service.organizationDetails.logo !== null ?
         HelperService.fileUrlResolver(scope.service.organizationDetails.logo) : ''
 
       scope.consultation = {}
+
       scope.consultation.timeAverage = Math.floor((Math.random() * 10) + 1)
     }
 
@@ -31,6 +34,6 @@
     'profitelo.services.helper',
     'profitelo.components.interface.collapse-tab'
   ])
-  .directive('proExpertSingleConsultation', proExpertSingleConsultation)
+  .directive('proExpertSingleConsultation', directive)
 
 }())

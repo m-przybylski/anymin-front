@@ -95,7 +95,7 @@
 
               if (angular.isDefined($stateParams.primaryConsultationId) && !!primaryConsultation && profileWithServices.services.length > 1) {
                 const currentElement = profileWithServices.services.splice(profileWithServices.services.indexOf(primaryConsultation), 1)
-                profileWithServices.services.unshift(currentElement)
+                profileWithServices.services.unshift(currentElement[0])
               }
 
               _deferred.resolve(profileWithServices)
