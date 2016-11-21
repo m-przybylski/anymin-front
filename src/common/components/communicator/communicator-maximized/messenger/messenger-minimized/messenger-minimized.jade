@@ -6,4 +6,4 @@
         div
           .message(data-ng-repeat="message in $ctrl.messages" data-ng-click="$ctrl.onMessageClick(message)")
             .content
-              span {{ message.body }}
+              span(data-ng-bind-html="message.body | message")

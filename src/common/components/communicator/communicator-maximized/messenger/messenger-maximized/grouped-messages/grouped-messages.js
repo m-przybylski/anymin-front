@@ -20,6 +20,7 @@
   }
 
   angular.module('profitelo.components.communicator.communicator-maximized.messenger.messenger-maximized.grouped-messages', [
+    'profitelo.filters.message-filter'
   ])
     .component('groupedMessages', component)
 

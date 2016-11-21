@@ -5,7 +5,7 @@
     div
         .message(data-ng-repeat="message in $ctrl.messages track by $index")
             .content
-                span {{ :: message.body }}
+                span(data-ng-bind-html="::message.body | message")
 
             //time.message-date
             //    p {{ :: message.timestamp | date:'HH:mm' }}
