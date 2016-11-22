@@ -4,20 +4,24 @@ describe('Unit testing: profitelo.services.call >', () => {
     let callService
     let onCall
 
-    const communicatorService = {
+    const communicatorServiceMock = {
       onCall: (cb) => onCall = cb
     }
 
     const soundsService = {
       playMessageNew: _ => _,
-      callConnectingSound: () => { return {
-        play: _ => _,
-        stop: _ => _
-      }},
-      callIncomingSound: () => { return {
-        play: _ => _,
-        stop: _ => _
-      }},
+      callConnectingSound: () => {
+        return {
+          play: _ => _,
+          stop: _ => _
+        }
+      },
+      callIncomingSound: () => {
+        return {
+          play: _ => _,
+          stop: _ => _
+        }
+      },
       playCallRejected: _ => _,
       playCallEnded: _ => _
     }
@@ -29,7 +33,7 @@ describe('Unit testing: profitelo.services.call >', () => {
 
     beforeEach(module(($provide) => {
       $provide.value('apiUrl', 'awesomeURL')
-      $provide.value('communicatorService', communicatorService)
+      $provide.value('communicatorService', communicatorServiceMock)
       $provide.value('soundsService', soundsService)
     }))
 

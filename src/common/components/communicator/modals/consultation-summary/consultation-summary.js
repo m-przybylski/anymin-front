@@ -21,7 +21,6 @@
       $scope.chooseExpertsTag = true
       console.log(this.chooseExpertsTag, $scope.chooseExpertsTag)
     }
-    
 
     return this
   }

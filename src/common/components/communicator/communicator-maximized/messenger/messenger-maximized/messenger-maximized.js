@@ -1,11 +1,12 @@
 (function() {
 
   /* @ngInject */
-  function controller($timeout, messengerService, _, HelperService) {
+  function controller($log, $timeout, messengerService, _, HelperService, uploaderService) {
 
     const messagesScroll = angular.element('.messenger-scroll')
     const indicateTypingDebounce = 1000
     const typingTimeout = 2000
+    const uploader = uploaderService.getInstance(1, uploaderService.collectionTypes.avatar)
 
     messagesScroll.perfectScrollbar()
 
@@ -57,11 +58,27 @@
       _addMessage(message)
 
     const _onMessageSendError = (err) =>
-      alert('msg send err:', JSON.stringify(err))
+      $log.error('msg send err:', JSON.stringify(err))
 
     this.onSendMessage = (messageBody) =>
       messengerService.sendMessage(messageBody)
         .then(_onMessageSendSuccess, _onMessageSendError)
+
+    const onUploadProgess = (res) =>
+      $log.debug(res)
+
+    const onFileUpload = (res) =>
+      $log.debug('file uploaded', res)
+
+    const onFileUploadError = (err) =>
+      $log.debug('file upload error', err)
+
+    const uploadFile = (file) =>
+      uploader.uploadFile(file, onUploadProgess)
+        .then(onFileUpload, onFileUploadError)
+
+    this.onUploadFiles = (files) =>
+      angular.forEach(files, uploadFile)
 
     const _onTyping = () => {
       this.isTyping = true
@@ -109,6 +126,7 @@
   angular.module('profitelo.components.communicator.communicator-maximized.messenger.messenger-maximized', [
     'profitelo.services.messenger',
     'profitelo.services.helper',
+    'profitelo.services.uploader',
     'lodash',
     'profitelo.filters.seconds-to-datetime',
     'profitelo.filters.money',

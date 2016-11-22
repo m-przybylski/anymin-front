@@ -13,6 +13,11 @@ describe('Unit testing: profitelo.components.communicator.communicator-maximized
       minimizeMessenger: _ => _
     }
 
+    const uploaderService = {
+      collectionTypes: { avatar: 'avatar' },
+      getInstance: _ => _
+    }
+
     function create(html) {
       scope = rootScope.$new()
       let elem = angular.element(html)
@@ -27,10 +32,12 @@ describe('Unit testing: profitelo.components.communicator.communicator-maximized
 
     beforeEach(() => {
       module('profitelo.services.sounds')
+      module('profitelo.services.uploader')
     })
 
     beforeEach(module(($provide) => {
       $provide.value('soundsService', {})
+      $provide.value('uploaderService', uploaderService)
     }))
 
     beforeEach(() => {

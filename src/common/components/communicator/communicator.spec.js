@@ -7,13 +7,19 @@ describe('Unit testing: profitelo.components.communicator', () => {
     let component
     const validHTML = '<communicator></communicator>'
     const bindings = {}
+    const uploaderService = {
+      collectionTypes: { avatar: 'avatar' },
+      getInstance: _ => _
+    }
 
     beforeEach(() => {
       module('profitelo.services.sounds')
+      module('profitelo.services.uploader')
     })
 
     beforeEach(module(($provide) => {
       $provide.value('soundsService', {})
+      $provide.value('uploaderService', uploaderService)
       $provide.value('apiUrl', 'awesomeUrl/')
     }))
 
