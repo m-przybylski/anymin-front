@@ -1,7 +1,7 @@
 (function() {
   /* @ngInject */
   function controller($scope) {
-    let checkedTagsArray = []
+    const checkedTagsArray = []
 
     $scope.chooseTag = (tag) => {
       if (checkedTagsArray.indexOf(tag) === -1) {
@@ -9,9 +9,7 @@
       } else {
         checkedTagsArray.splice(checkedTagsArray.indexOf(tag), 1)
       }
-      this.onSelectChange = (checkedTagsArray) => {
-        
-      }
+      this.onSelectChange(checkedTagsArray)
     }
 
     $scope.isChecked = (tag) => {
