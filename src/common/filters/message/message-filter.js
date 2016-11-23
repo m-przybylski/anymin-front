@@ -13,7 +13,7 @@
   const getCorrectUrl = (url) => {
     const correctUrlRegexp = /^(https?|ftp):\/\/[^\s$.?#].[^\s]*$/
     if (!url.match(correctUrlRegexp)) {
-     url = 'http://' + url 
+      url = 'http://' + url 
     }
     return url
   }
@@ -25,7 +25,7 @@
       for (let url in messageUrls) {
         if (messageUrls.hasOwnProperty(url)) {
           const currentUrl = messageUrls[url]
-          const urlRegexp = new RegExp(currentUrl.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g,"\\$&"), 'g')
+          const urlRegexp = new RegExp(currentUrl.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g, '\\$&'), 'g')
           
           if (hasImageUrl(currentUrl)) {
             message = message.replace(urlRegexp, '<a href="' + getCorrectUrl(currentUrl) + '" target="_blank" >' +
