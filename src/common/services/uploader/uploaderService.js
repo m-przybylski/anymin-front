@@ -97,7 +97,7 @@
       }
 
       const addFile = (file, callback) => {
-        if (!file || typeof file !== 'object') {
+        if (!file || !(file instanceof File)) {
           return $q.reject('Expected file, got ' + typeof file)
         }
 

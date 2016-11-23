@@ -2,7 +2,8 @@ describe('Unit testing: profitelo.services.uploader >', () => {
   describe('for profitelo.services.uploader', () => {
 
     let uploaderService
-    const blob = new Blob([JSON.stringify('', null, 2)], {type : 'application/json'});
+    function File() {}
+    let originalFile
 
     const UploadMock = {
       upload: _ => _
@@ -18,8 +19,18 @@ describe('Unit testing: profitelo.services.uploader >', () => {
     })
 
     beforeEach(inject(($injector) => {
+
       uploaderService = $injector.get('uploaderService')
     }))
+
+    beforeEach(() => {
+      originalFile = window.File
+      window.File = File
+    })
+
+    afterEach(() => {
+      window.File = originalFile
+    })
 
     it('should have a dummy test', () => {
       expect(true).toBeTruthy()
@@ -34,8 +45,8 @@ describe('Unit testing: profitelo.services.uploader >', () => {
 
       spyOn(UploadMock, 'upload').and.returnValue($q.resolve('result'))
 
-      instance.uploadFile({name: 1})
-      instance.uploadFile({name: 2})
+      instance.uploadFile(new File())
+      instance.uploadFile(new File())
 
       $timeout.flush()
 
@@ -80,7 +91,7 @@ describe('Unit testing: profitelo.services.uploader >', () => {
       const instance = uploaderService.getInstance(2, uploaderService.collectionTypes.avatar)
 
       let returnValue = null
-      instance.uploadFile({name: 2}).then(_ => _, val => returnValue = val)
+      instance.uploadFile(new File()).then(_ => _, val => returnValue = val)
 
       $timeout.flush()
       $rootScope.$digest()
@@ -99,7 +110,7 @@ describe('Unit testing: profitelo.services.uploader >', () => {
       spyOn(UploadMock, 'upload').and.returnValue($q.reject('error'))
 
       let returnValue = null
-      instance.uploadFile({name: 1}).then(_ => _, val => returnValue = val)
+      instance.uploadFile(new File()).then(_ => _, val => returnValue = val)
 
       $timeout.flush()
       $rootScope.$digest()
@@ -127,7 +138,7 @@ describe('Unit testing: profitelo.services.uploader >', () => {
         return deferred.promise
       })
 
-      instance.uploadFile({name: 1}, obj.callback)
+      instance.uploadFile(new File(), obj.callback)
 
       $timeout.flush()
 
@@ -145,7 +156,7 @@ describe('Unit testing: profitelo.services.uploader >', () => {
 
       spyOn(UploadMock, 'upload').and.returnValue($q.resolve(''))
 
-      instance.uploadFile({name: 1})
+      instance.uploadFile(new File())
 
       $timeout.flush()
 
