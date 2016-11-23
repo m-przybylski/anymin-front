@@ -4,16 +4,18 @@
   function controller() {
 
     this.inputModel = ''
-
+    
     this.sendMessage = (text) => {
       if (text !== '') {
         this.onSendMessage(text)
         this.inputModel = ''
       }
     }
-
+    
     this.uploadFiles = (files) => {
-      this.onUploadFiles(files)
+      if (!this.isFileUploading) {
+        this.onUploadFiles(files)
+      }
     }
 
     this.onKeyup = (event) => {
@@ -31,7 +33,8 @@
     bindings: {
       onSendMessage: '<',
       onUploadFiles: '<',
-      onTyping: '<'
+      onTyping: '<',
+      isFileUploading: '<'
     }
   }
 

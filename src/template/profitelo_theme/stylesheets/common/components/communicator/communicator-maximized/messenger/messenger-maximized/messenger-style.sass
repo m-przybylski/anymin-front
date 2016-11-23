@@ -74,6 +74,21 @@
     overflow-y: scroll
     -webkit-overflow-scrolling: touch
 
+    .file-loader
+      background: transparent url('/assets/gifs/file-load.gif') no-repeat center center
+      width: 24px
+      height: 24px
+      margin-left: auto
+
+    .file-upload-error
+      +default-font-regular
+      font-size: 12px
+      color: $c-secondary-txt
+      text-align: center
+      width: 100%
+      &:hover
+        color: $c-primary-hover
+
 .is-active
   .messenger-maximized
     transition: z-index 0s
