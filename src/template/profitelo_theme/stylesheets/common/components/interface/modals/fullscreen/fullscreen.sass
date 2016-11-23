@@ -1,0 +1,32 @@
+.fullscreen-modals
+  animation: animation-opacity 0.4s
+  animation-fill-mode: forward
+  background: $c-white
+  width: 100%
+  height: 100vh
+  display: block
+  padding: $dashboard-navbar-width 0 0
+
+  +smm-landscape
+    padding: $dashboard-navbar-width 0 0
+
+  +smm
+    padding: $dashboard-navbar-width 0 0
+    display: flex
+    justify-content: center
+    align-items: center
+
+  &.fullscreen-navbar
+    height: calc(100vh - $dashboard-navbar-width)
+
+  .full-height-modal
+    overflow-y: scroll
+    height: 100%
+    padding: 32px 0
+    width: 100%
+
+    +smm-landscape-smm-portrait
+      height: auto
+      padding: 0
+      overflow: auto
+      display: block

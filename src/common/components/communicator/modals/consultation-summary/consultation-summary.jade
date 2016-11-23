@@ -1,53 +1,57 @@
 top-modal-navbar(data-title="COMMUNICATOR.MODALS.RATE_CONVERATION")
 
-.fullscreen-modals
-  .default-container
-    .summary-conversation
-      .consultation-profile
-        a.thumb.x48(data-ui-sref="app.company-profile({ contactId: vm.consultation.owner.id })")
-          img.user-avatar(data-ng-src="/asdasd/asd.jpg" alt="{{ ::vm.consultation.owner.name }}")
+.fullscreen-modals.fullscreen-navbar
+  .full-height-modal
+    .default-container
+      .summary-conversation
+        .consultation-profile
+          .profile-preview
+            .thumb.x96
+              img.user-avatar(data-ng-src="/asdasd/asd.jpg" alt="{{ ::vm.consultation.owner.name }}")
 
-        .author
-          h3
-            a(data-ui-sref="app.company-profile({ contactId: vm.consultation.owner.id })") Jan Kowalski
-          .status-list
-            span.status.availability Dostępny
+            div
+              .profile-name
+                span {{ ::vm.consultation.owner.name }} name kowalski
 
-      .consultation-price
-        h5 {{ ::vm.consultation.price.amount / 100}}
-          span.currency(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE")
+              .status-list
+                span.status.availability Dostepny
 
-      .consultation-range
-        .consultation-info
-          h3
-            a(data-ui-sref="app.company-profile({ contactId: vm.consultation.owner.id })") jakas konsutacja nazwa dluga asd asd asd
+        .consultation-price
+          span {{ ::vm.consultation.price / 100 | number: 2 }} 10
+            span.currency PLN {{ "HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE" | translate}}
 
-          ul.consultation-options
-            li.options-item
-              span {{ ::vm.consultation.satisfaction }}% {{"SEARCH.RECOMMENDATION" | translate }}
-            li.options-item
-              span {{ ::vm.consultation.talks }}
-            li.options-item
-              span {{ ::vm.consultation.timeAverage }} min.
+        .consultation-range
+          .consultation-info
+            .consultation-title
+              h3
+                span {{ ::vm.consultation.name }}
 
-      .consultation-time-details
-        ul.conversation-time
-          li.label(data-translate="COMMUNICATOR.MODALS.CONVERSATION_TIME")
-          li 27 min 8s
+            ul.consultation-about
+              li.options-item.recomendation
+                span  {{ ::vm.consultation.satisfaction }}% {{"SEARCH.RECOMMENDATION" | translate }}
+              li.options-item.conversation-count
+                span {{ ::vm.consultation.talks }}
+              li.options-item.balance
+                span {{ ::vm.consultation.timeAverage }} min.
 
-        ul.conversation-cost
-          li.label(data-translate="COMMUNICATOR.MODALS.CONVERSATION_COST")
-          li 38,30 PLN
+        .consultation-time-details
+          ul.conversation-time
+            li.label(data-translate="COMMUNICATOR.MODALS.CONVERSATION_TIME")
+            li 27 min 8s
 
-      pro-summary-tag(data-tags="tags" data-ng-show="chooseExpertsTag" )
+          ul.conversation-cost
+            li.label(data-translate="COMMUNICATOR.MODALS.CONVERSATION_COST")
+            li 38,30 PLN
 
-      .modal-action
-        span(data-translate="COMMUNICATOR.MODALS.IS_CONVERSATION_GOOD")
+        summary-tag-multiselect-component(data-title="COMMUNICATOR.MODALS.SUMMARY_HELPER_RANGE" data-tags="tags" data-ng-show="chooseExpertsTag" )
 
-        div.action-recommend(data-ng-show="!chooseExpertsTag")
-          a.btn.primary(data-ng-click="rejectCall()" data-translate="COMMUNICATOR.MODALS.SKIP")
-          a.btn.default(data-ng-click="recommendExpert()" data-translate="COMMUNICATOR.MODALS.RECOMMEND")
+        .modal-action
+          span(data-translate="COMMUNICATOR.MODALS.IS_CONVERSATION_GOOD")
 
-        div.action-next(data-ng-show="chooseExpertsTag")
-          a.btn.primary(data-ng-click="rejectCall()" data-translate="COMMUNICATOR.MODALS.CANCEL")
-          a.btn.default(data-ng-click="" data-translate="COMMUNICATOR.MODALS.SAVE")
+          div.action-recommend(data-ng-show="!chooseExpertsTag")
+            a.btn.primary(data-ng-click="rejectCall()" data-translate="COMMUNICATOR.MODALS.SKIP")
+            a.btn.default(data-ng-click="recommendExpert()" data-translate="COMMUNICATOR.MODALS.RECOMMEND")
+
+          div.action-next(data-ng-show="chooseExpertsTag")
+            a.btn.primary(data-ng-click="rejectCall()" data-translate="COMMUNICATOR.MODALS.CANCEL")
+            a.btn.default(data-ng-click="" data-translate="COMMUNICATOR.MODALS.SAVE")
