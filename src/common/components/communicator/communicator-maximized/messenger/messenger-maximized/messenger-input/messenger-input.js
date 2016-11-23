@@ -12,8 +12,8 @@
       }
     }
 
-    this.uploadFile = () => {
-      alert('Not implemented yet')
+    this.uploadFiles = (files) => {
+      this.onUploadFiles(files)
     }
 
     this.onKeyup = (event) => {
@@ -30,7 +30,7 @@
     controller: controller,
     bindings: {
       onSendMessage: '<',
-      onUploadFile: '<',
+      onUploadFiles: '<',
       onTyping: '<'
     }
   }

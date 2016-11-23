@@ -1,6 +1,6 @@
 (function() {
 
-  function service($q, $log, UtilsService, communicatorService, ServiceApi, modalsService, soundsService) {
+  function service($q, $log, UtilsService, communicatorService, ServiceApi, modalsService, soundsService, profiteloSdk) {
 
     let call = null
     let timer = null
@@ -246,7 +246,8 @@
     'profitelo.swaggerResources',
     'profitelo.services.utils',
     'profitelo.services.modals',
-    'profitelo.services.sounds'
+    'profitelo.services.sounds',
+    'profitelo.services.profitelo-sdk'
   ])
     .service('callService', service)
 

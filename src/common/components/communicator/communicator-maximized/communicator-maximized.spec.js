@@ -9,6 +9,10 @@ describe('Unit testing: profitelo.components.communicator.communicator-maximized
     const bindings = {
       minimizeCommunicator: _ => _
     }
+    const uploaderService = {
+      collectionTypes: { avatar: 'avatar' },
+      getInstance: _ => _
+    }
 
     function create(html) {
       scope = rootScope.$new()
@@ -20,13 +24,12 @@ describe('Unit testing: profitelo.components.communicator.communicator-maximized
 
     beforeEach(() => {
       module('profitelo.services.sounds')
+      module('profitelo.services.uploader')
     })
 
     beforeEach(module(($provide) => {
       $provide.value('soundsService', {})
-    }))
-
-    beforeEach(module(($provide) => {
+      $provide.value('uploaderService', uploaderService)
       $provide.value('apiUrl', 'awesomeUrl/')
     }))
 

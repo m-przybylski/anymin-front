@@ -3,7 +3,6 @@ describe('Unit tests: search-result>', () => {
 
     let $scope
     let SearchResultController
-    let searchService
     let location
     let searchUrlService
     let state
@@ -34,7 +33,7 @@ describe('Unit tests: search-result>', () => {
         }
 
         searchService = {
-          onSearchResults: ($scope, cb) => {
+          onSearchResults: (_$scope, cb) => {
             cb()
           },
 
