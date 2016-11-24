@@ -13,14 +13,16 @@ describe('Unit testing: profitelo.services.communicator >', () => {
       }
     }
     const config = {}
-    const services = [
-      {
-        serviceId: '1'
-      },
-      {
-        serviceId: '2'
-      }
-    ]
+    const profilesWithServices = [{
+      services: [
+        {
+          id: '1'
+        },
+        {
+          id: '2'
+        }
+      ]
+    }]
 
     beforeEach(module(($provide) => {
       $provide.value('apiUrl', 'awesomeURL')
@@ -38,21 +40,21 @@ describe('Unit testing: profitelo.services.communicator >', () => {
       expect(true).toBeTruthy()
     })
 
-    it('should authenticate', inject(($q, $rootScope, RatelApi, ServiceApi, ratelSdk) => {
+    it('should authenticate', inject(($q, $rootScope, RatelApi, ProfileApi, ratelSdk) => {
 
       RatelApi.getRatelAuthConfig = () => { return {$promise: $q.resolve(config)} }
-      ServiceApi.getProfileServices = () => { return {$promise: $q.resolve(services)} }
+      ProfileApi.getEmployersProfilesWithServices = () => { return {$promise: $q.resolve(profilesWithServices)} }
       ratelSdk.withSignedAuth = () => $q.resolve(session)
 
       spyOn(RatelApi, 'getRatelAuthConfig').and.callThrough()
-      spyOn(ServiceApi, 'getProfileServices').and.callThrough()
+      spyOn(ProfileApi, 'getEmployersProfilesWithServices').and.callThrough()
       spyOn(ratelSdk, 'withSignedAuth').and.callThrough()
 
       communicatorService.authenticate()
       $rootScope.$digest()
 
       expect(RatelApi.getRatelAuthConfig).toHaveBeenCalled()
-      expect(ServiceApi.getProfileServices).toHaveBeenCalled()
+      expect(ProfileApi.getEmployersProfilesWithServices).toHaveBeenCalled()
       expect(ratelSdk.withSignedAuth).toHaveBeenCalled()
 
       expect(communicatorService.getClientSession()).toEqual(session)

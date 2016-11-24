@@ -1,12 +1,27 @@
 (function() {
   /* @ngInject */
-  function topModalNavController($window, $scope) {
-    this.isHided = false
+  function controller($window, $scope, $state) {
+    this.isHidden = false
     let checkScrollWay = null
+
+    const onClose = () => {
+      if (angular.isFunction(this.onClose)) {
+        this.onClose()
+      }
+    }
+
+    this.onLogoClick = () => {
+      $state.go('app.home')
+      onClose()
+    }
+
+    this.onCloseClick = () => {
+      onClose()
+    }
 
     /* istanbul ignore next function*/
     angular.element($window).bind('scroll', () => {
-      ($window.pageYOffset > checkScrollWay) ? this.isHided = true : this.isHided = false
+      this.isHidden = ($window.pageYOffset > checkScrollWay)
 
       $scope.$apply()
       checkScrollWay = $window.pageYOffset
@@ -15,20 +30,18 @@
     return this
   }
 
-  let topModalNavbar = {
+  const component = {
     templateUrl: 'components/interface/top-modal-navbar/top-modal-navbar.tpl.html',
-    controllerAs: '$ctrl',
-    controller: topModalNavController,
-    replace: true,
-    transclude: true,
+    controller: controller,
     bindings: {
-      title:  '@'
+      title:  '@',
+      onClose: '<'
     }
   }
 
 
   angular.module('profitelo.components.interface.top-modal-navbar', [
   ])
-    .component('topModalNavbar', topModalNavbar)
+    .component('topModalNavbar', component)
 
 }())
