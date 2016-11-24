@@ -5,7 +5,6 @@
 
   .description
     transition: height 0.3s
-    height: 44px
     overflow: hidden
     position: relative
     margin: 0 0 32px
@@ -13,6 +12,13 @@
     p
       line-height: 1.38
 
-      &.is-showed
-        &::after
-          content: '...'
+    .is-showed
+      &::after
+        content: '...'
+
+    .long-text
+      transition: opacity 0.3s
+      opacity: 0
+
+      &.visible
+        opacity: 1

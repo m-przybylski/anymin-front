@@ -1,18 +1,17 @@
 describe('Unit testing: profitelo.components.interface.show-more-text', () => {
-  return describe('for showMoreText component >', () => {
-
-    const url = 'awesomUrl/'
+  return describe('for showMoreTextController component >', () => {
 
     let scope
     let rootScope
     let compile
     let componentController
     let component
-    let validHTML = '<show-more-text data-text=""></show-more-text>'
-
-    beforeEach(module(function($provide) {
-      $provide.value('apiUrl', url)
-    }))
+    let window
+    let element
+    let validHTML = '<show-more-text data-text="text"></show-more-text>'
+    const bindings = {
+      text: 'Sample text'
+    }
 
     function create(html) {
       scope = rootScope.$new()
@@ -26,23 +25,32 @@ describe('Unit testing: profitelo.components.interface.show-more-text', () => {
       module('templates-module')
       module('profitelo.components.interface.show-more-text')
 
-      inject(($rootScope, $compile, _$componentController_) => {
+      inject(($rootScope, $compile, _$componentController_, _$window_, _$timeout_, _$log_,) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
+        window = _$window_
+        
+        const injectors = {
+          $element: create(validHTML),
+          $scope: rootScope,
+          $window: window,
+          $timeout: _$timeout_,
+          $log: _$log_
+        }
+
+        component = componentController('showMoreText', injectors, bindings)
       })
-
-      component = componentController('showMoreText', {$element: create(validHTML), $scope: scope}, {})
-
     })
 
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
 
-    it('should compile the component', () => {
-      let el = create(validHTML)
-      expect(el.html()).toBeDefined(true)
+    it('should expand collapse element on click', () => {
+      const el = create(validHTML)
+      el.find('.btn-show-more').triggerHandler('click')
     })
   })
 })
+

@@ -1,46 +1,67 @@
 (function() {
   /* @ngInject */
-  function showMoreTextController($element, $timeout) {
-    this.defaultTextHeight = '40px'
-    this.toogleStatus = false
-    this.showDotsMore = true
+  function showMoreTextController($filter, $log, $timeout, $window, $scope) {
+    const collapsibleLength = 300
+    this.isCollapsed = false
+    this.isCollapsible = (this.text.length > collapsibleLength)
 
-    this.textHeight = {
-      height: this.defaultTextHeight
+    this.descriptionStyles = {
+      height: null
     }
 
-    $timeout(()=>{
-      this.heightFullText = $($element.find('p').height())
-      this.textLimit = 300
+    this.textShort = $filter('limitTo')(this.text, collapsibleLength, 0)
+    this.textLong = $filter('limitTo')(this.text, this.text.length, collapsibleLength)
 
-      this.showMoreText = () => {
-        this.changeIcon = !this.changeIcon
-        this.showDotsMore = !this.showDotsMore
-        this.textLimit = this.textLimit === null ? 300 : null
-
-        if (this.toogleStatus === false) {
-          this.textHeight.height = this.heightFullText[0]
-
-          this.toogleStatus = true
-        } else {
-          this.textHeight.height = this.defaultTextHeight
-
-          this.toogleStatus = false
-        }
+    const getTextShortElementHeight = () => {
+      const _element = angular.element('.short-text')[0]
+      if (!!_element) {
+        return _element.offsetHeight
+      } else {
+        $log.error('Element not found')
+        return 0
       }
+    }
+
+    const getTextLongElementHeight = () => {
+      const _element = angular.element('.description > p')[0]
+      if (!!_element) {
+        return _element.offsetHeight
+      } else {
+        $log.error('Element not found')
+        return 0
+      }
+    }
+    
+    const updateHeight = () => {
+      if (this.isCollapsed === true) {
+        this.descriptionStyles.height = getTextLongElementHeight()
+      } else {
+        this.descriptionStyles.height = getTextShortElementHeight()
+      }
+    }
+
+    this.showMoreText = () => {
+      this.isCollapsed = !this.isCollapsed
+      updateHeight()
+    }
+
+    $timeout(updateHeight)
+
+    /* istanbul ignore next */
+    angular.element($window).on('resize', () => {
+      updateHeight()
+      $scope.$digest()
     })
 
     return this
-
   }
 
   const showMoreText = {
     transclude: true,
     templateUrl:    'components/interface/show-more-text/show-more-text.tpl.html',
     bindings: {
-      text: '<'
+      text: '@'
     },
-    controllerAs: 'vm',
     controller: showMoreTextController
   }
 

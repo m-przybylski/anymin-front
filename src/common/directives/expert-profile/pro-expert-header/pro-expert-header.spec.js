@@ -4,12 +4,13 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-header', 
     let scope = null
     let rootScope
     let compile = null
-    let validHTML = '<pro-expert-header data-profile="{type: \'x\'}"></pro-expert-header>'
+    let validHTML = '<pro-expert-header data-profile="{type: \'x\', description: \' asasdfasfas \' }"></pro-expert-header>'
 
     beforeEach(() => {
       module('templates-module')
       module('profitelo.directives.expert-profile.pro-expert-header')
-
+      module('profitelo.components.interface.show-more-text')
+      
       inject(($rootScope, $compile) => {
         rootScope = $rootScope.$new()
         compile = $compile
@@ -27,6 +28,7 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-header', 
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
+    
     it('should compile the directive', () => {
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)
