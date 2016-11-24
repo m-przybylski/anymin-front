@@ -35,7 +35,8 @@
 
   angular.module('profitelo.directives.service-provider.pro-service-provider-profile', [
     'lodash',
-    'pascalprecht.translate'
+    'pascalprecht.translate',
+    'profitelo.components.interface.show-more-text'
   ])
     .directive('proServiceProviderProfile', proServiceProviderProfile)
 }())

@@ -8,10 +8,10 @@
           pro-invitation-acceptance-box(data-ng-repeat="employment in invitation.employments | filter:{status: 'new'} track by $index" data-employment="::employment" data-invitation="::invitation")
       
       .read-more
-        a.pro-button.rectangle.default()
+        a.btn.btn-default
 
       .no-invitations(data-ng-show="vm.invitations.length === 0")
         .default-container
           h2 Brak zaproszeń
           h3(data-ui-sref="app.dashboard.start")
-            a.pro-button.rectangle.primary(data-translate="LOGIN.BACK")
+            a.btn.btn-primary(data-translate="LOGIN.BACK")

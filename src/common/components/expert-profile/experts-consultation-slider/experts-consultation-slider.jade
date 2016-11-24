@@ -4,7 +4,7 @@
       span ({{ $ctrl.experts.length }})
 
   .slider-container
-    a.arrow-slider.arrow-left(data-ng-click="$ctrl.prevSlide()")
+    a.arrow-slider.arrow-left(data-ng-click="$ctrl.prevSlide()" data-ng-show="areControllsVisible")
       span.icon.icon-arrow-left-16
 
     .slider-slides(data-ng-style="leftOffset" data-ng-swipe-left="$ctrl.nextSlide()")
@@ -21,5 +21,5 @@
               .profile-name
                 span {{ expert.name }}
 
-    a.arrow-slider.arrow-right(data-ng-click="$ctrl.nextSlide()")
+    a.arrow-slider.arrow-right(data-ng-click="$ctrl.nextSlide()" data-ng-show="areControllsVisible")
       span.icon.icon-arrow-right-16

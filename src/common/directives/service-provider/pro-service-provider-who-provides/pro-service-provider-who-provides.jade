@@ -11,6 +11,6 @@ block content
         data-pro-model="model.invitations" data-ng-click="onClick()" data-tag-name-param="tagParam" data-valid-pattern="emailPattern")
           .input-error-messages
             .error(data-translate="{{errorMessage}}" data-ng-show="noTags")
-        button.pro-btn.btn-small.btn-light.who-provides-csv(data-translate="DASHBOARD.CONSULTATION_RANGE.CONSULTANTS_LOAD_CSV" data-ng-click="skip()" data-ng-show="!required")
+        button.btn.btn-primary(data-translate="DASHBOARD.CONSULTATION_RANGE.CONSULTANTS_LOAD_CSV" data-ng-click="skip()" data-ng-show="!required")
     .input-error-messages
       .error(data-translate="{{errorMessage}}" data-ng-show="error.badEmployee")

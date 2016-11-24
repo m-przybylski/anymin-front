@@ -16,5 +16,5 @@ id="{{order}}")
     block content
     
     .step-control(data-ng-show="queue.currentStep === order")
-      button.pro-button.rectangle.primary(data-translate="INTERFACE.SKIP" data-ng-click="skip()" data-ng-show="!required")
-      button.pro-button.rectangle.default(type="submit" data-translate="INTERFACE.SAVE" data-ng-click="saveStep()")
+      button.btn.btn-primary(data-translate="INTERFACE.SKIP" data-ng-click="skip()" data-ng-show="!required")
+      button.btn.btn-default(type="submit" data-translate="INTERFACE.SAVE" data-ng-click="saveStep()")

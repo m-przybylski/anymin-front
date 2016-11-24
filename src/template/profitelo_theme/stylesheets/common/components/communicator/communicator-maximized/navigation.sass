@@ -60,21 +60,46 @@
     margin: 0 12px
 
     &.cancel-conversation
+      background: none
       border: 0
-      box-shadow: 0 1px 4px 0 rgba($c-primary-txt, 0.10)
-      background: $c-error
+      background: rgba($c-error, 0.8)
+      box-shadow: 0 1px 4px 0 rgba($c-primary-txt, 0.15)
+      +btn-circle-hover($c-error-dark)
+
+      &:hover
+        transition: background 0s 0.3s
+        background: none
 
       span
         color: $c-white
 
-    &.connect-conversation
-      background: $c-success
+      &.is-active
+        &::before
+          background: rgba($c-error-dark, 1)
+          animation: messenger-btn-animation 0.18s linear
+          animation-fill-mode: forwards
 
+        span
+          color: $c-white
 
-    &.is-active,
+    &.is-active
+      animation: messenger-btn-animation-seconds-active 0.3s 0.15s linear
+
+      &::before
+        background: $c-white
+        animation: messenger-btn-animation 0.18s linear
+        animation-fill-mode: forwards
+
+      span
+        color: $c-primary-txt
+
+    &.is-inactive
+      animation: messenger-btn-animation-seconds-inactive 0.3s 0.15s linear
+
+      &::before
+        animation: messenger-btn-animation-inactive 0.18s linear
+
     &:hover:not(.cancel-conversation):not(.connect-conversation)
-      background: $c-white
-
       span
         color: $c-primary-txt
 
@@ -90,3 +115,7 @@
       &.is-active
         .icon
           font-size: $f-icon-16
+          position: relative
+          animation: rotate 0.3s ease-out
+
+

@@ -1,6 +1,12 @@
 (function() {
   /* @ngInject */
   function controller($scope, HelperService) {
+    this.areControllsVisible = false
+
+    if (this.experts.length <= 4) {
+      this.areControllsVisible = false
+    }
+
     this.controlls = {}
 
     this.nextSlide = () => {
@@ -18,7 +24,6 @@
       
     }
     
-
     return this
   }
 

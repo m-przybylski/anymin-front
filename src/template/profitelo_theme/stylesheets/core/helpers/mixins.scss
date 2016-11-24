@@ -35,10 +35,53 @@
   display: #{$property}-flex;
 }
 
+
+@mixin btn-hover($color) {
+  &::before{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 0;
+    width: 100%;
+    z-index: -1;
+    content: '';
+    background: $color;
+    transition: cubic-bezier(0.215, 0.61, 0.355, 1) 0.3s
+  }
+
+  &:hover {
+    &::before {
+      bottom: 0;
+      top: auto;
+      height: 100%;
+    }
+  }
+}
+
+@mixin btn-circle-hover($color) {
+  &::before {
+    content: " ";
+    display: block;
+    width: 0;
+    height: 0;
+    background: $color;
+    position: absolute;
+    transition: all 0.2s;
+    border-radius: 50%;
+    z-index: -1;
+  }
+
+  &:hover {
+    &::before {
+      width: 110%;
+      height: 110%;
+    }
+  }
+}
+
 /// Background Gradient
 /// @param {Color} $startColor [#3C3C3C] - Start Color
 /// @param {Color} $endColor [#999999] - End Color
-
 
 
 @mixin background-gradient($startColor: #3C3C3C, $endColor: #999999) {

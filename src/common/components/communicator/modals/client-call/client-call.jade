@@ -7,11 +7,11 @@
       p {{ ::service.details.name }}
 
     .modal-action
-      a.btn.error.icon-left(data-ng-click="rejectCall()")
+      a.btn.btn-error.icon-left(data-ng-click="rejectCall()")
         span.icon.icon-reject-24
         | {{"COMMUNICATOR.MODALS.REJECT" | translate}}
 
-      a.btn.success.icon-left(data-ng-click="answerCall()")
+      a.btn.btn-success.icon-left(data-ng-click="answerCall()")
         span.icon.icon-call-24
         | {{"COMMUNICATOR.MODALS.ANSWER" | translate}}
 
