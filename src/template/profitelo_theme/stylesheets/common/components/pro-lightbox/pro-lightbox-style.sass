@@ -1,6 +1,5 @@
 pro-lightbox
   .modal-dialog
-
     &.add-overflow
       overflow-y: auto
       margin-top: 80px
@@ -37,6 +36,29 @@ pro-lightbox
     box-shadow: none
     border: 0
 
+  .arrow-slider
+    display: flex
+    justify-content: center
+    align-self: center
+    opacity: 0.8
+    background: $c-primary-txt
+    width: 40px
+    height: 40px
+    border-radius: 4px
+    align-self: flex-end
+    margin: 0 0 24px
+
+    +smm
+      margin: 0
+      align-self: center
+
+    span
+      color: $c-secondary-txt
+
+    &:hover
+      span
+        color: $c-label
+
 .modal-open
   overflow-y: hidden
 
@@ -48,3 +70,5 @@ pro-lightbox
     .modal-dialog
       display: flex
       justify-content: center
+
+

@@ -1,8 +1,8 @@
 .pro-lightbox-nav
   height: 80px
   width: 100%
-  padding: 16px 32px
-  background: $c-black
+  padding: 0
+  background: $c-white
   display: flex
   justify-content: space-between
   align-items: center
@@ -14,21 +14,54 @@
     justify-content: space-between
 
     .icon
+      +default-font-regular
       background: transparent
       transition: box-shadow 0.3s
-      color: $c-white
+      color: $c-secondary-txt
       display: flex
       align-items: center
       justify-content: center
       margin: 0 0 0 32px
       border-radius: 50%
-
-      &::before
-        font-size: $f-h3-size
+      width: 16px
+      height: 16px
 
       &:hover
-        box-shadow: 0 0 0 16px rgba($c-white, 0.1), inset 0 0 0 16px rgba($c-white, 0.1)
+        box-shadow: 0 0 0 16px rgba($c-primary-txt, 0.1), inset 0 0 0 16px rgba($c-primary-txt, 0.1)
 
-  .left-wrapper
-    +default-font-heavy
-    color: $c-white
+  .lightbox-title
+    +default-font-regular
+    font-size: $f-h5-size
+    color: $c-secondary-txt
+    padding: 16px 32px
+    word-wrap: break-word
+    max-width: 60%
+
+    +xsm
+      max-width: 75%
+
+  .lightbox-menu
+    display: flex
+    align-self: stretch
+
+    .menu-item
+      display: flex
+      align-items: center
+      justify-content: center
+
+      &:last-child
+        +smm
+          border-left: 1px solid $c-lines
+
+      a
+        padding: 0 16px
+        display: flex
+        align-self: stretch
+        transition: color 0.2s
+        color: $c-secondary-txt
+
+        +smm
+          padding: 0 24px
+
+        &:hover
+          color: $c-primary

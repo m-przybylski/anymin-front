@@ -8,13 +8,20 @@
   justify-content: center
   background: linear-gradient(to top, rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.01) 100%,rgba(0,0,0,0) 100%)
 
+  > div
+    opacity: 0.8
+    background: $c-primary-txt
+    display: flex
+    align-items: center
+    padding: 8px 24px
+    border-radius: 4px
+    margin: 0 0 24px
+
   .icon
     transition: color 0.3s
     margin: 0 8px
     cursor: pointer
+    color: $c-secondary-txt
 
     &:hover
-      color: $c-white
-
-    &.icon-zoom
-      font-size: $f-h2-size
+      color: $c-label
