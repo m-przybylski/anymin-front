@@ -60,6 +60,14 @@
       turnOffComponent()
     })
 
+    angular.element('.communicator').on('dragover', (e) => {
+      e.preventDefault()
+    })
+
+    angular.element('.communicator').on('drop', (e) => {
+      e.preventDefault()
+    })
+
     return this
   }
 
