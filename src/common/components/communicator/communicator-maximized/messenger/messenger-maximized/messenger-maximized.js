@@ -6,6 +6,7 @@
     const messagesScroll = angular.element('.messenger-scroll')
     const indicateTypingDebounce = 1000
     const typingTimeout = 2000
+    const fileUploadErrorMessageTimeout = 15000
     const uploader = uploaderService.getInstance(1, uploaderService.collectionTypes.avatar)
 
     messagesScroll.perfectScrollbar()
@@ -13,7 +14,8 @@
     this.participantAvatar = ''
     this.isTyping = false
     this.groupedMessages = []
-
+    this.uploadedFile = {}
+    
     const _clientInit = (expert) => {
       this.participantAvatar = HelperService.fileUrlResolver(expert.expertDetails.avatar)
     }
@@ -48,37 +50,67 @@
       $timeout(_scrollMessagesBottom)
     }
 
-    const _addMessage = msg => {
+    const _addMessage = (msg) => {
       _addGroupedMessage(msg)
       _onTypingEnd()
       _scrollMessagesBottom()
     }
 
-    const _onMessageSendSuccess = (message) =>
+    const _onMessageSendSuccess = (message) => {
       _addMessage(message)
+    }
 
     const _onMessageSendError = (err) =>
       $log.error('msg send err:', JSON.stringify(err))
 
-    this.onSendMessage = (messageBody) =>
-      messengerService.sendMessage(messageBody)
+    
+    const serializeMessageBody = (text) => 
+      JSON.stringify({body: text})
+    
+    const sendMessage = (messageObject) => 
+      messengerService.sendMessage(messageObject)
         .then(_onMessageSendSuccess, _onMessageSendError)
-
+    
+    this.onSendMessage = (messageBody) => {
+      sendMessage(serializeMessageBody(messageBody))
+    }
+    
     const onUploadProgess = (res) =>
       $log.debug(res)
 
-    const onFileUpload = (res) =>
-      $log.debug('file uploaded', res)
+    const onFileUpload = (res) => {
+      const fileMessage = {
+        body: res.name,
+        fileUrl: HelperService.fileUrlResolver(res.token)
+      }
+      this.uploadedFile.progress = false
+      sendMessage(JSON.stringify(fileMessage))
+    }
 
-    const onFileUploadError = (err) =>
-      $log.debug('file upload error', err)
+    const onFileUploadError = (err) => {
+      this.uploadedFile.progress = false
+      this.onFileUploadError = true
+      $timeout(() => {
+        this.onFileUploadError = false
+      }, fileUploadErrorMessageTimeout)
+    }
 
     const uploadFile = (file) =>
       uploader.uploadFile(file, onUploadProgess)
         .then(onFileUpload, onFileUploadError)
 
-    this.onUploadFiles = (files) =>
-      angular.forEach(files, uploadFile)
+    this.onUploadFiles = (files) => {
+      this.onFileUploadError = false
+      angular.forEach(files, (file)=>{
+        this.uploadedFile.file = file
+        this.uploadedFile.progress = true
+        uploadFile(file)
+      })
+    }
+
+    this.uploadAgain = () => {
+      this.onUploadFiles([this.uploadedFile.file])
+    }
 
     const _onTyping = () => {
       this.isTyping = true

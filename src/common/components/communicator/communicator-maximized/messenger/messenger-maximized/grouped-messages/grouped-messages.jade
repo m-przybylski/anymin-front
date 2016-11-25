@@ -1,11 +1,11 @@
 .grouped-messages(data-ng-class="{'interlocutor': !$ctrl.isMine}")
-    .thumb.x48(data-ng-hide=":: $ctrl.isMine")
-        img.user-avatar(src data-ng-src="{{ :: $ctrl.participantAvatar }}")
+  .thumb.x48(data-ng-hide=":: $ctrl.isMine")
+      img.user-avatar(src data-ng-src="{{ :: $ctrl.participantAvatar }}")
 
-    div
-        .message(data-ng-repeat="message in $ctrl.messages track by $index")
-            .content
-                span(data-ng-bind-html="::message.body | message")
+  div
+    .message(data-ng-repeat="message in $ctrl.messages track by $index")
+      .content
+          span(data-ng-bind-html="::message.body | message")
 
-            //time.message-date
-            //    p {{ :: message.timestamp | date:'HH:mm' }}
+      //time.message-date
+      //    p {{ :: message.timestamp | date:'HH:mm' }}

@@ -3,7 +3,7 @@
     data-ng-enter="$ctrl.sendMessage($ctrl.inputModel)" data-ng-keyup="$ctrl.onKeyup($event)")
 
   .messenger-input-action
-    a(ngf-select="$ctrl.uploadFiles($files)" ngf-multiple="1")
+    a(ngf-select="$ctrl.uploadFiles($files)" ngf-multiple="false" data-ng-disabled="$ctrl.isFileUploading" data-ng-class="{'disable': $ctrl.isFileUploading}")
       span.icon.icon-attachment-24
 
     a(data-ng-click="$ctrl.sendMessage($ctrl.inputModel)")

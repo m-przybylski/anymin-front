@@ -1,4 +1,4 @@
-(function($log) {
+(function() {
 
   const hasImageUrl = (text) => {
     const imageRegexp = /([/|.|\w|\s])*\.(?:jpg|gif|png)/
@@ -18,30 +18,39 @@
     return url
   }
 
-  const handleMessage = (message) => {
-    const messageUrls = getUrls(message)
+  const createRegexpFromUrl = (url) => {
+    return new RegExp(url.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g, '\\$&'), 'g')
+  }
 
-    if (messageUrls && messageUrls.length > 0) {
+  const handleMessage = (message) => {
+    const messageObject = angular.fromJson(angular.fromJson(message))
+    const messageUrls = getUrls(messageObject.body)
+    
+    if (messageObject.fileUrl) {
+      return '<a href="' + messageObject.fileUrl + '" target="_blank" class="file"><i class="icon-file-24"></i>' + messageObject.body + '</a>'
+
+    } else if (messageUrls && messageUrls.length > 0) {
       for (let url in messageUrls) {
         if (messageUrls.hasOwnProperty(url)) {
           const currentUrl = messageUrls[url]
-          const urlRegexp = new RegExp(currentUrl.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g, '\\$&'), 'g')
-          
+          const urlRegexp = createRegexpFromUrl(currentUrl)
+
           if (hasImageUrl(currentUrl)) {
-            message = message.replace(urlRegexp, '<a href="' + getCorrectUrl(currentUrl) + '" target="_blank" >' +
+            return messageObject.body.replace(urlRegexp, '<a href="' + getCorrectUrl(currentUrl) + '" target="_blank" >' +
               '<img src="' + getCorrectUrl(currentUrl) + '"/></a>')
           } else {
-            message = message.replace(urlRegexp, '<a href="' + getCorrectUrl(currentUrl) + '" target="_blank">' + currentUrl + '</a>')
+            return messageObject.body.replace(urlRegexp, '<a href="' + getCorrectUrl(currentUrl) + '" target="_blank">' + currentUrl + '</a>')
           }
         }
       }
-    } 
-    return message
+    }
+    
+    return messageObject.body
   }
 
-  function messageFilter() {
+  function messageFilter($log) {
     return function(message) {
-      if (!!message && typeof message === 'string') {
+      if (message && typeof message === 'string') {
         return handleMessage(message)
       } else {
         $log.error('Expected String but got:' + typeof message)

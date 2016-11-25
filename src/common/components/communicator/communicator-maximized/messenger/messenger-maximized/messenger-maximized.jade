@@ -11,6 +11,9 @@
     .messenger-scroll
       grouped-messages(data-ng-repeat="messages in $ctrl.groupedMessages track by $index" data-messages="messages"
         data-participant-avatar="{{ :: $ctrl.participantAvatar }}")
+      .file-loader(data-ng-show="!!$ctrl.uploadedFile.progress")
+      .file-upload-error(data-ng-show="!!$ctrl.onFileUploadError")
+        a(data-ng-click="$ctrl.uploadAgain()") {{ 'COMMUNICATOR.TEXT_CHAT.UPLOAD_ERROR' | translate }}
 
       .messenger-message-incoming(data-ng-class="{'is-active': $ctrl.isTyping}" data-ng-show="$ctrl.isTyping")
         .thumb.x48
@@ -21,4 +24,4 @@
           span
 
   messenger-input(data-on-send-message="$ctrl.onSendMessage" data-on-typing="$ctrl.indicateTypingDebounce"
-    data-on-upload-files="$ctrl.onUploadFiles")
+    data-on-upload-files="$ctrl.onUploadFiles" data-is-file-uploading="$ctrl.uploadedFile.progress")
