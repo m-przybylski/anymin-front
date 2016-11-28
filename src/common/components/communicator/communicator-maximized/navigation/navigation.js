@@ -1,29 +1,21 @@
 (function() {
 
   /* @ngInject */
-  function controller($log, callService) {
+  function controller(callService) {
     this.isAudio = true
     this.isMessenger = false
     this.areOptions = false
 
-    this.animateButtons = (buttonId) => {
-      if (event.currentTarget.classList.contains("is-active")) {
-        event.currentTarget.classList.add("is-inactive")
-        event.currentTarget.classList.remove("is-active")
+    this.animateButtons = (event) => {
+      if (event.currentTarget.classList.contains('is-active')) {
+        event.currentTarget.classList.add('is-inactive')
+        event.currentTarget.classList.remove('is-active')
       } else {
-        event.currentTarget.classList.remove("is-inactive")
-        event.currentTarget.classList.add("is-active")
+        event.currentTarget.classList.remove('is-inactive')
+        event.currentTarget.classList.add('is-active')
       }
     }
 
-    // this.$onDestroy = function () {
-    //   $log.log('destroying controller')
-    // }
-    //
-    // this.$onInit = function () {
-    //   $log.info('on init')
-    // }
-    
     this.toggleAudio = (buttonId) => {
       callService.toggleAudio()
       this.animateButtons(buttonId)

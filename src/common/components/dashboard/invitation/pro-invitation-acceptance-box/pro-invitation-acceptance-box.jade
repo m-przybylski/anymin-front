@@ -12,12 +12,12 @@
         span {{ ::"DASHBOARD.INVITATION.ACCEPT" | translate }}
 
     .box-status.accepted.inavtive(data-ng-show="vm.employment.status === 'ACCEPTED'")
-      span.btn.btn-success
+      span.btn.btn-success.btn-noborder
         span.icon.icon-success-12.succes
         span {{ ::"DASHBOARD.INVITATION.HAD_BEEN_ACCEPTED" | translate }}
 
     .box-status.rejected(data-ng-show="vm.employment.status === 'REJECTED' || vm.rejectTimeoutSet")
-      span.btn.btn-error
+      span.btn.btn-error.btn-noborder
         span.icon.icon-close-16.error
         span {{ ::"DASHBOARD.INVITATION.HAD_BEEN_REJECTED" | translate }}
         span.back(data-ng-show="vm.rejectTimeoutSet" data-ng-click="vm.abortRejection()") ( {{ ::"LOGIN.BACK" | translate }} )

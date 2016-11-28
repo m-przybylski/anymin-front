@@ -68,7 +68,7 @@ describe('Unit testing:profitelo.components.search.single-consultation', () => {
     
     it('should compile the directive', () => {
       const el = create(validHTML)
-      expect(el.html()).toBeDefined(true)success
+      expect(el.html()).toBeDefined(true)
     })
 
     it('should set isLinkActive to false', () => {

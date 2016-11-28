@@ -31,6 +31,20 @@
     +smm
       display: flex
 
+    a:first-child
+      &.is-active
+        span
+          color: $c-white
+
+        &:hover
+          &::before
+            background: $c-white
+
+        &::before
+          background: rgba($c-primary-txt, 0.8)
+
+
+
   .communicator-conversation-details
     color: #fff
 

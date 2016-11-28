@@ -3,8 +3,11 @@
   function controller($scope, HelperService) {
     this.areControllsVisible = false
 
-    if (this.experts.length <= 4) {
-      this.areControllsVisible = false
+    this.expertsArray = []
+    this.expertsArray = this.expertsArray.concat(this.experts)
+    
+    if(this.expertsArray.length > 4) {
+      this.areControllsVisible = true
     }
 
     this.controlls = {}
@@ -20,8 +23,7 @@
     this.expertImage = (token) => {
       if (!!token && token !== null) {
         return HelperService.fileUrlResolver(token)
-      } 
-      
+      }
     }
     
     return this

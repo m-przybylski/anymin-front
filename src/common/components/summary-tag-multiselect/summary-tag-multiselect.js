@@ -1,3 +1,4 @@
+/* istanbul ignore next */
 (function() {
   /* @ngInject */
   function controller($scope) {

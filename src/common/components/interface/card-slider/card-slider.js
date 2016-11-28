@@ -1,5 +1,5 @@
+/* istanbul ignore next */
 (function() {
-
   /* @ngInject */
   function defaultCardSliderFunction($scope, $window, $timeout, $element) {
 

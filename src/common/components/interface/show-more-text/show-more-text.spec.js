@@ -25,7 +25,7 @@ describe('Unit testing: profitelo.components.interface.show-more-text', () => {
       module('templates-module')
       module('profitelo.components.interface.show-more-text')
 
-      inject(($rootScope, $compile, _$componentController_, _$window_, _$timeout_, _$log_,) => {
+      inject(($rootScope, $compile, _$componentController_, _$window_, _$timeout_, _$log_) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile

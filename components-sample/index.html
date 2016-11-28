@@ -5,6 +5,22 @@
   <link rel="stylesheet" type="text/css" href="../build/Profitelo-0.0.1.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700,300,100' rel='stylesheet' type='text/css'>
+
+  <style>
+  .playground-row {
+  	display: flex;
+  	justify-content: space-between;
+  	align-items: center;
+  	padding:50px 0;
+  	border-bottom: 1px solid rgba(230, 230, 230, 0.6)
+  }
+  .dark-bg {
+  	background: grey
+  }
+  .communicator-nav {
+  	position: static
+  }
+  </style>
 </head>
 <body>
   <div class="default-container playground">
@@ -15,6 +31,7 @@
       <a class="btn btn-primary">Zadzwoń</a>
       <a class="btn btn-error">Zadzwoń</a>
       <a class="btn btn-warning">Zadzwoń</a>
+      <a class="btn btn-noborder">Zadzwoń</a>
     </div>
 
     <div class="flex-row playground-row">
@@ -22,32 +39,46 @@
       <a class="btn btn-success icon-right">Zadzwoń<span class="icon icon-call-16"></span></a>
       <a class="btn btn-default icon-left"><span class="icon icon-call-16"></span>Zadzwoń</a>
       <a class="btn btn-default icon-right">Zadzwoń<span class="icon icon-call-16"></span></a>
+      <a class="btn btn-noborder icon-left"><span class="icon icon-call-16"></span>Zadzwoń</a>
+      <a class="btn btn-noborder icon-right">Zadzwoń<span class="icon icon-call-16"></span></a>
     </div>
 
     <div class="flex-row playground-row">
-      <a class="btn btn-arrow">
-        <span class="icon icon-arrow-left-16"></span>
-      </a>
-      <a class="btn btn-arrow">
-        <span class="icon icon-arrow-right-16"></span>
-      </a>
+     <a class="btn btn-circle"><span class="icon icon-voice-24"></span></a>
+     <a class="btn btn-circle"><span class="icon icon-heart-24"></span></a>
+     <a class="btn btn-circle"><span class="icon icon-voice-24"></span></a>
+     <div class="dark-bg">
+     <div class="communicator-nav">
+		<a data-ng-click="vm.toggleAudio($event)" class="btn btn-circle black"><span data-ng-show="vm.isAudio" class="icon icon-mic-on-24 ng-hide"></span></a>
+		<a data-ng-click="vm.toggleAudio($event)" class="btn btn-circle black is-active"><span data-ng-show="vm.isAudio" class="icon icon-mic-on-24 ng-hide"></span></a>
+</div>
+     </div>
     </div>
 
     <div class="flex-row playground-row">
+ 		<div>
+ 		     <a class="btn btn-arrow">
+		        <span class="icon icon-arrow-left-16"></span>
+		      </a>
+		      <a class="btn btn-arrow">
+		        <span class="icon icon-arrow-right-16"></span>
+		      </a>
+ 		</div>
+    </div>
+
+    <div class="flex-row playground-row">
+    <div>
       <a class="btn btn-show-more">
-        <span>Czytaj wiecej</span>
+        <span>Więcej</span>
       </a>
+      <a class="btn btn-show-more show-less">
+        <span>Mniej</span>
+      </a>
+      </div>
     </div>
 
-    <div class="flex-row playground-row">
-      <a class="thumb x48"><img src="../build/assets/images/no-avatar.jpg" class="user-avatar"></a>
-      <a class="thumb x56"><img src="../build/assets/images/no-avatar.jpg" class="user-avatar"></a>
-      <a class="thumb x64"><img src="../build/assets/images/no-avatar.jpg" class="user-avatar"></a>
-      <a class="thumb x96"><img src="../build/assets/images/no-avatar.jpg" class="user-avatar"></a>
-      <a class="thumb x128"><img src="../build/assets/images/no-avatar.jpg" class="user-avatar"></a>
-      <a class="thumb x256"><img src="../build/assets/images/no-avatar.jpg" class="user-avatar"></a>
 
-    </div>
+
     <div class="flex-row playground-row">
       <div class="profile-preview">
         <a class="thumb x48"><img src="../build/assets/images/no-avatar.jpg" class="user-avatar">
@@ -59,9 +90,38 @@
           <div class="status-list"><span class="status availability"></span></div></a>
         <div class="profile-name"><a>Józef Kaczmarczyk</a></div>
       </div>
+      <div>
+      </div>
+    </div>
+     <div class="flex-row playground-row">
+
+<div class="consultation-title">
+            <h3><span class="ng-binding">Angular nazwa consultacji h3 </span></h3>
+          </div>
+ <div class="consultation-price"><span class="ng-binding">1&nbsp;230,00<span class="currency ng-binding">PLN /min</span></span></div>
+ </div>
+    <div class="flex-row playground-row">
+      <a class="thumb x48"><img src="../build/assets/images/no-avatar.jpg" class="user-avatar"></a>
+      <a class="thumb x56"><img src="../build/assets/images/no-avatar.jpg" class="user-avatar"></a>
+      <a class="thumb x64"><img src="../build/assets/images/no-avatar.jpg" class="user-avatar"></a>
+      <a class="thumb x96"><img src="../build/assets/images/no-avatar.jpg" class="user-avatar"></a>
+      <a class="thumb x128"><img src="../build/assets/images/no-avatar.jpg" class="user-avatar"></a>
+      <a class="thumb x256"><img src="../build/assets/images/no-avatar.jpg" class="user-avatar"></a>
+
     </div>
 
 
+<div class="flex-row playground-row">
+<div class="pro-summary-tag">
+<span class="title-row ng-binding">Zakres konsultacji:<span class="ng-binding">(2)</span></span>
+    <ul class="tag-list slide-page">
+	<li ng-repeat="tag in $ctrl.tags | limitTo: 7" class="ng-scope"><a data-ui-sref="app.search-result({q: tag.name})" class="slide-btn-tag ng-binding" href="/search-result?q=Nazwa%20konsultacji">Nazwa konsultacji</a></li>
+		<li ng-repeat="tag in $ctrl.tags | limitTo: 7" class="ng-scope"><a data-ui-sref="app.search-result({q: tag.name})" class="slide-btn-tag ng-binding" href="/search-result?q=Nazwa%20konsultacji">Nazwa konsultacji</a></li>
+			<li ng-repeat="tag in $ctrl.tags | limitTo: 7" class="ng-scope"><a data-ui-sref="app.search-result({q: tag.name})" class="slide-btn-tag ng-binding" href="/search-result?q=Nazwa%20konsultacji">Nazwa konsultacji</a></li>	<li ng-repeat="tag in $ctrl.tags | limitTo: 7" class="ng-scope"><a data-ui-sref="app.search-result({q: tag.name})" class="slide-btn-tag ng-binding" href="/search-result?q=Nazwa%20konsultacji">Nazwa konsultacji</a></li>
+  </ul>
+  </div>
+
+ </div>
 
 
   </div>

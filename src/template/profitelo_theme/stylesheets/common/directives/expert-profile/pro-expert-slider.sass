@@ -79,10 +79,14 @@
 
       &.slider-header
         .slider-item
+          cursor: auto
+
           > div
             align-items: center
             text-align: center
-            cursor: auto
+
+          &:hover
+            border-color: $c-lines
 
         span
           +default-font-regular
@@ -109,4 +113,4 @@
     cursor: pointer
 
     &:hover
-      border-color: $c-primary
+      border-color: $c-input
