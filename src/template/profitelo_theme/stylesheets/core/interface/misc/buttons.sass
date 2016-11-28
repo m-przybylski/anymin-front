@@ -552,6 +552,7 @@
   opacity: 0.4
 
   +lgm
+    transition: background 0.3s
     align-items: center
     justify-content: center
     color: $c-label
@@ -570,6 +571,11 @@
 
       span
         color: $c-white
+
+  &.arrow-right,
+  &.arrow-left
+    &:hover
+      background: $c-primary-txt
 
   span
     transition: color 0.3s

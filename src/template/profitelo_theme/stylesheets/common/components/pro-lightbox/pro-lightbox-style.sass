@@ -9,6 +9,7 @@ pro-lightbox
     .backdrop-area
       width: 100%
       height: 100%
+      position: fixed
 
     .right-side
       display: flex
@@ -21,6 +22,10 @@ pro-lightbox
       right: 16px
       margin: auto
 
+      .arrow-slider
+        &::before
+          left: 0
+
     .left-side
       display: flex
       align-items: center
@@ -32,6 +37,10 @@ pro-lightbox
       left: 16px
       margin: auto
 
+      .arrow-slider
+        &::before
+          right: 0
+
   .btn.btn-circle
     box-shadow: none
     border: 0
@@ -39,7 +48,6 @@ pro-lightbox
   .arrow-slider
     display: flex
     justify-content: center
-    align-self: center
     opacity: 0.8
     background: $c-primary-txt
     width: 40px
@@ -47,10 +55,27 @@ pro-lightbox
     border-radius: 4px
     align-self: flex-end
     margin: 0 0 24px
+    overflow: hidden
+    position: relative
+    z-index: 1
 
     +smm
       margin: 0
       align-self: center
+
+    &::before
+      transition: width 0.3s
+      content: ""
+      position: absolute
+      top: 0
+      width: 0px
+      height: 100%
+      background: $c-white
+      z-index: -1
+
+    &:hover
+      &::before
+        width: 100%
 
     span
       color: $c-secondary-txt
