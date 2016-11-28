@@ -1,21 +1,21 @@
 .single-consultation.expert-profile-consultation
   .consultation-wrapper
-    .consultation-content
+    .consultation-content(data-ng-class="{'is-company': !!service.service.organizationDetails}")
       .consultation-details
         .consultation-price
-          span {{ $ctrl.service.details.price.amount/100  | number: 2}}
-            span.currency {{ $ctrl.service.details.price.currency }}{{ 'HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE' | translate }}
+          span {{ $ctrl.service.service.details.price.amount/100  | number: 2}}
+            span.currency {{ $ctrl.service.service.details.price.currency }}{{ 'HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE' | translate }}
 
         div
           .consultation-title
             h3
-              span {{ $ctrl.service.details.name }}
+              span {{ $ctrl.service.service.details.name }}
 
           ul.consultation-about
             li.options-item.recomendation
-              span  {{ $ctrl.service.rating || 0 }}% {{"SEARCH.RECOMMENDATION" | translate }}
+              span  {{ $ctrl.service.service.rating || 0 }}% {{"SEARCH.RECOMMENDATION" | translate }}
             li.options-item.conversation-count
-              span {{ $ctrl.service.serviceUsageCounter || 0}} rozmowy
+              span {{ $ctrl.service.service.serviceUsageCounter || 0}} rozmowy
             //li.options-item.balance
               span Stan Twojego konta pozwala na ok. 1 min rozmowy
 

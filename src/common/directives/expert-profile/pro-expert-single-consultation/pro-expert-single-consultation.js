@@ -7,10 +7,10 @@
         callService.callServiceId(scope.service.id)
       }
 
-      scope.tags = scope.service.details.tags
+      scope.tags = scope.service.tags
 
-      scope.companyImage = !!scope.service.organizationDetails && scope.service.organizationDetails.logo !== null ?
-        HelperService.fileUrlResolver(scope.service.organizationDetails.logo) : ''
+      scope.companyImage = !!scope.service.ownerProfile.organizationDetails && scope.service.ownerProfile.organizationDetails.logo !== null ?
+        HelperService.fileUrlResolver(scope.service.ownerProfile.organizationDetails.logo) : ''
 
       scope.consultation = {}
 

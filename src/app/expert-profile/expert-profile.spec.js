@@ -17,7 +17,7 @@ describe('Unit tests: ExpertProfileController >', () => {
           smoothScrolling: _smoothScrolling_,
           expertOrganizations: [],
           similarExperts: [],
-          savedProfile: {type: '', expertDetails: {}}
+          expertProfile: {type: '', expertDetails: {}}
         })
       })
     })

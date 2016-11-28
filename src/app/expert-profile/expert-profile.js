@@ -1,10 +1,10 @@
 (function() {
-  function ExpertProfileController($stateParams, $timeout, $state, smoothScrolling, expertOrganizations, savedProfile, similarExperts) {
+  function ExpertProfileController($stateParams, $timeout, $log, expertProfile, SearchApi, smoothScrolling) {
 
     this.profile = {}
 
-    this.profile = savedProfile.expertDetails
-    this.consultations = savedProfile.services
+    this.profile = expertProfile.profile.expertDetails
+    this.consultations = expertProfile.services
     this.profile.type = 'single'
 
     if (!!$stateParams.primaryConsultationId) {
@@ -13,10 +13,48 @@
       })
     }
     
-    this.profile.colaboratedOrganizations = expertOrganizations
-    this.similarExperts = similarExperts
+    //this.profile.colaboratedOrganizations = expertProfile
 
-    this.services = savedProfile.services
+    this.services = expertProfile.services
+
+    const onFindSimilarExpertSuccess = (response) => {
+      const currentConsultation = _.find(response.results, (o) => {
+        return o.id === expertProfile.services[0].id
+      })
+
+      if (!!currentConsultation) {
+        response.results = _.remove(response.results, (n) => {
+          return n.id !== expertProfile.services[0].id
+        })
+      }else {
+        return null
+      }
+      return response.results
+    }
+
+    const onFindSimilarExpertsError = (error) => {
+      $log.info('Can not find any similar experts becouse: ' + error)
+      return null
+    }
+
+    const searchSimilarExperts =  () => {
+      if (!!expertProfile.services && expertProfile.services.length > 0) {
+        const tagsArray = expertProfile.services[0].tags
+        if(!!tagsArray && tagsArray.length > 0) {
+          const tagId  = tagsArray[Math.floor((Math.random() * (tagsArray.length -1)))].id
+          SearchApi.search({
+            'tag.id':tagId,
+            'profile.type': 'EXP',
+            'limit' : 10
+          }).$promise.then(onFindSimilarExpertSuccess, onFindSimilarExpertsError)
+        } else {
+          return null
+        }
+      }
+    }
+    
+  
+    this.similarExperts = searchSimilarExperts()
 
     return this
   }
@@ -45,64 +83,21 @@
       templateUrl: 'expert-profile/expert-profile.tpl.html',
       controller: 'ExpertProfileController',
       resolve: {
-        expertOrganizations: ($q, $state, $stateParams, ProfileApi, User, proTopAlertService) => {
+        /* istanbul ignore next */
+        expertProfile: ($q, $state, $stateParams, ProfileApi, proTopAlertService) => {
+          /* istanbul ignore next */
           let _deferred = $q.defer()
-          ProfileApi.getEmployersProfilesWithServices({
+          /* istanbul ignore next */
+          ProfileApi.getExpertProfile({
             profileId: $stateParams.contactId
           }).$promise.then((response)=> {
-            _deferred.resolve(response)
-          }, (error)=> {
-            _deferred.reject(error)
-            $state.go('app.dashboard.start')
-            proTopAlertService.error({
-              message: 'Expert does not exist',
-              timeout: 4
-            })
-          })
-          return _deferred.promise
-
-        },
-        /* istanbul ignore next */
-        savedProfile: ($q, $state, $stateParams, ProfileApi, SearchApi, ServiceApi, expertOrganizations, proTopAlertService) => {
-          /* istanbul ignore next */
-          let _deferred = $q.defer()
-          /* istanbul ignore next */
-          ProfileApi.getProfile({
-            profileId: $stateParams.contactId
-          }).$promise.then((profileWithServices)=> {
-            profileWithServices.services = null
-            function flatMap(array, lambda) {
-              return array.concat.apply([], array.map(lambda))
+            const primaryConsultation = _.find(response.services, (o) => { return o.service.id === $stateParams.primaryConsultationId })
+            if (angular.isDefined($stateParams.primaryConsultationId) && !!primaryConsultation && response.services.length > 1) {
+              const currentElement = response.services.splice(response.services.indexOf(primaryConsultation), 1)
+              response.services.unshift(currentElement[0])
             }
-            
-            profileWithServices.services = flatMap(expertOrganizations, (a)=> {
-              a.services.forEach((service) => {
-                service.organizationDetails = a.organizationDetails
-              })
-
-              return a.services
-            })
-            
-            ServiceApi.postServicesTags({
-              serviceIds: _.map(profileWithServices.services, 'id')
-            }).$promise.then((servicesTags) => {
-
-              profileWithServices.services.forEach((service) => {
-                service.details.tags = _.head(_.filter(servicesTags, (serviceTags) => service.id === serviceTags.serviceId)).tags
-              })
-
-              const primaryConsultation = _.find(profileWithServices.services, (o) => { return o.id === $stateParams.primaryConsultationId })
-
-              if (angular.isDefined($stateParams.primaryConsultationId) && !!primaryConsultation && profileWithServices.services.length > 1) {
-                const currentElement = profileWithServices.services.splice(profileWithServices.services.indexOf(primaryConsultation), 1)
-                profileWithServices.services.unshift(currentElement[0])
-              }
-
-              _deferred.resolve(profileWithServices)
-            })
-          }, () => {
-            _deferred.resolve()
-          }, (error)=> {
+            _deferred.resolve(response)
+          }, (error) => {
             _deferred.reject(error)
             $state.go('app.dashboard.start')
             proTopAlertService.error({
@@ -112,43 +107,8 @@
           })
           /* istanbul ignore next */
           return _deferred.promise
-        },
-        /* istanbul ignore next */
-        similarExperts: (SearchApi, savedProfile, $q) => {
-          /* istanbul ignore next */
-          let _deferred = $q.defer()
-          if (!!savedProfile.services && savedProfile.services.length > 0) {
-            /* istanbul ignore next */
-            const tagsArray = savedProfile.services[0].details.tags
-            const tagId  = tagsArray[Math.floor((Math.random() * (tagsArray.length -1)))].id
-
-            SearchApi.search({
-              'tag.id':tagId,
-              'profile.type': 'EXP',
-              'limit' : 10
-            }).$promise.then((response)=> {
-
-              const currentConsultation = _.find(response.results, (o) => {
-                return o.id === savedProfile.services[0].id
-              })
-
-              if (!!currentConsultation) {
-                response.results = _.remove(response.results, (n) => {
-                  return n.id !== savedProfile.services[0].id
-                })
-              }
-
-              _deferred.resolve(response.results)
-
-            }, (error) => {
-              _deferred.reject(error)
-            })
-            /* istanbul ignore next */
-            return _deferred.promise
-          } else {
-            _deferred.resolve()
-          }
         }
+
       },
 
       data: {

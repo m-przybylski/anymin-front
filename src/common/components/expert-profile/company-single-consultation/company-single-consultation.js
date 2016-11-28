@@ -27,6 +27,7 @@
 
   angular.module('profitelo.components.expert-profile.company-single-consultation', [
     'profitelo.components.interface.slider',
+    'profitelo.services.helper',
     'profitelo.components.expert-profile.experts-consultation-slider',
     'profitelo.services.call',
     'pascalprecht.translate'

@@ -20,7 +20,7 @@ describe('Unit tests: CompanyProfileController >', () => {
           $stateParams: $stateParams,
           $timeout: $timeout,
           smoothScrolling: _smoothScrolling_,
-          savedProfile: savedProfile,
+          companyProfile: savedProfile,
           similarExperts: []
         })
       })
