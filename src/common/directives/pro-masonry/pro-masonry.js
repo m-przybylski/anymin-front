@@ -1,11 +1,11 @@
 (function() {
 
-  function proMasonry($timeout) {
+  function proMasonry($timeout, $log) {
 
     function linkFunction(scope, element, attr) {
 
       if (angular.isUndefined(attr.gridItem)) {
-        throw new Error('gridItem attribute has to be given in order for the directive to initialize')
+        $log.error('gridItem attribute has to be given in order for the directive to initialize')
       }
 
       $timeout(() => {

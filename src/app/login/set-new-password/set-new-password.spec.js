@@ -3,7 +3,11 @@ describe('Unit tests: profitelo.controller.login.set-new-password >', () => {
 
     let scope
     let SetNewPasswordController
-
+    let passwordStrengthService
+    let resourcesExpectations
+    let httpBackend
+    let RecoverPasswordApiDef
+    let proTopAlertService
     let _url = 'awesomeUrl'
 
     let tokenStatus = {
@@ -12,8 +16,9 @@ describe('Unit tests: profitelo.controller.login.set-new-password >', () => {
           prefix: '+45',
           number: '456543123'
         },
-        password: ''
+        password: 'asas'
       },
+      payload: {},
       sessionId: '123fsdf'
     }
 
@@ -31,23 +36,73 @@ describe('Unit tests: profitelo.controller.login.set-new-password >', () => {
     beforeEach(() => {
       module('profitelo.controller.login.set-new-password')
       module('profitelo.swaggerResources.definitions')
-      inject(($rootScope, $controller, _passwordStrengthService_) => {
+      module('profitelo.services.pro-top-alert-service')
+        
+      inject(($rootScope, $controller, _passwordStrengthService_, _proTopAlertService_, _RecoverPasswordApiDef_, _$httpBackend_) => {
         scope = $rootScope.$new()
-
+        passwordStrengthService = _passwordStrengthService_
+        RecoverPasswordApiDef = _RecoverPasswordApiDef_
+        httpBackend = _$httpBackend_
+        proTopAlertService = _proTopAlertService_
         SetNewPasswordController = $controller('SetNewPasswordController', {
           $state: $state,
           tokenStatus: tokenStatus,
-          passwordStrengthService: _passwordStrengthService_
+          passwordStrengthService: passwordStrengthService,
+          proTopAlertService: proTopAlertService
         })
+
+        resourcesExpectations = {
+          RecoverPasswordApi: {
+            putRecoverPasswordMsisdn:
+              httpBackend.when(RecoverPasswordApiDef.putRecoverPasswordMsisdn.method,
+                RecoverPasswordApiDef.putRecoverPasswordMsisdn.url),
+            putRecoverPasswordEmail:
+              httpBackend.when(RecoverPasswordApiDef.putRecoverPasswordEmail.method,
+                RecoverPasswordApiDef.putRecoverPasswordEmail.url)
+          }
+          
+        }
       })
+
+
     })
 
     it('should exsist', ()=> {
       expect(!!SetNewPasswordController).toBe(true)
     })
 
+    it('should check password strength', ()=> {
+      let password = 'asas'
+      SetNewPasswordController.onPasswordChange(password)
+      expect(SetNewPasswordController.passwordStrength).toEqual(passwordStrengthService(password))
+    })
 
+    it('should submit password change by email', ()=> {
+      spyOn(proTopAlertService, 'success')
+      resourcesExpectations.RecoverPasswordApi.putRecoverPasswordEmail.respond(200)
+      SetNewPasswordController.newPassword = 'sdfsdfsdfsdf'
+      SetNewPasswordController.submitPasswordChange()
+      httpBackend.flush()
+      expect(proTopAlertService.success).toHaveBeenCalled()
+    })
 
+    it('should display error on server error', ()=> {
+      spyOn(proTopAlertService, 'error')
+      resourcesExpectations.RecoverPasswordApi.putRecoverPasswordEmail.respond(500)
+      SetNewPasswordController.newPassword = 'sdfsdfsdfsdf'
+      SetNewPasswordController.submitPasswordChange()
+      httpBackend.flush()
+      expect(proTopAlertService.error).toHaveBeenCalled()
+    })
+
+    it('should submit password change by sms', ()=> {
+      spyOn(proTopAlertService, 'success')
+      tokenStatus.method = 'SMS'
+      resourcesExpectations.RecoverPasswordApi.putRecoverPasswordMsisdn.respond(200)
+      SetNewPasswordController.submitPasswordChange()
+      httpBackend.flush()
+      expect(proTopAlertService.success).toHaveBeenCalled()
+    })
 
   })
 })

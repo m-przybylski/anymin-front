@@ -5,7 +5,8 @@ describe('Unit testing: profitelo.directives.pro-tags-slider', () => {
     let rootScope
     let compile = null
     let _timeout = null
-    let validHTML = '<pro-tags-slider data-tags="[{name: elo, id:999}, {name: elo, id:999}, {name: elo, id:999}, {name: elo, id:999}, {name: elo, id:999}]" data-on-tag-click-action="tagsAction"></pro-tags-slider>'
+    let validHTML = '<pro-tags-slider data-tags="[{name: \'sdsd\', id:999}, {name: \'sdsd\', id:999}, {name: \'sdsd\', ' +
+      'id:999}, {name: elo, id:999}, {name: elo, id:999}]" data-on-tag-click-action="tagsAction"></pro-tags-slider>'
 
     beforeEach(() => {
       module('templates-module')
@@ -17,8 +18,6 @@ describe('Unit testing: profitelo.directives.pro-tags-slider', () => {
         _timeout = $timeout
         
       })
-
-      
     })
 
     function create(html) {
@@ -26,6 +25,7 @@ describe('Unit testing: profitelo.directives.pro-tags-slider', () => {
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
       scope.$digest()
+      _timeout.flush()
       return compiledElement
     }
 
@@ -38,17 +38,11 @@ describe('Unit testing: profitelo.directives.pro-tags-slider', () => {
       expect(el.html()).toBeDefined(true)
     })
 
-    it('should call next slide and prev slide', () => {
+    it('should call next slide', () => {
       let el = create(validHTML)
       let isoScope = el.isolateScope()
-      
-      spyOn(isoScope, 'nextSlide')
-      isoScope.nextSlide()
-      expect(isoScope.nextSlide).toHaveBeenCalled()
-      
-      spyOn(isoScope, 'prevSlide')
-      isoScope.prevSlide()
-      expect(isoScope.prevSlide).toHaveBeenCalled()
+      const tag = '{name: \'sdsd\', id:999}'
+      isoScope.tagAction(tag)
     })
   })
 })

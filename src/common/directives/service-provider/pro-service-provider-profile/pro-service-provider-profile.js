@@ -5,7 +5,9 @@
 
       scope.invertArrow = false
       scope.textLimit = 1000
-      scope.description = String($sce.trustAsHtml( scope.description.replace(/\n/g, '<br />')))
+      if (scope.description) {
+        scope.description = String($sce.trustAsHtml( scope.description.replace(/\n/g, '<br />')))
+      }
 
       scope.showMoreText = () => {
         scope.textLimit = scope.textLimit === null ? 1000 : null
@@ -35,6 +37,7 @@
 
   angular.module('profitelo.directives.service-provider.pro-service-provider-profile', [
     'lodash',
+    'ngSanitize',
     'pascalprecht.translate',
     'profitelo.components.interface.show-more-text'
   ])

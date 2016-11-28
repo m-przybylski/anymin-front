@@ -1,29 +1,34 @@
 describe('Unit testing: profitelo.directives.service-provider.pro-service-provider-profile', function() {
   return describe('for proServiceProviderProfile directive >', function() {
 
-    var compile = null
-    var scope = null
-
-    var validHTML = '<pro-service-provider-name data-queue="vm.queue" ' +
-      'data-order="2" data-pro-model="proModel" ' +
-      'data-placeholder="DASHBOARD.CONSULTATION_RANGE.CONSULTANTS_LIST_PLACEHOLDER"' +
-      ' data-error-message="DASHBOARD.SERVICE_PROVIDER.NAME.BAD_NAME" tr-title="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT" ' +
-      'tr-desc="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT_DESCRIPTION" required="required"></pro-service-provider-name>'
+    let compile
+    let scope
+    let sce
+    let el
+    
+    const validHTML = '<pro-service-provider-profile data-name="asdsdfsdf" ' +
+      'data-languages="ghfghfgh" data-button-action="vm.buttonAction"  data-avatar="ffff" data-description="vm.description"></pro-service-provider-profile>'
 
     beforeEach(function() {
       module('templates-module')
-      module('profitelo.directives.service-provider.pro-service-provider-name')
+      module('profitelo.directives.service-provider.pro-service-provider-profile')
 
-      inject(function($rootScope, $compile) {
+      inject(function($rootScope, $compile, _$sce_) {
         scope = $rootScope.$new()
         compile = $compile
+        sce = _$sce_
       })
     })
 
     function create(html) {
-      var elem = angular.element(html)
-      scope.proModel = {name: null}
-      var compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      scope.vm = {
+        description: 'asdasdasd',
+        buttonAction: () => {
+          return null
+        }
+      }
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
@@ -33,13 +38,27 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
     }))
 
     it('compile the directive', function() {
-      var el
       el = create(validHTML)
+      let isoScope = el.isolateScope()
+      isoScope.vm = {}
+      isoScope.vm.description = 'sdsdsdsdsdsd'
       expect(el.html()).toBeDefined(true)
     })
 
+    it('should call show more text', () =>{
+      el = create(validHTML)
+      let isoScope = el.isolateScope()
+      el.find('.pro-button').triggerHandler('click')
+      expect(isoScope.textLimit).toEqual(null)
+    })
 
-
+    it('should call buttonAction', () =>{
+      el = create(validHTML)
+      let isoScope = el.isolateScope()
+      spyOn(isoScope, 'buttonAction')
+      isoScope.onClick()
+      expect(isoScope.buttonAction).toHaveBeenCalled()
+    })
 
   })
 })
