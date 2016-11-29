@@ -1,4 +1,4 @@
-top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION")
+top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="onModalClose")
 
 .fullscreen-modals.fullscreen-navbar
   .full-height-modal
@@ -9,13 +9,13 @@ top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION")
         .consultation-range
           .consultation-title.default-container-small
             h3
-              span jakas konsutacja nazwa dluga asd asd asd
+              span {{ callSummary.service.details.name }}
 
         .consultation-time-details.default-container-small
           ul.conversation-time
             li.label(data-translate="COMMUNICATOR.MODALS.CONVERSATION_TIME")
-            li 27 min 8s
+            li {{ callSummary.callDuration | secondsToDateTime | date:'HH:mm:ss' }}
 
           ul.conversation-cost.income
             li.label(data-translate="COMMUNICATOR.MODALS.INCOME")
-            li 38,30 PLN
+            li {{ callSummary.cost | money }}

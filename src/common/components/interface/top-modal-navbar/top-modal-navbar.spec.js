@@ -6,9 +6,7 @@ describe('Unit testing: profitelo.components.interface.top-modal-navbar', () => 
     let compile
     let componentController
     let component
-    let window
-    let bindings
-    let validHTML = '<top-modal-navbar></top-modal-navbar>'
+    const validHTML = '<top-modal-navbar></top-modal-navbar>'
 
     function create(html) {
       scope = rootScope.$new()
@@ -20,28 +18,35 @@ describe('Unit testing: profitelo.components.interface.top-modal-navbar', () => 
 
     beforeEach(() => {
       module('templates-module')
+      module('ui.router')
       module('profitelo.components.interface.top-modal-navbar')
 
-      inject(($rootScope, $compile, _$componentController_, _$window_) => {
+      inject(($rootScope, $compile, _$componentController_, _$state_, $window) => {
         componentController = _$componentController_
-        rootScope = $rootScope.$new()
+        rootScope = $rootScope
         compile = $compile
-        window = _$window_
+
+        const injectors = {
+          $element: create(validHTML),
+          $scope: rootScope,
+          $state: _$state_,
+          $window: $window
+        }
+
+        const bindings = {
+          title: 'test'
+        }
+
+        component = componentController('topModalNavbar', injectors, bindings)
       })
-
-      bindings = {
-        title: 'test'
-      }
-
-      component = componentController('topModalNavbar', {$element: create(validHTML), $scope: rootScope}, {})
     })
 
-    it('should have a dummy test', inject(() => {
+    it('should have a dummy test', () => {
       expect(true).toBeTruthy()
-    }))
+    })
 
     it('should compile the component', () => {
-      let el = create(validHTML)
+      const el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
 

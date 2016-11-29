@@ -29,7 +29,7 @@
     return this
   }
 
-  function runFunction($rootScope, $log, $state, $anchorScroll, User, proTopAlertService, communicatorService) {
+  function runFunction($rootScope, $log, $state, $anchorScroll, User, proTopAlertService, profiteloWebsocket) {
 
     $rootScope.loggedIn = false
 
@@ -216,6 +216,7 @@
     'profitelo.services.interfaceLanguage',
     'profitelo.services.customTranslationHandler',
     'profitelo.services.search-url',
+    'profitelo.services.profitelo-websocket',
 
     // controllers
     'profitelo.controller.dashboard',

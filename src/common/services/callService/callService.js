@@ -1,11 +1,13 @@
 (function() {
 
-  function service($q, $log, UtilsService, communicatorService, ServiceApi, modalsService, soundsService, profiteloSdk) {
+  function service($q, $log, UtilsService, communicatorService, ServiceApi, modalsService, soundsService) {
 
     let call = null
     let timer = null
     let serviceUsageData = null
     let expertService = null
+    let callType = null
+    let callInvitation = null
     const freeMinutesCount = 1
 
     const events = {
@@ -25,22 +27,40 @@
 
     const callbacks = UtilsService.callbacksFactory(Object.keys(events))
 
+    const callTypes = {
+      expert: 'expert',
+      client: 'client'
+    }
+
+    const setCall = (_call, _type) => {
+      if (callTypes.hasOwnProperty(_type) || _type === null) {
+        callType = _type
+        call = _call
+      } else {
+        $log.error('Expected callType, got: ' + _type)
+      }
+    }
+
     const hangupCall = () => {
       if (call) {
         soundsService.callConnectingSound().stop()
         soundsService.playCallEnded()
-        return call.hangup().then(result => {
-          callbacks.notify(events.onHangup, null)
-          if (timer) {
-            timer.stop()
-            timer = null
-          }
-          serviceUsageData = null
-          expertService = null
-          call = null
+        if (callType === callTypes.client) {
+          modalsService.createClientConsultationSummaryModal(serviceUsageData.service.id)
+        } else if (callType === callTypes.expert) {
+          modalsService.createExpertConsultationSummaryModal(expertService.id)
+        }
 
-          return $q.resolve(result)
-        })
+        if (timer) {
+          timer.stop()
+          timer = null
+        }
+        serviceUsageData = null
+        expertService = null
+        const promise = call.hangup()
+        setCall(null, null)
+        callbacks.notify(events.onHangup, null)
+        return promise
       }
       return $q.resolve(null)
     }
@@ -73,6 +93,8 @@
       soundsService.playCallEnded()
       timer.stop()
       timer = null
+      setCall(null, null)
+      modalsService.createExpertConsultationSummaryModal(expertService.id)
       callbacks.notify(events.onHangup, null)
     }
 
@@ -94,13 +116,10 @@
 
     const _answerCall = (callInvitation, session) => {
       soundsService.callIncomingSound().stop()
-      call = callInvitation.call
-      call.join().then(_ => {
-        _onExpertCallJoin(callInvitation.inviter, session)
-      })
-      call.onLeft(_ => {
-        _onExpertCallHangup()
-      })
+      setCall(callInvitation.call, callTypes.expert)
+      call.join().then(_ =>
+        _onExpertCallJoin(callInvitation.inviter, session))
+      call.onLeft(_onExpertCallHangup)
       callbacks.notify(events.onExpertCallAnswer, callInvitation)
     }
 
@@ -111,20 +130,20 @@
       callbacks.notify(events.onExpertCallReject, callInvitation)
     }
 
-    const _onExpertCallIncoming = (callInvitation, _service, session) => {
+    const _onExpertCallIncoming = (_callInvitation, _service, session) => {
+      callInvitation = _callInvitation
       soundsService.callIncomingSound().play()
       modalsService.createIncomingCallModal(_service, () => {
-        _answerCall(callInvitation, session)
+        _answerCall(_callInvitation, session)
       }, () => {
-        _rejectCall(callInvitation)
+        _rejectCall(_callInvitation)
       })
 
-      $log.info('EXPERT received call invitation: ', callInvitation)
+      $log.info('EXPERT received call invitation: ', _callInvitation)
 
       expertService = _service
-
+      setCall(_callInvitation.call, callTypes.expert)
       callbacks.notify(events.onExpertCallIncoming, _service)
-      call = callInvitation.call
     }
 
     communicatorService.onCall(obj =>
@@ -170,7 +189,7 @@
       callbacks.notify(events.onClientCallHangup, null)
       timer.stop()
       timer = null
-      // modalsService.createClientConsultationSummaryModal()
+      modalsService.createClientConsultationSummaryModal()
     }
 
     const _onClientCallRejected = () => {
@@ -180,7 +199,7 @@
     }
 
     const _onCreateDirectCall = (_call, _inviterId) => {
-      call = _call
+      setCall(_call, callTypes.client)
 
       let callStarted = false
       call.onJoined(_ => {
@@ -246,8 +265,7 @@
     'profitelo.swaggerResources',
     'profitelo.services.utils',
     'profitelo.services.modals',
-    'profitelo.services.sounds',
-    'profitelo.services.profitelo-sdk'
+    'profitelo.services.sounds'
   ])
     .service('callService', service)
 

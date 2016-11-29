@@ -23,7 +23,7 @@
     }
   }
 
-  function service($log, $q, UtilsService, User, RatelApi, ServiceApi, ratelSdk) {
+  function service($log, $q, UtilsService, User, RatelApi, ProfileApi, ratelSdk, _) {
 
     const events = {
       onCall: 'onCall',
@@ -65,9 +65,10 @@
 
       return $q.all([
         RatelApi.getRatelAuthConfig().$promise,
-        ServiceApi.getProfileServices({accountId: User.getData('id')}).$promise
+        ProfileApi.getEmployersProfilesWithServices({profileId: User.getData('id')}).$promise
       ]).then(configs => {
-        const [clientConfig, services] = configs.map(x => JSON.parse(angular.toJson(x)))
+        const [clientConfig, profilesWithServices] = configs.map(x => JSON.parse(angular.toJson(x)))
+        const services = _.flatten(_.map(profilesWithServices, profile => profile.services))
 
         // register as a client
         _ratelRegisterConfigs.push(
@@ -107,6 +108,7 @@
     'profitelo.swaggerResources',
     'profitelo.services.dialog-service',
     'ratelSdk',
+    'lodash',
     'profitelo.services.utils'
   ])
     .service('communicatorService', service)

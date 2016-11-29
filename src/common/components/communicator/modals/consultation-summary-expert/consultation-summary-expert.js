@@ -1,33 +1,37 @@
 /* istanbul ignore next function */
 (function() {
 
-  function controller($scope, $uibModalInstance) {
-    $scope.confirm = () => {
+  function controller($scope, $uibModalInstance, callSummaryService) {
 
-      if (angular.isFunction($scope.$parent.vm.modalCallback)) {
-        $scope.$parent.vm.modalCallback()
+    $scope.callSummary = null
+
+    const onCallSummary = (data) => {
+      const callSummary = data.callSummary
+      if (callSummary.service.id === $scope.serviceId) {
+        $scope.callSummary = callSummary
       }
-      $uibModalInstance.close('cancel')
     }
 
-    $scope.rejectCall = () => {
+    const loadFromExistingCallSummaries = () => {
+      const obj = callSummaryService.takeCallSummary($scope.serviceId)
+      if (obj) {
+        onCallSummary(obj)
+      }
+    }
+
+    callSummaryService.onCallSummary(onCallSummary)
+
+    loadFromExistingCallSummaries()
+
+    $scope.onModalClose = () =>
       $uibModalInstance.dismiss('cancel')
-    }
-
-    $scope.chooseExpertsTag = false
-
-    $scope.recommendExpert = () => {
-      console.log(this.chooseExpertsTag, $scope.chooseExpertsTag)
-      $scope.chooseExpertsTag = true
-      console.log(this.chooseExpertsTag, $scope.chooseExpertsTag)
-    }
 
     return this
   }
 
   angular.module('profitelo.components.communicator.modals.consultation-summary-expert', [
     'ui.bootstrap',
-    'profitelo.components.summary-tag-multiselect'
+    'profitelo.services.call-summary'
   ])
     .controller('consultationSummaryExpertController', controller)
 

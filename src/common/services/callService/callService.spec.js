@@ -3,6 +3,12 @@ describe('Unit testing: profitelo.services.call >', () => {
 
     let callService
     let onCall
+    const modalsService = {
+      createClientConsultationSummaryModal: _ => _,
+      createExpertConsultationSummaryModal: _ => _,
+      createIncomingCallModal: _ => _,
+      createServiceUnavailableModal: _ => _
+    }
 
     const communicatorServiceMock = {
       onCall: (cb) => onCall = cb
@@ -35,6 +41,7 @@ describe('Unit testing: profitelo.services.call >', () => {
       $provide.value('apiUrl', 'awesomeURL')
       $provide.value('communicatorService', communicatorServiceMock)
       $provide.value('soundsService', soundsService)
+      $provide.value('modalsService', modalsService)
     }))
 
     beforeEach(inject(($injector) => {
@@ -69,7 +76,7 @@ describe('Unit testing: profitelo.services.call >', () => {
       $rootScope.$digest()
     }))
 
-    it('should startCall with error and show service unavailable', inject(($q, $rootScope, communicatorService, ServiceApi, modalsService) => {
+    it('should startCall with error and show service unavailable', inject(($q, $rootScope, communicatorService, ServiceApi) => {
       const serviceId = '1'
       const err = 'error'
 
@@ -146,7 +153,10 @@ describe('Unit testing: profitelo.services.call >', () => {
     it('should hangup', inject(($q, $rootScope, communicatorService, ServiceApi) => {
       const serviceId = '1'
       const sur = {
-        ratelId: '123'
+        ratelId: '123',
+        service: {
+          id: '123'
+        }
       }
       const call = {
         onJoined: _ => _,
@@ -237,7 +247,7 @@ describe('Unit testing: profitelo.services.call >', () => {
       expect(call.toggleAudio).toHaveBeenCalled()
     }))
 
-    it('should show modal on onCall', inject((modalsService) => {
+    it('should show modal on onCall', inject(() => {
 
       const obj = {
         invitation: {

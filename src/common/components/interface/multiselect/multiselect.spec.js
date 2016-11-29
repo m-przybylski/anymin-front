@@ -1,12 +1,12 @@
-describe('Unit testing: profitelo.components.summary-tag-multiselect', () => {
-  return describe('for summaryTagMultiselectComponent >', () => {
+describe('Unit testing: profitelo.components.interface.multiselect', () => {
+  return describe('for multiselect >', () => {
 
     let scope
     let rootScope
     let compile
     let componentController
     let component
-    let validHTML = '<summary-tag-multiselect tags="tags" title="title"></summary-tag-multiselect>'
+    let validHTML = '<multiselect tags="tags" value="name" title="title"></multiselect>'
 
     function create(html) {
       scope = rootScope.$new()
@@ -18,7 +18,7 @@ describe('Unit testing: profitelo.components.summary-tag-multiselect', () => {
 
     beforeEach(() => {
       module('templates-module')
-      module('profitelo.components.summary-tag-multiselect')
+      module('profitelo.components.interface.multiselect')
 
       inject(($rootScope, $compile, _$componentController_) => {
         componentController = _$componentController_
@@ -26,7 +26,7 @@ describe('Unit testing: profitelo.components.summary-tag-multiselect', () => {
         compile = $compile
       })
 
-      component = componentController('summaryTagMultiselectComponent', {$element: create(validHTML), $scope: scope}, {})
+      component = componentController('multiselect', {$element: create(validHTML), $scope: scope}, {})
 
     })
 
