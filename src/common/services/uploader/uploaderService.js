@@ -27,6 +27,9 @@
 
       const fileObjectsToUpload = []
 
+      const scheduleUpload = () =>
+        $timeout(processUpload)
+
       const onFileUploadEnd = () => {
         uploadingCount--
         scheduleUpload()
@@ -82,9 +85,6 @@
             .then((token) => onGetFileToken(fileObj, token), (err) => onGetFileTokenError(fileObj, err))
         }
       }
-
-      const scheduleUpload = () =>
-        $timeout(processUpload)
 
       const addFileToQueue = (file, callback) => {
         const deferred = $q.defer()

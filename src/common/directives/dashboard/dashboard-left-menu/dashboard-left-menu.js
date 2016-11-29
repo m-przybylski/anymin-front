@@ -1,7 +1,6 @@
+/* istanbul ignore next */
 (function() {
   function dashboardLeftMenu($window) {
-
-
     function linkFunction(scope) {
       let myScrollbarChoices
 
@@ -25,7 +24,7 @@
 
       scope.menuElements = [
         {
-          label: 'NAVIGATION.MEET_US',
+          label: 'NAVIGATION.MEET_US', 
           link: 'app.home'
         },
         {
