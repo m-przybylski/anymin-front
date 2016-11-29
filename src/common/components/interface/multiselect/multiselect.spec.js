@@ -1,12 +1,18 @@
-describe('Unit testing: profitelo.components.interface.multiselect', () => {
-  return describe('for multiselect >', () => {
+describe('Unit testing: profitelo.components.summary-tag-multiselect', () => {
+  return describe('for summaryTagMultiselectComponent >', () => {
 
     let scope
     let rootScope
     let compile
     let componentController
     let component
-    let validHTML = '<multiselect tags="tags" value="name" title="title"></multiselect>'
+    let validHTML = '<summary-tag-multiselect data-tags="[\'sadasdasd\']" data-on-select-change="true" data-title="title"></summary-tag-multiselect>'
+
+    let bindings = {
+      tags: _=>_,
+      title: 'title',
+      onSelectChange: true
+    }
 
     function create(html) {
       scope = rootScope.$new()
@@ -18,7 +24,7 @@ describe('Unit testing: profitelo.components.interface.multiselect', () => {
 
     beforeEach(() => {
       module('templates-module')
-      module('profitelo.components.interface.multiselect')
+      module('profitelo.components.summary-tag-multiselect')
 
       inject(($rootScope, $compile, _$componentController_) => {
         componentController = _$componentController_
@@ -26,16 +32,28 @@ describe('Unit testing: profitelo.components.interface.multiselect', () => {
         compile = $compile
       })
 
-      component = componentController('multiselect', {$element: create(validHTML), $scope: scope}, {})
+
+      component = componentController('summaryTagMultiselectComponent', {$element: create(validHTML), $scope: scope}, bindings)
 
     })
 
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
+    
     it('should compile the directive', () => {
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)
+    })
+    
+    it('should chooseTag', () => {
+      spyOn(component, 'onSelectChange')
+      scope.chooseTag()
+      expect(component.onSelectChange).toHaveBeenCalled()
+    })
+
+    it('should isChecked', () => {
+      scope.isChecked()
     })
   })
 })

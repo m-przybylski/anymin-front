@@ -57,6 +57,16 @@ describe('Unit testing: profitelo.components.communicator.communicator-maximized
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
+    
+    it('should minimizeMessenger', () => {
+      component.minimizeMessenger()
+      expect(component.isMessenger).toBe(false)
+    })
+    
+    it('should maximizeMessenger', () => {
+      component.maximizeMessenger()
+      expect(component.isMessenger).toBe(true)
+    })
   })
 })
 
