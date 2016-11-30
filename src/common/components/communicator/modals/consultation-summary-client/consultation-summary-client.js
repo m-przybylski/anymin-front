@@ -1,7 +1,7 @@
 /* istanbul ignore next function */
 (function() {
 
-  function controller($log, $scope, $uibModalInstance, callSummaryService, ServiceApi, _) {
+  function controller($log, $scope, $uibModalInstance, callSummaryService, ServiceApi, HelperService, _) {
 
     $scope.callSummary = null
     $scope.expertAvatarUrl = ''
@@ -13,6 +13,7 @@
       $scope.callSummary = _callSummary
       const avatar = _callSummary.companyExpertProfile.expertDetails.avatar
       $scope.expertAvatarUrl = (avatar) ? HelperService.fileUrlResolver(avatar) : ''
+      $scope.rating = parseInt(_callSummary.service.rating, 10) % 101
     }
 
     const onCallSummary = (data) => {
@@ -79,6 +80,7 @@
   angular.module('profitelo.components.communicator.modals.consultation-summary-client', [
     'profitelo.components.interface.multiselect',
     'profitelo.services.call-summary',
+    'profitelo.services.helper',
     'profitelo.swaggerResources',
     'ui.bootstrap',
     'lodash'

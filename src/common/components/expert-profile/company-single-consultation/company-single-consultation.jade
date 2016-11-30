@@ -13,9 +13,9 @@
 
           ul.consultation-about
             li.options-item.recomendation
-              span  {{ $ctrl.service.recommendationsCounter }}% {{"SEARCH.RECOMMENDATION" | translate }}
+              span  {{ $ctrl.service.rating || 0 }}% {{"SEARCH.RECOMMENDATION" | translate }}
             li.options-item.conversation-count
-              span {{ $ctrl.service.serviceUsageCounter }} rozmowy
+              span {{ $ctrl.service.serviceUsageCounter || 0}} rozmowy
             li.options-item.balance
               span Stan Twojego konta pozwala na ok. {{ $ctrl.consultation.timeAverage }} min rozmowy
 
@@ -27,7 +27,7 @@
           .profile-name
             span {{ service.organizationDetails.name }}
 
-        a.btn.btn-success.icon-left(data-ng-click="vm.startCall()")
+        a.btn.btn-success.icon-left(data-ng-click="$ctrl.startCall()")
           span.icon.icon-call-16
           | {{ ::'HOME.TOP_CONTAINER.EXPERT_PROFILE.CALL' | translate }}
 

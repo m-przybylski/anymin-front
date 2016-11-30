@@ -1,10 +1,14 @@
 (function() {
 
   /* @ngInject */
-  function controller(HelperService) {
+  function controller(callService) {
 
     this.tags = this.service.details.tags
     this.experts = this.service.details.employees
+
+    this.startCall = () => {
+      callService.callServiceId(this.service.id)
+    }
     
     return this
   }
@@ -23,7 +27,6 @@
 
   angular.module('profitelo.components.expert-profile.company-single-consultation', [
     'profitelo.components.interface.slider',
-    'profitelo.services.helper',
     'profitelo.components.expert-profile.experts-consultation-slider',
     'profitelo.services.call',
     'pascalprecht.translate'

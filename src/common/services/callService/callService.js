@@ -3,6 +3,7 @@
   function service($q, $log, UtilsService, communicatorService, ServiceApi, modalsService, soundsService) {
 
     let call = null
+    let callStarted = false
     let timer = null
     let serviceUsageData = null
     let expertService = null
@@ -45,11 +46,12 @@
       if (call) {
         soundsService.callConnectingSound().stop()
         soundsService.playCallEnded()
-        if (callType === callTypes.client) {
+        if (callType === callTypes.client && callStarted) {
           modalsService.createClientConsultationSummaryModal(serviceUsageData.service.id)
-        } else if (callType === callTypes.expert) {
+        } else if (callType === callTypes.expert && callStarted) {
           modalsService.createExpertConsultationSummaryModal(expertService.id)
         }
+        callStarted = false
 
         if (timer) {
           timer.stop()
@@ -109,6 +111,7 @@
         price = expertService.details.price.amount
       }
 
+      callStarted = true
       timer = UtilsService.timerFactory.getInstance(price, freeMinutesCount)
       timer.start(_onTimeCostChange)
       callbacks.notify(events.onExpertCallJoin, {inviter: _inviter, session: session})
@@ -172,6 +175,7 @@
       soundsService.callConnectingSound().stop()
       timer = UtilsService.timerFactory.getInstance(serviceUsageData.service.details.price.amount, freeMinutesCount)
       timer.start(_onTimeCostChange)
+      callStarted = true
       callbacks.notify(events.onClientCallStarted, _inviterId)
     }
 
@@ -188,8 +192,9 @@
     const _onClientCallHangup = () => {
       callbacks.notify(events.onClientCallHangup, null)
       timer.stop()
+      callStarted = false
       timer = null
-      modalsService.createClientConsultationSummaryModal()
+      modalsService.createClientConsultationSummaryModal(serviceUsageData.service.id)
     }
 
     const _onClientCallRejected = () => {

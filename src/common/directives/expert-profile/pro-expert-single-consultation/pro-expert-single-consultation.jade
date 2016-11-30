@@ -13,7 +13,7 @@
 
           ul.consultation-about
             li.options-item.recomendation
-              span  {{ service.recommendationsCounter }}
+              span  {{ service.recommendationsCounter || 0 }}
             li.options-item.conversation-count
               span {{ service.serviceUsageCounter }}
             li.options-item.balance
