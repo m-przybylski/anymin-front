@@ -5,8 +5,15 @@ describe('Unit testing: profitelo.components.communicator.communicator-maximized
     let rootScope
     let compile
     let component
-    const validHTML = '<communicator-nav data-chat-minimize="ctrl.chatMinimize""></communicator-nav>'
-    const bindings = {}
+    let isVideo = false
+    let isMessenger = false
+    const validHTML = '<communicator-nav data-chat-minimize="ctrl.chatMinimize" data-is-messenger="false"></communicator-nav>'
+    const bindings = {
+      minimizeCommunicator: _ => _,
+      hangupCall: _ => _,
+      isVideo: isVideo,
+      isMessenger: isMessenger
+    }
 
     beforeEach(() => {
       module('profitelo.services.sounds')
@@ -50,5 +57,66 @@ describe('Unit testing: profitelo.components.communicator.communicator-maximized
       expect(el.html()).toBeDefined(true)
     })
 
+    it('should animateButtons true', () => {
+      const event = {
+        currentTarget: {
+          classList: {
+            contains: _ => true,
+            add: _ => _,
+            remove: _ => _
+          }
+        }
+      }
+      spyOn(event.currentTarget.classList, 'contains').and.returnValue(true)
+      spyOn(event.currentTarget.classList, 'add')
+      spyOn(event.currentTarget.classList, 'remove')
+      component.animateButtons(event)
+      expect(event.currentTarget.classList.contains).toHaveBeenCalled()
+      expect(event.currentTarget.classList.add).toHaveBeenCalled()
+      expect(event.currentTarget.classList.remove).toHaveBeenCalled()
+    })
+
+    it('should animateButtons false', () => {
+      const event = {
+        currentTarget: {
+          classList: {
+            contains: _ => false,
+            add: _ => _,
+            remove: _ => _
+          }
+        }
+      }
+      spyOn(event.currentTarget.classList, 'contains').and.returnValue(false)
+      spyOn(event.currentTarget.classList, 'add')
+      spyOn(event.currentTarget.classList, 'remove')
+      component.animateButtons(event)
+      expect(event.currentTarget.classList.contains).toHaveBeenCalled()
+      expect(event.currentTarget.classList.add).toHaveBeenCalled()
+      expect(event.currentTarget.classList.remove).toHaveBeenCalled()
+    })
+
+    it('should toggleAudio', () => {
+      spyOn(component, 'animateButtons')
+      component.toggleAudio({})
+      expect(component.animateButtons).toHaveBeenCalled()
+    })
+
+    it('should toggleVideo', () => {
+      spyOn(component, 'animateButtons')
+      component.toggleVideo({})
+      expect(component.animateButtons).toHaveBeenCalled()
+    })
+
+    it('should toggleOptions', () => {
+      spyOn(component, 'animateButtons')
+      component.toggleOptions({})
+      expect(component.animateButtons).toHaveBeenCalled()
+    })
+
+    it('should toggleMessenger', () => {
+      spyOn(component, 'animateButtons')
+      component.toggleMessenger({})
+      expect(component.animateButtons).toHaveBeenCalled()
+    })
   })
 })

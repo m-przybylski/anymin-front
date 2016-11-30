@@ -11,5 +11,5 @@ form.pro-input-form(name="emailForm" data-ng-submit="emailForm.$valid && vm.setN
   .input-error-messages
     .error.left(data-ng-show="emailForm.$submitted && emailForm.$invalid" data-translate="REGISTER.EMAIL_REQUIRED")
     .error.left(data-ng-show="!!vm.emailExist && (emailForm.email.$dirty || emailForm.$submitted)" data-translate="REGISTER.EMAIL_EXIST")
-  button.pro-btn.btn-main.btn-medium(data-translate="REGISTER.DONE" type="submit")
+  button.btn.btn-default(data-translate="REGISTER.DONE" type="submit")
 

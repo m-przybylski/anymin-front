@@ -27,7 +27,7 @@
           .profile-name
             span {{ service.organizationDetails.name }}
 
-        a.btn.success.icon-left(data-ng-click="vm.startCall()")
+        a.btn.btn-success.icon-left(data-ng-click="vm.startCall()")
           span.icon.icon-call-16
           | {{ ::'HOME.TOP_CONTAINER.EXPERT_PROFILE.CALL' | translate }}
 
@@ -35,4 +35,4 @@
                     data-tags="$ctrl.tags" data-hide-more-tags="$ctrl.hideMoreTags")
 
     experts-consultation-slider(data-title="COMPANY_PROFILE.CONSULTATION_EMPLOYEES_SLIDER"
-                                data-experts="$ctrl.experts")
+                                data-experts="$ctrl.experts" data-ng-show="$ctrl.experts.length > 0")

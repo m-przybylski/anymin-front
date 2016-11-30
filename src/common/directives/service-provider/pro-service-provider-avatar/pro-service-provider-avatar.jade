@@ -10,7 +10,7 @@ block content
         .upload-field(data-ng-show="model[imageField].length")
           img(data-ng-src="{{model[imageField][0].response.previews[0]}}")
           .btn-handler(data-ng-show="queue.currentStep === order")
-            a.pro-button.round.icon.primary(data-ng-click="removeAvatar()")
+            a.btn.btn-primary.icon-left(data-ng-click="removeAvatar()")
               span.icon.icon-trash-24.icon-24
     .input-error-messages
       .error(data-translate="DASHBOARD.CREATE_PROFILE.NO_FILE_ERROR" data-ng-show="error.noFile && !model[imageField].length")

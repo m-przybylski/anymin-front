@@ -433,6 +433,9 @@
   padding: 0 24px
   text-transform: uppercase
   width: 100%
+  position: relative
+  z-index: 1
+  overflow: hidden
 
   +xsm
     width: auto
@@ -453,100 +456,114 @@
     [class*="icon"]
       margin: 0 8px 0 0
 
-  &.default
+.btn-default
+  &:not(.ui-select-toggle)
     background: $c-primary
+    +btn-hover($c-primary-dark)
 
-  &.success
-    background: $c-success
-    transition: opacity 0.3s
+.btn-success
+  background: $c-success
+  +btn-hover($c-success-dark)
 
-    &:hover
-      opacity: 0.9
+.btn-primary
+  background: $c-white
+  border: 1px solid $c-lines
+  color: $c-primary
+  transition: border 0.2s
 
-  &.primary
-    background: $c-white
-    border: 1px solid $c-lines
-    color: $c-primary
+  &:hover
+    border-color: $c-primary
 
-  &.error
-    background: $c-error
+.btn-error
+  background: $c-error
+  +btn-hover($c-error-dark)
 
-  &.warning
-    background: $c-warning
+.btn-warning
+  background: $c-warning
+  +btn-hover($c-warning-dark)
 
-  &.btn-arrow
-    background: $c-white
-    border: 1px solid $c-lines
-    width: 48px
-    height: 48px
+.btn-noborder
+  color: $c-primary
 
-    &:hover
-      span
-        color: $c-secondary-txt
+.btn-arrow
+  background: $c-white
+  border: 1px solid $c-lines
+  width: 48px
+  height: 48px
+
+  &:hover
+    span
+      color: $c-secondary-txt
+
+  span
+    transition: color 0.3s
+    color: $c-lines
+
+.btn-show-more
+  +default-font-regular
+  text-transform: uppercase
+  color: $c-secondary-txt
+  display: inline-block
+  height: auto
+  text-align: center
+
+  &::after
+    transition: transform 0.3s
+    content: ""
+    display: block
+    margin: 6px auto 0
+    width: 0
+    height: 0
+    border-top: 4px solid $c-secondary-txt
+    border-right: 4px solid transparent
+    border-left: 4px solid transparent
+
+  &.show-less
+    &::after
+      transform: rotate(180deg)
+
+/* circle buttons */
+.btn-circle
+  transition: border 0.2s
+  border-radius: 50%
+  height: 56px
+  width: 56px
+  padding: 0
+  background: $c-white
+  border: 1px solid $c-lines
+  position: relative
+  z-index: 1
+
+  span
+    font-size: $f-icon-22
+    color: $c-secondary-txt
+
+  &:hover
+    border-color: $c-primary
 
     span
-      color: $c-lines
+      color: $c-primary
 
-  &.btn-show-more
-    +default-font-regular
-    text-transform: uppercase
-    color: $c-secondary-txt
-    display: inline-block
-    height: auto
-    text-align: center
+  &.reject
+    background: $c-error
 
-    &::after
-      transition: transform 0.3s
-      content: ""
-      display: block
-      margin: 6px auto 0
-      width: 0
-      height: 0
-      border-top: 4px solid $c-secondary-txt
-      border-right: 4px solid transparent
-      border-left: 4px solid transparent
+  &.answer
+    background: $c-success
 
-    &.show-less
-      &::after
-        transform: rotate(180deg)
+  &.black
+    border: 0
+    background: rgba($c-primary-txt, 0.8)
+    box-shadow: 0 1px 4px 0 rgba($c-primary-txt, 0.15)
+    +btn-circle-hover($c-white)
 
-  /* circle buttons */
-  &.btn-circle
-    transition: background 0.3s
-    border-radius: 50%
-    height: 56px
-    width: 56px
-    padding: 0
-    background: $c-white
-    border: 1px solid $c-lines
+    &:hover
+      transition: background 0s 0.3s
+      background: none
 
     span
       font-size: $f-icon-22
-      color: $c-secondary-txt
+      color: $c-white
 
-    &.reject
-      background: $c-error
-
-    &.answer
-      background: $c-success
-
-    &.black
-      background: $c-primary-txt
-      border: 0
-      box-shadow: 0 1px 4px 0 rgba($c-primary-txt, 0.15)
-
-      span
-        font-size: $f-icon-22
-        color: $c-white
-
-    &:hover
-      border-color: $c-primary
-
-      span
-        color: $c-primary
-
-
-/*  tag-slider  */
 .arrow-slider
   display: none
   opacity: 0.4
@@ -584,3 +601,26 @@
     color: $c-secondary-txt
 
 
+/* hovers */
+.displace
+  .icon
+    margin: 0
+    width: 100%
+    height: 100%
+    position: absolute
+    left: 0
+    top: -100%
+    transition: top 0.3s
+
+  span:not(.icon)
+    transition: transform 0.3s
+    position: relative
+
+  &:hover
+    span
+      &:not(.icon)
+        transform: translateY(300%)
+
+      &.icon
+        top: 0
+/* hovers end */

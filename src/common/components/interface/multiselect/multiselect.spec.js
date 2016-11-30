@@ -6,7 +6,7 @@ describe('Unit testing: profitelo.components.summary-tag-multiselect', () => {
     let compile
     let componentController
     let component
-    let validHTML = '<summary-tag-multiselect data-tags="[\'sadasdasd\']" data-on-select-change="true" data-title="title"></summary-tag-multiselect>'
+    let validHTML = '<multiselect data-tags="[\'sadasdasd\']" data-on-select-change="true" data-title="title"></multiselect>'
 
     let bindings = {
       tags: _=>_,
@@ -24,7 +24,7 @@ describe('Unit testing: profitelo.components.summary-tag-multiselect', () => {
 
     beforeEach(() => {
       module('templates-module')
-      module('profitelo.components.summary-tag-multiselect')
+      module('profitelo.components.interface.multiselect')
 
       inject(($rootScope, $compile, _$componentController_) => {
         componentController = _$componentController_
@@ -33,27 +33,27 @@ describe('Unit testing: profitelo.components.summary-tag-multiselect', () => {
       })
 
 
-      component = componentController('summaryTagMultiselectComponent', {$element: create(validHTML), $scope: scope}, bindings)
+      component = componentController('multiselect', {$element: create(validHTML), $scope: scope}, bindings)
 
     })
 
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
-    
+
     it('should compile the directive', () => {
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
-    
-    it('should chooseTag', () => {
+
+    it('should toggleItem', () => {
       spyOn(component, 'onSelectChange')
-      scope.chooseTag()
+      component.toggleItem()
       expect(component.onSelectChange).toHaveBeenCalled()
     })
 
     it('should isChecked', () => {
-      scope.isChecked()
+      component.isChecked()
     })
   })
 })

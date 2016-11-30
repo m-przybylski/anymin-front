@@ -16,7 +16,7 @@
       .error.left(data-ng-show="phoneNumberForm.$submitted && !vm.isValidPhoneNumber(vm.account.phoneNumber.prefix, vm.account.phoneNumber.number) || phoneNumberForm.$submitted &&  vm.account.phoneNumber.prefix === null "
       data-translate="LOGIN.PHONE_NUMBER_REQUIRED")
 
-    button.pro-button.rectangle.default.btn-full(data-translate="LOGIN.NEXT" type="submit")
+    button.btn.btn-default(data-translate="LOGIN.NEXT" type="submit")
 
 .password(data-ng-if="vm.current == 2")
   form.pro-input-form(name="passwordForm" data-ng-submit="passwordForm.$valid && vm.login()" novalidate)
@@ -31,8 +31,8 @@
       .error.left(data-ng-show="passwordForm.$submitted && passwordForm.$invalid ||vm.serverError " data-translate="LOGIN.BAD_LOGIN_CREDENTIALS")
       
     .btn-handler.flex-row.login-handler
-      button.pro-button.rectangle.default(type="submit" data-translate="LOGIN.NEXT")
-      button.pro-button.rectangle.primary(data-ng-click="vm.backToPhoneNumber()" data-translate="LOGIN.BACK")
+      button.btn.btn-default(type="submit" data-translate="LOGIN.NEXT")
+      button.btn.btn-primary(data-ng-click="vm.backToPhoneNumber()" data-translate="LOGIN.BACK")
       
   .forgot-password
     a(data-ui-sref="app.login.forgot-password" data-translate="LOGIN.FORGOT_PASSWORD")

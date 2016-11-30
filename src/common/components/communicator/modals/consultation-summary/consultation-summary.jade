@@ -1,0 +1,57 @@
+top-modal-navbar(data-title="COMMUNICATOR.MODALS.RATE_CONVERATION")
+
+.fullscreen-modals.fullscreen-navbar
+  .full-height-modal
+    .default-container
+      .summary-conversation
+        .consultation-profile
+          .profile-preview
+            .thumb.x96
+              img.user-avatar(data-ng-src="/asdasd/asd.jpg" alt="{{ ::vm.consultation.owner.name }}")
+
+            div
+              .profile-name
+                span {{ ::vm.consultation.owner.name }} name kowalski
+
+              .status-list
+                span.status.availability Dostepny
+
+        .consultation-price
+          span {{ ::vm.consultation.price / 100 | number: 2 }} 10
+            span.currency PLN {{ "HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE" | translate}}
+
+        .consultation-range
+          .consultation-info
+            .consultation-title
+              h3
+                span {{ ::vm.consultation.name }}
+
+            ul.consultation-about
+              li.options-item.recomendation
+                span  {{ ::vm.consultation.satisfaction }}% {{"SEARCH.RECOMMENDATION" | translate }}
+              li.options-item.conversation-count
+                span {{ ::vm.consultation.talks }}
+              li.options-item.balance
+                span {{ ::vm.consultation.timeAverage }} min.
+
+        .consultation-time-details
+          ul.conversation-time
+            li.label(data-translate="COMMUNICATOR.MODALS.CONVERSATION_TIME")
+            li 27 min 8s
+
+          ul.conversation-cost
+            li.label(data-translate="COMMUNICATOR.MODALS.CONVERSATION_COST")
+            li 38,30 PLN
+
+        summary-tag-multiselect-component(data-title="COMMUNICATOR.MODALS.SUMMARY_HELPER_RANGE" data-tags="tags" data-ng-show="chooseExpertsTag" )
+
+        .modal-action
+          span(data-translate="COMMUNICATOR.MODALS.IS_CONVERSATION_GOOD")
+
+          div.action-recommend(data-ng-show="!chooseExpertsTag")
+            a.btn.btn-primary(data-ng-click="rejectCall()" data-translate="COMMUNICATOR.MODALS.SKIP")
+            a.btn.btn-default(data-ng-click="recommendExpert()" data-translate="COMMUNICATOR.MODALS.RECOMMEND")
+
+          div.action-next(data-ng-show="chooseExpertsTag")
+            a.btn.btn-primary(data-ng-click="rejectCall()" data-translate="COMMUNICATOR.MODALS.CANCEL")
+            a.btn.btn-default(data-ng-click="" data-translate="COMMUNICATOR.MODALS.SAVE")

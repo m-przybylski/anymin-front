@@ -7,7 +7,11 @@ describe('Unit testing: profitelo.components.expert-profile.experts-consultation
     let componentController
     let component
     let HelperService
-    let validHTML = '<experts-consultation-slider></experts-consultation-slider>'
+    let validHTML = '<experts-consultation-slider data-title="title" data-experts="[]"></experts-consultation-slider>'
+    const bindings = {
+      experts: [],
+      title: 'title'
+    } 
 
     beforeEach(() => {
       module('templates-module')
@@ -20,7 +24,7 @@ describe('Unit testing: profitelo.components.expert-profile.experts-consultation
         HelperService = _HelperService_
       })
 
-      component = componentController('expertsConsultationSlider', {})
+      component = componentController('expertsConsultationSlider', {$scope: rootScope}, bindings)
 
     })
 
@@ -40,5 +44,29 @@ describe('Unit testing: profitelo.components.expert-profile.experts-consultation
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
+
+    it('should go to nextSlide', () => {
+      rootScope.controlls = {
+        nextSlide: _ => _
+      }
+      spyOn(rootScope.controlls, 'nextSlide')
+      component.nextSlide()
+      expect(rootScope.controlls.nextSlide).toHaveBeenCalled()
+    })
+
+    it('should go to prevSlide', () => {
+      rootScope.controlls = {
+        prevSlide: _ => _
+      }
+      spyOn(rootScope.controlls, 'prevSlide')
+      component.prevSlide()
+      expect(rootScope.controlls.prevSlide).toHaveBeenCalled()
+    })
+
+    it('should expertImage', inject((HelperService) => {
+      spyOn(HelperService, 'fileUrlResolver')
+      component.expertImage('a')
+      expect(HelperService.fileUrlResolver).toHaveBeenCalled()
+    }))
   })
 })

@@ -99,6 +99,52 @@
   100%
     bottom: 108px
 
+@keyframes messenger-btn-animation
+  0%
+    width: 120%
+    height: 120%
+
+  50%
+    width: 80%
+    height: 80%
+
+  100%
+    width: 120%
+    height: 120%
+
+@keyframes messenger-btn-animation-inactive
+  0%
+    width: 120%
+    height: 120%
+
+  50%
+    width: 80%
+    height: 80%
+
+  100%
+    width: 120%
+    height: 120%
+
+@keyframes messenger-btn-animation-seconds-active
+  0%
+    box-shadow: 0 0 0 0 rgba($c-white, 0.1)
+
+  50%
+    box-shadow: 0 0 0 12px rgba($c-white, 0.1)
+
+  100%
+    box-shadow: 0 0 0px 24px transparent
+
+@keyframes messenger-btn-animation-seconds-inactive
+  0%
+    box-shadow: 0 0 0 0 rgba($c-white, 0.1)
+
+  50%
+    box-shadow: 0 0 0 12px rgba($c-white, 0.1)
+
+  100%
+    box-shadow: 0 0 0px 24px transparent
+
 /* communicator end*/
 
 /* modal*/
@@ -122,6 +168,9 @@
 
 /* go to top button end */
 
+@keyframes rotate
+  100%
+    transform: rotate(270deg)
 
 
 @keyframes status-blank
@@ -131,4 +180,22 @@
     opacity: 1
   100%
     opacity: 0.7
+
+
+/* btn's animations */
+@keyframes circle-btn-animation
+  0%
+    position: relative
+    transform: translate(0, 0)
+  50%
+    transform: translate(0, -56px)
+  51%
+    transform: translate(0, 56px)
+  100%
+    transform: translate(0, 0)
+
+/* btn's animation end */
+
+
+
 

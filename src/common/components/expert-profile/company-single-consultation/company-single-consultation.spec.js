@@ -13,7 +13,7 @@ describe('Unit testing: profitelo.components.expert-profile.company-single-consu
           tags: []
         }
       },
-      title: "title"
+      title: 'title'
     }
 
     function create(html) {

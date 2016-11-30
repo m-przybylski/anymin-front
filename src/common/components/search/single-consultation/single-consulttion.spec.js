@@ -74,15 +74,15 @@ describe('Unit testing:profitelo.components.search.single-consultation', () => {
     it('should set isLinkActive to false', () => {
       const el = create(validHTML)
       const isoScope = el.isolateScope()
-      el.find('.btn.success').triggerHandler('mouseover')
+      el.find('.btn.btn-success').triggerHandler('mouseover')
       expect(isoScope.vm.isLinkActive).toBe(false)
     })
 
     it('should set isLinkActive to true', () => {
       const el = create(validHTML)
       const isoScope = el.isolateScope()
-      el.find('.btn.success').triggerHandler('mouseover')
-      el.find('.btn.success').triggerHandler('mouseout')
+      el.find('.btn.btn-success').triggerHandler('mouseover')
+      el.find('.btn.btn-success').triggerHandler('mouseout')
       expect(isoScope.vm.isLinkActive).toBe(true)
     })
 

@@ -1,22 +1,19 @@
 .pro-service-provider-profile
-  .step.summary-step
-    .summary-name
-      .summary-data
-        .summary-avatar
-          img(ng-src="{{avatar}}" alt='user-avatar' data-ng-class="{'is-not-uploaded': !avatar}")
+  .expert-profile-header
+    .expert-profile-details
+      .expert-profile-content
+        .thumb.x128
+          img.user-avatar(ng-src="{{avatar}}" alt='user-avatar' data-ng-class="{'is-not-uploaded': !avatar}")
 
-        .firstname-lastname(data-ng-show="!!name")
-          h2 {{name}}
-          
-        .summary-languages(data-ng-show="!!languages && languages.length > 0")
-            p {{"DASHBOARD.CREATE_PROFILE.PROFILE_LANGUAGE_HEADER" | translate}}
-              span(data-ng-repeat="language in languages") &nbsp {{language}}
-              btn-handler
-        
-    .summary-descriptions(data-ng-show="!!description")
-      p(ng-bind-html="description | limitTo: textLimit") 
+        h3 {{name}}
 
-      a.pro-button.pro-icon.round.primary.small.show-more-arrow(data-ng-show="description.length > textLimit" data-ng-click="showMoreText()" data-ng-class="{'hide-more': invertArrow}")
-        span.icon.icon-arrow-down-12
-        
-    a.pro-button.noborder(data-ng-click="onClick()" data-ng-show="!!buttonAction")    Edytuj profil
+        .languages-section(data-ng-show="!!languages && languages.length > 0")
+            span(data-translate="DASHBOARD.CREATE_PROFILE.PROFILE_LANGUAGE_HEADER")
+
+            ul.languages-list
+              li(data-ng-repeat="language in languages")
+                span {{" " + language + " "}}
+
+    show-more-text(data-text="{{::description}}")
+
+    a.btn.btn-noborder(data-ng-click="onClick()" data-ng-show="!!buttonAction")    Edytuj profil
