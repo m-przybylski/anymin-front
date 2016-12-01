@@ -6,6 +6,7 @@ describe('Unit testing: profitelo.components.expert-profile.company-single-consu
     let compile
     let component
     let HelperService
+    let audioOriginal
     const validHTML = '<company-single-consultation data-service="{details: {tags: [] }}" data-title="asd"></company-single-consultation>'
     const bindings = {
       service: {
@@ -15,6 +16,20 @@ describe('Unit testing: profitelo.components.expert-profile.company-single-consu
       },
       title: 'title'
     }
+    const audioMock = {
+      addEventListener: _ => _,
+      play: _ => _,
+      pause: _ => _
+    }
+
+    beforeEach(() => {
+      audioOriginal = window.Audio
+      window.Audio = () => audioMock
+    })
+
+    afterEach(() => {
+      window.Audio = audioOriginal
+    })
 
     function create(html) {
       scope = rootScope.$new()

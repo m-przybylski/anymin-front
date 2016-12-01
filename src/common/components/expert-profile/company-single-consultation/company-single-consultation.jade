@@ -1,6 +1,6 @@
 .single-consultation.expert-profile-consultation
   .consultation-wrapper
-    .consultation-content(data-ng-class="{'is-company': !!service.organizationDetails}")
+    .consultation-content
       .consultation-details
         .consultation-price
           span {{ $ctrl.service.details.price.amount/100  | number: 2}}
@@ -16,17 +16,10 @@
               span  {{ $ctrl.service.rating || 0 }}% {{"SEARCH.RECOMMENDATION" | translate }}
             li.options-item.conversation-count
               span {{ $ctrl.service.serviceUsageCounter || 0}} rozmowy
-            li.options-item.balance
-              span Stan Twojego konta pozwala na ok. {{ $ctrl.consultation.timeAverage }} min rozmowy
+            //li.options-item.balance
+              span Stan Twojego konta pozwala na ok. 1 min rozmowy
 
       .consultation-actions
-        .profile-preview(data-ng-if="!!service.organizationDetails")
-          .thumb.x48
-            img.user-avatar(data-ng-src="{{ companyImage }}"  data-ng-class="{'is-not-uploaded': !companyImage}")
-
-          .profile-name
-            span {{ service.organizationDetails.name }}
-
         a.btn.btn-success.icon-left(data-ng-click="$ctrl.startCall()")
           span.icon.icon-call-16
           | {{ ::'HOME.TOP_CONTAINER.EXPERT_PROFILE.CALL' | translate }}
