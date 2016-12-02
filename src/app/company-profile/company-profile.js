@@ -1,53 +1,45 @@
 (function() {
-  function CompanyProfileController($stateParams, $timeout, smoothScrolling, companyProfile) {
+  function CompanyProfileController($stateParams, $timeout, $log, smoothScrolling, ProfileApi, recommendedProfilesServices, companyProfile) {
 
     this.profile = {}
 
     this.profile = companyProfile.profile.organizationDetails
     this.consultations = companyProfile.services
     this.profile.type = 'company'
-   
+    this.profile.isFavourite = recommendedProfilesServices.isFavourite
 
     if (!!$stateParams.primaryConsultationId) {
       $timeout(() => {
         smoothScrolling.simpleScrollTo('#consultationScroll', true)
       })
     }
-    
+
+    recommendedProfilesServices.getRecommendedCompanies(this.consultations).then((response) => {
+      this.similarCompany = response
+    })
+
     this.services = companyProfile.services
-    /* istanbul ignore next function*/
-    this.similarExperts =  () => {
 
-      if (!!companyProfile.services && companyProfile.services.length > 0) {
-        const tagsArray = companyProfile.services[0].tags
-        if(tagsArray && tagsArray.length > 0) {
-          const tagId  = tagsArray[Math.floor((Math.random() * (tagsArray.length -1)))].id
+    const onProfileLike = () =>
+      this.profile.isFavourite = true
 
-          SearchApi.search({
-            'tag.id':tagId,
-            'profile.type': 'EXP',
-            'limit' : 10
-          }).$promise.then((response)=> {
+    const onProfileLikeError = (error) =>
+      $log.error('Can not like this company because: ' + error)
 
-            const currentConsultation = _.find(response.results, (o) => {
-              return o.id === savedProfile.services[0].id
-            })
+    const onProfileDislike = () =>
+      this.profile.isFavourite = false
 
-            if (!!currentConsultation) {
-              response.results = _.remove(response.results, (n) => {
-                return n.id !== savedProfile.services[0].id
-              })
-            }else {
-              return null
-            }
-            return response.results
-          },(error) => {
-            $log.error('ERROR MESSAGE')
-            return null
-          })
-        } else {
-          return null
-        }
+    const onProfileDislikeError = (error) =>
+      $log.error('Can not dislike this company because: ' + error)
+
+
+    this.handleLike = () => {
+      if (!this.profile.isFavourite) {
+        ProfileApi.postProfileFavouriteOrganization({profileId: $stateParams.contactId})
+          .$promise.then(onProfileLike, onProfileLikeError)
+      } else {
+        ProfileApi.deleteProfileFavouriteOrganization({profileId: $stateParams.contactId })
+          .$promise.then(onProfileDislike, onProfileDislikeError)
       }
     }
 
@@ -68,6 +60,8 @@
     'profitelo.components.expert-profile.similar-experts-slider',
     'profitelo.components.expert-profile.social-links',
     'profitelo.services.pro-top-alert-service',
+    'profitelo.services.recommended-profiles-service',
+    'profitelo.services.resolvers.app-company-profile-resolver',
     'commonConfig'
   ])
   .config(($stateProvider, UserRolesProvider) => {
@@ -78,30 +72,8 @@
       controller: 'CompanyProfileController',
       resolve: {
         /* istanbul ignore next */
-        companyProfile: ($q, $state, $stateParams, ProfileApi, proTopAlertService) => {
-          /* istanbul ignore next */
-          let _deferred = $q.defer()
-          /* istanbul ignore next */
-          ProfileApi.getOrganizationProfile({
-            profileId: $stateParams.contactId
-          }).$promise.then((response)=> {
-            const primaryConsultation = _.find(response.services, (o) => { return o.service.id === $stateParams.primaryConsultationId })
-            if (angular.isDefined($stateParams.primaryConsultationId) && !!primaryConsultation && response.services.length > 1) {
-              const currentElement = response.services.splice(response.services.indexOf(primaryConsultation), 1)
-              response.services.unshift(currentElement[0])
-            }
-            _deferred.resolve(response)
-          }, (error) => {
-            _deferred.reject(error)
-            $state.go('app.dashboard.start')
-            proTopAlertService.error({
-              message: 'error',
-              timeout: 4
-            })
-          })
-          /* istanbul ignore next */
-          return _deferred.promise
-        }
+        companyProfile: (AppCompanyProfileResolver, $stateParams) =>
+          AppCompanyProfileResolver.resolve($stateParams)
       },
       data: {
         access : UserRolesProvider.getAccessLevel('public')

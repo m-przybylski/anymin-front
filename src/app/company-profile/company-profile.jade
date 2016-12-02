@@ -2,22 +2,20 @@
   pro-top-navbar(logout-action="appController.logout")
 
   .default-container
-    pro-expert-header.company-header(data-profile="vm.profile" data-avatar="vm.profileImage")
+    pro-expert-header.company-header(data-profile="vm.profile" data-handle-like="vm.handleLike()")
 
-  collapse-tab(id='consultationScroll')
+  collapse-tab(id='consultationScroll' data-ng-if="vm.services && vm.services.length > 0")
     .default-container(ng-repeat="service in vm.services")
       company-single-consultation(
-      data-service="service"
-      data-type="vm.profile.type"
-      )
+      data-service-tags-employees-tuple="service")
 
-  .default-container.file-slider
-    pro-expert-slider(data-ng-show="vm.profile.files.length" data-sliders="vm.profile.files")
+  .default-container.file-slider(data-ng-if="!!vm.profile.files && vm.profile.files.length > 0")
+    pro-expert-slider(data-sliders="vm.profile.files")
 
   .default-container(data-ng-if="!!vm.profile.links && vm.profile.links.length > 0")
     social-links(data-links="vm.profile.links")
 
-  .default-container(data-ng-if="!!vm.similarExperts && vm.similarExperts.length > 0")
-    similar-experts-slider(data-consultations="vm.similarExperts" data-title="HOME_EXPERT_PROFILE.SIMILAR_EXPERTS_SLIDER_MESSAGE")
+  .default-container(data-ng-if="!!vm.similarCompany && vm.similarCompany.length > 0")
+    similar-experts-slider(data-consultations="vm.similarCompany" data-title="HOME_EXPERT_PROFILE.SIMILAR_EXPERTS_SLIDER_MESSAGE")
 
   pro-footer()

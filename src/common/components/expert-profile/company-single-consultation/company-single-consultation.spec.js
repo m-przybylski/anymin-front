@@ -7,9 +7,9 @@ describe('Unit testing: profitelo.components.expert-profile.company-single-consu
     let component
     let HelperService
     let audioOriginal
-    const validHTML = '<company-single-consultation data-service="{details: {tags: [] }}" data-title="asd"></company-single-consultation>'
+    const validHTML = '<company-single-consultation data-service-tags-employees-tuple="{details: {tags: [] }}" data-title="asd"></company-single-consultation>'
     const bindings = {
-      service: {
+      serviceTagsEmployeesTuple: {
         details: {
           tags: []
         }

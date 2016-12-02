@@ -4,13 +4,14 @@
     function linkFunction(scope, elem, attrs) {
 
       scope.startCall = () => {
-        callService.callServiceId(scope.service.id)
+        callService.callServiceId(scope.serviceTagsEmployeesTuple.id)
       }
 
-      scope.tags = scope.service.tags
+      scope.tags = scope.serviceTagsEmployeesTuple.tags
 
-      scope.companyImage = !!scope.service.ownerProfile.organizationDetails && scope.service.ownerProfile.organizationDetails.logo !== null ?
-        HelperService.fileUrlResolver(scope.service.ownerProfile.organizationDetails.logo) : ''
+      scope.companyImage = !!scope.serviceTagsEmployeesTuple.ownerProfile.organizationDetails
+        && scope.serviceTagsEmployeesTuple.ownerProfile.organizationDetails.logo !== null ?
+        HelperService.fileUrlResolver(scope.serviceTagsEmployeesTuple.ownerProfile.organizationDetails.logo) : ''
 
       scope.consultation = {}
 
@@ -23,7 +24,7 @@
       replace: true,
       link: linkFunction,
       scope: {
-        service: '=?'
+        serviceTagsEmployeesTuple: '=?'
       }
     }
   }

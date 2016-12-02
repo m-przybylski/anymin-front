@@ -19,9 +19,6 @@
       controllerAs: 'vm',
       data          : {
         access : UserRolesProvider.getAccessLevel('user')
-      },
-      bindings: {
-        communicatorTurnOn: '=?'
       }
     })
   })

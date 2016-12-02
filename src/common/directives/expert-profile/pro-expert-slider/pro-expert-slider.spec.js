@@ -28,7 +28,7 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-slider', 
         nextSlide: _=>_,
         prevSlide: _=>_
       }
-      scope.sliders = [{previews: "asd"}, {previews: "asd"}, {previews: "asd"}]
+      scope.sliders = [{previews: 'asd'}, {previews: 'asd'}, {previews: 'asd'}]
 
       let compiledElement = compile(elem)(scope)
       scope.$digest()
@@ -65,7 +65,7 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-slider', 
       let el = create(validHTML)
       let isoScope = el.isolateScope()
       let slide = {
-        previews: "slide"
+        previews: 'slide'
       }
       spyOn(DialogService, 'openDialog')
       isoScope.openDialog(slide)

@@ -2,12 +2,12 @@
   pro-top-navbar(logout-action="appController.logout")
 
   .default-container
-    pro-expert-header(data-profile="vm.profile")
+    pro-expert-header(data-profile="vm.profile" data-handle-like="vm.handleLike()")
 
-  collapse-tab(id='consultationScroll')
+  collapse-tab(id='consultationScroll' data-ng-if="vm.services && vm.services.length > 0")
     .default-container(ng-repeat="service in vm.services")
       pro-expert-single-consultation(
-      data-service="service"
+      data-service-tags-employees-tuple="service"
       data-type="vm.profile.type"
       )
 

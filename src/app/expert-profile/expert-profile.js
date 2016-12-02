@@ -1,60 +1,48 @@
 (function() {
-  function ExpertProfileController($stateParams, $timeout, $log, expertProfile, SearchApi, smoothScrolling) {
+  function ExpertProfileController($stateParams, $log, $timeout, expertProfile, recommendedProfilesServices, ProfileApi, smoothScrolling) {
 
     this.profile = {}
 
     this.profile = expertProfile.profile.expertDetails
     this.consultations = expertProfile.services
     this.profile.type = 'single'
+    this.profile.isFavourite = expertProfile.isFavourite
 
     if (!!$stateParams.primaryConsultationId) {
       $timeout(() => {
         smoothScrolling.simpleScrollTo('#consultationScroll', true)
       })
     }
-    
-    //this.profile.colaboratedOrganizations = expertProfile
 
+    this.profile.colaboratedOrganizations = expertProfile.employers
     this.services = expertProfile.services
 
-    const onFindSimilarExpertSuccess = (response) => {
-      const currentConsultation = _.find(response.results, (o) => {
-        return o.id === expertProfile.services[0].id
-      })
+    recommendedProfilesServices.getRecommendedExperts(this.consultations).then((response) => {
+      this.similarExperts = response
+    })
 
-      if (!!currentConsultation) {
-        response.results = _.remove(response.results, (n) => {
-          return n.id !== expertProfile.services[0].id
-        })
-      }else {
-        return null
-      }
-      return response.results
-    }
+    const onProfileLike = () =>
+      this.profile.isFavourite = true
 
-    const onFindSimilarExpertsError = (error) => {
-      $log.info('Can not find any similar experts becouse: ' + error)
-      return null
-    }
+    const onProfileLikeError = (error) =>
+      $log.error('Can not like this company because: ' + error)
 
-    const searchSimilarExperts =  () => {
-      if (!!expertProfile.services && expertProfile.services.length > 0) {
-        const tagsArray = expertProfile.services[0].tags
-        if(!!tagsArray && tagsArray.length > 0) {
-          const tagId  = tagsArray[Math.floor((Math.random() * (tagsArray.length -1)))].id
-          SearchApi.search({
-            'tag.id':tagId,
-            'profile.type': 'EXP',
-            'limit' : 10
-          }).$promise.then(onFindSimilarExpertSuccess, onFindSimilarExpertsError)
-        } else {
-          return null
-        }
+    const onProfileDislike = () =>
+      this.profile.isFavourite = false
+
+    const onProfileDislikeError = (error) =>
+      $log.error('Can not dislike this company because: ' + error)
+
+
+    this.handleLike = () => {
+      if (!this.profile.isFavourite) {
+        ProfileApi.postProfileFavouriteExpert({profileId: $stateParams.contactId})
+          .$promise.then(onProfileLike, onProfileLikeError)
+      } else {
+        ProfileApi.deleteProfileFavouriteExpert({profileId: $stateParams.contactId })
+          .$promise.then(onProfileDislike, onProfileDislikeError)
       }
     }
-    
-  
-    this.similarExperts = searchSimilarExperts()
 
     return this
   }
@@ -73,6 +61,8 @@
     'profitelo.services.resolvers.app.service-provider-image-resolver',
     'profitelo.components.expert-profile.similar-experts-slider',
     'profitelo.services.pro-top-alert-service',
+    'profitelo.services.recommended-profiles-service',
+    'profitelo.services.resolvers.app-expert-profile-resolver',
     'profitelo.components.expert-profile.social-links',
     'profitelo.components.interface.collapse-tab'
   ])
@@ -84,30 +74,8 @@
       controller: 'ExpertProfileController',
       resolve: {
         /* istanbul ignore next */
-        expertProfile: ($q, $state, $stateParams, ProfileApi, proTopAlertService) => {
-          /* istanbul ignore next */
-          let _deferred = $q.defer()
-          /* istanbul ignore next */
-          ProfileApi.getExpertProfile({
-            profileId: $stateParams.contactId
-          }).$promise.then((response)=> {
-            const primaryConsultation = _.find(response.services, (o) => { return o.service.id === $stateParams.primaryConsultationId })
-            if (angular.isDefined($stateParams.primaryConsultationId) && !!primaryConsultation && response.services.length > 1) {
-              const currentElement = response.services.splice(response.services.indexOf(primaryConsultation), 1)
-              response.services.unshift(currentElement[0])
-            }
-            _deferred.resolve(response)
-          }, (error) => {
-            _deferred.reject(error)
-            $state.go('app.dashboard.start')
-            proTopAlertService.error({
-              message: 'error',
-              timeout: 4
-            })
-          })
-          /* istanbul ignore next */
-          return _deferred.promise
-        }
+        expertProfile:  (AppExpertProfileResolver, $stateParams) =>
+          AppExpertProfileResolver.resolve($stateParams)
 
       },
 

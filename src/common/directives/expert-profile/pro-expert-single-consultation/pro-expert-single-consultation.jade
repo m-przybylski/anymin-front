@@ -1,31 +1,32 @@
 .single-consultation.expert-profile-consultation
   .consultation-wrapper
-    .consultation-content(data-ng-class="{'is-company': !!service.ownerProfile.organizationDetails}")
+    .consultation-content(data-ng-class="{'is-company': !!serviceTagsEmployeesTuple.ownerProfile.organizationDetails}")
       .consultation-details
         .consultation-price
-          span {{ service.service.details.price.amount/100  | number: 2 }}
-            span.currency {{ service.service.details.price.currency }}{{ 'HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE' | translate }}
+          span {{ serviceTagsEmployeesTuple.service.details.price.amount/100  | number: 2 }}
+            span.currency {{ serviceTagsEmployeesTuple.service.details.price.currency }}{{ 'HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE' | translate }}
 
         div
           .consultation-title
             h3
-              span {{ service.service.details.name }}
+              span {{ serviceTagsEmployeesTuple.service.details.name }}
 
           ul.consultation-about
             li.options-item.recomendation
-              span  {{ service.service.rating }}
+              span  {{ serviceTagsEmployeesTuple.service.rating }}
             li.options-item.conversation-count
-              span {{ service.service.serviceUsageCounter }}
+              span {{ serviceTagsEmployeesTuple.service.serviceUsageCounter }}
             li.options-item.balance
               span Stan Twojego konta pozwala na ok. {{ consultation.timeAverage }} min rozmowy
 
       .consultation-actions
-        a.profile-preview(data-ng-if="!!service.ownerProfile.organizationDetails")
+        a.profile-preview(data-ng-if="!!serviceTagsEmployeesTuple.ownerProfile.organizationDetails"
+                          data-ui-sref="app.company-profile({contactId: serviceTagsEmployeesTuple.ownerProfile.id})")
           .thumb.x48
             img.user-avatar(data-ng-src="{{ companyImage }}"  data-ng-class="{'is-not-uploaded': !companyImage}")
 
           .profile-name
-            span {{ service.ownerProfile.organizationDetails.name }}
+            span {{ serviceTagsEmployeesTuple.ownerProfile.organizationDetails.name }}
 
         a.btn.btn-success.icon-left(data-ng-click="startCall()")
           span.icon.icon-call-16

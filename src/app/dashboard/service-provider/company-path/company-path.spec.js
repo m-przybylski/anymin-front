@@ -59,7 +59,7 @@ describe('Unit tests: CompanyPathController >', () => {
         resourcesExpectations = {
           ProfileApi: {
             postProfile: _httpBackend.when(_ProfileApiDef.postProfile.method, _ProfileApiDef.postProfile.url),
-            putProfile: _httpBackend.when(_ProfileApiDef.putProfile.method, _ProfileApiDef.putProfile.url)
+            patchProfile: _httpBackend.when(_ProfileApiDef.patchProfile.method, _ProfileApiDef.patchProfile.url)
           }
         }
 
@@ -87,7 +87,7 @@ describe('Unit tests: CompanyPathController >', () => {
 
     it('should be able to update account object and redirect to consultation range', () => {
 
-      resourcesExpectations.ProfileApi.putProfile.respond(200)
+      resourcesExpectations.ProfileApi.patchProfile.respond(200)
       CompanyPathController = createController({})
 
       spyOn(_state, 'go')

@@ -52,7 +52,7 @@ describe('Unit tests: IndividualPathController >', () => {
         resourcesExpectations = {
           ProfileApi: {
             postProfile: _httpBackend.when(_ProfileApiDef.postProfile.method, _ProfileApiDef.postProfile.url),
-            putProfile: _httpBackend.when(_ProfileApiDef.putProfile.method, _ProfileApiDef.putProfile.url)
+            patchProfile: _httpBackend.when(_ProfileApiDef.patchProfile.method, _ProfileApiDef.patchProfile.url)
           }
         }
         
@@ -89,7 +89,7 @@ describe('Unit tests: IndividualPathController >', () => {
 
       spyOn(_state, 'go')
 
-      resourcesExpectations.ProfileApi.putProfile.respond(200)
+      resourcesExpectations.ProfileApi.patchProfile.respond(200)
       IndividualPathController.saveAccountObject()
       _httpBackend.flush()
 
