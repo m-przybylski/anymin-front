@@ -1,0 +1,30 @@
+.component-complain-status
+  flex: 1
+  display: inline-flex
+  font-size: $f-h5-size
+
+  &.status-accepted
+    color: $c-success
+
+  &.status-in-progress
+    color: $c-warning
+
+  &.status-reported
+    color: $c-error
+
+  &.status-rejected
+    color: $c-secondary-txt
+
+  .icon
+    margin: 0 8px 0 0
+
+  span:not(.icon)
+    display: none
+
+    +mdm
+      display: block
+
+    &.complain-status
+      display: flex
+      align-items: center
+

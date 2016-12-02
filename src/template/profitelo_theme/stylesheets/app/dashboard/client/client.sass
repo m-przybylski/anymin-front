@@ -1,0 +1,26 @@
+.client
+  padding: $dashboard-navbar-width + 24px 0 0 0
+
+  +smm
+    padding: $dashboard-navbar-width * 2 0 0 0
+
+  &.no-activity
+    height: calc(100vh )
+    display: flex
+    align-items: center
+    justify-content: center
+
+  .dashboard-client
+    position: relative
+
+    +smm
+      position: static
+
+    .default-container
+      padding: 0
+
+      +smm
+        padding: 0 32px
+
+      +xlgm
+        padding: 0

@@ -1,0 +1,13 @@
+pro-top-navbar(logout-action="appController.logout"
+data-sidebar-handler="dashboardController.showSidebar" data-sidebar-status="dashboardController.isSidebarShown"
+data-is-expert="dashboardController.expertProfileExist" data-show-navigation-menu="true")
+
+.client
+  .default-container
+    client-navigation()
+
+  .dashboard-client
+    .default-container
+      client-activities()
+
+pro-footer()

@@ -1,0 +1,19 @@
+.component-complain-status(data-ng-class="{'status-accepted': $ctrl.isStatusAccepted, " +
+  "'status-reported': $ctrl.isStatusReported, 'status-in-progress': $ctrl.isStatusInProgress, " +
+  "'status-rejected': $ctrl.isStatusRejected}")
+
+  span.complain-status(data-ng-show="$ctrl.isStatusInProgress")
+    span.icon.icon-time-16-1
+    span(data-translate="DASHBOARD.CLIENT.COMPLAINT_IN_PROGRESS")
+
+  span.complain-status(data-ng-show="$ctrl.isStatusAccepted")
+    span.icon.icon-success-16
+    span(data-translate="DASHBOARD.CLIENT.COMPLAINT_ACCEPTED")
+
+  span.complain-status(data-ng-show="$ctrl.isStatusRejected")
+    span.icon.icon-close-small-16
+    span(data-translate="DASHBOARD.CLIENT.COMPLAINT_REJECTED")
+
+  span.complain-status(data-ng-show="$ctrl.isStatusReported")
+    span.icon.icon-warning-16
+    span(data-translate="DASHBOARD.CLIENT.COMPLAINT_REPORTED")
