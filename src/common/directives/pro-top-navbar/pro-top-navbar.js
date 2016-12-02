@@ -55,7 +55,7 @@
         scope.showUserMenuOnClick = false
         scope.hamburgerClass = scope.hamburgerClass === 'disactive-btn' ? 'active-btn' : 'disactive-btn'
       }
-
+      /* istanbul ignore next */
       scope.setShowSearch = () => {
         
         const navbarSearchInput = elem.find('.search-bar-container .search-bar')[0]

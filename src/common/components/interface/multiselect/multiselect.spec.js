@@ -40,20 +40,25 @@ describe('Unit testing: profitelo.components.summary-tag-multiselect', () => {
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
-
+    
     it('should compile the directive', () => {
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
-
-    it('should toggleItem', () => {
+    
+    it('should call on select change on toggle items', () => {
       spyOn(component, 'onSelectChange')
-      component.toggleItem()
+      component.toggleItem('sadasdasd')
+      component.toggleItem('sadasdasd')
       expect(component.onSelectChange).toHaveBeenCalled()
     })
 
-    it('should isChecked', () => {
-      component.isChecked()
+    it('should checked tags array', () => {
+      const item = 'sdfsdfsf'
+      const isChecked = component.isChecked(item)
+      expect(isChecked).toBe(false)
     })
+    
+    
   })
 })

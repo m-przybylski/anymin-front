@@ -3,7 +3,9 @@ describe('Unit tests: profitelo.controller.login.forgot-password >', () => {
 
     let scope
     let ForgotPasswordController
-    let _RecoverPasswordApi
+    let resourcesExpectations
+    let httpBackend
+    let RecoverPasswordApiDef
     const _url = 'awesomeUrl'
 
     let account = {
@@ -29,22 +31,50 @@ describe('Unit tests: profitelo.controller.login.forgot-password >', () => {
       module('profitelo.controller.login.forgot-password')
       module('profitelo.swaggerResources.definitions')
       module('profitelo.services.pro-top-waiting-loader-service')
-      inject(($rootScope, $controller, _RecoverPasswordApi_, _proTopWaitingLoaderService_) => {
+      inject(($rootScope, $controller, _proTopWaitingLoaderService_, _$httpBackend_, _RecoverPasswordApiDef_) => {
         scope = $rootScope.$new()
-
+        httpBackend = _$httpBackend_
+        RecoverPasswordApiDef = _RecoverPasswordApiDef_
         ForgotPasswordController = $controller('ForgotPasswordController', {
           $state: $state,
           account: account,
-          RecoverPasswordApi: _RecoverPasswordApi_,
           proTopWaitingLoaderService: _proTopWaitingLoaderService_
         })
-
-        _RecoverPasswordApi = _RecoverPasswordApi_
+        
+        resourcesExpectations = {
+          RecoverPasswordApi: {
+            postRecoverPasswordVerifyMsisdn: 
+              httpBackend.when(RecoverPasswordApiDef.postRecoverPasswordVerifyMsisdn.method, 
+              RecoverPasswordApiDef.postRecoverPasswordVerifyMsisdn.url)
+          }
+        }
       })
     })
 
     it('should exsist', ()=> {
       expect(!!ForgotPasswordController).toBe(true)
     })
+
+    it('should redirect to app-login.set-new-password', ()=> {
+      spyOn($state, 'go')
+      resourcesExpectations.RecoverPasswordApi.postRecoverPasswordVerifyMsisdn.respond(200)
+      ForgotPasswordController.submitSmsVerificationCode()
+      httpBackend.flush()
+      expect($state.go).toHaveBeenCalledWith( 'app.login.set-new-password', Object({ token: 'undefined', method: 'sms' }) )
+    })
+
+    it('should display error on server error', ()=> {
+      resourcesExpectations.RecoverPasswordApi.postRecoverPasswordVerifyMsisdn.respond(500)
+      ForgotPasswordController.submitSmsVerificationCode()
+      httpBackend.flush()
+      expect(ForgotPasswordController.serverError).toBe(true)
+    })
+
+    it('should redirect to app.login.forgot-password', ()=> {
+      spyOn($state, 'go')
+      ForgotPasswordController.forceSmsRecovery()
+      expect($state.go).toHaveBeenCalledWith(  'app.login.forgot-password', Object({ method: 'sms' }), Object({ reload: true })  )
+    })
+
   })
 })

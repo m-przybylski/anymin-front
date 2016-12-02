@@ -56,7 +56,9 @@
       controller: 'SetNewPasswordController',
       templateUrl: 'login/set-new-password/set-new-password.tpl.html',
       resolve: {
+        
         tokenStatus: ($stateParams, AppLoginSetNewPasswordResolver) => {
+          /* istanbul ignore next */
           return AppLoginSetNewPasswordResolver.resolve($stateParams)
         }
       },

@@ -28,15 +28,33 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
       return compiledElement
     }
 
+    let triggerKeyDown = function(element, keyCode) {
+      let e = angular.element.Event('keypress')
+      e.which = keyCode
+      element.trigger(e)
+    }
+    
     it('should have a dummy test', inject(function() {
       expect(true).toBeTruthy()
     }))
 
-    it('compile the directive', function() {
+    it('should compile the directive', function() {
       var el
       el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
+
+    it('should save section on enter key', function() {
+      var el
+      el = create(validHTML)
+      let isoScope = el.isolateScope()
+      isoScope.onEnter()
+      isoScope.model.name = ''
+      triggerKeyDown(el, 13)
+      
+
+    })
+    
   })
   
 })
