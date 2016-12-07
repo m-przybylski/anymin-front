@@ -1,10 +1,16 @@
 (function() {
 
   /* @ngInject */
-  function serviceSuggestionsController(CommonSettingsService) {
+  function serviceSuggestionsController($state, CommonSettingsService) {
 
     this.profileImage = (index) => {
       return !!this.services.results[index].owner.img ? CommonSettingsService.links.imageUrl.replace('%s', this.services.results[index].owner.img) : false
+    }
+
+    this.goToProfile = (indexOfService) => {
+        const service = this.services.results[indexOfService]
+        const stateName = service.owner.type === 'ORG' ? 'app.company-profile' : 'app.expert-profile'
+        $state.go(stateName, {contactId: service.owner.id, primaryConsultationId: service.id})
     }
 
     return this
