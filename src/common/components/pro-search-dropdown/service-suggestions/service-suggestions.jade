@@ -4,7 +4,7 @@
 
     .consultations-box.dropdown-category-list
       a.expert-box.dropdown-list-item(data-ng-repeat="service in vm.services.results track by $index"
-      data-ui-sref="app.expert-profile({ contactId: service.owner.id })")
+      data-ng-click="vm.goToProfile($index)")
         .expert-profile
           .thumb.x48
             img.expert-avatar.user-avatar(data-ng-src="{{ vm.profileImage($index) }}" data-ng-class="{'isNotUploaded': !vm.profileImage($index)}")
