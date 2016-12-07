@@ -37,8 +37,8 @@
     searchService.setSearchQueryParams(this.searchParams)
 
     const _loadMore = () => {
-      const countMax = this.searchResults.count
-      if (angular.isDefined(this.searchResults.results) && !this.isLoadMoreLoading) {
+      if (this.searchResults && angular.isDefined(this.searchResults.results) && !this.isLoadMoreLoading) {
+        const countMax = this.searchResults.count
         const count = this.searchResults.results.length
         if (count < countMax) {
           this.isLoadMoreLoading = true
@@ -66,7 +66,6 @@
 
     searchService.onQueryParamsChange($scope, (queryParams) => {
       const params = searchUrlService.parseParamsForUrl(queryParams)
-
       if ($state.current.name === 'app.search-result') {
         $location.search(params)
       }

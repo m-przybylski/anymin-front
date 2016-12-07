@@ -52,7 +52,7 @@
       }
 
       scope.showFilters = () => {
-        scope.showMobileFilters = scope.showMobileFilters ? false : true
+        scope.showMobileFilters = !scope.showMobileFilters
       }
 
       scope.showMobileFilterButton = () => {
@@ -79,7 +79,9 @@
       })
 
       scope.$watch( () => {
-        return scope.searchResults.relatedTags
+        if (scope.searchResults) {
+          return scope.searchResults.relatedTags
+        }
       }, (newValue) => {
         if (newValue) {
           scope.model.tags = scope.searchResults.relatedTags
