@@ -4,7 +4,7 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-single-co
     let scope = null
     let rootScope
     let compile = null
-    let validHTML = '<pro-expert-single-consultation data-service="{details: {tags: []}}"></pro-expert-single-consultation>'
+    let validHTML = '<pro-expert-single-consultation data-service-tags-employees-tuple="serviceTagsEmployeesTuple"></pro-expert-single-consultation>'
 
     const callService = {
       callServiceId: _ => _
@@ -33,6 +33,13 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-single-co
     function create(html) {
       scope = rootScope.$new()
       let elem = angular.element(html)
+      scope.serviceTagsEmployeesTuple = {
+        ownerProfile: {
+          organizationDetails: {
+            
+          }
+        }
+      }
       let compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement

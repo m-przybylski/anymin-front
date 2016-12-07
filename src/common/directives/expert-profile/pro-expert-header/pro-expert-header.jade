@@ -5,7 +5,7 @@
         li
           a.btn.btn-circle
             span.icon.icon-voice-24
-        li
+        li(data-ng-class="{'selected': profile.isFavourite}" data-ng-click="handleLike()")
           a.btn.btn-circle
             span.icon.icon-heart-24
         li

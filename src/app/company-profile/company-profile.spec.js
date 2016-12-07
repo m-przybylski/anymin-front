@@ -4,14 +4,25 @@ describe('Unit tests: CompanyProfileController >', () => {
     let CompanyProfileController
     let _scope
 
-    const savedProfile = {
-      organizationDetails: {},
-      services: []
+    const companyProfile = {
+      profile: {
+        organizationDetails: {
+          
+        }
+      }
     }
+
+    beforeEach(module(function($provide) {
+      $provide.value('apiUrl', 'awesomeURL')
+    }))
 
     beforeEach(() => {
       module('profitelo.controller.company-profile')
-      inject(($rootScope, $stateParams, $timeout, $controller, _smoothScrolling_) => {
+      module('profitelo.services.recommended-profiles-service')
+      inject(($rootScope, $stateParams, $timeout, $controller, $q, _smoothScrolling_, _recommendedProfilesServices_) => {
+
+        spyOn(_recommendedProfilesServices_, "getRecommendedCompanies").and.callFake(() =>
+          $q.resolve([]))
 
         _scope = $rootScope.$new()
 
@@ -19,9 +30,9 @@ describe('Unit tests: CompanyProfileController >', () => {
           $scope: _scope,
           $stateParams: $stateParams,
           $timeout: $timeout,
+          companyProfile: companyProfile,
           smoothScrolling: _smoothScrolling_,
-          savedProfile: savedProfile,
-          similarExperts: []
+          recommendedProfilesServices: _recommendedProfilesServices_
         })
       })
     })

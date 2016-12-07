@@ -37,6 +37,14 @@
       $anchorScroll()
     })
 
+    $rootScope.$on('$stateChangeError', (event, toState, toParams, fromState, fromParams, error) => {
+      event.preventDefault()
+      $state.get('app.error').error = error
+      return $state.go('app.error', null, {
+        location: false
+      })
+    })
+
     function userTransfer(event, toState, fromState) {
       let pac = User.pageAccessCheck(event, toState)
 
@@ -249,7 +257,9 @@
     'profitelo.controller.post-register',
     'profitelo.controller.post-register.set-password',
     'profitelo.controller.post-register.set-email',
-    'profitelo.components.interface.go-to-top',
+    'profitelo.controller.error',
+
+
     
     // directives
     'profitelo.directives.pro-top-waiting-loader',

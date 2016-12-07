@@ -6,7 +6,7 @@
     this.expertsArray = []
     this.expertsArray = this.expertsArray.concat(this.experts)
     
-    if(this.expertsArray.length > 4) {
+    if (this.expertsArray.length > 4) {
       this.areControllsVisible = true
     }
 

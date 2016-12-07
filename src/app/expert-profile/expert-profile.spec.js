@@ -4,11 +4,20 @@ describe('Unit tests: ExpertProfileController >', () => {
     let ExpertProfileController
     let _scope
 
+    beforeEach(module(function($provide) {
+      $provide.value('apiUrl', 'awesomeURL')
+    }))
+
     beforeEach(() => {
       module('profitelo.controller.expert-profile')
-      inject(($rootScope, $controller, $timeout, $stateParams, _smoothScrolling_) => {
+      module('profitelo.services.recommended-profiles-service')
+
+      inject(($rootScope, $controller, $timeout, $q, $stateParams, _smoothScrolling_, _recommendedProfilesServices_) => {
 
         _scope = $rootScope.$new()
+
+        spyOn(_recommendedProfilesServices_, "getRecommendedCompanies").and.callFake(() =>
+          $q.resolve([]))
 
         ExpertProfileController = $controller('ExpertProfileController', {
           $scope: _scope,
@@ -16,8 +25,8 @@ describe('Unit tests: ExpertProfileController >', () => {
           $timeout: $timeout,
           smoothScrolling: _smoothScrolling_,
           expertOrganizations: [],
-          similarExperts: [],
-          savedProfile: {type: '', expertDetails: {}}
+          recommendedProfilesServices: _recommendedProfilesServices_,
+          expertProfile: {type: '', profile: {expertDetails: {}}}
         })
       })
     })

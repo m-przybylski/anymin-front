@@ -63,7 +63,7 @@ describe('Unit testing: profitelo.components.expert-profile.experts-consultation
       expect(rootScope.controlls.prevSlide).toHaveBeenCalled()
     })
 
-    it('should expertImage', inject((HelperService) => {
+    it('should expertImage', inject(() => {
       spyOn(HelperService, 'fileUrlResolver')
       component.expertImage('a')
       expect(HelperService.fileUrlResolver).toHaveBeenCalled()

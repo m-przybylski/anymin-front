@@ -8,7 +8,7 @@ describe('Unit testing: profitelo.services.resolvers.app.login.confirm-email', (
     let resourcesExpectations
     let _AccountApiDef
     let _SessionApiDef
-    let $httpBackend
+    let httpBackend
     let emailToken = ':token'
 
     beforeEach(module(function($provide) {
@@ -31,20 +31,18 @@ describe('Unit testing: profitelo.services.resolvers.app.login.confirm-email', (
         _timeout = $injector.get('$timeout')
         _AccountApiDef = $injector.get('AccountApiDef')
         _SessionApiDef = $injector.get('SessionApiDef')
-        $httpBackend = $injector.get('$httpBackend')
-
+        httpBackend = $injector.get('$httpBackend')
       })
 
       resourcesExpectations = {
         AccountApi: {
-          postAccountVerifyEmail: $httpBackend.when(_AccountApiDef.postAccountVerifyEmail.method, _AccountApiDef.postAccountVerifyEmail.url)
+          postAccountVerifyEmail: httpBackend.when(_AccountApiDef.postAccountVerifyEmail.method, _AccountApiDef.postAccountVerifyEmail.url)
         },
         SessionApi: {
-          check: $httpBackend.when(_SessionApiDef.check.method, _SessionApiDef.check.url)
+          check: httpBackend.when(_SessionApiDef.check.method, _SessionApiDef.check.url)
         }
       }
-
-
+      
     })
 
     it('should have resolve function', () => {
@@ -103,7 +101,7 @@ describe('Unit testing: profitelo.services.resolvers.app.login.confirm-email', (
         
       })
 
-      $httpBackend.flush()
+      httpBackend.flush()
       _timeout.flush()
       expect(spy.spy).toHaveBeenCalled()
 

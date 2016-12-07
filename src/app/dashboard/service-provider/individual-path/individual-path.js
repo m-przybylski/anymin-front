@@ -52,7 +52,7 @@
 
       let _updateMethod
       if (savedProfile) {
-        _updateMethod = ProfileApi.putProfile
+        _updateMethod = ProfileApi.patchProfile
       } else {
         _updateMethod = ProfileApi.postProfile
       }

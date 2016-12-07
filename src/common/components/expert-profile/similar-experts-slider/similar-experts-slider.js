@@ -19,7 +19,6 @@
 
     this.goToProfile = (consultation) => {
       const stateName  = consultation.owner.type === 'ORG' ? 'app.company-profile' : 'app.expert-profile'
-
       $state.go(stateName, { contactId: consultation.owner.id, primaryConsultationId: consultation.id  })
     }
 

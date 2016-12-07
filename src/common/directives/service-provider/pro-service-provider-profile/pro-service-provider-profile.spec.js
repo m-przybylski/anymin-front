@@ -49,7 +49,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
       el = create(validHTML)
       let isoScope = el.isolateScope()
       el.find('.pro-button').triggerHandler('click')
-      expect(isoScope.textLimit).toEqual(null)
+      expect(isoScope.textLimit).toEqual(1000)
     })
 
     it('should call buttonAction', () =>{

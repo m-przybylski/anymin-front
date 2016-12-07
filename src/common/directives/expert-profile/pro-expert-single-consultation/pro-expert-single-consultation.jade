@@ -1,35 +1,36 @@
 .single-consultation.expert-profile-consultation
   .consultation-wrapper
-    .consultation-content(data-ng-class="{'is-company': !!service.organizationDetails}")
+    .consultation-content(data-ng-class="{'is-company': !!serviceTagsEmployeesTuple.ownerProfile.organizationDetails}")
       .consultation-details
         .consultation-price
-          span {{ service.details.price.amount/100  | number: 2 }}
-            span.currency {{ service.details.price.currency }}{{ 'HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE' | translate }}
+          span {{ serviceTagsEmployeesTuple.service.details.price.amount/100  | number: 2 }}
+            span.currency {{ serviceTagsEmployeesTuple.service.details.price.currency }}{{ 'HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE' | translate }}
 
         div
           .consultation-title
             h3
-              span {{ service.details.name }}
+              span {{ serviceTagsEmployeesTuple.service.details.name }}
 
           ul.consultation-about
             li.options-item.recomendation
-              span  {{ service.recommendationsCounter || 0 }}
+              span  {{ serviceTagsEmployeesTuple.service.rating }}
             li.options-item.conversation-count
-              span {{ service.serviceUsageCounter }}
+              span {{ serviceTagsEmployeesTuple.service.serviceUsageCounter }}
             li.options-item.balance
               span Stan Twojego konta pozwala na ok. {{ consultation.timeAverage }} min rozmowy
 
       .consultation-actions
-        .profile-preview(data-ng-if="!!service.organizationDetails")
+        a.profile-preview(data-ng-if="!!serviceTagsEmployeesTuple.ownerProfile.organizationDetails"
+                          data-ui-sref="app.company-profile({contactId: serviceTagsEmployeesTuple.ownerProfile.id})")
           .thumb.x48
             img.user-avatar(data-ng-src="{{ companyImage }}"  data-ng-class="{'is-not-uploaded': !companyImage}")
 
           .profile-name
-            span {{ service.organizationDetails.name }}
+            span {{ serviceTagsEmployeesTuple.ownerProfile.organizationDetails.name }}
 
         a.btn.btn-success.icon-left(data-ng-click="startCall()")
           span.icon.icon-call-16
           | {{ ::'HOME.TOP_CONTAINER.EXPERT_PROFILE.CALL' | translate }}
 
     pro-summary-tag(data-title="DASHBOARD.EXPERT_ACCOUNT.CONSULTATION_RANGE"
-    data-tags="tags" data-hide-more-tags="$ctrl.hideMoreTags")
+    data-tags="tags" data-hide-more-tags="$ctrl.hideMoreTags" data-ng-hide="!tags || tags.length < 1")
