@@ -18,4 +18,4 @@ top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-c
 
           ul.conversation-cost.income
             li.label(data-translate="COMMUNICATOR.MODALS.INCOME")
-            li {{ callSummary.cost | money }}
+            li(data-ng-bind-html="callSummary.cost | money")

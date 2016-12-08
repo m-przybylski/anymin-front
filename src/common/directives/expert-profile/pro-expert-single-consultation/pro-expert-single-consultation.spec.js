@@ -38,6 +38,9 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-single-co
           organizationDetails: {
             
           }
+        },
+        service: {
+          id: 'sdsdsdsd2323'
         }
       }
       let compiledElement = compile(elem)(scope)

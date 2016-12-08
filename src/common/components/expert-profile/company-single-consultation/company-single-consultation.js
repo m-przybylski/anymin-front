@@ -7,7 +7,7 @@
     this.experts = this.serviceTagsEmployeesTuple.employees
 
     this.startCall = () => {
-      callService.callServiceId(this.serviceTagsEmployeesTuple.id)
+      callService.callServiceId(this.serviceTagsEmployeesTuple.service.id)
     }
     
     return this
@@ -28,6 +28,7 @@
   angular.module('profitelo.components.expert-profile.company-single-consultation', [
     'profitelo.components.interface.slider',
     'profitelo.services.helper',
+    'profitelo.filters.money',
     'profitelo.components.expert-profile.experts-consultation-slider',
     'profitelo.services.call',
     'pascalprecht.translate'

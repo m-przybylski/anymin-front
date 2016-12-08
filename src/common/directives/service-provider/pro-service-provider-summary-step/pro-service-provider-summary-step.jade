@@ -6,7 +6,7 @@ block content
           .header-handler.flex-row
             .summary-step-title
               h3 {{ consultation.details.name}}
-              p.consultation-price {{ consultation.details.price | money}}
+              p.consultation-price(data-ng-bind-html="consultation.details.price | money")
                 span(data-translate="DASHBOARD.CREATE_PROFILE.SUMMARY.CURRENCY")
             .btn-handler
               a.btn.btn-noborder(data-ng-click="vm.deleteConsultation(consultation.id, $index)")

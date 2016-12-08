@@ -1,7 +1,7 @@
 (function() {
 
   /* @ngInject */
-  function controller($log, $timeout, messengerService, _, HelperService, uploaderService) {
+  function controller($log, $timeout, $scope, $element, messengerService, _, HelperService, uploaderService) {
 
     const messagesScroll = angular.element('.messenger-scroll')
     const indicateTypingDebounce = 1000
@@ -15,7 +15,7 @@
     this.isTyping = false
     this.groupedMessages = []
     this.uploadedFile = {}
-    
+
     const _clientInit = (expert) => {
       this.participantAvatar = HelperService.fileUrlResolver(expert.expertDetails.avatar)
     }
@@ -26,7 +26,6 @@
 
     const _scrollMessagesBottom = () => {
       messagesScroll.perfectScrollbar('update')
-      
       $timeout(() =>
         messagesScroll.scrollTop(messagesScroll[0].scrollHeight))
     }
@@ -53,7 +52,6 @@
     const _addMessage = (msg) => {
       _addGroupedMessage(msg)
       _onTypingEnd()
-      _scrollMessagesBottom()
     }
 
     const _onMessageSendSuccess = (message) => {
@@ -128,6 +126,14 @@
       this.groupedMessages = []
     }
 
+    $scope.$watch(()=>{
+      return this.isMessenger
+    }, (newValue) => {
+      if (newValue) {
+        angular.element($element).find('.messenger-input input').focus()
+      }
+    })
+
     messengerService.onExpertMessage(_addMessage)
 
     messengerService.onClientMessage(_addMessage)
@@ -150,6 +156,7 @@
     controller: controller,
     bindings: {
       callCost: '<',
+      isMessenger: '<',
       minimizeMessenger: '<',
       callLength: '<'
     }

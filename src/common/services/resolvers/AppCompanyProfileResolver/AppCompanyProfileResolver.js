@@ -20,7 +20,7 @@
 
       const _handleCompanyResponse = (response) => {
         if (!response.profile.organizationDetails) {
-         return $q.reject('Profile is not organization')
+          return $q.reject('Profile is not organization')
         }
 
         return {

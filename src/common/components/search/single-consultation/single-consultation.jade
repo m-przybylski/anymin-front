@@ -3,8 +3,8 @@
     .consultation-wrapper(data-ng-click="vm.goToProfile()")
       .consultation-details
         .consultation-price
-          span {{ ::vm.consultation.price / 100 | number: 2 }}
-            span.currency PLN {{ "HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE" | translate}}
+          span(data-ng-bind-html="::vm.consultation.price | money")
+          span.currency(data-translate='HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE')
 
         div
           .consultation-title

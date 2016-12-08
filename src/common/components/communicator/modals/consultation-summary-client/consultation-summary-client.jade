@@ -17,7 +17,7 @@ top-modal-navbar(data-title="COMMUNICATOR.MODALS.RATE_CONVERATION" data-on-close
                 span.status.availability Dostepny
 
         .consultation-price
-          span {{ callSummary.service.details.price | money }} {{ "HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE" | translate }}
+          span(data-ng-bind-html="callSummary.service.details.price | money ")
 
         .consultation-range
           .consultation-info
@@ -40,7 +40,7 @@ top-modal-navbar(data-title="COMMUNICATOR.MODALS.RATE_CONVERATION" data-on-close
 
           ul.conversation-cost
             li.label(data-translate="COMMUNICATOR.MODALS.CONVERSATION_COST")
-            li {{ callSummary.cost | money }}
+            li(data-ng-bind-html="callSummary.cost | money ")
 
         multiselect(data-title="COMMUNICATOR.MODALS.SUMMARY_HELPER_RANGE" data-items="callSummary.tags.tags"
           data-field="name" data-ng-show="chooseExpertsTag" data-on-select-change="onTagsSelectChange")
