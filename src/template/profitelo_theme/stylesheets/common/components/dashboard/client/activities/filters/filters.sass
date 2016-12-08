@@ -1,64 +1,72 @@
-.client-filter
-  display: flex
-  flex-wrap: wrap
-  margin: 0
-  padding: 0 16px 16px
+.client-filters
   border-bottom: 1px solid $c-lines
+  padding: 0 0 24px
 
   +smm
-    padding: 64px 0 48px
-    margin: 0
+    padding: 0
+    border: 0
 
-  .filter-download
+  .client-filter
     display: flex
-    justify-content: space-between
+    flex-wrap: wrap
+    margin: 0
+    padding: 0 0 16px
+    border-bottom: 1px solid $c-lines
 
     +smm
-      position: relative
+      padding: 32px 0 16px
+      margin: 0
 
-    .calendar
-      flex: 1
+    .filter-download
       display: flex
       justify-content: space-between
 
-      .calendar-container
-        flex: 1
-        margin: 0 16px 0 0
+      +smm
+        position: relative
 
-    .uib-datepicker-popup
-      top: 0 !important
+      .calendar
+        flex: 1
+        display: flex
+        justify-content: space-between
+
+        .calendar-container
+          flex: 1
+          margin: 0 16px 0 0
+
+      .uib-datepicker-popup
+        top: 0 !important
+
+        +smm
+          top: calc(100% + 16px) !important
+
+      .btn
+        width: 56px
+        height: 56px
+
+    > div
+      margin: 0 0 16px
+      flex: 1
+
+    .pro-dropdown
+      flex: 1 0 100%
 
       +smm
-        top: calc(100% + 16px) !important
-
-    .btn
-      width: 56px
-      height: 56px
-
-  > div
-    margin: 0 0 16px
-    flex: 1
-
-  .pro-dropdown
-    flex: 1 0 100%
-
-    +smm
-      flex: 1 0 50%
-      padding: 0 16px 0 0
-      max-width: 50%
-
-      &:nth-child(2n)
-        padding: 0
-
-    +lgm
-      flex: 1 0 25%
-      max-width: 25%
-
-      &:nth-child(2n)
+        flex: 1 0 50%
         padding: 0 16px 0 0
+        max-width: 50%
 
-      &:nth-child(4n)
-        padding: 0
+        &:nth-child(2n)
+          padding: 0
+
+      +lgm
+        flex: 1 0 25%
+        max-width: 25%
+
+        &:nth-child(2n)
+          padding: 0 16px 0 0
+
+        &:nth-child(4n)
+          padding: 0
 
 .client-filters-collapse
   max-height: 305px

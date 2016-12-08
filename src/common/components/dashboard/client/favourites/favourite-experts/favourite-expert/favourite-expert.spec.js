@@ -1,12 +1,12 @@
-describe('Unit testing: profitelo.components.dashboard.client.activities.filters', () => {
-  return describe('for clientActivitiesFilters >', () => {
+describe('Unit testing: profitelo.components.dashboard.client.favourite.favourite-experts.favourite-experts-list', () => {
+  return describe('for clientFavouriteExpertsLists >', () => {
 
     let scope
     let rootScope
     let compile
     let componentController
     let component
-    let validHTML = '<client-activities-filters></client-activities-filters>'
+    let validHTML = '<client-favourite-expert></client-favourite-expert>'
 
     function create(html) {
       scope = rootScope.$new()
@@ -18,7 +18,7 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.filters
 
     beforeEach(() => {
       module('templates-module')
-      module('profitelo.components.dashboard.client.activities.filters')
+      module('profitelo.components.dashboard.client.favourites.favourite-experts.favourite-expert')
 
       inject(($rootScope, $compile, _$componentController_) => {
         componentController = _$componentController_
@@ -26,7 +26,7 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.filters
         compile = $compile
       })
 
-      component = componentController('clientActivitiesFilters', {})
+      component = componentController('clientFavouriteExpert', {})
     })
 
     it('should have a dummy test', inject(() => {

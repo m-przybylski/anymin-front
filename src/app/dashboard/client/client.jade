@@ -3,11 +3,9 @@ data-sidebar-handler="dashboardController.showSidebar" data-sidebar-status="dash
 data-is-expert="dashboardController.expertProfileExist" data-show-navigation-menu="true")
 
 .client
-  .default-container
-    client-navigation()
-
-  .dashboard-client
     .default-container
-      client-activities()
+        client-navigation()
+
+    div(data-ui-view="")
 
 pro-footer()

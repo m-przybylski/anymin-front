@@ -13,7 +13,9 @@
 
   angular.module('profitelo.components.dashboard.client.activities.last-activities', [
     'pascalprecht.translate',
-    'profitelo.components.complaints.status'
+    'profitelo.components.complaints.status',
+    'profitelo.components.dashboard.client.activities.last-activities.filters',
+    'profitelo.components.dashboard.client.activities.last-activities.last-activities-list'
   ])
     .component('clientLastActivities', component)
 }())

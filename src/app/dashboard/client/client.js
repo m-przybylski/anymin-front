@@ -6,6 +6,7 @@
 
   function config($stateProvider, UserRolesProvider) {
     $stateProvider.state('app.dashboard.client', {
+      abstract: true,
       url: '/client',
       controllerAs: 'vm',
       controller: 'clientController',
@@ -20,8 +21,10 @@
 
   angular.module('profitelo.controller.dashboard.client', [
     'ui.router',
-    'profitelo.components.dashboard.client.navigation',
-    'profitelo.components.dashboard.client.activities'
+    'ngTouch',
+    'c7s.ng.userAuth',
+    'profitelo.components.dashboard.client.navigation'
+
   ])
     .config(config)
     .controller('clientController', clientController)

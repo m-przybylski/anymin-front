@@ -10,10 +10,16 @@
     margin: 0 0 32px
 
     li
-      margin: 0 12px
+      text-align: center
+      width: 50%
+
+      +smm
+        width: auto
+        margin: 0 12px
 
       &:first-child
-        margin: 0 12px 0 0
+        +smm
+          margin: 0 12px 0 0
 
       &:hover,
       &.is-active

@@ -259,6 +259,9 @@
     'profitelo.controller.post-register.set-email',
     'profitelo.components.interface.go-to-top',
     'profitelo.controller.dashboard.client',
+    'profitelo.controller.dashboard.client.activities',
+    'profitelo.controller.dashboard.client.favourites',
+
     'profitelo.controller.error',
 
 
