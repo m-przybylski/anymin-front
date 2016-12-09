@@ -9,6 +9,8 @@ describe('Unit testing: profitelo.directives.pro-top-navbar', () => {
     let smoothScrolling
     let location
     let searchService
+    let resourcesExpectations
+    let $httpBackend
 
     beforeEach(module(($provide) => {
       $provide.value('apiUrl', '')
@@ -19,14 +21,21 @@ describe('Unit testing: profitelo.directives.pro-top-navbar', () => {
       module('profitelo.directives.pro-top-navbar')
       module('profitelo.services.search')
       
-      inject(($rootScope, $compile, _smoothScrolling_, _$state_, _$location_, _searchService_) => {
+      inject(($rootScope, $compile, _$httpBackend_, _smoothScrolling_, _$state_, _$location_, _searchService_) => {
         rootScope = $rootScope.$new()
         compile = $compile
         $state = _$state_
         smoothScrolling = _smoothScrolling_
         location = _$location_
         searchService = _searchService_
+        $httpBackend = _$httpBackend_
       })
+      resourcesExpectations = {
+        User: {
+          getStatus: $httpBackend.when('GET', 'http://api.webpage.com/session')
+        }
+      }
+
     })
 
     function create(html) {
@@ -41,6 +50,8 @@ describe('Unit testing: profitelo.directives.pro-top-navbar', () => {
         }
       }
       let compiledElement = compile(elem)(scope)
+      resourcesExpectations.User.getStatus.respond(500)
+      $httpBackend.flush()
       scope.$digest()
       return compiledElement
     }

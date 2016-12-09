@@ -36,7 +36,6 @@ describe('Unit testing: profitelo.directives.ng-enter', () => {
     
       let el = create()
       let isoScope = el.isolateScope()
-      console.log(isoScope)
       spyOn(scope, 'mockFunction').and.callThrough()
       var e = jQuery.Event('keypress')
       e.which = 13

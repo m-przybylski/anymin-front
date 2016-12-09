@@ -1,10 +1,6 @@
 nav.dashboard-client-nav
   ul
-    li.is-active
+    li(data-ng-class="{'is-active': $ctrl.isFavourite}")
       a(data-translate="DASHBOARD.CLIENT.NAVIGATION.FAVOURITE_EXPERTS" data-ui-sref="app.dashboard.client.favourites")
-    li
+    li(data-ng-class="{'is-active': !$ctrl.isFavourite}")
       a(data-translate="DASHBOARD.CLIENT.NAVIGATION.ACTIVITIES" data-ui-sref="app.dashboard.client.activities")
-
-  .client-credits
-    span 0 PLN
-    a.btn.btn-primary(data-translate="DASHBOARD.CLIENT.RECHARGE" data-ui-sref="app.dashboard.charge-account")

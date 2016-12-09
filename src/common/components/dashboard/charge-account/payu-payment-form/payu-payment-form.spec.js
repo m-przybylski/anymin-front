@@ -82,7 +82,7 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payu-payme
       expect(true).toBeTruthy()
     }))
 
-    it('should redirect to app.dashboard.start on form error', inject(() => {
+    it('should redirect to app.dashboard.client.activities on form error', inject(() => {
       bindings.validAction =  () => {
         return true
       }

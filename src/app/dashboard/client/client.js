@@ -1,5 +1,12 @@
 (function() {
-  function clientController() {
+  function clientController($state, $scope) {
+    
+
+    $scope.$watch(() =>{
+      return $state.$current.name
+    },(newVal, oldVal) =>{
+      this.isFavourite = newVal.includes('favourites')
+    })
 
     return this
   }

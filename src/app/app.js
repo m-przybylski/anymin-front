@@ -228,8 +228,10 @@
 
     // controllers
     'profitelo.controller.dashboard',
-    'profitelo.controller.dashboard.start',
     'profitelo.controller.dashboard.invitation',
+    'profitelo.controller.dashboard.client',
+    'profitelo.controller.dashboard.client.activities',
+    'profitelo.controller.dashboard.client.favourites',
 
     'profitelo.controller.dashboard.service-provider',
     'profitelo.controller.dashboard.service-provider.choose-path',
@@ -258,9 +260,7 @@
     'profitelo.controller.post-register.set-password',
     'profitelo.controller.post-register.set-email',
     'profitelo.components.interface.go-to-top',
-    'profitelo.controller.dashboard.client',
-    'profitelo.controller.dashboard.client.activities',
-    'profitelo.controller.dashboard.client.favourites',
+
 
     'profitelo.controller.error',
 

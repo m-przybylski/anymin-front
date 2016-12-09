@@ -136,7 +136,7 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
       AccountFormController.login()
       $httpBackend.flush()
       expect(communicatorService.authenticate).toHaveBeenCalled()
-      expect($state.go).toHaveBeenCalledWith('app.dashboard.start')
+      expect($state.go).toHaveBeenCalledWith('app.dashboard.client.favourites')
     })
 
     it('should display error', () => {

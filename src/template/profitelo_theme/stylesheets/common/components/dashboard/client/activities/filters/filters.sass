@@ -1,6 +1,6 @@
 .client-filters
   border-bottom: 1px solid $c-lines
-  padding: 0 0 24px
+  padding: 0 16px 24px
 
   +smm
     padding: 0
@@ -68,35 +68,35 @@
         &:nth-child(4n)
           padding: 0
 
-.client-filters-collapse
-  max-height: 305px
-  transition: max-height 0.9s ease-in-out, margin 0.9s ease
-  overflow: hidden
-  margin: 0 0 32px
-
-  +smm
-    overflow: visible
-    margin: 0
-
-  &.is-collapsed
-    margin: 0
-    max-height: 0
+  .client-filters-collapse
+    max-height: 305px
+    transition: max-height 0.9s ease-in-out, margin 0.9s ease
+    overflow: hidden
+    margin: 0 0 32px
 
     +smm
-      max-height: inherit
+      overflow: visible
+      margin: 0
 
-.collapse-btn-filter
-  text-align: center
+    &.is-collapsed
+      margin: 0
+      max-height: 0
 
-  +smm
-    display: none
+      +smm
+        max-height: inherit
 
-  .btn
-    +default-font-regular
-    cursor: pointer
-    color: $c-secondary-txt
-    font-size: $f-btn-size
-    height: auto
+  .collapse-btn-filter
+    text-align: center
 
-    .icon
-      margin: 0 16px 0 0
+    +smm
+      display: none
+
+    .btn
+      +default-font-regular
+      cursor: pointer
+      color: $c-secondary-txt
+      font-size: $f-btn-size
+      height: auto
+
+      .icon
+        margin: 0 16px 0 0

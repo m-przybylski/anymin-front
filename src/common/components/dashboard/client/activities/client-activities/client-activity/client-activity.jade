@@ -1,0 +1,26 @@
+a.last-activities(data-ng-click=":: $ctrl.openActivityDescription()")
+  .last-activity-details
+    .last-activity-icon
+      span.icon.icon-outgoing-call-24
+
+    div
+      .last-activity-icon
+        span.icon.icon-outgoing-call-24
+
+      .last-activity-about
+        .last-activity-date
+          span  {{:: $ctrl.activity.sueProfileServiceTuple.serviceUsageEvent.startedAt | date : 'EEE d.MM.y'}}
+        status(data-complaint=":: $ctrl.activity.complaint" data-ng-show=":: $ctrl.activity.complaint")
+
+      h3 {{:: $ctrl.activity.sueProfileServiceTuple.service.details.name }}
+
+  .last-activity-profile
+    .profile-preview
+      .thumb.x32
+        img.user-avatar(src data-ng-src="{{:: $ctrl.imageUrl }}" data-ng-class="{'isNotUploaded': !$ctrl.imageUrl}")
+
+      .profile-name
+        span {{:: $ctrl.activity.sueProfileServiceTuple.profile.expertDetails.name }}
+
+    .price-small(data-ng-bind-html=":: $ctrl.activity.financialOperation.operation | money")
+

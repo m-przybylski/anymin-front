@@ -83,7 +83,7 @@
             message: 'error',
             timeout: 4
           })
-          $state.go('app.dashboard.start')
+          $state.go('app.dashboard.client.activities')
         })
       }
     }

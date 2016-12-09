@@ -34,7 +34,7 @@
 
           $timeout(() => {
             $rootScope.loggedIn = true
-            $state.go('app.dashboard.start')
+            $state.go('app.dashboard.client.favourites')
           })
 
         }, _handleBadToken)

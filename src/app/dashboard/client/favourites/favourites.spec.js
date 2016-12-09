@@ -1,15 +1,28 @@
 describe('Unit tests: DashboardClientFavouritesController >', () => {
   describe('Testing Controller: DashboardClientFavouritesController', () => {
 
-    var $scope
-    var DashboardClientFavouritesController
+    let $scope
+    let DashboardClientFavouritesController
+
+    const clientFavouritesConsultations = {
+      balance: {},
+      lastConsultations: {},
+      favouriteProfiles: {}
+    }
+
+    beforeEach(module(($provide) => {
+      $provide.value('apiUrl', 'awesomeUrl/')
+    }))
 
     beforeEach(() => {
+      module('profitelo.services.recommended-profiles-service')
       module('profitelo.controller.dashboard.client.favourites')
-      inject(($rootScope, $controller, _$state_) => {
+      inject(($rootScope, $controller, _recommendedProfilesServices_) => {
         $scope = $rootScope.$new()
+
         DashboardClientFavouritesController = $controller('DashboardClientFavouritesController', {
-          $state: _$state_
+          clientFavouritesConsultations: clientFavouritesConsultations,
+          recommendedProfilesServices: _recommendedProfilesServices_
         })
       })
     })

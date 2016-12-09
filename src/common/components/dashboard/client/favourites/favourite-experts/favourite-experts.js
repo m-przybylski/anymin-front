@@ -2,14 +2,16 @@
   /* @ngInject */
   function controller() {
 
-
     return this
   }
 
   const component = {
     templateUrl: 'components/dashboard/client/favourites/favourite-experts/favourite-experts.tpl.html',
     controller: controller,
-    controllerAs: '$ctrl'
+    controllerAs: '$ctrl',
+    bindings: {
+      favouriteExperts: '<'
+    }
   }
 
   angular.module('profitelo.components.dashboard.client.favourites.favourite-experts', [

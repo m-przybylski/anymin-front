@@ -1,5 +1,8 @@
 (function() {
-  function paymentsThankYouPageController() {
+  function paymentsThankYouPageController($state) {
+
+    this.onClose = () =>
+      $state.go('app.dashboard.client.activities')
 
     return this
   }

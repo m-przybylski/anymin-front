@@ -2,17 +2,23 @@
   /* @ngInject */
   function controller() {
 
+
+
     return this
   }
 
   const component = {
     templateUrl: 'components/dashboard/client/navigation/navigation.tpl.html',
     controller: controller,
-    controllerAs: '$ctrl'
+    controllerAs: '$ctrl',
+    bindings: {
+      isFavourite: '<'
+    }
   }
 
   angular.module('profitelo.components.dashboard.client.navigation', [
-    'pascalprecht.translate'
+    'pascalprecht.translate',
+    'ui.router'
   ])
     .component('clientNavigation', component)
 }())

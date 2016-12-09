@@ -46,7 +46,7 @@ describe('Unit testing: profitelo.services.resolvers.app.service-provider-choose
       expect(AppServiceProviderChoosePathResolver.resolve).toBeDefined()
     })
     
-    it('should redirect to app.dashboard.start', () => {
+    it('should redirect to app.dashboard.client.activities', () => {
       spyOn(mockState, 'go')
       resourcesExpectations.User.getStatus.respond(200, {
         apiKey: '1234',

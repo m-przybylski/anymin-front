@@ -68,7 +68,7 @@
           /* istanbul ignore next */
           return User.getStatus().then((status) => {
             if (angular.isDefined(status.hasPassword) && status.hasPassword) {
-              return $state.go('app.dashboard.start')
+              return $state.go('app.dashboard.client.favourites')
             } else {
               return $q.when(status)
             }

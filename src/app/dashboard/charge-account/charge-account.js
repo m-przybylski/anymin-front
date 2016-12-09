@@ -1,5 +1,5 @@
 (function() {
-  function chargeAccountController($timeout, paymentsOptions, paymentsLinks, financeBalance, smoothScrolling) {
+  function chargeAccountController($state, $timeout, paymentsOptions, paymentsLinks, financeBalance, smoothScrolling) {
 
     this.paymentCountryId = paymentsOptions.id
     this.amounts = {
@@ -8,6 +8,9 @@
     }
     this.currentSection = 1
     this.clientBalance = financeBalance
+
+    this.onClose = () =>
+      $state.go('app.dashboard.client.favourites')
 
     this.lastPayment = paymentsOptions.lastPayment
     this.paymentSystems = paymentsOptions.paymentSystems
@@ -78,7 +81,7 @@
             _deferred.resolve(response)
           }, (error) => {
             _deferred.resolve(null)
-            $state.go('app.dashboard.start')
+            $state.go('app.dashboard.client.activities')
             proTopAlertService.error({
               message: 'error',
               timeout: 4
@@ -95,7 +98,7 @@
             _deferred.resolve(response)
           }, (error) => {
             _deferred.resolve(null)
-            $state.go('app.dashboard.start')
+            $state.go('app.dashboard.client.activities')
             proTopAlertService.error({
               message: 'error',
               timeout: 4
@@ -112,7 +115,7 @@
             _deferred.resolve(response)
           }, (error) => {
             _deferred.resolve(null)
-            $state.go('app.dashboard.start')
+            $state.go('app.dashboard.client.activities')
             proTopAlertService.error({
               message: 'error',
               timeout: 4

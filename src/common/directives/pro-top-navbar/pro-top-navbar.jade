@@ -56,9 +56,15 @@
 
           .user-menu(data-ng-class="{ 'show-menu' : !!showUserMenu }")
             ul.menu.account-menu(data-ng-click="showUserMenu = false")
-                li(data-ng-repeat="account in accounts" data-ui-sref="app.dashboard.start")
-                  a {{ account }}
-                li.settings-menu
-                  a(data-translate="NAVIGATION.USER_SETTINGS")
-                li
-                  a(data-ng-click="logout()" data-translate="NAVIGATION.LOGOUT")
+              li
+                a(data-ui-sref="app.dashboard.client.favourites") Dashboard
+              li
+                a(data-ui-sref="app.dashboard.service-provider.choose-path") Create Profile
+              li
+                a(data-ui-sref="app.company-profile({ contactId: userId })") Company profile
+              li
+                a(data-ui-sref="app.expert-profile({ contactId: userId })") Expert profile
+              li
+                a(data-ui-sref="app.dashboard.charge-account") Charge Account Page
+              li
+                a(data-ng-click="logout()" data-translate="NAVIGATION.LOGOUT")

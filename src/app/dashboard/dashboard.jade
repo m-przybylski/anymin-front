@@ -3,7 +3,5 @@
   pro-top-navbar(data-is-hide="!dashboardController.isNavbarShown" logout-action="appController.logout"
   data-sidebar-handler="dashboardController.showSidebar" data-sidebar-status="dashboardController.isSidebarShown"
   data-is-expert="dashboardController.expertProfileExist" data-show-navigation-menu="true")
-  dashboard-left-menu(animate-sidebar = "!!dashboardController.isSidebarShown")
-          
-  .right-container(data-ng-class="{'slide-out': dashboardController.isSidebarOpen}" )
-    div(data-ui-view="")
+
+  div(data-ui-view="")
