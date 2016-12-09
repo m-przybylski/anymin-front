@@ -1,0 +1,7 @@
+.recommended-tab.grey-tab
+  .recommended-tab-header(data-ng-show="$ctrl.isRecommended")
+    span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.HOW_YOU_RATE_CONSULTATION")
+    a.btn.btn-default(data-ng-click="$ctrl.recommendConsultation()" data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.I_RECOMMENDED_THIS_CONSULTATION.BUTTON")
+
+  .recommended-tab-content(data-ng-show="!$ctrl.isRecommended")
+    client-conversation-rate()

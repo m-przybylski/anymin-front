@@ -1,0 +1,10 @@
+.radio
+  div
+    input(
+      type="radio"
+      id="{{ $ctrl.id }}"
+      name="$ctrl.name"
+    )
+    label.label
+
+  label.text(for="{{ $ctrl.id }}") {{$ctrl.label | translate }}

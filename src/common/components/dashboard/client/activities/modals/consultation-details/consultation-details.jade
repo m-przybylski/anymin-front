@@ -1,0 +1,59 @@
+top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="onModalClose")
+
+.fullscreen-modals.fullscreen-navbar.scrollable.consultation-details-modal
+  .full-height-modal
+    .default-container-small
+      .client-conversation-details-modal
+        .profile-preview.vertical-preview
+          .thumb.x48
+            img.user-avatar(src="/asd")
+
+          .profile-name
+            a
+              span  Jan Kowalski
+
+          .consultation-title
+            h3 Nazwa konsulejsyzn
+
+        .details-tab
+          .details-tab-row.header-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TIME_CONVERSATION")
+            .detais-tab-content
+              span 27 min 8 s
+
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TIME_CONVERSATION")
+            .detais-tab-content
+              span 27 min 8 s
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.DATE_AND_TIME")
+            .detais-tab-content
+              span 12.11.2016, 16:18
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.CONSULTATION_ID")
+            .detais-tab-content
+              span 120-1f-1f3f13f
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.CONVERSATION_PRICE_MIN")
+            .detais-tab-content
+              span 5 pln / min
+
+        client-recommended-tags()
+
+        collapse-btn.chat-history(data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.CHAT.BUTTON" data-icon="icon-chat-24")
+          client-consultation-details-chat()
+
+        collapse-btn(data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.BUTTON" data-icon="icon-complaint-24")
+          client-complain()
+
+        .btn.btn-collapse(data-ui-sref="app.dashboard.client.activities")
+          .collapse-btn-wrapper
+            .btn.collapse-btn-header
+              div
+                span.icon.icon-history-24
+                span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.HISTORY_OF_CONVERSATION.BUTTON")

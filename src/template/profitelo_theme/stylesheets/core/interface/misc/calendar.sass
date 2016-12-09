@@ -1,106 +1,107 @@
-.dropdown-menu
-  position: absolute
-  top: calc(100% + 16px) !important
-  left: 0 !important
-  z-index: 1000
-  padding: 5px 0 0 0
-  margin: 2px 0 0
-  list-style: none
-  text-align: center
-  background-color: $c-white
-  border: 1px solid $c-lines
-  width: 100%
-  max-width: 100%
-  overflow: hidden
-  outline: none
-
-  *
-    outline: 0
-
-  .tab-row
-    display: flex
-    justify-content: space-between
-
-  li
+.calendar
+  .dropdown-menu
+    position: absolute
+    top: calc(100% + 16px) !important
+    left: 0 !important
+    z-index: 1000
+    padding: 5px 0 0 0
+    margin: 2px 0 0
+    list-style: none
+    text-align: center
+    background-color: $c-white
+    border: 1px solid $c-lines
+    width: 100%
+    max-width: 100%
+    overflow: hidden
     outline: none
 
-    div
-      .grid
-        display: flex
-        flex-direction: column
-        justify-content: space-around
-        outline: none
-        padding: 24px
-
-        .top-table-section
-          display: flex
-          justify-content:  space-around
-          flex-direction: column
-
-          .tab-row
-            padding: 10px
-
-            .cell
-              cursor: pointer
-
-              &:hover
-                .icon
-                  color: $c-primary
-
-          .tab-row-weeks
-            display: flex
-            justify-content: space-around
-            padding: 16px 0
-
-            .cell
-              color: $c-label
-
-  .main-table-section
-    display: flex
-    justify-content: space-around
-    flex-direction: column
+    *
+      outline: 0
 
     .tab-row
-      &.uib-months
-        .cell
-          .btn
-            span
-              padding: 0 4px
-      .cell
-        width: 200px
-        height: 45px
+      display: flex
+      justify-content: space-between
 
-        &:first-child
-          border-left: none
+    li
+      outline: none
 
-        .btn
-          cursor: auto
-          width: auto
-          padding: 0
-          font-size: $f-h5-size
-          color: $c-secondary-txt
+      div
+        .grid
+          display: flex
+          flex-direction: column
+          justify-content: space-around
+          outline: none
+          padding: 24px
 
-          &:focus
-            outline: 0
-
-          span
-            +default-font-regular
-            align-items: center
+          .top-table-section
             display: flex
-            justify-content: center
-            border-radius: 3px
-            min-width: 32px
-            height: 32px
-            cursor: pointer
+            justify-content:  space-around
+            flex-direction: column
 
-          &.active,
-          &:hover
+            .tab-row
+              padding: 10px
+
+              .cell
+                cursor: pointer
+
+                &:hover
+                  .icon
+                    color: $c-primary
+
+            .tab-row-weeks
+              display: flex
+              justify-content: space-around
+              padding: 16px 0
+
+              .cell
+                color: $c-label
+
+    .main-table-section
+      display: flex
+      justify-content: space-around
+      flex-direction: column
+
+      .tab-row
+        &.uib-months
+          .cell
+            .btn
+              span
+                padding: 0 4px
+        .cell
+          width: 200px
+          height: 45px
+
+          &:first-child
+            border-left: none
+
+          .btn
+            cursor: auto
+            width: auto
+            padding: 0
+            font-size: $f-h5-size
+            color: $c-secondary-txt
+
+            &:focus
+              outline: 0
+
             span
-              background-color: $c-primary
-              color: $c-white
+              +default-font-regular
+              align-items: center
+              display: flex
+              justify-content: center
+              border-radius: 3px
+              min-width: 32px
+              height: 32px
+              cursor: pointer
+
+            &.active,
+            &:hover
+              span
+                background-color: $c-primary
+                color: $c-white
+
+              .text-muted
+                color: $c-white
 
             .text-muted
-              color: $c-white
-
-          .text-muted
-            color: $c-label
+              color: $c-label

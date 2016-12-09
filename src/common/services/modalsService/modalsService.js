@@ -70,13 +70,37 @@
       })
     }
 
+    const _createClientConversationSummaryModal = () => {
+      const dialogScope = $rootScope.$new(true)
+
+      DialogService.openDialog({
+        controller: 'clientConsultationDetails',
+        templateUrl: 'components/dashboard/client/activities/modals/consultation-details/consultation-details.tpl.html',
+        scope: dialogScope
+      })
+    }
+
+
+    const _createClientComplainReportModal = () => {
+      const dialogScope = $rootScope.$new(true)
+
+      DialogService.openDialog({
+        controller: 'clientComplainReportController',
+        templateUrl: 'components/dashboard/client/activities/modals/complain-report/complain-report.tpl.html',
+        scope: dialogScope
+      })
+    }
+
+
 
     return {
       createIncomingCallModal: _createIncomingCallModal,
       createNoFundsModal: _createNoFundsModal,
       createServiceUnavailableModal: _createServiceUnavailableModal,
       createClientConsultationSummaryModal: _createClientConsultationSummaryModal,
-      createExpertConsultationSummaryModal: _createExpertConsultationSummaryModal
+      createExpertConsultationSummaryModal: _createExpertConsultationSummaryModal,
+      createClientConversationSummaryModal: _createClientConversationSummaryModal,
+      createClientComplainReportModal: _createClientComplainReportModal
     }
   }
 
@@ -86,7 +110,9 @@
     'profitelo.components.communicator.modals.service-unavailable',
     'profitelo.components.communicator.modals.no-credits',
     'profitelo.components.communicator.modals.consultation-summary-client',
-    'profitelo.components.communicator.modals.consultation-summary-expert'
+    'profitelo.components.communicator.modals.consultation-summary-expert',
+    'profitelo.components.dashboard.client.activities.modals.consultation-details',
+    'profitelo.components.dashboard.client.activities.modals.complain-report'
   ])
     .service('modalsService', service)
 
