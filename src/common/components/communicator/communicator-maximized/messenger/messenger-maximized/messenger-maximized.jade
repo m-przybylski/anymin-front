@@ -2,7 +2,7 @@
   .messenger-header
     .communicator-counter
       span {{ $ctrl.callLength | secondsToDateTime | date:'HH:mm:ss'}}
-      span {{ $ctrl.callCost | money }}
+      span(data-ng-bind-html="$ctrl.callCost | money")
 
     a(data-ng-click="$ctrl.minimizeMessenger()")
       span.icon.icon-close-16

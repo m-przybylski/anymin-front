@@ -13,7 +13,7 @@
             p {{ vm.service.details.name }}
           .communicator-counter
             span {{ vm.callLengthInSeconds | secondsToDateTime | date:'HH:mm:ss'}}
-            span {{ vm.callCost | money }}
+            span(data-ng-bind-html="vm.callCost | money")
 
   .communicator-content(data-ng-show="vm.isConnecting")
     p.call.connecting-with(data-translate="COMMUNICATOR.CONNECTING_WITH" data-ng-show="vm.isConnecting")
@@ -35,7 +35,7 @@
 
       .communicator-counter
         span {{ vm.callLengthInSeconds | secondsToDateTime | date:'HH:mm:ss' }}
-        span {{ vm.callCost | money }}
+        span(data-ng-bind-html="vm.callCost | money ")
 
   .video-player-local(data-ng-show="vm.isLocalVideo")
     video(autoplay="true" muted="true")

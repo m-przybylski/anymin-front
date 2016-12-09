@@ -10,7 +10,8 @@
   }
 
   const handleMoney = (_money) => {
-    return handleAmount(_money.amount) + ' ' + _money.currency
+    return '<span class="amount">' + handleAmount(_money.amount) + '</span>' +
+            '<span class="currency">' + _money.currency + '</span>'
   }
 
   function filter($log) {

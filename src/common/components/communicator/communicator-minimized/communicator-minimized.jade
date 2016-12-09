@@ -15,4 +15,4 @@
         li.hours {{ vm.callLengthInSeconds | secondsToDateTime | date:'HH:mm:ss' }}
 
       ul.communicator-price
-        li {{ vm.callCost | money }}
+        li(data-ng-bind-html="vm.callCost | money")

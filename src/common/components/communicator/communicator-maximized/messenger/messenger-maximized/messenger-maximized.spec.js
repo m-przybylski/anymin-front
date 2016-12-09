@@ -4,6 +4,7 @@ describe('Unit testing: profitelo.components.communicator.communicator-maximized
     let scope
     let rootScope
     let compile
+    let element
     let component
     let validHTML = '<messenger-maximized data-call-length="0" data-call-cost="0"></messenger-maximized>'
 
@@ -52,10 +53,10 @@ describe('Unit testing: profitelo.components.communicator.communicator-maximized
       inject(($rootScope, $compile, $timeout, _$componentController_, _$window_, _HelperService_, _messengerService_, ___) => {
         rootScope = $rootScope.$new()
         compile = $compile
-
         const injectors = {
           messengerService: _messengerService_,
           _: ___,
+          $element: create(validHTML),
           HelperService: _HelperService_
         }
 

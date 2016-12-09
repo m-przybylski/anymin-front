@@ -21,7 +21,7 @@ describe('Unit tests: CompanyProfileController >', () => {
       module('profitelo.services.recommended-profiles-service')
       inject(($rootScope, $stateParams, $timeout, $controller, $q, _smoothScrolling_, _recommendedProfilesServices_) => {
 
-        spyOn(_recommendedProfilesServices_, "getRecommendedCompanies").and.callFake(() =>
+        spyOn(_recommendedProfilesServices_, 'getRecommendedCompanies').and.callFake(() =>
           $q.resolve([]))
 
         _scope = $rootScope.$new()

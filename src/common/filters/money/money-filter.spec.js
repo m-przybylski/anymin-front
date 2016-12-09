@@ -18,7 +18,7 @@ describe('Unit testing: profitelo.filters.money >', () => {
         currency: 'PLN'
       }
 
-      expect($filter('money')(moneyObj)).toBe('10.00 PLN')
+      expect($filter('money')(moneyObj)).toBe('<span class="amount">10.00</span><span class="currency">PLN</span>')
     })
 
   })

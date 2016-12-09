@@ -4,7 +4,7 @@
     function linkFunction(scope, elem, attrs) {
 
       scope.startCall = () => {
-        callService.callServiceId(scope.serviceTagsEmployeesTuple.id)
+        callService.callServiceId(scope.serviceTagsEmployeesTuple.service.id)
       }
 
       scope.tags = scope.serviceTagsEmployeesTuple.tags
@@ -32,6 +32,7 @@
   angular.module('profitelo.directives.expert-profile.pro-expert-single-consultation', [
     'profitelo.components.pro-summary-tag',
     'profitelo.services.call',
+    'profitelo.filters.money',
     'profitelo.services.helper',
     'profitelo.components.interface.collapse-tab'
   ])

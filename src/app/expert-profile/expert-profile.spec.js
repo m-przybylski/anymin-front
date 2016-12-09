@@ -16,7 +16,7 @@ describe('Unit tests: ExpertProfileController >', () => {
 
         _scope = $rootScope.$new()
 
-        spyOn(_recommendedProfilesServices_, "getRecommendedCompanies").and.callFake(() =>
+        spyOn(_recommendedProfilesServices_, 'getRecommendedCompanies').and.callFake(() =>
           $q.resolve([]))
 
         ExpertProfileController = $controller('ExpertProfileController', {

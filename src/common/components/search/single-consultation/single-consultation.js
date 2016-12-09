@@ -45,6 +45,7 @@
   angular.module('profitelo.components.search.single-consultation', [
     'pascalprecht.translate',
     'profitelo.services.call',
+    'profitelo.filters.money',
     'profitelo.services.helper',
     'profitelo.filters.object-size-filter',
     'profitelo.services.resolvers.app.service-provider-image-resolver'
