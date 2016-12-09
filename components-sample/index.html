@@ -123,6 +123,35 @@
 
  </div>
 
+<div class="flex-row playground-row">
+   <div class="component-complain-status status-in-progress">
+    <span data-ng-show="$ctrl.isStatusInProgress" class="complain-status ng-hide">
+     <span class="icon icon-time-16-1"></span>
+     <span data-translate="DASHBOARD.CLIENT.COMPLAINT_IN_PROGRESS" class="ng-scope">Reklamacja w trakcie</span>
+   </span>
+ </div>
+ <div class="component-complain-status status-accepted">
+   <span data-ng-show="$ctrl.isStatusAccepted" class="complain-status">
+     <span class="icon icon-success-16"></span>
+     <span data-translate="DASHBOARD.CLIENT.COMPLAINT_ACCEPTED" class="ng-scope">Reklamacja uznana</span>
+   </span>
+ </div>
+ <div class="component-complain-status status-rejected">
+   <span data-ng-show="$ctrl.isStatusRejected" class="complain-status ng-hide">
+     <span class="icon icon-close-small-16"></span>
+     <span data-translate="DASHBOARD.CLIENT.COMPLAINT_REJECTED" class="ng-scope">Reklamacja odrzucona</span>
+   </span>
+ </div>
+ <div class="component-complain-status status-reported">
+   <span data-ng-show="$ctrl.isStatusReported" class="complain-status ng-hide">
+     <span class="icon icon-warning-16"></span>
+     <span data-translate="DASHBOARD.CLIENT.COMPLAINT_REPORTED" class="ng-scope">Reklamacja zgłoszona</span>
+   </span>
+ </div>
+ </div>
+<div class="flex-row playground-row">
+ <div class="show-more-results"><a data-translate="DASHBOARD.CLIENT.SHOW_MORE_RESULTS" class="btn btn-primary ng-scope">Zobacz więcej wyników</a></div>
+ </div>
 
   </div>
 </body>

@@ -257,10 +257,15 @@
     'profitelo.controller.post-register',
     'profitelo.controller.post-register.set-password',
     'profitelo.controller.post-register.set-email',
+    'profitelo.components.interface.go-to-top',
+    'profitelo.controller.dashboard.client',
+    'profitelo.controller.dashboard.client.activities',
+    'profitelo.controller.dashboard.client.favourites',
+
     'profitelo.controller.error',
 
 
-    
+
     // directives
     'profitelo.directives.pro-top-waiting-loader',
     'profitelo.directives.page-title',

@@ -64,6 +64,21 @@ input, textarea
 
 /* dropdown */
 .ui-select-container
+  transition: border-color 0.2s
+  border-radius: 3px
+  display: flex
+  background: none
+  border: 1px solid $c-lines
+  height: 56px
+  position: relative
+  align-items: stretch
+
+  &:hover
+    border-color: $c-primary
+
+  &.open
+    border-color: $c-primary
+
   &.ui-select-multiple
     min-height: 56px
     padding: 16px

@@ -1,0 +1,54 @@
+.dashboard-client-nav
+  margin: 0 0 32px
+
+  +smm
+    margin: 0
+
+  ul
+    border-bottom: 1px solid $c-lines
+    display: flex
+    margin: 0 0 32px
+
+    li
+      text-align: center
+      width: 50%
+
+      +smm
+        width: auto
+        margin: 0 12px
+
+      &:first-child
+        +smm
+          margin: 0 12px 0 0
+
+      &:hover,
+      &.is-active
+        a
+          color: $c-primary
+          box-shadow: 0 1px 0 0 $c-primary
+
+      a
+        +default-font-regular
+        padding: 16px 0
+        display: block
+        text-transform: uppercase
+        color: $c-secondary-txt
+        font-size: $f-btn-size
+
+  .client-credits
+    text-align: center
+
+    +xsm
+      display: flex
+      justify-content: flex-end
+      align-items: center
+
+    span
+      +default-font-heavy
+      color: $c-primary-txt
+      font-size: $f-h2-size
+      margin: 0 0 32px
+      display: block
+
+      +xsm
+        margin: 0 32px 0 0
