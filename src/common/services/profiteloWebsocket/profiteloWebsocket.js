@@ -1,6 +1,8 @@
 (function() {
 
-  function service($log, UtilsService, CommonConfig) {
+  function service($log, $rootScope, $timeout, UtilsService, CommonConfig) {
+
+    const reconnectTimeout = 1000
 
     const events = {
       onCallSummary: 'onCallSummary',
@@ -70,12 +72,27 @@
     const onSocketError = (err) =>
       $log.error(err)
 
+
+    const cleanEvents = () => {
+      websocket.onopen = null
+      websocket.onmessage = null
+      websocket.onerror = null
+      websocket.onclose = null
+    }
+
     const onSocketClose = (event) => {
       $log.info('Profitelo websocket closed', event)
-      connectWebsocket()
+      cleanEvents()
+
+      $timeout(connectWebsocket, reconnectTimeout)
     }
 
     const connectWebsocket = () => {
+      if (!$rootScope.loggedIn) {
+        $timeout(connectWebsocket, reconnectTimeout)
+        return
+      }
+
       websocket = new WebSocket(wsEndpoint)
       websocket.onopen = onSocketOpen
       websocket.onmessage = onSocketMessage
