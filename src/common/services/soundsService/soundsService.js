@@ -5,10 +5,10 @@
     const path = '/assets/sounds/'
 
     const soundFiles = {
-      callIncoming: 'call_incoming.mp3',
+      callIncoming: 'call_incoming.wav',
       callConnecting: 'call_connecting.mp3',
-      callEnded: 'call_ended.mp3',
-      callRejected: 'call_rejected.mp3',
+      callEnded: 'call_ended.wav',
+      callRejected: 'call_rejected.wav',
       messageNew: 'message_new.mp3'
     }
 
