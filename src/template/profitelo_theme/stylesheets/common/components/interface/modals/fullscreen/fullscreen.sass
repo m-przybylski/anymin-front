@@ -17,7 +17,7 @@
     align-items: center
 
   &.fullscreen-navbar
-    height: calc(100vh - $dashboard-navbar-width)
+    height: 100vh
 
   .full-height-modal
     overflow-y: scroll
@@ -30,3 +30,12 @@
       padding: 0
       overflow: auto
       display: block
+
+  &.scrollable
+    padding: $f-navbar-height 0 0 0
+    display: block
+    overflow: scroll
+    height: 100vh
+
+    +smm
+      padding: $f-navbar-height + 64px 0 64px 0

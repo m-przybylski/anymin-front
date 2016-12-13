@@ -1,6 +1,11 @@
 (function() {
   /* @ngInject */
-  function controller() {
+  function controller(modalsService) {
+
+    this.showConsultationDetails = () => {
+      modalsService.createClientConversationSummaryModal()
+    }
+
 
     return this
   }
@@ -13,6 +18,7 @@
 
   angular.module('profitelo.components.dashboard.client.activities.last-activities.last-activities-list', [
     'pascalprecht.translate',
+    'profitelo.services.modals',
     'profitelo.components.complaints.status'
   ])
     .component('clientLastActivitiesList', component)
