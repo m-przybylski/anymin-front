@@ -33,7 +33,7 @@
         $state.go('app.dashboard.service-provider.individual-path')
       } else {
         ServiceApi.postServicesVerify().$promise.then((res)=> {
-          $state.go('app.dashboard.start')
+          $state.go('app.dashboard.client.favourites')
           communicatorService.authenticate()
           proTopAlertService.success({
             message: $filter('translate')('DASHBOARD.CREATE_PROFILE.SUMMARY_VERIFY'),

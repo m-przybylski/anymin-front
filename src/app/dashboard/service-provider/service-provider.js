@@ -1,8 +1,12 @@
 (function() {
-  function ServiceProviderController() {
+  function ServiceProviderController($state) {
+
+    this.onClose = () =>{
+      console.log('adsdadaads')
+    }
+      //$state.go('app.dashboard.client.favourites')
 
     return this
-
   }
 
   angular.module('profitelo.controller.dashboard.service-provider', [

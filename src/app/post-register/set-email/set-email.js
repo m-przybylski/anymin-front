@@ -49,7 +49,7 @@
             timeout: 3
           })
           User.setData({unverifiedEmail: this.email})
-          $state.go('app.dashboard.start')
+          $state.go('app.dashboard.client.favourites')
         })
       })
     }
@@ -72,7 +72,7 @@
               (angular.isDefined(status.unverifiedEmail) && status.unverifiedEmail)) || (
                 angular.isDefined(status.hasPassword) && !status.hasPassword
               )) {
-              return $state.go('app.dashboard.start')
+              return $state.go('app.dashboard.client.favourites')
             } else {
               return $q.resolve()
             }

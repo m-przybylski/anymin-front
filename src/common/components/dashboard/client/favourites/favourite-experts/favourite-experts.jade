@@ -3,10 +3,6 @@
         h3(data-translate="DASHBOARD.CLIENT.FAVOURITE_EXPERTS.TITLE")
 
     .favourite-experts-list
-        client-favourite-expert.client-favourite-expert()
-        client-favourite-expert.client-favourite-expert()
-        client-favourite-expert.client-favourite-expert()
-        client-favourite-expert.client-favourite-expert()
-        client-favourite-expert.client-favourite-expert()
-        client-favourite-expert.client-favourite-expert()
-        client-favourite-expert.client-favourite-expert()
+        client-favourite-expert.client-favourite-expert(
+        data-ng-repeat="favouriteExpert in $ctrl.favouriteExperts | orderBy:favouriteExpert.profileFavourite.createdAt:true"
+        data-favourite-expert="favouriteExpert")

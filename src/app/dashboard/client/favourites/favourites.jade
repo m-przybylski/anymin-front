@@ -1,16 +1,20 @@
 .client-favourites-page
-    .client-favourite-content
-        .default-container
-            //client-no-favourite-experts()
+  .client-credits.default-container(data-ng-bind-html="vm.balance | money")
+    a.btn.btn-primary(data-translate="DASHBOARD.CLIENT.RECHARGE" data-ui-sref="app.dashboard.charge-account")
+  .client-favourite-content
+    .default-container(data-ng-if="(!vm.lastConsultations || vm.lastConsultations.length < 1) && (!vm.favouriteProfiles || vm.favouriteProfiles.length < 1)")
+      client-no-favourite-experts()
 
-        .default-container
-            .entry-title
-                h3(data-translate="DASHBOARD.CLIENT.FAVOURITE_EXPERTS.RECENTLY_CONSULTED.TITLE")
-                similar-experts-slider(data-title="title")
+    div(data-ng-if="vm.lastConsultations && vm.lastConsultations.length > 0 || vm.favouriteProfiles && vm.favouriteProfiles.length > 0")
+      .default-container(data-ng-if="vm.lastConsultations && vm.lastConsultations.length > 0")
+        .entry-title
+          h3(data-translate="DASHBOARD.CLIENT.FAVOURITE_EXPERTS.RECENTLY_CONSULTED.TITLE")
+          last-consultation-slider(consultations="vm.lastConsultations")
 
-        .default-container
-            client-favourite-experts()
+      .default-container(data-ng-if="vm.favouriteProfiles && vm.favouriteProfiles.length > 0")
+        client-favourite-experts(data-favourite-experts="vm.favouriteProfiles")
 
-        .default-container
-            .entry-title
-                h3(data-translate="DASHBOARD.CLIENT.FAVOURITE_EXPERTS.RECOMENDED_CONSULTATION.TITLE")
+      .default-container(data-ng-if="vm.similarExperts && vm.similarExperts.length > 0")
+        .entry-title
+          h3(data-translate="DASHBOARD.CLIENT.FAVOURITE_EXPERTS.RECOMENDED_CONSULTATION.TITLE")
+          similar-experts-slider(consultations="vm.similarExperts")

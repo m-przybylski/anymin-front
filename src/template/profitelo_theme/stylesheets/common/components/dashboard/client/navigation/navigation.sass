@@ -35,20 +35,28 @@
         color: $c-secondary-txt
         font-size: $f-btn-size
 
-  .client-credits
-    text-align: center
+.client-credits
+  text-align: center
+  margin: 0 0 32px
+
+  +xsm
+    display: flex
+    justify-content: flex-end
+    align-items: center
+
+  +smm
+    margin: 0
+
+  span
+    +default-font-heavy
+    color: $c-primary-txt
+    font-size: $f-h2-size
+    margin: 0 0 24px
+    display: flex
+    justify-content: center
 
     +xsm
-      display: flex
-      justify-content: flex-end
-      align-items: center
+      margin: 0 24px 0 0
 
     span
-      +default-font-heavy
-      color: $c-primary-txt
-      font-size: $f-h2-size
-      margin: 0 0 32px
-      display: block
-
-      +xsm
-        margin: 0 32px 0 0
+      margin: 0 8px 0 0

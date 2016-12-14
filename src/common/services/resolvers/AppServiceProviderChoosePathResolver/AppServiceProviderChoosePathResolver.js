@@ -15,7 +15,7 @@
           } else {
             $state.go('app.dashboard.service-provider.company-path')
             // TODO when wizard is done
-            // $state.go('app.dashboard.start')
+            // $state.go('app.dashboard.client.favourites')
           }
           _deferred.resolve(response)
         }, () => {

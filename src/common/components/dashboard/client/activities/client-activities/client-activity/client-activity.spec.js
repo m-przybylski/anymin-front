@@ -1,15 +1,25 @@
-describe('Unit testing: profitelo.components.dashboard.client.activities.last-activities', () => {
-  return describe('for clientLastActivities >', () => {
+describe('Unit testing: profitelo.components.dashboard.client.activities.client-activity', () => {
+  return describe('for clientLastActivitiesList >', () => {
 
     let scope
     let rootScope
     let compile
     let componentController
     let component
-    let validHTML = '<client-last-activities></client-last-activities>'
+    const activity = {
+      sueProfileServiceTuple: {
+        profile: {
+          expertDetails: {
+
+          }
+        }
+      }
+    }
+    let validHTML = '<client-activity data-activity="activity"></client-activity>'
 
     function create(html) {
       scope = rootScope.$new()
+      scope.activity = activity
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
       scope.$digest()
@@ -18,7 +28,9 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.last-ac
 
     beforeEach(() => {
       module('templates-module')
-      module('profitelo.components.dashboard.client.activities.last-activities')
+      module('profitelo.components.dashboard.client.activities.client-activity')
+      module('profitelo.services.helper')
+      module('profitelo.filters.money')
 
       inject(($rootScope, $compile, _$componentController_) => {
         componentController = _$componentController_
@@ -26,7 +38,6 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.last-ac
         compile = $compile
       })
 
-      component = componentController('clientLastActivities', {})
     })
 
     it('should have a dummy test', inject(() => {

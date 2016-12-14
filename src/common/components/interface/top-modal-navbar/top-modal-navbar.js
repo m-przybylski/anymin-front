@@ -7,6 +7,8 @@
     const onClose = () => {
       if (angular.isFunction(this.onClose)) {
         this.onClose()
+      } else {
+        $state.go('app.dashboard.client.favourites')
       }
     }
 

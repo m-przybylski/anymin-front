@@ -4,8 +4,10 @@
     const amount = parseInt(_amount, 10)
     const major = (amount) ? parseInt(amount / 100, 10) : 0
     const minor = (amount) ? amount % 100 : 0
-    const minorFirst = (minor) ? minor % 10 : 0
-    const minorSecond = (minor) ? parseInt(minor / 10, 10) : 0
+    let minorFirst = (minor) ? minor % 10 : 0
+    let minorSecond = (minor) ? parseInt(minor / 10, 10) : 0
+    minorFirst = minorFirst < 0 ? minorFirst * -1 : minorFirst
+    minorSecond = minorSecond < 0 ? minorSecond * -1 : minorSecond
     return major + '.' + minorSecond + minorFirst
   }
 

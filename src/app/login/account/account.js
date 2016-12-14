@@ -73,7 +73,7 @@
           $rootScope.loggedIn = true
           this.isPending = false
           proTopWaitingLoaderService.stopLoader()
-          $state.go('app.dashboard.start')
+          $state.go('app.dashboard.client.favourites')
           loginStateService.clearServiceObject()
           proTopAlertService.success({
             message: $filter('translate')('LOGIN.SUCCESSFUL_LOGIN'),

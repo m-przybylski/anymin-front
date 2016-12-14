@@ -1,5 +1,5 @@
 (function() {
-  function proTopNavbar($window, $state, $location, searchService, smoothScrolling) {
+  function proTopNavbar($window, $state, $location, User, searchService, smoothScrolling) {
 
     function linkFunction(scope, elem, attrs) {
 
@@ -33,6 +33,10 @@
       scope.searchModel = null
       scope.logout = ()=> {
         scope.logoutAction()
+      }
+
+      if (User.getStatus()) {
+        scope.userId = User.getData('id')
       }
 
       /* istanbul ignore next */
@@ -141,6 +145,7 @@
     'pascalprecht.translate',
     'profitelo.services.search',
     'ui.router',
+    'c7s.ng.userAuth',
     'profitelo.directives.services.smooth-scrolling'
   ])
     .directive('proTopNavbar', proTopNavbar)

@@ -75,7 +75,7 @@ describe('Unit tests: profitelo.controller.post-register.set-email>', () => {
       SetEmailController.setNewEmail()
       _$httpBackend.flush()
 
-      expect($state.go).toHaveBeenCalledWith('app.dashboard.start')
+      expect($state.go).toHaveBeenCalledWith('app.dashboard.client.favourites')
     })
 
     it('should handle bad requesnt while setting new email', () => {
