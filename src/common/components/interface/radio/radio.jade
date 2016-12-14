@@ -4,6 +4,9 @@
       type="radio"
       id="{{ $ctrl.id }}"
       name="$ctrl.name"
+      value="{{$ctrl.value}}"
+      ng-model="$ctrl.ngModel"
+      ng-change="$ctrl.click()"
     )
     label.label
 

@@ -1,10 +1,12 @@
 .radio-text.radio
   div
     input(
-      ng-value="$ctrl.specialValue"
       type="radio"
       id="{{ $ctrl.id }}"
       name="$ctrl.name"
+      value="{{ $ctrl.value }}"
+      ng-model="value"
+      ng-change='$ctrl.newValue(value)'
     )
     label.label
 

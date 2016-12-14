@@ -2,6 +2,10 @@
   /* @ngInject */
   function controller() {
 
+    console.log("wooho", this.value)
+    this.click = (elo) => {
+      console.log('artur pala', this.value, this.ngModel)
+    }
     return this
   }
 
@@ -9,7 +13,9 @@
     bindings: {
       label: '@',
       name: '@',
-      id: '@'
+      id: '@',
+      ngModel: '=?',
+      value: '@'
     },
     templateUrl: 'components/interface/radio/radio.tpl.html',
     controllerAs: '$ctrl',

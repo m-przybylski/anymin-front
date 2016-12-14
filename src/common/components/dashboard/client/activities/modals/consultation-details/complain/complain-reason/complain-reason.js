@@ -5,6 +5,11 @@
       modalsService.createClientComplainReportModal()
     }
 
+      console.log("click", this.value, this.model)
+
+
+    this.model = {}
+
     return this
   }
 

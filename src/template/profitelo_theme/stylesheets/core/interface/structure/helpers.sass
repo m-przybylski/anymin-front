@@ -1,14 +1,25 @@
 .default-container-small
-  max-width: 640px
   min-width: 320px
   margin: 0 auto
   padding: 0 16px
+
+  +smm
+    max-width: 640px
 
   +mdm
     padding: 0 48px
 
   +lgm
     padding: 0
+
+  &.no-padding
+    padding: 0
+
+    +smm
+      padding: 0 32px
+
+    +xlgm
+      padding: 0
 
 .default-container
   max-width: 1280px
@@ -18,14 +29,23 @@
   margin: 0 auto
   position: relative
 
-  &.expert-slider
-    transform: translateY(200px)
-
   +smm
     padding: 0 32px
 
   +xlgm
     padding: 0
+
+  &.expert-slider
+    transform: translateY(200px)
+
+  &.no-padding
+    padding: 0
+
+    +smm
+      padding: 0 32px
+
+    +xlgm
+      padding: 0
 
 .flex-col
   display: flex

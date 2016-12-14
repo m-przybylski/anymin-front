@@ -1,13 +1,20 @@
 .details-tab
   .details-tab-row
-    display: flex
-    justify-content: space-between
-    margin: 0 0
+    margin: 0 0 8px
     padding: 0 16px
+
+    +xsm
+      margin: 0
+      display: flex
+      justify-content: space-between
 
     &.header-row
       border-bottom: 1px solid $c-lines
-      margin: 0 0 16px
+      padding: 0 16px 8px
+
+      +xsm
+        padding: 0 16px
+        margin: 0 0 16px
 
       span
         +default-font-heavy
@@ -15,8 +22,11 @@
   span
     font-size: $f-paragraph
     color: $c-primary-txt
-    padding: 8px 0
+    padding: 0
     display: block
+
+    +xsm
+      padding: 8px 0
 
   .details-tab-label
     span

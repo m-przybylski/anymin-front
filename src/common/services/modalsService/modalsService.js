@@ -70,9 +70,10 @@
       })
     }
 
-    const _createClientConversationSummaryModal = () => {
+    const _createClientSUEActivityDetailsModal = (sueId) => {
       const dialogScope = $rootScope.$new(true)
 
+      dialogScope.sueId = sueId
       return DialogService.openDialog({
         controller: 'clientConsultationDetails',
         templateUrl: 'components/dashboard/client/activities/modals/consultation-details/consultation-details.tpl.html',
@@ -99,7 +100,7 @@
       createServiceUnavailableModal: _createServiceUnavailableModal,
       createClientConsultationSummaryModal: _createClientConsultationSummaryModal,
       createExpertConsultationSummaryModal: _createExpertConsultationSummaryModal,
-      createClientConversationSummaryModal: _createClientConversationSummaryModal,
+      createClientSUEActivityDetailsModal: _createClientSUEActivityDetailsModal,
       createClientComplainReportModal: _createClientComplainReportModal
     }
   }

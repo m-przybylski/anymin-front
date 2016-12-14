@@ -1,6 +1,6 @@
 (function() {
   /* @ngInject */
-  function controller(HelperService) {
+  function controller(HelperService, modalsService) {
 
     if (angular.isDefined(this.activity) && this.activity.sueProfileServiceTuple &&
       this.activity.sueProfileServiceTuple.profile.expertDetails.avatar &&
@@ -10,8 +10,8 @@
       this.imageUrl = null
     }
 
-    this.openActivityDescription = () => {
-
+    this.openActivityDescription = (sueId) => {
+      modalsService.createClientSUEActivityDetailsModal(sueId)
     }
 
     return this
