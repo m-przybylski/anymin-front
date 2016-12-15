@@ -1,7 +1,7 @@
 (function() {
   /* @ngInject */
-  function controller($scope, $filter, clientActivitiesService) {
-    const watchGroup = ['activityType', 'profileId', 'serviceId', 'dateFrom', 'dateTo']
+  function controller($scope, $timeout, $filter, clientActivitiesService) {
+    const watchGroup = ['dateFrom', 'dateTo']
     this.filterModel = {}
     this.showMobileFilters = true
     this.activityTypesList = this.filters.activityTypes.map((type) => {
@@ -45,16 +45,41 @@
     }
 
     clientActivitiesService.onQueryParamsChange($scope, (param) => {
+
+      this.selectedType = _.find(this.activityTypesList, (type) => {
+        return type.value === param._activityType
+      })
     })
 
     clientActivitiesService.onActivitiesResults($scope, (err, results, prevResults) => {
     })
 
+    this.updateActivityTypeParam = (item, model) => {
+      const queryParam = this.filterModel
+      queryParam['activityType'] = item.value
+      if(item.value === 'FINANCIAL_TRANSACTION') {
+      }
+      clientActivitiesService.setClientActivitiesParam(queryParam)
+    }
+
+    this.updateProfileParam = (item, model) => {
+      const queryParam = this.filterModel
+      queryParam['profileId'] = item.value
+      clientActivitiesService.setClientActivitiesParam(queryParam)
+    }
+
+
+    this.updateServiceParam = (item, model) => {
+      const queryParam = this.filterModel
+      queryParam['serviceId'] = item.value
+      clientActivitiesService.setClientActivitiesParam(queryParam)
+    }
+
     $scope.$watchGroup(watchGroup.map((v) => {
       return '$ctrl.filterModel.' + v
     }), (newValues, oldValues) => {
+      let searchQueryParams = {}
       if (!angular.equals(newValues, oldValues)) {
-        let searchQueryParams = {}
         angular.forEach(newValues, (value, idx) => {
           if (angular.isDefined(value)) {
             searchQueryParams[watchGroup[idx]] = value

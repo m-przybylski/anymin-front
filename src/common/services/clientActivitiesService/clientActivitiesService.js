@@ -113,6 +113,7 @@
             return this._dateFrom
           },
           set: function(v) {
+            //v = v instanceof Date ? v : undefined
             if (v !== this._dateFrom) {
               this.areDirty = true
               this._dateFrom = v
@@ -131,7 +132,12 @@
             return this._dateTo
           },
           set: function(v) {
+            //v = v instanceof Date ? v : undefined
             if (v !== this._dateTo) {
+              if (v !== undefined) {
+                //TODO It will not working with time zones
+                v.setHours(23,59,59,999)
+              }
               this.areDirty = true
               this._dateTo = v
             }
@@ -149,7 +155,7 @@
             return this._limit
           },
           set: function(v) {
-            v = v ? Number(v) : undefined
+            v = v > 0 ? Number(v) : 0
             if (v !== this._limit) {
               this.areDirty = true
               this._limit = v
@@ -168,7 +174,7 @@
             return this._offset
           },
           set: function(v) {
-            v = v ? Number(v) : undefined
+            v = v > 0 ? Number(v) : 0
             if (v !== this._offset) {
               this.areDirty = true
               this._offset = v
@@ -228,6 +234,8 @@
 
         _queryParams['offset'] = 0
         _queryParams['limit'] = _queryLimit
+
+        console.log(_queryParams)
         _searchClientActivities(_queryParams).then((response) => {
           _notifyOnQueryParams(_queryParams)
           _notifyOnActivitiesResults(null, response, null)
@@ -256,6 +264,14 @@
     const _searchClientActivities = (queryParam) =>
       ViewsApi.getDashboardClientActivities(queryParam).$promise
 
+    const _clearQueryParams = () => {
+      angular.forEach(Object.keys(_queryParams), (fieldName) => {
+        if (_queryParams.hasOwnProperty(fieldName)) {
+          _queryParams[fieldName] = void 0
+        }
+      })
+    }
+
 
     const _resolve = () => {
       _queryParams['offset'] = '0'
@@ -263,12 +279,14 @@
       return _searchClientActivities(_queryParams).then(_handleClientActivitiesResponse, _handleClientActivitiesResponseError)
     }
 
+
     return {
       resolve: _resolve,
       setClientActivitiesParam: _setClientActivitiesParam,
       getMoreResults: _getMoreResults,
       onQueryParamsChange: _subscribeForQueryParams,
-      onActivitiesResults: _subscribeForActivitiesResults
+      onActivitiesResults: _subscribeForActivitiesResults,
+      clearQueryParam: _clearQueryParams
     }
   }
 

@@ -1,27 +1,30 @@
 .client-filters
   .client-filters-collapse(data-ng-class="{'is-collapsed': $ctrl.showMobileFilters}")
-      .client-filter
-          pro-dropdown(data-pro-model='$ctrl.filterModel.activityType' data-label="{{::'DASHBOARD.CLIENT.FILTER.ACTIVITIES' | translate }}"
-          data-placeholder="{{::'SEARCH.ALL' | translate }}" data-pro-items="$ctrl.activityTypesList" data-no-search)
+    .client-filter
+      pro-dropdown(data-pro-model='$ctrl.filterModel.activityType' data-label="{{::'DASHBOARD.CLIENT.FILTER.ACTIVITIES' | translate }}"
+      data-placeholder="{{::'SEARCH.ALL' | translate }}" data-pro-items="$ctrl.activityTypesList" data-no-search
+      data-callback="$ctrl.updateActivityTypeParam" data-selected-item="$ctrl.selectedType")
 
-          pro-dropdown(data-pro-model='$ctrl.filterModel.profileId' data-label="{{::'DASHBOARD.CLIENT.FILTER.EXPERTS' | translate }}"
-          data-placeholder="{{::'DASHBOARD.CLIENT.FILTER.ALL' | translate }}" data-pro-items="$ctrl.expertsList" data-no-search)
+      pro-dropdown(data-pro-model='$ctrl.filterModel.profileId' data-label="{{::'DASHBOARD.CLIENT.FILTER.EXPERTS' | translate }}"
+      data-placeholder="{{::'DASHBOARD.CLIENT.FILTER.ALL' | translate }}" data-pro-items="$ctrl.expertsList" data-no-search
+      data-callback="$ctrl.updateProfileParam")
 
-          pro-dropdown(data-pro-model='$ctrl.filterModel.serviceId' data-label="{{::'DASHBOARD.CLIENT.FILTER.CONSULTATIONS' | translate }}"
-          data-placeholder="{{::'SEARCH.ALL' | translate }}" data-pro-items="$ctrl.servicesList" data-no-search)
+      pro-dropdown(data-pro-model='$ctrl.filterModel.serviceId' data-label="{{::'DASHBOARD.CLIENT.FILTER.CONSULTATIONS' | translate }}"
+      data-placeholder="{{::'SEARCH.ALL' | translate }}" data-pro-items="$ctrl.servicesList" data-no-search
+      data-callback="$ctrl.updateServiceParam")
 
-          div.filter-download
-              .calendar
-                  pro-calendar(data-ng-model="$ctrl.filterModel.dateFrom"  data-placeholder="Placeholder" data-defaultValue="true"
-                  data-label="{{:: 'DASHBOARD.CLIENT.FILTER.FROM' | translate }}")
-                  pro-calendar(data-ng-model="$ctrl.filterModel.dateTo" data-placeholder="Placeholder" data-defaultValue="true"
-                  data-label="{{:: 'DASHBOARD.CLIENT.FILTER.TO' | translate }}")
+      div.filter-download
+        .calendar
+          pro-calendar(data-ng-model="$ctrl.filterModel.dateFrom"  data-placeholder="Placeholder" data-defaultValue="true"
+          data-label="{{:: 'DASHBOARD.CLIENT.FILTER.FROM' | translate }}")
+          pro-calendar(data-ng-model="$ctrl.filterModel.dateTo" data-placeholder="Placeholder" data-defaultValue="true"
+          data-label="{{:: 'DASHBOARD.CLIENT.FILTER.TO' | translate }}")
 
-              a.btn.btn-primary
-                  span.icon.icon-download-report-24
+        a.btn.btn-primary
+          span.icon.icon-download-report-24
 
   .collapse-btn-filter(data-ng-click="$ctrl.showFilters()")
-      .btn.btn-noborder
-          span.icon.icon-filter-24.icon-24
-          span(data-ng-show="$ctrl.showMobileFilters") {{ 'SEARCH.MOBILE_FILTER_BUTTON.OPEN' | translate }}
-          span(data-ng-show="!$ctrl.showMobileFilters") {{ 'SEARCH.MOBILE_FILTER_BUTTON.CLOSE' | translate }}
+    .btn.btn-noborder
+      span.icon.icon-filter-24.icon-24
+      span(data-ng-show="$ctrl.showMobileFilters") {{ '::SEARCH.MOBILE_FILTER_BUTTON.OPEN' | translate }}
+      span(data-ng-show="!$ctrl.showMobileFilters") {{ '::SEARCH.MOBILE_FILTER_BUTTON.CLOSE' | translate }}

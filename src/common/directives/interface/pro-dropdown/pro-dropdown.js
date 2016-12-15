@@ -53,7 +53,9 @@ function proDropdown($timeout) {
       scope.selectedItem = item
       _onFocusOut()
       _getScrollbarChoices().perfectScrollbar()
-
+      if (scope.callback && angular.isFunction(scope.callback)) {
+        scope.callback(item, model)
+      }
     }
 
     scope.isDisable = ()=> {
@@ -92,6 +94,8 @@ function proDropdown($timeout) {
     scope: {
       proModel: '=',
       proItems: '=',
+      callback: '=?',
+      selectedItem: '=?',
       placeholder: '@',
       defaultValue: '@',
       label: '@'

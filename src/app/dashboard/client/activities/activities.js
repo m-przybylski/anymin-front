@@ -18,16 +18,20 @@
     }
 
     clientActivitiesService.onQueryParamsChange($scope, (param) => {
-      console.log(param)
       this.isSearchLoading = false
     })
+
+
 
     clientActivitiesService.onActivitiesResults($scope, (err, results, prevResults) => {
       this.isSearchLoading = false
       this.isParamChange = true
       this.noMoreResults = filter(results.activities) === this.activities
       this.activities = filter(results.activities)
+    })
 
+    $scope.$on("$destroy", function() {
+      clientActivitiesService.clearQueryParam()
     })
 
 
