@@ -11,17 +11,14 @@
     this.expertServiceTuples = clientActivities.expertServiceTuples
     this.filters = {
       activityTypes: clientActivities.activityTypes,
-      experts: _.map(clientActivities.expertServiceTuples , (expertServiceTuple) =>
-        expertServiceTuple.profile),
-      services: _.map(clientActivities.expertServiceTuples, (expertServiceTuple) =>
-        expertServiceTuple.service)
+      expertServiceTuples: clientActivities.expertServiceTuples
     }
+
+
 
     clientActivitiesService.onQueryParamsChange($scope, (param) => {
       this.isSearchLoading = false
     })
-
-
 
     clientActivitiesService.onActivitiesResults($scope, (err, results, prevResults) => {
       this.isSearchLoading = false

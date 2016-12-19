@@ -2,8 +2,7 @@
   function clientActivitiesService($q, $rootScope, ViewsApi, User) {
 
     let _queryParams = {},
-        _activityTypeOptions = ['SERVICE_USAGE_EVENT', 'FINANCIAL_TRANSACTION'],
-        _activityTypeSetByUser = false
+        _activityTypeOptions = ['SERVICE_USAGE_EVENT', 'FINANCIAL_TRANSACTION']
 
     const _defineQueryProperties = (obj) => {
       return Object.defineProperties(obj, {
@@ -28,12 +27,6 @@
             if (v !== this._activityType) {
               this.areDirty = true
               this._activityType = v
-              if (!_activityTypeSetByUser && this._activityType !== _activityTypeOptions[0]) {
-                _activityTypeSetByUser = false
-              }
-            }
-            if (this._activityType === _activityTypeOptions[0] && !_activityTypeSetByUser) {
-              _activityTypeSetByUser = true
             }
           }
         },
@@ -54,16 +47,6 @@
               this.areDirty = true
               this._profileId = v
               this._activityType = _activityTypeOptions[0]
-              if (!this._profileId && !this._serviceId && !_activityTypeSetByUser) {
-                this._activityType = undefined
-              }
-              if (this._activityType === _activityTypeOptions[1]) {
-                this._activityType = _activityTypeOptions[0]
-              }
-            } else {
-              if (this._activityType === _activityTypeOptions[1]) {
-                this._profileId = undefined
-              }
             }
           }
         },
@@ -84,20 +67,6 @@
               this.areDirty = true
               this._serviceId = v
               this._activityType = _activityTypeOptions[0]
-              if (!this._serviceId  && !this._profileId && !_activityTypeSetByUser) {
-                this._activityType = undefined
-              }
-              if (this._activityType === _activityTypeOptions[1]) {
-                this._serviceId = undefined
-              }
-              if (this._activityType === _activityTypeOptions[1]) {
-                this._activityType = _activityTypeOptions[0]
-              }
-
-            } else {
-              if (this._activityType === _activityTypeOptions[1]) {
-                this._serviceId = undefined
-              }
             }
           }
         },

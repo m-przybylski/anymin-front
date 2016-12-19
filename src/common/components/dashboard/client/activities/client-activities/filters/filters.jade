@@ -5,13 +5,21 @@
       data-placeholder="{{::'SEARCH.ALL' | translate }}" data-pro-items="$ctrl.activityTypesList" data-no-search
       data-callback="$ctrl.updateActivityTypeParam" data-selected-item="$ctrl.selectedType")
 
-      pro-dropdown(data-pro-model='$ctrl.filterModel.profileId' data-label="{{::'DASHBOARD.CLIENT.FILTER.EXPERTS' | translate }}"
-      data-placeholder="{{::'DASHBOARD.CLIENT.FILTER.ALL' | translate }}" data-pro-items="$ctrl.expertsList" data-no-search
-      data-callback="$ctrl.updateProfileParam")
+      .pro-dropdown
+        drop-down(data-label="{{::'DASHBOARD.CLIENT.FILTER.EXPERTS' | translate }}"
+        data-main-list="$ctrl.expertsList"
+        data-on-select-main="$ctrl.updateProfileParam"
+        data-placeholder="{{::'SEARCH.ALL' | translate }}"
+        data-selected-item="$ctrl.selectedExpert")
 
-      pro-dropdown(data-pro-model='$ctrl.filterModel.serviceId' data-label="{{::'DASHBOARD.CLIENT.FILTER.CONSULTATIONS' | translate }}"
-      data-placeholder="{{::'SEARCH.ALL' | translate }}" data-pro-items="$ctrl.servicesList" data-no-search
-      data-callback="$ctrl.updateServiceParam")
+      .pro-dropdown
+        drop-down(data-label="{{::'DASHBOARD.CLIENT.FILTER.CONSULTATIONS' | translate }}"
+        data-main-list="$ctrl.servicesList"
+        data-placeholder="{{::'SEARCH.ALL' | translate }}"
+        secondary-list="$ctrl.secondaryServicesList"
+        data-on-select-main="$ctrl.mainUpdateServiceParam"
+        data-on-select-second="$ctrl.secondUpdateServiceParam"
+        data-selected-item="$ctrl.selectedService")
 
       div.filter-download
         .calendar
@@ -20,8 +28,8 @@
           pro-calendar(data-ng-model="$ctrl.filterModel.dateTo" data-placeholder="Placeholder" data-defaultValue="true"
           data-label="{{:: 'DASHBOARD.CLIENT.FILTER.TO' | translate }}")
 
-        a.btn.btn-primary
-          span.icon.icon-download-report-24
+      a.btn.btn-primary
+        span.icon.icon-download-report-24
 
   .collapse-btn-filter(data-ng-click="$ctrl.showFilters()")
     .btn.btn-noborder

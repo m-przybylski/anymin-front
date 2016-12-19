@@ -1,0 +1,25 @@
+.dropdown-input(data-ng-class="{'is-open': $ctrl.isOpen, 'is-active': $ctrl.isActive}")
+  .dropdown-header(data-ng-click="$ctrl.toggleDropdown()")
+    label {{$ctrl.label}}
+    span {{$ctrl.selectedItem.name }}
+    span.placeholder(data-ng-if="!$ctrl.selectedItem") {{$ctrl.mainPlaceholder.name}}
+    .dropdown-icons
+      span.icon.icon-arrow
+
+  .dropdown-content
+    .dropdown-input
+      input(type="text" placeholder="{{ $ctrl.inputPlaceholder }}" data-ng-model="$ctrl.filterBy.name")
+
+    .scroll-list
+      ul.dropdown-list.dropdown-favourite-list
+        li(data-ng-click="$ctrl.onMainItemSelect($ctrl.mainPlaceholder)")
+          a {{ $ctrl.mainPlaceholder.name }}
+        li(data-ng-repeat="item in $ctrl.mainList | filter: $ctrl.filterBy" data-ng-click="$ctrl.onMainItemSelect(item)")
+          a {{ item.name }}
+
+        li.no-results(data-ng-show="!!$ctrl.mainList && $ctrl.mainList.length < 1")
+          a no results
+
+      ul.dropdown-list
+        li(data-ng-repeat="item in $ctrl.secondaryList | filter: $ctrl.filterBy" data-ng-click="$ctrl.onSecondaryItemSelect(item)")
+          a {{ item.name }}

@@ -1,10 +1,10 @@
 describe('Unit testing: profitelo.directives.service-provider.pro-service-provider-summary-step', function() {
   return describe('for proServiceProviderSummaryStep directive >', function() {
 
-    var compile = null
-    var scope = null
+    let compile = null
+    let scope = null
 
-    var validHTML = '<pro-service-provider-summary-step data-consultations="consultations" ' +
+    let validHTML = '<pro-service-provider-summary-step data-consultations="consultations" ' +
     'data-edit-action="editConsultation"' +
     'data-delete-action="deleteConsultation"></pro-service-provider-summary-step>'
 
@@ -19,7 +19,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
     })
 
     function create(html) {
-      var elem = angular.element(validHTML)
+      let elem = angular.element(validHTML)
       scope.consultations = [{}]
       scope.editConsultation = () => {
         return null
@@ -27,7 +27,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
       scope.deleteConsultation = () => {
         return null
       }
-      var compiledElement = compile(elem)(scope)
+      let compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
