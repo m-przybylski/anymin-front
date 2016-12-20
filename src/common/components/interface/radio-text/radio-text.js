@@ -1,13 +1,7 @@
 (function() {
   /* @ngInject */
   function controller() {
-    this.isRadioSelected = true
-
-    this.value= 'default';
-
-    this.newValue = function(type) {
-      console.log(type);
-    }
+    this.isCollapsed = true
 
     return this
   }
@@ -19,6 +13,7 @@
       name: '@',
       id: '@',
       labelDescription: '@',
+      ngModel: '=',
       value: '@'
     },
     templateUrl: 'components/interface/radio-text/radio-text.tpl.html',

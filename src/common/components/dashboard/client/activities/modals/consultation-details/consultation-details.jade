@@ -41,14 +41,16 @@ top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-c
             .details-tab-label
               span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.CONVERSATION_PRICE_MIN")
             .detais-tab-content
-              span(data-ng-bind-html="callCost | money") / MIN
+              span(data-ng-bind-html="callCost | money")
 
         client-recommended-tags()
 
-        collapse-btn.chat-history(data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.CHAT.BUTTON" data-icon="icon-chat-24")
+        collapse-btn.chat-history(data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.CHAT.BUTTON"
+        data-icon="icon-chat-24")
           client-consultation-details-chat()
 
-        collapse-btn(data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.BUTTON" data-icon="icon-complaint-24")
+        collapse-btn(data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.BUTTON"
+        data-icon="icon-complaint-24")
           client-complain()
 
         .btn.btn-collapse(data-ui-sref="app.dashboard.client.activities")
@@ -56,4 +58,5 @@ top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-c
             .btn.collapse-btn-header
               div
                 span.icon.icon-history-24
-                span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.HISTORY_OF_CONVERSATION.BUTTON")
+                span(
+                data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.HISTORY_OF_CONVERSATION.BUTTON")

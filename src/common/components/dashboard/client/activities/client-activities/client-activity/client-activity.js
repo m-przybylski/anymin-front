@@ -29,6 +29,8 @@
   angular.module('profitelo.components.dashboard.client.activities.client-activity', [
     'pascalprecht.translate',
     'profitelo.services.helper',
+    'profitelo.filters.money',
+    'profitelo.services.modals',
     'profitelo.components.complaints.status'
   ])
     .component('clientActivity', component)

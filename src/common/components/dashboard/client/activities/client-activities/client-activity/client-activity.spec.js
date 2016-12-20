@@ -6,38 +6,39 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.client-
     let compile
     let componentController
     let component
-    const activity = {
-      sueProfileServiceTuple: {
-        profile: {
-          expertDetails: {
-
-          }
-        }
-      }
-    }
     let validHTML = '<client-activity data-activity="activity"></client-activity>'
 
     function create(html) {
       scope = rootScope.$new()
-      scope.activity = activity
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
 
+    let bindings = {
+      activity: "ac"
+    }
+
     beforeEach(() => {
       module('templates-module')
-      module('profitelo.components.dashboard.client.activities.client-activity')
       module('profitelo.services.helper')
+      module('profitelo.services.modals')
       module('profitelo.filters.money')
+      module('profitelo.components.complaints.status')
+      module('profitelo.components.dashboard.client.activities.client-activity')
 
-      inject(($rootScope, $compile, _$componentController_) => {
+      inject(($rootScope, $compile, _$componentController_, _modalsService_) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
-      })
 
+        const injectors = {
+          modalsService: _modalsService_
+        }
+
+        component = componentController('clientActivity', injectors, bindings)
+      })
     })
 
     it('should have a dummy test', inject(() => {
@@ -47,5 +48,13 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.client-
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
+
+    it('should have a dummy test', inject((modalsService) => {
+      spyOn(modalsService, 'createClientSUEActivityDetailsModal')
+      component.openActivityDescription()
+      expect(modalsService.createClientSUEActivityDetailsModal).toHaveBeenCalled()
+
+    }))
+
   })
 })

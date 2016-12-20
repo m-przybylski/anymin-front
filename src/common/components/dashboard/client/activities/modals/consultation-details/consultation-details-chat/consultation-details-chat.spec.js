@@ -18,6 +18,7 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.modals.
 
     beforeEach(() => {
       module('templates-module')
+      module('profitelo.components.communicator.communicator-maximized.messenger.messenger-maximized.grouped-messages')
       module('profitelo.components.dashboard.client.activities.modals.consultation-details.consultation-details-chat')
 
       inject(($rootScope, $compile, _$componentController_) => {

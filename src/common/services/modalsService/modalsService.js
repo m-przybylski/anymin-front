@@ -81,7 +81,6 @@
       })
     }
 
-
     const _createClientComplainReportModal = () => {
       const dialogScope = $rootScope.$new(true)
 
@@ -91,8 +90,6 @@
         scope: dialogScope
       })
     }
-
-
 
     return {
       createIncomingCallModal: _createIncomingCallModal,

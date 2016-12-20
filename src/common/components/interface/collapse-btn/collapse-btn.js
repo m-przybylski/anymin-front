@@ -1,21 +1,24 @@
 (function() {
   /* @ngInject */
-  function controller($scope, $element, $window, $log) {
+  function controller($scope, $log, $element, $window) {
     this.stylesObject = {
       minHeight: null
     }
 
     this.isCollapsed = true
 
-    this.collapseToggle = () => {
-      this.isCollapsed = !this.isCollapsed
-
+    const updateStylesObject = () => {
       if (!this.isCollapsed) {
         this.stylesObject.minHeight = getCollapseBtnContentHeight()
       }
       else {
         this.stylesObject.minHeight = getCollapseBtnHeight()
       }
+    }
+
+    this.collapseToggle = () => {
+      this.isCollapsed = !this.isCollapsed
+      updateStylesObject()
     }
 
     const getCollapseBtnHeight = () => {

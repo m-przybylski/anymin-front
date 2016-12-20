@@ -1,32 +1,45 @@
-// describe('Testing Controller: clientConsultationDetails', () => {
+// describe('Unit testing: profitelo.components.dashboard.client.activities.modals.consultation-details', () => {
+//   return describe('for clientConsultationDetails >', () => {
 //
-//   var clientConsultationDetails
-//   var scope
-//   var uibModalInstance = {
-//     dismiss: () => {
+//     let rootScope
+//     let compile
+//     let componentController
+//     let component
+//     let validHTML = '<client-consultation-details></client-consultation-details>'
 //
-//     },
-//     close: () => {
 //
-//     }
-//   }
+//     beforeEach(() => {
+//       module('templates-module')
+//       module('profitelo.swaggerResources')
+//       module('profitelo.components.interface.collapse-btn')
+//       module('profitelo.components.dashboard.client.activities.modals.consultation-details.complain')
+//       module('profitelo.components.dashboard.client.activities.modals.consultation-details.consultation-details-chat')
+//       module('profitelo.components.dashboard.client.activities.modals.consultation-details.recommended-tags')
+//       module('profitelo.services.helper')
+//       module('profitelo.components.dashboard.client.activities.modals.consultation-details')
 //
-//   beforeEach(() => {
-//     module('profitelo.components.dashboard.client.activities.modals.consultation-details')
-//     inject(($rootScope, $controller) => {
+//       inject(($rootScope, $compile, _$componentController_, _HelperService_, _$log_, _$httpBackend_) => {
+//         componentController = _$componentController_
+//         rootScope = $rootScope.$new()
+//         compile = $compile
 //
-//       scope = $rootScope.$new()
-//       scope.disconnectCall = () => {}
+//         const injectors = {
+//           HelperService: _HelperService_,
+//           log: _$log_,
+//           httpBackend: _$httpBackend_
+//         }
 //
-//       clientConsultationDetails = $controller('clientConsultationDetails', {
-//         '$scope': scope,
-//         '$uibModalInstance': uibModalInstance
+//         component = componentController('clientConsultationDetails', injectors, {})
 //       })
 //     })
-//   })
 //
-//   it('should exists', () => {
-//     return expect(!!clientConsultationDetails).toBe(true)
-//   })
+//     it('should have a dummy test', inject(() => {
+//       expect(true).toBeTruthy()
+//     }))
 //
+//     it('should compile the directive', () => {
+//       let el = create(validHTML)
+//       expect(el.html()).toBeDefined(true)
+//     })
+//   })
 // })
