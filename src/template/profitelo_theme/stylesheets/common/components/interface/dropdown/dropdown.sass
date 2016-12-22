@@ -93,9 +93,20 @@
         text-transform: uppercase
         color: $c-label
         font-size: $f-small
-        padding: 24px 16px 8px
+        padding: 16px 16px 8px
         display: block
         cursor: auto
+
+      .all-items
+        display: block
+        padding: 16px
+
+        &:hover
+          background: $c-background
+
+        &.is-active
+          color: $c-primary
+
 
     .dropdown-input
       height: 32px
@@ -121,7 +132,7 @@
         width: 100%
         color: $c-label
         font-size: $f-nav-size
-        padding: 8px 16px 8px 0
+        padding: 8px 24px 8px 0
 
         &:focus
           border-color: $c-primary
@@ -134,8 +145,6 @@
           background: $c-background
 
         &.is-active
-          background: $c-background
-
           a
             color: $c-primary
 
@@ -148,4 +157,4 @@
           padding: 8px 16px
 
       &.dropdown-favourite-list
-        border-bottom: 1px solid $c-lines
+        margin: 0 0 8px
