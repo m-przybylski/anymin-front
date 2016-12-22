@@ -6,6 +6,20 @@
 
     this.isOpen = false
     this.isActive = false
+    this.activeItem = false
+
+    this.mainPlaceholder = {
+      name: this.placeholder,
+      value: void 0
+    }
+
+    this.mainListExist = () => {
+      return angular.isDefined(this.mainList)
+    }
+
+    this.isSecondaryListExist = () => {
+      return angular.isDefined(this.secondaryList)
+    }
 
     this.toggleDropdown = () => {
       this.isOpen = !this.isOpen
@@ -17,17 +31,18 @@
       this.selectedItem = item
     }
 
-    this.mainPlaceholder = {
-      name: this.placeholder,
-      value: void 0
+    this.isSelected = (item) => {
+      return this.activeItem === item
     }
 
     this.onMainItemSelect = (item) => {
+      this.activeItem = item
       onItemChecked(item)
       this.onSelectMain(item)
     }
 
     this.onSecondaryItemSelect = (item) => {
+      this.activeItem = item
       onItemChecked(item)
       this.onSelectSecond(item)
     }

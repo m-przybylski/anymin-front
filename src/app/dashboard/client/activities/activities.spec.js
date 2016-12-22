@@ -18,11 +18,10 @@ describe('Unit tests: DashboardClientActivitiesController >', () => {
     beforeEach(() => {
       module('profitelo.controller.dashboard.client.activities')
 
-      inject(($rootScope, $controller, _$state_, _$timeout_) => {
+      inject(($rootScope, $controller, _$state_) => {
         DashboardClientActivitiesController = $controller('DashboardClientActivitiesController', {
           $state: _$state_,
           $scope: $rootScope.$new(),
-          $timeout: _$timeout_,
           clientActivities: clientActivities,
           clientActivitiesService: clientActivitiesService
         })
