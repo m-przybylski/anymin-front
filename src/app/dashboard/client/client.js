@@ -1,11 +1,64 @@
 (function() {
   function clientController($state, $scope) {
-    
+
+    const getRealStateName = (string) =>{
+      const stringsArray = string.split('.')
+      return stringsArray[stringsArray.length - 1]
+    }
+
+    this.stateNames = {}
+
+    const defineStateProperties = (obj) => {
+      return Object.defineProperties(obj, {
+        _favourites: {
+          enumerable: false,
+          writable: true,
+          value: undefined
+        },
+
+        favourites: {
+          enumerable: true,
+          get: function () {
+            return this._favourites
+          },
+          set: function (v) {
+            if (v !== this._favourites) {
+              this._favourites = v
+              this._activities = !this._favourites
+            }
+          }
+        },
+
+        _activities: {
+          enumerable: false,
+          writable: true,
+          value: undefined
+        },
+
+        activities: {
+          enumerable: true,
+          get: function () {
+            return this._activities
+          },
+          set: function (v) {
+            if (v !== this._activities) {
+              this._activities = v
+              this._favourites = !this._activities
+            }
+          }
+        }
+      })
+    }
+
+    defineStateProperties(this.stateNames)
+    this.stateNames[getRealStateName($state.current.name)] = true
 
     $scope.$watch(() =>{
       return $state.$current.name
-    },(newVal, oldVal) =>{
-      this.isFavourite = newVal.includes('favourites')
+    },(newVal, oldVal) => {
+      if (newVal) {
+        this.stateNames[getRealStateName(newVal)] = true
+      }
     })
 
     return this
@@ -31,7 +84,6 @@
     'ngTouch',
     'c7s.ng.userAuth',
     'profitelo.components.dashboard.client.navigation'
-
   ])
     .config(config)
     .controller('clientController', clientController)

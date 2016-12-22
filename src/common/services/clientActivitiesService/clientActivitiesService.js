@@ -188,10 +188,16 @@
       _notifyOnQueryParams(_queryParams)
     }
 
-    const _getMoreResults = () => {
-      _queryParams['offset'] += _queryLimit
-      _queryParams['limit'] += _queryLimit
-      _searchClientActivities(_queryParams).then(_handleClientActivitiesResponse, _handleClientActivitiesResponseError)
+    const _getMoreResults = (offset) => {
+      _queryParams['offset'] = offset
+      _queryParams['limit'] = _queryLimit
+      _searchClientActivities(_queryParams).then((response) => {
+        _notifyOnQueryParams(_queryParams)
+        _notifyOnActivitiesResults(null, response, _queryParams)
+      }, (error) => {
+        _notifyOnActivitiesResults(error, null, _queryParams)
+        return $q.reject(error)
+      })
     }
 
     const _setClientActivitiesParam = (filterObject) => {
@@ -213,7 +219,7 @@
           _notifyOnActivitiesResults(null, response, _queryParams)
         }, (error) => {
           _notifyOnActivitiesResults(error, null, _queryParams)
-          return q.reject(error)
+          return $q.reject(error)
         })
       } else {
         return $q.reject({

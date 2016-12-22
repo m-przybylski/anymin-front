@@ -1,6 +1,6 @@
 (function() {
   /* @ngInject */
-  function controller(HelperService, modalsService) {
+  function controller(HelperService) {
 
     this.isCallActivity = !!this.activity.sueProfileServiceTuple
 
@@ -12,8 +12,8 @@
       this.imageUrl = null
     }
 
-    this.openActivityDescription = (sueId) => {
-      modalsService.createClientSUEActivityDetailsModal(sueId)
+    this.openActivityDescription = () => {
+
     }
 
     return this

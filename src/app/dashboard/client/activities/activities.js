@@ -2,9 +2,19 @@
 
   function DashboardClientActivitiesController($scope, $timeout, clientActivities, clientActivitiesService) {
 
+    const checkIsMoreResults = (results, limit) => {
+      this.isMoreResults = results.length > limit
+    }
+
     this.queryParams = {}
     this.isSearchLoading = false
     this.isParamChange = false
+
+    checkIsMoreResults(clientActivities.activities, 10)
+    if (this.isMoreResults) {
+      clientActivities.activities.pop()
+    }
+
     this.activities = _.sortBy(clientActivities.activities, (activity) => activity.financialOperation.createdAt)
     this.balance = clientActivities.balance
     this.expertServiceTuples = clientActivities.expertServiceTuples
@@ -23,27 +33,32 @@
     }
 
     this.loadMoreActivities = () => {
-      clientActivitiesService.getMoreResults()
-
+      clientActivitiesService.getMoreResults(this.activities.length)
     }
-
 
     clientActivitiesService.onActivitiesResults($scope, (error, results, queryParams) => {
       $timeout(() => {
         this.isSearchLoading = !results
         this.isError = !!error
       }, 400)
+
       this.queryParams = queryParams
       this.isParamChange = true
+
       if (angular.isDefined(results)) {
+        checkIsMoreResults(results.activities, queryParams.limit - 1)
+        if (this.isMoreResults) {
+          results.activities.pop()
+        }
         if (queryParams.offset === 0) {
-          if (queryParams.offset + queryParams.limit )
           this.activities =  _.sortBy(results.activities, (activity) => activity.financialOperation.createdAt)
         } else {
-          this.activities +=  results.activities
+          this.activities = this.activities.concat(results.activities)
         }
       }
     })
+
+
 
     $scope.$on("$destroy",  () => {
       clientActivitiesService.clearQueryParam()
