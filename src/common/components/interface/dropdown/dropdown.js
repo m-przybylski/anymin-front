@@ -13,13 +13,13 @@
       value: void 0
     }
 
-    this.mainListExist = () => {
-      return angular.isDefined(this.mainList)
-    }
+    this.mainListExist = () =>
+      angular.isDefined(this.mainList) && this.mainList.length > 0
 
-    this.isSecondaryListExist = () => {
-      return angular.isDefined(this.secondaryList)
-    }
+
+    this.isSecondaryListExist = () =>
+      angular.isDefined(this.secondaryList) && this.secondaryList.length > 0
+
 
     this.toggleDropdown = () => {
       this.isOpen = !this.isOpen
@@ -54,11 +54,12 @@
       if (!ifTargetClicked) {
         this.isOpen = false
       }
+      this.filterBy.name = ''
       $scope.$apply()
     })
 
     this.filterBy = {
-      name: ""
+      name: ''
     }
 
     return this
@@ -86,6 +87,6 @@
 
   angular.module('profitelo.components.interface.dropdown', [
   ])
-    .component('dropDown', component)
+    .component('dropdownInput', component)
 
 }())

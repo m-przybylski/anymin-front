@@ -2,6 +2,8 @@
   /* @ngInject */
   function controller(HelperService, modalsService) {
 
+    this.isCallActivity = !!this.activity.sueProfileServiceTuple
+
     if (angular.isDefined(this.activity) && this.activity.sueProfileServiceTuple &&
       this.activity.sueProfileServiceTuple.profile.expertDetails.avatar &&
       this.activity.sueProfileServiceTuple.profile.expertDetails.avatar !== null) {

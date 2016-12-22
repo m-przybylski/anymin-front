@@ -46,7 +46,9 @@
             if (v !== this._profileId) {
               this.areDirty = true
               this._profileId = v
-              this._activityType = _activityTypeOptions[0]
+              if (v !== undefined) {
+                this._activityType = _activityTypeOptions[0]
+              }
             }
           }
         },
@@ -66,7 +68,9 @@
             if (v !== this._serviceId) {
               this.areDirty = true
               this._serviceId = v
-              this._activityType = _activityTypeOptions[0]
+              if (v !== undefined) {
+                this._activityType = _activityTypeOptions[0]
+              }
             }
           }
         },
@@ -82,7 +86,7 @@
             return this._dateFrom
           },
           set: function(v) {
-            //v = v instanceof Date ? v : undefined
+            v = v instanceof Date ? v : undefined
             if (v !== this._dateFrom) {
               this.areDirty = true
               this._dateFrom = v
@@ -101,7 +105,7 @@
             return this._dateTo
           },
           set: function(v) {
-            //v = v instanceof Date ? v : undefined
+            v = v instanceof Date ? v : undefined
             if (v !== this._dateTo) {
               if (v !== undefined) {
                 //TODO It will not working with time zones
@@ -156,13 +160,13 @@
 
     _defineQueryProperties(_queryParams)
 
-    const _queryLimit = 10
+    const _queryLimit = 11
 
     const activitiesResultsEvent = 'activities-results'
     const queryParamsEvent = 'activities-query-params'
 
-    function _notifyOnActivitiesResults(err, results, prevResults) {
-      $rootScope.$emit(activitiesResultsEvent, err, results, prevResults)
+    function _notifyOnActivitiesResults(err, results, queryParams) {
+      $rootScope.$emit(activitiesResultsEvent, err, results, queryParams)
     }
 
     function _notifyOnQueryParams(queryParams) {
@@ -172,7 +176,7 @@
     function _subscribeForActivitiesResults(scope, callback) {
       scope.$on(
         '$destroy',
-        $rootScope.$on(activitiesResultsEvent, (_, err, results, prevResults) => { return callback(err, results, prevResults) })
+        $rootScope.$on(activitiesResultsEvent, (_, err, results, queryParams) => { return callback(err, results, queryParams) })
       )
     }
 
@@ -204,12 +208,13 @@
         _queryParams['offset'] = 0
         _queryParams['limit'] = _queryLimit
 
-        console.log(_queryParams)
         _searchClientActivities(_queryParams).then((response) => {
           _notifyOnQueryParams(_queryParams)
-          _notifyOnActivitiesResults(null, response, null)
-        }, (error) =>
-          $q.reject(error))
+          _notifyOnActivitiesResults(null, response, _queryParams)
+        }, (error) => {
+          _notifyOnActivitiesResults(error, null, _queryParams)
+          return q.reject(error)
+        })
       } else {
         return $q.reject({
           errorMessage: 'Expect parameter to exist and to be an object'
@@ -218,6 +223,7 @@
     }
 
     const _handleClientActivitiesResponse = (response) => {
+
       return {
         activities: response.activities,
         activityTypes: response.activityTypes,

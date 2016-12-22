@@ -4,6 +4,11 @@
     const watchGroup = ['dateFrom', 'dateTo']
     this.filterModel = {}
     this.showMobileFilters = true
+
+    this.showFilters = () => {
+      this.showMobileFilters = !this.showMobileFilters
+    }
+
     this.activityTypesList = this.filters.activityTypes.map((type) => {
       return {
         name: $filter('translate')($filter('normalizeTranslationKey')(('DASHBOARD_CLIENT.FILTERS.' + type))),
@@ -12,12 +17,21 @@
     })
 
     this.activityTypesList.unshift({
-      name: $filter('translate')($filter('normalizeTranslationKey')(('DASHBOARD_CLIENT.FILTERS.ALL_ACTIVITY'))),
+      name: $filter('translate')($filter('normalizeTranslationKey')(('DASHBOARD_CLIENT.FILTERS.ALL_ACTIVITY')))
     })
 
+    // TODO to be remove on lodash update to 4.00
+    function uniqBy(a, key) {
+      const seen = new Set()
+      return a.filter(item => {
+        const k = key(item)
+        return seen.has(k) ? false : seen.add(k)
+      })
+    }
+
     const createDropdownServiceList = (list) => {
-      const mappedList = _.map(list, (listItem) =>
-        listItem.service)
+      const mappedList = uniqBy(_.map(list, (listItem) =>
+        listItem.service), (item) => item.id)
 
       return mappedList.map((service) => {
         return {
@@ -28,25 +42,21 @@
     }
 
     const createDropdownExpertsList = (list) => {
-      const mappedList = _.map(list, (listItem) =>
-        listItem.profile)
+      const mappedList = uniqBy(_.map(list, (listItem) =>
+        listItem.profile), (item) => item.id)
 
-      return mappedList.map((service) => {
+      return mappedList.map((expert) => {
         return {
-          name: service.expertDetails.name,
-          value: service.id
+          name: expert.expertDetails.name,
+          value: expert.id
         }
       })
     }
 
-    this.expertsList = createDropdownExpertsList(this.filters.expertServiceTuples)
     const allServicesList = createDropdownServiceList(this.filters.expertServiceTuples)
+    this.expertsList = createDropdownExpertsList(this.filters.expertServiceTuples)
     this.servicesList = allServicesList
 
-
-    this.showFilters = () => {
-      this.showMobileFilters = !this.showMobileFilters
-    }
 
     clientActivitiesService.onQueryParamsChange($scope, (param) => {
 
@@ -64,65 +74,75 @@
 
     })
 
-    clientActivitiesService.onActivitiesResults($scope, (err, results, prevResults) => {
+    const clearServicesList = () => {
+      this.servicesList = allServicesList
+      this.secondaryServicesList = []
+    }
 
+    const setActivitiesQueryParams = (queryParams) => {
+      if (angular.isFunction(this.onSetSearchParams)) {
+        this.onSetSearchParams()
+      }
+      clientActivitiesService.setClientActivitiesParam(queryParams)
+    }
 
-    })
 
     this.updateActivityTypeParam = (item) => {
-      const queryParam = this.filterModel
-      queryParam['activityType'] = item.value
-      queryParam['serviceId'] = null
-      queryParam['profileId'] = null
-      clientActivitiesService.setClientActivitiesParam(queryParam)
+      const queryParams = this.filterModel
+      queryParams['activityType'] = item.value
+      queryParams['serviceId'] = null
+      queryParams['profileId'] = null
+      setActivitiesQueryParams(queryParams)
+      clearServicesList()
     }
 
     this.updateProfileParam = (item) => {
-      const queryParam = this.filterModel
-      queryParam['profileId'] = item.value
-      if (angular.isDefined(queryParam['serviceId'])) {
-        console.log('remove service')
-        queryParam['serviceId'] = null
+      const queryParams = this.filterModel
+      queryParams['profileId'] = item.value
+      if (angular.isDefined(queryParams['serviceId'])) {
+        queryParams['serviceId'] = null
       }
-      clientActivitiesService.setClientActivitiesParam(queryParam)
+
+      setActivitiesQueryParams(queryParams)
+
       if (angular.isDefined(item.value)) {
-        const groupServices = _.groupBy(this.filters.expertServiceTuples, {profile:{id: item.value}})
+        const groupServices = _.groupBy(this.filters.expertServiceTuples, {
+          profile: {
+            id: item.value
+          }})
         this.servicesList = createDropdownServiceList(groupServices.true)
         this.secondaryServicesList = createDropdownServiceList(groupServices.false)
       } else {
-        this.servicesList = allServicesList
-        this.secondaryServicesList = []
+        clearServicesList()
       }
     }
 
-
     this.mainUpdateServiceParam = (item) => {
-      const queryParam = this.filterModel
-      queryParam['serviceId'] = item.value
-      clientActivitiesService.setClientActivitiesParam(queryParam)
+      const queryParams = this.filterModel
+      queryParams['serviceId'] = item.value
+      setActivitiesQueryParams(queryParams)
     }
 
     this.secondUpdateServiceParam = (item) => {
-      const queryParam = this.filterModel
-      queryParam['serviceId'] = item.value
-      queryParam['profileId'] = null
-      clientActivitiesService.setClientActivitiesParam(queryParam)
-      this.servicesList = allServicesList
-      this.secondaryServicesList = []
+      const queryParams = this.filterModel
+      queryParams['serviceId'] = item.value
+      queryParams['profileId'] = null
+      setActivitiesQueryParams(queryParams)
+      clearServicesList()
     }
 
 
     $scope.$watchGroup(watchGroup.map((v) => {
       return '$ctrl.filterModel.' + v
     }), (newValues, oldValues) => {
-      let searchQueryParams = {}
+      let searchQueryParams = this.filterModel
       if (!angular.equals(newValues, oldValues)) {
         angular.forEach(newValues, (value, idx) => {
           if (angular.isDefined(value)) {
             searchQueryParams[watchGroup[idx]] = value
           }
         })
-        clientActivitiesService.setClientActivitiesParam(searchQueryParams)
+        setActivitiesQueryParams(queryParams)
       }
     })
 
@@ -134,7 +154,8 @@
     controller: controller,
     controllerAs: '$ctrl',
     bindings: {
-      filters: '<'
+      filters: '<',
+      onSetSearchParams: '<'
     }
   }
 

@@ -6,7 +6,7 @@
       data-callback="$ctrl.updateActivityTypeParam" data-selected-item="$ctrl.selectedType")
 
       .pro-dropdown
-        drop-down(data-label="{{::'DASHBOARD.CLIENT.FILTER.EXPERTS' | translate }}"
+        dropdown-input(data-label="{{::'DASHBOARD.CLIENT.FILTER.EXPERTS' | translate }}"
         data-main-list="$ctrl.expertsList"
         data-on-select-main="$ctrl.updateProfileParam"
         data-placeholder="{{::'SEARCH.ALL' | translate }}"
@@ -14,7 +14,7 @@
         data-input-placeholder="{{::'SEARCH.ALL' | translate }}")
 
       .pro-dropdown
-        drop-down(data-label="{{::'DASHBOARD.CLIENT.FILTER.CONSULTATIONS' | translate }}"
+        dropdown-input(data-label="{{::'DASHBOARD.CLIENT.FILTER.CONSULTATIONS' | translate }}"
         data-main-list="$ctrl.servicesList"
         data-placeholder="{{::'SEARCH.ALL' | translate }}"
         secondary-list="$ctrl.secondaryServicesList"

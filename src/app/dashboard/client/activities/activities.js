@@ -1,12 +1,11 @@
-(function() {
+(function () {
 
   function DashboardClientActivitiesController($scope, $timeout, clientActivities, clientActivitiesService) {
 
-    const filter = (activities) => _.filter(activities, (activity) => activity.sueProfileServiceTuple !== null)
-
+    this.queryParams = {}
     this.isSearchLoading = false
     this.isParamChange = false
-    this.activities = filter(clientActivities.activities)
+    this.activities = _.sortBy(clientActivities.activities, (activity) => activity.financialOperation.createdAt)
     this.balance = clientActivities.balance
     this.expertServiceTuples = clientActivities.expertServiceTuples
     this.filters = {
@@ -14,20 +13,39 @@
       expertServiceTuples: clientActivities.expertServiceTuples
     }
 
+    this.onSetSearchParams = () => {
+      this.isSearchLoading = true
+    }
+
+    this.sendRequestAgain = () => {
+      clientActivitiesService.setClientActivitiesParam(this.queryParams)
+      this.isSearchLoading = true
+    }
+
+    this.loadMoreActivities = () => {
+      clientActivitiesService.getMoreResults()
+
+    }
 
 
-    clientActivitiesService.onQueryParamsChange($scope, (param) => {
-      this.isSearchLoading = false
-    })
-
-    clientActivitiesService.onActivitiesResults($scope, (err, results, prevResults) => {
-      this.isSearchLoading = false
+    clientActivitiesService.onActivitiesResults($scope, (error, results, queryParams) => {
+      $timeout(() => {
+        this.isSearchLoading = !results
+        this.isError = !!error
+      }, 400)
+      this.queryParams = queryParams
       this.isParamChange = true
-      this.noMoreResults = filter(results.activities) === this.activities
-      this.activities = filter(results.activities)
+      if (angular.isDefined(results)) {
+        if (queryParams.offset === 0) {
+          if (queryParams.offset + queryParams.limit )
+          this.activities =  _.sortBy(results.activities, (activity) => activity.financialOperation.createdAt)
+        } else {
+          this.activities +=  results.activities
+        }
+      }
     })
 
-    $scope.$on("$destroy", function() {
+    $scope.$on("$destroy",  () => {
       clientActivitiesService.clearQueryParam()
     })
 
@@ -40,7 +58,7 @@
     'ui.router',
     'c7s.ng.userAuth',
     'profitelo.filters.money',
-    'profitelo.components.interface.preloader',
+    'profitelo.components.interface.preloader-container',
     'profitelo.components.dashboard.client.activities.no-activities',
     'profitelo.components.complaints.status',
     'profitelo.components.dashboard.client.activities.client-activities.filters',
@@ -48,22 +66,22 @@
     'profitelo.services.client-activities-service'
   ])
 
-  .config( function($stateProvider, UserRolesProvider) {
-    $stateProvider.state('app.dashboard.client.activities', {
-      url: '/activities',
-      templateUrl: 'dashboard/client/activities/activities.tpl.html',
-      controller: 'DashboardClientActivitiesController',
-      controllerAs: 'vm',
-      data          : {
-        access : UserRolesProvider.getAccessLevel('user')
-      },
-      resolve: {
-        /* istanbul ignore next */
-        clientActivities:  (clientActivitiesService) =>
-          clientActivitiesService.resolve()
-      }
+    .config(function ($stateProvider, UserRolesProvider) {
+      $stateProvider.state('app.dashboard.client.activities', {
+        url: '/activities',
+        templateUrl: 'dashboard/client/activities/activities.tpl.html',
+        controller: 'DashboardClientActivitiesController',
+        controllerAs: 'vm',
+        data: {
+          access: UserRolesProvider.getAccessLevel('user')
+        },
+        resolve: {
+          /* istanbul ignore next */
+          clientActivities: (clientActivitiesService) =>
+            clientActivitiesService.resolve()
+        }
+      })
     })
-  })
-  .controller('DashboardClientActivitiesController', DashboardClientActivitiesController)
+    .controller('DashboardClientActivitiesController', DashboardClientActivitiesController)
 
 }())

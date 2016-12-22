@@ -1,26 +1,45 @@
 a.last-activities(data-ng-click=":: $ctrl.openActivityDescription()")
-  .last-activity-details
-    .last-activity-icon
-      span.icon.icon-outgoing-call-24
-
-    div
+  .call-activity(data-ng-if="$ctrl.isCallActivity")
+    .last-activity-details
       .last-activity-icon
         span.icon.icon-outgoing-call-24
 
-      .last-activity-about
-        .last-activity-date
-          span  {{:: $ctrl.activity.sueProfileServiceTuple.serviceUsageEvent.startedAt | date : 'EEE d.MM.y'}}
-        status(data-complaint=":: $ctrl.activity.complaint" data-ng-show=":: $ctrl.activity.complaint")
+      div
+        .last-activity-icon
+          span.icon.icon-outgoing-call-24
 
-      h3 {{:: $ctrl.activity.sueProfileServiceTuple.service.details.name }}
+        .last-activity-about
+          .last-activity-date
+            span  {{:: $ctrl.activity.sueProfileServiceTuple.serviceUsageEvent.startedAt | date : 'EEE d.MM.y'}}
+          status(data-complaint=":: $ctrl.activity.complaint" data-ng-show=":: $ctrl.activity.complaint")
 
-  .last-activity-profile
-    .profile-preview
-      .thumb.x32
-        img.user-avatar(src data-ng-src="{{:: $ctrl.imageUrl }}" data-ng-class="{'isNotUploaded': !$ctrl.imageUrl}")
+        h3 {{:: $ctrl.activity.sueProfileServiceTuple.service.details.name }}
 
-      .profile-name
-        span {{:: $ctrl.activity.sueProfileServiceTuple.profile.expertDetails.name }}
+    .last-activity-profile
+      .profile-preview
+        .thumb.x32
+          img.user-avatar(src data-ng-src="{{:: $ctrl.imageUrl }}" data-ng-class="{'isNotUploaded': !$ctrl.imageUrl}")
 
-    .price-small(data-ng-bind-html=":: $ctrl.activity.financialOperation.operation | money")
+        .profile-name
+          span {{:: $ctrl.activity.sueProfileServiceTuple.profile.expertDetails.name }}
 
+      .price-small(data-ng-bind-html=":: $ctrl.activity.financialOperation.operation | money")
+
+  .money-activity(data-ng-if="!$ctrl.isCallActivity")
+    .last-activity-details
+      .last-activity-icon
+        span.icon.icon-money
+
+      div
+        .last-activity-icon
+          span.icon.icon-money
+
+        .last-activity-about
+          .last-activity-date
+            span  {{:: $ctrl.activity.financialOperation.createdAt | date : 'EEE d.MM.y'}}
+
+        h3 {{ 'DASHBOARD_CLIENT.CHARGE_ACCOUNT_ACTIVITY_HEADER' | translate}}
+
+    .price-small
+      span +
+      span(data-ng-bind-html=":: $ctrl.activity.financialOperation.operation | money")

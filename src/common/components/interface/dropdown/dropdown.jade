@@ -13,17 +13,17 @@
       span.icon.icon-search-24
 
     .scroll-list
+      a(data-ng-click="$ctrl.onMainItemSelect($ctrl.mainPlaceholder)" data-ng-class="{'is-active': $ctrl.isSelected(item)}")
+        span {{ $ctrl.mainPlaceholder.name }}
       span.title-list(data-ng-show="$ctrl.mainListExist()" data-translate="COMMON.COMPONENTS.INTERFACE.DROPDOWN.EXPERTS_CONSULTATIONS.LABEL")
       ul.dropdown-list.dropdown-favourite-list(data-ng-show="$ctrl.mainListExist()")
-        li(data-ng-click="$ctrl.onMainItemSelect($ctrl.mainPlaceholder)" data-ng-class="{'is-active': $ctrl.isSelected(item)}")
-          a {{ $ctrl.mainPlaceholder.name }}
         li(data-ng-repeat="item in $ctrl.mainList | filter: $ctrl.filterBy" data-ng-click="$ctrl.onMainItemSelect(item)" data-ng-class="{'is-active': $ctrl.isSelected(item)}")
           a {{ item.name }}
 
         li(ng-repeat="section in $ctrl.sections" ng-class="{'is-active' : $ctrl.isSelected(section)}")
           a(ng-click="$ctrl.setMaster(section)") {{ sections.name }}
 
-        li.no-results(data-ng-show="!!$ctrl.mainList && $ctrl.mainList.length < 1")
+        li.no-results(data-ng-show="!$ctrl.mainList || $ctrl.mainList.length < 1")
           a no results
 
       span.title-list(data-ng-show="$ctrl.isSecondaryListExist()" data-translate="COMMON.COMPONENTS.INTERFACE.DROPDOWN.OTHER_CONSULTATIONS.LABEL") Pozostałe konsultacje
