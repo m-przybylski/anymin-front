@@ -38,8 +38,5 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.modals.
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
-    it('should compile the directive', () => {
-      component.isComplainSend()
-    })
   })
 })

@@ -1,0 +1,39 @@
+top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="onModalClose")
+
+.fullscreen-modals.fullscreen-navbar.report-modal.charge-details-modal
+  div
+    .default-container-small
+      img(data-ng-src="/assets/images/profitelo-icons/icon2.png")
+
+      .modal-description
+        .details-tab
+          .details-tab-row.header-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CHARGE_DETAILS.AMOUNT")
+            .detais-tab-content
+              span(data-ng-bind-html="callCost | money")
+
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CHARGE_DETAILS.TRANSACTION_ID")
+            .detais-tab-content
+              span 2PF-575-35W-W88-022-3R
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CHARGE_DETAILS.DATE")
+            .detais-tab-content
+              span 12.11.2016
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CHARGE_DETAILS.TIME")
+            .detais-tab-content
+              span 12:12
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CHARGE_DETAILS.WAY_OF_RECHARGING")
+            .detais-tab-content
+              span PayPal - a...ski@gmail.com
+
+        p
+          span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CHARGE_DETAILS.GO_TO_SETTINGS.INFO")
+          a(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CHARGE_DETAILS.GO_TO_SETTINGS.INFO.LINK")

@@ -3,10 +3,6 @@
   function controller() {
     this.isComplaint = false
 
-    this.isComplainSend = () => {
-      this.isComplaint = !this.isComplaint
-    }
-
     return this
   }
 

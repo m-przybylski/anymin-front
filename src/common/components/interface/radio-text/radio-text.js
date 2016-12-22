@@ -14,7 +14,7 @@
       id: '@',
       labelDescription: '@',
       ngModel: '=',
-      value: '@'
+      value: '@',
     },
     templateUrl: 'components/interface/radio-text/radio-text.tpl.html',
     controllerAs: '$ctrl',

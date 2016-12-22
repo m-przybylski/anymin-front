@@ -91,6 +91,15 @@
       })
     }
 
+    const _createClientChargeDetailsModal = () => {
+      const dialogScope = $rootScope.$new(true)
+
+      DialogService.openDialog({
+        controller: 'clientChargeDetailsController',
+        templateUrl: 'components/dashboard/client/activities/modals/charge-details/charge-details.tpl.html',
+        scope: dialogScope
+      })
+    }
     return {
       createIncomingCallModal: _createIncomingCallModal,
       createNoFundsModal: _createNoFundsModal,
@@ -98,7 +107,8 @@
       createClientConsultationSummaryModal: _createClientConsultationSummaryModal,
       createExpertConsultationSummaryModal: _createExpertConsultationSummaryModal,
       createClientSUEActivityDetailsModal: _createClientSUEActivityDetailsModal,
-      createClientComplainReportModal: _createClientComplainReportModal
+      createClientComplainReportModal: _createClientComplainReportModal,
+      createClientChargeDetailsModal: _createClientChargeDetailsModal
     }
   }
 
@@ -110,7 +120,8 @@
     'profitelo.components.communicator.modals.consultation-summary-client',
     'profitelo.components.communicator.modals.consultation-summary-expert',
     'profitelo.components.dashboard.client.activities.modals.consultation-details',
-    'profitelo.components.dashboard.client.activities.modals.complain-report'
+    'profitelo.components.dashboard.client.activities.modals.complain-report',
+    'profitelo.components.dashboard.client.activities.modals.charge-details'
   ])
     .service('modalsService', service)
 
