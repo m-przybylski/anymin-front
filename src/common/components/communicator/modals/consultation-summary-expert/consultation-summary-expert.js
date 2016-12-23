@@ -31,7 +31,8 @@
 
   angular.module('profitelo.components.communicator.modals.consultation-summary-expert', [
     'ui.bootstrap',
-    'profitelo.services.call-summary'
+    'profitelo.services.call-summary',
+    'profitelo.components.interface.preloader'
   ])
     .controller('consultationSummaryExpertController', controller)
 

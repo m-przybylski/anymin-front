@@ -3,55 +3,56 @@ top-modal-navbar(data-title="COMMUNICATOR.MODALS.RATE_CONVERATION" data-on-close
 .fullscreen-modals.fullscreen-navbar
   .full-height-modal
     .default-container
-      .summary-conversation
-        .consultation-profile
-          .profile-preview
-            .thumb.x96
-              img.user-avatar(data-ng-src="expertAvatarUrl" alt="{{ callSummary.companyExpertProfile.expertDetails.name }}")
+      preloader(data-is-loading="!callSummary")
+        .summary-conversation
+          .consultation-profile
+            .profile-preview
+              .thumb.x96
+                img.user-avatar(data-ng-src="expertAvatarUrl" alt="{{ callSummary.companyExpertProfile.expertDetails.name }}")
 
-            div
-              .profile-name
-                span {{ callSummary.companyExpertProfile.expertDetails.name }}
+              div
+                .profile-name
+                  span {{ callSummary.companyExpertProfile.expertDetails.name }}
 
-              .status-list
-                span.status.availability Dostepny
+                .status-list
+                  span.status.availability Dostepny
 
-        .consultation-price
-          span(data-ng-bind-html="callSummary.service.details.price | money ")
+          .consultation-price
+            span(data-ng-bind-html="callSummary.service.details.price | money ")
 
-        .consultation-range
-          .consultation-info
-            .consultation-title
-              h3
-                span {{ callSummary.service.details.name }}
+          .consultation-range
+            .consultation-info
+              .consultation-title
+                h3
+                  span {{ callSummary.service.details.name }}
 
-            ul.consultation-about
-              li.options-item.recomendation
-                span  {{ rating }}% {{"SEARCH.RECOMMENDATION" | translate }}
-              li.options-item.conversation-count
-                span {{ callSummary.service.serviceUsageCounter }}
-              //li.options-item.balance
-                span {{ 'NONE' }} min.
+              ul.consultation-about
+                li.options-item.recomendation
+                  span  {{ rating }}% {{"SEARCH.RECOMMENDATION" | translate }}
+                li.options-item.conversation-count
+                  span {{ callSummary.service.serviceUsageCounter }}
+                //li.options-item.balance
+                  span {{ 'NONE' }} min.
 
-        .consultation-time-details
-          ul.conversation-time
-            li.label(data-translate="COMMUNICATOR.MODALS.CONVERSATION_TIME")
-            li {{ callSummary.callDuration | secondsToDateTime | date:'HH:mm:ss' }}
+          .consultation-time-details
+            ul.conversation-time
+              li.label(data-translate="COMMUNICATOR.MODALS.CONVERSATION_TIME")
+              li {{ callSummary.callDuration | secondsToDateTime | date:'HH:mm:ss' }}
 
-          ul.conversation-cost
-            li.label(data-translate="COMMUNICATOR.MODALS.CONVERSATION_COST")
-            li(data-ng-bind-html="callSummary.cost | money ")
+            ul.conversation-cost
+              li.label(data-translate="COMMUNICATOR.MODALS.CONVERSATION_COST")
+              li(data-ng-bind-html="callSummary.cost | money ")
 
-        multiselect(data-title="COMMUNICATOR.MODALS.SUMMARY_HELPER_RANGE" data-items="callSummary.tags.tags"
-          data-field="name" data-ng-show="chooseExpertsTag" data-on-select-change="onTagsSelectChange")
+          multiselect(data-title="COMMUNICATOR.MODALS.SUMMARY_HELPER_RANGE" data-items="callSummary.tags.tags"
+            data-field="name" data-ng-show="chooseExpertsTag" data-on-select-change="onTagsSelectChange")
 
-        .modal-action
-          span(data-translate="COMMUNICATOR.MODALS.IS_CONVERSATION_GOOD")
+          .modal-action
+            span(data-translate="COMMUNICATOR.MODALS.IS_CONVERSATION_GOOD")
 
-          div.action-recommend(data-ng-show="!chooseExpertsTag")
-            a.btn.btn-primary(data-ng-click="closeModal()" data-translate="COMMUNICATOR.MODALS.SKIP")
-            a.btn.btn-default(data-ng-click="recommendService()" data-translate="COMMUNICATOR.MODALS.RECOMMEND")
+            div.action-recommend(data-ng-show="!chooseExpertsTag")
+              a.btn.btn-primary(data-ng-click="closeModal()" data-translate="COMMUNICATOR.MODALS.SKIP")
+              a.btn.btn-default(data-ng-click="recommendService()" data-translate="COMMUNICATOR.MODALS.RECOMMEND")
 
-          div.action-next(data-ng-show="chooseExpertsTag")
-            a.btn.btn-primary(data-ng-click="closeModal()" data-translate="COMMUNICATOR.MODALS.CANCEL")
-            a.btn.btn-default(data-ng-click="recommendServiceTags()" data-translate="COMMUNICATOR.MODALS.SAVE")
+            div.action-next(data-ng-show="chooseExpertsTag")
+              a.btn.btn-primary(data-ng-click="closeModal()" data-translate="COMMUNICATOR.MODALS.CANCEL")
+              a.btn.btn-default(data-ng-click="recommendServiceTags()" data-translate="COMMUNICATOR.MODALS.SAVE")

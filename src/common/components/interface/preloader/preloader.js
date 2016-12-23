@@ -5,7 +5,7 @@
     return this
   }
 
-  let preloader = {
+  const component = {
     transclude: true,
     bindings: {
       isLoading: '=?'
@@ -19,5 +19,5 @@
   angular.module('profitelo.components.interface.preloader', [
     'pascalprecht.translate'
   ])
-    .component('preloader', preloader)
+    .component('preloader', component)
 }())
