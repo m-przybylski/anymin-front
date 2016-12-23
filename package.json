@@ -45,7 +45,7 @@
     "phonenumber": "^7.7.1",
     "reset.css": "^2.0.2",
     "ui-select": "^0.19.6",
-    "ratel-sdk-js": "0.1.1"
+    "ratel-sdk-js": "0.3.1"
   },
   "devDependencies": {
     "contactis-gulp": "1.5.0"

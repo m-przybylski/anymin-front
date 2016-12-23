@@ -7,7 +7,7 @@
       dialogScope.service = _service
       dialogScope.answerCall = answerCallback
       dialogScope.rejectCall = rejectCallback
-      DialogService.openDialog({
+      return DialogService.openDialog({
         controller: 'clientCallController',
         templateUrl: 'components/communicator/modals/client-call/client-call.tpl.html',
         scope: dialogScope
@@ -18,7 +18,7 @@
       const dialogScope = $rootScope.$new(true)
       dialogScope.reject = acceptCallback
       dialogScope.accept = rejectCallback
-      DialogService.openDialog({
+      return DialogService.openDialog({
         controller: 'noCreditsController',
         templateUrl: 'components/communicator/modals/no-credits/no-credits.tpl.html',
         scope: dialogScope
@@ -29,7 +29,7 @@
       const dialogScope = $rootScope.$new(true)
       dialogScope.reject = acceptCallback
       dialogScope.accept = rejectCallback
-      DialogService.openDialog({
+      return DialogService.openDialog({
         controller: 'unavailableServiceController',
         templateUrl: 'components/communicator/modals/service-unavailable/service-unavailable.tpl.html',
         scope: dialogScope
@@ -46,7 +46,7 @@
 
       dialogScope.serviceId = serviceId
 
-      DialogService.openDialog({
+      return DialogService.openDialog({
         controller: 'consultationSummaryClientController',
         templateUrl: 'components/communicator/modals/consultation-summary-client/consultation-summary-client.tpl.html',
         scope: dialogScope
@@ -63,7 +63,7 @@
 
       dialogScope.serviceId = serviceId
 
-      DialogService.openDialog({
+      return DialogService.openDialog({
         controller: 'consultationSummaryExpertController',
         templateUrl: 'components/communicator/modals/consultation-summary-expert/consultation-summary-expert.tpl.html',
         scope: dialogScope
@@ -73,7 +73,7 @@
     const _createClientConversationSummaryModal = () => {
       const dialogScope = $rootScope.$new(true)
 
-      DialogService.openDialog({
+      return DialogService.openDialog({
         controller: 'clientConsultationDetails',
         templateUrl: 'components/dashboard/client/activities/modals/consultation-details/consultation-details.tpl.html',
         scope: dialogScope
@@ -84,7 +84,7 @@
     const _createClientComplainReportModal = () => {
       const dialogScope = $rootScope.$new(true)
 
-      DialogService.openDialog({
+      return DialogService.openDialog({
         controller: 'clientComplainReportController',
         templateUrl: 'components/dashboard/client/activities/modals/complain-report/complain-report.tpl.html',
         scope: dialogScope

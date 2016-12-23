@@ -31,8 +31,9 @@
 
     const timerFactory = (() => {
 
-      const getInstance = (_cost, _freeMinutesCount) => {
+      const getInstance = (_money, _freeMinutesCount, _interval) => {
         let _timer
+        const interval = _interval || 200
         const _freeMinutes = _freeMinutesCount || 0
         return {
           start: (cb) => {
@@ -41,9 +42,12 @@
               const _time = (Date.now() - _start) / 1000
               cb({
                 time: _time,
-                cost: _cost * Math.max(0, _time - (60 * _freeMinutes)) / 60
+                money: {
+                  amount: (_money.amount * Math.max(0, _time - (60 * _freeMinutes)) / 60),
+                  currency: _money.currency
+                }
               })
-            }, 200)
+            }, interval)
           },
           stop: () => {
             $interval.cancel(_timer)
@@ -58,7 +62,7 @@
 
     return {
       callbacksFactory: callbacksFactory,
-      timerFactory: timerFactory
+      callTimerFactory: timerFactory
     }
   }
 

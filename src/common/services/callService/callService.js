@@ -1,271 +1,364 @@
-(function() {
+(function () {
 
-  function service($q, $log, UtilsService, communicatorService, ServiceApi, modalsService, soundsService) {
+  function service($q, $log, navigatorService, UtilsService, communicatorService, ServiceApi, modalsService,
+                   soundsService) {
+
+    const callingTimeout = 30
+    const moneyChangeNotificationInterval = 1000
 
     let call = null
-    let callStarted = false
     let timer = null
-    let serviceUsageData = null
-    let expertService = null
-    let callType = null
-    let callInvitation = null
-    const freeMinutesCount = 1
+
+    let serviceId = null
+    let serviceFreeMinutesCount = null
+
+    let localStreamElement = null
+    let remoteStreamElement = null
+
+    let localStream = null
+
+    let callingModal = null
 
     const events = {
-      onHangup: 'onHangup',
-      onClientCallHangup: 'onClientCallHangup',
+      onCallEnd: 'onCallEnd',
       onClientCallPending: 'onClientCallPending',
-      onClientCallStart: 'onClientCallStart',
       onClientCallPendingError: 'onClientCallPendingError',
       onClientCallStarted: 'onClientCallStarted',
-      onClientCallRejected: 'onClientCallRejected',
-      onExpertCallIncoming: 'onExpertCallIncoming',
-      onExpertCallAnswer: 'onExpertCallAnswer',
-      onExpertCallJoin: 'onExpertCallJoin',
-      onExpertCallReject: 'onExpertCallReject',
-      onTimeCostChange: 'onTimeCostChange'
+      onExpertCallAnswered: 'onExpertCallAnswered',
+      onTimeCostChange: 'onTimeCostChange',
+      onVideoStart: 'onVideoStart',
+      onVideoStop: 'onVideoStop'
+    }
+
+    const reasons = {
+      reject: 'reject',
+      hangup: 'hangup'
     }
 
     const callbacks = UtilsService.callbacksFactory(Object.keys(events))
 
-    const callTypes = {
-      expert: 'expert',
-      client: 'client'
-    }
+    const setLocalStreamElement = (element) =>
+      localStreamElement = element
 
-    const setCall = (_call, _type) => {
-      if (callTypes.hasOwnProperty(_type) || _type === null) {
-        callType = _type
-        call = _call
-      } else {
-        $log.error('Expected callType, got: ' + _type)
-      }
-    }
+    const setRemoteStreamElement = (element) =>
+      remoteStreamElement = element
 
-    const hangupCall = () => {
-      if (call) {
-        soundsService.callConnectingSound().stop()
-        soundsService.playCallEnded()
-        if (callType === callTypes.client && callStarted) {
-          modalsService.createClientConsultationSummaryModal(serviceUsageData.service.id)
-        } else if (callType === callTypes.expert && callStarted) {
-          modalsService.createExpertConsultationSummaryModal(expertService.id)
+    const stopLocalStream = () => {
+      if (localStream) {
+        if (localStream.stop) {
+          localStream.stop()
+        } else {
+          localStream.getTracks().forEach(t => t.stop())
         }
-        callStarted = false
-
-        if (timer) {
-          timer.stop()
-          timer = null
-        }
-        serviceUsageData = null
-        expertService = null
-        const promise = call.hangup()
-        setCall(null, null)
-        callbacks.notify(events.onHangup, null)
-        return promise
-      }
-      return $q.resolve(null)
-    }
-
-    const setLocalStreamElement = (element) => {
-      if (call) {
-        call.setLocalStreamElement(element)
       }
     }
 
-    const setRemoteStreamElement = (element) => {
-      if (call) {
-        call.setRemoteStreamElement(element)
+    const setLocalStream = (stream) => {
+      if (stream) {
+        localStream = stream
+        localStreamElement.attr('src', window.URL.createObjectURL(localStream))
       }
     }
 
-    const toggleVideo = () => {
-      if (call) {
-        return call.toggleVideo()
+    const destroyModals = () => {
+      if (callingModal) {
+        callingModal.dismiss()
       }
     }
 
-    const toggleAudio = () => {
-      if (call) {
-        return call.toggleAudio()
-      }
+    const cleanupService = () => {
+      stopLocalStream()
+      cleanCallVariables()
+      stopSounds()
+      destroyModals()
     }
 
-    const _onExpertCallHangup = () => {
+    const stopSounds = () => {
+      soundsService.callConnectingSound().stop()
+      soundsService.callIncomingSound().stop()
       soundsService.playCallEnded()
-      timer.stop()
-      timer = null
-      setCall(null, null)
-      modalsService.createExpertConsultationSummaryModal(expertService.id)
-      callbacks.notify(events.onHangup, null)
     }
 
-    const _onTimeCostChange = timeCost =>
-      callbacks.notify(events.onTimeCostChange, timeCost)
-
-    const _onExpertCallJoin = (_inviter, session) => {
-      let price = 0
-      if (serviceUsageData) {
-        price = serviceUsageData.service.details.price.amount
-      } else {
-        price = expertService.details.price.amount
+    const cleanCallVariables = () => {
+      call = null
+      serviceId = null
+      serviceFreeMinutesCount = null
+      localStream = null
+      if (timer) {
+        timer.stop()
+        timer = null
       }
-
-      callStarted = true
-      timer = UtilsService.timerFactory.getInstance(price, freeMinutesCount)
-      timer.start(_onTimeCostChange)
-      callbacks.notify(events.onExpertCallJoin, {inviter: _inviter, session: session})
     }
 
-    const _answerCall = (callInvitation, session) => {
-      soundsService.callIncomingSound().stop()
-      setCall(callInvitation.call, callTypes.expert)
-      call.join().then(_ =>
-        _onExpertCallJoin(callInvitation.inviter, session))
-      call.onLeft(_onExpertCallHangup)
-      callbacks.notify(events.onExpertCallAnswer, callInvitation)
+    let hangupCall = _ => $q.reject('NO CALL')
+
+    const onClientCallEnd = () => {
+      callbacks.notify(events.onCallEnd, null)
+      modalsService.createClientConsultationSummaryModal(serviceId)
+      cleanupService()
     }
 
-    const _rejectCall = (callInvitation) => {
-      soundsService.callIncomingSound().stop()
-      soundsService.playCallRejected()
-      callInvitation.call.reject()
-      callbacks.notify(events.onExpertCallReject, callInvitation)
+    const onExpertCallEnd = () => {
+      callbacks.notify(events.onCallEnd, null)
+      modalsService.createClientConsultationSummaryModal(serviceId)
+      cleanupService()
     }
 
-    const _onExpertCallIncoming = (_callInvitation, _service, session) => {
-      callInvitation = _callInvitation
-      soundsService.callIncomingSound().play()
-      modalsService.createIncomingCallModal(_service, () => {
-        _answerCall(_callInvitation, session)
-      }, () => {
-        _rejectCall(_callInvitation)
+    const clientHangupCall = () => {
+      if (call) {
+        return call.leave(reasons.hangup).then(onClientCallEnd)
+      }
+      return $q.reject('There is no room')
+    }
+
+    const expertHangupCall = () => {
+      if (call) {
+        return call.leave(reasons.hangup).then(onExpertCallEnd)
+      }
+      return $q.reject('There is no room')
+    }
+
+    const stopVideo = () => {
+      if (call) {
+        call.pause()
+      } else {
+        $log.error('There is no call')
+      }
+    }
+
+    const startVideo = () => {
+      if (call) {
+        call.unpause()
+      } else {
+        $log.error('There is no call')
+      }
+    }
+
+    const startAudio = () => {
+      if (call) {
+        call.unmute()
+      } else {
+        $log.error('There is no call')
+      }
+    }
+
+    const stopAudio = () => {
+      if (call) {
+        call.mute()
+      } else {
+        $log.error('There is no call')
+      }
+    }
+
+    const setCallVideoEvents = (_call, participantId) => {
+      _call.onStreamPaused(callAction => {
+          if (callAction.user === participantId) {
+            callbacks.notify(events.onVideoStop, null)
+          }
+        }
+      )
+      _call.onStreamUnpaused(callAction => {
+        if (callAction.user === participantId) {
+          callbacks.notify(events.onVideoStart, null)
+        }
       })
-
-      $log.info('EXPERT received call invitation: ', _callInvitation)
-
-      expertService = _service
-      setCall(_callInvitation.call, callTypes.expert)
-      callbacks.notify(events.onExpertCallIncoming, _service)
     }
 
-    communicatorService.onCall(obj =>
-      _onExpertCallIncoming(obj.invitation, obj.service, obj.session))
+    const createTimer = (price, freeMinutesCount) =>
+      timer = UtilsService.callTimerFactory.getInstance(price, freeMinutesCount, moneyChangeNotificationInterval)
 
-    const _onNoFunds = () => {
+    const startTimer = () =>
+      timer.start(onTimeMoneyChange)
+
+    const onTimeMoneyChange = (timeMoneyTuple) =>
+      callbacks.notify(events.onTimeCostChange, timeMoneyTuple)
+
+    const onExpertCallAnswered = (serviceInvitationTuple) => {
+      soundsService.callIncomingSound().stop()
+      serviceId = serviceInvitationTuple.service.id
+
+      callbacks.notify(events.onExpertCallAnswered, serviceInvitationTuple)
+      call = serviceInvitationTuple.invitation.call
+      call.pause()
+      call.onEnd(onCallEnd)
+      call.onRemoteStream((agentId, stream) =>
+        remoteStreamElement.attr('src', window.URL.createObjectURL(stream)))
+      call.onLeft(onExpertCallEnd)
+
+      createTimer(serviceInvitationTuple.service.details.price, serviceFreeMinutesCount)
+      startTimer()
+
+      hangupCall = expertHangupCall
+      setCallVideoEvents(call, serviceInvitationTuple.invitation.inviter)
+      //callbacks.notify(events.onExpertCallJoined, {inviter: inviterId, session: session})
+    }
+
+    const onAnswerCallError = (err) => {
+      cleanupService()
+      $log.error(err)
+      alert("Call does not exist anymore")
+    }
+
+    const answerCall = (serviceInvitationTuple) =>
+      navigatorService.getUserMediaStream()
+        .then(_localStream => {
+            setLocalStream(_localStream)
+            return serviceInvitationTuple.invitation.call.answer(localStream).then(_ =>
+              onExpertCallAnswered(serviceInvitationTuple),
+              onAnswerCallError
+            )
+          },
+          () => rejectCall(serviceInvitationTuple.invitation.call)
+        )
+
+    const rejectCall = (_call) => {
+      cleanCallVariables()
+      stopSounds()
+      soundsService.playCallRejected()
+      return _call.reject(reasons.reject)
+    }
+
+    const onCallEnd = () => {
+      cleanupService()
+      callbacks.notify(events.onCallEnd, null)
+    }
+
+    const onExpertCallDisappearBeforeAnswering = () => {
+      stopSounds()
+      destroyModals()
+      soundsService.playCallRejected()
+    }
+
+    const onExpertCallIncoming = (serviceInvitationTuple) => {
+      soundsService.callIncomingSound().play()
+
+      serviceInvitationTuple.invitation.call.onEnd(onExpertCallDisappearBeforeAnswering)
+
+      callingModal = modalsService.createIncomingCallModal(
+        serviceInvitationTuple.service,
+        () => answerCall(serviceInvitationTuple),
+        () => rejectCall(serviceInvitationTuple.invitation.call)
+      )
+    }
+
+    communicatorService.onCall(onExpertCallIncoming)
+
+    const onNoFunds = () => {
       modalsService.createNoFundsModal(_ => _, _ => _)
     }
 
-    const _onConsultationUnavailable = () => {
+    const onConsultationUnavailable = () => {
+      cleanupService()
       soundsService.playCallRejected()
       modalsService.createServiceUnavailableModal(_ => _, _ => _)
     }
 
-    const _onClientCallReject = () => {
-      _onConsultationUnavailable()
-    }
-
-    const _onClientCallStartError = (err) => {
-      callbacks.notify(events.onClientCallPendingError, err)
-      _onConsultationUnavailable()
+    const onClientCallStartError = (err) => {
+      onConsultationUnavailable()
+      $log.error(err)
       // _onNoFunds()
     }
 
-    const _onClientCallStarted = (_inviterId) => {
+    const onClientCallStarted = (inviterId) => {
+      startTimer()
       soundsService.callConnectingSound().stop()
-      timer = UtilsService.timerFactory.getInstance(serviceUsageData.service.details.price.amount, freeMinutesCount)
-      timer.start(_onTimeCostChange)
-      callStarted = true
-      callbacks.notify(events.onClientCallStarted, _inviterId)
+      call.pause()
+      callbacks.notify(events.onClientCallStarted, inviterId)
     }
 
-    const _onClientCallStart = (_serviceId) => {
-      soundsService.callConnectingSound().play()
-      callbacks.notify(events.onClientCallStart, _serviceId)
+    const onClientCallRejected = () => {
+      callbacks.notify(events.onCallEnd, null)
+      onConsultationUnavailable()
     }
 
-    const _onClientCallPending = (serviceUsageRequest) => {
-      serviceUsageData = serviceUsageRequest
-      callbacks.notify(events.onClientCallPending, serviceUsageRequest)
-    }
+    const onCreateDirectCall = (newCall, participantId) => {
+      call = newCall
 
-    const _onClientCallHangup = () => {
-      callbacks.notify(events.onClientCallHangup, null)
-      timer.stop()
-      callStarted = false
-      timer = null
-      modalsService.createClientConsultationSummaryModal(serviceUsageData.service.id)
-    }
-
-    const _onClientCallRejected = () => {
-      _onConsultationUnavailable()
-      soundsService.callConnectingSound().stop()
-      callbacks.notify(events.onClientCallRejected, null)
-    }
-
-    const _onCreateDirectCall = (_call, _inviterId) => {
-      setCall(_call, callTypes.client)
-
-      let callStarted = false
-      call.onJoined(_ => {
-        callStarted = true
-        _onClientCallStarted(_inviterId)
+      call.onRemoteStream((agentId, stream) => {
+        remoteStreamElement.attr('src', window.URL.createObjectURL(stream))
       })
-      call.onLeft(_ => {
-        if (callStarted) {
-          _onClientCallHangup()
-        } else {
-          _onClientCallRejected()
-        }
-      })
+
+      call.onJoined(_ => onClientCallStarted(participantId))
+      call.onLeft(onClientCallEnd)
+      call.onEnd(onCallEnd)
+      call.onRejected(onClientCallRejected)
+      setCallVideoEvents(call, participantId)
     }
 
-    const _onDirectCallError = (err) => {
+    const onDirectCallError = (err) => {
       $log.error(err)
       soundsService.callConnectingSound().stop()
     }
 
-    const _onAddSUR = (serviceUsageRequest) => {
-      _onClientCallPending(serviceUsageRequest)
+    const onAddSUR = (serviceUsageRequest) => {
+
+      const _service = serviceUsageRequest.service
+
+      const agentId = serviceUsageRequest.agentId
+
+      serviceId = _service.id
+
+      createTimer(_service.details.price, serviceFreeMinutesCount)
+
+      callbacks.notify(events.onClientCallPending, {
+        expert: serviceUsageRequest.expert,
+        service: serviceUsageRequest.service
+      })
+
+      hangupCall = clientHangupCall
+
+      soundsService.callConnectingSound().play()
 
       const session = communicatorService.getClientSession()
 
-      $log.info('CLIENT call: ', serviceUsageRequest)
-      return session.chat.createDirectCall(serviceUsageRequest.ratelId)
-        .then((_call) => _onCreateDirectCall(_call, serviceUsageRequest.ratelId), _onDirectCallError)
+      return navigatorService.getUserMediaStream()
+        .then(_localStream => {
+          setLocalStream(_localStream)
+          return session.chat.createDirectCall(localStream, agentId, callingTimeout)
+        })
+        .then(_call => onCreateDirectCall(_call, agentId), onDirectCallError)
     }
 
-    const _onAddSURError = (err) => {
-      _onClientCallStartError(err)
+    const onAddSURError = (err) => {
+      onClientCallStartError(err)
       soundsService.callConnectingSound().stop()
-      return $q.resolve(null)
+      return $q.reject(err)
     }
 
     const startCall = (_serviceId) => {
-      if (!communicatorService.getClientSession() || !angular.isDefined(_serviceId) || !_serviceId) {
-        return $q.resolve(null)
+      if (!angular.isDefined(_serviceId) || !_serviceId) {
+        return $q.reject('serviceId must be defined')
       }
 
-      _onClientCallStart(_serviceId)
+      if (!communicatorService.getClientSession()) {
+        return $q.reject('There is no client session')
+      }
+
+      if (call) {
+        return $q.reject('There is a call already')
+      }
 
       return ServiceApi.addServiceUsageRequest({serviceId: _serviceId})
         .$promise
-        .then(_onAddSUR, _onAddSURError)
+        .then(onAddSUR, onAddSURError)
     }
 
     const api = {
       callServiceId: startCall,
-      toggleAudio: toggleAudio,
-      toggleVideo: toggleVideo,
-      hangupCall: hangupCall,
-      bindLocalStreamElement: setLocalStreamElement,
-      bindRemoteStreamElement: setRemoteStreamElement
+      startVideo: startVideo,
+      stopVideo: stopVideo,
+      startAudio: startAudio,
+      stopAudio: stopAudio,
+      hangupCall: _ => hangupCall(),
+      setLocalStreamElement: setLocalStreamElement,
+      setRemoteStreamElement: setRemoteStreamElement
     }
 
     return angular.extend(api, callbacks.methods)
   }
 
   angular.module('profitelo.services.call', [
+    'profitelo.services.navigator',
     'profitelo.services.communicator',
     'profitelo.swaggerResources',
     'profitelo.services.utils',

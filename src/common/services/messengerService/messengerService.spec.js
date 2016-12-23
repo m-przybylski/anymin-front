@@ -2,19 +2,43 @@ describe('Unit testing: profitelo.services.messenger >', () => {
   describe('for profitelo.services.messenger >', () => {
 
     let onClientCallStarted
-    let onExpertCallJoin
+    let onExpertCallAnswered
     let onExpertCallReject
     let onClientCallRejected
     let onClientCallPending
-    let onHangup
+    let onCallEnd
+
+    const ratelId = '1'
+    const room = {
+      onTyping: _ => _,
+      onMark: _ => _,
+      onMessage: _ => _,
+      getUsers: () => $q.resolve('test')
+    }
+
+    const serviceInvitationTuple = {
+      service: {
+        id: '1'
+      },
+      invitation: {
+        inviter: ratelId
+      }
+    }
+
+    const getTestSession = ($q) => ({
+      chat: {
+        createDirectRoom: () => $q.resolve(room)
+      }
+    })
+
 
     const callService = {
       onClientCallStarted: (cb) => onClientCallStarted = cb,
-      onExpertCallJoin: (cb) => onExpertCallJoin = cb,
+      onExpertCallAnswered: (cb) => onExpertCallAnswered = cb,
       onExpertCallReject: (cb) => onExpertCallReject = cb,
       onClientCallRejected: (cb) => onClientCallRejected = cb,
       onClientCallPending: (cb) => onClientCallPending = cb,
-      onHangup: (cb) => onHangup = cb
+      onCallEnd: (cb) => onCallEnd = cb
     }
 
     const soundsService = {
@@ -37,23 +61,9 @@ describe('Unit testing: profitelo.services.messenger >', () => {
     })
 
     it('expert should get users', inject(($q, $rootScope, communicatorService, messengerService) => {
-      const ratelId = '1'
-      const room = {
-        onTyping: _ => _,
-        onMark: _ => _,
-        onMessage: _ => _,
-        getUsers: () => $q.resolve('test')
-      }
-      const obj = {
-        session: {
-          chat: {
-            createDirectRoom: () => $q.resolve(room)
-          }
-        },
-        inviter: ratelId
-      }
+      communicatorService.findExpertSession = () => getTestSession($q)
 
-      onExpertCallJoin(obj)
+      onExpertCallAnswered(serviceInvitationTuple)
       messengerService.getUsers().then(res => {
         expect(res).toEqual('test')
       })
@@ -61,20 +71,8 @@ describe('Unit testing: profitelo.services.messenger >', () => {
     }))
 
     it('client should get users', inject(($q, $rootScope, communicatorService, messengerService) => {
-      const ratelId = '1'
-      const room = {
-        onTyping: _ => _,
-        onMark: _ => _,
-        onMessage: _ => _,
-        getUsers: () => $q.resolve('test')
-      }
-      const session = {
-        chat: {
-          createDirectRoom: () => $q.resolve(room)
-        }
-      }
 
-      communicatorService.getClientSession = () => session
+      communicatorService.getClientSession = () => getTestSession($q)
 
       onClientCallStarted(ratelId)
       messengerService.getUsers().then(res => {
@@ -84,23 +82,10 @@ describe('Unit testing: profitelo.services.messenger >', () => {
     }))
 
     it('expert should get mark', inject(($q, $rootScope, communicatorService, messengerService) => {
-      const ratelId = '1'
-      const room = {
-        onTyping: _ => _,
-        onMark: _ => _,
-        onMessage: _ => _,
-        getMark: () => $q.resolve('test')
-      }
-      const obj = {
-        session: {
-          chat: {
-            createDirectRoom: () => $q.resolve(room)
-          }
-        },
-        inviter: ratelId
-      }
 
-      onExpertCallJoin(obj)
+      communicatorService.findExpertSession = () => getTestSession($q)
+
+      onExpertCallAnswered(serviceInvitationTuple)
       messengerService.getMark().then(res => {
         expect(res).toEqual('test')
       })
@@ -108,20 +93,8 @@ describe('Unit testing: profitelo.services.messenger >', () => {
     }))
 
     it('client should get mark', inject(($q, $rootScope, communicatorService, messengerService) => {
-      const ratelId = '1'
-      const room = {
-        onTyping: _ => _,
-        onMark: _ => _,
-        onMessage: _ => _,
-        getMark: () => $q.resolve('test')
-      }
-      const session = {
-        chat: {
-          createDirectRoom: () => $q.resolve(room)
-        }
-      }
 
-      communicatorService.getClientSession = () => session
+      communicatorService.getClientSession = () => getTestSession($q)
 
       onClientCallStarted(ratelId)
       messengerService.getMark().then(res => {
@@ -131,23 +104,10 @@ describe('Unit testing: profitelo.services.messenger >', () => {
     }))
 
     it('expert should mark', inject(($q, $rootScope, communicatorService, messengerService) => {
-      const ratelId = '1'
-      const room = {
-        onTyping: _ => _,
-        onMark: _ => _,
-        onMessage: _ => _,
-        mark: () => $q.resolve('test')
-      }
-      const obj = {
-        session: {
-          chat: {
-            createDirectRoom: () => $q.resolve(room)
-          }
-        },
-        inviter: ratelId
-      }
 
-      onExpertCallJoin(obj)
+      communicatorService.findExpertSession = () => getTestSession($q)
+
+      onExpertCallAnswered(serviceInvitationTuple)
       messengerService.mark().then(res => {
         expect(res).toEqual('test')
       })
@@ -155,20 +115,8 @@ describe('Unit testing: profitelo.services.messenger >', () => {
     }))
 
     it('client should mark', inject(($q, $rootScope, communicatorService, messengerService) => {
-      const ratelId = '1'
-      const room = {
-        onTyping: _ => _,
-        onMark: _ => _,
-        onMessage: _ => _,
-        mark: () => $q.resolve('test')
-      }
-      const session = {
-        chat: {
-          createDirectRoom: () => $q.resolve(room)
-        }
-      }
 
-      communicatorService.getClientSession = () => session
+      communicatorService.getClientSession = () => getTestSession($q)
 
       onClientCallStarted(ratelId)
       messengerService.mark().then(res => {
@@ -178,23 +126,10 @@ describe('Unit testing: profitelo.services.messenger >', () => {
     }))
 
     it('expert should indicateTyping', inject(($q, $rootScope, communicatorService, messengerService) => {
-      const ratelId = '1'
-      const room = {
-        onTyping: _ => _,
-        onMark: _ => _,
-        onMessage: _ => _,
-        indicateTyping: () => $q.resolve('test')
-      }
-      const obj = {
-        session: {
-          chat: {
-            createDirectRoom: () => $q.resolve(room)
-          }
-        },
-        inviter: ratelId
-      }
 
-      onExpertCallJoin(obj)
+      communicatorService.findExpertSession = () => getTestSession($q)
+
+      onExpertCallAnswered(serviceInvitationTuple)
       messengerService.indicateTyping().then(res => {
         expect(res).toEqual('test')
       })
@@ -202,20 +137,8 @@ describe('Unit testing: profitelo.services.messenger >', () => {
     }))
 
     it('client should indicateTyping', inject(($q, $rootScope, communicatorService, messengerService) => {
-      const ratelId = '1'
-      const room = {
-        onTyping: _ => _,
-        onMark: _ => _,
-        onMessage: _ => _,
-        indicateTyping: () => $q.resolve('test')
-      }
-      const session = {
-        chat: {
-          createDirectRoom: () => $q.resolve(room)
-        }
-      }
 
-      communicatorService.getClientSession = () => session
+      communicatorService.getClientSession = () => getTestSession($q)
 
       onClientCallStarted(ratelId)
       messengerService.indicateTyping().then(res => {
@@ -225,23 +148,10 @@ describe('Unit testing: profitelo.services.messenger >', () => {
     }))
 
     it('expert should sendMessage', inject(($q, $rootScope, communicatorService, messengerService) => {
-      const ratelId = '1'
-      const room = {
-        onTyping: _ => _,
-        onMark: _ => _,
-        onMessage: _ => _,
-        sendMessage: () => $q.resolve('test')
-      }
-      const obj = {
-        session: {
-          chat: {
-            createDirectRoom: () => $q.resolve(room)
-          }
-        },
-        inviter: ratelId
-      }
 
-      onExpertCallJoin(obj)
+      communicatorService.findExpertSession = () => getTestSession($q)
+
+      onExpertCallAnswered(serviceInvitationTuple)
       messengerService.sendMessage().then(res => {
         expect(res).toEqual('test')
       })
@@ -249,20 +159,8 @@ describe('Unit testing: profitelo.services.messenger >', () => {
     }))
 
     it('client should sendMessage', inject(($q, $rootScope, communicatorService, messengerService) => {
-      const ratelId = '1'
-      const room = {
-        onTyping: _ => _,
-        onMark: _ => _,
-        onMessage: _ => _,
-        sendMessage: () => $q.resolve('test')
-      }
-      const session = {
-        chat: {
-          createDirectRoom: () => $q.resolve(room)
-        }
-      }
 
-      communicatorService.getClientSession = () => session
+      communicatorService.getClientSession = () => getTestSession($q)
 
       onClientCallStarted(ratelId)
       messengerService.sendMessage().then(res => {
@@ -272,7 +170,7 @@ describe('Unit testing: profitelo.services.messenger >', () => {
     }))
 
     it('onHangup should remove room', inject(() => {
-      onHangup()
+      onCallEnd()
     }))
 
     it('onClientCallPending should notify callback facotyr', inject(() => {

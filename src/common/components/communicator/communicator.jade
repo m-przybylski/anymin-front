@@ -1,5 +1,51 @@
-.communicator(data-ng-class="{'is-disconnected': $ctrl.isDisconnected, 'is-closed': $ctrl.isClosed, 'is-minimized': $ctrl.isMinimized}" data-ng-hide="$ctrl.isClosed")
-  communicator-maximized(data-ng-class="{'conversation-hidden': $ctrl.isMinimized}"
-    data-minimize-communicator="$ctrl.minimizeCommunicator")
-  communicator-minimized(data-ng-class="{'conversation-hidden': !$ctrl.isMinimized}"
-    data-maximize-communicator="$ctrl.maximizeCommunicator")
+.communicator(data-ng-class="{'is-disconnected': $ctrl.isDisconnectedAnimation, 'is-closed': $ctrl.isClosed}" data-ng-hide="$ctrl.isClosed")
+  .communicator-maximized
+    .communicator-conversation-header-details(data-ng-hide="$ctrl.isConnecting")
+      .consultation-actions
+        .consultation-profile.profile-preview
+          .thumb.x56
+            img.user-avatar(src data-ng-src="{{ $ctrl.expertAvatar }}")
+
+          div
+            .author
+              h6
+                a {{ $ctrl.expert.expertDetails.name }}
+            .communicator-conversation-title
+              p {{ $ctrl.service.details.name }}
+            .communicator-counter
+              span {{ $ctrl.callLengthInSeconds | secondsToDateTime | date:'HH:mm:ss'}}
+              span(data-ng-bind-html="$ctrl.callCost | money")
+
+    .communicator-content
+      p.call.connecting-with(data-translate="COMMUNICATOR.CONNECTING_WITH" data-ng-show="$ctrl.isConnecting")
+      p.call.connecting-with(data-translate="COMMUNICATOR.AUDIO_CONVERSATION" data-ng-hide="$ctrl.isConnecting")
+      span.communicator-conversation-client {{ $ctrl.expert.expertDetails.name }}
+
+      .communicator-current-profile
+        .communicator-equalizer
+          span.circle
+          span.circle
+          span.circle
+
+        .communicator-user.thumb.x128
+          img.user-avatar.communicator-avatar(src data-ng-src="{{ $ctrl.expertAvatar }}")
+
+      .communicator-conversation-details(data-ng-hide="$ctrl.isConnecting")
+        .communicator-conversation-title
+          p {{ $ctrl.service.details.name }}
+
+        .communicator-counter
+          span {{ $ctrl.callLengthInSeconds | secondsToDateTime | date:'HH:mm:ss' }}
+          span(data-ng-bind-html="$ctrl.callCost | money ")
+
+    .video-player-local(data-ng-show="$ctrl.isLocalVideo")
+      video(autoplay="true" muted="true")
+
+    .video-player-remote(data-ng-show="$ctrl.isRemoteVideo")
+      video(autoplay="true")
+
+    communicator-nav(data-is-video="$ctrl.isLocalVideo"
+    data-hangup-call="$ctrl.hangupCall" data-is-messenger="$ctrl.isMessenger")
+
+    messenger(data-is-messenger="$ctrl.isMessenger" data-call-cost="$ctrl.callCost"
+    data-call-length="$ctrl.callLengthInSeconds")

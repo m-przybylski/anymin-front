@@ -1,0 +1,24 @@
+.communicator-nav
+  .communicator-upper-nav
+    .communicator-window-nav
+      a.btn.btn-circle.black(data-ng-click="$ctrl.toggleOptions($event)")
+        span.icon.icon-dots-menu-24
+
+  .communicator-lower-nav
+    a.btn.btn-circle.black(data-ng-click="$ctrl.stopAudio($event)" data-ng-show="$ctrl.isAudio")
+      span.icon.icon-mic-on-24
+    a.btn.btn-circle.black(data-ng-click="$ctrl.startAudio($event)" data-ng-hide="$ctrl.isAudio")
+      span.icon.icon-mic-off-24
+
+    a.btn.btn-circle.cancel-conversation(data-ng-click="$ctrl.animateButtons($event); $ctrl.hangupCall()")
+      span.icon.icon-reject-24
+
+    a.btn.btn-circle.black(data-ng-click="$ctrl.stopVideo($event)" data-ng-show="$ctrl.isVideo")
+      span.icon.icon-camera-on-24
+    a.btn.btn-circle.black(data-ng-click="$ctrl.startVideo($event)" data-ng-hide="$ctrl.isVideo")
+      span.icon.icon-camera-off-24
+
+    a.btn.btn-circle.black.chat-switcher(data-ng-click="$ctrl.toggleMessenger($event)")
+      span.icon.icon-chat-24(data-ng-hide="$ctrl.isMessenger")
+      span.icon.icon-close-16(data-ng-show="$ctrl.isMessenger")
+      messenger-maximized-meassage-incoming(data-ng-show="$ctrl.isTypingMessage")

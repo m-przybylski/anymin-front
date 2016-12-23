@@ -1,4 +1,4 @@
-describe('Unit testing: profitelo.components.communicator.communicator-maximized.navigation', () => {
+describe('Unit testing: profitelo.components.communicator.navigation', () => {
   return describe('for communicatorNav component >', () => {
 
     let scope
@@ -26,7 +26,7 @@ describe('Unit testing: profitelo.components.communicator.communicator-maximized
 
     beforeEach(() => {
       module('templates-module')
-      module('profitelo.components.communicator.communicator-maximized.navigation')
+      module('profitelo.components.communicator.navigation')
 
       inject(($rootScope, $compile, _$componentController_, _callService_) => {
         rootScope = $rootScope.$new()
@@ -97,13 +97,25 @@ describe('Unit testing: profitelo.components.communicator.communicator-maximized
 
     it('should toggleAudio', () => {
       spyOn(component, 'animateButtons')
-      component.toggleAudio({})
+      component.startAudio({})
+      expect(component.animateButtons).toHaveBeenCalled()
+    })
+
+    it('should toggleAudio', () => {
+      spyOn(component, 'animateButtons')
+      component.stopAudio({})
       expect(component.animateButtons).toHaveBeenCalled()
     })
 
     it('should toggleVideo', () => {
       spyOn(component, 'animateButtons')
-      component.toggleVideo({})
+      component.startVideo({})
+      expect(component.animateButtons).toHaveBeenCalled()
+    })
+
+    it('should toggleVideo', () => {
+      spyOn(component, 'animateButtons')
+      component.stopVideo({})
       expect(component.animateButtons).toHaveBeenCalled()
     })
 

@@ -1,4 +1,4 @@
-describe('Unit testing: profitelo.components.communicator.communicator-maximized.messenger.messenger-minimized', () => {
+describe('Unit testing: profitelo.components.communicator.messenger.messenger-minimized', () => {
   return describe('for messengerMinimized component >', () => {
 
     let scope
@@ -30,7 +30,7 @@ describe('Unit testing: profitelo.components.communicator.communicator-maximized
 
     beforeEach(() => {
       module('templates-module')
-      module('profitelo.components.communicator.communicator-maximized.messenger.messenger-minimized')
+      module('profitelo.components.communicator.messenger.messenger-minimized')
 
       inject((_$rootScope_, _$compile_, _$timeout_, _$componentController_, _messengerService_) => {
         $rootScope = _$rootScope_

@@ -16,27 +16,27 @@
     this.groupedMessages = []
     this.uploadedFile = {}
 
-    const _clientInit = (expert) => {
+    const clientInit = (expert) => {
       this.participantAvatar = HelperService.fileUrlResolver(expert.expertDetails.avatar)
     }
 
-    const _expertInit = () => {
+    const expertInit = () => {
       this.participantAvatar = ''
     }
 
-    const _scrollMessagesBottom = () => {
+    const scrollMessagesBottom = () => {
       messagesScroll.perfectScrollbar('update')
       $timeout(() =>
         messagesScroll.scrollTop(messagesScroll[0].scrollHeight))
     }
 
-    const _addGroupedMessage = (message) => {
+    const addGroupedMessage = (message) => {
       if (this.groupedMessages.length === 0) {
         this.groupedMessages.push([message])
       } else {
         const lastMessageGroup = this.groupedMessages[this.groupedMessages.length-1]
 
-        if (_.head(lastMessageGroup).sender === message.sender) {
+        if (_.head(lastMessageGroup).user === message.user) {
           lastMessageGroup.push(message)
         } else {
           this.groupedMessages.push([message])
@@ -44,21 +44,22 @@
       }
     }
 
-    const _onTypingEnd = () => {
+    const onTypingEnd = () => {
       this.isTyping = false
-      $timeout(_scrollMessagesBottom)
+      $timeout(scrollMessagesBottom)
     }
 
-    const _addMessage = (msg) => {
-      _addGroupedMessage(msg)
-      _onTypingEnd()
+    const addMessage = (msg) => {
+      addGroupedMessage(msg)
+      onTypingEnd()
     }
 
-    const _onMessageSendSuccess = (message) => {
-      _addMessage(message)
+    const onMessageSendSuccess = (message) => {
+      message.isMine = true
+      addMessage(message)
     }
 
-    const _onMessageSendError = (err) =>
+    const onMessageSendError = (err) =>
       $log.error('msg send err:', JSON.stringify(err))
 
     
@@ -67,7 +68,7 @@
     
     const sendMessage = (messageObject) => 
       messengerService.sendMessage(messageObject)
-        .then(_onMessageSendSuccess, _onMessageSendError)
+        .then(onMessageSendSuccess, onMessageSendError)
     
     this.onSendMessage = (messageBody) => {
       sendMessage(serializeMessageBody(messageBody))
@@ -110,10 +111,10 @@
       this.onUploadFiles([this.uploadedFile.file])
     }
 
-    const _onTyping = () => {
+    const onTyping = () => {
       this.isTyping = true
-      _scrollMessagesBottom()
-      $timeout(_onTypingEnd, typingTimeout)
+      scrollMessagesBottom()
+      $timeout(onTypingEnd, typingTimeout)
     }
 
     this.indicateTypingDebounce = _.throttle(messengerService.indicateTyping, indicateTypingDebounce, {
@@ -121,9 +122,11 @@
       'trailing': false
     })
 
-    const _destroy = () => {
+    const destroy = () => {
+      this.participantAvatar = ''
       this.isTyping = false
       this.groupedMessages = []
+      this.uploadedFile = {}
     }
 
     $scope.$watch(()=>{
@@ -134,25 +137,25 @@
       }
     })
 
-    messengerService.onExpertMessage(_addMessage)
+    messengerService.onExpertMessage(addMessage)
 
-    messengerService.onClientMessage(_addMessage)
+    messengerService.onClientMessage(addMessage)
 
-    messengerService.onExpertTyping(_onTyping)
+    messengerService.onExpertTyping(onTyping)
 
-    messengerService.onClientTyping(_onTyping)
+    messengerService.onClientTyping(onTyping)
 
-    messengerService.onClientCreatingRoom(_clientInit)
+    messengerService.onClientCreatingRoom(clientInit)
 
-    messengerService.onExpertCreatedRoom(_expertInit)
+    messengerService.onExpertCreatedRoom(expertInit)
 
-    messengerService.onChatLeft(_destroy)
+    messengerService.onChatLeft(destroy)
 
     return this
   }
 
-  let component = {
-    templateUrl:    'components/communicator/communicator-maximized/messenger/messenger-maximized/messenger-maximized.tpl.html',
+  const component = {
+    templateUrl:    'components/communicator/messenger/messenger-maximized/messenger-maximized.tpl.html',
     controller: controller,
     bindings: {
       callCost: '<',
@@ -162,15 +165,15 @@
     }
   }
 
-  angular.module('profitelo.components.communicator.communicator-maximized.messenger.messenger-maximized', [
+  angular.module('profitelo.components.communicator.messenger.messenger-maximized', [
     'profitelo.services.messenger',
     'profitelo.services.helper',
     'profitelo.services.uploader',
     'lodash',
     'profitelo.filters.seconds-to-datetime',
     'profitelo.filters.money',
-    'profitelo.components.communicator.communicator-maximized.messenger.messenger-maximized.grouped-messages',
-    'profitelo.components.communicator.communicator-maximized.messenger.messenger-maximized.messenger-input'
+    'profitelo.components.communicator.messenger.messenger-maximized.grouped-messages',
+    'profitelo.components.communicator.messenger.messenger-maximized.messenger-input'
   ])
     .component('messengerMaximized', component)
 

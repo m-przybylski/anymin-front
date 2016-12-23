@@ -28,7 +28,7 @@
   }
 
   const component = {
-    templateUrl: 'components/communicator/communicator-maximized/messenger/messenger-maximized/messenger-input/messenger-input.tpl.html',
+    templateUrl: 'components/communicator/messenger/messenger-maximized/messenger-input/messenger-input.tpl.html',
     controller: controller,
     bindings: {
       onSendMessage: '<',
@@ -38,7 +38,7 @@
     }
   }
 
-  angular.module('profitelo.components.communicator.communicator-maximized.messenger.messenger-maximized.messenger-input', [
+  angular.module('profitelo.components.communicator.messenger.messenger-maximized.messenger-input', [
     'pascalprecht.translate'
   ])
     .component('messengerInput', component)
