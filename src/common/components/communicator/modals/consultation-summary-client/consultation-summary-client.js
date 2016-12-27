@@ -83,6 +83,7 @@
     'profitelo.services.helper',
     'profitelo.swaggerResources',
     'ui.bootstrap',
+    'profitelo.components.interface.preloader',
     'lodash'
   ])
     .controller('consultationSummaryClientController', controller)
