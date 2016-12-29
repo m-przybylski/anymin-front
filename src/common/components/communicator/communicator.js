@@ -1,63 +1,89 @@
 (function() {
 
   /* @ngInject */
-  function controller($timeout, $log, callService) {
+  function controller($timeout, $element, callService, HelperService) {
 
-    this.isMinimized = (angular.isDefined(this.minimized) && this.minimized)
     this.isClosed = true
-    this.isDisconnected = false
+    this.isDisconnectedAnimation = false
+    this.isConnecting = false
 
-    this.minimizeCommunicator = () => {
-      this.isMinimized = true
+    this.service = null
+    this.expert = null
+
+    this.isRemoteVideo = false
+    this.isLocalVideo = false
+    this.isMessenger = false
+
+    this.callLengthInSeconds = 0
+    this.callCost = null
+
+    const localStreamElement = $element.find('.video-player-local video')
+    const remoteStreamElement = $element.find('.video-player-remote video')
+
+    callService.setLocalStreamElement(localStreamElement)
+    callService.setRemoteStreamElement(remoteStreamElement)
+
+    const cleanupComponent = () => {
+      this.isDisconnectedAnimation = false
+      this.isConnecting = false
+      this.service = null
+      this.expert = null
+      this.isRemoteVideo = false
+      this.isLocalVideo = false
+      this.isMessenger = false
+      this.callLengthInSeconds = 0
+      this.callCost = null
     }
 
-    this.maximizeCommunicator = () => {
-      this.isMinimized = false
-    }
-
-    const turnOffComponent = () => {
-      this.isClosed = true
-      this.isDisconnected = false
-    }
-
-    const turnOnComponent = () => {
-      this.isClosed = false
-    }
-
-    callService.onHangup(_ => {
-      this.isDisconnected = true
+    const onCallEnd = () => {
+      this.isDisconnectedAnimation = true
       $timeout(() => {
-        turnOffComponent()
-        this.isDisconnected = false
+        this.isClosed = true
+        cleanupComponent()
       }, 500)
+    }
+
+    /* Starting events */
+    callService.onClientCallPending(expertServiceTuple => {
+      cleanupComponent()
+      this.service = expertServiceTuple.service
+      this.expert = expertServiceTuple.expert
+      this.expertAvatar = HelperService.fileUrlResolver(this.expert.expertDetails.avatar)
+      this.isConnecting = true
+      this.isClosed = false
     })
 
-    callService.onClientCallHangup(_ => {
-      turnOffComponent()
+    /* Call started events */
+    callService.onExpertCallAnswered(serviceInvitationTuple => {
+      cleanupComponent()
+      this.service = serviceInvitationTuple.service
+      this.isConnecting = false
+      this.isClosed = false
     })
 
-    callService.onClientCallRejected(_ => {
-      turnOffComponent()
+    callService.onClientCallStarted(_ => {
+      this.isConnecting = false
     })
 
-    callService.onClientCallStart(_ => {
-    })
+    /* Call ended events */
+    callService.onCallEnd(onCallEnd)
 
-    callService.onClientCallPendingError(err => {
-      turnOffComponent()
-      $log.error(err)
-    })
+    /* Other events */
+    const onVideoStart = () => {
+      this.isRemoteVideo = true
+    }
 
-    callService.onClientCallPending(_ => {
-      turnOnComponent()
-    })
+    const onVideoStop = () => {
+      this.isRemoteVideo = false
+    }
 
-    callService.onExpertCallAnswer(_ => {
-      turnOnComponent()
-    })
+    callService.onVideoStart(onVideoStart)
 
-    callService.onExpertCallReject(_ => {
-      turnOffComponent()
+    callService.onVideoStop(onVideoStop)
+
+    callService.onTimeCostChange(timeMoneyTuple => {
+      this.callLengthInSeconds = timeMoneyTuple.time
+      this.callCost = timeMoneyTuple.money
     })
 
     angular.element('.communicator').on('dragover', (e) => {
@@ -74,16 +100,16 @@
   const component = {
     templateUrl: 'components/communicator/communicator.tpl.html',
     controller: controller,
-    bindings: {
-      minimized: '<?'
-    }
   }
 
   angular.module('profitelo.components.communicator', [
     'pascalprecht.translate',
     'profitelo.services.call',
-    'profitelo.components.communicator.communicator-maximized',
-    'profitelo.components.communicator.communicator-minimized'
+    'profitelo.services.helper',
+    'profitelo.filters.money',
+    'profitelo.filters.seconds-to-datetime',
+    'profitelo.components.communicator.navigation',
+    'profitelo.components.communicator.messenger'
   ])
     .component('communicator', component)
 }())

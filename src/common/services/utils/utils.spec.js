@@ -53,7 +53,12 @@ describe('Unit testing: profitelo.services.utils >', () => {
 
       spyOn(callbacks, 'cb1')
 
-      const timer = UtilsService.timerFactory.getInstance(100)
+      const money = {
+        amount: 100,
+        currency: 'PLN'
+      }
+
+      const timer = UtilsService.callTimerFactory.getInstance(money)
 
       timer.start(callbacks.cb1)
 

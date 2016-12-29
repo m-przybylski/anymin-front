@@ -1,13 +1,15 @@
-describe('Unit testing: profitelo.components.communicator.communicator-maximized', () => {
-  return describe('for communicatorMaximized component >', () => {
+describe('Unit testing: profitelo.components.communicator.messenger', () => {
+  return describe('for messenger component >', () => {
 
     let scope
     let rootScope
     let compile
     let component
-    const validHTML = '<communicator-maximized></communicator-maximized>'
+    const validHTML = '<messenger data-call-length="0" data-call-cost="0" data-is-messenger="false"></messenger>'
     const bindings = {
-      minimizeCommunicator: _ => _
+      callLength: 0,
+      callCost: 0,
+      isMessenger: false
     }
     const uploaderService = {
       collectionTypes: { avatar: 'avatar' },
@@ -35,17 +37,15 @@ describe('Unit testing: profitelo.components.communicator.communicator-maximized
 
     beforeEach(() => {
       module('templates-module')
-      module('profitelo.components.communicator.communicator-maximized')
+      module('profitelo.components.communicator.messenger')
 
-      inject(($rootScope, $compile, $timeout, _$componentController_) => {
+      inject(($rootScope, $compile, _$componentController_) => {
         rootScope = $rootScope.$new()
         compile = $compile
 
-        const injectors = {
-          $element: create(validHTML)
-        }
+        const injectors = {}
 
-        component = _$componentController_('communicatorMaximized', injectors, bindings)
+        component = _$componentController_('messenger', injectors, bindings)
       })
     })
 
@@ -56,6 +56,16 @@ describe('Unit testing: profitelo.components.communicator.communicator-maximized
     it('should compile the component', () => {
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)
+    })
+    
+    it('should minimizeMessenger', () => {
+      component.minimizeMessenger()
+      expect(component.isMessenger).toBe(false)
+    })
+    
+    it('should maximizeMessenger', () => {
+      component.maximizeMessenger()
+      expect(component.isMessenger).toBe(true)
     })
   })
 })

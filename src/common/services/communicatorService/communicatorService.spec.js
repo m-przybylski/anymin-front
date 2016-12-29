@@ -6,9 +6,12 @@ describe('Unit testing: profitelo.services.communicator >', () => {
       chat: {
         onError: _ => _,
         onConnect: _ => _,
-        onStatusChange: _ => _,
+        onStatusUpdate: _ => _,
+        onDisconnect: _ => _,
         onCall: _ => _,
         onRoom: _ => _,
+        onBotUpdate: _ => _,
+        onHeartbeat: _ => _,
         connect: _ => _
       }
     }
@@ -29,6 +32,7 @@ describe('Unit testing: profitelo.services.communicator >', () => {
     }))
 
     beforeEach(() => {
+      module('commonConfig')
       module('profitelo.services.communicator')
     })
 
@@ -42,7 +46,10 @@ describe('Unit testing: profitelo.services.communicator >', () => {
 
     it('should authenticate', inject(($q, $rootScope, RatelApi, ProfileApi, ratelSdk) => {
 
-      RatelApi.getRatelAuthConfig = () => { return {$promise: $q.resolve(config)} }
+      RatelApi.getRatelAuthConfig = () => { return {$promise: $q.resolve({
+        toJSON: () => config
+      })} }
+
       ProfileApi.getEmployersProfilesWithServices = () => { return {$promise: $q.resolve(profilesWithServices)} }
       ratelSdk.withSignedAuth = () => $q.resolve(session)
 

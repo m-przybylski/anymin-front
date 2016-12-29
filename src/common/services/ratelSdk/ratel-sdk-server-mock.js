@@ -32,7 +32,7 @@
       if (users.length === 2) {
         let clientId, expertId, serviceId
         users.forEach(user => {
-          const parts = user.split('_')
+          const parts = user.split(':')
           if (parts.length === 1) {
             clientId = parts[0]
           } else if (parts.length === 2) {
@@ -110,8 +110,8 @@
     return session
   }
 
-  window.RatelSDK = {
+  /*window.RatelSDK = {
     withSignedAuth: (sessionData, artichokeConfig) =>
       _RatelSDK.withSignedAuth(sessionData, artichokeConfig).then(wrapSession)
-  }
+  }*/
 }())

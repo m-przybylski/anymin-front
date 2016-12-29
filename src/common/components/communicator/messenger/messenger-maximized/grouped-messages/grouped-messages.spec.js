@@ -1,4 +1,4 @@
-describe('Unit testing: profitelo.components.communicator.communicator-maximized.messenger.messenger-maximized.grouped-messages', () => {
+describe('Unit testing: profitelo.components.communicator.messenger.messenger-maximized.grouped-messages', () => {
   return describe('for groupedMessages component >', () => {
 
     let scope
@@ -20,7 +20,7 @@ describe('Unit testing: profitelo.components.communicator.communicator-maximized
 
     beforeEach(() => {
       module('templates-module')
-      module('profitelo.components.communicator.communicator-maximized.messenger.messenger-maximized.grouped-messages')
+      module('profitelo.components.communicator.messenger.messenger-maximized.grouped-messages')
 
       inject(($rootScope, $compile, _$componentController_) => {
         rootScope = $rootScope.$new()

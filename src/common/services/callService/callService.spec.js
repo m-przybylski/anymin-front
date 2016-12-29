@@ -14,6 +14,33 @@ describe('Unit testing: profitelo.services.call >', () => {
       onCall: (cb) => onCall = cb
     }
 
+    const testSUR = {
+      agentId: '123',
+      service: {
+        id: '123',
+        details: {
+          price: {
+            amount: 100,
+            currency: 'PLN'
+          }
+        }
+      }
+    }
+    const call = {
+      onJoined: _ => _,
+      onLeft: _ => _,
+      mute: _ => _,
+      unmute: _ => _,
+      pause: _ => _,
+      unpause: _ => _,
+      onRemoteStream: _ => _,
+      onStreamPaused: _ => _,
+      onStreamUnpaused: _ => _,
+      onEnd: _ => _,
+      onRejected: _ => _,
+      leave: _ => _
+    }
+
     const soundsService = {
       playMessageNew: _ => _,
       callConnectingSound: () => {
@@ -94,20 +121,18 @@ describe('Unit testing: profitelo.services.call >', () => {
       expect(modalsService.createServiceUnavailableModal).toHaveBeenCalled()
     }))
 
-    it('should create direct call with error and log it', inject(($q, $log, $rootScope, communicatorService, ServiceApi) => {
+    it('should create direct call with error and log it', inject(
+      ($q, $log, $rootScope, communicatorService, ServiceApi, navigatorService) => {
       const serviceId = '1'
-      const sur = {
-        ratelId: '123'
-      }
-      const call = null
       const session = {
         chat: {
-          createDirectCall: _ => $q.reject(call)
+          createDirectCall: _ => $q.reject(null)
         }
       }
 
+      navigatorService.getUserMediaStream = () => $q.resolve()
       communicatorService.getClientSession = () => { return session }
-      ServiceApi.addServiceUsageRequest = () => { return {$promise: $q.resolve(sur)} }
+      ServiceApi.addServiceUsageRequest = () => { return {$promise: $q.resolve(testSUR)} }
 
       spyOn($log, 'error')
 
@@ -118,23 +143,18 @@ describe('Unit testing: profitelo.services.call >', () => {
       expect($log.error).toHaveBeenCalled()
     }))
 
-    it('should startCall', inject(($q, $rootScope, communicatorService, ServiceApi) => {
+    it('should startCall', inject(($q, $rootScope, communicatorService, ServiceApi, navigatorService) => {
       const serviceId = '1'
-      const sur = {
-        ratelId: '123'
-      }
-      const call = {
-        onJoined: _ => _,
-        onLeft: _ => _
-      }
+
       const session = {
         chat: {
           createDirectCall: _ => $q.resolve(call)
         }
       }
 
+      navigatorService.getUserMediaStream = () => $q.resolve()
       communicatorService.getClientSession = () => { return session }
-      ServiceApi.addServiceUsageRequest = () => { return {$promise: $q.resolve(sur)} }
+      ServiceApi.addServiceUsageRequest = () => { return {$promise: $q.resolve(testSUR)} }
 
       callService.callServiceId(serviceId)
 
@@ -143,115 +163,72 @@ describe('Unit testing: profitelo.services.call >', () => {
 
     it('should not hangup if no call', inject(($rootScope) => {
 
-      callService.hangupCall().then((res) => {
-        expect(res).toEqual(null)
-      })
+      callService.hangupCall().then(_ => _, (err) => {expect(err).toEqual('NO CALL')})
 
       $rootScope.$digest()
     }))
 
-    it('should hangup', inject(($q, $rootScope, communicatorService, ServiceApi) => {
+    it('should hangup', inject(($q, $rootScope, communicatorService, ServiceApi, navigatorService) => {
       const serviceId = '1'
-      const sur = {
-        ratelId: '123',
-        service: {
-          id: '123'
-        }
-      }
-      const call = {
-        onJoined: _ => _,
-        onLeft: _ => _,
-        hangup: () => { return $q.resolve('hangup') }
-      }
+
+      const _call = angular.copy(call)
+      _call.leave = () => $q.resolve()
+
       const session = {
         chat: {
-          createDirectCall: _ => $q.resolve(call)
+          createDirectCall: _ => $q.resolve(_call)
         }
       }
 
+      navigatorService.getUserMediaStream = () => $q.resolve()
       communicatorService.getClientSession = () => { return session }
-      ServiceApi.addServiceUsageRequest = () => { return {$promise: $q.resolve(sur)} }
+      ServiceApi.addServiceUsageRequest = () => { return {$promise: $q.resolve(testSUR)} }
 
       callService.callServiceId(serviceId)
       $rootScope.$digest()
       callService.hangupCall().then((res) => {
-        expect(res).toEqual('hangup')
+        expect(res).toEqual(undefined)
       })
       $rootScope.$digest()
     }))
 
-    it('should bind streams', inject(($q, $rootScope, communicatorService, ServiceApi) => {
+    it('should start video&audio', inject(($q, $rootScope, communicatorService, ServiceApi, navigatorService) => {
       const serviceId = '1'
-      const sur = {
-        ratelId: '123'
-      }
-      const call = {
-        onJoined: _ => _,
-        onLeft: _ => _,
-        setLocalStreamElement: _ => _,
-        setRemoteStreamElement: _ => _
-      }
-      const session = {
-        chat: {
-          createDirectCall: _ => $q.resolve(call)
-        }
-      }
-      const remoteStreamElement = angular.element('<div></div>')
-      const localStreamElement = angular.element('<div></div>')
 
-      communicatorService.getClientSession = () => { return session }
-      ServiceApi.addServiceUsageRequest = () => { return {$promise: $q.resolve(sur)} }
-
-      callService.callServiceId(serviceId)
-      $rootScope.$digest()
-
-      spyOn(call, 'setLocalStreamElement')
-      spyOn(call, 'setRemoteStreamElement')
-      callService.bindRemoteStreamElement(remoteStreamElement)
-      callService.bindLocalStreamElement(localStreamElement)
-
-      expect(call.setLocalStreamElement).toHaveBeenCalled()
-      expect(call.setRemoteStreamElement).toHaveBeenCalled()
-    }))
-
-    it('should toggle video&audio', inject(($q, $rootScope, communicatorService, ServiceApi) => {
-      const serviceId = '1'
-      const sur = {
-        ratelId: '123'
-      }
-      const call = {
-        onJoined: _ => _,
-        onLeft: _ => _,
-        toggleVideo: _ => _,
-        toggleAudio: _ => _
-      }
       const session = {
         chat: {
           createDirectCall: _ => $q.resolve(call)
         }
       }
 
+      navigatorService.getUserMediaStream = () => $q.resolve()
       communicatorService.getClientSession = () => { return session }
-      ServiceApi.addServiceUsageRequest = () => { return {$promise: $q.resolve(sur)} }
+      ServiceApi.addServiceUsageRequest = () => { return {$promise: $q.resolve(testSUR)} }
 
       callService.callServiceId(serviceId)
       $rootScope.$digest()
 
-      spyOn(call, 'toggleVideo')
-      spyOn(call, 'toggleAudio')
+      spyOn(call, 'pause')
+      spyOn(call, 'mute')
+      spyOn(call, 'unpause')
+      spyOn(call, 'unmute')
 
-      callService.toggleVideo()
-      callService.toggleAudio()
+      callService.stopVideo()
+      callService.stopAudio()
+      callService.startVideo()
+      callService.startAudio()
 
-      expect(call.toggleVideo).toHaveBeenCalled()
-      expect(call.toggleAudio).toHaveBeenCalled()
+      expect(call.mute).toHaveBeenCalled()
+      expect(call.pause).toHaveBeenCalled()
+      expect(call.unpause).toHaveBeenCalled()
+      expect(call.unmute).toHaveBeenCalled()
     }))
 
     it('should show modal on onCall', inject(() => {
 
       const obj = {
         invitation: {
-          call: {}
+          call: call
         },
         expert: {},
         session: {}

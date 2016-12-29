@@ -29,7 +29,7 @@
       if (room) {
         return room.getHistory()
       } else {
-        return $q.resolve(null)
+        return $q.reject('No room')
       }
     }
 
@@ -94,21 +94,23 @@
       }
     }
 
-    const _onExpertCreateDirectRoomError = (err) => {
+    const _onExpertCreateDirectRoomError = (err) =>
       $log.error(err)
-    }
 
-    const _createExpertDirectRoom = (obj) => {
+    const _createExpertDirectRoom = (serviceInvitationTuple) => {
       if (room) {
         $log.error('Message room already exists')
         return void(0)
       }
 
-      if (typeof obj !== 'object' || !obj.hasOwnProperty('session') || !obj.hasOwnProperty('inviter')) {
-        $log.error('Object has no session or inviter')
+      const session = communicatorService.findExpertSession(serviceInvitationTuple.service.id)
+
+      if (typeof session !== 'object' || !session) {
+        $log.error('There is no expert session')
       }
 
-      obj.session.chat.createDirectRoom(obj.inviter).then(_onExpertCreateDirectRoom, _onExpertCreateDirectRoomError)
+      return session.chat.createDirectRoom(serviceInvitationTuple.invitation.inviter)
+        .then(_onExpertCreateDirectRoom, _onExpertCreateDirectRoomError)
     }
 
     const _onClientTyping = () =>
@@ -155,15 +157,11 @@
 
     callService.onClientCallStarted(_createClientDirectRoom)
 
-    callService.onExpertCallJoin(_createExpertDirectRoom)
-
-    callService.onExpertCallReject(_leaveRoom)
-
-    callService.onClientCallRejected(_leaveRoom)
+    callService.onExpertCallAnswered(_createExpertDirectRoom)
 
     callService.onClientCallPending(_onClientCreatingRoom)
 
-    callService.onHangup(_leaveRoom)
+    callService.onCallEnd(_leaveRoom)
 
     const api = {
       getHistory: getHistory,

@@ -20,7 +20,6 @@
     return function(money) {
 
       if (!money || typeof money !== 'object' || !money.hasOwnProperty('amount') || !money.hasOwnProperty('currency')) {
-        $log.error('Money filter argument is not a money object')
         return ''
       }
 

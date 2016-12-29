@@ -33,14 +33,14 @@
   }
 
   const component = {
-    templateUrl: 'components/communicator/communicator-maximized/messenger/messenger-minimized/messenger-minimized.tpl.html',
+    templateUrl: 'components/communicator/messenger/messenger-minimized/messenger-minimized.tpl.html',
     controller: controller,
     bindings: {
       onMessageClick: '<'
     }
   }
 
-  angular.module('profitelo.components.communicator.communicator-maximized.messenger.messenger-minimized', [
+  angular.module('profitelo.components.communicator.messenger.messenger-minimized', [
     'profitelo.services.messenger'
   ])
     .component('messengerMinimized', component)

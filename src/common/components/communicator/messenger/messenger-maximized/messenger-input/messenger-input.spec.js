@@ -1,5 +1,5 @@
 describe('Unit testing: ' +
-  'profitelo.components.communicator.communicator-maximized.messenger.messenger-maximized.messenger-input', () => {
+  'profitelo.components.communicator.messenger.messenger-maximized.messenger-input', () => {
   return describe('for messengerInput component >', () => {
 
     let scope
@@ -25,7 +25,7 @@ describe('Unit testing: ' +
 
     beforeEach(() => {
       module('templates-module')
-      module('profitelo.components.communicator.communicator-maximized.messenger.messenger-maximized.messenger-input')
+      module('profitelo.components.communicator.messenger.messenger-maximized.messenger-input')
 
       inject(($rootScope, $compile, _$componentController_) => {
         rootScope = $rootScope.$new()

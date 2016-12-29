@@ -6,10 +6,20 @@ describe('Unit testing: profitelo.components.communicator', () => {
     let compile
     let component
     const validHTML = '<communicator></communicator>'
-    const bindings = {}
+    const bindings = {
+      minimizeCommunicator: _ => _
+    }
     const uploaderService = {
       collectionTypes: { avatar: 'avatar' },
       getInstance: _ => _
+    }
+
+    function create(html) {
+      scope = rootScope.$new()
+      let elem = angular.element(html)
+      let compiledElement = compile(elem)(scope)
+      scope.$digest()
+      return compiledElement
     }
 
     beforeEach(() => {
@@ -25,28 +35,19 @@ describe('Unit testing: profitelo.components.communicator', () => {
 
     beforeEach(() => {
       module('templates-module')
-      module('profitelo.services.call')
       module('profitelo.components.communicator')
 
-      inject(($rootScope, $compile, _$componentController_, _callService_) => {
+      inject(($rootScope, $compile, $timeout, _$componentController_) => {
         rootScope = $rootScope.$new()
         compile = $compile
 
         const injectors = {
-          callService: _callService_
+          $element: create(validHTML)
         }
 
         component = _$componentController_('communicator', injectors, bindings)
       })
     })
-
-    function create(html) {
-      scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
-      scope.$digest()
-      return compiledElement
-    }
 
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
@@ -56,6 +57,6 @@ describe('Unit testing: profitelo.components.communicator', () => {
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
-
   })
 })
+

@@ -13,7 +13,7 @@
   }
 
   const component = {
-    templateUrl:    'components/communicator/communicator-maximized/messenger/messenger.tpl.html',
+    templateUrl:    'components/communicator/messenger/messenger.tpl.html',
     controller: controller,
     bindings: {
       callCost: '<',
@@ -22,9 +22,9 @@
     }
   }
 
-  angular.module('profitelo.components.communicator.communicator-maximized.messenger', [
-    'profitelo.components.communicator.communicator-maximized.messenger.messenger-maximized',
-    'profitelo.components.communicator.communicator-maximized.messenger.messenger-minimized'
+  angular.module('profitelo.components.communicator.messenger', [
+    'profitelo.components.communicator.messenger.messenger-maximized',
+    'profitelo.components.communicator.messenger.messenger-minimized'
   ])
     .component('messenger', component)
 
