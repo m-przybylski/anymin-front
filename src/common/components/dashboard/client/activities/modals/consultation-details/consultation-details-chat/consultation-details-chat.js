@@ -12,7 +12,8 @@
   }
 
   angular.module('profitelo.components.dashboard.client.activities.modals.consultation-details.consultation-details-chat', [
-    'pascalprecht.translate'
+    'pascalprecht.translate',
+    'profitelo.components.communicator.messenger.messenger-maximized.grouped-messages'
   ])
     .component('clientConsultationDetailsChat', component)
 }())

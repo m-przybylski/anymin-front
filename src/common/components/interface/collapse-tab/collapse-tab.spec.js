@@ -9,6 +9,7 @@ describe('Unit testing: profitelo.components.interface.collapse-tab', () => {
     let window
     let bindings
     let timeout
+    let log
     let validHTML = '<collapse-tab></collapse-tab>'
     let smoothScrolling
 
@@ -24,12 +25,13 @@ describe('Unit testing: profitelo.components.interface.collapse-tab', () => {
       module('templates-module')
       module('profitelo.components.interface.collapse-tab')
 
-      inject(($rootScope, $compile, _$componentController_, _$window_, _$timeout_) => {
+      inject(($rootScope, $compile, _$componentController_, _$window_, _$timeout_, _$log_) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
         timeout = _$timeout_
         window = _$window_
+        log = _$log_
       })
 
       bindings = {
@@ -43,7 +45,7 @@ describe('Unit testing: profitelo.components.interface.collapse-tab', () => {
         }
       }
 
-      component = componentController('collapseTab', {$element: create(validHTML), $scope: rootScope, $window: window,
+      component = componentController('collapseTab', {$element: create(validHTML), $scope: rootScope, $window: window, $log: log,
         smoothScrolling: smoothScrolling}, {})
       timeout.flush()
     })

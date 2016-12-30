@@ -1,15 +1,16 @@
 .radio-text.radio
   div
     input(
-      ng-value="$ctrl.specialValue"
       type="radio"
       id="{{ $ctrl.id }}"
       name="$ctrl.name"
+      value="{{ $ctrl.value }}"
+      ng-model="$ctrl.ngModel"
     )
     label.label
 
   label.text(for="{{ $ctrl.id }}") {{ $ctrl.label | translate }}
 
-.radio-description(data-ng-show="$ctrl.isRadioSelected")
+.radio-description
   p.label-description {{ $ctrl.labelDescription | translate }}
   textarea.message

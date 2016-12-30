@@ -1,17 +1,21 @@
 .client-activities-page
   .client-credits.default-container
-      span.client-credits(data-ng-bind-html="vm.balance | money")
-      a.btn.btn-primary(data-translate="DASHBOARD.CLIENT.RECHARGE" data-ui-sref="app.dashboard.charge-account")
-  .client-last-activities-content
-      .default-container(data-ng-if="(!vm.activities ||  vm.activities.length < 1) && !vm.isParamChange")
-          client-no-activities()
+    span.client-credits(data-ng-bind-html="::vm.balance | money")
+    a.btn.btn-primary(data-translate="DASHBOARD.CLIENT.RECHARGE" data-ui-sref="app.dashboard.charge-account")
 
-      .default-container(data-ng-if="vm.activities && vm.activities.length > 0 || vm.isParamChange")
-        .client-activities-page
-          preloader(data-is-loading="vm.isSearchLoading")
-            client-activities-filters(data-filters="vm.filters")
-            client-activity(data-ng-repeat="activity in vm.activities | orderBy: '-' "
-            data-activity="activity")
-            .show-more-results
-              a.btn.btn-primary(data-translate="DASHBOARD.CLIENT.ACTIVITIES.SHOW_MORE_RESULTS"
-              data-ng-click="vm.loadMoreActivities()" data-ng-show="vm.activities > 10 && !vm.noMoreResults")
+  .client-last-activities-content
+    .default-container(data-ng-if="(!vm.activities ||  vm.activities.length < 1) && !vm.isParamChange")
+      client-no-activities()
+
+    .default-container(data-ng-if="vm.activities && vm.activities.length > 0 || vm.isParamChange")
+      preloader-container(data-is-loading="vm.isSearchLoading" data-ng-show="vm.isSearchLoading"
+      data-is-error="vm.isError" data-error-message="DASHBOARD_CLIENT.ERROR_MESSAGE"
+      data-error-fn="vm.sendRequestAgain")
+
+      .client-activities-page(data-ng-hide="vm.isSearchLoading")
+        client-activities-filters(data-filters="vm.filters" on-set-search-params="vm.onSetSearchParams")
+        client-activity(data-ng-repeat="activity in vm.activities"
+        data-activity="activity")
+        .show-more-results
+          a.btn.btn-primary(data-translate="DASHBOARD.CLIENT.ACTIVITIES.SHOW_MORE_RESULTS"
+          data-ng-click="vm.loadMoreActivities()" data-ng-show="vm.isMoreResults")

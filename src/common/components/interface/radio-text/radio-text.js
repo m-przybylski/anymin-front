@@ -1,7 +1,7 @@
 (function() {
   /* @ngInject */
   function controller() {
-    this.isRadioSelected = true
+    this.isCollapsed = true
 
     return this
   }
@@ -12,7 +12,9 @@
       label: '@',
       name: '@',
       id: '@',
-      labelDescription: '@'
+      labelDescription: '@',
+      ngModel: '=',
+      value: '@',
     },
     templateUrl: 'components/interface/radio-text/radio-text.tpl.html',
     controllerAs: '$ctrl',

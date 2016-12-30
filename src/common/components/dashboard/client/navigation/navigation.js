@@ -12,7 +12,7 @@
     controller: controller,
     controllerAs: '$ctrl',
     bindings: {
-      isFavourite: '<'
+      stateNames: '<'
     }
   }
 

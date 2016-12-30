@@ -6,21 +6,21 @@ top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-c
       .client-conversation-details-modal
         .profile-preview.vertical-preview
           .thumb.x48
-            img.user-avatar(src="/asd")
+            img.user-avatar(src ng-src="{{ :: expertAvatar }}")
 
           .profile-name
             a
-              span  Jan Kowalski
+              span {{ :: expert.expertDetails.name }}
 
           .consultation-title
-            h3 Nazwa konsulejsyzn
+            h3 {{ :: service.details.name }}
 
         .details-tab
           .details-tab-row.header-row
             .details-tab-label
-              span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TIME_CONVERSATION")
+              span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COST")
             .detais-tab-content
-              span 27 min 8 s
+              span(data-ng-bind-html="callCost | money")
 
           .details-tab-row
             .details-tab-label
@@ -36,19 +36,21 @@ top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-c
             .details-tab-label
               span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.CONSULTATION_ID")
             .detais-tab-content
-              span 120-1f-1f3f13f
+              span {{ :: sueId }}
           .details-tab-row
             .details-tab-label
               span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.CONVERSATION_PRICE_MIN")
             .detais-tab-content
-              span 5 pln / min
+              span(data-ng-bind-html="callCost | money")
 
         client-recommended-tags()
 
-        collapse-btn.chat-history(data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.CHAT.BUTTON" data-icon="icon-chat-24")
+        collapse-btn.chat-history(data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.CHAT.BUTTON"
+        data-icon="icon-chat-24")
           client-consultation-details-chat()
 
-        collapse-btn(data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.BUTTON" data-icon="icon-complaint-24")
+        collapse-btn(data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.BUTTON"
+        data-icon="icon-complaint-24")
           client-complain()
 
         .btn.btn-collapse(data-ui-sref="app.dashboard.client.activities")
@@ -56,4 +58,5 @@ top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-c
             .btn.collapse-btn-header
               div
                 span.icon.icon-history-24
-                span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.HISTORY_OF_CONVERSATION.BUTTON")
+                span(
+                data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.HISTORY_OF_CONVERSATION.BUTTON")

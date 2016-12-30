@@ -9,7 +9,9 @@
     bindings: {
       label: '@',
       name: '@',
-      id: '@'
+      id: '@',
+      ngModel: '=?',
+      value: '@'
     },
     templateUrl: 'components/interface/radio/radio.tpl.html',
     controllerAs: '$ctrl',

@@ -46,6 +46,9 @@
 .report-modal
   text-align: center
 
+  > div
+    padding: 32px 0
+
   img
     margin: 0 0 64px
 
@@ -64,3 +67,10 @@
   .modal-action
     display: flex
     justify-content: space-between
+    flex-wrap: wrap
+
+    .btn
+      flex: 1 0 100%
+
+      +xsm
+        flex: 1

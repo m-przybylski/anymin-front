@@ -1,6 +1,8 @@
 (function() {
   /* @ngInject */
-  function controller(HelperService) {
+  function controller(HelperService, modalsService) {
+
+    this.isCallActivity = !!this.activity.sueProfileServiceTuple
 
     if (angular.isDefined(this.activity) && this.activity.sueProfileServiceTuple &&
       this.activity.sueProfileServiceTuple.profile.expertDetails.avatar &&
@@ -29,6 +31,8 @@
   angular.module('profitelo.components.dashboard.client.activities.client-activity', [
     'pascalprecht.translate',
     'profitelo.services.helper',
+    'profitelo.filters.money',
+    'profitelo.services.modals',
     'profitelo.components.complaints.status'
   ])
     .component('clientActivity', component)

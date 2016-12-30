@@ -6,6 +6,7 @@
   height: 100vh
   display: block
   padding: $dashboard-navbar-width 0 0
+  overflow: scroll
 
   +smm-landscape
     padding: $dashboard-navbar-width 0 0
@@ -31,6 +32,12 @@
       overflow: auto
       display: block
 
+      +smm
+        padding: 48px 0
+
+      +lgm
+        padding: 64px 0
+
   &.scrollable
     padding: $f-navbar-height 0 0 0
     display: block
@@ -38,4 +45,4 @@
     height: 100vh
 
     +smm
-      padding: $f-navbar-height + 64px 0 64px 0
+      padding: $f-navbar-height 0 0 0

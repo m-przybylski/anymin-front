@@ -6,6 +6,8 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.filters
     let compile
     let componentController
     let validHTML = '<client-activities-filters data-filters="filters"></client-activities-filters>'
+    let setOriginal
+    let setMock
 
     const filters = {
       activityTypes: [],
@@ -15,7 +17,13 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.filters
 
     beforeEach(module(($provide) => {
       $provide.value('apiUrl', 'awesomeUrl/')
+
     }))
+
+    beforeEach(() => {
+      setOriginal = window.Set
+      window.Set = () => setMock
+    })
 
     function create(html) {
       scope = rootScope.$new()
@@ -40,10 +48,15 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.filters
       })
     })
 
+    afterEach(() => {
+      window.Set = setOriginal
+    })
+
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
-    it('should compile the directive', () => {
+
+    it('should compile the component', () => {
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })

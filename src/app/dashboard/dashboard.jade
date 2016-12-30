@@ -1,7 +1,5 @@
 .container.main-container(data-ng-class="{'hide-menu': !dashboardController.isSidebarShown}")
 
-  pro-top-navbar(data-is-hide="!dashboardController.isNavbarShown" logout-action="appController.logout"
-  data-sidebar-handler="dashboardController.showSidebar" data-sidebar-status="dashboardController.isSidebarShown"
-  data-is-expert="dashboardController.expertProfileExist" data-show-navigation-menu="true")
+  pro-top-navbar(logout-action="appController.logout")
 
   div(data-ui-view="")

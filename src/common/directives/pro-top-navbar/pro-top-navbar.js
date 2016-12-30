@@ -65,17 +65,14 @@
         const navbarSearchInput = elem.find('.search-bar-container .search-bar')[0]
         
         const searchInputOnPage = angular.element(document).find('.search-bar-container .search-bar')[1]
-
         if (!!searchInputOnPage) {
           smoothScrolling.simpleScrollTo(searchInputOnPage, true)
           searchInputOnPage.focus()
           scope.searchMaskActive = false
-
         } else if (!!navbarSearchInput) {
           scope.showSearch = true
           scope.showUserMenuOnClick = false
           navbarSearchInput.focus()
-
           if (scope.showSearch && scope.sidebarStatus && scope.windowSize < 992 || scope.showResponsiveMenu) {
             scope.sidebarAction()
           }

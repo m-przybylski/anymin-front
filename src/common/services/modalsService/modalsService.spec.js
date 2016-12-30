@@ -40,7 +40,7 @@ describe('Unit testing: profitelo.services.modals >', () => {
       expect(DialogService.openDialog).toHaveBeenCalled()
     }))
 
-    it('should create ClientConsultationSummaryModal', inject((DialogService) => {
+    it('should create createClientConsultationSummaryModal', inject((DialogService) => {
       spyOn(DialogService, 'openDialog')
 
       modalsService.createClientConsultationSummaryModal({}, _ => _, _ => _)
@@ -48,11 +48,18 @@ describe('Unit testing: profitelo.services.modals >', () => {
       expect(DialogService.openDialog).toHaveBeenCalled()
     }))
 
-
-    it('should create createClientConversationSummaryModal', inject((DialogService) => {
+    it('should create createExpertConsultationSummaryModal', inject((DialogService) => {
       spyOn(DialogService, 'openDialog')
 
-      modalsService.createClientConversationSummaryModal({}, _ => _, _ => _)
+      modalsService.createExpertConsultationSummaryModal({}, _ => _, _ => _)
+
+      expect(DialogService.openDialog).toHaveBeenCalled()
+    }))
+
+    it('should create createClientSUEActivityDetailsModal', inject((DialogService) => {
+      spyOn(DialogService, 'openDialog')
+
+      modalsService.createClientSUEActivityDetailsModal({}, _ => _, _ => _)
 
       expect(DialogService.openDialog).toHaveBeenCalled()
     }))
