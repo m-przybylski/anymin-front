@@ -53,35 +53,24 @@
       })
     }
 
-    const allServicesList = createDropdownServiceList(this.filters.expertServiceTuples)
-    this.expertsList = createDropdownExpertsList(this.filters.expertServiceTuples)
-    this.servicesList = allServicesList
-
+    const allServicesDropdownList = createDropdownServiceList(this.filters.expertServiceTuples)
+    this.expertsDropdownList = createDropdownExpertsList(this.filters.expertServiceTuples)
+    this.servicesDropdownList = allServicesDropdownList
 
     clientActivitiesService.onQueryParamsChange($scope, (param) => {
-
-      this.selectedType = _.find(this.activityTypesList, (type) => {
-        return type.value === param.activityType
-      })
-
-      this.selectedService = _.find(this.servicesList, (service) => {
-        return service.value === param.serviceId
-      })
-
-      this.selectedExpert= _.find(this.expertsList, (expert) => {
-        return expert.value === param.profileId
-      })
-
+      this.selectedType = _.find(this.activityTypesList, type => type.value === param.activityType)
+      this.selectedService = _.find(this.servicesDropdownList, service => service.value === param.serviceId)
+      this.selectedExpert= _.find(this.expertsDropdownList, expert => expert.value === param.profileId)
     })
 
     const clearServicesList = () => {
-      this.servicesList = allServicesList
-      this.secondaryServicesList = []
+      this.servicesDropdownList = allServicesDropdownList
+      this.secondaryServicesDropdownList = []
     }
 
     const setActivitiesQueryParams = (queryParams) => {
       if (angular.isFunction(this.onSetSearchParams)) {
-        this.onSetSearchParams()
+        this.onSetSearchParams(queryParams)
       }
       clientActivitiesService.setClientActivitiesParam(queryParams)
     }
@@ -110,8 +99,8 @@
           profile: {
             id: item.value
           }})
-        this.servicesList = createDropdownServiceList(groupServices.true)
-        this.secondaryServicesList = createDropdownServiceList(groupServices.false)
+        this.servicesDropdownList = createDropdownServiceList(groupServices.true)
+        this.secondaryServicesDropdownList = createDropdownServiceList(groupServices.false)
       } else {
         clearServicesList()
       }

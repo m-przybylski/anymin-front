@@ -1,7 +1,7 @@
 .complain-reason
   h5(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.TITLE")
   form(data-ng-submit="" novalidate)
-    radio-btn-text(data-ng-repeat="reason in $ctrl.complaintReasons" data-ng-model="$ctrl.model.value"
+    radio-btn-text(data-ng-repeat="reason in $ctrl.complaintReasons" data-ng-model="::$ctrl.model.value"
     value="{{ reason.id }} " data-id="{{ reason.id }}" data-label="{{ reason.name }}"
     data-label-description=" {{ reason.description }}"
     data-ng-click="$ctrl.isRadioSelected(reason)"
@@ -9,5 +9,5 @@
     )
 
     .btn-group
-      button.btn.btn-default(data-ng-click="$ctrl.showComplainReasonModal()"
+      button.btn.btn-default(data-ng-click="::$ctrl.showComplainReasonModal()"
       data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.REPORT_COMPLAINS.BUTTON")

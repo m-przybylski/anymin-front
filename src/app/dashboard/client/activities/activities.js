@@ -2,15 +2,15 @@
 
   function DashboardClientActivitiesController($scope, $timeout, clientActivities, clientActivitiesService) {
 
-    const checkIsMoreResults = (results, limit) => {
-      this.isMoreResults = results.length > limit
+    const isMoreResultsAvailable = (results, limit) => {
+      return results.length > limit
     }
 
     this.queryParams = {}
     this.isSearchLoading = false
     this.isParamChange = false
 
-    checkIsMoreResults(clientActivities.activities, 10)
+    this.isMoreResults  = isMoreResultsAvailable(clientActivities.activities, 10)
     if (this.isMoreResults) {
       clientActivities.activities.pop()
     }
@@ -46,10 +46,11 @@
       this.isParamChange = true
 
       if (angular.isDefined(results)) {
-        checkIsMoreResults(results.activities, queryParams.limit - 1)
+        this.isMoreResults  = isMoreResultsAvailable(results.activities, queryParams.limit - 1)
         if (this.isMoreResults) {
           results.activities.pop()
         }
+
         if (queryParams.offset === 0) {
           this.activities =  _.sortBy(results.activities, (activity) => activity.financialOperation.createdAt)
         } else {
@@ -58,9 +59,7 @@
       }
     })
 
-
-
-    $scope.$on("$destroy",  () => {
+    $scope.$on('$destroy', () => {
       clientActivitiesService.clearQueryParam()
     })
 

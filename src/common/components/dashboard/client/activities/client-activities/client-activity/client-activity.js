@@ -1,6 +1,6 @@
 (function() {
   /* @ngInject */
-  function controller(HelperService) {
+  function controller(HelperService, modalsService) {
 
     this.isCallActivity = !!this.activity.sueProfileServiceTuple
 

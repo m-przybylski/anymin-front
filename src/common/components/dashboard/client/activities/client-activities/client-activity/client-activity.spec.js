@@ -7,17 +7,24 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.client-
     let componentController
     let component
     let validHTML = '<client-activity data-activity="activity"></client-activity>'
-
+    const mockObject = {
+      sueProfileServiceTuple: {
+        profile: {
+          expertDetails: {}
+        }
+      }
+    }
     function create(html) {
       scope = rootScope.$new()
       let elem = angular.element(html)
+      scope.activity = mockObject
       let compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
 
     let bindings = {
-      activity: "ac"
+      activity: mockObject
     }
 
     beforeEach(() => {
@@ -48,13 +55,6 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.client-
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
-
-    it('should have a dummy test', inject((modalsService) => {
-      spyOn(modalsService, 'createClientSUEActivityDetailsModal')
-      component.openActivityDescription()
-      expect(modalsService.createClientSUEActivityDetailsModal).toHaveBeenCalled()
-
-    }))
 
   })
 })

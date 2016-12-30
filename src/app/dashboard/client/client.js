@@ -1,9 +1,9 @@
 (function() {
   function clientController($state, $scope) {
 
-    const getRealStateName = (string) =>{
+    const getRealStateName = (string) => {
       const stringsArray = string.split('.')
-      return stringsArray[stringsArray.length - 1]
+      return stringsArray[3]
     }
 
     this.stateNames = {}
@@ -13,7 +13,7 @@
         _favourites: {
           enumerable: false,
           writable: true,
-          value: undefined
+          value: false
         },
 
         favourites: {
@@ -32,7 +32,7 @@
         _activities: {
           enumerable: false,
           writable: true,
-          value: undefined
+          value: false
         },
 
         activities: {
@@ -53,7 +53,7 @@
     defineStateProperties(this.stateNames)
     this.stateNames[getRealStateName($state.current.name)] = true
 
-    $scope.$watch(() =>{
+    $scope.$watch(() => {
       return $state.$current.name
     },(newVal, oldVal) => {
       if (newVal) {

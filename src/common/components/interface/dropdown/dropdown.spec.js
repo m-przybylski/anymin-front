@@ -46,8 +46,15 @@ describe('Unit testing: profitelo.components.interface.drop-down', () => {
         }
       }
 
-      component = componentController('dropDown', {$element: create(validHTML), $scope: rootScope, $window: window,
-        smoothScrolling: smoothScrolling, $document: document}, bindings)
+      const injectors = {
+        $element: create(validHTML),
+        $scope: rootScope,
+        $window: window,
+        smoothScrolling: smoothScrolling,
+        $document: document
+      }
+
+      component = componentController('dropDown', injectors, bindings)
       timeout.flush()
     })
 

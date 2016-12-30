@@ -10,7 +10,7 @@
 
     this.mainPlaceholder = {
       name: this.placeholder,
-      value: void 0
+      value: null
     }
 
     this.mainListExist = () =>

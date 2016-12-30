@@ -46,7 +46,7 @@
             if (v !== this._profileId) {
               this.areDirty = true
               this._profileId = v
-              if (v !== undefined) {
+              if (angular.isDefined(v)) {
                 this._activityType = _activityTypeOptions[0]
               }
             }
@@ -68,7 +68,7 @@
             if (v !== this._serviceId) {
               this.areDirty = true
               this._serviceId = v
-              if (v !== undefined) {
+              if (angular.isDefined(v)) {
                 this._activityType = _activityTypeOptions[0]
               }
             }
@@ -107,7 +107,7 @@
           set: function(v) {
             v = v instanceof Date ? v : undefined
             if (v !== this._dateTo) {
-              if (v !== undefined) {
+              if (angular.isDefined(v)) {
                 //TODO It will not working with time zones
                 v.setHours(23,59,59,999)
               }
@@ -176,14 +176,14 @@
     function _subscribeForActivitiesResults(scope, callback) {
       scope.$on(
         '$destroy',
-        $rootScope.$on(activitiesResultsEvent, (_, err, results, queryParams) => { return callback(err, results, queryParams) })
+        $rootScope.$on(activitiesResultsEvent, (_, err, results, queryParams) => callback(err, results, queryParams))
       )
     }
 
     function _subscribeForQueryParams(scope, callback) {
       scope.$on(
         '$destroy',
-        $rootScope.$on(queryParamsEvent, (_, results) => { return callback(results) })
+        $rootScope.$on(queryParamsEvent, (_, results) => callback(results))
       )
       _notifyOnQueryParams(_queryParams)
     }
@@ -194,6 +194,7 @@
       _searchClientActivities(_queryParams).then((response) => {
         _notifyOnQueryParams(_queryParams)
         _notifyOnActivitiesResults(null, response, _queryParams)
+        return $q.resolve(response)
       }, (error) => {
         _notifyOnActivitiesResults(error, null, _queryParams)
         return $q.reject(error)
@@ -207,7 +208,7 @@
           if (filterObject.hasOwnProperty(fieldName)) {
             _queryParams[fieldName] = filterObject[fieldName]
           } else {
-            _queryParams[fieldName] = void 0
+            _queryParams[fieldName] = null
           }
         })
 
@@ -217,6 +218,7 @@
         _searchClientActivities(_queryParams).then((response) => {
           _notifyOnQueryParams(_queryParams)
           _notifyOnActivitiesResults(null, response, _queryParams)
+          return $q.resolve(response)
         }, (error) => {
           _notifyOnActivitiesResults(error, null, _queryParams)
           return $q.reject(error)

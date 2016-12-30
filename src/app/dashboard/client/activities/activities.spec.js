@@ -12,7 +12,8 @@ describe('Unit tests: DashboardClientActivitiesController >', () => {
 
     const clientActivitiesService = {
       onQueryParamsChange: _ => _,
-      onActivitiesResults: _ => _
+      onActivitiesResults: _ => _,
+      clearQueryParam: _ => _
     }
 
     beforeEach(() => {

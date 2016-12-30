@@ -19,6 +19,7 @@
     const onGetCallDetailsError = (err) =>
       $log.error(err)
 
+    //TODO add preloader
     ViewsApi.getClientDashboardCallDetails({
       sueId: $scope.sueId
     }).$promise.then(onGetCallDetails, onGetCallDetailsError)
