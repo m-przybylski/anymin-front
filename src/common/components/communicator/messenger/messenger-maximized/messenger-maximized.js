@@ -51,6 +51,8 @@
 
     const addMessage = (msg) => {
       addGroupedMessage(msg)
+      msg.isNew = true
+      $timeout(() => msg.isNew = false, 500)
       onTypingEnd()
     }
 

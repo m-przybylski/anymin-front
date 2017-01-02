@@ -1,6 +1,6 @@
 .communicator(data-ng-class="{'is-disconnected': $ctrl.isDisconnectedAnimation, 'is-closed': $ctrl.isClosed}" data-ng-hide="$ctrl.isClosed")
   .communicator-maximized
-    .communicator-conversation-header-details(data-ng-hide="$ctrl.isConnecting")
+    .communicator-conversation-header-details(data-ng-hide="$ctrl.isConnecting || !$ctrl.isRemoteVideo")
       .consultation-actions
         .consultation-profile.profile-preview
           .thumb.x56

@@ -95,29 +95,29 @@ describe('Unit testing: profitelo.components.communicator.navigation', () => {
       expect(event.currentTarget.classList.remove).toHaveBeenCalled()
     })
 
-    it('should toggleAudio', () => {
-      spyOn(component, 'animateButtons')
-      component.startAudio({})
-      expect(component.animateButtons).toHaveBeenCalled()
-    })
+    it('should startAudio', inject((callService) => {
+      spyOn(callService, 'startAudio')
+      component.startAudio()
+      expect(callService.startAudio).toHaveBeenCalled()
+    }))
 
-    it('should toggleAudio', () => {
-      spyOn(component, 'animateButtons')
-      component.stopAudio({})
-      expect(component.animateButtons).toHaveBeenCalled()
-    })
+    it('should stopAudio', inject((callService) => {
+      spyOn(callService, 'stopAudio')
+      component.stopAudio()
+      expect(callService.stopAudio).toHaveBeenCalled()
+    }))
 
-    it('should toggleVideo', () => {
+    it('should startVideo', () => {
       spyOn(component, 'animateButtons')
       component.startVideo({})
       expect(component.animateButtons).toHaveBeenCalled()
     })
 
-    it('should toggleVideo', () => {
-      spyOn(component, 'animateButtons')
-      component.stopVideo({})
-      expect(component.animateButtons).toHaveBeenCalled()
-    })
+    it('should stopVideo', inject((callService) => {
+      spyOn(callService, 'stopVideo')
+      component.stopVideo()
+      expect(callService.stopVideo).toHaveBeenCalled()
+    }))
 
     it('should toggleOptions', () => {
       spyOn(component, 'animateButtons')
