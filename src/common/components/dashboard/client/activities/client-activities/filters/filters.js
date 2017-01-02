@@ -131,7 +131,7 @@
             searchQueryParams[watchGroup[idx]] = value
           }
         })
-        setActivitiesQueryParams(queryParams)
+        setActivitiesQueryParams(searchQueryParams)
       }
     })
 
