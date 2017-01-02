@@ -13,9 +13,9 @@
 
           ul.consultation-about
             li.options-item.recomendation
-              span  {{ $ctrl.serviceTagsEmployeesTuple.service.rating || 0 }}% {{"SEARCH.RECOMMENDATION" | translate }}
+              span  {{ $ctrl.serviceTagsEmployeesTuple.service.rating || '0' }}% {{"SEARCH.RECOMMENDATION" | translate }}
             li.options-item.conversation-count
-              span {{ $ctrl.serviceTagsEmployeesTuple.service.serviceUsageCounter || 0}} rozmowy
+              span {{ $ctrl.serviceTagsEmployeesTuple.service.usageCounter || '0' }} rozmowy
             //li.options-item.balance
               span Stan Twojego konta pozwala na ok. 1 min rozmowy
 

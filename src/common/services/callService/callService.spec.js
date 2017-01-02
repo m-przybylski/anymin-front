@@ -24,6 +24,9 @@ describe('Unit testing: profitelo.services.call >', () => {
             currency: 'PLN'
           }
         }
+      },
+      expert: {
+        id: '121'
       }
     }
     const call = {
@@ -168,7 +171,7 @@ describe('Unit testing: profitelo.services.call >', () => {
       $rootScope.$digest()
     }))
 
-    it('should hangup', inject(($q, $rootScope, communicatorService, ServiceApi, navigatorService) => {
+    it('should hangup', inject(($q, $rootScope, communicatorService, ServiceApi, navigatorService, RatelApi) => {
       const serviceId = '1'
 
       const _call = angular.copy(call)
@@ -181,8 +184,9 @@ describe('Unit testing: profitelo.services.call >', () => {
       }
 
       navigatorService.getUserMediaStream = () => $q.resolve()
-      communicatorService.getClientSession = () => { return session }
-      ServiceApi.addServiceUsageRequest = () => { return {$promise: $q.resolve(testSUR)} }
+      communicatorService.getClientSession = () => session
+      ServiceApi.addServiceUsageRequest = () => ({$promise: $q.resolve(testSUR)})
+      RatelApi.ratelCallStoppedHook = () => ({$promise: $q.resolve('')})
 
       callService.callServiceId(serviceId)
       $rootScope.$digest()

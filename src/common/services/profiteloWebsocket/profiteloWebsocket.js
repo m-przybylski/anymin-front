@@ -27,7 +27,7 @@
 
     const handleMessageType = (data) => {
       const type = data.messageType
-      const value = data.value
+      const value = JSON.parse(data.value)
 
       switch (type) {
         case 'CallSummaryEvent':
@@ -83,7 +83,6 @@
     const onSocketClose = (event) => {
       $log.info('Profitelo websocket closed', event)
       cleanEvents()
-
       $timeout(connectWebsocket, reconnectTimeout)
     }
 

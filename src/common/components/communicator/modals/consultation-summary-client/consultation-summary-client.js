@@ -13,7 +13,7 @@
       $scope.callSummary = _callSummary
       const avatar = _callSummary.companyExpertProfile.expertDetails.avatar
       $scope.expertAvatarUrl = (avatar) ? HelperService.fileUrlResolver(avatar) : ''
-      $scope.rating = parseInt(_callSummary.service.rating, 10) % 101
+      $scope.rating = _callSummary.service.rating
     }
 
     const onCallSummary = (data) => {

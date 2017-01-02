@@ -13,9 +13,9 @@
 
           ul.consultation-about
             li.options-item.recomendation
-              span  {{ serviceTagsEmployeesTuple.service.rating }}
+              span  {{ serviceTagsEmployeesTuple.service.rating || '0' }} %
             li.options-item.conversation-count
-              span {{ serviceTagsEmployeesTuple.service.serviceUsageCounter }}
+              span {{ serviceTagsEmployeesTuple.service.usageCounter || '0' }}
             li.options-item.balance
               span Stan Twojego konta pozwala na ok. {{ consultation.timeAverage }} min rozmowy
 

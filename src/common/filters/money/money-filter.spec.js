@@ -11,14 +11,47 @@ describe('Unit testing: profitelo.filters.money >', () => {
       $filter = _$filter_
     }))
 
-    it('should return amount with currency', () => {
+    const getMoneyStringForAmountAndCurrency = (amount, currency) =>
+      '<span class="amount">' + amount + '</span><span class="currency">' + currency + '</span>'
+
+    it('should return 1034 amount with currency', () => {
 
       const moneyObj = {
-        amount: 1000,
+        amount: 1034,
         currency: 'PLN'
       }
 
-      expect($filter('money')(moneyObj)).toBe('<span class="amount">10.00</span><span class="currency">PLN</span>')
+      expect($filter('money')(moneyObj)).toBe(getMoneyStringForAmountAndCurrency('10.34', moneyObj.currency))
+    })
+
+    it('should return minor -0.09', () => {
+
+      const moneyObj = {
+        amount: -9,
+        currency: 'PLN'
+      }
+
+      expect($filter('money')(moneyObj)).toBe(getMoneyStringForAmountAndCurrency('-0.09', moneyObj.currency))
+    })
+
+    it('should return minor -0.17', () => {
+
+      const moneyObj = {
+        amount: -17,
+        currency: 'PLN'
+      }
+
+      expect($filter('money')(moneyObj)).toBe(getMoneyStringForAmountAndCurrency('-0.17', moneyObj.currency))
+    })
+
+    it('should return minor 0.04', () => {
+
+      const moneyObj = {
+        amount: 4,
+        currency: 'PLN'
+      }
+
+      expect($filter('money')(moneyObj)).toBe(getMoneyStringForAmountAndCurrency('0.04', moneyObj.currency))
     })
 
   })

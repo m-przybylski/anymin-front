@@ -1,14 +1,18 @@
 (function() {
 
   const handleAmount = (_amount) => {
+    let sign = ''
     const amount = parseInt(_amount, 10)
     const major = (amount) ? parseInt(amount / 100, 10) : 0
     const minor = (amount) ? amount % 100 : 0
     let minorFirst = (minor) ? minor % 10 : 0
     let minorSecond = (minor) ? parseInt(minor / 10, 10) : 0
-    minorFirst = minorFirst < 0 ? minorFirst * -1 : minorFirst
-    minorSecond = minorSecond < 0 ? minorSecond * -1 : minorSecond
-    return major + '.' + minorSecond + minorFirst
+
+    if (_amount < 0) {
+      sign = '-'
+    }
+
+    return sign + Math.abs(major) + '.' + Math.abs(minorSecond) + Math.abs(minorFirst)
   }
 
   const handleMoney = (_money) => {

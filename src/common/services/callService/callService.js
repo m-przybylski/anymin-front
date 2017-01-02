@@ -1,13 +1,14 @@
 (function () {
 
   function service($q, $log, navigatorService, UtilsService, communicatorService, ServiceApi, modalsService,
-                   soundsService) {
+                   soundsService, User, RatelApi) {
 
     const callingTimeout = 30
     const moneyChangeNotificationInterval = 1000
 
     let call = null
     let timer = null
+    let isConnecting = false
 
     let serviceId = null
     let serviceFreeMinutesCount = null
@@ -66,6 +67,25 @@
       }
     }
 
+    const startHookMock = (expertId) =>
+      RatelApi.ratelCallStartedHook({
+        callId: call.id,
+        clientId: User.getData('id'),
+        expertId: expertId,
+        serviceId: serviceId,
+        timestamp: Date.now()
+      }).$promise.then((res) => $log.debug('Hook Start', res), (err) => $log.error('Hook Start error:', err))
+
+    const stopHookMock = () => {
+      if (call) {
+        RatelApi.ratelCallStoppedHook({
+          callId: call.id,
+          timestamp: Date.now()
+        }).$promise.then((res) => $log.debug('Hook Stop', res), (err) => $log.error('Hook Stop error:', err))
+      }
+    }
+
+
     const cleanupService = () => {
       stopLocalStream()
       cleanCallVariables()
@@ -81,6 +101,7 @@
 
     const cleanCallVariables = () => {
       call = null
+      isConnecting = false
       serviceId = null
       serviceFreeMinutesCount = null
       localStream = null
@@ -93,14 +114,17 @@
     let hangupCall = _ => $q.reject('NO CALL')
 
     const onClientCallEnd = () => {
+      stopHookMock()
       callbacks.notify(events.onCallEnd, null)
-      modalsService.createClientConsultationSummaryModal(serviceId)
+      if (!isConnecting) {
+        modalsService.createClientConsultationSummaryModal(serviceId)
+      }
       cleanupService()
     }
 
     const onExpertCallEnd = () => {
       callbacks.notify(events.onCallEnd, null)
-      modalsService.createClientConsultationSummaryModal(serviceId)
+      modalsService.createExpertConsultationSummaryModal(serviceId)
       cleanupService()
     }
 
@@ -219,14 +243,9 @@
     }
 
     const onCallEnd = () => {
+      stopHookMock()
       cleanupService()
       callbacks.notify(events.onCallEnd, null)
-    }
-
-    const onExpertCallDisappearBeforeAnswering = () => {
-      stopSounds()
-      destroyModals()
-      soundsService.playCallRejected()
     }
 
     const onExpertCallIncoming = (serviceInvitationTuple) => {
@@ -253,13 +272,20 @@
       modalsService.createServiceUnavailableModal(_ => _, _ => _)
     }
 
+    const onExpertCallDisappearBeforeAnswering = () => {
+      cleanupService()
+      soundsService.playCallRejected()
+    }
+
     const onClientCallStartError = (err) => {
       onConsultationUnavailable()
       $log.error(err)
       // _onNoFunds()
     }
 
-    const onClientCallStarted = (inviterId) => {
+    const onClientCallStarted = (inviterId, expertId) => {
+      isConnecting = false
+      startHookMock(expertId)
       startTimer()
       soundsService.callConnectingSound().stop()
       call.pause()
@@ -271,14 +297,14 @@
       onConsultationUnavailable()
     }
 
-    const onCreateDirectCall = (newCall, participantId) => {
+    const onCreateDirectCall = (newCall, participantId, expertId) => {
       call = newCall
 
       call.onRemoteStream((agentId, stream) => {
         remoteStreamElement.attr('src', window.URL.createObjectURL(stream))
       })
 
-      call.onJoined(_ => onClientCallStarted(participantId))
+      call.onJoined(_ => onClientCallStarted(participantId, expertId))
       call.onLeft(onClientCallEnd)
       call.onEnd(onCallEnd)
       call.onRejected(onClientCallRejected)
@@ -316,7 +342,7 @@
           setLocalStream(_localStream)
           return session.chat.createDirectCall(localStream, agentId, callingTimeout)
         })
-        .then(_call => onCreateDirectCall(_call, agentId), onDirectCallError)
+        .then(_call => onCreateDirectCall(_call, agentId, serviceUsageRequest.expert.id), onDirectCallError)
     }
 
     const onAddSURError = (err) => {
@@ -334,9 +360,11 @@
         return $q.reject('There is no client session')
       }
 
-      if (call) {
+      if (call || isConnecting) {
         return $q.reject('There is a call already')
       }
+
+      isConnecting = true
 
       return ServiceApi.addServiceUsageRequest({serviceId: _serviceId})
         .$promise
