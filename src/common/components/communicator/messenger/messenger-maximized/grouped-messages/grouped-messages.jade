@@ -3,7 +3,7 @@
       img.user-avatar(src data-ng-src="{{ :: $ctrl.participantAvatar }}")
 
   div
-    .message(data-ng-repeat="message in $ctrl.messages track by $index")
+    .message(data-ng-repeat="message in $ctrl.messages track by $index" data-ng-class="{'is-active': message.isNew}")
       .content
           span(data-ng-bind-html="::message.body | message")
 

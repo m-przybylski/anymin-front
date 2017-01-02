@@ -16,28 +16,25 @@
       }
     }
 
-    this.startAudio = (elem) => {
+    this.startAudio = () => {
       callService.startAudio()
-      this.animateButtons(elem)
       this.isAudio = true
     }
 
-    this.stopAudio = (elem) => {
+    this.stopAudio = () => {
       callService.stopAudio()
-      this.animateButtons(elem)
       this.isAudio = false
     }
 
-    this.stopVideo = (elem) => {
+    this.stopVideo = () => {
       callService.stopVideo()
-      this.animateButtons(elem)
       this.isVideo = false
     }
 
     this.startVideo = (elem) => {
       callService.startVideo()
-      this.animateButtons(elem)
       this.isVideo = true
+      this.animateButtons(elem)
     }
 
     this.toggleOptions = (elem) => {
