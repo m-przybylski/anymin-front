@@ -13,11 +13,11 @@
 
           ul.consultation-about
             li.options-item.recomendation
-              span  {{ ::vm.consultation.rating }}% {{"SEARCH.RECOMMENDATION" | translate }}
+              span  {{ ::vm.consultation.rating || '0' }}% {{"SEARCH.RECOMMENDATION" | translate }}
             li.options-item.conversation-count
-              span {{ ::vm.consultation.serviceUsageCounter || 0 }}
+              span {{ ::vm.consultation.usageCounter || '0' }}
             li.options-item.balance
-              span {{ ::vm.consultation.timeAverage || 0 }} min.
+              span {{ ::vm.consultation.timeAverage || '0' }} min.
 
       .consultation-actions
         .profile-preview

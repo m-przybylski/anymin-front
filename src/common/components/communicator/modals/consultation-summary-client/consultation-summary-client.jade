@@ -8,7 +8,7 @@ top-modal-navbar(data-title="COMMUNICATOR.MODALS.RATE_CONVERATION" data-on-close
           .consultation-profile
             .profile-preview
               .thumb.x96
-                img.user-avatar(data-ng-src="expertAvatarUrl" alt="{{ callSummary.companyExpertProfile.expertDetails.name }}")
+                img.user-avatar(src data-ng-src="expertAvatarUrl" alt="{{ callSummary.companyExpertProfile.expertDetails.name }}")
 
               div
                 .profile-name
@@ -28,9 +28,9 @@ top-modal-navbar(data-title="COMMUNICATOR.MODALS.RATE_CONVERATION" data-on-close
 
               ul.consultation-about
                 li.options-item.recomendation
-                  span  {{ rating }}% {{"SEARCH.RECOMMENDATION" | translate }}
+                  span  {{ rating || '0' }}% {{"SEARCH.RECOMMENDATION" | translate }}
                 li.options-item.conversation-count
-                  span {{ callSummary.service.serviceUsageCounter }}
+                  span {{ callSummary.service.usageCounter || '0' }}
                 //li.options-item.balance
                   span {{ 'NONE' }} min.
 
