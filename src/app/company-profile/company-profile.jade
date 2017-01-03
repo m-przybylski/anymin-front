@@ -5,7 +5,7 @@
     pro-expert-header.company-header(data-profile="vm.profile" data-handle-like="vm.handleLike()")
 
   collapse-tab(id='consultationScroll' data-ng-if="vm.services && vm.services.length > 0")
-    .default-container(ng-repeat="service in vm.services")
+    .default-container.no-padding(ng-repeat="service in vm.services")
       company-single-consultation(
       data-service-tags-employees-tuple="service")
 
