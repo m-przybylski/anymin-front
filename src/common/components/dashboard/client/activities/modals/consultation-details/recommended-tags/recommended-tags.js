@@ -1,8 +1,9 @@
 (function() {
   /* @ngInject */
-  function controller($log, ServiceApi) {
+  function controller($log, $timeout, ServiceApi) {
 
-    this.recommendTags = this.isRecommended
+    let serviceRecommendation
+    this.isRecommendTags = this.isRecommended
 
     const getServiceTags = () => {
 
@@ -19,13 +20,16 @@
       }).$promise.then(onServiceTags, onServiceTagsError)
     }
 
-
-    if (this.isRecommended) {
-      getServiceTags()
-    }
+    // TODO remove timeout
+    $timeout(() => {
+      if (this.isRecommended) {
+        this.tags = this.selectedTags
+      }
+    })
 
     const onRecommendService = (res) => {
-      this.recommendTags = !this.recommendTags
+      serviceRecommendation = res
+      this.recommendTags = !this.isRecommendTags
       getServiceTags()
     }
 
@@ -52,10 +56,12 @@
 
     this.saveRecommendedTags = () => {
       ServiceApi.putServiceRecommendations({
-        serviceRecommendationId: this.service.id,
+        serviceRecommendationId: serviceRecommendation.id,
         tags: _.map(this.selectedTags, tag => tag.id)
       }).$promise.then(onRecommendServiceTags, onRecommendServiceTagsError)
     }
+
+
 
     return this
   }

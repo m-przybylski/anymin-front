@@ -1,7 +1,6 @@
 (function() {
 
-  function controller($log, $timeout, $scope, $uibModalInstance, ViewsApi, HelperService) {
-    $scope.isLoading = true
+  function controller($log, $scope, $uibModalInstance, ViewsApi, HelperService) {
 
     $scope.onModalClose = () =>
       $uibModalInstance.dismiss('cancel')
@@ -10,7 +9,6 @@
       const expertAvatarFileId = res.expertProfile.expertDetails.avatar
       $scope.expertAvatar = expertAvatarFileId ? HelperService.fileUrlResolver(expertAvatarFileId) : null
       $scope.expert = res.expertProfile
-      $scope.isRecommended = res.isRecommended
       $scope.recommendedTags = res.recommendedTags
       $scope.service = res.service
       $scope.callCost = res.serviceUsageDetails.callCost
@@ -18,7 +16,6 @@
       $scope.callDuration = res.serviceUsageDetails.callDuration
       $scope.callCostPerMinute = res.service.details.price
       $scope.isRecommended = res.isRecommended
-      $timeout(() => $scope.isLoading = false, 400)
     }
 
     const onGetCallDetailsError = (err) =>
@@ -29,7 +26,6 @@
       sueId: $scope.sueId
     }).$promise.then(onGetCallDetails, onGetCallDetailsError)
 
-    return this
   }
 
   angular.module('profitelo.components.dashboard.client.activities.modals.consultation-details', [
