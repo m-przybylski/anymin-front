@@ -11,7 +11,12 @@
     this.onMouseLeave = () => {
       this.isLinkActive = true
     }
-    
+
+    this.consultation.price = {
+      amount: this.consultation.price,
+      currency: 'PLN'
+    }
+
     if (!!this.consultation.owner.img && this.consultation.owner.img !== null) {
       this.profileImage = HelperService.fileUrlResolver(this.consultation.owner.img)
     } else {
