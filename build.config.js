@@ -16,16 +16,19 @@ const PROJECT_THEME_PATH = 'src/template/' + PROJECT_THEME_NAME + '/'
 module.exports = {
   pkg: require('./package.json'),
   compile_dir: 'build',
+  transpiler: 'ts',
+  tsconfig: 'tsconfig.json',
   tests_dir: 'tests',
   tpl_name: 'templates-module.js',
   requiredTestCoverage: 80,
   tpl_module: 'templates-module',
   project_theme_name: PROJECT_THEME_NAME,
+  test_files_pattern: '*.spec.ts',
   app_files: {
-    js: ['src/**/*.js', '!src/**/*.spec.js'],
-    allJs: ['src/**/*.js'],
-    jsunit: ['src/**/*.spec.js'],
-    jse2e: ['e2e/**/*.e2e.js'],
+    js: ['src/**/*.ts', '!src/**/*.spec.ts'],
+    allJs: ['src/**/*.ts'],
+    jsunit: ['src/**/*.spec.ts'],
+    jse2e: ['e2e/**/*.e2e.ts'],
     jade_all: 'src/**/*.jade',
     jade_app_tpl: 'src/app/**/*.jade',
     jade_common_tpl: 'src/common/**/*.jade',
@@ -103,8 +106,8 @@ module.exports = {
       'generated-modules/common-config/common-config.js',
 
       'node_modules/ratel-sdk-js/dist/ratel-sdk.js',
-      'build/src/common/services/ratelSdk/ratel-sdk-wrap.js', // TODO: merge back to ratel sdk
-      'build/src/common/services/ratelSdk/ratel-sdk-server-mock.js' // TODO: remove on ratel sdk update
+      'build/src/common/services/ratelSdk/ratel-sdk-wrap.ts', // TODO: merge back to ratel sdk
+      'build/src/common/services/ratelSdk/ratel-sdk-server-mock.ts' // TODO: remove on ratel sdk update
     ],
     css: [
       'node_modules/reset.css/reset.css',
