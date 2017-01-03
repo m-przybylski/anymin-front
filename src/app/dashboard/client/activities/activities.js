@@ -62,8 +62,7 @@
     $scope.$on('$destroy', () => {
       clientActivitiesService.clearQueryParam()
     })
-
-
+    
     return this
   }
 

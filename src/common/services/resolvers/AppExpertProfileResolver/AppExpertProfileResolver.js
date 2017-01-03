@@ -26,7 +26,8 @@
         return {
           profile: response.profile,
           services: _sortServices(response.services),
-          isFavourite: response.isFavourite
+          isFavourite: response.isFavourite,
+          employers: response.employers
         }
       }
 

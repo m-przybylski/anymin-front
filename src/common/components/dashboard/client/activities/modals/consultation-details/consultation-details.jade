@@ -1,5 +1,4 @@
 top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="onModalClose")
-
 .fullscreen-modals.fullscreen-navbar.scrollable.consultation-details-modal
   .full-height-modal
     .default-container-small
@@ -19,31 +18,31 @@ top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-c
           .details-tab-row.header-row
             .details-tab-label
               span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COST")
-            .detais-tab-content
-              span(data-ng-bind-html="callCost | money")
+            .details-tab-content(data-ng-bind-html="callCost | money")
 
           .details-tab-row
             .details-tab-label
               span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TIME_CONVERSATION")
-            .detais-tab-content
-              span 27 min 8 s
+            .details-tab-content
+              span {{ callDuration | millisecondsToDatetime | date: 'HH:mm:ss' }}
           .details-tab-row
             .details-tab-label
               span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.DATE_AND_TIME")
-            .detais-tab-content
-              span 12.11.2016, 16:18
+            .details-tab-content
+              span {{ :: startedAt | date: 'dd-MM-yyyy HH:mm ' }}
           .details-tab-row
             .details-tab-label
               span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.CONSULTATION_ID")
-            .detais-tab-content
+            .details-tab-content
               span {{ :: sueId }}
           .details-tab-row
             .details-tab-label
               span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.CONVERSATION_PRICE_MIN")
-            .detais-tab-content
-              span(data-ng-bind-html="callCost | money")
+            .details-tab-content(data-ng-bind-html="callCostPerMinute | money")
 
-        client-recommended-tags()
+        client-recommended-tags(data-selected-tags="recommendedTags" data-is-recommended="isRecommended"
+        data-service="service"
+        data-service-usage-event-id="sueId")
 
         collapse-btn.chat-history(data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.CHAT.BUTTON"
         data-icon="icon-chat-24")

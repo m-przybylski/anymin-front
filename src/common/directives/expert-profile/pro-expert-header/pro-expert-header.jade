@@ -27,11 +27,11 @@
       .expert-collaborators(data-ng-hide="checkCollaboratedExperts()")
         p(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.COOPERATE_WITH")
 
-        ul.collaborators-list(data-ng-if="profile.type !== 'company'")
+        ul.collaborators-list
           li.collaborators-item(data-ng-repeat = "organization in profile.colaboratedOrganizations")
             a.thumb.x48(data-ui-sref="app.company-profile({contactId: organization.id})")
-              img.user-avatar(data-ng-class="{'is-not-uploaded': handleUserImage(organization.organizationDetails.logo)}"
-              data-ng-src=" {{ handleUserImage(organization.organizationDetails.logo) }}")
+              img.user-avatar(data-ng-class="{'is-not-uploaded': handleUserImage(organization.img)}"
+              data-ng-src=" {{ handleUserImage(organization.img) }}")
 
   .expert-profile-description
     show-more-text(data-text="{{::profile.description}}")

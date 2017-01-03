@@ -13,7 +13,7 @@
     }
 
     this.openActivityDescription = () => {
-
+      modalsService.createClientSUEActivityDetailsModal(this.activity.sueProfileServiceTuple.serviceUsageEvent.id)
     }
 
     return this

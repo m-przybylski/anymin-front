@@ -8,6 +8,10 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.modals.
     let component
     let validHTML = '<client-recommended-tags></client-recommended-tags>'
 
+    beforeEach(module(function($provide) {
+      $provide.value('apiUrl', 'awesomeURL')
+    }))
+
     function create(html) {
       scope = rootScope.$new()
       let elem = angular.element(html)
