@@ -21,11 +21,16 @@
         +smm
           margin: 0 12px 0 0
 
-      &:hover,
+      &:hover
+        a
+          color: $c-primary
+
       &.is-active
         a
           color: $c-primary
-          box-shadow: 0 1px 0 0 $c-primary
+
+          &::after
+            width: 100%
 
       a
         +default-font-regular
@@ -34,6 +39,17 @@
         text-transform: uppercase
         color: $c-secondary-txt
         font-size: $f-btn-size
+        position: relative
+
+        &::after
+          content: ''
+          position: absolute
+          width: 0
+          height: 1px
+          background: $c-primary
+          left: 0
+          bottom: -1px
+          transition: width 0.3s
 
 .client-credits
   min-height: 56px
