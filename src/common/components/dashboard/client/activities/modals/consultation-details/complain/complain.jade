@@ -1,3 +1,3 @@
 .complain
-  client-complain-reason(data-ng-show="!$ctrl.isComplaint")
+  client-complain-reason(data-ng-show="!$ctrl.isComplaint" data-on-reason-change="$ctrl.onReasonChange")
   client-complain-status(data-ng-show="$ctrl.isComplaint")

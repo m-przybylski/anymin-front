@@ -1,16 +1,14 @@
-
-
 (function() {
   /* @ngInject */
-  function controller($log, $timeout, ServiceApi) {
+  function controller($log, ServiceApi) {
 
-    let serviceRecommendation
     this.isRecommendTags = this.isRecommended
+    this.areRecommednedTagsSelected = this.selectedTags.length > 0
 
     const getServiceTags = () => {
 
       const onServiceTags = (res) => {
-        this.tags = res[0].tags
+        this.userTags = res[0].tags
       }
 
       const onServiceTagsError = (err) => {
@@ -22,15 +20,7 @@
       }).$promise.then(onServiceTags, onServiceTagsError)
     }
 
-    // TODO remove timeout
-    $timeout(() => {
-      if (this.isRecommended) {
-        this.tags = this.selectedTags
-      }
-    })
-
     const onRecommendService = (res) => {
-      serviceRecommendation = res
       this.recommendTags = !this.isRecommendTags
       getServiceTags()
     }
@@ -51,6 +41,8 @@
 
     const onRecommendServiceTags = (res) => {
       this.isRecommended = true
+      this.areRecommednedTagsSelected = true
+      this.onTagSend()
     }
 
     const onRecommendServiceTagsError = (err) =>
@@ -58,11 +50,11 @@
 
     this.saveRecommendedTags = () => {
       ServiceApi.putServiceRecommendations({
-        serviceRecommendationId: serviceRecommendation.id,
-        tags: _.map(this.selectedTags, (tag: Tag) => tag.id)
+        serviceUsageEventId: this.serviceUsageEventId,
+        tags: _.map(this.selectedTags, (tag : any) => tag.id)
       }).$promise.then(onRecommendServiceTags, onRecommendServiceTagsError)
-    }
 
+    }
 
 
     return this
@@ -76,7 +68,8 @@
       selectedTags: '<',
       isRecommended: '<',
       serviceUsageEventId: '<',
-      service: '<'
+      service: '<',
+      userTags: '<'
     }
   }
 

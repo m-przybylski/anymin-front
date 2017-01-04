@@ -1,30 +1,9 @@
 (function() {
 
-  function controller($log, $scope, $uibModalInstance, ViewsApi, HelperService) {
+  function controller($scope, $uibModalInstance) {
 
     $scope.onModalClose = () =>
       $uibModalInstance.dismiss('cancel')
-
-    const onGetCallDetails = (res) => {
-      const expertAvatarFileId = res.expertProfile.expertDetails.avatar
-      $scope.expertAvatar = expertAvatarFileId ? HelperService.fileUrlResolver(expertAvatarFileId) : null
-      $scope.expert = res.expertProfile
-      $scope.recommendedTags = res.recommendedTags
-      $scope.service = res.service
-      $scope.callCost = res.serviceUsageDetails.callCost
-      $scope.startedAt = res.serviceUsageDetails.startedAt
-      $scope.callDuration = res.serviceUsageDetails.callDuration
-      $scope.callCostPerMinute = res.service.details.price
-      $scope.isRecommended = res.isRecommended
-    }
-
-    const onGetCallDetailsError = (err) =>
-      $log.error(err)
-
-
-    ViewsApi.getClientDashboardCallDetails({
-      sueId: $scope.sueId
-    }).$promise.then(onGetCallDetails, onGetCallDetailsError)
 
   }
 

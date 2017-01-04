@@ -1,15 +1,20 @@
 .recommended-tab.grey-tab
   .recommended-tab-header(data-ng-show="!$ctrl.isRecommended && !$ctrl.recommendTags")
     span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.HOW_YOU_RATE_CONSULTATION")
-    a.btn.btn-default(data-ng-click="$ctrl.recommendConsultation()" data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.I_RECOMMENDED_THIS_CONSULTATION.BUTTON")
+    a.btn.btn-default(data-ng-click="$ctrl.recommendConsultation()"
+    data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.I_RECOMMENDED_THIS_CONSULTATION.BUTTON")
 
   .recommended-tab-content(data-ng-show="$ctrl.isRecommended || $ctrl.recommendTags")
     .conversation-rate
       .entry-title
         h4(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.RECOMMENDED_TAGS.TITLE")
-        span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.RECOMMENDED_TAGS.DESCRIPTION")
+        span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.RECOMMENDED_TAGS.DESCRIPTION"
+        data-ng-if="!$ctrl.isRecommended || !$ctrl.areRecommednedTagsSelected")
 
-      multiselect(data-items="$ctrl.tags" data-on-select-change="$ctrl.onSelectChange" data-field="name")
+      multiselect(data-items="$ctrl.userTags" data-on-select-change="$ctrl.onSelectChange" data-field="name"
+      data-selected-items="$ctrl.selectedTags" data-disable-multiselect="$ctrl.onTagSend" )
 
-      .modal-action(data-ng-if="!$ctrl.isRecommended")
-        a.btn.btn-default(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.RECOMMENDED_TAGS.SAVE_TAGS.BUTTON" data-ng-click="$ctrl.saveRecommendedTags()")
+      .modal-action(data-ng-if="!$ctrl.isRecommended || !$ctrl.areRecommednedTagsSelected")
+        a.btn.btn-default(
+        data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.RECOMMENDED_TAGS.SAVE_TAGS.BUTTON"
+        data-ng-click="$ctrl.saveRecommendedTags()")

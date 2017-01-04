@@ -1,20 +1,12 @@
 describe('Unit testing: profitelo.components.dashboard.client.activities.modals.consultation-details.complain', () => {
   return describe('for clientComplain >', () => {
 
-    let scope
     let rootScope
     let compile
     let componentController
     let component
-    let validHTML = '<client-complain></client-complain>'
+    let parentComponent
 
-    function create(html) {
-      scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
-      scope.$digest()
-      return compiledElement
-    }
 
     beforeEach(() => {
     angular.mock.module('templates-module')
@@ -27,16 +19,13 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.modals.
         rootScope = $rootScope.$new()
         compile = $compile
       })
-
+      parentComponent = componentController('collapseBtn', {$element: {}})
       component = componentController('clientComplain', {})
+      component.collapseBtn = parentComponent
     })
 
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
-    it('should compile the directive', () => {
-      let el = create(validHTML)
-      expect(el.html()).toBeDefined(true)
-    })
   })
 })

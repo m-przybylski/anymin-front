@@ -27,6 +27,10 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.client-
       activity: mockObject
     }
 
+    beforeEach(angular.mock.module(($provide) => {
+      $provide.value('apiUrl', 'awesomeUrl')
+    }))
+
     beforeEach(() => {
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.services.helper')

@@ -5,44 +5,46 @@ top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-c
       .client-conversation-details-modal
         .profile-preview.vertical-preview
           .thumb.x48
-            img.user-avatar(src ng-src="{{ :: expertAvatar }}")
+            img.user-avatar(src ng-src="{{ :: dialogDataObject.expertAvatar }}")
 
           .profile-name
             a
-              span {{ :: expert.expertDetails.name }}
+              span {{ :: dialogDataObject.expert.expertDetails.name }}
 
           .consultation-title
-            h3 {{ :: service.details.name }}
+            h3 {{ :: dialogDataObject.service.details.name }}
 
         .details-tab
           .details-tab-row.header-row
             .details-tab-label
               span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COST")
-            .details-tab-content(data-ng-bind-html="callCost | money")
+            .details-tab-content(data-ng-bind-html="dialogDataObject.callCost | money")
 
           .details-tab-row
             .details-tab-label
               span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TIME_CONVERSATION")
             .details-tab-content
-              span {{ callDuration | millisecondsToDatetime | date: 'HH:mm:ss' }}
+              span {{ dialogDataObject.callDuration | millisecondsToDatetime | date: 'HH:mm:ss' }}
           .details-tab-row
             .details-tab-label
               span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.DATE_AND_TIME")
             .details-tab-content
-              span {{ :: startedAt | date: 'dd-MM-yyyy HH:mm ' }}
+              span {{ :: dialogDataObject.startedAt | date: 'dd-MM-yyyy HH:mm ' }}
           .details-tab-row
             .details-tab-label
               span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.CONSULTATION_ID")
             .details-tab-content
-              span {{ :: sueId }}
+              span {{ :: dialogDataObject.sueId }}
           .details-tab-row
             .details-tab-label
               span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.CONVERSATION_PRICE_MIN")
-            .details-tab-content(data-ng-bind-html="callCostPerMinute | money")
+            .details-tab-content(data-ng-bind-html="dialogDataObject.callCostPerMinute | money")
 
-        client-recommended-tags(data-selected-tags="recommendedTags" data-is-recommended="isRecommended"
-        data-service="service"
-        data-service-usage-event-id="sueId")
+        client-recommended-tags(data-ng-if="dialogDataObject.isRecommendable"
+        data-selected-tags="dialogDataObject.recommendedTags" data-is-recommended="dialogDataObject.isRecommended"
+        data-service="dialogDataObject.service"
+        data-service-usage-event-id="dialogDataObject.sueId"
+        data-user-tags="dialogDataObject.userTags")
 
         collapse-btn.chat-history(data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.CHAT.BUTTON"
         data-icon="icon-chat-24")
@@ -52,7 +54,7 @@ top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-c
         data-icon="icon-complaint-24")
           client-complain()
 
-        .btn.btn-collapse(data-ui-sref="app.dashboard.client.activities")
+        .btn.btn-collapse(data-ng-click="onModalClose()")
           .collapse-btn-wrapper
             .btn.collapse-btn-header
               div

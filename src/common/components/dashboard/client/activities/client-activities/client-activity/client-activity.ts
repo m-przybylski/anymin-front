@@ -1,6 +1,6 @@
 (function() {
   /* @ngInject */
-  function controller(HelperService, modalsService) {
+  function controller($log, HelperService, ServiceApi, modalsService, ViewsApi) {
 
     this.$onInit = () => {
       this.isCallActivity = !!this.activity.sueProfileServiceTuple
@@ -15,7 +15,53 @@
     }
 
     this.openActivityDescription = () => {
-      modalsService.createClientSUEActivityDetailsModal(this.activity.sueProfileServiceTuple.serviceUsageEvent.id)
+
+      const onGetCallDetails = (res) => {
+        const expertAvatarFileId = res.expertProfile.expertDetails.avatar
+
+        const onServiceTags = (res) => {
+          openClientActivityModal(res[0].tags)
+        }
+
+        const onServiceTagsError = (err) => {
+          $log.error(err)
+        }
+
+        const openClientActivityModal = (userTags = []) => {
+          this.ActivityDetailsModalDataObject = {
+            expertAvatar: expertAvatarFileId ? HelperService.fileUrlResolver(expertAvatarFileId) : null,
+            expert: res.expertProfile,
+            recommendedTags: res.recommendedTags,
+            service: res.service,
+            callCost: res.serviceUsageDetails.callCost,
+            startedAt: res.serviceUsageDetails.startedAt,
+            callDuration: res.serviceUsageDetails.callDuration,
+            callCostPerMinute: res.service.details.price,
+            isRecommended: res.isRecommended,
+            isRecommendable: res.isRecommendable,
+            sueId: this.activity.sueProfileServiceTuple.serviceUsageEvent.id,
+            userTags: userTags
+          }
+          modalsService.createClientSUEActivityDetailsModal(this.ActivityDetailsModalDataObject)
+        }
+
+        if (res.isRecommended) {
+          ServiceApi.postServicesTags({
+            serviceIds: [res.service.id]
+          }).$promise.then(onServiceTags, onServiceTagsError)
+        } else {
+          openClientActivityModal()
+        }
+
+
+      }
+
+      const onGetCallDetailsError = (err) =>
+        $log.error(err)
+
+      ViewsApi.getClientDashboardCallDetails({
+        sueId: this.activity.sueProfileServiceTuple.serviceUsageEvent.id
+      }).$promise.then(onGetCallDetails, onGetCallDetailsError)
     }
 
     return this

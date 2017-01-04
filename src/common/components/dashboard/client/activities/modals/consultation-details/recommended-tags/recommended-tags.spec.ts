@@ -6,7 +6,7 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.modals.
     let compile
     let componentController
     let component
-    let validHTML = '<client-recommended-tags></client-recommended-tags>'
+    let validHTML = '<client-recommended-tags selected-tags="selectedTags"></client-recommended-tags>'
 
     beforeEach(angular.mock.module(function($provide) {
       $provide.value('apiUrl', 'awesomeURL')
@@ -14,6 +14,7 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.modals.
 
     function create(html) {
       scope = rootScope.$new()
+      scope.selectedTags = []
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
       scope.$digest()
@@ -30,7 +31,19 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.modals.
         compile = $compile
       })
 
-      component = componentController('clientRecommendedTags', {})
+      const injectors = {
+        ServiceApi: _=>_
+      }
+
+      const bindings = {
+        selectedTags: [],
+        isRecommended: false,
+        serviceUsageEventId: 'asdasdasdasd',
+        service: {},
+        userTags: null
+      }
+
+      component = componentController('clientRecommendedTags', injectors, bindings)
     })
 
     it('should have a dummy test', inject(() => {

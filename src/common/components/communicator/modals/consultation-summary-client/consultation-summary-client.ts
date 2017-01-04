@@ -6,7 +6,6 @@
     $scope.callSummary = null
     $scope.expertAvatarUrl = ''
     $scope.chooseExpertsTag = false
-    let serviceRecommendation = null
     let tags = []
 
     const setCallSummary = (_callSummary) => {
@@ -47,7 +46,6 @@
       $log.error(err)
 
     const onRecommendService = (res) => {
-      serviceRecommendation = res
       $scope.chooseExpertsTag = true
     }
 
@@ -65,7 +63,7 @@
 
     $scope.recommendServiceTags = () => {
       ServiceApi.putServiceRecommendations({
-        serviceRecommendationId: serviceRecommendation.id,
+        serviceUsageEventId: $scope.callSummary.serviceUsageEventId,
         tags: _.map(tags, tag => tag.id)
       }).$promise.then(onRecommendServiceTags, onRecommendServiceTagsError)
       $scope.closeModal()
