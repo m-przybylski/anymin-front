@@ -1,9 +1,15 @@
 .client-filters
   .client-filters-collapse.is-collapsed(data-ng-class="{'is-collapsed': $ctrl.showMobileFilters}")
     .client-filter
-      pro-dropdown(data-pro-model="$ctrl.filterModel.activityType" data-label="{{ ::'DASHBOARD.CLIENT.FILTER.ACTIVITIES' | translate }}"
-      data-placeholder="{{ ::'SEARCH.ALL' | translate }}" data-pro-items="$ctrl.activityTypesList" data-no-search
-      data-callback="$ctrl.updateActivityTypeParam" data-selected-item="$ctrl.selectedType")
+      .pro-dropdown
+        drop-down-primary(
+          data-label="{{ ::'DASHBOARD.CLIENT.FILTER.ACTIVITIES' | translate }}"
+          data-main-list="$ctrl.activityTypesList"
+          data-on-select-main="$ctrl.updateActivityTypeParam"
+          data-placeholder="{{ ::'SEARCH.ALL' | translate }}"
+          data-selected-item="$ctrl.selectedType"
+          data-input-placeholder="{{ ::'SEARCH.ALL' | translate }}"
+        )
 
       .pro-dropdown
         dropdown-input(data-label="{{ ::'DASHBOARD.CLIENT.FILTER.EXPERTS' | translate }}"

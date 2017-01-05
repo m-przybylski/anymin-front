@@ -65,6 +65,7 @@ import ExpertProfile = profitelo.models.ExpertProfile
       queryParams['activityType'] = item.value
       queryParams['serviceId'] = null
       queryParams['profileId'] = null
+
       setActivitiesQueryParams(queryParams)
       clearServicesList()
     }
@@ -154,7 +155,8 @@ import ExpertProfile = profitelo.models.ExpertProfile
     'profitelo.services.client-activities-service',
     'profitelo.directives.interface.pro-dropdown',
     'profitelo.directives.interface.pro-calendar',
-    'profitelo.components.interface.dropdown'
+    'profitelo.components.interface.dropdown',
+    'profitelo.components.interface.dropdown-primary'
   ])
   .component('clientActivitiesFilters', component)
 }())
