@@ -9,9 +9,6 @@
 
   .dropdown-content
     .scroll-list
-      //a.all-items(data-ng-click="$ctrl.onMainItemSelect($ctrl.mainPlaceholder)" data-ng-class="{'is-active': $ctrl.isSelected(item)}")
-      //  span {{ $ctrl.mainPlaceholder.name }}
-
       ul.dropdown-list
         li(data-ng-repeat="item in $ctrl.mainList | filter: $ctrl.filterBy" data-ng-click="$ctrl.onMainItemSelect(item)" data-ng-class="{'is-active': $ctrl.isSelected(item)}")
           a {{ item.name }}

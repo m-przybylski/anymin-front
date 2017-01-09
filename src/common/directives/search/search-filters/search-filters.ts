@@ -3,9 +3,10 @@
     function linkFunction(scope, element, attrs) {
 
       scope.model = {
-        sortBy: null,
+        sortBy: {},
         language: null,
         category: null,
+        profileType: null,
         onlyAvailable: false,
         minPrice: null,
         maxPrice: null,
@@ -46,6 +47,30 @@
         })
       })
 
+      scope.updateSortTypeParam = (item) => {
+        const queryParams = scope.model
+        queryParams['sortBy'] = item.value
+        _setSearchQueryParamsDebounce(queryParams)
+      }
+
+      scope.updateLanguageTypeParam = (item) => {
+        const queryParams = scope.model
+        queryParams['language'] = item.value
+        _setSearchQueryParamsDebounce(queryParams)
+      }
+
+      scope.updateTypeListTypeParam= (item) => {
+        const queryParams = scope.model
+        queryParams['profileType'] = item.value
+        _setSearchQueryParamsDebounce(queryParams)
+      }
+
+      scope.updateCategoryTypeParam= (item) => {
+        const queryParams = scope.model
+        queryParams['category'] = item.value
+        _setSearchQueryParamsDebounce(queryParams)
+      }
+
       scope.handleMobileFiltersDisplay = () => {
         const windowSize = $window.innerWidth
         return windowSize < 768 && !scope.showMobileFilters
@@ -76,6 +101,7 @@
         scope.model.profileType = params.profileType
         scope.model.minPrice = params.minPrice
         scope.model.maxPrice = _maxPriceValue(params.maxPrice)
+
       })
 
       scope.$watch( () => {
@@ -133,7 +159,8 @@
     'profitelo.directives.interface.pro-switcher',
     'profitelo.services.search',
     'profitelo.services.categories',
-    'profitelo.filters.normalize-translation-key-filter'
+    'profitelo.filters.normalize-translation-key-filter',
+    'profitelo.components.interface.dropdown-primary'
   ])
     .directive('searchFilters', searchFilters)
 }())

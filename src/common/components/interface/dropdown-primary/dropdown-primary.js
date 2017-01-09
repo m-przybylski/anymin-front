@@ -34,7 +34,6 @@
       this.activeItem = item
       onItemChecked(item)
       this.onSelectMain(item)
-      this.proModel = this.onSelectMain(item)
     }
 
     dropdownScroll.perfectScrollbar()
@@ -67,8 +66,7 @@
       placeholder: '@',
       mainList: '<',
       onSelectMain: '<',
-      selectedItem: '<',
-      proModel: '='
+      selectedItem: '<'
     }
 
   }
