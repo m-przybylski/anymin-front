@@ -1,0 +1,3 @@
+interface ClientActivity {
+  financialOperation: FinancialOperation
+}

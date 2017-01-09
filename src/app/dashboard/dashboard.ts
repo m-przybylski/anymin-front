@@ -1,0 +1,110 @@
+(function() {
+
+  function DashboardController($rootScope, $scope, $state, $window, userProfile) {
+
+    this.isSidebarOpen = false
+    this.switchUser = false
+    let isSidebarPage = true
+    if (angular.isDefined(userProfile) && userProfile !== null) {
+      this.expertProfileExist = !!userProfile.expertDetails
+    }
+    
+    this.changeAccount = function() {
+      this.switchUser = !this.switchUser
+    }
+
+    let _sidebar: any = $('.dashboard-left-menu')
+    _sidebar.perfectScrollbar()
+
+    this.toogleSidebar = function() {
+      this.isSidebarOpen = !this.isSidebarOpen
+    }
+
+    this.showSidebar = ()=> {
+      this.isSidebarShown = this.isSidebarShown === false
+    }
+    
+    /* istanbul ignore next */
+    angular.element($window).on('resize', (window)=> {
+      if ($window.innerWidth > 992 && isSidebarPage) {
+        this.isSidebarShown = true
+      } else {
+        this.isSidebarShown = false
+      }
+      $scope.$digest()
+    })
+
+    const _checkSidebarVisibility = (toState) => {
+      if (angular.isUndefined(toState.data.showMenu)) {
+        this.isSidebarShown = $window.innerWidth > 992
+        isSidebarPage = $window.innerWidth > 992 
+        this.isNavbarShown = true
+      } else {
+        this.isSidebarShown = toState.data.showMenu   || false
+        isSidebarPage = toState.data.showMenu   || false
+        this.isNavbarShown = toState.data.showTopMenu || false
+      }
+    }
+
+    $rootScope.$on('$stateChangeSuccess', (event, toState) => {
+      _checkSidebarVisibility(toState)
+    })
+
+    _checkSidebarVisibility($state.current)
+    this.toggleChat = () => {
+      
+      $rootScope.$broadcast('toggleChat')
+    }
+    return this
+  }
+
+
+  angular.module('profitelo.controller.dashboard', [
+    'profitelo.directives.dashboard.dashboard-left-menu',
+    'profitelo.directives.pro-top-navbar',
+    'profitelo.swaggerResources',
+    'ui.router',
+    'ngTouch',
+    'c7s.ng.userAuth'
+  ])
+  .config( function($stateProvider, UserRolesProvider) {
+    $stateProvider.state('app.dashboard', {
+      abstract:     true,
+      url:          '/dashboard',
+      templateUrl:  'dashboard/dashboard.tpl.html',
+      controller:   'DashboardController',
+      controllerAs: 'dashboardController',
+      resolve: {
+        /* istanbul ignore next */
+        userProfile: ($q, $state,  ProfileApi, User, proTopAlertService) => {
+          /* istanbul ignore next */
+          let _deferred = $q.defer()
+          /* istanbul ignore next */
+          User.getStatus().then(() => {
+            ProfileApi.getProfile({
+              profileId: User.getData('id')
+            }).$promise.then((response) => {
+              _deferred.resolve(response)
+            }, () => {
+              _deferred.resolve(null)
+            })
+          }, (error) => {
+            $state.go('app.dashboard')
+            proTopAlertService.error({
+              message: 'error',
+              timeout: 4
+            })
+          })
+          /* istanbul ignore next */
+          return _deferred.promise
+        }
+      },
+      data : {
+        access : UserRolesProvider.getAccessLevel('user'),
+        pageTitle: 'PAGE_TITLE.DASHBOARD'
+      }
+    })
+  })
+  .controller('DashboardController', DashboardController)
+
+}())

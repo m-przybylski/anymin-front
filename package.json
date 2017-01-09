@@ -43,11 +43,17 @@
     "ng-infinite-scroll": "^1.3.0",
     "perfect-scrollbar": "^0.6.14",
     "phonenumber": "^7.7.1",
+    "ratel-sdk-js": "0.3.1",
     "reset.css": "^2.0.2",
-    "ui-select": "^0.19.6",
-    "ratel-sdk-js": "0.3.1"
+    "ui-select": "^0.19.6"
   },
   "devDependencies": {
-    "contactis-gulp": "1.5.0"
+    "@types/angular": "^1.5.22",
+    "@types/angular-mocks": "^1.5.8",
+    "@types/jasmine": "^2.5.40",
+    "@types/karma-jasmine": "0.0.28",
+    "@types/lodash": "^4.14.45",
+    "@types/perfect-scrollbar": "^0.6.1",
+    "contactis-gulp": "1.6.1"
   }
 }

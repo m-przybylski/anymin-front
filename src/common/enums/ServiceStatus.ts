@@ -1,0 +1,4 @@
+enum ServiceStatus {
+  NEW,
+  VERIFIED
+}
