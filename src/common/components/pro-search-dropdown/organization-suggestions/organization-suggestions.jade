@@ -4,7 +4,7 @@
 
     .organization-box.dropdown-category-list
       a.profile-preview.dropdown-list-item(data-ng-repeat="organization in vm.organizations.results track by $index"
-      data-ui-sref="app.company-profile({ contactId: organization.id })")
+      data-ui-sref="app.company-profile({ profileId: organization.id })")
         .thumb.x48
           img.expert-avatar.user-avatar.circle(data-ng-src="{{ vm.profileImage($index) }}" data-ng-class="{'isNotUploaded': !vm.profileImage($index)}")
 

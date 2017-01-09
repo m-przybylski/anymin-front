@@ -9,7 +9,7 @@
     }
     this.goToProfile = () => {
       const stateName  = this.favouriteExpert.profile.organizationDetails ? 'app.company-profile' : 'app.expert-profile'
-      $state.go(stateName, { contactId: this.favouriteExpert.profile.id })
+      $state.go(stateName, { profileId: this.favouriteExpert.profile.id })
     }
     return this
   }

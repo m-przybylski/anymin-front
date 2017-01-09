@@ -25,7 +25,7 @@ describe('Unit testing: profitelo.services.resolvers.app-company-profile-resolve
       }
 
       stateParams = {
-        contactId: '1234567654321',
+        profileId: '1234567654321',
         primaryConsultationId: primaryConsultationId
       }
 
@@ -65,7 +65,7 @@ describe('Unit testing: profitelo.services.resolvers.app-company-profile-resolve
       resourcesExpectations = {
         ProfileApiDef: {
           getOrganizationProfile: $httpBackend.when(ViewsApiDef.getOrganizationProfile.method,
-            ViewsApiDef.getOrganizationProfile.url.replace(':profileId', stateParams.contactId))
+            ViewsApiDef.getOrganizationProfile.url.replace(':profileId', stateParams.profileId))
         }
       }
     })

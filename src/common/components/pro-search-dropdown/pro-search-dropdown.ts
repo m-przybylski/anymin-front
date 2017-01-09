@@ -136,7 +136,7 @@
 
     this.search = () => {
       _focusOut()
-      if (angular.isDefined(this.ngModel) && this.ngModel.length > 0) {
+      if (angular.isDefined(this.ngModel) && this.ngModel !== null && this.ngModel.length > 0) {
         if (selectedElement.currentPosition > -1) {
           $element.find('.dropdown-container .active').triggerHandler('click')
         } else {

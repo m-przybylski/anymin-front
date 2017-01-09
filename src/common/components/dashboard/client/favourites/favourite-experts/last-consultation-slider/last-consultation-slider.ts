@@ -19,7 +19,7 @@
     }
 
     this.goToProfile = (consultation) => {
-      $state.go('app.expert-profile', { contactId: consultation.profile.id, primaryConsultationId: consultation.service.id  })
+      $state.go('app.expert-profile', { profileId: consultation.profile.id, primaryConsultationId: consultation.service.id  })
     }
 
     return this
