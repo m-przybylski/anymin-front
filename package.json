@@ -15,7 +15,6 @@
     "angular-cookies": "^1.6.1",
     "angular-dynamic-locale": "^0.1.32",
     "angular-i18n": "^1.6.1",
-    "angular-lodash": "^0.1.1",
     "angular-messages": "^1.6.1",
     "angular-mocks": "^1.6.1",
     "angular-moment": "^1.0.1",
@@ -35,7 +34,7 @@
     "font-awesome": "^4.7.0",
     "hellojs": "^1.14.0",
     "jquery": "^2.2.4",
-    "lodash": "^3.10.1",
+    "ng-lodash": "^0.2.3",
     "masonry-layout": "^4.1.1",
     "messageformat": "^0.2.2",
     "moment": "^2.17.1",
@@ -53,7 +52,7 @@
     "@types/angular-ui-router": "^1.1.36",
     "@types/jasmine": "^2.5.40",
     "@types/karma-jasmine": "0.0.28",
-    "@types/lodash": "^4.14.45",
+    "@types/lodash": "^4.14.48",
     "@types/perfect-scrollbar": "^0.6.1",
     "contactis-gulp": "1.6.1"
   }

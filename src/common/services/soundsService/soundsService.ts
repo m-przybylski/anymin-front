@@ -1,6 +1,6 @@
 (function() {
 
-  function service($log, _) {
+  function service($log, lodash) {
 
     const path = '/assets/sounds/'
 
@@ -12,9 +12,9 @@
       messageNew: 'message_new.mp3'
     }
 
-    const soundPaths = _.mapValues(soundFiles, _filename => path+_filename)
+    const soundPaths = lodash.mapValues(soundFiles, _filename => path+_filename)
 
-    const soundObjects = _.mapValues(soundPaths, _path => new Audio(_path))
+    const soundObjects = lodash.mapValues(soundPaths, _path => new Audio(_path))
 
     let callIncomingSoundCount = 0
     let isCallConnecting = false
@@ -98,7 +98,7 @@
   }
 
   angular.module('profitelo.services.sounds', [
-    'lodash'
+    'ngLodash'
   ])
     .service('soundsService', service)
 
