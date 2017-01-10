@@ -1,4 +1,4 @@
-describe('Unit testing: profitelo.services.resolvers.app-company-profile-resolver', () => {
+describe('Unit testing: profitelo.services.resolvers.app-expert-profile-resolver', () => {
   describe('for AppExpertProfileResolver service >', () => {
 
     let AppExpertProfileResolver
@@ -25,7 +25,7 @@ describe('Unit testing: profitelo.services.resolvers.app-company-profile-resolve
       }
 
       stateParams = {
-        contactId: '1234567654321',
+        profileId: '1234567654321',
         primaryConsultationId: primaryConsultationId
       }
 
@@ -64,7 +64,7 @@ describe('Unit testing: profitelo.services.resolvers.app-company-profile-resolve
       resourcesExpectations = {
         ViewsApiDef: {
           getExpertProfile: $httpBackend.when(ViewsApiDef.getExpertProfile.method,
-            ViewsApiDef.getExpertProfile.url.replace(':profileId', stateParams.contactId))
+            ViewsApiDef.getExpertProfile.url.replace(':profileId', stateParams.profileId))
         }
       }
     })

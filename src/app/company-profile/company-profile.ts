@@ -6,7 +6,7 @@
     this.profile = companyProfile.profile.organizationDetails
     this.consultations = companyProfile.services
     this.profile.type = 'company'
-    this.profile.isFavourite = recommendedProfilesServices.isFavourite
+    this.profile.isFavourite = companyProfile.isFavourite
 
     if (!!$stateParams.primaryConsultationId) {
       $timeout(() => {
@@ -35,10 +35,10 @@
 
     this.handleLike = () => {
       if (!this.profile.isFavourite) {
-        ProfileApi.postProfileFavouriteOrganization({profileId: $stateParams.contactId})
+        ProfileApi.postProfileFavouriteOrganization({profileId: $stateParams.profileId})
           .$promise.then(onProfileLike, onProfileLikeError)
       } else {
-        ProfileApi.deleteProfileFavouriteOrganization({profileId: $stateParams.contactId })
+        ProfileApi.deleteProfileFavouriteOrganization({profileId: $stateParams.profileId })
           .$promise.then(onProfileDislike, onProfileDislikeError)
       }
     }
@@ -67,7 +67,7 @@
   .config(($stateProvider, UserRolesProvider) => {
     $stateProvider.state('app.company-profile', {
       controllerAs: 'vm',
-      url: '/company-profile/{contactId}?primaryConsultationId',
+      url: '/company-profile/{profileId}?primaryConsultationId',
       templateUrl: 'company-profile/company-profile.tpl.html',
       controller: 'CompanyProfileController',
       resolve: {

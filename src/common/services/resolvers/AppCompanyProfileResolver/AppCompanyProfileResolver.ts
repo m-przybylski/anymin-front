@@ -32,7 +32,7 @@
 
       const _resolveCompanyProfile = () =>
         ViewsApi.getOrganizationProfile({
-          profileId: stateParams.contactId
+          profileId: stateParams.profileId
         }).$promise.then(_handleCompanyResponse, _handleCompanyResponseError)
 
       return _resolveCompanyProfile()

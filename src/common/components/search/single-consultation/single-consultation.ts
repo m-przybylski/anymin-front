@@ -26,7 +26,7 @@
     this.goToProfile =() => {
       if (this.isLinkActive) {
         const stateName = this.consultation.owner.type === 'ORG' ? 'app.company-profile' : 'app.expert-profile'
-        $state.go(stateName, {contactId: this.consultation.owner.id, primaryConsultationId: this.consultation.id})
+        $state.go(stateName, {profileId: this.consultation.owner.id, primaryConsultationId: this.consultation.id})
       }
     }
 

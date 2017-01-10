@@ -36,10 +36,10 @@
 
     this.handleLike = () => {
       if (!this.profile.isFavourite) {
-        ProfileApi.postProfileFavouriteExpert({profileId: $stateParams.contactId})
+        ProfileApi.postProfileFavouriteExpert({profileId: $stateParams.profileId})
           .$promise.then(onProfileLike, onProfileLikeError)
       } else {
-        ProfileApi.deleteProfileFavouriteExpert({profileId: $stateParams.contactId })
+        ProfileApi.deleteProfileFavouriteExpert({profileId: $stateParams.profileId })
           .$promise.then(onProfileDislike, onProfileDislikeError)
       }
     }
@@ -69,7 +69,7 @@
   .config(($stateProvider, UserRolesProvider) => {
     $stateProvider.state('app.expert-profile', {
       controllerAs: 'vm',
-      url: '/expert-profile/{contactId}?primaryConsultationId',
+      url: '/expert-profile/{profileId}?primaryConsultationId',
       templateUrl: 'expert-profile/expert-profile.tpl.html',
       controller: 'ExpertProfileController',
       resolve: {

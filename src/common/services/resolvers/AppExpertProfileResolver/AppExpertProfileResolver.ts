@@ -33,7 +33,7 @@
 
       const _resolveCompanyProfile = () =>
         ViewsApi.getExpertProfile({
-          profileId: stateParams.contactId
+          profileId: stateParams.profileId
         }).$promise.then(_handleExpertResponse, _handleExpertResponseError)
 
       return _resolveCompanyProfile()

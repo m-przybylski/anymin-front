@@ -90,7 +90,7 @@ describe('Unit testing: profitelo.components.expert-profile.similar-experts-slid
         }
       }
       component.goToProfile(consultation)
-      expect($state.go).toHaveBeenCalledWith('app.company-profile', {contactId: consultation.owner.id, primaryConsultationId: consultation.id})
+      expect($state.go).toHaveBeenCalledWith('app.company-profile', {profileId: consultation.owner.id, primaryConsultationId: consultation.id})
     })
     
   })

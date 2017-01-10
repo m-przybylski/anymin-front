@@ -10,7 +10,7 @@
     this.goToProfile = (indexOfService) => {
         const service = this.services.results[indexOfService]
         const stateName = service.owner.type === 'ORG' ? 'app.company-profile' : 'app.expert-profile'
-        $state.go(stateName, {contactId: service.owner.id, primaryConsultationId: service.id})
+        $state.go(stateName, {profileId: service.owner.id, primaryConsultationId: service.id})
     }
 
     return this
