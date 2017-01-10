@@ -1,3 +1,5 @@
+// TODO: add tests
+/* istanbul ignore next */
 (function() {
   function clientController($state, $scope) {
 

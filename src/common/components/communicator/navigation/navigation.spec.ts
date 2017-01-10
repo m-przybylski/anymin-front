@@ -20,8 +20,8 @@ describe('Unit testing: profitelo.components.communicator.navigation', () => {
     }
 
     beforeEach(() => {
-    angular.mock.module('profitelo.services.navigator')
-    angular.mock.module('profitelo.services.sounds')
+      angular.mock.module('profitelo.services.navigator')
+      angular.mock.module('profitelo.services.sounds')
     })
 
     beforeEach(angular.mock.module(($provide) => {
@@ -31,8 +31,8 @@ describe('Unit testing: profitelo.components.communicator.navigation', () => {
     }))
 
     beforeEach(() => {
-    angular.mock.module('templates-module')
-    angular.mock.module('profitelo.components.communicator.navigation')
+      angular.mock.module('templates-module')
+      angular.mock.module('profitelo.components.communicator.navigation')
 
       inject(($rootScope, $compile, _$componentController_, _callService_) => {
         rootScope = $rootScope.$new()

@@ -21,7 +21,7 @@ describe('Unit testing: profitelo.services.uploader >', () => {
     }))
 
     beforeEach(() => {
-    angular.mock.module('profitelo.services.uploader')
+      angular.mock.module('profitelo.services.uploader')
     })
 
     beforeEach(inject(($injector) => {
@@ -86,7 +86,7 @@ describe('Unit testing: profitelo.services.uploader >', () => {
 
       $rootScope.$digest()
 
-      expect(promiseValue).toEqual('Expected file, got object')
+      expect(promiseValue).toEqual('Expected File, got object')
     }))
 
     it('should not upload file if token error', inject(($q, $timeout, $rootScope, FilesApi) => {

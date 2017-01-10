@@ -1,9 +1,9 @@
-(function() {
+(function () {
 
   /* @ngInject */
-  function controller($timeout, messengerService) {
+  function controller($timeout: ng.ITimeoutService, messengerService) {
 
-    const messageShowTimeout =  5000
+    const messageShowTimeout = 5000
 
     this.messages = []
 
@@ -43,6 +43,6 @@
   angular.module('profitelo.components.communicator.messenger.messenger-minimized', [
     'profitelo.services.messenger'
   ])
-    .component('messengerMinimized', component)
+  .component('messengerMinimized', component)
 
 }())

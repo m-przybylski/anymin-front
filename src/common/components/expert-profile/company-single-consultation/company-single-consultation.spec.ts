@@ -72,6 +72,7 @@ describe('Unit testing: profitelo.components.expert-profile.company-single-consu
         }
 
         component = _$componentController_('companySingleConsultation', injectors, bindings)
+        component.$onInit()
       })
     })
 

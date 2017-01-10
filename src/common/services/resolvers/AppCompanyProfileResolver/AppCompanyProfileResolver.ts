@@ -33,7 +33,9 @@
       const _resolveCompanyProfile = () =>
         ViewsApi.getOrganizationProfile({
           profileId: stateParams.profileId
-        }).$promise.then(_handleCompanyResponse, _handleCompanyResponseError)
+        }).$promise
+          .then(_handleCompanyResponse)
+          .catch(_handleCompanyResponseError)
 
       return _resolveCompanyProfile()
     }
@@ -47,6 +49,9 @@
     'profitelo.swaggerResources',
     'c7s.ng.userAuth'
   ])
+    .config(($qProvider) => {
+        $qProvider.errorOnUnhandledRejections(false)
+    })
     .service('AppCompanyProfileResolver', AppCompanyProfileResolver)
 
 

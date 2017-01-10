@@ -3,9 +3,12 @@
   /* @ngInject */
   function controller() {
 
-    const message = this.messages[0]
+    this.$onInit = () => {
 
-    this.isMine = (angular.isDefined(message) && angular.isDefined(message.isMine) && message.isMine)
+      const message = this.messages[0]
+
+      this.isMine = (angular.isDefined(message) && angular.isDefined(message.isMine) && message.isMine)
+    }
 
     return this
   }

@@ -59,7 +59,7 @@ describe('Unit testing:profitelo.components.search.single-consultation', () => {
       
       component = componentController('singleConsultation', {$element: validHTML, $scope: scope,
       callService: callService, $state: state}, bindings)
-
+      component.$onInit()
     })
 
     it('should have a dummy test', inject(() => {

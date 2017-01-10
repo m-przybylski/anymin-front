@@ -2,8 +2,6 @@
   /* @ngInject */
   function controller() {
 
-
-
     return this
   }
 

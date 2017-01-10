@@ -1,5 +1,6 @@
 (function() {
   function AppController($rootScope, $state, $filter, InterfaceLanguageService, User, proTopAlertService) {
+
     InterfaceLanguageService.setLanguage(InterfaceLanguageService.getStartupLanguage())
 
     this.isPending = false
@@ -20,6 +21,9 @@
         this.isPending = true
         User.logout().then(action, action)
       }
+    }
+
+    this.$onInit = () => {
     }
 
     return this
@@ -112,7 +116,10 @@
   }
 
   function configFunction($urlRouterProvider, $httpProvider, $stateProvider, $resourceProvider, $translateProvider,
-                          $locationProvider, $animateProvider, tmhDynamicLocaleProvider, UserProvider, UserRolesProvider, CommonConfigProvider) {
+                          $locationProvider, $animateProvider, tmhDynamicLocaleProvider, UserProvider,
+                          UserRolesProvider, CommonConfigProvider, $qProvider) {
+
+
 
     $httpProvider.defaults.withCredentials = true
 

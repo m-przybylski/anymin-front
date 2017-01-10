@@ -34,7 +34,9 @@
       const _resolveCompanyProfile = () =>
         ViewsApi.getExpertProfile({
           profileId: stateParams.profileId
-        }).$promise.then(_handleExpertResponse, _handleExpertResponseError)
+        }).$promise
+          .then(_handleExpertResponse)
+          .catch(_handleExpertResponseError)
 
       return _resolveCompanyProfile()
     }
@@ -48,6 +50,9 @@
     'profitelo.swaggerResources',
     'c7s.ng.userAuth'
   ])
+    .config(($qProvider) => {
+      $qProvider.errorOnUnhandledRejections(false)
+    })
     .service('AppExpertProfileResolver', AppExpertProfileResolver)
 
 

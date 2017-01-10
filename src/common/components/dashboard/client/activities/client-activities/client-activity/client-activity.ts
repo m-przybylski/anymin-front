@@ -2,14 +2,16 @@
   /* @ngInject */
   function controller(HelperService, modalsService) {
 
-    this.isCallActivity = !!this.activity.sueProfileServiceTuple
+    this.$onInit = () => {
+      this.isCallActivity = !!this.activity.sueProfileServiceTuple
 
-    if (angular.isDefined(this.activity) && this.activity.sueProfileServiceTuple &&
-      this.activity.sueProfileServiceTuple.profile.expertDetails.avatar &&
-      this.activity.sueProfileServiceTuple.profile.expertDetails.avatar !== null) {
-      this.imageUrl = HelperService.fileUrlResolver(this.activity.sueProfileServiceTuple.profile.expertDetails.avatar)
-    } else {
-      this.imageUrl = null
+      if (angular.isDefined(this.activity) && this.activity.sueProfileServiceTuple &&
+          this.activity.sueProfileServiceTuple.profile.expertDetails.avatar &&
+          this.activity.sueProfileServiceTuple.profile.expertDetails.avatar !== null) {
+        this.imageUrl = HelperService.fileUrlResolver(this.activity.sueProfileServiceTuple.profile.expertDetails.avatar)
+      } else {
+        this.imageUrl = null
+      }
     }
 
     this.openActivityDescription = () => {

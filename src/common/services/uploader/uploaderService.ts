@@ -98,7 +98,7 @@
 
       const addFile = (file, callback) => {
         if (!file || !(file instanceof File)) {
-          return $q.reject('Expected file, got ' + typeof file)
+          return $q.reject('Expected File, got ' + typeof file)
         }
 
         const deferred = addFileToQueue(file, callback)
@@ -123,6 +123,9 @@
     'profitelo.swaggerResources',
     'commonConfig'
   ])
+      .config(($qProvider) => {
+        $qProvider.errorOnUnhandledRejections(false)
+      })
     .service('uploaderService', service)
 
 }())

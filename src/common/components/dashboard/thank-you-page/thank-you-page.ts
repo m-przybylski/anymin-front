@@ -1,7 +1,7 @@
-(function() {
+(function () {
 
   /* @ngInject */
-  function thankYouPageController($location) {
+  function thankYouPageController($location: ng.ILocationService) {
 
     this.showRecharge = false
     this.price = null
@@ -15,17 +15,17 @@
       this.price = this.paymentsValues.amount + ' ' + this.paymentsValues.currency
       this.showRecharge = true
     }
+
   }
 
-  let thankYouPage = {
+  const thankYouPage = {
     templateUrl: 'components/dashboard/thank-you-page/thank-you-page.tpl.html',
-    restrict: 'E',
     replace: true,
     transclude: true,
     controller: thankYouPageController,
     controllerAs: '$ctrl'
   }
   angular.module('profitelo.components.dashboard.thank-you-page', [])
-    .component('thankYouPage', thankYouPage)
+  .component('thankYouPage', thankYouPage)
 
 }())

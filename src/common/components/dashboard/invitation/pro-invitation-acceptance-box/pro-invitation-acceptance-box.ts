@@ -1,24 +1,12 @@
-(function() {
+(function () {
 
   /* @ngInject */
-  function controllerFunction($timeout, EmploymentApi, $scope) {
-
-    const _rejectTimeoutTime = 5000
+  function controllerFunction($timeout: ng.ITimeoutService, $scope: ng.IScope, EmploymentApi) {
 
     let _isPending = false
     let _rejectTimeout
-    this.isRejected = false
-    this.isAccepted = false
-    this.rejectTimeoutSet = false
 
-    $scope.$watch(
-      () => this.invitation,
-      (newVal) => {
-        /* istanbul ignore next if*/
-        if (angular.isDefined(newVal)) {
-          newVal.details.tagNames = newVal.details.tags.map(tag => tag.name)
-        }
-      }, true)
+    const _rejectTimeoutTime = 5000
 
     this.accept = (employmentId) => {
       this.isAccepted = true
@@ -71,6 +59,22 @@
       this.rejectTimeoutSet = false
     }
 
+    this.isRejected = false
+    this.isAccepted = false
+    this.rejectTimeoutSet = false
+
+    this.$onInit = () => {
+
+      $scope.$watch(
+        () => this.invitation,
+        (newVal) => {
+          /* istanbul ignore next if*/
+          if (angular.isDefined(newVal)) {
+            newVal.details.tagNames = newVal.details.tags.map(tag => tag.name)
+          }
+        }, true)
+    }
+
     return this
   }
 
@@ -86,11 +90,10 @@
     controllerAs: 'vm'
   }
 
-
   angular.module('profitelo.components.dashboard.invitation.pro-invitation-acceptance-box', [
     'profitelo.components.pro-summary-tag',
     'profitelo.swaggerResources'
   ])
-    .component('proInvitationAcceptanceBox', proInvitationAcceptanceBox)
+  .component('proInvitationAcceptanceBox', proInvitationAcceptanceBox)
 
 }())

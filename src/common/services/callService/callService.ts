@@ -393,6 +393,9 @@
     'profitelo.services.modals',
     'profitelo.services.sounds'
   ])
+    .config(($qProvider) => {
+      $qProvider.errorOnUnhandledRejections(false)
+    })
     .service('callService', service)
 
 }())

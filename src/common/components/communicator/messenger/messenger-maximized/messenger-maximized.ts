@@ -1,7 +1,18 @@
-(function() {
+(function () {
 
   /* @ngInject */
-  function controller($log, $timeout, $scope, $element, messengerService, _, HelperService, uploaderService) {
+  function controller($log: ng.ILogService, $timeout: ng.ITimeoutService, $scope: ng.IScope,
+                      $element: ng.IRootElementService, messengerService, _, HelperService, uploaderService) {
+
+    this.$onInit = () => {
+      $scope.$watch(() => {
+        return this.isMessenger
+      }, (newValue) => {
+        if (newValue) {
+          angular.element($element).find('.messenger-input input').focus()
+        }
+      })
+    }
 
     const messagesScroll = angular.element('.messenger-scroll')
     const indicateTypingDebounce = 1000
@@ -34,7 +45,7 @@
       if (this.groupedMessages.length === 0) {
         this.groupedMessages.push([message])
       } else {
-        const lastMessageGroup = this.groupedMessages[this.groupedMessages.length-1]
+        const lastMessageGroup = this.groupedMessages[this.groupedMessages.length - 1]
 
         if (_.head(lastMessageGroup).user === message.user) {
           lastMessageGroup.push(message)
@@ -64,18 +75,17 @@
     const onMessageSendError = (err) =>
       $log.error('msg send err:', JSON.stringify(err))
 
-    
-    const serializeMessageBody = (text) => 
+    const serializeMessageBody = (text) =>
       JSON.stringify({body: text})
-    
-    const sendMessage = (messageObject) => 
+
+    const sendMessage = (messageObject) =>
       messengerService.sendMessage(messageObject)
-        .then(onMessageSendSuccess, onMessageSendError)
-    
+      .then(onMessageSendSuccess, onMessageSendError)
+
     this.onSendMessage = (messageBody) => {
       sendMessage(serializeMessageBody(messageBody))
     }
-    
+
     const onUploadProgess = (res) =>
       $log.debug(res)
 
@@ -98,11 +108,11 @@
 
     const uploadFile = (file) =>
       uploader.uploadFile(file, onUploadProgess)
-        .then(onFileUpload, onFileUploadError)
+      .then(onFileUpload, onFileUploadError)
 
     this.onUploadFiles = (files) => {
       this.onFileUploadError = false
-      angular.forEach(files, (file)=>{
+      angular.forEach(files, (file) => {
         this.uploadedFile.file = file
         this.uploadedFile.progress = true
         uploadFile(file)
@@ -131,14 +141,6 @@
       this.uploadedFile = {}
     }
 
-    $scope.$watch(()=>{
-      return this.isMessenger
-    }, (newValue) => {
-      if (newValue) {
-        angular.element($element).find('.messenger-input input').focus()
-      }
-    })
-
     messengerService.onExpertMessage(addMessage)
 
     messengerService.onClientMessage(addMessage)
@@ -157,7 +159,7 @@
   }
 
   const component = {
-    templateUrl:    'components/communicator/messenger/messenger-maximized/messenger-maximized.tpl.html',
+    templateUrl: 'components/communicator/messenger/messenger-maximized/messenger-maximized.tpl.html',
     controller: controller,
     bindings: {
       callCost: '<',
@@ -177,6 +179,6 @@
     'profitelo.components.communicator.messenger.messenger-maximized.grouped-messages',
     'profitelo.components.communicator.messenger.messenger-maximized.messenger-input'
   ])
-    .component('messengerMaximized', component)
+  .component('messengerMaximized', component)
 
 }())
