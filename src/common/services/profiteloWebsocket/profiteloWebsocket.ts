@@ -27,7 +27,7 @@
 
     const handleMessageType = (data) => {
       const type = data.messageType
-      const value = JSON.parse(data.value)
+      const value = data.value
 
       switch (type) {
         case 'CallSummaryEvent':
