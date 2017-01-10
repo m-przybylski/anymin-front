@@ -2,9 +2,7 @@
   /* @ngInject */
   function controller($scope, $state, HelperService) {
 
-    this.$onInit = () => {
-      this.areControllsVisible = this.consultations.length > 3
-    }
+    this.$onInit = () => {}
 
     this.nextSlide = () => {
       $scope.controlls.nextSlide()
@@ -40,11 +38,14 @@
     controllerAs: '$ctrl'
   }
 
+
   angular.module('profitelo.components.dashboard.client.favourites.favourite-experts.last-consultation-slider', [
     'profitelo.components.interface.slider',
     'profitelo.services.helper',
     'profitelo.filters.money',
-    'pascalprecht.translate'
+    'pascalprecht.translate',
+    'ui.router'
+
   ])
   .component('lastConsultationSlider', lastConsultationSlider)
 

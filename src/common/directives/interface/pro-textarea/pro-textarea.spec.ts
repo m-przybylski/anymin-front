@@ -6,7 +6,7 @@ describe('Unit testing: profitelo.directives.interface.pro-textarea', () => {
     let scope = null
     let rootScope
     let compile = null
-    let validHTML = '<pro-textarea data-label="LABEL" data-placeholder="' + _placeholder + '"  required auto-focus only-digits></pro-textarea>'
+    let validHTML = '<pro-textarea data-name="name" data-default-value="defaultValue" data-maxlength="maxlength" data-label="LABEL" data-placeholder="' + _placeholder + '"  required auto-focus only-digits></pro-textarea>'
 
     beforeEach(() => {
     angular.mock.module('templates-module')
@@ -34,5 +34,52 @@ describe('Unit testing: profitelo.directives.interface.pro-textarea', () => {
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
+
+    it('should focusInput', ()=>{
+      let el = create(validHTML)
+      let isoScope = el.isolateScope()
+
+      const input = el.find('input')
+      input.triggerHandler('focus')
+      isoScope.focusInput()
+    })
+
+    it('should onFocusOut', ()=>{
+      let el = create(validHTML)
+      let isoScope = el.isolateScope()
+
+      isoScope.onFocusOut()
+      expect(isoScope.focus).toBeFalsy()
+      expect(isoScope.onClick).toBeFalsy()
+      expect(isoScope.placeholder).toEqual(_placeholder)
+    })
+
+    it('should onFocus', ()=>{
+      let el = create(validHTML)
+      let isoScope = el.isolateScope()
+
+      isoScope.onFocus()
+      expect(isoScope.focus).toBeTruthy()
+      expect(isoScope.onClick).toBeTruthy()
+      expect(isoScope.placeholder).toEqual('')
+    })
+
+    it('should onMouseover', ()=>{
+      let el = create(validHTML)
+      let isoScope = el.isolateScope()
+
+      isoScope.onMouseover()
+      expect(isoScope.focus).toBeTruthy()
+    })
+
+    it('should onMouseout', ()=>{
+      let el = create(validHTML)
+      let isoScope = el.isolateScope()
+
+      isoScope.onClick = false
+      isoScope.onMouseout()
+      expect(isoScope.focus).toBeFalsy()
+    })
+
   })
 })

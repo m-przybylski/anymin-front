@@ -1,5 +1,5 @@
 function proDropdown($timeout) {
-
+  /* istanbul ignore next function*/
   function linkFunction(scope, element, attr) {
     let myScrollbarChoices
     let currentDropdownStatus = false

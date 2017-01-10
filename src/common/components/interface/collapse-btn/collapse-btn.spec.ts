@@ -7,7 +7,8 @@ describe('Unit testing: profitelo.components.interface.collapse-btn', () => {
     let componentController
     let component
     let window
-    let validHTML = '<collapse-btn></collapse-btn>'
+    let stylesObject
+    let validHTML = '<collapse-btn data-title="title" data-icon="icon"></collapse-btn>'
 
     function create(html) {
       scope = rootScope.$new()
@@ -17,11 +18,17 @@ describe('Unit testing: profitelo.components.interface.collapse-btn', () => {
       return compiledElement
     }
 
+    const bindings = {
+      title: '@',
+      icon: '@'
+    }
+
     beforeEach(() => {
     angular.mock.module('templates-module')
+    angular.mock.module('pascalprecht.translate')
     angular.mock.module('profitelo.components.interface.collapse-btn')
 
-      inject(($rootScope, $compile, _$componentController_, _$window_, _$timeout_, _$log_) => {
+      inject(($rootScope, $compile, _$componentController_, _$window_, _$log_) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
@@ -31,11 +38,14 @@ describe('Unit testing: profitelo.components.interface.collapse-btn', () => {
           $element: create(validHTML),
           $scope: rootScope,
           $window: window,
-          $timeout: _$timeout_,
           $log: _$log_
         }
 
-        component = componentController('collapseBtn', injectors, {})
+        stylesObject = {
+          minHeight: 1
+        }
+
+        component = componentController('collapseBtn', injectors, bindings)
       })
     })
 
@@ -48,8 +58,17 @@ describe('Unit testing: profitelo.components.interface.collapse-btn', () => {
       expect(el.html()).toBeDefined(true)
     })
 
+    it('should collapseToggle', () => {
+      const el = create(validHTML)
+      el.find('.btn.collapse-btn-header').triggerHandler('click')
+    })
 
-    
+    it('should collapseToggle', () => {
+      component.stylesObject.minHeight = 12
+      component.collapseToggle()
+      component.collapseToggle()
+      expect(component.stylesObject.minHeight).toEqual(0)
+    })
   })
 })
 

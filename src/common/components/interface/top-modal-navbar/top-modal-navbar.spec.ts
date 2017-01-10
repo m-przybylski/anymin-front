@@ -5,8 +5,9 @@ describe('Unit testing: profitelo.components.interface.top-modal-navbar', () => 
     let rootScope
     let compile
     let componentController
+    let state
     let component
-    const validHTML = '<top-modal-navbar></top-modal-navbar>'
+    const validHTML = '<top-modal-navbar data-title="test" data-on-close="asd"></top-modal-navbar>'
 
     function create(html) {
       scope = rootScope.$new()
@@ -25,16 +26,18 @@ describe('Unit testing: profitelo.components.interface.top-modal-navbar', () => 
         componentController = _$componentController_
         rootScope = $rootScope
         compile = $compile
+        state = _$state_
 
         const injectors = {
           $element: create(validHTML),
           $scope: rootScope,
-          $state: _$state_,
+          $state: state,
           $window: $window
         }
 
         const bindings = {
-          title: 'test'
+          title: 'test',
+          onClose: 'asd'
         }
 
         component = componentController('topModalNavbar', injectors, bindings)
@@ -50,6 +53,24 @@ describe('Unit testing: profitelo.components.interface.top-modal-navbar', () => 
       expect(el.html()).toBeDefined(true)
     })
 
+    it('should onCloseClick', () => {
+      spyOn(state, 'go')
+      component.onCloseClick()
+      expect(state.go).toHaveBeenCalledWith('app.dashboard.client.favourites')
+    })
+
+    it('should onLogoClick', () => {
+      spyOn(state, 'go')
+      component.onLogoClick()
+      expect(state.go).toHaveBeenCalledWith('app.home')
+    })
+
+    it('should onLogoClick', () => {
+      component.onClose = () => {}
+      spyOn(state, 'go')
+      component.onLogoClick()
+      expect(state.go).toHaveBeenCalledWith('app.home')
+    })
   })
 })
 

@@ -41,5 +41,5 @@
                   span {{:: consultation.service.usageCounter }}
                   span(data-translate="DASHBOARD.EXPERT_ACCOUNT.CONVERSATIONS")
 
-    a.btn.btn-arrow.arrow-right(data-ng-click="$ctrl.nextSlide()" data-ng-show="$ctrl.areControllsVisible")
+    a.btn.btn-arrow.arrow-right(data-ng-click="$ctrl.nextSlide()" data-ng-show="$ctrl.consultations.length > 3")
       span.icon.icon-arrow-right-16

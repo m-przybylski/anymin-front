@@ -7,6 +7,8 @@ describe('Unit testing: profitelo.components.communicator.messenger.messenger-mi
     let component
     const validHTML = '<messenger-minimized></messenger-minimized>'
     const bindings = {}
+    let messengerService
+    let timeout
 
     beforeEach(angular.mock.module(($provide) => {
       $provide.value('apiUrl', 'awesomeURL')
@@ -34,17 +36,39 @@ describe('Unit testing: profitelo.components.communicator.messenger.messenger-mi
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.components.communicator.messenger.messenger-minimized')
 
-      inject((_$rootScope_, _$compile_, _$timeout_, _$componentController_, _messengerService_) => {
+      messengerService = {
+        onClientMessage: (fn) => {
+          fn()
+        },
+        onExpertNewChat: (fn) => {
+          fn()
+        },
+        onExpertMessage: (fn) => {
+          fn()
+        },
+        onClientNewChat: (fn) => {
+          fn()
+        },
+        onChatLeft: (fn) => {
+          fn()
+        }
+      }
+
+      inject((_$rootScope_, _$compile_, _$timeout_, _$componentController_) => {
         $rootScope = _$rootScope_
         $compile = _$compile_
+        timeout = _$timeout_
 
         const injectors = {
-          $timeout: _$timeout_,
-          messengerService: _messengerService_
+          $timeout: timeout,
+          messengerService: messengerService
         }
 
         component = _$componentController_('messengerMinimized', injectors, bindings)
+        component.messages = ['dsdfsdfsdf']
+        timeout.flush()
       })
+
     })
 
     it('should have a dummy test', inject(() => {
