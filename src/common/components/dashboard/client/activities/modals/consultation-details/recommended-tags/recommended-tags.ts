@@ -1,6 +1,6 @@
 (function () {
   /* @ngInject */
-  function controller($log, ServiceApi) {
+  function controller($log, lodash, ServiceApi) {
 
     const updateBindings = () => {
       this.areTagsRecommended = this.selectedTags.length > 0
@@ -41,7 +41,7 @@
     this.saveRecommendedTags = () => {
       ServiceApi.putServiceRecommendations({
         serviceUsageEventId: this.serviceUsageEventId,
-        tags: _.map(this.selectedTags, (tag: any) => tag.id)
+        tags: lodash.map(this.selectedTags, (tag: any) => tag.id)
       }).$promise.then(onRecommendServiceTags, onRecommendServiceTagsError)
     }
 
@@ -62,6 +62,7 @@
 
   angular.module('profitelo.components.dashboard.client.activities.modals.consultation-details.recommended-tags', [
     'pascalprecht.translate',
+    'ngLodash',
     'profitelo.swaggerResources',
     'profitelo.components.interface.multiselect'
   ])

@@ -48,16 +48,16 @@ describe('Unit testing: profitelo.components.communicator.messenger.messenger-ma
     angular.mock.module('profitelo.services.helper')
     angular.mock.module('profitelo.filters.seconds-to-datetime')
     angular.mock.module('profitelo.filters.money')
-    angular.mock.module('lodash')
+    angular.mock.module('ngLodash')
     angular.mock.module('profitelo.services.messenger')
     angular.mock.module('profitelo.components.communicator.messenger.messenger-maximized')
 
-      inject(($rootScope, $compile, $timeout, _$componentController_, _$window_, _HelperService_, _messengerService_, ___) => {
+      inject(($rootScope, $compile, $timeout, _$componentController_, _$window_, _HelperService_, _messengerService_, _lodash_) => {
         rootScope = $rootScope.$new()
         compile = $compile
         const injectors = {
           messengerService: _messengerService_,
-          _: ___,
+          lodash: _lodash_,
           $element: create(validHTML),
           HelperService: _HelperService_
         }

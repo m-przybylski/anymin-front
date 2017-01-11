@@ -1,5 +1,5 @@
 (function() {
-  function searchFilters($filter, searchService, $window) {
+  function searchFilters($filter, searchService, $window, lodash) {
     function linkFunction(scope, element, attrs) {
 
       scope.model = {
@@ -88,7 +88,7 @@
         }
       })
 
-      const _setSearchQueryParamsDebounce = _.debounce(scope.setSearchParams, searchDebounceTimeout, {
+      const _setSearchQueryParamsDebounce = lodash.debounce(scope.setSearchParams, searchDebounceTimeout, {
         'leading': false,
         'trailing': true
       })
@@ -127,6 +127,7 @@
     'profitelo.directives.interface.pro-dropdown',
     'profitelo.directives.interface.pro-range-slider',
     'rzModule',
+    'ngLodash',
     'pascalprecht.translate',
     'profitelo.directives.pro-tags-slider',
     'profitelo.directives.interface.pro-switcher',

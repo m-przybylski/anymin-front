@@ -80,7 +80,6 @@
 
 
   angular.module('profitelo.directives.service-provider.pro-service-provider-file-uploader', [
-    'lodash',
     'pascalprecht.translate',
     'profitelo.directives.ng-enter',
     'profitelo.services.commonSettings',

@@ -34,7 +34,7 @@
     "font-awesome": "^4.7.0",
     "hellojs": "^1.14.0",
     "jquery": "^2.2.4",
-    "ng-lodash": "^0.2.3",
+    "ng-lodash": "^0.5.0",
     "masonry-layout": "^4.1.1",
     "messageformat": "^0.2.2",
     "moment": "^2.17.1",
@@ -52,7 +52,7 @@
     "@types/angular-ui-router": "^1.1.36",
     "@types/jasmine": "^2.5.40",
     "@types/karma-jasmine": "0.0.28",
-    "@types/lodash": "^4.14.48",
+    "@types/lodash": "^4.14.50",
     "@types/perfect-scrollbar": "^0.6.1",
     "contactis-gulp": "1.6.1"
   }

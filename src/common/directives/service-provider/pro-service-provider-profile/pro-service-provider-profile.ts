@@ -36,7 +36,7 @@
   }
 
   angular.module('profitelo.directives.service-provider.pro-service-provider-profile', [
-    'lodash',
+    'ngLodash',
     'ngSanitize',
     'pascalprecht.translate',
     'profitelo.components.interface.show-more-text'

@@ -1,11 +1,11 @@
 (function() {
-  function recommendedProfilesServices($q, $log, SearchApi) {
+  function recommendedProfilesServices($q, $log, SearchApi, lodash) {
 
     const _onFindRecommended = (recommendedProfiles, services) => {
-      const currentConsultation = _.find(recommendedProfiles.results, (o: Service) => o.id === services[0].service.id)
+      const currentConsultation = lodash.find(recommendedProfiles.results, (o: Service) => o.id === services[0].service.id)
 
       if (!!currentConsultation) {
-        recommendedProfiles.results = _.remove(recommendedProfiles.results, (n: Service) => {
+        recommendedProfiles.results = lodash.remove(recommendedProfiles.results, (n: Service) => {
           // TODO Remove tags by service id and profile id
           return n.id !== services[0].service.id
         })
@@ -64,6 +64,7 @@
   }
   angular.module('profitelo.services.recommended-profiles-service', [
     'profitelo.swaggerResources',
+    'ngLodash',
     'c7s.ng.userAuth'
   ])
     .service('recommendedProfilesServices', recommendedProfilesServices)

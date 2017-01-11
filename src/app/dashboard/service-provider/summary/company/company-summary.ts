@@ -1,6 +1,6 @@
 (function() {
   function CompanySummaryController($state, $scope, $filter, savedProfile, ServiceApi, proTopAlertService,
-                                    profileAvatar, companyLogo, DialogService, communicatorService) {
+                                    profileAvatar, lodash, companyLogo, DialogService, communicatorService) {
 
     if (savedProfile && savedProfile.expertDetails && !savedProfile.organizationDetails) {
       this.profile = savedProfile.expertDetails
@@ -29,7 +29,7 @@
     }
 
     this.verifyProfile = ()=> {
-      if (!!_.find(this.consultations, {'ownerEmployee': true}) && !savedProfile.expertDetails ) {
+      if (!!lodash.find(this.consultations, {'ownerEmployee': true}) && !savedProfile.expertDetails ) {
         $state.go('app.dashboard.service-provider.individual-path')
       } else {
         ServiceApi.postServicesVerify().$promise.then((res)=> {
@@ -145,7 +145,7 @@
         controllerAs: 'vm',
         resolve: {
           /* istanbul ignore next */
-          savedProfile: ($q, $state, ProfileApi, User, ServiceApi, proTopAlertService) => {
+          savedProfile: ($q, $state, ProfileApi, lodash, User, ServiceApi, proTopAlertService) => {
             /* istanbul ignore next */
             let _deferred = $q.defer()
             /* istanbul ignore next */
@@ -154,12 +154,12 @@
                 profileId: User.getData('id')
               }).$promise.then((profileWithServices)=> {
                 ServiceApi.postServicesTags({
-                  serviceIds: _.map(profileWithServices.services, 'id')
+                  serviceIds: lodash.map(profileWithServices.services, 'id')
                 }).$promise.then((servicesTags) => {
 
                   profileWithServices.services.forEach((service) => {
-                    service.details.tags = _.head(
-                      _.filter(servicesTags, (serviceTags: any) => service.id === serviceTags.serviceId)).tags
+                    service.details.tags = lodash.head(
+                      lodash.filter(servicesTags, (serviceTags: any) => service.id === serviceTags.serviceId)).tags
                   })
                   _deferred.resolve(profileWithServices)
                 })

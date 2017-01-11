@@ -1,6 +1,6 @@
 (function () {
 
-  function DashboardClientActivitiesController($scope, $timeout, clientActivities, clientActivitiesService) {
+  function DashboardClientActivitiesController($scope, lodash, $timeout, clientActivities, clientActivitiesService) {
 
     const isMoreResultsAvailable = (results, limit) => {
       return results.length > limit
@@ -15,7 +15,7 @@
       clientActivities.activities.pop()
     }
 
-    this.activities = _.sortBy(clientActivities.activities,
+    this.activities = lodash.sortBy(clientActivities.activities,
       (activity: ClientActivity) => activity.financialOperation.createdAt)
 
     this.balance = clientActivities.balance
@@ -54,7 +54,7 @@
         }
 
         if (queryParams.offset === 0) {
-          this.activities =  _.sortBy(results.activities,
+          this.activities =  lodash.sortBy(results.activities,
             (activity: ClientActivity) => activity.financialOperation.createdAt)
         } else {
           this.activities = this.activities.concat(results.activities)
@@ -73,6 +73,7 @@
   angular.module('profitelo.controller.dashboard.client.activities', [
     'ui.router',
     'c7s.ng.userAuth',
+    'ngLodash',
     'profitelo.filters.money',
     'profitelo.components.interface.preloader-container',
     'profitelo.components.dashboard.client.activities.no-activities',

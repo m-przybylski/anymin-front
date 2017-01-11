@@ -1,5 +1,5 @@
 (function() {
-  function AppExpertProfileResolver($q: ng.IQService, ViewsApi) {
+  function AppExpertProfileResolver($q: ng.IQService, ViewsApi, lodash) {
 
     const _resolve = (stateParams) => {
 
@@ -7,7 +7,7 @@
         $q.reject(error)
 
       const _sortServices = (servicesWithTagsAndEmployees) => {
-        const primaryConsultation = _.find(servicesWithTagsAndEmployees, (serviceWithTagsAndEmployees: {service: Service}) =>
+        const primaryConsultation = lodash.find(servicesWithTagsAndEmployees, (serviceWithTagsAndEmployees: {service: Service}) =>
           serviceWithTagsAndEmployees.service.id === stateParams.primaryConsultationId )
 
         if (angular.isDefined(stateParams.primaryConsultationId) && !!primaryConsultation
@@ -48,6 +48,7 @@
 
   angular.module('profitelo.services.resolvers.app-expert-profile-resolver', [
     'profitelo.swaggerResources',
+    'ngLodash',
     'c7s.ng.userAuth'
   ])
     .config(($qProvider) => {

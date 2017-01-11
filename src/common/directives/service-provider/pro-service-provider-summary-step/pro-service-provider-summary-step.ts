@@ -37,7 +37,7 @@
 
   angular.module('profitelo.directives.service-provider.pro-service-provider-summary-step', [
     'profitelo.common.controller.service-provider.pro-service-provider-summary-controller',
-    'lodash',
+    'ngLodash',
     'pascalprecht.translate',
     'profitelo.common.controller.service-provider.service-provider-step-controller',
     'profitelo.filters.money',

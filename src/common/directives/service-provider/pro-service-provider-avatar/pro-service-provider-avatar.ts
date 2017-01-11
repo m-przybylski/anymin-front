@@ -94,7 +94,7 @@
   }
 
   angular.module('profitelo.directives.service-provider.pro-service-provider-avatar', [
-    'lodash',
+    'ngLodash',
     'pascalprecht.translate',
     'profitelo.common.controller.service-provider.service-provider-step-controller',
     'profitelo.directives.interface.pro-uploader',

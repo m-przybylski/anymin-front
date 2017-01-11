@@ -7,6 +7,7 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
     let _proTopAlertsService
     let validHTML = '<pro-alert></pro-alert>'
     let $timeout
+    let lodash
 
     interface Params {
       timeout: Number,
@@ -15,9 +16,11 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
 
     beforeEach(() => {
     angular.mock.module('templates-module')
+    angular.mock.module('ngLodash')
     angular.mock.module('profitelo.directives.interface.pro-alert')
 
-      inject(($rootScope, $compile, _proTopAlertService_, $injector) => {
+      inject(($rootScope, $compile, _proTopAlertService_, _lodash_, $injector) => {
+        lodash                = _lodash_
         rootScope             = $rootScope.$new()
         compile               = $compile
         _proTopAlertsService  = _proTopAlertService_
@@ -73,7 +76,7 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
       let el = create(validHTML)
       let isoScope = el.isolateScope()
       _proTopAlertsService.success(params)
-      const found = _.find(isoScope.alerts, (o: Params) => o.message === 'RANDOM_MESSAGE' && o.timeout === 2)
+      const found = lodash.find(isoScope.alerts, (o: Params) => o.message === 'RANDOM_MESSAGE' && o.timeout === 2)
       expect(found !== undefined).toBe(true)
     })
 
@@ -92,7 +95,7 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
       let el = create(validHTML)
       let isoScope = el.isolateScope()
       _proTopAlertsService.error(params)
-      const found = _.find(isoScope.alerts, (o: Params) => o.message === 'RANDOM_MESSAGE' && o.timeout === 2)
+      const found = lodash.find(isoScope.alerts, (o: Params) => o.message === 'RANDOM_MESSAGE' && o.timeout === 2)
       expect(found !== undefined).toBe(true)
     })
     it('should create warning alert', () => {
@@ -110,7 +113,7 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
       let el = create(validHTML)
       let isoScope = el.isolateScope()
       _proTopAlertsService.warning(params)
-      const found = _.find(isoScope.alerts, (o: Params) => o.message === 'RANDOM_MESSAGE' && o.timeout === 2)
+      const found = lodash.find(isoScope.alerts, (o: Params) => o.message === 'RANDOM_MESSAGE' && o.timeout === 2)
       expect(found !== undefined).toBe(true)
     })
     it('should create info alert', () => {
@@ -128,7 +131,7 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
       let el = create(validHTML)
       let isoScope = el.isolateScope()
       _proTopAlertsService.info(params)
-      const found = _.find(isoScope.alerts, (o: Params) => o.message === 'RANDOM_MESSAGE' && o.timeout === 2)
+      const found = lodash.find(isoScope.alerts, (o: Params) => o.message === 'RANDOM_MESSAGE' && o.timeout === 2)
       expect(found !== undefined).toBe(true)
       $timeout.flush()
       expect(isoScope.alerts.length === 0).toBe(true)
@@ -147,7 +150,7 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
       _proTopAlertsService.info(params)
       _proTopAlertsService.error(params)
       _proTopAlertsService.info(lastParams)
-      const found = _.find(isoScope.alerts, (o: Params) => o.message === 'RANDOM_MESSAGE' && o.timeout === 2)
+      const found = lodash.find(isoScope.alerts, (o: Params) => o.message === 'RANDOM_MESSAGE' && o.timeout === 2)
       expect(found !== undefined).toBe(true)
       $timeout.flush()
       expect(isoScope.alerts.length === 1).toBe(true)

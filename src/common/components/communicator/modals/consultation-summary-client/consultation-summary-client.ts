@@ -1,7 +1,7 @@
 /* istanbul ignore next function */
 (function() {
 
-  function controller($log, $scope, $uibModalInstance, callSummaryService, ServiceApi, HelperService, _) {
+  function controller($log, $scope, lodash, $uibModalInstance, callSummaryService, ServiceApi, HelperService) {
 
     $scope.callSummary = null
     $scope.expertAvatarUrl = ''
@@ -64,7 +64,7 @@
     $scope.recommendServiceTags = () => {
       ServiceApi.putServiceRecommendations({
         serviceUsageEventId: $scope.callSummary.serviceUsageEventId,
-        tags: _.map(tags, tag => tag.id)
+        tags: lodash.map(tags, tag => tag.id)
       }).$promise.then(onRecommendServiceTags, onRecommendServiceTagsError)
       $scope.closeModal()
     }
@@ -82,7 +82,7 @@
     'profitelo.swaggerResources',
     'ui.bootstrap',
     'profitelo.components.interface.preloader',
-    'lodash'
+    'ngLodash'
   ])
     .controller('consultationSummaryClientController', controller)
 

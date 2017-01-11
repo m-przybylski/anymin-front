@@ -1,5 +1,6 @@
 (function() {
-  function CompanyConsultationController($scope, $state, DialogService, savedProfile, ServiceApi, proTopAlertService, profileImage, serviceProviderService) {
+  function CompanyConsultationController($scope, $state, DialogService, savedProfile, ServiceApi, proTopAlertService,
+                                         profileImage, lodash, serviceProviderService) {
 
     this.costModel = serviceProviderService.createDefaultModel('')
     this.editModel = serviceProviderService.createDefaultModel(0)
@@ -59,7 +60,7 @@
 
     this.saveConsultationObject = () => {
       let _redirectByOwnerEmployeeStatus = () => {
-        if ((!!_.find(this.consultations, {'ownerEmployee': true}) || !!this.ownerEmployee) && !savedProfile.expertDetails ) {
+        if ((!!lodash.find(this.consultations, {'ownerEmployee': true}) || !!this.ownerEmployee) && !savedProfile.expertDetails ) {
           $state.go('app.dashboard.service-provider.individual-path')
         } else {
           $state.go('app.dashboard.service-provider.summary.company')
@@ -158,6 +159,7 @@
     'profitelo.services.service-provider-service',
     'profitelo.common.controller.accept-reject-dialog-controller',
     'ui.router',
+    'ngLodash',
     'c7s.ng.userAuth',
     'profitelo.services.dialog-service',
     'profitelo.swaggerResources',
@@ -180,7 +182,7 @@
         controllerAs: 'vm',
         resolve: {
           /* istanbul ignore next */
-          savedProfile: ($q, $state, ProfileApi, User, AppServiceProviderImageResolver, ServiceApi, proTopAlertService) => {
+          savedProfile: ($q, $state, ProfileApi, lodash, User, AppServiceProviderImageResolver, ServiceApi, proTopAlertService) => {
             /* istanbul ignore next */
             let _deferred = $q.defer()
             /* istanbul ignore next */
@@ -189,11 +191,11 @@
                 profileId: User.getData('id')
               }).$promise.then((profileWithServices) => {
                 ServiceApi.postServicesTags({
-                  serviceIds: _.map(profileWithServices.services, 'id')
+                  serviceIds: lodash.map(profileWithServices.services, 'id')
                 }).$promise.then((servicesTags) => {
                   profileWithServices.services.forEach((service) => {
-                    service.details.tags = _.head(
-                      _.filter(servicesTags, (serviceTags: any) => service.id === serviceTags.serviceId)).tags
+                    service.details.tags = lodash.head(
+                      lodash.filter(servicesTags, (serviceTags: any) => service.id === serviceTags.serviceId)).tags
                   })
                   _deferred.resolve(profileWithServices)
                 })

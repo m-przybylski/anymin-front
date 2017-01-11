@@ -1,5 +1,5 @@
 (function() {
-  function chargeAccountController($state, $timeout, paymentsOptions, paymentsLinks, financeBalance, smoothScrolling) {
+  function chargeAccountController($state, $timeout, lodash,  paymentsOptions, paymentsLinks, financeBalance, smoothScrolling) {
 
     this.paymentCountryId = paymentsOptions.id
     this.amounts = {
@@ -30,7 +30,7 @@
 
     if (this.lastPayment !== null) {
       this.currentSection = 3
-      if (_.find(this.amounts.paymentOptions, {'amount': this.lastPayment.amount.amount})) {
+      if (lodash.find(this.amounts.paymentOptions, {'amount': this.lastPayment.amount.amount})) {
         this.amountModel.amount = this.lastPayment.amount
       } else {
         this.amountModel.cashAmount = this.lastPayment.amount
@@ -138,6 +138,7 @@
   angular.module('profitelo.controller.dashboard.charge-account', [
     'c7s.ng.userAuth',
     'ui.router',
+    'ngLodash',
     'profitelo.swaggerResources',
     'profitelo.services.pro-top-alert-service',
     'profitelo.services.commonSettings',

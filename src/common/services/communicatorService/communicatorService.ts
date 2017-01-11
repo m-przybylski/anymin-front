@@ -32,7 +32,7 @@
     }
   }
 
-  function service($log, $q, UtilsService, User, RatelApi, ProfileApi, ratelSdk, _, CommonConfig) {
+  function service($log, $q, UtilsService, User, RatelApi, ProfileApi, ratelSdk, lodash, CommonConfig) {
 
     const commonConfig = CommonConfig.getAllData()
 
@@ -120,7 +120,7 @@
     }
 
     const onGetEmployersProfilesWithServices = (profilesWithServices) =>
-      _.flatten(_.map(profilesWithServices, profile => profile.services))
+      lodash.flatten(lodash.map(profilesWithServices, profile => profile.services))
 
     const getServices = (profileId) =>
       ProfileApi.getEmployersProfilesWithServices({profileId: profileId}).$promise
@@ -140,7 +140,7 @@
 
     const authenticateExpert = () =>
       getServices(User.getData('id')).then(services =>
-        $q.all(_.map(services, service => RatelApi.getRatelAuthConfig({serviceId: service.id}).$promise
+        $q.all(lodash.map(services, service => RatelApi.getRatelAuthConfig({serviceId: service.id}).$promise
             .then(expertConfig =>onGetRatelExpertAuthConfig(expertConfig.toJSON(), service)))))
 
     const onAuthenticateError = (err) =>
@@ -168,7 +168,7 @@
     'profitelo.services.dialog-service',
     'commonConfig',
     'ratelSdk',
-    'lodash',
+    'ngLodash',
     'profitelo.services.utils'
   ])
     .service('communicatorService', service)

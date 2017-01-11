@@ -1,8 +1,8 @@
 (function() {
 
-  function DashboardClientFavouritesController($log, clientFavouritesConsultations, recommendedProfilesServices) {
+  function DashboardClientFavouritesController($log, lodash, clientFavouritesConsultations, recommendedProfilesServices) {
     this.balance = clientFavouritesConsultations.balance
-    this.lastConsultations = _.sortBy(clientFavouritesConsultations.lastConsultations, 'createdAt')
+    this.lastConsultations = lodash.sortBy(clientFavouritesConsultations.lastConsultations, 'createdAt')
     this.favouriteProfiles = clientFavouritesConsultations.favouriteProfiles
 
     const onGetRecommendedExperts = (recommendedExperts) =>
@@ -20,6 +20,7 @@
 
   angular.module('profitelo.controller.dashboard.client.favourites', [
     'ui.router',
+    'ngLodash',
     'c7s.ng.userAuth',
     'profitelo.filters.money',
     'profitelo.services.recommended-profiles-service',
