@@ -12,7 +12,7 @@ describe('Unit testing: profitelo.components.expert-profile.similar-experts-slid
     let validHTML = '<similar-experts-slider consultations="[{name: null}]"></similar-experts-slider>'
     let el
     let slide
-    
+
     function create(html) {
       scope = rootScope.$new()
       let elem = angular.element(html)
@@ -22,11 +22,11 @@ describe('Unit testing: profitelo.components.expert-profile.similar-experts-slid
     }
 
     beforeEach(() => {
-    angular.mock.module('templates-module')
-    angular.mock.module('profitelo.components.expert-profile.similar-experts-slider')
-    angular.mock.module('ui.router')
-    angular.mock.module('profitelo.components.interface.slider')
-      
+      angular.mock.module('templates-module')
+      angular.mock.module('profitelo.components.expert-profile.similar-experts-slider')
+      angular.mock.module('ui.router')
+      angular.mock.module('profitelo.components.interface.slider')
+
       inject(($rootScope, $compile, _$componentController_, _$state_) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
@@ -42,7 +42,14 @@ describe('Unit testing: profitelo.components.expert-profile.similar-experts-slid
         ]
       }
 
-      component = componentController('similarExpertsSlider', {$element: el, $scope: rootScope, $state: $state}, bindings)
+      const injectors = {
+        $element: el,
+        $scope: rootScope,
+        $state: $state
+      }
+
+      component = componentController('similarExpertsSlider', injectors, bindings)
+      component.$onInit()
     })
 
     it('should have a dummy test', () => {
@@ -61,7 +68,7 @@ describe('Unit testing: profitelo.components.expert-profile.similar-experts-slid
           return 1011
         }
       }
-      
+
       spyOn($scope.controlls, 'nextSlide')
       component.nextSlide()
       expect($scope.controlls.nextSlide).toHaveBeenCalled()
@@ -90,8 +97,11 @@ describe('Unit testing: profitelo.components.expert-profile.similar-experts-slid
         }
       }
       component.goToProfile(consultation)
-      expect($state.go).toHaveBeenCalledWith('app.company-profile', {profileId: consultation.owner.id, primaryConsultationId: consultation.id})
+      expect($state.go).toHaveBeenCalledWith('app.company-profile', {
+        profileId: consultation.owner.id,
+        primaryConsultationId: consultation.id
+      })
     })
-    
+
   })
 })

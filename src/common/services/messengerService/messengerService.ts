@@ -110,7 +110,8 @@
       }
 
       return session.chat.createDirectRoom(serviceInvitationTuple.invitation.inviter)
-        .then(_onExpertCreateDirectRoom, _onExpertCreateDirectRoomError)
+        .then(_onExpertCreateDirectRoom)
+        .catch(_onExpertCreateDirectRoomError)
     }
 
     const _onClientTyping = () =>
@@ -146,7 +147,8 @@
 
       if (session) {
         session.chat.createDirectRoom(_ratelId)
-          .then(_onClientCreateDirectRoom, _onClientCreateDirectRoomError)
+          .then(_onClientCreateDirectRoom)
+          .catch(_onClientCreateDirectRoomError)
       } else {
         $log.error('Session is empty')
       }
@@ -181,6 +183,9 @@
     'profitelo.services.call',
     'profitelo.services.sounds'
   ])
+    .config(($qProvider) => {
+      $qProvider.errorOnUnhandledRejections(false);
+    })
     .service('messengerService', service)
 
 }())

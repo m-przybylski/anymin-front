@@ -1,6 +1,21 @@
-(function() {
+(function () {
   /* @ngInject */
   function controller($scope: ng.IScope, $filter, clientActivitiesService) {
+
+    this.$onInit = () => {
+      this.activityTypesList = this.filters.activityTypes.map(type =>
+        ({
+          name: $filter('translate')($filter('normalizeTranslationKey')(('DASHBOARD_CLIENT.FILTERS.' + type))),
+          value: type
+        })
+      )
+
+      this.servicesDropdownList = getServicesDropdownList()
+      this.expertsDropdownList = createDropdownExpertsList(this.filters.expertServiceTuples)
+    }
+
+    const getServicesDropdownList = () => createDropdownServiceList(this.filters.expertServiceTuples)
+
     const watchGroup = ['dateFrom', 'dateTo']
     this.filterModel = {}
     this.showMobileFilters = true
@@ -8,13 +23,6 @@
     this.showFilters = () => {
       this.showMobileFilters = !this.showMobileFilters
     }
-
-    this.activityTypesList = this.filters.activityTypes.map(type =>
-      ({
-        name: $filter('translate')($filter('normalizeTranslationKey')(('DASHBOARD_CLIENT.FILTERS.' + type))),
-        value: type
-      })
-    )
 
     this.activityTypesList.unshift({
       name: $filter('translate')($filter('normalizeTranslationKey')(('DASHBOARD_CLIENT.FILTERS.ALL_ACTIVITY')))
@@ -33,9 +41,9 @@
       const mappedList = uniqueBy(_.map(list, (listItem: {service: Service}) => listItem.service), item => item.id)
 
       return mappedList.map(service => ({
-          name: service.details.name,
-          value: service.id
-        }))
+        name: service.details.name,
+        value: service.id
+      }))
     }
 
     const createDropdownExpertsList = (list: any) => {
@@ -50,21 +58,17 @@
       })
     }
 
-    const allServicesDropdownList = createDropdownServiceList(this.filters.expertServiceTuples)
-    this.expertsDropdownList = createDropdownExpertsList(this.filters.expertServiceTuples)
-    this.servicesDropdownList = allServicesDropdownList
-
     clientActivitiesService.onQueryParamsChange($scope, (param) => {
       this.selectedType = _.find(
         this.activityTypesList, (type: {value: string, name: string}) => type.value === param.activityType)
       this.selectedService = _.find(
         this.servicesDropdownList, (service: {value: string, name: string}) => service.value === param.serviceId)
-      this.selectedExpert= _.find(
+      this.selectedExpert = _.find(
         this.expertsDropdownList, (expert: {value: string, name: string}) => expert.value === param.profileId)
     })
 
     const clearServicesList = () => {
-      this.servicesDropdownList = allServicesDropdownList
+      this.servicesDropdownList = getServicesDropdownList()
       this.secondaryServicesDropdownList = []
     }
 
@@ -74,7 +78,6 @@
       }
       clientActivitiesService.setClientActivitiesParam(queryParams)
     }
-
 
     this.updateActivityTypeParam = (item) => {
       const queryParams = this.filterModel
@@ -98,7 +101,8 @@
         const groupServices: any = _.groupBy(this.filters.expertServiceTuples, {
           profile: {
             id: item.value
-          }})
+          }
+        })
         this.servicesDropdownList = createDropdownServiceList(groupServices.true)
         this.secondaryServicesDropdownList = createDropdownServiceList(groupServices.false)
       } else {
@@ -119,7 +123,6 @@
       setActivitiesQueryParams(queryParams)
       clearServicesList()
     }
-
 
     $scope.$watchGroup(watchGroup.map((v) => {
       return '$ctrl.filterModel.' + v
@@ -155,5 +158,5 @@
     'profitelo.directives.interface.pro-calendar',
     'profitelo.components.interface.dropdown'
   ])
-    .component('clientActivitiesFilters', component)
+  .component('clientActivitiesFilters', component)
 }())

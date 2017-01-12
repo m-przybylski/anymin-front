@@ -1,19 +1,26 @@
-(function() {
+(function () {
 
   /* @ngInject */
   function paymentMethodController() {
 
+    this.$onInit = () => {
+      if (this.paymentSystemModel !== null) {
+        this.activeOption = this.paymentSystemModel - 1
+        this.paymentSystemModel = this.paymentSystems[this.activeOption]
+      }
+    }
+
     this.activeOption = null
     this.firstSelect = this.activeOption !== null
-    
+
     this.setImage = (slug) => {
       const imagePath = '/assets/images/%s-logo.png'
       return imagePath.replace('%s', slug)
     }
-    
-    this.selectPaymentMethod =  (index) => {
+
+    this.selectPaymentMethod = (index) => {
       if (index === 0) {
-        if (!this.firstSelect ) {
+        if (!this.firstSelect) {
           this.scrollHandler()
           this.firstSelect = true
         }
@@ -23,13 +30,7 @@
       }
     }
 
-    if (this.paymentSystemModel !== null) {
-      this.activeOption = this.paymentSystemModel - 1
-      this.paymentSystemModel = this.paymentSystems[this.activeOption]
-    }
-    
     return this
-    
   }
 
   let paymentMethod = {
@@ -46,8 +47,7 @@
     controllerAs: '$ctrl'
   }
 
-
   angular.module('profitelo.components.dashboard.charge-account.payment-method', [])
-    .component('paymentMethod', paymentMethod)
+  .component('paymentMethod', paymentMethod)
 
 }())

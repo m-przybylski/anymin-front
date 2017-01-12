@@ -40,6 +40,7 @@ describe('Unit testing: profitelo.components.interface.show-more-text', () => {
         }
 
         component = componentController('showMoreText', injectors, bindings)
+        component.$onInit()
       })
     })
 

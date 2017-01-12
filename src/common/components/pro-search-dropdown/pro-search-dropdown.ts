@@ -19,8 +19,23 @@
 
     this.loadingSuggestion = false
     this.lastSearchWord = ''
-
     let listOfSuggestions = $element.find('.dropdown-container a')
+
+    /* istanbul ignore next */
+    const _onUpDownKeysPress = (callback) => {
+      listOfSuggestions = $element.find('.dropdown-container a')
+      if (!!this.ngModel && this.ngModel.length > 2 && angular.isFunction(callback)) {
+        callback()
+      }
+    }
+
+    const keyCodes = {
+      arrowRight: 39,
+      arrowDown: 40,
+      arrowUp: 38,
+      backspace: 8,
+      escape: 27
+    }
 
     const _deserializeSuggestions = (rawData) => {
       const result = {
@@ -174,8 +189,7 @@
 
     const _setPrimarySuggestion = (search) => {
       this.primarySuggestion = null
-      if (angular.isDefined(search) && search && !this.isCollapsed && search.length > 2 &&
-        !!this.suggestions.tags && this.suggestions.tags.length > 0) {
+      if (angular.isDefined(search) && search && !this.isCollapsed && search.length > 2 && !!this.suggestions.tags && this.suggestions.tags.length > 0) {
 
         this.suggestions.tags.map((tag) => tag.name.toLowerCase()).reverse().forEach((name) => {
           if (name.includes(this.ngModel.toLowerCase())) {
@@ -201,22 +215,6 @@
     })
 
     /* istanbul ignore next */
-    const _onUpDownKeysPress = (callback) => {
-      listOfSuggestions =  $element.find('.dropdown-container a')
-      if (!!this.ngModel && this.ngModel.length > 2 && angular.isFunction(callback)) {
-        callback()
-      }
-    }
-
-    const keyCodes = {
-      arrowRight: 39,
-      arrowDown: 40,
-      arrowUp: 38,
-      backspace: 8,
-      escape: 27
-    }
-
-    /* istanbul ignore next */
     $element.bind('keydown keypress', (event) => {
       const keyCode = event.which || event.keyCode
       switch (keyCode) {
@@ -227,14 +225,14 @@
             $scope.$digest()
           }
           break
-        
+
         case keyCodes.backspace:
           this.currentTagId = null
           break
 
         case keyCodes.arrowDown:
           event.preventDefault()
-          _onUpDownKeysPress( () => {
+          _onUpDownKeysPress(() => {
             if (selectedElement.currentPosition <= listOfSuggestions.length - 2) {
               ++selectedElement.currentPosition
               _handleArrowsOnSuggestions(listOfSuggestions, selectedElement)
@@ -266,15 +264,13 @@
       }
     })
 
-
-
     $element.find('.dropdown-container').perfectScrollbar()
 
     Object.defineProperty(this, 'open', {
-      get: function() {
+      get: function () {
         return this.open
       },
-      set: function(flag) {
+      set: function (flag) {
         if (angular.isDefined(flag) && flag) {
           _focus()
         } else {

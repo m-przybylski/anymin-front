@@ -1,4 +1,4 @@
-(function() {
+(function () {
   function ConsultationsFieldController() {
 
     this.tags = [{
@@ -16,7 +16,6 @@
     this.prevSlide = () => {
       this.controlls.prevSlide()
     }
-
 
     this.expertCard = [
       {
@@ -121,7 +120,7 @@
     'profitelo.directives.pro-tags-slider',
     'profitelo.components.interface.card-slider'
   ])
-  .config(function($stateProvider, UserRolesProvider) {
+  .config(function ($stateProvider, UserRolesProvider) {
     $stateProvider.state('app.consultations-field', {
       url: '/consultations-field/{fieldId:int}',
       templateUrl: 'consultations-field/consultations-field.tpl.html',

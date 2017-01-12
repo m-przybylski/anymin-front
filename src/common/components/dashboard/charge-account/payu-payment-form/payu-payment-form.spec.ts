@@ -73,7 +73,7 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payu-payme
         }
       }
 
-      component = componentController('payuPaymentForm', null, bindings)
+      component = componentController('payuPaymentForm', {}, bindings)
       
       expect(component.amountMethodModal).toBeDefined()
     })
@@ -86,7 +86,8 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payu-payme
       bindings.validAction =  () => {
         return true
       }
-      component = componentController('payuPaymentForm', null, bindings)
+      component = componentController('payuPaymentForm', {}, bindings)
+      component.$onInit()
 
       spyOn(state, 'go')
       resourcesExpectations.PaymentsApi.postPayUOrder.respond(400)
@@ -96,9 +97,9 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payu-payme
     }))
     
     it('should redirect to payu', inject(() => {
-      
-      bindings.amountMethodModal.email = 'BOBiARTUR@profitelo.pl'
-      component = componentController('payuPaymentForm', null, bindings)
+      bindings.amountMethodModal.email = 'testacc@profitelo.pl'
+      component = componentController('payuPaymentForm', {}, bindings)
+      component.$onInit()
       
       spyOn(window, 'open')
       resourcesExpectations.PaymentsApi.postPayUOrder.respond(200)
@@ -110,7 +111,7 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payu-payme
     it('should scroll to bank-section', inject(() => {
       spyOn(smoothScrolling, 'simpleScrollTo')
       bindings.amountMethodModal.payMethodValue = undefined
-      component = componentController('payuPaymentForm', null, bindings)
+      component = componentController('payuPaymentForm', {}, bindings)
       resourcesExpectations.PaymentsApi.postPayUOrder.respond(200)
       component.sendPayment()
       expect(smoothScrolling.simpleScrollTo).toHaveBeenCalled()

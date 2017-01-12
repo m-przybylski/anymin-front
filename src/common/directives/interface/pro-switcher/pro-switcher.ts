@@ -7,19 +7,18 @@
         throw new Error('ngModel must be of boolean type')
       }
 
-      scope.changeCheckedState = (state) => {
+      const changeCheckedState = (state) => {
         element.find('input').prop('checked', state)
       }
 
       scope.onClickCallback = () => {
         scope.ngModel = !scope.ngModel
-        scope.changeCheckedState(scope.ngModel)
+        changeCheckedState(scope.ngModel)
 
       }
 
-      scope.changeCheckedState(scope.ngModel)
+      changeCheckedState(scope.ngModel)
 
-      /* istanbul ignore else */
       if ('id' in attr.$attr) {
         scope.id = attr.id
       }

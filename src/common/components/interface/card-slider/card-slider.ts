@@ -1,13 +1,14 @@
 /* istanbul ignore next */
-(function() {
+(function () {
   /* @ngInject */
-  function defaultCardSliderFunction($scope, $window, $timeout, $element) {
+  function defaultCardSliderFunction($timeout: ng.ITimeoutService) {
 
-    let allItems = this.cards
-    let countItems = allItems.length
-    let container = $('.card-slider-to-slide')
+    this.$onInit = () => {
+    }
 
-    $timeout (()=>{
+    let container = angular.element('.card-slider-to-slide')
+
+    $timeout(() => {
       container.find('>div').last().prependTo(container)
     })
 
@@ -31,14 +32,13 @@
       cards: '<',
       controlls: '='
     },
-    templateUrl:    'components/interface/card-slider/card-slider.tpl.html',
+    templateUrl: 'components/interface/card-slider/card-slider.tpl.html',
     controllerAs: 'vm',
     controller: defaultCardSliderFunction
   }
 
-
   angular.module('profitelo.components.interface.card-slider', [
     'pascalprecht.translate'
   ])
-    .component('cardSlider', cardSlider)
+  .component('cardSlider', cardSlider)
 }())

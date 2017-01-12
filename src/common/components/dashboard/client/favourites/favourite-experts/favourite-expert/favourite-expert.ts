@@ -1,16 +1,23 @@
-(function() {
+(function () {
   /* @ngInject */
   function controller($state, HelperService) {
-    this.profile = this.favouriteExpert.profile.organizationDetails ? this.favouriteExpert.profile.organizationDetails : this.favouriteExpert.profile.expertDetails
 
     this.consultationOwnerImage = () => {
-       const imageToken = this.profile.avatar || this.profile.logo
-       return imageToken !== null ||  imageToken === '' ? HelperService.fileUrlResolver(imageToken) : false
+      const imageToken = this.profile.avatar || this.profile.logo
+      return imageToken !== null || imageToken === '' ? HelperService.fileUrlResolver(imageToken) : false
     }
+
     this.goToProfile = () => {
-      const stateName  = this.favouriteExpert.profile.organizationDetails ? 'app.company-profile' : 'app.expert-profile'
-      $state.go(stateName, { profileId: this.favouriteExpert.profile.id })
+      const stateName = this.favouriteExpert.profile.organizationDetails ?
+        'app.company-profile' : 'app.expert-profile'
+      $state.go(stateName, {profileId: this.favouriteExpert.profile.id})
     }
+
+    this.$onInit = () => {
+      this.profile = this.favouriteExpert.profile.organizationDetails ?
+        this.favouriteExpert.profile.organizationDetails : this.favouriteExpert.profile.expertDetails
+    }
+
     return this
   }
 
@@ -19,7 +26,7 @@
     controller: controller,
     controllerAs: '$ctrl',
     bindings: {
-      favouriteExpert:'<'
+      favouriteExpert: '<'
     }
   }
 
@@ -28,5 +35,5 @@
     'ui.router',
     'profitelo.services.helper'
   ])
-    .component('clientFavouriteExpert', component)
+  .component('clientFavouriteExpert', component)
 }())

@@ -1,4 +1,4 @@
-(function() {
+(function () {
   function HomeController($scope, smoothScrolling) {
 
     this.interfaceController = {}
@@ -23,10 +23,9 @@
       $scope.$digest()
     })
 
-
     this.expertCard = [
       {
-        id: '0', 
+        id: '0',
         value: {
           name: '1 Slide',
           status: 'not-available',
@@ -188,17 +187,17 @@
     'profitelo.components.pro-search-dropdown',
     'profitelo.components.interface.slider'
   ])
-    .config(($stateProvider, UserRolesProvider) => {
-      $stateProvider.state('app.home', {
-        url: '/home',
-        controllerAs: 'vm',
-        controller: 'HomeController',
-        templateUrl: 'home/home.tpl.html',
-        data          : {
-          access : UserRolesProvider.getAccessLevel('public'),
-          pageTitle: 'PAGE_TITLE.HOME'
-        }
-      })
+  .config(($stateProvider, UserRolesProvider) => {
+    $stateProvider.state('app.home', {
+      url: '/home',
+      controllerAs: 'vm',
+      controller: 'HomeController',
+      templateUrl: 'home/home.tpl.html',
+      data: {
+        access: UserRolesProvider.getAccessLevel('public'),
+        pageTitle: 'PAGE_TITLE.HOME'
+      }
     })
-    .controller('HomeController', HomeController)
+  })
+  .controller('HomeController', HomeController)
 }())

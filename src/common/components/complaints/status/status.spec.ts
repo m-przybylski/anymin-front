@@ -17,8 +17,8 @@ describe('Unit testing: profitelo.components.complaints.status', () => {
     }
 
     beforeEach(() => {
-    angular.mock.module('templates-module')
-    angular.mock.module('profitelo.components.complaints.status')
+      angular.mock.module('templates-module')
+      angular.mock.module('profitelo.components.complaints.status')
 
       inject(($rootScope, $compile, _$componentController_) => {
         componentController = _$componentController_

@@ -1,8 +1,7 @@
-// profitelo
 describe('Unit tests: app>', () => {
   describe('Testing Controller: AppController', () => {
 
-    let $scope
+    let $scope: ng.IScope
     let AppController
     let _InterfaceLanguageService
     let _httpBackend
@@ -13,7 +12,8 @@ describe('Unit tests: app>', () => {
 
     beforeEach(() => {
     angular.mock.module('profitelo')
-      inject(($rootScope, $controller, $injector, _InterfaceLanguageService_) => {
+      inject(($rootScope: ng.IRootScopeService, $controller: ng.IControllerService,
+              $injector, _InterfaceLanguageService_) => {
         $scope = $rootScope.$new()
 
         _CommonConfig = $injector.get('CommonConfig')

@@ -1,49 +1,13 @@
 (function() {
 
   /* @ngInject */
-  function payuPaymentFormController($window, $state, $scope, PaymentsApi, User, proTopAlertService, smoothScrolling, CommonSettingsService) {
+  function payuPaymentFormController($window: ng.IWindowService, $state, PaymentsApi, User, proTopAlertService,
+                                     smoothScrolling, CommonSettingsService) {
+    let isPending = false
 
     this.rulesAccepted = true
     this.personalDataSectionId = 'personal-section'
     this.bankModel = {}
-    let isPending = false
-
-    const isValid = () => {
-      const _isModelBankExist = () => {
-        if (angular.isDefined(this.bankModel.value)) {
-          return true
-        } else {
-          smoothScrolling.simpleScrollTo('#bankValid')
-          return false
-
-        }
-      }
-      if (angular.isDefined(this.validAction)) {
-        return this.validAction() && _isModelBankExist()
-      } else {
-        return _isModelBankExist()
-      }
-    }
-
-    if (angular.isDefined(this.amountMethodModal.firstName)) {
-      this.firstNameModel = this.amountMethodModal.firstName
-    }
-
-    if (angular.isDefined(this.amountMethodModal.lastName)) {
-      this.lastNameModel = this.amountMethodModal.lastName
-    }
-
-    if (angular.isDefined(this.amountMethodModal.email)) {
-      this.emailModel = this.amountMethodModal.email
-    } else if (angular.isDefined(User.getData('email')) && User.getData('email') !== null) {
-      this.emailModel = User.getData('email')
-    } else if (angular.isDefined(User.getData('unverifiedEmail')) && User.getData('unverifiedEmail') !== null) {
-      this.emailModel = User.getData('unverifiedEmail')
-    }
-
-    if (angular.isDefined(this.amountMethodModal.payMethodValue)) {
-      this.bankModel.value = this.amountMethodModal.payMethodValue
-    }
 
     /* istanbul ignore next function*/
     this.onEnter = (option) => {
@@ -56,7 +20,6 @@
     this.mailValidation = () => {
       return !angular.element('[data-index="3"]').find('input:focus')[0] && !this.emailModel
     }
-    
 
     this.sendPayment = () => {
 
@@ -77,7 +40,7 @@
 
         PaymentsApi.postPayUOrder(this.sendPaymentObject).$promise.then((response) => {
           isPending = false
-          $window.open(response.redirectUrl, '_self', true)
+          $window.open(response.redirectUrl, '_self', null, true)
         }, (error) => {
           proTopAlertService.error({
             message: 'error',
@@ -88,16 +51,53 @@
       }
     }
 
+    const isValid = () => {
+      const _isModelBankExist = () => {
+        if (angular.isDefined(this.bankModel.value)) {
+          return true
+        } else {
+          smoothScrolling.simpleScrollTo('#bankValid')
+          return false
+        }
+      }
+      if (angular.isDefined(this.validAction)) {
+        return this.validAction() && _isModelBankExist()
+      } else {
+        return _isModelBankExist()
+      }
+    }
+
     this.patternEmail = CommonSettingsService.localSettings.emailPattern
     this.patternName = CommonSettingsService.localSettings.alphabetPattern
 
+    this.$onInit = () => {
+
+      if (angular.isDefined(this.amountMethodModal.firstName)) {
+        this.firstNameModel = this.amountMethodModal.firstName
+      }
+
+      if (angular.isDefined(this.amountMethodModal.lastName)) {
+        this.lastNameModel = this.amountMethodModal.lastName
+      }
+
+      if (angular.isDefined(this.amountMethodModal.email)) {
+        this.emailModel = this.amountMethodModal.email
+      } else if (angular.isDefined(User.getData('email')) && User.getData('email') !== null) {
+        this.emailModel = User.getData('email')
+      } else if (angular.isDefined(User.getData('unverifiedEmail')) && User.getData('unverifiedEmail') !== null) {
+        this.emailModel = User.getData('unverifiedEmail')
+      }
+
+      if (angular.isDefined(this.amountMethodModal.payMethodValue)) {
+        this.bankModel.value = this.amountMethodModal.payMethodValue
+      }
+    }
+
     return this
-    
   }
 
   let payuPaymentForm = {
     templateUrl: 'components/dashboard/charge-account/payu-payment-form/payu-payment-form.tpl.html',
-    restrict: 'E',
     replace: true,
     transclude: true,
     bindings: {

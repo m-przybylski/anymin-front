@@ -1,15 +1,17 @@
-(function() {
+(function () {
 
   /* @ngInject */
   function controller(callService) {
 
-    this.tags = this.serviceTagsEmployeesTuple.tags
-    this.experts = this.serviceTagsEmployeesTuple.employees
-
     this.startCall = () => {
       callService.callServiceId(this.serviceTagsEmployeesTuple.service.id)
     }
-    
+
+    this.$onInit = () => {
+      this.tags = this.serviceTagsEmployeesTuple.tags
+      this.experts = this.serviceTagsEmployeesTuple.employees
+    }
+
     return this
   }
 
@@ -24,7 +26,6 @@
     controllerAs: '$ctrl'
   }
 
-
   angular.module('profitelo.components.expert-profile.company-single-consultation', [
     'profitelo.components.interface.slider',
     'profitelo.services.helper',
@@ -33,6 +34,6 @@
     'profitelo.services.call',
     'pascalprecht.translate'
   ])
-    .component('companySingleConsultation', companySingleConsultation)
+  .component('companySingleConsultation', companySingleConsultation)
 
 }())

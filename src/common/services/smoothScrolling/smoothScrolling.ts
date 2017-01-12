@@ -89,5 +89,8 @@
 
   }
   angular.module('profitelo.directives.services.smooth-scrolling', [])
+    .config(($qProvider) => {
+      $qProvider.errorOnUnhandledRejections(false)
+    })
     .service('smoothScrolling', smoothScrolling)
 }())

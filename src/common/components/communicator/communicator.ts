@@ -1,7 +1,7 @@
-(function() {
+(function () {
 
   /* @ngInject */
-  function controller($timeout, $element, callService, HelperService) {
+  function controller($timeout: ng.ITimeoutService, $element: ng.IRootElementService, callService, HelperService) {
 
     this.isClosed = true
     this.isDisconnectedAnimation = false
@@ -111,5 +111,5 @@
     'profitelo.components.communicator.navigation',
     'profitelo.components.communicator.messenger'
   ])
-    .component('communicator', component)
+  .component('communicator', component)
 }())

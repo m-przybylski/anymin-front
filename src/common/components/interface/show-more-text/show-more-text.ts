@@ -1,16 +1,20 @@
-(function() {
+(function () {
   /* @ngInject */
-  function showMoreTextController($filter, $log, $timeout, $window, $scope) {
+  function showMoreTextController($filter, $log: ng.ILogService, $timeout: ng.ITimeoutService,
+                                  $window: ng.IWindowService, $scope: ng.IScope) {
+
     const collapsibleLength = 300
     this.isCollapsed = false
-    this.isCollapsible = (this.text.length > collapsibleLength)
+
+    this.$onInit = () => {
+      this.isCollapsible = (this.text.length > collapsibleLength)
+      this.textShort = $filter('limitTo')(this.text, collapsibleLength, 0)
+      this.textLong = $filter('limitTo')(this.text, this.text.length, collapsibleLength)
+    }
 
     this.descriptionStyles = {
       height: null
     }
-
-    this.textShort = $filter('limitTo')(this.text, collapsibleLength, 0)
-    this.textLong = $filter('limitTo')(this.text, this.text.length, collapsibleLength)
 
     const getTextShortElementHeight = () => {
       const _element = angular.element('.short-text')[0]
@@ -31,7 +35,7 @@
         return 0
       }
     }
-    
+
     const updateHeight = () => {
       if (this.isCollapsed === true) {
         this.descriptionStyles.height = getTextLongElementHeight()
@@ -58,7 +62,7 @@
 
   const showMoreText = {
     transclude: true,
-    templateUrl:    'components/interface/show-more-text/show-more-text.tpl.html',
+    templateUrl: 'components/interface/show-more-text/show-more-text.tpl.html',
     bindings: {
       text: '@'
     },
@@ -68,6 +72,6 @@
   angular.module('profitelo.components.interface.show-more-text', [
     'pascalprecht.translate'
   ])
-    .component('showMoreText', showMoreText)
+  .component('showMoreText', showMoreText)
 
 }())

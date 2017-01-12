@@ -1,7 +1,6 @@
 describe('Unit testing:profitelo.components.pro-search-dropdown', () => {
   return describe('for pro-search-dropdown >', () => {
 
-    let element
     let rootScope
     let compile
     let scope
@@ -41,6 +40,7 @@ describe('Unit testing:profitelo.components.pro-search-dropdown', () => {
         CategoryApiDef = $injector.get('CategoryApiDef')
         httpBackend = $injector.get('$httpBackend')
       })
+
       component = componentController('proSearchDropdown', {$element: create(validHTML), $scope: scope}, {})
     })
 

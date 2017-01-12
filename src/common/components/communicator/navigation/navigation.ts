@@ -1,10 +1,10 @@
-(function() {
+(function () {
 
   /* @ngInject */
   function controller(callService) {
-    this.isAudio = true
-    this.isMessenger = false
+
     this.areOptions = false
+    this.isAudio = true
 
     this.animateButtons = (elem) => {
       if (elem.currentTarget.classList.contains('is-active')) {
@@ -49,11 +49,15 @@
 
     this.hangupCall = callService.hangupCall
 
+    this.$onInit = () => {
+      this.isMessenger = false
+    }
+
     return this
   }
 
   const component = {
-    templateUrl:    'components/communicator/navigation/navigation.tpl.html',
+    templateUrl: 'components/communicator/navigation/navigation.tpl.html',
     controller: controller,
     bindings: {
       isVideo: '=',
@@ -65,6 +69,6 @@
     'pascalprecht.translate',
     'profitelo.services.call'
   ])
-    .component('communicatorNav', component)
+  .component('communicatorNav', component)
 
 }())
