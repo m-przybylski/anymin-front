@@ -1,9 +1,11 @@
-(function() {
+(function () {
   /* @ngInject */
   function controller($log, ServiceApi) {
 
-    this.isRecommendTags = this.isRecommended
-    this.areRecommednedTagsSelected = this.selectedTags.length > 0
+    this.$onInit = () => {
+      this.isRecommendTags = this.isRecommended
+      this.areRecommednedTagsSelected = this.selectedTags.length > 0
+    }
 
     const getServiceTags = () => {
 
@@ -51,11 +53,10 @@
     this.saveRecommendedTags = () => {
       ServiceApi.putServiceRecommendations({
         serviceUsageEventId: this.serviceUsageEventId,
-        tags: _.map(this.selectedTags, (tag : any) => tag.id)
+        tags: _.map(this.selectedTags, (tag: any) => tag.id)
       }).$promise.then(onRecommendServiceTags, onRecommendServiceTagsError)
 
     }
-
 
     return this
   }
@@ -78,6 +79,6 @@
     'profitelo.swaggerResources',
     'profitelo.components.interface.multiselect'
   ])
-    .component('clientRecommendedTags', component)
+  .component('clientRecommendedTags', component)
 }())
 

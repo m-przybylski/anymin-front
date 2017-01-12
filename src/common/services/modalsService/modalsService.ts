@@ -70,10 +70,10 @@
       })
     }
 
-    const _createClientSUEActivityDetailsModal = (dialogDataObject) => {
+    const _createClientSUEActivityDetailsModal = (sueId) => {
       const dialogScope = $rootScope.$new(true)
 
-      dialogScope.dialogDataObject = dialogDataObject
+      dialogScope.sueId = sueId
       return DialogService.openDialog({
         controller: 'clientConsultationDetails',
         templateUrl: 'components/dashboard/client/activities/modals/consultation-details/consultation-details.tpl.html',
