@@ -266,18 +266,20 @@
 
     $element.find('.dropdown-container').perfectScrollbar()
 
-    Object.defineProperty(this, 'open', {
-      get: function () {
-        return this.open
-      },
-      set: function (flag) {
-        if (angular.isDefined(flag) && flag) {
-          _focus()
-        } else {
-          _focusOut()
-        }
-      }
-    })
+    // TODO in angular 1.6
+    // Object.defineProperty(this, 'open', {
+    //   get: function () {
+    //     return this.open
+    //   },
+    //   set: function (flag) {
+    //     if (angular.isDefined(flag) && flag) {
+    //       _focus()
+    //     } else {
+    //       _focusOut()
+    //     }
+    //   }
+    //
+    // })
 
     return this
   }

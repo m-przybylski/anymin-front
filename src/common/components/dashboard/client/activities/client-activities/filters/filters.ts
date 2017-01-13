@@ -2,17 +2,6 @@
   /* @ngInject */
   function controller($scope: ng.IScope, $filter, clientActivitiesService) {
 
-    this.$onInit = () => {
-      this.activityTypesList = this.filters.activityTypes.map(type =>
-        ({
-          name: $filter('translate')($filter('normalizeTranslationKey')(('DASHBOARD_CLIENT.FILTERS.' + type))),
-          value: type
-        })
-      )
-
-      this.servicesDropdownList = getServicesDropdownList()
-      this.expertsDropdownList = createDropdownExpertsList(this.filters.expertServiceTuples)
-    }
 
     const getServicesDropdownList = () => createDropdownServiceList(this.filters.expertServiceTuples)
 
@@ -24,9 +13,6 @@
       this.showMobileFilters = !this.showMobileFilters
     }
 
-    this.activityTypesList.unshift({
-      name: $filter('translate')($filter('normalizeTranslationKey')(('DASHBOARD_CLIENT.FILTERS.ALL_ACTIVITY')))
-    })
 
     // TODO to be remove on lodash update to 4.00
     function uniqueBy(a, key) {
@@ -137,6 +123,22 @@
         setActivitiesQueryParams(searchQueryParams)
       }
     })
+
+    this.$onInit = () => {
+      this.activityTypesList = this.filters.activityTypes.map(type =>
+        ({
+          name: $filter('translate')($filter('normalizeTranslationKey')(('DASHBOARD_CLIENT.FILTERS.' + type))),
+          value: type
+        })
+      )
+
+      this.servicesDropdownList = getServicesDropdownList()
+      this.expertsDropdownList = createDropdownExpertsList(this.filters.expertServiceTuples)
+
+      this.activityTypesList.unshift({
+        name: $filter('translate')($filter('normalizeTranslationKey')(('DASHBOARD_CLIENT.FILTERS.ALL_ACTIVITY')))
+      })
+    }
 
     return this
   }
