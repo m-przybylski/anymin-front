@@ -74,6 +74,6 @@
 
   angular.module('profitelo.components.interface.dropdown-primary', [
   ])
-    .component('dropDownPrimary', component)
+  .component('dropDownPrimary', component)
 
 }())

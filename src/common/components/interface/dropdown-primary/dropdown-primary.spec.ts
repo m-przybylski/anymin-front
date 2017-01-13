@@ -9,7 +9,6 @@ describe('Unit testing: profitelo.components.interface.dropdown-primary', () => 
     let window
     let bindings
     let timeout
-    let scope
     let document
     let validHTML = '<drop-down-primary data-label="asd" data-icon="icon"></drop-down-primary>'
     let smoothScrolling
@@ -23,8 +22,8 @@ describe('Unit testing: profitelo.components.interface.dropdown-primary', () => 
     }
 
     beforeEach(() => {
-      module('templates-module')
-      module('profitelo.components.interface.dropdown-primary')
+      angular.mock.module('templates-module')
+      angular.mock.module('profitelo.components.interface.dropdown-primary')
 
       inject(($rootScope, $compile, _$componentController_, _$window_, _$timeout_, _$document_) => {
         componentController = _$componentController_

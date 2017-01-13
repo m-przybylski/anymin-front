@@ -153,7 +153,6 @@ import ExpertProfile = profitelo.models.ExpertProfile
     'pascalprecht.translate',
     'ngLodash',
     'profitelo.services.client-activities-service',
-    'profitelo.directives.interface.pro-dropdown',
     'profitelo.directives.interface.pro-calendar',
     'profitelo.components.interface.dropdown',
     'profitelo.components.interface.dropdown-primary'
