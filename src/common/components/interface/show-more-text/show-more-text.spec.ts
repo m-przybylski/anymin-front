@@ -30,6 +30,7 @@ describe('Unit testing: profitelo.components.interface.show-more-text', () => {
         rootScope = $rootScope.$new()
         compile = $compile
         window = _$window_
+
         
         const injectors = {
           $element: create(validHTML),
@@ -52,6 +53,14 @@ describe('Unit testing: profitelo.components.interface.show-more-text', () => {
       const el = create(validHTML)
       el.find('.btn-show-more').triggerHandler('click')
     })
+
+    it('should isCollapsed false', () => {
+      component.descriptionStyles.height = 10
+      component.showMoreText()
+      component.showMoreText()
+      expect(component.descriptionStyles.height).toEqual(0)
+    })
+
   })
 })
 

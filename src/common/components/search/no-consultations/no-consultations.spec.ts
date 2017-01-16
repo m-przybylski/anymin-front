@@ -1,5 +1,5 @@
-describe('Unit testing: profitelo.components.interface.radio', () => {
-  return describe('for dropDown component >', () => {
+describe('Unit testing: profitelo.components.search.no-consultations', () => {
+  return describe('for noConsultations component >', () => {
 
     let rootScope
     let compile
@@ -7,7 +7,7 @@ describe('Unit testing: profitelo.components.interface.radio', () => {
     let component
     let bindings
     let scope
-    let validHTML = '<radio-btn data-label="label" data-name="name" data-id="id" data-value="value"></radio-btn>'
+    let validHTML = '<no-consultations></no-cosultaitons>'
 
     function create(html) {
       scope = rootScope.$new()
@@ -19,7 +19,7 @@ describe('Unit testing: profitelo.components.interface.radio', () => {
 
     beforeEach(() => {
       angular.mock.module('templates-module')
-      angular.mock.module('profitelo.components.interface.radio')
+      angular.mock.module('profitelo.components.search.no-consultations')
 
       inject(($rootScope, $compile, _$componentController_) => {
         componentController = _$componentController_
@@ -28,11 +28,7 @@ describe('Unit testing: profitelo.components.interface.radio', () => {
       })
 
       bindings = {
-        label: 'label',
-        name: 'name',
-        id: 'id',
-        ngModel: {},
-        value: 'val'
+        query: 'query'
       }
 
       const injectors = {
@@ -40,7 +36,7 @@ describe('Unit testing: profitelo.components.interface.radio', () => {
         $scope: rootScope
       }
 
-      component = componentController('radioBtn', injectors, bindings)
+      component = componentController('noConsultations', injectors, bindings)
     })
 
     it('should have a dummy test', inject(() => {

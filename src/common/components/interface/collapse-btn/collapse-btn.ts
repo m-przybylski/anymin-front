@@ -41,6 +41,7 @@
       }
     }
 
+    /* istanbul ignore next */
     const onWindowResize = () => {
       if (!this.isCollapsed) {
         this.stylesObject.minHeight = getCollapseBtnContentHeight()

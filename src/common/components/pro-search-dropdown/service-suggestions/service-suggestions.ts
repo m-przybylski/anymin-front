@@ -29,6 +29,7 @@
 
   angular.module('profitelo.components.pro-search-dropdown.service-suggestions', [
     'profitelo.services.commonSettings',
+    'ui.router',
     'profitelo.filters.search-bold-filter'
   ])
     .component('serviceSuggestions', serviceSuggestions)

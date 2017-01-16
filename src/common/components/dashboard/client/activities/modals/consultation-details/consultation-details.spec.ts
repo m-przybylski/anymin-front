@@ -1,36 +1,46 @@
-describe('Unit testing: profitelo.components.dashboard.client.activities.modals.consultation-details', () => {
-  return describe('for clientConsultationDetails >', () => {
+describe('Testing Controller: clientConsultationDetails', () => {
 
-    let rootScope
-    let compile
-    let componentController
+  var clientConsultationDetails
+  var scope
+  var uibModalInstance = {
+    dismiss: () => {
 
+    },
+    close: () => {
 
+    }
+  }
 
-    beforeEach(() => {
-    angular.mock.module('templates-module')
-    angular.mock.module('profitelo.swaggerResources')
-    angular.mock.module('profitelo.services.helper')
+  beforeEach(angular.mock.module(($provide) => {
+    $provide.value('apiUrl', 'awesomeURL')
+  }))
 
+  beforeEach(() => {
+    angular.mock.module('profitelo.components.dashboard.client.activities.modals.consultation-details')
+    inject(($rootScope, $controller, _$httpBackend_, _HelperService_, _ViewsApi_) => {
 
-      inject(($rootScope, $compile, _$componentController_, _HelperService_, _$log_, _$httpBackend_) => {
-        componentController = _$componentController_
-        rootScope = $rootScope.$new()
-        compile = $compile
+      scope = $rootScope.$new()
+      scope.disconnectCall = () => {}
 
-        const injectors = {
-          HelperService: _HelperService_,
-          log: _$log_,
-          httpBackend: _$httpBackend_
-        }
-
-
+      clientConsultationDetails = $controller('clientConsultationDetails', {
+        '$scope': scope,
+        '$uibModalInstance': uibModalInstance,
+        'httpBackend': _$httpBackend_,
+        'HelperService': _HelperService_,
+        'ViewsApi': _ViewsApi_
       })
     })
-
-    it('should have a dummy test', inject(() => {
-      expect(true).toBeTruthy()
-    }))
-
   })
+
+  it('should exists', () => {
+    return expect(!!clientConsultationDetails).toBe(true)
+  })
+
+  it('should uibModalInstance', () => {
+    spyOn(uibModalInstance, 'dismiss')
+    scope.onModalClose()
+    expect(uibModalInstance.dismiss).toHaveBeenCalledWith('cancel')
+  })
+
 })
+

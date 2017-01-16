@@ -11,7 +11,7 @@ describe('Unit testing: profitelo.components.expert-profile.experts-consultation
     const bindings = {
       experts: [],
       title: 'title'
-    } 
+    }
 
     beforeEach(() => {
     angular.mock.module('templates-module')
