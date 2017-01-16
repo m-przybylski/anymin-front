@@ -37,8 +37,15 @@
 
     const scrollMessagesBottom = () => {
       messagesScroll.perfectScrollbar('update')
-      $timeout(() =>
-        messagesScroll.scrollTop(messagesScroll[0].scrollHeight))
+      $timeout(() => {
+        if (angular.element('grouped-messages .message:last-child img')){
+          angular.element('grouped-messages .message:last-child img').on('load', () => {
+            messagesScroll.scrollTop(messagesScroll[0].scrollHeight)
+            angular.element('grouped-messages .message:last-child img').off('load')
+          })
+        }
+        messagesScroll.scrollTop(messagesScroll[0].scrollHeight)
+      })
     }
 
     const addGroupedMessage = (message) => {
