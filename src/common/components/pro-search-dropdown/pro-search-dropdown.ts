@@ -29,6 +29,22 @@
       }
     }
 
+    this.$onInit = () => {
+      Object.defineProperty(this, 'open', {
+        get: function () {
+          return this.open
+        },
+        set: function (flag) {
+          if (angular.isDefined(flag) && flag) {
+            _focus()
+          } else {
+            _focusOut()
+          }
+        }
+
+      })
+    }
+
     const keyCodes = {
       arrowRight: 39,
       arrowDown: 40,
@@ -266,20 +282,6 @@
 
     $element.find('.dropdown-container').perfectScrollbar()
 
-    // TODO in angular 1.6
-    // Object.defineProperty(this, 'open', {
-    //   get: function () {
-    //     return this.open
-    //   },
-    //   set: function (flag) {
-    //     if (angular.isDefined(flag) && flag) {
-    //       _focus()
-    //     } else {
-    //       _focusOut()
-    //     }
-    //   }
-    //
-    // })
 
     return this
   }
