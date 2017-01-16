@@ -71,6 +71,11 @@
     }
 
     const _createClientSUEActivityDetailsModal = (sueId) => {
+      if (!sueId) {
+        $log.error('Expected sueId, got ' + sueId)
+        return
+      }
+
       const dialogScope = $rootScope.$new(true)
 
       dialogScope.sueId = sueId

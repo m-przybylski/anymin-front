@@ -2,29 +2,20 @@
   /* @ngInject */
   function controller($log, ServiceApi) {
 
-    this.$onInit = () => {
-      this.isRecommendTags = this.isRecommended
-      this.areRecommednedTagsSelected = this.selectedTags.length > 0
+    const updateBindings = () => {
+      this.areTagsRecommended = this.selectedTags.length > 0
     }
 
-    const getServiceTags = () => {
+    this.$onInit = () => {
+      updateBindings()
+    }
 
-      const onServiceTags = (res) => {
-        this.userTags = res[0].tags
-      }
-
-      const onServiceTagsError = (err) => {
-        $log.error(err)
-      }
-
-      ServiceApi.postServicesTags({
-        serviceIds: [this.service.id]
-      }).$promise.then(onServiceTags, onServiceTagsError)
+    this.$onChanges = () => {
+      updateBindings()
     }
 
     const onRecommendService = (res) => {
-      this.recommendTags = !this.isRecommendTags
-      getServiceTags()
+      this.isRecommended = true
     }
 
     const onRecommendServiceError = (err) =>
@@ -34,7 +25,6 @@
       ServiceApi.postServiceRecommendation({
         serviceUsageEventId: this.serviceUsageEventId
       }).$promise.then(onRecommendService, onRecommendServiceError)
-
     }
 
     this.onSelectChange = (tagsArray) => {
@@ -42,9 +32,7 @@
     }
 
     const onRecommendServiceTags = (res) => {
-      this.isRecommended = true
-      this.areRecommednedTagsSelected = true
-      this.onTagSend()
+      this.areTagsRecommended = true
     }
 
     const onRecommendServiceTagsError = (err) =>
@@ -55,7 +43,6 @@
         serviceUsageEventId: this.serviceUsageEventId,
         tags: _.map(this.selectedTags, (tag: any) => tag.id)
       }).$promise.then(onRecommendServiceTags, onRecommendServiceTagsError)
-
     }
 
     return this
@@ -69,8 +56,7 @@
       selectedTags: '<',
       isRecommended: '<',
       serviceUsageEventId: '<',
-      service: '<',
-      userTags: '<'
+      tags: '<'
     }
   }
 

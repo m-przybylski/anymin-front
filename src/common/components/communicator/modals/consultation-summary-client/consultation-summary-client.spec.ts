@@ -16,7 +16,7 @@ describe('Testing Controller: consultationSummaryClientController', () => {
   }))
 
   beforeEach(() => {
-  angular.mock.module('profitelo.components.communicator.modals.consultation-summary-client')
+    angular.mock.module('profitelo.components.communicator.modals.consultation-summary-client')
     inject(($rootScope, $controller) => {
 
       scope = $rootScope.$new()

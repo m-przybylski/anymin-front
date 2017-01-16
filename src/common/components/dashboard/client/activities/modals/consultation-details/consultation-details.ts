@@ -1,23 +1,28 @@
 (function() {
 
-  function controller($log, $scope, $uibModalInstance, ServiceApi, HelperService, ViewsApi) {
+  interface IConsultationDetailsScope extends ng.IScope {
+    isLoading: boolean
+    expertAvatar: string
+    expertName: string
+    recommendedTags: Array<Tag>
+    serviceName: string
+    serviceId: string
+    callCost: Money
+    startedAt: Date
+    callDuration: number
+    callCostPerMinute: Money
+    isRecommended: boolean
+    isRecommendable: boolean
+    sueId: string
+    serviceTags: Array<Tag>
+    onModalClose: Function
+  }
 
-    $scope.loading = true
-
-    $scope.ActivityDetailsModalDataObject = {
-      expertAvatar: null,
-      expert: {},
-      recommendedTags: [],
-      service: {},
-      callCost: {},
-      startedAt: 0,
-      callDuration: 0,
-      callCostPerMinute: {},
-      isRecommended: false,
-      isRecommendable: true,
-      sueId: '',
-      userTags: []
-    }
+  function controller($log: ng.ILogService, $scope: IConsultationDetailsScope, $uibModalInstance, ServiceApi,
+                      HelperService, ViewsApi) {
+    $scope.isLoading = true
+    $scope.recommendedTags = []
+    $scope.serviceTags = []
 
     const onGetCallDetails = (callDetails: ClientDashboardCallDetails) => {
 
@@ -29,33 +34,26 @@
         $log.error(err)
       }
 
-      const openClientActivityModal = (userTags = []) => {
+      const openClientActivityModal = (serviceTags: Array<Tag> = []) => {
         const expertAvatarFileId = callDetails.expertProfile.expertDetails.avatar
-
-        $scope.ActivityDetailsModalDataObject = {
-          expertAvatar: expertAvatarFileId ? HelperService.fileUrlResolver(expertAvatarFileId) : null,
-          expert: callDetails.expertProfile,
-          recommendedTags: callDetails.recommendedTags,
-          service: callDetails.service,
-          callCost: callDetails.serviceUsageDetails.callCost,
-          startedAt: callDetails.serviceUsageDetails.startedAt,
-          callDuration: callDetails.serviceUsageDetails.callDuration,
-          callCostPerMinute: callDetails.service.details.price,
-          isRecommended: callDetails.isRecommended,
-          isRecommendable: callDetails.isRecommendable,
-          sueId: this.activity.sueProfileServiceTuple.serviceUsageEvent.id,
-          userTags: userTags
-        }
+        $scope.expertAvatar = expertAvatarFileId ? HelperService.fileUrlResolver(expertAvatarFileId) : null
+        $scope.expertName = callDetails.expertProfile.expertDetails.name
+        $scope.recommendedTags = callDetails.recommendedTags
+        $scope.serviceName = callDetails.service.details.name
+        $scope.serviceId = callDetails.service.id
+        $scope.callCost = callDetails.serviceUsageDetails.callCost
+        $scope.startedAt = callDetails.serviceUsageDetails.startedAt
+        $scope.callDuration = callDetails.serviceUsageDetails.callDuration
+        $scope.callCostPerMinute = callDetails.service.details.price
+        $scope.isRecommended = callDetails.isRecommended
+        $scope.isRecommendable = callDetails.isRecommendable
+        $scope.serviceTags = serviceTags
         $scope.isLoading = false
       }
 
-      if (callDetails.isRecommended) {
-        ServiceApi.postServicesTags({
-          serviceIds: [callDetails.service.id]
-        }).$promise.then(onServiceTags, onServiceTagsError)
-      } else {
-        openClientActivityModal()
-      }
+      ServiceApi.postServicesTags({
+        serviceIds: [callDetails.service.id]
+      }).$promise.then(onServiceTags, onServiceTagsError)
     }
 
     const onGetCallDetailsError = (err) => {
@@ -64,7 +62,7 @@
     }
 
     ViewsApi.getClientDashboardCallDetails({
-      sueId: this.activity.sueProfileServiceTuple.serviceUsageEvent.id
+      sueId: $scope.sueId
     }).$promise.then(onGetCallDetails, onGetCallDetailsError)
 
     $scope.onModalClose = () =>
