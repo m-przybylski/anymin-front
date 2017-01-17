@@ -15,7 +15,8 @@
     }
 
     this.openActivityDescription = () => {
-      modalsService.createClientSUEActivityDetailsModal(this.activity.sueProfileServiceTuple.serviceUsageEvent.id)
+      const sueId = this.activity.sueProfileServiceTuple.serviceUsageEvent.id
+      modalsService.createClientSUEActivityDetailsModal(sueId)
     }
 
     return this

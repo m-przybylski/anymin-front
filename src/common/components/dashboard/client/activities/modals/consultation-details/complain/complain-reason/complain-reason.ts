@@ -19,6 +19,7 @@
     }
 
     this.isRadioSelected = (item) => {
+      this.onReasonChange()
       this.isRadioActive = item
     }
 
@@ -28,7 +29,10 @@
   const component = {
     templateUrl: 'components/dashboard/client/activities/modals/consultation-details/complain/complain-reason/complain-reason.tpl.html',
     controller: controller,
-    controllerAs: '$ctrl'
+    controllerAs: '$ctrl',
+    bindings: {
+      onReasonChange: '<'
+    }
   }
 
   angular.module('profitelo.components.dashboard.client.activities.modals.consultation-details.complain.complain-reason', [

@@ -1,38 +1,21 @@
-
-
-(function() {
+(function () {
   /* @ngInject */
-  function controller($log, $timeout, ServiceApi) {
+  function controller($log, ServiceApi) {
 
-    let serviceRecommendation
-    this.isRecommendTags = this.isRecommended
-
-    const getServiceTags = () => {
-
-      const onServiceTags = (res) => {
-        this.tags = res[0].tags
-      }
-
-      const onServiceTagsError = (err) => {
-        $log.error(err)
-      }
-
-      ServiceApi.postServicesTags({
-        serviceIds: [this.service.id]
-      }).$promise.then(onServiceTags, onServiceTagsError)
+    const updateBindings = () => {
+      this.areTagsRecommended = this.selectedTags.length > 0
     }
 
-    // TODO remove timeout
-    $timeout(() => {
-      if (this.isRecommended) {
-        this.tags = this.selectedTags
-      }
-    })
+    this.$onInit = () => {
+      updateBindings()
+    }
+
+    this.$onChanges = () => {
+      updateBindings()
+    }
 
     const onRecommendService = (res) => {
-      serviceRecommendation = res
-      this.recommendTags = !this.isRecommendTags
-      getServiceTags()
+      this.isRecommended = true
     }
 
     const onRecommendServiceError = (err) =>
@@ -42,7 +25,6 @@
       ServiceApi.postServiceRecommendation({
         serviceUsageEventId: this.serviceUsageEventId
       }).$promise.then(onRecommendService, onRecommendServiceError)
-
     }
 
     this.onSelectChange = (tagsArray) => {
@@ -50,7 +32,7 @@
     }
 
     const onRecommendServiceTags = (res) => {
-      this.isRecommended = true
+      this.areTagsRecommended = true
     }
 
     const onRecommendServiceTagsError = (err) =>
@@ -58,12 +40,10 @@
 
     this.saveRecommendedTags = () => {
       ServiceApi.putServiceRecommendations({
-        serviceRecommendationId: serviceRecommendation.id,
-        tags: _.map(this.selectedTags, (tag: Tag) => tag.id)
+        serviceUsageEventId: this.serviceUsageEventId,
+        tags: _.map(this.selectedTags, (tag: any) => tag.id)
       }).$promise.then(onRecommendServiceTags, onRecommendServiceTagsError)
     }
-
-
 
     return this
   }
@@ -76,7 +56,7 @@
       selectedTags: '<',
       isRecommended: '<',
       serviceUsageEventId: '<',
-      service: '<'
+      tags: '<'
     }
   }
 
@@ -85,6 +65,6 @@
     'profitelo.swaggerResources',
     'profitelo.components.interface.multiselect'
   ])
-    .component('clientRecommendedTags', component)
+  .component('clientRecommendedTags', component)
 }())
 

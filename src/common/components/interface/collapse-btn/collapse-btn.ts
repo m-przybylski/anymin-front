@@ -1,6 +1,6 @@
 (function() {
   /* @ngInject */
-  function controller($scope, $log, $element, $window) {
+  function controller($log, $element, $window) {
     this.stylesObject = {
       minHeight: null
     }
@@ -49,8 +49,6 @@
       else {
         this.stylesObject.minHeight = getCollapseBtnHeight()
       }
-
-      $scope.$digest()
     }
 
     /* istanbul ignore next */

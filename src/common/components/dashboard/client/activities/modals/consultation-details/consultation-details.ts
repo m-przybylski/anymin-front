@@ -1,31 +1,72 @@
 (function() {
 
-  function controller($log, $scope, $uibModalInstance, ViewsApi, HelperService) {
+  interface IConsultationDetailsScope extends ng.IScope {
+    isLoading: boolean
+    expertAvatar: string
+    expertName: string
+    recommendedTags: Array<Tag>
+    serviceName: string
+    serviceId: string
+    callCost: Money
+    startedAt: Date
+    callDuration: number
+    callCostPerMinute: Money
+    isRecommended: boolean
+    isRecommendable: boolean
+    sueId: string
+    serviceTags: Array<Tag>
+    onModalClose: Function
+  }
 
-    $scope.onModalClose = () =>
-      $uibModalInstance.dismiss('cancel')
+  function controller($log: ng.ILogService, $scope: IConsultationDetailsScope, $uibModalInstance, ServiceApi,
+                      HelperService, ViewsApi) {
+    $scope.isLoading = true
+    $scope.recommendedTags = []
+    $scope.serviceTags = []
 
-    const onGetCallDetails = (res) => {
-      const expertAvatarFileId = res.expertProfile.expertDetails.avatar
-      $scope.expertAvatar = expertAvatarFileId ? HelperService.fileUrlResolver(expertAvatarFileId) : null
-      $scope.expert = res.expertProfile
-      $scope.recommendedTags = res.recommendedTags
-      $scope.service = res.service
-      $scope.callCost = res.serviceUsageDetails.callCost
-      $scope.startedAt = res.serviceUsageDetails.startedAt
-      $scope.callDuration = res.serviceUsageDetails.callDuration
-      $scope.callCostPerMinute = res.service.details.price
-      $scope.isRecommended = res.isRecommended
+    const onGetCallDetails = (callDetails: ClientDashboardCallDetails) => {
+
+      const onServiceTags = (res) => {
+        openClientActivityModal(res[0].tags)
+      }
+
+      const onServiceTagsError = (err) => {
+        $log.error(err)
+      }
+
+      const openClientActivityModal = (serviceTags: Array<Tag> = []) => {
+        const expertAvatarFileId = callDetails.expertProfile.expertDetails.avatar
+        $scope.expertAvatar = expertAvatarFileId ? HelperService.fileUrlResolver(expertAvatarFileId) : null
+        $scope.expertName = callDetails.expertProfile.expertDetails.name
+        $scope.recommendedTags = callDetails.recommendedTags
+        $scope.serviceName = callDetails.service.details.name
+        $scope.serviceId = callDetails.service.id
+        $scope.callCost = callDetails.serviceUsageDetails.callCost
+        $scope.startedAt = callDetails.serviceUsageDetails.startedAt
+        $scope.callDuration = callDetails.serviceUsageDetails.callDuration
+        $scope.callCostPerMinute = callDetails.service.details.price
+        $scope.isRecommended = callDetails.isRecommended
+        $scope.isRecommendable = callDetails.isRecommendable
+        $scope.serviceTags = serviceTags
+        $scope.isLoading = false
+      }
+
+      ServiceApi.postServicesTags({
+        serviceIds: [callDetails.service.id]
+      }).$promise.then(onServiceTags, onServiceTagsError)
     }
 
-    const onGetCallDetailsError = (err) =>
+    const onGetCallDetailsError = (err) => {
+      $scope.isLoading = false
       $log.error(err)
-
+    }
 
     ViewsApi.getClientDashboardCallDetails({
       sueId: $scope.sueId
     }).$promise.then(onGetCallDetails, onGetCallDetailsError)
 
+    $scope.onModalClose = () =>
+      $uibModalInstance.dismiss('cancel')
   }
 
   angular.module('profitelo.components.dashboard.client.activities.modals.consultation-details', [

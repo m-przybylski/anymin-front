@@ -1,7 +1,16 @@
 .tag-list
   display: flex
   flex-wrap: wrap
+  position: relative
 
+  &.disable
+    &::after
+      content: ''
+      position: absolute
+      left: 0
+      top: 0
+      height: 100%
+      width: 100%
   li
     margin: 0 8px 8px 0
     border-radius: 0
@@ -27,3 +36,4 @@
 
         span
           color: $c-white
+
