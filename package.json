@@ -50,10 +50,8 @@
     "@types/angular": "^1.5.22",
     "@types/angular-mocks": "^1.5.8",
     "@types/angular-ui-router": "^1.1.36",
-    "@types/jasmine": "^2.5.40",
-    "@types/karma-jasmine": "0.0.28",
     "@types/lodash": "^4.14.50",
     "@types/perfect-scrollbar": "^0.6.1",
-    "contactis-gulp": "1.6.1"
+    "contactis-gulp": "1.6.2"
   }
 }

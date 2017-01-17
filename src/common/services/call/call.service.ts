@@ -1,7 +1,9 @@
+import INavigatorService = profitelo.services.navigator.INavigatorService
+
 (function () {
 
-  function service($q, $log, navigatorService, UtilsService, communicatorService, ServiceApi, modalsService,
-                   soundsService, User, RatelApi) {
+  function service($q, $log, navigatorService: INavigatorService, UtilsService, communicatorService, ServiceApi,
+                   modalsService, soundsService, User, RatelApi) {
 
     const callingTimeout = 30
     const moneyChangeNotificationInterval = 1000
