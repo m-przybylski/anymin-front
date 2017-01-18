@@ -33,7 +33,7 @@ describe('profitelo.common.controller.lightbox-model', () => {
     angular.mock.module('profitelo.common.controller.lightbox-model')
     angular.mock.module('profitelo.swaggerResources.definitions')
 
-      inject(($rootScope, $controller, $window, _$timeout_,  helperService, _FilesApi_, _lodash_, _$httpBackend_, _FilesApiDef_) => {
+      inject(($rootScope, $controller, $window, _$timeout_,  helperService, _FilesApi_, _lodash_: _.LoDashStatic, _$httpBackend_, _FilesApiDef_) => {
         httpBackend = _$httpBackend_
         scope = $rootScope.$new()
         $timeout = _$timeout_

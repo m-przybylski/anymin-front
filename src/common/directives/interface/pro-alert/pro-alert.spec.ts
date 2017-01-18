@@ -19,7 +19,7 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
     angular.mock.module('ngLodash')
     angular.mock.module('profitelo.directives.interface.pro-alert')
 
-      inject(($rootScope, $compile, _topAlertService_, _lodash_, $injector) => {
+      inject(($rootScope, $compile, _topAlertService_, _lodash_: _.LoDashStatic, $injector) => {
         lodash                = _lodash_
         rootScope             = $rootScope.$new()
         compile               = $compile

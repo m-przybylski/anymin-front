@@ -1,6 +1,6 @@
 (function () {
   /* @ngInject */
-  function controller($scope: ng.IScope, $filter, lodash, clientActivitiesService) {
+  function controller($scope: ng.IScope, $filter, lodash: _.LoDashStatic, clientActivitiesService) {
 
 
     const getServicesDropdownList = () => createDropdownServiceList(this.filters.expertServiceTuples)

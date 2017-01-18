@@ -1,6 +1,6 @@
 (function() {
 
-  function messageFilter($log, lodash) {
+  function messageFilter($log, lodash: _.LoDashStatic) {
 
     const hasImageUrl = (text) => {
       const imageRegexp = /([/|.|\w|\s])*\.(?:jpg|gif|png)/

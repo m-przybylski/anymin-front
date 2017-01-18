@@ -1,5 +1,5 @@
 (function() {
-  function chargeAccountController($state, $timeout, lodash,  paymentsOptions, paymentsLinks, financeBalance, smoothScrollingService) {
+  function chargeAccountController($state, $timeout, lodash: _.LoDashStatic,  paymentsOptions, paymentsLinks, financeBalance, smoothScrollingService) {
 
     this.paymentCountryId = paymentsOptions.id
     this.amounts = {

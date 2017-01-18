@@ -52,7 +52,7 @@ describe('Unit testing: profitelo.components.communicator.messenger.messenger-ma
     angular.mock.module('profitelo.services.messenger')
     angular.mock.module('profitelo.components.communicator.messenger.messenger-maximized')
 
-      inject(($rootScope, $compile, $timeout, _$componentController_, _$window_, _helperService_, _messengerService_, _lodash_) => {
+      inject(($rootScope, $compile, $timeout, _$componentController_, _$window_, _helperService_, _messengerService_, _lodash_: _.LoDashStatic) => {
         rootScope = $rootScope.$new()
         compile = $compile
         const injectors = {

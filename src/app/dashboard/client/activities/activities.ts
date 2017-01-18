@@ -1,6 +1,6 @@
 (function () {
 
-  function DashboardClientActivitiesController($scope, lodash, $timeout, clientActivities, clientActivitiesService) {
+  function DashboardClientActivitiesController($scope, lodash: _.LoDashStatic, $timeout, clientActivities, clientActivitiesService) {
 
     const isMoreResultsAvailable = (results, limit) => {
       return results.length > limit

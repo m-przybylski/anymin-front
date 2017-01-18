@@ -1,6 +1,6 @@
 (function() {
   /* @ngInject */
-  function proSearchDropdownController($q, $scope, $state, lodash, $element, searchService, categoryService) {
+  function proSearchDropdownController($q, $scope, $state, lodash: _.LoDashStatic, $element, searchService, categoryService) {
 
     this.isCollapsed = true
     this.isFocused = false
@@ -220,7 +220,7 @@
 
     const _onSearchModelChange = (search: any) => {
       _setPrimarySuggestion(search)
-      _searchActionDebounce(search)
+      _searchActionDebounce()
       _clearSelectedElement($element.find('.dropdown-container a'))
     }
 

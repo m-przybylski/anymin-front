@@ -1,7 +1,7 @@
 /* istanbul ignore next function */
 (function() {
 
-  function controller($log, $scope, lodash, $uibModalInstance, callSummaryService, ServiceApi, helperService) {
+  function controller($log, $scope, lodash: _.LoDashStatic, $uibModalInstance, callSummaryService, ServiceApi, helperService) {
 
     $scope.callSummary = null
     $scope.expertAvatarUrl = ''
