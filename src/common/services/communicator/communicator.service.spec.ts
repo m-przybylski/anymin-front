@@ -32,8 +32,8 @@ describe('Unit testing: profitelo.services.communicator >', () => {
     }))
 
     beforeEach(() => {
-    angular.mock.module('commonConfig')
-    angular.mock.module('profitelo.services.communicator')
+      angular.mock.module('commonConfig')
+      angular.mock.module('profitelo.services.communicator')
     })
 
     beforeEach(inject(($injector) => {
@@ -46,11 +46,17 @@ describe('Unit testing: profitelo.services.communicator >', () => {
 
     it('should authenticate', inject(($q, $rootScope, RatelApi, ProfileApi, ratelSdk) => {
 
-      RatelApi.getRatelAuthConfig = () => { return {$promise: $q.resolve({
-        toJSON: () => config
-      })} }
+      RatelApi.getRatelAuthConfig = () => {
+        return {
+          $promise: $q.resolve({
+            toJSON: () => config
+          })
+        }
+      }
 
-      ProfileApi.getEmployersProfilesWithServices = () => { return {$promise: $q.resolve(profilesWithServices)} }
+      ProfileApi.getEmployersProfilesWithServices = () => {
+        return {$promise: $q.resolve(profilesWithServices)}
+      }
       ratelSdk.withSignedAuth = () => $q.resolve(session)
 
       spyOn(RatelApi, 'getRatelAuthConfig').and.callThrough()
