@@ -26,7 +26,7 @@
 
 
   angular.module('profitelo.directives.service-provider.pro-bottom-summary-row', [
-    'lodash',
+    'ngLodash',
     'pascalprecht.translate',
     'profitelo.common.controller.service-provider.service-provider-step-controller'
   ])

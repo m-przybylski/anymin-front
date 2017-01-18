@@ -1,5 +1,5 @@
 (function() {
-  function AppServiceProviderImageResolver($q, proTopAlertService, FilesApi) {
+  function AppServiceProviderImageResolver($q, FilesApi) {
 
     let _resolve = (token) => {
       let _deferred = $q.defer()

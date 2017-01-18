@@ -1,6 +1,6 @@
 (function () {
   /* @ngInject */
-  function controller($scope: ng.IScope, $filter, clientActivitiesService) {
+  function controller($scope: ng.IScope, $filter, lodash, clientActivitiesService) {
 
 
     const getServicesDropdownList = () => createDropdownServiceList(this.filters.expertServiceTuples)
@@ -14,17 +14,8 @@
     }
 
 
-    // TODO to be remove on lodash update to 4.00
-    function uniqueBy(a, key) {
-      const seen = new Set()
-      return a.filter(item => {
-        const k = key(item)
-        return seen.has(k) ? false : seen.add(k)
-      })
-    }
-
     const createDropdownServiceList = (list: any) => {
-      const mappedList = uniqueBy(_.map(list, (listItem: {service: Service}) => listItem.service), item => item.id)
+      const mappedList = lodash.uniqBy(lodash.map(list, (listItem: {service: Service}) => listItem.service), item => item.id)
 
       return mappedList.map(service => ({
         name: service.details.name,
@@ -33,7 +24,7 @@
     }
 
     const createDropdownExpertsList = (list: any) => {
-      const mappedList = uniqueBy(_.map(list, (listItem: {profile: Profile}) =>
+      const mappedList = lodash.uniqBy(lodash.map(list, (listItem: {profile: Profile}) =>
         listItem.profile), (item) => item.id)
 
       return mappedList.map((expert) => {
@@ -45,11 +36,11 @@
     }
 
     clientActivitiesService.onQueryParamsChange($scope, (param) => {
-      this.selectedType = _.find(
+      this.selectedType = lodash.find(
         this.activityTypesList, (type: {value: string, name: string}) => type.value === param.activityType)
-      this.selectedService = _.find(
+      this.selectedService = lodash.find(
         this.servicesDropdownList, (service: {value: string, name: string}) => service.value === param.serviceId)
-      this.selectedExpert = _.find(
+      this.selectedExpert = lodash.find(
         this.expertsDropdownList, (expert: {value: string, name: string}) => expert.value === param.profileId)
     })
 
@@ -84,7 +75,7 @@
       setActivitiesQueryParams(queryParams)
 
       if (angular.isDefined(item.value)) {
-        const groupServices: any = _.groupBy(this.filters.expertServiceTuples, {
+        const groupServices: any = lodash.groupBy(this.filters.expertServiceTuples, {
           profile: {
             id: item.value
           }
@@ -155,6 +146,7 @@
 
   angular.module('profitelo.components.dashboard.client.activities.client-activities.filters', [
     'pascalprecht.translate',
+    'ngLodash',
     'profitelo.services.client-activities-service',
     'profitelo.directives.interface.pro-dropdown',
     'profitelo.directives.interface.pro-calendar',

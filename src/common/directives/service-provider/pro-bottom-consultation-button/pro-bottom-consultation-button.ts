@@ -24,7 +24,7 @@
 
 
   angular.module('profitelo.directives.service-provider.pro-bottom-consultation-button', [
-    'lodash',
+    'ngLodash',
     'pascalprecht.translate',
     'profitelo.common.controller.service-provider.service-provider-step-controller'
   ])

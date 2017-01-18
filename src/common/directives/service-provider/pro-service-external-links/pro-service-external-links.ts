@@ -1,5 +1,5 @@
 (function() {
-  function proServiceExternalLinks($timeout, $q, CommonSettingsService, _) {
+  function proServiceExternalLinks($timeout, $q, CommonSettingsService) {
 
     function linkFunction(scope, element, attrs) {
 
@@ -99,7 +99,6 @@
   }
 
   angular.module('profitelo.directives.service-provider.pro-service-external-links', [
-    'lodash',
     'pascalprecht.translate',
     'profitelo.directives.ng-enter',
     'profitelo.services.commonSettings',

@@ -1,16 +1,16 @@
 (function() {
 
-  function lightboxModelController($scope, $window, $timeout, $uibModalInstance, FilesApi, ImageZoomService, _) {
+  function lightboxModelController($scope, $window, lodash, $timeout, $uibModalInstance, FilesApi, ImageZoomService) {
 
     this.slideList = $scope.sliders
     this.isPending = false
     let i = 1
 
-    _.forEach(this.slideList, function(value) {
+    lodash.forEach(this.slideList, function(value) {
       value.id = i++
     })
 
-    let currentSlideIndex = _.findIndex(this.slideList, (slide) => {
+    let currentSlideIndex = lodash.findIndex(this.slideList, (slide) => {
       return slide.token === $scope.slide.token
     })
 
@@ -127,7 +127,7 @@
     'profitelo.services.helper',
     'profitelo.services.print-service',
     'profitelo.services.image-zoom-service',
-    'lodash'
+    'ngLodash'
 
   ])
     .controller('lightboxModelController', lightboxModelController)

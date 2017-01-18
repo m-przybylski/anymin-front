@@ -1,6 +1,6 @@
 (function() {
 
-  function service(UtilsService, profiteloWebsocket, _) {
+  function service(UtilsService, profiteloWebsocket, lodash) {
 
     const events = {
       onCallSummary: 'onCallSummary'
@@ -18,10 +18,10 @@
     profiteloWebsocket.onCallSummary(onCallSummary)
 
     const takeCallSummary = (accountId) => {
-      const callSummary = _.find(callSummaries, callSummary => callSummary.accountId === accountId)
+      const callSummary = lodash.find(callSummaries, callSummary => callSummary.accountId === accountId)
 
       if (callSummary) {
-        _.remove(callSummaries, callSummary)
+        lodash.remove(callSummaries, callSummary)
       }
 
       return callSummary
@@ -37,7 +37,7 @@
   angular.module('profitelo.services.call-summary', [
     'profitelo.services.utils',
     'profitelo.services.profitelo-websocket',
-    'lodash'
+    'ngLodash'
   ])
     .service('callSummaryService', service)
 }())

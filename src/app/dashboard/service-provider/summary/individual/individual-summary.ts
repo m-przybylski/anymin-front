@@ -129,7 +129,7 @@
         controllerAs: 'vm',
         resolve: {
           /* istanbul ignore next */
-          savedProfile: ($q, $state, ProfileApi, User, ServiceApi, proTopAlertService) => {
+          savedProfile: ($q, $state, ProfileApi, lodash, User, ServiceApi, proTopAlertService) => {
             /* istanbul ignore next */
             let _deferred = $q.defer()
             /* istanbul ignore next */
@@ -138,12 +138,12 @@
                 profileId: User.getData('id')
               }).$promise.then((profileWithServices) => {
                 ServiceApi.postServicesTags({
-                  serviceIds: _.map(profileWithServices.services, 'id')
+                  serviceIds: lodash.map(profileWithServices.services, 'id')
                 }).$promise.then((servicesTags) => {
 
                   profileWithServices.services.forEach((service) => {
-                    service.details.tags = _.head(
-                      _.filter(servicesTags, (serviceTags: any) => service.id === serviceTags.serviceId)).tags
+                    service.details.tags = lodash.head(
+                      lodash.filter(servicesTags, (serviceTags: any) => service.id === serviceTags.serviceId)).tags
                   })
                   _deferred.resolve(profileWithServices)
                 })

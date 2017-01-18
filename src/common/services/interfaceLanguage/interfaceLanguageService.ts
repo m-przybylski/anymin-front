@@ -5,12 +5,12 @@ angular.module('profitelo.services.interfaceLanguage', [
   'angularMoment',
   'tmh.dynamicLocale',
   'ngCookies',
-  'lodash'
+  'ngLodash'
 ])
 
 
 .service('InterfaceLanguageService', function($q, $log, $http, $rootScope,
-$translate, $locale, $cookies, $location, tmhDynamicLocale, amMoment, _) {
+$translate, $locale, $cookies, $location, tmhDynamicLocale, amMoment, lodash) {
 
   // name for language cookie file
   let _selectedInterfaceLanguageCookie = 'selectedInterfaceLanguage'
@@ -71,7 +71,7 @@ $translate, $locale, $cookies, $location, tmhDynamicLocale, amMoment, _) {
       let previousLanguage = _unifyToIetfCode($translate.use())
       let msg = 'Your language `' + previousLanguage + '`' +
         ' was not found, so used our default language `' + _defaultTranslation + '`, ' +
-        _.findWhere(_interfaceLanguages, {ietfCode: _defaultTranslation})['nativeName'] + '.'
+        lodash.find(_interfaceLanguages, {ietfCode: _defaultTranslation})['nativeName'] + '.'
       $log.info(msg)
       return _defaultTranslation
     }
@@ -79,11 +79,11 @@ $translate, $locale, $cookies, $location, tmhDynamicLocale, amMoment, _) {
     if (ietfCode !== null && ietfCode) {
       // pre-defined language
       return ietfCode
-    } else if (_queryLang && _.findWhere(_interfaceLanguages, {ietfCode: _queryLang}, 'ietfCode')) {
+    } else if (_queryLang && lodash.find(_interfaceLanguages, {ietfCode: _queryLang}, 'ietfCode')) {
       // variable lang from URL
       return _queryLang
     } else if (angular.isDefined(_cookie)) {
-      if (_.findWhere(_interfaceLanguages, {ietfCode: _cookie}, 'ietfCode')) {
+      if (lodash.find(_interfaceLanguages, {ietfCode: _cookie}, 'ietfCode')) {
         // found right language into cookie
         return _cookie
       } else {
@@ -91,7 +91,7 @@ $translate, $locale, $cookies, $location, tmhDynamicLocale, amMoment, _) {
         return _logDefaultTranslation()
       }
     } else {
-      if (_.findWhere(_interfaceLanguages, {ietfCode: _unifyToIetfCode($translate.use())}, 'ietfCode')) {
+      if (lodash.find(_interfaceLanguages, {ietfCode: _unifyToIetfCode($translate.use())}, 'ietfCode')) {
         // found language
         return _unifyToIetfCode($translate.use())
       } else {

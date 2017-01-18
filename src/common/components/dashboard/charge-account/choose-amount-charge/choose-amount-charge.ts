@@ -1,13 +1,13 @@
 (function () {
 
   /* @ngInject */
-  function chooseAmountChargeController($scope: ng.IScope, CommonSettingsService) {
+  function chooseAmountChargeController($scope: ng.IScope, CommonSettingsService, lodash) {
 
     this.$onInit = () => {
       this.minimalPaymentAmount = this.amounts.minimalAmounts.amount / amountModifier
 
       if (angular.isDefined(this.amountModel.amount) && this.amountModel.amount !== null) {
-        this.activeOption = this.amounts.paymentOptions.indexOf(_.find(this.amounts.paymentOptions, {'amount': this.amountModel.amount.amount}))
+        this.activeOption = this.amounts.paymentOptions.indexOf(lodash.find(this.amounts.paymentOptions, {'amount': this.amountModel.amount.amount}))
       } else if (this.amountModel.cashAmount !== null) {
         this.activeOption = 3
         this.cashAmountModel = this.amountModel.cashAmount.amount / amountModifier
@@ -86,7 +86,8 @@
   }
 
   angular.module('profitelo.components.dashboard.charge-account.choose-amount-charge', [
-    'profitelo.services.commonSettings'
+    'profitelo.services.commonSettings',
+    'ngLodash'
   ])
   .component('chooseAmountCharge', chooseAmountCharge)
 

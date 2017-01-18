@@ -2,7 +2,7 @@
 
   /* @ngInject */
   function controller($log: ng.ILogService, $timeout: ng.ITimeoutService, $scope: ng.IScope,
-                      $element: ng.IRootElementService, messengerService, _, HelperService, uploaderService) {
+                      $element: ng.IRootElementService, messengerService, lodash, HelperService, uploaderService) {
 
     this.$onInit = () => {
       $scope.$watch(() => {
@@ -54,7 +54,7 @@
       } else {
         const lastMessageGroup = this.groupedMessages[this.groupedMessages.length - 1]
 
-        if (_.head(lastMessageGroup).user === message.user) {
+        if (lodash.head(lastMessageGroup).user === message.user) {
           lastMessageGroup.push(message)
         } else {
           this.groupedMessages.push([message])
@@ -136,7 +136,7 @@
       $timeout(onTypingEnd, typingTimeout)
     }
 
-    this.indicateTypingDebounce = _.throttle(messengerService.indicateTyping, indicateTypingDebounce, {
+    this.indicateTypingDebounce = lodash.throttle(messengerService.indicateTyping, indicateTypingDebounce, {
       'leading': true,
       'trailing': false
     })
@@ -180,7 +180,7 @@
     'profitelo.services.messenger',
     'profitelo.services.helper',
     'profitelo.services.uploader',
-    'lodash',
+    'ngLodash',
     'profitelo.filters.seconds-to-datetime',
     'profitelo.filters.money',
     'profitelo.components.communicator.messenger.messenger-maximized.grouped-messages',

@@ -1,5 +1,5 @@
-function proDropdown($timeout) {
-  /* istanbul ignore next function*/
+function proDropdown($timeout, lodash) {
+
   function linkFunction(scope, element, attr) {
     let myScrollbarChoices
     let currentDropdownStatus = false
@@ -29,7 +29,7 @@ function proDropdown($timeout) {
       return scope.proItems
     }, () => {
       if (scope.proModel) {
-        scope.selectedItem = _.find(scope.proItems, (o: any) => angular.equals(o.value, scope.proModel))
+        scope.selectedItem = lodash.find(scope.proItems, (o: any) => angular.equals(o.value, scope.proModel))
       }
     }, true)
 
@@ -106,6 +106,7 @@ function proDropdown($timeout) {
 angular.module('profitelo.directives.interface.pro-dropdown', [
   'ui.bootstrap',
   'ui.select',
+  'ngLodash',
   'ngSanitize'])
   .directive('proDropdown', proDropdown)
 

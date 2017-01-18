@@ -217,6 +217,7 @@
     'pascalprecht.translate',
     'tmh.dynamicLocale',
     'ngAnimate',
+    'ngLodash',
     'c7s.ng.userAuth',
 
     // modules

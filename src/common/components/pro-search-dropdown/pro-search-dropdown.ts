@@ -1,6 +1,6 @@
 (function() {
   /* @ngInject */
-  function proSearchDropdownController($q, $scope, $state, $element, searchService, categoryService) {
+  function proSearchDropdownController($q, $scope, $state, lodash, $element, searchService, categoryService) {
 
     this.isCollapsed = true
     this.isFocused = false
@@ -131,7 +131,7 @@
       }
     }
 
-    const _searchActionDebounce = _.debounce<any>(_searchAction, 200, {
+    const _searchActionDebounce = lodash.debounce(_searchAction, 200, {
       'leading': false,
       'trailing': true
     })
@@ -304,6 +304,7 @@
     'profitelo.services.search',
     'profitelo.services.categories',
     'ui.router',
+    'ngLodash',
     'profitelo.components.interface.preloader',
     'profitelo.filters.normalize-translation-key-filter',
     'profitelo.components.pro-search-dropdown.term-suggestions',

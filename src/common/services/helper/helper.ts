@@ -1,7 +1,7 @@
 (function() {
 
   /* @ngInject */
-  function service(CommonSettingsService, CommonConfig) {
+  function service(CommonSettingsService, CommonConfig, lodash) {
 
     const _commonConfig = CommonConfig.getAllData()
 
@@ -16,7 +16,7 @@
       }
 
       /* istanbul ignore next */
-      return _.find(_socialNetworks, {
+      return lodash.find(_socialNetworks, {
         name: 'Website'
       })
     }
@@ -33,7 +33,8 @@
 
   angular.module('profitelo.services.helper', [
     'profitelo.services.commonSettings',
-    'commonConfig'
+    'commonConfig',
+    'ngLodash'
   ])
   .factory('HelperService', service)
 

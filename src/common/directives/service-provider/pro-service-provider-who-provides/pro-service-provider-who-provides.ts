@@ -89,7 +89,7 @@
   }
 
   angular.module('profitelo.directives.service-provider.pro-service-provider-who-provides', [
-    'lodash',
+    'ngLodash',
     'profitelo.services.commonSettings',
     'pascalprecht.translate',
     'profitelo.common.controller.service-provider.service-provider-step-controller'

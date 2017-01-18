@@ -42,7 +42,7 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.filters
 
     beforeEach(() => {
     angular.mock.module('templates-module')
-    angular.mock.module('lodash')
+    angular.mock.module('ngLodash')
     angular.mock.module('profitelo.filters.normalize-translation-key-filter')
     angular.mock.module('profitelo.services.client-activities-service')
     angular.mock.module('profitelo.components.dashboard.client.activities.client-activities.filters')

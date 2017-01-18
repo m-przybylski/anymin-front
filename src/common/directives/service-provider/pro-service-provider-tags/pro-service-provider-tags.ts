@@ -1,5 +1,5 @@
 (function() {
-  function proServiceProviderTags($q, $timeout, TagApi) {
+  function proServiceProviderTags($q, $timeout, TagApi, lodash) {
 
     function linkFunction(scope, element, attrs) {
 
@@ -33,7 +33,7 @@
       const getTagsDelayed = () =>
         scope.$apply(() => _getTags(scope.searchWord))
 
-      const _getTagsThrottled = _.debounce<any>(getTagsDelayed, 200)
+      const _getTagsThrottled = lodash.debounce(getTagsDelayed, 200)
 
       scope.$watch('searchWord', () => _getTagsThrottled(scope))
 
@@ -99,7 +99,7 @@
   }
 
   angular.module('profitelo.directives.service-provider.pro-service-provider-tags', [
-    'lodash',
+    'ngLodash',
     'pascalprecht.translate',
     'profitelo.directives.ng-enter',
     'profitelo.services.commonSettings',

@@ -1,5 +1,5 @@
 (function() {
-  function service($timeout) {
+  function service($timeout, lodash) {
 
     let _alertArray = []
     let defaultOptions = {}
@@ -15,7 +15,7 @@
         _alertArray[alertsLimit].visible = true
         _timeoutDestroy(_alertArray[alertsLimit].timeout, _alertArray[alertsLimit].id)
       }
-      _.remove(_alertArray, (alert)=> {
+      lodash.remove(_alertArray, (alert)=> {
         return alert.id === alertId
       })
     }
@@ -96,6 +96,7 @@
     }
   }
   angular.module('profitelo.services.pro-top-alert-service', [
+    'ngLodash',
     'pascalprecht.translate'
   ])
     .service('proTopAlertService', service)
