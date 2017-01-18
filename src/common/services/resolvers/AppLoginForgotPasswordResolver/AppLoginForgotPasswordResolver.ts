@@ -1,5 +1,5 @@
 (function() {
-  function AppLoginForgotPasswordResolverService($q, $timeout, $filter, $state, proTopAlertService, loginStateService, RecoverPasswordApi) {
+  function AppLoginForgotPasswordResolverService($q, $timeout, $filter, $state, topAlertService, loginStateService, RecoverPasswordApi) {
 
     
     let _resolve = (stateParams) => {
@@ -9,7 +9,7 @@
 
       let _handleError = () => {
         _deferred.reject()
-        proTopAlertService.error({
+        topAlertService.error({
           message: $filter('translate')('LOGIN.PASSWORD_RECOVERY.ERROR')
         })
         $timeout(()=>{
@@ -59,7 +59,7 @@
   angular.module('profitelo.services.resolvers.app.login.forgot-password', [
     'profitelo.swaggerResources',
     'profitelo.services.login-state',
-    'profitelo.services.pro-top-alert-service'
+    'profitelo.services.top-alert'
   ])
   .service('AppLoginForgotPasswordResolverService', AppLoginForgotPasswordResolverService)
 

@@ -1,5 +1,5 @@
 (function() {
-  function CompanyPathController($scope, $state, ProfileApi, savedProfile, User, proTopAlertService, $timeout, smoothScrolling) {
+  function CompanyPathController($scope, $state, ProfileApi, savedProfile, User, topAlertService, $timeout, smoothScrollingService) {
 
     let _updateMethod
     if (savedProfile) {
@@ -35,7 +35,7 @@
     } else {
       this.inEditMode = false
       $timeout(()=> {
-        smoothScrolling.scrollTo(this.queue.currentStep)
+        smoothScrollingService.scrollTo(this.queue.currentStep)
       })
     }
 
@@ -63,7 +63,7 @@
       }).$promise.then(() => {
         $state.go('app.dashboard.service-provider.consultation-range.company')
       }, () => {
-        proTopAlertService.error({
+        topAlertService.error({
           message: 'error',
           timeout: 4
         })
@@ -77,14 +77,13 @@
 
   angular.module('profitelo.controller.dashboard.service-provider.company-path', [
     'ui.router',
-    'profitelo.services.service-provider-state',
     'profitelo.directives.service-provider.pro-service-provider-name',
     'profitelo.directives.service-provider.pro-service-provider-description',
     'profitelo.directives.service-provider.pro-service-provider-languages',
     'profitelo.directives.service-provider.pro-bottom-summary-row',
     'profitelo.swaggerResources',
     'profitelo.directives.service-provider.pro-service-provider-avatar',
-    'profitelo.services.pro-top-alert-service',
+    'profitelo.services.top-alert',
     'c7s.ng.userAuth'
   ])
     .config(function($stateProvider, UserRolesProvider) {
@@ -94,7 +93,7 @@
         controller: 'CompanyPathController',
         controllerAs: 'vm',
         resolve: {
-          savedProfile: ($q, $state, ProfileApi, User, proTopAlertService) => {
+          savedProfile: ($q, $state, ProfileApi, User, topAlertService) => {
             /* istanbul ignore next */
             let _deferred = $q.defer()
             /* istanbul ignore next */
@@ -108,7 +107,7 @@
               })
             }, (error) => {
               $state.go('app.dashboard')
-              proTopAlertService.error({
+              topAlertService.error({
                 message: 'error',
                 timeout: 4
               })

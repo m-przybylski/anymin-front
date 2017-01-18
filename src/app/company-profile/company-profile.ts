@@ -1,5 +1,5 @@
 (function() {
-  function CompanyProfileController($stateParams, $timeout, $log, smoothScrolling, ProfileApi, recommendedProfilesServices, companyProfile) {
+  function CompanyProfileController($stateParams, $timeout, $log, smoothScrollingService, ProfileApi, recommendedServices, companyProfile) {
 
     this.profile = {}
 
@@ -10,11 +10,11 @@
 
     if (!!$stateParams.primaryConsultationId) {
       $timeout(() => {
-        smoothScrolling.simpleScrollTo('#consultationScroll', true)
+        smoothScrollingService.simpleScrollTo('#consultationScroll', true)
       })
     }
 
-    recommendedProfilesServices.getRecommendedCompanies(this.consultations).then((response) => {
+    recommendedServices.getRecommendedCompanies(this.consultations).then((response) => {
       this.similarCompany = response
     })
 
@@ -53,14 +53,14 @@
     'profitelo.directives.pro-top-navbar',
     'profitelo.directives.expert-profile.pro-expert-header',
     'profitelo.directives.pro-footer',
-    'profitelo.directives.services.smooth-scrolling',
+    'profitelo.services.smooth-scrolling',
     'profitelo.components.interface.collapse-tab',
     'profitelo.directives.expert-profile.pro-expert-slider',
     'profitelo.components.expert-profile.company-single-consultation',
     'profitelo.components.expert-profile.similar-experts-slider',
     'profitelo.components.expert-profile.social-links',
-    'profitelo.services.pro-top-alert-service',
-    'profitelo.services.recommended-profiles-service',
+    'profitelo.services.top-alert',
+    'profitelo.services.recommended-services',
     'profitelo.services.resolvers.app-company-profile-resolver',
     'commonConfig'
   ])

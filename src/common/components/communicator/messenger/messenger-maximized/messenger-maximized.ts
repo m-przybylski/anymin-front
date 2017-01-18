@@ -2,7 +2,7 @@
 
   /* @ngInject */
   function controller($log: ng.ILogService, $timeout: ng.ITimeoutService, $scope: ng.IScope,
-                      $element: ng.IRootElementService, messengerService, lodash, HelperService, uploaderService) {
+                      $element: ng.IRootElementService, messengerService, lodash, helperService, uploaderFactory) {
 
     this.$onInit = () => {
       $scope.$watch(() => {
@@ -18,7 +18,7 @@
     const indicateTypingDebounce = 1000
     const typingTimeout = 2000
     const fileUploadErrorMessageTimeout = 15000
-    const uploader = uploaderService.getInstance(1, uploaderService.collectionTypes.avatar)
+    const uploader = uploaderFactory.getInstance(1, uploaderFactory.collectionTypes.avatar)
 
     messagesScroll.perfectScrollbar()
 
@@ -28,7 +28,7 @@
     this.uploadedFile = {}
 
     const clientInit = (expert) => {
-      this.participantAvatar = HelperService.fileUrlResolver(expert.expertDetails.avatar)
+      this.participantAvatar = helperService.fileUrlResolver(expert.expertDetails.avatar)
     }
 
     const expertInit = () => {
@@ -99,7 +99,7 @@
     const onFileUpload = (res) => {
       const fileMessage = {
         body: res.name,
-        fileUrl: HelperService.fileUrlResolver(res.token)
+        fileUrl: helperService.fileUrlResolver(res.token)
       }
       this.uploadedFile.progress = false
       sendMessage(JSON.stringify(fileMessage))

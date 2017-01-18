@@ -1,7 +1,7 @@
 (function () {
 
   /* @ngInject */
-  function controller($timeout: ng.ITimeoutService, $element: ng.IRootElementService, callService, HelperService) {
+  function controller($timeout: ng.ITimeoutService, $element: ng.IRootElementService, callService, helperService) {
 
     this.isClosed = true
     this.isDisconnectedAnimation = false
@@ -48,7 +48,7 @@
       cleanupComponent()
       this.service = expertServiceTuple.service
       this.expert = expertServiceTuple.expert
-      this.expertAvatar = HelperService.fileUrlResolver(this.expert.expertDetails.avatar)
+      this.expertAvatar = helperService.fileUrlResolver(this.expert.expertDetails.avatar)
       this.isConnecting = true
       this.isClosed = false
     })

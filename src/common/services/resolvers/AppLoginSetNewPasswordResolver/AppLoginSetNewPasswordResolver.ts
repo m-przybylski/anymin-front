@@ -1,5 +1,5 @@
 (function() {
-  function AppLoginSetNewPasswordResolver($state, $filter, $timeout, $q, loginStateService, proTopAlertService, RecoverPasswordApi) {
+  function AppLoginSetNewPasswordResolver($state, $filter, $timeout, $q, loginStateService, topAlertService, RecoverPasswordApi) {
 
 
     let _resolve = (stateParams) => {
@@ -29,7 +29,7 @@
           })
         }, () => {
           _deferred.reject()
-          proTopAlertService.warning({
+          topAlertService.warning({
             message: $filter('translate')('LOGIN.FORGOT_PASSWORD.BAD_EMAIL_TOKEN'),
             timeout: 5
           })
@@ -44,7 +44,7 @@
       if (stateParams.token.length === 0) {
         _deferred.reject()
 
-        proTopAlertService.warning({
+        topAlertService.warning({
           message: 'No token. Try again'
         })
          
@@ -73,7 +73,7 @@
 
   angular.module('profitelo.services.resolvers.app.login.set-new-password', [
     'profitelo.swaggerResources',
-    'profitelo.services.pro-top-alert-service',
+    'profitelo.services.top-alert',
     'profitelo.services.login-state'
   ])
   .service('AppLoginSetNewPasswordResolver', AppLoginSetNewPasswordResolver)

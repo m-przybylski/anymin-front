@@ -1,6 +1,6 @@
 (function() {
   /* @ngInject */
-  function controller(HelperService, modalsService) {
+  function controller(helperService, modalsService) {
 
     this.$onInit = () => {
       this.isCallActivity = !!this.activity.sueProfileServiceTuple
@@ -8,7 +8,7 @@
       if (angular.isDefined(this.activity) && this.activity.sueProfileServiceTuple &&
           this.activity.sueProfileServiceTuple.profile.expertDetails.avatar &&
           this.activity.sueProfileServiceTuple.profile.expertDetails.avatar !== null) {
-        this.imageUrl = HelperService.fileUrlResolver(this.activity.sueProfileServiceTuple.profile.expertDetails.avatar)
+        this.imageUrl = helperService.fileUrlResolver(this.activity.sueProfileServiceTuple.profile.expertDetails.avatar)
       } else {
         this.imageUrl = null
       }

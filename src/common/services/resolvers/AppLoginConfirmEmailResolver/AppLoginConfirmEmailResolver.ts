@@ -1,12 +1,12 @@
 (function() {
-  function AppLoginConfirmEmailResolverService($q, $rootScope, $timeout, $filter, $state, proTopAlertService, User, UserRoles, AccountApi, SessionApi) {
+  function AppLoginConfirmEmailResolverService($q, $rootScope, $timeout, $filter, $state, topAlertService, User, UserRoles, AccountApi, SessionApi) {
     
     let _resolve = (stateParams) => {
       let _deferred = $q.defer()
 
       let _handleBadToken = () => {
         _deferred.reject()
-        proTopAlertService.error({
+        topAlertService.error({
           message: $filter('translate')('LOGIN.EMAIL_CONFIRMATION_FAIL'),
           timeout: 4
         })
@@ -27,7 +27,7 @@
           User.setData(response)
           User.setData({role: UserRoles.getRole('user')})
 
-          proTopAlertService.success({
+          topAlertService.success({
             message: $filter('translate')('LOGIN.EMAIL_CONFIRMATION_SUCCESS'),
             timeout: 4
           })
@@ -69,7 +69,7 @@
 
   angular.module('profitelo.services.resolvers.app.login.confirm-email', [
     'profitelo.swaggerResources',
-    'profitelo.services.pro-top-alert-service',
+    'profitelo.services.top-alert',
     'c7s.ng.userAuth',     
     'profitelo.directives.interface.pro-alert'
   ])

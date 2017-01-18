@@ -1,5 +1,5 @@
 (function() {
-  function ServiceProviderStepController($scope, $timeout, $rootScope, smoothScrolling) {
+  function ServiceProviderStepController($scope, $timeout, $rootScope, smoothScrollingService) {
 
     let shadowModel = null
 
@@ -35,7 +35,7 @@
 
       if ($scope.queue.currentStep <= $scope.queue.amountOfSteps) {
         $timeout(()=>{
-          smoothScrolling.scrollTo($scope.queue.currentStep)
+          smoothScrollingService.scrollTo($scope.queue.currentStep)
         })
       }
     }
@@ -93,7 +93,7 @@
 
 
   angular.module('profitelo.common.controller.service-provider.service-provider-step-controller', [
-    'profitelo.directives.services.smooth-scrolling'
+    'profitelo.services.smooth-scrolling'
   ])
   .controller('ServiceProviderStepController', ServiceProviderStepController)
 

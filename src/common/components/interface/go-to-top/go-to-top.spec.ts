@@ -4,7 +4,7 @@ describe('Unit testing: profitelo.components.interface.go-to-top', () => {
     let scope
     let rootScope
     let compile
-    let smoothScrolling
+    let smoothScrollingService
     let componentController
     let component
     let window
@@ -23,12 +23,12 @@ describe('Unit testing: profitelo.components.interface.go-to-top', () => {
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.components.interface.go-to-top')
 
-      inject(($rootScope, $compile, _$componentController_, _$window_, _smoothScrolling_) => {
+      inject(($rootScope, $compile, _$componentController_, _$window_, _smoothScrollingService_) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
         window = _$window_
-        smoothScrolling = _smoothScrolling_
+        smoothScrollingService = _smoothScrollingService_
 
       })
 
@@ -48,11 +48,11 @@ describe('Unit testing: profitelo.components.interface.go-to-top', () => {
       expect(el.html()).toBeDefined(true)
     })
 
-    it('should call smoothScrolling', () => {
+    it('should call smoothScrollingService', () => {
       let el = create(validHTML)
-      spyOn(smoothScrolling, 'simpleScrollTo')
+      spyOn(smoothScrollingService, 'simpleScrollTo')
       el.find('.go-to-top').triggerHandler('click')
-      expect(smoothScrolling.simpleScrollTo).toHaveBeenCalledWith('body')
+      expect(smoothScrollingService.simpleScrollTo).toHaveBeenCalledWith('body')
     })
 
   })

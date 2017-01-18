@@ -1,10 +1,10 @@
 (function() {
-  function proExpertHeader(HelperService) {
+  function proExpertHeader(helperService) {
 
     function linkFunction(scope, element) {
 
       scope.handleUserImage = (imgToken) => {
-        return imgToken !== null ||  imgToken === '' ? HelperService.fileUrlResolver(imgToken) : ''
+        return imgToken !== null ||  imgToken === '' ? helperService.fileUrlResolver(imgToken) : ''
       }
       
       scope.checkCollaboratedExperts = () => {

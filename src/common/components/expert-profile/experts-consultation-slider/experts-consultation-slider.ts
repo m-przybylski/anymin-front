@@ -1,6 +1,6 @@
 (function() {
   /* @ngInject */
-  function controller($scope, HelperService) {
+  function controller($scope, helperService) {
     this.areControllsVisible = false
 
     this.expertsArray = []
@@ -22,7 +22,7 @@
     
     this.expertImage = (token) => {
       if (!!token && token !== null) {
-        return HelperService.fileUrlResolver(token)
+        return helperService.fileUrlResolver(token)
       }
     }
     

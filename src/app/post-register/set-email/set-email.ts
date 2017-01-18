@@ -1,6 +1,6 @@
 (function() {
 
-  function _controller($filter, $state, proTopWaitingLoaderService, User, proTopAlertService, AccountApi) {
+  function _controller($filter, $state, proTopWaitingLoaderService, User, topAlertService, AccountApi) {
 
     this.isPending = false
     this.rulesAccepted = false
@@ -21,7 +21,7 @@
         AccountApi.partialUpdateAccount(patchObject).$promise.then(successCallback, (error) => {
           this.isPending = false
           proTopWaitingLoaderService.stopLoader()
-          proTopAlertService.error({
+          topAlertService.error({
             message: $filter('translate')('INTERFACE.API_ERROR'),
             timeout: 4
           })
@@ -44,7 +44,7 @@
           unverifiedEmail: this.email
         }, () => {
           this.isPending = false
-          proTopAlertService.success({
+          topAlertService.success({
             message: $filter('translate')('REGISTER.REGISTRATION_SUCCESS'),
             timeout: 3
           })
@@ -93,7 +93,7 @@
     'profitelo.services.resolvers.app.login.register',
     'profitelo.swaggerResources',
     'profitelo.services.commonSettings',
-    'profitelo.services.pro-top-alert-service',
+    'profitelo.services.top-alert',
     'profitelo.services.pro-top-waiting-loader-service',
     'profitelo.directives.interface.pro-checkbox',
     'profitelo.directives.interface.pro-alert',

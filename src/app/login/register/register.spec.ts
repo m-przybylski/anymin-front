@@ -6,7 +6,7 @@ describe('Unit tests: profitelo.controller.login.register>', () => {
     let _proTopWaitingLoaderService
     let _RegistrationApi
     let _AccountApi
-    let _proTopAlertService
+    let _topAlertService
     let _UserRoles
     let _$httpBackend
 
@@ -52,7 +52,7 @@ describe('Unit tests: profitelo.controller.login.register>', () => {
     angular.mock.module('profitelo.controller.login.register')
     angular.mock.module('profitelo.swaggerResources.definitions')
       inject(($rootScope, $controller, $filter, _proTopWaitingLoaderService_, _RegistrationApi_, _AccountApi_,
-              _proTopAlertService_, _UserRoles_, _$httpBackend_, _AccountApiDef_, _RegistrationApiDef_,
+              _topAlertService_, _UserRoles_, _$httpBackend_, _AccountApiDef_, _RegistrationApiDef_,
               _loginStateService_) => {
 
         scope = $rootScope.$new()
@@ -63,7 +63,7 @@ describe('Unit tests: profitelo.controller.login.register>', () => {
           $rootScope: $rootScope,
           proTopWaitingLoaderService: _proTopWaitingLoaderService_,
           User: _User,
-          proTopAlertService: _proTopAlertService_,
+          topAlertService: _topAlertService_,
           UserRoles: _UserRoles_,
           smsSessionId: smsSessionId,
           RegistrationApi: _RegistrationApi_,
@@ -75,7 +75,7 @@ describe('Unit tests: profitelo.controller.login.register>', () => {
         _proTopWaitingLoaderService = _proTopWaitingLoaderService_
         _RegistrationApi = _RegistrationApi_
         _AccountApi = _AccountApi_
-        _proTopAlertService = _proTopAlertService_
+        _topAlertService = _topAlertService_
         _UserRoles = _UserRoles_
 
         RegisterController.registrationSteps = {

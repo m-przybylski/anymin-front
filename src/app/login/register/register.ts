@@ -1,6 +1,6 @@
 (function() {
 
-  function RegisterController($filter, $state, $rootScope, proTopWaitingLoaderService, User, proTopAlertService,
+  function RegisterController($filter, $state, $rootScope, proTopWaitingLoaderService, User, topAlertService,
                               UserRoles, smsSessionId, CommonSettingsService, RegistrationApi, AccountApi,
                               loginStateService, communicatorService) {
     this.passwordStrength = 0
@@ -75,7 +75,7 @@
         AccountApi.partialUpdateAccount(patchObject).$promise.then(successCallback, (error) => {
           this.isPending = false
           proTopWaitingLoaderService.stopLoader()
-          proTopAlertService.error({
+          topAlertService.error({
             message: $filter('translate')('INTERFACE.API_ERROR'),
             timeout: 4
           })
@@ -125,7 +125,7 @@
     'profitelo.swaggerResources',
     'profitelo.services.communicator',
     'profitelo.services.commonSettings',
-    'profitelo.services.pro-top-alert-service',
+    'profitelo.services.top-alert',
     'profitelo.services.pro-top-waiting-loader-service',
     'profitelo.directives.interface.pro-checkbox',
     'profitelo.directives.interface.pro-alert',

@@ -6,7 +6,7 @@ describe('Unit testing: profitelo.directives.pro-top-navbar', () => {
     let $state
     let compile = null
     let validHTML = '<pro-top-navbar data-logout-action="vm.logout"></pro-top-navbar>'
-    let smoothScrolling
+    let smoothScrollingService
     let location
     let searchService
     let resourcesExpectations
@@ -21,11 +21,11 @@ describe('Unit testing: profitelo.directives.pro-top-navbar', () => {
     angular.mock.module('profitelo.directives.pro-top-navbar')
     angular.mock.module('profitelo.services.search')
       
-      inject(($rootScope, $compile, _$httpBackend_, _smoothScrolling_, _$state_, _$location_, _searchService_) => {
+      inject(($rootScope, $compile, _$httpBackend_, _smoothScrollingService_, _$state_, _$location_, _searchService_) => {
         rootScope = $rootScope.$new()
         compile = $compile
         $state = _$state_
-        smoothScrolling = _smoothScrolling_
+        smoothScrollingService = _smoothScrollingService_
         location = _$location_
         searchService = _searchService_
         $httpBackend = _$httpBackend_

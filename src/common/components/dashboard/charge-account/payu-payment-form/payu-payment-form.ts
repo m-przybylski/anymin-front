@@ -1,8 +1,8 @@
 (function() {
 
   /* @ngInject */
-  function payuPaymentFormController($window: ng.IWindowService, $state, PaymentsApi, User, proTopAlertService,
-                                     smoothScrolling, CommonSettingsService) {
+  function payuPaymentFormController($window: ng.IWindowService, $state, PaymentsApi, User, topAlertService,
+                                     smoothScrollingService, CommonSettingsService) {
     let isPending = false
 
     this.rulesAccepted = true
@@ -42,7 +42,7 @@
           isPending = false
           $window.open(response.redirectUrl, '_self', null, true)
         }, (error) => {
-          proTopAlertService.error({
+          topAlertService.error({
             message: 'error',
             timeout: 4
           })
@@ -56,7 +56,7 @@
         if (angular.isDefined(this.bankModel.value)) {
           return true
         } else {
-          smoothScrolling.simpleScrollTo('#bankValid')
+          smoothScrollingService.simpleScrollTo('#bankValid')
           return false
         }
       }
@@ -113,11 +113,11 @@
 
   angular.module('profitelo.components.dashboard.charge-account.payu-payment-form', [
     'profitelo.swaggerResources',
-    'profitelo.services.pro-top-alert-service',
+    'profitelo.services.top-alert',
     'profitelo.services.commonSettings',
     'profitelo.directives.interface.pro-input',
     'profitelo.directives.interface.pro-checkbox',
-    'profitelo.directives.services.smooth-scrolling',
+    'profitelo.services.smooth-scrolling',
     'c7s.ng.userAuth',
     'profitelo.components.dashboard.charge-account.choose-bank'
   ])

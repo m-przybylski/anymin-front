@@ -11,9 +11,9 @@ describe('Unit tests: ExpertProfileController >', () => {
 
     beforeEach(() => {
     angular.mock.module('profitelo.controller.expert-profile')
-    angular.mock.module('profitelo.services.recommended-profiles-service')
+    angular.mock.module('profitelo.services.recommended-services')
 
-      inject(($rootScope, $controller, $timeout, $q, $stateParams, _smoothScrolling_, _recommendedProfilesServices_, _ProfileApi_) => {
+      inject(($rootScope, $controller, $timeout, $q, $stateParams, _smoothScrollingService_, _recommendedServices_, _ProfileApi_) => {
         ProfileApi = {
           postProfileFavouriteExpert: (fn) => {
             fn()
@@ -21,16 +21,16 @@ describe('Unit tests: ExpertProfileController >', () => {
         }
         _scope = $rootScope.$new()
 
-        spyOn(_recommendedProfilesServices_, 'getRecommendedCompanies').and.callFake(() =>
+        spyOn(_recommendedServices_, 'getRecommendedCompanies').and.callFake(() =>
           $q.resolve([]))
 
         ExpertProfileController = $controller('ExpertProfileController', {
           $scope: _scope,
           $stateParams: $stateParams,
           $timeout: $timeout,
-          smoothScrolling: _smoothScrolling_,
+          smoothScrollingService: _smoothScrollingService_,
           expertOrganizations: [],
-          recommendedProfilesServices: _recommendedProfilesServices_,
+          recommendedServices: _recommendedServices_,
           expertProfile: {type: '', profile: {expertDetails: {}}},
           ProfileApi: _ProfileApi_,
         })

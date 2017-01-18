@@ -8,7 +8,7 @@ describe('profitelo.common.controller.lightbox-model', () => {
     let window
     let resourcesExpectations
     let FilesApiDef
-    let ImageZoomService
+    let imageZoomService
     let uibModalInstance = {
       dismiss: () => {
 
@@ -33,13 +33,13 @@ describe('profitelo.common.controller.lightbox-model', () => {
     angular.mock.module('profitelo.common.controller.lightbox-model')
     angular.mock.module('profitelo.swaggerResources.definitions')
 
-      inject(($rootScope, $controller, $window, _$timeout_,  HelperService, _FilesApi_, _lodash_, _$httpBackend_, _FilesApiDef_) => {
+      inject(($rootScope, $controller, $window, _$timeout_,  helperService, _FilesApi_, _lodash_, _$httpBackend_, _FilesApiDef_) => {
         httpBackend = _$httpBackend_
         scope = $rootScope.$new()
         $timeout = _$timeout_
         FilesApiDef = _FilesApiDef_
         window = $window
-        ImageZoomService = {
+        imageZoomService = {
           createZoomInstance: () => {
             return true
           },
@@ -78,10 +78,10 @@ describe('profitelo.common.controller.lightbox-model', () => {
           '$scope': scope,
           '$uibModalInstance': uibModalInstance,
           '$window': window,
-          'HelperService': HelperService,
+          'helperService': helperService,
           'FilesApi': _FilesApi_,
           'lodash': _lodash_,
-          'ImageZoomService': ImageZoomService
+          'imageZoomService': imageZoomService
         })
 
 
@@ -128,21 +128,21 @@ describe('profitelo.common.controller.lightbox-model', () => {
     })
 
     it('should decrease image', () => {
-      spyOn(ImageZoomService, 'decreaseImg')
+      spyOn(imageZoomService, 'decreaseImg')
       lightboxModelController.sliderActions.decreaseImg()
-      expect(ImageZoomService.decreaseImg).toHaveBeenCalled()
+      expect(imageZoomService.decreaseImg).toHaveBeenCalled()
     })
 
     it('should increase image', () => {
-      spyOn(ImageZoomService, 'increaseImg')
+      spyOn(imageZoomService, 'increaseImg')
       lightboxModelController.sliderActions.increaseImg()
-      expect(ImageZoomService.increaseImg).toHaveBeenCalled()
+      expect(imageZoomService.increaseImg).toHaveBeenCalled()
     })
 
     it('should reset image size', () => {
-      spyOn(ImageZoomService, 'resetImg')
+      spyOn(imageZoomService, 'resetImg')
       lightboxModelController.sliderActions.imageZoomReset()
-      expect(ImageZoomService.resetImg).toHaveBeenCalled()
+      expect(imageZoomService.resetImg).toHaveBeenCalled()
     })
 
 

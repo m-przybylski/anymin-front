@@ -1,12 +1,13 @@
 (function() {
 
-  function SetNewPasswordController($state, $filter, tokenStatus, passwordStrengthService, proTopAlertService, RecoverPasswordApi, CommonSettingsService) {
+  function SetNewPasswordController($state, $filter, tokenStatus, passwordStrengthService: IPasswordStrengthService,
+                                    topAlertService, RecoverPasswordApi, CommonSettingsService) {
 
     this.patternPassword = CommonSettingsService.localSettings.passwordPattern
 
     let _passwordChangeError = () => {
       $state.go('app.login.account')
-      proTopAlertService.error({
+      topAlertService.error({
         message: $filter('translate')('INTERFACE.API_ERROR'),
         timeout: 2
       })
@@ -14,7 +15,7 @@
     
     let _passwordChangeSuccess = () => {
       $state.go('app.login.account')
-      proTopAlertService.success({
+      topAlertService.success({
         message: $filter('translate')('LOGIN.PASSWORD_RECOVERY.PASSWORD_HAD_BEEN_CHANGED'),
         timeout: 3
       })
@@ -32,7 +33,7 @@
 
 
     this.onPasswordChange = (password) => {
-      this.passwordStrength = passwordStrengthService(password)
+      this.passwordStrength = passwordStrengthService.getStrength(password)
     }
 
     this.submitPasswordChange = () => {
@@ -72,15 +73,14 @@
 
   angular.module('profitelo.controller.login.set-new-password', [
     'ui.router',
-    'profitelo.services.login-state',
     'c7s.providers.stateDelay',
     'profitelo.services.login-state',
-    'profitelo.services.pro-top-alert-service',
+    'profitelo.services.top-alert',
     'profitelo.services.pro-top-waiting-loader-service',
-    'profitelo.services.password-strength-service',
+    'profitelo.services.password-strength',
     'profitelo.services.resolvers.app.login.set-new-password',
-    'profitelo.swaggerResources',
     'profitelo.services.commonSettings',
+    'profitelo.swaggerResources',
     'profitelo.directives.interface.pro-alert',
     'profitelo.directives.interface.pro-input-password',
     'profitelo.directives.password-strength-bar',

@@ -1,5 +1,5 @@
 (function() {
-  function IndividualPathController($scope, $state, ProfileApi, User, savedProfile, proTopAlertService, $timeout, smoothScrolling) {
+  function IndividualPathController($scope, $state, ProfileApi, User, savedProfile, topAlertService, $timeout, smoothScrollingService) {
 
     this.queue = {
       amountOfSteps: 7,
@@ -40,7 +40,7 @@
     } else {
       this.inEditMode = false
       $timeout(()=> {
-        smoothScrolling.scrollTo(this.queue.currentStep)
+        smoothScrollingService.scrollTo(this.queue.currentStep)
       })
     }
 
@@ -77,7 +77,7 @@
         }
 
       }, () => {
-        proTopAlertService.error({
+        topAlertService.error({
           message: 'error',
           timeout: 4
         })
@@ -89,8 +89,7 @@
 
   angular.module('profitelo.controller.dashboard.service-provider.individual-path', [
     'ui.router',
-    'profitelo.services.service-provider-state',
-    'profitelo.directives.services.smooth-scrolling',
+    'profitelo.services.smooth-scrolling',
     'profitelo.directives.service-provider.pro-service-provider-name',
     'profitelo.directives.service-provider.pro-service-provider-description',
     'profitelo.directives.service-provider.pro-service-external-links',
@@ -102,7 +101,7 @@
     'profitelo.directives.interface.pro-alert',
     'profitelo.directives.interface.pro-input',
     'profitelo.swaggerResources',
-    'profitelo.services.pro-top-alert-service',
+    'profitelo.services.top-alert',
     'c7s.ng.userAuth'
   ])
     .config(function($stateProvider, UserRolesProvider) {
@@ -113,7 +112,7 @@
         controllerAs: 'vm',
         resolve: {
           /* istanbul ignore next */
-          savedProfile: ($q, $state, ProfileApi, User, proTopAlertService) => {
+          savedProfile: ($q, $state, ProfileApi, User, topAlertService) => {
             /* istanbul ignore next */
             let _deferred = $q.defer()
             /* istanbul ignore next */
@@ -127,7 +126,7 @@
               })
             }, (error) => {
               $state.go('app.dashboard')
-              proTopAlertService.error({
+              topAlertService.error({
                 message: 'error',
                 timeout: 4
               })

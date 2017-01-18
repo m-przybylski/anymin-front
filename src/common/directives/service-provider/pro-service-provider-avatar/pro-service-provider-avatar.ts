@@ -1,5 +1,5 @@
 (function() {
-  function proServiceProviderAvatar($q, proTopAlertService, FilesApi) {
+  function proServiceProviderAvatar($q, topAlertService, FilesApi) {
 
     function linkFunction(scope, element, attrs) {
 
@@ -28,7 +28,7 @@
           scope.model[scope.imageField].push({file: null, response:res})
           scope.isPending = false
         }, (err)=> {
-          proTopAlertService.error({
+          topAlertService.error({
             message: 'error',
             timeout: 4
           })
@@ -98,7 +98,7 @@
     'pascalprecht.translate',
     'profitelo.common.controller.service-provider.service-provider-step-controller',
     'profitelo.directives.interface.pro-uploader',
-    'profitelo.services.pro-top-alert-service'
+    'profitelo.services.top-alert'
   ])
   .directive('proServiceProviderAvatar', proServiceProviderAvatar)
 }())

@@ -21,7 +21,7 @@
         pageTitle: 'PAGE_TITLE.INVITATIONS'
       },
       resolve: {
-        pendingInvitations: ($q, $state, ProfileApi, User, ServiceApi, lodash, proTopAlertService) => {
+        pendingInvitations: ($q, $state, ProfileApi, User, ServiceApi, lodash, topAlertService) => {
           /* istanbul ignore next */
           let _deferred = $q.defer()
           /* istanbul ignore next */
@@ -45,7 +45,7 @@
             })
           }, (error) => {
             $state.go('app.dashboard')
-            proTopAlertService.error({
+            topAlertService.error({
               message: 'error',
               timeout: 4
             })

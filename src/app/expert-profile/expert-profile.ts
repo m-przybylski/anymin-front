@@ -1,5 +1,5 @@
 (function() {
-  function ExpertProfileController($stateParams, $log, $timeout, expertProfile, recommendedProfilesServices, ProfileApi, smoothScrolling) {
+  function ExpertProfileController($stateParams, $log, $timeout, expertProfile, recommendedServices, ProfileApi, smoothScrollingService) {
 
     this.profile = {}
 
@@ -10,14 +10,14 @@
 
     if (!!$stateParams.primaryConsultationId) {
       $timeout(() => {
-        smoothScrolling.simpleScrollTo('#consultationScroll', true)
+        smoothScrollingService.simpleScrollTo('#consultationScroll', true)
       })
     }
 
     this.profile.colaboratedOrganizations = expertProfile.employers
     this.services = expertProfile.services
 
-    recommendedProfilesServices.getRecommendedExperts(this.consultations).then((response) => {
+    recommendedServices.getRecommendedExperts(this.consultations).then((response) => {
       this.similarExperts = response
     })
 
@@ -54,14 +54,14 @@
     'profitelo.directives.pro-top-navbar',
     'profitelo.directives.expert-profile.pro-expert-header',
     'profitelo.directives.pro-footer',
-    'profitelo.directives.services.smooth-scrolling',
+    'profitelo.services.smooth-scrolling',
     'profitelo.directives.expert-profile.pro-expert-slider',
     'profitelo.directives.expert-profile.pro-expert-single-consultation',
     'profitelo.directives.expert-profile.pro-expert-social-icons',
     'profitelo.services.resolvers.app.service-provider-image-resolver',
     'profitelo.components.expert-profile.similar-experts-slider',
-    'profitelo.services.pro-top-alert-service',
-    'profitelo.services.recommended-profiles-service',
+    'profitelo.services.top-alert',
+    'profitelo.services.recommended-services',
     'profitelo.services.resolvers.app-expert-profile-resolver',
     'profitelo.components.expert-profile.social-links',
     'profitelo.components.interface.collapse-tab'

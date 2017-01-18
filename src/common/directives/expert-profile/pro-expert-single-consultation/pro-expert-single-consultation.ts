@@ -1,5 +1,5 @@
 (function() {
-  function directive(callService, HelperService) {
+  function directive(callService, helperService) {
 
     function linkFunction(scope, elem, attrs) {
 
@@ -11,7 +11,7 @@
 
       scope.companyImage = !!scope.serviceTagsEmployeesTuple.ownerProfile.organizationDetails
         && scope.serviceTagsEmployeesTuple.ownerProfile.organizationDetails.logo !== null ?
-        HelperService.fileUrlResolver(scope.serviceTagsEmployeesTuple.ownerProfile.organizationDetails.logo) : ''
+        helperService.fileUrlResolver(scope.serviceTagsEmployeesTuple.ownerProfile.organizationDetails.logo) : ''
 
       scope.consultation = {}
 

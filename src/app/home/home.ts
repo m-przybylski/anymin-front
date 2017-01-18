@@ -1,5 +1,5 @@
 (function () {
-  function HomeController($scope, smoothScrolling) {
+  function HomeController($scope, smoothScrollingService) {
 
     this.interfaceController = {}
 
@@ -15,7 +15,7 @@
     this.onSearchFocus = () => {
       this.interfaceController.hideSearchMask = false
       const searchInputOnPage = angular.element(document).find('.search-bar-container .search-bar')[1]
-      smoothScrolling.simpleScrollTo(searchInputOnPage, true)
+      smoothScrollingService.simpleScrollTo(searchInputOnPage, true)
     }
 
     angular.element(angular.element(document).find('.search-active-mask')).on('whell mousewheel', (e) => {

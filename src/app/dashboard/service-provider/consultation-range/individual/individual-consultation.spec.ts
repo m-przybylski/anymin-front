@@ -8,7 +8,7 @@ describe('Unit tests: profitelo.controller.dashboard.service-provider.consultati
     let _ServiceApiDef
     let resourcesExpectations
     let _httpBackend
-    let _proTopAlertService
+    let _topAlertService
     let _ServiceApi
     let _controller
 
@@ -19,7 +19,7 @@ describe('Unit tests: profitelo.controller.dashboard.service-provider.consultati
         savedProfile: savedProfile,
         profileImage: profileImage,
         $state: _state,
-        proTopAlertService: _proTopAlertService
+        topAlertService: _topAlertService
       })
     }
 
@@ -31,12 +31,12 @@ describe('Unit tests: profitelo.controller.dashboard.service-provider.consultati
     angular.mock.module('profitelo.swaggerResources.definitions')
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.controller.dashboard.service-provider.consultation-range.individual')
-      inject(($rootScope, $controller, $httpBackend, $injector, _$state_, _ServiceApi_, _proTopAlertService_) => {
+      inject(($rootScope, $controller, $httpBackend, $injector, _$state_, _ServiceApi_, _topAlertService_) => {
 
         _scope = $rootScope.$new()
         _state = _$state_
         _httpBackend = $httpBackend
-        _proTopAlertService = _proTopAlertService_
+        _topAlertService = _topAlertService_
         _ServiceApi = _ServiceApi_
         _controller = $controller
 
@@ -81,12 +81,12 @@ describe('Unit tests: profitelo.controller.dashboard.service-provider.consultati
 
       resourcesExpectations.ServiceApi.postService.respond(500)
 
-      spyOn(_proTopAlertService, 'error')
+      spyOn(_topAlertService, 'error')
 
       IndividualConsultationController.addAnotherConsultation()
       _httpBackend.flush()
 
-      expect(_proTopAlertService.error).toHaveBeenCalledWith({ message: 'error', timeout: 4 })
+      expect(_topAlertService.error).toHaveBeenCalledWith({ message: 'error', timeout: 4 })
 
     })
 
@@ -129,7 +129,7 @@ describe('Unit tests: profitelo.controller.dashboard.service-provider.consultati
 
       resourcesExpectations.ServiceApi.deleteService.respond(500)
 
-      spyOn(_proTopAlertService, 'error')
+      spyOn(_topAlertService, 'error')
 
       IndividualConsultationController.consultations = []
 

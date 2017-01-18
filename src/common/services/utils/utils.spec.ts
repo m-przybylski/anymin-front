@@ -1,14 +1,14 @@
 describe('Unit testing: profitelo.services.utils >', () => {
   describe('for profitelo.services.utils >', () => {
 
-    let UtilsService
+    let utilsService
 
     beforeEach(() => {
     angular.mock.module('profitelo.services.utils')
     })
 
     beforeEach(inject(($injector) => {
-      UtilsService = $injector.get('UtilsService')
+      utilsService = $injector.get('utilsService')
     }))
 
 
@@ -30,7 +30,7 @@ describe('Unit testing: profitelo.services.utils >', () => {
         onTest2: 'onTest2'
       }
 
-      const callbacks = UtilsService.callbacksFactory(Object.keys(events))
+      const callbacks = utilsService.callbacksFactory(Object.keys(events))
 
       callbacks.methods.onTest1(cbs.callback1)
       callbacks.methods.onTest2(cbs.callback2)
@@ -58,7 +58,7 @@ describe('Unit testing: profitelo.services.utils >', () => {
         currency: 'PLN'
       }
 
-      const timer = UtilsService.callTimerFactory.getInstance(money)
+      const timer = utilsService.callTimerFactory.getInstance(money)
 
       timer.start(callbacks.cb1)
 

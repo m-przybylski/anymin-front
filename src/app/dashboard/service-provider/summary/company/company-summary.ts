@@ -1,6 +1,6 @@
 (function() {
-  function CompanySummaryController($state, $scope, $filter, savedProfile, ServiceApi, proTopAlertService,
-                                    profileAvatar, lodash, companyLogo, DialogService, communicatorService) {
+  function CompanySummaryController($state, $scope, $filter, savedProfile, ServiceApi, topAlertService,
+                                    profileAvatar, lodash, companyLogo, dialogService, communicatorService) {
 
     if (savedProfile && savedProfile.expertDetails && !savedProfile.organizationDetails) {
       this.profile = savedProfile.expertDetails
@@ -35,12 +35,12 @@
         ServiceApi.postServicesVerify().$promise.then((res)=> {
           $state.go('app.dashboard.client.favourites')
           communicatorService.authenticate()
-          proTopAlertService.success({
+          topAlertService.success({
             message: $filter('translate')('DASHBOARD.CREATE_PROFILE.SUMMARY_VERIFY'),
             timeout: 4
           })
         }, (err) => {
-          proTopAlertService.error({
+          topAlertService.error({
             message: 'error',
             timeout: 4
           })
@@ -81,7 +81,7 @@
         }).$promise.then(() => {
           $state.reload()
         }, (err) => {
-          proTopAlertService.error({
+          topAlertService.error({
             message: 'error',
             timeout: 4
           })
@@ -104,7 +104,7 @@
               $state.go('app.dashboard.service-provider.consultation-range.company')
             }
           }, (err) => {
-            proTopAlertService.error({
+            topAlertService.error({
               message: 'error',
               timeout: 4
             })
@@ -112,7 +112,7 @@
         }
       })(id, index)
 
-      DialogService.openDialog({
+      dialogService.openDialog({
         scope: $scope,
         controller: 'acceptRejectDialogController',
         templateUrl: 'controllers/accept-reject-dialog-controller/accept-reject-dialog-controller.tpl.html'
@@ -126,10 +126,9 @@
 
   angular.module('profitelo.controller.dashboard.service-provider.summary.company', [
     'ui.router',
-    'profitelo.services.dialog-service',
+    'profitelo.services.dialog',
     'profitelo.services.communicator',
     'profitelo.common.controller.accept-reject-dialog-controller',
-    'profitelo.services.service-provider-state',
     'profitelo.directives.service-provider.pro-service-provider-summary-step',
     'c7s.ng.userAuth',
     'profitelo.services.resolvers.app.service-provider-image-resolver',
@@ -145,7 +144,7 @@
         controllerAs: 'vm',
         resolve: {
           /* istanbul ignore next */
-          savedProfile: ($q, $state, ProfileApi, lodash, User, ServiceApi, proTopAlertService) => {
+          savedProfile: ($q, $state, ProfileApi, lodash, User, ServiceApi, topAlertService) => {
             /* istanbul ignore next */
             let _deferred = $q.defer()
             /* istanbul ignore next */
@@ -168,14 +167,14 @@
               }, (error)=> {
                 _deferred.reject(error)
                 $state.go('app.dashboard')
-                proTopAlertService.error({
+                topAlertService.error({
                   message: 'error',
                   timeout: 4
                 })
               })
             }, (error) => {
               $state.go('app.dashboard')
-              proTopAlertService.error({
+              topAlertService.error({
                 message: 'error',
                 timeout: 4
               })

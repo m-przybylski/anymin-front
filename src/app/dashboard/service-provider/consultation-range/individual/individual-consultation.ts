@@ -1,6 +1,6 @@
 (function() {
-  function IndividualConsultationController($scope, $state, User, savedProfile, ServiceApi, proTopAlertService,
-                                            profileImage, lodash, DialogService, serviceProviderService) {
+  function IndividualConsultationController($scope, $state, User, savedProfile, ServiceApi, topAlertService,
+                                            profileImage, lodash, dialogService, serviceProviderService) {
 
     this.costModel = serviceProviderService.createDefaultModel('')
     this.editModel = serviceProviderService.createDefaultModel(0)
@@ -41,7 +41,7 @@
           callback()
         }
       }, (err)=> {
-        proTopAlertService.error({
+        topAlertService.error({
           message: 'error',
           timeout: 4
         })
@@ -120,7 +120,7 @@
           }).$promise.then((res)=> {
             this.consultations.splice(_index, 1)
           }, (err) => {
-            proTopAlertService.error({
+            topAlertService.error({
               message: 'error',
               timeout: 4
             })
@@ -128,7 +128,7 @@
         }
       })(id, index)
 
-      DialogService.openDialog({
+      dialogService.openDialog({
         scope: $scope,
         controller: 'acceptRejectDialogController',
         templateUrl: 'controllers/accept-reject-dialog-controller/accept-reject-dialog-controller.tpl.html'
@@ -145,15 +145,14 @@
 
 
   angular.module('profitelo.controller.dashboard.service-provider.consultation-range.individual', [
-    'profitelo.services.dialog-service',
+    'profitelo.services.dialog',
     'ui.router',
     'ngLodash',
-    'profitelo.services.service-provider-service',
+    'profitelo.services.service-provider',
     'profitelo.common.controller.accept-reject-dialog-controller',
     'c7s.ng.userAuth',
-    'profitelo.services.service-provider-state',
     'profitelo.swaggerResources',
-    'profitelo.services.pro-top-alert-service',
+    'profitelo.services.top-alert',
     'profitelo.services.resolvers.app.service-provider-image-resolver',
     'profitelo.directives.service-provider.pro-bottom-summary-row',
     'profitelo.directives.service-provider.pro-service-provider-cost',
@@ -172,7 +171,7 @@
         controllerAs: 'vm',
         resolve: {
           /* istanbul ignore next */
-          savedProfile: ($q, $state, ProfileApi, lodash, User, ServiceApi, proTopAlertService) => {
+          savedProfile: ($q, $state, ProfileApi, lodash, User, ServiceApi, topAlertService) => {
             /* istanbul ignore next */
             let _deferred = $q.defer()
             /* istanbul ignore next */
@@ -195,14 +194,14 @@
               }, (error)=> {
                 _deferred.reject(error)
                 $state.go('app.dashboard')
-                proTopAlertService.error({
+                topAlertService.error({
                   message: 'error',
                   timeout: 4
                 })
               })
             }, (error) => {
               $state.go('app.dashboard')
-              proTopAlertService.error({
+              topAlertService.error({
                 message: 'error',
                 timeout: 4
               })

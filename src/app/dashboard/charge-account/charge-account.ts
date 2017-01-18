@@ -1,5 +1,5 @@
 (function() {
-  function chargeAccountController($state, $timeout, lodash,  paymentsOptions, paymentsLinks, financeBalance, smoothScrolling) {
+  function chargeAccountController($state, $timeout, lodash,  paymentsOptions, paymentsLinks, financeBalance, smoothScrollingService) {
 
     this.paymentCountryId = paymentsOptions.id
     this.amounts = {
@@ -46,7 +46,7 @@
 
     this.validAction = () => {
       if ((!angular.isDefined(this.amountModel.amount) || this.amountModel.amount === null) && this.amountModel.cashAmount.amount < this.amounts.minimalAmounts.amount) {
-        smoothScrolling.simpleScrollTo('#cash-valid')
+        smoothScrollingService.simpleScrollTo('#cash-valid')
         return false
       } else {
         return true
@@ -55,10 +55,10 @@
 
     this.scrollHandler = (slideTo) => {
       if (angular.isDefined(slideTo)) {
-        smoothScrolling.scrollTo(slideTo)
+        smoothScrollingService.scrollTo(slideTo)
       } else if (this.currentSection < 3) {
         $timeout(() => {
-          smoothScrolling.scrollTo(++this.currentSection)
+          smoothScrollingService.scrollTo(++this.currentSection)
         })
       }
     }
@@ -73,7 +73,7 @@
       controller: 'chargeAccountController',
       templateUrl: 'dashboard/charge-account/charge-account.tpl.html',
       resolve: {
-        paymentsOptions: ($q, $state, PaymentsApi, proTopAlertService) => {
+        paymentsOptions: ($q, $state, PaymentsApi, topAlertService) => {
           /* istanbul ignore next */
           let _deferred = $q.defer()
           /* istanbul ignore next */
@@ -82,7 +82,7 @@
           }, (error) => {
             _deferred.resolve(null)
             $state.go('app.dashboard.client.activities')
-            proTopAlertService.error({
+            topAlertService.error({
               message: 'error',
               timeout: 4
             })
@@ -90,7 +90,7 @@
           /* istanbul ignore next */
           return _deferred.promise
         },
-        paymentsLinks: ($q, $state, PaymentsApi, proTopAlertService) => {
+        paymentsLinks: ($q, $state, PaymentsApi, topAlertService) => {
           /* istanbul ignore next */
           let _deferred = $q.defer()
           /* istanbul ignore next */
@@ -99,7 +99,7 @@
           }, (error) => {
             _deferred.resolve(null)
             $state.go('app.dashboard.client.activities')
-            proTopAlertService.error({
+            topAlertService.error({
               message: 'error',
               timeout: 4
             })
@@ -107,7 +107,7 @@
           /* istanbul ignore next */
           return _deferred.promise
         },
-        financeBalance: ($q, $state, FinancesApi, proTopAlertService) => {
+        financeBalance: ($q, $state, FinancesApi, topAlertService) => {
           /* istanbul ignore next */
           let _deferred = $q.defer()
           /* istanbul ignore next */
@@ -116,7 +116,7 @@
           }, (error) => {
             _deferred.resolve(null)
             $state.go('app.dashboard.client.activities')
-            proTopAlertService.error({
+            topAlertService.error({
               message: 'error',
               timeout: 4
             })
@@ -140,11 +140,11 @@
     'ui.router',
     'ngLodash',
     'profitelo.swaggerResources',
-    'profitelo.services.pro-top-alert-service',
+    'profitelo.services.top-alert',
     'profitelo.services.commonSettings',
     'profitelo.directives.interface.pro-input',
     'profitelo.directives.interface.pro-checkbox',
-    'profitelo.directives.services.smooth-scrolling',
+    'profitelo.services.smooth-scrolling',
     'profitelo.components.dashboard.charge-account.payu-payment-form',
     'profitelo.components.dashboard.charge-account.choose-amount-charge',
     'profitelo.components.dashboard.charge-account.payment-method',

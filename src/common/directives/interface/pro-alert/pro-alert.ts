@@ -1,5 +1,5 @@
 (function() {
-  function proAlert(proTopAlertService) {
+  function proAlert(topAlertService) {
 
     function linkFunction(scope, element, attr) {
       scope.alerts = []
@@ -8,10 +8,10 @@
       }
 
       scope.destroyAlert = (alertId)=> {
-        proTopAlertService.destroyAlert(alertId)
+        topAlertService.destroyAlert(alertId)
       }
 
-      proTopAlertService.bindAlert(addAlert)
+      topAlertService.bindAlert(addAlert)
 
     }
 
@@ -27,7 +27,7 @@
   }
 
   angular.module('profitelo.directives.interface.pro-alert', [
-    'profitelo.services.pro-top-alert-service'
+    'profitelo.services.top-alert'
   ])
   .directive('proAlert', proAlert)
 

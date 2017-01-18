@@ -1,6 +1,6 @@
 (function() {
 
-  function DashboardClientFavouritesController($log, lodash, clientFavouritesConsultations, recommendedProfilesServices) {
+  function DashboardClientFavouritesController($log, lodash, clientFavouritesConsultations, recommendedServices) {
     this.balance = clientFavouritesConsultations.balance
     this.lastConsultations = lodash.sortBy(clientFavouritesConsultations.lastConsultations, 'createdAt')
     this.favouriteProfiles = clientFavouritesConsultations.favouriteProfiles
@@ -11,7 +11,7 @@
     const onGetRecommendedExpertsError = (err) =>
       $log.error(err)
 
-    recommendedProfilesServices.getRecommendedExperts(this.lastConsultations || this.favouriteProfiles)
+    recommendedServices.getRecommendedExperts(this.lastConsultations || this.favouriteProfiles)
       .then(onGetRecommendedExperts, onGetRecommendedExpertsError)
 
     return this
@@ -23,7 +23,7 @@
     'ngLodash',
     'c7s.ng.userAuth',
     'profitelo.filters.money',
-    'profitelo.services.recommended-profiles-service',
+    'profitelo.services.recommended-services',
     'profitelo.components.dashboard.client.favourites.no-favourite-experts',
     'profitelo.components.dashboard.client.favourites.favourite-experts',
     'profitelo.components.expert-profile.similar-experts-slider',

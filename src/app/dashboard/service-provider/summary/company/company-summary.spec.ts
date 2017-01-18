@@ -6,7 +6,7 @@ describe('Unit tests: CompanySummaryController >', () => {
     let _state
     let _ServiceApiDef
     let _httpBackend
-    let _proTopAlertService
+    let _topAlertService
     let _ServiceApi
     let _controller
     let resourcesExpectations
@@ -21,7 +21,7 @@ describe('Unit tests: CompanySummaryController >', () => {
         $state: _state,
         profileAvatar: profileAvatar,
         companyLogo: companyLogo,
-        proTopAlertService: _proTopAlertService
+        topAlertService: _topAlertService
       })
     }
 
@@ -33,12 +33,12 @@ describe('Unit tests: CompanySummaryController >', () => {
     angular.mock.module('profitelo.swaggerResources.definitions')
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.controller.dashboard.service-provider.summary.company')
-      inject(($rootScope, $controller, $httpBackend, $injector, _$state_, _ServiceApi_, _proTopAlertService_) => {
+      inject(($rootScope, $controller, $httpBackend, $injector, _$state_, _ServiceApi_, _topAlertService_) => {
 
         _scope = $rootScope.$new()
         _state = _$state_
         _httpBackend = $httpBackend
-        _proTopAlertService = _proTopAlertService_
+        _topAlertService = _topAlertService_
         _ServiceApi = _ServiceApi_
         _controller = $controller
 

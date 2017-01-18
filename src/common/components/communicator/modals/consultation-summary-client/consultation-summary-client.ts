@@ -1,7 +1,7 @@
 /* istanbul ignore next function */
 (function() {
 
-  function controller($log, $scope, lodash, $uibModalInstance, callSummaryService, ServiceApi, HelperService) {
+  function controller($log, $scope, lodash, $uibModalInstance, callSummaryService, ServiceApi, helperService) {
 
     $scope.callSummary = null
     $scope.expertAvatarUrl = ''
@@ -11,7 +11,7 @@
     const setCallSummary = (_callSummary) => {
       $scope.callSummary = _callSummary
       const avatar = _callSummary.companyExpertProfile.expertDetails.avatar
-      $scope.expertAvatarUrl = (avatar) ? HelperService.fileUrlResolver(avatar) : ''
+      $scope.expertAvatarUrl = (avatar) ? helperService.fileUrlResolver(avatar) : ''
       $scope.rating = _callSummary.service.rating
     }
 

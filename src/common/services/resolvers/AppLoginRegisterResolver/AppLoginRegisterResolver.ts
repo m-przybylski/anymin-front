@@ -1,5 +1,5 @@
 (function() {
-  function AppLoginRegisterResolver(loginStateService, $state, $filter, $q, $timeout, proTopAlertService, RegistrationApi) {
+  function AppLoginRegisterResolver(loginStateService, $state, $filter, $q, $timeout, topAlertService, RegistrationApi) {
 
 
     let _resolve = () => {
@@ -16,7 +16,7 @@
       let _account = loginStateService.getAccountObject()
 
       if (_account.phoneNumber.number === null) {
-        proTopAlertService.warning({
+        topAlertService.warning({
           message: $filter('translate')('REGISTER.ENTER_PHONE_NUMBER_FIRST'),
           timeout: 3
         })
@@ -30,7 +30,7 @@
             accountObject: _account
           })
         }, (error) => {
-          proTopAlertService.warning({
+          topAlertService.warning({
             message: $filter('translate')('INTERFACE.API_ERROR'),
             timeout: 3
           })
@@ -50,7 +50,7 @@
   angular.module('profitelo.services.resolvers.app.login.register', [
     'profitelo.swaggerResources',
     'profitelo.services.login-state',
-    'profitelo.services.pro-top-alert-service'
+    'profitelo.services.top-alert'
   ])
   .service('AppLoginRegisterResolver', AppLoginRegisterResolver)
 

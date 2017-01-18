@@ -1,5 +1,5 @@
 (function() {
-  function AppController($rootScope, $state, $filter, InterfaceLanguageService, User, proTopAlertService) {
+  function AppController($rootScope, $state, $filter, InterfaceLanguageService, User, topAlertService) {
 
     InterfaceLanguageService.setLanguage(InterfaceLanguageService.getStartupLanguage())
 
@@ -10,7 +10,7 @@
       let action = () => {
         this.isPending = false
         $rootScope.loggedIn = false
-        proTopAlertService.success({
+        topAlertService.success({
           message: $filter('translate')('LOGIN.SUCCESSFUL_LOGOUT'),
           timeout: 2
         })
@@ -29,7 +29,7 @@
     return this
   }
 
-  function runFunction($rootScope, $log, $state, $anchorScroll, User, proTopAlertService) {
+  function runFunction($rootScope, $log, $state, $anchorScroll, User, topAlertService) {
 
     $rootScope.loggedIn = false
 
@@ -51,7 +51,7 @@
       switch (pac.code) {
         case 'x401':
           event.preventDefault()
-          proTopAlertService.error({
+          topAlertService.error({
             message: pac.msg,
             header: 'Page redirect',
             timeout: 3
@@ -60,7 +60,7 @@
           break
         case 'x403':
           event.preventDefault()
-          proTopAlertService.error({
+          topAlertService.error({
             message: pac.msg,
             header: 'Access forbidden',
             timeout: 3
@@ -225,8 +225,8 @@
     'commonConfig',
 
     // services
-    'profitelo.services.interfaceLanguage',
-    'profitelo.services.customTranslationHandler',
+    'profitelo.services.interface-language',
+    'profitelo.services.custom-translation-handler',
     'profitelo.services.search-url',
     'profitelo.services.profitelo-websocket',
 

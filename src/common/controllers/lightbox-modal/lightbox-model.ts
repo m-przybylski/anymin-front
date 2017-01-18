@@ -1,6 +1,6 @@
 (function() {
 
-  function lightboxModelController($scope, $window, lodash, $timeout, $uibModalInstance, FilesApi, ImageZoomService) {
+  function lightboxModelController($scope, $window, lodash, $timeout, $uibModalInstance, FilesApi, imageZoomService) {
 
     this.slideList = $scope.sliders
     this.isPending = false
@@ -18,7 +18,7 @@
 
     $timeout(() => {
       if (this.currentSlide.contentType !== 'application/pdf') {
-        ImageZoomService.createZoomInstance(angular.element('.modal-dialog img')[currentSlideIndex])
+        imageZoomService.createZoomInstance(angular.element('.modal-dialog img')[currentSlideIndex])
       }
     })
 
@@ -41,9 +41,9 @@
         this.currentSlide.contentType = response.contentType
         this.currentSlide.downloadUrl = response.downloadUrl
         
-        ImageZoomService.destroy(angular.element('.modal-dialog img')[currentSlideIndex])
+        imageZoomService.destroy(angular.element('.modal-dialog img')[currentSlideIndex])
         if ( this.currentSlide.contentType  !== 'application/pdf') {
-          ImageZoomService.createZoomInstance(angular.element('.modal-dialog img')[currentSlideIndex])
+          imageZoomService.createZoomInstance(angular.element('.modal-dialog img')[currentSlideIndex])
           angular.element('.modal-dialog').perfectScrollbar('destroy')
         } else {
           angular.element('.modal-dialog').perfectScrollbar()
@@ -94,20 +94,20 @@
         }
       },
       decreaseImg: () => {
-        ImageZoomService.decreaseImg()
+        imageZoomService.decreaseImg()
       },
       increaseImg: () => {
-        ImageZoomService.increaseImg()
+        imageZoomService.increaseImg()
       },
       imageZoomReset: () => {
-        ImageZoomService.resetImg()
+        imageZoomService.resetImg()
       }
     }
 
     this.navSettings = {
       // printFile: () => {
       //   const imgSrc = this.currentSlide.previews[0]
-      //   PrintService.print(imgSrc)
+      //   printService.print(imgSrc)
       // },
       downloadFile: () => {
         $window.open(this.currentSlide.downloadUrl)
@@ -125,8 +125,8 @@
     'profitelo.components.pro-lightbox',
     'profitelo.swaggerResources',
     'profitelo.services.helper',
-    'profitelo.services.print-service',
-    'profitelo.services.image-zoom-service',
+    'profitelo.services.print',
+    'profitelo.services.image-zoom',
     'ngLodash'
 
   ])

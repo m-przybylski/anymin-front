@@ -8,7 +8,7 @@ describe('Unit tests: profitelo.controller.dashboard.charge-account >', () => {
     let url = 'awesomeUrl'
     let _timeout
     let _window
-    let _smoothScrolling
+    let _smoothScrollingService
     let resourcesExpectations
     let _httpBackend
     let _controller
@@ -32,14 +32,14 @@ describe('Unit tests: profitelo.controller.dashboard.charge-account >', () => {
     angular.mock.module('profitelo.controller.dashboard.charge-account')
     angular.mock.module('profitelo.swaggerResources.definitions')
     angular.mock.module('templates-module')
-      inject(($rootScope, $httpBackend, $controller, $injector, $timeout, $window, smoothScrolling) => {
+      inject(($rootScope, $httpBackend, $controller, $injector, $timeout, $window, smoothScrollingService) => {
 
         _scope = $rootScope.$new()
         _httpBackend = $httpBackend
         _window = $window
         _timeout = $timeout
         _controller = $controller
-        _smoothScrolling = smoothScrolling
+        _smoothScrollingService = smoothScrollingService
 
         createController(_controller, {lastPayment: {amount: { amount: '123'}, payload: {firstName: 'asas', lastName: 'asasas', email: 'asasas'}}, minimalPayment: {amount:1000}}, {}, {})
         
@@ -54,28 +54,28 @@ describe('Unit tests: profitelo.controller.dashboard.charge-account >', () => {
       expect(!!chargeAccountController).toBe(true)
     })
 
-    it('should call smoothScrolling on minimal-payment validation error', () => {
-      spyOn(_smoothScrolling, 'simpleScrollTo')
+    it('should call smoothScrollingService on minimal-payment validation error', () => {
+      spyOn(_smoothScrollingService, 'simpleScrollTo')
 
       chargeAccountController.amountModel.cashAmount.amount = 2000
       chargeAccountController.validAction()
-      expect(_smoothScrolling.simpleScrollTo).not.toHaveBeenCalled()
+      expect(_smoothScrollingService.simpleScrollTo).not.toHaveBeenCalled()
 
       chargeAccountController.amountModel.cashAmount.amount = 2
       chargeAccountController.validAction()
-      expect(_smoothScrolling.simpleScrollTo).toHaveBeenCalled()
+      expect(_smoothScrollingService.simpleScrollTo).toHaveBeenCalled()
     })
 
-    it('should call smoothScrolling. on scrollHandler', ()=> {
-      spyOn(_smoothScrolling, 'scrollTo')
+    it('should call smoothScrollingService. on scrollHandler', ()=> {
+      spyOn(_smoothScrollingService, 'scrollTo')
       
       chargeAccountController.currentSection = 1
       chargeAccountController.scrollHandler()
       _timeout.flush()
-      expect(_smoothScrolling.scrollTo).toHaveBeenCalled()
+      expect(_smoothScrollingService.scrollTo).toHaveBeenCalled()
       
       chargeAccountController.scrollHandler('2')
-      expect(_smoothScrolling.scrollTo).toHaveBeenCalledWith('2')
+      expect(_smoothScrollingService.scrollTo).toHaveBeenCalledWith('2')
     })
 
   })

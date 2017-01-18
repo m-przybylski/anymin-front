@@ -9,7 +9,7 @@ describe('Unit testing: profitelo.components.communicator', () => {
     const bindings = {
       minimizeCommunicator: _ => _
     }
-    const uploaderService = {
+    const uploaderFactory = {
       collectionTypes: { avatar: 'avatar' },
       getInstance: _ => _
     }
@@ -30,7 +30,7 @@ describe('Unit testing: profitelo.components.communicator', () => {
 
     beforeEach(angular.mock.module(($provide) => {
       $provide.value('soundsService', {})
-      $provide.value('uploaderService', uploaderService)
+      $provide.value('uploaderFactory', uploaderFactory)
       $provide.value('navigatorService', {})
       $provide.value('apiUrl', 'awesomeUrl/')
     }))

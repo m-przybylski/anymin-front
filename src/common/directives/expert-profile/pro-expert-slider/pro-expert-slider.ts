@@ -1,5 +1,5 @@
 (function() {
-  function proExpertSlider(DialogService, $timeout) {
+  function proExpertSlider(dialogService, $timeout) {
     function linkFunction(scope) {
 
       scope.areControllsVisible = true
@@ -27,7 +27,7 @@
       scope.openDialog = (slide) => {
         scope.fullSizeUrl = slide.previews[0]
         scope.slide = slide
-        DialogService.openDialog({
+        dialogService.openDialog({
           scope: scope,
           template: '<pro-lightbox current-slide="$ctrl.currentSlide" actions-settings="$ctrl.navSettings" slider-actions="$ctrl.sliderActions" slides-list="$ctrl.slideList"></pro-lightbox>',
           controllerAs: '$ctrl',
@@ -49,7 +49,7 @@
   }
 
   angular.module('profitelo.directives.expert-profile.pro-expert-slider', [
-    'profitelo.services.dialog-service',
+    'profitelo.services.dialog',
     'profitelo.components.interface.slider',
     'profitelo.common.controller.lightbox-model',
     'profitelo.components.pro-lightbox'
