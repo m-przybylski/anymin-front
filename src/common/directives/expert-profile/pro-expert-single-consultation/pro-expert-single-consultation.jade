@@ -21,7 +21,7 @@
 
       .consultation-actions
         a.profile-preview(data-ng-if="!!serviceTagsEmployeesTuple.ownerProfile.organizationDetails"
-                          data-ui-sref="app.company-profile({contactId: serviceTagsEmployeesTuple.ownerProfile.id})")
+                          data-ui-sref="app.company-profile({profileId: serviceTagsEmployeesTuple.ownerProfile.id})")
           .thumb.x48
             img.user-avatar(data-ng-src="{{ companyImage }}"  data-ng-class="{'is-not-uploaded': !companyImage}")
 
