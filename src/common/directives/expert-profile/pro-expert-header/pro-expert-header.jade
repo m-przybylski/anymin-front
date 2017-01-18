@@ -29,7 +29,7 @@
 
         ul.collaborators-list
           li.collaborators-item(data-ng-repeat = "organization in profile.colaboratedOrganizations")
-            a.thumb.x48(data-ui-sref="app.company-profile({contactId: organization.id})")
+            a.thumb.x48(data-ui-sref="app.company-profile({profileId: organization.id})")
               img.user-avatar(data-ng-class="{'is-not-uploaded': handleUserImage(organization.img)}"
               data-ng-src=" {{ handleUserImage(organization.img) }}")
 
