@@ -1,11 +1,11 @@
-describe('Unit testing: profitelo.components.communicator.messenger.messenger-minimized', () => {
+describe('Unit testing: profitelo.components.communicator.messenger.minimized', () => {
   return describe('for messengerMinimized component >', () => {
 
     let scope
     let $rootScope
     let $compile
     let component
-    const validHTML = '<messenger-minimized></messenger-minimized>'
+    const validHTML = '<minimized></minimized>'
     const bindings = {}
     let messengerService
     let timeout
@@ -34,7 +34,7 @@ describe('Unit testing: profitelo.components.communicator.messenger.messenger-mi
 
     beforeEach(() => {
     angular.mock.module('templates-module')
-    angular.mock.module('profitelo.components.communicator.messenger.messenger-minimized')
+    angular.mock.module('profitelo.components.communicator.messenger.minimized')
 
       messengerService = {
         onClientMessage: (fn) => {

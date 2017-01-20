@@ -1,12 +1,34 @@
-(function () {
+module profitelo.components.communicator.navigation {
 
-  /* @ngInject */
-  function controller(callService) {
+  interface INavigationComponentBindings {
+    isVideo: boolean
+    isMessenger: boolean
+  }
 
-    this.areOptions = false
-    this.isAudio = true
+  interface INavigationComponentController extends INavigationComponentBindings {
+    hangupCall: Function
+    areOptions: boolean
+    isAudio: boolean
+  }
 
-    this.animateButtons = (elem) => {
+  class NavigationComponentController implements ng.IController, INavigationComponentController {
+
+    areOptions = false
+    isAudio = true
+    isVideo: boolean
+    isMessenger: boolean
+    hangupCall: Function
+
+    /* @ngInject */
+    constructor(private callService: ICallService) {
+      this.hangupCall = callService.hangupCall
+    }
+
+    public $onInit = () => {
+      this.isMessenger = false
+    }
+
+    public animateButtons = (elem) => {
       if (elem.currentTarget.classList.contains('is-active')) {
         elem.currentTarget.classList.add('is-inactive')
         elem.currentTarget.classList.remove('is-active')
@@ -16,50 +38,43 @@
       }
     }
 
-    this.startAudio = () => {
-      callService.startAudio()
+    public startAudio = () => {
+      this.callService.startAudio()
       this.isAudio = true
     }
 
-    this.stopAudio = () => {
-      callService.stopAudio()
+    public stopAudio = () => {
+      this.callService.stopAudio()
       this.isAudio = false
     }
 
-    this.stopVideo = () => {
-      callService.stopVideo()
+    public stopVideo = () => {
+      this.callService.stopVideo()
       this.isVideo = false
     }
 
-    this.startVideo = (elem) => {
-      callService.startVideo()
+    public startVideo = (elem) => {
+      this.callService.startVideo()
       this.isVideo = true
       this.animateButtons(elem)
     }
 
-    this.toggleOptions = (elem) => {
+    public toggleOptions = (elem) => {
       this.animateButtons(elem)
       this.areOptions = !this.areOptions
     }
 
-    this.toggleMessenger = (elem) => {
+    public toggleMessenger = (elem) => {
       this.animateButtons(elem)
       this.isMessenger = !this.isMessenger
     }
 
-    this.hangupCall = callService.hangupCall
-
-    this.$onInit = () => {
-      this.isMessenger = false
-    }
-
-    return this
   }
 
-  const component = {
-    templateUrl: 'components/communicator/navigation/navigation.tpl.html',
-    controller: controller,
-    bindings: {
+  class NavigationComponent implements ng.IComponentOptions {
+    controller: ng.Injectable<ng.IControllerConstructor> = NavigationComponentController
+    templateUrl: string = 'components/communicator/navigation/navigation.tpl.html'
+    bindings: {[boundProperty: string]: string} = {
       isVideo: '=',
       isMessenger: '='
     }
@@ -69,6 +84,5 @@
     'pascalprecht.translate',
     'profitelo.services.call'
   ])
-  .component('communicatorNav', component)
-
-}())
+  .component('communicatorNav', new NavigationComponent())
+}

@@ -1,20 +1,30 @@
-(function () {
+module profitelo.components.communicator.messenger {
 
-  /* @ngInject */
-  function controller() {
-
-    this.minimizeMessenger = () =>
-      this.isMessenger = false
-
-    this.maximizeMessenger = () =>
-      this.isMessenger = true
-
-    return this
+  class MessengerComponentBindings {
+    callCost: Money
+    isMessenger: boolean
+    callLength: number
   }
 
-  const component = {
-    templateUrl: 'components/communicator/messenger/messenger.tpl.html',
-    controller: controller,
+  class MessengerComponentController implements ng.IController, MessengerComponentBindings {
+
+    callCost: Money
+    isMessenger: boolean
+    callLength: number
+
+    constructor() {
+    }
+
+    public minimizeMessenger = () =>
+      this.isMessenger = false
+
+    public maximizeMessenger = () =>
+      this.isMessenger = true
+  }
+
+  class MessengerComponent implements ng.IComponentOptions {
+    templateUrl: string = 'components/communicator/messenger/messenger.tpl.html'
+    controller: ng.Injectable<ng.IControllerConstructor> = MessengerComponentController
     bindings: {
       callCost: '<',
       isMessenger: '=',
@@ -23,9 +33,8 @@
   }
 
   angular.module('profitelo.components.communicator.messenger', [
-    'profitelo.components.communicator.messenger.messenger-maximized',
-    'profitelo.components.communicator.messenger.messenger-minimized'
+    'profitelo.components.communicator.messenger.maximized',
+    'profitelo.components.communicator.messenger.minimized'
   ])
-  .component('messenger', component)
-
-}())
+  .component('messenger', new MessengerComponent())
+}
