@@ -1,5 +1,7 @@
 module profitelo.services.profiteloWebsocket {
 
+  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+
   export interface IProfiteloWebsocketService {
     sendMessage(msg: string, type: string): boolean
     onInit(callback: () => void): void
@@ -18,7 +20,7 @@ module profitelo.services.profiteloWebsocket {
       onInit: 'onInit'
     }
 
-    constructor(private $log: ng.ILogService, private $rootScope: IProfiteloRootScope,
+    constructor(private $log: ng.ILogService, private $rootScope: IRootScopeService,
                 private $timeout: ng.ITimeoutService, private utilsService, private CommonConfig: ICommonConfig) {
 
       this.callbacks = utilsService.callbacksFactory(Object.keys(ProfiteloWebsocketService.events))

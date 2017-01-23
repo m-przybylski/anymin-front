@@ -1,7 +1,8 @@
-import INavigatorService = profitelo.services.navigator.INavigatorService
-import ICommunicatorService = profitelo.services.communicator.ICommunicatorService
-
 module profitelo.services.call {
+
+  import INavigatorService = profitelo.services.navigator.INavigatorService
+  import ICommunicatorService = profitelo.services.communicator.ICommunicatorService
+  import IUtilsService = profitelo.services.utils.IUtilsService;
 
   export interface ICallService {
     onCallEnd(cb: () => void): void

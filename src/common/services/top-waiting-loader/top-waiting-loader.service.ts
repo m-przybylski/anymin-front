@@ -1,6 +1,6 @@
-import ITopWaitingLoaderService = profitelo.services.topWaitingLoader.ITopWaitingLoaderService
-
 module profitelo.services.topWaitingLoader {
+
+  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 
   export interface ITopWaitingLoaderService {
     bindProgress(cb: (progress: number) => void): void
@@ -15,7 +15,7 @@ module profitelo.services.topWaitingLoader {
     private currentProgress: number
     private immediateInterval
 
-    constructor(private $rootScope: IProfiteloRootScope, private $timeout: ng.ITimeoutService,
+    constructor(private $rootScope: IRootScopeService, private $timeout: ng.ITimeoutService,
                 private $interval: ng.IIntervalService) {
 
       this.immediateInProgress = false

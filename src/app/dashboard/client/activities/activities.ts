@@ -1,3 +1,5 @@
+import ClientActivity = profitelo.models.ClientActivity
+
 (function () {
 
   function DashboardClientActivitiesController($scope, lodash: _.LoDashStatic, $timeout, clientActivities, clientActivitiesService) {

@@ -1,4 +1,7 @@
-interface Money {
-  amount: Number
-  currency: string
+module profitelo.models {
+
+  export interface Money {
+    amount: Number
+    currency: string
+  }
 }

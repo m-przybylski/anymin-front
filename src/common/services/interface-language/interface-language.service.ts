@@ -1,5 +1,7 @@
 module profitelo.services.interfaceLanguage {
 
+  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+
   export interface IInterfaceLanguage {
     nativeName: string
     ietfCode: string
@@ -27,7 +29,7 @@ module profitelo.services.interfaceLanguage {
     ]
 
     constructor(private $log: ng.ILogService, private $http: ng.IHttpService, private lodash: _.LoDashStatic,
-                private $rootScope: IProfiteloRootScope, private $translate: ng.translate.ITranslateService,
+                private $rootScope: IRootScopeService, private $translate: ng.translate.ITranslateService,
                 private $locale: ng.ILocaleService, private $cookies: ng.cookies.ICookiesService,
                 private $location: ng.ILocationService, private tmhDynamicLocale, private amMoment) {
 

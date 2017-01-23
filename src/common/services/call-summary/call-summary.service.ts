@@ -1,7 +1,8 @@
-import IProfiteloWebsocketService = profitelo.services.profiteloWebsocket.IProfiteloWebsocketService
-import IUtilsService = profitelo.services.utils.IUtilsService
-
 module profitelo.services.callSummary {
+
+  import IProfiteloWebsocketService = profitelo.services.profiteloWebsocket.IProfiteloWebsocketService
+  import IUtilsService = profitelo.services.utils.IUtilsService
+  import CallSummary = profitelo.models.CallSummary
 
   export interface ICallSummaryService {
     takeCallSummary(accountId: string): CallSummary

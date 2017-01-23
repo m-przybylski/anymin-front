@@ -1,6 +1,9 @@
-interface Profile {
-  id: string
-  isActive: boolean
-  organizationDetails?: OrganizationDetails
-  expertDetails?: ExpertDetails
+module profitelo.models {
+
+  export interface Profile {
+    id: string
+    isActive: boolean
+    organizationDetails?: OrganizationDetails
+    expertDetails?: ExpertDetails
+  }
 }

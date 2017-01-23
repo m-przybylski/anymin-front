@@ -3,7 +3,8 @@ module profitelo.components.communicator.messenger.maximized {
   import IMessengerService = profitelo.services.messenger.IMessengerService
   import IHelperService = profitelo.services.helper.IHelperService
   import IUploaderFactory = profitelo.services.uploader.IUploaderFactory
-  import IUploaderService = profitelo.services.uploader.IUploaderService;
+  import IUploaderService = profitelo.services.uploader.IUploaderService
+  import Money = profitelo.models.Money
 
   interface MessengerMaximizedComponentBindings {
     callCost: Money

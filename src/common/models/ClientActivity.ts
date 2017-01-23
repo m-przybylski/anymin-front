@@ -1,3 +1,6 @@
-interface ClientActivity {
-  financialOperation: FinancialOperation
+module profitelo.models {
+
+  export interface ClientActivity {
+    financialOperation: FinancialOperation
+  }
 }
