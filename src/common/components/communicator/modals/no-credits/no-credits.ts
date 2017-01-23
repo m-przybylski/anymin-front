@@ -1,24 +1,36 @@
-/* istanbul ignore next function */
-(function() {
+module profitelo.components.communicator.modals.noCredits {
 
-  function controller($scope, $uibModalInstance) {
+  interface NoCreditsControllerParentScope extends ng.IScope {
+    reject: Function
+    accept: Function
+  }
 
-    $scope.reject = () => {
-      $uibModalInstance.dismiss('cancel')
-      $scope.$parent.reject()
+  interface NoCreditsControllerScope extends ng.IScope {
+    reject: Function
+    accept: Function
+    $parent: NoCreditsControllerParentScope
+  }
+
+  class NoCreditsController {
+
+    /* @ngInject */
+    constructor(private $scope: NoCreditsControllerScope,
+                private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
+
+      $scope.reject = () => {
+        $uibModalInstance.dismiss('cancel')
+        $scope.$parent.reject()
+      }
+
+      $scope.accept = () => {
+        $uibModalInstance.dismiss('cancel')
+        $scope.$parent.accept()
+      }
     }
-
-    $scope.accept = () => {
-      $uibModalInstance.dismiss('cancel')
-      $scope.$parent.accept()
-    }
-
-    return this
   }
 
   angular.module('profitelo.components.communicator.modals.no-credits', [
     'ui.bootstrap'
   ])
-    .controller('noCreditsController', controller)
-
-}())
+  .controller('noCreditsController', NoCreditsController)
+}

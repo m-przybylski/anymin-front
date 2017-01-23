@@ -1,4 +1,4 @@
-describe('Unit testing: profitelo.components.communicator.messenger.messenger-maximized', () => {
+describe('Unit testing: profitelo.components.communicator.messenger.maximized', () => {
   return describe('for messengerMaximized component >', () => {
 
     let scope
@@ -6,7 +6,7 @@ describe('Unit testing: profitelo.components.communicator.messenger.messenger-ma
     let compile
     let element
     let component
-    let validHTML = '<messenger-maximized data-call-length="0" data-call-cost="0"></messenger-maximized>'
+    let validHTML = '<maximized data-call-length="0" data-call-cost="0"></maximized>'
 
     const bindings = {
       callCost: 0,
@@ -50,7 +50,7 @@ describe('Unit testing: profitelo.components.communicator.messenger.messenger-ma
     angular.mock.module('profitelo.filters.money')
     angular.mock.module('ngLodash')
     angular.mock.module('profitelo.services.messenger')
-    angular.mock.module('profitelo.components.communicator.messenger.messenger-maximized')
+    angular.mock.module('profitelo.components.communicator.messenger.maximized')
 
       inject(($rootScope, $compile, $timeout, _$componentController_, _$window_, _helperService_, _messengerService_, _lodash_: _.LoDashStatic) => {
         rootScope = $rootScope.$new()

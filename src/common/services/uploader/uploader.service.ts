@@ -2,6 +2,9 @@ module profitelo.services.uploader {
 
   export interface IUploaderFactory {
     getInstance(simultaneousUploadCount: number, collectionType: string): IUploaderService
+    collectionTypes: {
+      avatar: string
+    }
   }
 
   export interface IUploaderService {

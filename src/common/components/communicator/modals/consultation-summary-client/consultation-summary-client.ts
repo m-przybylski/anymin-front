@@ -1,78 +1,100 @@
-/* istanbul ignore next function */
-(function() {
+module profitelo.components.modals.consultationSummaryClient {
 
-  function controller($log, $scope, lodash: _.LoDashStatic, $uibModalInstance, callSummaryService, ServiceApi, helperService) {
+  import ICallSummaryService = profitelo.services.callSummary.ICallSummaryService
+  import IHelperService = profitelo.services.helper.IHelperService
 
-    $scope.callSummary = null
-    $scope.expertAvatarUrl = ''
-    $scope.chooseExpertsTag = false
-    let tags = []
+  interface IConsultationSummaryClientControllerScope extends ng.IScope {
+    serviceId: string
+    expertAvatarUrl: string
+    rating: number
+    callSummary: CallSummary
+    chooseExpertsTag: boolean
+    recommendServiceTags: Function
+    closeModal: Function
+    onModalClose: Function
+    onTagsSelectChange: Function
+    recommendService: Function
+  }
 
-    const setCallSummary = (_callSummary) => {
-      $scope.callSummary = _callSummary
+  class ConsultationSummaryClientController {
+
+    private tags: Array<Tag> = []
+
+    /* @ngInject */
+    constructor(private $log: ng.ILogService, private $scope: IConsultationSummaryClientControllerScope,
+                private lodash: _.LoDashStatic, private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
+                private callSummaryService: ICallSummaryService, private helperService: IHelperService,
+                private ServiceApi) {
+
+      callSummaryService.onCallSummary(this.onCallSummary)
+      this.loadFromExistingCallSummaries()
+      this.initScope()
+    }
+
+    private initScope = () => {
+      this.$scope.callSummary = null
+      this.$scope.expertAvatarUrl = ''
+      this.$scope.chooseExpertsTag = false
+
+      this.$scope.recommendServiceTags = () => {
+        this.ServiceApi.putServiceRecommendations({
+          serviceUsageEventId: this.$scope.callSummary.serviceUsageEventId,
+          tags: this.lodash.map(this.tags, tag => tag.id)
+        }).$promise.then(this.onRecommendServiceTags, this.onRecommendServiceTagsError)
+        this.$scope.closeModal()
+      }
+
+      this.$scope.onTagsSelectChange = (tags) =>
+        this.tags = tags
+
+      this.$scope.closeModal = () => {
+        this.$uibModalInstance.dismiss('cancel')
+      }
+
+      this.$scope.onModalClose = () => {
+        this.$scope.closeModal()
+      }
+
+      this.$scope.recommendService = () => {
+        this.ServiceApi.postServiceRecommendation({
+          serviceUsageEventId: this.$scope.callSummary.serviceUsageEventId
+        }).$promise.then(this.onRecommendService, this.onRecommendServiceError)
+      }
+    }
+
+    private setCallSummary = (_callSummary) => {
+      this.$scope.callSummary = _callSummary
       const avatar = _callSummary.companyExpertProfile.expertDetails.avatar
-      $scope.expertAvatarUrl = (avatar) ? helperService.fileUrlResolver(avatar) : ''
-      $scope.rating = _callSummary.service.rating
+      this.$scope.expertAvatarUrl = (avatar) ? this.helperService.fileUrlResolver(avatar) : ''
+      this.$scope.rating = _callSummary.service.rating
     }
 
-    const onCallSummary = (data) => {
-      $log.debug(data)
+    private onCallSummary = (data) => {
+      this.$log.debug(data)
       const callSummary = data.callSummary
-      if (callSummary.service.id === $scope.serviceId) {
-        setCallSummary(callSummary)
+      if (callSummary.service.id === this.$scope.serviceId) {
+        this.setCallSummary(callSummary)
       }
     }
 
-    const loadFromExistingCallSummaries = () => {
-      const obj = callSummaryService.takeCallSummary($scope.serviceId)
+    private loadFromExistingCallSummaries = () => {
+      const obj = this.callSummaryService.takeCallSummary(this.$scope.serviceId)
       if (obj) {
-        onCallSummary(obj)
+        this.onCallSummary(obj)
       }
     }
 
-    callSummaryService.onCallSummary(onCallSummary)
+    private onRecommendServiceError = (err) =>
+      this.$log.error(err)
 
-    loadFromExistingCallSummaries()
+    private onRecommendService = (res) =>
+      this.$scope.chooseExpertsTag = true
 
-    $scope.closeModal = () => {
-      $uibModalInstance.dismiss('cancel')
-    }
+    private onRecommendServiceTags = (res) =>
+      this.$log.debug(res)
 
-    $scope.onModalClose = () => {
-      $scope.closeModal()
-    }
-
-    const onRecommendServiceError = (err) =>
-      $log.error(err)
-
-    const onRecommendService = (res) => {
-      $scope.chooseExpertsTag = true
-    }
-
-    $scope.recommendService = () => {
-      ServiceApi.postServiceRecommendation({
-        serviceUsageEventId: $scope.callSummary.serviceUsageEventId
-      }).$promise.then(onRecommendService, onRecommendServiceError)
-    }
-
-    const onRecommendServiceTags = (res) =>
-      $log.debug(res)
-
-    const onRecommendServiceTagsError = (err) =>
-      $log.error(err)
-
-    $scope.recommendServiceTags = () => {
-      ServiceApi.putServiceRecommendations({
-        serviceUsageEventId: $scope.callSummary.serviceUsageEventId,
-        tags: lodash.map(tags, tag => tag.id)
-      }).$promise.then(onRecommendServiceTags, onRecommendServiceTagsError)
-      $scope.closeModal()
-    }
-
-    $scope.onTagsSelectChange = (_tags) =>
-      tags = _tags
-
-    return this
+    private onRecommendServiceTagsError = (err) =>
+      this.$log.error(err)
   }
 
   angular.module('profitelo.components.communicator.modals.consultation-summary-client', [
@@ -84,6 +106,5 @@
     'profitelo.components.interface.preloader',
     'ngLodash'
   ])
-    .controller('consultationSummaryClientController', controller)
-
-}())
+  .controller('consultationSummaryClientController', ConsultationSummaryClientController)
+}

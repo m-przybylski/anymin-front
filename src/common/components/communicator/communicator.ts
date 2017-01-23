@@ -1,29 +1,96 @@
-(function () {
+module profitelo.components.communicator {
 
-  /* @ngInject */
-  function controller($timeout: ng.ITimeoutService, $element: ng.IRootElementService, callService, helperService) {
+  import ICallService = profitelo.services.call.ICallService
+  import IHelperService = profitelo.services.helper.IHelperService
 
-    this.isClosed = true
-    this.isDisconnectedAnimation = false
-    this.isConnecting = false
+  class CommunicatorComponentController implements ng.IController {
 
-    this.service = null
-    this.expert = null
+    public isClosed: boolean
+    public isDisconnectedAnimation: boolean
+    public isConnecting: boolean
+    public service: Service
+    public expert: Profile
+    public expertAvatar: string
+    public isRemoteVideo: boolean
+    public isLocalVideo: boolean
+    public isMessenger: boolean
+    public callLengthInSeconds: number
+    public callCost: Money
 
-    this.isRemoteVideo = false
-    this.isLocalVideo = false
-    this.isMessenger = false
+    $onInit = () => {
+      this.isClosed = true
+      this.isDisconnectedAnimation = false
+      this.isConnecting = false
 
-    this.callLengthInSeconds = 0
-    this.callCost = null
+      this.service = null
+      this.expert = null
 
-    const localStreamElement = $element.find('.video-player-local video')
-    const remoteStreamElement = $element.find('.video-player-remote video')
+      this.isRemoteVideo = false
+      this.isLocalVideo = false
+      this.isMessenger = false
 
-    callService.setLocalStreamElement(localStreamElement)
-    callService.setRemoteStreamElement(remoteStreamElement)
+      this.callLengthInSeconds = 0
+      this.callCost = null
 
-    const cleanupComponent = () => {
+      const localStreamElement = this.$element.find('.video-player-local video')
+      const remoteStreamElement = this.$element.find('.video-player-remote video')
+
+      this.callService.setLocalStreamElement(localStreamElement)
+      this.callService.setRemoteStreamElement(remoteStreamElement)
+    }
+
+    /* @ngInject */
+    constructor(private $timeout: ng.ITimeoutService, private $element: ng.IRootElementService,
+                private callService: ICallService, private helperService: IHelperService) {
+
+      this.registerEvents()
+    }
+
+    private registerEvents = () => {
+      /* Starting events */
+      this.callService.onClientCallPending(expertServiceTuple => {
+        this.cleanupComponent()
+        this.service = expertServiceTuple.service
+        this.expert = expertServiceTuple.expert
+        this.expertAvatar = this.helperService.fileUrlResolver(this.expert.expertDetails.avatar)
+        this.isConnecting = true
+        this.isClosed = false
+      })
+
+      /* Call started events */
+      this.callService.onExpertCallAnswered(serviceInvitationTuple => {
+        this.cleanupComponent()
+        this.service = serviceInvitationTuple.service
+        this.isConnecting = false
+        this.isClosed = false
+      })
+
+      this.callService.onClientCallStarted(_ => {
+        this.isConnecting = false
+      })
+
+      /* Call ended events */
+      this.callService.onCallEnd(this.onCallEnd)
+
+      this.callService.onVideoStart(this.onVideoStart)
+
+      this.callService.onVideoStop(this.onVideoStop)
+
+      this.callService.onTimeCostChange(timeMoneyTuple => {
+        this.callLengthInSeconds = timeMoneyTuple.time
+        this.callCost = timeMoneyTuple.money
+      })
+
+      angular.element('.communicator').on('dragover', (e) => {
+        e.preventDefault()
+      })
+
+      angular.element('.communicator').on('drop', (e) => {
+        e.preventDefault()
+      })
+    }
+
+    private cleanupComponent = () => {
       this.isDisconnectedAnimation = false
       this.isConnecting = false
       this.service = null
@@ -35,71 +102,28 @@
       this.callCost = null
     }
 
-    const onCallEnd = () => {
+    private onCallEnd = () => {
       this.isDisconnectedAnimation = true
-      $timeout(() => {
+      this.$timeout(() => {
         this.isClosed = true
-        cleanupComponent()
+        this.cleanupComponent()
       }, 500)
     }
 
-    /* Starting events */
-    callService.onClientCallPending(expertServiceTuple => {
-      cleanupComponent()
-      this.service = expertServiceTuple.service
-      this.expert = expertServiceTuple.expert
-      this.expertAvatar = helperService.fileUrlResolver(this.expert.expertDetails.avatar)
-      this.isConnecting = true
-      this.isClosed = false
-    })
-
-    /* Call started events */
-    callService.onExpertCallAnswered(serviceInvitationTuple => {
-      cleanupComponent()
-      this.service = serviceInvitationTuple.service
-      this.isConnecting = false
-      this.isClosed = false
-    })
-
-    callService.onClientCallStarted(_ => {
-      this.isConnecting = false
-    })
-
-    /* Call ended events */
-    callService.onCallEnd(onCallEnd)
-
     /* Other events */
-    const onVideoStart = () => {
+    private onVideoStart = () => {
       this.isRemoteVideo = true
     }
 
-    const onVideoStop = () => {
+    private onVideoStop = () => {
       this.isRemoteVideo = false
     }
-
-    callService.onVideoStart(onVideoStart)
-
-    callService.onVideoStop(onVideoStop)
-
-    callService.onTimeCostChange(timeMoneyTuple => {
-      this.callLengthInSeconds = timeMoneyTuple.time
-      this.callCost = timeMoneyTuple.money
-    })
-
-    angular.element('.communicator').on('dragover', (e) => {
-      e.preventDefault()
-    })
-
-    angular.element('.communicator').on('drop', (e) => {
-      e.preventDefault()
-    })
-
-    return this
   }
 
-  const component = {
-    templateUrl: 'components/communicator/communicator.tpl.html',
-    controller: controller,
+  class CommunicatorComponent implements ng.IComponentOptions {
+
+    controller: ng.Injectable<ng.IControllerConstructor> = CommunicatorComponentController
+    templateUrl: string = 'components/communicator/communicator.tpl.html'
   }
 
   angular.module('profitelo.components.communicator', [
@@ -111,5 +135,5 @@
     'profitelo.components.communicator.navigation',
     'profitelo.components.communicator.messenger'
   ])
-  .component('communicator', component)
-}())
+  .component('communicator', new CommunicatorComponent())
+}

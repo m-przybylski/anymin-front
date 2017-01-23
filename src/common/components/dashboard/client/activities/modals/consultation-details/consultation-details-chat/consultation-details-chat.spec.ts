@@ -18,7 +18,7 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.modals.
 
     beforeEach(() => {
     angular.mock.module('templates-module')
-    angular.mock.module('profitelo.components.communicator.messenger.messenger-maximized.grouped-messages')
+    angular.mock.module('profitelo.components.communicator.messenger.maximized.grouped-messages')
     angular.mock.module('profitelo.components.dashboard.client.activities.modals.consultation-details.consultation-details-chat')
 
       inject(($rootScope, $compile, _$componentController_) => {

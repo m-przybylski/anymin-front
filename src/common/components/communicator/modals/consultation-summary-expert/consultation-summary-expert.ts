@@ -1,32 +1,42 @@
-/* istanbul ignore next function */
-(function() {
+module profitelo.components.communicator.modals.consultationSummaryExpert {
 
-  function controller($scope, $uibModalInstance, callSummaryService) {
+  import ICallSummaryService = profitelo.services.callSummary.ICallSummaryService;
+  interface IConsultationSummaryExpertControllerScope extends ng.IScope {
+    serviceId: string
+    callSummary: CallSummary
+    onModalClose: Function
+  }
 
-    $scope.callSummary = null
+  class ConsultationSummaryExpertController {
 
-    const onCallSummary = (data) => {
+    /* @ngInject */
+    constructor(private $scope: IConsultationSummaryExpertControllerScope,
+                private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
+                private callSummaryService: ICallSummaryService) {
+
+      $scope.callSummary = null
+
+      $scope.onModalClose = () =>
+        $uibModalInstance.dismiss('cancel')
+
+      this.callSummaryService.onCallSummary(this.onCallSummary)
+
+      this.loadFromExistingCallSummaries()
+    }
+
+    private onCallSummary = (data) => {
       const callSummary = data.callSummary
-      if (callSummary.service.id === $scope.serviceId) {
-        $scope.callSummary = callSummary
+      if (callSummary.service.id === this.$scope.serviceId) {
+        this.$scope.callSummary = callSummary
       }
     }
 
-    const loadFromExistingCallSummaries = () => {
-      const obj = callSummaryService.takeCallSummary($scope.serviceId)
+    private loadFromExistingCallSummaries = () => {
+      const obj = this.callSummaryService.takeCallSummary(this.$scope.serviceId)
       if (obj) {
-        onCallSummary(obj)
+        this.onCallSummary(obj)
       }
     }
-
-    callSummaryService.onCallSummary(onCallSummary)
-
-    loadFromExistingCallSummaries()
-
-    $scope.onModalClose = () =>
-      $uibModalInstance.dismiss('cancel')
-
-    return this
   }
 
   angular.module('profitelo.components.communicator.modals.consultation-summary-expert', [
@@ -34,6 +44,5 @@
     'profitelo.services.call-summary',
     'profitelo.components.interface.preloader'
   ])
-    .controller('consultationSummaryExpertController', controller)
-
-}())
+  .controller('consultationSummaryExpertController', ConsultationSummaryExpertController)
+}

@@ -1,24 +1,36 @@
-/* istanbul ignore next function */
-(function() {
+module profitelo.components.communicator.modals.serviceUnavailable {
 
-  function controller($scope, $uibModalInstance) {
+  interface IUnavailableServiceControllerParentScope {
+    accept: Function
+    reject: Function
+  }
 
-    $scope.reject = () => {
-      $uibModalInstance.dismiss('cancel')
-      $scope.$parent.reject()
+  interface IUnavailableServiceControllerScope {
+    reject: Function
+    accept: Function
+    $parent: IUnavailableServiceControllerParentScope
+  }
+
+  class UnavailableServiceController {
+
+    /* @ngInject */
+    constructor(private $scope: IUnavailableServiceControllerScope,
+                private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
+
+      $scope.reject = () => {
+        $uibModalInstance.dismiss('cancel')
+        $scope.$parent.reject()
+      }
+
+      $scope.accept = () => {
+        $uibModalInstance.dismiss('cancel')
+        $scope.$parent.accept()
+      }
     }
-
-    $scope.accept = () => {
-      $uibModalInstance.dismiss('cancel')
-      $scope.$parent.accept()
-    }
-
-    return this
   }
 
   angular.module('profitelo.components.communicator.modals.service-unavailable', [
     'ui.bootstrap'
   ])
-    .controller('unavailableServiceController', controller)
-
-}())
+  .controller('unavailableServiceController', UnavailableServiceController)
+}
