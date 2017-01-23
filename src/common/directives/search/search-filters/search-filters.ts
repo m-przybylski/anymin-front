@@ -1,5 +1,5 @@
 (function() {
-  function searchFilters($filter, searchService, $window, lodash) {
+  function searchFilters($filter, searchService, $window, lodash: _.LoDashStatic) {
     function linkFunction(scope, element, attrs) {
 
       scope.model = {

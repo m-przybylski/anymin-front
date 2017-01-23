@@ -1,5 +1,5 @@
 (function() {
-  function AppCompanyProfileResolver($q, ViewsApi, lodash) {
+  function AppCompanyProfileResolver($q, ViewsApi, lodash: _.LoDashStatic) {
 
     const _resolve = (stateParams) => {
       

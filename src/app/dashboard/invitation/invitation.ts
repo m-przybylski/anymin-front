@@ -21,7 +21,7 @@
         pageTitle: 'PAGE_TITLE.INVITATIONS'
       },
       resolve: {
-        pendingInvitations: ($q, $state, ProfileApi, User, ServiceApi, lodash, topAlertService) => {
+        pendingInvitations: ($q, $state, ProfileApi, User, ServiceApi, lodash: _.LoDashStatic, topAlertService) => {
           /* istanbul ignore next */
           let _deferred = $q.defer()
           /* istanbul ignore next */

@@ -1,6 +1,6 @@
 (function() {
 
-  function DashboardClientFavouritesController($log, lodash, clientFavouritesConsultations, recommendedServices) {
+  function DashboardClientFavouritesController($log, lodash: _.LoDashStatic, clientFavouritesConsultations, recommendedServices) {
     this.balance = clientFavouritesConsultations.balance
     this.lastConsultations = lodash.sortBy(clientFavouritesConsultations.lastConsultations, 'createdAt')
     this.favouriteProfiles = clientFavouritesConsultations.favouriteProfiles

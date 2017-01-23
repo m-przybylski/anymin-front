@@ -1,4 +1,4 @@
-function proDropdown($timeout, lodash) {
+function proDropdown($timeout, lodash: _.LoDashStatic) {
 
   function linkFunction(scope, element, attr) {
     let myScrollbarChoices

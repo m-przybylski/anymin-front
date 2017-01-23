@@ -1,6 +1,6 @@
 (function() {
   function CompanyConsultationController($scope, $state, dialogService, savedProfile, ServiceApi, topAlertService,
-                                         profileImage, lodash, serviceProviderService) {
+                                         profileImage, lodash: _.LoDashStatic, serviceProviderService) {
 
     this.costModel = serviceProviderService.createDefaultModel('')
     this.editModel = serviceProviderService.createDefaultModel(0)
@@ -182,7 +182,7 @@
         controllerAs: 'vm',
         resolve: {
           /* istanbul ignore next */
-          savedProfile: ($q, $state, ProfileApi, lodash, User, AppServiceProviderImageResolver, ServiceApi, topAlertService) => {
+          savedProfile: ($q, $state, ProfileApi, lodash: _.LoDashStatic, User, AppServiceProviderImageResolver, ServiceApi, topAlertService) => {
             /* istanbul ignore next */
             let _deferred = $q.defer()
             /* istanbul ignore next */

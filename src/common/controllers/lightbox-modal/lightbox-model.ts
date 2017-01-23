@@ -1,6 +1,6 @@
 (function() {
 
-  function lightboxModelController($scope, $window, lodash, $timeout, $uibModalInstance, FilesApi, imageZoomService) {
+  function lightboxModelController($scope, $window, lodash: _.LoDashStatic, $timeout, $uibModalInstance, FilesApi, imageZoomService) {
 
     this.slideList = $scope.sliders
     this.isPending = false
@@ -10,7 +10,7 @@
       value.id = i++
     })
 
-    let currentSlideIndex = lodash.findIndex(this.slideList, (slide) => {
+    let currentSlideIndex = lodash.findIndex(this.slideList, (slide: {token: string}) => {
       return slide.token === $scope.slide.token
     })
 

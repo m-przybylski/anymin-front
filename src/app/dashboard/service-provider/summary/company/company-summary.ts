@@ -1,6 +1,6 @@
 (function() {
   function CompanySummaryController($state, $scope, $filter, savedProfile, ServiceApi, topAlertService,
-                                    profileAvatar, lodash, companyLogo, dialogService, communicatorService) {
+                                    profileAvatar, lodash: _.LoDashStatic, companyLogo, dialogService, communicatorService) {
 
     if (savedProfile && savedProfile.expertDetails && !savedProfile.organizationDetails) {
       this.profile = savedProfile.expertDetails
@@ -144,7 +144,7 @@
         controllerAs: 'vm',
         resolve: {
           /* istanbul ignore next */
-          savedProfile: ($q, $state, ProfileApi, lodash, User, ServiceApi, topAlertService) => {
+          savedProfile: ($q, $state, ProfileApi, lodash: _.LoDashStatic, User, ServiceApi, topAlertService) => {
             /* istanbul ignore next */
             let _deferred = $q.defer()
             /* istanbul ignore next */

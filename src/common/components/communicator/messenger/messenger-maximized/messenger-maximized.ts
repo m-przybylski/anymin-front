@@ -1,8 +1,12 @@
 (function () {
 
+  interface ChatMessage {
+    user: Object
+  }
+
   /* @ngInject */
   function controller($log: ng.ILogService, $timeout: ng.ITimeoutService, $scope: ng.IScope,
-                      $element: ng.IRootElementService, messengerService, lodash, helperService, uploaderFactory) {
+                      $element: ng.IRootElementService, messengerService, lodash: _.LoDashStatic, helperService, uploaderFactory) {
 
     this.$onInit = () => {
       $scope.$watch(() => {
@@ -52,7 +56,7 @@
       if (this.groupedMessages.length === 0) {
         this.groupedMessages.push([message])
       } else {
-        const lastMessageGroup = this.groupedMessages[this.groupedMessages.length - 1]
+        const lastMessageGroup : ChatMessage[] = this.groupedMessages[this.groupedMessages.length - 1]
 
         if (lodash.head(lastMessageGroup).user === message.user) {
           lastMessageGroup.push(message)

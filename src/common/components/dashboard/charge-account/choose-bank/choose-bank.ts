@@ -1,7 +1,7 @@
 (function () {
 
   /* @ngInject */
-  function chooseBankController(smoothScrollingService, lodash) {
+  function chooseBankController(smoothScrollingService, lodash: _.LoDashStatic) {
 
     this.$onInit = () => {
       if (angular.isDefined(this.bankModel.value)) {

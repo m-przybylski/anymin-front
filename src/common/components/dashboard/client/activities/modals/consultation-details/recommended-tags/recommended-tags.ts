@@ -1,6 +1,6 @@
 (function () {
   /* @ngInject */
-  function controller($log, lodash, ServiceApi) {
+  function controller($log, lodash: _.LoDashStatic, ServiceApi) {
 
     const updateBindings = () => {
       this.areTagsRecommended = this.selectedTags.length > 0

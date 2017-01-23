@@ -1,5 +1,5 @@
 (function() {
-  function AppExpertProfileResolver($q: ng.IQService, ViewsApi, lodash) {
+  function AppExpertProfileResolver($q: ng.IQService, ViewsApi, lodash: _.LoDashStatic) {
 
     const _resolve = (stateParams) => {
 

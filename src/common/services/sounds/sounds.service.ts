@@ -15,9 +15,9 @@ module profitelo.services.sounds {
 
   class SoundsService implements ISoundsService {
 
-    private path = '/assets/sounds/'
+    private static path = '/assets/sounds/'
 
-    private soundFiles = {
+    private static soundFiles = {
       callIncoming: 'call_incoming.wav',
       callConnecting: 'call_connecting.mp3',
       callEnded: 'call_ended.wav',
@@ -26,14 +26,20 @@ module profitelo.services.sounds {
     }
 
     private soundPaths
-    private soundObjects
+    private soundObjects: {
+      callIncoming: HTMLAudioElement
+      callConnecting: HTMLAudioElement
+      messageNew: HTMLAudioElement
+      callRejected: HTMLAudioElement
+      callEnded: HTMLAudioElement
+    }
 
     private callIncomingSoundCount = 0
     private isCallConnecting = false
 
     constructor(private $log: ng.ILogService, private lodash: _.LoDashStatic) {
 
-      this.soundPaths = lodash.mapValues(this.soundFiles, filename => this.path + filename)
+      this.soundPaths = lodash.mapValues(SoundsService.soundFiles, filename => SoundsService.path + filename)
       this.soundObjects = lodash.mapValues(this.soundPaths, path => new Audio(path))
 
       this.setAudioLoop(this.soundObjects.callIncoming)
