@@ -57,12 +57,12 @@ module profitelo.services.communicator {
       onRoom: 'onRoom'
     }
 
-    constructor(private $log: ng.ILogService, private $q: ng.IQService, private UtilsService, private User,
+    constructor(private $log: ng.ILogService, private $q: ng.IQService, private utilsService, private User,
                 private RatelApi, private ProfileApi, private ratelSdk, private CommonConfig: ICommonConfig,
                 private lodash: _.LoDashStatic) {
       this.commonConfig = CommonConfig.getAllData()
       this.ratelSessions = new SessionStorage()
-      this.callbacks = UtilsService.callbacksFactory(Object.keys(CommunicatorService.events))
+      this.callbacks = utilsService.callbacksFactory(Object.keys(CommunicatorService.events))
       this.setChatConfig()
     }
 
@@ -205,7 +205,7 @@ module profitelo.services.communicator {
   angular.module('profitelo.services.communicator', [
     'c7s.ng.userAuth',
     'profitelo.swaggerResources',
-    'profitelo.services.dialog-service',
+    'profitelo.services.dialog',
     'commonConfig',
     'ratelSdk',
     'ngLodash',

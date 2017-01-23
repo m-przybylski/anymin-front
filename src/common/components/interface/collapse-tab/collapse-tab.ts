@@ -1,6 +1,6 @@
 (function() {
   /* @ngInject */
-  function controller($element, smoothScrolling, $window, $log, $scope, $timeout) {
+  function controller($element, smoothScrollingService, $window, $log, $scope, $timeout) {
     this.stylesObject = {
       height: null
     }
@@ -44,7 +44,7 @@
 
       this.isCollapsed = !this.isCollapsed
       if (this.stylesObject.height !== getCollapseWrapperHeight()) {
-        smoothScrolling.simpleScrollTo('#collapseWrap', true, 1000)
+        smoothScrollingService.simpleScrollTo('#collapseWrap', true, 1000)
       }
     }
 
@@ -65,7 +65,7 @@
 
 
   angular.module('profitelo.components.interface.collapse-tab', [
-    'profitelo.directives.services.smooth-scrolling'
+    'profitelo.services.smooth-scrolling'
   ])
     .component('collapseTab', collapseTab)
 

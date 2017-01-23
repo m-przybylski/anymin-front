@@ -5,7 +5,7 @@ describe('Unit tests: profitelo.controller.post-register.set-email>', () => {
     let SetEmailController
     let _proTopWaitingLoaderService
     let _AccountApi
-    let _proTopAlertService
+    let _topAlertService
     let _$httpBackend
     let resourcesExpectations
 
@@ -33,7 +33,7 @@ describe('Unit tests: profitelo.controller.post-register.set-email>', () => {
     beforeEach(() => {
     angular.mock.module('profitelo.controller.post-register.set-email')
     angular.mock.module('profitelo.swaggerResources.definitions')
-      inject(($rootScope, $controller, $filter, _proTopWaitingLoaderService_, _AccountApi_, _proTopAlertService_,
+      inject(($rootScope, $controller, $filter, _proTopWaitingLoaderService_, _AccountApi_, _topAlertService_,
               _$httpBackend_, _AccountApiDef_) => {
 
         scope = $rootScope.$new()
@@ -43,14 +43,14 @@ describe('Unit tests: profitelo.controller.post-register.set-email>', () => {
           $state: $state,
           proTopWaitingLoaderService: _proTopWaitingLoaderService_,
           User: _User,
-          proTopAlertService: _proTopAlertService_,
+          topAlertService: _topAlertService_,
           AccountApi: _AccountApi_
         })
 
         _$httpBackend  = _$httpBackend_
         _proTopWaitingLoaderService = _proTopWaitingLoaderService_
         _AccountApi = _AccountApi_
-        _proTopAlertService = _proTopAlertService_
+        _topAlertService = _topAlertService_
 
 
         resourcesExpectations = {
@@ -79,13 +79,13 @@ describe('Unit tests: profitelo.controller.post-register.set-email>', () => {
     })
 
     it('should handle bad requesnt while setting new email', () => {
-      spyOn(_proTopAlertService, 'error')
+      spyOn(_topAlertService, 'error')
       resourcesExpectations.AccountApi.partialUpdateAccount.respond(500)
       resourcesExpectations.AccountApi.getAccountEmailExists.respond(400)
       SetEmailController.setNewEmail()
       _$httpBackend.flush()
 
-      expect(_proTopAlertService.error).toHaveBeenCalledWith({ message: 'INTERFACE.API_ERROR', timeout: 4 })
+      expect(_topAlertService.error).toHaveBeenCalledWith({ message: 'INTERFACE.API_ERROR', timeout: 4 })
     })
   })
 })

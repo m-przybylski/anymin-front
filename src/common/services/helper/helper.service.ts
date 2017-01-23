@@ -41,5 +41,5 @@ module profitelo.services.helper {
     'ngLodash',
     'commonConfig'
   ])
-  .service('HelperService', HelperService)
+  .service('helperService', HelperService)
 }

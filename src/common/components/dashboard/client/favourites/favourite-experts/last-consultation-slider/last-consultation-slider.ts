@@ -1,6 +1,6 @@
 (function () {
   /* @ngInject */
-  function controller($scope, $state, HelperService) {
+  function controller($scope, $state, helperService) {
 
     this.$onInit = () => {}
 
@@ -13,7 +13,7 @@
     }
 
     this.consultationOwnerImage = (imgToken) => {
-      return imgToken !== null || imgToken === '' ? HelperService.fileUrlResolver(imgToken) : false
+      return imgToken !== null || imgToken === '' ? helperService.fileUrlResolver(imgToken) : false
     }
 
     this.goToProfile = (consultation) => {

@@ -18,10 +18,10 @@ describe('Unit tests: CompanyProfileController >', () => {
 
     beforeEach(() => {
     angular.mock.module('profitelo.controller.company-profile')
-    angular.mock.module('profitelo.services.recommended-profiles-service')
-      inject(($rootScope, $stateParams, $timeout, $controller, $q, _smoothScrolling_, _recommendedProfilesServices_) => {
+    angular.mock.module('profitelo.services.recommended-services')
+      inject(($rootScope, $stateParams, $timeout, $controller, $q, _smoothScrollingService_, _recommendedServices_) => {
 
-        spyOn(_recommendedProfilesServices_, 'getRecommendedCompanies').and.callFake(() =>
+        spyOn(_recommendedServices_, 'getRecommendedCompanies').and.callFake(() =>
           $q.resolve([]))
 
         _scope = $rootScope.$new()
@@ -31,8 +31,8 @@ describe('Unit tests: CompanyProfileController >', () => {
           $stateParams: $stateParams,
           $timeout: $timeout,
           companyProfile: companyProfile,
-          smoothScrolling: _smoothScrolling_,
-          recommendedProfilesServices: _recommendedProfilesServices_
+          smoothScrollingService: _smoothScrollingService_,
+          recommendedServices: _recommendedServices_
         })
       })
     })

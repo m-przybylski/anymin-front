@@ -1,7 +1,7 @@
 (function () {
 
   /* @ngInject */
-  function singleConsultationController($state, HelperService, callService) {
+  function singleConsultationController($state, helperService, callService) {
     this.isLinkActive = true
 
     this.$onInit = () => {
@@ -11,7 +11,7 @@
       }
 
       if (!!this.consultation.owner.img && this.consultation.owner.img !== null) {
-        this.profileImage = HelperService.fileUrlResolver(this.consultation.owner.img)
+        this.profileImage = helperService.fileUrlResolver(this.consultation.owner.img)
       } else {
         this.profileImage = null
       }

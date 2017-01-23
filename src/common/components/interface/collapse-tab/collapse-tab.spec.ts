@@ -11,7 +11,7 @@ describe('Unit testing: profitelo.components.interface.collapse-tab', () => {
     let timeout
     let log
     let validHTML = '<collapse-tab></collapse-tab>'
-    let smoothScrolling
+    let smoothScrollingService
 
     function create(html) {
       scope = rootScope.$new()
@@ -39,14 +39,14 @@ describe('Unit testing: profitelo.components.interface.collapse-tab', () => {
       }
       
 
-      smoothScrolling = {
+      smoothScrollingService = {
         simpleScrollTo: ()=> {
           return null
         }
       }
 
       component = componentController('collapseTab', {$element: create(validHTML), $scope: rootScope, $window: window, $log: log,
-        smoothScrolling: smoothScrolling}, {})
+        smoothScrollingService: smoothScrollingService}, {})
       timeout.flush()
     })
 
@@ -69,10 +69,10 @@ describe('Unit testing: profitelo.components.interface.collapse-tab', () => {
     })
 
     it('should scroll to upper element on collapse', () => {
-      spyOn(smoothScrolling, 'simpleScrollTo')
+      spyOn(smoothScrollingService, 'simpleScrollTo')
       component.toggleCollapse()
       component.toggleCollapse()
-      expect(smoothScrolling.simpleScrollTo).toHaveBeenCalled()
+      expect(smoothScrollingService.simpleScrollTo).toHaveBeenCalled()
     })
     
   })

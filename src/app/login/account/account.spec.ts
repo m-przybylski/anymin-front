@@ -9,7 +9,7 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
       _mockParams = null,
       _mockState = null,
       $state = null,
-      proTopAlertService,
+      topAlertService,
       resourcesExpectations,
       communicatorService
 
@@ -21,7 +21,7 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
     angular.mock.module('profitelo.controller.login.account')
     angular.mock.module('profitelo.services.communicator')
     angular.mock.module('profitelo.swaggerResources.definitions')
-      inject(($rootScope, $controller,  $filter, $injector, _proTopWaitingLoaderService_, _User_, _proTopAlertService_,
+      inject(($rootScope, $controller,  $filter, $injector, _proTopWaitingLoaderService_, _User_, _topAlertService_,
               _loginStateService_, _$httpBackend_, _AccountApiDef_, _communicatorService_, _RatelApiDef_, _ServiceApiDef_,
               _SessionApiDef_) => {
         $httpBackend  = _$httpBackend_
@@ -44,7 +44,7 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
         }
         $state = _mockState
         scope.passwordForm = scope.phoneNumberForm
-        proTopAlertService = _proTopAlertService_
+        topAlertService = _topAlertService_
         AccountApi = $injector.get('AccountApi')
         AccountFormController = $controller('AccountFormController', {
           $rootScope: $rootScope,
@@ -53,7 +53,7 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
           AccountApi: AccountApi,
           proTopWaitingLoaderService: _proTopWaitingLoaderService_,
           User: _User_,
-          proTopAlertService: _proTopAlertService_,
+          topAlertService: _topAlertService_,
           loginStateService: _loginStateService_
         })
 
@@ -111,11 +111,11 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
     })
 
     it('should get error response', () => {
-      spyOn(proTopAlertService, 'error')
+      spyOn(topAlertService, 'error')
       resourcesExpectations.AccountApi.getRegistrationStatusByMsisdn.respond(400, {status: 'UNREGISTERED'})
       AccountFormController.getPhoneNumberStatus()
       $httpBackend.flush()
-      expect(proTopAlertService.error).toHaveBeenCalled()
+      expect(topAlertService.error).toHaveBeenCalled()
     })
 
     it('should redirect to forgot-password', () => {

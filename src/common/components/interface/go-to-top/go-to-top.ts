@@ -1,6 +1,6 @@
 (function() {
   /* @ngInject */
-  function controller($window, $scope, smoothScrolling) {
+  function controller($window, $scope, smoothScrollingService) {
 
     this.flagController = {
       isShow: false,
@@ -15,7 +15,7 @@
     })
 
     this.goToTop = () => {
-      smoothScrolling.simpleScrollTo('body')
+      smoothScrollingService.simpleScrollTo('body')
     }
 
     return this
@@ -29,7 +29,7 @@
 
 
   angular.module('profitelo.components.interface.go-to-top', [
-    'profitelo.directives.services.smooth-scrolling'
+    'profitelo.services.smooth-scrolling'
   ])
     .component('goToTop', goToTop)
 

@@ -8,9 +8,9 @@ describe('Unit tests: app.dashboard.service-provider.consultation-range.company 
     let _ServiceApiDef
     let resourcesExpectations
     let _httpBackend
-    let _proTopAlertService
+    let _topAlertService
     let _ServiceApi
-    let _DialogService
+    let _dialogService
     let _controller
 
     function createController(controller, savedProfile, profileImage) {
@@ -20,7 +20,7 @@ describe('Unit tests: app.dashboard.service-provider.consultation-range.company 
         savedProfile: savedProfile,
         profileImage: profileImage,
         $state: _state,
-        proTopAlertService: _proTopAlertService
+        topAlertService: _topAlertService
       })
     }
 
@@ -32,15 +32,15 @@ describe('Unit tests: app.dashboard.service-provider.consultation-range.company 
     angular.mock.module('profitelo.swaggerResources.definitions')
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.controller.dashboard.service-provider.consultation-range.company')
-      inject(($rootScope, $controller, $httpBackend, $injector, _$state_, _ServiceApi_, _proTopAlertService_, _DialogService_) => {
+      inject(($rootScope, $controller, $httpBackend, $injector, _$state_, _ServiceApi_, _topAlertService_, _dialogService_) => {
 
         _scope = $rootScope.$new()
         _state = _$state_
         _httpBackend = $httpBackend
-        _proTopAlertService = _proTopAlertService_
+        _topAlertService = _topAlertService_
         _ServiceApi = _ServiceApi_
         _controller = $controller
-        _DialogService = _DialogService_
+        _dialogService = _dialogService_
 
         createController(_controller, {
           expertDetails: {
@@ -82,12 +82,12 @@ describe('Unit tests: app.dashboard.service-provider.consultation-range.company 
 
       resourcesExpectations.ServiceApi.postService.respond(500)
 
-      spyOn(_proTopAlertService, 'error')
+      spyOn(_topAlertService, 'error')
 
       CompanyConsultationController.addAnotherConsultation()
       _httpBackend.flush()
 
-      expect(_proTopAlertService.error).toHaveBeenCalledWith({ message: 'error', timeout: 4 })
+      expect(_topAlertService.error).toHaveBeenCalledWith({ message: 'error', timeout: 4 })
 
     })
 
@@ -130,7 +130,7 @@ describe('Unit tests: app.dashboard.service-provider.consultation-range.company 
 
       resourcesExpectations.ServiceApi.deleteService.respond(500)
 
-      spyOn(_DialogService, 'openDialog')
+      spyOn(_dialogService, 'openDialog')
 
       CompanyConsultationController.consultations = []
 

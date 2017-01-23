@@ -15,14 +15,14 @@ describe('Unit tests: DashboardClientFavouritesController >', () => {
     }))
 
     beforeEach(() => {
-    angular.mock.module('profitelo.services.recommended-profiles-service')
+    angular.mock.module('profitelo.services.recommended-services')
     angular.mock.module('profitelo.controller.dashboard.client.favourites')
-      inject(($rootScope, $controller, _recommendedProfilesServices_) => {
+      inject(($rootScope, $controller, _recommendedServices_) => {
         $scope = $rootScope.$new()
 
         DashboardClientFavouritesController = $controller('DashboardClientFavouritesController', {
           clientFavouritesConsultations: clientFavouritesConsultations,
-          recommendedProfilesServices: _recommendedProfilesServices_
+          recommendedServices: _recommendedServices_
         })
       })
     })

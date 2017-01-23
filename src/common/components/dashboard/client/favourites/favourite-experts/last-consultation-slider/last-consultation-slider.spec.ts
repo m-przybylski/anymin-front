@@ -6,7 +6,7 @@ describe('Unit testing: profitelo.components.dashboard.client.favourites.favouri
     let compile
     let componentController
     let component
-    let HelperService
+    let helperService
     let validHTML = '<last-consultation-slider data-title="title" data-consultations="[{}]"></last-consultation-slider>'
     let state
 
@@ -38,11 +38,11 @@ describe('Unit testing: profitelo.components.dashboard.client.favourites.favouri
       angular.mock.module('ui.router')
       angular.mock.module('profitelo.components.dashboard.client.favourites.favourite-experts.last-consultation-slider')
 
-      inject(($rootScope, $compile, _$componentController_, _$state_, _HelperService_) => {
+      inject(($rootScope, $compile, _$componentController_, _$state_, _helperService_) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
-        HelperService = _HelperService_
+        helperService = _helperService_
         state = _$state_
 
       })
@@ -86,15 +86,15 @@ describe('Unit testing: profitelo.components.dashboard.client.favourites.favouri
     })
 
     it('should consultationOwnerImage', () => {
-      spyOn(HelperService, 'fileUrlResolver')
+      spyOn(helperService, 'fileUrlResolver')
       component.consultationOwnerImage("asd")
-      expect(HelperService.fileUrlResolver).toHaveBeenCalled()
+      expect(helperService.fileUrlResolver).toHaveBeenCalled()
     })
 
-    it('should go to HelperService', () => {
-      spyOn(HelperService, 'fileUrlResolver')
+    it('should go to helperService', () => {
+      spyOn(helperService, 'fileUrlResolver')
       component.consultationOwnerImage("a")
-      expect(HelperService.fileUrlResolver).toHaveBeenCalled()
+      expect(helperService.fileUrlResolver).toHaveBeenCalled()
     })
 
     it('should goToProfile', inject(() => {

@@ -1,5 +1,5 @@
 (function() {
-  function AppServiceProviderChoosePathResolver($state, $q, proTopAlertService, User, ProfileApi) {
+  function AppServiceProviderChoosePathResolver($state, $q, topAlertService, User, ProfileApi) {
 
     let _resolve = () => {
       let _deferred = $q.defer()
@@ -23,7 +23,7 @@
         })
       }, (error) => {
         $state.go('app.dashboard')
-        proTopAlertService.error({
+        topAlertService.error({
           message: 'error',
           timeout: 4
         })
@@ -39,7 +39,7 @@
 
   angular.module('profitelo.services.resolvers.app.service-provider-choose-path', [
     'profitelo.swaggerResources',
-    'profitelo.services.pro-top-alert-service',
+    'profitelo.services.top-alert',
     'c7s.ng.userAuth',
     'profitelo.services.login-state'
   ])

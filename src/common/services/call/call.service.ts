@@ -1,31 +1,50 @@
 import INavigatorService = profitelo.services.navigator.INavigatorService
+import ICommunicatorService = profitelo.services.communicator.ICommunicatorService
 
-(function () {
+module profitelo.services.call {
 
-  function service($q, $log, navigatorService: INavigatorService, UtilsService, communicatorService, ServiceApi,
-                   modalsService, soundsService, User, RatelApi) {
+  export interface ICallService {
+    onCallEnd(cb: () => void): void
+    onClientCallPending(cb: (data: {service: Service, expert: Profile}) => void): void
+    onClientCallStarted(cb: (inviterId: string) => void): void
+    onExpertCallAnswered(cb: (data: {invitation: any, service: Service}) => void): void
+    onTimeCostChange(cb: (data: {time: number, money: Money}) => void): void
+    onVideoStart(cb: () => void): void
+    onVideoStop(cb: () => void): void
+    callServiceId(serviceId: string)
+    startVideo(): void
+    stopVideo(): void
+    startAudio(): void
+    stopAudio(): void
+    hangupCall(): ng.IPromise<any>
+    setLocalStreamElement(element: ng.IAugmentedJQuery)
+    setRemoteStreamElement(element: ng.IAugmentedJQuery)
+  }
 
-    const callingTimeout = 30
-    const moneyChangeNotificationInterval = 1000
+  class CallService implements ICallService {
 
-    let call = null
-    let timer = null
-    let isConnecting = false
+    private call: any = null
+    private timer: any = null
+    private isConnecting: boolean = false
 
-    let serviceId = null
-    let serviceFreeMinutesCount = null
+    private serviceId: string
+    private serviceFreeMinutesCount: number
 
-    let localStreamElement = null
-    let remoteStreamElement = null
+    private localStreamElement: ng.IAugmentedJQuery = null
+    private remoteStreamElement: ng.IAugmentedJQuery = null
 
-    let localStream = null
+    private localStream: MediaStream = null
+    private callingModal: any
 
-    let callingModal = null
+    private callbacks: any
+    private hangupFunction: () => ng.IPromise<any>
 
-    const events = {
+    private static callingTimeout: number = 30
+    private static moneyChangeNotificationInterval: number = 1000
+
+    private static events = {
       onCallEnd: 'onCallEnd',
       onClientCallPending: 'onClientCallPending',
-      onClientCallPendingError: 'onClientCallPendingError',
       onClientCallStarted: 'onClientCallStarted',
       onExpertCallAnswered: 'onExpertCallAnswered',
       onTimeCostChange: 'onTimeCostChange',
@@ -33,358 +52,369 @@ import INavigatorService = profitelo.services.navigator.INavigatorService
       onVideoStop: 'onVideoStop'
     }
 
-    const reasons = {
+    private static reasons = {
       reject: 'reject',
       hangup: 'hangup'
     }
 
-    const callbacks = UtilsService.callbacksFactory(Object.keys(events))
+    constructor(private $q: ng.IQService, private $log: ng.ILogService, private navigatorService: INavigatorService,
+                private utilsService: IUtilsService, private communicatorService: ICommunicatorService,
+                private modalsService, private soundsService, private User, private RatelApi, private ServiceApi) {
 
-    const setLocalStreamElement = (element) =>
-      localStreamElement = element
+      this.hangupFunction = () => $q.reject('NO CALL')
+      this.callbacks = utilsService.callbacksFactory(Object.keys(CallService.events))
+      communicatorService.onCall(this.onExpertCallIncoming)
+    }
 
-    const setRemoteStreamElement = (element) =>
-      remoteStreamElement = element
+    public setLocalStreamElement = (element: ng.IAugmentedJQuery) =>
+      this.localStreamElement = element
 
-    const stopLocalStream = () => {
-      if (localStream) {
-        if (localStream.stop) {
-          localStream.stop()
+    public setRemoteStreamElement = (element: ng.IAugmentedJQuery) =>
+      this.remoteStreamElement = element
+
+    public hangupCall = () =>
+      this.hangupFunction()
+
+    public stopVideo = () => {
+      if (this.call) {
+        this.call.pause()
+      } else {
+        this.$log.error('There is no call')
+      }
+    }
+
+    public startVideo = () => {
+      if (this.call) {
+        this.call.unpause()
+      } else {
+        this.$log.error('There is no call')
+      }
+    }
+
+    public startAudio = () => {
+      if (this.call) {
+        this.call.unmute()
+      } else {
+        this.$log.error('There is no call')
+      }
+    }
+
+    public stopAudio = () => {
+      if (this.call) {
+        this.call.mute()
+      } else {
+        this.$log.error('There is no call')
+      }
+    }
+
+    public onCallEnd = (callback) =>
+      this.callbacks.methods.onCallEnd(callback)
+
+    public onClientCallPending = (callback) =>
+      this.callbacks.methods.onClientCallPending(callback)
+
+    public onClientCallStarted = (callback) =>
+      this.callbacks.methods.onClientCallStarted(callback)
+
+    public onExpertCallAnswered = (callback) =>
+      this.callbacks.methods.onExpertCallAnswered(callback)
+
+    public onTimeCostChange = (callback) =>
+      this.callbacks.methods.onTimeCostChange(callback)
+
+    public onVideoStart = (callback) =>
+      this.callbacks.methods.onVideoStart(callback)
+
+    public onVideoStop = (callback) =>
+      this.callbacks.methods.onVideoStop(callback)
+
+    private stopLocalStream = () => {
+      if (this.localStream) {
+        if (this.localStream.stop) {
+          this.localStream.stop()
         } else {
-          localStream.getTracks().forEach(t => t.stop())
+          this.localStream.getTracks().forEach(t => t.stop())
         }
       }
     }
 
-    const setLocalStream = (stream) => {
+    private setLocalStream = (stream) => {
       if (stream) {
-        localStream = stream
-        localStreamElement.attr('src', window.URL.createObjectURL(localStream))
+        this.localStream = stream
+        this.localStreamElement.attr('src', window.URL.createObjectURL(this.localStream))
       }
     }
 
-    const destroyModals = () => {
-      if (callingModal) {
-        callingModal.dismiss()
+    private destroyModals = () => {
+      if (this.callingModal) {
+        this.callingModal.dismiss()
       }
     }
 
-    const startHookMock = (expertId) =>
-      RatelApi.ratelCallStartedHook({
-        callId: call.id,
-        clientId: User.getData('id'),
+    private startHookMock = (expertId: string) =>
+      this.RatelApi.ratelCallStartedHook({
+        callId: this.call.id,
+        clientId: this.User.getData('id'),
         expertId: expertId,
-        serviceId: serviceId,
+        serviceId: this.serviceId,
         timestamp: Date.now()
-      }).$promise.then((res) => $log.debug('Hook Start', res), (err) => $log.error('Hook Start error:', err))
+      }).$promise.then((res) => this.$log.debug('Hook Start', res), (err) => this.$log.error('Hook Start error:', err))
 
-    const stopHookMock = () => {
-      if (call) {
-        RatelApi.ratelCallStoppedHook({
-          callId: call.id,
+    private stopHookMock = () => {
+      if (this.call) {
+        this.RatelApi.ratelCallStoppedHook({
+          callId: this.call.id,
           timestamp: Date.now()
-        }).$promise.then((res) => $log.debug('Hook Stop', res), (err) => $log.error('Hook Stop error:', err))
+        }).$promise.then((res) => this.$log.debug('Hook Stop', res), (err) => this.$log.error('Hook Stop error:', err))
       }
     }
 
-
-    const cleanupService = () => {
-      stopLocalStream()
-      cleanCallVariables()
-      stopSounds()
-      destroyModals()
+    private cleanupService = () => {
+      this.stopLocalStream()
+      this.cleanCallVariables()
+      this.stopSounds()
+      this.destroyModals()
     }
 
-    const stopSounds = () => {
-      soundsService.callConnectingSound().stop()
-      soundsService.callIncomingSound().stop()
-      soundsService.playCallEnded()
+    private stopSounds = () => {
+      this.soundsService.callConnectingSound().stop()
+      this.soundsService.callIncomingSound().stop()
+      this.soundsService.playCallEnded()
     }
 
-    const cleanCallVariables = () => {
-      call = null
-      isConnecting = false
-      serviceId = null
-      serviceFreeMinutesCount = null
-      localStream = null
-      if (timer) {
-        timer.stop()
-        timer = null
+    private cleanCallVariables = () => {
+      this.call = null
+      this.isConnecting = false
+      this.serviceId = null
+      this.serviceFreeMinutesCount = null
+      this.localStream = null
+      if (this.timer) {
+        this.timer.stop()
+        this.timer = null
       }
     }
 
-    let hangupCall: Function = _ => $q.reject('NO CALL')
-
-    const onClientCallEnd = () => {
-      stopHookMock()
-      callbacks.notify(events.onCallEnd, null)
-      if (!isConnecting) {
-        modalsService.createClientConsultationSummaryModal(serviceId)
+    private onClientCallEnd = () => {
+      this.stopHookMock()
+      this.callbacks.notify(CallService.events.onCallEnd, null)
+      if (!this.isConnecting) {
+        this.modalsService.createClientConsultationSummaryModal(this.serviceId)
       }
-      cleanupService()
+      this.cleanupService()
     }
 
-    const onExpertCallEnd = () => {
-      callbacks.notify(events.onCallEnd, null)
-      modalsService.createExpertConsultationSummaryModal(serviceId)
-      cleanupService()
+    private onExpertCallEnd = () => {
+      this.callbacks.notify(CallService.events.onCallEnd, null)
+      this.modalsService.createExpertConsultationSummaryModal(this.serviceId)
+      this.cleanupService()
     }
 
-    const clientHangupCall = () => {
-      if (call) {
-        return call.leave(reasons.hangup).then(onClientCallEnd)
+    private clientHangupCall = () => {
+      if (this.call) {
+        return this.call.leave(CallService.reasons.hangup).then(this.onClientCallEnd)
       }
-      return $q.reject('There is no room')
+      return this.$q.reject('There is no room')
     }
 
-    const expertHangupCall = () => {
-      if (call) {
-        return call.leave(reasons.hangup).then(onExpertCallEnd)
+    private expertHangupCall = () => {
+      if (this.call) {
+        return this.call.leave(CallService.reasons.hangup).then(this.onExpertCallEnd)
       }
-      return $q.reject('There is no room')
+      return this.$q.reject('There is no room')
     }
 
-    const stopVideo = () => {
-      if (call) {
-        call.pause()
-      } else {
-        $log.error('There is no call')
-      }
-    }
-
-    const startVideo = () => {
-      if (call) {
-        call.unpause()
-      } else {
-        $log.error('There is no call')
-      }
-    }
-
-    const startAudio = () => {
-      if (call) {
-        call.unmute()
-      } else {
-        $log.error('There is no call')
-      }
-    }
-
-    const stopAudio = () => {
-      if (call) {
-        call.mute()
-      } else {
-        $log.error('There is no call')
-      }
-    }
-
-    const setCallVideoEvents = (_call, participantId) => {
+    private setCallVideoEvents = (_call, participantId) => {
       _call.onStreamPaused(callAction => {
           if (callAction.user === participantId) {
-            callbacks.notify(events.onVideoStop, null)
+            this.callbacks.notify(CallService.events.onVideoStop, null)
           }
         }
       )
       _call.onStreamUnpaused(callAction => {
         if (callAction.user === participantId) {
-          callbacks.notify(events.onVideoStart, null)
+          this.callbacks.notify(CallService.events.onVideoStart, null)
         }
       })
     }
 
-    const createTimer = (price, freeMinutesCount) =>
-      timer = UtilsService.callTimerFactory.getInstance(price, freeMinutesCount, moneyChangeNotificationInterval)
+    private createTimer = (price, freeMinutesCount) =>
+      this.timer = this.utilsService.callTimerFactory.getInstance(
+        price, freeMinutesCount, CallService.moneyChangeNotificationInterval)
 
-    const startTimer = () =>
-      timer.start(onTimeMoneyChange)
+    private startTimer = () =>
+      this.timer.start(this.onTimeMoneyChange)
 
-    const onTimeMoneyChange = (timeMoneyTuple) =>
-      callbacks.notify(events.onTimeCostChange, timeMoneyTuple)
+    private onTimeMoneyChange = (timeMoneyTuple) =>
+      this.callbacks.notify(CallService.events.onTimeCostChange, timeMoneyTuple)
 
-    const onExpertCallAnswered = (serviceInvitationTuple) => {
-      soundsService.callIncomingSound().stop()
-      serviceId = serviceInvitationTuple.service.id
+    private onExpertCallAnsweredEvent = (serviceInvitationTuple) => {
+      this.soundsService.callIncomingSound().stop()
+      this.serviceId = serviceInvitationTuple.service.id
 
-      callbacks.notify(events.onExpertCallAnswered, serviceInvitationTuple)
-      call = serviceInvitationTuple.invitation.call
-      call.pause()
-      call.onEnd(onCallEnd)
-      call.onRemoteStream((agentId, stream) =>
-        remoteStreamElement.attr('src', window.URL.createObjectURL(stream)))
-      call.onLeft(onExpertCallEnd)
+      this.callbacks.notify(CallService.events.onExpertCallAnswered, serviceInvitationTuple)
+      this.call = serviceInvitationTuple.invitation.call
+      this.call.pause()
+      this.call.onEnd(this.onCallEndEvent)
+      this.call.onRemoteStream((agentId, stream) =>
+        this.remoteStreamElement.attr('src', window.URL.createObjectURL(stream)))
+      this.call.onLeft(this.onExpertCallEnd)
 
-      createTimer(serviceInvitationTuple.service.details.price, serviceFreeMinutesCount)
-      startTimer()
+      this.createTimer(serviceInvitationTuple.service.details.price, this.serviceFreeMinutesCount)
+      this.startTimer()
 
-      hangupCall = expertHangupCall
-      setCallVideoEvents(call, serviceInvitationTuple.invitation.inviter)
+      this.hangupFunction = this.expertHangupCall
+      this.setCallVideoEvents(this.call, serviceInvitationTuple.invitation.inviter)
       //callbacks.notify(events.onExpertCallJoined, {inviter: inviterId, session: session})
     }
 
-    const onAnswerCallError = (err) => {
-      cleanupService()
-      $log.error(err)
+    private onAnswerCallError = (err) => {
+      this.cleanupService()
+      this.$log.error(err)
       alert("Call does not exist anymore")
     }
 
-    const answerCall = (serviceInvitationTuple) =>
-      navigatorService.getUserMediaStream()
-        .then(_localStream => {
-            setLocalStream(_localStream)
-            return serviceInvitationTuple.invitation.call.answer(localStream).then(_ =>
-              onExpertCallAnswered(serviceInvitationTuple),
-              onAnswerCallError
-            )
-          },
-          () => rejectCall(serviceInvitationTuple.invitation.call)
-        )
+    private answerCall = (serviceInvitationTuple) =>
+      this.navigatorService.getUserMediaStream()
+      .then(_localStream => {
+          this.setLocalStream(_localStream)
+          return serviceInvitationTuple.invitation.call.answer(this.localStream).then(_ =>
+              this.onExpertCallAnsweredEvent(serviceInvitationTuple),
+            this.onAnswerCallError
+          )
+        },
+        () => this.rejectCall(serviceInvitationTuple.invitation.call)
+      )
 
-    const rejectCall = (_call) => {
-      cleanCallVariables()
-      stopSounds()
-      soundsService.playCallRejected()
-      return _call.reject(reasons.reject)
+    private rejectCall = (_call) => {
+      this.cleanCallVariables()
+      this.stopSounds()
+      this.soundsService.playCallRejected()
+      return _call.reject(CallService.reasons.reject)
     }
 
-    const onCallEnd = () => {
-      stopHookMock()
-      cleanupService()
-      callbacks.notify(events.onCallEnd, null)
+    private onCallEndEvent = () => {
+      this.stopHookMock()
+      this.cleanupService()
+      this.callbacks.notify(CallService.events.onCallEnd, null)
     }
 
-    const onExpertCallIncoming = (serviceInvitationTuple) => {
-      soundsService.callIncomingSound().play()
+    private onExpertCallIncoming = (serviceInvitationTuple) => {
+      this.soundsService.callIncomingSound().play()
 
-      serviceInvitationTuple.invitation.call.onEnd(onExpertCallDisappearBeforeAnswering)
+      serviceInvitationTuple.invitation.call.onEnd(this.onExpertCallDisappearBeforeAnswering)
 
-      callingModal = modalsService.createIncomingCallModal(
+      this.callingModal = this.modalsService.createIncomingCallModal(
         serviceInvitationTuple.service,
-        () => answerCall(serviceInvitationTuple),
-        () => rejectCall(serviceInvitationTuple.invitation.call)
+        () => this.answerCall(serviceInvitationTuple),
+        () => this.rejectCall(serviceInvitationTuple.invitation.call)
       )
     }
 
-    communicatorService.onCall(onExpertCallIncoming)
-
-    const onNoFunds = () => {
-      modalsService.createNoFundsModal(_ => _, _ => _)
+    private onNoFunds = () => {
+      this.modalsService.createNoFundsModal(_ => _, _ => _)
     }
 
-    const onConsultationUnavailable = () => {
-      cleanupService()
-      soundsService.playCallRejected()
-      modalsService.createServiceUnavailableModal(_ => _, _ => _)
+    private onConsultationUnavailable = () => {
+      this.cleanupService()
+      this.soundsService.playCallRejected()
+      this.modalsService.createServiceUnavailableModal(_ => _, _ => _)
     }
 
-    const onExpertCallDisappearBeforeAnswering = () => {
-      cleanupService()
-      soundsService.playCallRejected()
+    private onExpertCallDisappearBeforeAnswering = () => {
+      this.cleanupService()
+      this.soundsService.playCallRejected()
     }
 
-    const onClientCallStartError = (err) => {
-      onConsultationUnavailable()
-      $log.error(err)
+    private onClientCallStartError = (err) => {
+      this.onConsultationUnavailable()
+      this.$log.error(err)
       // _onNoFunds()
     }
 
-    const onClientCallStarted = (inviterId, expertId) => {
-      isConnecting = false
-      startHookMock(expertId)
-      startTimer()
-      soundsService.callConnectingSound().stop()
-      call.pause()
-      callbacks.notify(events.onClientCallStarted, inviterId)
+    private onClientCallStartedEvent = (inviterId, expertId) => {
+      this.isConnecting = false
+      this.startHookMock(expertId)
+      this.startTimer()
+      this.soundsService.callConnectingSound().stop()
+      this.call.pause()
+      this.callbacks.notify(CallService.events.onClientCallStarted, inviterId)
     }
 
-    const onClientCallRejected = () => {
-      callbacks.notify(events.onCallEnd, null)
-      onConsultationUnavailable()
+    private onClientCallRejected = () => {
+      this.callbacks.notify(CallService.events.onCallEnd, null)
+      this.onConsultationUnavailable()
     }
 
-    const onCreateDirectCall = (newCall, participantId, expertId) => {
-      call = newCall
+    private onCreateDirectCall = (newCall, participantId, expertId) => {
+      this.call = newCall
 
-      call.onRemoteStream((agentId, stream) => {
-        remoteStreamElement.attr('src', window.URL.createObjectURL(stream))
+      this.call.onRemoteStream((agentId, stream) => {
+        this.remoteStreamElement.attr('src', window.URL.createObjectURL(stream))
       })
 
-      call.onJoined(_ => onClientCallStarted(participantId, expertId))
-      call.onLeft(onClientCallEnd)
-      call.onEnd(onCallEnd)
-      call.onRejected(onClientCallRejected)
-      setCallVideoEvents(call, participantId)
+      this.call.onJoined(_ => this.onClientCallStartedEvent(participantId, expertId))
+      this.call.onLeft(this.onClientCallEnd)
+      this.call.onEnd(this.onCallEndEvent)
+      this.call.onRejected(this.onClientCallRejected)
+      this.setCallVideoEvents(this.call, participantId)
     }
 
-    const onDirectCallError = (err) => {
-      $log.error(err)
-      soundsService.callConnectingSound().stop()
+    private onDirectCallError = (err) => {
+      this.$log.error(err)
+      this.soundsService.callConnectingSound().stop()
     }
 
-    const onAddSUR = (serviceUsageRequest) => {
+    private onAddSUR = (serviceUsageRequest) => {
 
       const _service = serviceUsageRequest.service
-
       const agentId = serviceUsageRequest.agentId
 
-      serviceId = _service.id
+      this.serviceId = _service.id
+      this.createTimer(_service.details.price, this.serviceFreeMinutesCount)
 
-      createTimer(_service.details.price, serviceFreeMinutesCount)
-
-      callbacks.notify(events.onClientCallPending, {
+      this.callbacks.notify(CallService.events.onClientCallPending, {
         expert: serviceUsageRequest.expert,
         service: serviceUsageRequest.service
       })
 
-      hangupCall = clientHangupCall
+      this.hangupFunction = this.clientHangupCall
+      this.soundsService.callConnectingSound().play()
 
-      soundsService.callConnectingSound().play()
+      const session = this.communicatorService.getClientSession()
 
-      const session = communicatorService.getClientSession()
-
-      return navigatorService.getUserMediaStream()
-        .then(_localStream => {
-          setLocalStream(_localStream)
-          return session.chat.createDirectCall(localStream, agentId, callingTimeout)
-        })
-        .then(_call => onCreateDirectCall(_call, agentId, serviceUsageRequest.expert.id), onDirectCallError)
+      return this.navigatorService.getUserMediaStream()
+      .then(_localStream => {
+        this.setLocalStream(_localStream)
+        return session.chat.createDirectCall(this.localStream, agentId, CallService.callingTimeout)
+      })
+      .then(_call => this.onCreateDirectCall(_call, agentId, serviceUsageRequest.expert.id), this.onDirectCallError)
     }
 
-    const onAddSURError = (err) => {
-      onClientCallStartError(err)
-      soundsService.callConnectingSound().stop()
-      return $q.reject(err)
+    private onAddSURError = (err) => {
+      this.onClientCallStartError(err)
+      this.soundsService.callConnectingSound().stop()
+      return this.$q.reject(err)
     }
 
-    const startCall = (_serviceId) => {
+    public callServiceId = (_serviceId: string) => {
       if (!angular.isDefined(_serviceId) || !_serviceId) {
-        return $q.reject('serviceId must be defined')
+        return this.$q.reject('serviceId must be defined')
       }
 
-      if (!communicatorService.getClientSession()) {
-        return $q.reject('There is no client session')
+      if (!this.communicatorService.getClientSession()) {
+        return this.$q.reject('There is no client session')
       }
 
-      if (call || isConnecting) {
-        return $q.reject('There is a call already')
+      if (this.call || this.isConnecting) {
+        return this.$q.reject('There is a call already')
       }
 
-      isConnecting = true
+      this.isConnecting = true
 
-      return ServiceApi.addServiceUsageRequest({serviceId: _serviceId})
-        .$promise
-        .then(onAddSUR, onAddSURError)
+      return this.ServiceApi.addServiceUsageRequest({serviceId: _serviceId})
+      .$promise
+      .then(this.onAddSUR, this.onAddSURError)
     }
-
-    const api = {
-      callServiceId: startCall,
-      startVideo: startVideo,
-      stopVideo: stopVideo,
-      startAudio: startAudio,
-      stopAudio: stopAudio,
-      hangupCall: _ => hangupCall(),
-      setLocalStreamElement: setLocalStreamElement,
-      setRemoteStreamElement: setRemoteStreamElement
-    }
-
-    return angular.extend(api, callbacks.methods)
   }
 
   angular.module('profitelo.services.call', [
@@ -395,9 +425,8 @@ import INavigatorService = profitelo.services.navigator.INavigatorService
     'profitelo.services.modals',
     'profitelo.services.sounds'
   ])
-    .config(($qProvider) => {
-      $qProvider.errorOnUnhandledRejections(false)
-    })
-    .service('callService', service)
-
-}())
+  .config(($qProvider) => {
+    $qProvider.errorOnUnhandledRejections(false)
+  })
+  .service('callService', CallService)
+}

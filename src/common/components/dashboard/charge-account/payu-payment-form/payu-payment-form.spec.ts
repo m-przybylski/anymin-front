@@ -12,9 +12,9 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payu-payme
     let httpBackend
     let PaymentApiDef
     let window
-    let proTopAlertService
+    let topAlertService
     let resourcesExpectations
-    let smoothScrolling
+    let smoothScrollingService
     let User
 
     function create(html) {
@@ -36,16 +36,16 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payu-payme
     angular.mock.module('profitelo.components.dashboard.charge-account.payu-payment-form')
     angular.mock.module('ui.router')
       
-      inject(($rootScope, $compile, _$componentController_, $httpBackend, $window, _User_,  _$state_, _PaymentsApiDef_, _proTopAlertService_, _smoothScrolling_) => {
+      inject(($rootScope, $compile, _$componentController_, $httpBackend, $window, _User_,  _$state_, _PaymentsApiDef_, _topAlertService_, _smoothScrollingService_) => {
         componentController = _$componentController_
         scope = $rootScope.$new()
         compile = $compile
         state = _$state_
         httpBackend = $httpBackend
         PaymentApiDef = _PaymentsApiDef_
-        proTopAlertService = _proTopAlertService_
+        topAlertService = _topAlertService_
         window = $window
-        smoothScrolling = _smoothScrolling_
+        smoothScrollingService = _smoothScrollingService_
         User = _User_
       })
 
@@ -109,12 +109,12 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payu-payme
     }))
     
     it('should scroll to bank-section', inject(() => {
-      spyOn(smoothScrolling, 'simpleScrollTo')
+      spyOn(smoothScrollingService, 'simpleScrollTo')
       bindings.amountMethodModal.payMethodValue = undefined
       component = componentController('payuPaymentForm', {}, bindings)
       resourcesExpectations.PaymentsApi.postPayUOrder.respond(200)
       component.sendPayment()
-      expect(smoothScrolling.simpleScrollTo).toHaveBeenCalled()
+      expect(smoothScrollingService.simpleScrollTo).toHaveBeenCalled()
     }))
 
   })

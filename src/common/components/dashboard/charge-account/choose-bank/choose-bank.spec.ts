@@ -10,7 +10,7 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-ban
     let component
     let bindings
     let el
-    let smoothScrolling
+    let smoothScrollingService
     let validHTML = '<choose-bank bank-model="{value: 1}" payments-links="[{value: 1}, {value: 2}]" scroll-section-id="1"></choose-bank>'
 
     function create(html) {
@@ -29,11 +29,11 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-ban
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.components.dashboard.charge-account.choose-bank')
 
-      inject(($rootScope, $compile, _$componentController_, _smoothScrolling_) => {
+      inject(($rootScope, $compile, _$componentController_, _smoothScrollingService_) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
-        smoothScrolling = _smoothScrolling_
+        smoothScrollingService = _smoothScrollingService_
       })
 
       bindings = {
@@ -58,9 +58,9 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-ban
     })
 
     it('should call scroll method and select bank', () => {
-      spyOn(smoothScrolling, 'scrollTo')
+      spyOn(smoothScrollingService, 'scrollTo')
       el.find('.option:first-child').trigger('click')
-      expect(smoothScrolling.scrollTo).toHaveBeenCalled()
+      expect(smoothScrollingService.scrollTo).toHaveBeenCalled()
     })
 
   })

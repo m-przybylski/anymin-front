@@ -30,7 +30,7 @@
 
   angular.module('profitelo.services.resolvers.app.service-provider-image-resolver', [
     'profitelo.swaggerResources',
-    'profitelo.services.pro-top-alert-service',
+    'profitelo.services.top-alert',
     'c7s.ng.userAuth',
     'profitelo.services.login-state'
   ])

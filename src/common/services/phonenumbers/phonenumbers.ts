@@ -1,9 +1,9 @@
-(function() {
+module profitelo.services.phonenumbers {
 
-  function phonenumbersFactory($window) {
+  function PhonenumbersFactory($window) {
     return $window.i18n.phonenumbers
   }
 
   angular.module('phonenumbers', [])
-    .factory('phonenumbers', phonenumbersFactory)
-}())
+  .factory('phonenumbers', PhonenumbersFactory)
+}

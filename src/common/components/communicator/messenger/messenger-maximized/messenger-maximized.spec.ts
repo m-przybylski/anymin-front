@@ -14,7 +14,7 @@ describe('Unit testing: profitelo.components.communicator.messenger.messenger-ma
       minimizeMessenger: _ => _
     }
 
-    const uploaderService = {
+    const uploaderFactory = {
       collectionTypes: { avatar: 'avatar' },
       getInstance: _ => _
     }
@@ -39,7 +39,7 @@ describe('Unit testing: profitelo.components.communicator.messenger.messenger-ma
 
     beforeEach(angular.mock.module(($provide) => {
       $provide.value('soundsService', {})
-      $provide.value('uploaderService', uploaderService)
+      $provide.value('uploaderFactory', uploaderFactory)
       $provide.value('navigatorService', {})
     }))
 
@@ -52,14 +52,14 @@ describe('Unit testing: profitelo.components.communicator.messenger.messenger-ma
     angular.mock.module('profitelo.services.messenger')
     angular.mock.module('profitelo.components.communicator.messenger.messenger-maximized')
 
-      inject(($rootScope, $compile, $timeout, _$componentController_, _$window_, _HelperService_, _messengerService_, _lodash_) => {
+      inject(($rootScope, $compile, $timeout, _$componentController_, _$window_, _helperService_, _messengerService_, _lodash_) => {
         rootScope = $rootScope.$new()
         compile = $compile
         const injectors = {
           messengerService: _messengerService_,
           lodash: _lodash_,
           $element: create(validHTML),
-          HelperService: _HelperService_
+          helperService: _helperService_
         }
 
         component = _$componentController_('messengerMaximized', injectors, bindings)

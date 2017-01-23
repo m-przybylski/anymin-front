@@ -23,10 +23,6 @@
 
     messengerService.onExpertMessage(_showMessage)
 
-    messengerService.onClientNewChat(_init)
-
-    messengerService.onExpertNewChat(_init)
-
     messengerService.onChatLeft(_init)
 
     return this

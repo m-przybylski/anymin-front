@@ -19,7 +19,7 @@
   }
 
   function controller($log: ng.ILogService, $scope: IConsultationDetailsScope, $uibModalInstance, ServiceApi,
-                      HelperService, ViewsApi) {
+                      helperService, ViewsApi) {
     $scope.isLoading = true
     $scope.recommendedTags = []
     $scope.serviceTags = []
@@ -36,7 +36,7 @@
 
       const openClientActivityModal = (serviceTags: Array<Tag> = []) => {
         const expertAvatarFileId = callDetails.expertProfile.expertDetails.avatar
-        $scope.expertAvatar = expertAvatarFileId ? HelperService.fileUrlResolver(expertAvatarFileId) : null
+        $scope.expertAvatar = expertAvatarFileId ? helperService.fileUrlResolver(expertAvatarFileId) : null
         $scope.expertName = callDetails.expertProfile.expertDetails.name
         $scope.recommendedTags = callDetails.recommendedTags
         $scope.serviceName = callDetails.service.details.name

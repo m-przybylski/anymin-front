@@ -7,7 +7,6 @@
   }
   angular.module('profitelo.controller.dashboard.service-provider.consultation-range', [
     'ui.router',
-    'profitelo.services.service-provider-state',
     'profitelo.directives.service-provider.pro-bottom-summary-row',
     'profitelo.directives.service-provider.pro-service-provider-cost',
     'profitelo.directives.service-provider.pro-service-provider-who-provides',

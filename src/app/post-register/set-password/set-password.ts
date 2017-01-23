@@ -1,7 +1,8 @@
+import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordStrengthService;
 (function() {
 
-  function _controller($filter, $state, proTopWaitingLoaderService, passwordStrengthService, User, proTopAlertService,
-                       CommonSettingsService, AccountApi) {
+  function _controller($filter, $state, proTopWaitingLoaderService, passwordStrengthService: IPasswordStrengthService,
+                       User, topAlertService, CommonSettingsService, AccountApi) {
 
     this.passwordStrength = 0
     this.password = ''
@@ -20,7 +21,7 @@
     this.patternPassword = CommonSettingsService.localSettings.passwordPattern
 
     this.onPasswordChange = (password) => {
-      this.passwordStrength = passwordStrengthService(password)
+      this.passwordStrength = passwordStrengthService.getStrength(password)
     }
 
     let _updateNewUserObject = (patchObject, successCallback) => {
@@ -34,7 +35,7 @@
         AccountApi.partialUpdateAccount(patchObject).$promise.then(successCallback, (error) => {
           this.isPending = false
           proTopWaitingLoaderService.stopLoader()
-          proTopAlertService.error({
+          topAlertService.error({
             message: $filter('translate')('INTERFACE.API_ERROR'),
             timeout: 4
           })
@@ -87,8 +88,8 @@
     'c7s.ng.userAuth',
     'profitelo.swaggerResources',
     'profitelo.services.commonSettings',
-    'profitelo.services.password-strength-service',
-    'profitelo.services.pro-top-alert-service',
+    'profitelo.services.password-strength',
+    'profitelo.services.top-alert',
     'profitelo.services.pro-top-waiting-loader-service',
     'profitelo.directives.interface.pro-checkbox',
     'profitelo.directives.interface.pro-alert',

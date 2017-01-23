@@ -6,7 +6,7 @@ describe('Unit tests: ServiceProviderStepController >', () => {
     let _scope
     let _scopeSlave
     let _timeout
-    let _smoothScrolling
+    let _smoothScrollingService
     let url = 'awesomeUrl/'
 
     beforeEach(angular.mock.module(function($provide) {
@@ -19,7 +19,7 @@ describe('Unit tests: ServiceProviderStepController >', () => {
 
         _timeout = _$timeout_
 
-        _smoothScrolling = {
+        _smoothScrollingService = {
           scrollTo: () => {}
         }
 
@@ -33,7 +33,7 @@ describe('Unit tests: ServiceProviderStepController >', () => {
 
         ServiceProviderStepController = $controller('ServiceProviderStepController', {
           $scope: _scope,
-          smoothScrolling: _smoothScrolling
+          smoothScrollingService: _smoothScrollingService
 
         })
 
@@ -118,12 +118,12 @@ describe('Unit tests: ServiceProviderStepController >', () => {
       _scope.queue.currentStep = 3
       _scope.queue.amountOfSteps = 40
 
-      spyOn(_smoothScrolling, 'scrollTo')
+      spyOn(_smoothScrollingService, 'scrollTo')
 
       _scope.proceed()
       _timeout.flush()
 
-      expect(_smoothScrolling.scrollTo).toHaveBeenCalledWith(5)
+      expect(_smoothScrollingService.scrollTo).toHaveBeenCalledWith(5)
 
     })
 

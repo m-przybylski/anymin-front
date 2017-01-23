@@ -22,7 +22,7 @@
       controllerAs: 'dashboardController',
       resolve: {
         /* istanbul ignore next */
-        userProfile: ($q, $state,  ProfileApi, User, proTopAlertService) => {
+        userProfile: ($q, $state,  ProfileApi, User, topAlertService) => {
           /* istanbul ignore next */
           let _deferred = $q.defer()
           /* istanbul ignore next */
@@ -36,7 +36,7 @@
             })
           }, (error) => {
             $state.go('app.dashboard')
-            proTopAlertService.error({
+            topAlertService.error({
               message: 'error',
               timeout: 4
             })

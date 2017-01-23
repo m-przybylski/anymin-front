@@ -5,19 +5,19 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-slider', 
     let rootScope
     let compile = null
     let timeout
-    let DialogService
+    let dialogService
     let validHTML = '<pro-expert-slider data-sliders="sliders"></pro-expert-slider>'
 
     beforeEach(() => {
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.directives.expert-profile.pro-expert-slider')
-    angular.mock.module('profitelo.services.dialog-service')
+    angular.mock.module('profitelo.services.dialog')
 
-      inject(($rootScope, $compile, $timeout, _DialogService_) => {
+      inject(($rootScope, $compile, $timeout, _dialogService_) => {
         rootScope = $rootScope.$new()
         compile = $compile
         timeout = $timeout
-        DialogService = _DialogService_
+        dialogService = _dialogService_
       })
     })
     
@@ -67,9 +67,9 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-slider', 
       let slide = {
         previews: 'slide'
       }
-      spyOn(DialogService, 'openDialog')
+      spyOn(dialogService, 'openDialog')
       isoScope.openDialog(slide)
-      expect(DialogService.openDialog).toHaveBeenCalled()
+      expect(dialogService.openDialog).toHaveBeenCalled()
     })
 
   })

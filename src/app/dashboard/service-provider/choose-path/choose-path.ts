@@ -6,7 +6,6 @@
 
   angular.module('profitelo.controller.dashboard.service-provider.choose-path', [
     'ui.router',
-    'profitelo.services.service-provider-state',
     'c7s.ng.userAuth',
     'profitelo.services.resolvers.app.service-provider-choose-path'
   ])

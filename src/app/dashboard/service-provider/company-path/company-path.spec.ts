@@ -10,9 +10,9 @@ describe('Unit tests: CompanyPathController >', () => {
     let resourcesExpectations
     let _controller
     let _state
-    let _proTopAlertService
+    let _topAlertService
     let _timeout
-    let _smoothScrolling
+    let _smoothScrollingService
 
     let url = 'awesomeUrl/'
 
@@ -22,7 +22,7 @@ describe('Unit tests: CompanyPathController >', () => {
         ProfileApi: _ProfileApi,
         User: _User,
         savedProfile: profile,
-        smoothScrolling: _smoothScrolling
+        smoothScrollingService: _smoothScrollingService
       })
     }
 
@@ -43,9 +43,9 @@ describe('Unit tests: CompanyPathController >', () => {
         _controller = $injector.get('$controller')
         _ProfileApi = $injector.get('ProfileApi')
         _User = $injector.get('User')
-        _proTopAlertService = $injector.get('proTopAlertService')
+        _topAlertService = $injector.get('topAlertService')
         _timeout = $injector.get('$timeout')
-        _smoothScrolling = $injector.get('smoothScrolling')
+        _smoothScrollingService = $injector.get('smoothScrollingService')
 
         _scope.$parent.serviceProviderController = {
           profileTypes: {
@@ -67,10 +67,10 @@ describe('Unit tests: CompanyPathController >', () => {
     })
 
     it('should exists', () => {
-      spyOn(_smoothScrolling, 'scrollTo')
+      spyOn(_smoothScrollingService, 'scrollTo')
       expect(!!CompanyPathController).toBe(true)
       _timeout.flush()
-      expect(_smoothScrolling.scrollTo).toHaveBeenCalledWith(2)
+      expect(_smoothScrollingService.scrollTo).toHaveBeenCalledWith(2)
     })
 
     it('should be able to save account object and redirect to consultation range', () => {
@@ -101,13 +101,13 @@ describe('Unit tests: CompanyPathController >', () => {
 
     it('should alert on save error', () => {
 
-      spyOn(_proTopAlertService, 'error')
+      spyOn(_topAlertService, 'error')
 
       resourcesExpectations.ProfileApi.postProfile.respond(500)
       CompanyPathController.saveAccountObject()
       _httpBackend.flush()
 
-      expect(_proTopAlertService.error).toHaveBeenCalledWith({ message: 'error', timeout: 4 })
+      expect(_topAlertService.error).toHaveBeenCalledWith({ message: 'error', timeout: 4 })
 
     })
 

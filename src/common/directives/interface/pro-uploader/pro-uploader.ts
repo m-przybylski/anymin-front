@@ -1,5 +1,5 @@
 (function() {
-  function proUploader($timeout, $interval, $filter, $q, FilesApi, Upload, CommonConfig, proTopAlertService) {
+  function proUploader($timeout, $interval, $filter, $q, FilesApi, Upload, CommonConfig, topAlertService) {
 
     function linkFunction(scope, element, attr) {
 
@@ -97,7 +97,7 @@
                   }
                 },
                 (err) => {
-                  proTopAlertService.error({
+                  topAlertService.error({
                     message: $filter('translate')('INTERFACE.API_ERROR'),
                     timeout: 4
                   })
@@ -111,7 +111,7 @@
               )
             })
           }, (tokenPromissesError) => {
-            proTopAlertService.error({
+            topAlertService.error({
               message: $filter('translate')('INTERFACE.API_ERROR'),
               timeout: 4
             })

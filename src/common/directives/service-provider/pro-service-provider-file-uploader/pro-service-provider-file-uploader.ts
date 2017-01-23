@@ -1,5 +1,5 @@
 (function() {
-  function proServiceProviderFileUploader($q, proTopAlertService, FilesApi) {
+  function proServiceProviderFileUploader($q, topAlertService, FilesApi) {
 
     function linkFunction(scope, element, attrs) {
 
@@ -13,7 +13,7 @@
             res.token = scope.proModel.files[i].token
             scope.model.files.push({file: res, response: res})
           }, (err)=>{
-            proTopAlertService.error({
+            topAlertService.error({
               message: 'error',
               timeout: 4
             })
@@ -85,7 +85,7 @@
     'profitelo.services.commonSettings',
     'profitelo.directives.interface.pro-uploader',
     'profitelo.common.controller.service-provider.service-provider-step-controller',
-    'profitelo.services.pro-top-alert-service'
+    'profitelo.services.top-alert'
   ])
     .directive('proServiceProviderFileUploader', proServiceProviderFileUploader)
 }())

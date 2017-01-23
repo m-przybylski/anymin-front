@@ -6,7 +6,7 @@ describe('Unit tests: profitelo.controller.post-register.set-password>', () => {
     let _proTopWaitingLoaderService
     let _passwordStrengthService
     let _AccountApi
-    let _proTopAlertService
+    let _topAlertService
     let _$httpBackend
 
     let _url = 'awesomeUrl'
@@ -36,9 +36,9 @@ describe('Unit tests: profitelo.controller.post-register.set-password>', () => {
     angular.mock.module('profitelo.controller.post-register.set-password')
     angular.mock.module('profitelo.swaggerResources.definitions')
     angular.mock.module('profitelo.services.pro-top-waiting-loader-service')
-    angular.mock.module('profitelo.services.password-strength-service')
+    angular.mock.module('profitelo.services.password-strength')
       inject(($rootScope, $controller, $filter, _proTopWaitingLoaderService_, _passwordStrengthService_, _AccountApi_,
-              _proTopAlertService_, _$httpBackend_, _AccountApiDef_) => {
+              _topAlertService_, _$httpBackend_, _AccountApiDef_) => {
 
         scope = $rootScope.$new()
 
@@ -49,7 +49,7 @@ describe('Unit tests: profitelo.controller.post-register.set-password>', () => {
           proTopWaitingLoaderService: _proTopWaitingLoaderService_,
           passwordStrengthService: _passwordStrengthService_,
           User: _User,
-          proTopAlertService: _proTopAlertService_,
+          topAlertService: _topAlertService_,
           AccountApi: _AccountApi_
         })
 
@@ -57,7 +57,7 @@ describe('Unit tests: profitelo.controller.post-register.set-password>', () => {
         _proTopWaitingLoaderService = _proTopWaitingLoaderService_
         _passwordStrengthService = _passwordStrengthService_
         _AccountApi = _AccountApi_
-        _proTopAlertService = _proTopAlertService_
+        _topAlertService = _topAlertService_
 
 
         resourcesExpectations = {
@@ -102,7 +102,7 @@ describe('Unit tests: profitelo.controller.post-register.set-password>', () => {
 
 
     it('should set new password on completeRegistration', () => {
-      spyOn(_proTopAlertService, 'success')
+      spyOn(_topAlertService, 'success')
 
       resourcesExpectations.AccountApi.partialUpdateAccount.respond(200)
       SetPasswordController.completeRegistration()

@@ -1,7 +1,18 @@
-(function() {
-  function service($timeout, $interval) {
+module profitelo.services.utils {
 
-    const callbacksFactory = events => {
+  // TODO create separate factories for those two
+  export interface IUtilsService {
+    callbacksFactory(events: Array<string>): any
+    callTimerFactory: any
+  }
+
+  class UtilsService implements IUtilsService {
+
+    constructor(private $timeout: ng.ITimeoutService, private $interval: ng.IIntervalService) {
+
+    }
+
+    public callbacksFactory = (events: Array<string>) => {
       const
         handlers = {},
         methods = {}
@@ -10,7 +21,7 @@
         handlers[event] = []
         methods[event] = handler => {
           if (angular.isFunction(handler)) {
-            handlers[event].push((...args) => $timeout(() => handler.apply(null, args)))
+            handlers[event].push((...args) => this.$timeout(() => handler.apply(null, args)))
           }
         }
       })
@@ -29,7 +40,7 @@
       }
     }
 
-    const timerFactory = (() => {
+    public callTimerFactory = (() => {
 
       const getInstance = (_money, _freeMinutesCount, _interval) => {
         let _timer
@@ -38,7 +49,7 @@
         return {
           start: (cb) => {
             const _start = Date.now()
-            _timer = $interval(() => {
+            _timer = this.$interval(() => {
               const _time = (Date.now() - _start) / 1000
               cb({
                 time: _time,
@@ -50,7 +61,7 @@
             }, interval)
           },
           stop: () => {
-            $interval.cancel(_timer)
+            this.$interval.cancel(_timer)
           }
         }
       }
@@ -60,14 +71,8 @@
       }
     })()
 
-    return {
-      callbacksFactory: callbacksFactory,
-      callTimerFactory: timerFactory
-    }
   }
 
-  angular.module('profitelo.services.utils', [
-  ])
-    .factory('UtilsService', service)
-
-}())
+  angular.module('profitelo.services.utils', [])
+  .service('utilsService', UtilsService)
+}

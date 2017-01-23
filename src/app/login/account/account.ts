@@ -1,8 +1,9 @@
+import IPhoneNumberService = profitelo.services.phoneNumber.IPhoneNumberService;
 (function() {
 
   function AccountFormController($rootScope, $state, $filter, AccountApi, proTopWaitingLoaderService, User,
-                                 proTopAlertService, loginStateService, CommonSettingsService, PhoneNumberUtil,
-                                 communicatorService) {
+                                 topAlertService, loginStateService, CommonSettingsService,
+                                 phoneNumberService: IPhoneNumberService, communicatorService) {
 
     this.isPending = false
     this.current = 1
@@ -11,8 +12,8 @@
 
     this.isValidPhoneNumber = (prefix, number) => {
       if (angular.isDefined(prefix) && angular.isDefined(number) && prefix && number && number.length > 1) {
-        const fullPhoneNumber = PhoneNumberUtil.parse(prefix.toString() + number.toString())
-        return PhoneNumberUtil.isValidNumber(fullPhoneNumber)
+        const fullPhoneNumber = phoneNumberService.parse(prefix.toString() + number.toString())
+        return phoneNumberService.isValidNumber(fullPhoneNumber)
       }
       return false
     }
@@ -51,7 +52,7 @@
           proTopWaitingLoaderService.stopLoader()
         }, (error) => {
           this.isPending = false
-          proTopAlertService.error({
+          topAlertService.error({
             message: $filter('translate')('INTERFACE.API_ERROR'),
             timeout: 4
           })
@@ -75,7 +76,7 @@
           proTopWaitingLoaderService.stopLoader()
           $state.go('app.dashboard.client.favourites')
           loginStateService.clearServiceObject()
-          proTopAlertService.success({
+          topAlertService.success({
             message: $filter('translate')('LOGIN.SUCCESSFUL_LOGIN'),
             timeout: 2
           })
@@ -107,13 +108,13 @@
     'ui.router',
     'c7s.ng.userAuth',
     'ui.router',
-    'PhoneNumberUtil',
+    'profitelo.services.phone-number',
     'profitelo.services.login-state',
     'profitelo.swaggerResources',
     'profitelo.services.commonSettings',
     'profitelo.services.communicator',
     'profitelo.services.pro-top-waiting-loader-service',
-    'profitelo.services.pro-top-alert-service',
+    'profitelo.services.top-alert',
     'profitelo.directives.interface.pro-alert',
     'profitelo.directives.interface.pro-input-password',
     'profitelo.directives.interface.pro-dropdown',

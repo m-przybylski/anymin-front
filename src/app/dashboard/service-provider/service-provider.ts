@@ -10,7 +10,6 @@
 
   angular.module('profitelo.controller.dashboard.service-provider', [
     'ui.router',
-    'profitelo.services.service-provider-state',
     'c7s.ng.userAuth'
   ])
   .config( function($stateProvider, UserRolesProvider) {

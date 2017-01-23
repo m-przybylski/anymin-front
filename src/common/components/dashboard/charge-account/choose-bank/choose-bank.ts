@@ -1,7 +1,7 @@
 (function () {
 
   /* @ngInject */
-  function chooseBankController(smoothScrolling, lodash) {
+  function chooseBankController(smoothScrollingService, lodash) {
 
     this.$onInit = () => {
       if (angular.isDefined(this.bankModel.value)) {
@@ -16,7 +16,7 @@
 
     const _scrollAfterChooseBank = (scrollTo) => {
       if (angular.isDefined(scrollTo) && this.firstSelect) {
-        smoothScrolling.scrollTo(scrollTo)
+        smoothScrollingService.scrollTo(scrollTo)
       }
     }
 
@@ -47,7 +47,7 @@
 
   angular.module('profitelo.components.dashboard.charge-account.choose-bank', [
     'ngLodash',
-    'profitelo.directives.services.smooth-scrolling'
+    'profitelo.services.smooth-scrolling'
   ])
   .component('chooseBank', chooseBank)
 

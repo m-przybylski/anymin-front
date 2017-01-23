@@ -1,13 +1,13 @@
 describe('Unit testing: profitelo.services.helper >', () => {
-  describe('for HelperService service >', () => {
+  describe('for helperService service >', () => {
 
-    let HelperService
+    let helperService
 
     beforeEach(() => {
     angular.mock.module('profitelo.services.helper')
 
       inject(($injector) => {
-        HelperService = $injector.get('HelperService')
+        helperService = $injector.get('helperService')
       })
 
     })
@@ -17,14 +17,14 @@ describe('Unit testing: profitelo.services.helper >', () => {
     })
 
     it('should have get function', () => {
-      expect(HelperService.socialUrlResolver).toBeDefined()
+      expect(helperService.socialUrlResolver).toBeDefined()
     })
 
     it('should match social networks classes', () => {
 
-      var generic = HelperService.socialUrlResolver('https://wykop.pl').iconClass
-      var facebook = HelperService.socialUrlResolver('facebook.com/costam').iconClass
-      var linkedIn = HelperService.socialUrlResolver('https://linkedin.com/ktostam').iconClass
+      var generic = helperService.socialUrlResolver('https://wykop.pl').iconClass
+      var facebook = helperService.socialUrlResolver('facebook.com/costam').iconClass
+      var linkedIn = helperService.socialUrlResolver('https://linkedin.com/ktostam').iconClass
 
       expect(facebook).toEqual('icon-facebook-24')
       expect(linkedIn).toEqual('icon-linkedin-24')

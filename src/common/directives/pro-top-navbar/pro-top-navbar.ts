@@ -1,5 +1,5 @@
 (function() {
-  function proTopNavbar($window, $state, $location, User, searchService, smoothScrolling) {
+  function proTopNavbar($window, $state, $location, User, searchService, smoothScrollingService) {
 
     function linkFunction(scope, elem, attrs) {
 
@@ -66,7 +66,7 @@
 
         const searchInputOnPage = angular.element(document).find('.search-bar-container .search-bar')[1]
         if (!!searchInputOnPage) {
-          smoothScrolling.simpleScrollTo(searchInputOnPage, true)
+          smoothScrollingService.simpleScrollTo(searchInputOnPage, true)
           searchInputOnPage.focus()
           scope.searchMaskActive = false
         } else if (!!navbarSearchInput) {
@@ -143,7 +143,7 @@
     'profitelo.services.search',
     'ui.router',
     'c7s.ng.userAuth',
-    'profitelo.directives.services.smooth-scrolling'
+    'profitelo.services.smooth-scrolling'
   ])
     .directive('proTopNavbar', proTopNavbar)
 

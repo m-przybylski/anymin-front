@@ -7,7 +7,6 @@
 
   angular.module('profitelo.controller.dashboard.service-provider.summary', [
     'ui.router',
-    'profitelo.services.service-provider-state',
     'profitelo.directives.service-provider.pro-service-provider-summary-step',
     'c7s.ng.userAuth',
     'profitelo.swaggerResources',

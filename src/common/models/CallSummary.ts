@@ -1,0 +1,3 @@
+interface CallSummary {
+  accountId: string
+}

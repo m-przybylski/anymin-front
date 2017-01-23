@@ -1,10 +1,10 @@
 (function () {
   /* @ngInject */
-  function controller($state, HelperService) {
+  function controller($state, helperService) {
 
     this.consultationOwnerImage = () => {
       const imageToken = this.profile.avatar || this.profile.logo
-      return imageToken !== null || imageToken === '' ? HelperService.fileUrlResolver(imageToken) : false
+      return imageToken !== null || imageToken === '' ? helperService.fileUrlResolver(imageToken) : false
     }
 
     this.goToProfile = () => {

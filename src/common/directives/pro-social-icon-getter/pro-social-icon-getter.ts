@@ -1,11 +1,11 @@
 (function() {
 
-  function proSocialIconGetter(HelperService) {
+  function proSocialIconGetter(helperService) {
 
     function proSocialIconGetterLink(scope) {
       
       scope.$watch('url', function(newVal, oldVal) {
-        scope.social = HelperService.socialUrlResolver(newVal)
+        scope.social = helperService.socialUrlResolver(newVal)
       })
     }
 
