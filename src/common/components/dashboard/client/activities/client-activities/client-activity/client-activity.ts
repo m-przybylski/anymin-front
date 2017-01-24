@@ -1,31 +1,44 @@
-(function() {
-  /* @ngInject */
-  function controller(helperService, modalsService) {
+module profitelo.components.dashboard.client.activities.clientActivity {
 
-    this.$onInit = () => {
+  import IHelperService = profitelo.services.helper.IHelperService
+  import IModalsService = profitelo.services.modals.IModalsService
+
+  interface IClientActivityComponentBindings {
+    activity: ClientActivity
+  }
+
+  class ClientActivityComponentController implements ng.IController, IClientActivityComponentBindings {
+
+    activity: ClientActivity
+    isCallActivity: boolean
+    imageUrl: string
+
+    /* @ngInject */
+    constructor(private helperService: IHelperService, private modalsService: IModalsService) {
+    }
+
+    $onInit = () => {
       this.isCallActivity = !!this.activity.sueProfileServiceTuple
 
       if (angular.isDefined(this.activity) && this.activity.sueProfileServiceTuple &&
-          this.activity.sueProfileServiceTuple.profile.expertDetails.avatar &&
-          this.activity.sueProfileServiceTuple.profile.expertDetails.avatar !== null) {
-        this.imageUrl = helperService.fileUrlResolver(this.activity.sueProfileServiceTuple.profile.expertDetails.avatar)
+        this.activity.sueProfileServiceTuple.profile.expertDetails.avatar &&
+        this.activity.sueProfileServiceTuple.profile.expertDetails.avatar !== null) {
+        this.imageUrl = this.helperService.fileUrlResolver(this.activity.sueProfileServiceTuple.profile.expertDetails.avatar)
       } else {
         this.imageUrl = null
       }
     }
 
-    this.openActivityDescription = () => {
+    public openActivityDescription = () => {
       const sueId = this.activity.sueProfileServiceTuple.serviceUsageEvent.id
-      modalsService.createClientSUEActivityDetailsModal(sueId)
+      this.modalsService.createClientSUEActivityDetailsModal(sueId)
     }
-
-    return this
   }
 
-  const component = {
-    templateUrl: 'components/dashboard/client/activities/client-activities/client-activity/client-activity.tpl.html',
-    controller: controller,
-    controllerAs: '$ctrl',
+  class ClientActivityComponent implements ng.IComponentOptions {
+    templateUrl: string = 'components/dashboard/client/activities/client-activities/client-activity/client-activity.tpl.html'
+    controller: ng.Injectable<ng.IControllerConstructor> = ClientActivityComponentController
+    controllerAs: '$ctrl'
     bindings: {
       activity: '<'
     }
@@ -38,5 +51,5 @@
     'profitelo.services.modals',
     'profitelo.components.complaints.status'
   ])
-    .component('clientActivity', component)
-}())
+    .component('clientActivity', new ClientActivityComponent)
+}
