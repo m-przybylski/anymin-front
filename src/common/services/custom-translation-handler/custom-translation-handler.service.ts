@@ -19,7 +19,7 @@ module profitelo.services.customTranslationHandlerService {
         !this.lodash.includes(CustomTranslationHandlerService._exceptionsStrings, translationId)) {
         var _str = 'Missing [' + uses + '] translations for: ' + translationId
         // TODO: move error reporting to sentry
-        this.$log.error(_str)
+        // this.$log.error(_str)
       }
     }
 
