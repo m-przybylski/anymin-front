@@ -31,7 +31,7 @@ import ClientDashboardCallDetails = profitelo.models.ClientDashboardCallDetails
     const onGetCallDetails = (callDetails: ClientDashboardCallDetails) => {
 
       const onServiceTags = (res) => {
-        openClientActivityModal(res[0].tags)
+        openClientActivityModal(res[0] ? res[0].tags : [])
       }
 
       const onServiceTagsError = (err) => {
