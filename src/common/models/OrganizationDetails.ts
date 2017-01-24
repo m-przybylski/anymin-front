@@ -1,7 +1,10 @@
-interface OrganizationDetails {
-  name: string
-  logo?: string
-  description: string
-  files: Array<any>
-  links: Array<string>
+module profitelo.models {
+
+  export interface OrganizationDetails {
+    name: string
+    logo?: string
+    description: string
+    files: Array<any>
+    links: Array<string>
+  }
 }

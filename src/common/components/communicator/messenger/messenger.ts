@@ -1,5 +1,7 @@
 module profitelo.components.communicator.messenger {
 
+  import Money = profitelo.models.Money
+
   class MessengerComponentBindings {
     callCost: Money
     isMessenger: boolean

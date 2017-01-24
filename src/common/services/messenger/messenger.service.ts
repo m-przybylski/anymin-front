@@ -2,6 +2,9 @@ import ICallService = profitelo.services.call.ICallService
 
 module profitelo.services.messenger {
 
+  import IUtilsService = profitelo.services.utils.IUtilsService
+  import ICommunicatorService = profitelo.services.communicator.ICommunicatorService
+
   export interface IMessengerService {
     onClientTyping(cb: () => void): void
     onClientMark(cb: () => void): void

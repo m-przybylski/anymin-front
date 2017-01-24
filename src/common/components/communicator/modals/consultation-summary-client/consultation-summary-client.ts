@@ -2,6 +2,8 @@ module profitelo.components.modals.consultationSummaryClient {
 
   import ICallSummaryService = profitelo.services.callSummary.ICallSummaryService
   import IHelperService = profitelo.services.helper.IHelperService
+  import Tag = profitelo.models.Tag
+  import CallSummary = profitelo.models.CallSummary
 
   interface IConsultationSummaryClientControllerScope extends ng.IScope {
     serviceId: string

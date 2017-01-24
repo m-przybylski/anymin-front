@@ -2,6 +2,9 @@ module profitelo.components.communicator {
 
   import ICallService = profitelo.services.call.ICallService
   import IHelperService = profitelo.services.helper.IHelperService
+  import Service = profitelo.models.Service
+  import Profile = profitelo.models.Profile
+  import Money = profitelo.models.Money
 
   class CommunicatorComponentController implements ng.IController {
 

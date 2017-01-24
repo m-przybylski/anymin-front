@@ -1,3 +1,6 @@
+import Service = profitelo.models.Service
+import Profile = profitelo.models.Profile
+
 (function () {
   /* @ngInject */
   function controller($scope: ng.IScope, $filter, lodash: _.LoDashStatic, clientActivitiesService) {

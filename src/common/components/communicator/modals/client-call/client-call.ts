@@ -1,5 +1,7 @@
 module profitelo.components.communicator.modals.clientCall {
 
+  import Service = profitelo.models.Service
+
   interface IClientCallParentControllerScope extends ng.IScope {
     rejectCall: Function
     answerCall: Function

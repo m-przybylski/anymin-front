@@ -1,3 +1,7 @@
+import Tag = profitelo.models.Tag
+import Money = profitelo.models.Money
+import ClientDashboardCallDetails = profitelo.models.ClientDashboardCallDetails
+
 (function() {
 
   interface IConsultationDetailsScope extends ng.IScope {

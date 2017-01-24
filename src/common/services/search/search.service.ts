@@ -1,6 +1,7 @@
-import ICategoryService = profitelo.services.categoryService.ICategoryService
-
 module profitelo.services.search {
+
+  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  import ICategoryService = profitelo.services.categoryService.ICategoryService
 
   interface NameValue {
     name: string
@@ -65,7 +66,7 @@ module profitelo.services.search {
     private _queryParams: ISearchQueryParams = {}
     private _previousQueryParams: ISearchQueryParams = {}
 
-    constructor(private $rootScope: IProfiteloRootScope, private $q: ng.IQService,
+    constructor(private $rootScope: IRootScopeService, private $q: ng.IQService,
                 private categoryService: ICategoryService, private SearchApi) {
 
       this.defineQueryProperties(this._queryParams)

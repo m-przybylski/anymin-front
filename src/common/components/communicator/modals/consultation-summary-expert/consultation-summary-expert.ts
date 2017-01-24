@@ -1,6 +1,8 @@
 module profitelo.components.communicator.modals.consultationSummaryExpert {
 
-  import ICallSummaryService = profitelo.services.callSummary.ICallSummaryService;
+  import ICallSummaryService = profitelo.services.callSummary.ICallSummaryService
+  import CallSummary = profitelo.models.CallSummary
+
   interface IConsultationSummaryExpertControllerScope extends ng.IScope {
     serviceId: string
     callSummary: CallSummary

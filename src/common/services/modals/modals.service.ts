@@ -2,6 +2,8 @@ import IDialogService = profitelo.services.dialog.IDialogService
 
 module profitelo.services.modals {
 
+  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+
   export interface IModalsService {
     createIncomingCallModal(service: Service, answerCb: () => void, rejectCb: () => void): ng.ui.bootstrap.IModalServiceInstance
     createNoFundsModal(acceptCb: () => void, rejectCb: () => void): ng.ui.bootstrap.IModalServiceInstance
@@ -16,7 +18,7 @@ module profitelo.services.modals {
   // TODO add types for dialogScope Scopes
   class ModalsService implements IModalsService {
 
-    constructor(private $log: ng.ILogService, private $rootScope: IProfiteloRootScope,
+    constructor(private $log: ng.ILogService, private $rootScope: IRootScopeService,
                 private dialogService: IDialogService) {
     }
 
