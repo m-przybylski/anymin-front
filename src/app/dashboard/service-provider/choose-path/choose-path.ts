@@ -7,7 +7,7 @@
   angular.module('profitelo.controller.dashboard.service-provider.choose-path', [
     'ui.router',
     'c7s.ng.userAuth',
-    'profitelo.services.resolvers.app.service-provider-choose-path'
+    'profitelo.resolvers.service-provider-choose-path'
   ])
   .config( function($stateProvider, UserRolesProvider) {
     $stateProvider.state('app.dashboard.service-provider.choose-path', {
@@ -16,8 +16,8 @@
       controller:   'ChoosePathController',
       controllerAs: 'vm',
       resolve: {
-        profileStatus: (AppServiceProviderChoosePathResolver) => {
-          return AppServiceProviderChoosePathResolver.resolve()
+        profileStatus: (ServiceProviderChoosePathResolver) => {
+          return ServiceProviderChoosePathResolver.resolve()
         }
       },
       data : {

@@ -1,10 +1,19 @@
-(function() {
-  function AppServiceProviderImageResolver($q, FilesApi) {
+module profitelo.resolvers.serviceProviderImage {
 
-    let _resolve = (token) => {
-      let _deferred = $q.defer()
+  export interface IAppServiceProviderImageService {
+    resolve(token: string): ng.IPromise<Object>
+  }
+
+  class ServiceProviderImageResolver implements IAppServiceProviderImageService {
+
+    constructor(private $q: ng.IQService, private FilesApi) {
+
+    }
+
+    public resolve = (token) => {
+      let _deferred = this.$q.defer()
       if (token !== null) {
-        FilesApi.fileInfoPath({
+        this.FilesApi.fileInfoPath({
           token: token
         }).$promise.then((response) => {
           if (angular.isDefined(response) && angular.isDefined(response.previews)) {
@@ -21,19 +30,14 @@
 
       return _deferred.promise
     }
-
-    return {
-      resolve: _resolve
-    }
   }
 
-
-  angular.module('profitelo.services.resolvers.app.service-provider-image-resolver', [
+  angular.module('profitelo.resolvers.service-provider-image', [
     'profitelo.swaggerResources',
     'profitelo.services.top-alert',
     'c7s.ng.userAuth',
     'profitelo.services.login-state'
   ])
-    .service('AppServiceProviderImageResolver', AppServiceProviderImageResolver)
+  .service('ServiceProviderImageResolver', ServiceProviderImageResolver)
 
-}())
+}

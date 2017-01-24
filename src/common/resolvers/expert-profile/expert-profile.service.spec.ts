@@ -1,5 +1,5 @@
-describe('Unit testing: profitelo.services.resolvers.app-expert-profile-resolver', () => {
-  describe('for AppExpertProfileResolver service >', () => {
+describe('Unit testing: profitelo.resolvers.expert-profile', () => {
+  describe('for ExpertProfileResolver service >', () => {
 
     let AppExpertProfileResolver
     let url = 'awesomeURL'
@@ -49,12 +49,12 @@ describe('Unit testing: profitelo.services.resolvers.app-expert-profile-resolver
       }
 
     angular.mock.module('profitelo.swaggerResources.definitions')
-    angular.mock.module('profitelo.services.resolvers.app-expert-profile-resolver', function($provide) {
+    angular.mock.module('profitelo.resolvers.expert-profile', function($provide) {
         $provide.value('$state',  mockState)
       })
 
       inject(($injector) => {
-        AppExpertProfileResolver = $injector.get('AppExpertProfileResolver')
+        AppExpertProfileResolver = $injector.get('ExpertProfileResolver')
         _timeout = $injector.get('$timeout')
         ViewsApiDef = $injector.get('ViewsApiDef')
         $httpBackend = $injector.get('$httpBackend')

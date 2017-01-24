@@ -1,5 +1,5 @@
-describe('Unit testing: profitelo.services.resolvers.app.login.register', () => {
-  describe('for AppLoginRegisterResolver service >', () => {
+describe('Unit testing: profitelo.resolvers.login-register', () => {
+  describe('for LoginRegisterResolver service >', () => {
 
     let AppLoginRegisterResolver
     let url = 'awesomeURL'
@@ -17,12 +17,12 @@ describe('Unit testing: profitelo.services.resolvers.app.login.register', () => 
       }
 
 
-    angular.mock.module('profitelo.services.resolvers.app.login.register', function($provide) {
+    angular.mock.module('profitelo.resolvers.login-register', function($provide) {
         $provide.value('$state', mockState)
       })
 
       inject(($injector) => {
-        AppLoginRegisterResolver = $injector.get('AppLoginRegisterResolver')
+        AppLoginRegisterResolver = $injector.get('LoginRegisterResolver')
         _timeout = $injector.get('$timeout')
       })
     })

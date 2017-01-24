@@ -58,11 +58,11 @@
     'profitelo.directives.expert-profile.pro-expert-slider',
     'profitelo.directives.expert-profile.pro-expert-single-consultation',
     'profitelo.directives.expert-profile.pro-expert-social-icons',
-    'profitelo.services.resolvers.app.service-provider-image-resolver',
+    'profitelo.resolvers.service-provider-image',
     'profitelo.components.expert-profile.similar-experts-slider',
     'profitelo.services.top-alert',
     'profitelo.services.recommended-services',
-    'profitelo.services.resolvers.app-expert-profile-resolver',
+    'profitelo.resolvers.expert-profile',
     'profitelo.components.expert-profile.social-links',
     'profitelo.components.interface.collapse-tab'
   ])
@@ -74,8 +74,8 @@
       controller: 'ExpertProfileController',
       resolve: {
         /* istanbul ignore next */
-        expertProfile:  (AppExpertProfileResolver, $stateParams) =>
-          AppExpertProfileResolver.resolve($stateParams)
+        expertProfile:  (ExpertProfileResolver, $stateParams) =>
+          ExpertProfileResolver.resolve($stateParams)
 
       },
 

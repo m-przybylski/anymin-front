@@ -1,5 +1,5 @@
-describe('Unit testing: profitelo.services.resolvers.app.login.forgot-password', () => {
-  describe('for AppLoginForgotPasswordResolverService service >', () => {
+describe('Unit testing: profitelo.resolvers.login-forgot-password', () => {
+  describe('for LoginForgotPasswordResolver service >', () => {
 
     let AppLoginForgotPasswordResolverService
     let url = 'awesomeURL'
@@ -16,12 +16,12 @@ describe('Unit testing: profitelo.services.resolvers.app.login.forgot-password',
         go: () => {}
       }
       
-    angular.mock.module('profitelo.services.resolvers.app.login.forgot-password', function($provide) {
+    angular.mock.module('profitelo.resolvers.login-forgot-password', function($provide) {
         $provide.value('$state',  mockState)
       })
 
       inject(($injector) => {
-        AppLoginForgotPasswordResolverService = $injector.get('AppLoginForgotPasswordResolverService')
+        AppLoginForgotPasswordResolverService = $injector.get('LoginForgotPasswordResolver')
         _timeout = $injector.get('$timeout')
       })
     })

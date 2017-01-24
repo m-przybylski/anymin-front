@@ -1,5 +1,5 @@
-describe('Unit testing: profitelo.services.resolvers.app.service-provider-image-resolver', () => {
-  describe('for AppServiceProviderChoosePathResolver service >', () => {
+describe('Unit testing: profitelo.resolvers.service-provider-image', () => {
+  describe('for ServiceProviderChoosePathResolver service >', () => {
 
     let url = 'awesomeURL'
     let mockState
@@ -18,12 +18,12 @@ describe('Unit testing: profitelo.services.resolvers.app.service-provider-image-
         }
       }
     angular.mock.module('profitelo.swaggerResources.definitions')
-    angular.mock.module('profitelo.services.resolvers.app.service-provider-image-resolver', function($provide) {
+    angular.mock.module('profitelo.resolvers.service-provider-image', function($provide) {
 
       })
 
       inject(($injector) => {
-        AppServiceProviderImageResolver = $injector.get('AppServiceProviderImageResolver')
+        AppServiceProviderImageResolver = $injector.get('ServiceProviderImageResolver')
         _FilesApiDef = $injector.get('FilesApiDef')
         $httpBackend = $injector.get('$httpBackend')
       })

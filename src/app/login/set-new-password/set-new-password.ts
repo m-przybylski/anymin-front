@@ -58,9 +58,9 @@
       templateUrl: 'login/set-new-password/set-new-password.tpl.html',
       resolve: {
         
-        tokenStatus: ($stateParams, AppLoginSetNewPasswordResolver) => {
+        tokenStatus: ($stateParams, LoginSetNewPasswordResolver) => {
           /* istanbul ignore next */
-          return AppLoginSetNewPasswordResolver.resolve($stateParams)
+          return LoginSetNewPasswordResolver.resolve($stateParams)
         }
       },
       data : {
@@ -78,7 +78,7 @@
     'profitelo.services.top-alert',
     'profitelo.services.pro-top-waiting-loader-service',
     'profitelo.services.password-strength',
-    'profitelo.services.resolvers.app.login.set-new-password',
+    'profitelo.resolvers.login-set-new-password',
     'profitelo.services.commonSettings',
     'profitelo.swaggerResources',
     'profitelo.directives.interface.pro-alert',

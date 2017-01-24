@@ -164,7 +164,7 @@
     'profitelo.services.dialog',
     'profitelo.swaggerResources',
     'profitelo.services.top-alert',
-    'profitelo.services.resolvers.app.service-provider-image-resolver',
+    'profitelo.resolvers.service-provider-image',
     'profitelo.directives.service-provider.pro-bottom-summary-row',
     'profitelo.directives.service-provider.pro-service-provider-cost',
     'profitelo.directives.service-provider.pro-service-provider-who-provides',
@@ -182,7 +182,7 @@
         controllerAs: 'vm',
         resolve: {
           /* istanbul ignore next */
-          savedProfile: ($q, $state, ProfileApi, lodash: _.LoDashStatic, User, AppServiceProviderImageResolver, ServiceApi, topAlertService) => {
+          savedProfile: ($q, $state, ProfileApi, lodash: _.LoDashStatic, User, ServiceProviderImageResolver, ServiceApi, topAlertService) => {
             /* istanbul ignore next */
             let _deferred = $q.defer()
             /* istanbul ignore next */
@@ -220,8 +220,8 @@
             return _deferred.promise
           },
           /* istanbul ignore next */
-          profileImage: (AppServiceProviderImageResolver, savedProfile) => {
-            return AppServiceProviderImageResolver.resolve(savedProfile.organizationDetails.logo)
+          profileImage: (ServiceProviderImageResolver, savedProfile) => {
+            return ServiceProviderImageResolver.resolve(savedProfile.organizationDetails.logo)
           }
         },
         data: {

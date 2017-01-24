@@ -53,9 +53,9 @@
           /* istanbul ignore next */
           return _deferred.promise
         },
-        companyLogo: (AppServiceProviderImageResolver, pendingInvitations) => {
+        companyLogo: (ServiceProviderImageResolver, pendingInvitations) => {
           if (pendingInvitations.length > 0) {
-            return AppServiceProviderImageResolver.resolve(pendingInvitations[0].organizationDetails.logo)
+            return ServiceProviderImageResolver.resolve(pendingInvitations[0].organizationDetails.logo)
           } else {
             return false
           }
@@ -71,7 +71,7 @@
     'ngLodash',
     'profitelo.swaggerResources',
     'profitelo.components.invitations.company-profile',
-    'profitelo.services.resolvers.app.service-provider-image-resolver',
+    'profitelo.resolvers.service-provider-image',
     'profitelo.components.dashboard.invitation.pro-invitation-acceptance-box'
 
   ])

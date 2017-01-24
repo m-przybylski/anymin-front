@@ -1,5 +1,5 @@
-describe('Unit testing: profitelo.services.resolvers.app.service-provider-choose-path', () => {
-  describe('for AppServiceProviderChoosePathResolver service >', () => {
+describe('Unit testing: profitelo.resolvers.service-provider-choose-path', () => {
+  describe('for ServiceProviderChoosePathResolver service >', () => {
     
     let url = 'awesomeURL'
     let mockState
@@ -21,12 +21,12 @@ describe('Unit testing: profitelo.services.resolvers.app.service-provider-choose
 
     angular.mock.module('profitelo.swaggerResources.definitions')
 
-    angular.mock.module('profitelo.services.resolvers.app.service-provider-choose-path', function($provide) {
+    angular.mock.module('profitelo.resolvers.service-provider-choose-path', function($provide) {
         $provide.value('$state', mockState)
       })
 
       inject(($injector) => {
-        AppServiceProviderChoosePathResolver = $injector.get('AppServiceProviderChoosePathResolver')
+        AppServiceProviderChoosePathResolver = $injector.get('ServiceProviderChoosePathResolver')
         _ProfileApiDef = $injector.get('ProfileApiDef')
         _timeout = $injector.get('$timeout')
         $httpBackend = $injector.get('$httpBackend')
@@ -121,7 +121,7 @@ describe('Unit testing: profitelo.services.resolvers.app.service-provider-choose
       spyOn(spy, 'spy')
       resourcesExpectations.User.getStatus.respond(500)
 
-      AppServiceProviderChoosePathResolver.resolve().then((res)=> {
+      service-provider-choose-path.resolve().then((res)=> {
       }, ()=> {
         spy.spy()
       })

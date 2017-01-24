@@ -1,5 +1,5 @@
-describe('Unit testing: profitelo.services.resolvers.app-company-profile-resolver', () => {
-  describe('for AppCompanyProfileResolver service >', () => {
+describe('Unit testing: profitelo.resolvers.company-profile', () => {
+  describe('for company-profile service >', () => {
 
     let AppCompanyProfileResolver
     let url = 'awesomeURL'
@@ -49,12 +49,12 @@ describe('Unit testing: profitelo.services.resolvers.app-company-profile-resolve
       }
 
     angular.mock.module('profitelo.swaggerResources.definitions')
-    angular.mock.module('profitelo.services.resolvers.app-company-profile-resolver', function($provide) {
+    angular.mock.module('profitelo.resolvers.company-profile', function($provide) {
         $provide.value('$state',  mockState)
       })
 
       inject(($injector) => {
-        AppCompanyProfileResolver = $injector.get('AppCompanyProfileResolver')
+        AppCompanyProfileResolver = $injector.get('CompanyProfileResolver')
         _timeout = $injector.get('$timeout')
         ViewsApiDef = $injector.get('ViewsApiDef')
         $httpBackend = $injector.get('$httpBackend')

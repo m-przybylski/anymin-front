@@ -1,6 +1,6 @@
 (function() {
 
-  function DashboardClientFavouritesController($log, lodash: _.LoDashStatic, clientFavouritesConsultations, recommendedServices) {
+  function DashboardClientFavouritesController($log: ng.ILogService, lodash: _.LoDashStatic, clientFavouritesConsultations, recommendedServices) {
     this.balance = clientFavouritesConsultations.balance
     this.lastConsultations = lodash.sortBy(clientFavouritesConsultations.lastConsultations, 'createdAt')
     this.favouriteProfiles = clientFavouritesConsultations.favouriteProfiles
@@ -28,7 +28,7 @@
     'profitelo.components.dashboard.client.favourites.favourite-experts',
     'profitelo.components.expert-profile.similar-experts-slider',
     'profitelo.components.dashboard.client.favourites.favourite-experts.last-consultation-slider',
-    'profitelo.services.resolvers.app-client-favourites-resolver'
+    'profitelo.resolvers.client-favourites'
   ])
   .config( function($stateProvider, UserRolesProvider) {
     $stateProvider.state('app.dashboard.client.favourites', {
@@ -38,8 +38,8 @@
       controllerAs: 'vm',
       resolve: {
         /* istanbul ignore next */
-        clientFavouritesConsultations:  (AppClientFavouritesResolver) =>
-          AppClientFavouritesResolver.resolve()
+        clientFavouritesConsultations:  (ClientFavouritesResolver) =>
+          ClientFavouritesResolver.resolve()
       },
       data          : {
         access : UserRolesProvider.getAccessLevel('user')

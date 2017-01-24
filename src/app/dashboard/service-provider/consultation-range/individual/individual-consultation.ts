@@ -153,7 +153,7 @@
     'c7s.ng.userAuth',
     'profitelo.swaggerResources',
     'profitelo.services.top-alert',
-    'profitelo.services.resolvers.app.service-provider-image-resolver',
+    'profitelo.resolvers.service-provider-image',
     'profitelo.directives.service-provider.pro-bottom-summary-row',
     'profitelo.directives.service-provider.pro-service-provider-cost',
     'profitelo.directives.service-provider.pro-service-provider-who-provides',
@@ -210,8 +210,8 @@
             /* istanbul ignore next */
             return _deferred.promise
           },
-          profileImage: (AppServiceProviderImageResolver, savedProfile) => {
-            return AppServiceProviderImageResolver.resolve(savedProfile.expertDetails.avatar)
+          profileImage: (ServiceProviderImageResolver, savedProfile) => {
+            return ServiceProviderImageResolver.resolve(savedProfile.expertDetails.avatar)
           }
 
         },

@@ -90,7 +90,7 @@
     'ui.router',
     'c7s.ng.userAuth',
     'profitelo.services.login-state',
-    'profitelo.services.resolvers.app.login.register',
+    'profitelo.resolvers.login-register',
     'profitelo.swaggerResources',
     'profitelo.services.commonSettings',
     'profitelo.services.top-alert',
