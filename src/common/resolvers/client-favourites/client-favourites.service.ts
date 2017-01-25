@@ -1,13 +1,13 @@
 module profitelo.resolvers.clientFavourites {
 
-  interface IAppClientFavourites {
+  interface IClientFavourites {
     balance: Money
     favouriteProfiles: Array<Profile>
     lastConsultations: Array<Service>
   }
 
   export interface IClientFavouritesResolverService {
-    resolve(): ng.IPromise<IAppClientFavourites>
+    resolve(): ng.IPromise<IClientFavourites>
   }
 
   class ClientFavouritesResolver implements IClientFavouritesResolverService {

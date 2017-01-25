@@ -4,7 +4,7 @@ module profitelo.resolvers.loginConfirmEmail {
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 
   export interface ILoginConfirmEmailService {
-    resolve(stateParams: ng.ui.IStateParamsService): ng.IPromise<Object>
+    resolve(stateParams: ng.ui.IStateParamsService): ng.IPromise<undefined>
   }
 
   class LoginConfirmEmailResolver implements ILoginConfirmEmailService {
@@ -17,7 +17,7 @@ module profitelo.resolvers.loginConfirmEmail {
     }
 
     public resolve = (stateParams: ng.ui.IStateParamsService) => {
-      let _deferred = this.$q.defer()
+      const _deferred = this.$q.defer()
 
       const handleBadToken = () => {
         _deferred.reject()

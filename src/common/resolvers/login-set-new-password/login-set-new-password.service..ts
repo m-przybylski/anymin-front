@@ -3,11 +3,19 @@ module profitelo.resolvers.loginSetNewPassword {
   import ILoginStateService = profitelo.services.loginState.ILoginStateService
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
 
-  export interface IAppLoginSetNewPasswordService {
-    resolve(stateParam: ng.ui.IStateParamsService): ng.IPromise<Object>
+  interface ILoginSetNewPassword {
+    method: string
+    payload: {
+      msisdn?: string
+      token: string
+    }
   }
 
-  class LoginSetNewPasswordResolver implements IAppLoginSetNewPasswordService {
+  export interface ILoginSetNewPasswordService {
+    resolve(stateParam: ng.ui.IStateParamsService): ng.IPromise<ILoginSetNewPassword>
+  }
+
+  class LoginSetNewPasswordResolver implements ILoginSetNewPasswordService {
 
     constructor(private $state: ng.ui.IStateService, private $filter: ng.IFilterService,
                 private $timeout: ng.ITimeoutService, private $q: ng.IQService,

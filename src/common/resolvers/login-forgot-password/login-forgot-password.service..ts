@@ -1,9 +1,15 @@
 module profitelo.resolvers.loginForgotPassword {
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import ILoginStateService = profitelo.services.loginState.ILoginStateService
+  import Account = profitelo.models.Account
+
+  interface ILoginForgotPassword {
+    recoveryMethod: string
+    accountObject: Account
+  }
 
   export interface ILoginForgotPasswordService {
-    resolve(stateParams: ng.ui.IStateParamsService): ng.IPromise<Object>
+    resolve(stateParams: ng.ui.IStateParamsService): ng.IPromise<ILoginForgotPassword>
   }
 
   class LoginForgotPasswordResolver implements ILoginForgotPasswordService {

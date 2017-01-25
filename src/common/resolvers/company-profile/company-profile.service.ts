@@ -1,16 +1,16 @@
 module profitelo.resolvers.companyProfile {
 
-  interface IAppCompanyProfile {
+  interface ICompanyProfile {
     profile: Profile
     services: Array<Service>
     isFavourite: boolean
   }
 
-  export interface IAppCompanyProfileServices {
-    resolve(stateParams: ng.ui.IStateParamsService): ng.IPromise<IAppCompanyProfile>
+  export interface ICompanyProfileServices {
+    resolve(stateParams: ng.ui.IStateParamsService): ng.IPromise<ICompanyProfile>
   }
 
-  class CompanyProfileResolver implements IAppCompanyProfileServices{
+  class CompanyProfileResolver implements ICompanyProfileServices{
 
     constructor(private $q: ng.IQService, private ViewsApi, private lodash: _.LoDashStatic) {
 

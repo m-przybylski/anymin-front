@@ -1,14 +1,12 @@
 module profitelo.resolvers.serviceProviderImage {
 
-  export interface IAppServiceProviderImageService {
-    resolve(token: string): ng.IPromise<Object>
+  export interface IServiceProviderImageService {
+    resolve(token: string): ng.IPromise<string>
   }
 
-  class ServiceProviderImageResolver implements IAppServiceProviderImageService {
+  class ServiceProviderImageResolver implements IServiceProviderImageService {
 
-    constructor(private $q: ng.IQService, private FilesApi) {
-
-    }
+    constructor(private $q: ng.IQService, private FilesApi) {}
 
     public resolve = (token) => {
       let _deferred = this.$q.defer()

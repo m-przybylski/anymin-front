@@ -2,8 +2,9 @@ module profitelo.resolvers.serviceProviderChoosePath {
 
   import IQService = angular.IQService
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+
   export interface IServiceProviderChoosePathService {
-    resolve(): ng.IPromise<Object>
+    resolve(): ng.IPromise<Profile>
   }
 
   class ServiceProviderChoosePathResolver implements IServiceProviderChoosePathService {

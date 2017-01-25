@@ -1,9 +1,16 @@
 module profitelo.resolvers.loginRegister {
 
-  import ILoginStateService = profitelo.services.loginState.ILoginStateService;
+  import ILoginStateService = profitelo.services.loginState.ILoginStateService
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+  import Account = profitelo.models.Account
+
+  interface ILoginRegister {
+    sessionId: string
+    accountObject: Account
+  }
+
   export interface ILoginRegisterService {
-    resolve(): ng.IPromise<Object>
+    resolve(): ng.IPromise<ILoginRegister>
   }
 
   class LoginRegisterResolver implements ILoginRegisterService {
