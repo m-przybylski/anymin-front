@@ -107,21 +107,21 @@ namespace app.dashboard.client.activities {
     'profitelo.components.dashboard.client.activities.client-activities.filters',
     'profitelo.services.client-activities-service'
   ])
-    .config(function ($stateProvider, UserRolesProvider) {
-      $stateProvider.state('app.dashboard.client.activities', {
-        url: '/activities',
-        templateUrl: 'dashboard/client/activities/activities.tpl.html',
-        controller: 'DashboardClientActivitiesController',
-        controllerAs: 'vm',
-        data: {
-          access: UserRolesProvider.getAccessLevel('user')
-        },
-        resolve: {
-          /* istanbul ignore next */
-          clientActivities: (clientActivitiesService: IClientActivitiesService) =>
-            clientActivitiesService.resolve()
-        }
-      })
+  .config(function ($stateProvider, UserRolesProvider) {
+    $stateProvider.state('app.dashboard.client.activities', {
+      url: '/activities',
+      templateUrl: 'dashboard/client/activities/activities.tpl.html',
+      controller: 'DashboardClientActivitiesController',
+      controllerAs: 'vm',
+      data: {
+        access: UserRolesProvider.getAccessLevel('user')
+      },
+      resolve: {
+        /* istanbul ignore next */
+        clientActivities: (clientActivitiesService: IClientActivitiesService) =>
+          clientActivitiesService.resolve()
+      }
     })
-    .controller('DashboardClientActivitiesController', DashboardClientActivitiesController)
+  })
+  .controller('DashboardClientActivitiesController', DashboardClientActivitiesController)
 }

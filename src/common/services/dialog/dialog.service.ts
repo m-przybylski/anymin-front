@@ -30,11 +30,7 @@ namespace profitelo.services.dialog {
 
       _options = angular.extend({}, _options, options)
 
-      const modalInstance = this.$uibModal.open(_options)
-
-
-
-      return modalInstance
+      return this.$uibModal.open(_options)
     }
   }
 

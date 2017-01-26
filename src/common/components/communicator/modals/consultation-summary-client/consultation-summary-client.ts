@@ -106,7 +106,8 @@ namespace profitelo.components.modals.consultationSummaryClient {
     'profitelo.swaggerResources',
     'ui.bootstrap',
     'profitelo.components.interface.preloader',
-    'ngLodash'
+    'ngLodash',
+    'profitelo.directives.interface.scrollable'
   ])
   .controller('consultationSummaryClientController', ConsultationSummaryClientController)
 }
