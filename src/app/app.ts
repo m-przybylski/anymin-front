@@ -265,10 +265,7 @@
     'profitelo.controller.post-register.set-email',
     'profitelo.components.interface.go-to-top',
 
-
     'profitelo.controller.error',
-
-
 
     // directives
     'profitelo.directives.pro-top-waiting-loader',
@@ -279,7 +276,6 @@
     // 'profitelo.components.communicator.pro-bottom-communicator',
     'profitelo.components.communicator',
     'profitelo.components.interface.preloader-container',
-
 
     // translations
     'profitelo.translations.en-us',

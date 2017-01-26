@@ -1,4 +1,4 @@
-module profitelo.services.topAlert {
+namespace profitelo.services.topAlert {
 
   export interface ITopAlertSettings {
     id?: number

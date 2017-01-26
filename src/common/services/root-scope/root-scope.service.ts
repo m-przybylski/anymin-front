@@ -1,4 +1,4 @@
-module profitelo.services.rootScope {
+namespace profitelo.services.rootScope {
 
   export interface IRootScopeService extends ng.IRootScopeService {
     loggedIn: boolean

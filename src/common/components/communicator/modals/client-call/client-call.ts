@@ -1,4 +1,4 @@
-module profitelo.components.communicator.modals.clientCall {
+namespace profitelo.components.communicator.modals.clientCall {
 
   import Service = profitelo.models.Service
 

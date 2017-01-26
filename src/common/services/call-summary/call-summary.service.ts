@@ -1,4 +1,4 @@
-module profitelo.services.callSummary {
+namespace profitelo.services.callSummary {
 
   import IProfiteloWebsocketService = profitelo.services.profiteloWebsocket.IProfiteloWebsocketService
   import IUtilsService = profitelo.services.utils.IUtilsService

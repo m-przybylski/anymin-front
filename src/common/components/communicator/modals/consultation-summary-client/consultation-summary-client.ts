@@ -1,4 +1,4 @@
-module profitelo.components.modals.consultationSummaryClient {
+namespace profitelo.components.modals.consultationSummaryClient {
 
   import ICallSummaryService = profitelo.services.callSummary.ICallSummaryService
   import IHelperService = profitelo.services.helper.IHelperService

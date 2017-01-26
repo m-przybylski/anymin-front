@@ -1,4 +1,4 @@
-module profitelo.services.interfaceLanguage {
+namespace profitelo.services.interfaceLanguage {
 
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 

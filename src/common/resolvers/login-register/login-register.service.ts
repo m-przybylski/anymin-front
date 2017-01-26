@@ -1,10 +1,10 @@
-module profitelo.resolvers.loginRegister {
+namespace profitelo.resolvers.loginRegister {
 
   import ILoginStateService = profitelo.services.loginState.ILoginStateService
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import Account = profitelo.models.Account
 
-  interface ILoginRegister {
+  export interface ILoginRegister {
     sessionId: string
     accountObject: Account
   }

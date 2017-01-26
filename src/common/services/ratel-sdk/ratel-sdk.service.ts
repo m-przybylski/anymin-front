@@ -1,4 +1,4 @@
-module profitelo.services.ratelSdk {
+namespace profitelo.services.ratelSdk {
 
   function RatelSDK($window) {
     return $window.RatelSDK

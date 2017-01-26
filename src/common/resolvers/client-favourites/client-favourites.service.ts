@@ -1,6 +1,6 @@
-module profitelo.resolvers.clientFavourites {
+namespace profitelo.resolvers.clientFavourites {
 
-  interface IClientFavourites {
+  export interface IClientFavourites {
     balance: Money
     favouriteProfiles: Array<Profile>
     lastConsultations: Array<Service>

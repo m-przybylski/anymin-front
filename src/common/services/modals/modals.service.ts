@@ -1,6 +1,6 @@
 import IDialogService = profitelo.services.dialog.IDialogService
 
-module profitelo.services.modals {
+namespace profitelo.services.modals {
 
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 

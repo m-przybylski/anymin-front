@@ -1,4 +1,4 @@
-module profitelo.components.communicator.modals.serviceUnavailable {
+namespace profitelo.components.communicator.modals.serviceUnavailable {
 
   interface IUnavailableServiceControllerParentScope {
     accept: Function

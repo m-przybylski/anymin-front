@@ -1,4 +1,4 @@
-module profitelo.services.smoothScrolling {
+namespace profitelo.services.smoothScrolling {
 
   export interface ISmoothScrollingService {
     scrollTo(elementId: string): void

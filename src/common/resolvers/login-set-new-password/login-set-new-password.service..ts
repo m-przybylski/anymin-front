@@ -1,9 +1,9 @@
-module profitelo.resolvers.loginSetNewPassword {
+namespace profitelo.resolvers.loginSetNewPassword {
 
   import ILoginStateService = profitelo.services.loginState.ILoginStateService
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
 
-  interface ILoginSetNewPassword {
+  export interface ILoginSetNewPassword {
     method: string
     payload: {
       msisdn?: string

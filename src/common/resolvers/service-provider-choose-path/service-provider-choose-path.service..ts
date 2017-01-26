@@ -1,4 +1,4 @@
-module profitelo.resolvers.serviceProviderChoosePath {
+namespace profitelo.resolvers.serviceProviderChoosePath {
 
   import IQService = angular.IQService
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService

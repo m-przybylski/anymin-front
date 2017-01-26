@@ -1,4 +1,4 @@
-module profitelo.services.recommendedServices {
+namespace profitelo.services.recommendedServices {
 
   export interface IRecommendedServicesService {
     getRecommendedExperts(services: Array<Service>): ng.IPromise<Array<Service>>

@@ -1,4 +1,4 @@
-module profitelo.services.utils {
+namespace profitelo.services.utils {
 
   // TODO create separate factories for those two
   export interface IUtilsService {

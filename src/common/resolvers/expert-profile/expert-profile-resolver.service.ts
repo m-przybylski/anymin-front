@@ -1,6 +1,6 @@
-module profitelo.resolvers.expertProfileResolver {
+namespace profitelo.resolvers.expertProfileResolver {
 
-  interface IExpertProfile {
+  export interface IExpertProfile {
     profile: Profile
     services: Array<Service>
     isFavourite: boolean,

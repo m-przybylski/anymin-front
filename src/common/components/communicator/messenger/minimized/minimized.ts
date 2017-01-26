@@ -1,4 +1,4 @@
-module profitelo.components.communicator.messenger.minimized {
+namespace profitelo.components.communicator.messenger.minimized {
 
   import IMessengerService = profitelo.services.messenger.IMessengerService
 
@@ -8,7 +8,7 @@ module profitelo.components.communicator.messenger.minimized {
 
   class MessengerMinimizedComponentController implements ng.IController, MessengerMinimizedComponentBindings {
 
-    public onMessageClick
+    public onMessageClick: (msg: any) => void
     public messages = []
 
     private static messageShowTimeout = 5000
@@ -37,7 +37,7 @@ module profitelo.components.communicator.messenger.minimized {
   class MessengerMinimizedComponent implements ng.IComponentOptions {
     templateUrl: string = 'components/communicator/messenger/minimized/minimized.tpl.html'
     controller: ng.Injectable<ng.IControllerConstructor> = MessengerMinimizedComponentController
-    bindings: {
+    bindings: {[boundProperty: string]: string} = {
       onMessageClick: '<'
     }
   }

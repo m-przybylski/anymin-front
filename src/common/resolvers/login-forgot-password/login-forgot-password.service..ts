@@ -1,9 +1,9 @@
-module profitelo.resolvers.loginForgotPassword {
+namespace profitelo.resolvers.loginForgotPassword {
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import ILoginStateService = profitelo.services.loginState.ILoginStateService
   import Account = profitelo.models.Account
 
-  interface ILoginForgotPassword {
+  export interface ILoginForgotPassword {
     recoveryMethod: string
     accountObject: Account
   }

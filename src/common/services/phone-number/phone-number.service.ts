@@ -1,4 +1,4 @@
-module profitelo.services.phoneNumber {
+namespace profitelo.services.phoneNumber {
 
   export interface PhoneNumber {}
 

@@ -1,4 +1,4 @@
-module profitelo.services.navigator {
+namespace profitelo.services.navigator {
 
   export interface INavigatorService {
     getUserMediaStream(): ng.IPromise<MediaStream>

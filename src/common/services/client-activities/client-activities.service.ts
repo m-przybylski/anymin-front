@@ -1,8 +1,21 @@
-module profitelo.services.clientActivities {
+namespace profitelo.services.clientActivities {
 
-  // TODO define type for result and queryParams
+  import ClientActivity = profitelo.models.ClientActivity
+
+  export interface IExpertServiceTuple {
+    expert: Profile
+    service: Service
+  }
+
+  export interface IClientActivities {
+    activities: Array<ClientActivity>
+    activityTypes: Array<string>
+    balance: Money
+    expertServiceTuples: Array<IExpertServiceTuple>
+  }
+
   export interface IClientActivitiesService {
-    resolve(): ng.IPromise<any>
+    resolve(): ng.IPromise<IClientActivities>
     setClientActivitiesParam(params: any): ng.IPromise<any>
     getMoreResults(offset: number): ng.IPromise<any>
     onQueryParamsChange(scope: ng.IScope, callback: (queryParams: any) => void): void

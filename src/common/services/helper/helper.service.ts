@@ -1,4 +1,4 @@
-module profitelo.services.helper {
+namespace profitelo.services.helper {
 
   export interface IHelperService {
     socialUrlResolver(url: string): string

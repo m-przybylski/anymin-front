@@ -1,4 +1,4 @@
-module profitelo.services.serviceProvider {
+namespace profitelo.services.serviceProvider {
 
   export interface IServiceProviderDefaultModel {
     name: string
