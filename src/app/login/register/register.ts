@@ -105,9 +105,9 @@
       templateUrl: 'login/register/register.tpl.html',
       resolve: {
         /* istanbul ignore next */
-        smsSessionId: (AppLoginRegisterResolver) => {
+        smsSessionId: (LoginRegisterResolver) => {
           /* istanbul ignore next */
-          return AppLoginRegisterResolver.resolve()
+          return LoginRegisterResolver.resolve()
         }
       },
       data: {
@@ -121,7 +121,7 @@
     'ui.router',
     'c7s.ng.userAuth',
     'profitelo.services.login-state',
-    'profitelo.services.resolvers.app.login.register',
+    'profitelo.resolvers.login-register',
     'profitelo.swaggerResources',
     'profitelo.services.communicator',
     'profitelo.services.commonSettings',

@@ -61,7 +61,7 @@
     'profitelo.components.expert-profile.social-links',
     'profitelo.services.top-alert',
     'profitelo.services.recommended-services',
-    'profitelo.services.resolvers.app-company-profile-resolver',
+    'profitelo.resolvers.company-profile',
     'commonConfig'
   ])
   .config(($stateProvider, UserRolesProvider) => {
@@ -72,8 +72,8 @@
       controller: 'CompanyProfileController',
       resolve: {
         /* istanbul ignore next */
-        companyProfile: (AppCompanyProfileResolver, $stateParams) =>
-          AppCompanyProfileResolver.resolve($stateParams)
+        companyProfile: (CompanyProfileResolver, $stateParams) =>
+          CompanyProfileResolver.resolve($stateParams)
       },
       data: {
         access : UserRolesProvider.getAccessLevel('public')

@@ -55,7 +55,7 @@
     'profitelo.filters.money',
     'profitelo.services.helper',
     'profitelo.filters.object-size-filter',
-    'profitelo.services.resolvers.app.service-provider-image-resolver'
+    'profitelo.resolvers.service-provider-image'
   ])
   .component('singleConsultation', singleConsultation)
 

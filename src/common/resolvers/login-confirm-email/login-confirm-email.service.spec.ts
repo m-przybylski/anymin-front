@@ -1,5 +1,5 @@
-describe('Unit testing: profitelo.services.resolvers.app.login.confirm-email', () => {
-  describe('for AppLoginConfirmEmailResolverService service >', () => {
+describe('Unit testing: profitelo.resolvers.login-confirm-email', () => {
+  describe('for LoginConfirmEmailResolver service >', () => {
 
     let AppLoginConfirmEmailResolverService
     let url = 'awesomeURL'
@@ -22,12 +22,12 @@ describe('Unit testing: profitelo.services.resolvers.app.login.confirm-email', (
       }
 
     angular.mock.module('profitelo.swaggerResources.definitions')
-    angular.mock.module('profitelo.services.resolvers.app.login.confirm-email', function($provide) {
+    angular.mock.module('profitelo.resolvers.login-confirm-email', function($provide) {
         $provide.value('$state',  mockState)
       })
 
       inject(($injector) => {
-        AppLoginConfirmEmailResolverService = $injector.get('AppLoginConfirmEmailResolverService')
+        AppLoginConfirmEmailResolverService = $injector.get('LoginConfirmEmailResolver')
         _timeout = $injector.get('$timeout')
         _AccountApiDef = $injector.get('AccountApiDef')
         _SessionApiDef = $injector.get('SessionApiDef')

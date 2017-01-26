@@ -1,5 +1,5 @@
 describe('Unit testing: profitelo.services.recommended-profiles-service', () => {
-  describe('for AppExpertProfileResolver service >', () => {
+  describe('for expert-profile service >', () => {
 
     let recommendedServices
     let url = 'awesomeURL'

@@ -34,7 +34,7 @@ module profitelo.services.print {
     }
 
     public print = (imgSrc) => {
-      var oHiddFrame = document.createElement('iframe')
+      const oHiddFrame = document.createElement('iframe')
       oHiddFrame.onload = this.setPrint
       oHiddFrame.style.visibility = 'hidden'
       oHiddFrame.style.position = 'fixed'

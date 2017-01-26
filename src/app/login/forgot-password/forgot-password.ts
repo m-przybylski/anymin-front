@@ -45,8 +45,8 @@
       controller: 'ForgotPasswordController',
       templateUrl: 'login/forgot-password/forgot-password.tpl.html',
       resolve: {
-        account: (AppLoginForgotPasswordResolverService, $stateParams) => {
-          return AppLoginForgotPasswordResolverService.resolve($stateParams)
+        account: (LoginForgotPasswordResolver, $stateParams) => {
+          return LoginForgotPasswordResolver.resolve($stateParams)
         }
       },
       data : {
@@ -59,7 +59,7 @@
 
   angular.module('profitelo.controller.login.forgot-password', [
     'ui.router',
-    'profitelo.services.resolvers.app.login.forgot-password',
+    'profitelo.resolvers.login-forgot-password',
     'profitelo.swaggerResources',
     'profitelo.services.pro-top-waiting-loader-service',
     'profitelo.services.commonSettings',

@@ -6,8 +6,8 @@
       /* istanbul ignore next */
       resolve: {
         /* istanbul ignore next */
-        account: (AppLoginConfirmEmailResolverService, $stateParams) => {
-          return AppLoginConfirmEmailResolverService.resolve($stateParams)
+        account: (LoginConfirmEmailResolver, $stateParams) => {
+          return LoginConfirmEmailResolver.resolve($stateParams)
         }
       },
       data : {
@@ -19,7 +19,7 @@
 
   angular.module('profitelo.controller.login.confirm-email', [
     'ui.router',
-    'profitelo.services.resolvers.app.login.confirm-email'
+    'profitelo.resolvers.login-confirm-email'
   ])
   .config(config)
 

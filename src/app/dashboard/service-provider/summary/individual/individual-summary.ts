@@ -116,7 +116,7 @@
     'profitelo.common.controller.accept-reject-dialog-controller',
     'profitelo.directives.service-provider.pro-service-provider-summary-step',
     'c7s.ng.userAuth',
-    'profitelo.services.resolvers.app.service-provider-image-resolver',
+    'profitelo.resolvers.service-provider-image',
     'profitelo.swaggerResources',
     'profitelo.directives.interface.pro-alert'
   ])
@@ -166,9 +166,9 @@
             /* istanbul ignore next */
             return _deferred.promise
           },
-          profileImage: (AppServiceProviderImageResolver, savedProfile) => {
+          profileImage: (ServiceProviderImageResolver, savedProfile) => {
             /* istanbul ignore next */
-            return AppServiceProviderImageResolver.resolve(savedProfile.expertDetails.avatar)
+            return ServiceProviderImageResolver.resolve(savedProfile.expertDetails.avatar)
           }
         },
         data: {
