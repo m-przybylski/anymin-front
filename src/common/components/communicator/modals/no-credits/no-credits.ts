@@ -1,4 +1,4 @@
-module profitelo.components.communicator.modals.noCredits {
+namespace profitelo.components.communicator.modals.noCredits {
 
   interface NoCreditsControllerParentScope extends ng.IScope {
     reject: Function

@@ -1,4 +1,4 @@
-module profitelo.components.communicator.messenger.maximized.input {
+namespace profitelo.components.communicator.messenger.maximized.input {
 
   class MessengerInputBindings {
     onSendMessage: Function
@@ -42,7 +42,7 @@ module profitelo.components.communicator.messenger.maximized.input {
   class MessengerInputComponent {
     templateUrl: string = 'components/communicator/messenger/maximized/messenger-input/messenger-input.tpl.html'
     controller: ng.Injectable<ng.IControllerConstructor> = MessengerInputComponentController
-    bindings: {
+    bindings: {[boundProperty: string]: string} = {
       onSendMessage: '<',
       onUploadFiles: '<',
       onTyping: '<',

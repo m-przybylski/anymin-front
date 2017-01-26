@@ -1,4 +1,4 @@
-module profitelo.resolvers.loginConfirmEmail {
+namespace profitelo.resolvers.loginConfirmEmail {
 
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService

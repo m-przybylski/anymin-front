@@ -1,4 +1,4 @@
-module profitelo.services.loginState {
+namespace profitelo.services.loginState {
 
   //TODO add account type
   export interface ILoginStateService {

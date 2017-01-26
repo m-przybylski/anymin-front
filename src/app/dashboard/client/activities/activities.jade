@@ -15,8 +15,7 @@
 
       .client-activities-page(data-ng-hide="vm.isSearchLoading")
         client-activities-filters(data-filters="vm.filters" on-set-search-params="vm.onSetSearchParams")
-        client-activity(data-ng-repeat="activity in vm.activities "
-        data-activity="activity")
+        client-activity(data-ng-repeat="activity in vm.activities" data-activity="activity")
         .show-more-results
           a.btn.btn-primary(data-translate="DASHBOARD.CLIENT.ACTIVITIES.SHOW_MORE_RESULTS"
           data-ng-click="vm.loadMoreActivities()" data-ng-show="vm.isMoreResults")

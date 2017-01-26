@@ -1,4 +1,4 @@
-module profitelo.components.communicator.messenger.maximized.groupedMessages {
+namespace profitelo.components.communicator.messenger.maximized.groupedMessages {
 
   class GroupedMessagesComponentBindings {
     messages: Array<any>
@@ -24,7 +24,7 @@ module profitelo.components.communicator.messenger.maximized.groupedMessages {
   class GroupedMessagesComponent {
     templateUrl: string = 'components/communicator/messenger/maximized/grouped-messages/grouped-messages.tpl.html'
     controller: ng.Injectable<ng.IControllerConstructor> = GroupedMessagesComponentController
-    bindings: {
+    bindings: {[boundProperty: string]: string} = {
       messages: '<',
       participantAvatar: '@'
     }

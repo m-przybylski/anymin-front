@@ -1,4 +1,4 @@
-module profitelo.services.commonSettings {
+namespace profitelo.services.commonSettings {
 
   export interface ICommonSettingsService {
     localSettings: any

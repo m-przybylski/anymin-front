@@ -1,4 +1,4 @@
-module profitelo.services.communicator {
+namespace profitelo.services.communicator {
 
   export interface IConsultationInvitation {
     invitation: any

@@ -1,4 +1,4 @@
-module profitelo.services.dialog {
+namespace profitelo.services.dialog {
 
   export interface IDialogService {
     openDialog(options?: ng.ui.bootstrap.IModalSettings)

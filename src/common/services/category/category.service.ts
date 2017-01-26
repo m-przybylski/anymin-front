@@ -1,6 +1,6 @@
 import Category = profitelo.models.Category
 
-module profitelo.services.categoryService {
+namespace profitelo.services.categoryService {
 
   export interface ICategoryService {
     listCategories(): ng.IPromise<Array<Category>>

@@ -1,4 +1,4 @@
-module profitelo.services.passwordStrength {
+namespace profitelo.services.passwordStrength {
 
   export interface IPasswordStrengthService {
     getStrength(password: string): number

@@ -1,4 +1,4 @@
-module profitelo.services.topWaitingLoader {
+namespace profitelo.services.topWaitingLoader {
 
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 

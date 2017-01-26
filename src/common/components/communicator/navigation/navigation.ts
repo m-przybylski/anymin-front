@@ -1,4 +1,4 @@
-module profitelo.components.communicator.navigation {
+namespace profitelo.components.communicator.navigation {
 
   interface INavigationComponentBindings {
     isVideo: boolean
@@ -22,10 +22,6 @@ module profitelo.components.communicator.navigation {
     /* @ngInject */
     constructor(private callService: ICallService) {
       this.hangupCall = callService.hangupCall
-    }
-
-    public $onInit = () => {
-      this.isMessenger = false
     }
 
     public animateButtons = (elem) => {

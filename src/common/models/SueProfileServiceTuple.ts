@@ -1,4 +1,4 @@
-module profitelo.models {
+namespace profitelo.models {
 
   export interface SueProfileServiceTuple {
     serviceUsageEvent: ServiceUsageEvent

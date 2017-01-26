@@ -1,4 +1,4 @@
-module profitelo.services.phonenumbers {
+namespace profitelo.services.phonenumbers {
 
   function PhonenumbersFactory($window) {
     return $window.i18n.phonenumbers

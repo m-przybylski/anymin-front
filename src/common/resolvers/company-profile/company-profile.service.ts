@@ -1,6 +1,6 @@
-module profitelo.resolvers.companyProfile {
+namespace profitelo.resolvers.companyProfile {
 
-  interface ICompanyProfile {
+  export interface ICompanyProfile {
     profile: Profile
     services: Array<Service>
     isFavourite: boolean

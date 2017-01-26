@@ -1,4 +1,4 @@
-module profitelo.services.print {
+namespace profitelo.services.print {
 
   export interface IPrintService {
     print(src: string)

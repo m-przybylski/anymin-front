@@ -1,7 +1,8 @@
-module profitelo.components.dashboard.client.activities.clientActivity {
+namespace profitelo.components.dashboard.client.activities.clientActivity {
 
   import IHelperService = profitelo.services.helper.IHelperService
   import IModalsService = profitelo.services.modals.IModalsService
+  import ClientActivity = profitelo.models.ClientActivity
 
   interface IClientActivityComponentBindings {
     activity: ClientActivity
@@ -9,15 +10,15 @@ module profitelo.components.dashboard.client.activities.clientActivity {
 
   class ClientActivityComponentController implements ng.IController, IClientActivityComponentBindings {
 
-    activity: ClientActivity
-    isCallActivity: boolean
-    imageUrl: string
+    public activity: ClientActivity
+    public isCallActivity: boolean
+    public imageUrl: string
 
     /* @ngInject */
     constructor(private helperService: IHelperService, private modalsService: IModalsService) {
     }
 
-    $onInit = () => {
+    $onInit() {
       this.isCallActivity = !!this.activity.sueProfileServiceTuple
 
       if (angular.isDefined(this.activity) && this.activity.sueProfileServiceTuple &&

@@ -1,4 +1,4 @@
-module profitelo.services.customTranslationHandlerService {
+namespace profitelo.services.customTranslationHandlerService {
 
   export interface ICustomTranslationHandlerService {
     handler(translationId: string, uses: string): void

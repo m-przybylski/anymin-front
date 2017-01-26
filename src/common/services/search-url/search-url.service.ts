@@ -1,7 +1,7 @@
 import ISearchQueryParams = profitelo.services.search.ISearchQueryParams
 import ISearchService = profitelo.services.search.ISearchService
 
-module profitelo.services.searchUrl {
+namespace profitelo.services.searchUrl {
 
   export interface ISearchUrlService {
     parseParamsForUrl(rawParams: Object): ISearchQueryParams

@@ -1,4 +1,4 @@
-module profitelo.components.communicator.messenger {
+namespace profitelo.components.communicator.messenger {
 
   import Money = profitelo.models.Money
 
@@ -14,6 +14,7 @@ module profitelo.components.communicator.messenger {
     isMessenger: boolean
     callLength: number
 
+    /* @ngInject */
     constructor() {
     }
 
@@ -27,7 +28,7 @@ module profitelo.components.communicator.messenger {
   class MessengerComponent implements ng.IComponentOptions {
     templateUrl: string = 'components/communicator/messenger/messenger.tpl.html'
     controller: ng.Injectable<ng.IControllerConstructor> = MessengerComponentController
-    bindings: {
+    bindings: {[boundProperty: string]: string} = {
       callCost: '<',
       isMessenger: '=',
       callLength: '<'

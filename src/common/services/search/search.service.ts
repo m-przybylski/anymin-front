@@ -1,9 +1,9 @@
-module profitelo.services.search {
+namespace profitelo.services.search {
 
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
   import ICategoryService = profitelo.services.categoryService.ICategoryService
 
-  interface NameValue {
+  export interface NameValue {
     name: string
     value: string
   }

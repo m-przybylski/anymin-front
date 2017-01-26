@@ -1,4 +1,4 @@
-module profitelo.components.communicator {
+namespace profitelo.components.communicator {
 
   import ICallService = profitelo.services.call.ICallService
   import IHelperService = profitelo.services.helper.IHelperService
@@ -8,43 +8,28 @@ module profitelo.components.communicator {
 
   class CommunicatorComponentController implements ng.IController {
 
-    public isClosed: boolean
-    public isDisconnectedAnimation: boolean
-    public isConnecting: boolean
-    public service: Service
-    public expert: Profile
+    public isClosed: boolean = true
+    public isDisconnectedAnimation: boolean = false
+    public isConnecting: boolean = false
+    public service: Service = null
+    public expert: Profile = null
     public expertAvatar: string
-    public isRemoteVideo: boolean
-    public isLocalVideo: boolean
-    public isMessenger: boolean
-    public callLengthInSeconds: number
-    public callCost: Money
 
-    $onInit = () => {
-      this.isClosed = true
-      this.isDisconnectedAnimation = false
-      this.isConnecting = false
+    public isRemoteVideo: boolean = false
+    public isLocalVideo: boolean = false
+    public isMessenger: boolean = false
+    public callLengthInSeconds: number = 0
+    public callCost: Money = null
 
-      this.service = null
-      this.expert = null
-
-      this.isRemoteVideo = false
-      this.isLocalVideo = false
-      this.isMessenger = false
-
-      this.callLengthInSeconds = 0
-      this.callCost = null
+    /* @ngInject */
+    constructor(private $timeout: ng.ITimeoutService, private $element: ng.IRootElementService,
+                private callService: ICallService, private helperService: IHelperService) {
 
       const localStreamElement = this.$element.find('.video-player-local video')
       const remoteStreamElement = this.$element.find('.video-player-remote video')
 
       this.callService.setLocalStreamElement(localStreamElement)
       this.callService.setRemoteStreamElement(remoteStreamElement)
-    }
-
-    /* @ngInject */
-    constructor(private $timeout: ng.ITimeoutService, private $element: ng.IRootElementService,
-                private callService: ICallService, private helperService: IHelperService) {
 
       this.registerEvents()
     }

@@ -1,4 +1,4 @@
-module profitelo.components.communicator.messenger.maximized {
+namespace profitelo.components.communicator.messenger.maximized {
 
   import IMessengerService = profitelo.services.messenger.IMessengerService
   import IHelperService = profitelo.services.helper.IHelperService
@@ -35,6 +35,7 @@ module profitelo.components.communicator.messenger.maximized {
     private fileUploadErrorMessageTimeout = 15000
     private uploader: IUploaderService
 
+    /* @ngInject */
     constructor(private $log: ng.ILogService, private $timeout: ng.ITimeoutService, private $scope: ng.IScope,
                 private $element: ng.IRootElementService, private messengerService: IMessengerService,
                 private lodash: _.LoDashStatic, private helperService: IHelperService,
@@ -50,9 +51,6 @@ module profitelo.components.communicator.messenger.maximized {
       messengerService.onClientCreatingRoom(this.clientInit)
       messengerService.onExpertCreatedRoom(this.expertInit)
       messengerService.onChatLeft(this.destroy)
-    }
-
-    $onInit = () => {
     }
 
     $onChanges = (onChangesObj: ng.IOnChangesObject) => {
@@ -74,11 +72,11 @@ module profitelo.components.communicator.messenger.maximized {
       this.onUploadFiles([this.uploadedFile.file])
     }
 
-    public indicateTypingDebounce = () =>
+    public indicateTypingDebounce =
       this.lodash.throttle(this.messengerService.indicateTyping, this.indicateTypingDebounceTimeout, {
-      'leading': true,
-      'trailing': false
-    })
+        'leading': true,
+        'trailing': false
+      })
 
     public onSendMessage = (messageBody) => {
       this.sendMessage(this.serializeMessageBody(messageBody))
@@ -144,7 +142,7 @@ module profitelo.components.communicator.messenger.maximized {
 
     private sendMessage = (messageObject) =>
       this.messengerService.sendMessage(messageObject)
-      .then(this.onMessageSendSuccess, this.onMessageSendError)
+        .then(this.onMessageSendSuccess, this.onMessageSendError)
 
     private onUploadProgess = (res) =>
       this.$log.debug(res)
@@ -168,7 +166,7 @@ module profitelo.components.communicator.messenger.maximized {
 
     private uploadFile = (file) =>
       this.uploader.uploadFile(file, this.onUploadProgess)
-      .then(this.onFileUpload, this.onFileUploadError)
+        .then(this.onFileUpload, this.onFileUploadError)
 
     private onTyping = () => {
       this.isTyping = true
@@ -187,7 +185,7 @@ module profitelo.components.communicator.messenger.maximized {
   class MessengerMaximizedComponent implements ng.IComponentOptions {
     templateUrl: string = 'components/communicator/messenger/maximized/maximized.tpl.html'
     controller: ng.Injectable<ng.IControllerConstructor> = MessengerMaximizedComponentController
-    bindings: {
+    bindings: {[boundProperty: string]: string} = {
       callCost: '<',
       isMessenger: '<',
       minimizeMessenger: '<',
@@ -205,5 +203,5 @@ module profitelo.components.communicator.messenger.maximized {
     'profitelo.components.communicator.messenger.maximized.grouped-messages',
     'profitelo.components.communicator.messenger.maximized.messenger-input'
   ])
-  .component('messengerMaximized', new MessengerMaximizedComponent())
+    .component('messengerMaximized', new MessengerMaximizedComponent())
 }

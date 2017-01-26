@@ -1,6 +1,6 @@
 import ICallService = profitelo.services.call.ICallService
 
-module profitelo.services.messenger {
+namespace profitelo.services.messenger {
 
   import IUtilsService = profitelo.services.utils.IUtilsService
   import ICommunicatorService = profitelo.services.communicator.ICommunicatorService
@@ -56,7 +56,7 @@ module profitelo.services.messenger {
       this.callbacks.methods.onClientTyping(cb)
 
     public onClientMark = (cb: () => void): void =>
-      this.callbacks.methods.onClientTyping(cb)
+      this.callbacks.methods.onClientMark(cb)
 
     public onClientMessage = (cb: (msg: any) => void): void =>
       this.callbacks.methods.onClientMessage(cb)

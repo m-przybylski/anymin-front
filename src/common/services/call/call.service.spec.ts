@@ -67,8 +67,8 @@ describe('Unit testing: profitelo.services.call >', () => {
     }
 
     beforeEach(() => {
-    angular.mock.module('profitelo.services.communicator')
-    angular.mock.module('profitelo.services.call')
+      angular.mock.module('profitelo.services.communicator')
+      angular.mock.module('profitelo.services.call')
     })
 
     beforeEach(angular.mock.module(($provide) => {
@@ -102,7 +102,9 @@ describe('Unit testing: profitelo.services.call >', () => {
     it('should not start call if there is no serviceId', inject(($rootScope, communicatorService) => {
       const serviceId = null
 
-      communicatorService.getClientSession = () => { return {} }
+      communicatorService.getClientSession = () => {
+        return {}
+      }
 
       callService.callServiceId(serviceId).then((res) => {
         expect(res).toEqual(null)
@@ -115,8 +117,12 @@ describe('Unit testing: profitelo.services.call >', () => {
       const serviceId = '1'
       const err = 'error'
 
-      communicatorService.getClientSession = () => { return {} }
-      ServiceApi.addServiceUsageRequest = () => { return {$promise: $q.reject(err)} }
+      communicatorService.getClientSession = () => {
+        return {}
+      }
+      ServiceApi.addServiceUsageRequest = () => {
+        return {$promise: $q.reject(err)}
+      }
 
       spyOn(modalsService, 'createServiceUnavailableModal')
 
@@ -131,25 +137,29 @@ describe('Unit testing: profitelo.services.call >', () => {
 
     it('should create direct call with error and log it', inject(
       ($q, $log, $rootScope, communicatorService, ServiceApi, navigatorService) => {
-      const serviceId = '1'
-      const session = {
-        chat: {
-          createDirectCall: _ => $q.reject(null)
+        const serviceId = '1'
+        const session = {
+          chat: {
+            createDirectCall: _ => $q.reject(null)
+          }
         }
-      }
 
-      navigatorService.getUserMediaStream = () => $q.resolve()
-      communicatorService.getClientSession = () => { return session }
-      ServiceApi.addServiceUsageRequest = () => { return {$promise: $q.resolve(testSUR)} }
+        navigatorService.getUserMediaStream = () => $q.resolve()
+        communicatorService.getClientSession = () => {
+          return session
+        }
+        ServiceApi.addServiceUsageRequest = () => {
+          return {$promise: $q.resolve(testSUR)}
+        }
 
-      spyOn($log, 'error')
+        spyOn($log, 'error')
 
-      callService.callServiceId(serviceId)
+        callService.callServiceId(serviceId)
 
-      $rootScope.$digest()
+        $rootScope.$digest()
 
-      expect($log.error).toHaveBeenCalled()
-    }))
+        expect($log.error).toHaveBeenCalled()
+      }))
 
     it('should startCall', inject(($q, $rootScope, communicatorService, ServiceApi, navigatorService) => {
       const serviceId = '1'
@@ -161,8 +171,12 @@ describe('Unit testing: profitelo.services.call >', () => {
       }
 
       navigatorService.getUserMediaStream = () => $q.resolve()
-      communicatorService.getClientSession = () => { return session }
-      ServiceApi.addServiceUsageRequest = () => { return {$promise: $q.resolve(testSUR)} }
+      communicatorService.getClientSession = () => {
+        return session
+      }
+      ServiceApi.addServiceUsageRequest = () => {
+        return {$promise: $q.resolve(testSUR)}
+      }
 
       callService.callServiceId(serviceId)
 
@@ -171,7 +185,9 @@ describe('Unit testing: profitelo.services.call >', () => {
 
     it('should not hangup if no call', inject(($rootScope) => {
 
-      callService.hangupCall().then(_ => _, (err) => {expect(err).toEqual('NO CALL')})
+      callService.hangupCall().then(_ => _, (err) => {
+        expect(err).toEqual('NO CALL')
+      })
 
       $rootScope.$digest()
     }))
@@ -211,8 +227,12 @@ describe('Unit testing: profitelo.services.call >', () => {
       }
 
       navigatorService.getUserMediaStream = () => $q.resolve()
-      communicatorService.getClientSession = () => { return session }
-      ServiceApi.addServiceUsageRequest = () => { return {$promise: $q.resolve(testSUR)} }
+      communicatorService.getClientSession = () => {
+        return session
+      }
+      ServiceApi.addServiceUsageRequest = () => {
+        return {$promise: $q.resolve(testSUR)}
+      }
 
       callService.callServiceId(serviceId)
       $rootScope.$digest()

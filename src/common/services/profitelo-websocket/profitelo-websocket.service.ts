@@ -1,4 +1,4 @@
-module profitelo.services.profiteloWebsocket {
+namespace profitelo.services.profiteloWebsocket {
 
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 

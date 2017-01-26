@@ -1,4 +1,4 @@
-module profitelo.services.sounds {
+namespace profitelo.services.sounds {
 
   export interface ISoundsService {
     callIncomingSound(): SoundObject
@@ -8,7 +8,7 @@ module profitelo.services.sounds {
     callConnectingSound(): SoundObject
   }
 
-  interface SoundObject {
+  export interface SoundObject {
     play(): void
     stop(): void
   }

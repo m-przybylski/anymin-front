@@ -1,4 +1,4 @@
-module profitelo.resolvers.serviceProviderImage {
+namespace profitelo.resolvers.serviceProviderImage {
 
   export interface IServiceProviderImageService {
     resolve(token: string): ng.IPromise<string>

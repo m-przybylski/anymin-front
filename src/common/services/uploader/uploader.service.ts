@@ -1,4 +1,4 @@
-module profitelo.services.uploader {
+namespace profitelo.services.uploader {
 
   export interface IUploaderFactory {
     getInstance(simultaneousUploadCount: number, collectionType: string): IUploaderService
