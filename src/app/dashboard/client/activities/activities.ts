@@ -17,9 +17,7 @@ import ClientActivity = profitelo.models.ClientActivity
       clientActivities.activities.pop()
     }
 
-    this.activities = lodash.sortBy(clientActivities.activities,
-      (activity: ClientActivity) => activity.financialOperation.createdAt)
-
+    this.activities = clientActivities.activities
     this.balance = clientActivities.balance
     this.expertServiceTuples = clientActivities.expertServiceTuples
     this.filters = {
@@ -56,8 +54,7 @@ import ClientActivity = profitelo.models.ClientActivity
         }
 
         if (queryParams.offset === 0) {
-          this.activities =  lodash.sortBy(results.activities,
-            (activity: ClientActivity) => activity.financialOperation.createdAt)
+          this.activities = results.activities
         } else {
           this.activities = this.activities.concat(results.activities)
         }
@@ -67,7 +64,7 @@ import ClientActivity = profitelo.models.ClientActivity
     $scope.$on('$destroy', () => {
       clientActivitiesService.clearQueryParam()
     })
-    
+
     return this
   }
 
@@ -85,22 +82,22 @@ import ClientActivity = profitelo.models.ClientActivity
     'profitelo.services.client-activities-service'
   ])
 
-    .config(function ($stateProvider, UserRolesProvider) {
-      $stateProvider.state('app.dashboard.client.activities', {
-        url: '/activities',
-        templateUrl: 'dashboard/client/activities/activities.tpl.html',
-        controller: 'DashboardClientActivitiesController',
-        controllerAs: 'vm',
-        data: {
-          access: UserRolesProvider.getAccessLevel('user')
-        },
-        resolve: {
-          /* istanbul ignore next */
-          clientActivities: (clientActivitiesService) =>
-            clientActivitiesService.resolve()
-        }
+      .config(function ($stateProvider, UserRolesProvider) {
+        $stateProvider.state('app.dashboard.client.activities', {
+          url: '/activities',
+          templateUrl: 'dashboard/client/activities/activities.tpl.html',
+          controller: 'DashboardClientActivitiesController',
+          controllerAs: 'vm',
+          data: {
+            access: UserRolesProvider.getAccessLevel('user')
+          },
+          resolve: {
+            /* istanbul ignore next */
+            clientActivities: (clientActivitiesService) =>
+                clientActivitiesService.resolve()
+          }
+        })
       })
-    })
-    .controller('DashboardClientActivitiesController', DashboardClientActivitiesController)
+      .controller('DashboardClientActivitiesController', DashboardClientActivitiesController)
 
 }())

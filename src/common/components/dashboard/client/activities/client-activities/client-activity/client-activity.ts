@@ -38,8 +38,8 @@ module profitelo.components.dashboard.client.activities.clientActivity {
   class ClientActivityComponent implements ng.IComponentOptions {
     templateUrl: string = 'components/dashboard/client/activities/client-activities/client-activity/client-activity.tpl.html'
     controller: ng.Injectable<ng.IControllerConstructor> = ClientActivityComponentController
-    controllerAs: '$ctrl'
-    bindings: {
+    controllerAs: string = '$ctrl'
+    bindings: {[boundProperty: string]: string} = {
       activity: '<'
     }
   }
@@ -51,5 +51,5 @@ module profitelo.components.dashboard.client.activities.clientActivity {
     'profitelo.services.modals',
     'profitelo.components.complaints.status'
   ])
-    .component('clientActivity', new ClientActivityComponent)
+    .component('clientActivity', new ClientActivityComponent())
 }
