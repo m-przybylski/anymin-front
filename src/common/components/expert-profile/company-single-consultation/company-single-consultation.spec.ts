@@ -11,7 +11,7 @@ describe('Unit testing: profitelo.components.expert-profile.company-single-consu
     let rootScope
     let compile
     let component
-    let helperService
+    let urlService
     let audioOriginal
     const validHTML = '<company-single-consultation data-service-tags-employees-tuple="{details: {tags: [] }}" data-title="asd"></company-single-consultation>'
     const bindings = {
@@ -62,10 +62,10 @@ describe('Unit testing: profitelo.components.expert-profile.company-single-consu
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.components.expert-profile.company-single-consultation')
 
-      inject(($rootScope, $compile, _$componentController_, _helperService_) => {
+      inject(($rootScope, $compile, _$componentController_, _urlService_) => {
         rootScope = $rootScope.$new()
         compile = $compile
-        helperService = _helperService_
+        urlService = _urlService_
 
         const injectors = {
           navigatorService: navigatorService

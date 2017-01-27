@@ -23,7 +23,7 @@ import ClientDashboardCallDetails = profitelo.models.ClientDashboardCallDetails
   }
 
   function controller($log: ng.ILogService, $scope: IConsultationDetailsScope, $uibModalInstance, ServiceApi,
-                      helperService, ViewsApi) {
+                      urlService, ViewsApi) {
     $scope.isLoading = true
     $scope.recommendedTags = []
     $scope.serviceTags = []
@@ -40,7 +40,7 @@ import ClientDashboardCallDetails = profitelo.models.ClientDashboardCallDetails
 
       const openClientActivityModal = (serviceTags: Array<Tag> = []) => {
         const expertAvatarFileId = callDetails.expertProfile.expertDetails.avatar
-        $scope.expertAvatar = expertAvatarFileId ? helperService.fileUrlResolver(expertAvatarFileId) : null
+        $scope.expertAvatar = expertAvatarFileId ? urlService.resolveFileUrl(expertAvatarFileId) : null
         $scope.expertName = callDetails.expertProfile.expertDetails.name
         $scope.recommendedTags = callDetails.recommendedTags
         $scope.serviceName = callDetails.service.details.name
@@ -82,7 +82,7 @@ import ClientDashboardCallDetails = profitelo.models.ClientDashboardCallDetails
     'profitelo.components.dashboard.client.activities.modals.consultation-details.complain',
     'profitelo.components.dashboard.client.activities.modals.consultation-details.consultation-details-chat',
     'profitelo.components.dashboard.client.activities.modals.consultation-details.recommended-tags',
-    'profitelo.services.helper'
+    'profitelo.services.url'
   ])
     .controller('clientConsultationDetails', controller)
 

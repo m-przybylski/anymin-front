@@ -1,10 +1,10 @@
 (function () {
   /* @ngInject */
-  function controller($state, helperService) {
+  function controller($state, urlService) {
 
     this.consultationOwnerImage = () => {
       const imageToken = this.profile.avatar || this.profile.logo
-      return imageToken !== null || imageToken === '' ? helperService.fileUrlResolver(imageToken) : false
+      return imageToken !== null || imageToken === '' ? urlService.resolveFileUrl(imageToken) : false
     }
 
     this.goToProfile = () => {
@@ -33,7 +33,7 @@
   angular.module('profitelo.components.dashboard.client.favourites.favourite-experts.favourite-expert', [
     'pascalprecht.translate',
     'ui.router',
-    'profitelo.services.helper'
+    'profitelo.services.url'
   ])
   .component('clientFavouriteExpert', component)
 }())

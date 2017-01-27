@@ -2,7 +2,14 @@ namespace profitelo.services.call {
 
   import INavigatorService = profitelo.services.navigator.INavigatorService
   import ICommunicatorService = profitelo.services.communicator.ICommunicatorService
-  import IUtilsService = profitelo.services.utils.IUtilsService
+  import ServiceUsageDetails = profitelo.models.ServiceUsageDetails
+  import ServiceUsageRequest = profitelo.models.ServiceUsageRequest
+  import IModalsService = profitelo.services.modals.IModalsService
+  import ISoundsService = profitelo.services.sounds.ISoundsService
+  import ICallbacksFactory = profitelo.services.callbacks.ICallbacksFactory
+  import ICallbacksService = profitelo.services.callbacks.ICallbacksService
+  import ITimerFactory = profitelo.services.timer.ITimerFactory
+  import ITimerService = profitelo.services.timer.ITimerService
 
   export interface ICallService {
     onCallEnd(cb: () => void): void
@@ -18,14 +25,14 @@ namespace profitelo.services.call {
     startAudio(): void
     stopAudio(): void
     hangupCall(): ng.IPromise<any>
-    setLocalStreamElement(element: ng.IAugmentedJQuery)
-    setRemoteStreamElement(element: ng.IAugmentedJQuery)
+    setLocalStreamElement(element: ng.IAugmentedJQuery): void
+    setRemoteStreamElement(element: ng.IAugmentedJQuery): void
   }
 
   class CallService implements ICallService {
 
     private call: any = null
-    private timer: any = null
+    private timer: ITimerService = null
 
     private isConnecting: boolean = false
 
@@ -38,7 +45,7 @@ namespace profitelo.services.call {
     private localStream: MediaStream = null
     private callingModal: any
 
-    private callbacks: any
+    private callbacks: ICallbacksService
     private hangupFunction: () => ng.IPromise<any>
 
     private static callingTimeout: number = 30
@@ -60,11 +67,12 @@ namespace profitelo.services.call {
     }
 
     constructor(private $q: ng.IQService, private $log: ng.ILogService, private navigatorService: INavigatorService,
-                private utilsService: IUtilsService, private communicatorService: ICommunicatorService,
-                private modalsService, private soundsService, private User, private RatelApi, private ServiceApi) {
+                private callbacksFactory: ICallbacksFactory, private communicatorService: ICommunicatorService,
+                private modalsService: IModalsService, private soundsService: ISoundsService,
+                private timerFactory: ITimerFactory, private User, private RatelApi, private ServiceApi) {
 
       this.hangupFunction = () => $q.reject('NO CALL')
-      this.callbacks = utilsService.callbacksFactory(Object.keys(CallService.events))
+      this.callbacks = callbacksFactory.getInstance(Object.keys(CallService.events))
       communicatorService.onCall(this.onExpertCallIncoming)
     }
 
@@ -240,7 +248,7 @@ namespace profitelo.services.call {
     }
 
     private createTimer = (price, freeMinutesCount) =>
-      this.timer = this.utilsService.callTimerFactory.getInstance(
+      this.timer = this.timerFactory.getInstance(
         price, freeMinutesCount, CallService.moneyChangeNotificationInterval)
 
     private startTimer = () =>
@@ -313,13 +321,13 @@ namespace profitelo.services.call {
     }
 
     private onNoFunds = () => {
-      this.modalsService.createNoFundsModal(_ => _, _ => _)
+      this.modalsService.createNoFundsModal(() => _, () => _)
     }
 
     private onConsultationUnavailable = () => {
       this.cleanupService()
       this.soundsService.playCallRejected()
-      this.modalsService.createServiceUnavailableModal(_ => _, _ => _)
+      this.modalsService.createServiceUnavailableModal(() => _, () => _)
     }
 
     private onExpertCallDisappearBeforeAnswering = () => {
@@ -347,7 +355,7 @@ namespace profitelo.services.call {
       this.onConsultationUnavailable()
     }
 
-    private onCreateDirectCall = (newCall, participantId, expertId) => {
+    private onCreateDirectCall = (newCall, participantId: string, expertId: string) => {
       this.call = newCall
 
       this.call.onRemoteStream((agentId, stream) => {
@@ -366,7 +374,7 @@ namespace profitelo.services.call {
       this.soundsService.callConnectingSound().stop()
     }
 
-    private onAddSUR = (serviceUsageRequest) => {
+    private onAddSUR = (serviceUsageRequest: ServiceUsageRequest) => {
 
       const _service = serviceUsageRequest.service
       const agentId = serviceUsageRequest.agentId
@@ -423,7 +431,8 @@ namespace profitelo.services.call {
     'profitelo.services.navigator',
     'profitelo.services.communicator',
     'profitelo.swaggerResources',
-    'profitelo.services.utils',
+    'profitelo.services.timer',
+    'profitelo.services.callbacks',
     'profitelo.services.modals',
     'profitelo.services.sounds'
   ])

@@ -1,5 +1,5 @@
 (function() {
-  function directive(callService, helperService) {
+  function directive(callService, urlService) {
 
     function linkFunction(scope, elem, attrs) {
 
@@ -11,7 +11,7 @@
 
       scope.companyImage = !!scope.serviceTagsEmployeesTuple.ownerProfile.organizationDetails
         && scope.serviceTagsEmployeesTuple.ownerProfile.organizationDetails.logo !== null ?
-        helperService.fileUrlResolver(scope.serviceTagsEmployeesTuple.ownerProfile.organizationDetails.logo) : ''
+        urlService.resolveFileUrl(scope.serviceTagsEmployeesTuple.ownerProfile.organizationDetails.logo) : ''
 
       scope.consultation = {}
 
@@ -33,7 +33,7 @@
     'profitelo.components.pro-summary-tag',
     'profitelo.services.call',
     'profitelo.filters.money',
-    'profitelo.services.helper',
+    'profitelo.services.url',
     'profitelo.components.interface.collapse-tab'
   ])
   .directive('proExpertSingleConsultation', directive)

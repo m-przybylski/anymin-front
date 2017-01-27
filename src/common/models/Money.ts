@@ -1,7 +1,7 @@
 namespace profitelo.models {
 
   export interface Money {
-    amount: Number
+    amount: number
     currency: string
   }
 }

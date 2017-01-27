@@ -1,7 +1,7 @@
 (function () {
 
   /* @ngInject */
-  function singleConsultationController($state, helperService, callService) {
+  function singleConsultationController($state, urlService, callService) {
     this.isLinkActive = true
 
     this.$onInit = () => {
@@ -11,7 +11,7 @@
       }
 
       if (!!this.consultation.owner.img && this.consultation.owner.img !== null) {
-        this.profileImage = helperService.fileUrlResolver(this.consultation.owner.img)
+        this.profileImage = urlService.resolveFileUrl(this.consultation.owner.img)
       } else {
         this.profileImage = null
       }
@@ -53,7 +53,7 @@
     'pascalprecht.translate',
     'profitelo.services.call',
     'profitelo.filters.money',
-    'profitelo.services.helper',
+    'profitelo.services.url',
     'profitelo.filters.object-size-filter',
     'profitelo.resolvers.service-provider-image'
   ])

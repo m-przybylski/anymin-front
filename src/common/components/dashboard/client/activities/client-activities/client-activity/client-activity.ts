@@ -1,6 +1,6 @@
 namespace profitelo.components.dashboard.client.activities.clientActivity {
 
-  import IHelperService = profitelo.services.helper.IHelperService
+  import IUrlService = profitelo.services.helper.IUrlService
   import IModalsService = profitelo.services.modals.IModalsService
   import ClientActivity = profitelo.models.ClientActivity
 
@@ -15,7 +15,7 @@ namespace profitelo.components.dashboard.client.activities.clientActivity {
     public imageUrl: string
 
     /* @ngInject */
-    constructor(private helperService: IHelperService, private modalsService: IModalsService) {
+    constructor(private urlService: IUrlService, private modalsService: IModalsService) {
     }
 
     $onInit() {
@@ -24,7 +24,7 @@ namespace profitelo.components.dashboard.client.activities.clientActivity {
       if (angular.isDefined(this.activity) && this.activity.sueProfileServiceTuple &&
         this.activity.sueProfileServiceTuple.profile.expertDetails.avatar &&
         this.activity.sueProfileServiceTuple.profile.expertDetails.avatar !== null) {
-        this.imageUrl = this.helperService.fileUrlResolver(this.activity.sueProfileServiceTuple.profile.expertDetails.avatar)
+        this.imageUrl = this.urlService.resolveFileUrl(this.activity.sueProfileServiceTuple.profile.expertDetails.avatar)
       } else {
         this.imageUrl = null
       }
@@ -47,7 +47,7 @@ namespace profitelo.components.dashboard.client.activities.clientActivity {
 
   angular.module('profitelo.components.dashboard.client.activities.client-activity', [
     'pascalprecht.translate',
-    'profitelo.services.helper',
+    'profitelo.services.url',
     'profitelo.filters.money',
     'profitelo.services.modals',
     'profitelo.components.complaints.status'

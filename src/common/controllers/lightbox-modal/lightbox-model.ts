@@ -124,7 +124,7 @@
     'ui.bootstrap',
     'profitelo.components.pro-lightbox',
     'profitelo.swaggerResources',
-    'profitelo.services.helper',
+    'profitelo.services.url',
     'profitelo.services.print',
     'profitelo.services.image-zoom',
     'ngLodash'

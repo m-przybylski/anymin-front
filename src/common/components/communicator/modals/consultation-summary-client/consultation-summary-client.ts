@@ -1,7 +1,7 @@
 namespace profitelo.components.modals.consultationSummaryClient {
 
   import ICallSummaryService = profitelo.services.callSummary.ICallSummaryService
-  import IHelperService = profitelo.services.helper.IHelperService
+  import IUrlService = profitelo.services.helper.IUrlService
   import Tag = profitelo.models.Tag
   import CallSummary = profitelo.models.CallSummary
 
@@ -25,7 +25,7 @@ namespace profitelo.components.modals.consultationSummaryClient {
     /* @ngInject */
     constructor(private $log: ng.ILogService, private $scope: IConsultationSummaryClientControllerScope,
                 private lodash: _.LoDashStatic, private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
-                private callSummaryService: ICallSummaryService, private helperService: IHelperService,
+                private callSummaryService: ICallSummaryService, private urlService: IUrlService,
                 private ServiceApi) {
 
       callSummaryService.onCallSummary(this.onCallSummary)
@@ -67,7 +67,7 @@ namespace profitelo.components.modals.consultationSummaryClient {
     private setCallSummary = (_callSummary) => {
       this.$scope.callSummary = _callSummary
       const avatar = _callSummary.companyExpertProfile.expertDetails.avatar
-      this.$scope.expertAvatarUrl = (avatar) ? this.helperService.fileUrlResolver(avatar) : ''
+      this.$scope.expertAvatarUrl = (avatar) ? this.urlService.resolveFileUrl(avatar) : ''
       this.$scope.rating = _callSummary.service.rating
     }
 
@@ -102,7 +102,7 @@ namespace profitelo.components.modals.consultationSummaryClient {
   angular.module('profitelo.components.communicator.modals.consultation-summary-client', [
     'profitelo.components.interface.multiselect',
     'profitelo.services.call-summary',
-    'profitelo.services.helper',
+    'profitelo.services.url',
     'profitelo.swaggerResources',
     'ui.bootstrap',
     'profitelo.components.interface.preloader',

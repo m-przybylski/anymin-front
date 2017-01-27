@@ -1,7 +1,7 @@
 namespace profitelo.components.communicator {
 
   import ICallService = profitelo.services.call.ICallService
-  import IHelperService = profitelo.services.helper.IHelperService
+  import IUrlService = profitelo.services.helper.IUrlService
   import Service = profitelo.models.Service
   import Profile = profitelo.models.Profile
   import Money = profitelo.models.Money
@@ -23,7 +23,7 @@ namespace profitelo.components.communicator {
 
     /* @ngInject */
     constructor(private $timeout: ng.ITimeoutService, private $element: ng.IRootElementService,
-                private callService: ICallService, private helperService: IHelperService) {
+                private callService: ICallService, private urlService: IUrlService) {
 
       const localStreamElement = this.$element.find('.video-player-local video')
       const remoteStreamElement = this.$element.find('.video-player-remote video')
@@ -40,7 +40,7 @@ namespace profitelo.components.communicator {
         this.cleanupComponent()
         this.service = expertServiceTuple.service
         this.expert = expertServiceTuple.expert
-        this.expertAvatar = this.helperService.fileUrlResolver(this.expert.expertDetails.avatar)
+        this.expertAvatar = this.urlService.resolveFileUrl(this.expert.expertDetails.avatar)
         this.isConnecting = true
         this.isClosed = false
       })
@@ -117,7 +117,7 @@ namespace profitelo.components.communicator {
   angular.module('profitelo.components.communicator', [
     'pascalprecht.translate',
     'profitelo.services.call',
-    'profitelo.services.helper',
+    'profitelo.services.url',
     'profitelo.filters.money',
     'profitelo.filters.seconds-to-datetime',
     'profitelo.components.communicator.navigation',

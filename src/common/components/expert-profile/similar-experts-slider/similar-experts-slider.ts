@@ -1,7 +1,7 @@
 (function () {
 
   /* @ngInject */
-  function controller($scope, $state, helperService) {
+  function controller($scope, $state, urlService) {
 
     this.$onInit = () => {
       this.areControllsVisible = this.consultations.length > 3
@@ -16,7 +16,7 @@
     }
 
     this.consultationOwnerImage = (imgToken) => {
-      return imgToken !== null || imgToken === '' ? helperService.fileUrlResolver(imgToken) : false
+      return imgToken !== null || imgToken === '' ? urlService.resolveFileUrl(imgToken) : false
     }
 
     this.goToProfile = (consultation) => {
@@ -39,7 +39,7 @@
 
   angular.module('profitelo.components.expert-profile.similar-experts-slider', [
     'profitelo.components.interface.slider',
-    'profitelo.services.helper',
+    'profitelo.services.url',
     'pascalprecht.translate'
   ])
   .component('similarExpertsSlider', similarExpertsSlider)

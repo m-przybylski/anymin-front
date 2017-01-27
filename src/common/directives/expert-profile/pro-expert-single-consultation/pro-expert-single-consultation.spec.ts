@@ -21,7 +21,7 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-single-co
 
     beforeEach(() => {
     angular.mock.module('templates-module')
-    angular.mock.module('profitelo.services.helper')
+    angular.mock.module('profitelo.services.url')
     angular.mock.module('profitelo.directives.expert-profile.pro-expert-single-consultation')
 
       inject(($rootScope, $compile) => {

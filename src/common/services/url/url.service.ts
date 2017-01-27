@@ -1,22 +1,20 @@
 namespace profitelo.services.helper {
 
-  export interface IHelperService {
-    socialUrlResolver(url: string): string
-    fileUrlResolver(url: string): string
+  export interface IUrlService {
+    resolveSocialUrl(url: string): string
+    resolveFileUrl(url: string): string
   }
 
-  class HelperService implements IHelperService {
+  class UrlService implements IUrlService {
 
     private commonConfig
-    private commonSettingsService
 
     constructor(private CommonSettingsService, private CommonConfig: ICommonConfig, private lodash: _.LoDashStatic) {
       this.commonConfig = CommonConfig.getAllData()
-      this.commonSettingsService = CommonSettingsService
     }
 
-    socialUrlResolver = (remoteUrl) => {
-      const _socialNetworks = this.commonSettingsService.localSettings.socialNetworks
+    public resolveSocialUrl = (remoteUrl) => {
+      const _socialNetworks = this.CommonSettingsService.localSettings.socialNetworks
 
       for (let i = 0; i < _socialNetworks.length; i++) {
         let social = _socialNetworks[i]
@@ -25,21 +23,20 @@ namespace profitelo.services.helper {
         }
       }
 
-      /* istanbul ignore next */
       return this.lodash.find(_socialNetworks, {
         name: 'Website'
       })
     }
 
-    fileUrlResolver = (fileId) => {
+    public resolveFileUrl = (fileId) => {
       return this.commonConfig.urls.files + this.commonConfig.urls['file-download'].replace('%s', fileId)
     }
   }
 
-  angular.module('profitelo.services.helper', [
+  angular.module('profitelo.services.url', [
     'profitelo.services.commonSettings',
     'ngLodash',
     'commonConfig'
   ])
-  .service('helperService', HelperService)
+    .service('urlService', UrlService)
 }
