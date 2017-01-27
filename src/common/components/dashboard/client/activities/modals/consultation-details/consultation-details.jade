@@ -1,9 +1,9 @@
-top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="onModalClose")
-.fullscreen-modals.fullscreen-navbar.scrollable.consultation-details-modal
-  .full-height-modal
-    .default-container-small
-      preloader(data-is-loading="isLoading")
-        .client-conversation-details-modal
+scrollable(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
+  top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="onModalClose")
+  .consultation-details-modal
+    preloader(data-is-loading="isLoading")
+      .client-conversation-details-modal
+        .default-container-small
           .profile-preview.vertical-preview
             .thumb.x48
               img.user-avatar(src ng-src="{{ expertAvatar }}")

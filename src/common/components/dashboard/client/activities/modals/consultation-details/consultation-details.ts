@@ -20,18 +20,22 @@ import ClientDashboardCallDetails = profitelo.models.ClientDashboardCallDetails
     sueId: string
     serviceTags: Array<Tag>
     onModalClose: Function
+    isFullscreen: boolean
+    isNavbar: boolean
   }
 
   function controller($log: ng.ILogService, $scope: IConsultationDetailsScope, $uibModalInstance, ServiceApi,
                       helperService, ViewsApi) {
     $scope.isLoading = true
+    $scope.isFullscreen = true
+    $scope.isNavbar = true
     $scope.recommendedTags = []
     $scope.serviceTags = []
 
     const onGetCallDetails = (callDetails: ClientDashboardCallDetails) => {
 
       const onServiceTags = (res) => {
-        openClientActivityModal(res[0].tags)
+        openClientActivityModal(res[0] ? res[0].tags : [])
       }
 
       const onServiceTagsError = (err) => {
@@ -77,6 +81,7 @@ import ClientDashboardCallDetails = profitelo.models.ClientDashboardCallDetails
     'ui.bootstrap',
     'profitelo.swaggerResources',
     'profitelo.components.interface.preloader',
+    'profitelo.directives.interface.scrollable',
     'profitelo.filters.milliseconds-to-datetime',
     'profitelo.components.interface.collapse-btn',
     'profitelo.components.dashboard.client.activities.modals.consultation-details.complain',

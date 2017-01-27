@@ -1,22 +1,20 @@
-top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="onModalClose")
-
-.fullscreen-modals.fullscreen-navbar
-  .full-height-modal
+scrollable(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
+  top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="onModalClose")
+  preloader(data-is-loading="!callSummary")
     .default-container
-      preloader(data-is-loading="!callSummary")
-        .summary-conversation.expert-view
-          img(data-ng-src="/assets/images/search-image.png")
+      .summary-conversation.expert-view
+        img(data-ng-src="/assets/images/search-image.png")
 
-          .consultation-range
-            .consultation-title.default-container-small
-              h3
-                span {{ callSummary.service.details.name }}
+        .consultation-range
+          .consultation-title.default-container-small
+            h3
+              span {{ callSummary.service.details.name }}
 
-          .consultation-time-details.default-container-small
-            ul.conversation-time
-              li.label(data-translate="COMMUNICATOR.MODALS.CONVERSATION_TIME")
-              li {{ callSummary.callDuration | secondsToDateTime | date:'HH:mm:ss' }}
+        .consultation-time-details.default-container-small
+          ul.conversation-time
+            li.label(data-translate="COMMUNICATOR.MODALS.CONVERSATION_TIME")
+            li {{ callSummary.callDuration | secondsToDateTime | date:'HH:mm:ss' }}
 
-            ul.conversation-cost.income
-              li.label(data-translate="COMMUNICATOR.MODALS.INCOME")
-              li(data-ng-bind-html="callSummary.cost | money")
+          ul.conversation-cost.income
+            li.label(data-translate="COMMUNICATOR.MODALS.INCOME")
+            li(data-ng-bind-html="callSummary.cost | money")

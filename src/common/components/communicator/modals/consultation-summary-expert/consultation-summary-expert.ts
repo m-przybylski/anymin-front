@@ -44,7 +44,8 @@ namespace profitelo.components.communicator.modals.consultationSummaryExpert {
   angular.module('profitelo.components.communicator.modals.consultation-summary-expert', [
     'ui.bootstrap',
     'profitelo.services.call-summary',
-    'profitelo.components.interface.preloader'
+    'profitelo.components.interface.preloader',
+    'profitelo.directives.interface.scrollable'
   ])
   .controller('consultationSummaryExpertController', ConsultationSummaryExpertController)
 }
