@@ -6,7 +6,7 @@ describe('Unit testing: profitelo.components.dashboard.client.favourites.favouri
     let compile
     let componentController
     let component
-    let helperService
+    let urlService
     let validHTML = '<last-consultation-slider data-title="title" data-consultations="[{}]"></last-consultation-slider>'
     let state
 
@@ -33,16 +33,16 @@ describe('Unit testing: profitelo.components.dashboard.client.favourites.favouri
     beforeEach(() => {
       angular.mock.module('templates-module')
       angular.mock.module('profitelo.components.interface.slider')
-      angular.mock.module('profitelo.services.helper')
+      angular.mock.module('profitelo.services.url')
       angular.mock.module('profitelo.filters.money')
       angular.mock.module('ui.router')
       angular.mock.module('profitelo.components.dashboard.client.favourites.favourite-experts.last-consultation-slider')
 
-      inject(($rootScope, $compile, _$componentController_, _$state_, _helperService_) => {
+      inject(($rootScope, $compile, _$componentController_, _$state_, _urlService_) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
-        helperService = _helperService_
+        urlService = _urlService_
         state = _$state_
 
       })
@@ -86,15 +86,15 @@ describe('Unit testing: profitelo.components.dashboard.client.favourites.favouri
     })
 
     it('should consultationOwnerImage', () => {
-      spyOn(helperService, 'fileUrlResolver')
+      spyOn(urlService, 'resolveFileUrl')
       component.consultationOwnerImage("asd")
-      expect(helperService.fileUrlResolver).toHaveBeenCalled()
+      expect(urlService.resolveFileUrl).toHaveBeenCalled()
     })
 
-    it('should go to helperService', () => {
-      spyOn(helperService, 'fileUrlResolver')
+    it('should go to urlService', () => {
+      spyOn(urlService, 'resolveFileUrl')
       component.consultationOwnerImage("a")
-      expect(helperService.fileUrlResolver).toHaveBeenCalled()
+      expect(urlService.resolveFileUrl).toHaveBeenCalled()
     })
 
     it('should goToProfile', inject(() => {

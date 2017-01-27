@@ -1,5 +1,7 @@
 namespace profitelo.services.communicator {
 
+  import ICallbacksFactory = profitelo.services.callbacks.ICallbacksFactory
+  import ICallbacksService = profitelo.services.callbacks.ICallbacksService
   export interface IConsultationInvitation {
     invitation: any
     service: Service
@@ -49,7 +51,7 @@ namespace profitelo.services.communicator {
 
     private commonConfig: any
     private chatConfig
-    private callbacks: any
+    private callbacks: ICallbacksService
     private ratelSessions: SessionStorage
 
     private static events = {
@@ -57,12 +59,13 @@ namespace profitelo.services.communicator {
       onRoom: 'onRoom'
     }
 
-    constructor(private $log: ng.ILogService, private $q: ng.IQService, private utilsService, private User,
-                private RatelApi, private ProfileApi, private ratelSdk, private CommonConfig: ICommonConfig,
-                private lodash: _.LoDashStatic) {
+    constructor(private $log: ng.ILogService, private $q: ng.IQService, private callbacksFactory: ICallbacksFactory,
+                private User, private RatelApi, private ProfileApi, private ratelSdk,
+                private CommonConfig: ICommonConfig, private lodash: _.LoDashStatic) {
+
       this.commonConfig = CommonConfig.getAllData()
       this.ratelSessions = new SessionStorage()
-      this.callbacks = utilsService.callbacksFactory(Object.keys(CommunicatorService.events))
+      this.callbacks = callbacksFactory.getInstance(Object.keys(CommunicatorService.events))
       this.setChatConfig()
     }
 
@@ -209,7 +212,7 @@ namespace profitelo.services.communicator {
     'commonConfig',
     'ratelSdk',
     'ngLodash',
-    'profitelo.services.utils'
+    'profitelo.services.callbacks'
   ])
   .service('communicatorService', CommunicatorService)
 }

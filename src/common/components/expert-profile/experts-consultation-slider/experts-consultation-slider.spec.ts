@@ -6,7 +6,7 @@ describe('Unit testing: profitelo.components.expert-profile.experts-consultation
     let compile
     let componentController
     let component
-    let helperService
+    let urlService
     let validHTML = '<experts-consultation-slider data-title="title" data-experts="[]"></experts-consultation-slider>'
     const bindings = {
       experts: [],
@@ -17,11 +17,11 @@ describe('Unit testing: profitelo.components.expert-profile.experts-consultation
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.components.expert-profile.experts-consultation-slider')
 
-      inject(($rootScope, $compile, _$componentController_, _helperService_) => {
+      inject(($rootScope, $compile, _$componentController_, _urlService_) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
-        helperService = _helperService_
+        urlService = _urlService_
       })
 
       component = componentController('expertsConsultationSlider', {$scope: rootScope}, bindings)
@@ -64,9 +64,9 @@ describe('Unit testing: profitelo.components.expert-profile.experts-consultation
     })
 
     it('should expertImage', inject(() => {
-      spyOn(helperService, 'fileUrlResolver')
+      spyOn(urlService, 'resolveFileUrl')
       component.expertImage('a')
-      expect(helperService.fileUrlResolver).toHaveBeenCalled()
+      expect(urlService.resolveFileUrl).toHaveBeenCalled()
     }))
   })
 })

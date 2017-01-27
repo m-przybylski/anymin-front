@@ -1,7 +1,7 @@
 namespace profitelo.components.communicator.messenger.maximized {
 
   import IMessengerService = profitelo.services.messenger.IMessengerService
-  import IHelperService = profitelo.services.helper.IHelperService
+  import IUrlService = profitelo.services.helper.IUrlService
   import IUploaderFactory = profitelo.services.uploader.IUploaderFactory
   import IUploaderService = profitelo.services.uploader.IUploaderService
   import Money = profitelo.models.Money
@@ -38,7 +38,7 @@ namespace profitelo.components.communicator.messenger.maximized {
     /* @ngInject */
     constructor(private $log: ng.ILogService, private $timeout: ng.ITimeoutService, private $scope: ng.IScope,
                 private $element: ng.IRootElementService, private messengerService: IMessengerService,
-                private lodash: _.LoDashStatic, private helperService: IHelperService,
+                private lodash: _.LoDashStatic, private urlService: IUrlService,
                 private uploaderFactory: IUploaderFactory) {
 
       uploaderFactory.getInstance(1, uploaderFactory.collectionTypes.avatar)
@@ -83,7 +83,7 @@ namespace profitelo.components.communicator.messenger.maximized {
     }
 
     private clientInit = (expert) => {
-      this.participantAvatar = this.helperService.fileUrlResolver(expert.expertDetails.avatar)
+      this.participantAvatar = this.urlService.resolveFileUrl(expert.expertDetails.avatar)
     }
 
     private expertInit = () => {
@@ -150,7 +150,7 @@ namespace profitelo.components.communicator.messenger.maximized {
     private onFileUpload = (res) => {
       const fileMessage = {
         body: res.name,
-        fileUrl: this.helperService.fileUrlResolver(res.token)
+        fileUrl: this.urlService.resolveFileUrl(res.token)
       }
       this.uploadedFile.progress = false
       this.sendMessage(JSON.stringify(fileMessage))
@@ -195,7 +195,7 @@ namespace profitelo.components.communicator.messenger.maximized {
 
   angular.module('profitelo.components.communicator.messenger.maximized', [
     'profitelo.services.messenger',
-    'profitelo.services.helper',
+    'profitelo.services.url',
     'profitelo.services.uploader',
     'ngLodash',
     'profitelo.filters.seconds-to-datetime',

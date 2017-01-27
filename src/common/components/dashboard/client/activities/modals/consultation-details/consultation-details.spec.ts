@@ -17,7 +17,7 @@ describe('Testing Controller: clientConsultationDetails', () => {
 
   beforeEach(() => {
     angular.mock.module('profitelo.components.dashboard.client.activities.modals.consultation-details')
-    inject(($rootScope, $controller, _$httpBackend_, _helperService_, _ViewsApi_) => {
+    inject(($rootScope, $controller, _$httpBackend_, _urlService_, _ViewsApi_) => {
 
       scope = $rootScope.$new()
       scope.disconnectCall = () => {}
@@ -26,7 +26,7 @@ describe('Testing Controller: clientConsultationDetails', () => {
         '$scope': scope,
         '$uibModalInstance': uibModalInstance,
         'httpBackend': _$httpBackend_,
-        'helperService': _helperService_,
+        'urlService': _urlService_,
         'ViewsApi': _ViewsApi_
       })
     })

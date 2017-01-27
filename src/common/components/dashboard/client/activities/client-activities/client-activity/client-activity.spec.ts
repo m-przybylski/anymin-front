@@ -33,7 +33,7 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.client-
 
     beforeEach(() => {
     angular.mock.module('templates-module')
-    angular.mock.module('profitelo.services.helper')
+    angular.mock.module('profitelo.services.url')
     angular.mock.module('profitelo.services.modals')
     angular.mock.module('profitelo.filters.money')
     angular.mock.module('profitelo.components.complaints.status')

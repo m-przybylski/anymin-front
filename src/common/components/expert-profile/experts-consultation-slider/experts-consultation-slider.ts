@@ -1,6 +1,6 @@
 (function() {
   /* @ngInject */
-  function controller($scope, helperService) {
+  function controller($scope, urlService) {
     this.areControllsVisible = false
 
     this.expertsArray = []
@@ -22,7 +22,7 @@
     
     this.expertImage = (token) => {
       if (!!token && token !== null) {
-        return helperService.fileUrlResolver(token)
+        return urlService.resolveFileUrl(token)
       }
     }
     
@@ -42,7 +42,7 @@
 
   angular.module('profitelo.components.expert-profile.experts-consultation-slider', [
     'profitelo.components.interface.slider',
-    'profitelo.services.helper',
+    'profitelo.services.url',
     'pascalprecht.translate'
   ])
     .component('expertsConsultationSlider', expertsConsultationSlider)

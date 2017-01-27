@@ -1,11 +1,11 @@
 (function() {
 
-  function proSocialIconGetter(helperService) {
+  function proSocialIconGetter(urlService) {
 
     function proSocialIconGetterLink(scope) {
       
       scope.$watch('url', function(newVal, oldVal) {
-        scope.social = helperService.socialUrlResolver(newVal)
+        scope.social = urlService.resolveSocialUrl(newVal)
       })
     }
 
@@ -22,7 +22,7 @@
   }
 
   angular.module('profitelo.directives.pro-social-icon-getter', [
-    'profitelo.services.helper'
+    'profitelo.services.url'
   ])
   .directive('proSocialIconGetter', proSocialIconGetter)
 

@@ -1,6 +1,6 @@
 (function () {
   /* @ngInject */
-  function controller($scope, $state, helperService) {
+  function controller($scope, $state, urlService) {
 
     this.$onInit = () => {}
 
@@ -13,7 +13,7 @@
     }
 
     this.consultationOwnerImage = (imgToken) => {
-      return imgToken !== null || imgToken === '' ? helperService.fileUrlResolver(imgToken) : false
+      return imgToken !== null || imgToken === '' ? urlService.resolveFileUrl(imgToken) : false
     }
 
     this.goToProfile = (consultation) => {
@@ -41,7 +41,7 @@
 
   angular.module('profitelo.components.dashboard.client.favourites.favourite-experts.last-consultation-slider', [
     'profitelo.components.interface.slider',
-    'profitelo.services.helper',
+    'profitelo.services.url',
     'profitelo.filters.money',
     'pascalprecht.translate',
     'ui.router'

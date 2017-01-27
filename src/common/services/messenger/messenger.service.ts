@@ -2,8 +2,9 @@ import ICallService = profitelo.services.call.ICallService
 
 namespace profitelo.services.messenger {
 
-  import IUtilsService = profitelo.services.utils.IUtilsService
   import ICommunicatorService = profitelo.services.communicator.ICommunicatorService
+  import ICallbacksFactory = profitelo.services.callbacks.ICallbacksFactory
+  import ICallbacksService = profitelo.services.callbacks.ICallbacksService
 
   export interface IMessengerService {
     onClientTyping(cb: () => void): void
@@ -27,7 +28,7 @@ namespace profitelo.services.messenger {
 
     private room: any
 
-    private callbacks: any
+    private callbacks: ICallbacksService
 
     private static events = {
       onClientTyping: 'onClientTyping',
@@ -41,11 +42,12 @@ namespace profitelo.services.messenger {
       onExpertCreatedRoom: 'onExpertCreatedRoom'
     }
 
-    constructor(private $q: ng.IQService, private $log: ng.ILogService, private utilsService: IUtilsService,
+    constructor(private $q: ng.IQService, private $log: ng.ILogService, private callbacksFactory: ICallbacksFactory,
                 private communicatorService: ICommunicatorService, private callService: ICallService,
                 private soundsService) {
 
-      this.callbacks = utilsService.callbacksFactory(Object.keys(MessengerService.events))
+      this.callbacks = callbacksFactory.getInstance(Object.keys(MessengerService.events))
+
       callService.onClientCallStarted(this.createClientDirectRoom)
       callService.onExpertCallAnswered(this.createExpertDirectRoom)
       callService.onClientCallPending(this.onClientCreatingRoomEvent)
@@ -220,7 +222,7 @@ namespace profitelo.services.messenger {
 
   angular.module('profitelo.services.messenger', [
     'profitelo.services.communicator',
-    'profitelo.services.utils',
+    'profitelo.services.callbacks',
     'profitelo.services.call',
     'profitelo.services.sounds'
   ])

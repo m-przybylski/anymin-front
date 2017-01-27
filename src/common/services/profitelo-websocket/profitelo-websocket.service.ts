@@ -1,6 +1,8 @@
 namespace profitelo.services.profiteloWebsocket {
 
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  import ICallbacksFactory = profitelo.services.callbacks.ICallbacksFactory
+  import ICallbacksService = profitelo.services.callbacks.ICallbacksService
 
   export interface IProfiteloWebsocketService {
     sendMessage(msg: string, type: string): boolean
@@ -10,7 +12,7 @@ namespace profitelo.services.profiteloWebsocket {
 
   class ProfiteloWebsocketService implements IProfiteloWebsocketService {
 
-    private callbacks: any
+    private callbacks: ICallbacksService
     private websocket: WebSocket
     private wsEndpoint: string
 
@@ -21,9 +23,10 @@ namespace profitelo.services.profiteloWebsocket {
     }
 
     constructor(private $log: ng.ILogService, private $rootScope: IRootScopeService,
-                private $timeout: ng.ITimeoutService, private utilsService, private CommonConfig: ICommonConfig) {
+                private $timeout: ng.ITimeoutService, private callbacksFactory: ICallbacksFactory,
+                private CommonConfig: ICommonConfig) {
 
-      this.callbacks = utilsService.callbacksFactory(Object.keys(ProfiteloWebsocketService.events))
+      this.callbacks = callbacksFactory.getInstance(Object.keys(ProfiteloWebsocketService.events))
       this.wsEndpoint = CommonConfig.getAllData().urls.ws + '/ws/register'
       this.connectWebsocket()
     }
@@ -110,7 +113,7 @@ namespace profitelo.services.profiteloWebsocket {
   }
 
   angular.module('profitelo.services.profitelo-websocket', [
-    'profitelo.services.utils',
+    'profitelo.services.callbacks',
     'commonConfig'
   ])
   .service('profiteloWebsocket', ProfiteloWebsocketService)

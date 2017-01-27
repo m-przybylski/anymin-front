@@ -1,8 +1,9 @@
 namespace profitelo.services.callSummary {
 
   import IProfiteloWebsocketService = profitelo.services.profiteloWebsocket.IProfiteloWebsocketService
-  import IUtilsService = profitelo.services.utils.IUtilsService
   import CallSummary = profitelo.models.CallSummary
+  import ICallbacksFactory = profitelo.services.callbacks.ICallbacksFactory
+  import ICallbacksService = profitelo.services.callbacks.ICallbacksService
 
   export interface ICallSummaryService {
     takeCallSummary(accountId: string): CallSummary
@@ -12,17 +13,17 @@ namespace profitelo.services.callSummary {
   class CallSummaryService implements ICallSummaryService {
 
     private callSummaries: Array<CallSummary>
-    private callbacks: any
+    private callbacks: ICallbacksService
 
     private static events = {
       onCallSummary: 'onCallSummary'
     }
 
-    constructor(private utilsService: IUtilsService, private profiteloWebsocket: IProfiteloWebsocketService,
+    constructor(private callbacksFactory: ICallbacksFactory, private profiteloWebsocket: IProfiteloWebsocketService,
                 private lodash: _.LoDashStatic) {
 
       this.callSummaries = []
-      this.callbacks = utilsService.callbacksFactory(Object.keys(CallSummaryService.events))
+      this.callbacks = callbacksFactory.getInstance(Object.keys(CallSummaryService.events))
       profiteloWebsocket.onCallSummary(this.onNewCallSummary)
     }
 
@@ -47,7 +48,7 @@ namespace profitelo.services.callSummary {
   }
 
   angular.module('profitelo.services.call-summary', [
-    'profitelo.services.utils',
+    'profitelo.services.callbacks',
     'profitelo.services.profitelo-websocket',
     'ngLodash'
   ])

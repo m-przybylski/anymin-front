@@ -35,7 +35,7 @@ describe('Unit testing: profitelo.components.dashboard.client.favourites.favouri
 
     beforeEach(() => {
     angular.mock.module('templates-module')
-    angular.mock.module('profitelo.services.helper')
+    angular.mock.module('profitelo.services.url')
     angular.mock.module('profitelo.components.dashboard.client.favourites.favourite-experts.favourite-expert')
 
       inject(($rootScope, $compile, _$componentController_, _$state_) => {

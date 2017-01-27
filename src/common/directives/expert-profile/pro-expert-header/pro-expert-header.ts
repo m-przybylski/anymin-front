@@ -1,10 +1,10 @@
 (function() {
-  function proExpertHeader(helperService) {
+  function proExpertHeader(urlService) {
 
     function linkFunction(scope, element) {
 
       scope.handleUserImage = (imgToken) => {
-        return imgToken !== null ||  imgToken === '' ? helperService.fileUrlResolver(imgToken) : ''
+        return imgToken !== null ||  imgToken === '' ? urlService.resolveFileUrl(imgToken) : ''
       }
       
       scope.checkCollaboratedExperts = () => {
@@ -27,7 +27,7 @@
   }
   angular.module('profitelo.directives.expert-profile.pro-expert-header', [
     'profitelo.components.interface.show-more-text',
-    'profitelo.services.helper'
+    'profitelo.services.url'
   ])
   .directive('proExpertHeader', proExpertHeader)
 
