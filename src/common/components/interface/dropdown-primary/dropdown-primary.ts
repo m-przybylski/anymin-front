@@ -1,65 +1,94 @@
-(function() {
-  /* @ngInject */
-  function controller($document, $scope, $element) {
+namespace profitelo.components.interface.dropdownPrimary {
 
-    const dropdownScroll = angular.element('.dropdown-content')
+  interface IDropdownItem {
+    name: string
+    value: Object | null
+  }
 
-    this.isOpen = false
-    this.isActive = false
-    this.activeItem = false
+  interface IDropdownPrimaryComponentBindings {
+    label: string,
+    inputPlaceholder: string,
+    name: string,
+    placeholder: string,
+    mainList: Array<Object>,
+    onSelectMain: Function,
+    selectedItem: IDropdownItem
+  }
 
-    this.mainPlaceholder = {
-      name: this.placeholder,
-      value: null
-    }
+  interface IFilterBy {
+    name: string
+  }
 
-    this.mainListExist = () =>
-      angular.isDefined(this.mainList) && this.mainList.length > 0
+  class DropdownPrimaryComponentController implements ng.IController, IDropdownPrimaryComponentBindings {
 
-    this.toggleDropdown = () => {
-      this.isOpen = !this.isOpen
-    }
+    public isOpen: boolean = false
+    public isActive: boolean = false
+    public activeItem: IDropdownItem
+    public label: string
+    public inputPlaceholder: string
+    public name: string
+    public placeholder: string
+    public mainList: Array<Object>
+    public onSelectMain: Function
+    public selectedItem: IDropdownItem
+    public mainPlaceholder: IDropdownItem
 
-    const onItemChecked = (item) => {
-      this.isOpen = !this.isOpen
-      this.isActive = item.value
-      this.selectedItem = item
-    }
-
-    this.isSelected = (item) => {
-      return this.activeItem === item
-    }
-
-    this.onMainItemSelect = (item) => {
-      this.activeItem = item
-      onItemChecked(item)
-      this.onSelectMain(item)
-    }
-
-    dropdownScroll.perfectScrollbar()
-
-    $document.bind('click', (event) => {
-      let ifTargetClicked = $element.find(event.target).length > 0
-      if (!ifTargetClicked) {
-        this.isOpen = false
-      }
-      this.filterBy.name = ''
-      $scope.$apply()
-    })
-
-    this.filterBy = {
+    public filterBy: IFilterBy = {
       name: ''
     }
 
-    return this
+    $onInit = () => {
+      this.mainPlaceholder = {
+        name: this.placeholder,
+        value: null
+      }
+    }
+    /* @ngInject */
+    constructor(private $document: ng.IDocumentService, private  $scope: ng.IScope,
+                private $element: ng.IRootElementService) {
+
+      this.$document.bind('click', (event) => {
+        let ifTargetClicked = this.$element.find(event.target).length > 0
+        if (!ifTargetClicked) {
+          this.isOpen = false
+        }
+        this.filterBy.name = ''
+        this.$scope.$apply()
+      })
+
+      this.dropdownScroll.perfectScrollbar()
+
+    }
+
+    public mainListExist = (): boolean =>
+      angular.isDefined(this.mainList) && this.mainList.length > 0
+
+    public toggleDropdown = (): void => {
+      this.isOpen = !this.isOpen
+    }
+
+    public isSelected = (item: IDropdownItem): boolean =>
+      this.activeItem === item
+
+    public onMainItemSelect = (item: IDropdownItem): void => {
+      this.activeItem = item
+      this.onItemChecked(item)
+      this.onSelectMain(item)
+    }
+
+    private onItemChecked = (item: IDropdownItem): void => {
+      this.isOpen = !this.isOpen
+      this.isActive = !!item.value
+      this.selectedItem = item
+    }
+
+    private dropdownScroll = angular.element('.dropdown-content')
   }
 
-  const component = {
-    templateUrl: 'components/interface/dropdown-primary/dropdown-primary.tpl.html',
-    controllerAs: '$ctrl',
-    transclude: true,
-    controller: controller,
-    bindings: {
+  class DropdownPrimaryComponent implements ng.IComponentOptions {
+    controller: ng.Injectable<ng.IControllerConstructor> = DropdownPrimaryComponentController
+    templateUrl: string = 'components/interface/dropdown-primary/dropdown-primary.tpl.html'
+    bindings: {[boundProperty: string]: string} = {
       label: '@',
       inputPlaceholder: '@',
       name: '@',
@@ -68,12 +97,11 @@
       onSelectMain: '<',
       selectedItem: '<'
     }
-
   }
 
-
   angular.module('profitelo.components.interface.dropdown-primary', [
+    'pascalprecht.translate'
   ])
-  .component('dropDownPrimary', component)
+  .component('dropdownPrimary', new DropdownPrimaryComponent)
+}
 
-}())

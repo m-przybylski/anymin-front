@@ -53,7 +53,7 @@
         _loadMore()
       }
     }
-    
+
     this.loadMoreOnClick = () => {
       this.isLoadMoreError = false
       _loadMore()
@@ -61,7 +61,7 @@
 
     this.setSearchParams = (params) => {
       this.isSearchLoading = true
-      searchService.setSearchQueryParams(angular.extend($location.search(), params))
+      searchService.setSearchQueryParams(angular.extend($location.search(), params[0]))
     }
 
     searchService.onQueryParamsChange($scope, (queryParams) => {
@@ -70,6 +70,8 @@
         $location.search(params)
       }
     })
+
+
 
     return this
   }
@@ -82,7 +84,7 @@
     'profitelo.components.interface.go-to-top',
     'profitelo.components.search.single-consultation',
     'profitelo.components.search.no-consultations',
-    'profitelo.directives.search.search-filters',
+    'profitelo.components.search.searchFilters',
     'profitelo.directives.pro-footer',
     'profitelo.components.interface.preloader',
     'profitelo.components.interface.preloader-container',

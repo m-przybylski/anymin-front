@@ -3,6 +3,8 @@ namespace profitelo.resolvers.loginRegister {
   import ILoginStateService = profitelo.services.loginState.ILoginStateService
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import Account = profitelo.models.Account
+  import IFilterService = profitelo.services.filter.IFilterService
+
 
   export interface ILoginRegister {
     sessionId: string
@@ -16,7 +18,7 @@ namespace profitelo.resolvers.loginRegister {
   class LoginRegisterResolver implements ILoginRegisterService {
 
     constructor(private loginStateService: ILoginStateService, private $state: ng.ui.IStateService,
-                private $filter: ng.IFilterService, private $q: ng.IQService, private $timeout: ng.ITimeoutService,
+                private $filter: IFilterService, private $q: ng.IQService, private $timeout: ng.ITimeoutService,
                 private topAlertService: ITopAlertService, private RegistrationApi) {
 
     }

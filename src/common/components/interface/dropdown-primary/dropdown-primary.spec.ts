@@ -1,5 +1,5 @@
 describe('Unit testing: profitelo.components.interface.dropdown-primary', () => {
-  return describe('for dropDownPrimary component >', () => {
+  return describe('for dropdownPrimary component >', () => {
 
     let scope
     let rootScope
@@ -10,7 +10,7 @@ describe('Unit testing: profitelo.components.interface.dropdown-primary', () => 
     let bindings
     let timeout
     let document
-    let validHTML = '<drop-down-primary data-label="asd" data-icon="icon"></drop-down-primary>'
+    let validHTML = '<dropdown-primary data-label="asd" data-icon="icon"></dropdown-primary>'
     let smoothScrolling
 
     function create(html) {
@@ -53,7 +53,7 @@ describe('Unit testing: profitelo.components.interface.dropdown-primary', () => 
         $document: document
       }
 
-      component = componentController('dropDownPrimary', injectors, bindings)
+      component = componentController('dropdownPrimary', injectors, bindings)
       timeout.flush()
     })
 

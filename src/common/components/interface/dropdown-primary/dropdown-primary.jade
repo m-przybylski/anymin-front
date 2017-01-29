@@ -1,8 +1,8 @@
 .dropdown-input(data-ng-class="{'is-open': $ctrl.isOpen, 'is-active': $ctrl.isActive}")
   .dropdown-header(data-ng-click="$ctrl.toggleDropdown()")
-    label {{$ctrl.label}}
-    span(data-ng-if="$ctrl.selectedItem") {{$ctrl.selectedItem.name }}
-    span.placeholder(data-ng-if="!$ctrl.selectedItem") {{$ctrl.mainPlaceholder.name}}
+    label {{ $ctrl.label }}
+    span(data-ng-if="$ctrl.selectedItem") {{ $ctrl.selectedItem.name }}
+    span.placeholder(data-ng-if="!$ctrl.selectedItem") {{ $ctrl.mainPlaceholder.name }}
 
     .dropdown-icons
       span.icon
@@ -10,9 +10,10 @@
   .dropdown-content
     .scroll-list
       ul.dropdown-list
-        li(data-ng-repeat="item in $ctrl.mainList | filter: $ctrl.filterBy" data-ng-click="$ctrl.onMainItemSelect(item)" data-ng-class="{'is-active': $ctrl.isSelected(item)}")
+        li(data-ng-repeat="item in $ctrl.mainList | filter: $ctrl.filterBy"
+        data-ng-click="$ctrl.onMainItemSelect(item)" data-ng-class="{'is-active': $ctrl.isSelected(item)}")
           a {{ item.name }}
 
         li.no-results(data-ng-show="!$ctrl.mainList || $ctrl.mainList.length < 1")
-          a no results
+          a {{ INTERFACE.DROPDOWN_PRIMARY.NO_RESULTS | translate }}
 

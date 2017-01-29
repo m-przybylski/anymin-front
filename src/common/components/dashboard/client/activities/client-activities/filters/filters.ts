@@ -3,6 +3,12 @@ import Profile = profitelo.models.Profile
 import ExpertProfile = profitelo.models.ExpertProfile
 
 (function () {
+
+  interface IServiceExpertTuple {
+    service: Service
+    expert: ExpertProfile
+  }
+
   /* @ngInject */
   function controller($scope: ng.IScope, $filter, lodash: _.LoDashStatic, clientActivitiesService) {
 
@@ -18,8 +24,9 @@ import ExpertProfile = profitelo.models.ExpertProfile
     }
 
 
-    const createDropdownServiceList = (list: any) => {
-      const mappedList = lodash.uniqBy(lodash.map(list, (listItem: {service: Service}) => listItem.service), item => item.id)
+    const createDropdownServiceList = (list: Array<IServiceExpertTuple>) => {
+      const mappedList = lodash.uniqBy(lodash.map(list, (listItem) =>
+        listItem.service), item => item.id)
 
       return mappedList.map(service => ({
         name: service.details.name,

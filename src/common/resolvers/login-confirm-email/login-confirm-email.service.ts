@@ -2,6 +2,8 @@ namespace profitelo.resolvers.loginConfirmEmail {
 
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  import IFilterService = profitelo.services.filter.IFilterService
+
 
   export interface ILoginConfirmEmailService {
     resolve(stateParams: ng.ui.IStateParamsService): ng.IPromise<undefined>
@@ -10,7 +12,7 @@ namespace profitelo.resolvers.loginConfirmEmail {
   class LoginConfirmEmailResolver implements ILoginConfirmEmailService {
 
     constructor(private $q: ng.IQService, private $rootScope: IRootScopeService, private $timeout: ng.ITimeoutService,
-                private $filter: ng.IFilterService, private $state: ng.ui.IStateService, private topAlertService: ITopAlertService,
+                private $filter: IFilterService, private $state: ng.ui.IStateService, private topAlertService: ITopAlertService,
                 private User, private UserRoles,
                 private AccountApi, private SessionApi) {
 
