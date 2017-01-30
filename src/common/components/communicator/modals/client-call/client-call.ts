@@ -31,7 +31,8 @@ namespace profitelo.components.communicator.modals.clientCall {
   }
 
   angular.module('profitelo.components.communicator.modals.client-call', [
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'profitelo.directives.interface.scrollable'
   ])
   .controller('clientCallController', ClientCallController)
 }

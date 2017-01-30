@@ -42,7 +42,7 @@
     }
 
     /* istanbul ignore next */
-    const onWindowResize = () => {
+    this.onWindowResize = () => {
       if (!this.isCollapsed) {
         this.stylesObject.minHeight = getCollapseBtnContentHeight()
       }
@@ -52,7 +52,7 @@
     }
 
     /* istanbul ignore next */
-    angular.element($window).on('resize', onWindowResize)
+    angular.element($window).on('resize', this.onWindowResize)
 
     return this
   }
