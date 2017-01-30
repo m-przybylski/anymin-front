@@ -20,9 +20,8 @@ namespace app.dashboard.client.activities {
     }
     public queryParams = {}
 
-    constructor(private $scope: ng.IScope, private lodash: _.LoDashStatic, private $timeout: ng.ITimeoutService,
+    constructor(private $scope: ng.IScope, private $timeout: ng.ITimeoutService,
                 private clientActivities: IClientActivities, private clientActivitiesService: IClientActivitiesService) {
-
 
       this.activities = clientActivities.activities
       this.balance = clientActivities.balance
@@ -64,8 +63,7 @@ namespace app.dashboard.client.activities {
         clientActivities.activities.pop()
       }
 
-      this.activities = lodash.sortBy(clientActivities.activities,
-        (activity: ClientActivity) => activity.financialOperation.createdAt)
+      this.activities = clientActivities.activities
 
       this.balance = clientActivities.balance
       this.expertServiceTuples = clientActivities.expertServiceTuples
