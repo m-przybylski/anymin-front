@@ -31,8 +31,14 @@ namespace profitelo.components.dashboard.client.activities.clientActivity {
     }
 
     public openActivityDescription = () => {
-      const sueId = this.activity.sueProfileServiceTuple.serviceUsageEvent.id
-      this.modalsService.createClientSUEActivityDetailsModal(sueId)
+
+      if (this.isCallActivity) {
+        const sueId = this.activity.sueProfileServiceTuple.serviceUsageEvent.id
+        this.modalsService.createClientSUEActivityDetailsModal(sueId)
+      } else {
+        this.modalsService.createClientChargeDetailsModal(this.activity.financialOperation)
+      }
+
     }
   }
 
@@ -52,5 +58,5 @@ namespace profitelo.components.dashboard.client.activities.clientActivity {
     'profitelo.services.modals',
     'profitelo.components.complaints.status'
   ])
-    .component('clientActivity', new ClientActivityComponent())
+  .component('clientActivity', new ClientActivityComponent())
 }
