@@ -1,25 +1,25 @@
-(function() {
+(function () {
   /* @ngInject */
   function controller($document: ng.IDocumentService, $scope: ng.IScope, $element: ng.IRootElementService) {
 
-    const dropdownScroll: any = angular.element('.dropdown-content')
+    this.$onInit = () => {
+      this.mainPlaceholder = {
+        name: this.placeholder,
+        value: null
+      }
+    }
 
+    const dropdownScroll: any = angular.element('.dropdown-content')
     this.isOpen = false
     this.isActive = false
-    this.activeItem = false
 
-    this.mainPlaceholder = {
-      name: this.placeholder,
-      value: null
-    }
+    this.activeItem = false
 
     this.mainListExist = () =>
       angular.isDefined(this.mainList) && this.mainList.length > 0
 
-
     this.isSecondaryListExist = () =>
       angular.isDefined(this.secondaryList) && this.secondaryList.length > 0
-
 
     this.toggleDropdown = () => {
       this.isOpen = !this.isOpen
@@ -84,9 +84,7 @@
 
   }
 
-
-  angular.module('profitelo.components.interface.dropdown', [
-  ])
-    .component('dropdownInput', component)
+  angular.module('profitelo.components.interface.dropdown', [])
+  .component('dropdownInput', component)
 
 }())

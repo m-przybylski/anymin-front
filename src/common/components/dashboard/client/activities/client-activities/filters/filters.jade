@@ -9,9 +9,8 @@
         dropdown-input(data-label="{{ ::'DASHBOARD.CLIENT.FILTER.EXPERTS' | translate }}"
         data-main-list="$ctrl.expertsDropdownList"
         data-on-select-main="$ctrl.updateProfileParam"
-        data-placeholder="{{ ::'SEARCH.ALL' | translate }}"
-        data-selected-item="$ctrl.selectedExpert"
-        data-input-placeholder="{{ ::'SEARCH.ALL' | translate }}")
+        data-placeholder="{{ 'SEARCH.ALL' | translate }}"
+        data-selected-item="$ctrl.selectedExpert")
 
       .pro-dropdown
         dropdown-input(data-label="{{ ::'DASHBOARD.CLIENT.FILTER.CONSULTATIONS' | translate }}"
@@ -20,8 +19,7 @@
         secondary-list="$ctrl.secondaryServicesDropdownList"
         data-on-select-main="$ctrl.mainUpdateServiceParam"
         data-on-select-second="$ctrl.secondUpdateServiceParam"
-        data-selected-item="$ctrl.selectedService"
-        data-input-placeholder="{{ ::'SEARCH.ALL' | translate }}")
+        data-selected-item="$ctrl.selectedService")
 
       div.filter-download
         .calendar
