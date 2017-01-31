@@ -1,4 +1,4 @@
-.pro-top-navbar.clearfix(role="navigation" data-ng-class="{'hideNavbar':  isHide }")
+.pro-top-navbar.clearfix(role="navigation" data-ng-class="{'hideNavbar':  isHide }" ng-hide="navbarHidden")
   .hamburger-menu.menu-item(data-ng-click="sidebarAction()"
   data-ng-class='hamburgerClass')
     a.nav-icon(data-ng-class="{'open': animateCross}")

@@ -1,17 +1,17 @@
-top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="onModalClose")
+scrollable(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
+  top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="onModalClose")
+  .report-modal.complain-report-modal
+    div
+      .default-container-small
+        img(data-ng-src="/assets/images/profitelo-icons/icon3.png")
 
-.fullscreen-modals.fullscreen-navbar.report-modal.complain-report-modal
-  div
-    .default-container-small
-      img(data-ng-src="/assets/images/profitelo-icons/icon3.png")
+        .modal-title
+          h3(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.COMPLAIN_REPORT.TITLE")
 
-      .modal-title
-        h3(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.COMPLAIN_REPORT.TITLE")
+        .modal-description
+          p(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.COMPLAIN_REPORT.DESCRIPTION_FIRST")
+          p(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.COMPLAIN_REPORT.DESCRIPTION_TWO")
 
-      .modal-description
-        p(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.COMPLAIN_REPORT.DESCRIPTION_FIRST")
-        p(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.COMPLAIN_REPORT.DESCRIPTION_TWO")
-
-      .modal-action
-        a.btn.btn-primary(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.COMPLAIN_REPORT.BACK_TO_DETAILS.BUTTON")
-        a.btn.btn-default(data-ui-sref="app.dashboard.client.activities" data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.COMPLAIN_REPORT.BACK_TO_ACTIVITIES.BUTTON")
+        .modal-action
+          a.btn.btn-primary(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.COMPLAIN_REPORT.BACK_TO_DETAILS.BUTTON")
+          a.btn.btn-default(data-ui-sref="app.dashboard.client.activities" data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.COMPLAIN_REPORT.BACK_TO_ACTIVITIES.BUTTON")

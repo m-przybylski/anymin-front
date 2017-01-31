@@ -30,7 +30,8 @@ namespace profitelo.components.communicator.modals.serviceUnavailable {
   }
 
   angular.module('profitelo.components.communicator.modals.service-unavailable', [
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'profitelo.directives.interface.scrollable'
   ])
   .controller('unavailableServiceController', UnavailableServiceController)
 }

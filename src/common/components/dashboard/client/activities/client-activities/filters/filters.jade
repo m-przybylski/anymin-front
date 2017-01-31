@@ -1,5 +1,5 @@
 .client-filters
-  .client-filters-collapse(data-ng-class="{'is-collapsed': $ctrl.showMobileFilters}")
+  .client-filters-collapse.is-collapsed(data-ng-class="{'is-collapsed': $ctrl.showMobileFilters}")
     .client-filter
       pro-dropdown(data-pro-model="$ctrl.filterModel.activityType" data-label="{{ ::'DASHBOARD.CLIENT.FILTER.ACTIVITIES' | translate }}"
       data-placeholder="{{ ::'SEARCH.ALL' | translate }}" data-pro-items="$ctrl.activityTypesList" data-no-search

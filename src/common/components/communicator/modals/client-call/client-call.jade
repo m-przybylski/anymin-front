@@ -1,17 +1,18 @@
-.communicator-modals
-  .client-call
-    img(data-ng-src="/assets/images/search-image.png")
+scrollable()
+  .communicator-modals
+    .client-call
+      img(data-ng-src="/assets/images/search-image.png")
 
-    .communicator-modals-content
-      h2(data-translate="COMMUNICATOR.MODALS.CUSTOMER_ASK_FOR_ADVICE_ON")
-      p {{ ::service.details.name }}
+      .communicator-modals-content
+        h2(data-translate="COMMUNICATOR.MODALS.CUSTOMER_ASK_FOR_ADVICE_ON")
+        p {{ ::service.details.name }}
 
-    .modal-action
-      a.btn.btn-error.icon-left(data-ng-click="rejectCall()")
-        span.icon.icon-reject-24
-        | {{"COMMUNICATOR.MODALS.REJECT" | translate}}
+      .modal-action
+        a.btn.btn-error.icon-left(data-ng-click="rejectCall()")
+          span.icon.icon-reject-24
+          | {{"COMMUNICATOR.MODALS.REJECT" | translate}}
 
-      a.btn.btn-success.icon-left(data-ng-click="answerCall()")
-        span.icon.icon-call-24
-        | {{"COMMUNICATOR.MODALS.ANSWER" | translate}}
+        a.btn.btn-success.icon-left(data-ng-click="answerCall()")
+          span.icon.icon-call-24
+          | {{"COMMUNICATOR.MODALS.ANSWER" | translate}}
 

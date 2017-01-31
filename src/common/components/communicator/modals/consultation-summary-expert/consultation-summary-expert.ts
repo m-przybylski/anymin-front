@@ -7,6 +7,8 @@ namespace profitelo.components.communicator.modals.consultationSummaryExpert {
     serviceId: string
     callSummary: CallSummary
     onModalClose: Function
+    isFullscreen: boolean
+    isNavbar: boolean
   }
 
   class ConsultationSummaryExpertController {
@@ -15,6 +17,9 @@ namespace profitelo.components.communicator.modals.consultationSummaryExpert {
     constructor(private $scope: IConsultationSummaryExpertControllerScope,
                 private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
                 private callSummaryService: ICallSummaryService) {
+
+      $scope.isFullscreen = true
+      $scope.isNavbar = true
 
       $scope.callSummary = null
 

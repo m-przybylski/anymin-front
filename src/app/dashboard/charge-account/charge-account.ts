@@ -46,7 +46,7 @@
 
     this.validAction = () => {
       if ((!angular.isDefined(this.amountModel.amount) || this.amountModel.amount === null) && this.amountModel.cashAmount.amount < this.amounts.minimalAmounts.amount) {
-        smoothScrollingService.simpleScrollTo('#cash-valid')
+        smoothScrollingService.simpleScrollTo('#cash-valid', true)
         return false
       } else {
         return true

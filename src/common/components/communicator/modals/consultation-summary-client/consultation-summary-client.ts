@@ -16,6 +16,8 @@ namespace profitelo.components.modals.consultationSummaryClient {
     onModalClose: Function
     onTagsSelectChange: Function
     recommendService: Function
+    isFullscreen: boolean
+    isNavbar: boolean
   }
 
   class ConsultationSummaryClientController {
@@ -27,6 +29,9 @@ namespace profitelo.components.modals.consultationSummaryClient {
                 private lodash: _.LoDashStatic, private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
                 private callSummaryService: ICallSummaryService, private urlService: IUrlService,
                 private ServiceApi) {
+
+      $scope.isFullscreen = true
+      $scope.isNavbar = true
 
       callSummaryService.onCallSummary(this.onCallSummary)
       this.loadFromExistingCallSummaries()

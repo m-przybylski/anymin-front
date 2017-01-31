@@ -30,7 +30,8 @@ namespace profitelo.components.communicator.modals.noCredits {
   }
 
   angular.module('profitelo.components.communicator.modals.no-credits', [
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'profitelo.directives.interface.scrollable'
   ])
   .controller('noCreditsController', NoCreditsController)
 }
