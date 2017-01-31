@@ -2,8 +2,8 @@
 (function() {
 
   function controller($scope, $uibModalInstance) {
-    this.isNavbar = true
-    this.isFullscreen = true
+    $scope.isNavbar = true
+    $scope.isFullscreen = true
 
     $scope.onModalClose = () =>
       $uibModalInstance.dismiss('cancel')
