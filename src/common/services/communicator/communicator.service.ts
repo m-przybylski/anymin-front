@@ -18,11 +18,11 @@ namespace profitelo.services.communicator {
   class SessionStorage {
 
     // TODO: add types
-    clientSession: Object
+    clientSession: Object | null
     expertSessions: Object
 
     constructor() {
-      this.clientSession = undefined
+      this.clientSession = null
       this.expertSessions = {}
     }
 

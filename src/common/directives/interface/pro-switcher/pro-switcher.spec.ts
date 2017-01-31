@@ -1,9 +1,9 @@
 describe('Unit testing: profitelo.directives.interface.pro-input-switcher', () => {
   return describe('for interface.pro-input-switcher directive >', () => {
 
-    let scope     = null
+    let scope: any     = null
     let rootScope
-    let compile   = null
+    let compile: any   = null
     let validHTML = '<pro-switcher ng-model="isChecked" data-label="LABEL" id data-name="NAME" ></pro-switcher>'
 
     beforeEach(() => {

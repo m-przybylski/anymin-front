@@ -1,5 +1,6 @@
 import Service = profitelo.models.Service
 import Profile = profitelo.models.Profile
+import ExpertProfile = profitelo.models.ExpertProfile
 
 (function () {
   /* @ngInject */
@@ -27,7 +28,7 @@ import Profile = profitelo.models.Profile
     }
 
     const createDropdownExpertsList = (list: any) => {
-      const mappedList = lodash.uniqBy(lodash.map(list, (listItem: {profile: Profile}) =>
+      const mappedList = lodash.uniqBy(lodash.map(list, (listItem: {profile: ExpertProfile}) =>
         listItem.profile), (item) => item.id)
 
       return mappedList.map((expert) => {

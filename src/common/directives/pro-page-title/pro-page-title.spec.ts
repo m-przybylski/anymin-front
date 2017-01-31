@@ -1,8 +1,8 @@
 describe('Unit testing: profitelo.directives.page-title', () => {
   return describe('for page-title directive >', () => {
 
-    var compile   = null
-    var scope     = null
+    var compile: any   = null
+    var scope: any     = null
     var validHTML = '<title data-page-title></title>'
 
     beforeEach(() => {

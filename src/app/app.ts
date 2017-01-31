@@ -164,7 +164,7 @@
         },
         browserType: () => {
           if (navigator.userAgent.indexOf('MSIE') !== -1) {
-            document.querySelector('body').classList.add('is-ie')
+            document.querySelector('body')!.classList.add('is-ie')
           }
           return true
         }

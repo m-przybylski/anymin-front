@@ -3,9 +3,9 @@ describe('Unit testing: profitelo.directives.interface.pro-checkbox', () => {
 
     let _placeholder = 'PLACEHOLDER'
 
-    let scope     = null
+    let scope: any     = null
     let rootScope
-    let compile   = null
+    let compile: any   = null
     let validHTML = '<pro-checkbox required id ng-model="isChecked"></pro-checkbox>'
 
     beforeEach(() => {

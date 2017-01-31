@@ -1,8 +1,8 @@
 describe('Unit testing: profitelo.directives.service-provider.pro-bottom-consultation-button', function() {
   return describe('for proBottomConsultationButton directive >', function() {
 
-    var compile = null
-    var scope = null
+    var compile: any = null
+    var scope: any = null
 
     var validHTML = '<pro-bottom-consultation-button data-width="vm.progressBarWidth" ' +
       'data-queue="vm.queue" data-button-action="saveAccountObject" data-order="8"></pro-bottom-consultation-button>'

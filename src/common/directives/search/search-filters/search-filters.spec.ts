@@ -1,11 +1,11 @@
 describe('Unit testing: profitelo.directives.search.search-filters', () => {
   return describe('for search-filters directive >', () => {
 
-    let scope = null
+    let scope: any = null
     let rootScope
-    let compile = null
+    let compile: any = null
     let validHTML = '<search-filters data-model="model" data-set-search-params="callback" data-search-results="searchResults"></search-filters>'
-    let _httpBackend = null
+    let _httpBackend: ng.IHttpBackendService
     let _CategoriesApiDef
     let resourcesExpectations
     const url = 'awesomeUrl'

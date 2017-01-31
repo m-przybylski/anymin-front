@@ -1,9 +1,9 @@
 describe('Unit testing: profitelo.directives.interface.scrollable', () => {
   return describe('for profitelo.directives.scrollable directive >', () => {
 
-    let scope = null
+    let scope: any = null
     let rootScope
-    let compile = null
+    let compile: any = null
     let timeout
     let interval
     let window

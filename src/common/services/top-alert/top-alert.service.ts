@@ -20,7 +20,7 @@ namespace profitelo.services.topAlert {
 
   class TopAlertService implements ITopAlertService {
 
-    private alertArray = []
+    private alertArray: Array<ITopAlertSettings> = []
     private defaultOptions = {}
     private alertsLimit = 2
 

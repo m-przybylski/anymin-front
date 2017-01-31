@@ -3,9 +3,9 @@ describe('Unit testing: profitelo.directives.pro-top-waiting-loader', () => {
 
     let _placeholder = 'PLACEHOLDER'
 
-    let scope = null
+    let scope: any = null
     let rootScope
-    let compile = null
+    let compile: any = null
     let proTopWaitingLoaderService
     let validHTML = '<pro-top-waiting-loader></pro-top-waiting-loader>'
 

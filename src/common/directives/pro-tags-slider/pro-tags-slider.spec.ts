@@ -1,10 +1,10 @@
 describe('Unit testing: profitelo.directives.pro-tags-slider', () => {
   return describe('for pro-tags-slider directive >', () => {
 
-    let scope = null
+    let scope: any = null
     let rootScope
-    let compile = null
-    let _timeout = null
+    let compile: any = null
+    let _timeout: ng.ITimeoutService
     let validHTML = '<pro-tags-slider data-tags="[{name: \'sdsd\', id:999}, {name: \'sdsd\', id:999}, {name: \'sdsd\', ' +
       'id:999}, {name: elo, id:999}, {name: elo, id:999}]" data-on-tag-click-action="tagsAction"></pro-tags-slider>'
 

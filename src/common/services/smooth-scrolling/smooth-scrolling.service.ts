@@ -31,6 +31,11 @@ namespace profitelo.services.smoothScrolling {
 
       const elmYPosition = (id) => {
         let elm = document.getElementById(id)
+
+        if (!elm) {
+          throw new Error(`Elem ${id} not found`)
+        }
+
         let y = elm.offsetTop
         let node = elm
         while (node.offsetParent && node.offsetParent !== document.body) {
@@ -92,8 +97,8 @@ namespace profitelo.services.smoothScrolling {
   }
 
   angular.module('profitelo.services.smooth-scrolling', [])
-  .config(($qProvider) => {
-    $qProvider.errorOnUnhandledRejections(false)
-  })
-  .service('smoothScrollingService', SmoothScrollingService)
+    .config(($qProvider) => {
+      $qProvider.errorOnUnhandledRejections(false)
+    })
+    .service('smoothScrollingService', SmoothScrollingService)
 }

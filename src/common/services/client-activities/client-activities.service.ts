@@ -70,7 +70,7 @@ namespace profitelo.services.clientActivities {
       .then(this._handleClientActivitiesResponse, this._handleClientActivitiesResponseError)
     }
 
-    public setClientActivitiesParam = (filterObject) => {
+    public setClientActivitiesParam = (filterObject): ng.IPromise<any> => {
       if (filterObject && typeof filterObject === 'object') {
 
         angular.forEach(Object.keys(this._queryParams), (fieldName) => {
@@ -84,7 +84,7 @@ namespace profitelo.services.clientActivities {
         this._queryParams['offset'] = 0
         this._queryParams['limit'] = ClientActivitiesService._queryLimit
 
-        this._searchClientActivities(this._queryParams).then((response) => {
+        return this._searchClientActivities(this._queryParams).then((response) => {
           this._notifyOnQueryParams(this._queryParams)
           this._notifyOnActivitiesResults(null, response, this._queryParams)
           return this.$q.resolve(response)

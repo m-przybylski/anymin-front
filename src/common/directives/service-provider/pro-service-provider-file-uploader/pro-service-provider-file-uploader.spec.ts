@@ -1,8 +1,8 @@
 describe('Unit testing: profitelo.directives.service-provider.pro-service-provider-file-uploader', function() {
   return describe('for proServiceProviderFileUploader directive >', function() {
 
-    var compile = null
-    var scope = null
+    var compile: any = null
+    var scope: any = null
     let _rootScope
     let _httpBackend
     let _FilesApiDef

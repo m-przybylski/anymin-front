@@ -1,8 +1,8 @@
 describe('Unit testing: profitelo.directives.service-provider.pro-service-provider-languages', function() {
   return describe('for proServiceProviderLanguages directive >', function() {
 
-    var compile = null
-    var scope = null
+    var compile: any = null
+    var scope: any = null
 
     var validHTML = '<pro-service-provider-languages data-queue="vm.queue" ' +
       'data-order="2" data-pro-model="proModel" ' +

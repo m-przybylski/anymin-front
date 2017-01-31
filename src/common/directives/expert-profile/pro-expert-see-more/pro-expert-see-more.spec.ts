@@ -1,9 +1,9 @@
 describe('Unit testing: profitelo.directives.pro-expert-see-more', () => {
   return describe('for pro-expert-see-more directive >', () => {
 
-    let scope = null
+    let scope: any = null
     let rootScope
-    let compile = null
+    let compile: any = null
     let validHTML = '<pro-expert-see-more></pro-expert-see-more>'
 
     beforeEach(() => {

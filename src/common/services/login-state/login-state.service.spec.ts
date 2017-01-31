@@ -1,7 +1,7 @@
 describe('Unit testing: profitelo.services.login-state >', function () {
   describe('for loginStateService service >', function () {
 
-    let loginStateService = null
+    let loginStateService: any = null
 
     beforeEach(function () {
       angular.mock.module('profitelo.services.login-state')

@@ -1,9 +1,9 @@
 describe('Unit testing: profitelo.directives.expert-profile.pro-expert-single-consultation', () => {
   return describe('for expert-profile.pro-expert-single-consultation directive >', () => {
 
-    let scope = null
+    let scope: any = null
     let rootScope
-    let compile = null
+    let compile: any = null
     let validHTML = '<pro-expert-single-consultation data-service-tags-employees-tuple="serviceTagsEmployeesTuple"></pro-expert-single-consultation>'
 
     const callService = {

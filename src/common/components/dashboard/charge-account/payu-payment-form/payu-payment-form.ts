@@ -40,7 +40,7 @@
 
         PaymentsApi.postPayUOrder(this.sendPaymentObject).$promise.then((response) => {
           isPending = false
-          $window.open(response.redirectUrl, '_self', null, true)
+          $window.open(response.redirectUrl, '_self', undefined, true)
         }, (error) => {
           topAlertService.error({
             message: 'error',

@@ -1,14 +1,14 @@
 describe('Unit tests: profitelo.controller.login.account>', () => {
   describe('Testing Controller: AccountFormController', () => {
 
-    let scope,
+    let scope: any,
       AccountFormController,
       AccountApi,
-      $httpBackend,
+      $httpBackend: ng.IHttpBackendService,
       url = 'awesomeURL',
-      _mockParams = null,
-      _mockState = null,
-      $state = null,
+      _mockParams: any = null,
+      _mockState: any = null,
+      $state: ng.ui.IStateService,
       topAlertService,
       resourcesExpectations,
       communicatorService

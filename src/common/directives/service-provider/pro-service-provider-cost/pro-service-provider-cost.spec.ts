@@ -1,8 +1,8 @@
 describe('Unit testing: profitelo.directives.service-provider.pro-service-provider-cost', () => {
   return describe('for proServiceProviderCost directive >', () => {
 
-    let compile = null
-    let scope = null
+    let compile: any = null
+    let scope: any = null
 
     var validHTML = '<pro-service-provider-cost data-queue="vm.queue" ' +
       'data-order="2" data-pro-model="proModel" ' +

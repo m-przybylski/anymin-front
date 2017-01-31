@@ -1,14 +1,14 @@
 namespace profitelo.resolvers.serviceProviderImage {
 
   export interface IServiceProviderImageService {
-    resolve(token: string): ng.IPromise<string>
+    resolve(token: string): ng.IPromise<string | null>
   }
 
   class ServiceProviderImageResolver implements IServiceProviderImageService {
 
     constructor(private $q: ng.IQService, private FilesApi) {}
 
-    public resolve = (token) => {
+    public resolve = (token): ng.IPromise<string> => {
       let _deferred = this.$q.defer()
       if (token !== null) {
         this.FilesApi.fileInfoPath({
@@ -17,13 +17,13 @@ namespace profitelo.resolvers.serviceProviderImage {
           if (angular.isDefined(response) && angular.isDefined(response.previews)) {
             _deferred.resolve(response.previews[0]) // TODO change
           } else {
-            _deferred.resolve(null)
+            _deferred.resolve('')
           }
         }, () => {
-          _deferred.resolve(null)
+          _deferred.resolve('')
         })
       } else {
-        _deferred.resolve(null)
+        _deferred.resolve('')
       }
 
       return _deferred.promise

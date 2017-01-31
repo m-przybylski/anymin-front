@@ -12,7 +12,7 @@ namespace profitelo.components.dashboard.client.activities.clientActivity {
 
     public activity: ClientActivity
     public isCallActivity: boolean
-    public imageUrl: string
+    public imageUrl: string | null
 
     /* @ngInject */
     constructor(private urlService: IUrlService, private modalsService: IModalsService) {

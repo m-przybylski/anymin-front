@@ -85,16 +85,8 @@ namespace profitelo.services.profiteloWebsocket {
     private onSocketError = (err) =>
       this.$log.error(err)
 
-    private cleanEvents = () => {
-      this.websocket.onopen = null
-      this.websocket.onmessage = null
-      this.websocket.onerror = null
-      this.websocket.onclose = null
-    }
-
     private onSocketClose = (event) => {
       this.$log.info('Profitelo websocket closed', event)
-      this.cleanEvents()
       this.$timeout(this.connectWebsocket, ProfiteloWebsocketService.reconnectTimeout)
     }
 

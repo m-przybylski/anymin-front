@@ -9,7 +9,7 @@ namespace profitelo.components.modals.consultationSummaryClient {
     serviceId: string
     expertAvatarUrl: string
     rating: number
-    callSummary: CallSummary
+    callSummary: CallSummary | null
     chooseExpertsTag: boolean
     recommendServiceTags: Function
     closeModal: Function
@@ -44,11 +44,13 @@ namespace profitelo.components.modals.consultationSummaryClient {
       this.$scope.chooseExpertsTag = false
 
       this.$scope.recommendServiceTags = () => {
-        this.ServiceApi.putServiceRecommendations({
-          serviceUsageEventId: this.$scope.callSummary.serviceUsageEventId,
-          tags: this.lodash.map(this.tags, tag => tag.id)
-        }).$promise.then(this.onRecommendServiceTags, this.onRecommendServiceTagsError)
-        this.$scope.closeModal()
+        if (this.$scope.callSummary) {
+          this.ServiceApi.putServiceRecommendations({
+            serviceUsageEventId: this.$scope.callSummary.serviceUsageEventId,
+            tags: this.lodash.map(this.tags, tag => tag.id)
+          }).$promise.then(this.onRecommendServiceTags, this.onRecommendServiceTagsError)
+          this.$scope.closeModal()
+        }
       }
 
       this.$scope.onTagsSelectChange = (tags) =>
@@ -63,9 +65,11 @@ namespace profitelo.components.modals.consultationSummaryClient {
       }
 
       this.$scope.recommendService = () => {
-        this.ServiceApi.postServiceRecommendation({
-          serviceUsageEventId: this.$scope.callSummary.serviceUsageEventId
-        }).$promise.then(this.onRecommendService, this.onRecommendServiceError)
+        if (this.$scope.callSummary) {
+          this.ServiceApi.postServiceRecommendation({
+            serviceUsageEventId: this.$scope.callSummary.serviceUsageEventId
+          }).$promise.then(this.onRecommendService, this.onRecommendServiceError)
+        }
       }
     }
 
@@ -114,5 +118,5 @@ namespace profitelo.components.modals.consultationSummaryClient {
     'ngLodash',
     'profitelo.directives.interface.scrollable'
   ])
-  .controller('consultationSummaryClientController', ConsultationSummaryClientController)
+    .controller('consultationSummaryClientController', ConsultationSummaryClientController)
 }

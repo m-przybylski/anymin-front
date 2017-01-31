@@ -11,15 +11,15 @@ namespace profitelo.components.communicator {
     public isClosed: boolean = true
     public isDisconnectedAnimation: boolean = false
     public isConnecting: boolean = false
-    public service: Service = null
-    public expert: Profile = null
+    public service: Service | null = null
+    public expert: ExpertProfile | null = null
     public expertAvatar: string
 
     public isRemoteVideo: boolean = false
     public isLocalVideo: boolean = false
     public isMessenger: boolean = false
     public callLengthInSeconds: number = 0
-    public callCost: Money = null
+    public callCost: Money | null = null
 
     /* @ngInject */
     constructor(private $timeout: ng.ITimeoutService, private $element: ng.IRootElementService,
@@ -40,7 +40,7 @@ namespace profitelo.components.communicator {
         this.cleanupComponent()
         this.service = expertServiceTuple.service
         this.expert = expertServiceTuple.expert
-        this.expertAvatar = this.urlService.resolveFileUrl(this.expert.expertDetails.avatar)
+        this.expertAvatar = this.urlService.resolveFileUrl(this.expert.expertDetails.avatar || '')
         this.isConnecting = true
         this.isClosed = false
       })

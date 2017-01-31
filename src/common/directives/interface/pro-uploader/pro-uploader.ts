@@ -1,6 +1,11 @@
 (function() {
   function proUploader($timeout, $interval, $filter, $q, FilesApi, Upload, CommonConfig, topAlertService) {
 
+
+    interface FileInfo {
+
+    }
+
     function linkFunction(scope, element, attr) {
 
       let _file = 0
@@ -55,7 +60,7 @@
       }
 
       let _uploadProcess = (files) => {
-        let tokenPromisses = []
+        let tokenPromisses: Array<ng.IPromise<FileInfo>> = []
         if (files && files.length) {
           // scope.animate()
           _file = 0

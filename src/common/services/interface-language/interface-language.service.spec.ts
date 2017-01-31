@@ -2,7 +2,7 @@
 describe('Unit testing: profitelo.services.interface-language >', function() {
   describe('for InterfaceLanguageService service >', function() {
 
-    let InterfaceLanguageService
+    let InterfaceLanguageService: any = null
 
     beforeEach(function() {
     angular.mock.module('profitelo.services.interface-language')
@@ -77,7 +77,7 @@ describe('Unit testing: profitelo.services.interface-language >', function() {
 describe('Unit testing: profitelo.services.interface-language >', function() {
   describe('for InterfaceLanguageService service >', function() {
 
-    let InterfaceLanguageService  = null
+    let InterfaceLanguageService: any  = null
 
     beforeEach(function() {
       let mocekdLocation = {
@@ -112,7 +112,7 @@ describe('Unit testing: profitelo.services.interface-language >', function() {
 describe('Unit testing: profitelo.services.interface-language >', function() {
   describe('for InterfaceLanguageService service >', function() {
 
-    let InterfaceLanguageService  = null
+    let InterfaceLanguageService: any  = null
 
     beforeEach(function() {
       let mockedCookie = {
@@ -144,7 +144,7 @@ describe('Unit testing: profitelo.services.interface-language >', function() {
   // language into cookie was not found into `_interfaceLanguages` so we set default
   describe('for InterfaceLanguageService service >', function() {
 
-    let InterfaceLanguageService  = null
+    let InterfaceLanguageService: any  = null
 
     beforeEach(function() {
       let mockedCookie = {
@@ -236,7 +236,7 @@ describe('Unit testing: profitelo.services.interface-language >', function() {
   describe('for InterfaceLanguageService service >', function() {
     describe('getStartupLanguage method with mocked services >', function() {
 
-      let InterfaceLanguageService = null
+      let InterfaceLanguageService: any = null
 
       beforeEach(function() {
         let mockedTranslation = realTranslate
@@ -271,11 +271,11 @@ describe('Unit testing: profitelo.services.interface-language >', function() {
 describe('Unit testing: profitelo.services.interface-language >', function() {
   describe('for InterfaceLanguageService service >', function() {
 
-    let InterfaceLanguageService  = null
-    let http = null
-    let moment = null
-    let translate = null
-    let cookies = null
+    let InterfaceLanguageService: any = null
+    let http: any = null
+    let moment: any = null
+    let translate: ng.translate.ITranslateService
+    let cookies: ng.cookies.ICookiesService
 
     beforeEach(function() {
     angular.mock.module('profitelo.services.interface-language')
