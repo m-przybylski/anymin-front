@@ -4,6 +4,9 @@
     this.isRadioActive = false
 
     this.showComplainReasonModal = () => {
+      if(angular.isFunction(this.onComplainOpen)) {
+        this.onComplainOpen()
+      }
       modalsService.createClientComplainReportModal()
     }
 
@@ -31,7 +34,8 @@
     controller: controller,
     controllerAs: '$ctrl',
     bindings: {
-      onReasonChange: '<'
+      onReasonChange: '<',
+      onComplainOpen: '<'
     }
   }
 

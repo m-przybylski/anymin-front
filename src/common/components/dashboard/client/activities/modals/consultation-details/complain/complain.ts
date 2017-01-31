@@ -15,6 +15,9 @@
     templateUrl: 'components/dashboard/client/activities/modals/consultation-details/complain/complain.tpl.html',
     controller: controller,
     controllerAs: '$ctrl',
+    bindings: {
+      onComplainOpen: '<'
+    },
     require: {
       collapseBtn: '^collapseBtn'
     }

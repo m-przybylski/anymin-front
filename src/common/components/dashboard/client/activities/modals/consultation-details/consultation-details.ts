@@ -73,6 +73,7 @@ import ClientDashboardCallDetails = profitelo.models.ClientDashboardCallDetails
       sueId: $scope.sueId
     }).$promise.then(onGetCallDetails, onGetCallDetailsError)
 
+
     $scope.onModalClose = () =>
       $uibModalInstance.dismiss('cancel')
   }

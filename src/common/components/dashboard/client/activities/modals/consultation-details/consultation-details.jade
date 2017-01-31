@@ -52,7 +52,7 @@ scrollable(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
 
           collapse-btn(data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.BUTTON"
           data-icon="icon-complaint-24")
-            client-complain()
+            client-complain(data-on-complain-open="onModalClose")
 
           .btn.btn-collapse(data-ng-click="onModalClose()")
             .collapse-btn-wrapper
