@@ -255,6 +255,11 @@ namespace profitelo.app {
     'profitelo.controller.dashboard.client.activities',
     'profitelo.controller.dashboard.client.favourites',
 
+    'profitelo.controller.dashboard.settings',
+    'profitelo.controller.dashboard.settings.general',
+    'profitelo.controller.dashboard.settings.security',
+
+
     'profitelo.controller.dashboard.service-provider',
     'profitelo.controller.dashboard.service-provider.choose-path',
     'profitelo.controller.dashboard.service-provider.individual-path',
