@@ -5,6 +5,7 @@
     "noEmitOnError": false,
     "module": "commonjs",
     "declaration": true,
+    "strictNullChecks": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "typeRoots": [

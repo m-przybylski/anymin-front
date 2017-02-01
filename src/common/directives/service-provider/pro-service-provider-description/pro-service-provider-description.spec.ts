@@ -1,8 +1,8 @@
 describe('Unit testing: profitelo.directives.service-provider.pro-service-provider-description', function() {
   return describe('for proServiceProviderName directive >', function() {
 
-    var compile = null
-    var scope = null
+    var compile: any = null
+    var scope: any = null
 
     var validHTML = '<pro-service-provider-description data-queue="vm.queue" ' +
       'data-order="2" data-pro-model="proModel" ' +

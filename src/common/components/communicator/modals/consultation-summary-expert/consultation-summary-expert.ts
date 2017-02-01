@@ -5,7 +5,7 @@ namespace profitelo.components.communicator.modals.consultationSummaryExpert {
 
   interface IConsultationSummaryExpertControllerScope extends ng.IScope {
     serviceId: string
-    callSummary: CallSummary
+    callSummary: CallSummary | null
     onModalClose: Function
     isFullscreen: boolean
     isNavbar: boolean

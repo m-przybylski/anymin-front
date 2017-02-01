@@ -5,5 +5,6 @@ namespace profitelo.models {
     slug: string
     recordable: boolean
     priority: number
+    parentCategoryId?: string
   }
 }

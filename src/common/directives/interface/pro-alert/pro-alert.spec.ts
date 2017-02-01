@@ -1,9 +1,9 @@
 describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
   return describe('for interface.pro-alert directive >', () => {
 
-    let scope     = null
+    let scope: any     = null
     let rootScope
-    let compile   = null
+    let compile: any   = null
     let _proTopAlertsService
     let validHTML = '<pro-alert></pro-alert>'
     let $timeout

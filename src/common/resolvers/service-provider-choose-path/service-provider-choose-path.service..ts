@@ -4,7 +4,7 @@ namespace profitelo.resolvers.serviceProviderChoosePath {
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
 
   export interface IServiceProviderChoosePathService {
-    resolve(): ng.IPromise<Profile>
+    resolve(): ng.IPromise<Profile | null>
   }
 
   class ServiceProviderChoosePathResolver implements IServiceProviderChoosePathService {
@@ -15,7 +15,7 @@ namespace profitelo.resolvers.serviceProviderChoosePath {
     }
 
     public resolve = () => {
-      let _deferred = this.$q.defer()
+      let _deferred = this.$q.defer<Profile | null>()
 
       this.User.getStatus().then(() => {
         this.ProfileApi.getProfile({

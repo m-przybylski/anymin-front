@@ -93,11 +93,13 @@ namespace profitelo.services.uploader {
 
         const fileObj = this.fileObjectsToUpload.shift()
 
-        this.getFileToken()
-        .then(
-          (token: FileToken) => this.onGetFileToken(fileObj, token),
-          (err: any) => this.onGetFileTokenError(fileObj, err)
-        )
+        if(fileObj) {
+          this.getFileToken()
+            .then(
+              (token: FileToken) => this.onGetFileToken(fileObj, token),
+              (err: any) => this.onGetFileTokenError(fileObj, err)
+            )
+        }
       }
     }
 
@@ -134,17 +136,8 @@ namespace profitelo.services.uploader {
                 private CommonConfig: ICommonConfig, private FilesApi: any, private Upload: any) {
     }
 
-    public getInstance = (simultaneousUploadCount: number, collectionType: string) => {
-
-      if (!collectionType || !this.collectionTypes.hasOwnProperty(collectionType)) {
-        this.$log.error('Expected collectionType, got: ' + collectionType)
-        return null
-      }
-
-      if (typeof simultaneousUploadCount !== 'number' || simultaneousUploadCount < 0) {
-        this.$log.error('Expected simultaneousUploadCount to be >= 0, got: ' + simultaneousUploadCount)
-        return null
-      }
+    public getInstance = (simultaneousUploadCount: number = 1,
+                          collectionType: string = this.collectionTypes.avatar) => {
 
       return new UploaderService(this.$q, this.$timeout, this.CommonConfig, this.FilesApi, this.Upload,
         simultaneousUploadCount, collectionType)

@@ -1,8 +1,8 @@
 describe('Unit testing: profitelo.directives.service-provider.pro-service-provider-avatar', function() {
   return describe('for proServiceProviderAvatar directive >', function() {
 
-    var compile = null
-    var scope = null
+    var compile: any = null
+    var scope: any = null
 
     let _url = 'awesomeUrl'
 

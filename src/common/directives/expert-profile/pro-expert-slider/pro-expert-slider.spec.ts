@@ -1,9 +1,9 @@
 describe('Unit testing: profitelo.directives.expert-profile.pro-expert-slider', () => {
   return describe('for expert-profile.pro-expert-slider directive >', () => {
 
-    let scope = null
+    let scope: any = null
     let rootScope
-    let compile = null
+    let compile: any = null
     let timeout
     let dialogService
     let validHTML = '<pro-expert-slider data-sliders="sliders"></pro-expert-slider>'

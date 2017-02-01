@@ -2,7 +2,7 @@ namespace profitelo.models {
 
   export interface SueProfileServiceTuple {
     serviceUsageEvent: ServiceUsageEvent
-    profile: Profile
+    profile: ExpertProfile
     service: Service
   }
 }

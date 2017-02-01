@@ -16,8 +16,8 @@ namespace profitelo.resolvers.loginConfirmEmail {
 
     }
 
-    public resolve = (stateParams: ng.ui.IStateParamsService) => {
-      const _deferred = this.$q.defer()
+    public resolve = (stateParams: ng.ui.IStateParamsService): ng.IPromise<undefined> => {
+      const _deferred = this.$q.defer<undefined>()
 
       const handleBadToken = () => {
         _deferred.reject()

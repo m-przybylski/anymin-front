@@ -3,9 +3,9 @@ describe('Unit testing: profitelo.directives.interface.pro-input-password', () =
 
     let _placeholder = 'PLACEHOLDER'
 
-    let scope     = null
+    let scope: any     = null
     let rootScope
-    let compile   = null
+    let compile: any   = null
     let validHTML = '<pro-input-password data-label="LABEL" data-placeholder="' + _placeholder + '"  required auto-focus></pro-input-password>'
 
     beforeEach(() => {

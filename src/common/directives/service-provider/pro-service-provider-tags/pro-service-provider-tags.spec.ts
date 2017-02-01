@@ -1,8 +1,8 @@
 describe('Unit testing: profitelo.directives.service-provider.pro-service-provider-tags', function() {
   return describe('for proServiceProviderTags directive >', function() {
 
-    let compile = null
-    let scope = null
+    let compile: any = null
+    let scope: any = null
     const _url = 'url'
 
     const validHTML = '<pro-service-provider-tags data-queue="vm.queue" ' +

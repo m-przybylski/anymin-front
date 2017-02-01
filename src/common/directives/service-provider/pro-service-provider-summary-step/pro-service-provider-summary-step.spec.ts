@@ -1,8 +1,8 @@
 describe('Unit testing: profitelo.directives.service-provider.pro-service-provider-summary-step', function() {
   return describe('for proServiceProviderSummaryStep directive >', function() {
 
-    let compile = null
-    let scope = null
+    let compile: any = null
+    let scope: any = null
 
     let validHTML = '<pro-service-provider-summary-step data-consultations="consultations" ' +
     'data-edit-action="editConsultation"' +

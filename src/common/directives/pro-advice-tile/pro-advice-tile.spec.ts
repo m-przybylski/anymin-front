@@ -3,9 +3,9 @@ describe('Unit testing: profitelo.directives.pro-advice-tile', () => {
 
     let _placeholder = 'PLACEHOLDER'
 
-    let scope     = null
+    let scope: any = null
     let rootScope
-    let compile   = null
+    let compile: any = null
     let validHTML = '<pro-advice-tile></pro-advice-tile>'
 
     beforeEach(() => {

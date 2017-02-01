@@ -1,9 +1,9 @@
 describe('Unit testing: profitelo.directives.expert-profile.pro-expert-header', () => {
   return describe('for expert-profile.pro-expert-header directive >', () => {
 
-    let scope = null
+    let scope: any = null
     let rootScope
-    let compile = null
+    let compile: any = null
     let validHTML = '<pro-expert-header data-profile="{type: \'x\', description: \' asasdfasfas \' }"></pro-expert-header>'
 
     beforeEach(() => {

@@ -9,7 +9,7 @@ namespace profitelo.models {
     rating: Number
     usageCounter: Number
     usageDurationInSeconds: Number
-    details?: ServiceDetails
+    details: ServiceDetails
     createdAt: Date
   }
 }

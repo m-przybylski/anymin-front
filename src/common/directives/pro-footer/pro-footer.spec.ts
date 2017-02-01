@@ -1,9 +1,9 @@
 describe('Unit testing: profitelo.directives.pro-footer', () => {
   return describe('for pro-footer directive >', () => {
 
-    let scope = null
+    let scope: any = null
     let rootScope
-    let compile = null
+    let compile: any = null
     let validHTML = '<pro-footer></pro-footer>'
 
     beforeEach(() => {

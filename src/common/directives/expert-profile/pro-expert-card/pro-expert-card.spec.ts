@@ -1,9 +1,9 @@
 describe('Unit testing: profitelo.directives.pro-expert-card', () => {
   return describe('for pro-expert-card directive >', () => {
 
-    let scope = null
+    let scope: any = null
     let rootScope
-    let compile = null
+    let compile: any = null
     let validHTML = '<pro-expert-card></pro-expert-card>'
 
     beforeEach(() => {

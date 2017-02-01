@@ -76,7 +76,7 @@ describe('Unit testing: profitelo.resolvers.service-provider-image', () => {
       })
 
       AppServiceProviderImageResolver.resolve(':token').then((res)=> {
-        expect(res).toBe(null)
+        expect(res).toBe('')
         spy.spy()
       }, ()=> {
       })

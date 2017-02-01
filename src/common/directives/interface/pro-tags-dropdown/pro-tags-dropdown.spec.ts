@@ -1,9 +1,9 @@
 describe('Unit testing: profitelo.directives.interface.pro-tags-dropdown', () => {
   return describe('for interface.pro-tags-dropdown directive >', () => {
 
-    let scope     = null
+    let scope: any     = null
     let rootScope
-    let compile   = null
+    let compile: any   = null
     let validHTML = '<pro-tags-dropdown pro-model="RANDOM" disable-tagging no-search></pro-tags-dropdown>'
     let timeout
     
