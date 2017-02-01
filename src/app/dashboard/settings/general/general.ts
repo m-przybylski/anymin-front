@@ -8,8 +8,6 @@ namespace app.dashboard.settings.general {
 
     }
 
-
-
   }
 
   angular.module('profitelo.controller.dashboard.settings.general', [

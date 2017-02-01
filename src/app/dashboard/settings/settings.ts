@@ -2,70 +2,42 @@ namespace profitelo.app.dashboard.settings {
 
   class SettingsController implements ng.IController {
 
-    public stateNames: Object = {}
+    public stateNames = [
+      'general',
+      'security',
+      'payments',
+      'payouts',
+      'notifications'
+    ]
 
+    public currentState: string = this.stateNames[0]
+
+    /* ngInject */
     constructor(private $state: ng.ui.IStateService, private $scope: ng.IScope) {
-      const getRealStateName = (string) => {
-        const stringsArray = string.split('.')
-        return stringsArray[3]
+
+      $scope.$watch(() => {
+        return $state.current.name
+      }, (newVal, oldVal) => {
+        if (newVal) {
+          this.handleStateChange(newVal)
+        }
+      })
+    }
+
+    private handleStateChange = (stateName: string) => {
+
+      const realStateName = this.getRealStateName(stateName)
+
+      if (realStateName && angular.isDefined(realStateName) && realStateName in this.stateNames) {
+        this.currentState = realStateName
+      } else {
+        this.currentState = this.stateNames[0]
       }
+    }
 
-      this.stateNames = {}
-
-      const defineStateProperties = (obj) => {
-        return Object.defineProperties(obj, {
-          _general: {
-            enumerable: false,
-            writable: true,
-            value: false
-          },
-
-          general: {
-            enumerable: true,
-            get: function () {
-              return this._general
-            },
-            set: function (v) {
-              if (v !== this._general) {
-                this._general = v
-                this._security = !this._general
-              }
-            }
-          },
-
-          _security: {
-            enumerable: false,
-            writable: true,
-            value: false
-          },
-
-          security: {
-            enumerable: true,
-            get: function () {
-              return this._security
-            },
-            set: function (v) {
-              if (v !== this._security) {
-                this._security = v
-                this._general = !this._security
-              }
-            }
-          }
-
-
-        })
-      }
-
-      defineStateProperties(this.stateNames)
-      this.stateNames[getRealStateName($state.current.name)] = true
-
-      // $scope.$watch(() => {
-      //   return $state.$current.name
-      // },(newVal, oldVal) => {
-      //   if (newVal) {
-      //     this.stateNames[getRealStateName(newVal)] = true
-      //   }
-      // })
+    private getRealStateName = (string: string) => {
+      const stringsArray = string.split('.')
+      return stringsArray[3]
     }
   }
 
@@ -90,10 +62,9 @@ namespace profitelo.app.dashboard.settings {
     'c7s.ng.userAuth',
     'profitelo.components.settings.navigation'
   ])
-  .config(config)
-  .controller('settingsController', SettingsController)
+    .config(config)
+    .controller('settingsController', SettingsController)
 }
-
 
 
 //
