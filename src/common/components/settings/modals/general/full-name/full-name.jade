@@ -1,0 +1,41 @@
+scrollable(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
+  top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="onModalClose")
+
+  .general-modal.general-full-name
+    .default-container-small
+      span.title Nazwa usera
+
+      .thumb.x192
+        img.user-avatar(src="asd")
+
+      .modal-description
+        .details-tab
+          .details-tab-row.header-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CHARGE_DETAILS.AMOUNT")
+            .detais-tab-content.money(data-ng-bind-html="financeActivityDetails.operation | money")
+
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CHARGE_DETAILS.TRANSACTION_ID")
+            .detais-tab-content
+              span {{ financeActivityDetails.id }}
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CHARGE_DETAILS.DATE")
+            .detais-tab-content
+              span {{ financeActivityDetails.createdAt | date:'yyyy-MM-dd' }}
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CHARGE_DETAILS.TIME")
+            .detais-tab-content
+              span {{ financeActivityDetails.createdAt | date:'HH:mm'}}
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CHARGE_DETAILS.WAY_OF_RECHARGING")
+            .detais-tab-content
+              span PayU
+
+        p
+          span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CHARGE_DETAILS.GO_TO_SETTINGS.INFO")
+          a(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CHARGE_DETAILS.GO_TO_SETTINGS.INFO.LINK")
