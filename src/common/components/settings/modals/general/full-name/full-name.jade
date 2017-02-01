@@ -1,12 +1,14 @@
 scrollable(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
   top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="onModalClose")
 
-  .general-modal.general-full-name
+  .settings-modal.general-modal.general-full-name
     .default-container-small
-      span.title Nazwa usera
+      p.title Nazwa usera
 
       .thumb.x192
         img.user-avatar(src="asd")
+
+      .btn.btn-small.btn-primary(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT" data-ng-click=":: vm.openFullName()")
 
       .modal-description
         .details-tab

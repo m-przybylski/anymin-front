@@ -10,8 +10,7 @@ namespace app.dashboard.settings.general {
     $onInit() {}
 
     public openFullName = () => {
-      console.log('asd')
-      this.modalsService.createClientComplainReportModal()
+      this.modalsService.createSettingsGeneralFullNameModal()
     }
   }
 

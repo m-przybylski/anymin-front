@@ -18,6 +18,7 @@ namespace profitelo.services.modals {
     createClientSUEActivityDetailsModal(sueId: string): ng.ui.bootstrap.IModalServiceInstance
     createClientComplainReportModal(): ng.ui.bootstrap.IModalServiceInstance
     createClientChargeDetailsModal(financeActivityDetails: Object): ng.ui.bootstrap.IModalServiceInstance
+    createSettingsGeneralFullNameModal(): ng.ui.bootstrap.IModalServiceInstance
   }
 
   // TODO add types for dialogScope Scopes
@@ -144,6 +145,16 @@ namespace profitelo.services.modals {
       return this.dialogService.openDialog({
         controller: 'clientChargeDetailsController',
         templateUrl: 'components/dashboard/client/activities/modals/charge-details/charge-details.tpl.html',
+        scope: dialogScope
+      })
+    }
+
+    public createSettingsGeneralFullNameModal = () => {
+      const dialogScope = this.$rootScope.$new(true)
+
+      return this.dialogService.openDialog({
+        controller: 'clientComplainReportController',
+        templateUrl: 'components/settings/modals/general/full-name/full-name.tpl.html',
         scope: dialogScope
       })
     }
