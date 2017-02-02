@@ -9,8 +9,8 @@ namespace app.dashboard.settings.general {
 
     $onInit() {}
 
-    public openFullName = () => {
-      this.modalsService.createSettingsGeneralFullNameModal()
+    public openBasicAccountSettingsModal = () => {
+      this.modalsService.createBasicAccountSettingsModal()
     }
   }
 

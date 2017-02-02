@@ -1,7 +1,6 @@
-import IDialogService = profitelo.services.dialog.IDialogService
-
 namespace profitelo.services.modals {
 
+  import IDialogService = profitelo.services.dialog.IDialogService
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
   import IClientCallParentControllerScope = profitelo.components.communicator.modals.clientCall.IClientCallParentControllerScope
   import IConsultationSummaryClientParentControllerScope = profitelo.components.modals.consultationSummaryClient.IConsultationSummaryClientParentControllerScope
@@ -18,7 +17,7 @@ namespace profitelo.services.modals {
     createClientSUEActivityDetailsModal(sueId: string): ng.ui.bootstrap.IModalServiceInstance
     createClientComplainReportModal(): ng.ui.bootstrap.IModalServiceInstance
     createClientChargeDetailsModal(financeActivityDetails: Object): ng.ui.bootstrap.IModalServiceInstance
-    createSettingsGeneralFullNameModal(): ng.ui.bootstrap.IModalServiceInstance
+    createBasicAccountSettingsModal(): ng.ui.bootstrap.IModalServiceInstance
   }
 
   // TODO add types for dialogScope Scopes
@@ -123,7 +122,7 @@ namespace profitelo.services.modals {
     }
 
     public createClientComplainReportModal = () => {
-      const dialogScope = this.$rootScope.$new(true)
+      const dialogScope: ng.IScope = this.$rootScope.$new(true)
 
       return this.dialogService.openDialog({
         controller: 'clientComplainReportController',
@@ -141,7 +140,6 @@ namespace profitelo.services.modals {
       const dialogScope: any = this.$rootScope.$new(true)
       dialogScope.financeActivityDetails = financeActivityDetails
 
-
       return this.dialogService.openDialog({
         controller: 'clientChargeDetailsController',
         templateUrl: 'components/dashboard/client/activities/modals/charge-details/charge-details.tpl.html',
@@ -149,15 +147,16 @@ namespace profitelo.services.modals {
       })
     }
 
-    public createSettingsGeneralFullNameModal = () => {
-      const dialogScope = this.$rootScope.$new(true)
+    public createBasicAccountSettingsModal = () => {
+      const dialogScope: ng.IScope = this.$rootScope.$new(true)
 
       return this.dialogService.openDialog({
-        controller: 'clientComplainReportController',
-        templateUrl: 'components/settings/modals/general/full-name/full-name.tpl.html',
+        controller: 'basicAccountSettingsController',
+        templateUrl: 'components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings.tpl.html',
         scope: dialogScope
       })
     }
+
   }
 
   angular.module('profitelo.services.modals', [
@@ -169,7 +168,8 @@ namespace profitelo.services.modals {
     'profitelo.components.communicator.modals.consultation-summary-expert',
     'profitelo.components.dashboard.client.activities.modals.consultation-details',
     'profitelo.components.dashboard.client.activities.modals.complain-report',
-    'profitelo.components.dashboard.client.activities.modals.charge-details'
+    'profitelo.components.dashboard.client.activities.modals.charge-details',
+    'profitelo.components.dashboard.settings.modals.general.basic-account-settings'
   ])
   .service('modalsService', ModalsService)
 }

@@ -1,4 +1,3 @@
-/* istanbul ignore next function */
 (function() {
 
   function controller($scope, $uibModalInstance) {

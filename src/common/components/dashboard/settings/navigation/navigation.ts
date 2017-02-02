@@ -6,7 +6,7 @@
   }
 
   const component = {
-    templateUrl: 'components/settings/navigation/navigation.tpl.html',
+    templateUrl: 'components/dashboard/settings/navigation/navigation.tpl.html',
     controller: controller,
     controllerAs: '$ctrl',
     bindings: {

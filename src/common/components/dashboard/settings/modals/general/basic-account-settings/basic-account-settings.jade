@@ -1,0 +1,28 @@
+.basic-account-settings
+  scrollable(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
+    top-modal-navbar(data-title="SETTINGS.GENERAL.BASIC_ACCOUNT.HEADER" data-on-close="onModalClose")
+    .default-container-small
+      form.pro-input-form(name="phoneNumberForm" data-ng-submit="submitBasicSettings()" novalidate)
+        h2 {{ ::SETTINGS.GENERAL.BASIC_ACCOUNT.HEADER | translate }}
+        .user-avatar
+          .thumb.x128
+            img.user-avatar(data-ng-src="{{ imageSource }}")
+          local-avatar-uploader(on-file-upload='addPhoto')
+        .user-name
+          pro-input.full-name.label(data-label="{{ 'SETTINGS.GENERAL.BASIC_ACCOUNT.NAME_INPUT_LABEL' | translate }}"
+          data-type="text"
+          data-id="phoneNumber"
+          data-placeholder="{{ '::SETTINGS.GENERAL.BASIC_ACCOUNT.NAME_INPUT_PLACEHOLDER' | translate }}"
+          data-ng-model="vm.account.phoneNumber.number"
+          data-ng-class="{'invalid': !vm.isValidPhoneNumber(vm.account.phoneNumber.prefix, vm.account.phoneNumber.number) " +
+          "&& (phoneNumberForm.phoneNumber.$dirty || phoneNumberForm.$submitted)}")
+
+        .input-error-messages
+          .error.left(data-ng-show="phoneNumberForm.$submitted && !vm.isValidPhoneNumber(vm.account.phoneNumber.prefix, vm.account.phoneNumber.number) || phoneNumberForm.$submitted &&  vm.account.phoneNumber.prefix === null "
+          data-translate="::LOGIN.PHONE_NUMBER_REQUIRED")
+
+        pro-checkbox(data-ng-model="isAvatarVisableToExpert"
+        data-label="{{ '::SETTINGS.GENERAL.BASIC_ACCOUNT.NAME_CHECKBOX_LABEL' | translate }}"
+        data-ng-class="{'invalid': !$ctrl.rulesAccepted && paymentForm.$submitted}")
+
+        .btn.btn-small.btn-primary(data-translate="SETTINGS.GENERAL.BASIC_ACCOUNT_SAVE_CHANGES" type="submit")
