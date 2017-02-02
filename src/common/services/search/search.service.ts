@@ -31,7 +31,7 @@ namespace profitelo.services.search {
     tagId?: string,
     category?: string,
     profileType?: string,
-    onlyAvailable?: string,
+    onlyAvailable?: boolean,
     sortBy?: string,
     language?: string,
     offset?: number,

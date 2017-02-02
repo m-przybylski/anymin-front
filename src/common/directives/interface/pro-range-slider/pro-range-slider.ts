@@ -11,8 +11,12 @@
 
       scope.options = {
         floor: 0,
-        ceil: 100
+        ceil: 100,
+        onEnd: (sliderId, modelValue, highValue, pointerType) => {
+          scope.callback(modelValue, highValue, pointerType)
+        }
       }
+
     }
 
     return {
@@ -23,6 +27,7 @@
       scope: {
         minValue: '=',
         maxValue: '=',
+        callback: '=',
         label: '@'
       }
     }

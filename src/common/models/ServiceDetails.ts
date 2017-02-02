@@ -1,7 +1,7 @@
 namespace profitelo.models {
 
   export interface ServiceDetails {
-    name: string,
+    name: string
     price: Money
   }
 }

@@ -1,5 +1,5 @@
 describe('Unit testing: profitelo.components.interface.radio', () => {
-  return describe('for dropDown component >', () => {
+  return describe('for radio component >', () => {
 
     let rootScope
     let compile
