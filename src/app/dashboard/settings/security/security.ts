@@ -2,9 +2,9 @@ namespace app.dashboard.settings.security {
 
   import IClientActivitiesService = profitelo.services.clientActivities.IClientActivitiesService
 
-  class DashboardSettingsSecurityController {
+  class DashboardSettingsSecurityController implements ng.IController {
 
-    constructor(private $scope: ng.IScope, private $timeout: ng.ITimeoutService) {
+    constructor(private $timeout: ng.ITimeoutService) {
 
     }
 
@@ -14,8 +14,7 @@ namespace app.dashboard.settings.security {
 
   angular.module('profitelo.controller.dashboard.settings.security', [
     'ui.router',
-    'c7s.ng.userAuth',
-    'ngLodash'
+    'c7s.ng.userAuth'
   ])
   .config(function ($stateProvider, UserRolesProvider) {
     $stateProvider.state('app.dashboard.settings.security', {
@@ -25,11 +24,6 @@ namespace app.dashboard.settings.security {
       controllerAs: 'vm',
       data: {
         access: UserRolesProvider.getAccessLevel('user')
-      },
-      resolve: {
-        /* istanbul ignore next */
-        clientActivities: (clientActivitiesService: IClientActivitiesService) =>
-          clientActivitiesService.resolve()
       }
     })
   })

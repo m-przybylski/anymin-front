@@ -57,6 +57,8 @@
           .user-menu(data-ng-class="{ 'show-menu' : !!showUserMenu }")
             ul.menu.account-menu(data-ng-click="showUserMenu = false")
               li
+                a(data-ui-sref="app.dashboard.settings.general") Settings
+              li
                 a(data-ui-sref="app.dashboard.client.favourites") Dashboard
               li
                 a(data-ui-sref="app.dashboard.service-provider.choose-path") Create Profile

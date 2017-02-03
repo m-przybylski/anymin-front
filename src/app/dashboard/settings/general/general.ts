@@ -3,9 +3,9 @@ namespace app.dashboard.settings.general {
   import IClientActivitiesService = profitelo.services.clientActivities.IClientActivitiesService
   import IModalsService = profitelo.services.modals.IModalsService
 
-  class DashboardSettingsGeneralController {
+  class DashboardSettingsGeneralController implements ng.IController {
 
-    constructor(private $scope: ng.IScope, private modalsService: IModalsService) {}
+    constructor(private modalsService: IModalsService) {}
 
     $onInit() {}
 
@@ -28,11 +28,6 @@ namespace app.dashboard.settings.general {
       controllerAs: 'vm',
       data: {
         access: UserRolesProvider.getAccessLevel('user')
-      },
-      resolve: {
-        /* istanbul ignore next */
-        clientActivities: (clientActivitiesService: IClientActivitiesService) =>
-          clientActivitiesService.resolve()
       }
     })
   })
