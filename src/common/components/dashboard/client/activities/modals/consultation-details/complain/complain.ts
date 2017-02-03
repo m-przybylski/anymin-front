@@ -7,7 +7,6 @@
       this.onReasonChange = this.collapseBtn.onWindowResize
     }
 
-
     return this
   }
 

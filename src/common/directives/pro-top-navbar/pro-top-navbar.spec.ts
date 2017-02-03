@@ -1,10 +1,10 @@
 describe('Unit testing: profitelo.directives.pro-top-navbar', () => {
   return describe('for pro-top-navbar directive >', () => {
 
-    let scope = null
+    let scope: any = null
     let rootScope
     let $state
-    let compile = null
+    let compile: any = null
     let validHTML = '<pro-top-navbar data-logout-action="vm.logout"></pro-top-navbar>'
     let smoothScrollingService
     let location

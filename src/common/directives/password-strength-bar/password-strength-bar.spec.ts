@@ -1,8 +1,8 @@
 describe('Unit testing: profitelo.directives.password-strength-bar', () => {
   return describe('for password-strength-bar directive >', () => {
 
-    var compile   = null
-    var scope     = null
+    var compile: any   = null
+    var scope: any     = null
     var validHTML = '<password-strength-bar data-current-class="currentClass"></password-strength-bar>'
 
 

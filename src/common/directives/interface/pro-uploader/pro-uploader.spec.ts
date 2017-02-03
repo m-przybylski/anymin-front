@@ -1,9 +1,9 @@
 describe('Unit testing: profitelo.directives.interface.pro-uploader', () => {
   return describe('for pro-uploader directive >', () => {
 
-    let scope = null
+    let scope: any = null
     let rootScope
-    let compile = null
+    let compile: any = null
     let validHTML = '<pro-uploader type="image/*" files-uploaded="avatar" data-required data-multiple data-ngf-pattern=".jpg,.jpeg,.png"></pro-uploader>'
 
     let _httpBackend

@@ -1,5 +1,5 @@
 describe('Unit testing: profitelo.components.interface.drop-down', () => {
-  return describe('for dropDown component >', () => {
+  return describe('for dropdown component >', () => {
 
     let rootScope
     let compile

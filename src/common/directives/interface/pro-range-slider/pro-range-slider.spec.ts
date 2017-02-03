@@ -2,9 +2,9 @@ describe('Unit testing: profitelo.directives.interface.pro-range-slider', () => 
   return describe('for interface.pro-range-slider directive >', () => {
 
 
-    let scope     = null
+    let scope: any     = null
     let rootScope
-    let compile   = null
+    let compile: any   = null
     let validHTML = '<pro-range-slider max-value="max" min-value="min"></pro-range-slider>'
 
     beforeEach(() => {

@@ -3,7 +3,7 @@
     function linkFunction(scope, element) {
 
       let tagsContainerWidth = element.find('.slider-tag')[0].clientWidth
-      let elementsMap = []
+      let elementsMap: Array<number> = []
       let currentElement = 0
 
       scope.slidesContainerOffsetWidth = 0

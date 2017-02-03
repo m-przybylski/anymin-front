@@ -6,7 +6,7 @@ namespace profitelo.services.callSummary {
   import ICallbacksService = profitelo.services.callbacks.ICallbacksService
 
   export interface ICallSummaryService {
-    takeCallSummary(accountId: string): CallSummary
+    takeCallSummary(accountId: string): CallSummary | undefined
     onCallSummary(callback: (CallSummary) => void): void
   }
 
@@ -31,7 +31,7 @@ namespace profitelo.services.callSummary {
       this.callbacks.methods.onCallSummary(callback)
     }
 
-    public takeCallSummary = (accountId) => {
+    public takeCallSummary = (accountId): CallSummary | undefined => {
       const callSummary = this.lodash.find(this.callSummaries, callSummary => callSummary.accountId === accountId)
 
       if (callSummary) {

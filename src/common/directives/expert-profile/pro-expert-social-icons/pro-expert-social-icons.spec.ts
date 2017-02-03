@@ -1,9 +1,9 @@
 describe('Unit testing: profitelo.directives.expert-profile.pro-expert-social-icons', () => {
   return describe('for expert-profile.pro-expert-social-icons directive >', () => {
 
-    let scope = null
+    let scope: any = null
     let rootScope
-    let compile = null
+    let compile: any = null
     let validHTML = '<pro-expert-social-icons></pro-expert-social-icons>'
 
     beforeEach(() => {

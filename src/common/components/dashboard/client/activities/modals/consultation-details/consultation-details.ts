@@ -6,15 +6,15 @@ import ClientDashboardCallDetails = profitelo.models.ClientDashboardCallDetails
 
   interface IConsultationDetailsScope extends ng.IScope {
     isLoading: boolean
-    expertAvatar: string
-    expertName: string
+    expertAvatar?: string
+    expertName?: string
     recommendedTags: Array<Tag>
     serviceName: string
     serviceId: string
     callCost: Money
     startedAt: Date
     callDuration: number
-    callCostPerMinute: Money
+    callCostPerMinute?: Money
     isRecommended: boolean
     isRecommendable: boolean
     sueId: string

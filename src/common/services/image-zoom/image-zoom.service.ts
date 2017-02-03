@@ -12,7 +12,7 @@ namespace profitelo.services.imageZoom {
   // TODO refactor: create factory instead of "createZoomInstance"
   class ImageZoomService implements IImageZoomService {
 
-    private image: HTMLImageElement = null
+    private image: HTMLImageElement
 
     public settings: {
       zoomScale: number,
@@ -34,17 +34,17 @@ namespace profitelo.services.imageZoom {
     constructor() {
       this.settings = {
         zoomScale: 0.2,
-        fileType: null
+        fileType: ''
       }
 
       this.imageSize = {
-        width: null,
-        height: null
+        width: 0,
+        height: 0
       }
 
       this.primaryImageSize = {
-        width: null,
-        height: null
+        width: 0,
+        height: 0
       }
 
       this.resizeZoom = 1 + this.settings.zoomScale

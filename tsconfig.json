@@ -5,6 +5,7 @@
     "noEmitOnError": false,
     "sourceMap": true,
     "module": "commonjs",
+    "strictNullChecks": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "typeRoots": [

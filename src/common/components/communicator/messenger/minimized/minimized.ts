@@ -9,7 +9,7 @@ namespace profitelo.components.communicator.messenger.minimized {
   class MessengerMinimizedComponentController implements ng.IController, MessengerMinimizedComponentBindings {
 
     public onMessageClick: (msg: any) => void
-    public messages = []
+    public messages: Array<any> = []
 
     private static messageShowTimeout = 5000
 

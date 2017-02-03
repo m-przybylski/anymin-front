@@ -1,8 +1,8 @@
 describe('Unit testing: profitelo.directives.ng-enter', () => {
   return describe('for ng-enter directive >', () => {
 
-    var compile   = null
-    var scope     = null
+    var compile: any   = null
+    var scope: any     = null
     var validHTML = '<input type="text" data-ng-enter="mockFunction()" />'
 
     beforeEach(() => {

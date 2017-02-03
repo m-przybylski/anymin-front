@@ -2,6 +2,7 @@ namespace profitelo.resolvers.loginSetNewPassword {
 
   import ILoginStateService = profitelo.services.loginState.ILoginStateService
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+  import IFilterService = profitelo.services.filter.IFilterService
 
   export interface ILoginSetNewPassword {
     method: string
@@ -17,7 +18,7 @@ namespace profitelo.resolvers.loginSetNewPassword {
 
   class LoginSetNewPasswordResolver implements ILoginSetNewPasswordService {
 
-    constructor(private $state: ng.ui.IStateService, private $filter: ng.IFilterService,
+    constructor(private $state: ng.ui.IStateService, private $filter: IFilterService,
                 private $timeout: ng.ITimeoutService, private $q: ng.IQService,
                 private loginStateService: ILoginStateService, private topAlertService: ITopAlertService,
                 private RecoverPasswordApi) {

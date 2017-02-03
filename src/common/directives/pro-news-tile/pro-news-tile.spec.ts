@@ -1,9 +1,9 @@
 describe('Unit testing: profitelo.directives.pro-news-tile', () => {
   return describe('for pro-news-tile directive >', () => {
 
-    let scope = null
+    let scope: any = null
     let rootScope
-    let compile = null
+    let compile: any = null
     let validHTML = '<pro-news-tile></pro-news-tile>'
 
     beforeEach(() => {

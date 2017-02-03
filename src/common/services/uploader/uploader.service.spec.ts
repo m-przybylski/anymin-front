@@ -60,24 +60,6 @@ describe('Unit testing: profitelo.services.uploader >', () => {
       expect(UploadMock.upload.calls.count()).toEqual(2)
     }))
 
-    it('should not create instance with wrong simultaneousUploadCount', inject(($log) => {
-      spyOn($log, 'error')
-
-      const instance = uploaderFactory.getInstance(-1, uploaderFactory.collectionTypes.avatar)
-
-      expect(instance).toEqual(null)
-      expect($log.error).toHaveBeenCalled()
-    }))
-
-    it('should not create instance with wrong collectionType', inject(($log) => {
-      spyOn($log, 'error')
-
-      const instance = uploaderFactory.getInstance(5, 'wrong')
-
-      expect(instance).toEqual(null)
-      expect($log.error).toHaveBeenCalled()
-    }))
-
     it('should not upload empty file', inject(($rootScope) => {
       const instance = uploaderFactory.getInstance(2, uploaderFactory.collectionTypes.avatar)
 

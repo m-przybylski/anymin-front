@@ -12,9 +12,9 @@ namespace profitelo.services.categoryService {
   class CategoryService implements ICategoryService {
 
     private fetched: boolean
-    private categoryList = []
+    private categoryList: Array<Category> = []
     private categoryMap = {}
-    private topLevelCategories = []
+    private topLevelCategories: Array<Category> = []
     private categorySlugs = {}
 
     constructor(private $q: ng.IQService, private CategoryApi) {
@@ -37,9 +37,9 @@ namespace profitelo.services.categoryService {
       return this.resolveCategories().then(() => this.categorySlugs)
     }
 
-    public getCategoryBySlug = (slug: string): ng.IPromise<Category> => {
+    public getCategoryBySlug = (slug: string): ng.IPromise<Category | null> => {
       return this.resolveCategories().then(() => {
-        let result: Category = null
+        let result: Category | null = null
         angular.forEach(this.categorySlugs, (categorySlug, categoryId) => {
           if (slug === categorySlug) {
             result = this.categoryMap[categoryId]
@@ -69,7 +69,7 @@ namespace profitelo.services.categoryService {
             }
           })
           angular.forEach(this.categoryList, category => {
-            if (category.parentCategoryId !== null) {
+            if (typeof category.parentCategoryId !== 'undefined' && category.parentCategoryId !== null) {
               this.categorySlugs[category.id] = this.categorySlugs[category.parentCategoryId] + '.' + category.slug
             }
           })

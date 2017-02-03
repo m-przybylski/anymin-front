@@ -1,7 +1,7 @@
 namespace profitelo.models {
 
   export interface ClientDashboardCallDetails {
-    expertProfile: Profile
+    expertProfile: ExpertProfile
     service: Service
     isRecommended: boolean
     isRecommendable: boolean

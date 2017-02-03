@@ -1,9 +1,9 @@
 describe('Unit testing: profitelo.directives.pro-masonry', () => {
   return describe('for pro-masonry directive >', () => {
 
-    let scope = null
+    let scope: any = null
     let rootScope
-    let compile = null
+    let compile: any = null
     let validHTML = '<div pro-masonry="" data-grid-item=".grid-item"></div></div>'
     let timeout 
     let $log

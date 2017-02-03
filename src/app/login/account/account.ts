@@ -8,7 +8,12 @@ import IPhoneNumberService = profitelo.services.phoneNumber.IPhoneNumberService;
     this.isPending = false
     this.current = 1
     this.account = loginStateService.getAccountObject()
-    this.prefixes = CommonSettingsService.localSettings.countryCodes.map((item) => { return { value: item, name: item } })
+    this.prefixes = CommonSettingsService.localSettings.countryCodes.map((item) => {
+      return {
+        value: item,
+        name: item
+      }
+    })
 
     this.isValidPhoneNumber = (prefix, number) => {
       if (angular.isDefined(prefix) && angular.isDefined(number) && prefix && number && number.length > 1) {
@@ -37,6 +42,10 @@ import IPhoneNumberService = profitelo.services.phoneNumber.IPhoneNumberService;
         default:
           $state.go('app.login.register')
       }
+    }
+
+    this.updateSortTypeParam = (item) => {
+      this.account.phoneNumber.prefix = item.value
     }
 
     this.getPhoneNumberStatus = () => {
@@ -118,7 +127,8 @@ import IPhoneNumberService = profitelo.services.phoneNumber.IPhoneNumberService;
     'profitelo.directives.interface.pro-alert',
     'profitelo.directives.interface.pro-input-password',
     'profitelo.directives.interface.pro-dropdown',
-    'profitelo.directives.interface.pro-input'
+    'profitelo.directives.interface.pro-input',
+    'profitelo.components.interface.dropdown-primary'
   ])
   .config(config)
   .controller('AccountFormController', AccountFormController)

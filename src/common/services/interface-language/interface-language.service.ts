@@ -22,7 +22,7 @@ namespace profitelo.services.interfaceLanguage {
 
     // Array with supported interface languages by this project
     // Add new one to support them
-    private static interfaceLanguages: Array<IInterfaceLanguage> = [
+    private static readonly interfaceLanguages: Array<IInterfaceLanguage> = [
       {nativeName: 'English (U.S.)', ietfCode: 'en-us'},
       {nativeName: 'Polski (Polska)', ietfCode: 'pl-pl'}
       // { nativeName: "Deutsch (Deutchland)", ietfCode: "de-de" }
@@ -75,7 +75,7 @@ namespace profitelo.services.interfaceLanguage {
         let msg = 'Your language `' + previousLanguage + '`' +
           ' was not found, so used our default language `' + InterfaceLanguageService.defaultTranslation + '`, ' +
           this.lodash.find(InterfaceLanguageService.interfaceLanguages,
-            {ietfCode: InterfaceLanguageService.defaultTranslation})['nativeName'] + '.'
+            {ietfCode: InterfaceLanguageService.defaultTranslation})!['nativeName'] + '.'
 
         this.$log.info(msg)
 
@@ -116,7 +116,11 @@ namespace profitelo.services.interfaceLanguage {
       let _code = this.unifyToIetfCode(ietfCode)
       let _countryCode = _code.split('-')[0]
       this.$cookies.put(InterfaceLanguageService.selectedInterfaceLanguageCookie, _code)
-      this.$http.defaults.headers.common['X-LANG'] = _code
+      if(this.$http.defaults.headers) {
+        this.$http.defaults.headers.common['X-LANG'] = _code
+      } else {
+        this.$log.error('Can not set X-LANG - headers missing')
+      }
       this.$rootScope.$locale = this.$locale
       this.$translate.use(_code)        // for translations strings
       this.tmhDynamicLocale.set(_code)  // set locale for translations

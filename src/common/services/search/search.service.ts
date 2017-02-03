@@ -5,7 +5,7 @@ namespace profitelo.services.search {
 
   export interface NameValue {
     name: string
-    value: string
+    value: string | null
   }
 
   export interface ISearchSettings {
@@ -31,7 +31,7 @@ namespace profitelo.services.search {
     tagId?: string,
     category?: string,
     profileType?: string,
-    onlyAvailable?: string,
+    onlyAvailable?: boolean,
     sortBy?: string,
     language?: string,
     offset?: number,
@@ -55,7 +55,7 @@ namespace profitelo.services.search {
 
   class SearchService implements ISearchService {
 
-    private static _languageOptions = ['pl']
+    private static languageOptions = ['pl']
     private static _profileTypeOptions = ['ORG', 'EXP']
     private static _sortingOptions = ['top', 'new', 'price', '-price']
     private static _queryLimit = 20
@@ -205,7 +205,7 @@ namespace profitelo.services.search {
             return this._language
           },
           set: function (v) {
-            v = SearchService._languageOptions.indexOf(v) !== -1 ? v : undefined
+            v = SearchService.languageOptions.indexOf(v) !== -1 ? v : undefined
             if (v !== this._language) {
               this.areDirty = true
               this._language = v
@@ -435,10 +435,10 @@ namespace profitelo.services.search {
     }
 
     public getAvailableOptions = (): ng.IPromise<ISearchSettings> => {
+
       const options: ISearchSettings = {
-        language: [{name: 'all', value: null}].concat(SearchService._languageOptions.map((lng) => {
-          return {name: lng, value: lng}
-        })),
+        language: [<NameValue>{name: 'all', value: null}].concat(
+          SearchService.languageOptions.map((lng) => ({name: lng, value: lng}))),
         sortBy: SearchService._sortingOptions,
         category: [{name: 'all', value: null}],
         profileType: [{name: 'ALL', value: null}, {name: 'ORGANIZATION', value: 'ORG'}, {name: 'EXPERT', value: 'EXP'}]

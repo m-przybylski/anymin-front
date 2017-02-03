@@ -1,9 +1,9 @@
 describe('Unit testing: profitelo.directives.interface.pro-calendar', () => {
   return describe('for interface.pro-calendar directive >', () => {
 
-    let scope     = null
+    let scope: any     = null
     let rootScope
-    let compile   = null
+    let compile: any   = null
     let validHTML = '<pro-calendar></pro-calendar>'
 
     beforeEach(() => {
