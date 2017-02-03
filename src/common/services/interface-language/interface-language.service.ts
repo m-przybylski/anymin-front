@@ -9,7 +9,7 @@ namespace profitelo.services.interfaceLanguage {
 
   export interface IInterfaceLanguageService {
     getInterfaceLanguages(): Array<IInterfaceLanguage>
-    getStartupLanguage(ietfCode): IInterfaceLanguage
+    getStartupLanguage(ietfCode?: string): string
     setLanguage(ietfCode: string): void
     unifyToIetfCode(inputCode: string): void
   }
@@ -62,7 +62,7 @@ namespace profitelo.services.interfaceLanguage {
     // @param        {String}    [ietfCode]   string with a language code; ex: en, en-us, pl-pl
     // @description  Determinate user startup language
     // @returns      { String }
-    public getStartupLanguage = (ietfCode) => {
+    public getStartupLanguage = (ietfCode?: string) => {
       if (typeof ietfCode === 'undefined' || !ietfCode) {
         ietfCode = null
       }

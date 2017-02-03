@@ -3,8 +3,8 @@
     "noImplicitAny": false,
     "target": "es5",
     "noEmitOnError": false,
+    "sourceMap": true,
     "module": "commonjs",
-    "declaration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "typeRoots": [

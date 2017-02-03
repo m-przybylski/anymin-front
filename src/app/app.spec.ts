@@ -1,83 +1,88 @@
-describe('Unit tests: app>', () => {
-  describe('Testing Controller: AppController', () => {
+namespace profitelo.app {
+  import IInterfaceLanguageService = profitelo.services.interfaceLanguage.IInterfaceLanguageService
 
-    let $scope: ng.IScope
-    let AppController
-    let _InterfaceLanguageService
-    let _httpBackend
-    let _state
-    let _commonConfigData
-    let _CommonConfig
-    let resourcesExpectations
+  describe('Unit tests: app>', () => {
+    describe('Testing Controller: AppController', () => {
 
-    beforeEach(() => {
-    angular.mock.module('profitelo')
-      inject(($rootScope: ng.IRootScopeService, $controller: ng.IControllerService,
-              $injector, _InterfaceLanguageService_) => {
-        $scope = $rootScope.$new()
+      let $scope: ng.IScope
+      let AppController
+      let _InterfaceLanguageService: IInterfaceLanguageService
 
-        _CommonConfig = $injector.get('CommonConfig')
-        _httpBackend = $injector.get('$httpBackend')
-        _state = $injector.get('$state')
+      let _httpBackend
+      let _state
+      let _commonConfigData
+      let _CommonConfig
+      let resourcesExpectations
 
-        _commonConfigData = _CommonConfig.getAllData()
+      beforeEach(() => {
+        angular.mock.module('profitelo')
+        inject(($rootScope: ng.IRootScopeService, $controller: ng.IControllerService,
+                $injector, _InterfaceLanguageService_) => {
+          $scope = $rootScope.$new()
 
-        AppController = $controller('AppController', {
-          $scope: $scope,
-          $rootScope: $rootScope,
-          InterfaceLanguageService: _InterfaceLanguageService_
+          _CommonConfig = $injector.get('CommonConfig')
+          _httpBackend = $injector.get('$httpBackend')
+          _state = $injector.get('$state')
+
+          _commonConfigData = _CommonConfig.getAllData()
+
+          AppController = $controller('AppController', {
+            $scope: $scope,
+            $rootScope: $rootScope,
+            InterfaceLanguageService: _InterfaceLanguageService_
+          })
+
+          _InterfaceLanguageService = _InterfaceLanguageService_
+
+          _InterfaceLanguageService.setLanguage(_InterfaceLanguageService.getStartupLanguage())
+
+          resourcesExpectations = {
+            Session: {
+              deleteSession: _httpBackend.when('DELETE', _commonConfigData.urls['backend'] + '/session'),
+              getSession: _httpBackend.when('GET', _commonConfigData.urls['backend'] + '/session')
+            },
+            ServiceApi: {
+              getProfileServices: _httpBackend.when('GET', _commonConfigData.urls['backend'] + '/services/profile')
+            },
+            RatelApi: {
+              getRatelAuthConfig: _httpBackend.when('GET', _commonConfigData.urls['backend'] + '/ratel/config')
+            }
+          }
+        })
+      })
+
+      it('should exsist', ()=> {
+        return expect(!!AppController).toBe(true)
+      })
+
+      it('should start logout action if not pending', () => {
+
+        resourcesExpectations.RatelApi.getRatelAuthConfig.respond(200, {})
+
+        resourcesExpectations.Session.getSession.respond(200, {
+          user: {
+            apiKey: '123'
+          }
         })
 
-        _InterfaceLanguageService = _InterfaceLanguageService_
-        
-        _InterfaceLanguageService.setLanguage(_InterfaceLanguageService.getStartupLanguage())
+        spyOn(_state, 'go')
 
-        resourcesExpectations = {
-          Session: {
-            deleteSession: _httpBackend.when('DELETE', _commonConfigData.urls['backend'] + '/session'),
-            getSession: _httpBackend.when('GET', _commonConfigData.urls['backend'] + '/session')
-          },
-          ServiceApi: {
-            getProfileServices: _httpBackend.when('GET', _commonConfigData.urls['backend'] + '/services/profile')
-          },
-          RatelApi: {
-            getRatelAuthConfig: _httpBackend.when('GET', _commonConfigData.urls['backend'] + '/ratel/config')
-          }
-        }
-      })
-    })
+        resourcesExpectations.Session.deleteSession.respond(200)
+        resourcesExpectations.ServiceApi.getProfileServices.respond(200)
 
-    it('should exsist', ()=> {
-      return expect(!!AppController).toBe(true)
-    })
-
-    it('should start logout action if not pending', () => {
-
-      resourcesExpectations.RatelApi.getRatelAuthConfig.respond(200, {})
-
-      resourcesExpectations.Session.getSession.respond(200, {
-        user: {
-          apiKey: '123'
-        }
+        AppController.logout()
+        _httpBackend.flush()
+        expect(_state.go).toHaveBeenCalledWith('app.login.account')
       })
 
-      spyOn(_state, 'go')
+      it('should not start logout action if pending', () => {
 
-      resourcesExpectations.Session.deleteSession.respond(200)
-      resourcesExpectations.ServiceApi.getProfileServices.respond(200)
+        AppController.isPending = true
+        spyOn(_state, 'go')
+        AppController.logout()
+        expect(_state.go).not.toHaveBeenCalledWith('app.login.account')
+      })
 
-      AppController.logout()
-      _httpBackend.flush()
-      expect(_state.go).toHaveBeenCalledWith('app.login.account')
     })
-
-    it('should not start logout action if pending', () => {
-
-      AppController.isPending = true
-      spyOn(_state, 'go')
-      AppController.logout()
-      expect(_state.go).not.toHaveBeenCalledWith('app.login.account')
-    })
-
   })
-})
+}

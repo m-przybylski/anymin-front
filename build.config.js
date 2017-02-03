@@ -23,7 +23,7 @@ module.exports = {
   requiredTestCoverage: 80,
   tpl_module: 'templates-module',
   project_theme_name: PROJECT_THEME_NAME,
-  test_files_pattern: '*.spec.ts',
+  test_files_pattern: '*.ts',
   app_files: {
     js: ['src/**/*.ts', '!src/**/*.spec.ts'],
     allJs: ['src/**/*.ts'],
@@ -47,6 +47,8 @@ module.exports = {
     }
   },
   test_files: {
+    coverage: '/build/**/!(*.spec).js',
+    compiled_pattern: '**/*.js',
     js: [
       'node_modules/angular-mocks/angular-mocks.js',
       'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
