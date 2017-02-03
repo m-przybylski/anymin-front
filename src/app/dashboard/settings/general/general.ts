@@ -12,6 +12,19 @@ namespace app.dashboard.settings.general {
     public openBasicAccountSettingsModal = () => {
       this.modalsService.createBasicAccountSettingsModal()
     }
+
+    public openGeneralPhoneSettingsModal = () => {
+      this.modalsService.createGeneralPhoneSettingsModal()
+    }
+
+    public openGeneralEmailSettingsModal = () => {
+      this.modalsService.createGeneralEmailSettingsModal()
+    }
+
+    public openGeneralCountrySettingsModal = () => {
+      this.modalsService.createGeneralCountrySettingsModal()
+    }
+
   }
 
   angular.module('profitelo.controller.dashboard.settings.general', [

@@ -18,6 +18,9 @@ namespace profitelo.services.modals {
     createClientComplainReportModal(): ng.ui.bootstrap.IModalServiceInstance
     createClientChargeDetailsModal(financeActivityDetails: Object): ng.ui.bootstrap.IModalServiceInstance
     createBasicAccountSettingsModal(): ng.ui.bootstrap.IModalServiceInstance
+    createGeneralPhoneSettingsModal(): ng.ui.bootstrap.IModalServiceInstance
+    createGeneralEmailSettingsModal(): ng.ui.bootstrap.IModalServiceInstance
+    createGeneralCountrySettingsModal(): ng.ui.bootstrap.IModalServiceInstance
   }
 
   // TODO add types for dialogScope Scopes
@@ -157,6 +160,36 @@ namespace profitelo.services.modals {
       })
     }
 
+    public createGeneralPhoneSettingsModal = () => {
+      const dialogScope: ng.IScope = this.$rootScope.$new(true)
+
+      return this.dialogService.openDialog({
+        controller: 'generalPhoneSettingsController',
+        templateUrl: 'components/dashboard/settings/modals/general/phone-settings/phone-settings.tpl.html',
+        scope: dialogScope
+      })
+    }
+
+    public createGeneralEmailSettingsModal = () => {
+      const dialogScope: ng.IScope = this.$rootScope.$new(true)
+
+      return this.dialogService.openDialog({
+        controller: 'generalEmailSettingsController',
+        templateUrl: 'components/dashboard/settings/modals/general/email-settings/email-settings.tpl.html',
+        scope: dialogScope
+      })
+    }
+
+    public createGeneralCountrySettingsModal = () => {
+      const dialogScope: ng.IScope = this.$rootScope.$new(true)
+
+      return this.dialogService.openDialog({
+        controller: 'generalCountrySettingsController',
+        templateUrl: 'components/dashboard/settings/modals/general/country-settings/country-settings.tpl.html',
+        scope: dialogScope
+      })
+    }
+
   }
 
   angular.module('profitelo.services.modals', [
@@ -169,7 +202,11 @@ namespace profitelo.services.modals {
     'profitelo.components.dashboard.client.activities.modals.consultation-details',
     'profitelo.components.dashboard.client.activities.modals.complain-report',
     'profitelo.components.dashboard.client.activities.modals.charge-details',
-    'profitelo.components.dashboard.settings.modals.general.basic-account-settings'
+    'profitelo.components.dashboard.settings.modals.general.basic-account-settings',
+    'profitelo.components.dashboard.settings.modals.general.phone-settings',
+    'profitelo.components.dashboard.settings.modals.general.email-settings',
+    'profitelo.components.dashboard.settings.modals.general.country-settings'
+
   ])
   .service('modalsService', ModalsService)
 }

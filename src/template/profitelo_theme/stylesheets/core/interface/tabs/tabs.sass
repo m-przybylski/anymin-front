@@ -40,8 +40,33 @@
       color: $c-secondary-txt
 
 
-
 .grey-tab
   background: $c-background
   border: 1px solid $c-lines
   padding: 32px
+
+
+.settings-row
+  border-bottom: 1px solid $c-lines
+  padding: 20px 0
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+  .settings-icon
+    padding: 0 24px
+    display: inline-flex
+
+  .settings-data
+    flex: 1
+
+    .label
+      +default-font-heavy
+      color: $c-label
+      font-size: $f-label-size
+      text-transform: uppercase
+      display: block
+
+    .name
+      color: $c-primary-txt
+      font-size: $f-h4-size
