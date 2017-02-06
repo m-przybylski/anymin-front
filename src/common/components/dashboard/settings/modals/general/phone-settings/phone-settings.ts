@@ -18,6 +18,9 @@ namespace profitelo.components.dashboard.settings.modals.general.phoneSettings {
       $scope.isNavbar = true
       $scope.isFullscreen = true
 
+
+      $scope.onModalClose = () =>
+        $uibModalInstance.dismiss('cancel')
     }
 
 

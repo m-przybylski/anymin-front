@@ -1,0 +1,55 @@
+.image-crop
+  margin: 0 auto
+  width: 288px
+
+  +xsm
+    width: 438px
+
+  .croppie-container
+    position: relative
+    margin: 0 0 32px
+    border: 9px solid $c-background
+
+    +smm
+      margin: 0 0 64px
+
+    .cr-boundary
+      width: 270px
+      height: 270px
+
+      +xsm
+        height: 420px
+        width: 420px
+
+    .cr-viewport
+      border: 0
+      box-shadow: 0 0 0 420px rgba($c-white, 0.6)
+
+  .cr-slider-wrap
+    display: flex
+    align-items: center
+    justify-content: center
+    background: $c-background
+    border: 6px solid $c-background
+    width: 100%
+    height: 56px
+    margin: 0 auto
+
+    .cr-slider
+      width: 316px
+
+  .icon
+    display: none
+
+    +xsm
+      display: block
+      position: absolute
+      bottom: 16px
+      right: 7px
+      color: $c-label
+
+    &.icon-smaller
+      left: 7px
+      right: auto
+      font-size: 16px
+      bottom: 20px

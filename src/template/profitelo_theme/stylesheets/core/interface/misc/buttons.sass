@@ -19,8 +19,6 @@
     width: auto
 
   &.btn-small
-    -webkit-border-radius:
-    -moz-border-radius:
     border-radius: 32px
     height: 32px
 
@@ -46,9 +44,15 @@
     +btn-hover($c-primary-dark)
 
 .btn-default-border
-  background: $c-white
-  border: 1px solid $c-primary
   color: $c-primary
+  padding: 0
+  width: auto
+
+  +smm
+    background: $c-white
+    border: 1px solid $c-primary
+    color: $c-primary
+    padding: 0 24px
 
 .btn-success
   background: $c-success

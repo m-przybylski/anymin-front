@@ -48,14 +48,20 @@
 
 .settings-row
   border-bottom: 1px solid $c-lines
-  padding: 20px 0
+  padding: 20px 16px
   display: flex
   align-items: center
   justify-content: space-between
 
+  +smm
+    padding: 20px 24px
+
   .settings-icon
-    padding: 0 24px
     display: inline-flex
+    padding: 0 16px 0 0
+
+    +smm
+      padding: 0 24px 0 0
 
   .settings-data
     flex: 1
@@ -69,4 +75,7 @@
 
     .name
       color: $c-primary-txt
-      font-size: $f-h4-size
+      font-size: $f-h5-size
+
+      +smm
+        font-size: $f-h4-size
