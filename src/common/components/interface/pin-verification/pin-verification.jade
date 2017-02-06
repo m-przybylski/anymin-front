@@ -1,0 +1,11 @@
+.pin-verification
+  form
+    h2(data-translate="{{:: 'SETTINGS.GENERAL.PHONE_NUMBER.PIN_VERIFY.TITLE' | translate}}")
+    input.input-number(type="number" min="0" max="9")
+    input.input-number(type="number" min="0" max="9")
+    input.input-number(type="number" min="0" max="9")
+    input.input-number(type="number" min="0" max="9")
+
+    .pin-verification-send-again(ng-hide="$ctrl.pin")
+      p(data-translate="{{:: 'SETTINGS.GENERAL.PHONE_NUMBER.PIN_VERIFY.RECEIVE' | translate }}")
+      button.btn.btn-small.btn-default-border(data-translate="{{:: 'SETTINGS.GENERAL.PHONE_NUMBER.PIN_VERIFY.BUTTON' | translate}}" type="submit")

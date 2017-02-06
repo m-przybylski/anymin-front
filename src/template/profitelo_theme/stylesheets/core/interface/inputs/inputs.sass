@@ -8,12 +8,44 @@ input, textarea
 
   &::placeholder
     color: $c-label
-    
+
+input
+  &[type="number"]
+    border: 1px solid $c-lines
+    width: 48px
+    height: 64px
+    text-align: center
+
+    &:focus
+      border-color: $c-primary
+
 label
   &.upload-file
     input[type="file"]
       display: none
-    
+
+.input-handler
+  +xsm
+    display: flex
+    justify-content: center
+
+  .pro-dropdown
+    width: 100%
+    text-align: left
+    margin: 0 0 16px
+
+    +xsm
+      width: 128px
+      margin: 0 16px 0 0
+
+    .input-group
+      .ui-select-container
+        border-radius: 3px 0 0 3px
+
+  .pro-input
+    +xsm
+      width: 308px
+
 .input-group
   input, textarea
     width: 100%

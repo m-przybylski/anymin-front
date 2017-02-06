@@ -1,6 +1,28 @@
-scrollable(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
+scrollable.phone-settings(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
   top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="onModalClose")
+  .default-container-small.no-padding
+    .general-modal
+      form.pro-input-form(name="phoneNumberForm" data-ng-submit="submitBasicSettings()" novalidate)
+        h2(data-translate="{{:: 'SETTINGS.GENERAL.PHONE_SETTINGS.TITLE' | translate}}")
 
-  .settings-modal.general-modal.phone-settings
-    .default-container-small
-      p.title Password
+        .input-handler
+          pro-dropdown.prefix-phone(
+            data-pro-model='vm.account.phoneNumber.prefix'
+            data-label='prefix'
+            data-placeholder='+48'
+            data-pro-items="vm.prefixes"
+            data-no-search)
+
+          pro-input.phone.label(data-label="{{:: 'SETTINGS.GENERAL.PHONE_NUMBER.INPUT.LABEL' | translate}}"
+            data-type="tel"
+            data-id="phoneNumber"
+            data-placeholder="{{'LOGIN.ENTER_NUMBER_PLACEHOLDER' | translate}}"
+            data-ng-model="vm.account.phoneNumber.number"
+            data-ng-class="{'invalid': !vm.isValidPhoneNumber(vm.account.phoneNumber.prefix," +
+            " vm.account.phoneNumber.number) && (phoneNumberForm.phoneNumber.$dirty || phoneNumberForm.$submitted)}"
+            auto-focus only-digits)
+
+        button.btn.btn-default(data-translate="SETTINGS.GENERAL.PHONE_NUMBER.BUTTON" type="submit"
+        data-ng-click="verifyCode()" data-ng-show="isHidden")
+
+      pin-verification(data-ng-hide="isHidden")
