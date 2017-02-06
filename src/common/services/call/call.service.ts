@@ -10,6 +10,8 @@ namespace profitelo.services.call {
   import ICallbacksService = profitelo.services.callbacks.ICallbacksService
   import ITimerFactory = profitelo.services.timer.ITimerFactory
   import ITimerService = profitelo.services.timer.ITimerService
+  import ExpertProfile = profitelo.models.ExpertProfile
+  import Money = profitelo.models.Money
 
   export interface ICallService {
     onCallEnd(cb: () => void): void

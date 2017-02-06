@@ -3,10 +3,10 @@ namespace profitelo.components.communicator {
   import ICallService = profitelo.services.call.ICallService
   import IUrlService = profitelo.services.helper.IUrlService
   import Service = profitelo.models.Service
-  import Profile = profitelo.models.Profile
   import Money = profitelo.models.Money
+  import ExpertProfile = profitelo.models.ExpertProfile
 
-  class CommunicatorComponentController implements ng.IController {
+  export class CommunicatorComponentController implements ng.IController {
 
     public isClosed: boolean = true
     public isDisconnectedAnimation: boolean = false

@@ -1,5 +1,7 @@
 namespace profitelo.services.timer {
 
+  import Money = profitelo.models.Money
+
   export interface ITimerService {
     start(cb: (obj: {time: number, money: Money}) => void): void
     stop(): void

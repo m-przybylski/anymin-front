@@ -1,6 +1,6 @@
 namespace profitelo.components.communicator.navigation {
 
-  interface INavigationComponentBindings {
+  export interface INavigationComponentBindings {
     isVideo: boolean
     isMessenger: boolean
   }
@@ -11,7 +11,7 @@ namespace profitelo.components.communicator.navigation {
     isAudio: boolean
   }
 
-  class NavigationComponentController implements ng.IController, INavigationComponentController {
+  export class NavigationComponentController implements ng.IController, INavigationComponentController {
 
     areOptions = false
     isAudio = true

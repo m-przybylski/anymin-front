@@ -2,22 +2,22 @@ namespace profitelo.components.communicator.modals.clientCall {
 
   import Service = profitelo.models.Service
 
-  interface IClientCallParentControllerScope extends ng.IScope {
-    rejectCall: Function
-    answerCall: Function
-  }
-
-  interface IClientCallControllerScope extends ng.IScope {
+  export interface IClientCallParentControllerScope extends ng.IScope {
     rejectCall: Function
     answerCall: Function
     service: Service
+  }
+
+  export interface IClientCallControllerScope extends ng.IScope {
+    rejectCall: Function
+    answerCall: Function
     $parent: IClientCallParentControllerScope
   }
 
-  class ClientCallController implements ng.IController {
+  export class ClientCallController implements ng.IController {
 
     /* @ngInject */
-    constructor($scope: IClientCallControllerScope, $uibModalInstance) {
+    constructor($scope: IClientCallControllerScope, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
       $scope.rejectCall = () => {
         $uibModalInstance.dismiss('reject')
         $scope.$parent.rejectCall()

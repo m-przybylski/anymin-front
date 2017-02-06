@@ -4,6 +4,7 @@ namespace app.dashboard.client.activities {
   import IClientActivities = profitelo.services.clientActivities.IClientActivities
   import ClientActivity = profitelo.models.ClientActivity
   import IExpertServiceTuple = profitelo.services.clientActivities.IExpertServiceTuple
+  import Money = profitelo.models.Money
 
   class DashboardClientActivitiesController {
 

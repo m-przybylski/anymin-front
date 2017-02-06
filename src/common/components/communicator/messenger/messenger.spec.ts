@@ -1,80 +1,77 @@
-describe('Unit testing: profitelo.components.communicator.messenger', () => {
-  return describe('for messenger component >', () => {
+namespace profitelo.components.communicator.messenger {
 
-    let scope
-    let rootScope
-    let compile
-    let component
-    const validHTML = '<messenger data-call-length="0" data-call-cost="0" data-is-messenger="false"></messenger>'
-    const bindings = {
-      callLength: 0,
-      callCost: 0,
-      isMessenger: false
-    }
-    const uploaderFactory = {
-      collectionTypes: { avatar: 'avatar' },
-      getInstance: _ => _
-    }
+  import Money = profitelo.models.Money
 
-    function create(html) {
-      scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
-      scope.$digest()
-      return compiledElement
-    }
+  describe('Unit testing: profitelo.components.communicator.messenger', () => {
+    return describe('for messenger component >', () => {
 
-    const navigatorService = {
-      getUserMediaStream: _ => _
-    }
+      let rootScope: ng.IRootScopeService
+      let compile: ng.ICompileService
+      let component: MessengerComponentController
 
-    beforeEach(() => {
-    angular.mock.module('profitelo.services.sounds')
-    angular.mock.module('profitelo.services.uploader')
-    angular.mock.module('profitelo.services.navigator')
-    })
+      const validHTML =
+        '<messenger call-length="callLength" call-cost="callCost" is-messenger="isMessenger"></messenger>'
 
-    beforeEach(angular.mock.module(($provide) => {
-      $provide.value('soundsService', {})
-      $provide.value('uploaderFactory', uploaderFactory)
-      $provide.value('apiUrl', 'awesomeUrl/')
-      $provide.value('navigatorService', navigatorService)
-    }))
+      const bindings: IMessengerComponentBindings = {
+        callLength: 0,
+        callCost: new Money(0, 'PLN'),
+        isMessenger: false
+      }
 
-    beforeEach(() => {
-    angular.mock.module('templates-module')
-    angular.mock.module('profitelo.components.communicator.messenger')
+      function create(html, bindings: IMessengerComponentBindings) {
+        const parentScope = rootScope.$new()
+        const parentBoundScope = angular.extend(parentScope, bindings)
+        const elem = angular.element(html)
+        const compiledElement = compile(elem)(parentBoundScope)
+        parentBoundScope.$digest()
+        return compiledElement
+      }
 
-      inject(($rootScope, $compile, _$componentController_) => {
-        rootScope = $rootScope.$new()
-        compile = $compile
+      beforeEach(() => {
+        angular.mock.module('profitelo.services.sounds')
+      })
 
-        const injectors = {
-          navigatorService: navigatorService
-        }
+      beforeEach(angular.mock.module(($provide) => {
+        $provide.value('soundsService', {})
+        $provide.value('apiUrl', 'awesomeUrl/')
+      }))
 
-        component = _$componentController_('messenger', injectors, bindings)
+      beforeEach(() => {
+        angular.mock.module('templates-module')
+        angular.mock.module('profitelo.components.communicator.messenger')
+
+        inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
+                $componentController: ng.IComponentControllerService) => {
+
+          rootScope = $rootScope
+          compile = $compile
+
+          const injectors = {
+          }
+
+          component = $componentController<MessengerComponentController, IMessengerComponentBindings>(
+            'messenger', injectors, bindings)
+        })
+      })
+
+      it('should have a dummy test', inject(() => {
+        expect(true).toBeTruthy()
+      }))
+
+      it('should compile the component', () => {
+        let el = create(validHTML, bindings)
+        expect(el.html()).toBeDefined(true)
+      })
+
+      it('should minimizeMessenger', () => {
+        component.minimizeMessenger()
+        expect(component.isMessenger).toBe(false)
+      })
+
+      it('should maximizeMessenger', () => {
+        component.maximizeMessenger()
+        expect(component.isMessenger).toBe(true)
       })
     })
-
-    it('should have a dummy test', inject(() => {
-      expect(true).toBeTruthy()
-    }))
-
-    it('should compile the component', () => {
-      let el = create(validHTML)
-      expect(el.html()).toBeDefined(true)
-    })
-    
-    it('should minimizeMessenger', () => {
-      component.minimizeMessenger()
-      expect(component.isMessenger).toBe(false)
-    })
-    
-    it('should maximizeMessenger', () => {
-      component.maximizeMessenger()
-      expect(component.isMessenger).toBe(true)
-    })
   })
-})
-
+}

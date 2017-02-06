@@ -5,8 +5,11 @@ namespace profitelo.components.modals.consultationSummaryClient {
   import Tag = profitelo.models.Tag
   import CallSummary = profitelo.models.CallSummary
 
-  interface IConsultationSummaryClientControllerScope extends ng.IScope {
+  export interface IConsultationSummaryClientParentControllerScope extends ng.IScope {
     serviceId: string
+  }
+
+  export interface IConsultationSummaryClientControllerScope extends ng.IScope {
     expertAvatarUrl: string
     rating: number
     callSummary: CallSummary | null
@@ -18,9 +21,10 @@ namespace profitelo.components.modals.consultationSummaryClient {
     recommendService: Function
     isFullscreen: boolean
     isNavbar: boolean
+    $parent: IConsultationSummaryClientParentControllerScope
   }
 
-  class ConsultationSummaryClientController {
+  export class ConsultationSummaryClientController {
 
     private tags: Array<Tag> = []
 
@@ -83,13 +87,13 @@ namespace profitelo.components.modals.consultationSummaryClient {
     private onCallSummary = (data) => {
       this.$log.debug(data)
       const callSummary = data.callSummary
-      if (callSummary.service.id === this.$scope.serviceId) {
+      if (callSummary.service.id === this.$scope.$parent.serviceId) {
         this.setCallSummary(callSummary)
       }
     }
 
     private loadFromExistingCallSummaries = () => {
-      const obj = this.callSummaryService.takeCallSummary(this.$scope.serviceId)
+      const obj = this.callSummaryService.takeCallSummary(this.$scope.$parent.serviceId)
       if (obj) {
         this.onCallSummary(obj)
       }

@@ -1,13 +1,13 @@
 namespace profitelo.components.communicator.messenger.maximized.input {
 
-  class MessengerInputBindings {
+  export interface IMessengerInputBindings {
     onSendMessage: Function
     onUploadFiles: Function
     onTyping: Function
     isFileUploading: boolean
   }
 
-  class MessengerInputComponentController implements MessengerInputBindings {
+  export class MessengerInputComponentController implements IMessengerInputBindings {
 
     public onSendMessage: Function
     public onUploadFiles: Function

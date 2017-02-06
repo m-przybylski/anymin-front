@@ -1,5 +1,7 @@
 namespace profitelo.services.serviceProvider {
 
+  import Tag = profitelo.models.Tag
+
   export interface IServiceProviderDefaultModel {
     name: string
     tags: Array<Tag>

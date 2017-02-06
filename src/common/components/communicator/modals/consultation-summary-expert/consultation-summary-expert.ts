@@ -3,15 +3,19 @@ namespace profitelo.components.communicator.modals.consultationSummaryExpert {
   import ICallSummaryService = profitelo.services.callSummary.ICallSummaryService
   import CallSummary = profitelo.models.CallSummary
 
-  interface IConsultationSummaryExpertControllerScope extends ng.IScope {
+  export interface IConsultationSummaryExpertParentControllerScope extends ng.IScope {
     serviceId: string
+  }
+
+  export interface IConsultationSummaryExpertControllerScope extends ng.IScope {
     callSummary: CallSummary | null
     onModalClose: Function
     isFullscreen: boolean
     isNavbar: boolean
+    $parent: IConsultationSummaryExpertParentControllerScope
   }
 
-  class ConsultationSummaryExpertController {
+  export class ConsultationSummaryExpertController {
 
     /* @ngInject */
     constructor(private $scope: IConsultationSummaryExpertControllerScope,
@@ -33,13 +37,13 @@ namespace profitelo.components.communicator.modals.consultationSummaryExpert {
 
     private onCallSummary = (data) => {
       const callSummary = data.callSummary
-      if (callSummary.service.id === this.$scope.serviceId) {
+      if (callSummary.service.id === this.$scope.$parent.serviceId) {
         this.$scope.callSummary = callSummary
       }
     }
 
     private loadFromExistingCallSummaries = () => {
-      const obj = this.callSummaryService.takeCallSummary(this.$scope.serviceId)
+      const obj = this.callSummaryService.takeCallSummary(this.$scope.$parent.serviceId)
       if (obj) {
         this.onCallSummary(obj)
       }

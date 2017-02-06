@@ -1,35 +1,36 @@
-describe('Testing Controller: consultationSummaryClientController', () => {
+namespace profitelo.components.modals.consultationSummaryClient {
 
-  var consultationSummaryController
-  var scope
-  var uibModalInstance = {
-    dismiss: () => {
+  describe('Testing Controller: consultationSummaryClientController', () => {
 
-    },
-    close: () => {
+    let consultationSummaryController: ConsultationSummaryClientController
+    let scope: IConsultationSummaryClientControllerScope
 
-    }
-  }
+    const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
+      jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss'])
 
-  beforeEach(angular.mock.module(($provide) => {
-    $provide.value('apiUrl', 'awesomeURL')
-  }))
+    beforeEach(angular.mock.module(($provide) => {
+      $provide.value('apiUrl', 'awesomeURL')
+    }))
 
-  beforeEach(() => {
-    angular.mock.module('profitelo.components.communicator.modals.consultation-summary-client')
-    inject(($rootScope, $controller) => {
+    beforeEach(() => {
+      angular.mock.module('profitelo.components.communicator.modals.consultation-summary-client')
+      inject(($rootScope: ng.IRootScopeService, $controller: ng.IControllerService) => {
 
-      scope = $rootScope.$new()
-      scope.disconnectCall = () => {}
+        scope = <IConsultationSummaryClientControllerScope>$rootScope.$new()
+        scope.$parent = <IConsultationSummaryClientParentControllerScope>$rootScope.$new()
 
-      consultationSummaryController = $controller('consultationSummaryClientController', {
-        '$scope': scope,
-        '$uibModalInstance': uibModalInstance
+        const injectors = {
+          $scope: scope,
+          $uibModalInstance: $uibModalInstance
+        }
+
+        consultationSummaryController = $controller<ConsultationSummaryClientController>(
+          'consultationSummaryClientController', injectors)
       })
     })
+
+    it('should exists', () => {
+      return expect(!!consultationSummaryController).toBe(true)
+    })
   })
- 
-  it('should exists', () => {
-    return expect(!!consultationSummaryController).toBe(true)
-  })
-})
+}

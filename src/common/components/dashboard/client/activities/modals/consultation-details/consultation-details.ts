@@ -1,8 +1,8 @@
-import Tag = profitelo.models.Tag
-import Money = profitelo.models.Money
-import ClientDashboardCallDetails = profitelo.models.ClientDashboardCallDetails
+namespace profitelo.components.dashboard.client.activities.modals.consultationDetails {
 
-(function() {
+  import Tag = profitelo.models.Tag
+  import Money = profitelo.models.Money
+  import ClientDashboardCallDetails = profitelo.models.ClientDashboardCallDetails
 
   interface IConsultationDetailsScope extends ng.IScope {
     isLoading: boolean
@@ -91,5 +91,4 @@ import ClientDashboardCallDetails = profitelo.models.ClientDashboardCallDetails
     'profitelo.services.url'
   ])
     .controller('clientConsultationDetails', controller)
-
-}())
+}

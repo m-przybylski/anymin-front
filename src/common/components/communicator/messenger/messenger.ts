@@ -2,13 +2,13 @@ namespace profitelo.components.communicator.messenger {
 
   import Money = profitelo.models.Money
 
-  class MessengerComponentBindings {
+  export interface IMessengerComponentBindings {
     callCost: Money
     isMessenger: boolean
     callLength: number
   }
 
-  class MessengerComponentController implements ng.IController, MessengerComponentBindings {
+  export class MessengerComponentController implements ng.IController, IMessengerComponentBindings {
 
     callCost: Money
     isMessenger: boolean

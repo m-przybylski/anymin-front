@@ -1,6 +1,7 @@
 namespace profitelo.services.clientActivities {
 
   import ClientActivity = profitelo.models.ClientActivity
+  import Money = profitelo.models.Money
 
   export interface IExpertServiceTuple {
     expert: Profile

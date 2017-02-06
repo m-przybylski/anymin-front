@@ -3,6 +3,11 @@ import IDialogService = profitelo.services.dialog.IDialogService
 namespace profitelo.services.modals {
 
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  import IClientCallParentControllerScope = profitelo.components.communicator.modals.clientCall.IClientCallParentControllerScope
+  import IConsultationSummaryClientParentControllerScope = profitelo.components.modals.consultationSummaryClient.IConsultationSummaryClientParentControllerScope
+  import IConsultationSummaryExpertParentControllerScope = profitelo.components.communicator.modals.consultationSummaryExpert.IConsultationSummaryExpertParentControllerScope
+  import IUnavailableServiceControllerParentScope = profitelo.components.communicator.modals.serviceUnavailable.IUnavailableServiceControllerParentScope
+  import INoCreditsControllerParentScope = profitelo.components.communicator.modals.noCredits.INoCreditsControllerParentScope
 
   export interface IModalsService {
     createIncomingCallModal(service: Service, answerCb: () => void, rejectCb: () => void): ng.ui.bootstrap.IModalServiceInstance
@@ -22,11 +27,13 @@ namespace profitelo.services.modals {
                 private dialogService: IDialogService) {
     }
 
-    public createIncomingCallModal = (_service, answerCallback, rejectCallback) => {
-      const dialogScope: any = this.$rootScope.$new(true)
-      dialogScope.service = _service
+    public createIncomingCallModal = (service: Service, answerCallback: Function, rejectCallback: Function) => {
+      const dialogScope: IClientCallParentControllerScope = <IClientCallParentControllerScope>this.$rootScope.$new(true)
+
+      dialogScope.service = service
       dialogScope.answerCall = answerCallback
       dialogScope.rejectCall = rejectCallback
+
       return this.dialogService.openDialog({
         controller: 'clientCallController',
         templateUrl: 'components/communicator/modals/client-call/client-call.tpl.html',
@@ -34,10 +41,13 @@ namespace profitelo.services.modals {
       })
     }
 
-    public createNoFundsModal = (acceptCallback, rejectCallback) => {
-      const dialogScope: any = this.$rootScope.$new(true)
+    public createNoFundsModal = (acceptCallback: Function, rejectCallback: Function) => {
+      const dialogScope: INoCreditsControllerParentScope =
+        <INoCreditsControllerParentScope>this.$rootScope.$new(true)
+
       dialogScope.reject = acceptCallback
       dialogScope.accept = rejectCallback
+
       return this.dialogService.openDialog({
         controller: 'noCreditsController',
         templateUrl: 'components/communicator/modals/no-credits/no-credits.tpl.html',
@@ -45,10 +55,13 @@ namespace profitelo.services.modals {
       })
     }
 
-    public createServiceUnavailableModal = (acceptCallback, rejectCallback) => {
-      const dialogScope: any = this.$rootScope.$new(true)
+    public createServiceUnavailableModal = (acceptCallback: Function, rejectCallback: Function) => {
+      const dialogScope: IUnavailableServiceControllerParentScope =
+        <IUnavailableServiceControllerParentScope>this.$rootScope.$new(true)
+
       dialogScope.reject = acceptCallback
       dialogScope.accept = rejectCallback
+
       return this.dialogService.openDialog({
         controller: 'unavailableServiceController',
         templateUrl: 'components/communicator/modals/service-unavailable/service-unavailable.tpl.html',
@@ -62,7 +75,8 @@ namespace profitelo.services.modals {
         return
       }
 
-      const dialogScope: any = this.$rootScope.$new(true)
+      const dialogScope: IConsultationSummaryClientParentControllerScope =
+        <IConsultationSummaryClientParentControllerScope>this.$rootScope.$new(true)
 
       dialogScope.serviceId = serviceId
 
@@ -79,7 +93,8 @@ namespace profitelo.services.modals {
         return
       }
 
-      const dialogScope: any = this.$rootScope.$new(true)
+      const dialogScope: IConsultationSummaryExpertParentControllerScope =
+        <IConsultationSummaryExpertParentControllerScope>this.$rootScope.$new(true)
 
       dialogScope.serviceId = serviceId
 
