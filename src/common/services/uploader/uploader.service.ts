@@ -84,7 +84,7 @@ namespace profitelo.services.uploader {
     }
 
     private getFileToken = () =>
-      this.FilesApi.tokenPath({collectionType: this.collectionType}).$promise
+      this.FilesApi.fileInfoPath({collectionType: this.collectionType}).$promise
 
     private processUpload = () => {
       if ((this.uploadingCount < this.simultaneousUploadCount || this.simultaneousUploadCount === 0) &&

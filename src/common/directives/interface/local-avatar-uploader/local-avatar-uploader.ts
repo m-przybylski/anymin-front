@@ -16,29 +16,25 @@ namespace profitelo.directives.interface.localAvatarUploader {
       onFileUpload: '=?'
     }
 
-    private element: IRootElementService
+    private element: any
 
     /* ngInject */
     constructor(private $timeout: ng.ITimeoutService, private $interval: ng.IIntervalService,
                 private $window: ng.IWindowService, private styleConstant: IStyleConstant) {
     }
 
-    public link = (scope: ILocalAvatarUploaderDirectiveScope, element: ng.IRootElementService, attr: ng.IAttributes) => {
+    public link = (scope: ILocalAvatarUploaderDirectiveScope, element: any, attr: ng.IAttributes) => {
       this.element = element
 
-
       this.element.find('input').on('change', (e: any) => {
-        let reader = new FileReader()
+        const reader = new FileReader()
 
-
-        reader.onload = function (e: any ) {
-          element.find('img').attr('src', e.target.result)
+        reader.onload = (e: any) => {
           scope.onFileUpload(e.target.result)
+
         }
 
         reader.readAsDataURL(e.target.files[0])
-
-
       })
 
     }
@@ -53,7 +49,6 @@ namespace profitelo.directives.interface.localAvatarUploader {
 
   }
 
-  angular.module('profitelo.directives.interface.local-avatar-uploader', [
-  ])
+  angular.module('profitelo.directives.interface.local-avatar-uploader', [])
   .directive('localAvatarUploader', LocalAvatarUploaderDirective.getInstance())
 }

@@ -1,7 +1,6 @@
-namespace profitelo.services.uploader {
-  interface Window {
-    File: any;
-  }
+interface Window {
+  File: any;
+}
 
   declare var window: Window;
 
@@ -46,10 +45,10 @@ namespace profitelo.services.uploader {
         expect(true).toBeTruthy()
       })
 
-      it('should upload 2 files at a time', inject(($q, $timeout, FilesApi) => {
-        spyOn(FilesApi, 'tokenPath').and.returnValue({
-          $promise: $q.resolve({fileId: 1})
-        })
+    it('should upload 2 files at a time', inject(($q, $timeout, $rootScope, FilesApi) => {
+      spyOn(FilesApi, 'fileInfoPath').and.returnValue({
+        $promise: $q.resolve({fileId: 1})
+      })
 
         const instance = uploaderFactory.getInstance(2, uploaderFactory.collectionTypes.avatar)
 
@@ -60,9 +59,9 @@ namespace profitelo.services.uploader {
 
         $timeout.flush()
 
-        expect(FilesApi.tokenPath).toHaveBeenCalled()
-        expect(UploadMock.upload.calls.count()).toEqual(2)
-      }))
+      expect(FilesApi.fileInfoPath).toHaveBeenCalled()
+      expect(UploadMock.upload.calls.count()).toEqual(2)
+    }))
 
       it('should not upload empty file', inject(($rootScope) => {
         const instance = uploaderFactory.getInstance(2, uploaderFactory.collectionTypes.avatar)
@@ -75,10 +74,10 @@ namespace profitelo.services.uploader {
         expect(promiseValue).toEqual('Expected File, got object')
       }))
 
-      it('should not upload file if token error', inject(($q, $timeout, $rootScope, FilesApi) => {
-        spyOn(FilesApi, 'tokenPath').and.returnValue({
-          $promise: $q.reject('error')
-        })
+    it('should not upload file if token error', inject(($q, $timeout, $rootScope, FilesApi) => {
+      spyOn(FilesApi, 'fileInfoPath').and.returnValue({
+        $promise: $q.reject('error')
+      })
 
         const instance = uploaderFactory.getInstance(2, uploaderFactory.collectionTypes.avatar)
 
@@ -88,14 +87,14 @@ namespace profitelo.services.uploader {
         $timeout.flush()
         $rootScope.$digest()
 
-        expect(FilesApi.tokenPath).toHaveBeenCalled()
-        expect(returnValue).toEqual('error')
-      }))
+      expect(FilesApi.fileInfoPath).toHaveBeenCalled()
+      expect(returnValue).toEqual('error')
+    }))
 
-      it('should return error if upload error', inject(($q, $timeout, $rootScope, FilesApi) => {
-        spyOn(FilesApi, 'tokenPath').and.returnValue({
-          $promise: $q.resolve({fileId: 1})
-        })
+    it('should return error if upload error', inject(($q, $timeout, $rootScope, FilesApi) => {
+      spyOn(FilesApi, 'fileInfoPath').and.returnValue({
+        $promise: $q.resolve({fileId: 1})
+      })
 
         const instance = uploaderFactory.getInstance(2, uploaderFactory.collectionTypes.avatar)
 
@@ -107,15 +106,15 @@ namespace profitelo.services.uploader {
         $timeout.flush()
         $rootScope.$digest()
 
-        expect(FilesApi.tokenPath).toHaveBeenCalled()
-        expect(UploadMock.upload).toHaveBeenCalled()
-        expect(returnValue).toEqual('error')
-      }))
+      expect(FilesApi.fileInfoPath).toHaveBeenCalled()
+      expect(UploadMock.upload).toHaveBeenCalled()
+      expect(returnValue).toEqual('error')
+    }))
 
-      it('should call callback on upload progress', inject(($q, $timeout, FilesApi) => {
-        spyOn(FilesApi, 'tokenPath').and.returnValue({
-          $promise: $q.resolve({fileId: 1})
-        })
+    it('should call callback on upload progress', inject(($q, $timeout, $rootScope, FilesApi) => {
+      spyOn(FilesApi, 'fileInfoPath').and.returnValue({
+        $promise: $q.resolve({fileId: 1})
+      })
 
         const obj = {
           callback: _ => _
@@ -134,15 +133,15 @@ namespace profitelo.services.uploader {
 
         $timeout.flush()
 
-        expect(FilesApi.tokenPath).toHaveBeenCalled()
-        expect(UploadMock.upload).toHaveBeenCalled()
-        expect(obj.callback).toHaveBeenCalled()
-      }))
+      expect(FilesApi.fileInfoPath).toHaveBeenCalled()
+      expect(UploadMock.upload).toHaveBeenCalled()
+      expect(obj.callback).toHaveBeenCalled()
+    }))
 
-      it('should upload files with no limits', inject(($q, $timeout, FilesApi) => {
-        spyOn(FilesApi, 'tokenPath').and.returnValue({
-          $promise: $q.resolve({fileId: 1})
-        })
+    it('should upload files with no limits', inject(($q, $timeout, $rootScope, FilesApi) => {
+      spyOn(FilesApi, 'fileInfoPath').and.returnValue({
+        $promise: $q.resolve({fileId: 1})
+      })
 
         const instance = uploaderFactory.getInstance(0, uploaderFactory.collectionTypes.avatar)
 
@@ -152,9 +151,8 @@ namespace profitelo.services.uploader {
 
         $timeout.flush()
 
-        expect(FilesApi.tokenPath).toHaveBeenCalled()
-        expect(UploadMock.upload).toHaveBeenCalled()
-      }))
-    })
+      expect(FilesApi.fileInfoPath).toHaveBeenCalled()
+      expect(UploadMock.upload).toHaveBeenCalled()
+    }))
   })
-}
+})

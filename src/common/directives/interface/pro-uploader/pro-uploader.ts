@@ -70,7 +70,7 @@ import ITopAlertService = profitelo.services.topAlert.ITopAlertService
           isProcess = true
           for (var i = 0; i < files.length; i++) {
             if (!files[i].$error) {
-              tokenPromisses.push(FilesApi.tokenPath({
+              tokenPromisses.push(FilesApi.fileInfoPath({
                 collectionType: 'AVATAR' // TODO send proper collectionType
               }).$promise)
               scope.errorValidateMessage = false

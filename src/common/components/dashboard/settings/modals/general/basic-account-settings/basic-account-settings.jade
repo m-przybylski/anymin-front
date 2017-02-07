@@ -2,8 +2,8 @@ scrollable.basic-account-settings(data-is-fullscreen="isFullscreen" data-is-navb
   top-modal-navbar(data-title="SETTINGS.GENERAL.BASIC_ACCOUNT.HEADER" data-on-close="onModalClose")
   .default-container-small
     .general-modal
-      form.pro-input-form(name="phoneNumberForm" data-ng-submit="submitBasicSettings()" novalidate)
-        .form-step(data-ng-hide="isImageUpload")
+      form.pro-input-form(name="basicAccountForm" data-ng-submit="submitBasicSettings()" novalidate)
+        .form-step(data-ng-hide="isUserUploadImage")
           h2(data-translate="{{:: 'SETTINGS.GENERAL.BASIC_ACCOUNT.HEADER' | translate}}")
 
           .user-avatar
@@ -18,9 +18,8 @@ scrollable.basic-account-settings(data-is-fullscreen="isFullscreen" data-is-navb
           .user-name
             pro-input.full-name.label(data-label="{{ 'SETTINGS.GENERAL.BASIC_ACCOUNT.NAME_INPUT_LABEL' | translate }}"
             data-type="text"
-            data-id="phoneNumber"
             data-placeholder="{{ :: 'SETTINGS.GENERAL.BASIC_ACCOUNT.NAME_INPUT_PLACEHOLDER' | translate }}"
-            data-ng-model="vm.account.phoneNumber.number"
+            data-ng-model="userName"
             data-ng-class="{'invalid': !vm.isValidPhoneNumber(vm.account.phoneNumber.prefix, vm.account.phoneNumber.number) " +
             "&& (phoneNumberForm.phoneNumber.$dirty || phoneNumberForm.$submitted)}")
 
@@ -32,9 +31,9 @@ scrollable.basic-account-settings(data-is-fullscreen="isFullscreen" data-is-navb
           data-label="{{:: 'SETTINGS.GENERAL.BASIC_ACCOUNT.NAME_CHECKBOX_LABEL' | translate }}"
           data-ng-class="{'invalid': !$ctrl.rulesAccepted && paymentForm.$submitted}")
 
-          .btn.btn-default(data-translate="SETTINGS.GENERAL.BASIC_ACCOUNT_SAVE_CHANGES" type="submit")
+          button.btn.btn-default(data-translate="SETTINGS.GENERAL.BASIC_ACCOUNT_SAVE_CHANGES" type="submit")
 
-        .crop-avatar-step(data-ng-show="isImageUpload")
+        .crop-avatar-step(data-ng-show="isUserUploadImage")
           h2(data-translate="{{:: 'SETTINGS.GENERAL.BASIC_ACCOUNT.CROP_AVATAR_HEADER' | translate }}")
 
           .cropp-image

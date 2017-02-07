@@ -42,7 +42,7 @@ describe('Unit testing: profitelo.directives.interface.pro-uploader', () => {
 
         resourcesExpectations = {
           FilesApi: {
-            tokenPath: _httpBackend.when(_FilesApiDef.tokenPath.method, _FilesApiDef.tokenPath.url.replace(':collectionType', 'AVATAR'))
+            fileInfoPath: _httpBackend.when(_FilesApiDef.fileInfoPath.method, _FilesApiDef.fileInfoPath.url.replace(':collectionType', 'AVATAR'))
           },
           Upload: {
             upload: _httpBackend.when('POST', _commonConfigData.urls['files'] + '/files/' + fileId + '/upload')
@@ -80,28 +80,6 @@ describe('Unit testing: profitelo.directives.interface.pro-uploader', () => {
       isoScope.deleteImage()
 
       expect(isoScope.uploadImg).toBeFalsy()
-    })
-
-    it('should upload files', () => {
-      let el = create(validHTML)
-      let isoScope = el.isolateScope()
-
-      resourcesExpectations.Upload.upload.respond(200)
-
-      resourcesExpectations.FilesApi.tokenPath.respond(200, {
-        fileId: fileId
-      })
-
-      isoScope.uploadFiles([
-        {
-          fileId: '123123'
-        }
-      ])
-
-      rootScope.$digest()
-
-      _httpBackend.flush()
-
     })
 
     it('should animate', () => {
