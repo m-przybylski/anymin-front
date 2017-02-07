@@ -107,7 +107,9 @@ module.exports = {
 
       'node_modules/ratel-sdk-js/dist/ratel-sdk.js',
       'build/src/common/services/ratelSdk/ratel-sdk-wrap.ts', // TODO: merge back to ratel sdk
-      'build/src/common/services/ratelSdk/ratel-sdk-server-mock.ts' // TODO: remove on ratel sdk update
+      'build/src/common/services/ratelSdk/ratel-sdk-server-mock.ts', // TODO: remove on ratel sdk update
+      'node_modules/raven-js/dist/raven.js',
+      'node_modules/raven-js/dist/plugins/angular.js'
     ],
     css: [
       'node_modules/reset.css/reset.css',

@@ -1,4 +1,20 @@
-(function() {
+namespace profitelo.app {
+
+  declare const Raven: any
+
+  // TODO: replace it with custom logging
+  try { // fix unit tests window problem
+    if (window.location.host.includes('stage')) {
+      Raven
+        .config('https://8ba058291ca44938bc6c2c9de13434d6@sentry.io/136454')
+        .addPlugin(Raven.Plugins.Angular, angular)
+        .install()
+      console.log("Sentry logs enabled")
+    } else {
+      console.log("Sentry logs disabled")
+    }
+  } catch (e) {}
+
   function AppController($rootScope, $state, $filter, InterfaceLanguageService, User, topAlertService) {
 
     InterfaceLanguageService.setLanguage(InterfaceLanguageService.getStartupLanguage())
@@ -120,7 +136,6 @@
                           UserRolesProvider, CommonConfigProvider, $qProvider) {
 
 
-
     $httpProvider.defaults.withCredentials = true
 
     $animateProvider.classNameFilter(/animation/)
@@ -150,7 +165,7 @@
       resolve: {
         session: ($rootScope, $q, User, communicatorService) => {
           /* istanbul ignore next */
-          return User.getStatus().then((response)=> {
+          return User.getStatus().then((response) => {
             /* istanbul ignore next */
             if (angular.isDefined(response.status) && response.status !== 401) {
               $rootScope.loggedIn = true
@@ -288,4 +303,4 @@
     .factory('apiUrl', (CommonConfig) => {
       return CommonConfig.getAllData().urls.backend
     })
-}())
+}
