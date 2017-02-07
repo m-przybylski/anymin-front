@@ -1,64 +1,59 @@
-describe('Unit testing: profitelo.components.communicator', () => {
-  return describe('for communicator component >', () => {
+namespace profitelo.components.communicator {
 
-    let scope
-    let rootScope
-    let compile
-    let component
-    const validHTML = '<communicator></communicator>'
-    const bindings = {
-      minimizeCommunicator: _ => _
-    }
-    const uploaderFactory = {
-      collectionTypes: { avatar: 'avatar' },
-      getInstance: _ => _
-    }
+  describe('Unit testing: profitelo.components.communicator', () => {
+    return describe('for communicator component >', () => {
 
-    function create(html) {
-      scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
-      scope.$digest()
-      return compiledElement
-    }
+      let rootScope: ng.IRootScopeService
+      let compile: ng.ICompileService
+      let component: CommunicatorComponentController
 
-    beforeEach(() => {
-      angular.mock.module('profitelo.services.sounds')
-    angular.mock.module('profitelo.services.navigator')
-    angular.mock.module('profitelo.services.uploader')
-    })
+      const validHTML: string = '<communicator></communicator>'
 
-    beforeEach(angular.mock.module(($provide) => {
-      $provide.value('soundsService', {})
-      $provide.value('uploaderFactory', uploaderFactory)
-      $provide.value('navigatorService', {})
-      $provide.value('apiUrl', 'awesomeUrl/')
-    }))
+      function create(html) {
+        const parentScope: ng.IScope = rootScope.$new()
+        const elem = angular.element(html)
+        const compiledElement = compile(elem)(parentScope)
+        parentScope.$digest()
+        return compiledElement
+      }
 
-    beforeEach(() => {
-    angular.mock.module('templates-module')
-    angular.mock.module('profitelo.components.communicator')
+      beforeEach(() => {
+        angular.mock.module('profitelo.services.sounds')
+        angular.mock.module('profitelo.services.call')
+      })
 
-      inject(($rootScope, $compile, $timeout, _$componentController_) => {
-        rootScope = $rootScope.$new()
-        compile = $compile
+      beforeEach(angular.mock.module(($provide) => {
+        $provide.value('soundsService', {})
+        $provide.value('apiUrl', 'awesomeUrl/')
+      }))
 
-        const injectors = {
-          $element: create(validHTML)
-        }
+      beforeEach(() => {
+        angular.mock.module('templates-module')
+        angular.mock.module('profitelo.components.communicator')
 
-        component = _$componentController_('communicator', injectors, bindings)
+        inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
+                $componentController: ng.IComponentControllerService) => {
+
+          rootScope = $rootScope.$new()
+          compile = $compile
+
+          const injectors = {
+            $element: create(validHTML)
+          }
+
+          component = $componentController<CommunicatorComponentController, {}>('communicator', injectors, {})
+        })
+      })
+
+      it('should have a dummy test', inject(() => {
+        expect(true).toBeTruthy()
+      }))
+
+      it('should compile the component', () => {
+        const element: JQuery = create(validHTML)
+        expect(element.html()).toBeDefined(true)
       })
     })
-
-    it('should have a dummy test', inject(() => {
-      expect(true).toBeTruthy()
-    }))
-
-    it('should compile the component', () => {
-      let el = create(validHTML)
-      expect(el.html()).toBeDefined(true)
-    })
   })
-})
 
+}

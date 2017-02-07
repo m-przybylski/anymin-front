@@ -1,85 +1,70 @@
-describe('Unit testing: profitelo.components.communicator.messenger.minimized', () => {
-  return describe('for messengerMinimized component >', () => {
+namespace profitelo.components.communicator.messenger.minimized {
 
-    let scope
-    let $rootScope
-    let $compile
-    let component
-    const validHTML = '<minimized></minimized>'
-    const bindings = {}
-    let messengerService
-    let timeout
+  import IMessengerService = profitelo.services.messenger.IMessengerService
 
-    beforeEach(angular.mock.module(($provide) => {
-      $provide.value('apiUrl', 'awesomeURL')
-    }))
+  describe('Unit testing: profitelo.components.communicator.messenger.minimized', () => {
+    return describe('for messengerMinimized component >', () => {
 
-    function create(html) {
-      scope = $rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = $compile(elem)(scope)
-      scope.$digest()
-      return compiledElement
-    }
+      let rootScope: ng.IRootScopeService
+      let compile: ng.ICompileService
+      let component: MessengerMinimizedComponentController
 
-    beforeEach(() => {
-    angular.mock.module('profitelo.services.sounds')
-    angular.mock.module('profitelo.services.navigator')
-    })
+      const validHTML = '<minimized></minimized>'
 
-    beforeEach(angular.mock.module(($provide) => {
-      $provide.value('soundsService', {})
-      $provide.value('navigatorService', {})
-    }))
-
-    beforeEach(() => {
-    angular.mock.module('templates-module')
-    angular.mock.module('profitelo.components.communicator.messenger.minimized')
-
-      messengerService = {
-        onClientMessage: (fn) => {
-          fn()
-        },
-        onExpertNewChat: (fn) => {
-          fn()
-        },
-        onExpertMessage: (fn) => {
-          fn()
-        },
-        onClientNewChat: (fn) => {
-          fn()
-        },
-        onChatLeft: (fn) => {
-          fn()
-        }
+      const bindings: IMessengerMinimizedComponentBindings = {
+        onMessageClick: () => {}
       }
 
-      inject((_$rootScope_, _$compile_, _$timeout_, _$componentController_) => {
-        $rootScope = _$rootScope_
-        $compile = _$compile_
-        timeout = _$timeout_
+      beforeEach(angular.mock.module(($provide) => {
+        $provide.value('apiUrl', 'awesomeURL')
+      }))
 
-        const injectors = {
-          $timeout: timeout,
-          messengerService: messengerService
-        }
+      function create(html, bindings: IMessengerMinimizedComponentBindings): JQuery {
+        const parentScope: ng.IScope = rootScope.$new()
+        const parentBoundScope = angular.extend(parentScope, bindings)
+        let elem = angular.element(html)
+        let compiledElement = compile(elem)(parentBoundScope)
+        parentBoundScope.$digest()
+        return compiledElement
+      }
 
-        component = _$componentController_('messengerMinimized', injectors, bindings)
-        component.messages = ['dsdfsdfsdf']
-        timeout.flush()
+      beforeEach(() => {
+        angular.mock.module('profitelo.services.sounds')
+      })
+
+      beforeEach(angular.mock.module(($provide) => {
+        $provide.value('soundsService', {})
+      }))
+
+      beforeEach(() => {
+        angular.mock.module('templates-module')
+        angular.mock.module('profitelo.components.communicator.messenger.minimized')
+
+        inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService, $timeout: ng.ITimeoutService,
+                $componentController: ng.IComponentControllerService, messengerService: IMessengerService) => {
+
+          rootScope = $rootScope
+          compile = $compile
+
+          const injectors = {
+            $timeout: $timeout,
+            messengerService: messengerService
+          }
+
+          component = $componentController<MessengerMinimizedComponentController, IMessengerMinimizedComponentBindings>(
+            'messengerMinimized', injectors, bindings)
+        })
+      })
+
+      it('should have a dummy test', inject(() => {
+        expect(true).toBeTruthy()
+      }))
+
+      it('should compile the component', () => {
+        let el = create(validHTML, bindings)
+        expect(el.html()).toBeDefined(true)
       })
 
     })
-
-    it('should have a dummy test', inject(() => {
-      expect(true).toBeTruthy()
-    }))
-
-    it('should compile the component', () => {
-      let el = create(validHTML)
-      expect(el.html()).toBeDefined(true)
-    })
-
   })
-})
-
+}

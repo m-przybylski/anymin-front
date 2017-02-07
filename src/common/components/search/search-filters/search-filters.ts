@@ -1,6 +1,7 @@
 module profitelo.components.search.searchFilters {
 
   import IFilterService = profitelo.services.filter.IFilterService
+  import Tag = profitelo.models.Tag
 
   interface ISearchFiltersComponentBindings {
     searchResults: Array<Object>

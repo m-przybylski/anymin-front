@@ -2,6 +2,7 @@ namespace profitelo.services.search {
 
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
   import ICategoryService = profitelo.services.categoryService.ICategoryService
+  import Tag = profitelo.models.Tag
 
   export interface NameValue {
     name: string

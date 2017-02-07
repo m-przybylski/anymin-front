@@ -1,20 +1,20 @@
 namespace profitelo.components.communicator.modals.noCredits {
 
-  interface NoCreditsControllerParentScope extends ng.IScope {
+  export interface INoCreditsControllerParentScope extends ng.IScope {
     reject: Function
     accept: Function
   }
 
-  interface NoCreditsControllerScope extends ng.IScope {
+  export interface INoCreditsControllerScope extends ng.IScope {
     reject: Function
     accept: Function
-    $parent: NoCreditsControllerParentScope
+    $parent: INoCreditsControllerParentScope
   }
 
-  class NoCreditsController {
+  export class NoCreditsController implements ng.IController {
 
     /* @ngInject */
-    constructor(private $scope: NoCreditsControllerScope,
+    constructor(private $scope: INoCreditsControllerScope,
                 private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
 
       $scope.reject = () => {

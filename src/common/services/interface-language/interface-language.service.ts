@@ -64,7 +64,7 @@ namespace profitelo.services.interfaceLanguage {
     // @returns      { String }
     public getStartupLanguage = (ietfCode?: string) => {
       if (typeof ietfCode === 'undefined' || !ietfCode) {
-        ietfCode = null
+        ietfCode = ''
       }
 
       let _queryLang = this.$location.search().lang

@@ -1,44 +1,47 @@
-describe('Testing Controller: clientCallController', () => {
+namespace profitelo.components.communicator.modals.clientCall {
 
-  let clientCallController
-  let scope
-  let uibModalInstance = {
-    dismiss: _ => _,
-    close: _ => _
-  }
-  let parent = {
-    rejectCall: _ => _,
-    answerCall: _ => _
-  }
+  import ClientCallController = profitelo.components.communicator.modals.clientCall.ClientCallController
+  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 
-  beforeEach(() => {
-  angular.mock.module('profitelo.components.communicator.modals.client-call')
-    inject(($rootScope, $controller) => {
+  describe('Testing Controller: clientCallController', () => {
 
-      scope = $rootScope.$new()
-      scope.$parent = parent
+    let controller: ClientCallController
+    let scope: IClientCallControllerScope
 
-      const injectors = {
-        $scope: scope,
-        $uibModalInstance: uibModalInstance
-      }
+    const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
+      jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss']);
 
-      clientCallController = $controller('clientCallController', injectors)
+    beforeEach(() => {
+      angular.mock.module('ui.bootstrap')
+      angular.mock.module('profitelo.components.communicator.modals.client-call')
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
+
+        scope = <IClientCallControllerScope>$rootScope.$new()
+        scope.$parent = <IClientCallParentControllerScope>$rootScope.$new()
+        scope.$parent.rejectCall = () => {}
+        scope.$parent.answerCall = () => {}
+
+        const injectors = {
+          $scope: scope,
+          $uibModalInstance: $uibModalInstance
+        }
+
+        controller = $controller<ClientCallController>('clientCallController', injectors)
+      })
     })
+
+    it('should exists', () => {
+      return expect(!!controller).toBe(true)
+    })
+
+    it('should have rejectCall function', inject(() => {
+
+      spyOn(scope.$parent, 'rejectCall')
+
+      scope.rejectCall()
+
+      expect($uibModalInstance.dismiss).toHaveBeenCalledWith('reject')
+      expect(scope.$parent.rejectCall).toHaveBeenCalled()
+    }))
   })
- 
-  it('should exists', () => {
-    return expect(!!clientCallController).toBe(true)
-  })
-
-  it('should have rejectCall function', () => {
-
-    spyOn(uibModalInstance, 'dismiss')
-    spyOn(scope.$parent, 'rejectCall')
-
-    scope.rejectCall()
-
-    expect(uibModalInstance.dismiss).toHaveBeenCalledWith('reject')
-    expect(scope.$parent.rejectCall).toHaveBeenCalled()
-  })
-})
+}

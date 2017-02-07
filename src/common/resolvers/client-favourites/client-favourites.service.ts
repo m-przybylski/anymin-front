@@ -1,5 +1,7 @@
 namespace profitelo.resolvers.clientFavourites {
 
+  import Money = profitelo.models.Money
+
   export interface IClientFavourites {
     balance: Money
     favouriteProfiles: Array<Profile>

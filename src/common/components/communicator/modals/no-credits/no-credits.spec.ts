@@ -1,30 +1,28 @@
-describe('Testing Controller: noCreditsController', () => {
+namespace profitelo.components.communicator.modals.noCredits {
+  describe('Testing Controller: noCreditsController', () => {
 
-  var noCreditsController
-  var scope
-  var uibModalInstance = {
-    dismiss: () => {
+    let noCreditsController: NoCreditsController
+    let scope: INoCreditsControllerScope
 
-    },
-    close: () => {
+    const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
+      jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss'])
 
-    }
-  }
+    beforeEach(() => {
+      angular.mock.module('profitelo.components.communicator.modals.no-credits')
+      inject(($rootScope: ng.IRootScopeService, $controller: ng.IControllerService) => {
 
-  beforeEach(() => {
-  angular.mock.module('profitelo.components.communicator.modals.no-credits')
-    inject(($rootScope, $controller) => {
+        scope = <INoCreditsControllerScope>$rootScope.$new()
+        scope.$parent = <INoCreditsControllerParentScope>$rootScope.$new()
 
-      scope = $rootScope.$new()
-
-      noCreditsController = $controller('noCreditsController', {
-        '$scope': scope,
-        '$uibModalInstance': uibModalInstance
+        noCreditsController = $controller<NoCreditsController>('noCreditsController', {
+          $scope: scope,
+          $uibModalInstance: $uibModalInstance
+        })
       })
     })
-  })
 
-  it('should exists', () => {
-    return expect(!!noCreditsController).toBe(true)
+    it('should exists', () => {
+      return expect(!!noCreditsController).toBe(true)
+    })
   })
-})
+}

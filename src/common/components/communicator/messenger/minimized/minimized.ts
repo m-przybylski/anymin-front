@@ -2,11 +2,11 @@ namespace profitelo.components.communicator.messenger.minimized {
 
   import IMessengerService = profitelo.services.messenger.IMessengerService
 
-  class MessengerMinimizedComponentBindings {
+  export interface IMessengerMinimizedComponentBindings {
     onMessageClick: (msg: any) => void
   }
 
-  class MessengerMinimizedComponentController implements ng.IController, MessengerMinimizedComponentBindings {
+  export class MessengerMinimizedComponentController implements ng.IController, IMessengerMinimizedComponentBindings {
 
     public onMessageClick: (msg: any) => void
     public messages: Array<any> = []

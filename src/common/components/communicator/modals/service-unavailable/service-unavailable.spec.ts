@@ -1,32 +1,33 @@
-describe('Testing Controller: unavailableServiceController', () => {
+namespace profitelo.components.communicator.modals.serviceUnavailable {
 
-  var unavailableExpertController
-  var scope
-  var uibModalInstance = {
-    dismiss: () => {
+  describe('Testing Controller: unavailableServiceController', () => {
 
-    },
-    close: () => {
+    let unavailableExpertController: UnavailableServiceController
+    let scope: IUnavailableServiceControllerScope
 
-    }
-  }
+    const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
+      jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss'])
 
-  beforeEach(() => {
-  angular.mock.module('profitelo.components.communicator.modals.service-unavailable')
-    inject(($rootScope, $controller) => {
+    beforeEach(() => {
+      angular.mock.module('profitelo.components.communicator.modals.service-unavailable')
 
-      scope = $rootScope.$new()
+      inject(($rootScope: ng.IRootScopeService, $controller: ng.IControllerService) => {
 
-      scope.confirm = _ => _
+        scope = <IUnavailableServiceControllerScope>$rootScope.$new()
+        scope.$parent = <IUnavailableServiceControllerParentScope>$rootScope.$new()
 
-      unavailableExpertController = $controller('unavailableServiceController', {
-        '$scope': scope,
-        '$uibModalInstance': uibModalInstance
+        const injectors = {
+          $scope: scope,
+          $uibModalInstance: $uibModalInstance
+        }
+
+        unavailableExpertController = $controller<UnavailableServiceController>(
+          'unavailableServiceController', injectors)
       })
     })
-  })
 
-  it('should exists', () => {
-    return expect(!!unavailableExpertController).toBe(true)
+    it('should exists', () => {
+      return expect(!!unavailableExpertController).toBe(true)
+    })
   })
-})
+}

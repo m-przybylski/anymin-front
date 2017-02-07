@@ -1,32 +1,35 @@
-describe('Testing Controller: consultationSummaryExpertController', () => {
+namespace profitelo.components.communicator.modals.consultationSummaryExpert {
 
-  var consultationSummaryExpertController
-  var scope
-  var uibModalInstance = {
-    dismiss: () => {
+  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 
-    },
-    close: () => {
+  describe('Testing Controller: consultationSummaryExpertController', () => {
 
-    }
-  }
+    let consultationSummaryExpertController: ConsultationSummaryExpertController
+    let scope: IConsultationSummaryExpertControllerScope
 
-  beforeEach(() => {
-  angular.mock.module('profitelo.components.communicator.modals.consultation-summary-expert')
-    inject(($rootScope, $controller) => {
+    const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
+      jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss'])
 
-      scope = $rootScope.$new()
-      scope.disconnectCall = () => {}
+    beforeEach(() => {
+      angular.mock.module('profitelo.components.communicator.modals.consultation-summary-expert')
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
 
-      consultationSummaryExpertController = $controller('consultationSummaryExpertController', {
-        '$scope': scope,
-        '$uibModalInstance': uibModalInstance
+        scope = <IConsultationSummaryExpertControllerScope>$rootScope.$new()
+        scope.$parent = <IConsultationSummaryExpertParentControllerScope>$rootScope.$new()
+
+        const injectors = {
+          $scope: scope,
+          $uibModalInstance: $uibModalInstance
+        }
+
+        consultationSummaryExpertController = $controller<ConsultationSummaryExpertController>(
+          'consultationSummaryExpertController', injectors)
       })
     })
-  })
- 
-  it('should exists', () => {
-    return expect(!!consultationSummaryExpertController).toBe(true)
-  })
 
-})
+    it('should exists', () => {
+      return expect(!!consultationSummaryExpertController).toBe(true)
+    })
+
+  })
+}

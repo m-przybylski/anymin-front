@@ -1,11 +1,11 @@
 namespace profitelo.components.communicator.messenger.maximized.groupedMessages {
 
-  class GroupedMessagesComponentBindings {
+  export interface IGroupedMessagesComponentBindings {
     messages: Array<any>
     participantAvatar: string
   }
 
-  class GroupedMessagesComponentController implements ng.IController, GroupedMessagesComponentBindings {
+  export class GroupedMessagesComponentController implements ng.IController, IGroupedMessagesComponentBindings {
 
     public messages: Array<any> = []
     public participantAvatar: string = ''
