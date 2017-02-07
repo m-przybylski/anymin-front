@@ -97,6 +97,7 @@ module.exports = {
       'node_modules/angular-translate-interpolation-messageformat/angular-translate-interpolation-messageformat.js',
       'node_modules/angular-dynamic-locale/dist/tmhDynamicLocale.js',
       'node_modules/ng-lodash/build/ng-lodash.min.js',
+      'node_modules/croppie/croppie.js',
 
       'node_modules/hellojs/dist/hello.all.min.js',
       'node_modules/c7s-ng/build/c7s-ng.js',
@@ -117,7 +118,8 @@ module.exports = {
       'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css',
       'node_modules/ui-select/dist/select.css',
       'node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.css',
-      'node_modules/angularjs-slider/dist/rzslider.css'
+      'node_modules/angularjs-slider/dist/rzslider.css',
+      'node_modules/croppie/croppie.css'
     ],
     assets: []
   },
