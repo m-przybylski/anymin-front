@@ -12,9 +12,14 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
     saveCrop: Function
     submitBasicSettings: Function
     userName: string
+    removePhoto: Function
+    generalSettingsObject: any
   }
 
   class BasicAccountSettingsController implements ng.IController {
+
+    $onInit = () => {
+    }
 
     /* @ngInject */
     constructor(private $scope: IBasicAccountSettingsControllerScope,
@@ -23,14 +28,36 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
 
       $scope.isNavbar = true
       $scope.isFullscreen = true
-      $scope.isAvatarVisableToExpert = true
       $scope.isUserUploadImage = false
+
+      const userBasicSettings = this.User.getData('settings')
+
+      this.$scope.generalSettingsObject = {
+        isAnonymous: userBasicSettings.isAnonymous,
+        nickname: userBasicSettings.nickname,
+        avatar: userBasicSettings.avatar
+      }
+
+      this.$scope.submitBasicSettings = () => {
+        this.AccountApi.partialUpdateAccount({accountId: this.User.getData('id')}, {settings: this.$scope.generalSettingsObject}).$promise.then((res) => {
+          console.log(res)
+          $scope.onModalClose
+        }, (err) => {
+          console.log(err)
+        })
+
+      }
 
       $scope.addPhoto = (imagePath) => {
         if (imagePath.length > 0) {
           $scope.imageSource = imagePath
           $scope.isUserUploadImage = true
         }
+      }
+
+      $scope.removePhoto = () => {
+        $scope.imageSource = ''
+        const img = $('.croppie-result').replaceWith('<img class="user-avatar fullScreen" src="/assets/images/no-avatar.png" />')
       }
 
       $scope.saveCrop = (data, result) => {
@@ -46,21 +73,6 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
       $scope.onModalClose = () =>
         $uibModalInstance.dismiss('cancel')
 
-      $scope.submitBasicSettings = () => {
-        console.log('submit form')
-        const generalSettingsObject = {
-          isAnonymous: $scope.isAvatarVisableToExpert,
-          nickname: $scope.userName,
-          avatar: ''
-        }
-
-        AccountApi.partialUpdateAccount(User.getData('id'), generalSettingsObject).$promise.then((res) => {
-          console.log(res)
-        }, (err) => {
-          console.log(err)
-        })
-
-      }
 
     }
 

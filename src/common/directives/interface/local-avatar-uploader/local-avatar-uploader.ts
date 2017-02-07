@@ -26,15 +26,15 @@ namespace profitelo.directives.interface.localAvatarUploader {
     public link = (scope: ILocalAvatarUploaderDirectiveScope, element: any, attr: ng.IAttributes) => {
       this.element = element
 
-      this.element.find('input').on('change', (e: any) => {
+      this.element.find('input').on('change', (changeEventObject: any) => {
         const reader = new FileReader()
 
-        reader.onload = (e: any) => {
-          scope.onFileUpload(e.target.result)
+        reader.onload = (noLoadEventObject: any) => {
+          scope.onFileUpload(noLoadEventObject.target.result)
 
         }
 
-        reader.readAsDataURL(e.target.files[0])
+        reader.readAsDataURL(changeEventObject.target.files[0])
       })
 
     }

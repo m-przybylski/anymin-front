@@ -10,7 +10,7 @@ scrollable.basic-account-settings(data-is-fullscreen="isFullscreen" data-is-navb
             .thumb.x192
               img.user-avatar.fullScreen(data-ng-src="{{ imageSource || '/assets/images/no-avatar.png' }}")
 
-              a.thumb-options
+              a.thumb-options(data-ng-show="!!imageSource && imageSource.length > 0" data-ng-click="removePhoto()")
                 .icon.icon-trash-24-1
 
           local-avatar-uploader.local-avatar-uploader(on-file-upload='addPhoto')
@@ -19,15 +19,13 @@ scrollable.basic-account-settings(data-is-fullscreen="isFullscreen" data-is-navb
             pro-input.full-name.label(data-label="{{ 'SETTINGS.GENERAL.BASIC_ACCOUNT.NAME_INPUT_LABEL' | translate }}"
             data-type="text"
             data-placeholder="{{ :: 'SETTINGS.GENERAL.BASIC_ACCOUNT.NAME_INPUT_PLACEHOLDER' | translate }}"
-            data-ng-model="userName"
-            data-ng-class="{'invalid': !vm.isValidPhoneNumber(vm.account.phoneNumber.prefix, vm.account.phoneNumber.number) " +
-            "&& (phoneNumberForm.phoneNumber.$dirty || phoneNumberForm.$submitted)}")
+            data-ng-model="generalSettingsObject.nickname")
 
           .input-error-messages
             .error.left(data-ng-show="phoneNumberForm.$submitted && !vm.isValidPhoneNumber(vm.account.phoneNumber.prefix, vm.account.phoneNumber.number) || phoneNumberForm.$submitted &&  vm.account.phoneNumber.prefix === null "
             data-translate="::LOGIN.PHONE_NUMBER_REQUIRED")
 
-          pro-checkbox(data-ng-model="isAvatarVisableToExpert"
+          pro-checkbox(data-ng-model="generalSettingsObject.isAnonymous"
           data-label="{{:: 'SETTINGS.GENERAL.BASIC_ACCOUNT.NAME_CHECKBOX_LABEL' | translate }}"
           data-ng-class="{'invalid': !$ctrl.rulesAccepted && paymentForm.$submitted}")
 
