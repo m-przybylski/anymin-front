@@ -32,6 +32,7 @@ namespace profitelo.components.dashboard.settings.modals.general.phoneSettings {
     'ui.bootstrap',
     'profitelo.directives.interface.pro-input',
     'profitelo.directives.interface.scrollable',
+    'profitelo.directives.interface.pro-dropdown',
     'profitelo.components.interface.pin-verification'
   ])
   .controller('generalPhoneSettingsController', GeneralPhoneSettingsController)

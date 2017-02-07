@@ -1,12 +1,11 @@
-namespace profitelo.components.communicator {
+namespace profitelo.components.interface.pinVerification {
 
-  class PinVerificationController implements ng.IController {
+  export class PinVerificationController implements ng.IController {
 
     /* @ngInject */
     constructor() {
 
     }
-
   }
 
   class PinVerificationComponent implements ng.IComponentOptions {
