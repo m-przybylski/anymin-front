@@ -21,8 +21,8 @@ namespace app.dashboard.client.activities {
     }
     public queryParams = {}
 
-    constructor(private $scope: ng.IScope, private $timeout: ng.ITimeoutService,
-                private clientActivities: IClientActivities, private clientActivitiesService: IClientActivitiesService) {
+    constructor($scope: ng.IScope, $timeout: ng.ITimeoutService,
+                clientActivities: IClientActivities, private clientActivitiesService: IClientActivitiesService) {
 
       this.activities = clientActivities.activities
       this.balance = clientActivities.balance
@@ -77,10 +77,6 @@ namespace app.dashboard.client.activities {
 
     private isMoreResultsAvailable = (results, limit) => {
       return results.length > limit
-    }
-
-    private onSetSearchParams = () => {
-      this.isSearchLoading = true
     }
 
     public sendRequestAgain = () => {

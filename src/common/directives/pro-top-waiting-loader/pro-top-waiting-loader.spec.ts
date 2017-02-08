@@ -1,8 +1,6 @@
 describe('Unit testing: profitelo.directives.pro-top-waiting-loader', () => {
   return describe('for proTopWaitingLoader >', () => {
 
-    let _placeholder = 'PLACEHOLDER'
-
     let scope: any = null
     let rootScope
     let compile: any = null

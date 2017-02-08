@@ -7,7 +7,6 @@ describe('Unit testing: profitelo.components.interface.show-more-text', () => {
     let componentController
     let component
     let window
-    let element
     let validHTML = '<show-more-text data-text="text"></show-more-text>'
     const bindings = {
       text: 'Sample text'
@@ -31,7 +30,7 @@ describe('Unit testing: profitelo.components.interface.show-more-text', () => {
         compile = $compile
         window = _$window_
 
-        
+
         const injectors = {
           $element: create(validHTML),
           $scope: rootScope,

@@ -9,7 +9,6 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-amo
     let componentController
     let bindings
     let component
-    let scrollHandler
     let validHTML = '<choose-amount-charge data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_AMMOUNT_CHARGE" data-amounts="{paymentOptions: [{amount:  20000}], ' +
       'minimalAmounts: {}}" data-amount-model="{cashAmount: null, amount: null}" scroll-handler="ctrl.scrollHandler"></choose-amount-charge>'
 
@@ -20,7 +19,7 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-amo
       scope.$digest()
       return compiledElement
     }
-    
+
     beforeEach(angular.mock.module(function($provide) {
       $provide.value('apiUrl', url)
     }))
@@ -38,7 +37,7 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-amo
         rootScope = $rootScope.$new()
         compile = $compile
       })
-      
+
       bindings = {
         amountModel: {
           cashAmount: {
@@ -55,7 +54,7 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-amo
       component = componentController('chooseAmountCharge', null, bindings)
       expect(component.amountModel).toBeDefined()
     })
-    
+
 
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
@@ -75,6 +74,6 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-amo
       el.find('.option').trigger('click')
       expect(scope.ctrl.scrollHandler).toHaveBeenCalled()
     })
-    
+
   })
 })

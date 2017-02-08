@@ -48,7 +48,7 @@ function proDropdown($timeout, lodash: _.LoDashStatic) {
       currentDropdownStatus = isOpen
     }
 
-    
+
     scope.select = function(item, model) {
       scope.selectedItem = item
       _onFocusOut()
@@ -58,10 +58,11 @@ function proDropdown($timeout, lodash: _.LoDashStatic) {
       }
     }
 
-    scope.isDisable = ()=> {
+    scope.isDisable = () => {
       if ('disable' in attr) {
         return true
       }
+      return false
     }
 
     scope.update = function() {
@@ -74,6 +75,7 @@ function proDropdown($timeout, lodash: _.LoDashStatic) {
       if ('noSearch' in attr) {
         return false
       }
+      return false
     }
     scope.onMouseover = ()=> {
       scope.focus = true

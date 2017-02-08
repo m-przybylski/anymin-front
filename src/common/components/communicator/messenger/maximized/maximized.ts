@@ -39,7 +39,7 @@ namespace profitelo.components.communicator.messenger.maximized {
     constructor(private $log: ng.ILogService, private $timeout: ng.ITimeoutService,
                 private $element: ng.IRootElementService, private messengerService: IMessengerService,
                 private lodash: _.LoDashStatic, private urlService: IUrlService,
-                private uploaderFactory: IUploaderFactory) {
+                uploaderFactory: IUploaderFactory) {
 
       uploaderFactory.getInstance(1, uploaderFactory.collectionTypes.avatar)
       this.messagesScroll.perfectScrollbar()

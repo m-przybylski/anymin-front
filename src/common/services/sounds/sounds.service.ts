@@ -37,7 +37,7 @@ namespace profitelo.services.sounds {
     private callIncomingSoundCount = 0
     private isCallConnecting = false
 
-    constructor(private $log: ng.ILogService, private lodash: _.LoDashStatic) {
+    constructor(private $log: ng.ILogService, lodash: _.LoDashStatic) {
 
       this.soundPaths = lodash.mapValues(SoundsService.soundFiles, filename => SoundsService.path + filename)
       this.soundObjects = lodash.mapValues(this.soundPaths, path => new Audio(path))

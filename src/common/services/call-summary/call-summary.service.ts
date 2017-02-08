@@ -19,7 +19,7 @@ namespace profitelo.services.callSummary {
       onCallSummary: 'onCallSummary'
     }
 
-    constructor(private callbacksFactory: ICallbacksFactory, private profiteloWebsocket: IProfiteloWebsocketService,
+    constructor(callbacksFactory: ICallbacksFactory, profiteloWebsocket: IProfiteloWebsocketService,
                 private lodash: _.LoDashStatic) {
 
       this.callSummaries = []

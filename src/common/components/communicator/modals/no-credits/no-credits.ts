@@ -14,8 +14,8 @@ namespace profitelo.components.communicator.modals.noCredits {
   export class NoCreditsController implements ng.IController {
 
     /* @ngInject */
-    constructor(private $scope: INoCreditsControllerScope,
-                private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
+    constructor($scope: INoCreditsControllerScope,
+                $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
 
       $scope.reject = () => {
         $uibModalInstance.dismiss('cancel')

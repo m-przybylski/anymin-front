@@ -19,7 +19,7 @@ namespace profitelo.components.communicator.modals.consultationSummaryExpert {
 
     /* @ngInject */
     constructor(private $scope: IConsultationSummaryExpertControllerScope,
-                private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
+                $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
                 private callSummaryService: ICallSummaryService) {
 
       $scope.isFullscreen = true

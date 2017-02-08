@@ -1,7 +1,7 @@
 describe('Unit testing: profitelo.services.search >', () => {
   describe('for searchService service >', () => {
 
-    let searchService, httpBackend, SearchApiDef, CategoryApiDef, $scope, $rootScope
+    let searchService, httpBackend, SearchApiDef, CategoryApiDef, $rootScope
 
     beforeEach(angular.mock.module(($provide) => {
       $provide.value('apiUrl', '')

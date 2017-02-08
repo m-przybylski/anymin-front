@@ -14,8 +14,8 @@ namespace profitelo.components.communicator.modals.serviceUnavailable {
   export class UnavailableServiceController implements ng.IController {
 
     /* @ngInject */
-    constructor(private $scope: IUnavailableServiceControllerScope,
-                private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
+    constructor($scope: IUnavailableServiceControllerScope,
+                $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
 
       $scope.reject = () => {
         $uibModalInstance.dismiss('cancel')

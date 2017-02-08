@@ -36,6 +36,9 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
       expect(true).toBeTruthy()
     }))
 
-
+    it('should create element', inject(function() {
+      create(validHTML)
+      expect(true).toBeTruthy()
+    }))
   })
 })

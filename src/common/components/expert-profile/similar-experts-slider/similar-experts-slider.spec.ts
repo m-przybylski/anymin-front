@@ -8,10 +8,8 @@ describe('Unit testing: profitelo.components.expert-profile.similar-experts-slid
     let component
     let $state
     let bindings
-    let similarExpertsSlider
     let validHTML = '<similar-experts-slider consultations="[{name: null}]"></similar-experts-slider>'
     let el
-    let slide
 
     function create(html) {
       scope = rootScope.$new()

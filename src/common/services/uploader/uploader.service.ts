@@ -27,7 +27,7 @@ namespace profitelo.services.uploader {
     private fileObjectsToUpload: Array<FileObject> = []
     private urls: any
 
-    constructor(private $q: ng.IQService, private $timeout: ng.ITimeoutService, private CommonConfig: ICommonConfig,
+    constructor(private $q: ng.IQService, private $timeout: ng.ITimeoutService, CommonConfig: ICommonConfig,
                 private FilesApi: any, private Upload: any, private simultaneousUploadCount: number,
                 private collectionType: string) {
 
@@ -132,7 +132,7 @@ namespace profitelo.services.uploader {
       avatar: 'avatar'
     }
 
-    constructor(private $q: ng.IQService, private $log: ng.ILogService, private $timeout: ng.ITimeoutService,
+    constructor(private $q: ng.IQService, private $timeout: ng.ITimeoutService,
                 private CommonConfig: ICommonConfig, private FilesApi: any, private Upload: any) {
     }
 

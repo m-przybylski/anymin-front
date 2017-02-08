@@ -31,17 +31,16 @@ describe('Unit testing: profitelo.directives.ng-enter', () => {
       let el = create()
       expect(el.html()).toBeDefined(true)
     })
-    
+
     it('should call the mock function on pressing enter', () => {
-    
+
       let el = create()
-      let isoScope = el.isolateScope()
       spyOn(scope, 'mockFunction').and.callThrough()
       var e = jQuery.Event('keypress')
       e.which = 13
       e.keyCode = 13
       el.trigger(e)
-    
+
       expect(scope.mockFunction).toHaveBeenCalled()
     })
 

@@ -23,8 +23,8 @@ namespace profitelo.services.profiteloWebsocket {
     }
 
     constructor(private $log: ng.ILogService, private $rootScope: IRootScopeService,
-                private $timeout: ng.ITimeoutService, private callbacksFactory: ICallbacksFactory,
-                private CommonConfig: ICommonConfig) {
+                private $timeout: ng.ITimeoutService, callbacksFactory: ICallbacksFactory,
+                CommonConfig: ICommonConfig) {
 
       this.callbacks = callbacksFactory.getInstance(Object.keys(ProfiteloWebsocketService.events))
       this.wsEndpoint = CommonConfig.getAllData().urls.ws + '/ws/register'

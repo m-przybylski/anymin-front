@@ -1,8 +1,6 @@
 describe('Unit testing: profitelo.directives.interface.pro-checkbox', () => {
   return describe('for interface.pro-checkbox directive >', () => {
 
-    let _placeholder = 'PLACEHOLDER'
-
     let scope: any     = null
     let rootScope
     let compile: any   = null

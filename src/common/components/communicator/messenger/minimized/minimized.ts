@@ -14,7 +14,7 @@ namespace profitelo.components.communicator.messenger.minimized {
     private static messageShowTimeout = 5000
 
     /* @ngInject */
-    constructor(private $timeout: ng.ITimeoutService, private messengerService: IMessengerService) {
+    constructor(private $timeout: ng.ITimeoutService, messengerService: IMessengerService) {
 
       messengerService.onClientMessage(this.showMessage)
       messengerService.onExpertMessage(this.showMessage)

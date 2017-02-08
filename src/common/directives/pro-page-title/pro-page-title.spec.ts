@@ -55,7 +55,7 @@ describe('Unit testing: profitelo.directives.page-title', () => {
 
     it('should handle bad input', () => {
 
-      let el = create()
+      create()
 
       let sampleState = {
         pageTitle: 'page 1'

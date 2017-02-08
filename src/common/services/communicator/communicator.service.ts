@@ -59,9 +59,9 @@ namespace profitelo.services.communicator {
       onRoom: 'onRoom'
     }
 
-    constructor(private $log: ng.ILogService, private $q: ng.IQService, private callbacksFactory: ICallbacksFactory,
+    constructor(private $log: ng.ILogService, private $q: ng.IQService, callbacksFactory: ICallbacksFactory,
                 private User, private RatelApi, private ProfileApi, private ratelSdk,
-                private CommonConfig: ICommonConfig, private lodash: _.LoDashStatic) {
+                CommonConfig: ICommonConfig, private lodash: _.LoDashStatic) {
 
       this.commonConfig = CommonConfig.getAllData()
       this.ratelSessions = new SessionStorage()

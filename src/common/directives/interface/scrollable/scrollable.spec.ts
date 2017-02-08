@@ -44,19 +44,17 @@ describe('Unit testing: profitelo.directives.interface.scrollable', () => {
     })
 
     it('should timeout', inject(() => {
-      const el = create(validHTML)
+      create(validHTML)
       timeout.flush()
     }))
 
     it('should timeout', inject(() => {
-      const el = create(validHTML)
-      const isNavbarShowed = true
+      create(validHTML)
       timeout.flush()
     }))
 
     it('should assignNewHeightConainer', inject(() => {
-      const el = create(validHTML)
-
+      create(validHTML)
     }))
   })
 })

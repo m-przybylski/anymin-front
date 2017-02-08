@@ -74,6 +74,7 @@ function proTagsDropdown($timeout, CommonSettingsService) {
       if ('noSearch' in attr) {
         return false
       }
+      return true
     }
 
   }

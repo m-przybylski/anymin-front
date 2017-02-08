@@ -2,17 +2,12 @@ describe('Unit tests: ProServiceProviderSummaryController >', () => {
   describe('Testing Controller: ProServiceProviderSummaryController', () => {
 
     var ProServiceProviderSummaryController
-    let _vm
-
 
     beforeEach(() => {
-    angular.mock.module('profitelo.common.controller.service-provider.pro-service-provider-summary-controller')
+      angular.mock.module('profitelo.common.controller.service-provider.pro-service-provider-summary-controller')
       inject(($rootScope, $controller) => {
 
-        ProServiceProviderSummaryController = $controller('ProServiceProviderSummaryController', {
-        })
-
-
+        ProServiceProviderSummaryController = $controller('ProServiceProviderSummaryController', {})
       })
     })
 
@@ -22,29 +17,26 @@ describe('Unit tests: ProServiceProviderSummaryController >', () => {
 
     it('should call deleteAction when deleteConsultation triggered', () => {
 
-      ProServiceProviderSummaryController.deleteAction = () => {}
+      ProServiceProviderSummaryController.deleteAction = () => {
+      }
 
       spyOn(ProServiceProviderSummaryController, 'deleteAction')
 
       ProServiceProviderSummaryController.deleteConsultation()
 
       expect(ProServiceProviderSummaryController.deleteAction).toHaveBeenCalled()
-
-
     })
 
     it('should call editAction when editConsultation triggered', () => {
 
-      ProServiceProviderSummaryController.editAction = () => {}
+      ProServiceProviderSummaryController.editAction = () => {
+      }
 
       spyOn(ProServiceProviderSummaryController, 'editAction')
 
       ProServiceProviderSummaryController.editConsultation()
 
       expect(ProServiceProviderSummaryController.editAction).toHaveBeenCalled()
-
-
     })
-
   })
 })

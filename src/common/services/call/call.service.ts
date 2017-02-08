@@ -2,7 +2,6 @@ namespace profitelo.services.call {
 
   import INavigatorService = profitelo.services.navigator.INavigatorService
   import ICommunicatorService = profitelo.services.communicator.ICommunicatorService
-  import ServiceUsageDetails = profitelo.models.ServiceUsageDetails
   import ServiceUsageRequest = profitelo.models.ServiceUsageRequest
   import IModalsService = profitelo.services.modals.IModalsService
   import ISoundsService = profitelo.services.sounds.ISoundsService
@@ -69,9 +68,9 @@ namespace profitelo.services.call {
     }
 
     constructor(private $q: ng.IQService, private $log: ng.ILogService, private navigatorService: INavigatorService,
-                private callbacksFactory: ICallbacksFactory, private communicatorService: ICommunicatorService,
-                private modalsService: IModalsService, private soundsService: ISoundsService,
-                private timerFactory: ITimerFactory, private User, private RatelApi, private ServiceApi) {
+                callbacksFactory: ICallbacksFactory, private communicatorService: ICommunicatorService,
+                private modalsService: IModalsService, private soundsService: ISoundsService, private User: any,
+                private timerFactory: ITimerFactory, private RatelApi: any, private ServiceApi: any) {
 
       this.hangupFunction = () => $q.reject('NO CALL')
       this.callbacks = callbacksFactory.getInstance(Object.keys(CallService.events))
@@ -333,9 +332,10 @@ namespace profitelo.services.call {
       )
     }
 
-    private onNoFunds = () => {
+    // FIXME
+    /*private onNoFunds = () => {
       this.modalsService.createNoFundsModal(() => _, () => _)
-    }
+    }*/
 
     private onConsultationUnavailable = () => {
       this.cleanupService()

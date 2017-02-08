@@ -42,8 +42,8 @@ namespace profitelo.services.messenger {
       onExpertCreatedRoom: 'onExpertCreatedRoom'
     }
 
-    constructor(private $q: ng.IQService, private $log: ng.ILogService, private callbacksFactory: ICallbacksFactory,
-                private communicatorService: ICommunicatorService, private callService: ICallService,
+    constructor(private $q: ng.IQService, private $log: ng.ILogService, callbacksFactory: ICallbacksFactory,
+                private communicatorService: ICommunicatorService, callService: ICallService,
                 private soundsService) {
 
       this.callbacks = callbacksFactory.getInstance(Object.keys(MessengerService.events))
@@ -200,8 +200,7 @@ namespace profitelo.services.messenger {
 
     private createClientDirectRoom = (_ratelId) => {
       if (this.room) {
-        this.$log.error('Message room already exists')
-        return void(0)
+        throw new Error('Message room already exists')
       }
 
       const session = this.communicatorService.getClientSession()

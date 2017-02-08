@@ -13,7 +13,7 @@ namespace profitelo.services.commonSettings {
     public links
     public localSettings
 
-    constructor(private CommonConfig: ICommonConfig) {
+    constructor(CommonConfig: ICommonConfig) {
       this.commonConfigData = CommonConfig.getAllData()
       this.urls = this.commonConfigData.urls
       this.validation = this.commonConfigData.validation

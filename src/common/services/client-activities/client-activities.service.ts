@@ -34,7 +34,7 @@ namespace profitelo.services.clientActivities {
     private static activitiesResultsEvent = 'activities-results'
     private static queryParamsEvent = 'activities-query-params'
 
-    constructor(private $q: ng.IQService, private $rootScope: ng.IRootScopeService, private ViewsApi, private User) {
+    constructor(private $q: ng.IQService, private $rootScope: ng.IRootScopeService, private ViewsApi: any) {
 
       this._queryParams = {}
       this._defineQueryProperties(this._queryParams)

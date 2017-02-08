@@ -129,9 +129,6 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
 
     it('should add saved elements to scope model', () => {
 
-      let details = {
-        token: file
-      }
 
       resourcesExpectations.FilesApi.fileInfoPath.respond(200, {
         token: file
@@ -150,13 +147,10 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
     })
 
     it('should alert on backend error', () => {
-      let details = {
-        id: file
-      }
 
       resourcesExpectations.FilesApi.fileInfoPath.respond(500)
 
-      let el = create(validHTML, {
+      create(validHTML, {
         files: [file]
       })
 

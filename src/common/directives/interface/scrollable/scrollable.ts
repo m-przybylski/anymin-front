@@ -26,7 +26,7 @@ namespace profitelo.directives.scrollable {
 
     /* ngInject */
     constructor(private $timeout: ng.ITimeoutService, private $interval: ng.IIntervalService,
-                private $window: ng.IWindowService, private styleConstant: IStyleConstant) {
+                private styleConstant: IStyleConstant) {
     }
 
     public link = (scope: IScrollableDirectiveScope, element: ng.IRootElementService, attr: ng.IAttributes) => {
@@ -94,7 +94,7 @@ namespace profitelo.directives.scrollable {
     public static getInstance = () => {
       const instance = ($timeout: ng.ITimeoutService, $window: ng.IWindowService, $interval: ng.IIntervalService,
                         styleConstant) =>
-        new ScrollableDirective($timeout, $interval, $window, styleConstant)
+        new ScrollableDirective($timeout, $interval, styleConstant)
       instance.$inject = ['$timeout', '$window', '$interval', 'styleConstant']
       return instance
     }

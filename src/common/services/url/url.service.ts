@@ -9,7 +9,7 @@ namespace profitelo.services.helper {
 
     private commonConfig
 
-    constructor(private CommonSettingsService, private CommonConfig: ICommonConfig, private lodash: _.LoDashStatic) {
+    constructor(private CommonSettingsService, private lodash: _.LoDashStatic, CommonConfig: ICommonConfig) {
       this.commonConfig = CommonConfig.getAllData()
     }
 

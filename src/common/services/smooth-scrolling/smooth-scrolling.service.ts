@@ -76,6 +76,7 @@ namespace profitelo.services.smoothScrolling {
 
       }
       scrollFunction()
+      return true
     }
 
     public simpleScrollTo = (element, isNavbar, time = 1000) => {

@@ -1,8 +1,6 @@
 describe('Unit testing: profitelo.directives.pro-advice-tile', () => {
   return describe('for proAdviceTile directive >', () => {
 
-    let _placeholder = 'PLACEHOLDER'
-
     let scope: any = null
     let rootScope
     let compile: any = null

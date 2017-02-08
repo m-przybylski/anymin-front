@@ -41,6 +41,11 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.thank-you-
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
+
+    it('should create element', inject(() => {
+      create(validHTML)
+      expect(true).toBeTruthy()
+    }))
   })
 })
 

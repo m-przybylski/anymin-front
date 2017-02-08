@@ -46,7 +46,7 @@ module profitelo.components.search.searchFilters {
     }
     /* @ngInject */
     constructor(private $filter: IFilterService, private $window: ng.IWindowService,
-                private searchService: ISearchService, private lodash: _.LoDashStatic,
+                searchService: ISearchService, private lodash: _.LoDashStatic,
                 private $timeout: ng.ITimeoutService, private $scope: ng.IScope) {
 
       searchService.getAvailableOptions().then((options) => {

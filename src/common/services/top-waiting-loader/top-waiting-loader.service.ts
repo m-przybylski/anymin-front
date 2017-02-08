@@ -15,7 +15,7 @@ namespace profitelo.services.topWaitingLoader {
     private currentProgress: number
     private immediateInterval
 
-    constructor(private $rootScope: IRootScopeService, private $timeout: ng.ITimeoutService,
+    constructor($rootScope: IRootScopeService, private $timeout: ng.ITimeoutService,
                 private $interval: ng.IIntervalService) {
 
       this.immediateInProgress = false
