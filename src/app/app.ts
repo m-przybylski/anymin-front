@@ -53,7 +53,7 @@ namespace profitelo.app {
       $anchorScroll()
     })
 
-    $rootScope.$on('$stateChangeError', (event, toState, toParams, fromState, fromParams, error) => {
+    $rootScope.$on('$stateChangeError', (event, _toState, _toParams, _fromState, _fromParams, error) => {
       event.preventDefault()
       $state.get('app.error').error = error
       return $state.go('app.error', null, {
@@ -115,25 +115,28 @@ namespace profitelo.app {
         User.setApiKeyHeader(apikey)
       }
 
-      User.getStatus().then((session) => {
+      User.getStatus().then((_session) => {
         userTransfer(event, toState, fromState)
-      }, (getStatusError) => {
+      }, (_getStatusError) => {
         userTransfer(event, toState, fromState)
       })
     }
 
     $rootScope.$on('$stateChangeError', (event, toState, toParams, fromState, fromParams, error) => {
-      $log.error(error)
+      $log.error(error, fromState, fromParams, toState, toParams, event)
     })
 
-    $rootScope.$on('$stateChangeStart', (event, toState, toParams, fromState, fromParams, error) => {
+    $rootScope.$on('$stateChangeStart', (event, toState, _toParams, fromState, _fromParams, _error) => {
       validateUserAccess(event, toState, fromState)
     })
   }
 
-  function configFunction($urlRouterProvider, $httpProvider, $stateProvider, $resourceProvider, $translateProvider,
-                          $locationProvider, $animateProvider, tmhDynamicLocaleProvider, UserProvider,
-                          UserRolesProvider, CommonConfigProvider, $qProvider) {
+  function configFunction($urlRouterProvider: ng.ui.IUrlRouterProvider, $httpProvider: ng.IHttpProvider,
+                          $stateProvider: ng.ui.IStateProvider, $resourceProvider: ng.resource.IResourceServiceProvider,
+                          $translateProvider: ng.translate.ITranslateProvider, $locationProvider: ng.ILocationProvider,
+                          $animateProvider: ng.animate.IAnimateProvider,
+                          tmhDynamicLocaleProvider: ng.dynamicLocale.tmhDynamicLocaleProvider, UserProvider: any,
+                          UserRolesProvider: any, CommonConfigProvider: any) {
 
 
     $httpProvider.defaults.withCredentials = true
@@ -173,7 +176,7 @@ namespace profitelo.app {
             }
             /* istanbul ignore next */
             return $q.resolve()
-          }, (err) => {
+          }, () => {
             $rootScope.loggedIn = false
           })
         },
@@ -222,7 +225,7 @@ namespace profitelo.app {
       'pl': 'pl-pl'
     }).determinePreferredLanguage()
 
-    $translateProvider.useSanitizeValueStrategy(null)
+    $translateProvider.useSanitizeValueStrategy('')
 
     // configure loading angular locales
     tmhDynamicLocaleProvider.localeLocationPattern('assets/angular-i18n/angular-locale_{{locale}}.js')

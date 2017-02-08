@@ -5,7 +5,7 @@ describe('Unit tests: ChoosePathController >', () => {
 
     beforeEach(() => {
     angular.mock.module('profitelo.controller.dashboard.service-provider.choose-path')
-      inject(($rootScope, $controller) => {
+      inject(($controller: ng.IControllerService) => {
         ChoosePathController = $controller('ChoosePathController', {
           profileStatus: {}
         })

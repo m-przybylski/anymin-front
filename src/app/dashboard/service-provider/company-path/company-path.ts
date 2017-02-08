@@ -93,7 +93,7 @@
         controller: 'CompanyPathController',
         controllerAs: 'vm',
         resolve: {
-          savedProfile: ($q, $state, ProfileApi, User, topAlertService) => {
+          savedProfile: ($log, $q, $state, ProfileApi, User, topAlertService) => {
             /* istanbul ignore next */
             let _deferred = $q.defer()
             /* istanbul ignore next */
@@ -106,6 +106,7 @@
                 _deferred.resolve(null)
               })
             }, (error) => {
+              $log.error(error)
               $state.go('app.dashboard')
               topAlertService.error({
                 message: 'error',

@@ -1,6 +1,6 @@
-(function() {
+(function () {
 
-  function _controller($filter, $state, proTopWaitingLoaderService, User, topAlertService, AccountApi) {
+  function _controller($log, $filter, $state, proTopWaitingLoaderService, User, topAlertService, AccountApi) {
 
     this.isPending = false
     this.rulesAccepted = false
@@ -19,6 +19,7 @@
         patchObject.accountId = User.getData('id')
 
         AccountApi.partialUpdateAccount(patchObject).$promise.then(successCallback, (error) => {
+          $log.error(error)
           this.isPending = false
           proTopWaitingLoaderService.stopLoader()
           topAlertService.error({
@@ -37,9 +38,9 @@
     }
 
     this.setNewEmail = () => {
-      _isEmailExists(this.email).then(response => {
+      _isEmailExists(this.email).then(_response => {
         this.emailExist = true
-      }, ()=> {
+      }, () => {
         _updateNewUserObject({
           unverifiedEmail: this.email
         }, () => {
@@ -65,7 +66,7 @@
       templateUrl: 'post-register/set-email/set-email.tpl.html',
       resolve: {
         /* istanbul ignore next */
-        redirect: (User, $state, $timeout, $q) => {
+        redirect: (User, $state, $q) => {
           /* istanbul ignore next */
           return User.getStatus().then((status) => {
             if (((angular.isDefined(status.email) && status.email) ||

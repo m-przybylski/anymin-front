@@ -1,6 +1,6 @@
 function proDropdown($timeout, lodash: _.LoDashStatic) {
 
-  function linkFunction(scope, element, attr) {
+  function linkFunction(scope, _element: ng.IRootElementService, attr) {
     let myScrollbarChoices
     let currentDropdownStatus = false
 
@@ -18,7 +18,7 @@ function proDropdown($timeout, lodash: _.LoDashStatic) {
 
     scope.$watch(() => {
       return scope.selectedItem
-    }, (newValue, oldValue) => {
+    }, (newValue, _oldValue) => {
       _onFocusOut()
       if (newValue !== undefined) {
         scope.proModel = newValue.value

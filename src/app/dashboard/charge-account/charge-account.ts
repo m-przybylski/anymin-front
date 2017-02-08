@@ -1,5 +1,6 @@
 (function() {
-  function chargeAccountController($state, $timeout, lodash: _.LoDashStatic,  paymentsOptions, paymentsLinks, financeBalance, smoothScrollingService) {
+  function chargeAccountController($state: ng.ui.IStateService, $timeout: ng.ITimeoutService, lodash: _.LoDashStatic,
+                                   paymentsOptions, paymentsLinks, financeBalance, smoothScrollingService) {
 
     this.paymentCountryId = paymentsOptions.id
     this.amounts = {
@@ -66,21 +67,22 @@
     return this
   }
 
-  function config($stateProvider, UserRolesProvider) {
+  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
     $stateProvider.state('app.dashboard.charge-account', {
       url: '/charge-account',
       controllerAs: 'vm',
       controller: 'chargeAccountController',
       templateUrl: 'dashboard/charge-account/charge-account.tpl.html',
       resolve: {
-        paymentsOptions: ($q, $state, PaymentsApi, topAlertService) => {
+        paymentsOptions: ($log: ng.ILogService, $q: ng.IQService, $state, PaymentsApi, topAlertService) => {
           /* istanbul ignore next */
           let _deferred = $q.defer()
           /* istanbul ignore next */
           PaymentsApi.getPaymentOptions().$promise.then((response) => {
             _deferred.resolve(response)
           }, (error) => {
-            _deferred.resolve(null)
+            $log.error(error)
+            _deferred.resolve(undefined)
             $state.go('app.dashboard.client.activities')
             topAlertService.error({
               message: 'error',
@@ -90,14 +92,15 @@
           /* istanbul ignore next */
           return _deferred.promise
         },
-        paymentsLinks: ($q, $state, PaymentsApi, topAlertService) => {
+        paymentsLinks: ($log: ng.ILogService, $q: ng.IQService, $state, PaymentsApi, topAlertService) => {
           /* istanbul ignore next */
           let _deferred = $q.defer()
           /* istanbul ignore next */
           PaymentsApi.getPayUPaymentLinks().$promise.then((response) => {
             _deferred.resolve(response)
           }, (error) => {
-            _deferred.resolve(null)
+            $log.error(error)
+            _deferred.resolve(undefined)
             $state.go('app.dashboard.client.activities')
             topAlertService.error({
               message: 'error',
@@ -107,13 +110,14 @@
           /* istanbul ignore next */
           return _deferred.promise
         },
-        financeBalance: ($q, $state, FinancesApi, topAlertService) => {
+        financeBalance: ($log, $q, $state, FinancesApi, topAlertService) => {
           /* istanbul ignore next */
           let _deferred = $q.defer()
           /* istanbul ignore next */
           FinancesApi.getClientBalance().$promise.then((response) => {
             _deferred.resolve(response)
           }, (error) => {
+            $log.error(error)
             _deferred.resolve(null)
             $state.go('app.dashboard.client.activities')
             topAlertService.error({

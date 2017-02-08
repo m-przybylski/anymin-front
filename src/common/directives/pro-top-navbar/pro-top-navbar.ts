@@ -1,7 +1,7 @@
 (function() {
   function proTopNavbar($window, $state, $location, User, searchService, smoothScrollingService) {
 
-    function linkFunction(scope, elem, attrs) {
+    function linkFunction(scope, elem, _attrs: ng.IAttributes) {
 
       scope.showSearch = angular.isDefined(scope.show) ? scope.show : false
       scope.showUserMenu = false
@@ -40,7 +40,7 @@
       }
 
       /* istanbul ignore next */
-      angular.element($window).on('resize', (window)=> {
+      angular.element($window).on('resize', (_window)=> {
         scope.windowSize = $window.innerWidth
         if (angular.isDefined(scope.sidebarStatus)) {
           scope.hamburgerClass = scope.sidebarStatus === true ? 'active-btn' : 'disactive-btn'
@@ -98,7 +98,7 @@
         }
       })
 
-      scope.searchAction = (search) => {
+      scope.searchAction = (_search) => {
         if ($state.current.name !== 'app.search-result') {
           $state.go('app.search-result')
         } else if (angular.isDefined(angular.element('.search-bar-container').find('input:focus')[0])) {

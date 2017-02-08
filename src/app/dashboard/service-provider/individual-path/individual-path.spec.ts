@@ -29,11 +29,11 @@ describe('Unit tests: IndividualPathController >', () => {
     beforeEach(angular.mock.module(function($provide) {
       $provide.value('apiUrl', url)
     }))
-    
+
     beforeEach(() => {
     angular.mock.module('profitelo.swaggerResources.definitions')
     angular.mock.module('profitelo.controller.dashboard.service-provider.individual-path')
-      inject(($rootScope, $controller, $injector) => {
+      inject(($rootScope: ng.IRootScopeService, $injector) => {
 
         _scope = $rootScope.$new()
         _httpBackend = $injector.get('$httpBackend')
@@ -55,7 +55,7 @@ describe('Unit tests: IndividualPathController >', () => {
             patchProfile: _httpBackend.when(_ProfileApiDef.patchProfile.method, _ProfileApiDef.patchProfile.url)
           }
         }
-        
+
       })
     })
 

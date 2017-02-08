@@ -28,7 +28,7 @@
         }
         return offset
       }
-      
+
       /* istanbul ignore next */
       angular.element($window).on('resize', ()=> {
         _clearSlider()
@@ -36,7 +36,7 @@
 
       scope.$watch(() => {
         return scope.tags
-      }, (newValue, oldValue) => {
+      }, (newValue, _oldValue) => {
         if (newValue) {
           elementsMap = $.map($(element).find('.slide-page li'), (li)=>{
             return li.clientWidth

@@ -1,7 +1,7 @@
 (function() {
   function directive(callService, urlService) {
 
-    function linkFunction(scope, elem, attrs) {
+    function linkFunction(scope, _elem: ng.IRootElementService, _attrs: ng.IAttributes) {
 
       scope.startCall = () => {
         callService.callServiceId(scope.serviceTagsEmployeesTuple.service.id)

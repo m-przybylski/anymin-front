@@ -1,6 +1,6 @@
 (function() {
-  function IndividualConsultationController($scope, $state, User, savedProfile, ServiceApi, topAlertService,
-                                            profileImage, lodash: _.LoDashStatic, dialogService, serviceProviderService) {
+  function IndividualConsultationController($log, $scope, $state, savedProfile, ServiceApi, topAlertService,
+                                            profileImage, dialogService, serviceProviderService) {
 
     this.costModel = serviceProviderService.createDefaultModel('')
     this.editModel = serviceProviderService.createDefaultModel(0)
@@ -41,6 +41,7 @@
           callback()
         }
       }, (err)=> {
+        $log.error(err)
         topAlertService.error({
           message: 'error',
           timeout: 4
@@ -117,9 +118,10 @@
         this.modalCallback = () => {
           ServiceApi.deleteService({
             serviceId: _id
-          }).$promise.then((res)=> {
+          }).$promise.then((_res)=> {
             this.consultations.splice(_index, 1)
           }, (err) => {
+            $log.error(err)
             topAlertService.error({
               message: 'error',
               timeout: 4
@@ -171,7 +173,7 @@
         controllerAs: 'vm',
         resolve: {
           /* istanbul ignore next */
-          savedProfile: ($q, $state, ProfileApi, lodash: _.LoDashStatic, User, ServiceApi, topAlertService) => {
+          savedProfile: ($log, $q, $state, ProfileApi, lodash: _.LoDashStatic, User, ServiceApi, topAlertService) => {
             /* istanbul ignore next */
             let _deferred = $q.defer()
             /* istanbul ignore next */
@@ -200,6 +202,7 @@
                 })
               })
             }, (error) => {
+              $log.error(error)
               $state.go('app.dashboard')
               topAlertService.error({
                 message: 'error',

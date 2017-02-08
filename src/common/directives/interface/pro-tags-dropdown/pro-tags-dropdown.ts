@@ -1,4 +1,4 @@
-function proTagsDropdown($timeout, CommonSettingsService) {
+function proTagsDropdown($timeout: ng.ITimeoutService) {
 
   function linkFunction(scope, element, attr) {
     let myScrollbarChoices
@@ -39,14 +39,14 @@ function proTagsDropdown($timeout, CommonSettingsService) {
       }
     }
 
-    scope.select = (item, model, select) => {
+    scope.select = (item, _model, _select) => {
       scope.valid = false
       scope.proModel.push(item)
       _onFocusOut()
       _getScrollbarChoices().perfectScrollbar()
     }
 
-    scope.remove = ($item, $model)=> {
+    scope.remove = ($item, _$model) => {
       scope.proModel.splice(scope.proModel.indexOf($item), 1)
     }
 
@@ -66,7 +66,7 @@ function proTagsDropdown($timeout, CommonSettingsService) {
 
     scope.update = () => {
       _getScrollbarChoices().perfectScrollbar('destroy')
-      $timeout(()=> {
+      $timeout(() => {
         _getScrollbarChoices().perfectScrollbar()
       })
     }

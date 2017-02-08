@@ -14,7 +14,7 @@
       updateBindings()
     }
 
-    const onRecommendService = (res) => {
+    const onRecommendService = (_res) => {
       this.isRecommended = true
     }
 
@@ -31,7 +31,7 @@
       this.selectedTags = tagsArray
     }
 
-    const onRecommendServiceTags = (res) => {
+    const onRecommendServiceTags = (_res) => {
       this.areTagsRecommended = true
     }
 

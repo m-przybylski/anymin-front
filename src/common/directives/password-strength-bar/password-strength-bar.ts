@@ -1,7 +1,7 @@
 (function() {
   function passwordStrengthBar() {
 
-    function linkFunction(scope, element, attr) {
+    function linkFunction(scope, _element, _attr) {
       scope.classes = [
         'start',
         'very-weak',
@@ -13,7 +13,7 @@
 
       scope.$watch(()=> {
         return scope.currentClass
-      }, (newValue, oldValue)=>{
+      }, (newValue, _oldValue)=>{
 
         scope.currentClass = Math.floor(scope.currentClass)
 

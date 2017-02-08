@@ -1,6 +1,6 @@
 (function() {
   function proServiceProviderDescription($q) {
-    function linkFunction(scope, element, attrs) {
+    function linkFunction(scope, _element: ng.IRootElementService, attrs) {
       scope.required = false
 
       scope.model = {

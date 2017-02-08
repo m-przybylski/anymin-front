@@ -1,5 +1,5 @@
 (function() {
-  function proBottomSummaryRow($q) {
+  function proBottomSummaryRow() {
 
     function linkFunction(scope) {
       scope.onClick = () => {

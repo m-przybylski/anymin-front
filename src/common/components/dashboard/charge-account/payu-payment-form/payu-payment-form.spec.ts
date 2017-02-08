@@ -46,7 +46,7 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payu-payme
         }
       }
 
-      User.getData = (param) => {
+      User.getData = () => {
         return 'BOBiARTUR@profitelo.pl'
       }
 

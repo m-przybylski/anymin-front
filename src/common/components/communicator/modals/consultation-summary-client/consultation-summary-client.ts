@@ -102,7 +102,7 @@ namespace profitelo.components.modals.consultationSummaryClient {
     private onRecommendServiceError = (err) =>
       this.$log.error(err)
 
-    private onRecommendService = (res) =>
+    private onRecommendService = (_res) =>
       this.$scope.chooseExpertsTag = true
 
     private onRecommendServiceTags = (res) =>

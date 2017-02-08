@@ -9,6 +9,7 @@
     "noImplicitReturns": true,
     //"noImplicitThis": true, // TODO enable after rewriting all ctrls to classes
     "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "strictNullChecks": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,

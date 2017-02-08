@@ -112,7 +112,8 @@
         controllerAs: 'vm',
         resolve: {
           /* istanbul ignore next */
-          savedProfile: ($q, $state, ProfileApi, User, topAlertService) => {
+          savedProfile: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: any,
+                         User: any, topAlertService: ITopAlertService) => {
             /* istanbul ignore next */
             let _deferred = $q.defer()
             /* istanbul ignore next */
@@ -122,9 +123,10 @@
               }).$promise.then((response) => {
                 _deferred.resolve(response)
               }, () => {
-                _deferred.resolve(null)
+                _deferred.resolve('')
               })
             }, (error) => {
+              $log.error(error)
               $state.go('app.dashboard')
               topAlertService.error({
                 message: 'error',

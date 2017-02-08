@@ -1,12 +1,12 @@
 (function() {
   function proExpertHeader(urlService) {
 
-    function linkFunction(scope, element) {
+    function linkFunction(scope, _element: ng.IRootElementService) {
 
       scope.handleUserImage = (imgToken) => {
         return imgToken !== null ||  imgToken === '' ? urlService.resolveFileUrl(imgToken) : ''
       }
-      
+
       scope.checkCollaboratedExperts = () => {
         return scope.profile.type === 'company' || !scope.profile.colaboratedOrganizations
           || scope.profile.colaboratedOrganizations.length < 1

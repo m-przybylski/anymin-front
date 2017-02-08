@@ -17,7 +17,8 @@ describe('Unit tests: profitelo.controller.dashboard.charge-account >', () => {
         paymentsOptions: paymentsOptions,
         paymentsLinks: paymentsLinks,
         financeBalance: financeBalance,
-        $timeout: _timeout
+        $timeout: _timeout,
+        smoothScrollingService: _smoothScrollingService
       })
     }
 
@@ -28,8 +29,9 @@ describe('Unit tests: profitelo.controller.dashboard.charge-account >', () => {
     beforeEach(() => {
     angular.mock.module('profitelo.controller.dashboard.charge-account')
     angular.mock.module('profitelo.swaggerResources.definitions')
+    angular.mock.module('profitelo.services.smooth-scrolling')
     angular.mock.module('templates-module')
-      inject(($rootScope, $httpBackend, $controller, $injector, $timeout, $window, smoothScrollingService) => {
+      inject(($rootScope, $httpBackend, $controller, $timeout, $window, smoothScrollingService) => {
 
         _scope = $rootScope.$new()
         _httpBackend = $httpBackend

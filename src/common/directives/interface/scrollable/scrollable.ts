@@ -29,7 +29,7 @@ namespace profitelo.directives.scrollable {
                 private styleConstant: IStyleConstant) {
     }
 
-    public link = (scope: IScrollableDirectiveScope, element: ng.IRootElementService, attr: ng.IAttributes) => {
+    public link = (scope: IScrollableDirectiveScope, element: ng.IRootElementService, _attr: ng.IAttributes) => {
       this.element = element
       this.directiveHeight = element.height()
       this.scrollableContent = element.find('.scrollable-center')
@@ -92,10 +92,9 @@ namespace profitelo.directives.scrollable {
     }
 
     public static getInstance = () => {
-      const instance = ($timeout: ng.ITimeoutService, $window: ng.IWindowService, $interval: ng.IIntervalService,
-                        styleConstant) =>
+      const instance = ($timeout: ng.ITimeoutService, $interval: ng.IIntervalService, styleConstant: IStyleConstant) =>
         new ScrollableDirective($timeout, $interval, styleConstant)
-      instance.$inject = ['$timeout', '$window', '$interval', 'styleConstant']
+      instance.$inject = ['$timeout', '$interval', 'styleConstant']
       return instance
     }
 

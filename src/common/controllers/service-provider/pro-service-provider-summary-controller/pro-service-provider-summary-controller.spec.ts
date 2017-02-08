@@ -5,7 +5,7 @@ describe('Unit tests: ProServiceProviderSummaryController >', () => {
 
     beforeEach(() => {
       angular.mock.module('profitelo.common.controller.service-provider.pro-service-provider-summary-controller')
-      inject(($rootScope, $controller) => {
+      inject(($controller: ng.IControllerService) => {
 
         ProServiceProviderSummaryController = $controller('ProServiceProviderSummaryController', {})
       })

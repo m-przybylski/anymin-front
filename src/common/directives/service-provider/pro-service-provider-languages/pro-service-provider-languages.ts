@@ -1,7 +1,7 @@
 (function() {
   function proServiceProviderLanguages($q) {
 
-    function linkFunction(scope, element, attrs) {
+    function linkFunction(scope, _element: ng.IRootElementService, attrs) {
 
       let required = false
 

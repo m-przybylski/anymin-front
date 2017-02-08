@@ -1,7 +1,7 @@
 (function() {
-  function proServiceProviderTags($q, $timeout, TagApi, lodash) {
+  function proServiceProviderTags($q, TagApi, lodash) {
 
-    function linkFunction(scope, element, attrs) {
+    function linkFunction(scope, _element, attrs) {
 
       let required = false
 

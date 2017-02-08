@@ -1,5 +1,5 @@
 (function() {
-  function proServiceProviderWhoProvides($q, $timeout, CommonSettingsService) {
+  function proServiceProviderWhoProvides($q: ng.IQService, CommonSettingsService) {
     function linkFunction(scope, element, attrs) {
       scope.required = false
       scope.error.badEmployee = false

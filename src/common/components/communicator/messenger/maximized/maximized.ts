@@ -53,7 +53,7 @@ namespace profitelo.components.communicator.messenger.maximized {
       messengerService.onChatLeft(this.destroy)
     }
 
-    $onChanges = (onChangesObj: ng.IOnChangesObject) => {
+    $onChanges = () => {
       if (this.isMessenger) {
         angular.element(this.$element).find('.messenger-input input').focus()
       }
@@ -157,6 +157,7 @@ namespace profitelo.components.communicator.messenger.maximized {
     }
 
     private onFileUploadError = (err) => {
+      this.$log.error(err)
       this.uploadedFile.progress = false
       this.isFileUploadError = true
       this.$timeout(() => {

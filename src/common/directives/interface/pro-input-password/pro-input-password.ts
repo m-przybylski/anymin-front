@@ -1,5 +1,5 @@
 (function() {
-  function proInputPassword($timeout) {
+  function proInputPassword() {
 
     function linkFunction(scope, element, attr) {
 

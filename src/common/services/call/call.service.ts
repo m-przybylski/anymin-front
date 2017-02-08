@@ -271,7 +271,7 @@ namespace profitelo.services.call {
       this.call = serviceInvitationTuple.invitation.call
       this.call.pause()
       this.call.onEnd(this.onCallEndEvent)
-      this.call.onRemoteStream((agentId, stream) => {
+      this.call.onRemoteStream((_agentId, stream) => {
         if (this.remoteStreamElement) {
           this.remoteStreamElement.attr('src', window.URL.createObjectURL(stream))
         }
@@ -371,7 +371,7 @@ namespace profitelo.services.call {
     private onCreateDirectCall = (newCall, participantId: string, expertId: string) => {
       this.call = newCall
 
-      this.call.onRemoteStream((agentId, stream) => {
+      this.call.onRemoteStream((_agentId, stream) => {
         if (this.remoteStreamElement) {
           this.remoteStreamElement.attr('src', window.URL.createObjectURL(stream))
         }

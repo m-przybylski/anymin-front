@@ -14,8 +14,8 @@ describe('Unit tests: search-result>', () => {
     beforeEach(() => {
     angular.mock.module('profitelo.controller.search-result')
     angular.mock.module('profitelo.services.search')
-      
-      inject(($rootScope, $controller, $state, $location, $timeout, searchService) => {
+
+      inject(($rootScope, $controller, $timeout, searchService) => {
         $scope = $rootScope.$new()
         location = {
           search: () => {
@@ -37,18 +37,18 @@ describe('Unit tests: search-result>', () => {
             cb()
           },
 
-          setSearchQueryParams: (params) => {
-            
+          setSearchQueryParams: (_params) => {
+
           },
-          
-          onQueryParamsChange: (scope, cb) => {
+
+          onQueryParamsChange: (_scope, cb) => {
             cb(angular.extend(location.search(), {q: 'prawo'}))
           }
         }
 
         searchUrlService = {
           parseParamsForUrl: () => {
-            
+
           }
         }
 
@@ -61,8 +61,8 @@ describe('Unit tests: search-result>', () => {
           $location: location,
           searchUrlService: searchUrlService
         })
-        
-        
+
+
       })
     })
 
