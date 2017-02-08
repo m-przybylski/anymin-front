@@ -1,32 +1,39 @@
 namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
+
+  import GeneralEmailSettingsController = profitelo.components.dashboard.settings.modals.general.emailSettings.GeneralEmailSettingsController
+  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+
   describe('Testing Controller: generalEmailSettingsController', () => {
 
-    let generalEmailSettingsController: GeneralEmailSettingsController
-    let scope: IGeneralEmailSettingsControllerScope
-    let uibModalInstance: any = {
-      dismiss: () => {
+    let controller: GeneralEmailSettingsController
+    let scope: IgeneralEmailSettingsControllerScope
 
-      },
-      close: () => {
-
-      }
-    }
+    const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
+      jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss']);
 
     beforeEach(() => {
+      angular.mock.module('ui.bootstrap')
       angular.mock.module('profitelo.components.dashboard.settings.modals.general.email-settings')
-      inject(($rootScope: ng.IScope, $controller: ng.IControllerService) => {
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
 
-        scope = <IGeneralEmailSettingsControllerScope>$rootScope.$new()
+        scope = <IgeneralEmailSettingsControllerScope>$rootScope.$new()
 
-        generalEmailSettingsController = $controller<GeneralEmailSettingsController>('generalEmailSettingsController', {
-          '$scope': scope,
-          '$uibModalInstance': uibModalInstance
-        })
+        const injectors = {
+          $scope: scope,
+          $uibModalInstance: $uibModalInstance
+        }
+
+        controller = $controller<GeneralEmailSettingsController>('generalEmailSettingsController', injectors)
       })
     })
 
     it('should exists', () => {
-      return expect(!!generalEmailSettingsController).toBe(true)
+      return expect(!!controller).toBe(true)
+    })
+
+    it('should uibModalInstance', () => {
+      scope.onModalClose()
+      expect($uibModalInstance.dismiss).toHaveBeenCalled()
     })
 
   })
