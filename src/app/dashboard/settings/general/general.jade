@@ -3,11 +3,11 @@ h2(data-translate="SETTINGS.GENERAL.TITLE")
 .settings-row
   .settings-icon
     .thumb.x24
-      img.user-avatar(src="asd")
+      img.user-avatar(src data-ng-src="{{ vm.avatarImageSource }}")
 
   .settings-data
     span.label(data-translate="SETTINGS.GENERAL.FULL-NAME.LABEL")
-    span.name Arturek
+    span.name {{ vm.user.settings.nickname }}
 
   .btn.btn-small.btn-default-border(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
   data-ng-click=":: vm.openBasicAccountSettingsModal()")

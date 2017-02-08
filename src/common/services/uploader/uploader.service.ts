@@ -8,12 +8,24 @@ namespace profitelo.services.uploader {
   }
 
   export interface IUploaderService {
-    uploadFile(file: File, cb: (data: any) => void): ng.IPromise<any>
+    uploadFile(file: File, postProcessOptions:IPostProcessOptions, cb: (data: any) => void): ng.IPromise<any>
+  }
+
+  export interface ICroppingDetails {
+    x?: number
+    y?: number
+    width?: number
+    height?: number
+  }
+
+  export interface IPostProcessOptions {
+    croppingDetails?: ICroppingDetails
   }
 
   interface FileObject {
-    file: File,
-    deferred: ng.IDeferred<any>,
+    file: File
+    deferred: ng.IDeferred<any>
+    postProcessOptions: IPostProcessOptions
     callback: (data: any) => void
   }
 
@@ -83,9 +95,10 @@ namespace profitelo.services.uploader {
       this.onFileUploadEnd()
     }
 
-    private getFileToken = () =>
-      this.FilesApi.fileInfoPath({collectionType: this.collectionType}).$promise
-
+    private getFileToken = (fileObj) => {
+      console.log(fileObj)
+     return this.FilesApi.createFileTokenPath({collectionType: this.collectionType}, fileObj.postProcessOptions).$promise
+    }
     private processUpload = () => {
       if ((this.uploadingCount < this.simultaneousUploadCount || this.simultaneousUploadCount === 0) &&
         this.fileObjectsToUpload.length > 0) {
@@ -94,7 +107,7 @@ namespace profitelo.services.uploader {
         const fileObj = this.fileObjectsToUpload.shift()
 
         if(fileObj) {
-          this.getFileToken()
+          this.getFileToken(fileObj)
             .then(
               (token: FileToken) => this.onGetFileToken(fileObj, token),
               (err: any) => this.onGetFileTokenError(fileObj, err)
@@ -103,22 +116,23 @@ namespace profitelo.services.uploader {
       }
     }
 
-    private addFileToQueue = (file: File, callback: (res: any) => void) => {
+    private addFileToQueue = (file: File, postProcessOptions: IPostProcessOptions, callback: (res: any) => void) => {
       const deferred = this.$q.defer()
       this.fileObjectsToUpload.push({
         file: file,
         deferred: deferred,
+        postProcessOptions: postProcessOptions,
         callback: callback
       })
       return deferred
     }
 
-    public uploadFile = (file: File, callback: (data: any) => void) => {
+    public uploadFile = (file: File, postProcessOptions: IPostProcessOptions, callback: (data: any) => void) => {
       if (!file || !(file instanceof File)) {
         return this.$q.reject('Expected File, got ' + typeof file)
       }
 
-      const deferred = this.addFileToQueue(file, callback)
+      const deferred = this.addFileToQueue(file, postProcessOptions, callback)
 
       this.scheduleUpload()
 

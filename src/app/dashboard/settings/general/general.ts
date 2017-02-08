@@ -2,15 +2,22 @@ namespace app.dashboard.settings.general {
 
   import IClientActivitiesService = profitelo.services.clientActivities.IClientActivitiesService
   import IModalsService = profitelo.services.modals.IModalsService
+  import IUrlService = profitelo.services.helper.IUrlService
 
   class DashboardSettingsGeneralController implements ng.IController {
 
-    constructor(private modalsService: IModalsService) {}
+    public user
+    public avatarImageSource: string
 
-    $onInit() {}
+    constructor(private modalsService: IModalsService, private User, private urlService: IUrlService) {}
+
+    $onInit = () => {
+     this.user = this.User.getAllData()
+     this.avatarImageSource = this.urlService.resolveFileUrl(this.user.settings.avatar)
+    }
 
     public openBasicAccountSettingsModal = () => {
-      this.modalsService.createBasicAccountSettingsModal()
+      this.modalsService.createBasicAccountSettingsModal(this.getUserData)
     }
 
     public openGeneralPhoneSettingsModal = () => {
@@ -25,12 +32,21 @@ namespace app.dashboard.settings.general {
       this.modalsService.createGeneralCountrySettingsModal()
     }
 
+    private getUserData = (cb: Function) => {
+      this.User.getStatus(true).then(() => {
+        this.user = this.User.getAllData()
+        this.avatarImageSource = this.urlService.resolveFileUrl(this.user.settings.avatar)
+        cb()
+      })
+    }
+
   }
 
   angular.module('profitelo.controller.dashboard.settings.general', [
     'ui.router',
     'c7s.ng.userAuth',
     'ngLodash',
+    'profitelo.services.url',
     'profitelo.services.modals'
   ])
   .config(function ($stateProvider, UserRolesProvider) {

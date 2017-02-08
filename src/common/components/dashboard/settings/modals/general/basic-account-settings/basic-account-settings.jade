@@ -8,7 +8,7 @@ scrollable.basic-account-settings(data-is-fullscreen="isFullscreen" data-is-navb
 
           .user-avatar
             .thumb.x192
-              img.user-avatar.fullScreen(data-ng-src="{{ imageSource || '/assets/images/no-avatar.png' }}")
+              img.user-avatar.fullScreen(data-ng-src="{{ avatarPreview || '/assets/images/no-avatar.png' }}")
 
               a.thumb-options(data-ng-show="!!imageSource && imageSource.length > 0" data-ng-click="removePhoto()")
                 .icon.icon-trash-24-1

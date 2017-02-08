@@ -41,7 +41,7 @@ namespace profitelo.components.communicator.messenger.maximized {
                 private lodash: _.LoDashStatic, private urlService: IUrlService,
                 uploaderFactory: IUploaderFactory) {
 
-      uploaderFactory.getInstance(1, uploaderFactory.collectionTypes.avatar)
+      this.uploader = uploaderFactory.getInstance(1, uploaderFactory.collectionTypes.avatar)
       this.messagesScroll.perfectScrollbar()
 
       messengerService.onExpertMessage(this.addMessage)
@@ -147,6 +147,10 @@ namespace profitelo.components.communicator.messenger.maximized {
     private onUploadProgess = (res) =>
       this.$log.debug(res)
 
+    private postProcessOptions =  {
+      croppingDetails: {}
+    }
+
     private onFileUpload = (res) => {
       const fileMessage = {
         body: res.name,
@@ -166,7 +170,7 @@ namespace profitelo.components.communicator.messenger.maximized {
     }
 
     private uploadFile = (file) =>
-      this.uploader.uploadFile(file, this.onUploadProgess)
+      this.uploader.uploadFile(file, this.postProcessOptions, this.onUploadProgess)
         .then(this.onFileUpload, this.onFileUploadError)
 
     private onTyping = () => {

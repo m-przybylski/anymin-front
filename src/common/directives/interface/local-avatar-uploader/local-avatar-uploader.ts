@@ -30,7 +30,7 @@ namespace profitelo.directives.interface.localAvatarUploader {
         const reader = new FileReader()
 
         reader.onload = (noLoadEventObject: any) => {
-          scope.onFileUpload(noLoadEventObject.target.result)
+          scope.onFileUpload(noLoadEventObject.target.result, changeEventObject.target.files[0])
 
         }
 

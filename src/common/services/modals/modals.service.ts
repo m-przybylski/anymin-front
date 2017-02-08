@@ -17,7 +17,7 @@ namespace profitelo.services.modals {
     createClientSUEActivityDetailsModal(sueId: string): ng.ui.bootstrap.IModalServiceInstance
     createClientComplainReportModal(): ng.ui.bootstrap.IModalServiceInstance
     createClientChargeDetailsModal(financeActivityDetails: Object): ng.ui.bootstrap.IModalServiceInstance
-    createBasicAccountSettingsModal(): ng.ui.bootstrap.IModalServiceInstance
+    createBasicAccountSettingsModal(callback: Function): ng.ui.bootstrap.IModalServiceInstance
     createGeneralPhoneSettingsModal(): ng.ui.bootstrap.IModalServiceInstance
     createGeneralEmailSettingsModal(): ng.ui.bootstrap.IModalServiceInstance
     createGeneralCountrySettingsModal(): ng.ui.bootstrap.IModalServiceInstance
@@ -150,8 +150,9 @@ namespace profitelo.services.modals {
       })
     }
 
-    public createBasicAccountSettingsModal = () => {
-      const dialogScope: ng.IScope = this.$rootScope.$new(true)
+    public createBasicAccountSettingsModal = (callback) => {
+      const dialogScope: any = this.$rootScope.$new(true)
+      dialogScope.callback = callback
 
       return this.dialogService.openDialog({
         controller: 'basicAccountSettingsController',
