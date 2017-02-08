@@ -1,6 +1,5 @@
 namespace app.dashboard.settings.general {
 
-  import IClientActivitiesService = profitelo.services.clientActivities.IClientActivitiesService
   import IModalsService = profitelo.services.modals.IModalsService
   import IUrlService = profitelo.services.helper.IUrlService
 

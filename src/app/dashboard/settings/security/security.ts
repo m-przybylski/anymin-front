@@ -1,10 +1,8 @@
 namespace app.dashboard.settings.security {
 
-  import IClientActivitiesService = profitelo.services.clientActivities.IClientActivitiesService
-
   class DashboardSettingsSecurityController implements ng.IController {
 
-    constructor(private $timeout: ng.ITimeoutService) {
+    constructor() {
 
     }
 

@@ -12,17 +12,15 @@ namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
   class generalEmailSettingsController implements ng.IController {
 
     /* @ngInject */
-    constructor(private $scope: IgeneralEmailSettingsControllerScope,
-                private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
+    constructor($scope: IgeneralEmailSettingsControllerScope,
+                $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
 
       $scope.isNavbar = true
       $scope.isFullscreen = true
 
-
       $scope.onModalClose = () =>
         $uibModalInstance.dismiss('cancel')
     }
-
 
   }
 

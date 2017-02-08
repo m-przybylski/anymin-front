@@ -45,8 +45,8 @@ interface Window {
         expect(true).toBeTruthy()
       })
 
-    it('should upload 2 files at a time', inject(($q, $timeout, $rootScope, FilesApi) => {
-      spyOn(FilesApi, 'fileInfoPath').and.returnValue({
+    it('should upload 2 files at a time', inject(($q, $timeout, FilesApi) => {
+      spyOn(FilesApi, 'createFileTokenPath').and.returnValue({
         $promise: $q.resolve({fileId: 1})
       })
 
@@ -59,7 +59,7 @@ interface Window {
 
         $timeout.flush()
 
-      expect(FilesApi.fileInfoPath).toHaveBeenCalled()
+      expect(FilesApi.createFileTokenPath).toHaveBeenCalled()
       expect(UploadMock.upload.calls.count()).toEqual(2)
     }))
 
@@ -75,7 +75,7 @@ interface Window {
       }))
 
     it('should not upload file if token error', inject(($q, $timeout, $rootScope, FilesApi) => {
-      spyOn(FilesApi, 'fileInfoPath').and.returnValue({
+      spyOn(FilesApi, 'createFileTokenPath').and.returnValue({
         $promise: $q.reject('error')
       })
 
@@ -87,12 +87,12 @@ interface Window {
         $timeout.flush()
         $rootScope.$digest()
 
-      expect(FilesApi.fileInfoPath).toHaveBeenCalled()
+      expect(FilesApi.createFileTokenPath).toHaveBeenCalled()
       expect(returnValue).toEqual('error')
     }))
 
     it('should return error if upload error', inject(($q, $timeout, $rootScope, FilesApi) => {
-      spyOn(FilesApi, 'fileInfoPath').and.returnValue({
+      spyOn(FilesApi, 'createFileTokenPath').and.returnValue({
         $promise: $q.resolve({fileId: 1})
       })
 
@@ -106,13 +106,13 @@ interface Window {
         $timeout.flush()
         $rootScope.$digest()
 
-      expect(FilesApi.fileInfoPath).toHaveBeenCalled()
+      expect(FilesApi.createFileTokenPath).toHaveBeenCalled()
       expect(UploadMock.upload).toHaveBeenCalled()
       expect(returnValue).toEqual('error')
     }))
 
-    it('should call callback on upload progress', inject(($q, $timeout, $rootScope, FilesApi) => {
-      spyOn(FilesApi, 'fileInfoPath').and.returnValue({
+    it('should call callback on upload progress', inject(($q, $timeout, FilesApi) => {
+      spyOn(FilesApi, 'createFileTokenPath').and.returnValue({
         $promise: $q.resolve({fileId: 1})
       })
 
@@ -129,17 +129,17 @@ interface Window {
           return deferred.promise
         })
 
-        instance.uploadFile(new File(), obj.callback)
+        instance.uploadFile(new File(), {}, obj.callback)
 
         $timeout.flush()
 
-      expect(FilesApi.fileInfoPath).toHaveBeenCalled()
+      expect(FilesApi.createFileTokenPath).toHaveBeenCalled()
       expect(UploadMock.upload).toHaveBeenCalled()
       expect(obj.callback).toHaveBeenCalled()
     }))
 
-    it('should upload files with no limits', inject(($q, $timeout, $rootScope, FilesApi) => {
-      spyOn(FilesApi, 'fileInfoPath').and.returnValue({
+    it('should upload files with no limits', inject(($q, $timeout, FilesApi) => {
+      spyOn(FilesApi, 'createFileTokenPath').and.returnValue({
         $promise: $q.resolve({fileId: 1})
       })
 
@@ -151,7 +151,7 @@ interface Window {
 
         $timeout.flush()
 
-      expect(FilesApi.fileInfoPath).toHaveBeenCalled()
+      expect(FilesApi.createFileTokenPath).toHaveBeenCalled()
       expect(UploadMock.upload).toHaveBeenCalled()
     }))
   })

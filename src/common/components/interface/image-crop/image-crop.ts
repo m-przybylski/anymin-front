@@ -16,7 +16,7 @@ namespace profitelo.components.interface.imageCrop {
 
     $onInit = () => {
       this.cropImage = () => {
-        this.saveCropAvatar(this.element.croppie('get'), this.element.croppie('result', 'html'))
+        this.saveCropAvatar(this.element.croppie('get'))
         this.element.croppie('destroy')
       }
     }

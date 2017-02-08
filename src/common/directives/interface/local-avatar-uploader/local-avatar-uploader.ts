@@ -1,8 +1,5 @@
 namespace profitelo.directives.interface.localAvatarUploader {
 
-  import IRootElementService = angular.IRootElementService
-  import IStyleConstant = profitelo.constants.style.IStyleConstant
-
   interface ILocalAvatarUploaderDirectiveScope extends ng.IScope {
     onFileUpload: Function
     imageSource: string
@@ -19,31 +16,28 @@ namespace profitelo.directives.interface.localAvatarUploader {
     private element: any
 
     /* ngInject */
-    constructor(private $timeout: ng.ITimeoutService, private $interval: ng.IIntervalService,
-                private $window: ng.IWindowService, private styleConstant: IStyleConstant) {
+    constructor() {
     }
 
-    public link = (scope: ILocalAvatarUploaderDirectiveScope, element: any, attr: ng.IAttributes) => {
+    public link = (scope: ILocalAvatarUploaderDirectiveScope, element: any, _attr: ng.IAttributes) => {
       this.element = element
 
       this.element.find('input').on('change', (changeEventObject: any) => {
         const reader = new FileReader()
-
         reader.onload = (noLoadEventObject: any) => {
-          scope.onFileUpload(noLoadEventObject.target.result, changeEventObject.target.files[0])
-
+          scope.onFileUpload(noLoadEventObject.target.result, changeEventObject.target.files[0], () => {
+            this.element.find('input')[0].value = ''
+          })
         }
-
         reader.readAsDataURL(changeEventObject.target.files[0])
       })
 
     }
 
     public static getInstance = () => {
-      const instance = ($timeout: ng.ITimeoutService, $window: ng.IWindowService, $interval: ng.IIntervalService,
-                        styleConstant) =>
-        new LocalAvatarUploaderDirective($timeout, $interval, $window, styleConstant)
-      instance.$inject = ['$timeout', '$window', '$interval', 'styleConstant']
+      const instance = () =>
+        new LocalAvatarUploaderDirective()
+      instance.$inject = []
       return instance
     }
 

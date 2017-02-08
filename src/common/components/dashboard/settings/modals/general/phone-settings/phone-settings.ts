@@ -12,17 +12,15 @@ namespace profitelo.components.dashboard.settings.modals.general.phoneSettings {
   class generalPhoneSettingsController implements ng.IController {
 
     /* @ngInject */
-    constructor(private $scope: IgeneralPhoneSettingsControllerScope,
-                private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
+    constructor($scope: IgeneralPhoneSettingsControllerScope,
+                $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
 
       $scope.isNavbar = true
       $scope.isFullscreen = true
 
-
       $scope.onModalClose = () =>
         $uibModalInstance.dismiss('cancel')
     }
-
 
   }
 

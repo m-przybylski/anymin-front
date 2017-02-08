@@ -1,9 +1,9 @@
 namespace profitelo.components.dashboard.settings.modals.general.basicAccountSettings {
 
-  import IPostProcessOptions = profitelo.services.uploader.IPostProcessOptions
   import IUploaderFactory = profitelo.services.uploader.IUploaderFactory
   import IUploaderService = profitelo.services.uploader.IUploaderService
   import IUrlService = profitelo.services.helper.IUrlService
+
   interface IBasicAccountSettingsControllerScope extends ng.IScope {
     isNavbar: boolean
     isFullscreen: boolean
@@ -20,25 +20,26 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
     generalSettingsObject: any
     callback: (cb: Function) => void
     avatarPreview: string
+    isUploadInProgress: boolean
   }
 
-  class BasicAccountSettingsController implements ng.IController {
+  export class BasicAccountSettingsController implements ng.IController {
 
-    private UploadedFile: File
-    private postProcessOptions: IPostProcessOptions
+    private uploadedFile: File
     private uploader: IUploaderService
-
+    private clearFormAfterCropping: void
     $onInit = () => {
     }
 
     /* @ngInject */
     constructor(private $scope: IBasicAccountSettingsControllerScope,
-                private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, private AccountApi: any,
-                private User, private uploaderFactory: IUploaderFactory, private urlService: IUrlService) {
+                $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, private AccountApi: any,
+                private User, uploaderFactory: IUploaderFactory, urlService: IUrlService) {
 
       $scope.isNavbar = true
       $scope.isFullscreen = true
       $scope.isUserUploadImage = false
+      $scope.isUploadInProgress = false
 
       this.uploader = uploaderFactory.getInstance(1, uploaderFactory.collectionTypes.avatar)
 
@@ -49,14 +50,13 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
         nickname: userBasicSettings.nickname,
         avatar: userBasicSettings.avatar
       }
-      console.log(userBasicSettings.avatar)
+
       $scope.avatarPreview = urlService.resolveFileUrl(userBasicSettings.avatar)
 
       this.$scope.submitBasicSettings = () => {
-
         this.AccountApi.partialUpdateAccount({accountId: this.User.getData('id')}, {
           settings: this.$scope.generalSettingsObject
-        }).$promise.then((res) => {
+        }).$promise.then((_res) => {
           $scope.callback(() => $uibModalInstance.dismiss('cancel'))
         }, (err) => {
           throw new Error('Can not patch user account: ' + err)
@@ -64,29 +64,31 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
 
       }
 
-      $scope.addPhoto = (imagePath, file) => {
+      $scope.addPhoto = (imagePath, file, callback) => {
         if (imagePath.length > 0) {
           $scope.imageSource = imagePath
           $scope.isUserUploadImage = true
-          this.UploadedFile = file
+          this.uploadedFile = file
+          this.clearFormAfterCropping = callback
         }
       }
 
       $scope.removePhoto = () => {
-        $scope.imageSource = ''
+        $scope.avatarPreview = 'none'
+        this.$scope.generalSettingsObject.avatar = null
       }
 
-      $scope.saveCrop = (data, result) => {
-        console.log(data)
+      $scope.saveCrop = (data) => {
+        const squareSideLength = data.points[2] - data.points[0] - 1
         const postProcessOptions = {
           croppingDetails: {
-            x: data.points[0],
-            y: data.points[1],
-            width: 200,
-            height: 200 * data.zoom
+            x: Number(data.points[0]),
+            y: Number(data.points[1]),
+            width: squareSideLength,
+            height: squareSideLength
           }
         }
-        this.uploader.uploadFile(this.UploadedFile, postProcessOptions, this.onUploadProgess)
+        this.uploader.uploadFile(this.uploadedFile, postProcessOptions, this.onUploadProgess)
         .then(this.onFileUpload, this.onFileUploadError)
         this.$scope.isUserUploadImage = false
       }
@@ -97,16 +99,19 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
     }
 
     private onUploadProgess = () => {
-
+      this.$scope.isUploadInProgress = true
     }
 
     private onFileUpload = (res) => {
       this.$scope.avatarPreview = res.previews[0]
       this.$scope.generalSettingsObject.avatar = res.token
-      console.log(res)
+      this.$scope.isUploadInProgress = false
+      this.$scope.imageSource = ''
+      this.clearFormAfterCropping()
     }
 
     private onFileUploadError = (err) => {
+      this.$scope.isUploadInProgress = false
       throw new Error('Can not upload file: ' + err)
     }
 
@@ -118,6 +123,7 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
     'profitelo.services.url',
     'profitelo.services.uploader',
     'profitelo.swaggerResources',
+    'profitelo.components.interface.preloader',
     'profitelo.components.interface.image-crop',
     'profitelo.directives.interface.pro-checkbox',
     'profitelo.directives.interface.pro-input',

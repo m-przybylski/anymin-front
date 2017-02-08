@@ -13,11 +13,11 @@ namespace profitelo.app.dashboard.settings {
     public currentState: string = this.stateNames[0]
 
     /* ngInject */
-    constructor(private $state: ng.ui.IStateService, private $scope: ng.IScope, private lodash: _.LoDashStatic) {
+    constructor($state: ng.ui.IStateService, $scope: ng.IScope, private lodash: _.LoDashStatic) {
 
       $scope.$watch(() => {
         return $state.current.name
-      }, (newVal, oldVal) => {
+      }, (newVal, _oldVal) => {
         if (newVal) {
           this.handleStateChange(newVal)
         }

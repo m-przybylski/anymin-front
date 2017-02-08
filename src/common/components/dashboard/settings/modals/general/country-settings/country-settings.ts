@@ -12,17 +12,15 @@ namespace profitelo.components.dashboard.settings.modals.general.countrySettings
   class generalCountrySettingsController implements ng.IController {
 
     /* @ngInject */
-    constructor(private $scope: IgeneralCountrySettingsControllerScope,
-                private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
+    constructor($scope: IgeneralCountrySettingsControllerScope,
+                $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
 
       $scope.isNavbar = true
       $scope.isFullscreen = true
 
-
       $scope.onModalClose = () =>
         $uibModalInstance.dismiss('cancel')
     }
-
 
   }
 
