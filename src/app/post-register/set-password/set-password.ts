@@ -1,8 +1,12 @@
-import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordStrengthService;
-(function() {
+namespace profitelo.postRegister.setPassword {
 
-  function _controller($filter, $state, proTopWaitingLoaderService, passwordStrengthService: IPasswordStrengthService,
-                       User, topAlertService, CommonSettingsService, AccountApi) {
+  import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordStrengthService
+  import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
+
+  function _controller($log: ng.ILogService, $filter: ng.IFilterService, $state: ng.ui.IStateService,
+                       proTopWaitingLoaderService: any, passwordStrengthService: IPasswordStrengthService,
+                       User: any, topAlertService: ITopAlertService, CommonSettingsService: ICommonSettingsService,
+                       AccountApi: any) {
 
     this.passwordStrength = 0
     this.password = ''
@@ -35,6 +39,7 @@ import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordS
         AccountApi.partialUpdateAccount(patchObject).$promise.then(successCallback, (error) => {
           this.isPending = false
           proTopWaitingLoaderService.stopLoader()
+          $log.error(error)
           topAlertService.error({
             message: $filter('translate')('INTERFACE.API_ERROR'),
             timeout: 4
@@ -99,5 +104,4 @@ import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordS
   ])
     .config(config)
     .controller('SetPasswordController', _controller)
-
-}())
+}

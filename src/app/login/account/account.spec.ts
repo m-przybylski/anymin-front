@@ -21,7 +21,7 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
     angular.mock.module('profitelo.controller.login.account')
     angular.mock.module('profitelo.services.communicator')
     angular.mock.module('profitelo.swaggerResources.definitions')
-      inject(($rootScope, $controller,  $filter, $injector, _proTopWaitingLoaderService_, _User_, _topAlertService_,
+      inject(($rootScope, $controller, $injector, _proTopWaitingLoaderService_, _User_, _topAlertService_,
               _loginStateService_, _$httpBackend_, _AccountApiDef_, _communicatorService_, _RatelApiDef_, _ServiceApiDef_,
               _SessionApiDef_) => {
         $httpBackend  = _$httpBackend_
@@ -38,7 +38,7 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
           '$setPristine': () => {}
         }
         _mockState = {
-          go: (param, obj) => {
+          go: (_param, _obj) => {
             return true
           }
         }

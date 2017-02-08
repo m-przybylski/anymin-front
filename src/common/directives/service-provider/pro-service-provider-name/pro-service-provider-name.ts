@@ -1,5 +1,5 @@
 (function() {
-  function proServiceProviderName($q, $timeout) {
+  function proServiceProviderName($q: ng.IQService) {
     function linkFunction(scope, element, attrs) {
       scope.required = false
       scope.error.badName = false

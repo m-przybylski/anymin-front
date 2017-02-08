@@ -17,7 +17,7 @@ namespace profitelo.services.print {
       return '<html><head>' +
         '</head>' +
         '<body>' +
-        '<img style="display: block; margin-left: auto; margin-right: auto" src="" + imgSrc + ""/>' +
+        '<img style="display: block; margin-left: auto; margin-right: auto" src=""' + imgSrc + '""/>' +
         '</body>'
     }
 

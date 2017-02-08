@@ -1,9 +1,17 @@
-import IPhoneNumberService = profitelo.services.phoneNumber.IPhoneNumberService;
-(function() {
+namespace profitelo.login.account {
 
-  function AccountFormController($rootScope, $state, $filter, AccountApi, proTopWaitingLoaderService, User,
-                                 topAlertService, loginStateService, CommonSettingsService,
-                                 phoneNumberService: IPhoneNumberService, communicatorService) {
+  import IPhoneNumberService = profitelo.services.phoneNumber.IPhoneNumberService;
+  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  import IFilterService = profitelo.services.filter.IFilterService
+  import ILoginStateService = profitelo.services.loginState.ILoginStateService
+  import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
+  import ICommunicatorService = profitelo.services.communicator.ICommunicatorService
+
+  function AccountFormController($log: ng.ILogService, $rootScope: IRootScopeService, $state: ng.ui.IStateService,
+                                 $filter: IFilterService, AccountApi: any, proTopWaitingLoaderService: any, User: any,
+                                 topAlertService: ITopAlertService, loginStateService: ILoginStateService,
+                                 CommonSettingsService: ICommonSettingsService,
+                                 phoneNumberService: IPhoneNumberService, communicatorService: ICommunicatorService) {
 
     this.isPending = false
     this.current = 1
@@ -60,6 +68,7 @@ import IPhoneNumberService = profitelo.services.phoneNumber.IPhoneNumberService;
           _determinePhoneNumberStatus(response.status)
           proTopWaitingLoaderService.stopLoader()
         }, (error) => {
+          $log.error(error)
           this.isPending = false
           topAlertService.error({
             message: $filter('translate')('INTERFACE.API_ERROR'),
@@ -78,7 +87,7 @@ import IPhoneNumberService = profitelo.services.phoneNumber.IPhoneNumberService;
         User.login({
           msisdn: this.account.phoneNumber.prefix + '' + this.account.phoneNumber.number,
           password: this.account.password
-        }).then((response) => {
+        }).then((_response) => {
           communicatorService.authenticate()
           $rootScope.loggedIn = true
           this.isPending = false
@@ -90,6 +99,7 @@ import IPhoneNumberService = profitelo.services.phoneNumber.IPhoneNumberService;
             timeout: 2
           })
         }, (error) => {
+          $log.error(error)
           this.isPending = false
           this.serverError = true
           proTopWaitingLoaderService.stopLoader()
@@ -106,8 +116,8 @@ import IPhoneNumberService = profitelo.services.phoneNumber.IPhoneNumberService;
       controllerAs: 'vm',
       controller: 'AccountFormController',
       templateUrl: 'login/account/account.tpl.html',
-      data : {
-        access : UserRolesProvider.getAccessLevel('anon'),
+      data: {
+        access: UserRolesProvider.getAccessLevel('anon'),
         pageTitle: 'PAGE_TITLE.LOGIN.ACCOUNT'
       }
     })
@@ -130,7 +140,7 @@ import IPhoneNumberService = profitelo.services.phoneNumber.IPhoneNumberService;
     'profitelo.directives.interface.pro-input',
     'profitelo.components.interface.dropdown-primary'
   ])
-  .config(config)
-  .controller('AccountFormController', AccountFormController)
+    .config(config)
+    .controller('AccountFormController', AccountFormController)
 
-}())
+}

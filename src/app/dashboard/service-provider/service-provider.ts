@@ -1,5 +1,5 @@
 (function() {
-  function ServiceProviderController($state) {
+  function ServiceProviderController() {
 
     this.onClose = () =>{
 

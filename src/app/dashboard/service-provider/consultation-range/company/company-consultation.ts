@@ -1,5 +1,5 @@
 (function() {
-  function CompanyConsultationController($scope, $state, dialogService, savedProfile, ServiceApi, topAlertService,
+  function CompanyConsultationController($log, $scope, $state, dialogService, savedProfile, ServiceApi, topAlertService,
                                          profileImage, lodash: _.LoDashStatic, serviceProviderService) {
 
     this.costModel = serviceProviderService.createDefaultModel('')
@@ -30,12 +30,13 @@
         },
         ownerEmployee: this.ownerEmployee,
         invitations: this.costModel.invitations
-      }).$promise.then((res)=> {
+      }).$promise.then((_res)=> {
 
         if (typeof callback === 'function') {
           callback()
         }
       }, (err)=> {
+        $log.error(err)
         topAlertService.error({
           message: 'error',
           timeout: 4
@@ -112,6 +113,7 @@
         }).$promise.then(() => {
           $state.reload()
         }, (err) => {
+          $log.error(err)
           topAlertService.error({
             message: 'error',
             timeout: 4
@@ -128,9 +130,10 @@
         this.modalCallback = () => {
           ServiceApi.deleteService({
             serviceId: _id
-          }).$promise.then((res)=> {
+          }).$promise.then((_res)=> {
             this.consultations.splice(_index, 1)
           }, (err) => {
+            $log.error(err)
             topAlertService.error({
               message: 'error',
               timeout: 4
@@ -182,7 +185,7 @@
         controllerAs: 'vm',
         resolve: {
           /* istanbul ignore next */
-          savedProfile: ($q, $state, ProfileApi, lodash: _.LoDashStatic, User, ServiceProviderImageResolver, ServiceApi, topAlertService) => {
+          savedProfile: ($log, $q, $state, ProfileApi, lodash: _.LoDashStatic, User, ServiceApi, topAlertService) => {
             /* istanbul ignore next */
             let _deferred = $q.defer()
             /* istanbul ignore next */
@@ -210,6 +213,7 @@
                 })
               })
             }, (error) => {
+              $log.error(error)
               $state.go('app.dashboard')
               topAlertService.error({
                 message: 'error',

@@ -1,5 +1,5 @@
 (function() {
-  function ServiceProviderStepController($scope, $timeout, $rootScope, smoothScrollingService) {
+  function ServiceProviderStepController($scope, $timeout: ng.ITimeoutService, $rootScope, smoothScrollingService) {
 
     let shadowModel = null
 
@@ -75,14 +75,14 @@
       }
     }
 
-    $scope.$on('manualOrderChangeRequestGrant', (event, targetStep) => {
+    $scope.$on('manualOrderChangeRequestGrant', (_event, targetStep) => {
       if ($scope.order === targetStep) {
         $scope.saveShadowModel()
         $scope.queue.currentStep = $scope.order
       }
     })
 
-    $scope.$on('manualOrderChangeRequest', (event, targetStep) => {
+    $scope.$on('manualOrderChangeRequest', (_event, targetStep) => {
       if ($scope.order === $scope.queue.currentStep && targetStep !== $scope.order) {
         $scope.outClick()
         $rootScope.$broadcast('manualOrderChangeRequestGrant', targetStep)

@@ -1,6 +1,6 @@
 (function() {
 
-  function RegisterController($filter, $state, $rootScope, proTopWaitingLoaderService, User, topAlertService,
+  function RegisterController($log, $filter, $state, $rootScope, proTopWaitingLoaderService, User, topAlertService,
                               UserRoles, smsSessionId, CommonSettingsService, RegistrationApi, AccountApi,
                               loginStateService, communicatorService) {
     this.passwordStrength = 0
@@ -24,10 +24,11 @@
         RegistrationApi.verifyVerification({
           sessionId: this.registrationSteps.sessionId,
           token: String(this.registrationSteps.smsCode)
-        }).$promise.then((res) => {
+        }).$promise.then(() => {
           communicatorService.authenticate()
           this.correctCode = true
         }, (err) => {
+          $log.error(err)
           this.serverError = true
         })
       } else if (!angular.isDefined(this.registrationSteps.smsCode) || this.registrationSteps.smsCode === null) {
@@ -57,6 +58,7 @@
           $rootScope.loggedIn = true
           $state.go('app.post-register.set-password')
         }, (error) => {
+          $log.error(error)
           this.isPending = false
           this.serverError = true
           proTopWaitingLoaderService.stopLoader()
@@ -74,6 +76,7 @@
 
         AccountApi.partialUpdateAccount(patchObject).$promise.then(successCallback, (error) => {
           this.isPending = false
+          $log.error(error)
           proTopWaitingLoaderService.stopLoader()
           topAlertService.error({
             message: $filter('translate')('INTERFACE.API_ERROR'),

@@ -10,7 +10,7 @@ namespace profitelo.resolvers.serviceProviderChoosePath {
   class ServiceProviderChoosePathResolver implements IServiceProviderChoosePathService {
 
     constructor(private $state: ng.ui.IStateService, private $q: IQService, private topAlertService: ITopAlertService,
-                private User, private ProfileApi) {
+                private User, private ProfileApi, private $log: ng.ILogService) {
 
     }
 
@@ -35,6 +35,7 @@ namespace profitelo.resolvers.serviceProviderChoosePath {
           _deferred.resolve(null)
         })
       }, (error) => {
+        this.$log.error(error)
         this.$state.go('app.dashboard')
         this.topAlertService.error({
           message: 'error',

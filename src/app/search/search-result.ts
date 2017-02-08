@@ -1,6 +1,6 @@
-(function() {
+(function () {
 
-  function SearchResultController($scope, $state, $location, $timeout, searchService, searchUrlService) {
+  function SearchResultController($scope, $state, $location, searchService, searchUrlService) {
 
     this.searchParams = $location.search()
     this.searchResults = {
@@ -70,7 +70,6 @@
         $location.search(params)
       }
     })
-
 
 
     return this

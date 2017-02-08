@@ -1,8 +1,8 @@
 (function() {
 
   /* @ngInject */
-  function payuPaymentFormController($window: ng.IWindowService, $state, PaymentsApi, User, topAlertService,
-                                     smoothScrollingService, CommonSettingsService) {
+  function payuPaymentFormController($log: ng.ILogService, $window: ng.IWindowService, $state, PaymentsApi: any,
+                                     User: any, topAlertService, smoothScrollingService, CommonSettingsService) {
     let isPending = false
 
     this.rulesAccepted = true
@@ -42,6 +42,7 @@
           isPending = false
           $window.open(response.redirectUrl, '_self', undefined, true)
         }, (error) => {
+          $log.error(error)
           topAlertService.error({
             message: 'error',
             timeout: 4

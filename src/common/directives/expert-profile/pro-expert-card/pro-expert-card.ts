@@ -1,6 +1,6 @@
 (function() {
-  function proExpertCard($timeout) {
-    function linkFunction($window, $element) {
+  function proExpertCard() {
+    function linkFunction() {
       this.translations = {
         'available': 'HOME.EXPERT_CARD_AVAILABLE',
         'not-available': 'HOME.EXPERT_CARD_NOT_AVAILABLE',

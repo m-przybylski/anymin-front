@@ -20,7 +20,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
     angular.mock.module('profitelo.directives.service-provider.pro-service-provider-tags')
     angular.mock.module('profitelo.swaggerResources.definitions')
 
-      inject(($rootScope, $compile, $injector) => {
+      inject(($rootScope, $compile) => {
         scope = $rootScope.$new()
         compile = $compile
       })

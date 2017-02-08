@@ -1,5 +1,5 @@
 (function() {
-  function CompanySummaryController($state, $scope, $filter, savedProfile, ServiceApi, topAlertService,
+  function CompanySummaryController($log, $state, $scope, $filter, savedProfile, ServiceApi, topAlertService,
                                     profileAvatar, lodash: _.LoDashStatic, companyLogo, dialogService, communicatorService) {
 
     if (savedProfile && savedProfile.expertDetails && !savedProfile.organizationDetails) {
@@ -32,7 +32,7 @@
       if (!!lodash.find(this.consultations, {'ownerEmployee': true}) && !savedProfile.expertDetails ) {
         $state.go('app.dashboard.service-provider.individual-path')
       } else {
-        ServiceApi.postServicesVerify().$promise.then((res)=> {
+        ServiceApi.postServicesVerify().$promise.then((_res)=> {
           $state.go('app.dashboard.client.favourites')
           communicatorService.authenticate()
           topAlertService.success({
@@ -40,6 +40,7 @@
             timeout: 4
           })
         }, (err) => {
+          $log.error(err)
           topAlertService.error({
             message: 'error',
             timeout: 4
@@ -81,6 +82,7 @@
         }).$promise.then(() => {
           $state.reload()
         }, (err) => {
+          $log.error(err)
           topAlertService.error({
             message: 'error',
             timeout: 4
@@ -98,12 +100,13 @@
         this.modalCallback = () => {
           ServiceApi.deleteService({
             serviceId: _id
-          }).$promise.then((res)=> {
+          }).$promise.then((_res)=> {
             this.consultations.splice(_index, 1)
             if (this.consultations.length === 0) {
               $state.go('app.dashboard.service-provider.consultation-range.company')
             }
           }, (err) => {
+            $log.error(err)
             topAlertService.error({
               message: 'error',
               timeout: 4
@@ -144,7 +147,7 @@
         controllerAs: 'vm',
         resolve: {
           /* istanbul ignore next */
-          savedProfile: ($q, $state, ProfileApi, lodash: _.LoDashStatic, User, ServiceApi, topAlertService) => {
+          savedProfile: ($log, $q, $state, ProfileApi, lodash: _.LoDashStatic, User, ServiceApi, topAlertService) => {
             /* istanbul ignore next */
             let _deferred = $q.defer()
             /* istanbul ignore next */
@@ -173,6 +176,7 @@
                 })
               })
             }, (error) => {
+              $log.error(error)
               $state.go('app.dashboard')
               topAlertService.error({
                 message: 'error',

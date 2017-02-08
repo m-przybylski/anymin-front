@@ -1,12 +1,15 @@
+import ITopAlertService = profitelo.services.topAlert.ITopAlertService
 (function() {
-  function proUploader($timeout, $interval, $filter, $q, FilesApi, Upload, CommonConfig, topAlertService) {
+  function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interval: ng.IIntervalService,
+                       $filter: ng.IFilterService, $q: ng.IQService, FilesApi: any, Upload: any,
+                       CommonConfig: any, topAlertService: ITopAlertService) {
 
 
     interface FileInfo {
-
+      fileId: string
     }
 
-    function linkFunction(scope, element, attr) {
+    function linkFunction(scope, _element: ng.IRootElementService, attr) {
 
       let _file = 0
       let _files = 0
@@ -102,6 +105,7 @@
                   }
                 },
                 (err) => {
+                  $log.error(err)
                   topAlertService.error({
                     message: $filter('translate')('INTERFACE.API_ERROR'),
                     timeout: 4
@@ -116,6 +120,7 @@
               )
             })
           }, (tokenPromissesError) => {
+            $log.error(tokenPromissesError)
             topAlertService.error({
               message: $filter('translate')('INTERFACE.API_ERROR'),
               timeout: 4
@@ -161,7 +166,7 @@
               $interval.cancel(immediateInterval)
             })
           }
-        })
+        }, 100)
       }
 
       scope.deleteImage = ()=> {

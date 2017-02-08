@@ -19,7 +19,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
     })
 
     function create(html) {
-      let elem = angular.element(validHTML)
+      let elem = angular.element(html)
       scope.consultations = [{}]
       scope.editConsultation = () => {
         return null

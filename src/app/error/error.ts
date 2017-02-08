@@ -10,7 +10,7 @@
     'ui.router',
     'c7s.ng.userAuth'
   ])
-    .config( function($stateProvider, $urlRouterProvider, UserRolesProvider) {
+    .config( function($stateProvider, UserRolesProvider) {
       $stateProvider.state('app.error', {
         templateUrl: 'error/error.tpl.html',
         controller: 'ErrorController',

@@ -11,20 +11,21 @@ namespace profitelo.services.customTranslationHandlerService {
       '<i class="icon icon-home icon-sm"></i>'
     ]
 
+    /* ngInject */
     constructor(private lodash: _.LoDashStatic) {
     }
 
-    public handler = (translationId, uses) => {
+    public handler = (translationId, _uses) => {
       if (translationId !== void 0 &&
         !this.lodash.includes(CustomTranslationHandlerService._exceptionsStrings, translationId)) {
-        //var _str = 'Missing [' + uses + '] translations for: ' + translationId
+        //const str = 'Missing [' + uses + '] translations for: ' + translationId
         // TODO: move error reporting to sentry
         // this.$log.error(_str)
       }
     }
 
-    public static getInstance (lodash: _.LoDashStatic) {
-        return (new CustomTranslationHandlerService(lodash)).handler
+    public static getInstance(lodash: _.LoDashStatic) {
+      return (new CustomTranslationHandlerService(lodash)).handler
     }
   }
 
@@ -32,5 +33,5 @@ namespace profitelo.services.customTranslationHandlerService {
     'pascalprecht.translate',
     'ngLodash'
   ])
-  .service('CustomTranslationHandlerService', ['$log', 'lodash', CustomTranslationHandlerService.getInstance])
+    .service('CustomTranslationHandlerService', ['lodash', CustomTranslationHandlerService.getInstance])
 }

@@ -7,7 +7,8 @@ describe('Unit testing: profitelo.resolvers.service-provider-image', () => {
     let $httpBackend
     let _FilesApiDef
     let resourcesExpectations
-    beforeEach(angular.mock.module(function($provide) {
+
+    beforeEach(angular.mock.module(function ($provide) {
       $provide.value('apiUrl', url)
     }))
 
@@ -17,8 +18,8 @@ describe('Unit testing: profitelo.resolvers.service-provider-image', () => {
         go: () => {
         }
       }
-    angular.mock.module('profitelo.swaggerResources.definitions')
-    angular.mock.module('profitelo.resolvers.service-provider-image', function($provide) {
+      angular.mock.module('profitelo.swaggerResources.definitions')
+      angular.mock.module('profitelo.resolvers.service-provider-image', function () {
 
       })
 
@@ -52,10 +53,10 @@ describe('Unit testing: profitelo.resolvers.service-provider-image', () => {
           'http://i_just_download_image.profitelo.pl'
         ]
       })
-      AppServiceProviderImageResolver.resolve(':token').then((res)=> {
+      AppServiceProviderImageResolver.resolve(':token').then((res) => {
         expect(res).toBe('http://i_just_download_image.profitelo.pl')
         spy.spy()
-      }, ()=> {
+      }, () => {
 
       })
       $httpBackend.flush()
@@ -75,10 +76,10 @@ describe('Unit testing: profitelo.resolvers.service-provider-image', () => {
         }
       })
 
-      AppServiceProviderImageResolver.resolve(':token').then((res)=> {
+      AppServiceProviderImageResolver.resolve(':token').then((res) => {
         expect(res).toBe('')
         spy.spy()
-      }, ()=> {
+      }, () => {
       })
 
       $httpBackend.flush()

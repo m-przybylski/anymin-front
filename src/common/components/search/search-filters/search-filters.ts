@@ -115,7 +115,7 @@ module profitelo.components.search.searchFilters {
       this.setSearchQueryParamsDebounce(searchQueryParams)
     }
 
-    public onPriceRangeBarUpdate = (minPrice, maxPrice, pointerType) => {
+    public onPriceRangeBarUpdate = (minPrice, maxPrice, _pointerType) => {
       const searchQueryParams: ISearchFilters = {}
       searchQueryParams.maxPrice = maxPrice
       searchQueryParams.minPrice = minPrice

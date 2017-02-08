@@ -1,7 +1,7 @@
 (function() {
   function proAlert(topAlertService) {
 
-    function linkFunction(scope, element, attr) {
+    function linkFunction(scope, _element: ng.IRootElementService, _attr) {
       scope.alerts = []
       let addAlert = (alerts)=> {
         scope.alerts = alerts
@@ -14,8 +14,6 @@
       topAlertService.bindAlert(addAlert)
 
     }
-
-
 
     return {
       templateUrl:  'directives/interface/pro-alert/pro-alert.tpl.html',

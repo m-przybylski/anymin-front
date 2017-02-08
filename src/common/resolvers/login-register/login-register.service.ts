@@ -19,7 +19,7 @@ namespace profitelo.resolvers.loginRegister {
 
     constructor(private loginStateService: ILoginStateService, private $state: ng.ui.IStateService,
                 private $filter: IFilterService, private $q: ng.IQService, private $timeout: ng.ITimeoutService,
-                private topAlertService: ITopAlertService, private RegistrationApi) {
+                private topAlertService: ITopAlertService, private RegistrationApi, private $log: ng.ILogService) {
 
     }
 
@@ -51,6 +51,7 @@ namespace profitelo.resolvers.loginRegister {
             accountObject: _account
           })
         }, (error) => {
+          this.$log.error(error)
           this.topAlertService.warning({
             message: this.$filter('translate')('INTERFACE.API_ERROR'),
             timeout: 3

@@ -1,18 +1,19 @@
-(function() {
-  function proServiceProviderFileUploader($q, topAlertService, FilesApi) {
+(function () {
+  function proServiceProviderFileUploader($log: ng.ILogService, $q: ng.IQService, topAlertService, FilesApi: any) {
 
-    function linkFunction(scope, element, attrs) {
+    function linkFunction(scope, _element: ng.IRootElementService, attrs) {
 
       scope.model = {
         files: []
       }
       scope.isPending = false
       if (angular.isDefined(scope.proModel) && angular.isDefined(scope.proModel.files)) {
-        for (let i = 0; i < scope.proModel.files.length;i++) {
-          FilesApi.fileInfoPath({token: scope.proModel.files[i].token}).$promise.then((res)=>{
+        for (let i = 0; i < scope.proModel.files.length; i++) {
+          FilesApi.fileInfoPath({token: scope.proModel.files[i].token}).$promise.then((res) => {
             res.token = scope.proModel.files[i].token
             scope.model.files.push({file: res, response: res})
-          }, (err)=>{
+          }, (err) => {
+            $log.error(err)
             topAlertService.error({
               message: 'error',
               timeout: 4

@@ -1,7 +1,7 @@
 (function() {
-  function proServiceExternalLinks($timeout, $q, CommonSettingsService) {
+  function proServiceExternalLinks($q: ng.IQService, CommonSettingsService) {
 
-    function linkFunction(scope, element, attrs) {
+    function linkFunction(scope, _element: ng.IRootElementService, attrs) {
 
       scope.linkModel = ''
 

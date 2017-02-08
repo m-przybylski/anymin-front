@@ -3,8 +3,8 @@
   function proSocialIconGetter(urlService) {
 
     function proSocialIconGetterLink(scope) {
-      
-      scope.$watch('url', function(newVal, oldVal) {
+
+      scope.$watch('url', function(newVal, _oldVal) {
         scope.social = urlService.resolveSocialUrl(newVal)
       })
     }

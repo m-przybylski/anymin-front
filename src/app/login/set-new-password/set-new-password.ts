@@ -1,4 +1,6 @@
-(function() {
+namespace profitelo.login.setNewPassword {
+
+  import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordStrengthService
 
   function SetNewPasswordController($state, $filter, tokenStatus, passwordStrengthService: IPasswordStrengthService,
                                     topAlertService, RecoverPasswordApi, CommonSettingsService) {
@@ -12,7 +14,7 @@
         timeout: 2
       })
     }
-    
+
     let _passwordChangeSuccess = () => {
       $state.go('app.login.account')
       topAlertService.success({
@@ -20,7 +22,7 @@
         timeout: 3
       })
     }
-    
+
     let _submitPasswordChangeBySms = () => {
       tokenStatus.payload.password = this.newPassword
       RecoverPasswordApi.putRecoverPasswordMsisdn(tokenStatus.payload).$promise.then(_passwordChangeSuccess, _passwordChangeError)
@@ -57,7 +59,7 @@
       controller: 'SetNewPasswordController',
       templateUrl: 'login/set-new-password/set-new-password.tpl.html',
       resolve: {
-        
+
         tokenStatus: ($stateParams, LoginSetNewPasswordResolver) => {
           /* istanbul ignore next */
           return LoginSetNewPasswordResolver.resolve($stateParams)
@@ -86,7 +88,7 @@
     'profitelo.directives.password-strength-bar',
     'c7s.ng.userAuth'
   ])
-  .config(config)
-  .controller('SetNewPasswordController', SetNewPasswordController)
+    .config(config)
+    .controller('SetNewPasswordController', SetNewPasswordController)
 
-}())
+}

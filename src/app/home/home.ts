@@ -18,7 +18,7 @@
       smoothScrollingService.simpleScrollTo(searchInputOnPage, true)
     }
 
-    angular.element(angular.element(document).find('.search-active-mask')).on('whell mousewheel', (e) => {
+    angular.element(angular.element(document).find('.search-active-mask')).on('whell mousewheel', () => {
       this.interfaceController.hideSearchMask = true
       $scope.$digest()
     })

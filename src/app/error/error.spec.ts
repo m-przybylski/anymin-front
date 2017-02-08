@@ -5,7 +5,7 @@ describe('Unit tests: ErrorController >', () => {
 
     beforeEach(() => {
       angular.mock.module('profitelo.controller.error')
-      inject(($rootScope, $controller) => {
+      inject(($controller: ng.IControllerService) => {
         ErrorController = $controller('ErrorController', {
         })
       })

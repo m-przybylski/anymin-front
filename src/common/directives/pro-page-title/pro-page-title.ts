@@ -1,8 +1,8 @@
 (function() {
 
-  function pageTitleDirective($rootScope, $filter, $timeout) {
+  function pageTitleDirective($rootScope, $filter) {
 
-    function linkFunction(scope, element, attrs) {
+    function linkFunction(_scope, element, _attrs) {
 
       let pageTitle = ''
 
@@ -10,7 +10,7 @@
         element.text(text)
       }
 
-      $rootScope.$on('prependTitle', (event, data) => {
+      $rootScope.$on('prependTitle', (_event, data) => {
 
         changePageTitle(data + ' - ' + pageTitle)
 
@@ -22,13 +22,13 @@
         let currentLevel = data
 
         while (typeof currentLevel === 'object' && Object.getPrototypeOf(currentLevel)) {
-          
+
           if (currentLevel.hasOwnProperty('pageTitle')) {
 
             if (pageTitle.length > 0) {
               pageTitle += ' - '
             }
-            
+
             pageTitle += $filter('translate')(currentLevel.pageTitle)
           }
 
@@ -38,7 +38,7 @@
         changePageTitle(pageTitle)
       }
 
-      $rootScope.$on('$stateChangeStart', (event, toState, toParams, fromState, fromParams, error) => {
+      $rootScope.$on('$stateChangeStart', (_event, toState, _toParams, _fromState, _fromParams, _error) => {
         traverseDownStates(toState.data)
       })
 

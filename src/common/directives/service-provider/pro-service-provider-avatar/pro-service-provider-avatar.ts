@@ -1,7 +1,7 @@
-(function() {
-  function proServiceProviderAvatar($q, topAlertService, FilesApi) {
+(function () {
+  function proServiceProviderAvatar($log: ng.ILogService, $q: ng.IQService, topAlertService, FilesApi: any) {
 
-    function linkFunction(scope, element, attrs) {
+    function linkFunction(scope, _element: ng.IRootElementService, attrs) {
 
       scope.imageField = 'avatar'
       scope.required = false
@@ -23,11 +23,12 @@
       scope.model = {}
       scope.model[scope.imageField] = []
 
-      let _getImageIfExist = (model)=> {
-        FilesApi.fileInfoPath({token: model}).$promise.then((res)=>{
-          scope.model[scope.imageField].push({file: null, response:res})
+      let _getImageIfExist = (model) => {
+        FilesApi.fileInfoPath({token: model}).$promise.then((res) => {
+          scope.model[scope.imageField].push({file: null, response: res})
           scope.isPending = false
-        }, (err)=> {
+        }, (err) => {
+          $log.error(err)
           topAlertService.error({
             message: 'error',
             timeout: 4
@@ -100,5 +101,5 @@
     'profitelo.directives.interface.pro-uploader',
     'profitelo.services.top-alert'
   ])
-  .directive('proServiceProviderAvatar', proServiceProviderAvatar)
+    .directive('proServiceProviderAvatar', proServiceProviderAvatar)
 }())

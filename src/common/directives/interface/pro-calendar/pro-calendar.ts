@@ -1,6 +1,6 @@
 function proCalendar() {
 
-  function linkFunction(scope, element, attr) {
+  function linkFunction(scope, _element: ng.IRootElementService, _pattr) {
     scope.today = function() {
       scope.dt = new Date()
     }

@@ -57,7 +57,7 @@
 
     $scope.$watch(() => {
       return $state.$current.name
-    },(newVal, oldVal) => {
+    },(newVal, _oldVal) => {
       if (newVal) {
         this.stateNames[getRealStateName(newVal)] = true
       }

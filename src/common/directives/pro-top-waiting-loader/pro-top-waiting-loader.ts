@@ -2,16 +2,16 @@
 
   function proTopWaitingLoader(proTopWaitingLoaderService) {
 
-    function proTopWaitingLoaderLinkFn(scope, element, attr) {
+    function proTopWaitingLoaderLinkFn(scope: any, _element: ng.IRootElementService, _attr: ng.IAttributes) {
 
       let setProgress = (progress) => {
         scope.progress = progress
       }
-      
+
       proTopWaitingLoaderService.bindProgress(setProgress)
 
     }
-    
+
     return {
       restrict:       'E',
       replace:        true,

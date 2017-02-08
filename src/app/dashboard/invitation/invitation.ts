@@ -21,7 +21,7 @@
         pageTitle: 'PAGE_TITLE.INVITATIONS'
       },
       resolve: {
-        pendingInvitations: ($q, $state, ProfileApi, User, ServiceApi, lodash: _.LoDashStatic, topAlertService) => {
+        pendingInvitations: ($log, $q, $state, ProfileApi, User, ServiceApi, lodash: _.LoDashStatic, topAlertService) => {
           /* istanbul ignore next */
           let _deferred = $q.defer()
           /* istanbul ignore next */
@@ -44,6 +44,7 @@
               _deferred.resolve([])
             })
           }, (error) => {
+            $log.error(error)
             $state.go('app.dashboard')
             topAlertService.error({
               message: 'error',

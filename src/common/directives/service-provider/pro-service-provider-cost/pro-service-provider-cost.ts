@@ -1,7 +1,7 @@
 (function() {
   function proServiceProviderCost($q, $filter) {
 
-    function linkFunction(scope, element, attrs) {
+    function linkFunction(scope, _element: ng.IRootElementService, attrs) {
 
       scope.required = false
       scope.error.noCost = false
@@ -28,7 +28,7 @@
 
         return _isValidDeferred.promise
       }
-      
+
       const _displayErrorMessage = () => {
         scope.error.noCost = true
       }
@@ -39,7 +39,7 @@
 
       scope.$watch(() => {
         return scope.model.cost
-      }, (newValue, oldValue) => {
+      }, (newValue, _oldValue) => {
         if (newValue !== undefined && typeof newValue !== 'number') {
           scope.model.cost = $filter('semicolonToCommaInputFilter')(scope.model.cost)
         }
