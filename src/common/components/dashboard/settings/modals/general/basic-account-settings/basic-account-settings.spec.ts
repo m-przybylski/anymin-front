@@ -3,11 +3,6 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
   import BasicAccountSettingsController = profitelo.components.dashboard.settings.modals.general.basicAccountSettings.BasicAccountSettingsController
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 
-  interface IBasicAccountSettingsControllerScope extends ng.IScope {
-    onModalClose: void
-    addPhoto: void
-    isUserUploadImage: boolean
-  }
 
   describe('Testing Controller: basicAccountSettingsController', () => {
 
@@ -20,8 +15,19 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
 
 
     const uploaderFactory = {
+      getInstance: () => {},
       collectionTypes: {
         avatar: {}
+      }
+    }
+
+    const User = {
+      getData: () => {
+        return {
+          isAnonymous: false,
+          nickname: 'Heniek',
+          avatar: '78ijn567uejwewewe3'
+        }
       }
     }
 
@@ -40,7 +46,7 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
           $scope: scope,
           $uibModalInstance: $uibModalInstance,
           AccountApi: _AccountApi_,
-          User: _User_,
+          User: User,
           uploaderFactory: uploaderFactory
         }
 

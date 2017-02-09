@@ -4,7 +4,7 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
   import IUploaderService = profitelo.services.uploader.IUploaderService
   import IUrlService = profitelo.services.helper.IUrlService
 
-  interface IBasicAccountSettingsControllerScope extends ng.IScope {
+  export interface IBasicAccountSettingsControllerScope extends ng.IScope {
     isNavbar: boolean
     isFullscreen: boolean
     isAvatarVisableToExpert: boolean

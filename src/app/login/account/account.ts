@@ -136,7 +136,6 @@ namespace profitelo.login.account {
     'profitelo.services.top-alert',
     'profitelo.directives.interface.pro-alert',
     'profitelo.directives.interface.pro-input-password',
-    'profitelo.directives.interface.pro-dropdown',
     'profitelo.directives.interface.pro-input',
     'profitelo.components.interface.dropdown-primary'
   ])
