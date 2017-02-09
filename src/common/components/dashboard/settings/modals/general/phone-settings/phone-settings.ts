@@ -1,18 +1,21 @@
 namespace profitelo.components.dashboard.settings.modals.general.phoneSettings {
 
-  interface IgeneralPhoneSettingsControllerScope extends ng.IScope {
+  export interface IGeneralPhoneSettingsControllerParentScope extends ng.IScope {}
+
+  interface IGeneralPhoneSettingsControllerScope extends ng.IScope {
     isNavbar: boolean
     isFullscreen: boolean
     isAvatarVisableToExpert: boolean
     onModalClose: Function
     addPhoto: Function
     imageSource: string
+    $parent: IGeneralPhoneSettingsControllerParentScope
   }
 
-  class generalPhoneSettingsController implements ng.IController {
+  export class GeneralPhoneSettingsController implements ng.IController {
 
     /* @ngInject */
-    constructor($scope: IgeneralPhoneSettingsControllerScope,
+    constructor($scope: IGeneralPhoneSettingsControllerScope,
                 $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
 
       $scope.isNavbar = true
@@ -29,6 +32,6 @@ namespace profitelo.components.dashboard.settings.modals.general.phoneSettings {
     'profitelo.directives.interface.pro-input',
     'profitelo.directives.interface.scrollable'
   ])
-  .controller('generalPhoneSettingsController', generalPhoneSettingsController)
+  .controller('generalPhoneSettingsController', GeneralPhoneSettingsController)
 
 }

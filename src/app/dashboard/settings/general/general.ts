@@ -3,16 +3,17 @@ namespace app.dashboard.settings.general {
   import IModalsService = profitelo.services.modals.IModalsService
   import IUrlService = profitelo.services.helper.IUrlService
 
-  class DashboardSettingsGeneralController implements ng.IController {
+  export class DashboardSettingsGeneralController implements ng.IController {
 
-    public user
+    public user: any
     public avatarImageSource: string
 
-    constructor(private modalsService: IModalsService, private User, private urlService: IUrlService) {}
+    constructor(private modalsService: IModalsService, UserData: any, private $state: ng.ui.IStateService, private urlService: IUrlService) {
+      this.user = UserData
+      this.avatarImageSource = this.urlService.resolveFileUrl(this.user.settings.avatar)
+    }
 
     $onInit = () => {
-     this.user = this.User.getAllData()
-     this.avatarImageSource = this.urlService.resolveFileUrl(this.user.settings.avatar)
     }
 
     public openBasicAccountSettingsModal = () => {
@@ -32,9 +33,7 @@ namespace app.dashboard.settings.general {
     }
 
     private getUserData = (cb: Function) => {
-      this.User.getStatus(true).then(() => {
-        this.user = this.User.getAllData()
-        this.avatarImageSource = this.urlService.resolveFileUrl(this.user.settings.avatar)
+      this.$state.reload().then(() => {
         cb()
       })
     }
@@ -48,16 +47,21 @@ namespace app.dashboard.settings.general {
     'profitelo.services.url',
     'profitelo.services.modals'
   ])
-  .config(function ($stateProvider, UserRolesProvider) {
+  .config(($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) => {
     $stateProvider.state('app.dashboard.settings.general', {
       url: '/general',
       templateUrl: 'dashboard/settings/general/general.tpl.html',
-      controller: 'DashboardSettingsGeneralController',
+      controller: 'dashboardSettingsGeneralController',
       controllerAs: 'vm',
+      resolve: {
+        UserData: (User: any) => {
+          return User.getStatus(true)
+        }
+      },
       data: {
         access: UserRolesProvider.getAccessLevel('user')
       }
     })
   })
-  .controller('DashboardSettingsGeneralController', DashboardSettingsGeneralController)
+  .controller('dashboardSettingsGeneralController', DashboardSettingsGeneralController)
 }

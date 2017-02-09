@@ -1,32 +1,36 @@
-describe('Testing Controller: generalCountrySettingsController', () => {
+namespace profitelo.components.dashboard.settings.modals.general.countrySettings {
 
-  var generalCountrySettingsController
-  var scope
-  var uibModalInstance = {
-    dismiss: () => {
+  describe('Testing Controller: generalCountrySettingsController', () => {
 
-    },
-    close: () => {
+    let generalCountrySettingsController
+    let scope
+    let uibModalInstance = {
+      dismiss: () => {
 
+      },
+      close: () => {
+
+      }
     }
-  }
 
-  beforeEach(() => {
-  angular.mock.module('profitelo.components.dashboard.settings.modals.general.country-settings')
-    inject(($rootScope, $controller) => {
+    beforeEach(() => {
+      angular.mock.module('profitelo.components.dashboard.settings.modals.general.country-settings')
+      inject(($rootScope: ng.IScope, $controller: ng.IControllerService) => {
 
-      scope = $rootScope.$new()
-      scope.disconnectCall = () => {}
+        scope = $rootScope.$new()
+        scope.disconnectCall = () => {
+        }
 
-      generalCountrySettingsController = $controller('generalCountrySettingsController', {
-        '$scope': scope,
-        '$uibModalInstance': uibModalInstance
+        generalCountrySettingsController = $controller<GeneralCountrySettingsController>('generalCountrySettingsController', {
+          '$scope': scope,
+          '$uibModalInstance': uibModalInstance
+        })
       })
     })
-  })
 
-  it('should exists', () => {
-    return expect(!!generalCountrySettingsController).toBe(true)
-  })
+    it('should exists', () => {
+      return expect(!!generalCountrySettingsController).toBe(true)
+    })
 
-})
+  })
+}

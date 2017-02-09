@@ -1,18 +1,22 @@
 namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
 
-  interface IgeneralEmailSettingsControllerScope extends ng.IScope {
+  export interface IGeneralEmailSettingsControllerParentScope extends ng.IScope {
+  }
+
+  interface IGeneralEmailSettingsControllerScope extends ng.IScope {
     isNavbar: boolean
     isFullscreen: boolean
     isAvatarVisableToExpert: boolean
     onModalClose: Function
     addPhoto: Function
     imageSource: string
+    $parent: IGeneralEmailSettingsControllerParentScope
   }
 
-  class generalEmailSettingsController implements ng.IController {
+  export class GeneralEmailSettingsController implements ng.IController {
 
     /* @ngInject */
-    constructor($scope: IgeneralEmailSettingsControllerScope,
+    constructor($scope: IGeneralEmailSettingsControllerScope,
                 $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
 
       $scope.isNavbar = true
@@ -29,6 +33,6 @@ namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
     'profitelo.directives.interface.pro-input',
     'profitelo.directives.interface.scrollable'
   ])
-  .controller('generalEmailSettingsController', generalEmailSettingsController)
+  .controller('generalEmailSettingsController', GeneralEmailSettingsController)
 
 }

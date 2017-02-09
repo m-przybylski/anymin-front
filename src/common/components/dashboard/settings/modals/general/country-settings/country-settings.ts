@@ -1,18 +1,21 @@
 namespace profitelo.components.dashboard.settings.modals.general.countrySettings {
 
-  interface IgeneralCountrySettingsControllerScope extends ng.IScope {
+  export interface IGeneralCountrySettingsControllerParentScope extends ng.IScope {}
+
+  interface IGeneralCountrySettingsControllerScope extends ng.IScope {
     isNavbar: boolean
     isFullscreen: boolean
     isAvatarVisableToExpert: boolean
     onModalClose: Function
     addPhoto: Function
     imageSource: string
+    $parent: IGeneralCountrySettingsControllerParentScope
   }
 
-  class generalCountrySettingsController implements ng.IController {
+  export class GeneralCountrySettingsController implements ng.IController {
 
     /* @ngInject */
-    constructor($scope: IgeneralCountrySettingsControllerScope,
+    constructor($scope: IGeneralCountrySettingsControllerScope,
                 $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
 
       $scope.isNavbar = true
@@ -29,6 +32,6 @@ namespace profitelo.components.dashboard.settings.modals.general.countrySettings
     'profitelo.directives.interface.pro-input',
     'profitelo.directives.interface.scrollable'
   ])
-  .controller('generalCountrySettingsController', generalCountrySettingsController)
+  .controller('generalCountrySettingsController', GeneralCountrySettingsController)
 
 }

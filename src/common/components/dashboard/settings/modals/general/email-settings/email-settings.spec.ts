@@ -1,32 +1,33 @@
-describe('Testing Controller: generalEmailSettingsController', () => {
+namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
+  describe('Testing Controller: generalEmailSettingsController', () => {
 
-  var generalEmailSettingsController
-  var scope
-  var uibModalInstance = {
-    dismiss: () => {
+    let generalEmailSettingsController
+    let scope
+    let uibModalInstance = {
+      dismiss: () => {
 
-    },
-    close: () => {
+      },
+      close: () => {
 
+      }
     }
-  }
 
-  beforeEach(() => {
-  angular.mock.module('profitelo.components.dashboard.settings.modals.general.email-settings')
-    inject(($rootScope, $controller) => {
+    beforeEach(() => {
+      angular.mock.module('profitelo.components.dashboard.settings.modals.general.email-settings')
+      inject(($rootScope: ng.IScope, $controller: ng.IControllerService) => {
 
-      scope = $rootScope.$new()
-      scope.disconnectCall = () => {}
+        scope = $rootScope.$new()
 
-      generalEmailSettingsController = $controller('generalEmailSettingsController', {
-        '$scope': scope,
-        '$uibModalInstance': uibModalInstance
+        generalEmailSettingsController = $controller<GeneralEmailSettingsController>('generalEmailSettingsController', {
+          '$scope': scope,
+          '$uibModalInstance': uibModalInstance
+        })
       })
     })
-  })
 
-  it('should exists', () => {
-    return expect(!!generalEmailSettingsController).toBe(true)
-  })
+    it('should exists', () => {
+      return expect(!!generalEmailSettingsController).toBe(true)
+    })
 
-})
+  })
+}

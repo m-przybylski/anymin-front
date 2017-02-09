@@ -1,32 +1,33 @@
-describe('Testing Controller: generalPhoneSettingsController', () => {
+namespace  profitelo.components.dashboard.settings.modals.general.phoneSettings {
+  describe('Testing Controller: generalPhoneSettingsController', () => {
 
-  var generalPhoneSettingsController
-  var scope
-  var uibModalInstance = {
-    dismiss: () => {
+    let generalPhoneSettingsController: GeneralPhoneSettingsController
+    let scope: ng.IScope
+    let uibModalInstance: any = {
+      dismiss: () => {
 
-    },
-    close: () => {
+      },
+      close: () => {
 
+      }
     }
-  }
 
-  beforeEach(() => {
-  angular.mock.module('profitelo.components.dashboard.settings.modals.general.phone-settings')
-    inject(($rootScope, $controller) => {
+    beforeEach(() => {
+      angular.mock.module('profitelo.components.dashboard.settings.modals.general.phone-settings')
+      inject(($rootScope: ng.IScope, $controller: ng.IControllerService) => {
 
-      scope = $rootScope.$new()
-      scope.disconnectCall = () => {}
+        scope = $rootScope.$new()
 
-      generalPhoneSettingsController = $controller('generalPhoneSettingsController', {
-        '$scope': scope,
-        '$uibModalInstance': uibModalInstance
+        generalPhoneSettingsController = $controller<GeneralPhoneSettingsController>('generalPhoneSettingsController', {
+          '$scope': scope,
+          '$uibModalInstance': uibModalInstance
+        })
       })
     })
-  })
 
-  it('should exists', () => {
-    return expect(!!generalPhoneSettingsController).toBe(true)
-  })
+    it('should exists', () => {
+      return expect(!!generalPhoneSettingsController).toBe(true)
+    })
 
-})
+  })
+}

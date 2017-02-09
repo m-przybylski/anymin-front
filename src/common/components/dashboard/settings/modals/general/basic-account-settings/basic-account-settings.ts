@@ -3,13 +3,18 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
   import IUploaderFactory = profitelo.services.uploader.IUploaderFactory
   import IUploaderService = profitelo.services.uploader.IUploaderService
   import IUrlService = profitelo.services.helper.IUrlService
+  import IPostProcessOptions = profitelo.services.uploader.IPostProcessOptions
+
+  export interface IBasicAccountSettingsControllerParentScope extends ng.IScope {
+    callback: (cb: Function) => void
+  }
 
   export interface IBasicAccountSettingsControllerScope extends ng.IScope {
     isNavbar: boolean
     isFullscreen: boolean
     isAvatarVisableToExpert: boolean
     onModalClose: Function
-    addPhoto: Function
+    addPhoto(imagePath: string, file: File, callback: Function): void
     imageSource: string
     isUserUploadImage: boolean
     getAvatarData: Function
@@ -17,8 +22,8 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
     submitBasicSettings: Function
     userName: string
     removePhoto: Function
+    $parent: IBasicAccountSettingsControllerParentScope
     generalSettingsObject: any
-    callback: (cb: Function) => void
     avatarPreview: string
     isUploadInProgress: boolean
   }
@@ -27,7 +32,7 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
 
     private uploadedFile: File
     private uploader: IUploaderService
-    private clearFormAfterCropping: void
+    private clearFormAfterCropping: Function
     $onInit = () => {
     }
 
@@ -57,11 +62,10 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
         this.AccountApi.partialUpdateAccount({accountId: this.User.getData('id')}, {
           settings: this.$scope.generalSettingsObject
         }).$promise.then((_res) => {
-          $scope.callback(() => $uibModalInstance.dismiss('cancel'))
+          $scope.$parent.callback(() => $uibModalInstance.dismiss('cancel'))
         }, (err) => {
           throw new Error('Can not patch user account: ' + err)
         })
-
       }
 
       $scope.addPhoto = (imagePath, file, callback) => {
@@ -79,8 +83,8 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
       }
 
       $scope.saveCrop = (data) => {
-        const squareSideLength = data.points[2] - data.points[0] - 1
-        const postProcessOptions = {
+        const squareSideLength: number = data.points[2] - data.points[0] - 1
+        const postProcessOptions: IPostProcessOptions = {
           croppingDetails: {
             x: Number(data.points[0]),
             y: Number(data.points[1]),

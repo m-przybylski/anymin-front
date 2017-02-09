@@ -1,22 +1,21 @@
-describe('Unit tests: DashboardSettingsSecurityController >', () => {
-  describe('Testing Controller: DashboardSettingsSecurityController', () => {
+namespace app.dashboard.settings.security {
+  describe('Unit tests: DashboardSettingsSecurityController >', () => {
+    describe('Testing Controller: DashboardSettingsSecurityController', () => {
 
-    let DashboardSettingsSecurityController
+      let DashboardSettingsSecurityController
 
-    beforeEach(() => {
-    angular.mock.module('profitelo.controller.dashboard.settings.security')
+      beforeEach(() => {
+        angular.mock.module('profitelo.controller.dashboard.settings.security')
 
-      inject(($rootScope, $controller, _$state_) => {
-        DashboardSettingsSecurityController = $controller('DashboardSettingsSecurityController', {
-          $state: _$state_,
-          $scope: $rootScope.$new()
+        inject(($controller: ng.IControllerService) => {
+          DashboardSettingsSecurityController = $controller<DashboardSettingsSecurityController>('dashboardSettingsSecurityController', {})
         })
       })
-    })
 
-    it('should exists', () => {
-      expect(!!DashboardSettingsSecurityController).toBe(true)
-    })
+      it('should exists', () => {
+        expect(!!DashboardSettingsSecurityController).toBe(true)
+      })
 
+    })
   })
-})
+}

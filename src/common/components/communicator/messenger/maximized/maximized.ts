@@ -5,6 +5,7 @@ namespace profitelo.components.communicator.messenger.maximized {
   import IUploaderFactory = profitelo.services.uploader.IUploaderFactory
   import IUploaderService = profitelo.services.uploader.IUploaderService
   import Money = profitelo.models.Money
+  import IPostProcessOptions = profitelo.services.uploader.IPostProcessOptions
 
   export interface IMessengerMaximizedComponentBindings {
     callCost: Money
@@ -147,7 +148,7 @@ namespace profitelo.components.communicator.messenger.maximized {
     private onUploadProgess = (res) =>
       this.$log.debug(res)
 
-    private postProcessOptions =  {
+    private postProcessOptions: IPostProcessOptions =  {
       croppingDetails: {}
     }
 

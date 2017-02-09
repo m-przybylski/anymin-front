@@ -96,7 +96,6 @@ namespace profitelo.services.uploader {
     }
 
     private getFileToken = (fileObj) => {
-      console.log(fileObj)
      return this.FilesApi.createFileTokenPath({collectionType: this.collectionType}, fileObj.postProcessOptions).$promise
     }
     private processUpload = () => {

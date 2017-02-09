@@ -1,21 +1,23 @@
-describe('Unit tests: settingsController >', () => {
-  describe('Testing Controller: settingsController', () => {
+namespace profitelo.app.dashboard.settings {
+  describe('Unit tests: settingsController >', () => {
+    describe('Testing Controller: settingsController', () => {
 
-    let settingsController
+      let settingsController
 
-    beforeEach(() => {
-      angular.mock.module('profitelo.controller.dashboard.settings')
-      angular.mock.module('ui.router')
-      inject(($rootScope, $controller, _$state_) => {
-        settingsController = $controller('settingsController', {
-          $state: _$state_,
-          $scope: $rootScope.$new()
+      beforeEach(() => {
+        angular.mock.module('profitelo.controller.dashboard.settings')
+        angular.mock.module('ui.router')
+        inject(($rootScope, $controller, _$state_) => {
+          settingsController = $controller('settingsController', {
+            $state: _$state_,
+            $scope: $rootScope.$new()
+          })
         })
       })
-    })
 
-    it('should exists', () => {
-      expect(!!settingsController).toBe(true)
+      it('should exists', () => {
+        expect(!!settingsController).toBe(true)
+      })
     })
   })
-})
+}

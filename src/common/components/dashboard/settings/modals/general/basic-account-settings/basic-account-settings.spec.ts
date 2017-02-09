@@ -3,12 +3,20 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
   import BasicAccountSettingsController = profitelo.components.dashboard.settings.modals.general.basicAccountSettings.BasicAccountSettingsController
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 
+  interface Window {
+    File: any
+  }
+
+  declare const window: Window
 
   describe('Testing Controller: basicAccountSettingsController', () => {
 
 
     let controller: BasicAccountSettingsController
     let scope: IBasicAccountSettingsControllerScope
+    let originalFile
+    function File() {
+    }
 
     const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
       jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss']);
@@ -31,6 +39,15 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
       }
     }
 
+    beforeEach(() => {
+      originalFile = window.File
+      window.File = File
+    })
+
+    afterEach(() => {
+      window.File = originalFile
+    })
+
     beforeEach(angular.mock.module(($provide) => {
       $provide.value('apiUrl', "awsomeUrl")
     }))
@@ -38,7 +55,7 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
     beforeEach(() => {
       angular.mock.module('ui.bootstrap')
       angular.mock.module('profitelo.components.dashboard.settings.modals.general.basic-account-settings')
-      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _AccountApi_, _User_) => {
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _AccountApi_) => {
 
         scope = <IBasicAccountSettingsControllerScope>$rootScope.$new()
 
@@ -65,7 +82,9 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
 
     it('should verifyCode', () => {
       const imagePath = 'string'
-      scope.addPhoto(imagePath)
+      const file = new File()
+      const cb = () => {}
+      scope.addPhoto(imagePath, file, cb)
 
       expect(scope.isUserUploadImage).toBeTruthy()
     })

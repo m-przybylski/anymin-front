@@ -19,7 +19,7 @@ namespace profitelo.directives.interface.localAvatarUploader {
     constructor() {
     }
 
-    public link = (scope: ILocalAvatarUploaderDirectiveScope, element: any, _attr: ng.IAttributes) => {
+    public link = (scope: ILocalAvatarUploaderDirectiveScope, element: ng.IAugmentedJQuery, _attr: ng.IAttributes) => {
       this.element = element
 
       this.element.find('input').on('change', (changeEventObject: any) => {

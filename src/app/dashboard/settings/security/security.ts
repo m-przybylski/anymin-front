@@ -1,6 +1,6 @@
 namespace app.dashboard.settings.security {
 
-  class DashboardSettingsSecurityController implements ng.IController {
+  export class DashboardSettingsSecurityController implements ng.IController {
 
     constructor() {
 
@@ -25,5 +25,5 @@ namespace app.dashboard.settings.security {
       }
     })
   })
-  .controller('DashboardSettingsSecurityController', DashboardSettingsSecurityController)
+  .controller('dashboardSettingsSecurityController', DashboardSettingsSecurityController)
 }

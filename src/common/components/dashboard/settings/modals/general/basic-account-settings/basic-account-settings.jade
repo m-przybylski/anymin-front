@@ -9,7 +9,7 @@ scrollable.basic-account-settings(data-is-fullscreen="isFullscreen" data-is-navb
 
             .user-avatar
               .thumb.x192
-                img.user-avatar.fullScreen(data-ng-src="{{ avatarPreview }}")
+                img.user-avatar.fullScreen(data-ng-src="{{ avatarPreview }}" src)
 
                 a.thumb-options(data-ng-show="!!generalSettingsObject.avatar && generalSettingsObject.avatar.length > 0"
                 data-ng-click="removePhoto()")

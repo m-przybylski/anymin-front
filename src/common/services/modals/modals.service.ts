@@ -7,6 +7,10 @@ namespace profitelo.services.modals {
   import IConsultationSummaryExpertParentControllerScope = profitelo.components.communicator.modals.consultationSummaryExpert.IConsultationSummaryExpertParentControllerScope
   import IUnavailableServiceControllerParentScope = profitelo.components.communicator.modals.serviceUnavailable.IUnavailableServiceControllerParentScope
   import INoCreditsControllerParentScope = profitelo.components.communicator.modals.noCredits.INoCreditsControllerParentScope
+  import IBasicAccountSettingsControllerParentScope = profitelo.components.dashboard.settings.modals.general.basicAccountSettings.IBasicAccountSettingsControllerParentScope
+  import IGeneralPhoneSettingsControllerParentScope = profitelo.components.dashboard.settings.modals.general.phoneSettings.IGeneralPhoneSettingsControllerParentScope
+  import IGeneralEmailSettingsControllerParentScope = profitelo.components.dashboard.settings.modals.general.emailSettings.IGeneralEmailSettingsControllerParentScope
+  import IGeneralCountrySettingsControllerParentScope = profitelo.components.dashboard.settings.modals.general.countrySettings.IGeneralCountrySettingsControllerParentScope
 
   export interface IModalsService {
     createIncomingCallModal(service: Service, answerCb: () => void, rejectCb: () => void): ng.ui.bootstrap.IModalServiceInstance
@@ -151,7 +155,8 @@ namespace profitelo.services.modals {
     }
 
     public createBasicAccountSettingsModal = (callback) => {
-      const dialogScope: any = this.$rootScope.$new(true)
+      const dialogScope: IBasicAccountSettingsControllerParentScope =
+        <IBasicAccountSettingsControllerParentScope>this.$rootScope.$new(true)
       dialogScope.callback = callback
 
       return this.dialogService.openDialog({
@@ -162,7 +167,8 @@ namespace profitelo.services.modals {
     }
 
     public createGeneralPhoneSettingsModal = () => {
-      const dialogScope: ng.IScope = this.$rootScope.$new(true)
+      const dialogScope: IGeneralPhoneSettingsControllerParentScope =
+        <IGeneralPhoneSettingsControllerParentScope>this.$rootScope.$new(true)
 
       return this.dialogService.openDialog({
         controller: 'generalPhoneSettingsController',
@@ -172,7 +178,8 @@ namespace profitelo.services.modals {
     }
 
     public createGeneralEmailSettingsModal = () => {
-      const dialogScope: ng.IScope = this.$rootScope.$new(true)
+      const dialogScope: IGeneralEmailSettingsControllerParentScope =
+        <IGeneralEmailSettingsControllerParentScope>this.$rootScope.$new(true)
 
       return this.dialogService.openDialog({
         controller: 'generalEmailSettingsController',
@@ -182,7 +189,8 @@ namespace profitelo.services.modals {
     }
 
     public createGeneralCountrySettingsModal = () => {
-      const dialogScope: ng.IScope = this.$rootScope.$new(true)
+      const dialogScope: IGeneralCountrySettingsControllerParentScope =
+        <IGeneralCountrySettingsControllerParentScope>this.$rootScope.$new(true)
 
       return this.dialogService.openDialog({
         controller: 'generalCountrySettingsController',
