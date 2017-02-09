@@ -1,7 +1,7 @@
 namespace profitelo.services.dialog {
 
   export interface IDialogService {
-    openDialog(options?: ng.ui.bootstrap.IModalSettings)
+    openDialog(options?: ng.ui.bootstrap.IModalSettings): ng.ui.bootstrap.IModalServiceInstance
   }
 
   class DialogService implements IDialogService {

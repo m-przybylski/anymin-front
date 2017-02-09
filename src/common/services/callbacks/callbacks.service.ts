@@ -1,7 +1,7 @@
 namespace profitelo.services.callbacks {
 
   export interface ICallbacksService {
-    notify(event: string, ...args): void
+    notify(event: string, ...args: Array<any>): void
     methods: any
   }
 
@@ -11,23 +11,23 @@ namespace profitelo.services.callbacks {
 
   class CallbacksService implements ICallbacksService {
 
-    public methods = {}
+    public methods: {[key: string]: any} = {}
 
-    private handlers = {}
+    private handlers: {[key: string]: any} = {}
 
     constructor(private $timeout: ng.ITimeoutService, events: Array<string>) {
 
       angular.forEach(events, event => {
         this.handlers[event] = []
-        this.methods[event] = handler => {
+        this.methods[event] = (handler: any) => {
           if (angular.isFunction(handler)) {
-            this.handlers[event].push((...args) => this.$timeout(() => handler.apply(null, args)))
+            this.handlers[event].push((...args: Array<any>) => this.$timeout(() => handler.apply(null, args)))
           }
         }
       })
     }
 
-    public notify = (event, ...args) => {
+    public notify = (event: string, ...args: Array<any>) => {
       if (this.handlers.hasOwnProperty(event)) {
         angular.forEach(this.handlers[event], handler => {
           if (angular.isFunction(handler)) {

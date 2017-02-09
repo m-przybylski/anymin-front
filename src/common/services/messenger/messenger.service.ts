@@ -5,6 +5,7 @@ namespace profitelo.services.messenger {
   import ICommunicatorService = profitelo.services.communicator.ICommunicatorService
   import ICallbacksFactory = profitelo.services.callbacks.ICallbacksFactory
   import ICallbacksService = profitelo.services.callbacks.ICallbacksService
+  import ISoundsService = profitelo.services.sounds.ISoundsService
 
   export interface IMessengerService {
     onClientTyping(cb: () => void): void
@@ -21,7 +22,7 @@ namespace profitelo.services.messenger {
     getMark(): ng.IPromise<any>
     sendMessage(msg: string): ng.IPromise<any>
     indicateTyping(): ng.IPromise<any>
-    mark(timestamp): ng.IPromise<any>
+    mark(timestamp: Date): ng.IPromise<any>
   }
 
   class MessengerService implements IMessengerService {
@@ -44,7 +45,7 @@ namespace profitelo.services.messenger {
 
     constructor(private $q: ng.IQService, private $log: ng.ILogService, callbacksFactory: ICallbacksFactory,
                 private communicatorService: ICommunicatorService, callService: ICallService,
-                private soundsService) {
+                private soundsService: ISoundsService) {
 
       this.callbacks = callbacksFactory.getInstance(Object.keys(MessengerService.events))
 
@@ -113,7 +114,7 @@ namespace profitelo.services.messenger {
       }
     }
 
-    public sendMessage = (msg) => {
+    public sendMessage = (msg: any) => {
       if (this.room) {
         return this.room.send(msg)
       } else {
@@ -121,7 +122,7 @@ namespace profitelo.services.messenger {
       }
     }
 
-    public mark = (timestamp) => {
+    public mark = (timestamp: Date) => {
       if (this.room) {
         return this.room.mark(timestamp)
       } else {
@@ -140,12 +141,12 @@ namespace profitelo.services.messenger {
     private _onExpertMark = () =>
       this.callbacks.notify(MessengerService.events.onExpertMark, null)
 
-    private _onExpertMessage = (message) => {
+    private _onExpertMessage = (message: any) => {
       this.soundsService.playMessageNew()
       this.callbacks.notify(MessengerService.events.onExpertMessage, message)
     }
 
-    private onExpertCreateDirectRoom = (room) => {
+    private onExpertCreateDirectRoom = (room: any) => {
       if (room) {
         this.room = room
         this.room.onMessage(this._onExpertMessage)
@@ -155,10 +156,10 @@ namespace profitelo.services.messenger {
       }
     }
 
-    private onExpertCreateDirectRoomError = (err) =>
+    private onExpertCreateDirectRoomError = (err: any) =>
       this.$log.error(err)
 
-    private createExpertDirectRoom = (serviceInvitationTuple) => {
+    private createExpertDirectRoom = (serviceInvitationTuple: {service: Service, invitation: any}) => {
       if (this.room) {
         this.$log.error('Message room already exists')
         return void(0)
@@ -181,12 +182,12 @@ namespace profitelo.services.messenger {
     private _onClientMark = () =>
       this.callbacks.notify(MessengerService.events.onClientMark, null)
 
-    private _onClientMessage = (message) => {
+    private _onClientMessage = (message: any) => {
       this.soundsService.playMessageNew()
       this.callbacks.notify(MessengerService.events.onClientMessage, message)
     }
 
-    private onClientCreateDirectRoom = (_room) => {
+    private onClientCreateDirectRoom = (_room: any) => {
       if (_room) {
         this.room = _room
         this.room.onTyping(this._onClientTyping)
@@ -195,10 +196,10 @@ namespace profitelo.services.messenger {
       }
     }
 
-    private onClientCreateDirectRoomError = (err) =>
+    private onClientCreateDirectRoomError = (err: any) =>
       this.$log.error(err)
 
-    private createClientDirectRoom = (_ratelId) => {
+    private createClientDirectRoom = (_ratelId: string) => {
       if (this.room) {
         throw new Error('Message room already exists')
       }
@@ -214,8 +215,8 @@ namespace profitelo.services.messenger {
       }
     }
 
-    private onClientCreatingRoomEvent = serviceUsageRequest =>
-      this.callbacks.notify(MessengerService.events.onClientCreatingRoom, serviceUsageRequest.expert)
+    private onClientCreatingRoomEvent = (data: {expert: ExpertProfile, service: Service}) =>
+      this.callbacks.notify(MessengerService.events.onClientCreatingRoom, data.expert)
 
   }
 
@@ -225,7 +226,7 @@ namespace profitelo.services.messenger {
     'profitelo.services.call',
     'profitelo.services.sounds'
   ])
-  .config(($qProvider) => {
+  .config(($qProvider: ng.IQProvider) => {
     $qProvider.errorOnUnhandledRejections(false)
   })
   .service('messengerService', MessengerService)

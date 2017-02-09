@@ -10,7 +10,7 @@ namespace profitelo.services.smoothScrolling {
     constructor(private $timeout: ng.ITimeoutService) {
     }
 
-    public scrollTo = (eID) => {
+    public scrollTo = (eID: string) => {
 
       const currentYPosition = () => {
         // Firefox, Chrome, Opera, Safari
@@ -29,7 +29,7 @@ namespace profitelo.services.smoothScrolling {
         return 0
       }
 
-      const elmYPosition = (id) => {
+      const elmYPosition = (id: string) => {
         let elm = document.getElementById(id)
 
         if (!elm) {
@@ -79,7 +79,7 @@ namespace profitelo.services.smoothScrolling {
       return true
     }
 
-    public simpleScrollTo = (element, isNavbar, time = 1000) => {
+    public simpleScrollTo = (element: Element, isNavbar: boolean, time = 1000) => {
       let scrollTop = $(element).offset().top
 
       if (isNavbar) {
@@ -98,7 +98,7 @@ namespace profitelo.services.smoothScrolling {
   }
 
   angular.module('profitelo.services.smooth-scrolling', [])
-    .config(($qProvider) => {
+    .config(($qProvider: ng.IQProvider) => {
       $qProvider.errorOnUnhandledRejections(false)
     })
     .service('smoothScrollingService', SmoothScrollingService)

@@ -26,7 +26,7 @@ namespace profitelo.services.passwordStrength {
     }
 
     /* istanbul ignore next */
-    private stringReverse = function (str) {
+    private stringReverse = function (str: string) {
       for (var i = str.length - 1, out = ''; i >= 0; out += str[i--]) {
         i
       }
@@ -34,9 +34,9 @@ namespace profitelo.services.passwordStrength {
     }
 
     /* istanbul ignore next */
-    private _getStrength = (p) => {
+    private _getStrength = (p: String) => {
 
-      let matches = {
+      let matches: any = {
         pos: {
           lower: {length: 0},
           upper: {length: 0},
@@ -100,7 +100,7 @@ namespace profitelo.services.passwordStrength {
         counts.pos.symbols = matches.pos.symbols ? matches.pos.symbols.length : 0
 
         tmp = Object.keys(counts.pos).reduce(function (previous, key) {
-          return previous + Math.min(1, counts.pos[key])
+          return previous + Math.min(1, (<any>counts.pos)[key])
         }, 0)
 
         counts.pos.numChars = p.length
@@ -124,7 +124,7 @@ namespace profitelo.services.passwordStrength {
         // sequential letters (back and forth)
         for (i = 0; i < letters.length - 2; i++) {
           var p2 = p.toLowerCase()
-          forth = letters.substring(i, parseInt(i + 3, 10))
+          forth = letters.substring(i, i + 3)
           back = this.stringReverse(forth)
           if (p2.indexOf(forth) !== -1 || p2.indexOf(back) !== -1) {
             counts.neg.seqLetter++
@@ -133,7 +133,7 @@ namespace profitelo.services.passwordStrength {
 
         // sequential numbers (back and forth)
         for (i = 0; i < numbers.length - 2; i++) {
-          forth = numbers.substring(i, parseInt(i + 3, 10))
+          forth = numbers.substring(i, i + 3)
           back = this.stringReverse(forth)
           if (p.indexOf(forth) !== -1 || p.toLowerCase().indexOf(back) !== -1) {
             counts.neg.seqNumber++
@@ -142,7 +142,7 @@ namespace profitelo.services.passwordStrength {
 
         // sequential symbols (back and forth)
         for (i = 0; i < symbols.length - 2; i++) {
-          forth = symbols.substring(i, parseInt(i + 3, 10))
+          forth = symbols.substring(i, i + 3)
           back = this.stringReverse(forth)
           if (p.indexOf(forth) !== -1 || p.toLowerCase().indexOf(back) !== -1) {
             counts.neg.seqSymbol++

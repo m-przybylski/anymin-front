@@ -13,7 +13,7 @@ namespace profitelo.services.topWaitingLoader {
     private bindedProgress: (progress: number) => void
     private immediateInProgress: boolean
     private currentProgress: number
-    private immediateInterval
+    private immediateInterval: ng.IPromise<any>
 
     constructor($rootScope: IRootScopeService, private $timeout: ng.ITimeoutService,
                 private $interval: ng.IIntervalService) {
@@ -26,7 +26,7 @@ namespace profitelo.services.topWaitingLoader {
       })
     }
 
-    public bindProgress = (progress) => {
+    public bindProgress = (progress: (progress: number) => void) => {
       this.currentProgress = 0
       this.bindedProgress = progress
       this.bindedProgress(this.currentProgress)
@@ -68,6 +68,6 @@ namespace profitelo.services.topWaitingLoader {
   angular.module('profitelo.services.pro-top-waiting-loader-service', [
     'pascalprecht.translate'
   ])
-  .service('proTopWaitingLoaderService', TopWaitingLoaderService)
+  .service('topWaitingLoaderService', TopWaitingLoaderService)
 }
 

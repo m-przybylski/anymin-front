@@ -7,13 +7,13 @@ namespace profitelo.services.helper {
 
   class UrlService implements IUrlService {
 
-    private commonConfig
+    private commonConfig: any
 
-    constructor(private CommonSettingsService, private lodash: _.LoDashStatic, CommonConfig: ICommonConfig) {
+    constructor(private CommonSettingsService: any, private lodash: _.LoDashStatic, CommonConfig: ICommonConfig) {
       this.commonConfig = CommonConfig.getAllData()
     }
 
-    public resolveSocialUrl = (remoteUrl) => {
+    public resolveSocialUrl = (remoteUrl: string) => {
       const _socialNetworks = this.CommonSettingsService.localSettings.socialNetworks
 
       for (let i = 0; i < _socialNetworks.length; i++) {
@@ -28,7 +28,7 @@ namespace profitelo.services.helper {
       })
     }
 
-    public resolveFileUrl = (fileId) => {
+    public resolveFileUrl = (fileId: string) => {
       return this.commonConfig.urls.files + this.commonConfig.urls['file-download'].replace('%s', fileId)
     }
   }

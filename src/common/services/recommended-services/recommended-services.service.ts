@@ -1,24 +1,32 @@
 namespace profitelo.services.recommendedServices {
 
+  import Tag = profitelo.models.Tag
+  import ISearchResults = profitelo.services.search.ISearchResults
+
+  interface ServiceWithTags {
+    service: Service
+    tags: Array<Tag>
+  }
+
   export interface IRecommendedServicesService {
-    getRecommendedExperts(services: Array<Service>): ng.IPromise<Array<Service>>
-    getRecommendedCompanies(services: Array<Service>): ng.IPromise<Array<Service>>
+    getRecommendedExperts(servicesWithTags: Array<ServiceWithTags>): ng.IPromise<Array<Service>>
+    getRecommendedCompanies(servicesWithTags: Array<ServiceWithTags>): ng.IPromise<Array<Service>>
   }
 
   class RecommendedServicesService implements IRecommendedServicesService {
 
     constructor(private $q: ng.IQService, private $log: ng.ILogService, private lodash: _.LoDashStatic,
-                private SearchApi) {
+                private SearchApi: any) {
     }
 
-    private _onFindRecommended = (recommendedProfiles, services) => {
+    private _onFindRecommended = (recommendedProfiles: ISearchResults, servicesWithTags: Array<ServiceWithTags>) => {
       const currentConsultation = this.lodash.find(
-        recommendedProfiles.results, (o: Service) => o.id === services[0].service.id)
+        recommendedProfiles.results, row => row.id === servicesWithTags[0].service.id)
 
       if (!!currentConsultation) {
         recommendedProfiles.results = this.lodash.remove(recommendedProfiles.results, (n: Service) => {
           // TODO Remove tags by service id and profile id
-          return n.id !== services[0].service.id
+          return n.id !== servicesWithTags[0].service.id
         })
       }
       return recommendedProfiles.results
@@ -29,9 +37,9 @@ namespace profitelo.services.recommendedServices {
       return this.$q.resolve([])
     }
 
-    private _getTagId = (services) => {
-      if (!!services && services.length > 0) {
-        const tagsArray = services[0].tags
+    private _getTagId = (servicesWithTags: Array<ServiceWithTags>): string | null => {
+      if (!!servicesWithTags && servicesWithTags.length > 0) {
+        const tagsArray = servicesWithTags[0].tags
         if (tagsArray && tagsArray.length > 0) {
           return tagsArray[0].id
         }
@@ -41,28 +49,30 @@ namespace profitelo.services.recommendedServices {
       return null
     }
 
-    public getRecommendedCompanies = (services) => {
-      const tagId = this._getTagId(services)
+    public getRecommendedCompanies = (servicesWithTags: Array<ServiceWithTags>) => {
+      const tagId = this._getTagId(servicesWithTags)
       if (tagId) {
         return this.SearchApi.search({
           'tag.id': tagId,
           'profile.type': 'ORG',
           'limit': 10
-        }).$promise.then((response) => this._onFindRecommended(response, services), this._onFindRecommendedError)
+        }).$promise.then((response: ISearchResults) =>
+          this._onFindRecommended(response, servicesWithTags), this._onFindRecommendedError)
 
       } else {
         return this.$q.resolve([])
       }
     }
 
-    public getRecommendedExperts = (services) => {
-      const tagId = this._getTagId(services)
+    public getRecommendedExperts = (servicesWithTags: Array<ServiceWithTags>) => {
+      const tagId = this._getTagId(servicesWithTags)
       if (tagId) {
         return this.SearchApi.search({
           'tag.id': tagId,
           'profile.type': 'EXP',
           'limit': 10
-        }).$promise.then((response) => this._onFindRecommended(response, services), this._onFindRecommendedError)
+        }).$promise.then((response: ISearchResults) =>
+          this._onFindRecommended(response, servicesWithTags), this._onFindRecommendedError)
       } else {
         return this.$q.resolve([])
       }

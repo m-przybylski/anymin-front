@@ -1,14 +1,14 @@
 describe('Unit testing: profitelo.services.pro-top-waiting-loader-service >', () => {
   describe('for profitelo.services.pro-top-waiting-loader-service >', () => {
 
-    let proTopWaitingLoaderService
+    let topWaitingLoaderService
 
     beforeEach(() => {
       angular.mock.module('profitelo.services.pro-top-waiting-loader-service')
     })
 
     beforeEach(inject(($injector) => {
-      proTopWaitingLoaderService = $injector.get('proTopWaitingLoaderService')
+      topWaitingLoaderService = $injector.get('topWaitingLoaderService')
     }))
 
     it('should have a dummy test', () => {
@@ -24,8 +24,8 @@ describe('Unit testing: profitelo.services.pro-top-waiting-loader-service >', ()
       spyOn($interval, 'cancel').and.callThrough()
       spyOn(cbs, 'progressCallback')
 
-      proTopWaitingLoaderService.bindProgress(cbs.progressCallback)
-      proTopWaitingLoaderService.immediate()
+      topWaitingLoaderService.bindProgress(cbs.progressCallback)
+      topWaitingLoaderService.immediate()
       $timeout.flush()
       $interval.flush(10000)
 

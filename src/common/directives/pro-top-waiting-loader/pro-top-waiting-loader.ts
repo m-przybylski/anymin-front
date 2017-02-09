@@ -1,15 +1,16 @@
-(function() {
+namespace profitelo.directives.proTopWaitingLoader {
 
-  function proTopWaitingLoader(proTopWaitingLoaderService) {
+  import ITopWaitingLoaderService = profitelo.services.topWaitingLoader.ITopWaitingLoaderService
+
+  function proTopWaitingLoader(topWaitingLoaderService: ITopWaitingLoaderService) {
 
     function proTopWaitingLoaderLinkFn(scope: any, _element: ng.IRootElementService, _attr: ng.IAttributes) {
 
-      let setProgress = (progress) => {
+      let setProgress = (progress: number) => {
         scope.progress = progress
       }
 
-      proTopWaitingLoaderService.bindProgress(setProgress)
-
+      topWaitingLoaderService.bindProgress(setProgress)
     }
 
     return {
@@ -24,6 +25,7 @@
     'pascalprecht.translate',
     'profitelo.services.pro-top-waiting-loader-service'
   ])
-  .directive('proTopWaitingLoader', proTopWaitingLoader)
+    .directive('proTopWaitingLoader', proTopWaitingLoader)
 
-}())
+}
+

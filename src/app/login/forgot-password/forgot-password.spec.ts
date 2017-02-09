@@ -31,20 +31,20 @@ describe('Unit tests: profitelo.controller.login.forgot-password >', () => {
     angular.mock.module('profitelo.controller.login.forgot-password')
     angular.mock.module('profitelo.swaggerResources.definitions')
     angular.mock.module('profitelo.services.pro-top-waiting-loader-service')
-      inject(($rootScope, $controller, _proTopWaitingLoaderService_, _$httpBackend_, _RecoverPasswordApiDef_) => {
+      inject(($rootScope, $controller, _topWaitingLoaderService_, _$httpBackend_, _RecoverPasswordApiDef_) => {
         scope = $rootScope.$new()
         httpBackend = _$httpBackend_
         RecoverPasswordApiDef = _RecoverPasswordApiDef_
         ForgotPasswordController = $controller('ForgotPasswordController', {
           $state: $state,
           account: account,
-          proTopWaitingLoaderService: _proTopWaitingLoaderService_
+          topWaitingLoaderService: _topWaitingLoaderService_
         })
-        
+
         resourcesExpectations = {
           RecoverPasswordApi: {
-            postRecoverPasswordVerifyMsisdn: 
-              httpBackend.when(RecoverPasswordApiDef.postRecoverPasswordVerifyMsisdn.method, 
+            postRecoverPasswordVerifyMsisdn:
+              httpBackend.when(RecoverPasswordApiDef.postRecoverPasswordVerifyMsisdn.method,
               RecoverPasswordApiDef.postRecoverPasswordVerifyMsisdn.url)
           }
         }

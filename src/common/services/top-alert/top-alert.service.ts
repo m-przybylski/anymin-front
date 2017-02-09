@@ -33,17 +33,17 @@ namespace profitelo.services.topAlert {
       return n
     }
 
-    public destroyAlert = (alertId) => {
+    public destroyAlert = (alertId: number) => {
       if (this.alertsLimit < this.alertArray.length) {
         this.alertArray[this.alertsLimit].visible = true
-        this.timeoutDestroy(this.alertArray[this.alertsLimit].timeout, this.alertArray[this.alertsLimit].id)
+        this.timeoutDestroy(<any>this.alertArray[this.alertsLimit].timeout, <any>this.alertArray[this.alertsLimit].id)
       }
       this.lodash.remove(this.alertArray, (alert) => {
         return alert.id === alertId
       })
     }
 
-    private timeoutDestroy = (timeout, id) => {
+    private timeoutDestroy = (timeout: number, id: number) => {
       if (typeof timeout !== 'undefined' && timeout !== null) {
         let realTimeout = timeout * 1000
         this.$timeout(() => {
@@ -52,19 +52,19 @@ namespace profitelo.services.topAlert {
       }
     }
 
-    private pushAlert = (options) => {
+    private pushAlert = (options: ITopAlertSettings) => {
       if (this.alertArray.length < this.alertsLimit) {
         options.visible = true
-        this.timeoutDestroy(options.timeout, options.id)
+        this.timeoutDestroy(options.timeout || 0, options.id || 0)
       }
       this.alertArray.push(options)
     }
 
-    public bindAlert = (alerts) => {
+    public bindAlert = (alerts: any) => {
       alerts(this.alertArray)
     }
 
-    public success = (options) => {
+    public success = (options: ITopAlertSettings) => {
       options = options === undefined ? {} : options
       this.defaultOptions = {
         id: this.setId(),
@@ -77,7 +77,7 @@ namespace profitelo.services.topAlert {
       this.pushAlert(angular.extend(this.defaultOptions, options))
     }
 
-    public warning = (options) => {
+    public warning = (options: ITopAlertSettings) => {
       options = options === undefined ? {} : options
       this.defaultOptions = {
         id: this.setId(),
@@ -90,7 +90,7 @@ namespace profitelo.services.topAlert {
       this.pushAlert(angular.extend(this.defaultOptions, options))
     }
 
-    public error = (options) => {
+    public error = (options: ITopAlertSettings) => {
       options = options === undefined ? {} : options
       this.defaultOptions = {
         id: this.setId(),
@@ -103,7 +103,7 @@ namespace profitelo.services.topAlert {
       this.pushAlert(angular.extend(this.defaultOptions, options))
     }
 
-    public info = (options) => {
+    public info = (options: ITopAlertSettings) => {
       options = options === undefined ? {} : options
       this.defaultOptions = {
         id: this.setId(),

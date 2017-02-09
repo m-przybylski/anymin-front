@@ -11,13 +11,14 @@ namespace profitelo.services.modals {
   import IGeneralPhoneSettingsControllerParentScope = profitelo.components.dashboard.settings.modals.general.phoneSettings.IGeneralPhoneSettingsControllerParentScope
   import IGeneralEmailSettingsControllerParentScope = profitelo.components.dashboard.settings.modals.general.emailSettings.IGeneralEmailSettingsControllerParentScope
   import IGeneralCountrySettingsControllerParentScope = profitelo.components.dashboard.settings.modals.general.countrySettings.IGeneralCountrySettingsControllerParentScope
+  import ClientActivity = profitelo.models.ClientActivity
 
   export interface IModalsService {
     createIncomingCallModal(service: Service, answerCb: () => void, rejectCb: () => void): ng.ui.bootstrap.IModalServiceInstance
     createNoFundsModal(acceptCb: () => void, rejectCb: () => void): ng.ui.bootstrap.IModalServiceInstance
     createServiceUnavailableModal(acceptCb: () => void, rejectCb: () => void): ng.ui.bootstrap.IModalServiceInstance
     createClientConsultationSummaryModal(id: string): ng.ui.bootstrap.IModalServiceInstance
-    createExpertConsultationSummaryModal(is: string): ng.ui.bootstrap.IModalServiceInstance
+    createExpertConsultationSummaryModal(id: string): ng.ui.bootstrap.IModalServiceInstance
     createClientSUEActivityDetailsModal(sueId: string): ng.ui.bootstrap.IModalServiceInstance
     createClientComplainReportModal(): ng.ui.bootstrap.IModalServiceInstance
     createClientChargeDetailsModal(financeActivityDetails: Object): ng.ui.bootstrap.IModalServiceInstance
@@ -30,9 +31,7 @@ namespace profitelo.services.modals {
   // TODO add types for dialogScope Scopes
   class ModalsService implements IModalsService {
 
-    constructor(private $log: ng.ILogService, private $rootScope: IRootScopeService,
-                private dialogService: IDialogService) {
-    }
+    constructor(private $rootScope: IRootScopeService, private dialogService: IDialogService) {}
 
     public createIncomingCallModal = (service: Service, answerCallback: Function, rejectCallback: Function) => {
       const dialogScope: IClientCallParentControllerScope = <IClientCallParentControllerScope>this.$rootScope.$new(true)
@@ -78,8 +77,7 @@ namespace profitelo.services.modals {
 
     public createClientConsultationSummaryModal = (serviceId: string) => {
       if (!serviceId) {
-        this.$log.error('Expected serviceId, got ' + serviceId)
-        return
+        throw new Error('Expected serviceId, got ' + serviceId)
       }
 
       const dialogScope: IConsultationSummaryClientParentControllerScope =
@@ -96,8 +94,7 @@ namespace profitelo.services.modals {
 
     public createExpertConsultationSummaryModal = (serviceId: string) => {
       if (!serviceId) {
-        this.$log.error('Expected serviceId, got ' + serviceId)
-        return
+        throw new Error('Expected serviceId, got ' + serviceId)
       }
 
       const dialogScope: IConsultationSummaryExpertParentControllerScope =
@@ -112,10 +109,9 @@ namespace profitelo.services.modals {
       })
     }
 
-    public createClientSUEActivityDetailsModal = (sueId) => {
+    public createClientSUEActivityDetailsModal = (sueId: string) => {
       if (!sueId) {
-        this.$log.error('Expected sueId, got ' + sueId)
-        return
+        throw new Error('Expected sueId, got ' + sueId)
       }
 
       const dialogScope: any = this.$rootScope.$new(true)
@@ -138,10 +134,9 @@ namespace profitelo.services.modals {
       })
     }
 
-    public createClientChargeDetailsModal = (financeActivityDetails) => {
+    public createClientChargeDetailsModal = (financeActivityDetails: ClientActivity) => {
       if (!financeActivityDetails) {
-        this.$log.error('Expected financeActivityDetails, got ' + financeActivityDetails)
-        return
+        throw new Error('Expected financeActivityDetails, got ' + financeActivityDetails)
       }
 
       const dialogScope: any = this.$rootScope.$new(true)
@@ -154,10 +149,10 @@ namespace profitelo.services.modals {
       })
     }
 
-    public createBasicAccountSettingsModal = (callback) => {
+    public createBasicAccountSettingsModal = (onModalClose: (cb: Function) => void) => {
       const dialogScope: IBasicAccountSettingsControllerParentScope =
         <IBasicAccountSettingsControllerParentScope>this.$rootScope.$new(true)
-      dialogScope.callback = callback
+      dialogScope.callback = onModalClose
 
       return this.dialogService.openDialog({
         controller: 'basicAccountSettingsController',

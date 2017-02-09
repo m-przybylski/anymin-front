@@ -1,6 +1,8 @@
 namespace profitelo.services.serviceProvider {
 
   import Tag = profitelo.models.Tag
+  import ExpertDetails = profitelo.models.ExpertDetails
+  import OrganizationDetails = profitelo.models.OrganizationDetails
 
   export interface IServiceProviderDefaultModel {
     name: string
@@ -17,7 +19,7 @@ namespace profitelo.services.serviceProvider {
 
   export interface IServiceProviderService {
     createDefaultModel(cost: number): IServiceProviderDefaultModel
-    createDefaultQueue(amountOfSteps, currentStep, completedSteps): IServiceProviderDefaultQueue
+    createDefaultQueue(amountOfSteps: number, currentStep: any, completedSteps: any): IServiceProviderDefaultQueue
     backToFirstStep(expertDetails: any, organizationDetails: any): void
   }
 
@@ -26,7 +28,7 @@ namespace profitelo.services.serviceProvider {
 
     constructor(private $state: ng.ui.IStateService) {}
 
-    public createDefaultModel = (cost) => {
+    public createDefaultModel = (cost: number) => {
       return {
         name: '',
         tags: [],
@@ -34,7 +36,7 @@ namespace profitelo.services.serviceProvider {
       }
     }
 
-    public createDefaultQueue = (amountOfSteps, currentStep, completedSteps) => {
+    public createDefaultQueue = (amountOfSteps: number, currentStep: any, completedSteps: any) => {
       return {
         amountOfSteps: amountOfSteps,
         currentStep: currentStep,
@@ -43,7 +45,7 @@ namespace profitelo.services.serviceProvider {
       }
     }
 
-    public backToFirstStep = (expertDetails, organizationDetails) => {
+    public backToFirstStep = (expertDetails: ExpertDetails, organizationDetails: OrganizationDetails) => {
       if (expertDetails && !organizationDetails) {
         this.$state.go('app.dashboard.service-provider.individual-path')
       } else {

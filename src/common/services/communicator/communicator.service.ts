@@ -2,6 +2,7 @@ namespace profitelo.services.communicator {
 
   import ICallbacksFactory = profitelo.services.callbacks.ICallbacksFactory
   import ICallbacksService = profitelo.services.callbacks.ICallbacksService
+
   export interface IConsultationInvitation {
     invitation: any
     service: Service
@@ -18,8 +19,8 @@ namespace profitelo.services.communicator {
   class SessionStorage {
 
     // TODO: add types
-    clientSession: Object | null
-    expertSessions: Object
+    clientSession: any
+    expertSessions: any
 
     constructor() {
       this.clientSession = null
@@ -30,11 +31,11 @@ namespace profitelo.services.communicator {
       return this.clientSession
     }
 
-    setClientSession = (session) => {
+    setClientSession = (session: any) => {
       this.clientSession = session
     }
 
-    addExpertSession = (serviceId, session) => {
+    addExpertSession = (serviceId: string, session: any) => {
       this.expertSessions[String(serviceId)] = session
     }
 
@@ -42,7 +43,7 @@ namespace profitelo.services.communicator {
       return this.expertSessions[String(serviceId)]
     }
 
-    removeExpertSession = (session) => {
+    removeExpertSession = (session: any) => {
       delete this.expertSessions[String(session.id)]
     }
   }
@@ -50,7 +51,7 @@ namespace profitelo.services.communicator {
   class CommunicatorService implements ICommunicatorService {
 
     private commonConfig: any
-    private chatConfig
+    private chatConfig: any
     private callbacks: ICallbacksService
     private ratelSessions: SessionStorage
 
@@ -60,7 +61,7 @@ namespace profitelo.services.communicator {
     }
 
     constructor(private $log: ng.ILogService, private $q: ng.IQService, callbacksFactory: ICallbacksFactory,
-                private User, private RatelApi, private ProfileApi, private ratelSdk,
+                private User: any, private RatelApi: any, private ProfileApi: any, private ratelSdk: any,
                 CommonConfig: ICommonConfig, private lodash: _.LoDashStatic) {
 
       this.commonConfig = CommonConfig.getAllData()
@@ -101,59 +102,59 @@ namespace profitelo.services.communicator {
       }
     }
 
-    private createRatelConnection = (session, _service) => {
+    private createRatelConnection = (session: any, _service: Service | null) => {
 
       const chat = session.chat
 
-      chat.onBotUpdate(res =>
+      chat.onBotUpdate((res: any) =>
         this.$log.debug('Artichoke: onBotUpdate', res))
 
-      chat.onCall(callInvitation =>
+      chat.onCall((callInvitation: any) =>
         this.callbacks.notify(CommunicatorService.events.onCall, {invitation: callInvitation, service: _service}))
 
-      chat.onConnect(hello =>
+      chat.onConnect((hello: any) =>
         this.$log.debug('Artichoke: onConnect', session.id, hello))
 
-      chat.onDisconnect(res =>
+      chat.onDisconnect((res: any) =>
         this.$log.debug('Artichoke: onDisconnect', res))
 
-      chat.onError(res =>
+      chat.onError((res: any) =>
         this.$log.error('Artichoke: onError', res))
 
-      chat.onHeartbeat(res =>
+      chat.onHeartbeat((res: any) =>
         this.$log.debug('Artichoke: onHeartBeat', res))
 
-      chat.onStatusUpdate(presence =>
+      chat.onStatusUpdate((presence: any) =>
         this.$log.debug('Artichoke: onStatusUpdate', presence))
 
-      chat.onRoom(roomInvitation =>
+      chat.onRoom((roomInvitation: any) =>
         this.callbacks.notify(CommunicatorService.events.onRoom, {invitation: roomInvitation, service: _service}))
 
       chat.connect()
     }
 
-    private onCreateClientSession = (session) => {
+    private onCreateClientSession = (session: any) => {
       this.ratelSessions.setClientSession(session)
       this.createRatelConnection(session, null)
       this.$log.debug('Client session created', session)
     }
 
-    private onCreateExpertSession = (session, service) => {
+    private onCreateExpertSession = (session: any, service: Service) => {
       this.ratelSessions.addExpertSession(service.id, session)
       this.createRatelConnection(session, service)
       this.$log.debug('Expert session created', session)
     }
 
-    private onGetEmployersProfilesWithServices = (profilesWithServices) => {
-      return this.lodash.flatten(this.lodash.map(profilesWithServices, (profile: any) => profile.services))
+    private onGetEmployersProfilesWithServices = (profilesWithServices: Array<Profile>) => {
+      return this.lodash.flatten(this.lodash.map(profilesWithServices, profile => profile.services))
     }
 
-    private getServices = (profileId) => {
+    private getServices = (profileId: string) => {
       return this.ProfileApi.getEmployersProfilesWithServices({profileId: profileId}).$promise
       .then(this.onGetEmployersProfilesWithServices)
     }
 
-    private onGetRatelClientAuthConfig = (clientConfig) => {
+    private onGetRatelClientAuthConfig = (clientConfig: any) => {
       return this.ratelSdk.withSignedAuth(clientConfig.toJSON(), this.chatConfig)
       .then(this.onCreateClientSession)
     }
@@ -163,9 +164,9 @@ namespace profitelo.services.communicator {
       .then(this.onGetRatelClientAuthConfig)
     }
 
-    private onGetRatelExpertAuthConfig = (expertConfig, service) => {
+    private onGetRatelExpertAuthConfig = (expertConfig: any, service: Service) => {
       return this.ratelSdk.withSignedAuth(expertConfig, this.chatConfig)
-      .then(session => this.onCreateExpertSession(session, service))
+      .then((session: any) => this.onCreateExpertSession(session, service))
     }
 
     private authenticateExpert = () => {
@@ -173,10 +174,10 @@ namespace profitelo.services.communicator {
       .then((services: Array<Service>) =>
         this.$q.all(this.lodash.map(services, service =>
           this.RatelApi.getRatelAuthConfig({serviceId: service.id}).$promise.then(
-            expertConfig => this.onGetRatelExpertAuthConfig(expertConfig.toJSON(), service)))))
+            (expertConfig: any) => this.onGetRatelExpertAuthConfig(expertConfig.toJSON(), service)))))
     }
 
-    private onAuthenticateError = (err) => {
+    private onAuthenticateError = (err: any) => {
       this.$log.error(err)
     }
 

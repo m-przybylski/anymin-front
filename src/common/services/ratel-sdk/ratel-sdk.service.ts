@@ -1,6 +1,7 @@
 namespace profitelo.services.ratelSdk {
 
-  function RatelSDK($window) {
+  import IWindowService = profitelo.services.window.IWindowService
+  function RatelSDK($window: IWindowService) {
     return $window.RatelSDK
   }
 

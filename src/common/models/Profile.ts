@@ -5,5 +5,6 @@ namespace profitelo.models {
     isActive: boolean
     organizationDetails?: OrganizationDetails
     expertDetails?: ExpertDetails
+    services: Array<Service>
   }
 }

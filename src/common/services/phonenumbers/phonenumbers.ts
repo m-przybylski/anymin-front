@@ -1,6 +1,7 @@
 namespace profitelo.services.phonenumbers {
 
-  function PhonenumbersFactory($window) {
+  import IWindowService = profitelo.services.window.IWindowService
+  function PhonenumbersFactory($window: IWindowService) {
     return $window.i18n.phonenumbers
   }
 

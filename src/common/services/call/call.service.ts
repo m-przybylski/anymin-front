@@ -20,7 +20,7 @@ namespace profitelo.services.call {
     onTimeCostChange(cb: (data: {time: number, money: Money}) => void): void
     onVideoStart(cb: () => void): void
     onVideoStop(cb: () => void): void
-    callServiceId(serviceId: string)
+    callServiceId(serviceId: string): ng.IPromise<any>
     startVideo(): void
     stopVideo(): void
     startAudio(): void
@@ -38,7 +38,7 @@ namespace profitelo.services.call {
     private isConnecting: boolean = false
 
     private serviceId: string | null
-    private serviceFreeMinutesCount: number | null
+    private serviceFreeMinutesCount: number = 0
 
     private localStreamElement: ng.IAugmentedJQuery | null = null
     private remoteStreamElement: ng.IAugmentedJQuery | null = null
@@ -118,26 +118,26 @@ namespace profitelo.services.call {
       }
     }
 
-    public onCallEnd = (callback) =>
-      this.callbacks.methods.onCallEnd(callback)
+    public onCallEnd = (cb: () => void) =>
+      this.callbacks.methods.onCallEnd(cb)
 
-    public onClientCallPending = (callback) =>
-      this.callbacks.methods.onClientCallPending(callback)
+    public onClientCallPending = (cb: (data: {service: Service, expert: ExpertProfile}) => void) =>
+      this.callbacks.methods.onClientCallPending(cb)
 
-    public onClientCallStarted = (callback) =>
-      this.callbacks.methods.onClientCallStarted(callback)
+    public onClientCallStarted = (cb: (inviterId: string) => void) =>
+      this.callbacks.methods.onClientCallStarted(cb)
 
-    public onExpertCallAnswered = (callback) =>
-      this.callbacks.methods.onExpertCallAnswered(callback)
+    public onExpertCallAnswered = (cb: (data: {invitation: any, service: Service}) => void) =>
+      this.callbacks.methods.onExpertCallAnswered(cb)
 
-    public onTimeCostChange = (callback) =>
-      this.callbacks.methods.onTimeCostChange(callback)
+    public onTimeCostChange = (cb: (data: {time: number, money: Money}) => void) =>
+      this.callbacks.methods.onTimeCostChange(cb)
 
-    public onVideoStart = (callback) =>
-      this.callbacks.methods.onVideoStart(callback)
+    public onVideoStart = (cb: () => void) =>
+      this.callbacks.methods.onVideoStart(cb)
 
-    public onVideoStop = (callback) =>
-      this.callbacks.methods.onVideoStop(callback)
+    public onVideoStop = (cb: () => void) =>
+      this.callbacks.methods.onVideoStop(cb)
 
     private stopLocalStream = () => {
       if (this.localStream) {
@@ -149,7 +149,7 @@ namespace profitelo.services.call {
       }
     }
 
-    private setLocalStream = (stream) => {
+    private setLocalStream = (stream: MediaStream) => {
       if (stream) {
         this.localStream = stream
         if (this.localStreamElement) {
@@ -171,14 +171,20 @@ namespace profitelo.services.call {
         expertId: expertId,
         serviceId: this.serviceId,
         timestamp: Date.now()
-      }).$promise.then((res) => this.$log.debug('Hook Start', res), (err) => this.$log.error('Hook Start error:', err))
+      }).$promise.then(
+        (res: any) => this.$log.debug('Hook Start', res),
+        (err: any) => this.$log.error('Hook Start error:', err)
+      )
 
     private stopHookMock = () => {
       if (this.call) {
         this.RatelApi.ratelCallStoppedHook({
           callId: this.call.id,
           timestamp: Date.now()
-        }).$promise.then((res) => this.$log.debug('Hook Stop', res), (err) => this.$log.error('Hook Stop error:', err))
+        }).$promise.then(
+          (res: any) => this.$log.debug('Hook Stop', res),
+          (err: any) => this.$log.error('Hook Stop error:', err)
+        )
       }
     }
 
@@ -199,7 +205,7 @@ namespace profitelo.services.call {
       this.call = null
       this.isConnecting = false
       this.serviceId = null
-      this.serviceFreeMinutesCount = null
+      this.serviceFreeMinutesCount = 0
       this.localStream = null
       if (this.timer) {
         this.timer.stop()
@@ -238,21 +244,21 @@ namespace profitelo.services.call {
       return this.$q.reject('There is no room')
     }
 
-    private setCallVideoEvents = (_call, participantId) => {
-      _call.onStreamPaused(callAction => {
+    private setCallVideoEvents = (_call: any, participantId: any) => {
+      _call.onStreamPaused((callAction: any) => {
           if (callAction.user === participantId) {
             this.callbacks.notify(CallService.events.onVideoStop, null)
           }
         }
       )
-      _call.onStreamUnpaused(callAction => {
+      _call.onStreamUnpaused((callAction: any) => {
         if (callAction.user === participantId) {
           this.callbacks.notify(CallService.events.onVideoStart, null)
         }
       })
     }
 
-    private createTimer = (price, freeMinutesCount) =>
+    private createTimer = (price: Money, freeMinutesCount: number) =>
       this.timer = this.timerFactory.getInstance(
         price, freeMinutesCount, CallService.moneyChangeNotificationInterval)
 
@@ -260,10 +266,10 @@ namespace profitelo.services.call {
       if (this.timer) this.timer.start(this.onTimeMoneyChange)
     }
 
-    private onTimeMoneyChange = (timeMoneyTuple) =>
+    private onTimeMoneyChange = (timeMoneyTuple: {time: number, money: Money}) =>
       this.callbacks.notify(CallService.events.onTimeCostChange, timeMoneyTuple)
 
-    private onExpertCallAnsweredEvent = (serviceInvitationTuple) => {
+    private onExpertCallAnsweredEvent = (serviceInvitationTuple: {service: Service, invitation: any}) => {
       this.soundsService.callIncomingSound().stop()
       this.serviceId = serviceInvitationTuple.service.id
 
@@ -271,7 +277,7 @@ namespace profitelo.services.call {
       this.call = serviceInvitationTuple.invitation.call
       this.call.pause()
       this.call.onEnd(this.onCallEndEvent)
-      this.call.onRemoteStream((_agentId, stream) => {
+      this.call.onRemoteStream((_agentId: string, stream: MediaStream) => {
         if (this.remoteStreamElement) {
           this.remoteStreamElement.attr('src', window.URL.createObjectURL(stream))
         }
@@ -289,17 +295,17 @@ namespace profitelo.services.call {
       //callbacks.notify(events.onExpertCallJoined, {inviter: inviterId, session: session})
     }
 
-    private onAnswerCallError = (err) => {
+    private onAnswerCallError = (err: any) => {
       this.cleanupService()
       this.$log.error(err)
       alert("Call does not exist anymore")
     }
 
-    private answerCall = (serviceInvitationTuple) =>
+    private answerCall = (serviceInvitationTuple: {service: Service, invitation: any}) =>
       this.navigatorService.getUserMediaStream()
         .then(_localStream => {
             this.setLocalStream(_localStream)
-            return serviceInvitationTuple.invitation.call.answer(this.localStream).then(_ =>
+            return serviceInvitationTuple.invitation.call.answer(this.localStream).then(() =>
                 this.onExpertCallAnsweredEvent(serviceInvitationTuple),
               this.onAnswerCallError
             )
@@ -307,7 +313,7 @@ namespace profitelo.services.call {
           () => this.rejectCall(serviceInvitationTuple.invitation.call)
         )
 
-    private rejectCall = (_call) => {
+    private rejectCall = (_call: any) => {
       this.cleanCallVariables()
       this.stopSounds()
       this.soundsService.playCallRejected()
@@ -320,7 +326,7 @@ namespace profitelo.services.call {
       this.callbacks.notify(CallService.events.onCallEnd, null)
     }
 
-    private onExpertCallIncoming = (serviceInvitationTuple) => {
+    private onExpertCallIncoming = (serviceInvitationTuple: {service: Service, invitation: any}) => {
       this.soundsService.callIncomingSound().play()
 
       serviceInvitationTuple.invitation.call.onEnd(this.onExpertCallDisappearBeforeAnswering)
@@ -348,13 +354,13 @@ namespace profitelo.services.call {
       this.soundsService.playCallRejected()
     }
 
-    private onClientCallStartError = (err) => {
+    private onClientCallStartError = (err: any) => {
       this.onConsultationUnavailable()
       this.$log.error(err)
       // _onNoFunds()
     }
 
-    private onClientCallStartedEvent = (inviterId, expertId) => {
+    private onClientCallStartedEvent = (inviterId: string, expertId: string) => {
       this.isConnecting = false
       this.startHookMock(expertId)
       this.startTimer()
@@ -368,10 +374,10 @@ namespace profitelo.services.call {
       this.onConsultationUnavailable()
     }
 
-    private onCreateDirectCall = (newCall, participantId: string, expertId: string) => {
+    private onCreateDirectCall = (newCall: any, participantId: string, expertId: string) => {
       this.call = newCall
 
-      this.call.onRemoteStream((_agentId, stream) => {
+      this.call.onRemoteStream((_agentId: string, stream: MediaStream) => {
         if (this.remoteStreamElement) {
           this.remoteStreamElement.attr('src', window.URL.createObjectURL(stream))
         }
@@ -380,14 +386,14 @@ namespace profitelo.services.call {
         }
       })
 
-      this.call.onJoined(_ => this.onClientCallStartedEvent(participantId, expertId))
+      this.call.onJoined(() => this.onClientCallStartedEvent(participantId, expertId))
       this.call.onLeft(this.onClientCallEnd)
       this.call.onEnd(this.onCallEndEvent)
       this.call.onRejected(this.onClientCallRejected)
       this.setCallVideoEvents(this.call, participantId)
     }
 
-    private onDirectCallError = (err) => {
+    private onDirectCallError = (err: any) => {
       this.$log.error(err)
       this.soundsService.callConnectingSound().stop()
     }
@@ -418,7 +424,7 @@ namespace profitelo.services.call {
         .then(_call => this.onCreateDirectCall(_call, agentId, serviceUsageRequest.expert.id), this.onDirectCallError)
     }
 
-    private onAddSURError = (err) => {
+    private onAddSURError = (err: any) => {
       this.onClientCallStartError(err)
       this.soundsService.callConnectingSound().stop()
       return this.$q.reject(err)
@@ -454,7 +460,7 @@ namespace profitelo.services.call {
     'profitelo.services.modals',
     'profitelo.services.sounds'
   ])
-    .config(($qProvider) => {
+    .config(($qProvider: ng.IQProvider) => {
       $qProvider.errorOnUnhandledRejections(false)
     })
     .service('callService', CallService)

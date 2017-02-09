@@ -31,7 +31,7 @@ namespace profitelo.services.interfaceLanguage {
     constructor(private $log: ng.ILogService, private $http: ng.IHttpService, private lodash: _.LoDashStatic,
                 private $rootScope: IRootScopeService, private $translate: ng.translate.ITranslateService,
                 private $locale: ng.ILocaleService, private $cookies: ng.cookies.ICookiesService,
-                private $location: ng.ILocationService, private tmhDynamicLocale, private amMoment) {
+                private $location: ng.ILocationService, private tmhDynamicLocale: any, private amMoment: any) {
 
     }
 
@@ -40,7 +40,7 @@ namespace profitelo.services.interfaceLanguage {
     // @description    Unify languages code notation from different browser to one
     //                 like "xx-yy" or "xx" (ex: "en-us", "en"); For
     // @returns        { String }
-    public unifyToIetfCode = (inputCode) => {
+    public unifyToIetfCode = (inputCode: string) => {
       if (angular.isUndefined(inputCode) || !inputCode) {
         // throw new Error('inputCode must be provided')
         inputCode = ''
@@ -112,7 +112,7 @@ namespace profitelo.services.interfaceLanguage {
     // @setter
     // @param        {String}   langCode    some string with language key; like `pl-PL`
     // @description  Set user language for the website.
-    public setLanguage = (ietfCode) => {
+    public setLanguage = (ietfCode: string) => {
       let _code = this.unifyToIetfCode(ietfCode)
       let _countryCode = _code.split('-')[0]
       this.$cookies.put(InterfaceLanguageService.selectedInterfaceLanguageCookie, _code)

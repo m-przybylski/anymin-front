@@ -3,7 +3,7 @@ describe('Unit tests: profitelo.controller.post-register.set-password>', () => {
 
     let scope
     let SetPasswordController
-    let _proTopWaitingLoaderService
+    let _topWaitingLoaderService
     let _passwordStrengthService
     let _AccountApi
     let _topAlertService
@@ -37,7 +37,7 @@ describe('Unit tests: profitelo.controller.post-register.set-password>', () => {
     angular.mock.module('profitelo.swaggerResources.definitions')
     angular.mock.module('profitelo.services.pro-top-waiting-loader-service')
     angular.mock.module('profitelo.services.password-strength')
-      inject(($rootScope, $controller, $filter, _proTopWaitingLoaderService_, _passwordStrengthService_, _AccountApi_,
+      inject(($rootScope, $controller, $filter, _topWaitingLoaderService_, _passwordStrengthService_, _AccountApi_,
               _topAlertService_, _$httpBackend_, _AccountApiDef_) => {
 
         scope = $rootScope.$new()
@@ -46,7 +46,7 @@ describe('Unit tests: profitelo.controller.post-register.set-password>', () => {
           $filter: $filter,
           $rootScope: $rootScope,
           $state: $state,
-          proTopWaitingLoaderService: _proTopWaitingLoaderService_,
+          topWaitingLoaderService: _topWaitingLoaderService_,
           passwordStrengthService: _passwordStrengthService_,
           User: _User,
           topAlertService: _topAlertService_,
@@ -54,7 +54,7 @@ describe('Unit tests: profitelo.controller.post-register.set-password>', () => {
         })
 
         _$httpBackend  = _$httpBackend_
-        _proTopWaitingLoaderService = _proTopWaitingLoaderService_
+        _topWaitingLoaderService = _topWaitingLoaderService_
         _passwordStrengthService = _passwordStrengthService_
         _AccountApi = _AccountApi_
         _topAlertService = _topAlertService_

@@ -1,6 +1,6 @@
 (function () {
 
-  function _controller($log, $filter, $state, proTopWaitingLoaderService, User, topAlertService, AccountApi) {
+  function _controller($log, $filter, $state, topWaitingLoaderService, User, topAlertService, AccountApi) {
 
     this.isPending = false
     this.rulesAccepted = false
@@ -14,14 +14,14 @@
       /* istanbul ignore next if */
       if (!this.isPending) {
         this.isPending = true
-        proTopWaitingLoaderService.immediate()
+        topWaitingLoaderService.immediate()
 
         patchObject.accountId = User.getData('id')
 
         AccountApi.partialUpdateAccount(patchObject).$promise.then(successCallback, (error) => {
           $log.error(error)
           this.isPending = false
-          proTopWaitingLoaderService.stopLoader()
+          topWaitingLoaderService.stopLoader()
           topAlertService.error({
             message: $filter('translate')('INTERFACE.API_ERROR'),
             timeout: 4

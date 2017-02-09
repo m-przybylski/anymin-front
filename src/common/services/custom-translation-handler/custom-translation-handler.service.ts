@@ -15,7 +15,7 @@ namespace profitelo.services.customTranslationHandlerService {
     constructor(private lodash: _.LoDashStatic) {
     }
 
-    public handler = (translationId, _uses) => {
+    public handler = (translationId: string, _uses: string) => {
       if (translationId !== void 0 &&
         !this.lodash.includes(CustomTranslationHandlerService._exceptionsStrings, translationId)) {
         //const str = 'Missing [' + uses + '] translations for: ' + translationId

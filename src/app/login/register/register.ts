@@ -1,6 +1,6 @@
 (function() {
 
-  function RegisterController($log, $filter, $state, $rootScope, proTopWaitingLoaderService, User, topAlertService,
+  function RegisterController($log, $filter, $state, $rootScope, topWaitingLoaderService, User, topAlertService,
                               UserRoles, smsSessionId, CommonSettingsService, RegistrationApi, AccountApi,
                               loginStateService, communicatorService) {
     this.passwordStrength = 0
@@ -42,13 +42,13 @@
       /* istanbul ignore next if */
       if (!this.isPending) {
         this.isPending = true
-        proTopWaitingLoaderService.immediate()
+        topWaitingLoaderService.immediate()
         RegistrationApi.confirmVerification({
           sessionId: this.registrationSteps.sessionId,
           token: String(this.registrationSteps.smsCode)
         }).$promise.then((response) => {
           this.isPending = false
-          proTopWaitingLoaderService.stopLoader()
+          topWaitingLoaderService.stopLoader()
           delete response.$promise
           delete response.$resolved
           User.setData(response)
@@ -61,7 +61,7 @@
           $log.error(error)
           this.isPending = false
           this.serverError = true
-          proTopWaitingLoaderService.stopLoader()
+          topWaitingLoaderService.stopLoader()
         })
       }
     }
@@ -70,14 +70,14 @@
       /* istanbul ignore next if */
       if (!this.isPending) {
         this.isPending = true
-        proTopWaitingLoaderService.immediate()
+        topWaitingLoaderService.immediate()
 
         patchObject.accountId = User.getData('id')
 
         AccountApi.partialUpdateAccount(patchObject).$promise.then(successCallback, (error) => {
           this.isPending = false
           $log.error(error)
-          proTopWaitingLoaderService.stopLoader()
+          topWaitingLoaderService.stopLoader()
           topAlertService.error({
             message: $filter('translate')('INTERFACE.API_ERROR'),
             timeout: 4
@@ -93,7 +93,7 @@
       }, () => {
         this.isPending = false
         this.current = 3
-        proTopWaitingLoaderService.stopLoader()
+        topWaitingLoaderService.stopLoader()
       })
     }
 

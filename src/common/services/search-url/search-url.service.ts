@@ -4,7 +4,7 @@ import ISearchService = profitelo.services.search.ISearchService
 namespace profitelo.services.searchUrl {
 
   export interface ISearchUrlService {
-    parseParamsForUrl(rawParams: Object): ISearchQueryParams
+    parseParamsForUrl(rawParams: Object): {[key: string]: string}
   }
 
   class SearchUrlService implements ISearchUrlService {
@@ -16,11 +16,14 @@ namespace profitelo.services.searchUrl {
       searchService.defineQueryProperties(this.defaultQueryParams)
     }
 
-    public parseParamsForUrl = (rawParams) => {
-      const result = {}
+    public parseParamsForUrl = (rawParams: any) => {
+      const result: {
+        [key: string]: string
+      } = {}
+
       angular.forEach(Object.keys(this.defaultQueryParams), (fieldName) => {
         if (fieldName !== 'offset' && fieldName !== 'limit' && rawParams.hasOwnProperty(fieldName) &&
-          rawParams[fieldName] !== this.defaultQueryParams[fieldName]) {
+          rawParams[fieldName] !== (<any>this.defaultQueryParams)[fieldName]) {
           result[fieldName] = rawParams[fieldName]
         }
       })

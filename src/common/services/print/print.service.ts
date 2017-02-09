@@ -1,18 +1,18 @@
 namespace profitelo.services.print {
 
   export interface IPrintService {
-    print(src: string)
+    print(src: string): void
   }
 
   class PrintService implements IPrintService {
 
-    private __container__
-    private contentWindow
+    private __container__: any
+    private contentWindow: any
 
     constructor() {
     }
 
-    private htmlPrintTemplate = (imgSrc) => {
+    private htmlPrintTemplate = (imgSrc: string) => {
 
       return '<html><head>' +
         '</head>' +
@@ -33,7 +33,7 @@ namespace profitelo.services.print {
       this.contentWindow.print()
     }
 
-    public print = (imgSrc) => {
+    public print = (imgSrc: string) => {
       const oHiddFrame = document.createElement('iframe')
       oHiddFrame.onload = this.setPrint
       oHiddFrame.style.visibility = 'hidden'

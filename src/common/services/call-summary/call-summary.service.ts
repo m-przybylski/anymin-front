@@ -7,7 +7,7 @@ namespace profitelo.services.callSummary {
 
   export interface ICallSummaryService {
     takeCallSummary(accountId: string): CallSummary | undefined
-    onCallSummary(callback: (CallSummary) => void): void
+    onCallSummary(callback: (callSummary: CallSummary) => void): void
   }
 
   class CallSummaryService implements ICallSummaryService {
@@ -27,11 +27,11 @@ namespace profitelo.services.callSummary {
       profiteloWebsocket.onCallSummary(this.onNewCallSummary)
     }
 
-    public onCallSummary = (callback: (CallSummary) => void) => {
+    public onCallSummary = (callback: (callSummary: CallSummary) => void) => {
       this.callbacks.methods.onCallSummary(callback)
     }
 
-    public takeCallSummary = (accountId): CallSummary | undefined => {
+    public takeCallSummary = (accountId: string): CallSummary | undefined => {
       const callSummary = this.lodash.find(this.callSummaries, callSummary => callSummary.accountId === accountId)
 
       if (callSummary) {
@@ -41,7 +41,7 @@ namespace profitelo.services.callSummary {
       return callSummary
     }
 
-    private onNewCallSummary = (_callSummary) => {
+    private onNewCallSummary = (_callSummary: CallSummary) => {
       this.callSummaries.push(_callSummary)
       this.callbacks.notify(CallSummaryService.events.onCallSummary, _callSummary)
     }

@@ -13,11 +13,11 @@ namespace profitelo.services.categoryService {
 
     private fetched: boolean
     private categoryList: Array<Category> = []
-    private categoryMap = {}
+    private categoryMap: {[key: string]: Category} = {}
     private topLevelCategories: Array<Category> = []
-    private categorySlugs = {}
+    private categorySlugs: {[key: string]: string} = {}
 
-    constructor(private $q: ng.IQService, private CategoryApi) {
+    constructor(private $q: ng.IQService, private CategoryApi: any) {
       this.fetched = false
       this.categoryList = []
       this.categoryMap = {}
@@ -55,7 +55,7 @@ namespace profitelo.services.categoryService {
       if (this.fetched) {
         _deferred.resolve()
       } else {
-        this.CategoryApi.listCategories().$promise.then(response => {
+        this.CategoryApi.listCategories().$promise.then((response: Array<Category>) => {
           this.fetched = true
           this.categoryList = response.map(category => {
             category.id = category.id.toString();

@@ -25,7 +25,7 @@ namespace profitelo.services.loginState {
       this.emptyAccount = angular.copy(this.account)
     }
 
-    public setAccountObject = (account) => {
+    public setAccountObject = (account: any) => {
       this.account = account
     }
 

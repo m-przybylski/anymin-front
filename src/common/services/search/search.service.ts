@@ -17,13 +17,13 @@ namespace profitelo.services.search {
   }
 
   export interface ISearchResultRow { // TODO define type properties
-
+    id: string
   }
 
   export interface ISearchResults {
     count: number
     offset: number
-    results: ISearchResultRow
+    results: Array<ISearchResultRow>
     relatedTags: Array<Tag>
   }
 
@@ -39,7 +39,8 @@ namespace profitelo.services.search {
     limit?: number,
     minPrice?: number,
     maxPrice?: number,
-    areDirty?: boolean
+    areDirty?: boolean,
+    categorySlug?: string
   }
 
   export interface ISearchService {
@@ -47,8 +48,8 @@ namespace profitelo.services.search {
     suggest(q: string): ng.IPromise<any> // TODO add type
     setSearchQueryParams(newQueryParams: ISearchQueryParams): void
     onSearchResults(scope: ng.IScope,
-                    callback: (err: string, results: ISearchResults, prevResults: ISearchResults) => void)
-    onQueryParamsChange(scope: ng.IScope, cb: (params: ISearchQueryParams) => void)
+                    callback: (err: string, results: ISearchResults, prevResults: ISearchResults) => void): void
+    onQueryParamsChange(scope: ng.IScope, cb: (params: ISearchQueryParams) => void): void
     getAvailableOptions(): ng.IPromise<ISearchSettings>
     defineQueryProperties(params: ISearchQueryParams): ISearchQueryParams
     parseQueryParams(obj: Object): ISearchQueryParams
@@ -63,17 +64,17 @@ namespace profitelo.services.search {
     private static searchResultsEvent = 'search-results'
     private static queryParamsEvent = 'search-query-params'
 
-    private _searchResults = null
+    private _searchResults: ISearchResults
     private _queryParams: ISearchQueryParams = {}
     private _previousQueryParams: ISearchQueryParams = {}
 
     constructor(private $rootScope: IRootScopeService, private $q: ng.IQService,
-                private categoryService: ICategoryService, private SearchApi) {
+                private categoryService: ICategoryService, private SearchApi: any) {
 
       this.defineQueryProperties(this._queryParams)
     }
 
-    public defineQueryProperties = (obj) => {
+    public defineQueryProperties = (obj: any) => {
       return Object.defineProperties(obj, {
         areDirty: {
           enumerable: false,
@@ -292,8 +293,8 @@ namespace profitelo.services.search {
       })
     }
 
-    public search = (query) => {
-      function _maxPriceParser(maxPrice) {
+    public search = (query: ISearchQueryParams) => {
+      function _maxPriceParser(maxPrice?: number) {
         if (maxPrice === 100) {
           return null
         } else {
@@ -313,7 +314,7 @@ namespace profitelo.services.search {
         'limit': SearchService._queryLimit,
         'minPrice': query.minPrice * 100,
         'maxPrice': _maxPriceParser(query.maxPrice)
-      }).$promise.then((response) => {
+      }).$promise.then((response: ISearchResults) => {
         return {
           count: response.count,
           offset: response.offset,
@@ -329,11 +330,11 @@ namespace profitelo.services.search {
       }).$promise
     }
 
-    private _notifyOnSearchResults = (err, results, prevResults) => {
+    private _notifyOnSearchResults = (err: any, results: ISearchResults | null, prevResults: ISearchResults | null) => {
       this.$rootScope.$emit(SearchService.searchResultsEvent, err, results, prevResults)
     }
 
-    private _notifyOnQueryParams = (queryParams) => {
+    private _notifyOnQueryParams = (queryParams: ISearchQueryParams) => {
       this.$rootScope.$emit(SearchService.queryParamsEvent, queryParams)
     }
 
@@ -348,7 +349,7 @@ namespace profitelo.services.search {
       )
     }
 
-    public onQueryParamsChange = (scope, callback) => {
+    public onQueryParamsChange = (scope: ng.IScope, callback: (results: ISearchResults) => void) => {
       scope.$on(
         '$destroy',
         this.$rootScope.$on(SearchService.queryParamsEvent, (_, results) => {
@@ -358,7 +359,7 @@ namespace profitelo.services.search {
       this._notifyOnQueryParams(this._queryParams)
     }
 
-    private _resolveCategoryId = (params) => {
+    private _resolveCategoryId = (params: ISearchQueryParams) => {
       const _deferred = this.$q.defer()
 
       if (angular.isDefined(params.categorySlug) && params.categorySlug) {
@@ -374,7 +375,7 @@ namespace profitelo.services.search {
       return _deferred.promise
     }
 
-    private _isQueryParamsNextPage = (newQuery, oldQuery) => {
+    private _isQueryParamsNextPage = (newQuery: ISearchQueryParams, oldQuery: ISearchQueryParams) => {
       const copyQ1 = angular.copy(newQuery)
       const copyQ2 = angular.copy(oldQuery)
 
@@ -389,16 +390,16 @@ namespace profitelo.services.search {
 
     public setSearchQueryParams = (newQueryParams: ISearchQueryParams) => {
       this._resolveCategoryId(newQueryParams).then(() => {
-        angular.forEach(Object.keys(this._queryParams), (fieldName) => {
+        angular.forEach(Object.keys(this._queryParams), (fieldName: string) => {
           if (newQueryParams.hasOwnProperty(fieldName)) {
-            this._queryParams[fieldName] = newQueryParams[fieldName]
+            (<any>this._queryParams)[fieldName] = (<any>newQueryParams)[fieldName]
           } else {
-            this._queryParams[fieldName] = undefined
+            (<any>this._queryParams)[fieldName] = undefined
           }
         })
         if (angular.isDefined(this._queryParams.areDirty) && this._queryParams.areDirty) {
           if (this._queryParams.q || this._queryParams.tagId || this._queryParams.category) {
-            this.search(this._queryParams).then((response) => {
+            this.search(this._queryParams).then((response: ISearchResults) => {
               this._queryParams.areDirty = false
               this._notifyOnQueryParams(this._queryParams)
               if (this._isQueryParamsNextPage(this._queryParams, this._previousQueryParams)) {
@@ -408,7 +409,7 @@ namespace profitelo.services.search {
               }
               this._searchResults = response
               this._previousQueryParams = angular.copy(this._queryParams)
-            }, (err) => {
+            }, (err: any) => {
               if (this._isQueryParamsNextPage(this._queryParams, this._previousQueryParams)) {
                 this._notifyOnSearchResults(err, null, this._searchResults)
               } else {
@@ -423,13 +424,13 @@ namespace profitelo.services.search {
       })
     }
 
-    public parseQueryParams = (queryParams) => {
+    public parseQueryParams = (queryParams: ISearchQueryParams) => {
       const parsedQueryParams = {}
       this.defineQueryProperties(parsedQueryParams)
 
       angular.forEach(Object.keys(parsedQueryParams), (fieldName) => {
         if (queryParams.hasOwnProperty(fieldName)) {
-          parsedQueryParams[fieldName] = queryParams[fieldName]
+          (<any>parsedQueryParams)[fieldName] = (<any>queryParams)[fieldName]
         }
       })
       return parsedQueryParams

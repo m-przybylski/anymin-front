@@ -7,7 +7,7 @@ namespace profitelo.services.phoneNumber {
     isValidNumber(phoneNumber: PhoneNumber): boolean
   }
 
-  function PhoneNumberService(phonenumbers) {
+  function PhoneNumberService(phonenumbers: any) {
     return phonenumbers.PhoneNumberUtil.getInstance()
   }
 

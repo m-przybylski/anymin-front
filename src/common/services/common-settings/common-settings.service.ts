@@ -7,11 +7,11 @@ namespace profitelo.services.commonSettings {
 
   class CommonSettingsService implements ICommonSettingsService {
 
-    private commonConfigData
-    private validation
-    private urls
-    public links
-    public localSettings
+    private commonConfigData: any
+    private validation: any
+    private urls: any
+    public links: any
+    public localSettings: any
 
     constructor(CommonConfig: ICommonConfig) {
       this.commonConfigData = CommonConfig.getAllData()

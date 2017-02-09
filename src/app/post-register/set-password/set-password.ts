@@ -2,9 +2,10 @@ namespace profitelo.postRegister.setPassword {
 
   import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordStrengthService
   import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
+  import ITopWaitingLoaderService = profitelo.services.topWaitingLoader.ITopWaitingLoaderService
 
   function _controller($log: ng.ILogService, $filter: ng.IFilterService, $state: ng.ui.IStateService,
-                       proTopWaitingLoaderService: any, passwordStrengthService: IPasswordStrengthService,
+                       topWaitingLoaderService: ITopWaitingLoaderService, passwordStrengthService: IPasswordStrengthService,
                        User: any, topAlertService: ITopAlertService, CommonSettingsService: ICommonSettingsService,
                        AccountApi: any) {
 
@@ -32,13 +33,13 @@ namespace profitelo.postRegister.setPassword {
       /* istanbul ignore next if */
       if (!this.isPending) {
         this.isPending = true
-        proTopWaitingLoaderService.immediate()
+        topWaitingLoaderService.immediate()
 
         patchObject.accountId = User.getData('id')
 
         AccountApi.partialUpdateAccount(patchObject).$promise.then(successCallback, (error) => {
           this.isPending = false
-          proTopWaitingLoaderService.stopLoader()
+          topWaitingLoaderService.stopLoader()
           $log.error(error)
           topAlertService.error({
             message: $filter('translate')('INTERFACE.API_ERROR'),
@@ -54,7 +55,7 @@ namespace profitelo.postRegister.setPassword {
       }, () => {
         User.setData({hasPassword: true})
         this.isPending = false
-        proTopWaitingLoaderService.stopLoader()
+        topWaitingLoaderService.stopLoader()
         $state.go('app.post-register.set-email')
       })
     }

@@ -25,7 +25,7 @@ namespace profitelo.services.sounds {
       messageNew: 'message_new.mp3'
     }
 
-    private soundPaths
+    private soundPaths: any
     private soundObjects: {
       callIncoming: HTMLAudioElement
       callConnecting: HTMLAudioElement
@@ -46,7 +46,7 @@ namespace profitelo.services.sounds {
       this.setAudioLoop(this.soundObjects.callConnecting)
     }
 
-    private setAudioLoop = audio => {
+    private setAudioLoop = (audio: HTMLAudioElement) => {
       audio.addEventListener('ended', () => {
         audio.currentTime = 0
         audio.play()

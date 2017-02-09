@@ -1,5 +1,5 @@
 (function() {
-  function ForgotPasswordController($state, account, RecoverPasswordApi, proTopWaitingLoaderService, CommonSettingsService) {
+  function ForgotPasswordController($state, account, RecoverPasswordApi, topWaitingLoaderService, CommonSettingsService) {
 
     this.isPending = false
     this.account = account
@@ -13,20 +13,20 @@
       this.serverError = false
       if (!this.isPending) {
         this.isPending = true
-        proTopWaitingLoaderService.immediate()
+        topWaitingLoaderService.immediate()
         RecoverPasswordApi.postRecoverPasswordVerifyMsisdn({
           token: String(this.smsCode),
           msisdn: String(account.accountObject.phoneNumber.prefix) + String(account.accountObject.phoneNumber.number)
         }).$promise.then(() => {
           this.isPending = false
-          proTopWaitingLoaderService.stopLoader()
+          topWaitingLoaderService.stopLoader()
           $state.go('app.login.set-new-password', {
             token: String(this.smsCode),
             method: 'sms'
           })
         }, () => {
           this.isPending = false
-          proTopWaitingLoaderService.stopLoader()
+          topWaitingLoaderService.stopLoader()
           this.serverError = true
         })
       }

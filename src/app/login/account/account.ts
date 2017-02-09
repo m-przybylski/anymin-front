@@ -6,9 +6,11 @@ namespace profitelo.login.account {
   import ILoginStateService = profitelo.services.loginState.ILoginStateService
   import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
   import ICommunicatorService = profitelo.services.communicator.ICommunicatorService
+  import ITopWaitingLoaderService = profitelo.services.topWaitingLoader.ITopWaitingLoaderService
 
   function AccountFormController($log: ng.ILogService, $rootScope: IRootScopeService, $state: ng.ui.IStateService,
-                                 $filter: IFilterService, AccountApi: any, proTopWaitingLoaderService: any, User: any,
+                                 $filter: IFilterService, AccountApi: any,
+                                 topWaitingLoaderService: ITopWaitingLoaderService, User: any,
                                  topAlertService: ITopAlertService, loginStateService: ILoginStateService,
                                  CommonSettingsService: ICommonSettingsService,
                                  phoneNumberService: IPhoneNumberService, communicatorService: ICommunicatorService) {
@@ -59,14 +61,14 @@ namespace profitelo.login.account {
     this.getPhoneNumberStatus = () => {
       if (!this.isPending) {
         this.isPending = true
-        proTopWaitingLoaderService.immediate()
+        topWaitingLoaderService.immediate()
         loginStateService.setAccountObject(this.account)
         AccountApi.getRegistrationStatusByMsisdn({
           msisdn: this.account.phoneNumber.prefix + this.account.phoneNumber.number
         }).$promise.then((response) => {
           this.isPending = false
           _determinePhoneNumberStatus(response.status)
-          proTopWaitingLoaderService.stopLoader()
+          topWaitingLoaderService.stopLoader()
         }, (error) => {
           $log.error(error)
           this.isPending = false
@@ -74,7 +76,7 @@ namespace profitelo.login.account {
             message: $filter('translate')('INTERFACE.API_ERROR'),
             timeout: 4
           })
-          proTopWaitingLoaderService.stopLoader()
+          topWaitingLoaderService.stopLoader()
         })
       }
     }
@@ -83,7 +85,7 @@ namespace profitelo.login.account {
       this.serverError = false
       if (!this.isPending) {
         this.isPending = true
-        proTopWaitingLoaderService.immediate()
+        topWaitingLoaderService.immediate()
         User.login({
           msisdn: this.account.phoneNumber.prefix + '' + this.account.phoneNumber.number,
           password: this.account.password
@@ -91,7 +93,7 @@ namespace profitelo.login.account {
           communicatorService.authenticate()
           $rootScope.loggedIn = true
           this.isPending = false
-          proTopWaitingLoaderService.stopLoader()
+          topWaitingLoaderService.stopLoader()
           $state.go('app.dashboard.client.favourites')
           loginStateService.clearServiceObject()
           topAlertService.success({
@@ -102,7 +104,7 @@ namespace profitelo.login.account {
           $log.error(error)
           this.isPending = false
           this.serverError = true
-          proTopWaitingLoaderService.stopLoader()
+          topWaitingLoaderService.stopLoader()
         })
       }
     }

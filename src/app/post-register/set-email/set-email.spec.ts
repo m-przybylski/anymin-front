@@ -3,7 +3,7 @@ describe('Unit tests: profitelo.controller.post-register.set-email>', () => {
 
     let scope
     let SetEmailController
-    let _proTopWaitingLoaderService
+    let _topWaitingLoaderService
     let _AccountApi
     let _topAlertService
     let _$httpBackend
@@ -33,7 +33,7 @@ describe('Unit tests: profitelo.controller.post-register.set-email>', () => {
     beforeEach(() => {
     angular.mock.module('profitelo.controller.post-register.set-email')
     angular.mock.module('profitelo.swaggerResources.definitions')
-      inject(($rootScope, $controller, $filter, _proTopWaitingLoaderService_, _AccountApi_, _topAlertService_,
+      inject(($rootScope, $controller, $filter, _topWaitingLoaderService_, _AccountApi_, _topAlertService_,
               _$httpBackend_, _AccountApiDef_) => {
 
         scope = $rootScope.$new()
@@ -41,14 +41,14 @@ describe('Unit tests: profitelo.controller.post-register.set-email>', () => {
         SetEmailController = $controller('SetEmailController', {
           $filter: $filter,
           $state: $state,
-          proTopWaitingLoaderService: _proTopWaitingLoaderService_,
+          topWaitingLoaderService: _topWaitingLoaderService_,
           User: _User,
           topAlertService: _topAlertService_,
           AccountApi: _AccountApi_
         })
 
         _$httpBackend  = _$httpBackend_
-        _proTopWaitingLoaderService = _proTopWaitingLoaderService_
+        _topWaitingLoaderService = _topWaitingLoaderService_
         _AccountApi = _AccountApi_
         _topAlertService = _topAlertService_
 

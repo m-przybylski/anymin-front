@@ -32,7 +32,7 @@ namespace profitelo.services.navigator {
       }
 
       if (this.navigator.mediaDevices.getUserMedia) {
-        this.navigator.getUserMedia = (arg, t, c) => {
+        this.navigator.getUserMedia = (arg: MediaStreamConstraints, t: any, c: any) => {
           return this.navigator.mediaDevices.getUserMedia(arg).then(t).catch(c)
         }
       }
@@ -42,13 +42,13 @@ namespace profitelo.services.navigator {
       return this.getUserMediaStreamByConfig(NavigatorService.getAllConstraints)
     }
 
-    private getUserMediaStreamByConfig = (configFunction) => {
+    private getUserMediaStreamByConfig = (configFunction: () => MediaStreamConstraints ) => {
       const deferred = this.$q.defer()
 
       this.navigator.getUserMedia(
         configFunction(),
-        stream => deferred.resolve(stream),
-        err => deferred.reject(err)
+        (stream: MediaStream) => deferred.resolve(stream),
+        (err: any) => deferred.reject(err)
       )
 
       return deferred.promise

@@ -3,6 +3,7 @@ namespace profitelo.services.profiteloWebsocket {
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
   import ICallbacksFactory = profitelo.services.callbacks.ICallbacksFactory
   import ICallbacksService = profitelo.services.callbacks.ICallbacksService
+  import CallSummary = profitelo.models.CallSummary
 
   export interface IProfiteloWebsocketService {
     sendMessage(msg: string, type: string): boolean
@@ -45,11 +46,11 @@ namespace profitelo.services.profiteloWebsocket {
       }
     }
 
-    public onInit = (callback) => {
+    public onInit = (callback: Function) => {
       this.callbacks.methods.onInit(callback)
     }
 
-    public onCallSummary = (callback: (data: any) => void) => {
+    public onCallSummary = (callback: (data: CallSummary) => void) => {
       this.callbacks.methods.onCallSummary(callback)
     }
 
@@ -57,7 +58,7 @@ namespace profitelo.services.profiteloWebsocket {
       this.callbacks.notify(ProfiteloWebsocketService.events.onInit, null)
     }
 
-    private handleMessageType = (data) => {
+    private handleMessageType = (data: any) => {
       const type = data.messageType
       const value = data.value
 
@@ -72,7 +73,7 @@ namespace profitelo.services.profiteloWebsocket {
       }
     }
 
-    private onSocketMessage = (event) => {
+    private onSocketMessage = (event: any) => {
       try {
         const data = JSON.parse(event.data)
         this.handleMessageType(data)
@@ -82,10 +83,10 @@ namespace profitelo.services.profiteloWebsocket {
       this.$log.debug(event)
     }
 
-    private onSocketError = (err) =>
+    private onSocketError = (err: any) =>
       this.$log.error(err)
 
-    private onSocketClose = (event) => {
+    private onSocketClose = (event: any) => {
       this.$log.info('Profitelo websocket closed', event)
       this.$timeout(this.connectWebsocket, ProfiteloWebsocketService.reconnectTimeout)
     }

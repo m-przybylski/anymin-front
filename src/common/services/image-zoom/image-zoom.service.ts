@@ -3,7 +3,7 @@ namespace profitelo.services.imageZoom {
   export interface IImageZoomService {
     createZoomInstance(img: HTMLImageElement): void
     destroy(): void
-    settings
+    settings: any
     decreaseImg(): void
     increaseImg(): void
     resetImg(): void
@@ -73,12 +73,12 @@ namespace profitelo.services.imageZoom {
       this.updateWidthAndHeight(this.image, this.imageSize)
     }
 
-    private updateWidthAndHeight = (image, sizeObject) => {
+    private updateWidthAndHeight = (image: any, sizeObject: any) => {
       image.width = String(sizeObject.width)
       image.height = String(sizeObject.height)
     }
 
-    private onWheel = (event) => {
+    private onWheel = (event: any) => {
       let deltaY = 0
 
       event.preventDefault()
