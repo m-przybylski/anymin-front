@@ -1,21 +1,26 @@
 .btn
   +default-font-heavy
   display: inline-flex
-  border-radius: 3px
   align-items: center
   justify-content: center
   color: $c-white
   font-size: $f-btn-size
   height: 56px
+  border-radius: 56px
   padding: 0 24px
   text-transform: uppercase
   width: 100%
   position: relative
   z-index: 1
   overflow: hidden
+  cursor: pointer
 
   +xsm
     width: auto
+
+  &.btn-small
+    border-radius: 32px
+    height: 32px
 
   [class*="icon"]
     font-size: $f-icon-22
@@ -37,6 +42,17 @@
   &:not(.ui-select-toggle)
     background: $c-primary
     +btn-hover($c-primary-dark)
+
+.btn-default-border
+  color: $c-primary
+  padding: 0
+  width: auto
+
+  +smm
+    background: $c-white
+    border: 1px solid $c-primary
+    color: $c-primary
+    padding: 0 24px
 
 .btn-success
   background: $c-success
@@ -84,6 +100,7 @@
   color: $c-primary-txt
   padding: 0
   min-height: 56px
+  border-radius: 3px
 
   +smm
     border: 1px solid $c-lines
@@ -95,7 +112,6 @@
     display: flex
     align-items: center
     justify-content: space-between
-    border-radius: 3px
     width: 100%
     padding: 16px
     cursor: pointer

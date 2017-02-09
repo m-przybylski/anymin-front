@@ -66,7 +66,7 @@
     return this
   }
 
-  function config($stateProvider, UserRolesProvider) {
+  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider) {
     $stateProvider.state('app.dashboard.client', {
       abstract: true,
       url: '/client',

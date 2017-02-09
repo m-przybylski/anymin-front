@@ -1,0 +1,40 @@
+scrollable.basic-account-settings(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
+  preloader(data-is-loading= "isUploadInProgress")
+    top-modal-navbar(data-title="SETTINGS.GENERAL.BASIC_ACCOUNT.HEADER" data-on-close="onModalClose")
+    .default-container-small
+      .general-modal
+        form.pro-input-form(name="basicAccountForm" data-ng-submit="submitBasicSettings()" novalidate)
+          .form-step(data-ng-hide="isUserUploadImage")
+            h2(data-translate="{{:: 'SETTINGS.GENERAL.BASIC_ACCOUNT.HEADER' | translate}}")
+
+            .user-avatar
+              .thumb.x192
+                img.user-avatar.fullScreen(data-ng-src="{{ avatarPreview }}" src)
+
+                a.thumb-options(data-ng-show="!!generalSettingsObject.avatar && generalSettingsObject.avatar.length > 0"
+                data-ng-click="removePhoto()")
+                  .icon.icon-trash-24-1
+
+            local-avatar-uploader.local-avatar-uploader(on-file-upload='addPhoto')
+
+            .user-name
+              pro-input.full-name.label(data-label="{{ 'SETTINGS.GENERAL.BASIC_ACCOUNT.NAME_INPUT_LABEL' | translate }}"
+              data-type="text"
+              data-placeholder="{{ :: 'SETTINGS.GENERAL.BASIC_ACCOUNT.NAME_INPUT_PLACEHOLDER' | translate }}"
+              data-ng-model="generalSettingsObject.nickname")
+
+            .input-error-messages
+              .error.left(data-ng-show="phoneNumberForm.$submitted && !vm.isValidPhoneNumber(vm.account.phoneNumber.prefix, vm.account.phoneNumber.number) || phoneNumberForm.$submitted &&  vm.account.phoneNumber.prefix === null "
+              data-translate="::LOGIN.PHONE_NUMBER_REQUIRED")
+
+            pro-checkbox(data-ng-model="generalSettingsObject.isAnonymous"
+            data-label="{{:: 'SETTINGS.GENERAL.BASIC_ACCOUNT.NAME_CHECKBOX_LABEL' | translate }}"
+            data-ng-class="{'invalid': !$ctrl.rulesAccepted && paymentForm.$submitted}")
+
+            button.btn.btn-default(data-translate="SETTINGS.GENERAL.BASIC_ACCOUNT_SAVE_CHANGES" type="submit")
+
+          .crop-avatar-step(data-ng-show="isUserUploadImage")
+            h2(data-translate="{{:: 'SETTINGS.GENERAL.BASIC_ACCOUNT.CROP_AVATAR_HEADER' | translate }}")
+
+            .cropp-image
+              image-crop-component(data-image-src="imageSource" data-save-crop-avatar='saveCrop')

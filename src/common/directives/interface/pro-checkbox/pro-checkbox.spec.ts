@@ -43,11 +43,8 @@ describe('Unit testing: profitelo.directives.interface.pro-checkbox', () => {
       expect(isoScope.ngModel).toEqual(true)
     })
 
-    it('should throw error if bad model provided', inject(($exceptionHandler) => {
-      // TODO: uncomment after anugular fix
-      // expect(() => create(validHTML, 'false')).toThrow(new Error('ngModel must be of boolean type'))
-      create(validHTML, 'false')
-      expect($exceptionHandler.errors.length).toBeGreaterThan(0)
+    it('should throw error if bad model provided', inject(() => {
+      expect(() => create(validHTML, 'false')).toThrow(new Error('ngModel must be of boolean type'))
     }))
   })
 })

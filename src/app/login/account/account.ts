@@ -110,7 +110,7 @@ namespace profitelo.login.account {
     return this
   }
 
-  function config($stateProvider, UserRolesProvider) {
+  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
     $stateProvider.state('app.login.account', {
       url: '/account',
       controllerAs: 'vm',
@@ -136,7 +136,6 @@ namespace profitelo.login.account {
     'profitelo.services.top-alert',
     'profitelo.directives.interface.pro-alert',
     'profitelo.directives.interface.pro-input-password',
-    'profitelo.directives.interface.pro-dropdown',
     'profitelo.directives.interface.pro-input',
     'profitelo.components.interface.dropdown-primary'
   ])

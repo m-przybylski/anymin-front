@@ -187,7 +187,6 @@ module profitelo.components.search.searchFilters {
   }
 
   angular.module('profitelo.components.search.searchFilters', [
-    'profitelo.directives.interface.pro-dropdown',
     'profitelo.directives.interface.pro-range-slider',
     'rzModule',
     'ngLodash',

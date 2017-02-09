@@ -1,13 +1,16 @@
-import IDialogService = profitelo.services.dialog.IDialogService
-
 namespace profitelo.services.modals {
 
+  import IDialogService = profitelo.services.dialog.IDialogService
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
   import IClientCallParentControllerScope = profitelo.components.communicator.modals.clientCall.IClientCallParentControllerScope
   import IConsultationSummaryClientParentControllerScope = profitelo.components.modals.consultationSummaryClient.IConsultationSummaryClientParentControllerScope
   import IConsultationSummaryExpertParentControllerScope = profitelo.components.communicator.modals.consultationSummaryExpert.IConsultationSummaryExpertParentControllerScope
   import IUnavailableServiceControllerParentScope = profitelo.components.communicator.modals.serviceUnavailable.IUnavailableServiceControllerParentScope
   import INoCreditsControllerParentScope = profitelo.components.communicator.modals.noCredits.INoCreditsControllerParentScope
+  import IBasicAccountSettingsControllerParentScope = profitelo.components.dashboard.settings.modals.general.basicAccountSettings.IBasicAccountSettingsControllerParentScope
+  import IGeneralPhoneSettingsControllerParentScope = profitelo.components.dashboard.settings.modals.general.phoneSettings.IGeneralPhoneSettingsControllerParentScope
+  import IGeneralEmailSettingsControllerParentScope = profitelo.components.dashboard.settings.modals.general.emailSettings.IGeneralEmailSettingsControllerParentScope
+  import IGeneralCountrySettingsControllerParentScope = profitelo.components.dashboard.settings.modals.general.countrySettings.IGeneralCountrySettingsControllerParentScope
 
   export interface IModalsService {
     createIncomingCallModal(service: Service, answerCb: () => void, rejectCb: () => void): ng.ui.bootstrap.IModalServiceInstance
@@ -18,6 +21,10 @@ namespace profitelo.services.modals {
     createClientSUEActivityDetailsModal(sueId: string): ng.ui.bootstrap.IModalServiceInstance
     createClientComplainReportModal(): ng.ui.bootstrap.IModalServiceInstance
     createClientChargeDetailsModal(financeActivityDetails: Object): ng.ui.bootstrap.IModalServiceInstance
+    createBasicAccountSettingsModal(callback: Function): ng.ui.bootstrap.IModalServiceInstance
+    createGeneralPhoneSettingsModal(): ng.ui.bootstrap.IModalServiceInstance
+    createGeneralEmailSettingsModal(): ng.ui.bootstrap.IModalServiceInstance
+    createGeneralCountrySettingsModal(): ng.ui.bootstrap.IModalServiceInstance
   }
 
   // TODO add types for dialogScope Scopes
@@ -122,7 +129,7 @@ namespace profitelo.services.modals {
     }
 
     public createClientComplainReportModal = () => {
-      const dialogScope = this.$rootScope.$new(true)
+      const dialogScope: ng.IScope = this.$rootScope.$new(true)
 
       return this.dialogService.openDialog({
         controller: 'clientComplainReportController',
@@ -140,13 +147,58 @@ namespace profitelo.services.modals {
       const dialogScope: any = this.$rootScope.$new(true)
       dialogScope.financeActivityDetails = financeActivityDetails
 
-
       return this.dialogService.openDialog({
         controller: 'clientChargeDetailsController',
         templateUrl: 'components/dashboard/client/activities/modals/charge-details/charge-details.tpl.html',
         scope: dialogScope
       })
     }
+
+    public createBasicAccountSettingsModal = (callback) => {
+      const dialogScope: IBasicAccountSettingsControllerParentScope =
+        <IBasicAccountSettingsControllerParentScope>this.$rootScope.$new(true)
+      dialogScope.callback = callback
+
+      return this.dialogService.openDialog({
+        controller: 'basicAccountSettingsController',
+        templateUrl: 'components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings.tpl.html',
+        scope: dialogScope
+      })
+    }
+
+    public createGeneralPhoneSettingsModal = () => {
+      const dialogScope: IGeneralPhoneSettingsControllerParentScope =
+        <IGeneralPhoneSettingsControllerParentScope>this.$rootScope.$new(true)
+
+      return this.dialogService.openDialog({
+        controller: 'generalPhoneSettingsController',
+        templateUrl: 'components/dashboard/settings/modals/general/phone-settings/phone-settings.tpl.html',
+        scope: dialogScope
+      })
+    }
+
+    public createGeneralEmailSettingsModal = () => {
+      const dialogScope: IGeneralEmailSettingsControllerParentScope =
+        <IGeneralEmailSettingsControllerParentScope>this.$rootScope.$new(true)
+
+      return this.dialogService.openDialog({
+        controller: 'generalEmailSettingsController',
+        templateUrl: 'components/dashboard/settings/modals/general/email-settings/email-settings.tpl.html',
+        scope: dialogScope
+      })
+    }
+
+    public createGeneralCountrySettingsModal = () => {
+      const dialogScope: IGeneralCountrySettingsControllerParentScope =
+        <IGeneralCountrySettingsControllerParentScope>this.$rootScope.$new(true)
+
+      return this.dialogService.openDialog({
+        controller: 'generalCountrySettingsController',
+        templateUrl: 'components/dashboard/settings/modals/general/country-settings/country-settings.tpl.html',
+        scope: dialogScope
+      })
+    }
+
   }
 
   angular.module('profitelo.services.modals', [
@@ -158,7 +210,12 @@ namespace profitelo.services.modals {
     'profitelo.components.communicator.modals.consultation-summary-expert',
     'profitelo.components.dashboard.client.activities.modals.consultation-details',
     'profitelo.components.dashboard.client.activities.modals.complain-report',
-    'profitelo.components.dashboard.client.activities.modals.charge-details'
+    'profitelo.components.dashboard.client.activities.modals.charge-details',
+    'profitelo.components.dashboard.settings.modals.general.basic-account-settings',
+    'profitelo.components.dashboard.settings.modals.general.phone-settings',
+    'profitelo.components.dashboard.settings.modals.general.email-settings',
+    'profitelo.components.dashboard.settings.modals.general.country-settings'
+
   ])
   .service('modalsService', ModalsService)
 }

@@ -1,9 +1,10 @@
 namespace profitelo.services.uploader {
+
   interface Window {
-    File: any;
+    File: any
   }
 
-  declare var window: Window;
+  declare const window: Window
 
   describe('Unit testing: profitelo.services.uploader >', () => {
     describe('for profitelo.services.uploader', () => {
@@ -47,7 +48,7 @@ namespace profitelo.services.uploader {
       })
 
       it('should upload 2 files at a time', inject(($q, $timeout, FilesApi) => {
-        spyOn(FilesApi, 'tokenPath').and.returnValue({
+        spyOn(FilesApi, 'createFileTokenPath').and.returnValue({
           $promise: $q.resolve({fileId: 1})
         })
 
@@ -60,7 +61,7 @@ namespace profitelo.services.uploader {
 
         $timeout.flush()
 
-        expect(FilesApi.tokenPath).toHaveBeenCalled()
+        expect(FilesApi.createFileTokenPath).toHaveBeenCalled()
         expect(UploadMock.upload.calls.count()).toEqual(2)
       }))
 
@@ -76,7 +77,7 @@ namespace profitelo.services.uploader {
       }))
 
       it('should not upload file if token error', inject(($q, $timeout, $rootScope, FilesApi) => {
-        spyOn(FilesApi, 'tokenPath').and.returnValue({
+        spyOn(FilesApi, 'createFileTokenPath').and.returnValue({
           $promise: $q.reject('error')
         })
 
@@ -88,12 +89,12 @@ namespace profitelo.services.uploader {
         $timeout.flush()
         $rootScope.$digest()
 
-        expect(FilesApi.tokenPath).toHaveBeenCalled()
+        expect(FilesApi.createFileTokenPath).toHaveBeenCalled()
         expect(returnValue).toEqual('error')
       }))
 
       it('should return error if upload error', inject(($q, $timeout, $rootScope, FilesApi) => {
-        spyOn(FilesApi, 'tokenPath').and.returnValue({
+        spyOn(FilesApi, 'createFileTokenPath').and.returnValue({
           $promise: $q.resolve({fileId: 1})
         })
 
@@ -107,13 +108,13 @@ namespace profitelo.services.uploader {
         $timeout.flush()
         $rootScope.$digest()
 
-        expect(FilesApi.tokenPath).toHaveBeenCalled()
+        expect(FilesApi.createFileTokenPath).toHaveBeenCalled()
         expect(UploadMock.upload).toHaveBeenCalled()
         expect(returnValue).toEqual('error')
       }))
 
       it('should call callback on upload progress', inject(($q, $timeout, FilesApi) => {
-        spyOn(FilesApi, 'tokenPath').and.returnValue({
+        spyOn(FilesApi, 'createFileTokenPath').and.returnValue({
           $promise: $q.resolve({fileId: 1})
         })
 
@@ -130,17 +131,17 @@ namespace profitelo.services.uploader {
           return deferred.promise
         })
 
-        instance.uploadFile(new File(), obj.callback)
+        instance.uploadFile(new File(), {}, obj.callback)
 
         $timeout.flush()
 
-        expect(FilesApi.tokenPath).toHaveBeenCalled()
+        expect(FilesApi.createFileTokenPath).toHaveBeenCalled()
         expect(UploadMock.upload).toHaveBeenCalled()
         expect(obj.callback).toHaveBeenCalled()
       }))
 
       it('should upload files with no limits', inject(($q, $timeout, FilesApi) => {
-        spyOn(FilesApi, 'tokenPath').and.returnValue({
+        spyOn(FilesApi, 'createFileTokenPath').and.returnValue({
           $promise: $q.resolve({fileId: 1})
         })
 
@@ -152,7 +153,7 @@ namespace profitelo.services.uploader {
 
         $timeout.flush()
 
-        expect(FilesApi.tokenPath).toHaveBeenCalled()
+        expect(FilesApi.createFileTokenPath).toHaveBeenCalled()
         expect(UploadMock.upload).toHaveBeenCalled()
       }))
     })

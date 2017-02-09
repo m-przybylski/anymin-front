@@ -1,0 +1,14 @@
+nav.dashboard-client-nav
+  ul
+    //TODO replace with ng-repeat
+    li(data-ng-class="{'is-active': $ctrl.stateNames.general}")
+      a(data-translate="general" data-ui-sref="app.dashboard.settings.general")
+    li(data-ng-class="{'is-active': $ctrl.stateNames.security}")
+      a(data-translate="security" data-ui-sref="app.dashboard.settings.security")
+
+    li(data-ng-class="{'is-active': $ctrl.stateNames.payments}")
+      a(data-translate="payments" data-ui-sref="app.dashboard.settings.payments")
+    li(data-ng-class="{'is-active': $ctrl.stateNames.payouts}")
+      a(data-translate="payouts" data-ui-sref="app.dashboard.settings.payouts")
+    li(data-ng-class="{'is-active': $ctrl.stateNames.notifications}")
+      a(data-translate="notifications" data-ui-sref="app.dashboard.settings.notifications")

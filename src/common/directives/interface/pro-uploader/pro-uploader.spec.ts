@@ -42,13 +42,13 @@ describe('Unit testing: profitelo.directives.interface.pro-uploader', () => {
 
         resourcesExpectations = {
           FilesApi: {
-            tokenPath: _httpBackend.when(_FilesApiDef.tokenPath.method, _FilesApiDef.tokenPath.url.replace(':collectionType', 'AVATAR'))
+            createFileTokenPath: _httpBackend.when(_FilesApiDef.createFileTokenPath.method, _FilesApiDef.createFileTokenPath.url.replace(':collectionType', 'AVATAR'))
           },
           Upload: {
             upload: _httpBackend.when('POST', _commonConfigData.urls['files'] + '/files/' + fileId + '/upload')
           }
         }
-        
+
       })
     })
 
@@ -88,7 +88,7 @@ describe('Unit testing: profitelo.directives.interface.pro-uploader', () => {
 
       resourcesExpectations.Upload.upload.respond(200)
 
-      resourcesExpectations.FilesApi.tokenPath.respond(200, {
+      resourcesExpectations.FilesApi.createFileTokenPath.respond(200, {
         fileId: fileId
       })
 
@@ -99,9 +99,6 @@ describe('Unit testing: profitelo.directives.interface.pro-uploader', () => {
       ])
 
       rootScope.$digest()
-
-      _httpBackend.flush()
-
     })
 
     it('should animate', () => {
