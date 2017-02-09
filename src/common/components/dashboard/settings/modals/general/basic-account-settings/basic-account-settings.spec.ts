@@ -11,19 +11,20 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
 
   describe('Testing Controller: basicAccountSettingsController', () => {
 
-
     let controller: BasicAccountSettingsController
     let scope: IBasicAccountSettingsControllerScope
     let originalFile
+
     function File() {
     }
 
     const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
-      jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss']);
+      jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss'])
 
 
     const uploaderFactory = {
-      getInstance: () => {},
+      getInstance: () => {
+      },
       collectionTypes: {
         avatar: {}
       }
@@ -83,7 +84,8 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
     it('should verifyCode', () => {
       const imagePath = 'string'
       const file = new File()
-      const cb = () => {}
+      const cb = () => {
+      }
       scope.addPhoto(imagePath, file, cb)
 
       expect(scope.isUserUploadImage).toBeTruthy()

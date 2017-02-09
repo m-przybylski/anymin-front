@@ -3,7 +3,7 @@ namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
   export interface IGeneralEmailSettingsControllerParentScope extends ng.IScope {
   }
 
-  interface IGeneralEmailSettingsControllerScope extends ng.IScope {
+  export interface IGeneralEmailSettingsControllerScope extends ng.IScope {
     isNavbar: boolean
     isFullscreen: boolean
     isAvatarVisableToExpert: boolean

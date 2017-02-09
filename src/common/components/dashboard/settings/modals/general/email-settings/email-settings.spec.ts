@@ -1,9 +1,9 @@
 namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
   describe('Testing Controller: generalEmailSettingsController', () => {
 
-    let generalEmailSettingsController
-    let scope
-    let uibModalInstance = {
+    let generalEmailSettingsController: GeneralEmailSettingsController
+    let scope: IGeneralEmailSettingsControllerScope
+    let uibModalInstance: any = {
       dismiss: () => {
 
       },
@@ -16,7 +16,7 @@ namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
       angular.mock.module('profitelo.components.dashboard.settings.modals.general.email-settings')
       inject(($rootScope: ng.IScope, $controller: ng.IControllerService) => {
 
-        scope = $rootScope.$new()
+        scope = <IGeneralEmailSettingsControllerScope>$rootScope.$new()
 
         generalEmailSettingsController = $controller<GeneralEmailSettingsController>('generalEmailSettingsController', {
           '$scope': scope,

@@ -1,6 +1,6 @@
 namespace profitelo.app.dashboard.settings {
 
-  class SettingsController implements ng.IController {
+  export class SettingsController implements ng.IController {
 
     public stateNames = [
       'general',
@@ -36,16 +36,13 @@ namespace profitelo.app.dashboard.settings {
       this.stateNames[realStateName] = true
     }
 
-
-
-
     private getRealStateName = (string: string) => {
       const stringsArray = string.split('.')
       return stringsArray[3]
     }
   }
 
-  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider) {
+  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
     $stateProvider.state('app.dashboard.settings', {
       abstract: true,
       url: '/settings',

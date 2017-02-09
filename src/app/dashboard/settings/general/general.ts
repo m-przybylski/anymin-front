@@ -5,19 +5,19 @@ namespace app.dashboard.settings.general {
 
   export class DashboardSettingsGeneralController implements ng.IController {
 
-    public user: any
     public avatarImageSource: string
+    public nickname: string
 
     constructor(private modalsService: IModalsService, UserData: any, private $state: ng.ui.IStateService, private urlService: IUrlService) {
-      this.user = UserData
-      this.avatarImageSource = this.urlService.resolveFileUrl(this.user.settings.avatar)
+      this.nickname = UserData.settings.nickname
+      this.avatarImageSource = this.urlService.resolveFileUrl(UserData.settings.avatar)
     }
 
     $onInit = () => {
     }
 
     public openBasicAccountSettingsModal = () => {
-      this.modalsService.createBasicAccountSettingsModal(this.getUserData)
+      this.modalsService.createBasicAccountSettingsModal(this.onModalClose)
     }
 
     public openGeneralPhoneSettingsModal = () => {
@@ -32,7 +32,7 @@ namespace app.dashboard.settings.general {
       this.modalsService.createGeneralCountrySettingsModal()
     }
 
-    private getUserData = (cb: Function) => {
+    private onModalClose = (cb: Function) => {
       this.$state.reload().then(() => {
         cb()
       })

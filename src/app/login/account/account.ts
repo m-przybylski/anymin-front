@@ -110,7 +110,7 @@ namespace profitelo.login.account {
     return this
   }
 
-  function config($stateProvider, UserRolesProvider) {
+  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
     $stateProvider.state('app.login.account', {
       url: '/account',
       controllerAs: 'vm',

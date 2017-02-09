@@ -2,7 +2,7 @@ namespace profitelo.components.dashboard.settings.modals.general.countrySettings
 
   export interface IGeneralCountrySettingsControllerParentScope extends ng.IScope {}
 
-  interface IGeneralCountrySettingsControllerScope extends ng.IScope {
+  export interface IGeneralCountrySettingsControllerScope extends ng.IScope {
     isNavbar: boolean
     isFullscreen: boolean
     isAvatarVisableToExpert: boolean

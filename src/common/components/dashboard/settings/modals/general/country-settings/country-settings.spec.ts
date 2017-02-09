@@ -2,9 +2,9 @@ namespace profitelo.components.dashboard.settings.modals.general.countrySettings
 
   describe('Testing Controller: generalCountrySettingsController', () => {
 
-    let generalCountrySettingsController
-    let scope
-    let uibModalInstance = {
+    let generalCountrySettingsController: GeneralCountrySettingsController
+    let scope: IGeneralCountrySettingsControllerScope
+    let uibModalInstance: any = {
       dismiss: () => {
 
       },
@@ -17,14 +17,13 @@ namespace profitelo.components.dashboard.settings.modals.general.countrySettings
       angular.mock.module('profitelo.components.dashboard.settings.modals.general.country-settings')
       inject(($rootScope: ng.IScope, $controller: ng.IControllerService) => {
 
-        scope = $rootScope.$new()
-        scope.disconnectCall = () => {
-        }
+        scope = <IGeneralCountrySettingsControllerScope>$rootScope.$new()
 
-        generalCountrySettingsController = $controller<GeneralCountrySettingsController>('generalCountrySettingsController', {
-          '$scope': scope,
-          '$uibModalInstance': uibModalInstance
-        })
+        generalCountrySettingsController =
+          $controller<GeneralCountrySettingsController>('generalCountrySettingsController', {
+            $scope: scope,
+            $uibModalInstance: uibModalInstance
+          })
       })
     })
 

@@ -1,4 +1,5 @@
-(function() {
+namespace profitelo.components.settings.navigation {
+
   /* @ngInject */
   function controller() {
 
@@ -19,5 +20,5 @@
     'ui.router'
   ])
     .component('settingsNavigation', component)
-}())
+}
 

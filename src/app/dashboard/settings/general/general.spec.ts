@@ -3,6 +3,7 @@ namespace app.dashboard.settings.general {
     describe('Testing Controller: DashboardSettingsGeneralController', () => {
 
       let dashboardSettingsGeneralController: DashboardSettingsGeneralController
+
       beforeEach(() => {
         angular.mock.module('profitelo.controller.dashboard.settings.general')
 

@@ -92,8 +92,10 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
             height: squareSideLength
           }
         }
+
         this.uploader.uploadFile(this.uploadedFile, postProcessOptions, this.onUploadProgess)
         .then(this.onFileUpload, this.onFileUploadError)
+
         this.$scope.isUserUploadImage = false
       }
 

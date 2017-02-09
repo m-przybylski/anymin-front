@@ -3,26 +3,22 @@ namespace profitelo.components.interface.imageCrop {
   interface IImageCropComponentBindings extends ng.IController {
     imageSrc?: string
     saveCropAvatar: Function
-
   }
 
   class ImageCropComponentController implements IImageCropComponentBindings {
 
     public imageSrc
-    public cropImage
     public saveCropAvatar
 
     private element: any
 
-    $onInit = () => {
-      this.cropImage = () => {
-        this.saveCropAvatar(this.element.croppie('get'))
-        this.element.croppie('destroy')
-      }
+    /* @ngInject */
+    constructor() {
+      this.element = $('.cropper-container')
     }
 
     $onChanges = () => {
-      if (angular.isDefined(this.imageSrc) && this.imageSrc.length > 0) {
+      if (angular.isDefined(this.imageSrc) && this.imageSrc) {
         this.element.croppie({
           url: this.imageSrc,
           viewport: {
@@ -34,9 +30,9 @@ namespace profitelo.components.interface.imageCrop {
       }
     }
 
-    /* @ngInject */
-    constructor() {
-      this.element = $('.cropper-container')
+    public cropImage = () => {
+      this.saveCropAvatar(this.element.croppie('get'))
+      this.element.croppie('destroy')
     }
 
   }

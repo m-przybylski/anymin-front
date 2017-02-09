@@ -3,10 +3,7 @@ namespace app.dashboard.settings.security {
   export class DashboardSettingsSecurityController implements ng.IController {
 
     constructor() {
-
     }
-
-
 
   }
 
@@ -14,16 +11,16 @@ namespace app.dashboard.settings.security {
     'ui.router',
     'c7s.ng.userAuth'
   ])
-  .config(function ($stateProvider, UserRolesProvider) {
-    $stateProvider.state('app.dashboard.settings.security', {
-      url: '/security',
-      templateUrl: 'dashboard/settings/security/security.tpl.html',
-      controller: 'DashboardSettingsSecurityController',
-      controllerAs: 'vm',
-      data: {
-        access: UserRolesProvider.getAccessLevel('user')
-      }
+    .config(($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) => {
+      $stateProvider.state('app.dashboard.settings.security', {
+        url: '/security',
+        templateUrl: 'dashboard/settings/security/security.tpl.html',
+        controller: 'DashboardSettingsSecurityController',
+        controllerAs: 'vm',
+        data: {
+          access: UserRolesProvider.getAccessLevel('user')
+        }
+      })
     })
-  })
-  .controller('dashboardSettingsSecurityController', DashboardSettingsSecurityController)
+    .controller('dashboardSettingsSecurityController', DashboardSettingsSecurityController)
 }

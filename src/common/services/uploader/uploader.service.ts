@@ -95,7 +95,7 @@ namespace profitelo.services.uploader {
       this.onFileUploadEnd()
     }
 
-    private getFileToken = (fileObj) => {
+    private getFileToken = (fileObj: FileObject) => {
      return this.FilesApi.createFileTokenPath({collectionType: this.collectionType}, fileObj.postProcessOptions).$promise
     }
     private processUpload = () => {
@@ -103,9 +103,9 @@ namespace profitelo.services.uploader {
         this.fileObjectsToUpload.length > 0) {
         this.uploadingCount++
 
-        const fileObj = this.fileObjectsToUpload.shift()
+        const fileObj: FileObject | undefined = this.fileObjectsToUpload.shift()
 
-        if(fileObj) {
+        if(angular.isDefined(fileObj) && fileObj) {
           this.getFileToken(fileObj)
             .then(
               (token: FileToken) => this.onGetFileToken(fileObj, token),

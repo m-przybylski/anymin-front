@@ -2,7 +2,7 @@ namespace profitelo.components.dashboard.settings.modals.general.phoneSettings {
 
   export interface IGeneralPhoneSettingsControllerParentScope extends ng.IScope {}
 
-  interface IGeneralPhoneSettingsControllerScope extends ng.IScope {
+  export interface IGeneralPhoneSettingsControllerScope extends ng.IScope {
     isNavbar: boolean
     isFullscreen: boolean
     isAvatarVisableToExpert: boolean
