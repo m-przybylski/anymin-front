@@ -1,6 +1,6 @@
 namespace profitelo.components.dashboard.settings.modals.general.phoneSettings {
 
-  export interface IgeneralPhoneSettingsControllerScope extends ng.IScope {
+  export interface IGeneralPhoneSettingsControllerScope extends ng.IScope {
     isHidden: boolean
     onModalClose: Function
     isNavbar: boolean
@@ -11,8 +11,8 @@ namespace profitelo.components.dashboard.settings.modals.general.phoneSettings {
   export class GeneralPhoneSettingsController implements ng.IController {
 
     /* @ngInject */
-    constructor(private $scope: IgeneralPhoneSettingsControllerScope,
-                private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
+    constructor($scope: IGeneralPhoneSettingsControllerScope,
+                $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
 
       $scope.isHidden = true
       $scope.isNavbar = true

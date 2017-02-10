@@ -6,7 +6,7 @@ namespace profitelo.components.dashboard.settings.modals.general.phoneSettings {
   describe('Testing Controller: generalPhoneSettingsController', () => {
 
     let controller: GeneralPhoneSettingsController
-    let scope: IgeneralPhoneSettingsControllerScope
+    let scope: IGeneralPhoneSettingsControllerScope
 
     const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
       jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss']);
@@ -16,7 +16,7 @@ namespace profitelo.components.dashboard.settings.modals.general.phoneSettings {
       angular.mock.module('profitelo.components.dashboard.settings.modals.general.phone-settings')
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
 
-        scope = <IgeneralPhoneSettingsControllerScope>$rootScope.$new()
+        scope = <IGeneralPhoneSettingsControllerScope>$rootScope.$new()
 
         const injectors = {
           $scope: scope,
