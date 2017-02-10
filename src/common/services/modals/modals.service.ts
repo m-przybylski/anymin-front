@@ -26,6 +26,8 @@ namespace profitelo.services.modals {
     createGeneralPhoneSettingsModal(): ng.ui.bootstrap.IModalServiceInstance
     createGeneralEmailSettingsModal(): ng.ui.bootstrap.IModalServiceInstance
     createGeneralCountrySettingsModal(): ng.ui.bootstrap.IModalServiceInstance
+    createSecurityChangePasswordSettingsModal(): ng.ui.bootstrap.IModalServiceInstance
+    createSecurityResetPasswordSettingsModal(): ng.ui.bootstrap.IModalServiceInstance
   }
 
   // TODO add types for dialogScope Scopes
@@ -194,6 +196,26 @@ namespace profitelo.services.modals {
       })
     }
 
+    public createSecurityChangePasswordSettingsModal = () => {
+      const dialogScope: ng.IScope = this.$rootScope.$new(true)
+
+      return this.dialogService.openDialog({
+        controller: 'generalChangePasswordSettingsController',
+        templateUrl: 'components/dashboard/settings/modals/security/change-password/change-password.tpl.html',
+        scope: dialogScope
+      })
+    }
+
+    public createSecurityResetPasswordSettingsModal = () => {
+      const dialogScope: ng.IScope = this.$rootScope.$new(true)
+
+      return this.dialogService.openDialog({
+        controller: 'generalResetPasswordSettingsController',
+        templateUrl: 'components/dashboard/settings/modals/security/change-password/reset-password/reset-password.tpl.html',
+        scope: dialogScope
+      })
+    }
+
   }
 
   angular.module('profitelo.services.modals', [
@@ -209,7 +231,9 @@ namespace profitelo.services.modals {
     'profitelo.components.dashboard.settings.modals.general.basic-account-settings',
     'profitelo.components.dashboard.settings.modals.general.phone-settings',
     'profitelo.components.dashboard.settings.modals.general.email-settings',
-    'profitelo.components.dashboard.settings.modals.general.country-settings'
+    'profitelo.components.dashboard.settings.modals.general.country-settings',
+    'profitelo.components.dashboard.settings.modals.security.change-password',
+    'profitelo.components.dashboard.settings.modals.security.change-password.reset-password'
 
   ])
   .service('modalsService', ModalsService)

@@ -64,6 +64,6 @@ namespace profitelo.app.dashboard.settings {
     'c7s.ng.userAuth',
     'profitelo.components.settings.navigation'
   ])
-    .config(config)
-    .controller('settingsController', SettingsController)
+  .config(config)
+  .controller('settingsController', SettingsController)
 }

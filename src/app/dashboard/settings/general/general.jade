@@ -1,4 +1,5 @@
-h2(data-translate="SETTINGS.GENERAL.TITLE")
+.general-options
+  h2(data-translate="SETTINGS.GENERAL.TITLE")
 
 .settings-row
   .settings-icon
@@ -9,38 +10,38 @@ h2(data-translate="SETTINGS.GENERAL.TITLE")
     span.label(data-translate="SETTINGS.GENERAL.FULL-NAME.LABEL")
     span.name {{ vm.nickname }}
 
-  .btn.btn-small.btn-default-border(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
-  data-ng-click=":: vm.openBasicAccountSettingsModal()")
+    a.btn.btn-small.btn-default-border(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
+    data-ng-click=":: vm.openBasicAccountSettingsModal()")
 
-.settings-row
-  .settings-icon
-    span.icon.icon-smartphone-24
+  .settings-row
+    .settings-icon
+      span.icon.icon-smartphone-24
 
-  .settings-data
-    span.label(data-translate="SETTINGS.GENERAL.PHONE_NUMBER.LABEL")
-    span.name + 48 500 400 430
+    .settings-data
+      span.label(data-translate="SETTINGS.GENERAL.PHONE_NUMBER.LABEL")
+      span.name + 48 500 400 430
 
-  .btn.btn-small.btn-default-border(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
-  data-ng-click=":: vm.openGeneralPhoneSettingsModal()")
+    a.btn.btn-small.btn-default-border(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
+    data-ng-click=":: vm.openGeneralPhoneSettingsModal()")
 
-.settings-row
-  .settings-icon
-    span.icon.icon-success-24-1
+  .settings-row
+    .settings-icon
+      span.icon.icon-success-24-1
 
-  .settings-data
-    span.label(data-translate="SETTINGS.GENERAL.EMAIL.LABEL")
-    span.name name@profiteloc.om
+    .settings-data
+      span.label(data-translate="SETTINGS.GENERAL.EMAIL.LABEL")
+      span.name name@profiteloc.om
 
-  .btn.btn-small.btn-default-border(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
-  data-ng-click=":: vm.openGeneralEmailSettingsModal()")
+    a.btn.btn-small.btn-default-border(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
+    data-ng-click=":: vm.openGeneralEmailSettingsModal()")
 
-.settings-row
-  .settings-icon
-    span.icon.icon-planet-24
+  .settings-row
+    .settings-icon
+      span.icon.icon-planet-24
 
-  .settings-data
-    span.label(data-translate="SETTINGS.GENERAL.COUNTRY.LABEL")
-    span.name Poland
+    .settings-data
+      span.label(data-translate="SETTINGS.GENERAL.COUNTRY.LABEL")
+      span.name Poland
 
-  .btn.btn-small.btn-default-border(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
-  data-ng-click=":: vm.openGeneralCountrySettingsModal()")
+    a.btn.btn-small.btn-default-border(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
+    data-ng-click=":: vm.openGeneralCountrySettingsModal()")
