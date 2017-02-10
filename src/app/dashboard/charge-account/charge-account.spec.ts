@@ -1,16 +1,19 @@
-describe('Unit tests: profitelo.controller.dashboard.charge-account >', () => {
+namespace profitelo.dashboard.chargeAccount {
+import IWindowService = profitelo.services.window.IWindowService
+  import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
+  describe('Unit tests: profitelo.controller.dashboard.charge-account >', () => {
   describe('Testing Controller: chargeAccountController', () => {
 
-    let chargeAccountController
-    let _scope
+    let chargeAccountController: any
+    let _scope: any
     let url = 'awesomeUrl'
-    let _timeout
-    let _window
-    let _smoothScrollingService
-    let _httpBackend
-    let _controller
+    let _timeout: ng.ITimeoutService
+    let _window: IWindowService
+    let _smoothScrollingService: ISmoothScrollingService
+    let _httpBackend: ng.IHttpBackendService
+    let _controller: any
 
-    function createController(controller, paymentsOptions, paymentsLinks, financeBalance) {
+    function createController(controller: any, paymentsOptions: any, paymentsLinks: any, financeBalance: any) {
 
       chargeAccountController = controller('chargeAccountController', {
         $scope: _scope,
@@ -22,7 +25,7 @@ describe('Unit tests: profitelo.controller.dashboard.charge-account >', () => {
       })
     }
 
-    beforeEach(angular.mock.module(($provide) => {
+    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', url)
     }))
 
@@ -31,7 +34,8 @@ describe('Unit tests: profitelo.controller.dashboard.charge-account >', () => {
     angular.mock.module('profitelo.swaggerResources.definitions')
     angular.mock.module('profitelo.services.smooth-scrolling')
     angular.mock.module('templates-module')
-      inject(($rootScope, $httpBackend, $controller, $timeout, $window, smoothScrollingService) => {
+      inject(($rootScope: IRootScopeService, $httpBackend: ng.IHttpBackendService, $controller: ng.IControllerService,
+              $timeout: ng.ITimeoutService, $window: IWindowService, smoothScrollingService: ISmoothScrollingService) => {
 
         _scope = $rootScope.$new()
         _httpBackend = $httpBackend
@@ -79,3 +83,4 @@ describe('Unit tests: profitelo.controller.dashboard.charge-account >', () => {
 
   })
 })
+}

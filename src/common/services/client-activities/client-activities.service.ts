@@ -2,6 +2,8 @@ namespace profitelo.services.clientActivities {
 
   import ClientActivity = profitelo.models.ClientActivity
   import Money = profitelo.models.Money
+  import Service = profitelo.models.Service
+  import Profile = profitelo.models.Profile
 
   export interface IExpertServiceTuple {
     expert: Profile
@@ -15,7 +17,7 @@ namespace profitelo.services.clientActivities {
     expertServiceTuples: Array<IExpertServiceTuple>
   }
 
-  interface IClientActivitiesQueryParams {
+  export interface IClientActivitiesQueryParams {
     offset?: number
     limit?: number
   }

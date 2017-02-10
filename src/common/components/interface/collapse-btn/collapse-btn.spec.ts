@@ -1,16 +1,18 @@
-describe('Unit testing: profitelo.components.interface.collapse-btn', () => {
+namespace profitelo.components.interface.collapseBtn {
+import IWindowService = profitelo.services.window.IWindowService
+  describe('Unit testing: profitelo.components.interface.collapse-btn', () => {
   return describe('for collapseBtn component >', () => {
 
-    let scope
-    let rootScope
-    let compile
-    let componentController
-    let component
+    let scope: any
+    let rootScope: ng.IRootScopeService
+    let compile: ng.ICompileService
+    let componentController: any
+    let component: any
     let window
     let stylesObject
     let validHTML = '<collapse-btn data-title="title" data-icon="icon"></collapse-btn>'
 
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
@@ -28,7 +30,8 @@ describe('Unit testing: profitelo.components.interface.collapse-btn', () => {
     angular.mock.module('pascalprecht.translate')
     angular.mock.module('profitelo.components.interface.collapse-btn')
 
-      inject(($rootScope, $compile, _$componentController_, _$window_, _$log_) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
+              _$componentController_: ng.IComponentControllerService, _$window_: IWindowService, _$log_: ng.ILogService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
@@ -72,3 +75,4 @@ describe('Unit testing: profitelo.components.interface.collapse-btn', () => {
   })
 })
 
+}

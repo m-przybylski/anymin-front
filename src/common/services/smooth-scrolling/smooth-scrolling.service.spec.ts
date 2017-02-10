@@ -1,3 +1,4 @@
+namespace profitelo.services.smoothScrolling {
 describe('Unit testing: profitelo.directives.services.smooth-scrolling >', function() {
   describe('for profitelo.directives.services.smooth-scrolling >', function() {
 
@@ -9,7 +10,7 @@ describe('Unit testing: profitelo.directives.services.smooth-scrolling >', funct
     })
 
 
-    beforeEach(inject(function($injector) {
+    beforeEach(inject(function($injector: ng.auto.IInjectorService) {
       smoothScrollingService = $injector.get('smoothScrollingService')
     }))
 
@@ -20,3 +21,4 @@ describe('Unit testing: profitelo.directives.services.smooth-scrolling >', funct
 
   })
 })
+}

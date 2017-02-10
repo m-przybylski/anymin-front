@@ -1,18 +1,20 @@
-describe('Unit testing: profitelo.components.interface.show-more-text', () => {
+namespace profitelo.components.interface.showMoreText {
+import IWindowService = profitelo.services.window.IWindowService
+  describe('Unit testing: profitelo.components.interface.show-more-text', () => {
   return describe('for showMoreTextController component >', () => {
 
-    let scope
-    let rootScope
-    let compile
-    let componentController
-    let component
-    let window
+    let scope: any
+    let rootScope: ng.IRootScopeService
+    let compile: ng.ICompileService
+    let componentController: any
+    let component: any
+    let window: IWindowService
     let validHTML = '<show-more-text data-text="text"></show-more-text>'
     const bindings = {
       text: 'Sample text'
     }
 
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
@@ -24,7 +26,9 @@ describe('Unit testing: profitelo.components.interface.show-more-text', () => {
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.components.interface.show-more-text')
 
-      inject(($rootScope, $compile, _$componentController_, _$window_, _$timeout_, _$log_) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
+              _$componentController_: ng.IComponentControllerService, _$window_: IWindowService,
+              _$timeout_: ng.ITimeoutService, _$log_: ng.ILogService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
@@ -63,3 +67,4 @@ describe('Unit testing: profitelo.components.interface.show-more-text', () => {
   })
 })
 
+}

@@ -7,6 +7,7 @@ namespace profitelo.login.account {
   import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
   import ICommunicatorService = profitelo.services.communicator.ICommunicatorService
   import ITopWaitingLoaderService = profitelo.services.topWaitingLoader.ITopWaitingLoaderService
+  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
 
   function AccountFormController($log: ng.ILogService, $rootScope: IRootScopeService, $state: ng.ui.IStateService,
                                  $filter: IFilterService, AccountApi: any,
@@ -18,14 +19,14 @@ namespace profitelo.login.account {
     this.isPending = false
     this.current = 1
     this.account = loginStateService.getAccountObject()
-    this.prefixes = CommonSettingsService.localSettings.countryCodes.map((item) => {
+    this.prefixes = CommonSettingsService.localSettings.countryCodes.map((item: any) => {
       return {
         value: item,
         name: item
       }
     })
 
-    this.isValidPhoneNumber = (prefix, number) => {
+    this.isValidPhoneNumber = (prefix: string, number: string) => {
       if (angular.isDefined(prefix) && angular.isDefined(number) && prefix && number && number.length > 1) {
         const fullPhoneNumber = phoneNumberService.parse(prefix.toString() + number.toString())
         return phoneNumberService.isValidNumber(fullPhoneNumber)
@@ -40,7 +41,7 @@ namespace profitelo.login.account {
       this.current = 1
     }
 
-    let _determinePhoneNumberStatus = (status) => {
+    let _determinePhoneNumberStatus = (status: string) => {
       switch (status) {
         case 'REGISTERED':
           this.current = 2
@@ -54,7 +55,7 @@ namespace profitelo.login.account {
       }
     }
 
-    this.updateSortTypeParam = (item) => {
+    this.updateSortTypeParam = (item: any) => {
       this.account.phoneNumber.prefix = item.value
     }
 
@@ -65,11 +66,11 @@ namespace profitelo.login.account {
         loginStateService.setAccountObject(this.account)
         AccountApi.getRegistrationStatusByMsisdn({
           msisdn: this.account.phoneNumber.prefix + this.account.phoneNumber.number
-        }).$promise.then((response) => {
+        }).$promise.then((response: any) => {
           this.isPending = false
           _determinePhoneNumberStatus(response.status)
           topWaitingLoaderService.stopLoader()
-        }, (error) => {
+        }, (error: any) => {
           $log.error(error)
           this.isPending = false
           topAlertService.error({
@@ -89,7 +90,7 @@ namespace profitelo.login.account {
         User.login({
           msisdn: this.account.phoneNumber.prefix + '' + this.account.phoneNumber.number,
           password: this.account.password
-        }).then((_response) => {
+        }).then((_response: any) => {
           communicatorService.authenticate()
           $rootScope.loggedIn = true
           this.isPending = false
@@ -100,7 +101,7 @@ namespace profitelo.login.account {
             message: $filter('translate')('LOGIN.SUCCESSFUL_LOGIN'),
             timeout: 2
           })
-        }, (error) => {
+        }, (error: any) => {
           $log.error(error)
           this.isPending = false
           this.serverError = true

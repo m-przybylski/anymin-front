@@ -1,7 +1,7 @@
 (function() {
   function passwordStrengthBar() {
 
-    function linkFunction(scope, _element, _attr) {
+    function linkFunction(scope: any, _element: ng.IRootElementService, _attr: ng.IAttributes) {
       scope.classes = [
         'start',
         'very-weak',
@@ -13,7 +13,7 @@
 
       scope.$watch(()=> {
         return scope.currentClass
-      }, (newValue, _oldValue)=>{
+      }, (newValue: number, _oldValue: number)=>{
 
         scope.currentClass = Math.floor(scope.currentClass)
 

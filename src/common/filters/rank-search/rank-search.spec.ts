@@ -1,13 +1,15 @@
-describe('Unit testing: profitelo.filters.rankSearch >', () => {
+namespace profitelo.filters.rankSearch {
+import IFilterService = profitelo.services.filter.IFilterService
+  describe('Unit testing: profitelo.filters.rankSearch >', () => {
   describe('for profitelo.filters.rankSearch >', () => {
 
-    let $filter
+    let $filter: IFilterService
 
     beforeEach(() => {
     angular.mock.module('profitelo.filters.rankSearch')
     })
 
-    beforeEach(inject((_$filter_) => {
+    beforeEach(inject((_$filter_: IFilterService) => {
       $filter = _$filter_
     }))
 
@@ -34,4 +36,4 @@ describe('Unit testing: profitelo.filters.rankSearch >', () => {
     })
 
   })
-})
+})}

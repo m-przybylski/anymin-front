@@ -4,7 +4,7 @@ describe('Unit testing: profitelo.directives.interface.pro-input-password', () =
     let _placeholder = 'PLACEHOLDER'
 
     let scope: any     = null
-    let rootScope
+    let rootScope: ng.IRootScopeService
     let compile: any   = null
     let validHTML = '<pro-input-password data-label="LABEL" data-placeholder="' + _placeholder + '"  required auto-focus></pro-input-password>'
 
@@ -12,13 +12,13 @@ describe('Unit testing: profitelo.directives.interface.pro-input-password', () =
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.directives.interface.pro-input-password')
 
-      inject(($rootScope, $compile ) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {
         rootScope             = $rootScope.$new()
         compile               = $compile
       })
     })
 
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
@@ -85,7 +85,7 @@ describe('Unit testing: profitelo.directives.interface.pro-input-password', () =
       expect(isoScope.placeholder).toEqual(_placeholder)
 
     })
-    
+
     it('should change input type to text if visibility toggle clicked', () => {
       let el = create(validHTML)
       let isoScope = el.isolateScope()

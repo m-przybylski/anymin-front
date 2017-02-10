@@ -2,7 +2,7 @@
 
   function ngEnter() {
 
-    function linkFunction(scope, elem, attrs) {
+    function linkFunction(scope: ng.IScope, elem: ng.IRootElementService, attrs: any) {
       elem.bind('keydown keypress', function(event) {
         if (event.which === 13) {
           scope.$apply(function() {

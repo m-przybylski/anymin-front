@@ -1,15 +1,18 @@
-describe('Unit testing: profitelo.components.interface.top-modal-navbar', () => {
+namespace profitelo.components.interface.topModalNavbar {
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  import IWindowService = profitelo.services.window.IWindowService
+  describe('Unit testing: profitelo.components.interface.top-modal-navbar', () => {
   return describe('for topModalNavbar component >', () => {
 
-    let scope
-    let rootScope
-    let compile
-    let componentController
-    let state
-    let component
+    let scope: any
+    let rootScope: ng.IRootScopeService
+    let compile: ng.ICompileService
+    let componentController: any
+    let state: any
+    let component: any
     const validHTML = '<top-modal-navbar data-title="test" data-on-close="asd"></top-modal-navbar>'
 
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
@@ -22,7 +25,9 @@ describe('Unit testing: profitelo.components.interface.top-modal-navbar', () => 
     angular.mock.module('ui.router')
     angular.mock.module('profitelo.components.interface.top-modal-navbar')
 
-      inject(($rootScope, $compile, _$componentController_, _$state_, $window) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
+              _$componentController_: ng.IComponentControllerService, _$state_: ng.ui.IStateService,
+              $window: IWindowService) => {
         componentController = _$componentController_
         rootScope = $rootScope
         compile = $compile
@@ -74,3 +79,4 @@ describe('Unit testing: profitelo.components.interface.top-modal-navbar', () => 
   })
 })
 
+}

@@ -1,4 +1,6 @@
-describe('Unit testing: profitelo.directives.service-provider.pro-service-provider-name', function() {
+namespace profitelo.directives.serviceProvider.proServiceProviderName {
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  describe('Unit testing: profitelo.directives.service-provider.pro-service-provider-name', function() {
   return describe('for proServiceProviderName directive >', function() {
 
     var compile: any = null
@@ -14,13 +16,13 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.directives.service-provider.pro-service-provider-name')
 
-      inject(function($rootScope, $compile) {
+      inject(function($rootScope: IRootScopeService, $compile: ng.ICompileService) {
         scope = $rootScope.$new()
         compile = $compile
       })
     })
 
-    function create(html) {
+    function create(html: string) {
       var elem = angular.element(html)
       scope.proModel = {name: null}
       var compiledElement = compile(elem)(scope)
@@ -28,12 +30,12 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
       return compiledElement
     }
 
-    let triggerKeyDown = function(element, keyCode) {
+    let triggerKeyDown = function(element: JQuery, keyCode: number) {
       let e = angular.element.Event('keypress')
       e.which = keyCode
       element.trigger(e)
     }
-    
+
     it('should have a dummy test', inject(function() {
       expect(true).toBeTruthy()
     }))
@@ -51,10 +53,11 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
       isoScope.onEnter()
       isoScope.model.name = ''
       triggerKeyDown(el, 13)
-      
+
 
     })
-    
+
   })
-  
+
 })
+}

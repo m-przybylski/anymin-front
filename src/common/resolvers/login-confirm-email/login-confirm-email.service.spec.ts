@@ -1,17 +1,18 @@
+namespace profitelo.resolvers.loginConfirmEmail {
 describe('Unit testing: profitelo.resolvers.login-confirm-email', () => {
   describe('for LoginConfirmEmailResolver service >', () => {
 
-    let AppLoginConfirmEmailResolverService
+    let AppLoginConfirmEmailResolverService: ILoginConfirmEmailService
     let url = 'awesomeURL'
-    let _timeout
-    let mockState
-    let resourcesExpectations
-    let _AccountApiDef
-    let _SessionApiDef
-    let httpBackend
+    let _timeout: ng.ITimeoutService
+    let mockState: any
+    let resourcesExpectations: any
+    let _AccountApiDef: any
+    let _SessionApiDef: any
+    let httpBackend: ng.IHttpBackendService
     let emailToken = ':token'
 
-    beforeEach(angular.mock.module(function($provide) {
+    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', url)
     }))
 
@@ -22,12 +23,12 @@ describe('Unit testing: profitelo.resolvers.login-confirm-email', () => {
       }
 
     angular.mock.module('profitelo.swaggerResources.definitions')
-    angular.mock.module('profitelo.resolvers.login-confirm-email', function($provide) {
+    angular.mock.module('profitelo.resolvers.login-confirm-email', function($provide: ng.auto.IProvideService) {
         $provide.value('$state',  mockState)
       })
 
-      inject(($injector) => {
-        AppLoginConfirmEmailResolverService = $injector.get('LoginConfirmEmailResolver')
+      inject(($injector: ng.auto.IInjectorService) => {
+        AppLoginConfirmEmailResolverService = $injector.get<ILoginConfirmEmailService>('LoginConfirmEmailResolver')
         _timeout = $injector.get('$timeout')
         _AccountApiDef = $injector.get('AccountApiDef')
         _SessionApiDef = $injector.get('SessionApiDef')
@@ -42,7 +43,7 @@ describe('Unit testing: profitelo.resolvers.login-confirm-email', () => {
           check: httpBackend.when(_SessionApiDef.check.method, _SessionApiDef.check.url)
         }
       }
-      
+
     })
 
     it('should have resolve function', () => {
@@ -98,7 +99,7 @@ describe('Unit testing: profitelo.resolvers.login-confirm-email', () => {
         () => {
           spy.spy()
         }, () => {
-        
+
       })
 
       httpBackend.flush()
@@ -109,4 +110,4 @@ describe('Unit testing: profitelo.resolvers.login-confirm-email', () => {
 
 
   })
-})
+})}

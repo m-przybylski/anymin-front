@@ -1,75 +1,79 @@
-describe('Unit testing: profitelo.services.modals >', () => {
+namespace profitelo.services.modals {
+import IDialogService = profitelo.services.dialog.IDialogService
+  import Service = profitelo.models.Service
+  describe('Unit testing: profitelo.services.modals >', () => {
   describe('for profitelo.services.modals >', () => {
 
-    let modalsService
+    let modalsService: IModalsService
 
     beforeEach(() => {
     angular.mock.module('profitelo.services.modals')
     angular.mock.module('profitelo.services.dialog')
     })
 
-    beforeEach(inject(($injector) => {
-      modalsService = $injector.get('modalsService')
+    beforeEach(inject(($injector: ng.auto.IInjectorService) => {
+      modalsService = $injector.get<IModalsService>('modalsService')
     }))
 
     it('should have a dummy test', () => {
       expect(true).toBeTruthy()
     })
 
-    it('should create IncomingCallModal', inject((dialogService) => {
+    it('should create IncomingCallModal', inject((dialogService: IDialogService) => {
       spyOn(dialogService, 'openDialog')
 
-      modalsService.createIncomingCallModal({}, _ => _, _ => _)
+      modalsService.createIncomingCallModal(<Service>{}, () => {}, () => {})
 
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
 
-    it('should create NoFundsModal', inject((dialogService) => {
+    it('should create NoFundsModal', inject((dialogService: IDialogService) => {
       spyOn(dialogService, 'openDialog')
 
-      modalsService.createNoFundsModal({}, _ => _, _ => _)
+      modalsService.createNoFundsModal(() => {}, () => {})
 
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
 
-    it('should create ServiceUnavailableModal', inject((dialogService) => {
+    it('should create ServiceUnavailableModal', inject((dialogService: IDialogService) => {
       spyOn(dialogService, 'openDialog')
 
-      modalsService.createServiceUnavailableModal({}, _ => _, _ => _)
+      modalsService.createServiceUnavailableModal(() => {}, () => {})
 
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
 
-    it('should create createClientConsultationSummaryModal', inject((dialogService) => {
+    it('should create createClientConsultationSummaryModal', inject((dialogService: IDialogService) => {
       spyOn(dialogService, 'openDialog')
 
-      modalsService.createClientConsultationSummaryModal({}, _ => _, _ => _)
+      modalsService.createClientConsultationSummaryModal(<any>{})
 
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
 
-    it('should create createExpertConsultationSummaryModal', inject((dialogService) => {
+    it('should create createExpertConsultationSummaryModal', inject((dialogService: IDialogService) => {
       spyOn(dialogService, 'openDialog')
 
-      modalsService.createExpertConsultationSummaryModal({}, _ => _, _ => _)
+      modalsService.createExpertConsultationSummaryModal(<any>{})
 
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
 
-    it('should create createClientSUEActivityDetailsModal', inject((dialogService) => {
+    it('should create createClientSUEActivityDetailsModal', inject((dialogService: IDialogService) => {
       spyOn(dialogService, 'openDialog')
 
-      modalsService.createClientSUEActivityDetailsModal({}, _ => _, _ => _)
+      modalsService.createClientSUEActivityDetailsModal(<any>{})
 
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
 
-    it('should create createClientComplainReportModal', inject((dialogService) => {
+    it('should create createClientComplainReportModal', inject((dialogService: IDialogService) => {
       spyOn(dialogService, 'openDialog')
 
-      modalsService.createClientComplainReportModal({}, _ => _, _ => _)
+      modalsService.createClientComplainReportModal()
 
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
   })
 })
+}

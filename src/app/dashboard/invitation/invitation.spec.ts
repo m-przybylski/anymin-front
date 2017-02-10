@@ -1,13 +1,14 @@
+namespace profitelo.dashboard.invitaion {
 describe('Unit tests: profitelo.controller.dashboard.invitation >', () => {
   describe('Testing Controller: InvitationController', () => {
 
-    let scope,
-      InvitationController
+    let scope: any,
+      InvitationController: any
 
 
     beforeEach(() => {
     angular.mock.module('profitelo.controller.dashboard.invitation')
-      inject(($rootScope, $controller) => {
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
         scope = $rootScope.$new()
 
 
@@ -25,7 +26,7 @@ describe('Unit tests: profitelo.controller.dashboard.invitation >', () => {
       })
     })
 
-    
+
     it('should have a dummy test', () => {
       expect(true).toBeTruthy()
     })
@@ -35,4 +36,4 @@ describe('Unit tests: profitelo.controller.dashboard.invitation >', () => {
     })
 
   })
-})
+})}

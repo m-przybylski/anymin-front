@@ -32,7 +32,7 @@ namespace profitelo.components.modals.consultationSummaryClient {
     constructor(private $log: ng.ILogService, private $scope: IConsultationSummaryClientControllerScope,
                 private lodash: _.LoDashStatic, private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
                 private callSummaryService: ICallSummaryService, private urlService: IUrlService,
-                private ServiceApi) {
+                private ServiceApi: any) {
 
       $scope.isFullscreen = true
       $scope.isNavbar = true
@@ -57,7 +57,7 @@ namespace profitelo.components.modals.consultationSummaryClient {
         }
       }
 
-      this.$scope.onTagsSelectChange = (tags) =>
+      this.$scope.onTagsSelectChange = (tags: Array<Tag>) =>
         this.tags = tags
 
       this.$scope.closeModal = () => {
@@ -77,14 +77,14 @@ namespace profitelo.components.modals.consultationSummaryClient {
       }
     }
 
-    private setCallSummary = (_callSummary) => {
+    private setCallSummary = (_callSummary: CallSummary) => {
       this.$scope.callSummary = _callSummary
       const avatar = _callSummary.companyExpertProfile.expertDetails.avatar
       this.$scope.expertAvatarUrl = (avatar) ? this.urlService.resolveFileUrl(avatar) : ''
       this.$scope.rating = _callSummary.service.rating
     }
 
-    private onCallSummary = (data) => {
+    private onCallSummary = (data: any) => {
       this.$log.debug(data)
       const callSummary = data.callSummary
       if (callSummary.service.id === this.$scope.$parent.serviceId) {
@@ -99,16 +99,16 @@ namespace profitelo.components.modals.consultationSummaryClient {
       }
     }
 
-    private onRecommendServiceError = (err) =>
+    private onRecommendServiceError = (err: any) =>
       this.$log.error(err)
 
-    private onRecommendService = (_res) =>
+    private onRecommendService = (_res: any) =>
       this.$scope.chooseExpertsTag = true
 
-    private onRecommendServiceTags = (res) =>
+    private onRecommendServiceTags = (res: any) =>
       this.$log.debug(res)
 
-    private onRecommendServiceTagsError = (err) =>
+    private onRecommendServiceTagsError = (err: any) =>
       this.$log.error(err)
   }
 

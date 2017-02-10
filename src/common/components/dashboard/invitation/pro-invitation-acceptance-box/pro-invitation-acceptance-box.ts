@@ -1,21 +1,22 @@
-(function () {
+namespace profitelo.components.dashboard.invitation.proInvitationAcceptanceBox {
 
   /* @ngInject */
-  function controllerFunction($timeout: ng.ITimeoutService, $scope: ng.IScope, EmploymentApi) {
+  import Tag = profitelo.models.Tag
+  function controllerFunction($timeout: ng.ITimeoutService, $scope: ng.IScope, EmploymentApi: any) {
 
     let _isPending = false
-    let _rejectTimeout
+    let _rejectTimeout: ng.IPromise<any>
 
     const _rejectTimeoutTime = 5000
 
-    this.accept = (employmentId) => {
+    this.accept = (employmentId: string) => {
       this.isAccepted = true
 
       if (!_isPending) {
         _isPending = true
         EmploymentApi.postEmploymentsAccept({
           employmentId: employmentId
-        }).$promise.then((response) => {
+        }).$promise.then((response: any) => {
           this.employment = response
           _isPending = false
         }, () => {
@@ -24,7 +25,7 @@
       }
     }
 
-    this.reject = (employmentId) => {
+    this.reject = (employmentId: string) => {
       this.isRejected = true
 
       let _reject = () => {
@@ -32,7 +33,7 @@
           _isPending = true
           EmploymentApi.postEmploymentsReject({
             employmentId: employmentId
-          }).$promise.then((response) => {
+          }).$promise.then((response: any) => {
             this.employment = response
             _isPending = false
             this.rejectTimeoutSet = false
@@ -70,7 +71,7 @@
         (newVal) => {
           /* istanbul ignore next if*/
           if (angular.isDefined(newVal)) {
-            newVal.details.tagNames = newVal.details.tags.map(tag => tag.name)
+            newVal.details.tagNames = newVal.details.tags.map((tag: Tag) => tag.name)
           }
         }, true)
     }
@@ -96,4 +97,4 @@
   ])
   .component('proInvitationAcceptanceBox', proInvitationAcceptanceBox)
 
-}())
+}

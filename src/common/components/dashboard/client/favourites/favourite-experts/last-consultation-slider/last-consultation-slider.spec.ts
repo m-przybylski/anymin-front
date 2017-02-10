@@ -1,16 +1,18 @@
-describe('Unit testing: profitelo.components.dashboard.client.favourites.favourite-experts.last-consultation-slider', () => {
+namespace profitelo.components.dashboard.client.favourites.favouriteExperts.lastConsultationSlider {
+import IUrlService = profitelo.services.helper.IUrlService
+  describe('Unit testing: profitelo.components.dashboard.client.favourites.favourite-experts.last-consultation-slider', () => {
   return describe('for lastConsultationSlider >', () => {
 
-    let scope
-    let rootScope
-    let compile
-    let componentController
-    let component
-    let urlService
+    let scope: any
+    let rootScope: any
+    let compile: ng.ICompileService
+    let componentController: any
+    let component: any
+    let urlService: IUrlService
     let validHTML = '<last-consultation-slider data-title="title" data-consultations="[{}]"></last-consultation-slider>'
-    let state
+    let state: ng.ui.IStateService
 
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
@@ -38,7 +40,9 @@ describe('Unit testing: profitelo.components.dashboard.client.favourites.favouri
       angular.mock.module('ui.router')
       angular.mock.module('profitelo.components.dashboard.client.favourites.favourite-experts.last-consultation-slider')
 
-      inject(($rootScope, $compile, _$componentController_, _$state_, _urlService_) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
+              _$componentController_: ng.IComponentControllerService, _$state_: ng.ui.IStateService,
+              _urlService_: IUrlService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
@@ -67,7 +71,7 @@ describe('Unit testing: profitelo.components.dashboard.client.favourites.favouri
 
     it('should go to nextslide', () => {
       rootScope.controlls = {
-        nextSlide: _ => _
+        nextSlide: () => {}
       }
 
       spyOn(rootScope.controlls, 'nextSlide')
@@ -77,7 +81,7 @@ describe('Unit testing: profitelo.components.dashboard.client.favourites.favouri
 
     it('should go to prevSlide', () => {
       rootScope.controlls = {
-        prevSlide: _ => _
+        prevSlide: () => {}
       }
 
       spyOn(rootScope.controlls, 'prevSlide')
@@ -113,3 +117,4 @@ describe('Unit testing: profitelo.components.dashboard.client.favourites.favouri
     }))
   })
 })
+}

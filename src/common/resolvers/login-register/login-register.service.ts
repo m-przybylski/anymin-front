@@ -19,7 +19,7 @@ namespace profitelo.resolvers.loginRegister {
 
     constructor(private loginStateService: ILoginStateService, private $state: ng.ui.IStateService,
                 private $filter: IFilterService, private $q: ng.IQService, private $timeout: ng.ITimeoutService,
-                private topAlertService: ITopAlertService, private RegistrationApi, private $log: ng.ILogService) {
+                private topAlertService: ITopAlertService, private RegistrationApi: any, private $log: ng.ILogService) {
 
     }
 
@@ -45,12 +45,12 @@ namespace profitelo.resolvers.loginRegister {
       } else {
         this.RegistrationApi.requestVerification({
           msisdn: _account.phoneNumber.prefix + _account.phoneNumber.number
-        }).$promise.then((response) => {
+        }).$promise.then((response: any) => {
           _deferred.resolve({
             sessionId: response.sessionId,
             accountObject: _account
           })
-        }, (error) => {
+        }, (error: any) => {
           this.$log.error(error)
           this.topAlertService.warning({
             message: this.$filter('translate')('INTERFACE.API_ERROR'),

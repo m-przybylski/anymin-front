@@ -3,22 +3,21 @@ namespace profitelo.resolvers.loginConfirmEmail {
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
   import IFilterService = profitelo.services.filter.IFilterService
-
+  import IConfirmEmailStateParams = profitelo.login.confirmEmail.IConfirmEmailStateParams
 
   export interface ILoginConfirmEmailService {
-    resolve(stateParams: ng.ui.IStateParamsService): ng.IPromise<undefined>
+    resolve(stateParams: IConfirmEmailStateParams): ng.IPromise<undefined>
   }
 
   class LoginConfirmEmailResolver implements ILoginConfirmEmailService {
 
     constructor(private $q: ng.IQService, private $rootScope: IRootScopeService, private $timeout: ng.ITimeoutService,
                 private $filter: IFilterService, private $state: ng.ui.IStateService, private topAlertService: ITopAlertService,
-                private User, private UserRoles,
-                private AccountApi, private SessionApi) {
+                private User: any, private UserRoles: any, private AccountApi: any, private SessionApi: any) {
 
     }
 
-    public resolve = (stateParams: ng.ui.IStateParamsService): ng.IPromise<undefined> => {
+    public resolve = (stateParams: IConfirmEmailStateParams): ng.IPromise<undefined> => {
       const _deferred = this.$q.defer<undefined>()
 
       const handleBadToken = () => {
@@ -32,10 +31,10 @@ namespace profitelo.resolvers.loginConfirmEmail {
         })
       }
 
-      const handleGoodToken = (apiKey) => {
+      const handleGoodToken = (apiKey: string) => {
 
         this.User.setApiKeyHeader(apiKey)
-        this.SessionApi.check().$promise.then((response) => {
+        this.SessionApi.check().$promise.then((response: any) => {
 
           _deferred.resolve()
 
@@ -58,20 +57,20 @@ namespace profitelo.resolvers.loginConfirmEmail {
 
       }
 
-      const verifyEmailToken = (token) => {
+      const verifyEmailToken = (token: string) => {
 
         this.AccountApi.postAccountVerifyEmail({
           token: token
-        }).$promise.then((response) => {
+        }).$promise.then((response: any) => {
           handleGoodToken(response.apiKey)
         }, handleBadToken)
 
       }
 
-      if (stateParams['token'] === '') {
+      if (stateParams.token === '') {
         handleBadToken()
       } else {
-        verifyEmailToken(stateParams['token'])
+        verifyEmailToken(stateParams.token)
       }
 
       return _deferred.promise

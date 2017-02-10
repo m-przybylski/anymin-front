@@ -1,7 +1,9 @@
-(function () {
+namespace profitelo.components.dashboard.chargeAccount.chooseBank {
+
+  import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
 
   /* @ngInject */
-  function chooseBankController(smoothScrollingService, lodash: _.LoDashStatic) {
+  function chooseBankController(smoothScrollingService: ISmoothScrollingService, lodash: _.LoDashStatic) {
 
     this.$onInit = () => {
       if (angular.isDefined(this.bankModel.value)) {
@@ -14,13 +16,13 @@
     this.activeOption = null
     this.firstSelect = this.activeOption === null
 
-    const _scrollAfterChooseBank = (scrollTo) => {
+    const _scrollAfterChooseBank = (scrollTo: string) => {
       if (angular.isDefined(scrollTo) && this.firstSelect) {
         smoothScrollingService.scrollTo(scrollTo)
       }
     }
 
-    this.selectBank = (index) => {
+    this.selectBank = (index: number) => {
       _scrollAfterChooseBank(this.scrollSectionId)
       this.activeOption = index
       this.firstSelect = false
@@ -51,4 +53,4 @@
   ])
   .component('chooseBank', chooseBank)
 
-}())
+}

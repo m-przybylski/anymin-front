@@ -1,14 +1,18 @@
-describe('profitelo.common.controller.lightbox-model', () => {
+namespace profitelo.controllers.lightboxModal {
+import IImageZoomService = profitelo.services.imageZoom.IImageZoomService
+  import IWindowService = profitelo.services.window.IWindowService
+  import IUrlService = profitelo.services.helper.IUrlService
+  describe('profitelo.common.controller.lightbox-model', () => {
   describe('Testing Controller: LightboxModelController', () => {
 
-    let lightboxModelController
-    let scope
-    let httpBackend
-    let $timeout
-    let window
-    let resourcesExpectations
-    let FilesApiDef
-    let imageZoomService
+    let lightboxModelController: any
+    let scope: any
+    let httpBackend: ng.IHttpBackendService
+    let $timeout: ng.ITimeoutService
+    let window: IWindowService
+    let resourcesExpectations: any
+    let FilesApiDef: any
+    let imageZoomService: IImageZoomService
     let uibModalInstance = {
       dismiss: () => {
 
@@ -17,15 +21,15 @@ describe('profitelo.common.controller.lightbox-model', () => {
 
       }
     }
-    let triggerKeyPress =  (element, keyCode) => {
+    let triggerKeyPress =  (element: JQuery, keyCode: number) => {
       var e = $.Event('keypress')
       e.which = keyCode
       element.trigger(e)
     }
 
     let url = 'awesomeUrl/'
-    
-    beforeEach(angular.mock.module(($provide) => {
+
+    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', url)
     }))
 
@@ -33,7 +37,9 @@ describe('profitelo.common.controller.lightbox-model', () => {
     angular.mock.module('profitelo.common.controller.lightbox-model')
     angular.mock.module('profitelo.swaggerResources.definitions')
 
-      inject(($rootScope, $controller, $window, _$timeout_,  urlService, _FilesApi_, _lodash_: _.LoDashStatic, _$httpBackend_, _FilesApiDef_) => {
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $window: IWindowService,
+              _$timeout_: ng.ITimeoutService,  urlService: IUrlService, _FilesApi_: any, _lodash_: _.LoDashStatic,
+              _$httpBackend_: ng.IHttpBackendService, _FilesApiDef_: any) => {
         httpBackend = _$httpBackend_
         scope = $rootScope.$new()
         $timeout = _$timeout_
@@ -43,6 +49,7 @@ describe('profitelo.common.controller.lightbox-model', () => {
           createZoomInstance: () => {
             return true
           },
+          settings: {},
           destroy: () => {
             return true
           },
@@ -56,7 +63,7 @@ describe('profitelo.common.controller.lightbox-model', () => {
 
           }
         }
-        
+
         scope.sliders = [{
           id: 1,
           'content-type': 'image/jpeg',
@@ -102,7 +109,7 @@ describe('profitelo.common.controller.lightbox-model', () => {
     it('should have a dummy test', () => {
       expect(true).toBeTruthy()
     })
-    
+
     it('should go to nextSlide and then back prevSlide', () => {
       const startingSlide= lightboxModelController.currentSlide
 
@@ -171,4 +178,4 @@ describe('profitelo.common.controller.lightbox-model', () => {
     })
 
   })
-})
+})}

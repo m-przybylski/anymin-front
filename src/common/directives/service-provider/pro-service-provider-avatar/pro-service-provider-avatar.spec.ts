@@ -1,3 +1,4 @@
+namespace profitelo.directives.serviceProvider.proServiceProviderAvatar {
 describe('Unit testing: profitelo.directives.service-provider.pro-service-provider-avatar', function() {
   return describe('for proServiceProviderAvatar directive >', function() {
 
@@ -12,7 +13,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
       ' data-error-message="DASHBOARD.SERVICE_PROVIDER.NAME.BAD_NAME" tr-title="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT" ' +
       'tr-desc="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT_DESCRIPTION" required="required"></pro-service-provider-avatar>'
 
-    beforeEach(angular.mock.module(function($provide) {
+    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', _url)
     }))
 
@@ -20,13 +21,13 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.directives.service-provider.pro-service-provider-avatar')
 
-      inject(function($rootScope, $compile) {
+      inject(function($rootScope: IRootScopeService, $compile: ng.ICompileService) {
         scope = $rootScope.$new()
         compile = $compile
       })
     })
 
-    function create(html) {
+    function create(html: string) {
       var elem = angular.element(html)
       scope.proModel = {file: []}
       var compiledElement = compile(elem)(scope)
@@ -47,3 +48,4 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
 
   })
 })
+}

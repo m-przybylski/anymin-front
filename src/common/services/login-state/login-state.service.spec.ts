@@ -1,3 +1,4 @@
+namespace profitelo.services.loginState {
 describe('Unit testing: profitelo.services.login-state >', function () {
   describe('for loginStateService service >', function () {
 
@@ -6,7 +7,7 @@ describe('Unit testing: profitelo.services.login-state >', function () {
     beforeEach(function () {
       angular.mock.module('profitelo.services.login-state')
 
-      inject(($injector) => {
+      inject(($injector: ng.auto.IInjectorService) => {
         loginStateService = $injector.get('loginStateService')
       })
 
@@ -51,3 +52,4 @@ describe('Unit testing: profitelo.services.login-state >', function () {
 
 
 
+}

@@ -1,16 +1,16 @@
 // TODO: add tests
 /* istanbul ignore next */
 (function() {
-  function clientController($state, $scope) {
+  function clientController($state: ng.ui.IStateService, $scope: ng.IScope) {
 
-    const getRealStateName = (string) => {
+    const getRealStateName = (string: string) => {
       const stringsArray = string.split('.')
       return stringsArray[3]
     }
 
     this.stateNames = {}
 
-    const defineStateProperties = (obj) => {
+    const defineStateProperties = (obj: any) => {
       return Object.defineProperties(obj, {
         _favourites: {
           enumerable: false,
@@ -53,11 +53,11 @@
     }
 
     defineStateProperties(this.stateNames)
-    this.stateNames[getRealStateName($state.current.name)] = true
+    this.stateNames[getRealStateName($state.current.name || '')] = true
 
     $scope.$watch(() => {
-      return $state.$current.name
-    },(newVal, _oldVal) => {
+      return (<any>$state.$current).name
+    },(newVal: string, _oldVal: string) => {
       if (newVal) {
         this.stateNames[getRealStateName(newVal)] = true
       }
@@ -66,7 +66,7 @@
     return this
   }
 
-  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider) {
+  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
     $stateProvider.state('app.dashboard.client', {
       abstract: true,
       url: '/client',

@@ -1,8 +1,10 @@
-import Service = profitelo.models.Service
-import Profile = profitelo.models.Profile
-import ExpertProfile = profitelo.models.ExpertProfile
+namespace profitelo.components.dashboard.client.activities.clientActivity.filters {
 
-(function () {
+  import Service = profitelo.models.Service
+  import ExpertProfile = profitelo.models.ExpertProfile
+  import IFilterService = profitelo.services.filter.IFilterService
+  import IClientActivitiesService = profitelo.services.clientActivities.IClientActivitiesService
+  import IClientActivitiesQueryParams = profitelo.services.clientActivities.IClientActivitiesQueryParams
 
   interface IServiceExpertTuple {
     service: Service
@@ -10,7 +12,8 @@ import ExpertProfile = profitelo.models.ExpertProfile
   }
 
   /* @ngInject */
-  function controller($scope: ng.IScope, $filter, lodash: _.LoDashStatic, clientActivitiesService) {
+  function controller($scope: ng.IScope, $filter: IFilterService, lodash: _.LoDashStatic,
+                      clientActivitiesService: IClientActivitiesService) {
 
 
     const getServicesDropdownList = () => createDropdownServiceList(this.filters.expertServiceTuples)
@@ -60,14 +63,14 @@ import ExpertProfile = profitelo.models.ExpertProfile
       this.secondaryServicesDropdownList = []
     }
 
-    const setActivitiesQueryParams = (queryParams) => {
+    const setActivitiesQueryParams = (queryParams: IClientActivitiesQueryParams) => {
       if (angular.isFunction(this.onSetSearchParams)) {
         this.onSetSearchParams(queryParams)
       }
       clientActivitiesService.setClientActivitiesParam(queryParams)
     }
 
-    this.updateActivityTypeParam = (item) => {
+    this.updateActivityTypeParam = (item: any) => {
       const queryParams = this.filterModel
       queryParams['activityType'] = item.value
       queryParams['serviceId'] = null
@@ -77,7 +80,7 @@ import ExpertProfile = profitelo.models.ExpertProfile
       clearServicesList()
     }
 
-    this.updateProfileParam = (item) => {
+    this.updateProfileParam = (item: any) => {
       const queryParams = this.filterModel
       queryParams['profileId'] = item.value
       if (angular.isDefined(queryParams['serviceId'])) {
@@ -99,13 +102,13 @@ import ExpertProfile = profitelo.models.ExpertProfile
       }
     }
 
-    this.mainUpdateServiceParam = (item) => {
+    this.mainUpdateServiceParam = (item: any) => {
       const queryParams = this.filterModel
       queryParams['serviceId'] = item.value
       setActivitiesQueryParams(queryParams)
     }
 
-    this.secondUpdateServiceParam = (item) => {
+    this.secondUpdateServiceParam = (item: any) => {
       const queryParams = this.filterModel
       queryParams['serviceId'] = item.value
       queryParams['profileId'] = null
@@ -128,7 +131,7 @@ import ExpertProfile = profitelo.models.ExpertProfile
     })
 
     this.$onInit = () => {
-      this.activityTypesList = this.filters.activityTypes.map(type =>
+      this.activityTypesList = this.filters.activityTypes.map((type: string) =>
         ({
           name: $filter('translate')($filter('normalizeTranslationKey')(('DASHBOARD_CLIENT.FILTERS.' + type))),
           value: type
@@ -164,5 +167,5 @@ import ExpertProfile = profitelo.models.ExpertProfile
     'profitelo.components.interface.dropdown',
     'profitelo.components.interface.dropdown-primary'
   ])
-  .component('clientActivitiesFilters', component)
-}())
+    .component('clientActivitiesFilters', component)
+}

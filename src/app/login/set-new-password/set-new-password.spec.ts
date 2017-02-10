@@ -1,13 +1,16 @@
-describe('Unit tests: profitelo.controller.login.set-new-password >', () => {
+namespace profitelo.login.setNewPassword {
+import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordStrengthService
+  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+  describe('Unit tests: profitelo.controller.login.set-new-password >', () => {
   describe('Testing Controller: SetNewPasswordController', () => {
 
-    let scope
-    let SetNewPasswordController
-    let passwordStrengthService
-    let resourcesExpectations
-    let httpBackend
+    let scope: any
+    let SetNewPasswordController: any
+    let passwordStrengthService: IPasswordStrengthService
+    let resourcesExpectations: any
+    let httpBackend: ng.IHttpBackendService
     let RecoverPasswordApiDef
-    let topAlertService
+    let topAlertService: ITopAlertService
     let _url = 'awesomeUrl'
 
     let tokenStatus = {
@@ -30,7 +33,7 @@ describe('Unit tests: profitelo.controller.login.set-new-password >', () => {
       }
     }
 
-    beforeEach(angular.mock.module(function($provide) {
+    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', _url)
     }))
 
@@ -38,8 +41,10 @@ describe('Unit tests: profitelo.controller.login.set-new-password >', () => {
     angular.mock.module('profitelo.controller.login.set-new-password')
     angular.mock.module('profitelo.swaggerResources.definitions')
     angular.mock.module('profitelo.services.top-alert')
-        
-      inject(($rootScope, $controller, _passwordStrengthService_, _topAlertService_, _RecoverPasswordApiDef_, _$httpBackend_) => {
+
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService,
+              _passwordStrengthService_: IPasswordStrengthService, _topAlertService_: ITopAlertService,
+              _RecoverPasswordApiDef_: any, _$httpBackend_: ng.IHttpBackendService) => {
         scope = $rootScope.$new()
         passwordStrengthService = _passwordStrengthService_
         RecoverPasswordApiDef = _RecoverPasswordApiDef_
@@ -61,7 +66,7 @@ describe('Unit tests: profitelo.controller.login.set-new-password >', () => {
               httpBackend.when(RecoverPasswordApiDef.putRecoverPasswordEmail.method,
                 RecoverPasswordApiDef.putRecoverPasswordEmail.url)
           }
-          
+
         }
       })
 
@@ -107,3 +112,4 @@ describe('Unit tests: profitelo.controller.login.set-new-password >', () => {
 
   })
 })
+}

@@ -1,5 +1,19 @@
-(function() {
-  function CompanyProfileController($stateParams, $timeout, $log, smoothScrollingService, ProfileApi, recommendedServices, companyProfile) {
+namespace profitelo.companyProfile {
+
+  import ICompanyProfileService = profitelo.resolvers.companyProfile.ICompanyProfileService
+  import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
+  import IRecommendedServicesService = profitelo.services.recommendedServices.IRecommendedServicesService
+  import ICompanyProfile = profitelo.resolvers.companyProfile.ICompanyProfile
+
+  export interface ICompanyProfileStateParams extends ng.ui.IStateParamsService {
+    primaryConsultationId: string
+    profileId: string
+  }
+
+  function CompanyProfileController($stateParams: ICompanyProfileStateParams, $timeout: ng.ITimeoutService,
+                                    $log: ng.ILogService, smoothScrollingService: ISmoothScrollingService,
+                                    ProfileApi: any, recommendedServices: IRecommendedServicesService,
+                                    companyProfile: ICompanyProfile) {
 
     this.profile = {}
 
@@ -23,13 +37,13 @@
     const onProfileLike = () =>
       this.profile.isFavourite = true
 
-    const onProfileLikeError = (error) =>
+    const onProfileLikeError = (error: any) =>
       $log.error('Can not like this company because: ' + error)
 
     const onProfileDislike = () =>
       this.profile.isFavourite = false
 
-    const onProfileDislikeError = (error) =>
+    const onProfileDislikeError = (error: any) =>
       $log.error('Can not dislike this company because: ' + error)
 
 
@@ -64,7 +78,7 @@
     'profitelo.resolvers.company-profile',
     'commonConfig'
   ])
-  .config(($stateProvider, UserRolesProvider) => {
+  .config(($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) => {
     $stateProvider.state('app.company-profile', {
       controllerAs: 'vm',
       url: '/company-profile/{profileId}?primaryConsultationId',
@@ -72,7 +86,7 @@
       controller: 'CompanyProfileController',
       resolve: {
         /* istanbul ignore next */
-        companyProfile: (CompanyProfileResolver, $stateParams) =>
+        companyProfile: (CompanyProfileResolver: ICompanyProfileService, $stateParams: ICompanyProfileStateParams) =>
           CompanyProfileResolver.resolve($stateParams)
       },
       data: {
@@ -81,4 +95,4 @@
     })
   })
   .controller('CompanyProfileController', CompanyProfileController)
-}())
+}

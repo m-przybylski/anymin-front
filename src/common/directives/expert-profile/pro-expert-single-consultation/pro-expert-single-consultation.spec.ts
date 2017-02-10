@@ -1,20 +1,21 @@
+namespace profitelo.directives.expertProfile.proExpertSingleConsultation {
 describe('Unit testing: profitelo.directives.expert-profile.pro-expert-single-consultation', () => {
   return describe('for expert-profile.pro-expert-single-consultation directive >', () => {
 
     let scope: any = null
-    let rootScope
+    let rootScope: ng.IRootScopeService
     let compile: any = null
     let validHTML = '<pro-expert-single-consultation data-service-tags-employees-tuple="serviceTagsEmployeesTuple"></pro-expert-single-consultation>'
 
     const callService = {
-      callServiceId: _ => _
+      callServiceId: () => {}
     }
 
     beforeEach(() => {
     angular.mock.module('profitelo.services.call')
     })
 
-    beforeEach(angular.mock.module(($provide) => {
+    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('callService', callService)
       $provide.value('apiUrl', 'awesomeURL')
     }))
@@ -24,19 +25,19 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-single-co
     angular.mock.module('profitelo.services.url')
     angular.mock.module('profitelo.directives.expert-profile.pro-expert-single-consultation')
 
-      inject(($rootScope, $compile) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {
         rootScope = $rootScope.$new()
         compile = $compile
       })
     })
 
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       scope.serviceTagsEmployeesTuple = {
         ownerProfile: {
           organizationDetails: {
-            
+
           }
         },
         service: {
@@ -66,3 +67,4 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-single-co
     })
   })
 })
+}

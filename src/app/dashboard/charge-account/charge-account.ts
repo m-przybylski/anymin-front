@@ -1,6 +1,27 @@
-(function() {
+namespace profitelo.dashboard.chargeAccount {
+  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+  import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
+  import Money = profitelo.models.Money
+
+  interface IPaymentLinks {
+
+  }
+
+  interface IPaymentOptions {
+    id: string
+    paymentOptions: Array<IPaymentOption>
+    minimalPayment: Money
+    lastPayment: any
+    paymentSystems: any
+  }
+
+  interface IPaymentOption {
+
+  }
+
   function chargeAccountController($state: ng.ui.IStateService, $timeout: ng.ITimeoutService, lodash: _.LoDashStatic,
-                                   paymentsOptions, paymentsLinks, financeBalance, smoothScrollingService) {
+                                   paymentsOptions: IPaymentOptions, paymentsLinks: IPaymentLinks, financeBalance: number,
+                                   smoothScrollingService: ISmoothScrollingService) {
 
     this.paymentCountryId = paymentsOptions.id
     this.amounts = {
@@ -54,12 +75,12 @@
       }
     }
 
-    this.scrollHandler = (slideTo) => {
+    this.scrollHandler = (slideTo: string) => {
       if (angular.isDefined(slideTo)) {
         smoothScrollingService.scrollTo(slideTo)
       } else if (this.currentSection < 3) {
         $timeout(() => {
-          smoothScrollingService.scrollTo(++this.currentSection)
+          smoothScrollingService.scrollTo(<any>++this.currentSection)
         })
       }
     }
@@ -74,13 +95,14 @@
       controller: 'chargeAccountController',
       templateUrl: 'dashboard/charge-account/charge-account.tpl.html',
       resolve: {
-        paymentsOptions: ($log: ng.ILogService, $q: ng.IQService, $state, PaymentsApi, topAlertService) => {
+        paymentsOptions: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, PaymentsApi: any,
+                          topAlertService: ITopAlertService) => {
           /* istanbul ignore next */
           let _deferred = $q.defer()
           /* istanbul ignore next */
-          PaymentsApi.getPaymentOptions().$promise.then((response) => {
+          PaymentsApi.getPaymentOptions().$promise.then((response: IPaymentOptions) => {
             _deferred.resolve(response)
-          }, (error) => {
+          }, (error: any) => {
             $log.error(error)
             _deferred.resolve(undefined)
             $state.go('app.dashboard.client.activities')
@@ -92,13 +114,14 @@
           /* istanbul ignore next */
           return _deferred.promise
         },
-        paymentsLinks: ($log: ng.ILogService, $q: ng.IQService, $state, PaymentsApi, topAlertService) => {
+        paymentsLinks: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, PaymentsApi: any,
+                        topAlertService: ITopAlertService) => {
           /* istanbul ignore next */
           let _deferred = $q.defer()
           /* istanbul ignore next */
-          PaymentsApi.getPayUPaymentLinks().$promise.then((response) => {
+          PaymentsApi.getPayUPaymentLinks().$promise.then((response: IPaymentLinks) => {
             _deferred.resolve(response)
-          }, (error) => {
+          }, (error: any) => {
             $log.error(error)
             _deferred.resolve(undefined)
             $state.go('app.dashboard.client.activities')
@@ -110,13 +133,14 @@
           /* istanbul ignore next */
           return _deferred.promise
         },
-        financeBalance: ($log, $q, $state, FinancesApi, topAlertService) => {
+        financeBalance: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, FinancesApi: any,
+                         topAlertService: ITopAlertService) => {
           /* istanbul ignore next */
-          let _deferred = $q.defer()
+          let _deferred = $q.defer<number | null>()
           /* istanbul ignore next */
-          FinancesApi.getClientBalance().$promise.then((response) => {
+          FinancesApi.getClientBalance().$promise.then((response: number) => {
             _deferred.resolve(response)
-          }, (error) => {
+          }, (error: any) => {
             $log.error(error)
             _deferred.resolve(null)
             $state.go('app.dashboard.client.activities')
@@ -157,5 +181,4 @@
   ])
     .config(config)
     .controller('chargeAccountController', chargeAccountController)
-
-}())
+}

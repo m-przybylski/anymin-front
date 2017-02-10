@@ -1,14 +1,15 @@
+namespace profitelo.services.timer {
 describe('Unit testing: profitelo.services.timer >', () => {
   describe('for profitelo.services.timer >', () => {
 
-    let timerFactory
+    let timerFactory: ITimerFactory
 
     beforeEach(() => {
     angular.mock.module('profitelo.services.timer')
     })
 
-    beforeEach(inject(($injector) => {
-      timerFactory = $injector.get('timerFactory')
+    beforeEach(inject(($injector: ng.auto.IInjectorService) => {
+      timerFactory = $injector.get<ITimerFactory>('timerFactory')
     }))
 
 
@@ -17,9 +18,9 @@ describe('Unit testing: profitelo.services.timer >', () => {
     })
 
 
-    it('should use timer factory', inject(($interval) => {
+    it('should use timer factory', inject(($interval: ng.IIntervalService) => {
       const callbacks = {
-        cb1: _ => _
+        cb1: () => {}
       }
 
       spyOn(callbacks, 'cb1')
@@ -29,7 +30,8 @@ describe('Unit testing: profitelo.services.timer >', () => {
         currency: 'PLN'
       }
 
-      const timer = timerFactory.getInstance(money)
+      //FIXME
+      const timer = timerFactory.getInstance(money, <any>undefined , <any>undefined)
 
       timer.start(callbacks.cb1)
 
@@ -41,3 +43,4 @@ describe('Unit testing: profitelo.services.timer >', () => {
     }))
   })
 })
+}

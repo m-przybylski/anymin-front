@@ -1,24 +1,26 @@
+namespace profitelo.services.topWaitingLoader {
 describe('Unit testing: profitelo.services.pro-top-waiting-loader-service >', () => {
   describe('for profitelo.services.pro-top-waiting-loader-service >', () => {
 
-    let topWaitingLoaderService
+    let topWaitingLoaderService: ITopWaitingLoaderService
 
     beforeEach(() => {
       angular.mock.module('profitelo.services.pro-top-waiting-loader-service')
     })
 
-    beforeEach(inject(($injector) => {
-      topWaitingLoaderService = $injector.get('topWaitingLoaderService')
+    beforeEach(inject(($injector: ng.auto.IInjectorService) => {
+      topWaitingLoaderService = $injector.get<ITopWaitingLoaderService>('topWaitingLoaderService')
     }))
 
     it('should have a dummy test', () => {
       expect(true).toBeTruthy()
     })
 
-    it('should run immediate function and callback', inject(($timeout, $interval) => {
+    it('should run immediate function and callback', inject(($timeout: ng.ITimeoutService,
+                                                             $interval: ng.IIntervalService) => {
 
       const cbs = {
-        progressCallback: _ => _
+        progressCallback: () => {}
       }
 
       spyOn($interval, 'cancel').and.callThrough()
@@ -35,3 +37,4 @@ describe('Unit testing: profitelo.services.pro-top-waiting-loader-service >', ()
 
   })
 })
+}

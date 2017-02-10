@@ -1,7 +1,9 @@
-(function() {
-  function proServiceProviderLanguages($q) {
+namespace profitelo.directives.serviceProvider.proServiceProviderLanguages {
 
-    function linkFunction(scope, _element: ng.IRootElementService, attrs) {
+
+  function proServiceProviderLanguages($q: ng.IQService) {
+
+    function linkFunction(scope: any, _element: ng.IRootElementService, attrs: ng.IAttributes) {
 
       let required = false
 
@@ -74,4 +76,4 @@
     'profitelo.common.controller.service-provider.service-provider-step-controller'
   ])
     .directive('proServiceProviderLanguages', proServiceProviderLanguages)
-}())
+}

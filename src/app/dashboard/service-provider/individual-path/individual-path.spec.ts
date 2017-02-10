@@ -1,22 +1,26 @@
-describe('Unit tests: IndividualPathController >', () => {
+namespace profitelo.dashboard.serviceProvider.individualPath {
+import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+  import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
+  import Profile = profitelo.models.Profile
+  describe('Unit tests: IndividualPathController >', () => {
   describe('Testing Controller: IndividualPathController', () => {
 
-    let IndividualPathController
-    let _scope
-    let _httpBackend
-    let _ProfileApi
-    let _ProfileApiDef
-    let _User
-    let resourcesExpectations
-    let _controller
-    let _state
-    let _topAlertService
-    let _timeout
-    let _smoothScrollingService
+    let IndividualPathController: any
+    let _scope: any
+    let _httpBackend: ng.IHttpBackendService
+    let _ProfileApi: any
+    let _ProfileApiDef: any
+    let _User: any
+    let resourcesExpectations: any
+    let _controller: any
+    let _state: ng.ui.IStateService
+    let _topAlertService: ITopAlertService
+    let _timeout: ng.ITimeoutService
+    let _smoothScrollingService: ISmoothScrollingService
 
     let url = 'awesomeUrl/'
 
-    let createController = (profile) => {
+    let createController = (profile: Profile | null) => {
       return _controller('IndividualPathController', {
         $scope: _scope,
         ProfileApi: _ProfileApi,
@@ -26,25 +30,25 @@ describe('Unit tests: IndividualPathController >', () => {
       })
     }
 
-    beforeEach(angular.mock.module(function($provide) {
+    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', url)
     }))
 
     beforeEach(() => {
     angular.mock.module('profitelo.swaggerResources.definitions')
     angular.mock.module('profitelo.controller.dashboard.service-provider.individual-path')
-      inject(($rootScope: ng.IRootScopeService, $injector) => {
+      inject(($rootScope: ng.IRootScopeService, $injector: ng.auto.IInjectorService) => {
 
         _scope = $rootScope.$new()
         _httpBackend = $injector.get('$httpBackend')
         _ProfileApiDef = $injector.get('ProfileApiDef')
-        _state = $injector.get('$state')
+        _state = $injector.get<ng.ui.IStateService>('$state')
         _controller = $injector.get('$controller')
         _ProfileApi = $injector.get('ProfileApi')
         _User = $injector.get('User')
-        _topAlertService = $injector.get('topAlertService')
+        _topAlertService = $injector.get<ITopAlertService>('topAlertService')
         _timeout = $injector.get('$timeout')
-        _smoothScrollingService = $injector.get('smoothScrollingService')
+        _smoothScrollingService = $injector.get<ISmoothScrollingService>('smoothScrollingService')
 
 
         IndividualPathController = createController(null)
@@ -83,7 +87,7 @@ describe('Unit tests: IndividualPathController >', () => {
 
     it('should be able to save account object and redirect to provider summary', () => {
 
-      IndividualPathController = createController({
+      IndividualPathController = createController(<Profile>{
         organizationDetails: {}
       })
 
@@ -111,7 +115,7 @@ describe('Unit tests: IndividualPathController >', () => {
 
 
     it('should enter inEditMode when savedProfile had been initialized', () => {
-      IndividualPathController = createController({
+      IndividualPathController = createController(<Profile>{
         expertDetails: {}
       })
       expect(IndividualPathController.inEditMode).toBeTruthy()
@@ -122,3 +126,4 @@ describe('Unit tests: IndividualPathController >', () => {
 
   })
 })
+}

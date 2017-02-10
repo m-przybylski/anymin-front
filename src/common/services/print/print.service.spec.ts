@@ -1,3 +1,4 @@
+namespace profitelo.services.print {
 describe('Unit testing: profitelo.services.print >', () => {
   describe('for profitelo.services.print >', () => {
 
@@ -7,7 +8,7 @@ describe('Unit testing: profitelo.services.print >', () => {
     angular.mock.module('profitelo.services.print')
     })
 
-    beforeEach(inject(($injector) => {
+    beforeEach(inject(($injector: ng.auto.IInjectorService) => {
       printService = $injector.get('printService')
     }))
 
@@ -16,3 +17,4 @@ describe('Unit testing: profitelo.services.print >', () => {
     })
   })
 })
+}

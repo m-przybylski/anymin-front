@@ -1,10 +1,12 @@
-describe('Unit tests: profitelo.controller.login.forgot-password >', () => {
+namespace profitelo.login.forgotPassword {
+import ITopWaitingLoaderService = profitelo.services.topWaitingLoader.ITopWaitingLoaderService
+  describe('Unit tests: profitelo.controller.login.forgot-password >', () => {
   describe('Testing Controller: ForgotPasswordController', () => {
 
-    let scope
-    let ForgotPasswordController
-    let resourcesExpectations
-    let httpBackend
+    let scope: any
+    let ForgotPasswordController: any
+    let resourcesExpectations: any
+    let httpBackend: ng.IHttpBackendService
     let RecoverPasswordApiDef
     const _url = 'awesomeUrl'
 
@@ -20,10 +22,10 @@ describe('Unit tests: profitelo.controller.login.forgot-password >', () => {
     }
 
     const $state = {
-      go: _ => _
+      go: () => {}
     }
 
-    beforeEach(angular.mock.module(($provide) => {
+    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', _url)
     }))
 
@@ -31,7 +33,9 @@ describe('Unit tests: profitelo.controller.login.forgot-password >', () => {
     angular.mock.module('profitelo.controller.login.forgot-password')
     angular.mock.module('profitelo.swaggerResources.definitions')
     angular.mock.module('profitelo.services.pro-top-waiting-loader-service')
-      inject(($rootScope, $controller, _topWaitingLoaderService_, _$httpBackend_, _RecoverPasswordApiDef_) => {
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService,
+              _topWaitingLoaderService_: ITopWaitingLoaderService, _$httpBackend_: ng.IHttpBackendService,
+              _RecoverPasswordApiDef_: any) => {
         scope = $rootScope.$new()
         httpBackend = _$httpBackend_
         RecoverPasswordApiDef = _RecoverPasswordApiDef_
@@ -78,3 +82,4 @@ describe('Unit tests: profitelo.controller.login.forgot-password >', () => {
 
   })
 })
+}

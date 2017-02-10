@@ -1,14 +1,15 @@
+namespace profitelo.services.callbacks {
 describe('Unit testing: profitelo.services.callbacks >', () => {
   describe('for profitelo.services.callbacks >', () => {
 
-    let callbacksFactory
+    let callbacksFactory: ICallbacksFactory
 
     beforeEach(() => {
     angular.mock.module('profitelo.services.callbacks')
     })
 
-    beforeEach(inject(($injector) => {
-      callbacksFactory = $injector.get('callbacksFactory')
+    beforeEach(inject(($injector: ng.auto.IInjectorService) => {
+      callbacksFactory = $injector.get<ICallbacksFactory>('callbacksFactory')
     }))
 
 
@@ -16,10 +17,10 @@ describe('Unit testing: profitelo.services.callbacks >', () => {
       expect(true).toBeTruthy()
     })
 
-    it('should use callback service', inject(($timeout) => {
+    it('should use callback service', inject(($timeout: ng.ITimeoutService) => {
       const cbs = {
-        callback1: _ => _,
-        callback2: _ => _
+        callback1: () => {},
+        callback2: () => {}
       }
 
       spyOn(cbs, 'callback1')
@@ -47,3 +48,4 @@ describe('Unit testing: profitelo.services.callbacks >', () => {
     }))
   })
 })
+}

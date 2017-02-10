@@ -1,15 +1,16 @@
-(function() {
+namespace profitelo.filters.rankSearch {
+
   function filter() {
-    return function(array, searchKey, props) {
+    return function(array: Array<any>, searchKey: string, props: Array<string>) {
       if (!array || !searchKey || !props) {
         return array
       }
 
-      for (var i =0; i<array.length; i++) {
-        var obj = array[i]
+      for (let i =0; i<array.length; i++) {
+        const obj = array[i]
         obj.rankSearch = 0
-        for (var j=0; j<props.length; j++) {
-          var index = obj[props[j]].indexOf(searchKey)
+        for (let j=0; j<props.length; j++) {
+          const index = obj[props[j]].indexOf(searchKey)
           obj.rankSearch += (index === -1 ? 15 : index) * ((j+1)*8)
         }
       }
@@ -20,4 +21,4 @@
 
   angular.module('profitelo.filters.rankSearch', [])
     .filter('rankSearch', filter)
-}())
+}

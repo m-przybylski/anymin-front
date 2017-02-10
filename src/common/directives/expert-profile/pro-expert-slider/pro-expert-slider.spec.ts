@@ -1,11 +1,13 @@
-describe('Unit testing: profitelo.directives.expert-profile.pro-expert-slider', () => {
+namespace profitelo.directives.expertProfile.proExpertSlider {
+import IDialogService = profitelo.services.dialog.IDialogService
+  describe('Unit testing: profitelo.directives.expert-profile.pro-expert-slider', () => {
   return describe('for expert-profile.pro-expert-slider directive >', () => {
 
     let scope: any = null
-    let rootScope
+    let rootScope: ng.IRootScopeService
     let compile: any = null
-    let timeout
-    let dialogService
+    let timeout: ng.ITimeoutService
+    let dialogService: IDialogService
     let validHTML = '<pro-expert-slider data-sliders="sliders"></pro-expert-slider>'
 
     beforeEach(() => {
@@ -13,20 +15,21 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-slider', 
     angular.mock.module('profitelo.directives.expert-profile.pro-expert-slider')
     angular.mock.module('profitelo.services.dialog')
 
-      inject(($rootScope, $compile, $timeout, _dialogService_) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, $timeout: ng.ITimeoutService,
+              _dialogService_: IDialogService) => {
         rootScope = $rootScope.$new()
         compile = $compile
         timeout = $timeout
         dialogService = _dialogService_
       })
     })
-    
-    function create(html) {
+
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       scope.controlls = {
-        nextSlide: _=>_,
-        prevSlide: _=>_
+        nextSlide: () => {},
+        prevSlide: () => {}
       }
       scope.sliders = [{previews: 'asd'}, {previews: 'asd'}, {previews: 'asd'}]
 
@@ -52,7 +55,7 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-slider', 
       isoScope.nextSlide()
       expect(isoScope.controlls.nextSlide).toHaveBeenCalled()
     })
-    
+
     it('should prevSlide', () => {
       let el = create(validHTML)
       let isoScope = el.isolateScope()
@@ -74,3 +77,4 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-slider', 
 
   })
 })
+}

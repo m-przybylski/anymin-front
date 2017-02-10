@@ -1,9 +1,11 @@
-(function() {
+namespace profitelo.filters.normalizeTranslationKey {
+
   function normalizeTranslationKeyFilter() {
-    return function(input) {
+    return function(input: string) {
       return String(input).toUpperCase().split('-').join('_')
     }
   }
+
   angular.module('profitelo.filters.normalize-translation-key-filter', [])
     .filter('normalizeTranslationKey', normalizeTranslationKeyFilter)
-}())
+}

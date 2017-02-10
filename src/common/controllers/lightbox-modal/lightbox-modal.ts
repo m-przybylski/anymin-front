@@ -1,6 +1,11 @@
-(function() {
+namespace profitelo.controllers.lightboxModal {
 
-  function lightboxModelController($scope, $window, lodash: _.LoDashStatic, $timeout, $uibModalInstance, FilesApi, imageZoomService) {
+  import IWindowService = profitelo.services.window.IWindowService
+  import IImageZoomService = profitelo.services.imageZoom.IImageZoomService
+
+  function lightboxModelController($scope: any, $window: IWindowService, lodash: _.LoDashStatic,
+                                   $timeout: ng.ITimeoutService, FilesApi: any, imageZoomService: IImageZoomService,
+                                   $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
 
     this.slideList = $scope.sliders
     this.isPending = false
@@ -30,28 +35,28 @@
       })
     }
 
-    const fileInfoRequest = (slide) => {
+    const fileInfoRequest = (slide: any) => {
       this.isPending = true
       FilesApi.fileInfoPath({
         token: slide.token
-      }).$promise.then((response) => {
-        this.currentSlide = slide
-        this.isPending = false
-        this.navSettings.name = response.name
-        this.currentSlide.contentType = response.contentType
-        this.currentSlide.downloadUrl = response.downloadUrl
-        
-        imageZoomService.destroy(angular.element('.modal-dialog img')[currentSlideIndex])
-        if ( this.currentSlide.contentType  !== 'application/pdf') {
-          imageZoomService.createZoomInstance(angular.element('.modal-dialog img')[currentSlideIndex])
-          angular.element('.modal-dialog').perfectScrollbar('destroy')
-        } else {
-          angular.element('.modal-dialog').perfectScrollbar()
+      }).$promise.then((response: any) => {
+          this.currentSlide = slide
+          this.isPending = false
+          this.navSettings.name = response.name
+          this.currentSlide.contentType = response.contentType
+          this.currentSlide.downloadUrl = response.downloadUrl
+
+          imageZoomService.destroy(/*angular.element('.modal-dialog img')[currentSlideIndex]*/)
+          if ( this.currentSlide.contentType  !== 'application/pdf') {
+            imageZoomService.createZoomInstance(angular.element('.modal-dialog img')[currentSlideIndex])
+            angular.element('.modal-dialog').perfectScrollbar('destroy')
+          } else {
+            angular.element('.modal-dialog').perfectScrollbar()
+          }
+          _scrollToTop()
+        }, () => {
+          $uibModalInstance.close()
         }
-        _scrollToTop()
-      }, () => {
-        $uibModalInstance.close()
-      }
       )
     }
 
@@ -131,5 +136,4 @@
 
   ])
     .controller('lightboxModelController', lightboxModelController)
-
-}())
+}

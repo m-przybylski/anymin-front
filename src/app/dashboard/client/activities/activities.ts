@@ -6,7 +6,7 @@ namespace app.dashboard.client.activities {
   import IExpertServiceTuple = profitelo.services.clientActivities.IExpertServiceTuple
   import Money = profitelo.models.Money
 
-  class DashboardClientActivitiesController {
+  export class DashboardClientActivitiesController {
 
     public balance: Money
     public activities: Array<ClientActivity>
@@ -75,7 +75,7 @@ namespace app.dashboard.client.activities {
 
     }
 
-    private isMoreResultsAvailable = (results, limit) => {
+    private isMoreResultsAvailable = (results: any, limit: number) => {
       return results.length > limit
     }
 
@@ -102,7 +102,7 @@ namespace app.dashboard.client.activities {
     'profitelo.components.dashboard.client.activities.client-activities.filters',
     'profitelo.services.client-activities-service'
   ])
-  .config(function ($stateProvider, UserRolesProvider) {
+  .config(function ($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
     $stateProvider.state('app.dashboard.client.activities', {
       url: '/activities',
       templateUrl: 'dashboard/client/activities/activities.tpl.html',

@@ -1,7 +1,9 @@
-(function() {
+namespace profitelo.components.interface.slider {
+
+  import IWindowService = profitelo.services.window.IWindowService
 
   /* @ngInject */
-  function defaultSliderFunction($window, $timeout, $element) {
+  function defaultSliderFunction($window: IWindowService, $timeout: ng.ITimeoutService, $element: ng.IRootElementService) {
     let elementsMap: Array<number> = []
     let currentElement = 0
     let parentWidth = $element[0].offsetWidth
@@ -12,7 +14,7 @@
         return div.offsetWidth
       })
     }
-    
+
     /* istanbul ignore next */
     angular.element($window).on('resize', ()=> {
       parentWidth = $element[0].offsetWidth
@@ -28,7 +30,7 @@
       _elementsWidth()
     })
 
-    const _calculateOffset = (elem) => {
+    const _calculateOffset = (elem: number) => {
       let offset = 0
       for (let i = 0; i < elem; i++) {
         offset += elementsMap[i]
@@ -75,4 +77,4 @@
   ])
     .component('slider', slider)
 
-}())
+}

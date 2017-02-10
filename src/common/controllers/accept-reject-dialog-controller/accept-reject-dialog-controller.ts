@@ -1,6 +1,6 @@
 (function() {
 
-  function acceptRejectDialogController($scope, $uibModalInstance) {
+  function acceptRejectDialogController($scope: any, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
     $scope.confirm = () => {
 
       if (angular.isFunction($scope.$parent.vm.modalCallback)) {

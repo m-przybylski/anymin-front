@@ -1,12 +1,13 @@
+namespace profitelo.resolvers.loginRegister {
 describe('Unit testing: profitelo.resolvers.login-register', () => {
   describe('for LoginRegisterResolver service >', () => {
 
-    let AppLoginRegisterResolver
+    let AppLoginRegisterResolver: ILoginRegisterService
     let url = 'awesomeURL'
-    let _timeout
-    let mockState
+    let _timeout: ng.ITimeoutService
+    let mockState: any
 
-    beforeEach(angular.mock.module(function($provide) {
+    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', url)
     }))
 
@@ -17,12 +18,12 @@ describe('Unit testing: profitelo.resolvers.login-register', () => {
       }
 
 
-    angular.mock.module('profitelo.resolvers.login-register', function($provide) {
+    angular.mock.module('profitelo.resolvers.login-register', function($provide: ng.auto.IProvideService) {
         $provide.value('$state', mockState)
       })
 
-      inject(($injector) => {
-        AppLoginRegisterResolver = $injector.get('LoginRegisterResolver')
+      inject(($injector: ng.auto.IInjectorService) => {
+        AppLoginRegisterResolver = $injector.get<ILoginRegisterService>('LoginRegisterResolver')
         _timeout = $injector.get('$timeout')
       })
     })
@@ -55,4 +56,4 @@ describe('Unit testing: profitelo.resolvers.login-register', () => {
     })
 
   })
-})
+})}

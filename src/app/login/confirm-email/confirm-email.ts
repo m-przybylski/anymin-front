@@ -1,17 +1,23 @@
-(function() {
+namespace profitelo.login.confirmEmail {
 
-  function config($stateProvider, UserRolesProvider) {
+  import ILoginConfirmEmailService = profitelo.resolvers.loginConfirmEmail.ILoginConfirmEmailService
+
+  export interface IConfirmEmailStateParams extends ng.ui.IStateParamsService {
+    token: string
+  }
+
+  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
     $stateProvider.state('app.login.confirm-email', {
       url: '/confirm-email/token/:token',
       /* istanbul ignore next */
       resolve: {
         /* istanbul ignore next */
-        account: (LoginConfirmEmailResolver, $stateParams) => {
+        account: (LoginConfirmEmailResolver: ILoginConfirmEmailService, $stateParams: IConfirmEmailStateParams) => {
           return LoginConfirmEmailResolver.resolve($stateParams)
         }
       },
-      data : {
-        access : UserRolesProvider.getAccessLevel('public'),
+      data: {
+        access: UserRolesProvider.getAccessLevel('public'),
         pageTitle: 'PAGE_TITLE.LOGIN.CONFIRM_EMAIL'
       }
     })
@@ -21,6 +27,6 @@
     'ui.router',
     'profitelo.resolvers.login-confirm-email'
   ])
-  .config(config)
+    .config(config)
 
-}())
+}

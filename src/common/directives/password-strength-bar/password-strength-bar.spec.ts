@@ -10,7 +10,7 @@ describe('Unit testing: profitelo.directives.password-strength-bar', () => {
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.directives.password-strength-bar')
 
-      inject(($rootScope, $compile) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {
         scope                 = $rootScope.$new()
         compile               = $compile
         scope.currentClass    = 0
@@ -18,7 +18,7 @@ describe('Unit testing: profitelo.directives.password-strength-bar', () => {
 
     })
 
-    function create(html) {
+    function create(html: string) {
       var elem = angular.element(html)
       var compiledElement = compile(elem)(scope)
       scope.$digest()

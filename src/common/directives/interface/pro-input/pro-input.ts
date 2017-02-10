@@ -1,7 +1,7 @@
 (function() {
   function proInput() {
 
-    function linkFunction(scope, element, attr) {
+    function linkFunction(scope: any, element: ng.IRootElementService, attr: any) {
 
       const digitsCodes = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57]
       scope.required = false
@@ -11,7 +11,7 @@
       let _inputGroup = $(element)
       const _excludedKeyCodesForPhone = digitsCodes.concat([13, 8])
       const _excludedKeyCodesForCurrency = digitsCodes.concat([8, 13, 46, 44])
-      
+
       if (!scope.type) {
         scope.type = 'text'
       }
@@ -51,7 +51,7 @@
         })
       }
 
-      let _setAddon = (value) => {
+      let _setAddon = (value: boolean) => {
         scope.addon = value
       }
 

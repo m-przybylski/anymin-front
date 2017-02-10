@@ -1,11 +1,11 @@
-(function() {
+(function () {
   function ProServiceProviderSummaryController() {
 
-    this.deleteConsultation = (id, index)=> {
+    this.deleteConsultation = (id: string, index: number) => {
       this.deleteAction(id, index)
     }
 
-    this.editConsultation = (id, name, price, tags)=> {
+    this.editConsultation = (id: string, name: string, price: number, tags: Array<any>) => {
       this.editAction(id, name, price, tags)
     }
 

@@ -1,6 +1,11 @@
-(function() {
+namespace profitelo.dashboard.invitaion {
 
-  function InvitationController(pendingInvitations, companyLogo) {
+  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+  import IServiceProviderImageService = profitelo.resolvers.serviceProviderImage.IServiceProviderImageService
+  import CompanyProfile = profitelo.models.CompanyProfile
+  import Tag = profitelo.models.Tag
+
+  function InvitationController(pendingInvitations: Array<CompanyProfile>, companyLogo: string) {
 
     if (pendingInvitations.length > 0) {
       this.invitations = pendingInvitations
@@ -10,7 +15,7 @@
     return this
   }
 
-  function config($stateProvider, UserRolesProvider) {
+  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
     $stateProvider.state('app.dashboard.invitation', {
       url: '/invitations',
       controllerAs: 'vm',
@@ -21,15 +26,16 @@
         pageTitle: 'PAGE_TITLE.INVITATIONS'
       },
       resolve: {
-        pendingInvitations: ($log, $q, $state, ProfileApi, User, ServiceApi, lodash: _.LoDashStatic, topAlertService) => {
+        pendingInvitations: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: any,
+                             User: any, ServiceApi: any, lodash: _.LoDashStatic, topAlertService: ITopAlertService) => {
           /* istanbul ignore next */
           let _deferred = $q.defer()
           /* istanbul ignore next */
           User.getStatus().then(() => {
-            ProfileApi.getProfilesInvitations().$promise.then((profileInvitations) => {
+            ProfileApi.getProfilesInvitations().$promise.then((profileInvitations: Array<CompanyProfile>) => {
               ServiceApi.postServicesTags({
                 serviceIds: lodash.flatten(lodash.map(profileInvitations, (profile: any) => lodash.map(profile.services, 'id')))
-              }).$promise.then((servicesTags) => {
+              }).$promise.then((servicesTags: Array<Tag>) => {
 
                 profileInvitations.forEach((profile) => {
                   profile.services.forEach((service) => {
@@ -43,7 +49,7 @@
             }, () => {
               _deferred.resolve([])
             })
-          }, (error) => {
+          }, (error: any) => {
             $log.error(error)
             $state.go('app.dashboard')
             topAlertService.error({
@@ -54,9 +60,9 @@
           /* istanbul ignore next */
           return _deferred.promise
         },
-        companyLogo: (ServiceProviderImageResolver, pendingInvitations) => {
-          if (pendingInvitations.length > 0) {
-            return ServiceProviderImageResolver.resolve(pendingInvitations[0].organizationDetails.logo)
+        companyLogo: (ServiceProviderImageResolver: IServiceProviderImageService, pendingInvitations: Array<CompanyProfile>) => {
+          if (pendingInvitations[0]) {
+            return ServiceProviderImageResolver.resolve(pendingInvitations[0].organizationDetails.logo || '')
           } else {
             return false
           }
@@ -78,5 +84,4 @@
   ])
     .config(config)
     .controller('InvitationController', InvitationController)
-
-}())
+}

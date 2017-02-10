@@ -1,16 +1,17 @@
+namespace profitelo.services.recommendedServices {
 describe('Unit testing: profitelo.services.recommended-profiles-service', () => {
   describe('for expert-profile service >', () => {
 
-    let recommendedServices
+    let recommendedServices: any
     let url = 'awesomeURL'
-    let _timeout
-    let resourcesExpectations
-    let SearchApiDef
-    let $httpBackend
+    let _timeout: ng.ITimeoutService
+    let resourcesExpectations: any
+    let SearchApiDef: any
+    let $httpBackend: ng.IHttpBackendService
     let log
-    let services
+    let services: any
 
-    beforeEach(angular.mock.module(function($provide) {
+    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', url)
     }))
 
@@ -19,7 +20,7 @@ describe('Unit testing: profitelo.services.recommended-profiles-service', () => 
     angular.mock.module('profitelo.swaggerResources.definitions')
     angular.mock.module('profitelo.services.recommended-services')
 
-      inject(($injector) => {
+      inject(($injector: ng.auto.IInjectorService) => {
         recommendedServices = $injector.get('recommendedServices')
         _timeout = $injector.get('$timeout')
         SearchApiDef = $injector.get('SearchApiDef')
@@ -113,4 +114,4 @@ describe('Unit testing: profitelo.services.recommended-profiles-service', () => 
     })
 
   })
-})
+})}

@@ -1,13 +1,15 @@
-(function() {
+namespace profitelo.components.proSearchDropdown.serviceSuggestions {
+
+  import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
 
   /* @ngInject */
-  function serviceSuggestionsController($state, CommonSettingsService) {
+  function serviceSuggestionsController($state: ng.ui.IStateService, CommonSettingsService: ICommonSettingsService) {
 
-    this.profileImage = (index) => {
+    this.profileImage = (index: number) => {
       return !!this.services.results[index].owner.img ? CommonSettingsService.links.imageUrl.replace('%s', this.services.results[index].owner.img) : false
     }
 
-    this.goToProfile = (indexOfService) => {
+    this.goToProfile = (indexOfService: number) => {
         const service = this.services.results[indexOfService]
         const stateName = service.owner.type === 'ORG' ? 'app.company-profile' : 'app.expert-profile'
         $state.go(stateName, {profileId: service.owner.id, primaryConsultationId: service.id})
@@ -34,4 +36,4 @@
   ])
     .component('serviceSuggestions', serviceSuggestions)
 
-}())
+}

@@ -1,7 +1,7 @@
 (function() {
   function proInputPassword() {
 
-    function linkFunction(scope, element, attr) {
+    function linkFunction(scope: any, element: ng.IRootElementService, attr: any) {
 
       scope.required = false
       scope.focus = false

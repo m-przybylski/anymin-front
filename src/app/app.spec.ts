@@ -1,28 +1,29 @@
 namespace profitelo.app {
   import IInterfaceLanguageService = profitelo.services.interfaceLanguage.IInterfaceLanguageService
+  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 
   describe('Unit tests: app>', () => {
     describe('Testing Controller: AppController', () => {
 
       let $scope: ng.IScope
-      let AppController
+      let AppController: any
       let _InterfaceLanguageService: IInterfaceLanguageService
 
-      let _httpBackend
-      let _state
+      let _httpBackend: ng.IHttpBackendService
+      let _state: ng.ui.IStateService
       let _commonConfigData
-      let _CommonConfig
-      let resourcesExpectations
+      let _CommonConfig: ICommonConfig
+      let resourcesExpectations: any
 
       beforeEach(() => {
         angular.mock.module('profitelo')
-        inject(($rootScope: ng.IRootScopeService, $controller: ng.IControllerService,
-                $injector, _InterfaceLanguageService_) => {
+        inject(($rootScope: IRootScopeService, $controller: ng.IControllerService,
+                $injector: ng.auto.IInjectorService, _InterfaceLanguageService_: IInterfaceLanguageService) => {
           $scope = $rootScope.$new()
 
-          _CommonConfig = $injector.get('CommonConfig')
-          _httpBackend = $injector.get('$httpBackend')
-          _state = $injector.get('$state')
+          _CommonConfig = $injector.get<ICommonConfig>('CommonConfig')
+          _httpBackend = $injector.get<ng.IHttpBackendService>('$httpBackend')
+          _state = $injector.get<ng.ui.IStateService>('$state')
 
           _commonConfigData = _CommonConfig.getAllData()
 

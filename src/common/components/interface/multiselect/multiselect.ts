@@ -32,7 +32,7 @@
       refreshBindings()
     }
 
-    this.toggleItem = (item) => {
+    this.toggleItem = (item: any) => {
       if (!this.isDisabled) {
         if (checkedItems.indexOf(item) === -1) {
           checkedItems.push(item)
@@ -43,7 +43,7 @@
       }
     }
 
-    this.isChecked = (item) => {
+    this.isChecked = (item: any) => {
       return (checkedItems.indexOf(item) > -1)
     }
 

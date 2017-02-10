@@ -15,11 +15,11 @@ namespace profitelo.components.communicator.messenger.minimized {
         onMessageClick: () => {}
       }
 
-      beforeEach(angular.mock.module(($provide) => {
+      beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
         $provide.value('apiUrl', 'awesomeURL')
       }))
 
-      function create(html, bindings: IMessengerMinimizedComponentBindings): JQuery {
+      function create(html: string, bindings: IMessengerMinimizedComponentBindings): JQuery {
         const parentScope: ng.IScope = rootScope.$new()
         const parentBoundScope = angular.extend(parentScope, bindings)
         let elem = angular.element(html)
@@ -32,7 +32,7 @@ namespace profitelo.components.communicator.messenger.minimized {
         angular.mock.module('profitelo.services.sounds')
       })
 
-      beforeEach(angular.mock.module(($provide) => {
+      beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
         $provide.value('soundsService', {})
       }))
 
@@ -47,7 +47,7 @@ namespace profitelo.components.communicator.messenger.minimized {
           compile = $compile
 
           const injectors = {
-            $timeout: $timeout,
+            $$timeout: $timeout,
             messengerService: messengerService
           }
 

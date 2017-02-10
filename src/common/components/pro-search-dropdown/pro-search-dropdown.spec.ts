@@ -1,18 +1,19 @@
+namespace profitelo.components.proSearchDropdown {
 describe('Unit testing:profitelo.components.pro-search-dropdown', () => {
   return describe('for pro-search-dropdown >', () => {
 
-    let rootScope
-    let compile
-    let scope
-    let state
-    let componentController
-    let component
+    let rootScope: ng.IRootScopeService
+    let compile: ng.ICompileService
+    let scope: any
+    let state: any
+    let componentController: any
+    let component: any
     let validHTML = '<pro-search-dropdown data-mask-search="vm.interfaceController.hideSearchMask"></pro-search-dropdown>'
-    let httpBackend
-    let SearchApiDef
-    let CategoryApiDef
+    let httpBackend: ng.IHttpBackendService
+    let SearchApiDef: any
+    let CategoryApiDef: any
 
-    function create(html) {
+    function create(html: string) {
       rootScope = rootScope.$new()
       let elem = angular.element(html)
       let compiledElement = compile(elem)(rootScope)
@@ -20,9 +21,9 @@ describe('Unit testing:profitelo.components.pro-search-dropdown', () => {
       return compiledElement
     }
 
-    beforeEach(angular.mock.module(($provide) => {
+    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', '')
-      $provide.value('translateFilter', (x) => { return x })
+      $provide.value('translateFilter', (x: any) => { return x })
     }))
 
     beforeEach(() => {
@@ -30,7 +31,7 @@ describe('Unit testing:profitelo.components.pro-search-dropdown', () => {
     angular.mock.module('profitelo.components.pro-search-dropdown')
     angular.mock.module('profitelo.swaggerResources.definitions')
 
-      inject(($rootScope, $compile, $injector, _$componentController_) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, $injector: ng.auto.IInjectorService, _$componentController_: ng.IComponentControllerService) => {
         rootScope = $rootScope
         componentController = _$componentController_
         scope = $rootScope.$new()
@@ -54,7 +55,7 @@ describe('Unit testing:profitelo.components.pro-search-dropdown', () => {
     })
 
     it('should watch query', () => {
-      httpBackend.whenRoute(SearchApiDef.searchSuggestions.method, SearchApiDef.searchSuggestions.url).respond(200, {})
+      httpBackend.when(SearchApiDef.searchSuggestions.method, SearchApiDef.searchSuggestions.url).respond(200, {})
       httpBackend.when(CategoryApiDef.listCategories.method, CategoryApiDef.listCategories.url).respond(200, [])
       component.ngModel = 'foo'
       rootScope.$digest()
@@ -65,3 +66,4 @@ describe('Unit testing:profitelo.components.pro-search-dropdown', () => {
   })
 })
 
+}

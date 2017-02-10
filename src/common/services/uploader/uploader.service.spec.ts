@@ -1,5 +1,10 @@
 namespace profitelo.services.uploader {
 
+  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  class File {
+    constructor() {}
+  }
+
   interface Window {
     File: any
   }
@@ -9,18 +14,15 @@ namespace profitelo.services.uploader {
   describe('Unit testing: profitelo.services.uploader >', () => {
     describe('for profitelo.services.uploader', () => {
 
-      let uploaderFactory
+      let uploaderFactory: IUploaderFactory
 
-      function File() {
-      }
-
-      let originalFile
+      let originalFile: File
 
       const UploadMock: any = {
         upload: (_: any) => _
       }
 
-      beforeEach(angular.mock.module(($provide) => {
+      beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
         $provide.value('apiUrl', 'awesomeURL')
         $provide.value('Upload', UploadMock)
       }))
@@ -29,9 +31,9 @@ namespace profitelo.services.uploader {
         angular.mock.module('profitelo.services.uploader')
       })
 
-      beforeEach(inject(($injector) => {
+      beforeEach(inject(($injector: ng.auto.IInjectorService) => {
 
-        uploaderFactory = $injector.get('uploaderFactory')
+        uploaderFactory = $injector.get<IUploaderFactory>('uploaderFactory')
       }))
 
       beforeEach(() => {
@@ -47,7 +49,7 @@ namespace profitelo.services.uploader {
         expect(true).toBeTruthy()
       })
 
-      it('should upload 2 files at a time', inject(($q, $timeout, FilesApi) => {
+      it('should upload 2 files at a time', inject(($q: ng.IQService, $timeout: ng.ITimeoutService, FilesApi: any) => {
         spyOn(FilesApi, 'createFileTokenPath').and.returnValue({
           $promise: $q.resolve({fileId: 1})
         })
@@ -56,8 +58,8 @@ namespace profitelo.services.uploader {
 
         spyOn(UploadMock, 'upload').and.returnValue($q.resolve('result'))
 
-        instance.uploadFile(new File())
-        instance.uploadFile(new File())
+        instance.uploadFile(<any>new File(), {}, () => {})
+        instance.uploadFile(<any>new File(), {}, () => {})
 
         $timeout.flush()
 
@@ -65,18 +67,18 @@ namespace profitelo.services.uploader {
         expect(UploadMock.upload.calls.count()).toEqual(2)
       }))
 
-      it('should not upload empty file', inject(($rootScope) => {
+      it('should not upload empty file', inject(($rootScope: IRootScopeService) => {
         const instance = uploaderFactory.getInstance(2, uploaderFactory.collectionTypes.avatar)
 
         let promiseValue = true
-        instance.uploadFile(null).then(_ => _, val => promiseValue = val)
+        instance.uploadFile(<any>null, {}, () => {}).then(() => {}, val => promiseValue = val)
 
         $rootScope.$digest()
 
         expect(promiseValue).toEqual('Expected File, got object')
       }))
 
-      it('should not upload file if token error', inject(($q, $timeout, $rootScope, FilesApi) => {
+      it('should not upload file if token error', inject(($q: ng.IQService, $timeout: ng.ITimeoutService, $rootScope: IRootScopeService, FilesApi: any) => {
         spyOn(FilesApi, 'createFileTokenPath').and.returnValue({
           $promise: $q.reject('error')
         })
@@ -84,7 +86,8 @@ namespace profitelo.services.uploader {
         const instance = uploaderFactory.getInstance(2, uploaderFactory.collectionTypes.avatar)
 
         let returnValue = null
-        instance.uploadFile(new File()).then(_ => _, val => returnValue = val)
+        instance.uploadFile(<any>new File, {}, () => {})
+          .then(() => {}, (val: any) => returnValue = val)
 
         $timeout.flush()
         $rootScope.$digest()
@@ -93,7 +96,7 @@ namespace profitelo.services.uploader {
         expect(returnValue).toEqual('error')
       }))
 
-      it('should return error if upload error', inject(($q, $timeout, $rootScope, FilesApi) => {
+      it('should return error if upload error', inject(($q: ng.IQService, $timeout: ng.ITimeoutService, $rootScope: IRootScopeService, FilesApi: any) => {
         spyOn(FilesApi, 'createFileTokenPath').and.returnValue({
           $promise: $q.resolve({fileId: 1})
         })
@@ -103,7 +106,9 @@ namespace profitelo.services.uploader {
         spyOn(UploadMock, 'upload').and.returnValue($q.reject('error'))
 
         let returnValue = null
-        instance.uploadFile(new File()).then(_ => _, val => returnValue = val)
+
+        instance.uploadFile(<any>new File(), {}, () => {})
+          .then(() => {}, (val: any) => returnValue = val)
 
         $timeout.flush()
         $rootScope.$digest()
@@ -113,13 +118,13 @@ namespace profitelo.services.uploader {
         expect(returnValue).toEqual('error')
       }))
 
-      it('should call callback on upload progress', inject(($q, $timeout, FilesApi) => {
+      it('should call callback on upload progress', inject(($q: ng.IQService, $timeout: ng.ITimeoutService, FilesApi: any) => {
         spyOn(FilesApi, 'createFileTokenPath').and.returnValue({
           $promise: $q.resolve({fileId: 1})
         })
 
         const obj = {
-          callback: _ => _
+          callback: () => {}
         }
 
         const instance = uploaderFactory.getInstance(2, uploaderFactory.collectionTypes.avatar)
@@ -131,7 +136,7 @@ namespace profitelo.services.uploader {
           return deferred.promise
         })
 
-        instance.uploadFile(new File(), {}, obj.callback)
+        instance.uploadFile(<any>new File(), {}, obj.callback)
 
         $timeout.flush()
 
@@ -140,7 +145,7 @@ namespace profitelo.services.uploader {
         expect(obj.callback).toHaveBeenCalled()
       }))
 
-      it('should upload files with no limits', inject(($q, $timeout, FilesApi) => {
+      it('should upload files with no limits', inject(($q: ng.IQService, $timeout: ng.ITimeoutService, FilesApi: any) => {
         spyOn(FilesApi, 'createFileTokenPath').and.returnValue({
           $promise: $q.resolve({fileId: 1})
         })
@@ -149,7 +154,7 @@ namespace profitelo.services.uploader {
 
         spyOn(UploadMock, 'upload').and.returnValue($q.resolve(''))
 
-        instance.uploadFile(new File())
+        instance.uploadFile(<any>new File(), {}, () => {})
 
         $timeout.flush()
 

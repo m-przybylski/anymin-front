@@ -1,7 +1,9 @@
-(function () {
+namespace profitelo.components.expertProfile.similarExpertsSlider {
+
+  import IUrlService = profitelo.services.helper.IUrlService
 
   /* @ngInject */
-  function controller($scope, $state, urlService) {
+  function controller($scope: any, $state: ng.ui.IStateService, urlService: IUrlService) {
 
     this.$onInit = () => {
       this.areControllsVisible = this.consultations.length > 3
@@ -15,11 +17,11 @@
       $scope.controlls.prevSlide()
     }
 
-    this.consultationOwnerImage = (imgToken) => {
+    this.consultationOwnerImage = (imgToken: string) => {
       return imgToken !== null || imgToken === '' ? urlService.resolveFileUrl(imgToken) : false
     }
 
-    this.goToProfile = (consultation) => {
+    this.goToProfile = (consultation: any) => {
       const stateName = consultation.owner.type === 'ORG' ? 'app.company-profile' : 'app.expert-profile'
       $state.go(stateName, {profileId: consultation.owner.id, primaryConsultationId: consultation.id})
     }
@@ -44,4 +46,4 @@
   ])
   .component('similarExpertsSlider', similarExpertsSlider)
 
-}())
+}

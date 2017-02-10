@@ -1,5 +1,5 @@
 (function() {
-  function paymentsThankYouPageController($state) {
+  function paymentsThankYouPageController($state: ng.ui.IStateService) {
 
     this.onClose = () =>
       $state.go('app.dashboard.client.activities')
@@ -7,7 +7,7 @@
     return this
   }
 
-  function config($stateProvider, UserRolesProvider) {
+  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
     $stateProvider.state('app.dashboard.payments-thank-you-page', {
       url: '/payments-thank-you-page',
       controllerAs: 'vm',

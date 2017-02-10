@@ -1,7 +1,12 @@
-(function() {
-  function ServiceProviderStepController($scope, $timeout: ng.ITimeoutService, $rootScope, smoothScrollingService) {
+namespace profitelo.controllers.serviceProvider.serviceProviderStepController {
 
-    let shadowModel = null
+  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
+
+  function ServiceProviderStepController($scope: any, $timeout: ng.ITimeoutService, $rootScope: IRootScopeService,
+                                         smoothScrollingService: ISmoothScrollingService) {
+
+    let shadowModel: any = null
 
     $scope.error = {
       badLanguages: false,
@@ -69,20 +74,20 @@
       $scope.saveSection()
     }
 
-    $scope.onClick = (order) => {
+    $scope.onClick = (order: any) => {
       if (angular.isDefined(order)) {
         $rootScope.$broadcast('manualOrderChangeRequest', order)
       }
     }
 
-    $scope.$on('manualOrderChangeRequestGrant', (_event, targetStep) => {
+    $scope.$on('manualOrderChangeRequestGrant', (_event: any, targetStep: any) => {
       if ($scope.order === targetStep) {
         $scope.saveShadowModel()
         $scope.queue.currentStep = $scope.order
       }
     })
 
-    $scope.$on('manualOrderChangeRequest', (_event, targetStep) => {
+    $scope.$on('manualOrderChangeRequest', (_event: any, targetStep: any) => {
       if ($scope.order === $scope.queue.currentStep && targetStep !== $scope.order) {
         $scope.outClick()
         $rootScope.$broadcast('manualOrderChangeRequestGrant', targetStep)
@@ -95,6 +100,5 @@
   angular.module('profitelo.common.controller.service-provider.service-provider-step-controller', [
     'profitelo.services.smooth-scrolling'
   ])
-  .controller('ServiceProviderStepController', ServiceProviderStepController)
-
-}())
+    .controller('ServiceProviderStepController', ServiceProviderStepController)
+}

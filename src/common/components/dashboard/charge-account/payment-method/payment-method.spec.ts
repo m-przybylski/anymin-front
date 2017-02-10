@@ -3,20 +3,20 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payment-me
 
     const url = 'awesomUrl/'
 
-    let scope
-    let rootScope
-    let compile
-    let componentController
-    let component
-    let element
-    let bindings
+    let scope: any
+    let rootScope: ng.IRootScopeService
+    let compile: ng.ICompileService
+    let componentController: any
+    let component: any
+    let element: any
+    let bindings: any
     let validHTML = '<payment-method payment-systems = "[{id: 1, imgSrc: dsadad}, {id: 1, imgSrc: dsadad}, {id: 1, imgSrc: dsadad}]" scroll-handler="ctrl.scrollHandler"></payment-method>'
 
-    beforeEach(angular.mock.module(function($provide) {
+    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', url)
     }))
 
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
@@ -28,7 +28,7 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payment-me
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.components.dashboard.charge-account.payment-method')
 
-      inject(($rootScope, $compile, _$componentController_) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$componentController_: ng.IComponentControllerService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile

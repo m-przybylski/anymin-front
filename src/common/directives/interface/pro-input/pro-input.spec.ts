@@ -4,7 +4,7 @@ describe('Unit testing: profitelo.directives.interface.pro-input', () => {
     let _placeholder = 'PLACEHOLDER'
 
     let scope: any     = null
-    let rootScope
+    let rootScope: ng.IRootScopeService
     let compile: any   = null
     let validHTML = '<pro-input data-label="LABEL" data-placeholder="' + _placeholder + '"  required auto-focus only-digits></pro-input>'
 
@@ -12,13 +12,13 @@ describe('Unit testing: profitelo.directives.interface.pro-input', () => {
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.directives.interface.pro-input')
 
-      inject(($rootScope, $compile ) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {
         rootScope             = $rootScope.$new()
         compile               = $compile
       })
     })
 
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
@@ -101,7 +101,7 @@ describe('Unit testing: profitelo.directives.interface.pro-input', () => {
 
     it('should allow to press only numbers', ()=> {
       let el = create(validHTML)
-      let triggerKeyDown = function(element, keyCode) {
+      let triggerKeyDown = function(element: JQuery, keyCode: number) {
         let e = angular.element.Event('keypress')
         e.which = keyCode
         element.trigger(e)

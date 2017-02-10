@@ -1,14 +1,14 @@
 describe('Unit testing: profitelo.components.dashboard.client.favourites.no-favourite-experts', () => {
   return describe('for clientNoFavouriteExperts >', () => {
 
-    let scope
-    let rootScope
-    let compile
-    let componentController
-    let component
+    let scope: any
+    let rootScope: ng.IRootScopeService
+    let compile: ng.ICompileService
+    let componentController: any
+    let component: any
     let validHTML = '<no-favourite-experts></no-favourite-experts>'
 
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
@@ -20,7 +20,7 @@ describe('Unit testing: profitelo.components.dashboard.client.favourites.no-favo
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.components.dashboard.client.favourites.no-favourite-experts')
 
-      inject(($rootScope, $compile, _$componentController_) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$componentController_: ng.IComponentControllerService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile

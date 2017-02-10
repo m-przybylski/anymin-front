@@ -1,15 +1,16 @@
+namespace profitelo.services.serviceProvider {
 describe('Unit testing: profitelo.services.service-provider-service >', function() {
   describe('for serviceProviderService service >', function() {
 
-    let serviceProviderService
+    let serviceProviderService: IServiceProviderService
 
     beforeEach(function() {
     angular.mock.module('profitelo.services.service-provider')
     })
 
 
-    beforeEach(inject(function($injector) {
-      serviceProviderService = $injector.get('serviceProviderService')
+    beforeEach(inject(function($injector: ng.auto.IInjectorService) {
+      serviceProviderService = $injector.get<IServiceProviderService>('serviceProviderService')
     }))
 
 
@@ -18,4 +19,4 @@ describe('Unit testing: profitelo.services.service-provider-service >', function
     }))
 
   })
-})
+})}

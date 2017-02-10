@@ -1,6 +1,18 @@
-(function() {
-  function IndividualSummaryController($log, $state, $scope, $filter, savedProfile, ServiceApi, topAlertService,
-                                       profileImage, dialogService, communicatorService) {
+namespace profitelo.dashboard.serviceProvider.summary.individual {
+
+  import IFilterService = profitelo.services.filter.IFilterService
+  import CompanyProfile = profitelo.models.CompanyProfile
+  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+  import IDialogService = profitelo.services.dialog.IDialogService
+  import ICommunicatorService = profitelo.services.communicator.ICommunicatorService
+  import Service = profitelo.models.Service
+  import ExpertProfile = profitelo.models.ExpertProfile
+  import IServiceProviderImageService = profitelo.resolvers.serviceProviderImage.IServiceProviderImageService
+
+  function IndividualSummaryController($log: ng.ILogService, $state: ng.ui.IStateService, $scope: ng.IScope,
+                                       $filter: IFilterService, savedProfile: CompanyProfile, ServiceApi: any,
+                                       topAlertService: ITopAlertService, profileImage: string,
+                                       dialogService: IDialogService, communicatorService: ICommunicatorService) {
 
     if (savedProfile && savedProfile.expertDetails && !savedProfile.organizationDetails) {
       this.profile = savedProfile.expertDetails
@@ -28,14 +40,14 @@
 
 
     this.verifyProfile = ()=> {
-      ServiceApi.postServicesVerify().$promise.then((_res)=> {
+      ServiceApi.postServicesVerify().$promise.then((_res: any)=> {
         $state.go('app.dashboard.client.favourites')
         communicatorService.authenticate()
         topAlertService.success({
           message: $filter('translate')('DASHBOARD.CREATE_PROFILE.SUMMARY_VERIFY'),
           timeout: 4
         })
-      }, (err) => {
+      }, (err: any) => {
         $log.error(err)
         topAlertService.error({
           message: 'error',
@@ -44,7 +56,7 @@
       })
     }
 
-    this.editConsultation = (id, name, price, tags) => {
+    this.editConsultation = (id: string, name: string, price: number, tags: Array<any>) => {
       this.currentEditConsultationId = this.currentEditConsultationId === id ? -1 : id
       this.editQueue = {
         amountOfSteps: 3,
@@ -75,8 +87,8 @@
         })
       }
     }
-    this.deleteConsultation = (id, index) => {
 
+    this.deleteConsultation = (id: string, index: number) => {
 
       ((serviceId, localIndex) => {
         let _id = serviceId
@@ -85,12 +97,12 @@
         this.modalCallback = () => {
           ServiceApi.deleteService({
             serviceId: _id
-          }).$promise.then((_res)=> {
+          }).$promise.then((_res: any)=> {
             this.consultations.splice(_index, 1)
             if (this.consultations.length === 0) {
               $state.go('app.dashboard.service-provider.consultation-range.company')
             }
-          }, (err) => {
+          }, (err: any) => {
             $log.error(err)
             topAlertService.error({
               message: 'error',
@@ -122,7 +134,7 @@
     'profitelo.swaggerResources',
     'profitelo.directives.interface.pro-alert'
   ])
-    .config(function($stateProvider, UserRolesProvider) {
+    .config(function($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
       $stateProvider.state('app.dashboard.service-provider.summary.individual', {
         url:          '/individual',
         templateUrl:  'dashboard/service-provider/summary/individual/individual-summary.tpl.html',
@@ -130,17 +142,18 @@
         controllerAs: 'vm',
         resolve: {
           /* istanbul ignore next */
-          savedProfile: ($log, $q, $state, ProfileApi, lodash: _.LoDashStatic, User, ServiceApi, topAlertService) => {
+          savedProfile: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: any,
+                         lodash: _.LoDashStatic, User: any, ServiceApi: any, topAlertService: ITopAlertService) => {
             /* istanbul ignore next */
-            let _deferred = $q.defer()
+            let _deferred = $q.defer<ExpertProfile | null>()
             /* istanbul ignore next */
             User.getStatus().then(() => {
               ProfileApi.getProfileWithServices({
                 profileId: User.getData('id')
-              }).$promise.then((profileWithServices) => {
+              }).$promise.then((profileWithServices: ExpertProfile) => {
                 ServiceApi.postServicesTags({
                   serviceIds: lodash.map(profileWithServices.services, 'id')
-                }).$promise.then((servicesTags) => {
+                }).$promise.then((servicesTags: Array<Service>) => {
 
                   profileWithServices.services.forEach((service) => {
                     service.details.tags = lodash.head(
@@ -150,7 +163,7 @@
                 })
               }, () => {
                 _deferred.resolve(null)
-              }, (error)=> {
+              }, (error: any)=> {
                 _deferred.reject(error)
                 $state.go('app.dashboard')
                 topAlertService.error({
@@ -158,7 +171,7 @@
                   timeout: 4
                 })
               })
-            }, (error) => {
+            }, (error: any) => {
               $log.error(error)
               $state.go('app.dashboard')
               topAlertService.error({
@@ -169,9 +182,9 @@
             /* istanbul ignore next */
             return _deferred.promise
           },
-          profileImage: (ServiceProviderImageResolver, savedProfile) => {
+          profileImage: (ServiceProviderImageResolver: IServiceProviderImageService, savedProfile: ExpertProfile) => {
             /* istanbul ignore next */
-            return ServiceProviderImageResolver.resolve(savedProfile.expertDetails.avatar)
+            return ServiceProviderImageResolver.resolve(savedProfile.expertDetails.avatar || '')
           }
         },
         data: {
@@ -183,4 +196,4 @@
     })
     .controller('IndividualSummaryController', IndividualSummaryController)
 
-}())
+}

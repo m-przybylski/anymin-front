@@ -1,22 +1,26 @@
-describe('Unit testing: profitelo.components.dashboard.charge-account.payu-payment-form', () => {
+namespace profitelo.components.dashboard.chargeAccount.payuPaymentForm {
+import IWindowService = profitelo.services.window.IWindowService
+  import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
+  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+  describe('Unit testing: profitelo.components.dashboard.charge-account.payu-payment-form', () => {
   return describe('for payuPaymentFormController component >', () => {
     const url = 'awesomUrl/'
 
-    let scope
-    let compile
-    let componentController
-    let component
-    let state
-    let bindings
-    let httpBackend
-    let PaymentApiDef
-    let window
+    let scope: any
+    let compile: ng.ICompileService
+    let componentController: any
+    let component: any
+    let state: ng.ui.IStateService
+    let bindings: any
+    let httpBackend: ng.IHttpBackendService
+    let PaymentApiDef: any
+    let window: IWindowService
     let topAlertService
-    let resourcesExpectations
-    let smoothScrollingService
-    let User
+    let resourcesExpectations: any
+    let smoothScrollingService: ISmoothScrollingService
+    let User: any
 
-    beforeEach(angular.mock.module(function($provide) {
+    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', url)
     }))
 
@@ -27,7 +31,10 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payu-payme
     angular.mock.module('profitelo.components.dashboard.charge-account.payu-payment-form')
     angular.mock.module('ui.router')
 
-      inject(($rootScope, $compile, _$componentController_, $httpBackend, $window, _User_,  _$state_, _PaymentsApiDef_, _topAlertService_, _smoothScrollingService_) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
+              _$componentController_: ng.IComponentControllerService, $httpBackend: ng.IHttpBackendService,
+              $window: IWindowService, _User_: any,  _$state_: ng.ui.IStateService, _PaymentsApiDef_: any,
+              _topAlertService_: ITopAlertService, _smoothScrollingService_: ISmoothScrollingService) => {
         componentController = _$componentController_
         scope = $rootScope.$new()
         compile = $compile
@@ -111,3 +118,4 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payu-payme
   })
 })
 
+}

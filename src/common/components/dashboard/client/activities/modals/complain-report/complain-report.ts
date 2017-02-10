@@ -1,7 +1,7 @@
 /* istanbul ignore next function */
 (function() {
 
-  function controller($scope, $uibModalInstance) {
+  function controller($scope: any, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
     $scope.isNavbar = true
     $scope.isFullscreen = true
 

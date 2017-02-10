@@ -1,13 +1,14 @@
+namespace profitelo.resolvers.loginSetNewPassword {
 describe('Unit testing: profitelo.resolvers.login-set-new-password', () => {
   describe('for LoginSetNewPasswordResolver service >', () => {
 
-    let AppLoginSetNewPasswordResolver
+    let AppLoginSetNewPasswordResolver: ILoginSetNewPasswordService
     let url = 'awesomeURL'
-    let _timeout
-    let stateParams
-    let mockState
+    let _timeout: ng.ITimeoutService
+    let stateParams: any
+    let mockState: any
 
-    beforeEach(angular.mock.module(function($provide) {
+    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', url)
     }))
 
@@ -21,12 +22,12 @@ describe('Unit testing: profitelo.resolvers.login-set-new-password', () => {
         go: () => {}
       }
 
-    angular.mock.module('profitelo.resolvers.login-set-new-password', function($provide) {
+    angular.mock.module('profitelo.resolvers.login-set-new-password', function($provide: ng.auto.IProvideService) {
         $provide.value('$state', mockState)
       })
 
-      inject(($injector) => {
-        AppLoginSetNewPasswordResolver = $injector.get('LoginSetNewPasswordResolver')
+      inject(($injector: ng.auto.IInjectorService) => {
+        AppLoginSetNewPasswordResolver = $injector.get<ILoginSetNewPasswordService>('LoginSetNewPasswordResolver')
         _timeout = $injector.get('$timeout')
       })
     })
@@ -57,4 +58,4 @@ describe('Unit testing: profitelo.resolvers.login-set-new-password', () => {
 
 
   })
-})
+})}

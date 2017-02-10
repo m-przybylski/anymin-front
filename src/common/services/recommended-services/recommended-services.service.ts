@@ -2,6 +2,8 @@ namespace profitelo.services.recommendedServices {
 
   import Tag = profitelo.models.Tag
   import ISearchResults = profitelo.services.search.ISearchResults
+  import Service = profitelo.models.Service
+  import ISearchResultRow = profitelo.services.search.ISearchResultRow
 
   interface ServiceWithTags {
     service: Service
@@ -9,7 +11,7 @@ namespace profitelo.services.recommendedServices {
   }
 
   export interface IRecommendedServicesService {
-    getRecommendedExperts(servicesWithTags: Array<ServiceWithTags>): ng.IPromise<Array<Service>>
+    getRecommendedExperts(servicesWithTags: Array<ServiceWithTags>): ng.IPromise<Array<ISearchResultRow>>
     getRecommendedCompanies(servicesWithTags: Array<ServiceWithTags>): ng.IPromise<Array<Service>>
   }
 

@@ -1,8 +1,20 @@
-(function() {
-  function IndividualConsultationController($log, $scope, $state, savedProfile, ServiceApi, topAlertService,
-                                            profileImage, dialogService, serviceProviderService) {
+namespace profitelo.dashboard.serviceProvider.consultationRange.individual {
 
-    this.costModel = serviceProviderService.createDefaultModel('')
+  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+  import IDialogService = profitelo.services.dialog.IDialogService
+  import IServiceProviderService = profitelo.services.serviceProvider.IServiceProviderService
+  import Tag = profitelo.models.Tag
+  import IServiceProviderImageService = profitelo.resolvers.serviceProviderImage.IServiceProviderImageService
+  import ExpertProfile = profitelo.models.ExpertProfile
+  import Profile = profitelo.models.Profile
+  import Service = profitelo.models.Service
+
+  function IndividualConsultationController($log: ng.ILogService, $scope: ng.IScope, $state: ng.ui.IStateService,
+                                            savedProfile: ExpertProfile, ServiceApi: any, topAlertService: ITopAlertService,
+                                            profileImage: string, dialogService: IDialogService,
+                                            serviceProviderService: IServiceProviderService) {
+
+    this.costModel = serviceProviderService.createDefaultModel(0)
     this.editModel = serviceProviderService.createDefaultModel(0)
 
     this.queue = serviceProviderService.createDefaultQueue(3, 1, 0)
@@ -24,7 +36,7 @@
       $state.go('app.dashboard.service-provider.consultation-range.company')
     }
 
-    let _postConsultationMethod = (callback) => {
+    let _postConsultationMethod = (callback: Function) => {
       ServiceApi.postService({
         details: {
           name: this.costModel.name,
@@ -35,12 +47,12 @@
           }
         },
         invitations: []
-      }).$promise.then((res)=> {
+      }).$promise.then((res: any) => {
 
         if (angular.isDefined(res) && typeof callback === 'function') {
           callback()
         }
-      }, (err)=> {
+      }, (err: any)=> {
         $log.error(err)
         topAlertService.error({
           message: 'error',
@@ -78,7 +90,7 @@
       return this.consultations.length > 0
     }
 
-    this.editConsultation = (id, name, price, tags) => {
+    this.editConsultation = (id: string, name: string, price: number, tags: Array<Tag>) => {
       this.currentEditConsultationId = this.currentEditConsultationId === id ? -1 : id
       this.editQueue = {
         amountOfSteps: 3,
@@ -109,7 +121,7 @@
         })
       }
     }
-    this.deleteConsultation = (id, index) => {
+    this.deleteConsultation = (id: string, index: number) => {
 
       ((serviceId, localIndex) => {
         let _id = serviceId
@@ -118,9 +130,9 @@
         this.modalCallback = () => {
           ServiceApi.deleteService({
             serviceId: _id
-          }).$promise.then((_res)=> {
+          }).$promise.then((_res: any)=> {
             this.consultations.splice(_index, 1)
-          }, (err) => {
+          }, (err: any) => {
             $log.error(err)
             topAlertService.error({
               message: 'error',
@@ -164,7 +176,7 @@
     'profitelo.directives.interface.pro-alert',
     'profitelo.directives.service-provider.pro-service-provider-profile'
   ])
-    .config( function($stateProvider, UserRolesProvider) {
+    .config( function($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
       $stateProvider.state('app.dashboard.service-provider.consultation-range.individual', {
 
         url:          '/individual',
@@ -173,17 +185,18 @@
         controllerAs: 'vm',
         resolve: {
           /* istanbul ignore next */
-          savedProfile: ($log, $q, $state, ProfileApi, lodash: _.LoDashStatic, User, ServiceApi, topAlertService) => {
+          savedProfile: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: any,
+                         lodash: _.LoDashStatic, User: any, ServiceApi: any, topAlertService: ITopAlertService) => {
             /* istanbul ignore next */
-            let _deferred = $q.defer()
+            let _deferred = $q.defer<Profile | null>()
             /* istanbul ignore next */
             User.getStatus().then(() => {
               ProfileApi.getProfileWithServices({
                 profileId: User.getData('id')
-              }).$promise.then((profileWithServices) => {
+              }).$promise.then((profileWithServices: Profile) => {
                 ServiceApi.postServicesTags({
                   serviceIds: lodash.map(profileWithServices.services, 'id')
-                }).$promise.then((servicesTags) => {
+                }).$promise.then((servicesTags: Array<Service>) => {
 
                   profileWithServices.services.forEach((service) => {
                     service.details.tags = lodash.head(
@@ -193,7 +206,7 @@
                 })
               }, () => {
                 _deferred.resolve(null)
-              }, (error)=> {
+              }, (error: any)=> {
                 _deferred.reject(error)
                 $state.go('app.dashboard')
                 topAlertService.error({
@@ -201,7 +214,7 @@
                   timeout: 4
                 })
               })
-            }, (error) => {
+            }, (error: any) => {
               $log.error(error)
               $state.go('app.dashboard')
               topAlertService.error({
@@ -213,8 +226,8 @@
             /* istanbul ignore next */
             return _deferred.promise
           },
-          profileImage: (ServiceProviderImageResolver, savedProfile) => {
-            return ServiceProviderImageResolver.resolve(savedProfile.expertDetails.avatar)
+          profileImage: (ServiceProviderImageResolver: IServiceProviderImageService, savedProfile: ExpertProfile) => {
+            return ServiceProviderImageResolver.resolve(savedProfile.expertDetails.avatar || '')
           }
 
         },
@@ -226,5 +239,5 @@
       })
     })
     .controller('IndividualConsultationController', IndividualConsultationController)
+}
 
-}())

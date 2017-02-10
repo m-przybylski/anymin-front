@@ -1,7 +1,7 @@
 describe('Unit tests: ProServiceProviderSummaryController >', () => {
   describe('Testing Controller: ProServiceProviderSummaryController', () => {
 
-    var ProServiceProviderSummaryController
+    var ProServiceProviderSummaryController: any
 
     beforeEach(() => {
       angular.mock.module('profitelo.common.controller.service-provider.pro-service-provider-summary-controller')

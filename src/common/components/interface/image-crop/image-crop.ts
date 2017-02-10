@@ -7,8 +7,8 @@ namespace profitelo.components.interface.imageCrop {
 
   class ImageCropComponentController implements IImageCropComponentBindings {
 
-    public imageSrc
-    public saveCropAvatar
+    public imageSrc: string
+    public saveCropAvatar: Function
 
     private element: any
 

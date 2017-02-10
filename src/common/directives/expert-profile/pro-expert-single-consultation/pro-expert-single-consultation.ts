@@ -1,7 +1,11 @@
-(function() {
-  function directive(callService, urlService) {
+namespace profitelo.directives.expertProfile.proExpertSingleConsultation {
 
-    function linkFunction(scope, _elem: ng.IRootElementService, _attrs: ng.IAttributes) {
+  import IUrlService = profitelo.services.helper.IUrlService
+  import ICallService = profitelo.services.call.ICallService
+
+  function directive(callService: ICallService, urlService: IUrlService) {
+
+    function linkFunction(scope: any, _elem: ng.IRootElementService, _attrs: ng.IAttributes) {
 
       scope.startCall = () => {
         callService.callServiceId(scope.serviceTagsEmployeesTuple.service.id)
@@ -10,7 +14,7 @@
       scope.tags = scope.serviceTagsEmployeesTuple.tags
 
       scope.companyImage = !!scope.serviceTagsEmployeesTuple.ownerProfile.organizationDetails
-        && scope.serviceTagsEmployeesTuple.ownerProfile.organizationDetails.logo !== null ?
+      && scope.serviceTagsEmployeesTuple.ownerProfile.organizationDetails.logo !== null ?
         urlService.resolveFileUrl(scope.serviceTagsEmployeesTuple.ownerProfile.organizationDetails.logo) : ''
 
       scope.consultation = {}
@@ -36,6 +40,6 @@
     'profitelo.services.url',
     'profitelo.components.interface.collapse-tab'
   ])
-  .directive('proExpertSingleConsultation', directive)
+    .directive('proExpertSingleConsultation', directive)
 
-}())
+}

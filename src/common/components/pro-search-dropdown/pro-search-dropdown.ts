@@ -1,6 +1,21 @@
-(function() {
+namespace profitelo.components.proSearchDropdown {
+
+  import ICategoryService = profitelo.services.categoryService.ICategoryService
+  import Tag = profitelo.models.Tag
+  import ISearchService = profitelo.services.search.ISearchService
+
+  interface ISuggestions {
+    services: any
+    experts: any
+    organizations: any
+    terms: Array<any>
+    tags: Array<Tag>
+  }
+
   /* @ngInject */
-  function proSearchDropdownController($q, $scope, $state, lodash: _.LoDashStatic, $element, searchService, categoryService) {
+  function proSearchDropdownController($q: ng.IQService, $scope: ng.IScope, $state: ng.ui.IStateService,
+                                       lodash: _.LoDashStatic, $element: ng.IRootElementService,
+                                       searchService: ISearchService, categoryService: ICategoryService) {
 
     this.isCollapsed = true
     this.isFocused = false
@@ -22,7 +37,7 @@
     let listOfSuggestions = $element.find('.dropdown-container a')
 
     /* istanbul ignore next */
-    const _onUpDownKeysPress = (callback) => {
+    const _onUpDownKeysPress = (callback: Function) => {
       listOfSuggestions = $element.find('.dropdown-container a')
       if (!!this.ngModel && this.ngModel.length > 2 && angular.isFunction(callback)) {
         callback()
@@ -53,7 +68,7 @@
       escape: 27
     }
 
-    const _deserializeSuggestions = (rawData) => {
+    const _deserializeSuggestions = (rawData: any) => {
       const result = {
         terms: [],
         tags: [],
@@ -87,14 +102,14 @@
       lastElement: -1
     }
 
-    const _countSuggestions = (suggestions) => {
+    const _countSuggestions = (suggestions: ISuggestions) => {
       const servicesCount = angular.isDefined(suggestions.services.count) ? suggestions.services.count : 0
       const expertsCount = angular.isDefined(suggestions.experts.count) ? suggestions.experts.count : 0
       const organizationsCount = angular.isDefined(suggestions.organizations.count) ? suggestions.organizations.count : 0
       return suggestions.terms.length + suggestions.tags.length + servicesCount + expertsCount + organizationsCount
     }
 
-    const _updateSuggestions = (searchWord) => {
+    const _updateSuggestions = (searchWord: string) => {
       if (angular.isDefined(searchWord) && searchWord !== null && searchWord.toString().length >= 3) {
         this.loadingSuggestion = true
         $q.all([
@@ -145,7 +160,7 @@
       }
     }
 
-    const _handleArrowsOnSuggestions = (list, elementObject) => {
+    const _handleArrowsOnSuggestions = (list: any, elementObject: any) => {
       const currentElement = list[elementObject.currentPosition]
 
       if (elementObject.lastElement >= 0) {
@@ -158,7 +173,7 @@
       selectedElement.lastElement = elementObject.currentPosition
     }
 
-    const _clearSelectedElement = (list) => {
+    const _clearSelectedElement = (list: any) => {
       $(list[selectedElement.currentPosition]).removeClass('active')
       $element.find('.dropdown-container').scrollTop(0)
       selectedElement.currentPosition = -1
@@ -203,11 +218,11 @@
       return !!this.searchCount && this.searchCount > 0 && this.isCollapsed
     }
 
-    const _setPrimarySuggestion = (search) => {
+    const _setPrimarySuggestion = (search: string) => {
       this.primarySuggestion = null
       if (angular.isDefined(search) && search && !this.isCollapsed && search.length > 2 && !!this.suggestions.tags && this.suggestions.tags.length > 0) {
 
-        this.suggestions.tags.map((tag) => tag.name.toLowerCase()).reverse().forEach((name) => {
+        this.suggestions.tags.map((tag: Tag) => tag.name.toLowerCase()).reverse().forEach((name: string) => {
           if (name.includes(this.ngModel.toLowerCase())) {
             this.primarySuggestion = name
           }
@@ -316,4 +331,4 @@
   ])
     .component('proSearchDropdown', proSearchDropdown)
 
-}())
+}

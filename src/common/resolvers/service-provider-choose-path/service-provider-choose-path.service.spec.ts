@@ -1,15 +1,16 @@
+namespace profitelo.resolvers.serviceProviderChoosePath {
 describe('Unit testing: profitelo.resolvers.service-provider-choose-path', () => {
   describe('for ServiceProviderChoosePathResolver service >', () => {
-    
-    let url = 'awesomeURL'
-    let mockState
-    let AppServiceProviderChoosePathResolver
-    let _ProfileApiDef
-    let $httpBackend
-    let resourcesExpectations
-    let _timeout
 
-    beforeEach(angular.mock.module(function($provide) {
+    let url = 'awesomeURL'
+    let mockState: any
+    let AppServiceProviderChoosePathResolver: IServiceProviderChoosePathService
+    let _ProfileApiDef: any
+    let $httpBackend: ng.IHttpBackendService
+    let resourcesExpectations: any
+    let _timeout: ng.ITimeoutService
+
+    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', url)
     }))
 
@@ -21,12 +22,13 @@ describe('Unit testing: profitelo.resolvers.service-provider-choose-path', () =>
 
     angular.mock.module('profitelo.swaggerResources.definitions')
 
-    angular.mock.module('profitelo.resolvers.service-provider-choose-path', function($provide) {
+    angular.mock.module('profitelo.resolvers.service-provider-choose-path', function($provide: ng.auto.IProvideService) {
         $provide.value('$state', mockState)
       })
 
-      inject(($injector) => {
-        AppServiceProviderChoosePathResolver = $injector.get('ServiceProviderChoosePathResolver')
+      inject(($injector: ng.auto.IInjectorService) => {
+        AppServiceProviderChoosePathResolver =
+          $injector.get<IServiceProviderChoosePathService>('ServiceProviderChoosePathResolver')
         _ProfileApiDef = $injector.get('ProfileApiDef')
         _timeout = $injector.get('$timeout')
         $httpBackend = $injector.get('$httpBackend')
@@ -45,7 +47,7 @@ describe('Unit testing: profitelo.resolvers.service-provider-choose-path', () =>
     it('should have resolve function', () => {
       expect(AppServiceProviderChoosePathResolver.resolve).toBeDefined()
     })
-    
+
     it('should redirect to app.dashboard.client.activities', () => {
       spyOn(mockState, 'go')
       resourcesExpectations.User.getStatus.respond(200, {
@@ -131,4 +133,4 @@ describe('Unit testing: profitelo.resolvers.service-provider-choose-path', () =>
     })
 */
   })
-})
+})}

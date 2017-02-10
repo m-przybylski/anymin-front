@@ -2,7 +2,7 @@ describe('Unit testing: profitelo.directives.interface.pro-checkbox', () => {
   return describe('for interface.pro-checkbox directive >', () => {
 
     let scope: any     = null
-    let rootScope
+    let rootScope: ng.IRootScopeService
     let compile: any   = null
     let validHTML = '<pro-checkbox required id ng-model="isChecked"></pro-checkbox>'
 
@@ -10,13 +10,13 @@ describe('Unit testing: profitelo.directives.interface.pro-checkbox', () => {
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.directives.interface.pro-checkbox')
 
-      inject(($rootScope, $compile ) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {
         rootScope             = $rootScope.$new()
         compile               = $compile
       })
     })
 
-    function create(html, isChecked) {
+    function create(html: string, isChecked: boolean) {
       scope = rootScope.$new()
 
       scope.isChecked = isChecked
@@ -44,7 +44,7 @@ describe('Unit testing: profitelo.directives.interface.pro-checkbox', () => {
     })
 
     it('should throw error if bad model provided', inject(() => {
-      expect(() => create(validHTML, 'false')).toThrow(new Error('ngModel must be of boolean type'))
+      expect(() => create(validHTML, <any>'false')).toThrow(new Error('ngModel must be of boolean type'))
     }))
   })
 })

@@ -1,13 +1,13 @@
 (function() {
   function proCheckbox() {
 
-    function linkFunction(scope, element, attr) {
+    function linkFunction(scope: any, element: ng.IRootElementService, attr: any) {
 
       if (typeof scope.ngModel !== 'boolean') {
         throw new Error('ngModel must be of boolean type')
       }
 
-      scope.changeCheckedState = (state) => {
+      scope.changeCheckedState = (state: string) => {
         element.find('input').prop('checked', state)
       }
 

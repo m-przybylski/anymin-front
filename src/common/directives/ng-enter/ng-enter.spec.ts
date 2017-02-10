@@ -8,7 +8,7 @@ describe('Unit testing: profitelo.directives.ng-enter', () => {
     beforeEach(() => {
     angular.mock.module('profitelo.directives.ng-enter')
 
-      inject(($rootScope, $compile) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {
         scope                 = $rootScope.$new()
         compile               = $compile
       })

@@ -1,15 +1,15 @@
 describe('Unit testing: profitelo.components.search.no-consultations', () => {
   return describe('for noConsultations component >', () => {
 
-    let rootScope
-    let compile
-    let componentController
-    let component
-    let bindings
-    let scope
+    let rootScope: ng.IRootScopeService
+    let compile: ng.ICompileService
+    let componentController: any
+    let component: any
+    let bindings: any
+    let scope: any
     let validHTML = '<no-consultations></no-cosultaitons>'
 
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
@@ -21,7 +21,7 @@ describe('Unit testing: profitelo.components.search.no-consultations', () => {
       angular.mock.module('templates-module')
       angular.mock.module('profitelo.components.search.no-consultations')
 
-      inject(($rootScope, $compile, _$componentController_) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$componentController_: ng.IComponentControllerService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile

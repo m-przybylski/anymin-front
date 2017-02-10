@@ -19,20 +19,20 @@ namespace profitelo.components.communicator.messenger.maximized.input {
     constructor() {
     }
 
-    public sendMessage = (text) => {
+    public sendMessage = (text: string) => {
       if (text !== '') {
         this.onSendMessage(text)
         this.inputModel = ''
       }
     }
 
-    public uploadFiles = (files) => {
+    public uploadFiles = (files: Array<File>) => {
       if (!this.isFileUploading) {
         this.onUploadFiles(files)
       }
     }
 
-    public onKeyup = (event) => {
+    public onKeyup = (event: any) => {
       if (event.key !== 'Enter') {
         this.onTyping()
       }

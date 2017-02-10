@@ -6,6 +6,7 @@ namespace profitelo.components.communicator.messenger.maximized {
   import IUploaderService = profitelo.services.uploader.IUploaderService
   import Money = profitelo.models.Money
   import IPostProcessOptions = profitelo.services.uploader.IPostProcessOptions
+  import ExpertProfile = profitelo.models.ExpertProfile
 
   export interface IMessengerMaximizedComponentBindings {
     callCost: Money
@@ -60,7 +61,7 @@ namespace profitelo.components.communicator.messenger.maximized {
       }
     }
 
-    public onUploadFiles = (files) => {
+    public onUploadFiles = (files: Array<File>) => {
       this.isFileUploadError = false
       angular.forEach(files, (file) => {
         this.uploadedFile.file = file
@@ -70,7 +71,7 @@ namespace profitelo.components.communicator.messenger.maximized {
     }
 
     public uploadAgain = () => {
-      this.onUploadFiles([this.uploadedFile.file])
+      this.onUploadFiles((this.uploadedFile.file) ? [this.uploadedFile.file] : [])
     }
 
     public indicateTypingDebounce =
@@ -79,12 +80,12 @@ namespace profitelo.components.communicator.messenger.maximized {
         'trailing': false
       })
 
-    public onSendMessage = (messageBody) => {
+    public onSendMessage = (messageBody: any) => {
       this.sendMessage(this.serializeMessageBody(messageBody))
     }
 
-    private clientInit = (expert) => {
-      this.participantAvatar = this.urlService.resolveFileUrl(expert.expertDetails.avatar)
+    private clientInit = (expert: ExpertProfile) => {
+      this.participantAvatar = this.urlService.resolveFileUrl(expert.expertDetails.avatar || '')
     }
 
     private expertInit = () => {
@@ -104,7 +105,7 @@ namespace profitelo.components.communicator.messenger.maximized {
       })
     }
 
-    private addGroupedMessage = (message) => {
+    private addGroupedMessage = (message: any) => {
       if (this.groupedMessages.length === 0) {
         this.groupedMessages.push([message])
       } else {
@@ -123,36 +124,36 @@ namespace profitelo.components.communicator.messenger.maximized {
       this.$timeout(this.scrollMessagesBottom)
     }
 
-    private addMessage = (msg) => {
+    private addMessage = (msg: any) => {
       this.addGroupedMessage(msg)
       msg.isNew = true
       this.$timeout(() => msg.isNew = false, 500)
       this.onTypingEnd()
     }
 
-    private onMessageSendSuccess = (message) => {
+    private onMessageSendSuccess = (message: any) => {
       message.isMine = true
       this.addMessage(message)
     }
 
-    private onMessageSendError = (err) =>
+    private onMessageSendError = (err: any) =>
       this.$log.error('msg send err:', JSON.stringify(err))
 
-    private serializeMessageBody = (text) =>
+    private serializeMessageBody = (text: string) =>
       JSON.stringify({body: text})
 
-    private sendMessage = (messageObject) =>
+    private sendMessage = (messageObject: any) =>
       this.messengerService.sendMessage(messageObject)
         .then(this.onMessageSendSuccess, this.onMessageSendError)
 
-    private onUploadProgess = (res) =>
+    private onUploadProgess = (res: any) =>
       this.$log.debug(res)
 
     private postProcessOptions: IPostProcessOptions =  {
       croppingDetails: {}
     }
 
-    private onFileUpload = (res) => {
+    private onFileUpload = (res: any) => {
       const fileMessage = {
         body: res.name,
         fileUrl: this.urlService.resolveFileUrl(res.token)
@@ -161,7 +162,7 @@ namespace profitelo.components.communicator.messenger.maximized {
       this.sendMessage(JSON.stringify(fileMessage))
     }
 
-    private onFileUploadError = (err) => {
+    private onFileUploadError = (err: any) => {
       this.$log.error(err)
       this.uploadedFile.progress = false
       this.isFileUploadError = true
@@ -170,7 +171,7 @@ namespace profitelo.components.communicator.messenger.maximized {
       }, this.fileUploadErrorMessageTimeout)
     }
 
-    private uploadFile = (file) =>
+    private uploadFile = (file: File) =>
       this.uploader.uploadFile(file, this.postProcessOptions, this.onUploadProgess)
         .then(this.onFileUpload, this.onFileUploadError)
 

@@ -1,6 +1,7 @@
-(function() {
+namespace profitelo.directives.serviceProvider.proServiceProviderName {
+
   function proServiceProviderName($q: ng.IQService) {
-    function linkFunction(scope, element, attrs) {
+    function linkFunction(scope: any, element: ng.IRootElementService, attrs: ng.IAttributes) {
       scope.required = false
       scope.error.badName = false
 
@@ -77,5 +78,5 @@
     'pascalprecht.translate',
     'profitelo.common.controller.service-provider.service-provider-step-controller'
   ])
-  .directive('proServiceProviderName', proServiceProviderName)
-}())
+    .directive('proServiceProviderName', proServiceProviderName)
+}

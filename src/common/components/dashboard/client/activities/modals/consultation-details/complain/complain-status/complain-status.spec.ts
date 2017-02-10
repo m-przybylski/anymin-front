@@ -1,14 +1,14 @@
 describe('Unit testing: profitelo.components.dashboard.client.activities.modals.consultation-details.complain-status.complain', () => {
   return describe('for clientComplainStatus >', () => {
 
-    let scope
-    let rootScope
-    let compile
-    let componentController
-    let component
+    let scope: any
+    let rootScope: ng.IRootScopeService
+    let compile: ng.ICompileService
+    let componentController: any
+    let component: any
     let validHTML = '<client-complain-status></client-complain-status>'
 
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
@@ -20,7 +20,7 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.modals.
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.components.dashboard.client.activities.modals.consultation-details.complain.complain-status')
 
-      inject(($rootScope, $compile, _$componentController_) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$componentController_: ng.IComponentControllerService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile

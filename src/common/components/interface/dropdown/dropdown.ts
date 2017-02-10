@@ -25,23 +25,23 @@
       this.isOpen = !this.isOpen
     }
 
-    const onItemChecked = (item) => {
+    const onItemChecked = (item: any) => {
       this.isOpen = !this.isOpen
       this.isActive = item.value
       this.selectedItem = item
     }
 
-    this.isSelected = (item) => {
+    this.isSelected = (item: any) => {
       return this.activeItem === item
     }
 
-    this.onMainItemSelect = (item) => {
+    this.onMainItemSelect = (item: any) => {
       this.activeItem = item
       onItemChecked(item)
       this.onSelectMain(item)
     }
 
-    this.onSecondaryItemSelect = (item) => {
+    this.onSecondaryItemSelect = (item: any) => {
       this.activeItem = item
       onItemChecked(item)
       this.onSelectSecond(item)

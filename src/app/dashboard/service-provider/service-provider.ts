@@ -12,7 +12,7 @@
     'ui.router',
     'c7s.ng.userAuth'
   ])
-  .config( function($stateProvider, UserRolesProvider) {
+  .config( function($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
     $stateProvider.state('app.dashboard.service-provider', {
       abstract:     true,
       url:          '/service-provider',

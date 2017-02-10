@@ -1,7 +1,10 @@
-(function() {
-  function proServiceProviderCost($q, $filter) {
+namespace profitelo.directives.serviceProvider.proServiceProviderCost {
 
-    function linkFunction(scope, _element: ng.IRootElementService, attrs) {
+  import IFilterService = profitelo.services.filter.IFilterService
+
+  function proServiceProviderCost($q: ng.IQService, $filter: IFilterService) {
+
+    function linkFunction(scope: any, _element: ng.IRootElementService, attrs: ng.IAttributes) {
 
       scope.required = false
       scope.error.noCost = false
@@ -39,7 +42,7 @@
 
       scope.$watch(() => {
         return scope.model.cost
-      }, (newValue, _oldValue) => {
+      }, (newValue: number, _oldValue: number) => {
         if (newValue !== undefined && typeof newValue !== 'number') {
           scope.model.cost = $filter('semicolonToCommaInputFilter')(scope.model.cost)
         }
@@ -87,5 +90,5 @@
     'pascalprecht.translate',
     'profitelo.common.controller.service-provider.service-provider-step-controller'
   ])
-  .directive('proServiceProviderCost', proServiceProviderCost)
-}())
+    .directive('proServiceProviderCost', proServiceProviderCost)
+}

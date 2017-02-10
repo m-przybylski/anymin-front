@@ -1,14 +1,16 @@
-describe('Unit testing: profitelo.components.dashboard.client.activities.modals.consultation-details.complain.complain-reason', () => {
+namespace profitelo.components.dashboard.client.activities.modals.consultationDetails.complain.complainReason {
+import IModalsService = profitelo.services.modals.IModalsService
+  describe('Unit testing: profitelo.components.dashboard.client.activities.modals.consultation-details.complain.complain-reason', () => {
   return describe('for clientComplainReason >', () => {
 
-    let scope
-    let rootScope
-    let compile
-    let componentController
-    let component
+    let scope: any
+    let rootScope: ng.IRootScopeService
+    let compile: ng.ICompileService
+    let componentController: any
+    let component: any
     let validHTML = '<client-complain-reason></client-complain-reason>'
 
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
@@ -16,7 +18,7 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.modals.
       return compiledElement
     }
 
-    let bindings = {
+    let bindings: any = {
 
     }
 
@@ -27,7 +29,8 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.modals.
     angular.mock.module('profitelo.components.interface.radio')
     angular.mock.module('profitelo.components.dashboard.client.activities.modals.consultation-details.complain.complain-reason')
 
-      inject(($rootScope, $compile, _$componentController_, _modalsService_) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
+              _$componentController_: ng.IComponentControllerService, _modalsService_: IModalsService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
@@ -49,7 +52,7 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.modals.
       expect(el.html()).toBeDefined(true)
     })
 
-    it('should have a dummy test', inject((modalsService) => {
+    it('should have a dummy test', inject((modalsService: IModalsService) => {
       spyOn(modalsService, 'createClientComplainReportModal')
       component.showComplainReasonModal()
 
@@ -60,3 +63,4 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.modals.
 
   })
 })
+}

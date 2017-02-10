@@ -1,7 +1,7 @@
 (function() {
   function proTextarea() {
 
-    function linkFunction(scope, element, attr) {
+    function linkFunction(scope: any, element: ng.IRootElementService, attr: ng.IAttributes) {
 
       scope.required = false
       scope.focus = false

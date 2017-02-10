@@ -39,7 +39,7 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
     /* @ngInject */
     constructor(private $scope: IBasicAccountSettingsControllerScope,
                 $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, private AccountApi: any,
-                private User, uploaderFactory: IUploaderFactory, urlService: IUrlService) {
+                private User: any, uploaderFactory: IUploaderFactory, urlService: IUrlService) {
 
       $scope.isNavbar = true
       $scope.isFullscreen = true
@@ -61,9 +61,9 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
       this.$scope.submitBasicSettings = () => {
         this.AccountApi.partialUpdateAccount({accountId: this.User.getData('id')}, {
           settings: this.$scope.generalSettingsObject
-        }).$promise.then((_res) => {
+        }).$promise.then((_res: any) => {
           $scope.$parent.callback(() => $uibModalInstance.dismiss('cancel'))
-        }, (err) => {
+        }, (err: any) => {
           throw new Error('Can not patch user account: ' + err)
         })
       }
@@ -82,7 +82,7 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
         this.$scope.generalSettingsObject.avatar = null
       }
 
-      $scope.saveCrop = (data) => {
+      $scope.saveCrop = (data: any) => {
         const squareSideLength: number = data.points[2] - data.points[0] - 1
         const postProcessOptions: IPostProcessOptions = {
           croppingDetails: {
@@ -108,7 +108,7 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
       this.$scope.isUploadInProgress = true
     }
 
-    private onFileUpload = (res) => {
+    private onFileUpload = (res: any) => {
       this.$scope.avatarPreview = res.previews[0]
       this.$scope.generalSettingsObject.avatar = res.token
       this.$scope.isUploadInProgress = false
@@ -116,7 +116,7 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
       this.clearFormAfterCropping()
     }
 
-    private onFileUploadError = (err) => {
+    private onFileUploadError = (err: any) => {
       this.$scope.isUploadInProgress = false
       throw new Error('Can not upload file: ' + err)
     }

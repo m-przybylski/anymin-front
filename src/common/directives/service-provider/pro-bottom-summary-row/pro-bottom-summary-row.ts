@@ -1,7 +1,7 @@
-(function() {
+namespace profitelo.directives.serviceProvider.proBottomConsultationButton {
   function proBottomSummaryRow() {
 
-    function linkFunction(scope) {
+    function linkFunction(scope: any) {
       scope.onClick = () => {
         scope.buttonAction()
       }
@@ -30,5 +30,5 @@
     'pascalprecht.translate',
     'profitelo.common.controller.service-provider.service-provider-step-controller'
   ])
-  .directive('proBottomSummaryRow', proBottomSummaryRow)
-}())
+    .directive('proBottomSummaryRow', proBottomSummaryRow)
+}

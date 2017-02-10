@@ -14,6 +14,7 @@ namespace profitelo.services.modals {
   import ISecurityChangePasswordSettingsControllerParentScope = profitelo.components.dashboard.settings.modals.security.changePassword.ISecurityChangePasswordSettingsControllerParentScope
   import ISecurityPinNumberSettingsControllerParentScope = profitelo.components.dashboard.settings.modals.security.pinNumber.ISecurityPinNumberSettingsControllerParentScope
   import ClientActivity = profitelo.models.ClientActivity
+  import Service = profitelo.models.Service
 
   export interface IModalsService {
     createIncomingCallModal(service: Service, answerCb: () => void, rejectCb: () => void): ng.ui.bootstrap.IModalServiceInstance

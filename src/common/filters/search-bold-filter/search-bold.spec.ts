@@ -1,13 +1,15 @@
-describe('Unit testing: profitelo.filters.search-bold-filter >', () => {
+namespace profitelo.filters.searchBold {
+import IFilterService = profitelo.services.filter.IFilterService
+  describe('Unit testing: profitelo.filters.search-bold-filter >', () => {
   describe('for profitelo.filters.search-bold-filter >', () => {
 
-    let $filter
+    let $filter: IFilterService
 
     beforeEach(() => {
     angular.mock.module('profitelo.filters.search-bold-filter')
     })
 
-    beforeEach(inject((_$filter_) => {
+    beforeEach(inject((_$filter_: IFilterService) => {
       $filter = _$filter_
     }))
 
@@ -18,4 +20,4 @@ describe('Unit testing: profitelo.filters.search-bold-filter >', () => {
     })
 
   })
-})
+})}

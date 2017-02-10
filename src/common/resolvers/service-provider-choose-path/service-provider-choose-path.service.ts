@@ -2,6 +2,7 @@ namespace profitelo.resolvers.serviceProviderChoosePath {
 
   import IQService = angular.IQService
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+  import Profile = profitelo.models.Profile
 
   export interface IServiceProviderChoosePathService {
     resolve(): ng.IPromise<Profile | null>
@@ -10,7 +11,7 @@ namespace profitelo.resolvers.serviceProviderChoosePath {
   class ServiceProviderChoosePathResolver implements IServiceProviderChoosePathService {
 
     constructor(private $state: ng.ui.IStateService, private $q: IQService, private topAlertService: ITopAlertService,
-                private User, private ProfileApi, private $log: ng.ILogService) {
+                private User: any, private ProfileApi: any, private $log: ng.ILogService) {
 
     }
 
@@ -20,10 +21,10 @@ namespace profitelo.resolvers.serviceProviderChoosePath {
       this.User.getStatus().then(() => {
         this.ProfileApi.getProfile({
           profileId: this.User.getData('id')
-        }).$promise.then((response) => {
-          if (!!response.expertDetails && !response.organizataionDetails) {
+        }).$promise.then((response: Profile) => {
+          if (!!response.expertDetails && !response.organizationDetails) {
             this.$state.go('app.dashboard.service-provider.individual-path')
-          } else if (response.organizataionDetails) {
+          } else if (response.organizationDetails) {
             this.$state.go('app.dashboard.service-provider.company-path')
           } else {
             this.$state.go('app.dashboard.service-provider.company-path')
@@ -34,7 +35,7 @@ namespace profitelo.resolvers.serviceProviderChoosePath {
         }, () => {
           _deferred.resolve(null)
         })
-      }, (error) => {
+      }, (error: any) => {
         this.$log.error(error)
         this.$state.go('app.dashboard')
         this.topAlertService.error({

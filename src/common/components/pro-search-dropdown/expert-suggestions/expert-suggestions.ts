@@ -1,9 +1,11 @@
-(function() {
+namespace profitelo.components.proSearchDropdown.expertSuggestions {
+
+  import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
 
   /* @ngInject */
-  function expertSuggestionsController(CommonSettingsService) {
+  function expertSuggestionsController(CommonSettingsService: ICommonSettingsService) {
 
-    this.profileImage = (index) => {
+    this.profileImage = (index: number) => {
       return !!this.experts.results[index].img ? CommonSettingsService.links.imageUrl.replace('%s', this.experts.results[index].img) : false
     }
 
@@ -27,4 +29,4 @@
   ])
     .component('expertSuggestions', expertSuggestions)
 
-}())
+}

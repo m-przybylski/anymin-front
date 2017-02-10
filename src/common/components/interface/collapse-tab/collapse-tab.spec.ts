@@ -1,19 +1,22 @@
-describe('Unit testing: profitelo.components.interface.collapse-tab', () => {
+namespace profitelo.components.interface.collapseTab {
+import IWindowService = profitelo.services.window.IWindowService
+  import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
+  describe('Unit testing: profitelo.components.interface.collapse-tab', () => {
   return describe('for collapseTab component >', () => {
 
-    let scope
-    let rootScope
-    let compile
-    let componentController
-    let component
-    let window
-    let bindings
-    let timeout
-    let log
+    let scope: any
+    let rootScope: ng.IRootScopeService
+    let compile: ng.ICompileService
+    let componentController: any
+    let component: any
+    let window: IWindowService
+    let bindings: any
+    let timeout: ng.ITimeoutService
+    let log: ng.ILogService
     let validHTML = '<collapse-tab></collapse-tab>'
-    let smoothScrollingService
+    let smoothScrollingService: ISmoothScrollingService
 
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
@@ -25,7 +28,9 @@ describe('Unit testing: profitelo.components.interface.collapse-tab', () => {
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.components.interface.collapse-tab')
 
-      inject(($rootScope, $compile, _$componentController_, _$window_, _$timeout_, _$log_) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
+              _$componentController_: ng.IComponentControllerService, _$window_: IWindowService,
+              _$timeout_: ng.ITimeoutService, _$log_: ng.ILogService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
@@ -37,11 +42,10 @@ describe('Unit testing: profitelo.components.interface.collapse-tab', () => {
       bindings = {
         title: 'test'
       }
-      
 
-      smoothScrollingService = {
-        simpleScrollTo: ()=> {
-          return null
+
+      smoothScrollingService = <ISmoothScrollingService>{
+        simpleScrollTo: (_x: any)=> {
         }
       }
 
@@ -61,7 +65,7 @@ describe('Unit testing: profitelo.components.interface.collapse-tab', () => {
 
     it('should expand collapse element on click', () => {
       const el = create(validHTML)
-      const isoScope = el.isolateScope()
+      const isoScope: any = el.isolateScope()
 
       spyOn(isoScope.$ctrl, 'toggleCollapse')
       el.find('.btn-show-more').triggerHandler('click')
@@ -74,7 +78,8 @@ describe('Unit testing: profitelo.components.interface.collapse-tab', () => {
       component.toggleCollapse()
       expect(smoothScrollingService.simpleScrollTo).toHaveBeenCalled()
     })
-    
+
   })
 })
 
+}

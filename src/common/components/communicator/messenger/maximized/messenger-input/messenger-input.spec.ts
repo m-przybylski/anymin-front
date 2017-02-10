@@ -11,13 +11,13 @@ namespace profitelo.components.communicator.messenger.maximized.input {
         'on-typing="onTyping" is-file-uploading="isFileUploading"></messenger-input>'
 
       const bindings: IMessengerInputBindings = {
-        onSendMessage: _ => _,
-        onUploadFiles: _ => _,
-        onTyping: _ => _,
+        onSendMessage: () => {},
+        onUploadFiles: () => {},
+        onTyping: () => {},
         isFileUploading: false
       }
 
-      function create(html, bindings: IMessengerInputBindings): JQuery {
+      function create(html: string, bindings: IMessengerInputBindings): JQuery {
         const parentScope: ng.IScope = rootScope.$new()
         const parentBoundScope = angular.extend(parentScope, bindings)
         let elem = angular.element(html)
@@ -61,7 +61,7 @@ namespace profitelo.components.communicator.messenger.maximized.input {
       })
 
       it('should uploadFiles', () => {
-        const files = 'file'
+        const files: any = ['']
         spyOn(component, 'onUploadFiles')
         component.uploadFiles(files)
 

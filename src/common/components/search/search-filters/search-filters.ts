@@ -1,7 +1,8 @@
-module profitelo.components.search.searchFilters {
+namespace profitelo.components.search.searchFilters {
 
   import IFilterService = profitelo.services.filter.IFilterService
   import Tag = profitelo.models.Tag
+  import ISearchService = profitelo.services.search.ISearchService
 
   interface ISearchFiltersComponentBindings {
     searchResults: Array<Object>
@@ -38,7 +39,7 @@ module profitelo.components.search.searchFilters {
 
     }
 
-    $onChanges = (onChangesObject) => {
+    $onChanges = (onChangesObject: any) => {
       if (onChangesObject.searchResults.currentValue !== onChangesObject.searchResults.previousValue
         && angular.isDefined(this.searchFilters)) {
         this.searchFilters.tags = onChangesObject.searchResults.currentValue.relatedTags
@@ -89,7 +90,7 @@ module profitelo.components.search.searchFilters {
         })
         this.searchFilters.onlyAvailable = params.onlyAvailable
         this.searchFilters.minPrice = params.minPrice
-        this.searchFilters.maxPrice = this.maxPriceValue(params.maxPrice)
+        this.searchFilters.maxPrice = (params.maxPrice) ? this.maxPriceValue(params.maxPrice) : undefined
       })
 
     }
@@ -108,14 +109,14 @@ module profitelo.components.search.searchFilters {
       return windowSize < 768
     }
 
-    public onActivityStatusChange = (searchFilters) => {
+    public onActivityStatusChange = (searchFilters: any) => {
       const searchQueryParams: ISearchFilters = {}
       searchQueryParams.onlyAvailable = searchFilters
       searchQueryParams.offset = 0
       this.setSearchQueryParamsDebounce(searchQueryParams)
     }
 
-    public onPriceRangeBarUpdate = (minPrice, maxPrice, _pointerType) => {
+    public onPriceRangeBarUpdate = (minPrice: number, maxPrice: number, _pointerType: any) => {
       const searchQueryParams: ISearchFilters = {}
       searchQueryParams.maxPrice = maxPrice
       searchQueryParams.minPrice = minPrice
@@ -123,7 +124,7 @@ module profitelo.components.search.searchFilters {
       this.setSearchQueryParamsDebounce(searchQueryParams)
     }
 
-    public updateSortTypeParam = (item) => {
+    public updateSortTypeParam = (item: any) => {
       const searchQueryParams: ISearchFilters = {}
       if (angular.isDefined(item)) {
         searchQueryParams.sortBy = item.value
@@ -132,7 +133,7 @@ module profitelo.components.search.searchFilters {
       this.setSearchQueryParamsDebounce(searchQueryParams)
     }
 
-    public updateLanguageTypeParam = (item) => {
+    public updateLanguageTypeParam = (item: any) => {
       const searchQueryParams: ISearchFilters = {}
       if (angular.isDefined(item)) {
         searchQueryParams.language = item.value
@@ -141,7 +142,7 @@ module profitelo.components.search.searchFilters {
       this.setSearchQueryParamsDebounce(searchQueryParams)
     }
 
-    public updateTypeListTypeParam = (item) => {
+    public updateTypeListTypeParam = (item: any) => {
       const searchQueryParams: ISearchFilters = {}
       if (angular.isDefined(item)) {
         searchQueryParams.profileType = item.value
@@ -150,7 +151,7 @@ module profitelo.components.search.searchFilters {
       this.setSearchQueryParamsDebounce(searchQueryParams)
     }
 
-    public updateCategoryTypeParam = (item) => {
+    public updateCategoryTypeParam = (item: any) => {
       const searchQueryParams: ISearchFilters = {}
       if (angular.isDefined(item)) {
         searchQueryParams.category = item.value
@@ -159,7 +160,7 @@ module profitelo.components.search.searchFilters {
       this.setSearchQueryParamsDebounce(searchQueryParams)
     }
 
-    private maxPriceValue = (maxPrice) => {
+    private maxPriceValue = (maxPrice: number) => {
       if (angular.isUndefined(maxPrice) || maxPrice === null) {
         return 100
       } else {

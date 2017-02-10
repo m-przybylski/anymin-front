@@ -1,6 +1,9 @@
-(function () {
+namespace profitelo.components.dashboard.client.favourites.favouriteExperts.lastConsultationSlider {
+
+  import IUrlService = profitelo.services.helper.IUrlService
+
   /* @ngInject */
-  function controller($scope, $state, urlService) {
+  function controller($scope: any, $state: ng.ui.IStateService, urlService: IUrlService) {
 
     this.$onInit = () => {}
 
@@ -12,11 +15,11 @@
       $scope.controlls.prevSlide()
     }
 
-    this.consultationOwnerImage = (imgToken) => {
+    this.consultationOwnerImage = (imgToken: string) => {
       return imgToken !== null || imgToken === '' ? urlService.resolveFileUrl(imgToken) : false
     }
 
-    this.goToProfile = (consultation) => {
+    this.goToProfile = (consultation: any) => {
       $state.go('app.expert-profile', {
         profileId: consultation.profile.id,
         primaryConsultationId: consultation.service.id
@@ -49,4 +52,4 @@
   ])
   .component('lastConsultationSlider', lastConsultationSlider)
 
-}())
+}

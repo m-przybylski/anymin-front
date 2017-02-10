@@ -1,7 +1,10 @@
-(function () {
+namespace profitelo.components.dashboard.chargeAccount.chooseAmountCharge {
+
+  import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
 
   /* @ngInject */
-  function chooseAmountChargeController($scope: ng.IScope, CommonSettingsService, lodash) {
+  function chooseAmountChargeController($scope: ng.IScope, CommonSettingsService: ICommonSettingsService,
+                                        lodash: _.LoDashStatic) {
 
     this.$onInit = () => {
       this.minimalPaymentAmount = this.amounts.minimalAmounts.amount / amountModifier
@@ -48,7 +51,7 @@
       angular.element('.option-own-amount').find('input').blur()
     }
 
-    this.selectAmountOption = (index) => {
+    this.selectAmountOption = (index: number) => {
       this.activeOption = index
       if (index !== 3) {
         this.cashAmountModel = null
@@ -91,4 +94,4 @@
   ])
   .component('chooseAmountCharge', chooseAmountCharge)
 
-}())
+}

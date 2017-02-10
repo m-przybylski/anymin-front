@@ -2,7 +2,7 @@ describe('Unit testing: profitelo.directives.interface.pro-input-switcher', () =
   return describe('for interface.pro-input-switcher directive >', () => {
 
     let scope: any     = null
-    let rootScope
+    let rootScope: ng.IRootScopeService
     let compile: any   = null
     let validHTML = '<pro-switcher ng-model="isChecked" data-label="LABEL" id data-name="NAME" ></pro-switcher>'
 
@@ -10,13 +10,13 @@ describe('Unit testing: profitelo.directives.interface.pro-input-switcher', () =
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.directives.interface.pro-switcher')
 
-      inject(($rootScope, $compile ) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {
         rootScope             = $rootScope.$new()
         compile               = $compile
       })
     })
 
-    function create(html, isChecked) {
+    function create(html: string, isChecked: boolean) {
       scope = rootScope.$new()
 
       scope.isChecked = isChecked
@@ -44,7 +44,7 @@ describe('Unit testing: profitelo.directives.interface.pro-input-switcher', () =
     })
 
     it('should throw error if bad model provided', inject(() => {
-      expect(() => { create(validHTML, 'false') }).toThrow(new Error('ngModel must be of boolean type'))
+      expect(() => { create(validHTML, <any>'false') }).toThrow(new Error('ngModel must be of boolean type'))
     }))
   })
 })

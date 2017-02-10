@@ -1,7 +1,7 @@
 namespace profitelo.services.helper {
 
   export interface IUrlService {
-    resolveSocialUrl(url: string): string
+    resolveSocialUrl(url: string): {iconClass: string}
     resolveFileUrl(url: string): string
   }
 

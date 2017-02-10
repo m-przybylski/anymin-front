@@ -1,13 +1,16 @@
-(function() {
-  function proAlert(topAlertService) {
+namespace profitelo.directives.interface.proAlert {
 
-    function linkFunction(scope, _element: ng.IRootElementService, _attr) {
+  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+
+  function proAlert(topAlertService: ITopAlertService) {
+
+    function linkFunction(scope: any, _element: ng.IRootElementService, _attr: ng.IAttributes) {
       scope.alerts = []
-      let addAlert = (alerts)=> {
+      let addAlert = (alerts: Array<any>)=> {
         scope.alerts = alerts
       }
 
-      scope.destroyAlert = (alertId)=> {
+      scope.destroyAlert = (alertId: number)=> {
         topAlertService.destroyAlert(alertId)
       }
 
@@ -27,6 +30,5 @@
   angular.module('profitelo.directives.interface.pro-alert', [
     'profitelo.services.top-alert'
   ])
-  .directive('proAlert', proAlert)
-
-}())
+    .directive('proAlert', proAlert)
+}

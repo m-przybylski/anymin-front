@@ -2,7 +2,7 @@ describe('Unit testing: profitelo.directives.pro-news-tile', () => {
   return describe('for pro-news-tile directive >', () => {
 
     let scope: any = null
-    let rootScope
+    let rootScope: ng.IRootScopeService
     let compile: any = null
     let validHTML = '<pro-news-tile></pro-news-tile>'
 
@@ -10,13 +10,13 @@ describe('Unit testing: profitelo.directives.pro-news-tile', () => {
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.directives.pro-news-tile')
 
-      inject(($rootScope, $compile) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {
         rootScope = $rootScope.$new()
         compile = $compile
       })
     })
 
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)

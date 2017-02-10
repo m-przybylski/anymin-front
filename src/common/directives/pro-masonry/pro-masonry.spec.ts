@@ -1,18 +1,20 @@
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 describe('Unit testing: profitelo.directives.pro-masonry', () => {
   return describe('for pro-masonry directive >', () => {
 
     let scope: any = null
-    let rootScope
+    let rootScope: ng.IRootScopeService
     let compile: any = null
     let validHTML = '<div pro-masonry="" data-grid-item=".grid-item"></div></div>'
-    let timeout 
-    let $log
-    
-    beforeEach(() => {
-    angular.mock.module('templates-module')
-    angular.mock.module('profitelo.directives.pro-masonry')
+    let timeout: ng.ITimeoutService
+    let $log: ng.ILogService
 
-      inject(($rootScope, $compile, _$log_, _$timeout_) => {
+    beforeEach(() => {
+      angular.mock.module('templates-module')
+      angular.mock.module('profitelo.directives.pro-masonry')
+
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$log_: ng.ILogService,
+              _$timeout_: ng.ITimeoutService) => {
         rootScope = $rootScope.$new()
         compile = $compile
         timeout = _$timeout_
@@ -20,7 +22,7 @@ describe('Unit testing: profitelo.directives.pro-masonry', () => {
       })
     })
 
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
@@ -32,7 +34,7 @@ describe('Unit testing: profitelo.directives.pro-masonry', () => {
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
-    
+
     it('should compile the directive', () => {
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)

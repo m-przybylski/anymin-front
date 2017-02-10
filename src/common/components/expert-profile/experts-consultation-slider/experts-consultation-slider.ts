@@ -1,11 +1,14 @@
-(function() {
+namespace profitelo.components.expertProfile.expertsConsultationSlider {
+
+  import IUrlService = profitelo.services.helper.IUrlService
+
   /* @ngInject */
-  function controller($scope, urlService) {
+  function controller($scope: any, urlService: IUrlService) {
     this.areControllsVisible = false
 
     this.expertsArray = []
     this.expertsArray = this.expertsArray.concat(this.experts)
-    
+
     if (this.expertsArray.length > 4) {
       this.areControllsVisible = true
     }
@@ -19,13 +22,14 @@
     this.prevSlide = () => {
       $scope.controlls.prevSlide()
     }
-    
-    this.expertImage = (token) => {
+
+    this.expertImage = (token: string) => {
       if (!!token && token !== null) {
         return urlService.resolveFileUrl(token)
       }
+      return ''
     }
-    
+
     return this
   }
 
@@ -47,4 +51,4 @@
   ])
     .component('expertsConsultationSlider', expertsConsultationSlider)
 
-}())
+}

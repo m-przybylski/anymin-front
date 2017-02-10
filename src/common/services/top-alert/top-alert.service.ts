@@ -4,6 +4,7 @@ namespace profitelo.services.topAlert {
     id?: number
     icon?: string
     message?: string
+    header?: string
     type?: string
     timeout?: number
     visible?: boolean
@@ -11,10 +12,10 @@ namespace profitelo.services.topAlert {
 
   export interface ITopAlertService {
     bindAlert(alerts: (alerts: Array<ITopAlertSettings>) => void): void
-    success(options: ITopAlertSettings): void
-    warning(options: ITopAlertSettings): void
-    error(options: ITopAlertSettings): void
-    info(options: ITopAlertSettings): void
+    success(options?: ITopAlertSettings): void
+    warning(options?: ITopAlertSettings): void
+    error(options?: ITopAlertSettings): void
+    info(options?: ITopAlertSettings): void
     destroyAlert(alertId: number): void
   }
 

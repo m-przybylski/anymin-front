@@ -1,13 +1,13 @@
 (function() {
   function proSwitcher() {
 
-    function linkFunction(scope, element, attr) {
+    function linkFunction(scope: any, element: ng.IRootElementService, attr: ng.IAttributes) {
 
       if (typeof scope.ngModel !== 'boolean') {
         throw new Error('ngModel must be of boolean type')
       }
 
-      const changeCheckedState = (state) => {
+      const changeCheckedState = (state: string) => {
         element.find('input').prop('checked', state)
       }
 
@@ -20,7 +20,7 @@
       }
       changeCheckedState(scope.ngModel)
       if ('id' in attr.$attr) {
-        scope.id = attr.id
+        scope.id = (<any>attr).id
       }
     }
 

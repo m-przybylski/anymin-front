@@ -29,11 +29,11 @@ namespace profitelo.app.dashboard.settings {
       const realStateName = this.getRealStateName(stateName)
 
       if (realStateName && angular.isDefined(realStateName) && this.lodash.includes(this.stateNames, realStateName)) {
-        this.stateNames[this.currentState] = false
+        (<any>this.stateNames)[this.currentState] = false
         this.currentState = realStateName
       }
 
-      this.stateNames[realStateName] = true
+      (<any>this.stateNames)[realStateName] = true
     }
 
     private getRealStateName = (string: string) => {

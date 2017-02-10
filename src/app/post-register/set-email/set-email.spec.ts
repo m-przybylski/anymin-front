@@ -1,13 +1,17 @@
-describe('Unit tests: profitelo.controller.post-register.set-email>', () => {
+namespace profitelo.postRegister.setEmail {
+import ITopWaitingLoaderService = profitelo.services.topWaitingLoader.ITopWaitingLoaderService
+  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+  import IFilterService = profitelo.services.filter.IFilterService
+  describe('Unit tests: profitelo.controller.post-register.set-email>', () => {
   describe('Testing Controller: SetEmailController', () => {
 
-    let scope
-    let SetEmailController
-    let _topWaitingLoaderService
-    let _AccountApi
-    let _topAlertService
-    let _$httpBackend
-    let resourcesExpectations
+    let scope: any
+    let SetEmailController: any
+    let _topWaitingLoaderService: ITopWaitingLoaderService
+    let _AccountApi: any
+    let _topAlertService: ITopAlertService
+    let _$httpBackend: ng.IHttpBackendService
+    let resourcesExpectations: any
 
     const _url = 'awesomeUrl'
 
@@ -26,15 +30,16 @@ describe('Unit tests: profitelo.controller.post-register.set-email>', () => {
       }
     }
 
-    beforeEach(angular.mock.module(function($provide) {
+    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', _url)
     }))
 
     beforeEach(() => {
     angular.mock.module('profitelo.controller.post-register.set-email')
     angular.mock.module('profitelo.swaggerResources.definitions')
-      inject(($rootScope, $controller, $filter, _topWaitingLoaderService_, _AccountApi_, _topAlertService_,
-              _$httpBackend_, _AccountApiDef_) => {
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $filter: IFilterService,
+              _topWaitingLoaderService_: ITopWaitingLoaderService, _AccountApi_: any, _topAlertService_: ITopAlertService,
+              _$httpBackend_: ng.IHttpBackendService, _AccountApiDef_: any) => {
 
         scope = $rootScope.$new()
 
@@ -89,3 +94,4 @@ describe('Unit tests: profitelo.controller.post-register.set-email>', () => {
     })
   })
 })
+}

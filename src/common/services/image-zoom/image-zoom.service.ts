@@ -1,7 +1,7 @@
 namespace profitelo.services.imageZoom {
 
   export interface IImageZoomService {
-    createZoomInstance(img: HTMLImageElement): void
+    createZoomInstance(img: Element): void
     destroy(): void
     settings: any
     decreaseImg(): void

@@ -1,7 +1,7 @@
 describe('Unit tests: ErrorController >', () => {
   describe('Testing Controller: ErrorController', () => {
 
-    var ErrorController
+    var ErrorController: any
 
     beforeEach(() => {
       angular.mock.module('profitelo.controller.error')

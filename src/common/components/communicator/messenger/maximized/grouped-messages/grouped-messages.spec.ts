@@ -15,7 +15,7 @@ namespace profitelo.components.communicator.messenger.maximized.groupedMessages 
         participantAvatar: 'asd'
       }
 
-      function create(html, bindings: IGroupedMessagesComponentBindings): JQuery {
+      function create(html: string, bindings: IGroupedMessagesComponentBindings): JQuery {
         const parentScope = rootScope.$new()
         const parentBoundScope = angular.extend(parentScope, bindings)
         let elem = angular.element(html)
