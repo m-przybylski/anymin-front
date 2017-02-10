@@ -7,10 +7,18 @@ namespace app.dashboard.settings.general {
 
     public avatarImageSource: string
     public nickname: string
+    public phoneNumber: string
+    public email: string
+    public country: string
+    public unverifiedEmail: string
 
     constructor(private modalsService: IModalsService, UserData: any, private $state: ng.ui.IStateService, private urlService: IUrlService) {
       this.nickname = UserData.settings.nickname
       this.avatarImageSource = this.urlService.resolveFileUrl(UserData.settings.avatar)
+      this.phoneNumber = UserData.msisdn
+      this.email = UserData.email
+      this.country = UserData.countryISO
+      this.unverifiedEmail = UserData.unverifiedEmail
     }
 
     $onInit = () => {
@@ -21,11 +29,11 @@ namespace app.dashboard.settings.general {
     }
 
     public openGeneralPhoneSettingsModal = () => {
-      this.modalsService.createGeneralPhoneSettingsModal()
+      this.modalsService.createGeneralPhoneSettingsModal(this.onModalClose)
     }
 
     public openGeneralEmailSettingsModal = () => {
-      this.modalsService.createGeneralEmailSettingsModal()
+      this.modalsService.createGeneralEmailSettingsModal(this.onModalClose)
     }
 
     public openGeneralCountrySettingsModal = () => {

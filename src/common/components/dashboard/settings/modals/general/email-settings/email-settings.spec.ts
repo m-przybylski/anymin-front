@@ -7,20 +7,31 @@ namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
 
     let controller: GeneralEmailSettingsController
     let scope: IGeneralEmailSettingsControllerScope
-
     const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
-      jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss']);
+      jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss'])
+    const User = {}
+
+    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
+      $provide.value('apiUrl', 'awesomeUrl')
+    }))
+
 
     beforeEach(() => {
       angular.mock.module('ui.bootstrap')
+      angular.mock.module('profitelo.swaggerResources.definitions')
       angular.mock.module('profitelo.components.dashboard.settings.modals.general.email-settings')
-      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
+
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, AccountApiDef: any,
+              $log: ng.ILogService) => {
 
         scope = <IGeneralEmailSettingsControllerScope>$rootScope.$new()
 
         const injectors = {
+          $uibModalInstance: $uibModalInstance,
           $scope: scope,
-          $uibModalInstance: $uibModalInstance
+          AccountApi: AccountApiDef,
+          User: User,
+          $log: $log
         }
 
         controller = $controller<GeneralEmailSettingsController>('generalEmailSettingsController', injectors)
@@ -29,11 +40,6 @@ namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
 
     it('should exists', () => {
       return expect(!!controller).toBe(true)
-    })
-
-    it('should uibModalInstance', () => {
-      scope.onModalClose()
-      expect($uibModalInstance.dismiss).toHaveBeenCalled()
     })
 
   })
