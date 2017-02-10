@@ -5,7 +5,7 @@ scrollable.country-settings(data-is-fullscreen="isFullscreen" data-is-navbar="is
       h2(data-translate="{{:: 'SETTINGS.GENERAL.CONUTRY_SETTINGS.TITLE' | translate}}")
 
       form.pro-input-form(name="countryForm"  novalidate)
-        pro-dropdown.country(
+        dropdown-primary.country(
           data-pro-model='vm.account.phoneNumber.prefix'
           data-label="{{:: 'SETTINGS.GENERAL.CONUTRY_SETTINGS.LABEL' | translate }}"
           data-placeholder='Poland'

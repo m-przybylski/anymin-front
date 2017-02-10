@@ -1,20 +1,23 @@
 namespace profitelo.components.dashboard.settings.manageDevices {
 
-  import IScope = angular.IScope
   export interface IManageDevicesComponentBindings {
     deviceInUseStatus: boolean
     deviceLocalization: string
     deviceSystem: string
-    device: any
+    device: string
   }
 
   export class ManageDevicesComponentController implements ng.IController, IManageDevicesComponentBindings {
     deviceInUseStatus: boolean
     deviceLocalization: string
     deviceSystem: string
-    device: any
-    checkDevice: any
-    currentDevice: any
+    device: string
+    checkDevice = {
+      desktop: 'icon-computer-24',
+      tablet: 'icon-tablet-24',
+      mobile: 'icon-smartphone-24'
+    }
+    currentDevice: string
 
     /* @ngInject */
     constructor() {
@@ -22,13 +25,7 @@ namespace profitelo.components.dashboard.settings.manageDevices {
     }
 
     $onInit = () => {
-      enum checkDevice {
-        desktop = <any>'icon-computer-24',
-        tablet = <any>'icon-tablet-24',
-        mobile = <any>'icon-smartphone-24'
-      }
-
-      this.currentDevice = checkDevice[this.device]
+      this.currentDevice = this.checkDevice[this.device]
     }
 
   }

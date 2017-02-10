@@ -6,7 +6,7 @@ namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
   describe('Testing Controller: generalEmailSettingsController', () => {
 
     let controller: GeneralEmailSettingsController
-    let scope: IgeneralEmailSettingsControllerScope
+    let scope: IGeneralEmailSettingsControllerScope
 
     const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
       jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss']);
@@ -16,7 +16,7 @@ namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
       angular.mock.module('profitelo.components.dashboard.settings.modals.general.email-settings')
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
 
-        scope = <IgeneralEmailSettingsControllerScope>$rootScope.$new()
+        scope = <IGeneralEmailSettingsControllerScope>$rootScope.$new()
 
         const injectors = {
           $scope: scope,

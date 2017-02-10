@@ -10,6 +10,7 @@ namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
     onModalClose: Function
     addPhoto: Function
     imageSource: string
+    $parent: IGeneralEmailSettingsControllerParentScope
   }
 
   export class GeneralEmailSettingsController implements ng.IController {
@@ -21,12 +22,9 @@ namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
       $scope.isNavbar = true
       $scope.isFullscreen = true
 
-
       $scope.onModalClose = () =>
         $uibModalInstance.dismiss('cancel')
     }
-
-
   }
 
   angular.module('profitelo.components.dashboard.settings.modals.general.email-settings', [
@@ -35,5 +33,4 @@ namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
     'profitelo.directives.interface.scrollable'
   ])
   .controller('generalEmailSettingsController', GeneralEmailSettingsController)
-
 }

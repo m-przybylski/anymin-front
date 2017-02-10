@@ -6,7 +6,7 @@ namespace profitelo.components.dashboard.settings.modals.general.countrySettings
   describe('Testing Controller: generalCountrySettingsController', () => {
 
     let controller: GeneralCountrySettingsController
-    let scope: IgeneralCountrySettingsControllerScope
+    let scope: IGeneralCountrySettingsControllerParentScope
 
     const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
       jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss']);
@@ -16,7 +16,7 @@ namespace profitelo.components.dashboard.settings.modals.general.countrySettings
       angular.mock.module('profitelo.components.dashboard.settings.modals.general.country-settings')
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
 
-        scope = <IgeneralCountrySettingsControllerScope>$rootScope.$new()
+        scope = <IGeneralCountrySettingsControllerParentScope>$rootScope.$new()
 
         const injectors = {
           $scope: scope,
@@ -30,11 +30,5 @@ namespace profitelo.components.dashboard.settings.modals.general.countrySettings
     it('should exists', () => {
       return expect(!!controller).toBe(true)
     })
-
-    it('should uibModalInstance', () => {
-      scope.onModalClose()
-      expect($uibModalInstance.dismiss).toHaveBeenCalled()
-    })
-
   })
 }

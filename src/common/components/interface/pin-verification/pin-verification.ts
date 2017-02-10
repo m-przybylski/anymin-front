@@ -1,6 +1,6 @@
 namespace profitelo.components.interface.pinVerification {
 
-  export class PinVerificationController implements ng.IController {
+  export class PinVerificationComponentController implements ng.IController {
 
     /* @ngInject */
     constructor() {
@@ -10,7 +10,7 @@ namespace profitelo.components.interface.pinVerification {
 
   class PinVerificationComponent implements ng.IComponentOptions {
 
-    controller: ng.Injectable<ng.IControllerConstructor> = PinVerificationController
+    controller: ng.Injectable<ng.IControllerConstructor> = PinVerificationComponentController
     templateUrl: string = 'components/interface/pin-verification/pin-verification.tpl.html'
   }
 

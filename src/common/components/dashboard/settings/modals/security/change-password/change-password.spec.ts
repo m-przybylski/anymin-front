@@ -4,10 +4,10 @@ namespace profitelo.components.dashboard.settings.modals.security.changePassword
     profitelo.components.dashboard.settings.modals.security.changePassword.SecurityChangePasswordSettingsController
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 
-  describe('Testing Controller: generalChangePasswordSettingsController', () => {
+  describe('Testing Controller: securityChangePasswordSettingsController', () => {
 
     let controller: SecurityChangePasswordSettingsController
-    let scope: IgeneralChangePasswordSettingsControllerScope
+    let scope: ISecurityChangePasswordSettingsControllerScope
 
     const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
       jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss']);
@@ -17,7 +17,7 @@ namespace profitelo.components.dashboard.settings.modals.security.changePassword
       angular.mock.module('profitelo.components.dashboard.settings.modals.security.change-password')
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
 
-        scope = <IgeneralChangePasswordSettingsControllerScope>$rootScope.$new()
+        scope = <ISecurityChangePasswordSettingsControllerScope>$rootScope.$new()
 
         const injectors = {
           $scope: scope,
@@ -25,18 +25,12 @@ namespace profitelo.components.dashboard.settings.modals.security.changePassword
         }
 
         controller = $controller<SecurityChangePasswordSettingsController>(
-          'generalChangePasswordSettingsController', injectors)
+          'securityChangePasswordSettingsController', injectors)
       })
     })
 
     it('should exists', () => {
       return expect(!!controller).toBe(true)
     })
-
-    it('should uibModalInstance', () => {
-      scope.onModalClose()
-      expect($uibModalInstance.dismiss).toHaveBeenCalled()
-    })
-
   })
 }

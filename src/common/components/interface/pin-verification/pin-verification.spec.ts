@@ -5,7 +5,7 @@ namespace profitelo.components.interface.pinVerification {
 
       let rootScope: ng.IRootScopeService
       let compile: ng.ICompileService
-      let component: PinVerificationController
+      let component: PinVerificationComponentController
 
       const validHTML =
         '<pin-verification></pin-verification>'
@@ -34,7 +34,7 @@ namespace profitelo.components.interface.pinVerification {
 
           const injectors = {}
 
-          component = $componentController<PinVerificationController, {}>(
+          component = $componentController<PinVerificationComponentController, {}>(
             'pinVerification', injectors, bindings)
         })
       })

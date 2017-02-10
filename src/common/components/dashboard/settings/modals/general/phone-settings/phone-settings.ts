@@ -1,11 +1,13 @@
 namespace profitelo.components.dashboard.settings.modals.general.phoneSettings {
 
+  export interface IGeneralPhoneSettingsControllerParentScope extends ng.IScope {}
   export interface IGeneralPhoneSettingsControllerScope extends ng.IScope {
     isHidden: boolean
     onModalClose: Function
     isNavbar: boolean
     isFullscreen: boolean
     verifyCode: Function
+    $parent: IGeneralPhoneSettingsControllerParentScope
   }
 
   export class GeneralPhoneSettingsController implements ng.IController {
@@ -32,7 +34,6 @@ namespace profitelo.components.dashboard.settings.modals.general.phoneSettings {
     'ui.bootstrap',
     'profitelo.directives.interface.pro-input',
     'profitelo.directives.interface.scrollable',
-    'profitelo.directives.interface.pro-dropdown',
     'profitelo.components.interface.pin-verification'
   ])
   .controller('generalPhoneSettingsController', GeneralPhoneSettingsController)
