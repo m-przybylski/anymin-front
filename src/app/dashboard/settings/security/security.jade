@@ -1,1 +1,31 @@
-h1 security
+.security-options.security
+  h2(data-translate="SETTINGS.SECURITY.TITLE")
+
+  .settings-row
+    .settings-icon
+      span.icon.icon-lock-24
+
+    .settings-data
+      span.name(data-translate="{{:: 'SETTINGS.SECURITY.PASSWORD.LABEL' | translate}}")
+
+    a.btn.btn-small.btn-default-border(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
+    data-ng-click=":: vm.openSecurityChangePasswordSettingsModal()")
+
+  .settings-row
+    .settings-icon
+      span.icon.icon-pin-number-24
+
+    .settings-data
+      span.name(data-translate="{{:: 'SETTINGS.SECURITY.PIN_NUMBER.LABEL' | translate}}")
+
+    a.btn.btn-small.btn-default-border(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
+    data-ng-click=":: vm.openSecurityPinSecuritySettingsModal()")
+
+.security-options.manage-devicesc
+  h2(data-translate="{{:: 'SETTINGS.SECURITY.MANAGE_DEVICES.TITLE' | translate}}")
+  manage-devices(
+    data-device="mobile"
+    data-device-in-use-status="true"
+    data-device-localization="Zagacie"
+    data-device-system="Windows 95 Beta"
+  )

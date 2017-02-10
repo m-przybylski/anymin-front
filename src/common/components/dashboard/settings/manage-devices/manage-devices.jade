@@ -1,0 +1,22 @@
+.manage-devices
+  .settings-row
+    .settings-icon
+      span.icon(data-ng-class="{'icon-computer-24': $ctrl.currentDevice === 'icon-computer-24', 'icon-tablet-24': $ctrl.currentDevice === 'icon-tablet-24', 'icon-smartphone-24': $ctrl.currentDevice === 'icon-smartphone-24'}")
+
+    .settings-data
+      span.label(data-ng-class="{'is-active': $ctrl.deviceInUseStatus}")
+        span(data-ng-show="{{$ctrl.currentDevice === 'icon-computer-24'}}"  data-translate="{{:: 'SETTINGS.SECURITY.MANAGE_DEVICES.IN_USE.COMPUTER' | translate}}")
+        span(data-ng-show="{{$ctrl.currentDevice === 'icon-tablet-24'}}" data-translate="{{:: 'SETTINGS.SECURITY.MANAGE_DEVICES.IN_USE.TABLET' | translate}}")
+        span(data-ng-show="{{$ctrl.currentDevice === 'icon-smartphone-24'}}" data-translate="{{:: 'SETTINGS.SECURITY.MANAGE_DEVICES.IN_USE.SMARTPHONE' | translate}}")
+        span.in-use(data-translate="{{:: 'SETTINGS.SECURITY.MANAGE_DEVICES.IN_USE.LABEL' | translate}}")
+      span.name {{$ctrl.deviceSystem}}
+
+    .settings-localization
+      .settings-icon
+        span.icon.icon-pin-24
+
+      .settings-data
+        span.label(data-translate="{{:: 'SETTINGS.SECURITY.MANAGE_DEVICES.LOCALIZATION.LABEL' | translate }}")
+        span.name {{$ctrl.deviceLocalization}}
+
+    a.btn.btn-small.btn-default-border(data-translate="{{:: 'SETTINGS.SECURITY.MANAGE_DEVICES.LOG_OUT' | translate}}")

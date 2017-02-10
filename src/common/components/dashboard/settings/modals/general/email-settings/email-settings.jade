@@ -1,6 +1,17 @@
-scrollable(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
+scrollable.email-settings(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
   top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="onModalClose")
-
-  .settings-modal.general-modal.password-settings
+  .modal-settings
     .default-container-small
-      p.title email
+      h2(data-translate="{{:: 'SETTINGS.GENERAL.EMAIL_SETTINGS.TITLE' | translate}}")
+
+      form.pro-input-form(name="emailForm" novalidate)
+        pro-input.email.label(data-label="{{:: 'SETTINGS.GENERAL.EMAIL_SETTINGS.LABEL' | translate}}"
+        data-type="email"
+        data-id="phoneNumber"
+        data-placeholder="{{'DASHBOARD.CHARGE_ACCOUNT.EMAIL_PLACEHOLDER	' | translate}}"
+        data-ng-model="vm.account.phoneNumber.number"
+        data-ng-class="{'invalid': !vm.isValidPhoneNumber(vm.account.phoneNumber.prefix," +
+        " vm.account.phoneNumber.number) && (phoneNumberForm.phoneNumber.$dirty || phoneNumberForm.$submitted)}"
+        auto-focus only-digits)
+
+        button.btn.btn-default(data-translate="{{:: 'SETTINGS.GENERAL.EMAIL_SETTINGS.BUTTON' | translate }}" type="submit")

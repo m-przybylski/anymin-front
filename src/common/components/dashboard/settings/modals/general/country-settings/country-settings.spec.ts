@@ -1,35 +1,34 @@
 namespace profitelo.components.dashboard.settings.modals.general.countrySettings {
 
+  import GeneralCountrySettingsController = profitelo.components.dashboard.settings.modals.general.countrySettings.GeneralCountrySettingsController
+  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+
   describe('Testing Controller: generalCountrySettingsController', () => {
 
-    let generalCountrySettingsController: GeneralCountrySettingsController
-    let scope: IGeneralCountrySettingsControllerScope
-    let uibModalInstance: any = {
-      dismiss: () => {
+    let controller: GeneralCountrySettingsController
+    let scope: IGeneralCountrySettingsControllerParentScope
 
-      },
-      close: () => {
-
-      }
-    }
+    const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
+      jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss']);
 
     beforeEach(() => {
+      angular.mock.module('ui.bootstrap')
       angular.mock.module('profitelo.components.dashboard.settings.modals.general.country-settings')
-      inject(($rootScope: ng.IScope, $controller: ng.IControllerService) => {
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
 
-        scope = <IGeneralCountrySettingsControllerScope>$rootScope.$new()
+        scope = <IGeneralCountrySettingsControllerParentScope>$rootScope.$new()
 
-        generalCountrySettingsController =
-          $controller<GeneralCountrySettingsController>('generalCountrySettingsController', {
-            $scope: scope,
-            $uibModalInstance: uibModalInstance
-          })
+        const injectors = {
+          $scope: scope,
+          $uibModalInstance: $uibModalInstance
+        }
+
+        controller = $controller<GeneralCountrySettingsController>('generalCountrySettingsController', injectors)
       })
     })
 
     it('should exists', () => {
-      return expect(!!generalCountrySettingsController).toBe(true)
+      return expect(!!controller).toBe(true)
     })
-
   })
 }

@@ -1,6 +1,15 @@
-scrollable(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
+scrollable.country-settings(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
   top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="onModalClose")
-
-  .settings-modal.general-modal.country-settings
+  .modal-settings
     .default-container-small
-      p.title country
+      h2(data-translate="{{:: 'SETTINGS.GENERAL.CONUTRY_SETTINGS.TITLE' | translate}}")
+
+      form.pro-input-form(name="countryForm"  novalidate)
+        dropdown-primary.country(
+          data-pro-model='vm.account.phoneNumber.prefix'
+          data-label="{{:: 'SETTINGS.GENERAL.CONUTRY_SETTINGS.LABEL' | translate }}"
+          data-placeholder='Poland'
+          data-pro-items="vm.countries"
+          data-no-search)
+
+        button.btn.btn-default(data-translate="{{:: 'SETTINGS.GENERAL.CONUTRY_SETTINGS.BUTTON' | translate }}" type="submit")

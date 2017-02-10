@@ -11,7 +11,27 @@
     +smm
       padding: 0
 
-
   .settings-row
     .icon
-      color: $c-secondary-txt
+      color: $c-label
+
+    .settings-localization
+      display: none
+
+      .settings-icon
+        padding: 0 24px
+
+      +smm
+        flex: 2
+        display: inline-flex
+
+    span
+      &.is-active
+        color: $c-success
+
+      &.in-use
+        margin: 0 0 0 4px
+
+  .security-options
+    &.security
+      margin: 0 0 32px

@@ -25,7 +25,6 @@ namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
       $scope.onModalClose = () =>
         $uibModalInstance.dismiss('cancel')
     }
-
   }
 
   angular.module('profitelo.components.dashboard.settings.modals.general.email-settings', [
@@ -34,5 +33,4 @@ namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
     'profitelo.directives.interface.scrollable'
   ])
   .controller('generalEmailSettingsController', GeneralEmailSettingsController)
-
 }
