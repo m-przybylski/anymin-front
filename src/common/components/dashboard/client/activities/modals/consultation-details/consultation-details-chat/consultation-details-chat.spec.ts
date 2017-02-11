@@ -1,14 +1,14 @@
 describe('Unit testing: profitelo.components.dashboard.client.activities.modals.consultation-details.consultation-details-chat', () => {
   return describe('for clientConsultationDetailsChat >', () => {
 
-    let scope
-    let rootScope
-    let compile
-    let componentController
-    let component
+    let scope: any
+    let rootScope: ng.IRootScopeService
+    let compile: ng.ICompileService
+    let componentController: any
+    let component: any
     let validHTML = '<client-consultation-details-chat></client-consultation-details-chat>'
 
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
@@ -21,7 +21,7 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.modals.
     angular.mock.module('profitelo.components.communicator.messenger.maximized.grouped-messages')
     angular.mock.module('profitelo.components.dashboard.client.activities.modals.consultation-details.consultation-details-chat')
 
-      inject(($rootScope, $compile, _$componentController_) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$componentController_: ng.IComponentControllerService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile

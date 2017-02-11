@@ -1,16 +1,17 @@
+namespace profitelo.components.dashboard.client.favourites.favouriteExperts.favouriteExpert {
 describe('Unit testing: profitelo.components.dashboard.client.favourites.favourite-experts.favourite-expert', () => {
   return describe('for clientFavouriteExpert >', () => {
 
-    let scope
-    let rootScope
-    let compile
-    let componentController
-    let component
+    let scope: any
+    let rootScope: ng.IRootScopeService
+    let compile: ng.ICompileService
+    let componentController: any
+    let component: any
     let validHTML = '<client-favourite-expert favourite-expert="favouriteExpert"></client-favourite-expert>'
-    let state
+    let state: ng.ui.IStateService
 
 
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       scope.favouriteExpert = {
@@ -38,7 +39,7 @@ describe('Unit testing: profitelo.components.dashboard.client.favourites.favouri
     angular.mock.module('profitelo.services.url')
     angular.mock.module('profitelo.components.dashboard.client.favourites.favourite-experts.favourite-expert')
 
-      inject(($rootScope, $compile, _$componentController_, _$state_) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$componentController_: ng.IComponentControllerService, _$state_: ng.ui.IStateService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
@@ -61,3 +62,4 @@ describe('Unit testing: profitelo.components.dashboard.client.favourites.favouri
     })
   })
 })
+}

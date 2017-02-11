@@ -1,6 +1,7 @@
 namespace profitelo.components.communicator.navigation {
 
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  import ICallService = profitelo.services.call.ICallService
 
   describe('Unit testing: profitelo.components.communicator.navigation', () => {
     return describe('for communicatorNav component >', () => {
@@ -20,7 +21,7 @@ namespace profitelo.components.communicator.navigation {
         angular.mock.module('profitelo.services.sounds')
       })
 
-      beforeEach(angular.mock.module(($provide) => {
+      beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
         $provide.value('apiUrl', 'awesomeUrl/')
         $provide.value('soundsService', {})
       }))
@@ -45,7 +46,7 @@ namespace profitelo.components.communicator.navigation {
         })
       })
 
-      function create(html, bindings: INavigationComponentBindings): JQuery {
+      function create(html: string, bindings: INavigationComponentBindings): JQuery {
         const parentScope: ng.IScope = rootScope.$new()
         const parentBoundScope = angular.extend(parentScope, bindings)
         const elem: JQuery = angular.element(html)
@@ -67,9 +68,9 @@ namespace profitelo.components.communicator.navigation {
         const event = {
           currentTarget: {
             classList: {
-              contains: _ => true,
-              add: _ => _,
-              remove: _ => _
+              contains: () => true,
+              add: () => {},
+              remove: () => {}
             }
           }
         }
@@ -86,9 +87,9 @@ namespace profitelo.components.communicator.navigation {
         const event = {
           currentTarget: {
             classList: {
-              contains: _ => false,
-              add: _ => _,
-              remove: _ => _
+              contains: () => false,
+              add: () => {},
+              remove: () => {}
             }
           }
         }
@@ -115,7 +116,7 @@ namespace profitelo.components.communicator.navigation {
 
       it('should startVideo', () => {
         spyOn(component, 'animateButtons')
-        component.startVideo({})
+        component.startVideo(<any>{})
         expect(component.animateButtons).toHaveBeenCalled()
       })
 
@@ -127,13 +128,13 @@ namespace profitelo.components.communicator.navigation {
 
       it('should toggleOptions', () => {
         spyOn(component, 'animateButtons')
-        component.toggleOptions({})
+        component.toggleOptions(<any>{})
         expect(component.animateButtons).toHaveBeenCalled()
       })
 
       it('should toggleMessenger', () => {
         spyOn(component, 'animateButtons')
-        component.toggleMessenger({})
+        component.toggleMessenger(<any>{})
         expect(component.animateButtons).toHaveBeenCalled()
       })
     })

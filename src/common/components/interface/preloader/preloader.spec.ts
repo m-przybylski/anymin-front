@@ -3,18 +3,18 @@ describe('Unit testing: profitelo.components.interface.preloader', () => {
 
     const url = 'awesomUrl/'
 
-    let scope
-    let rootScope
-    let compile
-    let componentController
-    let component
+    let scope: any
+    let rootScope: ng.IRootScopeService
+    let compile: ng.ICompileService
+    let componentController: any
+    let component: any
     let validHTML = '<preloader data-is-loading= "true"></preloader>'
-    let _timeout = null
-    beforeEach(angular.mock.module(function($provide) {
+    let _timeout: ng.ITimeoutService
+    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', url)
     }))
 
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
@@ -26,7 +26,8 @@ describe('Unit testing: profitelo.components.interface.preloader', () => {
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.components.interface.preloader')
 
-      inject(($rootScope, $compile, _$componentController_, $timeout) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
+              _$componentController_: ng.IComponentControllerService, $timeout: ng.ITimeoutService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile

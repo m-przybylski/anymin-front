@@ -1,7 +1,9 @@
-(function () {
+namespace profitelo.components.expertProfile.companySingleConsultation {
+
+  import ICallService = profitelo.services.call.ICallService
 
   /* @ngInject */
-  function controller(callService) {
+  function controller(callService: ICallService) {
 
     this.startCall = () => {
       callService.callServiceId(this.serviceTagsEmployeesTuple.service.id)
@@ -36,4 +38,4 @@
   ])
   .component('companySingleConsultation', companySingleConsultation)
 
-}())
+}

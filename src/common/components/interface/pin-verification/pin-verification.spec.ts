@@ -13,7 +13,7 @@ namespace profitelo.components.interface.pinVerification {
       const bindings = {
       }
 
-      function create(html, bindings): JQuery {
+      function create(html: string, bindings: any): JQuery {
         const parentScope = rootScope.$new()
         const parentBoundScope = angular.extend(parentScope, bindings)
         let elem = angular.element(html)

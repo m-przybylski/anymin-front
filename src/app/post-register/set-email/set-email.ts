@@ -1,6 +1,12 @@
-(function () {
+namespace profitelo.postRegister.setEmail {
 
-  function _controller($log, $filter, $state, topWaitingLoaderService, User, topAlertService, AccountApi) {
+  import IFilterService = profitelo.services.filter.IFilterService
+  import ITopWaitingLoaderService = profitelo.services.topWaitingLoader.ITopWaitingLoaderService
+  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+
+  function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.ui.IStateService,
+                       topWaitingLoaderService: ITopWaitingLoaderService, User: any, topAlertService: ITopAlertService,
+                       AccountApi: any) {
 
     this.isPending = false
     this.rulesAccepted = false
@@ -10,7 +16,7 @@
     this.email = ''
     this.emailExist = false
 
-    let _updateNewUserObject = (patchObject, successCallback) => {
+    let _updateNewUserObject = (patchObject: any, successCallback: Function) => {
       /* istanbul ignore next if */
       if (!this.isPending) {
         this.isPending = true
@@ -18,7 +24,7 @@
 
         patchObject.accountId = User.getData('id')
 
-        AccountApi.partialUpdateAccount(patchObject).$promise.then(successCallback, (error) => {
+        AccountApi.partialUpdateAccount(patchObject).$promise.then(successCallback, (error: any) => {
           $log.error(error)
           this.isPending = false
           topWaitingLoaderService.stopLoader()
@@ -31,14 +37,14 @@
       }
     }
 
-    let _isEmailExists = (email) => {
+    let _isEmailExists = (email: string) => {
       return AccountApi.getAccountEmailExists({
         email: email
       }).$promise
     }
 
     this.setNewEmail = () => {
-      _isEmailExists(this.email).then(_response => {
+      _isEmailExists(this.email).then((_response: any) => {
         this.emailExist = true
       }, () => {
         _updateNewUserObject({
@@ -58,7 +64,7 @@
     return this
   }
 
-  function config($stateProvider, UserRolesProvider) {
+  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
     $stateProvider.state('app.post-register.set-email', {
       url: '/set-email',
       controllerAs: 'vm',
@@ -66,9 +72,9 @@
       templateUrl: 'post-register/set-email/set-email.tpl.html',
       resolve: {
         /* istanbul ignore next */
-        redirect: (User, $state, $q) => {
+        redirect: (User: any, $state: ng.ui.IStateService, $q: ng.IQService) => {
           /* istanbul ignore next */
-          return User.getStatus().then((status) => {
+          return User.getStatus().then((status: any) => {
             if (((angular.isDefined(status.email) && status.email) ||
               (angular.isDefined(status.unverifiedEmail) && status.unverifiedEmail)) || (
                 angular.isDefined(status.hasPassword) && !status.hasPassword
@@ -104,4 +110,4 @@
     .config(config)
     .controller('SetEmailController', _controller)
 
-}())
+}

@@ -1,15 +1,15 @@
 describe('Unit testing: profitelo.components.dashboard.charge-account.thank-you-page', () => {
   return describe('for thankYouPage component >', () => {
 
-    let scope
-    let rootScope
-    let compile
-    let componentController
-    let component
-    let location
+    let scope: any
+    let rootScope: ng.IRootScopeService
+    let compile: ng.ICompileService
+    let componentController: any
+    let component: any
+    let location: ng.ILocationService
     let validHTML = '<thank-you-page></thank-you-page>'
 
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
@@ -21,7 +21,8 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.thank-you-
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.components.dashboard.thank-you-page')
 
-      inject(($rootScope, $compile, _$componentController_, _$location_) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
+              _$componentController_: ng.IComponentControllerService, _$location_: ng.ILocationService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
@@ -29,7 +30,7 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.thank-you-
       })
 
       location.search = () => {
-        return {
+        return <any>{
           currency: 'PLN',
           amount:  12123
         }

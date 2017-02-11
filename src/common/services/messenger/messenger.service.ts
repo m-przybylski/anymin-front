@@ -1,11 +1,13 @@
-import ICallService = profitelo.services.call.ICallService
-
 namespace profitelo.services.messenger {
 
+  import ICallService = profitelo.services.call.ICallService
   import ICommunicatorService = profitelo.services.communicator.ICommunicatorService
   import ICallbacksFactory = profitelo.services.callbacks.ICallbacksFactory
   import ICallbacksService = profitelo.services.callbacks.ICallbacksService
   import ISoundsService = profitelo.services.sounds.ISoundsService
+  import Profile = profitelo.models.Profile
+  import ExpertProfile = profitelo.models.ExpertProfile
+  import Service = profitelo.models.Service
 
   export interface IMessengerService {
     onClientTyping(cb: () => void): void

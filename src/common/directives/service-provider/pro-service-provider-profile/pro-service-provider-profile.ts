@@ -1,7 +1,17 @@
-(function() {
-  function proServiceProviderProfile($sce) {
+namespace profitelo.directives.serviceProvider.proServiceProviderProfile {
 
-    function linkFunction(scope) {
+  interface ProServiceProviderProfile extends ng.IScope {
+    invertArrow: boolean
+    textLimit: number | null
+    description: string
+    onClick: Function
+    buttonAction: Function
+    showMoreText: Function
+  }
+
+  function proServiceProviderProfile($sce: ng.ISCEService) {
+
+    function linkFunction(scope: ProServiceProviderProfile) {
 
       scope.invertArrow = false
       scope.textLimit = 1000
@@ -42,4 +52,4 @@
     'profitelo.components.interface.show-more-text'
   ])
     .directive('proServiceProviderProfile', proServiceProviderProfile)
-}())
+}

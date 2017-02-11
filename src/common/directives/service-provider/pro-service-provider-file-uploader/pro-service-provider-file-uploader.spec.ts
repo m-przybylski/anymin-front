@@ -1,12 +1,13 @@
+namespace profitelo.directives.serviceProvider.proServiceProviderFileUploader {
 describe('Unit testing: profitelo.directives.service-provider.pro-service-provider-file-uploader', function() {
   return describe('for proServiceProviderFileUploader directive >', function() {
 
     var compile: any = null
     var scope: any = null
-    let _rootScope
-    let _httpBackend
-    let _FilesApiDef
-    let resourcesExpectations
+    let _rootScope: ng.IRootScopeService
+    let _httpBackend: ng.IHttpBackendService
+    let _FilesApiDef: any
+    let resourcesExpectations: any
 
     let file = {token: ':token'}
     let _url = 'awesomeUrl'
@@ -17,7 +18,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
       ' data-error-message="DASHBOARD.SERVICE_PROVIDER.NAME.BAD_NAME" tr-title="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT" ' +
       'tr-desc="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT_DESCRIPTION" required="required"></pro-service-provider-file-uploader>'
 
-    beforeEach(angular.mock.module(($provide) => {
+    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', _url)
     }))
 
@@ -26,7 +27,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
     angular.mock.module('profitelo.directives.service-provider.pro-service-provider-file-uploader')
     angular.mock.module('profitelo.swaggerResources.definitions')
 
-      inject(($rootScope, $compile, $injector) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, $injector: ng.auto.IInjectorService) => {
 
         _rootScope = $rootScope
 
@@ -45,7 +46,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
       })
     })
 
-    function create(html, proModel) {
+    function create(html: string, proModel: any) {
       var elem = angular.element(html)
       scope.proModel = proModel
       var compiledElement = compile(elem)(scope)
@@ -161,3 +162,4 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
 
   })
 })
+}

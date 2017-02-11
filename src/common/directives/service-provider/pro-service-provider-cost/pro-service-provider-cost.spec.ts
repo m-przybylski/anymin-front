@@ -1,3 +1,4 @@
+namespace profitelo.directives.serviceProvider.proServiceProviderCost {
 describe('Unit testing: profitelo.directives.service-provider.pro-service-provider-cost', () => {
   return describe('for proServiceProviderCost directive >', () => {
 
@@ -14,13 +15,13 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.directives.service-provider.pro-service-provider-cost')
 
-      inject(($rootScope, $compile) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {
         scope = $rootScope.$new()
         compile = $compile
       })
     })
 
-    function create(html) {
+    function create(html: string) {
       var elem = angular.element(html)
       scope.proModel = {cost: {amount: 0, currency: 'PLN'}}
       var compiledElement = compile(elem)(scope)
@@ -38,3 +39,4 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
     })
   })
 })
+}

@@ -1,7 +1,14 @@
-(function () {
-  function proServiceProviderAvatar($log: ng.ILogService, $q: ng.IQService, topAlertService, FilesApi: any) {
+namespace profitelo.directives.serviceProvider.proServiceProviderAvatar {
 
-    function linkFunction(scope, _element: ng.IRootElementService, attrs) {
+  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+
+  interface Attributes extends ng.IAttributes{
+    imageField?: string
+  }
+
+  function proServiceProviderAvatar($log: ng.ILogService, $q: ng.IQService, topAlertService: ITopAlertService, FilesApi: any) {
+
+    function linkFunction(scope: any, _element: ng.IRootElementService, attrs: Attributes) {
 
       scope.imageField = 'avatar'
       scope.required = false
@@ -23,11 +30,11 @@
       scope.model = {}
       scope.model[scope.imageField] = []
 
-      let _getImageIfExist = (model) => {
-        FilesApi.fileInfoPath({token: model}).$promise.then((res) => {
+      let _getImageIfExist = (model: any) => {
+        FilesApi.fileInfoPath({token: model}).$promise.then((res: any) => {
           scope.model[scope.imageField].push({file: null, response: res})
           scope.isPending = false
-        }, (err) => {
+        }, (err: any) => {
           $log.error(err)
           topAlertService.error({
             message: 'error',
@@ -102,4 +109,4 @@
     'profitelo.services.top-alert'
   ])
     .directive('proServiceProviderAvatar', proServiceProviderAvatar)
-}())
+}

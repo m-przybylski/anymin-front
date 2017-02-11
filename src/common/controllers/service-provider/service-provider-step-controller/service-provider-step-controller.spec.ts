@@ -1,26 +1,30 @@
-describe('Unit tests: ServiceProviderStepController >', () => {
+namespace profitelo.controllers.serviceProvider.serviceProviderStepController {
+import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
+  describe('Unit tests: ServiceProviderStepController >', () => {
   describe('Testing Controller: ServiceProviderStepController', () => {
 
-    let ServiceProviderStepController
+    let ServiceProviderStepController: any
     let ServiceProviderStepControllerSlave
-    let _scope
-    let _scopeSlave
-    let _timeout
-    let _smoothScrollingService
+    let _scope: any
+    let _scopeSlave: any
+    let _timeout: ng.ITimeoutService
+    let _smoothScrollingService: ISmoothScrollingService
     let url = 'awesomeUrl/'
 
-    beforeEach(angular.mock.module(function($provide) {
+    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', url)
     }))
 
     beforeEach(() => {
     angular.mock.module('profitelo.controller.dashboard.service-provider.consultation-range')
-      inject(($rootScope, $controller, _ProfileApi_, _$timeout_) => {
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _ProfileApi_: any,
+              _$timeout_: ng.ITimeoutService) => {
 
         _timeout = _$timeout_
 
         _smoothScrollingService = {
-          scrollTo: () => {}
+          scrollTo: () => {},
+          simpleScrollTo: () => {}
         }
 
         let _queue = {
@@ -128,4 +132,4 @@ describe('Unit tests: ServiceProviderStepController >', () => {
     })
 
   })
-})
+})}

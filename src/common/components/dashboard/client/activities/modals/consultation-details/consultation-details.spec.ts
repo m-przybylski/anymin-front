@@ -1,7 +1,9 @@
-describe('Testing Controller: clientConsultationDetails', () => {
+namespace profitelo.components.dashboard.client.activities.modals.consultationDetails {
+import IUrlService = profitelo.services.helper.IUrlService
+  describe('Testing Controller: clientConsultationDetails', () => {
 
-  var clientConsultationDetails
-  var scope
+  var clientConsultationDetails: any
+  var scope: any
   var uibModalInstance = {
     dismiss: () => {
 
@@ -11,13 +13,14 @@ describe('Testing Controller: clientConsultationDetails', () => {
     }
   }
 
-  beforeEach(angular.mock.module(($provide) => {
+  beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
     $provide.value('apiUrl', 'awesomeURL')
   }))
 
   beforeEach(() => {
     angular.mock.module('profitelo.components.dashboard.client.activities.modals.consultation-details')
-    inject(($rootScope, $controller, _$httpBackend_, _urlService_, _ViewsApi_) => {
+    inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _$httpBackend_: ng.IHttpBackendService,
+            _urlService_: IUrlService, _ViewsApi_: any) => {
 
       scope = $rootScope.$new()
       scope.disconnectCall = () => {}
@@ -44,3 +47,4 @@ describe('Testing Controller: clientConsultationDetails', () => {
 
 })
 
+}

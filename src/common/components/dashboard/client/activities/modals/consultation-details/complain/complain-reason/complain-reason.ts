@@ -1,6 +1,9 @@
-(function() {
+namespace profitelo.components.dashboard.client.activities.modals.consultationDetails.complain.complainReason {
+
+  import IModalsService = profitelo.services.modals.IModalsService
+
   /* @ngInject */
-  function controller(modalsService) {
+  function controller(modalsService: IModalsService) {
     this.isRadioActive = false
 
     this.showComplainReasonModal = () => {
@@ -17,11 +20,11 @@
       {id: 'id5value', isDescriptive: true, name: 'DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.REPORT_COMPLAINS.REASON_OTHER', description: 'Other reason description'}
     ]
 
-    this.isSelected = (item) => {
+    this.isSelected = (item: any) => {
       return this.isRadioActive === item
     }
 
-    this.isRadioSelected = (item) => {
+    this.isRadioSelected = (item: any) => {
       this.onReasonChange()
       this.isRadioActive = item
     }
@@ -47,5 +50,5 @@
 
   ])
     .component('clientComplainReason', component)
-}())
+}
 

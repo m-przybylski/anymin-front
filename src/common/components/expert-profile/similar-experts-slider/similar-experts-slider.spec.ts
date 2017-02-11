@@ -1,17 +1,18 @@
+namespace profitelo.components.expertProfile.similarExpertsSlider {
 describe('Unit testing: profitelo.components.expert-profile.similar-experts-slider', () => {
   return describe('for similarExpertsSlider component >', () => {
 
-    let scope
-    let rootScope
-    let compile
-    let componentController
-    let component
-    let $state
-    let bindings
+    let scope: any
+    let rootScope: ng.IRootScopeService
+    let compile: ng.ICompileService
+    let componentController: any
+    let component: any
+    let $state: ng.ui.IStateService
+    let bindings: any
     let validHTML = '<similar-experts-slider consultations="[{name: null}]"></similar-experts-slider>'
-    let el
+    let el: any
 
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
@@ -25,7 +26,8 @@ describe('Unit testing: profitelo.components.expert-profile.similar-experts-slid
       angular.mock.module('ui.router')
       angular.mock.module('profitelo.components.interface.slider')
 
-      inject(($rootScope, $compile, _$componentController_, _$state_) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
+              _$componentController_: ng.IComponentControllerService, _$state_: ng.ui.IStateService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
@@ -60,7 +62,7 @@ describe('Unit testing: profitelo.components.expert-profile.similar-experts-slid
     })
 
     it('should go to next-slide', () => {
-      const $scope = rootScope
+      const $scope: any = rootScope
       $scope.controlls = {
         nextSlide: () => {
           return 1011
@@ -73,7 +75,7 @@ describe('Unit testing: profitelo.components.expert-profile.similar-experts-slid
     })
 
     it('should go to prev-slide', () => {
-      const $scope = rootScope
+      const $scope: any = rootScope
       $scope.controlls = {
         prevSlide: () => {
           return 1011
@@ -103,3 +105,4 @@ describe('Unit testing: profitelo.components.expert-profile.similar-experts-slid
 
   })
 })
+}

@@ -1,7 +1,11 @@
-(function () {
+namespace profitelo.components.search.singleConsultation {
+
+  import IUrlService = profitelo.services.helper.IUrlService
+  import ICallService = profitelo.services.call.ICallService
 
   /* @ngInject */
-  function singleConsultationController($state, urlService, callService) {
+  function singleConsultationController($state: ng.ui.IStateService, urlService: IUrlService,
+                                        callService: ICallService) {
     this.isLinkActive = true
 
     this.$onInit = () => {
@@ -57,6 +61,6 @@
     'profitelo.filters.object-size-filter',
     'profitelo.resolvers.service-provider-image'
   ])
-  .component('singleConsultation', singleConsultation)
+    .component('singleConsultation', singleConsultation)
 
-}())
+}

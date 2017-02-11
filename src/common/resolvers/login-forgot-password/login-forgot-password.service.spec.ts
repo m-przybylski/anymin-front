@@ -1,12 +1,15 @@
-describe('Unit testing: profitelo.resolvers.login-forgot-password', () => {
+namespace profitelo.resolvers.loginForgotPassword {
+
+  import IForgotPasswordStateParams = profitelo.login.forgotPassword.IForgotPasswordStateParams
+  describe('Unit testing: profitelo.resolvers.login-forgot-password', () => {
   describe('for LoginForgotPasswordResolver service >', () => {
 
-    let AppLoginForgotPasswordResolverService
+    let AppLoginForgotPasswordResolverService: ILoginForgotPasswordService
     let url = 'awesomeURL'
-    let _timeout
-    let mockState
+    let _timeout: ng.ITimeoutService
+    let mockState: any
 
-    beforeEach(angular.mock.module(function($provide) {
+    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', url)
     }))
 
@@ -15,13 +18,13 @@ describe('Unit testing: profitelo.resolvers.login-forgot-password', () => {
       mockState = {
         go: () => {}
       }
-      
-    angular.mock.module('profitelo.resolvers.login-forgot-password', function($provide) {
+
+    angular.mock.module('profitelo.resolvers.login-forgot-password', function($provide: ng.auto.IProvideService) {
         $provide.value('$state',  mockState)
       })
 
-      inject(($injector) => {
-        AppLoginForgotPasswordResolverService = $injector.get('LoginForgotPasswordResolver')
+      inject(($injector: ng.auto.IInjectorService) => {
+        AppLoginForgotPasswordResolverService = $injector.get<ILoginForgotPasswordService>('LoginForgotPasswordResolver')
         _timeout = $injector.get('$timeout')
       })
     })
@@ -41,13 +44,17 @@ describe('Unit testing: profitelo.resolvers.login-forgot-password', () => {
 
       spyOn(spy, 'spy')
 
-      AppLoginForgotPasswordResolverService.resolve().then(
+      const params: IForgotPasswordStateParams = {
+        method: 'sms'
+      }
+
+      AppLoginForgotPasswordResolverService.resolve(params).then(
       () => {
 
       }, () => {
         spy.spy()
       })
-      
+
       _timeout.flush()
       expect(spy.spy).toHaveBeenCalled()
       expect(mockState.go).toHaveBeenCalledWith('app.login.account')
@@ -56,4 +63,4 @@ describe('Unit testing: profitelo.resolvers.login-forgot-password', () => {
 
 
   })
-})
+})}

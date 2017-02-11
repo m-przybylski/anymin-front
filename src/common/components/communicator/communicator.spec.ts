@@ -9,7 +9,7 @@ namespace profitelo.components.communicator {
 
       const validHTML: string = '<communicator></communicator>'
 
-      function create(html) {
+      function create(html: string) {
         const parentScope: ng.IScope = rootScope.$new()
         const elem = angular.element(html)
         const compiledElement = compile(elem)(parentScope)
@@ -22,7 +22,7 @@ namespace profitelo.components.communicator {
         angular.mock.module('profitelo.services.call')
       })
 
-      beforeEach(angular.mock.module(($provide) => {
+      beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
         $provide.value('soundsService', {})
         $provide.value('apiUrl', 'awesomeUrl/')
       }))

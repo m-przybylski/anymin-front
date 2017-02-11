@@ -1,8 +1,15 @@
-(function() {
+namespace profitelo.components.dashboard.chargeAccount.payuPaymentForm {
+
+  import IWindowService = profitelo.services.window.IWindowService
+  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+  import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
+  import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
 
   /* @ngInject */
-  function payuPaymentFormController($log: ng.ILogService, $window: ng.IWindowService, $state, PaymentsApi: any,
-                                     User: any, topAlertService, smoothScrollingService, CommonSettingsService) {
+  function payuPaymentFormController($log: ng.ILogService, $window: IWindowService, $state: ng.ui.IStateService,
+                                     PaymentsApi: any, User: any, topAlertService: ITopAlertService,
+                                     smoothScrollingService: ISmoothScrollingService,
+                                     CommonSettingsService: ICommonSettingsService) {
     let isPending = false
 
     this.rulesAccepted = true
@@ -10,7 +17,7 @@
     this.bankModel = {}
 
     /* istanbul ignore next function*/
-    this.onEnter = (option) => {
+    this.onEnter = (option: number) => {
       if (option < 3) {
         $('[data-index="' + (option + 1).toString() + '"] input').focus()
       }
@@ -38,10 +45,10 @@
 
         isPending = true
 
-        PaymentsApi.postPayUOrder(this.sendPaymentObject).$promise.then((response) => {
+        PaymentsApi.postPayUOrder(this.sendPaymentObject).$promise.then((response: any) => {
           isPending = false
           $window.open(response.redirectUrl, '_self', undefined, true)
-        }, (error) => {
+        }, (error: any) => {
           $log.error(error)
           topAlertService.error({
             message: 'error',
@@ -124,4 +131,4 @@
   ])
     .component('payuPaymentForm', payuPaymentForm)
 
-}())
+}

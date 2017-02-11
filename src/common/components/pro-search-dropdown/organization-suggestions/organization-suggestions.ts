@@ -1,12 +1,14 @@
-( function() {
+namespace profitelo.components.proSearchDropdown.organizationDetails {
+
+  import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
 
   /* @ngInject */
-  function organizationSuggestionsController(CommonSettingsService) {
+  function organizationSuggestionsController(CommonSettingsService: ICommonSettingsService) {
 
-    this.profileImage = (index) => {
+    this.profileImage = (index: number) => {
       return !!this.organizations.results[index].img ? CommonSettingsService.links.imageUrl.replace('%s', this.organizations.results[index].img) : false
     }
-    
+
     return this
   }
 
@@ -27,4 +29,4 @@
   ])
     .component('organizationSuggestions', organizationSuggestions)
 
-}())
+}

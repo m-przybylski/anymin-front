@@ -9,7 +9,7 @@ namespace profitelo.components.dashboard.settings.manageDevices {
 
       const validHTML: string = '<manage-devices></manage-devices>'
 
-      function create(html) {
+      function create(html: string) {
         const parentScope: ng.IScope = rootScope.$new()
         const elem = angular.element(html)
         const compiledElement = compile(elem)(parentScope)

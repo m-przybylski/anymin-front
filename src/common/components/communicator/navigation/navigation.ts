@@ -1,5 +1,6 @@
 namespace profitelo.components.communicator.navigation {
 
+  import ICallService = profitelo.services.call.ICallService
   export interface INavigationComponentBindings {
     isVideo: boolean
     isMessenger: boolean
@@ -24,7 +25,7 @@ namespace profitelo.components.communicator.navigation {
       this.hangupCall = callService.hangupCall
     }
 
-    public animateButtons = (elem) => {
+    public animateButtons = (elem: any) => {
       if (elem.currentTarget.classList.contains('is-active')) {
         elem.currentTarget.classList.add('is-inactive')
         elem.currentTarget.classList.remove('is-active')
@@ -49,18 +50,18 @@ namespace profitelo.components.communicator.navigation {
       this.isVideo = false
     }
 
-    public startVideo = (elem) => {
+    public startVideo = (elem: Element) => {
       this.callService.startVideo()
       this.isVideo = true
       this.animateButtons(elem)
     }
 
-    public toggleOptions = (elem) => {
+    public toggleOptions = (elem: Element) => {
       this.animateButtons(elem)
       this.areOptions = !this.areOptions
     }
 
-    public toggleMessenger = (elem) => {
+    public toggleMessenger = (elem: Element) => {
       this.animateButtons(elem)
       this.isMessenger = !this.isMessenger
     }

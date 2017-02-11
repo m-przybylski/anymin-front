@@ -1,21 +1,21 @@
-/*  TESTED IN ALERT DIRECTIVE: /src/common/directives/interface/pro-alert/pro-alert.spec.js */
-describe('Unit testing: profitelo.services.pro-top-alert-service>', () => {
-  describe('for topAlertService service >', () => {
+namespace profitelo.services.topAlert {
 
-    let topAlertService  = null
+  describe('Unit testing: profitelo.services.pro-top-alert-service>', () => {
+    describe('for topAlertService service >', () => {
 
-    beforeEach(() => {
-    angular.mock.module('profitelo.services.top-alert')
+      let topAlertService: ITopAlertService
 
-      inject(($injector) => {
-        topAlertService = $injector.get('topAlertService')
+      beforeEach(() => {
+        angular.mock.module('profitelo.services.top-alert')
+
+        inject(($injector: ng.auto.IInjectorService) => {
+          topAlertService = $injector.get<ITopAlertService>('topAlertService')
+        })
+      })
+
+      it('should have a dummy test', () => {
+        expect(true).toBeTruthy()
       })
     })
-
-    it('should have a dummy test', () => {
-      expect(true).toBeTruthy()
-    })
-
-
   })
-})
+}

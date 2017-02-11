@@ -1,6 +1,10 @@
-(function() {
+namespace profitelo.components.interface.goToTop {
+
+  import IWindowService = profitelo.services.window.IWindowService
+  import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
+
   /* @ngInject */
-  function controller($window, $scope, smoothScrollingService) {
+  function controller($window: IWindowService, $scope: ng.IScope, smoothScrollingService: ISmoothScrollingService) {
 
     this.flagController = {
       isShow: false,
@@ -33,4 +37,4 @@
   ])
     .component('goToTop', goToTop)
 
-}())
+}

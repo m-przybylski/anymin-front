@@ -1,6 +1,8 @@
-(function() {
-  function proExpertSlider(dialogService, $timeout) {
-    function linkFunction(scope) {
+namespace profitelo.directives.expertProfile.proExpertSlider {
+  import IDialogService = profitelo.services.dialog.IDialogService
+  function proExpertSlider(dialogService: IDialogService, $timeout: ng.ITimeoutService) {
+
+    function linkFunction(scope: any) {
 
       scope.areControllsVisible = true
 
@@ -10,21 +12,21 @@
         }
       })
 
-      scope.imageUrl = (slide) => {
+      scope.imageUrl = (slide: any) => {
         return slide.previews[0]
       }
 
       scope.controlls = {}
 
-      scope.nextSlide = function() {
+      scope.nextSlide = function () {
         scope.controlls.nextSlide()
       }
 
-      scope.prevSlide = function() {
+      scope.prevSlide = function () {
         scope.controlls.prevSlide()
       }
 
-      scope.openDialog = (slide) => {
+      scope.openDialog = (slide: any) => {
         scope.fullSizeUrl = slide.previews[0]
         scope.slide = slide
         dialogService.openDialog({
@@ -54,6 +56,6 @@
     'profitelo.common.controller.lightbox-model',
     'profitelo.components.pro-lightbox'
   ])
-  .directive('proExpertSlider', proExpertSlider)
+    .directive('proExpertSlider', proExpertSlider)
 
-}())
+}

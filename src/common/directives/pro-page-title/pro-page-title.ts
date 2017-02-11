@@ -1,22 +1,24 @@
-(function() {
+namespace profitelo.directives.proPageTitle {
+  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  import IFilterService = profitelo.services.filter.IFilterService
 
-  function pageTitleDirective($rootScope, $filter) {
+  function pageTitleDirective($rootScope: IRootScopeService, $filter: IFilterService) {
 
-    function linkFunction(_scope, element, _attrs) {
+    function linkFunction(_scope: ng.IScope, element: ng.IRootElementService, _attrs: ng.IAttributes) {
 
       let pageTitle = ''
 
-      function changePageTitle(text) {
+      function changePageTitle(text: string) {
         element.text(text)
       }
 
-      $rootScope.$on('prependTitle', (_event, data) => {
+      $rootScope.$on('prependTitle', (_event: ng.IAngularEvent, data: any) => {
 
         changePageTitle(data + ' - ' + pageTitle)
 
       })
 
-      function traverseDownStates(data) {
+      function traverseDownStates(data: any) {
 
         pageTitle = ''
         let currentLevel = data
@@ -38,7 +40,8 @@
         changePageTitle(pageTitle)
       }
 
-      $rootScope.$on('$stateChangeStart', (_event, toState, _toParams, _fromState, _fromParams, _error) => {
+      $rootScope.$on('$stateChangeStart', (_event: ng.IAngularEvent, toState: ng.ui.IState, _toParams: Object,
+                                           _fromState: ng.ui.IState, _fromParams: Object, _error: any) => {
         traverseDownStates(toState.data)
       })
 
@@ -54,6 +57,5 @@
     'ui.router',
     'pascalprecht.translate'
   ])
-  .directive('pageTitle', pageTitleDirective)
-
-}())
+    .directive('pageTitle', pageTitleDirective)
+}

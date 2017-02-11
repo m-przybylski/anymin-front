@@ -3,6 +3,7 @@ namespace profitelo.resolvers.loginSetNewPassword {
   import ILoginStateService = profitelo.services.loginState.ILoginStateService
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import IFilterService = profitelo.services.filter.IFilterService
+  import ISetNewPasswordStateParams = profitelo.login.setNewPassword.ISetNewPasswordStateParams
 
   export interface ILoginSetNewPassword {
     method: string
@@ -13,7 +14,7 @@ namespace profitelo.resolvers.loginSetNewPassword {
   }
 
   export interface ILoginSetNewPasswordService {
-    resolve(stateParam: ng.ui.IStateParamsService): ng.IPromise<ILoginSetNewPassword>
+    resolve(stateParam: ISetNewPasswordStateParams): ng.IPromise<ILoginSetNewPassword>
   }
 
   class LoginSetNewPasswordResolver implements ILoginSetNewPasswordService {
@@ -21,11 +22,11 @@ namespace profitelo.resolvers.loginSetNewPassword {
     constructor(private $state: ng.ui.IStateService, private $filter: IFilterService,
                 private $timeout: ng.ITimeoutService, private $q: ng.IQService,
                 private loginStateService: ILoginStateService, private topAlertService: ITopAlertService,
-                private RecoverPasswordApi) {
+                private RecoverPasswordApi: any) {
 
     }
 
-    public resolve = (stateParams) => {
+    public resolve = (stateParams: ISetNewPasswordStateParams) => {
 
       let _deferred = this.$q.defer()
 

@@ -1,5 +1,8 @@
-(function () {
-  function HomeController($scope, smoothScrollingService) {
+namespace profitelo.home {
+
+  import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
+
+  function HomeController($scope: ng.IScope, smoothScrollingService: ISmoothScrollingService) {
 
     this.interfaceController = {}
 
@@ -187,7 +190,7 @@
     'profitelo.components.pro-search-dropdown',
     'profitelo.components.interface.slider'
   ])
-  .config(($stateProvider, UserRolesProvider) => {
+  .config(($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) => {
     $stateProvider.state('app.home', {
       url: '/home',
       controllerAs: 'vm',
@@ -200,4 +203,4 @@
     })
   })
   .controller('HomeController', HomeController)
-}())
+}

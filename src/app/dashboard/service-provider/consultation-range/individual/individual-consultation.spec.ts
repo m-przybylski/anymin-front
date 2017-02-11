@@ -1,18 +1,21 @@
-describe('Unit tests: profitelo.controller.dashboard.service-provider.consultation-range.individual >', () => {
+namespace profitelo.dashboard.serviceProvider.consultationRange.individual {
+import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+  import Profile = profitelo.models.Profile
+  describe('Unit tests: profitelo.controller.dashboard.service-provider.consultation-range.individual >', () => {
   describe('Testing Controller: IndividualConsultationController', () => {
 
-    var IndividualConsultationController
-    let _scope
+    var IndividualConsultationController: any
+    let _scope: any
     let url = 'awesomeUrl'
-    let _state
-    let _ServiceApiDef
-    let resourcesExpectations
-    let _httpBackend
-    let _topAlertService
-    let _ServiceApi
-    let _controller
+    let _state: ng.ui.IStateService
+    let _ServiceApiDef: any
+    let resourcesExpectations: any
+    let _httpBackend: ng.IHttpBackendService
+    let _topAlertService: ITopAlertService
+    let _ServiceApi: any
+    let _controller: any
 
-    function createController(controller, savedProfile, profileImage) {
+    function createController(controller: any, savedProfile: Profile | null, profileImage: string) {
       IndividualConsultationController = controller('IndividualConsultationController', {
         $scope: _scope,
         ServiceApi: _ServiceApi,
@@ -23,7 +26,7 @@ describe('Unit tests: profitelo.controller.dashboard.service-provider.consultati
       })
     }
 
-    beforeEach(angular.mock.module(function($provide) {
+    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', url)
     }))
 
@@ -31,7 +34,9 @@ describe('Unit tests: profitelo.controller.dashboard.service-provider.consultati
     angular.mock.module('profitelo.swaggerResources.definitions')
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.controller.dashboard.service-provider.consultation-range.individual')
-      inject(($rootScope, $controller, $httpBackend, $injector, _$state_, _ServiceApi_, _topAlertService_) => {
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $httpBackend: ng.IHttpBackendService,
+              $injector: ng.auto.IInjectorService, _$state_: ng.ui.IStateService, _ServiceApi_: any,
+              _topAlertService_: ITopAlertService) => {
 
         _scope = $rootScope.$new()
         _state = _$state_
@@ -41,12 +46,12 @@ describe('Unit tests: profitelo.controller.dashboard.service-provider.consultati
         _controller = $controller
 
 
-        createController(_controller, {
+        createController(_controller,<any>{
           expertDetails: {
-            d: 1
+            id: 1
           },
-          organizationDetails: null
-        }, {})
+          organizationDetails: undefined
+        }, '')
 
         _ServiceApiDef = $injector.get('ServiceApiDef')
 
@@ -104,10 +109,10 @@ describe('Unit tests: profitelo.controller.dashboard.service-provider.consultati
 
       spyOn(_state, 'go')
 
-      createController(_controller, {
-        expertDetails: null,
-        organizationDetails: null
-      }, {})
+      createController(_controller, <Profile>{
+        expertDetails: undefined,
+        organizationDetails: undefined
+      }, '')
 
       IndividualConsultationController.backToFirstStep()
 
@@ -150,3 +155,4 @@ describe('Unit tests: profitelo.controller.dashboard.service-provider.consultati
 
   })
 })
+}

@@ -21,10 +21,10 @@ namespace profitelo.components.communicator.messenger.minimized {
       messengerService.onChatLeft(this.init)
     }
 
-    private hideMessage = (message) =>
+    private hideMessage = (message: any) =>
       this.messages = this.messages.filter(msg => msg !== message)
 
-    private showMessage = (message) => {
+    private showMessage = (message: any) => {
       this.messages.push(message)
       this.$timeout(_ => this.hideMessage(message), MessengerMinimizedComponentController.messageShowTimeout)
     }

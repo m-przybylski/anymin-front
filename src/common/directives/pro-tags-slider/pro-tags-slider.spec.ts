@@ -1,8 +1,9 @@
+namespace profitelo.directives.proTagsSlider {
 describe('Unit testing: profitelo.directives.pro-tags-slider', () => {
   return describe('for pro-tags-slider directive >', () => {
 
     let scope: any = null
-    let rootScope
+    let rootScope: ng.IRootScopeService
     let compile: any = null
     let _timeout: ng.ITimeoutService
     let validHTML = '<pro-tags-slider data-tags="[{name: \'sdsd\', id:999}, {name: \'sdsd\', id:999}, {name: \'sdsd\', ' +
@@ -12,15 +13,15 @@ describe('Unit testing: profitelo.directives.pro-tags-slider', () => {
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.directives.pro-tags-slider')
 
-      inject(($rootScope, $compile, $timeout) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, $timeout: ng.ITimeoutService) => {
         rootScope = $rootScope.$new()
         compile = $compile
         _timeout = $timeout
-        
+
       })
     })
 
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
@@ -45,4 +46,4 @@ describe('Unit testing: profitelo.directives.pro-tags-slider', () => {
       isoScope.tagAction(tag)
     })
   })
-})
+})}

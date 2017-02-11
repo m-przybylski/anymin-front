@@ -120,7 +120,7 @@
     'profitelo.directives.pro-tags-slider',
     'profitelo.components.interface.card-slider'
   ])
-  .config(function ($stateProvider, UserRolesProvider) {
+  .config(function ($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
     $stateProvider.state('app.consultations-field', {
       url: '/consultations-field/{fieldId:int}',
       templateUrl: 'consultations-field/consultations-field.tpl.html',

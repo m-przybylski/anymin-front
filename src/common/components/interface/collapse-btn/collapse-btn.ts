@@ -1,6 +1,9 @@
-(function() {
+namespace profitelo.components.interface.collapseBtn {
+
+  import IWindowService = profitelo.services.window.IWindowService
+
   /* @ngInject */
-  function controller($log, $element, $window) {
+  function controller($log: ng.ILogService, $element: ng.IRootElementService, $window: IWindowService) {
     this.stylesObject = {
       minHeight: null
     }
@@ -73,4 +76,4 @@
   ])
     .component('collapseBtn', component)
 
-}())
+}

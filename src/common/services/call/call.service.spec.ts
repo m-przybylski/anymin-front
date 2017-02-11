@@ -1,150 +1,209 @@
-describe('Unit testing: profitelo.services.call >', () => {
-  describe('for profitelo.services.call >', () => {
+namespace profitelo.services.call {
+  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  import ICommunicatorService = profitelo.services.communicator.ICommunicatorService
+  import INavigatorService = profitelo.services.navigator.INavigatorService
+  describe('Unit testing: profitelo.services.call >', () => {
+    describe('for profitelo.services.call >', () => {
 
-    let callService
-    let onCall
-    const modalsService = {
-      createClientConsultationSummaryModal: _ => _,
-      createExpertConsultationSummaryModal: _ => _,
-      createIncomingCallModal: _ => _,
-      createServiceUnavailableModal: _ => _
-    }
+      let callService: ICallService
+      let onCall: any
+      const modalsService = {
+        createClientConsultationSummaryModal: () => {
+        },
+        createExpertConsultationSummaryModal: () => {
+        },
+        createIncomingCallModal: () => {
+        },
+        createServiceUnavailableModal: () => {
+        }
+      }
 
-    const communicatorServiceMock = {
-      onCall: (cb) => onCall = cb
-    }
+      const communicatorServiceMock = {
+        onCall: (cb: any) => onCall = cb
+      }
 
-    const testSUR = {
-      agentId: '123',
-      service: {
-        id: '123',
-        details: {
-          price: {
-            amount: 100,
-            currency: 'PLN'
+      const testSUR = {
+        agentId: '123',
+        service: {
+          id: '123',
+          details: {
+            price: {
+              amount: 100,
+              currency: 'PLN'
+            }
           }
+        },
+        expert: {
+          id: '121'
         }
-      },
-      expert: {
-        id: '121'
       }
-    }
-    const call = {
-      onJoined: _ => _,
-      onLeft: _ => _,
-      mute: _ => _,
-      unmute: _ => _,
-      pause: _ => _,
-      unpause: _ => _,
-      onRemoteStream: _ => _,
-      onStreamPaused: _ => _,
-      onStreamUnpaused: _ => _,
-      onEnd: _ => _,
-      onRejected: _ => _,
-      leave: _ => _
-    }
-
-    const soundsService = {
-      playMessageNew: _ => _,
-      callConnectingSound: () => {
-        return {
-          play: _ => _,
-          stop: _ => _
+      const call = {
+        onJoined: () => {
+        },
+        onLeft: () => {
+        },
+        mute: () => {
+        },
+        unmute: () => {
+        },
+        pause: () => {
+        },
+        unpause: () => {
+        },
+        onRemoteStream: () => {
+        },
+        onStreamPaused: () => {
+        },
+        onStreamUnpaused: () => {
+        },
+        onEnd: () => {
+        },
+        onRejected: () => {
+        },
+        leave: () => {
         }
-      },
-      callIncomingSound: () => {
-        return {
-          play: _ => _,
-          stop: _ => _
+      }
+
+      const soundsService = {
+        playMessageNew: () => {
+        },
+        callConnectingSound: () => {
+          return {
+            play: () => {
+            },
+            stop: () => {
+            }
+          }
+        },
+        callIncomingSound: () => {
+          return {
+            play: () => {
+            },
+            stop: () => {
+            }
+          }
+        },
+        playCallRejected: () => {
+        },
+        playCallEnded: () => {
         }
-      },
-      playCallRejected: _ => _,
-      playCallEnded: _ => _
-    }
+      }
 
-    const navigatorService = {
-      getUserMediaStream: _ => _
-    }
+      const navigatorService = {
+        getUserMediaStream: () => {
+        }
+      }
 
-    beforeEach(() => {
-      angular.mock.module('profitelo.services.communicator')
-      angular.mock.module('profitelo.services.call')
-    })
-
-    beforeEach(angular.mock.module(($provide) => {
-      $provide.value('apiUrl', 'awesomeURL')
-      $provide.value('communicatorService', communicatorServiceMock)
-      $provide.value('soundsService', soundsService)
-      $provide.value('modalsService', modalsService)
-      $provide.value('navigatorService', navigatorService)
-    }))
-
-    beforeEach(inject(($injector) => {
-      callService = $injector.get('callService')
-    }))
-
-    it('should have a dummy test', () => {
-      expect(true).toBeTruthy()
-    })
-
-    it('should not start call if there is no clientSession', inject(($rootScope, communicatorService) => {
-      const serviceId = '1'
-
-      communicatorService.getClientSession = () => null
-
-      callService.callServiceId(serviceId).then((res) => {
-        expect(res).toEqual(null)
+      beforeEach(() => {
+        angular.mock.module('profitelo.services.communicator')
+        angular.mock.module('profitelo.services.call')
       })
 
-      $rootScope.$digest()
-    }))
+      beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
+        $provide.value('apiUrl', 'awesomeURL')
+        $provide.value('communicatorService', communicatorServiceMock)
+        $provide.value('soundsService', soundsService)
+        $provide.value('modalsService', modalsService)
+        $provide.value('navigatorService', navigatorService)
+      }))
 
-    it('should not start call if there is no serviceId', inject(($rootScope, communicatorService) => {
-      const serviceId = null
+      beforeEach(inject(($injector: ng.auto.IInjectorService) => {
+        callService = $injector.get<ICallService>('callService')
+      }))
 
-      communicatorService.getClientSession = () => {
-        return {}
-      }
-
-      callService.callServiceId(serviceId).then((res) => {
-        expect(res).toEqual(null)
+      it('should have a dummy test', () => {
+        expect(true).toBeTruthy()
       })
 
-      $rootScope.$digest()
-    }))
+      it('should not start call if there is no clientSession', inject(
+        ($rootScope: IRootScopeService, communicatorService: ICommunicatorService) => {
+          const serviceId = '1'
 
-    it('should startCall with error and show service unavailable', inject(($q, $rootScope, communicatorService, ServiceApi) => {
-      const serviceId = '1'
-      const err = 'error'
+          communicatorService.getClientSession = () => null
 
-      communicatorService.getClientSession = () => {
-        return {}
-      }
-      ServiceApi.addServiceUsageRequest = () => {
-        return {$promise: $q.reject(err)}
-      }
+          callService.callServiceId(serviceId).then((res) => {
+            expect(res).toEqual(null)
+          })
 
-      spyOn(modalsService, 'createServiceUnavailableModal')
+          $rootScope.$digest()
+        }))
 
-      callService.callServiceId(serviceId).then((res) => {
-        expect(res).toEqual(null)
-      })
+      it('should not start call if there is no serviceId', inject(
+        ($rootScope: IRootScopeService, communicatorService: ICommunicatorService) => {
+          const serviceId = null
 
-      $rootScope.$digest()
+          communicatorService.getClientSession = () => {
+            return {}
+          }
 
-      expect(modalsService.createServiceUnavailableModal).toHaveBeenCalled()
-    }))
+          callService.callServiceId(<any>serviceId).then((res) => {
+            expect(res).toEqual(null)
+          })
 
-    it('should create direct call with error and log it', inject(
-      ($q, $log, $rootScope, communicatorService, ServiceApi, navigatorService) => {
+          $rootScope.$digest()
+        }))
+
+      it('should startCall with error and show service unavailable', inject(($q: ng.IQService, $rootScope: IRootScopeService, communicatorService: ICommunicatorService, ServiceApi: any) => {
         const serviceId = '1'
+        const err = 'error'
+
+        communicatorService.getClientSession = () => {
+          return {}
+        }
+        ServiceApi.addServiceUsageRequest = () => {
+          return {$promise: $q.reject(err)}
+        }
+
+        spyOn(modalsService, 'createServiceUnavailableModal')
+
+        callService.callServiceId(serviceId).then((res) => {
+          expect(res).toEqual(null)
+        })
+
+        $rootScope.$digest()
+
+        expect(modalsService.createServiceUnavailableModal).toHaveBeenCalled()
+      }))
+
+      it('should create direct call with error and log it', inject(
+        ($q: ng.IQService, $log: ng.ILogService, $rootScope: IRootScopeService,
+         communicatorService: ICommunicatorService, ServiceApi: any, navigatorService: INavigatorService) => {
+          const serviceId = '1'
+          const session = {
+            chat: {
+              createDirectCall: () => $q.reject(null)
+            }
+          }
+
+          navigatorService.getUserMediaStream = () => $q.resolve<MediaStream>(<any>{})
+          communicatorService.getClientSession = () => {
+            return session
+          }
+          ServiceApi.addServiceUsageRequest = () => {
+            return {$promise: $q.resolve(testSUR)}
+          }
+
+          spyOn($log, 'error')
+
+          callService.callServiceId(serviceId)
+
+          $rootScope.$digest()
+
+          expect($log.error).toHaveBeenCalled()
+        }))
+
+      it('should startCall', inject(($q: ng.IQService, $rootScope: IRootScopeService,
+                                     communicatorService: ICommunicatorService, ServiceApi: any,
+                                     navigatorService: INavigatorService) => {
+        const serviceId = '1'
+
         const session = {
           chat: {
-            createDirectCall: _ => $q.reject(null)
+            createDirectCall: () => $q.resolve(call)
           }
         }
 
-        navigatorService.getUserMediaStream = () => $q.resolve()
+        navigatorService.getUserMediaStream = () => $q.resolve<MediaStream>(<any>{})
         communicatorService.getClientSession = () => {
           return session
         }
@@ -152,122 +211,102 @@ describe('Unit testing: profitelo.services.call >', () => {
           return {$promise: $q.resolve(testSUR)}
         }
 
-        spyOn($log, 'error')
-
         callService.callServiceId(serviceId)
 
         $rootScope.$digest()
-
-        expect($log.error).toHaveBeenCalled()
       }))
 
-    it('should startCall', inject(($q, $rootScope, communicatorService, ServiceApi, navigatorService) => {
-      const serviceId = '1'
+      it('should not hangup if no call', inject(($rootScope: IRootScopeService) => {
 
-      const session = {
-        chat: {
-          createDirectCall: _ => $q.resolve(call)
+        callService.hangupCall().then(() => {
+        }, (err) => {
+          expect(err).toEqual('NO CALL')
+        })
+
+        $rootScope.$digest()
+      }))
+
+      it('should hangup', inject(($q: ng.IQService, $rootScope: IRootScopeService,
+                                  communicatorService: ICommunicatorService, ServiceApi: any,
+                                  navigatorService: INavigatorService, RatelApi: any) => {
+        const serviceId = '1'
+
+        const _call = angular.copy(call)
+        _call.leave = () => $q.resolve()
+
+        const session = {
+          chat: {
+            createDirectCall: () => $q.resolve(_call)
+          }
         }
-      }
 
-      navigatorService.getUserMediaStream = () => $q.resolve()
-      communicatorService.getClientSession = () => {
-        return session
-      }
-      ServiceApi.addServiceUsageRequest = () => {
-        return {$promise: $q.resolve(testSUR)}
-      }
+        navigatorService.getUserMediaStream = () => $q.resolve<MediaStream>(<any>{})
+        communicatorService.getClientSession = () => session
+        ServiceApi.addServiceUsageRequest = () => ({$promise: $q.resolve(testSUR)})
+        RatelApi.ratelCallStoppedHook = () => ({$promise: $q.resolve('')})
 
-      callService.callServiceId(serviceId)
+        callService.callServiceId(serviceId)
+        $rootScope.$digest()
+        callService.hangupCall().then((res) => {
+          expect(res).toEqual(undefined)
+        })
+        $rootScope.$digest()
+      }))
 
-      $rootScope.$digest()
-    }))
+      it('should start video&audio', inject(($q: ng.IQService, $rootScope: IRootScopeService,
+                                             communicatorService: ICommunicatorService, ServiceApi: any,
+                                             navigatorService: INavigatorService) => {
+        const serviceId = '1'
 
-    it('should not hangup if no call', inject(($rootScope) => {
-
-      callService.hangupCall().then(_ => _, (err) => {
-        expect(err).toEqual('NO CALL')
-      })
-
-      $rootScope.$digest()
-    }))
-
-    it('should hangup', inject(($q, $rootScope, communicatorService, ServiceApi, navigatorService, RatelApi) => {
-      const serviceId = '1'
-
-      const _call = angular.copy(call)
-      _call.leave = () => $q.resolve()
-
-      const session = {
-        chat: {
-          createDirectCall: _ => $q.resolve(_call)
+        const session = {
+          chat: {
+            createDirectCall: () => $q.resolve(call)
+          }
         }
-      }
 
-      navigatorService.getUserMediaStream = () => $q.resolve()
-      communicatorService.getClientSession = () => session
-      ServiceApi.addServiceUsageRequest = () => ({$promise: $q.resolve(testSUR)})
-      RatelApi.ratelCallStoppedHook = () => ({$promise: $q.resolve('')})
-
-      callService.callServiceId(serviceId)
-      $rootScope.$digest()
-      callService.hangupCall().then((res) => {
-        expect(res).toEqual(undefined)
-      })
-      $rootScope.$digest()
-    }))
-
-    it('should start video&audio', inject(($q, $rootScope, communicatorService, ServiceApi, navigatorService) => {
-      const serviceId = '1'
-
-      const session = {
-        chat: {
-          createDirectCall: _ => $q.resolve(call)
+        navigatorService.getUserMediaStream = () => $q.resolve<MediaStream>(<any>{})
+        communicatorService.getClientSession = () => {
+          return session
         }
-      }
+        ServiceApi.addServiceUsageRequest = () => {
+          return {$promise: $q.resolve(testSUR)}
+        }
 
-      navigatorService.getUserMediaStream = () => $q.resolve()
-      communicatorService.getClientSession = () => {
-        return session
-      }
-      ServiceApi.addServiceUsageRequest = () => {
-        return {$promise: $q.resolve(testSUR)}
-      }
+        callService.callServiceId(serviceId)
+        $rootScope.$digest()
 
-      callService.callServiceId(serviceId)
-      $rootScope.$digest()
+        spyOn(call, 'pause')
+        spyOn(call, 'mute')
+        spyOn(call, 'unpause')
+        spyOn(call, 'unmute')
 
-      spyOn(call, 'pause')
-      spyOn(call, 'mute')
-      spyOn(call, 'unpause')
-      spyOn(call, 'unmute')
+        callService.stopVideo()
+        callService.stopAudio()
+        callService.startVideo()
+        callService.startAudio()
 
-      callService.stopVideo()
-      callService.stopAudio()
-      callService.startVideo()
-      callService.startAudio()
+        expect(call.mute).toHaveBeenCalled()
+        expect(call.pause).toHaveBeenCalled()
+        expect(call.unpause).toHaveBeenCalled()
+        expect(call.unmute).toHaveBeenCalled()
+      }))
 
-      expect(call.mute).toHaveBeenCalled()
-      expect(call.pause).toHaveBeenCalled()
-      expect(call.unpause).toHaveBeenCalled()
-      expect(call.unmute).toHaveBeenCalled()
-    }))
+      it('should show modal on onCall', inject(() => {
 
-    it('should show modal on onCall', inject(() => {
+        const obj = {
+          invitation: {
+            call: call
+          },
+          expert: {},
+          session: {}
+        }
 
-      const obj = {
-        invitation: {
-          call: call
-        },
-        expert: {},
-        session: {}
-      }
+        spyOn(modalsService, 'createIncomingCallModal')
 
-      spyOn(modalsService, 'createIncomingCallModal')
+        onCall(obj)
 
-      onCall(obj)
-
-      expect(modalsService.createIncomingCallModal).toHaveBeenCalled()
-    }))
+        expect(modalsService.createIncomingCallModal).toHaveBeenCalled()
+      }))
+    })
   })
-})
+}

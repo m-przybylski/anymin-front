@@ -1,7 +1,14 @@
-(function() {
-  function CompanyPathController($scope, $state, ProfileApi, savedProfile, User, topAlertService, $timeout, smoothScrollingService) {
+namespace profitelo.dashboard.serviceProvider.companyPath {
 
-    let _updateMethod
+  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+  import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
+  import Profile = profitelo.models.Profile
+
+  function CompanyPathController($scope: ng.IScope, $state: ng.ui.IStateService, ProfileApi: any,
+                                 savedProfile: Profile | null, User: any, topAlertService: ITopAlertService,
+                                 $timeout: ng.ITimeoutService, smoothScrollingService: ISmoothScrollingService) {
+
+    let _updateMethod: Function
     if (savedProfile) {
       _updateMethod = ProfileApi.patchProfile
     } else {
@@ -55,7 +62,7 @@
           name: this.companyPathModel.name,
           logo: this.companyPathModel.logo,
           description: this.companyPathModel.description,
-          files: this.companyPathModel.files.map((file) => {
+          files: this.companyPathModel.files.map((file: any) => {
             return {token: file.token, previews: file.previews}
           }),
           links: this.companyPathModel.links
@@ -86,26 +93,27 @@
     'profitelo.services.top-alert',
     'c7s.ng.userAuth'
   ])
-    .config(function($stateProvider, UserRolesProvider) {
+    .config(function($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
       $stateProvider.state('app.dashboard.service-provider.company-path', {
         url: '/company-path',
         templateUrl: 'dashboard/service-provider/company-path/company-path.tpl.html',
         controller: 'CompanyPathController',
         controllerAs: 'vm',
         resolve: {
-          savedProfile: ($log, $q, $state, ProfileApi, User, topAlertService) => {
+          savedProfile: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: any,
+                         User: any, topAlertService: ITopAlertService) => {
             /* istanbul ignore next */
-            let _deferred = $q.defer()
+            let _deferred = $q.defer<Profile | null>()
             /* istanbul ignore next */
             User.getStatus().then(() => {
               ProfileApi.getProfile({
                 profileId: User.getData('id')
-              }).$promise.then((response) => {
+              }).$promise.then((response: Profile) => {
                 _deferred.resolve(response)
               }, () => {
                 _deferred.resolve(null)
               })
-            }, (error) => {
+            }, (error: any) => {
               $log.error(error)
               $state.go('app.dashboard')
               topAlertService.error({
@@ -125,5 +133,4 @@
       })
     })
     .controller('CompanyPathController', CompanyPathController)
-
-}())
+}

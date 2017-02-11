@@ -1,5 +1,12 @@
-(function() {
-  function IndividualPathController($scope, $state, ProfileApi, User, savedProfile, topAlertService, $timeout, smoothScrollingService) {
+namespace profitelo.dashboard.serviceProvider.individualPath {
+
+  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+  import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
+  import Profile = profitelo.models.Profile
+
+  function IndividualPathController($scope: ng.IScope, $state: ng.ui.IStateService, ProfileApi: any, User: any,
+                                    savedProfile: Profile, topAlertService: ITopAlertService,
+                                    $timeout: ng.ITimeoutService, smoothScrollingService: ISmoothScrollingService) {
 
     this.queue = {
       amountOfSteps: 7,
@@ -39,7 +46,7 @@
       this.inEditMode = true
     } else {
       this.inEditMode = false
-      $timeout(()=> {
+      $timeout(() => {
         smoothScrollingService.scrollTo(this.queue.currentStep)
       })
     }
@@ -64,7 +71,7 @@
           description: this.individualPathModel.description,
           avatar: this.individualPathModel.avatar,
           languages: this.individualPathModel.languages,
-          files: this.individualPathModel.files.map((file) => {
+          files: this.individualPathModel.files.map((file: any) => {
             return {token: file.token, previews: file.previews}
           }),
           links: this.individualPathModel.links
@@ -104,7 +111,7 @@
     'profitelo.services.top-alert',
     'c7s.ng.userAuth'
   ])
-    .config(function($stateProvider, UserRolesProvider) {
+    .config(function ($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
       $stateProvider.state('app.dashboard.service-provider.individual-path', {
         url: '/individual-path',
         templateUrl: 'dashboard/service-provider/individual-path/individual-path.tpl.html',
@@ -115,17 +122,17 @@
           savedProfile: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: any,
                          User: any, topAlertService: ITopAlertService) => {
             /* istanbul ignore next */
-            let _deferred = $q.defer()
+            let _deferred = $q.defer<Profile | null>()
             /* istanbul ignore next */
             User.getStatus().then(() => {
               ProfileApi.getProfile({
                 profileId: User.getData('id')
-              }).$promise.then((response) => {
+              }).$promise.then((response: Profile) => {
                 _deferred.resolve(response)
               }, () => {
-                _deferred.resolve('')
+                _deferred.resolve(null)
               })
-            }, (error) => {
+            }, (error: any) => {
               $log.error(error)
               $state.go('app.dashboard')
               topAlertService.error({
@@ -145,4 +152,4 @@
       })
     })
     .controller('IndividualPathController', IndividualPathController)
-}())
+}

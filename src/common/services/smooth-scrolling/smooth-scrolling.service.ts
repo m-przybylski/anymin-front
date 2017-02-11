@@ -2,7 +2,7 @@ namespace profitelo.services.smoothScrolling {
 
   export interface ISmoothScrollingService {
     scrollTo(elementId: string): void
-    simpleScrollTo(element: HTMLElement, isNavbar: boolean, time: number): void
+    simpleScrollTo(element: string | Element, isNavbar?: boolean, time?: number): void
   }
 
   class SmoothScrollingService implements ISmoothScrollingService {
@@ -79,7 +79,7 @@ namespace profitelo.services.smoothScrolling {
       return true
     }
 
-    public simpleScrollTo = (element: Element, isNavbar: boolean, time = 1000) => {
+    public simpleScrollTo = (element: string, isNavbar: boolean, time = 1000) => {
       let scrollTop = $(element).offset().top
 
       if (isNavbar) {

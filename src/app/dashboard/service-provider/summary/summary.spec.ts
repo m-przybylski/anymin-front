@@ -1,18 +1,18 @@
 describe('Unit tests: SummaryController >', () => {
   describe('Testing Controller: SummaryController', () => {
 
-    let SummaryController
-    let _scope
+    let SummaryController: any
+    let _scope: any
 
     let url = 'awesomeUrl/'
 
-    beforeEach(angular.mock.module(function($provide) {
+    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', url)
     }))
 
     beforeEach(() => {
     angular.mock.module('profitelo.controller.dashboard.service-provider.summary')
-      inject(($rootScope, $controller, _ServiceApi_, _User_) => {
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _ServiceApi_: any, _User_: any) => {
 
         _scope = $rootScope.$new()
 

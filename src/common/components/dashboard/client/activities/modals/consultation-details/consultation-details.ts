@@ -3,6 +3,7 @@ namespace profitelo.components.dashboard.client.activities.modals.consultationDe
   import Tag = profitelo.models.Tag
   import Money = profitelo.models.Money
   import ClientDashboardCallDetails = profitelo.models.ClientDashboardCallDetails
+  import IUrlService = profitelo.services.helper.IUrlService
 
   interface IConsultationDetailsScope extends ng.IScope {
     isLoading: boolean
@@ -24,8 +25,9 @@ namespace profitelo.components.dashboard.client.activities.modals.consultationDe
     isNavbar: boolean
   }
 
-  function controller($log: ng.ILogService, $scope: IConsultationDetailsScope, $uibModalInstance, ServiceApi,
-                      urlService, ViewsApi) {
+  function controller($log: ng.ILogService, $scope: IConsultationDetailsScope,
+                      $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, ServiceApi: any,
+                      urlService: IUrlService, ViewsApi: any) {
     $scope.isLoading = true
     $scope.isFullscreen = true
     $scope.isNavbar = true
@@ -34,17 +36,17 @@ namespace profitelo.components.dashboard.client.activities.modals.consultationDe
 
     const onGetCallDetails = (callDetails: ClientDashboardCallDetails) => {
 
-      const onServiceTags = (res) => {
+      const onServiceTags = (res: any) => {
         openClientActivityModal(res[0] ? res[0].tags : [])
       }
 
-      const onServiceTagsError = (err) => {
+      const onServiceTagsError = (err: any) => {
         $log.error(err)
       }
 
       const openClientActivityModal = (serviceTags: Array<Tag> = []) => {
         const expertAvatarFileId = callDetails.expertProfile.expertDetails.avatar
-        $scope.expertAvatar = expertAvatarFileId ? urlService.resolveFileUrl(expertAvatarFileId) : null
+        $scope.expertAvatar = expertAvatarFileId ? urlService.resolveFileUrl(expertAvatarFileId) : undefined
         $scope.expertName = callDetails.expertProfile.expertDetails.name
         $scope.recommendedTags = callDetails.recommendedTags
         $scope.serviceName = callDetails.service.details.name
@@ -64,7 +66,7 @@ namespace profitelo.components.dashboard.client.activities.modals.consultationDe
       }).$promise.then(onServiceTags, onServiceTagsError)
     }
 
-    const onGetCallDetailsError = (err) => {
+    const onGetCallDetailsError = (err: any) => {
       $scope.isLoading = false
       $log.error(err)
     }

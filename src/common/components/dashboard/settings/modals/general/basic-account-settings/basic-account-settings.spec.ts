@@ -3,6 +3,10 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
   import BasicAccountSettingsController = profitelo.components.dashboard.settings.modals.general.basicAccountSettings.BasicAccountSettingsController
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 
+  class File {
+    constructor() {}
+  }
+
   interface Window {
     File: any
   }
@@ -13,10 +17,7 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
 
     let controller: BasicAccountSettingsController
     let scope: IBasicAccountSettingsControllerScope
-    let originalFile
-
-    function File() {
-    }
+    let originalFile: any
 
     const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
       jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss'])
@@ -49,14 +50,14 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
       window.File = originalFile
     })
 
-    beforeEach(angular.mock.module(($provide) => {
+    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', "awsomeUrl")
     }))
 
     beforeEach(() => {
       angular.mock.module('ui.bootstrap')
       angular.mock.module('profitelo.components.dashboard.settings.modals.general.basic-account-settings')
-      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _AccountApi_) => {
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _AccountApi_: any) => {
 
         scope = <IBasicAccountSettingsControllerScope>$rootScope.$new()
 
@@ -83,7 +84,7 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
 
     it('should verifyCode', () => {
       const imagePath = 'string'
-      const file = new File()
+      const file: any = new File()
       const cb = () => {
       }
       scope.addPhoto(imagePath, file, cb)

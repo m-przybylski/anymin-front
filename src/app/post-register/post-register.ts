@@ -5,7 +5,7 @@
     return this
   }
 
-  function config($stateProvider, UserRolesProvider) {
+  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
     $stateProvider.state('app.post-register', {
       url: '/post-register',
       controllerAs: 'vm',

@@ -1,31 +1,35 @@
 namespace profitelo.resolvers.companyProfile {
 
+  import ICompanyProfileStateParams = profitelo.companyProfile.ICompanyProfileStateParams
+  import Profile = profitelo.models.Profile
+  import Service = profitelo.models.Service
+
   export interface ICompanyProfile {
     profile: Profile
     services: Array<Service>
     isFavourite: boolean
   }
 
-  export interface ICompanyProfileServices {
-    resolve(stateParams: ng.ui.IStateParamsService): ng.IPromise<ICompanyProfile>
+  export interface ICompanyProfileService {
+    resolve(stateParams: ICompanyProfileStateParams): ng.IPromise<ICompanyProfile>
   }
 
-  class CompanyProfileResolver implements ICompanyProfileServices{
+  class CompanyProfileResolver implements ICompanyProfileService {
 
-    constructor(private $q: ng.IQService, private ViewsApi, private lodash: _.LoDashStatic) {
+    constructor(private $q: ng.IQService, private ViewsApi: any, private lodash: _.LoDashStatic) {
 
     }
 
-    public resolve = (stateParams: ng.ui.IStateParamsService) => {
+    public resolve = (stateParams: ICompanyProfileStateParams) => {
 
-      const handleCompanyResponseError = (error) =>
+      const handleCompanyResponseError = (error: any) =>
         this.$q.reject(error)
 
       const sortServices = (servicesWithTagsAndEmployees: any) => {
         const primaryConsultation = this.lodash.find(servicesWithTagsAndEmployees, (serviceWithTagsAndEmployees: {service: Service}) =>
-        serviceWithTagsAndEmployees.service.id === stateParams['primaryConsultationId'])
+        serviceWithTagsAndEmployees.service.id === stateParams.primaryConsultationId)
 
-        if (angular.isDefined(stateParams['primaryConsultationId']) && !!primaryConsultation
+        if (angular.isDefined(stateParams.primaryConsultationId) && !!primaryConsultation
           && servicesWithTagsAndEmployees.length > 1) {
           const currentElement = servicesWithTagsAndEmployees.splice(servicesWithTagsAndEmployees.indexOf(primaryConsultation), 1)
           servicesWithTagsAndEmployees.unshift(currentElement[0])
@@ -33,7 +37,7 @@ namespace profitelo.resolvers.companyProfile {
         return servicesWithTagsAndEmployees
       }
 
-      const handleCompanyResponse = (response) => {
+      const handleCompanyResponse = (response: ICompanyProfile) => {
         if (!response.profile.organizationDetails) {
           return this.$q.reject('Profile is not organization')
         }
@@ -61,7 +65,7 @@ namespace profitelo.resolvers.companyProfile {
     'ngLodash',
     'c7s.ng.userAuth'
   ])
-  .config(($qProvider) => {
+  .config(($qProvider: ng.IQProvider) => {
     $qProvider.errorOnUnhandledRejections(false)
   })
   .service('CompanyProfileResolver', CompanyProfileResolver)

@@ -1,18 +1,20 @@
-describe('Unit testing: profitelo.services.communicator >', () => {
+namespace profitelo.services.communicator {
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  describe('Unit testing: profitelo.services.communicator >', () => {
   describe('for profitelo.services.communicator >', () => {
 
-    let communicatorService
+    let communicatorService: ICommunicatorService
     const session = {
       chat: {
-        onError: _ => _,
-        onConnect: _ => _,
-        onStatusUpdate: _ => _,
-        onDisconnect: _ => _,
-        onCall: _ => _,
-        onRoom: _ => _,
-        onBotUpdate: _ => _,
-        onHeartbeat: _ => _,
-        connect: _ => _
+        onError: () => {},
+        onConnect: () => {},
+        onStatusUpdate: () => {},
+        onDisconnect: () => {},
+        onCall: () => {},
+        onRoom: () => {},
+        onBotUpdate: () => {},
+        onHeartbeat: () => {},
+        connect: () => {}
       }
     }
     const config = {}
@@ -27,7 +29,7 @@ describe('Unit testing: profitelo.services.communicator >', () => {
       ]
     }]
 
-    beforeEach(angular.mock.module(($provide) => {
+    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', 'awesomeURL')
     }))
 
@@ -36,15 +38,16 @@ describe('Unit testing: profitelo.services.communicator >', () => {
       angular.mock.module('profitelo.services.communicator')
     })
 
-    beforeEach(inject(($injector) => {
-      communicatorService = $injector.get('communicatorService')
+    beforeEach(inject(($injector: ng.auto.IInjectorService) => {
+      communicatorService = $injector.get<ICommunicatorService>('communicatorService')
     }))
 
     it('should have a dummy test', () => {
       expect(true).toBeTruthy()
     })
 
-    it('should authenticate', inject(($q, $rootScope, RatelApi, ProfileApi, ratelSdk) => {
+    it('should authenticate', inject(($q: ng.IQService, $rootScope: IRootScopeService, RatelApi: any, ProfileApi: any,
+                                      ratelSdk: any) => {
 
       RatelApi.getRatelAuthConfig = () => {
         return {
@@ -74,3 +77,4 @@ describe('Unit testing: profitelo.services.communicator >', () => {
     }))
   })
 })
+}

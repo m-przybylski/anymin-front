@@ -1,3 +1,4 @@
+namespace profitelo.directives.proPageTitle {
 describe('Unit testing: profitelo.directives.page-title', () => {
   return describe('for page-title directive >', () => {
 
@@ -8,7 +9,7 @@ describe('Unit testing: profitelo.directives.page-title', () => {
     beforeEach(() => {
     angular.mock.module('profitelo.directives.page-title')
 
-      inject(($rootScope, $compile) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {
         scope                 = $rootScope.$new()
         compile               = $compile
       })
@@ -66,3 +67,4 @@ describe('Unit testing: profitelo.directives.page-title', () => {
 
   })
 })
+}

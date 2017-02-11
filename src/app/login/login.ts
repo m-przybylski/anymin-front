@@ -1,12 +1,12 @@
 (function() {
 
   function LoginController() {
-    
+
     return this
   }
 
 
-  function config($stateProvider, UserRolesProvider) {
+  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
     $stateProvider.state('app.login', {
       abstract: true,
       url: '/login',

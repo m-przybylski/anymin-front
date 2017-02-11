@@ -1,7 +1,7 @@
 describe('Unit tests: ServiceProviderController >', () => {
   describe('Testing Controller: ServiceProviderController', () => {
 
-    var ServiceProviderController
+    var ServiceProviderController: any
 
     beforeEach(() => {
     angular.mock.module('profitelo.controller.dashboard.service-provider')

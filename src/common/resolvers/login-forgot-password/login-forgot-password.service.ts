@@ -3,6 +3,7 @@ namespace profitelo.resolvers.loginForgotPassword {
   import ILoginStateService = profitelo.services.loginState.ILoginStateService
   import Account = profitelo.models.Account
   import IFilterService = profitelo.services.filter.IFilterService
+  import IForgotPasswordStateParams = profitelo.login.forgotPassword.IForgotPasswordStateParams
 
   export interface ILoginForgotPassword {
     recoveryMethod: string
@@ -10,18 +11,18 @@ namespace profitelo.resolvers.loginForgotPassword {
   }
 
   export interface ILoginForgotPasswordService {
-    resolve(stateParams: ng.ui.IStateParamsService): ng.IPromise<ILoginForgotPassword>
+    resolve(stateParams: IForgotPasswordStateParams): ng.IPromise<ILoginForgotPassword>
   }
 
   class LoginForgotPasswordResolver implements ILoginForgotPasswordService {
 
     constructor(private $q: ng.IQService, private $timeout: ng.ITimeoutService, private $filter: IFilterService,
                 private $state: ng.ui.IStateService, private topAlertService: ITopAlertService,
-                private loginStateService: ILoginStateService, private RecoverPasswordApi) {
+                private loginStateService: ILoginStateService, private RecoverPasswordApi: any) {
 
     }
 
-    public resolve = (stateParams) => {
+    public resolve = (stateParams: IForgotPasswordStateParams) => {
       let _deferred = this.$q.defer()
 
       let account = this.loginStateService.getAccountObject()
@@ -36,7 +37,7 @@ namespace profitelo.resolvers.loginForgotPassword {
         })
       }
 
-      const requestPasswordRecovery = (method) => {
+      const requestPasswordRecovery = (method: string) => {
         return this.RecoverPasswordApi.postRecoverPassword({
           method: method,
           msisdn: account.phoneNumber.prefix + '' + account.phoneNumber.number

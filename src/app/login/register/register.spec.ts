@@ -1,18 +1,23 @@
-describe('Unit tests: profitelo.controller.login.register>', () => {
+namespace profitelo.login.register {
+import ITopWaitingLoaderService = profitelo.services.topWaitingLoader.ITopWaitingLoaderService
+  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+  import IFilterService = profitelo.services.filter.IFilterService
+  import ILoginStateService = profitelo.services.loginState.ILoginStateService
+  describe('Unit tests: profitelo.controller.login.register>', () => {
   describe('Testing Controller: RegisterController', () => {
 
-    let scope
-    let RegisterController
-    let _topWaitingLoaderService
-    let _RegistrationApi
-    let _AccountApi
-    let _topAlertService
-    let _UserRoles
-    let _$httpBackend
+    let scope: any
+    let RegisterController: any
+    let _topWaitingLoaderService: ITopWaitingLoaderService
+    let _RegistrationApi: any
+    let _AccountApi: any
+    let _topAlertService: ITopAlertService
+    let _UserRoles: any
+    let _$httpBackend: ng.IHttpBackendService
 
     let _url = 'awesomeUrl'
 
-    let resourcesExpectations
+    let resourcesExpectations: any
 
     let smsSessionId = {
       accountObject: {
@@ -44,16 +49,17 @@ describe('Unit tests: profitelo.controller.login.register>', () => {
       }
     }
 
-    beforeEach(angular.mock.module(($provide) => {
+    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', _url)
     }))
 
     beforeEach(() => {
     angular.mock.module('profitelo.controller.login.register')
     angular.mock.module('profitelo.swaggerResources.definitions')
-      inject(($rootScope, $controller, $filter, _topWaitingLoaderService_, _RegistrationApi_, _AccountApi_,
-              _topAlertService_, _UserRoles_, _$httpBackend_, _AccountApiDef_, _RegistrationApiDef_,
-              _loginStateService_) => {
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $filter: IFilterService,
+              _topWaitingLoaderService_: ITopWaitingLoaderService, _RegistrationApi_: any, _AccountApi_: any,
+              _topAlertService_: ITopAlertService, _UserRoles_: any, _$httpBackend_: ng.IHttpBackendService,
+              _AccountApiDef_: any, _RegistrationApiDef_: any, _loginStateService_: ILoginStateService) => {
 
         scope = $rootScope.$new()
 
@@ -115,3 +121,4 @@ describe('Unit tests: profitelo.controller.login.register>', () => {
     })
   })
 })
+}

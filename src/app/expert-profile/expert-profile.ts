@@ -1,5 +1,20 @@
-(function() {
-  function ExpertProfileController($stateParams, $log, $timeout, expertProfile, recommendedServices, ProfileApi, smoothScrollingService) {
+namespace profitelo.expertProfile {
+
+  import ExpertProfile = profitelo.models.ExpertProfile
+  import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
+  import IExpertProfileServices = profitelo.resolvers.expertProfileResolver.IExpertProfileServices
+  import IExpertProfile = profitelo.resolvers.expertProfileResolver.IExpertProfile
+  import IRecommendedServicesService = profitelo.services.recommendedServices.IRecommendedServicesService
+
+  export interface IExpertProfileStateParams extends ng.ui.IStateParamsService {
+    primaryConsultationId: string
+    profileId: string
+  }
+
+  function ExpertProfileController($stateParams: IExpertProfileStateParams, $log: ng.ILogService,
+                                   $timeout: ng.ITimeoutService, expertProfile: IExpertProfile,
+                                   recommendedServices: IRecommendedServicesService, ProfileApi: any,
+                                   smoothScrollingService: ISmoothScrollingService) {
 
     this.profile = {}
 
@@ -17,20 +32,20 @@
     this.profile.colaboratedOrganizations = expertProfile.employers
     this.services = expertProfile.services
 
-    recommendedServices.getRecommendedExperts(this.consultations).then((response) => {
+    recommendedServices.getRecommendedExperts(this.consultations).then((response: Array<ExpertProfile>) => {
       this.similarExperts = response
     })
 
     const onProfileLike = () =>
       this.profile.isFavourite = true
 
-    const onProfileLikeError = (error) =>
+    const onProfileLikeError = (error: any) =>
       $log.error('Can not like this company because: ' + error)
 
     const onProfileDislike = () =>
       this.profile.isFavourite = false
 
-    const onProfileDislikeError = (error) =>
+    const onProfileDislikeError = (error: any) =>
       $log.error('Can not dislike this company because: ' + error)
 
 
@@ -66,7 +81,7 @@
     'profitelo.components.expert-profile.social-links',
     'profitelo.components.interface.collapse-tab'
   ])
-  .config(($stateProvider, UserRolesProvider) => {
+  .config(($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) => {
     $stateProvider.state('app.expert-profile', {
       controllerAs: 'vm',
       url: '/expert-profile/{profileId}?primaryConsultationId',
@@ -74,7 +89,7 @@
       controller: 'ExpertProfileController',
       resolve: {
         /* istanbul ignore next */
-        expertProfile:  (ExpertProfileResolver, $stateParams) =>
+        expertProfile:  (ExpertProfileResolver: IExpertProfileServices, $stateParams: IExpertProfileStateParams) =>
           ExpertProfileResolver.resolve($stateParams)
 
       },
@@ -85,4 +100,4 @@
     })
   })
   .controller('ExpertProfileController', ExpertProfileController)
-}())
+}

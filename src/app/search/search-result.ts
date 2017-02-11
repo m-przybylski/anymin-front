@@ -1,6 +1,10 @@
-(function () {
+namespace profitelo.search {
 
-  function SearchResultController($scope, $state, $location, searchService, searchUrlService) {
+  import ISearchUrlService = profitelo.services.searchUrl.ISearchUrlService
+  import ISearchService = profitelo.services.search.ISearchService
+
+  function SearchResultController($scope: ng.IScope, $state: ng.ui.IStateService, $location: ng.ILocationService,
+                                  searchService: ISearchService, searchUrlService: ISearchUrlService) {
 
     this.searchParams = $location.search()
     this.searchResults = {
@@ -59,7 +63,7 @@
       _loadMore()
     }
 
-    this.setSearchParams = (params) => {
+    this.setSearchParams = (params: any) => {
       this.isSearchLoading = true
       searchService.setSearchQueryParams(angular.extend($location.search(), params[0]))
     }
@@ -90,7 +94,7 @@
     'profitelo.services.search',
     'profitelo.services.search-url'
   ])
-    .config(($stateProvider, UserRolesProvider) => {
+    .config(($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) => {
       $stateProvider.state('app.search-result', {
         url: '/search-result?q&tagId&category&categorySlug&profileType&onlyAvailable&sortBy&language',
         templateUrl: 'search/search-result.tpl.html',
@@ -104,4 +108,4 @@
     })
     .controller('SearchResultController', SearchResultController)
 
-}())
+}

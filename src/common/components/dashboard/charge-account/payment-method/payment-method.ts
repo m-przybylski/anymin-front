@@ -13,12 +13,12 @@
     this.activeOption = null
     this.firstSelect = this.activeOption !== null
 
-    this.setImage = (slug) => {
+    this.setImage = (slug: string) => {
       const imagePath = '/assets/images/%s-logo.png'
       return imagePath.replace('%s', slug)
     }
 
-    this.selectPaymentMethod = (index) => {
+    this.selectPaymentMethod = (index: number) => {
       if (index === 0) {
         if (!this.firstSelect) {
           this.scrollHandler()

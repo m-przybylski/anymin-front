@@ -18,7 +18,7 @@ namespace profitelo.components.communicator.messenger {
         isMessenger: false
       }
 
-      function create(html, bindings: IMessengerComponentBindings) {
+      function create(html: string, bindings: IMessengerComponentBindings) {
         const parentScope = rootScope.$new()
         const parentBoundScope = angular.extend(parentScope, bindings)
         const elem = angular.element(html)
@@ -31,7 +31,7 @@ namespace profitelo.components.communicator.messenger {
         angular.mock.module('profitelo.services.sounds')
       })
 
-      beforeEach(angular.mock.module(($provide) => {
+      beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
         $provide.value('soundsService', {})
         $provide.value('apiUrl', 'awesomeUrl/')
       }))

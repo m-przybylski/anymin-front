@@ -25,7 +25,7 @@ namespace profitelo.components.dashboard.settings.manageDevices {
     }
 
     $onInit = () => {
-      this.currentDevice = this.checkDevice[this.device]
+      this.currentDevice = (<any>this.checkDevice)[this.device]
     }
 
   }

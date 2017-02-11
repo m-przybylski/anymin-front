@@ -1,6 +1,8 @@
 namespace profitelo.resolvers.clientFavourites {
 
   import Money = profitelo.models.Money
+  import Profile = profitelo.models.Profile
+  import Service = profitelo.models.Service
 
   export interface IClientFavourites {
     balance: Money
@@ -14,7 +16,7 @@ namespace profitelo.resolvers.clientFavourites {
 
   class ClientFavouritesResolver implements IClientFavouritesResolverService {
 
-    constructor(private $q: ng.IQService, private ViewsApi) {
+    constructor(private $q: ng.IQService, private ViewsApi: any) {
 
     }
 
@@ -22,10 +24,10 @@ namespace profitelo.resolvers.clientFavourites {
       this.ViewsApi.getDashboardClientExperts().$promise
       .then(this.handleAppClientFavouritesResolverResponse, this.handleAppClientFavouritesResolverResponseError)
 
-    private handleAppClientFavouritesResolverResponseError = (error) =>
+    private handleAppClientFavouritesResolverResponseError = (error: any) =>
       this.$q.reject(error)
 
-    private handleAppClientFavouritesResolverResponse = (response) =>
+    private handleAppClientFavouritesResolverResponse = (response: IClientFavourites) =>
       ({
         balance: response.balance,
         favouriteProfiles: response.favouriteProfiles,

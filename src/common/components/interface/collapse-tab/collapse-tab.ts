@@ -1,6 +1,11 @@
-(function() {
+namespace profitelo.components.interface.collapseTab {
+
+  import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
+  import IWindowService = profitelo.services.window.IWindowService
+
   /* @ngInject */
-  function controller($element, smoothScrollingService, $window, $log, $scope, $timeout) {
+  function controller($element: ng.IRootElementService, smoothScrollingService: ISmoothScrollingService,
+                      $window: IWindowService, $log: ng.ILogService, $scope: ng.IScope, $timeout: ng.ITimeoutService) {
     this.stylesObject = {
       height: null
     }
@@ -20,7 +25,7 @@
     const getCollapseWrapperHeight = () => {
       return $element.find('.collapse-content').height()
     }
-    
+
     /* istanbul ignore next */
     const onWindowResize = () => {
       if (this.isCollapsed) {
@@ -34,7 +39,7 @@
     $timeout(() => {
       this.stylesObject.height = getFirstCollapseElementHeight()
     })
-    
+
     /* istanbul ignore next */
     angular.element($window).on('resize', onWindowResize)
 
@@ -69,4 +74,4 @@
   ])
     .component('collapseTab', collapseTab)
 
-}())
+}

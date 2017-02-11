@@ -1,5 +1,11 @@
 namespace profitelo.app {
 
+  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  import IFilterService = profitelo.services.filter.IFilterService
+  import IInterfaceLanguageService = profitelo.services.interfaceLanguage.IInterfaceLanguageService
+  import ICommunicatorService = profitelo.services.communicator.ICommunicatorService
+  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+
   declare const Raven: any
 
   // TODO: replace it with custom logging
@@ -15,7 +21,8 @@ namespace profitelo.app {
     }
   } catch (e) {}
 
-  function AppController($rootScope, $state, $filter, InterfaceLanguageService, User, topAlertService) {
+  function AppController($rootScope: IRootScopeService, $state: ng.ui.IStateService, $filter: IFilterService,
+                         InterfaceLanguageService: IInterfaceLanguageService, User: any, topAlertService: ITopAlertService) {
 
     InterfaceLanguageService.setLanguage(InterfaceLanguageService.getStartupLanguage())
 
@@ -45,7 +52,8 @@ namespace profitelo.app {
     return this
   }
 
-  function runFunction($rootScope, $log, $state, $anchorScroll, User, topAlertService) {
+  function runFunction($rootScope: IRootScopeService, $log: ng.ILogService, $state: ng.ui.IStateService,
+                       $anchorScroll: ng.IAnchorScrollService, User: any, topAlertService: ITopAlertService) {
 
     $rootScope.loggedIn = false
 
@@ -55,13 +63,13 @@ namespace profitelo.app {
 
     $rootScope.$on('$stateChangeError', (event, _toState, _toParams, _fromState, _fromParams, error) => {
       event.preventDefault()
-      $state.get('app.error').error = error
-      return $state.go('app.error', null, {
+      (<any>$state.get('app.error')).error = error
+      return $state.go('app.error', undefined, {
         location: false
       })
     })
 
-    function userTransfer(event, toState, fromState) {
+    function userTransfer(event: ng.IAngularEvent, toState: ng.ui.IState, fromState: ng.ui.IState) {
       let pac = User.pageAccessCheck(event, toState)
 
       switch (pac.code) {
@@ -81,7 +89,7 @@ namespace profitelo.app {
             header: 'Access forbidden',
             timeout: 3
           })
-          if (fromState.name !== '') {
+          if (fromState.name && fromState.name !== '') {
             $state.go(fromState.name)
           } else {
             $state.go('app.home')
@@ -90,12 +98,12 @@ namespace profitelo.app {
         case 'x200':
           const user = User.getAllData()
           if (angular.isDefined(user.id)) {
-            if (angular.isDefined(user.hasPassword) && !user.hasPassword) {
+            if (angular.isDefined(user.hasPassword) && !user.hasPassword && toState.name) {
               if (toState.name.startsWith('app.dashboard')) {
                 $state.go('app.post-register.set-password')
               }
             } else if ((angular.isDefined(user.email) && !user.email) &&
-              (angular.isDefined(user.unverifiedEmail) && !user.unverifiedEmail)) {
+              (angular.isDefined(user.unverifiedEmail) && !user.unverifiedEmail) && toState.name) {
               if (toState.name.startsWith('app.dashboard')) {
                 $state.go('app.post-register.set-email')
               }
@@ -109,15 +117,15 @@ namespace profitelo.app {
     }
 
     // Check if user has proper ApiKey from backend
-    function validateUserAccess(event, toState, fromState) {
+    function validateUserAccess(event: ng.IAngularEvent, toState: ng.ui.IState, fromState: ng.ui.IState) {
       let apikey = User.getApiKeyHeader()
       if (apikey) {
         User.setApiKeyHeader(apikey)
       }
 
-      User.getStatus().then((_session) => {
+      User.getStatus().then((_session: any) => {
         userTransfer(event, toState, fromState)
-      }, (_getStatusError) => {
+      }, (_getStatusError: any) => {
         userTransfer(event, toState, fromState)
       })
     }
@@ -126,7 +134,7 @@ namespace profitelo.app {
       $log.error(error, fromState, fromParams, toState, toParams, event)
     })
 
-    $rootScope.$on('$stateChangeStart', (event, toState, _toParams, fromState, _fromParams, _error) => {
+    $rootScope.$on('$stateChangeStart', (event, toState: string, _toParams: Object, fromState: string, _fromParams: Object, _error: any) => {
       validateUserAccess(event, toState, fromState)
     })
   }
@@ -166,9 +174,9 @@ namespace profitelo.app {
         pageTitle: 'PAGE_TITLE.BASE'
       },
       resolve: {
-        session: ($rootScope, $q, User, communicatorService) => {
+        session: ($rootScope: IRootScopeService, $q: ng.IQService, User: any, communicatorService: ICommunicatorService) => {
           /* istanbul ignore next */
-          return User.getStatus().then((response) => {
+          return User.getStatus().then((response: any) => {
             /* istanbul ignore next */
             if (angular.isDefined(response.status) && response.status !== 401) {
               $rootScope.loggedIn = true
@@ -307,7 +315,7 @@ namespace profitelo.app {
     .run(runFunction)
     .config(configFunction)
     .controller('AppController', AppController)
-    .factory('apiUrl', (CommonConfig) => {
+    .factory('apiUrl', (CommonConfig: ICommonConfig) => {
       return CommonConfig.getAllData().urls.backend
     })
 }

@@ -1,13 +1,15 @@
-describe('Unit testing: profitelo.filters.message-filter>', () => {
+namespace profitelo.filters.message {
+import IFilterService = profitelo.services.filter.IFilterService
+  describe('Unit testing: profitelo.filters.message-filter>', () => {
   describe('for message >', () => {
 
-    let $filter
+    let $filter: IFilterService
 
     beforeEach(() => {
     angular.mock.module('profitelo.filters.message-filter')
     })
 
-    beforeEach(inject((_$filter_) => {
+    beforeEach(inject((_$filter_: IFilterService) => {
       $filter = _$filter_
     }))
 
@@ -44,19 +46,19 @@ describe('Unit testing: profitelo.filters.message-filter>', () => {
       const jpg = 'www.zabawneobrazki.pl/asdasdasdasd.jpg'
       const png = 'http://www.kołczingdlaopornych.pl/człowieksukcesu.png'
       const gif = 'https://www.kołczingdlaopornych.pl/człowiekporazka.gif'
-      
+
       object.body = jpg
       string = JSON.stringify(object)
       expect($filter('message')(string)).toEqual('<a href="http://' + object.body + '" target="_blank" ><img src="http://' + object.body + '"/></a>')
-      
+
       object.body = png
       string = JSON.stringify(object)
       expect($filter('message')(string)).toEqual('<a href="' + object.body + '" target="_blank" ><img src="' + object.body + '"/></a>')
-      
+
       object.body = gif
       string = JSON.stringify(object)
       expect($filter('message')(string)).toEqual('<a href="' + object.body + '" target="_blank" ><img src="' + object.body + '"/></a>')
     })
 
   })
-})
+})}

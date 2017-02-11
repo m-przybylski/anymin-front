@@ -1,8 +1,11 @@
-(function() {
+namespace profitelo.components.interface.topModalNavbar {
+
+  import IWindowService = profitelo.services.window.IWindowService
+
   /* @ngInject */
-  function controller($window, $scope, $state) {
+  function controller($window: IWindowService, $scope: ng.IScope, $state: ng.ui.IStateService) {
     this.isHidden = false
-    let checkScrollWay = null
+    let checkScrollWay: number = 0
 
     const onClose = () => {
       if (angular.isFunction(this.onClose)) {
@@ -36,14 +39,13 @@
     templateUrl: 'components/interface/top-modal-navbar/top-modal-navbar.tpl.html',
     controller: controller,
     bindings: {
-      title:  '@',
+      title: '@',
       onClose: '<'
     }
   }
 
 
-  angular.module('profitelo.components.interface.top-modal-navbar', [
-  ])
+  angular.module('profitelo.components.interface.top-modal-navbar', [])
     .component('topModalNavbar', component)
 
-}())
+}

@@ -1,7 +1,11 @@
-(function () {
+namespace profitelo.components.interface.showMoreText {
+
+  import IFilterService = profitelo.services.filter.IFilterService
+  import IWindowService = profitelo.services.window.IWindowService
+
   /* @ngInject */
-  function showMoreTextController($filter, $log: ng.ILogService, $timeout: ng.ITimeoutService,
-                                  $window: ng.IWindowService, $scope: ng.IScope) {
+  function showMoreTextController($filter: IFilterService, $log: ng.ILogService, $timeout: ng.ITimeoutService,
+                                  $window: IWindowService, $scope: ng.IScope) {
 
     const collapsibleLength = 300
     this.isCollapsed = false
@@ -72,6 +76,6 @@
   angular.module('profitelo.components.interface.show-more-text', [
     'pascalprecht.translate'
   ])
-  .component('showMoreText', showMoreText)
+    .component('showMoreText', showMoreText)
 
-}())
+}

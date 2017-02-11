@@ -1,10 +1,12 @@
-(function() {
+namespace profitelo.directives.proSocialIconGetter {
 
-  function proSocialIconGetter(urlService) {
+  import IUrlService = profitelo.services.helper.IUrlService
 
-    function proSocialIconGetterLink(scope) {
+  function proSocialIconGetter(urlService: IUrlService) {
 
-      scope.$watch('url', function(newVal, _oldVal) {
+    function proSocialIconGetterLink(scope: any) {
+
+      scope.$watch('url', function(newVal: string, _oldVal: string) {
         scope.social = urlService.resolveSocialUrl(newVal)
       })
     }
@@ -26,7 +28,7 @@
   ])
   .directive('proSocialIconGetter', proSocialIconGetter)
 
-}())
+}
 
 
 

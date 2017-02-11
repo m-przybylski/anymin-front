@@ -1,20 +1,20 @@
 describe('Unit testing: profitelo.components.summary-tag-multiselect', () => {
   return describe('for summaryTagMultiselectComponent >', () => {
 
-    let scope
-    let rootScope
-    let compile
-    let componentController
-    let component
+    let scope: any
+    let rootScope: ng.IRootScopeService
+    let compile: ng.ICompileService
+    let componentController: any
+    let component: any
     let validHTML = '<multiselect data-tags="[\'sadasdasd\']" data-on-select-change="true" data-title="title"></multiselect>'
 
-    let bindings = {
-      tags: _=>_,
+    let bindings: any = {
+      tags: () => {},
       title: 'title',
       onSelectChange: true
     }
 
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
@@ -26,7 +26,7 @@ describe('Unit testing: profitelo.components.summary-tag-multiselect', () => {
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.components.interface.multiselect')
 
-      inject(($rootScope, $compile, _$componentController_) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$componentController_: ng.IComponentControllerService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
@@ -40,12 +40,12 @@ describe('Unit testing: profitelo.components.summary-tag-multiselect', () => {
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
-    
+
     it('should compile the directive', () => {
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
-    
+
     it('should call on select change on toggle items', () => {
       spyOn(component, 'onSelectChange')
       component.toggleItem('sadasdasd')
@@ -58,7 +58,7 @@ describe('Unit testing: profitelo.components.summary-tag-multiselect', () => {
       const isChecked = component.isChecked(item)
       expect(isChecked).toBe(false)
     })
-    
-    
+
+
   })
 })

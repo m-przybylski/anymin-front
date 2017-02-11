@@ -1,13 +1,15 @@
-describe('Unit testing: profitelo.filters.milliseconds-to-datetime>', () => {
+namespace profitelo.filters.msToDate {
+import IFilterService = profitelo.services.filter.IFilterService
+  describe('Unit testing: profitelo.filters.milliseconds-to-datetime>', () => {
   describe('for message >', () => {
 
-    let $filter
+    let $filter: IFilterService
 
     beforeEach(() => {
       angular.mock.module('profitelo.filters.milliseconds-to-datetime')
     })
 
-    beforeEach(inject((_$filter_) => {
+    beforeEach(inject((_$filter_: IFilterService) => {
       $filter = _$filter_
     }))
 
@@ -19,4 +21,4 @@ describe('Unit testing: profitelo.filters.milliseconds-to-datetime>', () => {
       expect($filter('millisecondsToDatetime')(milliseconds)).toEqual(date)
     })
   })
-})
+})}

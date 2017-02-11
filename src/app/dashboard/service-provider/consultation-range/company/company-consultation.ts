@@ -1,8 +1,20 @@
-(function() {
-  function CompanyConsultationController($log, $scope, $state, dialogService, savedProfile, ServiceApi, topAlertService,
-                                         profileImage, lodash: _.LoDashStatic, serviceProviderService) {
+namespace profitelo.dashboard.serviceProvider.consultationRange.company {
 
-    this.costModel = serviceProviderService.createDefaultModel('')
+  import IDialogService = profitelo.services.dialog.IDialogService
+  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+  import IServiceProviderService = profitelo.services.serviceProvider.IServiceProviderService
+  import IServiceProviderImageService = profitelo.resolvers.serviceProviderImage.IServiceProviderImageService
+  import CompanyProfile = profitelo.models.CompanyProfile
+  import Tag = profitelo.models.Tag
+  import Profile = profitelo.models.Profile
+  import Service = profitelo.models.Service
+
+  function CompanyConsultationController($log: ng.ILogService, $scope: ng.IScope, $state: ng.ui.IStateService,
+                                         dialogService: IDialogService, savedProfile: Profile, ServiceApi: any,
+                                         topAlertService: ITopAlertService, profileImage: string,
+                                         lodash: _.LoDashStatic, serviceProviderService: IServiceProviderService) {
+
+    this.costModel = serviceProviderService.createDefaultModel(0)
     this.editModel = serviceProviderService.createDefaultModel(0)
 
     this.queue = serviceProviderService.createDefaultQueue(4, 1, 0)
@@ -18,7 +30,7 @@
     this.consultations = savedProfile.services
     this.profileImage = profileImage
 
-    let _postConsultationMethod = (callback) => {
+    let _postConsultationMethod = (callback: Function) => {
       ServiceApi.postService({
         details: {
           name: this.costModel.name,
@@ -30,12 +42,12 @@
         },
         ownerEmployee: this.ownerEmployee,
         invitations: this.costModel.invitations
-      }).$promise.then((_res)=> {
+      }).$promise.then((_res: any)=> {
 
         if (typeof callback === 'function') {
           callback()
         }
-      }, (err)=> {
+      }, (err: any)=> {
         $log.error(err)
         topAlertService.error({
           message: 'error',
@@ -80,7 +92,8 @@
       return this.consultations.length > 0
     }
 
-    this.editConsultation = (id, name, price, tags, invitations, ownerEmployee) => {
+    this.editConsultation = (id: string, name: string, price: number, tags: Array<Tag>,
+                             invitations: Array<CompanyProfile>, ownerEmployee: boolean) => {
       this.currentEditConsultationId = this.currentEditConsultationId === id ? -1 : id
       this.editQueue = {
         amountOfSteps: 4,
@@ -112,7 +125,7 @@
           invitations: this.editModel.invitations
         }).$promise.then(() => {
           $state.reload()
-        }, (err) => {
+        }, (err: any) => {
           $log.error(err)
           topAlertService.error({
             message: 'error',
@@ -121,7 +134,7 @@
         })
       }
     }
-    this.deleteConsultation = (id, index) => {
+    this.deleteConsultation = (id: string, index: number) => {
 
       ((serviceId, localIndex) => {
         let _id = serviceId
@@ -130,9 +143,9 @@
         this.modalCallback = () => {
           ServiceApi.deleteService({
             serviceId: _id
-          }).$promise.then((_res)=> {
+          }).$promise.then((_res: any)=> {
             this.consultations.splice(_index, 1)
-          }, (err) => {
+          }, (err: any) => {
             $log.error(err)
             topAlertService.error({
               message: 'error',
@@ -176,7 +189,7 @@
     'profitelo.directives.interface.pro-alert',
     'profitelo.directives.service-provider.pro-service-provider-profile'
   ])
-    .config(function($stateProvider, UserRolesProvider) {
+    .config(function($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
       $stateProvider.state('app.dashboard.service-provider.consultation-range.company', {
 
         url: '/company',
@@ -185,18 +198,19 @@
         controllerAs: 'vm',
         resolve: {
           /* istanbul ignore next */
-          savedProfile: ($log, $q, $state, ProfileApi, lodash: _.LoDashStatic, User, ServiceApi, topAlertService) => {
+          savedProfile: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: any,
+                         lodash: _.LoDashStatic, User: any, ServiceApi: any, topAlertService: ITopAlertService) => {
             /* istanbul ignore next */
-            let _deferred = $q.defer()
+            let _deferred = $q.defer<CompanyProfile | null>()
             /* istanbul ignore next */
             User.getStatus().then(() => {
               ProfileApi.getProfileWithServices({
                 profileId: User.getData('id')
-              }).$promise.then((profileWithServices) => {
+              }).$promise.then((profileWithServices: CompanyProfile) => {
                 ServiceApi.postServicesTags({
                   serviceIds: lodash.map(profileWithServices.services, 'id')
-                }).$promise.then((servicesTags) => {
-                  profileWithServices.services.forEach((service) => {
+                }).$promise.then((servicesTags: Array<Service>) => {
+                  profileWithServices.services.forEach((service: Service) => {
                     service.details.tags = lodash.head(
                       lodash.filter(servicesTags, (serviceTags: any) => service.id === serviceTags.serviceId)).tags
                   })
@@ -204,7 +218,7 @@
                 })
               }, () => {
                 _deferred.resolve(null)
-              }, (error)=> {
+              }, (error: any)=> {
                 _deferred.reject(error)
                 $state.go('app.dashboard')
                 topAlertService.error({
@@ -212,7 +226,7 @@
                   timeout: 4
                 })
               })
-            }, (error) => {
+            }, (error: any) => {
               $log.error(error)
               $state.go('app.dashboard')
               topAlertService.error({
@@ -224,8 +238,8 @@
             return _deferred.promise
           },
           /* istanbul ignore next */
-          profileImage: (ServiceProviderImageResolver, savedProfile) => {
-            return ServiceProviderImageResolver.resolve(savedProfile.organizationDetails.logo)
+          profileImage: (ServiceProviderImageResolver: IServiceProviderImageService, savedProfile: CompanyProfile) => {
+            return ServiceProviderImageResolver.resolve(savedProfile.organizationDetails.logo || '')
           }
         },
         data: {
@@ -236,5 +250,4 @@
       })
     })
     .controller('CompanyConsultationController', CompanyConsultationController)
-
-}())
+}

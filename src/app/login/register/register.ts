@@ -1,8 +1,21 @@
-(function() {
+namespace profitelo.login.register {
 
-  function RegisterController($log, $filter, $state, $rootScope, topWaitingLoaderService, User, topAlertService,
-                              UserRoles, smsSessionId, CommonSettingsService, RegistrationApi, AccountApi,
-                              loginStateService, communicatorService) {
+  import IFilterService = profitelo.services.filter.IFilterService
+  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  import ITopWaitingLoaderService = profitelo.services.topWaitingLoader.ITopWaitingLoaderService
+  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+  import ILoginRegisterService = profitelo.resolvers.loginRegister.ILoginRegisterService
+  import ILoginRegister = profitelo.resolvers.loginRegister.ILoginRegister
+  import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
+  import ILoginStateService = profitelo.services.loginState.ILoginStateService
+  import ICommunicatorService = profitelo.services.communicator.ICommunicatorService
+
+  function RegisterController($log: ng.ILogService, $filter: IFilterService, $state: ng.ui.IStateService,
+                              $rootScope: IRootScopeService, topWaitingLoaderService: ITopWaitingLoaderService,
+                              User: any, topAlertService: ITopAlertService, UserRoles: any,
+                              smsSessionId: ILoginRegister, CommonSettingsService: ICommonSettingsService,
+                              RegistrationApi: any, AccountApi: any,
+                              loginStateService: ILoginStateService, communicatorService: ICommunicatorService) {
     this.passwordStrength = 0
     this.isPending = false
     this.rulesAccepted = false
@@ -27,7 +40,7 @@
         }).$promise.then(() => {
           communicatorService.authenticate()
           this.correctCode = true
-        }, (err) => {
+        }, (err: any) => {
           $log.error(err)
           this.serverError = true
         })
@@ -46,7 +59,7 @@
         RegistrationApi.confirmVerification({
           sessionId: this.registrationSteps.sessionId,
           token: String(this.registrationSteps.smsCode)
-        }).$promise.then((response) => {
+        }).$promise.then((response: any) => {
           this.isPending = false
           topWaitingLoaderService.stopLoader()
           delete response.$promise
@@ -57,7 +70,7 @@
           loginStateService.clearServiceObject()
           $rootScope.loggedIn = true
           $state.go('app.post-register.set-password')
-        }, (error) => {
+        }, (error: any) => {
           $log.error(error)
           this.isPending = false
           this.serverError = true
@@ -66,7 +79,7 @@
       }
     }
 
-    let _updateNewUserObject = (patchObject, successCallback) => {
+    let _updateNewUserObject = (patchObject: any, successCallback: Function) => {
       /* istanbul ignore next if */
       if (!this.isPending) {
         this.isPending = true
@@ -74,7 +87,7 @@
 
         patchObject.accountId = User.getData('id')
 
-        AccountApi.partialUpdateAccount(patchObject).$promise.then(successCallback, (error) => {
+        AccountApi.partialUpdateAccount(patchObject).$promise.then(successCallback, (error: any) => {
           this.isPending = false
           $log.error(error)
           topWaitingLoaderService.stopLoader()
@@ -100,7 +113,7 @@
     return this
   }
 
-  function config($stateProvider, UserRolesProvider) {
+  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
     $stateProvider.state('app.login.register', {
       url: '/register',
       controllerAs: 'vm',
@@ -108,7 +121,7 @@
       templateUrl: 'login/register/register.tpl.html',
       resolve: {
         /* istanbul ignore next */
-        smsSessionId: (LoginRegisterResolver) => {
+        smsSessionId: (LoginRegisterResolver: ILoginRegisterService) => {
           /* istanbul ignore next */
           return LoginRegisterResolver.resolve()
         }
@@ -137,4 +150,4 @@
     .config(config)
     .controller('RegisterController', RegisterController)
 
-}())
+}

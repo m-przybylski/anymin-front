@@ -1,18 +1,21 @@
-describe('Unit testing: profitelo.directives.pro-top-navbar', () => {
+namespace profitelo.directives.proTopNavbar {
+import ISearchService = profitelo.services.search.ISearchService
+  import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
+  describe('Unit testing: profitelo.directives.pro-top-navbar', () => {
   return describe('for pro-top-navbar directive >', () => {
 
     let scope: any = null
-    let rootScope
-    let $state
+    let rootScope: ng.IRootScopeService
+    let $state: ng.ui.IStateService
     let compile: any = null
     let validHTML = '<pro-top-navbar data-logout-action="vm.logout"></pro-top-navbar>'
     let smoothScrollingService
-    let location
-    let searchService
-    let resourcesExpectations
-    let $httpBackend
+    let location: ng.ILocationService
+    let searchService: ISearchService
+    let resourcesExpectations: any
+    let $httpBackend: ng.IHttpBackendService
 
-    beforeEach(angular.mock.module(($provide) => {
+    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', '')
     }))
 
@@ -20,8 +23,10 @@ describe('Unit testing: profitelo.directives.pro-top-navbar', () => {
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.directives.pro-top-navbar')
     angular.mock.module('profitelo.services.search')
-      
-      inject(($rootScope, $compile, _$httpBackend_, _smoothScrollingService_, _$state_, _$location_, _searchService_) => {
+
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$httpBackend_: ng.IHttpBackendService,
+              _smoothScrollingService_: ISmoothScrollingService, _$state_: ng.ui.IStateService,
+              _$location_: ng.ILocationService, _searchService_: ISearchService) => {
         rootScope = $rootScope.$new()
         compile = $compile
         $state = _$state_
@@ -38,7 +43,7 @@ describe('Unit testing: profitelo.directives.pro-top-navbar', () => {
 
     })
 
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       scope.vm = {
@@ -111,7 +116,7 @@ describe('Unit testing: profitelo.directives.pro-top-navbar', () => {
       isoScope.searchAction()
       expect(searchService.setSearchQueryParams).toHaveBeenCalled()
     }))
-    
+
 
     it('should call sidebarAction', inject(() => {
       const el = create(validHTML)
@@ -126,4 +131,4 @@ describe('Unit testing: profitelo.directives.pro-top-navbar', () => {
 
 
   })
-})
+})}

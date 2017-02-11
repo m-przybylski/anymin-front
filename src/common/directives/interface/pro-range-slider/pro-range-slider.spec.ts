@@ -3,7 +3,7 @@ describe('Unit testing: profitelo.directives.interface.pro-range-slider', () => 
 
 
     let scope: any     = null
-    let rootScope
+    let rootScope: ng.IRootScopeService
     let compile: any   = null
     let validHTML = '<pro-range-slider max-value="max" min-value="min"></pro-range-slider>'
 
@@ -11,13 +11,13 @@ describe('Unit testing: profitelo.directives.interface.pro-range-slider', () => 
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.directives.interface.pro-range-slider')
 
-      inject(($rootScope, $compile ) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {
         rootScope             = $rootScope.$new()
         compile               = $compile
       })
     })
 
-    function create(html, min, max) {
+    function create(html: string, min: number, max: number) {
       scope = rootScope.$new()
       scope.min = min
       scope.max = max

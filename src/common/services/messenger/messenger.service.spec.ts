@@ -1,182 +1,202 @@
-describe('Unit testing: profitelo.services.messenger >', () => {
-  describe('for profitelo.services.messenger >', () => {
+namespace profitelo.services.messenger {
+  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  import ICommunicatorService = profitelo.services.communicator.ICommunicatorService
+  describe('Unit testing: profitelo.services.messenger >', () => {
+    describe('for profitelo.services.messenger >', () => {
 
-    let onClientCallStarted
-    let onExpertCallAnswered
-    let onExpertCallReject
-    let onClientCallRejected
-    let onClientCallPending
-    let onCallEnd
+      let onClientCallStarted: any
+      let onExpertCallAnswered: any
+      let onExpertCallReject: any
+      let onClientCallRejected: any
+      let onClientCallPending: any
+      let onCallEnd: any
 
-    const ratelId = '1'
-    const room = {
-      onTyping: _ => _,
-      onMark: _ => _,
-      onMessage: _ => _,
-      getUsers: (_: any) => _
-    }
-
-    const serviceInvitationTuple = {
-      service: {
-        id: '1'
-      },
-      invitation: {
-        inviter: ratelId
+      const ratelId = '1'
+      const room = {
+        onTyping: () => {
+        },
+        onMark: () => {
+        },
+        onMessage: () => {
+        },
+        getUsers: (_: any) => _
       }
-    }
 
-    const getTestSession = ($q) => ({
-      chat: {
-        createDirectRoom: () => $q.resolve(room)
+      const serviceInvitationTuple = {
+        service: {
+          id: '1'
+        },
+        invitation: {
+          inviter: ratelId
+        }
       }
-    })
 
-    const callService = {
-      onClientCallStarted: (cb) => onClientCallStarted = cb,
-      onExpertCallAnswered: (cb) => onExpertCallAnswered = cb,
-      onExpertCallReject: (cb) => onExpertCallReject = cb,
-      onClientCallRejected: (cb) => onClientCallRejected = cb,
-      onClientCallPending: (cb) => onClientCallPending = cb,
-      onCallEnd: (cb) => onCallEnd = cb
-    }
-
-    const soundsService = {
-      playMessageNew: _ => _
-    }
-
-    beforeEach(() => {
-    angular.mock.module('profitelo.services.call')
-    angular.mock.module('profitelo.services.messenger')
-    })
-
-    beforeEach(angular.mock.module(($provide) => {
-      $provide.value('callService', callService)
-      $provide.value('apiUrl', 'awesomeURL')
-      $provide.value('soundsService', soundsService)
-    }))
-
-    it('should have a dummy test', () => {
-      expect(true).toBeTruthy()
-    })
-
-    it('expert should get users', inject(($q, $rootScope, communicatorService, messengerService) => {
-      communicatorService.findExpertSession = () => getTestSession($q)
-
-      onExpertCallAnswered(serviceInvitationTuple)
-      messengerService.getUsers().then(res => {
-        expect(res).toEqual('test')
+      const getTestSession = ($q: ng.IQService) => ({
+        chat: {
+          createDirectRoom: () => $q.resolve(room)
+        }
       })
-      $rootScope.$digest()
-    }))
 
-    it('client should get users', inject(($q, $rootScope, communicatorService, messengerService) => {
-
-      communicatorService.getClientSession = () => getTestSession($q)
-
-      onClientCallStarted(ratelId)
-      messengerService.getUsers().then(res => {
-        expect(res).toEqual('test')
-      })
-      $rootScope.$digest()
-    }))
-
-    it('expert should get mark', inject(($q, $rootScope, communicatorService, messengerService) => {
-
-      communicatorService.findExpertSession = () => getTestSession($q)
-
-      onExpertCallAnswered(serviceInvitationTuple)
-      messengerService.getMark().then(res => {
-        expect(res).toEqual('test')
-      })
-      $rootScope.$digest()
-    }))
-
-    it('client should get mark', inject(($q, $rootScope, communicatorService, messengerService) => {
-
-      communicatorService.getClientSession = () => getTestSession($q)
-
-      onClientCallStarted(ratelId)
-      messengerService.getMark().then(res => {
-        expect(res).toEqual('test')
-      })
-      $rootScope.$digest()
-    }))
-
-    it('expert should mark', inject(($q, $rootScope, communicatorService, messengerService) => {
-
-      communicatorService.findExpertSession = () => getTestSession($q)
-
-      onExpertCallAnswered(serviceInvitationTuple)
-      messengerService.mark().then(res => {
-        expect(res).toEqual('test')
-      })
-      $rootScope.$digest()
-    }))
-
-    it('client should mark', inject(($q, $rootScope, communicatorService, messengerService) => {
-
-      communicatorService.getClientSession = () => getTestSession($q)
-
-      onClientCallStarted(ratelId)
-      messengerService.mark().then(res => {
-        expect(res).toEqual('test')
-      })
-      $rootScope.$digest()
-    }))
-
-    it('expert should indicateTyping', inject(($q, $rootScope, communicatorService, messengerService) => {
-
-      communicatorService.findExpertSession = () => getTestSession($q)
-
-      onExpertCallAnswered(serviceInvitationTuple)
-      messengerService.indicateTyping().then(res => {
-        expect(res).toEqual('test')
-      })
-      $rootScope.$digest()
-    }))
-
-    it('client should indicateTyping', inject(($q, $rootScope, communicatorService, messengerService) => {
-
-      communicatorService.getClientSession = () => getTestSession($q)
-
-      onClientCallStarted(ratelId)
-      messengerService.indicateTyping().then(res => {
-        expect(res).toEqual('test')
-      })
-      $rootScope.$digest()
-    }))
-
-    it('expert should sendMessage', inject(($q, $rootScope, communicatorService, messengerService) => {
-
-      communicatorService.findExpertSession = () => getTestSession($q)
-
-      onExpertCallAnswered(serviceInvitationTuple)
-      messengerService.sendMessage().then(res => {
-        expect(res).toEqual('test')
-      })
-      $rootScope.$digest()
-    }))
-
-    it('client should sendMessage', inject(($q, $rootScope, communicatorService, messengerService) => {
-
-      communicatorService.getClientSession = () => getTestSession($q)
-
-      onClientCallStarted(ratelId)
-      messengerService.sendMessage().then(res => {
-        expect(res).toEqual('test')
-      })
-      $rootScope.$digest()
-    }))
-
-    it('onHangup should remove room', inject(() => {
-      onCallEnd()
-    }))
-
-    it('onClientCallPending should notify callback facotyr', inject(() => {
-      const serviceUsageRequest = {
-        expert: {}
+      const callService = {
+        onClientCallStarted: (cb: any) => onClientCallStarted = cb,
+        onExpertCallAnswered: (cb: any) => onExpertCallAnswered = cb,
+        onExpertCallReject: (cb: any) => onExpertCallReject = cb,
+        onClientCallRejected: (cb: any) => onClientCallRejected = cb,
+        onClientCallPending: (cb: any) => onClientCallPending = cb,
+        onCallEnd: (cb: any) => onCallEnd = cb
       }
-      onClientCallPending(serviceUsageRequest)
-    }))
+
+      const soundsService = {
+        playMessageNew: () => {
+        }
+      }
+
+      beforeEach(() => {
+        angular.mock.module('profitelo.services.call')
+        angular.mock.module('profitelo.services.messenger')
+      })
+
+      beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
+        $provide.value('callService', callService)
+        $provide.value('apiUrl', 'awesomeURL')
+        $provide.value('soundsService', soundsService)
+      }))
+
+      it('should have a dummy test', () => {
+        expect(true).toBeTruthy()
+      })
+
+      it('expert should get users', inject(($q: ng.IQService, $rootScope: IRootScopeService,
+                                            communicatorService: ICommunicatorService,
+                                            messengerService: IMessengerService) => {
+
+        communicatorService.findExpertSession = () => getTestSession($q)
+
+        onExpertCallAnswered(serviceInvitationTuple)
+        messengerService.getUsers().then(res => {
+          expect(res).toEqual('test')
+        })
+        $rootScope.$digest()
+      }))
+
+      it('client should get users', inject(($q: ng.IQService, $rootScope: IRootScopeService,
+                                            communicatorService: ICommunicatorService, messengerService: IMessengerService) => {
+
+        communicatorService.getClientSession = () => getTestSession($q)
+
+        onClientCallStarted(ratelId)
+        messengerService.getUsers().then((res: any) => {
+          expect(res).toEqual('test')
+        })
+        $rootScope.$digest()
+      }))
+
+      it('expert should get mark', inject(($q: ng.IQService, $rootScope: IRootScopeService,
+                                           communicatorService: ICommunicatorService, messengerService: IMessengerService) => {
+
+        communicatorService.findExpertSession = () => getTestSession($q)
+
+        onExpertCallAnswered(serviceInvitationTuple)
+        messengerService.getMark().then(res => {
+          expect(res).toEqual('test')
+        })
+        $rootScope.$digest()
+      }))
+
+      it('client should get mark', inject(($q: ng.IQService, $rootScope: IRootScopeService,
+                                           communicatorService: ICommunicatorService, messengerService: IMessengerService) => {
+
+        communicatorService.getClientSession = () => getTestSession($q)
+
+        onClientCallStarted(ratelId)
+        messengerService.getMark().then((res: any) => {
+          expect(res).toEqual('test')
+        })
+        $rootScope.$digest()
+      }))
+
+      it('expert should mark', inject(($q: ng.IQService, $rootScope: IRootScopeService,
+                                       communicatorService: ICommunicatorService, messengerService: IMessengerService) => {
+
+        communicatorService.findExpertSession = () => getTestSession($q)
+
+        onExpertCallAnswered(serviceInvitationTuple)
+        messengerService.mark(new Date).then((res: any) => {
+          expect(res).toEqual('test')
+        })
+        $rootScope.$digest()
+      }))
+
+      it('client should mark', inject(($q: ng.IQService, $rootScope: IRootScopeService,
+                                       communicatorService: ICommunicatorService, messengerService: IMessengerService) => {
+
+        communicatorService.getClientSession = () => getTestSession($q)
+
+        onClientCallStarted(ratelId)
+        messengerService.mark(new Date).then((res: any) => {
+          expect(res).toEqual('test')
+        })
+        $rootScope.$digest()
+      }))
+
+      it('expert should indicateTyping', inject(($q: ng.IQService, $rootScope: IRootScopeService,
+                                                 communicatorService: ICommunicatorService, messengerService: IMessengerService) => {
+
+        communicatorService.findExpertSession = () => getTestSession($q)
+
+        onExpertCallAnswered(serviceInvitationTuple)
+        messengerService.indicateTyping().then(res => {
+          expect(res).toEqual('test')
+        })
+        $rootScope.$digest()
+      }))
+
+      it('client should indicateTyping', inject(($q: ng.IQService, $rootScope: IRootScopeService,
+                                                 communicatorService: ICommunicatorService, messengerService: IMessengerService) => {
+
+        communicatorService.getClientSession = () => getTestSession($q)
+
+        onClientCallStarted(ratelId)
+        messengerService.indicateTyping().then((res: any) => {
+          expect(res).toEqual('test')
+        })
+        $rootScope.$digest()
+      }))
+
+      it('expert should sendMessage', inject(($q: ng.IQService, $rootScope: IRootScopeService,
+                                              communicatorService: ICommunicatorService, messengerService: IMessengerService) => {
+
+        communicatorService.findExpertSession = () => getTestSession($q)
+
+        onExpertCallAnswered(serviceInvitationTuple)
+        messengerService.sendMessage('').then((res: any) => {
+          expect(res).toEqual('test')
+        })
+        $rootScope.$digest()
+      }))
+
+      it('client should sendMessage', inject(($q: ng.IQService, $rootScope: IRootScopeService,
+                                              communicatorService: ICommunicatorService, messengerService: IMessengerService) => {
+
+        communicatorService.getClientSession = () => getTestSession($q)
+
+        onClientCallStarted(ratelId)
+        messengerService.sendMessage('').then((res: any) => {
+          expect(res).toEqual('test')
+        })
+        $rootScope.$digest()
+      }))
+
+      it('onHangup should remove room', inject(() => {
+        onCallEnd()
+      }))
+
+      it('onClientCallPending should notify callback facotyr', inject(() => {
+        const serviceUsageRequest = {
+          expert: {}
+        }
+        onClientCallPending(serviceUsageRequest)
+      }))
+    })
   })
-})
+}

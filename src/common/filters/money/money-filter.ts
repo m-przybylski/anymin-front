@@ -1,8 +1,9 @@
-(function() {
+namespace profitelo.filters.money {
 
-  const handleAmount = (_amount) => {
+  import Money = profitelo.models.Money
+  const handleAmount = (_amount: number) => {
     let sign = ''
-    const amount = parseInt(_amount, 10)
+    const amount = parseInt(<any>_amount, 10)
     const major = (amount) ? amount/100 | 0 : 0
     const minor = (amount) ? amount % 100 : 0
     let minorFirst = (minor) ? minor % 10 : 0
@@ -15,13 +16,13 @@
     return sign + Math.abs(major) + '.' + Math.abs(minorSecond) + Math.abs(minorFirst)
   }
 
-  const handleMoney = (_money) => {
+  const handleMoney = (_money: Money) => {
     return '<span class="amount">' + handleAmount(_money.amount) + '</span>' +
-            '<span class="currency">' + _money.currency + '</span>'
+      '<span class="currency">' + _money.currency + '</span>'
   }
 
   function filter() {
-    return function(money) {
+    return function(money: Money) {
 
       if (!money || typeof money !== 'object' || !money.hasOwnProperty('amount') || !money.hasOwnProperty('currency')) {
         return ''
@@ -33,4 +34,4 @@
 
   angular.module('profitelo.filters.money', [])
     .filter('money', filter)
-}())
+}

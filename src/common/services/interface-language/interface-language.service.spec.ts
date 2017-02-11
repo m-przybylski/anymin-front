@@ -3,15 +3,15 @@ namespace profitelo.services.interfaceLanguage {
   describe('Unit testing: profitelo.services.interface-language >', function () {
     describe('for InterfaceLanguageService service >', function () {
 
-      let InterfaceLanguageService: any = null
+      let InterfaceLanguageService: IInterfaceLanguageService
 
       beforeEach(function () {
         angular.mock.module('profitelo.services.interface-language')
       })
 
 
-      beforeEach(inject(function ($injector) {
-        InterfaceLanguageService = $injector.get('InterfaceLanguageService')
+      beforeEach(inject(function ($injector: ng.auto.IInjectorService) {
+        InterfaceLanguageService = $injector.get<IInterfaceLanguageService>('InterfaceLanguageService')
       }))
 
 
@@ -65,7 +65,7 @@ namespace profitelo.services.interfaceLanguage {
         })
 
         it('should return empty string if parameter not provided', function () {
-          expect(InterfaceLanguageService.unifyToIetfCode()).toEqual('')
+          expect(InterfaceLanguageService.unifyToIetfCode('')).toEqual('')
         })
 
         it('should return language with standarts of ietf codes', function () {
@@ -90,12 +90,12 @@ namespace profitelo.services.interfaceLanguage {
             return {lang: 'en-us'}
           }
         }
-        angular.mock.module('profitelo.services.interface-language', function ($provide) {
+        angular.mock.module('profitelo.services.interface-language', function ($provide: ng.auto.IProvideService) {
           $provide.value('$location', mocekdLocation)
         })
       })
 
-      beforeEach(inject(function ($injector) {
+      beforeEach(inject(function ($injector: ng.auto.IInjectorService) {
         InterfaceLanguageService = $injector.get('InterfaceLanguageService')
       }))
 
@@ -121,16 +121,16 @@ namespace profitelo.services.interfaceLanguage {
 
       beforeEach(function () {
         let mockedCookie = {
-          get: function (_value) {
+          get: function (_value: any) {
             return 'en-us'
           }
         }
-        angular.mock.module('profitelo.services.interface-language', function ($provide) {
+        angular.mock.module('profitelo.services.interface-language', function ($provide: ng.auto.IProvideService) {
           $provide.value('$cookies', mockedCookie)
         })
       })
 
-      beforeEach(inject(function ($injector) {
+      beforeEach(inject(function ($injector: ng.auto.IInjectorService) {
         InterfaceLanguageService = $injector.get('InterfaceLanguageService')
       }))
 
@@ -153,16 +153,16 @@ namespace profitelo.services.interfaceLanguage {
 
       beforeEach(function () {
         let mockedCookie = {
-          get: function (_value) {
+          get: function (_value: any) {
             return 'kaz-kaz'
           }
         }
-        angular.mock.module('profitelo.services.interface-language', function ($provide) {
+        angular.mock.module('profitelo.services.interface-language', function ($provide: ng.auto.IProvideService) {
           $provide.value('$cookies', mockedCookie)
         })
       })
 
-      beforeEach(inject(function ($injector) {
+      beforeEach(inject(function ($injector: ng.auto.IInjectorService) {
         InterfaceLanguageService = $injector.get('InterfaceLanguageService')
       }))
 
@@ -183,14 +183,14 @@ namespace profitelo.services.interfaceLanguage {
 // Tests with specyfic mocked services
   describe('Unit testing: profitelo.services.interface-language >', function () {
 
-    var realTranslate // Hack to get full translate object for further tests !!!
+    var realTranslate: any // Hack to get full translate object for further tests !!!
     describe('Hack to get full translate object for further test', function () {
 
       beforeEach(function () {
         angular.mock.module('profitelo.services.interface-language')
       })
 
-      beforeEach(inject(function ($injector) {
+      beforeEach(inject(function ($injector: ng.auto.IInjectorService) {
         realTranslate = $injector.get('$translate')
       }))
 
@@ -207,27 +207,22 @@ namespace profitelo.services.interfaceLanguage {
     describe('for InterfaceLanguageService service >', function () {
       describe('getStartupLanguage method with mocked services >', function () {
 
-        let InterfaceLanguageService = null
+        let InterfaceLanguageService: IInterfaceLanguageService
 
         beforeEach(function () {
           let mockedTranslation = realTranslate
-          mockedTranslation.use = function (_value) { // mock variable
+          mockedTranslation.use = function (_value: any) { // mock variable
             return 'en-us' // language that should exsist into array
           }
 
-          angular.mock.module('profitelo.services.interface-language', function ($provide) {
+          angular.mock.module('profitelo.services.interface-language', function ($provide: ng.auto.IProvideService) {
             $provide.value('$translate', mockedTranslation)
           })
         })
 
-        beforeEach(inject(function ($injector) {
-          InterfaceLanguageService = $injector.get('InterfaceLanguageService')
+        beforeEach(inject(function ($injector: ng.auto.IInjectorService) {
+          InterfaceLanguageService = $injector.get<IInterfaceLanguageService>('InterfaceLanguageService')
         }))
-
-        afterEach(function () {
-          InterfaceLanguageService = null
-        })
-
 
         // it('should set translation language if any parameter, URL or cookie has not been provided and exists into `_interfaceLanguages` array', function() {
         //   expect(InterfaceLanguageService.getStartupLanguage()).toEqual('en-us')
@@ -245,16 +240,16 @@ namespace profitelo.services.interfaceLanguage {
 
         beforeEach(function () {
           let mockedTranslation = realTranslate
-          mockedTranslation.use = function (_value) { // mock variable
+          mockedTranslation.use = function (_value: any) { // mock variable
             return 'kuz-kaz'  // language that wont exsist into array
           }
 
-          angular.mock.module('profitelo.services.interface-language', function ($provide) {
+          angular.mock.module('profitelo.services.interface-language', function ($provide: ng.auto.IProvideService) {
             $provide.value('$translate', mockedTranslation)
           })
         })
 
-        beforeEach(inject(function ($injector) {
+        beforeEach(inject(function ($injector: ng.auto.IInjectorService) {
           InterfaceLanguageService = $injector.get('InterfaceLanguageService')
         }))
 
@@ -286,12 +281,12 @@ namespace profitelo.services.interfaceLanguage {
         angular.mock.module('profitelo.services.interface-language')
       })
 
-      beforeEach(inject(function ($injector) {
+      beforeEach(inject(function ($injector: ng.auto.IInjectorService) {
         InterfaceLanguageService = $injector.get('InterfaceLanguageService')
         http = $injector.get('$http')
         moment = $injector.get('moment')
-        translate = $injector.get('$translate')
-        cookies = $injector.get('$cookies')
+        translate = $injector.get<ng.translate.ITranslateService>('$translate')
+        cookies = $injector.get<ng.cookies.ICookiesService>('$cookies')
       }))
 
       afterEach(function () {

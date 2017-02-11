@@ -1,19 +1,22 @@
-describe('Unit tests: app.dashboard.service-provider.consultation-range.company >', () => {
+namespace profitelo.dashboard.serviceProvider.consultationRange.company {
+import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+  import IDialogService = profitelo.services.dialog.IDialogService
+  describe('Unit tests: app.dashboard.service-provider.consultation-range.company >', () => {
   describe('Testing Controller: CompanyConsultationController', () => {
 
-    let CompanyConsultationController
-    let _scope
+    let CompanyConsultationController: any
+    let _scope: any
     let url = 'awesomeUrl'
-    let _state
-    let _ServiceApiDef
-    let resourcesExpectations
-    let _httpBackend
-    let _topAlertService
-    let _ServiceApi
-    let _dialogService
-    let _controller
+    let _state: ng.ui.IStateService
+    let _ServiceApiDef: any
+    let resourcesExpectations: any
+    let _httpBackend: ng.IHttpBackendService
+    let _topAlertService: ITopAlertService
+    let _ServiceApi: any
+    let _dialogService: IDialogService
+    let _controller: any
 
-    function createController(controller, savedProfile, profileImage) {
+    function createController(controller: any, savedProfile: any, profileImage: any) {
       CompanyConsultationController = controller('CompanyConsultationController', {
         $scope: _scope,
         ServiceApi: _ServiceApi,
@@ -24,7 +27,7 @@ describe('Unit tests: app.dashboard.service-provider.consultation-range.company 
       })
     }
 
-    beforeEach(angular.mock.module(function($provide) {
+    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', url)
     }))
 
@@ -32,7 +35,9 @@ describe('Unit tests: app.dashboard.service-provider.consultation-range.company 
     angular.mock.module('profitelo.swaggerResources.definitions')
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.controller.dashboard.service-provider.consultation-range.company')
-      inject(($rootScope, $controller, $httpBackend, $injector, _$state_, _ServiceApi_, _topAlertService_, _dialogService_) => {
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $httpBackend: ng.IHttpBackendService,
+              $injector: ng.auto.IInjectorService, _$state_: ng.ui.IStateService, _ServiceApi_: any,
+              _topAlertService_: ITopAlertService, _dialogService_: IDialogService) => {
 
         _scope = $rootScope.$new()
         _state = _$state_
@@ -140,3 +145,4 @@ describe('Unit tests: app.dashboard.service-provider.consultation-range.company 
 
   })
 })
+}

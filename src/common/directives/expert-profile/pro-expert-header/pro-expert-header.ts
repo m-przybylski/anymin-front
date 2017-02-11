@@ -1,10 +1,13 @@
-(function() {
-  function proExpertHeader(urlService) {
+namespace profitelo.directives.expertProfile.proExpertHeader {
 
-    function linkFunction(scope, _element: ng.IRootElementService) {
+  import IUrlService = profitelo.services.helper.IUrlService
 
-      scope.handleUserImage = (imgToken) => {
-        return imgToken !== null ||  imgToken === '' ? urlService.resolveFileUrl(imgToken) : ''
+  function proExpertHeader(urlService: IUrlService) {
+
+    function linkFunction(scope: any, _element: ng.IRootElementService) {
+
+      scope.handleUserImage = (imgToken: string) => {
+        return imgToken !== null || imgToken === '' ? urlService.resolveFileUrl(imgToken) : ''
       }
 
       scope.checkCollaboratedExperts = () => {
@@ -25,10 +28,11 @@
       }
     }
   }
+
   angular.module('profitelo.directives.expert-profile.pro-expert-header', [
     'profitelo.components.interface.show-more-text',
     'profitelo.services.url'
   ])
-  .directive('proExpertHeader', proExpertHeader)
+    .directive('proExpertHeader', proExpertHeader)
 
-}())
+}

@@ -1,13 +1,17 @@
-describe('Unit tests: search-result>', () => {
+namespace profitelo.search {
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  import ISearchUrlService = profitelo.services.searchUrl.ISearchUrlService
+  import ISearchService = profitelo.services.search.ISearchService
+  describe('Unit tests: search-result>', () => {
   describe('Testing Controller: SearchResultController', () => {
 
-    let $scope
-    let SearchResultController
-    let location
-    let searchUrlService
-    let state
+    let $scope: any
+    let SearchResultController: any
+    let location: ng.ILocationService
+    let searchUrlService: ISearchUrlService
+    let state: ng.ui.IStateService
 
-    beforeEach(angular.mock.module(($provide) => {
+    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', '')
     }))
 
@@ -15,25 +19,26 @@ describe('Unit tests: search-result>', () => {
     angular.mock.module('profitelo.controller.search-result')
     angular.mock.module('profitelo.services.search')
 
-      inject(($rootScope, $controller, $timeout, searchService) => {
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $timeout: ng.ITimeoutService,
+              searchService: ISearchService) => {
         $scope = $rootScope.$new()
-        location = {
+        location = <ng.ILocationService>{
           search: () => {
             return {}
           }
         }
 
-        state = {
+        state = <ng.ui.IStateService>{
           current: {
             name: 'app.search-result'
           },
-          go: () => {
-            return null
+          go: (_x: any) => {
+            return {}
           }
         }
 
-        searchService = {
-          onSearchResults: (_$scope, cb) => {
+        searchService = <ISearchService>{
+          onSearchResults: (_$scope, cb: Function) => {
             cb()
           },
 
@@ -46,9 +51,9 @@ describe('Unit tests: search-result>', () => {
           }
         }
 
-        searchUrlService = {
+        searchUrlService = <ISearchUrlService> {
           parseParamsForUrl: () => {
-
+            return {}
           }
         }
 
@@ -56,7 +61,7 @@ describe('Unit tests: search-result>', () => {
           $scope: $scope,
           $rootScope: $rootScope,
           $state: state,
-          $timeout: $timeout,
+          $$timeout: $timeout,
           searchService: searchService,
           $location: location,
           searchUrlService: searchUrlService
@@ -97,3 +102,4 @@ describe('Unit tests: search-result>', () => {
     })
   })
 })
+}

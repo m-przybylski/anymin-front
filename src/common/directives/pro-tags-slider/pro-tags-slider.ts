@@ -1,6 +1,10 @@
-(function() {
-  function proTagsSlider($window, $location, $timeout) {
-    function linkFunction(scope, element) {
+namespace profitelo.directives.proTagsSlider {
+
+  import IWindowService = profitelo.services.window.IWindowService
+  import Tag = profitelo.models.Tag
+
+  function proTagsSlider($window: IWindowService, $location: ng.ILocationService, $timeout: ng.ITimeoutService) {
+    function linkFunction(scope: any, element: ng.IRootElementService) {
 
       let tagsContainerWidth = element.find('.slider-tag')[0].clientWidth
       let elementsMap: Array<number> = []
@@ -21,7 +25,7 @@
         scope.slidesContainerOffsetWidth = element.find('.slide-page')[0].clientWidth
       }
 
-      const _calculateOffset = (elem) => {
+      const _calculateOffset = (elem: number) => {
         let offset = 0
         for (let i = 0; i < elem; i++) {
           offset = offset + elementsMap[i] + 8
@@ -30,28 +34,28 @@
       }
 
       /* istanbul ignore next */
-      angular.element($window).on('resize', ()=> {
+      angular.element($window).on('resize', () => {
         _clearSlider()
       })
 
       scope.$watch(() => {
         return scope.tags
-      }, (newValue, _oldValue) => {
+      }, (newValue: Array<Tag>, _oldValue: Array<Tag>) => {
         if (newValue) {
-          elementsMap = $.map($(element).find('.slide-page li'), (li)=>{
+          elementsMap = $.map($(element).find('.slide-page li'), (li) => {
             return li.clientWidth
           })
         }
       })
 
-      scope.tagAction = (tag)=> {
-        if (tag.id !==  $location.search().tagId) {
+      scope.tagAction = (tag: Tag) => {
+        if (tag.id !== $location.search().tagId) {
           scope.onTagClickAction(tag)
           _clearSlider()
         }
       }
 
-      scope.prevSlide = (next=1) => {
+      scope.prevSlide = (next = 1) => {
         if (currentElement > 0) {
           currentElement = currentElement - next
           scope.leftOffset = {left: _calculateOffset(currentElement) * -1}
@@ -59,7 +63,7 @@
         }
       }
 
-      scope.nextSlide = (next=1) => {
+      scope.nextSlide = (next = 1) => {
         if (currentElement < elementsMap.length - next && tagsContainerWidth < scope.slidesContainerOffsetWidth) {
           currentElement = currentElement + next
           scope.leftOffset = {left: _calculateOffset(currentElement) * -1}
@@ -90,5 +94,4 @@
 
   angular.module('profitelo.directives.pro-tags-slider', [])
     .directive('proTagsSlider', proTagsSlider)
-
-}())
+}

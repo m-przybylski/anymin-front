@@ -1,17 +1,23 @@
-describe('Unit tests: profitelo.controller.post-register.set-password>', () => {
+namespace profitelo.postRegister.setPassword {
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+  import IFilterService = profitelo.services.filter.IFilterService
+  import ITopWaitingLoaderService = profitelo.services.topWaitingLoader.ITopWaitingLoaderService
+  import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordStrengthService
+  describe('Unit tests: profitelo.controller.post-register.set-password>', () => {
   describe('Testing Controller: SetPasswordController', () => {
 
-    let scope
-    let SetPasswordController
+    let scope: any
+    let SetPasswordController: any
     let _topWaitingLoaderService
     let _passwordStrengthService
     let _AccountApi
-    let _topAlertService
-    let _$httpBackend
+    let _topAlertService: ITopAlertService
+    let _$httpBackend: ng.IHttpBackendService
 
     let _url = 'awesomeUrl'
 
-    let resourcesExpectations
+    let resourcesExpectations: any
 
     let _User = {
       getData: () => {
@@ -28,7 +34,7 @@ describe('Unit tests: profitelo.controller.post-register.set-password>', () => {
       }
     }
 
-    beforeEach(angular.mock.module(($provide) => {
+    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', _url)
     }))
 
@@ -37,8 +43,10 @@ describe('Unit tests: profitelo.controller.post-register.set-password>', () => {
     angular.mock.module('profitelo.swaggerResources.definitions')
     angular.mock.module('profitelo.services.pro-top-waiting-loader-service')
     angular.mock.module('profitelo.services.password-strength')
-      inject(($rootScope, $controller, $filter, _topWaitingLoaderService_, _passwordStrengthService_, _AccountApi_,
-              _topAlertService_, _$httpBackend_, _AccountApiDef_) => {
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $filter: IFilterService,
+              _topWaitingLoaderService_: ITopWaitingLoaderService, _passwordStrengthService_: IPasswordStrengthService,
+              _AccountApi_: any, _topAlertService_: ITopAlertService, _$httpBackend_: ng.IHttpBackendService,
+              _AccountApiDef_: any) => {
 
         scope = $rootScope.$new()
 
@@ -110,3 +118,4 @@ describe('Unit tests: profitelo.controller.post-register.set-password>', () => {
     })
   })
 })
+}

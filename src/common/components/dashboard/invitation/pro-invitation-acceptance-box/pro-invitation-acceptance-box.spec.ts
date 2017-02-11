@@ -1,23 +1,24 @@
+namespace profitelo.components.dashboard.invitation.proInvitationAcceptanceBox {
 describe('Unit testing: profitelo.components.dashboard.invitation.pro-invitation-acceptance-box', () => {
   return describe('for proInvitationAcceptanceBox component >', () => {
 
     const url = 'awesomUrl'
 
-    let scope
-    let rootScope
-    let compile
-    let componentController
-    let component
-    let element
-    let timeout
-    let bindings
-    let resourcesExpectations
-    let httpBackend
-    let EmploymentApiDef
+    let scope: any
+    let rootScope: ng.IRootScopeService
+    let compile: ng.ICompileService
+    let componentController: any
+    let component: any
+    let element: any
+    let timeout: ng.ITimeoutService
+    let bindings: any
+    let resourcesExpectations: any
+    let httpBackend: ng.IHttpBackendService
+    let EmploymentApiDef: any
     let EmploymentApi
     let validHTML = '<pro-invitation-acceptance-box data-employment="::employment" data-invitation="::invitation")></pro-invitation-acceptance-box>'
 
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
@@ -25,7 +26,7 @@ describe('Unit testing: profitelo.components.dashboard.invitation.pro-invitation
       return compiledElement
     }
 
-    beforeEach(angular.mock.module(function($provide) {
+    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', url)
     }))
 
@@ -34,7 +35,9 @@ describe('Unit testing: profitelo.components.dashboard.invitation.pro-invitation
     angular.mock.module('profitelo.swaggerResources.definitions')
     angular.mock.module('profitelo.components.dashboard.invitation.pro-invitation-acceptance-box')
 
-      inject(($rootScope, $compile, $timeout, $httpBackend, _$componentController_, _EmploymentApi_, _EmploymentApiDef_) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, $timeout: ng.ITimeoutService,
+              $httpBackend: ng.IHttpBackendService, _$componentController_: ng.IComponentControllerService,
+              _EmploymentApi_: any, _EmploymentApiDef_: any) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
@@ -43,11 +46,11 @@ describe('Unit testing: profitelo.components.dashboard.invitation.pro-invitation
         httpBackend = $httpBackend
         EmploymentApiDef = _EmploymentApiDef_
       })
-      
+
       element = create(validHTML)
       bindings = {}
       component = componentController('proInvitationAcceptanceBox', {$element: element, $scope: scope}, bindings)
-      
+
       resourcesExpectations = {
         EmploymentApi: {
           postEmploymentsAccept: httpBackend.when(EmploymentApiDef.postEmploymentsAccept.method, EmploymentApiDef.postEmploymentsAccept.url),
@@ -79,7 +82,7 @@ describe('Unit testing: profitelo.components.dashboard.invitation.pro-invitation
       httpBackend.flush()
       expect(component.employment).not.toBeDefined(true)
     })
-    
+
     it('should get response on reject employee ', () => {
       resourcesExpectations.EmploymentApi.postEmploymentsReject.respond(200)
       component.reject(':employmentId')
@@ -107,3 +110,4 @@ describe('Unit testing: profitelo.components.dashboard.invitation.pro-invitation
 
   })
 })
+}

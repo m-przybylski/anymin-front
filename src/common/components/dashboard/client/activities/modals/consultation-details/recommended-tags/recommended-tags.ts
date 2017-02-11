@@ -1,6 +1,9 @@
-(function () {
+namespace profitelo.components.dashboard.client.activities.modals.consultationDetails.recommendedTags {
+
+  import Tag = profitelo.models.Tag
+
   /* @ngInject */
-  function controller($log, lodash: _.LoDashStatic, ServiceApi) {
+  function controller($log: ng.ILogService, lodash: _.LoDashStatic, ServiceApi: any) {
 
     const updateBindings = () => {
       this.areTagsRecommended = this.selectedTags.length > 0
@@ -14,11 +17,11 @@
       updateBindings()
     }
 
-    const onRecommendService = (_res) => {
+    const onRecommendService = (_res: any) => {
       this.isRecommended = true
     }
 
-    const onRecommendServiceError = (err) =>
+    const onRecommendServiceError = (err: any) =>
       $log.error(err)
 
     this.recommendConsultation = () => {
@@ -27,15 +30,15 @@
       }).$promise.then(onRecommendService, onRecommendServiceError)
     }
 
-    this.onSelectChange = (tagsArray) => {
+    this.onSelectChange = (tagsArray: Array<Tag>) => {
       this.selectedTags = tagsArray
     }
 
-    const onRecommendServiceTags = (_res) => {
+    const onRecommendServiceTags = (_res: any) => {
       this.areTagsRecommended = true
     }
 
-    const onRecommendServiceTagsError = (err) =>
+    const onRecommendServiceTagsError = (err: any) =>
       $log.error(err)
 
     this.saveRecommendedTags = () => {
@@ -66,6 +69,6 @@
     'profitelo.swaggerResources',
     'profitelo.components.interface.multiselect'
   ])
-  .component('clientRecommendedTags', component)
-}())
+    .component('clientRecommendedTags', component)
+}
 

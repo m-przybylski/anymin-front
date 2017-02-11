@@ -1,14 +1,21 @@
-(function() {
+namespace profitelo.dashboard.client.favourites {
 
-  function DashboardClientFavouritesController($log: ng.ILogService, lodash: _.LoDashStatic, clientFavouritesConsultations, recommendedServices) {
+  import IClientFavouritesResolverService = profitelo.resolvers.clientFavourites.IClientFavouritesResolverService
+  import IClientFavourites = profitelo.resolvers.clientFavourites.IClientFavourites
+  import IRecommendedServicesService = profitelo.services.recommendedServices.IRecommendedServicesService
+  import Service = profitelo.models.Service
+
+  function DashboardClientFavouritesController($log: ng.ILogService, lodash: _.LoDashStatic,
+                                               clientFavouritesConsultations: IClientFavourites,
+                                               recommendedServices: IRecommendedServicesService) {
     this.balance = clientFavouritesConsultations.balance
     this.lastConsultations = lodash.sortBy(clientFavouritesConsultations.lastConsultations, 'createdAt')
     this.favouriteProfiles = clientFavouritesConsultations.favouriteProfiles
 
-    const onGetRecommendedExperts = (recommendedExperts) =>
+    const onGetRecommendedExperts = (recommendedExperts: Array<Service>) =>
       this.similarExperts = recommendedExperts
 
-    const onGetRecommendedExpertsError = (err) =>
+    const onGetRecommendedExpertsError = (err: any) =>
       $log.error(err)
 
     recommendedServices.getRecommendedExperts(this.lastConsultations || this.favouriteProfiles)
@@ -30,22 +37,22 @@
     'profitelo.components.dashboard.client.favourites.favourite-experts.last-consultation-slider',
     'profitelo.resolvers.client-favourites'
   ])
-  .config( function($stateProvider, UserRolesProvider) {
-    $stateProvider.state('app.dashboard.client.favourites', {
-      url: '/favourites',
-      templateUrl: 'dashboard/client/favourites/favourites.tpl.html',
-      controller: 'DashboardClientFavouritesController',
-      controllerAs: 'vm',
-      resolve: {
-        /* istanbul ignore next */
-        clientFavouritesConsultations:  (ClientFavouritesResolver) =>
-          ClientFavouritesResolver.resolve()
-      },
-      data          : {
-        access : UserRolesProvider.getAccessLevel('user')
-      }
+    .config( function($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
+      $stateProvider.state('app.dashboard.client.favourites', {
+        url: '/favourites',
+        templateUrl: 'dashboard/client/favourites/favourites.tpl.html',
+        controller: 'DashboardClientFavouritesController',
+        controllerAs: 'vm',
+        resolve: {
+          /* istanbul ignore next */
+          clientFavouritesConsultations:  (ClientFavouritesResolver: IClientFavouritesResolverService) =>
+            ClientFavouritesResolver.resolve()
+        },
+        data          : {
+          access : UserRolesProvider.getAccessLevel('user')
+        }
+      })
     })
-  })
-  .controller('DashboardClientFavouritesController', DashboardClientFavouritesController)
+    .controller('DashboardClientFavouritesController', DashboardClientFavouritesController)
+}
 
-}())

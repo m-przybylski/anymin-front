@@ -1,7 +1,10 @@
-(function() {
-  function proServiceExternalLinks($q: ng.IQService, CommonSettingsService) {
+namespace profitelo.directives.serviceProvider.proServiceExternalLinks {
 
-    function linkFunction(scope, _element: ng.IRootElementService, attrs) {
+  import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
+
+  function proServiceExternalLinks($q: ng.IQService, CommonSettingsService: ICommonSettingsService) {
+
+    function linkFunction(scope: any, _element: ng.IRootElementService, attrs: ng.IAttributes) {
 
       scope.linkModel = ''
 
@@ -13,13 +16,13 @@
 
       const _urlPattern = CommonSettingsService.localSettings.urlPattern
 
-      scope.removeLink = (linkToDelete) => {
+      scope.removeLink = (linkToDelete: string) => {
         let _index = scope.model.links.indexOf(linkToDelete)
         scope.model.links.splice(_index, 1)
       }
       let httpAdded = false
 
-      let _checkLinkExist = (link) => {
+      let _checkLinkExist = (link: string) => {
         return scope.model.links.indexOf(link) !== -1
       }
 
@@ -105,5 +108,5 @@
     'profitelo.directives.pro-social-icon-getter',
     'profitelo.common.controller.service-provider.service-provider-step-controller'
   ])
-  .directive('proServiceExternalLinks', proServiceExternalLinks)
-}())
+    .directive('proServiceExternalLinks', proServiceExternalLinks)
+}

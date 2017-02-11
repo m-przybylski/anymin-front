@@ -1,7 +1,7 @@
 describe('Testing Controller: clientChargeDetailsController', () => {
 
-  var clientChargeDetailsController
-  var scope
+  var clientChargeDetailsController: any
+  var scope: any
   var uibModalInstance = {
     dismiss: () => {
 
@@ -13,7 +13,7 @@ describe('Testing Controller: clientChargeDetailsController', () => {
 
   beforeEach(() => {
   angular.mock.module('profitelo.components.dashboard.client.activities.modals.charge-details')
-    inject(($rootScope, $controller) => {
+    inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
 
       scope = $rootScope.$new()
       scope.disconnectCall = () => {}

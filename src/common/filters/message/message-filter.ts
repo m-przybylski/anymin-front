@@ -1,18 +1,19 @@
-(function() {
+namespace profitelo.filters.message {
 
-  function messageFilter($log, lodash: _.LoDashStatic) {
 
-    const hasImageUrl = (text) => {
+  function messageFilter($log: ng.ILogService, lodash: _.LoDashStatic) {
+
+    const hasImageUrl = (text: string) => {
       const imageRegexp = /([/|.|\w|\s])*\.(?:jpg|gif|png)/
       return text.match(imageRegexp)
     }
 
-    const getUrls = (text) => {
+    const getUrls = (text: string) => {
       const urlRegexp = /(((https?|ftp):\/\/)|(www\.))[^\s$.?#].[^\s]*\.[^\s$.?#].[^\s]*/g
-      return lodash.uniq(text.match(urlRegexp))
+      return lodash.uniq(text.match(urlRegexp) || [])
     }
 
-    const getCorrectUrl = (url) => {
+    const getCorrectUrl = (url: string) => {
       const correctUrlRegexp = /^(https?|ftp):\/\/[^\s$.?#].[^\s]*$/
       if (!url.match(correctUrlRegexp)) {
         url = 'http://' + url
@@ -20,11 +21,11 @@
       return url
     }
 
-    const createRegexpFromUrl = (url) => {
+    const createRegexpFromUrl = (url: string) => {
       return new RegExp(url.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g, '\\$&'), 'g')
     }
 
-    const handleMessage = (message) => {
+    const handleMessage = (message: string) => {
       const messageObject = angular.fromJson(angular.fromJson(message))
       const messageUrls = getUrls(messageObject.body)
 
@@ -50,7 +51,7 @@
       return messageObject.body
     }
 
-    return function(message) {
+    return function(message: string) {
       if (message && typeof message === 'string') {
         return handleMessage(message)
       } else {
@@ -65,4 +66,4 @@
     'ngLodash'
   ])
     .filter('message', messageFilter)
-}())
+}

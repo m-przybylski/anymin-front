@@ -2,14 +2,14 @@ namespace profitelo.components.settings.navigation {
   describe('Unit testing: profitelo.components.dashboard.client.navigation', () => {
     return describe('for clientNavigation >', () => {
 
-      let scope
-      let rootScope
-      let compile
-      let componentController
-      let component
+      let scope: any
+      let rootScope: ng.IRootScopeService
+      let compile: ng.ICompileService
+      let componentController: any
+      let component: any
       let validHTML = '<client-navigation></client-navigation>'
 
-      function create(html) {
+      function create(html: string) {
         scope = rootScope.$new()
         let elem = angular.element(html)
         let compiledElement = compile(elem)(scope)
@@ -21,7 +21,7 @@ namespace profitelo.components.settings.navigation {
         angular.mock.module('templates-module')
         angular.mock.module('profitelo.components.dashboard.client.navigation')
 
-        inject(($rootScope, $compile, _$componentController_) => {
+        inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$componentController_: ng.IComponentControllerService) => {
           componentController = _$componentController_
           rootScope = $rootScope.$new()
           compile = $compile

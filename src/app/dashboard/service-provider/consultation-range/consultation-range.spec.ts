@@ -1,17 +1,17 @@
 describe('Unit tests: ConsultationRangeController >', () => {
   describe('Testing Controller: ConsultationRangeController', () => {
 
-    var ConsultationRangeController
-    let _scope
+    var ConsultationRangeController: any
+    let _scope: any
     let url = 'awesomeUrl/'
 
-    beforeEach(angular.mock.module(function($provide) {
+    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', url)
     }))
 
     beforeEach(() => {
     angular.mock.module('profitelo.controller.dashboard.service-provider.consultation-range')
-      inject(($rootScope, $controller, _ProfileApi_) => {
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _ProfileApi_: any) => {
 
         _scope = $rootScope.$new()
 

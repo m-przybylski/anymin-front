@@ -35,8 +35,8 @@ namespace profitelo.components.communicator.modals.consultationSummaryExpert {
       this.loadFromExistingCallSummaries()
     }
 
-    private onCallSummary = (data) => {
-      const callSummary = data.callSummary
+    private onCallSummary = (data: any) => {
+      const callSummary: CallSummary = data.callSummary
       if (callSummary.service.id === this.$scope.$parent.serviceId) {
         this.$scope.callSummary = callSummary
       }

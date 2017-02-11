@@ -1,11 +1,12 @@
+namespace profitelo.dashboard {
 describe('Unit tests: Dashboard >', () => {
   describe('Testing Controller: DashboardController', () => {
 
-    let _DashboardController
-    let _scope
+    let _DashboardController: any
+    let _scope: any
     beforeEach(() => {
     angular.mock.module('profitelo.controller.dashboard')
-      inject(($rootScope, $controller) => {
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
 
         _DashboardController = $controller('DashboardController', {
           '$rootScope': $rootScope,
@@ -15,7 +16,7 @@ describe('Unit tests: Dashboard >', () => {
             current: {
               data: {
                 showMenu: true
-              }  
+              }
             }
           }
         })
@@ -28,3 +29,4 @@ describe('Unit tests: Dashboard >', () => {
 
   })
 })
+}

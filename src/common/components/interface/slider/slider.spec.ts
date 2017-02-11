@@ -1,16 +1,17 @@
+namespace profitelo.components.interface.slider {
 describe('Unit testing: profitelo.components.interface.slider', () => {
   return describe('for slider component >', () => {
-    
 
-    let scope
-    let rootScope
-    let compile
-    let componentController
-    let component
-    let timeout
+
+    let scope: any
+    let rootScope: ng.IRootScopeService
+    let compile: ng.ICompileService
+    let componentController: any
+    let component: any
+    let timeout: ng.ITimeoutService
     let validHTML = '<slider data-ng-transclude data-controlls="controlls" data-move-slides="-2"></slider>'
 
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
@@ -22,13 +23,14 @@ describe('Unit testing: profitelo.components.interface.slider', () => {
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.components.interface.slider')
 
-      inject(($rootScope, $compile, _$componentController_, _$timeout_) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
+              _$componentController_: ng.IComponentControllerService, _$timeout_: ng.ITimeoutService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
         timeout = _$timeout_
       })
-      
+
       component = componentController('slider', {$element: create(validHTML), $scope: scope}, {})
       timeout.flush()
       component.nextSlide()
@@ -43,6 +45,7 @@ describe('Unit testing: profitelo.components.interface.slider', () => {
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
-    
+
   })
 })
+}

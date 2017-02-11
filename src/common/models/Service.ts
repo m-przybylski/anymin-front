@@ -6,9 +6,9 @@ namespace profitelo.models {
     status: ServiceStatus
     invitations: Array<ServiceInvitation>
     ownerEmployee: boolean
-    rating: Number
-    usageCounter: Number
-    usageDurationInSeconds: Number
+    rating: number
+    usageCounter: number
+    usageDurationInSeconds: number
     details: ServiceDetails
     createdAt: Date
   }

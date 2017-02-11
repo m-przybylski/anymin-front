@@ -1,7 +1,13 @@
-(function() {
-  function proTopNavbar($window, $state, $location, User, searchService, smoothScrollingService) {
+namespace profitelo.directives.proTopNavbar {
 
-    function linkFunction(scope, elem, _attrs: ng.IAttributes) {
+  import IWindowService = profitelo.services.window.IWindowService
+  import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
+  import ISearchService = profitelo.services.search.ISearchService
+
+  function proTopNavbar($window: IWindowService, $state: ng.ui.IStateService, $location: ng.ILocationService, User: any,
+                        searchService: ISearchService, smoothScrollingService: ISmoothScrollingService) {
+
+    function linkFunction(scope: any, elem: ng.IRootElementService, _attrs: ng.IAttributes) {
 
       scope.showSearch = angular.isDefined(scope.show) ? scope.show : false
       scope.showUserMenu = false
@@ -98,7 +104,7 @@
         }
       })
 
-      scope.searchAction = (_search) => {
+      scope.searchAction = (_search: string) => {
         if ($state.current.name !== 'app.search-result') {
           $state.go('app.search-result')
         } else if (angular.isDefined(angular.element('.search-bar-container').find('input:focus')[0])) {
@@ -106,7 +112,7 @@
         }
 
         if ($location.search()['q'] !== scope.searchModel) {
-          searchService.setSearchQueryParams({q: scope.searchModel, tagId: null})
+          searchService.setSearchQueryParams({q: scope.searchModel, tagId: undefined})
           $location.search('tagId', null)
         } else {
           searchService.setSearchQueryParams({q: scope.searchModel})
@@ -146,5 +152,4 @@
     'profitelo.services.smooth-scrolling'
   ])
     .directive('proTopNavbar', proTopNavbar)
-
-}())
+}

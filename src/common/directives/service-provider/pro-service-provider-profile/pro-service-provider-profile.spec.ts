@@ -1,11 +1,13 @@
-describe('Unit testing: profitelo.directives.service-provider.pro-service-provider-profile', function() {
+namespace profitelo.directives.serviceProvider.proServiceProviderProfile {
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  describe('Unit testing: profitelo.directives.service-provider.pro-service-provider-profile', function() {
   return describe('for proServiceProviderProfile directive >', function() {
 
-    let compile
-    let scope
-    let sce
-    let el
-    
+    let compile: ng.ICompileService
+    let scope: any
+    let sce: ng.ISCEService
+    let el: any
+
     const validHTML = '<pro-service-provider-profile data-name="asdsdfsdf" ' +
       'data-languages="ghfghfgh" data-button-action="vm.buttonAction"  data-avatar="ffff" data-description="vm.description"></pro-service-provider-profile>'
 
@@ -13,14 +15,14 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.directives.service-provider.pro-service-provider-profile')
 
-      inject(function($rootScope, $compile, _$sce_) {
+      inject(function($rootScope: IRootScopeService, $compile: ng.ICompileService, _$sce_: ng.ISCEService) {
         scope = $rootScope.$new()
         compile = $compile
         sce = _$sce_
       })
     })
 
-    function create(html) {
+    function create(html: string) {
       const elem = angular.element(html)
       scope.vm = {
         description: 'asdasdasd',
@@ -61,4 +63,4 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
     })
 
   })
-})
+})}

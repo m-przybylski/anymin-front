@@ -1,7 +1,10 @@
-(function () {
-  function proServiceProviderFileUploader($log: ng.ILogService, $q: ng.IQService, topAlertService, FilesApi: any) {
+namespace profitelo.directives.serviceProvider.proServiceProviderFileUploader {
 
-    function linkFunction(scope, _element: ng.IRootElementService, attrs) {
+  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+
+  function proServiceProviderFileUploader($log: ng.ILogService, $q: ng.IQService, topAlertService: ITopAlertService, FilesApi: any) {
+
+    function linkFunction(scope: any, _element: ng.IRootElementService, attrs: ng.IAttributes) {
 
       scope.model = {
         files: []
@@ -9,10 +12,10 @@
       scope.isPending = false
       if (angular.isDefined(scope.proModel) && angular.isDefined(scope.proModel.files)) {
         for (let i = 0; i < scope.proModel.files.length; i++) {
-          FilesApi.fileInfoPath({token: scope.proModel.files[i].token}).$promise.then((res) => {
+          FilesApi.fileInfoPath({token: scope.proModel.files[i].token}).$promise.then((res: any) => {
             res.token = scope.proModel.files[i].token
             scope.model.files.push({file: res, response: res})
-          }, (err) => {
+          }, (err: any) => {
             $log.error(err)
             topAlertService.error({
               message: 'error',
@@ -29,7 +32,7 @@
         required = true
       }
 
-      scope.removeFile = (fileToDelete) => {
+      scope.removeFile = (fileToDelete: any) => {
         let _index = scope.model.files.indexOf(fileToDelete)
         scope.model.files.splice(_index, 1)
       }
@@ -54,7 +57,7 @@
         _isValid().then(() => {
           scope.error.badFiles = false
           scope.proceed()
-          scope.proModel.files = scope.model.files.map(file => file.response)
+          scope.proModel.files = scope.model.files.map((file: any) => file.response)
         }, () => {
           _displayErrorMessage()
         })
@@ -89,4 +92,4 @@
     'profitelo.services.top-alert'
   ])
     .directive('proServiceProviderFileUploader', proServiceProviderFileUploader)
-}())
+}

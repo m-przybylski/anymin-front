@@ -1,9 +1,21 @@
 namespace profitelo.login.setNewPassword {
 
   import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordStrengthService
+  import IFilterService = profitelo.services.filter.IFilterService
+  import ILoginSetNewPasswordService = profitelo.resolvers.loginSetNewPassword.ILoginSetNewPasswordService
+  import ILoginSetNewPassword = profitelo.resolvers.loginSetNewPassword.ILoginSetNewPassword
+  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+  import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
 
-  function SetNewPasswordController($state, $filter, tokenStatus, passwordStrengthService: IPasswordStrengthService,
-                                    topAlertService, RecoverPasswordApi, CommonSettingsService) {
+  export interface ISetNewPasswordStateParams {
+    token: string
+    method: string
+  }
+
+  function SetNewPasswordController($state: ng.ui.IStateService, $filter: IFilterService,
+                                    tokenStatus: ILoginSetNewPassword, passwordStrengthService: IPasswordStrengthService,
+                                    topAlertService: ITopAlertService, RecoverPasswordApi: any,
+                                    CommonSettingsService: ICommonSettingsService) {
 
     this.patternPassword = CommonSettingsService.localSettings.passwordPattern
 
@@ -24,17 +36,17 @@ namespace profitelo.login.setNewPassword {
     }
 
     let _submitPasswordChangeBySms = () => {
-      tokenStatus.payload.password = this.newPassword
+      (<any>tokenStatus.payload).password = this.newPassword
       RecoverPasswordApi.putRecoverPasswordMsisdn(tokenStatus.payload).$promise.then(_passwordChangeSuccess, _passwordChangeError)
     }
 
     let _submitPasswordChangeByEmail = () => {
-      tokenStatus.payload.password = this.newPassword
+      (<any>tokenStatus).payload.password = this.newPassword
       RecoverPasswordApi.putRecoverPasswordEmail(tokenStatus.payload).$promise.then(_passwordChangeSuccess, _passwordChangeError)
     }
 
 
-    this.onPasswordChange = (password) => {
+    this.onPasswordChange = (password: string) => {
       this.passwordStrength = passwordStrengthService.getStrength(password)
     }
 
@@ -52,7 +64,7 @@ namespace profitelo.login.setNewPassword {
 
   }
 
-  function config($stateProvider, UserRolesProvider) {
+  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
     $stateProvider.state('app.login.set-new-password', {
       url: '/set-new-password/token/:token/{method:|sms}',
       controllerAs: 'vm',
@@ -60,7 +72,7 @@ namespace profitelo.login.setNewPassword {
       templateUrl: 'login/set-new-password/set-new-password.tpl.html',
       resolve: {
 
-        tokenStatus: ($stateParams, LoginSetNewPasswordResolver) => {
+        tokenStatus: ($stateParams: ISetNewPasswordStateParams, LoginSetNewPasswordResolver: ILoginSetNewPasswordService) => {
           /* istanbul ignore next */
           return LoginSetNewPasswordResolver.resolve($stateParams)
         }

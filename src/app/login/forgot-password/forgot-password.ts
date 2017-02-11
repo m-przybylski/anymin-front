@@ -1,5 +1,19 @@
-(function() {
-  function ForgotPasswordController($state, account, RecoverPasswordApi, topWaitingLoaderService, CommonSettingsService) {
+namespace profitelo.login.forgotPassword {
+
+  import ILoginForgotPasswordService = profitelo.resolvers.loginForgotPassword.ILoginForgotPasswordService
+  import ILoginForgotPassword = profitelo.resolvers.loginForgotPassword.ILoginForgotPassword
+  import ITopWaitingLoaderService = profitelo.services.topWaitingLoader.ITopWaitingLoaderService
+  import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
+
+  type method = 'sms' | 'email'
+
+  export interface IForgotPasswordStateParams {
+    method: method
+  }
+
+  function ForgotPasswordController($state: ng.ui.IStateService, account: ILoginForgotPassword,
+                                    RecoverPasswordApi: any, topWaitingLoaderService: ITopWaitingLoaderService,
+                                    CommonSettingsService: ICommonSettingsService) {
 
     this.isPending = false
     this.account = account
@@ -38,14 +52,14 @@
 
   }
 
-  function config($stateProvider, UserRolesProvider) {
+  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
     $stateProvider.state('app.login.forgot-password', {
       url: '/forgot-password/{method:|sms}',
       controllerAs: 'vm',
       controller: 'ForgotPasswordController',
       templateUrl: 'login/forgot-password/forgot-password.tpl.html',
       resolve: {
-        account: (LoginForgotPasswordResolver, $stateParams) => {
+        account: (LoginForgotPasswordResolver: ILoginForgotPasswordService, $stateParams: IForgotPasswordStateParams) => {
           return LoginForgotPasswordResolver.resolve($stateParams)
         }
       },
@@ -69,4 +83,4 @@
   .config(config)
   .controller('ForgotPasswordController', ForgotPasswordController)
 
-}())
+}

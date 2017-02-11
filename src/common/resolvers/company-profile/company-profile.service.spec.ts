@@ -1,20 +1,22 @@
-describe('Unit testing: profitelo.resolvers.company-profile', () => {
+namespace profitelo.resolvers.companyProfile {
+import ICompanyProfileStateParams = profitelo.companyProfile.ICompanyProfileStateParams
+  describe('Unit testing: profitelo.resolvers.company-profile', () => {
   describe('for company-profile service >', () => {
 
-    let AppCompanyProfileResolver
+    let AppCompanyProfileResolver: ICompanyProfileService
     let url = 'awesomeURL'
-    let _timeout
-    let mockState
-    let resourcesExpectations
-    let ViewsApiDef
-    let $httpBackend
-    let stateParams
-    let mockResponse
+    let _timeout: ng.ITimeoutService
+    let mockState: any
+    let resourcesExpectations: any
+    let ViewsApiDef: any
+    let $httpBackend: ng.IHttpBackendService
+    let stateParams: ICompanyProfileStateParams
+    let mockResponse: any
     let log
 
     const primaryConsultationId = '111'
 
-    beforeEach(angular.mock.module(function($provide) {
+    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', url)
     }))
 
@@ -49,12 +51,12 @@ describe('Unit testing: profitelo.resolvers.company-profile', () => {
       }
 
     angular.mock.module('profitelo.swaggerResources.definitions')
-    angular.mock.module('profitelo.resolvers.company-profile', function($provide) {
+    angular.mock.module('profitelo.resolvers.company-profile', function($provide: ng.auto.IProvideService) {
         $provide.value('$state',  mockState)
       })
 
-      inject(($injector) => {
-        AppCompanyProfileResolver = $injector.get('CompanyProfileResolver')
+      inject(($injector: ng.auto.IInjectorService) => {
+        AppCompanyProfileResolver = $injector.get<ICompanyProfileService>('CompanyProfileResolver')
         _timeout = $injector.get('$timeout')
         ViewsApiDef = $injector.get('ViewsApiDef')
         $httpBackend = $injector.get('$httpBackend')
@@ -78,7 +80,7 @@ describe('Unit testing: profitelo.resolvers.company-profile', () => {
 
       resourcesExpectations.ProfileApiDef.getOrganizationProfile.respond(500)
 
-      const resolver = AppCompanyProfileResolver.resolve(stateParams)
+      const resolver: any = AppCompanyProfileResolver.resolve(stateParams)
       $httpBackend.flush()
       expect(resolver.$$state.value.status).toEqual(500)
     })
@@ -86,10 +88,10 @@ describe('Unit testing: profitelo.resolvers.company-profile', () => {
     it('should return sorted services ', () => {
       resourcesExpectations.ProfileApiDef.getOrganizationProfile.respond(200, mockResponse)
 
-      const resolver = AppCompanyProfileResolver.resolve(stateParams)
+      const resolver: any = AppCompanyProfileResolver.resolve(stateParams)
       $httpBackend.flush()
       expect(resolver.$$state.value.services[0].id).toEqual(mockResponse.services[1].id)
     })
 
   })
-})
+})}

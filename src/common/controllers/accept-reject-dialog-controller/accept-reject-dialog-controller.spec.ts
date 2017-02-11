@@ -1,7 +1,7 @@
 describe('Testing Controller: acceptRejectDialogController', () => {
 
-  var acceptRejectDialogController
-  var scope
+  var acceptRejectDialogController: any
+  var scope: any
   var uibModalInstance = {
     dismiss: () => {
 
@@ -13,7 +13,7 @@ describe('Testing Controller: acceptRejectDialogController', () => {
 
   beforeEach(() => {
   angular.mock.module('profitelo.common.controller.accept-reject-dialog-controller')
-    inject(($rootScope, $controller) => {
+    inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
 
       scope = $rootScope.$new()
 

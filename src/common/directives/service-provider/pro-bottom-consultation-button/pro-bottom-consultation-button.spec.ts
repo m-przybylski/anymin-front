@@ -1,3 +1,4 @@
+namespace profitelo.directives.serviceProvider.proBottomConsultationButton {
 describe('Unit testing: profitelo.directives.service-provider.pro-bottom-consultation-button', function() {
   return describe('for proBottomConsultationButton directive >', function() {
 
@@ -11,13 +12,13 @@ describe('Unit testing: profitelo.directives.service-provider.pro-bottom-consult
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.directives.service-provider.pro-bottom-consultation-button')
 
-      inject(function($rootScope, $compile) {
+      inject(function($rootScope: IRootScopeService, $compile: ng.ICompileService) {
         scope = $rootScope.$new()
         compile = $compile
       })
     })
 
-    function create(html) {
+    function create(html: string) {
       var elem = angular.element(html)
 
       scope.saveAccountObject = () => {}
@@ -39,3 +40,4 @@ describe('Unit testing: profitelo.directives.service-provider.pro-bottom-consult
 
   })
 })
+}

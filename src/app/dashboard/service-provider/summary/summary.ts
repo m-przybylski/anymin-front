@@ -12,7 +12,7 @@
     'profitelo.swaggerResources',
     'profitelo.directives.interface.pro-alert'
   ])
-  .config(function($stateProvider) {
+  .config(($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider.state('app.dashboard.service-provider.summary', {
       abstract:     true,
       url:          '/summary',

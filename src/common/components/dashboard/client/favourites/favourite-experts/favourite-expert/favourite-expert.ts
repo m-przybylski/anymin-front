@@ -1,6 +1,9 @@
-(function () {
+namespace profitelo.components.dashboard.client.favourites.favouriteExperts.favouriteExpert {
+
+  import IUrlService = profitelo.services.helper.IUrlService
+
   /* @ngInject */
-  function controller($state, urlService) {
+  function controller($state: ng.ui.IStateService, urlService: IUrlService) {
 
     this.consultationOwnerImage = () => {
       const imageToken = this.profile.avatar || this.profile.logo
@@ -36,4 +39,4 @@
     'profitelo.services.url'
   ])
   .component('clientFavouriteExpert', component)
-}())
+}

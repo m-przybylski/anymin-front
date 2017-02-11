@@ -3,6 +3,7 @@ namespace profitelo.postRegister.setPassword {
   import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordStrengthService
   import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
   import ITopWaitingLoaderService = profitelo.services.topWaitingLoader.ITopWaitingLoaderService
+  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
 
   function _controller($log: ng.ILogService, $filter: ng.IFilterService, $state: ng.ui.IStateService,
                        topWaitingLoaderService: ITopWaitingLoaderService, passwordStrengthService: IPasswordStrengthService,
@@ -25,11 +26,11 @@ namespace profitelo.postRegister.setPassword {
 
     this.patternPassword = CommonSettingsService.localSettings.passwordPattern
 
-    this.onPasswordChange = (password) => {
+    this.onPasswordChange = (password: string) => {
       this.passwordStrength = passwordStrengthService.getStrength(password)
     }
 
-    let _updateNewUserObject = (patchObject, successCallback) => {
+    let _updateNewUserObject = (patchObject: any, successCallback: Function) => {
       /* istanbul ignore next if */
       if (!this.isPending) {
         this.isPending = true
@@ -37,7 +38,7 @@ namespace profitelo.postRegister.setPassword {
 
         patchObject.accountId = User.getData('id')
 
-        AccountApi.partialUpdateAccount(patchObject).$promise.then(successCallback, (error) => {
+        AccountApi.partialUpdateAccount(patchObject).$promise.then(successCallback, (error: any) => {
           this.isPending = false
           topWaitingLoaderService.stopLoader()
           $log.error(error)
@@ -63,7 +64,7 @@ namespace profitelo.postRegister.setPassword {
     return this
   }
 
-  function config($stateProvider, UserRolesProvider) {
+  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
     $stateProvider.state('app.post-register.set-password', {
       url: '/set-password',
       controllerAs: 'vm',
@@ -71,9 +72,9 @@ namespace profitelo.postRegister.setPassword {
       templateUrl: 'post-register/set-password/set-password.tpl.html',
       resolve: {
         /* istanbul ignore next */
-        redirect: (User, $state, $q) => {
+        redirect: (User: any, $state: ng.ui.IStateService, $q: ng.IQService) => {
           /* istanbul ignore next */
-          return User.getStatus().then((status) => {
+          return User.getStatus().then((status: any) => {
             if (angular.isDefined(status.hasPassword) && status.hasPassword) {
               return $state.go('app.dashboard.client.favourites')
             } else {

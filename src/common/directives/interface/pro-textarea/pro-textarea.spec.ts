@@ -4,7 +4,7 @@ describe('Unit testing: profitelo.directives.interface.pro-textarea', () => {
     let _placeholder = 'PLACEHOLDER'
 
     let scope: any = null
-    let rootScope
+    let rootScope: ng.IRootScopeService
     let compile: any = null
     let validHTML = '<pro-textarea data-name="name" data-default-value="defaultValue" data-maxlength="maxlength" data-label="LABEL" data-placeholder="' + _placeholder + '"  required auto-focus only-digits></pro-textarea>'
 
@@ -12,13 +12,13 @@ describe('Unit testing: profitelo.directives.interface.pro-textarea', () => {
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.directives.interface.pro-textarea')
 
-      inject(($rootScope, $compile) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {
         rootScope = $rootScope.$new()
         compile = $compile
       })
     })
 
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)

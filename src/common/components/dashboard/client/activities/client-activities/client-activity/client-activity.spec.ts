@@ -1,11 +1,13 @@
-describe('Unit testing: profitelo.components.dashboard.client.activities.client-activity', () => {
+namespace profitelo.components.dashboard.client.activities.clientActivity {
+import IModalsService = profitelo.services.modals.IModalsService
+  describe('Unit testing: profitelo.components.dashboard.client.activities.client-activity', () => {
   return describe('for clientLastActivitiesList >', () => {
 
-    let scope
-    let rootScope
-    let compile
-    let componentController
-    let component
+    let scope: any
+    let rootScope: ng.IRootScopeService
+    let compile: ng.ICompileService
+    let componentController: any
+    let component: any
     let validHTML = '<client-activity data-activity="activity"></client-activity>'
     const mockObject = {
       sueProfileServiceTuple: {
@@ -14,7 +16,7 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.client-
         }
       }
     }
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       scope.activity = mockObject
@@ -23,11 +25,11 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.client-
       return compiledElement
     }
 
-    let bindings = {
+    let bindings: any = {
       activity: mockObject
     }
 
-    beforeEach(angular.mock.module(($provide) => {
+    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', 'awesomeUrl')
     }))
 
@@ -39,7 +41,8 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.client-
     angular.mock.module('profitelo.components.complaints.status')
     angular.mock.module('profitelo.components.dashboard.client.activities.client-activity')
 
-      inject(($rootScope, $compile, _$componentController_, _modalsService_) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
+              _$componentController_: ng.IComponentControllerService, _modalsService_: IModalsService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
@@ -61,4 +64,4 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.client-
     })
 
   })
-})
+})}

@@ -2,6 +2,8 @@ namespace profitelo.services.communicator {
 
   import ICallbacksFactory = profitelo.services.callbacks.ICallbacksFactory
   import ICallbacksService = profitelo.services.callbacks.ICallbacksService
+  import Service = profitelo.models.Service
+  import Profile = profitelo.models.Profile
 
   export interface IConsultationInvitation {
     invitation: any

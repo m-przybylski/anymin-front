@@ -17,7 +17,7 @@
     'profitelo.directives.interface.pro-alert',
     'profitelo.directives.service-provider.pro-service-provider-profile'
   ])
-  .config( function($stateProvider, UserRolesProvider) {
+  .config( function($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
     $stateProvider.state('app.dashboard.service-provider.consultation-range', {
       abstract:     true,
       url:          '/consultation-range',

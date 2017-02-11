@@ -1,19 +1,21 @@
-describe('Unit testing: profitelo.components.interface.dropdown-primary', () => {
+namespace profitelo.components.interface.dropdownPrimary {
+import IWindowService = profitelo.services.window.IWindowService
+  describe('Unit testing: profitelo.components.interface.dropdown-primary', () => {
   return describe('for dropdownPrimary component >', () => {
 
-    let scope
-    let rootScope
-    let compile
-    let componentController
-    let component
-    let window
-    let bindings
-    let timeout
-    let document
+    let scope: any
+    let rootScope: ng.IRootScopeService
+    let compile: ng.ICompileService
+    let componentController: any
+    let component: any
+    let window: IWindowService
+    let bindings: any
+    let timeout: ng.ITimeoutService
+    let document: ng.IDocumentService
     let validHTML = '<dropdown-primary data-label="asd" data-icon="icon"></dropdown-primary>'
     let smoothScrolling
 
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
@@ -25,7 +27,9 @@ describe('Unit testing: profitelo.components.interface.dropdown-primary', () => 
       angular.mock.module('templates-module')
       angular.mock.module('profitelo.components.interface.dropdown-primary')
 
-      inject(($rootScope, $compile, _$componentController_, _$window_, _$timeout_, _$document_) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
+              _$componentController_: ng.IComponentControllerService, _$window_: IWindowService,
+              _$timeout_: ng.ITimeoutService, _$document_: ng.IDocumentService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
@@ -68,3 +72,4 @@ describe('Unit testing: profitelo.components.interface.dropdown-primary', () => 
   })
 })
 
+}

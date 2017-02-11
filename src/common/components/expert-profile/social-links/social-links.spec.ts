@@ -1,14 +1,14 @@
 describe('Unit testing: profitelo.components.expert-profile.social-links', () => {
   return describe('for socialLinks component >', () => {
 
-    let scope
-    let rootScope
-    let compile
-    let componentController
-    let component
+    let scope: any
+    let rootScope: ng.IRootScopeService
+    let compile: ng.ICompileService
+    let componentController: any
+    let component: any
     const validHTML = '<social-links data-links="test"></social-links>'
 
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
@@ -20,7 +20,7 @@ describe('Unit testing: profitelo.components.expert-profile.social-links', () =>
       angular.mock.module('templates-module')
       angular.mock.module('profitelo.components.expert-profile.social-links')
 
-      inject(($rootScope, $compile, _$componentController_) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$componentController_: ng.IComponentControllerService) => {
         componentController = _$componentController_
         rootScope = $rootScope
         compile = $compile

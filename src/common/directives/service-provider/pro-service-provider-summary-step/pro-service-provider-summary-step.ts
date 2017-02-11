@@ -1,15 +1,18 @@
-(function() {
+namespace profitelo.directives.serviceProvider.proServiceProviderSummaryStep {
+
+  import Tag = profitelo.models.Tag
+
   function proServiceProviderSummaryStep() {
 
     /* istanbul ignore next function -  We'll need to load babel-polyfill to test it*/
-    function preCompileFunction(scope) {
+    function preCompileFunction(scope: any) {
       for (let consultation of scope.consultations) {
         if (consultation.invitations.length > 0) {
-          consultation.invitationTags = consultation.invitations.map((invitation) => {
+          consultation.invitationTags = consultation.invitations.map((invitation: any) => {
             return invitation.email
           })
         }
-        consultation.details.tagNames = consultation.details.tags.map(tag => tag.name)
+        consultation.details.tagNames = consultation.details.tags.map((tag: Tag) => tag.name)
       }
     }
 
@@ -43,5 +46,5 @@
     'profitelo.filters.money',
     'profitelo.components.pro-summary-tag'
   ])
-  .directive('proServiceProviderSummaryStep', proServiceProviderSummaryStep)
-}())
+    .directive('proServiceProviderSummaryStep', proServiceProviderSummaryStep)
+}

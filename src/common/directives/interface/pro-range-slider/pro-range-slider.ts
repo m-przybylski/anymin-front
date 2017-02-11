@@ -1,7 +1,7 @@
 (function() {
   function proRangeSlider($timeout: ng.ITimeoutService) {
 
-    function linkFunction(scope, _elem: ng.IRootElementService, _attrs) {
+    function linkFunction(scope: any, _elem: ng.IRootElementService, _attrs: ng.IAttributes) {
       /* istanbul ignore next */
       scope.refreshSlider = () => {
         $timeout(() => {
@@ -12,7 +12,7 @@
       scope.options = {
         floor: 0,
         ceil: 100,
-        onEnd: (_sliderId, modelValue, highValue, pointerType) => {
+        onEnd: (_sliderId: string, modelValue: string, highValue: string, pointerType: string) => {
           scope.callback(modelValue, highValue, pointerType)
         }
       }

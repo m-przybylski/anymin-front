@@ -17,15 +17,15 @@ namespace profitelo.components.communicator.messenger.maximized {
         callCost: new Money(0, 'PLN'),
         callLength: 0,
         isMessenger: true,
-        minimizeMessenger: _ => _
+        minimizeMessenger: () => {}
       }
 
       const uploaderFactory = {
         collectionTypes: {avatar: 'avatar'},
-        getInstance: _ => _
+        getInstance: () => {}
       }
 
-      function create(html, bindings: IMessengerMaximizedComponentBindings): JQuery {
+      function create(html: string, bindings: IMessengerMaximizedComponentBindings): JQuery {
         const parentScope: ng.IScope = rootScope.$new()
         const parentBoundScope = angular.extend(parentScope, bindings)
         let elem = angular.element(html)
@@ -34,7 +34,7 @@ namespace profitelo.components.communicator.messenger.maximized {
         return compiledElement
       }
 
-      beforeEach(angular.mock.module(($provide) => {
+      beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
         $provide.value('apiUrl', 'awesomeURL')
       }))
 
@@ -43,7 +43,7 @@ namespace profitelo.components.communicator.messenger.maximized {
         angular.mock.module('profitelo.services.uploader')
       })
 
-      beforeEach(angular.mock.module(($provide) => {
+      beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
         $provide.value('soundsService', {})
         $provide.value('uploaderFactory', uploaderFactory)
       }))

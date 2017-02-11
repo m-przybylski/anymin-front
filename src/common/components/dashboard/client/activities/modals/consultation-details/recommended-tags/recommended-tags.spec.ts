@@ -1,18 +1,19 @@
+namespace profitelo.components.dashboard.client.activities.modals.consultationDetails.recommendedTags {
 describe('Unit testing: profitelo.components.dashboard.client.activities.modals.consultation-details.recommended-tags', () => {
   return describe('for clientRecommendedTags >', () => {
 
-    let scope
-    let rootScope
-    let compile
-    let componentController
-    let component
+    let scope: any
+    let rootScope: ng.IRootScopeService
+    let compile: ng.ICompileService
+    let componentController: any
+    let component: any
     let validHTML = '<client-recommended-tags selected-tags="selectedTags"></client-recommended-tags>'
 
-    beforeEach(angular.mock.module(function($provide) {
+    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', 'awesomeURL')
     }))
 
-    function create(html) {
+    function create(html: string) {
       scope = rootScope.$new()
       scope.selectedTags = []
       let elem = angular.element(html)
@@ -25,14 +26,14 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.modals.
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.components.dashboard.client.activities.modals.consultation-details.recommended-tags')
 
-      inject(($rootScope, $compile, _$componentController_) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$componentController_: ng.IComponentControllerService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
       })
 
       const injectors = {
-        ServiceApi: _=>_
+        ServiceApi: () => {}
       }
 
       const bindings = {
@@ -55,3 +56,4 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.modals.
     })
   })
 })
+}

@@ -1,14 +1,30 @@
-(function() {
-  function proServiceProviderWhoProvides($q: ng.IQService, CommonSettingsService) {
-    function linkFunction(scope, element, attrs) {
+namespace profitelo.directives.serviceProvider.proServiceProviderWhoProvides {
+
+  import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
+
+  interface IProServiceProviderWhoProvides extends ng.IScope {
+    required: boolean
+    error: any
+    emails: Array<any>
+    model: any
+    emailPattern: string
+    ownerEmployee: boolean
+    proModel: any
+    tagParam: string
+    saveSection: Function
+    proceed: Function
+  }
+
+  function proServiceProviderWhoProvides($q: ng.IQService, CommonSettingsService: ICommonSettingsService) {
+    function linkFunction(scope: IProServiceProviderWhoProvides, element: JQuery, attrs: ng.IAttributes) {
       scope.required = false
       scope.error.badEmployee = false
 
       scope.emails = [
-          {email: 'bartek@itelo.pl'},
-          {email:'pawel@itelo.pl'},
-          {email:'mikolaj@itelo.pl'},
-          {email:'grazyna@itelo.pl'}
+        {email: 'bartek@itelo.pl'},
+        {email:'pawel@itelo.pl'},
+        {email:'mikolaj@itelo.pl'},
+        {email:'grazyna@itelo.pl'}
       ]
 
       scope.model = {
@@ -94,5 +110,5 @@
     'pascalprecht.translate',
     'profitelo.common.controller.service-provider.service-provider-step-controller'
   ])
-  .directive('proServiceProviderWhoProvides', proServiceProviderWhoProvides)
-}())
+    .directive('proServiceProviderWhoProvides', proServiceProviderWhoProvides)
+}

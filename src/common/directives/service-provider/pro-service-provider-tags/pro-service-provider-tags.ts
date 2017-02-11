@@ -1,7 +1,23 @@
-(function() {
-  function proServiceProviderTags($q, TagApi, lodash) {
+namespace profitelo.directives.serviceProvider.proServiceProviderTags {
 
-    function linkFunction(scope, _element, attrs) {
+  import Tag = profitelo.models.Tag
+
+  interface IProServiceProviderTags extends ng.IScope {
+    tags: Array<Tag>
+    model: any
+    searchWord: any
+    onSearch: Function
+    error: any
+    proModel: any
+    proceed: Function
+    saveSection: Function
+    required: boolean
+    tagNameParam: string
+  }
+
+  function proServiceProviderTags($q: ng.IQService, TagApi: any, lodash: _.LoDashStatic) {
+
+    function linkFunction(scope: IProServiceProviderTags, _element: ng.IRootElementService, attrs: ng.IAttributes) {
 
       let required = false
 
@@ -13,16 +29,16 @@
 
       scope.searchWord = {}
 
-      scope.onSearch = (searchWord) => {
+      scope.onSearch = (searchWord: string) => {
         scope.searchWord = searchWord
       }
 
-      const _getTags = (searchWord) => {
+      const _getTags = (searchWord: string) => {
         if (searchWord.length >= 3) {
           TagApi.postTagSuggest({
             query: searchWord,
             tags: scope.tags
-          }).$promise.then((res) => {
+          }).$promise.then((res: {tags: Array<Tag>}) => {
             scope.tags = JSON.parse(angular.toJson(res.tags))
           })
         } else {
@@ -33,7 +49,7 @@
       const getTagsDelayed = () =>
         scope.$apply(() => _getTags(scope.searchWord))
 
-      const _getTagsThrottled = lodash.debounce(getTagsDelayed, 200)
+      const _getTagsThrottled: Function = lodash.debounce(getTagsDelayed, 200)
 
       scope.$watch('searchWord', () => _getTagsThrottled(scope))
 
@@ -107,4 +123,4 @@
     'profitelo.swaggerResources'
   ])
     .directive('proServiceProviderTags', proServiceProviderTags)
-}())
+}

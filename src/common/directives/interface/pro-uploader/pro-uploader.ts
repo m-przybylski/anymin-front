@@ -1,5 +1,7 @@
-import ITopAlertService = profitelo.services.topAlert.ITopAlertService
-(function() {
+namespace profitelo.directives.interface.proUploader {
+
+  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+
   function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interval: ng.IIntervalService,
                        $filter: ng.IFilterService, $q: ng.IQService, FilesApi: any, Upload: any,
                        CommonConfig: any, topAlertService: ITopAlertService) {
@@ -9,14 +11,14 @@ import ITopAlertService = profitelo.services.topAlert.ITopAlertService
       fileId: string
     }
 
-    function linkFunction(scope, _element: ng.IRootElementService, attr) {
+    function linkFunction(scope: any, _element: ng.IRootElementService, attr: any) {
 
       let _file = 0
       let _files = 0
-      let immediateInterval
+      let immediateInterval: ng.IPromise<any>
       let _commonConfig = CommonConfig.getAllData()
       let uploadMap = {}
-      let filesQueue = []
+      let filesQueue: Array<any> = []
       let isProcess = false
 
       scope.progress = 0
@@ -41,14 +43,14 @@ import ITopAlertService = profitelo.services.topAlert.ITopAlertService
         scope.required = true
       }
 
-      let _setFilesStatus = (currentFile, allFiles) => {
+      let _setFilesStatus = (currentFile: any, allFiles: any) => {
         scope.translationInfo = {
           file: currentFile,
           files: allFiles
         }
       }
 
-      let calculateTotalPercentage = (map, filesLength) => {
+      let calculateTotalPercentage = (map: any, filesLength: number) => {
         let tmpPercentage = 0
 
         for (let a in map) {
@@ -57,12 +59,12 @@ import ITopAlertService = profitelo.services.topAlert.ITopAlertService
           }
         }
         if (tmpPercentage > scope.progress) {
-          scope.progress = tmpPercentage / parseInt(filesLength, 10)
+          scope.progress = tmpPercentage / parseInt(<any>filesLength, 10)
         }
 
       }
 
-      let _uploadProcess = (files) => {
+      let _uploadProcess = (files: Array<any>) => {
         let tokenPromisses: Array<ng.IPromise<FileInfo>> = []
         if (files && files.length) {
           // scope.animate()
@@ -87,7 +89,7 @@ import ITopAlertService = profitelo.services.topAlert.ITopAlertService
                   file: file
                 }
               }).then(
-                (res) => {
+                (res: any) => {
                   scope.filesUploaded.push({
                     file: file,
                     response: res.data
@@ -104,7 +106,7 @@ import ITopAlertService = profitelo.services.topAlert.ITopAlertService
                     }
                   }
                 },
-                (err) => {
+                (err: any) => {
                   $log.error(err)
                   topAlertService.error({
                     message: $filter('translate')('INTERFACE.API_ERROR'),
@@ -112,8 +114,8 @@ import ITopAlertService = profitelo.services.topAlert.ITopAlertService
                   })
                   isProcess = false
                 },
-                (res) => {
-                  uploadMap[res.total] = res.loaded
+                (res: any) => {
+                  (<any>uploadMap)[res.total] = res.loaded
                   calculateTotalPercentage(uploadMap, files.length)
                   _setFilesStatus(_file, _files)
                 }
@@ -133,7 +135,7 @@ import ITopAlertService = profitelo.services.topAlert.ITopAlertService
       }
 
 
-      scope.uploadFiles = ($files) => {
+      scope.uploadFiles = ($files: any) => {
         if (isProcess) {
           if ($files !== null) {
             filesQueue = filesQueue.concat($files)
@@ -226,4 +228,4 @@ import ITopAlertService = profitelo.services.topAlert.ITopAlertService
     'pascalprecht.translate'
   ])
     .directive('proUploader', proUploader)
-}())
+}
