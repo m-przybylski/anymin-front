@@ -79,7 +79,7 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
 
       $scope.removePhoto = () => {
         $scope.avatarPreview = 'none'
-        this.$scope.generalSettingsObject.avatar = null
+        this.$scope.generalSettingsObject.avatar = ''
       }
 
       $scope.saveCrop = (data: any) => {
@@ -101,7 +101,7 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
 
       $scope.onModalClose = () =>
         $uibModalInstance.dismiss('cancel')
-
+      
     }
 
     private onUploadProgess = () => {

@@ -1,29 +1,35 @@
-scrollable.phone-settings(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
-  top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="onModalClose")
+scrollable.phone-settings(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
+  top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="vm.onModalClose")
   .modal-settings
     .default-container-small.no-padding
       h2(data-translate="{{:: 'SETTINGS.GENERAL.PHONE_SETTINGS.TITLE' | translate}}")
 
-      form.pro-input-form(name="phoneNumber" novalidate)
+      form.pro-input-form(name="phoneNumberForm" novalidate ng-submit="vm.setNewNumber()")
 
         .input-handler
           dropdown-primary.prefix-phone(
-          data-pro-model='vm.account.phoneNumber.prefix'
-          data-label='prefix'
-          data-placeholder='+48'
-          data-pro-items="vm.prefixes"
-          data-no-search)
+          data-label="prefix"
+          data-main-list="vm.prefixList"
+          data-on-select-main="vm.updatePrefix"
+          data-placeholder="+48"
+          data-input-placeholder="{{ ::'SEARCH.ALL' | translate }}")
 
           pro-input.phone.label(data-label="{{:: 'SETTINGS.GENERAL.PHONE_NUMBER.INPUT.LABEL' | translate}}"
           data-type="tel"
           data-id="phoneNumber"
           data-placeholder="{{'LOGIN.ENTER_NUMBER_PLACEHOLDER' | translate}}"
-          data-ng-model="vm.account.phoneNumber.number"
-          data-ng-class="{'invalid': !vm.isValidPhoneNumber(vm.account.phoneNumber.prefix," +
-          " vm.account.phoneNumber.number) && (phoneNumberForm.phoneNumber.$dirty || phoneNumberForm.$submitted)}"
+          data-ng-model="vm.number"
+          data-ng-class="{'invalid': (vm.isPhoneNumberInvalid || vm.isNumberExist) && phoneNumberForm.$submitted}"
           auto-focus only-digits)
 
-        button.btn.btn-default(data-translate="{{:: 'SETTINGS.GENERAL.PHONE_NUMBER.BUTTON' | translate}}" type="submit"
-        data-ng-click="verifyCode()" data-ng-show="isHidden")
+        .input-error-messages
+          .error.left(data-ng-show="phoneNumberForm.$submitted && vm.isNumberExist"
+          data-translate="SETTINGS.GENERAL.PHONE_SETTINGS.NUMBER_EXIST_VALIDATION")
+          .error.left(data-ng-show="phoneNumberForm.$submitted && vm.isPhoneNumberInvalid"
+          data-translate="SETTINGS.GENERAL.PHONE_SETTINGS.INVALID_NUMBER")
 
-      pin-verification(data-ng-hide="isHidden")
+        button.btn.btn-default(data-translate="{{:: 'SETTINGS.GENERAL.PHONE_NUMBER.BUTTON' | translate}}" type="submit"
+        data-ng-hide="vm.isNewPhoneNumberCreate")
+
+    pin-verification(data-ng-show="vm.isNewPhoneNumberCreate" data-on-send-pin-again='vm.setNewNumber'
+    data-on-complete-pin-inputs="vm.sendVerificationPin")

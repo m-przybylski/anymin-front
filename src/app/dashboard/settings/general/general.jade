@@ -19,7 +19,7 @@
 
   .settings-data
     span.label(data-translate="SETTINGS.GENERAL.PHONE_NUMBER.LABEL")
-    span.name + 48 500 400 430
+    span.name {{ vm.phoneNumber }}
 
   a.btn.btn-small.btn-default-border(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
   data-ng-click=":: vm.openGeneralPhoneSettingsModal()")
@@ -30,7 +30,8 @@
 
   .settings-data
     span.label(data-translate="SETTINGS.GENERAL.EMAIL.LABEL")
-    span.name name@profiteloc.om
+    span.name {{ vm.email }}
+    p.name {{ vm.unverifiedEmail }}
 
   a.btn.btn-small.btn-default-border(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
   data-ng-click=":: vm.openGeneralEmailSettingsModal()")
@@ -41,7 +42,7 @@
 
   .settings-data
     span.label(data-translate="SETTINGS.GENERAL.COUNTRY.LABEL")
-    span.name Poland
+    span.name {{ vm.country }}
 
   a.btn.btn-small.btn-default-border(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
   data-ng-click=":: vm.openGeneralCountrySettingsModal()")

@@ -1,30 +1,53 @@
 namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
 
-  export interface IGeneralEmailSettingsControllerParentScope extends ng.IScope {
-  }
-
   export interface IGeneralEmailSettingsControllerScope extends ng.IScope {
-    isNavbar: boolean
-    isFullscreen: boolean
-    isAvatarVisableToExpert: boolean
-    onModalClose: Function
-    addPhoto: Function
-    imageSource: string
-    $parent: IGeneralEmailSettingsControllerParentScope
+    callback: () => void
   }
 
   export class GeneralEmailSettingsController implements ng.IController {
 
+    public isNavbar: boolean = true
+    public isFullscreen: boolean = true
+    public isEmailExist: boolean = false
+    public newEmail: string
+
     /* @ngInject */
-    constructor($scope: IGeneralEmailSettingsControllerScope,
-                $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
+    constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
+                private AccountApi: any, private $log: ng.ILogService,
+                private User: any,
+                private $scope: IGeneralEmailSettingsControllerScope) {
 
-      $scope.isNavbar = true
-      $scope.isFullscreen = true
-
-      $scope.onModalClose = () =>
-        $uibModalInstance.dismiss('cancel')
     }
+
+    public setNewEmail = (): void => {
+      this.isEmailExist = false
+      this.checkIfEmailInUse(this.newEmail).then(() => {
+        this.isEmailExist = true
+      }, (_error: any) => {
+        this.AccountApi.partialUpdateAccount({accountId: this.User.getData('id')}, {
+          unverifiedEmail: this.newEmail
+        }).$promise.then(this.onEmailChangeSucces, this.onEmailChangeError)
+      })
+
+    }
+
+    private onEmailChangeSucces = (): void => {
+      this.$scope.callback()
+      this.$uibModalInstance.dismiss('cancel')
+    }
+
+    private onEmailChangeError = (error: any): void => {
+      this.$log.error(error)
+    }
+
+    private checkIfEmailInUse = (email: string): ng.IPromise<void> => {
+      return this.AccountApi.getAccountEmailExists({
+        email: email
+      }).$promise
+    }
+
+    public onModalClose = () =>
+      this.$uibModalInstance.dismiss('cancel')
   }
 
   angular.module('profitelo.components.dashboard.settings.modals.general.email-settings', [

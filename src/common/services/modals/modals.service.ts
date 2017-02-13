@@ -8,13 +8,13 @@ namespace profitelo.services.modals {
   import IUnavailableServiceControllerParentScope = profitelo.components.communicator.modals.serviceUnavailable.IUnavailableServiceControllerParentScope
   import INoCreditsControllerParentScope = profitelo.components.communicator.modals.noCredits.INoCreditsControllerParentScope
   import IBasicAccountSettingsControllerParentScope = profitelo.components.dashboard.settings.modals.general.basicAccountSettings.IBasicAccountSettingsControllerParentScope
-  import IGeneralPhoneSettingsControllerParentScope = profitelo.components.dashboard.settings.modals.general.phoneSettings.IGeneralPhoneSettingsControllerParentScope
-  import IGeneralEmailSettingsControllerParentScope = profitelo.components.dashboard.settings.modals.general.emailSettings.IGeneralEmailSettingsControllerParentScope
   import IGeneralCountrySettingsControllerParentScope = profitelo.components.dashboard.settings.modals.general.countrySettings.IGeneralCountrySettingsControllerParentScope
   import ISecurityChangePasswordSettingsControllerParentScope = profitelo.components.dashboard.settings.modals.security.changePassword.ISecurityChangePasswordSettingsControllerParentScope
   import ISecurityPinNumberSettingsControllerParentScope = profitelo.components.dashboard.settings.modals.security.pinNumber.ISecurityPinNumberSettingsControllerParentScope
   import ClientActivity = profitelo.models.ClientActivity
   import Service = profitelo.models.Service
+  import IGeneralPhoneSettingsControllerScope = profitelo.components.dashboard.settings.modals.general.phoneSettings.IGeneralPhoneSettingsControllerScope
+  import IGeneralEmailSettingsControllerScope = profitelo.components.dashboard.settings.modals.general.emailSettings.IGeneralEmailSettingsControllerScope
 
   export interface IModalsService {
     createIncomingCallModal(service: Service, answerCb: () => void, rejectCb: () => void): ng.ui.bootstrap.IModalServiceInstance
@@ -26,8 +26,8 @@ namespace profitelo.services.modals {
     createClientComplainReportModal(): ng.ui.bootstrap.IModalServiceInstance
     createClientChargeDetailsModal(financeActivityDetails: Object): ng.ui.bootstrap.IModalServiceInstance
     createBasicAccountSettingsModal(callback: Function): ng.ui.bootstrap.IModalServiceInstance
-    createGeneralPhoneSettingsModal(): ng.ui.bootstrap.IModalServiceInstance
-    createGeneralEmailSettingsModal(): ng.ui.bootstrap.IModalServiceInstance
+    createGeneralPhoneSettingsModal(callback: Function): ng.ui.bootstrap.IModalServiceInstance
+    createGeneralEmailSettingsModal(callabck: Function): ng.ui.bootstrap.IModalServiceInstance
     createGeneralCountrySettingsModal(): ng.ui.bootstrap.IModalServiceInstance
     createSecurityChangePasswordSettingsModal(): ng.ui.bootstrap.IModalServiceInstance
     createSecurityPinSecuritySettingsModal(): ng.ui.bootstrap.IModalServiceInstance
@@ -166,22 +166,26 @@ namespace profitelo.services.modals {
       })
     }
 
-    public createGeneralPhoneSettingsModal = () => {
-      const dialogScope: IGeneralPhoneSettingsControllerParentScope =
-        <IGeneralPhoneSettingsControllerParentScope>this.$rootScope.$new(true)
+    public createGeneralPhoneSettingsModal = (onModalClose: () => void) => {
+      const dialogScope: IGeneralPhoneSettingsControllerScope =
+        <IGeneralPhoneSettingsControllerScope>this.$rootScope.$new(true)
+      dialogScope.callback = onModalClose
 
       return this.dialogService.openDialog({
+        controllerAs: 'vm',
         controller: 'generalPhoneSettingsController',
         templateUrl: 'components/dashboard/settings/modals/general/phone-settings/phone-settings.tpl.html',
         scope: dialogScope
       })
     }
 
-    public createGeneralEmailSettingsModal = () => {
-      const dialogScope: IGeneralEmailSettingsControllerParentScope =
-        <IGeneralEmailSettingsControllerParentScope>this.$rootScope.$new(true)
+    public createGeneralEmailSettingsModal = (onModalClose: () => void) => {
+      const dialogScope: IGeneralEmailSettingsControllerScope =
+        <IGeneralEmailSettingsControllerScope>this.$rootScope.$new(true)
+      dialogScope.callback = onModalClose
 
       return this.dialogService.openDialog({
+        controllerAs: 'vm',
         controller: 'generalEmailSettingsController',
         templateUrl: 'components/dashboard/settings/modals/general/email-settings/email-settings.tpl.html',
         scope: dialogScope
