@@ -36,7 +36,7 @@
     a.btn.btn-small.btn-default-border(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
     data-ng-click=":: vm.openGeneralEmailSettingsModal()")
 
-  .settings-row.is-inactive(data-ng-show="{{typeof(vm.unverifiedEmail) !== 'undefined' }}")
+  .settings-row.is-inactive(data-ng-show="vm.showUnverifiedEmail")
     .settings-icon
       span.icon.icon-failure-24
 

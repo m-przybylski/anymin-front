@@ -11,6 +11,7 @@ namespace app.dashboard.settings.general {
     public email: string
     public country: string
     public unverifiedEmail: string
+    public showUnverifiedEmail: boolean
 
     constructor(private modalsService: IModalsService, UserData: any, private $state: ng.ui.IStateService, private urlService: IUrlService) {
       this.nickname = UserData.settings.nickname
@@ -19,6 +20,7 @@ namespace app.dashboard.settings.general {
       this.email = UserData.email
       this.country = UserData.countryISO
       this.unverifiedEmail = UserData.unverifiedEmail
+      this.showUnverifiedEmail = (typeof(this.unverifiedEmail) !== 'undefined' && this.unverifiedEmail !== '')
     }
 
     $onInit = () => {
@@ -40,10 +42,8 @@ namespace app.dashboard.settings.general {
       this.modalsService.createGeneralCountrySettingsModal()
     }
 
-    private onModalClose = (cb: Function) => {
-      this.$state.reload().then(() => {
-        cb()
-      })
+    private onModalClose = (cb: () => void) => {
+      this.$state.reload().then(cb)
     }
 
   }

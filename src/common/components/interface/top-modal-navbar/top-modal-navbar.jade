@@ -4,7 +4,7 @@
       img.logo(src="/assets/images/logo_profitelo_black.svg" data-ng-click="$ctrl.onLogoClick()")
 
     .top-modal-navbar-title.title
-      h3(data-translate="$ctrl.title")
+      h3(data-translate="{{ :: $ctrl.title }}")
 
     .close-modal
       a(data-ng-click="$ctrl.onCloseClick()")
