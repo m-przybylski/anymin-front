@@ -20,15 +20,20 @@ input
       border-color: $c-primary
 
 .pin-inputs
+  margin: 0 0 16px
+
+  +smm
+    margin: 0 0 32px
+
   input
     border: 1px solid $c-lines
     width: 48px
     height: 64px
     text-align: center
-    margin: 0 8px 16px
+    margin: 0 8px 0
 
     +smm
-      margin: 0 8px 32px
+      margin: 0 8px 0
 
   &:focus
       border-color: $c-primary

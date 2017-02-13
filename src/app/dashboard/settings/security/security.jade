@@ -1,4 +1,4 @@
-.security-options.security.default-container.no-padding
+.security-options.security
   h2(data-translate="SETTINGS.SECURITY.TITLE")
 
   .settings-row
@@ -6,7 +6,7 @@
       span.icon.icon-lock-24
 
     .settings-data
-      span.name(data-translate="{{:: 'SETTINGS.SECURITY.PASSWORD.LABEL' | translate}}")
+      span.name(data-translate="SETTINGS.SECURITY.PASSWORD.LABEL")
 
     a.btn.btn-small.btn-default-border(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
     data-ng-click=":: vm.openSecurityChangePasswordSettingsModal()")
@@ -16,16 +16,16 @@
       span.icon.icon-pin-number-24
 
     .settings-data
-      span.name(data-translate="{{:: 'SETTINGS.SECURITY.PIN_NUMBER.LABEL' | translate}}")
+      span.name(data-translate="SETTINGS.SECURITY.PIN_NUMBER.LABEL")
 
     a.btn.btn-small.btn-default-border(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
     data-ng-click=":: vm.openSecurityPinSecuritySettingsModal()")
 
-.security-options.manage-devicesc
-  h2(data-translate="{{:: 'SETTINGS.SECURITY.MANAGE_DEVICES.TITLE' | translate}}")
+.security-options.manage-devices
+  h2(data-translate="SETTINGS.SECURITY.MANAGE_DEVICES.TITLE")
   manage-devices(
     data-device="mobile"
     data-device-in-use-status="true"
-    data-device-localization="Zagacie"
-    data-device-system="Windows 95 Beta"
+    data-device-localization="Kraków"
+    data-device-system="IOS"
   )

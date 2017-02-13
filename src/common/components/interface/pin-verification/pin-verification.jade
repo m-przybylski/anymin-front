@@ -1,23 +1,24 @@
 .pin-verification
   h2(data-translate="{{:: 'SETTINGS.GENERAL.PHONE_NUMBER.PIN_VERIFY.TITLE' | translate}}")
 
-  .input-handler.pin-inputs
-    input.input-number(type="text" maxlength="1" data-ng-model="$ctrl.pinInputModels[0]"
-    data-ng-change="$ctrl.onInputChange()" focus-next)
-    input.input-number(type="text" maxlength="1" data-ng-model="$ctrl.pinInputModels[1]"
-    data-ng-change="$ctrl.onInputChange()" focus-next)
-    input.input-number(type="text" maxlength="1" data-ng-model="$ctrl.pinInputModels[2]"
-    data-ng-change="$ctrl.onInputChange()" focus-next)
-    input.input-number(type="text" maxlength="1" data-ng-model="$ctrl.pinInputModels[3]"
-    data-ng-change="$ctrl.onInputChange()")
+  .input-content
+    .input-handler.pin-inputs
+      input.input-number(type="text" maxlength="1" data-ng-model="$ctrl.pinInputModels[0]"
+      data-ng-change="$ctrl.onInputChange()" focus-next)
+      input.input-number(type="text" maxlength="1" data-ng-model="$ctrl.pinInputModels[1]"
+      data-ng-change="$ctrl.onInputChange()" focus-next)
+      input.input-number(type="text" maxlength="1" data-ng-model="$ctrl.pinInputModels[2]"
+      data-ng-change="$ctrl.onInputChange()" focus-next)
+      input.input-number(type="text" maxlength="1" data-ng-model="$ctrl.pinInputModels[3]"
+      data-ng-change="$ctrl.onInputChange()")
 
-  .input-error-messages
-    .error.left(data-ng-show="$ctrl.isPinInCorrect"
-    data-translate="SETTINGS.GENERAL.PHONE_SETTINGS.PIN_VALIDATION")
-
+    .input-error-messages(data-ng-show="$ctrl.isPinInCorrect")
+      .error.left(data-translate="SETTINGS.GENERAL.PHONE_SETTINGS.PIN_VALIDATION")
 
   .pin-verification-send-again(data-ng-hide="$ctrl.pin" data-ng-click="$ctrl.sendPinAgain()")
     p(data-translate="{{:: 'SETTINGS.GENERAL.PHONE_NUMBER.PIN_VERIFY.RECEIVE' | translate }}")
     button.btn.btn-small.btn-default-border(data-ng-disabled="$ctrl.isButtonDisable"
     data-translate="{{:: 'SETTINGS.GENERAL.PHONE_NUMBER.PIN_VERIFY.BUTTON' | translate}}" type="submit")
+
+  .pin-verification-counter
     p(data-ng-show="$ctrl.isButtonDisable") {{:: 'SETTINGS.GENERAL.PHONE_NUMBER.PIN_VERIFY.COUNTER' | translate }} {{ $ctrl.counter }}s.

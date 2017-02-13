@@ -45,6 +45,17 @@
   border: 1px solid $c-lines
   padding: 32px
 
+.settings-row-double
+  border-bottom: 1px solid $c-lines
+  padding: 20px 0
+
+  .settings-row
+    border: 0
+    padding: 0 16px
+    min-height: 48px
+
+    +smm
+      padding: 0 24px
 
 .settings-row
   border-bottom: 1px solid $c-lines
@@ -56,6 +67,15 @@
 
   +smm
     padding: 20px 24px
+
+  &.is-active
+    span
+      &.icon
+        color: $c-success
+
+  &.is-inactive
+    span
+      color: $c-label
 
   .settings-icon
     display: inline-flex

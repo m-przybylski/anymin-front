@@ -1,4 +1,4 @@
-.general-options.default-container.no-padding
+.general-options
   h2(data-translate="SETTINGS.GENERAL.TITLE")
 
 .settings-row
@@ -24,17 +24,25 @@
   a.btn.btn-small.btn-default-border(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
   data-ng-click=":: vm.openGeneralPhoneSettingsModal()")
 
-.settings-row
-  .settings-icon
-    span.icon.icon-success-24-1
+.settings-row-double
+  .settings-row.is-active
+    .settings-icon
+      span.icon.icon-success-24-1
 
-  .settings-data
-    span.label(data-translate="SETTINGS.GENERAL.EMAIL.LABEL")
-    span.name {{ vm.email }}
-    p.name {{ vm.unverifiedEmail }}
+    .settings-data
+      span.label(data-translate="SETTINGS.GENERAL.EMAIL.LABEL")
+      span.name {{ vm.email }}
 
-  a.btn.btn-small.btn-default-border(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
-  data-ng-click=":: vm.openGeneralEmailSettingsModal()")
+    a.btn.btn-small.btn-default-border(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
+    data-ng-click=":: vm.openGeneralEmailSettingsModal()")
+
+  .settings-row.is-inactive(data-ng-show="{{typeof(vm.unverifiedEmail) !== 'undefined' }}")
+    .settings-icon
+      span.icon.icon-failure-24
+
+    .settings-data
+      span.label(data-translate="SETTINGS.GENERAL.EMAIL.WAITING_FOR_VERIFICATION.LABEL")
+      span.new-mail {{ vm.unverifiedEmail }}
 
 .settings-row
   .settings-icon
