@@ -1,5 +1,31 @@
-scrollable.change-password-settings(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
+scrollable.security-pin-number(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
   top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="onModalClose")
   .modal-settings
     .default-container-small
-      h2(data-translate="{{:: 'SETTINGS.SECURITY.CHANGE_PASSWORD.TITLE' | translate}}")
+      h2(data-translate="{{:: 'SETTINGS.SECURITY.PIN_NUMBER.TITLE' | translate}}")
+
+      .security-pin-number
+        .input-handler.pin-inputs
+          input.input-number(type="text")
+          input.input-number(type="text")
+          input.input-number(type="text")
+          input.input-number(type="text")
+
+        .checkbox-handler
+          pro-checkbox(
+            data-ng-model="isOutgoingSecureCheckbox"
+            data-label="{{:: 'SETTINGS.GENERAL.BASIC_ACCOUNT.NAME_CHECKBOX_LABEL' | translate }}"
+          )
+
+          pro-checkbox(
+            data-ng-model="isSecurePaymentsCheckbox"
+            data-label="{{:: 'SETTINGS.GENERAL.BASIC_ACCOUNT.NAME_CHECKBOX_LABEL' | translate }}"
+          )
+
+          pro-checkbox(
+            data-ng-model="isConfirmPaymentsCheckbox"
+            data-label="{{:: 'SETTINGS.GENERAL.BASIC_ACCOUNT.NAME_CHECKBOX_LABEL' | translate }}"
+          )
+
+        a.btn.btn-default(data-translate="{{:: 'SETTINGS.SECURITY.PIN_NUMBER.BUTTON' | translate}}"
+        type="submit")
