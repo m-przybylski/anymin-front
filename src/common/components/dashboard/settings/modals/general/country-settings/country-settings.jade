@@ -2,7 +2,7 @@ scrollable.country-settings(data-is-fullscreen="isFullscreen" data-is-navbar="is
   top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="onModalClose")
   .modal-settings
     .default-container-small
-      h2(data-translate="{{:: 'SETTINGS.GENERAL.CONUTRY_SETTINGS.TITLE' | translate}}")
+      h2(data-translate="SETTINGS.GENERAL.CONUTRY_SETTINGS.TITLE")
 
       form.pro-input-form(name="countryForm"  novalidate)
         dropdown-primary.country(
@@ -12,4 +12,7 @@ scrollable.country-settings(data-is-fullscreen="isFullscreen" data-is-navbar="is
           data-pro-items="vm.countries"
           data-no-search)
 
-        button.btn.btn-default(data-translate="{{:: 'SETTINGS.GENERAL.CONUTRY_SETTINGS.BUTTON' | translate }}" type="submit")
+        .input-error-messages(data-ng-show="phoneNumberForm.$submitted && vm.isNumberExist")
+          .error.left(data-translate="SETTINGS.GENERAL.PHONE_SETTINGS.NUMBER_EXIST_VALIDATION")
+
+    button.btn.btn-default(data-translate="SETTINGS.GENERAL.CONUTRY_SETTINGS.BUTTON" type="submit")

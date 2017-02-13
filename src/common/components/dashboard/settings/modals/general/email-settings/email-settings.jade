@@ -5,20 +5,20 @@ scrollable.email-settings(data-is-fullscreen="vm.isFullscreen" data-is-navbar="v
       h2(data-translate="{{:: 'SETTINGS.GENERAL.EMAIL_SETTINGS.TITLE' | translate}}")
 
       form.pro-input-form(name="emailForm" data-ng-submit="emailForm.$valid && vm.setNewEmail() " novalidate)
-        pro-input.email.label(data-label="{{:: 'SETTINGS.GENERAL.EMAIL_SETTINGS.LABEL' | translate}}"
-        data-type="email"
-        data-id="email"
-        data-placeholder="{{'DASHBOARD.CHARGE_ACCOUNT.EMAIL_PLACEHOLDER	' | translate}}"
-        data-ng-model="vm.newEmail"
-        data-ng-pattern="vm.patternEmail"
-        data-ng-class="{'invalid':(emailForm.email.$invalid || !!vm.emailExist) && (emailForm.email.$dirty || emailForm.$submitted) }"
-        required
-        auto-focus)
+        .input-content
+          pro-input.email.label(data-label="{{:: 'SETTINGS.GENERAL.EMAIL_SETTINGS.LABEL' | translate}}"
+          data-type="email"
+          data-id="email"
+          data-placeholder="{{:: 'DASHBOARD.CHARGE_ACCOUNT.EMAIL_PLACEHOLDER' | translate}}"
+          data-ng-model="vm.newEmail"
+          data-ng-pattern="vm.patternEmail"
+          data-ng-class="{'invalid':(emailForm.email.$invalid || !!vm.emailExist) && (emailForm.email.$dirty || emailForm.$submitted) }"
+          required
+          auto-focus)
 
-        .input-error-messages
-          .error.left(data-ng-show="emailForm.$submitted && emailForm.email.$invalid "
-          data-translate="SETTINGS.GENERAL.EMAIL_SETTINGS.EMAIL_VALIDATION")
-          .error.left(data-ng-show="emailForm.$submitted && vm.isEmailExist"
-          data-translate="SETTINGS.GENERAL.EMAIL_SETTINGS.EMAIL_EXIST")
+          .input-error-messages(data-ng-show="emailForm.$submitted && emailForm.email.$invalid")
+            .error.left(data-translate="SETTINGS.GENERAL.EMAIL_SETTINGS.EMAIL_VALIDATION")
+          .input-error-messages(data-ng-show="emailForm.$submitted && vm.isEmailExist")
+            .error.left(data-translate="SETTINGS.GENERAL.EMAIL_SETTINGS.EMAIL_EXIST")
 
-        button.btn.btn-default(data-translate="{{:: 'SETTINGS.GENERAL.EMAIL_SETTINGS.BUTTON' | translate }}" type="submit")
+        button.btn.btn-default(data-translate="SETTINGS.GENERAL.EMAIL_SETTINGS.BUTTON" type="submit")
