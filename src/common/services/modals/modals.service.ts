@@ -8,13 +8,13 @@ namespace profitelo.services.modals {
   import IUnavailableServiceControllerParentScope = profitelo.components.communicator.modals.serviceUnavailable.IUnavailableServiceControllerParentScope
   import INoCreditsControllerParentScope = profitelo.components.communicator.modals.noCredits.INoCreditsControllerParentScope
   import IBasicAccountSettingsControllerParentScope = profitelo.components.dashboard.settings.modals.general.basicAccountSettings.IBasicAccountSettingsControllerParentScope
-  import IGeneralCountrySettingsControllerParentScope = profitelo.components.dashboard.settings.modals.general.countrySettings.IGeneralCountrySettingsControllerParentScope
-  import ISecurityChangePasswordSettingsControllerParentScope = profitelo.components.dashboard.settings.modals.security.changePassword.ISecurityChangePasswordSettingsControllerParentScope
   import ISecurityPinNumberSettingsControllerParentScope = profitelo.components.dashboard.settings.modals.security.pinNumber.ISecurityPinNumberSettingsControllerParentScope
   import ClientActivity = profitelo.models.ClientActivity
   import Service = profitelo.models.Service
   import IGeneralPhoneSettingsControllerScope = profitelo.components.dashboard.settings.modals.general.phoneSettings.IGeneralPhoneSettingsControllerScope
   import IGeneralEmailSettingsControllerScope = profitelo.components.dashboard.settings.modals.general.emailSettings.IGeneralEmailSettingsControllerScope
+  import IGeneralCountrySettingsControllerScope = profitelo.components.dashboard.settings.modals.general.countrySettings.IGeneralCountrySettingsControllerScope
+  import ISecurityChangePasswordSettingsControllerScope = profitelo.components.dashboard.settings.modals.security.changePassword.ISecurityChangePasswordSettingsControllerScope
 
   export interface IModalsService {
     createIncomingCallModal(service: Service, answerCb: () => void, rejectCb: () => void): ng.ui.bootstrap.IModalServiceInstance
@@ -28,7 +28,7 @@ namespace profitelo.services.modals {
     createBasicAccountSettingsModal(callback: Function): ng.ui.bootstrap.IModalServiceInstance
     createGeneralPhoneSettingsModal(callback: Function): ng.ui.bootstrap.IModalServiceInstance
     createGeneralEmailSettingsModal(callabck: Function): ng.ui.bootstrap.IModalServiceInstance
-    createGeneralCountrySettingsModal(): ng.ui.bootstrap.IModalServiceInstance
+    createGeneralCountrySettingsModal(callabck: Function): ng.ui.bootstrap.IModalServiceInstance
     createSecurityChangePasswordSettingsModal(): ng.ui.bootstrap.IModalServiceInstance
     createSecurityPinSecuritySettingsModal(): ng.ui.bootstrap.IModalServiceInstance
   }
@@ -192,11 +192,13 @@ namespace profitelo.services.modals {
       })
     }
 
-    public createGeneralCountrySettingsModal = () => {
-      const dialogScope: IGeneralCountrySettingsControllerParentScope =
-        <IGeneralCountrySettingsControllerParentScope>this.$rootScope.$new(true)
+    public createGeneralCountrySettingsModal = (onModalClose: () => void) => {
+      const dialogScope: IGeneralCountrySettingsControllerScope =
+        <IGeneralCountrySettingsControllerScope>this.$rootScope.$new(true)
 
+      dialogScope.callback = onModalClose
       return this.dialogService.openDialog({
+        controllerAs: 'vm',
         controller: 'generalCountrySettingsController',
         templateUrl: 'components/dashboard/settings/modals/general/country-settings/country-settings.tpl.html',
         scope: dialogScope
@@ -204,10 +206,11 @@ namespace profitelo.services.modals {
     }
 
     public createSecurityChangePasswordSettingsModal = () => {
-      const dialogScope: ISecurityChangePasswordSettingsControllerParentScope =
-        <ISecurityChangePasswordSettingsControllerParentScope>this.$rootScope.$new(true)
+      const dialogScope: ISecurityChangePasswordSettingsControllerScope =
+        <ISecurityChangePasswordSettingsControllerScope>this.$rootScope.$new(true)
 
       return this.dialogService.openDialog({
+        controllerAs: 'vm',
         controller: 'securityChangePasswordSettingsController',
         templateUrl: 'components/dashboard/settings/modals/security/change-password/change-password.tpl.html',
         scope: dialogScope
@@ -219,6 +222,7 @@ namespace profitelo.services.modals {
         <ISecurityPinNumberSettingsControllerParentScope>this.$rootScope.$new(true)
 
       return this.dialogService.openDialog({
+        controllerAs: 'vm',
         controller: 'securityPinNumberSettingsController',
         templateUrl: 'components/dashboard/settings/modals/security/pin-number/pin-number.tpl.html',
         scope: dialogScope

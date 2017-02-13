@@ -1,18 +1,18 @@
-scrollable.country-settings(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
-  top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="onModalClose")
+scrollable.country-settings(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
+  top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="vm.onModalClose")
   .modal-settings
     .default-container-small
       h2(data-translate="SETTINGS.GENERAL.CONUTRY_SETTINGS.TITLE")
 
-      form.pro-input-form(name="countryForm"  novalidate)
+      form.pro-input-form(name="countryForm" ng-submit="vm.setNewCountry()" novalidate)
         dropdown-primary.country(
-          data-pro-model='vm.account.phoneNumber.prefix'
           data-label="{{:: 'SETTINGS.GENERAL.CONUTRY_SETTINGS.LABEL' | translate }}"
-          data-placeholder='Poland'
-          data-pro-items="vm.countries"
-          data-no-search)
+          data-main-list="vm.countryList"
+          data-selected-item="vm.selectedCountry"
+          data-on-select-main="vm.updateCountry"
+          data-input-placeholder="Poland")
 
         .input-error-messages(data-ng-show="phoneNumberForm.$submitted && vm.isNumberExist")
           .error.left(data-translate="SETTINGS.GENERAL.PHONE_SETTINGS.NUMBER_EXIST_VALIDATION")
 
-    button.btn.btn-default(data-translate="SETTINGS.GENERAL.CONUTRY_SETTINGS.BUTTON" type="submit")
+        button.btn.btn-default(data-translate="SETTINGS.GENERAL.CONUTRY_SETTINGS.BUTTON" type="submit")

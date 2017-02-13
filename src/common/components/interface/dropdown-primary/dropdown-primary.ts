@@ -6,13 +6,18 @@ namespace profitelo.components.interface.dropdownPrimary {
   }
 
   interface IDropdownPrimaryComponentBindings {
-    label: string,
-    inputPlaceholder: string,
-    name: string,
-    placeholder: string,
-    mainList: Array<Object>,
-    onSelectMain: Function,
+    label: string
+    inputPlaceholder: string
+    name: string
+    placeholder: string
+    mainList: Array<Object>
+    onSelectMain: Function
     selectedItem: IDropdownItem
+  }
+
+  export interface IPrimaryDropdownListElement {
+    name: string
+    value: any
   }
 
   interface IFilterBy {
@@ -28,7 +33,7 @@ namespace profitelo.components.interface.dropdownPrimary {
     public inputPlaceholder: string
     public name: string
     public placeholder: string
-    public mainList: Array<Object>
+    public mainList: Array<IPrimaryDropdownListElement>
     public onSelectMain: Function
     public selectedItem: IDropdownItem
     public mainPlaceholder: IDropdownItem
@@ -43,6 +48,7 @@ namespace profitelo.components.interface.dropdownPrimary {
         value: null
       }
     }
+
     /* @ngInject */
     constructor(private $document: ng.IDocumentService, private  $scope: ng.IScope,
                 private $element: ng.IRootElementService) {
