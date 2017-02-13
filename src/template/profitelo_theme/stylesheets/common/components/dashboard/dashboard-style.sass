@@ -1,4 +1,4 @@
-.client-no-results-content
+.no-results-page
   padding: 0 0 32px
 
   +smm
@@ -7,16 +7,20 @@
     align-items: center
     padding: 0 0 64px
 
-  .dashboard-content
+  .no-results-page-content
     text-align: center
+    padding: 64px 0
+
+    +mdm
+      padding: 128px 0
 
     img
-      margin: 0 0 64px
-
-    h3
-      +default-font-regular
-      font-size: $f-h2-size
       margin: 0 0 16px
+
+    h2
+      +default-font-light
+      font-size: $f-h2-size
+      margin: 0 0 32px
 
     p
       +default-font-regular
