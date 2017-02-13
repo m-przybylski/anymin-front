@@ -266,6 +266,7 @@ namespace profitelo.app {
     'profitelo.controller.dashboard.settings',
     'profitelo.controller.dashboard.settings.general',
     'profitelo.controller.dashboard.settings.security',
+    'profitelo.controller.dashboard.settings.payments',
 
     'profitelo.controller.dashboard.service-provider',
     'profitelo.controller.dashboard.service-provider.choose-path',

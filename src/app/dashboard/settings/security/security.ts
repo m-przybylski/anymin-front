@@ -2,12 +2,8 @@ namespace profitelo.dashboard.settings.security {
 
   import IModalsService = profitelo.services.modals.IModalsService
 
-  export interface ISettingsControllerScope extends ng.IScope {}
-
   export class DashboardSettingsSecurityController implements ng.IController {
     constructor(private modalsService: IModalsService) {
-
-
     }
 
     public openSecurityChangePasswordSettingsModal = () => {
@@ -17,7 +13,6 @@ namespace profitelo.dashboard.settings.security {
     public openSecurityPinSecuritySettingsModal = () => {
       this.modalsService.createSecurityPinSecuritySettingsModal()
     }
-
   }
 
   angular.module('profitelo.controller.dashboard.settings.security', [
