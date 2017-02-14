@@ -8,6 +8,7 @@ namespace profitelo.components.dashboard.settings.modals.security.pinNumber {
     isNavbar: boolean
     isFullscreen: boolean
     onModalClose: Function
+    sendPin: Function
     $parent: ISecurityPinNumberSettingsControllerParentScope
   }
 
@@ -27,11 +28,16 @@ namespace profitelo.components.dashboard.settings.modals.security.pinNumber {
       $scope.onModalClose = () =>
         $uibModalInstance.dismiss('cancel')
 
+      $scope.sendPin = () => {
+        $uibModalInstance.dismiss('cancel')
+      }
+
     }
   }
 
   angular.module('profitelo.components.dashboard.settings.security.modals.pin-number', [
     'ui.bootstrap',
+    'profitelo.directives.interface.focus-next',
     'profitelo.directives.interface.scrollable',
     'profitelo.directives.interface.pro-checkbox'
   ])
