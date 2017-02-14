@@ -50,7 +50,7 @@
 
   .settings-data
     span.label(data-translate="SETTINGS.GENERAL.COUNTRY.LABEL")
-    span.name {{ vm.country }}
+    span.name(data-translate="{{ :: ('COUNTRIES.' + vm.country) }}")
 
   a.btn.btn-small.btn-default-border(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
   data-ng-click=":: vm.openGeneralCountrySettingsModal()")

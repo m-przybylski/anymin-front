@@ -92,7 +92,7 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
             height: squareSideLength
           }
         }
-
+        this.$scope.isUploadInProgress = true
         this.uploader.uploadFile(this.uploadedFile, postProcessOptions, this.onUploadProgess)
         .then(this.onFileUpload, this.onFileUploadError)
 
@@ -101,11 +101,10 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
 
       $scope.onModalClose = () =>
         $uibModalInstance.dismiss('cancel')
-      
+
     }
 
     private onUploadProgess = () => {
-      this.$scope.isUploadInProgress = true
     }
 
     private onFileUpload = (res: any) => {

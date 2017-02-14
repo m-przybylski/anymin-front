@@ -21,13 +21,9 @@ namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
 
     public setNewEmail = (): void => {
       this.isEmailExist = false
-      this.checkIfEmailInUse(this.newEmail).then(() => {
-        this.isEmailExist = true
-      }, (_error: any) => {
         this.AccountApi.partialUpdateAccount({accountId: this.User.getData('id')}, {
           unverifiedEmail: this.newEmail
         }).$promise.then(this.onEmailChangeSucces, this.onEmailChangeError)
-      })
 
     }
 
@@ -38,12 +34,7 @@ namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
 
     private onEmailChangeError = (error: any): void => {
       this.$log.error(error)
-    }
-
-    private checkIfEmailInUse = (email: string): ng.IPromise<void> => {
-      return this.AccountApi.getAccountEmailExists({
-        email: email
-      }).$promise
+      this.isEmailExist = true
     }
 
     public onModalClose = () =>

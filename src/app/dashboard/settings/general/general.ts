@@ -39,7 +39,7 @@ namespace app.dashboard.settings.general {
     }
 
     public openGeneralCountrySettingsModal = () => {
-      this.modalsService.createGeneralCountrySettingsModal()
+      this.modalsService.createGeneralCountrySettingsModal(this.onModalClose)
     }
 
     private onModalClose = (cb: () => void) => {
@@ -50,6 +50,7 @@ namespace app.dashboard.settings.general {
 
   angular.module('profitelo.controller.dashboard.settings.general', [
     'ui.router',
+    'pascalprecht.translate',
     'c7s.ng.userAuth',
     'ngLodash',
     'profitelo.services.url',

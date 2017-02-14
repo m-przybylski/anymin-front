@@ -11,17 +11,25 @@ namespace profitelo.components.dashboard.settings.modals.security.changePassword
 
     const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
       jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss']);
+    const User = {}
+
+    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
+      $provide.value('apiUrl', 'awesomeUrl')
+    }))
 
     beforeEach(() => {
       angular.mock.module('ui.bootstrap')
+      angular.mock.module('profitelo.swaggerResources.definitions')
       angular.mock.module('profitelo.components.dashboard.settings.modals.security.change-password')
-      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, AccountApiDef: any) => {
 
         scope = <ISecurityChangePasswordSettingsControllerScope>$rootScope.$new()
 
         const injectors = {
           $scope: scope,
-          $uibModalInstance: $uibModalInstance
+          $uibModalInstance: $uibModalInstance,
+          AccountApi: AccountApiDef,
+          User: User
         }
 
         controller = $controller<SecurityChangePasswordSettingsController>(
