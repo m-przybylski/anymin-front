@@ -1,15 +1,15 @@
 scrollable.security-pin-number(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
   top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="onModalClose")
   .modal-settings
-    .default-container-small
+    form.default-container-small(novalidate data-ng-submit="sendPin()")
       h2(data-translate="{{:: 'SETTINGS.SECURITY.PIN_NUMBER.TITLE' | translate}}")
 
       .security-pin-number
         .input-handler.pin-inputs
-          input.input-number(type="text")
-          input.input-number(type="text")
-          input.input-number(type="text")
-          input.input-number(type="text")
+          input.input-number(type="text" maxlength="1" focus-next)
+          input.input-number(type="text" maxlength="1" focus-next)
+          input.input-number(type="text" maxlength="1" focus-next)
+          input.input-number(type="text" maxlength="1")
 
         .checkbox-handler
           pro-checkbox(
@@ -27,5 +27,5 @@ scrollable.security-pin-number(data-is-fullscreen="isFullscreen" data-is-navbar=
             data-label="{{:: 'SETTINGS.GENERAL.BASIC_ACCOUNT.NAME_CHECKBOX_LABEL' | translate }}"
           )
 
-        a.btn.btn-default(data-translate="{{:: 'SETTINGS.SECURITY.PIN_NUMBER.BUTTON' | translate}}"
+        button.btn.btn-default(data-translate="{{:: 'SETTINGS.SECURITY.PIN_NUMBER.BUTTON' | translate}}"
         type="submit")
