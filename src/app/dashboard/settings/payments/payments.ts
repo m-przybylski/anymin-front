@@ -1,7 +1,10 @@
 namespace profitelo.dashboard.settings.payments {
 
   export class DashboardSettingsPaymentsController implements ng.IController {
+    paymentsSate: boolean
+
     constructor() {
+      this.paymentsSate = false
     }
   }
 

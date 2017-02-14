@@ -1,3 +1,44 @@
-.payments-options.payments
-  .icon
-    transform: rotate(90deg)
+.payments
+  .payments-options.payments
+    .icon
+      transform: rotate(90deg)
+
+  .invoice-information
+    .info-tab
+      border-bottom: 1px solid $c-lines
+
+  .entry-title
+    display: flex
+    align-items: center
+
+    h2
+      margin: 0 32px 0 0
+
+  .radio-list
+    .radio-list-item
+      display: flex
+      align-items: center
+      justify-content: space-between
+      min-height: 80px
+      border-bottom: 1px solid $c-lines
+      padding: 0 16px
+
+      +smm
+        padding: 0 24px
+
+      +lgm
+        padding: 0
+
+      &.profitelo-account
+        span
+          +default-font-heavy
+          margin: 0 0 0 4px
+
+    .radio
+      margin: 0
+
+      label
+        font-size: $f-paragraph
+
+  .payments-method
+    margin: 0 0 48px
