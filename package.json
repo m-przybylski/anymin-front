@@ -64,6 +64,6 @@
     "@types/masonry-layout": "^4.0.3",
     "@types/perfect-scrollbar": "^0.6.1",
     "@types/raven-js": "0.0.19",
-    "contactis-gulp": "1.6.4"
+    "contactis-gulp": "1.6.5"
   }
 }
