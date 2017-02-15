@@ -79,7 +79,7 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
 
       $scope.removePhoto = () => {
         $scope.avatarPreview = 'none'
-        this.$scope.generalSettingsObject.avatar = ''
+        $scope.generalSettingsObject.avatar = ''
       }
 
       $scope.saveCrop = (data: any) => {

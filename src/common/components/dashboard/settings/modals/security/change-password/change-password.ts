@@ -3,9 +3,6 @@ namespace profitelo.components.dashboard.settings.modals.security.changePassword
   import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
   import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordStrengthService
   export interface ISecurityChangePasswordSettingsControllerScope extends ng.IScope {
-    isNavbar: boolean
-    isFullscreen: boolean
-    onModalClose: Function
   }
 
   export class SecurityChangePasswordSettingsController implements ng.IController {

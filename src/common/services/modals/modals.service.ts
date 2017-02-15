@@ -8,13 +8,13 @@ namespace profitelo.services.modals {
   import IUnavailableServiceControllerParentScope = profitelo.components.communicator.modals.serviceUnavailable.IUnavailableServiceControllerParentScope
   import INoCreditsControllerParentScope = profitelo.components.communicator.modals.noCredits.INoCreditsControllerParentScope
   import IBasicAccountSettingsControllerParentScope = profitelo.components.dashboard.settings.modals.general.basicAccountSettings.IBasicAccountSettingsControllerParentScope
-  import ISecurityPinNumberSettingsControllerParentScope = profitelo.components.dashboard.settings.modals.security.pinNumber.ISecurityPinNumberSettingsControllerParentScope
   import ClientActivity = profitelo.models.ClientActivity
   import Service = profitelo.models.Service
   import IGeneralPhoneSettingsControllerScope = profitelo.components.dashboard.settings.modals.general.phoneSettings.IGeneralPhoneSettingsControllerScope
   import IGeneralEmailSettingsControllerScope = profitelo.components.dashboard.settings.modals.general.emailSettings.IGeneralEmailSettingsControllerScope
   import IGeneralCountrySettingsControllerScope = profitelo.components.dashboard.settings.modals.general.countrySettings.IGeneralCountrySettingsControllerScope
   import ISecurityChangePasswordSettingsControllerScope = profitelo.components.dashboard.settings.modals.security.changePassword.ISecurityChangePasswordSettingsControllerScope
+  import ISecurityPinNumberSettingsControllerScope = profitelo.components.dashboard.settings.modals.security.pinNumber.ISecurityPinNumberSettingsControllerScope
 
   export interface IModalsService {
     createIncomingCallModal(service: Service, answerCb: () => void, rejectCb: () => void): ng.ui.bootstrap.IModalServiceInstance
@@ -218,8 +218,8 @@ namespace profitelo.services.modals {
     }
 
     public createSecurityPinSecuritySettingsModal = () => {
-      const dialogScope: ISecurityPinNumberSettingsControllerParentScope =
-        <ISecurityPinNumberSettingsControllerParentScope>this.$rootScope.$new(true)
+      const dialogScope: ISecurityPinNumberSettingsControllerScope =
+        <ISecurityPinNumberSettingsControllerScope>this.$rootScope.$new(true)
 
       return this.dialogService.openDialog({
         controllerAs: 'vm',
