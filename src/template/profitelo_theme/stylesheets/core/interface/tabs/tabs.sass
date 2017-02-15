@@ -24,7 +24,7 @@
           padding: 0 0 0 8px
 
       span
-        +default-font-heavy
+        +default-font-bold
 
   span
     font-size: $f-paragraph
@@ -38,6 +38,30 @@
   .details-tab-label
     span
       color: $c-secondary-txt
+
+
+.info-tab
+  padding: 24px
+
+  .info-tab-row
+    margin: 0 0 8px
+    text-align: left
+
+    &:last-child
+      margin: 0
+
+  span
+    font-size: $f-paragraph
+    color: $c-primary-txt
+
+  .info-tab-label
+    display: block
+
+    span
+      +default-font-regular
+      font-size: $f-h5-size
+      text-transform: uppercase
+      color: $c-label
 
 
 .grey-tab
@@ -88,7 +112,7 @@
     flex: 1
 
     .label
-      +default-font-heavy
+      +default-font-bold
       color: $c-label
       font-size: $f-label-size
       text-transform: uppercase

@@ -1,10 +1,69 @@
-.payments-options.payments
-   .no-results-page
-     .default-container
-       .no-results-page-content
+.payments.payments-options
+  .no-results-page(data-ng-show="vm.isAnyPaymentMethod")
+    .default-container
+      .no-results-page-content
         img(data-ng-src="/assets/images/profitelo_icons/icon_payments.png")
         h2(data-translate="SETTINGS.PAYMENTS.NO_RESULTS.TITLE")
         a.btn.btn-default(data-ui-sref="app.dashboard.charge-account")
           | {{:: 'SETTINGS.PAYMENTS.NO_RESULTS.BUTTON' | translate}}
           span.icon.icon-upload-arrow-24
 
+  .payments-method
+    .entry-title
+      h2(data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.TITLE")
+      a.btn.btn-default.btn-small(data-ng-show="vm.isPaymentsMethodExist" data-translate="SETTINGS.PAYMENTS.BUTTON.ADD")
+      a.btn.btn-default.btn-small(data-ng-hide="vm.isPaymentsMethodExist" data-translate="SETTINGS.PAYMENTS.BUTTON.EDIT")
+
+    .radio-list.payments-method-list
+      form
+        .radio-list-item.profitelo-account
+          .radio-text.radio
+            div
+              input(id="profitelo-ayments-method" type="radio" name="payments-method")
+              label.label
+
+            label.text(for="profitelo-ayments-method")
+              | {{:: 'SETTINGS.PAYMENTS.PAYMENTS_METHOD.RADIO.PROFITELO_ACCOUNT' | translate }}
+              span 24,50 PLN
+
+          .radio-action
+            a.btn.btn-noborder.recharge-account(
+              data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.RECHARGE_ACCOUNT.BUTTON")
+
+        .radio-list-item
+          .radio-text.radio
+            div
+              input(id="visa" type="radio" name="payments-method")
+              label.label
+
+            label.text(for="visa") **** **** **** 5687
+
+        .radio-list-item
+          .radio-text.radio
+            div
+              input(id="master-card" type="radio" name="payments-method")
+              label.label
+
+            label.text(for="master-card") **** **** **** 5687
+
+  .invoice-information
+    .entry-title
+      h2(data-translate="SETTINGS.PAYMENTS.INVOICE.TITLE")
+      a.btn.btn-default.btn-small(data-ng-show="vm.isPaymentsInvoiceExist" data-translate="SETTINGS.PAYMENTS.BUTTON.ADD")
+      a.btn.btn-default.btn-small(data-ng-hide="vm.isPaymentsInvoiceExist" data-translate="SETTINGS.PAYMENTS.BUTTON.EDIT")
+
+    .info-tab
+      .info-tab-row
+        .info-tab-label
+          span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COST")
+        .info-tab-content The Great Company
+
+      .info-tab-row
+        .info-tab-label
+          span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COST")
+        .info-tab-content The Great Companymasd a ds asd asd
+
+      .info-tab-row
+        .info-tab-label
+          span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COST")
+        .info-tab-content The Great Companymasd a ds asd asd
