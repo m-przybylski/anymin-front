@@ -1,5 +1,5 @@
 .payments.payments-options
-  .no-results-page(data-ng-show="paymentsSate")
+  .no-results-page(data-ng-show="vm.isAnyPaymentMethod")
     .default-container
       .no-results-page-content
         img(data-ng-src="/assets/images/profitelo_icons/icon_payments.png")
@@ -11,8 +11,8 @@
   .payments-method
     .entry-title
       h2(data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.TITLE")
-      a.btn.btn-default.btn-small(data-translate="SETTINGS.PAYMENTS.BUTTON.ADD")
-      a.btn.btn-default.btn-small(data-translate="SETTINGS.PAYMENTS.BUTTON.EDIT")
+      a.btn.btn-default.btn-small(data-ng-show="vm.isPaymentsMethodExist" data-translate="SETTINGS.PAYMENTS.BUTTON.ADD")
+      a.btn.btn-default.btn-small(data-ng-hide="vm.isPaymentsMethodExist" data-translate="SETTINGS.PAYMENTS.BUTTON.EDIT")
 
     .radio-list.payments-method-list
       form
@@ -49,8 +49,8 @@
   .invoice-information
     .entry-title
       h2(data-translate="SETTINGS.PAYMENTS.INVOICE.TITLE")
-      a.btn.btn-default.btn-small(data-translate="SETTINGS.PAYMENTS.BUTTON.ADD")
-      a.btn.btn-default.btn-small(data-translate="SETTINGS.PAYMENTS.BUTTON.EDIT")
+      a.btn.btn-default.btn-small(data-ng-show="vm.isPaymentsInvoiceExist" data-translate="SETTINGS.PAYMENTS.BUTTON.ADD")
+      a.btn.btn-default.btn-small(data-ng-hide="vm.isPaymentsInvoiceExist" data-translate="SETTINGS.PAYMENTS.BUTTON.EDIT")
 
     .info-tab
       .info-tab-row
