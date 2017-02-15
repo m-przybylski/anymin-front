@@ -1,31 +1,49 @@
-scrollable.security-pin-number(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
-  top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="onModalClose")
+scrollable.security-pin-number(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
+  top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="vm.onModalClose")
   .modal-settings
-    form.default-container-small(novalidate data-ng-submit="sendPin()")
+    form.default-container-small(novalidate name="pinForm" data-ng-submit="pinForm.$valid && vm.sendPin()"
+    data-ng-hide="vm.isNewPinTyped")
       h2(data-translate="{{:: 'SETTINGS.SECURITY.PIN_NUMBER.TITLE' | translate}}")
-
       .security-pin-number
         .input-handler.pin-inputs
-          input.input-number(type="text" maxlength="1" focus-next)
-          input.input-number(type="text" maxlength="1" focus-next)
-          input.input-number(type="text" maxlength="1" focus-next)
-          input.input-number(type="text" maxlength="1")
+          input.input-number(type="text" maxlength="1" focus-next data-ng-repeat="input in vm.pinInput track by $index"
+          required data-ng-model="vm.pinInput[$index]")
 
         .checkbox-handler
           pro-checkbox(
-            data-ng-model="isOutgoingSecureCheckbox"
-            data-label="{{:: 'SETTINGS.GENERAL.BASIC_ACCOUNT.NAME_CHECKBOX_LABEL' | translate }}"
+            data-ng-model="vm.protectedViewsStatus.CALL_VIEW"
+            data-label="{{:: 'SETTINGS.SECURITY.PIN_NUMBER.CHECKBOX_CALL_VIEW' | translate }}"
           )
 
           pro-checkbox(
-            data-ng-model="isSecurePaymentsCheckbox"
-            data-label="{{:: 'SETTINGS.GENERAL.BASIC_ACCOUNT.NAME_CHECKBOX_LABEL' | translate }}"
+            data-ng-model="vm.protectedViewsStatus.PAY_OUT_VIEW"
+            data-label="{{:: 'SETTINGS.SECURITY.PIN_NUMBER.PAY_OUT_VIEW' | translate }}"
           )
 
           pro-checkbox(
-            data-ng-model="isConfirmPaymentsCheckbox"
-            data-label="{{:: 'SETTINGS.GENERAL.BASIC_ACCOUNT.NAME_CHECKBOX_LABEL' | translate }}"
+            data-ng-model="vm.protectedViewsStatus.MAKE_DEPOSIT_VIEW"
+            data-label="{{:: 'SETTINGS.SECURITY.PIN_NUMBER.MAKE_DEPOSIT_VIEW' | translate }}"
           )
-
         button.btn.btn-default(data-translate="{{:: 'SETTINGS.SECURITY.PIN_NUMBER.BUTTON' | translate}}"
+        type="submit")
+
+    form.default-container-small(novalidate name="confirmPasswordForm"
+    data-ng-submit="confirmPasswordForm.$valid && vm.changeViewsAndPin()" data-ng-show="vm.isNewPinTyped")
+      h2(data-translate="{{:: 'SETTINGS.SECURITY.PIN_NUMBER.CONFIRM_TITLE' | translate}}")
+      .security-confirm-pin
+
+        pro-input-password(data-label="{{ 'SETTINGS.SECURITY.PIN_NUMBER.PASSWORD_LABEL' | translate }}"
+        data-placeholder="{{ 'SETTINGS.SECURITY.PIN_NUMBER.PASSWORD_PLACEHOLDER' | translate }}"
+        data-ng-model="vm.confirmPassword"
+        data-id="password"
+        data-on-change="vm.onPasswordChange"
+        data-ng-pattern="vm.patternPassword"
+        data-ng-class="{'invalid':confirmPasswordForm.password.$invalid && " +
+        "(confirmPasswordForm.password.$dirty || confirmPasswordForm.$submitted)}"
+        required)
+
+        .input-error-messages(data-ng-show="(confirmPasswordForm.$invalid || vm.isPasswordIncorrect) && confirmPasswordForm.$submitted")
+          .error.left(data-translate="SETTINGS.SECURITY.PIN_NUMBER.VALID_PASSWORD")
+
+        button.btn.btn-default(data-translate="{{:: 'SETTINGS.SECURITY.PIN_NUMBER.BUTTON_CONFIRM' | translate}}"
         type="submit")

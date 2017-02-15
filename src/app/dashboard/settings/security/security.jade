@@ -11,7 +11,7 @@
     a.btn.btn-small.btn-default-border(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
     data-ng-click=":: vm.openSecurityChangePasswordSettingsModal()")
 
-  .settings-row
+  .settings-row(data-ng-if="vm.hasMobilePin")
     .settings-icon
       span.icon.icon-pin-number-24
 
