@@ -59,9 +59,7 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
       $scope.avatarPreview = urlService.resolveFileUrl(userBasicSettings.avatar)
 
       this.$scope.submitBasicSettings = () => {
-        this.AccountApi.partialUpdateAccount({accountId: this.User.getData('id')}, {
-          settings: this.$scope.generalSettingsObject
-        }).$promise.then((_res: any) => {
+        this.AccountApi.putGeneralSettings(this.$scope.generalSettingsObject).$promise.then((_res: any) => {
           $scope.$parent.callback(() => $uibModalInstance.dismiss('cancel'))
         }, (err: any) => {
           throw new Error('Can not patch user account: ' + err)
@@ -79,7 +77,7 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
 
       $scope.removePhoto = () => {
         $scope.avatarPreview = 'none'
-        $scope.generalSettingsObject.avatar = ''
+        $scope.generalSettingsObject.avatar = null
       }
 
       $scope.saveCrop = (data: any) => {

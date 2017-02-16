@@ -4,7 +4,7 @@ namespace profitelo.components.search.searchFilters {
   import Tag = profitelo.models.Tag
   import ISearchService = profitelo.services.search.ISearchService
 
-  interface ISearchFiltersComponentBindings {
+  export interface ISearchFiltersComponentBindings {
     searchResults: Array<Object>
     setSearchParams: Function
   }
@@ -21,7 +21,7 @@ namespace profitelo.components.search.searchFilters {
     offset?: number
   }
 
-  class SearchFiltersComponentController implements ng.IController, ISearchFiltersComponentBindings {
+  export class SearchFiltersComponentController implements ng.IController, ISearchFiltersComponentBindings {
 
     public searchFilters: ISearchFilters = {
       onlyAvailable: false,
