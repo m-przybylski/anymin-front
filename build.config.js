@@ -20,7 +20,7 @@ module.exports = {
   tsconfig: 'tsconfig.json',
   tests_dir: 'tests',
   tpl_name: 'templates-module.js',
-  requiredTestCoverage: 82,
+  requiredTestCoverage: 81,
   tpl_module: 'templates-module',
   project_theme_name: PROJECT_THEME_NAME,
   test_files_pattern: '*.ts',

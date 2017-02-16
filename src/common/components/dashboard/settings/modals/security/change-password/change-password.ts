@@ -13,23 +13,35 @@ namespace profitelo.components.dashboard.settings.modals.security.changePassword
     public newPassword: string
     public currentPassword: string
     public passwordStrength: number
+    public isCurrentPasswordCorrect: boolean = true
+    public arePasswordsDifferent: boolean = true
+
     public setNewPassword = () => {
 
-      this.AccountApi.partialUpdateAccount({accountId: this.User.getData('id')}, {
+      this.isCurrentPasswordCorrect = true
+      this.arePasswordsDifferent = true
+
+      this.AccountApi.changePassword({
         actualPassword: this.currentPassword,
         newPassword: this.newPassword
       })
       .$promise.then((_res: any) => {
         this.$uibModalInstance.dismiss('cancel')
-      }, (_err: any) => {
-
+      }, (err: any) => {
+        if (err.status === 400) {
+          this.arePasswordsDifferent = false
+        } else if (err.status === 401) {
+          this.isCurrentPasswordCorrect = false
+        } else {
+          throw new Error('Can not change password: ' + err)
+        }
       })
     }
 
     /* @ngInject */
     constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
                 private CommonSettingsService: ICommonSettingsService,
-                private AccountApi: any, private User: any, private passwordStrengthService: IPasswordStrengthService) {
+                private AccountApi: any, private passwordStrengthService: IPasswordStrengthService) {
     }
 
     public onPasswordChange = (password: string) => {
