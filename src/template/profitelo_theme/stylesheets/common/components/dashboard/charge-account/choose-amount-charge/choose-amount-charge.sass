@@ -1,10 +1,15 @@
 .choose-amount-charge
-  margin: 0 0 64px
-
   .choose-options
+    display: flex
+    flex-wrap: wrap
+    margin: 0 -8px
+
+    .option
+      margin: 0 8px 16px
+      padding: 36px 12px 20px
+
     .choose-options-item
-      +xsm
-        flex: 1 0 50%
+      flex: 1 0 50%
 
       +mdm
         flex: 1 0 25%
@@ -16,3 +21,7 @@
     .option-own-amount
       .input-group
         width: 100%
+        height: auto
+
+        input
+          padding: 0 8px 8px

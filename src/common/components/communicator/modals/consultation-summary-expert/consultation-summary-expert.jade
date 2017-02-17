@@ -1,16 +1,16 @@
 scrollable(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
   top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="onModalClose")
   preloader(data-is-loading="!callSummary")
-    .default-container
+    .container
       .summary-conversation.expert-view
         img(data-ng-src="/assets/images/search-image.png")
 
         .consultation-range
-          .consultation-title.default-container-small
+          .consultation-title.container-medium
             h3
               span {{ callSummary.service.details.name }}
 
-        .consultation-time-details.default-container-small
+        .consultation-time-details.container-medium
           ul.conversation-time
             li.label(data-translate="COMMUNICATOR.MODALS.CONVERSATION_TIME")
             li {{ callSummary.callDuration | secondsToDateTime | date:'HH:mm:ss' }}

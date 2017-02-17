@@ -13,6 +13,7 @@ namespace profitelo.components.dashboard.chargeAccount.payuPaymentForm {
     let isPending = false
 
     this.rulesAccepted = true
+    this.showInvoiceForm = false
     this.personalDataSectionId = 'personal-section'
     this.bankModel = {}
 
@@ -127,7 +128,8 @@ namespace profitelo.components.dashboard.chargeAccount.payuPaymentForm {
     'profitelo.directives.interface.pro-checkbox',
     'profitelo.services.smooth-scrolling',
     'c7s.ng.userAuth',
-    'profitelo.components.dashboard.charge-account.choose-bank'
+    'profitelo.components.dashboard.charge-account.choose-bank',
+    'profitelo.components.dashboard.invoice'
   ])
     .component('payuPaymentForm', payuPaymentForm)
 

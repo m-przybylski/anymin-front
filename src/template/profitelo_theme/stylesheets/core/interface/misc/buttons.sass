@@ -54,6 +54,31 @@
     padding: 0 24px
     border: 1px solid $c-primary
 
+.btn-select
+  @extend .btn-primary
+  &.is-active
+    overflow: visible
+    background: $c-primary
+    color: $c-white
+    
+    .icon
+      display: inline-flex
+
+  .icon
+    display: none
+    position: absolute
+    left: 0
+    right: 0
+    bottom: -10px
+    width: 20px
+    height: 20px
+    border-radius: 50%
+    border: 2px solid $c-primary
+    background: $c-white
+    margin: auto
+    color: $c-primary
+    font-size: $f-icon-size
+
 .btn-success
   background: $c-success
   +btn-hover($c-success-dark)

@@ -1,7 +1,7 @@
 scrollable.email-settings(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
   top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="vm.onModalClose")
   .modal-settings
-    .default-container-small
+    .container-medium
       h2(data-translate="{{:: 'SETTINGS.GENERAL.EMAIL_SETTINGS.TITLE' | translate}}")
 
       form.pro-input-form(name="emailForm" data-ng-submit="emailForm.$valid && vm.setNewEmail() " novalidate)

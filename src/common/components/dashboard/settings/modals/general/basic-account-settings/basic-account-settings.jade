@@ -2,7 +2,7 @@ scrollable.basic-account-settings(data-is-fullscreen="isFullscreen" data-is-navb
   preloader(data-is-loading= "isUploadInProgress")
     top-modal-navbar(data-title="SETTINGS.GENERAL.BASIC_ACCOUNT.HEADER" data-on-close="onModalClose")
     .modal-settings
-      .default-container-small(data-ng-class="{'is-bigger': isUserUploadImage}")
+      .container-medium(data-ng-class="{'is-bigger': isUserUploadImage}")
         h2(data-translate="SETTINGS.GENERAL.BASIC_ACCOUNT.HEADER" data-ng-hide="isUserUploadImage")
         form.pro-input-form(name="basicAccountForm" data-ng-submit="submitBasicSettings()" novalidate)
           .form-step(data-ng-hide="isUserUploadImage")

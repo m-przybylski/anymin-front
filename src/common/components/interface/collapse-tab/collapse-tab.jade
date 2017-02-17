@@ -4,7 +4,7 @@
       ng-transclude
 
 
-  .default-container.show-more(data-ng-show="!$ctrl.checkedHeight()")
+  .container.show-more(data-ng-show="!$ctrl.checkedHeight()")
     a.btn.btn-show-more(data-ng-click="$ctrl.toggleCollapse()" data-ng-class="{'show-less': $ctrl.isCollapsed}")
       span(data-translate="DASHBOARD.EXPERT_ACCOUNT.SHOW_OTHER_CONSULTATIONS" data-ng-show="!$ctrl.isCollapsed")
       span(data-translate="DASHBOARD.EXPERT_ACCOUNT.HIDE_OTHER_CONSULTATIONS" data-ng-show="$ctrl.isCollapsed")

@@ -1,12 +1,14 @@
 .payu-payment-form.select-choice
   form(name="paymentForm" data-ng-submit="paymentForm.$valid && $ctrl.sendPayment()" novalidate)
-    .default-container
-      choose-bank(data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_YOUR_BANK", data-payments-links="$ctrl.paymentsLinks",
-      data-bank-model = "$ctrl.bankModel", data-scroll-section-id="$ctrl.personalDataSectionId" id="bankValid")
-        .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.bankModel.value")
-          span {{ "DASHBOARD.CHARGE_ACCOUNT.EMPTY_BANK_ERROR" | translate }}
-      .title-footer(id="personal-section")
+    choose-bank(data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_YOUR_BANK", data-payments-links="$ctrl.paymentsLinks",
+    data-bank-model = "$ctrl.bankModel", data-scroll-section-id="$ctrl.personalDataSectionId" id="bankValid")
+      .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.bankModel.value")
+        span {{ "DASHBOARD.CHARGE_ACCOUNT.EMPTY_BANK_ERROR" | translate }}
+
+    .payment-personal-data
+      .title(id="personal-section")
         h3(data-translate="DASHBOARD.CHARGE_ACCOUNT.WRITE_YOUR_PERSONAL_DATA")
+
       .your-personal-data
         .personal-data-item.name
           pro-input(placeholder="{{ 'DASHBOARD.CHARGE_ACCOUNT.NAME_PLACEHOLDER' | translate }}"
@@ -23,7 +25,8 @@
           no-digits
           no-delete)
           .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.firstNameModel || paymentForm.firstName.$dirty && !$ctrl.firstNameModel")
-            span {{ "DASHBOARD.CHARGE_ACCOUNT.NAME_INPUT_ERROR" | translate }}
+            span {{ "DASHBOARD.CHARGE_ACCOUNT.NAME_INPUT_ERROR" | translate }}\
+
         .personal-data-item.surname
           pro-input(placeholder="{{ 'DASHBOARD.CHARGE_ACCOUNT.LASTNAME_PLACEHOLDER' | translate }}"
           data-label="{{ 'DASHBOARD.CHARGE_ACCOUNT.LASTNAME_PLACEHOLDER' | translate }}"
@@ -38,6 +41,7 @@
           no-delete)
           .input-error-messages(data-ng-show="paymentForm.$submitted && $ctrl.lastNameModel.length < 0 || paymentForm.lastName.$dirty && !$ctrl.lastNameModel")
             span {{ "DASHBOARD.CHARGE_ACCOUNT.LAST_NAME_INPUT_ERROR" | translate }}
+
         .personal-data-item.address-email
           pro-input(placeholder="{{ 'DASHBOARD.CHARGE_ACCOUNT.EMAIL_PLACEHOLDER' | translate }}"
           data-label="{{ 'DASHBOARD.CHARGE_ACCOUNT.EMAIL_PLACEHOLDER' | translate }}"
@@ -53,19 +57,35 @@
             span {{ "DASHBOARD.CHARGE_ACCOUNT.EMAIL_ERROR" | translate }}
 
       .your-personal-data-footer
-        pro-checkbox(id="acceptRules"
+        pro-checkbox(
+        id="acceptRules"
         data-ng-model="$ctrl.rulesAccepted"
-        data-label="{{ 'DASHBOARD.CHARGE_ACCOUNT.ACCEPT_RULES' | translate }}"
+        data-label="{{ ::'DASHBOARD.CHARGE_ACCOUNT.ACCEPT_RULES' | translate }}"
         data-name="acceptRules"
         data-ng-class="{'invalid': !$ctrl.rulesAccepted && paymentForm.$submitted}"
         required)
         .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.rulesAccepted")
-          span {{ "DASHBOARD.CHARGE_ACCOUNT.RULES_ERROR" | translate }}
-        p(data-translate="DASHBOARD.CHARGE_ACCOUNT.PAYU_NOTIFICATION")
-        p(data-translate="DASHBOARD.CHARGE_ACCOUNT.REQUIRE_VALUE")
+          span {{:: 'DASHBOARD.CHARGE_ACCOUNT.RULES_ERROR' | translate }}
 
-    .charge-button
-      .default-container
-        button.btn.btn-default( type="submit") {{ 'DASHBOARD.CHARGE_ACCOUNT.CHARGE_ACCOUNT_BUTTON_TEXT' | translate }}
-          span.icon.icon-arrow-right-24.icon-right
+        pro-checkbox(
+        id="needInvoice"
+        data-ng-model="$ctrl.showInvoiceForm"
+        data-label="{{:: 'DASHBOARD.CHARGE_ACCOUNT.CHECKBOX.COMPANY_INVOICE' | translate }}"
+        data-name="showInvoiceForm"
+        data-ng-class="{'invalid': !$ctrl.needInvoice && paymentForm.$submitted}"
+        )
+        .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.rulesAccepted")
+          span {{ "DASHBOARD.CHARGE_ACCOUNT.RULES_ERROR" | translate }}
+
+        invoice-company(data-ng-show="$ctrl.showInvoiceForm")
+
+    .charge-account-action
+      .amount-details
+        .amount-price
+          p {{:: 'DASHBOARD.CHARGE_ACCOUNT.AMOUNT.LABEL' | translate }}
+            span 50zł
+
+      .charge-account-btn
+        button.btn.btn-default.icon-right( type="submit") {{ 'DASHBOARD.CHARGE_ACCOUNT.CHARGE_ACCOUNT_BUTTON_TEXT' | translate }}
+          span.icon.icon-arrow-right-24
 

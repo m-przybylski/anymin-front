@@ -16,12 +16,33 @@ namespace profitelo.dashboard.chargeAccount {
   }
 
   interface IPaymentOption {
-
+    chargeAccountProfiteloPaymentsMethod: Function
+    addPaymentCardMethod: Function
+    //FIXME Refactor to enum
+    isChargeProfiteloAccount: boolean
+    isPaymentCardMethod: boolean
+    isFullscreen: boolean
+    isNavbar: boolean
   }
 
   function chargeAccountController($state: ng.ui.IStateService, $timeout: ng.ITimeoutService, lodash: _.LoDashStatic,
                                    paymentsOptions: IPaymentOptions, paymentsLinks: IPaymentLinks, financeBalance: number,
                                    smoothScrollingService: ISmoothScrollingService) {
+
+    this.isNavbar = true
+    this.isFullscreen = true
+    this.isChargeProfiteloAccount = false
+    this.isPaymentCardMethod = false
+
+    this.chargeAccountProfiteloPaymentsMethod = () => {
+      this.isChargeProfiteloAccount = true
+      this.isPaymentCardMethod = false
+    }
+
+    this.addPaymentCardMethod = () => {
+      this.isPaymentCardMethod = true
+      this.isChargeProfiteloAccount = false
+    }
 
     this.paymentCountryId = paymentsOptions.id
     this.amounts = {
@@ -58,6 +79,7 @@ namespace profitelo.dashboard.chargeAccount {
         this.amountModel.cashAmount = this.lastPayment.amount
       }
       this.amountMethodModal.paymentSystemModel = this.lastPayment.paymentSystemId
+
       if (this.lastPayment.payload !== null) {
         this.amountMethodModal.firstName = this.lastPayment.payload.firstName
         this.amountMethodModal.lastName = this.lastPayment.payload.lastName
@@ -84,6 +106,7 @@ namespace profitelo.dashboard.chargeAccount {
         })
       }
     }
+
 
     return this
   }
@@ -176,7 +199,10 @@ namespace profitelo.dashboard.chargeAccount {
     'profitelo.components.dashboard.charge-account.payu-payment-form',
     'profitelo.components.dashboard.charge-account.choose-amount-charge',
     'profitelo.components.dashboard.charge-account.payment-method',
-    'profitelo.components.dashboard.charge-account.choose-bank'
+    'profitelo.components.dashboard.charge-account.choose-bank',
+    'profitelo.directives.interface.scrollable',
+    'profitelo.components.dashboard.charge-account.paypal',
+    'profitelo.components.dashboard.charge-account.card'
 
   ])
     .config(config)

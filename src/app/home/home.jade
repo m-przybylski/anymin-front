@@ -2,21 +2,21 @@ pro-top-navbar(logout-action="appController.logout" data-search-mask-active="vm.
 .search-active-mask(data-ng-class="{'off': vm.interfaceController.hideSearchMask}")
 
 main.top-content-home
-  .default-container.home-header
+  .container.home-header
     include ./parts/top-container.partial.jade
-  .default-container(data-ng-click="vm.onSearchFocus()")
+  .container(data-ng-click="vm.onSearchFocus()")
     pro-search-dropdown(data-mask-search="vm.interfaceController.hideSearchMask")
-  .default-container
+  .container
     include ./parts/branch-overview.partial.jade
 
-  .default-container
+  .container
     similar-experts-slider(data-consultations="vm.similarExperts" data-title="HOME.SIMILAR_EXPERTS_SLIDER_MESSAGE")
 
 .card-slider
   card-slider.flex-row(data-cards="vm.expertCard" data-controlls="vm.controlls")
     
 main.content-blog
-  .default-container.advice-tiles
+  .container.advice-tiles
     .grid(pro-masonry="" data-grid-item=".grid-item")
       .grid-item.grid-item--long2
         pro-news-tile(data-ng-repeat="tile in vm.newsTile" data-ng-model="tile")

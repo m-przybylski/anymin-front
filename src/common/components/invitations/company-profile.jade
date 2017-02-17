@@ -11,13 +11,13 @@
             span.icon.icon-close-16
             
     .header-content
-      .default-container
+      .container
         .company-info
           img.circle.user-avatar(data-ng-src='{{ ::vm.profile.logoUrl }}' alt='{{ ::vm.profile.name }}' data-ng-class='{"is-not-uploaded": !vm.profile.logoUrl}')
           h3 {{ ::vm.profile.name }}
           
     .company-content
-      .default-container      
+      .container
         span.quote-icon.pro-icon.default.circle.icon-quote-24
           
         .company-description

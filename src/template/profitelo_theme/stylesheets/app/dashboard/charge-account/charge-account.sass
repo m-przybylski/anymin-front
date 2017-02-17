@@ -1,19 +1,70 @@
 .charge-account
-  margin: $dashboard-navbar-width + 64px 0 0 0
+  display: flex
+  align-items: center
+  justify-content: center
 
-  .current-balance
-    text-align: center
-    margin: 0 0 64px
+  .title
+    h3
+      +default-font-thin
+      margin: 0 0 24px
+      font-size: $f-h2-size
+      color: $c-secondary-txt
+
+  .scrollable
+    &.fullscreen-modals
+      &.fullscreen-navbar
+        .scrollable-container
+          .scrollable-center
+            padding: 0
+
+  .container-big
+    padding: 0
 
     +smm
-      text-align: left
+      padding: 64px 0 0
+      border: 1px solid $c-lines
 
-    h4
-      +default-font-bold
-      color: $c-primary
+    .paypal,
+    .card,
+    .choose-amount-charge,
+    .payment-method,
+    .choose-bank,
+    .payment-personal-data
+      padding: 0 16px
+
+      +smm
+        padding: 0 104px
+
+  .fullscreen-modals
+    animation: none
 
   .input-error-messages
     text-align: center
 
     +smm
       text-align: left
+
+  .entry-title
+    padding: 0 16px
+    text-align: center
+    margin: 0 0 32px
+
+    h2
+      margin: 0 0 32px
+      font-size: $f-h2-size
+      color: $c-secondary-txt
+
+    .btn
+      margin: 0 0 24px
+
+      +smm
+        margin: 0 16px
+        min-width: 250px
+
+  .choose-amount-charge
+    margin: 0 0 48px
+
+  .payment-method
+    margin: 0 0 32px
+
+

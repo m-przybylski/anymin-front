@@ -2,7 +2,7 @@ block content
   .consultations-container.pro-service-provider-summary-step(data-ng-repeat="consultation in consultations")
     .step.summary-step
       div.summary-step-edit(data-ng-if="vm.currentEditConsultationId != consultation.id")
-        .default-container-small
+        .container-medium
           .header-handler.flex-row
             .summary-step-title
               h3 {{ consultation.details.name}}

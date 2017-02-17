@@ -1,14 +1,14 @@
 .client-activities-page
-  .default-container
+  .container
     .client-credits
       span(data-ng-bind-html="::vm.balance | money")
       a.btn.btn-primary(data-translate="DASHBOARD.CLIENT.RECHARGE" data-ui-sref="app.dashboard.charge-account")
 
   .client-last-activities-content
-    .default-container(data-ng-if="(!vm.activities ||  vm.activities.length < 1) && !vm.isParamChange")
+    .container(data-ng-if="(!vm.activities ||  vm.activities.length < 1) && !vm.isParamChange")
       client-no-activities()
 
-    .default-container(data-ng-if="vm.activities && vm.activities.length > 0 || vm.isParamChange")
+    .container(data-ng-if="vm.activities && vm.activities.length > 0 || vm.isParamChange")
       preloader-container(data-is-loading="vm.isSearchLoading" data-ng-show="vm.isSearchLoading"
       data-is-error="vm.isError" data-error-message="DASHBOARD_CLIENT.ERROR_MESSAGE"
       data-error-fn="vm.sendRequestAgain")

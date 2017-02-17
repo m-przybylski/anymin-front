@@ -1,12 +1,13 @@
 .payment-method.select-choice
   .title
     h3(data-translate="{{ $ctrl.title }}")
+
   .choose-options
     .choose-options-item(data-ng-repeat="paymentSystem in $ctrl.paymentSystems")
       .option(data-ng-class="{'selected': $ctrl.activeOption == $index}" data-ng-click="$ctrl.selectPaymentMethod($index)")
+        p.payment-title(data-translate="DASHBOARD.CHARGE_ACCOUNT.BANKWIRE")
         .option-thumb
           img(data-ng-src="{{ $ctrl.setImage(paymentSystem.slug) }}")
-        p(data-translate="DASHBOARD.CHARGE_ACCOUNT.BANKWIRE")
-        span.icon.icon-success-12.top-right.circle(data-ng-show="$ctrl.activeOption == $index")
+        span.icon.icon-dot(data-ng-class="{'is-active': $ctrl.activeOption == $index}")
 
-  
+
