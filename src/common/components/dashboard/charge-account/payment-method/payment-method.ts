@@ -19,15 +19,11 @@
     }
 
     this.selectPaymentMethod = (index: number) => {
-      if (index === 0) {
-        if (!this.firstSelect) {
           this.scrollHandler()
           this.firstSelect = true
-        }
 
         this.activeOption = index
         this.paymentSystemModel = this.paymentSystems[index]
-      }
     }
 
     return this

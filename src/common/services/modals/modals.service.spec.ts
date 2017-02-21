@@ -74,6 +74,63 @@ import IDialogService = profitelo.services.dialog.IDialogService
 
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
+
+    it('should create createGeneralPhoneSettingsModal', inject((dialogService: IDialogService) => {
+      spyOn(dialogService, 'openDialog')
+
+      modalsService.createGeneralPhoneSettingsModal(<any>{})
+
+      expect(dialogService.openDialog).toHaveBeenCalled()
+    }))
+
+    it('should create createBasicAccountSettingsModal', inject((dialogService: IDialogService) => {
+      spyOn(dialogService, 'openDialog')
+
+      modalsService.createBasicAccountSettingsModal(<any>{})
+
+      expect(dialogService.openDialog).toHaveBeenCalled()
+    }))
+
+    it('should create createGeneralPhoneSettingsModal', inject((dialogService: IDialogService) => {
+      spyOn(dialogService, 'openDialog')
+
+      modalsService.createGeneralPhoneSettingsModal(<any>{})
+
+      expect(dialogService.openDialog).toHaveBeenCalled()
+    }))
+
+    it('should create createGeneralEmailSettingsModal', inject((dialogService: IDialogService) => {
+      spyOn(dialogService, 'openDialog')
+
+      modalsService.createGeneralEmailSettingsModal(<any>{})
+
+      expect(dialogService.openDialog).toHaveBeenCalled()
+    }))
+
+    it('should create createGeneralCountrySettingsModal', inject((dialogService: IDialogService) => {
+      spyOn(dialogService, 'openDialog')
+
+      modalsService.createGeneralCountrySettingsModal(<any>{})
+
+      expect(dialogService.openDialog).toHaveBeenCalled()
+    }))
+
+    it('should create createSecurityChangePasswordSettingsModal', inject((dialogService: IDialogService) => {
+      spyOn(dialogService, 'openDialog')
+
+      modalsService.createSecurityChangePasswordSettingsModal()
+
+      expect(dialogService.openDialog).toHaveBeenCalled()
+    }))
+
+    it('should create createSecurityPinSecuritySettingsModal', inject((dialogService: IDialogService) => {
+      spyOn(dialogService, 'openDialog')
+
+      modalsService.createSecurityPinSecuritySettingsModal()
+
+      expect(dialogService.openDialog).toHaveBeenCalled()
+    }))
+
   })
 })
 }

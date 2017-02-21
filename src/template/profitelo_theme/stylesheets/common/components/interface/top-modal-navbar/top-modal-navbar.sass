@@ -6,7 +6,6 @@
   background: $c-white
   width: 100%
   z-index: $z-index-900
-  border-bottom: 1px solid $c-lines
 
   &.isHided
     top: -#{$top-modal-navbar + 1px}
@@ -16,31 +15,8 @@
     padding: 0
     height: $top-modal-navbar
     display: flex
-    justify-content: space-between
+    justify-content: flex-end
     align-items: stretch
-
-  .top-modal-navbar-header
-    display: none
-
-    +smm
-      border-right: 1px solid $c-lines
-      display: flex
-      align-items: center
-      padding: 0 24px
-
-  .title
-    display: flex
-    align-items: center
-    flex: 1
-    padding: 0 36px
-
-    +smm
-      border-right: 1px solid $c-lines
-
-    h3
-      +default-font-light
-      font-size: $f-h5-size
-      color: $c-primary-txt
 
   .close-modal
     display: flex

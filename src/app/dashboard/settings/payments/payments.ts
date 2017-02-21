@@ -1,14 +1,11 @@
 namespace profitelo.dashboard.settings.payments {
 
   export class DashboardSettingsPaymentsController implements ng.IController {
-    public isAnyPaymentMethod: boolean
-    public isPaymentsMethodExist: boolean
-    public isPaymentsInvoiceExist: boolean
+    public isAnyPaymentMethod: boolean = false
+    public isPaymentsMethodExist: boolean = true
+    public isPaymentsInvoiceExist: boolean = true
 
     constructor() {
-      this.isAnyPaymentMethod = false
-      this.isPaymentsMethodExist = true
-      this.isPaymentsInvoiceExist = true
     }
   }
 

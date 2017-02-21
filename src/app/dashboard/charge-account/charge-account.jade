@@ -1,24 +1,40 @@
 .charge-account
-  .top-charge-account
-    top-modal-navbar(data-title="DASHBOARD.CHARGE_ACCOUNT.YOUR_CURRENT_BALANCE" data-on-close="vm.onClose")
+  scrollable(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
+    div
+      .top-charge-account
+        top-modal-navbar(data-title="DASHBOARD.CHARGE_ACCOUNT.YOUR_CURRENT_BALANCE" data-on-close="vm.onClose")
 
-    .default-container
-      .current-balance
-        h3(data-translate="DASHBOARD.CHARGE_ACCOUNT.YOUR_CURRENT_BALANCE")
-        h4.current-balance-wallet {{ vm.clientBalance.amount / 100 }}zł
+        .entry-title
+          h2(data-translate="DASHBOARD.CHARGE_ACCOUNT.TITLE")
 
-      choose-amount-charge(data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_AMMOUNT_CHARGE" data-amounts="vm.amounts"
-                           data-amount-model="vm.amountModel"
-                           id="1"
-                           data-scroll-handler="vm.scrollHandler"
-                           data-current-section="vm.currentSection")
+          a.btn.btn-select(data-ng-click="vm.chargeAccountProfiteloPaymentsMethod()"
+          data-ng-class="{'is-active': vm.isChargeProfiteloAccount}")
+            | {{:: 'DASHBOARD.CHARGE_ACCOUNT.CHARGE_PROFITELO_ACCOUNT.BUTTON' | translate }}
+            span.icon.icon-success-12
 
-      payment-method(data-title="DASHBOARD.CHARGE_ACCOUNT.PAYMENT_METHOD_TITLE"
-                     data-payment-systems = "vm.paymentSystems"
-                     data-payment-system-model = "vm.amountMethodModal.paymentSystemModel"
-                     data-ng-show="vm.amountModel.amount.amount > 0 ||   vm.amountModel.cashAmount.amount > 0 || vm.amountModel.cashAmount.amount !== undefined" id="2"
-                     data-scroll-handler="vm.scrollHandler")
-    .bottom-charge-account(data-ng-if="!!vm.amountMethodModal.paymentSystemModel && !!vm.amountMethodModal.paymentSystemModel.id" id="3")
-      payu-payment-form(data-payments-links="vm.paymentsLinks" data-amount-method-modal="vm.amountMethodModal"
-                        data-payment-country-id="vm.paymentCountryId"
-                        data-ng-show="vm.amountMethodModal.paymentSystemModel.slug == 'payu_pl'" data-scroll-handler="vm.scrollHandler" data-valid-action="vm.validAction")
+          a.btn.btn-select(data-ng-click="vm.addPaymentCardMethod()"
+          data-ng-class="{'is-active': vm.isPaymentCardMethod}")
+            | {{:: 'DASHBOARD.CHARGE_ACCOUNT.ADD_PAYMENT_CARD.BUTTON' | translate }}
+            span.icon.icon-success-12
+
+        .container-big(data-ng-show="vm.isChargeProfiteloAccount")
+          choose-amount-charge(data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_AMMOUNT_CHARGE" data-amounts="vm.amounts"
+          data-amount-model="vm.amountModel"
+          id="1"
+          data-scroll-handler="vm.scrollHandler"
+          data-current-section="vm.currentSection")
+
+          payment-method(data-title="DASHBOARD.CHARGE_ACCOUNT.PAYMENT_METHOD_TITLE"
+          data-payment-systems = "vm.paymentSystems"
+          data-payment-system-model = "vm.amountMethodModal.paymentSystemModel"
+          data-ng-show="vm.amountModel.amount.amount > 0 ||   vm.amountModel.cashAmount.amount > 0 || vm.amountModel.cashAmount.amount !== undefined" id="2"
+          data-scroll-handler="vm.scrollHandler")
+
+          div(data-ng-if="!!vm.amountMethodModal.paymentSystemModel && !!vm.amountMethodModal.paymentSystemModel.id" id="3")
+            payu-payment-form(data-payments-links="vm.paymentsLinks" data-amount-method-modal="vm.amountMethodModal"
+            data-payment-country-id="vm.paymentCountryId"
+            data-ng-show="vm.amountMethodModal.paymentSystemModel.slug == 'payu_pl'" data-scroll-handler="vm.scrollHandler" data-valid-action="vm.validAction")
+
+          paypal-payment-form(data-ng-show="vm.amountMethodModal.paymentSystemModel.slug == 'paypal'")
+
+          card-payment-form(data-ng-show="vm.amountMethodModal.paymentSystemModel.slug == 'credit_card'")

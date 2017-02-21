@@ -1,10 +1,10 @@
 .search-filter
   div.search-filter-slider(data-ng-if="$ctrl.searchFilters.tags.length > 3")
     h4 {{::'SEARCH.SEARCH_RECENT' | translate}}
-    .default-container
+    .container
       pro-tags-slider(data-tags="$ctrl.searchFilters.tags")
 
-  .default-container(data-ng-class="{'hide-filters' : $ctrl.handleMobileFiltersDisplay()}")
+  .container(data-ng-class="{'hide-filters' : $ctrl.handleMobileFiltersDisplay()}")
     .advanced-search-bar-wrap
       .pro-dropdown
         dropdown-primary(

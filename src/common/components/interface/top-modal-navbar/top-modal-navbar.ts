@@ -15,11 +15,6 @@ namespace profitelo.components.interface.topModalNavbar {
       }
     }
 
-    this.onLogoClick = () => {
-      $state.go('app.home')
-      onClose()
-    }
-
     this.onCloseClick = () => {
       onClose()
     }
@@ -39,7 +34,6 @@ namespace profitelo.components.interface.topModalNavbar {
     templateUrl: 'components/interface/top-modal-navbar/top-modal-navbar.tpl.html',
     controller: controller,
     bindings: {
-      title: '@',
       onClose: '<'
     }
   }

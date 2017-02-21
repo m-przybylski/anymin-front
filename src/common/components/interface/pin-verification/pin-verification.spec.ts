@@ -1,6 +1,6 @@
 namespace profitelo.components.interface.pinVerification {
 
-  describe('Unit testing: profitelo.components.interface.pin-verification', () => {
+  describe('Unit testing: profitelo.components.interface.pinVerification', () => {
     return describe('for pinVerification component >', () => {
 
       let rootScope: ng.IRootScopeService
@@ -8,16 +8,18 @@ namespace profitelo.components.interface.pinVerification {
       let component: PinVerificationComponentController
 
       const validHTML =
-        '<pin-verification></pin-verification>'
+        '<pin-verification data-on-send-pin-again="asd" data-on-complete-pin-inputs="callback"></pin-verification>'
 
-      const bindings = {
+      const bindings: IPinVerificationComponentBindings = {
+        onSendPinAgain: () => {},
+        onCompletePinInputs: () => {}
       }
 
-      function create(html: string, bindings: any): JQuery {
+      function create(html: string, bindings: IPinVerificationComponentBindings) {
         const parentScope = rootScope.$new()
         const parentBoundScope = angular.extend(parentScope, bindings)
-        let elem = angular.element(html)
-        let compiledElement = compile(elem)(parentBoundScope)
+        const elem = angular.element(html)
+        const compiledElement = compile(elem)(parentBoundScope)
         parentBoundScope.$digest()
         return compiledElement
       }
@@ -29,12 +31,13 @@ namespace profitelo.components.interface.pinVerification {
         inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
                 $componentController: ng.IComponentControllerService) => {
 
-          rootScope = $rootScope.$new()
+          rootScope = $rootScope
           compile = $compile
 
-          const injectors = {}
+          const injectors = {
+          }
 
-          component = $componentController<PinVerificationComponentController, {}>(
+          component = $componentController<PinVerificationComponentController, IPinVerificationComponentBindings>(
             'pinVerification', injectors, bindings)
         })
       })
@@ -48,6 +51,9 @@ namespace profitelo.components.interface.pinVerification {
         expect(el.html()).toBeDefined(true)
       })
 
+      it('should sendPinAgain', () => {
+
+      })
     })
   })
 }

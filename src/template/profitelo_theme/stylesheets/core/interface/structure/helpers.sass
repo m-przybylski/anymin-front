@@ -1,28 +1,4 @@
-.default-container-small
-  min-width: 320px
-  margin: 0 auto
-  padding: 0 16px
-
-  +smm
-    min-width: 640px
-    max-width: 640px
-
-  +mdm
-    padding: 0 48px
-
-  +lgm
-    padding: 0
-
-  &.no-padding
-    padding: 0
-
-    +smm
-      padding: 0 32px
-
-    +xlgm
-      padding: 0
-
-.default-container
+.container
   max-width: 1280px
   min-width: 320px
   width: 100%
@@ -55,6 +31,133 @@
 
     +xlgm
       padding: 0
+
+.container-medium
+  min-width: 320px
+  margin: 0 auto
+  padding: 0 16px
+
+  +smm
+    min-width: 640px
+    max-width: 640px
+
+  +mdm
+    padding: 0 48px
+
+  +lgm
+    padding: 0
+
+  &.no-padding
+    padding: 0
+
+    +smm
+      padding: 0 32px
+
+    +xlgm
+      padding: 0
+
+.container-big
+  min-width: 320px
+  margin: 0 auto
+  padding: 0 16px
+
+  +smm
+    padding: 0
+    min-width: 850px
+    max-width: 850px
+
+
+
+.choose-options
+  +xsm
+    display: flex
+    flex-wrap: wrap
+    margin: 0 -8px
+
+  .choose-options-item
+    +xsm
+      padding: 0 8px
+
+    .pro-input
+      border: 0
+      border-bottom: 1px solid $c-lines
+
+    p
+      +default-font-light
+      display: block
+      width: 100%
+      font-size: $f-base
+      color: $c-secondary-txt
+      text-align: center
+
+    .option-thumb
+      display: block
+      text-align: center
+      width: 100%
+      height: 24px
+
+      img
+        max-height: 24px
+
+    .option
+      background: $c-white
+      border-radius: 3px
+      margin: 0 0 16px
+      border: 1px solid $c-lines
+      display: flex
+      align-content: space-between
+      justify-content: center
+      flex-wrap: wrap
+      padding: 16px 12px
+      cursor: pointer
+      position: relative
+      height: 112px
+
+      &:hover
+        border-color: $c-primary
+        box-shadow: inset 0 0 0 1px $c-primary
+
+      &.option-own-amount
+        input
+          text-align: center
+
+        .input-group-addon
+          .icon
+            padding: 0
+
+      .charge-price
+        +default-font-medium
+        font-size: $f-h4-size
+        flex: 1 0 100%
+        text-align: center
+
+    .icon.icon-dot
+      border: 1px solid $c-lines
+      background: $c-white
+      border-radius: 50%
+      width: 16px
+      height: 16px
+      color: $c-primary
+      font-size: $f-small
+      padding: 0
+      margin: 0
+      display: flex
+      align-items: center
+      justify-content: center
+
+      &.is-active
+        border: 1px solid $c-primary
+        box-shadow: inset 0 0 0 1px $c-primary
+
+        &::after
+          content: ""
+          width: 8px
+          height: 8px
+          background: $c-primary
+          border-radius: 50%
+
+
+
 
 .flex-col
   display: flex

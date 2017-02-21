@@ -63,19 +63,6 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
       component.onCloseClick()
       expect(state.go).toHaveBeenCalledWith('app.dashboard.client.favourites')
     })
-
-    it('should onLogoClick', () => {
-      spyOn(state, 'go')
-      component.onLogoClick()
-      expect(state.go).toHaveBeenCalledWith('app.home')
-    })
-
-    it('should onLogoClick', () => {
-      component.onClose = () => {}
-      spyOn(state, 'go')
-      component.onLogoClick()
-      expect(state.go).toHaveBeenCalledWith('app.home')
-    })
   })
 })
 

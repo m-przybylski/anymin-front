@@ -11,12 +11,12 @@
         padding: 0 8px
 
   .your-personal-data
-    margin: 0 0 64px
+    margin: 0 0 32px
 
     +smm
       display: flex
       flex-wrap: wrap
-      margin: 0 -8px 64px
+      margin: 0 -8px 28px
 
     .personal-data-item
       flex: 1 0 100%
@@ -27,14 +27,8 @@
         max-width: 50%
         padding: 0 8px
 
-      +mdm
-        flex: 1 0 33.3333%
-
-      &:last-child
-        margin: 0
-
   .your-personal-data-footer
-    margin: 0 0 64px
+    margin: 0 0 32px
 
     .pro-checkbox
       min-height: 32px
@@ -52,15 +46,33 @@
     .input-error-messages
       padding: 8px 16px 8px 40px
 
-  .charge-button
-    background: $c-white
-    text-align: right
-    padding: 64px 0
+  .charge-account-action
+    background: $c-background
+    text-align: center
+    padding: 56px 16px 104px
 
-    .btn
-      display: inline-flex
+    +smm
+      display: flex
+      align-items: center
+      justify-content: space-between
+      padding: 48px 104px
 
-      .icon
-        position: static
-        margin: 0 0 0 8px
-        display: none
+    .amount-details
+      margin: 0 0 64px
+
+      +smm
+        margin: 0
+        display: flex
+        align-items: center
+        justify-content: space-between
+
+    .amount-price
+      p
+        color: $c-secondary-txt
+        font-size: $f-h2-size
+
+        span
+          +default-font-medium
+          margin: 0 0 0 8px
+          color: $c-primary-txt
+          text-transform: uppercase

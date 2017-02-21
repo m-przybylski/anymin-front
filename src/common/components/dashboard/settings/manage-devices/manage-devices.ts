@@ -34,6 +34,7 @@ namespace profitelo.components.dashboard.settings.manageDevices {
     controllerAs: '$ctrl'
     controller: ng.Injectable<ng.IControllerConstructor> = ManageDevicesComponentController
     templateUrl: string = 'components/dashboard/settings/manage-devices/manage-devices.tpl.html'
+
     bindings: {[boundProperty: string]: string} = {
       device: '@',
       deviceInUseStatus: '<',

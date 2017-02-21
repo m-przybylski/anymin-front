@@ -3,7 +3,7 @@
     .main-container.invitation
       company-profile(data-profile="::vm.invitations[0].organizationDetails")
 
-      .default-container
+      .container
         div(data-ng-repeat="invitation in vm.invitations[0].services")
           pro-invitation-acceptance-box(data-ng-repeat="employment in invitation.employments | filter:{status: 'new'} track by $index" data-employment="::employment" data-invitation="::invitation")
       
@@ -11,7 +11,7 @@
         a.btn.btn-default
 
       .no-invitations(data-ng-show="vm.invitations.length === 0")
-        .default-container
+        .container
           h2 Brak zaproszeń
           h3(data-ui-sref="app.dashboard.client.favourites")
             a.btn.btn-primary(data-translate="LOGIN.BACK")
