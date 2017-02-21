@@ -32,7 +32,7 @@ namespace profitelo.services.searchUrl {
   }
 
   angular.module('profitelo.services.search-url', [
-    'profitelo.swaggerResources'
+    'profitelo.services.search'
   ]).service('searchUrlService', SearchUrlService)
 }
 

@@ -9,7 +9,6 @@ namespace profitelo.dashboard {
 
   angular.module('profitelo.controller.dashboard', [
     'profitelo.directives.pro-top-navbar',
-    'profitelo.swaggerResources',
     'ui.router',
     'ngTouch',
     'c7s.ng.userAuth'

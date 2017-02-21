@@ -2,6 +2,7 @@ namespace profitelo.components.dashboard.settings.modals.security.changePassword
 
   import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
   import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordStrengthService
+  import IAccountApi = profitelo.api.IAccountApi
   export interface ISecurityChangePasswordSettingsControllerScope extends ng.IScope {
   }
 
@@ -21,11 +22,11 @@ namespace profitelo.components.dashboard.settings.modals.security.changePassword
       this.isCurrentPasswordCorrect = true
       this.arePasswordsDifferent = true
 
-      this.AccountApi.changePassword({
+      this.AccountApi.changePasswordRoute({
         actualPassword: this.currentPassword,
         newPassword: this.newPassword
       })
-      .$promise.then((_res: any) => {
+      .then(_res => {
         this.$uibModalInstance.dismiss('cancel')
       }, (err: any) => {
         if (err.status === 400) {
@@ -41,7 +42,7 @@ namespace profitelo.components.dashboard.settings.modals.security.changePassword
     /* @ngInject */
     constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
                 private CommonSettingsService: ICommonSettingsService,
-                private AccountApi: any, private passwordStrengthService: IPasswordStrengthService) {
+                private AccountApi: IAccountApi, private passwordStrengthService: IPasswordStrengthService) {
     }
 
     public onPasswordChange = (password: string) => {

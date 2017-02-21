@@ -1,13 +1,13 @@
 namespace profitelo.resolvers.loginForgotPassword {
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import ILoginStateService = profitelo.services.loginState.ILoginStateService
-  import Account = profitelo.models.Account
   import IFilterService = profitelo.services.filter.IFilterService
   import IForgotPasswordStateParams = profitelo.login.forgotPassword.IForgotPasswordStateParams
+  import IRecoverPasswordApi = profitelo.api.IRecoverPasswordApi
 
   export interface ILoginForgotPassword {
     recoveryMethod: string
-    accountObject: Account
+    accountObject: any
   }
 
   export interface ILoginForgotPasswordService {
@@ -18,7 +18,7 @@ namespace profitelo.resolvers.loginForgotPassword {
 
     constructor(private $q: ng.IQService, private $timeout: ng.ITimeoutService, private $filter: IFilterService,
                 private $state: ng.ui.IStateService, private topAlertService: ITopAlertService,
-                private loginStateService: ILoginStateService, private RecoverPasswordApi: any) {
+                private loginStateService: ILoginStateService, private RecoverPasswordApi: IRecoverPasswordApi) {
 
     }
 
@@ -37,11 +37,11 @@ namespace profitelo.resolvers.loginForgotPassword {
         })
       }
 
-      const requestPasswordRecovery = (method: string) => {
-        return this.RecoverPasswordApi.postRecoverPassword({
+      const requestPasswordRecovery = (method: string): ng.IPromise<{}> => {
+        return this.RecoverPasswordApi.postRecoverPasswordRoute({
           method: method,
           msisdn: account.phoneNumber.prefix + '' + account.phoneNumber.number
-        }).$promise
+        })
       }
 
       const noEmailRecoveryPath = () => {
@@ -73,7 +73,7 @@ namespace profitelo.resolvers.loginForgotPassword {
   }
 
   angular.module('profitelo.resolvers.login-forgot-password', [
-    'profitelo.swaggerResources',
+    'profitelo.api.RecoverPasswordApi',
     'profitelo.services.login-state',
     'profitelo.services.top-alert'
   ])

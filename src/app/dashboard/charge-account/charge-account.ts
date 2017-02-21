@@ -1,33 +1,16 @@
 namespace profitelo.dashboard.chargeAccount {
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
-  import Money = profitelo.models.Money
+  import IFinancesApi = profitelo.api.IFinancesApi
+  import IPaymentsApi = profitelo.api.IPaymentsApi
+  import GetPaymentOptions = profitelo.api.GetPaymentOptions
+  import MoneyDto = profitelo.api.MoneyDto
+  import PaymentLink = profitelo.api.PaymentLink
 
-  interface IPaymentLinks {
-
-  }
-
-  interface IPaymentOptions {
-    id: string
-    paymentOptions: Array<IPaymentOption>
-    minimalPayment: Money
-    lastPayment: any
-    paymentSystems: any
-  }
-
-  interface IPaymentOption {
-    chargeAccountProfiteloPaymentsMethod: Function
-    addPaymentCardMethod: Function
-    //FIXME Refactor to enum
-    isChargeProfiteloAccount: boolean
-    isPaymentCardMethod: boolean
-    isFullscreen: boolean
-    isNavbar: boolean
-  }
 
   function chargeAccountController($state: ng.ui.IStateService, $timeout: ng.ITimeoutService, lodash: _.LoDashStatic,
-                                   paymentsOptions: IPaymentOptions, paymentsLinks: IPaymentLinks, financeBalance: number,
-                                   smoothScrollingService: ISmoothScrollingService) {
+                                   paymentsOptions: GetPaymentOptions, paymentsLinks: Array<PaymentLink>,
+                                   financeBalance: MoneyDto | null, smoothScrollingService: ISmoothScrollingService) {
 
     this.isNavbar = true
     this.isFullscreen = true
@@ -118,16 +101,16 @@ namespace profitelo.dashboard.chargeAccount {
       controller: 'chargeAccountController',
       templateUrl: 'dashboard/charge-account/charge-account.tpl.html',
       resolve: {
-        paymentsOptions: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, PaymentsApi: any,
-                          topAlertService: ITopAlertService) => {
+        paymentsOptions: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService,
+                          PaymentsApi: IPaymentsApi, topAlertService: ITopAlertService) => {
           /* istanbul ignore next */
           let _deferred = $q.defer()
           /* istanbul ignore next */
-          PaymentsApi.getPaymentOptions().$promise.then((response: IPaymentOptions) => {
+          PaymentsApi.getPaymentOptionsRoute().then((response) => {
             _deferred.resolve(response)
-          }, (error: any) => {
+          }, (error) => {
             $log.error(error)
-            _deferred.resolve(undefined)
+            _deferred.reject(error)
             $state.go('app.dashboard.client.activities')
             topAlertService.error({
               message: 'error',
@@ -137,16 +120,16 @@ namespace profitelo.dashboard.chargeAccount {
           /* istanbul ignore next */
           return _deferred.promise
         },
-        paymentsLinks: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, PaymentsApi: any,
+        paymentsLinks: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, PaymentsApi: IPaymentsApi,
                         topAlertService: ITopAlertService) => {
           /* istanbul ignore next */
-          let _deferred = $q.defer()
+          let _deferred = $q.defer<Array<PaymentLink>>()
           /* istanbul ignore next */
-          PaymentsApi.getPayUPaymentLinks().$promise.then((response: IPaymentLinks) => {
+          PaymentsApi.getPayUPaymentLinksRoute().then((response) => {
             _deferred.resolve(response)
-          }, (error: any) => {
+          }, (error) => {
             $log.error(error)
-            _deferred.resolve(undefined)
+            _deferred.resolve([])
             $state.go('app.dashboard.client.activities')
             topAlertService.error({
               message: 'error',
@@ -156,14 +139,14 @@ namespace profitelo.dashboard.chargeAccount {
           /* istanbul ignore next */
           return _deferred.promise
         },
-        financeBalance: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, FinancesApi: any,
+        financeBalance: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, FinancesApi: IFinancesApi,
                          topAlertService: ITopAlertService) => {
           /* istanbul ignore next */
-          let _deferred = $q.defer<number | null>()
+          let _deferred = $q.defer<MoneyDto | null>()
           /* istanbul ignore next */
-          FinancesApi.getClientBalance().$promise.then((response: number) => {
+          FinancesApi.getClientBalanceRoute().then((response) => {
             _deferred.resolve(response)
-          }, (error: any) => {
+          }, (error) => {
             $log.error(error)
             _deferred.resolve(null)
             $state.go('app.dashboard.client.activities')
@@ -190,7 +173,7 @@ namespace profitelo.dashboard.chargeAccount {
     'c7s.ng.userAuth',
     'ui.router',
     'ngLodash',
-    'profitelo.swaggerResources',
+    'profitelo.api.FinancesApi',
     'profitelo.services.top-alert',
     'profitelo.services.commonSettings',
     'profitelo.directives.interface.pro-input',

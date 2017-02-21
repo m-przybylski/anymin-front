@@ -9,12 +9,16 @@ namespace profitelo.login.register {
   import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
   import ILoginStateService = profitelo.services.loginState.ILoginStateService
   import ICommunicatorService = profitelo.services.communicator.ICommunicatorService
+  import IAccountApi = profitelo.api.IAccountApi
+  import PatchAccount = profitelo.api.PatchAccount
+  import Account = profitelo.api.Account
+  import IRegistrationApi = profitelo.api.IRegistrationApi
 
   function RegisterController($log: ng.ILogService, $filter: IFilterService, $state: ng.ui.IStateService,
                               $rootScope: IRootScopeService, topWaitingLoaderService: ITopWaitingLoaderService,
                               User: any, topAlertService: ITopAlertService, UserRoles: any,
                               smsSessionId: ILoginRegister, CommonSettingsService: ICommonSettingsService,
-                              RegistrationApi: any, AccountApi: any,
+                              RegistrationApi: IRegistrationApi, AccountApi: IAccountApi,
                               loginStateService: ILoginStateService, communicatorService: ICommunicatorService) {
     this.passwordStrength = 0
     this.isPending = false
@@ -37,7 +41,7 @@ namespace profitelo.login.register {
         RegistrationApi.verifyVerification({
           sessionId: this.registrationSteps.sessionId,
           token: String(this.registrationSteps.smsCode)
-        }).$promise.then(() => {
+        }).then(() => {
           communicatorService.authenticate()
           this.correctCode = true
         }, (err: any) => {
@@ -59,11 +63,9 @@ namespace profitelo.login.register {
         RegistrationApi.confirmVerification({
           sessionId: this.registrationSteps.sessionId,
           token: String(this.registrationSteps.smsCode)
-        }).$promise.then((response: any) => {
+        }).then((response) => {
           this.isPending = false
           topWaitingLoaderService.stopLoader()
-          delete response.$promise
-          delete response.$resolved
           User.setData(response)
           User.setData({role: UserRoles.getRole('user')})
           User.setApiKeyHeader(response.apiKey)
@@ -79,15 +81,15 @@ namespace profitelo.login.register {
       }
     }
 
-    let _updateNewUserObject = (patchObject: any, successCallback: Function) => {
+    let _updateNewUserObject = (patchObject: PatchAccount, successCallback: (res: Account) => void) => {
       /* istanbul ignore next if */
       if (!this.isPending) {
         this.isPending = true
         topWaitingLoaderService.immediate()
 
-        patchObject.accountId = User.getData('id')
+        const accountId = User.getData('id')
 
-        AccountApi.partialUpdateAccount(patchObject).$promise.then(successCallback, (error: any) => {
+        AccountApi.partialUpdateAccountRoute(accountId, patchObject).then(successCallback, (error) => {
           this.isPending = false
           $log.error(error)
           topWaitingLoaderService.stopLoader()
@@ -138,7 +140,8 @@ namespace profitelo.login.register {
     'c7s.ng.userAuth',
     'profitelo.services.login-state',
     'profitelo.resolvers.login-register',
-    'profitelo.swaggerResources',
+    'profitelo.api.AccountApi',
+    'profitelo.api.RegistrationApi',
     'profitelo.services.communicator',
     'profitelo.services.commonSettings',
     'profitelo.services.top-alert',

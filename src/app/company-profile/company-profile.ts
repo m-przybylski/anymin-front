@@ -4,6 +4,7 @@ namespace profitelo.companyProfile {
   import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
   import IRecommendedServicesService = profitelo.services.recommendedServices.IRecommendedServicesService
   import ICompanyProfile = profitelo.resolvers.companyProfile.ICompanyProfile
+  import IProfileApi = profitelo.api.IProfileApi
 
   export interface ICompanyProfileStateParams extends ng.ui.IStateParamsService {
     primaryConsultationId: string
@@ -12,7 +13,7 @@ namespace profitelo.companyProfile {
 
   function CompanyProfileController($stateParams: ICompanyProfileStateParams, $timeout: ng.ITimeoutService,
                                     $log: ng.ILogService, smoothScrollingService: ISmoothScrollingService,
-                                    ProfileApi: any, recommendedServices: IRecommendedServicesService,
+                                    ProfileApi: IProfileApi, recommendedServices: IRecommendedServicesService,
                                     companyProfile: ICompanyProfile) {
 
     this.profile = {}
@@ -49,11 +50,11 @@ namespace profitelo.companyProfile {
 
     this.handleLike = () => {
       if (!this.profile.isFavourite) {
-        ProfileApi.postProfileFavouriteOrganization({profileId: $stateParams.profileId})
-          .$promise.then(onProfileLike, onProfileLikeError)
+        ProfileApi.postProfileFavouriteOrganizationRoute($stateParams.profileId)
+          .then(onProfileLike, onProfileLikeError)
       } else {
-        ProfileApi.deleteProfileFavouriteOrganization({profileId: $stateParams.profileId })
-          .$promise.then(onProfileDislike, onProfileDislikeError)
+        ProfileApi.deleteProfileFavouriteOrganizationRoute($stateParams.profileId)
+          .then(onProfileDislike, onProfileDislikeError)
       }
     }
 
@@ -62,7 +63,7 @@ namespace profitelo.companyProfile {
 
   angular.module('profitelo.controller.company-profile', [
     'ui.router',
-    'profitelo.swaggerResources',
+    'profitelo.api.ProfileApi',
     'c7s.ng.userAuth',
     'profitelo.directives.pro-top-navbar',
     'profitelo.directives.expert-profile.pro-expert-header',

@@ -3,10 +3,13 @@ namespace profitelo.postRegister.setEmail {
   import IFilterService = profitelo.services.filter.IFilterService
   import ITopWaitingLoaderService = profitelo.services.topWaitingLoader.ITopWaitingLoaderService
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+  import IAccountApi = profitelo.api.IAccountApi
+  import PatchAccount = profitelo.api.PatchAccount
+  import Account = profitelo.api.Account
 
   function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.ui.IStateService,
                        topWaitingLoaderService: ITopWaitingLoaderService, User: any, topAlertService: ITopAlertService,
-                       AccountApi: any) {
+                       AccountApi: IAccountApi) {
 
     this.isPending = false
     this.rulesAccepted = false
@@ -16,15 +19,15 @@ namespace profitelo.postRegister.setEmail {
     this.email = ''
     this.emailExist = false
 
-    let _updateNewUserObject = (patchObject: any, successCallback: Function) => {
+    let _updateNewUserObject = (patchObject: PatchAccount, successCallback: (res: Account) => void) => {
       /* istanbul ignore next if */
       if (!this.isPending) {
         this.isPending = true
         topWaitingLoaderService.immediate()
 
-        patchObject.accountId = User.getData('id')
+        const accountId = User.getData('id')
 
-        AccountApi.partialUpdateAccount(patchObject).$promise.then(successCallback, (error: any) => {
+        AccountApi.partialUpdateAccountRoute(accountId, patchObject).then(successCallback, (error) => {
           $log.error(error)
           this.isPending = false
           topWaitingLoaderService.stopLoader()
@@ -37,10 +40,8 @@ namespace profitelo.postRegister.setEmail {
       }
     }
 
-    let _isEmailExists = (email: string) => {
-      return AccountApi.getAccountEmailExists({
-        email: email
-      }).$promise
+    let _isEmailExists = (email: string): ng.IHttpPromise<{}> => {
+      return AccountApi.getAccountEmailExistsRoute(email)
     }
 
     this.setNewEmail = () => {
@@ -98,7 +99,7 @@ namespace profitelo.postRegister.setEmail {
     'c7s.ng.userAuth',
     'profitelo.services.login-state',
     'profitelo.resolvers.login-register',
-    'profitelo.swaggerResources',
+    'profitelo.api.AccountApi',
     'profitelo.services.commonSettings',
     'profitelo.services.top-alert',
     'profitelo.services.pro-top-waiting-loader-service',

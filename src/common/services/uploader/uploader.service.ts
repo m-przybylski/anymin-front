@@ -1,5 +1,8 @@
 namespace profitelo.services.uploader {
 
+  import IFilesApi = profitelo.api.IFilesApi
+  import FileIdDto = profitelo.api.FileIdDto
+
   export interface IUploaderFactory {
     getInstance(simultaneousUploadCount: number, collectionType: string): IUploaderService
     collectionTypes: {
@@ -29,10 +32,6 @@ namespace profitelo.services.uploader {
     callback: (data: any) => void
   }
 
-  interface FileToken {
-    fileId: string
-  }
-
   class UploaderService implements IUploaderService {
 
     private uploadingCount = 0
@@ -40,7 +39,7 @@ namespace profitelo.services.uploader {
     private urls: any
 
     constructor(private $q: ng.IQService, private $timeout: ng.ITimeoutService, CommonConfig: ICommonConfig,
-                private FilesApi: any, private Upload: any, private simultaneousUploadCount: number,
+                private FilesApi: IFilesApi, private Upload: any, private simultaneousUploadCount: number,
                 private collectionType: string) {
 
       this.urls = CommonConfig.getAllData().urls
@@ -74,7 +73,7 @@ namespace profitelo.services.uploader {
       }
     }
 
-    private _uploadFile = (fileObj: FileObject, token: FileToken) =>
+    private _uploadFile = (fileObj: FileObject, token: FileIdDto) =>
       this.Upload.upload({
         url: this.getUploadUrl(token.fileId),
         data: {
@@ -86,7 +85,7 @@ namespace profitelo.services.uploader {
         (res: any) => this.onFileUploadProgress(fileObj, res)
       )
 
-    private onGetFileToken = (fileObj: FileObject, token: FileToken) => {
+    private onGetFileToken = (fileObj: FileObject, token: FileIdDto) => {
       this._uploadFile(fileObj, token)
     }
 
@@ -96,7 +95,7 @@ namespace profitelo.services.uploader {
     }
 
     private getFileToken = (fileObj: FileObject) => {
-     return this.FilesApi.createFileTokenPath({collectionType: this.collectionType}, fileObj.postProcessOptions).$promise
+     return this.FilesApi.createFileTokenPath(this.collectionType, fileObj.postProcessOptions)
     }
     private processUpload = () => {
       if ((this.uploadingCount < this.simultaneousUploadCount || this.simultaneousUploadCount === 0) &&
@@ -108,7 +107,7 @@ namespace profitelo.services.uploader {
         if(angular.isDefined(fileObj) && fileObj) {
           this.getFileToken(fileObj)
             .then(
-              (token: FileToken) => this.onGetFileToken(fileObj, token),
+              (response) => this.onGetFileToken(fileObj, response),
               (err: any) => this.onGetFileTokenError(fileObj, err)
             )
         }
@@ -146,7 +145,7 @@ namespace profitelo.services.uploader {
     }
 
     constructor(private $q: ng.IQService, private $timeout: ng.ITimeoutService,
-                private CommonConfig: ICommonConfig, private FilesApi: any, private Upload: any) {
+                private CommonConfig: ICommonConfig, private FilesApi: IFilesApi, private Upload: any) {
     }
 
     public getInstance = (simultaneousUploadCount: number = 1,
@@ -158,7 +157,7 @@ namespace profitelo.services.uploader {
   }
 
   angular.module('profitelo.services.uploader', [
-    'profitelo.swaggerResources',
+    'profitelo.api.FilesApi',
     'commonConfig'
   ])
   .config(($qProvider: any) => {

@@ -3,12 +3,13 @@ namespace profitelo.login.account {
   import ICommunicatorService = profitelo.services.communicator.ICommunicatorService
   import ITopWaitingLoaderService = profitelo.services.topWaitingLoader.ITopWaitingLoaderService
   import ILoginStateService = profitelo.services.loginState.ILoginStateService
+  import IAccountApi = profitelo.api.IAccountApi
   describe('Unit tests: profitelo.controller.login.account>', () => {
     describe('Testing Controller: AccountFormController', () => {
 
       let scope: any,
         AccountFormController: any,
-        AccountApi: any,
+        AccountApi: IAccountApi,
         $httpBackend: ng.IHttpBackendService,
         url = 'awesomeURL',
         _mockParams: any = null,
@@ -54,7 +55,7 @@ namespace profitelo.login.account {
           $state = _mockState
           scope.passwordForm = scope.phoneNumberForm
           topAlertService = _topAlertService_
-          AccountApi = $injector.get('AccountApi')
+          AccountApi = $injector.get<IAccountApi>('AccountApi')
           AccountFormController = $controller('AccountFormController', {
             $rootScope: $rootScope,
             $scope: scope,

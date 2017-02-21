@@ -1,9 +1,10 @@
 namespace profitelo.components.dashboard.client.activities.modals.consultationDetails.recommendedTags {
 
-  import Tag = profitelo.models.Tag
+  import IServiceApi = profitelo.api.IServiceApi
+  import Tag = profitelo.api.Tag
 
   /* @ngInject */
-  function controller($log: ng.ILogService, lodash: _.LoDashStatic, ServiceApi: any) {
+  function controller($log: ng.ILogService, lodash: _.LoDashStatic, ServiceApi: IServiceApi) {
 
     const updateBindings = () => {
       this.areTagsRecommended = this.selectedTags.length > 0
@@ -25,9 +26,8 @@ namespace profitelo.components.dashboard.client.activities.modals.consultationDe
       $log.error(err)
 
     this.recommendConsultation = () => {
-      ServiceApi.postServiceRecommendation({
-        serviceUsageEventId: this.serviceUsageEventId
-      }).$promise.then(onRecommendService, onRecommendServiceError)
+      ServiceApi.postServiceRecommendationRoute(this.serviceUsageEventId)
+        .then(onRecommendService, onRecommendServiceError)
     }
 
     this.onSelectChange = (tagsArray: Array<Tag>) => {
@@ -42,10 +42,10 @@ namespace profitelo.components.dashboard.client.activities.modals.consultationDe
       $log.error(err)
 
     this.saveRecommendedTags = () => {
-      ServiceApi.putServiceRecommendations({
-        serviceUsageEventId: this.serviceUsageEventId,
-        tags: lodash.map(this.selectedTags, (tag: any) => tag.id)
-      }).$promise.then(onRecommendServiceTags, onRecommendServiceTagsError)
+      ServiceApi.putServiceRecommendationsRoute(
+        this.serviceUsageEventId,
+        {tags: lodash.map(this.selectedTags, (tag: any) => tag.id)}
+      ).then(onRecommendServiceTags, onRecommendServiceTagsError)
     }
 
     return this
@@ -66,7 +66,7 @@ namespace profitelo.components.dashboard.client.activities.modals.consultationDe
   angular.module('profitelo.components.dashboard.client.activities.modals.consultation-details.recommended-tags', [
     'pascalprecht.translate',
     'ngLodash',
-    'profitelo.swaggerResources',
+    'profitelo.api.ServiceApi',
     'profitelo.components.interface.multiselect'
   ])
     .component('clientRecommendedTags', component)

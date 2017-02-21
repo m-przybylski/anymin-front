@@ -4,6 +4,7 @@ namespace profitelo.resolvers.loginSetNewPassword {
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import IFilterService = profitelo.services.filter.IFilterService
   import ISetNewPasswordStateParams = profitelo.login.setNewPassword.ISetNewPasswordStateParams
+  import IRecoverPasswordApi = profitelo.api.IRecoverPasswordApi
 
   export interface ILoginSetNewPassword {
     method: string
@@ -22,7 +23,7 @@ namespace profitelo.resolvers.loginSetNewPassword {
     constructor(private $state: ng.ui.IStateService, private $filter: IFilterService,
                 private $timeout: ng.ITimeoutService, private $q: ng.IQService,
                 private loginStateService: ILoginStateService, private topAlertService: ITopAlertService,
-                private RecoverPasswordApi: any) {
+                private RecoverPasswordApi: IRecoverPasswordApi) {
 
     }
 
@@ -42,9 +43,9 @@ namespace profitelo.resolvers.loginSetNewPassword {
 
       const emailTokenPath = () => {
 
-        this.RecoverPasswordApi.postRecoverPasswordVerifyEmail({
+        this.RecoverPasswordApi.postRecoverPasswordVerifyEmailRoute({
           token: stateParams.token
-        }).$promise.then(() => {
+        }).then(() => {
           _deferred.resolve({
             method: 'EMAIL',
             payload: {
@@ -90,7 +91,7 @@ namespace profitelo.resolvers.loginSetNewPassword {
   }
 
   angular.module('profitelo.resolvers.login-set-new-password', [
-    'profitelo.swaggerResources',
+    'profitelo.api.RecoverPasswordApi',
     'profitelo.services.top-alert',
     'profitelo.services.login-state'
   ])

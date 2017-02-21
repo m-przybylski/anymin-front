@@ -1,5 +1,7 @@
 namespace profitelo.services.filter {
-  import Money = profitelo.models.Money
+
+  import MoneyDto = profitelo.api.MoneyDto
+
   export interface IFilterService extends ng.IFilterService {
     (name: 'translate'): {
       (translationId: string, interpolateParams?: any, interpolation?: string): string
@@ -20,7 +22,7 @@ namespace profitelo.services.filter {
       (translationId: number, interpolateParams?: any, interpolation?: string): string
     }
     (name: 'money'): {
-      (translationId: Money, interpolateParams?: any, interpolation?: string): string
+      (translationId: MoneyDto, interpolateParams?: any, interpolation?: string): string
     }
     (name: 'message'): {
       (translationId: string, interpolateParams?: any, interpolation?: string): string

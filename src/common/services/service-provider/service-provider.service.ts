@@ -1,8 +1,8 @@
 namespace profitelo.services.serviceProvider {
 
-  import Tag = profitelo.models.Tag
   import ExpertDetails = profitelo.models.ExpertDetails
   import OrganizationDetails = profitelo.models.OrganizationDetails
+  import Tag = profitelo.api.Tag
 
   export interface IServiceProviderDefaultModel {
     name: string

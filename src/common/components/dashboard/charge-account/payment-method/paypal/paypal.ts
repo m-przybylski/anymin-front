@@ -16,7 +16,6 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.paypalPayme
 
 
   angular.module('profitelo.components.dashboard.charge-account.paypal', [
-    'profitelo.swaggerResources',
     'c7s.ng.userAuth'
   ])
     .component('paypalPaymentForm', new PayPalPaymentFormComponent())

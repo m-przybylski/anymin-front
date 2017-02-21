@@ -1,24 +1,24 @@
 namespace profitelo.services.timer {
 
-  import Money = profitelo.models.Money
+  import MoneyDto = profitelo.api.MoneyDto
 
   export interface ITimerService {
-    start(cb: (obj: {time: number, money: Money}) => void): void
+    start(cb: (obj: {time: number, money: MoneyDto}) => void): void
     stop(): void
   }
 
   export interface ITimerFactory {
-    getInstance(money: Money, freeMinutesCount: number, interval: number): ITimerService
+    getInstance(money: MoneyDto, freeMinutesCount: number, interval: number): ITimerService
   }
 
   class TimerService implements ITimerService {
 
     private timer: ng.IPromise<any>
 
-    constructor(private $interval: ng.IIntervalService, private money: Money, private freeMinutesCount: number,
+    constructor(private $interval: ng.IIntervalService, private money: MoneyDto, private freeMinutesCount: number,
                 private interval: number) {}
 
-    public start = (cb: (obj: {time: number, money: Money}) => void) => {
+    public start = (cb: (obj: {time: number, money: MoneyDto}) => void) => {
       const start = Date.now()
       this.timer = this.$interval(() => {
         const _time = (Date.now() - start) / 1000
@@ -41,7 +41,7 @@ namespace profitelo.services.timer {
 
     constructor(private $interval: ng.IIntervalService) {}
 
-    public getInstance(money: Money, freeMinutesCount: number = 0, interval: number = 200) {
+    public getInstance(money: MoneyDto, freeMinutesCount: number = 0, interval: number = 200) {
       return new TimerService(this.$interval, money, freeMinutesCount, interval)
     }
   }

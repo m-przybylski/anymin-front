@@ -8,9 +8,10 @@ namespace profitelo.login.account {
   import ICommunicatorService = profitelo.services.communicator.ICommunicatorService
   import ITopWaitingLoaderService = profitelo.services.topWaitingLoader.ITopWaitingLoaderService
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+  import IAccountApi = profitelo.api.IAccountApi
 
   function AccountFormController($log: ng.ILogService, $rootScope: IRootScopeService, $state: ng.ui.IStateService,
-                                 $filter: IFilterService, AccountApi: any,
+                                 $filter: IFilterService, AccountApi: IAccountApi,
                                  topWaitingLoaderService: ITopWaitingLoaderService, User: any,
                                  topAlertService: ITopAlertService, loginStateService: ILoginStateService,
                                  CommonSettingsService: ICommonSettingsService,
@@ -64,13 +65,13 @@ namespace profitelo.login.account {
         this.isPending = true
         topWaitingLoaderService.immediate()
         loginStateService.setAccountObject(this.account)
-        AccountApi.getRegistrationStatusByMsisdn({
-          msisdn: this.account.phoneNumber.prefix + this.account.phoneNumber.number
-        }).$promise.then((response: any) => {
+        AccountApi.getRegistrationStatusByMsisdnRoute(
+          this.account.phoneNumber.prefix + this.account.phoneNumber.number
+        ).then((response) => {
           this.isPending = false
           _determinePhoneNumberStatus(response.status)
           topWaitingLoaderService.stopLoader()
-        }, (error: any) => {
+        }, (error) => {
           $log.error(error)
           this.isPending = false
           topAlertService.error({
@@ -132,7 +133,7 @@ namespace profitelo.login.account {
     'ui.router',
     'profitelo.services.phone-number',
     'profitelo.services.login-state',
-    'profitelo.swaggerResources',
+    'profitelo.api.AccountApi',
     'profitelo.services.commonSettings',
     'profitelo.services.communicator',
     'profitelo.services.pro-top-waiting-loader-service',

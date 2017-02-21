@@ -1,12 +1,14 @@
 namespace profitelo.resolvers.companyProfile {
 
   import ICompanyProfileStateParams = profitelo.companyProfile.ICompanyProfileStateParams
-  import Profile = profitelo.models.Profile
-  import Service = profitelo.models.Service
+  import IViewsApi = profitelo.api.IViewsApi
+  import GetOrganizationProfile = profitelo.api.GetOrganizationProfile
+  import GetOrganizationServiceDetails = profitelo.api.GetOrganizationServiceDetails
+  import GetProfileWithDocuments = profitelo.api.GetProfileWithDocuments
 
   export interface ICompanyProfile {
-    profile: Profile
-    services: Array<Service>
+    profile: GetProfileWithDocuments
+    services: Array<GetOrganizationServiceDetails>
     isFavourite: boolean
   }
 
@@ -16,17 +18,17 @@ namespace profitelo.resolvers.companyProfile {
 
   class CompanyProfileResolver implements ICompanyProfileService {
 
-    constructor(private $q: ng.IQService, private ViewsApi: any, private lodash: _.LoDashStatic) {
+    constructor(private $q: ng.IQService, private ViewsApi: IViewsApi, private lodash: _.LoDashStatic) {
 
     }
 
-    public resolve = (stateParams: ICompanyProfileStateParams) => {
+    public resolve = (stateParams: ICompanyProfileStateParams): ng.IPromise<ICompanyProfile> => {
 
       const handleCompanyResponseError = (error: any) =>
         this.$q.reject(error)
 
-      const sortServices = (servicesWithTagsAndEmployees: any) => {
-        const primaryConsultation = this.lodash.find(servicesWithTagsAndEmployees, (serviceWithTagsAndEmployees: {service: Service}) =>
+      const sortServices = (servicesWithTagsAndEmployees: Array<GetOrganizationServiceDetails>) => {
+        const primaryConsultation = this.lodash.find(servicesWithTagsAndEmployees, (serviceWithTagsAndEmployees) =>
         serviceWithTagsAndEmployees.service.id === stateParams.primaryConsultationId)
 
         if (angular.isDefined(stateParams.primaryConsultationId) && !!primaryConsultation
@@ -37,7 +39,7 @@ namespace profitelo.resolvers.companyProfile {
         return servicesWithTagsAndEmployees
       }
 
-      const handleCompanyResponse = (response: ICompanyProfile) => {
+      const handleCompanyResponse = (response: GetOrganizationProfile) => {
         if (!response.profile.organizationDetails) {
           return this.$q.reject('Profile is not organization')
         }
@@ -50,10 +52,8 @@ namespace profitelo.resolvers.companyProfile {
       }
 
       const resolveCompanyProfile = () =>
-        this.ViewsApi.getOrganizationProfile({
-          profileId: stateParams['profileId']
-        }).$promise
-        .then(handleCompanyResponse)
+        this.ViewsApi.getOrganizationProfileRoute(stateParams.profileId)
+        .then((res) => handleCompanyResponse(res))
         .catch(handleCompanyResponseError)
 
       return resolveCompanyProfile()
@@ -61,7 +61,7 @@ namespace profitelo.resolvers.companyProfile {
   }
 
   angular.module('profitelo.resolvers.company-profile', [
-    'profitelo.swaggerResources',
+    'profitelo.api.ViewsApi',
     'ngLodash',
     'c7s.ng.userAuth'
   ])

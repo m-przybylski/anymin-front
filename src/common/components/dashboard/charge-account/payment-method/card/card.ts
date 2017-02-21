@@ -19,7 +19,6 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.cardPayment
 
   angular.module('profitelo.components.dashboard.charge-account.card', [
     'pascalprecht.translate',
-    'profitelo.swaggerResources',
     'c7s.ng.userAuth'
   ])
   .component('cardPaymentForm', new PayPalPaymentFormComponent())

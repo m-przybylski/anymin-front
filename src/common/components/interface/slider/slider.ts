@@ -15,7 +15,6 @@ namespace profitelo.components.interface.slider {
       })
     }
 
-    /* istanbul ignore next */
     angular.element($window).on('resize', ()=> {
       parentWidth = $element[0].offsetWidth
       _elementsWidth()

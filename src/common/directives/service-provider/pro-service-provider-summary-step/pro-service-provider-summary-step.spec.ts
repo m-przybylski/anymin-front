@@ -22,7 +22,7 @@ namespace profitelo.directives.serviceProvider.proServiceProviderSummaryStep {
 
       function create(html: string) {
         let elem = angular.element(html)
-        scope.consultations = [{}]
+        scope.consultations = [{invitations: [], details: {tags: []}}]
         scope.editConsultation = () => {
           return null
         }

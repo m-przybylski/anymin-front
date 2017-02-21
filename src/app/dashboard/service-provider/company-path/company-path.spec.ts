@@ -1,17 +1,20 @@
 namespace profitelo.dashboard.serviceProvider.companyPath {
+
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
   import Profile = profitelo.models.Profile
+  import IProfileApi = profitelo.api.IProfileApi
+
   describe('Unit tests: CompanyPathController >', () => {
     describe('Testing Controller: CompanyPathController', () => {
 
       let CompanyPathController: any
       let _scope: any
       let _httpBackend: ng.IHttpBackendService
-      let _ProfileApi: any
+      let _ProfileApi: IProfileApi
       let _ProfileApiDef: any
-      let _User: any
+      let User: any
       let resourcesExpectations: any
       let _controller: any
       let _state: ng.ui.IStateService
@@ -25,7 +28,7 @@ namespace profitelo.dashboard.serviceProvider.companyPath {
         return _controller('CompanyPathController', {
           $scope: _scope,
           ProfileApi: _ProfileApi,
-          User: _User,
+          User: User,
           savedProfile: profile,
           smoothScrollingService: _smoothScrollingService
         })
@@ -46,8 +49,8 @@ namespace profitelo.dashboard.serviceProvider.companyPath {
           _ProfileApiDef = $injector.get('ProfileApiDef')
           _state = $injector.get<ng.ui.IStateService>('$state')
           _controller = $injector.get('$controller')
-          _ProfileApi = $injector.get('ProfileApi')
-          _User = $injector.get('User')
+          _ProfileApi = $injector.get<IProfileApi>('ProfileApi')
+          User = $injector.get('User')
           _topAlertService = $injector.get<ITopAlertService>('topAlertService')
           _timeout = $injector.get('$timeout')
           _smoothScrollingService = $injector.get<ISmoothScrollingService>('smoothScrollingService')
@@ -82,7 +85,7 @@ namespace profitelo.dashboard.serviceProvider.companyPath {
 
         spyOn(_state, 'go')
 
-        resourcesExpectations.ProfileApi.postProfile.respond(200)
+        resourcesExpectations.ProfileApi.postProfile.respond(200, {})
         CompanyPathController.saveAccountObject()
         _httpBackend.flush()
 
@@ -92,7 +95,7 @@ namespace profitelo.dashboard.serviceProvider.companyPath {
 
       it('should be able to update account object and redirect to consultation range', () => {
 
-        resourcesExpectations.ProfileApi.patchProfile.respond(200)
+        resourcesExpectations.ProfileApi.patchProfile.respond(200, {})
         CompanyPathController = createController(<Profile>{})
 
         spyOn(_state, 'go')

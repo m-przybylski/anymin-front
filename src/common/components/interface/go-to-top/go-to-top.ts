@@ -11,7 +11,6 @@ namespace profitelo.components.interface.goToTop {
       checkScrollWay: null
     }
 
-    /* istanbul ignore next function*/
     angular.element($window).bind('scroll', () => {
       ($window.pageYOffset > this.flagController.checkScrollWay) ? this.flagController.isShow = true : this.flagController.isShow = false
       $scope.$digest()

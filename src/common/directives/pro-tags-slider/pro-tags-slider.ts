@@ -1,7 +1,7 @@
 namespace profitelo.directives.proTagsSlider {
 
   import IWindowService = profitelo.services.window.IWindowService
-  import Tag = profitelo.models.Tag
+  import Tag = profitelo.api.Tag
 
   function proTagsSlider($window: IWindowService, $location: ng.ILocationService, $timeout: ng.ITimeoutService) {
     function linkFunction(scope: any, element: ng.IRootElementService) {

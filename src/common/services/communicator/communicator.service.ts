@@ -2,12 +2,15 @@ namespace profitelo.services.communicator {
 
   import ICallbacksFactory = profitelo.services.callbacks.ICallbacksFactory
   import ICallbacksService = profitelo.services.callbacks.ICallbacksService
-  import Service = profitelo.models.Service
-  import Profile = profitelo.models.Profile
+  import IProfileApi = profitelo.api.IProfileApi
+  import GetProfileWithServices = profitelo.api.GetProfileWithServices
+  import IRatelApi = profitelo.api.IRatelApi
+  import SignedAgent = profitelo.api.SignedAgent
+  import GetService = profitelo.api.GetService
 
   export interface IConsultationInvitation {
     invitation: any
-    service: Service
+    service: GetService
   }
 
   export interface ICommunicatorService {
@@ -63,7 +66,7 @@ namespace profitelo.services.communicator {
     }
 
     constructor(private $log: ng.ILogService, private $q: ng.IQService, callbacksFactory: ICallbacksFactory,
-                private User: any, private RatelApi: any, private ProfileApi: any, private ratelSdk: any,
+                private User: any, private RatelApi: IRatelApi, private ProfileApi: IProfileApi, private ratelSdk: any,
                 CommonConfig: ICommonConfig, private lodash: _.LoDashStatic) {
 
       this.commonConfig = CommonConfig.getAllData()
@@ -104,7 +107,7 @@ namespace profitelo.services.communicator {
       }
     }
 
-    private createRatelConnection = (session: any, _service: Service | null) => {
+    private createRatelConnection = (session: any, _service: GetService | null) => {
 
       const chat = session.chat
 
@@ -141,42 +144,42 @@ namespace profitelo.services.communicator {
       this.$log.debug('Client session created', session)
     }
 
-    private onCreateExpertSession = (session: any, service: Service) => {
+    private onCreateExpertSession = (session: any, service: GetService) => {
       this.ratelSessions.addExpertSession(service.id, session)
       this.createRatelConnection(session, service)
       this.$log.debug('Expert session created', session)
     }
 
-    private onGetEmployersProfilesWithServices = (profilesWithServices: Array<Profile>) => {
+    private onGetEmployersProfilesWithServices = (profilesWithServices: Array<GetProfileWithServices>) => {
       return this.lodash.flatten(this.lodash.map(profilesWithServices, profile => profile.services))
     }
 
     private getServices = (profileId: string) => {
-      return this.ProfileApi.getEmployersProfilesWithServices({profileId: profileId}).$promise
-      .then(this.onGetEmployersProfilesWithServices)
+      return this.ProfileApi.getEmployersProfilesWithServicesRoute(profileId)
+      .then((response) => this.onGetEmployersProfilesWithServices(response))
     }
 
-    private onGetRatelClientAuthConfig = (clientConfig: any) => {
-      return this.ratelSdk.withSignedAuth(clientConfig.toJSON(), this.chatConfig)
+    private onGetRatelClientAuthConfig = (clientConfig: SignedAgent) => {
+      return this.ratelSdk.withSignedAuth(clientConfig, this.chatConfig)
       .then(this.onCreateClientSession)
     }
 
     private authenticateClient = () => {
-      return this.RatelApi.getRatelAuthConfig().$promise
+      return this.RatelApi.getRatelAuthConfigRoute()
       .then(this.onGetRatelClientAuthConfig)
     }
 
-    private onGetRatelExpertAuthConfig = (expertConfig: any, service: Service) => {
+    private onGetRatelExpertAuthConfig = (expertConfig: SignedAgent, service: GetService) => {
       return this.ratelSdk.withSignedAuth(expertConfig, this.chatConfig)
       .then((session: any) => this.onCreateExpertSession(session, service))
     }
 
     private authenticateExpert = () => {
       return this.getServices(this.User.getData('id'))
-      .then((services: Array<Service>) =>
+      .then((services) =>
         this.$q.all(this.lodash.map(services, service =>
-          this.RatelApi.getRatelAuthConfig({serviceId: service.id}).$promise.then(
-            (expertConfig: any) => this.onGetRatelExpertAuthConfig(expertConfig.toJSON(), service)))))
+          this.RatelApi.getRatelAuthConfigRoute(service.id).then(
+            (expertConfig) => this.onGetRatelExpertAuthConfig(expertConfig, service)))))
     }
 
     private onAuthenticateError = (err: any) => {
@@ -210,7 +213,8 @@ namespace profitelo.services.communicator {
 
   angular.module('profitelo.services.communicator', [
     'c7s.ng.userAuth',
-    'profitelo.swaggerResources',
+    'profitelo.api.RatelApi',
+    'profitelo.api.ProfileApi',
     'profitelo.services.dialog',
     'commonConfig',
     'ratelSdk',

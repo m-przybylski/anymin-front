@@ -2,10 +2,11 @@ namespace profitelo.dashboard.invitaion {
 
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import IServiceProviderImageService = profitelo.resolvers.serviceProviderImage.IServiceProviderImageService
-  import CompanyProfile = profitelo.models.CompanyProfile
-  import Tag = profitelo.models.Tag
+  import IProfileApi = profitelo.api.IProfileApi
+  import GetProfileWithServicesEmployments = profitelo.api.GetProfileWithServicesEmployments
+  import IServiceApi = profitelo.api.IServiceApi
 
-  function InvitationController(pendingInvitations: Array<CompanyProfile>, companyLogo: string) {
+  function InvitationController(pendingInvitations: Array<GetProfileWithServicesEmployments>, companyLogo: string) {
 
     if (pendingInvitations.length > 0) {
       this.invitations = pendingInvitations
@@ -26,21 +27,23 @@ namespace profitelo.dashboard.invitaion {
         pageTitle: 'PAGE_TITLE.INVITATIONS'
       },
       resolve: {
-        pendingInvitations: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: any,
-                             User: any, ServiceApi: any, lodash: _.LoDashStatic, topAlertService: ITopAlertService) => {
+        pendingInvitations: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: IProfileApi,
+                             User: any, ServiceApi: IServiceApi, lodash: _.LoDashStatic, topAlertService: ITopAlertService) => {
           /* istanbul ignore next */
-          let _deferred = $q.defer()
+          let _deferred = $q.defer<Array<GetProfileWithServicesEmployments>>()
           /* istanbul ignore next */
           User.getStatus().then(() => {
-            ProfileApi.getProfilesInvitations().$promise.then((profileInvitations: Array<CompanyProfile>) => {
-              ServiceApi.postServicesTags({
-                serviceIds: lodash.flatten(lodash.map(profileInvitations, (profile: any) => lodash.map(profile.services, 'id')))
-              }).$promise.then((servicesTags: Array<Tag>) => {
+            ProfileApi.getProfilesInvitationsRoute().then((profileInvitations) => {
+
+              ServiceApi.postServicesTagsRoute({
+                serviceIds: lodash.flatten(lodash.map(profileInvitations, (profile) => lodash.map(profile.services, service => service.id)))
+              }).then((servicesTags) => {
 
                 profileInvitations.forEach((profile) => {
                   profile.services.forEach((service) => {
-                    service.details.tags = lodash.head(
-                      lodash.filter(servicesTags, (serviceTags: any) => service.id === serviceTags.serviceId)).tags
+                    //FIXME
+                    (<any>service.details).tags = lodash.head(
+                      lodash.filter(servicesTags, (serviceTags) => service.id === serviceTags.serviceId)).tags
                   })
                 })
 
@@ -60,11 +63,13 @@ namespace profitelo.dashboard.invitaion {
           /* istanbul ignore next */
           return _deferred.promise
         },
-        companyLogo: (ServiceProviderImageResolver: IServiceProviderImageService, pendingInvitations: Array<CompanyProfile>) => {
-          if (pendingInvitations[0]) {
-            return ServiceProviderImageResolver.resolve(pendingInvitations[0].organizationDetails.logo || '')
+        companyLogo: (ServiceProviderImageResolver: IServiceProviderImageService,
+                      pendingInvitations: Array<GetProfileWithServicesEmployments>, $q: ng.IQService) => {
+          const firstInv = pendingInvitations[0]
+          if (firstInv && firstInv.organizationDetails && firstInv.organizationDetails.logo ) {
+            return ServiceProviderImageResolver.resolve(firstInv.organizationDetails.logo)
           } else {
-            return false
+            return $q.resolve('')
           }
         }
       }
@@ -76,7 +81,6 @@ namespace profitelo.dashboard.invitaion {
     'c7s.ng.userAuth',
     'ui.router',
     'ngLodash',
-    'profitelo.swaggerResources',
     'profitelo.components.invitations.company-profile',
     'profitelo.resolvers.service-provider-image',
     'profitelo.components.dashboard.invitation.pro-invitation-acceptance-box'

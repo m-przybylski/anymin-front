@@ -1,29 +1,20 @@
 namespace profitelo.services.clientActivities {
 
-  import ClientActivity = profitelo.models.ClientActivity
-  import Money = profitelo.models.Money
-  import Service = profitelo.models.Service
-  import Profile = profitelo.models.Profile
-
-  export interface IExpertServiceTuple {
-    expert: Profile
-    service: Service
-  }
-
-  export interface IClientActivities {
-    activities: Array<ClientActivity>
-    activityTypes: Array<string>
-    balance: Money
-    expertServiceTuples: Array<IExpertServiceTuple>
-  }
+  import IViewsApi = profitelo.api.IViewsApi
+  import GetActivities = profitelo.api.GetActivities
 
   export interface IClientActivitiesQueryParams {
-    offset?: number
-    limit?: number
+    offset?: string
+    limit?: string
+    activityType?: string,
+    profileId?: string,
+    serviceId?: string,
+    dateFrom?: string,
+    dateTo?: string
   }
 
   export interface IClientActivitiesService {
-    resolve(): ng.IPromise<IClientActivities>
+    resolve(): ng.IPromise<GetActivities>
     setClientActivitiesParam(params: any): ng.IPromise<any>
     getMoreResults(offset: number): ng.IPromise<any>
     onQueryParamsChange(scope: ng.IScope, callback: (queryParams: any) => void): void
@@ -41,13 +32,13 @@ namespace profitelo.services.clientActivities {
     private static activitiesResultsEvent = 'activities-results'
     private static queryParamsEvent = 'activities-query-params'
 
-    constructor(private $q: ng.IQService, private $rootScope: ng.IRootScopeService, private ViewsApi: any) {
+    constructor(private $q: ng.IQService, private $rootScope: ng.IRootScopeService, private ViewsApi: IViewsApi) {
 
       this._queryParams = {}
       this._defineQueryProperties(this._queryParams)
     }
 
-    private _handleClientActivitiesResponse = (response: any): IClientActivities => {
+    private _handleClientActivitiesResponse = (response: GetActivities): GetActivities => {
       return {
         activities: response.activities,
         activityTypes: response.activityTypes,
@@ -59,8 +50,9 @@ namespace profitelo.services.clientActivities {
     private _handleClientActivitiesResponseError = (error: any) =>
       this.$q.reject(error)
 
-    private _searchClientActivities = (queryParam: IClientActivitiesQueryParams) =>
-      this.ViewsApi.getDashboardClientActivities(queryParam).$promise
+    private _searchClientActivities = (params: IClientActivitiesQueryParams): ng.IPromise<GetActivities> =>
+      this.ViewsApi.getDashboardClientActivitiesRoute(params.activityType, params.profileId, params.serviceId,
+      params.dateFrom,params.dateTo, params.limit, params.offset)
 
     public clearQueryParam = () => {
       angular.forEach(Object.keys(this._queryParams), (fieldName) => {
@@ -71,8 +63,8 @@ namespace profitelo.services.clientActivities {
     }
 
     public resolve = () => {
-      this._queryParams.offset = 0
-      this._queryParams.limit = ClientActivitiesService._queryLimit
+      this._queryParams.offset = "0"
+      this._queryParams.limit = ClientActivitiesService._queryLimit.toString()
       return this._searchClientActivities(this._queryParams)
       .then(this._handleClientActivitiesResponse, this._handleClientActivitiesResponseError)
     }
@@ -88,10 +80,10 @@ namespace profitelo.services.clientActivities {
           }
         })
 
-        this._queryParams.offset = 0
-        this._queryParams.limit = ClientActivitiesService._queryLimit
+        this._queryParams.offset = "0"
+        this._queryParams.limit = ClientActivitiesService._queryLimit.toString()
 
-        return this._searchClientActivities(this._queryParams).then((response: IClientActivities) => {
+        return this._searchClientActivities(this._queryParams).then((response) => {
           this._notifyOnQueryParams(this._queryParams)
           this._notifyOnActivitiesResults(null, response, this._queryParams)
           return this.$q.resolve(response)
@@ -106,7 +98,7 @@ namespace profitelo.services.clientActivities {
       }
     }
 
-    private _notifyOnActivitiesResults = (err: any, results: IClientActivities | null, queryParams: IClientActivitiesQueryParams) => {
+    private _notifyOnActivitiesResults = (err: any, results: GetActivities | null, queryParams: IClientActivitiesQueryParams) => {
       this.$rootScope.$emit(ClientActivitiesService.activitiesResultsEvent, err, results, queryParams)
     }
 
@@ -132,8 +124,8 @@ namespace profitelo.services.clientActivities {
     }
 
     public getMoreResults = (offset: number) => {
-      this._queryParams.offset = offset
-      this._queryParams.limit = ClientActivitiesService._queryLimit
+      this._queryParams.offset = offset.toString()
+      this._queryParams.limit = ClientActivitiesService._queryLimit.toString()
 
       return this._searchClientActivities(this._queryParams).then((response: any) => {
         this._notifyOnQueryParams(this._queryParams)
@@ -301,7 +293,7 @@ namespace profitelo.services.clientActivities {
   }
 
   angular.module('profitelo.services.client-activities-service', [
-    'profitelo.swaggerResources',
+    'profitelo.api.ViewsApi',
     'c7s.ng.userAuth'
   ])
   .service('clientActivitiesService', ClientActivitiesService)

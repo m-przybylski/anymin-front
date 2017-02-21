@@ -1,6 +1,6 @@
 namespace profitelo.filters.money {
 
-  import Money = profitelo.models.Money
+  import MoneyDto = profitelo.api.MoneyDto
   const handleAmount = (_amount: number) => {
     let sign = ''
     const amount = parseInt(<any>_amount, 10)
@@ -16,13 +16,13 @@ namespace profitelo.filters.money {
     return sign + Math.abs(major) + '.' + Math.abs(minorSecond) + Math.abs(minorFirst)
   }
 
-  const handleMoney = (_money: Money) => {
+  const handleMoney = (_money: MoneyDto) => {
     return '<span class="amount">' + handleAmount(_money.amount) + '</span>' +
       '<span class="currency">' + _money.currency + '</span>'
   }
 
   function filter() {
-    return function(money: Money) {
+    return function(money: MoneyDto) {
 
       if (!money || typeof money !== 'object' || !money.hasOwnProperty('amount') || !money.hasOwnProperty('currency')) {
         return ''

@@ -2,23 +2,25 @@ namespace profitelo.services.call {
 
   import INavigatorService = profitelo.services.navigator.INavigatorService
   import ICommunicatorService = profitelo.services.communicator.ICommunicatorService
-  import ServiceUsageRequest = profitelo.models.ServiceUsageRequest
   import IModalsService = profitelo.services.modals.IModalsService
   import ISoundsService = profitelo.services.sounds.ISoundsService
   import ICallbacksFactory = profitelo.services.callbacks.ICallbacksFactory
   import ICallbacksService = profitelo.services.callbacks.ICallbacksService
   import ITimerFactory = profitelo.services.timer.ITimerFactory
   import ITimerService = profitelo.services.timer.ITimerService
-  import ExpertProfile = profitelo.models.ExpertProfile
-  import Money = profitelo.models.Money
-  import Service = profitelo.models.Service
+  import IRatelApi = profitelo.api.IRatelApi
+  import IServiceApi = profitelo.api.IServiceApi
+  import GetService = profitelo.api.GetService
+  import MoneyDto = profitelo.api.MoneyDto
+  import GetProfile = profitelo.api.GetProfile
+  import GetServiceUsageRequest = profitelo.api.GetServiceUsageRequest
 
   export interface ICallService {
     onCallEnd(cb: () => void): void
-    onClientCallPending(cb: (data: {service: Service, expert: ExpertProfile}) => void): void
+    onClientCallPending(cb: (data: {service: GetService, expert: GetProfile}) => void): void
     onClientCallStarted(cb: (inviterId: string) => void): void
-    onExpertCallAnswered(cb: (data: {invitation: any, service: Service}) => void): void
-    onTimeCostChange(cb: (data: {time: number, money: Money}) => void): void
+    onExpertCallAnswered(cb: (data: {invitation: any, service: GetService}) => void): void
+    onTimeCostChange(cb: (data: {time: number, money: MoneyDto}) => void): void
     onVideoStart(cb: () => void): void
     onVideoStop(cb: () => void): void
     callServiceId(serviceId: string): ng.IPromise<any>
@@ -71,7 +73,7 @@ namespace profitelo.services.call {
     constructor(private $q: ng.IQService, private $log: ng.ILogService, private navigatorService: INavigatorService,
                 callbacksFactory: ICallbacksFactory, private communicatorService: ICommunicatorService,
                 private modalsService: IModalsService, private soundsService: ISoundsService, private User: any,
-                private timerFactory: ITimerFactory, private RatelApi: any, private ServiceApi: any) {
+                private timerFactory: ITimerFactory, private RatelApi: IRatelApi, private ServiceApi: IServiceApi) {
 
       this.hangupFunction = () => $q.reject('NO CALL')
       this.callbacks = callbacksFactory.getInstance(Object.keys(CallService.events))
@@ -122,16 +124,16 @@ namespace profitelo.services.call {
     public onCallEnd = (cb: () => void) =>
       this.callbacks.methods.onCallEnd(cb)
 
-    public onClientCallPending = (cb: (data: {service: Service, expert: ExpertProfile}) => void) =>
+    public onClientCallPending = (cb: (data: {service: GetService, expert: GetProfile}) => void) =>
       this.callbacks.methods.onClientCallPending(cb)
 
     public onClientCallStarted = (cb: (inviterId: string) => void) =>
       this.callbacks.methods.onClientCallStarted(cb)
 
-    public onExpertCallAnswered = (cb: (data: {invitation: any, service: Service}) => void) =>
+    public onExpertCallAnswered = (cb: (data: {invitation: any, service: GetService}) => void) =>
       this.callbacks.methods.onExpertCallAnswered(cb)
 
-    public onTimeCostChange = (cb: (data: {time: number, money: Money}) => void) =>
+    public onTimeCostChange = (cb: (data: {time: number, money: MoneyDto}) => void) =>
       this.callbacks.methods.onTimeCostChange(cb)
 
     public onVideoStart = (cb: () => void) =>
@@ -165,26 +167,29 @@ namespace profitelo.services.call {
       }
     }
 
-    private startHookMock = (expertId: string) =>
-      this.RatelApi.ratelCallStartedHook({
-        callId: this.call.id,
-        clientId: this.User.getData('id'),
-        expertId: expertId,
-        serviceId: this.serviceId,
-        timestamp: Date.now()
-      }).$promise.then(
-        (res: any) => this.$log.debug('Hook Start', res),
-        (err: any) => this.$log.error('Hook Start error:', err)
-      )
+    private startHookMock = (expertId: string) => {
+      if (this.serviceId) {
+        this.RatelApi.ratelCallStartedHookRoute({
+          callId: this.call.id,
+          clientId: this.User.getData('id'),
+          expertId: expertId,
+          serviceId: this.serviceId,
+          timestamp: Date.now()
+        }).then(
+          (res) => this.$log.debug('Hook Start', res),
+          (err) => this.$log.error('Hook Start error:', err)
+        )
+      }
+    }
 
     private stopHookMock = () => {
       if (this.call) {
-        this.RatelApi.ratelCallStoppedHook({
+        this.RatelApi.ratelCallStoppedHookRoute({
           callId: this.call.id,
           timestamp: Date.now()
-        }).$promise.then(
-          (res: any) => this.$log.debug('Hook Stop', res),
-          (err: any) => this.$log.error('Hook Stop error:', err)
+        }).then(
+          (res) => this.$log.debug('Hook Stop', res),
+          (err) => this.$log.error('Hook Stop error:', err)
         )
       }
     }
@@ -259,7 +264,7 @@ namespace profitelo.services.call {
       })
     }
 
-    private createTimer = (price: Money, freeMinutesCount: number) =>
+    private createTimer = (price: MoneyDto, freeMinutesCount: number) =>
       this.timer = this.timerFactory.getInstance(
         price, freeMinutesCount, CallService.moneyChangeNotificationInterval)
 
@@ -267,10 +272,10 @@ namespace profitelo.services.call {
       if (this.timer) this.timer.start(this.onTimeMoneyChange)
     }
 
-    private onTimeMoneyChange = (timeMoneyTuple: {time: number, money: Money}) =>
+    private onTimeMoneyChange = (timeMoneyTuple: {time: number, money: MoneyDto}) =>
       this.callbacks.notify(CallService.events.onTimeCostChange, timeMoneyTuple)
 
-    private onExpertCallAnsweredEvent = (serviceInvitationTuple: {service: Service, invitation: any}) => {
+    private onExpertCallAnsweredEvent = (serviceInvitationTuple: {service: GetService, invitation: any}) => {
       this.soundsService.callIncomingSound().stop()
       this.serviceId = serviceInvitationTuple.service.id
 
@@ -288,7 +293,7 @@ namespace profitelo.services.call {
       })
       this.call.onLeft(this.onExpertCallEnd)
 
-      this.createTimer(serviceInvitationTuple.service.details.price, this.serviceFreeMinutesCount)
+      this.createTimer(serviceInvitationTuple.service.details!.price, this.serviceFreeMinutesCount)
       this.startTimer()
 
       this.hangupFunction = this.expertHangupCall
@@ -302,7 +307,7 @@ namespace profitelo.services.call {
       alert("Call does not exist anymore")
     }
 
-    private answerCall = (serviceInvitationTuple: {service: Service, invitation: any}) =>
+    private answerCall = (serviceInvitationTuple: {service: GetService, invitation: any}) =>
       this.navigatorService.getUserMediaStream()
         .then(_localStream => {
             this.setLocalStream(_localStream)
@@ -327,7 +332,7 @@ namespace profitelo.services.call {
       this.callbacks.notify(CallService.events.onCallEnd, null)
     }
 
-    private onExpertCallIncoming = (serviceInvitationTuple: {service: Service, invitation: any}) => {
+    private onExpertCallIncoming = (serviceInvitationTuple: {service: GetService, invitation: any}) => {
       this.soundsService.callIncomingSound().play()
 
       serviceInvitationTuple.invitation.call.onEnd(this.onExpertCallDisappearBeforeAnswering)
@@ -399,13 +404,13 @@ namespace profitelo.services.call {
       this.soundsService.callConnectingSound().stop()
     }
 
-    private onAddSUR = (serviceUsageRequest: ServiceUsageRequest) => {
+    private onAddSUR = (serviceUsageRequest: GetServiceUsageRequest) => {
 
       const _service = serviceUsageRequest.service
       const agentId = serviceUsageRequest.agentId
 
       this.serviceId = _service.id
-      this.createTimer(_service.details.price, this.serviceFreeMinutesCount)
+      this.createTimer(_service.details!.price, this.serviceFreeMinutesCount)
 
       this.callbacks.notify(CallService.events.onClientCallPending, {
         expert: serviceUsageRequest.expert,
@@ -446,16 +451,17 @@ namespace profitelo.services.call {
 
       this.isConnecting = true
 
-      return this.ServiceApi.addServiceUsageRequest({serviceId: _serviceId})
-        .$promise
+      return this.ServiceApi.addServiceUsageRequestRoute(_serviceId, {})
         .then(this.onAddSUR, this.onAddSURError)
+
     }
   }
 
   angular.module('profitelo.services.call', [
     'profitelo.services.navigator',
     'profitelo.services.communicator',
-    'profitelo.swaggerResources',
+    'profitelo.api.RatelApi',
+    'profitelo.api.ServiceApi',
     'profitelo.services.timer',
     'profitelo.services.callbacks',
     'profitelo.services.modals',

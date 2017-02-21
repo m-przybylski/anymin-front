@@ -5,9 +5,8 @@ namespace profitelo.services.messenger {
   import ICallbacksFactory = profitelo.services.callbacks.ICallbacksFactory
   import ICallbacksService = profitelo.services.callbacks.ICallbacksService
   import ISoundsService = profitelo.services.sounds.ISoundsService
-  import Profile = profitelo.models.Profile
-  import ExpertProfile = profitelo.models.ExpertProfile
-  import Service = profitelo.models.Service
+  import GetProfile = profitelo.api.GetProfile
+  import GetService = profitelo.api.GetService
 
   export interface IMessengerService {
     onClientTyping(cb: () => void): void
@@ -17,7 +16,7 @@ namespace profitelo.services.messenger {
     onExpertMark(cb: () => void): void
     onExpertMessage(cb: (msg: any) => void): void
     onChatLeft(cb: () => void): void
-    onClientCreatingRoom(cb: (expert: Profile) => void): void
+    onClientCreatingRoom(cb: (expert: GetProfile) => void): void
     onExpertCreatedRoom(cb: () => void): void
     getHistory(): ng.IPromise<any>
     getUsers(): ng.IPromise<any>
@@ -78,7 +77,7 @@ namespace profitelo.services.messenger {
     public onChatLeft = (cb: () => void): void =>
       this.callbacks.methods.onChatLeft(cb)
 
-    public onClientCreatingRoom = (cb: (expert: Profile) => void): void =>
+    public onClientCreatingRoom = (cb: (expert: GetProfile) => void): void =>
       this.callbacks.methods.onClientCreatingRoom(cb)
 
     public onExpertCreatedRoom = (cb: () => void): void =>
@@ -161,7 +160,7 @@ namespace profitelo.services.messenger {
     private onExpertCreateDirectRoomError = (err: any) =>
       this.$log.error(err)
 
-    private createExpertDirectRoom = (serviceInvitationTuple: {service: Service, invitation: any}) => {
+    private createExpertDirectRoom = (serviceInvitationTuple: {service: GetService, invitation: any}) => {
       if (this.room) {
         this.$log.error('Message room already exists')
         return void(0)
@@ -217,7 +216,7 @@ namespace profitelo.services.messenger {
       }
     }
 
-    private onClientCreatingRoomEvent = (data: {expert: ExpertProfile, service: Service}) =>
+    private onClientCreatingRoomEvent = (data: {expert: GetProfile, service: GetService}) =>
       this.callbacks.notify(MessengerService.events.onClientCreatingRoom, data.expert)
 
   }

@@ -98,7 +98,8 @@ namespace profitelo.controllers.serviceProvider.serviceProviderStepController {
 
 
   angular.module('profitelo.common.controller.service-provider.service-provider-step-controller', [
-    'profitelo.services.smooth-scrolling'
+    'profitelo.services.smooth-scrolling',
+    'profitelo.api.ProfileApi'
   ])
     .controller('ServiceProviderStepController', ServiceProviderStepController)
 }

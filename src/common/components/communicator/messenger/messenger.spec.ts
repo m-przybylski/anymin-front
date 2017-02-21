@@ -1,6 +1,6 @@
 namespace profitelo.components.communicator.messenger {
 
-  import Money = profitelo.models.Money
+  import MoneyDto = profitelo.api.MoneyDto
 
   describe('Unit testing: profitelo.components.communicator.messenger', () => {
     return describe('for messenger component >', () => {
@@ -14,7 +14,7 @@ namespace profitelo.components.communicator.messenger {
 
       const bindings: IMessengerComponentBindings = {
         callLength: 0,
-        callCost: new Money(0, 'PLN'),
+        callCost: <MoneyDto>{amount: 0, currency: 'PLN'},
         isMessenger: false
       }
 

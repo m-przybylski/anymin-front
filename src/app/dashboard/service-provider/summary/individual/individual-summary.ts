@@ -1,16 +1,17 @@
 namespace profitelo.dashboard.serviceProvider.summary.individual {
 
   import IFilterService = profitelo.services.filter.IFilterService
-  import CompanyProfile = profitelo.models.CompanyProfile
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import IDialogService = profitelo.services.dialog.IDialogService
   import ICommunicatorService = profitelo.services.communicator.ICommunicatorService
-  import Service = profitelo.models.Service
-  import ExpertProfile = profitelo.models.ExpertProfile
   import IServiceProviderImageService = profitelo.resolvers.serviceProviderImage.IServiceProviderImageService
+  import IProfileApi = profitelo.api.IProfileApi
+  import GetProfileWithServices = profitelo.api.GetProfileWithServices
+  import IServiceApi = profitelo.api.IServiceApi
 
   function IndividualSummaryController($log: ng.ILogService, $state: ng.ui.IStateService, $scope: ng.IScope,
-                                       $filter: IFilterService, savedProfile: CompanyProfile, ServiceApi: any,
+                                       $filter: IFilterService, savedProfile: GetProfileWithServices,
+                                       ServiceApi: IServiceApi,
                                        topAlertService: ITopAlertService, profileImage: string,
                                        dialogService: IDialogService, communicatorService: ICommunicatorService) {
 
@@ -40,7 +41,7 @@ namespace profitelo.dashboard.serviceProvider.summary.individual {
 
 
     this.verifyProfile = ()=> {
-      ServiceApi.postServicesVerify().$promise.then((_res: any)=> {
+      ServiceApi.postServicesVerifyRoute().then((_res)=> {
         $state.go('app.dashboard.client.favourites')
         communicatorService.authenticate()
         topAlertService.success({
@@ -70,9 +71,7 @@ namespace profitelo.dashboard.serviceProvider.summary.individual {
         cost: price
       }
       this.updateConsultation = () => {
-        ServiceApi.putService({
-          serviceId: id
-        }, {
+        ServiceApi.putServiceRoute(id, {
           details: {
             name: this.editModel.name,
             tags: this.editModel.tags,
@@ -82,7 +81,7 @@ namespace profitelo.dashboard.serviceProvider.summary.individual {
             }
           },
           invitations: []
-        }).$promise.then(() => {
+        }).then(() => {
           $state.reload()
         })
       }
@@ -95,14 +94,12 @@ namespace profitelo.dashboard.serviceProvider.summary.individual {
         let _index = localIndex
 
         this.modalCallback = () => {
-          ServiceApi.deleteService({
-            serviceId: _id
-          }).$promise.then((_res: any)=> {
+          ServiceApi.deleteServiceRoute(_id).then((_res)=> {
             this.consultations.splice(_index, 1)
             if (this.consultations.length === 0) {
               $state.go('app.dashboard.service-provider.consultation-range.company')
             }
-          }, (err: any) => {
+          }, (err) => {
             $log.error(err)
             topAlertService.error({
               message: 'error',
@@ -131,7 +128,7 @@ namespace profitelo.dashboard.serviceProvider.summary.individual {
     'profitelo.directives.service-provider.pro-service-provider-summary-step',
     'c7s.ng.userAuth',
     'profitelo.resolvers.service-provider-image',
-    'profitelo.swaggerResources',
+    'profitelo.api.ServiceApi',
     'profitelo.directives.interface.pro-alert'
   ])
     .config(function($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
@@ -142,28 +139,27 @@ namespace profitelo.dashboard.serviceProvider.summary.individual {
         controllerAs: 'vm',
         resolve: {
           /* istanbul ignore next */
-          savedProfile: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: any,
-                         lodash: _.LoDashStatic, User: any, ServiceApi: any, topAlertService: ITopAlertService) => {
+          savedProfile: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: IProfileApi,
+                         lodash: _.LoDashStatic, User: any, ServiceApi: IServiceApi, topAlertService: ITopAlertService) => {
             /* istanbul ignore next */
-            let _deferred = $q.defer<ExpertProfile | null>()
+            let _deferred = $q.defer<GetProfileWithServices | null>()
             /* istanbul ignore next */
             User.getStatus().then(() => {
-              ProfileApi.getProfileWithServices({
-                profileId: User.getData('id')
-              }).$promise.then((profileWithServices: ExpertProfile) => {
-                ServiceApi.postServicesTags({
-                  serviceIds: lodash.map(profileWithServices.services, 'id')
-                }).$promise.then((servicesTags: Array<Service>) => {
+              ProfileApi.getProfileWithServicesRoute(User.getData('id')).then((profileWithServices) => {
+
+                ServiceApi.postServicesTagsRoute({
+                  serviceIds: lodash.map(profileWithServices.services, service => service.id)
+                }).then((servicesTags) => {
 
                   profileWithServices.services.forEach((service) => {
-                    service.details.tags = lodash.head(
-                      lodash.filter(servicesTags, (serviceTags: any) => service.id === serviceTags.serviceId)).tags
+                    (<any>service.details).tags = lodash.head(
+                      lodash.filter(servicesTags, (serviceTags) => service.id === serviceTags.serviceId)).tags
                   })
                   _deferred.resolve(profileWithServices)
                 })
-              }, () => {
-                _deferred.resolve(null)
-              }, (error: any)=> {
+              }, (err) => {
+                _deferred.reject(err)
+              }, (error)=> {
                 _deferred.reject(error)
                 $state.go('app.dashboard')
                 topAlertService.error({
@@ -182,9 +178,15 @@ namespace profitelo.dashboard.serviceProvider.summary.individual {
             /* istanbul ignore next */
             return _deferred.promise
           },
-          profileImage: (ServiceProviderImageResolver: IServiceProviderImageService, savedProfile: ExpertProfile) => {
+          profileImage: (ServiceProviderImageResolver: IServiceProviderImageService,
+                         savedProfile: GetProfileWithServices, $q: ng.IQService) => {
             /* istanbul ignore next */
-            return ServiceProviderImageResolver.resolve(savedProfile.expertDetails.avatar || '')
+            if (savedProfile.expertDetails) {
+              return ServiceProviderImageResolver.resolve(savedProfile.expertDetails.avatar || '')
+            }
+            else {
+              return $q.resolve('')
+            }
           }
         },
         data: {

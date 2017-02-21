@@ -61,7 +61,7 @@ import ITopWaitingLoaderService = profitelo.services.topWaitingLoader.ITopWaitin
 
     it('should redirect to app-login.set-new-password', ()=> {
       spyOn($state, 'go')
-      resourcesExpectations.RecoverPasswordApi.postRecoverPasswordVerifyMsisdn.respond(200)
+      resourcesExpectations.RecoverPasswordApi.postRecoverPasswordVerifyMsisdn.respond(200, {})
       ForgotPasswordController.submitSmsVerificationCode()
       httpBackend.flush()
       expect($state.go).toHaveBeenCalledWith( 'app.login.set-new-password', Object({ token: 'undefined', method: 'sms' }) )

@@ -2,6 +2,9 @@ namespace profitelo.services.call {
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
   import ICommunicatorService = profitelo.services.communicator.ICommunicatorService
   import INavigatorService = profitelo.services.navigator.INavigatorService
+  import IRatelApi = profitelo.api.IRatelApi
+  import IServiceApi = profitelo.api.IServiceApi
+  import GetServiceUsageRequest = profitelo.api.GetServiceUsageRequest
   describe('Unit testing: profitelo.services.call >', () => {
     describe('for profitelo.services.call >', () => {
 
@@ -22,19 +25,35 @@ namespace profitelo.services.call {
         onCall: (cb: any) => onCall = cb
       }
 
-      const testSUR = {
+      const testSUR: GetServiceUsageRequest = {
         agentId: '123',
+        freeSeconds: 0,
         service: {
           id: '123',
+          usageCounter: 0,
+          ownerId: '',
+          usageDurationInSeconds: 0,
+          invitations: [],
+          createdAt: 0,
+          ownerEmployee: false,
+          rating: 0,
+          status: 'ACCEPTED',
           details: {
+            name: '',
             price: {
               amount: 100,
               currency: 'PLN'
             }
           }
         },
+        tags: [],
         expert: {
-          id: '121'
+          id: '121',
+          isActive: true
+        },
+        profile: {
+          id: '121',
+          isActive: true
         }
       }
       const call = {
@@ -143,15 +162,16 @@ namespace profitelo.services.call {
           $rootScope.$digest()
         }))
 
-      it('should startCall with error and show service unavailable', inject(($q: ng.IQService, $rootScope: IRootScopeService, communicatorService: ICommunicatorService, ServiceApi: any) => {
+      it('should startCall with error and show service unavailable', inject(($q: ng.IQService, $rootScope: IRootScopeService, communicatorService: ICommunicatorService, ServiceApi: IServiceApi) => {
         const serviceId = '1'
         const err = 'error'
 
         communicatorService.getClientSession = () => {
           return {}
         }
-        ServiceApi.addServiceUsageRequest = () => {
-          return {$promise: $q.reject(err)}
+
+        ServiceApi.addServiceUsageRequestRoute = (_x: any) => {
+          return $q.reject(err)
         }
 
         spyOn(modalsService, 'createServiceUnavailableModal')
@@ -167,7 +187,7 @@ namespace profitelo.services.call {
 
       it('should create direct call with error and log it', inject(
         ($q: ng.IQService, $log: ng.ILogService, $rootScope: IRootScopeService,
-         communicatorService: ICommunicatorService, ServiceApi: any, navigatorService: INavigatorService) => {
+         communicatorService: ICommunicatorService, ServiceApi: IServiceApi, navigatorService: INavigatorService) => {
           const serviceId = '1'
           const session = {
             chat: {
@@ -179,8 +199,9 @@ namespace profitelo.services.call {
           communicatorService.getClientSession = () => {
             return session
           }
-          ServiceApi.addServiceUsageRequest = () => {
-            return {$promise: $q.resolve(testSUR)}
+
+          ServiceApi.addServiceUsageRequestRoute = () => {
+            return $q.resolve(testSUR)
           }
 
           spyOn($log, 'error')
@@ -193,7 +214,7 @@ namespace profitelo.services.call {
         }))
 
       it('should startCall', inject(($q: ng.IQService, $rootScope: IRootScopeService,
-                                     communicatorService: ICommunicatorService, ServiceApi: any,
+                                     communicatorService: ICommunicatorService, ServiceApi: IServiceApi,
                                      navigatorService: INavigatorService) => {
         const serviceId = '1'
 
@@ -207,8 +228,8 @@ namespace profitelo.services.call {
         communicatorService.getClientSession = () => {
           return session
         }
-        ServiceApi.addServiceUsageRequest = () => {
-          return {$promise: $q.resolve(testSUR)}
+        ServiceApi.addServiceUsageRequestRoute = (_x: any) => {
+          return <ng.IPromise<GetServiceUsageRequest>>$q.resolve(testSUR)
         }
 
         callService.callServiceId(serviceId)
@@ -227,8 +248,8 @@ namespace profitelo.services.call {
       }))
 
       it('should hangup', inject(($q: ng.IQService, $rootScope: IRootScopeService,
-                                  communicatorService: ICommunicatorService, ServiceApi: any,
-                                  navigatorService: INavigatorService, RatelApi: any) => {
+                                  communicatorService: ICommunicatorService, ServiceApi: IServiceApi,
+                                  navigatorService: INavigatorService, RatelApi: IRatelApi) => {
         const serviceId = '1'
 
         const _call = angular.copy(call)
@@ -242,8 +263,8 @@ namespace profitelo.services.call {
 
         navigatorService.getUserMediaStream = () => $q.resolve<MediaStream>(<any>{})
         communicatorService.getClientSession = () => session
-        ServiceApi.addServiceUsageRequest = () => ({$promise: $q.resolve(testSUR)})
-        RatelApi.ratelCallStoppedHook = () => ({$promise: $q.resolve('')})
+        ServiceApi.addServiceUsageRequestRoute = () => $q.resolve(testSUR)
+        RatelApi.ratelCallStoppedHookRoute = () => $q.resolve('')
 
         callService.callServiceId(serviceId)
         $rootScope.$digest()
@@ -254,7 +275,7 @@ namespace profitelo.services.call {
       }))
 
       it('should start video&audio', inject(($q: ng.IQService, $rootScope: IRootScopeService,
-                                             communicatorService: ICommunicatorService, ServiceApi: any,
+                                             communicatorService: ICommunicatorService, ServiceApi: IServiceApi,
                                              navigatorService: INavigatorService) => {
         const serviceId = '1'
 
@@ -268,8 +289,8 @@ namespace profitelo.services.call {
         communicatorService.getClientSession = () => {
           return session
         }
-        ServiceApi.addServiceUsageRequest = () => {
-          return {$promise: $q.resolve(testSUR)}
+        ServiceApi.addServiceUsageRequestRoute = () => {
+          return $q.resolve(testSUR)
         }
 
         callService.callServiceId(serviceId)

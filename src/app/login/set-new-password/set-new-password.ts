@@ -6,6 +6,7 @@ namespace profitelo.login.setNewPassword {
   import ILoginSetNewPassword = profitelo.resolvers.loginSetNewPassword.ILoginSetNewPassword
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
+  import IRecoverPasswordApi = profitelo.api.IRecoverPasswordApi
 
   export interface ISetNewPasswordStateParams {
     token: string
@@ -14,9 +15,10 @@ namespace profitelo.login.setNewPassword {
 
   function SetNewPasswordController($state: ng.ui.IStateService, $filter: IFilterService,
                                     tokenStatus: ILoginSetNewPassword, passwordStrengthService: IPasswordStrengthService,
-                                    topAlertService: ITopAlertService, RecoverPasswordApi: any,
-                                    CommonSettingsService: ICommonSettingsService) {
+                                    topAlertService: ITopAlertService, RecoverPasswordApi: IRecoverPasswordApi,
+                                    CommonSettingsService: ICommonSettingsService, $log: ng.ILogService) {
 
+    this.newPassword = ''
     this.patternPassword = CommonSettingsService.localSettings.passwordPattern
 
     let _passwordChangeError = () => {
@@ -37,12 +39,32 @@ namespace profitelo.login.setNewPassword {
 
     let _submitPasswordChangeBySms = () => {
       (<any>tokenStatus.payload).password = this.newPassword
-      RecoverPasswordApi.putRecoverPasswordMsisdn(tokenStatus.payload).$promise.then(_passwordChangeSuccess, _passwordChangeError)
+
+      if (tokenStatus.payload.msisdn) {
+        const putRecoverPassword = {
+          password: this.newPassword.toString(),
+          token: tokenStatus.payload.token,
+          msisdn: tokenStatus.payload.msisdn
+        }
+
+        RecoverPasswordApi.putRecoverPasswordMsisdnRoute(putRecoverPassword)
+          .then(_passwordChangeSuccess, _passwordChangeError)
+      }
+      else {
+        $log.error('Msisdn is missing')
+      }
     }
 
     let _submitPasswordChangeByEmail = () => {
       (<any>tokenStatus).payload.password = this.newPassword
-      RecoverPasswordApi.putRecoverPasswordEmail(tokenStatus.payload).$promise.then(_passwordChangeSuccess, _passwordChangeError)
+
+      const putRecoverPassword = {
+        password: this.newPassword.toString(),
+        token: tokenStatus.payload.token
+      }
+
+      RecoverPasswordApi.putRecoverPasswordEmailRoute(putRecoverPassword)
+        .then(_passwordChangeSuccess, _passwordChangeError)
     }
 
 
@@ -94,7 +116,7 @@ namespace profitelo.login.setNewPassword {
     'profitelo.services.password-strength',
     'profitelo.resolvers.login-set-new-password',
     'profitelo.services.commonSettings',
-    'profitelo.swaggerResources',
+    'profitelo.api.RecoverPasswordApi',
     'profitelo.directives.interface.pro-alert',
     'profitelo.directives.interface.pro-input-password',
     'profitelo.directives.password-strength-bar',

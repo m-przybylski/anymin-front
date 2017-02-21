@@ -1,6 +1,9 @@
 namespace profitelo.dashboard.serviceProvider.consultationRange.individual {
-import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+
+  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import Profile = profitelo.models.Profile
+  import IServiceApi = profitelo.api.IServiceApi
+
   describe('Unit tests: profitelo.controller.dashboard.service-provider.consultation-range.individual >', () => {
   describe('Testing Controller: IndividualConsultationController', () => {
 
@@ -12,7 +15,7 @@ import ITopAlertService = profitelo.services.topAlert.ITopAlertService
     let resourcesExpectations: any
     let _httpBackend: ng.IHttpBackendService
     let _topAlertService: ITopAlertService
-    let _ServiceApi: any
+    let _ServiceApi: IServiceApi
     let _controller: any
 
     function createController(controller: any, savedProfile: Profile | null, profileImage: string) {
@@ -35,7 +38,7 @@ import ITopAlertService = profitelo.services.topAlert.ITopAlertService
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.controller.dashboard.service-provider.consultation-range.individual')
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $httpBackend: ng.IHttpBackendService,
-              $injector: ng.auto.IInjectorService, _$state_: ng.ui.IStateService, _ServiceApi_: any,
+              $injector: ng.auto.IInjectorService, _$state_: ng.ui.IStateService, _ServiceApi_: IServiceApi,
               _topAlertService_: ITopAlertService) => {
 
         _scope = $rootScope.$new()
@@ -71,7 +74,7 @@ import ITopAlertService = profitelo.services.topAlert.ITopAlertService
 
     it('should be able to save conslultation', () => {
 
-      resourcesExpectations.ServiceApi.postService.respond(200)
+      resourcesExpectations.ServiceApi.postService.respond(200, {})
 
       spyOn(_state, 'reload')
 
@@ -122,7 +125,7 @@ import ITopAlertService = profitelo.services.topAlert.ITopAlertService
 
     it('should delete requested consultation', () => {
 
-      resourcesExpectations.ServiceApi.deleteService.respond(200)
+      resourcesExpectations.ServiceApi.deleteService.respond(200, {})
 
       IndividualConsultationController.consultations = []
 

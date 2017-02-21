@@ -3,14 +3,16 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.individual {
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import IDialogService = profitelo.services.dialog.IDialogService
   import IServiceProviderService = profitelo.services.serviceProvider.IServiceProviderService
-  import Tag = profitelo.models.Tag
   import IServiceProviderImageService = profitelo.resolvers.serviceProviderImage.IServiceProviderImageService
   import ExpertProfile = profitelo.models.ExpertProfile
-  import Profile = profitelo.models.Profile
-  import Service = profitelo.models.Service
+  import IProfileApi = profitelo.api.IProfileApi
+  import GetProfileWithServices = profitelo.api.GetProfileWithServices
+  import IServiceApi = profitelo.api.IServiceApi
+  import Tag = profitelo.api.Tag
 
   function IndividualConsultationController($log: ng.ILogService, $scope: ng.IScope, $state: ng.ui.IStateService,
-                                            savedProfile: ExpertProfile, ServiceApi: any, topAlertService: ITopAlertService,
+                                            savedProfile: GetProfileWithServices, ServiceApi: IServiceApi,
+                                            topAlertService: ITopAlertService,
                                             profileImage: string, dialogService: IDialogService,
                                             serviceProviderService: IServiceProviderService) {
 
@@ -37,7 +39,7 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.individual {
     }
 
     let _postConsultationMethod = (callback: Function) => {
-      ServiceApi.postService({
+      ServiceApi.postServiceRoute({
         details: {
           name: this.costModel.name,
           tags: this.costModel.tags,
@@ -47,12 +49,12 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.individual {
           }
         },
         invitations: []
-      }).$promise.then((res: any) => {
+      }).then((res) => {
 
         if (angular.isDefined(res) && typeof callback === 'function') {
           callback()
         }
-      }, (err: any)=> {
+      }, (err) => {
         $log.error(err)
         topAlertService.error({
           message: 'error',
@@ -69,7 +71,7 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.individual {
       return this.queue.completedSteps
     }, _calculateProgressPercentage)
 
-    this.backToFirstStep = ()=> {
+    this.backToFirstStep = () => {
       serviceProviderService.backToFirstStep(savedProfile.expertDetails, savedProfile.organizationDetails)
     }
 
@@ -104,9 +106,7 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.individual {
         cost: price
       }
       this.updateConsultation = () => {
-        ServiceApi.putService({
-          serviceId: id
-        }, {
+        ServiceApi.putServiceRoute(id, {
           details: {
             name: this.editModel.name,
             tags: this.editModel.tags,
@@ -116,7 +116,7 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.individual {
             }
           },
           invitations: []
-        }).$promise.then(() => {
+        }).then(() => {
           $state.reload()
         })
       }
@@ -128,11 +128,9 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.individual {
         let _index = localIndex
 
         this.modalCallback = () => {
-          ServiceApi.deleteService({
-            serviceId: _id
-          }).$promise.then((_res: any)=> {
+          ServiceApi.deleteServiceRoute(_id).then((_res) => {
             this.consultations.splice(_index, 1)
-          }, (err: any) => {
+          }, (err) => {
             $log.error(err)
             topAlertService.error({
               message: 'error',
@@ -165,7 +163,7 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.individual {
     'profitelo.services.service-provider',
     'profitelo.common.controller.accept-reject-dialog-controller',
     'c7s.ng.userAuth',
-    'profitelo.swaggerResources',
+    'profitelo.api.ServiceApi',
     'profitelo.services.top-alert',
     'profitelo.resolvers.service-provider-image',
     'profitelo.directives.service-provider.pro-bottom-summary-row',
@@ -176,37 +174,38 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.individual {
     'profitelo.directives.interface.pro-alert',
     'profitelo.directives.service-provider.pro-service-provider-profile'
   ])
-    .config( function($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
+    .config(function ($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
       $stateProvider.state('app.dashboard.service-provider.consultation-range.individual', {
 
-        url:          '/individual',
-        templateUrl:  'dashboard/service-provider/consultation-range/individual/individual-consultation.tpl.html',
-        controller:   'IndividualConsultationController',
+        url: '/individual',
+        templateUrl: 'dashboard/service-provider/consultation-range/individual/individual-consultation.tpl.html',
+        controller: 'IndividualConsultationController',
         controllerAs: 'vm',
         resolve: {
           /* istanbul ignore next */
-          savedProfile: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: any,
-                         lodash: _.LoDashStatic, User: any, ServiceApi: any, topAlertService: ITopAlertService) => {
+          savedProfile: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: IProfileApi,
+                         lodash: _.LoDashStatic, User: any, ServiceApi: IServiceApi, topAlertService: ITopAlertService) => {
             /* istanbul ignore next */
-            let _deferred = $q.defer<Profile | null>()
+            let _deferred = $q.defer<GetProfileWithServices | null>()
             /* istanbul ignore next */
             User.getStatus().then(() => {
-              ProfileApi.getProfileWithServices({
-                profileId: User.getData('id')
-              }).$promise.then((profileWithServices: Profile) => {
-                ServiceApi.postServicesTags({
-                  serviceIds: lodash.map(profileWithServices.services, 'id')
-                }).$promise.then((servicesTags: Array<Service>) => {
+              ProfileApi.getProfileWithServicesRoute(User.getData('id')).then((response) => {
+                const profileWithServices: GetProfileWithServices = response
+                ServiceApi.postServicesTagsRoute({
+                  serviceIds: lodash.map(profileWithServices.services, service => service.id)
+                }).then((servicesTags) => {
+
 
                   profileWithServices.services.forEach((service) => {
-                    service.details.tags = lodash.head(
-                      lodash.filter(servicesTags, (serviceTags: any) => service.id === serviceTags.serviceId)).tags
+                    // FIXME remove any
+                    (<any>service.details).tags = lodash.head(
+                      lodash.filter(servicesTags, (serviceTags) => service.id === serviceTags.serviceId)).tags
                   })
                   _deferred.resolve(profileWithServices)
                 })
               }, () => {
                 _deferred.resolve(null)
-              }, (error: any)=> {
+              }, (error: any) => {
                 _deferred.reject(error)
                 $state.go('app.dashboard')
                 topAlertService.error({
@@ -232,7 +231,7 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.individual {
 
         },
         data: {
-          access : UserRolesProvider.getAccessLevel('user'),
+          access: UserRolesProvider.getAccessLevel('user'),
           pageTitle: 'PAGE_TITLE.DASHBOARD.SERVICE_PROVIDER.CONSULTATION_RANGE',
           showMenu: false
         }

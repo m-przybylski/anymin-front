@@ -1,12 +1,14 @@
 namespace profitelo.directives.serviceProvider.proServiceProviderAvatar {
 
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+  import IFilesApi = profitelo.api.IFilesApi
 
   interface Attributes extends ng.IAttributes{
     imageField?: string
   }
 
-  function proServiceProviderAvatar($log: ng.ILogService, $q: ng.IQService, topAlertService: ITopAlertService, FilesApi: any) {
+  function proServiceProviderAvatar($log: ng.ILogService, $q: ng.IQService, topAlertService: ITopAlertService,
+                                    FilesApi: IFilesApi) {
 
     function linkFunction(scope: any, _element: ng.IRootElementService, attrs: Attributes) {
 
@@ -31,7 +33,7 @@ namespace profitelo.directives.serviceProvider.proServiceProviderAvatar {
       scope.model[scope.imageField] = []
 
       let _getImageIfExist = (model: any) => {
-        FilesApi.fileInfoPath({token: model}).$promise.then((res: any) => {
+        FilesApi.fileInfoPath(model).then((res) => {
           scope.model[scope.imageField].push({file: null, response: res})
           scope.isPending = false
         }, (err: any) => {

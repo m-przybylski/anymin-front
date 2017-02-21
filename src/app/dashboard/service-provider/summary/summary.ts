@@ -9,7 +9,7 @@
     'ui.router',
     'profitelo.directives.service-provider.pro-service-provider-summary-step',
     'c7s.ng.userAuth',
-    'profitelo.swaggerResources',
+    'profitelo.api.ServiceApi',
     'profitelo.directives.interface.pro-alert'
   ])
   .config(($stateProvider: ng.ui.IStateProvider) => {

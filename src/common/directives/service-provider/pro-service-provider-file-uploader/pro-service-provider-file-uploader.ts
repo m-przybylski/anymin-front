@@ -1,8 +1,10 @@
 namespace profitelo.directives.serviceProvider.proServiceProviderFileUploader {
 
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+  import IFilesApi = profitelo.api.IFilesApi
 
-  function proServiceProviderFileUploader($log: ng.ILogService, $q: ng.IQService, topAlertService: ITopAlertService, FilesApi: any) {
+  function proServiceProviderFileUploader($log: ng.ILogService, $q: ng.IQService, topAlertService: ITopAlertService,
+                                          FilesApi: IFilesApi) {
 
     function linkFunction(scope: any, _element: ng.IRootElementService, attrs: ng.IAttributes) {
 
@@ -12,7 +14,7 @@ namespace profitelo.directives.serviceProvider.proServiceProviderFileUploader {
       scope.isPending = false
       if (angular.isDefined(scope.proModel) && angular.isDefined(scope.proModel.files)) {
         for (let i = 0; i < scope.proModel.files.length; i++) {
-          FilesApi.fileInfoPath({token: scope.proModel.files[i].token}).$promise.then((res: any) => {
+          FilesApi.fileInfoPath(scope.proModel.files[i].token).then((res) => {
             res.token = scope.proModel.files[i].token
             scope.model.files.push({file: res, response: res})
           }, (err: any) => {

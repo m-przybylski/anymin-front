@@ -1,8 +1,8 @@
 namespace profitelo.components.communicator.messenger.maximized {
 
-  import Money = profitelo.models.Money
   import IUrlService = profitelo.services.helper.IUrlService
   import IMessengerService = profitelo.services.messenger.IMessengerService
+  import MoneyDto = profitelo.api.MoneyDto
 
   describe('Unit testing: profitelo.components.communicator.messenger.maximized', () => {
     return describe('for messengerMaximized component >', () => {
@@ -14,7 +14,7 @@ namespace profitelo.components.communicator.messenger.maximized {
         '<maximized call-length="callLength" call-cost="callCost" minimize-messenger="minimizeMessenger"></maximized>'
 
       const bindings: IMessengerMaximizedComponentBindings = {
-        callCost: new Money(0, 'PLN'),
+        callCost: <MoneyDto>{amount: 0, currency: 'PLN'},
         callLength: 0,
         isMessenger: true,
         minimizeMessenger: () => {}

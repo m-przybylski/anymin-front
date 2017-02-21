@@ -1,9 +1,10 @@
 namespace profitelo.services.recommendedServices {
 
-  import Tag = profitelo.models.Tag
-  import ISearchResults = profitelo.services.search.ISearchResults
   import Service = profitelo.models.Service
   import ISearchResultRow = profitelo.services.search.ISearchResultRow
+  import ISearchApi = profitelo.api.ISearchApi
+  import SearchResult = profitelo.api.SearchResult
+  import Tag = profitelo.api.Tag
 
   interface ServiceWithTags {
     service: Service
@@ -18,10 +19,10 @@ namespace profitelo.services.recommendedServices {
   class RecommendedServicesService implements IRecommendedServicesService {
 
     constructor(private $q: ng.IQService, private $log: ng.ILogService, private lodash: _.LoDashStatic,
-                private SearchApi: any) {
+                private SearchApi: ISearchApi) {
     }
 
-    private _onFindRecommended = (recommendedProfiles: ISearchResults, servicesWithTags: Array<ServiceWithTags>) => {
+    private _onFindRecommended = (recommendedProfiles: SearchResult, servicesWithTags: Array<ServiceWithTags>) => {
       const currentConsultation = this.lodash.find(
         recommendedProfiles.results, row => row.id === servicesWithTags[0].service.id)
 
@@ -54,11 +55,10 @@ namespace profitelo.services.recommendedServices {
     public getRecommendedCompanies = (servicesWithTags: Array<ServiceWithTags>) => {
       const tagId = this._getTagId(servicesWithTags)
       if (tagId) {
-        return this.SearchApi.search({
-          'tag.id': tagId,
-          'profile.type': 'ORG',
-          'limit': 10
-        }).$promise.then((response: ISearchResults) =>
+        return this.SearchApi.searchRoute(
+          undefined, undefined, undefined, undefined, tagId, undefined,
+          'ORG', undefined, undefined, undefined, undefined, undefined, undefined, 10
+        ).then((response) =>
           this._onFindRecommended(response, servicesWithTags), this._onFindRecommendedError)
 
       } else {
@@ -69,11 +69,10 @@ namespace profitelo.services.recommendedServices {
     public getRecommendedExperts = (servicesWithTags: Array<ServiceWithTags>) => {
       const tagId = this._getTagId(servicesWithTags)
       if (tagId) {
-        return this.SearchApi.search({
-          'tag.id': tagId,
-          'profile.type': 'EXP',
-          'limit': 10
-        }).$promise.then((response: ISearchResults) =>
+        return this.SearchApi.searchRoute(
+          undefined, undefined, undefined, undefined, tagId, undefined, 'EXP', undefined, undefined, undefined,
+          undefined, undefined, undefined, 10
+        ).then((response) =>
           this._onFindRecommended(response, servicesWithTags), this._onFindRecommendedError)
       } else {
         return this.$q.resolve([])
@@ -82,7 +81,7 @@ namespace profitelo.services.recommendedServices {
   }
 
   angular.module('profitelo.services.recommended-services', [
-    'profitelo.swaggerResources',
+    'profitelo.api.SearchApi',
     'ngLodash',
     'c7s.ng.userAuth'
   ])

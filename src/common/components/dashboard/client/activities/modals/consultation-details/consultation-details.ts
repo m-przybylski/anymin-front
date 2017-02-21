@@ -1,40 +1,46 @@
 namespace profitelo.components.dashboard.client.activities.modals.consultationDetails {
 
-  import Tag = profitelo.models.Tag
-  import Money = profitelo.models.Money
-  import ClientDashboardCallDetails = profitelo.models.ClientDashboardCallDetails
   import IUrlService = profitelo.services.helper.IUrlService
+  import IServiceApi = profitelo.api.IServiceApi
+  import IViewsApi = profitelo.api.IViewsApi
+  import GetCallDetails = profitelo.api.GetCallDetails
+  import MoneyDto = profitelo.api.MoneyDto
+  import Tag = profitelo.api.Tag
 
-  interface IConsultationDetailsScope extends ng.IScope {
+  export interface IConsultationDetailsParentScope extends ng.IScope {
+    sueId: string
+  }
+
+  export interface IConsultationDetailsScope extends ng.IScope {
     isLoading: boolean
     expertAvatar?: string
     expertName?: string
     recommendedTags: Array<Tag>
     serviceName: string
     serviceId: string
-    callCost: Money
+    callCost: MoneyDto
     startedAt: Date
     callDuration: number
-    callCostPerMinute?: Money
+    callCostPerMinute?: MoneyDto
     isRecommended: boolean
     isRecommendable: boolean
-    sueId: string
     serviceTags: Array<Tag>
     onModalClose: Function
     isFullscreen: boolean
     isNavbar: boolean
+    $parent: IConsultationDetailsParentScope
   }
 
   function controller($log: ng.ILogService, $scope: IConsultationDetailsScope,
-                      $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, ServiceApi: any,
-                      urlService: IUrlService, ViewsApi: any) {
+                      $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, ServiceApi: IServiceApi,
+                      urlService: IUrlService, ViewsApi: IViewsApi) {
     $scope.isLoading = true
     $scope.isFullscreen = true
     $scope.isNavbar = true
     $scope.recommendedTags = []
     $scope.serviceTags = []
 
-    const onGetCallDetails = (callDetails: ClientDashboardCallDetails) => {
+    const onGetCallDetails = (callDetails: GetCallDetails) => {
 
       const onServiceTags = (res: any) => {
         openClientActivityModal(res[0] ? res[0].tags : [])
@@ -45,25 +51,25 @@ namespace profitelo.components.dashboard.client.activities.modals.consultationDe
       }
 
       const openClientActivityModal = (serviceTags: Array<Tag> = []) => {
-        const expertAvatarFileId = callDetails.expertProfile.expertDetails.avatar
+        const expertAvatarFileId = callDetails.expertProfile.expertDetails!.avatar
         $scope.expertAvatar = expertAvatarFileId ? urlService.resolveFileUrl(expertAvatarFileId) : undefined
-        $scope.expertName = callDetails.expertProfile.expertDetails.name
+        $scope.expertName = callDetails.expertProfile.expertDetails!.name
         $scope.recommendedTags = callDetails.recommendedTags
-        $scope.serviceName = callDetails.service.details.name
+        $scope.serviceName = callDetails.service.details!.name
         $scope.serviceId = callDetails.service.id
         $scope.callCost = callDetails.serviceUsageDetails.callCost
         $scope.startedAt = callDetails.serviceUsageDetails.startedAt
         $scope.callDuration = callDetails.serviceUsageDetails.callDuration
-        $scope.callCostPerMinute = callDetails.service.details.price
+        $scope.callCostPerMinute = callDetails.service.details!.price
         $scope.isRecommended = callDetails.isRecommended
         $scope.isRecommendable = callDetails.isRecommendable
         $scope.serviceTags = serviceTags
         $scope.isLoading = false
       }
 
-      ServiceApi.postServicesTags({
+      ServiceApi.postServicesTagsRoute({
         serviceIds: [callDetails.service.id]
-      }).$promise.then(onServiceTags, onServiceTagsError)
+      }).then(onServiceTags, onServiceTagsError)
     }
 
     const onGetCallDetailsError = (err: any) => {
@@ -71,9 +77,8 @@ namespace profitelo.components.dashboard.client.activities.modals.consultationDe
       $log.error(err)
     }
 
-    ViewsApi.getClientDashboardCallDetails({
-      sueId: $scope.sueId
-    }).$promise.then(onGetCallDetails, onGetCallDetailsError)
+    ViewsApi.getClientDashboardCallDetailsRoute($scope.$parent.sueId)
+      .then((res) => onGetCallDetails(res), onGetCallDetailsError)
 
 
     $scope.onModalClose = () =>
@@ -82,7 +87,8 @@ namespace profitelo.components.dashboard.client.activities.modals.consultationDe
 
   angular.module('profitelo.components.dashboard.client.activities.modals.consultation-details', [
     'ui.bootstrap',
-    'profitelo.swaggerResources',
+    'profitelo.api.ViewsApi',
+    'profitelo.api.ServiceApi',
     'profitelo.components.interface.preloader',
     'profitelo.directives.interface.scrollable',
     'profitelo.filters.milliseconds-to-datetime',

@@ -8,16 +8,17 @@ namespace profitelo.services.modals {
   import IUnavailableServiceControllerParentScope = profitelo.components.communicator.modals.serviceUnavailable.IUnavailableServiceControllerParentScope
   import INoCreditsControllerParentScope = profitelo.components.communicator.modals.noCredits.INoCreditsControllerParentScope
   import IBasicAccountSettingsControllerParentScope = profitelo.components.dashboard.settings.modals.general.basicAccountSettings.IBasicAccountSettingsControllerParentScope
-  import ClientActivity = profitelo.models.ClientActivity
-  import Service = profitelo.models.Service
   import IGeneralPhoneSettingsControllerScope = profitelo.components.dashboard.settings.modals.general.phoneSettings.IGeneralPhoneSettingsControllerScope
   import IGeneralEmailSettingsControllerScope = profitelo.components.dashboard.settings.modals.general.emailSettings.IGeneralEmailSettingsControllerScope
   import IGeneralCountrySettingsControllerScope = profitelo.components.dashboard.settings.modals.general.countrySettings.IGeneralCountrySettingsControllerScope
   import ISecurityChangePasswordSettingsControllerScope = profitelo.components.dashboard.settings.modals.security.changePassword.ISecurityChangePasswordSettingsControllerScope
   import ISecurityPinNumberSettingsControllerScope = profitelo.components.dashboard.settings.modals.security.pinNumber.ISecurityPinNumberSettingsControllerScope
+  import GetService = profitelo.api.GetService
+  import IConsultationDetailsParentScope = profitelo.components.dashboard.client.activities.modals.consultationDetails.IConsultationDetailsParentScope
+  import GetActivity = profitelo.api.GetActivity
 
   export interface IModalsService {
-    createIncomingCallModal(service: Service, answerCb: () => void, rejectCb: () => void): ng.ui.bootstrap.IModalServiceInstance
+    createIncomingCallModal(service: GetService, answerCb: () => void, rejectCb: () => void): ng.ui.bootstrap.IModalServiceInstance
     createNoFundsModal(acceptCb: () => void, rejectCb: () => void): ng.ui.bootstrap.IModalServiceInstance
     createServiceUnavailableModal(acceptCb: () => void, rejectCb: () => void): ng.ui.bootstrap.IModalServiceInstance
     createClientConsultationSummaryModal(id: string): ng.ui.bootstrap.IModalServiceInstance
@@ -38,7 +39,7 @@ namespace profitelo.services.modals {
 
     constructor(private $rootScope: IRootScopeService, private dialogService: IDialogService) {}
 
-    public createIncomingCallModal = (service: Service, answerCallback: Function, rejectCallback: Function) => {
+    public createIncomingCallModal = (service: GetService, answerCallback: Function, rejectCallback: Function) => {
       const dialogScope: IClientCallParentControllerScope = <IClientCallParentControllerScope>this.$rootScope.$new(true)
 
       dialogScope.service = service
@@ -119,7 +120,7 @@ namespace profitelo.services.modals {
         throw new Error('Expected sueId, got ' + sueId)
       }
 
-      const dialogScope: any = this.$rootScope.$new(true)
+      const dialogScope: IConsultationDetailsParentScope = <IConsultationDetailsParentScope>this.$rootScope.$new(true)
 
       dialogScope.sueId = sueId
       return this.dialogService.openDialog({
@@ -139,7 +140,7 @@ namespace profitelo.services.modals {
       })
     }
 
-    public createClientChargeDetailsModal = (financeActivityDetails: ClientActivity) => {
+    public createClientChargeDetailsModal = (financeActivityDetails: GetActivity) => {
       if (!financeActivityDetails) {
         throw new Error('Expected financeActivityDetails, got ' + financeActivityDetails)
       }

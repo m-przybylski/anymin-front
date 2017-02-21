@@ -1,5 +1,6 @@
 namespace profitelo.services.clientActivities {
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  import IViewsApi = profitelo.api.IViewsApi
 
   describe('Unit testing: profitelo.services.client-activities-service >', () => {
     describe('for profitelo.services.client-activities-service >', () => {
@@ -23,18 +24,16 @@ namespace profitelo.services.clientActivities {
         expect(true).toBeTruthy()
       })
 
-      it('should authenticate', inject(($q: ng.IQService, $rootScope: IRootScopeService, ViewsApi: any) => {
+      it('should authenticate', inject(($q: ng.IQService, $rootScope: IRootScopeService, ViewsApi: IViewsApi) => {
 
-        ViewsApi.getDashboardClientActivities = () => {
-          return {
-            $promise: $q.resolve({})
-          }
+        ViewsApi.getDashboardClientActivitiesRoute = () => {
+          return $q.resolve({})
         }
 
-        spyOn(ViewsApi, 'getDashboardClientActivities').and.callThrough()
+        spyOn(ViewsApi, 'getDashboardClientActivitiesRoute').and.callThrough()
         clientActivitiesService.resolve()
         $rootScope.$digest()
-        expect(ViewsApi.getDashboardClientActivities).toHaveBeenCalled()
+        expect(ViewsApi.getDashboardClientActivitiesRoute).toHaveBeenCalled()
       }))
 
       it('setClientActivitiesParam', () => {

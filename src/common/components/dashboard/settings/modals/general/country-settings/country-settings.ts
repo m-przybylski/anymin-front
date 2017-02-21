@@ -1,17 +1,13 @@
 namespace profitelo.components.dashboard.settings.modals.general.countrySettings {
 
   import IFilterService = profitelo.services.filter.IFilterService
+  import IAccountApi = profitelo.api.IAccountApi
+
   export interface IGeneralCountrySettingsControllerScope extends ng.IScope {
     isNavbar: boolean
     isFullscreen: boolean
     callback: () => void
     onModalClose: () => void
-  }
-
-  interface ICountryObject {
-    name: string,
-    currency: string,
-    iso: string
   }
 
   interface ICountryElementObject {
@@ -31,7 +27,7 @@ namespace profitelo.components.dashboard.settings.modals.general.countrySettings
 
     constructor(private $scope: IGeneralCountrySettingsControllerScope, private $filter: IFilterService,
                 private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
-                private AccountApi: any, private User: any, private lodash: _.LoDashStatic) {
+                private AccountApi: IAccountApi, private User: any, private lodash: _.LoDashStatic) {
 
       this.getCountriesList(() => {
         this.selectedCountry = this.lodash.find(
@@ -55,11 +51,11 @@ namespace profitelo.components.dashboard.settings.modals.general.countrySettings
 
     public setNewCountry = (): void => {
       if (!!this.selectedCountry) {
-        this.AccountApi.partialUpdateAccount({accountId: this.User.getData('id')}, {
+        this.AccountApi.partialUpdateAccountRoute(this.User.getData('id'), {
           countryISO: this.selectedCountry.value.countryISO,
-          currency: this.selectedCountry.value.currency
+          currencyUnit: this.selectedCountry.value.currency
         })
-        .$promise.then((_res: any) => {
+        .then(_res => {
           this.$scope.callback()
           this.$uibModalInstance.dismiss('cancel')
         }, (err: any) => {
@@ -69,9 +65,9 @@ namespace profitelo.components.dashboard.settings.modals.general.countrySettings
     }
 
     private getCountriesList = (callback: Function): void => {
-      this.AccountApi.getSupportedCountries().$promise.then((res: any) => {
-        this.countryList = res.map((country: ICountryObject) => {
-          return ({
+      this.AccountApi.getSupportedCountriesRoute().then(res => {
+        this.countryList = res.map((country) => {
+          return <ICountryElementObject>({
             name: (this.$filter('translate')(this.$filter('normalizeTranslationKey')(('COUNTRIES.' + country.iso)))),
             value: {
               countryISO: country.iso,
@@ -92,7 +88,7 @@ namespace profitelo.components.dashboard.settings.modals.general.countrySettings
     'ui.bootstrap',
     'pascalprecht.translate',
     'ngLodash',
-    'profitelo.swaggerResources',
+    'profitelo.api.AccountApi',
     'profitelo.directives.interface.pro-input',
     'profitelo.directives.interface.scrollable'
   ])

@@ -4,10 +4,11 @@ namespace profitelo.components.dashboard.chargeAccount.payuPaymentForm {
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
   import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
+  import IPaymentsApi = profitelo.api.IPaymentsApi
 
   /* @ngInject */
   function payuPaymentFormController($log: ng.ILogService, $window: IWindowService, $state: ng.ui.IStateService,
-                                     PaymentsApi: any, User: any, topAlertService: ITopAlertService,
+                                     PaymentsApi: IPaymentsApi, User: any, topAlertService: ITopAlertService,
                                      smoothScrollingService: ISmoothScrollingService,
                                      CommonSettingsService: ICommonSettingsService) {
     let isPending = false
@@ -17,14 +18,12 @@ namespace profitelo.components.dashboard.chargeAccount.payuPaymentForm {
     this.personalDataSectionId = 'personal-section'
     this.bankModel = {}
 
-    /* istanbul ignore next function*/
     this.onEnter = (option: number) => {
       if (option < 3) {
         $('[data-index="' + (option + 1).toString() + '"] input').focus()
       }
     }
 
-    /* istanbul ignore next function*/
     this.mailValidation = () => {
       return !angular.element('[data-index="3"]').find('input:focus')[0] && !this.emailModel
     }
@@ -46,10 +45,10 @@ namespace profitelo.components.dashboard.chargeAccount.payuPaymentForm {
 
         isPending = true
 
-        PaymentsApi.postPayUOrder(this.sendPaymentObject).$promise.then((response: any) => {
+        PaymentsApi.postPayUOrderRoute(this.sendPaymentObject).then((response) => {
           isPending = false
           $window.open(response.redirectUrl, '_self', undefined, true)
-        }, (error: any) => {
+        }, (error) => {
           $log.error(error)
           topAlertService.error({
             message: 'error',
@@ -121,7 +120,7 @@ namespace profitelo.components.dashboard.chargeAccount.payuPaymentForm {
 
 
   angular.module('profitelo.components.dashboard.charge-account.payu-payment-form', [
-    'profitelo.swaggerResources',
+    'profitelo.api.PaymentsApi',
     'profitelo.services.top-alert',
     'profitelo.services.commonSettings',
     'profitelo.directives.interface.pro-input',

@@ -4,11 +4,13 @@ namespace profitelo.postRegister.setPassword {
   import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
   import ITopWaitingLoaderService = profitelo.services.topWaitingLoader.ITopWaitingLoaderService
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+  import IAccountApi = profitelo.api.IAccountApi
+  import Account = profitelo.api.Account
 
   function _controller($log: ng.ILogService, $filter: ng.IFilterService, $state: ng.ui.IStateService,
                        topWaitingLoaderService: ITopWaitingLoaderService, passwordStrengthService: IPasswordStrengthService,
                        User: any, topAlertService: ITopAlertService, CommonSettingsService: ICommonSettingsService,
-                       AccountApi: any) {
+                       AccountApi: IAccountApi) {
 
     this.passwordStrength = 0
     this.password = ''
@@ -30,15 +32,15 @@ namespace profitelo.postRegister.setPassword {
       this.passwordStrength = passwordStrengthService.getStrength(password)
     }
 
-    let _updateNewUserObject = (patchObject: any, successCallback: Function) => {
+    let _updateNewUserObject = (patchObject: any, successCallback: (res: Account) => void) => {
       /* istanbul ignore next if */
       if (!this.isPending) {
         this.isPending = true
         topWaitingLoaderService.immediate()
 
-        patchObject.accountId = User.getData('id')
+        const accountId = User.getData('id')
 
-        AccountApi.partialUpdateAccount(patchObject).$promise.then(successCallback, (error: any) => {
+        AccountApi.partialUpdateAccountRoute(accountId, patchObject).then(successCallback, (error) => {
           this.isPending = false
           topWaitingLoaderService.stopLoader()
           $log.error(error)
@@ -93,7 +95,7 @@ namespace profitelo.postRegister.setPassword {
   angular.module('profitelo.controller.post-register.set-password', [
     'ui.router',
     'c7s.ng.userAuth',
-    'profitelo.swaggerResources',
+    'profitelo.api.AccountApi',
     'profitelo.services.commonSettings',
     'profitelo.services.password-strength',
     'profitelo.services.top-alert',
