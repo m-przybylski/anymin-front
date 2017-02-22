@@ -1,4 +1,4 @@
-namespace profitelo.components.dashboard.chargeAccount.payuPaymentForm {
+namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPaymentForm {
 
   import IWindowService = profitelo.services.window.IWindowService
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
