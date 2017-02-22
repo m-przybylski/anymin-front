@@ -179,7 +179,7 @@ namespace profitelo.dashboard.chargeAccount {
     'profitelo.directives.interface.pro-input',
     'profitelo.directives.interface.pro-checkbox',
     'profitelo.services.smooth-scrolling',
-    'profitelo.components.dashboard.charge-account.payu-payment-form',
+    'profitelo.components.dashboard.charge-account.payment-method.payu',
     'profitelo.components.dashboard.charge-account.choose-amount-charge',
     'profitelo.components.dashboard.charge-account.payment-method',
     'profitelo.components.dashboard.charge-account.choose-bank',

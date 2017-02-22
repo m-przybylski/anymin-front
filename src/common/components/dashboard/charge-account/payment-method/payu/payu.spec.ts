@@ -1,9 +1,10 @@
-namespace profitelo.components.dashboard.chargeAccount.payuPaymentForm {
-import IWindowService = profitelo.services.window.IWindowService
+namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPaymentForm {
+  import IWindowService = profitelo.services.window.IWindowService
   import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import IPaymentsApi = profitelo.api.IPaymentsApi
-  describe('Unit testing: profitelo.components.dashboard.charge-account.payu-payment-form', () => {
+
+  describe('Unit testing:profitelo.components.dashboard.charge-account.payment-method.payu', () => {
   return describe('for payuPaymentFormController component >', () => {
     const url = 'awesomUrl/'
 
@@ -30,7 +31,7 @@ import IWindowService = profitelo.services.window.IWindowService
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.swaggerResources.definitions')
     angular.mock.module('profitelo.api.PaymentsApi')
-    angular.mock.module('profitelo.components.dashboard.charge-account.payu-payment-form')
+    angular.mock.module('profitelo.components.dashboard.charge-account.payment-method.payu')
     angular.mock.module('ui.router')
 
       let injectors = {}
@@ -83,49 +84,47 @@ import IWindowService = profitelo.services.window.IWindowService
 
       component = componentController('payuPaymentForm', injectors, bindings)
 
-      expect(component.amountMethodModal).toBeDefined()
+        expect(component.amountMethodModal).toBeDefined()
+      })
+
+      it('should have a dummy test', inject(() => {
+        expect(true).toBeTruthy()
+      }))
+
+      it('should redirect to app.dashboard.client.activities on form error', inject(() => {
+        bindings.validAction =  () => {
+          return true
+        }
+        component = componentController('payuPaymentForm', {}, bindings)
+        component.$onInit()
+
+        spyOn(state, 'go')
+        resourcesExpectations.PaymentsApi.postPayUOrder.respond(400, {})
+        component.sendPayment()
+        httpBackend.flush()
+        expect(state.go).toHaveBeenCalled()
+      }))
+
+      it('should redirect to payu', inject(() => {
+        bindings.amountMethodModal.email = 'testacc@profitelo.pl'
+        component = componentController('payuPaymentForm', {}, bindings)
+        component.$onInit()
+
+        spyOn(window, 'open')
+        resourcesExpectations.PaymentsApi.postPayUOrder.respond(200, {})
+        component.sendPayment()
+        httpBackend.flush()
+        expect(window.open).toHaveBeenCalled()
+      }))
+
+      it('should scroll to bank-section', inject(() => {
+        spyOn(smoothScrollingService, 'simpleScrollTo')
+        bindings.amountMethodModal.payMethodValue = undefined
+        component = componentController('payuPaymentForm', {}, bindings)
+        resourcesExpectations.PaymentsApi.postPayUOrder.respond(200, {})
+        component.sendPayment()
+        expect(smoothScrollingService.simpleScrollTo).toHaveBeenCalled()
+      }))
     })
-
-    it('should have a dummy test', inject(() => {
-      expect(true).toBeTruthy()
-    }))
-
-    it('should redirect to app.dashboard.client.activities on form error', inject(() => {
-      bindings.validAction =  () => {
-        return true
-      }
-      component = componentController('payuPaymentForm', {}, bindings)
-      component.$onInit()
-
-      spyOn(state, 'go')
-      resourcesExpectations.PaymentsApi.postPayUOrder.respond(400, {})
-      component.sendPayment()
-      httpBackend.flush()
-      expect(state.go).toHaveBeenCalled()
-    }))
-
-    it('should redirect to payu', inject(() => {
-      bindings.amountMethodModal.email = 'testacc@profitelo.pl'
-      component = componentController('payuPaymentForm', {}, bindings)
-      component.$onInit()
-
-      spyOn(window, 'open')
-      resourcesExpectations.PaymentsApi.postPayUOrder.respond(200, {})
-      component.sendPayment()
-      httpBackend.flush()
-      expect(window.open).toHaveBeenCalled()
-    }))
-
-    it('should scroll to bank-section', inject(() => {
-      spyOn(smoothScrollingService, 'simpleScrollTo')
-      bindings.amountMethodModal.payMethodValue = undefined
-      component = componentController('payuPaymentForm', {}, bindings)
-      resourcesExpectations.PaymentsApi.postPayUOrder.respond(200, {})
-      component.sendPayment()
-      expect(smoothScrollingService.simpleScrollTo).toHaveBeenCalled()
-    }))
-
   })
-})
-
 }

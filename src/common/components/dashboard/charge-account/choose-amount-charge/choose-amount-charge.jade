@@ -1,27 +1,28 @@
 .choose-amount-charge.select-choice
-  .title
-    h3(data-translate="{{ $ctrl.title }}")
+  .charge-container
+    .title
+      h3(data-translate="{{ $ctrl.title }}")
 
-  .choose-options
-    .choose-options-item(data-ng-repeat = "amount in $ctrl.amounts.paymentOptions")
-      .option(data-ng-class="{'selected': $ctrl.activeOption == $index}" data-ng-click="$ctrl.selectAmountOption($index)")
-        span.charge-price {{ amount.amount / 100 }}
-        span.icon.icon-dot(data-ng-class="{'is-active': $ctrl.activeOption == $index}")
+    .choose-options
+      .choose-options-item(data-ng-repeat = "amount in $ctrl.amounts.paymentOptions")
+        .option(data-ng-class="{'selected': $ctrl.activeOption == $index}" data-ng-click="$ctrl.selectAmountOption($index)")
+          span.charge-price {{ amount.amount / 100 }}
+          span.icon.icon-dot(data-ng-class="{'is-active': $ctrl.activeOption == $index}")
 
-    .choose-options-item(id="cash-valid")
-      .option.option-own-amount(data-ng-class="{'selected': $ctrl.activeOption == 3}" data-ng-click="$ctrl.selectAmountOption(3)")
-        pro-input(placeholder="{{:: 'DASHBOARD.CHARGE_ACCOUNT.YOUR_AMOUNT.TITLE' | translate }}"
-          data-label=""
-          data-ng-model="$ctrl.cashAmountModel"
-          data-ng-enter="$ctrl.onEnter()"
-          data-ng-class="{'invalid': $ctrl.minimalAmountValidation()}"
-          addon-action="onEnter"
-          data-id="ownAmount"
-          data-type='text'
-          data-ng-click="$ctrl.selectAmountOption(3)"
-          data-focus='$ctrl.focusInput'
-          only-digits)
-        span.icon.icon-dot(data-ng-class="{'is-active': $ctrl.activeOption == 3}")
+      .choose-options-item(id="cash-valid")
+        .option.option-own-amount(data-ng-class="{'selected': $ctrl.activeOption == 3}" data-ng-click="$ctrl.selectAmountOption(3)")
+          pro-input(placeholder="{{:: 'DASHBOARD.CHARGE_ACCOUNT.YOUR_AMOUNT.TITLE' | translate }}"
+            data-label=""
+            data-ng-model="$ctrl.cashAmountModel"
+            data-ng-enter="$ctrl.onEnter()"
+            data-ng-class="{'invalid': $ctrl.minimalAmountValidation()}"
+            addon-action="onEnter"
+            data-id="ownAmount"
+            data-type='text'
+            data-ng-click="$ctrl.selectAmountOption(3)"
+            data-focus='$ctrl.focusInput'
+            only-digits)
+          span.icon.icon-dot(data-ng-class="{'is-active': $ctrl.activeOption == 3}")
 
-  .input-error-messages(data-ng-show = "$ctrl.minimalAmountValidation()")
-      span {{ 'DASHBOARD.CHARGE_ACCOUNT.INVALID_MINIMAL_PAYMENT' | translate }}
+    .input-error-messages(data-ng-show = "$ctrl.minimalAmountValidation()")
+        span {{ 'DASHBOARD.CHARGE_ACCOUNT.INVALID_MINIMAL_PAYMENT' | translate }}

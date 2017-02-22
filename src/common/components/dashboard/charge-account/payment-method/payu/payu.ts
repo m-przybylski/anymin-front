@@ -1,4 +1,4 @@
-namespace profitelo.components.dashboard.chargeAccount.payuPaymentForm {
+namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPaymentForm {
 
   import IWindowService = profitelo.services.window.IWindowService
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
@@ -105,7 +105,7 @@ namespace profitelo.components.dashboard.chargeAccount.payuPaymentForm {
   }
 
   let payuPaymentForm = {
-    templateUrl: 'components/dashboard/charge-account/payu-payment-form/payu-payment-form.tpl.html',
+    templateUrl: 'components/dashboard/charge-account/payment-method/payu/payu.tpl.html',
     replace: true,
     transclude: true,
     bindings: {
@@ -119,7 +119,7 @@ namespace profitelo.components.dashboard.chargeAccount.payuPaymentForm {
   }
 
 
-  angular.module('profitelo.components.dashboard.charge-account.payu-payment-form', [
+  angular.module('profitelo.components.dashboard.charge-account.payment-method.payu', [
     'profitelo.api.PaymentsApi',
     'profitelo.services.top-alert',
     'profitelo.services.commonSettings',
@@ -128,7 +128,8 @@ namespace profitelo.components.dashboard.chargeAccount.payuPaymentForm {
     'profitelo.services.smooth-scrolling',
     'c7s.ng.userAuth',
     'profitelo.components.dashboard.charge-account.choose-bank',
-    'profitelo.components.dashboard.invoice'
+    'profitelo.components.dashboard.invoice',
+    'profitelo.components.dashboard.charge-account.summary-charge-account'
   ])
     .component('payuPaymentForm', payuPaymentForm)
 
