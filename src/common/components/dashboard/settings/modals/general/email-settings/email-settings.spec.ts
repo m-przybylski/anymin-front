@@ -2,6 +2,7 @@ namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
 
   import GeneralEmailSettingsController = profitelo.components.dashboard.settings.modals.general.emailSettings.GeneralEmailSettingsController
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  import IAccountApi = profitelo.api.IAccountApi
 
   describe('Testing Controller: generalEmailSettingsController', () => {
 
@@ -18,10 +19,9 @@ namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
 
     beforeEach(() => {
       angular.mock.module('ui.bootstrap')
-      angular.mock.module('profitelo.swaggerResources.definitions')
       angular.mock.module('profitelo.components.dashboard.settings.modals.general.email-settings')
 
-      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, AccountApiDef: any,
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, AccountApi: IAccountApi,
               $log: ng.ILogService) => {
 
         scope = <IGeneralEmailSettingsControllerScope>$rootScope.$new()
@@ -29,7 +29,7 @@ namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
         const injectors = {
           $uibModalInstance: $uibModalInstance,
           $scope: scope,
-          AccountApi: AccountApiDef,
+          AccountApi: AccountApi,
           User: User,
           $log: $log
         }

@@ -44,6 +44,7 @@ namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
 
   angular.module('profitelo.components.dashboard.settings.modals.general.email-settings', [
     'ui.bootstrap',
+    'profitelo.api.AccountApi',
     'profitelo.directives.interface.pro-input',
     'profitelo.directives.interface.scrollable'
   ])

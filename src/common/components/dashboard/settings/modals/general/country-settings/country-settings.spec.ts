@@ -3,12 +3,12 @@ namespace profitelo.components.dashboard.settings.modals.general.countrySettings
   import GeneralCountrySettingsController = profitelo.components.dashboard.settings.modals.general.countrySettings.GeneralCountrySettingsController
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
   import IAccountApi = profitelo.api.IAccountApi
+  import IAccountApiMock = profitelo.api.IAccountApiMock
 
   describe('Testing Controller: generalCountrySettingsController', () => {
 
     let controller: GeneralCountrySettingsController
     let scope: IGeneralCountrySettingsControllerScope
-    let resourcesExpectations: any
     let httpBackend: ng.IHttpBackendService
 
     const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
@@ -22,9 +22,8 @@ namespace profitelo.components.dashboard.settings.modals.general.countrySettings
     beforeEach(() => {
       angular.mock.module('ui.bootstrap')
       angular.mock.module('ngLodash')
-      angular.mock.module('profitelo.swaggerResources.definitions')
       angular.mock.module('profitelo.components.dashboard.settings.modals.general.country-settings')
-      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, AccountApi: IAccountApi, _AccountApiDef_: any,
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, AccountApi: IAccountApi, _AccountApiMock_: IAccountApiMock,
               lodash: _.LoDashStatic, $httpBackend: ng.IHttpBackendService) => {
 
         scope = <IGeneralCountrySettingsControllerScope>$rootScope.$new()
@@ -37,13 +36,7 @@ namespace profitelo.components.dashboard.settings.modals.general.countrySettings
           lodash: lodash
         }
 
-        resourcesExpectations = {
-          AccountApi: {
-            getSupportedCountries: httpBackend.when(_AccountApiDef_.getSupportedCountries.method,
-              _AccountApiDef_.getSupportedCountries.url)
-          }
-        }
-        resourcesExpectations.AccountApi.getSupportedCountries.respond(500)
+        _AccountApiMock_.getSupportedCountriesRoute(500)
 
         controller = $controller<GeneralCountrySettingsController>('generalCountrySettingsController', injectors)
       })

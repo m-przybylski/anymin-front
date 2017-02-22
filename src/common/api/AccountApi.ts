@@ -1,24 +1,24 @@
 namespace profitelo.api {
   export interface IAccountApi {
-    addAccountRoute (body: AddAccount, extraHttpRequestParams?: any ) : ng.IPromise<Account>
-    changePasswordRoute (body: ChangeAccountPassword, extraHttpRequestParams?: any ) : ng.IPromise<{}>
-    confirmMsisdnVerificationRoute (body: ConfirmMsisdnVerificationRequest, extraHttpRequestParams?: any ) : ng.IPromise<{}>
-    getAccountEmailExistsRoute (email: string, extraHttpRequestParams?: any ) : ng.IPromise<{}>
-    getAccountRoute (accountId: string, extraHttpRequestParams?: any ) : ng.IPromise<AccountWithExtras>
-    getCompanyInfoRoute (extraHttpRequestParams?: any ) : ng.IPromise<CompanyInfo>
-    getMobileProtectedViewsRoute (extraHttpRequestParams?: any ) : ng.IPromise<GetMobileProtectedViews>
-    getRegistrationStatusByMsisdnRoute (msisdn: string, extraHttpRequestParams?: any ) : ng.IPromise<GetRegistrationStatus>
-    getSupportedCountriesRoute (extraHttpRequestParams?: any ) : ng.IPromise<Array<Country>>
-    listAccountsRoute (extraHttpRequestParams?: any ) : ng.IPromise<Array<Account>>
-    newMsisdnVerificationRoute (body: CreateMsisdnVerificationRequest, extraHttpRequestParams?: any ) : ng.IPromise<JValue>
-    partialUpdateAccountRoute (accountId: string, body: PatchAccount, extraHttpRequestParams?: any ) : ng.IPromise<Account>
-    patchMobileViewsPermissionsRoute (body: PatchMobileViewsPermissions, extraHttpRequestParams?: any ) : ng.IPromise<Account>
-    postAccountVerifyEmailRoute (token: string, extraHttpRequestParams?: any ) : ng.IPromise<AccountWithExtras>
-    postCompanyInfoRoute (body: PostCompanyInfo, extraHttpRequestParams?: any ) : ng.IPromise<CompanyInfo>
-    postMobilePinRoute (body: PostMobileViewsPermissions, extraHttpRequestParams?: any ) : ng.IPromise<Account>
-    putGeneralSettingsRoute (body: PutGeneralSettings, extraHttpRequestParams?: any ) : ng.IPromise<{}>
-    updateAccountRoute (accountId: string, body: UpdateAccount, extraHttpRequestParams?: any ) : ng.IPromise<Account>
-    validateMobilePinRoute (pin: string, extraHttpRequestParams?: any ) : ng.IPromise<{}>
+    addAccountRoute(body: AddAccount, extraHttpRequestParams?: any): ng.IPromise<Account>
+    changePasswordRoute(body: ChangeAccountPassword, extraHttpRequestParams?: any): ng.IPromise<{}>
+    confirmMsisdnVerificationRoute(body: ConfirmMsisdnVerificationRequest, extraHttpRequestParams?: any): ng.IPromise<{}>
+    getAccountEmailExistsRoute(email: string, extraHttpRequestParams?: any): ng.IPromise<{}>
+    getAccountRoute(accountId: string, extraHttpRequestParams?: any): ng.IPromise<AccountWithExtras>
+    getCompanyInfoRoute(extraHttpRequestParams?: any): ng.IPromise<CompanyInfo>
+    getMobileProtectedViewsRoute(extraHttpRequestParams?: any): ng.IPromise<GetMobileProtectedViews>
+    getRegistrationStatusByMsisdnRoute(msisdn: string, extraHttpRequestParams?: any): ng.IPromise<GetRegistrationStatus>
+    getSupportedCountriesRoute(extraHttpRequestParams?: any): ng.IPromise<Array<Country>>
+    listAccountsRoute(extraHttpRequestParams?: any): ng.IPromise<Array<Account>>
+    newMsisdnVerificationRoute(body: CreateMsisdnVerificationRequest, extraHttpRequestParams?: any): ng.IPromise<JValue>
+    partialUpdateAccountRoute(accountId: string, body: PatchAccount, extraHttpRequestParams?: any): ng.IPromise<Account>
+    patchMobileViewsPermissionsRoute(body: PatchMobileViewsPermissions, extraHttpRequestParams?: any): ng.IPromise<Account>
+    postAccountVerifyEmailRoute(token: string, extraHttpRequestParams?: any): ng.IPromise<AccountWithExtras>
+    postCompanyInfoRoute(body: PostCompanyInfo, extraHttpRequestParams?: any): ng.IPromise<CompanyInfo>
+    postMobilePinRoute(body: PostMobileViewsPermissions, extraHttpRequestParams?: any): ng.IPromise<Account>
+    putGeneralSettingsRoute(body: PutGeneralSettings, extraHttpRequestParams?: any): ng.IPromise<{}>
+    updateAccountRoute(accountId: string, body: UpdateAccount, extraHttpRequestParams?: any): ng.IPromise<Account>
+    validateMobilePinRoute(pin: string, extraHttpRequestParams?: any): ng.IPromise<{}>
   }
 
   /* istanbul ignore next */
@@ -34,7 +34,7 @@ namespace profitelo.api {
           }
       }
 
-      public addAccountRoute = (body: AddAccount, extraHttpRequestParams?: any ) : ng.IPromise<Account> => {
+      public addAccountRoute = (body: AddAccount, extraHttpRequestParams?: any): ng.IPromise<Account> => {
           const localVarPath = this.apiUrl + '/accounts';
 
           let queryParameters: any = {};
@@ -65,7 +65,7 @@ namespace profitelo.api {
             }
           });
       }
-      public changePasswordRoute = (body: ChangeAccountPassword, extraHttpRequestParams?: any ) : ng.IPromise<{}> => {
+      public changePasswordRoute = (body: ChangeAccountPassword, extraHttpRequestParams?: any): ng.IPromise<{}> => {
           const localVarPath = this.apiUrl + '/accounts/settings/change-password';
 
           let queryParameters: any = {};
@@ -96,7 +96,7 @@ namespace profitelo.api {
             }
           });
       }
-      public confirmMsisdnVerificationRoute = (body: ConfirmMsisdnVerificationRequest, extraHttpRequestParams?: any ) : ng.IPromise<{}> => {
+      public confirmMsisdnVerificationRoute = (body: ConfirmMsisdnVerificationRequest, extraHttpRequestParams?: any): ng.IPromise<{}> => {
           const localVarPath = this.apiUrl + '/accounts/settings/msisdn-verification/confirm';
 
           let queryParameters: any = {};
@@ -127,7 +127,7 @@ namespace profitelo.api {
             }
           });
       }
-      public getAccountEmailExistsRoute = (email: string, extraHttpRequestParams?: any ) : ng.IPromise<{}> => {
+      public getAccountEmailExistsRoute = (email: string, extraHttpRequestParams?: any): ng.IPromise<{}> => {
           const localVarPath = this.apiUrl + '/accounts/exists/email/{email}'
               .replace('{' + 'email' + '}', String(email));
 
@@ -158,7 +158,7 @@ namespace profitelo.api {
             }
           });
       }
-      public getAccountRoute = (accountId: string, extraHttpRequestParams?: any ) : ng.IPromise<AccountWithExtras> => {
+      public getAccountRoute = (accountId: string, extraHttpRequestParams?: any): ng.IPromise<AccountWithExtras> => {
           const localVarPath = this.apiUrl + '/accounts/{accountId}'
               .replace('{' + 'accountId' + '}', String(accountId));
 
@@ -189,7 +189,7 @@ namespace profitelo.api {
             }
           });
       }
-      public getCompanyInfoRoute = (extraHttpRequestParams?: any ) : ng.IPromise<CompanyInfo> => {
+      public getCompanyInfoRoute = (extraHttpRequestParams?: any): ng.IPromise<CompanyInfo> => {
           const localVarPath = this.apiUrl + '/accounts/settings/company-info';
 
           let queryParameters: any = {};
@@ -215,7 +215,7 @@ namespace profitelo.api {
             }
           });
       }
-      public getMobileProtectedViewsRoute = (extraHttpRequestParams?: any ) : ng.IPromise<GetMobileProtectedViews> => {
+      public getMobileProtectedViewsRoute = (extraHttpRequestParams?: any): ng.IPromise<GetMobileProtectedViews> => {
           const localVarPath = this.apiUrl + '/accounts/mobile-permissions/protected-views';
 
           let queryParameters: any = {};
@@ -241,7 +241,7 @@ namespace profitelo.api {
             }
           });
       }
-      public getRegistrationStatusByMsisdnRoute = (msisdn: string, extraHttpRequestParams?: any ) : ng.IPromise<GetRegistrationStatus> => {
+      public getRegistrationStatusByMsisdnRoute = (msisdn: string, extraHttpRequestParams?: any): ng.IPromise<GetRegistrationStatus> => {
           const localVarPath = this.apiUrl + '/accounts/check';
 
           let queryParameters: any = {};
@@ -275,7 +275,7 @@ namespace profitelo.api {
             }
           });
       }
-      public getSupportedCountriesRoute = (extraHttpRequestParams?: any ) : ng.IPromise<Array<Country>> => {
+      public getSupportedCountriesRoute = (extraHttpRequestParams?: any): ng.IPromise<Array<Country>> => {
           const localVarPath = this.apiUrl + '/accounts/settings/countries';
 
           let queryParameters: any = {};
@@ -301,7 +301,7 @@ namespace profitelo.api {
             }
           });
       }
-      public listAccountsRoute = (extraHttpRequestParams?: any ) : ng.IPromise<Array<Account>> => {
+      public listAccountsRoute = (extraHttpRequestParams?: any): ng.IPromise<Array<Account>> => {
           const localVarPath = this.apiUrl + '/accounts';
 
           let queryParameters: any = {};
@@ -327,7 +327,7 @@ namespace profitelo.api {
             }
           });
       }
-      public newMsisdnVerificationRoute = (body: CreateMsisdnVerificationRequest, extraHttpRequestParams?: any ) : ng.IPromise<JValue> => {
+      public newMsisdnVerificationRoute = (body: CreateMsisdnVerificationRequest, extraHttpRequestParams?: any): ng.IPromise<JValue> => {
           const localVarPath = this.apiUrl + '/accounts/settings/msisdn-verification/create';
 
           let queryParameters: any = {};
@@ -358,7 +358,7 @@ namespace profitelo.api {
             }
           });
       }
-      public partialUpdateAccountRoute = (accountId: string, body: PatchAccount, extraHttpRequestParams?: any ) : ng.IPromise<Account> => {
+      public partialUpdateAccountRoute = (accountId: string, body: PatchAccount, extraHttpRequestParams?: any): ng.IPromise<Account> => {
           const localVarPath = this.apiUrl + '/accounts/{accountId}'
               .replace('{' + 'accountId' + '}', String(accountId));
 
@@ -394,7 +394,7 @@ namespace profitelo.api {
             }
           });
       }
-      public patchMobileViewsPermissionsRoute = (body: PatchMobileViewsPermissions, extraHttpRequestParams?: any ) : ng.IPromise<Account> => {
+      public patchMobileViewsPermissionsRoute = (body: PatchMobileViewsPermissions, extraHttpRequestParams?: any): ng.IPromise<Account> => {
           const localVarPath = this.apiUrl + '/accounts/mobile-permissions';
 
           let queryParameters: any = {};
@@ -425,7 +425,7 @@ namespace profitelo.api {
             }
           });
       }
-      public postAccountVerifyEmailRoute = (token: string, extraHttpRequestParams?: any ) : ng.IPromise<AccountWithExtras> => {
+      public postAccountVerifyEmailRoute = (token: string, extraHttpRequestParams?: any): ng.IPromise<AccountWithExtras> => {
           const localVarPath = this.apiUrl + '/accounts/confirm/email/{token}'
               .replace('{' + 'token' + '}', String(token));
 
@@ -456,7 +456,7 @@ namespace profitelo.api {
             }
           });
       }
-      public postCompanyInfoRoute = (body: PostCompanyInfo, extraHttpRequestParams?: any ) : ng.IPromise<CompanyInfo> => {
+      public postCompanyInfoRoute = (body: PostCompanyInfo, extraHttpRequestParams?: any): ng.IPromise<CompanyInfo> => {
           const localVarPath = this.apiUrl + '/accounts/settings/company-info';
 
           let queryParameters: any = {};
@@ -487,7 +487,7 @@ namespace profitelo.api {
             }
           });
       }
-      public postMobilePinRoute = (body: PostMobileViewsPermissions, extraHttpRequestParams?: any ) : ng.IPromise<Account> => {
+      public postMobilePinRoute = (body: PostMobileViewsPermissions, extraHttpRequestParams?: any): ng.IPromise<Account> => {
           const localVarPath = this.apiUrl + '/accounts/mobile-permissions';
 
           let queryParameters: any = {};
@@ -518,7 +518,7 @@ namespace profitelo.api {
             }
           });
       }
-      public putGeneralSettingsRoute = (body: PutGeneralSettings, extraHttpRequestParams?: any ) : ng.IPromise<{}> => {
+      public putGeneralSettingsRoute = (body: PutGeneralSettings, extraHttpRequestParams?: any): ng.IPromise<{}> => {
           const localVarPath = this.apiUrl + '/accounts/settings/general';
 
           let queryParameters: any = {};
@@ -549,7 +549,7 @@ namespace profitelo.api {
             }
           });
       }
-      public updateAccountRoute = (accountId: string, body: UpdateAccount, extraHttpRequestParams?: any ) : ng.IPromise<Account> => {
+      public updateAccountRoute = (accountId: string, body: UpdateAccount, extraHttpRequestParams?: any): ng.IPromise<Account> => {
           const localVarPath = this.apiUrl + '/accounts/{accountId}'
               .replace('{' + 'accountId' + '}', String(accountId));
 
@@ -585,7 +585,7 @@ namespace profitelo.api {
             }
           });
       }
-      public validateMobilePinRoute = (pin: string, extraHttpRequestParams?: any ) : ng.IPromise<{}> => {
+      public validateMobilePinRoute = (pin: string, extraHttpRequestParams?: any): ng.IPromise<{}> => {
           const localVarPath = this.apiUrl + '/accounts/mobile-permissions/{pin}'
               .replace('{' + 'pin' + '}', String(pin));
 
@@ -618,5 +618,232 @@ namespace profitelo.api {
       }
   }
 
-  angular.module('profitelo.api.AccountApi', []).service('AccountApi', AccountApi)
+  export interface IAccountApiMock {
+    addAccountRoute(status: number, data?: Account, err?: any): void
+    changePasswordRoute(status: number, data?: {}, err?: any): void
+    confirmMsisdnVerificationRoute(status: number, data?: {}, err?: any): void
+    getAccountEmailExistsRoute(status: number, email: string, data?: {}, err?: any): void
+    getAccountRoute(status: number, accountId: string, data?: AccountWithExtras, err?: any): void
+    getCompanyInfoRoute(status: number, data?: CompanyInfo, err?: any): void
+    getMobileProtectedViewsRoute(status: number, data?: GetMobileProtectedViews, err?: any): void
+    getRegistrationStatusByMsisdnRoute(status: number, msisdn: string, data?: GetRegistrationStatus, err?: any): void
+    getSupportedCountriesRoute(status: number, data?: Array<Country>, err?: any): void
+    listAccountsRoute(status: number, data?: Array<Account>, err?: any): void
+    newMsisdnVerificationRoute(status: number, data?: JValue, err?: any): void
+    partialUpdateAccountRoute(status: number, accountId: string, data?: Account, err?: any): void
+    patchMobileViewsPermissionsRoute(status: number, data?: Account, err?: any): void
+    postAccountVerifyEmailRoute(status: number, token: string, data?: AccountWithExtras, err?: any): void
+    postCompanyInfoRoute(status: number, data?: CompanyInfo, err?: any): void
+    postMobilePinRoute(status: number, data?: Account, err?: any): void
+    putGeneralSettingsRoute(status: number, data?: {}, err?: any): void
+    updateAccountRoute(status: number, accountId: string, data?: Account, err?: any): void
+    validateMobilePinRoute(status: number, pin: string, data?: {}, err?: any): void
+  }
+
+  /* istanbul ignore next */
+  class AccountApiMock implements IAccountApiMock {
+    apiUrl = ''
+    static $inject: string[] = ['$httpBackend', 'apiUrl', '$httpParamSerializer'];
+
+    constructor(protected $httpBackend: ng.IHttpBackendService, apiUrl: string, protected $httpParamSerializer?: (d: any) => any) {
+        if (apiUrl !== undefined) {
+            this.apiUrl = apiUrl;
+        }
+    }
+
+    addAccountRoute(status: number, data?: Account, err?: any): void {
+      const localVarPath = this.apiUrl + '/accounts';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPOST(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    changePasswordRoute(status: number, data?: {}, err?: any): void {
+      const localVarPath = this.apiUrl + '/accounts/settings/change-password';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPUT(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    confirmMsisdnVerificationRoute(status: number, data?: {}, err?: any): void {
+      const localVarPath = this.apiUrl + '/accounts/settings/msisdn-verification/confirm';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPOST(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    getAccountEmailExistsRoute(status: number, email: string, data?: {}, err?: any): void {
+      const localVarPath = this.apiUrl + '/accounts/exists/email/{email}'
+          .replace('{' + 'email' + '}', String(email));
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenGET(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    getAccountRoute(status: number, accountId: string, data?: AccountWithExtras, err?: any): void {
+      const localVarPath = this.apiUrl + '/accounts/{accountId}'
+          .replace('{' + 'accountId' + '}', String(accountId));
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenGET(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    getCompanyInfoRoute(status: number, data?: CompanyInfo, err?: any): void {
+      const localVarPath = this.apiUrl + '/accounts/settings/company-info';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenGET(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    getMobileProtectedViewsRoute(status: number, data?: GetMobileProtectedViews, err?: any): void {
+      const localVarPath = this.apiUrl + '/accounts/mobile-permissions/protected-views';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenGET(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    getRegistrationStatusByMsisdnRoute(status: number, msisdn: string, data?: GetRegistrationStatus, err?: any): void {
+      const localVarPath = this.apiUrl + '/accounts/check';
+
+      const queryParameters: any = {}
+      if (msisdn !== undefined) {
+        queryParameters['msisdn'] = msisdn;
+      }
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenGET(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    getSupportedCountriesRoute(status: number, data?: Array<Country>, err?: any): void {
+      const localVarPath = this.apiUrl + '/accounts/settings/countries';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenGET(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    listAccountsRoute(status: number, data?: Array<Account>, err?: any): void {
+      const localVarPath = this.apiUrl + '/accounts';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenGET(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    newMsisdnVerificationRoute(status: number, data?: JValue, err?: any): void {
+      const localVarPath = this.apiUrl + '/accounts/settings/msisdn-verification/create';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPOST(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    partialUpdateAccountRoute(status: number, accountId: string, data?: Account, err?: any): void {
+      const localVarPath = this.apiUrl + '/accounts/{accountId}'
+          .replace('{' + 'accountId' + '}', String(accountId));
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPATCH(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    patchMobileViewsPermissionsRoute(status: number, data?: Account, err?: any): void {
+      const localVarPath = this.apiUrl + '/accounts/mobile-permissions';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPATCH(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    postAccountVerifyEmailRoute(status: number, token: string, data?: AccountWithExtras, err?: any): void {
+      const localVarPath = this.apiUrl + '/accounts/confirm/email/{token}'
+          .replace('{' + 'token' + '}', String(token));
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPOST(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    postCompanyInfoRoute(status: number, data?: CompanyInfo, err?: any): void {
+      const localVarPath = this.apiUrl + '/accounts/settings/company-info';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPOST(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    postMobilePinRoute(status: number, data?: Account, err?: any): void {
+      const localVarPath = this.apiUrl + '/accounts/mobile-permissions';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPOST(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    putGeneralSettingsRoute(status: number, data?: {}, err?: any): void {
+      const localVarPath = this.apiUrl + '/accounts/settings/general';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPUT(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    updateAccountRoute(status: number, accountId: string, data?: Account, err?: any): void {
+      const localVarPath = this.apiUrl + '/accounts/{accountId}'
+          .replace('{' + 'accountId' + '}', String(accountId));
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPUT(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    validateMobilePinRoute(status: number, pin: string, data?: {}, err?: any): void {
+      const localVarPath = this.apiUrl + '/accounts/mobile-permissions/{pin}'
+          .replace('{' + 'pin' + '}', String(pin));
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenGET(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+
+    private serializeQuery = (obj: any) => {
+      var str = [];
+      for(var p in obj)
+        if (obj.hasOwnProperty(p)) {
+          str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        }
+      const url = str.join("&")
+      return (url.length >0) ? '?'+url : ''
+    }
+  }
+
+  angular.module('profitelo.api.AccountApi', [])
+    .service('AccountApi', AccountApi)
+    .service('AccountApiMock', AccountApiMock)
 }

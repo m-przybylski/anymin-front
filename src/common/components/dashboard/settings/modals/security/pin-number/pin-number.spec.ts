@@ -4,12 +4,12 @@ namespace profitelo.components.dashboard.settings.modals.security.pinNumber {
     profitelo.components.dashboard.settings.modals.security.pinNumber.SecurityPinNumberSettingsController
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
   import IAccountApi = profitelo.api.IAccountApi
+  import IAccountApiMock = profitelo.api.IAccountApiMock
 
   describe('Testing Controller: securityPinNumberSettingsController', () => {
 
     let controller: SecurityPinNumberSettingsController
     let scope: ISecurityPinNumberSettingsControllerScope
-    let resourcesExpectations: any
     let httpBackend: ng.IHttpBackendService
 
     const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
@@ -22,10 +22,9 @@ namespace profitelo.components.dashboard.settings.modals.security.pinNumber {
 
     beforeEach(() => {
       angular.mock.module('ui.bootstrap')
-      angular.mock.module('profitelo.swaggerResources.definitions')
       angular.mock.module('profitelo.components.dashboard.settings.security.modals.pin-number')
-      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, AccountApi: IAccountApi, _AccountApiDef_: any,
-              $httpBackend: ng.IHttpBackendService, lodash: _.LoDashStatic) => {
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, AccountApi: IAccountApi,
+              AccountApiMock: IAccountApiMock, $httpBackend: ng.IHttpBackendService, lodash: _.LoDashStatic) => {
 
         scope = <ISecurityPinNumberSettingsControllerScope>$rootScope.$new()
         httpBackend = $httpBackend
@@ -36,14 +35,7 @@ namespace profitelo.components.dashboard.settings.modals.security.pinNumber {
           User: User,
           lodash: lodash
         }
-        resourcesExpectations = {
-          AccountApi: {
-            getMobileProtectedViews: httpBackend.when(_AccountApiDef_.getMobileProtectedViews.method,
-              _AccountApiDef_.getMobileProtectedViews.url)
-          }
-        }
-
-        resourcesExpectations.AccountApi.getMobileProtectedViews.respond(500)
+        AccountApiMock.getMobileProtectedViewsRoute(500)
 
         controller = $controller<SecurityPinNumberSettingsController>(
           'securityPinNumberSettingsController', injectors)

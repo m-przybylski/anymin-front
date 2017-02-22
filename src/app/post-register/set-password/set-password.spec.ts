@@ -5,6 +5,7 @@ namespace profitelo.postRegister.setPassword {
   import ITopWaitingLoaderService = profitelo.services.topWaitingLoader.ITopWaitingLoaderService
   import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordStrengthService
   import IAccountApi = profitelo.api.IAccountApi
+  import IAccountApiMock = profitelo.api.IAccountApiMock
   describe('Unit tests: profitelo.controller.post-register.set-password>', () => {
     describe('Testing Controller: SetPasswordController', () => {
 
@@ -12,13 +13,12 @@ namespace profitelo.postRegister.setPassword {
       let SetPasswordController: any
       let _topWaitingLoaderService
       let _passwordStrengthService
-      let _AccountApi
+      let _AccountApi: IAccountApi
       let _topAlertService: ITopAlertService
       let _$httpBackend: ng.IHttpBackendService
+      let _AccountApiMock_: IAccountApiMock
 
       let _url = 'awesomeUrl'
-
-      let resourcesExpectations: any
 
       let _User = {
         getData: () => {
@@ -41,13 +41,12 @@ namespace profitelo.postRegister.setPassword {
 
       beforeEach(() => {
         angular.mock.module('profitelo.controller.post-register.set-password')
-        angular.mock.module('profitelo.swaggerResources.definitions')
         angular.mock.module('profitelo.services.pro-top-waiting-loader-service')
         angular.mock.module('profitelo.services.password-strength')
         inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $filter: IFilterService,
                 _topWaitingLoaderService_: ITopWaitingLoaderService, _passwordStrengthService_: IPasswordStrengthService,
                 _AccountApi_: IAccountApi, _topAlertService_: ITopAlertService, _$httpBackend_: ng.IHttpBackendService,
-                _AccountApiDef_: any) => {
+                AccountApiMock: IAccountApiMock) => {
 
           scope = $rootScope.$new()
 
@@ -66,15 +65,8 @@ namespace profitelo.postRegister.setPassword {
           _topWaitingLoaderService = _topWaitingLoaderService_
           _passwordStrengthService = _passwordStrengthService_
           _AccountApi = _AccountApi_
+          _AccountApiMock_ = AccountApiMock
           _topAlertService = _topAlertService_
-
-
-          resourcesExpectations = {
-            AccountApi: {
-              partialUpdateAccount: _$httpBackend.when(_AccountApiDef_.partialUpdateAccount.method,
-                _url + '/accounts/' + _User.getData())
-            }
-          }
 
         })
       })
@@ -113,7 +105,8 @@ namespace profitelo.postRegister.setPassword {
       it('should set new password on completeRegistration', () => {
         spyOn(_topAlertService, 'success')
 
-        resourcesExpectations.AccountApi.partialUpdateAccount.respond(200)
+        _AccountApiMock_.partialUpdateAccountRoute(200, String(_User.getData()))
+
         SetPasswordController.completeRegistration()
         _$httpBackend.flush()
       })

@@ -1,6 +1,6 @@
 namespace profitelo.api {
   export interface ITagApi {
-    postTagSuggestRoute (body: PostTagSuggest, extraHttpRequestParams?: any ) : ng.IPromise<Tags>
+    postTagSuggestRoute(body: PostTagSuggest, extraHttpRequestParams?: any): ng.IPromise<Tags>
   }
 
   /* istanbul ignore next */
@@ -16,7 +16,7 @@ namespace profitelo.api {
           }
       }
 
-      public postTagSuggestRoute = (body: PostTagSuggest, extraHttpRequestParams?: any ) : ng.IPromise<Tags> => {
+      public postTagSuggestRoute = (body: PostTagSuggest, extraHttpRequestParams?: any): ng.IPromise<Tags> => {
           const localVarPath = this.apiUrl + '/tags/suggest';
 
           let queryParameters: any = {};
@@ -49,5 +49,43 @@ namespace profitelo.api {
       }
   }
 
-  angular.module('profitelo.api.TagApi', []).service('TagApi', TagApi)
+  export interface ITagApiMock {
+    postTagSuggestRoute(status: number, data?: Tags, err?: any): void
+  }
+
+  /* istanbul ignore next */
+  class TagApiMock implements ITagApiMock {
+    apiUrl = ''
+    static $inject: string[] = ['$httpBackend', 'apiUrl', '$httpParamSerializer'];
+
+    constructor(protected $httpBackend: ng.IHttpBackendService, apiUrl: string, protected $httpParamSerializer?: (d: any) => any) {
+        if (apiUrl !== undefined) {
+            this.apiUrl = apiUrl;
+        }
+    }
+
+    postTagSuggestRoute(status: number, data?: Tags, err?: any): void {
+      const localVarPath = this.apiUrl + '/tags/suggest';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPOST(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+
+    private serializeQuery = (obj: any) => {
+      var str = [];
+      for(var p in obj)
+        if (obj.hasOwnProperty(p)) {
+          str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        }
+      const url = str.join("&")
+      return (url.length >0) ? '?'+url : ''
+    }
+  }
+
+  angular.module('profitelo.api.TagApi', [])
+    .service('TagApi', TagApi)
+    .service('TagApiMock', TagApiMock)
 }

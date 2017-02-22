@@ -5,6 +5,7 @@ namespace profitelo.dashboard.serviceProvider.companyPath {
   import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
   import Profile = profitelo.models.Profile
   import IProfileApi = profitelo.api.IProfileApi
+  import IProfileApiMock = profitelo.api.IProfileApiMock
 
   describe('Unit tests: CompanyPathController >', () => {
     describe('Testing Controller: CompanyPathController', () => {
@@ -13,9 +14,8 @@ namespace profitelo.dashboard.serviceProvider.companyPath {
       let _scope: any
       let _httpBackend: ng.IHttpBackendService
       let _ProfileApi: IProfileApi
-      let _ProfileApiDef: any
+      let _ProfileApiMock: IProfileApiMock
       let User: any
-      let resourcesExpectations: any
       let _controller: any
       let _state: ng.ui.IStateService
       let _topAlertService: ITopAlertService
@@ -40,13 +40,12 @@ namespace profitelo.dashboard.serviceProvider.companyPath {
       }))
 
       beforeEach(() => {
-        angular.mock.module('profitelo.swaggerResources.definitions')
         angular.mock.module('profitelo.controller.dashboard.service-provider.company-path')
         inject(($rootScope: IRootScopeService, $injector: ng.auto.IInjectorService) => {
 
           _scope = $rootScope.$new()
           _httpBackend = $injector.get<ng.IHttpBackendService>('$httpBackend')
-          _ProfileApiDef = $injector.get('ProfileApiDef')
+          _ProfileApiMock = $injector.get<IProfileApiMock>('ProfileApiMock')
           _state = $injector.get<ng.ui.IStateService>('$state')
           _controller = $injector.get('$controller')
           _ProfileApi = $injector.get<IProfileApi>('ProfileApi')
@@ -63,14 +62,6 @@ namespace profitelo.dashboard.serviceProvider.companyPath {
           }
 
           CompanyPathController = createController(null)
-
-          resourcesExpectations = {
-            ProfileApi: {
-              postProfile: _httpBackend.when(_ProfileApiDef.postProfile.method, _ProfileApiDef.postProfile.url),
-              patchProfile: _httpBackend.when(_ProfileApiDef.patchProfile.method, _ProfileApiDef.patchProfile.url)
-            }
-          }
-
         })
       })
 
@@ -85,7 +76,8 @@ namespace profitelo.dashboard.serviceProvider.companyPath {
 
         spyOn(_state, 'go')
 
-        resourcesExpectations.ProfileApi.postProfile.respond(200, {})
+        //FIXME type
+        _ProfileApiMock.postProfileRoute(200, <any>{})
         CompanyPathController.saveAccountObject()
         _httpBackend.flush()
 
@@ -94,8 +86,7 @@ namespace profitelo.dashboard.serviceProvider.companyPath {
       })
 
       it('should be able to update account object and redirect to consultation range', () => {
-
-        resourcesExpectations.ProfileApi.patchProfile.respond(200, {})
+        _ProfileApiMock.patchProfileRoute(200, {})
         CompanyPathController = createController(<Profile>{})
 
         spyOn(_state, 'go')
@@ -111,7 +102,7 @@ namespace profitelo.dashboard.serviceProvider.companyPath {
 
         spyOn(_topAlertService, 'error')
 
-        resourcesExpectations.ProfileApi.postProfile.respond(500)
+        _ProfileApiMock.postProfileRoute(500)
         CompanyPathController.saveAccountObject()
         _httpBackend.flush()
 

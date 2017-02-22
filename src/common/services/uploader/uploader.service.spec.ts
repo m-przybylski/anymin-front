@@ -2,6 +2,7 @@ namespace profitelo.services.uploader {
 
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
   import IFilesApi = profitelo.api.IFilesApi
+  import IFilesApiMock = profitelo.api.IFilesApiMock
 
   class File {
     constructor() {
@@ -52,8 +53,9 @@ namespace profitelo.services.uploader {
         expect(true).toBeTruthy()
       })
 
-      it('should upload 2 files at a time', inject(($q: ng.IQService, $timeout: ng.ITimeoutService, FilesApi: IFilesApi) => {
-        spyOn(FilesApi, 'createFileTokenPath').and.returnValue($q.resolve({fileId: 1}))
+      it('should upload 2 files at a time', inject(($q: ng.IQService, $timeout: ng.ITimeoutService, FilesApiMock: IFilesApiMock, $httpBackend: ng.IHttpBackendService) => {
+
+        FilesApiMock.createFileTokenPath(200, 'avatar', {fileId: '1'})
 
         const instance = uploaderFactory.getInstance(2, uploaderFactory.collectionTypes.avatar)
 
@@ -65,8 +67,8 @@ namespace profitelo.services.uploader {
         })
 
         $timeout.flush()
+        $httpBackend.flush()
 
-        expect(FilesApi.createFileTokenPath).toHaveBeenCalled()
         expect(UploadMock.upload.calls.count()).toEqual(2)
       }))
 
@@ -83,12 +85,13 @@ namespace profitelo.services.uploader {
         expect(promiseValue).toEqual('Expected File, got object')
       }))
 
-      it('should not upload file if token error', inject(($q: ng.IQService, $timeout: ng.ITimeoutService, $rootScope: IRootScopeService, FilesApi: IFilesApi) => {
-        spyOn(FilesApi, 'createFileTokenPath').and.returnValue($q.reject('error'))
+      it('should not upload file if token error', inject(($timeout: ng.ITimeoutService, $rootScope: IRootScopeService,
+                                                          $httpBackend: ng.IHttpBackendService, FilesApiMock: IFilesApiMock) => {
+        FilesApiMock.createFileTokenPath(403, 'avatar', undefined, 'error')
 
         const instance = uploaderFactory.getInstance(2, uploaderFactory.collectionTypes.avatar)
 
-        let returnValue = null
+        let returnValue: any = {}
         instance.uploadFile(<any>new File, {}, () => {
         })
           .then(() => {
@@ -96,13 +99,16 @@ namespace profitelo.services.uploader {
 
         $timeout.flush()
         $rootScope.$digest()
+        $httpBackend.flush()
 
-        expect(FilesApi.createFileTokenPath).toHaveBeenCalled()
-        expect(returnValue).toEqual('error')
+        expect(returnValue.data).toEqual('error')
       }))
 
-      it('should return error if upload error', inject(($q: ng.IQService, $timeout: ng.ITimeoutService, $rootScope: IRootScopeService, FilesApi: IFilesApi) => {
-        spyOn(FilesApi, 'createFileTokenPath').and.returnValue($q.resolve({fileId: 1}))
+      it('should return error if upload error', inject(($q: ng.IQService, $timeout: ng.ITimeoutService,
+                                                        $rootScope: IRootScopeService, FilesApiMock: IFilesApiMock,
+                                                        $httpBackend: ng.IHttpBackendService) => {
+
+        FilesApiMock.createFileTokenPath(200, uploaderFactory.collectionTypes.avatar, {fileId: '1'})
 
         const instance = uploaderFactory.getInstance(2, uploaderFactory.collectionTypes.avatar)
 
@@ -117,8 +123,8 @@ namespace profitelo.services.uploader {
 
         $timeout.flush()
         $rootScope.$digest()
+        $httpBackend.flush()
 
-        expect(FilesApi.createFileTokenPath).toHaveBeenCalled()
         expect(UploadMock.upload).toHaveBeenCalled()
         expect(returnValue).toEqual('error')
       }))

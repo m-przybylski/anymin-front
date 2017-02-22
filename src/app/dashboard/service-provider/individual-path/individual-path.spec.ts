@@ -4,6 +4,8 @@ namespace profitelo.dashboard.serviceProvider.individualPath {
   import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
   import Profile = profitelo.models.Profile
   import IProfileApi = profitelo.api.IProfileApi
+  import IProfileApiMock = profitelo.api.IProfileApiMock
+  import GetProfile = profitelo.api.GetProfile
 
   describe('Unit tests: IndividualPathController >', () => {
     describe('Testing Controller: IndividualPathController', () => {
@@ -12,9 +14,8 @@ namespace profitelo.dashboard.serviceProvider.individualPath {
       let _scope: any
       let _httpBackend: ng.IHttpBackendService
       let _ProfileApi: IProfileApi
-      let _ProfileApiDef: any
+      let _ProfileApiMock: IProfileApiMock
       let _User: any
-      let resourcesExpectations: any
       let _controller: any
       let _state: ng.ui.IStateService
       let _topAlertService: ITopAlertService
@@ -38,13 +39,12 @@ namespace profitelo.dashboard.serviceProvider.individualPath {
       }))
 
       beforeEach(() => {
-        angular.mock.module('profitelo.swaggerResources.definitions')
         angular.mock.module('profitelo.controller.dashboard.service-provider.individual-path')
         inject(($rootScope: ng.IRootScopeService, $injector: ng.auto.IInjectorService) => {
 
           _scope = $rootScope.$new()
           _httpBackend = $injector.get('$httpBackend')
-          _ProfileApiDef = $injector.get('ProfileApiDef')
+          _ProfileApiMock = $injector.get<IProfileApiMock>('ProfileApiMock')
           _state = $injector.get<ng.ui.IStateService>('$state')
           _controller = $injector.get('$controller')
           _ProfileApi = $injector.get<IProfileApi>('ProfileApi')
@@ -55,14 +55,6 @@ namespace profitelo.dashboard.serviceProvider.individualPath {
 
 
           IndividualPathController = createController(null)
-
-          resourcesExpectations = {
-            ProfileApi: {
-              postProfile: _httpBackend.when(_ProfileApiDef.postProfile.method, _ProfileApiDef.postProfile.url),
-              patchProfile: _httpBackend.when(_ProfileApiDef.patchProfile.method, _ProfileApiDef.patchProfile.url)
-            }
-          }
-
         })
       })
 
@@ -79,7 +71,8 @@ namespace profitelo.dashboard.serviceProvider.individualPath {
 
         spyOn(_state, 'go')
 
-        resourcesExpectations.ProfileApi.postProfile.respond(200, {})
+        //FIXME
+        _ProfileApiMock.postProfileRoute(200, <GetProfile>{})
         IndividualPathController.saveAccountObject()
         _httpBackend.flush()
 
@@ -96,7 +89,7 @@ namespace profitelo.dashboard.serviceProvider.individualPath {
 
         spyOn(_state, 'go')
 
-        resourcesExpectations.ProfileApi.patchProfile.respond(200, {})
+        _ProfileApiMock.patchProfileRoute(200, {})
         IndividualPathController.saveAccountObject()
         _httpBackend.flush()
 
@@ -108,7 +101,7 @@ namespace profitelo.dashboard.serviceProvider.individualPath {
 
         spyOn(_topAlertService, 'error')
 
-        resourcesExpectations.ProfileApi.postProfile.respond(500)
+        _ProfileApiMock.postProfileRoute(500)
         IndividualPathController.saveAccountObject()
         _httpBackend.flush()
 

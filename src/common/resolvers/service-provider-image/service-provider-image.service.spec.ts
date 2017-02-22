@@ -1,4 +1,6 @@
 namespace profitelo.resolvers.serviceProviderImage {
+  import IFilesApiMock = profitelo.api.IFilesApiMock
+  import FileInfo = profitelo.api.FileInfo
   describe('Unit testing: profitelo.resolvers.service-provider-image', () => {
     describe('for ServiceProviderChoosePathResolver service >', () => {
 
@@ -6,8 +8,7 @@ namespace profitelo.resolvers.serviceProviderImage {
       let mockState
       let AppServiceProviderImageResolver: IServiceProviderImageService
       let $httpBackend: ng.IHttpBackendService
-      let _FilesApiDef: any
-      let resourcesExpectations: any
+      let _FilesApiMock: IFilesApiMock
 
       beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
         $provide.value('apiUrl', url)
@@ -19,22 +20,15 @@ namespace profitelo.resolvers.serviceProviderImage {
           go: () => {
           }
         }
-        angular.mock.module('profitelo.swaggerResources.definitions')
         angular.mock.module('profitelo.resolvers.service-provider-image', function () {
 
         })
 
         inject(($injector: ng.auto.IInjectorService) => {
           AppServiceProviderImageResolver = $injector.get<IServiceProviderImageService>('ServiceProviderImageResolver')
-          _FilesApiDef = $injector.get('FilesApiDef')
+          _FilesApiMock = $injector.get<IFilesApiMock>('FilesApiMock')
           $httpBackend = $injector.get('$httpBackend')
         })
-
-        resourcesExpectations = {
-          FilesApi: {
-            fileInfoPath: $httpBackend.when(_FilesApiDef.fileInfoPath.method, _FilesApiDef.fileInfoPath.url)
-          }
-        }
       })
 
 
@@ -49,11 +43,12 @@ namespace profitelo.resolvers.serviceProviderImage {
         }
 
         spyOn(spy, 'spy')
-        resourcesExpectations.FilesApi.fileInfoPath.respond(200, {
+        _FilesApiMock.fileInfoPath(200, ':token', <FileInfo>{
           previews: [
             'http://i_just_download_image.profitelo.pl'
           ]
         })
+
         AppServiceProviderImageResolver.resolve(':token').then((res) => {
           expect(res).toBe('http://i_just_download_image.profitelo.pl')
           spy.spy()
@@ -71,11 +66,7 @@ namespace profitelo.resolvers.serviceProviderImage {
         }
 
         spyOn(spy, 'spy')
-        resourcesExpectations.FilesApi.fileInfoPath.respond(300, {
-          meta: {
-            downloadUrl: 'http://i_just_download_image.profitelo.pl'
-          }
-        })
+        _FilesApiMock.fileInfoPath(300, ':token')
 
         AppServiceProviderImageResolver.resolve(':token').then((res) => {
           expect(res).toBe('')

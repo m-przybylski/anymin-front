@@ -3,6 +3,7 @@ namespace profitelo.dashboard.serviceProvider.summary.company {
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import Profile = profitelo.models.Profile
   import IServiceApi = profitelo.api.IServiceApi
+  import IServiceApiMock = profitelo.api.IServiceApiMock
 
   describe('Unit tests: CompanySummaryController >', () => {
     describe('Testing Controller: CompanySummaryController', () => {
@@ -10,12 +11,11 @@ namespace profitelo.dashboard.serviceProvider.summary.company {
       let CompanySummaryController: any
       let _scope: any
       let _state: ng.ui.IStateService
-      let _ServiceApiDef: any
+      let _ServiceApiMock: IServiceApiMock
       let _httpBackend: ng.IHttpBackendService
       let _topAlertService: ITopAlertService
       let _ServiceApi: IServiceApi
       let _controller: any
-      let resourcesExpectations: any
 
       let url = 'awesomeUrl/'
 
@@ -36,7 +36,6 @@ namespace profitelo.dashboard.serviceProvider.summary.company {
       }))
 
       beforeEach(() => {
-        angular.mock.module('profitelo.swaggerResources.definitions')
         angular.mock.module('templates-module')
         angular.mock.module('profitelo.controller.dashboard.service-provider.summary.company')
         inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $httpBackend: ng.IHttpBackendService,
@@ -57,14 +56,7 @@ namespace profitelo.dashboard.serviceProvider.summary.company {
             organizationDetails: {}
           }, '', '')
 
-          _ServiceApiDef = $injector.get('ServiceApiDef')
-
-          resourcesExpectations = {
-            ServiceApi: {
-              postService: $httpBackend.when(_ServiceApiDef.postService.method, _ServiceApiDef.postService.url),
-              deleteService: $httpBackend.when(_ServiceApiDef.deleteService.method, _ServiceApiDef.deleteService.url)
-            }
-          }
+          _ServiceApiMock = $injector.get<IServiceApiMock>('ServiceApiMock')
         })
       })
 
@@ -81,7 +73,7 @@ namespace profitelo.dashboard.serviceProvider.summary.company {
           organizationDetails: undefined
         }, '', '')
 
-        resourcesExpectations.ServiceApi.deleteService.respond(200)
+        _ServiceApiMock.deleteServiceRoute(200, '1')
 
         CompanySummaryController.consultations = [{name: '121'}]
 
@@ -91,7 +83,7 @@ namespace profitelo.dashboard.serviceProvider.summary.company {
 
       it('should fail on delete requested consultation error', () => {
 
-        resourcesExpectations.ServiceApi.deleteService.respond(500)
+        _ServiceApiMock.deleteServiceRoute(500, '1')
 
         CompanySummaryController.consultations = []
 

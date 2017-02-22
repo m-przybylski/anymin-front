@@ -1,8 +1,8 @@
 namespace profitelo.api {
   export interface IRatelApi {
-    getRatelAuthConfigRoute (serviceId?: string, extraHttpRequestParams?: any ) : ng.IPromise<SignedAgent>
-    ratelCallStartedHookRoute (body: CallStartedHook, extraHttpRequestParams?: any ) : ng.IPromise<{}>
-    ratelCallStoppedHookRoute (body: CallStoppedHook, extraHttpRequestParams?: any ) : ng.IPromise<{}>
+    getRatelAuthConfigRoute(serviceId?: string, extraHttpRequestParams?: any): ng.IPromise<SignedAgent>
+    ratelCallStartedHookRoute(body: CallStartedHook, extraHttpRequestParams?: any): ng.IPromise<{}>
+    ratelCallStoppedHookRoute(body: CallStoppedHook, extraHttpRequestParams?: any): ng.IPromise<{}>
   }
 
   /* istanbul ignore next */
@@ -18,7 +18,7 @@ namespace profitelo.api {
           }
       }
 
-      public getRatelAuthConfigRoute = (serviceId?: string, extraHttpRequestParams?: any ) : ng.IPromise<SignedAgent> => {
+      public getRatelAuthConfigRoute = (serviceId?: string, extraHttpRequestParams?: any): ng.IPromise<SignedAgent> => {
           const localVarPath = this.apiUrl + '/ratel/config';
 
           let queryParameters: any = {};
@@ -48,7 +48,7 @@ namespace profitelo.api {
             }
           });
       }
-      public ratelCallStartedHookRoute = (body: CallStartedHook, extraHttpRequestParams?: any ) : ng.IPromise<{}> => {
+      public ratelCallStartedHookRoute = (body: CallStartedHook, extraHttpRequestParams?: any): ng.IPromise<{}> => {
           const localVarPath = this.apiUrl + '/ratel/hook/start';
 
           let queryParameters: any = {};
@@ -79,7 +79,7 @@ namespace profitelo.api {
             }
           });
       }
-      public ratelCallStoppedHookRoute = (body: CallStoppedHook, extraHttpRequestParams?: any ) : ng.IPromise<{}> => {
+      public ratelCallStoppedHookRoute = (body: CallStoppedHook, extraHttpRequestParams?: any): ng.IPromise<{}> => {
           const localVarPath = this.apiUrl + '/ratel/hook/stop';
 
           let queryParameters: any = {};
@@ -112,5 +112,66 @@ namespace profitelo.api {
       }
   }
 
-  angular.module('profitelo.api.RatelApi', []).service('RatelApi', RatelApi)
+  export interface IRatelApiMock {
+    getRatelAuthConfigRoute(status: number, serviceId?: string, data?: SignedAgent, err?: any): void
+    ratelCallStartedHookRoute(status: number, data?: {}, err?: any): void
+    ratelCallStoppedHookRoute(status: number, data?: {}, err?: any): void
+  }
+
+  /* istanbul ignore next */
+  class RatelApiMock implements IRatelApiMock {
+    apiUrl = ''
+    static $inject: string[] = ['$httpBackend', 'apiUrl', '$httpParamSerializer'];
+
+    constructor(protected $httpBackend: ng.IHttpBackendService, apiUrl: string, protected $httpParamSerializer?: (d: any) => any) {
+        if (apiUrl !== undefined) {
+            this.apiUrl = apiUrl;
+        }
+    }
+
+    getRatelAuthConfigRoute(status: number, serviceId?: string, data?: SignedAgent, err?: any): void {
+      const localVarPath = this.apiUrl + '/ratel/config';
+
+      const queryParameters: any = {}
+      if (serviceId !== undefined) {
+        queryParameters['serviceId'] = serviceId;
+      }
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenGET(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    ratelCallStartedHookRoute(status: number, data?: {}, err?: any): void {
+      const localVarPath = this.apiUrl + '/ratel/hook/start';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPOST(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    ratelCallStoppedHookRoute(status: number, data?: {}, err?: any): void {
+      const localVarPath = this.apiUrl + '/ratel/hook/stop';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPOST(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+
+    private serializeQuery = (obj: any) => {
+      var str = [];
+      for(var p in obj)
+        if (obj.hasOwnProperty(p)) {
+          str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        }
+      const url = str.join("&")
+      return (url.length >0) ? '?'+url : ''
+    }
+  }
+
+  angular.module('profitelo.api.RatelApi', [])
+    .service('RatelApi', RatelApi)
+    .service('RatelApiMock', RatelApiMock)
 }

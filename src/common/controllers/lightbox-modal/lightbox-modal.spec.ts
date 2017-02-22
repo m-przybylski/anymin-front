@@ -3,6 +3,7 @@ namespace profitelo.controllers.lightboxModal {
   import IWindowService = profitelo.services.window.IWindowService
   import IUrlService = profitelo.services.helper.IUrlService
   import IFilesApi = profitelo.api.IFilesApi
+  import IFilesApiMock = profitelo.api.IFilesApiMock
   describe('profitelo.common.controller.lightbox-model', () => {
     describe('Testing Controller: LightboxModelController', () => {
 
@@ -11,8 +12,7 @@ namespace profitelo.controllers.lightboxModal {
       let httpBackend: ng.IHttpBackendService
       let $timeout: ng.ITimeoutService
       let window: IWindowService
-      let resourcesExpectations: any
-      let FilesApiDef: any
+      let FilesApiMock: IFilesApiMock
       let imageZoomService: IImageZoomService
       let uibModalInstance = {
         dismiss: () => {
@@ -36,15 +36,14 @@ namespace profitelo.controllers.lightboxModal {
 
       beforeEach(() => {
         angular.mock.module('profitelo.common.controller.lightbox-model')
-        angular.mock.module('profitelo.swaggerResources.definitions')
 
         inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $window: IWindowService,
                 _$timeout_: ng.ITimeoutService, urlService: IUrlService, _FilesApi_: IFilesApi, _lodash_: _.LoDashStatic,
-                _$httpBackend_: ng.IHttpBackendService, _FilesApiDef_: any) => {
+                _$httpBackend_: ng.IHttpBackendService, _FilesApiMock_: IFilesApiMock) => {
           httpBackend = _$httpBackend_
           scope = $rootScope.$new()
           $timeout = _$timeout_
-          FilesApiDef = _FilesApiDef_
+          FilesApiMock = _FilesApiMock_
           window = $window
           imageZoomService = {
             createZoomInstance: () => {
@@ -92,15 +91,8 @@ namespace profitelo.controllers.lightboxModal {
             'imageZoomService': imageZoomService
           })
 
-
-          resourcesExpectations = {
-            FilesApi: {
-              fileInfoPath: httpBackend.when(FilesApiDef.fileInfoPath.method, FilesApiDef.fileInfoPath.url.replace(':token', 'TOKEN-1')),
-              fileInfoPathNextSlide: httpBackend.when(FilesApiDef.fileInfoPath.method, FilesApiDef.fileInfoPath.url.replace(':token', 'TOKEN-2'))
-            }
-          }
-
-          resourcesExpectations.FilesApi.fileInfoPath.respond(200, {})
+          //FIXME
+          FilesApiMock.fileInfoPath(200, 'TOKEN-1', <any>{})
           $timeout.flush()
           httpBackend.flush()
           triggerKeyPress(angular.element(window), 22)
@@ -114,8 +106,10 @@ namespace profitelo.controllers.lightboxModal {
       it('should go to nextSlide and then back prevSlide', () => {
         const startingSlide = lightboxModelController.currentSlide
 
-        resourcesExpectations.FilesApi.fileInfoPathNextSlide.respond(200, {contentType: 'application/pdf'})
-        resourcesExpectations.FilesApi.fileInfoPath.respond(200, {})
+        //FIXME
+        FilesApiMock.fileInfoPath(200, 'TOKEN-2', <any>{contentType: 'application/pdf'})
+        FilesApiMock.fileInfoPath(200, 'TOKEN-1', <any>{})
+
         lightboxModelController.sliderActions.nextSlide()
         httpBackend.flush()
         $timeout.flush()
@@ -129,7 +123,7 @@ namespace profitelo.controllers.lightboxModal {
 
       it('should close lightbox on FilesApi error', () => {
         spyOn(uibModalInstance, 'close')
-        resourcesExpectations.FilesApi.fileInfoPathNextSlide.respond(500)
+        FilesApiMock.fileInfoPath(500, 'TOKEN-2')
         lightboxModelController.sliderActions.nextSlide()
         httpBackend.flush()
         expect(uibModalInstance.close).toHaveBeenCalled()

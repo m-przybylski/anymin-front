@@ -3,6 +3,7 @@ namespace profitelo.components.dashboard.settings.modals.security.changePassword
   import SecurityChangePasswordSettingsController =
     profitelo.components.dashboard.settings.modals.security.changePassword.SecurityChangePasswordSettingsController
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  import IAccountApi = profitelo.api.IAccountApi
 
   describe('Testing Controller: securityChangePasswordSettingsController', () => {
 
@@ -19,16 +20,15 @@ namespace profitelo.components.dashboard.settings.modals.security.changePassword
 
     beforeEach(() => {
       angular.mock.module('ui.bootstrap')
-      angular.mock.module('profitelo.swaggerResources.definitions')
       angular.mock.module('profitelo.components.dashboard.settings.modals.security.change-password')
-      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, AccountApiDef: any) => {
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, AccountApi: IAccountApi) => {
 
         scope = <ISecurityChangePasswordSettingsControllerScope>$rootScope.$new()
 
         const injectors = {
           $scope: scope,
+          AccountApi: AccountApi,
           $uibModalInstance: $uibModalInstance,
-          AccountApi: AccountApiDef,
           User: User
         }
 

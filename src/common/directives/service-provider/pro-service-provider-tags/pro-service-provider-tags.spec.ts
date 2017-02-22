@@ -3,7 +3,7 @@ namespace profitelo.directives.serviceProvider.proServiceProviderTags {
   describe('Unit testing: profitelo.directives.service-provider.pro-service-provider-tags', function () {
     return describe('for proServiceProviderTags directive >', function () {
 
-      let compile: any = null
+      let compile: ng.ICompileService
       let scope: any = null
       const _url = 'url'
 
@@ -20,7 +20,6 @@ namespace profitelo.directives.serviceProvider.proServiceProviderTags {
       beforeEach(() => {
         angular.mock.module('templates-module')
         angular.mock.module('profitelo.directives.service-provider.pro-service-provider-tags')
-        angular.mock.module('profitelo.swaggerResources.definitions')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {
           scope = $rootScope.$new()

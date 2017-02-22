@@ -4,6 +4,7 @@ namespace profitelo.postRegister.setEmail {
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import IFilterService = profitelo.services.filter.IFilterService
   import IAccountApi = profitelo.api.IAccountApi
+  import IAccountApiMock = profitelo.api.IAccountApiMock
 
   describe('Unit tests: profitelo.controller.post-register.set-email>', () => {
     describe('Testing Controller: SetEmailController', () => {
@@ -13,8 +14,8 @@ namespace profitelo.postRegister.setEmail {
       let _topWaitingLoaderService: ITopWaitingLoaderService
       let _AccountApi: IAccountApi
       let _topAlertService: ITopAlertService
+      let _AccountApiMock: IAccountApiMock
       let _$httpBackend: ng.IHttpBackendService
-      let resourcesExpectations: any
 
       const _url = 'awesomeUrl'
 
@@ -39,10 +40,9 @@ namespace profitelo.postRegister.setEmail {
 
       beforeEach(() => {
         angular.mock.module('profitelo.controller.post-register.set-email')
-        angular.mock.module('profitelo.swaggerResources.definitions')
         inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $filter: IFilterService,
                 _topWaitingLoaderService_: ITopWaitingLoaderService, _AccountApi_: IAccountApi, _topAlertService_: ITopAlertService,
-                _$httpBackend_: ng.IHttpBackendService, _AccountApiDef_: any) => {
+                _$httpBackend_: ng.IHttpBackendService, AccountApiMock: IAccountApiMock) => {
 
           scope = $rootScope.$new()
 
@@ -55,20 +55,11 @@ namespace profitelo.postRegister.setEmail {
             AccountApi: _AccountApi_
           })
 
+          _AccountApiMock = AccountApiMock
           _$httpBackend = _$httpBackend_
           _topWaitingLoaderService = _topWaitingLoaderService_
           _AccountApi = _AccountApi_
           _topAlertService = _topAlertService_
-
-
-          resourcesExpectations = {
-            AccountApi: {
-              partialUpdateAccount: _$httpBackend.when(_AccountApiDef_.partialUpdateAccount.method,
-                _url + '/accounts/' + _User.getData()),
-              getAccountEmailExists: _$httpBackend.when(_AccountApiDef_.getAccountEmailExists.method,
-                _url + '/accounts/exists/email')
-            }
-          }
         })
       })
 
@@ -78,8 +69,9 @@ namespace profitelo.postRegister.setEmail {
 
       it('should set new email', () => {
         spyOn($state, 'go')
-        resourcesExpectations.AccountApi.partialUpdateAccount.respond(200, {})
-        resourcesExpectations.AccountApi.getAccountEmailExists.respond(400)
+        //FIXME
+        _AccountApiMock.partialUpdateAccountRoute(200, String(_User.getData()), <any>{})
+        _AccountApiMock.getAccountEmailExistsRoute(400, 'email')
         SetEmailController.setNewEmail()
         _$httpBackend.flush()
 
@@ -88,8 +80,8 @@ namespace profitelo.postRegister.setEmail {
 
       it('should handle bad requesnt while setting new email', () => {
         spyOn(_topAlertService, 'error')
-        resourcesExpectations.AccountApi.partialUpdateAccount.respond(500)
-        resourcesExpectations.AccountApi.getAccountEmailExists.respond(400)
+        _AccountApiMock.partialUpdateAccountRoute(500, String(_User.getData()))
+        _AccountApiMock.getAccountEmailExistsRoute(400, 'email')
         SetEmailController.setNewEmail()
         _$httpBackend.flush()
 

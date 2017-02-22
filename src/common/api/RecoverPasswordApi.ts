@@ -1,10 +1,10 @@
 namespace profitelo.api {
   export interface IRecoverPasswordApi {
-    postRecoverPasswordRoute (body: PostRecoverPassword, extraHttpRequestParams?: any ) : ng.IPromise<JValue>
-    postRecoverPasswordVerifyEmailRoute (body: PostRecoverPasswordVerifyEmailToken, extraHttpRequestParams?: any ) : ng.IPromise<{}>
-    postRecoverPasswordVerifyMsisdnRoute (body: PostRecoverPasswordVerifyMsisdnToken, extraHttpRequestParams?: any ) : ng.IPromise<{}>
-    putRecoverPasswordEmailRoute (body: PutRecoverPasswordEmail, extraHttpRequestParams?: any ) : ng.IPromise<{}>
-    putRecoverPasswordMsisdnRoute (body: PutRecoverPasswordMsisdn, extraHttpRequestParams?: any ) : ng.IPromise<{}>
+    postRecoverPasswordRoute(body: PostRecoverPassword, extraHttpRequestParams?: any): ng.IPromise<JValue>
+    postRecoverPasswordVerifyEmailRoute(body: PostRecoverPasswordVerifyEmailToken, extraHttpRequestParams?: any): ng.IPromise<{}>
+    postRecoverPasswordVerifyMsisdnRoute(body: PostRecoverPasswordVerifyMsisdnToken, extraHttpRequestParams?: any): ng.IPromise<{}>
+    putRecoverPasswordEmailRoute(body: PutRecoverPasswordEmail, extraHttpRequestParams?: any): ng.IPromise<{}>
+    putRecoverPasswordMsisdnRoute(body: PutRecoverPasswordMsisdn, extraHttpRequestParams?: any): ng.IPromise<{}>
   }
 
   /* istanbul ignore next */
@@ -20,7 +20,7 @@ namespace profitelo.api {
           }
       }
 
-      public postRecoverPasswordRoute = (body: PostRecoverPassword, extraHttpRequestParams?: any ) : ng.IPromise<JValue> => {
+      public postRecoverPasswordRoute = (body: PostRecoverPassword, extraHttpRequestParams?: any): ng.IPromise<JValue> => {
           const localVarPath = this.apiUrl + '/recover-password';
 
           let queryParameters: any = {};
@@ -51,7 +51,7 @@ namespace profitelo.api {
             }
           });
       }
-      public postRecoverPasswordVerifyEmailRoute = (body: PostRecoverPasswordVerifyEmailToken, extraHttpRequestParams?: any ) : ng.IPromise<{}> => {
+      public postRecoverPasswordVerifyEmailRoute = (body: PostRecoverPasswordVerifyEmailToken, extraHttpRequestParams?: any): ng.IPromise<{}> => {
           const localVarPath = this.apiUrl + '/recover-password/verify/email';
 
           let queryParameters: any = {};
@@ -82,7 +82,7 @@ namespace profitelo.api {
             }
           });
       }
-      public postRecoverPasswordVerifyMsisdnRoute = (body: PostRecoverPasswordVerifyMsisdnToken, extraHttpRequestParams?: any ) : ng.IPromise<{}> => {
+      public postRecoverPasswordVerifyMsisdnRoute = (body: PostRecoverPasswordVerifyMsisdnToken, extraHttpRequestParams?: any): ng.IPromise<{}> => {
           const localVarPath = this.apiUrl + '/recover-password/verify/msisdn';
 
           let queryParameters: any = {};
@@ -113,7 +113,7 @@ namespace profitelo.api {
             }
           });
       }
-      public putRecoverPasswordEmailRoute = (body: PutRecoverPasswordEmail, extraHttpRequestParams?: any ) : ng.IPromise<{}> => {
+      public putRecoverPasswordEmailRoute = (body: PutRecoverPasswordEmail, extraHttpRequestParams?: any): ng.IPromise<{}> => {
           const localVarPath = this.apiUrl + '/recover-password/email';
 
           let queryParameters: any = {};
@@ -144,7 +144,7 @@ namespace profitelo.api {
             }
           });
       }
-      public putRecoverPasswordMsisdnRoute = (body: PutRecoverPasswordMsisdn, extraHttpRequestParams?: any ) : ng.IPromise<{}> => {
+      public putRecoverPasswordMsisdnRoute = (body: PutRecoverPasswordMsisdn, extraHttpRequestParams?: any): ng.IPromise<{}> => {
           const localVarPath = this.apiUrl + '/recover-password/msisdn';
 
           let queryParameters: any = {};
@@ -177,5 +177,83 @@ namespace profitelo.api {
       }
   }
 
-  angular.module('profitelo.api.RecoverPasswordApi', []).service('RecoverPasswordApi', RecoverPasswordApi)
+  export interface IRecoverPasswordApiMock {
+    postRecoverPasswordRoute(status: number, data?: JValue, err?: any): void
+    postRecoverPasswordVerifyEmailRoute(status: number, data?: {}, err?: any): void
+    postRecoverPasswordVerifyMsisdnRoute(status: number, data?: {}, err?: any): void
+    putRecoverPasswordEmailRoute(status: number, data?: {}, err?: any): void
+    putRecoverPasswordMsisdnRoute(status: number, data?: {}, err?: any): void
+  }
+
+  /* istanbul ignore next */
+  class RecoverPasswordApiMock implements IRecoverPasswordApiMock {
+    apiUrl = ''
+    static $inject: string[] = ['$httpBackend', 'apiUrl', '$httpParamSerializer'];
+
+    constructor(protected $httpBackend: ng.IHttpBackendService, apiUrl: string, protected $httpParamSerializer?: (d: any) => any) {
+        if (apiUrl !== undefined) {
+            this.apiUrl = apiUrl;
+        }
+    }
+
+    postRecoverPasswordRoute(status: number, data?: JValue, err?: any): void {
+      const localVarPath = this.apiUrl + '/recover-password';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPOST(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    postRecoverPasswordVerifyEmailRoute(status: number, data?: {}, err?: any): void {
+      const localVarPath = this.apiUrl + '/recover-password/verify/email';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPOST(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    postRecoverPasswordVerifyMsisdnRoute(status: number, data?: {}, err?: any): void {
+      const localVarPath = this.apiUrl + '/recover-password/verify/msisdn';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPOST(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    putRecoverPasswordEmailRoute(status: number, data?: {}, err?: any): void {
+      const localVarPath = this.apiUrl + '/recover-password/email';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPUT(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    putRecoverPasswordMsisdnRoute(status: number, data?: {}, err?: any): void {
+      const localVarPath = this.apiUrl + '/recover-password/msisdn';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPUT(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+
+    private serializeQuery = (obj: any) => {
+      var str = [];
+      for(var p in obj)
+        if (obj.hasOwnProperty(p)) {
+          str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        }
+      const url = str.join("&")
+      return (url.length >0) ? '?'+url : ''
+    }
+  }
+
+  angular.module('profitelo.api.RecoverPasswordApi', [])
+    .service('RecoverPasswordApi', RecoverPasswordApi)
+    .service('RecoverPasswordApiMock', RecoverPasswordApiMock)
 }

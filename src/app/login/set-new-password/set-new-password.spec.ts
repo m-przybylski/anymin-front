@@ -1,15 +1,15 @@
 namespace profitelo.login.setNewPassword {
 import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordStrengthService
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+  import IRecoverPasswordApiMock = profitelo.api.IRecoverPasswordApiMock
   describe('Unit tests: profitelo.controller.login.set-new-password >', () => {
   describe('Testing Controller: SetNewPasswordController', () => {
 
     let scope: any
     let SetNewPasswordController: any
     let passwordStrengthService: IPasswordStrengthService
-    let resourcesExpectations: any
     let httpBackend: ng.IHttpBackendService
-    let RecoverPasswordApiDef
+    let RecoverPasswordApiMock: IRecoverPasswordApiMock
     let topAlertService: ITopAlertService
     let _url = 'awesomeUrl'
 
@@ -41,15 +41,14 @@ import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordS
 
     beforeEach(() => {
     angular.mock.module('profitelo.controller.login.set-new-password')
-    angular.mock.module('profitelo.swaggerResources.definitions')
     angular.mock.module('profitelo.services.top-alert')
 
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService,
               _passwordStrengthService_: IPasswordStrengthService, _topAlertService_: ITopAlertService,
-              _RecoverPasswordApiDef_: any, _$httpBackend_: ng.IHttpBackendService) => {
+              _RecoverPasswordApiMock_: IRecoverPasswordApiMock, _$httpBackend_: ng.IHttpBackendService) => {
         scope = $rootScope.$new()
         passwordStrengthService = _passwordStrengthService_
-        RecoverPasswordApiDef = _RecoverPasswordApiDef_
+        RecoverPasswordApiMock = _RecoverPasswordApiMock_
         httpBackend = _$httpBackend_
         topAlertService = _topAlertService_
         SetNewPasswordController = $controller('SetNewPasswordController', {
@@ -58,21 +57,7 @@ import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordS
           passwordStrengthService: passwordStrengthService,
           topAlertService: topAlertService
         })
-
-        resourcesExpectations = {
-          RecoverPasswordApi: {
-            putRecoverPasswordMsisdn:
-              httpBackend.when(RecoverPasswordApiDef.putRecoverPasswordMsisdn.method,
-                RecoverPasswordApiDef.putRecoverPasswordMsisdn.url),
-            putRecoverPasswordEmail:
-              httpBackend.when(RecoverPasswordApiDef.putRecoverPasswordEmail.method,
-                RecoverPasswordApiDef.putRecoverPasswordEmail.url)
-          }
-
-        }
       })
-
-
     })
 
     it('should exsist', ()=> {
@@ -87,7 +72,7 @@ import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordS
 
     it('should submit password change by email', ()=> {
       spyOn(topAlertService, 'success')
-      resourcesExpectations.RecoverPasswordApi.putRecoverPasswordEmail.respond(200, {})
+      RecoverPasswordApiMock.putRecoverPasswordEmailRoute(200, {})
       SetNewPasswordController.newPassword = 'sdfsdfsdfsdf'
       SetNewPasswordController.submitPasswordChange()
       httpBackend.flush()
@@ -96,7 +81,7 @@ import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordS
 
     it('should display error on server error', ()=> {
       spyOn(topAlertService, 'error')
-      resourcesExpectations.RecoverPasswordApi.putRecoverPasswordEmail.respond(500)
+      RecoverPasswordApiMock.putRecoverPasswordEmailRoute(500)
       SetNewPasswordController.newPassword = 'sdfsdfsdfsdf'
       SetNewPasswordController.submitPasswordChange()
       httpBackend.flush()
@@ -106,7 +91,7 @@ import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordS
     it('should submit password change by sms', ()=> {
       spyOn(topAlertService, 'success')
       tokenStatus.method = 'SMS'
-      resourcesExpectations.RecoverPasswordApi.putRecoverPasswordMsisdn.respond(200, {})
+      RecoverPasswordApiMock.putRecoverPasswordMsisdnRoute(200, {})
       SetNewPasswordController.submitPasswordChange()
       httpBackend.flush()
       expect(topAlertService.success).toHaveBeenCalled()

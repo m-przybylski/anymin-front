@@ -31,7 +31,6 @@ import IWindowService = profitelo.services.window.IWindowService
 
     beforeEach(() => {
     angular.mock.module('profitelo.controller.dashboard.charge-account')
-    angular.mock.module('profitelo.swaggerResources.definitions')
     angular.mock.module('profitelo.services.smooth-scrolling')
     angular.mock.module('templates-module')
       inject(($rootScope: IRootScopeService, $httpBackend: ng.IHttpBackendService, $controller: ng.IControllerService,

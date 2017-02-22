@@ -2,6 +2,7 @@ namespace profitelo.components.dashboard.settings.modals.general.phoneSettings {
 
   import GeneralPhoneSettingsController = profitelo.components.dashboard.settings.modals.general.phoneSettings.GeneralPhoneSettingsController
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  import IAccountApi = profitelo.api.IAccountApi
 
   describe('Testing Controller: generalPhoneSettingsController', () => {
 
@@ -18,9 +19,8 @@ namespace profitelo.components.dashboard.settings.modals.general.phoneSettings {
 
     beforeEach(() => {
       angular.mock.module('ui.bootstrap')
-      angular.mock.module('profitelo.swaggerResources.definitions')
       angular.mock.module('profitelo.components.dashboard.settings.modals.general.phone-settings')
-      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, AccountApiDef: any,
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, AccountApi: IAccountApi,
               $log: ng.ILogService) => {
 
         scope = <IGeneralPhoneSettingsControllerScope>$rootScope.$new()
@@ -28,7 +28,7 @@ namespace profitelo.components.dashboard.settings.modals.general.phoneSettings {
         const injectors = {
           $scope: scope,
           $uibModalInstance: $uibModalInstance,
-          AccountApi: AccountApiDef,
+          AccountApi: AccountApi,
           $log: $log,
           User: User
         }

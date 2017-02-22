@@ -1,6 +1,6 @@
 namespace profitelo.api {
   export interface IWsApi {
-    registerSessionRoute (extraHttpRequestParams?: any ) : ng.IPromise<{}>
+    registerSessionRoute(extraHttpRequestParams?: any): ng.IPromise<{}>
   }
 
   /* istanbul ignore next */
@@ -16,7 +16,7 @@ namespace profitelo.api {
           }
       }
 
-      public registerSessionRoute = (extraHttpRequestParams?: any ) : ng.IPromise<{}> => {
+      public registerSessionRoute = (extraHttpRequestParams?: any): ng.IPromise<{}> => {
           const localVarPath = this.apiUrl + '/ws/register';
 
           let queryParameters: any = {};
@@ -44,5 +44,43 @@ namespace profitelo.api {
       }
   }
 
-  angular.module('profitelo.api.WsApi', []).service('WsApi', WsApi)
+  export interface IWsApiMock {
+    registerSessionRoute(status: number, data?: {}, err?: any): void
+  }
+
+  /* istanbul ignore next */
+  class WsApiMock implements IWsApiMock {
+    apiUrl = ''
+    static $inject: string[] = ['$httpBackend', 'apiUrl', '$httpParamSerializer'];
+
+    constructor(protected $httpBackend: ng.IHttpBackendService, apiUrl: string, protected $httpParamSerializer?: (d: any) => any) {
+        if (apiUrl !== undefined) {
+            this.apiUrl = apiUrl;
+        }
+    }
+
+    registerSessionRoute(status: number, data?: {}, err?: any): void {
+      const localVarPath = this.apiUrl + '/ws/register';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenGET(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+
+    private serializeQuery = (obj: any) => {
+      var str = [];
+      for(var p in obj)
+        if (obj.hasOwnProperty(p)) {
+          str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        }
+      const url = str.join("&")
+      return (url.length >0) ? '?'+url : ''
+    }
+  }
+
+  angular.module('profitelo.api.WsApi', [])
+    .service('WsApi', WsApi)
+    .service('WsApiMock', WsApiMock)
 }

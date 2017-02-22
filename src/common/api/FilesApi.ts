@@ -1,7 +1,7 @@
 namespace profitelo.api {
   export interface IFilesApi {
-    createFileTokenPath (collectionType: string, body: PostProcessOption, extraHttpRequestParams?: any ) : ng.IPromise<FileIdDto>
-    fileInfoPath (token: string, extraHttpRequestParams?: any ) : ng.IPromise<FileInfo>
+    createFileTokenPath(collectionType: string, body: PostProcessOption, extraHttpRequestParams?: any): ng.IPromise<FileIdDto>
+    fileInfoPath(token: string, extraHttpRequestParams?: any): ng.IPromise<FileInfo>
   }
 
   /* istanbul ignore next */
@@ -17,7 +17,7 @@ namespace profitelo.api {
           }
       }
 
-      public createFileTokenPath = (collectionType: string, body: PostProcessOption, extraHttpRequestParams?: any ) : ng.IPromise<FileIdDto> => {
+      public createFileTokenPath = (collectionType: string, body: PostProcessOption, extraHttpRequestParams?: any): ng.IPromise<FileIdDto> => {
           const localVarPath = this.apiUrl + '/files/token/{collectionType}'
               .replace('{' + 'collectionType' + '}', String(collectionType));
 
@@ -53,7 +53,7 @@ namespace profitelo.api {
             }
           });
       }
-      public fileInfoPath = (token: string, extraHttpRequestParams?: any ) : ng.IPromise<FileInfo> => {
+      public fileInfoPath = (token: string, extraHttpRequestParams?: any): ng.IPromise<FileInfo> => {
           const localVarPath = this.apiUrl + '/files/{token}'
               .replace('{' + 'token' + '}', String(token));
 
@@ -86,5 +86,55 @@ namespace profitelo.api {
       }
   }
 
-  angular.module('profitelo.api.FilesApi', []).service('FilesApi', FilesApi)
+  export interface IFilesApiMock {
+    createFileTokenPath(status: number, collectionType: string, data?: FileIdDto, err?: any): void
+    fileInfoPath(status: number, token: string, data?: FileInfo, err?: any): void
+  }
+
+  /* istanbul ignore next */
+  class FilesApiMock implements IFilesApiMock {
+    apiUrl = ''
+    static $inject: string[] = ['$httpBackend', 'apiUrl', '$httpParamSerializer'];
+
+    constructor(protected $httpBackend: ng.IHttpBackendService, apiUrl: string, protected $httpParamSerializer?: (d: any) => any) {
+        if (apiUrl !== undefined) {
+            this.apiUrl = apiUrl;
+        }
+    }
+
+    createFileTokenPath(status: number, collectionType: string, data?: FileIdDto, err?: any): void {
+      const localVarPath = this.apiUrl + '/files/token/{collectionType}'
+          .replace('{' + 'collectionType' + '}', String(collectionType));
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPOST(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    fileInfoPath(status: number, token: string, data?: FileInfo, err?: any): void {
+      const localVarPath = this.apiUrl + '/files/{token}'
+          .replace('{' + 'token' + '}', String(token));
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenGET(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+
+    private serializeQuery = (obj: any) => {
+      var str = [];
+      for(var p in obj)
+        if (obj.hasOwnProperty(p)) {
+          str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        }
+      const url = str.join("&")
+      return (url.length >0) ? '?'+url : ''
+    }
+  }
+
+  angular.module('profitelo.api.FilesApi', [])
+    .service('FilesApi', FilesApi)
+    .service('FilesApiMock', FilesApiMock)
 }
