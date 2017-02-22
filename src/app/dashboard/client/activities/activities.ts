@@ -1,28 +1,28 @@
 namespace app.dashboard.client.activities {
 
   import IClientActivitiesService = profitelo.services.clientActivities.IClientActivitiesService
-  import IClientActivities = profitelo.services.clientActivities.IClientActivities
-  import ClientActivity = profitelo.models.ClientActivity
-  import IExpertServiceTuple = profitelo.services.clientActivities.IExpertServiceTuple
-  import Money = profitelo.models.Money
+  import GetActivities = profitelo.api.GetActivities
+  import MoneyDto = profitelo.api.MoneyDto
+  import GetActivity = profitelo.api.GetActivity
+  import GetExpertServiceTuple = profitelo.api.GetExpertServiceTuple
 
   export class DashboardClientActivitiesController {
 
-    public balance: Money
-    public activities: Array<ClientActivity>
-    public expertServiceTuples: Array<IExpertServiceTuple>
+    public balance: MoneyDto
+    public activities: Array<GetActivity>
+    public expertServiceTuples: Array<GetExpertServiceTuple>
     public isSearchLoading: boolean = false
     public isParamChange: boolean = false
     public isMoreResults: boolean = false
     public isError: boolean = false
     public filters: {
       activityTypes: Array<string>
-      expertServiceTuples: Array<IExpertServiceTuple>
+      expertServiceTuples: Array<GetExpertServiceTuple>
     }
     public queryParams = {}
 
     constructor($scope: ng.IScope, $timeout: ng.ITimeoutService,
-                clientActivities: IClientActivities, private clientActivitiesService: IClientActivitiesService) {
+                clientActivities: GetActivities, private clientActivitiesService: IClientActivitiesService) {
 
       this.activities = clientActivities.activities
       this.balance = clientActivities.balance

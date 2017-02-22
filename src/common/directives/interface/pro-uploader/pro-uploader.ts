@@ -1,15 +1,13 @@
 namespace profitelo.directives.interface.proUploader {
 
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+  import IFilesApi = profitelo.api.IFilesApi
+  import FileInfo = profitelo.api.FileInfo
 
   function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interval: ng.IIntervalService,
-                       $filter: ng.IFilterService, $q: ng.IQService, FilesApi: any, Upload: any,
+                       $filter: ng.IFilterService, $q: ng.IQService, FilesApi: IFilesApi, Upload: any,
                        CommonConfig: any, topAlertService: ITopAlertService) {
 
-
-    interface FileInfo {
-      fileId: string
-    }
 
     function linkFunction(scope: any, _element: ng.IRootElementService, attr: any) {
 
@@ -72,9 +70,9 @@ namespace profitelo.directives.interface.proUploader {
           isProcess = true
           for (var i = 0; i < files.length; i++) {
             if (!files[i].$error) {
-              tokenPromisses.push(FilesApi.fileInfoPath({
-                collectionType: 'AVATAR' // TODO send proper collectionType
-              }).$promise)
+              tokenPromisses.push(FilesApi.fileInfoPath(
+                'AVATAR' // TODO send proper collectionType
+              ))
               scope.errorValidateMessage = false
             }
           }
@@ -84,7 +82,7 @@ namespace profitelo.directives.interface.proUploader {
               _files = files.length
               _setFilesStatus(_file, _files)
               Upload.upload({
-                url:    _commonConfig.urls.files + _commonConfig.urls['file-upload'].replace('%s', tokenPromissesResponse[k++].fileId),
+                url:    _commonConfig.urls.files + _commonConfig.urls['file-upload'].replace('%s', tokenPromissesResponse[k++].id),
                 data: {
                   file: file
                 }
@@ -222,7 +220,7 @@ namespace profitelo.directives.interface.proUploader {
 
   angular.module('profitelo.directives.interface.pro-uploader', [
     'ngFileUpload',
-    'profitelo.swaggerResources',
+    'profitelo.api.FilesApi',
     'profitelo.directives.interface.pro-alert',
     'commonConfig',
     'pascalprecht.translate'

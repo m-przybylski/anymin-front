@@ -10,7 +10,6 @@
     'profitelo.directives.service-provider.pro-bottom-summary-row',
     'profitelo.directives.service-provider.pro-service-provider-cost',
     'profitelo.directives.service-provider.pro-service-provider-who-provides',
-    'profitelo.swaggerResources',
     'profitelo.directives.service-provider.pro-service-provider-tags',
     'profitelo.directives.service-provider.pro-bottom-consultation-button',
     'c7s.ng.userAuth',

@@ -2,6 +2,7 @@ namespace profitelo.components.dashboard.settings.modals.general.phoneSettings {
 
   import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
   import IPhoneNumberService = profitelo.services.phoneNumber.IPhoneNumberService
+  import IAccountApi = profitelo.api.IAccountApi
 
   interface IPrefixListElement {
     value: string
@@ -34,7 +35,7 @@ namespace profitelo.components.dashboard.settings.modals.general.phoneSettings {
     public setNewNumber = (): void => {
       if (this.checkIsFormValid(this.prefix, this.number)) {
         this.isPhoneNumberInvalid = false
-        this.AccountApi.newMsisdnVerification({unverifiedMsisdn: this.prefix + this.number}).$promise.then(() => {
+        this.AccountApi.newMsisdnVerificationRoute({unverifiedMsisdn: this.prefix + this.number}).then(() => {
           this.isNewPhoneNumberCreate = true
           this.isNumberExist = false
         }, (err: any) => {
@@ -51,10 +52,10 @@ namespace profitelo.components.dashboard.settings.modals.general.phoneSettings {
     }
 
     public sendVerificationPin = (token: string, onError: void) => {
-      this.AccountApi.confirmMsisdnVerification({
+      this.AccountApi.confirmMsisdnVerificationRoute({
         accountId: this.User.getData('id'),
         token: token
-      }).$promise.then(() => {
+      }).then(() => {
         this.$scope.callback()
         this.$uibModalInstance.dismiss('cancel')
       }, (err: any) => {
@@ -71,7 +72,7 @@ namespace profitelo.components.dashboard.settings.modals.general.phoneSettings {
     constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
                 private CommonSettingsService: ICommonSettingsService,
                 private phoneNumberService: IPhoneNumberService,
-                private AccountApi: any, private $log: ng.ILogService,
+                private AccountApi: IAccountApi, private $log: ng.ILogService,
                 private User: any,
                 private $scope: IGeneralPhoneSettingsControllerScope) {
     }
@@ -91,7 +92,7 @@ namespace profitelo.components.dashboard.settings.modals.general.phoneSettings {
     'ui.bootstrap',
     'profitelo.directives.interface.pro-input',
     'profitelo.services.phone-number',
-    'profitelo.swaggerResources',
+    'profitelo.api.AccountApi',
     'profitelo.directives.interface.scrollable',
     'profitelo.services.commonSettings',
     'profitelo.components.interface.dropdown-primary',

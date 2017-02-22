@@ -1,6 +1,9 @@
 namespace profitelo.dashboard.serviceProvider.summary.individual {
-import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+
+  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import Profile = profitelo.models.Profile
+  import IServiceApi = profitelo.api.IServiceApi
+
   describe('Unit tests: IndividualSummaryController >', () => {
   describe('Testing Controller: IndividualSummaryController', () => {
 
@@ -10,7 +13,7 @@ import ITopAlertService = profitelo.services.topAlert.ITopAlertService
     let _ServiceApiDef: any
     let _httpBackend: ng.IHttpBackendService
     let _topAlertService: ITopAlertService
-    let _ServiceApi: any
+    let _ServiceApi: IServiceApi
     let _controller: any
     let resourcesExpectations: any
 
@@ -36,7 +39,7 @@ import ITopAlertService = profitelo.services.topAlert.ITopAlertService
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.controller.dashboard.service-provider.summary.individual')
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $httpBackend: ng.IHttpBackendService,
-              $injector: ng.auto.IInjectorService, _$state_: ng.ui.IStateService, _ServiceApi_: any,
+              $injector: ng.auto.IInjectorService, _$state_: ng.ui.IStateService, _ServiceApi_: IServiceApi,
               _topAlertService_: ITopAlertService) => {
 
         _scope = $rootScope.$new()

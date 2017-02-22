@@ -2,28 +2,28 @@ namespace profitelo.components.dashboard.client.activities.clientActivity {
 
   import IUrlService = profitelo.services.helper.IUrlService
   import IModalsService = profitelo.services.modals.IModalsService
-  import ClientActivity = profitelo.models.ClientActivity
+  import GetActivity = profitelo.api.GetActivity
 
   interface IClientActivityComponentBindings {
-    activity: ClientActivity
+    activity: GetActivity
   }
 
   class ClientActivityComponentController implements ng.IController, IClientActivityComponentBindings {
 
-    public activity: ClientActivity
+    public activity: GetActivity
     public isCallActivity: boolean
     public imageUrl: string | null
 
     /* @ngInject */
-    constructor(private urlService: IUrlService, private modalsService: IModalsService) {
+    constructor(private urlService: IUrlService, private modalsService: IModalsService, private $log: ng.ILogService) {
     }
 
     $onInit() {
       this.isCallActivity = !!this.activity.sueProfileServiceTuple
 
       if (angular.isDefined(this.activity) && this.activity.sueProfileServiceTuple &&
-        this.activity.sueProfileServiceTuple.profile.expertDetails.avatar &&
-        this.activity.sueProfileServiceTuple.profile.expertDetails.avatar !== null) {
+        this.activity.sueProfileServiceTuple.profile.expertDetails &&
+        this.activity.sueProfileServiceTuple.profile.expertDetails.avatar) {
         this.imageUrl = this.urlService.resolveFileUrl(this.activity.sueProfileServiceTuple.profile.expertDetails.avatar)
       } else {
         this.imageUrl = null
@@ -33,8 +33,13 @@ namespace profitelo.components.dashboard.client.activities.clientActivity {
     public openActivityDescription = () => {
 
       if (this.isCallActivity) {
-        const sueId = this.activity.sueProfileServiceTuple.serviceUsageEvent.id
-        this.modalsService.createClientSUEActivityDetailsModal(sueId)
+        const sueId = this.activity.sueProfileServiceTuple!.serviceUsageEvent.id
+        if (sueId) {
+          this.modalsService.createClientSUEActivityDetailsModal(sueId)
+        }
+        else {
+          this.$log.error('Activity SUE is undefined')
+        }
       } else {
         this.modalsService.createClientChargeDetailsModal(this.activity.financialOperation)
       }

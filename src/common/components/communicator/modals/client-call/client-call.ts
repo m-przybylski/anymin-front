@@ -1,11 +1,11 @@
 namespace profitelo.components.communicator.modals.clientCall {
 
-  import Service = profitelo.models.Service
+  import GetService = profitelo.api.GetService
 
   export interface IClientCallParentControllerScope extends ng.IScope {
     rejectCall: Function
     answerCall: Function
-    service: Service
+    service: GetService
   }
 
   export interface IClientCallControllerScope extends ng.IScope {

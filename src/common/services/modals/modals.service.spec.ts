@@ -1,6 +1,8 @@
 namespace profitelo.services.modals {
-import IDialogService = profitelo.services.dialog.IDialogService
-  import Service = profitelo.models.Service
+
+  import IDialogService = profitelo.services.dialog.IDialogService
+  import GetService = profitelo.api.GetService
+
   describe('Unit testing: profitelo.services.modals >', () => {
   describe('for profitelo.services.modals >', () => {
 
@@ -22,7 +24,7 @@ import IDialogService = profitelo.services.dialog.IDialogService
     it('should create IncomingCallModal', inject((dialogService: IDialogService) => {
       spyOn(dialogService, 'openDialog')
 
-      modalsService.createIncomingCallModal(<Service>{}, () => {}, () => {})
+      modalsService.createIncomingCallModal(<GetService>{}, () => {}, () => {})
 
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))

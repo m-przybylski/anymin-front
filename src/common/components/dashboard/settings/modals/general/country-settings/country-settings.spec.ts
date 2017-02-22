@@ -2,6 +2,7 @@ namespace profitelo.components.dashboard.settings.modals.general.countrySettings
 
   import GeneralCountrySettingsController = profitelo.components.dashboard.settings.modals.general.countrySettings.GeneralCountrySettingsController
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  import IAccountApi = profitelo.api.IAccountApi
 
   describe('Testing Controller: generalCountrySettingsController', () => {
 
@@ -23,7 +24,7 @@ namespace profitelo.components.dashboard.settings.modals.general.countrySettings
       angular.mock.module('ngLodash')
       angular.mock.module('profitelo.swaggerResources.definitions')
       angular.mock.module('profitelo.components.dashboard.settings.modals.general.country-settings')
-      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, AccountApi: any, _AccountApiDef_: any,
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, AccountApi: IAccountApi, _AccountApiDef_: any,
               lodash: _.LoDashStatic, $httpBackend: ng.IHttpBackendService) => {
 
         scope = <IGeneralCountrySettingsControllerScope>$rootScope.$new()

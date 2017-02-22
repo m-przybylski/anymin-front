@@ -19,7 +19,6 @@
 
 
   angular.module('profitelo.components.expert-profile.social-links', [
-    'profitelo.swaggerResources'
   ])
     .component('socialLinks', socialLinks)
 

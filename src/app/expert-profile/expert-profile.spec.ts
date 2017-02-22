@@ -1,12 +1,14 @@
 namespace profitelo.expertProfile {
-import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
+
+  import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
   import IRecommendedServicesService = profitelo.services.recommendedServices.IRecommendedServicesService
+  import IProfileApi = profitelo.api.IProfileApi
+
   describe('Unit tests: ExpertProfileController >', () => {
   describe('Testing Controller: ExpertProfileController', () => {
 
     let ExpertProfileController: any
     let _scope: any
-    let ProfileApi: any
 
     beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', 'awesomeURL/')
@@ -18,12 +20,11 @@ import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrol
 
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $timeout: ng.ITimeoutService,
               $q: ng.IQService, $stateParams: ng.ui.IStateParamsService, _smoothScrollingService_: ISmoothScrollingService,
-              _recommendedServices_: IRecommendedServicesService, _ProfileApi_: any) => {
-        ProfileApi = {
-          postProfileFavouriteExpert: (fn: any) => {
-            fn()
-          }
-        }
+              _recommendedServices_: IRecommendedServicesService, ProfileApi: IProfileApi) => {
+
+
+        jasmine.createSpyObj('ProfileApi', ['postProfileFavouriteExpertRoute'])
+
         _scope = $rootScope.$new()
 
         spyOn(_recommendedServices_, 'getRecommendedCompanies').and.callFake(() =>
@@ -37,7 +38,7 @@ import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrol
           expertOrganizations: [],
           recommendedServices: _recommendedServices_,
           expertProfile: {type: '', profile: {expertDetails: {}}},
-          ProfileApi: _ProfileApi_,
+          ProfileApi: ProfileApi,
         })
       })
     })

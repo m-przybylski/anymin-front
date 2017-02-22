@@ -2,8 +2,10 @@ namespace profitelo.components.modals.consultationSummaryClient {
 
   import ICallSummaryService = profitelo.services.callSummary.ICallSummaryService
   import IUrlService = profitelo.services.helper.IUrlService
-  import Tag = profitelo.models.Tag
   import CallSummary = profitelo.models.CallSummary
+  import IServiceApi = profitelo.api.IServiceApi
+  import GetService = profitelo.api.GetService
+  import Tag = profitelo.api.Tag
 
   export interface IConsultationSummaryClientParentControllerScope extends ng.IScope {
     serviceId: string
@@ -32,7 +34,7 @@ namespace profitelo.components.modals.consultationSummaryClient {
     constructor(private $log: ng.ILogService, private $scope: IConsultationSummaryClientControllerScope,
                 private lodash: _.LoDashStatic, private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
                 private callSummaryService: ICallSummaryService, private urlService: IUrlService,
-                private ServiceApi: any) {
+                private ServiceApi: IServiceApi) {
 
       $scope.isFullscreen = true
       $scope.isNavbar = true
@@ -49,10 +51,10 @@ namespace profitelo.components.modals.consultationSummaryClient {
 
       this.$scope.recommendServiceTags = () => {
         if (this.$scope.callSummary) {
-          this.ServiceApi.putServiceRecommendations({
-            serviceUsageEventId: this.$scope.callSummary.serviceUsageEventId,
-            tags: this.lodash.map(this.tags, tag => tag.id)
-          }).$promise.then(this.onRecommendServiceTags, this.onRecommendServiceTagsError)
+          this.ServiceApi.putServiceRecommendationsRoute(
+            this.$scope.callSummary.serviceUsageEventId,
+            {tags: this.lodash.map(this.tags, tag => tag.id)}
+          ).then(this.onRecommendServiceTags, this.onRecommendServiceTagsError)
           this.$scope.closeModal()
         }
       }
@@ -70,9 +72,8 @@ namespace profitelo.components.modals.consultationSummaryClient {
 
       this.$scope.recommendService = () => {
         if (this.$scope.callSummary) {
-          this.ServiceApi.postServiceRecommendation({
-            serviceUsageEventId: this.$scope.callSummary.serviceUsageEventId
-          }).$promise.then(this.onRecommendService, this.onRecommendServiceError)
+          this.ServiceApi.postServiceRecommendationRoute(this.$scope.callSummary.serviceUsageEventId)
+            .then(this.onRecommendService, this.onRecommendServiceError)
         }
       }
     }
@@ -102,10 +103,10 @@ namespace profitelo.components.modals.consultationSummaryClient {
     private onRecommendServiceError = (err: any) =>
       this.$log.error(err)
 
-    private onRecommendService = (_res: any) =>
+    private onRecommendService = (_res: GetService) =>
       this.$scope.chooseExpertsTag = true
 
-    private onRecommendServiceTags = (res: any) =>
+    private onRecommendServiceTags = (res: GetService) =>
       this.$log.debug(res)
 
     private onRecommendServiceTagsError = (err: any) =>
@@ -116,7 +117,7 @@ namespace profitelo.components.modals.consultationSummaryClient {
     'profitelo.components.interface.multiselect',
     'profitelo.services.call-summary',
     'profitelo.services.url',
-    'profitelo.swaggerResources',
+    'profitelo.api.ServiceApi',
     'ui.bootstrap',
     'profitelo.components.interface.preloader',
     'ngLodash',

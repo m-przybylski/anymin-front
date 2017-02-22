@@ -99,7 +99,7 @@ namespace profitelo.services.smoothScrolling {
 
   angular.module('profitelo.services.smooth-scrolling', [])
     .config(($qProvider: ng.IQProvider) => {
-      $qProvider.errorOnUnhandledRejections(false)
+      $qProvider.errorOnUnhandledRejections(true)
     })
     .service('smoothScrollingService', SmoothScrollingService)
 }

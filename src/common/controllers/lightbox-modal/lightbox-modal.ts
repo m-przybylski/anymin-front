@@ -2,9 +2,10 @@ namespace profitelo.controllers.lightboxModal {
 
   import IWindowService = profitelo.services.window.IWindowService
   import IImageZoomService = profitelo.services.imageZoom.IImageZoomService
+  import IFilesApi = profitelo.api.IFilesApi
 
   function lightboxModelController($scope: any, $window: IWindowService, lodash: _.LoDashStatic,
-                                   $timeout: ng.ITimeoutService, FilesApi: any, imageZoomService: IImageZoomService,
+                                   $timeout: ng.ITimeoutService, FilesApi: IFilesApi, imageZoomService: IImageZoomService,
                                    $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
 
     this.slideList = $scope.sliders
@@ -37,9 +38,7 @@ namespace profitelo.controllers.lightboxModal {
 
     const fileInfoRequest = (slide: any) => {
       this.isPending = true
-      FilesApi.fileInfoPath({
-        token: slide.token
-      }).$promise.then((response: any) => {
+      FilesApi.fileInfoPath(slide.token).then((response) => {
           this.currentSlide = slide
           this.isPending = false
           this.navSettings.name = response.name
@@ -128,7 +127,7 @@ namespace profitelo.controllers.lightboxModal {
   angular.module('profitelo.common.controller.lightbox-model', [
     'ui.bootstrap',
     'profitelo.components.pro-lightbox',
-    'profitelo.swaggerResources',
+    'profitelo.api.FilesApi',
     'profitelo.services.url',
     'profitelo.services.print',
     'profitelo.services.image-zoom',

@@ -1,8 +1,8 @@
 namespace profitelo.components.search.searchFilters {
 
   import IFilterService = profitelo.services.filter.IFilterService
-  import Tag = profitelo.models.Tag
   import ISearchService = profitelo.services.search.ISearchService
+  import Tag = profitelo.api.Tag
 
   export interface ISearchFiltersComponentBindings {
     searchResults: Array<Object>

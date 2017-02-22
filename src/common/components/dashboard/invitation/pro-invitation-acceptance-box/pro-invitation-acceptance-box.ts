@@ -1,8 +1,9 @@
 namespace profitelo.components.dashboard.invitation.proInvitationAcceptanceBox {
 
-  /* @ngInject */
-  import Tag = profitelo.models.Tag
-  function controllerFunction($timeout: ng.ITimeoutService, $scope: ng.IScope, EmploymentApi: any) {
+  import IEmploymentApi = profitelo.api.IEmploymentApi
+  import Tag = profitelo.api.Tag
+
+  function controllerFunction($timeout: ng.ITimeoutService, $scope: ng.IScope, EmploymentApi: IEmploymentApi) {
 
     let _isPending = false
     let _rejectTimeout: ng.IPromise<any>
@@ -14,9 +15,7 @@ namespace profitelo.components.dashboard.invitation.proInvitationAcceptanceBox {
 
       if (!_isPending) {
         _isPending = true
-        EmploymentApi.postEmploymentsAccept({
-          employmentId: employmentId
-        }).$promise.then((response: any) => {
+        EmploymentApi.postEmploymentsAcceptRoute(employmentId).then((response) => {
           this.employment = response
           _isPending = false
         }, () => {
@@ -31,13 +30,11 @@ namespace profitelo.components.dashboard.invitation.proInvitationAcceptanceBox {
       let _reject = () => {
         if (!_isPending) {
           _isPending = true
-          EmploymentApi.postEmploymentsReject({
-            employmentId: employmentId
-          }).$promise.then((response: any) => {
+          EmploymentApi.postEmploymentsRejectRoute(employmentId).then((response) => {
             this.employment = response
             _isPending = false
             this.rejectTimeoutSet = false
-          }, () => {
+          }, (_err) => {
             _isPending = false
             this.rejectTimeoutSet = false
           })
@@ -69,7 +66,6 @@ namespace profitelo.components.dashboard.invitation.proInvitationAcceptanceBox {
       $scope.$watch(
         () => this.invitation,
         (newVal) => {
-          /* istanbul ignore next if*/
           if (angular.isDefined(newVal)) {
             newVal.details.tagNames = newVal.details.tags.map((tag: Tag) => tag.name)
           }
@@ -93,7 +89,7 @@ namespace profitelo.components.dashboard.invitation.proInvitationAcceptanceBox {
 
   angular.module('profitelo.components.dashboard.invitation.pro-invitation-acceptance-box', [
     'profitelo.components.pro-summary-tag',
-    'profitelo.swaggerResources'
+    'profitelo.api.EmploymentApi'
   ])
   .component('proInvitationAcceptanceBox', proInvitationAcceptanceBox)
 

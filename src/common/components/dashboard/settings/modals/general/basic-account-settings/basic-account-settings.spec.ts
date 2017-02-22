@@ -2,9 +2,11 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
 
   import BasicAccountSettingsController = profitelo.components.dashboard.settings.modals.general.basicAccountSettings.BasicAccountSettingsController
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  import IAccountApi = profitelo.api.IAccountApi
 
   class File {
-    constructor() {}
+    constructor() {
+    }
   }
 
   interface Window {
@@ -57,7 +59,7 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
     beforeEach(() => {
       angular.mock.module('ui.bootstrap')
       angular.mock.module('profitelo.components.dashboard.settings.modals.general.basic-account-settings')
-      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _AccountApi_: any) => {
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _AccountApi_: IAccountApi) => {
 
         scope = <IBasicAccountSettingsControllerScope>$rootScope.$new()
 

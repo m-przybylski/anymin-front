@@ -1,135 +1,140 @@
 namespace profitelo.controllers.serviceProvider.serviceProviderStepController {
-import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
+  import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
+  import IProfileApi = profitelo.api.IProfileApi
   describe('Unit tests: ServiceProviderStepController >', () => {
-  describe('Testing Controller: ServiceProviderStepController', () => {
+    describe('Testing Controller: ServiceProviderStepController', () => {
 
-    let ServiceProviderStepController: any
-    let ServiceProviderStepControllerSlave
-    let _scope: any
-    let _scopeSlave: any
-    let _timeout: ng.ITimeoutService
-    let _smoothScrollingService: ISmoothScrollingService
-    let url = 'awesomeUrl/'
+      let ServiceProviderStepController: any
+      let ServiceProviderStepControllerSlave
+      let _scope: any
+      let _scopeSlave: any
+      let _timeout: ng.ITimeoutService
+      let _smoothScrollingService: ISmoothScrollingService
+      let url = 'awesomeUrl/'
 
-    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
-      $provide.value('apiUrl', url)
-    }))
+      beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
+        $provide.value('apiUrl', url)
+      }))
 
-    beforeEach(() => {
-    angular.mock.module('profitelo.controller.dashboard.service-provider.consultation-range')
-      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _ProfileApi_: any,
-              _$timeout_: ng.ITimeoutService) => {
+      beforeEach(() => {
+        angular.mock.module('profitelo.controller.dashboard.service-provider.consultation-range')
+        inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _ProfileApi_: IProfileApi,
+                _$timeout_: ng.ITimeoutService) => {
 
-        _timeout = _$timeout_
+          _timeout = _$timeout_
 
-        _smoothScrollingService = {
-          scrollTo: () => {},
-          simpleScrollTo: () => {}
-        }
+          _smoothScrollingService = {
+            scrollTo: () => {
+            },
+            simpleScrollTo: () => {
+            }
+          }
 
-        let _queue = {
-          skippedSteps: []
-        }
+          let _queue = {
+            skippedSteps: []
+          }
 
-        _scope = $rootScope.$new()
-        _scope.queue = _queue
+          _scope = $rootScope.$new()
+          _scope.queue = _queue
 
 
-        ServiceProviderStepController = $controller('ServiceProviderStepController', {
-          $scope: _scope,
-          smoothScrollingService: _smoothScrollingService
+          ServiceProviderStepController = $controller('ServiceProviderStepController', {
+            $scope: _scope,
+            smoothScrollingService: _smoothScrollingService
+
+          })
+
+          _scopeSlave = $rootScope.$new()
+          _scopeSlave.queue = _queue
+
+          ServiceProviderStepControllerSlave = $controller('ServiceProviderStepController', {
+            $scope: _scopeSlave
+          })
 
         })
+      })
 
-        _scopeSlave = $rootScope.$new()
-        _scopeSlave.queue = _queue
+      it('should exists', () => {
+        return expect(!!ServiceProviderStepController).toBe(true)
+      })
 
-        ServiceProviderStepControllerSlave = $controller('ServiceProviderStepController', {
-          $scope: _scopeSlave
-        })
+      it('should change current step on onClick function', () => {
+
+
+        _scope.queue.currentStep = 3
+        _scope.order = 3
+
+        _scopeSlave.order = 4
+
+        spyOn(_scopeSlave, 'saveShadowModel')
+        _scope.onClick(4)
+
+        expect(_scope.queue.currentStep).toEqual(4)
+        expect(_scopeSlave.saveShadowModel).toHaveBeenCalled()
 
       })
-    })
 
-    it('should exists', () => {
-      return expect(!!ServiceProviderStepController).toBe(true)
-    })
+      it('should save step', () => {
 
-    it('should change current step on onClick function', () => {
+        _scope.saveSection = () => {
+        }
+        spyOn(_scope, 'saveSection')
+        _scope.saveStep()
+        expect(_scope.saveSection).toHaveBeenCalled()
 
+      })
 
-      _scope.queue.currentStep = 3
-      _scope.order = 3
+      it('should skip step', () => {
 
-      _scopeSlave.order = 4
+        _scope.order = 5
+        _scope.queue.completedSteps = 4
 
-      spyOn(_scopeSlave, 'saveShadowModel')
-      _scope.onClick(4)
+        _scope.skip()
 
-      expect(_scope.queue.currentStep).toEqual(4)
-      expect(_scopeSlave.saveShadowModel).toHaveBeenCalled()
+        expect(_scope.queue.currentStep).toEqual(6)
+      })
 
-    })
+      it('should restore shadowModel when skipped', () => {
+        _scope.model = {
+          test: true
+        }
 
-    it('should save step', () => {
+        spyOn(_scope, 'restoreShadowModel').and.callThrough()
 
-      _scope.saveSection = () => {}
-      spyOn(_scope, 'saveSection')
-      _scope.saveStep()
-      expect(_scope.saveSection).toHaveBeenCalled()
+        _scope.saveShadowModel()
 
-    })
+        _scope.skip()
 
-    it('should skip step', () => {
+        expect(_scope.restoreShadowModel).toHaveBeenCalled()
 
-      _scope.order = 5
-      _scope.queue.completedSteps = 4
+      })
 
-      _scope.skip()
+      it('should proceed', () => {
 
-      expect(_scope.queue.currentStep).toEqual(6)
-    })
+        _scope.order = 4
+        _scope.queue.completedSteps = 5
 
-    it('should restore shadowModel when skipped', () => {
-      _scope.model = {
-        test: true
-      }
+        _scope.proceed()
 
-      spyOn(_scope, 'restoreShadowModel').and.callThrough()
+        expect(_scope.queue.currentStep).toEqual(5)
 
-      _scope.saveShadowModel()
+      })
 
-      _scope.skip()
+      it('should scroll if going down the wizard', () => {
 
-      expect(_scope.restoreShadowModel).toHaveBeenCalled()
+        _scope.order = 4
+        _scope.queue.currentStep = 3
+        _scope.queue.amountOfSteps = 40
 
-    })
+        spyOn(_smoothScrollingService, 'scrollTo')
 
-    it('should proceed', () => {
+        _scope.proceed()
+        _timeout.flush()
 
-      _scope.order = 4
-      _scope.queue.completedSteps = 5
+        expect(_smoothScrollingService.scrollTo).toHaveBeenCalledWith(5)
 
-      _scope.proceed()
-
-      expect(_scope.queue.currentStep).toEqual(5)
+      })
 
     })
-
-    it('should scroll if going down the wizard', () => {
-
-      _scope.order = 4
-      _scope.queue.currentStep = 3
-      _scope.queue.amountOfSteps = 40
-
-      spyOn(_smoothScrollingService, 'scrollTo')
-
-      _scope.proceed()
-      _timeout.flush()
-
-      expect(_smoothScrollingService.scrollTo).toHaveBeenCalledWith(5)
-
-    })
-
   })
-})}
+}

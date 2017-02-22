@@ -2,13 +2,13 @@ namespace profitelo.resolvers.loginRegister {
 
   import ILoginStateService = profitelo.services.loginState.ILoginStateService
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
-  import Account = profitelo.models.Account
   import IFilterService = profitelo.services.filter.IFilterService
+  import IRegistrationApi = profitelo.api.IRegistrationApi
 
 
   export interface ILoginRegister {
     sessionId: string
-    accountObject: Account
+    accountObject: any
   }
 
   export interface ILoginRegisterService {
@@ -19,7 +19,7 @@ namespace profitelo.resolvers.loginRegister {
 
     constructor(private loginStateService: ILoginStateService, private $state: ng.ui.IStateService,
                 private $filter: IFilterService, private $q: ng.IQService, private $timeout: ng.ITimeoutService,
-                private topAlertService: ITopAlertService, private RegistrationApi: any, private $log: ng.ILogService) {
+                private topAlertService: ITopAlertService, private RegistrationApi: IRegistrationApi, private $log: ng.ILogService) {
 
     }
 
@@ -45,7 +45,7 @@ namespace profitelo.resolvers.loginRegister {
       } else {
         this.RegistrationApi.requestVerification({
           msisdn: _account.phoneNumber.prefix + _account.phoneNumber.number
-        }).$promise.then((response: any) => {
+        }).then((response: any) => {
           _deferred.resolve({
             sessionId: response.sessionId,
             accountObject: _account
@@ -66,7 +66,7 @@ namespace profitelo.resolvers.loginRegister {
   }
 
   angular.module('profitelo.resolvers.login-register', [
-    'profitelo.swaggerResources',
+    'profitelo.api.RegistrationApi',
     'profitelo.services.login-state',
     'profitelo.services.top-alert'
   ])

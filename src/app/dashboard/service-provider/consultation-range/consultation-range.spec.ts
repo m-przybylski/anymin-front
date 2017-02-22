@@ -1,32 +1,37 @@
-describe('Unit tests: ConsultationRangeController >', () => {
-  describe('Testing Controller: ConsultationRangeController', () => {
+namespace profitelo.app.dashboard.serviceProvider.consultationRange {
 
-    var ConsultationRangeController: any
-    let _scope: any
-    let url = 'awesomeUrl/'
+  import IProfileApi = profitelo.api.IProfileApi
 
-    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
-      $provide.value('apiUrl', url)
-    }))
+  describe('Unit tests: ConsultationRangeController >', () => {
+    describe('Testing Controller: ConsultationRangeController', () => {
 
-    beforeEach(() => {
-    angular.mock.module('profitelo.controller.dashboard.service-provider.consultation-range')
-      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _ProfileApi_: any) => {
+      var ConsultationRangeController: any
+      let _scope: any
+      let url = 'awesomeUrl/'
 
-        _scope = $rootScope.$new()
+      beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
+        $provide.value('apiUrl', url)
+      }))
 
-        ConsultationRangeController = $controller('ConsultationRangeController', {
-          $scope: _scope,
-          ProfileApi: _ProfileApi_,
-          savedProfile: {}
+      beforeEach(() => {
+        angular.mock.module('profitelo.controller.dashboard.service-provider.consultation-range')
+        inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _ProfileApi_: IProfileApi) => {
+
+          _scope = $rootScope.$new()
+
+          ConsultationRangeController = $controller('ConsultationRangeController', {
+            $scope: _scope,
+            ProfileApi: _ProfileApi_,
+            savedProfile: {}
+          })
+
         })
-
       })
-    })
 
-    it('should exists', () => {
-      return expect(!!ConsultationRangeController).toBe(true)
-    })
+      it('should exists', () => {
+        return expect(!!ConsultationRangeController).toBe(true)
+      })
 
+    })
   })
-})
+}

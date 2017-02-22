@@ -15,7 +15,6 @@ namespace profitelo.components.dashboard.invoiceCompany {
 
 
   angular.module('profitelo.components.dashboard.invoice', [
-    'profitelo.swaggerResources',
     'c7s.ng.userAuth'
   ])
   .component('invoiceCompany', new PayPalPaymentFormComponent())

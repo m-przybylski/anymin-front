@@ -4,6 +4,7 @@ namespace profitelo.login.forgotPassword {
   import ILoginForgotPassword = profitelo.resolvers.loginForgotPassword.ILoginForgotPassword
   import ITopWaitingLoaderService = profitelo.services.topWaitingLoader.ITopWaitingLoaderService
   import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
+  import IRecoverPasswordApi = profitelo.api.IRecoverPasswordApi
 
   type method = 'sms' | 'email'
 
@@ -12,7 +13,8 @@ namespace profitelo.login.forgotPassword {
   }
 
   function ForgotPasswordController($state: ng.ui.IStateService, account: ILoginForgotPassword,
-                                    RecoverPasswordApi: any, topWaitingLoaderService: ITopWaitingLoaderService,
+                                    RecoverPasswordApi: IRecoverPasswordApi,
+                                    topWaitingLoaderService: ITopWaitingLoaderService,
                                     CommonSettingsService: ICommonSettingsService) {
 
     this.isPending = false
@@ -28,10 +30,10 @@ namespace profitelo.login.forgotPassword {
       if (!this.isPending) {
         this.isPending = true
         topWaitingLoaderService.immediate()
-        RecoverPasswordApi.postRecoverPasswordVerifyMsisdn({
+        RecoverPasswordApi.postRecoverPasswordVerifyMsisdnRoute({
           token: String(this.smsCode),
           msisdn: String(account.accountObject.phoneNumber.prefix) + String(account.accountObject.phoneNumber.number)
-        }).$promise.then(() => {
+        }).then(() => {
           this.isPending = false
           topWaitingLoaderService.stopLoader()
           $state.go('app.login.set-new-password', {
@@ -74,7 +76,7 @@ namespace profitelo.login.forgotPassword {
   angular.module('profitelo.controller.login.forgot-password', [
     'ui.router',
     'profitelo.resolvers.login-forgot-password',
-    'profitelo.swaggerResources',
+    'profitelo.api.RecoverPasswordApi',
     'profitelo.services.pro-top-waiting-loader-service',
     'profitelo.services.commonSettings',
     'profitelo.directives.interface.pro-input',

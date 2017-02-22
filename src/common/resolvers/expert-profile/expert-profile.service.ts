@@ -1,31 +1,24 @@
 namespace profitelo.resolvers.expertProfileResolver {
 
-  import Tag = profitelo.models.Tag
-  import Profile = profitelo.models.Profile
-  import Service = profitelo.models.Service
   import IExpertProfileStateParams = profitelo.expertProfile.IExpertProfileStateParams
-
-  export interface IExpertProfile {
-    profile: Profile
-    services: Array<Service>
-    isFavourite: boolean,
-    employers: Array<Profile>
-  }
+  import IViewsApi = profitelo.api.IViewsApi
+  import GetExpertProfile = profitelo.api.GetExpertProfile
+  import GetExpertServiceDetails = profitelo.api.GetExpertServiceDetails
 
   export interface IExpertProfileServices {
-    resolve(stateParams: IExpertProfileStateParams): ng.IPromise<IExpertProfile>
+    resolve(stateParams: IExpertProfileStateParams): ng.IPromise<GetExpertProfile>
   }
 
   class ExpertProfileResolver implements IExpertProfileServices {
 
-    constructor(private $q: ng.IQService, private ViewsApi: any, private lodash: _.LoDashStatic) {}
+    constructor(private $q: ng.IQService, private ViewsApi: IViewsApi, private lodash: _.LoDashStatic) {}
 
-    public resolve = (stateParams: IExpertProfileStateParams) => {
+    public resolve = (stateParams: IExpertProfileStateParams): ng.IPromise<GetExpertProfile> => {
 
       const handleExpertResponseError = (error: any) =>
         this.$q.reject(error)
 
-      const sortServices = (servicesWithTagsAndEmployees: Array<{service: Service, tags: Array<Tag>}>) => {
+      const sortServices = (servicesWithTagsAndEmployees: Array<GetExpertServiceDetails>) => {
         const primaryConsultation = this.lodash.find(servicesWithTagsAndEmployees, (serviceWithTagsAndEmployees) =>
         serviceWithTagsAndEmployees.service.id === stateParams.primaryConsultationId)
 
@@ -37,7 +30,7 @@ namespace profitelo.resolvers.expertProfileResolver {
         return servicesWithTagsAndEmployees
       }
 
-      const handleExpertResponse = (response: any) => {
+      const handleExpertResponse = (response: GetExpertProfile) => {
         if (!response.profile.expertDetails) {
           return this.$q.reject('Profile is not expert')
         }
@@ -51,10 +44,8 @@ namespace profitelo.resolvers.expertProfileResolver {
       }
 
       const resolveCompanyProfile = () =>
-        this.ViewsApi.getExpertProfile({
-          profileId: stateParams.profileId
-        }).$promise
-        .then(handleExpertResponse)
+        this.ViewsApi.getExpertProfileRoute(stateParams.profileId)
+        .then((res) => handleExpertResponse(res))
         .catch(handleExpertResponseError)
 
       return resolveCompanyProfile()
@@ -63,7 +54,7 @@ namespace profitelo.resolvers.expertProfileResolver {
   }
 
   angular.module('profitelo.resolvers.expert-profile', [
-    'profitelo.swaggerResources',
+    'profitelo.api.ViewsApi',
     'ngLodash',
     'c7s.ng.userAuth'
   ])

@@ -140,7 +140,7 @@ namespace profitelo.app {
   }
 
   function configFunction($urlRouterProvider: ng.ui.IUrlRouterProvider, $httpProvider: ng.IHttpProvider,
-                          $stateProvider: ng.ui.IStateProvider, $resourceProvider: ng.resource.IResourceServiceProvider,
+                          $stateProvider: ng.ui.IStateProvider,
                           $translateProvider: ng.translate.ITranslateProvider, $locationProvider: ng.ILocationProvider,
                           $animateProvider: ng.animate.IAnimateProvider,
                           tmhDynamicLocaleProvider: ng.dynamicLocale.tmhDynamicLocaleProvider, UserProvider: any,
@@ -202,9 +202,6 @@ namespace profitelo.app {
       .otherwise('/home')
 
     $locationProvider.html5Mode(true)
-
-    // ngResource
-    $resourceProvider.defaults.stripTrailingSlashes = true
 
     /**
      * Translations (angular translate)

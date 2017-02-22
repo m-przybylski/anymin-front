@@ -1,6 +1,7 @@
 namespace profitelo.directives.serviceProvider.proServiceProviderTags {
 
-  import Tag = profitelo.models.Tag
+  import ITagApi = profitelo.api.ITagApi
+  import Tag = profitelo.api.Tag
 
   interface IProServiceProviderTags extends ng.IScope {
     tags: Array<Tag>
@@ -15,7 +16,7 @@ namespace profitelo.directives.serviceProvider.proServiceProviderTags {
     tagNameParam: string
   }
 
-  function proServiceProviderTags($q: ng.IQService, TagApi: any, lodash: _.LoDashStatic) {
+  function proServiceProviderTags($q: ng.IQService, TagApi: ITagApi, lodash: _.LoDashStatic) {
 
     function linkFunction(scope: IProServiceProviderTags, _element: ng.IRootElementService, attrs: ng.IAttributes) {
 
@@ -35,11 +36,12 @@ namespace profitelo.directives.serviceProvider.proServiceProviderTags {
 
       const _getTags = (searchWord: string) => {
         if (searchWord.length >= 3) {
-          TagApi.postTagSuggest({
+          TagApi.postTagSuggestRoute({
             query: searchWord,
             tags: scope.tags
-          }).$promise.then((res: {tags: Array<Tag>}) => {
-            scope.tags = JSON.parse(angular.toJson(res.tags))
+          }).then((res) => {
+            const tags = res.tags
+            scope.tags = JSON.parse(angular.toJson(tags))
           })
         } else {
           scope.tags = []
@@ -120,7 +122,7 @@ namespace profitelo.directives.serviceProvider.proServiceProviderTags {
     'profitelo.directives.ng-enter',
     'profitelo.services.commonSettings',
     'profitelo.common.controller.service-provider.service-provider-step-controller',
-    'profitelo.swaggerResources'
+    'profitelo.api.TagApi'
   ])
     .directive('proServiceProviderTags', proServiceProviderTags)
 }

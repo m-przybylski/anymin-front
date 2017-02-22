@@ -1,18 +1,18 @@
 namespace profitelo.dashboard.client.favourites {
 
   import IClientFavouritesResolverService = profitelo.resolvers.clientFavourites.IClientFavouritesResolverService
-  import IClientFavourites = profitelo.resolvers.clientFavourites.IClientFavourites
   import IRecommendedServicesService = profitelo.services.recommendedServices.IRecommendedServicesService
-  import Service = profitelo.models.Service
+  import GetDashboardClientExperts = profitelo.api.GetDashboardClientExperts
+  import ISearchResultRow = profitelo.services.search.ISearchResultRow
 
   function DashboardClientFavouritesController($log: ng.ILogService, lodash: _.LoDashStatic,
-                                               clientFavouritesConsultations: IClientFavourites,
+                                               clientFavouritesConsultations: GetDashboardClientExperts,
                                                recommendedServices: IRecommendedServicesService) {
     this.balance = clientFavouritesConsultations.balance
     this.lastConsultations = lodash.sortBy(clientFavouritesConsultations.lastConsultations, 'createdAt')
     this.favouriteProfiles = clientFavouritesConsultations.favouriteProfiles
 
-    const onGetRecommendedExperts = (recommendedExperts: Array<Service>) =>
+    const onGetRecommendedExperts = (recommendedExperts: Array<ISearchResultRow>) =>
       this.similarExperts = recommendedExperts
 
     const onGetRecommendedExpertsError = (err: any) =>

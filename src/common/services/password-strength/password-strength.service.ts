@@ -25,7 +25,6 @@ namespace profitelo.services.passwordStrength {
       }
     }
 
-    /* istanbul ignore next */
     private stringReverse = function (str: string) {
       for (var i = str.length - 1, out = ''; i >= 0; out += str[i--]) {
         i
@@ -33,7 +32,6 @@ namespace profitelo.services.passwordStrength {
       return out
     }
 
-    /* istanbul ignore next */
     private _getStrength = (p: String) => {
 
       let matches: any = {

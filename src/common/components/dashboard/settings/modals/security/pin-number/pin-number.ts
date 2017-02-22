@@ -2,6 +2,7 @@ namespace profitelo.components.dashboard.settings.modals.security.pinNumber {
 
   import LoDashStatic = _.LoDashStatic
   import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
+  import IAccountApi = profitelo.api.IAccountApi
   export interface ISecurityPinNumberSettingsControllerScope extends ng.IScope {
   }
 
@@ -33,13 +34,13 @@ namespace profitelo.components.dashboard.settings.modals.security.pinNumber {
     }
 
     /* @ngInject */
-    constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, private AccountApi: any,
+    constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, private AccountApi: IAccountApi,
                 private lodash: LoDashStatic, private CommonSettingsService: ICommonSettingsService) {
-      AccountApi.getMobileProtectedViews().$promise.then((res: any) => {
-        res.protectedViews.forEach((view: string) => {
+      AccountApi.getMobileProtectedViewsRoute().then(res => {
+        res.protectedViews.forEach((view) => {
           this.protectedViewsStatus[view] = true
         })
-      }, (err: any) => {
+      }, (err) => {
         this.$uibModalInstance.dismiss('cancel')
         throw new Error('Can not get mobile protected views: ' + err)
       })
@@ -58,13 +59,13 @@ namespace profitelo.components.dashboard.settings.modals.security.pinNumber {
         }
       })
 
-      this.AccountApi.patchMobileViewsPermissions({
+      this.AccountApi.patchMobileViewsPermissionsRoute({
         password: this.confirmPassword,
         mobilePin: this.pinInput.join(''),
         protectedViews: protectedViews
-      }).$promise.then((_res: any) => {
+      }).then(_res => {
         this.$uibModalInstance.dismiss('cancel')
-      }, (err: any) => {
+      }, (err) => {
         if (err.status === 401) {
           this.isPasswordIncorrect = true
         } else {
@@ -79,7 +80,7 @@ namespace profitelo.components.dashboard.settings.modals.security.pinNumber {
     'ui.bootstrap',
     'ngLodash',
     'profitelo.services.commonSettings',
-    'profitelo.swaggerResources',
+    'profitelo.api.AccountApi',
     'profitelo.directives.interface.focus-next',
     'profitelo.directives.interface.scrollable',
     'profitelo.directives.interface.pro-checkbox'

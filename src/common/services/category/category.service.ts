@@ -1,6 +1,7 @@
-import Category = profitelo.models.Category
-
 namespace profitelo.services.categoryService {
+
+  import ICategoryApi = profitelo.api.ICategoryApi
+  import Category = profitelo.api.Category
 
   export interface ICategoryService {
     listCategories(): ng.IPromise<Array<Category>>
@@ -17,7 +18,7 @@ namespace profitelo.services.categoryService {
     private topLevelCategories: Array<Category> = []
     private categorySlugs: {[key: string]: string} = {}
 
-    constructor(private $q: ng.IQService, private CategoryApi: any) {
+    constructor(private $q: ng.IQService, private CategoryApi: ICategoryApi) {
       this.fetched = false
       this.categoryList = []
       this.categoryMap = {}
@@ -55,7 +56,7 @@ namespace profitelo.services.categoryService {
       if (this.fetched) {
         _deferred.resolve()
       } else {
-        this.CategoryApi.listCategories().$promise.then((response: Array<Category>) => {
+        this.CategoryApi.listCategoriesRoute().then((response) => {
           this.fetched = true
           this.categoryList = response.map(category => {
             category.id = category.id.toString();
@@ -82,6 +83,6 @@ namespace profitelo.services.categoryService {
   }
 
   angular.module('profitelo.services.categories', [
-    'profitelo.swaggerResources'
+    'profitelo.api.CategoryApi'
   ]).service('categoryService', CategoryService)
 }

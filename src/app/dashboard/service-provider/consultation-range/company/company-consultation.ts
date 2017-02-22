@@ -4,13 +4,15 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.company {
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import IServiceProviderService = profitelo.services.serviceProvider.IServiceProviderService
   import IServiceProviderImageService = profitelo.resolvers.serviceProviderImage.IServiceProviderImageService
-  import CompanyProfile = profitelo.models.CompanyProfile
-  import Tag = profitelo.models.Tag
-  import Profile = profitelo.models.Profile
-  import Service = profitelo.models.Service
+  import IProfileApi = profitelo.api.IProfileApi
+  import GetProfileWithServices = profitelo.api.GetProfileWithServices
+  import IServiceApi = profitelo.api.IServiceApi
+  import Tag = profitelo.api.Tag
+  import GetOrganizationProfile = profitelo.api.GetOrganizationProfile
 
   function CompanyConsultationController($log: ng.ILogService, $scope: ng.IScope, $state: ng.ui.IStateService,
-                                         dialogService: IDialogService, savedProfile: Profile, ServiceApi: any,
+                                         dialogService: IDialogService, savedProfile: GetProfileWithServices,
+                                         ServiceApi: IServiceApi,
                                          topAlertService: ITopAlertService, profileImage: string,
                                          lodash: _.LoDashStatic, serviceProviderService: IServiceProviderService) {
 
@@ -31,7 +33,7 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.company {
     this.profileImage = profileImage
 
     let _postConsultationMethod = (callback: Function) => {
-      ServiceApi.postService({
+      ServiceApi.postServiceRoute({
         details: {
           name: this.costModel.name,
           tags: this.costModel.tags,
@@ -42,12 +44,12 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.company {
         },
         ownerEmployee: this.ownerEmployee,
         invitations: this.costModel.invitations
-      }).$promise.then((_res: any)=> {
+      }).then((_res)=> {
 
         if (typeof callback === 'function') {
           callback()
         }
-      }, (err: any)=> {
+      }, (err)=> {
         $log.error(err)
         topAlertService.error({
           message: 'error',
@@ -93,7 +95,7 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.company {
     }
 
     this.editConsultation = (id: string, name: string, price: number, tags: Array<Tag>,
-                             invitations: Array<CompanyProfile>, ownerEmployee: boolean) => {
+                             invitations: Array<GetOrganizationProfile>, ownerEmployee: boolean) => {
       this.currentEditConsultationId = this.currentEditConsultationId === id ? -1 : id
       this.editQueue = {
         amountOfSteps: 4,
@@ -110,9 +112,7 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.company {
       this.ownerEmployee = ownerEmployee
       this.updateConsultation = () => {
 
-        ServiceApi.putService({
-          serviceId: id
-        }, {
+        ServiceApi.putServiceRoute(id, {
           details: {
             name: this.editModel.name,
             tags: this.editModel.tags,
@@ -123,9 +123,9 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.company {
           },
           ownerEmployee: this.ownerEmployee,
           invitations: this.editModel.invitations
-        }).$promise.then(() => {
+        }).then(() => {
           $state.reload()
-        }, (err: any) => {
+        }, (err) => {
           $log.error(err)
           topAlertService.error({
             message: 'error',
@@ -141,9 +141,7 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.company {
         let _index = localIndex
 
         this.modalCallback = () => {
-          ServiceApi.deleteService({
-            serviceId: _id
-          }).$promise.then((_res: any)=> {
+          ServiceApi.deleteServiceRoute(_id).then((_res)=> {
             this.consultations.splice(_index, 1)
           }, (err: any) => {
             $log.error(err)
@@ -178,7 +176,7 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.company {
     'ngLodash',
     'c7s.ng.userAuth',
     'profitelo.services.dialog',
-    'profitelo.swaggerResources',
+    'profitelo.api.ServiceApi',
     'profitelo.services.top-alert',
     'profitelo.resolvers.service-provider-image',
     'profitelo.directives.service-provider.pro-bottom-summary-row',
@@ -198,21 +196,21 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.company {
         controllerAs: 'vm',
         resolve: {
           /* istanbul ignore next */
-          savedProfile: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: any,
-                         lodash: _.LoDashStatic, User: any, ServiceApi: any, topAlertService: ITopAlertService) => {
+          savedProfile: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: IProfileApi,
+                         lodash: _.LoDashStatic, User: any, ServiceApi: IServiceApi, topAlertService: ITopAlertService) => {
             /* istanbul ignore next */
-            let _deferred = $q.defer<CompanyProfile | null>()
+            let _deferred = $q.defer<GetProfileWithServices | null>()
             /* istanbul ignore next */
             User.getStatus().then(() => {
-              ProfileApi.getProfileWithServices({
-                profileId: User.getData('id')
-              }).$promise.then((profileWithServices: CompanyProfile) => {
-                ServiceApi.postServicesTags({
-                  serviceIds: lodash.map(profileWithServices.services, 'id')
-                }).$promise.then((servicesTags: Array<Service>) => {
-                  profileWithServices.services.forEach((service: Service) => {
-                    service.details.tags = lodash.head(
-                      lodash.filter(servicesTags, (serviceTags: any) => service.id === serviceTags.serviceId)).tags
+              ProfileApi.getProfileWithServicesRoute(User.getData('id')).then((profileWithServices) => {
+
+                ServiceApi.postServicesTagsRoute({
+                  serviceIds: lodash.map(profileWithServices.services, service => service.id)
+                }).then((servicesTags) => {
+                  profileWithServices.services.forEach((service) => {
+                    // FIXME remove any
+                    (<any>service.details).tags = lodash.head(
+                      lodash.filter(servicesTags, (serviceTags) => service.id === serviceTags.serviceId)).tags
                   })
                   _deferred.resolve(profileWithServices)
                 })
@@ -238,8 +236,12 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.company {
             return _deferred.promise
           },
           /* istanbul ignore next */
-          profileImage: (ServiceProviderImageResolver: IServiceProviderImageService, savedProfile: CompanyProfile) => {
-            return ServiceProviderImageResolver.resolve(savedProfile.organizationDetails.logo || '')
+          profileImage: (ServiceProviderImageResolver: IServiceProviderImageService,
+                         savedProfile: GetProfileWithServices | null, $q: ng.IQService) => {
+            if (savedProfile && savedProfile.organizationDetails && savedProfile.organizationDetails.logo)
+              return ServiceProviderImageResolver.resolve(savedProfile.organizationDetails.logo)
+            else
+              return $q.resolve('')
           }
         },
         data: {

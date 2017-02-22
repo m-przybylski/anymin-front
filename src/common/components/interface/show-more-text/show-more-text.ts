@@ -55,7 +55,6 @@ namespace profitelo.components.interface.showMoreText {
 
     $timeout(updateHeight)
 
-    /* istanbul ignore next */
     angular.element($window).on('resize', () => {
       updateHeight()
       $scope.$digest()

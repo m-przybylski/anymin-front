@@ -2,6 +2,7 @@ namespace profitelo.components.dashboard.chargeAccount.payuPaymentForm {
 import IWindowService = profitelo.services.window.IWindowService
   import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+  import IPaymentsApi = profitelo.api.IPaymentsApi
   describe('Unit testing: profitelo.components.dashboard.charge-account.payu-payment-form', () => {
   return describe('for payuPaymentFormController component >', () => {
     const url = 'awesomUrl/'
@@ -28,13 +29,18 @@ import IWindowService = profitelo.services.window.IWindowService
     beforeEach(() => {
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.swaggerResources.definitions')
+    angular.mock.module('profitelo.api.PaymentsApi')
     angular.mock.module('profitelo.components.dashboard.charge-account.payu-payment-form')
     angular.mock.module('ui.router')
 
+      let injectors = {}
+
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
               _$componentController_: ng.IComponentControllerService, $httpBackend: ng.IHttpBackendService,
-              $window: IWindowService, _User_: any,  _$state_: ng.ui.IStateService, _PaymentsApiDef_: any,
-              _topAlertService_: ITopAlertService, _smoothScrollingService_: ISmoothScrollingService) => {
+              $window: IWindowService, _User_: any, _$state_: ng.ui.IStateService, _PaymentsApiDef_: any,
+              _topAlertService_: ITopAlertService, _smoothScrollingService_: ISmoothScrollingService,
+              PaymentsApi: IPaymentsApi) => {
+
         componentController = _$componentController_
         scope = $rootScope.$new()
         compile = $compile
@@ -45,6 +51,10 @@ import IWindowService = profitelo.services.window.IWindowService
         window = $window
         smoothScrollingService = _smoothScrollingService_
         User = _User_
+
+        injectors = {
+          PaymentsApi: PaymentsApi
+        }
       })
 
       resourcesExpectations = {
@@ -71,7 +81,7 @@ import IWindowService = profitelo.services.window.IWindowService
         }
       }
 
-      component = componentController('payuPaymentForm', {}, bindings)
+      component = componentController('payuPaymentForm', injectors, bindings)
 
       expect(component.amountMethodModal).toBeDefined()
     })
@@ -88,7 +98,7 @@ import IWindowService = profitelo.services.window.IWindowService
       component.$onInit()
 
       spyOn(state, 'go')
-      resourcesExpectations.PaymentsApi.postPayUOrder.respond(400)
+      resourcesExpectations.PaymentsApi.postPayUOrder.respond(400, {})
       component.sendPayment()
       httpBackend.flush()
       expect(state.go).toHaveBeenCalled()
@@ -100,7 +110,7 @@ import IWindowService = profitelo.services.window.IWindowService
       component.$onInit()
 
       spyOn(window, 'open')
-      resourcesExpectations.PaymentsApi.postPayUOrder.respond(200)
+      resourcesExpectations.PaymentsApi.postPayUOrder.respond(200, {})
       component.sendPayment()
       httpBackend.flush()
       expect(window.open).toHaveBeenCalled()
@@ -110,7 +120,7 @@ import IWindowService = profitelo.services.window.IWindowService
       spyOn(smoothScrollingService, 'simpleScrollTo')
       bindings.amountMethodModal.payMethodValue = undefined
       component = componentController('payuPaymentForm', {}, bindings)
-      resourcesExpectations.PaymentsApi.postPayUOrder.respond(200)
+      resourcesExpectations.PaymentsApi.postPayUOrder.respond(200, {})
       component.sendPayment()
       expect(smoothScrollingService.simpleScrollTo).toHaveBeenCalled()
     }))

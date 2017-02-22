@@ -4,12 +4,12 @@ namespace profitelo.components.communicator.messenger.maximized {
   import IUrlService = profitelo.services.helper.IUrlService
   import IUploaderFactory = profitelo.services.uploader.IUploaderFactory
   import IUploaderService = profitelo.services.uploader.IUploaderService
-  import Money = profitelo.models.Money
   import IPostProcessOptions = profitelo.services.uploader.IPostProcessOptions
   import ExpertProfile = profitelo.models.ExpertProfile
+  import MoneyDto = profitelo.api.MoneyDto
 
   export interface IMessengerMaximizedComponentBindings {
-    callCost: Money
+    callCost: MoneyDto
     isMessenger: boolean
     minimizeMessenger: Function
     callLength: number
@@ -17,7 +17,7 @@ namespace profitelo.components.communicator.messenger.maximized {
 
   export class MessengerMaximizedComponentController implements ng.IController, IMessengerMaximizedComponentBindings {
 
-    public callCost: Money
+    public callCost: MoneyDto
     public isMessenger: boolean
     public minimizeMessenger: Function
     public callLength: number

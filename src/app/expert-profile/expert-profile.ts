@@ -1,10 +1,10 @@
 namespace profitelo.expertProfile {
 
-  import ExpertProfile = profitelo.models.ExpertProfile
   import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
   import IExpertProfileServices = profitelo.resolvers.expertProfileResolver.IExpertProfileServices
-  import IExpertProfile = profitelo.resolvers.expertProfileResolver.IExpertProfile
   import IRecommendedServicesService = profitelo.services.recommendedServices.IRecommendedServicesService
+  import IProfileApi = profitelo.api.IProfileApi
+  import GetExpertProfile = profitelo.api.GetExpertProfile
 
   export interface IExpertProfileStateParams extends ng.ui.IStateParamsService {
     primaryConsultationId: string
@@ -12,8 +12,8 @@ namespace profitelo.expertProfile {
   }
 
   function ExpertProfileController($stateParams: IExpertProfileStateParams, $log: ng.ILogService,
-                                   $timeout: ng.ITimeoutService, expertProfile: IExpertProfile,
-                                   recommendedServices: IRecommendedServicesService, ProfileApi: any,
+                                   $timeout: ng.ITimeoutService, expertProfile: GetExpertProfile,
+                                   recommendedServices: IRecommendedServicesService, ProfileApi: IProfileApi,
                                    smoothScrollingService: ISmoothScrollingService) {
 
     this.profile = {}
@@ -32,7 +32,7 @@ namespace profitelo.expertProfile {
     this.profile.colaboratedOrganizations = expertProfile.employers
     this.services = expertProfile.services
 
-    recommendedServices.getRecommendedExperts(this.consultations).then((response: Array<ExpertProfile>) => {
+    recommendedServices.getRecommendedExperts(this.consultations).then((response) => {
       this.similarExperts = response
     })
 
@@ -51,11 +51,11 @@ namespace profitelo.expertProfile {
 
     this.handleLike = () => {
       if (!this.profile.isFavourite) {
-        ProfileApi.postProfileFavouriteExpert({profileId: $stateParams.profileId})
-          .$promise.then(onProfileLike, onProfileLikeError)
+        ProfileApi.postProfileFavouriteExpertRoute($stateParams.profileId)
+          .then(onProfileLike, onProfileLikeError)
       } else {
-        ProfileApi.deleteProfileFavouriteExpert({profileId: $stateParams.profileId })
-          .$promise.then(onProfileDislike, onProfileDislikeError)
+        ProfileApi.deleteProfileFavouriteExpertRoute($stateParams.profileId)
+          .then(onProfileDislike, onProfileDislikeError)
       }
     }
 
@@ -64,7 +64,7 @@ namespace profitelo.expertProfile {
 
   angular.module('profitelo.controller.expert-profile', [
     'ui.router',
-    'profitelo.swaggerResources',
+    'profitelo.api.ProfileApi',
     'c7s.ng.userAuth',
     'profitelo.directives.pro-top-navbar',
     'profitelo.directives.expert-profile.pro-expert-header',

@@ -1,5 +1,9 @@
 namespace profitelo.services.communicator {
-import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+
+  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  import IRatelApi = profitelo.api.IRatelApi
+  import IProfileApi = profitelo.api.IProfileApi
+
   describe('Unit testing: profitelo.services.communicator >', () => {
   describe('for profitelo.services.communicator >', () => {
 
@@ -46,31 +50,27 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
       expect(true).toBeTruthy()
     })
 
-    it('should authenticate', inject(($q: ng.IQService, $rootScope: IRootScopeService, RatelApi: any, ProfileApi: any,
-                                      ratelSdk: any) => {
+    it('should authenticate', inject(($q: ng.IQService, $rootScope: IRootScopeService, RatelApi: IRatelApi,
+                                      ProfileApi: IProfileApi, ratelSdk: any) => {
 
-      RatelApi.getRatelAuthConfig = () => {
-        return {
-          $promise: $q.resolve({
-            toJSON: () => config
-          })
-        }
+      RatelApi.getRatelAuthConfigRoute = (_x: string) => {
+        return $q.resolve(config)
       }
 
-      ProfileApi.getEmployersProfilesWithServices = () => {
-        return {$promise: $q.resolve(profilesWithServices)}
+      ProfileApi.getEmployersProfilesWithServicesRoute = () => {
+        return $q.resolve(profilesWithServices)
       }
       ratelSdk.withSignedAuth = () => $q.resolve(session)
 
-      spyOn(RatelApi, 'getRatelAuthConfig').and.callThrough()
-      spyOn(ProfileApi, 'getEmployersProfilesWithServices').and.callThrough()
+      spyOn(RatelApi, 'getRatelAuthConfigRoute').and.callThrough()
+      spyOn(ProfileApi, 'getEmployersProfilesWithServicesRoute').and.callThrough()
       spyOn(ratelSdk, 'withSignedAuth').and.callThrough()
 
       communicatorService.authenticate()
       $rootScope.$digest()
 
-      expect(RatelApi.getRatelAuthConfig).toHaveBeenCalled()
-      expect(ProfileApi.getEmployersProfilesWithServices).toHaveBeenCalled()
+      expect(RatelApi.getRatelAuthConfigRoute).toHaveBeenCalled()
+      expect(ProfileApi.getEmployersProfilesWithServicesRoute).toHaveBeenCalled()
       expect(ratelSdk.withSignedAuth).toHaveBeenCalled()
 
       expect(communicatorService.getClientSession()).toEqual(session)

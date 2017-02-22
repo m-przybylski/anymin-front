@@ -1,7 +1,6 @@
 namespace profitelo.directives.serviceProvider.proServiceProviderSummaryStep {
 
-  import Tag = profitelo.models.Tag
-
+  import Tag = profitelo.api.Tag
   function proServiceProviderSummaryStep() {
 
     /* istanbul ignore next function -  We'll need to load babel-polyfill to test it*/

@@ -4,6 +4,8 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
   import IUploaderService = profitelo.services.uploader.IUploaderService
   import IUrlService = profitelo.services.helper.IUrlService
   import IPostProcessOptions = profitelo.services.uploader.IPostProcessOptions
+  import IAccountApi = profitelo.api.IAccountApi
+  import PutGeneralSettings = profitelo.api.PutGeneralSettings
 
   export interface IBasicAccountSettingsControllerParentScope extends ng.IScope {
     callback: (cb: Function) => void
@@ -23,7 +25,7 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
     userName: string
     removePhoto: Function
     $parent: IBasicAccountSettingsControllerParentScope
-    generalSettingsObject: any
+    generalSettingsObject: PutGeneralSettings
     avatarPreview: string
     isUploadInProgress: boolean
   }
@@ -38,7 +40,7 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
 
     /* @ngInject */
     constructor(private $scope: IBasicAccountSettingsControllerScope,
-                $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, private AccountApi: any,
+                $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, private AccountApi: IAccountApi,
                 private User: any, uploaderFactory: IUploaderFactory, urlService: IUrlService) {
 
       $scope.isNavbar = true
@@ -59,7 +61,7 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
       $scope.avatarPreview = urlService.resolveFileUrl(userBasicSettings.avatar)
 
       this.$scope.submitBasicSettings = () => {
-        this.AccountApi.putGeneralSettings(this.$scope.generalSettingsObject).$promise.then((_res: any) => {
+        this.AccountApi.putGeneralSettingsRoute(this.$scope.generalSettingsObject).then(_res => {
           $scope.$parent.callback(() => $uibModalInstance.dismiss('cancel'))
         }, (err: any) => {
           throw new Error('Can not patch user account: ' + err)
@@ -77,7 +79,7 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
 
       $scope.removePhoto = () => {
         $scope.avatarPreview = 'none'
-        $scope.generalSettingsObject.avatar = null
+        $scope.generalSettingsObject.avatar = undefined
       }
 
       $scope.saveCrop = (data: any) => {
@@ -125,7 +127,7 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
     'c7s.ng.userAuth',
     'profitelo.services.url',
     'profitelo.services.uploader',
-    'profitelo.swaggerResources',
+    'profitelo.api.AccountApi',
     'profitelo.components.interface.preloader',
     'profitelo.components.interface.image-crop',
     'profitelo.directives.interface.pro-checkbox',

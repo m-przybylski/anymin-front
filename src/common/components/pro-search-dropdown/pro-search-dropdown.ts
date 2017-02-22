@@ -1,8 +1,8 @@
 namespace profitelo.components.proSearchDropdown {
 
   import ICategoryService = profitelo.services.categoryService.ICategoryService
-  import Tag = profitelo.models.Tag
   import ISearchService = profitelo.services.search.ISearchService
+  import Tag = profitelo.api.Tag
 
   interface ISuggestions {
     services: any

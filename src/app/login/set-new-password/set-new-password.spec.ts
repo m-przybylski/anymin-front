@@ -22,7 +22,9 @@ import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordS
         },
         password: 'asas'
       },
-      payload: {},
+      payload: {
+        msisdn: '+48555555555'
+      },
       sessionId: '123fsdf'
     }
 
@@ -85,7 +87,7 @@ import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordS
 
     it('should submit password change by email', ()=> {
       spyOn(topAlertService, 'success')
-      resourcesExpectations.RecoverPasswordApi.putRecoverPasswordEmail.respond(200)
+      resourcesExpectations.RecoverPasswordApi.putRecoverPasswordEmail.respond(200, {})
       SetNewPasswordController.newPassword = 'sdfsdfsdfsdf'
       SetNewPasswordController.submitPasswordChange()
       httpBackend.flush()
@@ -104,7 +106,7 @@ import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordS
     it('should submit password change by sms', ()=> {
       spyOn(topAlertService, 'success')
       tokenStatus.method = 'SMS'
-      resourcesExpectations.RecoverPasswordApi.putRecoverPasswordMsisdn.respond(200)
+      resourcesExpectations.RecoverPasswordApi.putRecoverPasswordMsisdn.respond(200, {})
       SetNewPasswordController.submitPasswordChange()
       httpBackend.flush()
       expect(topAlertService.success).toHaveBeenCalled()

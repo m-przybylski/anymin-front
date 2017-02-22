@@ -4,6 +4,8 @@ namespace profitelo.resolvers.loginConfirmEmail {
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
   import IFilterService = profitelo.services.filter.IFilterService
   import IConfirmEmailStateParams = profitelo.login.confirmEmail.IConfirmEmailStateParams
+  import IAccountApi = profitelo.api.IAccountApi
+  import ISessionApi = profitelo.api.ISessionApi
 
   export interface ILoginConfirmEmailService {
     resolve(stateParams: IConfirmEmailStateParams): ng.IPromise<undefined>
@@ -13,7 +15,7 @@ namespace profitelo.resolvers.loginConfirmEmail {
 
     constructor(private $q: ng.IQService, private $rootScope: IRootScopeService, private $timeout: ng.ITimeoutService,
                 private $filter: IFilterService, private $state: ng.ui.IStateService, private topAlertService: ITopAlertService,
-                private User: any, private UserRoles: any, private AccountApi: any, private SessionApi: any) {
+                private User: any, private UserRoles: any, private AccountApi: IAccountApi, private SessionApi: ISessionApi) {
 
     }
 
@@ -34,12 +36,9 @@ namespace profitelo.resolvers.loginConfirmEmail {
       const handleGoodToken = (apiKey: string) => {
 
         this.User.setApiKeyHeader(apiKey)
-        this.SessionApi.check().$promise.then((response: any) => {
+        this.SessionApi.check().then((response) => {
 
           _deferred.resolve()
-
-          delete response.$promise
-          delete response.$resolved
           this.User.setData(response)
           this.User.setData({role: this.UserRoles.getRole('user')})
 
@@ -59,9 +58,7 @@ namespace profitelo.resolvers.loginConfirmEmail {
 
       const verifyEmailToken = (token: string) => {
 
-        this.AccountApi.postAccountVerifyEmail({
-          token: token
-        }).$promise.then((response: any) => {
+        this.AccountApi.postAccountVerifyEmailRoute(token).then(response => {
           handleGoodToken(response.apiKey)
         }, handleBadToken)
 
@@ -79,7 +76,8 @@ namespace profitelo.resolvers.loginConfirmEmail {
   }
 
   angular.module('profitelo.resolvers.login-confirm-email', [
-    'profitelo.swaggerResources',
+    'profitelo.api.AccountApi',
+    'profitelo.api.SessionApi',
     'profitelo.services.top-alert',
     'c7s.ng.userAuth',
     'profitelo.directives.interface.pro-alert'

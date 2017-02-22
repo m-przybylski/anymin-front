@@ -2,24 +2,24 @@ namespace profitelo.components.communicator {
 
   import ICallService = profitelo.services.call.ICallService
   import IUrlService = profitelo.services.helper.IUrlService
-  import Service = profitelo.models.Service
-  import Money = profitelo.models.Money
-  import ExpertProfile = profitelo.models.ExpertProfile
+  import GetService = profitelo.api.GetService
+  import MoneyDto = profitelo.api.MoneyDto
+  import GetProfile = profitelo.api.GetProfile
 
   export class CommunicatorComponentController implements ng.IController {
 
     public isClosed: boolean = true
     public isDisconnectedAnimation: boolean = false
     public isConnecting: boolean = false
-    public service: Service | null = null
-    public expert: ExpertProfile | null = null
+    public service: GetService | null = null
+    public expert: GetProfile | null = null
     public expertAvatar: string
 
     public isRemoteVideo: boolean = false
     public isLocalVideo: boolean = false
     public isMessenger: boolean = false
     public callLengthInSeconds: number = 0
-    public callCost: Money | null = null
+    public callCost: MoneyDto | null = null
 
     /* @ngInject */
     constructor(private $timeout: ng.ITimeoutService, private $element: ng.IRootElementService,
@@ -40,7 +40,7 @@ namespace profitelo.components.communicator {
         this.cleanupComponent()
         this.service = expertServiceTuple.service
         this.expert = expertServiceTuple.expert
-        this.expertAvatar = this.urlService.resolveFileUrl(this.expert.expertDetails.avatar || '')
+        this.expertAvatar = this.urlService.resolveFileUrl(this.expert.expertDetails!.avatar || '')
         this.isConnecting = true
         this.isClosed = false
       })

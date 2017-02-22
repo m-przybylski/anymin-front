@@ -2,17 +2,19 @@ namespace profitelo.dashboard.serviceProvider.companyPath {
 
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
-  import Profile = profitelo.models.Profile
+  import IProfileApi = profitelo.api.IProfileApi
+  import UpdateProfile = profitelo.api.UpdateProfile
+  import GetProfile = profitelo.api.GetProfile
 
-  function CompanyPathController($scope: ng.IScope, $state: ng.ui.IStateService, ProfileApi: any,
-                                 savedProfile: Profile | null, User: any, topAlertService: ITopAlertService,
+  function CompanyPathController($scope: ng.IScope, $state: ng.ui.IStateService, ProfileApi: IProfileApi,
+                                 savedProfile: GetProfile | null, topAlertService: ITopAlertService,
                                  $timeout: ng.ITimeoutService, smoothScrollingService: ISmoothScrollingService) {
 
-    let _updateMethod: Function
+    let _updateMethod: (body: UpdateProfile) => any
     if (savedProfile) {
-      _updateMethod = ProfileApi.patchProfile
+      _updateMethod = ProfileApi.patchProfileRoute
     } else {
-      _updateMethod = ProfileApi.postProfile
+      _updateMethod = ProfileApi.postProfileRoute
     }
 
     this.companyPathModel = {
@@ -57,7 +59,6 @@ namespace profitelo.dashboard.serviceProvider.companyPath {
 
     this.saveAccountObject = () => {
       _updateMethod({
-        id: User.getData('id'),
         organizationDetails: {
           name: this.companyPathModel.name,
           logo: this.companyPathModel.logo,
@@ -67,7 +68,7 @@ namespace profitelo.dashboard.serviceProvider.companyPath {
           }),
           links: this.companyPathModel.links
         }
-      }).$promise.then(() => {
+      }).then(() => {
         $state.go('app.dashboard.service-provider.consultation-range.company')
       }, () => {
         topAlertService.error({
@@ -88,7 +89,7 @@ namespace profitelo.dashboard.serviceProvider.companyPath {
     'profitelo.directives.service-provider.pro-service-provider-description',
     'profitelo.directives.service-provider.pro-service-provider-languages',
     'profitelo.directives.service-provider.pro-bottom-summary-row',
-    'profitelo.swaggerResources',
+    'profitelo.api.ProfileApi',
     'profitelo.directives.service-provider.pro-service-provider-avatar',
     'profitelo.services.top-alert',
     'c7s.ng.userAuth'
@@ -100,15 +101,13 @@ namespace profitelo.dashboard.serviceProvider.companyPath {
         controller: 'CompanyPathController',
         controllerAs: 'vm',
         resolve: {
-          savedProfile: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: any,
+          savedProfile: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: IProfileApi,
                          User: any, topAlertService: ITopAlertService) => {
             /* istanbul ignore next */
-            let _deferred = $q.defer<Profile | null>()
+            let _deferred = $q.defer<GetProfile | null>()
             /* istanbul ignore next */
             User.getStatus().then(() => {
-              ProfileApi.getProfile({
-                profileId: User.getData('id')
-              }).$promise.then((response: Profile) => {
+              ProfileApi.getProfileRoute(User.getData('id')).then((response) => {
                 _deferred.resolve(response)
               }, () => {
                 _deferred.resolve(null)

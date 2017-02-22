@@ -1,6 +1,7 @@
 namespace app.dashboard.client.activities {
   import IClientActivitiesService = profitelo.services.clientActivities.IClientActivitiesService
-  import IClientActivities = profitelo.services.clientActivities.IClientActivities
+  import GetActivities = profitelo.api.GetActivities
+
   describe('Unit tests: DashboardClientActivitiesController >', () => {
     describe('Testing Controller: DashboardClientActivitiesController', () => {
 
@@ -27,7 +28,7 @@ namespace app.dashboard.client.activities {
           return <ng.IPromise<any>>{}
         },
         resolve: () => {
-          return <ng.IPromise<IClientActivities>>{}
+          return <ng.IPromise<GetActivities>>{}
         }
       }
 
