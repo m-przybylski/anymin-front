@@ -10,7 +10,15 @@ namespace profitelo.dashboard.settings.payments {
         inject(($rootScope: ng.IRootScopeService, $controller: ng.IControllerService, _$state_: ng.ui.IStateService) => {
           dashboardSettingsPaymentsController = $controller<DashboardSettingsPaymentsController>('dashboardSettingsPaymentsController', {
             $state: _$state_,
-            $scope: $rootScope.$new()
+            $scope: $rootScope.$new(),
+            getInvoiceData: {
+              companyInfo: {
+                companyName: 'asasas',
+                address: {
+                  street: 'sdasd'
+                }
+              }},
+            modalsService: {}
           })
         })
       })
