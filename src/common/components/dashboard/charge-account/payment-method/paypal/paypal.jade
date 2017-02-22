@@ -1,2 +1,19 @@
 .paypal
-  h1 Paypal
+  form
+    .charge-container
+      .title
+        h3(data-translate="DASHBOARD.CHARGE_ACCOUNT.PAYMENT_METHOD.PAYPAL.TITLE")
+
+      .settings-row
+        .settings-col
+          .settings-icon
+            .payment-thumb
+              img(data-ng-src="/assets/images/payments/paypal.png")
+
+          .settings-data
+            span.name m...b@gmail.com
+
+        a.btn.btn-small.btn-primary(data-translate="DASHBOARD.CHARGE_ACCOUNT.PAYMENT_METHOD.PAYPAL.DISCONNECT.BUTTON")
+
+    summary-charge-account()
+

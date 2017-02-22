@@ -2,6 +2,7 @@
   .title
     h3(data-translate="{{ $ctrl.title }}")
     ng-transclude
+
   .choose-options
     .choose-options-item(data-ng-repeat="bank in $ctrl.paymentsLinks")
       .option(data-ng-class="{'selected': $ctrl.activeOption == $index}" data-ng-click="$ctrl.selectBank($index)")
