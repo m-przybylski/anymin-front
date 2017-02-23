@@ -41,10 +41,13 @@
 
 
 .info-tab
-  padding: 24px
+  padding: 24px 0
+
+  +smm
+    padding: 24px
 
   .info-tab-row
-    margin: 0 0 8px
+    margin: 0 0 12px
     text-align: left
 
     &:last-child
@@ -58,7 +61,7 @@
     display: block
 
     span
-      +default-font-regular
+      +default-font-medium
       font-size: $f-h5-size
       text-transform: uppercase
       color: $c-label
@@ -75,19 +78,24 @@
 
   .settings-row
     border: 0
-    padding: 0 16px
     min-height: 48px
+
+    +xsm
+      padding: 0 16px
 
     +smm
       padding: 0 24px
 
 .settings-row
   border-bottom: 1px solid $c-lines
-  padding: 20px 16px
+  padding: 20px 0
   display: flex
   align-items: center
   justify-content: space-between
   min-height:  80px
+
+  +xsm
+    padding: 20px 12px
 
   +smm
     padding: 20px 24px

@@ -10,9 +10,18 @@
   .entry-title
     display: flex
     align-items: center
+    justify-content: space-between
+    margin: 0 0 8px
+
+    +smm
+      justify-content: flex-start
 
     h2
-      margin: 0 32px 0 0
+      margin: 0
+      padding: 0
+
+      +smm
+        margin: 0 32px 0 0
 
   .radio-list
     .radio-list-item
@@ -21,24 +30,56 @@
       justify-content: space-between
       min-height: 80px
       border-bottom: 1px solid $c-lines
-      padding: 0 16px
+      position: relative
+      padding: 0 0 0 24px
 
-      +smm
-        padding: 0 24px
+      +xsm
+        padding: 0 16px 0 64px
 
       +lgm
-        padding: 0
+        padding: 0 0 0 64px
+
+      .title
+        display: none
+
+        +smm
+          display: inline-flex
+
+      .radio
+        position: static
+
+      .radio-input
+        width: 24px
+        display: flex
+        justify-content: flex-start
+
+        +xsm
+          width: 64px
+          justify-content: center
+
+      .payment-thumb
+        min-width: 54px
+        margin: 0 8px 0 0
+
+        +smm
+          margin: 0 24px 0 0
 
       &.profitelo-account
         span
-          +default-font-bold
-          margin: 0 0 0 4px
+          +default-font-medium
+          color: $c-primary-txt
+
+          +smm
+            margin: 0 0 0 4px
 
     .radio
       margin: 0
 
       label
+        padding: 0
         font-size: $f-paragraph
+        display: flex
+        align-items: center
 
   .payments-method
     margin: 0 0 48px
