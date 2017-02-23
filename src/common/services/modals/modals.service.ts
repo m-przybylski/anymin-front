@@ -16,6 +16,7 @@ namespace profitelo.services.modals {
   import GetService = profitelo.api.GetService
   import IConsultationDetailsParentScope = profitelo.components.dashboard.client.activities.modals.consultationDetails.IConsultationDetailsParentScope
   import GetActivity = profitelo.api.GetActivity
+  import IAddPaymentMethodControllerScope = profitelo.components.dashboard.settings.modals.payments.addPaymentMethod.IAddPaymentMethodControllerScope
 
   export interface IModalsService {
     createIncomingCallModal(service: GetService, answerCb: () => void, rejectCb: () => void): ng.ui.bootstrap.IModalServiceInstance
@@ -32,6 +33,7 @@ namespace profitelo.services.modals {
     createGeneralCountrySettingsModal(callabck: Function): ng.ui.bootstrap.IModalServiceInstance
     createSecurityChangePasswordSettingsModal(): ng.ui.bootstrap.IModalServiceInstance
     createSecurityPinSecuritySettingsModal(): ng.ui.bootstrap.IModalServiceInstance
+    createAddPaymentMethodControllerModal(callabck: () => void): ng.ui.bootstrap.IModalServiceInstance
   }
 
   // TODO add types for dialogScope Scopes
@@ -230,6 +232,19 @@ namespace profitelo.services.modals {
       })
     }
 
+    public createAddPaymentMethodControllerModal = (onModalClose: () => void) => {
+      const dialogScope: IAddPaymentMethodControllerScope =
+        <IAddPaymentMethodControllerScope>this.$rootScope.$new(true)
+
+      dialogScope.callback = onModalClose
+      return this.dialogService.openDialog({
+        controllerAs: 'vm',
+        controller: 'addPaymentMethodController',
+        templateUrl: 'components/dashboard/settings/modals/payments/add-payment-method/add-payment-method.tpl.html',
+        scope: dialogScope
+      })
+    }
+
   }
 
   angular.module('profitelo.services.modals', [
@@ -247,7 +262,8 @@ namespace profitelo.services.modals {
     'profitelo.components.dashboard.settings.modals.general.email-settings',
     'profitelo.components.dashboard.settings.modals.general.country-settings',
     'profitelo.components.dashboard.settings.modals.security.change-password',
-    'profitelo.components.dashboard.settings.security.modals.pin-number'
+    'profitelo.components.dashboard.settings.security.modals.pin-number',
+    'profitelo.components.dashboard.settings.modals.payments.add-payment-method'
   ])
   .service('modalsService', ModalsService)
 }

@@ -5,7 +5,7 @@ namespace profitelo.services.smoothScrolling {
     simpleScrollTo(element: string | Element, isNavbar?: boolean, time?: number): void
   }
 
-  class SmoothScrollingService implements ISmoothScrollingService {
+  export class SmoothScrollingService implements ISmoothScrollingService {
 
     constructor(private $timeout: ng.ITimeoutService) {
     }

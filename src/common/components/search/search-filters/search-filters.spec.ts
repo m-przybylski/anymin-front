@@ -8,6 +8,7 @@ namespace profitelo.components.search.searchFilters {
       let rootScope: ng.IRootScopeService
       let compile: ng.ICompileService
       let component: SearchFiltersComponentController
+      let timeout: ng.ITimeoutService
       let searchService = {
         getAvailableOptions: {},
         onQueryParamsChange: () => {}
@@ -28,11 +29,12 @@ namespace profitelo.components.search.searchFilters {
         angular.mock.module('profitelo.components.search.searchFilters')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
-                $componentController: ng.IComponentControllerService, $q: ng.IQService) => {
+                $componentController: ng.IComponentControllerService, $q: ng.IQService,
+                $timeout: ng.ITimeoutService) => {
 
           rootScope = $rootScope.$new()
           compile = $compile
-
+          timeout = $timeout
           const injectors = {
             searchService: searchService
           }
@@ -76,7 +78,7 @@ namespace profitelo.components.search.searchFilters {
 
       it('should compile the component', inject((searchService: ISearchService, $q: ng.IQService) => {
 
-        spyOn(searchService, "getAvailableOptions").and.callFake(() => {
+        spyOn(searchService, 'getAvailableOptions').and.callFake(() => {
           let deferred = $q.defer()
           deferred.resolve({
             language: [{ name: 'asas', value: 'asas' }],
@@ -87,16 +89,50 @@ namespace profitelo.components.search.searchFilters {
           return deferred.promise
         })
 
-        spyOn(searchService, "onQueryParamsChange").and.callFake(() => {
-          let deferred = $q.defer()
-          deferred.resolve({
-          })
-          return deferred.promise
+        spyOn(searchService, 'onQueryParamsChange').and.callFake((_scope: ng.IScope, callback: (results: any) => void ) => {
+          return callback({language: [{ name: 'asas', value: 'asas' }],
+            sortBy: ['jhjhj'],
+            category: [{ name: 'asas', value: 'asas' }],
+            onlyAvailable: true,
+            maxPrice: '100',
+            profileType: [{ name: 'asas', value: 'asas' }]})
         })
 
         const el: JQuery = create(validHTML, bindings)
         expect(el.html()).toBeDefined(true)
+        timeout.flush()
       }))
+
+      it('should change activity status', inject(() => {
+        component.onActivityStatusChange(true)
+        expect(searchService.onQueryParamsChange).toHaveBeenCalled()
+      }))
+
+      it('should change price range', inject(() => {
+        component.onPriceRangeBarUpdate(20, 40, 'as')
+        expect(searchService.onQueryParamsChange).toHaveBeenCalled()
+      }))
+
+      it('should update sort type', inject(() => {
+        component.updateSortTypeParam('asdasd')
+        expect(searchService.onQueryParamsChange).toHaveBeenCalled()
+      }))
+
+      it('should update language type', inject(() => {
+        component.updateLanguageTypeParam('asdasd')
+        expect(searchService.onQueryParamsChange).toHaveBeenCalled()
+      }))
+
+      it('should update list type', inject(() => {
+        component.updateTypeListTypeParam('asdasd')
+        expect(searchService.onQueryParamsChange).toHaveBeenCalled()
+      }))
+
+      it('should update category type', inject(() => {
+        component.updateCategoryTypeParam('asdasd')
+        expect(searchService.onQueryParamsChange).toHaveBeenCalled()
+      }))
+
 
     })
   })

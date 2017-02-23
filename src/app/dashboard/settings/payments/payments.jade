@@ -1,5 +1,5 @@
 .payments.payments-options
-  .no-results-page(data-ng-show="vm.isAnyPaymentMethod")
+  .no-results-page(data-ng-hide="vm.isAnyPaymentMethod")
     .container
       .no-results-page-content
         img(data-ng-src="/assets/images/profitelo_icons/icon_payments.png")
@@ -8,62 +8,53 @@
           | {{:: 'SETTINGS.PAYMENTS.NO_RESULTS.BUTTON' | translate}}
           span.icon.icon-upload-arrow-24
 
-  .payments-method
+  .payments-method(data-ng-show="vm.isAnyPaymentMethod")
     .entry-title
       h2(data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.TITLE")
-      a.btn.btn-default.btn-small(data-ng-show="vm.isPaymentsMethodExist" data-translate="SETTINGS.PAYMENTS.BUTTON.ADD")
-      a.btn.btn-default.btn-small(data-ng-hide="vm.isPaymentsMethodExist" data-translate="SETTINGS.PAYMENTS.BUTTON.EDIT")
+      a.btn.btn-default.btn-small(data-translate="SETTINGS.PAYMENTS.BUTTON.ADD" data-ng-click="vm.addNewPaymentMethod()")
 
     .radio-list.payments-method-list
       form
         .radio-list-item.profitelo-account
           .radio-text.radio
             div
-              input(id="profitelo-ayments-method" type="radio" name="payments-method")
+              input(id="profitelo-payments-method" type="radio" name="payments-method")
               label.label
 
-            label.text(for="profitelo-ayments-method")
+            label.text(for="profitelo-payments-method")
               | {{:: 'SETTINGS.PAYMENTS.PAYMENTS_METHOD.RADIO.PROFITELO_ACCOUNT' | translate }}
-              span 24,50 PLN
+              span(data-ng-bind-html="vm.accountBalance | money ")
 
           .radio-action
-            a.btn.btn-noborder.recharge-account(
+            a.btn.btn-noborder.recharge-account( data-ui-sref="app.dashboard.charge-account"
               data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.RECHARGE_ACCOUNT.BUTTON")
 
-        .radio-list-item
+        .radio-list-item(data-ng-repeat="card in vm.paymentCards")
           .radio-text.radio
             div
-              input(id="visa" type="radio" name="payments-method")
+              input(id="card.name" type="radio" name="payments-method" data-ng-change="vm.onSelectPaymentMethod()")
               label.label
+              img(data-ng-src="card.imageLink")
 
-            label.text(for="visa") **** **** **** 5687
+            label.text(for="card.name") {{ card.number }}
 
-        .radio-list-item
-          .radio-text.radio
-            div
-              input(id="master-card" type="radio" name="payments-method")
-              label.label
+    .invoice-information
+      .entry-title
+        h2(data-translate="SETTINGS.PAYMENTS.INVOICE.TITLE")
+        a.btn.btn-default.btn-small(data-translate="SETTINGS.PAYMENTS.BUTTON.EDIT" data-ng-click="vm.editInvoiceDetails()")
 
-            label.text(for="master-card") **** **** **** 5687
+      .info-tab
+        .info-tab-row
+          .info-tab-label
+            span(data-translate="SETTINGS.PAYMENTS.INVOICE.COMPANY_NAME")
+          .info-tab-content {{ vm.companyName }}
 
-  .invoice-information
-    .entry-title
-      h2(data-translate="SETTINGS.PAYMENTS.INVOICE.TITLE")
-      a.btn.btn-default.btn-small(data-ng-show="vm.isPaymentsInvoiceExist" data-translate="SETTINGS.PAYMENTS.BUTTON.ADD")
-      a.btn.btn-default.btn-small(data-ng-hide="vm.isPaymentsInvoiceExist" data-translate="SETTINGS.PAYMENTS.BUTTON.EDIT")
+        .info-tab-row
+          .info-tab-label
+            span(data-translate="SETTINGS.PAYMENTS.INVOICE.VAT_NUMBER")
+          .info-tab-content {{ vm.vatNumber }}
 
-    .info-tab
-      .info-tab-row
-        .info-tab-label
-          span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COST")
-        .info-tab-content The Great Company
-
-      .info-tab-row
-        .info-tab-label
-          span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COST")
-        .info-tab-content The Great Companymasd a ds asd asd
-
-      .info-tab-row
-        .info-tab-label
-          span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COST")
-        .info-tab-content The Great Companymasd a ds asd asd
+        .info-tab-row
+          .info-tab-label
+            span(data-translate="SETTINGS.PAYMENTS.INVOICE.ADDRESS")
+          .info-tab-content {{ vm.address }}
