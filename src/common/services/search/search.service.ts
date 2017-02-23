@@ -292,7 +292,7 @@ namespace profitelo.services.search {
         if (maxPrice === 100) {
           return undefined
         } else {
-          return maxPrice * 100
+          return (maxPrice) ? maxPrice * 100 : undefined
         }
       }
 
@@ -301,7 +301,7 @@ namespace profitelo.services.search {
 
       return this.SearchApi.searchRoute(
         query.q, undefined, undefined, undefined, query.tagId, query.category, query.profileType, onlyAvailableString,
-        query.sortBy, query.language, query.minPrice * 100, _maxPriceParser(query.maxPrice),
+        query.sortBy, query.language, (query.minPrice) ? query.minPrice * 100: query.minPrice, _maxPriceParser(query.maxPrice),
         query.offset, SearchService._queryLimit,
       )
     }
@@ -364,7 +364,8 @@ namespace profitelo.services.search {
       copyQ2.offset = undefined
       copyQ2.limit = undefined
 
-      return (angular.equals(copyQ1, copyQ2) && angular.isDefined(newQuery.offset) && angular.isDefined(oldQuery.offset) &&
+      return (angular.equals(copyQ1, copyQ2) && typeof(newQuery.offset) !== 'undefined' &&
+      typeof(oldQuery.offset) !== 'undefined' && this._previousQueryParams.limit &&
       (oldQuery.offset + this._previousQueryParams.limit) === newQuery.offset)
     }
 

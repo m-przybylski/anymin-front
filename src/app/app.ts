@@ -62,7 +62,7 @@ namespace profitelo.app {
     })
 
     $rootScope.$on('$stateChangeError', (event, _toState, _toParams, _fromState, _fromParams, error) => {
-      event.preventDefault()
+      event.preventDefault();
       (<any>$state.get('app.error')).error = error
       return $state.go('app.error', undefined, {
         location: false

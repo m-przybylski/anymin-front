@@ -51,16 +51,16 @@ namespace profitelo.components.dashboard.settings.modals.general.phoneSettings {
       }
     }
 
-    public sendVerificationPin = (token: string, onError: void) => {
+    public sendVerificationPin = (token: string, onError: () => void) => {
       this.AccountApi.confirmMsisdnVerificationRoute({
         accountId: this.User.getData('id'),
         token: token
       }).then(() => {
         this.$scope.callback()
         this.$uibModalInstance.dismiss('cancel')
-      }, (err: any) => {
-        onError()
-        this.$log.error('Can not verify number: ' + err)
+      }, (err) => {
+        onError();
+        this.$log.error('Can not verify number: ' + err);
       })
     }
 
