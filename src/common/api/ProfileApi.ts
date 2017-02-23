@@ -1,16 +1,16 @@
 namespace profitelo.api {
   export interface IProfileApi {
-    deleteProfileFavouriteExpertRoute (profileId: string, extraHttpRequestParams?: any ) : ng.IPromise<{}>
-    deleteProfileFavouriteOrganizationRoute (profileId: string, extraHttpRequestParams?: any ) : ng.IPromise<{}>
-    getEmployersProfilesWithServicesRoute (profileId: string, extraHttpRequestParams?: any ) : ng.IPromise<Array<GetProfileWithServices>>
-    getProfileRoute (profileId: string, extraHttpRequestParams?: any ) : ng.IPromise<GetProfile>
-    getProfileWithServicesRoute (profileId: string, extraHttpRequestParams?: any ) : ng.IPromise<GetProfileWithServices>
-    getProfilesInvitationsRoute (extraHttpRequestParams?: any ) : ng.IPromise<Array<GetProfileWithServicesEmployments>>
-    patchProfileRoute (body: UpdateProfile, extraHttpRequestParams?: any ) : ng.IPromise<{}>
-    postProfileFavouriteExpertRoute (profileId: string, extraHttpRequestParams?: any ) : ng.IPromise<JValue>
-    postProfileFavouriteOrganizationRoute (profileId: string, extraHttpRequestParams?: any ) : ng.IPromise<JValue>
-    postProfileRoute (body: PostProfile, extraHttpRequestParams?: any ) : ng.IPromise<GetProfile>
-    putProfileRoute (body: UpdateProfile, extraHttpRequestParams?: any ) : ng.IPromise<{}>
+    deleteProfileFavouriteExpertRoute(profileId: string, extraHttpRequestParams?: any): ng.IPromise<{}>
+    deleteProfileFavouriteOrganizationRoute(profileId: string, extraHttpRequestParams?: any): ng.IPromise<{}>
+    getEmployersProfilesWithServicesRoute(profileId: string, extraHttpRequestParams?: any): ng.IPromise<Array<GetProfileWithServices>>
+    getProfileRoute(profileId: string, extraHttpRequestParams?: any): ng.IPromise<GetProfile>
+    getProfileWithServicesRoute(profileId: string, extraHttpRequestParams?: any): ng.IPromise<GetProfileWithServices>
+    getProfilesInvitationsRoute(extraHttpRequestParams?: any): ng.IPromise<Array<GetProfileWithServicesEmployments>>
+    patchProfileRoute(body: UpdateProfile, extraHttpRequestParams?: any): ng.IPromise<{}>
+    postProfileFavouriteExpertRoute(profileId: string, extraHttpRequestParams?: any): ng.IPromise<JValue>
+    postProfileFavouriteOrganizationRoute(profileId: string, extraHttpRequestParams?: any): ng.IPromise<JValue>
+    postProfileRoute(body: PostProfile, extraHttpRequestParams?: any): ng.IPromise<GetProfile>
+    putProfileRoute(body: UpdateProfile, extraHttpRequestParams?: any): ng.IPromise<{}>
   }
 
   /* istanbul ignore next */
@@ -26,7 +26,7 @@ namespace profitelo.api {
           }
       }
 
-      public deleteProfileFavouriteExpertRoute = (profileId: string, extraHttpRequestParams?: any ) : ng.IPromise<{}> => {
+      public deleteProfileFavouriteExpertRoute = (profileId: string, extraHttpRequestParams?: any): ng.IPromise<{}> => {
           const localVarPath = this.apiUrl + '/profiles/{profileId}/favourite/expert'
               .replace('{' + 'profileId' + '}', String(profileId));
 
@@ -57,7 +57,7 @@ namespace profitelo.api {
             }
           });
       }
-      public deleteProfileFavouriteOrganizationRoute = (profileId: string, extraHttpRequestParams?: any ) : ng.IPromise<{}> => {
+      public deleteProfileFavouriteOrganizationRoute = (profileId: string, extraHttpRequestParams?: any): ng.IPromise<{}> => {
           const localVarPath = this.apiUrl + '/profiles/{profileId}/favourite/organization'
               .replace('{' + 'profileId' + '}', String(profileId));
 
@@ -88,7 +88,7 @@ namespace profitelo.api {
             }
           });
       }
-      public getEmployersProfilesWithServicesRoute = (profileId: string, extraHttpRequestParams?: any ) : ng.IPromise<Array<GetProfileWithServices>> => {
+      public getEmployersProfilesWithServicesRoute = (profileId: string, extraHttpRequestParams?: any): ng.IPromise<Array<GetProfileWithServices>> => {
           const localVarPath = this.apiUrl + '/profiles/{profileId}/employers/services'
               .replace('{' + 'profileId' + '}', String(profileId));
 
@@ -119,7 +119,7 @@ namespace profitelo.api {
             }
           });
       }
-      public getProfileRoute = (profileId: string, extraHttpRequestParams?: any ) : ng.IPromise<GetProfile> => {
+      public getProfileRoute = (profileId: string, extraHttpRequestParams?: any): ng.IPromise<GetProfile> => {
           const localVarPath = this.apiUrl + '/profiles/{profileId}'
               .replace('{' + 'profileId' + '}', String(profileId));
 
@@ -150,7 +150,7 @@ namespace profitelo.api {
             }
           });
       }
-      public getProfileWithServicesRoute = (profileId: string, extraHttpRequestParams?: any ) : ng.IPromise<GetProfileWithServices> => {
+      public getProfileWithServicesRoute = (profileId: string, extraHttpRequestParams?: any): ng.IPromise<GetProfileWithServices> => {
           const localVarPath = this.apiUrl + '/profiles/{profileId}/services'
               .replace('{' + 'profileId' + '}', String(profileId));
 
@@ -181,7 +181,7 @@ namespace profitelo.api {
             }
           });
       }
-      public getProfilesInvitationsRoute = (extraHttpRequestParams?: any ) : ng.IPromise<Array<GetProfileWithServicesEmployments>> => {
+      public getProfilesInvitationsRoute = (extraHttpRequestParams?: any): ng.IPromise<Array<GetProfileWithServicesEmployments>> => {
           const localVarPath = this.apiUrl + '/profiles/invitations';
 
           let queryParameters: any = {};
@@ -207,7 +207,7 @@ namespace profitelo.api {
             }
           });
       }
-      public patchProfileRoute = (body: UpdateProfile, extraHttpRequestParams?: any ) : ng.IPromise<{}> => {
+      public patchProfileRoute = (body: UpdateProfile, extraHttpRequestParams?: any): ng.IPromise<{}> => {
           const localVarPath = this.apiUrl + '/profiles';
 
           let queryParameters: any = {};
@@ -238,7 +238,7 @@ namespace profitelo.api {
             }
           });
       }
-      public postProfileFavouriteExpertRoute = (profileId: string, extraHttpRequestParams?: any ) : ng.IPromise<JValue> => {
+      public postProfileFavouriteExpertRoute = (profileId: string, extraHttpRequestParams?: any): ng.IPromise<JValue> => {
           const localVarPath = this.apiUrl + '/profiles/{profileId}/favourite/expert'
               .replace('{' + 'profileId' + '}', String(profileId));
 
@@ -269,7 +269,7 @@ namespace profitelo.api {
             }
           });
       }
-      public postProfileFavouriteOrganizationRoute = (profileId: string, extraHttpRequestParams?: any ) : ng.IPromise<JValue> => {
+      public postProfileFavouriteOrganizationRoute = (profileId: string, extraHttpRequestParams?: any): ng.IPromise<JValue> => {
           const localVarPath = this.apiUrl + '/profiles/{profileId}/favourite/organization'
               .replace('{' + 'profileId' + '}', String(profileId));
 
@@ -300,7 +300,7 @@ namespace profitelo.api {
             }
           });
       }
-      public postProfileRoute = (body: PostProfile, extraHttpRequestParams?: any ) : ng.IPromise<GetProfile> => {
+      public postProfileRoute = (body: PostProfile, extraHttpRequestParams?: any): ng.IPromise<GetProfile> => {
           const localVarPath = this.apiUrl + '/profiles';
 
           let queryParameters: any = {};
@@ -331,7 +331,7 @@ namespace profitelo.api {
             }
           });
       }
-      public putProfileRoute = (body: UpdateProfile, extraHttpRequestParams?: any ) : ng.IPromise<{}> => {
+      public putProfileRoute = (body: UpdateProfile, extraHttpRequestParams?: any): ng.IPromise<{}> => {
           const localVarPath = this.apiUrl + '/profiles';
 
           let queryParameters: any = {};
@@ -364,5 +364,150 @@ namespace profitelo.api {
       }
   }
 
-  angular.module('profitelo.api.ProfileApi', []).service('ProfileApi', ProfileApi)
+  export interface IProfileApiMock {
+    deleteProfileFavouriteExpertRoute(status: number, profileId: string, data?: {}, err?: any): void
+    deleteProfileFavouriteOrganizationRoute(status: number, profileId: string, data?: {}, err?: any): void
+    getEmployersProfilesWithServicesRoute(status: number, profileId: string, data?: Array<GetProfileWithServices>, err?: any): void
+    getProfileRoute(status: number, profileId: string, data?: GetProfile, err?: any): void
+    getProfileWithServicesRoute(status: number, profileId: string, data?: GetProfileWithServices, err?: any): void
+    getProfilesInvitationsRoute(status: number, data?: Array<GetProfileWithServicesEmployments>, err?: any): void
+    patchProfileRoute(status: number, data?: {}, err?: any): void
+    postProfileFavouriteExpertRoute(status: number, profileId: string, data?: JValue, err?: any): void
+    postProfileFavouriteOrganizationRoute(status: number, profileId: string, data?: JValue, err?: any): void
+    postProfileRoute(status: number, data?: GetProfile, err?: any): void
+    putProfileRoute(status: number, data?: {}, err?: any): void
+  }
+
+  /* istanbul ignore next */
+  class ProfileApiMock implements IProfileApiMock {
+    apiUrl = ''
+    static $inject: string[] = ['$httpBackend', 'apiUrl', '$httpParamSerializer'];
+
+    constructor(protected $httpBackend: ng.IHttpBackendService, apiUrl: string, protected $httpParamSerializer?: (d: any) => any) {
+        if (apiUrl !== undefined) {
+            this.apiUrl = apiUrl;
+        }
+    }
+
+    deleteProfileFavouriteExpertRoute(status: number, profileId: string, data?: {}, err?: any): void {
+      const localVarPath = this.apiUrl + '/profiles/{profileId}/favourite/expert'
+          .replace('{' + 'profileId' + '}', String(profileId));
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenDELETE(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    deleteProfileFavouriteOrganizationRoute(status: number, profileId: string, data?: {}, err?: any): void {
+      const localVarPath = this.apiUrl + '/profiles/{profileId}/favourite/organization'
+          .replace('{' + 'profileId' + '}', String(profileId));
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenDELETE(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    getEmployersProfilesWithServicesRoute(status: number, profileId: string, data?: Array<GetProfileWithServices>, err?: any): void {
+      const localVarPath = this.apiUrl + '/profiles/{profileId}/employers/services'
+          .replace('{' + 'profileId' + '}', String(profileId));
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenGET(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    getProfileRoute(status: number, profileId: string, data?: GetProfile, err?: any): void {
+      const localVarPath = this.apiUrl + '/profiles/{profileId}'
+          .replace('{' + 'profileId' + '}', String(profileId));
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenGET(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    getProfileWithServicesRoute(status: number, profileId: string, data?: GetProfileWithServices, err?: any): void {
+      const localVarPath = this.apiUrl + '/profiles/{profileId}/services'
+          .replace('{' + 'profileId' + '}', String(profileId));
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenGET(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    getProfilesInvitationsRoute(status: number, data?: Array<GetProfileWithServicesEmployments>, err?: any): void {
+      const localVarPath = this.apiUrl + '/profiles/invitations';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenGET(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    patchProfileRoute(status: number, data?: {}, err?: any): void {
+      const localVarPath = this.apiUrl + '/profiles';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPATCH(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    postProfileFavouriteExpertRoute(status: number, profileId: string, data?: JValue, err?: any): void {
+      const localVarPath = this.apiUrl + '/profiles/{profileId}/favourite/expert'
+          .replace('{' + 'profileId' + '}', String(profileId));
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPOST(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    postProfileFavouriteOrganizationRoute(status: number, profileId: string, data?: JValue, err?: any): void {
+      const localVarPath = this.apiUrl + '/profiles/{profileId}/favourite/organization'
+          .replace('{' + 'profileId' + '}', String(profileId));
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPOST(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    postProfileRoute(status: number, data?: GetProfile, err?: any): void {
+      const localVarPath = this.apiUrl + '/profiles';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPOST(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    putProfileRoute(status: number, data?: {}, err?: any): void {
+      const localVarPath = this.apiUrl + '/profiles';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPUT(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+
+    private serializeQuery = (obj: any) => {
+      var str = [];
+      for(var p in obj)
+        if (obj.hasOwnProperty(p)) {
+          str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        }
+      const url = str.join("&")
+      return (url.length >0) ? '?'+url : ''
+    }
+  }
+
+  angular.module('profitelo.api.ProfileApi', [])
+    .service('ProfileApi', ProfileApi)
+    .service('ProfileApiMock', ProfileApiMock)
 }

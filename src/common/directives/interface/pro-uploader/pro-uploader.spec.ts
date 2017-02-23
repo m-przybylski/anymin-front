@@ -1,4 +1,5 @@
 namespace profitelo.directives.interface.proUploader {
+  import IFilesApiMock = profitelo.api.IFilesApiMock
   describe('Unit testing: profitelo.directives.interface.pro-uploader', () => {
     return describe('for pro-uploader directive >', () => {
 
@@ -8,9 +9,8 @@ namespace profitelo.directives.interface.proUploader {
       let validHTML = '<pro-uploader type="image/*" files-uploaded="avatar" data-required data-multiple data-ngf-pattern=".jpg,.jpeg,.png"></pro-uploader>'
 
       let _httpBackend: ng.IHttpBackendService
-      let _FilesApiDef: any
+      let _FilesApiMock: IFilesApiMock
       let _CommonConfig: ICommonConfig
-      let resourcesExpectations: any
       let _timeout: ng.ITimeoutService
       let _interval: ng.IIntervalService
       let _commonConfigData: any
@@ -18,7 +18,7 @@ namespace profitelo.directives.interface.proUploader {
       let url = 'awesomeUrl'
 
 
-      let fileId = 123
+      let fileId = '123'
 
       beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
         $provide.value('apiUrl', url)
@@ -27,29 +27,18 @@ namespace profitelo.directives.interface.proUploader {
       beforeEach(() => {
         angular.mock.module('templates-module')
         angular.mock.module('profitelo.directives.interface.pro-uploader')
-        angular.mock.module('profitelo.swaggerResources.definitions')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, $injector: ng.auto.IInjectorService) => {
           rootScope = $rootScope.$new()
           compile = $compile
 
           _CommonConfig = $injector.get<ICommonConfig>('CommonConfig')
-          _FilesApiDef = $injector.get('FilesApiDef')
+          _FilesApiMock = $injector.get<IFilesApiMock>('FilesApiMock')
           _httpBackend = $injector.get('$httpBackend')
           _timeout = $injector.get('$timeout')
           _interval = $injector.get('$interval')
 
           _commonConfigData = _CommonConfig.getAllData()
-
-          resourcesExpectations = {
-            FilesApi: {
-              createFileTokenPath: _httpBackend.when(_FilesApiDef.createFileTokenPath.method, _FilesApiDef.createFileTokenPath.url.replace(':collectionType', 'AVATAR'))
-            },
-            Upload: {
-              upload: _httpBackend.when('POST', _commonConfigData.urls['files'] + '/files/' + fileId + '/upload')
-            }
-          }
-
         })
       })
 
@@ -87,9 +76,9 @@ namespace profitelo.directives.interface.proUploader {
         let el = create(validHTML)
         let isoScope = el.isolateScope()
 
-        resourcesExpectations.Upload.upload.respond(200)
+        _httpBackend.when('POST', _commonConfigData.urls['files'] + '/files/' + fileId + '/upload').respond(200)
 
-        resourcesExpectations.FilesApi.createFileTokenPath.respond(200, {
+        _FilesApiMock.createFileTokenPath(200, 'AVATAR', {
           fileId: fileId
         })
 

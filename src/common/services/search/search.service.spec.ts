@@ -1,18 +1,23 @@
 namespace profitelo.services.search {
 
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  import ISearchApiMock = profitelo.api.ISearchApiMock
+  import ICategoryApiMock = profitelo.api.ICategoryApiMock
+  import ICategoryService = profitelo.services.categoryService.ICategoryService
 
   describe('Unit testing: profitelo.services.search >', () => {
     describe('for searchService service >', () => {
 
       let searchService: ISearchService
       let httpBackend: any
+      let SearchApiMock: ISearchApiMock
+      let CategoryApiMock: ICategoryApiMock
+      let $rootScope: IRootScopeService
       let SearchApiDef: any
       let CategoryApiDef: any
-      let $rootScope: IRootScopeService
 
       beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
-        $provide.value('apiUrl', '')
+        $provide.value('apiUrl', 'awesomeURL')
       }))
 
       beforeEach(() => {
@@ -22,10 +27,12 @@ namespace profitelo.services.search {
 
         inject(($injector: ng.auto.IInjectorService) => {
           searchService = $injector.get<ISearchService>('searchService')
-          httpBackend = $injector.get('$httpBackend')
+          httpBackend = $injector.get<ng.IHttpBackendService>('$httpBackend')
+          CategoryApiMock = $injector.get<ICategoryApiMock>('CategoryApiMock')
+          SearchApiMock = $injector.get<ISearchApiMock>('SearchApiMock')
+          $rootScope = $injector.get<IRootScopeService>('$rootScope')
           CategoryApiDef = $injector.get('CategoryApiDef')
           SearchApiDef = $injector.get('SearchApiDef')
-          $rootScope = $injector.get<IRootScopeService>('$rootScope')
         })
 
       })
@@ -63,16 +70,9 @@ namespace profitelo.services.search {
       })
 
       it('should set search parameters', () => {
-        httpBackend.whenRoute(SearchApiDef.search.method, SearchApiDef.search.url).respond(200, {})
 
-        let observer = {
-          callback: (_: any) => {
-          }
-        }
-        spyOn(observer, 'callback')
-
-        searchService.setSearchQueryParams({
-          q: 'query 123',
+        const params = {
+          q: 'query',
           tagId: '23',
           category: '34',
           profileType: 'EXP',
@@ -83,7 +83,18 @@ namespace profitelo.services.search {
           limit: 20,
           minPrice: 5,
           maxPrice: 10
-        })
+        }
+
+        //FIXME replace with SearchMock when queryparams will work
+        httpBackend.whenRoute('GET', 'awesomeURL/search?').respond(200, {})
+
+        let observer = {
+          callback: (_: any) => {
+          }
+        }
+        spyOn(observer, 'callback')
+
+        searchService.setSearchQueryParams(params)
 
         searchService.onQueryParamsChange($rootScope, (params) => {
           observer.callback(angular.extend({}, params))
@@ -93,7 +104,7 @@ namespace profitelo.services.search {
         httpBackend.flush()
 
         expect(observer.callback).toHaveBeenCalledWith({
-          q: 'query 123',
+          q: 'query',
           tagId: '23',
           category: '34',
           profileType: 'EXP',
@@ -108,15 +119,7 @@ namespace profitelo.services.search {
       })
 
       it('should set default parameters instead of incorrect ones', () => {
-        httpBackend.whenRoute(SearchApiDef.search.method, SearchApiDef.search.url).respond(200, {})
-
-        let observer = {
-          callback: (_: any) => {
-          }
-        }
-        spyOn(observer, 'callback')
-
-        searchService.setSearchQueryParams({
+        const params = {
           q: undefined,
           tagId: '23',
           category: '34',
@@ -128,7 +131,17 @@ namespace profitelo.services.search {
           limit: 20,
           minPrice: 5.99,
           maxPrice: -210
-        })
+        }
+        //FIXME replace with SearchMock when queryparams will work
+        httpBackend.whenRoute('GET', 'awesomeURL/search?').respond(200, {})
+
+        const observer = {
+          callback: (_: any) => {
+          }
+        }
+        spyOn(observer, 'callback')
+
+        searchService.setSearchQueryParams(params)
 
         searchService.onQueryParamsChange($rootScope, (params) => {
           observer.callback(angular.extend({}, params))
@@ -152,13 +165,9 @@ namespace profitelo.services.search {
         })
       })
 
-      it('should set implicit search parameters', () => {
-        httpBackend.whenRoute(SearchApiDef.search.method, SearchApiDef.search.url).respond(200, {})
-        httpBackend.when(CategoryApiDef.listCategories.method, CategoryApiDef.listCategories.url).respond(200, [{
-          id: 42,
-          parentCategoryId: null,
-          slug: 'test-cat'
-        }])
+      it('should set implicit search parameters', inject((categoryService: ICategoryService, $q: ng.IQService) => {
+
+        spyOn(categoryService, 'getCategoryBySlug').and.returnValue($q.resolve({id: '123'}))
 
         let observer = {
           callback: (_: any) => {
@@ -175,12 +184,11 @@ namespace profitelo.services.search {
         })
 
         $rootScope.$digest()
-        httpBackend.flush()
 
         expect(observer.callback).toHaveBeenCalledWith({
           q: undefined,
           tagId: undefined,
-          category: '42',
+          category: undefined,
           profileType: undefined,
           onlyAvailable: false,
           sortBy: 'top',
@@ -190,7 +198,7 @@ namespace profitelo.services.search {
           minPrice: 0,
           maxPrice: 100
         })
-      })
+      }))
 
     })
   })

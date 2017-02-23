@@ -4,6 +4,12 @@ namespace profitelo.login.account {
   import ITopWaitingLoaderService = profitelo.services.topWaitingLoader.ITopWaitingLoaderService
   import ILoginStateService = profitelo.services.loginState.ILoginStateService
   import IAccountApi = profitelo.api.IAccountApi
+  import IRatelApiMock = profitelo.api.IRatelApiMock
+  import IServiceApiMock = profitelo.api.IServiceApiMock
+  import ISessionApiMock = profitelo.api.ISessionApiMock
+  import IAccountApiMock = profitelo.api.IAccountApiMock
+  import SignedAgent = profitelo.api.SignedAgent
+
   describe('Unit tests: profitelo.controller.login.account>', () => {
     describe('Testing Controller: AccountFormController', () => {
 
@@ -14,9 +20,12 @@ namespace profitelo.login.account {
         url = 'awesomeURL',
         _mockParams: any = null,
         _mockState: any = null,
+        _RatelApiMock: IRatelApiMock,
+        _AccountApiMock: IAccountApiMock,
+        _ServiceApiMock: IServiceApiMock,
+        _SessionApiMock: ISessionApiMock,
         $state: ng.ui.IStateService,
         topAlertService: ITopAlertService,
-        resourcesExpectations: any,
         communicatorService: ICommunicatorService
 
       beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
@@ -26,12 +35,16 @@ namespace profitelo.login.account {
       beforeEach(() => {
         angular.mock.module('profitelo.controller.login.account')
         angular.mock.module('profitelo.services.communicator')
-        angular.mock.module('profitelo.swaggerResources.definitions')
         inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $injector: ng.auto.IInjectorService,
                 _topWaitingLoaderService_: ITopWaitingLoaderService, _User_: any, _topAlertService_: ITopAlertService,
-                _loginStateService_: ILoginStateService, _$httpBackend_: ng.IHttpBackendService, _AccountApiDef_: any,
-                _communicatorService_: ICommunicatorService, _RatelApiDef_: any, _ServiceApiDef_: any,
-                _SessionApiDef_: any) => {
+                _loginStateService_: ILoginStateService, _$httpBackend_: ng.IHttpBackendService, AccountApiMock: IAccountApiMock,
+                _communicatorService_: ICommunicatorService, RatelApiMock: IRatelApiMock, ServiceApiMock: IServiceApiMock,
+                SessionApiMock: ISessionApiMock) => {
+
+          _AccountApiMock = AccountApiMock
+          _RatelApiMock = RatelApiMock
+          _ServiceApiMock = ServiceApiMock
+          _SessionApiMock = SessionApiMock
 
           $httpBackend = _$httpBackend_
           communicatorService = _communicatorService_
@@ -67,20 +80,6 @@ namespace profitelo.login.account {
             loginStateService: _loginStateService_
           })
 
-          resourcesExpectations = {
-            AccountApi: {
-              getRegistrationStatusByMsisdn: $httpBackend.when(_AccountApiDef_.getRegistrationStatusByMsisdn.method, _AccountApiDef_.getRegistrationStatusByMsisdn.url + '?msisdn=321321642')
-            },
-            RatelApi: {
-              getRatelAuthConfig: $httpBackend.when(_RatelApiDef_.getRatelAuthConfig.method, _RatelApiDef_.getRatelAuthConfig.url)
-            },
-            ServiceApi: {
-              getProfileServices: $httpBackend.when(_ServiceApiDef_.getProfileServices.method, _ServiceApiDef_.getProfileServices.url)
-            },
-            SessionApi: {
-              login: $httpBackend.when(_SessionApiDef_.login.method, 'http://api.webpage.com/session')
-            }
-          }
           AccountFormController.account = _mockParams
         })
       })
@@ -106,7 +105,8 @@ namespace profitelo.login.account {
       })
 
       it('should go to password view', () => {
-        resourcesExpectations.AccountApi.getRegistrationStatusByMsisdn.respond(200, {status: 'REGISTERED'})
+        _AccountApiMock.getRegistrationStatusByMsisdnRoute(200, '321321642', {status: 'REGISTERED'})
+
         AccountFormController.getPhoneNumberStatus()
         $httpBackend.flush()
         expect(AccountFormController.current).toEqual(2)
@@ -114,7 +114,7 @@ namespace profitelo.login.account {
 
       it('should redirect to register ', () => {
         spyOn($state, 'go')
-        resourcesExpectations.AccountApi.getRegistrationStatusByMsisdn.respond(200, {status: 'UNREGISTERED'})
+        _AccountApiMock.getRegistrationStatusByMsisdnRoute(200, '321321642', {status: 'UNREGISTERED'})
         AccountFormController.getPhoneNumberStatus()
         $httpBackend.flush()
         expect($state.go).toHaveBeenCalledWith('app.login.register')
@@ -122,7 +122,7 @@ namespace profitelo.login.account {
 
       it('should get error response', () => {
         spyOn(topAlertService, 'error')
-        resourcesExpectations.AccountApi.getRegistrationStatusByMsisdn.respond(400, {status: 'UNREGISTERED'})
+        _AccountApiMock.getRegistrationStatusByMsisdnRoute(400, '321321642', {status: 'UNREGISTERED'})
         AccountFormController.getPhoneNumberStatus()
         $httpBackend.flush()
         expect(topAlertService.error).toHaveBeenCalled()
@@ -130,7 +130,7 @@ namespace profitelo.login.account {
 
       it('should redirect to forgot-password', () => {
         spyOn($state, 'go')
-        resourcesExpectations.AccountApi.getRegistrationStatusByMsisdn.respond(200, {status: 'NO_PASSWORD'})
+        _AccountApiMock.getRegistrationStatusByMsisdnRoute(200, '321321642', {status: 'NO_PASSWORD'})
         AccountFormController.getPhoneNumberStatus()
         $httpBackend.flush()
         expect($state.go).toHaveBeenCalledWith('app.login.forgot-password')
@@ -138,9 +138,11 @@ namespace profitelo.login.account {
 
       it('should login user', () => {
         spyOn($state, 'go')
-        resourcesExpectations.RatelApi.getRatelAuthConfig.respond(200, {})
-        resourcesExpectations.ServiceApi.getProfileServices.respond(200, [])
-        resourcesExpectations.SessionApi.login.respond(200, {})
+        //FIXME remove type mappings
+        _RatelApiMock.getRatelAuthConfigRoute(200, '321321642', <SignedAgent>{})
+        _ServiceApiMock.getProfileServicesRoute(200, '1', [])
+        $httpBackend.when('POST', 'http://api.webpage.com/session').respond(200, {})
+
         spyOn(communicatorService, 'authenticate')
         AccountFormController.current = 2
         AccountFormController.login()
@@ -150,7 +152,8 @@ namespace profitelo.login.account {
       })
 
       it('should display error', () => {
-        resourcesExpectations.SessionApi.login.respond(400, {})
+        $httpBackend.when('POST', 'http://api.webpage.com/session').respond(400, {})
+
         AccountFormController.current = 2
         AccountFormController.login()
         $httpBackend.flush()

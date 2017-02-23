@@ -1,16 +1,16 @@
 namespace profitelo.api {
   export interface IPaymentsApi {
-    addPaymentMethodRoute (body: PaymentMethod, extraHttpRequestParams?: any ) : ng.IPromise<JValue>
-    createPaymentMethodTransactionRoute (cardToken: string, body: PostTransaction, extraHttpRequestParams?: any ) : ng.IPromise<JValue>
-    createTransactionRoute (body: PostTransaction, extraHttpRequestParams?: any ) : ng.IPromise<JValue>
-    deletePaymentMethodRoute (cardToken: string, extraHttpRequestParams?: any ) : ng.IPromise<JValue>
-    getClientTokenRoute (extraHttpRequestParams?: any ) : ng.IPromise<ClientToken>
-    getPayUPaymentLinksRoute (extraHttpRequestParams?: any ) : ng.IPromise<Array<PaymentLink>>
-    getPaymentMethodsRoute (extraHttpRequestParams?: any ) : ng.IPromise<PaymentMethods>
-    getPaymentOptionsRoute (extraHttpRequestParams?: any ) : ng.IPromise<GetPaymentOptions>
-    postPayUNotifyRoute (body: string, extraHttpRequestParams?: any ) : ng.IPromise<{}>
-    postPayUOrderRoute (body: PostOrder, extraHttpRequestParams?: any ) : ng.IPromise<GetOrder>
-    setDefaultPaymentMethodRoute (cardToken: string, extraHttpRequestParams?: any ) : ng.IPromise<JValue>
+    addPaymentMethodRoute(body: PaymentMethod, extraHttpRequestParams?: any): ng.IPromise<JValue>
+    createPaymentMethodTransactionRoute(cardToken: string, body: PostTransaction, extraHttpRequestParams?: any): ng.IPromise<JValue>
+    createTransactionRoute(body: PostTransaction, extraHttpRequestParams?: any): ng.IPromise<JValue>
+    deletePaymentMethodRoute(cardToken: string, extraHttpRequestParams?: any): ng.IPromise<JValue>
+    getClientTokenRoute(extraHttpRequestParams?: any): ng.IPromise<ClientToken>
+    getPayUPaymentLinksRoute(extraHttpRequestParams?: any): ng.IPromise<Array<PaymentLink>>
+    getPaymentMethodsRoute(extraHttpRequestParams?: any): ng.IPromise<PaymentMethods>
+    getPaymentOptionsRoute(extraHttpRequestParams?: any): ng.IPromise<GetPaymentOptions>
+    postPayUNotifyRoute(body: string, extraHttpRequestParams?: any): ng.IPromise<{}>
+    postPayUOrderRoute(body: PostOrder, extraHttpRequestParams?: any): ng.IPromise<GetOrder>
+    setDefaultPaymentMethodRoute(cardToken: string, extraHttpRequestParams?: any): ng.IPromise<JValue>
   }
 
   /* istanbul ignore next */
@@ -26,7 +26,7 @@ namespace profitelo.api {
           }
       }
 
-      public addPaymentMethodRoute = (body: PaymentMethod, extraHttpRequestParams?: any ) : ng.IPromise<JValue> => {
+      public addPaymentMethodRoute = (body: PaymentMethod, extraHttpRequestParams?: any): ng.IPromise<JValue> => {
           const localVarPath = this.apiUrl + '/payments/braintree/paymentMethods';
 
           let queryParameters: any = {};
@@ -57,7 +57,7 @@ namespace profitelo.api {
             }
           });
       }
-      public createPaymentMethodTransactionRoute = (cardToken: string, body: PostTransaction, extraHttpRequestParams?: any ) : ng.IPromise<JValue> => {
+      public createPaymentMethodTransactionRoute = (cardToken: string, body: PostTransaction, extraHttpRequestParams?: any): ng.IPromise<JValue> => {
           const localVarPath = this.apiUrl + '/payments/braintree/paymentMethods/{cardToken}/transaction'
               .replace('{' + 'cardToken' + '}', String(cardToken));
 
@@ -93,7 +93,7 @@ namespace profitelo.api {
             }
           });
       }
-      public createTransactionRoute = (body: PostTransaction, extraHttpRequestParams?: any ) : ng.IPromise<JValue> => {
+      public createTransactionRoute = (body: PostTransaction, extraHttpRequestParams?: any): ng.IPromise<JValue> => {
           const localVarPath = this.apiUrl + '/payments/braintree/transaction';
 
           let queryParameters: any = {};
@@ -124,7 +124,7 @@ namespace profitelo.api {
             }
           });
       }
-      public deletePaymentMethodRoute = (cardToken: string, extraHttpRequestParams?: any ) : ng.IPromise<JValue> => {
+      public deletePaymentMethodRoute = (cardToken: string, extraHttpRequestParams?: any): ng.IPromise<JValue> => {
           const localVarPath = this.apiUrl + '/payments/braintree/paymentMethods/{cardToken}'
               .replace('{' + 'cardToken' + '}', String(cardToken));
 
@@ -155,7 +155,7 @@ namespace profitelo.api {
             }
           });
       }
-      public getClientTokenRoute = (extraHttpRequestParams?: any ) : ng.IPromise<ClientToken> => {
+      public getClientTokenRoute = (extraHttpRequestParams?: any): ng.IPromise<ClientToken> => {
           const localVarPath = this.apiUrl + '/payments/braintree';
 
           let queryParameters: any = {};
@@ -181,7 +181,7 @@ namespace profitelo.api {
             }
           });
       }
-      public getPayUPaymentLinksRoute = (extraHttpRequestParams?: any ) : ng.IPromise<Array<PaymentLink>> => {
+      public getPayUPaymentLinksRoute = (extraHttpRequestParams?: any): ng.IPromise<Array<PaymentLink>> => {
           const localVarPath = this.apiUrl + '/payments/payu/paymentLinks';
 
           let queryParameters: any = {};
@@ -207,7 +207,7 @@ namespace profitelo.api {
             }
           });
       }
-      public getPaymentMethodsRoute = (extraHttpRequestParams?: any ) : ng.IPromise<PaymentMethods> => {
+      public getPaymentMethodsRoute = (extraHttpRequestParams?: any): ng.IPromise<PaymentMethods> => {
           const localVarPath = this.apiUrl + '/payments/braintree/paymentMethods';
 
           let queryParameters: any = {};
@@ -233,7 +233,7 @@ namespace profitelo.api {
             }
           });
       }
-      public getPaymentOptionsRoute = (extraHttpRequestParams?: any ) : ng.IPromise<GetPaymentOptions> => {
+      public getPaymentOptionsRoute = (extraHttpRequestParams?: any): ng.IPromise<GetPaymentOptions> => {
           const localVarPath = this.apiUrl + '/payments/options';
 
           let queryParameters: any = {};
@@ -259,7 +259,7 @@ namespace profitelo.api {
             }
           });
       }
-      public postPayUNotifyRoute = (body: string, extraHttpRequestParams?: any ) : ng.IPromise<{}> => {
+      public postPayUNotifyRoute = (body: string, extraHttpRequestParams?: any): ng.IPromise<{}> => {
           const localVarPath = this.apiUrl + '/payments/payu/notification';
 
           let queryParameters: any = {};
@@ -290,7 +290,7 @@ namespace profitelo.api {
             }
           });
       }
-      public postPayUOrderRoute = (body: PostOrder, extraHttpRequestParams?: any ) : ng.IPromise<GetOrder> => {
+      public postPayUOrderRoute = (body: PostOrder, extraHttpRequestParams?: any): ng.IPromise<GetOrder> => {
           const localVarPath = this.apiUrl + '/payments/payu/order';
 
           let queryParameters: any = {};
@@ -321,7 +321,7 @@ namespace profitelo.api {
             }
           });
       }
-      public setDefaultPaymentMethodRoute = (cardToken: string, extraHttpRequestParams?: any ) : ng.IPromise<JValue> => {
+      public setDefaultPaymentMethodRoute = (cardToken: string, extraHttpRequestParams?: any): ng.IPromise<JValue> => {
           const localVarPath = this.apiUrl + '/payments/braintree/paymentMethods/{cardToken}/setDefault'
               .replace('{' + 'cardToken' + '}', String(cardToken));
 
@@ -354,5 +354,146 @@ namespace profitelo.api {
       }
   }
 
-  angular.module('profitelo.api.PaymentsApi', []).service('PaymentsApi', PaymentsApi)
+  export interface IPaymentsApiMock {
+    addPaymentMethodRoute(status: number, data?: JValue, err?: any): void
+    createPaymentMethodTransactionRoute(status: number, cardToken: string, data?: JValue, err?: any): void
+    createTransactionRoute(status: number, data?: JValue, err?: any): void
+    deletePaymentMethodRoute(status: number, cardToken: string, data?: JValue, err?: any): void
+    getClientTokenRoute(status: number, data?: ClientToken, err?: any): void
+    getPayUPaymentLinksRoute(status: number, data?: Array<PaymentLink>, err?: any): void
+    getPaymentMethodsRoute(status: number, data?: PaymentMethods, err?: any): void
+    getPaymentOptionsRoute(status: number, data?: GetPaymentOptions, err?: any): void
+    postPayUNotifyRoute(status: number, data?: {}, err?: any): void
+    postPayUOrderRoute(status: number, data?: GetOrder, err?: any): void
+    setDefaultPaymentMethodRoute(status: number, cardToken: string, data?: JValue, err?: any): void
+  }
+
+  /* istanbul ignore next */
+  class PaymentsApiMock implements IPaymentsApiMock {
+    apiUrl = ''
+    static $inject: string[] = ['$httpBackend', 'apiUrl', '$httpParamSerializer'];
+
+    constructor(protected $httpBackend: ng.IHttpBackendService, apiUrl: string, protected $httpParamSerializer?: (d: any) => any) {
+        if (apiUrl !== undefined) {
+            this.apiUrl = apiUrl;
+        }
+    }
+
+    addPaymentMethodRoute(status: number, data?: JValue, err?: any): void {
+      const localVarPath = this.apiUrl + '/payments/braintree/paymentMethods';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPOST(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    createPaymentMethodTransactionRoute(status: number, cardToken: string, data?: JValue, err?: any): void {
+      const localVarPath = this.apiUrl + '/payments/braintree/paymentMethods/{cardToken}/transaction'
+          .replace('{' + 'cardToken' + '}', String(cardToken));
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPOST(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    createTransactionRoute(status: number, data?: JValue, err?: any): void {
+      const localVarPath = this.apiUrl + '/payments/braintree/transaction';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPOST(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    deletePaymentMethodRoute(status: number, cardToken: string, data?: JValue, err?: any): void {
+      const localVarPath = this.apiUrl + '/payments/braintree/paymentMethods/{cardToken}'
+          .replace('{' + 'cardToken' + '}', String(cardToken));
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenDELETE(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    getClientTokenRoute(status: number, data?: ClientToken, err?: any): void {
+      const localVarPath = this.apiUrl + '/payments/braintree';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenGET(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    getPayUPaymentLinksRoute(status: number, data?: Array<PaymentLink>, err?: any): void {
+      const localVarPath = this.apiUrl + '/payments/payu/paymentLinks';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenGET(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    getPaymentMethodsRoute(status: number, data?: PaymentMethods, err?: any): void {
+      const localVarPath = this.apiUrl + '/payments/braintree/paymentMethods';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenGET(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    getPaymentOptionsRoute(status: number, data?: GetPaymentOptions, err?: any): void {
+      const localVarPath = this.apiUrl + '/payments/options';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenGET(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    postPayUNotifyRoute(status: number, data?: {}, err?: any): void {
+      const localVarPath = this.apiUrl + '/payments/payu/notification';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPOST(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    postPayUOrderRoute(status: number, data?: GetOrder, err?: any): void {
+      const localVarPath = this.apiUrl + '/payments/payu/order';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPOST(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    setDefaultPaymentMethodRoute(status: number, cardToken: string, data?: JValue, err?: any): void {
+      const localVarPath = this.apiUrl + '/payments/braintree/paymentMethods/{cardToken}/setDefault'
+          .replace('{' + 'cardToken' + '}', String(cardToken));
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPOST(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+
+    private serializeQuery = (obj: any) => {
+      var str = [];
+      for(var p in obj)
+        if (obj.hasOwnProperty(p)) {
+          str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        }
+      const url = str.join("&")
+      return (url.length >0) ? '?'+url : ''
+    }
+  }
+
+  angular.module('profitelo.api.PaymentsApi', [])
+    .service('PaymentsApi', PaymentsApi)
+    .service('PaymentsApiMock', PaymentsApiMock)
 }

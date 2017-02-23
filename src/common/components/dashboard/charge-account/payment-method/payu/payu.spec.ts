@@ -3,6 +3,7 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
   import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import IPaymentsApi = profitelo.api.IPaymentsApi
+  import IPaymentsApiMock = profitelo.api.IPaymentsApiMock
 
   describe('Unit testing:profitelo.components.dashboard.charge-account.payment-method.payu', () => {
   return describe('for payuPaymentFormController component >', () => {
@@ -15,10 +16,9 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
     let state: ng.ui.IStateService
     let bindings: any
     let httpBackend: ng.IHttpBackendService
-    let PaymentApiDef: any
+    let PaymentApiMock: IPaymentsApiMock
     let window: IWindowService
     let topAlertService
-    let resourcesExpectations: any
     let smoothScrollingService: ISmoothScrollingService
     let User: any
 
@@ -29,7 +29,6 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
 
     beforeEach(() => {
     angular.mock.module('templates-module')
-    angular.mock.module('profitelo.swaggerResources.definitions')
     angular.mock.module('profitelo.api.PaymentsApi')
     angular.mock.module('profitelo.components.dashboard.charge-account.payment-method.payu')
     angular.mock.module('ui.router')
@@ -38,7 +37,7 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
               _$componentController_: ng.IComponentControllerService, $httpBackend: ng.IHttpBackendService,
-              $window: IWindowService, _User_: any, _$state_: ng.ui.IStateService, _PaymentsApiDef_: any,
+              $window: IWindowService, _User_: any, _$state_: ng.ui.IStateService, _PaymentsApiMock_: IPaymentsApiMock,
               _topAlertService_: ITopAlertService, _smoothScrollingService_: ISmoothScrollingService,
               PaymentsApi: IPaymentsApi) => {
 
@@ -47,7 +46,7 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
         compile = $compile
         state = _$state_
         httpBackend = $httpBackend
-        PaymentApiDef = _PaymentsApiDef_
+        PaymentApiMock = _PaymentsApiMock_
         topAlertService = _topAlertService_
         window = $window
         smoothScrollingService = _smoothScrollingService_
@@ -57,12 +56,6 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
           PaymentsApi: PaymentsApi
         }
       })
-
-      resourcesExpectations = {
-        PaymentsApi: {
-          postPayUOrder: httpBackend.when(PaymentApiDef.postPayUOrder.method, PaymentApiDef.postPayUOrder.url)
-        }
-      }
 
       User.getData = () => {
         return 'BOBiARTUR@profitelo.pl'
@@ -99,7 +92,8 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
         component.$onInit()
 
         spyOn(state, 'go')
-        resourcesExpectations.PaymentsApi.postPayUOrder.respond(400, {})
+        //FIXME
+        PaymentApiMock.postPayUOrderRoute(400, <any>{})
         component.sendPayment()
         httpBackend.flush()
         expect(state.go).toHaveBeenCalled()
@@ -111,7 +105,8 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
         component.$onInit()
 
         spyOn(window, 'open')
-        resourcesExpectations.PaymentsApi.postPayUOrder.respond(200, {})
+        //FIXME
+        PaymentApiMock.postPayUOrderRoute(200, <any>{})
         component.sendPayment()
         httpBackend.flush()
         expect(window.open).toHaveBeenCalled()
@@ -121,7 +116,8 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
         spyOn(smoothScrollingService, 'simpleScrollTo')
         bindings.amountMethodModal.payMethodValue = undefined
         component = componentController('payuPaymentForm', {}, bindings)
-        resourcesExpectations.PaymentsApi.postPayUOrder.respond(200, {})
+        //FIXME
+        PaymentApiMock.postPayUOrderRoute(200, <any>{})
         component.sendPayment()
         expect(smoothScrollingService.simpleScrollTo).toHaveBeenCalled()
       }))

@@ -1,6 +1,10 @@
 namespace profitelo.app {
+
   import IInterfaceLanguageService = profitelo.services.interfaceLanguage.IInterfaceLanguageService
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  import IRatelApiMock = profitelo.api.IRatelApiMock
+  import ISessionApiMock = profitelo.api.ISessionApiMock
+  import IServiceApiMock = profitelo.api.IServiceApiMock
 
   describe('Unit tests: app>', () => {
     describe('Testing Controller: AppController', () => {
@@ -13,17 +17,27 @@ namespace profitelo.app {
       let _state: ng.ui.IStateService
       let _commonConfigData
       let _CommonConfig: ICommonConfig
-      let resourcesExpectations: any
+      let _RatelApiMock: IRatelApiMock
+      let _SessionApiMock: ISessionApiMock
+      let _ServiceApiMock: IServiceApiMock
+
+      beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
+        $provide.value('apiUrl', "awesomeUrl")
+      }))
 
       beforeEach(() => {
         angular.mock.module('profitelo')
         inject(($rootScope: IRootScopeService, $controller: ng.IControllerService,
-                $injector: ng.auto.IInjectorService, _InterfaceLanguageService_: IInterfaceLanguageService) => {
+                $injector: ng.auto.IInjectorService, _InterfaceLanguageService_: IInterfaceLanguageService,
+                RatelApiMock: IRatelApiMock, SessionApiMock: ISessionApiMock, ServiceApiMock: IServiceApiMock) => {
           $scope = $rootScope.$new()
 
           _CommonConfig = $injector.get<ICommonConfig>('CommonConfig')
           _httpBackend = $injector.get<ng.IHttpBackendService>('$httpBackend')
           _state = $injector.get<ng.ui.IStateService>('$state')
+          _RatelApiMock = RatelApiMock
+          _SessionApiMock = SessionApiMock
+          _ServiceApiMock = ServiceApiMock
 
           _commonConfigData = _CommonConfig.getAllData()
 
@@ -36,19 +50,6 @@ namespace profitelo.app {
           _InterfaceLanguageService = _InterfaceLanguageService_
 
           _InterfaceLanguageService.setLanguage(_InterfaceLanguageService.getStartupLanguage())
-
-          resourcesExpectations = {
-            Session: {
-              deleteSession: _httpBackend.when('DELETE', _commonConfigData.urls['backend'] + '/session'),
-              getSession: _httpBackend.when('GET', _commonConfigData.urls['backend'] + '/session')
-            },
-            ServiceApi: {
-              getProfileServices: _httpBackend.when('GET', _commonConfigData.urls['backend'] + '/services/profile')
-            },
-            RatelApi: {
-              getRatelAuthConfig: _httpBackend.when('GET', _commonConfigData.urls['backend'] + '/ratel/config')
-            }
-          }
         })
       })
 
@@ -58,9 +59,8 @@ namespace profitelo.app {
 
       it('should start logout action if not pending', () => {
 
-        resourcesExpectations.RatelApi.getRatelAuthConfig.respond(200, {})
-
-        resourcesExpectations.Session.getSession.respond(200, {
+        _RatelApiMock.getRatelAuthConfigRoute(200)
+        _SessionApiMock.check(200, <any>{
           user: {
             apiKey: '123'
           }
@@ -68,8 +68,8 @@ namespace profitelo.app {
 
         spyOn(_state, 'go')
 
-        resourcesExpectations.Session.deleteSession.respond(200)
-        resourcesExpectations.ServiceApi.getProfileServices.respond(200)
+        _SessionApiMock.logout(200, {})
+        _ServiceApiMock.getProfileServicesRoute(200, 'id', [])
 
         AppController.logout()
         _httpBackend.flush()

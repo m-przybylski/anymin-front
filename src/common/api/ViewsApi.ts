@@ -1,10 +1,10 @@
 namespace profitelo.api {
   export interface IViewsApi {
-    getClientDashboardCallDetailsRoute (sueId: string, extraHttpRequestParams?: any ) : ng.IPromise<GetCallDetails>
-    getDashboardClientActivitiesRoute (activityType?: string, profileId?: string, serviceId?: string, dateFrom?: string, dateTo?: string, limit?: string, offset?: string, extraHttpRequestParams?: any ) : ng.IPromise<GetActivities>
-    getDashboardClientExpertsRoute (extraHttpRequestParams?: any ) : ng.IPromise<GetDashboardClientExperts>
-    getExpertProfileRoute (profileId: string, extraHttpRequestParams?: any ) : ng.IPromise<GetExpertProfile>
-    getOrganizationProfileRoute (profileId: string, extraHttpRequestParams?: any ) : ng.IPromise<GetOrganizationProfile>
+    getClientDashboardCallDetailsRoute(sueId: string, extraHttpRequestParams?: any): ng.IPromise<GetCallDetails>
+    getDashboardClientActivitiesRoute(activityType?: string, profileId?: string, serviceId?: string, dateFrom?: string, dateTo?: string, limit?: string, offset?: string, extraHttpRequestParams?: any): ng.IPromise<GetActivities>
+    getDashboardClientExpertsRoute(extraHttpRequestParams?: any): ng.IPromise<GetDashboardClientExperts>
+    getExpertProfileRoute(profileId: string, extraHttpRequestParams?: any): ng.IPromise<GetExpertProfile>
+    getOrganizationProfileRoute(profileId: string, extraHttpRequestParams?: any): ng.IPromise<GetOrganizationProfile>
   }
 
   /* istanbul ignore next */
@@ -20,7 +20,7 @@ namespace profitelo.api {
           }
       }
 
-      public getClientDashboardCallDetailsRoute = (sueId: string, extraHttpRequestParams?: any ) : ng.IPromise<GetCallDetails> => {
+      public getClientDashboardCallDetailsRoute = (sueId: string, extraHttpRequestParams?: any): ng.IPromise<GetCallDetails> => {
           const localVarPath = this.apiUrl + '/views/profile/client/sue/{sueId}/details'
               .replace('{' + 'sueId' + '}', String(sueId));
 
@@ -51,7 +51,7 @@ namespace profitelo.api {
             }
           });
       }
-      public getDashboardClientActivitiesRoute = (activityType?: string, profileId?: string, serviceId?: string, dateFrom?: string, dateTo?: string, limit?: string, offset?: string, extraHttpRequestParams?: any ) : ng.IPromise<GetActivities> => {
+      public getDashboardClientActivitiesRoute = (activityType?: string, profileId?: string, serviceId?: string, dateFrom?: string, dateTo?: string, limit?: string, offset?: string, extraHttpRequestParams?: any): ng.IPromise<GetActivities> => {
           const localVarPath = this.apiUrl + '/views/profile/client/activities';
 
           let queryParameters: any = {};
@@ -105,7 +105,7 @@ namespace profitelo.api {
             }
           });
       }
-      public getDashboardClientExpertsRoute = (extraHttpRequestParams?: any ) : ng.IPromise<GetDashboardClientExperts> => {
+      public getDashboardClientExpertsRoute = (extraHttpRequestParams?: any): ng.IPromise<GetDashboardClientExperts> => {
           const localVarPath = this.apiUrl + '/views/profile/client/experts';
 
           let queryParameters: any = {};
@@ -131,7 +131,7 @@ namespace profitelo.api {
             }
           });
       }
-      public getExpertProfileRoute = (profileId: string, extraHttpRequestParams?: any ) : ng.IPromise<GetExpertProfile> => {
+      public getExpertProfileRoute = (profileId: string, extraHttpRequestParams?: any): ng.IPromise<GetExpertProfile> => {
           const localVarPath = this.apiUrl + '/views/profile/{profileId}/expert'
               .replace('{' + 'profileId' + '}', String(profileId));
 
@@ -162,7 +162,7 @@ namespace profitelo.api {
             }
           });
       }
-      public getOrganizationProfileRoute = (profileId: string, extraHttpRequestParams?: any ) : ng.IPromise<GetOrganizationProfile> => {
+      public getOrganizationProfileRoute = (profileId: string, extraHttpRequestParams?: any): ng.IPromise<GetOrganizationProfile> => {
           const localVarPath = this.apiUrl + '/views/profile/{profileId}/organization'
               .replace('{' + 'profileId' + '}', String(profileId));
 
@@ -195,5 +195,107 @@ namespace profitelo.api {
       }
   }
 
-  angular.module('profitelo.api.ViewsApi', []).service('ViewsApi', ViewsApi)
+  export interface IViewsApiMock {
+    getClientDashboardCallDetailsRoute(status: number, sueId: string, data?: GetCallDetails, err?: any): void
+    getDashboardClientActivitiesRoute(status: number, activityType?: string, profileId?: string, serviceId?: string, dateFrom?: string, dateTo?: string, limit?: string, offset?: string, data?: GetActivities, err?: any): void
+    getDashboardClientExpertsRoute(status: number, data?: GetDashboardClientExperts, err?: any): void
+    getExpertProfileRoute(status: number, profileId: string, data?: GetExpertProfile, err?: any): void
+    getOrganizationProfileRoute(status: number, profileId: string, data?: GetOrganizationProfile, err?: any): void
+  }
+
+  /* istanbul ignore next */
+  class ViewsApiMock implements IViewsApiMock {
+    apiUrl = ''
+    static $inject: string[] = ['$httpBackend', 'apiUrl', '$httpParamSerializer'];
+
+    constructor(protected $httpBackend: ng.IHttpBackendService, apiUrl: string, protected $httpParamSerializer?: (d: any) => any) {
+        if (apiUrl !== undefined) {
+            this.apiUrl = apiUrl;
+        }
+    }
+
+    getClientDashboardCallDetailsRoute(status: number, sueId: string, data?: GetCallDetails, err?: any): void {
+      const localVarPath = this.apiUrl + '/views/profile/client/sue/{sueId}/details'
+          .replace('{' + 'sueId' + '}', String(sueId));
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenGET(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    getDashboardClientActivitiesRoute(status: number, activityType?: string, profileId?: string, serviceId?: string, dateFrom?: string, dateTo?: string, limit?: string, offset?: string, data?: GetActivities, err?: any): void {
+      const localVarPath = this.apiUrl + '/views/profile/client/activities';
+
+      const queryParameters: any = {}
+      if (activityType !== undefined) {
+        queryParameters['activityType'] = activityType;
+      }
+      if (profileId !== undefined) {
+        queryParameters['profileId'] = profileId;
+      }
+      if (serviceId !== undefined) {
+        queryParameters['serviceId'] = serviceId;
+      }
+      if (dateFrom !== undefined) {
+        queryParameters['dateFrom'] = dateFrom;
+      }
+      if (dateTo !== undefined) {
+        queryParameters['dateTo'] = dateTo;
+      }
+      if (limit !== undefined) {
+        queryParameters['limit'] = limit;
+      }
+      if (offset !== undefined) {
+        queryParameters['offset'] = offset;
+      }
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenGET(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    getDashboardClientExpertsRoute(status: number, data?: GetDashboardClientExperts, err?: any): void {
+      const localVarPath = this.apiUrl + '/views/profile/client/experts';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenGET(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    getExpertProfileRoute(status: number, profileId: string, data?: GetExpertProfile, err?: any): void {
+      const localVarPath = this.apiUrl + '/views/profile/{profileId}/expert'
+          .replace('{' + 'profileId' + '}', String(profileId));
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenGET(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    getOrganizationProfileRoute(status: number, profileId: string, data?: GetOrganizationProfile, err?: any): void {
+      const localVarPath = this.apiUrl + '/views/profile/{profileId}/organization'
+          .replace('{' + 'profileId' + '}', String(profileId));
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenGET(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+
+    private serializeQuery = (obj: any) => {
+      var str = [];
+      for(var p in obj)
+        if (obj.hasOwnProperty(p)) {
+          str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        }
+      const url = str.join("&")
+      return (url.length >0) ? '?'+url : ''
+    }
+  }
+
+  angular.module('profitelo.api.ViewsApi', [])
+    .service('ViewsApi', ViewsApi)
+    .service('ViewsApiMock', ViewsApiMock)
 }

@@ -11,7 +11,6 @@ namespace profitelo.services.searchUrl {
       beforeEach(() => {
         angular.mock.module('profitelo.services.search')
         angular.mock.module('profitelo.services.search-url')
-        angular.mock.module('profitelo.swaggerResources.definitions')
         angular.mock.module('profitelo.services.categories')
 
         inject(($injector: ng.auto.IInjectorService) => {

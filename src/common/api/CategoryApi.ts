@@ -1,6 +1,6 @@
 namespace profitelo.api {
   export interface ICategoryApi {
-    listCategoriesRoute (extraHttpRequestParams?: any ) : ng.IPromise<Array<Category>>
+    listCategoriesRoute(extraHttpRequestParams?: any): ng.IPromise<Array<Category>>
   }
 
   /* istanbul ignore next */
@@ -16,7 +16,7 @@ namespace profitelo.api {
           }
       }
 
-      public listCategoriesRoute = (extraHttpRequestParams?: any ) : ng.IPromise<Array<Category>> => {
+      public listCategoriesRoute = (extraHttpRequestParams?: any): ng.IPromise<Array<Category>> => {
           const localVarPath = this.apiUrl + '/categories';
 
           let queryParameters: any = {};
@@ -44,5 +44,43 @@ namespace profitelo.api {
       }
   }
 
-  angular.module('profitelo.api.CategoryApi', []).service('CategoryApi', CategoryApi)
+  export interface ICategoryApiMock {
+    listCategoriesRoute(status: number, data?: Array<Category>, err?: any): void
+  }
+
+  /* istanbul ignore next */
+  class CategoryApiMock implements ICategoryApiMock {
+    apiUrl = ''
+    static $inject: string[] = ['$httpBackend', 'apiUrl', '$httpParamSerializer'];
+
+    constructor(protected $httpBackend: ng.IHttpBackendService, apiUrl: string, protected $httpParamSerializer?: (d: any) => any) {
+        if (apiUrl !== undefined) {
+            this.apiUrl = apiUrl;
+        }
+    }
+
+    listCategoriesRoute(status: number, data?: Array<Category>, err?: any): void {
+      const localVarPath = this.apiUrl + '/categories';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenGET(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+
+    private serializeQuery = (obj: any) => {
+      var str = [];
+      for(var p in obj)
+        if (obj.hasOwnProperty(p)) {
+          str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        }
+      const url = str.join("&")
+      return (url.length >0) ? '?'+url : ''
+    }
+  }
+
+  angular.module('profitelo.api.CategoryApi', [])
+    .service('CategoryApi', CategoryApi)
+    .service('CategoryApiMock', CategoryApiMock)
 }

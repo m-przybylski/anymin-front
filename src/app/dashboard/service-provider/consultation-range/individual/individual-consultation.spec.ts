@@ -3,16 +3,17 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.individual {
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import Profile = profitelo.models.Profile
   import IServiceApi = profitelo.api.IServiceApi
+  import IServiceApiMock = profitelo.api.IServiceApiMock
+  import GetService = profitelo.api.GetService
 
   describe('Unit tests: profitelo.controller.dashboard.service-provider.consultation-range.individual >', () => {
   describe('Testing Controller: IndividualConsultationController', () => {
 
-    var IndividualConsultationController: any
+    let IndividualConsultationController: any
     let _scope: any
     let url = 'awesomeUrl'
     let _state: ng.ui.IStateService
-    let _ServiceApiDef: any
-    let resourcesExpectations: any
+    let _ServiceApiMock: IServiceApiMock
     let _httpBackend: ng.IHttpBackendService
     let _topAlertService: ITopAlertService
     let _ServiceApi: IServiceApi
@@ -34,7 +35,6 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.individual {
     }))
 
     beforeEach(() => {
-    angular.mock.module('profitelo.swaggerResources.definitions')
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.controller.dashboard.service-provider.consultation-range.individual')
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $httpBackend: ng.IHttpBackendService,
@@ -56,15 +56,7 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.individual {
           organizationDetails: undefined
         }, '')
 
-        _ServiceApiDef = $injector.get('ServiceApiDef')
-
-        resourcesExpectations = {
-          ServiceApi: {
-            postService: $httpBackend.when(_ServiceApiDef.postService.method, _ServiceApiDef.postService.url),
-            deleteService: $httpBackend.when(_ServiceApiDef.deleteService.method, _ServiceApiDef.deleteService.url)
-          }
-        }
-
+        _ServiceApiMock = $injector.get<IServiceApiMock>('ServiceApiMock')
       })
     })
 
@@ -74,7 +66,8 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.individual {
 
     it('should be able to save conslultation', () => {
 
-      resourcesExpectations.ServiceApi.postService.respond(200, {})
+      //FIXME type mapping
+      _ServiceApiMock.postServiceRoute(200, <GetService>{})
 
       spyOn(_state, 'reload')
 
@@ -87,7 +80,7 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.individual {
 
     it('should alert on save conslultation fail', () => {
 
-      resourcesExpectations.ServiceApi.postService.respond(500)
+      _ServiceApiMock.postServiceRoute(500)
 
       spyOn(_topAlertService, 'error')
 
@@ -125,7 +118,7 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.individual {
 
     it('should delete requested consultation', () => {
 
-      resourcesExpectations.ServiceApi.deleteService.respond(200, {})
+      _ServiceApiMock.deleteServiceRoute(200, '1')
 
       IndividualConsultationController.consultations = []
 
@@ -135,7 +128,7 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.individual {
 
     it('should fail on delete requested consultation error', () => {
 
-      resourcesExpectations.ServiceApi.deleteService.respond(500)
+      _ServiceApiMock.deleteServiceRoute(500, '1')
 
       spyOn(_topAlertService, 'error')
 

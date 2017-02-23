@@ -1,8 +1,8 @@
 namespace profitelo.api {
   export interface IMsisdnApi {
-    confirmVerification (body: VerificationConfirmation, extraHttpRequestParams?: any ) : ng.IPromise<AccountWithExtras>
-    requestVerification (body: VerificationRequest, extraHttpRequestParams?: any ) : ng.IPromise<GetRegistrationSession>
-    verifyVerification (body: VerificationConfirmation, extraHttpRequestParams?: any ) : ng.IPromise<{}>
+    confirmVerification(body: VerificationConfirmation, extraHttpRequestParams?: any): ng.IPromise<AccountWithExtras>
+    requestVerification(body: VerificationRequest, extraHttpRequestParams?: any): ng.IPromise<GetRegistrationSession>
+    verifyVerification(body: VerificationConfirmation, extraHttpRequestParams?: any): ng.IPromise<{}>
   }
 
   /* istanbul ignore next */
@@ -18,7 +18,7 @@ namespace profitelo.api {
           }
       }
 
-      public confirmVerification = (body: VerificationConfirmation, extraHttpRequestParams?: any ) : ng.IPromise<AccountWithExtras> => {
+      public confirmVerification = (body: VerificationConfirmation, extraHttpRequestParams?: any): ng.IPromise<AccountWithExtras> => {
           const localVarPath = this.apiUrl + '/msisdns/code';
 
           let queryParameters: any = {};
@@ -49,7 +49,7 @@ namespace profitelo.api {
             }
           });
       }
-      public requestVerification = (body: VerificationRequest, extraHttpRequestParams?: any ) : ng.IPromise<GetRegistrationSession> => {
+      public requestVerification = (body: VerificationRequest, extraHttpRequestParams?: any): ng.IPromise<GetRegistrationSession> => {
           const localVarPath = this.apiUrl + '/msisdns/verify';
 
           let queryParameters: any = {};
@@ -80,7 +80,7 @@ namespace profitelo.api {
             }
           });
       }
-      public verifyVerification = (body: VerificationConfirmation, extraHttpRequestParams?: any ) : ng.IPromise<{}> => {
+      public verifyVerification = (body: VerificationConfirmation, extraHttpRequestParams?: any): ng.IPromise<{}> => {
           const localVarPath = this.apiUrl + '/msisdns/verify/code';
 
           let queryParameters: any = {};
@@ -113,5 +113,63 @@ namespace profitelo.api {
       }
   }
 
-  angular.module('profitelo.api.MsisdnApi', []).service('MsisdnApi', MsisdnApi)
+  export interface IMsisdnApiMock {
+    confirmVerification(status: number, data?: AccountWithExtras, err?: any): void
+    requestVerification(status: number, data?: GetRegistrationSession, err?: any): void
+    verifyVerification(status: number, data?: {}, err?: any): void
+  }
+
+  /* istanbul ignore next */
+  class MsisdnApiMock implements IMsisdnApiMock {
+    apiUrl = ''
+    static $inject: string[] = ['$httpBackend', 'apiUrl', '$httpParamSerializer'];
+
+    constructor(protected $httpBackend: ng.IHttpBackendService, apiUrl: string, protected $httpParamSerializer?: (d: any) => any) {
+        if (apiUrl !== undefined) {
+            this.apiUrl = apiUrl;
+        }
+    }
+
+    confirmVerification(status: number, data?: AccountWithExtras, err?: any): void {
+      const localVarPath = this.apiUrl + '/msisdns/code';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPOST(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    requestVerification(status: number, data?: GetRegistrationSession, err?: any): void {
+      const localVarPath = this.apiUrl + '/msisdns/verify';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPOST(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    verifyVerification(status: number, data?: {}, err?: any): void {
+      const localVarPath = this.apiUrl + '/msisdns/verify/code';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPOST(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+
+    private serializeQuery = (obj: any) => {
+      var str = [];
+      for(var p in obj)
+        if (obj.hasOwnProperty(p)) {
+          str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        }
+      const url = str.join("&")
+      return (url.length >0) ? '?'+url : ''
+    }
+  }
+
+  angular.module('profitelo.api.MsisdnApi', [])
+    .service('MsisdnApi', MsisdnApi)
+    .service('MsisdnApiMock', MsisdnApiMock)
 }

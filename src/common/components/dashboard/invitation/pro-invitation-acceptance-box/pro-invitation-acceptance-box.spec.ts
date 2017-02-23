@@ -1,5 +1,6 @@
 namespace profitelo.components.dashboard.invitation.proInvitationAcceptanceBox {
   import IEmploymentApi = profitelo.api.IEmploymentApi
+  import IEmploymentApiMock = profitelo.api.IEmploymentApiMock
   describe('Unit testing: profitelo.components.dashboard.invitation.pro-invitation-acceptance-box', () => {
     return describe('for proInvitationAcceptanceBox component >', () => {
 
@@ -13,9 +14,8 @@ namespace profitelo.components.dashboard.invitation.proInvitationAcceptanceBox {
       let element: any
       let timeout: ng.ITimeoutService
       let bindings: any
-      let resourcesExpectations: any
       let httpBackend: ng.IHttpBackendService
-      let EmploymentApiDef: any
+      let EmploymentApiMock: any
       let EmploymentApi
       let validHTML = '<pro-invitation-acceptance-box data-employment="::employment" data-invitation="::invitation")></pro-invitation-acceptance-box>'
 
@@ -33,32 +33,23 @@ namespace profitelo.components.dashboard.invitation.proInvitationAcceptanceBox {
 
       beforeEach(() => {
         angular.mock.module('templates-module')
-        angular.mock.module('profitelo.swaggerResources.definitions')
         angular.mock.module('profitelo.components.dashboard.invitation.pro-invitation-acceptance-box')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, $timeout: ng.ITimeoutService,
                 $httpBackend: ng.IHttpBackendService, _$componentController_: ng.IComponentControllerService,
-                _EmploymentApi_: IEmploymentApi, _EmploymentApiDef_: any) => {
+                _EmploymentApi_: IEmploymentApi, _EmploymentApiMock_: IEmploymentApiMock) => {
           componentController = _$componentController_
           rootScope = $rootScope.$new()
           compile = $compile
           EmploymentApi = _EmploymentApi_
           timeout = $timeout
           httpBackend = $httpBackend
-          EmploymentApiDef = _EmploymentApiDef_
+          EmploymentApiMock = _EmploymentApiMock_
         })
 
         element = create(validHTML)
         bindings = {}
         component = componentController('proInvitationAcceptanceBox', {$element: element, $scope: scope}, bindings)
-
-        resourcesExpectations = {
-          EmploymentApi: {
-            postEmploymentsAccept: httpBackend.when(EmploymentApiDef.postEmploymentsAccept.method, EmploymentApiDef.postEmploymentsAccept.url),
-            postEmploymentsReject: httpBackend.when(EmploymentApiDef.postEmploymentsReject.method, EmploymentApiDef.postEmploymentsReject.url)
-          }
-        }
-
       })
 
       it('should have a dummy test', inject(() => {
@@ -70,7 +61,7 @@ namespace profitelo.components.dashboard.invitation.proInvitationAcceptanceBox {
       })
 
       it('should get response on accept employee', () => {
-        resourcesExpectations.EmploymentApi.postEmploymentsAccept.respond(200, {employmentId: ':employmentId'})
+        EmploymentApiMock.postEmploymentsAcceptRoute(200,':employmentId', {employmentId: ':employmentId'})
         component.accept(':employmentId')
         httpBackend.flush()
         expect(component.employment).toBeDefined(true)
@@ -78,14 +69,14 @@ namespace profitelo.components.dashboard.invitation.proInvitationAcceptanceBox {
       })
 
       it('should get error on accept employee', () => {
-        resourcesExpectations.EmploymentApi.postEmploymentsAccept.respond(400)
+        EmploymentApiMock.postEmploymentsAcceptRoute(400, ':employmentId')
         component.accept(':employmentId')
         httpBackend.flush()
         expect(component.employment).not.toBeDefined(true)
       })
 
       it('should get response on reject employee ', () => {
-        resourcesExpectations.EmploymentApi.postEmploymentsReject.respond(200, {employmentId: ':employmentId'})
+        EmploymentApiMock.postEmploymentsRejectRoute(200, ':employmentId', {employmentId: ':employmentId'})
         component.reject(':employmentId')
         timeout.flush()
         httpBackend.flush()
@@ -95,7 +86,7 @@ namespace profitelo.components.dashboard.invitation.proInvitationAcceptanceBox {
       })
 
       it('should get error on reject employee ', () => {
-        resourcesExpectations.EmploymentApi.postEmploymentsReject.respond(400)
+        EmploymentApiMock.postEmploymentsRejectRoute(400, ':employmentId')
         component.reject(':employmentId')
         timeout.flush()
         httpBackend.flush()

@@ -57,6 +57,7 @@ namespace profitelo.components.dashboard.settings.modals.security.changePassword
   angular.module('profitelo.components.dashboard.settings.modals.security.change-password', [
     'ui.bootstrap',
     'profitelo.directives.interface.pro-input',
+    'profitelo.api.AccountApi',
     'profitelo.services.password-strength',
     'profitelo.directives.password-strength-bar',
     'profitelo.services.commonSettings',
