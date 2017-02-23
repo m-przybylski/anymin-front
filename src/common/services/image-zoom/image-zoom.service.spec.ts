@@ -4,9 +4,8 @@ namespace profitelo.services.imageZoom {
   describe('Unit testing: profitelo.services.client-activities-service >', () => {
     describe('for profitelo.services.client-activities-service >', () => {
 
+      const img: HTMLImageElement = new Image(100, 100)
       let imageZoomService: IImageZoomService
-      let img: HTMLImageElement = new Image(100, 200)
-      let imgUndefined: HTMLImageElement
 
       beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
         $provide.value('apiUrl', 'awesomeURL')
@@ -26,22 +25,31 @@ namespace profitelo.services.imageZoom {
       })
 
       it('should createZoomInstance undefined', () => {
-        imageZoomService.createZoomInstance(imgUndefined)
-        expect(imgUndefined).toEqual(void 0)
+
+        const createZoomInstance = imageZoomService.createZoomInstance(<any>null)
+        expect(createZoomInstance).toEqual(void 0)
+
       })
 
       it('should createZoomInstance', () => {
-        const imageSize = {
-          width: 100,
-          height: 200
-        }
-
         imageZoomService.createZoomInstance(img)
 
-        expect(img).toBeDefined()
+        imageZoomService.increaseImg()
+        expect(Math.floor(img.width)).toEqual(120)
+        expect(Math.floor(img.height)).toEqual(120)
 
-        expect(imageSize.width).toEqual(img.width)
-        expect(imageSize.height).toEqual(img.height)
+        imageZoomService.resetImg()
+        expect(Math.floor(img.width)).toEqual(100)
+        expect(Math.floor(img.height)).toEqual(100)
+
+        imageZoomService.decreaseImg()
+
+        expect(Math.floor(img.width)).toEqual(83)
+        expect(Math.floor(img.height)).toEqual(83)
+
+        imageZoomService.destroy()
+        expect(Math.floor(img.width)).toEqual(100)
+        expect(Math.floor(img.height)).toEqual(100)
       })
     })
   })
