@@ -50,7 +50,7 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
 
       this.uploader = uploaderFactory.getInstance(1, uploaderFactory.collectionTypes.avatar)
 
-      const userBasicSettings = this.User.getData('settings')
+      const userBasicSettings = this.User.getData('account').settings
 
       this.$scope.generalSettingsObject = {
         isAnonymous: userBasicSettings.isAnonymous,

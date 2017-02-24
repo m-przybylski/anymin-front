@@ -20,7 +20,7 @@ namespace profitelo.resolvers.serviceProviderChoosePath {
       let _deferred = this.$q.defer<GetProfile | null>()
 
       this.User.getStatus().then(() => {
-        this.ProfileApi.getProfileRoute(this.User.getData('id')).then((response) => {
+        this.ProfileApi.getProfileRoute(this.User.getData('accountId')).then((response) => {
 
           if (!!response.expertDetails && !response.organizationDetails) {
             this.$state.go('app.dashboard.service-provider.individual-path')

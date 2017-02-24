@@ -14,12 +14,13 @@ namespace app.dashboard.settings.general {
     public showUnverifiedEmail: boolean
 
     constructor(private modalsService: IModalsService, UserData: any, private $state: ng.ui.IStateService, private urlService: IUrlService) {
-      this.nickname = UserData.settings.nickname
-      this.avatarImageSource = this.urlService.resolveFileUrl(UserData.settings.avatar)
-      this.phoneNumber = UserData.msisdn
-      this.email = UserData.email
-      this.country = UserData.countryISO
-      this.unverifiedEmail = UserData.unverifiedEmail
+      const account = UserData.account
+      this.nickname = account.settings.nickname
+      this.avatarImageSource = this.urlService.resolveFileUrl(account.settings.avatar)
+      this.phoneNumber = account.msisdn
+      this.email = account.email
+      this.country = account.countryISO
+      this.unverifiedEmail = account.unverifiedEmail
       this.showUnverifiedEmail = (typeof(this.unverifiedEmail) !== 'undefined' && this.unverifiedEmail !== '')
     }
 

@@ -171,7 +171,7 @@ namespace profitelo.services.call {
       if (this.serviceId) {
         this.RatelApi.ratelCallStartedHookRoute({
           callId: this.call.id,
-          clientId: this.User.getData('id'),
+          clientId: this.User.getData('accountId'),
           expertId: expertId,
           serviceId: this.serviceId,
           timestamp: Date.now()

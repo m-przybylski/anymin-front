@@ -164,7 +164,7 @@ namespace profitelo.dashboard.serviceProvider.summary.company {
             /* istanbul ignore next */
             User.getStatus().then(() => {
               ProfileApi.getProfileWithServicesRoute(
-                User.getData('id')).then((profileWithServices)=> {
+                User.getData('accountId')).then((profileWithServices)=> {
 
                 ServiceApi.postServicesTagsRoute({
                   serviceIds: lodash.map(profileWithServices.services, service => service.id)

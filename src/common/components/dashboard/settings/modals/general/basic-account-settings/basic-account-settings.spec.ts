@@ -34,13 +34,13 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
     }
 
     const User = {
-      getData: () => {
-        return {
-          isAnonymous: false,
-          nickname: 'Heniek',
-          avatar: '78ijn567uejwewewe3'
-        }
-      }
+      getData: () =>
+        ({
+          settings: {
+            isAnonymous: false,
+            nickname: 'Heniek'
+          }
+        })
     }
 
     beforeEach(() => {

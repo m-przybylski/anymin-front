@@ -22,7 +22,7 @@ namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
 
     public setNewEmail = (): void => {
       this.isEmailExist = false
-        this.AccountApi.partialUpdateAccountRoute(this.User.getData('id'), {
+        this.AccountApi.partialUpdateAccountRoute(this.User.getData('accountId'), {
           unverifiedEmail: this.newEmail
         }).then(this.onEmailChangeSucces, this.onEmailChangeError)
 

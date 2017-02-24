@@ -178,7 +178,7 @@ namespace profitelo.app {
           /* istanbul ignore next */
           return User.getStatus().then((response: any) => {
             /* istanbul ignore next */
-            if (angular.isDefined(response.status) && response.status !== 401) {
+            if(angular.isDefined(response.accountId)) {
               $rootScope.loggedIn = true
               communicatorService.authenticate()
             }

@@ -10,7 +10,14 @@ namespace profitelo.dashboard.settings.security {
         inject(($rootScope: ng.IRootScopeService, $controller: ng.IControllerService, _$state_: ng.ui.IStateService) => {
           dashboardSettingsSecurityController = $controller<DashboardSettingsSecurityController>('dashboardSettingsSecurityController', {
             $state: _$state_,
-            $scope: $rootScope.$new()
+            $scope: $rootScope.$new(),
+            User: {
+              getData: () => ({
+                account: {
+
+                }
+              })
+            }
           })
         })
       })
