@@ -46,7 +46,7 @@
           .radio-action
             a.btn.btn-primary.edit-payments(data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.RECHARGE_ACCOUNT.EDIT.BUTTON")
 
-  .invoice-information
+  .invoice-information(data-ng-show="vm.isAnyPaymentMethod")
     .entry-title
       h2(data-translate="SETTINGS.PAYMENTS.INVOICE.TITLE")
       a.btn.btn-primary.btn-small(data-translate="SETTINGS.PAYMENTS.BUTTON.EDIT" data-ng-click="vm.editInvoiceDetails()")

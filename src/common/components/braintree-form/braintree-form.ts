@@ -15,6 +15,8 @@ namespace profitelo.components.braintreeForm {
     public isInvalid: boolean = false
     public submitButtonTranslate: string
     public onFormSucceed: (response: ng.IPromise<JValue>) => void
+    public showCardLimitForm: boolean = false
+    public defaultCardLimit: string = ''
 
     /* @ngInject */
     constructor(private PaymentsApi: IPaymentsApi) {
@@ -43,16 +45,16 @@ namespace profitelo.components.braintreeForm {
                 'color': '#808080'
               },
               ':focus': {
-                'color': 'black'
+                'color': '#272727'
               },
               '.valid': {
                 'color': '#8bdda8'
               },
               '.invalid': {
-                'color': 'red'
+                'color': '#f35752'
               },
               'label': {
-                'background': 'green'
+                'background': '#68bf7b'
               }
             },
             fields: {
@@ -98,8 +100,6 @@ namespace profitelo.components.braintreeForm {
             })
 
             hostedFieldsInstance.on('cardTypeChange', (event: any) => {
-              console.log(event, "qwe")
-
               if (event.cards.length === 1) {
                 angular.element('#card-type').text(event.cards[0].niceType)
               } else {
@@ -150,7 +150,10 @@ namespace profitelo.components.braintreeForm {
 
   angular.module('profitelo.components.braintree-form', [
     'pascalprecht.translate',
-    'profitelo.directives.interface.pro-checkbox'
+    'ngSanitize',
+    'profitelo.directives.interface.pro-checkbox',
+    'profitelo.directives.interface.pro-input',
+    'profitelo.components.dashboard.charge-account.summary-charge-account'
   ])
   .component('braintreeForm', new BraintreeFormComponent())
 }

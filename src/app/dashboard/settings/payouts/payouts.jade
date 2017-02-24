@@ -62,7 +62,7 @@
             a.btn.btn-primary.btn-small.recharge-account(
             data-translate="SETTINGS.PAYMENTS.BUTTON.EDIT")
 
-  .invoice-information
+  .invoice-information(data-ng-show="vm.isAnyPayoutMethod")
     .entry-title
       h2(data-translate="SETTINGS.PAYMENTS.INVOICE.TITLE")
       a.btn.btn-primary.btn-small(data-ng-hide="vm.isPaymentsInvoiceExist" data-translate="SETTINGS.PAYMENTS.BUTTON.EDIT")
