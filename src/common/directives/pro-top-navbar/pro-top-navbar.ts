@@ -42,7 +42,7 @@ namespace profitelo.directives.proTopNavbar {
       }
 
       if (User.getStatus()) {
-        scope.userId = User.getData('id')
+        scope.userId = User.getData('accountId')
       }
 
       /* istanbul ignore next */

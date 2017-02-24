@@ -175,7 +175,7 @@ namespace profitelo.services.communicator {
     }
 
     private authenticateExpert = () => {
-      return this.getServices(this.User.getData('id'))
+      return this.getServices(this.User.getData('accountId'))
       .then((services) =>
         this.$q.all(this.lodash.map(services, service =>
           this.RatelApi.getRatelAuthConfigRoute(service.id).then(

@@ -107,7 +107,7 @@ namespace profitelo.dashboard.serviceProvider.companyPath {
             let _deferred = $q.defer<GetProfile | null>()
             /* istanbul ignore next */
             User.getStatus().then(() => {
-              ProfileApi.getProfileRoute(User.getData('id')).then((response) => {
+              ProfileApi.getProfileRoute(User.getData('accountId')).then((response) => {
                 _deferred.resolve(response)
               }, () => {
                 _deferred.resolve(null)

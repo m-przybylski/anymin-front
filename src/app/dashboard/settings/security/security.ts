@@ -6,7 +6,7 @@ namespace profitelo.dashboard.settings.security {
     public hasMobilePin: boolean
 
     constructor(private modalsService: IModalsService, User: any) {
-      this.hasMobilePin = User.getData('hasMobilePin')
+      this.hasMobilePin = User.getData('account').hasMobilePin
     }
 
     public openSecurityChangePasswordSettingsModal = () => {

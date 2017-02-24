@@ -19,7 +19,7 @@ namespace profitelo.postRegister.setPassword {
     this.serverError = false
     this.alreadyCheck = false
     this.msisdn = {
-      number: User.getData('msisdn')
+      number: User.getData('account').msisdn
     }
     this.translationUrl = {
       hrefUrl: 'http://miroslawkwiatek.republika.pl/pdf_y/grawitacja_kwantowa.pdf'
@@ -38,7 +38,7 @@ namespace profitelo.postRegister.setPassword {
         this.isPending = true
         topWaitingLoaderService.immediate()
 
-        const accountId = User.getData('id')
+        const accountId = User.getData('accountId')
 
         AccountApi.partialUpdateAccountRoute(accountId, patchObject).then(successCallback, (error) => {
           this.isPending = false
@@ -77,7 +77,7 @@ namespace profitelo.postRegister.setPassword {
         redirect: (User: any, $state: ng.ui.IStateService, $q: ng.IQService) => {
           /* istanbul ignore next */
           return User.getStatus().then((status: any) => {
-            if (angular.isDefined(status.hasPassword) && status.hasPassword) {
+            if (angular.isDefined(status.account.hasPassword) && status.account.hasPassword) {
               return $state.go('app.dashboard.client.favourites')
             } else {
               return $q.when(status)

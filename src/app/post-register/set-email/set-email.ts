@@ -25,7 +25,7 @@ namespace profitelo.postRegister.setEmail {
         this.isPending = true
         topWaitingLoaderService.immediate()
 
-        const accountId = User.getData('id')
+        const accountId = User.getData('accountId')
 
         AccountApi.partialUpdateAccountRoute(accountId, patchObject).then(successCallback, (error) => {
           $log.error(error)
@@ -76,9 +76,9 @@ namespace profitelo.postRegister.setEmail {
         redirect: (User: any, $state: ng.ui.IStateService, $q: ng.IQService) => {
           /* istanbul ignore next */
           return User.getStatus().then((status: any) => {
-            if (((angular.isDefined(status.email) && status.email) ||
-              (angular.isDefined(status.unverifiedEmail) && status.unverifiedEmail)) || (
-                angular.isDefined(status.hasPassword) && !status.hasPassword
+            if (((angular.isDefined(status.account.email) && status.account.email) ||
+              (angular.isDefined(status.account.unverifiedEmail) && status.account.unverifiedEmail)) || (
+                angular.isDefined(status.account.hasPassword) && !status.account.hasPassword
               )) {
               return $state.go('app.dashboard.client.favourites')
             } else {

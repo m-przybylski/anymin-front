@@ -13,8 +13,10 @@ namespace app.dashboard.settings.general {
               $state: _$state_,
               $scope: $rootScope.$new(),
               UserData: {
-                settings: {
-                  avatar: ''
+                account: {
+                  settings: {
+                    avatar: ''
+                  }
                 }
               }
             })

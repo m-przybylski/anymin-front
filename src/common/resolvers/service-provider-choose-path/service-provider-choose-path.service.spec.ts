@@ -44,7 +44,7 @@ namespace profitelo.resolvers.serviceProviderChoosePath {
 
         $httpBackend.when('GET', 'http://api.webpage.com/session').respond(200, {
           apiKey: '1234',
-          id: ':profileId'
+          accountId: ':profileId'
         })
 
         //FIXME
@@ -60,7 +60,7 @@ namespace profitelo.resolvers.serviceProviderChoosePath {
 
         $httpBackend.when('GET', 'http://api.webpage.com/session').respond(200, {
           apiKey: '1234',
-          id: ':profileId'
+          accountId: ':profileId'
         })
 
         //FIXME
@@ -79,7 +79,7 @@ namespace profitelo.resolvers.serviceProviderChoosePath {
 
         $httpBackend.when('GET', 'http://api.webpage.com/session').respond(200, {
           apiKey: '1234',
-          id: ':profileId'
+          accountId: ':profileId'
         })
 
         //FIXME
@@ -102,7 +102,7 @@ namespace profitelo.resolvers.serviceProviderChoosePath {
         spyOn(spy, 'spy')
         $httpBackend.when('GET', 'http://api.webpage.com/session').respond(200, {
           apiKey: '1234',
-          id: ':profileId'
+          accountId: ':profileId'
         })
 
         //FIXME

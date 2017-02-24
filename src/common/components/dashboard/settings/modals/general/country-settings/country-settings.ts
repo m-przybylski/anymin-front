@@ -32,7 +32,7 @@ namespace profitelo.components.dashboard.settings.modals.general.countrySettings
       this.getCountriesList(() => {
         this.selectedCountry = this.lodash.find(
           this.countryList, (country: ICountryElementObject) => {
-            return country.value.countryISO === this.User.getData('countryISO')
+            return country.value.countryISO === this.User.getData('account').countryISO
           })
       })
     }
@@ -51,7 +51,7 @@ namespace profitelo.components.dashboard.settings.modals.general.countrySettings
 
     public setNewCountry = (): void => {
       if (!!this.selectedCountry) {
-        this.AccountApi.partialUpdateAccountRoute(this.User.getData('id'), {
+        this.AccountApi.partialUpdateAccountRoute(this.User.getData('accountId'), {
           countryISO: this.selectedCountry.value.countryISO,
           currencyUnit: this.selectedCountry.value.currency
         })

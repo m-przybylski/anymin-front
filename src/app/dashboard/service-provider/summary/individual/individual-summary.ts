@@ -145,7 +145,7 @@ namespace profitelo.dashboard.serviceProvider.summary.individual {
             let _deferred = $q.defer<GetProfileWithServices | null>()
             /* istanbul ignore next */
             User.getStatus().then(() => {
-              ProfileApi.getProfileWithServicesRoute(User.getData('id')).then((profileWithServices) => {
+              ProfileApi.getProfileWithServicesRoute(User.getData('accountId')).then((profileWithServices) => {
 
                 ServiceApi.postServicesTagsRoute({
                   serviceIds: lodash.map(profileWithServices.services, service => service.id)

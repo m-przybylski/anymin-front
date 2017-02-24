@@ -90,10 +90,10 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
 
       if (angular.isDefined(this.amountMethodModal.email)) {
         this.emailModel = this.amountMethodModal.email
-      } else if (angular.isDefined(User.getData('email')) && User.getData('email') !== null) {
-        this.emailModel = User.getData('email')
-      } else if (angular.isDefined(User.getData('unverifiedEmail')) && User.getData('unverifiedEmail') !== null) {
-        this.emailModel = User.getData('unverifiedEmail')
+      } else if (angular.isDefined(User.getData('account').email) && User.getData('account').email !== null) {
+        this.emailModel = User.getData('account').email
+      } else if (angular.isDefined(User.getData('account').unverifiedEmail) && User.getData('account').unverifiedEmail !== null) {
+        this.emailModel = User.getData('account').unverifiedEmail
       }
 
       if (angular.isDefined(this.amountMethodModal.payMethodValue)) {

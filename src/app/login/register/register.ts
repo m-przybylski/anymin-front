@@ -87,7 +87,7 @@ namespace profitelo.login.register {
         this.isPending = true
         topWaitingLoaderService.immediate()
 
-        const accountId = User.getData('id')
+        const accountId = User.getData('accountId')
 
         AccountApi.partialUpdateAccountRoute(accountId, patchObject).then(successCallback, (error) => {
           this.isPending = false

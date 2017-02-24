@@ -53,7 +53,7 @@ namespace profitelo.components.dashboard.settings.modals.general.phoneSettings {
 
     public sendVerificationPin = (token: string, onError: () => void) => {
       this.AccountApi.confirmMsisdnVerificationRoute({
-        accountId: this.User.getData('id'),
+        accountId: this.User.getData('accountId'),
         token: token
       }).then(() => {
         this.$scope.callback()
