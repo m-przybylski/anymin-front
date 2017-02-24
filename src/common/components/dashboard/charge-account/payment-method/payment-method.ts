@@ -1,11 +1,14 @@
-(function () {
+namespace profitelo.components.dashboard.chargeAccount.paymentMethod {
+import LoDashStatic = _.LoDashStatic
 
   /* @ngInject */
-  function paymentMethodController() {
+  function paymentMethodController(lodash: LoDashStatic) {
 
     this.$onInit = () => {
       if (this.paymentSystemModel !== null) {
-        this.activeOption = this.paymentSystemModel - 1
+        this.activeOption = lodash.findIndex(this.paymentSystems, (paymentSystem: any) => {
+          return paymentSystem.id = this.paymentSystemModel
+        })
         this.paymentSystemModel = this.paymentSystems[this.activeOption]
       }
     }
@@ -19,11 +22,11 @@
     }
 
     this.selectPaymentMethod = (index: number) => {
-          this.scrollHandler()
-          this.firstSelect = true
+      this.scrollHandler()
+      this.firstSelect = true
 
-        this.activeOption = index
-        this.paymentSystemModel = this.paymentSystems[index]
+      this.activeOption = index
+      this.paymentSystemModel = this.paymentSystems[index]
     }
 
     return this
@@ -43,7 +46,9 @@
     controllerAs: '$ctrl'
   }
 
-  angular.module('profitelo.components.dashboard.charge-account.payment-method', [])
+  angular.module('profitelo.components.dashboard.charge-account.payment-method', [
+    'ngLodash'
+  ])
   .component('paymentMethod', paymentMethod)
 
-}())
+}
