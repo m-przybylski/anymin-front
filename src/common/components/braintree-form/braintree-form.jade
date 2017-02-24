@@ -1,23 +1,37 @@
 .braintree-form
   .panel-heading
-  form.panel-body
-    .row
-      label.control-label {{ 'BRAINTREE.LABEL.CARD_NUMBER' | translate }}
-      .form-group
-        // Hosted Fields div container
-        #card-number.form-control
-      span.helper-text
-      span#card-type
-    .row
-      label.control-label {{ 'BRAINTREE.LABEL.EXPIRATION_DATE' | translate }}
-      .form-group
-        // Hosted Fields div container
-        #expiration-date.form-control
-    .row
-      label.control-label {{ 'BRAINTREE.LABEL.SECURITY_CODE' | translate }}
-      .form-group
-        // Hosted Fields div container
-        #cvv.form-control
-    button#submit-braintree-form.btn.btn-success.btn-lg.center-block(value='submit'
-    data-translate="{{ $ctrl.submitButtonTranslate }} " disabled)
-    .isValid(data-ng-show="$ctrl.isInvalid") {{ 'BRAINTREE.INVALID'| translate }}
+    form.panel-body
+      .hosted-field
+        label.control-label {{ 'BRAINTREE.LABEL.CARD_NUMBER' | translate }}
+        .form-group
+          // Hosted Fields div container
+          #card-number.form-control
+        span.helper-text
+        span#card-type
+
+      .hosted-field
+        label.control-label {{ 'BRAINTREE.LABEL.EXPIRATION_DATE' | translate }}
+        .form-group
+          // Hosted Fields div container
+          #expiration-date.form-control
+
+      .hosted-field
+        label.control-label {{ 'BRAINTREE.LABEL.SECURITY_CODE' | translate }}
+        .form-group
+          // Hosted Fields div container
+          #cvv.form-control
+
+      pro-checkbox(
+      id="acceptRules"
+      data-ng-model="$ctrl.rulesAccepted"
+      data-label="{{ ::'DASHBOARD.CHARGE_ACCOUNT.ACCEPT_RULES' | translate }}"
+      data-name="acceptRules"
+      data-ng-class="{'invalid': !$ctrl.rulesAccepted && paymentForm.$submitted}"
+      required)
+      .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.rulesAccepted")
+        span {{:: 'DASHBOARD.CHARGE_ACCOUNT.RULES_ERROR' | translate }}
+
+      button#submit-braintree-form.btn.btn-default.icon-right(value='submit' disabled)
+        | {{ $ctrl.submitButtonTranslate }}
+        span.icon.icon-arrow-right-16
+      .isValid(data-ng-show="$ctrl.isInvalid") {{ 'BRAINTREE.INVALID'| translate }}

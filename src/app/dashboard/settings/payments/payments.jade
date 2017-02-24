@@ -6,55 +6,63 @@
         h2(data-translate="SETTINGS.PAYMENTS.NO_RESULTS.TITLE")
         a.btn.btn-default(data-ui-sref="app.dashboard.charge-account")
           | {{:: 'SETTINGS.PAYMENTS.NO_RESULTS.BUTTON' | translate}}
-          span.icon.icon-upload-arrow-24
+          span.icon.icon-arrow-right-16
 
   .payments-method(data-ng-show="vm.isAnyPaymentMethod")
     .entry-title
       h2(data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.TITLE")
-      a.btn.btn-default.btn-small(data-translate="SETTINGS.PAYMENTS.BUTTON.ADD" data-ng-click="vm.addNewPaymentMethod()")
+      a.btn.btn-primary.btn-small(data-translate="SETTINGS.PAYMENTS.BUTTON.ADD" data-ng-click="vm.addNewPaymentMethod()")
 
     .radio-list.payments-method-list
       form
         .radio-list-item.profitelo-account
           .radio-text.radio
-            div
+            .radio-input
               input(id="profitelo-payments-method" type="radio" name="payments-method")
               label.label
 
             label.text(for="profitelo-payments-method")
-              | {{:: 'SETTINGS.PAYMENTS.PAYMENTS_METHOD.RADIO.PROFITELO_ACCOUNT' | translate }}
+              .payment-thumb
+                img(data-ng-src="/assets/images/payments/profitelo-account.png")
+              span.title {{:: 'SETTINGS.PAYMENTS.PAYMENTS_METHOD.RADIO.PROFITELO_ACCOUNT' | translate }}
               span(data-ng-bind-html="vm.accountBalance | money ")
 
           .radio-action
-            a.btn.btn-noborder.recharge-account( data-ui-sref="app.dashboard.charge-account"
+            a.btn.btn-default.btn-small.recharge-account( data-ui-sref="app.dashboard.charge-account"
               data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.RECHARGE_ACCOUNT.BUTTON")
 
         .radio-list-item(data-ng-repeat="card in vm.paymentCards")
           .radio-text.radio
-            div
+            .radio-input
               input(id="card.name" type="radio" name="payments-method" data-ng-change="vm.onSelectPaymentMethod()")
               label.label
-              img(data-ng-src="card.imageLink")
 
-            label.text(for="card.name") {{ card.number }}
+            label.text(for="card.name")
+              .payment-thumb
+                img(data-ng-src="card.imageLink")
+              span.title {{ card.number }}
+              span(data-ng-bind-html="vm.accountBalance | money ")
 
-    .invoice-information
-      .entry-title
-        h2(data-translate="SETTINGS.PAYMENTS.INVOICE.TITLE")
-        a.btn.btn-default.btn-small(data-translate="SETTINGS.PAYMENTS.BUTTON.EDIT" data-ng-click="vm.editInvoiceDetails()")
+          .radio-action
+            a.btn.btn-primary.edit-payments(data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.RECHARGE_ACCOUNT.EDIT.BUTTON")
 
-      .info-tab
-        .info-tab-row
-          .info-tab-label
-            span(data-translate="SETTINGS.PAYMENTS.INVOICE.COMPANY_NAME")
-          .info-tab-content {{ vm.companyName }}
+  .invoice-information
+    .entry-title
+      h2(data-translate="SETTINGS.PAYMENTS.INVOICE.TITLE")
+      a.btn.btn-primary.btn-small(data-translate="SETTINGS.PAYMENTS.BUTTON.EDIT" data-ng-click="vm.editInvoiceDetails()")
 
-        .info-tab-row
-          .info-tab-label
-            span(data-translate="SETTINGS.PAYMENTS.INVOICE.VAT_NUMBER")
-          .info-tab-content {{ vm.vatNumber }}
+    .info-tab
+      .info-tab-row
+        .info-tab-label
+          span(data-translate="SETTINGS.PAYMENTS.INVOICE.COMPANY_NAME")
+        .info-tab-content {{ vm.companyName }}
 
-        .info-tab-row
-          .info-tab-label
-            span(data-translate="SETTINGS.PAYMENTS.INVOICE.ADDRESS")
-          .info-tab-content {{ vm.address }}
+      .info-tab-row
+        .info-tab-label
+          span(data-translate="SETTINGS.PAYMENTS.INVOICE.VAT_NUMBER")
+        .info-tab-content {{ vm.vatNumber }}
+
+      .info-tab-row
+        .info-tab-label
+          span(data-translate="SETTINGS.PAYMENTS.INVOICE.ADDRESS")
+        .info-tab-content {{ vm.address }}

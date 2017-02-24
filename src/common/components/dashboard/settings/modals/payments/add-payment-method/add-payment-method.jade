@@ -2,7 +2,7 @@ scrollable.phone-settings(data-is-fullscreen="vm.isFullscreen" data-is-navbar="v
   top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="vm.onModalClose")
   .modal-settings
     preloader(data-is-loading="!vm.onBraintreeFormLoad")
-      .container.no-padding
+      .container-medium
         h2(data-translate="SETTINGS.PAYMENTS.ADD_NEW_PAYMENT_METHOD.TITLE")
         braintree-form(data-on-braintree-form-load="vm.onLoad" data-submit-button-translate="BRAINTREE.ADD_BUTTON"
         data-on-form-succeed="vm.onFormSucceed")

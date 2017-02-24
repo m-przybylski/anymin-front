@@ -40,7 +40,7 @@ namespace profitelo.components.braintreeForm {
               'input': {
                 'font-size': '14px',
                 'font-family': 'helvetica, tahoma, calibri, sans-serif',
-                'color': '#3a3a3a'
+                'color': '#808080'
               },
               ':focus': {
                 'color': 'black'
@@ -50,6 +50,9 @@ namespace profitelo.components.braintreeForm {
               },
               '.invalid': {
                 'color': 'red'
+              },
+              'label': {
+                'background': 'green'
               }
             },
             fields: {
@@ -95,6 +98,8 @@ namespace profitelo.components.braintreeForm {
             })
 
             hostedFieldsInstance.on('cardTypeChange', (event: any) => {
+              console.log(event, "qwe")
+
               if (event.cards.length === 1) {
                 angular.element('#card-type').text(event.cards[0].niceType)
               } else {
@@ -144,7 +149,8 @@ namespace profitelo.components.braintreeForm {
   }
 
   angular.module('profitelo.components.braintree-form', [
-    'pascalprecht.translate'
+    'pascalprecht.translate',
+    'profitelo.directives.interface.pro-checkbox'
   ])
   .component('braintreeForm', new BraintreeFormComponent())
 }

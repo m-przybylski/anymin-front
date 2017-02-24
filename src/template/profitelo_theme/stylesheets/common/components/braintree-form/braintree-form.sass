@@ -1,0 +1,55 @@
+.braintree-form
+  .hosted-field
+    background: $c-white
+    height: 56px
+    position: relative
+    display: flex
+    padding: 0
+    width: 100%
+    overflow: hidden
+    margin: 0 0 16px
+
+    label
+      +default-font-bold
+      color: $c-label
+      font-size: $f-label-size
+      line-height: 1
+      position: absolute
+      top: 12px
+      left: 16px
+      text-transform: uppercase
+
+    .form-group
+      height: 56px
+      width: 100%
+
+      .form-control
+        transition: border-color 0.2s
+        height: 54px
+        padding: 22px 16px 0
+        border-bottom: 1px solid $c-lines
+
+        &.braintree-hosted-fields-focused
+          border-color: $c-primary
+
+        &.braintree-hosted-fields-invalid
+          border-color: $c-error
+
+        &.braintree-hosted-fields-valid
+          border-color: $c-success
+
+    #card-type
+      height: 54px
+      border-radius: 0
+      display: inline-flex
+      align-items: center
+      color: $c-secondary-txt
+      font-size: $f-label-size
+      width: auto !important
+      padding: 0 16px !important
+      position: absolute
+      right: 0
+      top: 0
+
+  .pro-input
+    margin: 0 0 16px
