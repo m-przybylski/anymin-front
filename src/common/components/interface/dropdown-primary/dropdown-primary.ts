@@ -67,19 +67,21 @@ namespace profitelo.components.interface.dropdownPrimary {
     }
 
     public mainListExist = (): boolean =>
-      angular.isDefined(this.mainList) && this.mainList.length > 0
+    angular.isDefined(this.mainList) && this.mainList.length > 0
 
     public toggleDropdown = (): void => {
       this.isOpen = !this.isOpen
     }
 
     public isSelected = (item: IDropdownItem): boolean =>
-      this.activeItem === item
+    this.activeItem === item
 
     public onMainItemSelect = (item: IDropdownItem): void => {
       this.activeItem = item
       this.onItemChecked(item)
-      this.onSelectMain(item)
+      if (this.onSelectMain && typeof this.onSelectMain === 'function') {
+        this.onSelectMain(item)
+      }
     }
 
     private onItemChecked = (item: IDropdownItem): void => {

@@ -73,11 +73,79 @@
           data-ng-model="$ctrl.showInvoiceForm"
           data-label="{{:: 'DASHBOARD.CHARGE_ACCOUNT.CHECKBOX.COMPANY_INVOICE' | translate }}"
           data-name="showInvoiceForm"
-          data-ng-class="{'invalid': !$ctrl.needInvoice && paymentForm.$submitted}"
-          )
-          .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.rulesAccepted")
-            span {{ "DASHBOARD.CHARGE_ACCOUNT.RULES_ERROR" | translate }}
+          on-click-callback="$ctrl.onInvoiceChange")
 
-          invoice-company(data-ng-show="$ctrl.showInvoiceForm")
+          .invoice-form(data-ng-if="$ctrl.showInvoiceForm")
+            .invoice-form-company-info
+              .title
+                h3(data-translate="DASHBOARD.CHARGE_ACCOUNT.INVOICE.TITLE")
+
+                dropdown-primary(
+                data-label="{{ ::'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COUNTRY.LABEL' | translate }}"
+                data-main-list="$ctrl.countryList"
+                data-on-select-main="$ctrl.onSelectCountry"
+                data-input-placeholder="{{ ::'SEARCH.ALL' | translate }}"
+                )
+
+                .vat-input-handler
+                  div
+                    pro-input(placeholder="{{:: 'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.TAX_NUMBER.PLACEHOLDER' | translate }}"
+                    data-label="{{:: 'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.TAX_NUMBER.LABEL' | translate }}"
+                    data-ng-model="$ctrl.vatNumber"
+                    data-ng-class="{'invalid': paymentForm.$submitted && !$ctrl.vatNumber || paymentForm.vatNumber.$dirty && !$ctrl.vatNumberx}"
+                    addon-action="onEnter"
+                    required)
+                    button.btn.btn-primary(data-translate="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COUNTRY.BUTTON")
+
+                  .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.emailModel || paymentForm.email.$dirty && $ctrl.mailValidation()")
+                    span {{ "DASHBOARD.CHARGE_ACCOUNT.EMAIL_ERROR" | translate }}
+                  // TODO on GUS API IMPLEMENT
+                  //p(data-translate="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COMPANY_NAME.NO_VAT.DESCRIPTION")
+
+                pro-input(placeholder="{{:: 'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COMPANY_NAME.PLACEHOLDER' | translate }}"
+                data-label="{{::'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COMPANY_NAME.LABEL' | translate }}"
+                data-ng-model="$ctrl.companyName"
+                data-ng-class="{'invalid': paymentForm.$submitted && !$ctrl.companyName || paymentForm.companyName.$dirty && !$ctrl.companyName }"
+                addon-action="onEnter"
+                required)
+
+                .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.emailModel || paymentForm.email.$dirty && $ctrl.mailValidation()")
+                  span {{ "DASHBOARD.CHARGE_ACCOUNT.EMAIL_ERROR" | translate }}
+
+            .invoice-form-address
+              .title
+                h3(data-translate="DASHBOARD.CHARGE_ACCOUNT.INVOICE.TITLE")
+
+              pro-input(placeholder="{{ 'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.STREET.PLACEHOLDER' | translate }}"
+              data-label="{{:: 'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.STREET.LABEL' | translate }}"
+              data-ng-model="$ctrl.street"
+              data-ng-class="{'invalid': paymentForm.$submitted && !$ctrl.street || paymentForm.street.$dirty && !$ctrl.street}"
+              addon-action="onEnter"
+              required)
+
+              .invoice-address-nr
+                pro-input(placeholder="{{:: 'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.NUMBER.PLACEHOLDER' | translate }}"
+                data-label="{{:: 'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.NUMBER.LABEL' | translate }}"
+                data-ng-model="$ctrl.apartmentNumber"
+                data-ng-class="{'invalid': paymentForm.$submitted && !$ctrl.apartmentNumber || paymentForm.apartmentNumber.$dirty &&  !$ctrl.apartmentNumber}"
+                addon-action="onEnter"
+                required)
+
+                pro-input(placeholder="{{:: 'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.ZIP_CODE.PLACEHOLDER' | translate }}"
+                data-label="{{:: 'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.ZIP_CODE.LABEL' | translate }}"
+                data-ng-model="$ctrl.postalCode"
+                data-ng-class="{'invalid': paymentForm.$submitted && !$ctrl.postalCode || paymentForm.postalCode.$dirty &&  !$ctrl.postalCode}"
+                addon-action="onEnter"
+                required)
+
+              pro-input(placeholder="{{:: 'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.CITY.PLACEHOLDER'	 | translate }}"
+              data-label="{{:: 'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.CITY.LABEL' | translate }}"
+              data-ng-model="$ctrl.city"
+              data-ng-class="{'invalid': paymentForm.$submitted && !$ctrl.city || paymentForm.city.$dirty &&  !$ctrl.city}"
+              addon-action="onEnter"
+              required)
+            // TODO on GUS API IMPLEMENT
+            //.invoice-tax
+            //  p VAT23
 
     summary-charge-account()

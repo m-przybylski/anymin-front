@@ -5,11 +5,13 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
   import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
   import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
   import IPaymentsApi = profitelo.api.IPaymentsApi
+  import IAccountApi = profitelo.api.IAccountApi
+  import IPrimaryDropdownListElement = profitelo.components.interface.dropdownPrimary.IPrimaryDropdownListElement
 
   /* @ngInject */
   function payuPaymentFormController($log: ng.ILogService, $window: IWindowService, $state: ng.ui.IStateService,
                                      PaymentsApi: IPaymentsApi, User: any, topAlertService: ITopAlertService,
-                                     smoothScrollingService: ISmoothScrollingService,
+                                     smoothScrollingService: ISmoothScrollingService, AccountApi: IAccountApi,
                                      CommonSettingsService: ICommonSettingsService) {
     let isPending = false
 
@@ -17,7 +19,11 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
     this.showInvoiceForm = false
     this.personalDataSectionId = 'personal-section'
     this.bankModel = {}
-
+    this.countryList= [{
+      name: "Poland",
+      value: "PL"
+    }]
+    this.countryISO  = ''
     this.onEnter = (option: number) => {
       if (option < 3) {
         $('[data-index="' + (option + 1).toString() + '"] input').focus()
@@ -28,34 +34,65 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
       return !angular.element('[data-index="3"]').find('input:focus')[0] && !this.emailModel
     }
 
-    this.sendPayment = () => {
+    this.onSelectCountry = (selectedCountry: IPrimaryDropdownListElement) => {
+      this.countryISO = selectedCountry.value
+    }
 
+    // TODO If CompanyInfo type fix on backend
+    // this.onInvoiceChange = (invoiceStatus: boolean) => {
+    //   if (invoiceStatus) {
+    //     AccountApi.getCompanyInfoRoute().then((response) => {
+    //       this.vatNumber = response.vatNumber
+    //       this.companyName = response.companyName
+    //       console.log(response)
+    //     }, (error) => {
+    //       throw new Error('Can not get company info: ' + error)
+    //     })
+    //   }
+    // }
+
+
+    this.sendPayment = () => {
       if (isValid() && !isPending) {
 
         this.sendPaymentObject = {
-          paymentOption: this.amountMethodModal.amountModel.amount,
           email: this.emailModel,
-          amount: this.amountMethodModal.amountModel.cashAmount,
+          payment: {
+            amount: this.amountMethodModal.amountModel.cashAmount,
+            paymentCountryId: this.paymentCountryId,
+            paymentOption: this.amountMethodModal.amountModel.amount,
+            paymentSystemId: this.amountMethodModal.paymentSystemModel.id
+          },
           lastName: this.lastNameModel,
           firstName: this.firstNameModel,
-          paymentCountryId: this.paymentCountryId,
           payMethodValue: this.bankModel.value,
-          paymentSystemId: this.amountMethodModal.paymentSystemModel.id
         }
 
         isPending = true
 
-        PaymentsApi.postPayUOrderRoute(this.sendPaymentObject).then((response) => {
-          isPending = false
-          $window.open(response.redirectUrl, '_self', undefined, true)
-        }, (error) => {
-          $log.error(error)
-          topAlertService.error({
-            message: 'error',
-            timeout: 4
+        if (this.showInvoiceForm){
+          AccountApi.postCompanyInfoRoute({
+            vatNumber: this.vatNumber,
+            companyName: this.companyName,
+            //TODO On GUS API Implement
+            vat:  23,
+            address: {
+              number: this.apartmentNumber,
+              city: this.city,
+              zipCode: this.postalCode,
+              countryISO: this.countryISO,
+              street: this.street
+            }
+          }).then((_response) => {
+            sendPayuOrder()
+
+          }, (error) => {
+            throw new Error('Can not post company info: ' + error)
           })
-          $state.go('app.dashboard.client.activities')
-        })
+        } else {
+          sendPayuOrder()
+        }
+
       }
     }
 
@@ -73,6 +110,20 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
       } else {
         return _isModelBankExist()
       }
+    }
+
+    const sendPayuOrder = () => {
+      PaymentsApi.postPayUOrderRoute(this.sendPaymentObject).then((response) => {
+        isPending = false
+        $window.open(response.redirectUrl, '_self', undefined, true)
+      }, (error) => {
+        $log.error(error)
+        topAlertService.error({
+          message: 'error',
+          timeout: 4
+        })
+        $state.go('app.dashboard.client.activities')
+      })
     }
 
     this.patternEmail = CommonSettingsService.localSettings.emailPattern
@@ -128,7 +179,6 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
     'profitelo.services.smooth-scrolling',
     'c7s.ng.userAuth',
     'profitelo.components.dashboard.charge-account.choose-bank',
-    'profitelo.components.dashboard.invoice',
     'profitelo.components.dashboard.charge-account.summary-charge-account'
   ])
     .component('payuPaymentForm', payuPaymentForm)

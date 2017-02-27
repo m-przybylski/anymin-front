@@ -4,6 +4,8 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import IPaymentsApi = profitelo.api.IPaymentsApi
   import IPaymentsApiMock = profitelo.api.IPaymentsApiMock
+  import IAccountApi = profitelo.api.IAccountApi
+  import IAccountApiMock = profitelo.api.IAccountApiMock
 
   describe('Unit testing:profitelo.components.dashboard.charge-account.payment-method.payu', () => {
   return describe('for payuPaymentFormController component >', () => {
@@ -18,6 +20,7 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
     let httpBackend: ng.IHttpBackendService
     let PaymentApiMock: IPaymentsApiMock
     let window: IWindowService
+    let AccountApiMock: IAccountApiMock
     let topAlertService
     let smoothScrollingService: ISmoothScrollingService
     let User: any
@@ -30,6 +33,7 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
     beforeEach(() => {
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.api.PaymentsApi')
+    angular.mock.module('profitelo.api.AccountApi')
     angular.mock.module('profitelo.components.dashboard.charge-account.payment-method.payu')
     angular.mock.module('ui.router')
 
@@ -39,7 +43,7 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
               _$componentController_: ng.IComponentControllerService, $httpBackend: ng.IHttpBackendService,
               $window: IWindowService, _User_: any, _$state_: ng.ui.IStateService, _PaymentsApiMock_: IPaymentsApiMock,
               _topAlertService_: ITopAlertService, _smoothScrollingService_: ISmoothScrollingService,
-              PaymentsApi: IPaymentsApi) => {
+              PaymentsApi: IPaymentsApi, AccountApi: IAccountApi, _AccountApiMock_: IAccountApiMock) => {
 
         componentController = _$componentController_
         scope = $rootScope.$new()
@@ -47,13 +51,15 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
         state = _$state_
         httpBackend = $httpBackend
         PaymentApiMock = _PaymentsApiMock_
+        AccountApiMock = _AccountApiMock_
         topAlertService = _topAlertService_
         window = $window
         smoothScrollingService = _smoothScrollingService_
         User = _User_
 
         injectors = {
-          PaymentsApi: PaymentsApi
+          PaymentsApi: PaymentsApi,
+          AccountApi: AccountApi
         }
       })
 
