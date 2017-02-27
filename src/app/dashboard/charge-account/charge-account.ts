@@ -7,7 +7,6 @@ namespace profitelo.dashboard.chargeAccount {
   import MoneyDto = profitelo.api.MoneyDto
   import PaymentLink = profitelo.api.PaymentLink
 
-
   function chargeAccountController($state: ng.ui.IStateService, $timeout: ng.ITimeoutService, lodash: _.LoDashStatic,
                                    paymentsOptions: GetPaymentOptions, paymentsLinks: Array<PaymentLink>,
                                    financeBalance: MoneyDto | null, smoothScrollingService: ISmoothScrollingService) {
@@ -186,7 +185,6 @@ namespace profitelo.dashboard.chargeAccount {
     'profitelo.directives.interface.scrollable',
     'profitelo.components.dashboard.charge-account.paypal',
     'profitelo.components.dashboard.charge-account.card'
-
   ])
     .config(config)
     .controller('chargeAccountController', chargeAccountController)

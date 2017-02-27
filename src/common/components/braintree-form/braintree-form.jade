@@ -1,6 +1,9 @@
 .braintree-form
   .panel-heading
     form.panel-body
+      .title
+        h3(data-translate="BRAINTREE.TITLE")
+
       .braintree-content-form
         .hosted-field
           label.control-label {{ 'BRAINTREE.LABEL.CARD_NUMBER' | translate }}
@@ -42,6 +45,12 @@
         .input-error-messages
           .error.left(data-translate="BRAINTREE.INVALID" data-ng-show="$ctrl.isInvalid")
 
-      summary-charge-account.summary-charge-account()
+      .summary-charge-account
+        .summary-charge-container.no-ammount
+          .charge-account-btn
+            button.btn.btn-default.icon-right(type="submit")
+              | {{:: 'DASHBOARD.CHARGE_ACCOUNT.CHARGE_ACCOUNT_BUTTON_TEXT' | translate }}
+              span.icon.icon-arrow-right-16
+
 
 

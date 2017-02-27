@@ -1,4 +1,8 @@
 .card
   .charge-container
-    .title
-      h3(data-translate="DASHBOARD.CHARGE_ACCOUNT.PAYMENT_METHOD.CARD")
+    .braintree
+      .modal-settings
+        .container-medium.no-padding.modal-form
+          braintree-form(data-on-braintree-form-load="vm.onLoad"
+          data-submit-button-translate="BRAINTREE.ADD_BUTTON"
+          data-on-form-succeed="vm.onFormSucceed")

@@ -7,11 +7,7 @@
   justify-content: center
 
   .title
-    h3
-      +default-font-thin
-      margin: 0 0 24px
-      font-size: $f-h2-size
-      color: $c-secondary-txt
+    +modalTitle
 
   .scrollable
     &.fullscreen-modals
@@ -42,21 +38,18 @@
     +smm
       text-align: left
 
-  .entry-title
+  .charge-account-title
     padding: 0 16px
     text-align: center
     margin: 0 0 32px
 
-    h2
-      margin: 0 0 32px
-      font-size: $f-h2-size
-      color: $c-secondary-txt
+    .title
+      +modalTitle
+      text-align: center
+
 
     .btn
-      margin: 0 0 24px
-
-      +smm
-        margin: 0 16px
+      +xsm
         min-width: 250px
 
   .choose-amount-charge
