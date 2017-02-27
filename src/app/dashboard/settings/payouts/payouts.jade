@@ -1,5 +1,5 @@
 .payouts.payouts-options
-  .no-results-page(data-ng-show="vm.isAnyPayoutMethod")
+  .no-results-page(data-ng-hide="vm.isAnyPayoutMethod")
     .container
       .no-results-page-content
         img(data-ng-src="/assets/images/profitelo_icons/icon_payments.png")
@@ -8,11 +8,10 @@
           | {{:: 'SETTINGS.PAYMENTS.NO_RESULTS.BUTTON' | translate}}
           span.icon.icon-arrow-right-16
 
-  .payments-method
+  .payments-method(data-ng-show="vm.isAnyPayoutMethod")
     .entry-title
       h2(data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.TITLE")
-      a.btn.btn-primary.btn-small(data-ng-show="vm.isPayoutMethodExist" data-translate="SETTINGS.PAYMENTS.BUTTON.ADD")
-      a.btn.btn-primary.btn-small(data-ng-hide="vm.isPayoutInvoiceExist" data-translate="SETTINGS.PAYMENTS.BUTTON.EDIT")
+      a.btn.btn-primary.btn-small(data-translate="SETTINGS.PAYMENTS.BUTTON.ADD")
 
     .radio-list.payments-method-list
       form
@@ -24,7 +23,7 @@
 
             label.text(for="profitelo-ayments-method")
               .payment-thumb
-                img(data-ng-src="/assets/images/payments/paypal.png")
+                img(data-ng-src="/assets/images/payments/profitelo-account.png")
               span.title {{:: 'SETTINGS.PAYMENTS.PAYMENTS_METHOD.RADIO.PROFITELO_ACCOUNT' | translate }}
               span 24,50 PLN
 
@@ -63,7 +62,7 @@
             a.btn.btn-primary.btn-small.recharge-account(
             data-translate="SETTINGS.PAYMENTS.BUTTON.EDIT")
 
-  .invoice-information
+  .invoice-information(data-ng-show="vm.isAnyPayoutMethod")
     .entry-title
       h2(data-translate="SETTINGS.PAYMENTS.INVOICE.TITLE")
       a.btn.btn-primary.btn-small(data-ng-hide="vm.isPaymentsInvoiceExist" data-translate="SETTINGS.PAYMENTS.BUTTON.EDIT")

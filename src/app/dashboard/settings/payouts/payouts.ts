@@ -2,7 +2,6 @@ namespace profitelo.dashboard.settings.payouts {
 
   export class DashboardSettingsPayoutsController implements ng.IController {
     public isAnyPayoutMethod: boolean = false
-    public isPayoutMethodExist: boolean = true
     public isPayoutInvoiceExist: boolean = true
 
     constructor() {

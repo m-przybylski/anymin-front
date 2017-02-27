@@ -75,14 +75,33 @@
 .modal-settings
   text-align: center
 
-  .container-medium
-    +xsm
-      max-width: 420px
-      min-width: 420px
-
   h2
     margin: 0 0 32px
 
     +smm
       margin: 0 0 64px
 
+.modal-form
+  +smm
+    border: 1px solid $c-lines
+
+  &.container-medium
+    padding: 0
+
+  .entry-title
+    text-align: left
+    padding: 0 16px
+
+    +smm
+      padding: 0 104px
+      margin: 32px 0
+
+    +smm
+      margin: 64px 0
+
+  form
+    > *:not(.summary-charge-account)
+      padding: 0 16px
+
+      +smm
+        padding: 0 104px

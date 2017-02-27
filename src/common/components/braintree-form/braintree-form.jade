@@ -1,23 +1,47 @@
 .braintree-form
   .panel-heading
-  form.panel-body
-    .row
-      label.control-label {{ 'BRAINTREE.LABEL.CARD_NUMBER' | translate }}
-      .form-group
-        // Hosted Fields div container
-        #card-number.form-control
-      span.helper-text
-      span#card-type
-    .row
-      label.control-label {{ 'BRAINTREE.LABEL.EXPIRATION_DATE' | translate }}
-      .form-group
-        // Hosted Fields div container
-        #expiration-date.form-control
-    .row
-      label.control-label {{ 'BRAINTREE.LABEL.SECURITY_CODE' | translate }}
-      .form-group
-        // Hosted Fields div container
-        #cvv.form-control
-    button#submit-braintree-form.btn.btn-success.btn-lg.center-block(value='submit'
-    data-translate="{{ $ctrl.submitButtonTranslate }} " disabled)
-    .isValid(data-ng-show="$ctrl.isInvalid") {{ 'BRAINTREE.INVALID'| translate }}
+    form.panel-body
+      .braintree-content-form
+        .hosted-field
+          label.control-label {{ 'BRAINTREE.LABEL.CARD_NUMBER' | translate }}
+          .form-group
+            // Hosted Fields div container
+            #card-number.form-control
+          span.helper-text
+          span#card-type
+
+        .hosted-field
+          label.control-label {{ 'BRAINTREE.LABEL.EXPIRATION_DATE' | translate }}
+          .form-group
+            // Hosted Fields div container
+            #expiration-date.form-control
+
+        .hosted-field
+          label.control-label {{ 'BRAINTREE.LABEL.SECURITY_CODE' | translate }}
+          .form-group
+            // Hosted Fields div container
+            #cvv.form-control
+
+        .checkbox
+          pro-checkbox(
+          data-ng-model="$ctrl.showCardLimitForm"
+          data-label="{{ ::'BRAINTREE.CARD_LIMIT.DESCRIPTION.CHECKBOX' | translate }}"
+          data-ng-class=""
+          )
+
+          p(data-translate="BRAINTREE.CARD_LIMIT.DESCRIPTION.LABEL")
+
+        .card-limit(data-ng-show="$ctrl.showCardLimitForm")
+          pro-input(data-label="{{:: 'BRAINTREE.CARD_LIMIT.LABEL' | translate }}"
+          data-ng-model="$ctrl.defaultCardLimit"
+          placeholder="{{:: 'BRAINTREE.CARD_LIMIT.PLACEHOLDER' | translate }}"
+          data-maxlength="4"
+          data-type="tel"
+          only-digits)
+
+        .input-error-messages
+          .error.left(data-translate="BRAINTREE.INVALID" data-ng-show="$ctrl.isInvalid")
+
+      summary-charge-account.summary-charge-account()
+
+
