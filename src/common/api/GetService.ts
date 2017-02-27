@@ -2,16 +2,16 @@ namespace profitelo.api {
 
 
   export interface GetService {
+      ownerEmployee: boolean;
       usageCounter: number;
       id: string;
-      usageDurationInSeconds: number;
       invitations: Array<ServiceInvitation>;
-      rating: number;
-      status: string /*GetService.StatusEnum*/;
-      createdAt: number;
       ownerId: string;
+      createdAt: number;
+      status: string /*GetService.StatusEnum*/;
+      usageDurationInSeconds: number;
       details?: ServiceDetails;
-      ownerEmployee: boolean;
+      rating: number;
   }
 
 

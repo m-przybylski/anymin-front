@@ -2,8 +2,8 @@ namespace profitelo.api {
 
 
   export interface PutService {
-      invitations: Array<ServiceInvitation>;
       ownerEmployee?: boolean;
+      invitations: Array<ServiceInvitation>;
       details: PostServiceDetails;
   }
 

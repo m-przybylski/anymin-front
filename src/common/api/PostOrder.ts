@@ -2,12 +2,12 @@ namespace profitelo.api {
 
 
   export interface PostOrder {
-      email: string;
-      continueUrl?: string;
-      lastName: string;
-      payment: PostPayment;
       firstName: string;
+      continueUrl?: string;
       payMethodValue: string;
+      payment: PostPayment;
+      lastName: string;
+      email: string;
   }
 
 }

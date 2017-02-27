@@ -59,7 +59,7 @@ namespace profitelo.services.categoryService {
         this.CategoryApi.listCategoriesRoute().then((response) => {
           this.fetched = true
           this.categoryList = response.map(category => {
-            category.id = category.id.toString();
+            category.id = String(category.id)
             return category
           })
           angular.forEach(this.categoryList, category => {

@@ -1,10 +1,10 @@
 namespace profitelo.api {
   export interface IServiceApi {
     addServiceUsageRequestRoute(serviceId: string, body: AddServiceUsageRequest, extraHttpRequestParams?: any): ng.IPromise<GetServiceUsageRequest>
-    deleteServiceRoute(serviceId: string, extraHttpRequestParams?: any): ng.IPromise<number>
+    deleteServiceRoute(serviceId: string, extraHttpRequestParams?: any): ng.IPromise<{}>
     getProfileServicesRoute(accountId: string, extraHttpRequestParams?: any): ng.IPromise<Array<GetService>>
     getServiceRoute(serviceId: string, extraHttpRequestParams?: any): ng.IPromise<GetService>
-    getSuggestionsRoute(expression: string, extraHttpRequestParams?: any): ng.IPromise<number>
+    getSuggestionsRoute(expression: string, extraHttpRequestParams?: any): ng.IPromise<Array<GetService>>
     postServiceRecommendationRoute(serviceUsageEventId: string, extraHttpRequestParams?: any): ng.IPromise<GetService>
     postServiceRoute(body: PostService, extraHttpRequestParams?: any): ng.IPromise<GetService>
     postServiceWithEmployeesRoute(body: PostServicesWithEmployees, extraHttpRequestParams?: any): ng.IPromise<Array<GetServiceWithEmployees>>
@@ -63,7 +63,7 @@ namespace profitelo.api {
             }
           });
       }
-      public deleteServiceRoute = (serviceId: string, extraHttpRequestParams?: any): ng.IPromise<number> => {
+      public deleteServiceRoute = (serviceId: string, extraHttpRequestParams?: any): ng.IPromise<{}> => {
           const localVarPath = this.apiUrl + '/services/{serviceId}'
               .replace('{' + 'serviceId' + '}', String(serviceId));
 
@@ -156,7 +156,7 @@ namespace profitelo.api {
             }
           });
       }
-      public getSuggestionsRoute = (expression: string, extraHttpRequestParams?: any): ng.IPromise<number> => {
+      public getSuggestionsRoute = (expression: string, extraHttpRequestParams?: any): ng.IPromise<Array<GetService>> => {
           const localVarPath = this.apiUrl + '/services/suggest/{expression}'
               .replace('{' + 'expression' + '}', String(expression));
 
@@ -413,10 +413,10 @@ namespace profitelo.api {
 
   export interface IServiceApiMock {
     addServiceUsageRequestRoute(status: number, serviceId: string, data?: GetServiceUsageRequest, err?: any): void
-    deleteServiceRoute(status: number, serviceId: string, data?: number, err?: any): void
+    deleteServiceRoute(status: number, serviceId: string, data?: {}, err?: any): void
     getProfileServicesRoute(status: number, accountId: string, data?: Array<GetService>, err?: any): void
     getServiceRoute(status: number, serviceId: string, data?: GetService, err?: any): void
-    getSuggestionsRoute(status: number, expression: string, data?: number, err?: any): void
+    getSuggestionsRoute(status: number, expression: string, data?: Array<GetService>, err?: any): void
     postServiceRecommendationRoute(status: number, serviceUsageEventId: string, data?: GetService, err?: any): void
     postServiceRoute(status: number, data?: GetService, err?: any): void
     postServiceWithEmployeesRoute(status: number, data?: Array<GetServiceWithEmployees>, err?: any): void
@@ -447,7 +447,7 @@ namespace profitelo.api {
       this.$httpBackend.whenPOST(localVarPath+queryUrl)
         .respond(status, (typeof err !== 'undefined') ? err : data)
     }
-    deleteServiceRoute(status: number, serviceId: string, data?: number, err?: any): void {
+    deleteServiceRoute(status: number, serviceId: string, data?: {}, err?: any): void {
       const localVarPath = this.apiUrl + '/services/{serviceId}'
           .replace('{' + 'serviceId' + '}', String(serviceId));
 
@@ -477,7 +477,7 @@ namespace profitelo.api {
       this.$httpBackend.whenGET(localVarPath+queryUrl)
         .respond(status, (typeof err !== 'undefined') ? err : data)
     }
-    getSuggestionsRoute(status: number, expression: string, data?: number, err?: any): void {
+    getSuggestionsRoute(status: number, expression: string, data?: Array<GetService>, err?: any): void {
       const localVarPath = this.apiUrl + '/services/suggest/{expression}'
           .replace('{' + 'expression' + '}', String(expression));
 

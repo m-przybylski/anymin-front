@@ -2,8 +2,8 @@ namespace profitelo.api {
 
 
   export interface Country {
-      name: string;
       iso?: string;
+      name: string;
       currency?: string;
   }
 

@@ -5,8 +5,8 @@ namespace profitelo.api {
       number?: string;
       city?: string;
       zipCode?: string;
-      countryISO: string;
       street?: string;
+      countryISO: string;
   }
 
 }

@@ -5,16 +5,16 @@ namespace profitelo.api {
    */
 
   export interface AddAccount {
+      telcoPin: string;
+      msisdn: string;
       deletedAt: Date;
       email?: string;
-      countryISO: string;
-      msisdn: string;
-      status: AccountStatus;
-      telcoPin: string;
+      password?: string;
       currency: string;
+      status: AccountStatus;
       isCompany: boolean;
       isBlocked: boolean;
-      password?: string;
+      countryISO: string;
   }
 
 }

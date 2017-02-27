@@ -2,12 +2,12 @@ namespace profitelo.api {
 
 
   export interface PatchAccount {
-      currencyUnit?: string;
-      countryISO?: string;
-      status?: PatchAccountStatus;
       telcoPin?: string;
+      currencyUnit?: string;
       unverifiedEmail?: string;
+      status?: PatchAccountStatus;
       password?: string;
+      countryISO?: string;
   }
 
 }

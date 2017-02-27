@@ -2,8 +2,8 @@ namespace profitelo.api {
 
 
   export interface AccountSettings {
-      isAnonymous: boolean;
       nickname: string;
+      isAnonymous: boolean;
       avatar?: string;
   }
 

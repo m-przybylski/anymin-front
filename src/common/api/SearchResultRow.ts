@@ -2,13 +2,13 @@ namespace profitelo.api {
 
 
   export interface SearchResultRow {
-      tags: Array<SearchResultTag>;
-      price: number;
+      currency: string;
       usageCounter: number;
+      tags: Array<SearchResultTag>;
       id: string;
       rating: number;
-      currency: string;
       owner: SearchResultOwner;
+      price: number;
   }
 
 }

@@ -2,14 +2,14 @@ namespace profitelo.api {
 
 
   export interface GetServiceWithEmployments {
-      employments: Array<GetEmployment>;
-      id: string;
-      invitations: Array<ServiceInvitation>;
-      status: string /*GetServiceWithEmployments.StatusEnum*/;
-      createdAt: Date;
       ownerId: string;
-      details?: ServiceDetails;
+      createdAt: Date;
       ownerEmployee: boolean;
+      details?: ServiceDetails;
+      status: string /*GetServiceWithEmployments.StatusEnum*/;
+      invitations: Array<ServiceInvitation>;
+      id: string;
+      employments: Array<GetEmployment>;
   }
 
 

@@ -2,10 +2,10 @@ namespace profitelo.api {
 
 
   export interface ProfileFavourite {
-      accountId: string;
-      profileId: string;
       profileType: string /*ProfileFavourite.ProfileTypeEnum*/;
       createdAt: Date;
+      profileId: string;
+      accountId: string;
   }
 
 

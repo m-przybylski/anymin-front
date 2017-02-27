@@ -3,9 +3,9 @@ namespace profitelo.api {
 
   export interface PaymentLink {
       value: string;
+      status: string /*PaymentLink.StatusEnum*/;
       name: string;
       brandImageUrl: string;
-      status: string /*PaymentLink.StatusEnum*/;
   }
 
 

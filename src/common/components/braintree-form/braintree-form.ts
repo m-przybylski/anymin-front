@@ -116,7 +116,7 @@ namespace profitelo.components.braintreeForm {
                   this.isInvalid = false
                   this.PaymentsApi.addPaymentMethodRoute({
                     nonce: payload.nonce,
-                    default: false
+                    isDefault: false
                   }).then(this.onAddPaymentMethod, this.onAddPaymentMethodError)
                 }
               })

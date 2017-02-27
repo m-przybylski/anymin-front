@@ -2,8 +2,8 @@ namespace profitelo.api {
 
 
   export interface GetLastConsultation {
-      createdAt?: Date;
       profile: GetProfile;
+      createdAt?: Date;
       service: GetService;
   }
 
