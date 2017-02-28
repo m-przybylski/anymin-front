@@ -1,8 +1,24 @@
 .card
   .charge-container
-    .braintree
-      .modal-settings
-        .container-medium.no-padding.modal-form
-          braintree-form(data-on-braintree-form-load="vm.onLoad"
-          data-submit-button-translate="BRAINTREE.ADD_BUTTON"
-          data-on-form-succeed="vm.onFormSucceed")
+    .title.title-action
+      h3(data-translate="DASHBOARD.CHARGE_ACCOUNT.CARD.TITLE")
+      a.btn.btn-primary.btn-small(data-translate="DASHBOARD.CHARGE_ACCOUNT.CARD.ADD.TITLE")
+
+    .radio-list.card-method-list
+      form
+        .radio-list-item
+          .radio-text.radio
+            .radio-input
+              input(id="profitelo-payments-method" type="radio" name="payments-method")
+              label.label
+
+            label.text(for="profitelo-payments-method")
+              .payment-thumb
+                img(data-ng-src="/assets/images/payments/profitelo-account.png")
+              span.title {{:: 'SETTINGS.PAYMENTS.PAYMENTS_METHOD.RADIO.PROFITELO_ACCOUNT' | translate }}
+
+  .braintree
+    preloader(data-is-loading="!$ctrl.onBraintreeFormLoad")
+      braintree-form(data-on-braintree-form-load="$ctrl.onLoad"
+      data-submit-button-translate="BRAINTREE.ADD_BUTTON"
+      data-on-form-succeed="")

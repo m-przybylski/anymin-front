@@ -32,8 +32,6 @@ namespace profitelo.components.dashboard.settings.modals.payments.addPaymentMeth
     'ui.bootstrap',
     'profitelo.components.braintree-form',
     'profitelo.components.interface.preloader',
-    'profitelo.directives.interface.pro-input',
-    'profitelo.services.phone-number',
     'profitelo.directives.interface.scrollable'
   ])
   .controller('addPaymentMethodController', AddPaymentMethodController)

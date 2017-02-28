@@ -15,6 +15,11 @@ namespace profitelo.dashboard.chargeAccount {
     this.isFullscreen = true
     this.isChargeProfiteloAccount = false
     this.isPaymentCardMethod = false
+    this.isBraintreeFormLoaded = false
+
+    this.onLoad = () => {
+      this.isBraintreeFormLoaded = true
+    }
 
     this.chargeAccountProfiteloPaymentsMethod = () => {
       this.isChargeProfiteloAccount = true
@@ -183,8 +188,10 @@ namespace profitelo.dashboard.chargeAccount {
     'profitelo.components.dashboard.charge-account.payment-method',
     'profitelo.components.dashboard.charge-account.choose-bank',
     'profitelo.directives.interface.scrollable',
-    'profitelo.components.dashboard.charge-account.paypal',
-    'profitelo.components.dashboard.charge-account.card'
+    'profitelo.components.dashboard.charge-account.payment-method.paypal',
+    'profitelo.components.dashboard.charge-account.payment-method.card',
+    'profitelo.components.interface.preloader',
+    'profitelo.components.braintree-form'
   ])
     .config(config)
     .controller('chargeAccountController', chargeAccountController)

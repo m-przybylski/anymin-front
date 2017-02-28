@@ -5,6 +5,10 @@
   .title
     +modalTitle
 
+  .charge-container
+    display: flex
+    flex-wrap: wrap
+
   .hosted-field
     background: $c-white
     height: 56px
@@ -14,6 +18,10 @@
     width: 100%
     overflow: hidden
     margin: 0 0 16px
+    flex: 1 0 50%
+
+    &:first-child
+      flex: 1 0 100%
 
     label
       +default-font-bold
@@ -43,6 +51,12 @@
 
         &.braintree-hosted-fields-valid
           border-color: $c-success
+
+        &#expiration-date
+          margin: 0 8px 0 0
+
+        &#cvv
+          margin: 0 0 0 8px
 
     #card-type
       height: 54px

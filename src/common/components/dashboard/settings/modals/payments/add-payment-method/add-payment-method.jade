@@ -3,5 +3,6 @@ scrollable.add-payment-method(data-is-fullscreen="vm.isFullscreen" data-is-navba
   .modal-settings
     preloader(data-is-loading="!vm.onBraintreeFormLoad")
       .container-medium.no-padding.modal-form
-        braintree-form(data-on-braintree-form-load="vm.onLoad" data-submit-button-translate="BRAINTREE.ADD_BUTTON"
-        data-on-form-succeed="vm.onFormSucceed")
+        .add-payment-braintree
+          braintree-form(data-on-braintree-form-load="vm.onLoad" data-submit-button-translate="BRAINTREE.ADD_BUTTON"
+          data-on-form-succeed="vm.onFormSucceed")

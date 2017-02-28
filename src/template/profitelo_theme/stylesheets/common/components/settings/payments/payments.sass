@@ -23,66 +23,67 @@
       +smm
         margin: 0 32px 0 0
 
-  .radio-list
-    .radio-list-item
-      display: flex
-      align-items: center
-      justify-content: space-between
-      min-height: 80px
-      border-bottom: 1px solid $c-lines
-      position: relative
-      padding: 0 0 0 24px
+.radio-list
+  .radio-list-item
+    display: flex
+    align-items: center
+    justify-content: space-between
+    min-height: 80px
+    border-bottom: 1px solid $c-lines
+    position: relative
+    padding: 0 0 0 24px
 
-      +xsm
-        padding: 0 16px 0 64px
+    +xsm
+      padding: 0 16px 0 64px
 
-      +lgm
-        padding: 0 0 0 64px
+    +lgm
+      padding: 0 0 0 64px
 
-      .title
-        display: none
+    .title
+      display: none
 
-        +smm
-          display: inline-flex
-
-      .radio
-        position: static
-
-      .radio-input
-        width: 24px
-        display: flex
-        justify-content: flex-start
-
-        +xsm
-          width: 64px
-          justify-content: center
-
-      .payment-thumb
-        min-width: 54px
-        margin: 0 8px 0 0
-
-        +smm
-          margin: 0 24px 0 0
-
-      &.profitelo-account
-        span
-          +default-font-medium
-          color: $c-primary-txt
-
-          +smm
-            margin: 0 0 0 4px
-
-          &.title
-            font-weight: 300
+      +smm
+        margin: 0
+        display: inline-flex
 
     .radio
-      margin: 0
+      position: static
 
-      label
-        padding: 0
-        font-size: $f-paragraph
-        display: flex
-        align-items: center
+    .radio-input
+      width: 24px
+      display: flex
+      justify-content: flex-start
 
-  .payments-method
-    margin: 0 0 48px
+      +xsm
+        width: 64px
+        justify-content: center
+
+    .payment-thumb
+      min-width: 54px
+      margin: 0 8px 0 0
+
+      +smm
+        margin: 0 24px 0 0
+
+    &.profitelo-account
+      span
+        +default-font-medium
+        color: $c-primary-txt
+
+        +smm
+          margin: 0 0 0 4px
+
+        &.title
+          font-weight: 300
+
+  .radio
+    margin: 0
+
+    label
+      padding: 0
+      font-size: $f-paragraph
+      display: flex
+      align-items: center
+
+.payments-method
+  margin: 0 0 48px

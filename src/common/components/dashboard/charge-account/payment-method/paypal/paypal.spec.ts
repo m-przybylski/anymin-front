@@ -1,6 +1,6 @@
 namespace profitelo.components.dashboard.chargeAccount.paymentMethod.paypalPaymentForm {
 
-  describe('Unit testing: profitelo.components.dashboard.charge-account.paypal', () => {
+  describe('Unit testing: profitelo.components.dashboard.charge-account.payment-method.paypal', () => {
     return describe('for PayPalPaymentFormComponentController component >', () => {
 
       let rootScope: ng.IScope
@@ -19,7 +19,7 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.paypalPayme
 
       beforeEach(() => {
         angular.mock.module('templates-module')
-        angular.mock.module('profitelo.components.dashboard.charge-account.paypal')
+        angular.mock.module('profitelo.components.dashboard.charge-account.payment-method.paypal')
 
         inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
                 $componentController: ng.IComponentControllerService) => {

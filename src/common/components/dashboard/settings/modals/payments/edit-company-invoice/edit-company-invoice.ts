@@ -9,7 +9,6 @@ namespace profitelo.components.dashboard.settings.modals.payments.editCompanyInv
 
     public isNavbar: boolean = true
     public isFullscreen: boolean = true
-    public onBraintreeFormLoad: boolean = false
 
     public onModalClose = (): void => {
       this.$uibModalInstance.dismiss('cancel')
@@ -17,10 +16,6 @@ namespace profitelo.components.dashboard.settings.modals.payments.editCompanyInv
 
     public onFormSucceed = () => {
       this.$uibModalInstance.dismiss('cancel')
-    }
-
-    public onLoad = () => {
-      this.onBraintreeFormLoad = true
     }
 
     /* @ngInject */
@@ -31,11 +26,8 @@ namespace profitelo.components.dashboard.settings.modals.payments.editCompanyInv
 
   angular.module('profitelo.components.dashboard.settings.modals.payments.edit-company-invoice', [
     'ui.bootstrap',
-    'profitelo.components.braintree-form',
-    'profitelo.components.interface.preloader',
-    'profitelo.directives.interface.pro-input',
-    'profitelo.services.phone-number',
     'profitelo.components.dashboard.invoice',
+    'profitelo.components.interface.preloader',
     'profitelo.directives.interface.scrollable'
   ])
   .controller('editCompanyInvoiceController', EditCompanyInvoiceController)
