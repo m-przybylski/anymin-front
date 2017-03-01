@@ -1,6 +1,13 @@
 namespace profitelo.components.dashboard.chargeAccount.summaryChargeAccount {
 
-  export class SummaryChargeAccountComponentController implements ng.IController {
+  import MoneyDto = profitelo.api.MoneyDto
+  export interface ISummaryChargeAccountComponentBindings {
+    amount: MoneyDto
+  }
+
+  export class SummaryChargeAccountComponentController implements ng.IController, ISummaryChargeAccountComponentBindings {
+
+    public amount: MoneyDto
 
     /* @ngInject */
     constructor() {
@@ -12,10 +19,14 @@ namespace profitelo.components.dashboard.chargeAccount.summaryChargeAccount {
     controller: ng.Injectable<ng.IControllerConstructor> = SummaryChargeAccountComponentController
     replace: true
     controllerAs: '$ctrl'
+    bindings: {[boundProperty: string]: string} = {
+      amount: '<'
+    }
   }
 
   angular.module('profitelo.components.dashboard.charge-account.summary-charge-account', [
-    'pascalprecht.translate'
+    'pascalprecht.translate',
+    'profitelo.filters.money'
   ])
   .component('summaryChargeAccount', new SummaryChargeAccountComponent())
 

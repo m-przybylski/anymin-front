@@ -54,8 +54,8 @@ namespace profitelo.components.braintreeForm {
           httpBackend = $httpBackend
           const injectors = {
             PaymentsApi: PaymentsApi,
-            User: {}
-
+            User: {},
+            CommonSettingsService: {}
           }
 
           resourcesExpectations = {

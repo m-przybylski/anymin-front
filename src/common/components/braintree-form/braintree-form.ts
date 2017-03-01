@@ -3,6 +3,7 @@ namespace profitelo.components.braintreeForm {
   import IPaymentsApi = profitelo.api.IPaymentsApi
   import ClientToken = profitelo.api.ClientToken
   import JValue = profitelo.api.JValue
+  import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
   export interface IBraintreeFormComponentBindings {
     onBraintreeFormLoad: () => void,
     submitButtonTranslate: string,
@@ -19,7 +20,8 @@ namespace profitelo.components.braintreeForm {
     public defaultCardLimit: string = ''
 
     /* @ngInject */
-    constructor(private PaymentsApi: IPaymentsApi, private User: any) {
+    constructor(private PaymentsApi: IPaymentsApi, private User: any,
+                private CommonSettingsService: ICommonSettingsService) {
       this.PaymentsApi.getClientTokenRoute().then(this.createBrainTree, this.onGetTokenError)
     }
 
@@ -119,7 +121,7 @@ namespace profitelo.components.braintreeForm {
                     isDefault: false,
                     limit: {
                       currency: this.User.getData('account').currency,
-                       amount: Number(this.defaultCardLimit)
+                      amount: Number(this.defaultCardLimit) * this.CommonSettingsService.localSettings.amountMultiplier
                     }
                   }).then(this.onAddPaymentMethod, this.onAddPaymentMethodError)
                 }
@@ -128,7 +130,6 @@ namespace profitelo.components.braintreeForm {
           })
         })
       }
-
 
     }
 
@@ -155,6 +156,8 @@ namespace profitelo.components.braintreeForm {
   angular.module('profitelo.components.braintree-form', [
     'pascalprecht.translate',
     'ngSanitize',
+    'profitelo.filters.money',
+    'profitelo.services.commonSettings',
     'c7s.ng.userAuth',
     'profitelo.directives.interface.pro-checkbox',
     'profitelo.directives.interface.pro-input',

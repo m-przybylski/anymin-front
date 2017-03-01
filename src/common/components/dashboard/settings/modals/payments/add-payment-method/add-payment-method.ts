@@ -20,10 +20,12 @@ namespace profitelo.components.dashboard.settings.modals.payments.addPaymentMeth
     }
 
     public onFormSucceed = () => {
+      this.$scope.callback()
       this.$uibModalInstance.dismiss('cancel')
     }
     /* @ngInject */
-    constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
+    constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
+                private $scope: IAddPaymentMethodControllerScope) {
 
     }
   }

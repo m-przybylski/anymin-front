@@ -6,13 +6,15 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
   import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
   import IPaymentsApi = profitelo.api.IPaymentsApi
   import IAccountApi = profitelo.api.IAccountApi
+  import LoDashStatic = _.LoDashStatic
   import IPrimaryDropdownListElement = profitelo.components.interface.dropdownPrimary.IPrimaryDropdownListElement
 
   /* @ngInject */
   function payuPaymentFormController($log: ng.ILogService, $window: IWindowService, $state: ng.ui.IStateService,
                                      PaymentsApi: IPaymentsApi, User: any, topAlertService: ITopAlertService,
                                      smoothScrollingService: ISmoothScrollingService, AccountApi: IAccountApi,
-                                     CommonSettingsService: ICommonSettingsService) {
+                                     CommonSettingsService: ICommonSettingsService, $scope: ng.IScope,
+                                     lodash: LoDashStatic) {
     let isPending = false
 
     this.rulesAccepted = true
@@ -23,12 +25,12 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
       name: "Poland",
       value: "PL"
     }]
-    this.countryISO  = ''
     this.onEnter = (option: number) => {
       if (option < 3) {
         $('[data-index="' + (option + 1).toString() + '"] input').focus()
       }
     }
+    this.countryISO = ''
 
     this.mailValidation = () => {
       return !angular.element('[data-index="3"]').find('input:focus')[0] && !this.emailModel
@@ -38,18 +40,28 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
       this.countryISO = selectedCountry.value
     }
 
-    // TODO If CompanyInfo type fix on backend
-    // this.onInvoiceChange = (invoiceStatus: boolean) => {
-    //   if (invoiceStatus) {
-    //     AccountApi.getCompanyInfoRoute().then((response) => {
-    //       this.vatNumber = response.vatNumber
-    //       this.companyName = response.companyName
-    //       console.log(response)
-    //     }, (error) => {
-    //       throw new Error('Can not get company info: ' + error)
-    //     })
-    //   }
-    // }
+    // FIXME on new checkbox component
+    $scope.$watch(() => {
+      return this.showInvoiceForm
+    }, (newValue: boolean) => {
+      if (newValue) {
+        AccountApi.getCompanyInfoRoute().then((response) => {
+          this.vatNumber = response.vatNumber
+          this.companyName = response.companyName
+          this.street = response.address.street
+          this.apartmentNumber = response.address.number
+          this.postalCode = response.address.zipCode
+          this.city = response.address.city
+
+          this.selectedCountry = lodash.find(
+            this.countryList, (countryListElement: {value: string, name: string}) =>
+            countryListElement.value === response.address.countryISO)
+            this.countryISO = this.selectedCountry.value
+        }, (error) => {
+          throw new Error('Can not get company info: ' + error)
+        })
+      }
+    })
 
 
     this.sendPayment = () => {
@@ -178,6 +190,7 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
     'profitelo.directives.interface.pro-checkbox',
     'profitelo.services.smooth-scrolling',
     'c7s.ng.userAuth',
+    'ngLodash',
     'profitelo.components.dashboard.charge-account.choose-bank',
     'profitelo.components.dashboard.charge-account.summary-charge-account'
   ])

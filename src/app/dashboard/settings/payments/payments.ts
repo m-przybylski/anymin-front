@@ -6,6 +6,7 @@ namespace profitelo.dashboard.settings.payments {
   import CreditCard = profitelo.api.CreditCard
   import IInvoiceDataResolver = profitelo.resolvers.invoiceData.IInvoiceDataResolver
   import IInvoiceData = profitelo.resolvers.invoiceData.IInvoiceData
+  import GetCreditCard = profitelo.api.GetCreditCard
 
 
 
@@ -16,6 +17,7 @@ namespace profitelo.dashboard.settings.payments {
     public companyName : string
     public vatNumber : string
     public address : string
+    public paymentMethods: Array<GetCreditCard>
 
     constructor(getInvoiceData: IInvoiceData, private modalsService: IModalsService, private $state: ng.ui.IStateService) {
       if (getInvoiceData.companyInfo === null) {
@@ -28,6 +30,11 @@ namespace profitelo.dashboard.settings.payments {
         this.address =  getInvoiceData.companyInfo.address.street + ', ' + getInvoiceData.companyInfo.address.number +
           ', ' + getInvoiceData.companyInfo.address.zipCode + ', ' + getInvoiceData.companyInfo.address.city + ', ' +
           getInvoiceData.companyInfo.address.countryISO
+
+        if(getInvoiceData.paymentMethods !== null) {
+          this.paymentMethods = getInvoiceData.paymentMethods
+        }
+
       }
     }
 

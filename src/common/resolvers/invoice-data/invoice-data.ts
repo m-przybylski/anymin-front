@@ -6,10 +6,13 @@ namespace profitelo.resolvers.invoiceData {
   import IPromise = angular.IPromise
   import CompanyInfo = profitelo.api.CompanyInfo
   import MoneyDto = profitelo.api.MoneyDto
+  import IPaymentsApi = profitelo.api.IPaymentsApi
+  import GetCreditCard = profitelo.api.GetCreditCard
 
   export interface IInvoiceData {
     companyInfo: CompanyInfo | null,
-    clientBalance: MoneyDto | null
+    clientBalance: MoneyDto | null,
+    paymentMethods: Array<GetCreditCard> | null
   }
 
   export interface IInvoiceDataResolver {
@@ -18,7 +21,8 @@ namespace profitelo.resolvers.invoiceData {
 
   export class InvoiceDataResolver implements IInvoiceDataResolver {
 
-    constructor(private AccountApi: IAccountApi, private FinancesApi: IFinancesApi, private $log: ILogService) {}
+    constructor(private AccountApi: IAccountApi, private FinancesApi: IFinancesApi,
+                private PaymentsApi: IPaymentsApi, private $log: ILogService) {}
 
     public resolve = (): IPromise<IInvoiceData> => {
       return this.AccountApi.getCompanyInfoRoute().then(this.onGetCompanyInfoRoute, this.onGetCompanyInfoRouteError)
@@ -26,15 +30,26 @@ namespace profitelo.resolvers.invoiceData {
 
     private onGetCompanyInfoRoute = (companyInfo: CompanyInfo) => {
       return this.FinancesApi.getClientBalanceRoute().then((clientBalance: MoneyDto) => {
-        return {
-          companyInfo: companyInfo,
-          clientBalance: clientBalance
-        }
+        return this.PaymentsApi.getCreditCardsRoute().then((paymentMethods) => {
+          return {
+            companyInfo: companyInfo,
+            clientBalance: clientBalance,
+            paymentMethods: paymentMethods
+          }
+        }, (error) => {
+          this.$log.error('Can not get user payment methods: ' + error)
+          return {
+            companyInfo: companyInfo,
+            clientBalance: clientBalance,
+            paymentMethods: null
+          }
+        })
       }, (error: any) => {
         this.$log.error('Can not get user balance: ' + error)
         return {
           companyInfo: companyInfo,
-          clientBalance: null
+          clientBalance: null,
+          paymentMethods: null
         }
       })
     }
@@ -45,7 +60,8 @@ namespace profitelo.resolvers.invoiceData {
       }
       return {
         companyInfo: null,
-        clientBalance: null
+        clientBalance: null,
+        paymentMethods: null
       }
     }
 

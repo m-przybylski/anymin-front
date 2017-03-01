@@ -72,8 +72,7 @@
           id="needInvoice"
           data-ng-model="$ctrl.showInvoiceForm"
           data-label="{{:: 'DASHBOARD.CHARGE_ACCOUNT.CHECKBOX.COMPANY_INVOICE' | translate }}"
-          data-name="showInvoiceForm"
-          on-click-callback="$ctrl.onInvoiceChange")
+          data-name="showInvoiceForm")
 
           .invoice-form(data-ng-if="$ctrl.showInvoiceForm")
             .invoice-form-company-info
@@ -84,6 +83,7 @@
                 data-label="{{ ::'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COUNTRY.LABEL' | translate }}"
                 data-main-list="$ctrl.countryList"
                 data-on-select-main="$ctrl.onSelectCountry"
+                data-selected-item="$ctrl.selectedCountry"
                 data-input-placeholder="{{ ::'SEARCH.ALL' | translate }}"
                 )
 
@@ -148,13 +148,5 @@
             //.invoice-tax
             //  p VAT23
 
-    .summary-charge-account
-      .summary-charge-container
-        .amount-details
-          .amount-price
-            p {{:: 'DASHBOARD.CHARGE_ACCOUNT.AMOUNT.LABEL' | translate }}
-              span 50zł
-
-        .charge-account-btn
-          button.btn.btn-default.icon-right(type="submit") {{:: 'DASHBOARD.CHARGE_ACCOUNT.CHARGE_ACCOUNT_BUTTON_TEXT' | translate }}
-            span.icon.icon-arrow-right-16
+    summary-charge-account(data-amount="$ctrl.amountMethodModal.amountModel.amount || " +
+    "$ctrl.amountMethodModal.amountModel.cashAmount")
