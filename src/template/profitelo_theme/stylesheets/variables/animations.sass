@@ -8,7 +8,7 @@
 @keyframes animation-enter-bottom
   0%
     opacity: 0
-    transform: translateY(100%)
+    transform: translateY(30%)
 
   50%
     opacity: 1
@@ -163,7 +163,7 @@
   0%
     opacity: 0
   100%
-    opacity: 0.5
+    opacity: 0.8
 
 /* modal end */
 
@@ -209,4 +209,46 @@
 
 
 
+/* dropdown collapsing */
+@keyframes inputBorderLineAnimation
+  0%
+    width: 0
 
+  100%
+    width: 100%
+    background: $c-primary
+
+@keyframes inputBorderLineAnimationError
+  0%
+    width: 0
+
+  100%
+    width: 100%
+    background: $c-error
+
+
+@keyframes inputBorderLineAnimationOut
+  0%
+    width: 100%
+
+  100%
+    width: 0
+
+
+@keyframes dropdown-collapsing
+  0%
+    top: 120%
+    opacity: 0
+
+  100%
+    top: 100%
+    max-height: 320px
+    opacity: 1
+
+
+@keyframes radio-focus
+  0%
+    transform: scale(0)
+
+  100%
+    transform: scale(1)

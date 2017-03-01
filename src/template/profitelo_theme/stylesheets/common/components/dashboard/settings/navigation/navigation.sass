@@ -1,0 +1,105 @@
+.dashboard-navigation
+  background: $c-primary
+  height: $dashboard-navbar-width
+  margin: 0 0 48px
+
+  .dashboard-client-nav
+    margin: 0 0 32px
+
+    +smm
+      margin: 0
+
+    ul
+      display: flex
+      align-items: stretch
+      overflow-x: scroll
+      margin: 0
+      height: $dashboard-navbar-width
+
+      +smm
+        overflow: hidden
+
+      li
+        display: inline-flex
+        align-items: stretch
+        justify-content: center
+        align-content: center
+        padding: 0 12px
+
+        +smm
+          width: auto
+          margin: 0 12px
+
+        &:first-child
+          +smm
+            margin: 0 12px 0 0
+
+        &:hover
+          a
+
+
+            &::after
+              border-bottom-color: $c-white
+              transform: translateY(0px)
+
+        &.is-active
+          a
+            color: $c-white
+
+            &::after
+              border-bottom-color: $c-white
+              transform: translateY(0px)
+
+        a
+          +default-font-medium
+          padding: 16px 0
+          display: flex
+          align-items: center
+          text-transform: uppercase
+          color: rgba($c-white, 0.3)
+          font-size: $f-h5-size
+          position: relative
+
+
+          &::after
+            transition: all 0.3s
+            transform: translateY(10px)
+            content: ""
+            width: 0
+            height: 0
+            position: absolute
+            bottom: 0
+            left: 0
+            right: 0
+            margin: auto
+            border-bottom: 10px solid transparent
+            border-right: 10px solid transparent
+            border-left: 10px solid transparent
+
+  .client-credits
+    min-height: 56px
+    text-align: center
+    margin: 0 0 32px
+
+    +xsm
+      display: flex
+      justify-content: flex-end
+      align-items: center
+
+    +smm
+      margin: 0 auto
+
+    > span
+      +default-font-bold
+      color: $c-primary-txt
+      font-size: $f-h2-size
+      margin: 0 0 24px
+      display: flex
+      justify-content: center
+      align-items: center
+
+      +xsm
+        margin: 0 24px 0 0
+
+      span
+        margin: 0 8px 0 0

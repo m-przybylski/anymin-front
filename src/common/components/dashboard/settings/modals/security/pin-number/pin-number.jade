@@ -1,7 +1,7 @@
 scrollable.security-pin-number(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
   top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="vm.onModalClose")
   .modal-settings
-    form.default-container-small(novalidate name="pinForm" data-ng-submit="pinForm.$valid && vm.sendPin()"
+    form.container-small(novalidate name="pinForm" data-ng-submit="pinForm.$valid && vm.sendPin()"
     data-ng-hide="vm.isNewPinTyped")
       h2(data-translate="{{:: 'SETTINGS.SECURITY.PIN_NUMBER.TITLE' | translate}}")
       .security-pin-number

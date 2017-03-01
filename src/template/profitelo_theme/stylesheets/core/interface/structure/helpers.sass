@@ -32,6 +32,25 @@
     +xlgm
       padding: 0
 
+.container-small
+  min-width: 320px
+  margin: 0 auto
+  padding: 0 16px
+
+  +smm
+    padding: 0
+    min-width: 420px
+    max-width: 420px
+
+  &.no-padding
+    padding: 0
+
+    +smm
+      padding: 0 32px
+
+    +xlgm
+      padding: 0
+
 .container-medium
   min-width: 320px
   margin: 0 auto
@@ -84,10 +103,6 @@
   .choose-options-item
     +xsm
       padding: 0 8px
-
-    .pro-input
-      border: 0
-      border-bottom: 1px solid $c-lines
 
     p
       +default-font-light
@@ -152,18 +167,21 @@
       align-items: center
       justify-content: center
 
+      &::after
+        content: ""
+        width: 8px
+        height: 8px
+        background: none
+        border-radius: 50%
+        position: relative
+
       &.is-active
         border: 1px solid $c-primary
         box-shadow: inset 0 0 0 1px $c-primary
 
         &::after
-          content: ""
-          width: 8px
-          height: 8px
+          animation: radio-focus 0.3s
           background: $c-primary
-          border-radius: 50%
-
-
 
 
 .flex-col
@@ -296,7 +314,7 @@ img
 
   &:after
     content: "\73"
-    font-family: "profitelo-icons"
+    font-family: "profitelo_icons"
     color: rgb(100, 100, 100)
     position: absolute
     z-index: 2

@@ -42,9 +42,26 @@ namespace profitelo.components.braintreeForm {
             client: clientInstance,
             styles: {
               'input': {
-                'font-size': '14px',
-                'font-family': 'helvetica, tahoma, calibri, sans-serif',
-                'color': '#808080'
+                'color': 'red',
+                'font-size': '16px',
+                'font-family': 'Robo, helvetica, tahoma, calibri, sans-serif',
+                'font-weight': '300'
+              },
+              '::-webkit-input-placeholder': {
+                'color': '#272727',
+                'opacity': '1'
+              },
+              ':-moz-placeholder': {
+                'color': '#272727',
+                'opacity': '1'
+              },
+              '::-moz-placeholder': {
+                'color': '#272727',
+                'opacity': '1'
+              },
+              ':-ms-input-placeholder': {
+                'color': '#272727',
+                'opacity': '1'
               },
               ':focus': {
                 'color': '#272727'
@@ -66,7 +83,7 @@ namespace profitelo.components.braintreeForm {
               },
               cvv: {
                 selector: '#cvv',
-                placeholder: '123'
+                placeholder: '000'
               },
               expirationDate: {
                 selector: '#expiration-date',

@@ -2,15 +2,43 @@
   width: 100%
 
   .input-group
+    position: relative
+
+    &::before
+      content: ''
+      position: absolute
+      bottom: 0
+      left: 0
+      right: 0
+      margin: auto
+      height: 1px
+      width: 100%
+      background: $c-lines
+
+    &::after
+      transition: width 0.3s ease-out
+      content: ''
+      position: absolute
+      bottom: 0
+      left: 0
+      right: 0
+      margin: auto
+      height: 1px
+      width: 100%
+      animation: inputBorderLineAnimationOut 0.3s
+
+    &.on-click
+      &::after
+        animation: inputBorderLineAnimation 0.3s
+        animation-fill-mode: forwards
+
+  .input-group
     &.on-click
       textarea
         border-color: $c-primary
 
     textarea
-      transition: border-color 0.3s
       overflow: hidden
-      border-radius: 3px
-      border: 1px solid $c-lines
       min-height: 210px
       padding: 16px
       width: 100%

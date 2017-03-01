@@ -1,13 +1,12 @@
 input, textarea
-  +default-font-regular
+  +inputText
   outline: 0
   border: 0
   line-height: 1
-  color: $c-secondary-txt
-  font-size: $f-nav-size
 
-  &::placeholder
-    color: $c-label
+&::placeholder
+  color: $c-primary-txt
+  transition: color 1s
 
 input
   &[type="number"]
@@ -91,7 +90,6 @@ label
 
       &.icon-class
         font-size: $f-base
-        background: $c-white
         z-index: $z-index-100
 
   &.ng-not-empty
@@ -117,6 +115,9 @@ label
     &.left
       text-align: left
 
+.input-group-addon
+  .icon
+    font-size: $f-icon-12
 
 /* dropdown */
 .ui-select-container

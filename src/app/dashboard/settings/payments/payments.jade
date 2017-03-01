@@ -1,12 +1,11 @@
 .payments.payments-options
   .no-results-page(data-ng-hide="vm.isAnyPaymentMethod")
-    .container
-      .no-results-page-content
-        img(data-ng-src="/assets/images/profitelo_icons/icon_payments.png")
-        h2(data-translate="SETTINGS.PAYMENTS.NO_RESULTS.TITLE")
-        a.btn.btn-default(data-ui-sref="app.dashboard.charge-account")
-          | {{:: 'SETTINGS.PAYMENTS.NO_RESULTS.BUTTON' | translate}}
-          span.icon.icon-arrow-right-16
+    .no-results-page-content
+      img(data-ng-src="/assets/images/profitelo_icons/icon_payments.png")
+      h2(data-translate="SETTINGS.PAYMENTS.NO_RESULTS.TITLE")
+      a.btn.btn-default.icon-right(data-ui-sref="app.dashboard.charge-account")
+        | {{:: 'SETTINGS.PAYMENTS.NO_RESULTS.BUTTON' | translate}}
+        span.icon.icon-arrow-right-16
 
   .payments-method(data-ng-show="vm.isAnyPaymentMethod")
     .entry-title
@@ -44,7 +43,7 @@
               span(data-ng-bind-html="paymentMethod.limit | money ")
 
           .radio-action
-            a.btn.btn-primary.edit-payments(data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.RECHARGE_ACCOUNT.EDIT.BUTTON")
+            a.btn.btn-primary.btn-small.edit-payments(data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.RECHARGE_ACCOUNT.EDIT.BUTTON")
 
   .invoice-information(data-ng-show="vm.isAnyPaymentMethod")
     .entry-title
