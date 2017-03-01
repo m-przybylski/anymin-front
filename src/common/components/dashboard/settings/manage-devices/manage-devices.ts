@@ -4,6 +4,7 @@ namespace profitelo.components.dashboard.settings.manageDevices {
     deviceInUseStatus: boolean
     deviceLocalization: string
     deviceSystem: string
+    onDeviceRemove: (apiKey: string) => void
     device: string
     apiKey: string
   }
@@ -12,6 +13,7 @@ namespace profitelo.components.dashboard.settings.manageDevices {
     deviceInUseStatus: boolean
     deviceLocalization: string
     deviceSystem: string
+    onDeviceRemove: (apiKey: string) => void
     device: string
     apiKey: string
     checkDevice = {
@@ -30,12 +32,8 @@ namespace profitelo.components.dashboard.settings.manageDevices {
       this.currentDevice = (<any>this.checkDevice)[this.device]
     }
 
-    public logoutSession = () => {
-      // SessionApi.logout(this.apiKey).then(() => {
-      //
-      // }, (error: any) => {
-      //   throw new Error('Can not logout this session ' + error)
-      // })
+    public onLogout = () => {
+      this.onDeviceRemove(this.apiKey)
     }
 
   }
@@ -44,10 +42,10 @@ namespace profitelo.components.dashboard.settings.manageDevices {
     controllerAs: '$ctrl'
     controller: ng.Injectable<ng.IControllerConstructor> = ManageDevicesComponentController
     templateUrl: string = 'components/dashboard/settings/manage-devices/manage-devices.tpl.html'
-
     bindings: {[boundProperty: string]: string} = {
       device: '@',
       apiKey: '<',
+      onDeviceRemove: '<',
       deviceInUseStatus: '<',
       deviceLocalization: '@',
       deviceSystem: '@'

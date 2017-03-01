@@ -131,7 +131,7 @@ namespace profitelo.api {
       }
       public logoutRoute = (apiKey: string, extraHttpRequestParams?: any): ng.IPromise<JValue> => {
           const localVarPath = this.apiUrl + '/session/{apiKey}'
-              .replace('{' + 'ApiKey' + '}', String(apiKey));
+              .replace('{' + 'apiKey' + '}', String(apiKey));
 
           let queryParameters: any = {};
           //let headerParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -219,7 +219,7 @@ namespace profitelo.api {
     }
     logoutRoute(status: number, apiKey: string, data?: JValue, err?: any): void {
       const localVarPath = this.apiUrl + '/session/{apiKey}'
-          .replace('{' + 'ApiKey' + '}', String(apiKey));
+          .replace('{' + 'apiKey' + '}', String(apiKey));
 
       const queryParameters: any = {}
       const queryUrl = this.serializeQuery(queryParameters)

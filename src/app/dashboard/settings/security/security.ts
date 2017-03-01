@@ -6,8 +6,9 @@ namespace profitelo.dashboard.settings.security {
   import ISecuritySettingsService = profitelo.resolvers.securitySettings.ISecuritySettingsService
   import GetSession = profitelo.api.GetSession
   import ITimeConstant = profitelo.constants.time.ITimeConstant
+  import ISessionApi = profitelo.api.ISessionApi
 
-  interface ISessions {
+  interface ISession {
     device: string
     status: boolean
     city: string
@@ -17,11 +18,11 @@ namespace profitelo.dashboard.settings.security {
 
   export class DashboardSettingsSecurityController implements ng.IController {
     public hasMobilePin: boolean
-    public sessions: Array<ISessions>
+    public sessions: Array<ISession>
 
 
     constructor(private modalsService: IModalsService, user: AccountDetails, sessionsData: Array<GetSession>,
-                timeConstant: ITimeConstant) {
+                timeConstant: ITimeConstant, private SessionApi: ISessionApi) {
       this.hasMobilePin = user.hasMobilePin
       this.sessions = sessionsData.map((session) => {
         const minuteAgo = Date.now() - timeConstant.USER_ACTIVITY_LAST_MINUTE
@@ -69,10 +70,19 @@ namespace profitelo.dashboard.settings.security {
         return {
           device: deviceType(),
           status: Date.parse(String(session.lastActivityAt)) > minuteAgo,
-          city: String((<any>session).city), //FIXME
+          city: session.city,
           system: OperatingSystem() + ' ' + system(),
           apiKey: session.apiKey
         }
+      })
+    }
+
+    public removeSession = (apiKey: string) => {
+      console.log(apiKey)
+      this.SessionApi.logoutRoute(apiKey).then(() => {
+        _.remove(this.sessions, session => session.apiKey == apiKey)
+      }, (error) => {
+        throw new Error('Can not delete this session ' + error)
       })
     }
 
@@ -88,6 +98,7 @@ namespace profitelo.dashboard.settings.security {
   angular.module('profitelo.controller.dashboard.settings.security', [
     'ui.router',
     'profitelo.services.user',
+    'profitelo.api.SessionApi',
     'ngLodash',
     'profitelo.constants.time',
     'profitelo.resolvers.security-settings',

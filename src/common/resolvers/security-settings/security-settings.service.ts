@@ -12,8 +12,7 @@ namespace profitelo.resolvers.securitySettings {
 
     }
 
-    //FIXME after backend models fix
-    public resolve = (): any => {
+    public resolve = () => {
      return this.SessionApi.getSessionsRoute().then((sessionList) => {
         return sessionList
       }, (error: any) => {

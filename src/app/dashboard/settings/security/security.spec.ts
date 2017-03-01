@@ -1,10 +1,15 @@
 namespace profitelo.dashboard.settings.security {
 
   import ITimeConstant = profitelo.constants.time.ITimeConstant
+
   describe('Unit tests: dashboardSettingsSecurityController >', () => {
     describe('Testing Controller: dashboardSettingsSecurityController', () => {
 
       let dashboardSettingsSecurityController: DashboardSettingsSecurityController
+
+      beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
+        $provide.value('apiUrl', 'awesomeURL')
+      }))
 
       beforeEach(() => {
         angular.mock.module('profitelo.controller.dashboard.settings.security')
