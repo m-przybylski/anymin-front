@@ -31,23 +31,25 @@
     min-height: 80px
     border-bottom: 1px solid $c-lines
     position: relative
-    padding: 0 0 0 24px
-
-    +xsm
-      padding: 0 16px 0 64px
-
-    +lgm
-      padding: 0 0 0 64px
 
     .title
       display: none
 
       +smm
         margin: 0
+        padding: 0
         display: inline-flex
 
     .radio
       position: static
+
+    .text
+      position: relative
+      z-index: $z-index-100
+      padding: 0 0 0 24px
+
+      +xsm
+        padding: 0 0 0 64px
 
     .radio-input
       width: 24px

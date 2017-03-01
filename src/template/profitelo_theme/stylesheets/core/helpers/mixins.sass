@@ -1,7 +1,6 @@
 =modalTitle
   text-align: left
 
-
   &.title-action
     display: flex
     align-items: center
@@ -14,7 +13,23 @@
       margin: 0 0 0 32px
 
   h3
-    +default-font-thin
+    +default-font-light
     margin: 0 0 24px
     font-size: $f-h2-size
     color: $c-secondary-txt
+
+/* inputs */
+=inputLabel
+  +default-font-medium
+  color: $c-label
+  font-size: $f-label-size
+  text-transform: uppercase
+  line-height: 1
+
+=inputText
+  +default-font-light
+  color: $c-primary-txt
+  font-size: $f-nav-size
+  line-height: 1
+
+/* inputs end */

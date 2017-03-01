@@ -1,9 +1,6 @@
 .pro-input-password,
 .pro-input
-  transition: border-color 0.2s
-  border-radius: 3px
   background: $c-white
-  border: 1px solid $c-lines
   height: 56px
   position: relative
   display: flex
@@ -11,31 +8,55 @@
   width: 100%
   overflow: hidden
 
+  &::before
+    content: ''
+    position: absolute
+    bottom: 0
+    left: 0
+    right: 0
+    margin: auto
+    height: 1px
+    width: 100%
+    background: $c-lines
+
+  &::after
+    transition: width 0.3s ease-out
+    content: ''
+    position: absolute
+    bottom: 0
+    left: 0
+    right: 0
+    margin: auto
+    height: 1px
+    width: 100%
+    animation: inputBorderLineAnimationOut 0.3s
+
   &.on-click
-    border-color: $c-primary
+    &::after
+      animation: inputBorderLineAnimation 0.3s
+      animation-fill-mode: forwards
 
   &.is-label
     padding: 22px 16px 0
 
     input
-      padding: 0
-
+      padding: 4px 0 16px
 
   label
-    +default-font-bold
-    color: $c-label
-    font-size: $f-label-size
+    +inputLabel
+    transition: top 0.3s, opacity 0.3s
     line-height: 1
     position: absolute
-    top: 12px
+    top: 4px
     left: 16px
-    text-transform: uppercase
 
   &.invalid
-    border-color: $c-invalid-border
-
     label
       color: $c-input-error
+
+    &::after
+      animation: inputBorderLineAnimationError 0.3s
+      animation-fill-mode: forwards
 
     span
       &.cross-addon

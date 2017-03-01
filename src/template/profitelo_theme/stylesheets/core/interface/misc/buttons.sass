@@ -48,8 +48,11 @@
 
 .btn-default
   &:not(.ui-select-toggle)
-    background: $c-primary
-    +btn-hover($c-primary-dark)
+    transition: all 0.3s
+    background-image: linear-gradient(256deg, $c-primary-hover, $c-primary-dark)
+
+    &:hover
+      background: linear-gradient(256deg, $c-primary-dark, $c-primary-dark)
 
 .btn-default-border
   background: none

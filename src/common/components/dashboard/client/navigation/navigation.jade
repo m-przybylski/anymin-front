@@ -1,6 +1,8 @@
-nav.dashboard-client-nav
-  ul
-    li(data-ng-class="{'is-active': $ctrl.stateNames.favourites}")
-      a(data-translate="DASHBOARD.CLIENT.NAVIGATION.FAVOURITE_EXPERTS" data-ui-sref="app.dashboard.client.favourites")
-    li(data-ng-class="{'is-active': $ctrl.stateNames.activities}")
-      a(data-translate="DASHBOARD.CLIENT.NAVIGATION.ACTIVITIES" data-ui-sref="app.dashboard.client.activities")
+.dashboard-navigation
+  .container
+    nav.dashboard-client-nav
+      ul
+        li(data-ng-class="{'is-active': $ctrl.stateNames.favourites}")
+          a(data-translate="DASHBOARD.CLIENT.NAVIGATION.FAVOURITE_EXPERTS" data-ui-sref="app.dashboard.client.favourites")
+        li(data-ng-class="{'is-active': $ctrl.stateNames.activities}")
+          a(data-translate="DASHBOARD.CLIENT.NAVIGATION.ACTIVITIES" data-ui-sref="app.dashboard.client.activities")

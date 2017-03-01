@@ -1,7 +1,7 @@
 scrollable.phone-settings(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
   top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="vm.onModalClose")
   .modal-settings
-    .container-medium.no-padding
+    .container-small
       h2(data-translate="SETTINGS.GENERAL.PHONE_SETTINGS.TITLE")
 
       form.pro-input-form(name="phoneNumberForm" novalidate ng-submit="vm.setNewNumber()")
