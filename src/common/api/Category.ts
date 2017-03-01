@@ -2,12 +2,12 @@ namespace profitelo.api {
 
 
   export interface Category {
-      recordable: boolean;
-      id: string;
+      priority: number;
       parentCategoryId?: string;
+      recordable: boolean;
       slug: string;
       persisted?: boolean;
-      priority: number;
+      id: string;
   }
 
 }

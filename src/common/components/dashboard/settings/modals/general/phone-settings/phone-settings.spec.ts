@@ -10,12 +10,19 @@ namespace profitelo.components.dashboard.settings.modals.general.phoneSettings {
     let scope: IGeneralPhoneSettingsControllerScope
     const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
       jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss'])
-    const User = {}
+
+    const userService = {
+      getUser: () => {}
+    }
+
+    beforeEach(() => {
+      angular.mock.module('profitelo.services.user')
+    })
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', 'awesomeUrl')
+      $provide.value('userService', userService)
     }))
-
 
     beforeEach(() => {
       angular.mock.module('ui.bootstrap')
@@ -30,7 +37,7 @@ namespace profitelo.components.dashboard.settings.modals.general.phoneSettings {
           $uibModalInstance: $uibModalInstance,
           AccountApi: AccountApi,
           $log: $log,
-          User: User
+          userService: userService
         }
 
         controller = $controller<GeneralPhoneSettingsController>('generalPhoneSettingsController', injectors)

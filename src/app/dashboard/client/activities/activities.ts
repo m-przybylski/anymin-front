@@ -92,7 +92,7 @@ namespace app.dashboard.client.activities {
 
   angular.module('profitelo.controller.dashboard.client.activities', [
     'ui.router',
-    'c7s.ng.userAuth',
+    'profitelo.services.session',
     'ngLodash',
     'profitelo.filters.money',
     'profitelo.components.dashboard.client.activities.client-activity',
@@ -102,15 +102,12 @@ namespace app.dashboard.client.activities {
     'profitelo.components.dashboard.client.activities.client-activities.filters',
     'profitelo.services.client-activities-service'
   ])
-  .config(function ($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
+  .config(function ($stateProvider: ng.ui.IStateProvider) {
     $stateProvider.state('app.dashboard.client.activities', {
       url: '/activities',
       templateUrl: 'dashboard/client/activities/activities.tpl.html',
       controller: 'DashboardClientActivitiesController',
       controllerAs: 'vm',
-      data: {
-        access: UserRolesProvider.getAccessLevel('user')
-      },
       resolve: {
         /* istanbul ignore next */
         clientActivities: (clientActivitiesService: IClientActivitiesService) =>

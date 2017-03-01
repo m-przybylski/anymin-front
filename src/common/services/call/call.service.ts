@@ -14,6 +14,7 @@ namespace profitelo.services.call {
   import MoneyDto = profitelo.api.MoneyDto
   import GetProfile = profitelo.api.GetProfile
   import GetServiceUsageRequest = profitelo.api.GetServiceUsageRequest
+  import IUserService = profitelo.services.user.IUserService
 
   export interface ICallService {
     onCallEnd(cb: () => void): void
@@ -72,7 +73,7 @@ namespace profitelo.services.call {
 
     constructor(private $q: ng.IQService, private $log: ng.ILogService, private navigatorService: INavigatorService,
                 callbacksFactory: ICallbacksFactory, private communicatorService: ICommunicatorService,
-                private modalsService: IModalsService, private soundsService: ISoundsService, private User: any,
+                private modalsService: IModalsService, private soundsService: ISoundsService, private userService: IUserService,
                 private timerFactory: ITimerFactory, private RatelApi: IRatelApi, private ServiceApi: IServiceApi) {
 
       this.hangupFunction = () => $q.reject('NO CALL')
@@ -168,18 +169,20 @@ namespace profitelo.services.call {
     }
 
     private startHookMock = (expertId: string) => {
-      if (this.serviceId) {
-        this.RatelApi.ratelCallStartedHookRoute({
-          callId: this.call.id,
-          clientId: this.User.getData('accountId'),
-          expertId: expertId,
-          serviceId: this.serviceId,
-          timestamp: Date.now()
-        }).then(
-          (res) => this.$log.debug('Hook Start', res),
-          (err) => this.$log.error('Hook Start error:', err)
-        )
-      }
+      this.userService.getUser().then(user => {
+        if (this.serviceId) {
+          this.RatelApi.ratelCallStartedHookRoute({
+            callId: this.call.id,
+            clientId: user.id,
+            expertId: expertId,
+            serviceId: this.serviceId,
+            timestamp: Date.now()
+          }).then(
+            (res) => this.$log.debug('Hook Start', res),
+            (err) => this.$log.error('Hook Start error:', err)
+          )
+        }
+      })
     }
 
     private stopHookMock = () => {
@@ -346,8 +349,8 @@ namespace profitelo.services.call {
 
     // FIXME
     /*private onNoFunds = () => {
-      this.modalsService.createNoFundsModal(() => _, () => _)
-    }*/
+     this.modalsService.createNoFundsModal(() => _, () => _)
+     }*/
 
     private onConsultationUnavailable = () => {
       this.cleanupService()
@@ -463,6 +466,7 @@ namespace profitelo.services.call {
     'profitelo.api.RatelApi',
     'profitelo.api.ServiceApi',
     'profitelo.services.timer',
+    'profitelo.services.user',
     'profitelo.services.callbacks',
     'profitelo.services.modals',
     'profitelo.services.sounds'

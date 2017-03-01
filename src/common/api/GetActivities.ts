@@ -2,10 +2,10 @@ namespace profitelo.api {
 
 
   export interface GetActivities {
+      activities: Array<GetActivity>;
+      expertServiceTuples: Array<GetExpertServiceTuple>;
       activityTypes: Array<string>;
       balance: MoneyDto;
-      expertServiceTuples: Array<GetExpertServiceTuple>;
-      activities: Array<GetActivity>;
   }
 
 }

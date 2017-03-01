@@ -2,11 +2,11 @@ namespace profitelo.api {
 
 
   export interface GetOrganizationDetails {
-      description: string;
-      logo?: string;
-      files: Array<ProfileDocument>;
       name: string;
+      description: string;
+      files: Array<ProfileDocument>;
       links: Array<string>;
+      logo?: string;
   }
 
 }

@@ -1,6 +1,8 @@
 namespace profitelo.dashboard.settings.security {
 
   import IModalsService = profitelo.services.modals.IModalsService
+  import IUserService = profitelo.services.user.IUserService
+  import AccountDetails = profitelo.api.AccountDetails
   import ISecuritySettingsService = profitelo.resolvers.securitySettings.ISecuritySettingsService
   import GetSession = profitelo.api.GetSession
   import ITimeConstant = profitelo.constants.time.ITimeConstant
@@ -17,9 +19,11 @@ namespace profitelo.dashboard.settings.security {
     public hasMobilePin: boolean
     public sessions: Array<ISessions>
 
-    constructor(private modalsService: IModalsService, User: any, sessionsData: Array<GetSession>, timeConstant: ITimeConstant) {
-      this.hasMobilePin = User.getData('account').hasMobilePin
-      this.sessions = sessionsData.map((session: GetSession) => {
+
+    constructor(private modalsService: IModalsService, user: AccountDetails, sessionsData: Array<GetSession>,
+                timeConstant: ITimeConstant) {
+      this.hasMobilePin = user.hasMobilePin
+      this.sessions = sessionsData.map((session) => {
         const minuteAgo = Date.now() - timeConstant.USER_ACTIVITY_LAST_MINUTE
         const deviceType = () => {
           if (session.userAgent && (session.userAgent.includes('Macintosh') || session.userAgent.includes('Windows') )) {
@@ -65,7 +69,7 @@ namespace profitelo.dashboard.settings.security {
         return {
           device: deviceType(),
           status: Date.parse(String(session.lastActivityAt)) > minuteAgo,
-          city: session.city,
+          city: String((<any>session).city), //FIXME
           system: OperatingSystem() + ' ' + system(),
           apiKey: session.apiKey
         }
@@ -83,23 +87,23 @@ namespace profitelo.dashboard.settings.security {
 
   angular.module('profitelo.controller.dashboard.settings.security', [
     'ui.router',
-    'c7s.ng.userAuth',
+    'profitelo.services.user',
     'ngLodash',
     'profitelo.constants.time',
     'profitelo.resolvers.security-settings',
     'profitelo.components.dashboard.settings.manage-devices',
     'profitelo.services.modals'
   ])
-  .config(($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) => {
+  .config(($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider.state('app.dashboard.settings.security', {
       url: '/security',
       templateUrl: 'dashboard/settings/security/security.tpl.html',
       controller: 'dashboardSettingsSecurityController',
       controllerAs: 'vm',
-      data: {
-        access: UserRolesProvider.getAccessLevel('user')
-      },
       resolve: {
+        user: (userService: IUserService) => {
+          return userService.getUser()
+        },
         sessionsData: (securitySettingsResolver: ISecuritySettingsService) => {
           return securitySettingsResolver.resolve()
         }

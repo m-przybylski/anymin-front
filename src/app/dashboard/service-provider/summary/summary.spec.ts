@@ -14,7 +14,7 @@ namespace profitelo.app.dashboard.serviceProvider.summary {
 
       beforeEach(() => {
         angular.mock.module('profitelo.controller.dashboard.service-provider.summary')
-        inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _ServiceApi_: IServiceApi, _User_: any) => {
+        inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _ServiceApi_: IServiceApi) => {
 
           _scope = $rootScope.$new()
 
@@ -22,7 +22,6 @@ namespace profitelo.app.dashboard.serviceProvider.summary {
           SummaryController = $controller('SummaryController', {
             $scope: _scope,
             ServiceApi: _ServiceApi_,
-            User: _User_,
             savedProfile: {}
           })
 

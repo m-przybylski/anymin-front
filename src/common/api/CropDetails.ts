@@ -2,10 +2,10 @@ namespace profitelo.api {
 
 
   export interface CropDetails {
-      y?: number;
       x?: number;
-      height?: number;
+      y?: number;
       width?: number;
+      height?: number;
   }
 
 }

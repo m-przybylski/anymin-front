@@ -12,11 +12,11 @@
     'profitelo.directives.service-provider.pro-service-provider-who-provides',
     'profitelo.directives.service-provider.pro-service-provider-tags',
     'profitelo.directives.service-provider.pro-bottom-consultation-button',
-    'c7s.ng.userAuth',
+    'profitelo.services.session',
     'profitelo.directives.interface.pro-alert',
     'profitelo.directives.service-provider.pro-service-provider-profile'
   ])
-  .config( function($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
+  .config( function($stateProvider: ng.ui.IStateProvider) {
     $stateProvider.state('app.dashboard.service-provider.consultation-range', {
       abstract:     true,
       url:          '/consultation-range',
@@ -24,7 +24,6 @@
       controller:   'ConsultationRangeController',
       controllerAs: 'ConsultationRangeController',
       data: {
-        access : UserRolesProvider.getAccessLevel('user'),
         pageTitle: 'PAGE_TITLE.DASHBOARD.SERVICE_PROVIDER.CONSULTATION_RANGE',
         showMenu: false
       }

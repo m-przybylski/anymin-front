@@ -294,7 +294,7 @@ namespace profitelo.services.clientActivities {
 
   angular.module('profitelo.services.client-activities-service', [
     'profitelo.api.ViewsApi',
-    'c7s.ng.userAuth'
+    'profitelo.services.session'
   ])
   .service('clientActivitiesService', ClientActivitiesService)
 }

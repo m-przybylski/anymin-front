@@ -12,8 +12,9 @@ namespace profitelo.resolvers.securitySettings {
 
     }
 
-    public resolve = () => {
-     return this.SessionApi.getSessionsRoute().then((sessionList: Array<GetSession>) => {
+    //FIXME after backend models fix
+    public resolve = (): any => {
+     return this.SessionApi.getSessionsRoute().then((sessionList) => {
         return sessionList
       }, (error: any) => {
         this.$log.error('Can not get sessions list: ' + error)

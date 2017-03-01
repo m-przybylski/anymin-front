@@ -5,6 +5,7 @@ namespace profitelo.dashboard.serviceProvider.companyPath {
   import IProfileApi = profitelo.api.IProfileApi
   import UpdateProfile = profitelo.api.UpdateProfile
   import GetProfile = profitelo.api.GetProfile
+  import IUserService = profitelo.services.user.IUserService
 
   function CompanyPathController($scope: ng.IScope, $state: ng.ui.IStateService, ProfileApi: IProfileApi,
                                  savedProfile: GetProfile | null, topAlertService: ITopAlertService,
@@ -92,9 +93,9 @@ namespace profitelo.dashboard.serviceProvider.companyPath {
     'profitelo.api.ProfileApi',
     'profitelo.directives.service-provider.pro-service-provider-avatar',
     'profitelo.services.top-alert',
-    'c7s.ng.userAuth'
+    'profitelo.services.user'
   ])
-    .config(function($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
+    .config(function($stateProvider: ng.ui.IStateProvider) {
       $stateProvider.state('app.dashboard.service-provider.company-path', {
         url: '/company-path',
         templateUrl: 'dashboard/service-provider/company-path/company-path.tpl.html',
@@ -102,12 +103,12 @@ namespace profitelo.dashboard.serviceProvider.companyPath {
         controllerAs: 'vm',
         resolve: {
           savedProfile: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: IProfileApi,
-                         User: any, topAlertService: ITopAlertService) => {
+                         userService: IUserService, topAlertService: ITopAlertService) => {
             /* istanbul ignore next */
             let _deferred = $q.defer<GetProfile | null>()
             /* istanbul ignore next */
-            User.getStatus().then(() => {
-              ProfileApi.getProfileRoute(User.getData('accountId')).then((response) => {
+            userService.getUser().then((user) => {
+              ProfileApi.getProfileRoute(user.id).then((response) => {
                 _deferred.resolve(response)
               }, () => {
                 _deferred.resolve(null)
@@ -125,7 +126,6 @@ namespace profitelo.dashboard.serviceProvider.companyPath {
           }
         },
         data: {
-          access: UserRolesProvider.getAccessLevel('user'),
           pageTitle: 'PAGE_TITLE.DASHBOARD.SERVICE_PROVIDER.COMPANY_PATH',
           showMenu: false
         }

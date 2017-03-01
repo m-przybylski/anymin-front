@@ -2,12 +2,12 @@ namespace profitelo.api {
 
 
   export interface ServiceRecommendation {
-      serviceId?: ServiceId;
-      clientId?: AccountId;
-      id?: OptionServiceRecommendationId;
-      tags?: Array<TagId>;
+      clientId: string;
+      tags: Array<string>;
       persisted?: boolean;
-      serviceUsageEventId?: ServiceUsageEventId;
+      serviceUsageEventId: string;
+      id?: string;
+      serviceId: string;
   }
 
 }

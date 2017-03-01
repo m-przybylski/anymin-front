@@ -6,9 +6,11 @@ namespace profitelo.postRegister.setEmail {
   import IAccountApi = profitelo.api.IAccountApi
   import PatchAccount = profitelo.api.PatchAccount
   import Account = profitelo.api.Account
+  import IUserService = profitelo.services.user.IUserService
+  import AccountDetails = profitelo.api.AccountDetails
 
   function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.ui.IStateService,
-                       topWaitingLoaderService: ITopWaitingLoaderService, User: any, topAlertService: ITopAlertService,
+                       topWaitingLoaderService: ITopWaitingLoaderService, user: AccountDetails, topAlertService: ITopAlertService,
                        AccountApi: IAccountApi) {
 
     this.isPending = false
@@ -25,7 +27,7 @@ namespace profitelo.postRegister.setEmail {
         this.isPending = true
         topWaitingLoaderService.immediate()
 
-        const accountId = User.getData('accountId')
+        const accountId = user.id
 
         AccountApi.partialUpdateAccountRoute(accountId, patchObject).then(successCallback, (error) => {
           $log.error(error)
@@ -56,7 +58,7 @@ namespace profitelo.postRegister.setEmail {
             message: $filter('translate')('REGISTER.REGISTRATION_SUCCESS'),
             timeout: 3
           })
-          User.setData({unverifiedEmail: this.email})
+          //User.setData({unverifiedEmail: this.email})
           $state.go('app.dashboard.client.favourites')
         })
       })
@@ -65,7 +67,7 @@ namespace profitelo.postRegister.setEmail {
     return this
   }
 
-  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
+  function config($stateProvider: ng.ui.IStateProvider) {
     $stateProvider.state('app.post-register.set-email', {
       url: '/set-email',
       controllerAs: 'vm',
@@ -73,22 +75,11 @@ namespace profitelo.postRegister.setEmail {
       templateUrl: 'post-register/set-email/set-email.tpl.html',
       resolve: {
         /* istanbul ignore next */
-        redirect: (User: any, $state: ng.ui.IStateService, $q: ng.IQService) => {
-          /* istanbul ignore next */
-          return User.getStatus().then((status: any) => {
-            if (((angular.isDefined(status.account.email) && status.account.email) ||
-              (angular.isDefined(status.account.unverifiedEmail) && status.account.unverifiedEmail)) || (
-                angular.isDefined(status.account.hasPassword) && !status.account.hasPassword
-              )) {
-              return $state.go('app.dashboard.client.favourites')
-            } else {
-              return $q.resolve()
-            }
-          })
+        user: (userService: IUserService) => {
+          return userService.getUser()
         }
       },
       data: {
-        access: UserRolesProvider.getAccessLevel('user'),
         pageTitle: 'PAGE_TITLE.LOGIN.REGISTER'
       }
     })
@@ -96,7 +87,7 @@ namespace profitelo.postRegister.setEmail {
 
   angular.module('profitelo.controller.post-register.set-email', [
     'ui.router',
-    'c7s.ng.userAuth',
+    'profitelo.services.user',
     'profitelo.services.login-state',
     'profitelo.resolvers.login-register',
     'profitelo.api.AccountApi',

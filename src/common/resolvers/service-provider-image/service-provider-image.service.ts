@@ -32,7 +32,7 @@ namespace profitelo.resolvers.serviceProviderImage {
   angular.module('profitelo.resolvers.service-provider-image', [
     'profitelo.api.FilesApi',
     'profitelo.services.top-alert',
-    'c7s.ng.userAuth',
+    'profitelo.services.session',
     'profitelo.services.login-state'
   ])
   .service('ServiceProviderImageResolver', ServiceProviderImageResolver)

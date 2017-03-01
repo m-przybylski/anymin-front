@@ -2,14 +2,14 @@ namespace profitelo.api {
 
 
   export interface GetEmployment {
-      serviceId: string;
-      msisdn?: string;
-      createdAt: Date;
       profileId?: string;
-      id: string;
       updatedAt: Date;
-      status: string /*GetEmployment.StatusEnum*/;
       email?: string;
+      msisdn?: string;
+      id: string;
+      status: string /*GetEmployment.StatusEnum*/;
+      createdAt: Date;
+      serviceId: string;
   }
 
 

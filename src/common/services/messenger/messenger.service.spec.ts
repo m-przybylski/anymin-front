@@ -1,6 +1,8 @@
 namespace profitelo.services.messenger {
+
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
   import ICommunicatorService = profitelo.services.communicator.ICommunicatorService
+
   describe('Unit testing: profitelo.services.messenger >', () => {
     describe('for profitelo.services.messenger >', () => {
 
@@ -60,6 +62,7 @@ namespace profitelo.services.messenger {
         $provide.value('callService', callService)
         $provide.value('apiUrl', 'awesomeURL')
         $provide.value('soundsService', soundsService)
+        $provide.value('communicatorService', {})
       }))
 
       it('should have a dummy test', () => {

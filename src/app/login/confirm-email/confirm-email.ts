@@ -6,7 +6,7 @@ namespace profitelo.login.confirmEmail {
     token: string
   }
 
-  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
+  function config($stateProvider: ng.ui.IStateProvider) {
     $stateProvider.state('app.login.confirm-email', {
       url: '/confirm-email/token/:token',
       /* istanbul ignore next */
@@ -17,7 +17,6 @@ namespace profitelo.login.confirmEmail {
         }
       },
       data: {
-        access: UserRolesProvider.getAccessLevel('public'),
         pageTitle: 'PAGE_TITLE.LOGIN.CONFIRM_EMAIL'
       }
     })

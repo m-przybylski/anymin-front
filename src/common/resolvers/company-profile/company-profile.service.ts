@@ -63,7 +63,7 @@ namespace profitelo.resolvers.companyProfile {
   angular.module('profitelo.resolvers.company-profile', [
     'profitelo.api.ViewsApi',
     'ngLodash',
-    'c7s.ng.userAuth'
+    'profitelo.services.session'
   ])
   .config(($qProvider: ng.IQProvider) => {
     $qProvider.errorOnUnhandledRejections(false)

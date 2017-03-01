@@ -101,7 +101,7 @@ namespace profitelo.dashboard.chargeAccount {
     return this
   }
 
-  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
+  function config($stateProvider: ng.ui.IStateProvider) {
     $stateProvider.state('app.dashboard.charge-account', {
       url: '/charge-account',
       controllerAs: 'vm',
@@ -168,7 +168,6 @@ namespace profitelo.dashboard.chargeAccount {
 
       },
       data: {
-        access: UserRolesProvider.getAccessLevel('user'),
         pageTitle: 'PAGE_TITLE.CHARGE_ACCOUNT',
         showMenu: false
       }
@@ -176,7 +175,7 @@ namespace profitelo.dashboard.chargeAccount {
   }
 
   angular.module('profitelo.controller.dashboard.charge-account', [
-    'c7s.ng.userAuth',
+    'profitelo.services.session',
     'ui.router',
     'ngLodash',
     'profitelo.api.FinancesApi',

@@ -31,8 +31,17 @@ namespace profitelo.dashboard.serviceProvider.summary.company {
         })
       }
 
-      beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
+      const communicatorService = {
+        authenticate: () => {}
+      }
+
+      beforeEach(() => {
+        angular.mock.module('profitelo.services.communicator')
+      })
+
+      beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
         $provide.value('apiUrl', url)
+        $provide.value('communicatorService', communicatorService)
       }))
 
       beforeEach(() => {

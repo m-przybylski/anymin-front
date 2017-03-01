@@ -3,17 +3,13 @@ namespace profitelo.dashboard.settings.payments {
 
   import IModalsService = profitelo.services.modals.IModalsService
   import MoneyDto = profitelo.api.MoneyDto
-  import CreditCard = profitelo.api.CreditCard
   import IInvoiceDataResolver = profitelo.resolvers.invoiceData.IInvoiceDataResolver
   import IInvoiceData = profitelo.resolvers.invoiceData.IInvoiceData
   import GetCreditCard = profitelo.api.GetCreditCard
 
-
-
   export class DashboardSettingsPaymentsController implements ng.IController {
     public isAnyPaymentMethod: boolean
     public accountBalance: MoneyDto | null
-    public paymentCards: Array<CreditCard>
     public companyName : string
     public vatNumber : string
     public address : string
@@ -61,18 +57,14 @@ namespace profitelo.dashboard.settings.payments {
   angular.module('profitelo.controller.dashboard.settings.payments', [
     'ui.router',
     'profitelo.filters.money',
-    'c7s.ng.userAuth',
     'profitelo.resolvers.invoice-data'
   ])
-  .config(($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) => {
+  .config(($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider.state('app.dashboard.settings.payments', {
       url: '/payments',
       templateUrl: 'dashboard/settings/payments/payments.tpl.html',
       controller: 'dashboardSettingsPaymentsController',
       controllerAs: 'vm',
-      data: {
-        access: UserRolesProvider.getAccessLevel('user')
-      },
       resolve: {
         getInvoiceData: (InvoiceDataResolver: IInvoiceDataResolver) => {
           return InvoiceDataResolver.resolve()

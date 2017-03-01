@@ -17,12 +17,7 @@ namespace profitelo.dashboard.settings.security {
             $scope: $rootScope.$new(),
             sessionsData: [],
             timeConstant: timeConstant,
-            User: {
-              getData: () => ({
-                account: {
-
-                }
-              })
+            user: {
             }
           })
         })

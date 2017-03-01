@@ -3,8 +3,9 @@ namespace profitelo.directives.proTopNavbar {
   import IWindowService = profitelo.services.window.IWindowService
   import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
   import ISearchService = profitelo.services.search.ISearchService
+  import IUserService = profitelo.services.user.IUserService
 
-  function proTopNavbar($window: IWindowService, $state: ng.ui.IStateService, $location: ng.ILocationService, User: any,
+  function proTopNavbar($window: IWindowService, $state: ng.ui.IStateService, $location: ng.ILocationService, userService: IUserService,
                         searchService: ISearchService, smoothScrollingService: ISmoothScrollingService) {
 
     function linkFunction(scope: any, elem: ng.IRootElementService, _attrs: ng.IAttributes) {
@@ -41,9 +42,9 @@ namespace profitelo.directives.proTopNavbar {
         scope.logoutAction()
       }
 
-      if (User.getStatus()) {
-        scope.userId = User.getData('accountId')
-      }
+      userService.getUser().then(user => {
+        scope.userId = user.id
+      })
 
       /* istanbul ignore next */
       angular.element($window).on('resize', (_window)=> {
@@ -148,7 +149,7 @@ namespace profitelo.directives.proTopNavbar {
     'pascalprecht.translate',
     'profitelo.services.search',
     'ui.router',
-    'c7s.ng.userAuth',
+    'profitelo.services.session',
     'profitelo.services.smooth-scrolling'
   ])
     .directive('proTopNavbar', proTopNavbar)

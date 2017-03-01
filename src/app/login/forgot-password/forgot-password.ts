@@ -54,7 +54,7 @@ namespace profitelo.login.forgotPassword {
 
   }
 
-  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
+  function config($stateProvider: ng.ui.IStateProvider) {
     $stateProvider.state('app.login.forgot-password', {
       url: '/forgot-password/{method:|sms}',
       controllerAs: 'vm',
@@ -66,7 +66,6 @@ namespace profitelo.login.forgotPassword {
         }
       },
       data : {
-        access : UserRolesProvider.getAccessLevel('anon'),
         pageTitle: 'PAGE_TITLE.LOGIN.FORGOT_PASSWORD'
       }
     })
@@ -80,7 +79,7 @@ namespace profitelo.login.forgotPassword {
     'profitelo.services.pro-top-waiting-loader-service',
     'profitelo.services.commonSettings',
     'profitelo.directives.interface.pro-input',
-    'c7s.ng.userAuth'
+    'profitelo.services.session'
   ])
   .config(config)
   .controller('ForgotPasswordController', ForgotPasswordController)

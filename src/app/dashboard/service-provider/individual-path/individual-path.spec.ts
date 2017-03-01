@@ -15,7 +15,6 @@ namespace profitelo.dashboard.serviceProvider.individualPath {
       let _httpBackend: ng.IHttpBackendService
       let _ProfileApi: IProfileApi
       let _ProfileApiMock: IProfileApiMock
-      let _User: any
       let _controller: any
       let _state: ng.ui.IStateService
       let _topAlertService: ITopAlertService
@@ -28,7 +27,6 @@ namespace profitelo.dashboard.serviceProvider.individualPath {
         return _controller('IndividualPathController', {
           $scope: _scope,
           ProfileApi: _ProfileApi,
-          User: _User,
           savedProfile: profile,
           smoothScrollingService: _smoothScrollingService
         })
@@ -48,7 +46,6 @@ namespace profitelo.dashboard.serviceProvider.individualPath {
           _state = $injector.get<ng.ui.IStateService>('$state')
           _controller = $injector.get('$controller')
           _ProfileApi = $injector.get<IProfileApi>('ProfileApi')
-          _User = $injector.get('User')
           _topAlertService = $injector.get<ITopAlertService>('topAlertService')
           _timeout = $injector.get('$timeout')
           _smoothScrollingService = $injector.get<ISmoothScrollingService>('smoothScrollingService')

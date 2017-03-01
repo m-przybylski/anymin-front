@@ -73,6 +73,9 @@ module.exports = {
 
       'node_modules/angular/angular.js',
       'node_modules/angular-ui-router/release/angular-ui-router.js',
+      'node_modules/angular-permission/dist/angular-permission.js',
+      'node_modules/angular-permission/dist/angular-permission-ng.js',
+      'node_modules/angular-permission/dist/angular-permission-ui.js',
       'node_modules/angular-moment/angular-moment.js',
       'node_modules/angular-resource/angular-resource.js',
       'node_modules/angular-messages/angular-messages.js',

@@ -13,10 +13,11 @@ namespace profitelo.login.register {
   import PatchAccount = profitelo.api.PatchAccount
   import Account = profitelo.api.Account
   import IRegistrationApi = profitelo.api.IRegistrationApi
+  import ISessionService = profitelo.services.session.ISessionService
 
   function RegisterController($log: ng.ILogService, $filter: IFilterService, $state: ng.ui.IStateService,
                               $rootScope: IRootScopeService, topWaitingLoaderService: ITopWaitingLoaderService,
-                              User: any, topAlertService: ITopAlertService, UserRoles: any,
+                              sessionService: ISessionService, topAlertService: ITopAlertService,
                               smsSessionId: ILoginRegister, CommonSettingsService: ICommonSettingsService,
                               RegistrationApi: IRegistrationApi, AccountApi: IAccountApi,
                               loginStateService: ILoginStateService, communicatorService: ICommunicatorService) {
@@ -26,6 +27,7 @@ namespace profitelo.login.register {
     this.serverError = false
     this.alreadyCheck = false
     this.correctCode = false
+    let userid = ''
 
     this.registrationSteps = {
       account: smsSessionId.accountObject,
@@ -66,9 +68,13 @@ namespace profitelo.login.register {
         }).then((response) => {
           this.isPending = false
           topWaitingLoaderService.stopLoader()
-          User.setData(response)
-          User.setData({role: UserRoles.getRole('user')})
-          User.setApiKeyHeader(response.apiKey)
+          sessionService.setApiKey(response.apiKey)
+          //User.setData(response)
+          //User.setData({role: UserRoles.getRole('user')})
+          //User.setApiKeyHeader(response.apiKey)
+          //FIXME
+          userid = response.accountId
+
           loginStateService.clearServiceObject()
           $rootScope.loggedIn = true
           $state.go('app.post-register.set-password')
@@ -87,9 +93,7 @@ namespace profitelo.login.register {
         this.isPending = true
         topWaitingLoaderService.immediate()
 
-        const accountId = User.getData('accountId')
-
-        AccountApi.partialUpdateAccountRoute(accountId, patchObject).then(successCallback, (error) => {
+        AccountApi.partialUpdateAccountRoute(userid, patchObject).then(successCallback, (error) => {
           this.isPending = false
           $log.error(error)
           topWaitingLoaderService.stopLoader()
@@ -115,7 +119,7 @@ namespace profitelo.login.register {
     return this
   }
 
-  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
+  function config($stateProvider: ng.ui.IStateProvider) {
     $stateProvider.state('app.login.register', {
       url: '/register',
       controllerAs: 'vm',
@@ -129,7 +133,6 @@ namespace profitelo.login.register {
         }
       },
       data: {
-        access: UserRolesProvider.getAccessLevel('anon'),
         pageTitle: 'PAGE_TITLE.LOGIN.REGISTER'
       }
     })
@@ -137,7 +140,7 @@ namespace profitelo.login.register {
 
   angular.module('profitelo.controller.login.register', [
     'ui.router',
-    'c7s.ng.userAuth',
+    'profitelo.services.session',
     'profitelo.services.login-state',
     'profitelo.resolvers.login-register',
     'profitelo.api.AccountApi',

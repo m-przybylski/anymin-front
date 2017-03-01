@@ -7,14 +7,13 @@
     return this
   }
 
-  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
+  function config($stateProvider: ng.ui.IStateProvider) {
     $stateProvider.state('app.dashboard.payments-thank-you-page', {
       url: '/payments-thank-you-page',
       controllerAs: 'vm',
       controller: 'paymentsThankYouPageController',
       templateUrl: 'dashboard/payments-thank-you-page/payments-thank-you-page.tpl.html',
       data: {
-        access: UserRolesProvider.getAccessLevel('user'),
         pageTitle: 'PAGE_TITLE.CHARGE_ACCOUNT',
         showMenu: false
       }

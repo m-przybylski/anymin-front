@@ -5,7 +5,8 @@ namespace profitelo.resolvers.loginConfirmEmail {
   import IFilterService = profitelo.services.filter.IFilterService
   import IConfirmEmailStateParams = profitelo.login.confirmEmail.IConfirmEmailStateParams
   import IAccountApi = profitelo.api.IAccountApi
-  import ISessionApi = profitelo.api.ISessionApi
+
+  import ISessionService = profitelo.services.session.ISessionService
 
   export interface ILoginConfirmEmailService {
     resolve(stateParams: IConfirmEmailStateParams): ng.IPromise<undefined>
@@ -14,8 +15,9 @@ namespace profitelo.resolvers.loginConfirmEmail {
   class LoginConfirmEmailResolver implements ILoginConfirmEmailService {
 
     constructor(private $q: ng.IQService, private $rootScope: IRootScopeService, private $timeout: ng.ITimeoutService,
-                private $filter: IFilterService, private $state: ng.ui.IStateService, private topAlertService: ITopAlertService,
-                private User: any, private UserRoles: any, private AccountApi: IAccountApi, private SessionApi: ISessionApi) {
+                private $filter: IFilterService, private $state: ng.ui.IStateService,
+                private topAlertService: ITopAlertService, private sessionService: ISessionService,
+                private AccountApi: IAccountApi) {
 
     }
 
@@ -34,13 +36,11 @@ namespace profitelo.resolvers.loginConfirmEmail {
       }
 
       const handleGoodToken = (apiKey: string) => {
+        this.sessionService.setApiKey(apiKey)
 
-        this.User.setApiKeyHeader(apiKey)
-        this.SessionApi.checkRoute().then((response) => {
+        this.sessionService.getSession(true).then((_response) => {
 
           _deferred.resolve()
-          this.User.setData(response)
-          this.User.setData({role: this.UserRoles.getRole('user')})
 
           this.topAlertService.success({
             message: this.$filter('translate')('LOGIN.EMAIL_CONFIRMATION_SUCCESS'),
@@ -77,9 +77,8 @@ namespace profitelo.resolvers.loginConfirmEmail {
 
   angular.module('profitelo.resolvers.login-confirm-email', [
     'profitelo.api.AccountApi',
-    'profitelo.api.SessionApi',
     'profitelo.services.top-alert',
-    'c7s.ng.userAuth',
+    'profitelo.services.session',
     'profitelo.directives.interface.pro-alert'
   ])
   .service('LoginConfirmEmailResolver', LoginConfirmEmailResolver)

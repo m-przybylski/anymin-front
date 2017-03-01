@@ -2,19 +2,19 @@ namespace profitelo.api {
 
 
   export interface FileInfo {
-      isUploaded: boolean;
+      collectionType: string /*FileInfo.CollectionTypeEnum*/;
+      name?: string;
+      size?: number;
       downloadUrl?: string;
+      accountId: string;
+      persisted?: boolean;
       id?: string;
       contentType: string;
-      persisted?: boolean;
-      previews: Array<string>;
-      createdAt: Date;
-      name?: string;
-      collectionType: string /*FileInfo.CollectionTypeEnum*/;
       status: string /*FileInfo.StatusEnum*/;
       token: string;
-      accountId: string;
-      size?: number;
+      createdAt: Date;
+      previews: Array<string>;
+      isUploaded: boolean;
   }
 
 

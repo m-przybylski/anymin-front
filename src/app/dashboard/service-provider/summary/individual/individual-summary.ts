@@ -8,6 +8,7 @@ namespace profitelo.dashboard.serviceProvider.summary.individual {
   import IProfileApi = profitelo.api.IProfileApi
   import GetProfileWithServices = profitelo.api.GetProfileWithServices
   import IServiceApi = profitelo.api.IServiceApi
+  import IUserService = profitelo.services.user.IUserService
 
   function IndividualSummaryController($log: ng.ILogService, $state: ng.ui.IStateService, $scope: ng.IScope,
                                        $filter: IFilterService, savedProfile: GetProfileWithServices,
@@ -126,12 +127,12 @@ namespace profitelo.dashboard.serviceProvider.summary.individual {
     'profitelo.services.communicator',
     'profitelo.common.controller.accept-reject-dialog-controller',
     'profitelo.directives.service-provider.pro-service-provider-summary-step',
-    'c7s.ng.userAuth',
+    'profitelo.services.session',
     'profitelo.resolvers.service-provider-image',
     'profitelo.api.ServiceApi',
     'profitelo.directives.interface.pro-alert'
   ])
-    .config(function($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
+    .config(function($stateProvider: ng.ui.IStateProvider) {
       $stateProvider.state('app.dashboard.service-provider.summary.individual', {
         url:          '/individual',
         templateUrl:  'dashboard/service-provider/summary/individual/individual-summary.tpl.html',
@@ -140,12 +141,12 @@ namespace profitelo.dashboard.serviceProvider.summary.individual {
         resolve: {
           /* istanbul ignore next */
           savedProfile: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: IProfileApi,
-                         lodash: _.LoDashStatic, User: any, ServiceApi: IServiceApi, topAlertService: ITopAlertService) => {
+                         lodash: _.LoDashStatic, userService: IUserService, ServiceApi: IServiceApi, topAlertService: ITopAlertService) => {
             /* istanbul ignore next */
             let _deferred = $q.defer<GetProfileWithServices | null>()
             /* istanbul ignore next */
-            User.getStatus().then(() => {
-              ProfileApi.getProfileWithServicesRoute(User.getData('accountId')).then((profileWithServices) => {
+            userService.getUser().then((user) => {
+              ProfileApi.getProfileWithServicesRoute(user.id).then((profileWithServices) => {
 
                 ServiceApi.postServicesTagsRoute({
                   serviceIds: lodash.map(profileWithServices.services, service => service.id)
@@ -190,7 +191,6 @@ namespace profitelo.dashboard.serviceProvider.summary.individual {
           }
         },
         data: {
-          access : UserRolesProvider.getAccessLevel('user'),
           pageTitle: 'PAGE_TITLE.DASHBOARD.SERVICE_PROVIDER.CONSULTATION_RANGE',
           showMenu: false
         }

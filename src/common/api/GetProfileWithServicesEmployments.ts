@@ -2,11 +2,11 @@ namespace profitelo.api {
 
 
   export interface GetProfileWithServicesEmployments {
-      organizationDetails?: OrganizationDetails;
       services: Array<GetServiceWithEmployments>;
+      organizationDetails?: OrganizationDetails;
       expertDetails?: ExpertDetails;
-      isActive: boolean;
       id: string;
+      isActive: boolean;
   }
 
 }

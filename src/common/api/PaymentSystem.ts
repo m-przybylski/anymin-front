@@ -2,12 +2,12 @@ namespace profitelo.api {
 
 
   export interface PaymentSystem {
-      createdAt?: Date;
-      slug?: string;
-      id?: string;
-      updatedAt?: Date;
-      persisted?: boolean;
       desc?: string;
+      updatedAt?: Date;
+      slug?: string;
+      persisted?: boolean;
+      id?: string;
+      createdAt?: Date;
   }
 
 }

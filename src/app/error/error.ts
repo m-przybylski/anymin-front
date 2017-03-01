@@ -8,15 +8,14 @@
 
   angular.module('profitelo.controller.error', [
     'ui.router',
-    'c7s.ng.userAuth'
+    'profitelo.services.session'
   ])
-    .config( function($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
+    .config( function($stateProvider: ng.ui.IStateProvider) {
       $stateProvider.state('app.error', {
         templateUrl: 'error/error.tpl.html',
         controller: 'ErrorController',
         controllerAs: 'vm',
-        data          : {
-          access : UserRolesProvider.getAccessLevel('public')
+        data: {
         },
         resolve: {
           errorObj: [function() {

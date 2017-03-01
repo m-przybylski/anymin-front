@@ -5,7 +5,7 @@
     return this
   }
 
-  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
+  function config($stateProvider: ng.ui.IStateProvider) {
     $stateProvider.state('app.post-register', {
       url: '/post-register',
       controllerAs: 'vm',
@@ -13,7 +13,10 @@
       templateUrl: 'post-register/post-register.tpl.html',
       abstract: true,
       data: {
-        access: UserRolesProvider.getAccessLevel('user'),
+        permissions: {
+          except: ['anon'],
+          redirectTo: 'app.login'
+        },
         pageTitle: 'PAGE_TITLE.LOGIN.REGISTER'
       }
     })
@@ -21,7 +24,7 @@
 
   angular.module('profitelo.controller.post-register', [
     'ui.router',
-    'c7s.ng.userAuth'
+    'profitelo.services.session'
   ])
     .config(config)
     .controller('PostRegisterController', controller)

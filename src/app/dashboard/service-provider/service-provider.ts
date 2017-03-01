@@ -10,9 +10,9 @@
 
   angular.module('profitelo.controller.dashboard.service-provider', [
     'ui.router',
-    'c7s.ng.userAuth'
+    'profitelo.services.session'
   ])
-  .config( function($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
+  .config( function($stateProvider: ng.ui.IStateProvider) {
     $stateProvider.state('app.dashboard.service-provider', {
       abstract:     true,
       url:          '/service-provider',
@@ -20,7 +20,6 @@
       controller:   'ServiceProviderController',
       controllerAs: 'serviceProviderController',
       data: {
-        access : UserRolesProvider.getAccessLevel('user')
       }
     })
   })

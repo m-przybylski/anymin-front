@@ -17,13 +17,20 @@ namespace profitelo.components.communicator.navigation {
         isMessenger: false
       }
 
+      const callService = {
+        startAudio: () => {},
+        stopAudio: () => {},
+        startVideo: () => {},
+        stopVideo: () => {},
+      }
+
       beforeEach(() => {
-        angular.mock.module('profitelo.services.sounds')
+        angular.mock.module('profitelo.services.call')
       })
 
       beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
         $provide.value('apiUrl', 'awesomeUrl/')
-        $provide.value('soundsService', {})
+        $provide.value('callService', callService)
       }))
 
       beforeEach(() => {
@@ -31,13 +38,13 @@ namespace profitelo.components.communicator.navigation {
         angular.mock.module('profitelo.components.communicator.navigation')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
-                $componentController: ng.IComponentControllerService, _callService_: ICallService) => {
+                $componentController: ng.IComponentControllerService) => {
 
           rootScope = $rootScope.$new()
           compile = $compile
 
           const injectors = {
-            callService: _callService_
+            callService: callService
           }
 
           component = $componentController<NavigationComponentController, INavigationComponentBindings>(

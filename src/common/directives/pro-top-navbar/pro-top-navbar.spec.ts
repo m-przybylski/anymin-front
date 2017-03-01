@@ -1,6 +1,8 @@
 namespace profitelo.directives.proTopNavbar {
+
   import ISearchService = profitelo.services.search.ISearchService
   import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
+
   describe('Unit testing: profitelo.directives.pro-top-navbar', () => {
     return describe('for pro-top-navbar directive >', () => {
 
@@ -13,9 +15,17 @@ namespace profitelo.directives.proTopNavbar {
       let location: ng.ILocationService
       let searchService: ISearchService
       let $httpBackend: ng.IHttpBackendService
+      const userService = {
+        getUser: () => {}
+      }
+
+      beforeEach(() => {
+        angular.mock.module('profitelo.services.user')
+      })
 
       beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
         $provide.value('apiUrl', '')
+        $provide.value('userService', userService)
       }))
 
       beforeEach(() => {
@@ -25,7 +35,10 @@ namespace profitelo.directives.proTopNavbar {
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$httpBackend_: ng.IHttpBackendService,
                 _smoothScrollingService_: ISmoothScrollingService, _$state_: ng.ui.IStateService,
-                _$location_: ng.ILocationService, _searchService_: ISearchService) => {
+                _$location_: ng.ILocationService, _searchService_: ISearchService, $q: ng.IQService) => {
+
+          spyOn(userService, 'getUser').and.callFake(() => $q.resolve({id: '123'}))
+
           rootScope = $rootScope.$new()
           compile = $compile
           $state = _$state_
@@ -48,8 +61,7 @@ namespace profitelo.directives.proTopNavbar {
           }
         }
         let compiledElement = compile(elem)(scope)
-        $httpBackend.when('GET', 'http://api.webpage.com/session').respond(500)
-        $httpBackend.flush()
+
         scope.$digest()
         return compiledElement
       }

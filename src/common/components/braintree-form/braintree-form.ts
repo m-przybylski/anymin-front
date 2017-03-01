@@ -4,6 +4,8 @@ namespace profitelo.components.braintreeForm {
   import ClientToken = profitelo.api.ClientToken
   import JValue = profitelo.api.JValue
   import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
+  import IUserService = profitelo.services.user.IUserService
+
   export interface IBraintreeFormComponentBindings {
     onBraintreeFormLoad: () => void,
     submitButtonTranslate: string,
@@ -20,13 +22,13 @@ namespace profitelo.components.braintreeForm {
     public defaultCardLimit: string = ''
 
     /* @ngInject */
-    constructor(private PaymentsApi: IPaymentsApi, private User: any,
+    constructor(private PaymentsApi: IPaymentsApi, private userService: IUserService,
                 private CommonSettingsService: ICommonSettingsService) {
       this.PaymentsApi.getClientTokenRoute().then(this.createBrainTree, this.onGetTokenError)
     }
 
-    private onGetTokenError = (err: any) => {
-      throw new Error('Can not get token: ' + err)
+    private onGetTokenError = (_err: any) => {
+      //throw new Error('Can not get token: ' + err)
     }
 
     private createBrainTree = (tokenObject: ClientToken): void => {
@@ -133,14 +135,17 @@ namespace profitelo.components.braintreeForm {
                   this.isInvalid = true
                 } else {
                   this.isInvalid = false
-                  this.PaymentsApi.addPaymentMethodRoute({
-                    nonce: payload.nonce,
-                    isDefault: false,
-                    limit: {
-                      currency: this.User.getData('account').currency,
-                      amount: Number(this.defaultCardLimit) * this.CommonSettingsService.localSettings.amountMultiplier
-                    }
-                  }).then(this.onAddPaymentMethod, this.onAddPaymentMethodError)
+                  this.userService.getUser().then(user => {
+                    this.PaymentsApi.addPaymentMethodRoute({
+                      nonce: payload.nonce,
+                      isDefault: false,
+                      limit: {
+                        currency: user.currency,
+                        amount: Number(this.defaultCardLimit) * this.CommonSettingsService.localSettings.amountMultiplier
+                      }
+                    }).then(this.onAddPaymentMethod, this.onAddPaymentMethodError)
+                  })
+
                 }
               })
             })
@@ -175,7 +180,8 @@ namespace profitelo.components.braintreeForm {
     'ngSanitize',
     'profitelo.filters.money',
     'profitelo.services.commonSettings',
-    'c7s.ng.userAuth',
+    'profitelo.services.user',
+    'profitelo.api.PaymentsApi',
     'profitelo.directives.interface.pro-checkbox',
     'profitelo.directives.interface.pro-input',
     'profitelo.components.dashboard.charge-account.summary-charge-account'

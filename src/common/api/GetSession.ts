@@ -2,15 +2,15 @@ namespace profitelo.api {
 
 
   export interface GetSession {
-      userAgent?: string;
-      country: string;
-      account?: AccountDetails;
       city: string;
-      apiKey: string;
-      ipAddress: string;
-      lastActivityAt: Date;
+      country: string;
       accountId: string;
-      expiresAt: Date;
+      userAgent?: string;
+      apiKey: string;
+      lastActivityAt: number;
+      ipAddress: string;
+      account?: AccountDetails;
+      isExpired: boolean;
   }
 
 }

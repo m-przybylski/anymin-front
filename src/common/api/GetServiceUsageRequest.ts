@@ -2,12 +2,12 @@ namespace profitelo.api {
 
 
   export interface GetServiceUsageRequest {
-      profile: GetProfile;
-      freeSeconds: number;
       agentId: string;
+      tags: Array<Tag>;
       service: GetService;
       expert: GetProfile;
-      tags: Array<Tag>;
+      freeSeconds: number;
+      profile: GetProfile;
   }
 
 }

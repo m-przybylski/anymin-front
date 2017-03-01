@@ -13,10 +13,18 @@ namespace profitelo.components.dashboard.settings.modals.general.countrySettings
 
     const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
       jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss'])
-    const User = {}
+
+    const userService = {
+      getUser: () => {}
+    }
+
+    beforeEach(() => {
+      angular.mock.module('profitelo.services.user')
+    })
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', 'awesomeUrl')
+      $provide.value('userService', userService)
     }))
 
     beforeEach(() => {
@@ -31,7 +39,7 @@ namespace profitelo.components.dashboard.settings.modals.general.countrySettings
         const injectors = {
           $scope: scope,
           $uibModalInstance: $uibModalInstance,
-          User: User,
+          userService: userService,
           AccountApi: AccountApi,
           lodash: lodash
         }

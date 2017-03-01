@@ -12,11 +12,9 @@ namespace app.dashboard.settings.general {
             $controller<DashboardSettingsGeneralController>('dashboardSettingsGeneralController', {
               $state: _$state_,
               $scope: $rootScope.$new(),
-              UserData: {
-                account: {
-                  settings: {
-                    avatar: ''
-                  }
+              user: {
+                settings: {
+                  nickname: '123'
                 }
               }
             })

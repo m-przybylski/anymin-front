@@ -2,11 +2,11 @@ namespace profitelo.api {
 
 
   export interface CallStartedHook {
-      expertId: string;
-      clientId: string;
-      serviceId: string;
       timestamp: number;
+      clientId: string;
       callId: string;
+      expertId: string;
+      serviceId: string;
   }
 
 }

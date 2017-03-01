@@ -180,7 +180,7 @@ namespace profitelo.home {
 
   angular.module('profitelo.controller.home', [
     'ui.router',
-    'c7s.ng.userAuth',
+    'profitelo.services.session',
     'profitelo.directives.pro-expert-card',
     'profitelo.directives.pro-expert-see-more',
     'profitelo.directives.pro-advice-tile',
@@ -190,14 +190,13 @@ namespace profitelo.home {
     'profitelo.components.pro-search-dropdown',
     'profitelo.components.interface.slider'
   ])
-  .config(($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) => {
+  .config(($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider.state('app.home', {
       url: '/home',
       controllerAs: 'vm',
       controller: 'HomeController',
       templateUrl: 'home/home.tpl.html',
       data: {
-        access: UserRolesProvider.getAccessLevel('public'),
         pageTitle: 'PAGE_TITLE.HOME'
       }
     })

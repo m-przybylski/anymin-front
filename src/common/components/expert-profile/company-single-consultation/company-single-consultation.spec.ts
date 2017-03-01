@@ -48,17 +48,19 @@ namespace profitelo.components.expertProfile.companySingleConsultation {
         return compiledElement
       }
 
-      const navigatorService = {
-        getUserMediaStream: () => {}
+      const callService = {
+        callServiceId: () => {
+          return null
+        }
       }
 
       beforeEach(() => {
-        angular.mock.module('profitelo.services.navigator')
+        angular.mock.module('profitelo.services.call')
       })
 
       beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
         $provide.value('apiUrl', 'awesomeUrl/')
-        $provide.value('navigatorService', navigatorService)
+        $provide.value('callService', callService)
       }))
 
       beforeEach(() => {
@@ -72,7 +74,7 @@ namespace profitelo.components.expertProfile.companySingleConsultation {
           urlService = _urlService_
 
           const injectors = {
-            navigatorService: navigatorService
+            callService: callService
           }
 
           component = _$componentController_('companySingleConsultation', injectors, bindings)

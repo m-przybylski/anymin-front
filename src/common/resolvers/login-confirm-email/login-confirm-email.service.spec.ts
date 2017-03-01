@@ -17,8 +17,18 @@ namespace profitelo.resolvers.loginConfirmEmail {
       let httpBackend: ng.IHttpBackendService
       let emailToken = ':token'
 
+      const sessionService = {
+        setApiKey: () => {},
+        getSession: () => {}
+      }
+
+      beforeEach(() => {
+        angular.mock.module('profitelo.services.session')
+      })
+
       beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
         $provide.value('apiUrl', url)
+        $provide.value('sessionService', sessionService)
       }))
 
       beforeEach(() => {
@@ -26,7 +36,8 @@ namespace profitelo.resolvers.loginConfirmEmail {
           $provide.value('$state', mockState)
         })
 
-        inject(($injector: ng.auto.IInjectorService) => {
+        inject(($injector: ng.auto.IInjectorService, $q: ng.IQService) => {
+          spyOn(sessionService, 'getSession').and.callFake(() => $q.resolve({}))
           AppLoginConfirmEmailResolverService = $injector.get<ILoginConfirmEmailService>('LoginConfirmEmailResolver')
           _timeout = $injector.get('$timeout')
           _AccountApiMock = $injector.get<IAccountApiMock>('AccountApiMock')
@@ -72,6 +83,7 @@ namespace profitelo.resolvers.loginConfirmEmail {
 
         //FIXME type
         _AccountApiMock.postAccountVerifyEmailRoute(200, emailToken, <any>{apiKey: '123'})
+
         _SessionApiMock.checkRoute(200, <GetSession>{})
 
         spyOn(mockState, 'go')

@@ -1,36 +1,36 @@
 .container
   .single-consultation
-    .consultation-wrapper(data-ng-click="vm.goToProfile()")
+    .consultation-wrapper(data-ng-click="$ctrl.goToProfile()")
       .consultation-details
         .consultation-price
-          span(data-ng-bind-html="::vm.consultation.price | money")
+          span(data-ng-bind-html="::$ctrl.consultation.price | money")
           span.currency(data-translate='HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE')
 
         div
           .consultation-title
             h3
-              span {{ ::vm.consultation.name }}
+              span {{ ::$ctrl.consultation.name }}
 
           ul.consultation-about
             li.options-item.recomendation
-              span  {{ ::vm.consultation.rating || '0' }}% {{"SEARCH.RECOMMENDATION" | translate }}
+              span  {{ ::$ctrl.consultation.rating || '0' }}% {{"SEARCH.RECOMMENDATION" | translate }}
             li.options-item.conversation-count
-              span {{ ::vm.consultation.usageCounter || '0' }}
+              span {{ ::$ctrl.consultation.usageCounter || '0' }}
             li.options-item.balance
-              span {{ ::vm.consultation.timeAverage || '0' }} min.
+              span {{ ::$ctrl.consultation.timeAverage || '0' }} min.
 
       .consultation-actions
         .profile-preview
           .thumb.x48
-            img.user-avatar(data-ng-src="{{ ::vm.profileImage }}" alt="{{ ::vm.consultation.owner.name }}")
+            img.user-avatar(data-ng-src="{{ ::$ctrl.profileImage }}" alt="{{ ::$ctrl.consultation.owner.name }}")
 
             .status-list
               span.status.availability
 
           .profile-name
-            span {{ ::vm.consultation.owner.name }}
+            span {{ ::$ctrl.consultation.owner.name }}
 
-        a.btn.btn-success.icon-left(data-ng-click="vm.startCall()" data-ng-mouseover="vm.onMouseOver()" data-ng-mouseleave="vm.onMouseLeave()")
+        a.btn.btn-success.icon-left(data-ng-click="$ctrl.startCall()" data-ng-mouseover="$ctrl.onMouseOver()" data-ng-mouseleave="$ctrl.onMouseLeave()")
           span.icon.icon-call-16
           | {{ ::'HOME.TOP_CONTAINER.EXPERT_PROFILE.CALL' | translate }}
 
