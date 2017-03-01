@@ -5,7 +5,7 @@ namespace profitelo.api {
     getProfileServicesRoute(accountId: string, extraHttpRequestParams?: any): ng.IPromise<Array<GetService>>
     getServiceRoute(serviceId: string, extraHttpRequestParams?: any): ng.IPromise<GetService>
     getSuggestionsRoute(expression: string, extraHttpRequestParams?: any): ng.IPromise<Array<GetService>>
-    postServiceRecommendationRoute(serviceUsageEventId: string, extraHttpRequestParams?: any): ng.IPromise<GetService>
+    postServiceRecommendationRoute(serviceUsageEventId: string, extraHttpRequestParams?: any): ng.IPromise<ServiceRecommendation>
     postServiceRoute(body: PostService, extraHttpRequestParams?: any): ng.IPromise<GetService>
     postServiceWithEmployeesRoute(body: PostServicesWithEmployees, extraHttpRequestParams?: any): ng.IPromise<Array<GetServiceWithEmployees>>
     postServicesTagsRoute(body: PostServicesTags, extraHttpRequestParams?: any): ng.IPromise<Array<GetServiceTags>>
@@ -187,7 +187,7 @@ namespace profitelo.api {
             }
           });
       }
-      public postServiceRecommendationRoute = (serviceUsageEventId: string, extraHttpRequestParams?: any): ng.IPromise<GetService> => {
+      public postServiceRecommendationRoute = (serviceUsageEventId: string, extraHttpRequestParams?: any): ng.IPromise<ServiceRecommendation> => {
           const localVarPath = this.apiUrl + '/services/{serviceUsageEventId}/recommend'
               .replace('{' + 'serviceUsageEventId' + '}', String(serviceUsageEventId));
 
@@ -417,7 +417,7 @@ namespace profitelo.api {
     getProfileServicesRoute(status: number, accountId: string, data?: Array<GetService>, err?: any): void
     getServiceRoute(status: number, serviceId: string, data?: GetService, err?: any): void
     getSuggestionsRoute(status: number, expression: string, data?: Array<GetService>, err?: any): void
-    postServiceRecommendationRoute(status: number, serviceUsageEventId: string, data?: GetService, err?: any): void
+    postServiceRecommendationRoute(status: number, serviceUsageEventId: string, data?: ServiceRecommendation, err?: any): void
     postServiceRoute(status: number, data?: GetService, err?: any): void
     postServiceWithEmployeesRoute(status: number, data?: Array<GetServiceWithEmployees>, err?: any): void
     postServicesTagsRoute(status: number, data?: Array<GetServiceTags>, err?: any): void
@@ -487,7 +487,7 @@ namespace profitelo.api {
       this.$httpBackend.whenGET(localVarPath+queryUrl)
         .respond(status, (typeof err !== 'undefined') ? err : data)
     }
-    postServiceRecommendationRoute(status: number, serviceUsageEventId: string, data?: GetService, err?: any): void {
+    postServiceRecommendationRoute(status: number, serviceUsageEventId: string, data?: ServiceRecommendation, err?: any): void {
       const localVarPath = this.apiUrl + '/services/{serviceUsageEventId}/recommend'
           .replace('{' + 'serviceUsageEventId' + '}', String(serviceUsageEventId));
 

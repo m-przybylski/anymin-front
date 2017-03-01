@@ -4,7 +4,6 @@ namespace profitelo.api {
     changePasswordRoute(body: ChangeAccountPassword, extraHttpRequestParams?: any): ng.IPromise<{}>
     confirmMsisdnVerificationRoute(body: ConfirmMsisdnVerificationRequest, extraHttpRequestParams?: any): ng.IPromise<{}>
     getAccountEmailExistsRoute(email: string, extraHttpRequestParams?: any): ng.IPromise<{}>
-    getAccountRoute(accountId: string, extraHttpRequestParams?: any): ng.IPromise<AccountWithExtras>
     getCompanyInfoRoute(extraHttpRequestParams?: any): ng.IPromise<CompanyInfo>
     getMobileProtectedViewsRoute(extraHttpRequestParams?: any): ng.IPromise<GetMobileProtectedViews>
     getRegistrationStatusByMsisdnRoute(msisdn: string, extraHttpRequestParams?: any): ng.IPromise<GetRegistrationStatus>
@@ -13,7 +12,7 @@ namespace profitelo.api {
     newMsisdnVerificationRoute(body: CreateMsisdnVerificationRequest, extraHttpRequestParams?: any): ng.IPromise<JValue>
     partialUpdateAccountRoute(accountId: string, body: PatchAccount, extraHttpRequestParams?: any): ng.IPromise<Account>
     patchMobileViewsPermissionsRoute(body: PatchMobileViewsPermissions, extraHttpRequestParams?: any): ng.IPromise<Account>
-    postAccountVerifyEmailRoute(token: string, extraHttpRequestParams?: any): ng.IPromise<AccountWithExtras>
+    postAccountVerifyEmailRoute(token: string, extraHttpRequestParams?: any): ng.IPromise<GetSession>
     postCompanyInfoRoute(body: PostCompanyInfo, extraHttpRequestParams?: any): ng.IPromise<CompanyInfo>
     postMobilePinRoute(body: PostMobileViewsPermissions, extraHttpRequestParams?: any): ng.IPromise<Account>
     putGeneralSettingsRoute(body: PutGeneralSettings, extraHttpRequestParams?: any): ng.IPromise<{}>
@@ -136,37 +135,6 @@ namespace profitelo.api {
           // verify required parameter 'email' is not null or undefined
           if (email === null || email === undefined) {
               throw new Error('Required parameter email was null or undefined when calling getAccountEmailExistsRoute.');
-          }
-          let httpRequestParams: ng.IRequestConfig = {
-              method: 'GET',
-              url: localVarPath,
-                                          params: queryParameters,
-              headers: this.defaultHeaders //headerParams
-          };
-
-          if (extraHttpRequestParams) {
-              throw new Error('extraHttpRequestParams not supported')
-              //httpRequestParams = (<any>Object).assign(httpRequestParams, extraHttpRequestParams);
-          }
-
-          return this.$http(httpRequestParams).then(response => {
-            if (typeof response.data !== 'undefined') {
-              return response.data
-            }
-            else {
-              throw new Error('Response was not defined')
-            }
-          });
-      }
-      public getAccountRoute = (accountId: string, extraHttpRequestParams?: any): ng.IPromise<AccountWithExtras> => {
-          const localVarPath = this.apiUrl + '/accounts/{accountId}'
-              .replace('{' + 'accountId' + '}', String(accountId));
-
-          let queryParameters: any = {};
-          //let headerParams: any = (<any>Object).assign({}, this.defaultHeaders);
-          // verify required parameter 'accountId' is not null or undefined
-          if (accountId === null || accountId === undefined) {
-              throw new Error('Required parameter accountId was null or undefined when calling getAccountRoute.');
           }
           let httpRequestParams: ng.IRequestConfig = {
               method: 'GET',
@@ -425,7 +393,7 @@ namespace profitelo.api {
             }
           });
       }
-      public postAccountVerifyEmailRoute = (token: string, extraHttpRequestParams?: any): ng.IPromise<AccountWithExtras> => {
+      public postAccountVerifyEmailRoute = (token: string, extraHttpRequestParams?: any): ng.IPromise<GetSession> => {
           const localVarPath = this.apiUrl + '/accounts/confirm/email/{token}'
               .replace('{' + 'token' + '}', String(token));
 
@@ -623,7 +591,6 @@ namespace profitelo.api {
     changePasswordRoute(status: number, data?: {}, err?: any): void
     confirmMsisdnVerificationRoute(status: number, data?: {}, err?: any): void
     getAccountEmailExistsRoute(status: number, email: string, data?: {}, err?: any): void
-    getAccountRoute(status: number, accountId: string, data?: AccountWithExtras, err?: any): void
     getCompanyInfoRoute(status: number, data?: CompanyInfo, err?: any): void
     getMobileProtectedViewsRoute(status: number, data?: GetMobileProtectedViews, err?: any): void
     getRegistrationStatusByMsisdnRoute(status: number, msisdn: string, data?: GetRegistrationStatus, err?: any): void
@@ -632,7 +599,7 @@ namespace profitelo.api {
     newMsisdnVerificationRoute(status: number, data?: JValue, err?: any): void
     partialUpdateAccountRoute(status: number, accountId: string, data?: Account, err?: any): void
     patchMobileViewsPermissionsRoute(status: number, data?: Account, err?: any): void
-    postAccountVerifyEmailRoute(status: number, token: string, data?: AccountWithExtras, err?: any): void
+    postAccountVerifyEmailRoute(status: number, token: string, data?: GetSession, err?: any): void
     postCompanyInfoRoute(status: number, data?: CompanyInfo, err?: any): void
     postMobilePinRoute(status: number, data?: Account, err?: any): void
     putGeneralSettingsRoute(status: number, data?: {}, err?: any): void
@@ -681,16 +648,6 @@ namespace profitelo.api {
     getAccountEmailExistsRoute(status: number, email: string, data?: {}, err?: any): void {
       const localVarPath = this.apiUrl + '/accounts/exists/email/{email}'
           .replace('{' + 'email' + '}', String(email));
-
-      const queryParameters: any = {}
-      const queryUrl = this.serializeQuery(queryParameters)
-
-      this.$httpBackend.whenGET(localVarPath+queryUrl)
-        .respond(status, (typeof err !== 'undefined') ? err : data)
-    }
-    getAccountRoute(status: number, accountId: string, data?: AccountWithExtras, err?: any): void {
-      const localVarPath = this.apiUrl + '/accounts/{accountId}'
-          .replace('{' + 'accountId' + '}', String(accountId));
 
       const queryParameters: any = {}
       const queryUrl = this.serializeQuery(queryParameters)
@@ -774,7 +731,7 @@ namespace profitelo.api {
       this.$httpBackend.whenPATCH(localVarPath+queryUrl)
         .respond(status, (typeof err !== 'undefined') ? err : data)
     }
-    postAccountVerifyEmailRoute(status: number, token: string, data?: AccountWithExtras, err?: any): void {
+    postAccountVerifyEmailRoute(status: number, token: string, data?: GetSession, err?: any): void {
       const localVarPath = this.apiUrl + '/accounts/confirm/email/{token}'
           .replace('{' + 'token' + '}', String(token));
 

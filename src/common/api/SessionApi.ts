@@ -1,8 +1,9 @@
 namespace profitelo.api {
   export interface ISessionApi {
-    check(extraHttpRequestParams?: any): ng.IPromise<AccountWithExtras>
-    login(body: AccountLogin, extraHttpRequestParams?: any): ng.IPromise<AccountWithExtras>
-    logout(extraHttpRequestParams?: any): ng.IPromise<{}>
+    checkRoute(extraHttpRequestParams?: any): ng.IPromise<GetSession>
+    getSessionsRoute(extraHttpRequestParams?: any): ng.IPromise<Array<GetSession>>
+    login(body: AccountLogin, extraHttpRequestParams?: any): ng.IPromise<GetSession>
+    logoutRoute(extraHttpRequestParams?: any): ng.IPromise<{}>
   }
 
   /* istanbul ignore next */
@@ -18,7 +19,7 @@ namespace profitelo.api {
           }
       }
 
-      public check = (extraHttpRequestParams?: any): ng.IPromise<AccountWithExtras> => {
+      public checkRoute = (extraHttpRequestParams?: any): ng.IPromise<GetSession> => {
           const localVarPath = this.apiUrl + '/session';
 
           let queryParameters: any = {};
@@ -44,7 +45,33 @@ namespace profitelo.api {
             }
           });
       }
-      public login = (body: AccountLogin, extraHttpRequestParams?: any): ng.IPromise<AccountWithExtras> => {
+      public getSessionsRoute = (extraHttpRequestParams?: any): ng.IPromise<Array<GetSession>> => {
+          const localVarPath = this.apiUrl + '/session/list';
+
+          let queryParameters: any = {};
+          //let headerParams: any = (<any>Object).assign({}, this.defaultHeaders);
+          let httpRequestParams: ng.IRequestConfig = {
+              method: 'GET',
+              url: localVarPath,
+                                          params: queryParameters,
+              headers: this.defaultHeaders //headerParams
+          };
+
+          if (extraHttpRequestParams) {
+              throw new Error('extraHttpRequestParams not supported')
+              //httpRequestParams = (<any>Object).assign(httpRequestParams, extraHttpRequestParams);
+          }
+
+          return this.$http(httpRequestParams).then(response => {
+            if (typeof response.data !== 'undefined') {
+              return response.data
+            }
+            else {
+              throw new Error('Response was not defined')
+            }
+          });
+      }
+      public login = (body: AccountLogin, extraHttpRequestParams?: any): ng.IPromise<GetSession> => {
           const localVarPath = this.apiUrl + '/session';
 
           let queryParameters: any = {};
@@ -75,7 +102,7 @@ namespace profitelo.api {
             }
           });
       }
-      public logout = (extraHttpRequestParams?: any): ng.IPromise<{}> => {
+      public logoutRoute = (extraHttpRequestParams?: any): ng.IPromise<{}> => {
           const localVarPath = this.apiUrl + '/session';
 
           let queryParameters: any = {};
@@ -104,9 +131,10 @@ namespace profitelo.api {
   }
 
   export interface ISessionApiMock {
-    check(status: number, data?: AccountWithExtras, err?: any): void
-    login(status: number, data?: AccountWithExtras, err?: any): void
-    logout(status: number, data?: {}, err?: any): void
+    checkRoute(status: number, data?: GetSession, err?: any): void
+    getSessionsRoute(status: number, data?: Array<GetSession>, err?: any): void
+    login(status: number, data?: GetSession, err?: any): void
+    logoutRoute(status: number, data?: {}, err?: any): void
   }
 
   /* istanbul ignore next */
@@ -120,7 +148,7 @@ namespace profitelo.api {
         }
     }
 
-    check(status: number, data?: AccountWithExtras, err?: any): void {
+    checkRoute(status: number, data?: GetSession, err?: any): void {
       const localVarPath = this.apiUrl + '/session';
 
       const queryParameters: any = {}
@@ -129,7 +157,16 @@ namespace profitelo.api {
       this.$httpBackend.whenGET(localVarPath+queryUrl)
         .respond(status, (typeof err !== 'undefined') ? err : data)
     }
-    login(status: number, data?: AccountWithExtras, err?: any): void {
+    getSessionsRoute(status: number, data?: Array<GetSession>, err?: any): void {
+      const localVarPath = this.apiUrl + '/session/list';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenGET(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    login(status: number, data?: GetSession, err?: any): void {
       const localVarPath = this.apiUrl + '/session';
 
       const queryParameters: any = {}
@@ -138,7 +175,7 @@ namespace profitelo.api {
       this.$httpBackend.whenPOST(localVarPath+queryUrl)
         .respond(status, (typeof err !== 'undefined') ? err : data)
     }
-    logout(status: number, data?: {}, err?: any): void {
+    logoutRoute(status: number, data?: {}, err?: any): void {
       const localVarPath = this.apiUrl + '/session';
 
       const queryParameters: any = {}

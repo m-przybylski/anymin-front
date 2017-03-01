@@ -36,7 +36,7 @@ namespace profitelo.resolvers.loginConfirmEmail {
       const handleGoodToken = (apiKey: string) => {
 
         this.User.setApiKeyHeader(apiKey)
-        this.SessionApi.check().then((response) => {
+        this.SessionApi.checkRoute().then((response) => {
 
           _deferred.resolve()
           this.User.setData(response)

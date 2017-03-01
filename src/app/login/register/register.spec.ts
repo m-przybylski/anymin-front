@@ -6,7 +6,7 @@ namespace profitelo.login.register {
   import IAccountApi = profitelo.api.IAccountApi
   import IRegistrationApi = profitelo.api.IRegistrationApi
   import IRegistrationApiMock = profitelo.api.IRegistrationApiMock
-  import AccountWithExtras = profitelo.api.AccountWithExtras
+  import GetSession = profitelo.api.GetSession
 
   describe('Unit tests: profitelo.controller.login.register>', () => {
     describe('Testing Controller: RegisterController', () => {
@@ -106,7 +106,7 @@ namespace profitelo.login.register {
         spyOn(_User, 'setData')
 
         //FIXME
-        _RegistrationApiMock.confirmVerification(200, <AccountWithExtras>{})
+        _RegistrationApiMock.confirmVerificationRoute(200, <GetSession>{})
         RegisterController.getSmsCodeStatus()
         _$httpBackend.flush()
 

@@ -1,8 +1,8 @@
 namespace profitelo.api {
   export interface IRegistrationApi {
-    confirmVerification(body: VerificationConfirmation, extraHttpRequestParams?: any): ng.IPromise<AccountWithExtras>
-    requestVerification(body: VerificationRequest, extraHttpRequestParams?: any): ng.IPromise<GetRegistrationSession>
-    verifyVerification(body: VerificationConfirmation, extraHttpRequestParams?: any): ng.IPromise<{}>
+    confirmVerificationRoute(body: VerificationConfirmation, extraHttpRequestParams?: any): ng.IPromise<GetSession>
+    requestVerificationRoute(body: VerificationRequest, extraHttpRequestParams?: any): ng.IPromise<GetRegistrationSession>
+    verifyVerificationRoute(body: VerificationConfirmation, extraHttpRequestParams?: any): ng.IPromise<{}>
   }
 
   /* istanbul ignore next */
@@ -18,14 +18,14 @@ namespace profitelo.api {
           }
       }
 
-      public confirmVerification = (body: VerificationConfirmation, extraHttpRequestParams?: any): ng.IPromise<AccountWithExtras> => {
+      public confirmVerificationRoute = (body: VerificationConfirmation, extraHttpRequestParams?: any): ng.IPromise<GetSession> => {
           const localVarPath = this.apiUrl + '/msisdns/code';
 
           let queryParameters: any = {};
           //let headerParams: any = (<any>Object).assign({}, this.defaultHeaders);
           // verify required parameter 'body' is not null or undefined
           if (body === null || body === undefined) {
-              throw new Error('Required parameter body was null or undefined when calling confirmVerification.');
+              throw new Error('Required parameter body was null or undefined when calling confirmVerificationRoute.');
           }
           let httpRequestParams: ng.IRequestConfig = {
               method: 'POST',
@@ -49,14 +49,14 @@ namespace profitelo.api {
             }
           });
       }
-      public requestVerification = (body: VerificationRequest, extraHttpRequestParams?: any): ng.IPromise<GetRegistrationSession> => {
+      public requestVerificationRoute = (body: VerificationRequest, extraHttpRequestParams?: any): ng.IPromise<GetRegistrationSession> => {
           const localVarPath = this.apiUrl + '/msisdns/verify';
 
           let queryParameters: any = {};
           //let headerParams: any = (<any>Object).assign({}, this.defaultHeaders);
           // verify required parameter 'body' is not null or undefined
           if (body === null || body === undefined) {
-              throw new Error('Required parameter body was null or undefined when calling requestVerification.');
+              throw new Error('Required parameter body was null or undefined when calling requestVerificationRoute.');
           }
           let httpRequestParams: ng.IRequestConfig = {
               method: 'POST',
@@ -80,14 +80,14 @@ namespace profitelo.api {
             }
           });
       }
-      public verifyVerification = (body: VerificationConfirmation, extraHttpRequestParams?: any): ng.IPromise<{}> => {
+      public verifyVerificationRoute = (body: VerificationConfirmation, extraHttpRequestParams?: any): ng.IPromise<{}> => {
           const localVarPath = this.apiUrl + '/msisdns/verify/code';
 
           let queryParameters: any = {};
           //let headerParams: any = (<any>Object).assign({}, this.defaultHeaders);
           // verify required parameter 'body' is not null or undefined
           if (body === null || body === undefined) {
-              throw new Error('Required parameter body was null or undefined when calling verifyVerification.');
+              throw new Error('Required parameter body was null or undefined when calling verifyVerificationRoute.');
           }
           let httpRequestParams: ng.IRequestConfig = {
               method: 'POST',
@@ -114,9 +114,9 @@ namespace profitelo.api {
   }
 
   export interface IRegistrationApiMock {
-    confirmVerification(status: number, data?: AccountWithExtras, err?: any): void
-    requestVerification(status: number, data?: GetRegistrationSession, err?: any): void
-    verifyVerification(status: number, data?: {}, err?: any): void
+    confirmVerificationRoute(status: number, data?: GetSession, err?: any): void
+    requestVerificationRoute(status: number, data?: GetRegistrationSession, err?: any): void
+    verifyVerificationRoute(status: number, data?: {}, err?: any): void
   }
 
   /* istanbul ignore next */
@@ -130,7 +130,7 @@ namespace profitelo.api {
         }
     }
 
-    confirmVerification(status: number, data?: AccountWithExtras, err?: any): void {
+    confirmVerificationRoute(status: number, data?: GetSession, err?: any): void {
       const localVarPath = this.apiUrl + '/msisdns/code';
 
       const queryParameters: any = {}
@@ -139,7 +139,7 @@ namespace profitelo.api {
       this.$httpBackend.whenPOST(localVarPath+queryUrl)
         .respond(status, (typeof err !== 'undefined') ? err : data)
     }
-    requestVerification(status: number, data?: GetRegistrationSession, err?: any): void {
+    requestVerificationRoute(status: number, data?: GetRegistrationSession, err?: any): void {
       const localVarPath = this.apiUrl + '/msisdns/verify';
 
       const queryParameters: any = {}
@@ -148,7 +148,7 @@ namespace profitelo.api {
       this.$httpBackend.whenPOST(localVarPath+queryUrl)
         .respond(status, (typeof err !== 'undefined') ? err : data)
     }
-    verifyVerification(status: number, data?: {}, err?: any): void {
+    verifyVerificationRoute(status: number, data?: {}, err?: any): void {
       const localVarPath = this.apiUrl + '/msisdns/verify/code';
 
       const queryParameters: any = {}

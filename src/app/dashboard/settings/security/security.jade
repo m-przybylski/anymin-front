@@ -16,7 +16,7 @@
       span.icon.icon-pin-number-24
 
     .settings-data
-      span.name(data-translate="SETTINGS.SECURITY.PIN_NUMBER.LABEL")
+        span.name(data-translate="SETTINGS.SECURITY.PIN_NUMBER.LABEL")
 
     a.btn.btn-small.btn-default-border(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
     data-ng-click=":: vm.openSecurityPinSecuritySettingsModal()")
@@ -24,8 +24,9 @@
 .security-options.manage-devices
   h2(data-translate="SETTINGS.SECURITY.MANAGE_DEVICES.TITLE")
   manage-devices(
-    data-device="mobile"
-    data-device-in-use-status="true"
-    data-device-localization="Kraków"
-    data-device-system="IOS"
-  )
+    data-ng-repeat="session in vm.sessions"
+    data-device="{{ session.device }}"
+    data-api-key="session.apiKey"
+    data-device-in-use-status="session.status"
+    data-device-localization="{{ session.city }}"
+    data-device-system="{{ session.system }}")

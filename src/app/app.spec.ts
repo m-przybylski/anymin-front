@@ -60,7 +60,7 @@ namespace profitelo.app {
       it('should start logout action if not pending', () => {
 
         _RatelApiMock.getRatelAuthConfigRoute(200)
-        _SessionApiMock.check(200, <any>{
+        _SessionApiMock.checkRoute(200, <any>{
           user: {
             apiKey: '123'
           }
@@ -68,7 +68,7 @@ namespace profitelo.app {
 
         spyOn(_state, 'go')
 
-        _SessionApiMock.logout(200, {})
+        _SessionApiMock.logoutRoute(200, {})
         _ServiceApiMock.getProfileServicesRoute(200, 'id', [])
 
         AppController.logout()
