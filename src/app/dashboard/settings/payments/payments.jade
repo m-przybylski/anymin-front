@@ -31,17 +31,17 @@
             a.btn.btn-default.btn-small.recharge-account( data-ui-sref="app.dashboard.charge-account"
               data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.RECHARGE_ACCOUNT.BUTTON")
 
-        .radio-list-item(data-ng-repeat="card in vm.paymentCards")
+        .radio-list-item.profitelo-account(data-ng-repeat="paymentMethod in vm.paymentMethods")
           .radio-text.radio
             .radio-input
-              input(id="card.name" type="radio" name="payments-method" data-ng-change="vm.onSelectPaymentMethod()")
+              input(id="{{ paymentMethod.token }}" type="radio" name="{{ paymentMethod.token }}")
               label.label
 
-            label.text(for="card.name")
+            label.text(for="{{ paymentMethod.token }}")
               .payment-thumb
-                img(data-ng-src="card.imageLink")
-              span.title {{ card.number }}
-              span(data-ng-bind-html="vm.accountBalance | money ")
+                img(data-ng-src="{{ paymentMethod.imageUrl }}")
+              span.title {{ paymentMethod.maskedNumber }}
+              span(data-ng-bind-html="paymentMethod.limit | money ")
 
           .radio-action
             a.btn.btn-primary.edit-payments(data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.RECHARGE_ACCOUNT.EDIT.BUTTON")
