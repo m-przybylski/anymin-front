@@ -1,12 +1,13 @@
 namespace profitelo.api {
-  export interface IMsisdnApi {
-    confirmVerificationRoute(body: VerificationConfirmation, extraHttpRequestParams?: any): ng.IPromise<GetSession>
-    requestVerificationRoute(body: VerificationRequest, extraHttpRequestParams?: any): ng.IPromise<GetRegistrationSession>
-    verifyVerificationRoute(body: VerificationConfirmation, extraHttpRequestParams?: any): ng.IPromise<{}>
+  export interface IPayoutsApi {
+    deletePayPalAccountPayoutMethodRoute(extraHttpRequestParams?: any): ng.IPromise<JValue>
+    getPayoutMethodsRoute(extraHttpRequestParams?: any): ng.IPromise<PayoutMethodsDto>
+    postPayPalAccountPayoutMethodRoute(body: PayPalAccountDto, extraHttpRequestParams?: any): ng.IPromise<JValue>
+    putPayPalAccountPayoutMethodRoute(body: PayPalAccountDto, extraHttpRequestParams?: any): ng.IPromise<JValue>
   }
 
   /* istanbul ignore next */
-  class MsisdnApi implements IMsisdnApi {
+  class PayoutsApi implements IPayoutsApi {
       protected apiUrl = '';
       public defaultHeaders : any = {};
 
@@ -18,14 +19,66 @@ namespace profitelo.api {
           }
       }
 
-      public confirmVerificationRoute = (body: VerificationConfirmation, extraHttpRequestParams?: any): ng.IPromise<GetSession> => {
-          const localVarPath = this.apiUrl + '/msisdns/code';
+      public deletePayPalAccountPayoutMethodRoute = (extraHttpRequestParams?: any): ng.IPromise<JValue> => {
+          const localVarPath = this.apiUrl + '/payouts/payout-methods/paypal-account';
+
+          let queryParameters: any = {};
+          //let headerParams: any = (<any>Object).assign({}, this.defaultHeaders);
+          let httpRequestParams: ng.IRequestConfig = {
+              method: 'DELETE',
+              url: localVarPath,
+                                          params: queryParameters,
+              headers: this.defaultHeaders //headerParams
+          };
+
+          if (extraHttpRequestParams) {
+              throw new Error('extraHttpRequestParams not supported')
+              //httpRequestParams = (<any>Object).assign(httpRequestParams, extraHttpRequestParams);
+          }
+
+          return this.$http(httpRequestParams).then(response => {
+            if (typeof response.data !== 'undefined') {
+              return response.data
+            }
+            else {
+              throw new Error('Response was not defined')
+            }
+          });
+      }
+      public getPayoutMethodsRoute = (extraHttpRequestParams?: any): ng.IPromise<PayoutMethodsDto> => {
+          const localVarPath = this.apiUrl + '/payouts/payout-methods';
+
+          let queryParameters: any = {};
+          //let headerParams: any = (<any>Object).assign({}, this.defaultHeaders);
+          let httpRequestParams: ng.IRequestConfig = {
+              method: 'GET',
+              url: localVarPath,
+                                          params: queryParameters,
+              headers: this.defaultHeaders //headerParams
+          };
+
+          if (extraHttpRequestParams) {
+              throw new Error('extraHttpRequestParams not supported')
+              //httpRequestParams = (<any>Object).assign(httpRequestParams, extraHttpRequestParams);
+          }
+
+          return this.$http(httpRequestParams).then(response => {
+            if (typeof response.data !== 'undefined') {
+              return response.data
+            }
+            else {
+              throw new Error('Response was not defined')
+            }
+          });
+      }
+      public postPayPalAccountPayoutMethodRoute = (body: PayPalAccountDto, extraHttpRequestParams?: any): ng.IPromise<JValue> => {
+          const localVarPath = this.apiUrl + '/payouts/payout-methods/paypal-account';
 
           let queryParameters: any = {};
           //let headerParams: any = (<any>Object).assign({}, this.defaultHeaders);
           // verify required parameter 'body' is not null or undefined
           if (body === null || body === undefined) {
-              throw new Error('Required parameter body was null or undefined when calling confirmVerificationRoute.');
+              throw new Error('Required parameter body was null or undefined when calling postPayPalAccountPayoutMethodRoute.');
           }
           let httpRequestParams: ng.IRequestConfig = {
               method: 'POST',
@@ -49,48 +102,17 @@ namespace profitelo.api {
             }
           });
       }
-      public requestVerificationRoute = (body: VerificationRequest, extraHttpRequestParams?: any): ng.IPromise<GetRegistrationSession> => {
-          const localVarPath = this.apiUrl + '/msisdns/verify';
+      public putPayPalAccountPayoutMethodRoute = (body: PayPalAccountDto, extraHttpRequestParams?: any): ng.IPromise<JValue> => {
+          const localVarPath = this.apiUrl + '/payouts/payout-methods/paypal-account';
 
           let queryParameters: any = {};
           //let headerParams: any = (<any>Object).assign({}, this.defaultHeaders);
           // verify required parameter 'body' is not null or undefined
           if (body === null || body === undefined) {
-              throw new Error('Required parameter body was null or undefined when calling requestVerificationRoute.');
+              throw new Error('Required parameter body was null or undefined when calling putPayPalAccountPayoutMethodRoute.');
           }
           let httpRequestParams: ng.IRequestConfig = {
-              method: 'POST',
-              url: localVarPath,
-              data: body,
-                            params: queryParameters,
-              headers: this.defaultHeaders //headerParams
-          };
-
-          if (extraHttpRequestParams) {
-              throw new Error('extraHttpRequestParams not supported')
-              //httpRequestParams = (<any>Object).assign(httpRequestParams, extraHttpRequestParams);
-          }
-
-          return this.$http(httpRequestParams).then(response => {
-            if (typeof response.data !== 'undefined') {
-              return response.data
-            }
-            else {
-              throw new Error('Response was not defined')
-            }
-          });
-      }
-      public verifyVerificationRoute = (body: VerificationConfirmation, extraHttpRequestParams?: any): ng.IPromise<{}> => {
-          const localVarPath = this.apiUrl + '/msisdns/verify/code';
-
-          let queryParameters: any = {};
-          //let headerParams: any = (<any>Object).assign({}, this.defaultHeaders);
-          // verify required parameter 'body' is not null or undefined
-          if (body === null || body === undefined) {
-              throw new Error('Required parameter body was null or undefined when calling verifyVerificationRoute.');
-          }
-          let httpRequestParams: ng.IRequestConfig = {
-              method: 'POST',
+              method: 'PUT',
               url: localVarPath,
               data: body,
                             params: queryParameters,
@@ -113,14 +135,15 @@ namespace profitelo.api {
       }
   }
 
-  export interface IMsisdnApiMock {
-    confirmVerificationRoute(status: number, data?: GetSession, err?: any): void
-    requestVerificationRoute(status: number, data?: GetRegistrationSession, err?: any): void
-    verifyVerificationRoute(status: number, data?: {}, err?: any): void
+  export interface IPayoutsApiMock {
+    deletePayPalAccountPayoutMethodRoute(status: number, data?: JValue, err?: any): void
+    getPayoutMethodsRoute(status: number, data?: PayoutMethodsDto, err?: any): void
+    postPayPalAccountPayoutMethodRoute(status: number, data?: JValue, err?: any): void
+    putPayPalAccountPayoutMethodRoute(status: number, data?: JValue, err?: any): void
   }
 
   /* istanbul ignore next */
-  class MsisdnApiMock implements IMsisdnApiMock {
+  class PayoutsApiMock implements IPayoutsApiMock {
     apiUrl = ''
     static $inject: string[] = ['$httpBackend', 'apiUrl', '$httpParamSerializer'];
 
@@ -130,8 +153,26 @@ namespace profitelo.api {
         }
     }
 
-    confirmVerificationRoute(status: number, data?: GetSession, err?: any): void {
-      const localVarPath = this.apiUrl + '/msisdns/code';
+    deletePayPalAccountPayoutMethodRoute(status: number, data?: JValue, err?: any): void {
+      const localVarPath = this.apiUrl + '/payouts/payout-methods/paypal-account';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenDELETE(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    getPayoutMethodsRoute(status: number, data?: PayoutMethodsDto, err?: any): void {
+      const localVarPath = this.apiUrl + '/payouts/payout-methods';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenGET(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    postPayPalAccountPayoutMethodRoute(status: number, data?: JValue, err?: any): void {
+      const localVarPath = this.apiUrl + '/payouts/payout-methods/paypal-account';
 
       const queryParameters: any = {}
       const queryUrl = this.serializeQuery(queryParameters)
@@ -139,22 +180,13 @@ namespace profitelo.api {
       this.$httpBackend.whenPOST(localVarPath+queryUrl)
         .respond(status, (typeof err !== 'undefined') ? err : data)
     }
-    requestVerificationRoute(status: number, data?: GetRegistrationSession, err?: any): void {
-      const localVarPath = this.apiUrl + '/msisdns/verify';
+    putPayPalAccountPayoutMethodRoute(status: number, data?: JValue, err?: any): void {
+      const localVarPath = this.apiUrl + '/payouts/payout-methods/paypal-account';
 
       const queryParameters: any = {}
       const queryUrl = this.serializeQuery(queryParameters)
 
-      this.$httpBackend.whenPOST(localVarPath+queryUrl)
-        .respond(status, (typeof err !== 'undefined') ? err : data)
-    }
-    verifyVerificationRoute(status: number, data?: {}, err?: any): void {
-      const localVarPath = this.apiUrl + '/msisdns/verify/code';
-
-      const queryParameters: any = {}
-      const queryUrl = this.serializeQuery(queryParameters)
-
-      this.$httpBackend.whenPOST(localVarPath+queryUrl)
+      this.$httpBackend.whenPUT(localVarPath+queryUrl)
         .respond(status, (typeof err !== 'undefined') ? err : data)
     }
 
@@ -169,7 +201,7 @@ namespace profitelo.api {
     }
   }
 
-  angular.module('profitelo.api.MsisdnApi', [])
-    .service('MsisdnApi', MsisdnApi)
-    .service('MsisdnApiMock', MsisdnApiMock)
+  angular.module('profitelo.api.PayoutsApi', [])
+    .service('PayoutsApi', PayoutsApi)
+    .service('PayoutsApiMock', PayoutsApiMock)
 }

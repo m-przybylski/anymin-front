@@ -38,7 +38,7 @@ namespace profitelo.login.register {
     this.verifyCode = () => {
       if (angular.isDefined(this.registrationSteps.smsCode) && this.registrationSteps.smsCode !== null && !this.alreadyCheck) {
         this.alreadyCheck = true
-        RegistrationApi.verifyVerification({
+        RegistrationApi.verifyVerificationRoute({
           sessionId: this.registrationSteps.sessionId,
           token: String(this.registrationSteps.smsCode)
         }).then(() => {
@@ -60,7 +60,7 @@ namespace profitelo.login.register {
       if (!this.isPending) {
         this.isPending = true
         topWaitingLoaderService.immediate()
-        RegistrationApi.confirmVerification({
+        RegistrationApi.confirmVerificationRoute({
           sessionId: this.registrationSteps.sessionId,
           token: String(this.registrationSteps.smsCode)
         }).then((response) => {

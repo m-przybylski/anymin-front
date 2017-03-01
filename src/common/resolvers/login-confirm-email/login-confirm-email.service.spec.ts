@@ -1,6 +1,7 @@
 namespace profitelo.resolvers.loginConfirmEmail {
   import ISessionApiMock = profitelo.api.ISessionApiMock
   import IAccountApiMock = profitelo.api.IAccountApiMock
+  import GetSession = profitelo.api.GetSession
   describe('Unit testing: profitelo.resolvers.login-confirm-email', () => {
     describe('for LoginConfirmEmailResolver service >', () => {
 
@@ -71,7 +72,7 @@ namespace profitelo.resolvers.loginConfirmEmail {
 
         //FIXME type
         _AccountApiMock.postAccountVerifyEmailRoute(200, emailToken, <any>{apiKey: '123'})
-        _SessionApiMock.check(200, <any>{})
+        _SessionApiMock.checkRoute(200, <GetSession>{})
 
         spyOn(mockState, 'go')
 

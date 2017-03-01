@@ -5,6 +5,7 @@ namespace profitelo.components.dashboard.settings.manageDevices {
     deviceLocalization: string
     deviceSystem: string
     device: string
+    apiKey: string
   }
 
   export class ManageDevicesComponentController implements ng.IController, IManageDevicesComponentBindings {
@@ -12,6 +13,7 @@ namespace profitelo.components.dashboard.settings.manageDevices {
     deviceLocalization: string
     deviceSystem: string
     device: string
+    apiKey: string
     checkDevice = {
       desktop: 'icon-computer-24',
       tablet: 'icon-tablet-24',
@@ -28,6 +30,14 @@ namespace profitelo.components.dashboard.settings.manageDevices {
       this.currentDevice = (<any>this.checkDevice)[this.device]
     }
 
+    public logoutSession = () => {
+      // SessionApi.logout(this.apiKey).then(() => {
+      //
+      // }, (error: any) => {
+      //   throw new Error('Can not logout this session ' + error)
+      // })
+    }
+
   }
 
   class ManageDevicesComponent implements ng.IComponentOptions {
@@ -37,6 +47,7 @@ namespace profitelo.components.dashboard.settings.manageDevices {
 
     bindings: {[boundProperty: string]: string} = {
       device: '@',
+      apiKey: '<',
       deviceInUseStatus: '<',
       deviceLocalization: '@',
       deviceSystem: '@'
@@ -44,7 +55,8 @@ namespace profitelo.components.dashboard.settings.manageDevices {
   }
 
   angular.module('profitelo.components.dashboard.settings.manage-devices', [
-    'pascalprecht.translate'
+    'pascalprecht.translate',
+    'profitelo.resolvers.security-settings'
   ])
   .component('manageDevices', new ManageDevicesComponent())
 }

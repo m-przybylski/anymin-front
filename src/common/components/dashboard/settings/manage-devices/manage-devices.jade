@@ -19,4 +19,5 @@
         span.label(data-translate="{{:: 'SETTINGS.SECURITY.MANAGE_DEVICES.LOCALIZATION.LABEL' | translate }}")
         span.name {{$ctrl.deviceLocalization}}
 
-    a.btn.btn-small.btn-default-border(data-translate="{{:: 'SETTINGS.SECURITY.MANAGE_DEVICES.LOG_OUT' | translate}}")
+    a.btn.btn-small.btn-default-border(data-translate="{{:: 'SETTINGS.SECURITY.MANAGE_DEVICES.LOG_OUT' | translate}}"
+    data-ng-click="$ctrl.logoutSession()")

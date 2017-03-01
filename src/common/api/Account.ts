@@ -2,22 +2,21 @@ namespace profitelo.api {
 
 
   export interface Account {
-      unverifiedEmail?: string;
-      currency: string;
-      settings: AccountSettings;
-      status: boolean;
-      hasMobilePin: boolean;
+      isBlocked: boolean;
       msisdn: string;
+      lastLoggedAt?: Date;
+      unverifiedEmail?: string;
       id: string;
+      protectedViews: Array<string>;
       deletedAt?: Date;
       email?: string;
       registeredAt: Date;
-      protectedViews: Array<string>;
-      apiKey: string;
+      currency: string;
+      settings: AccountSettings;
       hasPassword: boolean;
-      isBlocked: boolean;
+      status: boolean;
       isCompany: boolean;
-      lastLoggedAt?: Date;
+      hasMobilePin: boolean;
       countryISO: string;
   }
 
