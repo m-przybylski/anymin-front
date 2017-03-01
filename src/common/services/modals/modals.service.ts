@@ -17,6 +17,7 @@ namespace profitelo.services.modals {
   import IConsultationDetailsParentScope = profitelo.components.dashboard.client.activities.modals.consultationDetails.IConsultationDetailsParentScope
   import GetActivity = profitelo.api.GetActivity
   import IAddPaymentMethodControllerScope = profitelo.components.dashboard.settings.modals.payments.addPaymentMethod.IAddPaymentMethodControllerScope
+  import IEditCompanyInvoiceControllerScope = profitelo.components.dashboard.settings.modals.payments.editCompanyInvoice.IEditCompanyInvoiceControllerScope
 
   export interface IModalsService {
     createIncomingCallModal(service: GetService, answerCb: () => void, rejectCb: () => void): ng.ui.bootstrap.IModalServiceInstance
@@ -34,6 +35,7 @@ namespace profitelo.services.modals {
     createSecurityChangePasswordSettingsModal(): ng.ui.bootstrap.IModalServiceInstance
     createSecurityPinSecuritySettingsModal(): ng.ui.bootstrap.IModalServiceInstance
     createAddPaymentMethodControllerModal(callabck: () => void): ng.ui.bootstrap.IModalServiceInstance
+    createEditCompanyInvoiceControllerModal(callabck: () => void): ng.ui.bootstrap.IModalServiceInstance
   }
 
   // TODO add types for dialogScope Scopes
@@ -245,6 +247,19 @@ namespace profitelo.services.modals {
       })
     }
 
+    public createEditCompanyInvoiceControllerModal = (onModalClose: () => void) => {
+      const dialogScope: IEditCompanyInvoiceControllerScope =
+        <IEditCompanyInvoiceControllerScope>this.$rootScope.$new(true)
+
+      dialogScope.callback = onModalClose
+      return this.dialogService.openDialog({
+        controllerAs: 'vm',
+        controller: 'editCompanyInvoiceController',
+        templateUrl: 'components/dashboard/settings/modals/payments/edit-company-invoice/edit-company-invoice.tpl.html',
+        scope: dialogScope
+      })
+    }
+
   }
 
   angular.module('profitelo.services.modals', [
@@ -263,7 +278,8 @@ namespace profitelo.services.modals {
     'profitelo.components.dashboard.settings.modals.general.country-settings',
     'profitelo.components.dashboard.settings.modals.security.change-password',
     'profitelo.components.dashboard.settings.security.modals.pin-number',
-    'profitelo.components.dashboard.settings.modals.payments.add-payment-method'
+    'profitelo.components.dashboard.settings.modals.payments.add-payment-method',
+    'profitelo.components.dashboard.settings.modals.payments.edit-company-invoice'
   ])
   .service('modalsService', ModalsService)
 }

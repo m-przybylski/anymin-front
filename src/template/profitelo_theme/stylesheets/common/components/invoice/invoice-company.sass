@@ -1,14 +1,25 @@
 .invoice-form
-  padding: 48px 0 0
+  +smm
+    padding: 48px 0
 
   .invoice-form-company-info
     margin: 0 0 48px
+
+    .title
+      +modalTitle
+
+  .invoice-form-address
+    +modalTitle
 
   .dropdown-input
     margin: 0 0 16px
 
   .vat-input-handler
     margin: 0 0 16px
+
+    p
+      color: $c-secondary-txt
+      font-size: $f-h5-size
 
     > div
       display: flex

@@ -13,7 +13,6 @@ namespace profitelo.dashboard.settings.payments {
     public isAnyPaymentMethod: boolean
     public accountBalance: MoneyDto | null
     public paymentCards: Array<CreditCard>
-    public editInvoiceDetails: () => void
     public companyName : string
     public vatNumber : string
     public address : string
@@ -33,7 +32,10 @@ namespace profitelo.dashboard.settings.payments {
     }
 
     public onSelectPaymentMethod = () => {
+    }
 
+    public editInvoiceDetails = () : void => {
+      this.modalsService.createEditCompanyInvoiceControllerModal(this.onModalClose)
     }
 
     public addNewPaymentMethod = () : void => {

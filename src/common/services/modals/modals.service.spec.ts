@@ -133,6 +133,22 @@ namespace profitelo.services.modals {
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
 
+    it('should create createAddPaymentMethodControllerModal', inject((dialogService: IDialogService) => {
+      spyOn(dialogService, 'openDialog')
+
+      modalsService.createAddPaymentMethodControllerModal(<any>{})
+
+      expect(dialogService.openDialog).toHaveBeenCalled()
+    }))
+
+    it('should create createEditCompanyInvoiceControllerModal', inject((dialogService: IDialogService) => {
+      spyOn(dialogService, 'openDialog')
+
+      modalsService.createEditCompanyInvoiceControllerModal(<any>{})
+
+      expect(dialogService.openDialog).toHaveBeenCalled()
+    }))
+
   })
 })
 }

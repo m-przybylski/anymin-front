@@ -4,20 +4,22 @@
       .top-charge-account
         top-modal-navbar(data-title="DASHBOARD.CHARGE_ACCOUNT.YOUR_CURRENT_BALANCE" data-on-close="vm.onClose")
 
-        .entry-title(data-ng-if="!vm.lastPayment")
-          h2(data-translate="DASHBOARD.CHARGE_ACCOUNT.TITLE")
+        .charge-account-title(data-ng-if="!vm.lastPayment")
+          .title
+            h3(data-translate="DASHBOARD.CHARGE_ACCOUNT.TITLE")
 
-          a.btn.btn-select(data-ng-click="vm.chargeAccountProfiteloPaymentsMethod()"
-          data-ng-class="{'is-active': vm.isChargeProfiteloAccount}")
-            | {{:: 'DASHBOARD.CHARGE_ACCOUNT.CHARGE_PROFITELO_ACCOUNT.BUTTON' | translate }}
-            span.icon.icon-success-12
+          .btn-handler
+            a.btn.btn-select(data-ng-click="vm.chargeAccountProfiteloPaymentsMethod()"
+            data-ng-class="{'is-active': vm.isChargeProfiteloAccount}")
+              | {{:: 'DASHBOARD.CHARGE_ACCOUNT.CHARGE_PROFITELO_ACCOUNT.BUTTON' | translate }}
+              span.icon.icon-success-12
 
-          a.btn.btn-select(data-ng-click="vm.addPaymentCardMethod()"
-          data-ng-class="{'is-active': vm.isPaymentCardMethod}")
-            | {{:: 'DASHBOARD.CHARGE_ACCOUNT.ADD_PAYMENT_CARD.BUTTON' | translate }}
-            span.icon.icon-success-12
+            a.btn.btn-select(data-ng-click="vm.addPaymentCardMethod()"
+            data-ng-class="{'is-active': vm.isPaymentCardMethod}")
+              | {{:: 'DASHBOARD.CHARGE_ACCOUNT.ADD_PAYMENT_CARD.BUTTON' | translate }}
+              span.icon.icon-success-12
 
-        .container-big(data-ng-show="vm.lastPayment || vm.isChargeProfiteloAccount ")
+        .container-big(data-ng-show="vm.lastPayment || vm.isChargeProfiteloAccount")
           choose-amount-charge(data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_AMMOUNT_CHARGE" data-amounts="vm.amounts"
           data-amount-model="vm.amountModel"
           id="1"
@@ -37,4 +39,12 @@
 
           paypal-payment-form(data-ng-show="vm.amountMethodModal.paymentSystemModel.slug == 'paypal'")
 
-          card-payment-form(data-ng-show="vm.amountMethodModal.paymentSystemModel.slug == 'credit_card'")
+          card-payment-form(data-ng-if="vm.amountMethodModal.paymentSystemModel.slug == 'credit_card'")
+
+        .braintree(data-ng-show="vm.isPaymentCardMethod")
+          .modal-settings
+            .container-medium.no-padding.modal-form
+              preloader(data-is-loading="!vm.isBraintreeFormLoaded")
+                braintree-form(data-on-braintree-form-load="vm.onLoad" data-submit-button-translate="BRAINTREE.ADD_BUTTON"
+                  data-on-form-succeed="vm.onFormSucceed")
+
