@@ -7,7 +7,7 @@
     "module": "commonjs",
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
-    //"noImplicitThis": true, // TODO enable after rewriting all ctrls to classes
+    //"noImplicitThis": true, // FIXME enable after rewriting all ctrls to classes
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strictNullChecks": true,
