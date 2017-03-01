@@ -40,7 +40,6 @@
               .payment-thumb
                 img(data-ng-src="{{ paymentMethod.imageUrl }}")
               span.title {{ paymentMethod.maskedNumber }}
-              span(data-ng-bind-html="paymentMethod.limit | money ")
 
           .radio-action
             a.btn.btn-primary.btn-small.edit-payments(data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.RECHARGE_ACCOUNT.EDIT.BUTTON")
