@@ -95,7 +95,7 @@
                     data-ng-class="{'invalid': paymentForm.$submitted && !$ctrl.vatNumber || paymentForm.vatNumber.$dirty && !$ctrl.vatNumberx}"
                     addon-action="onEnter"
                     required)
-                    button.btn.btn-primary(data-translate="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COUNTRY.BUTTON")
+                    a.btn.btn-primary(data-translate="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COUNTRY.BUTTON")
 
                   .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.emailModel || paymentForm.email.$dirty && $ctrl.mailValidation()")
                     span {{ "DASHBOARD.CHARGE_ACCOUNT.EMAIL_ERROR" | translate }}
