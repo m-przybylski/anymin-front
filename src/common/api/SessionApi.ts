@@ -3,7 +3,8 @@ namespace profitelo.api {
     checkRoute(extraHttpRequestParams?: any): ng.IPromise<GetSession>
     getSessionsRoute(extraHttpRequestParams?: any): ng.IPromise<Array<GetSession>>
     login(body: AccountLogin, extraHttpRequestParams?: any): ng.IPromise<GetSession>
-    logoutRoute(extraHttpRequestParams?: any): ng.IPromise<{}>
+    logoutCurrentRoute(extraHttpRequestParams?: any): ng.IPromise<JValue>
+    logoutRoute(apiKey: string, extraHttpRequestParams?: any): ng.IPromise<JValue>
   }
 
   /* istanbul ignore next */
@@ -102,11 +103,42 @@ namespace profitelo.api {
             }
           });
       }
-      public logoutRoute = (extraHttpRequestParams?: any): ng.IPromise<{}> => {
+      public logoutCurrentRoute = (extraHttpRequestParams?: any): ng.IPromise<JValue> => {
           const localVarPath = this.apiUrl + '/session';
 
           let queryParameters: any = {};
           //let headerParams: any = (<any>Object).assign({}, this.defaultHeaders);
+          let httpRequestParams: ng.IRequestConfig = {
+              method: 'DELETE',
+              url: localVarPath,
+                                          params: queryParameters,
+              headers: this.defaultHeaders //headerParams
+          };
+
+          if (extraHttpRequestParams) {
+              throw new Error('extraHttpRequestParams not supported')
+              //httpRequestParams = (<any>Object).assign(httpRequestParams, extraHttpRequestParams);
+          }
+
+          return this.$http(httpRequestParams).then(response => {
+            if (typeof response.data !== 'undefined') {
+              return response.data
+            }
+            else {
+              throw new Error('Response was not defined')
+            }
+          });
+      }
+      public logoutRoute = (apiKey: string, extraHttpRequestParams?: any): ng.IPromise<JValue> => {
+          const localVarPath = this.apiUrl + '/session/{apiKey}'
+              .replace('{' + 'ApiKey' + '}', String(apiKey));
+
+          let queryParameters: any = {};
+          //let headerParams: any = (<any>Object).assign({}, this.defaultHeaders);
+          // verify required parameter 'apiKey' is not null or undefined
+          if (apiKey === null || apiKey === undefined) {
+              throw new Error('Required parameter apiKey was null or undefined when calling logoutRoute.');
+          }
           let httpRequestParams: ng.IRequestConfig = {
               method: 'DELETE',
               url: localVarPath,
@@ -134,7 +166,8 @@ namespace profitelo.api {
     checkRoute(status: number, data?: GetSession, err?: any): void
     getSessionsRoute(status: number, data?: Array<GetSession>, err?: any): void
     login(status: number, data?: GetSession, err?: any): void
-    logoutRoute(status: number, data?: {}, err?: any): void
+    logoutCurrentRoute(status: number, data?: JValue, err?: any): void
+    logoutRoute(status: number, apiKey: string, data?: JValue, err?: any): void
   }
 
   /* istanbul ignore next */
@@ -175,8 +208,18 @@ namespace profitelo.api {
       this.$httpBackend.whenPOST(localVarPath+queryUrl)
         .respond(status, (typeof err !== 'undefined') ? err : data)
     }
-    logoutRoute(status: number, data?: {}, err?: any): void {
+    logoutCurrentRoute(status: number, data?: JValue, err?: any): void {
       const localVarPath = this.apiUrl + '/session';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenDELETE(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    logoutRoute(status: number, apiKey: string, data?: JValue, err?: any): void {
+      const localVarPath = this.apiUrl + '/session/{apiKey}'
+          .replace('{' + 'ApiKey' + '}', String(apiKey));
 
       const queryParameters: any = {}
       const queryUrl = this.serializeQuery(queryParameters)

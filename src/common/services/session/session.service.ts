@@ -21,7 +21,7 @@ namespace profitelo.services.session {
     }
 
     public logout = (): ng.IPromise<void> => {
-      return this.SessionApi.logoutRoute().then(this.onSuccessLogout)
+      return this.SessionApi.logoutCurrentRoute().then(this.onSuccessLogout)
     }
 
     public login = (loginDetails: AccountLogin): ng.IPromise<GetSession> => {
