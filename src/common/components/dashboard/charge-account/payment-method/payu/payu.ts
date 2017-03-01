@@ -102,7 +102,25 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
             throw new Error('Can not post company info: ' + error)
           })
         } else {
-          sendPayuOrder()
+          // FIXME after company info optional fields fix
+          AccountApi.postCompanyInfoRoute({
+            vatNumber: '',
+            companyName: this.firstNameModel + ' ' + this.lastNameModel,
+            //TODO On GUS API Implement
+            vat:  23,
+            address: {
+              number: '',
+              city: '',
+              zipCode: '',
+              countryISO: 'PL',
+              street: ''
+            }
+          }).then((_response) => {
+            sendPayuOrder()
+
+          }, (error) => {
+            throw new Error('Can not post company info: ' + error)
+          })
         }
 
       }

@@ -31,6 +31,10 @@ namespace profitelo.dashboard.chargeAccount {
       this.isChargeProfiteloAccount = false
     }
 
+    this.onFormSucceed = () => {
+      $state.go('app.dashboard.client.activities')
+    }
+
     this.paymentCountryId = paymentsOptions.id
     this.amounts = {
       paymentOptions: paymentsOptions.paymentOptions,
@@ -93,7 +97,6 @@ namespace profitelo.dashboard.chargeAccount {
         })
       }
     }
-
 
     return this
   }
@@ -172,7 +175,6 @@ namespace profitelo.dashboard.chargeAccount {
     })
   }
 
-
   angular.module('profitelo.controller.dashboard.charge-account', [
     'c7s.ng.userAuth',
     'ui.router',
@@ -193,6 +195,6 @@ namespace profitelo.dashboard.chargeAccount {
     'profitelo.components.interface.preloader',
     'profitelo.components.braintree-form'
   ])
-    .config(config)
-    .controller('chargeAccountController', chargeAccountController)
+  .config(config)
+  .controller('chargeAccountController', chargeAccountController)
 }

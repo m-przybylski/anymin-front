@@ -58,11 +58,42 @@ namespace profitelo.resolvers.invoiceData {
       if (error.status !== 404) {
         this.$log.error('Can not get company info: ' + error)
       }
-      return {
-        companyInfo: null,
-        clientBalance: null,
-        paymentMethods: null
-      }
+      return this.FinancesApi.getClientBalanceRoute().then((clientBalance: MoneyDto) => {
+        return this.PaymentsApi.getCreditCardsRoute().then((paymentMethods) => {
+          return {
+            companyInfo: null,
+            clientBalance: clientBalance,
+            paymentMethods: paymentMethods
+          }
+        }, (error) => {
+          this.$log.error('Can not get user payment methods: ' + error)
+          return {
+            companyInfo: null,
+            clientBalance: clientBalance,
+            paymentMethods: null
+          }
+        })
+      }, (error: any) => {
+        if (error.status !== 404) {
+          this.$log.error('Can not get user balance: ' + error)
+        }
+        return this.PaymentsApi.getCreditCardsRoute().then((paymentMethods) => {
+          return {
+            companyInfo: null,
+            clientBalance: null,
+            paymentMethods: paymentMethods
+          }
+        }, (error) => {
+          if (error.status !== 404) {
+            this.$log.error('Can not get user payment methods: ' + error)
+          }
+          return {
+            companyInfo: null,
+            clientBalance: null,
+            paymentMethods: null
+          }
+        })
+      })
     }
 
   }
