@@ -6,6 +6,7 @@ namespace profitelo.components.modals.consultationSummaryClient {
   import IServiceApi = profitelo.api.IServiceApi
   import GetService = profitelo.api.GetService
   import Tag = profitelo.api.Tag
+  import ServiceRecommendation = profitelo.api.ServiceRecommendation
 
   export interface IConsultationSummaryClientParentControllerScope extends ng.IScope {
     serviceId: string
@@ -103,7 +104,7 @@ namespace profitelo.components.modals.consultationSummaryClient {
     private onRecommendServiceError = (err: any) =>
       this.$log.error(err)
 
-    private onRecommendService = (_res: GetService) =>
+    private onRecommendService = (_res: ServiceRecommendation) =>
       this.$scope.chooseExpertsTag = true
 
     private onRecommendServiceTags = (res: GetService) =>

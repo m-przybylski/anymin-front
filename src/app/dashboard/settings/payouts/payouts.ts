@@ -10,16 +10,15 @@ namespace profitelo.dashboard.settings.payouts {
 
   angular.module('profitelo.controller.dashboard.settings.payouts', [
     'ui.router',
-    'c7s.ng.userAuth'
+    'profitelo.services.session'
   ])
-  .config(($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) => {
+  .config(($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider.state('app.dashboard.settings.payouts', {
       url: '/payouts',
       templateUrl: 'dashboard/settings/payouts/payouts.tpl.html',
       controller: 'dashboardSettingsPayoutsController',
       controllerAs: 'vm',
       data: {
-        access: UserRolesProvider.getAccessLevel('user')
       }
     })
   })

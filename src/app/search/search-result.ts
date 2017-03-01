@@ -83,7 +83,7 @@ namespace profitelo.search {
   angular.module('profitelo.controller.search-result', [
     'ui.router',
     'infinite-scroll',
-    'c7s.ng.userAuth',
+    'profitelo.services.session',
     'profitelo.components.interface.go-to-top',
     'profitelo.components.search.single-consultation',
     'profitelo.components.search.no-consultations',
@@ -94,14 +94,13 @@ namespace profitelo.search {
     'profitelo.services.search',
     'profitelo.services.search-url'
   ])
-    .config(($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) => {
+    .config(($stateProvider: ng.ui.IStateProvider) => {
       $stateProvider.state('app.search-result', {
         url: '/search-result?q&tagId&category&categorySlug&profileType&onlyAvailable&sortBy&language',
         templateUrl: 'search/search-result.tpl.html',
         controller: 'SearchResultController',
         controllerAs: 'vm',
         data: {
-          access: UserRolesProvider.getAccessLevel('public'),
           pageTitle: 'PAGE_TITLE.SEARCH_RESULT'
         }
       })

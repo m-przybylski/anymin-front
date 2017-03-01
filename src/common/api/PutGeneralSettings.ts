@@ -2,8 +2,8 @@ namespace profitelo.api {
 
 
   export interface PutGeneralSettings {
-      nickname?: string;
       isAnonymous?: boolean;
+      nickname?: string;
       avatar?: string;
   }
 

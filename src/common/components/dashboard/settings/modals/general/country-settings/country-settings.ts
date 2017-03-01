@@ -2,6 +2,7 @@ namespace profitelo.components.dashboard.settings.modals.general.countrySettings
 
   import IFilterService = profitelo.services.filter.IFilterService
   import IAccountApi = profitelo.api.IAccountApi
+  import IUserService = profitelo.services.user.IUserService
 
   export interface IGeneralCountrySettingsControllerScope extends ng.IScope {
     isNavbar: boolean
@@ -27,13 +28,15 @@ namespace profitelo.components.dashboard.settings.modals.general.countrySettings
 
     constructor(private $scope: IGeneralCountrySettingsControllerScope, private $filter: IFilterService,
                 private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
-                private AccountApi: IAccountApi, private User: any, private lodash: _.LoDashStatic) {
+                private AccountApi: IAccountApi, private userService: IUserService, private lodash: _.LoDashStatic) {
 
       this.getCountriesList(() => {
-        this.selectedCountry = this.lodash.find(
-          this.countryList, (country: ICountryElementObject) => {
-            return country.value.countryISO === this.User.getData('account').countryISO
-          })
+        userService.getUser().then(user => {
+          this.selectedCountry = this.lodash.find(
+            this.countryList, (country: ICountryElementObject) => {
+              return country.value.countryISO === user.countryISO
+            })
+        })
       })
     }
 
@@ -50,18 +53,20 @@ namespace profitelo.components.dashboard.settings.modals.general.countrySettings
     }
 
     public setNewCountry = (): void => {
-      if (!!this.selectedCountry) {
-        this.AccountApi.partialUpdateAccountRoute(this.User.getData('accountId'), {
-          countryISO: this.selectedCountry.value.countryISO,
-          currencyUnit: this.selectedCountry.value.currency
-        })
-        .then(_res => {
-          this.$scope.callback()
-          this.$uibModalInstance.dismiss('cancel')
-        }, (err: any) => {
-          throw new Error('Can not patch user account: ' + err)
-        })
-      }
+      this.userService.getUser().then(user => {
+        if (!!this.selectedCountry) {
+          this.AccountApi.partialUpdateAccountRoute(user.id, {
+            countryISO: this.selectedCountry.value.countryISO,
+            currencyUnit: this.selectedCountry.value.currency
+          })
+            .then(_res => {
+              this.$scope.callback()
+              this.$uibModalInstance.dismiss('cancel')
+            }, (err: any) => {
+              throw new Error('Can not patch user account: ' + err)
+            })
+        }
+      })
     }
 
     private getCountriesList = (callback: Function): void => {
@@ -89,6 +94,7 @@ namespace profitelo.components.dashboard.settings.modals.general.countrySettings
     'pascalprecht.translate',
     'ngLodash',
     'profitelo.api.AccountApi',
+    'profitelo.services.user',
     'profitelo.directives.interface.pro-input',
     'profitelo.directives.interface.scrollable'
   ])

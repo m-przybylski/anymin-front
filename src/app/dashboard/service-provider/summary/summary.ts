@@ -8,7 +8,7 @@
   angular.module('profitelo.controller.dashboard.service-provider.summary', [
     'ui.router',
     'profitelo.directives.service-provider.pro-service-provider-summary-step',
-    'c7s.ng.userAuth',
+    'profitelo.services.session',
     'profitelo.api.ServiceApi',
     'profitelo.directives.interface.pro-alert'
   ])

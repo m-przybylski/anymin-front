@@ -86,7 +86,7 @@ namespace profitelo.login.setNewPassword {
 
   }
 
-  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
+  function config($stateProvider: ng.ui.IStateProvider) {
     $stateProvider.state('app.login.set-new-password', {
       url: '/set-new-password/token/:token/{method:|sms}',
       controllerAs: 'vm',
@@ -100,7 +100,6 @@ namespace profitelo.login.setNewPassword {
         }
       },
       data : {
-        access : UserRolesProvider.getAccessLevel('anon'),
         pageTitle: 'PAGE_TITLE.LOGIN.SET_NEW_PASSWORD'
       }
     })
@@ -120,7 +119,7 @@ namespace profitelo.login.setNewPassword {
     'profitelo.directives.interface.pro-alert',
     'profitelo.directives.interface.pro-input-password',
     'profitelo.directives.password-strength-bar',
-    'c7s.ng.userAuth'
+    'profitelo.services.session'
   ])
     .config(config)
     .controller('SetNewPasswordController', SetNewPasswordController)

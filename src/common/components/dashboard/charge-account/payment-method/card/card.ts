@@ -26,9 +26,8 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.cardPayment
 
   angular.module('profitelo.components.dashboard.charge-account.payment-method.card', [
     'pascalprecht.translate',
-    'c7s.ng.userAuth',
     'profitelo.components.interface.preloader',
-    'profitelo.components.braintree-form'
+    'profitelo.components.braintree-form',
   ])
   .component('cardPaymentForm', new CardPaymentFormComponent())
 }

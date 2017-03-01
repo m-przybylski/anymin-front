@@ -2,25 +2,26 @@ namespace app.dashboard.settings.general {
 
   import IModalsService = profitelo.services.modals.IModalsService
   import IUrlService = profitelo.services.helper.IUrlService
+  import AccountDetails = profitelo.api.AccountDetails
+  import IUserService = profitelo.services.user.IUserService
 
   export class DashboardSettingsGeneralController implements ng.IController {
 
     public avatarImageSource: string
     public nickname: string
     public phoneNumber: string
-    public email: string
+    public email?: string
     public country: string
-    public unverifiedEmail: string
+    public unverifiedEmail?: string
     public showUnverifiedEmail: boolean
 
-    constructor(private modalsService: IModalsService, UserData: any, private $state: ng.ui.IStateService, private urlService: IUrlService) {
-      const account = UserData.account
-      this.nickname = account.settings.nickname
-      this.avatarImageSource = this.urlService.resolveFileUrl(account.settings.avatar)
-      this.phoneNumber = account.msisdn
-      this.email = account.email
-      this.country = account.countryISO
-      this.unverifiedEmail = account.unverifiedEmail
+    constructor(private modalsService: IModalsService, user: AccountDetails, private $state: ng.ui.IStateService, private urlService: IUrlService) {
+      this.nickname = user.settings.nickname
+      this.avatarImageSource = this.urlService.resolveFileUrl(user.settings.avatar || '')
+      this.phoneNumber = user.msisdn
+      this.email = user.email
+      this.country = user.countryISO
+      this.unverifiedEmail = user.unverifiedEmail
       this.showUnverifiedEmail = (typeof(this.unverifiedEmail) !== 'undefined' && this.unverifiedEmail !== '')
     }
 
@@ -52,24 +53,23 @@ namespace app.dashboard.settings.general {
   angular.module('profitelo.controller.dashboard.settings.general', [
     'ui.router',
     'pascalprecht.translate',
-    'c7s.ng.userAuth',
+    'profitelo.services.user',
     'ngLodash',
     'profitelo.services.url',
     'profitelo.services.modals'
   ])
-  .config(($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) => {
+  .config(($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider.state('app.dashboard.settings.general', {
       url: '/general',
       templateUrl: 'dashboard/settings/general/general.tpl.html',
       controller: 'dashboardSettingsGeneralController',
       controllerAs: 'vm',
       resolve: {
-        UserData: (User: any) => {
-          return User.getStatus(true)
+        user: (userService: IUserService) => {
+          return userService.getUser()
         }
       },
       data: {
-        access: UserRolesProvider.getAccessLevel('user')
       }
     })
   })

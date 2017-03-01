@@ -5,6 +5,7 @@ namespace profitelo.dashboard.invitaion {
   import IProfileApi = profitelo.api.IProfileApi
   import GetProfileWithServicesEmployments = profitelo.api.GetProfileWithServicesEmployments
   import IServiceApi = profitelo.api.IServiceApi
+  import IUserService = profitelo.services.user.IUserService
 
   function InvitationController(pendingInvitations: Array<GetProfileWithServicesEmployments>, companyLogo: string) {
 
@@ -16,23 +17,22 @@ namespace profitelo.dashboard.invitaion {
     return this
   }
 
-  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
+  function config($stateProvider: ng.ui.IStateProvider) {
     $stateProvider.state('app.dashboard.invitation', {
       url: '/invitations',
       controllerAs: 'vm',
       controller: 'InvitationController',
       templateUrl: 'dashboard/invitation/invitation.tpl.html',
       data: {
-        access: UserRolesProvider.getAccessLevel('user'),
         pageTitle: 'PAGE_TITLE.INVITATIONS'
       },
       resolve: {
         pendingInvitations: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: IProfileApi,
-                             User: any, ServiceApi: IServiceApi, lodash: _.LoDashStatic, topAlertService: ITopAlertService) => {
+                             userService: IUserService, ServiceApi: IServiceApi, lodash: _.LoDashStatic, topAlertService: ITopAlertService) => {
           /* istanbul ignore next */
           let _deferred = $q.defer<Array<GetProfileWithServicesEmployments>>()
           /* istanbul ignore next */
-          User.getStatus().then(() => {
+          userService.getUser().then(() => {
             ProfileApi.getProfilesInvitationsRoute().then((profileInvitations) => {
 
               ServiceApi.postServicesTagsRoute({
@@ -78,7 +78,7 @@ namespace profitelo.dashboard.invitaion {
 
 
   angular.module('profitelo.controller.dashboard.invitation', [
-    'c7s.ng.userAuth',
+    'profitelo.services.user',
     'ui.router',
     'ngLodash',
     'profitelo.components.invitations.company-profile',

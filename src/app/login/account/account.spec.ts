@@ -1,6 +1,5 @@
 namespace profitelo.login.account {
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
-  import ICommunicatorService = profitelo.services.communicator.ICommunicatorService
   import ITopWaitingLoaderService = profitelo.services.topWaitingLoader.ITopWaitingLoaderService
   import ILoginStateService = profitelo.services.loginState.ILoginStateService
   import IAccountApi = profitelo.api.IAccountApi
@@ -8,7 +7,6 @@ namespace profitelo.login.account {
   import IServiceApiMock = profitelo.api.IServiceApiMock
   import ISessionApiMock = profitelo.api.ISessionApiMock
   import IAccountApiMock = profitelo.api.IAccountApiMock
-  import SignedAgent = profitelo.api.SignedAgent
 
   describe('Unit tests: profitelo.controller.login.account>', () => {
     describe('Testing Controller: AccountFormController', () => {
@@ -25,21 +23,37 @@ namespace profitelo.login.account {
         _ServiceApiMock: IServiceApiMock,
         _SessionApiMock: ISessionApiMock,
         $state: ng.ui.IStateService,
-        topAlertService: ITopAlertService,
-        communicatorService: ICommunicatorService
+        topAlertService: ITopAlertService
+
+      const sessionService = {
+        login: () => {},
+        getSession: () => {}
+      }
+      const communicatorService = {
+        authenticate: () => {}
+      }
+
+      beforeEach(() => {
+        angular.mock.module('profitelo.services.session')
+        angular.mock.module('profitelo.services.communicator')
+      })
 
       beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
         $provide.value('apiUrl', url)
+        $provide.value('sessionService', sessionService)
+        $provide.value('communicatorService', communicatorService)
       }))
 
       beforeEach(() => {
         angular.mock.module('profitelo.controller.login.account')
         angular.mock.module('profitelo.services.communicator')
         inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $injector: ng.auto.IInjectorService,
-                _topWaitingLoaderService_: ITopWaitingLoaderService, _User_: any, _topAlertService_: ITopAlertService,
+                _topWaitingLoaderService_: ITopWaitingLoaderService, _topAlertService_: ITopAlertService,
                 _loginStateService_: ILoginStateService, _$httpBackend_: ng.IHttpBackendService, AccountApiMock: IAccountApiMock,
-                _communicatorService_: ICommunicatorService, RatelApiMock: IRatelApiMock, ServiceApiMock: IServiceApiMock,
-                SessionApiMock: ISessionApiMock) => {
+                 RatelApiMock: IRatelApiMock, ServiceApiMock: IServiceApiMock,
+                SessionApiMock: ISessionApiMock, $q: ng.IQService) => {
+
+          spyOn(sessionService, 'getSession').and.returnValue($q.resolve())
 
           _AccountApiMock = AccountApiMock
           _RatelApiMock = RatelApiMock
@@ -47,7 +61,6 @@ namespace profitelo.login.account {
           _SessionApiMock = SessionApiMock
 
           $httpBackend = _$httpBackend_
-          communicatorService = _communicatorService_
           scope = $rootScope.$new()
           _mockParams = {
             phoneNumber: {
@@ -75,7 +88,7 @@ namespace profitelo.login.account {
             $state: $state,
             AccountApi: AccountApi,
             topWaitingLoaderService: _topWaitingLoaderService_,
-            User: _User_,
+            sessionService: sessionService,
             topAlertService: _topAlertService_,
             loginStateService: _loginStateService_
           })
@@ -136,29 +149,27 @@ namespace profitelo.login.account {
         expect($state.go).toHaveBeenCalledWith('app.login.forgot-password')
       })
 
-      it('should login user', () => {
+      it('should login user', inject(($q: ng.IQService) => {
+        spyOn(sessionService, 'login').and.returnValue($q.resolve())
         spyOn($state, 'go')
-        //FIXME remove type mappings
-        _RatelApiMock.getRatelAuthConfigRoute(200, '321321642', <SignedAgent>{})
-        _ServiceApiMock.getProfileServicesRoute(200, '1', [])
-        $httpBackend.when('POST', 'http://api.webpage.com/session').respond(200, {})
 
         spyOn(communicatorService, 'authenticate')
         AccountFormController.current = 2
         AccountFormController.login()
-        $httpBackend.flush()
+        scope.$digest()
+
         expect(communicatorService.authenticate).toHaveBeenCalled()
         expect($state.go).toHaveBeenCalledWith('app.dashboard.client.favourites')
-      })
+      }))
 
-      it('should display error', () => {
-        $httpBackend.when('POST', 'http://api.webpage.com/session').respond(400, {})
+      it('should display error', inject(($q: ng.IQService) => {
+        spyOn(sessionService, 'login').and.returnValue($q.reject())
 
         AccountFormController.current = 2
         AccountFormController.login()
-        $httpBackend.flush()
+        scope.$digest()
         expect(AccountFormController.serverError).toBe(true)
-      })
+      }))
 
     })
   })

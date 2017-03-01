@@ -1,4 +1,4 @@
-(function() {
+(function () {
 
   function LoginController() {
 
@@ -6,15 +6,18 @@
   }
 
 
-  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
+  function config($stateProvider: ng.ui.IStateProvider) {
     $stateProvider.state('app.login', {
       abstract: true,
       url: '/login',
       controllerAs: 'vm',
       controller: 'LoginController',
       templateUrl: 'login/login.tpl.html',
-      data : {
-        access : UserRolesProvider.getAccessLevel('anon')
+      data: {
+        permissions: {
+          only: ['anon'],
+          redirectTo: 'app.home'
+        }
       }
     })
   }
@@ -22,7 +25,9 @@
 
   angular.module('profitelo.controller.login', [
     'ui.router',
-    'c7s.ng.userAuth'
+    'permission',
+    'permission.ui',
+    'profitelo.services.session'
   ])
     .config(config)
     .controller('LoginController', LoginController)

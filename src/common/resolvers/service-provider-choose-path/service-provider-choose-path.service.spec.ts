@@ -1,5 +1,7 @@
 namespace profitelo.resolvers.serviceProviderChoosePath {
+
   import IProfileApiMock = profitelo.api.IProfileApiMock
+  import ISessionApiMock = profitelo.api.ISessionApiMock
 
   describe('Unit testing: profitelo.resolvers.service-provider-choose-path', () => {
     describe('for ServiceProviderChoosePathResolver service >', () => {
@@ -8,11 +10,23 @@ namespace profitelo.resolvers.serviceProviderChoosePath {
       let mockState: any
       let AppServiceProviderChoosePathResolver: IServiceProviderChoosePathService
       let _ProfileApiMock: IProfileApiMock
+      let _SessionApiMock: ISessionApiMock
       let $httpBackend: ng.IHttpBackendService
       let _timeout: ng.ITimeoutService
+      const userService = {
+        getUser: () => {}
+      }
+      const user = {
+        id: '123'
+      }
 
-      beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
+      beforeEach(() => {
+        angular.mock.module('profitelo.services.user')
+      })
+
+      beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
         $provide.value('apiUrl', url)
+        $provide.value('userService', userService)
       }))
 
       beforeEach(() => {
@@ -26,10 +40,13 @@ namespace profitelo.resolvers.serviceProviderChoosePath {
           $provide.value('$state', mockState)
         })
 
-        inject(($injector: ng.auto.IInjectorService) => {
+        inject(($injector: ng.auto.IInjectorService, $q: ng.IQService) => {
+
+          spyOn(userService, 'getUser').and.callFake(() => $q.resolve(user))
           AppServiceProviderChoosePathResolver =
             $injector.get<IServiceProviderChoosePathService>('ServiceProviderChoosePathResolver')
           _ProfileApiMock = $injector.get<IProfileApiMock>('ProfileApiMock')
+          _SessionApiMock = $injector.get<ISessionApiMock>('SessionApiMock')
           _timeout = $injector.get('$timeout')
           $httpBackend = $injector.get('$httpBackend')
         })
@@ -48,7 +65,7 @@ namespace profitelo.resolvers.serviceProviderChoosePath {
         })
 
         //FIXME
-        _ProfileApiMock.getProfileRoute(200, ':profileId', <any>{})
+        _ProfileApiMock.getProfileRoute(200, user.id, <any>{})
 
         AppServiceProviderChoosePathResolver.resolve()
         $httpBackend.flush()
@@ -64,7 +81,7 @@ namespace profitelo.resolvers.serviceProviderChoosePath {
         })
 
         //FIXME
-        _ProfileApiMock.getProfileRoute(200, ':profileId', <any>{
+        _ProfileApiMock.getProfileRoute(200, user.id, <any>{
           expertDetails: null,
           organizataionDetails: {}
         })
@@ -83,7 +100,7 @@ namespace profitelo.resolvers.serviceProviderChoosePath {
         })
 
         //FIXME
-        _ProfileApiMock.getProfileRoute(200, ':profileId', <any>{
+        _ProfileApiMock.getProfileRoute(200, user.id, <any>{
           expertDetails: {},
           organizataionDetails: null
         })
@@ -100,13 +117,13 @@ namespace profitelo.resolvers.serviceProviderChoosePath {
         }
 
         spyOn(spy, 'spy')
-        $httpBackend.when('GET', 'http://api.webpage.com/session').respond(200, {
-          apiKey: '1234',
-          accountId: ':profileId'
+
+        _SessionApiMock.checkRoute(200, <any>{
+          apiKey: '1234'
         })
 
         //FIXME
-        _ProfileApiMock.getProfileRoute(300, ':profileId')
+        _ProfileApiMock.getProfileRoute(300, user.id)
 
         AppServiceProviderChoosePathResolver.resolve().then((res) => {
           expect(res).toBe(null)

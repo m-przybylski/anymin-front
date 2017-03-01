@@ -3,6 +3,7 @@ namespace profitelo.components.dashboard.settings.modals.general.phoneSettings {
   import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
   import IPhoneNumberService = profitelo.services.phoneNumber.IPhoneNumberService
   import IAccountApi = profitelo.api.IAccountApi
+  import IUserService = profitelo.services.user.IUserService
 
   interface IPrefixListElement {
     value: string
@@ -52,15 +53,17 @@ namespace profitelo.components.dashboard.settings.modals.general.phoneSettings {
     }
 
     public sendVerificationPin = (token: string, onError: () => void) => {
-      this.AccountApi.confirmMsisdnVerificationRoute({
-        accountId: this.User.getData('accountId'),
-        token: token
-      }).then(() => {
-        this.$scope.callback()
-        this.$uibModalInstance.dismiss('cancel')
-      }, (err) => {
-        onError();
-        this.$log.error('Can not verify number: ' + err);
+      this.userService.getUser().then(user => {
+        this.AccountApi.confirmMsisdnVerificationRoute({
+          accountId: user.id,
+          token: token
+        }).then(() => {
+          this.$scope.callback()
+          this.$uibModalInstance.dismiss('cancel')
+        }, (err) => {
+          onError();
+          this.$log.error('Can not verify number: ' + err);
+        })
       })
     }
 
@@ -73,7 +76,7 @@ namespace profitelo.components.dashboard.settings.modals.general.phoneSettings {
                 private CommonSettingsService: ICommonSettingsService,
                 private phoneNumberService: IPhoneNumberService,
                 private AccountApi: IAccountApi, private $log: ng.ILogService,
-                private User: any,
+                private userService: IUserService,
                 private $scope: IGeneralPhoneSettingsControllerScope) {
     }
 
@@ -95,6 +98,7 @@ namespace profitelo.components.dashboard.settings.modals.general.phoneSettings {
     'profitelo.api.AccountApi',
     'profitelo.directives.interface.scrollable',
     'profitelo.services.commonSettings',
+    'profitelo.services.user',
     'profitelo.components.interface.dropdown-primary',
     'profitelo.components.interface.pin-verification'
   ])

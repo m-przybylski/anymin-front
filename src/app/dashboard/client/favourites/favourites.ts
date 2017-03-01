@@ -28,7 +28,7 @@ namespace profitelo.dashboard.client.favourites {
   angular.module('profitelo.controller.dashboard.client.favourites', [
     'ui.router',
     'ngLodash',
-    'c7s.ng.userAuth',
+    'profitelo.services.session',
     'profitelo.filters.money',
     'profitelo.services.recommended-services',
     'profitelo.components.dashboard.client.favourites.no-favourite-experts',
@@ -37,7 +37,7 @@ namespace profitelo.dashboard.client.favourites {
     'profitelo.components.dashboard.client.favourites.favourite-experts.last-consultation-slider',
     'profitelo.resolvers.client-favourites'
   ])
-    .config( function($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
+    .config( function($stateProvider: ng.ui.IStateProvider) {
       $stateProvider.state('app.dashboard.client.favourites', {
         url: '/favourites',
         templateUrl: 'dashboard/client/favourites/favourites.tpl.html',
@@ -47,9 +47,6 @@ namespace profitelo.dashboard.client.favourites {
           /* istanbul ignore next */
           clientFavouritesConsultations:  (ClientFavouritesResolver: IClientFavouritesResolverService) =>
             ClientFavouritesResolver.resolve()
-        },
-        data          : {
-          access : UserRolesProvider.getAccessLevel('user')
         }
       })
     })

@@ -9,6 +9,7 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.company {
   import IServiceApi = profitelo.api.IServiceApi
   import Tag = profitelo.api.Tag
   import GetOrganizationProfile = profitelo.api.GetOrganizationProfile
+  import IUserService = profitelo.services.user.IUserService
 
   function CompanyConsultationController($log: ng.ILogService, $scope: ng.IScope, $state: ng.ui.IStateService,
                                          dialogService: IDialogService, savedProfile: GetProfileWithServices,
@@ -174,7 +175,7 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.company {
     'profitelo.common.controller.accept-reject-dialog-controller',
     'ui.router',
     'ngLodash',
-    'c7s.ng.userAuth',
+    'profitelo.services.user',
     'profitelo.services.dialog',
     'profitelo.api.ServiceApi',
     'profitelo.services.top-alert',
@@ -187,7 +188,7 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.company {
     'profitelo.directives.interface.pro-alert',
     'profitelo.directives.service-provider.pro-service-provider-profile'
   ])
-    .config(function($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
+    .config(function($stateProvider: ng.ui.IStateProvider) {
       $stateProvider.state('app.dashboard.service-provider.consultation-range.company', {
 
         url: '/company',
@@ -197,12 +198,12 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.company {
         resolve: {
           /* istanbul ignore next */
           savedProfile: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: IProfileApi,
-                         lodash: _.LoDashStatic, User: any, ServiceApi: IServiceApi, topAlertService: ITopAlertService) => {
+                         lodash: _.LoDashStatic, userService: IUserService, ServiceApi: IServiceApi, topAlertService: ITopAlertService) => {
             /* istanbul ignore next */
             let _deferred = $q.defer<GetProfileWithServices | null>()
             /* istanbul ignore next */
-            User.getStatus().then(() => {
-              ProfileApi.getProfileWithServicesRoute(User.getData('accountId')).then((profileWithServices) => {
+            userService.getUser().then((user) => {
+              ProfileApi.getProfileWithServicesRoute(user.id).then((profileWithServices) => {
 
                 ServiceApi.postServicesTagsRoute({
                   serviceIds: lodash.map(profileWithServices.services, service => service.id)
@@ -245,7 +246,6 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.company {
           }
         },
         data: {
-          access: UserRolesProvider.getAccessLevel('user'),
           pageTitle: 'PAGE_TITLE.DASHBOARD.SERVICE_PROVIDER.CONSULTATION_RANGE',
           showMenu: false
         }

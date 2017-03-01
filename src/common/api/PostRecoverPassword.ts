@@ -2,8 +2,8 @@ namespace profitelo.api {
 
 
   export interface PostRecoverPassword {
-      method?: string /*PostRecoverPassword.MethodEnum*/;
       msisdn: string;
+      method?: string /*PostRecoverPassword.MethodEnum*/;
   }
 
 

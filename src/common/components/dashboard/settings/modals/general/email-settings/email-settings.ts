@@ -1,6 +1,7 @@
 namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
 
   import IAccountApi = profitelo.api.IAccountApi
+  import IUserService = profitelo.services.user.IUserService
   export interface IGeneralEmailSettingsControllerScope extends ng.IScope {
     callback: () => void
   }
@@ -15,17 +16,17 @@ namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
     /* @ngInject */
     constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
                 private AccountApi: IAccountApi, private $log: ng.ILogService,
-                private User: any,
-                private $scope: IGeneralEmailSettingsControllerScope) {
+                private userService: IUserService, private $scope: IGeneralEmailSettingsControllerScope) {
 
     }
 
     public setNewEmail = (): void => {
-      this.isEmailExist = false
-        this.AccountApi.partialUpdateAccountRoute(this.User.getData('accountId'), {
+      this.userService.getUser().then(user => {
+        this.isEmailExist = false
+        this.AccountApi.partialUpdateAccountRoute(user.id, {
           unverifiedEmail: this.newEmail
         }).then(this.onEmailChangeSucces, this.onEmailChangeError)
-
+      })
     }
 
     private onEmailChangeSucces = (): void => {
@@ -45,6 +46,7 @@ namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
   angular.module('profitelo.components.dashboard.settings.modals.general.email-settings', [
     'ui.bootstrap',
     'profitelo.api.AccountApi',
+    'profitelo.services.user',
     'profitelo.directives.interface.pro-input',
     'profitelo.directives.interface.scrollable'
   ])

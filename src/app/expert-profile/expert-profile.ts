@@ -65,7 +65,7 @@ namespace profitelo.expertProfile {
   angular.module('profitelo.controller.expert-profile', [
     'ui.router',
     'profitelo.api.ProfileApi',
-    'c7s.ng.userAuth',
+    'profitelo.services.session',
     'profitelo.directives.pro-top-navbar',
     'profitelo.directives.expert-profile.pro-expert-header',
     'profitelo.directives.pro-footer',
@@ -81,7 +81,7 @@ namespace profitelo.expertProfile {
     'profitelo.components.expert-profile.social-links',
     'profitelo.components.interface.collapse-tab'
   ])
-  .config(($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) => {
+  .config(($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider.state('app.expert-profile', {
       controllerAs: 'vm',
       url: '/expert-profile/{profileId}?primaryConsultationId',
@@ -95,7 +95,6 @@ namespace profitelo.expertProfile {
       },
 
       data: {
-        access : UserRolesProvider.getAccessLevel('public')
       }
     })
   })

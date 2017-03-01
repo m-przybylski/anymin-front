@@ -17,13 +17,24 @@ namespace profitelo.components.communicator {
         return compiledElement
       }
 
+      const callService = {
+        setLocalStreamElement: () => {},
+        setRemoteStreamElement: () => {},
+        onClientCallPending: () => {},
+        onExpertCallAnswered: () => {},
+        onClientCallStarted: () => {},
+        onCallEnd: () => {},
+        onVideoStart: () => {},
+        onVideoStop: () => {},
+        onTimeCostChange: () => {},
+      }
+
       beforeEach(() => {
-        angular.mock.module('profitelo.services.sounds')
         angular.mock.module('profitelo.services.call')
       })
 
       beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
-        $provide.value('soundsService', {})
+        $provide.value('callService', callService)
         $provide.value('apiUrl', 'awesomeUrl/')
       }))
 

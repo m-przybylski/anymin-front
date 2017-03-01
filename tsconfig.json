@@ -13,8 +13,26 @@
     "strictNullChecks": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "typeRoots": [
-      "node_modules/@types/"
+    "types" : [
+      "angular",
+      "angular-animate",
+      "angular-cookies",
+      "angular-dynamic-locale",
+      "angular-mocks",
+      "angular-permission",
+      "angular-resource",
+      "angular-translate",
+      "angular-ui-bootstrap",
+      "angular-ui-router",
+      "braintree-web",
+      "croppie",
+      "es6-shim",
+      "jasmine",
+      "jquery",
+      "lodash",
+      "masonry-layout",
+      "perfect-scrollbar",
+      "raven-js"
     ]
   }
 }

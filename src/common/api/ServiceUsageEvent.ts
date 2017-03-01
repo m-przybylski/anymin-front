@@ -2,20 +2,20 @@ namespace profitelo.api {
 
 
   export interface ServiceUsageEvent {
-      freeSeconds: number;
-      ratelCallId: string;
+      expertFinancialOperationId?: string;
       clientId: string;
-      id?: string;
+      stoppedAt?: Date;
+      callSignificant?: boolean;
       persisted?: boolean;
-      serviceId: string;
-      clientFinancialOperationId?: string;
+      ratelCallId: string;
+      freeSeconds: number;
+      id?: string;
       createdAt: Date;
       startedAt?: Date;
-      ratePerMinute: MoneyDto;
-      stoppedAt?: Date;
+      clientFinancialOperationId?: string;
       expertId: string;
-      expertFinancialOperationId?: string;
-      callSignificant?: boolean;
+      ratePerMinute: MoneyDto;
+      serviceId: string;
   }
 
 }

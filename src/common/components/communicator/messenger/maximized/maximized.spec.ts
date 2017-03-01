@@ -17,12 +17,33 @@ namespace profitelo.components.communicator.messenger.maximized {
         callCost: <MoneyDto>{amount: 0, currency: 'PLN'},
         callLength: 0,
         isMessenger: true,
-        minimizeMessenger: () => {}
+        minimizeMessenger: () => {
+        }
+      }
+
+      const messengerService = {
+        onExpertCreatedRoom: () => {
+        },
+        onClientCreatingRoom: () => {
+        },
+        onClientTyping: () => {
+        },
+        onExpertTyping: () => {
+        },
+        onClientMessage: () => {
+        },
+        onExpertMessage: () => {
+        },
+        onChatLeft: () => {
+        },
+        indicateTyping: () => {
+        }
       }
 
       const uploaderFactory = {
         collectionTypes: {avatar: 'avatar'},
-        getInstance: () => {}
+        getInstance: () => {
+        }
       }
 
       function create(html: string, bindings: IMessengerMaximizedComponentBindings): JQuery {
@@ -34,17 +55,20 @@ namespace profitelo.components.communicator.messenger.maximized {
         return compiledElement
       }
 
+      beforeEach(() => {
+        angular.mock.module('profitelo.services.messenger')
+      })
+
       beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
         $provide.value('apiUrl', 'awesomeURL')
+        $provide.value('messengerService', messengerService)
       }))
 
       beforeEach(() => {
-        angular.mock.module('profitelo.services.sounds')
         angular.mock.module('profitelo.services.uploader')
       })
 
       beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
-        $provide.value('soundsService', {})
         $provide.value('uploaderFactory', uploaderFactory)
       }))
 
@@ -54,7 +78,6 @@ namespace profitelo.components.communicator.messenger.maximized {
         angular.mock.module('profitelo.filters.seconds-to-datetime')
         angular.mock.module('profitelo.filters.money')
         angular.mock.module('ngLodash')
-        angular.mock.module('profitelo.services.messenger')
         angular.mock.module('profitelo.components.communicator.messenger.maximized')
 
         inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,

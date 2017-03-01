@@ -114,20 +114,19 @@
 
   angular.module('profitelo.controller.consultations-field', [
     'ui.router',
-    'c7s.ng.userAuth',
+    'profitelo.services.session',
     'profitelo.directives.pro-footer',
     'profitelo.components.pro-search-dropdown',
     'profitelo.directives.pro-tags-slider',
     'profitelo.components.interface.card-slider'
   ])
-  .config(function ($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
+  .config(function ($stateProvider: ng.ui.IStateProvider) {
     $stateProvider.state('app.consultations-field', {
       url: '/consultations-field/{fieldId:int}',
       templateUrl: 'consultations-field/consultations-field.tpl.html',
       controller: 'ConsultationsFieldController',
       controllerAs: 'vm',
       data: {
-        access: UserRolesProvider.getAccessLevel('public'),
         pageTitle: 'HOME.FIELD.PAGE_TITLE'
       }
     })

@@ -2,19 +2,19 @@ namespace profitelo.components.braintreeForm {
 
   import IBraintreeFormComponentBindings = profitelo.components.braintreeForm.IBraintreeFormComponentBindings
   import IPaymentsApi = profitelo.api.IPaymentsApi
+  import IPaymentsApiMock = profitelo.api.IPaymentsApiMock
 
   describe('Unit testing: profitelo.components.braintreeForm', () => {
-    return describe('for messenger component >', () => {
+    return describe('for braintreeForm component >', () => {
 
       let rootScope: ng.IRootScopeService
       let compile: ng.ICompileService
       let component: BraintreeFormComponentController
-      let resourcesExpectations: any
       let httpBackend: ng.IHttpBackendService
 
       const validHTML =
-        '<braintree-form data-on-braintree-form-load="vm.onLoad" data-submit-button-translate="BRAINTREE.ADD_BUTTON">' +
-        '</braintree-form>'
+        '<braintree-form on-braintree-form-load="onBraintreeFormLoad" on-form-succeed="onFormSucceed"' +
+        'submit-button-translate="submitButtonTranslate"></braintree-form>'
 
       const bindings: IBraintreeFormComponentBindings = {
         onBraintreeFormLoad: () => {
@@ -35,37 +35,41 @@ namespace profitelo.components.braintreeForm {
         return compiledElement
       }
 
+      const userService = {
+        getUser: () => {}
+      }
+
+      beforeEach(() => {
+        angular.mock.module('profitelo.services.user')
+      })
+
       beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
         $provide.value('apiUrl', 'awesomeUrl')
+        $provide.value('userService', userService)
       }))
 
       beforeEach(() => {
         angular.mock.module('templates-module')
-        angular.mock.module('profitelo.api.PaymentsApi')
-        angular.mock.module('profitelo.swaggerResources.definitions')
         angular.mock.module('profitelo.components.braintree-form')
 
         inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
                 $componentController: ng.IComponentControllerService,
-                $httpBackend: ng.IHttpBackendService, PaymentsApiDef: any, PaymentsApi: IPaymentsApi) => {
+                $httpBackend: ng.IHttpBackendService, PaymentsApiMock: IPaymentsApiMock, PaymentsApi: IPaymentsApi,
+                $q: ng.IQService) => {
+
+          spyOn(userService, 'getUser').and.returnValue($q.resolve({currency: 'PLN'}))
 
           rootScope = $rootScope.$new()
           compile = $compile
           httpBackend = $httpBackend
+
           const injectors = {
             PaymentsApi: PaymentsApi,
-            User: {},
+            userService: userService,
             CommonSettingsService: {}
           }
 
-          resourcesExpectations = {
-            PaymentsApi: {
-              getClientTokenRoute: httpBackend.when(PaymentsApiDef.getClientToken.method,
-                PaymentsApiDef.getClientToken.url)
-            }
-          }
-
-          resourcesExpectations.PaymentsApi.getClientTokenRoute.respond(500)
+          PaymentsApiMock.getClientTokenRoute(500)
 
           component = $componentController<BraintreeFormComponentController, IBraintreeFormComponentBindings>(
             'braintreeForm', injectors, bindings)

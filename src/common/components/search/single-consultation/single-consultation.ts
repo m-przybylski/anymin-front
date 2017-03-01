@@ -32,6 +32,7 @@ namespace profitelo.components.search.singleConsultation {
     this.goToProfile = () => {
       if (this.isLinkActive) {
         const stateName = this.consultation.owner.type === 'ORG' ? 'app.company-profile' : 'app.expert-profile'
+        console.log(stateName)
         $state.go(stateName, {profileId: this.consultation.owner.id, primaryConsultationId: this.consultation.id})
       }
     }
@@ -44,22 +45,20 @@ namespace profitelo.components.search.singleConsultation {
   }
 
   let singleConsultation = {
-    transclude: true,
     templateUrl: 'components/search/single-consultation/single-consultation.tpl.html',
     bindings: {
       consultation: '<'
     },
-    controllerAs: 'vm',
     controller: singleConsultationController
   }
 
   angular.module('profitelo.components.search.single-consultation', [
+    'ui.router',
     'pascalprecht.translate',
     'profitelo.services.call',
     'profitelo.filters.money',
     'profitelo.services.url',
     'profitelo.filters.object-size-filter',
-    'profitelo.resolvers.service-provider-image'
   ])
     .component('singleConsultation', singleConsultation)
 

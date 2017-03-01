@@ -1,7 +1,5 @@
 namespace profitelo.components.communicator.messenger.minimized {
 
-  import IMessengerService = profitelo.services.messenger.IMessengerService
-
   describe('Unit testing: profitelo.components.communicator.messenger.minimized', () => {
     return describe('for messengerMinimized component >', () => {
 
@@ -12,11 +10,23 @@ namespace profitelo.components.communicator.messenger.minimized {
       const validHTML = '<minimized></minimized>'
 
       const bindings: IMessengerMinimizedComponentBindings = {
-        onMessageClick: () => {}
+        onMessageClick: () => {
+        }
       }
+
+      const messengerService = {
+        onClientMessage: () => {},
+        onExpertMessage: () => {},
+        onChatLeft: () => {}
+      }
+
+      beforeEach(() => {
+        angular.mock.module('profitelo.services.messenger')
+      })
 
       beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
         $provide.value('apiUrl', 'awesomeURL')
+        $provide.value('messengerService', messengerService)
       }))
 
       function create(html: string, bindings: IMessengerMinimizedComponentBindings): JQuery {
@@ -29,19 +39,11 @@ namespace profitelo.components.communicator.messenger.minimized {
       }
 
       beforeEach(() => {
-        angular.mock.module('profitelo.services.sounds')
-      })
-
-      beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
-        $provide.value('soundsService', {})
-      }))
-
-      beforeEach(() => {
         angular.mock.module('templates-module')
         angular.mock.module('profitelo.components.communicator.messenger.minimized')
 
         inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService, $timeout: ng.ITimeoutService,
-                $componentController: ng.IComponentControllerService, messengerService: IMessengerService) => {
+                $componentController: ng.IComponentControllerService) => {
 
           rootScope = $rootScope
           compile = $compile

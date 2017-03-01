@@ -9,10 +9,11 @@ namespace profitelo.login.account {
   import ITopWaitingLoaderService = profitelo.services.topWaitingLoader.ITopWaitingLoaderService
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import IAccountApi = profitelo.api.IAccountApi
+  import ISessionService = profitelo.services.session.ISessionService
 
   function AccountFormController($log: ng.ILogService, $rootScope: IRootScopeService, $state: ng.ui.IStateService,
                                  $filter: IFilterService, AccountApi: IAccountApi,
-                                 topWaitingLoaderService: ITopWaitingLoaderService, User: any,
+                                 topWaitingLoaderService: ITopWaitingLoaderService, sessionService: ISessionService,
                                  topAlertService: ITopAlertService, loginStateService: ILoginStateService,
                                  CommonSettingsService: ICommonSettingsService,
                                  phoneNumberService: IPhoneNumberService, communicatorService: ICommunicatorService) {
@@ -88,40 +89,42 @@ namespace profitelo.login.account {
       if (!this.isPending) {
         this.isPending = true
         topWaitingLoaderService.immediate()
-        User.login({
+        sessionService.login({
           msisdn: this.account.phoneNumber.prefix + '' + this.account.phoneNumber.number,
           password: this.account.password
-        }).then((_response: any) => {
-          communicatorService.authenticate()
-          $rootScope.loggedIn = true
-          this.isPending = false
-          topWaitingLoaderService.stopLoader()
-          $state.go('app.dashboard.client.favourites')
-          loginStateService.clearServiceObject()
-          topAlertService.success({
-            message: $filter('translate')('LOGIN.SUCCESSFUL_LOGIN'),
-            timeout: 2
-          })
-        }, (error: any) => {
-          $log.error(error)
-          this.isPending = false
-          this.serverError = true
-          topWaitingLoaderService.stopLoader()
         })
+          .then((_response) => sessionService.getSession(true))
+          .then(() => {
+            communicatorService.authenticate()
+            $rootScope.loggedIn = true
+            this.isPending = false
+            topWaitingLoaderService.stopLoader()
+            $state.go('app.dashboard.client.favourites')
+            loginStateService.clearServiceObject()
+            topAlertService.success({
+              message: $filter('translate')('LOGIN.SUCCESSFUL_LOGIN'),
+              timeout: 2
+            })
+          })
+          .catch((error) => {
+            $log.error(error)
+            this.isPending = false
+            this.serverError = true
+            topWaitingLoaderService.stopLoader()
+          })
       }
     }
 
     return this
   }
 
-  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
+  function config($stateProvider: ng.ui.IStateProvider) {
     $stateProvider.state('app.login.account', {
       url: '/account',
       controllerAs: 'vm',
       controller: 'AccountFormController',
       templateUrl: 'login/account/account.tpl.html',
       data: {
-        access: UserRolesProvider.getAccessLevel('anon'),
         pageTitle: 'PAGE_TITLE.LOGIN.ACCOUNT'
       }
     })
@@ -129,8 +132,7 @@ namespace profitelo.login.account {
 
   angular.module('profitelo.controller.login.account', [
     'ui.router',
-    'c7s.ng.userAuth',
-    'ui.router',
+    'profitelo.services.session',
     'profitelo.services.phone-number',
     'profitelo.services.login-state',
     'profitelo.api.AccountApi',

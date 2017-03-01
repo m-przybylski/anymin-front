@@ -20,18 +20,30 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.cardPayment
         return compiledElement
       }
 
+      const userService = {
+        getUser: () => {}
+      }
+
+      beforeEach(() => {
+        angular.mock.module('profitelo.services.user')
+      })
+
       beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
         $provide.value('apiUrl', 'awesomeUrl')
+        $provide.value('userService', userService)
       }))
 
       beforeEach(() => {
         angular.mock.module('templates-module')
         angular.mock.module('profitelo.api.PaymentsApi')
+        angular.mock.module('profitelo.components.braintree-form')
         angular.mock.module('profitelo.components.dashboard.charge-account.payment-method.card')
 
         inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
               $componentController: ng.IComponentControllerService,
-              $httpBackend: ng.IHttpBackendService, PaymentsApiMock: IPaymentsApiMock) => {
+              $httpBackend: ng.IHttpBackendService, PaymentsApiMock: IPaymentsApiMock, $q: ng.IQService) => {
+
+          spyOn(userService, 'getUser').and.callFake(() => $q.resolve({}))
 
           rootScope = $rootScope
           compile = $compile

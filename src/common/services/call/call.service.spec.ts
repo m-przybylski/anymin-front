@@ -113,7 +113,12 @@ namespace profitelo.services.call {
         }
       }
 
+      const userService = {
+        getUser: () => {}
+      }
+
       beforeEach(() => {
+        angular.mock.module('profitelo.services.user')
         angular.mock.module('profitelo.services.communicator')
         angular.mock.module('profitelo.services.call')
       })
@@ -124,9 +129,11 @@ namespace profitelo.services.call {
         $provide.value('soundsService', soundsService)
         $provide.value('modalsService', modalsService)
         $provide.value('navigatorService', navigatorService)
+        $provide.value('userService', userService)
       }))
 
-      beforeEach(inject(($injector: ng.auto.IInjectorService) => {
+      beforeEach(inject(($injector: ng.auto.IInjectorService, $q: ng.IQService) => {
+        spyOn(userService, 'getUser').and.callFake(() => $q.resolve({}))
         callService = $injector.get<ICallService>('callService')
       }))
 

@@ -7,6 +7,7 @@ namespace profitelo.services.communicator {
   import IRatelApi = profitelo.api.IRatelApi
   import SignedAgent = profitelo.api.SignedAgent
   import GetService = profitelo.api.GetService
+  import IUserService = profitelo.services.user.IUserService
 
   export interface IConsultationInvitation {
     invitation: any
@@ -66,7 +67,7 @@ namespace profitelo.services.communicator {
     }
 
     constructor(private $log: ng.ILogService, private $q: ng.IQService, callbacksFactory: ICallbacksFactory,
-                private User: any, private RatelApi: IRatelApi, private ProfileApi: IProfileApi, private ratelSdk: any,
+                private userService: IUserService, private RatelApi: IRatelApi, private ProfileApi: IProfileApi, private ratelSdk: any,
                 CommonConfig: ICommonConfig, private lodash: _.LoDashStatic) {
 
       this.commonConfig = CommonConfig.getAllData()
@@ -175,11 +176,13 @@ namespace profitelo.services.communicator {
     }
 
     private authenticateExpert = () => {
-      return this.getServices(this.User.getData('accountId'))
-      .then((services) =>
-        this.$q.all(this.lodash.map(services, service =>
-          this.RatelApi.getRatelAuthConfigRoute(service.id).then(
-            (expertConfig) => this.onGetRatelExpertAuthConfig(expertConfig, service)))))
+      this.userService.getUser().then(user => {
+        return this.getServices(user.id)
+          .then((services) =>
+            this.$q.all(this.lodash.map(services, service =>
+              this.RatelApi.getRatelAuthConfigRoute(service.id).then(
+                (expertConfig) => this.onGetRatelExpertAuthConfig(expertConfig, service)))))
+      })
     }
 
     private onAuthenticateError = (err: any) => {
@@ -212,7 +215,7 @@ namespace profitelo.services.communicator {
   }
 
   angular.module('profitelo.services.communicator', [
-    'c7s.ng.userAuth',
+    'profitelo.services.user',
     'profitelo.api.RatelApi',
     'profitelo.api.ProfileApi',
     'profitelo.services.dialog',

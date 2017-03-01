@@ -17,7 +17,7 @@ namespace profitelo.components.dashboard.invoiceCompany {
   }
 
   angular.module('profitelo.components.dashboard.invoice', [
-    'c7s.ng.userAuth'
+    'profitelo.services.session'
   ])
   .component('invoiceCompany', new PayPalPaymentFormComponent())
 

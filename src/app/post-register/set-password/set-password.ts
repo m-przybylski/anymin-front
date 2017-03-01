@@ -6,10 +6,12 @@ namespace profitelo.postRegister.setPassword {
   import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import IAccountApi = profitelo.api.IAccountApi
   import Account = profitelo.api.Account
+  import IUserService = profitelo.services.user.IUserService
+  import AccountDetails = profitelo.api.AccountDetails
 
   function _controller($log: ng.ILogService, $filter: ng.IFilterService, $state: ng.ui.IStateService,
                        topWaitingLoaderService: ITopWaitingLoaderService, passwordStrengthService: IPasswordStrengthService,
-                       User: any, topAlertService: ITopAlertService, CommonSettingsService: ICommonSettingsService,
+                       user: AccountDetails, topAlertService: ITopAlertService, CommonSettingsService: ICommonSettingsService,
                        AccountApi: IAccountApi) {
 
     this.passwordStrength = 0
@@ -19,7 +21,7 @@ namespace profitelo.postRegister.setPassword {
     this.serverError = false
     this.alreadyCheck = false
     this.msisdn = {
-      number: User.getData('account').msisdn
+      number: user.msisdn
     }
     this.translationUrl = {
       hrefUrl: 'http://miroslawkwiatek.republika.pl/pdf_y/grawitacja_kwantowa.pdf'
@@ -38,7 +40,7 @@ namespace profitelo.postRegister.setPassword {
         this.isPending = true
         topWaitingLoaderService.immediate()
 
-        const accountId = User.getData('accountId')
+        const accountId = user.id
 
         AccountApi.partialUpdateAccountRoute(accountId, patchObject).then(successCallback, (error) => {
           this.isPending = false
@@ -56,7 +58,8 @@ namespace profitelo.postRegister.setPassword {
       _updateNewUserObject({
         password: this.password
       }, () => {
-        User.setData({hasPassword: true})
+
+        //User.setData({hasPassword: true})
         this.isPending = false
         topWaitingLoaderService.stopLoader()
         $state.go('app.post-register.set-email')
@@ -66,27 +69,18 @@ namespace profitelo.postRegister.setPassword {
     return this
   }
 
-  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
+  function config($stateProvider: ng.ui.IStateProvider) {
     $stateProvider.state('app.post-register.set-password', {
       url: '/set-password',
       controllerAs: 'vm',
       controller: 'SetPasswordController',
       templateUrl: 'post-register/set-password/set-password.tpl.html',
       resolve: {
-        /* istanbul ignore next */
-        redirect: (User: any, $state: ng.ui.IStateService, $q: ng.IQService) => {
-          /* istanbul ignore next */
-          return User.getStatus().then((status: any) => {
-            if (angular.isDefined(status.account.hasPassword) && status.account.hasPassword) {
-              return $state.go('app.dashboard.client.favourites')
-            } else {
-              return $q.when(status)
-            }
-          })
+        user: (userService: IUserService) => {
+          return userService.getUser()
         }
       },
       data: {
-        access: UserRolesProvider.getAccessLevel('user'),
         pageTitle: 'PAGE_TITLE.POST_REGISTER.SET_PASSWORD'
       }
     })
@@ -94,7 +88,7 @@ namespace profitelo.postRegister.setPassword {
 
   angular.module('profitelo.controller.post-register.set-password', [
     'ui.router',
-    'c7s.ng.userAuth',
+    'profitelo.services.user',
     'profitelo.api.AccountApi',
     'profitelo.services.commonSettings',
     'profitelo.services.password-strength',

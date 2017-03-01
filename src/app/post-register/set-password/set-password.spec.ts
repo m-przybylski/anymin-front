@@ -20,14 +20,8 @@ namespace profitelo.postRegister.setPassword {
 
       let _url = 'awesomeUrl'
 
-      let _User = {
-        getData: () => {
-          return 1
-        },
-        setData: () => {
-        },
-        setApiKeyHeader: () => {
-        }
+      let user = {
+        id: '123'
       }
 
       let $state = {
@@ -56,7 +50,7 @@ namespace profitelo.postRegister.setPassword {
             $state: $state,
             topWaitingLoaderService: _topWaitingLoaderService_,
             passwordStrengthService: _passwordStrengthService_,
-            User: _User,
+            user: user,
             topAlertService: _topAlertService_,
             AccountApi: _AccountApi_
           })
@@ -105,7 +99,7 @@ namespace profitelo.postRegister.setPassword {
       it('should set new password on completeRegistration', () => {
         spyOn(_topAlertService, 'success')
 
-        _AccountApiMock_.partialUpdateAccountRoute(200, String(_User.getData()))
+        _AccountApiMock_.partialUpdateAccountRoute(200, user.id, <any>{})
 
         SetPasswordController.completeRegistration()
         _$httpBackend.flush()

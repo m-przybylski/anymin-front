@@ -2,12 +2,12 @@ namespace profitelo.api {
 
 
   export interface GetPaymentOptions {
-      minimalPayment: MoneyDto;
-      paymentOptions: Array<MoneyDto>;
-      lastPayment?: GetLastPayment;
-      id: string;
-      countryISO: string;
       paymentSystems: Array<PaymentSystem>;
+      lastPayment?: GetLastPayment;
+      paymentOptions: Array<MoneyDto>;
+      countryISO: string;
+      id: string;
+      minimalPayment: MoneyDto;
   }
 
 }

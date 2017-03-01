@@ -19,14 +19,8 @@ namespace profitelo.postRegister.setEmail {
 
       const _url = 'awesomeUrl'
 
-      const _User = {
-        getData: () => {
-          return 1
-        },
-        setData: () => {
-        },
-        setApiKeyHeader: () => {
-        }
+      const user = {
+        id: '123'
       }
 
       const $state = {
@@ -50,7 +44,7 @@ namespace profitelo.postRegister.setEmail {
             $filter: $filter,
             $state: $state,
             topWaitingLoaderService: _topWaitingLoaderService_,
-            User: _User,
+            user: user,
             topAlertService: _topAlertService_,
             AccountApi: _AccountApi_
           })
@@ -70,7 +64,7 @@ namespace profitelo.postRegister.setEmail {
       it('should set new email', () => {
         spyOn($state, 'go')
         //FIXME
-        _AccountApiMock.partialUpdateAccountRoute(200, String(_User.getData()), <any>{})
+        _AccountApiMock.partialUpdateAccountRoute(200, user.id, <any>{})
         _AccountApiMock.getAccountEmailExistsRoute(400, 'email')
         SetEmailController.setNewEmail()
         _$httpBackend.flush()
@@ -80,7 +74,7 @@ namespace profitelo.postRegister.setEmail {
 
       it('should handle bad requesnt while setting new email', () => {
         spyOn(_topAlertService, 'error')
-        _AccountApiMock.partialUpdateAccountRoute(500, String(_User.getData()))
+        _AccountApiMock.partialUpdateAccountRoute(500, user.id)
         _AccountApiMock.getAccountEmailExistsRoute(400, 'email')
         SetEmailController.setNewEmail()
         _$httpBackend.flush()

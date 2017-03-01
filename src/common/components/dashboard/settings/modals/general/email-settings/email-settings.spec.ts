@@ -10,10 +10,18 @@ namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
     let scope: IGeneralEmailSettingsControllerScope
     const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
       jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss'])
-    const User = {}
+
+    const userService = {
+      getUser: () => {}
+    }
+
+    beforeEach(() => {
+      angular.mock.module('profitelo.services.user')
+    })
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', 'awesomeUrl')
+      $provide.value('userService', userService)
     }))
 
 
@@ -30,7 +38,7 @@ namespace profitelo.components.dashboard.settings.modals.general.emailSettings {
           $uibModalInstance: $uibModalInstance,
           $scope: scope,
           AccountApi: AccountApi,
-          User: User,
+          userService: userService,
           $log: $log
         }
 

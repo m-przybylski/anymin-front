@@ -83,7 +83,7 @@ namespace profitelo.services.recommendedServices {
   angular.module('profitelo.services.recommended-services', [
     'profitelo.api.SearchApi',
     'ngLodash',
-    'c7s.ng.userAuth'
+    'profitelo.services.session'
   ])
   .service('recommendedServices', RecommendedServicesService)
 }

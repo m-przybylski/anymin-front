@@ -33,16 +33,6 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
       }
     }
 
-    const User = {
-      getData: () =>
-        ({
-          settings: {
-            isAnonymous: false,
-            nickname: 'Heniek'
-          }
-        })
-    }
-
     beforeEach(() => {
       originalFile = window.File
       window.File = File
@@ -52,14 +42,30 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
       window.File = originalFile
     })
 
+    const userService = {
+      getUser: () => {}
+    }
+
+    beforeEach(() => {
+      angular.mock.module('profitelo.services.user')
+    })
+
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', "awsomeUrl")
+      $provide.value('userService', userService)
     }))
 
     beforeEach(() => {
       angular.mock.module('ui.bootstrap')
       angular.mock.module('profitelo.components.dashboard.settings.modals.general.basic-account-settings')
-      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _AccountApi_: IAccountApi) => {
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _AccountApi_: IAccountApi, $q: ng.IQService) => {
+
+        spyOn(userService, 'getUser').and.callFake(() => $q.resolve({
+          settings: {
+            isAnonymous: false,
+            nickname: 'Heniek'
+          }
+        }))
 
         scope = <IBasicAccountSettingsControllerScope>$rootScope.$new()
 
@@ -67,7 +73,7 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
           $scope: scope,
           $uibModalInstance: $uibModalInstance,
           AccountApi: _AccountApi_,
-          User: User,
+          userService: userService,
           uploaderFactory: uploaderFactory
         }
 

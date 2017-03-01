@@ -21,15 +21,25 @@ namespace profitelo.app {
       let _SessionApiMock: ISessionApiMock
       let _ServiceApiMock: IServiceApiMock
 
+      const sessionService = {
+        logout: () => {},
+        getSession: () => {}
+      }
+
       beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
         $provide.value('apiUrl', "awesomeUrl")
+        $provide.value('sessionService', sessionService)
       }))
 
       beforeEach(() => {
+        angular.mock.module('profitelo.services.session')
         angular.mock.module('profitelo')
         inject(($rootScope: IRootScopeService, $controller: ng.IControllerService,
                 $injector: ng.auto.IInjectorService, _InterfaceLanguageService_: IInterfaceLanguageService,
-                RatelApiMock: IRatelApiMock, SessionApiMock: ISessionApiMock, ServiceApiMock: IServiceApiMock) => {
+                RatelApiMock: IRatelApiMock, SessionApiMock: ISessionApiMock, ServiceApiMock: IServiceApiMock,
+                $q: ng.IQService) => {
+          spyOn(sessionService, 'getSession').and.returnValue($q.resolve({}))
+
           $scope = $rootScope.$new()
 
           _CommonConfig = $injector.get<ICommonConfig>('CommonConfig')
@@ -44,6 +54,7 @@ namespace profitelo.app {
           AppController = $controller('AppController', {
             $scope: $scope,
             $rootScope: $rootScope,
+            sessionService: sessionService,
             InterfaceLanguageService: _InterfaceLanguageService_
           })
 
@@ -57,7 +68,7 @@ namespace profitelo.app {
         return expect(!!AppController).toBe(true)
       })
 
-      it('should start logout action if not pending', () => {
+      it('should start logout action if not pending', inject(($q: ng.IQService) => {
 
         _RatelApiMock.getRatelAuthConfigRoute(200)
         _SessionApiMock.checkRoute(200, <any>{
@@ -67,14 +78,14 @@ namespace profitelo.app {
         })
 
         spyOn(_state, 'go')
-
-        _SessionApiMock.logoutRoute(200, {})
-        _ServiceApiMock.getProfileServicesRoute(200, 'id', [])
+        spyOn(sessionService, 'logout').and.returnValue($q.resolve())
 
         AppController.logout()
-        _httpBackend.flush()
-        expect(_state.go).toHaveBeenCalledWith('app.login.account')
-      })
+        $scope.$digest()
+
+        expect(_state.go).toHaveBeenCalledWith('app.home')
+        expect(sessionService.logout).toHaveBeenCalled()
+      }))
 
       it('should not start logout action if pending', () => {
 

@@ -42,7 +42,7 @@ namespace profitelo.app.dashboard.settings {
     }
   }
 
-  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
+  function config($stateProvider: ng.ui.IStateProvider) {
     $stateProvider.state('app.dashboard.settings', {
       abstract: true,
       url: '/settings',
@@ -50,7 +50,6 @@ namespace profitelo.app.dashboard.settings {
       controller: 'settingsController',
       templateUrl: 'dashboard/settings/settings.tpl.html',
       data: {
-        access: UserRolesProvider.getAccessLevel('user'),
         pageTitle: 'PAGE_TITLE.CLIENT_DASHBOARD',
         showMenu: false
       }
@@ -61,7 +60,7 @@ namespace profitelo.app.dashboard.settings {
     'ui.router',
     'ngTouch',
     'ngLodash',
-    'c7s.ng.userAuth',
+    'profitelo.services.session',
     'profitelo.components.settings.navigation'
   ])
   .config(config)

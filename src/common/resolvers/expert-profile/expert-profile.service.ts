@@ -56,7 +56,7 @@ namespace profitelo.resolvers.expertProfileResolver {
   angular.module('profitelo.resolvers.expert-profile', [
     'profitelo.api.ViewsApi',
     'ngLodash',
-    'c7s.ng.userAuth'
+    'profitelo.services.session'
   ])
   .config(($qProvider: ng.IQProvider) => {
     $qProvider.errorOnUnhandledRejections(false)

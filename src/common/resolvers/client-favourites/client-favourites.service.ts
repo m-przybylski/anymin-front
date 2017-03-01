@@ -31,7 +31,7 @@ namespace profitelo.resolvers.clientFavourites {
 
   angular.module('profitelo.resolvers.client-favourites', [
     'profitelo.api.ViewsApi',
-    'c7s.ng.userAuth'
+    'profitelo.services.session'
   ])
   .service('ClientFavouritesResolver', ClientFavouritesResolver)
 

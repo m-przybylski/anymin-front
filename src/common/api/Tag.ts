@@ -2,10 +2,10 @@ namespace profitelo.api {
 
 
   export interface Tag {
-      categoryId?: string;
       name: string;
-      id: string;
+      categoryId?: string;
       persisted?: boolean;
+      id: string;
       status: string /*Tag.StatusEnum*/;
   }
 

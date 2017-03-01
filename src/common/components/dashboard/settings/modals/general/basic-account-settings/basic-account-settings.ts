@@ -6,6 +6,7 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
   import IPostProcessOptions = profitelo.services.uploader.IPostProcessOptions
   import IAccountApi = profitelo.api.IAccountApi
   import PutGeneralSettings = profitelo.api.PutGeneralSettings
+  import IUserService = profitelo.services.user.IUserService
 
   export interface IBasicAccountSettingsControllerParentScope extends ng.IScope {
     callback: (cb: Function) => void
@@ -41,7 +42,7 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
     /* @ngInject */
     constructor(private $scope: IBasicAccountSettingsControllerScope,
                 $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, private AccountApi: IAccountApi,
-                private User: any, uploaderFactory: IUploaderFactory, urlService: IUrlService) {
+                userService: IUserService, uploaderFactory: IUploaderFactory, urlService: IUrlService) {
 
       $scope.isNavbar = true
       $scope.isFullscreen = true
@@ -50,15 +51,17 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
 
       this.uploader = uploaderFactory.getInstance(1, uploaderFactory.collectionTypes.avatar)
 
-      const userBasicSettings = this.User.getData('account').settings
+      userService.getUser().then(user => {
+        const userBasicSettings = user.settings
 
-      this.$scope.generalSettingsObject = {
-        isAnonymous: userBasicSettings.isAnonymous,
-        nickname: userBasicSettings.nickname,
-        avatar: userBasicSettings.avatar
-      }
+        this.$scope.generalSettingsObject = {
+          isAnonymous: userBasicSettings.isAnonymous,
+          nickname: userBasicSettings.nickname,
+          avatar: userBasicSettings.avatar
+        }
 
-      $scope.avatarPreview = urlService.resolveFileUrl(userBasicSettings.avatar)
+        $scope.avatarPreview = urlService.resolveFileUrl(userBasicSettings.avatar || '')
+      })
 
       this.$scope.submitBasicSettings = () => {
         this.AccountApi.putGeneralSettingsRoute(this.$scope.generalSettingsObject).then(_res => {
@@ -124,7 +127,7 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
 
   angular.module('profitelo.components.dashboard.settings.modals.general.basic-account-settings', [
     'ui.bootstrap',
-    'c7s.ng.userAuth',
+    'profitelo.services.user',
     'profitelo.services.url',
     'profitelo.services.uploader',
     'profitelo.api.AccountApi',

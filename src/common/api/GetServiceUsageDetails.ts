@@ -2,12 +2,12 @@ namespace profitelo.api {
 
 
   export interface GetServiceUsageDetails {
-      callDuration: number;
       ratelCallId: string;
+      serviceUsageEventId: string;
+      startedAt: Date;
+      callDuration: number;
       ratePerMinute: MoneyDto;
       callCost: MoneyDto;
-      startedAt: Date;
-      serviceUsageEventId: string;
   }
 
 }

@@ -17,7 +17,6 @@ namespace profitelo.login.register {
       let _RegistrationApi: IRegistrationApi
       let _AccountApi: IAccountApi
       let _topAlertService: ITopAlertService
-      let _UserRoles: any
       let _$httpBackend: ng.IHttpBackendService
       let _RegistrationApiMock: IRegistrationApiMock
 
@@ -35,16 +34,8 @@ namespace profitelo.login.register {
       }
 
 
-      let _User = {
-        getData: () => {
-          return 1
-        },
-        setData: () => {
-        },
-        setApiKeyHeader: () => {
-        },
-        clearUser: () => {
-        }
+      let sessionService = {
+        setApiKey: () => {}
       }
 
       let $state = {
@@ -53,15 +44,20 @@ namespace profitelo.login.register {
         }
       }
 
+      beforeEach(() => {
+        angular.mock.module('profitelo.services.session')
+      })
+
       beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
         $provide.value('apiUrl', _url)
+        $provide.value('sessionService', sessionService)
       }))
 
       beforeEach(() => {
         angular.mock.module('profitelo.controller.login.register')
         inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $filter: IFilterService,
                 _topWaitingLoaderService_: ITopWaitingLoaderService, _RegistrationApi_: IRegistrationApi,
-                _AccountApi_: IAccountApi, _topAlertService_: ITopAlertService, _UserRoles_: any,
+                _AccountApi_: IAccountApi, _topAlertService_: ITopAlertService,
                 _$httpBackend_: ng.IHttpBackendService, _RegistrationApiMock_: IRegistrationApiMock,
                 _loginStateService_: ILoginStateService) => {
 
@@ -72,9 +68,8 @@ namespace profitelo.login.register {
             $state: $state,
             $rootScope: $rootScope,
             topWaitingLoaderService: _topWaitingLoaderService_,
-            User: _User,
+            sessionService: sessionService,
             topAlertService: _topAlertService_,
-            UserRoles: _UserRoles_,
             smsSessionId: smsSessionId,
             RegistrationApi: _RegistrationApi_,
             AccountApi: _AccountApi_,
@@ -87,7 +82,6 @@ namespace profitelo.login.register {
           _AccountApi = _AccountApi_
           _topAlertService = _topAlertService_
           _RegistrationApiMock = _RegistrationApiMock_
-          _UserRoles = _UserRoles_
 
           RegisterController.registrationSteps = {
             sessionId: '123',
@@ -103,14 +97,14 @@ namespace profitelo.login.register {
 
       it('should request sms code status', () => {
 
-        spyOn(_User, 'setData')
+        spyOn(sessionService, 'setApiKey')
 
         //FIXME
         _RegistrationApiMock.confirmVerificationRoute(200, <GetSession>{})
         RegisterController.getSmsCodeStatus()
         _$httpBackend.flush()
 
-        expect(_User.setData).toHaveBeenCalled()
+        expect(sessionService.setApiKey).toHaveBeenCalled()
       })
     })
   })

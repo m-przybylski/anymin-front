@@ -64,7 +64,7 @@ namespace profitelo.companyProfile {
   angular.module('profitelo.controller.company-profile', [
     'ui.router',
     'profitelo.api.ProfileApi',
-    'c7s.ng.userAuth',
+    'profitelo.services.session',
     'profitelo.directives.pro-top-navbar',
     'profitelo.directives.expert-profile.pro-expert-header',
     'profitelo.directives.pro-footer',
@@ -79,7 +79,7 @@ namespace profitelo.companyProfile {
     'profitelo.resolvers.company-profile',
     'commonConfig'
   ])
-  .config(($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) => {
+  .config(($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider.state('app.company-profile', {
       controllerAs: 'vm',
       url: '/company-profile/{profileId}?primaryConsultationId',
@@ -91,7 +91,6 @@ namespace profitelo.companyProfile {
           CompanyProfileResolver.resolve($stateParams)
       },
       data: {
-        access : UserRolesProvider.getAccessLevel('public')
       }
     })
   })

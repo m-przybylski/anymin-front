@@ -10,10 +10,12 @@ namespace profitelo.dashboard {
   angular.module('profitelo.controller.dashboard', [
     'profitelo.directives.pro-top-navbar',
     'ui.router',
+    'permission',
+    'permission.ui',
     'ngTouch',
-    'c7s.ng.userAuth'
+    'profitelo.services.session'
   ])
-    .config(($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) => {
+    .config(($stateProvider: ng.ui.IStateProvider) => {
       $stateProvider.state('app.dashboard', {
         abstract: true,
         url: '/dashboard',
@@ -21,7 +23,10 @@ namespace profitelo.dashboard {
         controller: 'DashboardController',
         controllerAs: 'dashboardController',
         data: {
-          access: UserRolesProvider.getAccessLevel('user'),
+          permissions: {
+            only: ['user'],
+            redirectTo: 'app.login'
+          },
           pageTitle: 'PAGE_TITLE.DASHBOARD'
         }
       })

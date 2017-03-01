@@ -8,10 +8,11 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
   import IAccountApi = profitelo.api.IAccountApi
   import LoDashStatic = _.LoDashStatic
   import IPrimaryDropdownListElement = profitelo.components.interface.dropdownPrimary.IPrimaryDropdownListElement
+  import IUserService = profitelo.services.user.IUserService
 
   /* @ngInject */
   function payuPaymentFormController($log: ng.ILogService, $window: IWindowService, $state: ng.ui.IStateService,
-                                     PaymentsApi: IPaymentsApi, User: any, topAlertService: ITopAlertService,
+                                     PaymentsApi: IPaymentsApi, userService: IUserService, topAlertService: ITopAlertService,
                                      smoothScrollingService: ISmoothScrollingService, AccountApi: IAccountApi,
                                      CommonSettingsService: ICommonSettingsService, $scope: ng.IScope,
                                      lodash: LoDashStatic) {
@@ -160,26 +161,27 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
     this.patternName = CommonSettingsService.localSettings.alphabetPattern
 
     this.$onInit = () => {
+      userService.getUser().then(user => {
+        if (angular.isDefined(this.amountMethodModal.firstName)) {
+          this.firstNameModel = this.amountMethodModal.firstName
+        }
 
-      if (angular.isDefined(this.amountMethodModal.firstName)) {
-        this.firstNameModel = this.amountMethodModal.firstName
-      }
+        if (angular.isDefined(this.amountMethodModal.lastName)) {
+          this.lastNameModel = this.amountMethodModal.lastName
+        }
 
-      if (angular.isDefined(this.amountMethodModal.lastName)) {
-        this.lastNameModel = this.amountMethodModal.lastName
-      }
+        if (angular.isDefined(this.amountMethodModal.email)) {
+          this.emailModel = this.amountMethodModal.email
+        } else if (angular.isDefined(user.email) && user.email !== null) {
+          this.emailModel = user.email
+        } else if (angular.isDefined(user.unverifiedEmail) && user.unverifiedEmail !== null) {
+          this.emailModel = user.unverifiedEmail
+        }
 
-      if (angular.isDefined(this.amountMethodModal.email)) {
-        this.emailModel = this.amountMethodModal.email
-      } else if (angular.isDefined(User.getData('account').email) && User.getData('account').email !== null) {
-        this.emailModel = User.getData('account').email
-      } else if (angular.isDefined(User.getData('account').unverifiedEmail) && User.getData('account').unverifiedEmail !== null) {
-        this.emailModel = User.getData('account').unverifiedEmail
-      }
-
-      if (angular.isDefined(this.amountMethodModal.payMethodValue)) {
-        this.bankModel.value = this.amountMethodModal.payMethodValue
-      }
+        if (angular.isDefined(this.amountMethodModal.payMethodValue)) {
+          this.bankModel.value = this.amountMethodModal.payMethodValue
+        }
+      })
     }
 
     return this
@@ -201,14 +203,15 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
 
 
   angular.module('profitelo.components.dashboard.charge-account.payment-method.payu', [
+    'ui.router',
     'profitelo.api.PaymentsApi',
     'profitelo.services.top-alert',
     'profitelo.services.commonSettings',
     'profitelo.directives.interface.pro-input',
     'profitelo.directives.interface.pro-checkbox',
     'profitelo.services.smooth-scrolling',
-    'c7s.ng.userAuth',
     'ngLodash',
+    'profitelo.services.user',
     'profitelo.components.dashboard.charge-account.choose-bank',
     'profitelo.components.dashboard.charge-account.summary-charge-account'
   ])

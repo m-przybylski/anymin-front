@@ -66,7 +66,7 @@
     return this
   }
 
-  function config($stateProvider: ng.ui.IStateProvider, UserRolesProvider: any) {
+  function config($stateProvider: ng.ui.IStateProvider) {
     $stateProvider.state('app.dashboard.client', {
       abstract: true,
       url: '/client',
@@ -74,7 +74,6 @@
       controller: 'clientController',
       templateUrl: 'dashboard/client/client.tpl.html',
       data: {
-        access: UserRolesProvider.getAccessLevel('user'),
         pageTitle: 'PAGE_TITLE.CLIENT_DASHBOARD',
         showMenu: false
       }
@@ -84,7 +83,7 @@
   angular.module('profitelo.controller.dashboard.client', [
     'ui.router',
     'ngTouch',
-    'c7s.ng.userAuth',
+    'profitelo.services.session',
     'profitelo.components.dashboard.client.navigation'
   ])
     .config(config)
