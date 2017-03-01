@@ -24,17 +24,20 @@ namespace profitelo.dashboard.settings.payments {
         this.isAnyPaymentMethod = false
       } else {
         this.isAnyPaymentMethod = true
-        this.accountBalance = getInvoiceData.clientBalance
         this.companyName = getInvoiceData.companyInfo.companyName
         this.vatNumber = getInvoiceData.companyInfo.vatNumber
         this.address =  getInvoiceData.companyInfo.address.street + ', ' + getInvoiceData.companyInfo.address.number +
           ', ' + getInvoiceData.companyInfo.address.zipCode + ', ' + getInvoiceData.companyInfo.address.city + ', ' +
           getInvoiceData.companyInfo.address.countryISO
+      }
 
-        if(getInvoiceData.paymentMethods !== null) {
-          this.paymentMethods = getInvoiceData.paymentMethods
-        }
+      if (getInvoiceData.clientBalance) {
+        this.accountBalance = getInvoiceData.clientBalance
+      }
 
+      if(getInvoiceData.paymentMethods !== null) {
+        this.paymentMethods = getInvoiceData.paymentMethods
+        this.isAnyPaymentMethod = true
       }
     }
 

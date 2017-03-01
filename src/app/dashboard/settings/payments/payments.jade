@@ -14,7 +14,7 @@
 
     .radio-list.payments-method-list
       form
-        .radio-list-item.profitelo-account
+        .radio-list-item.profitelo-account(data-ng-show="vm.accountBalance")
           .radio-text.radio
             .radio-input
               input(id="profitelo-payments-method" type="radio" name="payments-method")
@@ -44,7 +44,7 @@
           .radio-action
             a.btn.btn-primary.btn-small.edit-payments(data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.RECHARGE_ACCOUNT.EDIT.BUTTON")
 
-  .invoice-information(data-ng-show="vm.isAnyPaymentMethod")
+  .invoice-information(data-ng-show="vm.isAnyPaymentMethod && vm.companyName")
     .entry-title
       h2(data-translate="SETTINGS.PAYMENTS.INVOICE.TITLE")
       a.btn.btn-primary.btn-small(data-translate="SETTINGS.PAYMENTS.BUTTON.EDIT" data-ng-click="vm.editInvoiceDetails()")
@@ -55,12 +55,12 @@
           span(data-translate="SETTINGS.PAYMENTS.INVOICE.COMPANY_NAME")
         .info-tab-content {{ vm.companyName }}
 
-      .info-tab-row
+      .info-tab-row(data-ng-show="$ctrl.vatNumber")
         .info-tab-label
           span(data-translate="SETTINGS.PAYMENTS.INVOICE.VAT_NUMBER")
         .info-tab-content {{ vm.vatNumber }}
 
-      .info-tab-row
+      .info-tab-row(data-ng-show="$ctrl.address.length > 5")
         .info-tab-label
           span(data-translate="SETTINGS.PAYMENTS.INVOICE.ADDRESS")
         .info-tab-content {{ vm.address }}
