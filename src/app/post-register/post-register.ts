@@ -24,6 +24,8 @@
 
   angular.module('profitelo.controller.post-register', [
     'ui.router',
+    'permission',
+    'permission.ui',
     'profitelo.services.session'
   ])
     .config(config)

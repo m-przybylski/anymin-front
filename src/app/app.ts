@@ -55,7 +55,7 @@ namespace profitelo.app {
 
   function runFunction($rootScope: IRootScopeService, $log: ng.ILogService, permissionService: IPermissionService,
                        $anchorScroll: ng.IAnchorScrollService, sessionService: ISessionService,
-                       $urlRouter: ng.ui.IUrlRouterService, communicatorService: ICommunicatorService) {
+                       $urlRouter: ng.ui.IUrlRouterService, communicatorService: ICommunicatorService, $state: ng.ui.IStateService) {
 
     $rootScope.loggedIn = false
 
@@ -69,7 +69,13 @@ namespace profitelo.app {
 
     $rootScope.$on('$stateChangeError', (event, _toState, _toParams, _fromState, _fromParams, error) => {
       $log.error(error)
-      event.preventDefault();
+      event.preventDefault()
+    })
+
+    $rootScope.$on('$stateChangePermissionDenied', (event, toState, _toParams, _options) => {
+      event.preventDefault()
+      $log.error('Permission to state', toState.name, 'DENIED')
+      $state.go('app.home')
     })
 
 
