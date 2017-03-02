@@ -4,15 +4,15 @@ namespace profitelo.services.user {
   import ISessionService = profitelo.services.session.ISessionService
 
   export interface IUserService {
-    getUser(): ng.IPromise<AccountDetails>
+    getUser(purgeCache?: boolean): ng.IPromise<AccountDetails>
   }
 
   class UserService implements IUserService {
 
     constructor(private sessionService: ISessionService) {}
 
-    public getUser = (): ng.IPromise<AccountDetails> => {
-      return this.sessionService.getSession()
+    public getUser = (purgeCache = false): ng.IPromise<AccountDetails> => {
+      return this.sessionService.getSession(purgeCache)
         .then((session) => {
           if (session.account) {
             return session.account
