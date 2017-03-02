@@ -82,6 +82,8 @@ namespace profitelo.search {
 
   angular.module('profitelo.controller.search-result', [
     'ui.router',
+    'permission',
+    'permission.ui',
     'infinite-scroll',
     'profitelo.services.session',
     'profitelo.components.interface.go-to-top',
