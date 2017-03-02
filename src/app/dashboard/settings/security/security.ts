@@ -47,7 +47,6 @@ namespace profitelo.dashboard.settings.security {
     }
 
     public removeSession = (apiKey: string) => {
-      console.log(apiKey)
       this.SessionApi.logoutRoute(apiKey).then(() => {
         _.remove(this.sessions, session => session.apiKey == apiKey)
       }, (error) => {
