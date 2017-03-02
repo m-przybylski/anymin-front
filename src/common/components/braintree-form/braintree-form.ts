@@ -44,29 +44,29 @@ namespace profitelo.components.braintreeForm {
             client: clientInstance,
             styles: {
               'input': {
-                'color': 'red',
+                'color': '#272727',
                 'font-size': '16px',
                 'font-family': 'Robo, helvetica, tahoma, calibri, sans-serif',
                 'font-weight': '300'
               },
               '::-webkit-input-placeholder': {
-                'color': '#272727',
+                'color': '#bfbfbf',
                 'opacity': '1'
               },
               ':-moz-placeholder': {
-                'color': '#272727',
+                'color': '#bfbfbf',
                 'opacity': '1'
               },
               '::-moz-placeholder': {
-                'color': '#272727',
+                'color': '#bfbfbf',
                 'opacity': '1'
               },
               ':-ms-input-placeholder': {
-                'color': '#272727',
+                'color': '#bfbfbf',
                 'opacity': '1'
               },
               ':focus': {
-                'color': '#272727'
+                'color': '#bfbfbf'
               },
               '.valid': {
                 'color': '#8bdda8'
