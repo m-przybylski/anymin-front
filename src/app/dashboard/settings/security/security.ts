@@ -22,7 +22,7 @@ namespace profitelo.dashboard.settings.security {
 
 
     constructor(private modalsService: IModalsService, user: AccountDetails, sessionsData: Array<GetSession>,
-                timeConstant: ITimeConstant, private SessionApi: ISessionApi) {
+                timeConstant: ITimeConstant, private SessionApi: ISessionApi, private $window: ng.IWindowService) {
       this.hasMobilePin = user.hasMobilePin
       this.sessions = sessionsData.map((session) => {
         const minuteAgo = Date.now() - timeConstant.USER_ACTIVITY_LAST_MINUTE
@@ -49,6 +49,9 @@ namespace profitelo.dashboard.settings.security {
     public removeSession = (apiKey: string) => {
       this.SessionApi.logoutRoute(apiKey).then(() => {
         _.remove(this.sessions, session => session.apiKey == apiKey)
+        if(this.sessions.length == 0 ) {
+          this.$window.location.reload()
+        }
       }, (error) => {
         throw new Error('Can not delete this session ' + error)
       })
