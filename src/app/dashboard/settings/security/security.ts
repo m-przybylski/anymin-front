@@ -82,7 +82,7 @@ namespace profitelo.dashboard.settings.security {
       controllerAs: 'vm',
       resolve: {
         user: (userService: IUserService) => {
-          return userService.getUser()
+          return userService.getUser(true)
         },
         sessionsData: (securitySettingsResolver: ISecuritySettingsService) => {
           return securitySettingsResolver.resolve()

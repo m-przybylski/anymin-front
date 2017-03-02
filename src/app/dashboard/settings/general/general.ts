@@ -66,7 +66,7 @@ namespace app.dashboard.settings.general {
       controllerAs: 'vm',
       resolve: {
         user: (userService: IUserService) => {
-          return userService.getUser()
+          return userService.getUser(true)
         }
       },
       data: {
