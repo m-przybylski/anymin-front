@@ -66,7 +66,7 @@ namespace profitelo.components.braintreeForm {
                 'opacity': '1'
               },
               ':focus': {
-                'color': '#bfbfbf'
+                'color': '#272727'
               },
               '.valid': {
                 'color': '#8bdda8'
