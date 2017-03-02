@@ -17,7 +17,7 @@
         .radio-list-item.profitelo-account(data-ng-show="vm.accountBalance")
           .radio-text.radio
             .radio-input
-              input(id="profitelo-payments-method" type="radio" name="payments-method")
+              input(id="profitelo-payments-method" type="radio" name="payments-method" )
               label.label
 
             label.text(for="profitelo-payments-method")
@@ -33,7 +33,7 @@
         .radio-list-item.profitelo-account(data-ng-repeat="paymentMethod in vm.paymentMethods")
           .radio-text.radio
             .radio-input
-              input(id="{{ paymentMethod.token }}" type="radio" name="{{ paymentMethod.token }}")
+              input(id="{{ paymentMethod.token }}" type="radio" name="payments-method")
               label.label
 
             label.text(for="{{ paymentMethod.token }}")
@@ -55,12 +55,12 @@
           span(data-translate="SETTINGS.PAYMENTS.INVOICE.COMPANY_NAME")
         .info-tab-content {{ vm.companyName }}
 
-      .info-tab-row(data-ng-show="$ctrl.vatNumber")
+      .info-tab-row(data-ng-show="vm.vatNumber")
         .info-tab-label
           span(data-translate="SETTINGS.PAYMENTS.INVOICE.VAT_NUMBER")
         .info-tab-content {{ vm.vatNumber }}
 
-      .info-tab-row(data-ng-show="$ctrl.address.length > 5")
+      .info-tab-row(data-ng-show="vm.address.length > 5")
         .info-tab-label
           span(data-translate="SETTINGS.PAYMENTS.INVOICE.ADDRESS")
         .info-tab-content {{ vm.address }}
