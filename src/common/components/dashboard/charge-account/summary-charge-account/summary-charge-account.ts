@@ -20,7 +20,8 @@ namespace profitelo.components.dashboard.chargeAccount.summaryChargeAccount {
     replace: true
     controllerAs: '$ctrl'
     bindings: {[boundProperty: string]: string} = {
-      amount: '<'
+      amount: '<',
+      btnTitle: '@'
     }
   }
 
