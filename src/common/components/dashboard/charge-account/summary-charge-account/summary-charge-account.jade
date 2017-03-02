@@ -6,5 +6,6 @@
           span(data-ng-bind-html="$ctrl.amount | money")
 
     .charge-account-btn
-      button.btn.btn-default.icon-right(type="submit") {{:: 'DASHBOARD.CHARGE_ACCOUNT.CHARGE_ACCOUNT_BUTTON_TEXT' | translate }}
+      button.btn.btn-default.icon-right(type="submit")
+        | {{ $ctrl.btnTitle | translate }}
         span.icon.icon-arrow-right-16
