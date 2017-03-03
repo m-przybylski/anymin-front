@@ -57,7 +57,7 @@ namespace profitelo.directives.scrollable {
     }
 
     private setScrollableContainerPosition = () => {
-      this.scrollableContent.css('min-height', this.scrollableContent.height())
+      this.scrollableContent.css('min-height', this.previousScrollableContentHeight)
 
       if (this.scrollableContent.outerHeight() + ((this.isNavbarVisible()) ? this.navbarHeight : 0) > this.element.height()) {
         this.element.addClass('is-scrollable')
@@ -69,7 +69,7 @@ namespace profitelo.directives.scrollable {
     }
 
     private setNewContainerHeight = () => {
-      const actualScrollableContentHeight = this.element.find('.scrollable-center').height()
+      const actualScrollableContentHeight = this.element.find('.scrollable-default-height').height()
       if (this.previousScrollableContentHeight !== actualScrollableContentHeight) {
         this.previousScrollableContentHeight = actualScrollableContentHeight
         this.setScrollableContainerPosition()
