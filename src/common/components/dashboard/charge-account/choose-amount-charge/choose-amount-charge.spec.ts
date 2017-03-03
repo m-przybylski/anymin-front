@@ -7,17 +7,38 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-amo
     let scope: any
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
-    let componentController: any
-    let bindings: any
-    let component: any
-    let validHTML = '<choose-amount-charge data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_AMMOUNT_CHARGE" data-amounts="{paymentOptions: [{amount:  20000}], ' +
-      'minimalAmounts: {}}" data-amount-model="{cashAmount: null, amount: null}" scroll-handler="ctrl.scrollHandler"></choose-amount-charge>'
+    let component: ChooseAmountChargeComponentController
+    let validHTML = '<choose-amount-charge title="title" amounts="amounts" amount-model="amountModel"' +
+      'scroll-handler="scrollHandler"></choose-amount-charge>'
 
-    function create(html: string) {
+    const bindings: IChooseAmountChargeComponentBindings = {
+      title: 'test',
+      currentSection: 1,
+      amountModel: {
+        cashAmount: null,
+        amount: null
+      },
+      amounts: {
+        minimalAmounts: {
+          amount: 10,
+          currency: 'PLN'
+        },
+        paymentOptions: [
+          {
+            amount: 123,
+            currency: 'PLN'
+          }
+        ]
+      },
+      scrollHandler: jasmine.createSpy('scrollHandler')
+    }
+
+    function create(html: string, bindings: IChooseAmountChargeComponentBindings) {
       scope = rootScope.$new()
+      const bindedScope = angular.extend(scope, bindings)
       let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
-      scope.$digest()
+      let compiledElement = compile(elem)(bindedScope)
+      bindedScope.$digest()
       return compiledElement
     }
 
@@ -33,27 +54,13 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-amo
     angular.mock.module('templates-module')
     angular.mock.module('profitelo.components.dashboard.charge-account.choose-amount-charge')
 
-      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$componentController_: ng.IComponentControllerService) => {
-        componentController = _$componentController_
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, $componentController: ng.IComponentControllerService) => {
         rootScope = $rootScope.$new()
         compile = $compile
+
+        component = $componentController<ChooseAmountChargeComponentController, IChooseAmountChargeComponentBindings>(
+          'chooseAmountCharge', {}, bindings)
       })
-
-      bindings = {
-        amountModel: {
-          cashAmount: {
-            amount: '123'
-          }
-        },
-        amounts: {
-          minimalAmounts: {
-            amount: 10
-          }
-        }
-      }
-
-      component = componentController('chooseAmountCharge', null, bindings)
-      expect(component.amountModel).toBeDefined()
     })
 
 
@@ -62,18 +69,15 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-amo
     }))
 
     it('should compile the component', () => {
-      let el = create(validHTML)
+      const el = create(validHTML, bindings)
       expect(el.html()).toBeDefined(true)
     })
 
     it('should scroll on click in payment amount ', () => {
-      let el = create(validHTML)
-      scope.ctrl = {
-        scrollHandler: jasmine.createSpy('scrollHandler')
-      }
+      const el = create(validHTML, bindings)
       scope.$digest()
       el.find('.option').trigger('click')
-      expect(scope.ctrl.scrollHandler).toHaveBeenCalled()
+      expect(bindings.scrollHandler).toHaveBeenCalled()
     })
 
   })

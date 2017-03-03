@@ -1,105 +1,143 @@
 namespace profitelo.dashboard.chargeAccount {
-  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
   import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
   import IFinancesApi = profitelo.api.IFinancesApi
   import IPaymentsApi = profitelo.api.IPaymentsApi
   import GetPaymentOptions = profitelo.api.GetPaymentOptions
   import MoneyDto = profitelo.api.MoneyDto
   import PaymentLink = profitelo.api.PaymentLink
+  import GetLastPayment = profitelo.api.GetLastPayment
+  import PaymentSystem = profitelo.api.PaymentSystem
 
-  function chargeAccountController($state: ng.ui.IStateService, $timeout: ng.ITimeoutService, lodash: _.LoDashStatic,
-                                   paymentsOptions: GetPaymentOptions, paymentsLinks: Array<PaymentLink>,
-                                   financeBalance: MoneyDto | null, smoothScrollingService: ISmoothScrollingService) {
+  export interface IAmounts {
+    paymentOptions: Array<MoneyDto>
+    minimalAmounts: MoneyDto
+  }
 
-    this.isNavbar = true
-    this.isFullscreen = true
-    this.isChargeProfiteloAccount = false
-    this.isPaymentCardMethod = false
-    this.isBraintreeFormLoaded = false
+  export interface IAmountModel {
+    cashAmount: null | MoneyDto,
+    amount: null | MoneyDto
+  }
 
-    this.onLoad = () => {
+  // TODO refactor all this strange structures
+  class ChargeAccountController {
+
+    isNavbar = true
+    isFullscreen = true
+    isChargeProfiteloAccount = false
+    isPaymentCardMethod = false
+    isBraintreeFormLoaded = false
+    queue = null
+    amountModel: IAmountModel = {
+      cashAmount: null,
+      amount: null
+    }
+    paymentCountryId: string
+    amounts: IAmounts
+    currentSection: number
+    clientBalance: MoneyDto
+    lastPayment?: GetLastPayment
+    paymentSystems: Array<PaymentSystem>
+    paymentsLinks: Array<PaymentLink>
+    amountMethodModal: {
+      amountModel: {
+        cashAmount: null | MoneyDto,
+        amount: null | MoneyDto
+      },
+      paymentSystemModel: PaymentSystem | null,
+      minimalAmount: MoneyDto,
+      firstName?: string,
+      lastName?: string,
+      email?: string,
+      payMethodValue?: string
+    }
+
+    constructor(private $state: ng.ui.IStateService, private $timeout: ng.ITimeoutService, lodash: _.LoDashStatic,
+                paymentsOptions: GetPaymentOptions, paymentsLinks: Array<PaymentLink>,
+                financeBalance: MoneyDto, private smoothScrollingService: ISmoothScrollingService) {
+
+
+      this.paymentCountryId = paymentsOptions.id
+      this.amounts = {
+        paymentOptions: paymentsOptions.paymentOptions,
+        minimalAmounts: paymentsOptions.minimalPayment
+      }
+      this.currentSection = 1
+      this.clientBalance = financeBalance
+
+      this.lastPayment = paymentsOptions.lastPayment
+      this.paymentSystems = paymentsOptions.paymentSystems
+      this.paymentsLinks = paymentsLinks
+
+      this.amountMethodModal = {
+        amountModel: this.amountModel,
+        paymentSystemModel: null,
+        minimalAmount: this.amounts.minimalAmounts
+      }
+
+      if (this.lastPayment !== null && (typeof this.lastPayment !== 'undefined')) {
+        this.currentSection = 3
+        if (lodash.find(this.amounts.paymentOptions, {'amount': this.lastPayment.amount.amount})) {
+          this.amountModel.amount = this.lastPayment.amount
+        } else {
+          this.amountModel.cashAmount = this.lastPayment.amount
+        }
+        this.amountMethodModal.paymentSystemModel = this.lastPayment.paymentSystemId
+
+        if (this.lastPayment && this.lastPayment.payload && this.lastPayment.payload !== null) {
+          this.amountMethodModal.firstName = this.lastPayment.payload.firstName
+          this.amountMethodModal.lastName = this.lastPayment.payload.lastName
+          this.amountMethodModal.email = this.lastPayment.payload.email
+          this.amountMethodModal.payMethodValue = this.lastPayment.payload.payMethodValue
+        }
+      }
+    }
+
+
+    public onLoad = () => {
       this.isBraintreeFormLoaded = true
     }
 
-    this.chargeAccountProfiteloPaymentsMethod = () => {
+    public chargeAccountProfiteloPaymentsMethod = () => {
       this.isChargeProfiteloAccount = true
       this.isPaymentCardMethod = false
     }
 
-    this.addPaymentCardMethod = () => {
+    public addPaymentCardMethod = () => {
       this.isPaymentCardMethod = true
       this.isChargeProfiteloAccount = false
     }
 
-    this.onFormSucceed = () => {
-      $state.go('app.dashboard.client.activities')
+    public onFormSucceed = () => {
+      this.$state.go('app.dashboard.client.activities')
     }
 
-    this.paymentCountryId = paymentsOptions.id
-    this.amounts = {
-      paymentOptions: paymentsOptions.paymentOptions,
-      minimalAmounts: paymentsOptions.minimalPayment
-    }
-    this.currentSection = 1
-    this.clientBalance = financeBalance
 
-    this.onClose = () =>
-      $state.go('app.dashboard.client.favourites')
+    public onClose = () =>
+      this.$state.go('app.dashboard.client.favourites')
 
-    this.lastPayment = paymentsOptions.lastPayment
-    this.paymentSystems = paymentsOptions.paymentSystems
-    this.paymentsLinks = paymentsLinks
-    this.queue = null
 
-    this.amountModel = {
-      cashAmount: null,
-      amount: null
-    }
-
-    this.amountMethodModal = {
-      amountModel: this.amountModel,
-      paymentSystemModel: null,
-      minimalAmount: this.amounts.minimalAmounts
-    }
-
-    if (this.lastPayment !== null && (typeof this.lastPayment !== 'undefined')) {
-      this.currentSection = 3
-      if (lodash.find(this.amounts.paymentOptions, {'amount': this.lastPayment.amount.amount})) {
-        this.amountModel.amount = this.lastPayment.amount
-      } else {
-        this.amountModel.cashAmount = this.lastPayment.amount
-      }
-      this.amountMethodModal.paymentSystemModel = this.lastPayment.paymentSystemId
-
-      if (this.lastPayment.payload !== null) {
-        this.amountMethodModal.firstName = this.lastPayment.payload.firstName
-        this.amountMethodModal.lastName = this.lastPayment.payload.lastName
-        this.amountMethodModal.email = this.lastPayment.payload.email
-        this.amountMethodModal.payMethodValue = this.lastPayment.payload.payMethodValue
-      }
-    }
-
-    this.validAction = () => {
-      if ((!angular.isDefined(this.amountModel.amount) || this.amountModel.amount === null) && this.amountModel.cashAmount.amount < this.amounts.minimalAmounts.amount) {
-        smoothScrollingService.simpleScrollTo('#cash-valid', true)
+    public validAction = () => {
+      if ((!angular.isDefined(this.amountModel.amount) || this.amountModel.amount === null) && this.amountModel.cashAmount &&
+        this.amountModel.cashAmount.amount < this.amounts.minimalAmounts.amount) {
+        this.smoothScrollingService.simpleScrollTo('#cash-valid', true)
         return false
       } else {
         return true
       }
     }
 
-    this.scrollHandler = (slideTo: string) => {
-      if (angular.isDefined(slideTo)) {
-        smoothScrollingService.scrollTo(slideTo)
+    public scrollHandler = (slideTo?: number) => {
+      if (slideTo && angular.isDefined(slideTo)) {
+        this.smoothScrollingService.scrollTo(String(slideTo))
+        //TODO refactor this 3
       } else if (this.currentSection < 3) {
-        $timeout(() => {
-          smoothScrollingService.scrollTo(<any>++this.currentSection)
+        this.$timeout(() => {
+          this.smoothScrollingService.scrollTo(String(++this.currentSection))
         })
       }
     }
-
-    return this
   }
+
 
   function config($stateProvider: ng.ui.IStateProvider) {
     $stateProvider.state('app.dashboard.charge-account', {
@@ -108,64 +146,9 @@ namespace profitelo.dashboard.chargeAccount {
       controller: 'chargeAccountController',
       templateUrl: 'dashboard/charge-account/charge-account.tpl.html',
       resolve: {
-        paymentsOptions: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService,
-                          PaymentsApi: IPaymentsApi, topAlertService: ITopAlertService) => {
-          /* istanbul ignore next */
-          let _deferred = $q.defer()
-          /* istanbul ignore next */
-          PaymentsApi.getPaymentOptionsRoute().then((response) => {
-            _deferred.resolve(response)
-          }, (error) => {
-            $log.error(error)
-            _deferred.reject(error)
-            $state.go('app.dashboard.client.activities')
-            topAlertService.error({
-              message: 'error',
-              timeout: 4
-            })
-          })
-          /* istanbul ignore next */
-          return _deferred.promise
-        },
-        paymentsLinks: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, PaymentsApi: IPaymentsApi,
-                        topAlertService: ITopAlertService) => {
-          /* istanbul ignore next */
-          let _deferred = $q.defer<Array<PaymentLink>>()
-          /* istanbul ignore next */
-          PaymentsApi.getPayUPaymentLinksRoute().then((response) => {
-            _deferred.resolve(response)
-          }, (error) => {
-            $log.error(error)
-            _deferred.resolve([])
-            $state.go('app.dashboard.client.activities')
-            topAlertService.error({
-              message: 'error',
-              timeout: 4
-            })
-          })
-          /* istanbul ignore next */
-          return _deferred.promise
-        },
-        financeBalance: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, FinancesApi: IFinancesApi,
-                         topAlertService: ITopAlertService) => {
-          /* istanbul ignore next */
-          let _deferred = $q.defer<MoneyDto | null>()
-          /* istanbul ignore next */
-          FinancesApi.getClientBalanceRoute().then((response) => {
-            _deferred.resolve(response)
-          }, (error) => {
-            $log.error(error)
-            _deferred.resolve(null)
-            $state.go('app.dashboard.client.activities')
-            topAlertService.error({
-              message: 'error',
-              timeout: 4
-            })
-          })
-          /* istanbul ignore next */
-          return _deferred.promise
-        }
-
+        paymentsOptions: (PaymentsApi: IPaymentsApi) => PaymentsApi.getPaymentOptionsRoute(),
+        paymentsLinks: (PaymentsApi: IPaymentsApi) => PaymentsApi.getPayUPaymentLinksRoute(),
+        financeBalance: (FinancesApi: IFinancesApi) => FinancesApi.getClientBalanceRoute()
       },
       data: {
         pageTitle: 'PAGE_TITLE.CHARGE_ACCOUNT',
@@ -194,6 +177,6 @@ namespace profitelo.dashboard.chargeAccount {
     'profitelo.components.interface.preloader',
     'profitelo.components.braintree-form'
   ])
-  .config(config)
-  .controller('chargeAccountController', chargeAccountController)
+    .config(config)
+    .controller('chargeAccountController', ChargeAccountController)
 }

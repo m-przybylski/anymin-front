@@ -1,57 +1,80 @@
 namespace profitelo.components.dashboard.chargeAccount.chooseAmountCharge {
 
   import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
+  import IAmounts = profitelo.dashboard.chargeAccount.IAmounts
+  import IAmountModel = profitelo.dashboard.chargeAccount.IAmountModel
 
-  /* @ngInject */
-  function chooseAmountChargeController($scope: ng.IScope, CommonSettingsService: ICommonSettingsService,
-                                        lodash: _.LoDashStatic) {
+  export interface IChooseAmountChargeComponentBindings {
+    title: string
+    amounts: IAmounts
+    amountModel: IAmountModel
+    scrollHandler: (slideTo?: number) => void
+    currentSection: number
+  }
 
-    this.$onInit = () => {
-      this.minimalPaymentAmount = this.amounts.minimalAmounts.amount / amountModifier
+  export class ChooseAmountChargeComponentController implements IChooseAmountChargeComponentBindings, ng.IController {
+    title: string
+    amounts: IAmounts
+    amountModel: IAmountModel
+    scrollHandler: (slideTo?: number) => void
+    currentSection: number
+    activeOption: null | number
+    firstSelect: boolean
+    cashAmountModel: number | null
+    minimalPaymentAmount: number
+    amountModifier: number = 1
+
+    /* @ngInject */
+    constructor(private $scope: ng.IScope, CommonSettingsService: ICommonSettingsService, private lodash: _.LoDashStatic) {
+
+      this.amountModifier = CommonSettingsService.localSettings.amountMultiplier
+
+      this.activeOption = null
+      this.firstSelect = this.activeOption !== null
+    }
+
+    $onInit = () => {
+      this.minimalPaymentAmount = this.amounts.minimalAmounts.amount / this.amountModifier
 
       if (angular.isDefined(this.amountModel.amount) && this.amountModel.amount !== null) {
-        this.activeOption = this.amounts.paymentOptions.indexOf(lodash.find(this.amounts.paymentOptions, {'amount': this.amountModel.amount.amount}))
+
+        const paymentOption = this.lodash.find(this.amounts.paymentOptions, {'amount': this.amountModel.amount.amount})
+        if (paymentOption) {
+          this.activeOption = this.amounts.paymentOptions.indexOf(paymentOption)
+        }
       } else if (this.amountModel.cashAmount !== null) {
         this.activeOption = 3
-        this.cashAmountModel = this.amountModel.cashAmount.amount / amountModifier
+        this.cashAmountModel = this.amountModel.cashAmount.amount / this.amountModifier
       }
+
+      this.$scope.$watch(() => {
+        return this.cashAmountModel
+      }, (newValue) => {
+        if (newValue) {
+          this.amountModel.cashAmount = {
+            amount: Number(newValue * this.amountModifier),
+            currency: this.amounts.minimalAmounts.currency
+          }
+
+          if (!this.firstSelect) {
+            ++this.currentSection
+            this.firstSelect = true
+          }
+
+          this.amountModel.amount = null
+        }
+      })
     }
 
-    const amountModifier = CommonSettingsService.localSettings.amountMultiplier
-
-    this.activeOption = null
-    this.firstSelect = this.activeOption !== null
-
-    this.minimalAmountValidation = () => {
-      return this.activeOption === 3 && this.cashAmountModel < this.amounts.minimalAmounts.amount / amountModifier && !angular.element('.option-own-amount').find('input:focus')[0]
-    }
-
-    $scope.$watch(() => {
-      return this.cashAmountModel
-    }, (newValue) => {
-      if (newValue) {
-        this.amountModel.cashAmount = {
-          amount: Number(newValue * amountModifier),
-          currency: this.amounts.minimalAmounts.currency
-        }
-
-        if (!this.firstSelect) {
-          ++this.currentSection
-          this.firstSelect = true
-        }
-
-        this.amountModel.amount = null
-      }
-    })
-
-    this.onEnter = () => {
-      if (this.cashAmountModel > this.amounts.minimalAmounts.amount / amountModifier) {
+    public onEnter = () => {
+      if (this.amounts && this.amounts.minimalAmounts && this.cashAmountModel &&
+        this.cashAmountModel > this.amounts.minimalAmounts.amount / this.amountModifier) {
         this.scrollHandler(2)
       }
       angular.element('.option-own-amount').find('input').blur()
     }
 
-    this.selectAmountOption = (index: number) => {
+    public selectAmountOption = (index: number) => {
       this.activeOption = index
       if (index !== 3) {
         this.cashAmountModel = null
@@ -70,28 +93,29 @@ namespace profitelo.components.dashboard.chargeAccount.chooseAmountCharge {
       }
     }
 
-    return this
+    public minimalAmountValidation = () => {
+      return (this.activeOption === 3 && this.cashAmountModel && this.cashAmountModel <
+      this.amounts.minimalAmounts.amount / this.amountModifier &&
+      !angular.element('.option-own-amount').find('input:focus')[0])
+    }
   }
 
-  let chooseAmountCharge = {
-    templateUrl: 'components/dashboard/charge-account/choose-amount-charge/choose-amount-charge.tpl.html',
-    restrict: 'E',
-    replace: true,
-    bindings: {
+  class ChooseAmountChargeComponent implements ng.IComponentOptions {
+    templateUrl = 'components/dashboard/charge-account/choose-amount-charge/choose-amount-charge.tpl.html'
+    bindings = {
       title: '@',
       amounts: '<',
       scrollHandler: '<',
       amountModel: '=?',
       currentSection: '=?'
-    },
-    controller: chooseAmountChargeController,
-    controllerAs: '$ctrl'
+    }
+    controller: ng.Injectable<ng.IControllerConstructor> = ChooseAmountChargeComponentController
   }
 
   angular.module('profitelo.components.dashboard.charge-account.choose-amount-charge', [
     'profitelo.services.commonSettings',
     'ngLodash'
   ])
-  .component('chooseAmountCharge', chooseAmountCharge)
+    .component('chooseAmountCharge', new ChooseAmountChargeComponent())
 
 }
