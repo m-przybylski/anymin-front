@@ -1,54 +1,60 @@
 namespace profitelo.components.dashboard.chargeAccount.paymentMethod {
-import LoDashStatic = _.LoDashStatic
+  import LoDashStatic = _.LoDashStatic
+  import PaymentSystem = profitelo.api.PaymentSystem
 
-  /* @ngInject */
-  function paymentMethodController(lodash: LoDashStatic) {
+  interface PaymentMethodComponentBindings {
+    title: string
+    paymentSystems: Array<PaymentSystem>
+    paymentSystemModel: PaymentSystem | null
+    scrollHandler: (_arg?: number) => void
+  }
 
-    this.$onInit = () => {
+  class PaymentMethodComponentController implements PaymentMethodComponentBindings, ng.IController {
+    title: string
+    paymentSystems: Array<PaymentSystem>
+    paymentSystemModel: PaymentSystem | null
+    scrollHandler: (arg?: number) => void
+    activeOption: number | null = null
+    firstSelect = false
+
+    /* @ngInject */
+    constructor(private lodash: LoDashStatic) {}
+
+    $onInit = () => {
       if (this.paymentSystemModel !== null) {
-        this.activeOption = lodash.findIndex(this.paymentSystems, (paymentSystem: any) => {
-          return paymentSystem.id = this.paymentSystemModel
-        })
+        this.activeOption = this.lodash.findIndex(this.paymentSystems, (paymentSystem) => paymentSystem.id == this.paymentSystemModel)
         this.paymentSystemModel = this.paymentSystems[this.activeOption]
       }
     }
 
-    this.activeOption = null
-    this.firstSelect = this.activeOption !== null
-
-    this.setImage = (slug: string) => {
+    public setImage = (slug: string) => {
       const imagePath = '/assets/images/%s-logo.png'
       return imagePath.replace('%s', slug)
     }
 
-    this.selectPaymentMethod = (index: number) => {
+    public selectPaymentMethod = (index: number) => {
       this.scrollHandler()
       this.firstSelect = true
 
       this.activeOption = index
       this.paymentSystemModel = this.paymentSystems[index]
     }
-
-    return this
   }
 
-  let paymentMethod = {
-    templateUrl: 'components/dashboard/charge-account/payment-method/payment-method.tpl.html',
-    restrict: 'E',
-    replace: true,
-    bindings: {
+  class PaymentMethodComponent implements ng.IComponentOptions {
+    templateUrl = 'components/dashboard/charge-account/payment-method/payment-method.tpl.html'
+    bindings = {
       title: '@',
       paymentSystems: '<',
       paymentSystemModel: '=?',
       scrollHandler: '<'
-    },
-    controller: paymentMethodController,
-    controllerAs: '$ctrl'
+    }
+    controller = PaymentMethodComponentController
   }
 
   angular.module('profitelo.components.dashboard.charge-account.payment-method', [
     'ngLodash'
   ])
-  .component('paymentMethod', paymentMethod)
+    .component('paymentMethod', new PaymentMethodComponent())
 
 }
