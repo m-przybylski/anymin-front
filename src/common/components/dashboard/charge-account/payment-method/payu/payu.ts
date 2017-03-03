@@ -12,6 +12,7 @@ import topAlertModule from "../../../../../services/top-alert/top-alert"
 import commonSettingsModule from "../../../../../services/common-settings/common-settings"
 import smoothScrollingModule from "../../../../../services/smooth-scrolling/smooth-scrolling"
 import {IWindowService} from "../../../../../services/window/window.service"
+import {PayuAnimation} from "./payu.animation"
 
 /* @ngInject */
 function payuPaymentFormController($log: ng.ILogService, $window: IWindowService, $state: ng.ui.IStateService,
@@ -70,7 +71,6 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
       })
     }
   })
-
 
   this.sendPayment = () => {
     if (isValid() && !isPending) {
@@ -208,7 +208,6 @@ let payuPaymentForm = {
   controllerAs: '$ctrl'
 }
 
-
 angular.module('profitelo.components.dashboard.charge-account.payment-method.payu', [
   'ui.router',
   apiModule,
@@ -220,6 +219,7 @@ angular.module('profitelo.components.dashboard.charge-account.payment-method.pay
   'ngLodash',
   userModule,
   'profitelo.components.dashboard.charge-account.choose-bank',
-  'profitelo.components.dashboard.charge-account.summary-charge-account'
+  'profitelo.components.dashboard.charge-account.summary-charge-account',
 ])
-  .component('payuPaymentForm', payuPaymentForm)
+.animation('.collapse-animation', PayuAnimation)
+.component('payuPaymentForm', payuPaymentForm)

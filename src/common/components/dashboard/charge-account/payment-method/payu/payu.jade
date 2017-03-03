@@ -74,7 +74,7 @@
           data-label="{{:: 'DASHBOARD.CHARGE_ACCOUNT.CHECKBOX.COMPANY_INVOICE' | translate }}"
           data-name="showInvoiceForm")
 
-          .invoice-form(data-ng-if="$ctrl.showInvoiceForm")
+          .invoice-form.collapse-animation(data-ng-if="$ctrl.showInvoiceForm")
             .invoice-form-company-info
               .title
                 h3(data-translate="DASHBOARD.CHARGE_ACCOUNT.INVOICE.TITLE")

@@ -47,7 +47,7 @@ import  'angularjs-slider/dist/rzslider.css'
 import  'croppie/croppie.css'
 import "./../template/profitelo_theme/stylesheets/main.sass"
 import navbarModule from "../common/components/navbar/navbar"
-import {CommonConfig, default as commonConfigModule} from "../../generated_modules/common-config/common-config"
+import {CommonConfig, default as commonConfigModule} from '../../generated_modules/common-config/common-config'
 
 declare const Raven: any
 

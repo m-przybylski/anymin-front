@@ -29,7 +29,7 @@
 
           p(data-translate="BRAINTREE.CARD_LIMIT.DESCRIPTION.LABEL")
 
-        .card-limit(data-ng-show="$ctrl.showCardLimitForm")
+        .card-limit.collapse-animation.animation-speed-fast(data-ng-if="$ctrl.showCardLimitForm")
           pro-input(data-label="{{:: 'BRAINTREE.CARD_LIMIT.LABEL' | translate }}"
           data-ng-model="$ctrl.defaultCardLimit"
           placeholder="{{:: 'BRAINTREE.CARD_LIMIT.PLACEHOLDER' | translate }}"
