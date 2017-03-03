@@ -39,7 +39,7 @@
 
           paypal-payment-form(data-ng-show="vm.amountMethodModal.paymentSystemModel.slug == 'paypal'")
 
-          card-payment-form(data-ng-if="vm.amountMethodModal.paymentSystemModel.slug == 'credit_card'")
+          card-payment-form.card-payment(data-ng-if="vm.amountMethodModal.paymentSystemModel.slug == 'credit_card'")
 
         .braintree(data-ng-show="vm.isPaymentCardMethod")
           .modal-settings

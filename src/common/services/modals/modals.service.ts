@@ -18,6 +18,7 @@ namespace profitelo.services.modals {
   import GetActivity = profitelo.api.GetActivity
   import IAddPaymentMethodControllerScope = profitelo.components.dashboard.settings.modals.payments.addPaymentMethod.IAddPaymentMethodControllerScope
   import IEditCompanyInvoiceControllerScope = profitelo.components.dashboard.settings.modals.payments.editCompanyInvoice.IEditCompanyInvoiceControllerScope
+  import IPayoutsPaypalControllerControllerScope = profitelo.components.dashboard.settings.modals.payouts.payoutsPaypal.IPayoutsPaypalControllerControllerScope
 
   export interface IModalsService {
     createIncomingCallModal(service: GetService, answerCb: () => void, rejectCb: () => void): ng.ui.bootstrap.IModalServiceInstance
@@ -36,6 +37,7 @@ namespace profitelo.services.modals {
     createSecurityPinSecuritySettingsModal(): ng.ui.bootstrap.IModalServiceInstance
     createAddPaymentMethodControllerModal(callabck: () => void): ng.ui.bootstrap.IModalServiceInstance
     createEditCompanyInvoiceControllerModal(callabck: () => void): ng.ui.bootstrap.IModalServiceInstance
+    createPayoutsMethodControllerModal(callabck: () => void): ng.ui.bootstrap.IModalServiceInstance
   }
 
   // TODO add types for dialogScope Scopes
@@ -260,6 +262,19 @@ namespace profitelo.services.modals {
       })
     }
 
+    public createPayoutsMethodControllerModal = (onModalClose: () => void) => {
+      const dialogScope: IPayoutsPaypalControllerControllerScope =
+        <IPayoutsPaypalControllerControllerScope>this.$rootScope.$new(true)
+
+      dialogScope.callback = onModalClose
+      return this.dialogService.openDialog({
+        controllerAs: 'vm',
+        controller: 'payoutsPaypal',
+        templateUrl: 'components/dashboard/settings/modals/payouts/payouts-paypal/payouts-paypal.tpl.html',
+        scope: dialogScope
+      })
+    }
+
   }
 
   angular.module('profitelo.services.modals', [
@@ -279,7 +294,8 @@ namespace profitelo.services.modals {
     'profitelo.components.dashboard.settings.modals.security.change-password',
     'profitelo.components.dashboard.settings.security.modals.pin-number',
     'profitelo.components.dashboard.settings.modals.payments.add-payment-method',
-    'profitelo.components.dashboard.settings.modals.payments.edit-company-invoice'
+    'profitelo.components.dashboard.settings.modals.payments.edit-company-invoice',
+    'profitelo.components.dashboard.settings.modals.payouts.payouts-paypal'
   ])
   .service('modalsService', ModalsService)
 }

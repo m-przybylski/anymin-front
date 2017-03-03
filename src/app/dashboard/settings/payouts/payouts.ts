@@ -1,10 +1,19 @@
 namespace profitelo.dashboard.settings.payouts {
 
+  import IModalsService = profitelo.services.modals.IModalsService
+
   export class DashboardSettingsPayoutsController implements ng.IController {
     public isAnyPayoutMethod: boolean = false
-    public isPayoutInvoiceExist: boolean = true
 
-    constructor() {
+    constructor(private modalsService: IModalsService, private $state: ng.ui.IStateService) {
+    }
+
+    public addPayoutsMethod = () : void => {
+      this.modalsService.createPayoutsMethodControllerModal(this.onModalClose)
+    }
+
+    private onModalClose = (): void => {
+      this.$state.reload()
     }
   }
 

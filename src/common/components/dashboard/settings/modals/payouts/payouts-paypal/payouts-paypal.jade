@@ -1,0 +1,28 @@
+scrollable.payout-method(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
+  top-modal-navbar(data-on-close="vm.onModalClose")
+  .modal-settings
+    preloader()
+      .title
+        h2(data-translate="DASHBOARD.SETTINGS.PAYOUTS_METHOD.TITLE")
+
+      .btn-handler
+        a.btn.btn-select(data-ng-click="vm.choosePayoutBankMethod()"
+        data-ng-class="{'is-active': vm.isPayoutBankMethod}")
+          | {{:: 'DASHBOARD.SETTINGS.PAYOUTS_METHOD.BANK' | translate }}
+          span.icon.icon-success-12
+
+        a.btn.btn-select(data-ng-click="vm.choosePayoutPaypalMethod()"
+        data-ng-class="{'is-active': vm.isPayoutPaypalMethod}")
+          | {{:: 'DASHBOARD.SETTINGS.PAYOUTS_METHOD.PAYPAL' | translate }}
+          span.icon.icon-success-12
+
+      .container-medium.no-padding.modal-form.paypal-method(data-ng-show="vm.isPayoutPaypalMethod")
+        form.form
+          div
+            pro-input(data-label="{{ 'DASHBOARD.SETTINGS.PAYOUTS_METHOD.PAYPAL.LABEL' | translate }}"
+            placeholder="{{ 'DASHBOARD.SETTINGS.PAYOUTS_METHOD.PAYPAL.PLACEHOLDER' | translate }}"
+            data-type="text"
+            data-id="paypalLogin"
+            )
+
+            button.btn.btn-default(data-translate="DASHBOARD.SETTINGS.PAYOUTS_METHOD.ADD.BUTTON")
