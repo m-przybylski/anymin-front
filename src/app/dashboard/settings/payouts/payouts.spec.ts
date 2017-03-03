@@ -10,7 +10,8 @@ namespace profitelo.dashboard.settings.payouts {
         inject(($rootScope: ng.IRootScopeService, $controller: ng.IControllerService, _$state_: ng.ui.IStateService) => {
           dashboardSettingsPayoutsController = $controller<DashboardSettingsPayoutsController>('dashboardSettingsPayoutsController', {
             $state: _$state_,
-            $scope: $rootScope.$new()
+            $scope: $rootScope.$new(),
+            modalsService: {}
           })
         })
       })

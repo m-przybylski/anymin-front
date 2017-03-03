@@ -4,7 +4,7 @@
       .no-results-page-content
         img(data-ng-src="/assets/images/profitelo_icons/icon_payments.png")
         h2(data-translate="SETTINGS.PAYMENTS.NO_RESULTS.TITLE")
-        a.btn.btn-default.icon-right(data-ui-sref="app.dashboard.charge-account")
+        a.btn.btn-default.icon-right(data-ng-click="vm.addPayoutsMethod()")
           | {{:: 'SETTINGS.PAYMENTS.NO_RESULTS.BUTTON' | translate}}
           span.icon.icon-arrow-right-16
 
