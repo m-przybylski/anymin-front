@@ -1,9 +1,9 @@
-namespace profitelo.components.dashboard.settings.modals.payouts.payoutsPaypal {
+namespace profitelo.components.dashboard.settings.modals.payouts.payoutsPayPal {
 
-  describe('Testing Controller: PayoutsPaypalController', () => {
+  describe('Testing Controller: PayoutsPayPalController', () => {
 
-    let controller: PayoutsPaypalController
-    let scope: IPayoutsPaypalControllerControllerScope
+    let controller: PayoutsPayPalController
+    let scope: IPayoutsPayPalControllerScope
 
     const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
       jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss'])
@@ -14,17 +14,17 @@ namespace profitelo.components.dashboard.settings.modals.payouts.payoutsPaypal {
 
     beforeEach(() => {
       angular.mock.module('ui.bootstrap')
-      angular.mock.module('profitelo.components.dashboard.settings.modals.payouts.payouts-paypal')
+      angular.mock.module('profitelo.components.dashboard.settings.modals.payouts.payouts-pay-pal')
 
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
 
-        scope = <IPayoutsPaypalControllerControllerScope>$rootScope.$new()
+        scope = <IPayoutsPayPalControllerScope>$rootScope.$new()
         const injectors = {
           $scope: scope,
           $uibModalInstance: $uibModalInstance
         }
 
-        controller = $controller<PayoutsPaypalController>('payoutsPaypal', injectors)
+        controller = $controller<PayoutsPayPalController>('payoutsPayPalController', injectors)
       })
     })
 

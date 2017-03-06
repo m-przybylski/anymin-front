@@ -8,7 +8,7 @@ namespace profitelo.api {
       permissions: Array<Permission>;
       countryISO: string;
       msisdn: string;
-      registeredAt: Date;
+      registeredAt: number;
       id: string;
       status: AccountStatus;
       currency: string;
@@ -17,8 +17,8 @@ namespace profitelo.api {
       doesMsisdnMatchCountry: boolean;
       isBlocked: boolean;
       protectedViews: Array<string>;
+      defaultCreditCard?: string;
       settings: AccountSettings;
-      lastLoggedAt?: Date;
       unverifiedEmail?: string;
   }
 

@@ -2,7 +2,7 @@ namespace profitelo.api {
 
 
   export interface GetSession {
-      city: string;
+      city?: string;
       country: string;
       accountId: string;
       userAgent?: string;

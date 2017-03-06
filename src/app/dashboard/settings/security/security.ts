@@ -11,7 +11,7 @@ namespace profitelo.dashboard.settings.security {
   interface ISession {
     device: string
     status: boolean
-    city: string
+    city?: string
     system: string,
     apiKey: string
   }

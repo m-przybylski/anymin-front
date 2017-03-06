@@ -4,6 +4,11 @@ namespace profitelo.dashboard.settings.payouts {
 
       let dashboardSettingsPayoutsController: DashboardSettingsPayoutsController
 
+
+      beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
+        $provide.value('apiUrl', 'awesomeUrl')
+      }))
+
       beforeEach(() => {
         angular.mock.module('profitelo.controller.dashboard.settings.payouts')
         angular.mock.module('ui.router')
@@ -11,6 +16,7 @@ namespace profitelo.dashboard.settings.payouts {
           dashboardSettingsPayoutsController = $controller<DashboardSettingsPayoutsController>('dashboardSettingsPayoutsController', {
             $state: _$state_,
             $scope: $rootScope.$new(),
+            payoutsMethods: {},
             modalsService: {}
           })
         })
