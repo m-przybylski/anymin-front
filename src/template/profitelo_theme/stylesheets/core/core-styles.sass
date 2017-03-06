@@ -8,6 +8,24 @@ body
   height: 100%
   line-height: 1.4
   color: $c-primary-txt
+  transition: transform 0.4s
+  transform: translateX(0%)
+
+  +smm
+    transform: none
+
+  &.is-mobile-nav-visible
+    overflow: hidden
+    transform: translateX(-50%)
+
+    +smm
+      transform: none
+
+    .navbar
+      transform: translateX(50%)
+
+      +smm
+        transform: none
 
 *
   +default-font-light

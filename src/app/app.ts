@@ -91,6 +91,7 @@ angular.module('profitelo', [
   pagesModule,
   communicatorModule,
   'profitelo.components.interface.preloader-container',
+  'profitelo.components.navbar',
 
   // translations
   'profitelo.translations.en-us',
