@@ -19,7 +19,7 @@
               | {{:: 'DASHBOARD.CHARGE_ACCOUNT.ADD_PAYMENT_CARD.BUTTON' | translate }}
               span.icon.icon-success-12
 
-        .container-big(data-ng-show="vm.lastPayment || vm.isChargeProfiteloAccount")
+        .container-big(data-ng-if="vm.lastPayment || vm.isChargeProfiteloAccount")
           choose-amount-charge(data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_AMMOUNT_CHARGE" data-amounts="vm.amounts"
           data-amount-model="vm.amountModel"
           id="1"
@@ -39,9 +39,11 @@
 
           paypal-payment-form(data-ng-show="vm.amountMethodModal.paymentSystemModel.slug == 'paypal'")
 
-          card-payment-form.card-payment(data-ng-if="vm.amountMethodModal.paymentSystemModel.slug == 'credit_card'")
+          card-payment-form.card-payment(data-ng-if="vm.amountMethodModal.paymentSystemModel.slug == 'credit_card'"
+          data-payments-links="vm.paymentsLinks" data-amount-method-modal="vm.amountMethodModal"
+          data-payment-country-id="vm.paymentCountryId")
 
-        .braintree(data-ng-show="vm.isPaymentCardMethod")
+        .braintree(data-ng-if="vm.isPaymentCardMethod")
           .modal-settings
             .container-medium.no-padding.modal-form
               preloader(data-is-loading="!vm.isBraintreeFormLoaded")
