@@ -6,6 +6,7 @@ namespace profitelo.dashboard.settings.payments {
   import IInvoiceDataResolver = profitelo.resolvers.invoiceData.IInvoiceDataResolver
   import IInvoiceData = profitelo.resolvers.invoiceData.IInvoiceData
   import GetCreditCard = profitelo.api.GetCreditCard
+  import IPaymentsApi = profitelo.api.IPaymentsApi
 
   export class DashboardSettingsPaymentsController implements ng.IController {
     public isAnyPaymentMethod: boolean
@@ -14,8 +15,11 @@ namespace profitelo.dashboard.settings.payments {
     public vatNumber : string
     public address : string
     public paymentMethods: Array<GetCreditCard>
+    public isPaymentsMethodLoading: boolean = true
 
-    constructor(getInvoiceData: IInvoiceData, private modalsService: IModalsService, private $state: ng.ui.IStateService) {
+    constructor(getInvoiceData: IInvoiceData, PaymentsApi: IPaymentsApi,
+                private modalsService: IModalsService, private $state: ng.ui.IStateService) {
+
       if (getInvoiceData.companyInfo === null) {
         this.isAnyPaymentMethod = false
       } else {
@@ -31,10 +35,20 @@ namespace profitelo.dashboard.settings.payments {
         this.accountBalance = getInvoiceData.clientBalance
       }
 
-      if(getInvoiceData.paymentMethods !== null) {
-        this.paymentMethods = getInvoiceData.paymentMethods
-        this.isAnyPaymentMethod = true
-      }
+      PaymentsApi.getCreditCardsRoute().then((paymentMethods) => {
+        this.paymentMethods = paymentMethods
+        this.isPaymentsMethodLoading = false
+        if (this.paymentMethods.length > 0) {
+          this.isAnyPaymentMethod = true
+        }
+      }, (error) => {
+        this.isPaymentsMethodLoading = false
+        if (error.status !== 404) {
+          throw new error('Can not get user payment methods: ' + error)
+        }
+      })
+
+
     }
 
     public onSelectPaymentMethod = () => {
@@ -56,7 +70,9 @@ namespace profitelo.dashboard.settings.payments {
 
   angular.module('profitelo.controller.dashboard.settings.payments', [
     'ui.router',
+    'profitelo.api.PaymentsApi',
     'profitelo.filters.money',
+    'profitelo.components.interface.preloader-container',
     'profitelo.resolvers.invoice-data'
   ])
   .config(($stateProvider: ng.ui.IStateProvider) => {

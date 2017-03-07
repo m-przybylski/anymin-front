@@ -7,12 +7,10 @@ namespace profitelo.resolvers.invoiceData {
   import CompanyInfo = profitelo.api.CompanyInfo
   import MoneyDto = profitelo.api.MoneyDto
   import IPaymentsApi = profitelo.api.IPaymentsApi
-  import GetCreditCard = profitelo.api.GetCreditCard
 
   export interface IInvoiceData {
     companyInfo: CompanyInfo | null,
-    clientBalance: MoneyDto | null,
-    paymentMethods: Array<GetCreditCard> | null
+    clientBalance: MoneyDto | null
   }
 
   export interface IInvoiceDataResolver {
@@ -30,26 +28,16 @@ namespace profitelo.resolvers.invoiceData {
 
     private onGetCompanyInfoRoute = (companyInfo: CompanyInfo) => {
       return this.FinancesApi.getClientBalanceRoute().then((clientBalance: MoneyDto) => {
-        return this.PaymentsApi.getCreditCardsRoute().then((paymentMethods) => {
-          return {
-            companyInfo: companyInfo,
-            clientBalance: clientBalance,
-            paymentMethods: paymentMethods
-          }
-        }, (error) => {
-          this.$log.error('Can not get user payment methods: ' + error)
-          return {
-            companyInfo: companyInfo,
-            clientBalance: clientBalance,
-            paymentMethods: null
-          }
-        })
+        return {
+          companyInfo: companyInfo,
+          clientBalance: clientBalance
+        }
+
       }, (error: any) => {
         this.$log.error('Can not get user balance: ' + error)
         return {
           companyInfo: companyInfo,
           clientBalance: null,
-          paymentMethods: null
         }
       })
     }

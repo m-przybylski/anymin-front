@@ -1,7 +1,7 @@
 (function() {
   /* @ngInject */
   function preloaderContainerController() {
-    
+
     this.errorFunction = () => {
       this.errorFn()
     }
@@ -16,6 +16,7 @@
       errorFn: '=?',
       errorMessage: '@'
     },
+    transclude: true,
     templateUrl: 'components/interface/preloader-container/preloader-container.tpl.html',
     controllerAs: '$ctrl',
     controller: preloaderContainerController

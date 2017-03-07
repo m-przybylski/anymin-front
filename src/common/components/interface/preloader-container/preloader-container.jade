@@ -4,3 +4,5 @@
     a.btn.btn-warning.icon-left(data-ng-click="$ctrl.errorFunction()")
       .icon.icon-upload-progress-24
       | {{::$ctrl.errorMessage | translate }}
+.transluded-content(data-ng-hide="$ctrl.isError || $ctrl.isLoading")
+  ng-transclude

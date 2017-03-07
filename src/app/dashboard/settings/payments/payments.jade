@@ -11,7 +11,6 @@
     .entry-title
       h2(data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.TITLE")
       a.btn.btn-primary.btn-small(data-translate="SETTINGS.PAYMENTS.BUTTON.ADD" data-ng-click="vm.addNewPaymentMethod()")
-
     .radio-list.payments-method-list
       form
         .radio-list-item.profitelo-account(data-ng-show="vm.accountBalance")
@@ -29,20 +28,20 @@
           .radio-action
             a.btn.btn-default.btn-small.recharge-account( data-ui-sref="app.dashboard.charge-account"
               data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.RECHARGE_ACCOUNT.BUTTON")
+        preloader-container(data-is-loading="vm.isPaymentsMethodLoading")
+          .radio-list-item.profitelo-account(data-ng-repeat="paymentMethod in vm.paymentMethods")
+            .radio-text.radio
+              .radio-input
+                input(id="{{ paymentMethod.token }}" type="radio" name="payments-method")
+                label.label
 
-        .radio-list-item.profitelo-account(data-ng-repeat="paymentMethod in vm.paymentMethods")
-          .radio-text.radio
-            .radio-input
-              input(id="{{ paymentMethod.token }}" type="radio" name="payments-method")
-              label.label
+              label.text(for="{{ paymentMethod.token }}")
+                .payment-thumb
+                  img(data-ng-src="{{ paymentMethod.imageUrl }}")
+                span.title {{ paymentMethod.maskedNumber }}
 
-            label.text(for="{{ paymentMethod.token }}")
-              .payment-thumb
-                img(data-ng-src="{{ paymentMethod.imageUrl }}")
-              span.title {{ paymentMethod.maskedNumber }}
-
-          .radio-action
-            a.btn.btn-primary.btn-small.edit-payments(data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.RECHARGE_ACCOUNT.EDIT.BUTTON")
+            .radio-action
+              a.btn.btn-primary.btn-small.edit-payments(data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.RECHARGE_ACCOUNT.EDIT.BUTTON")
 
   .invoice-information(data-ng-show="vm.isAnyPaymentMethod && vm.companyName")
     .entry-title
