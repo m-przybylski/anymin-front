@@ -18,7 +18,8 @@ namespace profitelo.services.modals {
   import GetActivity = profitelo.api.GetActivity
   import IAddPaymentMethodControllerScope = profitelo.components.dashboard.settings.modals.payments.addPaymentMethod.IAddPaymentMethodControllerScope
   import IEditCompanyInvoiceControllerScope = profitelo.components.dashboard.settings.modals.payments.editCompanyInvoice.IEditCompanyInvoiceControllerScope
-  import IPayoutsPaypalControllerControllerScope = profitelo.components.dashboard.settings.modals.payouts.payoutsPaypal.IPayoutsPaypalControllerControllerScope
+  import IPayoutsPayPalControllerScope = profitelo.components.dashboard.settings.modals.payouts.payoutsPayPal.IPayoutsPayPalControllerScope
+
 
   export interface IModalsService {
     createIncomingCallModal(service: GetService, answerCb: () => void, rejectCb: () => void): ng.ui.bootstrap.IModalServiceInstance
@@ -263,14 +264,15 @@ namespace profitelo.services.modals {
     }
 
     public createPayoutsMethodControllerModal = (onModalClose: () => void) => {
-      const dialogScope: IPayoutsPaypalControllerControllerScope =
-        <IPayoutsPaypalControllerControllerScope>this.$rootScope.$new(true)
+      const dialogScope: IPayoutsPayPalControllerScope =
+        <IPayoutsPayPalControllerScope>this.$rootScope.$new(true)
 
       dialogScope.callback = onModalClose
+
       return this.dialogService.openDialog({
         controllerAs: 'vm',
-        controller: 'payoutsPaypal',
-        templateUrl: 'components/dashboard/settings/modals/payouts/payouts-paypal/payouts-paypal.tpl.html',
+        controller: 'payoutsPayPalController',
+        templateUrl: 'components/dashboard/settings/modals/payouts/payouts-payPal/payouts-pay-pal.tpl.html',
         scope: dialogScope
       })
     }
@@ -295,7 +297,7 @@ namespace profitelo.services.modals {
     'profitelo.components.dashboard.settings.security.modals.pin-number',
     'profitelo.components.dashboard.settings.modals.payments.add-payment-method',
     'profitelo.components.dashboard.settings.modals.payments.edit-company-invoice',
-    'profitelo.components.dashboard.settings.modals.payouts.payouts-paypal'
+    'profitelo.components.dashboard.settings.modals.payouts.payouts-pay-pal'
   ])
   .service('modalsService', ModalsService)
 }

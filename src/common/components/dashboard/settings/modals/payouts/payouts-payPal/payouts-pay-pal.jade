@@ -17,12 +17,15 @@ scrollable.payout-method(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm
           span.icon.icon-success-12
 
       .container-medium.no-padding.modal-form.paypal-method(data-ng-show="vm.isPayoutPaypalMethod")
-        form.form
+        form.form(data-ng-submit="payPalForm.$valid && vm.addPayPalAccount()" name="payPalForm")
           div
             pro-input(data-label="{{ 'DASHBOARD.SETTINGS.PAYOUTS_METHOD.PAYPAL.LABEL' | translate }}"
             placeholder="{{ 'DASHBOARD.SETTINGS.PAYOUTS_METHOD.PAYPAL.PLACEHOLDER' | translate }}"
             data-type="text"
-            data-id="paypalLogin"
-            )
+            data-ng-model="vm.payPalEmail"
+            data-id="payPalEmail"
+            data-ng-class="{'invalid': payPalForm.$submitted && !vm.payPalForm || paymentForm.payPalForm.$dirty && !vm.payPalForm}"
+            data-ng-pattern="vm.emailPattern"
+            required)
 
-            button.btn.btn-default(data-translate="DASHBOARD.SETTINGS.PAYOUTS_METHOD.ADD.BUTTON")
+            button.btn.btn-default(data-translate="DASHBOARD.SETTINGS.PAYOUTS_METHOD.ADD.BUTTON" type="submit")

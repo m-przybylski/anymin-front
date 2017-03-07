@@ -21,7 +21,7 @@ scrollable.edit-payment-method(data-is-fullscreen="vm.isFullscreen" data-is-navb
                     pro-input(placeholder="{{:: 'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.TAX_NUMBER.PLACEHOLDER' | translate }}"
                     data-label="{{:: 'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.TAX_NUMBER.LABEL' | translate }}"
                     data-ng-model="vm.vatNumber"
-                    data-ng-class="{'invalid': paymentForm.$submitted && !vm.vatNumber || paymentForm.vatNumber.$dirty && !vm.vatNumberx}"
+                    data-ng-class="{'invalid': paymentForm.$submitted && !vm.vatNumber || paymentForm.vatNumber.$dirty && !vm.vatNumber}"
                     addon-action="onEnter"
                     required)
                     a.btn.btn-primary(data-translate="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COUNTRY.BUTTON")

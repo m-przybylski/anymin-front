@@ -11,6 +11,7 @@
 /// <reference path="CallStoppedHook.ts" />
 /// <reference path="Category.ts" />
 /// <reference path="ChangeAccountPassword.ts" />
+/// <reference path="ChangeDefaultCreditCard.ts" />
 /// <reference path="ClientToken.ts" />
 /// <reference path="CompanyInfo.ts" />
 /// <reference path="ConfirmMsisdnVerificationRequest.ts" />

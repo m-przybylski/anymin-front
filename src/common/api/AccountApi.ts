@@ -1,6 +1,7 @@
 namespace profitelo.api {
   export interface IAccountApi {
     addAccountRoute(body: AddAccount, extraHttpRequestParams?: any): ng.IPromise<Account>
+    changeDefaultPaymentMethodRoute(body?: ChangeDefaultCreditCard, extraHttpRequestParams?: any): ng.IPromise<{}>
     changePasswordRoute(body: ChangeAccountPassword, extraHttpRequestParams?: any): ng.IPromise<{}>
     confirmMsisdnVerificationRoute(body: ConfirmMsisdnVerificationRequest, extraHttpRequestParams?: any): ng.IPromise<{}>
     getAccountEmailExistsRoute(email: string, extraHttpRequestParams?: any): ng.IPromise<{}>
@@ -44,6 +45,33 @@ namespace profitelo.api {
           }
           let httpRequestParams: ng.IRequestConfig = {
               method: 'POST',
+              url: localVarPath,
+              data: body,
+                            params: queryParameters,
+              headers: this.defaultHeaders //headerParams
+          };
+
+          if (extraHttpRequestParams) {
+              throw new Error('extraHttpRequestParams not supported')
+              //httpRequestParams = (<any>Object).assign(httpRequestParams, extraHttpRequestParams);
+          }
+
+          return this.$http(httpRequestParams).then(response => {
+            if (typeof response.data !== 'undefined') {
+              return response.data
+            }
+            else {
+              throw new Error('Response was not defined')
+            }
+          });
+      }
+      public changeDefaultPaymentMethodRoute = (body?: ChangeDefaultCreditCard, extraHttpRequestParams?: any): ng.IPromise<{}> => {
+          const localVarPath = this.apiUrl + '/accounts/default-payment-method';
+
+          let queryParameters: any = {};
+          //let headerParams: any = (<any>Object).assign({}, this.defaultHeaders);
+          let httpRequestParams: ng.IRequestConfig = {
+              method: 'PATCH',
               url: localVarPath,
               data: body,
                             params: queryParameters,
@@ -588,6 +616,7 @@ namespace profitelo.api {
 
   export interface IAccountApiMock {
     addAccountRoute(status: number, data?: Account, err?: any): void
+    changeDefaultPaymentMethodRoute(status: number, data?: {}, err?: any): void
     changePasswordRoute(status: number, data?: {}, err?: any): void
     confirmMsisdnVerificationRoute(status: number, data?: {}, err?: any): void
     getAccountEmailExistsRoute(status: number, email: string, data?: {}, err?: any): void
@@ -625,6 +654,15 @@ namespace profitelo.api {
       const queryUrl = this.serializeQuery(queryParameters)
 
       this.$httpBackend.whenPOST(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    changeDefaultPaymentMethodRoute(status: number, data?: {}, err?: any): void {
+      const localVarPath = this.apiUrl + '/accounts/default-payment-method';
+
+      const queryParameters: any = {}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.whenPATCH(localVarPath+queryUrl)
         .respond(status, (typeof err !== 'undefined') ? err : data)
     }
     changePasswordRoute(status: number, data?: {}, err?: any): void {
