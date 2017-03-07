@@ -15,6 +15,7 @@ namespace profitelo.dashboard.settings.payments {
           dashboardSettingsPaymentsController = $controller<DashboardSettingsPaymentsController>('dashboardSettingsPaymentsController', {
             $state: _$state_,
             $scope: $rootScope.$new(),
+            user: {},
             getInvoiceData: {
               companyInfo: {
                 companyName: 'asasas',

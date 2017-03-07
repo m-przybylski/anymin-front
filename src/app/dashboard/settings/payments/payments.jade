@@ -16,7 +16,8 @@
         .radio-list-item.profitelo-account(data-ng-show="vm.accountBalance")
           .radio-text.radio
             .radio-input
-              input(id="profitelo-payments-method" type="radio" name="payments-method" )
+              input(id="profitelo-payments-method" type="radio" name="payments-method"
+              data-ng-model="vm.checkedPaymentMethod" data-ng-value="" data-ng-change="vm.changeDefaultPaymentMethod()")
               label.label
 
             label.text(for="profitelo-payments-method")
@@ -32,7 +33,9 @@
           .radio-list-item.profitelo-account(data-ng-repeat="paymentMethod in vm.paymentMethods")
             .radio-text.radio
               .radio-input
-                input(id="{{ paymentMethod.token }}" type="radio" name="payments-method")
+                input(id="{{ paymentMethod.token }}" type="radio" name="payments-method"
+                data-ng-model="vm.checkedPaymentMethod" value="{{ paymentMethod.token }}"
+                data-ng-change="vm.changeDefaultPaymentMethod(paymentMethod.token)")
                 label.label
 
               label.text(for="{{ paymentMethod.token }}")
