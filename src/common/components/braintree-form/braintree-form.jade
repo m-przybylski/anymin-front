@@ -22,12 +22,10 @@
             // Hosted Fields div container
             #cvv.form-control
 
-        .checkbox
+        .checkbox(data-ng-if="!$ctrl.transaction")
           pro-checkbox(
           data-ng-model="$ctrl.showCardLimitForm"
-          data-label="{{ ::'BRAINTREE.CARD_LIMIT.DESCRIPTION.CHECKBOX' | translate }}"
-          data-ng-class=""
-          )
+          data-label="{{ ::'BRAINTREE.CARD_LIMIT.DESCRIPTION.CHECKBOX' | translate }}")
 
           p(data-translate="BRAINTREE.CARD_LIMIT.DESCRIPTION.LABEL")
 
@@ -39,8 +37,8 @@
           data-type="tel"
           only-digits)
 
-        .input-error-messages
-          .error.left(data-translate="BRAINTREE.INVALID" data-ng-show="$ctrl.isInvalid")
+        .input-error-messages(data-ng-show="$ctrl.isInvalid")
+          .error.left(data-translate="BRAINTREE.INVALID")
 
       summary-charge-account.summary-charge-account(data-btn-title="DASHBOARD.CHARGE_ACCOUNT.ADD_PAYMENT_CARD.CHANGE.BUTTON")
 

@@ -6,18 +6,17 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
   import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
   import IPaymentsApi = profitelo.api.IPaymentsApi
   import IAccountApi = profitelo.api.IAccountApi
-  import LoDashStatic = _.LoDashStatic
   import IPrimaryDropdownListElement = profitelo.components.interface.dropdownPrimary.IPrimaryDropdownListElement
   import IUserService = profitelo.services.user.IUserService
+  import LoDashStatic = _.LoDashStatic
 
   /* @ngInject */
   function payuPaymentFormController($log: ng.ILogService, $window: IWindowService, $state: ng.ui.IStateService,
                                      PaymentsApi: IPaymentsApi, userService: IUserService, topAlertService: ITopAlertService,
                                      smoothScrollingService: ISmoothScrollingService, AccountApi: IAccountApi,
-                                     CommonSettingsService: ICommonSettingsService, $scope: ng.IScope,
-                                     lodash: LoDashStatic) {
+                                     CommonSettingsService: ICommonSettingsService, $scope: ng.IScope, lodash: LoDashStatic) {
     let isPending = false
-
+    this.isGetCompanyInfo = false
     this.rulesAccepted = true
     this.showInvoiceForm = false
     this.personalDataSectionId = 'personal-section'
@@ -45,21 +44,26 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.payuPayment
     $scope.$watch(() => {
       return this.showInvoiceForm
     }, (newValue: boolean) => {
-      if (newValue) {
+      if (newValue && !this.isGetCompanyInfo) {
         AccountApi.getCompanyInfoRoute().then((response) => {
           this.vatNumber = response.vatNumber
           this.companyName = response.companyName
           this.street = response.address.street
+
           this.apartmentNumber = response.address.number
           this.postalCode = response.address.zipCode
           this.city = response.address.city
-
+          this.isGetCompanyInfo = true
           this.selectedCountry = lodash.find(
             this.countryList, (countryListElement: {value: string, name: string}) =>
             countryListElement.value === response.address.countryISO)
-            this.countryISO = this.selectedCountry.value
+          this.countryISO = this.selectedCountry.value
         }, (error) => {
-          throw new Error('Can not get company info: ' + error)
+          if (error.status === '404'){
+            this.isGetCompanyInfo = true
+          } else {
+            throw new Error('Can not get company info: ' + error)
+          }
         })
       }
     })

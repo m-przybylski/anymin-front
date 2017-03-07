@@ -5,11 +5,13 @@ namespace profitelo.components.braintreeForm {
   import JValue = profitelo.api.JValue
   import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
   import IUserService = profitelo.services.user.IUserService
+  import ITransaction = profitelo.components.dashboard.chargeAccount.paymentMethod.cardPaymentForm.ITransaction
 
   export interface IBraintreeFormComponentBindings {
     onBraintreeFormLoad: () => void,
     submitButtonTranslate: string,
-    onFormSucceed: (response: ng.IPromise<JValue>) => void
+    onFormSucceed: (response: ng.IPromise<JValue>) => void,
+    transaction?: ITransaction
   }
 
   export class BraintreeFormComponentController implements ng.IController, IBraintreeFormComponentBindings {
@@ -20,7 +22,7 @@ namespace profitelo.components.braintreeForm {
     public onFormSucceed: (response: ng.IPromise<JValue>) => void
     public showCardLimitForm: boolean = false
     public defaultCardLimit: string = ''
-
+    public transaction: ITransaction
     /* @ngInject */
     constructor(private PaymentsApi: IPaymentsApi, private userService: IUserService,
                 private CommonSettingsService: ICommonSettingsService) {
@@ -131,8 +133,14 @@ namespace profitelo.components.braintreeForm {
             angular.element('.panel-body').submit((event) => {
               event.preventDefault()
               hostedFieldsInstance.tokenize((err: any, payload: any) => {
-                if (err) {
+                if(err) {
                   this.isInvalid = true
+                } else if(this.transaction) {
+                  this.isInvalid = false
+                  this.PaymentsApi.createTransactionRoute({
+                    nonce: payload.nonce,
+                    payment: this.transaction
+                  }).then(this.onCreateTransaction, this.onCreateTransactionError)
                 } else {
                   this.isInvalid = false
                   this.userService.getUser().then(user => {
@@ -162,6 +170,14 @@ namespace profitelo.components.braintreeForm {
     private onAddPaymentMethodError = (err: any) => {
       throw new Error('Can not send nonce: ' + err)
     }
+
+    private onCreateTransaction = (res: ng.IPromise<JValue>) => {
+      this.onFormSucceed(res)
+    }
+
+    private onCreateTransactionError = (err: any) => {
+      throw new Error('Can not send nonce: ' + err)
+    }
   }
 
   class BraintreeFormComponent implements ng.IComponentOptions {
@@ -171,7 +187,8 @@ namespace profitelo.components.braintreeForm {
     bindings: {[boundProperty: string]: string} = {
       onBraintreeFormLoad: '<',
       onFormSucceed: '<',
-      submitButtonTranslate: '@'
+      submitButtonTranslate: '@',
+      transaction: '<'
     }
   }
 

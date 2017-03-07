@@ -9,15 +9,32 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.cardPayment
       let compile: ng.ICompileService
       let component: CardPaymentFormComponentController
 
-      const validHTML: string = '<card-payment-form></card-payment-form>'
+      const validHTML: string = '<card-payment-form amount-method-modal="amountMethodModal"' +
+        'payments-links="paymentsLinks" payment-country-id="paymentCountryId"></card-payment-form>'
 
-      function create(html: string, bindings: {}) {
+      function create(html: string, bindings: ICardPaymentFormComponentBindings) {
         const parentScope = rootScope.$new()
         const parentBoundScope = angular.extend(parentScope, bindings)
         const elem = angular.element(html)
         const compiledElement = compile(elem)(parentBoundScope)
         parentBoundScope.$digest()
         return compiledElement
+      }
+
+      const bindings: ICardPaymentFormComponentBindings = {
+        amountMethodModal: {
+          amountModel: {
+            cashAmount: {
+              amount: '123123',
+              currency: 'PLN'
+            }
+          },
+          paymentSystemModel: {
+            id: 'asdasd'
+          }
+        },
+        paymentsLinks: [],
+        paymentCountryId: 'asd2232323'
       }
 
       const userService = {
@@ -51,8 +68,8 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.cardPayment
 
           PaymentsApiMock.getClientTokenRoute(200, {token: '123'})
 
-          component = $componentController<CardPaymentFormComponentController, {}>(
-          'cardPaymentForm', {}, {})
+          component = $componentController<CardPaymentFormComponentController, ICardPaymentFormComponentBindings>(
+          'cardPaymentForm', {}, bindings)
         })
       })
 
@@ -61,7 +78,7 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod.cardPayment
       }))
 
       it('should compile the component', () => {
-        let el = create(validHTML, {})
+        let el = create(validHTML, bindings)
         expect(el.html()).toBeDefined(true)
       })
     })
