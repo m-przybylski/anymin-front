@@ -4,6 +4,10 @@ namespace profitelo.dashboard.settings.payments {
 
       let dashboardSettingsPaymentsController: DashboardSettingsPaymentsController
 
+      beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
+        $provide.value('apiUrl', 'awesomeUrl')
+      }))
+
       beforeEach(() => {
         angular.mock.module('profitelo.controller.dashboard.settings.payments')
         angular.mock.module('ui.router')
@@ -11,6 +15,7 @@ namespace profitelo.dashboard.settings.payments {
           dashboardSettingsPaymentsController = $controller<DashboardSettingsPaymentsController>('dashboardSettingsPaymentsController', {
             $state: _$state_,
             $scope: $rootScope.$new(),
+            user: {},
             getInvoiceData: {
               companyInfo: {
                 companyName: 'asasas',
