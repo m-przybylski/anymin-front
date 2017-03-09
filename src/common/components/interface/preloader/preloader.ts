@@ -10,7 +10,7 @@
     bindings: {
       isLoading: '=?'
     },
-    templateUrl: 'components/interface/preloader/preloader.tpl.html',
+    template: require("./preloader.jade")(),
     controllerAs: '$ctrl',
     controller: controller
   }

@@ -1,6 +1,6 @@
-namespace profitelo.components.communicator.modals.clientCall {
+import {GetService} from "../../../../api/model/GetService"
+import * as angular from "angular"
 
-  import GetService = profitelo.api.GetService
 
   export interface IClientCallParentControllerScope extends ng.IScope {
     rejectCall: Function
@@ -35,4 +35,3 @@ namespace profitelo.components.communicator.modals.clientCall {
     'profitelo.directives.interface.scrollable'
   ])
   .controller('clientCallController', ClientCallController)
-}

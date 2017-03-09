@@ -1,31 +1,28 @@
-namespace profitelo.directives.proTopWaitingLoader {
+import * as angular from "angular"
+import topWaitingLoader from "../../services/top-waiting-loader/top-waiting-loader"
+import {TopWaitingLoaderService} from "../../services/top-waiting-loader/top-waiting-loader.service"
 
-  import ITopWaitingLoaderService = profitelo.services.topWaitingLoader.ITopWaitingLoaderService
+function proTopWaitingLoader(topWaitingLoaderService: TopWaitingLoaderService) {
 
-  function proTopWaitingLoader(topWaitingLoaderService: ITopWaitingLoaderService) {
+  function proTopWaitingLoaderLinkFn(scope: any, _element: ng.IRootElementService, _attr: ng.IAttributes) {
 
-    function proTopWaitingLoaderLinkFn(scope: any, _element: ng.IRootElementService, _attr: ng.IAttributes) {
-
-      let setProgress = (progress: number) => {
-        scope.progress = progress
-      }
-
-      topWaitingLoaderService.bindProgress(setProgress)
+    let setProgress = (progress: number) => {
+      scope.progress = progress
     }
 
-    return {
-      restrict:       'E',
-      replace:        true,
-      templateUrl:    'directives/pro-top-waiting-loader/pro-top-waiting-loader.tpl.html',
-      link: proTopWaitingLoaderLinkFn
-    }
+    topWaitingLoaderService.bindProgress(setProgress)
   }
 
-  angular.module('profitelo.directives.pro-top-waiting-loader', [
-    'pascalprecht.translate',
-    'profitelo.services.pro-top-waiting-loader-service'
-  ])
-    .directive('proTopWaitingLoader', proTopWaitingLoader)
-
+  return {
+    restrict: 'E',
+    replace: true,
+    template: require('./pro-top-waiting-loader.jade')(),
+    link: proTopWaitingLoaderLinkFn
+  }
 }
 
+angular.module('profitelo.directives.pro-top-waiting-loader', [
+  'pascalprecht.translate',
+  topWaitingLoader
+])
+  .directive('proTopWaitingLoader', proTopWaitingLoader)

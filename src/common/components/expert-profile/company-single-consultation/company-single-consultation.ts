@@ -1,41 +1,43 @@
-namespace profitelo.components.expertProfile.companySingleConsultation {
+import * as angular from "angular"
+import {CallService} from "../../communicator/call.service"
+import urlModule from "../../../services/url/url"
+import filtersModule from "../../../filters/filters"
+import communicatorModule from "../../communicator/communicator"
+import "common/components/interface/slider/slider"
+import "common/components/expert-profile/experts-consultation-slider/experts-consultation-slider"
 
-  import ICallService = profitelo.services.call.ICallService
+/* @ngInject */
+function controller(callService: CallService) {
 
-  /* @ngInject */
-  function controller(callService: ICallService) {
-
-    this.startCall = () => {
-      callService.callServiceId(this.serviceTagsEmployeesTuple.service.id)
-    }
-
-    this.$onInit = () => {
-      this.tags = this.serviceTagsEmployeesTuple.tags
-      this.experts = this.serviceTagsEmployeesTuple.employees
-    }
-
-    return this
+  this.startCall = () => {
+    callService.callServiceId(this.serviceTagsEmployeesTuple.service.id)
   }
 
-  const companySingleConsultation = {
-    templateUrl: 'components/expert-profile/company-single-consultation/company-single-consultation.tpl.html',
-    replace: true,
-    bindings: {
-      serviceTagsEmployeesTuple: '<',
-      title: '@'
-    },
-    controller: controller,
-    controllerAs: '$ctrl'
+  this.$onInit = () => {
+    this.tags = this.serviceTagsEmployeesTuple.tags
+    this.experts = this.serviceTagsEmployeesTuple.employees
   }
 
-  angular.module('profitelo.components.expert-profile.company-single-consultation', [
-    'profitelo.components.interface.slider',
-    'profitelo.services.url',
-    'profitelo.filters.money',
-    'profitelo.components.expert-profile.experts-consultation-slider',
-    'profitelo.services.call',
-    'pascalprecht.translate'
-  ])
-  .component('companySingleConsultation', companySingleConsultation)
-
+  return this
 }
+
+const companySingleConsultation = {
+  template: require('./company-single-consultation.jade')(),
+  replace: true,
+  bindings: {
+    serviceTagsEmployeesTuple: '<',
+    title: '@'
+  },
+  controller: controller,
+  controllerAs: '$ctrl'
+}
+
+angular.module('profitelo.components.expert-profile.company-single-consultation', [
+  'profitelo.components.interface.slider',
+  urlModule,
+  filtersModule,
+  'profitelo.components.expert-profile.experts-consultation-slider',
+  communicatorModule,
+  'pascalprecht.translate'
+])
+  .component('companySingleConsultation', companySingleConsultation)

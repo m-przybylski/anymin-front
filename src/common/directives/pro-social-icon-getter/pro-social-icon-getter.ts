@@ -1,8 +1,8 @@
+import * as angular from "angular"
+import {UrlService} from "../../services/url/url.service"
 namespace profitelo.directives.proSocialIconGetter {
 
-  import IUrlService = profitelo.services.helper.IUrlService
-
-  function proSocialIconGetter(urlService: IUrlService) {
+  function proSocialIconGetter(urlService: UrlService) {
 
     function proSocialIconGetterLink(scope: any) {
 
@@ -15,7 +15,7 @@ namespace profitelo.directives.proSocialIconGetter {
       restrict: 'EA',
       replace: true,
       transclude: true,
-      templateUrl: 'directives/pro-social-icon-getter/pro-social-icon-getter.tpl.html',
+      template: require('./pro-social-icon-getter.jade')(),
       scope: {
         url: '='
       },

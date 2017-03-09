@@ -1,4 +1,4 @@
-# Profitelo Frontend [![Built with Gulp][build-with-gulp-png]][gulpjs-page]
+# Profitelo Frontend
 
 ## Requirements
 *   `npm` (best install via [nvm][github-nvm])
@@ -13,30 +13,31 @@ Download repository and inside:
 
 ```bash
 # node --version: min 4 or greater
-npm install -g gulp-cli protractor
 npm install
 git submodule init
 git submodule update
-gulp build
+npm run tr
+npm run serve
 ```
 
-> for more help type: `gulp` or `gulp about`
-
-### Run protractor (e2e tests)
+testing:
 ```bash
-webdriver-manager update # manually get standalone server
-webdriver-manager start # manually start selenium server
-gulp protractor-run
+npm run test
 ```
 
+create component
+```bash
+npm run component [name]
+```
 
-## Development
+download translations from tr
+```
+npm run tr
+```
 
-*   [General frontend guidelines between Itelo projects][confluence-contactis-frontend-guidelines]
-
-
-  [gulpjs-page]: https://www.gulpjs.com
-  [build-with-gulp-png]: https://raw.githubusercontent.com/gulpjs/gulp/e2dd2b6c66409f59082c24585c6989244793d132/built-with-gulp.png
-  [confluence-contactis-frontend-guidelines]: https://confluence.contactis.pl/display/GEN/Frontend+guidelines>
-  [github-nvm]: https://github.com/creationix/nvm
-
+generate new api client
+```
+brew install swagger-codegen
+cd src/common/api
+swagger-codegen generate -i http://api.dev.profitelo.pl/swagger/swagger.json -l typescript-angular -t typescript-angular
+```

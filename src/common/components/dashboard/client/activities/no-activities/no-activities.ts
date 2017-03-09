@@ -6,7 +6,7 @@
   }
 
   const component = {
-    templateUrl: 'components/dashboard/client/activities/no-activities/no-activities.tpl.html',
+    template: require('./no-activities.jade')(),
     controller: controller,
     controllerAs: '$ctrl'
   }

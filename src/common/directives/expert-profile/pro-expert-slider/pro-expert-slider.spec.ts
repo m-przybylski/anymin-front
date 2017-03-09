@@ -1,22 +1,24 @@
-namespace profitelo.directives.expertProfile.proExpertSlider {
-import IDialogService = profitelo.services.dialog.IDialogService
-  describe('Unit testing: profitelo.directives.expert-profile.pro-expert-slider', () => {
+import * as angular from "angular"
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import {DialogService} from "../../../services/dialog/dialog.service"
+
+describe('Unit testing: profitelo.directives.expert-profile.pro-expert-slider', () => {
   return describe('for expert-profile.pro-expert-slider directive >', () => {
 
     let scope: any = null
     let rootScope: ng.IRootScopeService
     let compile: any = null
     let timeout: ng.ITimeoutService
-    let dialogService: IDialogService
+    let dialogService: DialogService
     let validHTML = '<pro-expert-slider data-sliders="sliders"></pro-expert-slider>'
 
     beforeEach(() => {
-    angular.mock.module('templates-module')
-    angular.mock.module('profitelo.directives.expert-profile.pro-expert-slider')
-    angular.mock.module('profitelo.services.dialog')
+      //angular.mock.module('templates-module')
+      angular.mock.module('profitelo.directives.expert-profile.pro-expert-slider')
+      angular.mock.module('profitelo.services.dialog')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, $timeout: ng.ITimeoutService,
-              _dialogService_: IDialogService) => {
+              _dialogService_: DialogService) => {
         rootScope = $rootScope.$new()
         compile = $compile
         timeout = $timeout
@@ -28,8 +30,10 @@ import IDialogService = profitelo.services.dialog.IDialogService
       scope = rootScope.$new()
       let elem = angular.element(html)
       scope.controlls = {
-        nextSlide: () => {},
-        prevSlide: () => {}
+        nextSlide: () => {
+        },
+        prevSlide: () => {
+        }
       }
       scope.sliders = [{previews: 'asd'}, {previews: 'asd'}, {previews: 'asd'}]
 
@@ -77,4 +81,3 @@ import IDialogService = profitelo.services.dialog.IDialogService
 
   })
 })
-}

@@ -1,21 +1,23 @@
+import * as angular from "angular"
+import {TopWaitingLoaderService} from "../../services/top-waiting-loader/top-waiting-loader.service"
 namespace profitelo.directives.proTopWaitingLoader {
-  import ITopWaitingLoaderService = profitelo.services.topWaitingLoader.ITopWaitingLoaderService
+
   describe('Unit testing: profitelo.directives.pro-top-waiting-loader', () => {
     return describe('for proTopWaitingLoader >', () => {
 
       let scope: any = null
       let rootScope: ng.IRootScopeService
       let compile: any = null
-      let topWaitingLoaderService: ITopWaitingLoaderService
+      let topWaitingLoaderService: TopWaitingLoaderService
       let validHTML = '<pro-top-waiting-loader></pro-top-waiting-loader>'
 
       beforeEach(() => {
-        angular.mock.module('templates-module')
+        //angular.mock.module('templates-module')
         angular.mock.module('profitelo.services.pro-top-waiting-loader-service')
         angular.mock.module('profitelo.directives.pro-top-waiting-loader')
 
         inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
-                _topWaitingLoaderService_: ITopWaitingLoaderService) => {
+                _topWaitingLoaderService_: TopWaitingLoaderService) => {
 
           rootScope = $rootScope.$new()
           compile = $compile

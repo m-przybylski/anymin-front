@@ -1,14 +1,17 @@
+import * as angular from "angular"
+import {UrlService} from "./url.service"
+
 namespace profitelo.services.helper {
   describe('Unit testing: profitelo.services.helper >', () => {
     describe('for urlService service >', () => {
 
-      let urlService: IUrlService
+      let urlService: UrlService
 
       beforeEach(() => {
         angular.mock.module('profitelo.services.url')
 
         inject(($injector: ng.auto.IInjectorService) => {
-          urlService = $injector.get<IUrlService>('urlService')
+          urlService = $injector.get<UrlService>('urlService')
         })
 
       })

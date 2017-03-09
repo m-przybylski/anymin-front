@@ -1,3 +1,6 @@
+import * as angular from "angular"
+import "../../../../../../../components/communicator/messenger/maximized/grouped-messages/grouped-messages"
+
 (function() {
   /* @ngInject */
   function controller() {
@@ -6,7 +9,7 @@
   }
 
   const component = {
-    templateUrl: 'components/dashboard/client/activities/modals/consultation-details/consultation-details-chat/consultation-details-chat.tpl.html',
+    template: require('./consultation-details-chat.jade')(),
     controller: controller,
     controllerAs: '$ctrl'
   }

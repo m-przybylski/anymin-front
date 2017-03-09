@@ -1,3 +1,5 @@
+import * as angular from "angular"
+import soundsModule from "./sounds"
 namespace profitelo.services.sounds {
   interface Window {
     Audio: any;
@@ -17,7 +19,7 @@ namespace profitelo.services.sounds {
       let audioOriginal: any
 
       beforeEach(() => {
-        angular.mock.module('profitelo.services.sounds')
+        angular.mock.module(soundsModule)
         angular.mock.module('ngLodash')
       })
 

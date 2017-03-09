@@ -1,9 +1,8 @@
-namespace profitelo.components.dashboard.client.favourites.favouriteExperts.lastConsultationSlider {
-
-  import IUrlService = profitelo.services.helper.IUrlService
+import * as angular from "angular"
+import {UrlService} from "../../../../../../services/url/url.service"
 
   /* @ngInject */
-  function controller($scope: any, $state: ng.ui.IStateService, urlService: IUrlService) {
+  function controller($scope: any, $state: ng.ui.IStateService, urlService: UrlService) {
 
     this.$onInit = () => {}
 
@@ -30,7 +29,7 @@ namespace profitelo.components.dashboard.client.favourites.favouriteExperts.last
   }
 
   const lastConsultationSlider = {
-    templateUrl: 'components/dashboard/client/favourites/favourite-experts/last-consultation-slider/last-consultation-slider.tpl.html',
+    template: require('./last-consultation-slider.jade')(),
     restrict: 'E',
     replace: true,
     bindings: {
@@ -51,5 +50,3 @@ namespace profitelo.components.dashboard.client.favourites.favouriteExperts.last
 
   ])
   .component('lastConsultationSlider', lastConsultationSlider)
-
-}

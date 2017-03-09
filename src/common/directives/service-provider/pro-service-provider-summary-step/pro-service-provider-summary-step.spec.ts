@@ -11,7 +11,7 @@ namespace profitelo.directives.serviceProvider.proServiceProviderSummaryStep {
         'data-delete-action="deleteConsultation"></pro-service-provider-summary-step>'
 
       beforeEach(function () {
-        angular.mock.module('templates-module')
+        //angular.mock.module('templates-module')
         angular.mock.module('profitelo.directives.service-provider.pro-service-provider-summary-step')
 
         inject(function ($rootScope: IRootScopeService, $compile: ng.ICompileService) {

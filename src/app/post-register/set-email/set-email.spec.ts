@@ -1,86 +1,85 @@
-namespace profitelo.postRegister.setEmail {
+import * as angular from "angular"
+import {AccountApiMock, AccountApi} from "../../../common/api/api/AccountApi"
+import {TopAlertService} from "../../../common/services/top-alert/top-alert.service"
+import {TopWaitingLoaderService} from "../../../common/services/top-waiting-loader/top-waiting-loader.service"
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import {IFilterService} from "../../../common/services/filter/filter.service"
+import "./set-email"
 
-  import ITopWaitingLoaderService = profitelo.services.topWaitingLoader.ITopWaitingLoaderService
-  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
-  import IFilterService = profitelo.services.filter.IFilterService
-  import IAccountApi = profitelo.api.IAccountApi
-  import IAccountApiMock = profitelo.api.IAccountApiMock
+describe('Unit tests: profitelo.controller.post-register.set-email>', () => {
+  describe('Testing Controller: SetEmailController', () => {
 
-  describe('Unit tests: profitelo.controller.post-register.set-email>', () => {
-    describe('Testing Controller: SetEmailController', () => {
+    let scope: any
+    let SetEmailController: any
+    let _topWaitingLoaderService: TopWaitingLoaderService
+    let _AccountApi: AccountApi
+    let _topAlertService: TopAlertService
+    let _AccountApiMock: AccountApiMock
+    let _$httpBackend: ng.IHttpBackendService
 
-      let scope: any
-      let SetEmailController: any
-      let _topWaitingLoaderService: ITopWaitingLoaderService
-      let _AccountApi: IAccountApi
-      let _topAlertService: ITopAlertService
-      let _AccountApiMock: IAccountApiMock
-      let _$httpBackend: ng.IHttpBackendService
+    const _url = 'awesomeUrl'
 
-      const _url = 'awesomeUrl'
+    const user = {
+      id: '123'
+    }
 
-      const user = {
-        id: '123'
+    const $state = {
+      go: () => {
       }
+    }
 
-      const $state = {
-        go: () => {
-        }
-      }
+    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
+      $provide.value('apiUrl', _url)
+    }))
 
-      beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
-        $provide.value('apiUrl', _url)
-      }))
+    beforeEach(() => {
+      angular.mock.module('profitelo.controller.post-register.set-email')
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $filter: IFilterService,
+              _topWaitingLoaderService_: TopWaitingLoaderService, _AccountApi_: AccountApi, _topAlertService_: TopAlertService,
+              _$httpBackend_: ng.IHttpBackendService, AccountApiMock: AccountApiMock) => {
 
-      beforeEach(() => {
-        angular.mock.module('profitelo.controller.post-register.set-email')
-        inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $filter: IFilterService,
-                _topWaitingLoaderService_: ITopWaitingLoaderService, _AccountApi_: IAccountApi, _topAlertService_: ITopAlertService,
-                _$httpBackend_: ng.IHttpBackendService, AccountApiMock: IAccountApiMock) => {
+        scope = $rootScope.$new()
 
-          scope = $rootScope.$new()
-
-          SetEmailController = $controller('SetEmailController', {
-            $filter: $filter,
-            $state: $state,
-            topWaitingLoaderService: _topWaitingLoaderService_,
-            user: user,
-            topAlertService: _topAlertService_,
-            AccountApi: _AccountApi_
-          })
-
-          _AccountApiMock = AccountApiMock
-          _$httpBackend = _$httpBackend_
-          _topWaitingLoaderService = _topWaitingLoaderService_
-          _AccountApi = _AccountApi_
-          _topAlertService = _topAlertService_
+        SetEmailController = $controller('SetEmailController', {
+          $filter: $filter,
+          $state: $state,
+          topWaitingLoaderService: _topWaitingLoaderService_,
+          user: user,
+          topAlertService: _topAlertService_,
+          AccountApi: _AccountApi_
         })
-      })
 
-      it('should exsist', () => {
-        expect(!!SetEmailController).toBe(true)
-      })
-
-      it('should set new email', () => {
-        spyOn($state, 'go')
-        //FIXME
-        _AccountApiMock.partialUpdateAccountRoute(200, user.id, <any>{})
-        _AccountApiMock.getAccountEmailExistsRoute(400, 'email')
-        SetEmailController.setNewEmail()
-        _$httpBackend.flush()
-
-        expect($state.go).toHaveBeenCalledWith('app.dashboard.client.favourites')
-      })
-
-      it('should handle bad requesnt while setting new email', () => {
-        spyOn(_topAlertService, 'error')
-        _AccountApiMock.partialUpdateAccountRoute(500, user.id)
-        _AccountApiMock.getAccountEmailExistsRoute(400, 'email')
-        SetEmailController.setNewEmail()
-        _$httpBackend.flush()
-
-        expect(_topAlertService.error).toHaveBeenCalledWith({message: 'INTERFACE.API_ERROR', timeout: 4})
+        _AccountApiMock = AccountApiMock
+        _$httpBackend = _$httpBackend_
+        _topWaitingLoaderService = _topWaitingLoaderService_
+        _AccountApi = _AccountApi_
+        _topAlertService = _topAlertService_
       })
     })
+
+    it('should exsist', () => {
+      expect(!!SetEmailController).toBe(true)
+    })
+
+    it('should set new email', () => {
+      spyOn($state, 'go')
+      //FIXME
+      _AccountApiMock.partialUpdateAccountRoute(200, user.id, <any>{})
+      _AccountApiMock.getAccountEmailExistsRoute(400, 'email')
+      SetEmailController.setNewEmail()
+      _$httpBackend.flush()
+
+      expect($state.go).toHaveBeenCalledWith('app.dashboard.client.favourites')
+    })
+
+    it('should handle bad requesnt while setting new email', () => {
+      spyOn(_topAlertService, 'error')
+      _AccountApiMock.partialUpdateAccountRoute(500, user.id)
+      _AccountApiMock.getAccountEmailExistsRoute(400, 'email')
+      SetEmailController.setNewEmail()
+      _$httpBackend.flush()
+
+      expect(_topAlertService.error).toHaveBeenCalledWith({message: 'INTERFACE.API_ERROR', timeout: 4})
+    })
   })
-}
+})

@@ -1,32 +1,36 @@
-describe('Testing Controller: clientComplainReportController', () => {
+namespace profitelo.components.dashboard.client.activities.modals.complainReport {
+  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  describe('Testing Controller: clientComplainReportController', () => {
 
-  var clientComplainReportController: any
-  var scope: any
-  var uibModalInstance = {
-    dismiss: () => {
+    var clientComplainReportController: any
+    var scope: any
+    var uibModalInstance = {
+      dismiss: () => {
 
-    },
-    close: () => {
+      },
+      close: () => {
 
+      }
     }
-  }
 
-  beforeEach(() => {
-  angular.mock.module('profitelo.components.dashboard.client.activities.modals.complain-report')
-    inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
+    beforeEach(() => {
+      angular.mock.module('profitelo.components.dashboard.client.activities.modals.complain-report')
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
 
-      scope = $rootScope.$new()
-      scope.disconnectCall = () => {}
+        scope = $rootScope.$new()
+        scope.disconnectCall = () => {
+        }
 
-      clientComplainReportController = $controller('clientComplainReportController', {
-        '$scope': scope,
-        '$uibModalInstance': uibModalInstance
+        clientComplainReportController = $controller('clientComplainReportController', {
+          '$scope': scope,
+          '$uibModalInstance': uibModalInstance
+        })
       })
     })
-  })
 
-  it('should exists', () => {
-    return expect(!!clientComplainReportController).toBe(true)
-  })
+    it('should exists', () => {
+      return expect(!!clientComplainReportController).toBe(true)
+    })
 
-})
+  })
+}

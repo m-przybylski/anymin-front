@@ -1,4 +1,6 @@
-namespace profitelo.home {
+import * as angular from "angular"
+import "./home"
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 describe('Unit tests: Home section >', () => {
   describe('Testing Controller: HomeController', () => {
 
@@ -6,7 +8,7 @@ describe('Unit tests: Home section >', () => {
     var HomeController: any
 
     beforeEach(() => {
-    angular.mock.module('profitelo.controller.home')
+      angular.mock.module('profitelo.controller.home')
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $state: ng.ui.IStateService) => {
         $scope = $rootScope.$new()
         HomeController = $controller('HomeController', {
@@ -24,4 +26,3 @@ describe('Unit tests: Home section >', () => {
 
   })
 })
-}

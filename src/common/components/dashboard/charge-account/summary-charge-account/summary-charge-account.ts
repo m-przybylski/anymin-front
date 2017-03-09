@@ -1,6 +1,7 @@
-namespace profitelo.components.dashboard.chargeAccount.summaryChargeAccount {
+import * as angular from "angular"
+import {MoneyDto} from "../../../../api/model/MoneyDto"
+import filtersModule from "../../../../filters/filters"
 
-  import MoneyDto = profitelo.api.MoneyDto
   export interface ISummaryChargeAccountComponentBindings {
     amount: MoneyDto
   }
@@ -15,7 +16,7 @@ namespace profitelo.components.dashboard.chargeAccount.summaryChargeAccount {
   }
 
   class SummaryChargeAccountComponent implements ng.IComponentOptions {
-    templateUrl: string =  'components/dashboard/charge-account/summary-charge-account/summary-charge-account.tpl.html'
+    template = require('./summary-charge-account.jade')()
     controller: ng.Injectable<ng.IControllerConstructor> = SummaryChargeAccountComponentController
     replace: true
     controllerAs: '$ctrl'
@@ -27,8 +28,6 @@ namespace profitelo.components.dashboard.chargeAccount.summaryChargeAccount {
 
   angular.module('profitelo.components.dashboard.charge-account.summary-charge-account', [
     'pascalprecht.translate',
-    'profitelo.filters.money'
+    filtersModule
   ])
   .component('summaryChargeAccount', new SummaryChargeAccountComponent())
-
-}

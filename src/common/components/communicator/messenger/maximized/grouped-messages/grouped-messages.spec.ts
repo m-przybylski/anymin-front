@@ -1,3 +1,5 @@
+import * as angular from "angular"
+import {GroupedMessagesComponentController, IGroupedMessagesComponentBindings} from "./grouped-messages"
 namespace profitelo.components.communicator.messenger.maximized.groupedMessages {
 
   describe('Unit testing: profitelo.components.communicator.messenger.maximized.grouped-messages', () => {
@@ -25,7 +27,7 @@ namespace profitelo.components.communicator.messenger.maximized.groupedMessages 
       }
 
       beforeEach(() => {
-        angular.mock.module('templates-module')
+        //angular.mock.module('templates-module')
         angular.mock.module('profitelo.components.communicator.messenger.maximized.grouped-messages')
 
         inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,

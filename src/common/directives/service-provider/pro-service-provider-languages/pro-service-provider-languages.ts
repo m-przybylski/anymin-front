@@ -53,7 +53,7 @@ namespace profitelo.directives.serviceProvider.proServiceProviderLanguages {
     return {
       replace: true,
       restrict: 'E',
-      templateUrl: 'directives/service-provider/pro-service-provider-languages/pro-service-provider-languages.tpl.html',
+      template: require('./pro-service-provider-languages.jade')(),
       scope: {
         queue: '=',
         order: '=?',

@@ -9,7 +9,7 @@ namespace profitelo.directives.scrollable {
   }
 
   class ScrollableDirective implements ng.IDirective {
-    public templateUrl: string = 'directives/interface/scrollable/scrollable.tpl.html'
+    public template = require('./scrollable.jade')()
     public restrict: string = 'E'
     public transclude: boolean = true
     public scope = {
@@ -24,7 +24,7 @@ namespace profitelo.directives.scrollable {
     private navbarHeight: number
     private intervalDelay: number = 30
 
-    /* ngInject */
+    /* @ngInject */
     constructor(private $timeout: ng.ITimeoutService, private $interval: ng.IIntervalService,
                 private styleConstant: IStyleConstant) {
     }

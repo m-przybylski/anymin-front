@@ -1,12 +1,20 @@
-namespace profitelo.components.dashboard.settings.modals.general.basicAccountSettings {
-
-  import IUploaderFactory = profitelo.services.uploader.IUploaderFactory
-  import IUploaderService = profitelo.services.uploader.IUploaderService
-  import IUrlService = profitelo.services.helper.IUrlService
-  import IPostProcessOptions = profitelo.services.uploader.IPostProcessOptions
-  import IAccountApi = profitelo.api.IAccountApi
-  import PutGeneralSettings = profitelo.api.PutGeneralSettings
-  import IUserService = profitelo.services.user.IUserService
+import * as angular from "angular"
+import userModule from "../../../../../../services/user/user"
+import {IPostProcessOptions, UploaderService} from "../../../../../../services/uploader/uploader.service"
+import {PutGeneralSettings} from "../../../../../../api/model/PutGeneralSettings"
+import {AccountApi} from "../../../../../../api/api/AccountApi"
+import {UserService} from "../../../../../../services/user/user.service"
+import {UploaderFactory} from "../../../../../../services/uploader/uploader.factory"
+import {UrlService} from "../../../../../../services/url/url.service"
+import apiModule from "../../../../../../api/api.module"
+import urlModule from "../../../../../../services/url/url"
+import uploaderModule from "../../../../../../services/uploader/uploader"
+import "../../../../../../components/interface/preloader/preloader"
+import "../../../../../../components/interface/image-crop/image-crop"
+import "../../../../../../directives/interface/pro-checkbox/pro-checkbox"
+import "../../../../../../directives/interface/pro-input/pro-input"
+import "../../../../../../directives/interface/local-avatar-uploader/local-avatar-uploader"
+import "../../../../../../directives/interface/scrollable/scrollable"
 
   export interface IBasicAccountSettingsControllerParentScope extends ng.IScope {
     callback: (cb: Function) => void
@@ -34,15 +42,15 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
   export class BasicAccountSettingsController implements ng.IController {
 
     private uploadedFile: File
-    private uploader: IUploaderService
+    private uploader: UploaderService
     private clearFormAfterCropping: Function
     $onInit = () => {
     }
 
     /* @ngInject */
     constructor(private $scope: IBasicAccountSettingsControllerScope,
-                $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, private AccountApi: IAccountApi,
-                userService: IUserService, uploaderFactory: IUploaderFactory, urlService: IUrlService) {
+                $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, private AccountApi: AccountApi,
+                userService: UserService, uploaderFactory: UploaderFactory, urlService: UrlService) {
 
       $scope.isNavbar = true
       $scope.isFullscreen = true
@@ -65,7 +73,9 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
 
       this.$scope.submitBasicSettings = () => {
         this.AccountApi.putGeneralSettingsRoute(this.$scope.generalSettingsObject).then(_res => {
-          $scope.$parent.callback(() => $uibModalInstance.dismiss('cancel'))
+          // FIXME
+          $scope.$parent.callback(() => {})
+          $uibModalInstance.dismiss('cancel')
         }, (err: any) => {
           throw new Error('Can not patch user account: ' + err)
         })
@@ -127,10 +137,10 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
 
   angular.module('profitelo.components.dashboard.settings.modals.general.basic-account-settings', [
     'ui.bootstrap',
-    'profitelo.services.user',
-    'profitelo.services.url',
-    'profitelo.services.uploader',
-    'profitelo.api.AccountApi',
+    userModule,
+    urlModule,
+    uploaderModule,
+    apiModule,
     'profitelo.components.interface.preloader',
     'profitelo.components.interface.image-crop',
     'profitelo.directives.interface.pro-checkbox',
@@ -139,5 +149,3 @@ namespace profitelo.components.dashboard.settings.modals.general.basicAccountSet
     'profitelo.directives.interface.scrollable'
   ])
   .controller('basicAccountSettingsController', BasicAccountSettingsController)
-
-}

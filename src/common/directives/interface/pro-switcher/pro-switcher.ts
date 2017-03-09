@@ -25,7 +25,7 @@
     }
 
     return {
-      templateUrl: 'directives/interface/pro-switcher/pro-switcher.tpl.html',
+      template: require('./pro-switcher.jade'),
       restrict: 'E',
       replace: true,
       link: linkFunction,

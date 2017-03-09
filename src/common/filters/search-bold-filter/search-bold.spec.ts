@@ -1,5 +1,8 @@
+import {IFilterService} from "../../services/filter/filter.service"
+import * as angular from "angular"
+
 namespace profitelo.filters.searchBold {
-import IFilterService = profitelo.services.filter.IFilterService
+
   describe('Unit testing: profitelo.filters.search-bold-filter >', () => {
   describe('for profitelo.filters.search-bold-filter >', () => {
 

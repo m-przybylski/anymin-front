@@ -6,7 +6,7 @@
   }
 
   const component = {
-    templateUrl: 'components/dashboard/client/favourites/no-favourite-experts/no-favourite-experts.tpl.html',
+    template: require('./no-favourite-experts.jade')(),
     controller: controller,
     controllerAs: '$ctrl'
   }

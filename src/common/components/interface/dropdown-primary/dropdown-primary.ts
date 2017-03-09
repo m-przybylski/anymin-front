@@ -1,5 +1,4 @@
-namespace profitelo.components.interface.dropdownPrimary {
-
+import * as angular from "angular"
   interface IDropdownItem {
     name: string
     value: Object | null
@@ -95,7 +94,7 @@ namespace profitelo.components.interface.dropdownPrimary {
 
   class DropdownPrimaryComponent implements ng.IComponentOptions {
     controller: ng.Injectable<ng.IControllerConstructor> = DropdownPrimaryComponentController
-    templateUrl: string = 'components/interface/dropdown-primary/dropdown-primary.tpl.html'
+    template = require('./dropdown-primary.jade')()
     bindings: {[boundProperty: string]: string} = {
       label: '@',
       inputPlaceholder: '@',
@@ -111,5 +110,3 @@ namespace profitelo.components.interface.dropdownPrimary {
     'pascalprecht.translate'
   ])
   .component('dropdownPrimary', new DropdownPrimaryComponent)
-}
-

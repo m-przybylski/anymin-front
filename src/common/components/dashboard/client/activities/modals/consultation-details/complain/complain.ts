@@ -1,3 +1,7 @@
+import * as angular from "angular"
+import "./complain-reason/complain-reason"
+import "./complain-status/complain-status"
+
 (function() {
   /* @ngInject */
   function controller() {
@@ -11,7 +15,7 @@
   }
 
   const component = {
-    templateUrl: 'components/dashboard/client/activities/modals/consultation-details/complain/complain.tpl.html',
+    template: require('./complain.jade')(),
     controller: controller,
     controllerAs: '$ctrl',
     bindings: {

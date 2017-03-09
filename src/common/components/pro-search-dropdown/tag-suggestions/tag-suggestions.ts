@@ -1,7 +1,7 @@
 (function() {
   let tagSuggestions = {
     transclude: true,
-    templateUrl: 'components/pro-search-dropdown/tag-suggestions/tag-suggestions.tpl.html',
+    template: require('./tag-suggestions.jade')(),
     bindings: {
       tags: '<',
       searchModel: '<'

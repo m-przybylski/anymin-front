@@ -18,7 +18,7 @@ namespace profitelo.components.dashboard.settings.manageDevices {
       }
 
       beforeEach(() => {
-        angular.mock.module('templates-module')
+        //angular.mock.module('templates-module')
         angular.mock.module('profitelo.components.dashboard.settings.manage-devices')
 
         inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,

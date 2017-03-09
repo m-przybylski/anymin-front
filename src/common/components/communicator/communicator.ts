@@ -1,127 +1,49 @@
-namespace profitelo.components.communicator {
+import * as angular from "angular"
+import "angular-translate"
+import "angular-sanitize"
+import {CommunicatorComponent} from "./communicator.component"
+import {CommunicatorService} from "./communicator.service"
+import callbacksModule from "../../services/callbacks/callbacks"
+import apiModule from "../../api/api.module"
+import userModule from "../../services/user/user"
+import urlModule from "../../services/url/url"
+import soundsModule from "../../services/sounds/sounds"
+import modalsModule from "../../services/modals/modals"
+import timerModule from "../../services/timer/timer"
+import navigatorModule from "../../services/navigator/navigator"
+import {CallService} from "./call.service"
+import filtersModule from "../../filters/filters"
+import "./navigation/navigation"
+import "./messenger/messenger"
+import ratelSdkModule from "../ratel-sdk/ratel-sdk"
 
-  import ICallService = profitelo.services.call.ICallService
-  import IUrlService = profitelo.services.helper.IUrlService
-  import GetService = profitelo.api.GetService
-  import MoneyDto = profitelo.api.MoneyDto
-  import GetProfile = profitelo.api.GetProfile
+const communicatorModule = angular.module('profitelo.components.communicator', [
+  'pascalprecht.translate',
+  urlModule,
+  userModule,
+  apiModule,
+  navigatorModule,
+  apiModule,
+  timerModule,
+  userModule,
+  callbacksModule,
+  modalsModule,
+  soundsModule,
+  'ngSanitize',
+  'commonConfig',
+  'ngLodash',
+  callbacksModule,
+  filtersModule,
+  ratelSdkModule,
+  'profitelo.components.communicator.navigation',
+  'profitelo.components.communicator.messenger'
+])
+  .config(($qProvider: ng.IQProvider) => {
+    $qProvider.errorOnUnhandledRejections(false)
+  })
+  .component('communicator', new CommunicatorComponent)
+  .service('communicatorService', CommunicatorService)
+  .service('callService', CallService)
+  .name
 
-  export class CommunicatorComponentController implements ng.IController {
-
-    public isClosed: boolean = true
-    public isDisconnectedAnimation: boolean = false
-    public isConnecting: boolean = false
-    public service: GetService | null = null
-    public expert: GetProfile | null = null
-    public expertAvatar: string
-
-    public isRemoteVideo: boolean = false
-    public isLocalVideo: boolean = false
-    public isMessenger: boolean = false
-    public callLengthInSeconds: number = 0
-    public callCost: MoneyDto | null = null
-
-    /* @ngInject */
-    constructor(private $timeout: ng.ITimeoutService, private $element: ng.IRootElementService,
-                private callService: ICallService, private urlService: IUrlService) {
-
-      const localStreamElement = this.$element.find('.video-player-local video')
-      const remoteStreamElement = this.$element.find('.video-player-remote video')
-
-      this.callService.setLocalStreamElement(localStreamElement)
-      this.callService.setRemoteStreamElement(remoteStreamElement)
-
-      this.registerEvents()
-    }
-
-    private registerEvents = () => {
-      /* Starting events */
-      this.callService.onClientCallPending(expertServiceTuple => {
-        this.cleanupComponent()
-        this.service = expertServiceTuple.service
-        this.expert = expertServiceTuple.expert
-        this.expertAvatar = this.urlService.resolveFileUrl(this.expert.expertDetails!.avatar || '')
-        this.isConnecting = true
-        this.isClosed = false
-      })
-
-      /* Call started events */
-      this.callService.onExpertCallAnswered(serviceInvitationTuple => {
-        this.cleanupComponent()
-        this.service = serviceInvitationTuple.service
-        this.isConnecting = false
-        this.isClosed = false
-      })
-
-      this.callService.onClientCallStarted(_ => {
-        this.isConnecting = false
-      })
-
-      /* Call ended events */
-      this.callService.onCallEnd(this.onCallEnd)
-
-      this.callService.onVideoStart(this.onVideoStart)
-
-      this.callService.onVideoStop(this.onVideoStop)
-
-      this.callService.onTimeCostChange(timeMoneyTuple => {
-        this.callLengthInSeconds = timeMoneyTuple.time
-        this.callCost = timeMoneyTuple.money
-      })
-
-      angular.element('.communicator').on('dragover', (e) => {
-        e.preventDefault()
-      })
-
-      angular.element('.communicator').on('drop', (e) => {
-        e.preventDefault()
-      })
-    }
-
-    private cleanupComponent = () => {
-      this.isDisconnectedAnimation = false
-      this.isConnecting = false
-      this.service = null
-      this.expert = null
-      this.isRemoteVideo = false
-      this.isLocalVideo = false
-      this.isMessenger = false
-      this.callLengthInSeconds = 0
-      this.callCost = null
-    }
-
-    private onCallEnd = () => {
-      this.isDisconnectedAnimation = true
-      this.$timeout(() => {
-        this.isClosed = true
-        this.cleanupComponent()
-      }, 500)
-    }
-
-    /* Other events */
-    private onVideoStart = () => {
-      this.isRemoteVideo = true
-    }
-
-    private onVideoStop = () => {
-      this.isRemoteVideo = false
-    }
-  }
-
-  class CommunicatorComponent implements ng.IComponentOptions {
-
-    controller: ng.Injectable<ng.IControllerConstructor> = CommunicatorComponentController
-    templateUrl: string = 'components/communicator/communicator.tpl.html'
-  }
-
-  angular.module('profitelo.components.communicator', [
-    'pascalprecht.translate',
-    'profitelo.services.call',
-    'profitelo.services.url',
-    'profitelo.filters.money',
-    'profitelo.filters.seconds-to-datetime',
-    'profitelo.components.communicator.navigation',
-    'profitelo.components.communicator.messenger'
-  ])
-  .component('communicator', new CommunicatorComponent())
-}
+export default communicatorModule;

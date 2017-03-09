@@ -1,24 +1,25 @@
-namespace profitelo.login.register {
-  import ITopWaitingLoaderService = profitelo.services.topWaitingLoader.ITopWaitingLoaderService
-  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
-  import IFilterService = profitelo.services.filter.IFilterService
-  import ILoginStateService = profitelo.services.loginState.ILoginStateService
-  import IAccountApi = profitelo.api.IAccountApi
-  import IRegistrationApi = profitelo.api.IRegistrationApi
-  import IRegistrationApiMock = profitelo.api.IRegistrationApiMock
-  import GetSession = profitelo.api.GetSession
+import * as angular from "angular"
+  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import {RegistrationApiMock, RegistrationApi} from "../../../common/api/api/RegistrationApi"
+import {TopAlertService} from "../../../common/services/top-alert/top-alert.service"
+import {AccountApi} from "../../../common/api/api/AccountApi"
+import {TopWaitingLoaderService} from "../../../common/services/top-waiting-loader/top-waiting-loader.service"
+import {LoginStateService} from "../../../common/services/login-state/login-state.service"
+import {IFilterService} from "../../../common/services/filter/filter.service"
+import {GetSession} from "../../../common/api/model/GetSession"
+import sessionModule from "../../../common/services/session/session"
 
   describe('Unit tests: profitelo.controller.login.register>', () => {
     describe('Testing Controller: RegisterController', () => {
 
       let scope: any
       let RegisterController: any
-      let _topWaitingLoaderService: ITopWaitingLoaderService
-      let _RegistrationApi: IRegistrationApi
-      let _AccountApi: IAccountApi
-      let _topAlertService: ITopAlertService
+      let _topWaitingLoaderService: TopWaitingLoaderService
+      let _RegistrationApi: RegistrationApi
+      let _AccountApi: AccountApi
+      let _topAlertService: TopAlertService
       let _$httpBackend: ng.IHttpBackendService
-      let _RegistrationApiMock: IRegistrationApiMock
+      let _RegistrationApiMock: RegistrationApiMock
 
       let _url = 'awesomeUrl'
 
@@ -45,7 +46,7 @@ namespace profitelo.login.register {
       }
 
       beforeEach(() => {
-        angular.mock.module('profitelo.services.session')
+        angular.mock.module(sessionModule)
       })
 
       beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
@@ -56,10 +57,10 @@ namespace profitelo.login.register {
       beforeEach(() => {
         angular.mock.module('profitelo.controller.login.register')
         inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $filter: IFilterService,
-                _topWaitingLoaderService_: ITopWaitingLoaderService, _RegistrationApi_: IRegistrationApi,
-                _AccountApi_: IAccountApi, _topAlertService_: ITopAlertService,
-                _$httpBackend_: ng.IHttpBackendService, _RegistrationApiMock_: IRegistrationApiMock,
-                _loginStateService_: ILoginStateService) => {
+                _topWaitingLoaderService_: TopWaitingLoaderService, _RegistrationApi_: RegistrationApi,
+                _AccountApi_: AccountApi, _topAlertService_: TopAlertService,
+                _$httpBackend_: ng.IHttpBackendService, _RegistrationApiMock_: RegistrationApiMock,
+                _loginStateService_: LoginStateService) => {
 
           scope = $rootScope.$new()
 
@@ -108,4 +109,3 @@ namespace profitelo.login.register {
       })
     })
   })
-}

@@ -1,38 +1,37 @@
-namespace profitelo.directives.expertProfile.proExpertHeader {
+import * as angular from "angular"
+import {UrlService} from "../../../services/url/url.service"
+import urlModule from "../../../services/url/url"
+import "common/components/interface/show-more-text/show-more-text"
 
-  import IUrlService = profitelo.services.helper.IUrlService
+function proExpertHeader(urlService: UrlService) {
 
-  function proExpertHeader(urlService: IUrlService) {
+  function linkFunction(scope: any, _element: ng.IRootElementService) {
 
-    function linkFunction(scope: any, _element: ng.IRootElementService) {
-
-      scope.handleUserImage = (imgToken: string) => {
-        return imgToken !== null || imgToken === '' ? urlService.resolveFileUrl(imgToken) : ''
-      }
-
-      scope.checkCollaboratedExperts = () => {
-        return scope.profile.type === 'company' || !scope.profile.colaboratedOrganizations
-          || scope.profile.colaboratedOrganizations.length < 1
-      }
-
+    scope.handleUserImage = (imgToken: string) => {
+      return imgToken !== null || imgToken === '' ? urlService.resolveFileUrl(imgToken) : ''
     }
 
-    return {
-      templateUrl: 'directives/expert-profile/pro-expert-header/pro-expert-header.tpl.html',
-      restrict: 'E',
-      replace: true,
-      link: linkFunction,
-      scope: {
-        profile: '=?',
-        handleLike: '&'
-      }
+    scope.checkCollaboratedExperts = () => {
+      return scope.profile.type === 'company' || !scope.profile.colaboratedOrganizations
+        || scope.profile.colaboratedOrganizations.length < 1
     }
+
   }
 
-  angular.module('profitelo.directives.expert-profile.pro-expert-header', [
-    'profitelo.components.interface.show-more-text',
-    'profitelo.services.url'
-  ])
-    .directive('proExpertHeader', proExpertHeader)
-
+  return {
+    template: require('./pro-expert-header.jade')(),
+    restrict: 'E',
+    replace: true,
+    link: linkFunction,
+    scope: {
+      profile: '=?',
+      handleLike: '&'
+    }
+  }
 }
+
+angular.module('profitelo.directives.expert-profile.pro-expert-header', [
+  'profitelo.components.interface.show-more-text',
+  urlModule
+])
+  .directive('proExpertHeader', proExpertHeader)

@@ -1,5 +1,6 @@
 namespace profitelo.components.dashboard.client.activities.clientActivities.filters {
 
+  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
   interface Window {
     Set: any;
   }
@@ -43,7 +44,7 @@ namespace profitelo.components.dashboard.client.activities.clientActivities.filt
       }
 
       beforeEach(() => {
-        angular.mock.module('templates-module')
+        //angular.mock.module('templates-module')
         angular.mock.module('ngLodash')
         angular.mock.module('profitelo.filters.normalize-translation-key-filter')
         angular.mock.module('profitelo.services.client-activities-service')

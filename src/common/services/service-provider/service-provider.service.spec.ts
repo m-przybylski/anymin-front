@@ -1,8 +1,10 @@
+import * as angular from "angular"
+import {ServiceProviderService} from "./service-provider.service"
 namespace profitelo.services.serviceProvider {
 describe('Unit testing: profitelo.services.service-provider-service >', function() {
   describe('for serviceProviderService service >', function() {
 
-    let serviceProviderService: IServiceProviderService
+    let serviceProviderService: ServiceProviderService
 
     beforeEach(function() {
     angular.mock.module('profitelo.services.service-provider')
@@ -10,7 +12,7 @@ describe('Unit testing: profitelo.services.service-provider-service >', function
 
 
     beforeEach(inject(function($injector: ng.auto.IInjectorService) {
-      serviceProviderService = $injector.get<IServiceProviderService>('serviceProviderService')
+      serviceProviderService = $injector.get<ServiceProviderService>('serviceProviderService')
     }))
 
 

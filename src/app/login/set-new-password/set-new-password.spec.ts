@@ -1,16 +1,18 @@
-namespace profitelo.login.setNewPassword {
-import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordStrengthService
-  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
-  import IRecoverPasswordApiMock = profitelo.api.IRecoverPasswordApiMock
-  describe('Unit tests: profitelo.controller.login.set-new-password >', () => {
+import * as angular from "angular"
+import {RecoverPasswordApiMock} from "../../../common/api/api/RecoverPasswordApi"
+import {PasswordStrengthService} from "../../../common/services/password-strength/password-strength.service"
+import {TopAlertService} from "../../../common/services/top-alert/top-alert.service"
+
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+describe('Unit tests: profitelo.controller.login.set-new-password >', () => {
   describe('Testing Controller: SetNewPasswordController', () => {
 
     let scope: any
     let SetNewPasswordController: any
-    let passwordStrengthService: IPasswordStrengthService
+    let passwordStrengthService: PasswordStrengthService
     let httpBackend: ng.IHttpBackendService
-    let RecoverPasswordApiMock: IRecoverPasswordApiMock
-    let topAlertService: ITopAlertService
+    let RecoverPasswordApiMock: RecoverPasswordApiMock
+    let topAlertService: TopAlertService
     let _url = 'awesomeUrl'
 
     let tokenStatus = {
@@ -35,17 +37,17 @@ import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordS
       }
     }
 
-    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
+    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', _url)
     }))
 
     beforeEach(() => {
-    angular.mock.module('profitelo.controller.login.set-new-password')
-    angular.mock.module('profitelo.services.top-alert')
+      angular.mock.module('profitelo.controller.login.set-new-password')
+      angular.mock.module('profitelo.services.top-alert')
 
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService,
-              _passwordStrengthService_: IPasswordStrengthService, _topAlertService_: ITopAlertService,
-              _RecoverPasswordApiMock_: IRecoverPasswordApiMock, _$httpBackend_: ng.IHttpBackendService) => {
+              _passwordStrengthService_: PasswordStrengthService, _topAlertService_: TopAlertService,
+              _RecoverPasswordApiMock_: RecoverPasswordApiMock, _$httpBackend_: ng.IHttpBackendService) => {
         scope = $rootScope.$new()
         passwordStrengthService = _passwordStrengthService_
         RecoverPasswordApiMock = _RecoverPasswordApiMock_
@@ -60,17 +62,17 @@ import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordS
       })
     })
 
-    it('should exsist', ()=> {
+    it('should exsist', () => {
       expect(!!SetNewPasswordController).toBe(true)
     })
 
-    it('should check password strength', ()=> {
+    it('should check password strength', () => {
       let password = 'asas'
       SetNewPasswordController.onPasswordChange(password)
       expect(SetNewPasswordController.passwordStrength).toEqual(passwordStrengthService.getStrength(password))
     })
 
-    it('should submit password change by email', ()=> {
+    it('should submit password change by email', () => {
       spyOn(topAlertService, 'success')
       RecoverPasswordApiMock.putRecoverPasswordEmailRoute(200, {})
       SetNewPasswordController.newPassword = 'sdfsdfsdfsdf'
@@ -79,7 +81,7 @@ import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordS
       expect(topAlertService.success).toHaveBeenCalled()
     })
 
-    it('should display error on server error', ()=> {
+    it('should display error on server error', () => {
       spyOn(topAlertService, 'error')
       RecoverPasswordApiMock.putRecoverPasswordEmailRoute(500)
       SetNewPasswordController.newPassword = 'sdfsdfsdfsdf'
@@ -88,7 +90,7 @@ import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordS
       expect(topAlertService.error).toHaveBeenCalled()
     })
 
-    it('should submit password change by sms', ()=> {
+    it('should submit password change by sms', () => {
       spyOn(topAlertService, 'success')
       tokenStatus.method = 'SMS'
       RecoverPasswordApiMock.putRecoverPasswordMsisdnRoute(200, {})
@@ -99,4 +101,3 @@ import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordS
 
   })
 })
-}

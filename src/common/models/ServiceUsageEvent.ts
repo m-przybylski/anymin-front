@@ -1,6 +1,3 @@
-namespace profitelo.models {
-
-  export interface ServiceUsageEvent {
-    id: string
-  }
+export interface ServiceUsageEvent {
+  id: string
 }

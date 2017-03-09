@@ -1,0 +1,133 @@
+{{>licenseInfo}}
+import * as models from '../model/models';
+
+/* tslint:disable:no-unused-variable member-ordering */
+
+{{#operations}}
+{{#description}}
+/**
+ * {{&description}}
+ */
+{{/description}}
+export class {{classname}} {
+    protected basePath = '{{basePath}}';
+    public defaultHeaders : any = {};
+
+    static $inject: string[] = ['$http', 'apiUrl', '$httpParamSerializer'];
+
+    constructor(protected $http: ng.IHttpService, apiUrl?: string, protected $httpParamSerializer?: (d: any) => any) {
+        if (apiUrl !== undefined) {
+            this.basePath = apiUrl;
+        }
+    }
+
+{{#operation}}
+    /**
+        * {{summary}}
+        * {{notes}}
+        {{#allParams}}* @param {{paramName}} {{description}}
+        {{/allParams}}*/
+    public {{nickname}} = ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/allParams}}extraHttpRequestParams?: any ) : ng.IPromise<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}{}{{/returnType}}> => {
+        const localVarPath = this.basePath + '{{path}}'{{#pathParams}}
+            .replace('{' + '{{baseName}}' + '}', String({{paramName}})){{/pathParams}};
+
+        let queryParameters: any = {};
+        let headerParams: any = (<any>Object).assign({}, this.defaultHeaders);
+{{#hasFormParams}}
+        let formParams: any = {};
+
+{{/hasFormParams}}
+{{#allParams}}
+{{#required}}
+        // verify required parameter '{{paramName}}' is not null or undefined
+        if ({{paramName}} === null || {{paramName}} === undefined) {
+            throw new Error('Required parameter {{paramName}} was null or undefined when calling {{nickname}}.');
+        }
+{{/required}}
+{{/allParams}}
+{{#queryParams}}
+        if ({{paramName}} !== undefined) {
+            queryParameters['{{baseName}}'] = {{paramName}};
+        }
+
+{{/queryParams}}
+{{#headerParams}}
+        headerParams['{{baseName}}'] = {{paramName}};
+
+{{/headerParams}}
+{{#hasFormParams}}
+        headerParams['Content-Type'] = 'application/x-www-form-urlencoded';
+
+{{/hasFormParams}}
+{{#formParams}}
+        formParams['{{baseName}}'] = {{paramName}};
+
+{{/formParams}}
+        let httpRequestParams: ng.IRequestConfig = {
+            method: '{{httpMethod}}',
+            url: localVarPath,
+            {{#bodyParam}}data: {{paramName}},
+            {{/bodyParam}}
+            {{#hasFormParams}}data: this.$httpParamSerializer(formParams),
+            {{/hasFormParams}}
+            params: queryParameters,
+            headers: headerParams
+        };
+
+        if (extraHttpRequestParams) {
+            httpRequestParams = (<any>Object).assign(httpRequestParams, extraHttpRequestParams);
+        }
+
+        return this.$http(httpRequestParams).then(response => {
+            if (typeof response.data !== 'undefined') {
+              return response.data
+            }
+            else {
+              throw new Error('Response was not defined')
+            }
+          });
+    }
+{{/operation}}
+}
+{{/operations}}
+
+export class {{classname}}Mock {
+    apiUrl = ''
+    static $inject: string[] = ['$httpBackend', 'apiUrl', '$httpParamSerializer'];
+
+    constructor(protected $httpBackend: ng.IHttpBackendService, apiUrl: string, protected $httpParamSerializer?: (d: any) => any) {
+        if (apiUrl !== undefined) {
+            this.apiUrl = apiUrl;
+        }
+    }
+
+    {{#operations}}
+    {{#operation}}
+    public {{nickname}} = (status: number, {{#pathParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/pathParams}}{{#queryParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/queryParams}}data?: {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}{}{{/returnType}}, err?: any): void => {
+      const localVarPath = this.apiUrl + '{{path}}'{{#pathParams}}
+          .replace('{' + '{{baseName}}' + '}', String({{paramName}})){{/pathParams}};
+
+      const queryParameters: any = {}
+      {{#queryParams}}
+      if ({{paramName}} !== undefined) {
+        queryParameters['{{baseName}}'] = {{paramName}};
+      }
+      {{/queryParams}}
+      const queryUrl = this.serializeQuery(queryParameters)
+
+      this.$httpBackend.when{{httpMethod}}(localVarPath+queryUrl)
+        .respond(status, (typeof err !== 'undefined') ? err : data)
+    }
+    {{/operation}}
+    {{/operations}}
+
+    private serializeQuery = (obj: any) => {
+      var str = [];
+      for(var p in obj)
+        if (obj.hasOwnProperty(p)) {
+          str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        }
+      const url = str.join("&")
+      return (url.length >0) ? '?'+url : ''
+    }
+  }

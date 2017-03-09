@@ -1,5 +1,6 @@
 namespace profitelo.directives.proTagsSlider {
-describe('Unit testing: profitelo.directives.pro-tags-slider', () => {
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  describe('Unit testing: profitelo.directives.pro-tags-slider', () => {
   return describe('for pro-tags-slider directive >', () => {
 
     let scope: any = null
@@ -10,7 +11,7 @@ describe('Unit testing: profitelo.directives.pro-tags-slider', () => {
       'id:999}, {name: elo, id:999}, {name: elo, id:999}]" data-on-tag-click-action="tagsAction"></pro-tags-slider>'
 
     beforeEach(() => {
-    angular.mock.module('templates-module')
+    //angular.mock.module('templates-module')
     angular.mock.module('profitelo.directives.pro-tags-slider')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, $timeout: ng.ITimeoutService) => {

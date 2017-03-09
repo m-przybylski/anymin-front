@@ -1,31 +1,21 @@
-namespace profitelo.services.user {
+import {AccountDetails} from "../../api/model/AccountDetails"
+import {SessionService} from "../session/session.service"
 
-  import AccountDetails = profitelo.api.AccountDetails
-  import ISessionService = profitelo.services.session.ISessionService
+export class UserService {
 
-  export interface IUserService {
-    getUser(purgeCache?: boolean): ng.IPromise<AccountDetails>
+  /* @ngInject */
+  constructor(private sessionService: SessionService) {
   }
 
-  class UserService implements IUserService {
-
-    constructor(private sessionService: ISessionService) {}
-
-    public getUser = (purgeCache = false): ng.IPromise<AccountDetails> => {
-      return this.sessionService.getSession(purgeCache)
-        .then((session) => {
-          if (session.account) {
-            return session.account
-          }
-          else {
-            throw new Error('AccountDetails in session was not defined')
-          }
-        })
-    }
+  public getUser = (purgeCache = false): ng.IPromise<AccountDetails> => {
+    return this.sessionService.getSession(purgeCache)
+      .then((session) => {
+        if (session.account) {
+          return session.account
+        }
+        else {
+          throw new Error('AccountDetails in session was not defined')
+        }
+      })
   }
-
-  angular.module('profitelo.services.user', [
-    'profitelo.services.session'
-  ])
-    .service('userService', UserService)
 }

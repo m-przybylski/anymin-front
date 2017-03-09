@@ -1,4 +1,6 @@
-namespace profitelo.directives.serviceProvider.proServiceProviderName {
+import * as angular from "angular"
+import "common/directives/ng-enter/ng-enter"
+import "common/controllers/service-provider/service-provider-step-controller/service-provider-step-controller"
 
   function proServiceProviderName($q: ng.IQService) {
     function linkFunction(scope: any, element: ng.IRootElementService, attrs: ng.IAttributes) {
@@ -56,7 +58,7 @@ namespace profitelo.directives.serviceProvider.proServiceProviderName {
     return {
       replace: true,
       restrict: 'E',
-      templateUrl: 'directives/service-provider/pro-service-provider-name/pro-service-provider-name.tpl.html',
+      template: require('./pro-service-provider-name.jade'),
       scope: {
         queue: '=',
         order: '=?',
@@ -79,4 +81,3 @@ namespace profitelo.directives.serviceProvider.proServiceProviderName {
     'profitelo.common.controller.service-provider.service-provider-step-controller'
   ])
     .directive('proServiceProviderName', proServiceProviderName)
-}

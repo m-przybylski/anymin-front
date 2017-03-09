@@ -1,9 +1,10 @@
+import * as angular from "angular"
+import {CommonSettingsService} from "../../../services/common-settings/common-settings.service"
 namespace profitelo.components.proSearchDropdown.expertSuggestions {
 
-  import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
 
   /* @ngInject */
-  function expertSuggestionsController(CommonSettingsService: ICommonSettingsService) {
+  function expertSuggestionsController(CommonSettingsService: CommonSettingsService) {
 
     this.profileImage = (index: number) => {
       return !!this.experts.results[index].img ? CommonSettingsService.links.imageUrl.replace('%s', this.experts.results[index].img) : false
@@ -14,7 +15,7 @@ namespace profitelo.components.proSearchDropdown.expertSuggestions {
 
   let expertSuggestions = {
     transclude: true,
-    templateUrl: 'components/pro-search-dropdown/expert-suggestions/expert-suggestions.tpl.html',
+    template: require('./expert-suggestions.jade')(),
     bindings: {
       experts: '<',
       searchModel: '<'

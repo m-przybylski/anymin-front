@@ -1,140 +1,126 @@
-namespace profitelo.services.imageZoom {
+import * as angular from "angular"
+// TODO refactor: create factory instead of "createZoomInstance"
+export class ImageZoomService {
 
-  export interface IImageZoomService {
-    createZoomInstance(img: Element): void
-    destroy(): void
-    settings: any
-    decreaseImg(): void
-    increaseImg(): void
-    resetImg(): void
+  private image: HTMLImageElement
+
+  public settings: {
+    zoomScale: number,
+    fileType: string
   }
 
-  // TODO refactor: create factory instead of "createZoomInstance"
-  class ImageZoomService implements IImageZoomService {
+  private imageSize: {
+    width: number,
+    height: number
+  }
 
-    private image: HTMLImageElement
+  private primaryImageSize: {
+    width: number,
+    height: number
+  }
 
-    public settings: {
-      zoomScale: number,
-      fileType: string
+  private resizeZoom: number
+
+  constructor() {
+    this.settings = {
+      zoomScale: 0.2,
+      fileType: ''
     }
 
-    private imageSize: {
-      width: number,
-      height: number
+    this.imageSize = {
+      width: 0,
+      height: 0
     }
 
-    private primaryImageSize: {
-      width: number,
-      height: number
+    this.primaryImageSize = {
+      width: 0,
+      height: 0
     }
 
-    private resizeZoom: number
+    this.resizeZoom = 1 + this.settings.zoomScale
+  }
 
-    constructor() {
-      this.settings = {
-        zoomScale: 0.2,
-        fileType: ''
-      }
+  public resetImg = () => {
+    this.updateWidthAndHeight(this.image, this.primaryImageSize)
+    this.imageSize.width = this.primaryImageSize.width
+    this.imageSize.height = this.primaryImageSize.height
+  }
 
-      this.imageSize = {
-        width: 0,
-        height: 0
-      }
+  public destroy = () => {
+    this.image.removeEventListener('wheel', this.onWheel)
+    this.updateWidthAndHeight(this.image, this.primaryImageSize)
+  }
 
-      this.primaryImageSize = {
-        width: 0,
-        height: 0
-      }
+  public decreaseImg = () => {
+    this.imageSize.width /= this.resizeZoom
+    this.imageSize.height /= this.resizeZoom
+    this.updateWidthAndHeight(this.image, this.imageSize)
+  }
 
-      this.resizeZoom = 1 + this.settings.zoomScale
+  public increaseImg = () => {
+    this.imageSize.width *= this.resizeZoom
+    this.imageSize.height *= this.resizeZoom
+    this.updateWidthAndHeight(this.image, this.imageSize)
+  }
+
+  private updateWidthAndHeight = (image: any, sizeObject: any) => {
+    image.width = String(sizeObject.width)
+    image.height = String(sizeObject.height)
+  }
+
+  private onWheel = (event: any) => {
+    let deltaY = 0
+
+    event.preventDefault()
+
+    if (event.deltaY) { // browser compatibility: FireFox 17+ (IE9+, Chrome 31+?)
+      deltaY = event.deltaY
+    } else if (event.wheelDelta) {
+      deltaY = -event.wheelDelta
     }
 
-    public resetImg = () => {
-      this.updateWidthAndHeight(this.image, this.primaryImageSize)
-      this.imageSize.width = this.primaryImageSize.width
-      this.imageSize.height = this.primaryImageSize.height
-    }
-
-    public destroy = () => {
-      this.image.removeEventListener('wheel', this.onWheel)
-      this.updateWidthAndHeight(this.image, this.primaryImageSize)
-    }
-
-    public decreaseImg = () => {
-      this.imageSize.width /= this.resizeZoom
-      this.imageSize.height /= this.resizeZoom
-      this.updateWidthAndHeight(this.image, this.imageSize)
-    }
-
-    public increaseImg = () => {
+    if (deltaY < 0) {
       this.imageSize.width *= this.resizeZoom
       this.imageSize.height *= this.resizeZoom
-      this.updateWidthAndHeight(this.image, this.imageSize)
+    } else {
+      this.imageSize.width /= this.resizeZoom
+      this.imageSize.height /= this.resizeZoom
     }
 
-    private updateWidthAndHeight = (image: any, sizeObject: any) => {
-      image.width = String(sizeObject.width)
-      image.height = String(sizeObject.height)
-    }
+    this.updateWidthAndHeight(this.image, this.imageSize)
 
-    private onWheel = (event: any) => {
-      let deltaY = 0
-
-      event.preventDefault()
-
-      if (event.deltaY) { // browser compatibility: FireFox 17+ (IE9+, Chrome 31+?)
-        deltaY = event.deltaY
-      } else if (event.wheelDelta) {
-        deltaY = -event.wheelDelta
-      }
-
-      if (deltaY < 0) {
-        this.imageSize.width *= this.resizeZoom
-        this.imageSize.height *= this.resizeZoom
-      } else {
-        this.imageSize.width /= this.resizeZoom
-        this.imageSize.height /= this.resizeZoom
-      }
-
-      this.updateWidthAndHeight(this.image, this.imageSize)
-
-    }
-
-    public createZoomInstance = (img: HTMLImageElement): void => {
-      if (!img || !img.nodeName || img.nodeName !== 'IMG') {
-        return void 0
-      }
-
-      this.image = img
-
-      const onLoad = () => {
-        this.imageSize.width = this.image.width
-        this.imageSize.height = this.image.height
-        angular.copy(this.imageSize, this.primaryImageSize)
-        this.image.addEventListener('wheel', this.onWheel)
-      }
-
-      // TODO: ARRAY
-      // if (typeof img !== 'function') {
-      //   return function(elements) {
-      //     return elements
-      //   }
-      // } else {
-      //   return function(elements) {
-      //     if (elements && elements.length) {
-      //       Array.prototype.forEach.call(elements, onLoad)
-      //     } else if (elements && elements.nodeName) {
-      //       onLoad()
-      //     }
-      //     return elements;
-      //   }
-      // }
-
-      onLoad()
-    }
   }
 
-  angular.module('profitelo.services.image-zoom', [])
-  .service('imageZoomService', ImageZoomService)
+  public createZoomInstance = (img: HTMLImageElement): void => {
+    if (!img || !img.nodeName || img.nodeName !== 'IMG') {
+      return void 0
+    }
+
+    this.image = img
+
+    const onLoad = () => {
+      this.imageSize.width = this.image.width
+      this.imageSize.height = this.image.height
+      angular.copy(this.imageSize, this.primaryImageSize)
+      this.image.addEventListener('wheel', this.onWheel)
+    }
+
+    // TODO: ARRAY
+    // if (typeof img !== 'function') {
+    //   return function(elements) {
+    //     return elements
+    //   }
+    // } else {
+    //   return function(elements) {
+    //     if (elements && elements.length) {
+    //       Array.prototype.forEach.call(elements, onLoad)
+    //     } else if (elements && elements.nodeName) {
+    //       onLoad()
+    //     }
+    //     return elements;
+    //   }
+    // }
+
+    onLoad()
+  }
 }

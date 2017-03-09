@@ -1,5 +1,5 @@
-namespace profitelo.dashboard.settings.security {
-
+import {DashboardSettingsSecurityController} from "./security"
+import * as angular from "angular"
   import ITimeConstant = profitelo.constants.time.ITimeConstant
 
   describe('Unit tests: dashboardSettingsSecurityController >', () => {
@@ -33,4 +33,3 @@ namespace profitelo.dashboard.settings.security {
       })
     })
   })
-}

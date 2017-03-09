@@ -1,8 +1,12 @@
+
+import * as angular from "angular"
+import {SearchUrlService} from "./search-url.service"
+
 namespace profitelo.services.searchUrl {
   describe('Unit testing: profitelo.services.search-url >', () => {
     describe('for searchUrlService service >', () => {
 
-      let searchUrlService: ISearchUrlService
+      let searchUrlService: SearchUrlService
 
       beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
         $provide.value('apiUrl', '')
@@ -14,7 +18,7 @@ namespace profitelo.services.searchUrl {
         angular.mock.module('profitelo.services.categories')
 
         inject(($injector: ng.auto.IInjectorService) => {
-          searchUrlService = $injector.get<ISearchUrlService>('searchUrlService')
+          searchUrlService = $injector.get<SearchUrlService>('searchUrlService')
         })
 
       })

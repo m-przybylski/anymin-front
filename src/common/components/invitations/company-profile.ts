@@ -1,8 +1,8 @@
-(function() {
+(function () {
 
   let companyProfile = {
     transclude: true,
-    templateUrl:    'components/invitations/company-profile.tpl.html',
+    template: require('./company-profile.jade')(),
     bindings: {
       profile: '<'
     },

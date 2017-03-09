@@ -66,7 +66,7 @@
   }
 
   const component = {
-    templateUrl: 'components/interface/dropdown/dropdown.tpl.html',
+    template: require('./dropdown.jade')(),
     controllerAs: '$ctrl',
     transclude: true,
     controller: controller,

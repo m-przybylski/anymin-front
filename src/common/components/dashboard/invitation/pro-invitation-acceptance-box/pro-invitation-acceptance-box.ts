@@ -1,9 +1,9 @@
-namespace profitelo.components.dashboard.invitation.proInvitationAcceptanceBox {
+import * as angular from "angular"
+import {EmploymentApi} from "../../../../api/api/EmploymentApi"
+import {Tag} from "../../../../api/model/Tag"
+import apiModule from "../../../../api/api.module"
 
-  import IEmploymentApi = profitelo.api.IEmploymentApi
-  import Tag = profitelo.api.Tag
-
-  function controllerFunction($timeout: ng.ITimeoutService, $scope: ng.IScope, EmploymentApi: IEmploymentApi) {
+  function controllerFunction($timeout: ng.ITimeoutService, $scope: ng.IScope, EmploymentApi: EmploymentApi) {
 
     let _isPending = false
     let _rejectTimeout: ng.IPromise<any>
@@ -76,7 +76,7 @@ namespace profitelo.components.dashboard.invitation.proInvitationAcceptanceBox {
   }
 
   let proInvitationAcceptanceBox = {
-    templateUrl: 'components/dashboard/invitation/pro-invitation-acceptance-box/pro-invitation-acceptance-box.tpl.html',
+    template: require('./pro-invitation-acceptance-box.jade')(),
     restrict: 'E',
     replace: true,
     bindings: {
@@ -89,8 +89,6 @@ namespace profitelo.components.dashboard.invitation.proInvitationAcceptanceBox {
 
   angular.module('profitelo.components.dashboard.invitation.pro-invitation-acceptance-box', [
     'profitelo.components.pro-summary-tag',
-    'profitelo.api.EmploymentApi'
+    apiModule
   ])
   .component('proInvitationAcceptanceBox', proInvitationAcceptanceBox)
-
-}

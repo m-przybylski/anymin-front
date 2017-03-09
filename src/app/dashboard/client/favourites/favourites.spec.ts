@@ -1,39 +1,40 @@
-namespace profitelo.dashboard.client.favourites {
-  import IRecommendedServicesService = profitelo.services.recommendedServices.IRecommendedServicesService
-  describe('Unit tests: DashboardClientFavouritesController >', () => {
-    describe('Testing Controller: DashboardClientFavouritesController', () => {
+import * as angular from "angular"
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import {RecommendedServicesService} from "../../../../common/services/recommended-services/recommended-services.service"
 
-      let $scope: any
-      let DashboardClientFavouritesController: any
+describe('Unit tests: DashboardClientFavouritesController >', () => {
+  describe('Testing Controller: DashboardClientFavouritesController', () => {
 
-      const clientFavouritesConsultations = {
-        balance: {},
-        lastConsultations: {},
-        favouriteProfiles: {}
-      }
+    let $scope: any
+    let DashboardClientFavouritesController: any
 
-      beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
-        $provide.value('apiUrl', 'awesomeUrl/')
-      }))
+    const clientFavouritesConsultations = {
+      balance: {},
+      lastConsultations: {},
+      favouriteProfiles: {}
+    }
 
-      beforeEach(() => {
-        angular.mock.module('profitelo.services.recommended-services')
-        angular.mock.module('profitelo.controller.dashboard.client.favourites')
-        inject(($rootScope: IRootScopeService, $controller: ng.IControllerService,
-                _recommendedServices_: IRecommendedServicesService) => {
-          $scope = $rootScope.$new()
+    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
+      $provide.value('apiUrl', 'awesomeUrl/')
+    }))
 
-          DashboardClientFavouritesController = $controller('DashboardClientFavouritesController', {
-            clientFavouritesConsultations: clientFavouritesConsultations,
-            recommendedServices: _recommendedServices_
-          })
+    beforeEach(() => {
+      angular.mock.module('profitelo.services.recommended-services')
+      angular.mock.module('profitelo.controller.dashboard.client.favourites')
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService,
+              _recommendedServices_: RecommendedServicesService) => {
+        $scope = $rootScope.$new()
+
+        DashboardClientFavouritesController = $controller('DashboardClientFavouritesController', {
+          clientFavouritesConsultations: clientFavouritesConsultations,
+          recommendedServices: _recommendedServices_
         })
       })
-
-      it('should exists', () => {
-        expect(!!DashboardClientFavouritesController).toBe(true)
-      })
-
     })
+
+    it('should exists', () => {
+      expect(!!DashboardClientFavouritesController).toBe(true)
+    })
+
   })
-}
+})

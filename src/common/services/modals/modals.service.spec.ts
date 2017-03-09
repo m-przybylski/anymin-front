@@ -1,27 +1,31 @@
+import * as angular from "angular"
+import {ModalsService} from "./modals.service"
+import modalsModule from "./modals"
+import dialogModule from "../dialog/dialog"
+import {DialogService} from "../dialog/dialog.service"
+import {GetService} from "../../api/model/GetService"
 namespace profitelo.services.modals {
 
-  import IDialogService = profitelo.services.dialog.IDialogService
-  import GetService = profitelo.api.GetService
 
   describe('Unit testing: profitelo.services.modals >', () => {
   describe('for profitelo.services.modals >', () => {
 
-    let modalsService: IModalsService
+    let modalsService: ModalsService
 
     beforeEach(() => {
-    angular.mock.module('profitelo.services.modals')
-    angular.mock.module('profitelo.services.dialog')
+    angular.mock.module(modalsModule)
+    angular.mock.module(dialogModule)
     })
 
     beforeEach(inject(($injector: ng.auto.IInjectorService) => {
-      modalsService = $injector.get<IModalsService>('modalsService')
+      modalsService = $injector.get<ModalsService>('modalsService')
     }))
 
     it('should have a dummy test', () => {
       expect(true).toBeTruthy()
     })
 
-    it('should create IncomingCallModal', inject((dialogService: IDialogService) => {
+    it('should create IncomingCallModal', inject((dialogService: DialogService) => {
       spyOn(dialogService, 'openDialog')
 
       modalsService.createIncomingCallModal(<GetService>{}, () => {}, () => {})
@@ -29,7 +33,7 @@ namespace profitelo.services.modals {
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
 
-    it('should create NoFundsModal', inject((dialogService: IDialogService) => {
+    it('should create NoFundsModal', inject((dialogService: DialogService) => {
       spyOn(dialogService, 'openDialog')
 
       modalsService.createNoFundsModal(() => {}, () => {})
@@ -37,7 +41,7 @@ namespace profitelo.services.modals {
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
 
-    it('should create ServiceUnavailableModal', inject((dialogService: IDialogService) => {
+    it('should create ServiceUnavailableModal', inject((dialogService: DialogService) => {
       spyOn(dialogService, 'openDialog')
 
       modalsService.createServiceUnavailableModal(() => {}, () => {})
@@ -45,7 +49,7 @@ namespace profitelo.services.modals {
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
 
-    it('should create createClientConsultationSummaryModal', inject((dialogService: IDialogService) => {
+    it('should create createClientConsultationSummaryModal', inject((dialogService: DialogService) => {
       spyOn(dialogService, 'openDialog')
 
       modalsService.createClientConsultationSummaryModal(<any>{})
@@ -53,7 +57,7 @@ namespace profitelo.services.modals {
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
 
-    it('should create createExpertConsultationSummaryModal', inject((dialogService: IDialogService) => {
+    it('should create createExpertConsultationSummaryModal', inject((dialogService: DialogService) => {
       spyOn(dialogService, 'openDialog')
 
       modalsService.createExpertConsultationSummaryModal(<any>{})
@@ -61,7 +65,7 @@ namespace profitelo.services.modals {
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
 
-    it('should create createClientSUEActivityDetailsModal', inject((dialogService: IDialogService) => {
+    it('should create createClientSUEActivityDetailsModal', inject((dialogService: DialogService) => {
       spyOn(dialogService, 'openDialog')
 
       modalsService.createClientSUEActivityDetailsModal(<any>{})
@@ -69,7 +73,7 @@ namespace profitelo.services.modals {
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
 
-    it('should create createClientComplainReportModal', inject((dialogService: IDialogService) => {
+    it('should create createClientComplainReportModal', inject((dialogService: DialogService) => {
       spyOn(dialogService, 'openDialog')
 
       modalsService.createClientComplainReportModal()
@@ -77,7 +81,7 @@ namespace profitelo.services.modals {
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
 
-    it('should create createGeneralPhoneSettingsModal', inject((dialogService: IDialogService) => {
+    it('should create createGeneralPhoneSettingsModal', inject((dialogService: DialogService) => {
       spyOn(dialogService, 'openDialog')
 
       modalsService.createGeneralPhoneSettingsModal(<any>{})
@@ -85,7 +89,7 @@ namespace profitelo.services.modals {
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
 
-    it('should create createBasicAccountSettingsModal', inject((dialogService: IDialogService) => {
+    it('should create createBasicAccountSettingsModal', inject((dialogService: DialogService) => {
       spyOn(dialogService, 'openDialog')
 
       modalsService.createBasicAccountSettingsModal(<any>{})
@@ -93,7 +97,7 @@ namespace profitelo.services.modals {
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
 
-    it('should create createGeneralPhoneSettingsModal', inject((dialogService: IDialogService) => {
+    it('should create createGeneralPhoneSettingsModal', inject((dialogService: DialogService) => {
       spyOn(dialogService, 'openDialog')
 
       modalsService.createGeneralPhoneSettingsModal(<any>{})
@@ -101,7 +105,7 @@ namespace profitelo.services.modals {
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
 
-    it('should create createGeneralEmailSettingsModal', inject((dialogService: IDialogService) => {
+    it('should create createGeneralEmailSettingsModal', inject((dialogService: DialogService) => {
       spyOn(dialogService, 'openDialog')
 
       modalsService.createGeneralEmailSettingsModal(<any>{})
@@ -109,7 +113,7 @@ namespace profitelo.services.modals {
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
 
-    it('should create createGeneralCountrySettingsModal', inject((dialogService: IDialogService) => {
+    it('should create createGeneralCountrySettingsModal', inject((dialogService: DialogService) => {
       spyOn(dialogService, 'openDialog')
 
       modalsService.createGeneralCountrySettingsModal(<any>{})
@@ -117,7 +121,7 @@ namespace profitelo.services.modals {
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
 
-    it('should create createSecurityChangePasswordSettingsModal', inject((dialogService: IDialogService) => {
+    it('should create createSecurityChangePasswordSettingsModal', inject((dialogService: DialogService) => {
       spyOn(dialogService, 'openDialog')
 
       modalsService.createSecurityChangePasswordSettingsModal()
@@ -125,7 +129,7 @@ namespace profitelo.services.modals {
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
 
-    it('should create createSecurityPinSecuritySettingsModal', inject((dialogService: IDialogService) => {
+    it('should create createSecurityPinSecuritySettingsModal', inject((dialogService: DialogService) => {
       spyOn(dialogService, 'openDialog')
 
       modalsService.createSecurityPinSecuritySettingsModal()
@@ -133,7 +137,7 @@ namespace profitelo.services.modals {
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
 
-    it('should create createAddPaymentMethodControllerModal', inject((dialogService: IDialogService) => {
+    it('should create createAddPaymentMethodControllerModal', inject((dialogService: DialogService) => {
       spyOn(dialogService, 'openDialog')
 
       modalsService.createAddPaymentMethodControllerModal(<any>{})
@@ -141,7 +145,7 @@ namespace profitelo.services.modals {
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
 
-    it('should create createEditCompanyInvoiceControllerModal', inject((dialogService: IDialogService) => {
+    it('should create createEditCompanyInvoiceControllerModal', inject((dialogService: DialogService) => {
       spyOn(dialogService, 'openDialog')
 
       modalsService.createEditCompanyInvoiceControllerModal(<any>{})

@@ -1,5 +1,8 @@
+import * as angular from "angular"
+import {IFilterService} from "../../services/filter/filter.service"
+
 namespace profitelo.filters.semicolonToCommaInput {
-import IFilterService = profitelo.services.filter.IFilterService
+
   describe('Unit testing: profitelo.filters.input-filter.semicolon-to-comma-input-filter>', () => {
   describe('for message >', () => {
 

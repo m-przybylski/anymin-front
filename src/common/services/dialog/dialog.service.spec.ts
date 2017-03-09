@@ -1,8 +1,11 @@
+import * as angular from "angular"
+import {DialogService} from "./dialog.service"
+
 namespace profitelo.services.dialog {
 describe('Unit testing: profitelo.services.dialog >', () => {
   describe('for profitelo.services.dialog >', () => {
 
-    let dialogService: IDialogService
+    let dialogService: DialogService
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', 'awesomeURL')
@@ -13,7 +16,7 @@ describe('Unit testing: profitelo.services.dialog >', () => {
     })
 
     beforeEach(inject(($injector: ng.auto.IInjectorService) => {
-      dialogService = $injector.get<IDialogService>('dialogService')
+      dialogService = $injector.get<DialogService>('dialogService')
     }))
 
     it('should have a dummy test', () => {

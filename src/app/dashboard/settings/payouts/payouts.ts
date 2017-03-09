@@ -1,49 +1,49 @@
-namespace profitelo.dashboard.settings.payouts {
+import * as angular from "angular"
+import {PayPalAccountDto} from "../../../../common/api/model/PayPalAccountDto"
+import {PayoutMethodsDto} from "../../../../common/api/model/PayoutMethodsDto"
+import {PayoutsApi} from "../../../../common/api/api/PayoutsApi"
+import {ModalsService} from "../../../../common/services/modals/modals.service"
+import {IPayoutsSettingsService} from "../../../../common/resolvers/payouts-resolver/payouts-resolver.service"
+import "common/resolvers/payouts-resolver/payouts-resolver.service"
 
-  import IModalsService = profitelo.services.modals.IModalsService
-  import IPayoutsSettingsService = profitelo.resolvers.payoutsSettings.IPayoutsSettingsService
-  import PayPalAccountDto = profitelo.api.PayPalAccountDto
-  import PayoutMethodsDto = profitelo.api.PayoutMethodsDto
-  import IPayoutsApi = profitelo.api.IPayoutsApi
+export class DashboardSettingsPayoutsController implements ng.IController {
+  public isAnyPayoutMethod: boolean = false
+  public payPalAccount?: PayPalAccountDto
 
-  export class DashboardSettingsPayoutsController implements ng.IController {
-    public isAnyPayoutMethod: boolean = false
-    public payPalAccount?: PayPalAccountDto
-    constructor(private modalsService: IModalsService, private $state: ng.ui.IStateService,
-                payoutsMethods: PayoutMethodsDto, private PayoutsApi: IPayoutsApi) {
+  constructor(private modalsService: ModalsService, private $state: ng.ui.IStateService,
+              payoutsMethods: PayoutMethodsDto, private PayoutsApi: PayoutsApi) {
 
-      if (payoutsMethods && payoutsMethods.payPalAccount) {
-        this.isAnyPayoutMethod = true
-        this.payPalAccount = payoutsMethods.payPalAccount
-      }
-    }
-
-    public deletePaymentMethod = () => {
-      this.PayoutsApi.deletePayPalAccountPayoutMethodRoute().then(() => {
-        this.$state.reload()
-      }, (error) => {
-        throw new Error('Can Not delete payout methods: ' + error )
-      })
-    }
-
-    public addPayoutsMethod = (): void => {
-      this.modalsService.createPayoutsMethodControllerModal(this.onModalClose)
-    }
-
-    private onModalClose = (): void => {
-      this.$state.reload()
+    if (payoutsMethods && payoutsMethods.payPalAccount) {
+      this.isAnyPayoutMethod = true
+      this.payPalAccount = payoutsMethods.payPalAccount
     }
   }
 
-  angular.module('profitelo.controller.dashboard.settings.payouts', [
-    'ui.router',
-    'profitelo.resolvers.payouts-settings',
-    'profitelo.services.session'
-  ])
+  public deletePaymentMethod = () => {
+    this.PayoutsApi.deletePayPalAccountPayoutMethodRoute().then(() => {
+      this.$state.reload()
+    }, (error) => {
+      throw new Error('Can Not delete payout methods: ' + error)
+    })
+  }
+
+  public addPayoutsMethod = (): void => {
+    this.modalsService.createPayoutsMethodControllerModal(this.onModalClose)
+  }
+
+  private onModalClose = (): void => {
+    this.$state.reload()
+  }
+}
+
+angular.module('profitelo.controller.dashboard.settings.payouts', [
+  'ui.router',
+  'profitelo.resolvers.payouts-settings'
+])
   .config(($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider.state('app.dashboard.settings.payouts', {
       url: '/payouts',
-      templateUrl: 'dashboard/settings/payouts/payouts.tpl.html',
+      template: require('./payouts.jade')(),
       controller: 'dashboardSettingsPayoutsController',
       controllerAs: 'vm',
       resolve: {
@@ -55,4 +55,3 @@ namespace profitelo.dashboard.settings.payouts {
     })
   })
   .controller('dashboardSettingsPayoutsController', DashboardSettingsPayoutsController)
-}

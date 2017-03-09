@@ -48,7 +48,7 @@
     }
 
     return {
-      templateUrl: 'directives/interface/pro-textarea/pro-textarea.tpl.html',
+      template: require('./pro-textarea.jade')(),
       restrict: 'E',
       replace: true,
       link: linkFunction,

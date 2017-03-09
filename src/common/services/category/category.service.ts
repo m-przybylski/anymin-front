@@ -1,88 +1,76 @@
-namespace profitelo.services.categoryService {
+import * as angular from "angular"
+import {Category} from "../../api/model/Category"
+import {CategoryApi} from "../../api/api/CategoryApi"
 
-  import ICategoryApi = profitelo.api.ICategoryApi
-  import Category = profitelo.api.Category
+export class CategoryService {
 
-  export interface ICategoryService {
-    listCategories(): ng.IPromise<Array<Category>>
-    listTopLevelCategories(): ng.IPromise<Array<Category>>
-    getCategorySlugs(): ng.IPromise<{[id: string]: string}>
-    getCategoryBySlug(slug: string): ng.IPromise<Category>
+  private fetched: boolean
+  private categoryList: Array<Category> = []
+  private categoryMap: {[key: string]: Category} = {}
+  private topLevelCategories: Array<Category> = []
+  private categorySlugs: {[key: string]: string} = {}
+
+  /* @ngInject */
+  constructor(private $q: ng.IQService, private CategoryApi: CategoryApi) {
+    this.fetched = false
+    this.categoryList = []
+    this.categoryMap = {}
+    this.topLevelCategories = []
+    this.categorySlugs = {}
   }
 
-  class CategoryService implements ICategoryService {
+  public listCategories = (): ng.IPromise<Array<Category>> => {
+    return this.resolveCategories().then(() => this.categoryList)
+  }
 
-    private fetched: boolean
-    private categoryList: Array<Category> = []
-    private categoryMap: {[key: string]: Category} = {}
-    private topLevelCategories: Array<Category> = []
-    private categorySlugs: {[key: string]: string} = {}
+  public listTopLevelCategories = (): ng.IPromise<Array<Category>> => {
+    return this.resolveCategories().then(() => this.topLevelCategories)
+  }
 
-    constructor(private $q: ng.IQService, private CategoryApi: ICategoryApi) {
-      this.fetched = false
-      this.categoryList = []
-      this.categoryMap = {}
-      this.topLevelCategories = []
-      this.categorySlugs = {}
-    }
+  public getCategorySlugs = (): ng.IPromise<{[id: string]: string}> => {
+    return this.resolveCategories().then(() => this.categorySlugs)
+  }
 
-    public listCategories = (): ng.IPromise<Array<Category>> => {
-      return this.resolveCategories().then(() => this.categoryList)
-    }
+  public getCategoryBySlug = (slug: string): ng.IPromise<Category | null> => {
+    return this.resolveCategories().then(() => {
+      let result: Category | null = null
+      angular.forEach(this.categorySlugs, (categorySlug, categoryId) => {
+        if (slug === categorySlug) {
+          result = this.categoryMap[categoryId]
+        }
+      })
+      return result
+    })
+  }
 
-    public listTopLevelCategories = (): ng.IPromise<Array<Category>> => {
-      return this.resolveCategories().then(() => this.topLevelCategories)
-    }
+  private resolveCategories = () => {
+    let _deferred = this.$q.defer()
 
-    public getCategorySlugs = (): ng.IPromise<{[id: string]: string}> => {
-      return this.resolveCategories().then(() => this.categorySlugs)
-    }
-
-    public getCategoryBySlug = (slug: string): ng.IPromise<Category | null> => {
-      return this.resolveCategories().then(() => {
-        let result: Category | null = null
-        angular.forEach(this.categorySlugs, (categorySlug, categoryId) => {
-          if (slug === categorySlug) {
-            result = this.categoryMap[categoryId]
+    if (this.fetched) {
+      _deferred.resolve()
+    } else {
+      this.CategoryApi.listCategoriesRoute().then((response) => {
+        this.fetched = true
+        this.categoryList = response.map(category => {
+          category.id = String(category.id)
+          return category
+        })
+        angular.forEach(this.categoryList, category => {
+          this.categoryMap[category.id] = category
+          if (category.parentCategoryId === null) {
+            this.categorySlugs[category.id] = category.slug
+            this.topLevelCategories.push(category)
           }
         })
-        return result
+        angular.forEach(this.categoryList, category => {
+          if (typeof category.parentCategoryId !== 'undefined' && category.parentCategoryId !== null) {
+            this.categorySlugs[category.id] = this.categorySlugs[category.parentCategoryId] + '.' + category.slug
+          }
+        })
+        _deferred.resolve()
       })
     }
 
-    private resolveCategories = () => {
-      let _deferred = this.$q.defer()
-
-      if (this.fetched) {
-        _deferred.resolve()
-      } else {
-        this.CategoryApi.listCategoriesRoute().then((response) => {
-          this.fetched = true
-          this.categoryList = response.map(category => {
-            category.id = String(category.id)
-            return category
-          })
-          angular.forEach(this.categoryList, category => {
-            this.categoryMap[category.id] = category
-            if (category.parentCategoryId === null) {
-              this.categorySlugs[category.id] = category.slug
-              this.topLevelCategories.push(category)
-            }
-          })
-          angular.forEach(this.categoryList, category => {
-            if (typeof category.parentCategoryId !== 'undefined' && category.parentCategoryId !== null) {
-              this.categorySlugs[category.id] = this.categorySlugs[category.parentCategoryId] + '.' + category.slug
-            }
-          })
-          _deferred.resolve()
-        })
-      }
-
-      return _deferred.promise
-    }
+    return _deferred.promise
   }
-
-  angular.module('profitelo.services.categories', [
-    'profitelo.api.CategoryApi'
-  ]).service('categoryService', CategoryService)
 }

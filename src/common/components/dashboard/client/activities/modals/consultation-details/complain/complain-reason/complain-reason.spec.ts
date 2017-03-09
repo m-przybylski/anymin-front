@@ -1,6 +1,8 @@
-namespace profitelo.components.dashboard.client.activities.modals.consultationDetails.complain.complainReason {
-import IModalsService = profitelo.services.modals.IModalsService
-  describe('Unit testing: profitelo.components.dashboard.client.activities.modals.consultation-details.complain.complain-reason', () => {
+import * as angular from "angular"
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import modalsModule from "../../../../../../../../services/modals/modals"
+import {ModalsService} from "../../../../../../../../services/modals/modals.service"
+describe('Unit testing: profitelo.components.dashboard.client.activities.modals.consultation-details.complain.complain-reason', () => {
   return describe('for clientComplainReason >', () => {
 
     let scope: any
@@ -18,19 +20,17 @@ import IModalsService = profitelo.services.modals.IModalsService
       return compiledElement
     }
 
-    let bindings: any = {
-
-    }
+    let bindings: any = {}
 
     beforeEach(() => {
-    angular.mock.module('templates-module')
-    angular.mock.module('profitelo.components.interface.radio-text')
-    angular.mock.module('profitelo.services.modals')
-    angular.mock.module('profitelo.components.interface.radio')
-    angular.mock.module('profitelo.components.dashboard.client.activities.modals.consultation-details.complain.complain-reason')
+      //angular.mock.module('templates-module')
+      angular.mock.module('profitelo.components.interface.radio-text')
+      angular.mock.module(modalsModule)
+      angular.mock.module('profitelo.components.interface.radio')
+      angular.mock.module('profitelo.components.dashboard.client.activities.modals.consultation-details.complain.complain-reason')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
-              _$componentController_: ng.IComponentControllerService, _modalsService_: IModalsService) => {
+              _$componentController_: ng.IComponentControllerService, _modalsService_: ModalsService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
@@ -52,15 +52,12 @@ import IModalsService = profitelo.services.modals.IModalsService
       expect(el.html()).toBeDefined(true)
     })
 
-    it('should have a dummy test', inject((modalsService: IModalsService) => {
+    it('should have a dummy test', inject((modalsService: ModalsService) => {
       spyOn(modalsService, 'createClientComplainReportModal')
       component.showComplainReasonModal()
 
       expect(modalsService.createClientComplainReportModal).toHaveBeenCalled()
 
     }))
-
-
   })
 })
-}

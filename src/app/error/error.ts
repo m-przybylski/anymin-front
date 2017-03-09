@@ -1,29 +1,29 @@
-(function() {
-
-  function ErrorController() {
-
-    return this
-  }
+import * as angular from "angular"
+import uiRouter from "angular-ui-router";
 
 
-  angular.module('profitelo.controller.error', [
-    'ui.router',
-    'profitelo.services.session'
-  ])
-    .config( function($stateProvider: ng.ui.IStateProvider) {
-      $stateProvider.state('app.error', {
-        templateUrl: 'error/error.tpl.html',
-        controller: 'ErrorController',
-        controllerAs: 'vm',
-        data: {
-        },
-        resolve: {
-          errorObj: [function() {
-            return this.self.error
-          }]
-        }
-      })
+function ErrorController() {
+
+  return this
+}
+
+const errorPageModule = angular.module('profitelo.controller.error', [
+  "ui.router"
+])
+  .config(($stateProvider: ng.ui.IStateProvider) => {
+    $stateProvider.state('app.error', {
+      template: require('./error.jade')(),
+      controller: 'ErrorController',
+      controllerAs: 'vm',
+      data: {},
+      resolve: {
+        errorObj: [function () {
+          return this.self.error
+        }]
+      }
     })
-    .controller('ErrorController', ErrorController)
+  })
+  .controller('ErrorController', ErrorController)
+  .name
 
-}())
+export default errorPageModule;

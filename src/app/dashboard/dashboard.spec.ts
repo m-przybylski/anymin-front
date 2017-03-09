@@ -1,11 +1,14 @@
-namespace profitelo.dashboard {
+import * as angular from "angular"
+import "./dashboard"
+
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 describe('Unit tests: Dashboard >', () => {
   describe('Testing Controller: DashboardController', () => {
 
     let _DashboardController: any
     let _scope: any
     beforeEach(() => {
-    angular.mock.module('profitelo.controller.dashboard')
+      angular.mock.module('profitelo.controller.dashboard')
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
 
         _DashboardController = $controller('DashboardController', {
@@ -29,4 +32,3 @@ describe('Unit tests: Dashboard >', () => {
 
   })
 })
-}

@@ -1,7 +1,9 @@
-namespace profitelo.components.interface.collapseTab {
-import IWindowService = profitelo.services.window.IWindowService
-  import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
-  describe('Unit testing: profitelo.components.interface.collapse-tab', () => {
+import * as angular from "angular"
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import {SmoothScrollingService} from "../../../services/smooth-scrolling/smooth-scrolling.service"
+import {IWindowService} from "../../../services/window/window.service"
+
+describe('Unit testing: profitelo.components.interface.collapse-tab', () => {
   return describe('for collapseTab component >', () => {
 
     let scope: any
@@ -14,7 +16,7 @@ import IWindowService = profitelo.services.window.IWindowService
     let timeout: ng.ITimeoutService
     let log: ng.ILogService
     let validHTML = '<collapse-tab></collapse-tab>'
-    let smoothScrollingService: ISmoothScrollingService
+    let smoothScrollingService: SmoothScrollingService
 
     function create(html: string) {
       scope = rootScope.$new()
@@ -25,8 +27,8 @@ import IWindowService = profitelo.services.window.IWindowService
     }
 
     beforeEach(() => {
-    angular.mock.module('templates-module')
-    angular.mock.module('profitelo.components.interface.collapse-tab')
+      //angular.mock.module('templates-module')
+      angular.mock.module('profitelo.components.interface.collapse-tab')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
               _$componentController_: ng.IComponentControllerService, _$window_: IWindowService,
@@ -44,13 +46,15 @@ import IWindowService = profitelo.services.window.IWindowService
       }
 
 
-      smoothScrollingService = <ISmoothScrollingService>{
-        simpleScrollTo: (_x: any)=> {
+      smoothScrollingService = <SmoothScrollingService>{
+        simpleScrollTo: (_x: any) => {
         }
       }
 
-      component = componentController('collapseTab', {$element: create(validHTML), $scope: rootScope, $window: window, $log: log,
-        smoothScrollingService: smoothScrollingService}, {})
+      component = componentController('collapseTab', {
+        $element: create(validHTML), $scope: rootScope, $window: window, $log: log,
+        smoothScrollingService: smoothScrollingService
+      }, {})
       timeout.flush()
     })
 
@@ -81,5 +85,3 @@ import IWindowService = profitelo.services.window.IWindowService
 
   })
 })
-
-}

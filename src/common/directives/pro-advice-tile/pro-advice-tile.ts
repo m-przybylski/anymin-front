@@ -3,7 +3,7 @@
 
 
     return {
-      templateUrl:  'directives/pro-advice-tile/pro-advice-tile.tpl.html',
+      template:  require('./pro-advice-tile.jade')(),
       restrict:     'E',
       replace: true,
       scope: {

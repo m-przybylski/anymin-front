@@ -1,3 +1,5 @@
+import * as angular from "angular"
+
 namespace profitelo.services.loginState {
 describe('Unit testing: profitelo.services.login-state >', function () {
   describe('for loginStateService service >', function () {

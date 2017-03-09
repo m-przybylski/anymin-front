@@ -1,3 +1,6 @@
+import * as angular from "angular"
+import "./consultations-field"
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 describe('Unit tests: Field section >', () => {
   describe('Testing Controller: ConsultationsFieldController', () => {
 
@@ -5,7 +8,7 @@ describe('Unit tests: Field section >', () => {
     var ConsultationsFieldController: any
 
     beforeEach(() => {
-    angular.mock.module('profitelo.controller.consultations-field')
+      angular.mock.module('profitelo.controller.consultations-field')
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
         $scope = $rootScope.$new()
         ConsultationsFieldController = $controller('ConsultationsFieldController', {

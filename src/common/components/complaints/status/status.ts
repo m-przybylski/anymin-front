@@ -10,7 +10,7 @@
   }
 
   const component = {
-    templateUrl: 'components/complaints/status/status.tpl.html',
+    template: require('./status.jade')(),
     controller: controller,
     controllerAs: '$ctrl'
   }

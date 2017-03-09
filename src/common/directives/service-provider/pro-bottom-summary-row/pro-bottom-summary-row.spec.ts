@@ -1,5 +1,6 @@
 namespace profitelo.directives.serviceProvider.proBottomConsultationButton {
-describe('Unit testing: profitelo.directives.service-provider.pro-bottom-summary-row', function() {
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  describe('Unit testing: profitelo.directives.service-provider.pro-bottom-summary-row', function() {
   return describe('for proBottomSummaryRow directive >', function() {
 
     var compile: any = null
@@ -9,7 +10,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-bottom-summary
       'data-queue="vm.queue" data-button-action="saveAccountObject" data-order="8"></pro-bottom-summary-row>'
 
     beforeEach(function() {
-    angular.mock.module('templates-module')
+    //angular.mock.module('templates-module')
     angular.mock.module('profitelo.directives.service-provider.pro-bottom-summary-row')
 
       inject(function($rootScope: IRootScopeService, $compile: ng.ICompileService) {

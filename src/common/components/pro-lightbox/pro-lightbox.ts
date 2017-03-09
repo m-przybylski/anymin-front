@@ -1,8 +1,12 @@
+import * as angular from "angular"
+import "common/components/pro-lightbox/pro-lightbox-content/pro-lightbox-content"
+import "common/components/pro-lightbox/pro-lightbox-nav/pro-lightbox-nav"
+
 (function() {
-  
+
   let proLightbox = {
     transclude: true,
-    templateUrl: 'components/pro-lightbox/pro-lightbox.tpl.html',
+    template: require('./pro-lightbox.jade')(),
     bindings: {
       currentSlide: '<',
       actionsSettings: '=?',
@@ -15,7 +19,6 @@
     'profitelo.components.pro-lightbox-nav',
     'profitelo.components.pro-lightbox-content',
     'ui.bootstrap'
-
   ])
     .component('proLightbox', proLightbox)
 

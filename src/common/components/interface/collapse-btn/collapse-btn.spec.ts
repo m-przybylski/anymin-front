@@ -1,5 +1,7 @@
-namespace profitelo.components.interface.collapseBtn {
-import IWindowService = profitelo.services.window.IWindowService
+import * as angular from "angular"
+
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import {IWindowService} from "../../../services/window/window.service"
   describe('Unit testing: profitelo.components.interface.collapse-btn', () => {
   return describe('for collapseBtn component >', () => {
 
@@ -26,7 +28,7 @@ import IWindowService = profitelo.services.window.IWindowService
     }
 
     beforeEach(() => {
-    angular.mock.module('templates-module')
+    //angular.mock.module('templates-module')
     angular.mock.module('pascalprecht.translate')
     angular.mock.module('profitelo.components.interface.collapse-btn')
 
@@ -74,5 +76,3 @@ import IWindowService = profitelo.services.window.IWindowService
     })
   })
 })
-
-}

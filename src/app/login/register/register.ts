@@ -1,159 +1,166 @@
-namespace profitelo.login.register {
+import * as angular from "angular"
 
-  import IFilterService = profitelo.services.filter.IFilterService
-  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-  import ITopWaitingLoaderService = profitelo.services.topWaitingLoader.ITopWaitingLoaderService
-  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
-  import ILoginRegisterService = profitelo.resolvers.loginRegister.ILoginRegisterService
-  import ILoginRegister = profitelo.resolvers.loginRegister.ILoginRegister
-  import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
-  import ILoginStateService = profitelo.services.loginState.ILoginStateService
-  import ICommunicatorService = profitelo.services.communicator.ICommunicatorService
-  import IAccountApi = profitelo.api.IAccountApi
-  import PatchAccount = profitelo.api.PatchAccount
-  import Account = profitelo.api.Account
-  import IRegistrationApi = profitelo.api.IRegistrationApi
-  import ISessionService = profitelo.services.session.ISessionService
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import {IFilterService} from "../../../common/services/filter/filter.service"
+import {TopWaitingLoaderService} from "../../../common/services/top-waiting-loader/top-waiting-loader.service"
+import {TopAlertService} from "../../../common/services/top-alert/top-alert.service"
+import {CommonSettingsService} from "../../../common/services/common-settings/common-settings.service"
+import {AccountApi} from "../../../common/api/api/AccountApi"
+import {LoginStateService} from "../../../common/services/login-state/login-state.service"
+import {RegistrationApi} from "../../../common/api/api/RegistrationApi"
+import {SessionService} from "../../../common/services/session/session.service"
+import {CommunicatorService} from "../../../common/components/communicator/communicator.service"
+import {PatchAccount} from "../../../common/api/model/PatchAccount"
+import {Account} from "../../../common/api/model/Account"
+import {ILoginRegister, ILoginRegisterService} from "../../../common/resolvers/login-register/login-register.service"
+import apiModule from "../../../common/api/api.module"
+import sessionModule from "../../../common/services/session/session"
+import loginStateModule from "../../../common/services/login-state/login-state"
+import communicatorModule from "../../../common/components/communicator/communicator"
+import commonSettingsModule from "../../../common/services/common-settings/common-settings"
+import topAlertModule from "../../../common/services/top-alert/top-alert"
+import "common/resolvers/login-register/login-register.service"
+import "common/directives/pro-top-waiting-loader/pro-top-waiting-loader"
+import "common/directives/interface/pro-input/pro-input"
+import "common/directives/interface/pro-alert/pro-alert"
+import "common/directives/interface/pro-checkbox/pro-checkbox"
 
-  function RegisterController($log: ng.ILogService, $filter: IFilterService, $state: ng.ui.IStateService,
-                              $rootScope: IRootScopeService, topWaitingLoaderService: ITopWaitingLoaderService,
-                              sessionService: ISessionService, topAlertService: ITopAlertService,
-                              smsSessionId: ILoginRegister, CommonSettingsService: ICommonSettingsService,
-                              RegistrationApi: IRegistrationApi, AccountApi: IAccountApi,
-                              loginStateService: ILoginStateService, communicatorService: ICommunicatorService) {
-    this.passwordStrength = 0
-    this.isPending = false
-    this.rulesAccepted = false
-    this.serverError = false
-    this.alreadyCheck = false
-    this.correctCode = false
-    let userid = ''
+function RegisterController($log: ng.ILogService, $filter: IFilterService, $state: ng.ui.IStateService,
+                            $rootScope: IRootScopeService, topWaitingLoaderService: TopWaitingLoaderService,
+                            sessionService: SessionService, topAlertService: TopAlertService,
+                            smsSessionId: ILoginRegister, CommonSettingsService: CommonSettingsService,
+                            RegistrationApi: RegistrationApi, AccountApi: AccountApi,
+                            loginStateService: LoginStateService, communicatorService: CommunicatorService) {
+  this.passwordStrength = 0
+  this.isPending = false
+  this.rulesAccepted = false
+  this.serverError = false
+  this.alreadyCheck = false
+  this.correctCode = false
+  let userid = ''
 
-    this.registrationSteps = {
-      account: smsSessionId.accountObject,
-      smsCode: null,
-      sessionId: smsSessionId.sessionId
+  this.registrationSteps = {
+    account: smsSessionId.accountObject,
+    smsCode: null,
+    sessionId: smsSessionId.sessionId
+  }
+
+  this.smsCodePattern = CommonSettingsService.localSettings.smsCodePattern
+
+  this.verifyCode = () => {
+    if (angular.isDefined(this.registrationSteps.smsCode) && this.registrationSteps.smsCode !== null && !this.alreadyCheck) {
+      this.alreadyCheck = true
+      RegistrationApi.verifyVerificationRoute({
+        sessionId: this.registrationSteps.sessionId,
+        token: String(this.registrationSteps.smsCode)
+      }).then(() => {
+        communicatorService.authenticate()
+        this.correctCode = true
+      }, (err: any) => {
+        $log.error(err)
+        this.serverError = true
+      })
+    } else if (!angular.isDefined(this.registrationSteps.smsCode) || this.registrationSteps.smsCode === null) {
+      this.alreadyCheck = false
+      this.serverError = false
+      this.correctCode = false
     }
+  }
 
-    this.smsCodePattern = CommonSettingsService.localSettings.smsCodePattern
-
-    this.verifyCode = () => {
-      if (angular.isDefined(this.registrationSteps.smsCode) && this.registrationSteps.smsCode !== null && !this.alreadyCheck) {
-        this.alreadyCheck = true
-        RegistrationApi.verifyVerificationRoute({
-          sessionId: this.registrationSteps.sessionId,
-          token: String(this.registrationSteps.smsCode)
-        }).then(() => {
-          communicatorService.authenticate()
-          this.correctCode = true
-        }, (err: any) => {
-          $log.error(err)
-          this.serverError = true
-        })
-      } else if (!angular.isDefined(this.registrationSteps.smsCode) || this.registrationSteps.smsCode === null) {
-        this.alreadyCheck = false
-        this.serverError = false
-        this.correctCode = false
-      }
-    }
-
-    this.getSmsCodeStatus = () => {
-      /* istanbul ignore next if */
-      if (!this.isPending) {
-        this.isPending = true
-        topWaitingLoaderService.immediate()
-        RegistrationApi.confirmVerificationRoute({
-          sessionId: this.registrationSteps.sessionId,
-          token: String(this.registrationSteps.smsCode)
-        }).then((response) => {
-          this.isPending = false
-          topWaitingLoaderService.stopLoader()
-          sessionService.setApiKey(response.apiKey)
-          //User.setData(response)
-          //User.setData({role: UserRoles.getRole('user')})
-          //User.setApiKeyHeader(response.apiKey)
-          //FIXME
-          userid = response.accountId
-
-          loginStateService.clearServiceObject()
-          $rootScope.loggedIn = true
-          $state.go('app.post-register.set-password')
-        }, (error: any) => {
-          $log.error(error)
-          this.isPending = false
-          this.serverError = true
-          topWaitingLoaderService.stopLoader()
-        })
-      }
-    }
-
-    let _updateNewUserObject = (patchObject: PatchAccount, successCallback: (res: Account) => void) => {
-      /* istanbul ignore next if */
-      if (!this.isPending) {
-        this.isPending = true
-        topWaitingLoaderService.immediate()
-
-        AccountApi.partialUpdateAccountRoute(userid, patchObject).then(successCallback, (error) => {
-          this.isPending = false
-          $log.error(error)
-          topWaitingLoaderService.stopLoader()
-          topAlertService.error({
-            message: $filter('translate')('INTERFACE.API_ERROR'),
-            timeout: 4
-          })
-        })
-
-      }
-    }
-
-    this.completeRegistration = () => {
-      _updateNewUserObject({
-        password: this.registrationSteps.password
-      }, () => {
+  this.getSmsCodeStatus = () => {
+    /* istanbul ignore next if */
+    if (!this.isPending) {
+      this.isPending = true
+      topWaitingLoaderService.immediate()
+      RegistrationApi.confirmVerificationRoute({
+        sessionId: this.registrationSteps.sessionId,
+        token: String(this.registrationSteps.smsCode)
+      }).then((response) => {
         this.isPending = false
-        this.current = 3
+        topWaitingLoaderService.stopLoader()
+        sessionService.setApiKey(response.apiKey)
+        //User.setData(response)
+        //User.setData({role: UserRoles.getRole('user')})
+        //User.setApiKeyHeader(response.apiKey)
+        //FIXME
+        userid = response.accountId
+
+        loginStateService.clearServiceObject()
+        $rootScope.loggedIn = true
+        $state.go('app.post-register.set-password')
+      }, (error: any) => {
+        $log.error(error)
+        this.isPending = false
+        this.serverError = true
         topWaitingLoaderService.stopLoader()
       })
     }
-
-    return this
   }
 
-  function config($stateProvider: ng.ui.IStateProvider) {
-    $stateProvider.state('app.login.register', {
-      url: '/register',
-      controllerAs: 'vm',
-      controller: 'RegisterController',
-      templateUrl: 'login/register/register.tpl.html',
-      resolve: {
-        /* istanbul ignore next */
-        smsSessionId: (LoginRegisterResolver: ILoginRegisterService) => {
-          /* istanbul ignore next */
-          return LoginRegisterResolver.resolve()
-        }
-      },
-      data: {
-        pageTitle: 'PAGE_TITLE.LOGIN.REGISTER'
-      }
+  let _updateNewUserObject = (patchObject: PatchAccount, successCallback: (res: Account) => void) => {
+    /* istanbul ignore next if */
+    if (!this.isPending) {
+      this.isPending = true
+      topWaitingLoaderService.immediate()
+
+      AccountApi.partialUpdateAccountRoute(userid, patchObject).then(successCallback, (error) => {
+        this.isPending = false
+        $log.error(error)
+        topWaitingLoaderService.stopLoader()
+        topAlertService.error({
+          message: $filter('translate')('INTERFACE.API_ERROR'),
+          timeout: 4
+        })
+      })
+
+    }
+  }
+
+  this.completeRegistration = () => {
+    _updateNewUserObject({
+      password: this.registrationSteps.password
+    }, () => {
+      this.isPending = false
+      this.current = 3
+      topWaitingLoaderService.stopLoader()
     })
   }
 
-  angular.module('profitelo.controller.login.register', [
-    'ui.router',
-    'profitelo.services.session',
-    'profitelo.services.login-state',
-    'profitelo.resolvers.login-register',
-    'profitelo.api.AccountApi',
-    'profitelo.api.RegistrationApi',
-    'profitelo.services.communicator',
-    'profitelo.services.commonSettings',
-    'profitelo.services.top-alert',
-    'profitelo.services.pro-top-waiting-loader-service',
-    'profitelo.directives.interface.pro-checkbox',
-    'profitelo.directives.interface.pro-alert',
-    'profitelo.directives.interface.pro-input'
-  ])
-    .config(config)
-    .controller('RegisterController', RegisterController)
-
+  return this
 }
+
+function config($stateProvider: ng.ui.IStateProvider) {
+  $stateProvider.state('app.login.register', {
+    url: '/register',
+    controllerAs: 'vm',
+    controller: 'RegisterController',
+    template: require('./register.jade')(),
+    resolve: {
+      /* istanbul ignore next */
+      smsSessionId: (LoginRegisterResolver: ILoginRegisterService) => {
+        /* istanbul ignore next */
+        return LoginRegisterResolver.resolve()
+      }
+    },
+    data: {
+      pageTitle: 'PAGE_TITLE.LOGIN.REGISTER'
+    }
+  })
+}
+
+angular.module('profitelo.controller.login.register', [
+  'ui.router',
+  sessionModule,
+  loginStateModule,
+  'profitelo.resolvers.login-register',
+  apiModule,
+  communicatorModule,
+  commonSettingsModule,
+  topAlertModule,
+  'profitelo.services.pro-top-waiting-loader-service',
+  'profitelo.directives.interface.pro-checkbox',
+  'profitelo.directives.interface.pro-alert',
+  'profitelo.directives.interface.pro-input'
+])
+  .config(config)
+  .controller('RegisterController', RegisterController)

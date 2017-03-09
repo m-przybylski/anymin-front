@@ -2,7 +2,7 @@
 
   let proLightboxContent = {
     transclude: true,
-    templateUrl: 'components/pro-lightbox/pro-lightbox-content/pro-lightbox-content.tpl.html',
+    template: require('./pro-lightbox-content.jade')(),
     bindings: {
       slide: '<'
     }

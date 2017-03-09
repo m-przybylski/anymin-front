@@ -43,6 +43,11 @@ namespace profitelo.directives.interface.proCalendar {
         showWeeks: false
       }
 
+      scope.popupTemplate = require("../../../templates/calendar/popup.tpl.pug")
+      scope.template = require("../../../templates/calendar/datepicker.tpl.pug")
+      scope.dayTpl = require("../../../templates/calendar/day.tpl.pug")
+      scope.monthTpl = require("../../../templates/calendar/month.tpl.pug")
+      scope.yearTpl = require("../../../templates/calendar/year.tpl.pug")
 
       scope.toggleMin = function () {
         scope.inlineOptions.minDate = scope.inlineOptions.minDate ? null : new Date()
@@ -94,7 +99,7 @@ namespace profitelo.directives.interface.proCalendar {
 
 
     return {
-      templateUrl: 'directives/interface/pro-calendar/pro-calendar.tpl.html',
+      template: require('./pro-calendar.jade')(),
       restrict: 'E',
       replace: true,
       link: linkFunction,

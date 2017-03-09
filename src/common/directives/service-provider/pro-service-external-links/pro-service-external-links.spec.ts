@@ -14,7 +14,7 @@ namespace profitelo.directives.serviceProvider.proServiceExternalLinks {
         'tr-desc="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT_DESCRIPTION" required="required"></pro-service-external-links>'
 
       beforeEach(function () {
-        angular.mock.module('templates-module')
+        //angular.mock.module('templates-module')
         angular.mock.module('profitelo.directives.service-provider.pro-service-external-links')
         inject(function ($rootScope: IRootScopeService, $compile: ng.ICompileService) {
           rootScope = $rootScope

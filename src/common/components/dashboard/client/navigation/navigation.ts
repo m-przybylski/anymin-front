@@ -6,7 +6,7 @@
   }
 
   const component = {
-    templateUrl: 'components/dashboard/client/navigation/navigation.tpl.html',
+    template: require('./navigation.jade')(),
     controller: controller,
     controllerAs: '$ctrl',
     bindings: {

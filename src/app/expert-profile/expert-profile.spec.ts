@@ -1,26 +1,29 @@
-namespace profitelo.expertProfile {
+import * as angular from "angular"
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import {ProfileApi} from "../../common/api/api/ProfileApi"
+import {RecommendedServicesService} from "../../common/services/recommended-services/recommended-services.service"
+import {SmoothScrollingService} from "../../common/services/smooth-scrolling/smooth-scrolling.service"
+import "./expert-profile"
+import expertProfilePageModule from "./expert-profile"
+import recommendedServicesModule from "../../common/services/recommended-services/recommended-services"
 
-  import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
-  import IRecommendedServicesService = profitelo.services.recommendedServices.IRecommendedServicesService
-  import IProfileApi = profitelo.api.IProfileApi
-
-  describe('Unit tests: ExpertProfileController >', () => {
+describe('Unit tests: ExpertProfileController >', () => {
   describe('Testing Controller: ExpertProfileController', () => {
 
     let ExpertProfileController: any
     let _scope: any
 
-    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
+    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', 'awesomeURL/')
     }))
 
     beforeEach(() => {
-    angular.mock.module('profitelo.controller.expert-profile')
-    angular.mock.module('profitelo.services.recommended-services')
+      angular.mock.module(expertProfilePageModule)
+      angular.mock.module(recommendedServicesModule)
 
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $timeout: ng.ITimeoutService,
-              $q: ng.IQService, $stateParams: ng.ui.IStateParamsService, _smoothScrollingService_: ISmoothScrollingService,
-              _recommendedServices_: IRecommendedServicesService, ProfileApi: IProfileApi) => {
+              $q: ng.IQService, $stateParams: ng.ui.IStateParamsService, _smoothScrollingService_: SmoothScrollingService,
+              _recommendedServices_: RecommendedServicesService, ProfileApi: ProfileApi) => {
 
 
         jasmine.createSpyObj('ProfileApi', ['postProfileFavouriteExpertRoute'])
@@ -49,4 +52,3 @@ namespace profitelo.expertProfile {
 
   })
 })
-}

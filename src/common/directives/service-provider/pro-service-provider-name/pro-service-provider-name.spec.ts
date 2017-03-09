@@ -13,7 +13,7 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
       'tr-desc="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT_DESCRIPTION" required="required"></pro-service-provider-name>'
 
     beforeEach(function() {
-    angular.mock.module('templates-module')
+    //angular.mock.module('templates-module')
     angular.mock.module('profitelo.directives.service-provider.pro-service-provider-name')
 
       inject(function($rootScope: IRootScopeService, $compile: ng.ICompileService) {

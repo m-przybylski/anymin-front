@@ -11,7 +11,7 @@
     }
 
     return {
-      templateUrl:  'directives/expert-profile/pro-expert-card/pro-expert-card.tpl.html',
+      template:  require('./pro-expert-card.jade')(),
       restrict:     'E',
       replace:      true,
       link:         linkFunction,

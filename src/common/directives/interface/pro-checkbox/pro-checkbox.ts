@@ -1,4 +1,4 @@
-(function() {
+(function () {
   function proCheckbox() {
 
     function linkFunction(scope: any, element: ng.IRootElementService, attr: any) {
@@ -32,9 +32,9 @@
     }
 
     return {
-      templateUrl:  'directives/interface/pro-checkbox/pro-checkbox.tpl.html',
-      restrict:     'E',
-      replace:      true,
+      template: require('./pro-checkbox.jade')(),
+      restrict: 'E',
+      replace: true,
       link: linkFunction,
       scope: {
         ngModel: '=',
@@ -45,6 +45,6 @@
   }
 
   angular.module('profitelo.directives.interface.pro-checkbox', [])
-  .directive('proCheckbox', proCheckbox)
+    .directive('proCheckbox', proCheckbox)
 
 }())

@@ -10,7 +10,7 @@ namespace profitelo.directives.serviceProvider.proBottomConsultationButton {
     return {
       replace: true,
       restrict: 'E',
-      templateUrl: 'directives/service-provider/pro-bottom-consultation-button/pro-bottom-consultation-button.tpl.html',
+      template: require('./pro-bottom-consultation-button.jade')(),
       scope: {
         queue: '=',
         order: '=?',

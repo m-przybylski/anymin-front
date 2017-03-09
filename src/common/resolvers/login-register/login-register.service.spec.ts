@@ -1,3 +1,6 @@
+import {ILoginRegisterService} from "./login-register.service"
+import * as angular from "angular"
+
 namespace profitelo.resolvers.loginRegister {
 describe('Unit testing: profitelo.resolvers.login-register', () => {
   describe('for LoginRegisterResolver service >', () => {

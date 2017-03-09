@@ -1,5 +1,6 @@
 namespace profitelo.directives.interface.proCalendar {
-describe('Unit testing: profitelo.directives.interface.pro-calendar', () => {
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  describe('Unit testing: profitelo.directives.interface.pro-calendar', () => {
   return describe('for interface.pro-calendar directive >', () => {
 
     let scope: any     = null
@@ -8,7 +9,7 @@ describe('Unit testing: profitelo.directives.interface.pro-calendar', () => {
     let validHTML = '<pro-calendar></pro-calendar>'
 
     beforeEach(() => {
-    angular.mock.module('templates-module')
+    //angular.mock.module('templates-module')
     angular.mock.module('profitelo.directives.interface.pro-calendar')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {

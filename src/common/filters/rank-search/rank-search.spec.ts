@@ -1,5 +1,8 @@
+import * as angular from "angular"
+import {IFilterService} from "../../services/filter/filter.service"
+
 namespace profitelo.filters.rankSearch {
-import IFilterService = profitelo.services.filter.IFilterService
+
   describe('Unit testing: profitelo.filters.rankSearch >', () => {
   describe('for profitelo.filters.rankSearch >', () => {
 

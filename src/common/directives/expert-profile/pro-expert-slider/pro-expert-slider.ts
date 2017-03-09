@@ -1,61 +1,64 @@
-namespace profitelo.directives.expertProfile.proExpertSlider {
-  import IDialogService = profitelo.services.dialog.IDialogService
-  function proExpertSlider(dialogService: IDialogService, $timeout: ng.ITimeoutService) {
+import * as angular from "angular"
+import {DialogService} from "../../../services/dialog/dialog.service"
+import dialogModule from "../../../services/dialog/dialog"
+import "common/components/interface/slider/slider"
+import "common/controllers/lightbox-modal/lightbox-modal"
+import "common/components/pro-lightbox/pro-lightbox"
 
-    function linkFunction(scope: any) {
+function proExpertSlider(dialogService: DialogService, $timeout: ng.ITimeoutService) {
 
-      scope.areControllsVisible = true
+  function linkFunction(scope: any) {
 
-      $timeout(() => {
-        if (scope.sliders.length <= 3) {
-          scope.areControllsVisible = false
-        }
-      })
+    scope.areControllsVisible = true
 
-      scope.imageUrl = (slide: any) => {
-        return slide.previews[0]
+    $timeout(() => {
+      if (scope.sliders.length <= 3) {
+        scope.areControllsVisible = false
       }
+    })
 
-      scope.controlls = {}
-
-      scope.nextSlide = function () {
-        scope.controlls.nextSlide()
-      }
-
-      scope.prevSlide = function () {
-        scope.controlls.prevSlide()
-      }
-
-      scope.openDialog = (slide: any) => {
-        scope.fullSizeUrl = slide.previews[0]
-        scope.slide = slide
-        dialogService.openDialog({
-          scope: scope,
-          template: '<pro-lightbox current-slide="$ctrl.currentSlide" actions-settings="$ctrl.navSettings" slider-actions="$ctrl.sliderActions" slides-list="$ctrl.slideList"></pro-lightbox>',
-          controllerAs: '$ctrl',
-          controller: 'lightboxModelController',
-          windowTemplateUrl: 'controllers/lightbox-modal/lightbox-modal.tpl.html'
-        })
-      }
+    scope.imageUrl = (slide: any) => {
+      return slide.previews[0]
     }
 
-    return {
-      templateUrl: 'directives/expert-profile/pro-expert-slider/pro-expert-slider.tpl.html',
-      restrict: 'E',
-      replace: true,
-      scope: {
-        sliders: '=?'
-      },
-      link: linkFunction
+    scope.controlls = {}
+
+    scope.nextSlide = function () {
+      scope.controlls.nextSlide()
+    }
+
+    scope.prevSlide = function () {
+      scope.controlls.prevSlide()
+    }
+
+    scope.openDialog = (slide: any) => {
+      scope.fullSizeUrl = slide.previews[0]
+      scope.slide = slide
+      dialogService.openDialog({
+        scope: scope,
+        template: '<pro-lightbox current-slide="$ctrl.currentSlide" actions-settings="$ctrl.navSettings" slider-actions="$ctrl.sliderActions" slides-list="$ctrl.slideList"></pro-lightbox>',
+        controllerAs: '$ctrl',
+        controller: 'lightboxModelController',
+        windowTemplateUrl: require("../../../controllers/lightbox-modal/lightbox-modal.tpl.pug")
+      })
     }
   }
 
-  angular.module('profitelo.directives.expert-profile.pro-expert-slider', [
-    'profitelo.services.dialog',
-    'profitelo.components.interface.slider',
-    'profitelo.common.controller.lightbox-model',
-    'profitelo.components.pro-lightbox'
-  ])
-    .directive('proExpertSlider', proExpertSlider)
-
+  return {
+    template: require('./pro-expert-slider.jade')(),
+    restrict: 'E',
+    replace: true,
+    scope: {
+      sliders: '=?'
+    },
+    link: linkFunction
+  }
 }
+
+angular.module('profitelo.directives.expert-profile.pro-expert-slider', [
+  dialogModule,
+  'profitelo.components.interface.slider',
+  'profitelo.common.controller.lightbox-model',
+  'profitelo.components.pro-lightbox'
+])
+  .directive('proExpertSlider', proExpertSlider)

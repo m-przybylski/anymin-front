@@ -1,31 +1,37 @@
-namespace profitelo.components.dashboard.settings.modals.security.changePassword {
+import * as angular from "angular"
+import {PasswordStrengthService} from "../../../../../../services/password-strength/password-strength.service"
+import {AccountApi} from "../../../../../../api/api/AccountApi"
+import {CommonSettingsService} from "../../../../../../services/common-settings/common-settings.service"
+import apiModule from "../../../../../../api/api.module"
+import passwordStrengthModule from "../../../../../../services/password-strength/password-strength"
+import commonSettingsModule from "../../../../../../services/common-settings/common-settings"
+import "../../../../../../directives/password-strength-bar/password-strength-bar"
+import "../../../../../../directives/interface/scrollable/scrollable"
+import "../../../../../../directives/interface/pro-input/pro-input"
 
-  import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
-  import IPasswordStrengthService = profitelo.services.passwordStrength.IPasswordStrengthService
-  import IAccountApi = profitelo.api.IAccountApi
-  export interface ISecurityChangePasswordSettingsControllerScope extends ng.IScope {
-  }
+export interface ISecurityChangePasswordSettingsControllerScope extends ng.IScope {
+}
 
-  export class SecurityChangePasswordSettingsController implements ng.IController {
+export class SecurityChangePasswordSettingsController implements ng.IController {
 
-    public isNavbar: boolean = true
-    public isFullscreen: boolean = true
-    public patternPassword = this.CommonSettingsService.localSettings.passwordPattern
-    public newPassword: string
-    public currentPassword: string
-    public passwordStrength: number
-    public isCurrentPasswordCorrect: boolean = true
-    public arePasswordsDifferent: boolean = true
+  public isNavbar: boolean = true
+  public isFullscreen: boolean = true
+  public patternPassword = this.CommonSettingsService.localSettings.passwordPattern
+  public newPassword: string
+  public currentPassword: string
+  public passwordStrength: number
+  public isCurrentPasswordCorrect: boolean = true
+  public arePasswordsDifferent: boolean = true
 
-    public setNewPassword = () => {
+  public setNewPassword = () => {
 
-      this.isCurrentPasswordCorrect = true
-      this.arePasswordsDifferent = true
+    this.isCurrentPasswordCorrect = true
+    this.arePasswordsDifferent = true
 
-      this.AccountApi.changePasswordRoute({
-        actualPassword: this.currentPassword,
-        newPassword: this.newPassword
-      })
+    this.AccountApi.changePasswordRoute({
+      actualPassword: this.currentPassword,
+      newPassword: this.newPassword
+    })
       .then(_res => {
         this.$uibModalInstance.dismiss('cancel')
       }, (err: any) => {
@@ -37,32 +43,30 @@ namespace profitelo.components.dashboard.settings.modals.security.changePassword
           throw new Error('Can not change password: ' + err)
         }
       })
-    }
-
-    /* @ngInject */
-    constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
-                private CommonSettingsService: ICommonSettingsService,
-                private AccountApi: IAccountApi, private passwordStrengthService: IPasswordStrengthService) {
-    }
-
-    public onPasswordChange = (password: string) => {
-      this.passwordStrength = this.passwordStrengthService.getStrength(password)
-    }
-
-    public onModalClose = () => {
-      this.$uibModalInstance.dismiss('cancel')
-    }
   }
 
-  angular.module('profitelo.components.dashboard.settings.modals.security.change-password', [
-    'ui.bootstrap',
-    'profitelo.directives.interface.pro-input',
-    'profitelo.api.AccountApi',
-    'profitelo.services.password-strength',
-    'profitelo.directives.password-strength-bar',
-    'profitelo.services.commonSettings',
-    'profitelo.directives.interface.scrollable',
-  ])
-  .controller('securityChangePasswordSettingsController', SecurityChangePasswordSettingsController)
+  /* @ngInject */
+  constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
+              private CommonSettingsService: CommonSettingsService,
+              private AccountApi: AccountApi, private passwordStrengthService: PasswordStrengthService) {
+  }
 
+  public onPasswordChange = (password: string) => {
+    this.passwordStrength = this.passwordStrengthService.getStrength(password)
+  }
+
+  public onModalClose = () => {
+    this.$uibModalInstance.dismiss('cancel')
+  }
 }
+
+angular.module('profitelo.components.dashboard.settings.modals.security.change-password', [
+  'ui.bootstrap',
+  'profitelo.directives.interface.pro-input',
+  apiModule,
+  passwordStrengthModule,
+  'profitelo.directives.password-strength-bar',
+  commonSettingsModule,
+  'profitelo.directives.interface.scrollable',
+])
+  .controller('securityChangePasswordSettingsController', SecurityChangePasswordSettingsController)

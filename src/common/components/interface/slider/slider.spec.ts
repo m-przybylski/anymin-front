@@ -1,5 +1,6 @@
 namespace profitelo.components.interface.slider {
-describe('Unit testing: profitelo.components.interface.slider', () => {
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  describe('Unit testing: profitelo.components.interface.slider', () => {
   return describe('for slider component >', () => {
 
 
@@ -20,7 +21,7 @@ describe('Unit testing: profitelo.components.interface.slider', () => {
     }
 
     beforeEach(() => {
-    angular.mock.module('templates-module')
+    //angular.mock.module('templates-module')
     angular.mock.module('profitelo.components.interface.slider')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,

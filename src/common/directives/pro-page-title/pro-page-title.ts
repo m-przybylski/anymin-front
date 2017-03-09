@@ -1,61 +1,60 @@
-namespace profitelo.directives.proPageTitle {
-  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-  import IFilterService = profitelo.services.filter.IFilterService
+import * as angular from "angular"
+import {IFilterService} from "../../services/filter/filter.service"
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 
-  function pageTitleDirective($rootScope: IRootScopeService, $filter: IFilterService) {
+function pageTitleDirective($rootScope: IRootScopeService, $filter: IFilterService) {
 
-    function linkFunction(_scope: ng.IScope, element: ng.IRootElementService, _attrs: ng.IAttributes) {
+  function linkFunction(_scope: ng.IScope, element: ng.IRootElementService, _attrs: ng.IAttributes) {
 
-      let pageTitle = ''
+    let pageTitle = ''
 
-      function changePageTitle(text: string) {
-        element.text(text)
-      }
+    function changePageTitle(text: string) {
+      element.text(text)
+    }
 
-      $rootScope.$on('prependTitle', (_event: ng.IAngularEvent, data: any) => {
+    $rootScope.$on('prependTitle', (_event: ng.IAngularEvent, data: any) => {
 
-        changePageTitle(data + ' - ' + pageTitle)
+      changePageTitle(data + ' - ' + pageTitle)
 
-      })
+    })
 
-      function traverseDownStates(data: any) {
+    function traverseDownStates(data: any) {
 
-        pageTitle = ''
-        let currentLevel = data
+      pageTitle = ''
+      let currentLevel = data
 
-        while (typeof currentLevel === 'object' && Object.getPrototypeOf(currentLevel)) {
+      while (typeof currentLevel === 'object' && Object.getPrototypeOf(currentLevel)) {
 
-          if (currentLevel.hasOwnProperty('pageTitle')) {
+        if (currentLevel.hasOwnProperty('pageTitle')) {
 
-            if (pageTitle.length > 0) {
-              pageTitle += ' - '
-            }
-
-            pageTitle += $filter('translate')(currentLevel.pageTitle)
+          if (pageTitle.length > 0) {
+            pageTitle += ' - '
           }
 
-          currentLevel = Object.getPrototypeOf(currentLevel)
+          pageTitle += $filter('translate')(currentLevel.pageTitle)
         }
 
-        changePageTitle(pageTitle)
+        currentLevel = Object.getPrototypeOf(currentLevel)
       }
 
-      $rootScope.$on('$stateChangeStart', (_event: ng.IAngularEvent, toState: ng.ui.IState, _toParams: Object,
-                                           _fromState: ng.ui.IState, _fromParams: Object, _error: any) => {
-        traverseDownStates(toState.data)
-      })
-
+      changePageTitle(pageTitle)
     }
 
-    return {
-      restrict: 'A',
-      link: linkFunction
-    }
+    $rootScope.$on('$stateChangeStart', (_event: ng.IAngularEvent, toState: ng.ui.IState, _toParams: Object,
+                                         _fromState: ng.ui.IState, _fromParams: Object, _error: any) => {
+      traverseDownStates(toState.data)
+    })
+
   }
 
-  angular.module('profitelo.directives.page-title', [
-    'ui.router',
-    'pascalprecht.translate'
-  ])
-    .directive('pageTitle', pageTitleDirective)
+  return {
+    restrict: 'A',
+    link: linkFunction
+  }
 }
+
+angular.module('profitelo.directives.page-title', [
+  'ui.router',
+  'pascalprecht.translate'
+])
+  .directive('pageTitle', pageTitleDirective)
