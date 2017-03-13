@@ -14,7 +14,10 @@ module.exports = function (config) {
     frameworks: ['jasmine'],
 
     // list of files/patterns to load in the browser
-    files: [{pattern: /*'**!/!*.spec.ts'*/ 'spec.bundle.js', watched: false}],
+    files: [
+      './lib/karma/polyfill.js',
+      {pattern: /*'**!/!*.spec.ts'*/ 'spec.bundle.js', watched: false}
+    ],
 
     // files to exclude
     exclude: [],
@@ -30,6 +33,7 @@ module.exports = function (config) {
       require('karma-remap-istanbul'),
       //require("karma-coverage")
       //require("karma-coverage-istanbul-reporter")
+      require("karma-phantomjs-launcher")
     ],
 
     // preprocess matching files before serving them to the browser
@@ -135,7 +139,7 @@ module.exports = function (config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],//['Chrome'],
 
     // if true, Karma runs tests once and exits
     singleRun: true
