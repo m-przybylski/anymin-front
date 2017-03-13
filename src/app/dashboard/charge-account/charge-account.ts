@@ -23,6 +23,7 @@ import "common/components/dashboard/charge-account/payment-method/card/card"
 import "common/components/dashboard/charge-account/choose-amount-charge/choose-amount-charge"
 import "common/components/dashboard/charge-account/payment-method/payment-method"
 import "common/components/dashboard/charge-account/choose-bank/choose-bank"
+import paypalModule from "../../../common/components/dashboard/charge-account/payment-method/paypal/paypal"
 
 
 export interface IAmounts {
@@ -182,6 +183,7 @@ angular.module('profitelo.controller.dashboard.charge-account', [
   topAlertModule,
   commonSettingsModule,
   smoothScrollingModule,
+  paypalModule,
   'profitelo.directives.interface.pro-input',
   'profitelo.directives.interface.pro-checkbox',
   'profitelo.directives.interface.scrollable',
@@ -189,7 +191,6 @@ angular.module('profitelo.controller.dashboard.charge-account', [
   'profitelo.components.dashboard.charge-account.choose-amount-charge',
   'profitelo.components.dashboard.charge-account.payment-method',
   'profitelo.components.dashboard.charge-account.choose-bank',
-  'profitelo.components.dashboard.charge-account.payment-method.paypal',
   'profitelo.components.dashboard.charge-account.payment-method.card',
   'profitelo.components.interface.preloader',
   'profitelo.components.braintree-form'

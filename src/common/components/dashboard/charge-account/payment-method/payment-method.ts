@@ -1,6 +1,7 @@
 import * as angular from "angular"
 import {PaymentSystem} from "../../../../api/model/PaymentSystem"
 import LoDashStatic = _.LoDashStatic
+import paypalModule from "./paypal/paypal"
 
 interface PaymentMethodComponentBindings {
   title: string
@@ -54,6 +55,7 @@ class PaymentMethodComponent implements ng.IComponentOptions {
 }
 
 angular.module('profitelo.components.dashboard.charge-account.payment-method', [
-  'ngLodash'
+  'ngLodash',
+  paypalModule
 ])
   .component('paymentMethod', new PaymentMethodComponent())

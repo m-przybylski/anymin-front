@@ -1,5 +1,6 @@
 import * as angular from "angular"
-import {PayPalPaymentFormComponentController} from "./paypal"
+import {PayPalPaymentFormComponentController} from "./paypal.controller"
+import paypalModule from "./paypal"
 
 describe('Unit testing: profitelo.components.dashboard.charge-account.payment-method.paypal', () => {
   return describe('for PayPalPaymentFormComponentController component >', () => {
@@ -18,19 +19,31 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payment-me
       return compiledElement
     }
 
-    beforeEach(() => {
-      //angular.mock.module('templates-module')
-      angular.mock.module('profitelo.components.dashboard.charge-account.payment-method.paypal')
+      beforeEach(() => {
+        angular.mock.module(paypalModule)
+      })
 
-      inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
-              $componentController: ng.IComponentControllerService) => {
+      beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
+        $provide.value('apiUrl', 'awesomeUrl')
+        $provide.value('paypalFactory', {Button: {
+          render: () => {}
+        }})
+      }))
+
+      beforeEach(() => {
+        angular.mock.module('profitelo.components.dashboard.charge-account.payment-method.paypal')
+
+        inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService, paypalFactory: any,
+                $componentController: ng.IComponentControllerService) => {
 
         rootScope = $rootScope.$new()
         compile = $compile
 
-        const injectors = {
-          $element: create(validHTML)
-        }
+          const injectors = {
+            $element: create(validHTML),
+            paypalFactory: paypalFactory,
+            $state: {}
+          }
 
         component = $componentController<PayPalPaymentFormComponentController, {}>('paypalPaymentForm', injectors, {})
       })
