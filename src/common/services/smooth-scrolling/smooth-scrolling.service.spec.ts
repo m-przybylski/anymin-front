@@ -1,8 +1,10 @@
+import * as angular from "angular"
+import {SmoothScrollingService} from "./smooth-scrolling.service"
 namespace profitelo.services.smoothScrolling {
 describe('Unit testing: profitelo.directives.services.smooth-scrolling >', function() {
   describe('for profitelo.directives.services.smooth-scrolling >', function() {
 
-    let smoothScrollingService: ISmoothScrollingService
+    let smoothScrollingService: SmoothScrollingService
 
 
     beforeEach(function() {
@@ -11,7 +13,7 @@ describe('Unit testing: profitelo.directives.services.smooth-scrolling >', funct
 
 
     beforeEach(inject(($injector: ng.auto.IInjectorService) =>{
-      smoothScrollingService = $injector.get<ISmoothScrollingService>('smoothScrollingService')
+      smoothScrollingService = $injector.get<SmoothScrollingService>('smoothScrollingService')
     }))
 
 

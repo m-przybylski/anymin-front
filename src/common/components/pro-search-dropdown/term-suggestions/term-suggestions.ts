@@ -1,20 +1,20 @@
-(function() {
-  const component = {
-    transclude: true,
-    templateUrl: 'components/pro-search-dropdown/term-suggestions/term-suggestions.tpl.html',
-    bindings: {
-      terms: '<',
-      categorySlugs: '<',
-      searchModel: '<'
-    },
-    controllerAs: 'vm'
-  }
+import * as angular from "angular"
+import filtersModule from "../../../filters/filters"
+import searchUrlModule from "../../../services/search-url/search-url"
 
-  angular.module('profitelo.components.pro-search-dropdown.term-suggestions', [
-    'profitelo.services.search-url',
-    'profitelo.filters.search-bold-filter',
-    'profitelo.filters.rankSearch'
-  ])
-    .component('termSuggestions', component)
+const component = {
+  transclude: true,
+  template: require("./term-suggestions.jade")(),
+  bindings: {
+    terms: '<',
+    categorySlugs: '<',
+    searchModel: '<'
+  },
+  controllerAs: 'vm'
+}
 
-}())
+angular.module('profitelo.components.pro-search-dropdown.term-suggestions', [
+  searchUrlModule,
+  filtersModule
+])
+  .component('termSuggestions', component)

@@ -1,5 +1,6 @@
 namespace profitelo.directives.serviceProvider.proServiceProviderAvatar {
-describe('Unit testing: profitelo.directives.service-provider.pro-service-provider-avatar', function() {
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  describe('Unit testing: profitelo.directives.service-provider.pro-service-provider-avatar', function() {
   return describe('for proServiceProviderAvatar directive >', function() {
 
     var compile: any = null
@@ -18,7 +19,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
     }))
 
     beforeEach(function() {
-    angular.mock.module('templates-module')
+    //angular.mock.module('templates-module')
     angular.mock.module('profitelo.directives.service-provider.pro-service-provider-avatar')
 
       inject(function($rootScope: IRootScopeService, $compile: ng.ICompileService) {

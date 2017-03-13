@@ -1,6 +1,7 @@
-namespace profitelo.components.interface.showMoreText {
-import IWindowService = profitelo.services.window.IWindowService
-  describe('Unit testing: profitelo.components.interface.show-more-text', () => {
+import * as angular from "angular"
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import {IWindowService} from "../../../services/window/window.service"
+describe('Unit testing: profitelo.components.interface.show-more-text', () => {
   return describe('for showMoreTextController component >', () => {
 
     let scope: any
@@ -23,8 +24,8 @@ import IWindowService = profitelo.services.window.IWindowService
     }
 
     beforeEach(() => {
-    angular.mock.module('templates-module')
-    angular.mock.module('profitelo.components.interface.show-more-text')
+      //angular.mock.module('templates-module')
+      angular.mock.module('profitelo.components.interface.show-more-text')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
               _$componentController_: ng.IComponentControllerService, _$window_: IWindowService,
@@ -66,5 +67,3 @@ import IWindowService = profitelo.services.window.IWindowService
 
   })
 })
-
-}

@@ -12,7 +12,7 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
       'data-languages="ghfghfgh" data-button-action="vm.buttonAction"  data-avatar="ffff" data-description="vm.description"></pro-service-provider-profile>'
 
     beforeEach(function() {
-    angular.mock.module('templates-module')
+    //angular.mock.module('templates-module')
     angular.mock.module('profitelo.directives.service-provider.pro-service-provider-profile')
 
       inject(function($rootScope: IRootScopeService, $compile: ng.ICompileService, _$sce_: ng.ISCEService) {

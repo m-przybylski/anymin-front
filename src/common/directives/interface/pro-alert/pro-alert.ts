@@ -1,34 +1,33 @@
-namespace profitelo.directives.interface.proAlert {
+import * as angular from "angular"
+import {TopAlertService} from "../../../services/top-alert/top-alert.service"
+import topAlertModule from "../../../services/top-alert/top-alert"
 
-  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
+function proAlert(topAlertService: TopAlertService) {
 
-  function proAlert(topAlertService: ITopAlertService) {
-
-    function linkFunction(scope: any, _element: ng.IRootElementService, _attr: ng.IAttributes) {
-      scope.alerts = []
-      let addAlert = (alerts: Array<any>)=> {
-        scope.alerts = alerts
-      }
-
-      scope.destroyAlert = (alertId: number)=> {
-        topAlertService.destroyAlert(alertId)
-      }
-
-      topAlertService.bindAlert(addAlert)
-
+  function linkFunction(scope: any, _element: ng.IRootElementService, _attr: ng.IAttributes) {
+    scope.alerts = []
+    let addAlert = (alerts: Array<any>) => {
+      scope.alerts = alerts
     }
 
-    return {
-      templateUrl:  'directives/interface/pro-alert/pro-alert.tpl.html',
-      restrict:     'E',
-      replace:      true,
-      link: linkFunction,
-      scope: {}
+    scope.destroyAlert = (alertId: number) => {
+      topAlertService.destroyAlert(alertId)
     }
+
+    topAlertService.bindAlert(addAlert)
+
   }
 
-  angular.module('profitelo.directives.interface.pro-alert', [
-    'profitelo.services.top-alert'
-  ])
-    .directive('proAlert', proAlert)
+  return {
+    template: require('./pro-alert.jade')(),
+    restrict: 'E',
+    replace: true,
+    link: linkFunction,
+    scope: {}
+  }
 }
+
+angular.module('profitelo.directives.interface.pro-alert', [
+  topAlertModule
+])
+  .directive('proAlert', proAlert)

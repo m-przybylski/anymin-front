@@ -1,6 +1,7 @@
-namespace profitelo.components.dashboard.client.favourites.favouriteExperts.lastConsultationSlider {
-import IUrlService = profitelo.services.helper.IUrlService
-  describe('Unit testing: profitelo.components.dashboard.client.favourites.favourite-experts.last-consultation-slider', () => {
+import * as angular from "angular"
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import {UrlService} from "../../../../../../services/url/url.service"
+describe('Unit testing: profitelo.components.dashboard.client.favourites.favourite-experts.last-consultation-slider', () => {
   return describe('for lastConsultationSlider >', () => {
 
     let scope: any
@@ -8,7 +9,7 @@ import IUrlService = profitelo.services.helper.IUrlService
     let compile: ng.ICompileService
     let componentController: any
     let component: any
-    let urlService: IUrlService
+    let urlService: UrlService
     let validHTML = '<last-consultation-slider data-title="title" data-consultations="[{}]"></last-consultation-slider>'
     let state: ng.ui.IStateService
 
@@ -33,7 +34,7 @@ import IUrlService = profitelo.services.helper.IUrlService
     }
 
     beforeEach(() => {
-      angular.mock.module('templates-module')
+      //angular.mock.module('templates-module')
       angular.mock.module('profitelo.components.interface.slider')
       angular.mock.module('profitelo.services.url')
       angular.mock.module('profitelo.filters.money')
@@ -42,7 +43,7 @@ import IUrlService = profitelo.services.helper.IUrlService
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
               _$componentController_: ng.IComponentControllerService, _$state_: ng.ui.IStateService,
-              _urlService_: IUrlService) => {
+              _urlService_: UrlService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
@@ -71,7 +72,8 @@ import IUrlService = profitelo.services.helper.IUrlService
 
     it('should go to nextslide', () => {
       rootScope.controlls = {
-        nextSlide: () => {}
+        nextSlide: () => {
+        }
       }
 
       spyOn(rootScope.controlls, 'nextSlide')
@@ -81,7 +83,8 @@ import IUrlService = profitelo.services.helper.IUrlService
 
     it('should go to prevSlide', () => {
       rootScope.controlls = {
-        prevSlide: () => {}
+        prevSlide: () => {
+        }
       }
 
       spyOn(rootScope.controlls, 'prevSlide')
@@ -112,9 +115,11 @@ import IUrlService = profitelo.services.helper.IUrlService
         }
       }
       component.goToProfile(consultation)
-      expect(state.go).toHaveBeenCalledWith('app.expert-profile' , Object({ profileId: consultation.profile.id, primaryConsultationId: consultation.service.id }) )
+      expect(state.go).toHaveBeenCalledWith('app.expert-profile', Object({
+        profileId: consultation.profile.id,
+        primaryConsultationId: consultation.service.id
+      }))
 
     }))
   })
 })
-}

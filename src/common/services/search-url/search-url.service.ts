@@ -1,39 +1,31 @@
-namespace profitelo.services.searchUrl {
+import * as angular from "angular"
+import {ISearchQueryParams, SearchService} from "../search/search.service"
 
-  import ISearchQueryParams = profitelo.services.search.ISearchQueryParams
-  import ISearchService = profitelo.services.search.ISearchService
 
-  export interface ISearchUrlService {
-    parseParamsForUrl(rawParams: Object): {[key: string]: string}
+export class SearchUrlService {
+
+  private defaultQueryParams: ISearchQueryParams
+
+  /* @ngInject */
+  constructor(searchService: SearchService) {
+    this.defaultQueryParams = {}
+    searchService.defineQueryProperties(this.defaultQueryParams)
   }
 
-  class SearchUrlService implements ISearchUrlService {
+  public parseParamsForUrl = (rawParams: any) => {
+    const result: {
+      [key: string]: string
+    } = {}
 
-    private defaultQueryParams: ISearchQueryParams
-
-    constructor(searchService: ISearchService) {
-      this.defaultQueryParams = {}
-      searchService.defineQueryProperties(this.defaultQueryParams)
-    }
-
-    public parseParamsForUrl = (rawParams: any) => {
-      const result: {
-        [key: string]: string
-      } = {}
-
-      angular.forEach(Object.keys(this.defaultQueryParams), (fieldName) => {
-        if (fieldName !== 'offset' && fieldName !== 'limit' && rawParams.hasOwnProperty(fieldName) &&
-          rawParams[fieldName] !== (<any>this.defaultQueryParams)[fieldName]) {
-          result[fieldName] = rawParams[fieldName]
-        }
-      })
-      return result
-    }
+    angular.forEach(Object.keys(this.defaultQueryParams), (fieldName) => {
+      if (fieldName !== 'offset' && fieldName !== 'limit' && rawParams.hasOwnProperty(fieldName) &&
+        rawParams[fieldName] !== (<any>this.defaultQueryParams)[fieldName]) {
+        result[fieldName] = rawParams[fieldName]
+      }
+    })
+    return result
   }
-
-  angular.module('profitelo.services.search-url', [
-    'profitelo.services.search'
-  ]).service('searchUrlService', SearchUrlService)
 }
+
 
 

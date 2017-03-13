@@ -1,14 +1,18 @@
-namespace profitelo.search {
+import * as angular from "angular"
+import "angular-mocks"
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-  import ISearchUrlService = profitelo.services.searchUrl.ISearchUrlService
-  import ISearchService = profitelo.services.search.ISearchService
-  describe('Unit tests: search-result>', () => {
+import {SearchService} from "../../common/services/search/search.service"
+import {SearchUrlService} from "../../common/services/search-url/search-url.service"
+import "./search-result"
+import "common/services/search/search"
+
+describe('Unit tests: search-result>', () => {
   describe('Testing Controller: SearchResultController', () => {
 
     let $scope: any
     let SearchResultController: any
     let location: ng.ILocationService
-    let searchUrlService: ISearchUrlService
+    let searchUrlService: SearchUrlService
     let state: ng.ui.IStateService
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
@@ -16,11 +20,11 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
     }))
 
     beforeEach(() => {
-    angular.mock.module('profitelo.controller.search-result')
-    angular.mock.module('profitelo.services.search')
+      angular.mock.module('profitelo.controller.search-result')
+      angular.mock.module('profitelo.services.search')
 
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $timeout: ng.ITimeoutService,
-              searchService: ISearchService) => {
+              searchService: SearchService) => {
         $scope = $rootScope.$new()
         location = <ng.ILocationService>{
           search: () => {
@@ -37,7 +41,7 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
           }
         }
 
-        searchService = <ISearchService>{
+        searchService = <SearchService>{
           onSearchResults: (_$scope, cb: Function) => {
             cb()
           },
@@ -51,7 +55,7 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
           }
         }
 
-        searchUrlService = <ISearchUrlService> {
+        searchUrlService = <any> {
           parseParamsForUrl: () => {
             return {}
           }
@@ -71,14 +75,14 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
       })
     })
 
-    it('should exsist', ()=> {
+    it('should exsist', () => {
       expect(!!SearchResultController).toBe(true)
     })
 
-    it('should loade more on click', ()=> {
+    it('should loade more on click', () => {
       SearchResultController.searchResults = {
         count: 10,
-        results:  [
+        results: [
           {},
           {}
         ]
@@ -88,10 +92,10 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
       expect(SearchResultController.isLoadMoreError).toBe(false)
     })
 
-    it('should loade more on scroll', ()=> {
+    it('should loade more on scroll', () => {
       SearchResultController.searchResults = {
         count: 10,
-        results:  [
+        results: [
           {},
           {}
         ]
@@ -102,4 +106,3 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
     })
   })
 })
-}

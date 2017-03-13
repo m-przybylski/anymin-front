@@ -32,7 +32,7 @@
       cards: '<',
       controlls: '='
     },
-    templateUrl: 'components/interface/card-slider/card-slider.tpl.html',
+    template: require('./card-slider.jade')(),
     controllerAs: 'vm',
     controller: defaultCardSliderFunction
   }

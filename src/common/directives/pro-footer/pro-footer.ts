@@ -2,7 +2,7 @@
   function proFooter() {
 
     return {
-      templateUrl: 'directives/pro-footer/pro-footer.tpl.html',
+      template: require('./pro-footer.jade')(),
       restrict: 'E',
       replace: true
     }

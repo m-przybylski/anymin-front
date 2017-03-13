@@ -7,7 +7,7 @@
   }
 
   let socialLinks = {
-    templateUrl: 'components/expert-profile/social-links/social-links.tpl.html',
+    template: require('./social-links.jade')(),
     restrict: 'E',
     replace: true,
     bindings: {

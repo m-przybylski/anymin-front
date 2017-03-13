@@ -1,129 +1,23 @@
-(function () {
-  function ConsultationsFieldController() {
+import * as angular from "angular"
+import {ConsultationsFieldController} from "./consultations-field.controller"
+import sessionModule from "../../common/services/session/session"
+import "common/directives/pro-footer/pro-footer"
+import "common/directives/pro-tags-slider/pro-tags-slider"
+import "common/components/pro-search-dropdown/pro-search-dropdown"
+import "common/components/interface/card-slider/card-slider"
 
-    this.tags = [{
-      name: 'tag1'
-    }, {
-      name: 'tag2'
-    }]
-
-    this.controlls = {}
-
-    this.nextSlide = () => {
-      this.controlls.nextSlide()
-    }
-
-    this.prevSlide = () => {
-      this.controlls.prevSlide()
-    }
-
-    this.expertCard = [
-      {
-        id: '0',
-        value: {
-          name: '1 Slide',
-          status: 'not-available',
-          avatar: 'https://placekitten.com/50/50',
-          description: 'Układanie planów żywieniowych dla osób na diecie wegetariańskiej'
-        }
-      },
-      {
-        id: '1',
-        value: {
-          name: '2 Slide',
-          status: 'not-available',
-          avatar: 'https://placekitten.com/50/50',
-          description: 'Układanie planów żywieniowych dla osób na diecie wegetariańskiej'
-        }
-      },
-      {
-        id: '2',
-        value: {
-          name: '3 Slide',
-          status: 'not-available',
-          avatar: 'https://placekitten.com/50/50',
-          description: 'Układanie planów żywieniowych dla osób na diecie wegetariańskiej'
-        }
-      },
-      {
-        id: '3',
-        value: {
-          name: '4 Slide',
-          status: 'not-available',
-          avatar: 'https://placekitten.com/50/50',
-          description: 'Układanie planów żywieniowych dla osób na diecie wegetariańskiej'
-        }
-      },
-      {
-        id: '4',
-        value: {
-          name: '5 Slide',
-          status: 'available',
-          avatar: 'https://placekitten.com/50/50',
-          description: 'Układanie planów żywieniowych dla osób na diecie wegetariańskiej'
-        }
-      },
-      {
-        id: '5',
-        value: {
-          name: '6 Slide',
-          status: 'not-available',
-          avatar: 'https://placekitten.com/50/50',
-          description: 'Układanie planów żywieniowych dla osób na diecie wegetariańskiej'
-        }
-      },
-      {
-        id: '6',
-        value: {
-          name: '7 Slide',
-          status: 'not-available',
-          avatar: 'https://placekitten.com/50/50',
-          description: 'Układanie planów żywieniowych dla osób na diecie wegetariańskiej'
-        }
-      },
-      {
-        id: '7',
-        value: {
-          name: '8 Slide',
-          status: 'not-available',
-          avatar: 'https://placekitten.com/50/50',
-          description: 'Układanie planów żywieniowych dla osób na diecie wegetariańskiej'
-        }
-      },
-      {
-        id: '8',
-        value: {
-          name: '9 Slide',
-          status: 'available',
-          avatar: 'https://placekitten.com/50/50',
-          description: 'Układanie planów żywieniowych dla osób na diecie wegetariańskiej'
-        }
-      },
-      {
-        id: '9',
-        value: {
-          name: '10 Slide',
-          status: 'available',
-          avatar: 'https://placekitten.com/50/50',
-          description: 'Układanie planów żywieniowych dla osób na diecie wegetariańskiej'
-        }
-      }
-    ]
-    return this
-  }
-
-  angular.module('profitelo.controller.consultations-field', [
-    'ui.router',
-    'profitelo.services.session',
-    'profitelo.directives.pro-footer',
-    'profitelo.components.pro-search-dropdown',
-    'profitelo.directives.pro-tags-slider',
-    'profitelo.components.interface.card-slider'
-  ])
-  .config(function ($stateProvider: ng.ui.IStateProvider) {
+const consultationsFieldPageModule = angular.module('profitelo.controller.consultations-field', [
+  'ui.router',
+  sessionModule,
+  'profitelo.directives.pro-footer',
+  'profitelo.directives.pro-tags-slider',
+  'profitelo.components.pro-search-dropdown',
+  'profitelo.components.interface.card-slider'
+])
+  .config(($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider.state('app.consultations-field', {
       url: '/consultations-field/{fieldId:int}',
-      templateUrl: 'consultations-field/consultations-field.tpl.html',
+      template: require('./consultations-field.jade')(),
       controller: 'ConsultationsFieldController',
       controllerAs: 'vm',
       data: {
@@ -132,4 +26,6 @@
     })
   })
   .controller('ConsultationsFieldController', ConsultationsFieldController)
-}())
+  .name
+
+export default consultationsFieldPageModule

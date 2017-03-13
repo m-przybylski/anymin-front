@@ -1,4 +1,5 @@
-namespace profitelo.dashboard.settings.payments {
+import {DashboardSettingsPaymentsController} from "./payments"
+import * as angular from "angular"
   describe('Unit tests: dashboardSettingsPaymentsController >', () => {
     describe('Testing Controller: dashboardSettingsPaymentsController', () => {
 
@@ -33,4 +34,3 @@ namespace profitelo.dashboard.settings.payments {
       })
     })
   })
-}

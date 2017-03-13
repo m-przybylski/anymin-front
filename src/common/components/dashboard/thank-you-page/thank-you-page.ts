@@ -19,7 +19,7 @@
   }
 
   const thankYouPage = {
-    templateUrl: 'components/dashboard/thank-you-page/thank-you-page.tpl.html',
+    template: require('./thank-you-page.jade')(),
     replace: true,
     transclude: true,
     controller: thankYouPageController,

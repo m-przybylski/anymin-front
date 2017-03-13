@@ -1,42 +1,30 @@
-namespace profitelo.services.helper {
+import {ICommonConfig} from "../common-config/common-config"
 
-  export interface IUrlService {
-    resolveSocialUrl(url: string): {iconClass: string}
-    resolveFileUrl(url: string): string
+export class UrlService {
+
+  private commonConfig: any
+
+  /* @ngInject */
+  constructor(private CommonSettingsService: any, private lodash: _.LoDashStatic, CommonConfig: ICommonConfig) {
+    this.commonConfig = CommonConfig.getAllData()
   }
 
-  class UrlService implements IUrlService {
+  public resolveSocialUrl = (remoteUrl: string) => {
+    const _socialNetworks = this.CommonSettingsService.localSettings.socialNetworks
 
-    private commonConfig: any
-
-    constructor(private CommonSettingsService: any, private lodash: _.LoDashStatic, CommonConfig: ICommonConfig) {
-      this.commonConfig = CommonConfig.getAllData()
-    }
-
-    public resolveSocialUrl = (remoteUrl: string) => {
-      const _socialNetworks = this.CommonSettingsService.localSettings.socialNetworks
-
-      for (let i = 0; i < _socialNetworks.length; i++) {
-        let social = _socialNetworks[i]
-        if (remoteUrl.match(social.pattern)) {
-          return social
-        }
+    for (let i = 0; i < _socialNetworks.length; i++) {
+      let social = _socialNetworks[i]
+      if (remoteUrl.match(social.pattern)) {
+        return social
       }
-
-      return this.lodash.find(_socialNetworks, {
-        name: 'Website'
-      })
     }
 
-    public resolveFileUrl = (fileId: string) => {
-      return this.commonConfig.urls.files + this.commonConfig.urls['file-download'].replace('%s', fileId)
-    }
+    return this.lodash.find(_socialNetworks, {
+      name: 'Website'
+    })
   }
 
-  angular.module('profitelo.services.url', [
-    'profitelo.services.commonSettings',
-    'ngLodash',
-    'commonConfig'
-  ])
-    .service('urlService', UrlService)
+  public resolveFileUrl = (fileId: string) => {
+    return this.commonConfig.urls.files + this.commonConfig.urls['file-download'].replace('%s', fileId)
+  }
 }

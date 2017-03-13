@@ -1,47 +1,47 @@
-namespace profitelo.components.communicator.modals.clientCall {
+import * as angular from "angular"
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import {IClientCallControllerScope, ClientCallController, IClientCallParentControllerScope} from "./client-call"
 
-  import ClientCallController = profitelo.components.communicator.modals.clientCall.ClientCallController
-  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+describe('Testing Controller: clientCallController', () => {
 
-  describe('Testing Controller: clientCallController', () => {
+  let controller: ClientCallController
+  let scope: IClientCallControllerScope
 
-    let controller: ClientCallController
-    let scope: IClientCallControllerScope
+  const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
+    jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss']);
 
-    const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
-      jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss']);
+  beforeEach(() => {
+    angular.mock.module('ui.bootstrap')
+    angular.mock.module('profitelo.components.communicator.modals.client-call')
+    inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
 
-    beforeEach(() => {
-      angular.mock.module('ui.bootstrap')
-      angular.mock.module('profitelo.components.communicator.modals.client-call')
-      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
+      scope = <IClientCallControllerScope>$rootScope.$new()
+      scope.$parent = <IClientCallParentControllerScope>$rootScope.$new()
+      scope.$parent.rejectCall = () => {
+      }
+      scope.$parent.answerCall = () => {
+      }
 
-        scope = <IClientCallControllerScope>$rootScope.$new()
-        scope.$parent = <IClientCallParentControllerScope>$rootScope.$new()
-        scope.$parent.rejectCall = () => {}
-        scope.$parent.answerCall = () => {}
+      const injectors = {
+        $scope: scope,
+        $uibModalInstance: $uibModalInstance
+      }
 
-        const injectors = {
-          $scope: scope,
-          $uibModalInstance: $uibModalInstance
-        }
-
-        controller = $controller<ClientCallController>('clientCallController', injectors)
-      })
+      controller = $controller<ClientCallController>('clientCallController', injectors)
     })
-
-    it('should exists', () => {
-      return expect(!!controller).toBe(true)
-    })
-
-    it('should have rejectCall function', inject(() => {
-
-      spyOn(scope.$parent, 'rejectCall')
-
-      scope.rejectCall()
-
-      expect($uibModalInstance.dismiss).toHaveBeenCalledWith('reject')
-      expect(scope.$parent.rejectCall).toHaveBeenCalled()
-    }))
   })
-}
+
+  it('should exists', () => {
+    return expect(!!controller).toBe(true)
+  })
+
+  it('should have rejectCall function', inject(() => {
+
+    spyOn(scope.$parent, 'rejectCall')
+
+    scope.rejectCall()
+
+    expect($uibModalInstance.dismiss).toHaveBeenCalledWith('reject')
+    expect(scope.$parent.rejectCall).toHaveBeenCalled()
+  }))
+})

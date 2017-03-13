@@ -1,13 +1,14 @@
+import * as angular from "angular"
+import {SearchApiMock} from "../../api/api/SearchApi"
+import {SearchResult} from "../../api/model/SearchResult"
 namespace profitelo.services.recommendedServices {
-  import ISearchApiMock = profitelo.api.ISearchApiMock
-  import SearchResult = profitelo.api.SearchResult
   describe('Unit testing: profitelo.services.recommended-profiles-service', () => {
     describe('for expert-profile service >', () => {
 
       let recommendedServices: any
       let url = 'awesomeURL'
       let _timeout: ng.ITimeoutService
-      let SearchApiMock: ISearchApiMock
+      let SearchApiMock: SearchApiMock
       let $httpBackend: ng.IHttpBackendService
       let log
       let services: any
@@ -23,7 +24,7 @@ namespace profitelo.services.recommendedServices {
         inject(($injector: ng.auto.IInjectorService) => {
           recommendedServices = $injector.get('recommendedServices')
           _timeout = $injector.get('$timeout')
-          SearchApiMock = $injector.get<ISearchApiMock>('SearchApiMock')
+          SearchApiMock = $injector.get<SearchApiMock>('SearchApiMock')
           $httpBackend = $injector.get('$httpBackend')
           log = $injector.get('$log')
         })

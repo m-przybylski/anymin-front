@@ -1,4 +1,6 @@
-namespace profitelo.components.dashboard.chargeAccount.chooseAmountCharge {
+import * as angular from "angular"
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import {ChooseAmountChargeComponentController, IChooseAmountChargeComponentBindings} from "./choose-amount-charge"
 describe('Unit testing: profitelo.components.dashboard.charge-account.choose-amount-charge', () => {
   return describe('for chooseAmountCharge component >', () => {
 
@@ -42,17 +44,19 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-amo
       return compiledElement
     }
 
-    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
+    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', url)
     }))
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
-      $provide.value('translateFilter', (x: any) => { return x })
+      $provide.value('translateFilter', (x: any) => {
+        return x
+      })
     }))
 
     beforeEach(() => {
-    angular.mock.module('templates-module')
-    angular.mock.module('profitelo.components.dashboard.charge-account.choose-amount-charge')
+      //angular.mock.module('templates-module')
+      angular.mock.module('profitelo.components.dashboard.charge-account.choose-amount-charge')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, $componentController: ng.IComponentControllerService) => {
         rootScope = $rootScope.$new()
@@ -82,4 +86,3 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-amo
 
   })
 })
-}

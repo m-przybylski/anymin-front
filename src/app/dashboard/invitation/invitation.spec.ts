@@ -1,5 +1,7 @@
-namespace profitelo.dashboard.invitaion {
-describe('Unit tests: profitelo.controller.dashboard.invitation >', () => {
+import * as angular from "angular"
+import "./invitation"
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  describe('Unit tests: profitelo.controller.dashboard.invitation >', () => {
   describe('Testing Controller: InvitationController', () => {
 
     let scope: any,
@@ -36,4 +38,4 @@ describe('Unit tests: profitelo.controller.dashboard.invitation >', () => {
     })
 
   })
-})}
+})

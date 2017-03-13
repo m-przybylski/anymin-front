@@ -1,24 +1,21 @@
-namespace profitelo.components.dashboard.chargeAccount.paymentMethod.paypalPaymentForm {
+import * as angular from "angular"
+import sessionModule from "../../../../../services/session/session"
 
-  export class PayPalPaymentFormComponentController implements ng.IController {
+export class PayPalPaymentFormComponentController implements ng.IController {
 
-    /* @ngInject */
-    constructor() {
-    }
+  /* @ngInject */
+  constructor() {
   }
-
-  class PayPalPaymentFormComponent implements ng.IComponentOptions {
-    controllerAs: '$ctrl'
-    controller: ng.Injectable<ng.IControllerConstructor> = PayPalPaymentFormComponentController
-    templateUrl: string =  'components/dashboard/charge-account/payment-method/paypal/paypal.tpl.html'
-    replace: true
-  }
-
-
-  angular.module('profitelo.components.dashboard.charge-account.payment-method.paypal', [
-    'profitelo.services.session',
-    'profitelo.components.dashboard.charge-account.summary-charge-account'
-  ])
-    .component('paypalPaymentForm', new PayPalPaymentFormComponent())
-
 }
+
+class PayPalPaymentFormComponent implements ng.IComponentOptions {
+  controller: ng.Injectable<ng.IControllerConstructor> = PayPalPaymentFormComponentController
+  template = require('./paypal.jade')()
+}
+
+
+angular.module('profitelo.components.dashboard.charge-account.payment-method.paypal', [
+  sessionModule,
+  'profitelo.components.dashboard.charge-account.summary-charge-account'
+])
+  .component('paypalPaymentForm', new PayPalPaymentFormComponent())

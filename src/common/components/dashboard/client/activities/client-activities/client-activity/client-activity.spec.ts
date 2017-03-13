@@ -1,5 +1,7 @@
-namespace profitelo.components.dashboard.client.activities.clientActivity {
-import IModalsService = profitelo.services.modals.IModalsService
+import * as angular from "angular"
+  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import {ModalsService} from "../../../../../../services/modals/modals.service"
+import modalsModule from "../../../../../../services/modals/modals"
   describe('Unit testing: profitelo.components.dashboard.client.activities.client-activity', () => {
   return describe('for clientLastActivitiesList >', () => {
 
@@ -34,15 +36,15 @@ import IModalsService = profitelo.services.modals.IModalsService
     }))
 
     beforeEach(() => {
-    angular.mock.module('templates-module')
+    //angular.mock.module('templates-module')
     angular.mock.module('profitelo.services.url')
-    angular.mock.module('profitelo.services.modals')
+    angular.mock.module(modalsModule)
     angular.mock.module('profitelo.filters.money')
     angular.mock.module('profitelo.components.complaints.status')
     angular.mock.module('profitelo.components.dashboard.client.activities.client-activity')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
-              _$componentController_: ng.IComponentControllerService, _modalsService_: IModalsService) => {
+              _$componentController_: ng.IComponentControllerService, _modalsService_: ModalsService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
@@ -64,4 +66,4 @@ import IModalsService = profitelo.services.modals.IModalsService
     })
 
   })
-})}
+})

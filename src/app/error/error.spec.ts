@@ -1,3 +1,5 @@
+import * as angular from "angular"
+import "./error"
 describe('Unit tests: ErrorController >', () => {
   describe('Testing Controller: ErrorController', () => {
 

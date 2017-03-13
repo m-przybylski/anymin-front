@@ -1,4 +1,6 @@
-namespace app.dashboard.settings.general {
+import {DashboardSettingsGeneralController} from "./general"
+import * as angular from "angular"
+
   describe('Unit tests: DashboardSettingsGeneralController >', () => {
     describe('Testing Controller: DashboardSettingsGeneralController', () => {
 
@@ -27,4 +29,3 @@ namespace app.dashboard.settings.general {
 
     })
   })
-}

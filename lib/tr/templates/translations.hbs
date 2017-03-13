@@ -1,0 +1,20 @@
+import * as angular from "angular"
+import "angular-translate"
+/* istanbul ignore next */
+(function(angular) {
+    'use strict';
+
+    angular.module('{{ngModule}}', ['pascalprecht.translate'])
+    .config(['$translateProvider', function($translateProvider: any) {
+
+        return $translateProvider.translations('{{languageCode}}', {
+        	{{#each translations}}
+        		"{{@key}}":"{{this}}"{{#unless @last}},{{/unless}}
+        	{{/each}}
+        })
+    }])
+})(angular);
+
+
+
+

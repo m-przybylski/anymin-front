@@ -1,4 +1,6 @@
-namespace profitelo.dashboard.serviceProvider.choosePath {
+import * as angular from "angular"
+import "./choose-path"
+
 describe('Unit tests: ChoosePathController >', () => {
   describe('Testing Controller: ChoosePathController', () => {
 
@@ -19,4 +21,3 @@ describe('Unit tests: ChoosePathController >', () => {
 
   })
 })
-}

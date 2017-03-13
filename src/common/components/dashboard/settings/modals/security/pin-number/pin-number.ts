@@ -1,90 +1,90 @@
-namespace profitelo.components.dashboard.settings.modals.security.pinNumber {
+import * as angular from "angular"
 
-  import LoDashStatic = _.LoDashStatic
-  import ICommonSettingsService = profitelo.services.commonSettings.ICommonSettingsService
-  import IAccountApi = profitelo.api.IAccountApi
-  export interface ISecurityPinNumberSettingsControllerScope extends ng.IScope {
-  }
-
-  interface IProtectedViewsStatus {
-    CALL_VIEW?: boolean,
-    PAY_OUT_VIEW?: boolean,
-    MAKE_DEPOSIT_VIEW?: boolean
-    [key: string]: boolean | undefined
-  }
-
-  export class SecurityPinNumberSettingsController implements ng.IController {
-
-    private readonly pinLength: number = 4
-    public isPasswordIncorrect: boolean = false
-    public isNavbar: boolean = true
-    public isFullscreen: boolean = true
-    public isNewPinTyped: boolean = false
-    public confirmPassword: string
-    public pinInput : Array<string> = new Array(this.pinLength)
-    public patternPassword: string = this.CommonSettingsService.localSettings.passwordPattern
-    public protectedViewsStatus: IProtectedViewsStatus = {
-      CALL_VIEW: false,
-      PAY_OUT_VIEW: false,
-      MAKE_DEPOSIT_VIEW: false
-    }
-
-    public onModalClose = (): void => {
-      this.$uibModalInstance.dismiss('cancel')
-    }
-
-    /* @ngInject */
-    constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, private AccountApi: IAccountApi,
-                private lodash: LoDashStatic, private CommonSettingsService: ICommonSettingsService) {
-      AccountApi.getMobileProtectedViewsRoute().then(res => {
-        res.protectedViews.forEach((view) => {
-          this.protectedViewsStatus[view] = true
-        })
-      }, (err) => {
-        this.$uibModalInstance.dismiss('cancel')
-        throw new Error('Can not get mobile protected views: ' + err)
-      })
-    }
-
-    public sendPin = () => {
-      this.isNewPinTyped = true
-    }
-
-    public changeViewsAndPin = (): void => {
-      let protectedViews: Array<string> = []
-      this.isPasswordIncorrect = false
-      this.lodash.each(this.protectedViewsStatus, (val: boolean, key: string) => {
-        if (val) {
-          protectedViews.push(key)
-        }
-      })
-
-      this.AccountApi.patchMobileViewsPermissionsRoute({
-        password: this.confirmPassword,
-        mobilePin: this.pinInput.join(''),
-        protectedViews: protectedViews
-      }).then(_res => {
-        this.$uibModalInstance.dismiss('cancel')
-      }, (err) => {
-        if (err.status === 401) {
-          this.isPasswordIncorrect = true
-        } else {
-          this.$uibModalInstance.dismiss('cancel')
-          throw new Error('Can not patch mobile protected views: ' + err)
-        }
-      })
-    }
-  }
-
-  angular.module('profitelo.components.dashboard.settings.security.modals.pin-number', [
-    'ui.bootstrap',
-    'ngLodash',
-    'profitelo.services.commonSettings',
-    'profitelo.api.AccountApi',
-    'profitelo.directives.interface.focus-next',
-    'profitelo.directives.interface.scrollable',
-    'profitelo.directives.interface.pro-checkbox'
-  ])
-  .controller('securityPinNumberSettingsController', SecurityPinNumberSettingsController)
-
+import LoDashStatic = _.LoDashStatic
+import {CommonSettingsService} from "../../../../../../services/common-settings/common-settings.service"
+import {AccountApi} from "../../../../../../api/api/AccountApi"
+import apiModule from "../../../../../../api/api.module"
+import commonSettingsModule from "../../../../../../services/common-settings/common-settings"
+export interface ISecurityPinNumberSettingsControllerScope extends ng.IScope {
 }
+
+interface IProtectedViewsStatus {
+  CALL_VIEW?: boolean,
+  PAY_OUT_VIEW?: boolean,
+  MAKE_DEPOSIT_VIEW?: boolean
+  [key: string]: boolean | undefined
+}
+
+export class SecurityPinNumberSettingsController implements ng.IController {
+
+  private readonly pinLength: number = 4
+  public isPasswordIncorrect: boolean = false
+  public isNavbar: boolean = true
+  public isFullscreen: boolean = true
+  public isNewPinTyped: boolean = false
+  public confirmPassword: string
+  public pinInput: Array<string> = new Array(this.pinLength)
+  public patternPassword: string = this.CommonSettingsService.localSettings.passwordPattern
+  public protectedViewsStatus: IProtectedViewsStatus = {
+    CALL_VIEW: false,
+    PAY_OUT_VIEW: false,
+    MAKE_DEPOSIT_VIEW: false
+  }
+
+  public onModalClose = (): void => {
+    this.$uibModalInstance.dismiss('cancel')
+  }
+
+  /* @ngInject */
+  constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, private AccountApi: AccountApi,
+              private lodash: LoDashStatic, private CommonSettingsService: CommonSettingsService) {
+    AccountApi.getMobileProtectedViewsRoute().then(res => {
+      res.protectedViews.forEach((view) => {
+        this.protectedViewsStatus[view] = true
+      })
+    }, (err) => {
+      this.$uibModalInstance.dismiss('cancel')
+      throw new Error('Can not get mobile protected views: ' + err)
+    })
+  }
+
+  public sendPin = () => {
+    this.isNewPinTyped = true
+  }
+
+  public changeViewsAndPin = (): void => {
+    let protectedViews: Array<string> = []
+    this.isPasswordIncorrect = false
+    this.lodash.each(this.protectedViewsStatus, (val: boolean, key: string) => {
+      if (val) {
+        protectedViews.push(key)
+      }
+    })
+
+    this.AccountApi.patchMobileViewsPermissionsRoute({
+      password: this.confirmPassword,
+      mobilePin: this.pinInput.join(''),
+      protectedViews: protectedViews
+    }).then(_res => {
+      this.$uibModalInstance.dismiss('cancel')
+    }, (err) => {
+      if (err.status === 401) {
+        this.isPasswordIncorrect = true
+      } else {
+        this.$uibModalInstance.dismiss('cancel')
+        throw new Error('Can not patch mobile protected views: ' + err)
+      }
+    })
+  }
+}
+
+angular.module('profitelo.components.dashboard.settings.security.modals.pin-number', [
+  'ui.bootstrap',
+  'ngLodash',
+  commonSettingsModule,
+  apiModule,
+  'profitelo.directives.interface.focus-next',
+  'profitelo.directives.interface.scrollable',
+  'profitelo.directives.interface.pro-checkbox'
+])
+  .controller('securityPinNumberSettingsController', SecurityPinNumberSettingsController)

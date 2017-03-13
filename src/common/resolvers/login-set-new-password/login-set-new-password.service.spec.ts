@@ -1,4 +1,6 @@
-namespace profitelo.resolvers.loginSetNewPassword {
+import * as angular from "angular"
+import {ILoginSetNewPasswordService} from "./login-set-new-password.service"
+
 describe('Unit testing: profitelo.resolvers.login-set-new-password', () => {
   describe('for LoginSetNewPasswordResolver service >', () => {
 
@@ -8,7 +10,7 @@ describe('Unit testing: profitelo.resolvers.login-set-new-password', () => {
     let stateParams: any
     let mockState: any
 
-    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
+    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', url)
     }))
 
@@ -19,10 +21,11 @@ describe('Unit testing: profitelo.resolvers.login-set-new-password', () => {
       }
 
       mockState = {
-        go: () => {}
+        go: () => {
+        }
       }
 
-    angular.mock.module('profitelo.resolvers.login-set-new-password', function($provide: ng.auto.IProvideService) {
+      angular.mock.module('profitelo.resolvers.login-set-new-password', function ($provide: ng.auto.IProvideService) {
         $provide.value('$state', mockState)
       })
 
@@ -40,7 +43,8 @@ describe('Unit testing: profitelo.resolvers.login-set-new-password', () => {
     it('should handle empty token', () => {
 
       let spy = {
-        spy: () => {}
+        spy: () => {
+        }
       }
 
       spyOn(spy, 'spy')
@@ -58,4 +62,4 @@ describe('Unit testing: profitelo.resolvers.login-set-new-password', () => {
 
 
   })
-})}
+})

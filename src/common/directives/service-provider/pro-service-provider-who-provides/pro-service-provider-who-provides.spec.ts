@@ -13,7 +13,7 @@ namespace profitelo.directives.serviceProvider.proServiceProviderWhoProvides {
         'tr-desc="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT_DESCRIPTION" required="required"></pro-service-provider-who-provides>'
 
       beforeEach(function () {
-        angular.mock.module('templates-module')
+        //angular.mock.module('templates-module')
         angular.mock.module('profitelo.directives.service-provider.pro-service-provider-who-provides')
 
         inject(function ($rootScope: IRootScopeService, $compile: ng.ICompileService) {

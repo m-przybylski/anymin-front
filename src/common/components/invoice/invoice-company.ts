@@ -1,24 +1,24 @@
-namespace profitelo.components.dashboard.invoiceCompany {
+import * as angular from "angular"
+import sessionModule from "../../services/session/session"
 
-  export class InvoiceCompanyFormComponentController implements ng.IController {
+export class InvoiceCompanyFormComponentController implements ng.IController {
 
 
-    /* @ngInject */
-    constructor() {
-    }
-
+  /* @ngInject */
+  constructor() {
   }
-
-  class PayPalPaymentFormComponent implements ng.IComponentOptions {
-    controllerAs: '$ctrl'
-    controller: ng.Injectable<ng.IControllerConstructor> = InvoiceCompanyFormComponentController
-    templateUrl: string = 'components/invoice/invoice-company.tpl.html'
-    replace: true
-  }
-
-  angular.module('profitelo.components.dashboard.invoice', [
-    'profitelo.services.session'
-  ])
-  .component('invoiceCompany', new PayPalPaymentFormComponent())
 
 }
+
+class PayPalPaymentFormComponent implements ng.IComponentOptions {
+  controllerAs: '$ctrl'
+  controller: ng.Injectable<ng.IControllerConstructor> = InvoiceCompanyFormComponentController
+  template = require('./invoice-company.jade')()
+  replace: true
+}
+
+angular.module('profitelo.components.dashboard.invoice', [
+  sessionModule
+])
+  .component('invoiceCompany', new PayPalPaymentFormComponent())
+

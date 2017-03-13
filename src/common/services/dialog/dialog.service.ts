@@ -1,41 +1,32 @@
-namespace profitelo.services.dialog {
+import * as ng from "angular"
 
-  export interface IDialogService {
-    openDialog(options?: ng.ui.bootstrap.IModalSettings): ng.ui.bootstrap.IModalServiceInstance
+export class DialogService {
+
+  /* @ngInject */
+  constructor(private $uibModal: ng.ui.bootstrap.IModalService) {
   }
 
-  class DialogService implements IDialogService {
+  /**
+   *
+   * Full options list can be found in the angular bootstrap docs
+   * @link https://angular-ui.github.io/bootstrap/#/modal
+   *
+   * @param {Object} options - uibModal's options object
+   *
+   * @returns {Object} uibModal
+   */
+  public openDialog = (options: ng.ui.bootstrap.IModalSettings = {}) => {
 
-    constructor(private $uibModal: ng.ui.bootstrap.IModalService) {
+    let _options: ng.ui.bootstrap.IModalSettings = {
+      backdrop: 'static',
+      keyboard: true,
+      animation: true,
+      size: '300',
+      controllerAs: 'vm'
     }
 
-    /**
-     *
-     * Full options list can be found in the angular bootstrap docs
-     * @link https://angular-ui.github.io/bootstrap/#/modal
-     *
-     * @param {Object} options - uibModal's options object
-     *
-     * @returns {Object} uibModal
-     */
-    public openDialog = (options: ng.ui.bootstrap.IModalSettings = {}) => {
+    _options = ng.extend({}, _options, options)
 
-      let _options: ng.ui.bootstrap.IModalSettings = {
-        backdrop: 'static',
-        keyboard: true,
-        animation: true,
-        size: '300',
-        controllerAs: 'vm'
-      }
-
-      _options = angular.extend({}, _options, options)
-
-      return this.$uibModal.open(_options)
-    }
+    return this.$uibModal.open(_options)
   }
-
-  angular.module('profitelo.services.dialog', [
-    'ui.bootstrap'
-  ])
-  .service('dialogService', DialogService)
 }

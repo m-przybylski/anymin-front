@@ -1,105 +1,92 @@
-namespace profitelo.services.smoothScrolling {
+export class SmoothScrollingService {
 
-  export interface ISmoothScrollingService {
-    scrollTo(elementId: string): void
-    simpleScrollTo(element: string | Element, isNavbar?: boolean, time?: number): void
+  /* @ngInject */
+  constructor(private $timeout: ng.ITimeoutService) {
   }
 
-  export class SmoothScrollingService implements ISmoothScrollingService {
+  public scrollTo = (eID: string) => {
 
-    constructor(private $timeout: ng.ITimeoutService) {
+    const currentYPosition = () => {
+      // Firefox, Chrome, Opera, Safari
+      if (self.pageYOffset) {
+        return self.pageYOffset
+      }
+      // Internet Explorer 6 - standards mode
+      if (document.documentElement && document.documentElement.scrollTop) {
+        return document.documentElement.scrollTop
+      }
+
+      // Internet Explorer 6, 7 and 8
+      if (document.body.scrollTop) {
+        return document.body.scrollTop
+      }
+      return 0
     }
 
-    public scrollTo = (eID: string) => {
+    const elmYPosition = (id: string) => {
+      let elm = document.getElementById(id)
 
-      const currentYPosition = () => {
-        // Firefox, Chrome, Opera, Safari
-        if (self.pageYOffset) {
-          return self.pageYOffset
-        }
-        // Internet Explorer 6 - standards mode
-        if (document.documentElement && document.documentElement.scrollTop) {
-          return document.documentElement.scrollTop
-        }
-
-        // Internet Explorer 6, 7 and 8
-        if (document.body.scrollTop) {
-          return document.body.scrollTop
-        }
-        return 0
+      if (!elm) {
+        throw new Error(`Elem ${id} not found`)
       }
 
-      const elmYPosition = (id: string) => {
-        let elm = document.getElementById(id)
-
-        if (!elm) {
-          throw new Error(`Elem ${id} not found`)
-        }
-
-        let y = elm.offsetTop
-        let node = elm
-        while (node.offsetParent && node.offsetParent !== document.body) {
-          node = <HTMLElement>node.offsetParent
-          y += node.offsetTop
-        }
-        return y
+      let y = elm.offsetTop
+      let node = elm
+      while (node.offsetParent && node.offsetParent !== document.body) {
+        node = <HTMLElement>node.offsetParent
+        y += node.offsetTop
       }
-
-      let startY = currentYPosition()
-      let stopY = elmYPosition(eID)
-      let distance = stopY > startY ? stopY - startY : startY - stopY
-      if (distance < 100) {
-        scrollTo(0, stopY)
-        return null
-      }
-      let speed = 3
-
-      let step = Math.round(distance / 25)
-      let leapY = stopY > startY ? startY + step : startY - step
-      let timer = 0
-
-      let scrollFunction = () => {
-
-        if (stopY > leapY) {
-          window.scrollTo(0, leapY)
-          leapY += step
-          if (leapY > stopY) {
-            leapY = stopY
-          }
-          if (timer * speed < 30) {
-            timer += 1
-          }
-          this.$timeout(() => {
-            scrollFunction()
-          }, speed * timer)
-        }
-
-      }
-      scrollFunction()
-      return true
+      return y
     }
 
-    public simpleScrollTo = (element: string, isNavbar: boolean, time = 1000) => {
-      let scrollTop = $(element).offset().top
+    let startY = currentYPosition()
+    let stopY = elmYPosition(eID)
+    let distance = stopY > startY ? stopY - startY : startY - stopY
+    if (distance < 100) {
+      scrollTo(0, stopY)
+      return null
+    }
+    let speed = 3
 
-      if (isNavbar) {
-        scrollTop -= 80 + 32
+    let step = Math.round(distance / 25)
+    let leapY = stopY > startY ? startY + step : startY - step
+    let timer = 0
+
+    let scrollFunction = () => {
+
+      if (stopY > leapY) {
+        window.scrollTo(0, leapY)
+        leapY += step
+        if (leapY > stopY) {
+          leapY = stopY
+        }
+        if (timer * speed < 30) {
+          timer += 1
+        }
+        this.$timeout(() => {
+          scrollFunction()
+        }, speed * timer)
       }
 
-      $('html, body').animate({
-        scrollTop: scrollTop
-      }, time)
-
-      $(window).on('wheel', () => {
-        $('html, body').stop(true, false)
-      })
-
     }
+    scrollFunction()
+    return true
   }
 
-  angular.module('profitelo.services.smooth-scrolling', [])
-    .config(($qProvider: ng.IQProvider) => {
-      $qProvider.errorOnUnhandledRejections(true)
+  public simpleScrollTo = (element: Element | string, isNavbar?: boolean, time = 1000) => {
+    let scrollTop = $(element).offset().top
+
+    if (isNavbar) {
+      scrollTop -= 80 + 32
+    }
+
+    $('html, body').animate({
+      scrollTop: scrollTop
+    }, time)
+
+    $(window).on('wheel', () => {
+      $('html, body').stop(true, false)
     })
-    .service('smoothScrollingService', SmoothScrollingService)
+
+  }
 }

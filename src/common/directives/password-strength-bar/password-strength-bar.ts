@@ -27,7 +27,7 @@
 
     }
     return {
-      templateUrl: 'directives/password-strength-bar/password-strength-bar.tpl.html',
+      template: require('./password-strength-bar.jade')(),
       restrict: 'E',
       replace: true,
       link: linkFunction,

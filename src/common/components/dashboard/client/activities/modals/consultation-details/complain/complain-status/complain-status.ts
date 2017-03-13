@@ -1,3 +1,6 @@
+import * as angular from "angular"
+import "../../../../../../../../components/complaints/status/status"
+
 (function() {
   /* @ngInject */
   function controller() {
@@ -6,7 +9,7 @@
   }
 
   const component = {
-    templateUrl: 'components/dashboard/client/activities/modals/consultation-details/complain/complain-status/complain-status.tpl.html',
+    template: require('./complain-status.jade')(),
     controller: controller,
     controllerAs: '$ctrl',
     bindings: {

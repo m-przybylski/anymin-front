@@ -1,47 +1,35 @@
-namespace profitelo.services.loginState {
+import * as angular from "angular"
+//TODO add account type
+export class LoginStateService {
 
-  //TODO add account type
-  export interface ILoginStateService {
-    setAccountObject(account: any): void
-    getAccountObject(): any
-    getFullPhoneNumber(): string
-    clearServiceObject(): void
+  private account: any = null
+  private emptyAccount: any = null
+
+  constructor() {
+    this.account = {
+      phoneNumber: {
+        prefix: null,
+        number: null
+      },
+      password: ''
+    }
+
+    this.emptyAccount = angular.copy(this.account)
   }
 
-  class LoginStateService implements ILoginStateService {
-
-    private account: any = null
-    private emptyAccount: any = null
-
-    constructor() {
-      this.account = {
-        phoneNumber: {
-          prefix: null,
-          number: null
-        },
-        password: ''
-      }
-
-      this.emptyAccount = angular.copy(this.account)
-    }
-
-    public setAccountObject = (account: any) => {
-      this.account = account
-    }
-
-    public getAccountObject = () => {
-      return angular.copy(this.account)
-    }
-
-    public getFullPhoneNumber = () => {
-      return String(this.account.phoneNumber.prefix) + String(this.account.phoneNumber.number)
-    }
-
-    public clearServiceObject = () => {
-      this.account = angular.copy(this.emptyAccount)
-    }
+  public setAccountObject = (account: any) => {
+    this.account = account
   }
 
-  angular.module('profitelo.services.login-state', [])
-  .service('loginStateService', LoginStateService)
+  public getAccountObject = () => {
+    return angular.copy(this.account)
+  }
+
+  public getFullPhoneNumber = () => {
+    return String(this.account.phoneNumber.prefix) + String(this.account.phoneNumber.number)
+  }
+
+  public clearServiceObject = () => {
+    this.account = angular.copy(this.emptyAccount)
+  }
 }

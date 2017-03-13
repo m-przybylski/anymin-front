@@ -1,5 +1,6 @@
 namespace profitelo.components.dashboard.client.favourites.favouriteExperts.favouriteExpert {
-describe('Unit testing: profitelo.components.dashboard.client.favourites.favourite-experts.favourite-expert', () => {
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  describe('Unit testing: profitelo.components.dashboard.client.favourites.favourite-experts.favourite-expert', () => {
   return describe('for clientFavouriteExpert >', () => {
 
     let scope: any
@@ -35,7 +36,7 @@ describe('Unit testing: profitelo.components.dashboard.client.favourites.favouri
     }
 
     beforeEach(() => {
-    angular.mock.module('templates-module')
+    //angular.mock.module('templates-module')
     angular.mock.module('profitelo.services.url')
     angular.mock.module('profitelo.components.dashboard.client.favourites.favourite-experts.favourite-expert')
 

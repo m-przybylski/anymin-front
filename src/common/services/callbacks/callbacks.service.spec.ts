@@ -1,15 +1,18 @@
-namespace profitelo.services.callbacks {
+import * as angular from "angular"
+import {CallbacksFactory} from "./callbacks.factory"
+import callbacksModule from "./callbacks"
+
 describe('Unit testing: profitelo.services.callbacks >', () => {
   describe('for profitelo.services.callbacks >', () => {
 
-    let callbacksFactory: ICallbacksFactory
+    let callbacksFactory: CallbacksFactory
 
     beforeEach(() => {
-    angular.mock.module('profitelo.services.callbacks')
+    angular.mock.module(callbacksModule)
     })
 
     beforeEach(inject(($injector: ng.auto.IInjectorService) => {
-      callbacksFactory = $injector.get<ICallbacksFactory>('callbacksFactory')
+      callbacksFactory = $injector.get<CallbacksFactory>('callbacksFactory')
     }))
 
 
@@ -48,4 +51,3 @@ describe('Unit testing: profitelo.services.callbacks >', () => {
     }))
   })
 })
-}

@@ -1,4 +1,6 @@
-namespace profitelo.directives.expertProfile.proExpertSingleConsultation {
+import * as angular from "angular"
+import communicatorModule from "../../../components/communicator/communicator"
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 describe('Unit testing: profitelo.directives.expert-profile.pro-expert-single-consultation', () => {
   return describe('for expert-profile.pro-expert-single-consultation directive >', () => {
 
@@ -8,11 +10,12 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-single-co
     let validHTML = '<pro-expert-single-consultation data-service-tags-employees-tuple="serviceTagsEmployeesTuple"></pro-expert-single-consultation>'
 
     const callService = {
-      callServiceId: () => {}
+      callServiceId: () => {
+      }
     }
 
     beforeEach(() => {
-    angular.mock.module('profitelo.services.call')
+      angular.mock.module(communicatorModule)
     })
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
@@ -21,9 +24,9 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-single-co
     }))
 
     beforeEach(() => {
-    angular.mock.module('templates-module')
-    angular.mock.module('profitelo.services.url')
-    angular.mock.module('profitelo.directives.expert-profile.pro-expert-single-consultation')
+      //angular.mock.module('templates-module')
+      angular.mock.module('profitelo.services.url')
+      angular.mock.module('profitelo.directives.expert-profile.pro-expert-single-consultation')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {
         rootScope = $rootScope.$new()
@@ -36,9 +39,7 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-single-co
       let elem = angular.element(html)
       scope.serviceTagsEmployeesTuple = {
         ownerProfile: {
-          organizationDetails: {
-
-          }
+          organizationDetails: {}
         },
         service: {
           id: 'sdsdsdsd2323'
@@ -67,4 +68,3 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-single-co
     })
   })
 })
-}

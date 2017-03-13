@@ -1,4 +1,5 @@
 namespace profitelo.components.settings.navigation {
+  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
   describe('Unit testing: profitelo.components.dashboard.client.navigation', () => {
     return describe('for clientNavigation >', () => {
 
@@ -18,7 +19,7 @@ namespace profitelo.components.settings.navigation {
       }
 
       beforeEach(() => {
-        angular.mock.module('templates-module')
+        //angular.mock.module('templates-module')
         angular.mock.module('profitelo.components.dashboard.client.navigation')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$componentController_: ng.IComponentControllerService) => {

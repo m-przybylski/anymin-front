@@ -7,7 +7,7 @@
 
   let proSummaryTag = {
     transclude: true,
-    templateUrl:    'components/pro-summary-tag/pro-summary-tag.tpl.html',
+    template: require('./pro-summary-tag.jade')(),
     bindings: {
       tags: '<',
       hideMoreTags: '<',

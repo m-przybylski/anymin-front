@@ -1,17 +1,20 @@
-namespace profitelo.directives.proPageTitle {
+import * as angular from "angular"
+import "./pro-page-title"
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+
 describe('Unit testing: profitelo.directives.page-title', () => {
   return describe('for page-title directive >', () => {
 
-    var compile: any   = null
-    var scope: any     = null
+    var compile: any = null
+    var scope: any = null
     var validHTML = '<title data-page-title></title>'
 
     beforeEach(() => {
-    angular.mock.module('profitelo.directives.page-title')
+      angular.mock.module('profitelo.directives.page-title')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {
-        scope                 = $rootScope.$new()
-        compile               = $compile
+        scope = $rootScope.$new()
+        compile = $compile
       })
     })
 
@@ -67,4 +70,3 @@ describe('Unit testing: profitelo.directives.page-title', () => {
 
   })
 })
-}

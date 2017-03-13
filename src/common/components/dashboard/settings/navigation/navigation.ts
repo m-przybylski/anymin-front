@@ -7,7 +7,7 @@ namespace profitelo.components.settings.navigation {
   }
 
   const component = {
-    templateUrl: 'components/dashboard/settings/navigation/navigation.tpl.html',
+    template: require('./navigation.jade')(),
     controller: controller,
     controllerAs: '$ctrl',
     bindings: {

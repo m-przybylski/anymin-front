@@ -1,15 +1,18 @@
-namespace profitelo.services.timer {
+import * as angular from "angular"
+import {TimerFactory} from "./timer.factory"
+import timerModule from "./timer"
+
 describe('Unit testing: profitelo.services.timer >', () => {
   describe('for profitelo.services.timer >', () => {
 
-    let timerFactory: ITimerFactory
+    let timerFactory: TimerFactory
 
     beforeEach(() => {
-    angular.mock.module('profitelo.services.timer')
+    angular.mock.module(timerModule)
     })
 
     beforeEach(inject(($injector: ng.auto.IInjectorService) => {
-      timerFactory = $injector.get<ITimerFactory>('timerFactory')
+      timerFactory = $injector.get<TimerFactory>('timerFactory')
     }))
 
 
@@ -43,4 +46,3 @@ describe('Unit testing: profitelo.services.timer >', () => {
     }))
   })
 })
-}

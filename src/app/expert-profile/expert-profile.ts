@@ -1,102 +1,62 @@
-namespace profitelo.expertProfile {
+import * as angular from "angular"
+import apiModule from "../../common/api/api.module"
+import sessionModule from "../../common/services/session/session"
+import {ExpertProfileResolver} from "./expert-profile.resolver"
+import {ExpertProfileController} from "./expert-profile.controller"
+import topAlertModule from "../../common/services/top-alert/top-alert"
+import recommendedServicesModule from "../../common/services/recommended-services/recommended-services"
+import smoothScrollingModule from "../../common/services/smooth-scrolling/smooth-scrolling"
+import "common/resolvers/service-provider-image/service-provider-image.service"
+import "common/directives/pro-top-navbar/pro-top-navbar"
+import "common/directives/expert-profile/pro-expert-header/pro-expert-header"
+import "common/directives/expert-profile/pro-expert-slider/pro-expert-slider"
+import "common/directives/expert-profile/pro-expert-single-consultation/pro-expert-single-consultation"
+import "common/directives/expert-profile/pro-expert-social-icons/pro-expert-social-icons"
+import "common/directives/pro-footer/pro-footer"
+import "common/components/expert-profile/similar-experts-slider/similar-experts-slider"
+import "common/components/expert-profile/social-links/social-links"
+import "common/components/interface/collapse-tab/collapse-tab"
 
-  import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
-  import IExpertProfileServices = profitelo.resolvers.expertProfileResolver.IExpertProfileServices
-  import IRecommendedServicesService = profitelo.services.recommendedServices.IRecommendedServicesService
-  import IProfileApi = profitelo.api.IProfileApi
-  import GetExpertProfile = profitelo.api.GetExpertProfile
+export interface IExpertProfileStateParams extends ng.ui.IStateParamsService {
+  primaryConsultationId: string
+  profileId: string
+}
 
-  export interface IExpertProfileStateParams extends ng.ui.IStateParamsService {
-    primaryConsultationId: string
-    profileId: string
-  }
-
-  function ExpertProfileController($stateParams: IExpertProfileStateParams, $log: ng.ILogService,
-                                   $timeout: ng.ITimeoutService, expertProfile: GetExpertProfile,
-                                   recommendedServices: IRecommendedServicesService, ProfileApi: IProfileApi,
-                                   smoothScrollingService: ISmoothScrollingService) {
-
-    this.profile = {}
-
-    this.profile = expertProfile.profile.expertDetails
-    this.consultations = expertProfile.services
-    this.profile.type = 'single'
-    this.profile.isFavourite = expertProfile.isFavourite
-
-    if (!!$stateParams.primaryConsultationId) {
-      $timeout(() => {
-        smoothScrollingService.simpleScrollTo('#consultationScroll', true)
-      })
-    }
-
-    this.profile.colaboratedOrganizations = expertProfile.employers
-    this.services = expertProfile.services
-
-    recommendedServices.getRecommendedExperts(this.consultations).then((response) => {
-      this.similarExperts = response
-    })
-
-    const onProfileLike = () =>
-      this.profile.isFavourite = true
-
-    const onProfileLikeError = (error: any) =>
-      $log.error('Can not like this company because: ' + error)
-
-    const onProfileDislike = () =>
-      this.profile.isFavourite = false
-
-    const onProfileDislikeError = (error: any) =>
-      $log.error('Can not dislike this company because: ' + error)
-
-
-    this.handleLike = () => {
-      if (!this.profile.isFavourite) {
-        ProfileApi.postProfileFavouriteExpertRoute($stateParams.profileId)
-          .then(onProfileLike, onProfileLikeError)
-      } else {
-        ProfileApi.deleteProfileFavouriteExpertRoute($stateParams.profileId)
-          .then(onProfileDislike, onProfileDislikeError)
-      }
-    }
-
-    return this
-  }
-
-  angular.module('profitelo.controller.expert-profile', [
-    'ui.router',
-    'profitelo.api.ProfileApi',
-    'profitelo.services.session',
-    'profitelo.directives.pro-top-navbar',
-    'profitelo.directives.expert-profile.pro-expert-header',
-    'profitelo.directives.pro-footer',
-    'profitelo.services.smooth-scrolling',
-    'profitelo.directives.expert-profile.pro-expert-slider',
-    'profitelo.directives.expert-profile.pro-expert-single-consultation',
-    'profitelo.directives.expert-profile.pro-expert-social-icons',
-    'profitelo.resolvers.service-provider-image',
-    'profitelo.components.expert-profile.similar-experts-slider',
-    'profitelo.services.top-alert',
-    'profitelo.services.recommended-services',
-    'profitelo.resolvers.expert-profile',
-    'profitelo.components.expert-profile.social-links',
-    'profitelo.components.interface.collapse-tab'
-  ])
-  .config(($stateProvider: ng.ui.IStateProvider) => {
+const expertProfilePageModule = angular.module('profitelo.controller.expert-profile', [
+  'ui.router',
+  apiModule,
+  'ngLodash',
+  sessionModule,
+  smoothScrollingModule,
+  topAlertModule,
+  recommendedServicesModule,
+  'profitelo.resolvers.service-provider-image',
+  'profitelo.directives.pro-top-navbar',
+  'profitelo.directives.expert-profile.pro-expert-header',
+  'profitelo.directives.pro-footer',
+  'profitelo.directives.expert-profile.pro-expert-slider',
+  'profitelo.directives.expert-profile.pro-expert-single-consultation',
+  'profitelo.directives.expert-profile.pro-expert-social-icons',
+  'profitelo.components.expert-profile.similar-experts-slider',
+  'profitelo.components.expert-profile.social-links',
+  'profitelo.components.interface.collapse-tab'
+])
+  .config(($stateProvider: ng.ui.IStateProvider, $qProvider: ng.IQProvider) => {
+    $qProvider.errorOnUnhandledRejections(false)
     $stateProvider.state('app.expert-profile', {
       controllerAs: 'vm',
       url: '/expert-profile/{profileId}?primaryConsultationId',
-      templateUrl: 'expert-profile/expert-profile.tpl.html',
+      template: require('./expert-profile.jade')(),
       controller: 'ExpertProfileController',
       resolve: {
         /* istanbul ignore next */
-        expertProfile:  (ExpertProfileResolver: IExpertProfileServices, $stateParams: IExpertProfileStateParams) =>
+        expertProfile: (ExpertProfileResolver: ExpertProfileResolver, $stateParams: IExpertProfileStateParams) =>
           ExpertProfileResolver.resolve($stateParams)
-
-      },
-
-      data: {
       }
     })
   })
+  .service('ExpertProfileResolver', ExpertProfileResolver)
   .controller('ExpertProfileController', ExpertProfileController)
-}
+  .name
+
+export default expertProfilePageModule

@@ -1,3 +1,6 @@
+import * as angular from "angular"
+import "./pro-summary-tag"
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 describe('Unit testing: profitelo.components.pro-summary-tag', () => {
   return describe('for pro-summary-tag component >', () => {
 
@@ -17,8 +20,8 @@ describe('Unit testing: profitelo.components.pro-summary-tag', () => {
     }
 
     beforeEach(() => {
-    angular.mock.module('templates-module')
-    angular.mock.module('profitelo.components.pro-summary-tag')
+      //angular.mock.module('templates-module')
+      angular.mock.module('profitelo.components.pro-summary-tag')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$componentController_: ng.IComponentControllerService) => {
         componentController = _$componentController_

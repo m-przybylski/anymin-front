@@ -53,7 +53,7 @@
     }
 
     return {
-      templateUrl: 'directives/interface/pro-input-password/pro-input-password.tpl.html',
+      template: require('./pro-input-password.jade')(),
       restrict: 'E',
       replace: true,
       link: linkFunction,

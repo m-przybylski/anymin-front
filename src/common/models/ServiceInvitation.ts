@@ -1,7 +1,4 @@
-namespace profitelo.models {
-
-  export interface ServiceInvitation {
-    email?: string
-    msisdn?: string
-  }
+export interface ServiceInvitation {
+  email?: string
+  msisdn?: string
 }

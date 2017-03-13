@@ -8,7 +8,7 @@
 
   const noConsultations = {
     transclude: true,
-    templateUrl: 'components/search/no-consultations/no-consultations.tpl.html',
+    template: require('./no-consultations.jade')(),
     controllerAs: 'vm',
     bindings: {
       query: '<'

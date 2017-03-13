@@ -1,5 +1,8 @@
+import * as angular from "angular"
+import {IFilterService} from "../../services/filter/filter.service"
+
 namespace profitelo.filters.msToDate {
-import IFilterService = profitelo.services.filter.IFilterService
+
   describe('Unit testing: profitelo.filters.milliseconds-to-datetime>', () => {
   describe('for message >', () => {
 

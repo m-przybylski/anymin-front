@@ -27,7 +27,7 @@ namespace profitelo.components.communicator.messenger.maximized.input {
       }
 
       beforeEach(() => {
-        angular.mock.module('templates-module')
+        //angular.mock.module('templates-module')
         angular.mock.module('profitelo.components.communicator.messenger.maximized.messenger-input')
 
         inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,

@@ -1,7 +1,7 @@
-namespace profitelo.resolvers.loginForgotPassword {
-
-  import IForgotPasswordStateParams = profitelo.login.forgotPassword.IForgotPasswordStateParams
-  describe('Unit testing: profitelo.resolvers.login-forgot-password', () => {
+import * as angular from "angular"
+import {ILoginForgotPasswordService} from "./login-forgot-password.service"
+import {IForgotPasswordStateParams} from "../../../app/login/forgot-password/forgot-password"
+describe('Unit testing: profitelo.resolvers.login-forgot-password', () => {
   describe('for LoginForgotPasswordResolver service >', () => {
 
     let AppLoginForgotPasswordResolverService: ILoginForgotPasswordService
@@ -9,18 +9,19 @@ namespace profitelo.resolvers.loginForgotPassword {
     let _timeout: ng.ITimeoutService
     let mockState: any
 
-    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
+    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', url)
     }))
 
     beforeEach(() => {
 
       mockState = {
-        go: () => {}
+        go: () => {
+        }
       }
 
-    angular.mock.module('profitelo.resolvers.login-forgot-password', function($provide: ng.auto.IProvideService) {
-        $provide.value('$state',  mockState)
+      angular.mock.module('profitelo.resolvers.login-forgot-password', function ($provide: ng.auto.IProvideService) {
+        $provide.value('$state', mockState)
       })
 
       inject(($injector: ng.auto.IInjectorService) => {
@@ -39,7 +40,8 @@ namespace profitelo.resolvers.loginForgotPassword {
       spyOn(mockState, 'go')
 
       let spy = {
-        spy: () => {}
+        spy: () => {
+        }
       }
 
       spyOn(spy, 'spy')
@@ -49,11 +51,11 @@ namespace profitelo.resolvers.loginForgotPassword {
       }
 
       AppLoginForgotPasswordResolverService.resolve(params).then(
-      () => {
+        () => {
 
-      }, () => {
-        spy.spy()
-      })
+        }, () => {
+          spy.spy()
+        })
 
       _timeout.flush()
       expect(spy.spy).toHaveBeenCalled()
@@ -63,4 +65,4 @@ namespace profitelo.resolvers.loginForgotPassword {
 
 
   })
-})}
+})

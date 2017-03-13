@@ -1,15 +1,17 @@
+import * as angular from "angular"
+import {TopWaitingLoaderService} from "./top-waiting-loader.service"
 namespace profitelo.services.topWaitingLoader {
 describe('Unit testing: profitelo.services.pro-top-waiting-loader-service >', () => {
   describe('for profitelo.services.pro-top-waiting-loader-service >', () => {
 
-    let topWaitingLoaderService: ITopWaitingLoaderService
+    let topWaitingLoaderService: TopWaitingLoaderService
 
     beforeEach(() => {
       angular.mock.module('profitelo.services.pro-top-waiting-loader-service')
     })
 
     beforeEach(inject(($injector: ng.auto.IInjectorService) => {
-      topWaitingLoaderService = $injector.get<ITopWaitingLoaderService>('topWaitingLoaderService')
+      topWaitingLoaderService = $injector.get<TopWaitingLoaderService>('topWaitingLoaderService')
     }))
 
     it('should have a dummy test', () => {

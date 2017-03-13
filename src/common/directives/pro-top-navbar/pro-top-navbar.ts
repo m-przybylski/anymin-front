@@ -1,156 +1,157 @@
-namespace profitelo.directives.proTopNavbar {
+import * as angular from "angular"
+import {UserService} from "../../services/user/user.service"
+import {SearchService} from "../../services/search/search.service"
+import {SmoothScrollingService} from "../../services/smooth-scrolling/smooth-scrolling.service"
+import searchModule from "../../services/search/search"
+import sessionModule from "../../services/session/session"
+import smoothScrollingModule from "../../services/smooth-scrolling/smooth-scrolling"
+import {IWindowService} from "../../services/window/window.service"
 
-  import IWindowService = profitelo.services.window.IWindowService
-  import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
-  import ISearchService = profitelo.services.search.ISearchService
-  import IUserService = profitelo.services.user.IUserService
+function proTopNavbar($window: IWindowService, $state: ng.ui.IStateService, $location: ng.ILocationService, userService: UserService,
+                      searchService: SearchService, smoothScrollingService: SmoothScrollingService) {
 
-  function proTopNavbar($window: IWindowService, $state: ng.ui.IStateService, $location: ng.ILocationService, userService: IUserService,
-                        searchService: ISearchService, smoothScrollingService: ISmoothScrollingService) {
+  function linkFunction(scope: any, elem: ng.IRootElementService, _attrs: ng.IAttributes) {
 
-    function linkFunction(scope: any, elem: ng.IRootElementService, _attrs: ng.IAttributes) {
+    scope.showSearch = angular.isDefined(scope.show) ? scope.show : false
+    scope.showUserMenu = false
+    scope.showResponsiveMenu = false
+    scope.animateCross = false
+    scope.isDashboard = scope.showNavigationMenu
+    scope.hamburgerClass = scope.sidebarStatus === true ? 'active-btn' : 'disactive-btn'
+    scope.accounts = ['Konto Klienta', 'Konto Eksperta', 'Firma']
+    scope.windowSize = $window.innerWidth
+    scope.menuElements = [
+      {
+        label: 'NAVIGATION.MEET_US',
+        link: 'app.home'
+      },
+      {
+        label: 'NAVIGATION.HOW_IT_WORKS',
+        link: 'app.home'
+      },
+      {
+        label: 'NAVIGATION.FOR_EXPERTS',
+        link: 'app.home'
+      },
+      {
+        label: 'NAVIGATION.HELP',
+        link: 'app.home'
+      }
+    ]
 
-      scope.showSearch = angular.isDefined(scope.show) ? scope.show : false
-      scope.showUserMenu = false
-      scope.showResponsiveMenu = false
-      scope.animateCross = false
-      scope.isDashboard = scope.showNavigationMenu
-      scope.hamburgerClass = scope.sidebarStatus === true ? 'active-btn' : 'disactive-btn'
-      scope.accounts = ['Konto Klienta', 'Konto Eksperta', 'Firma']
+    scope.searchModel = null
+    scope.logout = () => {
+      scope.logoutAction()
+    }
+
+    userService.getUser().then(user => {
+      scope.userId = user.id
+    })
+
+    /* istanbul ignore next */
+    angular.element($window).on('resize', (_window) => {
       scope.windowSize = $window.innerWidth
-      scope.menuElements = [
-        {
-          label: 'NAVIGATION.MEET_US',
-          link: 'app.home'
-        },
-        {
-          label: 'NAVIGATION.HOW_IT_WORKS',
-          link: 'app.home'
-        },
-        {
-          label: 'NAVIGATION.FOR_EXPERTS',
-          link: 'app.home'
-        },
-        {
-          label: 'NAVIGATION.HELP',
-          link: 'app.home'
-        }
-      ]
-
-      scope.searchModel = null
-      scope.logout = ()=> {
-        scope.logoutAction()
+      if (angular.isDefined(scope.sidebarStatus)) {
+        scope.hamburgerClass = scope.sidebarStatus === true ? 'active-btn' : 'disactive-btn'
+        scope.animateCross = scope.sidebarStatus === true
+        scope.$digest()
       }
+    })
 
-      userService.getUser().then(user => {
-        scope.userId = user.id
-      })
+    scope.sidebarAction = () => {
+      if (typeof scope.sidebarHandler !== 'undefined') {
+        scope.sidebarHandler()
+      } else {
+        scope.showResponsiveMenu = scope.showResponsiveMenu === false
+      }
+      scope.animateCross = scope.animateCross === false
+      scope.showUserMenuOnClick = false
+      scope.hamburgerClass = scope.hamburgerClass === 'disactive-btn' ? 'active-btn' : 'disactive-btn'
+    }
+    /* istanbul ignore next */
+    scope.setShowSearch = () => {
 
-      /* istanbul ignore next */
-      angular.element($window).on('resize', (_window)=> {
-        scope.windowSize = $window.innerWidth
-        if (angular.isDefined(scope.sidebarStatus)) {
-          scope.hamburgerClass = scope.sidebarStatus === true ? 'active-btn' : 'disactive-btn'
-          scope.animateCross = scope.sidebarStatus === true
-          scope.$digest()
-        }
-      })
+      const navbarSearchInput = elem.find('.search-bar-container .search-bar')[0]
 
-      scope.sidebarAction = ()=> {
-        if (typeof scope.sidebarHandler !== 'undefined') {
-          scope.sidebarHandler()
-        } else {
-          scope.showResponsiveMenu = scope.showResponsiveMenu === false
-        }
-        scope.animateCross = scope.animateCross === false
+      const searchInputOnPage = angular.element(document).find('.search-bar-container .search-bar')[1]
+      if (!!searchInputOnPage) {
+        smoothScrollingService.simpleScrollTo(searchInputOnPage, true)
+        searchInputOnPage.focus()
+        scope.searchMaskActive = false
+      } else if (!!navbarSearchInput) {
+        scope.showSearch = true
         scope.showUserMenuOnClick = false
-        scope.hamburgerClass = scope.hamburgerClass === 'disactive-btn' ? 'active-btn' : 'disactive-btn'
-      }
-      /* istanbul ignore next */
-      scope.setShowSearch = () => {
-
-        const navbarSearchInput = elem.find('.search-bar-container .search-bar')[0]
-
-        const searchInputOnPage = angular.element(document).find('.search-bar-container .search-bar')[1]
-        if (!!searchInputOnPage) {
-          smoothScrollingService.simpleScrollTo(searchInputOnPage, true)
-          searchInputOnPage.focus()
-          scope.searchMaskActive = false
-        } else if (!!navbarSearchInput) {
-          scope.showSearch = true
-          scope.showUserMenuOnClick = false
-          navbarSearchInput.focus()
-          if (scope.showSearch && scope.sidebarStatus && scope.windowSize < 992 || scope.showResponsiveMenu) {
-            scope.sidebarAction()
-          }
-        }
-      }
-
-      scope.setHideSearch = () => {
-        const navbarSearchInput = elem.find('.search-bar-container .search-bar')[0]
-        navbarSearchInput.blur()
-        scope.showSearch = false
-      }
-
-
-      scope.hideOtherMenus = ()=> {
-        if ((scope.showResponsiveMenu || scope.sidebarStatus) && scope.windowSize < 992) {
+        navbarSearchInput.focus()
+        if (scope.showSearch && scope.sidebarStatus && scope.windowSize < 992 || scope.showResponsiveMenu) {
           scope.sidebarAction()
         }
       }
-
-      searchService.onQueryParamsChange(scope, (params) => {
-        if ($state.current.name === 'app.search-result') {
-          scope.searchModel = params.q
-        }
-      })
-
-      scope.searchAction = (_search: string) => {
-        if ($state.current.name !== 'app.search-result') {
-          $state.go('app.search-result')
-        } else if (angular.isDefined(angular.element('.search-bar-container').find('input:focus')[0])) {
-          angular.element('.search-bar-container').find('input:focus')[0].blur()
-        }
-
-        if ($location.search()['q'] !== scope.searchModel) {
-          searchService.setSearchQueryParams({q: scope.searchModel, tagId: undefined})
-          $location.search('tagId', null)
-        } else {
-          searchService.setSearchQueryParams({q: scope.searchModel})
-        }
-      }
-
     }
 
-    return {
-      templateUrl: 'directives/pro-top-navbar/pro-top-navbar.tpl.html',
-      restrict: 'E',
-      replace: true,
-      link: linkFunction,
-      scope: {
-        showSearch: '=?',
-        show: '@',
-        isHide: '=?',
-        sidebarStatus: '=?',
-        logoutAction: '=?',
-        sidebarHandler: '=?',
-        isExpert: '=?',
-        showResponsiveMenu: '=?',
-        showNavigationMenu: '=?',
-        searchMaskActive: '=?',
-        searchCount: '=?'
+    scope.setHideSearch = () => {
+      const navbarSearchInput = elem.find('.search-bar-container .search-bar')[0]
+      navbarSearchInput.blur()
+      scope.showSearch = false
+    }
+
+
+    scope.hideOtherMenus = () => {
+      if ((scope.showResponsiveMenu || scope.sidebarStatus) && scope.windowSize < 992) {
+        scope.sidebarAction()
+      }
+    }
+
+    searchService.onQueryParamsChange(scope, (params) => {
+      if ($state.current.name === 'app.search-result') {
+        scope.searchModel = params.q
+      }
+    })
+
+    scope.searchAction = (_search: string) => {
+      if ($state.current.name !== 'app.search-result') {
+        $state.go('app.search-result')
+      } else if (angular.isDefined(angular.element('.search-bar-container').find('input:focus')[0])) {
+        angular.element('.search-bar-container').find('input:focus')[0].blur()
       }
 
+      if ($location.search()['q'] !== scope.searchModel) {
+        searchService.setSearchQueryParams({q: scope.searchModel, tagId: undefined})
+        $location.search('tagId', null)
+      } else {
+        searchService.setSearchQueryParams({q: scope.searchModel})
+      }
     }
 
   }
 
-  angular.module('profitelo.directives.pro-top-navbar', [
-    'pascalprecht.translate',
-    'profitelo.services.search',
-    'ui.router',
-    'profitelo.services.session',
-    'profitelo.services.smooth-scrolling'
-  ])
-    .directive('proTopNavbar', proTopNavbar)
+  return {
+    template: require("./pro-top-navbar.jade")(),
+    restrict: 'E',
+    replace: true,
+    link: linkFunction,
+    scope: {
+      showSearch: '=?',
+      show: '@',
+      isHide: '=?',
+      sidebarStatus: '=?',
+      logoutAction: '=?',
+      sidebarHandler: '=?',
+      isExpert: '=?',
+      showResponsiveMenu: '=?',
+      showNavigationMenu: '=?',
+      searchMaskActive: '=?',
+      searchCount: '=?'
+    }
+
+  }
+
 }
+
+angular.module('profitelo.directives.pro-top-navbar', [
+  'pascalprecht.translate',
+  searchModule,
+  'ui.router',
+  sessionModule,
+  smoothScrollingModule
+])
+  .directive('proTopNavbar', proTopNavbar)

@@ -1,5 +1,6 @@
 namespace profitelo.directives.expertProfile.proExpertHeader {
-describe('Unit testing: profitelo.directives.expert-profile.pro-expert-header', () => {
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  describe('Unit testing: profitelo.directives.expert-profile.pro-expert-header', () => {
   return describe('for expert-profile.pro-expert-header directive >', () => {
 
     let scope: any = null
@@ -8,7 +9,7 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-header', 
     let validHTML = '<pro-expert-header data-profile="{type: \'x\', description: \' asasdfasfas \' }"></pro-expert-header>'
 
     beforeEach(() => {
-    angular.mock.module('templates-module')
+    //angular.mock.module('templates-module')
     angular.mock.module('profitelo.directives.expert-profile.pro-expert-header')
     angular.mock.module('profitelo.components.interface.show-more-text')
 

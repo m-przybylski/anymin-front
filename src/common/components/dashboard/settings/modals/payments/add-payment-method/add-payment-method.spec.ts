@@ -1,35 +1,37 @@
-namespace profitelo.components.dashboard.settings.modals.payments.addPaymentMethod {
+import * as angular from "angular"
 
-  describe('Testing Controller: AddPaymentMethodController', () => {
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import {AddPaymentMethodController, IAddPaymentMethodControllerScope} from "./add-payment-method"
 
-    let controller: AddPaymentMethodController
-    let scope: IAddPaymentMethodControllerScope
+describe('Testing Controller: AddPaymentMethodController', () => {
 
-    const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
-      jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss'])
+  let controller: AddPaymentMethodController
+  let scope: IAddPaymentMethodControllerScope
 
-    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
-      $provide.value('apiUrl', 'awesomeUrl')
-    }))
+  const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
+    jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss'])
 
-    beforeEach(() => {
-      angular.mock.module('ui.bootstrap')
-      angular.mock.module('profitelo.components.dashboard.settings.modals.payments.add-payment-method')
+  beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
+    $provide.value('apiUrl', 'awesomeUrl')
+  }))
 
-      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
+  beforeEach(() => {
+    angular.mock.module('ui.bootstrap')
+    angular.mock.module('profitelo.components.dashboard.settings.modals.payments.add-payment-method')
 
-        scope = <IAddPaymentMethodControllerScope>$rootScope.$new()
-        const injectors = {
-          $scope: scope,
-          $uibModalInstance: $uibModalInstance
-        }
+    inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
 
-        controller = $controller<AddPaymentMethodController>('addPaymentMethodController', injectors)
-      })
-    })
+      scope = <IAddPaymentMethodControllerScope>$rootScope.$new()
+      const injectors = {
+        $scope: scope,
+        $uibModalInstance: $uibModalInstance
+      }
 
-    it('should exists', () => {
-      return expect(!!controller).toBe(true)
+      controller = $controller<AddPaymentMethodController>('addPaymentMethodController', injectors)
     })
   })
-}
+
+  it('should exists', () => {
+    return expect(!!controller).toBe(true)
+  })
+})

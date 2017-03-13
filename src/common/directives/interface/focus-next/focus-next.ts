@@ -6,7 +6,7 @@ namespace profitelo.directives.interface.focusNext {
   class LocalAvatarUploaderDirective implements ng.IDirective {
     public restrict: string = 'A'
 
-    /* ngInject */
+    /* @ngInject */
     constructor() {
     }
 

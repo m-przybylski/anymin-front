@@ -1,7 +1,9 @@
-namespace profitelo.dashboard.chargeAccount {
-import IWindowService = profitelo.services.window.IWindowService
-  import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
-  describe('Unit tests: profitelo.controller.dashboard.charge-account >', () => {
+import * as angular from "angular"
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import {SmoothScrollingService} from "../../../common/services/smooth-scrolling/smooth-scrolling.service"
+import {IWindowService} from "../../../common/services/window/window.service"
+import "./charge-account"
+describe('Unit tests: profitelo.controller.dashboard.charge-account >', () => {
   describe('Testing Controller: chargeAccountController', () => {
 
     let chargeAccountController: any
@@ -9,7 +11,7 @@ import IWindowService = profitelo.services.window.IWindowService
     let url = 'awesomeUrl'
     let _timeout: ng.ITimeoutService
     let _window: IWindowService
-    let _smoothScrollingService: ISmoothScrollingService
+    let _smoothScrollingService: SmoothScrollingService
     let _httpBackend: ng.IHttpBackendService
     let _controller: any
 
@@ -30,11 +32,11 @@ import IWindowService = profitelo.services.window.IWindowService
     }))
 
     beforeEach(() => {
-    angular.mock.module('profitelo.controller.dashboard.charge-account')
-    angular.mock.module('profitelo.services.smooth-scrolling')
-    angular.mock.module('templates-module')
+      angular.mock.module('profitelo.controller.dashboard.charge-account')
+      angular.mock.module('profitelo.services.smooth-scrolling')
+      //angular.mock.module('templates-module')
       inject(($rootScope: IRootScopeService, $httpBackend: ng.IHttpBackendService, $controller: ng.IControllerService,
-              $timeout: ng.ITimeoutService, $window: IWindowService, smoothScrollingService: ISmoothScrollingService) => {
+              $timeout: ng.ITimeoutService, $window: IWindowService, smoothScrollingService: SmoothScrollingService) => {
 
         _scope = $rootScope.$new()
         _httpBackend = $httpBackend
@@ -43,7 +45,12 @@ import IWindowService = profitelo.services.window.IWindowService
         _controller = $controller
         _smoothScrollingService = smoothScrollingService
 
-        createController(_controller, {lastPayment: {amount: { amount: '123'}, payload: {firstName: 'asas', lastName: 'asasas', email: 'asasas'}}, minimalPayment: {amount:1000}}, {}, {})
+        createController(_controller, {
+          lastPayment: {
+            amount: {amount: '123'},
+            payload: {firstName: 'asas', lastName: 'asasas', email: 'asasas'}
+          }, minimalPayment: {amount: 1000}
+        }, {}, {})
 
       })
     })
@@ -52,7 +59,7 @@ import IWindowService = profitelo.services.window.IWindowService
       expect(true).toBeTruthy()
     })
 
-    it('should exsist', ()=> {
+    it('should exsist', () => {
       expect(!!chargeAccountController).toBe(true)
     })
 
@@ -68,7 +75,7 @@ import IWindowService = profitelo.services.window.IWindowService
       expect(_smoothScrollingService.simpleScrollTo).toHaveBeenCalled()
     })
 
-    it('should call smoothScrollingService. on scrollHandler', ()=> {
+    it('should call smoothScrollingService. on scrollHandler', () => {
       spyOn(_smoothScrollingService, 'scrollTo')
 
       chargeAccountController.currentSection = 1
@@ -82,4 +89,3 @@ import IWindowService = profitelo.services.window.IWindowService
 
   })
 })
-}

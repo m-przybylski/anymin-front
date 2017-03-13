@@ -2,7 +2,7 @@
   function proExpertSocialIcons() {
 
     return {
-      templateUrl: 'directives/expert-profile/pro-expert-social-icons/pro-expert-social-icons.tpl.html',
+      template: require('./pro-expert-social-icons.jade')(),
       restrict: 'E',
       replace: true,
       scope: {

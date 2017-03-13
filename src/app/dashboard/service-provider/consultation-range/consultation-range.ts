@@ -1,3 +1,7 @@
+import * as angular from "angular"
+import "./company/company-consultation"
+import "./individual/individual-consultation"
+
 (function() {
   function ConsultationRangeController() {
 
@@ -7,14 +11,8 @@
   }
   angular.module('profitelo.controller.dashboard.service-provider.consultation-range', [
     'ui.router',
-    'profitelo.directives.service-provider.pro-bottom-summary-row',
-    'profitelo.directives.service-provider.pro-service-provider-cost',
-    'profitelo.directives.service-provider.pro-service-provider-who-provides',
-    'profitelo.directives.service-provider.pro-service-provider-tags',
-    'profitelo.directives.service-provider.pro-bottom-consultation-button',
-    'profitelo.services.session',
-    'profitelo.directives.interface.pro-alert',
-    'profitelo.directives.service-provider.pro-service-provider-profile'
+    'profitelo.controller.dashboard.service-provider.consultation-range.individual',
+    'profitelo.controller.dashboard.service-provider.consultation-range.company'
   ])
   .config( function($stateProvider: ng.ui.IStateProvider) {
     $stateProvider.state('app.dashboard.service-provider.consultation-range', {

@@ -1,49 +1,45 @@
-namespace profitelo.components.dashboard.settings.modals.security.pinNumber {
+import * as angular from "angular"
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import {SecurityPinNumberSettingsController, ISecurityPinNumberSettingsControllerScope} from "./pin-number"
+import {AccountApiMock, AccountApi} from "../../../../../../api/api/AccountApi"
 
-  import SecurityPinNumberSettingsController =
-    profitelo.components.dashboard.settings.modals.security.pinNumber.SecurityPinNumberSettingsController
-  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-  import IAccountApi = profitelo.api.IAccountApi
-  import IAccountApiMock = profitelo.api.IAccountApiMock
+describe('Testing Controller: securityPinNumberSettingsController', () => {
 
-  describe('Testing Controller: securityPinNumberSettingsController', () => {
+  let controller: SecurityPinNumberSettingsController
+  let scope: ISecurityPinNumberSettingsControllerScope
+  let httpBackend: ng.IHttpBackendService
 
-    let controller: SecurityPinNumberSettingsController
-    let scope: ISecurityPinNumberSettingsControllerScope
-    let httpBackend: ng.IHttpBackendService
+  const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
+    jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss']);
+  const User = {}
 
-    const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
-      jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss']);
-    const User = {}
+  beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
+    $provide.value('apiUrl', 'awesomeUrl')
+  }))
 
-    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
-      $provide.value('apiUrl', 'awesomeUrl')
-    }))
+  beforeEach(() => {
+    angular.mock.module('ui.bootstrap')
+    angular.mock.module('profitelo.components.dashboard.settings.security.modals.pin-number')
+    inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, AccountApi: AccountApi,
+            AccountApiMock: AccountApiMock, $httpBackend: ng.IHttpBackendService, lodash: _.LoDashStatic) => {
 
-    beforeEach(() => {
-      angular.mock.module('ui.bootstrap')
-      angular.mock.module('profitelo.components.dashboard.settings.security.modals.pin-number')
-      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, AccountApi: IAccountApi,
-              AccountApiMock: IAccountApiMock, $httpBackend: ng.IHttpBackendService, lodash: _.LoDashStatic) => {
+      scope = <ISecurityPinNumberSettingsControllerScope>$rootScope.$new()
+      httpBackend = $httpBackend
+      const injectors = {
+        $scope: scope,
+        $uibModalInstance: $uibModalInstance,
+        AccountApi: AccountApi,
+        User: User,
+        lodash: lodash
+      }
+      AccountApiMock.getMobileProtectedViewsRoute(500)
 
-        scope = <ISecurityPinNumberSettingsControllerScope>$rootScope.$new()
-        httpBackend = $httpBackend
-        const injectors = {
-          $scope: scope,
-          $uibModalInstance: $uibModalInstance,
-          AccountApi: AccountApi,
-          User: User,
-          lodash: lodash
-        }
-        AccountApiMock.getMobileProtectedViewsRoute(500)
-
-        controller = $controller<SecurityPinNumberSettingsController>(
-          'securityPinNumberSettingsController', injectors)
-      })
-    })
-
-    it('should exists', () => {
-      return expect(!!controller).toBe(true)
+      controller = $controller<SecurityPinNumberSettingsController>(
+        'securityPinNumberSettingsController', injectors)
     })
   })
-}
+
+  it('should exists', () => {
+    return expect(!!controller).toBe(true)
+  })
+})

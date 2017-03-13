@@ -6,14 +6,14 @@ namespace profitelo.directives.interface.localAvatarUploader {
   }
 
   class LocalAvatarUploaderDirective implements ng.IDirective {
-    public templateUrl: string = 'directives/interface/local-avatar-uploader/local-avatar-uploader.tpl.html'
+    public template = require('./local-avatar-uploader.jade')()
     public restrict: string = 'E'
     public transclude: boolean = false
     public scope = {
       onFileUpload: '=?'
     }
 
-    /* ngInject */
+    /* @ngInject */
     constructor() {
     }
 

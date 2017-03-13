@@ -1,36 +1,39 @@
-namespace profitelo.components.modals.consultationSummaryClient {
+import * as angular from "angular"
+import {
+  ConsultationSummaryClientController,
+  IConsultationSummaryClientControllerScope, IConsultationSummaryClientParentControllerScope
+} from "./consultation-summary-client"
 
-  describe('Testing Controller: consultationSummaryClientController', () => {
+describe('Testing Controller: consultationSummaryClientController', () => {
 
-    let consultationSummaryController: ConsultationSummaryClientController
-    let scope: IConsultationSummaryClientControllerScope
+  let consultationSummaryController: ConsultationSummaryClientController
+  let scope: IConsultationSummaryClientControllerScope
 
-    const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
-      jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss'])
+  const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
+    jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss'])
 
-    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
-      $provide.value('apiUrl', 'awesomeURL')
-    }))
+  beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
+    $provide.value('apiUrl', 'awesomeURL')
+  }))
 
-    beforeEach(() => {
-      angular.mock.module('profitelo.components.communicator.modals.consultation-summary-client')
-      inject(($rootScope: ng.IRootScopeService, $controller: ng.IControllerService) => {
+  beforeEach(() => {
+    angular.mock.module('profitelo.components.communicator.modals.consultation-summary-client')
+    inject(($rootScope: ng.IRootScopeService, $controller: ng.IControllerService) => {
 
-        scope = <IConsultationSummaryClientControllerScope>$rootScope.$new()
-        scope.$parent = <IConsultationSummaryClientParentControllerScope>$rootScope.$new()
+      scope = <IConsultationSummaryClientControllerScope>$rootScope.$new()
+      scope.$parent = <IConsultationSummaryClientParentControllerScope>$rootScope.$new()
 
-        const injectors = {
-          $scope: scope,
-          $uibModalInstance: $uibModalInstance
-        }
+      const injectors = {
+        $scope: scope,
+        $uibModalInstance: $uibModalInstance
+      }
 
-        consultationSummaryController = $controller<ConsultationSummaryClientController>(
-          'consultationSummaryClientController', injectors)
-      })
-    })
-
-    it('should exists', () => {
-      return expect(!!consultationSummaryController).toBe(true)
+      consultationSummaryController = $controller<ConsultationSummaryClientController>(
+        'consultationSummaryClientController', injectors)
     })
   })
-}
+
+  it('should exists', () => {
+    return expect(!!consultationSummaryController).toBe(true)
+  })
+})

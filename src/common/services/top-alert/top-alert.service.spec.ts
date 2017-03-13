@@ -1,15 +1,17 @@
+import * as angular from "angular"
+import {TopAlertService} from "./top-alert.service"
 namespace profitelo.services.topAlert {
 
   describe('Unit testing: profitelo.services.pro-top-alert-service>', () => {
     describe('for topAlertService service >', () => {
 
-      let topAlertService: ITopAlertService
+      let topAlertService: TopAlertService
 
       beforeEach(() => {
         angular.mock.module('profitelo.services.top-alert')
 
         inject(($injector: ng.auto.IInjectorService) => {
-          topAlertService = $injector.get<ITopAlertService>('topAlertService')
+          topAlertService = $injector.get<TopAlertService>('topAlertService')
         })
       })
 

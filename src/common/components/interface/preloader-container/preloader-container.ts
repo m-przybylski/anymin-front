@@ -1,30 +1,31 @@
-(function() {
-  /* @ngInject */
-  function preloaderContainerController() {
+import * as angular from "angular"
+import "common/components/interface/preloader/preloader"
 
-    this.errorFunction = () => {
-      this.errorFn()
-    }
+/* @ngInject */
+function preloaderContainerController() {
 
-    return this
+  this.errorFunction = () => {
+    this.errorFn()
   }
 
-  const component = {
-    bindings: {
-      isLoading: '<',
-      isError: '=?',
-      errorFn: '=?',
-      errorMessage: '@'
-    },
-    transclude: true,
-    templateUrl: 'components/interface/preloader-container/preloader-container.tpl.html',
-    controllerAs: '$ctrl',
-    controller: preloaderContainerController
-  }
+  return this
+}
 
-  angular.module('profitelo.components.interface.preloader-container', [
-    'pascalprecht.translate',
-    'profitelo.components.interface.preloader'
-  ])
-    .component('preloaderContainer', component)
-}())
+const component = {
+  bindings: {
+    isLoading: '<',
+    isError: '=?',
+    errorFn: '=?',
+    errorMessage: '@'
+  },
+  template: require('./preloader-container.jade')(),
+  transclude: true,
+  controllerAs: '$ctrl',
+  controller: preloaderContainerController
+}
+
+angular.module('profitelo.components.interface.preloader-container', [
+  'pascalprecht.translate',
+  'profitelo.components.interface.preloader'
+])
+  .component('preloaderContainer', component)

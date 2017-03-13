@@ -51,7 +51,7 @@
   }
 
   const component = {
-    templateUrl: 'components/interface/multiselect/multiselect.tpl.html',
+    template: require('./multiselect.jade')(),
     bindings: {
       isDisabled: '<',
       items: '<',

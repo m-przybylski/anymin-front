@@ -5,14 +5,17 @@
     "noEmitOnError": false,
     "sourceMap": true,
     "module": "commonjs",
+    "lib": ["dom", "es6"],
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
-    //"noImplicitThis": true, // FIXME enable after rewriting all ctrls to classes
-    "noUnusedLocals": true,
+    //"noImplicitThis": true, // TODO enable after rewriting all ctrls to classes
+    //"noUnusedLocals": true,
     "noUnusedParameters": true,
     "strictNullChecks": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
     "types" : [
       "angular",
       "angular-animate",
@@ -25,13 +28,14 @@
       "angular-ui-bootstrap",
       "angular-ui-router",
       "braintree-web",
+      "node",
       "croppie",
-      "es6-shim",
       "jasmine",
       "jquery",
       "lodash",
       "masonry-layout",
       "perfect-scrollbar",
+      "ng-file-upload",
       "raven-js"
     ]
   }

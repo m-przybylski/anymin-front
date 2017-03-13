@@ -1,11 +1,9 @@
-namespace profitelo.models {
+import {MoneyDto} from "../api/model/MoneyDto"
+import {Tag} from "../api/model/Tag"
 
-  import Tag = profitelo.api.Tag
-  import MoneyDto = profitelo.api.MoneyDto
 
-  export interface ServiceDetails {
-    name: string
-    price: MoneyDto
-    tags?: Array<Tag | string>
-  }
+export interface ServiceDetails {
+  name: string
+  price: MoneyDto
+  tags?: Array<Tag | string>
 }

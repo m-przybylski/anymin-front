@@ -1,6 +1,7 @@
-namespace profitelo.app.dashboard.serviceProvider.consultationRange {
-
-  import IProfileApi = profitelo.api.IProfileApi
+import * as angular from "angular"
+  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import {ProfileApi} from "../../../../common/api/api/ProfileApi"
+import "./consultation-range"
 
   describe('Unit tests: ConsultationRangeController >', () => {
     describe('Testing Controller: ConsultationRangeController', () => {
@@ -15,7 +16,7 @@ namespace profitelo.app.dashboard.serviceProvider.consultationRange {
 
       beforeEach(() => {
         angular.mock.module('profitelo.controller.dashboard.service-provider.consultation-range')
-        inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _ProfileApi_: IProfileApi) => {
+        inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _ProfileApi_: ProfileApi) => {
 
           _scope = $rootScope.$new()
 
@@ -34,4 +35,3 @@ namespace profitelo.app.dashboard.serviceProvider.consultationRange {
 
     })
   })
-}

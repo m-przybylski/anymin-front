@@ -46,7 +46,7 @@ namespace profitelo.directives.serviceProvider.proServiceProviderDescription {
     return {
       replace: true,
       restrict: 'E',
-      templateUrl: 'directives/service-provider/pro-service-provider-description/pro-service-provider-description.tpl.html',
+      template: require('./pro-service-provider-description.jade')(),
       scope: {
         queue:    '=',
         order:    '=',

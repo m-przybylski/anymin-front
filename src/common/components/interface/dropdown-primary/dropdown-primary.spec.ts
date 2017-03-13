@@ -1,6 +1,7 @@
-namespace profitelo.components.interface.dropdownPrimary {
-import IWindowService = profitelo.services.window.IWindowService
-  describe('Unit testing: profitelo.components.interface.dropdown-primary', () => {
+import * as angular from "angular"
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import {IWindowService} from "../../../services/window/window.service"
+describe('Unit testing: profitelo.components.interface.dropdown-primary', () => {
   return describe('for dropdownPrimary component >', () => {
 
     let scope: any
@@ -24,7 +25,7 @@ import IWindowService = profitelo.services.window.IWindowService
     }
 
     beforeEach(() => {
-      angular.mock.module('templates-module')
+      //angular.mock.module('templates-module')
       angular.mock.module('profitelo.components.interface.dropdown-primary')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
@@ -44,7 +45,7 @@ import IWindowService = profitelo.services.window.IWindowService
       }
 
       smoothScrolling = {
-        simpleScrollTo: ()=> {
+        simpleScrollTo: () => {
           return null
         }
       }
@@ -71,5 +72,3 @@ import IWindowService = profitelo.services.window.IWindowService
     })
   })
 })
-
-}

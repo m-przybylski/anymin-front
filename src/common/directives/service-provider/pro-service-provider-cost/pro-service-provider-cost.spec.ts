@@ -1,5 +1,6 @@
 namespace profitelo.directives.serviceProvider.proServiceProviderCost {
-describe('Unit testing: profitelo.directives.service-provider.pro-service-provider-cost', () => {
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+  describe('Unit testing: profitelo.directives.service-provider.pro-service-provider-cost', () => {
   return describe('for proServiceProviderCost directive >', () => {
 
     let compile: any = null
@@ -12,7 +13,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
       'tr-desc="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT_DESCRIPTION" required="required"></pro-service-provider-cost>'
 
     beforeEach(() => {
-    angular.mock.module('templates-module')
+    //angular.mock.module('templates-module')
     angular.mock.module('profitelo.directives.service-provider.pro-service-provider-cost')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {

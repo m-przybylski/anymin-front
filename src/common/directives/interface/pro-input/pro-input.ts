@@ -97,7 +97,7 @@
 
     return {
       require: '?ngModel',
-      templateUrl: 'directives/interface/pro-input/pro-input.tpl.html',
+      template: require('./pro-input.jade'),
       restrict: 'E',
       replace: true,
       link: linkFunction,

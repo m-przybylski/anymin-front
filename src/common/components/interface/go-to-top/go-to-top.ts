@@ -1,39 +1,37 @@
-namespace profitelo.components.interface.goToTop {
+import * as angular from "angular"
+import {SmoothScrollingService} from "../../../services/smooth-scrolling/smooth-scrolling.service"
+import {IWindowService} from "../../../services/window/window.service"
+import smoothScrollingModule from "../../../services/smooth-scrolling/smooth-scrolling"
 
-  import IWindowService = profitelo.services.window.IWindowService
-  import ISmoothScrollingService = profitelo.services.smoothScrolling.ISmoothScrollingService
+/* @ngInject */
+function controller($window: IWindowService, $scope: ng.IScope, smoothScrollingService: SmoothScrollingService) {
 
-  /* @ngInject */
-  function controller($window: IWindowService, $scope: ng.IScope, smoothScrollingService: ISmoothScrollingService) {
-
-    this.flagController = {
-      isShow: false,
-      checkScrollWay: null
-    }
-
-    angular.element($window).bind('scroll', () => {
-      ($window.pageYOffset > this.flagController.checkScrollWay) ? this.flagController.isShow = true : this.flagController.isShow = false
-      $scope.$digest()
-      this.flagController.checkScrollWay = $window.pageYOffset
-    })
-
-    this.goToTop = () => {
-      smoothScrollingService.simpleScrollTo('body')
-    }
-
-    return this
+  this.flagController = {
+    isShow: false,
+    checkScrollWay: null
   }
 
-  let goToTop = {
-    templateUrl: 'components/interface/go-to-top/go-to-top.tpl.html',
-    controllerAs: '$ctrl',
-    controller: controller
+  angular.element($window).bind('scroll', () => {
+    ($window.pageYOffset > this.flagController.checkScrollWay) ? this.flagController.isShow = true : this.flagController.isShow = false
+    $scope.$digest()
+    this.flagController.checkScrollWay = $window.pageYOffset
+  })
+
+  this.goToTop = () => {
+    smoothScrollingService.simpleScrollTo('body')
   }
 
-
-  angular.module('profitelo.components.interface.go-to-top', [
-    'profitelo.services.smooth-scrolling'
-  ])
-    .component('goToTop', goToTop)
-
+  return this
 }
+
+let goToTop = {
+  template: require('./go-to-top.jade')(),
+  controllerAs: '$ctrl',
+  controller: controller
+}
+
+
+angular.module('profitelo.components.interface.go-to-top', [
+  smoothScrollingModule
+])
+  .component('goToTop', goToTop)

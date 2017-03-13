@@ -13,7 +13,7 @@
       ngModel: '=?',
       value: '@'
     },
-    templateUrl: 'components/interface/radio/radio.tpl.html',
+    template: require('./radio.jade')(),
     controllerAs: '$ctrl',
     controller: controller
   }

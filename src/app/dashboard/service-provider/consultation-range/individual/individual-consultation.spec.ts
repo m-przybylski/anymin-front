@@ -1,22 +1,22 @@
-namespace profitelo.dashboard.serviceProvider.consultationRange.individual {
+import * as angular from "angular"
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import {ServiceApi, ServiceApiMock} from "../../../../../common/api/api/ServiceApi"
+import {TopAlertService} from "../../../../../common/services/top-alert/top-alert.service"
+import {GetService} from "../../../../../common/api/model/GetService"
+import {Profile} from "../../../../../common/models/Profile"
+import "./individual-consultation"
 
-  import ITopAlertService = profitelo.services.topAlert.ITopAlertService
-  import Profile = profitelo.models.Profile
-  import IServiceApi = profitelo.api.IServiceApi
-  import IServiceApiMock = profitelo.api.IServiceApiMock
-  import GetService = profitelo.api.GetService
-
-  describe('Unit tests: profitelo.controller.dashboard.service-provider.consultation-range.individual >', () => {
+describe('Unit tests: profitelo.controller.dashboard.service-provider.consultation-range.individual >', () => {
   describe('Testing Controller: IndividualConsultationController', () => {
 
     let IndividualConsultationController: any
     let _scope: any
     let url = 'awesomeUrl'
     let _state: ng.ui.IStateService
-    let _ServiceApiMock: IServiceApiMock
+    let _ServiceApiMock: ServiceApiMock
     let _httpBackend: ng.IHttpBackendService
-    let _topAlertService: ITopAlertService
-    let _ServiceApi: IServiceApi
+    let _topAlertService: TopAlertService
+    let _ServiceApi: ServiceApi
     let _controller: any
 
     function createController(controller: any, savedProfile: Profile | null, profileImage: string) {
@@ -30,16 +30,16 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.individual {
       })
     }
 
-    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
+    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', url)
     }))
 
     beforeEach(() => {
-    angular.mock.module('templates-module')
-    angular.mock.module('profitelo.controller.dashboard.service-provider.consultation-range.individual')
+      //angular.mock.module('templates-module')
+      angular.mock.module('profitelo.controller.dashboard.service-provider.consultation-range.individual')
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $httpBackend: ng.IHttpBackendService,
-              $injector: ng.auto.IInjectorService, _$state_: ng.ui.IStateService, _ServiceApi_: IServiceApi,
-              _topAlertService_: ITopAlertService) => {
+              $injector: ng.auto.IInjectorService, _$state_: ng.ui.IStateService, _ServiceApi_: ServiceApi,
+              _topAlertService_: TopAlertService) => {
 
         _scope = $rootScope.$new()
         _state = _$state_
@@ -49,14 +49,14 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.individual {
         _controller = $controller
 
 
-        createController(_controller,<any>{
+        createController(_controller, <any>{
           expertDetails: {
             id: 1
           },
           organizationDetails: undefined
         }, '')
 
-        _ServiceApiMock = $injector.get<IServiceApiMock>('ServiceApiMock')
+        _ServiceApiMock = $injector.get<ServiceApiMock>('ServiceApiMock')
       })
     })
 
@@ -87,7 +87,7 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.individual {
       IndividualConsultationController.addAnotherConsultation()
       _httpBackend.flush()
 
-      expect(_topAlertService.error).toHaveBeenCalledWith({ message: 'error', timeout: 4 })
+      expect(_topAlertService.error).toHaveBeenCalledWith({message: 'error', timeout: 4})
 
     })
 
@@ -151,4 +151,3 @@ namespace profitelo.dashboard.serviceProvider.consultationRange.individual {
 
   })
 })
-}
