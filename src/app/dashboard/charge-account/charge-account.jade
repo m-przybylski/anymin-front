@@ -37,7 +37,9 @@
             data-payment-country-id="vm.paymentCountryId"
             data-ng-show="vm.amountMethodModal.paymentSystemModel.slug == 'payu_pl'" data-scroll-handler="vm.scrollHandler" data-valid-action="vm.validAction")
 
-          paypal-payment-form(data-ng-show="vm.amountMethodModal.paymentSystemModel.slug == 'paypal'")
+          paypal-payment-form(data-ng-if="vm.amountMethodModal.paymentSystemModel.slug == 'paypal'"
+          data-payments-links="vm.paymentsLinks" data-amount-method-modal="vm.amountMethodModal"
+          data-payment-country-id="vm.paymentCountryId")
 
           card-payment-form.card-payment(data-ng-if="vm.amountMethodModal.paymentSystemModel.slug == 'credit_card'"
           data-payments-links="vm.paymentsLinks" data-amount-method-modal="vm.amountMethodModal"
