@@ -6,7 +6,6 @@ import "common/directives/expert-profile/pro-expert-card/pro-expert-card"
 import "common/directives/expert-profile/pro-expert-see-more/pro-expert-see-more"
 import "common/directives/pro-advice-tile/pro-advice-tile"
 import "common/directives/pro-news-tile/pro-news-tile"
-import "common/directives/pro-top-navbar/pro-top-navbar"
 import "common/components/expert-profile/similar-experts-slider/similar-experts-slider"
 import "common/components/pro-search-dropdown/pro-search-dropdown"
 import "common/components/interface/slider/slider"
@@ -195,7 +194,6 @@ const homePageModule = angular.module('profitelo.controller.home', [
   'profitelo.directives.pro-expert-see-more',
   'profitelo.directives.pro-advice-tile',
   'profitelo.directives.pro-news-tile',
-  'profitelo.directives.pro-top-navbar',
   'profitelo.components.expert-profile.similar-experts-slider',
   'profitelo.components.pro-search-dropdown',
   'profitelo.components.interface.slider'

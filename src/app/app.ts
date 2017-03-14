@@ -49,6 +49,7 @@ import  'perfect-scrollbar/dist/css/perfect-scrollbar.css'
 import  'angularjs-slider/dist/rzslider.css'
 import  'croppie/croppie.css'
 import "./../template/profitelo_theme/stylesheets/main.sass"
+import navbarModule from "../common/components/navbar/navbar"
 
 declare const Raven: any
 
@@ -91,7 +92,7 @@ angular.module('profitelo', [
   pagesModule,
   communicatorModule,
   'profitelo.components.interface.preloader-container',
-  'profitelo.components.navbar',
+  navbarModule,
 
   // translations
   'profitelo.translations.en-us',

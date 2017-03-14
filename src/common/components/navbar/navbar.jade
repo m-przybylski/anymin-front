@@ -7,7 +7,7 @@
     a.search-btn(data-ng-click="$ctrl.onSearchCollapsed()")
       span.icon.icon-search-24
 
-    .search-expandable.animation.mobile-search-animation.ng-hide(
+    .search-expandable.animation.mobile-search-animation(
       data-ng-show="$ctrl.isSearchVisible" data-ng-class="{'is-collapsed': !$ctrl.isSearchVisible, 'logIn':!!$root.loggedIn, 'logOut':!$root.loggedIn}")
       pro-search-dropdown(data-ng-enter="searchAction(searchModel)" data-ng-model="searchModel" data-search-count="searchCount" data-open="showSearch")
 
@@ -69,7 +69,7 @@
             li
               a
                 span.mobile-only.icon.icon-logout-24-1
-                span(data-translate="NAVIGATION.MENU_ITEMS.LOGOUT" data-ng-click="")
+                span(data-translate="NAVIGATION.MENU_ITEMS.LOGOUT" data-ng-click="$ctrl.logout()")
 
         li.navbar-notifications
           ul

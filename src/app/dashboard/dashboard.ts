@@ -1,7 +1,6 @@
 import * as angular from "angular"
 import "angular-touch"
 import "angular-permission"
-import "common/directives/pro-top-navbar/pro-top-navbar"
 import "./charge-account/charge-account"
 import "./payments-thank-you-page/payments-thank-you-page"
 import "./invitation/invitation"
@@ -18,7 +17,6 @@ class DashboardController {
 
 
 const dashboardPageModule = angular.module('profitelo.controller.dashboard', [
-  'profitelo.directives.pro-top-navbar',
   'ui.router',
   'permission',
   'permission.ui',

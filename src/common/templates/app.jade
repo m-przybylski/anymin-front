@@ -1,5 +1,5 @@
 pro-top-waiting-loader(immediate)
-navbar()
+navbar(logout-action="appController.logout")
 pro-alert
 div.main-container(data-ui-view='')
 communicator(data-ng-show="$root.loggedIn")
