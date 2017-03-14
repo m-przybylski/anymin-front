@@ -1,7 +1,6 @@
 import * as angular from "angular"
 import {DialogService} from "./dialog.service"
 
-namespace profitelo.services.dialog {
 describe('Unit testing: profitelo.services.dialog >', () => {
   describe('for profitelo.services.dialog >', () => {
 
@@ -12,7 +11,7 @@ describe('Unit testing: profitelo.services.dialog >', () => {
     }))
 
     beforeEach(() => {
-    angular.mock.module('profitelo.services.dialog')
+      angular.mock.module('profitelo.services.dialog')
     })
 
     beforeEach(inject(($injector: ng.auto.IInjectorService) => {
@@ -33,4 +32,3 @@ describe('Unit testing: profitelo.services.dialog >', () => {
     }))
   })
 })
-}

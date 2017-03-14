@@ -12,6 +12,8 @@
 
 import * as models from '../model/models';
 
+models;
+
 /* tslint:disable:no-unused-variable member-ordering */
 
 export class PayoutsApi {

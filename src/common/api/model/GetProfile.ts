@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface GetProfile {
     "id": string;
     "expertDetails"?: models.ExpertDetails;

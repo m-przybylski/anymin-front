@@ -15,7 +15,6 @@ import 'angular-permission'
 
 import 'angular-moment'
 import 'angular-cookies'
-import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import customTranslationHandlerModule from "../common/services/custom-translation-handler/custom-translation-handler"
 import interfaceLanguageModule from "../common/services/interface-language/interface-language"
 import sessionModule from "../common/services/session/session"

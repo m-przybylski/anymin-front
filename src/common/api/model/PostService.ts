@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface PostService {
     "ownerEmployee"?: boolean;
     "invitations": Array<models.ServiceInvitation>;

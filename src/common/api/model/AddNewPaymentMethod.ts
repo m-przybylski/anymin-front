@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface AddNewPaymentMethod {
     "isDefault": boolean;
     "limit"?: models.MoneyDto;

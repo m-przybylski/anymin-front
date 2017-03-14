@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface GetProfileWithServicesEmployments {
     "organizationDetails"?: models.OrganizationDetails;
     "services": Array<models.GetServiceWithEmployments>;

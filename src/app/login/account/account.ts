@@ -9,8 +9,6 @@ import {TopAlertService} from "../../../common/services/top-alert/top-alert.serv
 import {SessionService} from "../../../common/services/session/session.service"
 import {TopWaitingLoaderService} from "../../../common/services/top-waiting-loader/top-waiting-loader.service"
 import {AccountApi} from "../../../common/api/api/AccountApi"
-import {GetRegistrationStatus} from "../../../common/api/model/GetRegistrationStatus"
-import StatusEnum = GetRegistrationStatus.StatusEnum
 import apiModule from "../../../common/api/api.module"
 import sessionModule from "../../../common/services/session/session"
 import loginStateModule from "../../../common/services/login-state/login-state"

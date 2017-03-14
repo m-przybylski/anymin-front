@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface GetExpertProfile {
     "profile": models.GetProfileWithDocuments;
     "employers": Array<models.GetProfileDetails>;

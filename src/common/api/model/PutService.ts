@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface PutService {
     "ownerEmployee"?: boolean;
     "invitations": Array<models.ServiceInvitation>;

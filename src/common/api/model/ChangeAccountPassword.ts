@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface ChangeAccountPassword {
     "newPassword": string;
     "actualPassword": string;

@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface GetDashboardClientExperts {
     "lastConsultations": Array<models.GetLastConsultation>;
     "balance": models.MoneyDto;

@@ -1,6 +1,6 @@
 import * as angular from "angular"
 import {TopWaitingLoaderService} from "./top-waiting-loader.service"
-namespace profitelo.services.topWaitingLoader {
+
 describe('Unit testing: profitelo.services.pro-top-waiting-loader-service >', () => {
   describe('for profitelo.services.pro-top-waiting-loader-service >', () => {
 
@@ -22,7 +22,8 @@ describe('Unit testing: profitelo.services.pro-top-waiting-loader-service >', ()
                                                              $interval: ng.IIntervalService) => {
 
       const cbs = {
-        progressCallback: () => {}
+        progressCallback: () => {
+        }
       }
 
       spyOn($interval, 'cancel').and.callThrough()
@@ -39,4 +40,3 @@ describe('Unit testing: profitelo.services.pro-top-waiting-loader-service >', ()
 
   })
 })
-}

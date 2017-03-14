@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface SearchSuggestionsExperts {
     "count": number;
     "results": Array<models.SearchSuggestionsExpert>;

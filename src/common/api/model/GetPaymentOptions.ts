@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface GetPaymentOptions {
     "minimalPayment": models.MoneyDto;
     "paymentOptions": Array<models.MoneyDto>;

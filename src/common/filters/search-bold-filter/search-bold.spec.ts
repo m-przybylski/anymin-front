@@ -1,15 +1,14 @@
 import {IFilterService} from "../../services/filter/filter.service"
 import * as angular from "angular"
 
-namespace profitelo.filters.searchBold {
 
-  describe('Unit testing: profitelo.filters.search-bold-filter >', () => {
+describe('Unit testing: profitelo.filters.search-bold-filter >', () => {
   describe('for profitelo.filters.search-bold-filter >', () => {
 
     let $filter: IFilterService
 
     beforeEach(() => {
-    angular.mock.module('profitelo.filters.search-bold-filter')
+      angular.mock.module('profitelo.filters.search-bold-filter')
     })
 
     beforeEach(inject((_$filter_: IFilterService) => {
@@ -23,4 +22,4 @@ namespace profitelo.filters.searchBold {
     })
 
   })
-})}
+})

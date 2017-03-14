@@ -19,9 +19,6 @@ module.exports = {
     errorDetails: true
   },
   module: {
-    noParse: [
-      ///node_modules\/perfect-scrollbar\/dist\/js\/perfect-scrollbar.jquery.js/,
-    ],
     loaders: [
       //to generate static html files for some external directives
       {test: /\.tpl\.pug$/, loaders: ['file?name=[hash].html', 'pug-html?exports=false']},

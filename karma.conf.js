@@ -11,13 +11,13 @@ module.exports = function (config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    //frameworks: ['mocha', 'chai'],
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine', 'source-map-support'],
 
     // list of files/patterns to load in the browser
     files: [
+      // Polyfill phantomjs unsupported things, Audio, Object.assign etc.
       './lib/karma/polyfill.js',
-      {pattern: /*'**!/!*.spec.ts'*/ 'spec.bundle.js', watched: false}
+      {pattern: 'spec.bundle.js', watched: false}
     ],
 
     // files to exclude
@@ -25,21 +25,18 @@ module.exports = function (config) {
 
     plugins: [
       require("karma-jasmine"),
-      require("karma-sourcemap-loader"),
       require("karma-webpack"),
-      //require('karma-remap-istanbul'),
+      require("karma-sourcemap-loader"),
+      require("karma-source-map-support"),
+      require("karma-mocha-reporter"),
       require("karma-coverage"),
-      require("karma-remap-coverage"),
-      //require("karma-coverage-istanbul-reporter")
       require("karma-phantomjs-launcher")
     ],
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      '**/*.spec.ts'/*'spec.bundle.js'*/: ['webpack', 'sourcemap'],
-      'spec.bundle.js'/*'spec.bundle.js'*/: ['webpack', 'sourcemap'],
-      './src/**/*!(*.spec).ts': ['coverage']
+      'spec.bundle.js': ['webpack', 'sourcemap']
     },
 
     webpack: {
@@ -53,6 +50,22 @@ module.exports = function (config) {
         ]
       },
       module: {
+        postLoaders: [
+          /**
+           * Instruments source files for subsequent code coverage.
+           * See https://github.com/deepsweet/istanbul-instrumenter-loader
+           */
+          {
+            test: /\.ts$/,
+            loader: 'istanbul-instrumenter-loader?embedSource=true&noAutoWrap=true',
+            exclude: [
+              /\.spec.ts$/,
+              /generated_modules/,
+              /src\/common\/api/,
+              'node_modules'
+            ]
+          }
+        ],
         loaders: [
           //to generate static html files for some external directives
           {test: /\.tpl\.pug$/, loaders: ['file?name=[hash].html', 'pug-html?exports=false']},
@@ -63,17 +76,10 @@ module.exports = function (config) {
           {test: /\.html$/, loader: 'raw'},
           {test: /\.(scss|sass)$/, loader: 'style!css!sass'},
           {test: /\.css$/, loader: 'style!css'}
-        ],
-        rules: [
-          // instrument only testing sources with Istanbul
-          {
-            test: /\.ts$/,
-            include: path.resolve('src/'),
-            loader: 'istanbul-instrumenter-loader'
-          }
         ]
       },
       plugins: [
+        // to provide full jquery for angular
         new webpack.ProvidePlugin({
           $: "jquery",
           jQuery: "jquery",
@@ -93,28 +99,32 @@ module.exports = function (config) {
     },
 
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    //reporters: ['mocha'],
-    reporters: ['progress', 'coverage', 'remap-coverage'],
+    reporters: ['mocha', /*'progress',*/ 'coverage'],
 
     coverageReporter: {
       includeAllSources: true,
       check: {
         global: {
-          statements: 80,
-          branches: 80,
-          functions: 80,
-          lines: 80
+          statements: 77,
+          branches: 53,
+          functions: 63,
+          lines: 78
         }
       },
-      type: 'in-memory'
-    },
-
-    remapOptions: { basePath: './src' },
-
-    remapCoverageReporter: {
-      'text-summary': null, // to show summary in console
-      html: './coverage/html',
-      cobertura: './coverage/cobertura.xml'
+      reporters: [
+        {
+          type: 'cobertura',
+          dir: './coverage/cobertura'
+        },
+        {
+          type: 'html',
+          dir: './coverage/html'
+        },
+        {
+          type: 'text-summary'
+        }
+      ],
+      dir : 'coverage/'
     },
 
     // web server port
@@ -125,14 +135,14 @@ module.exports = function (config) {
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_DEBUG,
+    logLevel: config.LOG_WARN,
 
     // toggle whether to watch files and rerun tests upon incurring changes
     autoWatch: false,
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS'],//['Chrome'],
+    browsers: ['PhantomJS'],
 
     // if true, Karma runs tests once and exits
     singleRun: true

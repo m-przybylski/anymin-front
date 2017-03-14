@@ -85,7 +85,7 @@ function SearchResultController($scope: ng.IScope, $location: ng.ILocationServic
   searchService.onQueryParamsChange($scope, (queryParams) => {
     const params = searchUrlService.parseParamsForUrl(queryParams)
     if ($state.current.name === 'app.search-result') {
-      $state.transitionTo('app.search-result', queryParams, {
+      $state.transitionTo('app.search-result', params, {
         location: true,
         inherit: true,
         relative: $state.$current,

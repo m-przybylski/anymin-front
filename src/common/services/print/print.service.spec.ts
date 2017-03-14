@@ -1,13 +1,13 @@
 import * as angular from "angular"
 import {PrintService} from "./print.service"
-namespace profitelo.services.print {
+
 describe('Unit testing: profitelo.services.print >', () => {
   describe('for profitelo.services.print >', () => {
 
     let printService: PrintService
 
     beforeEach(() => {
-    angular.mock.module('profitelo.services.print')
+      angular.mock.module('profitelo.services.print')
     })
 
     beforeEach(inject(($injector: ng.auto.IInjectorService) => {
@@ -20,4 +20,3 @@ describe('Unit testing: profitelo.services.print >', () => {
 
   })
 })
-}
