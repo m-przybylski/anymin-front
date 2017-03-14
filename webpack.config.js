@@ -1,6 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CheckerPlugin } = require('awesome-typescript-loader')
 
 module.exports = {
   devtool: 'source-map',
@@ -26,7 +27,7 @@ module.exports = {
       {test: /\.tpl\.pug$/, loaders: ['file?name=[hash].html', 'pug-html?exports=false']},
       {test: /\.json$/, loader: "json"}, // to parse configs from node_modules
       {test: /\.jade$/, exclude: [/\.tpl\.pug$/], loader: "jade"},
-      {test: /\.ts$/, exclude: [/app\/lib/, /node_modules/], loader: 'ng-annotate!ts-loader'},
+      {test: /\.ts$/, exclude: [/app\/lib/, /node_modules/], loader: 'ng-annotate!awesome-typescript-loader'},
       {test: /\.html$/, loader: 'raw'},
       {test: /\.(scss|sass)$/, loader: 'style!css!sass'},
       {test: /\.css$/, loader: 'style!css'}
@@ -41,6 +42,8 @@ module.exports = {
       inject: 'body',
       hash: true
     }),
+
+    new CheckerPlugin(),
 
     new webpack.ProvidePlugin({
       $: "jquery",
@@ -59,6 +62,6 @@ module.exports = {
       minChunks: function (module, count) {
         return module.resource && module.resource.indexOf(path.resolve(__dirname, 'src')) === -1;
       }
-    })
+    }),
   ]
 };
