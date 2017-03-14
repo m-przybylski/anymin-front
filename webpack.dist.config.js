@@ -1,6 +1,7 @@
-var webpack = require('webpack');
-var path    = require('path');
-var config  = require('./webpack.config');
+const webpack = require('webpack');
+const path    = require('path');
+const config  = require('./webpack.config');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 config.output = {
   filename: '[name].bundle.js',
@@ -20,7 +21,12 @@ config.plugins = config.plugins.concat([
       // angular global variable, so we should keep it unchanged
       except: ['$super', '$', 'exports', 'require', 'angular']
     }
-  })
+  }),
+
+  // copy static assets which are not bundled into dist
+  new CopyWebpackPlugin([
+    {from : './src/assets', to: 'assets'}
+  ])
 ]);
 
 module.exports = config;
