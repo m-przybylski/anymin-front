@@ -17,7 +17,7 @@
     "tr": "gulp download-translations",
     "build-full": "gulp download-translations && gulp webpack",
     "ci-test": "gulp download-translations && node --max_old_space_size=4096 node_modules/karma/bin/karma start",
-    "ci-serve": "gulp download-translations && gulp webpack"
+    "ci-deploy": "gulp download-translations && gulp webpack"
   },
   "license": "ISC",
   "dependencies": {
