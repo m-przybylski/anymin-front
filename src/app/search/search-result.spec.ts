@@ -38,6 +38,9 @@ describe('Unit tests: search-result>', () => {
           },
           go: (_x: any) => {
             return {}
+          },
+          transitionTo: (_a: any, _b: any) =>{
+            return {}
           }
         }
 

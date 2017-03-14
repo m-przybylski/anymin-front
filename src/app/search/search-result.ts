@@ -16,8 +16,9 @@ import "common/components/interface/preloader-container/preloader-container"
 import communicatorModule from "../../common/components/communicator/communicator"
 
 /* @ngInject */
-function SearchResultController($scope: ng.IScope, $state: ng.ui.IStateService, $location: ng.ILocationService,
-                                searchService: SearchService, searchUrlService: SearchUrlService) {
+function SearchResultController($scope: ng.IScope, $location: ng.ILocationService,
+                                searchService: SearchService, $state: ng.ui.IStateService,
+                                searchUrlService: SearchUrlService) {
 
   this.searchParams = $location.search()
   this.searchResults = {
@@ -84,14 +85,19 @@ function SearchResultController($scope: ng.IScope, $state: ng.ui.IStateService, 
   searchService.onQueryParamsChange($scope, (queryParams) => {
     const params = searchUrlService.parseParamsForUrl(queryParams)
     if ($state.current.name === 'app.search-result') {
-      $location.search(params)
+      $state.transitionTo('app.search-result', queryParams, {
+        location: true,
+        inherit: true,
+        relative: $state.$current,
+        notify: false
+      })
+
     }
   })
 
 
   return this
 }
-
 
 const searchResultPageModule = angular.module('profitelo.controller.search-result', [
   'ui.router',
