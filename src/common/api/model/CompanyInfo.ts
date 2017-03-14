@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface CompanyInfo {
     "companyName": string;
     "createdAt": Date;

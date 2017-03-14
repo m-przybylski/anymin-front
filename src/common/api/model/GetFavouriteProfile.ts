@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface GetFavouriteProfile {
     "profileFavourite": models.ProfileFavourite;
     "profile": models.GetProfile;

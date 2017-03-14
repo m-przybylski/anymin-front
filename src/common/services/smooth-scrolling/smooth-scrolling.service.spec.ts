@@ -1,18 +1,18 @@
 import * as angular from "angular"
 import {SmoothScrollingService} from "./smooth-scrolling.service"
-namespace profitelo.services.smoothScrolling {
-describe('Unit testing: profitelo.directives.services.smooth-scrolling >', function() {
-  describe('for profitelo.directives.services.smooth-scrolling >', function() {
+
+describe('Unit testing: profitelo.directives.services.smooth-scrolling >', function () {
+  describe('for profitelo.directives.services.smooth-scrolling >', function () {
 
     let smoothScrollingService: SmoothScrollingService
 
 
-    beforeEach(function() {
-    angular.mock.module('profitelo.services.smooth-scrolling')
+    beforeEach(function () {
+      angular.mock.module('profitelo.services.smooth-scrolling')
     })
 
 
-    beforeEach(inject(($injector: ng.auto.IInjectorService) =>{
+    beforeEach(inject(($injector: ng.auto.IInjectorService) => {
       smoothScrollingService = $injector.get<SmoothScrollingService>('smoothScrollingService')
     }))
 
@@ -31,4 +31,3 @@ describe('Unit testing: profitelo.directives.services.smooth-scrolling >', funct
 
   })
 })
-}

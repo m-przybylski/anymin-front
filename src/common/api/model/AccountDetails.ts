@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface AccountDetails {
     "unverifiedEmail"?: string;
     "permissions": Array<models.Permission>;

@@ -1,6 +1,4 @@
 import * as angular from "angular"
-import uiRouter from "angular-ui-router";
-
 
 function ErrorController() {
 

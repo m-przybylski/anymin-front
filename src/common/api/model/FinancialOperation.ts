@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface FinancialOperation {
     "type": FinancialOperation.TypeEnum;
     "createdAt": Date;

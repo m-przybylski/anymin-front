@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface PostServiceTag {
     "id"?: string;
     "name": string;

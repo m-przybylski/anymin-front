@@ -1,7 +1,6 @@
 import {ILoginRegisterService} from "./login-register.service"
 import * as angular from "angular"
 
-namespace profitelo.resolvers.loginRegister {
 describe('Unit testing: profitelo.resolvers.login-register', () => {
   describe('for LoginRegisterResolver service >', () => {
 
@@ -10,18 +9,19 @@ describe('Unit testing: profitelo.resolvers.login-register', () => {
     let _timeout: ng.ITimeoutService
     let mockState: any
 
-    beforeEach(angular.mock.module(function($provide: ng.auto.IProvideService) {
+    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', url)
     }))
 
     beforeEach(() => {
 
       mockState = {
-        go: () => {}
+        go: () => {
+        }
       }
 
 
-    angular.mock.module('profitelo.resolvers.login-register', function($provide: ng.auto.IProvideService) {
+      angular.mock.module('profitelo.resolvers.login-register', function ($provide: ng.auto.IProvideService) {
         $provide.value('$state', mockState)
       })
 
@@ -41,16 +41,17 @@ describe('Unit testing: profitelo.resolvers.login-register', () => {
       spyOn(mockState, 'go')
 
       let spy = {
-        spy: () => {}
+        spy: () => {
+        }
       }
 
       spyOn(spy, 'spy')
 
       AppLoginRegisterResolver.resolve().then(
-      () => {
-      }, () => {
-        spy.spy()
-      })
+        () => {
+        }, () => {
+          spy.spy()
+        })
 
       _timeout.flush()
       expect(spy.spy).toHaveBeenCalled()
@@ -59,4 +60,4 @@ describe('Unit testing: profitelo.resolvers.login-register', () => {
     })
 
   })
-})}
+})

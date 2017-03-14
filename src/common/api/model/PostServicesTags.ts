@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface PostServicesTags {
     "serviceIds": Array<string>;
 }

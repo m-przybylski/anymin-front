@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface ExpertDetails {
     "name": string;
     "avatar"?: string;

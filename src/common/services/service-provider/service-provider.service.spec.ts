@@ -1,24 +1,24 @@
 import * as angular from "angular"
 import {ServiceProviderService} from "./service-provider.service"
-namespace profitelo.services.serviceProvider {
-describe('Unit testing: profitelo.services.service-provider-service >', function() {
-  describe('for serviceProviderService service >', function() {
+
+describe('Unit testing: profitelo.services.service-provider-service >', function () {
+  describe('for serviceProviderService service >', function () {
 
     let serviceProviderService: ServiceProviderService
 
-    beforeEach(function() {
-    angular.mock.module('profitelo.services.service-provider')
+    beforeEach(function () {
+      angular.mock.module('profitelo.services.service-provider')
     })
 
 
-    beforeEach(inject(function($injector: ng.auto.IInjectorService) {
+    beforeEach(inject(function ($injector: ng.auto.IInjectorService) {
       serviceProviderService = $injector.get<ServiceProviderService>('serviceProviderService')
     }))
 
 
-    it('should have a dummy test', inject(function() {
+    it('should have a dummy test', inject(function () {
       expect(true).toBeTruthy()
     }))
 
   })
-})}
+})

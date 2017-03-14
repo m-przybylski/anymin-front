@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface GetServiceTags {
     "serviceId": string;
     "tags": Array<models.Tag>;

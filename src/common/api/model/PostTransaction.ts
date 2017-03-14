@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface PostTransaction {
     "payment": models.PostPayment;
     "nonce": string;

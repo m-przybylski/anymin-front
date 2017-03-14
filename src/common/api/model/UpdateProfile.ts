@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface UpdateProfile {
     "organizationDetails"?: models.OrganizationDetailsUpdate;
     "expertDetails"?: models.ExpertDetailsUpdate;

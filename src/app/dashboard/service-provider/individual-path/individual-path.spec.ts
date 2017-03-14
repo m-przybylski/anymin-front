@@ -1,9 +1,4 @@
-import * as angular from "angular"
-import {SmoothScrollingService} from "../../../../common/services/smooth-scrolling/smooth-scrolling.service"
-import {TopAlertService} from "../../../../common/services/top-alert/top-alert.service"
-import {ProfileApiMock, ProfileApi} from "../../../../common/api/api/ProfileApi"
-import {GetProfile} from "../../../../common/api/model/GetProfile"
-import {Profile} from "../../../../common/models/Profile"
+
 import "./individual-path"
 
 describe('Unit tests: IndividualPathController >', () => {

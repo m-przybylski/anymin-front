@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface ServiceRecommendation {
     "serviceId": string;
     "clientId": string;

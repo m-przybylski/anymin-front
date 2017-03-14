@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface Category {
     "recordable": boolean;
     "id": string;

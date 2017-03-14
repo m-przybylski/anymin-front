@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface PostTagSuggest {
     "tags": Array<models.Tag>;
     "query"?: string;

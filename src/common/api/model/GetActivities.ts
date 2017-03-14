@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface GetActivities {
     "activityTypes": Array<string>;
     "balance": models.MoneyDto;

@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface SearchSuggestions {
     "terms": Array<models.SearchSuggestionsTerm>;
     "organizations": models.SearchSuggestionsOrganizations;

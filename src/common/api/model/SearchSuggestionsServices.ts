@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface SearchSuggestionsServices {
     "count": number;
     "results": Array<models.SearchSuggestionsService>;

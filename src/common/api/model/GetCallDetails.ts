@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface GetCallDetails {
     "recommendedTags": Array<models.Tag>;
     "serviceOwnerProfile": models.GetProfile;

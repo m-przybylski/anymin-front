@@ -1,9 +1,8 @@
 import * as angular from "angular"
 import {IFilterService} from "../../services/filter/filter.service"
 
-namespace profitelo.filters.msToDate {
 
-  describe('Unit testing: profitelo.filters.milliseconds-to-datetime>', () => {
+describe('Unit testing: profitelo.filters.milliseconds-to-datetime>', () => {
   describe('for message >', () => {
 
     let $filter: IFilterService
@@ -17,11 +16,11 @@ namespace profitelo.filters.msToDate {
     }))
 
     const milliseconds = 12
-    const date = new Date(0, 0, 0, 0, 0 ,0 ,0)
+    const date = new Date(0, 0, 0, 0, 0, 0, 0)
     date.setMilliseconds(milliseconds)
 
     it('should millisecondsToDatetime', () => {
       expect($filter('millisecondsToDatetime')(milliseconds)).toEqual(date)
     })
   })
-})}
+})

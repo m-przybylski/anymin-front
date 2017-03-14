@@ -23,16 +23,16 @@ const commonConfigGenerator = require('./lib/common-config/generator')
 const root = 'src';
 
 // helper method for resolving paths
-let resolveToApp = (glob = '') => {
+const resolveToApp = (glob = '') => {
   return path.join(root, 'app', glob); // app/{glob}
 };
 
-let resolveToComponents = (glob = '') => {
+const resolveToComponents = (glob = '') => {
   return path.join(root, 'app/components', glob); // app/components/{glob}
 };
 
 // map of all paths
-let paths = {
+const paths = {
   js: resolveToComponents('**/*!(.spec).ts'), // exclude spec files
   scss: resolveToApp('**/*.scss'), // stylesheets
   html: [
@@ -77,7 +77,7 @@ gulp.task('serve', () => {
     // application entry point
   ].concat(paths.entry);
 
-  var compiler = webpack(config);
+  const compiler = webpack(config);
 
   serve({
     port: process.env.PORT || 4242,
@@ -165,7 +165,6 @@ gulp.task('download-translations', function (cb) {
 });
 
 gulp.task('generate-common-config', function (next) {
-
   return commonConfigGenerator({
     ngModuleName: 'commonConfig',
     ngProviderName: 'CommonConfig',

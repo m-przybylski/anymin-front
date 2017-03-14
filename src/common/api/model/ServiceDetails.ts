@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface ServiceDetails {
     "name": string;
     "price": models.MoneyDto;

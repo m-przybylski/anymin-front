@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface PostServiceDetails {
     "price": models.MoneyDto;
     "name": string;

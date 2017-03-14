@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface GetSUEExpertServiceTuple {
     "profile": models.GetProfile;
     "service": models.GetService;

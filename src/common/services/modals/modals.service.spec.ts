@@ -4,17 +4,16 @@ import modalsModule from "./modals"
 import dialogModule from "../dialog/dialog"
 import {DialogService} from "../dialog/dialog.service"
 import {GetService} from "../../api/model/GetService"
-namespace profitelo.services.modals {
 
 
-  describe('Unit testing: profitelo.services.modals >', () => {
+describe('Unit testing: profitelo.services.modals >', () => {
   describe('for profitelo.services.modals >', () => {
 
     let modalsService: ModalsService
 
     beforeEach(() => {
-    angular.mock.module(modalsModule)
-    angular.mock.module(dialogModule)
+      angular.mock.module(modalsModule)
+      angular.mock.module(dialogModule)
     })
 
     beforeEach(inject(($injector: ng.auto.IInjectorService) => {
@@ -28,7 +27,9 @@ namespace profitelo.services.modals {
     it('should create IncomingCallModal', inject((dialogService: DialogService) => {
       spyOn(dialogService, 'openDialog')
 
-      modalsService.createIncomingCallModal(<GetService>{}, () => {}, () => {})
+      modalsService.createIncomingCallModal(<GetService>{}, () => {
+      }, () => {
+      })
 
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
@@ -36,7 +37,9 @@ namespace profitelo.services.modals {
     it('should create NoFundsModal', inject((dialogService: DialogService) => {
       spyOn(dialogService, 'openDialog')
 
-      modalsService.createNoFundsModal(() => {}, () => {})
+      modalsService.createNoFundsModal(() => {
+      }, () => {
+      })
 
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
@@ -44,7 +47,9 @@ namespace profitelo.services.modals {
     it('should create ServiceUnavailableModal', inject((dialogService: DialogService) => {
       spyOn(dialogService, 'openDialog')
 
-      modalsService.createServiceUnavailableModal(() => {}, () => {})
+      modalsService.createServiceUnavailableModal(() => {
+      }, () => {
+      })
 
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))
@@ -155,4 +160,3 @@ namespace profitelo.services.modals {
 
   })
 })
-}

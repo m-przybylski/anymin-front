@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface PostMobileViewsPermissions {
     "mobilePin": string;
     "protectedViews": Array<string>;

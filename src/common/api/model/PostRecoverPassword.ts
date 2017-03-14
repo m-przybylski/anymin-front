@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface PostRecoverPassword {
     "method"?: PostRecoverPassword.MethodEnum;
     "msisdn": string;

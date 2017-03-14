@@ -12,6 +12,8 @@
 
 import * as models from './models';
 
+models;
+
 export interface GetLastConsultation {
     "profile": models.GetProfile;
     "createdAt"?: Date;
