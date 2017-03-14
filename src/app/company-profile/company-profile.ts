@@ -6,7 +6,6 @@ import sessionModule from "../../common/services/session/session"
 import smoothScrollingModule from "../../common/services/smooth-scrolling/smooth-scrolling"
 import {CompanyProfileController} from "./company-profile.controller"
 import {CompanyProfileResolver} from "./company-profile.resolver"
-import "common/directives/pro-top-navbar/pro-top-navbar"
 import "common/directives/expert-profile/pro-expert-header/pro-expert-header"
 import "common/directives/pro-footer/pro-footer"
 import "common/directives/expert-profile/pro-expert-slider/pro-expert-slider"
@@ -27,7 +26,6 @@ const companyProfilePageModule = angular.module('profitelo.controller.company-pr
   smoothScrollingModule,
   topAlertModule,
   recommendedServicesModule,
-  'profitelo.directives.pro-top-navbar',
   'profitelo.directives.expert-profile.pro-expert-header',
   'profitelo.directives.pro-footer',
   'profitelo.directives.expert-profile.pro-expert-slider',

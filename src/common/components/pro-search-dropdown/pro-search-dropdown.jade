@@ -1,11 +1,10 @@
 .pro-search-dropdown
   .search-bar-container
-    span.icon.icon-search-24
     input.search-bar-shadow(type="text" disabled data-ng-model="vm.primarySuggestion")
     input.search-bar.main-input(type="text" placeholder="{{::'HOME.SEARCH_PLACEHOLDER' | translate}}"
     data-ng-model="vm.ngModel" data-ng-enter="vm.search()" data-ng-trim="false"
     data-ng-focus="vm.onFocus()" data-ng-blur="vm.onFocusOut()")
-    a.icon.icon-close-16(data-ng-click="vm.clearModel()" data-ng-show="!!vm.ngModel && vm.ngModel.length > 0")
+    a.icon.icon-close-16.clear-input(data-ng-click="vm.clearModel()" data-ng-show="!!vm.ngModel && vm.ngModel.length > 0")
     .results-input(data-ng-if="vm.showResultsCounter()")
       span {{ vm.searchCount }} {{ "SEARCH.RESULTS" | translate }}
     .dropdown-container(data-ng-show="!vm.isCollapsed && vm.suggestionsLength > 0",
