@@ -1,0 +1,27 @@
+import * as angular from "angular"
+'use strict'
+
+type Settings = {{{json jsonSettings}}}
+
+/* istanbul ignore next */
+export class CommonConfig {
+
+    private static settings: Settings = {{{json jsonSettings}}}
+
+    consutructor() {}
+
+    public getAllData(): Settings {
+        return angular.copy(CommonConfig.settings)
+    }
+
+    public $get() {
+        return new CommonConfig()
+    }
+}
+
+
+const commonConfigModule = angular.module('{{ngModuleName}}', [])
+    .provider('{{ngProviderName}}', new CommonConfig)
+    .name
+
+export default commonConfigModule

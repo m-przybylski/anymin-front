@@ -13,7 +13,6 @@ import 'angular-ui-bootstrap'
 import 'angular-ui-mask'
 import 'angular-permission'
 
-import './common-config'
 import 'angular-moment'
 import 'angular-cookies'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
@@ -21,7 +20,6 @@ import customTranslationHandlerModule from "../common/services/custom-translatio
 import interfaceLanguageModule from "../common/services/interface-language/interface-language"
 import sessionModule from "../common/services/session/session"
 import permissionModule from "../common/services/permission/permission"
-import {ICommonConfig} from "../common/services/common-config/common-config"
 import pagesModule from "./pages"
 import communicatorModule from "../common/components/communicator/communicator"
 import "common/components/interface/preloader-container/preloader-container"
@@ -50,6 +48,7 @@ import  'angularjs-slider/dist/rzslider.css'
 import  'croppie/croppie.css'
 import "./../template/profitelo_theme/stylesheets/main.sass"
 import navbarModule from "../common/components/navbar/navbar"
+import {CommonConfig, default as commonConfigModule} from "../../generated_modules/common-config/common-config"
 
 declare const Raven: any
 
@@ -78,8 +77,7 @@ angular.module('profitelo', [
   'permission.ui',
 
   // modules
-  //'templates-module',
-  'commonConfig',
+  commonConfigModule,
 
   // services
   topAlertModule,
@@ -102,6 +100,6 @@ angular.module('profitelo', [
   .run(AppRunFunction)
   .config(AppConfigFunction)
   .controller('AppComponentController', AppComponentController)
-  .factory('apiUrl', (CommonConfig: ICommonConfig) => {
+  .factory('apiUrl', (CommonConfig: CommonConfig) => {
     return CommonConfig.getAllData().urls.backend
   })

@@ -1,7 +1,7 @@
-import {ICommonConfig} from "../../../services/common-config/common-config"
 import * as angular from "angular"
 import {FilesApiMock} from "../../../api/api/FilesApi"
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import {CommonConfig} from "../../../../../generated_modules/common-config/common-config"
 
 describe('Unit testing: profitelo.directives.interface.pro-uploader', () => {
   return describe('for pro-uploader directive >', () => {
@@ -13,7 +13,7 @@ describe('Unit testing: profitelo.directives.interface.pro-uploader', () => {
 
     let _httpBackend: ng.IHttpBackendService
     let _FilesApiMock: FilesApiMock
-    let _CommonConfig: ICommonConfig
+    let _CommonConfig: CommonConfig
     let _timeout: ng.ITimeoutService
     let _interval: ng.IIntervalService
     let _commonConfigData: any
@@ -35,7 +35,7 @@ describe('Unit testing: profitelo.directives.interface.pro-uploader', () => {
         rootScope = $rootScope.$new()
         compile = $compile
 
-        _CommonConfig = $injector.get<ICommonConfig>('CommonConfig')
+        _CommonConfig = $injector.get<CommonConfig>('CommonConfig')
         _FilesApiMock = $injector.get<FilesApiMock>('FilesApiMock')
         _httpBackend = $injector.get('$httpBackend')
         _timeout = $injector.get('$timeout')

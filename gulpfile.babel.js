@@ -16,10 +16,11 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import colorsSupported      from 'supports-color';
 import historyApiFallback   from 'connect-history-api-fallback';
-var chalk = require('chalk')
+const chalk = require('chalk')
 const translations = require('./lib/tr/tr')
+const commonConfigGenerator = require('./lib/common-config/generator')
 
-let root = 'src';
+const root = 'src';
 
 // helper method for resolving paths
 let resolveToApp = (glob = '') => {
@@ -43,7 +44,7 @@ let paths = {
     path.join(__dirname, root, 'app/app.ts')
   ],
   output: root,
-  blankTemplates: path.join(__dirname, 'generator', 'component/**/*.**'),
+  blankTemplates: path.join(__dirname, 'lib/generator', 'component/**/*.**'),
   dest: path.join(__dirname, 'dist')
 };
 
@@ -53,7 +54,7 @@ gulp.task('webpack', ['clean'], (cb) => {
   config.entry.app = paths.entry;
 
   webpack(config, (err, stats) => {
-    if(err)  {
+    if (err) {
       throw new gutil.PluginError("webpack", err);
     }
 
@@ -141,24 +142,37 @@ gulp.task('download-translations', function (cb) {
       }
     ],
     ngModule: 'profitelo.translations',
-    remoteTimeout: 30*1000, // on heavy loads tr responds after a long time
+    remoteTimeout: 30 * 1000, // on heavy loads tr responds after a long time
     success: cb,
     badRequest: function () {
       console.log(chalk.white.bgRed('[TRANSLATIONS] Bad request. Check if TR is up running'))
     },
-    badRemoteFile: function(error) {
+    badRemoteFile: function (error) {
       console.log(chalk.white.bgRed('[TRANSLATIONS] Bad remote paths, check urls'))
       console.log(chalk.red('Last bad language url for lang: ' + error))
     },
-    timeout: function() {
+    timeout: function () {
       console.log(chalk.white.bgRed('[TRANSLATIONS] Remote timeout'))
     },
-    templateBuildFail: function(error) {
+    templateBuildFail: function (error) {
       console.log(chalk.white.bgRed('[TRANSLATIONS] Template build fail'))
       console.log(chalk.red(error))
     },
-    successLangBuild: function(languageCode) {
+    successLangBuild: function (languageCode) {
       console.log(chalk.white.bgGreen('[TRANSLATIONS] Downloaded translation for: ' + chalk.yellow(languageCode)))
     }
   })
 });
+
+gulp.task('generate-common-config', function (next) {
+
+  return commonConfigGenerator({
+    ngModuleName: 'commonConfig',
+    ngProviderName: 'CommonConfig',
+    outputDir: './generated_modules/common-config',
+    outputFileName: 'common-config.ts',
+    fileGenerationSucceed: undefined,
+    fileGenerationFailed: undefined,
+    jsonSettingsEmpty: undefined
+  })
+})

@@ -15,9 +15,11 @@
     "webpack": "gulp webpack",
     "transaltions": "gulp download-translations",
     "tr": "gulp download-translations",
-    "build-full": "gulp download-translations && gulp webpack",
-    "ci-test": "gulp download-translations && node --max_old_space_size=4096 node_modules/karma/bin/karma start",
-    "ci-deploy": "gulp download-translations && gulp webpack"
+    "common-config": "gulp generate-common-config",
+    "cc": "gulp generate-common-config",
+    "build-full": "gulp generate-common-config && gulp download-translations && gulp webpack",
+    "ci-test": "gulp generate-common-config && gulp download-translations && node --max_old_space_size=4096 node_modules/karma/bin/karma start",
+    "ci-deploy": "gulp generate-common-config && gulp download-translations && gulp webpack"
   },
   "license": "ISC",
   "dependencies": {
@@ -109,6 +111,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-template": "^3.0.0",
     "gulp-util": "^3.0.7",
+    "handlebars": "^4.0.6",
     "html-loader": "^0.4.5",
     "html-webpack-plugin": "^1.7.0",
     "imports-loader": "^0.7.1",

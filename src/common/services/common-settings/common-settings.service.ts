@@ -1,5 +1,4 @@
-import {ICommonConfig} from "../common-config/common-config"
-
+import {CommonConfig} from "../../../../generated_modules/common-config/common-config"
 
 export class CommonSettingsService {
 
@@ -10,7 +9,7 @@ export class CommonSettingsService {
   public localSettings: any
 
   /* @ngInject */
-  constructor(CommonConfig: ICommonConfig) {
+  constructor(CommonConfig: CommonConfig) {
     this.commonConfigData = CommonConfig.getAllData()
     this.urls = this.commonConfigData.urls
     this.validation = this.commonConfigData.validation

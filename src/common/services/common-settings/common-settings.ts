@@ -1,8 +1,10 @@
 import * as angular from "angular"
 import {CommonSettingsService} from "./common-settings.service"
-import "app/common-config"
+import commonConfigModule from "../../../../generated_modules/common-config/common-config"
 
-const commonSettingsModule = angular.module('profitelo.services.commonSettings', ['commonConfig'])
+const commonSettingsModule = angular.module('profitelo.services.commonSettings', [
+  commonConfigModule
+])
   .service('CommonSettingsService', CommonSettingsService)
   .name
 
