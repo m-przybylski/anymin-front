@@ -245,10 +245,117 @@
     max-height: 320px
     opacity: 1
 
-
 @keyframes radio-focus
   0%
     transform: scale(0)
 
   100%
     transform: scale(1)
+
+@keyframes fadeInY
+  0%
+    opacity: 0
+    transform: translateY(32px)
+
+  100%
+    opacity: 1
+    transform: translateY(0)
+
+@keyframes fadeOutY
+  0%
+    opacity: 1
+    transform: translateY(0)
+    overflow: hidden
+
+  100%
+    opacity: 0
+    transform: translateY(32px)
+
+@keyframes fadeInX
+  0%
+    opacity: 0
+    transform: translateX(32px)
+
+  100%
+    opacity: 1
+    transform: translateX(0)
+
+
+@keyframes fadeOutX
+  0%
+    opacity: 1
+    transform: translateX(0)
+    overflow: hidden
+
+  100%
+    opacity: 0
+    transform: translateX(-32px)
+
+@keyframes collapsingend
+  0%
+    overflow: hidden
+    max-height: 1000px
+
+  100%
+    max-height: 0
+
+@keyframes collapsing
+  0%
+    overflow: hidden
+    max-height: 0px
+
+  100%
+    max-height: 1000px
+
+/* navbar */
+@keyframes mobile-menu-animation-in
+  0%
+    transform: translateX(100%)
+
+  100%
+    transform: translateX(0%)
+
+
+@keyframes mobile-menu-animation-out
+  0%
+    transform: translateX(0%)
+
+  100%
+    transform: translateX(100%)
+
+@keyframes mobile-search-animation-in
+  0%
+    overflow: hidden
+    width: 0
+
+  100%
+    width: calc(100% - 64px)
+
+@keyframes mobile-search-animation-out
+  0%
+    overflow: hidden
+    width: calc(100% - 64px)
+
+  100%
+    width: 0
+
+@keyframes mobile-search-animation-elem-in
+  0%
+    opacity: 0
+    transform: translateY(32px)
+
+  100%
+    opacity: 1
+    transform: translateY(0)
+
+
+@keyframes mobile-search-animation-elem-out
+  0%
+    opacity: 0
+    transform: translateY(32px)
+
+  100%
+    opacity: 1
+    transform: translateY(0)
+
+/* navbar end */

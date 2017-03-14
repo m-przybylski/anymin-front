@@ -11,11 +11,11 @@ import soundsModule from "../../services/sounds/sounds"
 import modalsModule from "../../services/modals/modals"
 import timerModule from "../../services/timer/timer"
 import navigatorModule from "../../services/navigator/navigator"
-import {CallService} from "./call.service"
 import filtersModule from "../../filters/filters"
 import "./navigation/navigation"
 import "./messenger/messenger"
 import ratelSdkModule from "../ratel-sdk/ratel-sdk"
+import {CallService} from "./call.service"
 
 const communicatorModule = angular.module('profitelo.components.communicator', [
   'pascalprecht.translate',

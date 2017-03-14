@@ -7,7 +7,6 @@ import topAlertModule from "../../common/services/top-alert/top-alert"
 import recommendedServicesModule from "../../common/services/recommended-services/recommended-services"
 import smoothScrollingModule from "../../common/services/smooth-scrolling/smooth-scrolling"
 import "common/resolvers/service-provider-image/service-provider-image.service"
-import "common/directives/pro-top-navbar/pro-top-navbar"
 import "common/directives/expert-profile/pro-expert-header/pro-expert-header"
 import "common/directives/expert-profile/pro-expert-slider/pro-expert-slider"
 import "common/directives/expert-profile/pro-expert-single-consultation/pro-expert-single-consultation"
@@ -31,7 +30,6 @@ const expertProfilePageModule = angular.module('profitelo.controller.expert-prof
   topAlertModule,
   recommendedServicesModule,
   'profitelo.resolvers.service-provider-image',
-  'profitelo.directives.pro-top-navbar',
   'profitelo.directives.expert-profile.pro-expert-header',
   'profitelo.directives.pro-footer',
   'profitelo.directives.expert-profile.pro-expert-slider',

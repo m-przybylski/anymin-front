@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+const { CheckerPlugin } = require('awesome-typescript-loader')
 
 module.exports = function (config) {
   config.set({
@@ -23,28 +24,22 @@ module.exports = function (config) {
     exclude: [],
 
     plugins: [
-      //require("karma-chai"),
-      require("karma-chrome-launcher"),
       require("karma-jasmine"),
-      //require("karma-mocha"),
-      //require("karma-mocha-reporter"),
       require("karma-sourcemap-loader"),
       require("karma-webpack"),
-      require('karma-remap-istanbul'),
-      //require("karma-coverage")
+      //require('karma-remap-istanbul'),
+      require("karma-coverage"),
+      require("karma-remap-coverage"),
       //require("karma-coverage-istanbul-reporter")
       require("karma-phantomjs-launcher")
     ],
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {'spec.bundle.js' /*'**!/!*.ts'*/: ['webpack', 'sourcemap']},
-
-    remapIstanbulReporter: {
-      reports: {
-        html: 'coverage',
-        lcovonly: './coverage/coverage.lcov'
-      }
+    preprocessors: {
+      '**/*.spec.ts'/*'spec.bundle.js'*/: ['webpack', 'sourcemap'],
+      'spec.bundle.js'/*'spec.bundle.js'*/: ['webpack', 'sourcemap'],
+      './src/**/*!(*.spec).ts': ['coverage']
     },
 
     webpack: {
@@ -63,11 +58,19 @@ module.exports = function (config) {
           {test: /\.tpl\.pug$/, loaders: ['file?name=[hash].html', 'pug-html?exports=false']},
           {test: /\.json$/, loader: "json"}, // to parse configs from node_modules
           {test: /\.jade$/, exclude: [/\.tpl\.pug$/], loader: "jade"},
-          {test: /\.ts$/, exclude: [/app\/lib/, /node_modules/], loader: 'ng-annotate!ts-loader'},
+          {test: /\.ts$/, exclude: [/app\/lib/, /node_modules/], loader: 'ng-annotate!awesome-typescript-loader'},
           {test: /\.js/, exclude: [/app\/lib/, /node_modules/], loader: 'babel'},
           {test: /\.html$/, loader: 'raw'},
           {test: /\.(scss|sass)$/, loader: 'style!css!sass'},
           {test: /\.css$/, loader: 'style!css'}
+        ],
+        rules: [
+          // instrument only testing sources with Istanbul
+          {
+            test: /\.ts$/,
+            include: path.resolve('src/'),
+            loader: 'istanbul-instrumenter-loader'
+          }
         ]
       },
       plugins: [
@@ -76,6 +79,8 @@ module.exports = function (config) {
           jQuery: "jquery",
           "window.jQuery": "jquery"
         }),
+
+        new CheckerPlugin(),
 
         new webpack.ProvidePlugin({
           "window.i18n": "phonenumber"
@@ -89,39 +94,27 @@ module.exports = function (config) {
 
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
     //reporters: ['mocha'],
-    reporters: ['progress', 'karma-remap-istanbul'],
+    reporters: ['progress', 'coverage', 'remap-coverage'],
 
-    coverageIstanbulReporter: {
-
-      // reports can be any that are listed here: https://github.com/istanbuljs/istanbul-reports/tree/590e6b0089f67b723a1fdf57bc7ccc080ff189d7/lib
-      reports: ['html', 'lcovonly', 'text-summary'],
-
-      // base output directory
-      dir: './coverage',
-
-      // if using webpack and pre-loaders, work around webpack breaking the source path
-      fixWebpackSourcePaths: true,
-
-      // Most reporters accept additional config options. You can pass these through the `report-config` option
-      'report-config': {
-
-        // all options available at: https://github.com/istanbuljs/istanbul-reports/blob/590e6b0089f67b723a1fdf57bc7ccc080ff189d7/lib/html/index.js#L135-L137
-        html: {
-          // outputs the report in ./coverage/html
-          subdir: 'html'
+    coverageReporter: {
+      includeAllSources: true,
+      check: {
+        global: {
+          statements: 80,
+          branches: 80,
+          functions: 80,
+          lines: 80
         }
-
       },
+      type: 'in-memory'
+    },
 
-      // enforce percentage thresholds
-      // anything under these percentages will cause karma to fail with an exit code of 1 if not running in watch mode
-      thresholds: {
-        statements: 100,
-        lines: 100,
-        branches: 100,
-        functions: 100
-      }
+    remapOptions: { basePath: './src' },
 
+    remapCoverageReporter: {
+      'text-summary': null, // to show summary in console
+      html: './coverage/html',
+      cobertura: './coverage/cobertura.xml'
     },
 
     // web server port

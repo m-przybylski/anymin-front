@@ -1,0 +1,83 @@
+.navbar(data-ng-class="{'is-hidden':  $ctrl.isWindowScrolling, 'is-menu-collapsed': $ctrl.isNavigationCollapsed}")
+  .navbar-logo
+    a
+      img.logo(data-ui-sref="app.home" src="/assets/images/profitelo-logo-small.png" alt="Profitelo-logo")
+
+  .navbar-search
+    a.search-btn(data-ng-click="$ctrl.onSearchCollapsed()")
+      span.icon.icon-search-24
+
+    .search-expandable.animation.mobile-search-animation(
+      data-ng-show="$ctrl.isSearchVisible" data-ng-class="{'is-collapsed': !$ctrl.isSearchVisible, 'logIn':!!$root.loggedIn, 'logOut':!$root.loggedIn}")
+      pro-search-dropdown(data-ng-enter="searchAction(searchModel)" data-ng-model="searchModel" data-search-count="searchCount" data-open="showSearch")
+
+      a.btn.btn-noborder.btn-close(data-ng-click="$ctrl.onSearchCollapsed()")
+        span(data-translate="NAVIGATION.CANCEL.BUTTON")
+
+  nav
+    .mobile-nav(data-ng-class="{'is-active': $ctrl.isNavigationCollapsed}" data-ng-click="$ctrl.onMobileMenuCollapsed()")
+      button#hamburger
+        span
+        span
+        span
+
+    .navbar-navigation.animation.mobile-menu-animation.ng-hide(data-ng-show="$ctrl.isNavigationCollapsed")
+      ul.nologin-state(data-ng-show="false")
+        li.navbar-nav
+          ul
+            li
+              a
+                span.mobile-only.icon.icon-suitcase-24
+                span(data-translate="NAVIGATION.MENU_ITEMS.ABOUT_US")
+            li
+              a
+                span.mobile-only.icon.icon-login-24
+                span(data-translate="NAVIGATION.MENU_ITEMS.HOW_IT_WORKS")
+            li
+              a
+                span.mobile-only.icon.icon-login-24
+                span(data-translate="NAVIGATION.MENU_ITEMS.FOR_EXPERTS")
+            li
+              a.btn.btn-primary.btn-small(data-translate="NAVIGATION.MENU_ITEMS.JOIN_OR_LOGIN")
+
+        li.navbar-notifications
+          ul
+            li.navbar-parent
+              a
+                span.navbar-item-handler
+                  span.icon.icon-questionmark-24
+                  span.mobile-title(data-translate="NAVIGATION.MENU_ITEMS.HELP")
+                span.mobile-only.icon.icon-next-24
+
+      ul(data-ng-class="{'client-state': $ctrl.isClientState, 'expert-state': !$ctrl.isClientState}")
+        li
+          ul
+            li(data-ng-show="$ctrl.isClientState")
+              a.btn.btn-primary.btn-small(data-translate="NAVIGATION.MENU_ITEMS.START_EARNING")
+            li
+              a
+                span.mobile-only.icon.icon-suitcase-24
+                span(data-translate="NAVIGATION.MENU_ITEMS.EXPERT")
+            li
+              a
+                span.mobile-only.icon.icon-client-24
+                span(data-translate="NAVIGATION.MENU_ITEMS.CLIENT" data-ui-sref="app.dashboard.client.favourites")
+            li
+              a
+                span.mobile-only.icon.icon-settings-24
+                span(data-translate="NAVIGATION.MENU_ITEMS.SETTINGS" data-ui-sref="app.dashboard.settings.general")
+            li
+              a
+                span.mobile-only.icon.icon-logout-24-1
+                span(data-translate="NAVIGATION.MENU_ITEMS.LOGOUT" data-ng-click="$ctrl.logout()")
+
+        li.navbar-notifications
+          ul
+            li.navbar-parent
+              a
+                span.navbar-item-handler
+                  span.icon.icon-questionmark-24
+                  span.mobile-onlys(data-translate="NAVIGATION.MENU_ITEMS.HELP")
+                span.mobile-only.icon.icon-next-24
+
+
