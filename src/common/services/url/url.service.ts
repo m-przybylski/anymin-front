@@ -1,11 +1,11 @@
-import {ICommonConfig} from "../common-config/common-config"
+import {CommonConfig} from "../../../../generated_modules/common-config/common-config"
 
 export class UrlService {
 
   private commonConfig: any
 
   /* @ngInject */
-  constructor(private CommonSettingsService: any, private lodash: _.LoDashStatic, CommonConfig: ICommonConfig) {
+  constructor(private CommonSettingsService: any, private lodash: _.LoDashStatic, CommonConfig: CommonConfig) {
     this.commonConfig = CommonConfig.getAllData()
   }
 

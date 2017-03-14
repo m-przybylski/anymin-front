@@ -7,7 +7,7 @@ import {UserService} from "../../services/user/user.service"
 import {ProfileApi} from "../../api/api/ProfileApi"
 import {GetProfileWithServices} from "../../api/model/GetProfileWithServices"
 import {SignedAgent} from "../../api/model/SignedAgent"
-import {ICommonConfig} from "../../services/common-config/common-config"
+import {CommonConfig} from "../../../../generated_modules/common-config/common-config"
 
 export interface IConsultationInvitation {
   invitation: any
@@ -29,7 +29,7 @@ export class CommunicatorService {
   /* @ngInject */
   constructor(private $log: ng.ILogService, private $q: ng.IQService, callbacksFactory: CallbacksFactory,
               private userService: UserService, private RatelApi: RatelApi, private ProfileApi: ProfileApi,
-               CommonConfig: ICommonConfig, private lodash: _.LoDashStatic, private ratelSdk: any) {
+               CommonConfig: CommonConfig, private lodash: _.LoDashStatic, private ratelSdk: any) {
 
     this.commonConfig = CommonConfig.getAllData()
     this.ratelSessions = new SessionStorage()

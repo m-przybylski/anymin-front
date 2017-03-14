@@ -1,6 +1,6 @@
 import {UploaderService} from "./uploader.service"
 import {FilesApi} from "../../api/api/FilesApi"
-import {ICommonConfig} from "../common-config/common-config"
+import {CommonConfig} from "../../../../generated_modules/common-config/common-config"
 
 export class UploaderFactory {
 
@@ -10,7 +10,7 @@ export class UploaderFactory {
 
   /* @ngInject */
   constructor(private $q: ng.IQService, private $timeout: ng.ITimeoutService,
-              private CommonConfig: ICommonConfig, private FilesApi: FilesApi, private Upload: any) {
+              private CommonConfig: CommonConfig, private FilesApi: FilesApi, private Upload: any) {
   }
 
   public getInstance = (simultaneousUploadCount: number = 1,

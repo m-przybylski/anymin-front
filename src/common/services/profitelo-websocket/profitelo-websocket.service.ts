@@ -1,8 +1,8 @@
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {CallbacksFactory} from "../callbacks/callbacks.factory"
 import {CallbacksService} from "../callbacks/callbacks.service"
-import {ICommonConfig} from "../common-config/common-config"
 import {CallSummary} from "../../models/CallSummary"
+import {CommonConfig} from "../../../../generated_modules/common-config/common-config"
 
 export class ProfiteloWebsocketService {
 
@@ -18,7 +18,7 @@ export class ProfiteloWebsocketService {
 
   constructor(private $log: ng.ILogService, private $rootScope: IRootScopeService,
               private $timeout: ng.ITimeoutService, callbacksFactory: CallbacksFactory,
-              CommonConfig: ICommonConfig) {
+              CommonConfig: CommonConfig) {
 
     this.callbacks = callbacksFactory.getInstance(Object.keys(ProfiteloWebsocketService.events))
     this.wsEndpoint = CommonConfig.getAllData().urls.ws + '/ws/register'

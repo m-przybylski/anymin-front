@@ -1,12 +1,12 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {ICommonConfig} from "../common/services/common-config/common-config"
 import {ServiceApiMock} from "../common/api/api/ServiceApi"
 import {SessionApiMock} from "../common/api/api/SessionApi"
 import {RatelApiMock} from "../common/api/api/RatelApi"
 import {InterfaceLanguageService} from "../common/services/interface-language/interface-language.service"
 import sessionModule from "../common/services/session/session"
 import "./app"
+import {CommonConfig} from "../../generated_modules/common-config/common-config"
 
 describe('Unit tests: app>', () => {
   describe('Testing Controller: AppComponentController', () => {
@@ -18,7 +18,7 @@ describe('Unit tests: app>', () => {
     let _httpBackend: ng.IHttpBackendService
     let _state: ng.ui.IStateService
     let _commonConfigData
-    let _CommonConfig: ICommonConfig
+    let _CommonConfig: CommonConfig
     let _RatelApiMock: RatelApiMock
     let _SessionApiMock: SessionApiMock
     let _ServiceApiMock: ServiceApiMock
@@ -46,7 +46,7 @@ describe('Unit tests: app>', () => {
 
         $scope = $rootScope.$new()
 
-        _CommonConfig = $injector.get<ICommonConfig>('CommonConfig')
+        _CommonConfig = $injector.get<CommonConfig>('CommonConfig')
         _httpBackend = $injector.get<ng.IHttpBackendService>('$httpBackend')
         _state = $injector.get<ng.ui.IStateService>('$state')
         _RatelApiMock = RatelApiMock

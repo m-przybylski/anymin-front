@@ -1,7 +1,7 @@
 import * as angular from "angular"
-import {ICommonConfig} from "../common-config/common-config"
 import {FilesApi} from "../../api/api/FilesApi"
 import {FileIdDto} from "../../api/model/FileIdDto"
+import {CommonConfig} from "../../../../generated_modules/common-config/common-config"
 
 export interface ICroppingDetails {
   x?: number
@@ -28,7 +28,7 @@ export class UploaderService {
   private urls: any
 
   /* @ngInject */
-  constructor(private $q: ng.IQService, private $timeout: ng.ITimeoutService, CommonConfig: ICommonConfig,
+  constructor(private $q: ng.IQService, private $timeout: ng.ITimeoutService, CommonConfig: CommonConfig,
               private FilesApi: FilesApi, private Upload: any, private simultaneousUploadCount: number,
               private collectionType: string) {
 
