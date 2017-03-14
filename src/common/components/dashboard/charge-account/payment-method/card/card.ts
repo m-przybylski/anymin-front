@@ -1,6 +1,5 @@
 import * as angular from "angular"
-import {MoneyDto} from "../../../../../api/model/MoneyDto"
-import {PaymentLink} from "../../../../../api/model/PaymentLink"
+import {MoneyDto, PaymentLink} from "profitelo-api-ng/model/models"
 
 export interface ITransaction {
   amount: MoneyDto

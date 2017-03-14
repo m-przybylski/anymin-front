@@ -1,5 +1,5 @@
 import * as angular from "angular"
-import {RecoverPasswordApiMock} from "../../../common/api/api/RecoverPasswordApi"
+import {RecoverPasswordApiMock} from "profitelo-api-ng/api/api"
 import {PasswordStrengthService} from "../../../common/services/password-strength/password-strength.service"
 import {TopAlertService} from "../../../common/services/top-alert/top-alert.service"
 

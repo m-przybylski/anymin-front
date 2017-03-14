@@ -1,14 +1,14 @@
 import * as angular from "angular"
 import {IFilterService} from "../../../common/services/filter/filter.service"
 import {PasswordStrengthService} from "../../../common/services/password-strength/password-strength.service"
-import {RecoverPasswordApi} from "../../../common/api/api/RecoverPasswordApi"
+import apiModule from "profitelo-api-ng/api.module"
+import {RecoverPasswordApi} from "profitelo-api-ng/api/api"
 import {CommonSettingsService} from "../../../common/services/common-settings/common-settings.service"
 import {TopAlertService} from "../../../common/services/top-alert/top-alert.service"
 import {
   ILoginSetNewPassword,
   ILoginSetNewPasswordService
 } from "../../../common/resolvers/login-set-new-password/login-set-new-password.service"
-import apiModule from "../../../common/api/api.module"
 import commonSettingsModule from "../../../common/services/common-settings/common-settings"
 import sessionModule from "../../../common/services/session/session"
 import loginStateModule from "../../../common/services/login-state/login-state"

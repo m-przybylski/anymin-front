@@ -1,6 +1,6 @@
 import * as angular from "angular"
-import {FilesApi} from "../../api/api/FilesApi"
-import apiModule from "../../api/api.module"
+import apiModule from "profitelo-api-ng/api.module"
+import {FilesApi} from "profitelo-api-ng/api/api"
 import topAlertModule from "../../services/top-alert/top-alert"
 import sessionModule from "../../services/session/session"
 import loginStateModule from "../../services/login-state/login-state"

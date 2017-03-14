@@ -1,7 +1,7 @@
 import * as angular from "angular"
-import {EmploymentApi} from "../../../../api/api/EmploymentApi"
-import {Tag} from "../../../../api/model/Tag"
-import apiModule from "../../../../api/api.module"
+import apiModule from "profitelo-api-ng/api.module"
+import {EmploymentApi} from "profitelo-api-ng/api/api"
+import {Tag} from "profitelo-api-ng/model/models"
 
   function controllerFunction($timeout: ng.ITimeoutService, $scope: ng.IScope, EmploymentApi: EmploymentApi) {
 

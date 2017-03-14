@@ -1,6 +1,4 @@
-import {Tag} from "../../api/model/Tag"
-import {ExpertDetails} from "../../api/model/ExpertDetails"
-import {OrganizationDetails} from "../../api/model/OrganizationDetails"
+import {Tag, ExpertDetails, OrganizationDetails} from "profitelo-api-ng/model/models"
 
 export interface IServiceProviderDefaultModel {
   name: string

@@ -1,6 +1,6 @@
 import {ExpertProfile} from "./ExpertProfile"
 import {Service} from "./Service"
-import {ServiceUsageEvent} from "../api/model/ServiceUsageEvent"
+import {ServiceUsageEvent} from "./ServiceUsageEvent"
 
 export interface SueProfileServiceTuple {
   serviceUsageEvent: ServiceUsageEvent

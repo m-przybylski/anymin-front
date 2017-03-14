@@ -1,7 +1,7 @@
 import * as angular from "angular"
-import {Tag} from "../../../api/model/Tag"
-import {TagApi} from "../../../api/api/TagApi"
-import apiModule from "../../../api/api.module"
+import apiModule from "profitelo-api-ng/api.module"
+import {TagApi} from "profitelo-api-ng/api/api"
+import {Tag} from "profitelo-api-ng/model/models"
 
 interface IProServiceProviderTags extends ng.IScope {
   tags: Array<Tag>

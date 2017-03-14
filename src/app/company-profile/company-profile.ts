@@ -1,7 +1,7 @@
 import * as angular from "angular"
 import recommendedServicesModule from "../../common/services/recommended-services/recommended-services"
 import topAlertModule from "../../common/services/top-alert/top-alert"
-import apiModule from "../../common/api/api.module"
+import apiModule from "profitelo-api-ng/api.module"
 import sessionModule from "../../common/services/session/session"
 import smoothScrollingModule from "../../common/services/smooth-scrolling/smooth-scrolling"
 import {CompanyProfileController} from "./company-profile.controller"

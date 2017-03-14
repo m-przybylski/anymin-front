@@ -62,7 +62,7 @@ module.exports = function (config) {
               /\.spec.ts$/,
               /generated_modules/,
               /src\/common\/api/,
-              'node_modules'
+              /node_modules/
             ]
           }
         ],
@@ -71,7 +71,7 @@ module.exports = function (config) {
           {test: /\.tpl\.pug$/, loaders: ['file?name=[hash].html', 'pug-html?exports=false']},
           {test: /\.json$/, loader: "json"}, // to parse configs from node_modules
           {test: /\.jade$/, exclude: [/\.tpl\.pug$/], loader: "jade"},
-          {test: /\.ts$/, exclude: [/app\/lib/, /node_modules/], loader: 'ng-annotate!awesome-typescript-loader'},
+          {test: /\.ts$/, exclude: [], loader: 'ng-annotate!awesome-typescript-loader'},
           {test: /\.js/, exclude: [/app\/lib/, /node_modules/], loader: 'babel'},
           {test: /\.html$/, loader: 'raw'},
           {test: /\.(scss|sass)$/, loader: 'style!css!sass'},

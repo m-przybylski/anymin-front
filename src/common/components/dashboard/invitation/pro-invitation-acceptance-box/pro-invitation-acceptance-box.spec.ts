@@ -1,6 +1,7 @@
 import * as angular from "angular"
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {EmploymentApiMock, EmploymentApi} from "../../../../api/api/EmploymentApi"
+import {EmploymentApi, EmploymentApiMock} from "profitelo-api-ng/api/api"
+
 describe('Unit testing: profitelo.components.dashboard.invitation.pro-invitation-acceptance-box', () => {
   return describe('for proInvitationAcceptanceBox component >', () => {
 
@@ -32,7 +33,6 @@ describe('Unit testing: profitelo.components.dashboard.invitation.pro-invitation
     }))
 
     beforeEach(() => {
-      //angular.mock.module('templates-module')
       angular.mock.module('profitelo.components.dashboard.invitation.pro-invitation-acceptance-box')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, $timeout: ng.ITimeoutService,

@@ -2,8 +2,7 @@ import * as angular from "angular"
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {BasicAccountSettingsController, IBasicAccountSettingsControllerScope} from "./basic-account-settings"
 import userModule from "../../../../../../services/user/user"
-import {AccountApi} from "../../../../../../api/api/AccountApi"
-
+import {AccountApi} from "profitelo-api-ng/api/api"
 
 class File {
   constructor() {

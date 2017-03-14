@@ -1,9 +1,6 @@
 import * as angular from "angular"
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {AccountApi, AccountApiMock} from "../../../common/api/api/AccountApi"
-import {RatelApiMock} from "../../../common/api/api/RatelApi"
-import {ServiceApiMock} from "../../../common/api/api/ServiceApi"
-import {SessionApiMock} from "../../../common/api/api/SessionApi"
+import {SessionApiMock, ServiceApiMock, RatelApiMock, AccountApi, AccountApiMock} from "profitelo-api-ng/api/api"
 import {TopAlertService} from "../../../common/services/top-alert/top-alert.service"
 import {LoginStateService} from "../../../common/services/login-state/login-state.service"
 import {TopWaitingLoaderService} from "../../../common/services/top-waiting-loader/top-waiting-loader.service"

@@ -1,7 +1,7 @@
 import * as angular from "angular"
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {SearchResult} from "../../api/model/SearchResult"
-import {SearchApi} from "../../api/api/SearchApi"
+import {SearchResult} from "profitelo-api-ng/model/models"
+import {SearchApi} from "profitelo-api-ng/api/api"
 import {CategoryService} from "../category/category.service"
 
 export interface NameValue {

@@ -1,7 +1,7 @@
 import * as angular from "angular"
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {GeneralPhoneSettingsController, IGeneralPhoneSettingsControllerScope} from "./phone-settings"
-import {AccountApi} from "../../../../../../api/api/AccountApi"
+import {AccountApi} from "profitelo-api-ng/api/api"
 import userModule from "../../../../../../services/user/user"
 
 describe('Testing Controller: generalPhoneSettingsController', () => {

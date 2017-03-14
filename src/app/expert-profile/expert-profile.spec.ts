@@ -1,6 +1,6 @@
 import * as angular from "angular"
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {ProfileApi} from "../../common/api/api/ProfileApi"
+import {ProfileApi} from "profitelo-api-ng/api/api"
 import {RecommendedServicesService} from "../../common/services/recommended-services/recommended-services.service"
 import {SmoothScrollingService} from "../../common/services/smooth-scrolling/smooth-scrolling.service"
 import "./expert-profile"

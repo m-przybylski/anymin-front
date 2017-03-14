@@ -1,5 +1,4 @@
-import {ServiceDetails} from "../api/model/ServiceDetails"
-import {ServiceInvitation} from "../api/model/ServiceInvitation"
+import {ServiceDetails, ServiceInvitation} from "profitelo-api-ng/model/models"
 
 export interface Service {
   id: string

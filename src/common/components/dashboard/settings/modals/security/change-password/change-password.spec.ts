@@ -4,7 +4,7 @@ import {
   SecurityChangePasswordSettingsController,
   ISecurityChangePasswordSettingsControllerScope
 } from "./change-password"
-import {AccountApi} from "../../../../../../api/api/AccountApi"
+import {AccountApi} from "profitelo-api-ng/api/api"
 
 describe('Testing Controller: securityChangePasswordSettingsController', () => {
 

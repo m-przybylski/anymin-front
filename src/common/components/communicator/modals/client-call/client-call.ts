@@ -1,5 +1,5 @@
-import {GetService} from "../../../../api/model/GetService"
 import * as angular from "angular"
+import {GetService} from "profitelo-api-ng/model/models"
 
 
   export interface IClientCallParentControllerScope extends ng.IScope {

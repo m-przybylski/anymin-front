@@ -1,8 +1,9 @@
 import * as angular from "angular"
 import {CardPaymentFormComponentController, ICardPaymentFormComponentBindings} from "./card"
 import userModule from "../../../../../services/user/user"
-import {PaymentsApiMock} from "../../../../../api/api/PaymentsApi"
-import apiModule from "../../../../../api/api.module"
+import apiModule from "profitelo-api-ng/api.module"
+import {PaymentsApiMock} from "profitelo-api-ng/api/api"
+
 describe('Unit testing:profitelo.components.dashboard.charge-account.payment-method.card', () => {
   return describe('for cardPaymentForm component >', () => {
 

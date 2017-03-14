@@ -1,10 +1,8 @@
 import * as angular from "angular"
-
-import {GetProfileWithServicesEmployments} from "../../../common/api/model/GetProfileWithServicesEmployments"
+import {ProfileApi, ServiceApi} from "profitelo-api-ng/api/api"
+import {GetProfileWithServicesEmployments} from "profitelo-api-ng/model/models"
 import {UserService} from "../../../common/services/user/user.service"
-import {ProfileApi} from "../../../common/api/api/ProfileApi"
 import {TopAlertService} from "../../../common/services/top-alert/top-alert.service"
-import {ServiceApi} from "../../../common/api/api/ServiceApi"
 import userModule from "../../../common/services/user/user"
 import {IServiceProviderImageService} from "../../../common/resolvers/service-provider-image/service-provider-image.service"
 import "common/components/invitations/company-profile"

@@ -1,7 +1,7 @@
 import * as angular from "angular"
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {FilesApiMock} from "../../../api/api/FilesApi"
-import {FileInfo} from "../../../api/model/FileInfo"
+import {FilesApiMock} from "profitelo-api-ng/api/api"
+import {FileInfo} from "profitelo-api-ng/model/models"
 
 describe('Unit testing: profitelo.directives.service-provider.pro-service-provider-file-uploader', function () {
   return describe('for proServiceProviderFileUploader directive >', function () {

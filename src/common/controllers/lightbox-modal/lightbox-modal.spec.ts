@@ -1,7 +1,7 @@
 import * as angular from "angular"
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {ImageZoomService} from "../../services/image-zoom/image-zoom.service"
-import {FilesApiMock, FilesApi} from "../../api/api/FilesApi"
+import {FilesApi, FilesApiMock} from "profitelo-api-ng/api/api"
 import {UrlService} from "../../services/url/url.service"
 import {IWindowService} from "../../services/window/window.service"
 

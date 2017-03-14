@@ -1,7 +1,7 @@
 import {BraintreeFormComponentController, IBraintreeFormComponentBindings} from "./braintree-form"
 import * as angular from "angular"
 import userModule from "../../services/user/user"
-import {PaymentsApiMock, PaymentsApi} from "../../api/api/PaymentsApi"
+import {PaymentsApi, PaymentsApiMock} from "profitelo-api-ng/api/api"
 import "./braintree-form"
 
 describe('Unit testing: profitelo.components.braintreeForm', () => {

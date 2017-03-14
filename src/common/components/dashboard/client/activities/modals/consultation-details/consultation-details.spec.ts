@@ -2,7 +2,7 @@ import {IConsultationDetailsScope, IConsultationDetailsParentScope} from "./cons
 import * as angular from "angular"
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {UrlService} from "../../../../../../services/url/url.service"
-import {ViewsApi} from "../../../../../../api/api/ViewsApi"
+import {ViewsApi} from "profitelo-api-ng/api/api"
 describe('Testing Controller: clientConsultationDetails', () => {
 
   let clientConsultationDetails: any

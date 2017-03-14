@@ -1,8 +1,7 @@
 import * as angular from "angular"
 import {IExpertProfileStateParams} from "./expert-profile"
-import {GetExpertProfile} from "../../common/api/model/GetExpertProfile"
-import {ViewsApi} from "../../common/api/api/ViewsApi"
-import {GetExpertServiceDetails} from "../../common/api/model/GetExpertServiceDetails"
+import {ViewsApi} from "profitelo-api-ng/api/api"
+import {GetExpertProfile, GetExpertServiceDetails} from "profitelo-api-ng/model/models"
 
 export class ExpertProfileResolver {
 

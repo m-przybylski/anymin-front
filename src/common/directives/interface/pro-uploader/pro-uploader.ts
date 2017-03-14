@@ -1,9 +1,9 @@
 import * as angular from "angular"
 import "ng-file-upload"
-import {FilesApi} from "../../../api/api/FilesApi"
+import apiModule from "profitelo-api-ng/api.module"
+import {FilesApi} from "profitelo-api-ng/api/api"
+import {FileInfo} from "profitelo-api-ng/model/models"
 import {TopAlertService} from "../../../services/top-alert/top-alert.service"
-import {FileInfo} from "../../../api/model/FileInfo"
-import apiModule from "../../../api/api.module"
 
 function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interval: ng.IIntervalService,
                      $filter: ng.IFilterService, $q: ng.IQService, FilesApi: FilesApi, Upload: any,

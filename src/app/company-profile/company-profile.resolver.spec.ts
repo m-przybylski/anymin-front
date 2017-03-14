@@ -1,6 +1,6 @@
 import * as angular from "angular"
 import {ICompanyProfileStateParams, default as companyProfilePageModule} from "./company-profile"
-import {ViewsApiMock} from "../../common/api/api/ViewsApi"
+import {ViewsApiMock} from "profitelo-api-ng/api/api"
 import {CompanyProfileResolver} from "./company-profile.resolver"
 
 describe('Unit testing: profitelo.resolvers.company-profile', () => {

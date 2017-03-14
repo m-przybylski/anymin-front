@@ -1,5 +1,5 @@
 import * as angular from "angular"
-import {FilesApi, FilesApiMock} from "../../api/api/FilesApi"
+import {FilesApi, FilesApiMock} from "profitelo-api-ng/api/api"
 import {UploaderFactory} from "./uploader.factory"
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import uploaderModule from "./uploader"

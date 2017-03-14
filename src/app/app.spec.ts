@@ -1,8 +1,6 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {ServiceApiMock} from "../common/api/api/ServiceApi"
-import {SessionApiMock} from "../common/api/api/SessionApi"
-import {RatelApiMock} from "../common/api/api/RatelApi"
+import {ServiceApiMock, RatelApiMock, SessionApiMock} from "profitelo-api-ng/api/api"
 import {InterfaceLanguageService} from "../common/services/interface-language/interface-language.service"
 import sessionModule from "../common/services/session/session"
 import "./app"

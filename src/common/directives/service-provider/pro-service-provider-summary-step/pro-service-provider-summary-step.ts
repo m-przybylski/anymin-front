@@ -1,5 +1,5 @@
 import * as angular from "angular"
-import {Tag} from "../../../api/model/Tag"
+import {Tag} from "profitelo-api-ng/model/models"
 import filtersModule from "../../../filters/filters"
 import "common/controllers/service-provider/pro-service-provider-summary-controller/pro-service-provider-summary-controller"
 import "common/controllers/service-provider/service-provider-step-controller/service-provider-step-controller"

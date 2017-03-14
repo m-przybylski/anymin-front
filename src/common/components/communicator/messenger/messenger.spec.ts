@@ -1,5 +1,5 @@
 import * as angular from "angular"
-import {MoneyDto} from "../../../api/model/MoneyDto"
+import {MoneyDto} from "profitelo-api-ng/model/models"
 import {IMessengerComponentBindings, default as messengerModule} from "./messenger"
 import soundsModule from "../../../services/sounds/sounds"
 import {MessengerComponentController} from "./messenger.controller"

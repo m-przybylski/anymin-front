@@ -1,15 +1,12 @@
 import * as angular from "angular"
-import {MoneyDto} from "../../../../common/api/model/MoneyDto"
-import {GetCreditCard} from "../../../../common/api/model/GetCreditCard"
 import {IInvoiceData, InvoiceDataResolver} from "../../../../common/resolvers/invoice-data/invoice-data.resolver"
 import {ModalsService} from "../../../../common/services/modals/modals.service"
 import filtersModule from "../../../../common/filters/filters"
 import "common/resolvers/invoice-data/invoice-data.resolver"
-import apiModule from "../../../../common/api/api.module"
+import apiModule from "profitelo-api-ng/api.module"
+import {PaymentsApi, AccountApi} from "profitelo-api-ng/api/api"
+import {MoneyDto, GetCreditCard, AccountDetails} from "profitelo-api-ng/model/models"
 import {UserService} from "../../../../common/services/user/user.service"
-import {AccountDetails} from "../../../../common/api/model/AccountDetails"
-import {AccountApi} from "../../../../common/api/api/AccountApi"
-import {PaymentsApi} from "../../../../common/api/api/PaymentsApi"
 
 
 export class DashboardSettingsPaymentsController implements ng.IController {

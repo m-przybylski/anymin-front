@@ -1,4 +1,4 @@
-import {AccountDetails} from "../../api/model/AccountDetails"
+import {AccountDetails} from "profitelo-api-ng/model/models"
 import {SessionService} from "../session/session.service"
 
 export class UserService {

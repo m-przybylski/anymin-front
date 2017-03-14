@@ -1,7 +1,7 @@
 import * as angular from "angular"
-import {GetSession} from "../../api/model/GetSession"
-import {SessionApi} from "../../api/api/SessionApi"
-import apiModule from "../../api/api.module"
+import apiModule from "profitelo-api-ng/api.module"
+import {SessionApi} from "profitelo-api-ng/api/api"
+import {GetSession} from "profitelo-api-ng/model/models"
 
 export interface ISecuritySettingsService {
   resolve(): ng.IPromise<Array<GetSession>>

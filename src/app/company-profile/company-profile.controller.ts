@@ -1,6 +1,6 @@
 import {ICompanyProfileStateParams} from "./company-profile"
 import {SmoothScrollingService} from "../../common/services/smooth-scrolling/smooth-scrolling.service"
-import {ProfileApi} from "../../common/api/api/ProfileApi"
+import {ProfileApi} from "profitelo-api-ng/api/api"
 import {RecommendedServicesService} from "../../common/services/recommended-services/recommended-services.service"
 import {ICompanyProfile} from "./company-profile.resolver"
 

@@ -1,5 +1,5 @@
 import {ISearchResultRow} from "../../../../common/services/search/search.service"
-import {GetDashboardClientExperts} from "../../../../common/api/model/GetDashboardClientExperts"
+import {GetDashboardClientExperts} from "profitelo-api-ng/model/models"
 import {RecommendedServicesService} from "../../../../common/services/recommended-services/recommended-services.service"
 
 /* @ngInject */

@@ -3,8 +3,7 @@ import {CallbacksFactory} from "../../../services/callbacks/callbacks.factory"
 import {CallService} from "../call.service"
 import {CommunicatorService} from "../communicator.service"
 import {SoundsService} from "../../../services/sounds/sounds.service"
-import {GetProfile} from "../../../api/model/GetProfile"
-import {GetService} from "../../../api/model/GetService"
+import {GetService, GetProfile} from "profitelo-api-ng/model/models"
 
 export class MessengerService {
 

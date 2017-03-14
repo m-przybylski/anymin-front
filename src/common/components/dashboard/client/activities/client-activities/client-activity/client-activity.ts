@@ -1,6 +1,6 @@
 import modalsModule from "../../../../../../services/modals/modals"
 import * as angular from "angular"
-import {GetActivity} from "../../../../../../api/model/GetActivity"
+import {GetActivity} from "profitelo-api-ng/model/models"
 import {ModalsService} from "../../../../../../services/modals/modals.service"
 import {UrlService} from "../../../../../../services/url/url.service"
 import urlModule from "../../../../../../services/url/url"

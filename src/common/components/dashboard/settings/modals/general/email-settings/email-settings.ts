@@ -1,8 +1,8 @@
 import * as angular from "angular"
 import userModule from "../../../../../../services/user/user"
 import {UserService} from "../../../../../../services/user/user.service"
-import {AccountApi} from "../../../../../../api/api/AccountApi"
-import apiModule from "../../../../../../api/api.module"
+import apiModule from "profitelo-api-ng/api.module"
+import {AccountApi} from "profitelo-api-ng/api/api"
 
 export interface IGeneralEmailSettingsControllerScope extends ng.IScope {
   callback: (cb: () => void) => void

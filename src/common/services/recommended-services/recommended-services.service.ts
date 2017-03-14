@@ -1,6 +1,5 @@
-import {Tag} from "../../api/model/Tag"
-import {SearchResult} from "../../api/model/SearchResult"
-import {SearchApi} from "../../api/api/SearchApi"
+import {SearchApi} from "profitelo-api-ng/api/api"
+import {SearchResult, Tag} from "profitelo-api-ng/model/models"
 import {Service} from "../../models/Service"
 
 interface ServiceWithTags {

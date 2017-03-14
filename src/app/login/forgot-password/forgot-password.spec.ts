@@ -1,6 +1,6 @@
 import * as angular from "angular"
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {RecoverPasswordApiMock} from "../../../common/api/api/RecoverPasswordApi"
+import {RecoverPasswordApiMock} from "profitelo-api-ng/api/api"
 import {TopWaitingLoaderService} from "../../../common/services/top-waiting-loader/top-waiting-loader.service"
 import "./forgot-password"
 

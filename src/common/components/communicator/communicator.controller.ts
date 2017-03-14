@@ -1,7 +1,5 @@
 import * as angular from "angular"
-import {GetService} from "../../api/model/GetService"
-import {GetProfile} from "../../api/model/GetProfile"
-import {MoneyDto} from "../../api/model/MoneyDto"
+import {GetService, GetProfile, MoneyDto} from "profitelo-api-ng/model/models"
 import {CallService} from "./call.service"
 import {UrlService} from "../../services/url/url.service"
 

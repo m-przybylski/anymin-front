@@ -1,6 +1,5 @@
-import {GetSession} from "../../api/model/GetSession"
-import {AccountLogin} from "../../api/model/AccountLogin"
-import {SessionApi} from "../../api/api/SessionApi"
+import {GetSession, AccountLogin} from "profitelo-api-ng/model/models"
+import {SessionApi} from "profitelo-api-ng/api/api"
 
 export class SessionService {
 

@@ -1,8 +1,7 @@
 import * as angular from "angular"
 import {CommunicatorService} from "./communicator.service"
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {RatelApi} from "../../api/api/RatelApi"
-import {ProfileApi} from "../../api/api/ProfileApi"
+import {RatelApi, ProfileApi} from "profitelo-api-ng/api/api"
 import userModule from "../../services/user/user"
 import communicatorModule from "./communicator"
 import "./communicator.service"

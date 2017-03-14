@@ -1,7 +1,6 @@
 import * as angular from "angular"
 import {IServiceProviderChoosePathService} from "./service-provider-choose-path.service"
-import {SessionApiMock} from "../../api/api/SessionApi"
-import {ProfileApiMock} from "../../api/api/ProfileApi"
+import {ProfileApiMock, SessionApiMock} from "profitelo-api-ng/api/api"
 import userModule from "../../services/user/user"
 
 describe('Unit testing: profitelo.resolvers.service-provider-choose-path', () => {

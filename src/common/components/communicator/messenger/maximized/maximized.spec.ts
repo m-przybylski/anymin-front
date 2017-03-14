@@ -1,6 +1,6 @@
 import * as angular from "angular"
 import {IMessengerMaximizedComponentBindings} from "./maximized"
-import {MoneyDto} from "../../../../api/model/MoneyDto"
+import {MoneyDto} from "profitelo-api-ng/model/models"
 import {MessengerService} from "../messenger.service"
 import {UrlService} from "../../../../services/url/url.service"
 import {MessengerMaximizedComponentController} from "./maximized.controller"
