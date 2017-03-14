@@ -1,11 +1,10 @@
 import * as angular from "angular"
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {SmoothScrollingService} from "../../../../../services/smooth-scrolling/smooth-scrolling.service"
-import {AccountApiMock, AccountApi} from "../../../../../api/api/AccountApi"
-import {PaymentsApiMock, PaymentsApi} from "../../../../../api/api/PaymentsApi"
+import apiModule from "profitelo-api-ng/api.module"
+import {PaymentsApiMock, AccountApiMock, AccountApi, PaymentsApi} from "profitelo-api-ng/api/api"
 import userModule from "../../../../../services/user/user"
 import {TopAlertService} from "../../../../../services/top-alert/top-alert.service"
-import apiModule from "../../../../../api/api.module"
 import {IWindowService} from "../../../../../services/window/window.service"
 
 describe('Unit testing:profitelo.components.dashboard.charge-account.payment-method.payu', () => {

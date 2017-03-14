@@ -1,9 +1,7 @@
-
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import IUnavailableServiceControllerParentScope = profitelo.components.communicator.modals.serviceUnavailable.IUnavailableServiceControllerParentScope
 import INoCreditsControllerParentScope = profitelo.components.communicator.modals.noCredits.INoCreditsControllerParentScope
-import {GetService} from "../../api/model/GetService"
-import {GetActivity} from "../../api/model/GetActivity"
+import {GetService, GetActivity} from "profitelo-api-ng/model/models"
 import {DialogService} from "../dialog/dialog.service"
 import {IClientCallParentControllerScope} from "../../components/communicator/modals/client-call/client-call"
 import {IConsultationSummaryClientParentControllerScope} from "../../components/communicator/modals/consultation-summary-client/consultation-summary-client"

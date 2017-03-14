@@ -1,5 +1,5 @@
 import * as angular from "angular"
-import {Tag} from "../../../api/model/Tag"
+import {Tag} from "profitelo-api-ng/model/models"
 import "angularjs-slider"
 import {IFilterService} from "../../../services/filter/filter.service"
 import {SearchService} from "../../../services/search/search.service"

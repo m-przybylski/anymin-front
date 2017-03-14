@@ -2,7 +2,7 @@ import * as angular from "angular"
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {GeneralCountrySettingsController, IGeneralCountrySettingsControllerScope} from "./country-settings"
 import userModule from "../../../../../../services/user/user"
-import {AccountApiMock, AccountApi} from "../../../../../../api/api/AccountApi"
+import {AccountApi, AccountApiMock} from "profitelo-api-ng/api/api"
 
 describe('Testing Controller: generalCountrySettingsController', () => {
 

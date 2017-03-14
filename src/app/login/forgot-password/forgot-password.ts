@@ -1,12 +1,12 @@
 import * as angular from "angular"
-import {RecoverPasswordApi} from "../../../common/api/api/RecoverPasswordApi"
 import {TopWaitingLoaderService} from "../../../common/services/top-waiting-loader/top-waiting-loader.service"
 import {CommonSettingsService} from "../../../common/services/common-settings/common-settings.service"
 import {
   ILoginForgotPassword,
   ILoginForgotPasswordService
 } from "../../../common/resolvers/login-forgot-password/login-forgot-password.service"
-import apiModule from "../../../common/api/api.module"
+import apiModule from "profitelo-api-ng/api.module"
+import {RecoverPasswordApi} from "profitelo-api-ng/api/api"
 import commonSettingsModule from "../../../common/services/common-settings/common-settings"
 import sessionModule from "../../../common/services/session/session"
 import "common/resolvers/login-forgot-password/login-forgot-password.service"

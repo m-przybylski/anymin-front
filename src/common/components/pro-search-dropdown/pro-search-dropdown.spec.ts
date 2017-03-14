@@ -1,8 +1,7 @@
 import * as angular from "angular"
 
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {CategoryApiMock} from "../../api/api/CategoryApi"
-import {SearchApiMock} from "../../api/api/SearchApi"
+import {CategoryApiMock, SearchApiMock} from "profitelo-api-ng/api/api"
 
 describe('Unit testing:profitelo.components.pro-search-dropdown', () => {
   return describe('for pro-search-dropdown >', () => {

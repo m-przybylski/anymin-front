@@ -1,12 +1,10 @@
 import * as angular from "angular"
-import {Tag} from "../../../../api/model/Tag"
+import apiModule from "profitelo-api-ng/api.module"
+import {ServiceApi} from "profitelo-api-ng/api/api"
+import {Tag, ServiceRecommendation, GetService} from "profitelo-api-ng/model/models"
 import {CallSummaryService} from "../../../../services/call-summary/call-summary.service"
-import {ServiceApi} from "../../../../api/api/ServiceApi"
 import {UrlService} from "../../../../services/url/url.service"
-import {ServiceRecommendation} from "../../../../api/model/ServiceRecommendation"
-import {GetService} from "../../../../api/model/GetService"
 import {CallSummary} from "../../../../models/CallSummary"
-import apiModule from "../../../../api/api.module"
 
 export interface IConsultationSummaryClientParentControllerScope extends ng.IScope {
   serviceId: string

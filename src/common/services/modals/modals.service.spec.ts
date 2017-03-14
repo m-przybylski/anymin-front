@@ -3,7 +3,7 @@ import {ModalsService} from "./modals.service"
 import modalsModule from "./modals"
 import dialogModule from "../dialog/dialog"
 import {DialogService} from "../dialog/dialog.service"
-import {GetService} from "../../api/model/GetService"
+import {GetService} from "profitelo-api-ng/model/models"
 
 
 describe('Unit testing: profitelo.services.modals >', () => {

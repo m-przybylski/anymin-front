@@ -1,9 +1,9 @@
 import * as angular from "angular"
 import {IFilterService} from "../../../../../../services/filter/filter.service"
 import {UserService} from "../../../../../../services/user/user.service"
-import {AccountApi} from "../../../../../../api/api/AccountApi"
 import userModule from "../../../../../../services/user/user"
-import apiModule from "../../../../../../api/api.module"
+import apiModule from "profitelo-api-ng/api.module"
+import {AccountApi} from "profitelo-api-ng/api/api"
 
 export interface IGeneralCountrySettingsControllerScope extends ng.IScope {
   isNavbar: boolean

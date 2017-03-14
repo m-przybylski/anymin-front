@@ -1,5 +1,5 @@
 import * as angular from "angular"
-import apiModule from "../../api/api.module"
+import apiModule from "profitelo-api-ng/api.module"
 import categoryModule from "../category/category"
 import {SearchService} from "./search.service"
 

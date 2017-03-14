@@ -1,6 +1,6 @@
 import * as angular from "angular"
 import {TopAlertService} from "../../../services/top-alert/top-alert.service"
-import {FilesApi} from "../../../api/api/FilesApi"
+import {FilesApi} from "profitelo-api-ng/api/api"
 import commonSettingsModule from "../../../services/common-settings/common-settings"
 import "common/directives/ng-enter/ng-enter"
 import "common/directives/interface/pro-uploader/pro-uploader"

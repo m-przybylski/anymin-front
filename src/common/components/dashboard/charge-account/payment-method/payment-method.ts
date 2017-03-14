@@ -1,5 +1,5 @@
 import * as angular from "angular"
-import {PaymentSystem} from "../../../../api/model/PaymentSystem"
+import {PaymentSystem} from "profitelo-api-ng/model/models"
 import LoDashStatic = _.LoDashStatic
 import paypalModule from "./paypal/paypal"
 

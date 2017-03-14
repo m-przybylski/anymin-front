@@ -3,8 +3,8 @@ import {IForgotPasswordStateParams} from "../../../app/login/forgot-password/for
 import {IFilterService} from "../../services/filter/filter.service"
 import {LoginStateService} from "../../services/login-state/login-state.service"
 import {TopAlertService} from "../../services/top-alert/top-alert.service"
-import {RecoverPasswordApi} from "../../api/api/RecoverPasswordApi"
-import apiModule from "../../api/api.module"
+import apiModule from "profitelo-api-ng/api.module"
+import {RecoverPasswordApi} from "profitelo-api-ng/api/api"
 import loginStateModule from "../../services/login-state/login-state"
 import topAlertModule from "../../services/top-alert/top-alert"
 

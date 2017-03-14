@@ -1,12 +1,12 @@
 import * as angular from "angular"
 
 import IQService = angular.IQService
-import {GetProfile} from "../../api/model/GetProfile"
+import apiModule from "profitelo-api-ng/api.module"
+import {ProfileApi} from "profitelo-api-ng/api/api"
+import {GetProfile} from "profitelo-api-ng/model/models"
 import {TopAlertService} from "../../services/top-alert/top-alert.service"
-import {ProfileApi} from "../../api/api/ProfileApi"
 import {UserService} from "../../services/user/user.service"
 import userModule from "../../services/user/user"
-import apiModule from "../../api/api.module"
 import topAlertModule from "../../services/top-alert/top-alert"
 import loginStateModule from "../../services/login-state/login-state"
 

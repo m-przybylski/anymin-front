@@ -1,9 +1,9 @@
 import * as angular from "angular"
 import LoDashStatic = _.LoDashStatic
 import {IPrimaryDropdownListElement} from "../../../../../interface/dropdown-primary/dropdown-primary"
-import {CompanyInfo} from "../../../../../../api/model/CompanyInfo"
-import {AccountApi} from "../../../../../../api/api/AccountApi"
-import apiModule from "../../../../../../api/api.module"
+import apiModule from "profitelo-api-ng/api.module"
+import {AccountApi} from "profitelo-api-ng/api/api"
+import {CompanyInfo} from "profitelo-api-ng/model/models"
 import "common/components/invoice/invoice-company"
 import "common/components/interface/preloader/preloader"
 import "common/directives/interface/scrollable/scrollable"

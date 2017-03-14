@@ -1,6 +1,6 @@
 import * as angular from "angular"
 import "angular-sanitize"
-import {MoneyDto} from "../../../api/model/MoneyDto"
+import {MoneyDto} from "profitelo-api-ng/model/models"
 import {MessengerService} from "./messenger.service"
 import callbacksModule from "../../../services/callbacks/callbacks"
 import soundsModule from "../../../services/sounds/sounds"

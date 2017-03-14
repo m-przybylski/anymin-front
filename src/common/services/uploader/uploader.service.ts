@@ -1,6 +1,6 @@
 import * as angular from "angular"
-import {FilesApi} from "../../api/api/FilesApi"
-import {FileIdDto} from "../../api/model/FileIdDto"
+import {FileIdDto} from "profitelo-api-ng/model/models"
+import {FilesApi} from "profitelo-api-ng/api/api"
 import {CommonConfig} from "../../../../generated_modules/common-config/common-config"
 
 export interface ICroppingDetails {

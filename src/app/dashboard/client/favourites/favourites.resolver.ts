@@ -1,5 +1,5 @@
-import {GetDashboardClientExperts} from "../../../../common/api/model/GetDashboardClientExperts"
-import {ViewsApi} from "../../../../common/api/api/ViewsApi"
+import {ViewsApi} from "profitelo-api-ng/api/api"
+import {GetDashboardClientExperts} from "profitelo-api-ng/model/models"
 
 export class ClientFavouritesResolver {
 

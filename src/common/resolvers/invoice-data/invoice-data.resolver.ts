@@ -1,10 +1,6 @@
 import * as angular from "angular"
-import {CompanyInfo} from "../../api/model/CompanyInfo"
-import {MoneyDto} from "../../api/model/MoneyDto"
-import {GetCreditCard} from "../../api/model/GetCreditCard"
-import {FinancesApi} from "../../api/api/FinancesApi"
-import {AccountApi} from "../../api/api/AccountApi"
-import {PaymentsApi} from "../../api/api/PaymentsApi"
+import {FinancesApi, AccountApi, PaymentsApi} from "profitelo-api-ng/api/api"
+import {CompanyInfo, MoneyDto, GetCreditCard} from "profitelo-api-ng/model/models"
 
 export interface IInvoiceData {
   companyInfo: CompanyInfo | null,

@@ -1,111 +1,111 @@
 import * as angular from "angular"
-  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {RegistrationApiMock, RegistrationApi} from "../../../common/api/api/RegistrationApi"
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import {RegistrationApi, RegistrationApiMock, AccountApi} from "profitelo-api-ng/api/api"
+import {GetSession} from "profitelo-api-ng/model/models"
 import {TopAlertService} from "../../../common/services/top-alert/top-alert.service"
-import {AccountApi} from "../../../common/api/api/AccountApi"
 import {TopWaitingLoaderService} from "../../../common/services/top-waiting-loader/top-waiting-loader.service"
 import {LoginStateService} from "../../../common/services/login-state/login-state.service"
 import {IFilterService} from "../../../common/services/filter/filter.service"
-import {GetSession} from "../../../common/api/model/GetSession"
 import sessionModule from "../../../common/services/session/session"
 
-  describe('Unit tests: profitelo.controller.login.register>', () => {
-    describe('Testing Controller: RegisterController', () => {
+describe('Unit tests: profitelo.controller.login.register>', () => {
+  describe('Testing Controller: RegisterController', () => {
 
-      let scope: any
-      let RegisterController: any
-      let _topWaitingLoaderService: TopWaitingLoaderService
-      let _RegistrationApi: RegistrationApi
-      let _AccountApi: AccountApi
-      let _topAlertService: TopAlertService
-      let _$httpBackend: ng.IHttpBackendService
-      let _RegistrationApiMock: RegistrationApiMock
+    let scope: any
+    let RegisterController: any
+    let _topWaitingLoaderService: TopWaitingLoaderService
+    let _RegistrationApi: RegistrationApi
+    let _AccountApi: AccountApi
+    let _topAlertService: TopAlertService
+    let _$httpBackend: ng.IHttpBackendService
+    let _RegistrationApiMock: RegistrationApiMock
 
-      let _url = 'awesomeUrl'
+    let _url = 'awesomeUrl'
 
-      let smsSessionId = {
-        accountObject: {
-          phoneNumber: {
-            prefix: '+45',
-            number: '456543123'
-          },
-          password: ''
+    let smsSessionId = {
+      accountObject: {
+        phoneNumber: {
+          prefix: '+45',
+          number: '456543123'
         },
-        sessionId: '123fsdf'
+        password: ''
+      },
+      sessionId: '123fsdf'
+    }
+
+
+    let sessionService = {
+      setApiKey: () => {
       }
+    }
 
+    let $state = {
+      go: () => {
 
-      let sessionService = {
-        setApiKey: () => {}
       }
+    }
 
-      let $state = {
-        go: () => {
+    beforeEach(() => {
+      angular.mock.module(sessionModule)
+    })
 
-        }
-      }
+    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
+      $provide.value('apiUrl', _url)
+      $provide.value('sessionService', sessionService)
+    }))
 
-      beforeEach(() => {
-        angular.mock.module(sessionModule)
-      })
+    beforeEach(() => {
+      angular.mock.module('profitelo.controller.login.register')
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $filter: IFilterService,
+              _topWaitingLoaderService_: TopWaitingLoaderService, _RegistrationApi_: RegistrationApi,
+              _AccountApi_: AccountApi, _topAlertService_: TopAlertService,
+              _$httpBackend_: ng.IHttpBackendService, _RegistrationApiMock_: RegistrationApiMock,
+              _loginStateService_: LoginStateService) => {
 
-      beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
-        $provide.value('apiUrl', _url)
-        $provide.value('sessionService', sessionService)
-      }))
+        scope = $rootScope.$new()
 
-      beforeEach(() => {
-        angular.mock.module('profitelo.controller.login.register')
-        inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $filter: IFilterService,
-                _topWaitingLoaderService_: TopWaitingLoaderService, _RegistrationApi_: RegistrationApi,
-                _AccountApi_: AccountApi, _topAlertService_: TopAlertService,
-                _$httpBackend_: ng.IHttpBackendService, _RegistrationApiMock_: RegistrationApiMock,
-                _loginStateService_: LoginStateService) => {
-
-          scope = $rootScope.$new()
-
-          RegisterController = $controller('RegisterController', {
-            $filter: $filter,
-            $state: $state,
-            $rootScope: $rootScope,
-            topWaitingLoaderService: _topWaitingLoaderService_,
-            sessionService: sessionService,
-            topAlertService: _topAlertService_,
-            smsSessionId: smsSessionId,
-            RegistrationApi: _RegistrationApi_,
-            AccountApi: _AccountApi_,
-            loginStateService: _loginStateService_
-          })
-
-          _$httpBackend = _$httpBackend_
-          _topWaitingLoaderService = _topWaitingLoaderService_
-          _RegistrationApi = _RegistrationApi_
-          _AccountApi = _AccountApi_
-          _topAlertService = _topAlertService_
-          _RegistrationApiMock = _RegistrationApiMock_
-
-          RegisterController.registrationSteps = {
-            sessionId: '123',
-            smsCode: '123'
-          }
-
+        RegisterController = $controller('RegisterController', {
+          $filter: $filter,
+          $state: $state,
+          $rootScope: $rootScope,
+          topWaitingLoaderService: _topWaitingLoaderService_,
+          sessionService: sessionService,
+          topAlertService: _topAlertService_,
+          smsSessionId: smsSessionId,
+          RegistrationApi: _RegistrationApi_,
+          AccountApi: _AccountApi_,
+          loginStateService: _loginStateService_
         })
-      })
 
-      it('should exsist', () => {
-        expect(!!RegisterController).toBe(true)
-      })
+        _$httpBackend = _$httpBackend_
+        _topWaitingLoaderService = _topWaitingLoaderService_
+        _RegistrationApi = _RegistrationApi_
+        _AccountApi = _AccountApi_
+        _topAlertService = _topAlertService_
+        _RegistrationApiMock = _RegistrationApiMock_
 
-      it('should request sms code status', () => {
+        RegisterController.registrationSteps = {
+          sessionId: '123',
+          smsCode: '123'
+        }
 
-        spyOn(sessionService, 'setApiKey')
-
-        //FIXME
-        _RegistrationApiMock.confirmVerificationRoute(200, <GetSession>{})
-        RegisterController.getSmsCodeStatus()
-        _$httpBackend.flush()
-
-        expect(sessionService.setApiKey).toHaveBeenCalled()
       })
     })
+
+    it('should exsist', () => {
+      expect(!!RegisterController).toBe(true)
+    })
+
+    it('should request sms code status', () => {
+
+      spyOn(sessionService, 'setApiKey')
+
+      //FIXME
+      _RegistrationApiMock.confirmVerificationRoute(200, <GetSession>{})
+      RegisterController.getSmsCodeStatus()
+      _$httpBackend.flush()
+
+      expect(sessionService.setApiKey).toHaveBeenCalled()
+    })
   })
+})

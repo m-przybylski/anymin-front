@@ -1,8 +1,8 @@
 import * as angular from "angular"
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {ServiceApi, ServiceApiMock} from "../../../../../common/api/api/ServiceApi"
+import {ServiceApi, ServiceApiMock} from "profitelo-api-ng/api/api"
+import {GetService} from "profitelo-api-ng/model/models"
 import {TopAlertService} from "../../../../../common/services/top-alert/top-alert.service"
-import {GetService} from "../../../../../common/api/model/GetService"
 import {Profile} from "../../../../../common/models/Profile"
 import "./individual-consultation"
 

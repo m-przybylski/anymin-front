@@ -1,9 +1,8 @@
 import * as angular from "angular"
 import {CallbacksService} from "../../services/callbacks/callbacks.service"
 import {TimerService} from "../../services/timer/timer.service"
-import {GetService} from "../../api/model/GetService"
-import {GetProfile} from "../../api/model/GetProfile"
-import {MoneyDto} from "../../api/model/MoneyDto"
+import {RatelApi, ServiceApi} from "profitelo-api-ng/api/api"
+import {MoneyDto, GetService, GetProfile, GetServiceUsageRequest} from "profitelo-api-ng/model/models"
 import {CallbacksFactory} from "../../services/callbacks/callbacks.factory"
 import {NavigatorService} from "../../services/navigator/navigator.service"
 import {CommunicatorService} from "./communicator.service"
@@ -11,9 +10,7 @@ import {SoundsService} from "../../services/sounds/sounds.service"
 import {ModalsService} from "../../services/modals/modals.service"
 import {TimerFactory} from "../../services/timer/timer.factory"
 import {UserService} from "../../services/user/user.service"
-import {RatelApi} from "../../api/api/RatelApi"
-import {ServiceApi} from "../../api/api/ServiceApi"
-import {GetServiceUsageRequest} from "../../api/model/GetServiceUsageRequest"
+
 
 export class CallService {
 

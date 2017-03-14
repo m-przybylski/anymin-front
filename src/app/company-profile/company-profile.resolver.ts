@@ -1,10 +1,11 @@
 import * as angular from "angular"
-
 import {ICompanyProfileStateParams} from "./company-profile"
-import {GetProfileWithDocuments} from "../../common/api/model/GetProfileWithDocuments"
-import {GetOrganizationServiceDetails} from "../../common/api/model/GetOrganizationServiceDetails"
-import {ViewsApi} from "../../common/api/api/ViewsApi"
-import {GetOrganizationProfile} from "../../common/api/model/GetOrganizationProfile"
+import {ViewsApi} from "profitelo-api-ng/api/api"
+import {
+  GetProfileWithDocuments,
+  GetOrganizationServiceDetails,
+  GetOrganizationProfile
+} from "profitelo-api-ng/model/models"
 
 export interface ICompanyProfile {
   profile: GetProfileWithDocuments

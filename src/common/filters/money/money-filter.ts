@@ -1,5 +1,6 @@
 import * as angular from "angular"
-import {MoneyDto} from "../../api/model/MoneyDto"
+import {MoneyDto} from "profitelo-api-ng/model/models"
+
 const handleAmount = (_amount: number) => {
   let sign = ''
   const amount = parseInt(<any>_amount, 10)

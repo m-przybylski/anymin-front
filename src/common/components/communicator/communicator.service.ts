@@ -1,12 +1,9 @@
-import {GetService} from "../../api/model/GetService"
+import {RatelApi, ProfileApi} from "profitelo-api-ng/api/api"
+import {SignedAgent, GetService, GetProfileWithServices} from "profitelo-api-ng/model/models"
 import {SessionStorage} from "./session-storage"
 import {CallbacksService} from "../../services/callbacks/callbacks.service"
 import {CallbacksFactory} from "../../services/callbacks/callbacks.factory"
-import {RatelApi} from "../../api/api/RatelApi"
 import {UserService} from "../../services/user/user.service"
-import {ProfileApi} from "../../api/api/ProfileApi"
-import {GetProfileWithServices} from "../../api/model/GetProfileWithServices"
-import {SignedAgent} from "../../api/model/SignedAgent"
 import {CommonConfig} from "../../../../generated_modules/common-config/common-config"
 
 export interface IConsultationInvitation {

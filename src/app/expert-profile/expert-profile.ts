@@ -1,5 +1,5 @@
 import * as angular from "angular"
-import apiModule from "../../common/api/api.module"
+import apiModule from "profitelo-api-ng/api.module"
 import sessionModule from "../../common/services/session/session"
 import {ExpertProfileResolver} from "./expert-profile.resolver"
 import {ExpertProfileController} from "./expert-profile.controller"

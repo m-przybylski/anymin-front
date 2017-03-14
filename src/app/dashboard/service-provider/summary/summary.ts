@@ -1,5 +1,5 @@
 import * as angular from "angular"
-import apiModule from "../../../../common/api/api.module"
+import apiModule from "profitelo-api-ng/api.module"
 import sessionModule from "../../../../common/services/session/session"
 import "common/directives/service-provider/pro-service-provider-summary-step/pro-service-provider-summary-step"
 import "./company/company-summary"

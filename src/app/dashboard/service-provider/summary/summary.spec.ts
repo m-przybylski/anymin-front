@@ -1,5 +1,5 @@
 import * as angular from "angular"
-import {ServiceApi} from "../../../../common/api/api/ServiceApi"
+import {ServiceApi} from "profitelo-api-ng/api/api"
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import "./summary"
 describe('Unit tests: SummaryController >', () => {

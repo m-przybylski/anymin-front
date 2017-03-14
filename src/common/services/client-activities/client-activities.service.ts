@@ -1,6 +1,6 @@
 import * as angular from "angular"
-import {GetActivities} from "../../api/model/GetActivities"
-import {ViewsApi} from "../../api/api/ViewsApi"
+import {ViewsApi} from "profitelo-api-ng/api/api"
+import {GetActivities} from "profitelo-api-ng/model/models"
 
 export interface IClientActivitiesQueryParams {
   offset?: string

@@ -1,4 +1,4 @@
-import {MoneyDto} from "../../api/model/MoneyDto"
+import {MoneyDto} from "profitelo-api-ng/model/models"
 
 export interface IFilterService extends ng.IFilterService {
   (name: 'translate'): {

@@ -1,14 +1,13 @@
-import {AccountDetails} from "../../../../common/api/model/AccountDetails"
+import apiModule from "profitelo-api-ng/api.module"
+import {SessionApi} from "profitelo-api-ng/api/api"
+import {AccountDetails, GetSession} from "profitelo-api-ng/model/models"
 import {ModalsService} from "../../../../common/services/modals/modals.service"
-import {GetSession} from "../../../../common/api/model/GetSession"
-import {SessionApi} from "../../../../common/api/api/SessionApi"
 import * as angular from "angular"
 import ITimeConstant = profitelo.constants.time.ITimeConstant
 import userModule from "../../../../common/services/user/user"
 import modalsModule from "../../../../common/services/modals/modals"
 import {UserService} from "../../../../common/services/user/user.service"
 import {ISecuritySettingsService} from "../../../../common/resolvers/security-settings/security-settings.service"
-import apiModule from "../../../../common/api/api.module"
 import "common/resolvers/security-settings/security-settings.service"
 import "common/components/dashboard/settings/manage-devices/manage-devices"
 

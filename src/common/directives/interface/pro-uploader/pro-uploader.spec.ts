@@ -1,5 +1,5 @@
 import * as angular from "angular"
-import {FilesApiMock} from "../../../api/api/FilesApi"
+import {FilesApiMock} from "profitelo-api-ng/api/api"
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {CommonConfig} from "../../../../../generated_modules/common-config/common-config"
 
@@ -28,7 +28,6 @@ describe('Unit testing: profitelo.directives.interface.pro-uploader', () => {
     }))
 
     beforeEach(() => {
-      //angular.mock.module('templates-module')
       angular.mock.module('profitelo.directives.interface.pro-uploader')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, $injector: ng.auto.IInjectorService) => {
