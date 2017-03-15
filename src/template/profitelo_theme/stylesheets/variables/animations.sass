@@ -237,13 +237,15 @@
 
 @keyframes dropdown-collapsing
   0%
-    top: 120%
+    top: 100%
+    transform: translateY(32px)
     opacity: 0
 
   100%
-    top: 100%
+    transform: translateY(0)
     max-height: 320px
     opacity: 1
+
 
 @keyframes radio-focus
   0%
@@ -359,3 +361,37 @@
     transform: translateY(0)
 
 /* navbar end */
+
+
+
+
+@keyframes fadeIn
+  0%
+    position: relative
+    opacity: 0
+
+  100%
+    opacity: 1
+
+
+@keyframes fadeOut
+  0%
+    position: relative
+    opacity: 1
+    overflow: hidden
+
+  100%
+    opacity: 0
+
+.fadeInOut
+  display: block
+  overflow: hidden
+
+  &.ng-leave
+    opacity: 1
+
+  &.ng-hide-remove-active
+    animation: fadeIn 0.6s
+
+  &.ng-hide-add-active
+    animation: fadeOut 0.6s
