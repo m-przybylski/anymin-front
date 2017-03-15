@@ -51,8 +51,6 @@ export class DashboardSettingsPaymentsController implements ng.IController {
         throw new error('Can not get user payment methods: ' + error)
       }
     })
-
-
   }
 
   public changeDefaultPaymentMethod = (token?: string): void => {
@@ -95,8 +93,8 @@ angular.module('profitelo.controller.dashboard.settings.payments', [
       controller: 'dashboardSettingsPaymentsController',
       controllerAs: 'vm',
       resolve: {
-        getInvoiceData: (InvoiceDataResolver: InvoiceDataResolver) => {
-          return InvoiceDataResolver.resolve()
+        getInvoiceData: (invoiceDataResolver: InvoiceDataResolver) => {
+          return invoiceDataResolver.resolve()
         },
         user: (userService: UserService) => {
           return userService.getUser(true)
