@@ -22,13 +22,16 @@ import "common/directives/pro-top-waiting-loader/pro-top-waiting-loader"
 import "common/directives/interface/pro-input/pro-input"
 import "common/directives/interface/pro-alert/pro-alert"
 import "common/directives/interface/pro-checkbox/pro-checkbox"
+import permissionModule from "../../../common/services/permission/permission"
+import {PermissionService} from "../../../common/services/permission/permission.service"
 
 function RegisterController($log: ng.ILogService, $filter: IFilterService, $state: ng.ui.IStateService,
                             $rootScope: IRootScopeService, topWaitingLoaderService: TopWaitingLoaderService,
                             sessionService: SessionService, topAlertService: TopAlertService,
                             smsSessionId: ILoginRegister, CommonSettingsService: CommonSettingsService,
                             RegistrationApi: RegistrationApi, AccountApi: AccountApi,
-                            loginStateService: LoginStateService, communicatorService: CommunicatorService) {
+                            loginStateService: LoginStateService, communicatorService: CommunicatorService,
+                            permissionService: PermissionService) {
   this.passwordStrength = 0
   this.isPending = false
   this.rulesAccepted = false
@@ -73,19 +76,19 @@ function RegisterController($log: ng.ILogService, $filter: IFilterService, $stat
       RegistrationApi.confirmVerificationRoute({
         sessionId: this.registrationSteps.sessionId,
         token: String(this.registrationSteps.smsCode)
-      }).then((response) => {
-        this.isPending = false
-        topWaitingLoaderService.stopLoader()
-        sessionService.setApiKey(response.apiKey)
-        //User.setData(response)
-        //User.setData({role: UserRoles.getRole('user')})
-        //User.setApiKeyHeader(response.apiKey)
-        //FIXME
-        userid = response.accountId
+      }).then((_response) => {
+        sessionService.getSession(true).then((session) => {
+          permissionService.initializeAll()
+          this.isPending = false
+          topWaitingLoaderService.stopLoader()
+          sessionService.setApiKey(session.apiKey)
+          //FIXME Login Event
+          userid = session.accountId
 
-        loginStateService.clearServiceObject()
-        $rootScope.loggedIn = true
-        $state.go('app.post-register.set-password')
+          loginStateService.clearServiceObject()
+          $rootScope.loggedIn = true
+          $state.go('app.post-register.set-password')
+        })
       }, (error: any) => {
         $log.error(error)
         this.isPending = false
@@ -155,6 +158,7 @@ angular.module('profitelo.controller.login.register', [
   communicatorModule,
   commonSettingsModule,
   topAlertModule,
+  permissionModule,
   'profitelo.services.pro-top-waiting-loader-service',
   'profitelo.directives.interface.pro-checkbox',
   'profitelo.directives.interface.pro-alert',

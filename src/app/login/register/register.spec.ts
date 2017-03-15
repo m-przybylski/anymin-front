@@ -19,6 +19,7 @@ describe('Unit tests: profitelo.controller.login.register>', () => {
     let _topAlertService: TopAlertService
     let _$httpBackend: ng.IHttpBackendService
     let _RegistrationApiMock: RegistrationApiMock
+    let q: ng.IQService
 
     let _url = 'awesomeUrl'
 
@@ -36,7 +37,8 @@ describe('Unit tests: profitelo.controller.login.register>', () => {
 
     let sessionService = {
       setApiKey: () => {
-      }
+      },
+      getSession: () => q.resolve()
     }
 
     let $state = {
@@ -60,7 +62,7 @@ describe('Unit tests: profitelo.controller.login.register>', () => {
               _topWaitingLoaderService_: TopWaitingLoaderService, _RegistrationApi_: RegistrationApi,
               _AccountApi_: AccountApi, _topAlertService_: TopAlertService,
               _$httpBackend_: ng.IHttpBackendService, _RegistrationApiMock_: RegistrationApiMock,
-              _loginStateService_: LoginStateService) => {
+              _loginStateService_: LoginStateService, $q: ng.IQService) => {
 
         scope = $rootScope.$new()
 
@@ -76,7 +78,7 @@ describe('Unit tests: profitelo.controller.login.register>', () => {
           AccountApi: _AccountApi_,
           loginStateService: _loginStateService_
         })
-
+        q = $q
         _$httpBackend = _$httpBackend_
         _topWaitingLoaderService = _topWaitingLoaderService_
         _RegistrationApi = _RegistrationApi_
@@ -98,14 +100,14 @@ describe('Unit tests: profitelo.controller.login.register>', () => {
 
     it('should request sms code status', () => {
 
-      spyOn(sessionService, 'setApiKey')
+      spyOn(sessionService, 'getSession')
 
       //FIXME
       _RegistrationApiMock.confirmVerificationRoute(200, <GetSession>{})
       RegisterController.getSmsCodeStatus()
       _$httpBackend.flush()
 
-      expect(sessionService.setApiKey).toHaveBeenCalled()
+      expect(sessionService.getSession).toHaveBeenCalled()
     })
   })
 })
