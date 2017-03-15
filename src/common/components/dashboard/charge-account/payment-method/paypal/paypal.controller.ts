@@ -8,7 +8,18 @@ export class PayPalPaymentFormComponentController implements ng.IController, IPa
   amountMethodModal: any
   postPayment: PostPayment
 
+
+
   $onInit = () => {
+    this.postPayment = {
+      amount: this.amountMethodModal.amountModel.cashAmount,
+      paymentCountryId: this.paymentCountryId,
+      paymentOption: this.amountMethodModal.amountModel.amount,
+      paymentSystemId: this.amountMethodModal.paymentSystemModel.id
+    }
+  }
+
+  $onChanges = () => {
     this.postPayment = {
       amount: this.amountMethodModal.amountModel.cashAmount,
       paymentCountryId: this.paymentCountryId,
@@ -20,6 +31,8 @@ export class PayPalPaymentFormComponentController implements ng.IController, IPa
   /* @ngInject */
   constructor(private paypalFactory: any, private PaymentsApi: PaymentsApi,
               $state: ng.ui.IStateService) {
+
+    console.log(this.amountMethodModal, "asd")
 
     this.paypalFactory.Button.render({
 
