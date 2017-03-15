@@ -7,6 +7,7 @@ import "./invitation/invitation"
 import "./client/client"
 import "./settings/settings"
 import "./service-provider/service-provider"
+import navbarModule from "../../common/components/navbar/navbar"
 
 /* @ngInject */
 class DashboardController {
@@ -21,6 +22,7 @@ const dashboardPageModule = angular.module('profitelo.controller.dashboard', [
   'permission',
   'permission.ui',
   'ngTouch',
+  navbarModule,
   'profitelo.controller.dashboard.charge-account',
   'profitelo.controller.dashboard.payments-thank-you-page',
   'profitelo.controller.dashboard.invitation',

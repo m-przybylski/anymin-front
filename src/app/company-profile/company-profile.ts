@@ -13,6 +13,7 @@ import "common/components/interface/collapse-tab/collapse-tab"
 import "common/components/expert-profile/company-single-consultation/company-single-consultation"
 import "common/components/expert-profile/similar-experts-slider/similar-experts-slider"
 import "common/components/expert-profile/social-links/social-links"
+import navbarModule from "../../common/components/navbar/navbar"
 
 export interface ICompanyProfileStateParams extends ng.ui.IStateParamsService {
   primaryConsultationId: string
@@ -25,6 +26,7 @@ const companyProfilePageModule = angular.module('profitelo.controller.company-pr
   sessionModule,
   smoothScrollingModule,
   topAlertModule,
+  navbarModule,
   recommendedServicesModule,
   'profitelo.directives.expert-profile.pro-expert-header',
   'profitelo.directives.pro-footer',

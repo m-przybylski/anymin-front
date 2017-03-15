@@ -14,6 +14,7 @@ import "common/directives/pro-footer/pro-footer"
 import "common/components/interface/preloader/preloader"
 import "common/components/interface/preloader-container/preloader-container"
 import communicatorModule from "../../common/components/communicator/communicator"
+import navbarModule from "../../common/components/navbar/navbar"
 
 /* @ngInject */
 function SearchResultController($scope: ng.IScope, $location: ng.ILocationService,
@@ -26,7 +27,7 @@ function SearchResultController($scope: ng.IScope, $location: ng.ILocationServic
     count: 0,
     results: []
   }
-
+  this.searchModel = ''
   this.isSearchLoading = true
   this.isSearchError = false
   this.isLoadMoreLoading = false
@@ -84,6 +85,7 @@ function SearchResultController($scope: ng.IScope, $location: ng.ILocationServic
 
   searchService.onQueryParamsChange($scope, (queryParams) => {
     const params = searchUrlService.parseParamsForUrl(queryParams)
+    this.searchModel = queryParams.q
     if ($state.current.name === 'app.search-result') {
       $state.transitionTo('app.search-result', params, {
         location: true,
@@ -105,6 +107,7 @@ const searchResultPageModule = angular.module('profitelo.controller.search-resul
   'permission.ui',
   ngInfiniteScroll,
   communicatorModule,
+  navbarModule,
   'profitelo.components.interface.go-to-top',
   'profitelo.components.search.single-consultation',
   'profitelo.components.search.no-consultations',

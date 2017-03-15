@@ -1,5 +1,4 @@
 import * as angular from "angular"
-import {SmoothScrollingService} from "../../common/services/smooth-scrolling/smooth-scrolling.service"
 import sessionModule from "../../common/services/session/session"
 import smoothScrollingModule from "../../common/services/smooth-scrolling/smooth-scrolling"
 import "common/directives/expert-profile/pro-expert-card/pro-expert-card"
@@ -9,8 +8,9 @@ import "common/directives/pro-news-tile/pro-news-tile"
 import "common/components/expert-profile/similar-experts-slider/similar-experts-slider"
 import "common/components/pro-search-dropdown/pro-search-dropdown"
 import "common/components/interface/slider/slider"
+import navbarModule from "../../common/components/navbar/navbar"
 
-function HomeController($scope: ng.IScope, smoothScrollingService: SmoothScrollingService) {
+function HomeController() {
 
   this.interfaceController = {}
 
@@ -22,17 +22,6 @@ function HomeController($scope: ng.IScope, smoothScrollingService: SmoothScrolli
   this.prevSlide = () => {
     this.controlls.prevSlide()
   }
-
-  this.onSearchFocus = () => {
-    this.interfaceController.hideSearchMask = false
-    const searchInputOnPage = angular.element(document).find('.search-bar-container .search-bar')[1]
-    smoothScrollingService.simpleScrollTo(searchInputOnPage, true)
-  }
-
-  angular.element(angular.element(document).find('.search-active-mask')).on('whell mousewheel', () => {
-    this.interfaceController.hideSearchMask = true
-    $scope.$digest()
-  })
 
   this.expertCard = [
     {
@@ -190,6 +179,7 @@ const homePageModule = angular.module('profitelo.controller.home', [
   'ui.router',
   sessionModule,
   smoothScrollingModule,
+  navbarModule,
   'profitelo.directives.pro-expert-card',
   'profitelo.directives.pro-expert-see-more',
   'profitelo.directives.pro-advice-tile',

@@ -1,0 +1,33 @@
+ul
+  li
+    ul
+      li(data-ng-hide="$ctrl.isExpert")
+        a.btn.btn-primary.btn-small(data-translate="NAVIGATION.MENU_ITEMS.START_EARNING"
+        data-ui-sref="app.dashboard.service-provider.choose-path")
+      li(data-ng-if="$ctrl.isExpert")
+        a
+          span.mobile-only.icon.icon-suitcase-24
+          span(data-translate="NAVIGATION.MENU_ITEMS.EXPERT")
+      li
+        a
+          span.mobile-only.icon.icon-client-24
+          span(data-translate="NAVIGATION.MENU_ITEMS.CLIENT" data-ui-sref="app.dashboard.client.favourites")
+      li
+        a
+          span.mobile-only.icon.icon-settings-24
+          span(data-translate="NAVIGATION.MENU_ITEMS.SETTINGS" data-ui-sref="app.dashboard.settings.general")
+      li
+        a
+          span.mobile-only.icon.icon-logout-24-1
+          span(data-translate="NAVIGATION.MENU_ITEMS.LOGOUT" data-ng-click="$ctrl.logout()")
+
+  li.navbar-notifications
+    ul
+      li.navbar-parent
+        a
+          span.navbar-item-handler
+            span.icon.icon-questionmark-24
+            span.mobile-onlys(data-translate="NAVIGATION.MENU_ITEMS.HELP")
+          span.mobile-only.icon.icon-next-24
+
+

@@ -15,6 +15,7 @@ import "common/directives/pro-footer/pro-footer"
 import "common/components/expert-profile/similar-experts-slider/similar-experts-slider"
 import "common/components/expert-profile/social-links/social-links"
 import "common/components/interface/collapse-tab/collapse-tab"
+import navbarModule from "../../common/components/navbar/navbar"
 
 export interface IExpertProfileStateParams extends ng.ui.IStateParamsService {
   primaryConsultationId: string
@@ -26,6 +27,7 @@ const expertProfilePageModule = angular.module('profitelo.controller.expert-prof
   apiModule,
   'ngLodash',
   sessionModule,
+  navbarModule,
   smoothScrollingModule,
   topAlertModule,
   recommendedServicesModule,
