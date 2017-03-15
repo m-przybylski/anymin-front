@@ -52,7 +52,7 @@
       left: 64px
       padding: 0 16px 0 0
       width: calc(100% - 64px)
-      height: $dashboard-navbar-width
+      height: $s-navbar-height
       background: $c-white
       z-index: $z-index-200
       display: flex
@@ -111,6 +111,11 @@
       +lgm
         display: none
 
+      .mobile-nav-hamburger
+        height: 100%
+        display: flex
+        align-items: center
+
       #hamburger
         background: none
         display: flex
@@ -166,9 +171,14 @@
         height: auto
 
       +lgm
+        animation: none
         width: auto
         display: flex !important
         position: static
+
+      > *
+        +lgm
+          display: flex
 
       &.is-active
         display: block
@@ -177,8 +187,18 @@
           display: flex
 
       .navbar-parent
+        margin: 0 24px
+
+        +lgm
+          margin: 0 8px
+
         a
+          padding: 12px 0
+          flex: 1 0
           justify-content: space-between
+
+          +lgm
+            padding: 0
 
           .navbar-item-handler
             display: inline-flex
@@ -186,6 +206,7 @@
 
       [class*="state"]
         > li
+          margin: 0
           display: block
 
           +lgm
@@ -199,6 +220,7 @@
           +lgm
             order: 0
             border: 0
+            margin: 0 24px 0 4px
 
         ul
           padding: 12px 0
@@ -206,7 +228,7 @@
           +lgm
             padding: 0
 
-          li
+          li:not(.navbar-parent)
             display: block
             padding: 0 12px
             margin: 0
@@ -265,19 +287,31 @@
                 display: none
 
   .mobile-menu-animation
+    +lgm
+      animation: none
+
     //entry
     &.ng-hide-remove-active
       animation: mobile-menu-animation-in 0.4s ease
       animation-fill-mode: forwards
 
+      +lgm
+        animation: none
+
     //exit
     &.ng-hide-add-active
       animation: mobile-menu-animation-out 0.4s
+
+      +lgm
+        animation: none
 
   .mobile-search-animation
     .btn-close
       animation: mobile-search-animation-elem-in 0.3s 0.3s
       animation-fill-mode: forwards
+
+      +lgm
+        animation: none
 
     //entry
     &.ng-hide-remove-active

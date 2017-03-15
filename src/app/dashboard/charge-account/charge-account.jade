@@ -19,7 +19,8 @@
               | {{:: 'DASHBOARD.CHARGE_ACCOUNT.ADD_PAYMENT_CARD.BUTTON' | translate }}
               span.icon.icon-success-12
 
-        div(data-ng-show="vm.lastPayment || vm.isChargeProfiteloAccount")
+        div.charge-payments(data-ng-show="vm.lastPayment || vm.isChargeProfiteloAccount")
+
           .container-big.animation.fadeInOut(data-ng-show="vm.isChargeProfiteloAccount")
             choose-amount-charge(
               data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_AMMOUNT_CHARGE"
@@ -41,13 +42,17 @@
               data-payment-country-id="vm.paymentCountryId"
               data-ng-show="vm.amountMethodModal.paymentSystemModel.slug == 'payu_pl'" data-scroll-handler="vm.scrollHandler" data-valid-action="vm.validAction")
 
-            paypal-payment-form.animation.fadeInOut(data-ng-show="vm.amountMethodModal.paymentSystemModel.slug == 'paypal'")
+            paypal-payment-form.animation.fadeInOut(data-payments-links="vm.paymentsLinks" data-amount-method-modal="vm.amountMethodModal"
+            data-payment-country-id="vm.paymentCountryId" data-ng-if="vm.amountMethodModal.paymentSystemModel.slug == 'paypal'" )
 
-            card-payment-form.card-payment.animation.fadeInOut(data-ng-if="vm.amountMethodModal.paymentSystemModel.slug == 'credit_card'")
+            card-payment-form.card-payment.animation.fadeInOut(data-ng-if="vm.amountMethodModal.paymentSystemModel.slug == 'credit_card'" data-payments-links = "vm.paymentsLinks" data-amount-method-modal="vm.amountMethodModal"
+              data-payment-country-id="vm.paymentCountryId"
+            )
 
         .braintree(data-ng-show="vm.isPaymentCardMethod")
           .modal-settings
             .container-medium.no-padding.modal-form
               preloader.animation.fadeInOut(data-ng-show="vm.isPaymentCardMethod" data-is-loading="!vm.isBraintreeFormLoaded")
-                braintree-form(data-on-braintree-form-load="vm.onLoad" data-submit-button-translate="BRAINTREE.ADD_BUTTON"
+                braintree-form(data-on-braintree-form-load="vm.onLoad"
+                data-submit-button-translate="DASHBOARD.CHARGE_ACCOUNT.ADD_PAYMENT_CARD.CHANGE.BUTTON"
                 data-on-form-succeed="vm.onFormSucceed")

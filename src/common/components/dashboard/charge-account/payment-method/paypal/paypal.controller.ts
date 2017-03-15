@@ -13,7 +13,7 @@ export class PayPalPaymentFormComponentController implements ng.IController, IPa
       amount: this.amountMethodModal.amountModel.cashAmount,
       paymentCountryId: this.paymentCountryId,
       paymentOption: this.amountMethodModal.amountModel.amount,
-      paymentSystemId: this.amountMethodModal.paymentSystemModel.id
+      paymentSystemId: this.amountMethodModal.paymentSystemModel.idg
     }
   }
 

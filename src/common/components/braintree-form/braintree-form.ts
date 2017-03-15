@@ -29,6 +29,7 @@ export class BraintreeFormComponentController implements ng.IController, IBraint
   public showCardLimitForm: boolean = false
   public defaultCardLimit: string = ''
   public transaction: ITransaction
+
   /* @ngInject */
   constructor(private PaymentsApi: PaymentsApi, private userService: UserService,
               private CommonSettingsService: CommonSettingsService) {

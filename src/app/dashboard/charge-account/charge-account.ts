@@ -88,6 +88,7 @@ class ChargeAccountController {
     }
 
     if (this.lastPayment !== null && (typeof this.lastPayment !== 'undefined')) {
+      this.isChargeProfiteloAccount = true
       this.currentSection = 3
       if (lodash.find(this.amounts.paymentOptions, {'amount': this.lastPayment.amount.amount})) {
         this.amountModel.amount = this.lastPayment.amount

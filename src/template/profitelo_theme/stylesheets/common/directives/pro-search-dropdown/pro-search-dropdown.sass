@@ -23,7 +23,7 @@
         display: none
 
         +xsm
-          right: $dashboard-navbar-width + 32px
+          right: $s-navbar-height + 32px
 
         +smm
           display: block
@@ -52,7 +52,7 @@
 
       +mdm
         position: absolute
-        right: $dashboard-navbar-width * 2 + 64px + 48px
+        right: $s-navbar-height * 2 + 64px + 48px
         top: 0
         z-index: 5
         padding: 32px 0
@@ -91,10 +91,10 @@
     background: $c-white
     z-index: $z-index-800
     position: fixed
-    top: $dashboard-navbar-width
+    top: $s-navbar-height
     -webkit-overflow-scrolling: touch
     overflow-y: scroll
-    height: calc(100vh - #{$dashboard-navbar-width})
+    height: calc(100vh - #{$s-navbar-height})
     width: 100vw
     left: 0
 

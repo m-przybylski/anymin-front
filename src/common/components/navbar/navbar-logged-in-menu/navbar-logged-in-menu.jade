@@ -1,25 +1,26 @@
-ul
+ul.expert-state
   li
     ul
       li(data-ng-hide="$ctrl.isExpert")
         a.btn.btn-primary.btn-small(data-translate="NAVIGATION.MENU_ITEMS.START_EARNING"
         data-ui-sref="app.dashboard.service-provider.choose-path")
+
       li(data-ng-if="$ctrl.isExpert")
         a
-          span.mobile-only.icon.icon-suitcase-24
+          span.mobile-only.icon.icon-suitcase-24-1
           span(data-translate="NAVIGATION.MENU_ITEMS.EXPERT")
       li
-        a
+        a(data-ui-sref="app.dashboard.client.favourites")
           span.mobile-only.icon.icon-client-24
-          span(data-translate="NAVIGATION.MENU_ITEMS.CLIENT" data-ui-sref="app.dashboard.client.favourites")
+          span(data-translate="NAVIGATION.MENU_ITEMS.CLIENT")
       li
-        a
+        a(data-ui-sref="app.dashboard.settings.general")
           span.mobile-only.icon.icon-settings-24
-          span(data-translate="NAVIGATION.MENU_ITEMS.SETTINGS" data-ui-sref="app.dashboard.settings.general")
+          span(data-translate="NAVIGATION.MENU_ITEMS.SETTINGS")
       li
-        a
-          span.mobile-only.icon.icon-logout-24-1
-          span(data-translate="NAVIGATION.MENU_ITEMS.LOGOUT" data-ng-click="$ctrl.logout()")
+        a(data-ng-click="$ctrl.logout()")
+          span.mobile-only.icon.icon-logout-24
+          span(data-translate="NAVIGATION.MENU_ITEMS.LOGOUT")
 
   li.navbar-notifications
     ul
@@ -27,6 +28,20 @@ ul
         a
           span.navbar-item-handler
             span.icon.icon-questionmark-24
+            span.mobile-onlys(data-translate="NAVIGATION.MENU_ITEMS.HELP")
+          span.mobile-only.icon.icon-next-24
+
+      li.navbar-parent
+        a
+          span.navbar-item-handler
+            span.icon.icon-user-available-24
+            span.mobile-onlys(data-translate="NAVIGATION.MENU_ITEMS.HELP")
+          span.mobile-only.icon.icon-next-24
+
+      li.navbar-parent(data-ng-if="$ctrl.isExpert")
+        a
+          span.navbar-item-handler
+            span.icon.icon-bell-24
             span.mobile-onlys(data-translate="NAVIGATION.MENU_ITEMS.HELP")
           span.mobile-only.icon.icon-next-24
 

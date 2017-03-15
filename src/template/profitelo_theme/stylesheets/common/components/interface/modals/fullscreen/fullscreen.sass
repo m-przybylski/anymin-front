@@ -10,13 +10,13 @@
     background: $c-white
 
     &.is-scrollable
-      padding: $f-navbar-height 0 0 0
+      padding: $s-navbar-height 0 0 0
 
     &.fullscreen-navbar
-      padding: $dashboard-navbar-width 0 0
+      padding: $s-navbar-height 0 0
 
       .scrollable-container
-        height: calc(100vh - 80px)
+        height: calc(100vh - #{$s-navbar-height})
 
         .scrollable-center
           padding: 0
