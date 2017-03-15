@@ -5,10 +5,12 @@ import "common/directives/pro-footer/pro-footer"
 import "common/directives/pro-tags-slider/pro-tags-slider"
 import "common/components/pro-search-dropdown/pro-search-dropdown"
 import "common/components/interface/card-slider/card-slider"
+import navbarModule from "../../common/components/navbar/navbar"
 
 const consultationsFieldPageModule = angular.module('profitelo.controller.consultations-field', [
   'ui.router',
   sessionModule,
+  navbarModule,
   'profitelo.directives.pro-footer',
   'profitelo.directives.pro-tags-slider',
   'profitelo.components.pro-search-dropdown',

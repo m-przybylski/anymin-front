@@ -1,18 +1,20 @@
 import * as angular from "angular"
 import {NavbarComponent} from "./navbar.component"
-import {SessionService} from "../../services/session/session.service"
 import "angular-ui-router"
+import navbarLoggedInMenuModule from "./navbar-logged-in-menu/navbar-logged-in-menu"
+import navbarLoggedOutMenuModule from "./navbar-logged-out-menu/navbar-logged-out-menu"
 
 export interface INavbarComponentBindings extends ng.IController {
-  logoutAction: any
+  searchModel: string
 }
 
 const navbarModule = angular.module('profitelo.components.navbar', [
   'pascalprecht.translate',
-  'ui.router'
+  'ui.router',
+  navbarLoggedInMenuModule,
+  navbarLoggedOutMenuModule
 ])
 .component('navbar', new NavbarComponent)
-  .service('sessionService', SessionService)
   .name
 
 export default navbarModule

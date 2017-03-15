@@ -1,10 +1,7 @@
-//.search-active-mask(data-ng-class="{'off': vm.interfaceController.hideSearchMask}")
-
+navbar
 main.top-content-home
   .container.home-header
     include ./parts/top-container.partial.jade
-  .container(data-ng-click="vm.onSearchFocus()")
-    pro-search-dropdown(data-mask-search="vm.interfaceController.hideSearchMask")
   .container
     include ./parts/branch-overview.partial.jade
 
