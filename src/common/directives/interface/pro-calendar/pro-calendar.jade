@@ -6,8 +6,8 @@
 
   input(type='text' uib-datepicker-popup='{{format}}'
   data-ng-model='ngModel' is-open='popup1.opened' datepicker-options='dateOptions'
-  datepicker-popup-template-url="{{ popupTemplate }}"
-  datepicker-template-url="{{ template }}"
+  datepicker-popup-template-url=require("../../../templates/calendar/popup.tpl.pug")
+  datepicker-template-url=require("../../../templates/calendar/datepicker.tpl.pug")
   data-ng-required='true' close-text='Close' alt-input-formats='altInputFormats'
   popup-placement="" class="calendar-input")
 

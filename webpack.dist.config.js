@@ -2,12 +2,17 @@ const webpack = require('webpack');
 const path    = require('path');
 const config  = require('./webpack.config');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const pug = require('pug');
 
 config.output = {
   filename: '[name].bundle.js',
   publicPath: '',
   path: path.resolve(__dirname, 'dist')
 };
+
+const pugTransformer = (content, _path) => {
+  return pug.compile(content, {})();
+}
 
 config.plugins = config.plugins.concat([
 
@@ -25,7 +30,10 @@ config.plugins = config.plugins.concat([
 
   // copy static assets which are not bundled into dist
   new CopyWebpackPlugin([
-    {from : './src/assets', to: 'assets'}
+    {from : './src/assets', to: 'assets'},
+    {from : './src/common/templates/calendar/day.pug', to: 'templates/calendar/day.html', transform: pugTransformer},
+    {from : './src/common/templates/calendar/month.pug', to: 'templates/calendar/month.html', transform: pugTransformer},
+    {from : './src/common/templates/calendar/year.pug', to: 'templates/calendar/year.html', transform: pugTransformer}
   ])
 ]);
 
