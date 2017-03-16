@@ -1,6 +1,6 @@
-var path = require('path');
-var webpack = require('webpack');
-const { CheckerPlugin } = require('awesome-typescript-loader')
+const path = require('path');
+const webpack = require('webpack');
+const {CheckerPlugin} = require('awesome-typescript-loader')
 
 module.exports = function (config) {
   config.set({
@@ -42,22 +42,48 @@ module.exports = function (config) {
     webpack: {
       devtool: 'inline-source-map',
       resolve: {
-        extensions: ["", ".ts", ".webpack.js", ".web.js", ".js", ".json"],
-        root: path.resolve('./src'),
+        extensions: [/*"", */".ts", ".webpack.js", ".web.js", ".js", ".json"],
         modules: [
           path.resolve('./src'),
           path.resolve('./node_modules')
         ]
       },
       module: {
-        postLoaders: [
+        rules: [
+          //to generate static html files for some external directives
+          {test: /\.tpl\.pug$/, use: [
+            {loader: 'file-loader', options: {name: '[hash].html'}},
+            {loader:'pug-html-loader', options: {exports: 'false'}}]
+          },
+          {test: /\.jade$/, exclude: [/\.tpl\.pug$/], use: [{loader: "jade-loader"}]},
+          {test: /\.ts$/, exclude: [], use: [
+            {loader: 'ng-annotate-loader'},
+            {loader: 'awesome-typescript-loader'}
+          ]},
+          {test: /\.html$/, use: [{loader: 'raw-loader'}]},
+          {
+            test: /\.(scss|sass)$/,
+            use: [
+              {loader: 'style-loader'},
+              {loader: 'css-loader'},
+              {loader: 'sass-loader'}
+            ]
+          },
+          {
+            test: /\.css$/,
+            use: [
+              {loader: 'style-loader'},
+              {loader: 'css-loader'}
+            ]
+          },
           /**
            * Instruments source files for subsequent code coverage.
            * See https://github.com/deepsweet/istanbul-instrumenter-loader
            */
           {
             test: /\.ts$/,
-            loader: 'istanbul-instrumenter-loader?embedSource=true&noAutoWrap=true',
+            enforce: 'post',
+            use: [{loader: 'istanbul-instrumenter-loader', options: {embedSource: true, noAutoWrap: true}}],
             exclude: [
               /\.spec.ts$/,
               /generated_modules/,
@@ -65,17 +91,6 @@ module.exports = function (config) {
               /node_modules/
             ]
           }
-        ],
-        loaders: [
-          //to generate static html files for some external directives
-          {test: /\.tpl\.pug$/, loaders: ['file?name=[hash].html', 'pug-html?exports=false']},
-          {test: /\.json$/, loader: "json"}, // to parse configs from node_modules
-          {test: /\.jade$/, exclude: [/\.tpl\.pug$/], loader: "jade"},
-          {test: /\.ts$/, exclude: [], loader: 'ng-annotate!awesome-typescript-loader'},
-          {test: /\.js/, exclude: [/app\/lib/, /node_modules/], loader: 'babel'},
-          {test: /\.html$/, loader: 'raw'},
-          {test: /\.(scss|sass)$/, loader: 'style!css!sass'},
-          {test: /\.css$/, loader: 'style!css'}
         ]
       },
       plugins: [
