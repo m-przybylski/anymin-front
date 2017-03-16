@@ -1,4 +1,4 @@
-//import "moment/min/moment-with-locales"
+// import "moment/min/moment-with-locales"
 import "jquery"
 import "jquery-bridget"
 import "bootstrap-sass/assets/javascripts/bootstrap"
@@ -12,7 +12,6 @@ import "angular-ui-router"
 import 'angular-ui-bootstrap'
 import 'angular-ui-mask'
 import 'angular-permission'
-
 import 'angular-moment'
 import 'angular-cookies'
 import customTranslationHandlerModule from "../common/services/custom-translation-handler/custom-translation-handler"
@@ -29,10 +28,10 @@ import {AppComponentController} from "./app.controller"
 import {AppConfigFunction} from "./app.config"
 import {AppRunFunction} from "./app.run"
 import "croppie"
-//import 'messageformat/messageformat.js'
-//import 'messageformat/locale/pl.js'
+// import 'messageformat/messageformat.js'
+// import 'messageformat/locale/pl.js'
 // import 'messageformat/locale/en.js'
-//import 'angular-translate-interpolation-messageformat'
+// import 'angular-translate-interpolation-messageformat'
 
 import "masonry-layout/dist/masonry.pkgd"
 import "angular-masonry"

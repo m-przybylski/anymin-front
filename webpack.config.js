@@ -19,6 +19,10 @@ module.exports = {
     errorDetails: true
   },
   module: {
+    resolveLoader: {
+      alias: {
+      }
+    },
     loaders: [
       //to generate static html files for some external directives
       {test: /\.tpl\.pug$/, loaders: ['file?name=[hash].html', 'pug-html?exports=false']},
