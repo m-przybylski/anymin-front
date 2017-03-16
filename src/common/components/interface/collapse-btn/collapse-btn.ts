@@ -66,7 +66,7 @@ const component = {
   controller: controller,
   bindings: {
     title: '@',
-    icon: '@'
+    collapseIcon: '@'
   }
 }
 
