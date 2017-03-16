@@ -15,7 +15,7 @@ import "./complain-status/complain-status"
   }
 
   const component = {
-    template: require('./complain.jade')(),
+    template: require('./complain.pug')(),
     controller: controller,
     controllerAs: '$ctrl',
     bindings: {

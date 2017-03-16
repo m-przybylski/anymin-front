@@ -25,7 +25,7 @@ function proRangeSlider($timeout: ng.ITimeoutService) {
   }
 
   return {
-    template: require('./pro-range-slider.jade')(),
+    template: require('./pro-range-slider.pug')(),
     restrict: 'E',
     replace: true,
     link: linkFunction,

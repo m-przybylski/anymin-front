@@ -103,7 +103,7 @@ function config($stateProvider: ng.ui.IStateProvider) {
     url: '/set-new-password/token/:token/{method:|sms}',
     controllerAs: 'vm',
     controller: 'SetNewPasswordController',
-    template: require('./set-new-password.jade')(),
+    template: require('./set-new-password.pug')(),
     resolve: {
 
       tokenStatus: ($stateParams: ISetNewPasswordStateParams, LoginSetNewPasswordResolver: ILoginSetNewPasswordService) => {

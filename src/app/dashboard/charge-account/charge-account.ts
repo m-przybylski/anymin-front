@@ -158,7 +158,7 @@ function config($stateProvider: ng.ui.IStateProvider) {
     url: '/charge-account',
     controllerAs: 'vm',
     controller: 'chargeAccountController',
-    template: require('./charge-account.jade')(),
+    template: require('./charge-account.pug')(),
     resolve: {
       paymentsOptions: (PaymentsApi: PaymentsApi) => PaymentsApi.getPaymentOptionsRoute(),
       paymentsLinks: (PaymentsApi: PaymentsApi) => PaymentsApi.getPayUPaymentLinksRoute(),

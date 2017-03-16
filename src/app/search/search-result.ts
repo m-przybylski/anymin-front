@@ -121,7 +121,7 @@ const searchResultPageModule = angular.module('profitelo.controller.search-resul
   .config(($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider.state('app.search-result', {
       url: '/search-result?q&tagId&category&categorySlug&profileType&onlyAvailable&sortBy&language',
-      template: require('./search-result.jade')(),
+      template: require('./search-result.pug')(),
       controller: 'SearchResultController',
       controllerAs: 'vm',
       data: {

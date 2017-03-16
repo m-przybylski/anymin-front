@@ -19,7 +19,7 @@
   }
 
   const thankYouPage = {
-    template: require('./thank-you-page.jade')(),
+    template: require('./thank-you-page.pug')(),
     replace: true,
     transclude: true,
     controller: thankYouPageController,

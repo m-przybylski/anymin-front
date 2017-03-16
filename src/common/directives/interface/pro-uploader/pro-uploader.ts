@@ -202,7 +202,7 @@ function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interv
   }
 
   return {
-    template: require('./pro-uploader.jade')(),
+    template: require('./pro-uploader.pug')(),
     restrict: 'E',
     replace: true,
     link: linkFunction,

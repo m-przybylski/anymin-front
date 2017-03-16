@@ -157,7 +157,7 @@ function IndividualConsultationController($log: ng.ILogService, $scope: ng.IScop
     dialogService.openDialog({
       scope: $scope,
       controller: 'acceptRejectDialogController',
-      template: require('common/controllers/accept-reject-dialog-controller/accept-reject-dialog-controller.jade')()
+      template: require('common/controllers/accept-reject-dialog-controller/accept-reject-dialog-controller.pug')()
     })
 
   }
@@ -192,7 +192,7 @@ angular.module('profitelo.controller.dashboard.service-provider.consultation-ran
     $stateProvider.state('app.dashboard.service-provider.consultation-range.individual', {
 
       url: '/individual',
-      template: require('./individual-consultation.jade')(),
+      template: require('./individual-consultation.pug')(),
       controller: 'IndividualConsultationController',
       controllerAs: 'vm',
       resolve: {

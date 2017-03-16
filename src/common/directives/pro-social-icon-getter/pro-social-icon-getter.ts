@@ -14,7 +14,7 @@ function proSocialIconGetter(urlService: UrlService) {
     restrict: 'EA',
     replace: true,
     transclude: true,
-    template: require('./pro-social-icon-getter.jade')(),
+    template: require('./pro-social-icon-getter.pug')(),
     scope: {
       url: '='
     },

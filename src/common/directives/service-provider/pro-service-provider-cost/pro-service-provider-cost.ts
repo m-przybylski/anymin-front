@@ -64,7 +64,7 @@ function proServiceProviderCost($q: ng.IQService, $filter: IFilterService) {
   return {
     replace: true,
     restrict: 'E',
-    template: require('./pro-service-provider-cost.jade')(),
+    template: require('./pro-service-provider-cost.pug')(),
     scope: {
       queue: '=',
       order: '=?',

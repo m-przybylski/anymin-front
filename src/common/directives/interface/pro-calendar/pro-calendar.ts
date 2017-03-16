@@ -92,7 +92,7 @@ function proCalendar() {
   }
 
   return {
-    template: require('./pro-calendar.jade')(),
+    template: require('./pro-calendar.pug')(),
     restrict: 'E',
     replace: true,
     link: linkFunction,

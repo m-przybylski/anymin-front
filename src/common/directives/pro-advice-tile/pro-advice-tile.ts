@@ -3,7 +3,7 @@
 
 
     return {
-      template:  require('./pro-advice-tile.jade')(),
+      template:  require('./pro-advice-tile.pug')(),
       restrict:     'E',
       replace: true,
       scope: {

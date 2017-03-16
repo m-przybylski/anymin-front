@@ -85,7 +85,7 @@ function proServiceProviderWhoProvides($q: ng.IQService, CommonSettingsService: 
   return {
     replace: true,
     restrict: 'E',
-    template: require('./pro-service-provider-who-provides.jade')(),
+    template: require('./pro-service-provider-who-provides.pug')(),
     scope: {
       queue: '=',
       order: '=?',

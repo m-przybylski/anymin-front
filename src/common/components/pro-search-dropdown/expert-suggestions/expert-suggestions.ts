@@ -14,7 +14,7 @@ function expertSuggestionsController(CommonSettingsService: CommonSettingsServic
 
 let expertSuggestions = {
   transclude: true,
-  template: require('./expert-suggestions.jade')(),
+  template: require('./expert-suggestions.pug')(),
   bindings: {
     experts: '<',
     searchModel: '<'

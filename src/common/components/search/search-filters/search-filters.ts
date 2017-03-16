@@ -186,7 +186,7 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
 
 class SearchFiltersComponent implements ng.IComponentOptions {
   controller: ng.Injectable<ng.IControllerConstructor> = SearchFiltersComponentController
-  template = require('./search-filers.jade')()
+  template = require('./search-filers.pug')()
   bindings: {[boundProperty: string]: string} = {
     searchResults: '<',
     setSearchParams: '<'

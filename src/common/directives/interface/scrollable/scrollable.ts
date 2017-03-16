@@ -9,7 +9,7 @@ namespace profitelo.directives.scrollable {
   }
 
   class ScrollableDirective implements ng.IDirective {
-    public template = require('./scrollable.jade')()
+    public template = require('./scrollable.pug')()
     public restrict: string = 'E'
     public transclude: boolean = true
     public scope = {

@@ -98,7 +98,7 @@ export class ChooseAmountChargeComponentController implements IChooseAmountCharg
 }
 
 class ChooseAmountChargeComponent implements ng.IComponentOptions {
-  template = require('./choose-amount-charge.jade')()
+  template = require('./choose-amount-charge.pug')()
   bindings = {
     title: '@',
     amounts: '<',

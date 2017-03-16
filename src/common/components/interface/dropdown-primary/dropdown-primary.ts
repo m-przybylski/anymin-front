@@ -94,7 +94,7 @@ import * as angular from "angular"
 
   class DropdownPrimaryComponent implements ng.IComponentOptions {
     controller: ng.Injectable<ng.IControllerConstructor> = DropdownPrimaryComponentController
-    template = require('./dropdown-primary.jade')()
+    template = require('./dropdown-primary.pug')()
     bindings: {[boundProperty: string]: string} = {
       label: '@',
       inputPlaceholder: '@',

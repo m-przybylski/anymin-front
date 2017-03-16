@@ -1,7 +1,7 @@
 (function() {
   let tagSuggestions = {
     transclude: true,
-    template: require('./tag-suggestions.jade')(),
+    template: require('./tag-suggestions.pug')(),
     bindings: {
       tags: '<',
       searchModel: '<'

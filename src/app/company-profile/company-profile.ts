@@ -43,7 +43,7 @@ const companyProfilePageModule = angular.module('profitelo.controller.company-pr
     $stateProvider.state('app.company-profile', {
       controllerAs: 'vm',
       url: '/company-profile/{profileId}?primaryConsultationId',
-      template: require('./company-profile.jade')(),
+      template: require('./company-profile.pug')(),
       controller: 'CompanyProfileController',
       resolve: {
         /* istanbul ignore next */

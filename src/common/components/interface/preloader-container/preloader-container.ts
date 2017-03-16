@@ -18,7 +18,7 @@ const component = {
     errorFn: '=?',
     errorMessage: '@'
   },
-  template: require('./preloader-container.jade')(),
+  template: require('./preloader-container.pug')(),
   transclude: true,
   controllerAs: '$ctrl',
   controller: preloaderContainerController

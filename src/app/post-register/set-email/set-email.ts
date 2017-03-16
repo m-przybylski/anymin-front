@@ -74,7 +74,7 @@ function config($stateProvider: ng.ui.IStateProvider) {
     url: '/set-email',
     controllerAs: 'vm',
     controller: 'SetEmailController',
-    template: require('./set-email.jade')(),
+    template: require('./set-email.pug')(),
     resolve: {
       /* istanbul ignore next */
       user: (userService: UserService) => {

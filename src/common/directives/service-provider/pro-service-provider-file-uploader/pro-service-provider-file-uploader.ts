@@ -75,7 +75,7 @@ function proServiceProviderFileUploader($log: ng.ILogService, $q: ng.IQService, 
   return {
     replace: true,
     restrict: 'E',
-    template: require('./pro-service-provider-file-uploader.jade')(),
+    template: require('./pro-service-provider-file-uploader.pug')(),
     scope: {
       queue: '=',
       order: '=?',

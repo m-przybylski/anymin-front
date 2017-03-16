@@ -1,7 +1,7 @@
 import {MessengerMaximizedComponentController} from "./maximized.controller"
 
 export class MessengerMaximizedComponent implements ng.IComponentOptions {
-  template = require("./maximized.jade")()
+  template = require("./maximized.pug")()
   controller: ng.Injectable<ng.IControllerConstructor> = MessengerMaximizedComponentController
   bindings: {[boundProperty: string]: string} = {
     callCost: '<',

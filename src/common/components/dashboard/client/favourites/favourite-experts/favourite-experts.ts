@@ -9,7 +9,7 @@ function controller() {
 }
 
 const component = {
-  template: require('./favourite-experts.jade')(),
+  template: require('./favourite-experts.pug')(),
   controller: controller,
   controllerAs: '$ctrl',
   bindings: {

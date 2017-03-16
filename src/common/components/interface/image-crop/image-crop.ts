@@ -39,7 +39,7 @@ namespace profitelo.components.interface.imageCrop {
 
   class ImageCropComponent implements ng.IComponentOptions {
     controller: ng.Injectable<ng.IControllerConstructor> = ImageCropComponentController
-    template = require('./image-crop.jade')()
+    template = require('./image-crop.pug')()
     bindings: {[boundProperty: string]: string} = {
       imageSrc: '<',
       saveCropAvatar: '<'

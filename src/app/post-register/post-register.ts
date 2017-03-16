@@ -13,7 +13,7 @@ function config($stateProvider: ng.ui.IStateProvider) {
     url: '/post-register',
     controllerAs: 'vm',
     controller: 'PostRegisterController',
-    template: require('./post-register.jade')(),
+    template: require('./post-register.pug')(),
     abstract: true,
     data: {
       permissions: {

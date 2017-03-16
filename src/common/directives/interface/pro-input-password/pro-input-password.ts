@@ -53,7 +53,7 @@
     }
 
     return {
-      template: require('./pro-input-password.jade')(),
+      template: require('./pro-input-password.pug')(),
       restrict: 'E',
       replace: true,
       link: linkFunction,

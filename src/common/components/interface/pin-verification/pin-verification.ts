@@ -62,7 +62,7 @@ export class PinVerificationComponentController implements ng.IController, IPinV
 class PinVerificationComponent implements ng.IComponentOptions {
 
   controller: ng.Injectable<ng.IControllerConstructor> = PinVerificationComponentController
-  template = require('./pin-verification.jade')()
+  template = require('./pin-verification.pug')()
   bindings: {[boundProperty: string]: string} = {
     onSendPinAgain: '<',
     onCompletePinInputs: '<'

@@ -13,7 +13,7 @@
       ngModel: '=?',
       value: '@'
     },
-    template: require('./radio.jade')(),
+    template: require('./radio.pug')(),
     controllerAs: '$ctrl',
     controller: controller
   }

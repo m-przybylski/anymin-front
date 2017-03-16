@@ -135,7 +135,7 @@ function config($stateProvider: ng.ui.IStateProvider) {
     url: '/register',
     controllerAs: 'vm',
     controller: 'RegisterController',
-    template: require('./register.jade')(),
+    template: require('./register.pug')(),
     resolve: {
       /* istanbul ignore next */
       smsSessionId: (LoginRegisterResolver: ILoginRegisterService) => {

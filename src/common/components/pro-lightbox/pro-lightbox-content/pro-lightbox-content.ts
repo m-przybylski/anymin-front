@@ -2,7 +2,7 @@
 
   let proLightboxContent = {
     transclude: true,
-    template: require('./pro-lightbox-content.jade')(),
+    template: require('./pro-lightbox-content.pug')(),
     bindings: {
       slide: '<'
     }

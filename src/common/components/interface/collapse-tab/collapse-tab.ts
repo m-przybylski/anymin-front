@@ -62,7 +62,7 @@ function controller($element: ng.IRootElementService, smoothScrollingService: Sm
 }
 
 const collapseTab = {
-  template: require('./collapse-tab.jade')(),
+  template: require('./collapse-tab.pug')(),
   controllerAs: '$ctrl',
   transclude: true,
   controller: controller

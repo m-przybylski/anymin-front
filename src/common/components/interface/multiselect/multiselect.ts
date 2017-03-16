@@ -51,7 +51,7 @@
   }
 
   const component = {
-    template: require('./multiselect.jade')(),
+    template: require('./multiselect.pug')(),
     bindings: {
       isDisabled: '<',
       items: '<',

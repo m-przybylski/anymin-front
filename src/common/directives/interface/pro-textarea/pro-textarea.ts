@@ -48,7 +48,7 @@
     }
 
     return {
-      template: require('./pro-textarea.jade')(),
+      template: require('./pro-textarea.pug')(),
       restrict: 'E',
       replace: true,
       link: linkFunction,

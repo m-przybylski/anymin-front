@@ -29,7 +29,7 @@ import {UrlService} from "../../../../../../services/url/url.service"
   }
 
   const lastConsultationSlider = {
-    template: require('./last-consultation-slider.jade')(),
+    template: require('./last-consultation-slider.pug')(),
     restrict: 'E',
     replace: true,
     bindings: {

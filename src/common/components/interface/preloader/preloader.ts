@@ -10,7 +10,7 @@
     bindings: {
       isLoading: '=?'
     },
-    template: require("./preloader.jade")(),
+    template: require("./preloader.pug")(),
     controllerAs: '$ctrl',
     controller: controller
   }

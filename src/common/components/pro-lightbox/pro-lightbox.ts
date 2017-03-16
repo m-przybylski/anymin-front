@@ -6,7 +6,7 @@ import "common/components/pro-lightbox/pro-lightbox-nav/pro-lightbox-nav"
 
   let proLightbox = {
     transclude: true,
-    template: require('./pro-lightbox.jade')(),
+    template: require('./pro-lightbox.pug')(),
     bindings: {
       currentSlide: '<',
       actionsSettings: '=?',

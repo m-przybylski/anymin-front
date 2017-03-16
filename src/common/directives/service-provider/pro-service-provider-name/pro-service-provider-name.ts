@@ -58,7 +58,7 @@ import "common/controllers/service-provider/service-provider-step-controller/ser
     return {
       replace: true,
       restrict: 'E',
-      template: require('./pro-service-provider-name.jade'),
+      template: require('./pro-service-provider-name.pug'),
       scope: {
         queue: '=',
         order: '=?',

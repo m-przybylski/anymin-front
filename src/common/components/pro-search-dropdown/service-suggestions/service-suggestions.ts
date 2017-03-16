@@ -19,7 +19,7 @@ function serviceSuggestionsController($state: ng.ui.IStateService, CommonSetting
 
 let serviceSuggestions = {
   transclude: true,
-  template: require('./service-suggestions.jade')(),
+  template: require('./service-suggestions.pug')(),
   bindings: {
     services: '<',
     searchModel: '<'

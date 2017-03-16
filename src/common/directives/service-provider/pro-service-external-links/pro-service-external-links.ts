@@ -91,7 +91,7 @@ function proServiceExternalLinks($q: ng.IQService, CommonSettingsService: Common
   return {
     replace: true,
     restrict: 'E',
-    template: require('./pro-service-external-links.jade')(),
+    template: require('./pro-service-external-links.pug')(),
     scope: {
       queue: '=',
       order: '=?',

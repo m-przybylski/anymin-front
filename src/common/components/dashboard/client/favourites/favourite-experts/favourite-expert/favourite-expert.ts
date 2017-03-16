@@ -24,7 +24,7 @@ function controller($state: ng.ui.IStateService, urlService: UrlService) {
 }
 
 const component = {
-  template: require('./favourite-expert.jade')(),
+  template: require('./favourite-expert.pug')(),
   controller: controller,
   controllerAs: '$ctrl',
   bindings: {

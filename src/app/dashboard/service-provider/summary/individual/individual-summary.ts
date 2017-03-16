@@ -121,7 +121,7 @@ function IndividualSummaryController($log: ng.ILogService, $state: ng.ui.IStateS
     dialogService.openDialog({
       scope: $scope,
       controller: 'acceptRejectDialogController',
-      template: require('common/controllers/accept-reject-dialog-controller/accept-reject-dialog-controller.jade')()
+      template: require('common/controllers/accept-reject-dialog-controller/accept-reject-dialog-controller.pug')()
     })
   }
 
@@ -143,7 +143,7 @@ angular.module('profitelo.controller.dashboard.service-provider.summary.individu
   .config(function ($stateProvider: ng.ui.IStateProvider) {
     $stateProvider.state('app.dashboard.service-provider.summary.individual', {
       url: '/individual',
-      template: require('./individual-summary.jade')(),
+      template: require('./individual-summary.pug')(),
       controller: 'IndividualSummaryController',
       controllerAs: 'vm',
       resolve: {

@@ -131,7 +131,7 @@ angular.module('profitelo.controller.dashboard.service-provider.individual-path'
   .config(function ($stateProvider: ng.ui.IStateProvider) {
     $stateProvider.state('app.dashboard.service-provider.individual-path', {
       url: '/individual-path',
-      template: require('./individual-path.jade')(),
+      template: require('./individual-path.pug')(),
       controller: 'IndividualPathController',
       controllerAs: 'vm',
       resolve: {

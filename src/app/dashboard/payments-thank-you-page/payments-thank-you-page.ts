@@ -15,7 +15,7 @@ function config($stateProvider: ng.ui.IStateProvider) {
     url: '/payments-thank-you-page',
     controllerAs: 'vm',
     controller: 'paymentsThankYouPageController',
-    template: require('./payments-thank-you-page.jade')(),
+    template: require('./payments-thank-you-page.pug')(),
     data: {
       pageTitle: 'PAGE_TITLE.CHARGE_ACCOUNT',
       showMenu: false

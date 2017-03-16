@@ -19,7 +19,7 @@ const consultationsFieldPageModule = angular.module('profitelo.controller.consul
   .config(($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider.state('app.consultations-field', {
       url: '/consultations-field/{fieldId:int}',
-      template: require('./consultations-field.jade')(),
+      template: require('./consultations-field.pug')(),
       controller: 'ConsultationsFieldController',
       controllerAs: 'vm',
       data: {

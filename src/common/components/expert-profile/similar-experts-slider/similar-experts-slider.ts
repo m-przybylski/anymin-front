@@ -30,7 +30,7 @@ function controller($scope: any, $state: ng.ui.IStateService, urlService: UrlSer
 }
 
 const similarExpertsSlider = {
-  template: require("./similar-experts-slider.jade")(),
+  template: require("./similar-experts-slider.pug")(),
   bindings: {
     consultations: '<',
     title: '@'

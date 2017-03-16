@@ -133,7 +133,7 @@ function config($stateProvider: ng.ui.IStateProvider) {
     url: '/account',
     controllerAs: 'vm',
     controller: 'AccountFormController',
-    template: require('./account.jade')(),
+    template: require('./account.pug')(),
     data: {
       pageTitle: 'PAGE_TITLE.LOGIN.ACCOUNT'
     }

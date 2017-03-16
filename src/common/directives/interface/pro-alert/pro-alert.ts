@@ -19,7 +19,7 @@ function proAlert(topAlertService: TopAlertService) {
   }
 
   return {
-    template: require('./pro-alert.jade')(),
+    template: require('./pro-alert.pug')(),
     restrict: 'E',
     replace: true,
     link: linkFunction,

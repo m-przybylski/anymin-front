@@ -89,7 +89,7 @@ angular.module('profitelo.controller.dashboard.settings.payments', [
   .config(($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider.state('app.dashboard.settings.payments', {
       url: '/payments',
-      template: require('./payments.jade')(),
+      template: require('./payments.pug')(),
       controller: 'dashboardSettingsPaymentsController',
       controllerAs: 'vm',
       resolve: {

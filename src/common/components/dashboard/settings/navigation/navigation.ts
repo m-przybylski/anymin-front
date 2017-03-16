@@ -7,7 +7,7 @@ namespace profitelo.components.settings.navigation {
   }
 
   const component = {
-    template: require('./navigation.jade')(),
+    template: require('./navigation.pug')(),
     controller: controller,
     controllerAs: '$ctrl',
     bindings: {

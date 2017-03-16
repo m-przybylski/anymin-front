@@ -156,7 +156,7 @@ function controller($scope: ng.IScope, $filter: IFilterService, lodash: _.LoDash
 }
 
 const component = {
-  template: require('./filters.jade')(),
+  template: require('./filters.pug')(),
   controller: controller,
   controllerAs: '$ctrl',
   bindings: {

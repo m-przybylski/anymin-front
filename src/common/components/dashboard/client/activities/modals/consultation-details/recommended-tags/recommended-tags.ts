@@ -52,7 +52,7 @@ function controller($log: ng.ILogService, lodash: _.LoDashStatic, ServiceApi: Se
 }
 
 const component = {
-  template: require('./recommended-tags.jade')(),
+  template: require('./recommended-tags.pug')(),
   controller: controller,
   controllerAs: '$ctrl',
   bindings: {

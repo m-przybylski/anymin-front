@@ -11,7 +11,7 @@
     }
 
     return {
-      template:  require('./pro-expert-card.jade')(),
+      template:  require('./pro-expert-card.pug')(),
       restrict:     'E',
       replace:      true,
       link:         linkFunction,

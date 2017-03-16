@@ -33,7 +33,7 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controller: 'clientCallController',
-      template: require('common/components/communicator/modals/client-call/client-call.jade')(),
+      template: require('common/components/communicator/modals/client-call/client-call.pug')(),
       scope: dialogScope
     })
   }
@@ -47,7 +47,7 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controller: 'noCreditsController',
-      template: require('common/components/communicator/modals/no-credits/no-credits.jade')(),
+      template: require('common/components/communicator/modals/no-credits/no-credits.pug')(),
       scope: dialogScope
     })
   }
@@ -61,7 +61,7 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controller: 'unavailableServiceController',
-      template: require('common/components/communicator/modals/service-unavailable/service-unavailable.jade')(),
+      template: require('common/components/communicator/modals/service-unavailable/service-unavailable.pug')(),
       scope: dialogScope
     })
   }
@@ -78,7 +78,7 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controller: 'consultationSummaryClientController',
-      template: require('common/components/communicator/modals/consultation-summary-client/consultation-summary-client.jade')(),
+      template: require('common/components/communicator/modals/consultation-summary-client/consultation-summary-client.pug')(),
       scope: dialogScope
     })
   }
@@ -95,7 +95,7 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controller: 'consultationSummaryExpertController',
-      template: require('common/components/communicator/modals/consultation-summary-expert/consultation-summary-expert.jade')(),
+      template: require('common/components/communicator/modals/consultation-summary-expert/consultation-summary-expert.pug')(),
       scope: dialogScope
     })
   }
@@ -110,7 +110,7 @@ export class ModalsService {
     dialogScope.sueId = sueId
     return this.dialogService.openDialog({
       controller: 'clientConsultationDetails',
-      template: require('common/components/dashboard/client/activities/modals/consultation-details/consultation-details.jade')(),
+      template: require('common/components/dashboard/client/activities/modals/consultation-details/consultation-details.pug')(),
       scope: dialogScope
     })
   }
@@ -120,7 +120,7 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controller: 'clientComplainReportController',
-      template: require('common/components/dashboard/client/activities/modals/complain-report/complain-report.jade')(),
+      template: require('common/components/dashboard/client/activities/modals/complain-report/complain-report.pug')(),
       scope: dialogScope
     })
   }
@@ -135,7 +135,7 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controller: 'clientChargeDetailsController',
-      template: require('common/components/dashboard/client/activities/modals/charge-details/charge-details.jade')(),
+      template: require('common/components/dashboard/client/activities/modals/charge-details/charge-details.pug')(),
       scope: dialogScope
     })
   }
@@ -147,7 +147,7 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controller: 'basicAccountSettingsController',
-      template: require('common/components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings.jade')(),
+      template: require('common/components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings.pug')(),
       scope: dialogScope
     })
   }
@@ -160,7 +160,7 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controllerAs: 'vm',
       controller: 'generalPhoneSettingsController',
-      template: require('common/components/dashboard/settings/modals/general/phone-settings/phone-settings.jade')(),
+      template: require('common/components/dashboard/settings/modals/general/phone-settings/phone-settings.pug')(),
       scope: dialogScope
     })
   }
@@ -173,7 +173,7 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controllerAs: 'vm',
       controller: 'generalEmailSettingsController',
-      template: require('common/components/dashboard/settings/modals/general/email-settings/email-settings.jade')(),
+      template: require('common/components/dashboard/settings/modals/general/email-settings/email-settings.pug')(),
       scope: dialogScope
     })
   }
@@ -186,7 +186,7 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controllerAs: 'vm',
       controller: 'generalCountrySettingsController',
-      template: require('common/components/dashboard/settings/modals/general/country-settings/country-settings.jade')(),
+      template: require('common/components/dashboard/settings/modals/general/country-settings/country-settings.pug')(),
       scope: dialogScope
     })
   }
@@ -198,7 +198,7 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controllerAs: 'vm',
       controller: 'securityChangePasswordSettingsController',
-      template: require('common/components/dashboard/settings/modals/security/change-password/change-password.jade')(),
+      template: require('common/components/dashboard/settings/modals/security/change-password/change-password.pug')(),
       scope: dialogScope
     })
   }
@@ -210,7 +210,7 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controllerAs: 'vm',
       controller: 'securityPinNumberSettingsController',
-      template: require('common/components/dashboard/settings/modals/security/pin-number/pin-number.jade')(),
+      template: require('common/components/dashboard/settings/modals/security/pin-number/pin-number.pug')(),
       scope: dialogScope
     })
   }
@@ -223,7 +223,7 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controllerAs: 'vm',
       controller: 'addPaymentMethodController',
-      template: require('common/components/dashboard/settings/modals/payments/add-payment-method/add-payment-method.jade')(),
+      template: require('common/components/dashboard/settings/modals/payments/add-payment-method/add-payment-method.pug')(),
       scope: dialogScope
     })
   }
@@ -236,7 +236,7 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controllerAs: 'vm',
       controller: 'editCompanyInvoiceController',
-      template: require('common/components/dashboard/settings/modals/payments/edit-company-invoice/edit-company-invoice.jade')(),
+      template: require('common/components/dashboard/settings/modals/payments/edit-company-invoice/edit-company-invoice.pug')(),
       scope: dialogScope
     })
   }
@@ -250,7 +250,7 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controllerAs: 'vm',
       controller: 'payoutsPayPalController',
-      template: require('common/components/dashboard/settings/modals/payouts/payouts-payPal/payouts-pay-pal.jade')(),
+      template: require('common/components/dashboard/settings/modals/payouts/payouts-payPal/payouts-pay-pal.pug')(),
       scope: dialogScope
     })
   }

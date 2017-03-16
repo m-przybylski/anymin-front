@@ -45,7 +45,7 @@ function proExpertSlider(dialogService: DialogService, $timeout: ng.ITimeoutServ
   }
 
   return {
-    template: require('./pro-expert-slider.jade')(),
+    template: require('./pro-expert-slider.pug')(),
     restrict: 'E',
     replace: true,
     scope: {

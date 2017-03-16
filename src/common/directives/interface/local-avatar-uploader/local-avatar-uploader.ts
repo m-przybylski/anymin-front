@@ -6,7 +6,7 @@ namespace profitelo.directives.interface.localAvatarUploader {
   }
 
   class LocalAvatarUploaderDirective implements ng.IDirective {
-    public template = require('./local-avatar-uploader.jade')()
+    public template = require('./local-avatar-uploader.pug')()
     public restrict: string = 'E'
     public transclude: boolean = false
     public scope = {

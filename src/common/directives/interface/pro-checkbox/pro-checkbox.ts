@@ -32,7 +32,7 @@
     }
 
     return {
-      template: require('./pro-checkbox.jade')(),
+      template: require('./pro-checkbox.pug')(),
       restrict: 'E',
       replace: true,
       link: linkFunction,

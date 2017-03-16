@@ -22,7 +22,7 @@ function controller(callService: CallService) {
 }
 
 const companySingleConsultation = {
-  template: require('./company-single-consultation.jade')(),
+  template: require('./company-single-consultation.pug')(),
   replace: true,
   bindings: {
     serviceTagsEmployeesTuple: '<',

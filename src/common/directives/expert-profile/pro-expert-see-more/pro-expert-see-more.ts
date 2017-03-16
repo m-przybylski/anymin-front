@@ -3,7 +3,7 @@
 
 
     return {
-      template: require('./pro-expert-see-more.jade')(),
+      template: require('./pro-expert-see-more.pug')(),
       restrict: 'E',
       replace: true
     }

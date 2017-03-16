@@ -34,7 +34,7 @@ const dashboardPageModule = angular.module('profitelo.controller.dashboard', [
     $stateProvider.state('app.dashboard', {
       abstract: true,
       url: '/dashboard',
-      template: require('./dashboard.jade')(),
+      template: require('./dashboard.pug')(),
       controller: 'DashboardController',
       controllerAs: 'dashboardController',
       data: {

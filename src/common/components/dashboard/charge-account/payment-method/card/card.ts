@@ -50,7 +50,7 @@ export class CardPaymentFormComponentController implements ng.IController, ICard
 class CardPaymentFormComponent implements ng.IComponentOptions {
   controllerAs: '$ctrl'
   controller: ng.Injectable<ng.IControllerConstructor> = CardPaymentFormComponentController
-  template = require('./card.jade')()
+  template = require('./card.pug')()
   replace: true
   bindings: {[boundProperty: string]: string} = {
     paymentsLinks: '<',

@@ -76,7 +76,7 @@ function config($stateProvider: ng.ui.IStateProvider) {
     url: '/client',
     controllerAs: 'vm',
     controller: 'clientController',
-    template: require('./client.jade')(),
+    template: require('./client.pug')(),
     data: {
       pageTitle: 'PAGE_TITLE.CLIENT_DASHBOARD',
       showMenu: false

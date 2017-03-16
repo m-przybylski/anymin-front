@@ -7,7 +7,7 @@
   }
 
   let socialLinks = {
-    template: require('./social-links.jade')(),
+    template: require('./social-links.pug')(),
     restrict: 'E',
     replace: true,
     bindings: {

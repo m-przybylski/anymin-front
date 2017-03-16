@@ -87,7 +87,7 @@ function proTagsDropdown($timeout: ng.ITimeoutService) {
   }
 
   return {
-    template: require('./pro-tags-dropdown.jade')(),
+    template: require('./pro-tags-dropdown.pug')(),
     restrict: 'E',
     replace: true,
     link: linkFunction,

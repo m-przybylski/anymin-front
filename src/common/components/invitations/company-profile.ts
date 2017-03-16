@@ -2,7 +2,7 @@
 
   let companyProfile = {
     transclude: true,
-    template: require('./company-profile.jade')(),
+    template: require('./company-profile.pug')(),
     bindings: {
       profile: '<'
     },

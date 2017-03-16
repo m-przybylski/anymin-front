@@ -55,7 +55,7 @@ function controller(modalsService: ModalsService) {
 }
 
 const component = {
-  template: require('./complain-reason.jade')(),
+  template: require('./complain-reason.pug')(),
   controller: controller,
   controllerAs: '$ctrl',
   bindings: {

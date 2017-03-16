@@ -76,7 +76,7 @@ import {Tag} from "profitelo-api-ng/model/models"
   }
 
   let proInvitationAcceptanceBox = {
-    template: require('./pro-invitation-acceptance-box.jade')(),
+    template: require('./pro-invitation-acceptance-box.pug')(),
     restrict: 'E',
     replace: true,
     bindings: {

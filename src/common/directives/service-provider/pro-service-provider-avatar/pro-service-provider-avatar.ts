@@ -88,7 +88,7 @@ function proServiceProviderAvatar($log: ng.ILogService, $q: ng.IQService, topAle
   return {
     replace: true,
     restrict: 'E',
-    template: require('./pro-service-provider-avatar.jade')(),
+    template: require('./pro-service-provider-avatar.pug')(),
     scope: {
       queue: '=',
       order: '=?',

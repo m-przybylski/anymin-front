@@ -6,7 +6,7 @@
   }
 
   const component = {
-    template: require('./no-activities.jade')(),
+    template: require('./no-activities.pug')(),
     controller: controller,
     controllerAs: '$ctrl'
   }

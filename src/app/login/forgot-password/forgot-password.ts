@@ -66,7 +66,7 @@ function config($stateProvider: ng.ui.IStateProvider) {
     url: '/forgot-password/{method:|sms}',
     controllerAs: 'vm',
     controller: 'ForgotPasswordController',
-    template: require('./forgot-password.jade')(),
+    template: require('./forgot-password.pug')(),
     resolve: {
       account: (LoginForgotPasswordResolver: ILoginForgotPasswordService, $stateParams: IForgotPasswordStateParams) => {
         return LoginForgotPasswordResolver.resolve($stateParams)

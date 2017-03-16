@@ -28,7 +28,7 @@ function proServiceProviderSummaryStep() {
   return {
     replace: true,
     restrict: 'E',
-    template: require('./pro-service-provider-summary-step.jade')(),
+    template: require('./pro-service-provider-summary-step.pug')(),
     //transclude: true,
     compile: compileFunction,
     scope: {

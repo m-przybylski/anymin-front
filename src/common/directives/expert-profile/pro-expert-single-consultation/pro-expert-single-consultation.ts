@@ -27,7 +27,7 @@ function directive(callService: CallService, urlService: UrlService) {
   }
 
   return {
-    template: require('./pro-expert-single-consultation.jade')(),
+    template: require('./pro-expert-single-consultation.pug')(),
     restrict: 'E',
     replace: true,
     link: linkFunction,

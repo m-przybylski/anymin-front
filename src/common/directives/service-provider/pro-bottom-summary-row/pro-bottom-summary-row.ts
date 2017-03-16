@@ -12,7 +12,7 @@ function proBottomSummaryRow() {
   return {
     replace: true,
     restrict: 'E',
-    template: require('./pro-bottom-summary-row.jade')(),
+    template: require('./pro-bottom-summary-row.pug')(),
     scope: {
       queue: '=',
       order: '=?',

@@ -17,7 +17,7 @@ import filtersModule from "../../../../filters/filters"
   }
 
   class SummaryChargeAccountComponent implements ng.IComponentOptions {
-    template = require('./summary-charge-account.jade')()
+    template = require('./summary-charge-account.pug')()
     controller: ng.Injectable<ng.IControllerConstructor> = SummaryChargeAccountComponentController
     replace: true
     controllerAs: '$ctrl'

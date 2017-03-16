@@ -16,7 +16,7 @@ function proTopWaitingLoader(topWaitingLoaderService: TopWaitingLoaderService) {
   return {
     restrict: 'E',
     replace: true,
-    template: require('./pro-top-waiting-loader.jade')(),
+    template: require('./pro-top-waiting-loader.pug')(),
     link: proTopWaitingLoaderLinkFn
   }
 }

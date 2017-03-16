@@ -3,7 +3,7 @@
 
 
     return {
-      template:  require('./pro-news-tile.jade')(),
+      template:  require('./pro-news-tile.pug')(),
       restrict:     'E',
       replace: true,
       scope: {

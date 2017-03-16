@@ -55,7 +55,7 @@ function config($stateProvider: ng.ui.IStateProvider) {
     url: '/settings',
     controllerAs: 'vm',
     controller: 'settingsController',
-    template: require('./settings.jade')(),
+    template: require('./settings.pug')(),
     data: {
       pageTitle: 'PAGE_TITLE.CLIENT_DASHBOARD',
       showMenu: false

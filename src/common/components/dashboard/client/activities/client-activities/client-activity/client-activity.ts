@@ -51,7 +51,7 @@ class ClientActivityComponentController implements ng.IController, IClientActivi
 }
 
 class ClientActivityComponent implements ng.IComponentOptions {
-  template = require('./client-activity.jade')()
+  template = require('./client-activity.pug')()
   controller: ng.Injectable<ng.IControllerConstructor> = ClientActivityComponentController
   controllerAs: string = '$ctrl'
   bindings: {[boundProperty: string]: string} = {

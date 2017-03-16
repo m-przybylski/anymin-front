@@ -137,7 +137,7 @@ function CompanySummaryController($log: ng.ILogService, $state: ng.ui.IStateServ
     dialogService.openDialog({
       scope: $scope,
       controller: 'acceptRejectDialogController',
-      template: require('common/controllers/accept-reject-dialog-controller/accept-reject-dialog-controller.jade')()
+      template: require('common/controllers/accept-reject-dialog-controller/accept-reject-dialog-controller.pug')()
     })
 
   }
@@ -161,7 +161,7 @@ angular.module('profitelo.controller.dashboard.service-provider.summary.company'
   .config(function ($stateProvider: ng.ui.IStateProvider) {
     $stateProvider.state('app.dashboard.service-provider.summary.company', {
       url: '/company',
-      template: require('./company-summary.jade')(),
+      template: require('./company-summary.pug')(),
       controller: 'CompanySummaryController',
       controllerAs: 'vm',
       resolve: {

@@ -26,7 +26,7 @@ angular.module('profitelo.controller.dashboard.service-provider', [
     $stateProvider.state('app.dashboard.service-provider', {
       abstract: true,
       url: '/service-provider',
-      template: require('./service-provider.jade')(),
+      template: require('./service-provider.pug')(),
       controller: 'ServiceProviderController',
       controllerAs: 'serviceProviderController',
       data: {}

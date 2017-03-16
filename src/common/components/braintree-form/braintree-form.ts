@@ -190,7 +190,7 @@ export class BraintreeFormComponentController implements ng.IController, IBraint
 class BraintreeFormComponent implements ng.IComponentOptions {
 
   controller: ng.Injectable<ng.IControllerConstructor> = BraintreeFormComponentController
-  template = require('./braintree-form.jade')()
+  template = require('./braintree-form.pug')()
   bindings: {[boundProperty: string]: string} = {
     onBraintreeFormLoad: '<',
     onFormSucceed: '<',

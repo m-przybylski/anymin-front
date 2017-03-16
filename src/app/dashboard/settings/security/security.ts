@@ -83,7 +83,7 @@ angular.module('profitelo.controller.dashboard.settings.security', [
   .config(($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider.state('app.dashboard.settings.security', {
       url: '/security',
-      template: require('./security.jade')(),
+      template: require('./security.pug')(),
       controller: 'dashboardSettingsSecurityController',
       controllerAs: 'vm',
       resolve: {

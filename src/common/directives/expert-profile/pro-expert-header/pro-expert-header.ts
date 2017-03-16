@@ -19,7 +19,7 @@ function proExpertHeader(urlService: UrlService) {
   }
 
   return {
-    template: require('./pro-expert-header.jade')(),
+    template: require('./pro-expert-header.pug')(),
     restrict: 'E',
     replace: true,
     link: linkFunction,

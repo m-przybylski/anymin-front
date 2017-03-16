@@ -307,7 +307,7 @@ function proSearchDropdownController($q: ng.IQService, $scope: ng.IScope, $state
 
 const proSearchDropdown = {
   transclude: true,
-  template: require("./pro-search-dropdown.jade")(),
+  template: require("./pro-search-dropdown.pug")(),
   controller: proSearchDropdownController,
   controllerAs: 'vm',
   bindings: {

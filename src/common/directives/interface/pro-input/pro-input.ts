@@ -97,7 +97,7 @@
 
     return {
       require: '?ngModel',
-      template: require('./pro-input.jade'),
+      template: require('./pro-input.pug'),
       restrict: 'E',
       replace: true,
       link: linkFunction,

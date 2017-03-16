@@ -193,7 +193,7 @@ const homePageModule = angular.module('profitelo.controller.home', [
       url: '/home',
       controllerAs: 'vm',
       controller: 'HomeController',
-      template: require("./home.jade")(),
+      template: require("./home.pug")(),
       data: {
         pageTitle: 'PAGE_TITLE.HOME'
       }

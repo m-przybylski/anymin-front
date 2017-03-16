@@ -13,7 +13,7 @@ export class InvoiceCompanyFormComponentController implements ng.IController {
 class PayPalPaymentFormComponent implements ng.IComponentOptions {
   controllerAs: '$ctrl'
   controller: ng.Injectable<ng.IControllerConstructor> = InvoiceCompanyFormComponentController
-  template = require('./invoice-company.jade')()
+  template = require('./invoice-company.pug')()
   replace: true
 }
 

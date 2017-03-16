@@ -169,7 +169,7 @@ function CompanyConsultationController($log: ng.ILogService, $scope: ng.IScope, 
     dialogService.openDialog({
       scope: $scope,
       controller: 'acceptRejectDialogController',
-      template: require('common/controllers/accept-reject-dialog-controller/accept-reject-dialog-controller.jade')()
+      template: require('common/controllers/accept-reject-dialog-controller/accept-reject-dialog-controller.pug')()
     })
   }
 
@@ -204,7 +204,7 @@ angular.module('profitelo.controller.dashboard.service-provider.consultation-ran
     $stateProvider.state('app.dashboard.service-provider.consultation-range.company', {
 
       url: '/company',
-      template: require('./company-consultation.jade')(),
+      template: require('./company-consultation.pug')(),
       controller: 'CompanyConsultationController',
       controllerAs: 'vm',
       resolve: {

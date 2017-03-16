@@ -27,7 +27,7 @@
 
     }
     return {
-      template: require('./password-strength-bar.jade')(),
+      template: require('./password-strength-bar.pug')(),
       restrict: 'E',
       replace: true,
       link: linkFunction,

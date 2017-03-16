@@ -66,7 +66,7 @@
   }
 
   const component = {
-    template: require('./dropdown.jade')(),
+    template: require('./dropdown.pug')(),
     controllerAs: '$ctrl',
     transclude: true,
     controller: controller,

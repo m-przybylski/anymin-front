@@ -33,7 +33,7 @@ namespace profitelo.directives.serviceProvider.proServiceProviderProfile {
     return {
       replace: true,
       restrict: 'E',
-      template: require('./pro-service-provider-profile.jade')(),
+      template: require('./pro-service-provider-profile.pug')(),
       scope: {
         name: '=?',
         languages: '=?',

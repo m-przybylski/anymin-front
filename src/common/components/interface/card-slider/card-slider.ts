@@ -32,7 +32,7 @@
       cards: '<',
       controlls: '='
     },
-    template: require('./card-slider.jade')(),
+    template: require('./card-slider.pug')(),
     controllerAs: 'vm',
     controller: defaultCardSliderFunction
   }

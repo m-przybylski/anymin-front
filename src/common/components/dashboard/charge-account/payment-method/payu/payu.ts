@@ -195,7 +195,7 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
 }
 
 let payuPaymentForm = {
-  template: require('./payu.jade')(),
+  template: require('./payu.pug')(),
   replace: true,
   transclude: true,
   bindings: {

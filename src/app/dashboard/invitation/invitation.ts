@@ -24,7 +24,7 @@ function config($stateProvider: ng.ui.IStateProvider) {
     url: '/invitations',
     controllerAs: 'vm',
     controller: 'InvitationController',
-    template: require('./invitation.jade')(),
+    template: require('./invitation.pug')(),
     data: {
       pageTitle: 'PAGE_TITLE.INVITATIONS'
     },

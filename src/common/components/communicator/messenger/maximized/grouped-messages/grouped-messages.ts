@@ -23,7 +23,7 @@ export class GroupedMessagesComponentController implements ng.IController, IGrou
 }
 
 class GroupedMessagesComponent {
-  template = require("./grouped-messages.jade")()
+  template = require("./grouped-messages.pug")()
   controller: ng.Injectable<ng.IControllerConstructor> = GroupedMessagesComponentController
   bindings: {[boundProperty: string]: string} = {
     messages: '<',

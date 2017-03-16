@@ -32,7 +32,7 @@ function chooseBankController(smoothScrollingService: SmoothScrollingService, lo
 }
 
 let chooseBank = {
-  template: require('./choose-bank.jade')(),
+  template: require('./choose-bank.pug')(),
   restrict: 'E',
   replace: true,
   transclude: true,

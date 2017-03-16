@@ -17,7 +17,7 @@ function config($stateProvider: ng.ui.IStateProvider) {
     url: '/login',
     controllerAs: 'vm',
     controller: 'LoginController',
-    template: require('./login.jade')(),
+    template: require('./login.pug')(),
     data: {
       permissions: {
         only: ['anon'],

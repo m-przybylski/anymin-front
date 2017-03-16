@@ -2,7 +2,7 @@
   function proFooter() {
 
     return {
-      template: require('./pro-footer.jade')(),
+      template: require('./pro-footer.pug')(),
       restrict: 'E',
       replace: true
     }

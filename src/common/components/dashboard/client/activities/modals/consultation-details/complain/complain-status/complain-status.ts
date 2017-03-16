@@ -9,7 +9,7 @@ import "../../../../../../../../components/complaints/status/status"
   }
 
   const component = {
-    template: require('./complain-status.jade')(),
+    template: require('./complain-status.pug')(),
     controller: controller,
     controllerAs: '$ctrl',
     bindings: {

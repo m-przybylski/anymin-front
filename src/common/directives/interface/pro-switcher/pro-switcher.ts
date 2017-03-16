@@ -25,7 +25,7 @@
     }
 
     return {
-      template: require('./pro-switcher.jade'),
+      template: require('./pro-switcher.pug'),
       restrict: 'E',
       replace: true,
       link: linkFunction,

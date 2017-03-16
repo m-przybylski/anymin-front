@@ -100,7 +100,7 @@ function proServiceProviderTags($q: ng.IQService, TagApi: TagApi, lodash: _.LoDa
   return {
     replace: true,
     restrict: 'E',
-    template: require('./pro-service-provider-tags.jade')(),
+    template: require('./pro-service-provider-tags.pug')(),
     scope: {
       queue: '=',
       order: '=?',

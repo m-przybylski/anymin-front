@@ -15,7 +15,7 @@ angular.module('profitelo.controller.dashboard.service-provider.choose-path', [
   .config(function ($stateProvider: ng.ui.IStateProvider) {
     $stateProvider.state('app.dashboard.service-provider.choose-path', {
       url: '/choose-path',
-      template: require('./choose-path.jade')(),
+      template: require('./choose-path.pug')(),
       controller: 'ChoosePathController',
       controllerAs: 'vm',
       resolve: {

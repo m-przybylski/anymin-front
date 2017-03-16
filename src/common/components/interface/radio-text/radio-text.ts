@@ -16,7 +16,7 @@
       ngModel: '=',
       value: '@',
     },
-    template: require('./radio-text.jade')(),
+    template: require('./radio-text.pug')(),
     controllerAs: '$ctrl',
     controller: controller
   }

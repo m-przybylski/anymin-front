@@ -34,7 +34,7 @@ function controller($scope: any, urlService: UrlService) {
 }
 
 const expertsConsultationSlider = {
-  template: require('./experts-consultation-slider.jade')(),
+  template: require('./experts-consultation-slider.pug')(),
   bindings: {
     experts: '<',
     title: '@'

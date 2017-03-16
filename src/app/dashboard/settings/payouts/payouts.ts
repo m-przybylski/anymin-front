@@ -42,7 +42,7 @@ angular.module('profitelo.controller.dashboard.settings.payouts', [
   .config(($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider.state('app.dashboard.settings.payouts', {
       url: '/payouts',
-      template: require('./payouts.jade')(),
+      template: require('./payouts.pug')(),
       controller: 'dashboardSettingsPayoutsController',
       controllerAs: 'vm',
       resolve: {

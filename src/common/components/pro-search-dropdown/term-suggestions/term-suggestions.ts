@@ -4,7 +4,7 @@ import searchUrlModule from "../../../services/search-url/search-url"
 
 const component = {
   transclude: true,
-  template: require("./term-suggestions.jade")(),
+  template: require("./term-suggestions.pug")(),
   bindings: {
     terms: '<',
     categorySlugs: '<',

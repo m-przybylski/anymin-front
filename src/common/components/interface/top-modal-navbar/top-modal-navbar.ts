@@ -30,7 +30,7 @@ function controller($window: IWindowService, $scope: ng.IScope, $state: ng.ui.IS
 }
 
 const component = {
-  template: require('./top-modal-navbar.jade')(),
+  template: require('./top-modal-navbar.pug')(),
   controller: controller,
   bindings: {
     onClose: '<'

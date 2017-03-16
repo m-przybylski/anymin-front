@@ -44,7 +44,7 @@ class PaymentMethodComponentController implements PaymentMethodComponentBindings
 }
 
 class PaymentMethodComponent implements ng.IComponentOptions {
-  template = require('./payment-method.jade')()
+  template = require('./payment-method.pug')()
   bindings = {
     title: '@',
     paymentSystems: '<',

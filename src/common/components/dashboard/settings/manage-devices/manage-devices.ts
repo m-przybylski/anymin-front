@@ -41,7 +41,7 @@ namespace profitelo.components.dashboard.settings.manageDevices {
   class ManageDevicesComponent implements ng.IComponentOptions {
     controllerAs: '$ctrl'
     controller: ng.Injectable<ng.IControllerConstructor> = ManageDevicesComponentController
-    template = require('./manage-devices.jade')()
+    template = require('./manage-devices.pug')()
     bindings: {[boundProperty: string]: string} = {
       device: '@',
       apiKey: '<',

@@ -82,7 +82,7 @@ function config($stateProvider: ng.ui.IStateProvider) {
     url: '/set-password',
     controllerAs: 'vm',
     controller: 'SetPasswordController',
-    template: require('./set-password.jade')(),
+    template: require('./set-password.pug')(),
     resolve: {
       user: (userService: UserService) => {
         return userService.getUser()

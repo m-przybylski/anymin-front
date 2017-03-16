@@ -6,7 +6,7 @@
   }
 
   const component = {
-    template: require('./no-favourite-experts.jade')(),
+    template: require('./no-favourite-experts.pug')(),
     controller: controller,
     controllerAs: '$ctrl'
   }

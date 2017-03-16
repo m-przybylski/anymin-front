@@ -25,7 +25,7 @@ export function AppConfigFunction($urlRouterProvider: ng.ui.IUrlRouterProvider, 
     abstract: true,
     controller: AppComponentController,
     controllerAs: 'appController',
-    template: require("../common/templates/app.jade")(),
+    template: require("../common/templates/app.pug")(),
     data: {
       pageTitle: 'PAGE_TITLE.BASE'
     },

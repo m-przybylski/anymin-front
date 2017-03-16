@@ -55,7 +55,7 @@ module.exports = function (config) {
             {loader: 'file-loader', options: {name: '[hash].html'}},
             {loader:'pug-html-loader', options: {exports: 'false'}}]
           },
-          {test: /\.jade$/, exclude: [/\.tpl\.pug$/], use: [{loader: "jade-loader"}]},
+          {test: /\.pug$/, exclude: [/\.tpl\.pug$/], use: [{loader: "pug-loader"}]},
           {test: /\.ts$/, exclude: [], use: [
             {loader: 'ng-annotate-loader'},
             {loader: 'awesome-typescript-loader'}

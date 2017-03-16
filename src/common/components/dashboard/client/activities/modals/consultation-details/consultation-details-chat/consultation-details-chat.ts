@@ -9,7 +9,7 @@ import "../../../../../../../components/communicator/messenger/maximized/grouped
   }
 
   const component = {
-    template: require('./consultation-details-chat.jade')(),
+    template: require('./consultation-details-chat.pug')(),
     controller: controller,
     controllerAs: '$ctrl'
   }

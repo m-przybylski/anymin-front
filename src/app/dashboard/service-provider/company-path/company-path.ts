@@ -106,7 +106,7 @@ angular.module('profitelo.controller.dashboard.service-provider.company-path', [
   .config(function ($stateProvider: ng.ui.IStateProvider) {
     $stateProvider.state('app.dashboard.service-provider.company-path', {
       url: '/company-path',
-      template: require('./company-path.jade')(),
+      template: require('./company-path.pug')(),
       controller: 'CompanyPathController',
       controllerAs: 'vm',
       resolve: {

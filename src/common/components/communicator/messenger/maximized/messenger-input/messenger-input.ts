@@ -40,7 +40,7 @@ namespace profitelo.components.communicator.messenger.maximized.input {
   }
 
   class MessengerInputComponent {
-    template = require("./messenger-input.jade")()
+    template = require("./messenger-input.pug")()
     controller: ng.Injectable<ng.IControllerConstructor> = MessengerInputComponentController
     bindings: {[boundProperty: string]: string} = {
       onSendMessage: '<',

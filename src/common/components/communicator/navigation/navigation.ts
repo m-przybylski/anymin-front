@@ -70,7 +70,7 @@ export class NavigationComponentController implements ng.IController, INavigatio
 
 class NavigationComponent implements ng.IComponentOptions {
   controller: ng.Injectable<ng.IControllerConstructor> = NavigationComponentController
-  template = require("./navigation.jade")()
+  template = require("./navigation.pug")()
   bindings: {[boundProperty: string]: string} = {
     isVideo: '=',
     isMessenger: '='

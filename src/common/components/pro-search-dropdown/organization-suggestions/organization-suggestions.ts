@@ -13,7 +13,7 @@ function organizationSuggestionsController(CommonSettingsService: CommonSettings
 
 let organizationSuggestions = {
   transclude: true,
-  template: require('./organization-suggestions.jade')(),
+  template: require('./organization-suggestions.pug')(),
   bindings: {
     organizations: '<',
     searchModel: '<'
