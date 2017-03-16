@@ -1,6 +1,5 @@
 import * as angular from "angular"
 import "angular-ui-router"
-const templateUrl = require("../../../templates/range-slider/range-slider.tpl.pug")
 
 function proRangeSlider($timeout: ng.ITimeoutService) {
 
@@ -11,8 +10,6 @@ function proRangeSlider($timeout: ng.ITimeoutService) {
         scope.$broadcast('rzSliderForceRender')
       })
     }
-
-    scope.templateUrl = templateUrl
 
     scope.options = {
       floor: 0,
