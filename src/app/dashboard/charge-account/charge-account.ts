@@ -19,7 +19,7 @@ import "common/components/dashboard/charge-account/choose-amount-charge/choose-a
 import "common/components/dashboard/charge-account/payment-method/payment-method"
 import "common/components/dashboard/charge-account/choose-bank/choose-bank"
 import paypalModule from "../../../common/components/dashboard/charge-account/payment-method/paypal/paypal"
-
+import './charge-account.sass'
 
 export interface IAmounts {
   paymentOptions: Array<MoneyDto>
