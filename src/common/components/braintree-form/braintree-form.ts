@@ -195,7 +195,7 @@ class BraintreeFormComponent implements ng.IComponentOptions {
     onBraintreeFormLoad: '<',
     onFormSucceed: '<',
     submitButtonTranslate: '@',
-    transaction: '<'
+    transaction: '=?'
   }
 }
 
