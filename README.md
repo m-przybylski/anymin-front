@@ -17,6 +17,7 @@ npm install
 git submodule init
 git submodule update
 npm run tr
+npm run cc
 npm run serve
 ```
 
@@ -33,6 +34,11 @@ npm run component [name]
 download translations from tr
 ```
 npm run tr
+```
+
+generate common config
+```
+npm run cc
 ```
 
 generate new api client
