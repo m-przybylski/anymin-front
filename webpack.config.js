@@ -1,15 +1,13 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CheckerPlugin } = require('awesome-typescript-loader')
+const {CheckerPlugin} = require('awesome-typescript-loader')
 
 module.exports = {
-  devtool: 'source-map',
-  entry: {
-  },
+  devtool: 'eval',//'source-map',
+  entry: {},
   resolve: {
-    extensions: ["", ".ts", ".webpack.js", ".web.js", ".js", ".json"],
-    root: path.resolve('./src'),
+    extensions: [/*"", */".ts", ".webpack.js", ".web.js", ".js", ".json"],
     modules: [
       path.resolve('./src'),
       path.resolve('./node_modules')
@@ -19,19 +17,33 @@ module.exports = {
     errorDetails: true
   },
   module: {
-    resolveLoader: {
-      alias: {
-      }
-    },
-    loaders: [
+    rules: [
       //to generate static html files for some external directives
-      {test: /\.tpl\.pug$/, loaders: ['file?name=[hash].html', 'pug-html?exports=false']},
-      {test: /\.json$/, loader: "json"}, // to parse configs from node_modules
-      {test: /\.jade$/, exclude: [/\.tpl\.pug$/], loader: "jade"},
-      {test: /\.ts$/, exclude: [], loader: 'ng-annotate!awesome-typescript-loader'},
-      {test: /\.html$/, loader: 'raw'},
-      {test: /\.(scss|sass)$/, loader: 'style!css!sass'},
-      {test: /\.css$/, loader: 'style!css'}
+      {test: /\.tpl\.pug$/, use: [
+        {loader: 'file-loader', options: {name: '[hash].html'}},
+        {loader:'pug-html-loader', options: {exports: 'false'}}]
+      },
+      {test: /\.jade$/, exclude: [/\.tpl\.pug$/], use: [{loader: "jade-loader"}]},
+      {test: /\.ts$/, exclude: [], use: [
+        {loader: 'ng-annotate-loader'},
+        {loader: 'awesome-typescript-loader'}
+      ]},
+      {test: /\.html$/, use: [{loader: 'raw-loader'}]},
+      {
+        test: /\.(scss|sass)$/,
+        use: [
+          {loader: 'style-loader'},
+          {loader: 'css-loader'},
+          {loader: 'sass-loader'}
+        ]
+      },
+      {
+        test: /\.css$/,
+        use: [
+          {loader: 'style-loader'},
+          {loader: 'css-loader'}
+        ]
+      }
     ]
   },
   plugins: [

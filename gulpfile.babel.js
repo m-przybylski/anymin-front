@@ -96,6 +96,7 @@ gulp.task('serve', () => {
       webpackHotMiddleware(compiler)
     ]
   });
+
 });
 
 gulp.task('watch', ['serve']);
