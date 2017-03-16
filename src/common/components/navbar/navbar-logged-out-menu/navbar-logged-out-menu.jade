@@ -3,19 +3,21 @@ ul.nologin-state
     ul
       li
         a
-          span.mobile-only.icon.icon-suitcase-24
+          span.mobile-only.icon.icon-info-24
           span(data-translate="NAVIGATION.MENU_ITEMS.ABOUT_US")
       li
         a
-          span.mobile-only.icon.icon-login-24
+          span.mobile-only.icon.icon-how-it-works-24
           span(data-translate="NAVIGATION.MENU_ITEMS.HOW_IT_WORKS")
       li
         a
-          span.mobile-only.icon.icon-login-24
+          span.mobile-only.icon.icon-for-experts-24
           span(data-translate="NAVIGATION.MENU_ITEMS.FOR_EXPERTS")
       li
-        a.btn.btn-primary.btn-small(data-translate="NAVIGATION.MENU_ITEMS.JOIN_OR_LOGIN"
-        data-ui-sref="app.login.account")
+
+        a.btn.btn-primary.btn-small.sign-in(data-ui-sref="app.login.account")
+          span.mobile-only.icon.icon-sign-in-24
+          span(data-translate="NAVIGATION.MENU_ITEMS.JOIN_OR_LOGIN")
 
   li.navbar-notifications
     ul

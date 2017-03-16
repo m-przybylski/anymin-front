@@ -75,10 +75,13 @@
 
       .pro-search-dropdown
         position: absolute
-        width: 100%
+        width: calc(100% - 72px)
         height: 100%
         top: 0
         left: 0
+
+        +mdm
+          width: 100%
 
         .search-bar-container
           position: static
@@ -169,12 +172,14 @@
       +smm
         width: 320px
         height: auto
+        box-shadow: 0 1px 2px 0 rgba($c-black, 0.15)
 
       +lgm
         animation: none
         width: auto
         display: flex !important
         position: static
+        box-shadow: none
 
       > *
         +lgm
@@ -187,7 +192,10 @@
           display: flex
 
       .navbar-parent
-        margin: 0 24px
+        margin: 0 16px
+
+        +smm
+          margin: 0 24px
 
         +lgm
           margin: 0 8px
@@ -205,6 +213,12 @@
             align-items: center
 
       [class*="state"]
+        +mdm
+          margin: 8px 0
+
+        +lgm
+          margin: 0
+
         > li
           margin: 0
           display: block
@@ -230,7 +244,7 @@
 
           li:not(.navbar-parent)
             display: block
-            padding: 0 12px
+            padding: 0 16px
             margin: 0
 
             +smm
@@ -241,11 +255,16 @@
               display: flex
 
             a
-              &:not(.btn)
-                padding: 12px 0
+              display: flex
+              justify-content: flex-start
+              padding: 12px 0
 
+              &.btn
                 +lgm
-                  padding: 0
+                  padding: 0 24px
+
+              +lgm
+                padding: 0
 
       > ul
         > li
@@ -261,9 +280,22 @@
       li
         display: flex
         align-items: center
-        margin: 0 12px
+        margin: 0 16px
 
         a
+          &.btn
+            +default-font-medium
+            padding: 0
+            border: 0
+            color: $c-secondary-txt
+            height: auto
+
+            +lgm
+              padding: 0 24px
+              border: 1px solid $c-lines
+              color: $c-primary
+              height: 32px
+
           &:not(.btn)
             +default-font-medium
             font-size: $f-navbar
