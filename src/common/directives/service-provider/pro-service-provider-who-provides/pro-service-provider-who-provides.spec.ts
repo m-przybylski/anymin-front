@@ -3,17 +3,17 @@ namespace profitelo.directives.serviceProvider.proServiceProviderWhoProvides {
   describe('Unit testing: profitelo.directives.service-provider.pro-service-provider-who-provides', function () {
     return describe('for proServiceProviderWhoProvides directive >', function () {
 
-      var compile: ng.ICompileService
-      var scope: any = null
+      let compile: ng.ICompileService
+      let scope: any = null
 
-      var validHTML = '<pro-service-provider-who-provides data-queue="vm.queue" ' +
+      let validHTML = '<pro-service-provider-who-provides data-queue="vm.queue" ' +
         'data-order="2" data-pro-model="proModel"' +
         'data-placeholder="DASHBOARD.CONSULTATION_RANGE.CONSULTANTS_LIST_PLACEHOLDER"' +
         ' data-error-message="DASHBOARD.SERVICE_PROVIDER.NAME.BAD_NAME" tr-title="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT" ' +
         'tr-desc="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT_DESCRIPTION" required="required"></pro-service-provider-who-provides>'
 
       beforeEach(function () {
-        //angular.mock.module('templates-module')
+
         angular.mock.module('profitelo.directives.service-provider.pro-service-provider-who-provides')
 
         inject(function ($rootScope: IRootScopeService, $compile: ng.ICompileService) {
@@ -23,9 +23,9 @@ namespace profitelo.directives.serviceProvider.proServiceProviderWhoProvides {
       })
 
       function create(html: string) {
-        var elem = angular.element(html)
+        let elem = angular.element(html)
         scope.proModel = []
-        var compiledElement = compile(elem)(scope)
+        let compiledElement = compile(elem)(scope)
         scope.$digest()
         return compiledElement
       }
@@ -35,7 +35,7 @@ namespace profitelo.directives.serviceProvider.proServiceProviderWhoProvides {
       }))
 
       it('compile the directive', function () {
-        var el
+        let el
         el = create(validHTML)
         expect(el.html()).toBeDefined(true)
       })

@@ -1,14 +1,14 @@
-import * as angular from "angular"
-import {GetServiceUsageRequest, GetService} from "profitelo-api-ng/model/models"
-import {RatelApi, ServiceApi} from "profitelo-api-ng/api/api"
-import {CallService} from "./call.service"
-import userModule from "../../services/user/user"
-import communicatorModule from "../communicator/communicator"
+import * as angular from 'angular'
+import {GetServiceUsageRequest, GetService} from 'profitelo-api-ng/model/models'
+import {RatelApi, ServiceApi} from 'profitelo-api-ng/api/api'
+import {CallService} from './call.service'
+import userModule from '../../services/user/user'
+import communicatorModule from '../communicator/communicator'
 
 
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {NavigatorService} from "../../services/navigator/navigator.service"
-import {CommunicatorService} from "./communicator.service"
+import {NavigatorService} from '../../services/navigator/navigator.service'
+import {CommunicatorService} from './communicator.service'
 describe('Unit testing: profitelo.services.call >', () => {
   describe('for profitelo.services.call >', () => {
 

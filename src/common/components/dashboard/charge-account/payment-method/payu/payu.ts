@@ -1,24 +1,25 @@
-import {CommonSettingsService} from "../../../../../services/common-settings/common-settings.service"
-import apiModule from "profitelo-api-ng/api.module"
-import {PaymentsApi, AccountApi} from "profitelo-api-ng/api/api"
-import {SmoothScrollingService} from "../../../../../services/smooth-scrolling/smooth-scrolling.service"
-import {TopAlertService} from "../../../../../services/top-alert/top-alert.service"
-import {UserService} from "../../../../../services/user/user.service"
-import * as angular from "angular"
+import {CommonSettingsService} from '../../../../../services/common-settings/common-settings.service'
+import apiModule from 'profitelo-api-ng/api.module'
+import {PaymentsApi, AccountApi} from 'profitelo-api-ng/api/api'
+import {SmoothScrollingService} from '../../../../../services/smooth-scrolling/smooth-scrolling.service'
+import {TopAlertService} from '../../../../../services/top-alert/top-alert.service'
+import {UserService} from '../../../../../services/user/user.service'
+import * as angular from 'angular'
 import LoDashStatic = _.LoDashStatic
-import userModule from "../../../../../services/user/user"
-import {IPrimaryDropdownListElement} from "../../../../interface/dropdown-primary/dropdown-primary"
-import topAlertModule from "../../../../../services/top-alert/top-alert"
-import commonSettingsModule from "../../../../../services/common-settings/common-settings"
-import smoothScrollingModule from "../../../../../services/smooth-scrolling/smooth-scrolling"
-import {IWindowService} from "../../../../../services/window/window.service"
-import {PayuAnimation} from "./payu.animation"
+import userModule from '../../../../../services/user/user'
+import {IPrimaryDropdownListElement} from '../../../../interface/dropdown-primary/dropdown-primary'
+import topAlertModule from '../../../../../services/top-alert/top-alert'
+import commonSettingsModule from '../../../../../services/common-settings/common-settings'
+import smoothScrollingModule from '../../../../../services/smooth-scrolling/smooth-scrolling'
+import {IWindowService} from '../../../../../services/window/window.service'
+import {PayuAnimation} from './payu.animation'
 
 /* @ngInject */
 function payuPaymentFormController($log: ng.ILogService, $window: IWindowService, $state: ng.ui.IStateService,
                                    PaymentsApi: PaymentsApi, userService: UserService, topAlertService: TopAlertService,
                                    smoothScrollingService: SmoothScrollingService, AccountApi: AccountApi,
-                                   CommonSettingsService: CommonSettingsService, $scope: ng.IScope, lodash: LoDashStatic) {
+                                   CommonSettingsService: CommonSettingsService, $scope: ng.IScope,
+                                   lodash: LoDashStatic) {
   let isPending = false
   this.isGetCompanyInfo = false
   this.rulesAccepted = true
@@ -26,8 +27,8 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
   this.personalDataSectionId = 'personal-section'
   this.bankModel = {}
   this.countryList = [{
-    name: "Poland",
-    value: "PL"
+    name: 'Poland',
+    value: 'PL'
   }]
   this.onEnter = (option: number) => {
     if (option < 3) {
@@ -94,7 +95,7 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
         AccountApi.postCompanyInfoRoute({
           vatNumber: this.vatNumber,
           companyName: this.companyName,
-          //TODO On GUS API Implement
+          // TODO On GUS API Implement
           vat: 23,
           address: {
             number: this.apartmentNumber,
@@ -114,7 +115,7 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
         AccountApi.postCompanyInfoRoute({
           vatNumber: '',
           companyName: this.firstNameModel + ' ' + this.lastNameModel,
-          //TODO On GUS API Implement
+          // TODO On GUS API Implement
           vat: 23,
           address: {
             number: '',

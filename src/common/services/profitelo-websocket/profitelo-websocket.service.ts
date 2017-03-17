@@ -1,8 +1,8 @@
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {CallbacksFactory} from "../callbacks/callbacks.factory"
-import {CallbacksService} from "../callbacks/callbacks.service"
-import {CallSummary} from "../../models/CallSummary"
-import {CommonConfig} from "../../../../generated_modules/common-config/common-config"
+import {CallbacksFactory} from '../callbacks/callbacks.factory'
+import {CallbacksService} from '../callbacks/callbacks.service'
+import {CallSummary} from '../../models/CallSummary'
+import {CommonConfig} from '../../../../generated_modules/common-config/common-config'
 
 export class ProfiteloWebsocketService {
 
@@ -39,7 +39,7 @@ export class ProfiteloWebsocketService {
     }
   }
 
-  public onInit = (callback: Function) => {
+  public onInit = (callback: () => void) => {
     this.callbacks.methods.onInit(callback)
   }
 

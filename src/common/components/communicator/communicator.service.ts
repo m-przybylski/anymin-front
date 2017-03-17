@@ -1,10 +1,10 @@
-import {RatelApi, ProfileApi} from "profitelo-api-ng/api/api"
-import {SignedAgent, GetService, GetProfileWithServices} from "profitelo-api-ng/model/models"
-import {SessionStorage} from "./session-storage"
-import {CallbacksService} from "../../services/callbacks/callbacks.service"
-import {CallbacksFactory} from "../../services/callbacks/callbacks.factory"
-import {UserService} from "../../services/user/user.service"
-import {CommonConfig} from "../../../../generated_modules/common-config/common-config"
+import {RatelApi, ProfileApi} from 'profitelo-api-ng/api/api'
+import {SignedAgent, GetService, GetProfileWithServices} from 'profitelo-api-ng/model/models'
+import {SessionStorage} from './session-storage'
+import {CallbacksService} from '../../services/callbacks/callbacks.service'
+import {CallbacksFactory} from '../../services/callbacks/callbacks.factory'
+import {UserService} from '../../services/user/user.service'
+import {CommonConfig} from '../../../../generated_modules/common-config/common-config'
 
 export interface IConsultationInvitation {
   invitation: any
@@ -50,11 +50,11 @@ export class CommunicatorService {
         hostname: chatUrl.hostname,
         port: chatUrl.port,
         rtc: {
-          iceTransportPolicy: "relay",
+          iceTransportPolicy: 'relay',
           iceServers: [{
-            urls: ["stun:turn.ratel.im:5349", "turn:turn.ratel.im:5349"],
-            username: "test123",
-            credential: "test456"
+            urls: ['stun:turn.ratel.im:5349', 'turn:turn.ratel.im:5349'],
+            username: 'test123',
+            credential: 'test456'
           }]
         }
       },

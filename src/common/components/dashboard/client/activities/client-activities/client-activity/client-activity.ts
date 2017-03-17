@@ -1,11 +1,11 @@
-import modalsModule from "../../../../../../services/modals/modals"
-import * as angular from "angular"
-import {GetActivity} from "profitelo-api-ng/model/models"
-import {ModalsService} from "../../../../../../services/modals/modals.service"
-import {UrlService} from "../../../../../../services/url/url.service"
-import urlModule from "../../../../../../services/url/url"
-import filtersModule from "../../../../../../filters/filters"
-import "common/components/complaints/status/status"
+import modalsModule from '../../../../../../services/modals/modals'
+import * as angular from 'angular'
+import {GetActivity} from 'profitelo-api-ng/model/models'
+import {ModalsService} from '../../../../../../services/modals/modals.service'
+import {UrlService} from '../../../../../../services/url/url.service'
+import urlModule from '../../../../../../services/url/url'
+import filtersModule from '../../../../../../filters/filters'
+import 'common/components/complaints/status/status'
 
 interface IClientActivityComponentBindings {
   activity: GetActivity

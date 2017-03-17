@@ -1,6 +1,6 @@
-import * as angular from "angular"
-import "./company/company-consultation"
-import "./individual/individual-consultation"
+import * as angular from 'angular'
+import './company/company-consultation'
+import './individual/individual-consultation'
 
 (function() {
   function ConsultationRangeController() {

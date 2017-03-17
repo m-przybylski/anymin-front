@@ -1,9 +1,9 @@
-import * as angular from "angular"
-import apiModule from "profitelo-api-ng/api.module"
-import {FilesApi} from "profitelo-api-ng/api/api"
-import topAlertModule from "../../services/top-alert/top-alert"
-import sessionModule from "../../services/session/session"
-import loginStateModule from "../../services/login-state/login-state"
+import * as angular from 'angular'
+import apiModule from 'profitelo-api-ng/api.module'
+import {FilesApi} from 'profitelo-api-ng/api/api'
+import topAlertModule from '../../services/top-alert/top-alert'
+import sessionModule from '../../services/session/session'
+import loginStateModule from '../../services/login-state/login-state'
 export interface IServiceProviderImageService {
   resolve(token: string): ng.IPromise<string | null>
 }

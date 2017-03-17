@@ -1,4 +1,4 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 
 function ErrorController() {
 
@@ -6,7 +6,7 @@ function ErrorController() {
 }
 
 const errorPageModule = angular.module('profitelo.controller.error', [
-  "ui.router"
+  'ui.router'
 ])
   .config(($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider.state('app.error', {

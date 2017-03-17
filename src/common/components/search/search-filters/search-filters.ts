@@ -1,28 +1,28 @@
-import * as angular from "angular"
-import {Tag} from "profitelo-api-ng/model/models"
-import "angularjs-slider"
-import {IFilterService} from "../../../services/filter/filter.service"
-import {SearchService} from "../../../services/search/search.service"
-import filtersModule from "../../../filters/filters"
-import categoryModule from "../../../services/category/category"
-import searchModule from "../../../services/search/search"
-import "common/directives/interface/pro-range-slider/pro-range-slider"
-import "common/directives/pro-tags-slider/pro-tags-slider"
-import "common/directives/interface/pro-switcher/pro-switcher"
+import * as angular from 'angular'
+import {Tag} from 'profitelo-api-ng/model/models'
+import 'angularjs-slider'
+import {IFilterService} from '../../../services/filter/filter.service'
+import {SearchService} from '../../../services/search/search.service'
+import filtersModule from '../../../filters/filters'
+import categoryModule from '../../../services/category/category'
+import searchModule from '../../../services/search/search'
+import 'common/directives/interface/pro-range-slider/pro-range-slider'
+import 'common/directives/pro-tags-slider/pro-tags-slider'
+import 'common/directives/interface/pro-switcher/pro-switcher'
 
 export interface ISearchFiltersComponentBindings {
-  searchResults: Array<Object>
-  setSearchParams: Function
+  searchResults: Array<{}>
+  setSearchParams: any
 }
 
 interface ISearchFilters {
-  sortBy?: Object
-  language?: Object
-  category?: Object
+  sortBy?: {}
+  language?: {}
+  category?: {}
   onlyAvailable?: boolean
   minPrice?: number
   maxPrice?: number
-  profileType?: Object
+  profileType?: {}
   tags?: Array<Tag>
   offset?: number
 }
@@ -33,13 +33,13 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
     onlyAvailable: false,
     tags: []
   }
-  public languagesList: Array<Object>
-  public sortList: Array<Object>
-  public categoryList: Array<Object>
+  public languagesList: Array<{}>
+  public sortList: Array<{}>
+  public categoryList: Array<{}>
   public showMobileFilters: boolean
-  public profileTypeList: Array<Object>
-  public searchResults: Array<Object>
-  public setSearchParams: Function
+  public profileTypeList: Array<{}>
+  public searchResults: Array<{}>
+  public setSearchParams: any
 
   $onInit = () => {
 

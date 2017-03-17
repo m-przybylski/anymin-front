@@ -1,13 +1,13 @@
-import * as angular from "angular"
-import "./pro-page-title"
+import * as angular from 'angular'
+import './pro-page-title'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 
 describe('Unit testing: profitelo.directives.page-title', () => {
   return describe('for page-title directive >', () => {
 
-    var compile: any = null
-    var scope: any = null
-    var validHTML = '<title data-page-title></title>'
+    let compile: any = null
+    let scope: any = null
+    let validHTML = '<title data-page-title></title>'
 
     beforeEach(() => {
       angular.mock.module('profitelo.directives.page-title')
@@ -19,8 +19,8 @@ describe('Unit testing: profitelo.directives.page-title', () => {
     })
 
     function create() {
-      var elem = angular.element(validHTML)
-      var compiledElement = compile(elem)(scope)
+      let elem = angular.element(validHTML)
+      let compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }

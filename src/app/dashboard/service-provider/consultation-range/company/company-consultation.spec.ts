@@ -1,10 +1,10 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {DialogService} from "../../../../../common/services/dialog/dialog.service"
-import {ServiceApi, ServiceApiMock} from "profitelo-api-ng/api/api"
-import {GetService} from "profitelo-api-ng/model/models"
-import {TopAlertService} from "../../../../../common/services/top-alert/top-alert.service"
-import "./company-consultation"
+import {DialogService} from '../../../../../common/services/dialog/dialog.service'
+import {ServiceApi, ServiceApiMock} from 'profitelo-api-ng/api/api'
+import {GetService} from 'profitelo-api-ng/model/models'
+import {TopAlertService} from '../../../../../common/services/top-alert/top-alert.service'
+import './company-consultation'
 
 describe('Unit tests: app.dashboard.service-provider.consultation-range.company >', () => {
   describe('Testing Controller: CompanyConsultationController', () => {
@@ -36,7 +36,7 @@ describe('Unit tests: app.dashboard.service-provider.consultation-range.company 
     }))
 
     beforeEach(() => {
-      //angular.mock.module('templates-module')
+
       angular.mock.module('profitelo.controller.dashboard.service-provider.consultation-range.company')
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $httpBackend: ng.IHttpBackendService,
               $injector: ng.auto.IInjectorService, _$state_: ng.ui.IStateService, _ServiceApi_: ServiceApi,

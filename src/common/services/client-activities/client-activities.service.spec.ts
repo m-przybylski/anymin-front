@@ -1,7 +1,7 @@
-import * as angular from "angular"
-import {ClientActivitiesService} from "./client-activities.service"
+import * as angular from 'angular'
+import {ClientActivitiesService} from './client-activities.service'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {ViewsApi} from "profitelo-api-ng/api/api"
+import {ViewsApi} from 'profitelo-api-ng/api/api'
 
 describe('Unit testing: profitelo.services.client-activities-service >', () => {
   describe('for profitelo.services.client-activities-service >', () => {

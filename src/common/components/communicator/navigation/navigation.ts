@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {CallService} from "../call.service"
+import * as angular from 'angular'
+import {CallService} from '../call.service'
 
 export interface INavigationComponentBindings {
   isVideo: boolean
@@ -7,7 +7,7 @@ export interface INavigationComponentBindings {
 }
 
 interface INavigationComponentController extends INavigationComponentBindings {
-  hangupCall: Function
+  hangupCall: () => void
   areOptions: boolean
   isAudio: boolean
 }
@@ -18,7 +18,7 @@ export class NavigationComponentController implements ng.IController, INavigatio
   isAudio = true
   isVideo: boolean
   isMessenger: boolean
-  hangupCall: Function
+  hangupCall: () => void
 
   /* @ngInject */
   constructor(private callService: CallService) {
@@ -70,7 +70,7 @@ export class NavigationComponentController implements ng.IController, INavigatio
 
 class NavigationComponent implements ng.IComponentOptions {
   controller: ng.Injectable<ng.IControllerConstructor> = NavigationComponentController
-  template = require("./navigation.pug")()
+  template = require('./navigation.pug')()
   bindings: {[boundProperty: string]: string} = {
     isVideo: '=',
     isMessenger: '='

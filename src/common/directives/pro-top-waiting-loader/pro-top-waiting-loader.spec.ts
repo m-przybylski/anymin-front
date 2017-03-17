@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {TopWaitingLoaderService} from "../../services/top-waiting-loader/top-waiting-loader.service"
+import * as angular from 'angular'
+import {TopWaitingLoaderService} from '../../services/top-waiting-loader/top-waiting-loader.service'
 
 describe('Unit testing: profitelo.directives.pro-top-waiting-loader', () => {
   return describe('for proTopWaitingLoader >', () => {

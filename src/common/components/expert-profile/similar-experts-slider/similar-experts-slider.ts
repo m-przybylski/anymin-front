@@ -1,6 +1,6 @@
-import * as angular from "angular"
-import {UrlService} from "../../../services/url/url.service"
-import urlModule from "../../../services/url/url"
+import * as angular from 'angular'
+import {UrlService} from '../../../services/url/url.service'
+import urlModule from '../../../services/url/url'
 
 /* @ngInject */
 function controller($scope: any, $state: ng.ui.IStateService, urlService: UrlService) {
@@ -30,7 +30,7 @@ function controller($scope: any, $state: ng.ui.IStateService, urlService: UrlSer
 }
 
 const similarExpertsSlider = {
-  template: require("./similar-experts-slider.pug")(),
+  template: require('./similar-experts-slider.pug')(),
   bindings: {
     consultations: '<',
     title: '@'

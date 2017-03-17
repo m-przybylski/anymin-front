@@ -1,6 +1,6 @@
-import * as angular from "angular"
-import topWaitingLoader from "../../services/top-waiting-loader/top-waiting-loader"
-import {TopWaitingLoaderService} from "../../services/top-waiting-loader/top-waiting-loader.service"
+import * as angular from 'angular'
+import topWaitingLoader from '../../services/top-waiting-loader/top-waiting-loader'
+import {TopWaitingLoaderService} from '../../services/top-waiting-loader/top-waiting-loader.service'
 
 function proTopWaitingLoader(topWaitingLoaderService: TopWaitingLoaderService) {
 

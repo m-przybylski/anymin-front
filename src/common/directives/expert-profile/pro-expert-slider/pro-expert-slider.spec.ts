@@ -1,6 +1,6 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {DialogService} from "../../../services/dialog/dialog.service"
+import {DialogService} from '../../../services/dialog/dialog.service'
 
 describe('Unit testing: profitelo.directives.expert-profile.pro-expert-slider', () => {
   return describe('for expert-profile.pro-expert-slider directive >', () => {
@@ -13,7 +13,7 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-slider', 
     let validHTML = '<pro-expert-slider data-sliders="sliders"></pro-expert-slider>'
 
     beforeEach(() => {
-      //angular.mock.module('templates-module')
+
       angular.mock.module('profitelo.directives.expert-profile.pro-expert-slider')
       angular.mock.module('profitelo.services.dialog')
 

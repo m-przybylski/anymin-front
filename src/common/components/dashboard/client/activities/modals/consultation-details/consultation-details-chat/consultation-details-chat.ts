@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import "../../../../../../../components/communicator/messenger/maximized/grouped-messages/grouped-messages"
+import * as angular from 'angular'
+import '../../../../../../../components/communicator/messenger/maximized/grouped-messages/grouped-messages'
 
 (function() {
   /* @ngInject */

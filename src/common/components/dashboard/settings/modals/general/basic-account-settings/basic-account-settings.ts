@@ -1,38 +1,38 @@
-import * as angular from "angular"
-import userModule from "../../../../../../services/user/user"
-import {IPostProcessOptions, UploaderService} from "../../../../../../services/uploader/uploader.service"
-import apiModule from "profitelo-api-ng/api.module"
-import {AccountApi} from "profitelo-api-ng/api/api"
-import {PutGeneralSettings} from "profitelo-api-ng/model/models"
-import {UserService} from "../../../../../../services/user/user.service"
-import {UploaderFactory} from "../../../../../../services/uploader/uploader.factory"
-import {UrlService} from "../../../../../../services/url/url.service"
-import urlModule from "../../../../../../services/url/url"
-import uploaderModule from "../../../../../../services/uploader/uploader"
-import "../../../../../../components/interface/preloader/preloader"
-import "../../../../../../components/interface/image-crop/image-crop"
-import "../../../../../../directives/interface/pro-checkbox/pro-checkbox"
-import "../../../../../../directives/interface/pro-input/pro-input"
-import "../../../../../../directives/interface/local-avatar-uploader/local-avatar-uploader"
-import "../../../../../../directives/interface/scrollable/scrollable"
+import * as angular from 'angular'
+import userModule from '../../../../../../services/user/user'
+import {IPostProcessOptions, UploaderService} from '../../../../../../services/uploader/uploader.service'
+import apiModule from 'profitelo-api-ng/api.module'
+import {AccountApi} from 'profitelo-api-ng/api/api'
+import {PutGeneralSettings} from 'profitelo-api-ng/model/models'
+import {UserService} from '../../../../../../services/user/user.service'
+import {UploaderFactory} from '../../../../../../services/uploader/uploader.factory'
+import {UrlService} from '../../../../../../services/url/url.service'
+import urlModule from '../../../../../../services/url/url'
+import uploaderModule from '../../../../../../services/uploader/uploader'
+import '../../../../../../components/interface/preloader/preloader'
+import '../../../../../../components/interface/image-crop/image-crop'
+import '../../../../../../directives/interface/pro-checkbox/pro-checkbox'
+import '../../../../../../directives/interface/pro-input/pro-input'
+import '../../../../../../directives/interface/local-avatar-uploader/local-avatar-uploader'
+import '../../../../../../directives/interface/scrollable/scrollable'
 
   export interface IBasicAccountSettingsControllerParentScope extends ng.IScope {
-    callback: (cb: Function) => void
+    callback: (cb: () => void) => void
   }
 
   export interface IBasicAccountSettingsControllerScope extends ng.IScope {
     isNavbar: boolean
     isFullscreen: boolean
     isAvatarVisableToExpert: boolean
-    onModalClose: Function
-    addPhoto(imagePath: string, file: File, callback: Function): void
+    onModalClose: () => void
+    addPhoto(imagePath: string, file: File, callback: () => void): void
     imageSource: string
     isUserUploadImage: boolean
-    getAvatarData: Function
-    saveCrop: Function
-    submitBasicSettings: Function
+    getAvatarData: () => void
+    saveCrop: (data: any) => void
+    submitBasicSettings: () => void
     userName: string
-    removePhoto: Function
+    removePhoto: () => void
     $parent: IBasicAccountSettingsControllerParentScope
     generalSettingsObject: PutGeneralSettings
     avatarPreview: string
@@ -43,7 +43,7 @@ import "../../../../../../directives/interface/scrollable/scrollable"
 
     private uploadedFile: File
     private uploader: UploaderService
-    private clearFormAfterCropping: Function
+    private clearFormAfterCropping: () => void
     $onInit = () => {
     }
 

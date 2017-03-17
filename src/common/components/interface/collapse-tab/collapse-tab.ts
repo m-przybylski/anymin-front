@@ -1,7 +1,7 @@
-import * as angular from "angular"
-import {SmoothScrollingService} from "../../../services/smooth-scrolling/smooth-scrolling.service"
-import {IWindowService} from "../../../services/window/window.service"
-import smoothScrollingModule from "../../../services/smooth-scrolling/smooth-scrolling"
+import * as angular from 'angular'
+import {SmoothScrollingService} from '../../../services/smooth-scrolling/smooth-scrolling.service'
+import {IWindowService} from '../../../services/window/window.service'
+import smoothScrollingModule from '../../../services/smooth-scrolling/smooth-scrolling'
 
 /* @ngInject */
 function controller($element: ng.IRootElementService, smoothScrollingService: SmoothScrollingService,

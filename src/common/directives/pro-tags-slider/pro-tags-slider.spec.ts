@@ -11,7 +11,7 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
       'id:999}, {name: elo, id:999}, {name: elo, id:999}]" data-on-tag-click-action="tagsAction"></pro-tags-slider>'
 
     beforeEach(() => {
-    //angular.mock.module('templates-module')
+
     angular.mock.module('profitelo.directives.pro-tags-slider')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, $timeout: ng.ITimeoutService) => {

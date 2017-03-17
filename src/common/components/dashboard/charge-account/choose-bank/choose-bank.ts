@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {SmoothScrollingService} from "../../../../services/smooth-scrolling/smooth-scrolling.service"
+import * as angular from 'angular'
+import {SmoothScrollingService} from '../../../../services/smooth-scrolling/smooth-scrolling.service'
 
 /* @ngInject */
 function chooseBankController(smoothScrollingService: SmoothScrollingService, lodash: _.LoDashStatic) {

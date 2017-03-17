@@ -1,12 +1,12 @@
-import * as angular from "angular"
-import "jquery-bridget"
-import "masonry-layout/dist/masonry.pkgd"
-import "angular-masonry"
+import * as angular from 'angular'
+import 'jquery-bridget'
+import 'masonry-layout/dist/masonry.pkgd'
+import 'angular-masonry'
 const ngMasonry = require('ng-masonry')
 
-var $ = require('jquery');
-var jQueryBridget = require('jquery-bridget');
-var Masonry = require('masonry-layout');
+let $ = require('jquery');
+let jQueryBridget = require('jquery-bridget');
+let Masonry = require('masonry-layout');
 // make Masonry a jQuery plugin
 jQueryBridget( 'masonry', Masonry, $ );
 

@@ -1,24 +1,24 @@
-import * as angular from "angular"
-import apiModule from "profitelo-api-ng/api.module"
-import {FinancesApi, PaymentsApi} from "profitelo-api-ng/api/api"
-import {MoneyDto, GetPaymentOptions, PaymentLink, PaymentSystem, GetLastPayment} from "profitelo-api-ng/model/models"
-import {SmoothScrollingService} from "../../../common/services/smooth-scrolling/smooth-scrolling.service"
-import topAlertModule from "../../../common/services/top-alert/top-alert"
-import commonSettingsModule from "../../../common/services/common-settings/common-settings"
-import sessionModule from "../../../common/services/session/session"
-import smoothScrollingModule from "../../../common/services/smooth-scrolling/smooth-scrolling"
-import "common/directives/interface/pro-input/pro-input"
-import "common/directives/interface/pro-checkbox/pro-checkbox"
-import "common/directives/interface/scrollable/scrollable"
-import "common/components/interface/preloader/preloader"
-import "common/components/braintree-form/braintree-form"
-import "common/components/dashboard/charge-account/payment-method/payu/payu"
-import "common/components/dashboard/charge-account/payment-method/paypal/paypal"
-import "common/components/dashboard/charge-account/payment-method/card/card"
-import "common/components/dashboard/charge-account/choose-amount-charge/choose-amount-charge"
-import "common/components/dashboard/charge-account/payment-method/payment-method"
-import "common/components/dashboard/charge-account/choose-bank/choose-bank"
-import paypalModule from "../../../common/components/dashboard/charge-account/payment-method/paypal/paypal"
+import * as angular from 'angular'
+import apiModule from 'profitelo-api-ng/api.module'
+import {FinancesApi, PaymentsApi} from 'profitelo-api-ng/api/api'
+import {MoneyDto, GetPaymentOptions, PaymentLink, PaymentSystem, GetLastPayment} from 'profitelo-api-ng/model/models'
+import {SmoothScrollingService} from '../../../common/services/smooth-scrolling/smooth-scrolling.service'
+import topAlertModule from '../../../common/services/top-alert/top-alert'
+import commonSettingsModule from '../../../common/services/common-settings/common-settings'
+import sessionModule from '../../../common/services/session/session'
+import smoothScrollingModule from '../../../common/services/smooth-scrolling/smooth-scrolling'
+import 'common/directives/interface/pro-input/pro-input'
+import 'common/directives/interface/pro-checkbox/pro-checkbox'
+import 'common/directives/interface/scrollable/scrollable'
+import 'common/components/interface/preloader/preloader'
+import 'common/components/braintree-form/braintree-form'
+import 'common/components/dashboard/charge-account/payment-method/payu/payu'
+import 'common/components/dashboard/charge-account/payment-method/paypal/paypal'
+import 'common/components/dashboard/charge-account/payment-method/card/card'
+import 'common/components/dashboard/charge-account/choose-amount-charge/choose-amount-charge'
+import 'common/components/dashboard/charge-account/payment-method/payment-method'
+import 'common/components/dashboard/charge-account/choose-bank/choose-bank'
+import paypalModule from '../../../common/components/dashboard/charge-account/payment-method/paypal/paypal'
 import './charge-account.sass'
 
 export interface IAmounts {
@@ -143,7 +143,7 @@ class ChargeAccountController {
   public scrollHandler = (slideTo?: number) => {
     if (slideTo && angular.isDefined(slideTo)) {
       this.smoothScrollingService.scrollTo(String(slideTo))
-      //TODO refactor this 3
+      // TODO refactor this 3
     } else if (this.currentSection < 3) {
       this.$timeout(() => {
         this.smoothScrollingService.scrollTo(String(++this.currentSection))

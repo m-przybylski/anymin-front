@@ -1,11 +1,11 @@
-import * as angular from "angular"
-import "./home"
+import * as angular from 'angular'
+import './home'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 describe('Unit tests: Home section >', () => {
   describe('Testing Controller: HomeController', () => {
 
-    var $scope: ng.IScope
-    var HomeController: any
+    let $scope: ng.IScope
+    let HomeController: any
 
     beforeEach(() => {
       angular.mock.module('profitelo.controller.home')

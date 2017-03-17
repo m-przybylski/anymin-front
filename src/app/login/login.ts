@@ -1,10 +1,10 @@
-import * as angular from "angular"
-import "angular-permission"
-import "./account/account"
-import "./register/register"
-import "./forgot-password/forgot-password"
-import "./set-new-password/set-new-password"
-import "./confirm-email/confirm-email"
+import * as angular from 'angular'
+import 'angular-permission'
+import './account/account'
+import './register/register'
+import './forgot-password/forgot-password'
+import './set-new-password/set-new-password'
+import './confirm-email/confirm-email'
 
 function LoginController() {
 

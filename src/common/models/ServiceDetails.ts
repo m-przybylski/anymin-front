@@ -1,4 +1,4 @@
-import {MoneyDto, Tag} from "profitelo-api-ng/model/models"
+import {MoneyDto, Tag} from 'profitelo-api-ng/model/models'
 
 export interface ServiceDetails {
   name: string

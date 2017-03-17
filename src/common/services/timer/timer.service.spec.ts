@@ -1,6 +1,6 @@
-import * as angular from "angular"
-import {TimerFactory} from "./timer.factory"
-import timerModule from "./timer"
+import * as angular from 'angular'
+import {TimerFactory} from './timer.factory'
+import timerModule from './timer'
 
 describe('Unit testing: profitelo.services.timer >', () => {
   describe('for profitelo.services.timer >', () => {

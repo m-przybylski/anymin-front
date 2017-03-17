@@ -19,14 +19,17 @@ export class PasswordStrengthService {
     }
   }
 
-  private stringReverse = function (str: string) {
-    for (var i = str.length - 1, out = ''; i >= 0; out += str[i--]) {
-      i
+  private stringReverse = function (str: string | undefined) {
+    let out
+    if (typeof str === 'string') {
+      for (let i = str.length - 1, out = ''; i >= 0; out += str[i--]) {
+        i
+      }
     }
     return out
   }
 
-  private _getStrength = (p: String) => {
+  private _getStrength = (p: string) => {
 
     let matches: any = {
       pos: {
@@ -115,10 +118,10 @@ export class PasswordStrengthService {
 
       // sequential letters (back and forth)
       for (i = 0; i < letters.length - 2; i++) {
-        var p2 = p.toLowerCase()
+        let p2 = p.toLowerCase()
         forth = letters.substring(i, i + 3)
         back = this.stringReverse(forth)
-        if (p2.indexOf(forth) !== -1 || p2.indexOf(back) !== -1) {
+        if (p2.indexOf(forth) !== -1 || back &&  p2.indexOf(back) !== -1) {
           counts.neg.seqLetter++
         }
       }
@@ -127,7 +130,7 @@ export class PasswordStrengthService {
       for (i = 0; i < numbers.length - 2; i++) {
         forth = numbers.substring(i, i + 3)
         back = this.stringReverse(forth)
-        if (p.indexOf(forth) !== -1 || p.toLowerCase().indexOf(back) !== -1) {
+        if (p.indexOf(forth) !== -1 || back && p.toLowerCase().indexOf(back) !== -1) {
           counts.neg.seqNumber++
         }
       }
@@ -136,7 +139,7 @@ export class PasswordStrengthService {
       for (i = 0; i < symbols.length - 2; i++) {
         forth = symbols.substring(i, i + 3)
         back = this.stringReverse(forth)
-        if (p.indexOf(forth) !== -1 || p.toLowerCase().indexOf(back) !== -1) {
+        if (p.indexOf(forth) !== -1 || back && p.toLowerCase().indexOf(back) !== -1) {
           counts.neg.seqSymbol++
         }
       }

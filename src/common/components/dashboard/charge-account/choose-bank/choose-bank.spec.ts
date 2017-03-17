@@ -1,6 +1,6 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {SmoothScrollingService} from "../../../../services/smooth-scrolling/smooth-scrolling.service"
+import {SmoothScrollingService} from '../../../../services/smooth-scrolling/smooth-scrolling.service'
 describe('Unit testing: profitelo.components.dashboard.charge-account.choose-bank', () => {
   return describe('for chooseBank component >', () => {
 
@@ -29,7 +29,7 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-ban
     }))
 
     beforeEach(() => {
-      //angular.mock.module('templates-module')
+      // angular.mock.module('templates-module')
       angular.mock.module('profitelo.components.dashboard.charge-account.choose-bank')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,

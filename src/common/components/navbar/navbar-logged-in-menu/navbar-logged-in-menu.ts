@@ -1,6 +1,6 @@
-import * as angular from "angular"
-import "angular-ui-router"
-import {NavbarLoggedInMenuComponent} from "./navbar-logged-in-menu.component"
+import * as angular from 'angular'
+import 'angular-ui-router'
+import {NavbarLoggedInMenuComponent} from './navbar-logged-in-menu.component'
 
 export interface INavbarLoggedInMenuComponentBindings extends ng.IController {
 }

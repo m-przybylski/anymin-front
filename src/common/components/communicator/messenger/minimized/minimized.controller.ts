@@ -1,5 +1,5 @@
-import {MessengerService} from "../messenger.service"
-import {IMessengerMinimizedComponentBindings} from "./minimized"
+import {MessengerService} from '../messenger.service'
+import {IMessengerMinimizedComponentBindings} from './minimized'
 
 export class MessengerMinimizedComponentController implements ng.IController, IMessengerMinimizedComponentBindings {
 

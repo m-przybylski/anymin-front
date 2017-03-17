@@ -1,9 +1,9 @@
-import * as angular from "angular"
-import {PayoutsApi} from "profitelo-api-ng/api/api"
-import {PayPalAccountDto, PayoutMethodsDto} from "profitelo-api-ng/model/models"
-import {ModalsService} from "../../../../common/services/modals/modals.service"
-import {IPayoutsSettingsService} from "../../../../common/resolvers/payouts-resolver/payouts-resolver.service"
-import "common/resolvers/payouts-resolver/payouts-resolver.service"
+import * as angular from 'angular'
+import {PayoutsApi} from 'profitelo-api-ng/api/api'
+import {PayPalAccountDto, PayoutMethodsDto} from 'profitelo-api-ng/model/models'
+import {ModalsService} from '../../../../common/services/modals/modals.service'
+import {IPayoutsSettingsService} from '../../../../common/resolvers/payouts-resolver/payouts-resolver.service'
+import 'common/resolvers/payouts-resolver/payouts-resolver.service'
 
 export class DashboardSettingsPayoutsController implements ng.IController {
   public isAnyPayoutMethod: boolean = false

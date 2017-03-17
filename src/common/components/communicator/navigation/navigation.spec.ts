@@ -1,9 +1,9 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {NavigationComponentController, INavigationComponentBindings} from "./navigation"
-import {CallService} from "../call.service"
-import "./navigation"
-import communicatorModule from "../communicator"
+import {NavigationComponentController, INavigationComponentBindings} from './navigation'
+import {CallService} from '../call.service'
+import './navigation'
+import communicatorModule from '../communicator'
 
 describe('Unit testing: profitelo.components.communicator.navigation', () => {
   return describe('for communicatorNav component >', () => {
@@ -40,7 +40,7 @@ describe('Unit testing: profitelo.components.communicator.navigation', () => {
     }))
 
     beforeEach(() => {
-      //angular.mock.module('templates-module')
+
       angular.mock.module('profitelo.components.communicator.navigation')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,

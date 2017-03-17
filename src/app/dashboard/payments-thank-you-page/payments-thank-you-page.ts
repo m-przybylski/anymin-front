@@ -1,6 +1,6 @@
-import * as angular from "angular"
-import "common/components/dashboard/thank-you-page/thank-you-page"
-import "common/components/interface/top-modal-navbar/top-modal-navbar"
+import * as angular from 'angular'
+import 'common/components/dashboard/thank-you-page/thank-you-page'
+import 'common/components/interface/top-modal-navbar/top-modal-navbar'
 
 function paymentsThankYouPageController($state: ng.ui.IStateService) {
 

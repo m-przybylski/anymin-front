@@ -1,6 +1,6 @@
-import * as angular from "angular"
-import {Tag} from "profitelo-api-ng/model/models"
-import {IWindowService} from "../../services/window/window.service"
+import * as angular from 'angular'
+import {Tag} from 'profitelo-api-ng/model/models'
+import {IWindowService} from '../../services/window/window.service'
 
 function proTagsSlider($window: IWindowService, $location: ng.ILocationService, $timeout: ng.ITimeoutService) {
   function linkFunction(scope: any, element: ng.IRootElementService) {

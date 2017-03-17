@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {IFilterService} from "../../services/filter/filter.service"
+import * as angular from 'angular'
+import {IFilterService} from '../../services/filter/filter.service'
 
 describe('Unit testing: profitelo.filters.money >', () => {
   describe('for profitelo.filters.money >', () => {

@@ -1,7 +1,7 @@
-import * as angular from "angular"
-import {IMessengerMinimizedComponentBindings} from "./minimized"
-import {MessengerMinimizedComponentController} from "./minimized.controller"
-import communicatorModule from "../../communicator"
+import * as angular from 'angular'
+import {IMessengerMinimizedComponentBindings} from './minimized'
+import {MessengerMinimizedComponentController} from './minimized.controller'
+import communicatorModule from '../../communicator'
 describe('Unit testing: profitelo.components.communicator.messenger.minimized', () => {
   return describe('for messengerMinimized component >', () => {
 
@@ -44,7 +44,7 @@ describe('Unit testing: profitelo.components.communicator.messenger.minimized', 
     }
 
     beforeEach(() => {
-      //angular.mock.module('templates-module')
+
       angular.mock.module('profitelo.components.communicator.messenger.minimized')
 
       inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService, $timeout: ng.ITimeoutService,

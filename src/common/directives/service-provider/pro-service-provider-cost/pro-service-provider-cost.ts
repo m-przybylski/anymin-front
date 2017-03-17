@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {IFilterService} from "../../../services/filter/filter.service"
+import * as angular from 'angular'
+import {IFilterService} from '../../../services/filter/filter.service'
 
 function proServiceProviderCost($q: ng.IQService, $filter: IFilterService) {
 

@@ -1,4 +1,4 @@
-export interface SoundObject {
+export interface ISoundObject {
   play(): void
   stop(): void
 }

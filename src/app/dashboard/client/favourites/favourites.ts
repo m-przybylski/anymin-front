@@ -1,14 +1,15 @@
-import * as angular from "angular"
-import apiModule from "profitelo-api-ng/api.module"
-import sessionModule from "../../../../common/services/session/session"
-import {ClientFavouritesResolver} from "./favourites.resolver"
-import {DashboardClientFavouritesController} from "./favourites.controller"
-import recommendedServicesModule from "../../../../common/services/recommended-services/recommended-services"
-import filtersModule from "../../../../common/filters/filters"
-import "common/components/dashboard/client/favourites/no-favourite-experts/no-favourite-experts"
-import "common/components/dashboard/client/favourites/favourite-experts/favourite-experts"
-import "common/components/expert-profile/similar-experts-slider/similar-experts-slider"
-import "common/components/dashboard/client/favourites/favourite-experts/last-consultation-slider/last-consultation-slider"
+import * as angular from 'angular'
+import apiModule from 'profitelo-api-ng/api.module'
+import sessionModule from '../../../../common/services/session/session'
+import {ClientFavouritesResolver} from './favourites.resolver'
+import {DashboardClientFavouritesController} from './favourites.controller'
+import recommendedServicesModule from '../../../../common/services/recommended-services/recommended-services'
+import filtersModule from '../../../../common/filters/filters'
+import 'common/components/dashboard/client/favourites/no-favourite-experts/no-favourite-experts'
+import 'common/components/dashboard/client/favourites/favourite-experts/favourite-experts'
+import 'common/components/expert-profile/similar-experts-slider/similar-experts-slider'
+import
+  'common/components/dashboard/client/favourites/favourite-experts/last-consultation-slider/last-consultation-slider'
 
 angular.module('profitelo.controller.dashboard.client.favourites', [
   'ui.router',

@@ -1,8 +1,8 @@
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {PermissionService} from "../common/services/permission/permission.service"
-import {SessionService} from "../common/services/session/session.service"
-import {CommunicatorService} from "../common/components/communicator/communicator.service"
-import {TopAlertService} from "../common/services/top-alert/top-alert.service"
+import {PermissionService} from '../common/services/permission/permission.service'
+import {SessionService} from '../common/services/session/session.service'
+import {CommunicatorService} from '../common/components/communicator/communicator.service'
+import {TopAlertService} from '../common/services/top-alert/top-alert.service'
 
 /* @ngInject */
 export function AppRunFunction($rootScope: IRootScopeService, $log: ng.ILogService, permissionService: PermissionService,

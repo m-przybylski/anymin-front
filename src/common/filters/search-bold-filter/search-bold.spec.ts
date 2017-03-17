@@ -1,5 +1,5 @@
-import {IFilterService} from "../../services/filter/filter.service"
-import * as angular from "angular"
+import {IFilterService} from '../../services/filter/filter.service'
+import * as angular from 'angular'
 
 
 describe('Unit testing: profitelo.filters.search-bold-filter >', () => {

@@ -1,11 +1,11 @@
-import * as angular from "angular"
-import {TopAlertService} from "../../../services/top-alert/top-alert.service"
-import {FilesApi} from "profitelo-api-ng/api/api"
-import commonSettingsModule from "../../../services/common-settings/common-settings"
-import "common/directives/ng-enter/ng-enter"
-import "common/directives/interface/pro-uploader/pro-uploader"
-import "common/controllers/service-provider/service-provider-step-controller/service-provider-step-controller"
-import topAlertModule from "../../../services/top-alert/top-alert"
+import * as angular from 'angular'
+import {TopAlertService} from '../../../services/top-alert/top-alert.service'
+import {FilesApi} from 'profitelo-api-ng/api/api'
+import commonSettingsModule from '../../../services/common-settings/common-settings'
+import 'common/directives/ng-enter/ng-enter'
+import 'common/directives/interface/pro-uploader/pro-uploader'
+import 'common/controllers/service-provider/service-provider-step-controller/service-provider-step-controller'
+import topAlertModule from '../../../services/top-alert/top-alert'
 
 /* @ngInject */
 function proServiceProviderFileUploader($log: ng.ILogService, $q: ng.IQService, topAlertService: TopAlertService,

@@ -1,26 +1,26 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 const phonenumbers = require('libphonenumber-js')
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {IFilterService} from "../../../common/services/filter/filter.service"
-import {CommunicatorService} from "../../../common/components/communicator/communicator.service"
-import {CommonSettingsService} from "../../../common/services/common-settings/common-settings.service"
-import {LoginStateService} from "../../../common/services/login-state/login-state.service"
-import {TopAlertService} from "../../../common/services/top-alert/top-alert.service"
-import {SessionService} from "../../../common/services/session/session.service"
-import {TopWaitingLoaderService} from "../../../common/services/top-waiting-loader/top-waiting-loader.service"
-import apiModule from "profitelo-api-ng/api.module"
-import {AccountApi} from "profitelo-api-ng/api/api"
-import sessionModule from "../../../common/services/session/session"
-import loginStateModule from "../../../common/services/login-state/login-state"
-import commonSettingsModule from "../../../common/services/common-settings/common-settings"
-import communicatorModule from "../../../common/components/communicator/communicator"
-import topAlertModule from "../../../common/services/top-alert/top-alert"
-import "common/directives/pro-top-waiting-loader/pro-top-waiting-loader"
-import topWaitingLoader from "../../../common/services/top-waiting-loader/top-waiting-loader"
-import "common/directives/interface/pro-alert/pro-alert"
-import "common/directives/interface/pro-input-password/pro-input-password"
-import "common/directives/interface/pro-input/pro-input"
-import "common/components/interface/dropdown-primary/dropdown-primary"
+import {IFilterService} from '../../../common/services/filter/filter.service'
+import {CommunicatorService} from '../../../common/components/communicator/communicator.service'
+import {CommonSettingsService} from '../../../common/services/common-settings/common-settings.service'
+import {LoginStateService} from '../../../common/services/login-state/login-state.service'
+import {TopAlertService} from '../../../common/services/top-alert/top-alert.service'
+import {SessionService} from '../../../common/services/session/session.service'
+import {TopWaitingLoaderService} from '../../../common/services/top-waiting-loader/top-waiting-loader.service'
+import apiModule from 'profitelo-api-ng/api.module'
+import {AccountApi} from 'profitelo-api-ng/api/api'
+import sessionModule from '../../../common/services/session/session'
+import loginStateModule from '../../../common/services/login-state/login-state'
+import commonSettingsModule from '../../../common/services/common-settings/common-settings'
+import communicatorModule from '../../../common/components/communicator/communicator'
+import topAlertModule from '../../../common/services/top-alert/top-alert'
+import 'common/directives/pro-top-waiting-loader/pro-top-waiting-loader'
+import topWaitingLoader from '../../../common/services/top-waiting-loader/top-waiting-loader'
+import 'common/directives/interface/pro-alert/pro-alert'
+import 'common/directives/interface/pro-input-password/pro-input-password'
+import 'common/directives/interface/pro-input/pro-input'
+import 'common/components/interface/dropdown-primary/dropdown-primary'
 
 function AccountFormController($log: ng.ILogService, $rootScope: IRootScopeService, $state: ng.ui.IStateService,
                                $filter: IFilterService, AccountApi: AccountApi,
@@ -38,9 +38,9 @@ function AccountFormController($log: ng.ILogService, $rootScope: IRootScopeServi
     }
   })
 
-  this.isValidPhoneNumber = (prefix: string, number: string) => {
-    if (angular.isDefined(prefix) && angular.isDefined(number) && prefix && number && number.length > 1) {
-      const fullPhoneNumber = phonenumbers.parse(prefix.toString() + number.toString())
+  this.isValidPhoneNumber = (prefix: string, phoneNumber: string) => {
+    if (angular.isDefined(prefix) && angular.isDefined(phoneNumber) && prefix && phoneNumber && phoneNumber.length > 1) {
+      const fullPhoneNumber = phonenumbers.parse(prefix.toString() + phoneNumber.toString())
       return phonenumbers.isValidNumber(fullPhoneNumber)
     }
     return false

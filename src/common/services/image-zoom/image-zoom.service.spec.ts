@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {ImageZoomService} from "./image-zoom.service"
+import * as angular from 'angular'
+import {ImageZoomService} from './image-zoom.service'
 describe('Unit testing: profitelo.services.client-activities-service >', () => {
   describe('for profitelo.services.client-activities-service >', () => {
 

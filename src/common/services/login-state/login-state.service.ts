@@ -1,5 +1,5 @@
-import * as angular from "angular"
-//TODO add account type
+import * as angular from 'angular'
+// TODO add account type
 export class LoginStateService {
 
   private account: any = null

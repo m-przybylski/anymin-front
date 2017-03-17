@@ -42,10 +42,10 @@
         _input.focus()
       }
 
-      scope.onMouseover = ()=> {
+      scope.onMouseover = () => {
         scope.focus = true
       }
-      scope.onMouseout = ()=> {
+      scope.onMouseout = () => {
         if (!scope.onClick) {
           scope.focus = false
         }

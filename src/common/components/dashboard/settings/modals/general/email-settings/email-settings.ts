@@ -1,8 +1,8 @@
-import * as angular from "angular"
-import userModule from "../../../../../../services/user/user"
-import {UserService} from "../../../../../../services/user/user.service"
-import apiModule from "profitelo-api-ng/api.module"
-import {AccountApi} from "profitelo-api-ng/api/api"
+import * as angular from 'angular'
+import userModule from '../../../../../../services/user/user'
+import {UserService} from '../../../../../../services/user/user.service'
+import apiModule from 'profitelo-api-ng/api.module'
+import {AccountApi} from 'profitelo-api-ng/api/api'
 
 export interface IGeneralEmailSettingsControllerScope extends ng.IScope {
   callback: (cb: () => void) => void
@@ -32,7 +32,7 @@ export class GeneralEmailSettingsController implements ng.IController {
   }
 
   private onEmailChangeSucces = (): void => {
-    //FIXME
+    // FIXME
     this.$scope.callback(() => {})
     this.$uibModalInstance.dismiss('cancel')
   }

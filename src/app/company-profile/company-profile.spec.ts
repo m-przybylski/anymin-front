@@ -1,8 +1,8 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {RecommendedServicesService} from "../../common/services/recommended-services/recommended-services.service"
-import {SmoothScrollingService} from "../../common/services/smooth-scrolling/smooth-scrolling.service"
-import "./company-profile"
+import {RecommendedServicesService} from '../../common/services/recommended-services/recommended-services.service'
+import {SmoothScrollingService} from '../../common/services/smooth-scrolling/smooth-scrolling.service'
+import './company-profile'
 
 describe('Unit tests: CompanyProfileController >', () => {
   describe('Testing Controller: CompanyProfileController', () => {

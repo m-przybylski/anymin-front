@@ -2,9 +2,9 @@ namespace profitelo.components.dashboard.client.activities.modals.complainReport
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
   describe('Testing Controller: clientComplainReportController', () => {
 
-    var clientComplainReportController: any
-    var scope: any
-    var uibModalInstance = {
+    let clientComplainReportController: any
+    let scope: any
+    let uibModalInstance = {
       dismiss: () => {
 
       },

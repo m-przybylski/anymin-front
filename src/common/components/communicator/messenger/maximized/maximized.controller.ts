@@ -1,17 +1,17 @@
-import * as angular from "angular"
-import {IMessengerMaximizedComponentBindings} from "./maximized"
-import {MoneyDto} from "profitelo-api-ng/model/models"
-import {UploaderService, IPostProcessOptions} from "../../../../services/uploader/uploader.service"
-import {MessengerService} from "../messenger.service"
-import {UrlService} from "../../../../services/url/url.service"
-import {UploaderFactory} from "../../../../services/uploader/uploader.factory"
-import {ExpertProfile} from "../../../../models/ExpertProfile"
+import * as angular from 'angular'
+import {IMessengerMaximizedComponentBindings} from './maximized'
+import {MoneyDto} from 'profitelo-api-ng/model/models'
+import {UploaderService, IPostProcessOptions} from '../../../../services/uploader/uploader.service'
+import {MessengerService} from '../messenger.service'
+import {UrlService} from '../../../../services/url/url.service'
+import {UploaderFactory} from '../../../../services/uploader/uploader.factory'
+import {ExpertProfile} from '../../../../models/ExpertProfile'
 
 export class MessengerMaximizedComponentController implements ng.IController, IMessengerMaximizedComponentBindings {
 
   public callCost: MoneyDto
   public isMessenger: boolean
-  public minimizeMessenger: Function
+  public minimizeMessenger: () => void
   public callLength: number
 
   public participantAvatar = ''

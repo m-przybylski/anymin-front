@@ -1,8 +1,8 @@
-import * as angular from "angular"
-import {ILoginConfirmEmailService} from "./login-confirm-email.service"
-import {AccountApiMock, SessionApiMock} from "profitelo-api-ng/api/api"
-import {GetSession} from "profitelo-api-ng/model/models"
-import sessionModule from "../../services/session/session"
+import * as angular from 'angular'
+import {ILoginConfirmEmailService} from './login-confirm-email.service'
+import {AccountApiMock, SessionApiMock} from 'profitelo-api-ng/api/api'
+import {GetSession} from 'profitelo-api-ng/model/models'
+import sessionModule from '../../services/session/session'
 
 describe('Unit testing: profitelo.resolvers.login-confirm-email', () => {
   describe('for LoginConfirmEmailResolver service >', () => {

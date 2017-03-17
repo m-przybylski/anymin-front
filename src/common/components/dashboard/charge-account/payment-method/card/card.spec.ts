@@ -1,8 +1,8 @@
-import * as angular from "angular"
-import {CardPaymentFormComponentController, ICardPaymentFormComponentBindings} from "./card"
-import userModule from "../../../../../services/user/user"
-import apiModule from "profitelo-api-ng/api.module"
-import {PaymentsApiMock} from "profitelo-api-ng/api/api"
+import * as angular from 'angular'
+import {CardPaymentFormComponentController, ICardPaymentFormComponentBindings} from './card'
+import userModule from '../../../../../services/user/user'
+import apiModule from 'profitelo-api-ng/api.module'
+import {PaymentsApiMock} from 'profitelo-api-ng/api/api'
 
 describe('Unit testing:profitelo.components.dashboard.charge-account.payment-method.card', () => {
   return describe('for cardPaymentForm component >', () => {
@@ -55,7 +55,7 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
     }))
 
     beforeEach(() => {
-      //angular.mock.module('templates-module')
+      // angular.mock.module('templates-module')
       angular.mock.module(apiModule)
       angular.mock.module('profitelo.components.braintree-form')
       angular.mock.module('profitelo.components.dashboard.charge-account.payment-method.card')

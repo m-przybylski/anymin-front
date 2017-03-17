@@ -1,10 +1,10 @@
-import * as angular from "angular"
-import "./choose-path"
+import * as angular from 'angular'
+import './choose-path'
 
 describe('Unit tests: ChoosePathController >', () => {
   describe('Testing Controller: ChoosePathController', () => {
 
-    var ChoosePathController: any
+    let ChoosePathController: any
 
     beforeEach(() => {
     angular.mock.module('profitelo.controller.dashboard.service-provider.choose-path')

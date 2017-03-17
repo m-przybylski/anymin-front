@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {TopAlertService} from "./top-alert.service"
+import * as angular from 'angular'
+import {TopAlertService} from './top-alert.service'
 
 const topAlertModule = angular.module('profitelo.services.top-alert', [
   'ngLodash',

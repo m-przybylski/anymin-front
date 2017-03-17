@@ -1,7 +1,7 @@
-import * as angular from "angular"
-import {MoneyDto} from "profitelo-api-ng/model/models"
+import * as angular from 'angular'
+import {MoneyDto} from 'profitelo-api-ng/model/models'
 
-import filtersModule from "../../../../filters/filters"
+import filtersModule from '../../../../filters/filters'
 
   export interface ISummaryChargeAccountComponentBindings {
     amount: MoneyDto

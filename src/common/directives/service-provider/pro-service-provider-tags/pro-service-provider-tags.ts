@@ -1,17 +1,17 @@
-import * as angular from "angular"
-import apiModule from "profitelo-api-ng/api.module"
-import {TagApi} from "profitelo-api-ng/api/api"
-import {Tag} from "profitelo-api-ng/model/models"
+import * as angular from 'angular'
+import apiModule from 'profitelo-api-ng/api.module'
+import {TagApi} from 'profitelo-api-ng/api/api'
+import {Tag} from 'profitelo-api-ng/model/models'
 
 interface IProServiceProviderTags extends ng.IScope {
   tags: Array<Tag>
   model: any
   searchWord: any
-  onSearch: Function
+  onSearch: (searchWord: string) => void
   error: any
   proModel: any
-  proceed: Function
-  saveSection: Function
+  proceed: () => void
+  saveSection: () => void
   required: boolean
   tagNameParam: string
 }
@@ -30,7 +30,7 @@ function proServiceProviderTags($q: ng.IQService, TagApi: TagApi, lodash: _.LoDa
 
     scope.searchWord = {}
 
-    scope.onSearch = (searchWord: string) => {
+    scope.onSearch = (searchWord: string) : void => {
       scope.searchWord = searchWord
     }
 
@@ -51,7 +51,7 @@ function proServiceProviderTags($q: ng.IQService, TagApi: TagApi, lodash: _.LoDa
     const getTagsDelayed = () =>
       scope.$apply(() => _getTags(scope.searchWord))
 
-    const _getTagsThrottled: Function = lodash.debounce(getTagsDelayed, 200)
+    const _getTagsThrottled: (scope: ng.IScope) => void = lodash.debounce(getTagsDelayed, 200)
 
     scope.$watch('searchWord', () => _getTagsThrottled(scope))
 

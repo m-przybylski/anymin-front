@@ -1,6 +1,6 @@
-import * as angular from "angular"
-import {INavbarComponentBindings} from "./navbar"
-import {UserService} from "../../services/user/user.service"
+import * as angular from 'angular'
+import {INavbarComponentBindings} from './navbar'
+import {UserService} from '../../services/user/user.service'
 
 export class NavbarComponentController implements INavbarComponentBindings {
   isWindowScrolling: boolean = false
@@ -13,7 +13,7 @@ export class NavbarComponentController implements INavbarComponentBindings {
 
   /* @ngInject */
   constructor(private $scope: ng.IScope, private $window: ng.IWindowService, private $element: any,
-              private userService: UserService, private $document: ng.IDocumentService){
+              private userService: UserService, private $document: ng.IDocumentService) {
     angular.element(this.$window).bind('scroll', () => {
       this.isWindowScrolling = (this.$window.pageYOffset > this.elementOffsetHeight)
       this.$scope.$apply()
@@ -23,12 +23,12 @@ export class NavbarComponentController implements INavbarComponentBindings {
     this.setNavbarStatus()
 
     this.$document.bind('click', (event: any) => {
-      let nanigation = angular.element(this.$element).find('.mobile-nav')
-      let ifTargetClicked = angular.element(nanigation).find(event.target).length > 0
+      const navigation = angular.element(this.$element).find('.mobile-nav')
+      const ifTargetClicked = angular.element(navigation).find(event.target).length > 0
 
       if (!ifTargetClicked) {
         this.isNavigationCollapsed = false
-        this.bodyHtmlElement.removeClass("is-mobile-nav-visible")
+        this.bodyHtmlElement.removeClass('is-mobile-nav-visible')
       }
 
       this.$scope.$apply()
@@ -37,14 +37,14 @@ export class NavbarComponentController implements INavbarComponentBindings {
 
   public onMobileMenuCollapsed = () => {
       this.isNavigationCollapsed = !this.isNavigationCollapsed
-      this.bodyHtmlElement.toggleClass("is-mobile-nav-visible")
+      this.bodyHtmlElement.toggleClass('is-mobile-nav-visible')
   }
 
   public onSearchCollapsed = () => {
     /* this.isSearchVisible is overwrite in CSS when resolution is bigger than 768px */
     this.isSearchVisible = !this.isSearchVisible
     this.isNavigationCollapsed = false
-    this.bodyHtmlElement.removeClass("is-mobile-nav-visible")
+    this.bodyHtmlElement.removeClass('is-mobile-nav-visible')
   }
 
   private setNavbarStatus = (): void => {

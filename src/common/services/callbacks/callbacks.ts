@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {CallbacksFactory} from "./callbacks.factory"
+import * as angular from 'angular'
+import {CallbacksFactory} from './callbacks.factory'
 
 const callbacksModule = angular.module('profitelo.services.callbacks', [])
   .service('callbacksFactory', CallbacksFactory)

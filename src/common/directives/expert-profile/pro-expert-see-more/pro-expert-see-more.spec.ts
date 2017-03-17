@@ -9,7 +9,7 @@ namespace profitelo.directives.expertProfile.proExpertSeeMore {
       let validHTML = '<pro-expert-see-more></pro-expert-see-more>'
 
       beforeEach(() => {
-        //angular.mock.module('templates-module')
+
         angular.mock.module('profitelo.directives.pro-expert-see-more')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {

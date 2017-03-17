@@ -1,10 +1,10 @@
-import * as angular from "angular"
-import {IMessengerMaximizedComponentBindings} from "./maximized"
-import {MoneyDto} from "profitelo-api-ng/model/models"
-import {MessengerService} from "../messenger.service"
-import {UrlService} from "../../../../services/url/url.service"
-import {MessengerMaximizedComponentController} from "./maximized.controller"
-import communicatorModule from "../../communicator"
+import * as angular from 'angular'
+import {IMessengerMaximizedComponentBindings} from './maximized'
+import {MoneyDto} from 'profitelo-api-ng/model/models'
+import {MessengerService} from '../messenger.service'
+import {UrlService} from '../../../../services/url/url.service'
+import {MessengerMaximizedComponentController} from './maximized.controller'
+import communicatorModule from '../../communicator'
 
 describe('Unit testing: profitelo.components.communicator.messenger.maximized', () => {
   return describe('for messengerMaximized component >', () => {
@@ -75,7 +75,7 @@ describe('Unit testing: profitelo.components.communicator.messenger.maximized', 
     }))
 
     beforeEach(() => {
-      //angular.mock.module('templates-module')
+
       angular.mock.module('profitelo.services.url')
       angular.mock.module('profitelo.filters.seconds-to-datetime')
       angular.mock.module('profitelo.filters.money')

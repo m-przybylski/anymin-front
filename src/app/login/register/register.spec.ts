@@ -1,12 +1,12 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {RegistrationApi, RegistrationApiMock, AccountApi} from "profitelo-api-ng/api/api"
-import {GetSession} from "profitelo-api-ng/model/models"
-import {TopAlertService} from "../../../common/services/top-alert/top-alert.service"
-import {TopWaitingLoaderService} from "../../../common/services/top-waiting-loader/top-waiting-loader.service"
-import {LoginStateService} from "../../../common/services/login-state/login-state.service"
-import {IFilterService} from "../../../common/services/filter/filter.service"
-import sessionModule from "../../../common/services/session/session"
+import {RegistrationApi, RegistrationApiMock, AccountApi} from 'profitelo-api-ng/api/api'
+import {GetSession} from 'profitelo-api-ng/model/models'
+import {TopAlertService} from '../../../common/services/top-alert/top-alert.service'
+import {TopWaitingLoaderService} from '../../../common/services/top-waiting-loader/top-waiting-loader.service'
+import {LoginStateService} from '../../../common/services/login-state/login-state.service'
+import {IFilterService} from '../../../common/services/filter/filter.service'
+import sessionModule from '../../../common/services/session/session'
 
 describe('Unit tests: profitelo.controller.login.register>', () => {
   describe('Testing Controller: RegisterController', () => {

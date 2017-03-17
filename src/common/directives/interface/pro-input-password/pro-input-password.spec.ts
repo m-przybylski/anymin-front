@@ -11,7 +11,7 @@ namespace profitelo.directives.interface.proInputPassword {
       let validHTML = '<pro-input-password data-label="LABEL" data-placeholder="' + _placeholder + '"  required auto-focus></pro-input-password>'
 
       beforeEach(() => {
-        //angular.mock.module('templates-module')
+
         angular.mock.module('profitelo.directives.interface.pro-input-password')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {

@@ -1,5 +1,5 @@
 
-import {PayPalPaymentFormComponentController} from "./paypal.controller"
+import {PayPalPaymentFormComponentController} from './paypal.controller'
 export class PayPalPaymentFormComponent implements ng.IComponentOptions {
   controllerAs: '$ctrl'
   controller: ng.Injectable<ng.IControllerConstructor> = PayPalPaymentFormComponentController

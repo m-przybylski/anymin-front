@@ -1,8 +1,8 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import {
   ConsultationSummaryClientController,
   IConsultationSummaryClientControllerScope, IConsultationSummaryClientParentControllerScope
-} from "./consultation-summary-client"
+} from './consultation-summary-client'
 
 describe('Testing Controller: consultationSummaryClientController', () => {
 

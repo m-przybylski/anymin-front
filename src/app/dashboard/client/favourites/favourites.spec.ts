@@ -1,6 +1,6 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {RecommendedServicesService} from "../../../../common/services/recommended-services/recommended-services.service"
+import {RecommendedServicesService} from '../../../../common/services/recommended-services/recommended-services.service'
 
 describe('Unit tests: DashboardClientFavouritesController >', () => {
   describe('Testing Controller: DashboardClientFavouritesController', () => {

@@ -1,4 +1,4 @@
-import {AppComponentController} from "./app.controller"
+import {AppComponentController} from './app.controller'
 
 /* @ngInject */
 export function AppConfigFunction($urlRouterProvider: ng.ui.IUrlRouterProvider, $httpProvider: ng.IHttpProvider,
@@ -7,8 +7,6 @@ export function AppConfigFunction($urlRouterProvider: ng.ui.IUrlRouterProvider, 
                         $animateProvider: ng.animate.IAnimateProvider,
                         tmhDynamicLocaleProvider: ng.dynamicLocale.tmhDynamicLocaleProvider) {
 
-  // disable routing until it is synced manually - for permission handling purpose (in run function)
-  // https://github.com/Narzerus/angular-permission/wiki/Controlling-access-in-views
   $urlRouterProvider.deferIntercept()
 
   $urlRouterProvider
@@ -25,7 +23,7 @@ export function AppConfigFunction($urlRouterProvider: ng.ui.IUrlRouterProvider, 
     abstract: true,
     controller: AppComponentController,
     controllerAs: 'appController',
-    template: require("../common/templates/app.pug")(),
+    template: require('../common/templates/app.pug')(),
     data: {
       pageTitle: 'PAGE_TITLE.BASE'
     },
@@ -46,7 +44,7 @@ export function AppConfigFunction($urlRouterProvider: ng.ui.IUrlRouterProvider, 
    */
 
   // use interpolation for translation
-  //$translateProvider.addInterpolation('$translateMessageFormatInterpolation')
+  // $translateProvider.addInterpolation('$translateMessageFormatInterpolation')
 
   // Warnings, regarding forgotten IDs in translations
   $translateProvider.useMissingTranslationHandler('CustomTranslationHandlerService')

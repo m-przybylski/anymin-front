@@ -1,10 +1,10 @@
-import * as angular from "angular"
-import "angular-mocks"
+import * as angular from 'angular'
+import 'angular-mocks'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {SearchService} from "../../common/services/search/search.service"
-import {SearchUrlService} from "../../common/services/search-url/search-url.service"
-import "./search-result"
-import "common/services/search/search"
+import {SearchService} from '../../common/services/search/search.service'
+import {SearchUrlService} from '../../common/services/search-url/search-url.service'
+import './search-result'
+import 'common/services/search/search'
 
 describe('Unit tests: search-result>', () => {
   describe('Testing Controller: SearchResultController', () => {
@@ -45,7 +45,7 @@ describe('Unit tests: search-result>', () => {
         }
 
         searchService = <SearchService>{
-          onSearchResults: (_$scope, cb: Function) => {
+          onSearchResults: (_$scope, cb: () => void) => {
             cb()
           },
 

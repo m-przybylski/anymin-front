@@ -1,5 +1,5 @@
 
-import "./individual-path"
+import './individual-path'
 
 describe('Unit tests: IndividualPathController >', () => {
   describe('Testing Controller: IndividualPathController', () => {

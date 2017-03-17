@@ -1,16 +1,16 @@
-import * as angular from "angular"
-import {MoneyDto} from "profitelo-api-ng/model/models"
-import {MessengerMaximizedComponent} from "./maximized.component"
-import urlModule from "../../../../services/url/url"
-import uploaderModule from "../../../../services/uploader/uploader"
-import filtersModule from "../../../../filters/filters"
-import "./grouped-messages/grouped-messages"
-import "./messenger-input/messenger-input"
+import * as angular from 'angular'
+import {MoneyDto} from 'profitelo-api-ng/model/models'
+import {MessengerMaximizedComponent} from './maximized.component'
+import urlModule from '../../../../services/url/url'
+import uploaderModule from '../../../../services/uploader/uploader'
+import filtersModule from '../../../../filters/filters'
+import './grouped-messages/grouped-messages'
+import './messenger-input/messenger-input'
 
 export interface IMessengerMaximizedComponentBindings {
   callCost: MoneyDto
   isMessenger: boolean
-  minimizeMessenger: Function
+  minimizeMessenger: () => void
   callLength: number
 }
 

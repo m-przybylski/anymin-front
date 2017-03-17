@@ -1,9 +1,9 @@
-import * as angular from "angular"
-import {CommonSettingsService} from "../../../services/common-settings/common-settings.service"
-import commonSettingsModule from "../../../services/common-settings/common-settings"
-import "common/directives/ng-enter/ng-enter"
-import "common/directives/pro-social-icon-getter/pro-social-icon-getter"
-import "common/controllers/service-provider/service-provider-step-controller/service-provider-step-controller"
+import * as angular from 'angular'
+import {CommonSettingsService} from '../../../services/common-settings/common-settings.service'
+import commonSettingsModule from '../../../services/common-settings/common-settings'
+import 'common/directives/ng-enter/ng-enter'
+import 'common/directives/pro-social-icon-getter/pro-social-icon-getter'
+import 'common/controllers/service-provider/service-provider-step-controller/service-provider-step-controller'
 
 /* @ngInject */
 function proServiceExternalLinks($q: ng.IQService, CommonSettingsService: CommonSettingsService) {

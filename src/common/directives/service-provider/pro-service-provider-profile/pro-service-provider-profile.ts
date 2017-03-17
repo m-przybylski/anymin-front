@@ -1,17 +1,17 @@
 namespace profitelo.directives.serviceProvider.proServiceProviderProfile {
 
-  interface ProServiceProviderProfile extends ng.IScope {
+  interface IProServiceProviderProfile extends ng.IScope {
     invertArrow: boolean
     textLimit: number | null
     description: string
-    onClick: Function
-    buttonAction: Function
-    showMoreText: Function
+    onClick: () => void
+    buttonAction: () => void
+    showMoreText: () => void
   }
 
   function proServiceProviderProfile($sce: ng.ISCEService) {
 
-    function linkFunction(scope: ProServiceProviderProfile) {
+    function linkFunction(scope: IProServiceProviderProfile) {
 
       scope.invertArrow = false
       scope.textLimit = 1000

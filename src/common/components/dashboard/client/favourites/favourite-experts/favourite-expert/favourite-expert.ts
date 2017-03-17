@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {UrlService} from "../../../../../../services/url/url.service"
+import * as angular from 'angular'
+import {UrlService} from '../../../../../../services/url/url.service'
 
 /* @ngInject */
 function controller($state: ng.ui.IStateService, urlService: UrlService) {

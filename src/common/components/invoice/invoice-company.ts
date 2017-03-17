@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import sessionModule from "../../services/session/session"
+import * as angular from 'angular'
+import sessionModule from '../../services/session/session'
 
 export class InvoiceCompanyFormComponentController implements ng.IController {
 

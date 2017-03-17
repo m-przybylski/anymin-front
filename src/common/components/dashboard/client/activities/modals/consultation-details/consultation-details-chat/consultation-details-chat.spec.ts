@@ -19,7 +19,7 @@ namespace profitelo.components.dashboard.client.activities.modals.consultationDe
       }
 
       beforeEach(() => {
-        //angular.mock.module('templates-module')
+
         angular.mock.module('profitelo.components.communicator.messenger.maximized.grouped-messages')
         angular.mock.module('profitelo.components.dashboard.client.activities.modals.consultation-details.consultation-details-chat')
 

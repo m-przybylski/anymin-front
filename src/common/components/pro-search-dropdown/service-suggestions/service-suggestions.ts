@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {CommonSettingsService} from "../../../services/common-settings/common-settings.service"
+import * as angular from 'angular'
+import {CommonSettingsService} from '../../../services/common-settings/common-settings.service'
 
 /* @ngInject */
 function serviceSuggestionsController($state: ng.ui.IStateService, CommonSettingsService: CommonSettingsService) {

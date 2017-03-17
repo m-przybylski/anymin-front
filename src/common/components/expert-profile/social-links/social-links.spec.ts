@@ -19,7 +19,7 @@ namespace profitelo.components.expertProfile.socialLinks {
       }
 
       beforeEach(() => {
-        //angular.mock.module('templates-module')
+
         angular.mock.module('profitelo.components.expert-profile.social-links')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$componentController_: ng.IComponentControllerService) => {

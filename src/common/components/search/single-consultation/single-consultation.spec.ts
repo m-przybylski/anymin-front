@@ -1,8 +1,8 @@
-import * as angular from "angular"
-import "./single-consultation"
+import * as angular from 'angular'
+import './single-consultation'
 
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import communicatorModule from "../../communicator/communicator"
+import communicatorModule from '../../communicator/communicator'
 describe('Unit testing:profitelo.components.search.single-consultation', () => {
   return describe('for single-consultation component >', () => {
 
@@ -47,7 +47,7 @@ describe('Unit testing:profitelo.components.search.single-consultation', () => {
     }))
 
     beforeEach(() => {
-      //angular.mock.module('templates-module')
+
       angular.mock.module('ui.router')
       angular.mock.module('profitelo.components.search.single-consultation')
     })

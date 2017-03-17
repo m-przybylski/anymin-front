@@ -1,10 +1,10 @@
-import * as angular from "angular"
-import {CommunicatorService} from "./communicator.service"
+import * as angular from 'angular'
+import {CommunicatorService} from './communicator.service'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {RatelApi, ProfileApi} from "profitelo-api-ng/api/api"
-import userModule from "../../services/user/user"
-import communicatorModule from "./communicator"
-import "./communicator.service"
+import {RatelApi, ProfileApi} from 'profitelo-api-ng/api/api'
+import userModule from '../../services/user/user'
+import communicatorModule from './communicator'
+import './communicator.service'
 
 describe('Unit testing: profitelo.services.communicator >', () => {
   describe('for profitelo.services.communicator >', () => {

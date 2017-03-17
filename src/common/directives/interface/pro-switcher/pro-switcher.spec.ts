@@ -9,7 +9,7 @@ namespace profitelo.directives.interface.proSwitcher {
       let validHTML = '<pro-switcher ng-model="isChecked" data-label="LABEL" id data-name="NAME" ></pro-switcher>'
 
       beforeEach(() => {
-        //angular.mock.module('templates-module')
+
         angular.mock.module('profitelo.directives.interface.pro-switcher')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {

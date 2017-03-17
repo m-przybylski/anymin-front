@@ -1,8 +1,8 @@
-import * as angular from "angular"
-import {MoneyDto} from "profitelo-api-ng/model/models"
-import {IMessengerComponentBindings, default as messengerModule} from "./messenger"
-import soundsModule from "../../../services/sounds/sounds"
-import {MessengerComponentController} from "./messenger.controller"
+import * as angular from 'angular'
+import {MoneyDto} from 'profitelo-api-ng/model/models'
+import {IMessengerComponentBindings, default as messengerModule} from './messenger'
+import soundsModule from '../../../services/sounds/sounds'
+import {MessengerComponentController} from './messenger.controller'
 
 describe('Unit testing: profitelo.components.communicator.messenger', () => {
   return describe('for messenger component >', () => {
@@ -51,7 +51,7 @@ describe('Unit testing: profitelo.components.communicator.messenger', () => {
     }))
 
     beforeEach(() => {
-      //angular.mock.module('templates-module')
+
       //angular.mock.module(communicatorModule)
 
       inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,

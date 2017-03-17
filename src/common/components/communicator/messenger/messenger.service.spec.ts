@@ -1,9 +1,9 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {MessengerService} from "./messenger.service"
-import {CommunicatorService} from "../communicator.service"
-import communicatorModule from "../communicator"
-import messengerModule from "./messenger"
+import {MessengerService} from './messenger.service'
+import {CommunicatorService} from '../communicator.service'
+import communicatorModule from '../communicator'
+import messengerModule from './messenger'
 
 describe('Unit testing: profitelo.services.messenger >', () => {
   describe('for profitelo.services.messenger >', () => {

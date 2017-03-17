@@ -10,7 +10,7 @@ namespace profitelo.directives.interface.proTagsDropdown {
       let timeout: ng.ITimeoutService
 
       beforeEach(() => {
-        //angular.mock.module('templates-module')
+
         angular.mock.module('profitelo.directives.interface.pro-tags-dropdown')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$timeout_: ng.ITimeoutService) => {

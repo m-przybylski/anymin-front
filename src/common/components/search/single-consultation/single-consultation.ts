@@ -1,9 +1,9 @@
-import * as angular from "angular"
-import {UrlService} from "../../../services/url/url.service"
-import {CallService} from "../../communicator/call.service"
-import communicatorModule from "../../communicator/communicator"
-import filtersModule from "../../../filters/filters"
-import urlModule from "../../../services/url/url"
+import * as angular from 'angular'
+import {UrlService} from '../../../services/url/url.service'
+import {CallService} from '../../communicator/call.service'
+import communicatorModule from '../../communicator/communicator'
+import filtersModule from '../../../filters/filters'
+import urlModule from '../../../services/url/url'
 
 /* @ngInject */
 function singleConsultationController($state: ng.ui.IStateService, urlService: UrlService,

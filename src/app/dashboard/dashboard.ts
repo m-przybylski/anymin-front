@@ -1,13 +1,13 @@
-import * as angular from "angular"
-import "angular-touch"
-import "angular-permission"
-import "./charge-account/charge-account"
-import "./payments-thank-you-page/payments-thank-you-page"
-import "./invitation/invitation"
-import "./client/client"
-import "./settings/settings"
-import "./service-provider/service-provider"
-import navbarModule from "../../common/components/navbar/navbar"
+import * as angular from 'angular'
+import 'angular-touch'
+import 'angular-permission'
+import './charge-account/charge-account'
+import './payments-thank-you-page/payments-thank-you-page'
+import './invitation/invitation'
+import './client/client'
+import './settings/settings'
+import './service-provider/service-provider'
+import navbarModule from '../../common/components/navbar/navbar'
 
 /* @ngInject */
 class DashboardController {

@@ -9,7 +9,7 @@ namespace profitelo.directives.expertProfile.proExpertSocialIcons {
       let validHTML = '<pro-expert-social-icons></pro-expert-social-icons>'
 
       beforeEach(() => {
-        //angular.mock.module('templates-module')
+
         angular.mock.module('profitelo.directives.expert-profile.pro-expert-social-icons')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {

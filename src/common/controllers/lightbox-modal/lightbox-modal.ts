@@ -1,11 +1,11 @@
-import * as angular from "angular"
-import apiModule from "profitelo-api-ng/api.module"
-import {FilesApi} from "profitelo-api-ng/api/api"
-import {ImageZoomService} from "../../services/image-zoom/image-zoom.service"
-import {IWindowService} from "../../services/window/window.service"
-import urlModule from "../../services/url/url"
-import printModule from "../../services/print/print"
-import imageZoomModule from "../../services/image-zoom/image-zoom"
+import * as angular from 'angular'
+import apiModule from 'profitelo-api-ng/api.module'
+import {FilesApi} from 'profitelo-api-ng/api/api'
+import {ImageZoomService} from '../../services/image-zoom/image-zoom.service'
+import {IWindowService} from '../../services/window/window.service'
+import urlModule from '../../services/url/url'
+import printModule from '../../services/print/print'
+import imageZoomModule from '../../services/image-zoom/image-zoom'
 
 function lightboxModelController($scope: any, $window: IWindowService, lodash: _.LoDashStatic,
                                  $timeout: ng.ITimeoutService, FilesApi: FilesApi, imageZoomService: ImageZoomService,

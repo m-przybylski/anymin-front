@@ -18,7 +18,7 @@ export class NavigatorService {
 
   /* @ngInject */
   constructor(private $q: ng.IQService) {
-    this.navigator = window["navigator"]
+    this.navigator = window['navigator']
     this.navigator.getUserMedia =
       this.navigator.getUserMedia || this.navigator.mozGetUserMedia || this.navigator.webkitGetUserMedia
 

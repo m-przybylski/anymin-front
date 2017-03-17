@@ -1,15 +1,15 @@
-import * as angular from "angular"
-import {CallbacksService} from "../../services/callbacks/callbacks.service"
-import {TimerService} from "../../services/timer/timer.service"
-import {RatelApi, ServiceApi} from "profitelo-api-ng/api/api"
-import {MoneyDto, GetService, GetProfile, GetServiceUsageRequest} from "profitelo-api-ng/model/models"
-import {CallbacksFactory} from "../../services/callbacks/callbacks.factory"
-import {NavigatorService} from "../../services/navigator/navigator.service"
-import {CommunicatorService} from "./communicator.service"
-import {SoundsService} from "../../services/sounds/sounds.service"
-import {ModalsService} from "../../services/modals/modals.service"
-import {TimerFactory} from "../../services/timer/timer.factory"
-import {UserService} from "../../services/user/user.service"
+import * as angular from 'angular'
+import {CallbacksService} from '../../services/callbacks/callbacks.service'
+import {TimerService} from '../../services/timer/timer.service'
+import {RatelApi, ServiceApi} from 'profitelo-api-ng/api/api'
+import {MoneyDto, GetService, GetProfile, GetServiceUsageRequest} from 'profitelo-api-ng/model/models'
+import {CallbacksFactory} from '../../services/callbacks/callbacks.factory'
+import {NavigatorService} from '../../services/navigator/navigator.service'
+import {CommunicatorService} from './communicator.service'
+import {SoundsService} from '../../services/sounds/sounds.service'
+import {ModalsService} from '../../services/modals/modals.service'
+import {TimerFactory} from '../../services/timer/timer.factory'
+import {UserService} from '../../services/user/user.service'
 
 
 export class CallService {
@@ -270,7 +270,7 @@ export class CallService {
         this.remoteStreamElement.attr('src', window.URL.createObjectURL(stream))
       }
       else {
-        this.$log.error("remoteStreamElement not set")
+        this.$log.error('remoteStreamElement not set')
       }
     })
     this.call.onLeft(this.onExpertCallEnd)
@@ -280,13 +280,13 @@ export class CallService {
 
     this.hangupFunction = this.expertHangupCall
     this.setCallVideoEvents(this.call, serviceInvitationTuple.invitation.inviter)
-    //callbacks.notify(events.onExpertCallJoined, {inviter: inviterId, session: session})
+    // TODO: callbacks.notify(events.onExpertCallJoined, {inviter: inviterId, session: session})
   }
 
   private onAnswerCallError = (err: any) => {
     this.cleanupService()
     this.$log.error(err)
-    alert("Call does not exist anymore")
+    alert('Call does not exist anymore')
   }
 
   private answerCall = (serviceInvitationTuple: {service: GetService, invitation: any}) =>

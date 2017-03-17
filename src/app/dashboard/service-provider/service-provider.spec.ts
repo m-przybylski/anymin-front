@@ -1,9 +1,9 @@
-import * as angular from "angular"
-import "./service-provider"
+import * as angular from 'angular'
+import './service-provider'
 describe('Unit tests: ServiceProviderController >', () => {
   describe('Testing Controller: ServiceProviderController', () => {
 
-    var ServiceProviderController: any
+    let ServiceProviderController: any
 
     beforeEach(() => {
     angular.mock.module('profitelo.controller.dashboard.service-provider')

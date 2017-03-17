@@ -1,9 +1,9 @@
-import * as angular from "angular"
-import "jquery-bridget"
-import "masonry-layout/dist/masonry.pkgd"
-import "ng-masonry"
-import "angular-masonry"
-import "./pro-masonry"
+import * as angular from 'angular'
+import 'jquery-bridget'
+import 'masonry-layout/dist/masonry.pkgd'
+import 'ng-masonry'
+import 'angular-masonry'
+import './pro-masonry'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 
 describe('Unit testing: profitelo.directives.pro-masonry', () => {
@@ -17,7 +17,7 @@ describe('Unit testing: profitelo.directives.pro-masonry', () => {
     let $log: ng.ILogService
 
     beforeEach(() => {
-      //angular.mock.module('templates-module')
+
       angular.mock.module('profitelo.directives.pro-masonry')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$log_: ng.ILogService,

@@ -1,6 +1,6 @@
-import * as angular from "angular"
-import {Category} from "profitelo-api-ng/model/models"
-import {CategoryApi} from "profitelo-api-ng/api/api"
+import * as angular from 'angular'
+import {Category} from 'profitelo-api-ng/model/models'
+import {CategoryApi} from 'profitelo-api-ng/api/api'
 
 export class CategoryService {
 

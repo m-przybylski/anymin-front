@@ -1,6 +1,6 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {TopAlertService} from "../../../services/top-alert/top-alert.service"
+import {TopAlertService} from '../../../services/top-alert/top-alert.service'
 
 describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
   return describe('for interface.pro-alert directive >', () => {
@@ -19,7 +19,7 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
     }
 
     beforeEach(() => {
-      //angular.mock.module('templates-module')
+
       angular.mock.module('ngLodash')
       angular.mock.module('profitelo.directives.interface.pro-alert')
 

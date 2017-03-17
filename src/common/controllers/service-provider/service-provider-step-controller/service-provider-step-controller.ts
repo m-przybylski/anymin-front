@@ -1,7 +1,7 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {SmoothScrollingService} from "../../../services/smooth-scrolling/smooth-scrolling.service"
-import apiModule from "profitelo-api-ng/api.module"
+import {SmoothScrollingService} from '../../../services/smooth-scrolling/smooth-scrolling.service'
+import apiModule from 'profitelo-api-ng/api.module'
 
 function ServiceProviderStepController($scope: any, $timeout: ng.ITimeoutService, $rootScope: IRootScopeService,
                                        smoothScrollingService: SmoothScrollingService) {

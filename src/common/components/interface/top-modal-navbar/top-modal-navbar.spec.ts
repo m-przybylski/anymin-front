@@ -1,6 +1,6 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {IWindowService} from "../../../services/window/window.service"
+import {IWindowService} from '../../../services/window/window.service'
   describe('Unit testing: profitelo.components.interface.top-modal-navbar', () => {
   return describe('for topModalNavbar component >', () => {
 
@@ -21,7 +21,7 @@ import {IWindowService} from "../../../services/window/window.service"
     }
 
     beforeEach(() => {
-    //angular.mock.module('templates-module')
+
     angular.mock.module('ui.router')
     angular.mock.module('profitelo.components.interface.top-modal-navbar')
 

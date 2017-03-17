@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import "../../../../../../../../components/complaints/status/status"
+import * as angular from 'angular'
+import '../../../../../../../../components/complaints/status/status'
 
 (function() {
   /* @ngInject */

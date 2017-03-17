@@ -1,16 +1,16 @@
-import * as angular from "angular"
-import {TopAlertService} from "../../../services/top-alert/top-alert.service"
-import {FilesApi} from "profitelo-api-ng/api/api"
-import topAlertModule from "../../../services/top-alert/top-alert"
+import * as angular from 'angular'
+import {TopAlertService} from '../../../services/top-alert/top-alert.service'
+import {FilesApi} from 'profitelo-api-ng/api/api'
+import topAlertModule from '../../../services/top-alert/top-alert'
 
-interface Attributes extends ng.IAttributes {
+interface IAttributes extends ng.IAttributes {
   imageField?: string
 }
 
 function proServiceProviderAvatar($log: ng.ILogService, $q: ng.IQService, topAlertService: TopAlertService,
                                   FilesApi: FilesApi) {
 
-  function linkFunction(scope: any, _element: ng.IRootElementService, attrs: Attributes) {
+  function linkFunction(scope: any, _element: ng.IRootElementService, attrs: IAttributes) {
 
     scope.imageField = 'avatar'
     scope.required = false
@@ -45,11 +45,13 @@ function proServiceProviderAvatar($log: ng.ILogService, $q: ng.IQService, topAle
       })
     }
 
-    !!scope.proModel[scope.imageField] ? _getImageIfExist(scope.proModel[scope.imageField]) : scope.model[scope.imageField] = []
+    !!scope.proModel[scope.imageField] ? _getImageIfExist(scope.proModel[scope.imageField])
+      : scope.model[scope.imageField] = []
 
     let _isValid = () => {
       let _isValidDeferred = $q.defer()
-      if (angular.isDefined(scope.model[scope.imageField]) && scope.model[scope.imageField].length > 0 && !scope.isPending) {
+      if (angular.isDefined(scope.model[scope.imageField])
+        && scope.model[scope.imageField].length > 0 && !scope.isPending) {
         _isValidDeferred.resolve(scope.model[scope.imageField][0].response.token)
       } else {
         _isValidDeferred.reject()

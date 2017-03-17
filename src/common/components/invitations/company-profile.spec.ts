@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import "./company-profile"
+import * as angular from 'angular'
+import './company-profile'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 describe('Unit testing: profitelo.components.invitations.company-profile', () => {
   return describe('for company-profile-component >', () => {
@@ -13,7 +13,7 @@ describe('Unit testing: profitelo.components.invitations.company-profile', () =>
       'data-profile="vm.invitations.organizationDetails"></company-profile>'
 
     beforeEach(() => {
-      //angular.mock.module('templates-module')
+
       angular.mock.module('profitelo.components.invitations.company-profile')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$componentController_: ng.IComponentControllerService) => {

@@ -1,12 +1,12 @@
-import * as angular from "angular"
-import {ISetNewPasswordStateParams} from "../../../app/login/set-new-password/set-new-password"
-import {IFilterService} from "../../services/filter/filter.service"
-import {TopAlertService} from "../../services/top-alert/top-alert.service"
-import apiModule from "profitelo-api-ng/api.module"
-import {RecoverPasswordApi} from "profitelo-api-ng/api/api"
-import {LoginStateService} from "../../services/login-state/login-state.service"
-import topAlertModule from "../../services/top-alert/top-alert"
-import loginStateModule from "../../services/login-state/login-state"
+import * as angular from 'angular'
+import {ISetNewPasswordStateParams} from '../../../app/login/set-new-password/set-new-password'
+import {IFilterService} from '../../services/filter/filter.service'
+import {TopAlertService} from '../../services/top-alert/top-alert.service'
+import apiModule from 'profitelo-api-ng/api.module'
+import {RecoverPasswordApi} from 'profitelo-api-ng/api/api'
+import {LoginStateService} from '../../services/login-state/login-state.service'
+import topAlertModule from '../../services/top-alert/top-alert'
+import loginStateModule from '../../services/login-state/login-state'
 
 export interface ILoginSetNewPassword {
   method: string

@@ -1,19 +1,19 @@
-import * as angular from "angular"
-import recommendedServicesModule from "../../common/services/recommended-services/recommended-services"
-import topAlertModule from "../../common/services/top-alert/top-alert"
-import apiModule from "profitelo-api-ng/api.module"
-import sessionModule from "../../common/services/session/session"
-import smoothScrollingModule from "../../common/services/smooth-scrolling/smooth-scrolling"
-import {CompanyProfileController} from "./company-profile.controller"
-import {CompanyProfileResolver} from "./company-profile.resolver"
-import "common/directives/expert-profile/pro-expert-header/pro-expert-header"
-import "common/directives/pro-footer/pro-footer"
-import "common/directives/expert-profile/pro-expert-slider/pro-expert-slider"
-import "common/components/interface/collapse-tab/collapse-tab"
-import "common/components/expert-profile/company-single-consultation/company-single-consultation"
-import "common/components/expert-profile/similar-experts-slider/similar-experts-slider"
-import "common/components/expert-profile/social-links/social-links"
-import navbarModule from "../../common/components/navbar/navbar"
+import * as angular from 'angular'
+import recommendedServicesModule from '../../common/services/recommended-services/recommended-services'
+import topAlertModule from '../../common/services/top-alert/top-alert'
+import apiModule from 'profitelo-api-ng/api.module'
+import sessionModule from '../../common/services/session/session'
+import smoothScrollingModule from '../../common/services/smooth-scrolling/smooth-scrolling'
+import {CompanyProfileController} from './company-profile.controller'
+import {CompanyProfileResolver} from './company-profile.resolver'
+import 'common/directives/expert-profile/pro-expert-header/pro-expert-header'
+import 'common/directives/pro-footer/pro-footer'
+import 'common/directives/expert-profile/pro-expert-slider/pro-expert-slider'
+import 'common/components/interface/collapse-tab/collapse-tab'
+import 'common/components/expert-profile/company-single-consultation/company-single-consultation'
+import 'common/components/expert-profile/similar-experts-slider/similar-experts-slider'
+import 'common/components/expert-profile/social-links/social-links'
+import navbarModule from '../../common/components/navbar/navbar'
 
 export interface ICompanyProfileStateParams extends ng.ui.IStateParamsService {
   primaryConsultationId: string

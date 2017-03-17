@@ -1,13 +1,13 @@
 namespace profitelo.components.communicator.modals.noCredits {
 
   export interface INoCreditsControllerParentScope extends ng.IScope {
-    reject: Function
-    accept: Function
+    reject: () => void
+    accept: () => void
   }
 
   export interface INoCreditsControllerScope extends ng.IScope {
-    reject: Function
-    accept: Function
+    reject: () => void
+    accept: () => void
     $parent: INoCreditsControllerParentScope
   }
 

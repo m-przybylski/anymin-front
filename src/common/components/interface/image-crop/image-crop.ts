@@ -2,13 +2,13 @@ namespace profitelo.components.interface.imageCrop {
 
   interface IImageCropComponentBindings extends ng.IController {
     imageSrc?: string
-    saveCropAvatar: Function
+    saveCropAvatar: (element: any) => void
   }
 
   class ImageCropComponentController implements IImageCropComponentBindings {
 
     public imageSrc: string
-    public saveCropAvatar: Function
+    public saveCropAvatar: (element: any) => void
 
     private element: any
 

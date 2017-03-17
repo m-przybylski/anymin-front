@@ -1,7 +1,7 @@
-import * as angular from "angular"
-import {FileIdDto} from "profitelo-api-ng/model/models"
-import {FilesApi} from "profitelo-api-ng/api/api"
-import {CommonConfig} from "../../../../generated_modules/common-config/common-config"
+import * as angular from 'angular'
+import {FileIdDto} from 'profitelo-api-ng/model/models'
+import {FilesApi} from 'profitelo-api-ng/api/api'
+import {CommonConfig} from '../../../../generated_modules/common-config/common-config'
 
 export interface ICroppingDetails {
   x?: number
@@ -14,7 +14,7 @@ export interface IPostProcessOptions {
   croppingDetails?: ICroppingDetails
 }
 
-interface FileObject {
+interface IFileObject {
   file: File
   deferred: ng.IDeferred<any>
   postProcessOptions: IPostProcessOptions
@@ -24,7 +24,7 @@ interface FileObject {
 export class UploaderService {
 
   private uploadingCount = 0
-  private fileObjectsToUpload: Array<FileObject> = []
+  private fileObjectsToUpload: Array<IFileObject> = []
   private urls: any
 
   /* @ngInject */
@@ -47,23 +47,23 @@ export class UploaderService {
     this.scheduleUpload()
   }
 
-  private onFileUpload = (fileObj: FileObject, res: any) => {
+  private onFileUpload = (fileObj: IFileObject, res: any) => {
     fileObj.deferred.resolve(res.data)
     this.onFileUploadEnd()
   }
 
-  private onFileUploadError = (fileObj: FileObject, err: any) => {
+  private onFileUploadError = (fileObj: IFileObject, err: any) => {
     fileObj.deferred.reject(err)
     this.onFileUploadEnd()
   }
 
-  private onFileUploadProgress = (fileObj: FileObject, res: any) => {
+  private onFileUploadProgress = (fileObj: IFileObject, res: any) => {
     if (typeof fileObj.callback === 'function') {
       this.$timeout(_ => fileObj.callback(res))
     }
   }
 
-  private _uploadFile = (fileObj: FileObject, token: FileIdDto) =>
+  private _uploadFile = (fileObj: IFileObject, token: FileIdDto) =>
   /*//FIXME
     this.$q.resolve()*/
     this.Upload.upload({
@@ -77,16 +77,16 @@ export class UploaderService {
       (res: any) => this.onFileUploadProgress(fileObj, res)
     )
 
-  private onGetFileToken = (fileObj: FileObject, token: FileIdDto) => {
+  private onGetFileToken = (fileObj: IFileObject, token: FileIdDto) => {
     this._uploadFile(fileObj, token)
   }
 
-  private onGetFileTokenError = (fileObj: FileObject, err: any) => {
+  private onGetFileTokenError = (fileObj: IFileObject, err: any) => {
     fileObj.deferred.reject(err)
     this.onFileUploadEnd()
   }
 
-  private getFileToken = (fileObj: FileObject) => {
+  private getFileToken = (fileObj: IFileObject) => {
     return this.FilesApi.createFileTokenPath(this.collectionType, fileObj.postProcessOptions)
   }
   private processUpload = () => {
@@ -94,7 +94,7 @@ export class UploaderService {
       this.fileObjectsToUpload.length > 0) {
       this.uploadingCount++
 
-      const fileObj: FileObject | undefined = this.fileObjectsToUpload.shift()
+      const fileObj: IFileObject | undefined = this.fileObjectsToUpload.shift()
 
       if (angular.isDefined(fileObj) && fileObj) {
         this.getFileToken(fileObj)

@@ -1,10 +1,10 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 
 import LoDashStatic = _.LoDashStatic
-import {CommonSettingsService} from "../../../../../../services/common-settings/common-settings.service"
-import apiModule from "profitelo-api-ng/api.module"
-import {AccountApi} from "profitelo-api-ng/api/api"
-import commonSettingsModule from "../../../../../../services/common-settings/common-settings"
+import {CommonSettingsService} from '../../../../../../services/common-settings/common-settings.service'
+import apiModule from 'profitelo-api-ng/api.module'
+import {AccountApi} from 'profitelo-api-ng/api/api'
+import commonSettingsModule from '../../../../../../services/common-settings/common-settings'
 export interface ISecurityPinNumberSettingsControllerScope extends ng.IScope {
 }
 

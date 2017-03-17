@@ -1,21 +1,21 @@
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import IUnavailableServiceControllerParentScope = profitelo.components.communicator.modals.serviceUnavailable.IUnavailableServiceControllerParentScope
 import INoCreditsControllerParentScope = profitelo.components.communicator.modals.noCredits.INoCreditsControllerParentScope
-import {GetService, GetActivity} from "profitelo-api-ng/model/models"
-import {DialogService} from "../dialog/dialog.service"
-import {IClientCallParentControllerScope} from "../../components/communicator/modals/client-call/client-call"
-import {IConsultationSummaryClientParentControllerScope} from "../../components/communicator/modals/consultation-summary-client/consultation-summary-client"
-import {IConsultationSummaryExpertParentControllerScope} from "../../components/communicator/modals/consultation-summary-expert/consultation-summary-expert"
-import {IConsultationDetailsParentScope} from "../../components/dashboard/client/activities/modals/consultation-details/consultation-details"
-import {IBasicAccountSettingsControllerParentScope} from "../../components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings"
-import {IGeneralPhoneSettingsControllerScope} from "../../components/dashboard/settings/modals/general/phone-settings/phone-settings"
-import {IGeneralEmailSettingsControllerScope} from "../../components/dashboard/settings/modals/general/email-settings/email-settings"
-import {IGeneralCountrySettingsControllerScope} from "../../components/dashboard/settings/modals/general/country-settings/country-settings"
-import {ISecurityChangePasswordSettingsControllerScope} from "../../components/dashboard/settings/modals/security/change-password/change-password"
-import {ISecurityPinNumberSettingsControllerScope} from "../../components/dashboard/settings/modals/security/pin-number/pin-number"
-import {IEditCompanyInvoiceControllerScope} from "../../components/dashboard/settings/modals/payments/edit-company-invoice/edit-company-invoice"
-import {IPayoutsPayPalControllerScope} from "../../components/dashboard/settings/modals/payouts/payouts-payPal/payouts-pay-pal"
-import {IAddPaymentMethodControllerScope} from "../../components/dashboard/settings/modals/payments/add-payment-method/add-payment-method"
+import {GetService, GetActivity} from 'profitelo-api-ng/model/models'
+import {DialogService} from '../dialog/dialog.service'
+import {IClientCallParentControllerScope} from '../../components/communicator/modals/client-call/client-call'
+import {IConsultationSummaryClientParentControllerScope} from '../../components/communicator/modals/consultation-summary-client/consultation-summary-client'
+import {IConsultationSummaryExpertParentControllerScope} from '../../components/communicator/modals/consultation-summary-expert/consultation-summary-expert'
+import {IConsultationDetailsParentScope} from '../../components/dashboard/client/activities/modals/consultation-details/consultation-details'
+import {IBasicAccountSettingsControllerParentScope} from '../../components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings'
+import {IGeneralPhoneSettingsControllerScope} from '../../components/dashboard/settings/modals/general/phone-settings/phone-settings'
+import {IGeneralEmailSettingsControllerScope} from '../../components/dashboard/settings/modals/general/email-settings/email-settings'
+import {IGeneralCountrySettingsControllerScope} from '../../components/dashboard/settings/modals/general/country-settings/country-settings'
+import {ISecurityChangePasswordSettingsControllerScope} from '../../components/dashboard/settings/modals/security/change-password/change-password'
+import {ISecurityPinNumberSettingsControllerScope} from '../../components/dashboard/settings/modals/security/pin-number/pin-number'
+import {IEditCompanyInvoiceControllerScope} from '../../components/dashboard/settings/modals/payments/edit-company-invoice/edit-company-invoice'
+import {IPayoutsPayPalControllerScope} from '../../components/dashboard/settings/modals/payouts/payouts-payPal/payouts-pay-pal'
+import {IAddPaymentMethodControllerScope} from '../../components/dashboard/settings/modals/payments/add-payment-method/add-payment-method'
 
 // TODO add types for dialogScope Scopes
 export class ModalsService {
@@ -24,7 +24,7 @@ export class ModalsService {
   constructor(private $rootScope: IRootScopeService, private dialogService: DialogService) {
   }
 
-  public createIncomingCallModal = (service: GetService, answerCallback: Function, rejectCallback: Function) => {
+  public createIncomingCallModal = (service: GetService, answerCallback: () => void, rejectCallback: () => void) => {
     const dialogScope: IClientCallParentControllerScope = <IClientCallParentControllerScope>this.$rootScope.$new(true)
 
     dialogScope.service = service
@@ -38,7 +38,7 @@ export class ModalsService {
     })
   }
 
-  public createNoFundsModal = (acceptCallback: Function, rejectCallback: Function) => {
+  public createNoFundsModal = (acceptCallback: () => void, rejectCallback: () => void) => {
     const dialogScope: INoCreditsControllerParentScope =
       <INoCreditsControllerParentScope>this.$rootScope.$new(true)
 
@@ -52,7 +52,7 @@ export class ModalsService {
     })
   }
 
-  public createServiceUnavailableModal = (acceptCallback: Function, rejectCallback: Function) => {
+  public createServiceUnavailableModal = (acceptCallback: () => void, rejectCallback: () => void) => {
     const dialogScope: IUnavailableServiceControllerParentScope =
       <IUnavailableServiceControllerParentScope>this.$rootScope.$new(true)
 
@@ -140,7 +140,7 @@ export class ModalsService {
     })
   }
 
-  public createBasicAccountSettingsModal = (onModalClose: (cb: Function) => void) => {
+  public createBasicAccountSettingsModal = (onModalClose: (cb: () => void) => void) => {
     const dialogScope: IBasicAccountSettingsControllerParentScope =
       <IBasicAccountSettingsControllerParentScope>this.$rootScope.$new(true)
     dialogScope.callback = onModalClose

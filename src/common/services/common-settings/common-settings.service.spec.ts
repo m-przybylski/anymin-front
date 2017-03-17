@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {CommonSettingsService} from "./common-settings.service"
+import * as angular from 'angular'
+import {CommonSettingsService} from './common-settings.service'
 
 describe('Unit testing: profitelo.services.commonSettings >', () => {
   describe('for CommonSettingsService service >', () => {

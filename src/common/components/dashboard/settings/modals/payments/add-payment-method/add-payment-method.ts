@@ -1,7 +1,7 @@
-import * as angular from "angular"
-import "../../../../../../components/braintree-form/braintree-form"
-import "../../../../../../components/interface/preloader/preloader"
-import "../../../../../../directives/interface/scrollable/scrollable"
+import * as angular from 'angular'
+import '../../../../../../components/braintree-form/braintree-form'
+import '../../../../../../components/interface/preloader/preloader'
+import '../../../../../../directives/interface/scrollable/scrollable'
 
 export interface IAddPaymentMethodControllerScope extends ng.IScope {
   callback: () => void

@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {IWindowService} from "../../../services/window/window.service"
+import * as angular from 'angular'
+import {IWindowService} from '../../../services/window/window.service'
 
 /* @ngInject */
 function controller($window: IWindowService, $scope: ng.IScope, $state: ng.ui.IStateService) {

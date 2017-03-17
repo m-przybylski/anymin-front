@@ -1,15 +1,15 @@
-import apiModule from "profitelo-api-ng/api.module"
-import {SessionApi} from "profitelo-api-ng/api/api"
-import {AccountDetails, GetSession} from "profitelo-api-ng/model/models"
-import {ModalsService} from "../../../../common/services/modals/modals.service"
-import * as angular from "angular"
+import apiModule from 'profitelo-api-ng/api.module'
+import {SessionApi} from 'profitelo-api-ng/api/api'
+import {AccountDetails, GetSession} from 'profitelo-api-ng/model/models'
+import {ModalsService} from '../../../../common/services/modals/modals.service'
+import * as angular from 'angular'
 import ITimeConstant = profitelo.constants.time.ITimeConstant
-import userModule from "../../../../common/services/user/user"
-import modalsModule from "../../../../common/services/modals/modals"
-import {UserService} from "../../../../common/services/user/user.service"
-import {ISecuritySettingsService} from "../../../../common/resolvers/security-settings/security-settings.service"
-import "common/resolvers/security-settings/security-settings.service"
-import "common/components/dashboard/settings/manage-devices/manage-devices"
+import userModule from '../../../../common/services/user/user'
+import modalsModule from '../../../../common/services/modals/modals'
+import {UserService} from '../../../../common/services/user/user.service'
+import {ISecuritySettingsService} from '../../../../common/resolvers/security-settings/security-settings.service'
+import 'common/resolvers/security-settings/security-settings.service'
+import 'common/components/dashboard/settings/manage-devices/manage-devices'
 
 interface ISession {
   device: string
@@ -52,8 +52,8 @@ export class DashboardSettingsSecurityController implements ng.IController {
 
   public removeSession = (apiKey: string) => {
     this.SessionApi.logoutRoute(apiKey).then(() => {
-      this.lodash.remove(this.sessions, session => session.apiKey == apiKey)
-      if (this.sessions.length == 0) {
+      this.lodash.remove(this.sessions, session => session.apiKey === apiKey)
+      if (this.sessions.length === 0) {
         this.$window.location.reload()
       }
     }, (error) => {

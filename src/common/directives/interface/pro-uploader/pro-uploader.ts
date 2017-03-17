@@ -1,9 +1,9 @@
-import * as angular from "angular"
-import "ng-file-upload"
-import apiModule from "profitelo-api-ng/api.module"
-import {FilesApi} from "profitelo-api-ng/api/api"
-import {FileInfo} from "profitelo-api-ng/model/models"
-import {TopAlertService} from "../../../services/top-alert/top-alert.service"
+import * as angular from 'angular'
+import 'ng-file-upload'
+import apiModule from 'profitelo-api-ng/api.module'
+import {FilesApi} from 'profitelo-api-ng/api/api'
+import {FileInfo} from 'profitelo-api-ng/model/models'
+import {TopAlertService} from '../../../services/top-alert/top-alert.service'
 
 function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interval: ng.IIntervalService,
                      $filter: ng.IFilterService, $q: ng.IQService, FilesApi: FilesApi, Upload: any,
@@ -69,7 +69,7 @@ function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interv
         // scope.animate()
         _file = 0
         isProcess = true
-        for (var i = 0; i < files.length; i++) {
+        for (let i = 0; i < files.length; i++) {
           if (!files[i].$error) {
             tokenPromisses.push(FilesApi.fileInfoPath(
               'AVATAR' // TODO send proper collectionType
@@ -83,7 +83,8 @@ function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interv
             _files = files.length
             _setFilesStatus(_file, _files)
             Upload.upload({
-              url: _commonConfig.urls.files + _commonConfig.urls['file-upload'].replace('%s', tokenPromissesResponse[k++].id),
+              url: _commonConfig.urls.files +
+              _commonConfig.urls['file-upload'].replace('%s', tokenPromissesResponse[k++].id),
               data: {
                 file: file
               }

@@ -21,7 +21,7 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
     }
 
     beforeEach(() => {
-    //angular.mock.module('templates-module')
+
     angular.mock.module('profitelo.components.interface.slider')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,

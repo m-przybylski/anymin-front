@@ -1,5 +1,5 @@
-import {ILoginRegisterService} from "./login-register.service"
-import * as angular from "angular"
+import {ILoginRegisterService} from './login-register.service'
+import * as angular from 'angular'
 
 describe('Unit testing: profitelo.resolvers.login-register', () => {
   describe('for LoginRegisterResolver service >', () => {

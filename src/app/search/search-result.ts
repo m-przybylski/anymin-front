@@ -1,20 +1,20 @@
-import * as angular from "angular"
-import "angular-permission"
-import "angular-ui-router"
+import * as angular from 'angular'
+import 'angular-permission'
+import 'angular-ui-router'
 const ngInfiniteScroll = require('ng-infinite-scroll')
-import {SearchService} from "../../common/services/search/search.service"
-import {SearchUrlService} from "../../common/services/search-url/search-url.service"
-import searchModule from "../../common/services/search/search"
-import searchUrlModule from "../../common/services/search-url/search-url"
-import "common/components/interface/go-to-top/go-to-top"
-import "common/components/search/single-consultation/single-consultation"
-import "common/components/search/no-consultations/no-consultations"
-import "common/components/search/search-filters/search-filters"
-import "common/directives/pro-footer/pro-footer"
-import "common/components/interface/preloader/preloader"
-import "common/components/interface/preloader-container/preloader-container"
-import communicatorModule from "../../common/components/communicator/communicator"
-import navbarModule from "../../common/components/navbar/navbar"
+import {SearchService} from '../../common/services/search/search.service'
+import {SearchUrlService} from '../../common/services/search-url/search-url.service'
+import searchModule from '../../common/services/search/search'
+import searchUrlModule from '../../common/services/search-url/search-url'
+import 'common/components/interface/go-to-top/go-to-top'
+import 'common/components/search/single-consultation/single-consultation'
+import 'common/components/search/no-consultations/no-consultations'
+import 'common/components/search/search-filters/search-filters'
+import 'common/directives/pro-footer/pro-footer'
+import 'common/components/interface/preloader/preloader'
+import 'common/components/interface/preloader-container/preloader-container'
+import communicatorModule from '../../common/components/communicator/communicator'
+import navbarModule from '../../common/components/navbar/navbar'
 
 /* @ngInject */
 function SearchResultController($scope: ng.IScope, $location: ng.ILocationService,

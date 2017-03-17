@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import communicatorModule from "../../../components/communicator/communicator"
+import * as angular from 'angular'
+import communicatorModule from '../../../components/communicator/communicator'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 describe('Unit testing: profitelo.directives.expert-profile.pro-expert-single-consultation', () => {
   return describe('for expert-profile.pro-expert-single-consultation directive >', () => {
@@ -24,7 +24,7 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-single-co
     }))
 
     beforeEach(() => {
-      //angular.mock.module('templates-module')
+
       angular.mock.module('profitelo.services.url')
       angular.mock.module('profitelo.directives.expert-profile.pro-expert-single-consultation')
 

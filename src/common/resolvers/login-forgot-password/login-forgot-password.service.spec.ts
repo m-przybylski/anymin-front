@@ -1,6 +1,6 @@
-import * as angular from "angular"
-import {ILoginForgotPasswordService} from "./login-forgot-password.service"
-import {IForgotPasswordStateParams} from "../../../app/login/forgot-password/forgot-password"
+import * as angular from 'angular'
+import {ILoginForgotPasswordService} from './login-forgot-password.service'
+import {IForgotPasswordStateParams} from '../../../app/login/forgot-password/forgot-password'
 describe('Unit testing: profitelo.resolvers.login-forgot-password', () => {
   describe('for LoginForgotPasswordResolver service >', () => {
 

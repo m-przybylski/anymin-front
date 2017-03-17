@@ -1,8 +1,8 @@
-import * as angular from "angular"
-import "angular-ui-bootstrap"
-import "ui-select"
-import "angular-sanitize"
-import commonSettingsModule from "../../../services/common-settings/common-settings"
+import * as angular from 'angular'
+import 'angular-ui-bootstrap'
+import 'ui-select'
+import 'angular-sanitize'
+import commonSettingsModule from '../../../services/common-settings/common-settings'
 
 /* @ngInject */
 function proTagsDropdown($timeout: ng.ITimeoutService) {
@@ -36,7 +36,7 @@ function proTagsDropdown($timeout: ng.ITimeoutService) {
     scope.tagTransform = (item: any) => {
       item = item.trim()
       if (!angular.isDefined(scope.validPattern) || item.match(scope.validPattern)) {
-        var newItem: any = {}
+        let newItem: any = {}
         newItem[scope.tagNameParam] = item
         scope.valid = false
         return newItem

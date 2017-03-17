@@ -1,17 +1,17 @@
-import * as angular from "angular"
-import apiModule from "profitelo-api-ng/api.module"
-import {PaymentsApi} from "profitelo-api-ng/api/api"
-import {JValue, ClientToken} from "profitelo-api-ng/model/models"
-import {UserService} from "../../services/user/user.service"
-import {CommonSettingsService} from "../../services/common-settings/common-settings.service"
-import userModule from "../../services/user/user"
-import {ITransaction} from "../dashboard/charge-account/payment-method/card/card"
-import "angular-sanitize"
-import filtersModule from "../../filters/filters"
-import commonSettingsModule from "../../services/common-settings/common-settings"
-import "../../directives/interface/pro-checkbox/pro-checkbox"
-import "../../directives/interface/pro-input/pro-input"
-import "../../components/dashboard/charge-account/summary-charge-account/summary-charge-account"
+import * as angular from 'angular'
+import apiModule from 'profitelo-api-ng/api.module'
+import {PaymentsApi} from 'profitelo-api-ng/api/api'
+import {JValue, ClientToken} from 'profitelo-api-ng/model/models'
+import {UserService} from '../../services/user/user.service'
+import {CommonSettingsService} from '../../services/common-settings/common-settings.service'
+import userModule from '../../services/user/user'
+import {ITransaction} from '../dashboard/charge-account/payment-method/card/card'
+import 'angular-sanitize'
+import filtersModule from '../../filters/filters'
+import commonSettingsModule from '../../services/common-settings/common-settings'
+import '../../directives/interface/pro-checkbox/pro-checkbox'
+import '../../directives/interface/pro-input/pro-input'
+import '../../components/dashboard/charge-account/summary-charge-account/summary-charge-account'
 
 export interface IBraintreeFormComponentBindings {
   onBraintreeFormLoad: () => void,
@@ -36,8 +36,8 @@ export class BraintreeFormComponentController implements ng.IController, IBraint
     this.PaymentsApi.getClientTokenRoute().then(this.createBrainTree, this.onGetTokenError)
   }
 
-  private onGetTokenError = (_err: any) => {
-    //throw new Error('Can not get token: ' + err)
+  private onGetTokenError = (err: any) => {
+    throw new Error('Can not get token: ' + err)
   }
 
   private createBrainTree = (tokenObject: ClientToken): void => {

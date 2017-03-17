@@ -1,7 +1,8 @@
-import * as angular from "angular"
-import "angular-ui-router"
-import {IServiceProviderChoosePathService} from "../../../../common/resolvers/service-provider-choose-path/service-provider-choose-path.service"
-import "common/resolvers/service-provider-choose-path/service-provider-choose-path.service"
+import * as angular from 'angular'
+import 'angular-ui-router'
+import {IServiceProviderChoosePathService}
+from '../../../../common/resolvers/service-provider-choose-path/service-provider-choose-path.service'
+import 'common/resolvers/service-provider-choose-path/service-provider-choose-path.service'
 
 function ChoosePathController() {
 

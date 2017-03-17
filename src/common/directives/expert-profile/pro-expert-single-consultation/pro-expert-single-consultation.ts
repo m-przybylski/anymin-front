@@ -1,11 +1,11 @@
-import * as angular from "angular"
-import {UrlService} from "../../../services/url/url.service"
-import {CallService} from "../../../components/communicator/call.service"
-import filtersModule from "../../../filters/filters"
-import communicatorModule from "../../../components/communicator/communicator"
-import urlModule from "../../../services/url/url"
-import "common/components/pro-summary-tag/pro-summary-tag"
-import "common/components/interface/collapse-tab/collapse-tab"
+import * as angular from 'angular'
+import {UrlService} from '../../../services/url/url.service'
+import {CallService} from '../../../components/communicator/call.service'
+import filtersModule from '../../../filters/filters'
+import communicatorModule from '../../../components/communicator/communicator'
+import urlModule from '../../../services/url/url'
+import 'common/components/pro-summary-tag/pro-summary-tag'
+import 'common/components/interface/collapse-tab/collapse-tab'
 
 function directive(callService: CallService, urlService: UrlService) {
 

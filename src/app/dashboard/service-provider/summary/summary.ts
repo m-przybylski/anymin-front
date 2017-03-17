@@ -1,10 +1,10 @@
-import * as angular from "angular"
-import apiModule from "profitelo-api-ng/api.module"
-import sessionModule from "../../../../common/services/session/session"
-import "common/directives/service-provider/pro-service-provider-summary-step/pro-service-provider-summary-step"
-import "./company/company-summary"
-import "./individual/individual-summary"
-import "common/directives/interface/pro-alert/pro-alert"
+import * as angular from 'angular'
+import apiModule from 'profitelo-api-ng/api.module'
+import sessionModule from '../../../../common/services/session/session'
+import 'common/directives/service-provider/pro-service-provider-summary-step/pro-service-provider-summary-step'
+import './company/company-summary'
+import './individual/individual-summary'
+import 'common/directives/interface/pro-alert/pro-alert'
 
 (function() {
   function SummaryController() {

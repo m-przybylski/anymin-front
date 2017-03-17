@@ -1,12 +1,12 @@
-import * as angular from "angular"
-import {IForgotPasswordStateParams} from "../../../app/login/forgot-password/forgot-password"
-import {IFilterService} from "../../services/filter/filter.service"
-import {LoginStateService} from "../../services/login-state/login-state.service"
-import {TopAlertService} from "../../services/top-alert/top-alert.service"
-import apiModule from "profitelo-api-ng/api.module"
-import {RecoverPasswordApi} from "profitelo-api-ng/api/api"
-import loginStateModule from "../../services/login-state/login-state"
-import topAlertModule from "../../services/top-alert/top-alert"
+import * as angular from 'angular'
+import {IForgotPasswordStateParams} from '../../../app/login/forgot-password/forgot-password'
+import {IFilterService} from '../../services/filter/filter.service'
+import {LoginStateService} from '../../services/login-state/login-state.service'
+import {TopAlertService} from '../../services/top-alert/top-alert.service'
+import apiModule from 'profitelo-api-ng/api.module'
+import {RecoverPasswordApi} from 'profitelo-api-ng/api/api'
+import loginStateModule from '../../services/login-state/login-state'
+import topAlertModule from '../../services/top-alert/top-alert'
 
 export interface ILoginForgotPassword {
   recoveryMethod: string

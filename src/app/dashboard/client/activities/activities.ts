@@ -1,13 +1,13 @@
-import * as angular from "angular"
-import {MoneyDto, GetActivity, GetExpertServiceTuple, GetActivities} from "profitelo-api-ng/model/models"
-import {ClientActivitiesService} from "../../../../common/services/client-activities/client-activities.service"
-import filtersModule from "../../../../common/filters/filters"
-import "common/components/dashboard/client/activities/client-activities/client-activity/client-activity"
-import "common/components/interface/preloader-container/preloader-container"
-import "common/components/dashboard/client/activities/no-activities/no-activities"
-import "common/components/complaints/status/status"
-import "common/components/dashboard/client/activities/client-activities/filters/filters"
-import clientActivitesModule from "../../../../common/services/client-activities/client-activities"
+import * as angular from 'angular'
+import {MoneyDto, GetActivity, GetExpertServiceTuple, GetActivities} from 'profitelo-api-ng/model/models'
+import {ClientActivitiesService} from '../../../../common/services/client-activities/client-activities.service'
+import filtersModule from '../../../../common/filters/filters'
+import 'common/components/dashboard/client/activities/client-activities/client-activity/client-activity'
+import 'common/components/interface/preloader-container/preloader-container'
+import 'common/components/dashboard/client/activities/no-activities/no-activities'
+import 'common/components/complaints/status/status'
+import 'common/components/dashboard/client/activities/client-activities/filters/filters'
+import clientActivitesModule from '../../../../common/services/client-activities/client-activities'
 
 export class DashboardClientActivitiesController {
 

@@ -10,6 +10,7 @@ namespace profitelo.directives.interface.proRangeSlider {
       let validHTML = '<pro-range-slider max-value="max" min-value="min"></pro-range-slider>'
 
       beforeEach(() => {
+
         angular.mock.module('profitelo.directives.interface.pro-range-slider')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, $httpBackend: ng.IHttpBackendService) => {

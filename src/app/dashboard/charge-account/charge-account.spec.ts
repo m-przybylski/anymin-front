@@ -1,8 +1,8 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {SmoothScrollingService} from "../../../common/services/smooth-scrolling/smooth-scrolling.service"
-import {IWindowService} from "../../../common/services/window/window.service"
-import "./charge-account"
+import {SmoothScrollingService} from '../../../common/services/smooth-scrolling/smooth-scrolling.service'
+import {IWindowService} from '../../../common/services/window/window.service'
+import './charge-account'
 describe('Unit tests: profitelo.controller.dashboard.charge-account >', () => {
   describe('Testing Controller: chargeAccountController', () => {
 
@@ -34,7 +34,7 @@ describe('Unit tests: profitelo.controller.dashboard.charge-account >', () => {
     beforeEach(() => {
       angular.mock.module('profitelo.controller.dashboard.charge-account')
       angular.mock.module('profitelo.services.smooth-scrolling')
-      //angular.mock.module('templates-module')
+
       inject(($rootScope: IRootScopeService, $httpBackend: ng.IHttpBackendService, $controller: ng.IControllerService,
               $timeout: ng.ITimeoutService, $window: IWindowService, smoothScrollingService: SmoothScrollingService) => {
 

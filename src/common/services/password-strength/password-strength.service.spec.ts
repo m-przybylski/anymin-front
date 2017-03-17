@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {PasswordStrengthService} from "./password-strength.service"
+import * as angular from 'angular'
+import {PasswordStrengthService} from './password-strength.service'
 
 describe('Unit testing: profitelo.directives.password-strength-service >', function () {
   describe('for passwordStrengthService service >', function () {

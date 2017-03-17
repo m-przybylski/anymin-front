@@ -1,8 +1,8 @@
-import {BraintreeFormComponentController, IBraintreeFormComponentBindings} from "./braintree-form"
-import * as angular from "angular"
-import userModule from "../../services/user/user"
-import {PaymentsApi, PaymentsApiMock} from "profitelo-api-ng/api/api"
-import "./braintree-form"
+import {BraintreeFormComponentController, IBraintreeFormComponentBindings} from './braintree-form'
+import * as angular from 'angular'
+import userModule from '../../services/user/user'
+import {PaymentsApi, PaymentsApiMock} from 'profitelo-api-ng/api/api'
+import './braintree-form'
 
 describe('Unit testing: profitelo.components.braintreeForm', () => {
   return describe('for braintreeForm component >', () => {
@@ -50,7 +50,7 @@ describe('Unit testing: profitelo.components.braintreeForm', () => {
     }))
 
     beforeEach(() => {
-      //angular.mock.module('templates-module')
+
       angular.mock.module('profitelo.components.braintree-form')
 
       inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,

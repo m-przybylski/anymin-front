@@ -1,14 +1,14 @@
-import * as angular from "angular"
-import "common/components/dashboard/client/navigation/navigation"
-import "./activities/activities"
-import "./favourites/favourites"
+import * as angular from 'angular'
+import 'common/components/dashboard/client/navigation/navigation'
+import './activities/activities'
+import './favourites/favourites'
 
 // TODO: add tests
 /* istanbul ignore next */
 function clientController($state: ng.ui.IStateService, $scope: ng.IScope) {
 
-  const getRealStateName = (string: string) => {
-    const stringsArray = string.split('.')
+  const getRealStateName = (stateName: string) => {
+    const stringsArray = stateName.split('.')
     return stringsArray[3]
   }
 

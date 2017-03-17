@@ -1,21 +1,22 @@
-import * as angular from "angular"
-import {IFilterService} from "../../../../../common/services/filter/filter.service"
-import apiModule from "profitelo-api-ng/api.module"
-import {ServiceApi, ProfileApi} from "profitelo-api-ng/api/api"
-import {GetProfileWithServices} from "profitelo-api-ng/model/models"
-import {TopAlertService} from "../../../../../common/services/top-alert/top-alert.service"
-import {DialogService} from "../../../../../common/services/dialog/dialog.service"
-import {CommunicatorService} from "../../../../../common/components/communicator/communicator.service"
-import {UserService} from "../../../../../common/services/user/user.service"
-import {IServiceProviderImageService} from "../../../../../common/resolvers/service-provider-image/service-provider-image.service"
-import dialogModule from "../../../../../common/services/dialog/dialog"
-import communicatorModule from "../../../../../common/components/communicator/communicator"
-import sessionModule from "../../../../../common/services/session/session"
-import "common/controllers/accept-reject-dialog-controller/accept-reject-dialog-controller"
-import "common/directives/service-provider/pro-service-provider-summary-step/pro-service-provider-summary-step"
-import "common/resolvers/service-provider-image/service-provider-image.service"
-import "common/directives/interface/pro-alert/pro-alert"
-import "angular-mocks"
+import * as angular from 'angular'
+import {IFilterService} from '../../../../../common/services/filter/filter.service'
+import apiModule from 'profitelo-api-ng/api.module'
+import {ServiceApi, ProfileApi} from 'profitelo-api-ng/api/api'
+import {GetProfileWithServices} from 'profitelo-api-ng/model/models'
+import {TopAlertService} from '../../../../../common/services/top-alert/top-alert.service'
+import {DialogService} from '../../../../../common/services/dialog/dialog.service'
+import {CommunicatorService} from '../../../../../common/components/communicator/communicator.service'
+import {UserService} from '../../../../../common/services/user/user.service'
+import {IServiceProviderImageService} from
+  '../../../../../common/resolvers/service-provider-image/service-provider-image.service'
+import dialogModule from '../../../../../common/services/dialog/dialog'
+import communicatorModule from '../../../../../common/components/communicator/communicator'
+import sessionModule from '../../../../../common/services/session/session'
+import 'common/controllers/accept-reject-dialog-controller/accept-reject-dialog-controller'
+import 'common/directives/service-provider/pro-service-provider-summary-step/pro-service-provider-summary-step'
+import 'common/resolvers/service-provider-image/service-provider-image.service'
+import 'common/directives/interface/pro-alert/pro-alert'
+import 'angular-mocks'
 
 /* @ngInject */
 function IndividualSummaryController($log: ng.ILogService, $state: ng.ui.IStateService, $scope: ng.IScope,
@@ -149,7 +150,8 @@ angular.module('profitelo.controller.dashboard.service-provider.summary.individu
       resolve: {
         /* istanbul ignore next */
         savedProfile: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: ProfileApi,
-                       lodash: _.LoDashStatic, userService: UserService, ServiceApi: ServiceApi, topAlertService: TopAlertService) => {
+                       lodash: _.LoDashStatic, userService: UserService, ServiceApi: ServiceApi,
+                       topAlertService: TopAlertService) => {
           /* istanbul ignore next */
           let _deferred = $q.defer<GetProfileWithServices | null>()
           /* istanbul ignore next */

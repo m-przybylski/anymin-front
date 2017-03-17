@@ -1,6 +1,6 @@
-import * as angular from "angular"
-import {TopAlertService} from "../../../services/top-alert/top-alert.service"
-import topAlertModule from "../../../services/top-alert/top-alert"
+import * as angular from 'angular'
+import {TopAlertService} from '../../../services/top-alert/top-alert.service'
+import topAlertModule from '../../../services/top-alert/top-alert'
 
 function proAlert(topAlertService: TopAlertService) {
 

@@ -1,11 +1,11 @@
-import * as angular from "angular"
-import {IFilterService} from "../../services/filter/filter.service"
-import {TopAlertService} from "../../services/top-alert/top-alert.service"
-import {LoginStateService} from "../../services/login-state/login-state.service"
-import apiModule from "profitelo-api-ng/api.module"
-import {RegistrationApi} from "profitelo-api-ng/api/api"
-import loginStateModule from "../../services/login-state/login-state"
-import topAlertModule from "../../services/top-alert/top-alert"
+import * as angular from 'angular'
+import {IFilterService} from '../../services/filter/filter.service'
+import {TopAlertService} from '../../services/top-alert/top-alert.service'
+import {LoginStateService} from '../../services/login-state/login-state.service'
+import apiModule from 'profitelo-api-ng/api.module'
+import {RegistrationApi} from 'profitelo-api-ng/api/api'
+import loginStateModule from '../../services/login-state/login-state'
+import topAlertModule from '../../services/top-alert/top-alert'
 
 
 export interface ILoginRegister {

@@ -1,16 +1,16 @@
-import * as angular from "angular"
-import {GetService} from "profitelo-api-ng/model/models"
+import * as angular from 'angular'
+import {GetService} from 'profitelo-api-ng/model/models'
 
 
   export interface IClientCallParentControllerScope extends ng.IScope {
-    rejectCall: Function
-    answerCall: Function
+    rejectCall: () => void
+    answerCall: () => void
     service: GetService
   }
 
   export interface IClientCallControllerScope extends ng.IScope {
-    rejectCall: Function
-    answerCall: Function
+    rejectCall: () => void
+    answerCall: () => void
     $parent: IClientCallParentControllerScope
   }
 

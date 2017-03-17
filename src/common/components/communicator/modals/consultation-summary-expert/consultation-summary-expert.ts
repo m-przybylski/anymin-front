@@ -1,6 +1,6 @@
-import * as angular from "angular"
-import {CallSummaryService} from "../../../../services/call-summary/call-summary.service"
-import {CallSummary} from "../../../../models/CallSummary"
+import * as angular from 'angular'
+import {CallSummaryService} from '../../../../services/call-summary/call-summary.service'
+import {CallSummary} from '../../../../models/CallSummary'
 
 export interface IConsultationSummaryExpertParentControllerScope extends ng.IScope {
   serviceId: string
@@ -8,7 +8,7 @@ export interface IConsultationSummaryExpertParentControllerScope extends ng.ISco
 
 export interface IConsultationSummaryExpertControllerScope extends ng.IScope {
   callSummary: CallSummary | null
-  onModalClose: Function
+  onModalClose: () => void
   isFullscreen: boolean
   isNavbar: boolean
   $parent: IConsultationSummaryExpertParentControllerScope

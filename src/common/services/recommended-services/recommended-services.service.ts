@@ -1,8 +1,8 @@
-import {SearchApi} from "profitelo-api-ng/api/api"
-import {SearchResult, Tag} from "profitelo-api-ng/model/models"
-import {Service} from "../../models/Service"
+import {SearchApi} from 'profitelo-api-ng/api/api'
+import {SearchResult, Tag} from 'profitelo-api-ng/model/models'
+import {Service} from '../../models/Service'
 
-interface ServiceWithTags {
+interface IServiceWithTags {
   service: Service
   tags: Array<Tag>
 }
@@ -14,7 +14,7 @@ export class RecommendedServicesService {
               private SearchApi: SearchApi) {
   }
 
-  private _onFindRecommended = (recommendedProfiles: SearchResult, servicesWithTags: Array<ServiceWithTags>) => {
+  private _onFindRecommended = (recommendedProfiles: SearchResult, servicesWithTags: Array<IServiceWithTags>) => {
     const currentConsultation = this.lodash.find(
       recommendedProfiles.results, row => row.id === servicesWithTags[0].service.id)
 
@@ -32,7 +32,7 @@ export class RecommendedServicesService {
     return this.$q.resolve([])
   }
 
-  private _getTagId = (servicesWithTags: Array<ServiceWithTags>): string | null => {
+  private _getTagId = (servicesWithTags: Array<IServiceWithTags>): string | null => {
     if (!!servicesWithTags && servicesWithTags.length > 0) {
       const tagsArray = servicesWithTags[0].tags
       if (tagsArray && tagsArray.length > 0) {
@@ -44,7 +44,7 @@ export class RecommendedServicesService {
     return null
   }
 
-  public getRecommendedCompanies = (servicesWithTags: Array<ServiceWithTags>) => {
+  public getRecommendedCompanies = (servicesWithTags: Array<IServiceWithTags>) => {
     const tagId = this._getTagId(servicesWithTags)
     if (tagId) {
       return this.SearchApi.searchRoute(
@@ -58,7 +58,7 @@ export class RecommendedServicesService {
     }
   }
 
-  public getRecommendedExperts = (servicesWithTags: Array<ServiceWithTags>) => {
+  public getRecommendedExperts = (servicesWithTags: Array<IServiceWithTags>) => {
     const tagId = this._getTagId(servicesWithTags)
     if (tagId) {
       return this.SearchApi.searchRoute(

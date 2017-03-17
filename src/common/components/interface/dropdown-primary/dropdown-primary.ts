@@ -1,7 +1,7 @@
-import * as angular from "angular"
+import * as angular from 'angular'
   interface IDropdownItem {
     name: string
-    value: Object | null
+    value: {} | null
   }
 
   interface IDropdownPrimaryComponentBindings {
@@ -9,8 +9,8 @@ import * as angular from "angular"
     inputPlaceholder: string
     name: string
     placeholder: string
-    mainList: Array<Object>
-    onSelectMain: Function
+    mainList: Array<{}>
+    onSelectMain: (item: IDropdownItem) => void
     selectedItem: IDropdownItem
   }
 
@@ -33,7 +33,7 @@ import * as angular from "angular"
     public name: string
     public placeholder: string
     public mainList: Array<IPrimaryDropdownListElement>
-    public onSelectMain: Function
+    public onSelectMain: (item: IDropdownItem) => void
     public selectedItem: IDropdownItem
     public mainPlaceholder: IDropdownItem
 

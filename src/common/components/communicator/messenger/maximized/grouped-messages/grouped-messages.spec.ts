@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {GroupedMessagesComponentController, IGroupedMessagesComponentBindings} from "./grouped-messages"
+import * as angular from 'angular'
+import {GroupedMessagesComponentController, IGroupedMessagesComponentBindings} from './grouped-messages'
 
 describe('Unit testing: profitelo.components.communicator.messenger.maximized.grouped-messages', () => {
   return describe('for groupedMessages component >', () => {

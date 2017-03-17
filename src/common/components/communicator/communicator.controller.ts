@@ -1,7 +1,7 @@
-import * as angular from "angular"
-import {GetService, GetProfile, MoneyDto} from "profitelo-api-ng/model/models"
-import {CallService} from "./call.service"
-import {UrlService} from "../../services/url/url.service"
+import * as angular from 'angular'
+import {GetService, GetProfile, MoneyDto} from 'profitelo-api-ng/model/models'
+import {CallService} from './call.service'
+import {UrlService} from '../../services/url/url.service'
 
 export class CommunicatorComponentController implements ng.IController {
 
@@ -66,7 +66,7 @@ export class CommunicatorComponentController implements ng.IController {
       this.callCost = timeMoneyTuple.money
     })
 
-    //FIXME
+    // FIXME
     angular.element('.communicator').on('dragover', (e) => {
       e.preventDefault()
     })

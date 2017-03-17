@@ -1,7 +1,7 @@
-import * as angular from "angular"
-import "common/components/expert-profile/similar-experts-slider/similar-experts-slider"
-import "common/components/dashboard/client/favourites/no-favourite-experts/no-favourite-experts"
-import "common/components/dashboard/client/favourites/favourite-experts/favourite-expert/favourite-expert"
+import * as angular from 'angular'
+import 'common/components/expert-profile/similar-experts-slider/similar-experts-slider'
+import 'common/components/dashboard/client/favourites/no-favourite-experts/no-favourite-experts'
+import 'common/components/dashboard/client/favourites/favourite-experts/favourite-expert/favourite-expert'
 /* @ngInject */
 function controller() {
 

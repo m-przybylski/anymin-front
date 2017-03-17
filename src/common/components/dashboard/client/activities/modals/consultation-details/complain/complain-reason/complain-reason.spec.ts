@@ -1,7 +1,7 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import modalsModule from "../../../../../../../../services/modals/modals"
-import {ModalsService} from "../../../../../../../../services/modals/modals.service"
+import modalsModule from '../../../../../../../../services/modals/modals'
+import {ModalsService} from '../../../../../../../../services/modals/modals.service'
 describe('Unit testing: profitelo.components.dashboard.client.activities.modals.consultation-details.complain.complain-reason', () => {
   return describe('for clientComplainReason >', () => {
 
@@ -23,7 +23,7 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.modals.
     let bindings: any = {}
 
     beforeEach(() => {
-      //angular.mock.module('templates-module')
+
       angular.mock.module('profitelo.components.interface.radio-text')
       angular.mock.module(modalsModule)
       angular.mock.module('profitelo.components.interface.radio')

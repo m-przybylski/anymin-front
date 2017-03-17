@@ -1,5 +1,5 @@
-import {DashboardSettingsGeneralController} from "./general"
-import * as angular from "angular"
+import {DashboardSettingsGeneralController} from './general'
+import * as angular from 'angular'
 
   describe('Unit tests: DashboardSettingsGeneralController >', () => {
     describe('Testing Controller: DashboardSettingsGeneralController', () => {

@@ -1,5 +1,6 @@
-import * as angular from "angular"
-import "angular-ui-router"
+import * as angular from 'angular'
+import 'angular-ui-router'
+
 
 function proRangeSlider($timeout: ng.ITimeoutService) {
 

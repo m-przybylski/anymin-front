@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {IFilterService} from "../../services/filter/filter.service"
+import * as angular from 'angular'
+import {IFilterService} from '../../services/filter/filter.service'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 
 function pageTitleDirective($rootScope: IRootScopeService, $filter: IFilterService) {

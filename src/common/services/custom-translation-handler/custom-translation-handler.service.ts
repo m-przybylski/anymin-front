@@ -11,7 +11,7 @@ export class CustomTranslationHandlerService {
 
   public handler = (translationId: string, _uses: string) => {
     if (translationId !== void 0 && !this.lodash.includes(CustomTranslationHandlerService._exceptionsStrings, translationId)) {
-      //const str = 'Missing [' + uses + '] translations for: ' + translationId
+      // const str = 'Missing [' + uses + '] translations for: ' + translationId
       // TODO: move error reporting to sentry
       // this.$log.error(_str)
     }

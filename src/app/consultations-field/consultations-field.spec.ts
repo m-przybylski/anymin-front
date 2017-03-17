@@ -1,11 +1,11 @@
-import * as angular from "angular"
-import "./consultations-field"
+import * as angular from 'angular'
+import './consultations-field'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 describe('Unit tests: Field section >', () => {
   describe('Testing Controller: ConsultationsFieldController', () => {
 
-    var $scope: any
-    var ConsultationsFieldController: any
+    let $scope: any
+    let ConsultationsFieldController: any
 
     beforeEach(() => {
       angular.mock.module('profitelo.controller.consultations-field')

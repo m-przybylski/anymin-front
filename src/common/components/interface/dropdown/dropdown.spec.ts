@@ -21,7 +21,7 @@ namespace profitelo.components.interface.dropdown {
       }
 
       beforeEach(() => {
-        //angular.mock.module('templates-module')
+
         angular.mock.module('profitelo.components.interface.dropdown')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,

@@ -1,7 +1,7 @@
-import * as angular from "angular"
-import {UrlService} from "../../../services/url/url.service"
-import urlModule from "../../../services/url/url"
-import "common/components/interface/show-more-text/show-more-text"
+import * as angular from 'angular'
+import {UrlService} from '../../../services/url/url.service'
+import urlModule from '../../../services/url/url'
+import 'common/components/interface/show-more-text/show-more-text'
 
 function proExpertHeader(urlService: UrlService) {
 

@@ -1,21 +1,21 @@
-import * as angular from "angular"
-import userModule from "../../../common/services/user/user"
-import apiModule from "profitelo-api-ng/api.module"
-import {AccountApi} from "profitelo-api-ng/api/api"
-import {AccountDetails} from "profitelo-api-ng/model/models"
-import {TopWaitingLoaderService} from "../../../common/services/top-waiting-loader/top-waiting-loader.service"
-import {TopAlertService} from "../../../common/services/top-alert/top-alert.service"
-import {CommonSettingsService} from "../../../common/services/common-settings/common-settings.service"
-import {PasswordStrengthService} from "../../../common/services/password-strength/password-strength.service"
-import {UserService} from "../../../common/services/user/user.service"
-import topAlertModule from "../../../common/services/top-alert/top-alert"
-import passwordStrengthModule from "../../../common/services/password-strength/password-strength"
-import commonSettingsModule from "../../../common/services/common-settings/common-settings"
-import "common/directives/pro-top-waiting-loader/pro-top-waiting-loader"
-import "common/directives/interface/pro-alert/pro-alert"
-import "common/directives/interface/pro-input/pro-input"
-import "common/directives/interface/pro-input-password/pro-input-password"
-import "common/directives/password-strength-bar/password-strength-bar"
+import * as angular from 'angular'
+import userModule from '../../../common/services/user/user'
+import apiModule from 'profitelo-api-ng/api.module'
+import {AccountApi} from 'profitelo-api-ng/api/api'
+import {AccountDetails} from 'profitelo-api-ng/model/models'
+import {TopWaitingLoaderService} from '../../../common/services/top-waiting-loader/top-waiting-loader.service'
+import {TopAlertService} from '../../../common/services/top-alert/top-alert.service'
+import {CommonSettingsService} from '../../../common/services/common-settings/common-settings.service'
+import {PasswordStrengthService} from '../../../common/services/password-strength/password-strength.service'
+import {UserService} from '../../../common/services/user/user.service'
+import topAlertModule from '../../../common/services/top-alert/top-alert'
+import passwordStrengthModule from '../../../common/services/password-strength/password-strength'
+import commonSettingsModule from '../../../common/services/common-settings/common-settings'
+import 'common/directives/pro-top-waiting-loader/pro-top-waiting-loader'
+import 'common/directives/interface/pro-alert/pro-alert'
+import 'common/directives/interface/pro-input/pro-input'
+import 'common/directives/interface/pro-input-password/pro-input-password'
+import 'common/directives/password-strength-bar/password-strength-bar'
 
 function _controller($log: ng.ILogService, $filter: ng.IFilterService, $state: ng.ui.IStateService,
                      topWaitingLoaderService: TopWaitingLoaderService, passwordStrengthService: PasswordStrengthService,
@@ -67,7 +67,7 @@ function _controller($log: ng.ILogService, $filter: ng.IFilterService, $state: n
       password: this.password
     }, () => {
 
-      //User.setData({hasPassword: true})
+      // TODO Update session User.setData({hasPassword: true})
       this.isPending = false
       topWaitingLoaderService.stopLoader()
       $state.go('app.post-register.set-email')

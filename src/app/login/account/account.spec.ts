@@ -1,12 +1,12 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {SessionApiMock, ServiceApiMock, RatelApiMock, AccountApi, AccountApiMock} from "profitelo-api-ng/api/api"
-import {TopAlertService} from "../../../common/services/top-alert/top-alert.service"
-import {LoginStateService} from "../../../common/services/login-state/login-state.service"
-import {TopWaitingLoaderService} from "../../../common/services/top-waiting-loader/top-waiting-loader.service"
-import "./account"
-import sessionModule from "../../../common/services/session/session"
-import communicatorModule from "../../../common/components/communicator/communicator"
+import {SessionApiMock, ServiceApiMock, RatelApiMock, AccountApi, AccountApiMock} from 'profitelo-api-ng/api/api'
+import {TopAlertService} from '../../../common/services/top-alert/top-alert.service'
+import {LoginStateService} from '../../../common/services/login-state/login-state.service'
+import {TopWaitingLoaderService} from '../../../common/services/top-waiting-loader/top-waiting-loader.service'
+import './account'
+import sessionModule from '../../../common/services/session/session'
+import communicatorModule from '../../../common/components/communicator/communicator'
 
 describe('Unit tests: profitelo.controller.login.account>', () => {
   describe('Testing Controller: AccountFormController', () => {

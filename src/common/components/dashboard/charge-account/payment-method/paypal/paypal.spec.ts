@@ -1,6 +1,6 @@
-import * as angular from "angular"
-import {PayPalPaymentFormComponentController} from "./paypal.controller"
-import paypalModule from "./paypal"
+import * as angular from 'angular'
+import {PayPalPaymentFormComponentController} from './paypal.controller'
+import paypalModule from './paypal'
 
 describe('Unit testing: profitelo.components.dashboard.charge-account.payment-method.paypal', () => {
   return describe('for PayPalPaymentFormComponentController component >', () => {

@@ -1,5 +1,5 @@
-import {DashboardSettingsPayoutsController} from "./payouts"
-import * as angular from "angular"
+import {DashboardSettingsPayoutsController} from './payouts'
+import * as angular from 'angular'
   describe('Unit tests: dashboardSettingsPayoutsController >', () => {
     describe('Testing Controller: dashboardSettingsPayoutsController', () => {
 
