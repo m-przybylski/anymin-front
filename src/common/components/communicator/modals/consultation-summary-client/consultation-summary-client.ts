@@ -1,10 +1,10 @@
-import * as angular from "angular"
-import apiModule from "profitelo-api-ng/api.module"
-import {ServiceApi} from "profitelo-api-ng/api/api"
-import {Tag, ServiceRecommendation, GetService} from "profitelo-api-ng/model/models"
-import {CallSummaryService} from "../../../../services/call-summary/call-summary.service"
-import {UrlService} from "../../../../services/url/url.service"
-import {CallSummary} from "../../../../models/CallSummary"
+import * as angular from 'angular'
+import apiModule from 'profitelo-api-ng/api.module'
+import {ServiceApi} from 'profitelo-api-ng/api/api'
+import {Tag, ServiceRecommendation, GetService} from 'profitelo-api-ng/model/models'
+import {CallSummaryService} from '../../../../services/call-summary/call-summary.service'
+import {UrlService} from '../../../../services/url/url.service'
+import {CallSummary} from '../../../../models/CallSummary'
 
 export interface IConsultationSummaryClientParentControllerScope extends ng.IScope {
   serviceId: string
@@ -15,11 +15,11 @@ export interface IConsultationSummaryClientControllerScope extends ng.IScope {
   rating: number
   callSummary: CallSummary | null
   chooseExpertsTag: boolean
-  recommendServiceTags: Function
-  closeModal: Function
-  onModalClose: Function
-  onTagsSelectChange: Function
-  recommendService: Function
+  recommendServiceTags: () => void
+  closeModal: () => void
+  onModalClose: () => void
+  onTagsSelectChange: (tags: Array<Tag>) => void
+  recommendService: () => void
   isFullscreen: boolean
   isNavbar: boolean
   $parent: IConsultationSummaryClientParentControllerScope

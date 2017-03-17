@@ -1,4 +1,4 @@
-import {Tag, ExpertDetails, OrganizationDetails} from "profitelo-api-ng/model/models"
+import {Tag, ExpertDetails, OrganizationDetails} from 'profitelo-api-ng/model/models'
 
 export interface IServiceProviderDefaultModel {
   name: string
@@ -13,7 +13,7 @@ export interface IServiceProviderDefaultQueue {
   skippedSteps: any
 }
 
-//TODO add types or remove this provider
+// TODO add types or remove this provider
 export class ServiceProviderService {
 
   /* @ngInject */
@@ -28,7 +28,8 @@ export class ServiceProviderService {
     }
   }
 
-  public createDefaultQueue = (amountOfSteps: number, currentStep: any, completedSteps: any): IServiceProviderDefaultQueue => {
+  public createDefaultQueue =
+    (amountOfSteps: number, currentStep: any, completedSteps: any): IServiceProviderDefaultQueue => {
     return {
       amountOfSteps: amountOfSteps,
       currentStep: currentStep,

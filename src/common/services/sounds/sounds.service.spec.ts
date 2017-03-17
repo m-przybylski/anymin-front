@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import soundsModule from "./sounds"
+import * as angular from 'angular'
+import soundsModule from './sounds'
 
 interface Window {
   Audio: any;

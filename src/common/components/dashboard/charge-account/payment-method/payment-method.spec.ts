@@ -27,7 +27,7 @@ namespace profitelo.components.dashboard.chargeAccount.paymentMethod {
       }
 
       beforeEach(() => {
-        //angular.mock.module('templates-module')
+
         angular.mock.module('profitelo.components.dashboard.charge-account.payment-method')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$componentController_: ng.IComponentControllerService) => {

@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import "common/controllers/service-provider/service-provider-step-controller/service-provider-step-controller"
+import * as angular from 'angular'
+import 'common/controllers/service-provider/service-provider-step-controller/service-provider-step-controller'
 
 function proBottomSummaryRow() {
 

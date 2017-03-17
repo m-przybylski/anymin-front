@@ -1,13 +1,13 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 const phonenumbers = require('libphonenumber-js')
-import userModule from "../../../../../../services/user/user"
-import {UserService} from "../../../../../../services/user/user.service"
-import apiModule from "profitelo-api-ng/api.module"
-import {AccountApi} from "profitelo-api-ng/api/api"
-import {CommonSettingsService} from "../../../../../../services/common-settings/common-settings.service"
-import commonSettingsModule from "../../../../../../services/common-settings/common-settings"
-import "../../../../../../components/interface/dropdown-primary/dropdown-primary"
-import "../../../../../../components/interface/pin-verification/pin-verification"
+import userModule from '../../../../../../services/user/user'
+import {UserService} from '../../../../../../services/user/user.service'
+import apiModule from 'profitelo-api-ng/api.module'
+import {AccountApi} from 'profitelo-api-ng/api/api'
+import {CommonSettingsService} from '../../../../../../services/common-settings/common-settings.service'
+import commonSettingsModule from '../../../../../../services/common-settings/common-settings'
+import '../../../../../../components/interface/dropdown-primary/dropdown-primary'
+import '../../../../../../components/interface/pin-verification/pin-verification'
 
 interface IPrefixListElement {
   value: string
@@ -62,7 +62,7 @@ export class GeneralPhoneSettingsController implements ng.IController {
         accountId: user.id,
         token: token
       }).then(() => {
-        //FIXME
+        // FIXME
         this.$scope.callback(() => {})
         this.$uibModalInstance.dismiss('cancel')
       }, (err) => {
@@ -84,9 +84,9 @@ export class GeneralPhoneSettingsController implements ng.IController {
               private $scope: IGeneralPhoneSettingsControllerScope) {
   }
 
-  private checkIsFormValid = (prefix: string, number: string): boolean => {
-    if (angular.isDefined(prefix) && angular.isDefined(number) && prefix && number && number.length > 1) {
-      const fullPhoneNumber = phonenumbers.parse(prefix.toString() + number.toString())
+  private checkIsFormValid = (prefix: string, phoneNumber: string): boolean => {
+    if (angular.isDefined(prefix) && angular.isDefined(phoneNumber) && prefix && phoneNumber && phoneNumber.length > 1) {
+      const fullPhoneNumber = phonenumbers.parse(prefix.toString() + phoneNumber.toString())
       return phonenumbers.isValidNumber(fullPhoneNumber)
     } else {
       return false

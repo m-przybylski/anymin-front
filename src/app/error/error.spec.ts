@@ -1,9 +1,9 @@
-import * as angular from "angular"
-import "./error"
+import * as angular from 'angular'
+import './error'
 describe('Unit tests: ErrorController >', () => {
   describe('Testing Controller: ErrorController', () => {
 
-    var ErrorController: any
+    let ErrorController: any
 
     beforeEach(() => {
       angular.mock.module('profitelo.controller.error')

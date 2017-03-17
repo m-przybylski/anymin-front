@@ -1,12 +1,12 @@
-import * as angular from "angular"
-import {Tag} from "profitelo-api-ng/model/models"
-import {SearchService} from "../../services/search/search.service"
-import {CategoryService} from "../../services/category/category.service"
-import "./term-suggestions/term-suggestions"
-import "./organization-suggestions/organization-suggestions"
-import "./tag-suggestions/tag-suggestions"
-import "./service-suggestions/service-suggestions"
-import "./expert-suggestions/expert-suggestions"
+import * as angular from 'angular'
+import {Tag} from 'profitelo-api-ng/model/models'
+import {SearchService} from '../../services/search/search.service'
+import {CategoryService} from '../../services/category/category.service'
+import './term-suggestions/term-suggestions'
+import './organization-suggestions/organization-suggestions'
+import './tag-suggestions/tag-suggestions'
+import './service-suggestions/service-suggestions'
+import './expert-suggestions/expert-suggestions'
 
 interface ISuggestions {
   services: any
@@ -41,7 +41,7 @@ function proSearchDropdownController($q: ng.IQService, $scope: ng.IScope, $state
   let listOfSuggestions = $element.find('.dropdown-container a')
 
   /* istanbul ignore next */
-  const _onUpDownKeysPress = (callback: Function) => {
+  const _onUpDownKeysPress = (callback: () => void) => {
     listOfSuggestions = $element.find('.dropdown-container a')
     if (!!this.ngModel && this.ngModel.length > 2 && angular.isFunction(callback)) {
       callback()
@@ -307,7 +307,7 @@ function proSearchDropdownController($q: ng.IQService, $scope: ng.IScope, $state
 
 const proSearchDropdown = {
   transclude: true,
-  template: require("./pro-search-dropdown.pug")(),
+  template: require('./pro-search-dropdown.pug')(),
   controller: proSearchDropdownController,
   controllerAs: 'vm',
   bindings: {

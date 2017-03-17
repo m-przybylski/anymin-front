@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {ServiceProviderService} from "./service-provider.service"
+import * as angular from 'angular'
+import {ServiceProviderService} from './service-provider.service'
 
 const serviceProviderModule = angular.module('profitelo.services.service-provider', [
   'ui.router'

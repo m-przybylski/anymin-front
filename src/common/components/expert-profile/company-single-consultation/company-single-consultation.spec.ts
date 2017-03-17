@@ -1,13 +1,13 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {UrlService} from "../../../services/url/url.service"
-import communicatorModule from "../../communicator/communicator"
+import {UrlService} from '../../../services/url/url.service'
+import communicatorModule from '../../communicator/communicator'
 
 interface Window {
   Audio: any;
 }
 
-declare var window: Window;
+declare let window: Window;
 
 describe('Unit testing: profitelo.components.expert-profile.company-single-consultation', () => {
   return describe('for messenger component >', () => {
@@ -69,7 +69,7 @@ describe('Unit testing: profitelo.components.expert-profile.company-single-consu
     }))
 
     beforeEach(() => {
-      //angular.mock.module('templates-module')
+
       angular.mock.module('profitelo.components.expert-profile.company-single-consultation')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,

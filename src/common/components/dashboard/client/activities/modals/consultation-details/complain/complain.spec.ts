@@ -11,7 +11,7 @@ namespace profitelo.components.dashboard.client.activities.modals.consultationDe
 
 
       beforeEach(() => {
-        //angular.mock.module('templates-module')
+
         angular.mock.module('profitelo.components.dashboard.client.activities.modals.consultation-details.complain.complain-status')
         angular.mock.module('profitelo.components.dashboard.client.activities.modals.consultation-details.complain.complain-reason')
         angular.mock.module('profitelo.components.dashboard.client.activities.modals.consultation-details.complain')

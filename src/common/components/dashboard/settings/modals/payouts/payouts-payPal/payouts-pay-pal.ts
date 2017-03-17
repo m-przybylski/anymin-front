@@ -1,9 +1,9 @@
-import * as angular from "angular"
-import apiModule from "profitelo-api-ng/api.module"
-import {PayoutsApi} from "profitelo-api-ng/api/api"
-import {JValue} from "profitelo-api-ng/model/models"
-import {CommonSettingsService} from "../../../../../../services/common-settings/common-settings.service"
-import commonSettingsModule from "../../../../../../services/common-settings/common-settings"
+import * as angular from 'angular'
+import apiModule from 'profitelo-api-ng/api.module'
+import {PayoutsApi} from 'profitelo-api-ng/api/api'
+import {JValue} from 'profitelo-api-ng/model/models'
+import {CommonSettingsService} from '../../../../../../services/common-settings/common-settings.service'
+import commonSettingsModule from '../../../../../../services/common-settings/common-settings'
 
 export interface IPayoutsPayPalControllerScope extends ng.IScope {
   callback: () => void

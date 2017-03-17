@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {TopAlertService} from "./top-alert.service"
+import * as angular from 'angular'
+import {TopAlertService} from './top-alert.service'
 
 describe('Unit testing: profitelo.services.pro-top-alert-service>', () => {
   describe('for topAlertService service >', () => {

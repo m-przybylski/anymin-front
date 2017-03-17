@@ -1,7 +1,7 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {SecurityPinNumberSettingsController, ISecurityPinNumberSettingsControllerScope} from "./pin-number"
-import {AccountApi, AccountApiMock} from "profitelo-api-ng/api/api"
+import {SecurityPinNumberSettingsController, ISecurityPinNumberSettingsControllerScope} from './pin-number'
+import {AccountApi, AccountApiMock} from 'profitelo-api-ng/api/api'
 
 describe('Testing Controller: securityPinNumberSettingsController', () => {
 

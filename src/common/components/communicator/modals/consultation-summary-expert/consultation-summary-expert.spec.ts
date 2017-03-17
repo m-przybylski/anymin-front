@@ -1,9 +1,9 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {
   ConsultationSummaryExpertController,
   IConsultationSummaryExpertControllerScope, IConsultationSummaryExpertParentControllerScope
-} from "./consultation-summary-expert"
+} from './consultation-summary-expert'
 
 describe('Testing Controller: consultationSummaryExpertController', () => {
 

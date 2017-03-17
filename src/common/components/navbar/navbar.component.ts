@@ -1,4 +1,4 @@
-import {NavbarComponentController} from "./navbar.controller"
+import {NavbarComponentController} from './navbar.controller'
 
 export class NavbarComponent implements ng.IComponentOptions {
   controller: ng.Injectable<ng.IControllerConstructor> = NavbarComponentController

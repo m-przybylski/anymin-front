@@ -1,14 +1,14 @@
-import * as angular from "angular"
-import apiModule from "profitelo-api-ng/api.module"
-import {ViewsApi, ServiceApi} from "profitelo-api-ng/api/api"
-import {MoneyDto, Tag, GetCallDetails} from "profitelo-api-ng/model/models"
-import {UrlService} from "../../../../../../services/url/url.service"
-import urlModule from "../../../../../../services/url/url"
-import filtersModule from "../../../../../../filters/filters"
-import "../../../../../../components/interface/collapse-btn/collapse-btn"
-import "./complain/complain"
-import "./consultation-details-chat/consultation-details-chat"
-import "./recommended-tags/recommended-tags"
+import * as angular from 'angular'
+import apiModule from 'profitelo-api-ng/api.module'
+import {ViewsApi, ServiceApi} from 'profitelo-api-ng/api/api'
+import {MoneyDto, Tag, GetCallDetails} from 'profitelo-api-ng/model/models'
+import {UrlService} from '../../../../../../services/url/url.service'
+import urlModule from '../../../../../../services/url/url'
+import filtersModule from '../../../../../../filters/filters'
+import '../../../../../../components/interface/collapse-btn/collapse-btn'
+import './complain/complain'
+import './consultation-details-chat/consultation-details-chat'
+import './recommended-tags/recommended-tags'
 
 
 export interface IConsultationDetailsParentScope extends ng.IScope {
@@ -29,7 +29,7 @@ export interface IConsultationDetailsScope extends ng.IScope {
   isRecommended: boolean
   isRecommendable: boolean
   serviceTags: Array<Tag>
-  onModalClose: Function
+  onModalClose: () => void
   isFullscreen: boolean
   isNavbar: boolean
   $parent: IConsultationDetailsParentScope

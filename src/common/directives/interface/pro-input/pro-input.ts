@@ -85,10 +85,10 @@
       scope.hideCross = () => {
         return ('noDelete' in attr)
       }
-      scope.onMouseover = ()=> {
+      scope.onMouseover = () => {
         scope.focus = true
       }
-      scope.onMouseout = ()=> {
+      scope.onMouseout = () => {
         if (!scope.onClick) {
           scope.focus = false
         }

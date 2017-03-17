@@ -1,7 +1,7 @@
-import * as angular from "angular"
-import {ServiceApi} from "profitelo-api-ng/api/api"
+import * as angular from 'angular'
+import {ServiceApi} from 'profitelo-api-ng/api/api'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import "./summary"
+import './summary'
 describe('Unit tests: SummaryController >', () => {
   describe('Testing Controller: SummaryController', () => {
 

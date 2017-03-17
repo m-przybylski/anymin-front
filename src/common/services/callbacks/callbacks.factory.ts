@@ -1,4 +1,4 @@
-import {CallbacksService} from "./callbacks.service"
+import {CallbacksService} from './callbacks.service'
 
 export class CallbacksFactory {
 

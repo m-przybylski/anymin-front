@@ -9,7 +9,7 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
     let validHTML = '<pro-expert-header data-profile="{type: \'x\', description: \' asasdfasfas \' }"></pro-expert-header>'
 
     beforeEach(() => {
-    //angular.mock.module('templates-module')
+
     angular.mock.module('profitelo.directives.expert-profile.pro-expert-header')
     angular.mock.module('profitelo.components.interface.show-more-text')
 

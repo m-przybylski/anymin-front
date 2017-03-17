@@ -18,7 +18,7 @@ export class InterfaceLanguageService {
   private static readonly interfaceLanguages: Array<IInterfaceLanguage> = [
     {nativeName: 'English (U.S.)', ietfCode: 'en-us'},
     {nativeName: 'Polski (Polska)', ietfCode: 'pl-pl'}
-    // { nativeName: "Deutsch (Deutchland)", ietfCode: "de-de" }
+    // { nativeName: 'Deutsch (Deutchland)', ietfCode: 'de-de' }
   ]
 
   /* @ngInject */
@@ -32,7 +32,7 @@ export class InterfaceLanguageService {
   // @method         _unifyToIetfCode
   // @param          {String}  inputCode    some string with language key; like `pl-PL`
   // @description    Unify languages code notation from different browser to one
-  //                 like "xx-yy" or "xx" (ex: "en-us", "en"); For
+  //                 like 'xx-yy' or 'xx' (ex: 'en-us', 'en'); For
   // @returns        { String }
   public unifyToIetfCode = (inputCode: string) => {
     if (angular.isUndefined(inputCode) || !inputCode) {
@@ -80,7 +80,7 @@ export class InterfaceLanguageService {
       // pre-defined language
       return ietfCode
     } else if (_queryLang && this.lodash.find(InterfaceLanguageService.interfaceLanguages, {ietfCode: _queryLang})) {
-      // variable lang from URL
+      // letiable lang from URL
       return _queryLang
     } else if (angular.isDefined(_cookie)) {
       if (this.lodash.find(InterfaceLanguageService.interfaceLanguages, {ietfCode: _cookie})) {

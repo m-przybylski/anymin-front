@@ -1,7 +1,7 @@
-import * as angular from "angular"
-import {RecoverPasswordApiMock} from "profitelo-api-ng/api/api"
-import {PasswordStrengthService} from "../../../common/services/password-strength/password-strength.service"
-import {TopAlertService} from "../../../common/services/top-alert/top-alert.service"
+import * as angular from 'angular'
+import {RecoverPasswordApiMock} from 'profitelo-api-ng/api/api'
+import {PasswordStrengthService} from '../../../common/services/password-strength/password-strength.service'
+import {TopAlertService} from '../../../common/services/top-alert/top-alert.service'
 
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 describe('Unit tests: profitelo.controller.login.set-new-password >', () => {

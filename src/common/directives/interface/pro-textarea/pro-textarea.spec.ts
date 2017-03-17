@@ -12,7 +12,7 @@ namespace profitelo.directives.interface.proTextarea {
       let validHTML = '<pro-textarea data-name="name" data-default-value="defaultValue" data-maxlength="maxlength" data-label="LABEL" data-placeholder="' + _placeholder + '"  required auto-focus only-digits></pro-textarea>'
 
       beforeEach(() => {
-        //angular.mock.module('templates-module')
+
         angular.mock.module('profitelo.directives.interface.pro-textarea')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {

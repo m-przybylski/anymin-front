@@ -9,7 +9,7 @@ namespace profitelo.directives.interface.proCheckbox {
       let validHTML = '<pro-checkbox required id ng-model="isChecked"></pro-checkbox>'
 
       beforeEach(() => {
-        //angular.mock.module('templates-module')
+
         angular.mock.module('profitelo.directives.interface.pro-checkbox')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {

@@ -26,7 +26,7 @@ namespace profitelo.components.interface.multiselect {
       }
 
       beforeEach(() => {
-        //angular.mock.module('templates-module')
+
         angular.mock.module('profitelo.components.interface.multiselect')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$componentController_: ng.IComponentControllerService) => {

@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {PayoutsPayPalController, IPayoutsPayPalControllerScope} from "./payouts-pay-pal"
+import * as angular from 'angular'
+import {PayoutsPayPalController, IPayoutsPayPalControllerScope} from './payouts-pay-pal'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 
 describe('Testing Controller: PayoutsPayPalController', () => {

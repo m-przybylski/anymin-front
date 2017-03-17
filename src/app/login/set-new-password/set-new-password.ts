@@ -1,24 +1,24 @@
-import * as angular from "angular"
-import {IFilterService} from "../../../common/services/filter/filter.service"
-import {PasswordStrengthService} from "../../../common/services/password-strength/password-strength.service"
-import apiModule from "profitelo-api-ng/api.module"
-import {RecoverPasswordApi} from "profitelo-api-ng/api/api"
-import {CommonSettingsService} from "../../../common/services/common-settings/common-settings.service"
-import {TopAlertService} from "../../../common/services/top-alert/top-alert.service"
+import * as angular from 'angular'
+import {IFilterService} from '../../../common/services/filter/filter.service'
+import {PasswordStrengthService} from '../../../common/services/password-strength/password-strength.service'
+import apiModule from 'profitelo-api-ng/api.module'
+import {RecoverPasswordApi} from 'profitelo-api-ng/api/api'
+import {CommonSettingsService} from '../../../common/services/common-settings/common-settings.service'
+import {TopAlertService} from '../../../common/services/top-alert/top-alert.service'
 import {
   ILoginSetNewPassword,
   ILoginSetNewPasswordService
-} from "../../../common/resolvers/login-set-new-password/login-set-new-password.service"
-import commonSettingsModule from "../../../common/services/common-settings/common-settings"
-import sessionModule from "../../../common/services/session/session"
-import loginStateModule from "../../../common/services/login-state/login-state"
-import topAlertModule from "../../../common/services/top-alert/top-alert"
-import passwordStrengthModule from "../../../common/services/password-strength/password-strength"
-import "common/directives/pro-top-waiting-loader/pro-top-waiting-loader"
-import "common/resolvers/login-set-new-password/login-set-new-password.service"
-import "common/directives/interface/pro-alert/pro-alert"
-import "common/directives/interface/pro-input-password/pro-input-password"
-import "common/directives/password-strength-bar/password-strength-bar"
+} from '../../../common/resolvers/login-set-new-password/login-set-new-password.service'
+import commonSettingsModule from '../../../common/services/common-settings/common-settings'
+import sessionModule from '../../../common/services/session/session'
+import loginStateModule from '../../../common/services/login-state/login-state'
+import topAlertModule from '../../../common/services/top-alert/top-alert'
+import passwordStrengthModule from '../../../common/services/password-strength/password-strength'
+import 'common/directives/pro-top-waiting-loader/pro-top-waiting-loader'
+import 'common/resolvers/login-set-new-password/login-set-new-password.service'
+import 'common/directives/interface/pro-alert/pro-alert'
+import 'common/directives/interface/pro-input-password/pro-input-password'
+import 'common/directives/password-strength-bar/password-strength-bar'
 
 export interface ISetNewPasswordStateParams {
   token: string

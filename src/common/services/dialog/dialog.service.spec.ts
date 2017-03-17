@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {DialogService} from "./dialog.service"
+import * as angular from 'angular'
+import {DialogService} from './dialog.service'
 
 describe('Unit testing: profitelo.services.dialog >', () => {
   describe('for profitelo.services.dialog >', () => {

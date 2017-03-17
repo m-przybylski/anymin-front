@@ -1,4 +1,4 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 
 describe('Unit testing: profitelo.services.login-state >', function () {
   describe('for loginStateService service >', function () {

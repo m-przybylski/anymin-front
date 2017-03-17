@@ -9,7 +9,7 @@ namespace profitelo.directives.proFooter {
       let validHTML = '<pro-footer></pro-footer>'
 
       beforeEach(() => {
-        //angular.mock.module('templates-module')
+
         angular.mock.module('profitelo.directives.pro-footer')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {

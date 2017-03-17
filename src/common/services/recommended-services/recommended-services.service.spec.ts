@@ -1,6 +1,6 @@
-import * as angular from "angular"
-import {SearchApiMock} from "profitelo-api-ng/api/api"
-import {SearchResult} from "profitelo-api-ng/model/models"
+import * as angular from 'angular'
+import {SearchApiMock} from 'profitelo-api-ng/api/api'
+import {SearchResult} from 'profitelo-api-ng/model/models'
 
 describe('Unit testing: profitelo.services.recommended-profiles-service', () => {
   describe('for expert-profile service >', () => {

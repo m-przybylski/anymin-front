@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {CommonSettingsService} from "../../../services/common-settings/common-settings.service"
+import * as angular from 'angular'
+import {CommonSettingsService} from '../../../services/common-settings/common-settings.service'
 
 interface IProServiceProviderWhoProvides extends ng.IScope {
   required: boolean
@@ -10,8 +10,8 @@ interface IProServiceProviderWhoProvides extends ng.IScope {
   ownerEmployee: boolean
   proModel: any
   tagParam: string
-  saveSection: Function
-  proceed: Function
+  saveSection: () => void
+  proceed: () => void
 }
 
 function proServiceProviderWhoProvides($q: ng.IQService, CommonSettingsService: CommonSettingsService) {

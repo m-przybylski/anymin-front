@@ -22,7 +22,7 @@ namespace profitelo.components.expertProfile.similarExpertsSlider {
       }
 
       beforeEach(() => {
-        //angular.mock.module('templates-module')
+
         angular.mock.module('profitelo.components.expert-profile.similar-experts-slider')
         angular.mock.module('ui.router')
         angular.mock.module('profitelo.components.interface.slider')

@@ -1,21 +1,21 @@
-import * as angular from "angular"
-import apiModule from "profitelo-api-ng/api.module"
-import sessionModule from "../../common/services/session/session"
-import {ExpertProfileResolver} from "./expert-profile.resolver"
-import {ExpertProfileController} from "./expert-profile.controller"
-import topAlertModule from "../../common/services/top-alert/top-alert"
-import recommendedServicesModule from "../../common/services/recommended-services/recommended-services"
-import smoothScrollingModule from "../../common/services/smooth-scrolling/smooth-scrolling"
-import "common/resolvers/service-provider-image/service-provider-image.service"
-import "common/directives/expert-profile/pro-expert-header/pro-expert-header"
-import "common/directives/expert-profile/pro-expert-slider/pro-expert-slider"
-import "common/directives/expert-profile/pro-expert-single-consultation/pro-expert-single-consultation"
-import "common/directives/expert-profile/pro-expert-social-icons/pro-expert-social-icons"
-import "common/directives/pro-footer/pro-footer"
-import "common/components/expert-profile/similar-experts-slider/similar-experts-slider"
-import "common/components/expert-profile/social-links/social-links"
-import "common/components/interface/collapse-tab/collapse-tab"
-import navbarModule from "../../common/components/navbar/navbar"
+import * as angular from 'angular'
+import apiModule from 'profitelo-api-ng/api.module'
+import sessionModule from '../../common/services/session/session'
+import {ExpertProfileResolver} from './expert-profile.resolver'
+import {ExpertProfileController} from './expert-profile.controller'
+import topAlertModule from '../../common/services/top-alert/top-alert'
+import recommendedServicesModule from '../../common/services/recommended-services/recommended-services'
+import smoothScrollingModule from '../../common/services/smooth-scrolling/smooth-scrolling'
+import 'common/resolvers/service-provider-image/service-provider-image.service'
+import 'common/directives/expert-profile/pro-expert-header/pro-expert-header'
+import 'common/directives/expert-profile/pro-expert-slider/pro-expert-slider'
+import 'common/directives/expert-profile/pro-expert-single-consultation/pro-expert-single-consultation'
+import 'common/directives/expert-profile/pro-expert-social-icons/pro-expert-social-icons'
+import 'common/directives/pro-footer/pro-footer'
+import 'common/components/expert-profile/similar-experts-slider/similar-experts-slider'
+import 'common/components/expert-profile/social-links/social-links'
+import 'common/components/interface/collapse-tab/collapse-tab'
+import navbarModule from '../../common/components/navbar/navbar'
 
 export interface IExpertProfileStateParams extends ng.ui.IStateParamsService {
   primaryConsultationId: string

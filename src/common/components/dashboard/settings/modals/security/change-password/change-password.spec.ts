@@ -1,10 +1,10 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {
   SecurityChangePasswordSettingsController,
   ISecurityChangePasswordSettingsControllerScope
-} from "./change-password"
-import {AccountApi} from "profitelo-api-ng/api/api"
+} from './change-password'
+import {AccountApi} from 'profitelo-api-ng/api/api'
 
 describe('Testing Controller: securityChangePasswordSettingsController', () => {
 

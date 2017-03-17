@@ -1,6 +1,6 @@
 // General tests which not require specyfic mocked services
 import * as angular from 'angular'
-import {InterfaceLanguageService} from "./interface-language.service"
+import {InterfaceLanguageService} from './interface-language.service'
 
 describe('Unit testing: profitelo.services.interface-language >', function () {
   describe('for InterfaceLanguageService service >', function () {
@@ -80,7 +80,7 @@ describe('Unit testing: profitelo.services.interface-language >', function () {
 })
 
 
-// variable lang from URL
+// letiable lang from URL
 describe('Unit testing: profitelo.services.interface-language >', function () {
   describe('for InterfaceLanguageService service >', function () {
 
@@ -106,7 +106,7 @@ describe('Unit testing: profitelo.services.interface-language >', function () {
     })
 
     describe('getStartupLanguage method with mocked services >', function () {
-      it('should set translation language from URL variable', function () {
+      it('should set translation language from URL letiable', function () {
         expect(InterfaceLanguageService.getStartupLanguage()).toEqual('en-us')
       })
     })
@@ -185,7 +185,7 @@ describe('Unit testing: profitelo.services.interface-language >', function () {
 // Tests with specyfic mocked services
 describe('Unit testing: profitelo.services.interface-language >', function () {
 
-  var realTranslate: any // Hack to get full translate object for further tests !!!
+  let realTranslate: any // Hack to get full translate object for further tests !!!
   describe('Hack to get full translate object for further test', function () {
 
     beforeEach(function () {
@@ -213,7 +213,7 @@ describe('Unit testing: profitelo.services.interface-language >', function () {
 
       beforeEach(function () {
         let mockedTranslation = realTranslate
-        mockedTranslation.use = function (_value: any) { // mock variable
+        mockedTranslation.use = function (_value: any) { // mock letiable
           return 'en-us' // language that should exsist into array
         }
 
@@ -242,7 +242,7 @@ describe('Unit testing: profitelo.services.interface-language >', function () {
 
       beforeEach(function () {
         let mockedTranslation = realTranslate
-        mockedTranslation.use = function (_value: any) { // mock variable
+        mockedTranslation.use = function (_value: any) { // mock letiable
           return 'kuz-kaz'  // language that wont exsist into array
         }
 
@@ -269,7 +269,7 @@ describe('Unit testing: profitelo.services.interface-language >', function () {
 })
 
 
-// variable lang from URL
+// letiable lang from URL
 describe('Unit testing: profitelo.services.interface-language >', function () {
   describe('for InterfaceLanguageService service >', function () {
 

@@ -1,16 +1,16 @@
-import * as angular from "angular"
-import {PaymentSystem} from "profitelo-api-ng/model/models"
+import * as angular from 'angular'
+import {PaymentSystem} from 'profitelo-api-ng/model/models'
 import LoDashStatic = _.LoDashStatic
-import paypalModule from "./paypal/paypal"
+import paypalModule from './paypal/paypal'
 
-interface PaymentMethodComponentBindings {
+interface IPaymentMethodComponentBindings {
   title: string
   paymentSystems: Array<PaymentSystem>
   paymentSystemModel: PaymentSystem | null
   scrollHandler: (_arg?: number) => void
 }
 
-class PaymentMethodComponentController implements PaymentMethodComponentBindings, ng.IController {
+class PaymentMethodComponentController implements IPaymentMethodComponentBindings, ng.IController {
   title: string
   paymentSystems: Array<PaymentSystem>
   paymentSystemModel: PaymentSystem | null
@@ -24,7 +24,8 @@ class PaymentMethodComponentController implements PaymentMethodComponentBindings
 
   $onInit = () => {
     if (this.paymentSystemModel !== null) {
-      this.activeOption = this.lodash.findIndex(this.paymentSystems, (paymentSystem) => paymentSystem.id == this.paymentSystemModel)
+      this.activeOption = this.lodash.findIndex(this.paymentSystems,
+        (paymentSystem) => paymentSystem.id === this.paymentSystemModel)
       this.paymentSystemModel = this.paymentSystems[this.activeOption]
     }
   }

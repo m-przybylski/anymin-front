@@ -1,12 +1,12 @@
-import * as angular from "angular"
-import "./login"
+import * as angular from 'angular'
+import './login'
 
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 describe('Unit tests: login>', () => {
   describe('Testing Controller: LoginController', () => {
 
-    var $scope: any
-    var LoginController: any
+    let $scope: any
+    let LoginController: any
 
     beforeEach(() => {
       angular.mock.module('profitelo.controller.login')

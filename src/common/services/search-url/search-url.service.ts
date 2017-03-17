@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {ISearchQueryParams, SearchService} from "../search/search.service"
+import * as angular from 'angular'
+import {ISearchQueryParams, SearchService} from '../search/search.service'
 
 
 export class SearchUrlService {

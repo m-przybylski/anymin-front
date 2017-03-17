@@ -1,17 +1,17 @@
 namespace profitelo.components.communicator.messenger.maximized.input {
 
   export interface IMessengerInputBindings {
-    onSendMessage: Function
-    onUploadFiles: Function
-    onTyping: Function
+    onSendMessage: (text: string) => void
+    onUploadFiles: (files: Array<File>) => void
+    onTyping: () => void
     isFileUploading: boolean
   }
 
   export class MessengerInputComponentController implements IMessengerInputBindings {
 
-    public onSendMessage: Function
-    public onUploadFiles: Function
-    public onTyping: Function
+    public onSendMessage: (text: string) => void
+    public onUploadFiles: (files: Array<File>) => void
+    public onTyping: () => void
     public isFileUploading: boolean
     public inputModel: string = ''
 
@@ -40,7 +40,7 @@ namespace profitelo.components.communicator.messenger.maximized.input {
   }
 
   class MessengerInputComponent {
-    template = require("./messenger-input.pug")()
+    template = require('./messenger-input.pug')()
     controller: ng.Injectable<ng.IControllerConstructor> = MessengerInputComponentController
     bindings: {[boundProperty: string]: string} = {
       onSendMessage: '<',

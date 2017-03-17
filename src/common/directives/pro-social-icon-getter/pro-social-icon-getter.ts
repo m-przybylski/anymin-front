@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {UrlService} from "../../services/url/url.service"
+import * as angular from 'angular'
+import {UrlService} from '../../services/url/url.service'
 
 function proSocialIconGetter(urlService: UrlService) {
 

@@ -1,6 +1,6 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {UrlService} from "../../../services/url/url.service"
+import {UrlService} from '../../../services/url/url.service'
 
 describe('Unit testing: profitelo.components.expert-profile.experts-consultation-slider', () => {
   return describe('for expertsConsultationSlider >', () => {
@@ -18,7 +18,7 @@ describe('Unit testing: profitelo.components.expert-profile.experts-consultation
     }
 
     beforeEach(() => {
-      //angular.mock.module('templates-module')
+
       angular.mock.module('profitelo.components.expert-profile.experts-consultation-slider')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,

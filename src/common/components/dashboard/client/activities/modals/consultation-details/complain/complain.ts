@@ -1,6 +1,6 @@
-import * as angular from "angular"
-import "./complain-reason/complain-reason"
-import "./complain-status/complain-status"
+import * as angular from 'angular'
+import './complain-reason/complain-reason'
+import './complain-status/complain-status'
 
 (function() {
   /* @ngInject */

@@ -1,9 +1,9 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {ImageZoomService} from "../../services/image-zoom/image-zoom.service"
-import {FilesApi, FilesApiMock} from "profitelo-api-ng/api/api"
-import {UrlService} from "../../services/url/url.service"
-import {IWindowService} from "../../services/window/window.service"
+import {ImageZoomService} from '../../services/image-zoom/image-zoom.service'
+import {FilesApi, FilesApiMock} from 'profitelo-api-ng/api/api'
+import {UrlService} from '../../services/url/url.service'
+import {IWindowService} from '../../services/window/window.service'
 
 describe('profitelo.common.controller.lightbox-model', () => {
   describe('Testing Controller: LightboxModelController', () => {
@@ -24,7 +24,7 @@ describe('profitelo.common.controller.lightbox-model', () => {
       }
     }
     let triggerKeyPress = (element: JQuery, keyCode: number) => {
-      var e = $.Event('keypress')
+      let e = $.Event('keypress')
       e.which = keyCode
       element.trigger(e)
     }

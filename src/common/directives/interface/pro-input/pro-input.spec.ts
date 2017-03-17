@@ -11,7 +11,7 @@ namespace profitelo.directives.interface.proInput {
       let validHTML = '<pro-input data-label="LABEL" data-placeholder="' + _placeholder + '"  required auto-focus only-digits></pro-input>'
 
       beforeEach(() => {
-        //angular.mock.module('templates-module')
+
         angular.mock.module('profitelo.directives.interface.pro-input')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {

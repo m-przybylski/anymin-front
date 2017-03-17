@@ -1,6 +1,6 @@
-import * as angular from "angular"
-import {SettingsController} from "./settings"
-import "./settings"
+import * as angular from 'angular'
+import {SettingsController} from './settings'
+import './settings'
 
 describe('Unit tests: settingsController >', () => {
   describe('Testing Controller: settingsController', () => {

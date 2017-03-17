@@ -43,9 +43,18 @@ module.exports = {
           {loader: 'style-loader'},
           {loader: 'css-loader'}
         ]
+      },
+      {
+        test: /\.ts$/, exclude: /node_modules|generated_modules/,
+        enforce: 'pre',
+        loader: 'tslint-loader',
+        options: {
+          rulesDirectory: 'tslint.json'
+        }
       }
     ]
   },
+
   plugins: [
     // Injects bundles in your index.html instead of wiring all manually.
     // It also adds hash to all injected assets so we don't have problems

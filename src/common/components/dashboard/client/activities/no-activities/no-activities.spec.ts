@@ -19,7 +19,7 @@ namespace profitelo.components.dashboard.client.activities.noActivities {
       }
 
       beforeEach(() => {
-        //angular.mock.module('templates-module')
+
         angular.mock.module('profitelo.components.dashboard.client.activities.no-activities')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$componentController_: ng.IComponentControllerService) => {

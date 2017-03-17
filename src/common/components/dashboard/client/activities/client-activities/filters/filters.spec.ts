@@ -5,7 +5,7 @@ namespace profitelo.components.dashboard.client.activities.clientActivities.filt
     Set: any;
   }
 
-  declare var window: Window;
+  declare let window: Window;
 
   describe('Unit testing: profitelo.components.dashboard.client.activities.filters', () => {
     return describe('for clientActivitiesFilters >', () => {
@@ -44,7 +44,7 @@ namespace profitelo.components.dashboard.client.activities.clientActivities.filt
       }
 
       beforeEach(() => {
-        //angular.mock.module('templates-module')
+
         angular.mock.module('ngLodash')
         angular.mock.module('profitelo.filters.normalize-translation-key-filter')
         angular.mock.module('profitelo.services.client-activities-service')

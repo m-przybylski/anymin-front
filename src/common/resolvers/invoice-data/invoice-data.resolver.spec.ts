@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {InvoiceDataResolver} from "./invoice-data.resolver"
+import * as angular from 'angular'
+import {InvoiceDataResolver} from './invoice-data.resolver'
 
 describe('Unit testing: profitelo.resolvers.invoice-data', () => {
   describe('for InvoiceDataResolver service >', () => {

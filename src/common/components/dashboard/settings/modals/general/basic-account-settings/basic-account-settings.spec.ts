@@ -1,8 +1,8 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {BasicAccountSettingsController, IBasicAccountSettingsControllerScope} from "./basic-account-settings"
-import userModule from "../../../../../../services/user/user"
-import {AccountApi} from "profitelo-api-ng/api/api"
+import {BasicAccountSettingsController, IBasicAccountSettingsControllerScope} from './basic-account-settings'
+import userModule from '../../../../../../services/user/user'
+import {AccountApi} from 'profitelo-api-ng/api/api'
 
 class File {
   constructor() {
@@ -52,7 +52,7 @@ describe('Testing Controller: basicAccountSettingsController', () => {
   })
 
   beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
-    $provide.value('apiUrl', "awsomeUrl")
+    $provide.value('apiUrl', 'awsomeUrl')
     $provide.value('userService', userService)
   }))
 

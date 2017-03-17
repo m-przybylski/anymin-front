@@ -20,7 +20,7 @@ namespace profitelo.components.dashboard.thankYouPage {
       }
 
       beforeEach(() => {
-        //angular.mock.module('templates-module')
+
         angular.mock.module('profitelo.components.dashboard.thank-you-page')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,

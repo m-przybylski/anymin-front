@@ -1,13 +1,13 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {FilesApiMock} from "profitelo-api-ng/api/api"
-import {FileInfo} from "profitelo-api-ng/model/models"
+import {FilesApiMock} from 'profitelo-api-ng/api/api'
+import {FileInfo} from 'profitelo-api-ng/model/models'
 
 describe('Unit testing: profitelo.directives.service-provider.pro-service-provider-file-uploader', function () {
   return describe('for proServiceProviderFileUploader directive >', function () {
 
-    var compile: any = null
-    var scope: any = null
+    let compile: any = null
+    let scope: any = null
     let _rootScope: ng.IRootScopeService
     let _httpBackend: ng.IHttpBackendService
     let _FilesApiMock: FilesApiMock
@@ -15,7 +15,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
     let file = {token: ':token'}
     let _url = 'awesomeUrl'
 
-    var validHTML = '<pro-service-provider-file-uploader data-queue="vm.queue" ' +
+    let validHTML = '<pro-service-provider-file-uploader data-queue="vm.queue" ' +
       'data-order="2" data-pro-model="proModel" ' +
       'data-placeholder="DASHBOARD.CONSULTATION_RANGE.CONSULTANTS_LIST_PLACEHOLDER"' +
       ' data-error-message="DASHBOARD.SERVICE_PROVIDER.NAME.BAD_NAME" tr-title="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT" ' +
@@ -26,7 +26,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
     }))
 
     beforeEach(() => {
-      //angular.mock.module('templates-module')
+
       angular.mock.module('profitelo.directives.service-provider.pro-service-provider-file-uploader')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, $injector: ng.auto.IInjectorService) => {
@@ -43,9 +43,9 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
     })
 
     function create(html: string, proModel: any) {
-      var elem = angular.element(html)
+      let elem = angular.element(html)
       scope.proModel = proModel
-      var compiledElement = compile(elem)(scope)
+      let compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
@@ -55,7 +55,7 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
     }))
 
     it('compile the directive', function () {
-      var el
+      let el
       el = create(validHTML, {})
       expect(el.html()).toBeDefined(true)
     })

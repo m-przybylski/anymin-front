@@ -1,6 +1,6 @@
-import * as angular from "angular"
-import {CallbacksFactory} from "./callbacks.factory"
-import callbacksModule from "./callbacks"
+import * as angular from 'angular'
+import {CallbacksFactory} from './callbacks.factory'
+import callbacksModule from './callbacks'
 
 describe('Unit testing: profitelo.services.callbacks >', () => {
   describe('for profitelo.services.callbacks >', () => {

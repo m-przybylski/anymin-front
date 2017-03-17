@@ -1,7 +1,7 @@
-import * as angular from "angular"
-import {IServiceProviderImageService} from "./service-provider-image.service"
-import {FilesApiMock} from "profitelo-api-ng/api/api"
-import {FileInfo} from "profitelo-api-ng/model/models"
+import * as angular from 'angular'
+import {IServiceProviderImageService} from './service-provider-image.service'
+import {FilesApiMock} from 'profitelo-api-ng/api/api'
+import {FileInfo} from 'profitelo-api-ng/model/models'
 
 describe('Unit testing: profitelo.resolvers.service-provider-image', () => {
   describe('for ServiceProviderChoosePathResolver service >', () => {

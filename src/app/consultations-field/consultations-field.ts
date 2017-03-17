@@ -1,11 +1,11 @@
-import * as angular from "angular"
-import {ConsultationsFieldController} from "./consultations-field.controller"
-import sessionModule from "../../common/services/session/session"
-import "common/directives/pro-footer/pro-footer"
-import "common/directives/pro-tags-slider/pro-tags-slider"
-import "common/components/pro-search-dropdown/pro-search-dropdown"
-import "common/components/interface/card-slider/card-slider"
-import navbarModule from "../../common/components/navbar/navbar"
+import * as angular from 'angular'
+import {ConsultationsFieldController} from './consultations-field.controller'
+import sessionModule from '../../common/services/session/session'
+import 'common/directives/pro-footer/pro-footer'
+import 'common/directives/pro-tags-slider/pro-tags-slider'
+import 'common/components/pro-search-dropdown/pro-search-dropdown'
+import 'common/components/interface/card-slider/card-slider'
+import navbarModule from '../../common/components/navbar/navbar'
 
 const consultationsFieldPageModule = angular.module('profitelo.controller.consultations-field', [
   'ui.router',

@@ -1,6 +1,6 @@
-import * as angular from "angular"
-import {ILoginConfirmEmailService} from "../../../common/resolvers/login-confirm-email/login-confirm-email.service"
-import "common/resolvers/login-confirm-email/login-confirm-email.service"
+import * as angular from 'angular'
+import {ILoginConfirmEmailService} from '../../../common/resolvers/login-confirm-email/login-confirm-email.service'
+import 'common/resolvers/login-confirm-email/login-confirm-email.service'
 
 export interface IConfirmEmailStateParams extends ng.ui.IStateParamsService {
   token: string

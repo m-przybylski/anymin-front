@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {ServiceProviderService} from "./service-provider.service"
+import * as angular from 'angular'
+import {ServiceProviderService} from './service-provider.service'
 
 describe('Unit testing: profitelo.services.service-provider-service >', function () {
   describe('for serviceProviderService service >', function () {

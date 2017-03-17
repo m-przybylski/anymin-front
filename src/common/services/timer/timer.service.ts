@@ -1,4 +1,4 @@
-import {MoneyDto} from "profitelo-api-ng/model/models"
+import {MoneyDto} from 'profitelo-api-ng/model/models'
 
 export class TimerService {
 

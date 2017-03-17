@@ -1,11 +1,11 @@
-import * as angular from "angular"
-import "./general/general"
-import "./payments/payments"
-import "./payouts/payouts"
-import "./security/security"
-import "common/components/dashboard/settings/navigation/navigation"
-import "common/constants/time.constatnt"
-import "angular-touch"
+import * as angular from 'angular'
+import './general/general'
+import './payments/payments'
+import './payouts/payouts'
+import './security/security'
+import 'common/components/dashboard/settings/navigation/navigation'
+import 'common/constants/time.constatnt'
+import 'angular-touch'
 
 export class SettingsController implements ng.IController {
 
@@ -43,8 +43,8 @@ export class SettingsController implements ng.IController {
     (<any>this.stateNames)[realStateName] = true
   }
 
-  private getRealStateName = (string: string) => {
-    const stringsArray = string.split('.')
+  private getRealStateName = (stateName: string) => {
+    const stringsArray = stateName.split('.')
     return stringsArray[3]
   }
 }

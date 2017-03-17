@@ -1,6 +1,6 @@
-import * as angular from "angular"
-import "common/components/pro-lightbox/pro-lightbox-content/pro-lightbox-content"
-import "common/components/pro-lightbox/pro-lightbox-nav/pro-lightbox-nav"
+import * as angular from 'angular'
+import 'common/components/pro-lightbox/pro-lightbox-content/pro-lightbox-content'
+import 'common/components/pro-lightbox/pro-lightbox-nav/pro-lightbox-nav'
 
 (function() {
 

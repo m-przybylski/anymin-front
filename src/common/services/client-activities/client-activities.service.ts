@@ -1,6 +1,6 @@
-import * as angular from "angular"
-import {ViewsApi} from "profitelo-api-ng/api/api"
-import {GetActivities} from "profitelo-api-ng/model/models"
+import * as angular from 'angular'
+import {ViewsApi} from 'profitelo-api-ng/api/api'
+import {GetActivities} from 'profitelo-api-ng/model/models'
 
 export interface IClientActivitiesQueryParams {
   offset?: string
@@ -54,7 +54,7 @@ export class ClientActivitiesService {
   }
 
   public resolve = () => {
-    this._queryParams.offset = "0"
+    this._queryParams.offset = '0'
     this._queryParams.limit = ClientActivitiesService._queryLimit.toString()
     return this._searchClientActivities(this._queryParams)
       .then(this._handleClientActivitiesResponse, this._handleClientActivitiesResponseError)
@@ -71,7 +71,7 @@ export class ClientActivitiesService {
         }
       })
 
-      this._queryParams.offset = "0"
+      this._queryParams.offset = '0'
       this._queryParams.limit = ClientActivitiesService._queryLimit.toString()
 
       return this._searchClientActivities(this._queryParams).then((response) => {
@@ -89,7 +89,8 @@ export class ClientActivitiesService {
     }
   }
 
-  private _notifyOnActivitiesResults = (err: any, results: GetActivities | null, queryParams: IClientActivitiesQueryParams) => {
+  private _notifyOnActivitiesResults =
+    (err: any, results: GetActivities | null, queryParams: IClientActivitiesQueryParams) => {
     this.$rootScope.$emit(ClientActivitiesService.activitiesResultsEvent, err, results, queryParams)
   }
 
@@ -232,7 +233,7 @@ export class ClientActivitiesService {
           v = v instanceof Date ? v : undefined
           if (v !== this._dateTo) {
             if (angular.isDefined(v)) {
-              //TODO It will not working with time zones
+              // TODO It will not working with time zones
               v.setHours(23, 59, 59, 999)
             }
             this.areDirty = true

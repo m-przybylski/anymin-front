@@ -1,8 +1,8 @@
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {IFilterService} from "../common/services/filter/filter.service"
-import {InterfaceLanguageService} from "../common/services/interface-language/interface-language.service"
-import {SessionService} from "../common/services/session/session.service"
-import {TopAlertService} from "../common/services/top-alert/top-alert.service"
+import {IFilterService} from '../common/services/filter/filter.service'
+import {InterfaceLanguageService} from '../common/services/interface-language/interface-language.service'
+import {SessionService} from '../common/services/session/session.service'
+import {TopAlertService} from '../common/services/top-alert/top-alert.service'
 
 /* @ngInject */
 export function AppComponentController($rootScope: IRootScopeService, $state: ng.ui.IStateService, $filter: IFilterService,

@@ -1,18 +1,18 @@
-import * as angular from "angular"
-import "angular-ui-router"
-import apiModule from "profitelo-api-ng/api.module"
-import {ProfileApi} from "profitelo-api-ng/api/api"
-import {GetProfile, UpdateProfile} from "profitelo-api-ng/model/models"
-import {SmoothScrollingService} from "../../../../common/services/smooth-scrolling/smooth-scrolling.service"
-import {TopAlertService} from "../../../../common/services/top-alert/top-alert.service"
-import userModule from "../../../../common/services/user/user"
-import {UserService} from "../../../../common/services/user/user.service"
-import topAlertModule from "../../../../common/services/top-alert/top-alert"
-import "common/directives/service-provider/pro-service-provider-name/pro-service-provider-name"
-import "common/directives/service-provider/pro-service-provider-description/pro-service-provider-description"
-import "common/directives/service-provider/pro-service-provider-languages/pro-service-provider-languages"
-import "common/directives/service-provider/pro-bottom-summary-row/pro-bottom-summary-row"
-import "common/directives/service-provider/pro-service-provider-avatar/pro-service-provider-avatar"
+import * as angular from 'angular'
+import 'angular-ui-router'
+import apiModule from 'profitelo-api-ng/api.module'
+import {ProfileApi} from 'profitelo-api-ng/api/api'
+import {GetProfile, UpdateProfile} from 'profitelo-api-ng/model/models'
+import {SmoothScrollingService} from '../../../../common/services/smooth-scrolling/smooth-scrolling.service'
+import {TopAlertService} from '../../../../common/services/top-alert/top-alert.service'
+import userModule from '../../../../common/services/user/user'
+import {UserService} from '../../../../common/services/user/user.service'
+import topAlertModule from '../../../../common/services/top-alert/top-alert'
+import 'common/directives/service-provider/pro-service-provider-name/pro-service-provider-name'
+import 'common/directives/service-provider/pro-service-provider-description/pro-service-provider-description'
+import 'common/directives/service-provider/pro-service-provider-languages/pro-service-provider-languages'
+import 'common/directives/service-provider/pro-bottom-summary-row/pro-bottom-summary-row'
+import 'common/directives/service-provider/pro-service-provider-avatar/pro-service-provider-avatar'
 
 /* @ngInject */
 function CompanyPathController($scope: ng.IScope, $state: ng.ui.IStateService, ProfileApi: ProfileApi,

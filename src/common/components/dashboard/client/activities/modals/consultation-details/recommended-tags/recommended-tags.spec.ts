@@ -24,7 +24,7 @@ namespace profitelo.components.dashboard.client.activities.modals.consultationDe
       }
 
       beforeEach(() => {
-        //angular.mock.module('templates-module')
+
         angular.mock.module('profitelo.components.dashboard.client.activities.modals.consultation-details.recommended-tags')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$componentController_: ng.IComponentControllerService) => {

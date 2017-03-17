@@ -1,24 +1,24 @@
-import * as angular from "angular"
-import apiModule from "profitelo-api-ng/api.module"
-import {ProfileApi} from "profitelo-api-ng/api/api"
-import {GetProfile, UpdateProfile} from "profitelo-api-ng/model/models"
-import {TopAlertService} from "../../../../common/services/top-alert/top-alert.service"
-import {SmoothScrollingService} from "../../../../common/services/smooth-scrolling/smooth-scrolling.service"
-import userModule from "../../../../common/services/user/user"
-import {UserService} from "../../../../common/services/user/user.service"
-import topAlertModule from "../../../../common/services/top-alert/top-alert"
-import smoothScrollingModule from "../../../../common/services/smooth-scrolling/smooth-scrolling"
+import * as angular from 'angular'
+import apiModule from 'profitelo-api-ng/api.module'
+import {ProfileApi} from 'profitelo-api-ng/api/api'
+import {GetProfile, UpdateProfile} from 'profitelo-api-ng/model/models'
+import {TopAlertService} from '../../../../common/services/top-alert/top-alert.service'
+import {SmoothScrollingService} from '../../../../common/services/smooth-scrolling/smooth-scrolling.service'
+import userModule from '../../../../common/services/user/user'
+import {UserService} from '../../../../common/services/user/user.service'
+import topAlertModule from '../../../../common/services/top-alert/top-alert'
+import smoothScrollingModule from '../../../../common/services/smooth-scrolling/smooth-scrolling'
 
-import "common/directives/service-provider/pro-service-provider-avatar/pro-service-provider-avatar"
-import "common/directives/service-provider/pro-service-provider-name/pro-service-provider-name"
-import "common/directives/service-provider/pro-service-provider-description/pro-service-provider-description"
-import "common/directives/service-provider/pro-service-external-links/pro-service-external-links"
-import "common/directives/service-provider/pro-service-provider-languages/pro-service-provider-languages"
-import "common/directives/service-provider/pro-service-provider-file-uploader/pro-service-provider-file-uploader"
-import "common/directives/interface/pro-textarea/pro-textarea"
-import "common/directives/interface/pro-tags-dropdown/pro-tags-dropdown"
-import "common/directives/interface/pro-alert/pro-alert"
-import "common/directives/interface/pro-input/pro-input"
+import 'common/directives/service-provider/pro-service-provider-avatar/pro-service-provider-avatar'
+import 'common/directives/service-provider/pro-service-provider-name/pro-service-provider-name'
+import 'common/directives/service-provider/pro-service-provider-description/pro-service-provider-description'
+import 'common/directives/service-provider/pro-service-external-links/pro-service-external-links'
+import 'common/directives/service-provider/pro-service-provider-languages/pro-service-provider-languages'
+import 'common/directives/service-provider/pro-service-provider-file-uploader/pro-service-provider-file-uploader'
+import 'common/directives/interface/pro-textarea/pro-textarea'
+import 'common/directives/interface/pro-tags-dropdown/pro-tags-dropdown'
+import 'common/directives/interface/pro-alert/pro-alert'
+import 'common/directives/interface/pro-input/pro-input'
 
 /* @ngInject */
 function IndividualPathController($scope: ng.IScope, $state: ng.ui.IStateService, ProfileApi: ProfileApi,

@@ -1,6 +1,6 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {EmploymentApi, EmploymentApiMock} from "profitelo-api-ng/api/api"
+import {EmploymentApi, EmploymentApiMock} from 'profitelo-api-ng/api/api'
 
 describe('Unit testing: profitelo.components.dashboard.invitation.pro-invitation-acceptance-box', () => {
   return describe('for proInvitationAcceptanceBox component >', () => {

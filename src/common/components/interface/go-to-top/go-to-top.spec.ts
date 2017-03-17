@@ -1,7 +1,7 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {SmoothScrollingService} from "../../../services/smooth-scrolling/smooth-scrolling.service"
-import {IWindowService} from "../../../services/window/window.service"
+import {SmoothScrollingService} from '../../../services/smooth-scrolling/smooth-scrolling.service'
+import {IWindowService} from '../../../services/window/window.service'
 
 describe('Unit testing: profitelo.components.interface.go-to-top', () => {
   return describe('for goToTop component >', () => {
@@ -25,7 +25,7 @@ describe('Unit testing: profitelo.components.interface.go-to-top', () => {
     }
 
     beforeEach(() => {
-      //angular.mock.module('templates-module')
+
       angular.mock.module('profitelo.components.interface.go-to-top')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,

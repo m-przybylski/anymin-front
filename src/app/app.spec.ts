@@ -1,10 +1,10 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {ServiceApiMock, RatelApiMock, SessionApiMock} from "profitelo-api-ng/api/api"
-import {InterfaceLanguageService} from "../common/services/interface-language/interface-language.service"
-import sessionModule from "../common/services/session/session"
-import "./app"
-import {CommonConfig} from "../../generated_modules/common-config/common-config"
+import {ServiceApiMock, RatelApiMock, SessionApiMock} from 'profitelo-api-ng/api/api'
+import {InterfaceLanguageService} from '../common/services/interface-language/interface-language.service'
+import sessionModule from '../common/services/session/session'
+import './app'
+import {CommonConfig} from '../../generated_modules/common-config/common-config'
 
 describe('Unit tests: app>', () => {
   describe('Testing Controller: AppComponentController', () => {
@@ -29,7 +29,7 @@ describe('Unit tests: app>', () => {
     }
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
-      $provide.value('apiUrl', "awesomeUrl")
+      $provide.value('apiUrl', 'awesomeUrl')
       $provide.value('sessionService', sessionService)
     }))
 

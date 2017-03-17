@@ -1,7 +1,7 @@
-import * as angular from "angular"
-import apiModule from "profitelo-api-ng/api.module"
-import {ServiceApi} from "profitelo-api-ng/api/api"
-import {Tag} from "profitelo-api-ng/model/models"
+import * as angular from 'angular'
+import apiModule from 'profitelo-api-ng/api.module'
+import {ServiceApi} from 'profitelo-api-ng/api/api'
+import {Tag} from 'profitelo-api-ng/model/models'
 
 /* @ngInject */
 function controller($log: ng.ILogService, lodash: _.LoDashStatic, ServiceApi: ServiceApi) {

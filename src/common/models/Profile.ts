@@ -1,6 +1,6 @@
-import {Service} from "./Service"
-import {OrganizationDetails} from "./OrganizationDetails"
-import {ExpertDetails} from "./ExpertDetails"
+import {Service} from './Service'
+import {OrganizationDetails} from './OrganizationDetails'
+import {ExpertDetails} from './ExpertDetails'
 
 export interface Profile {
   id: string

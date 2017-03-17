@@ -1,5 +1,5 @@
-import {OrganizationDetails} from "./OrganizationDetails"
-import {Profile} from "./Profile"
+import {OrganizationDetails} from './OrganizationDetails'
+import {Profile} from './Profile'
 
 export interface CompanyProfile extends Profile {
   organizationDetails: OrganizationDetails

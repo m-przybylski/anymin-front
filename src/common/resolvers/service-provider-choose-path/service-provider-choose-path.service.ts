@@ -1,14 +1,14 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 
 import IQService = angular.IQService
-import apiModule from "profitelo-api-ng/api.module"
-import {ProfileApi} from "profitelo-api-ng/api/api"
-import {GetProfile} from "profitelo-api-ng/model/models"
-import {TopAlertService} from "../../services/top-alert/top-alert.service"
-import {UserService} from "../../services/user/user.service"
-import userModule from "../../services/user/user"
-import topAlertModule from "../../services/top-alert/top-alert"
-import loginStateModule from "../../services/login-state/login-state"
+import apiModule from 'profitelo-api-ng/api.module'
+import {ProfileApi} from 'profitelo-api-ng/api/api'
+import {GetProfile} from 'profitelo-api-ng/model/models'
+import {TopAlertService} from '../../services/top-alert/top-alert.service'
+import {UserService} from '../../services/user/user.service'
+import userModule from '../../services/user/user'
+import topAlertModule from '../../services/top-alert/top-alert'
+import loginStateModule from '../../services/login-state/login-state'
 
 export interface IServiceProviderChoosePathService {
   resolve(): ng.IPromise<GetProfile | null>

@@ -1,8 +1,8 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IPromise = angular.IPromise
 import ILogService = angular.ILogService
-import {CompanyInfo, MoneyDto} from "profitelo-api-ng/model/models"
-import {AccountApi, FinancesApi, PaymentsApi} from "profitelo-api-ng/api/api"
+import {CompanyInfo, MoneyDto} from 'profitelo-api-ng/model/models'
+import {AccountApi, FinancesApi, PaymentsApi} from 'profitelo-api-ng/api/api'
 
 export interface IInvoiceData {
   companyInfo: CompanyInfo | null,

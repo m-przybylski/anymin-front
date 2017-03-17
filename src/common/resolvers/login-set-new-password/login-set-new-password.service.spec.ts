@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {ILoginSetNewPasswordService} from "./login-set-new-password.service"
+import * as angular from 'angular'
+import {ILoginSetNewPasswordService} from './login-set-new-password.service'
 
 describe('Unit testing: profitelo.resolvers.login-set-new-password', () => {
   describe('for LoginSetNewPasswordResolver service >', () => {

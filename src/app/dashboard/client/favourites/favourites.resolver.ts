@@ -1,5 +1,5 @@
-import {ViewsApi} from "profitelo-api-ng/api/api"
-import {GetDashboardClientExperts} from "profitelo-api-ng/model/models"
+import {ViewsApi} from 'profitelo-api-ng/api/api'
+import {GetDashboardClientExperts} from 'profitelo-api-ng/model/models'
 
 export class ClientFavouritesResolver {
 
@@ -9,7 +9,8 @@ export class ClientFavouritesResolver {
 
   public resolve = () =>
     this.ViewsApi.getDashboardClientExpertsRoute()
-      .then((res) => this.handleAppClientFavouritesResolverResponse(res), this.handleAppClientFavouritesResolverResponseError)
+      .then((res) =>
+        this.handleAppClientFavouritesResolverResponse(res), this.handleAppClientFavouritesResolverResponseError)
 
   private handleAppClientFavouritesResolverResponseError = (error: any) =>
     this.$q.reject(error)

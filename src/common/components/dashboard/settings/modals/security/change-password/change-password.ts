@@ -1,13 +1,13 @@
-import * as angular from "angular"
-import {PasswordStrengthService} from "../../../../../../services/password-strength/password-strength.service"
-import apiModule from "profitelo-api-ng/api.module"
-import {AccountApi} from "profitelo-api-ng/api/api"
-import {CommonSettingsService} from "../../../../../../services/common-settings/common-settings.service"
-import passwordStrengthModule from "../../../../../../services/password-strength/password-strength"
-import commonSettingsModule from "../../../../../../services/common-settings/common-settings"
-import "../../../../../../directives/password-strength-bar/password-strength-bar"
-import "../../../../../../directives/interface/scrollable/scrollable"
-import "../../../../../../directives/interface/pro-input/pro-input"
+import * as angular from 'angular'
+import {PasswordStrengthService} from '../../../../../../services/password-strength/password-strength.service'
+import apiModule from 'profitelo-api-ng/api.module'
+import {AccountApi} from 'profitelo-api-ng/api/api'
+import {CommonSettingsService} from '../../../../../../services/common-settings/common-settings.service'
+import passwordStrengthModule from '../../../../../../services/password-strength/password-strength'
+import commonSettingsModule from '../../../../../../services/common-settings/common-settings'
+import '../../../../../../directives/password-strength-bar/password-strength-bar'
+import '../../../../../../directives/interface/scrollable/scrollable'
+import '../../../../../../directives/interface/pro-input/pro-input'
 
 export interface ISecurityChangePasswordSettingsControllerScope extends ng.IScope {
 }

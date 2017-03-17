@@ -1,12 +1,12 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {ProfileApi} from "profitelo-api-ng/api/api"
-import "./consultation-range"
+import {ProfileApi} from 'profitelo-api-ng/api/api'
+import './consultation-range'
 
 describe('Unit tests: ConsultationRangeController >', () => {
   describe('Testing Controller: ConsultationRangeController', () => {
 
-    var ConsultationRangeController: any
+    let ConsultationRangeController: any
     let _scope: any
     let url = 'awesomeUrl/'
 

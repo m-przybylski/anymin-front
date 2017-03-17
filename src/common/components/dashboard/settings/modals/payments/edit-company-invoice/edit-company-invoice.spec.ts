@@ -1,6 +1,6 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {EditCompanyInvoiceController, IEditCompanyInvoiceControllerScope} from "./edit-company-invoice"
+import {EditCompanyInvoiceController, IEditCompanyInvoiceControllerScope} from './edit-company-invoice'
 
 describe('Testing Controller: EditCompanyInvoiceController', () => {
 

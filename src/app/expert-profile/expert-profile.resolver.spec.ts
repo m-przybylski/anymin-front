@@ -1,8 +1,8 @@
-import * as angular from "angular"
-import {IExpertProfileStateParams, default as expertProfilePageModule} from "./expert-profile"
-import {ExpertProfileResolver} from "./expert-profile.resolver"
-import {ViewsApiMock} from "profitelo-api-ng/api/api"
-import {GetExpertProfile} from "profitelo-api-ng/model/models"
+import * as angular from 'angular'
+import {IExpertProfileStateParams, default as expertProfilePageModule} from './expert-profile'
+import {ExpertProfileResolver} from './expert-profile.resolver'
+import {ViewsApiMock} from 'profitelo-api-ng/api/api'
+import {GetExpertProfile} from 'profitelo-api-ng/model/models'
 
 describe('Unit testing: profitelo.resolvers.expert-profile', () => {
   describe('for ExpertProfileResolver service >', () => {

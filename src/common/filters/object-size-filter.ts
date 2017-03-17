@@ -1,7 +1,7 @@
 namespace profitelo.filters.objectSizeFilter {
 
   function objectSizeFilter() {
-    return (obj: Object) => {
+    return (obj: {}) => {
       const keys = Object.keys(obj)
       return keys ? keys.length : 0
     }

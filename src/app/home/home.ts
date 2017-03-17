@@ -1,14 +1,14 @@
-import * as angular from "angular"
-import sessionModule from "../../common/services/session/session"
-import smoothScrollingModule from "../../common/services/smooth-scrolling/smooth-scrolling"
-import "common/directives/expert-profile/pro-expert-card/pro-expert-card"
-import "common/directives/expert-profile/pro-expert-see-more/pro-expert-see-more"
-import "common/directives/pro-advice-tile/pro-advice-tile"
-import "common/directives/pro-news-tile/pro-news-tile"
-import "common/components/expert-profile/similar-experts-slider/similar-experts-slider"
-import "common/components/pro-search-dropdown/pro-search-dropdown"
-import "common/components/interface/slider/slider"
-import navbarModule from "../../common/components/navbar/navbar"
+import * as angular from 'angular'
+import sessionModule from '../../common/services/session/session'
+import smoothScrollingModule from '../../common/services/smooth-scrolling/smooth-scrolling'
+import 'common/directives/expert-profile/pro-expert-card/pro-expert-card'
+import 'common/directives/expert-profile/pro-expert-see-more/pro-expert-see-more'
+import 'common/directives/pro-advice-tile/pro-advice-tile'
+import 'common/directives/pro-news-tile/pro-news-tile'
+import 'common/components/expert-profile/similar-experts-slider/similar-experts-slider'
+import 'common/components/pro-search-dropdown/pro-search-dropdown'
+import 'common/components/interface/slider/slider'
+import navbarModule from '../../common/components/navbar/navbar'
 
 function HomeController() {
 
@@ -193,7 +193,7 @@ const homePageModule = angular.module('profitelo.controller.home', [
       url: '/home',
       controllerAs: 'vm',
       controller: 'HomeController',
-      template: require("./home.pug")(),
+      template: require('./home.pug')(),
       data: {
         pageTitle: 'PAGE_TITLE.HOME'
       }

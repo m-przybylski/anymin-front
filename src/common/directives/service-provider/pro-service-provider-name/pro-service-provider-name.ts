@@ -1,6 +1,6 @@
-import * as angular from "angular"
-import "common/directives/ng-enter/ng-enter"
-import "common/controllers/service-provider/service-provider-step-controller/service-provider-step-controller"
+import * as angular from 'angular'
+import 'common/directives/ng-enter/ng-enter'
+import 'common/controllers/service-provider/service-provider-step-controller/service-provider-step-controller'
 
   function proServiceProviderName($q: ng.IQService) {
     function linkFunction(scope: any, element: ng.IRootElementService, attrs: ng.IAttributes) {
@@ -17,7 +17,7 @@ import "common/controllers/service-provider/service-provider-step-controller/ser
         }
       })
 
-      scope.onEnter = ()=> {
+      scope.onEnter = () => {
         element.find('input').blur()
       }
 

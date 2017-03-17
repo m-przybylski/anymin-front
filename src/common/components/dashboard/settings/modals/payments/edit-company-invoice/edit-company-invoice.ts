@@ -1,12 +1,12 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import LoDashStatic = _.LoDashStatic
-import {IPrimaryDropdownListElement} from "../../../../../interface/dropdown-primary/dropdown-primary"
-import apiModule from "profitelo-api-ng/api.module"
-import {AccountApi} from "profitelo-api-ng/api/api"
-import {CompanyInfo} from "profitelo-api-ng/model/models"
-import "common/components/invoice/invoice-company"
-import "common/components/interface/preloader/preloader"
-import "common/directives/interface/scrollable/scrollable"
+import {IPrimaryDropdownListElement} from '../../../../../interface/dropdown-primary/dropdown-primary'
+import apiModule from 'profitelo-api-ng/api.module'
+import {AccountApi} from 'profitelo-api-ng/api/api'
+import {CompanyInfo} from 'profitelo-api-ng/model/models'
+import 'common/components/invoice/invoice-company'
+import 'common/components/interface/preloader/preloader'
+import 'common/directives/interface/scrollable/scrollable'
 
 export interface IEditCompanyInvoiceControllerScope extends ng.IScope {
   callback: () => void
@@ -25,8 +25,8 @@ export class EditCompanyInvoiceController implements ng.IController {
   selectedCountry?: IPrimaryDropdownListElement
   countryISO: string
   countryList: Array<IPrimaryDropdownListElement> = [{
-    name: "Poland",
-    value: "PL"
+    name: 'Poland',
+    value: 'PL'
   }]
   public onModalClose = (): void => {
     this.$uibModalInstance.dismiss('cancel')
@@ -40,7 +40,7 @@ export class EditCompanyInvoiceController implements ng.IController {
     this.AccountApi.postCompanyInfoRoute({
       vatNumber: this.vatNumber,
       companyName: this.companyName,
-      //TODO On GUS API Implement
+      // TODO On GUS API Implement
       vat: 23,
       address: {
         number: this.apartmentNumber,

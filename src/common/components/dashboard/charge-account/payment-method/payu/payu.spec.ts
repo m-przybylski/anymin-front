@@ -1,11 +1,11 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {SmoothScrollingService} from "../../../../../services/smooth-scrolling/smooth-scrolling.service"
-import apiModule from "profitelo-api-ng/api.module"
-import {PaymentsApiMock, AccountApiMock, AccountApi, PaymentsApi} from "profitelo-api-ng/api/api"
-import userModule from "../../../../../services/user/user"
-import {TopAlertService} from "../../../../../services/top-alert/top-alert.service"
-import {IWindowService} from "../../../../../services/window/window.service"
+import {SmoothScrollingService} from '../../../../../services/smooth-scrolling/smooth-scrolling.service'
+import apiModule from 'profitelo-api-ng/api.module'
+import {PaymentsApiMock, AccountApiMock, AccountApi, PaymentsApi} from 'profitelo-api-ng/api/api'
+import userModule from '../../../../../services/user/user'
+import {TopAlertService} from '../../../../../services/top-alert/top-alert.service'
+import {IWindowService} from '../../../../../services/window/window.service'
 
 describe('Unit testing:profitelo.components.dashboard.charge-account.payment-method.payu', () => {
   return describe('for payuPaymentFormController component >', () => {
@@ -41,7 +41,7 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
 
 
     beforeEach(() => {
-      //angular.mock.module('templates-module')
+
       angular.mock.module(apiModule)
       angular.mock.module('profitelo.components.dashboard.charge-account.payment-method.payu')
 
@@ -106,7 +106,7 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
     //   component.$onInit()
     //
     //   spyOn(state, 'go')
-    //   //FIXME
+    //   // FIXME
     //   PaymentApiMock.postPayUOrderRoute(400, <any>{})
     //   component.sendPayment()
     //   httpBackend.flush()
@@ -119,7 +119,7 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
     //   component.$onInit()
     //
     //   spyOn(window, 'open')
-    //   //FIXME
+    //   // FIXME
     //   PaymentApiMock.postPayUOrderRoute(200, <any>{})
     //   component.sendPayment()
     //   httpBackend.flush()
@@ -133,7 +133,7 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
     //     rootScope.$digest()
     //
     //     spyOn(state, 'go')
-    //     //FIXME
+    //     // FIXME
     //     PaymentApiMock.postPayUOrderRoute(400, <any>{})
     //     component.sendPayment()
     //     httpBackend.flush()
@@ -147,7 +147,7 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
     //   rootScope.$digest()
     //
     //   spyOn(window, 'open')
-    //   //FIXME
+    //   // FIXME
     //   PaymentApiMock.postPayUOrderRoute(200, <any>{})
     //   component.sendPayment()
     //   httpBackend.flush()

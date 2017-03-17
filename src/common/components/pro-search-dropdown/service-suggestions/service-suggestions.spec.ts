@@ -1,6 +1,6 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {CommonSettingsService} from "../../../services/common-settings/common-settings.service"
+import {CommonSettingsService} from '../../../services/common-settings/common-settings.service'
 describe('Unit testing: profitelo.components.pro-search-dropdown.service-suggestions', () => {
   return describe('for serviceSuggestions >', () => {
 
@@ -23,13 +23,13 @@ describe('Unit testing: profitelo.components.pro-search-dropdown.service-suggest
 
     const bindings = {
       services: {
-        results: ""
+        results: ''
       },
       searchModel: ''
     }
 
     beforeEach(() => {
-      //angular.mock.module('templates-module')
+
       angular.mock.module('ui.router')
       angular.mock.module('profitelo.services.commonSettings')
       angular.mock.module('profitelo.filters.search-bold-filter')
@@ -72,7 +72,7 @@ describe('Unit testing: profitelo.components.pro-search-dropdown.service-suggest
           {
             id: 1,
             owner: {
-              type: "ORG",
+              type: 'ORG',
               id: 1
             }
           }
@@ -95,7 +95,7 @@ describe('Unit testing: profitelo.components.pro-search-dropdown.service-suggest
           {
             id: 1,
             owner: {
-              type: "ORGS",
+              type: 'ORGS',
               id: 1
             }
           }
@@ -118,9 +118,9 @@ describe('Unit testing: profitelo.components.pro-search-dropdown.service-suggest
           {
             id: 1,
             owner: {
-              type: "ORGS",
+              type: 'ORGS',
               id: 1,
-              img: "url"
+              img: 'url'
             }
           }
         ]

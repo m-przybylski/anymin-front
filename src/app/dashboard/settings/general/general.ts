@@ -1,11 +1,11 @@
-import * as angular from "angular"
-import urlModule from "../../../../common/services/url/url"
-import userModule from "../../../../common/services/user/user"
-import modalsModule from "../../../../common/services/modals/modals"
-import {UserService} from "../../../../common/services/user/user.service"
-import {AccountDetails} from "profitelo-api-ng/model/models"
-import {ModalsService} from "../../../../common/services/modals/modals.service"
-import {UrlService} from "../../../../common/services/url/url.service"
+import * as angular from 'angular'
+import urlModule from '../../../../common/services/url/url'
+import userModule from '../../../../common/services/user/user'
+import modalsModule from '../../../../common/services/modals/modals'
+import {UserService} from '../../../../common/services/user/user.service'
+import {AccountDetails} from 'profitelo-api-ng/model/models'
+import {ModalsService} from '../../../../common/services/modals/modals.service'
+import {UrlService} from '../../../../common/services/url/url.service'
 export class DashboardSettingsGeneralController implements ng.IController {
 
   public avatarImageSource: string

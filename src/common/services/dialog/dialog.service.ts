@@ -1,4 +1,4 @@
-import * as ng from "angular"
+import * as ng from 'angular'
 
 export class DialogService {
 

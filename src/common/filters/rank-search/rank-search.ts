@@ -6,12 +6,12 @@ namespace profitelo.filters.rankSearch {
         return array
       }
 
-      for (let i =0; i<array.length; i++) {
+      for (let i = 0; i < array.length; i++) {
         const obj = array[i]
         obj.rankSearch = 0
-        for (let j=0; j<props.length; j++) {
+        for (let j = 0; j < props.length; j++) {
           const index = obj[props[j]].indexOf(searchKey)
-          obj.rankSearch += (index === -1 ? 15 : index) * ((j+1)*8)
+          obj.rankSearch += (index === -1 ? 15 : index) * ((j + 1) * 8)
         }
       }
 

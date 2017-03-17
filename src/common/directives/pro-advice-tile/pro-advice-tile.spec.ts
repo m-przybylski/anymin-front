@@ -9,7 +9,7 @@ namespace profitelo.directives.proAdviceTile {
       let validHTML = '<pro-advice-tile></pro-advice-tile>'
 
       beforeEach(() => {
-        //angular.mock.module('templates-module')
+
         angular.mock.module('profitelo.directives.pro-advice-tile')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {

@@ -7,14 +7,14 @@ namespace profitelo.directives.serviceProvider.proServiceExternalLinks {
       let scope: any
       let rootScope: ng.IRootScopeService
 
-      var validHTML = '<pro-service-external-links data-queue="queue" ' +
+      let validHTML = '<pro-service-external-links data-queue="queue" ' +
         'data-order="2" data-pro-model="proModel" ' +
         'data-placeholder="DASHBOARD.CONSULTATION_RANGE.CONSULTANTS_LIST_PLACEHOLDER"' +
         ' data-error-message="DASHBOARD.SERVICE_PROVIDER.NAME.BAD_NAME" tr-title="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT" ' +
         'tr-desc="DASHBOARD.EXPERT_ACCOUNT.NAME_EXPERT_DESCRIPTION" required="required"></pro-service-external-links>'
 
       beforeEach(function () {
-        //angular.mock.module('templates-module')
+
         angular.mock.module('profitelo.directives.service-provider.pro-service-external-links')
         inject(function ($rootScope: IRootScopeService, $compile: ng.ICompileService) {
           rootScope = $rootScope
@@ -25,14 +25,14 @@ namespace profitelo.directives.serviceProvider.proServiceExternalLinks {
 
 
       function create(html: string) {
-        var elem = angular.element(html)
+        let elem = angular.element(html)
         scope.proModel = {
           links: []
         }
         scope.queue = {
           completedSteps: 2
         }
-        var compiledElement = compile(elem)(scope)
+        let compiledElement = compile(elem)(scope)
         scope.$digest()
         return compiledElement
       }

@@ -1,6 +1,6 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {UrlService} from "../../../../../../services/url/url.service"
+import {UrlService} from '../../../../../../services/url/url.service'
 describe('Unit testing: profitelo.components.dashboard.client.favourites.favourite-experts.last-consultation-slider', () => {
   return describe('for lastConsultationSlider >', () => {
 
@@ -34,7 +34,7 @@ describe('Unit testing: profitelo.components.dashboard.client.favourites.favouri
     }
 
     beforeEach(() => {
-      //angular.mock.module('templates-module')
+
       angular.mock.module('profitelo.components.interface.slider')
       angular.mock.module('profitelo.services.url')
       angular.mock.module('profitelo.filters.money')
@@ -94,13 +94,13 @@ describe('Unit testing: profitelo.components.dashboard.client.favourites.favouri
 
     it('should consultationOwnerImage', () => {
       spyOn(urlService, 'resolveFileUrl')
-      component.consultationOwnerImage("asd")
+      component.consultationOwnerImage('asd')
       expect(urlService.resolveFileUrl).toHaveBeenCalled()
     })
 
     it('should go to urlService', () => {
       spyOn(urlService, 'resolveFileUrl')
-      component.consultationOwnerImage("a")
+      component.consultationOwnerImage('a')
       expect(urlService.resolveFileUrl).toHaveBeenCalled()
     })
 

@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {MessengerMinimizedComponent} from "./minimized.component"
+import * as angular from 'angular'
+import {MessengerMinimizedComponent} from './minimized.component'
 
 export interface IMessengerMinimizedComponentBindings {
   onMessageClick: (msg: any) => void

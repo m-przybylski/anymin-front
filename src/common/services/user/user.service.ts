@@ -1,5 +1,5 @@
-import {AccountDetails} from "profitelo-api-ng/model/models"
-import {SessionService} from "../session/session.service"
+import {AccountDetails} from 'profitelo-api-ng/model/models'
+import {SessionService} from '../session/session.service'
 
 export class UserService {
 

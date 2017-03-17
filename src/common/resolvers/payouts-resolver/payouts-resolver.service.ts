@@ -1,7 +1,7 @@
-import * as angular from "angular"
-import apiModule from "profitelo-api-ng/api.module"
-import {PayoutsApi} from "profitelo-api-ng/api/api"
-import {PayoutMethodsDto} from "profitelo-api-ng/model/models"
+import * as angular from 'angular'
+import apiModule from 'profitelo-api-ng/api.module'
+import {PayoutsApi} from 'profitelo-api-ng/api/api'
+import {PayoutMethodsDto} from 'profitelo-api-ng/model/models'
 
 export interface IPayoutsSettingsService {
   resolve(): ng.IPromise<PayoutMethodsDto>

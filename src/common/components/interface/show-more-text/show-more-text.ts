@@ -1,6 +1,6 @@
-import * as angular from "angular"
-import {IFilterService} from "../../../services/filter/filter.service"
-import {IWindowService} from "../../../services/window/window.service"
+import * as angular from 'angular'
+import {IFilterService} from '../../../services/filter/filter.service'
+import {IWindowService} from '../../../services/window/window.service'
 
 /* @ngInject */
 function showMoreTextController($filter: IFilterService, $log: ng.ILogService, $timeout: ng.ITimeoutService,

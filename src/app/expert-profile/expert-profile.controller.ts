@@ -1,8 +1,8 @@
-import {IExpertProfileStateParams} from "./expert-profile"
-import {ProfileApi} from "profitelo-api-ng/api/api"
-import {GetExpertProfile} from "profitelo-api-ng/model/models"
-import {RecommendedServicesService} from "../../common/services/recommended-services/recommended-services.service"
-import {SmoothScrollingService} from "../../common/services/smooth-scrolling/smooth-scrolling.service"
+import {IExpertProfileStateParams} from './expert-profile'
+import {ProfileApi} from 'profitelo-api-ng/api/api'
+import {GetExpertProfile} from 'profitelo-api-ng/model/models'
+import {RecommendedServicesService} from '../../common/services/recommended-services/recommended-services.service'
+import {SmoothScrollingService} from '../../common/services/smooth-scrolling/smooth-scrolling.service'
 
 /* @ngInject */
 export function ExpertProfileController($stateParams: IExpertProfileStateParams, $log: ng.ILogService,

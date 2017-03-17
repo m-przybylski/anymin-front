@@ -1,4 +1,4 @@
-import {CommonConfig} from "../../../../generated_modules/common-config/common-config"
+import {CommonConfig} from '../../../../generated_modules/common-config/common-config'
 
 export class CommonSettingsService {
 

@@ -11,9 +11,9 @@
       ]
       scope.currentClass = 0
 
-      scope.$watch(()=> {
+      scope.$watch(() => {
         return scope.currentClass
-      }, (newValue: number, _oldValue: number)=>{
+      }, (newValue: number, _oldValue: number) => {
 
         scope.currentClass = Math.floor(scope.currentClass)
 

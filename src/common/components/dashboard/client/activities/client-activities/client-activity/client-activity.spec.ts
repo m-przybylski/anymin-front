@@ -1,7 +1,7 @@
-import * as angular from "angular"
+import * as angular from 'angular'
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {ModalsService} from "../../../../../../services/modals/modals.service"
-import modalsModule from "../../../../../../services/modals/modals"
+import {ModalsService} from '../../../../../../services/modals/modals.service'
+import modalsModule from '../../../../../../services/modals/modals'
   describe('Unit testing: profitelo.components.dashboard.client.activities.client-activity', () => {
   return describe('for clientLastActivitiesList >', () => {
 
@@ -36,7 +36,7 @@ import modalsModule from "../../../../../../services/modals/modals"
     }))
 
     beforeEach(() => {
-    //angular.mock.module('templates-module')
+
     angular.mock.module('profitelo.services.url')
     angular.mock.module(modalsModule)
     angular.mock.module('profitelo.filters.money')

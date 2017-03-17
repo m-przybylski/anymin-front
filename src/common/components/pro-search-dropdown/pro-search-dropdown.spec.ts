@@ -1,7 +1,7 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {CategoryApiMock, SearchApiMock} from "profitelo-api-ng/api/api"
+import {CategoryApiMock, SearchApiMock} from 'profitelo-api-ng/api/api'
 
 describe('Unit testing:profitelo.components.pro-search-dropdown', () => {
   return describe('for pro-search-dropdown >', () => {
@@ -33,7 +33,7 @@ describe('Unit testing:profitelo.components.pro-search-dropdown', () => {
     }))
 
     beforeEach(() => {
-      //angular.mock.module('templates-module')
+
       angular.mock.module('profitelo.components.pro-search-dropdown')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, $injector: ng.auto.IInjectorService, _$componentController_: ng.IComponentControllerService) => {

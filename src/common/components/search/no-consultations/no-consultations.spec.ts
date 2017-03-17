@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import "./no-consultations"
+import * as angular from 'angular'
+import './no-consultations'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 describe('Unit testing: profitelo.components.search.no-consultations', () => {
   return describe('for noConsultations component >', () => {
@@ -21,7 +21,7 @@ describe('Unit testing: profitelo.components.search.no-consultations', () => {
     }
 
     beforeEach(() => {
-      //angular.mock.module('templates-module')
+
       angular.mock.module('profitelo.components.search.no-consultations')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$componentController_: ng.IComponentControllerService) => {

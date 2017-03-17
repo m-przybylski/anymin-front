@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {SmoothScrollingService} from "./smooth-scrolling.service"
+import * as angular from 'angular'
+import {SmoothScrollingService} from './smooth-scrolling.service'
 
 describe('Unit testing: profitelo.directives.services.smooth-scrolling >', function () {
   describe('for profitelo.directives.services.smooth-scrolling >', function () {
@@ -22,11 +22,11 @@ describe('Unit testing: profitelo.directives.services.smooth-scrolling >', funct
     }))
 
     it('should simple scroll to', inject(() => {
-      spyOn($.fn, "stop").and.returnValue("bar")
+      spyOn($.fn, 'stop').and.returnValue('bar')
       smoothScrollingService.simpleScrollTo('<div class="dumb-class"></div>', true)
       $(window).triggerHandler('wheel')
       const result = $('html, body').stop()
-      expect(result).toEqual("bar")
+      expect(result).toEqual('bar')
     }))
 
   })

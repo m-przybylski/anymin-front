@@ -1,6 +1,6 @@
-import * as angular from "angular"
-import {IAmounts, IAmountModel} from "../../../../../app/dashboard/charge-account/charge-account"
-import {CommonSettingsService} from "../../../../services/common-settings/common-settings.service"
+import * as angular from 'angular'
+import {IAmounts, IAmountModel} from '../../../../../app/dashboard/charge-account/charge-account'
+import {CommonSettingsService} from '../../../../services/common-settings/common-settings.service'
 
 export interface IChooseAmountChargeComponentBindings {
   title: string
@@ -93,7 +93,8 @@ export class ChooseAmountChargeComponentController implements IChooseAmountCharg
 
   public minimalAmountValidation = () => {
     return (this.activeOption === 3 && this.cashAmountModel && this.cashAmountModel <
-    this.amounts.minimalAmounts.amount / this.amountModifier && !angular.element('.option-own-amount').find('input:focus')[0])
+    this.amounts.minimalAmounts.amount / this.amountModifier
+    && !angular.element('.option-own-amount').find('input:focus')[0])
   }
 }
 

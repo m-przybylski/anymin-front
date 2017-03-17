@@ -1,7 +1,7 @@
-import * as angular from "angular"
-import {SearchFiltersComponentController, ISearchFiltersComponentBindings} from "./search-filters"
+import * as angular from 'angular'
+import {SearchFiltersComponentController, ISearchFiltersComponentBindings} from './search-filters'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {SearchService} from "../../../services/search/search.service"
+import {SearchService} from '../../../services/search/search.service'
 
 describe('Unit testing: profitelo.components.search.searchFilters', () => {
   return describe('for Search Filters component >', () => {
@@ -28,6 +28,7 @@ describe('Unit testing: profitelo.components.search.searchFilters', () => {
     }))
 
     beforeEach(() => {
+
       angular.mock.module('profitelo.components.search.searchFilters')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
@@ -41,7 +42,7 @@ describe('Unit testing: profitelo.components.search.searchFilters', () => {
           searchService: searchService
         }
 
-        spyOn(searchService, "getAvailableOptions").and.callFake(() => {
+        spyOn(searchService, 'getAvailableOptions').and.callFake(() => {
           let deferred = $q.defer()
           deferred.resolve({
             language: [{name: 'asas', value: 'asas'}],
@@ -52,7 +53,7 @@ describe('Unit testing: profitelo.components.search.searchFilters', () => {
           return deferred.promise
         })
 
-        spyOn(searchService, "onQueryParamsChange").and.callFake(() => {
+        spyOn(searchService, 'onQueryParamsChange').and.callFake(() => {
           let deferred = $q.defer()
           deferred.resolve({})
           return deferred.promise

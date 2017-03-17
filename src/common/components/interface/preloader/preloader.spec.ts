@@ -25,7 +25,7 @@ namespace profitelo.components.interface.preloader {
       }
 
       beforeEach(() => {
-        //angular.mock.module('templates-module')
+
         angular.mock.module('profitelo.components.interface.preloader')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,

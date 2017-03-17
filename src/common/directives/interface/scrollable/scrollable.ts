@@ -43,7 +43,7 @@ namespace profitelo.directives.scrollable {
 
       const interval = this.$interval(this.setNewContainerHeight, this.intervalDelay)
 
-      scope.$on("$destroy", () => {
+      scope.$on('$destroy', () => {
         this.$interval.cancel(interval)
         angular.element(window).off('resize', this.onWindowResize)
       })
@@ -52,7 +52,7 @@ namespace profitelo.directives.scrollable {
     }
 
     private isNavbarVisible = (): boolean => {
-      let isNavbar = this.element.find(".top-modal-navbar")
+      let isNavbar = this.element.find('.top-modal-navbar')
       return isNavbar.length > 0
     }
 

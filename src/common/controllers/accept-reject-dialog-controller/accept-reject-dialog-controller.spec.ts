@@ -2,9 +2,9 @@ namespace profitelo.controllers.acceptRejectDialogController {
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
   describe('Testing Controller: acceptRejectDialogController', () => {
 
-    var acceptRejectDialogController: any
-    var scope: any
-    var uibModalInstance = {
+    let acceptRejectDialogController: any
+    let scope: any
+    let uibModalInstance = {
       dismiss: () => {
 
       },

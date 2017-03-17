@@ -1,13 +1,13 @@
 namespace profitelo.components.communicator.modals.serviceUnavailable {
 
   export interface IUnavailableServiceControllerParentScope extends ng.IScope {
-    accept: Function
-    reject: Function
+    accept: () => void
+    reject: () => void
   }
 
   export interface IUnavailableServiceControllerScope extends ng.IScope {
-    reject: Function
-    accept: Function
+    reject: () => void
+    accept: () => void
     $parent: IUnavailableServiceControllerParentScope
   }
 

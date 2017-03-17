@@ -1,11 +1,11 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {AccountApi, AccountApiMock} from "profitelo-api-ng/api/api"
-import {TopAlertService} from "../../../common/services/top-alert/top-alert.service"
-import {TopWaitingLoaderService} from "../../../common/services/top-waiting-loader/top-waiting-loader.service"
-import {IFilterService} from "../../../common/services/filter/filter.service"
-import {PasswordStrengthService} from "../../../common/services/password-strength/password-strength.service"
-import "./set-password"
+import {AccountApi, AccountApiMock} from 'profitelo-api-ng/api/api'
+import {TopAlertService} from '../../../common/services/top-alert/top-alert.service'
+import {TopWaitingLoaderService} from '../../../common/services/top-waiting-loader/top-waiting-loader.service'
+import {IFilterService} from '../../../common/services/filter/filter.service'
+import {PasswordStrengthService} from '../../../common/services/password-strength/password-strength.service'
+import './set-password'
 
 describe('Unit tests: profitelo.controller.post-register.set-password>', () => {
   describe('Testing Controller: SetPasswordController', () => {

@@ -1,9 +1,9 @@
-import * as angular from "angular"
-import "./choose-path/choose-path"
-import "./individual-path/individual-path"
-import "./company-path/company-path"
-import "./consultation-range/consultation-range"
-import "./summary/summary"
+import * as angular from 'angular'
+import './choose-path/choose-path'
+import './individual-path/individual-path'
+import './company-path/company-path'
+import './consultation-range/consultation-range'
+import './summary/summary'
 
 function ServiceProviderController() {
 

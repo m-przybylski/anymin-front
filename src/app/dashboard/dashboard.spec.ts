@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import "./dashboard"
+import * as angular from 'angular'
+import './dashboard'
 
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 describe('Unit tests: Dashboard >', () => {

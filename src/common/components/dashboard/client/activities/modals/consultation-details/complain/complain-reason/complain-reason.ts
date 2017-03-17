@@ -1,8 +1,8 @@
-import * as angular from "angular"
-import {ModalsService} from "../../../../../../../../services/modals/modals.service"
-import "../../../../../../../../components/interface/radio-text/radio-text"
-import "../../../../../../../../components/interface/radio/radio"
-import "../../../../../../../../services/modals/modals"
+import * as angular from 'angular'
+import {ModalsService} from '../../../../../../../../services/modals/modals.service'
+import '../../../../../../../../components/interface/radio-text/radio-text'
+import '../../../../../../../../components/interface/radio/radio'
+import '../../../../../../../../services/modals/modals'
 
 /* @ngInject */
 function controller(modalsService: ModalsService) {

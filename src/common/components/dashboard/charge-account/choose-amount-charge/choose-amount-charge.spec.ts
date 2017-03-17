@@ -1,6 +1,6 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {ChooseAmountChargeComponentController, IChooseAmountChargeComponentBindings} from "./choose-amount-charge"
+import {ChooseAmountChargeComponentController, IChooseAmountChargeComponentBindings} from './choose-amount-charge'
 describe('Unit testing: profitelo.components.dashboard.charge-account.choose-amount-charge', () => {
   return describe('for chooseAmountCharge component >', () => {
 
@@ -55,7 +55,7 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-amo
     }))
 
     beforeEach(() => {
-      //angular.mock.module('templates-module')
+
       angular.mock.module('profitelo.components.dashboard.charge-account.choose-amount-charge')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, $componentController: ng.IComponentControllerService) => {

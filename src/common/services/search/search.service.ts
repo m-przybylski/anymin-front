@@ -1,19 +1,19 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {SearchResult} from "profitelo-api-ng/model/models"
-import {SearchApi} from "profitelo-api-ng/api/api"
-import {CategoryService} from "../category/category.service"
+import {SearchResult} from 'profitelo-api-ng/model/models'
+import {SearchApi} from 'profitelo-api-ng/api/api'
+import {CategoryService} from '../category/category.service'
 
-export interface NameValue {
+export interface INameValue {
   name: string
   value: string | null
 }
 
 export interface ISearchSettings {
-  language: Array<NameValue>
+  language: Array<INameValue>
   sortBy: Array<string>
-  category: Array<NameValue>
-  profileType: Array<NameValue>
+  category: Array<INameValue>
+  profileType: Array<INameValue>
 }
 
 export interface ISearchResultRow { // TODO define type properties
@@ -408,7 +408,7 @@ export class SearchService {
   public getAvailableOptions = (): ng.IPromise<ISearchSettings> => {
 
     const options: ISearchSettings = {
-      language: [<NameValue>{name: 'all', value: null}].concat(
+      language: [<INameValue>{name: 'all', value: null}].concat(
         SearchService.languageOptions.map((lng) => ({name: lng, value: lng}))),
       sortBy: SearchService._sortingOptions,
       category: [{name: 'all', value: null}],

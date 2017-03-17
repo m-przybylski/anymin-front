@@ -1,27 +1,28 @@
-import * as angular from "angular"
-import apiModule from "profitelo-api-ng/api.module"
-import {ServiceApi, ProfileApi} from "profitelo-api-ng/api/api"
-import {GetProfileWithServices, Tag} from "profitelo-api-ng/model/models"
-import {TopAlertService} from "../../../../../common/services/top-alert/top-alert.service"
-import {DialogService} from "../../../../../common/services/dialog/dialog.service"
-import {ServiceProviderService} from "../../../../../common/services/service-provider/service-provider.service"
-import {UserService} from "../../../../../common/services/user/user.service"
-import userModule from "../../../../../common/services/user/user"
-import {IServiceProviderImageService} from "../../../../../common/resolvers/service-provider-image/service-provider-image.service"
-import {ExpertProfile} from "../../../../../common/models/ExpertProfile"
-import topAlertModule from "../../../../../common/services/top-alert/top-alert"
-import dialogModule from "../../../../../common/services/dialog/dialog"
+import * as angular from 'angular'
+import apiModule from 'profitelo-api-ng/api.module'
+import {ServiceApi, ProfileApi} from 'profitelo-api-ng/api/api'
+import {GetProfileWithServices, Tag} from 'profitelo-api-ng/model/models'
+import {TopAlertService} from '../../../../../common/services/top-alert/top-alert.service'
+import {DialogService} from '../../../../../common/services/dialog/dialog.service'
+import {ServiceProviderService} from '../../../../../common/services/service-provider/service-provider.service'
+import {UserService} from '../../../../../common/services/user/user.service'
+import userModule from '../../../../../common/services/user/user'
+import {IServiceProviderImageService} from
+  '../../../../../common/resolvers/service-provider-image/service-provider-image.service'
+import {ExpertProfile} from '../../../../../common/models/ExpertProfile'
+import topAlertModule from '../../../../../common/services/top-alert/top-alert'
+import dialogModule from '../../../../../common/services/dialog/dialog'
 
-import "common/controllers/accept-reject-dialog-controller/accept-reject-dialog-controller"
-import "common/resolvers/service-provider-image/service-provider-image.service"
-import "common/directives/service-provider/pro-bottom-summary-row/pro-bottom-summary-row"
-import "common/directives/service-provider/pro-bottom-consultation-button/pro-bottom-consultation-button"
-import "common/directives/service-provider/pro-service-provider-cost/pro-service-provider-cost"
-import "common/directives/service-provider/pro-service-provider-who-provides/pro-service-provider-who-provides"
-import "common/directives/service-provider/pro-service-provider-tags/pro-service-provider-tags"
-import "common/directives/service-provider/pro-service-provider-profile/pro-service-provider-profile"
-import "common/directives/interface/pro-alert/pro-alert"
-import serviceProviderModule from "../../../../../common/services/service-provider/search-provider"
+import 'common/controllers/accept-reject-dialog-controller/accept-reject-dialog-controller'
+import 'common/resolvers/service-provider-image/service-provider-image.service'
+import 'common/directives/service-provider/pro-bottom-summary-row/pro-bottom-summary-row'
+import 'common/directives/service-provider/pro-bottom-consultation-button/pro-bottom-consultation-button'
+import 'common/directives/service-provider/pro-service-provider-cost/pro-service-provider-cost'
+import 'common/directives/service-provider/pro-service-provider-who-provides/pro-service-provider-who-provides'
+import 'common/directives/service-provider/pro-service-provider-tags/pro-service-provider-tags'
+import 'common/directives/service-provider/pro-service-provider-profile/pro-service-provider-profile'
+import 'common/directives/interface/pro-alert/pro-alert'
+import serviceProviderModule from '../../../../../common/services/service-provider/search-provider'
 
 /* @ngInject */
 function IndividualConsultationController($log: ng.ILogService, $scope: ng.IScope, $state: ng.ui.IStateService,
@@ -52,7 +53,7 @@ function IndividualConsultationController($log: ng.ILogService, $scope: ng.IScop
     $state.go('app.dashboard.service-provider.consultation-range.company')
   }
 
-  let _postConsultationMethod = (callback: Function) => {
+  let _postConsultationMethod = (callback: () => void) => {
     ServiceApi.postServiceRoute({
       details: {
         name: this.costModel.name,
@@ -198,7 +199,8 @@ angular.module('profitelo.controller.dashboard.service-provider.consultation-ran
       resolve: {
         /* istanbul ignore next */
         savedProfile: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: ProfileApi,
-                       lodash: _.LoDashStatic, userService: UserService, ServiceApi: ServiceApi, topAlertService: TopAlertService) => {
+                       lodash: _.LoDashStatic, userService: UserService, ServiceApi: ServiceApi,
+                       topAlertService: TopAlertService) => {
           /* istanbul ignore next */
           let _deferred = $q.defer<GetProfileWithServices | null>()
           /* istanbul ignore next */

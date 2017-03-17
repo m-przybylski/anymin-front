@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import "common/components/interface/preloader/preloader"
+import * as angular from 'angular'
+import 'common/components/interface/preloader/preloader'
 
 /* @ngInject */
 function preloaderContainerController() {

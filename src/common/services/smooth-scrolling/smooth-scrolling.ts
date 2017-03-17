@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {SmoothScrollingService} from "./smooth-scrolling.service"
+import * as angular from 'angular'
+import {SmoothScrollingService} from './smooth-scrolling.service'
 
 const smoothScrollingModule  = angular.module('profitelo.services.smooth-scrolling', [])
   .config(($qProvider: ng.IQProvider) => {

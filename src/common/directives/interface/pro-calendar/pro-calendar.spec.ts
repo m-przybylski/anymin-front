@@ -9,7 +9,7 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
     let validHTML = '<pro-calendar></pro-calendar>'
 
     beforeEach(() => {
-    //angular.mock.module('templates-module')
+
     angular.mock.module('profitelo.directives.interface.pro-calendar')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {

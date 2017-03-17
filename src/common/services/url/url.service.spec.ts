@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {UrlService} from "./url.service"
+import * as angular from 'angular'
+import {UrlService} from './url.service'
 
 describe('Unit testing: profitelo.services.helper >', () => {
   describe('for urlService service >', () => {

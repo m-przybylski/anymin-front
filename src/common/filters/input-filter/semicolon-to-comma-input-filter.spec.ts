@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {IFilterService} from "../../services/filter/filter.service"
+import * as angular from 'angular'
+import {IFilterService} from '../../services/filter/filter.service'
 
 describe('Unit testing: profitelo.filters.input-filter.semicolon-to-comma-input-filter>', () => {
   describe('for message >', () => {
@@ -14,10 +14,10 @@ describe('Unit testing: profitelo.filters.input-filter.semicolon-to-comma-input-
       $filter = _$filter_
     }))
 
-    const input = "text,asd"
+    const input = 'text,asd'
 
     it('should semicolonToCommaInputFilter', () => {
-      expect($filter('semicolonToCommaInputFilter')(input)).toEqual("text.asd")
+      expect($filter('semicolonToCommaInputFilter')(input)).toEqual('text.asd')
     })
   })
 })

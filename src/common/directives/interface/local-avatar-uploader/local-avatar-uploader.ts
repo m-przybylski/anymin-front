@@ -1,7 +1,7 @@
 namespace profitelo.directives.interface.localAvatarUploader {
 
   interface ILocalAvatarUploaderDirectiveScope extends ng.IScope {
-    onFileUpload: Function
+    onFileUpload: (noLoadEventObject: any, changeEventObject: any, callback: () => void) => void
     imageSource: string
   }
 

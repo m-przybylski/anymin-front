@@ -1,16 +1,16 @@
-import * as angular from "angular"
-import "../../../directives/interface/focus-next/focus-next"
-import "../../../directives/interface/pro-input/pro-input"
+import * as angular from 'angular'
+import '../../../directives/interface/focus-next/focus-next'
+import '../../../directives/interface/pro-input/pro-input'
 
 export interface IPinVerificationComponentBindings {
   onSendPinAgain: () => void
-  onCompletePinInputs: (token: string, callback: Function) => void
+  onCompletePinInputs: (token: string, callback: () => void) => void
 }
 
 export class PinVerificationComponentController implements ng.IController, IPinVerificationComponentBindings {
 
   public onSendPinAgain: () => void
-  public onCompletePinInputs: (token: string, callback: Function) => void
+  public onCompletePinInputs: (token: string, callback: () => void) => void
   public isButtonDisable = false
   public counter: number = 0
   public pinInputModels = []
@@ -33,7 +33,7 @@ export class PinVerificationComponentController implements ng.IController, IPinV
       this.isPinInCorrect = false
       this.onCompletePinInputs(this.pinInputModels.join(''), this.onWrongPrefix)
     } else {
-      if (this.pinInputModels.length == 4) {
+      if (this.pinInputModels.length === 4) {
         this.isPinInCorrect = true
       }
     }
@@ -55,7 +55,7 @@ export class PinVerificationComponentController implements ng.IController, IPinV
 
   private checkAreInputsFilled = (arrayOfInputs: Array<string>): boolean =>
     (arrayOfInputs.every((input: string, _index: number, array: Array<string>) => {
-      return array.length == 4 && angular.isDefined(input) && !!input
+      return array.length === 4 && angular.isDefined(input) && !!input
     }))
 }
 

@@ -1,5 +1,5 @@
-import * as angular from "angular"
-import {MoneyDto} from "profitelo-api-ng/model/models"
+import * as angular from 'angular'
+import {MoneyDto} from 'profitelo-api-ng/model/models'
 
 const handleAmount = (_amount: number) => {
   let sign = ''

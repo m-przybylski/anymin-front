@@ -1,9 +1,9 @@
-import * as angular from "angular"
-import "./communicator"
-import {CommunicatorComponentController} from "./communicator.controller"
-import communicatorModule from "./communicator"
-import userModule from "../../services/user/user"
-import messengerModule from "./messenger/messenger"
+import * as angular from 'angular'
+import './communicator'
+import {CommunicatorComponentController} from './communicator.controller'
+import communicatorModule from './communicator'
+import userModule from '../../services/user/user'
+import messengerModule from './messenger/messenger'
 
   describe('Unit testing: profitelo.components.communicator', () => {
     return describe('for communicator component >', () => {
@@ -47,7 +47,7 @@ import messengerModule from "./messenger/messenger"
       }))
 
       beforeEach(() => {
-        //angular.mock.module('templates-module')
+
 
 
         inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,

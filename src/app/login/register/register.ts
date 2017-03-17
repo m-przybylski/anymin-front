@@ -1,29 +1,28 @@
-import * as angular from "angular"
-
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {IFilterService} from "../../../common/services/filter/filter.service"
-import {TopWaitingLoaderService} from "../../../common/services/top-waiting-loader/top-waiting-loader.service"
-import {TopAlertService} from "../../../common/services/top-alert/top-alert.service"
-import {CommonSettingsService} from "../../../common/services/common-settings/common-settings.service"
-import apiModule from "profitelo-api-ng/api.module"
-import {AccountApi, RegistrationApi} from "profitelo-api-ng/api/api"
-import {PatchAccount, Account} from "profitelo-api-ng/model/models"
-import {LoginStateService} from "../../../common/services/login-state/login-state.service"
-import {SessionService} from "../../../common/services/session/session.service"
-import {CommunicatorService} from "../../../common/components/communicator/communicator.service"
-import {ILoginRegister, ILoginRegisterService} from "../../../common/resolvers/login-register/login-register.service"
-import sessionModule from "../../../common/services/session/session"
-import loginStateModule from "../../../common/services/login-state/login-state"
-import communicatorModule from "../../../common/components/communicator/communicator"
-import commonSettingsModule from "../../../common/services/common-settings/common-settings"
-import topAlertModule from "../../../common/services/top-alert/top-alert"
-import "common/resolvers/login-register/login-register.service"
-import "common/directives/pro-top-waiting-loader/pro-top-waiting-loader"
-import "common/directives/interface/pro-input/pro-input"
-import "common/directives/interface/pro-alert/pro-alert"
-import "common/directives/interface/pro-checkbox/pro-checkbox"
-import permissionModule from "../../../common/services/permission/permission"
-import {PermissionService} from "../../../common/services/permission/permission.service"
+import {IFilterService} from '../../../common/services/filter/filter.service'
+import {TopWaitingLoaderService} from '../../../common/services/top-waiting-loader/top-waiting-loader.service'
+import {TopAlertService} from '../../../common/services/top-alert/top-alert.service'
+import {CommonSettingsService} from '../../../common/services/common-settings/common-settings.service'
+import apiModule from 'profitelo-api-ng/api.module'
+import {AccountApi, RegistrationApi} from 'profitelo-api-ng/api/api'
+import {PatchAccount, Account} from 'profitelo-api-ng/model/models'
+import {LoginStateService} from '../../../common/services/login-state/login-state.service'
+import {SessionService} from '../../../common/services/session/session.service'
+import {CommunicatorService} from '../../../common/components/communicator/communicator.service'
+import {ILoginRegister, ILoginRegisterService} from '../../../common/resolvers/login-register/login-register.service'
+import sessionModule from '../../../common/services/session/session'
+import loginStateModule from '../../../common/services/login-state/login-state'
+import communicatorModule from '../../../common/components/communicator/communicator'
+import commonSettingsModule from '../../../common/services/common-settings/common-settings'
+import topAlertModule from '../../../common/services/top-alert/top-alert'
+import 'common/resolvers/login-register/login-register.service'
+import 'common/directives/pro-top-waiting-loader/pro-top-waiting-loader'
+import 'common/directives/interface/pro-input/pro-input'
+import 'common/directives/interface/pro-alert/pro-alert'
+import 'common/directives/interface/pro-checkbox/pro-checkbox'
+import permissionModule from '../../../common/services/permission/permission'
+import {PermissionService} from '../../../common/services/permission/permission.service'
 
 function RegisterController($log: ng.ILogService, $filter: IFilterService, $state: ng.ui.IStateService,
                             $rootScope: IRootScopeService, topWaitingLoaderService: TopWaitingLoaderService,
@@ -82,7 +81,7 @@ function RegisterController($log: ng.ILogService, $filter: IFilterService, $stat
           this.isPending = false
           topWaitingLoaderService.stopLoader()
           sessionService.setApiKey(session.apiKey)
-          //FIXME Login Event
+          // FIXME Login Event
           userid = session.accountId
 
           loginStateService.clearServiceObject()

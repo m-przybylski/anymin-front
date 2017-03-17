@@ -18,7 +18,7 @@ namespace profitelo.directives.serviceProvider.proServiceProviderTags {
       }))
 
       beforeEach(() => {
-        //angular.mock.module('templates-module')
+
         angular.mock.module('profitelo.directives.service-provider.pro-service-provider-tags')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {

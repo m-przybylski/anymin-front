@@ -2,9 +2,9 @@ namespace profitelo.components.dashboard.client.activities.modals.chargeDetails 
   import IRootScopeService = profitelo.services.rootScope.IRootScopeService
   describe('Testing Controller: clientChargeDetailsController', () => {
 
-    var clientChargeDetailsController: any
-    var scope: any
-    var uibModalInstance = {
+    let clientChargeDetailsController: any
+    let scope: any
+    let uibModalInstance = {
       dismiss: () => {
 
       },

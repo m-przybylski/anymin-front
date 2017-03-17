@@ -1,13 +1,13 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {IFilterService} from "../../services/filter/filter.service"
-import apiModule from "profitelo-api-ng/api.module"
-import {AccountApi} from "profitelo-api-ng/api/api"
-import {TopAlertService} from "../../services/top-alert/top-alert.service"
-import {SessionService} from "../../services/session/session.service"
-import {IConfirmEmailStateParams} from "../../../app/login/confirm-email/confirm-email"
-import topAlertModule from "../../services/top-alert/top-alert"
-import sessionModule from "../../services/session/session"
+import {IFilterService} from '../../services/filter/filter.service'
+import apiModule from 'profitelo-api-ng/api.module'
+import {AccountApi} from 'profitelo-api-ng/api/api'
+import {TopAlertService} from '../../services/top-alert/top-alert.service'
+import {SessionService} from '../../services/session/session.service'
+import {IConfirmEmailStateParams} from '../../../app/login/confirm-email/confirm-email'
+import topAlertModule from '../../services/top-alert/top-alert'
+import sessionModule from '../../services/session/session'
 
 export interface ILoginConfirmEmailService {
   resolve(stateParams: IConfirmEmailStateParams): ng.IPromise<undefined>

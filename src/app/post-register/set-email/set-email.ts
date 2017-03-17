@@ -1,15 +1,15 @@
-import * as angular from "angular"
-import {IFilterService} from "../../../common/services/filter/filter.service"
-import {TopWaitingLoaderService} from "../../../common/services/top-waiting-loader/top-waiting-loader.service"
-import {TopAlertService} from "../../../common/services/top-alert/top-alert.service"
-import apiModule from "profitelo-api-ng/api.module"
-import {AccountApi} from "profitelo-api-ng/api/api"
-import {AccountDetails, PatchAccount} from "profitelo-api-ng/model/models"
-import {UserService} from "../../../common/services/user/user.service"
-import userModule from "../../../common/services/user/user"
-import commonSettingsModule from "../../../common/services/common-settings/common-settings"
-import topAlertModule from "../../../common/services/top-alert/top-alert"
-import loginStateModule from "../../../common/services/login-state/login-state"
+import * as angular from 'angular'
+import {IFilterService} from '../../../common/services/filter/filter.service'
+import {TopWaitingLoaderService} from '../../../common/services/top-waiting-loader/top-waiting-loader.service'
+import {TopAlertService} from '../../../common/services/top-alert/top-alert.service'
+import apiModule from 'profitelo-api-ng/api.module'
+import {AccountApi} from 'profitelo-api-ng/api/api'
+import {AccountDetails, PatchAccount} from 'profitelo-api-ng/model/models'
+import {UserService} from '../../../common/services/user/user.service'
+import userModule from '../../../common/services/user/user'
+import commonSettingsModule from '../../../common/services/common-settings/common-settings'
+import topAlertModule from '../../../common/services/top-alert/top-alert'
+import loginStateModule from '../../../common/services/login-state/login-state'
 
 function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.ui.IStateService,
                      topWaitingLoaderService: TopWaitingLoaderService, user: AccountDetails,
@@ -60,7 +60,8 @@ function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.u
           message: $filter('translate')('REGISTER.REGISTRATION_SUCCESS'),
           timeout: 3
         })
-        //User.setData({unverifiedEmail: this.email})
+
+        // TODO update session service User.setData({unverifiedEmail: this.email})
         $state.go('app.dashboard.client.favourites')
       })
     })

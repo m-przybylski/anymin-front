@@ -1,5 +1,5 @@
-import * as angular from "angular"
-// TODO refactor: create factory instead of "createZoomInstance"
+import * as angular from 'angular'
+// TODO refactor: create factory instead of 'createZoomInstance'
 export class ImageZoomService {
 
   private image: HTMLImageElement

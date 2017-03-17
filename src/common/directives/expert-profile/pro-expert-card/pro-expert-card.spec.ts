@@ -9,7 +9,7 @@ namespace profitelo.directives.expertProfile.proExpertCard {
       let validHTML = '<pro-expert-card></pro-expert-card>'
 
       beforeEach(() => {
-        //angular.mock.module('templates-module')
+
         angular.mock.module('profitelo.directives.pro-expert-card')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {

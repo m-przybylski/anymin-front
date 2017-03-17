@@ -1,6 +1,6 @@
-import {UploaderService} from "./uploader.service"
-import {FilesApi} from "profitelo-api-ng/api/api"
-import {CommonConfig} from "../../../../generated_modules/common-config/common-config"
+import {UploaderService} from './uploader.service'
+import {FilesApi} from 'profitelo-api-ng/api/api'
+import {CommonConfig} from '../../../../generated_modules/common-config/common-config'
 
 export class UploaderFactory {
 

@@ -1,7 +1,7 @@
-import {CallbacksService} from "../callbacks/callbacks.service"
-import {CallbacksFactory} from "../callbacks/callbacks.factory"
-import {ProfiteloWebsocketService} from "../profitelo-websocket/profitelo-websocket.service"
-import {CallSummary} from "../../models/CallSummary"
+import {CallbacksService} from '../callbacks/callbacks.service'
+import {CallbacksFactory} from '../callbacks/callbacks.factory'
+import {ProfiteloWebsocketService} from '../profitelo-websocket/profitelo-websocket.service'
+import {CallSummary} from '../../models/CallSummary'
 
 export class CallSummaryService {
 

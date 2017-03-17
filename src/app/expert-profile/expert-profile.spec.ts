@@ -1,11 +1,11 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {ProfileApi} from "profitelo-api-ng/api/api"
-import {RecommendedServicesService} from "../../common/services/recommended-services/recommended-services.service"
-import {SmoothScrollingService} from "../../common/services/smooth-scrolling/smooth-scrolling.service"
-import "./expert-profile"
-import expertProfilePageModule from "./expert-profile"
-import recommendedServicesModule from "../../common/services/recommended-services/recommended-services"
+import {ProfileApi} from 'profitelo-api-ng/api/api'
+import {RecommendedServicesService} from '../../common/services/recommended-services/recommended-services.service'
+import {SmoothScrollingService} from '../../common/services/smooth-scrolling/smooth-scrolling.service'
+import './expert-profile'
+import expertProfilePageModule from './expert-profile'
+import recommendedServicesModule from '../../common/services/recommended-services/recommended-services'
 
 describe('Unit tests: ExpertProfileController >', () => {
   describe('Testing Controller: ExpertProfileController', () => {

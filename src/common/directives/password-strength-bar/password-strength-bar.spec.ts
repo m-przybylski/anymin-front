@@ -3,13 +3,13 @@ namespace profitelo.directives.passwordStrengthBar {
   describe('Unit testing: profitelo.directives.password-strength-bar', () => {
     return describe('for password-strength-bar directive >', () => {
 
-      var compile: any = null
-      var scope: any = null
-      var validHTML = '<password-strength-bar data-current-class="currentClass"></password-strength-bar>'
+      let compile: any = null
+      let scope: any = null
+      let validHTML = '<password-strength-bar data-current-class="currentClass"></password-strength-bar>'
 
 
       beforeEach(() => {
-        //angular.mock.module('templates-module')
+
         angular.mock.module('profitelo.directives.password-strength-bar')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {
@@ -21,8 +21,8 @@ namespace profitelo.directives.passwordStrengthBar {
       })
 
       function create(html: string) {
-        var elem = angular.element(html)
-        var compiledElement = compile(elem)(scope)
+        let elem = angular.element(html)
+        let compiledElement = compile(elem)(scope)
         scope.$digest()
         return compiledElement
       }

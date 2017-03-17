@@ -1,16 +1,16 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 
-import {IFilterService} from "../../../../../../services/filter/filter.service"
+import {IFilterService} from '../../../../../../services/filter/filter.service'
 import {
   ClientActivitiesService,
   IClientActivitiesQueryParams
-} from "../../../../../../services/client-activities/client-activities.service"
-import {ExpertProfile} from "../../../../../../models/ExpertProfile"
-import {Service} from "../../../../../../models/Service"
-import clientActivitesModule from "../../../../../../services/client-activities/client-activities"
-import "common/directives/interface/pro-calendar/pro-calendar"
-import "common/components/interface/dropdown-primary/dropdown-primary"
-import "common/components/interface/dropdown/dropdown"
+} from '../../../../../../services/client-activities/client-activities.service'
+import {ExpertProfile} from '../../../../../../models/ExpertProfile'
+import {Service} from '../../../../../../models/Service'
+import clientActivitesModule from '../../../../../../services/client-activities/client-activities'
+import 'common/directives/interface/pro-calendar/pro-calendar'
+import 'common/components/interface/dropdown-primary/dropdown-primary'
+import 'common/components/interface/dropdown/dropdown'
 
 interface IServiceExpertTuple {
   service: Service

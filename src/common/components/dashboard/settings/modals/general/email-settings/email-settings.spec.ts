@@ -1,8 +1,8 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {IGeneralEmailSettingsControllerScope, GeneralEmailSettingsController} from "./email-settings"
-import userModule from "../../../../../../services/user/user"
-import {AccountApi} from "profitelo-api-ng/api/api"
+import {IGeneralEmailSettingsControllerScope, GeneralEmailSettingsController} from './email-settings'
+import userModule from '../../../../../../services/user/user'
+import {AccountApi} from 'profitelo-api-ng/api/api'
 
 describe('Testing Controller: generalEmailSettingsController', () => {
 

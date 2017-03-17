@@ -1,10 +1,10 @@
-import * as angular from "angular"
-import {CallService} from "../../communicator/call.service"
-import urlModule from "../../../services/url/url"
-import filtersModule from "../../../filters/filters"
-import communicatorModule from "../../communicator/communicator"
-import "common/components/interface/slider/slider"
-import "common/components/expert-profile/experts-consultation-slider/experts-consultation-slider"
+import * as angular from 'angular'
+import {CallService} from '../../communicator/call.service'
+import urlModule from '../../../services/url/url'
+import filtersModule from '../../../filters/filters'
+import communicatorModule from '../../communicator/communicator'
+import 'common/components/interface/slider/slider'
+import 'common/components/expert-profile/experts-consultation-slider/experts-consultation-slider'
 
 /* @ngInject */
 function controller(callService: CallService) {

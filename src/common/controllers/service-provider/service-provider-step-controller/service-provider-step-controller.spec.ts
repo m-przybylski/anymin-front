@@ -1,7 +1,7 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {ProfileApi} from "profitelo-api-ng/api/api"
-import {SmoothScrollingService} from "../../../services/smooth-scrolling/smooth-scrolling.service"
+import {ProfileApi} from 'profitelo-api-ng/api/api'
+import {SmoothScrollingService} from '../../../services/smooth-scrolling/smooth-scrolling.service'
 
 describe('Unit tests: ServiceProviderStepController >', () => {
   describe('Testing Controller: ServiceProviderStepController', () => {

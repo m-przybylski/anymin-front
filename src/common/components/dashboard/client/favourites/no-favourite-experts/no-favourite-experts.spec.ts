@@ -19,7 +19,7 @@ namespace profitelo.components.dashboard.client.favourites.noFavouriteExperts {
       }
 
       beforeEach(() => {
-        //angular.mock.module('templates-module')
+
         angular.mock.module('profitelo.components.dashboard.client.favourites.no-favourite-experts')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$componentController_: ng.IComponentControllerService) => {

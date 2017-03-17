@@ -18,8 +18,6 @@
         _inputGroup.find('input').focus()
       }
 
-
-
       scope.focusInput = () => {
         _inputGroup.find('input').focus()
       }
@@ -37,10 +35,11 @@
         scope.placeholder = placeholder
       }
 
-      scope.onMouseover = ()=> {
+      scope.onMouseover = () => {
         scope.focus = true
       }
-      scope.onMouseout = ()=> {
+
+      scope.onMouseout = () => {
         if (!scope.onClick) {
           scope.focus = false
         }

@@ -1,6 +1,6 @@
-import * as angular from "angular"
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {IWindowService} from "../../../services/window/window.service"
+import {IWindowService} from '../../../services/window/window.service'
 describe('Unit testing: profitelo.components.interface.show-more-text', () => {
   return describe('for showMoreTextController component >', () => {
 
@@ -24,7 +24,7 @@ describe('Unit testing: profitelo.components.interface.show-more-text', () => {
     }
 
     beforeEach(() => {
-      //angular.mock.module('templates-module')
+
       angular.mock.module('profitelo.components.interface.show-more-text')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
