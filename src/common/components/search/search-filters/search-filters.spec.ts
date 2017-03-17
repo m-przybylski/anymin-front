@@ -28,12 +28,11 @@ describe('Unit testing: profitelo.components.search.searchFilters', () => {
     }))
 
     beforeEach(() => {
-      //angular.mock.module('templates-module')
       angular.mock.module('profitelo.components.search.searchFilters')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
               $componentController: ng.IComponentControllerService, $q: ng.IQService,
-              $timeout: ng.ITimeoutService) => {
+              $timeout: ng.ITimeoutService, $httpBackend: ng.IHttpBackendService) => {
 
         rootScope = $rootScope.$new()
         compile = $compile
@@ -62,6 +61,8 @@ describe('Unit testing: profitelo.components.search.searchFilters', () => {
         component = $componentController<SearchFiltersComponentController, ISearchFiltersComponentBindings>(
           'searchFilters', injectors, bindings
         )
+
+        $httpBackend.when('GET', require("../../../templates/range-slider/range-slider.tpl.pug")).respond(200, "")
       })
     })
 
