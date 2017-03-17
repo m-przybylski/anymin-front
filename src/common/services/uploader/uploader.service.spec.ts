@@ -78,7 +78,7 @@ describe('Unit testing: profitelo.services.uploader >', () => {
     it('should not upload empty file', inject(($rootScope: IRootScopeService) => {
       const instance = uploaderFactory.getInstance(2, uploaderFactory.collectionTypes.avatar)
 
-      let promiseValue = true
+      let promiseValue = ''
       instance.uploadFile(<any>null, {}, () => {
       }).then(() => {
       }, val => promiseValue = val)
@@ -117,7 +117,7 @@ describe('Unit testing: profitelo.services.uploader >', () => {
 
       spyOn(UploadMock, 'upload').and.returnValue($q.reject('error'))
 
-      let returnValue = null
+      let returnValue = ''
 
       instance.uploadFile(<any>new File(), {}, () => {
       })

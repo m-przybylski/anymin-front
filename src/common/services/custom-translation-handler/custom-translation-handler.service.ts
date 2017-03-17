@@ -1,3 +1,5 @@
+import * as _ from 'lodash'
+
 export class CustomTranslationHandlerService {
 
   private static _exceptionsStrings = [
@@ -6,19 +8,19 @@ export class CustomTranslationHandlerService {
   ]
 
   /* @ngInject */
-  constructor(private lodash: _.LoDashStatic) {
+  constructor() {
   }
 
   public handler = (translationId: string, _uses: string) => {
-    if (translationId !== void 0 && !this.lodash.includes(CustomTranslationHandlerService._exceptionsStrings, translationId)) {
+    if (translationId !== void 0 && !_.includes(CustomTranslationHandlerService._exceptionsStrings, translationId)) {
       // const str = 'Missing [' + uses + '] translations for: ' + translationId
       // TODO: move error reporting to sentry
       // this.$log.error(_str)
     }
   }
 
-  public static getInstance(lodash: _.LoDashStatic) {
-    return (new CustomTranslationHandlerService(lodash)).handler
+  public static getInstance() {
+    return (new CustomTranslationHandlerService()).handler
   }
 }
 

@@ -20,7 +20,7 @@ describe('Unit testing: profitelo.filters.milliseconds-to-datetime>', () => {
     date.setMilliseconds(milliseconds)
 
     it('should millisecondsToDatetime', () => {
-      expect($filter('millisecondsToDatetime')(milliseconds)).toEqual(date)
+      expect($filter('millisecondsToDatetime')(milliseconds).toString()).toEqual(date.toString())
     })
   })
 })

@@ -96,7 +96,7 @@ export class DashboardClientActivitiesController {
 
 angular.module('profitelo.controller.dashboard.client.activities', [
   'ui.router',
-  'ngLodash',
+
   filtersModule,
   'profitelo.components.dashboard.client.activities.client-activity',
   'profitelo.components.interface.preloader-container',

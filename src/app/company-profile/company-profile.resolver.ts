@@ -1,6 +1,7 @@
 import * as angular from 'angular'
 import {ICompanyProfileStateParams} from './company-profile'
 import {ViewsApi} from 'profitelo-api-ng/api/api'
+import * as _ from 'lodash'
 import {
   GetProfileWithDocuments,
   GetOrganizationServiceDetails,
@@ -16,7 +17,7 @@ export interface ICompanyProfile {
 export class CompanyProfileResolver {
 
   /* @ngInject */
-  constructor(private $q: ng.IQService, private ViewsApi: ViewsApi, private lodash: _.LoDashStatic) {
+  constructor(private $q: ng.IQService, private ViewsApi: ViewsApi) {
   }
 
   public resolve = (stateParams: ICompanyProfileStateParams): ng.IPromise<ICompanyProfile> => {
@@ -25,7 +26,7 @@ export class CompanyProfileResolver {
       this.$q.reject(error)
 
     const sortServices = (servicesWithTagsAndEmployees: Array<GetOrganizationServiceDetails>) => {
-      const primaryConsultation = this.lodash.find(servicesWithTagsAndEmployees, (serviceWithTagsAndEmployees) =>
+      const primaryConsultation = _.find(servicesWithTagsAndEmployees, (serviceWithTagsAndEmployees) =>
       serviceWithTagsAndEmployees.service.id === stateParams.primaryConsultationId)
 
       if (angular.isDefined(stateParams.primaryConsultationId) && !!primaryConsultation

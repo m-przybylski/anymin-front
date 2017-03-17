@@ -1,4 +1,5 @@
 import * as angular from 'angular'
+import * as _ from 'lodash'
 import {IFilterService} from '../../../../../../services/filter/filter.service'
 import {UserService} from '../../../../../../services/user/user.service'
 import userModule from '../../../../../../services/user/user'
@@ -29,11 +30,11 @@ export class GeneralCountrySettingsController implements ng.IController {
 
   constructor(private $scope: IGeneralCountrySettingsControllerScope, private $filter: IFilterService,
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
-              private AccountApi: AccountApi, private userService: UserService, private lodash: _.LoDashStatic) {
+              private AccountApi: AccountApi, private userService: UserService) {
 
     this.getCountriesList(() => {
       userService.getUser().then(user => {
-        this.selectedCountry = this.lodash.find(
+        this.selectedCountry = _.find(
           this.countryList, (country: ICountryElementObject) => {
             return country.value.countryISO === user.countryISO
           })
@@ -48,7 +49,7 @@ export class GeneralCountrySettingsController implements ng.IController {
   }
 
   public updateCountry = (selectedCountry: ICountryElementObject): void => {
-    this.selectedCountry = this.lodash.find(
+    this.selectedCountry = _.find(
       this.countryList, country =>
       country.value.countryISO === selectedCountry.value.countryISO)
   }
@@ -94,7 +95,7 @@ export class GeneralCountrySettingsController implements ng.IController {
 angular.module('profitelo.components.dashboard.settings.modals.general.country-settings', [
   'ui.bootstrap',
   'pascalprecht.translate',
-  'ngLodash',
+
   apiModule,
   userModule,
   'profitelo.directives.interface.pro-input',

@@ -21,7 +21,7 @@ describe('Testing Controller: securityPinNumberSettingsController', () => {
     angular.mock.module('ui.bootstrap')
     angular.mock.module('profitelo.components.dashboard.settings.security.modals.pin-number')
     inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, AccountApi: AccountApi,
-            AccountApiMock: AccountApiMock, $httpBackend: ng.IHttpBackendService, lodash: _.LoDashStatic) => {
+            AccountApiMock: AccountApiMock, $httpBackend: ng.IHttpBackendService, ) => {
 
       scope = <ISecurityPinNumberSettingsControllerScope>$rootScope.$new()
       httpBackend = $httpBackend
@@ -29,8 +29,7 @@ describe('Testing Controller: securityPinNumberSettingsController', () => {
         $scope: scope,
         $uibModalInstance: $uibModalInstance,
         AccountApi: AccountApi,
-        User: User,
-        lodash: lodash
+        User: User
       }
       AccountApiMock.getMobileProtectedViewsRoute(500)
 

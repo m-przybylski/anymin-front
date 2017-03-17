@@ -1,13 +1,14 @@
+import * as _ from 'lodash'
 import {ISearchResultRow} from '../../../../common/services/search/search.service'
 import {GetDashboardClientExperts} from 'profitelo-api-ng/model/models'
 import {RecommendedServicesService} from '../../../../common/services/recommended-services/recommended-services.service'
 
 /* @ngInject */
-export function DashboardClientFavouritesController($log: ng.ILogService, lodash: _.LoDashStatic,
+export function DashboardClientFavouritesController($log: ng.ILogService,
                                                     clientFavouritesConsultations: GetDashboardClientExperts,
                                                     recommendedServices: RecommendedServicesService) {
   this.balance = clientFavouritesConsultations.balance
-  this.lastConsultations = lodash.sortBy(clientFavouritesConsultations.lastConsultations, 'createdAt')
+  this.lastConsultations = _.sortBy(clientFavouritesConsultations.lastConsultations, 'createdAt')
   this.favouriteProfiles = clientFavouritesConsultations.favouriteProfiles
 
   const onGetRecommendedExperts = (recommendedExperts: Array<ISearchResultRow>) =>

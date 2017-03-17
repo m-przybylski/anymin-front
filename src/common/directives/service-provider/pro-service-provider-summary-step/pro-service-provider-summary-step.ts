@@ -42,7 +42,7 @@ function proServiceProviderSummaryStep() {
 }
 
 angular.module('profitelo.directives.service-provider.pro-service-provider-summary-step', [
-  'ngLodash',
+
   'pascalprecht.translate',
   filtersModule,
   'profitelo.common.controller.service-provider.pro-service-provider-summary-controller',

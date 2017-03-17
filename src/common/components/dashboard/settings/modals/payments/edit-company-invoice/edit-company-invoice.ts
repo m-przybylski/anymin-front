@@ -1,5 +1,5 @@
 import * as angular from 'angular'
-import LoDashStatic = _.LoDashStatic
+import * as _ from 'lodash'
 import {IPrimaryDropdownListElement} from '../../../../../interface/dropdown-primary/dropdown-primary'
 import apiModule from 'profitelo-api-ng/api.module'
 import {AccountApi} from 'profitelo-api-ng/api/api'
@@ -60,8 +60,8 @@ export class EditCompanyInvoiceController implements ng.IController {
 
   /* @ngInject */
   constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
-              private $scope: IEditCompanyInvoiceControllerScope, private AccountApi: AccountApi,
-              lodash: LoDashStatic) {
+              private $scope: IEditCompanyInvoiceControllerScope, private AccountApi: AccountApi) {
+
     AccountApi.getCompanyInfoRoute().then((response) => {
       this.vatNumber = response.vatNumber
       this.companyName = response.companyName
@@ -70,7 +70,7 @@ export class EditCompanyInvoiceController implements ng.IController {
       this.postalCode = response.address.zipCode
       this.city = response.address.city
 
-      this.selectedCountry = lodash.find(
+      this.selectedCountry = _.find(
         this.countryList, (countryListElement: {value: string, name: string}) =>
         countryListElement.value === response.address.countryISO)
       if (this.selectedCountry) {
@@ -86,7 +86,7 @@ export class EditCompanyInvoiceController implements ng.IController {
 
 angular.module('profitelo.components.dashboard.settings.modals.payments.edit-company-invoice', [
   'ui.bootstrap',
-  'ngLodash',
+
   apiModule,
   'profitelo.components.dashboard.invoice',
   'profitelo.components.interface.preloader',

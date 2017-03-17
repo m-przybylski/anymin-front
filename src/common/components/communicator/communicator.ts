@@ -31,7 +31,7 @@ const communicatorModule = angular.module('profitelo.components.communicator', [
   soundsModule,
   'ngSanitize',
   'commonConfig',
-  'ngLodash',
+
   callbacksModule,
   filtersModule,
   ratelSdkModule,

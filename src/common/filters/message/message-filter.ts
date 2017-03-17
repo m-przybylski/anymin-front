@@ -1,7 +1,7 @@
 namespace profitelo.filters.message {
 
 
-  function messageFilter($log: ng.ILogService, lodash: _.LoDashStatic) {
+  function messageFilter($log: ng.ILogService, ) {
 
     const hasImageUrl = (text: string) => {
       const imageRegexp = /([/|.|\w|\s])*\.(?:jpg|gif|png)/
@@ -10,7 +10,7 @@ namespace profitelo.filters.message {
 
     const getUrls = (text: string) => {
       const urlRegexp = /(((https?|ftp):\/\/)|(www\.))[^\s$.?#].[^\s]*\.[^\s$.?#].[^\s]*/g
-      return lodash.uniq(text.match(urlRegexp) || [])
+      return _.uniq(text.match(urlRegexp) || [])
     }
 
     const getCorrectUrl = (url: string) => {
@@ -63,7 +63,7 @@ namespace profitelo.filters.message {
   }
 
   angular.module('profitelo.filters.message-filter', [
-    'ngLodash'
+
   ])
     .filter('message', messageFilter)
 }

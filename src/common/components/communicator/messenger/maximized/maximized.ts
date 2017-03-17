@@ -17,7 +17,7 @@ export interface IMessengerMaximizedComponentBindings {
 const messengerMaximizedModule = angular.module('profitelo.components.communicator.messenger.maximized', [
   urlModule,
   uploaderModule,
-  'ngLodash',
+
   filtersModule,
   'profitelo.components.communicator.messenger.maximized.grouped-messages',
   'profitelo.components.communicator.messenger.maximized.messenger-input'

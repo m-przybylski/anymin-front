@@ -1,4 +1,5 @@
 import * as angular from 'angular'
+import * as _ from 'lodash'
 
 export interface ITopAlertSettings {
   id?: number
@@ -17,7 +18,7 @@ export class TopAlertService {
   private alertsLimit = 2
 
   /* @ngInject */
-  constructor(private $timeout: ng.ITimeoutService, private lodash: _.LoDashStatic) {
+  constructor(private $timeout: ng.ITimeoutService) {
   }
 
   private setId = (): number => {
@@ -31,7 +32,7 @@ export class TopAlertService {
       this.alertArray[this.alertsLimit].visible = true
       this.timeoutDestroy(<any>this.alertArray[this.alertsLimit].timeout, <any>this.alertArray[this.alertsLimit].id)
     }
-    this.lodash.remove(this.alertArray, (alert) => {
+    _.remove(this.alertArray, (alert) => {
       return alert.id === alertId
     })
   }

@@ -5,7 +5,7 @@ import sessionModule from '../session/session'
 
 const recommendedServicesModule = angular.module('profitelo.services.recommended-services', [
   apiModule,
-  'ngLodash',
+
   sessionModule
 ])
   .service('recommendedServices', RecommendedServicesService)

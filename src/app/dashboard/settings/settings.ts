@@ -1,4 +1,5 @@
 import * as angular from 'angular'
+import * as _ from 'lodash'
 import './general/general'
 import './payments/payments'
 import './payouts/payouts'
@@ -20,7 +21,7 @@ export class SettingsController implements ng.IController {
   public currentState: string = this.stateNames[0]
 
   /* @ngInject */
-  constructor($state: ng.ui.IStateService, $scope: ng.IScope, private lodash: _.LoDashStatic) {
+  constructor($state: ng.ui.IStateService, $scope: ng.IScope) {
 
     $scope.$watch(() => {
       return $state.current.name
@@ -35,7 +36,7 @@ export class SettingsController implements ng.IController {
 
     const realStateName = this.getRealStateName(stateName)
 
-    if (realStateName && angular.isDefined(realStateName) && this.lodash.includes(this.stateNames, realStateName)) {
+    if (realStateName && angular.isDefined(realStateName) && _.includes(this.stateNames, realStateName)) {
       (<any>this.stateNames)[this.currentState] = false
       this.currentState = realStateName
     }
@@ -66,7 +67,7 @@ function config($stateProvider: ng.ui.IStateProvider) {
 angular.module('profitelo.controller.dashboard.settings', [
   'ui.router',
   'ngTouch',
-  'ngLodash',
+
   'profitelo.components.settings.navigation',
   'profitelo.controller.dashboard.settings.general',
   'profitelo.controller.dashboard.settings.security',

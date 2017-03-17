@@ -83,7 +83,7 @@ function proServiceProviderCost($q: ng.IQService, $filter: IFilterService) {
 }
 
 angular.module('profitelo.directives.service-provider.pro-service-provider-cost', [
-  'ngLodash',
+
   'profitelo.components.interface.dropdown-primary',
   'profitelo.filters.input-filter.semicolon-to-comma-input-filter',
   'pascalprecht.translate',

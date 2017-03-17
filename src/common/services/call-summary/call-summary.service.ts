@@ -2,6 +2,7 @@ import {CallbacksService} from '../callbacks/callbacks.service'
 import {CallbacksFactory} from '../callbacks/callbacks.factory'
 import {ProfiteloWebsocketService} from '../profitelo-websocket/profitelo-websocket.service'
 import {CallSummary} from '../../models/CallSummary'
+import * as _ from 'lodash'
 
 export class CallSummaryService {
 
@@ -12,8 +13,7 @@ export class CallSummaryService {
     onCallSummary: 'onCallSummary'
   }
 
-  constructor(callbacksFactory: CallbacksFactory, profiteloWebsocket: ProfiteloWebsocketService,
-              private lodash: _.LoDashStatic) {
+  constructor(callbacksFactory: CallbacksFactory, profiteloWebsocket: ProfiteloWebsocketService) {
 
     this.callSummaries = []
     this.callbacks = callbacksFactory.getInstance(Object.keys(CallSummaryService.events))
@@ -25,10 +25,10 @@ export class CallSummaryService {
   }
 
   public takeCallSummary = (accountId: string): CallSummary | undefined => {
-    const callSummary = this.lodash.find(this.callSummaries, callSummary => callSummary.accountId === accountId)
+    const callSummary = _.find(this.callSummaries, callSummary => callSummary.accountId === accountId)
 
     if (callSummary) {
-      this.lodash.remove(this.callSummaries, callSummary)
+      _.remove(this.callSummaries, callSummary)
     }
 
     return callSummary

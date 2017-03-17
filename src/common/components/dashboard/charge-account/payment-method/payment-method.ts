@@ -1,6 +1,6 @@
 import * as angular from 'angular'
 import {PaymentSystem} from 'profitelo-api-ng/model/models'
-import LoDashStatic = _.LoDashStatic
+import * as _ from 'lodash'
 import paypalModule from './paypal/paypal'
 
 interface IPaymentMethodComponentBindings {
@@ -19,13 +19,12 @@ class PaymentMethodComponentController implements IPaymentMethodComponentBinding
   firstSelect = false
 
   /* @ngInject */
-  constructor(private lodash: LoDashStatic) {
+  constructor() {
   }
 
   $onInit = () => {
     if (this.paymentSystemModel !== null) {
-      this.activeOption = this.lodash.findIndex(this.paymentSystems,
-        (paymentSystem) => paymentSystem.id === this.paymentSystemModel)
+      this.activeOption = _.findIndex(this.paymentSystems, (paymentSystem) => paymentSystem.id === this.paymentSystemModel)
       this.paymentSystemModel = this.paymentSystems[this.activeOption]
     }
   }
@@ -56,7 +55,7 @@ class PaymentMethodComponent implements ng.IComponentOptions {
 }
 
 angular.module('profitelo.components.dashboard.charge-account.payment-method', [
-  'ngLodash',
+
   paypalModule
 ])
   .component('paymentMethod', new PaymentMethodComponent())

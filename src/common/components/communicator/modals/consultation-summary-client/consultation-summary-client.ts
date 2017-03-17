@@ -1,4 +1,5 @@
 import * as angular from 'angular'
+import * as _ from 'lodash'
 import apiModule from 'profitelo-api-ng/api.module'
 import {ServiceApi} from 'profitelo-api-ng/api/api'
 import {Tag, ServiceRecommendation, GetService} from 'profitelo-api-ng/model/models'
@@ -31,7 +32,7 @@ export class ConsultationSummaryClientController {
 
   /* @ngInject */
   constructor(private $log: ng.ILogService, private $scope: IConsultationSummaryClientControllerScope,
-              private lodash: _.LoDashStatic, private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
+               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private callSummaryService: CallSummaryService, private urlService: UrlService,
               private ServiceApi: ServiceApi) {
 
@@ -52,7 +53,7 @@ export class ConsultationSummaryClientController {
       if (this.$scope.callSummary) {
         this.ServiceApi.putServiceRecommendationsRoute(
           this.$scope.callSummary.serviceUsageEventId,
-          {tags: this.lodash.map(this.tags, tag => tag.id)}
+          {tags: _.map(this.tags, tag => tag.id)}
         ).then(this.onRecommendServiceTags, this.onRecommendServiceTagsError)
         this.$scope.closeModal()
       }
@@ -119,7 +120,7 @@ angular.module('profitelo.components.communicator.modals.consultation-summary-cl
   apiModule,
   'ui.bootstrap',
   'profitelo.components.interface.preloader',
-  'ngLodash',
+
   'profitelo.directives.interface.scrollable'
 ])
   .controller('consultationSummaryClientController', ConsultationSummaryClientController)

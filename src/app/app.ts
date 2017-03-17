@@ -6,7 +6,6 @@ import * as angular from 'angular'
 import 'angular-translate'
 import 'angular-dynamic-locale'
 import 'angular-animate'
-import 'ng-lodash'
 import 'angular-ui-router'
 import 'angular-ui-bootstrap'
 import 'angular-ui-mask'
@@ -63,7 +62,7 @@ angular.module('profitelo', [
   'pascalprecht.translate',
   'tmh.dynamicLocale',
   'ngAnimate',
-  'ngLodash',
+
   'ui.router',
   'permission',
   'permission.ui',

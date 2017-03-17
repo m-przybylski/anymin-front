@@ -33,7 +33,7 @@ describe('Unit testing: profitelo.filters.rankSearch >', () => {
         {val: 'cdefgh', rankSearch: 0}
       ]
 
-      expect($filter('rankSearch')(arr, searchKey, props)).toEqual(assertTo)
+      expect($filter('rankSearch')(arr, searchKey, props)).toEqual(<any>assertTo)
     })
 
   })

@@ -1,4 +1,5 @@
 import * as angular from 'angular'
+import * as _ from 'lodash'
 import apiModule from 'profitelo-api-ng/api.module'
 import {TagApi} from 'profitelo-api-ng/api/api'
 import {Tag} from 'profitelo-api-ng/model/models'
@@ -16,7 +17,7 @@ interface IProServiceProviderTags extends ng.IScope {
   tagNameParam: string
 }
 
-function proServiceProviderTags($q: ng.IQService, TagApi: TagApi, lodash: _.LoDashStatic) {
+function proServiceProviderTags($q: ng.IQService, TagApi: TagApi, ) {
 
   function linkFunction(scope: IProServiceProviderTags, _element: ng.IRootElementService, attrs: ng.IAttributes) {
 
@@ -51,7 +52,7 @@ function proServiceProviderTags($q: ng.IQService, TagApi: TagApi, lodash: _.LoDa
     const getTagsDelayed = () =>
       scope.$apply(() => _getTags(scope.searchWord))
 
-    const _getTagsThrottled: (scope: ng.IScope) => void = lodash.debounce(getTagsDelayed, 200)
+    const _getTagsThrottled: (scope: ng.IScope) => void = _.debounce(getTagsDelayed, 200)
 
     scope.$watch('searchWord', () => _getTagsThrottled(scope))
 
@@ -117,7 +118,7 @@ function proServiceProviderTags($q: ng.IQService, TagApi: TagApi, lodash: _.LoDa
 }
 
 angular.module('profitelo.directives.service-provider.pro-service-provider-tags', [
-  'ngLodash',
+
   'pascalprecht.translate',
   'profitelo.directives.ng-enter',
   'profitelo.services.commonSettings',

@@ -22,11 +22,11 @@ describe('Unit testing: profitelo.directives.services.smooth-scrolling >', funct
     }))
 
     it('should simple scroll to', inject(() => {
-      spyOn($.fn, 'stop').and.returnValue('bar')
+      spyOn($.fn, "stop")
       smoothScrollingService.simpleScrollTo('<div class="dumb-class"></div>', true)
       $(window).triggerHandler('wheel')
-      const result = $('html, body').stop()
-      expect(result).toEqual('bar')
+      $('html, body').stop()
+      expect($.fn.stop).toHaveBeenCalled()
     }))
 
   })

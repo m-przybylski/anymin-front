@@ -1,11 +1,12 @@
 import {CommonConfig} from '../../../../generated_modules/common-config/common-config'
+import * as _ from 'lodash'
 
 export class UrlService {
 
   private commonConfig: any
 
   /* @ngInject */
-  constructor(private CommonSettingsService: any, private lodash: _.LoDashStatic, CommonConfig: CommonConfig) {
+  constructor(private CommonSettingsService: any,  CommonConfig: CommonConfig) {
     this.commonConfig = CommonConfig.getAllData()
   }
 
@@ -19,7 +20,7 @@ export class UrlService {
       }
     }
 
-    return this.lodash.find(_socialNetworks, {
+    return _.find(_socialNetworks, {
       name: 'Website'
     })
   }

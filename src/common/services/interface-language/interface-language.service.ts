@@ -1,4 +1,5 @@
 import * as angular from 'angular'
+import * as _ from 'lodash'
 
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 
@@ -22,7 +23,7 @@ export class InterfaceLanguageService {
   ]
 
   /* @ngInject */
-  constructor(private $log: ng.ILogService, private $http: ng.IHttpService, private lodash: _.LoDashStatic,
+  constructor(private $log: ng.ILogService, private $http: ng.IHttpService,
               private $rootScope: IRootScopeService, private $translate: ng.translate.ITranslateService,
               private $locale: ng.ILocaleService, private $cookies: ng.cookies.ICookiesService,
               private $location: ng.ILocationService, private tmhDynamicLocale: any, private amMoment: any) {
@@ -68,7 +69,7 @@ export class InterfaceLanguageService {
       let previousLanguage = this.unifyToIetfCode(this.$translate.use())
       let msg = 'Your language `' + previousLanguage + '`' +
         ' was not found, so used our default language `' + InterfaceLanguageService.defaultTranslation + '`, ' +
-        this.lodash.find(InterfaceLanguageService.interfaceLanguages,
+        _.find(InterfaceLanguageService.interfaceLanguages,
           {ietfCode: InterfaceLanguageService.defaultTranslation})!['nativeName'] + '.'
 
       this.$log.info(msg)
@@ -79,11 +80,11 @@ export class InterfaceLanguageService {
     if (ietfCode !== null && ietfCode) {
       // pre-defined language
       return ietfCode
-    } else if (_queryLang && this.lodash.find(InterfaceLanguageService.interfaceLanguages, {ietfCode: _queryLang})) {
-      // letiable lang from URL
+    } else if (_queryLang && _.find(InterfaceLanguageService.interfaceLanguages, {ietfCode: _queryLang})) {
+      // variable lang from URLs
       return _queryLang
     } else if (angular.isDefined(_cookie)) {
-      if (this.lodash.find(InterfaceLanguageService.interfaceLanguages, {ietfCode: _cookie})) {
+      if (_.find(InterfaceLanguageService.interfaceLanguages, {ietfCode: _cookie})) {
         // found right language into cookie
         return _cookie
       } else {
@@ -91,7 +92,7 @@ export class InterfaceLanguageService {
         return _logDefaultTranslation()
       }
     } else {
-      if (this.lodash.find(InterfaceLanguageService.interfaceLanguages,
+      if (_.find(InterfaceLanguageService.interfaceLanguages,
           {ietfCode: this.unifyToIetfCode(this.$translate.use())})) {
         // found language
         return this.unifyToIetfCode(this.$translate.use())

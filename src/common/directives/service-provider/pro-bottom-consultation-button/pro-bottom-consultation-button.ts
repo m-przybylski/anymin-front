@@ -24,7 +24,7 @@ namespace profitelo.directives.serviceProvider.proBottomConsultationButton {
 
 
   angular.module('profitelo.directives.service-provider.pro-bottom-consultation-button', [
-    'ngLodash',
+
     'pascalprecht.translate',
     'profitelo.common.controller.service-provider.service-provider-step-controller'
   ])

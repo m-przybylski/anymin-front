@@ -1,4 +1,5 @@
 import * as angular from 'angular'
+import * as _ from 'lodash'
 import {Tag} from 'profitelo-api-ng/model/models'
 import {SearchService} from '../../services/search/search.service'
 import {CategoryService} from '../../services/category/category.service'
@@ -18,7 +19,7 @@ interface ISuggestions {
 
 /* @ngInject */
 function proSearchDropdownController($q: ng.IQService, $scope: ng.IScope, $state: ng.ui.IStateService,
-                                     lodash: _.LoDashStatic, $element: ng.IRootElementService,
+                                     $element: ng.IRootElementService,
                                      searchService: SearchService, categoryService: CategoryService) {
 
   this.isCollapsed = true
@@ -150,7 +151,7 @@ function proSearchDropdownController($q: ng.IQService, $scope: ng.IScope, $state
     }
   }
 
-  const _searchActionDebounce = lodash.debounce(_searchAction, 200, {
+  const _searchActionDebounce = _.debounce(_searchAction, 200, {
     'leading': false,
     'trailing': true
   })
@@ -323,7 +324,7 @@ angular.module('profitelo.components.pro-search-dropdown', [
   'profitelo.services.search',
   'profitelo.services.categories',
   'ui.router',
-  'ngLodash',
+
   'profitelo.components.interface.preloader',
   'profitelo.filters.normalize-translation-key-filter',
   'profitelo.components.pro-search-dropdown.term-suggestions',

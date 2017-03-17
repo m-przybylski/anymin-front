@@ -1,3 +1,4 @@
+import * as _ from 'lodash'
 import apiModule from 'profitelo-api-ng/api.module'
 import {SessionApi} from 'profitelo-api-ng/api/api'
 import {AccountDetails, GetSession} from 'profitelo-api-ng/model/models'
@@ -25,8 +26,7 @@ export class DashboardSettingsSecurityController implements ng.IController {
 
 
   constructor(private modalsService: ModalsService, user: AccountDetails, sessionsData: Array<GetSession>,
-              timeConstant: ITimeConstant, private SessionApi: SessionApi, private $window: ng.IWindowService,
-              private lodash: _.LoDashStatic) {
+              timeConstant: ITimeConstant, private SessionApi: SessionApi, private $window: ng.IWindowService) {
     this.hasMobilePin = user.hasMobilePin
     this.sessions = sessionsData.map((session) => {
       const minuteAgo = Date.now() - timeConstant.USER_ACTIVITY_LAST_MINUTE
@@ -52,7 +52,7 @@ export class DashboardSettingsSecurityController implements ng.IController {
 
   public removeSession = (apiKey: string) => {
     this.SessionApi.logoutRoute(apiKey).then(() => {
-      this.lodash.remove(this.sessions, session => session.apiKey === apiKey)
+      _.remove(this.sessions, session => session.apiKey === apiKey)
       if (this.sessions.length === 0) {
         this.$window.location.reload()
       }
@@ -74,7 +74,7 @@ angular.module('profitelo.controller.dashboard.settings.security', [
   'ui.router',
   userModule,
   apiModule,
-  'ngLodash',
+
   'profitelo.constants.time',
   'profitelo.resolvers.security-settings',
   'profitelo.components.dashboard.settings.manage-devices',

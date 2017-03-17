@@ -1,10 +1,11 @@
 import * as angular from 'angular'
+import * as _ from 'lodash'
 import apiModule from 'profitelo-api-ng/api.module'
 import {ServiceApi} from 'profitelo-api-ng/api/api'
 import {Tag} from 'profitelo-api-ng/model/models'
 
 /* @ngInject */
-function controller($log: ng.ILogService, lodash: _.LoDashStatic, ServiceApi: ServiceApi) {
+function controller($log: ng.ILogService, ServiceApi: ServiceApi) {
 
   const updateBindings = () => {
     this.areTagsRecommended = this.selectedTags.length > 0
@@ -44,7 +45,7 @@ function controller($log: ng.ILogService, lodash: _.LoDashStatic, ServiceApi: Se
   this.saveRecommendedTags = () => {
     ServiceApi.putServiceRecommendationsRoute(
       this.serviceUsageEventId,
-      {tags: lodash.map(this.selectedTags, (tag: any) => tag.id)}
+      {tags: _.map(this.selectedTags, (tag: any) => tag.id)}
     ).then(onRecommendServiceTags, onRecommendServiceTagsError)
   }
 
@@ -65,7 +66,7 @@ const component = {
 
 angular.module('profitelo.components.dashboard.client.activities.modals.consultation-details.recommended-tags', [
   'pascalprecht.translate',
-  'ngLodash',
+
   apiModule,
   'profitelo.components.interface.multiselect'
 ])

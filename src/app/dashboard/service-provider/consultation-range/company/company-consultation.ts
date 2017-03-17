@@ -11,7 +11,7 @@ import {IServiceProviderImageService} from
   '../../../../../common/resolvers/service-provider-image/service-provider-image.service'
 import topAlertModule from '../../../../../common/services/top-alert/top-alert'
 import dialogModule from '../../../../../common/services/dialog/dialog'
-
+import * as _ from 'lodash'
 import 'common/controllers/accept-reject-dialog-controller/accept-reject-dialog-controller'
 import 'common/resolvers/service-provider-image/service-provider-image.service'
 import 'common/directives/service-provider/pro-bottom-summary-row/pro-bottom-summary-row'
@@ -28,7 +28,7 @@ function CompanyConsultationController($log: ng.ILogService, $scope: ng.IScope, 
                                        dialogService: DialogService, savedProfile: GetProfileWithServices,
                                        ServiceApi: ServiceApi,
                                        topAlertService: TopAlertService, profileImage: string,
-                                       lodash: _.LoDashStatic, serviceProviderService: ServiceProviderService) {
+                                       serviceProviderService: ServiceProviderService) {
 
   this.costModel = serviceProviderService.createDefaultModel(0)
   this.editModel = serviceProviderService.createDefaultModel(0)
@@ -89,7 +89,7 @@ function CompanyConsultationController($log: ng.ILogService, $scope: ng.IScope, 
 
   this.saveConsultationObject = () => {
     let _redirectByOwnerEmployeeStatus = () => {
-      if ((!!lodash.find(this.consultations, {'ownerEmployee': true}) || !!this.ownerEmployee)
+      if ((!!_.find(this.consultations, {'ownerEmployee': true}) || !!this.ownerEmployee)
         && !savedProfile.expertDetails) {
         $state.go('app.dashboard.service-provider.individual-path')
       } else {
@@ -186,7 +186,7 @@ function CompanyConsultationController($log: ng.ILogService, $scope: ng.IScope, 
 angular.module('profitelo.controller.dashboard.service-provider.consultation-range.company', [
   'ui.bootstrap',
   'ui.router',
-  'ngLodash',
+
   userModule,
   dialogModule,
   apiModule,
@@ -212,8 +212,7 @@ angular.module('profitelo.controller.dashboard.service-provider.consultation-ran
       resolve: {
         /* istanbul ignore next */
         savedProfile: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: ProfileApi,
-                       lodash: _.LoDashStatic, userService: UserService, ServiceApi: ServiceApi,
-                       topAlertService: TopAlertService) => {
+                       userService: UserService, ServiceApi: ServiceApi, topAlertService: TopAlertService) => {
           /* istanbul ignore next */
           let _deferred = $q.defer<GetProfileWithServices | null>()
           /* istanbul ignore next */
@@ -221,12 +220,12 @@ angular.module('profitelo.controller.dashboard.service-provider.consultation-ran
             ProfileApi.getProfileWithServicesRoute(user.id).then((profileWithServices) => {
 
               ServiceApi.postServicesTagsRoute({
-                serviceIds: lodash.map(profileWithServices.services, service => service.id)
+                serviceIds: _.map(profileWithServices.services, service => service.id)
               }).then((servicesTags) => {
                 profileWithServices.services.forEach((service) => {
                   // FIXME remove any
-                  (<any>service.details).tags = lodash.head(
-                    lodash.filter(servicesTags, (serviceTags) => service.id === serviceTags.serviceId)).tags
+                  (<any>service.details).tags = _.head(
+                    _.filter(servicesTags, (serviceTags) => service.id === serviceTags.serviceId)).tags
                 })
                 _deferred.resolve(profileWithServices)
               })

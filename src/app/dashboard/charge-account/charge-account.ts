@@ -19,6 +19,7 @@ import 'common/components/dashboard/charge-account/choose-amount-charge/choose-a
 import 'common/components/dashboard/charge-account/payment-method/payment-method'
 import 'common/components/dashboard/charge-account/choose-bank/choose-bank'
 import paypalModule from '../../../common/components/dashboard/charge-account/payment-method/paypal/paypal'
+import * as _ from 'lodash'
 import './charge-account.sass'
 
 export interface IAmounts {
@@ -64,7 +65,7 @@ class ChargeAccountController {
     payMethodValue?: string
   }
 
-  constructor(private $state: ng.ui.IStateService, private $timeout: ng.ITimeoutService, lodash: _.LoDashStatic,
+  constructor(private $state: ng.ui.IStateService, private $timeout: ng.ITimeoutService,
               paymentsOptions: GetPaymentOptions, paymentsLinks: Array<PaymentLink>,
               financeBalance: MoneyDto, private smoothScrollingService: SmoothScrollingService) {
 
@@ -90,7 +91,7 @@ class ChargeAccountController {
     if (this.lastPayment !== null && (typeof this.lastPayment !== 'undefined')) {
       this.isChargeProfiteloAccount = true
       this.currentSection = 3
-      if (lodash.find(this.amounts.paymentOptions, {'amount': this.lastPayment.amount.amount})) {
+      if (_.find(this.amounts.paymentOptions, {'amount': this.lastPayment.amount.amount})) {
         this.amountModel.amount = this.lastPayment.amount
       } else {
         this.amountModel.cashAmount = this.lastPayment.amount
@@ -173,7 +174,7 @@ function config($stateProvider: ng.ui.IStateProvider) {
 
 angular.module('profitelo.controller.dashboard.charge-account', [
   'ui.router',
-  'ngLodash',
+
   sessionModule,
   apiModule,
   topAlertModule,

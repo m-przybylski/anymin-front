@@ -75,7 +75,7 @@ import 'common/controllers/service-provider/service-provider-step-controller/ser
   }
 
   angular.module('profitelo.directives.service-provider.pro-service-provider-name', [
-    'ngLodash',
+
     'profitelo.directives.ng-enter',
     'pascalprecht.translate',
     'profitelo.common.controller.service-provider.service-provider-step-controller'

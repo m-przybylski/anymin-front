@@ -5,7 +5,6 @@ import {SmoothScrollingService} from '../../../../../services/smooth-scrolling/s
 import {TopAlertService} from '../../../../../services/top-alert/top-alert.service'
 import {UserService} from '../../../../../services/user/user.service'
 import * as angular from 'angular'
-import LoDashStatic = _.LoDashStatic
 import userModule from '../../../../../services/user/user'
 import {IPrimaryDropdownListElement} from '../../../../interface/dropdown-primary/dropdown-primary'
 import topAlertModule from '../../../../../services/top-alert/top-alert'
@@ -13,13 +12,14 @@ import commonSettingsModule from '../../../../../services/common-settings/common
 import smoothScrollingModule from '../../../../../services/smooth-scrolling/smooth-scrolling'
 import {IWindowService} from '../../../../../services/window/window.service'
 import {PayuAnimation} from './payu.animation'
+import * as _ from 'lodash'
+
 
 /* @ngInject */
 function payuPaymentFormController($log: ng.ILogService, $window: IWindowService, $state: ng.ui.IStateService,
                                    PaymentsApi: PaymentsApi, userService: UserService, topAlertService: TopAlertService,
                                    smoothScrollingService: SmoothScrollingService, AccountApi: AccountApi,
-                                   CommonSettingsService: CommonSettingsService, $scope: ng.IScope,
-                                   lodash: LoDashStatic) {
+                                   CommonSettingsService: CommonSettingsService, $scope: ng.IScope) {
   let isPending = false
   this.isGetCompanyInfo = false
   this.rulesAccepted = true
@@ -59,7 +59,7 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
         this.postalCode = response.address.zipCode
         this.city = response.address.city
         this.isGetCompanyInfo = true
-        this.selectedCountry = lodash.find(
+        this.selectedCountry = _.find(
           this.countryList, (countryListElement: {value: string, name: string}) =>
           countryListElement.value === response.address.countryISO)
         this.countryISO = this.selectedCountry.value
@@ -217,7 +217,7 @@ angular.module('profitelo.components.dashboard.charge-account.payment-method.pay
   'profitelo.directives.interface.pro-input',
   'profitelo.directives.interface.pro-checkbox',
   smoothScrollingModule,
-  'ngLodash',
+
   userModule,
   'profitelo.components.dashboard.charge-account.choose-bank',
   'profitelo.components.dashboard.charge-account.summary-charge-account',

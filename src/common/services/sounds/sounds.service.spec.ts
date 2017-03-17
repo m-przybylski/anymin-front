@@ -23,7 +23,7 @@ describe('Unit testing: profitelo.services.sounds >', () => {
 
     beforeEach(() => {
       angular.mock.module(soundsModule)
-      angular.mock.module('ngLodash')
+
     })
 
     beforeEach(() => {

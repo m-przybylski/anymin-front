@@ -1,12 +1,13 @@
 import * as angular from 'angular'
+import * as _ from 'lodash'
 import {SmoothScrollingService} from '../../../../services/smooth-scrolling/smooth-scrolling.service'
 
 /* @ngInject */
-function chooseBankController(smoothScrollingService: SmoothScrollingService, lodash: _.LoDashStatic) {
+function chooseBankController(smoothScrollingService: SmoothScrollingService, ) {
 
   this.$onInit = () => {
     if (angular.isDefined(this.bankModel.value)) {
-      this.activeOption = this.paymentsLinks.indexOf(lodash.find(this.paymentsLinks, {'value': this.bankModel.value}))
+      this.activeOption = this.paymentsLinks.indexOf(_.find(this.paymentsLinks, {'value': this.bankModel.value}))
       this.bankModel = this.paymentsLinks[this.activeOption]
       this.firstSelect = true
     }
@@ -47,7 +48,7 @@ let chooseBank = {
 }
 
 angular.module('profitelo.components.dashboard.charge-account.choose-bank', [
-  'ngLodash',
+
   'profitelo.services.smooth-scrolling'
 ])
   .component('chooseBank', chooseBank)

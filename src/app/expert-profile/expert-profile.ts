@@ -25,7 +25,7 @@ export interface IExpertProfileStateParams extends ng.ui.IStateParamsService {
 const expertProfilePageModule = angular.module('profitelo.controller.expert-profile', [
   'ui.router',
   apiModule,
-  'ngLodash',
+
   sessionModule,
   navbarModule,
   smoothScrollingModule,

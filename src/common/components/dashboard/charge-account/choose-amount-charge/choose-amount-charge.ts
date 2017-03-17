@@ -1,4 +1,5 @@
 import * as angular from 'angular'
+import * as _ from 'lodash'
 import {IAmounts, IAmountModel} from '../../../../../app/dashboard/charge-account/charge-account'
 import {CommonSettingsService} from '../../../../services/common-settings/common-settings.service'
 
@@ -23,7 +24,7 @@ export class ChooseAmountChargeComponentController implements IChooseAmountCharg
   amountModifier: number = 1
 
   /* @ngInject */
-  constructor(private $scope: ng.IScope, CommonSettingsService: CommonSettingsService, private lodash: _.LoDashStatic) {
+  constructor(private $scope: ng.IScope, CommonSettingsService: CommonSettingsService) {
 
     this.amountModifier = CommonSettingsService.localSettings.amountMultiplier
 
@@ -36,7 +37,7 @@ export class ChooseAmountChargeComponentController implements IChooseAmountCharg
 
     if (angular.isDefined(this.amountModel.amount) && this.amountModel.amount !== null) {
 
-      const paymentOption = this.lodash.find(this.amounts.paymentOptions, {'amount': this.amountModel.amount.amount})
+      const paymentOption = _.find(this.amounts.paymentOptions, {'amount': this.amountModel.amount.amount})
       if (paymentOption) {
         this.activeOption = this.amounts.paymentOptions.indexOf(paymentOption)
       }
@@ -111,7 +112,6 @@ class ChooseAmountChargeComponent implements ng.IComponentOptions {
 }
 
 angular.module('profitelo.components.dashboard.charge-account.choose-amount-charge', [
-  'profitelo.services.commonSettings',
-  'ngLodash'
+  'profitelo.services.commonSettings'
 ])
   .component('chooseAmountCharge', new ChooseAmountChargeComponent())

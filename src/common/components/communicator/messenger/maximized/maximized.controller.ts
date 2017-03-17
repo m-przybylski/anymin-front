@@ -1,4 +1,5 @@
 import * as angular from 'angular'
+import * as _ from 'lodash'
 import {IMessengerMaximizedComponentBindings} from './maximized'
 import {MoneyDto} from 'profitelo-api-ng/model/models'
 import {UploaderService, IPostProcessOptions} from '../../../../services/uploader/uploader.service'
@@ -32,7 +33,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
   /* @ngInject */
   constructor(private $log: ng.ILogService, private $timeout: ng.ITimeoutService,
               private $element: ng.IRootElementService, private messengerService: MessengerService,
-              private lodash: _.LoDashStatic, private urlService: UrlService,
+               private urlService: UrlService,
               uploaderFactory: UploaderFactory) {
 
     this.uploader = uploaderFactory.getInstance(1, uploaderFactory.collectionTypes.avatar)
@@ -67,7 +68,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
   }
 
   public indicateTypingDebounce =
-    this.lodash.throttle(this.messengerService.indicateTyping, this.indicateTypingDebounceTimeout, {
+    _.throttle(this.messengerService.indicateTyping, this.indicateTypingDebounceTimeout, {
       'leading': true,
       'trailing': false
     })
@@ -103,7 +104,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
     } else {
       const lastMessageGroup = this.groupedMessages[this.groupedMessages.length - 1]
 
-      if (this.lodash.head(lastMessageGroup).user === message.user) {
+      if (_.head(lastMessageGroup).user === message.user) {
         lastMessageGroup.push(message)
       } else {
         this.groupedMessages.push([message])

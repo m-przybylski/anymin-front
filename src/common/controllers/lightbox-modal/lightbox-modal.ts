@@ -1,4 +1,5 @@
 import * as angular from 'angular'
+import * as _ from 'lodash'
 import apiModule from 'profitelo-api-ng/api.module'
 import {FilesApi} from 'profitelo-api-ng/api/api'
 import {ImageZoomService} from '../../services/image-zoom/image-zoom.service'
@@ -7,7 +8,7 @@ import urlModule from '../../services/url/url'
 import printModule from '../../services/print/print'
 import imageZoomModule from '../../services/image-zoom/image-zoom'
 
-function lightboxModelController($scope: any, $window: IWindowService, lodash: _.LoDashStatic,
+function lightboxModelController($scope: any, $window: IWindowService,
                                  $timeout: ng.ITimeoutService, FilesApi: FilesApi, imageZoomService: ImageZoomService,
                                  $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
 
@@ -15,11 +16,11 @@ function lightboxModelController($scope: any, $window: IWindowService, lodash: _
   this.isPending = false
   let i = 1
 
-  lodash.forEach(this.slideList, function (value) {
+  _.forEach(this.slideList, function (value) {
     value.id = i++
   })
 
-  let currentSlideIndex = lodash.findIndex(this.slideList, (slide: {token: string}) => {
+  let currentSlideIndex = _.findIndex(this.slideList, (slide: {token: string}) => {
     return slide.token === $scope.slide.token
   })
 
@@ -134,7 +135,7 @@ angular.module('profitelo.common.controller.lightbox-model', [
   urlModule,
   printModule,
   imageZoomModule,
-  'ngLodash'
+
 
 ])
   .controller('lightboxModelController', lightboxModelController)

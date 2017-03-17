@@ -62,7 +62,7 @@ namespace profitelo.directives.serviceProvider.proServiceProviderDescription {
   }
 
   angular.module('profitelo.directives.service-provider.pro-service-provider-description', [
-    'ngLodash',
+
     'pascalprecht.translate',
     'profitelo.common.controller.service-provider.service-provider-step-controller'
   ])

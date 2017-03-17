@@ -13,7 +13,7 @@ import
 
 angular.module('profitelo.controller.dashboard.client.favourites', [
   'ui.router',
-  'ngLodash',
+
   apiModule,
   sessionModule,
   filtersModule,

@@ -69,7 +69,7 @@ namespace profitelo.directives.serviceProvider.proServiceProviderLanguages {
   }
 
   angular.module('profitelo.directives.service-provider.pro-service-provider-languages', [
-    'ngLodash',
+
     'pascalprecht.translate',
     'profitelo.directives.ng-enter',
     'profitelo.services.commonSettings',

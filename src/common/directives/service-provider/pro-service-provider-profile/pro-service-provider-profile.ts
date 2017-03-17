@@ -46,7 +46,7 @@ namespace profitelo.directives.serviceProvider.proServiceProviderProfile {
   }
 
   angular.module('profitelo.directives.service-provider.pro-service-provider-profile', [
-    'ngLodash',
+
     'ngSanitize',
     'pascalprecht.translate',
     'profitelo.components.interface.show-more-text'

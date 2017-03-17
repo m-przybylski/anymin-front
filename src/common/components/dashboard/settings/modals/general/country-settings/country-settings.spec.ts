@@ -29,10 +29,10 @@ describe('Testing Controller: generalCountrySettingsController', () => {
 
   beforeEach(() => {
     angular.mock.module('ui.bootstrap')
-    angular.mock.module('ngLodash')
+
     angular.mock.module('profitelo.components.dashboard.settings.modals.general.country-settings')
-    inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, AccountApi: AccountApi, _AccountApiMock_: AccountApiMock,
-            lodash: _.LoDashStatic, $httpBackend: ng.IHttpBackendService) => {
+    inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, AccountApi: AccountApi,
+            _AccountApiMock_: AccountApiMock, $httpBackend: ng.IHttpBackendService) => {
 
       scope = <IGeneralCountrySettingsControllerScope>$rootScope.$new()
       httpBackend = $httpBackend
@@ -40,8 +40,7 @@ describe('Testing Controller: generalCountrySettingsController', () => {
         $scope: scope,
         $uibModalInstance: $uibModalInstance,
         userService: userService,
-        AccountApi: AccountApi,
-        lodash: lodash
+        AccountApi: AccountApi
       }
 
       _AccountApiMock_.getSupportedCountriesRoute(500)

@@ -1,3 +1,4 @@
+import * as _ from 'lodash'
 import {RatelApi, ProfileApi} from 'profitelo-api-ng/api/api'
 import {SignedAgent, GetService, GetProfileWithServices} from 'profitelo-api-ng/model/models'
 import {SessionStorage} from './session-storage'
@@ -26,7 +27,7 @@ export class CommunicatorService {
   /* @ngInject */
   constructor(private $log: ng.ILogService, private $q: ng.IQService, callbacksFactory: CallbacksFactory,
               private userService: UserService, private RatelApi: RatelApi, private ProfileApi: ProfileApi,
-               CommonConfig: CommonConfig, private lodash: _.LoDashStatic, private ratelSdk: any) {
+               CommonConfig: CommonConfig,  private ratelSdk: any) {
 
     this.commonConfig = CommonConfig.getAllData()
     this.ratelSessions = new SessionStorage()
@@ -110,7 +111,7 @@ export class CommunicatorService {
   }
 
   private onGetEmployersProfilesWithServices = (profilesWithServices: Array<GetProfileWithServices>) => {
-    return this.lodash.flatten(this.lodash.map(profilesWithServices, profile => profile.services))
+    return _.flatten(_.map(profilesWithServices, profile => profile.services))
   }
 
   private getServices = (profileId: string) => {
@@ -137,7 +138,7 @@ export class CommunicatorService {
     this.userService.getUser().then(user => {
       return this.getServices(user.id)
         .then((services) =>
-          this.$q.all(this.lodash.map(services, service =>
+          this.$q.all(_.map(services, service =>
             this.RatelApi.getRatelAuthConfigRoute(service.id).then(
               (expertConfig) => this.onGetRatelExpertAuthConfig(expertConfig, service)))))
     })

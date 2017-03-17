@@ -6,7 +6,7 @@ import profiteloWebsocketModule from '../profitelo-websocket/profitelo.websocket
 const callSummaryModule = angular.module('profitelo.services.call-summary', [
   callbacksModule,
   profiteloWebsocketModule,
-  'ngLodash'
+
 ])
   .service('callSummaryService', CallSummaryService)
   .name

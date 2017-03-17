@@ -75,23 +75,21 @@ describe('Unit testing: profitelo.components.communicator.messenger.maximized', 
     }))
 
     beforeEach(() => {
-
       angular.mock.module('profitelo.services.url')
       angular.mock.module('profitelo.filters.seconds-to-datetime')
       angular.mock.module('profitelo.filters.money')
-      angular.mock.module('ngLodash')
+
       angular.mock.module('profitelo.components.communicator.messenger.maximized')
 
       inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
               $componentController: ng.IComponentControllerService, _urlService_: UrlService,
-              _messengerService_: MessengerService, _lodash_: _.LoDashStatic) => {
+              _messengerService_: MessengerService) => {
 
         rootScope = $rootScope.$new()
         compile = $compile
 
         const injectors = {
           messengerService: _messengerService_,
-          lodash: _lodash_,
           $element: create(validHTML, bindings),
           urlService: _urlService_
         }

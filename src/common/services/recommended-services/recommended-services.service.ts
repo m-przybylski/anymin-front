@@ -1,6 +1,7 @@
 import {SearchApi} from 'profitelo-api-ng/api/api'
 import {SearchResult, Tag} from 'profitelo-api-ng/model/models'
 import {Service} from '../../models/Service'
+import * as _ from 'lodash'
 
 interface IServiceWithTags {
   service: Service
@@ -10,16 +11,16 @@ interface IServiceWithTags {
 export class RecommendedServicesService {
 
   /* @ngInject */
-  constructor(private $q: ng.IQService, private $log: ng.ILogService, private lodash: _.LoDashStatic,
+  constructor(private $q: ng.IQService, private $log: ng.ILogService,
               private SearchApi: SearchApi) {
   }
 
   private _onFindRecommended = (recommendedProfiles: SearchResult, servicesWithTags: Array<IServiceWithTags>) => {
-    const currentConsultation = this.lodash.find(
+    const currentConsultation = _.find(
       recommendedProfiles.results, row => row.id === servicesWithTags[0].service.id)
 
     if (!!currentConsultation) {
-      recommendedProfiles.results = this.lodash.remove(recommendedProfiles.results, (n: Service) => {
+      recommendedProfiles.results = _.remove(recommendedProfiles.results, (n: Service) => {
         // TODO Remove tags by service id and profile id
         return n.id !== servicesWithTags[0].service.id
       })

@@ -152,7 +152,7 @@ describe('Unit testing: profitelo.services.call >', () => {
         communicatorService.getClientSession = () => null
 
         callService.callServiceId(serviceId).then((res) => {
-          expect(res).toEqual(null)
+          expect(res).toEqual(<any>null)
         })
 
         $rootScope.$digest()
@@ -167,7 +167,7 @@ describe('Unit testing: profitelo.services.call >', () => {
         }
 
         callService.callServiceId(<any>serviceId).then((res) => {
-          expect(res).toEqual(null)
+          expect(res).toEqual(<any>null)
         })
 
         $rootScope.$digest()
@@ -189,7 +189,7 @@ describe('Unit testing: profitelo.services.call >', () => {
       spyOn(modalsService, 'createServiceUnavailableModal')
 
       callService.callServiceId(serviceId).then((res) => {
-        expect(res).toEqual(null)
+        expect(res).toEqual(<any>err)
       })
 
       $rootScope.$digest()
@@ -203,7 +203,7 @@ describe('Unit testing: profitelo.services.call >', () => {
         const serviceId = '1'
         const session = {
           chat: {
-            createDirectCall: () => $q.reject(null)
+            createDirectCall: () => $q.reject('')
           }
         }
 

@@ -44,8 +44,6 @@ namespace profitelo.components.dashboard.client.activities.clientActivities.filt
       }
 
       beforeEach(() => {
-
-        angular.mock.module('ngLodash')
         angular.mock.module('profitelo.filters.normalize-translation-key-filter')
         angular.mock.module('profitelo.services.client-activities-service')
         angular.mock.module('profitelo.components.dashboard.client.activities.client-activities.filters')

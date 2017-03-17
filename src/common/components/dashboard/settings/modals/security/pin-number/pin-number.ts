@@ -1,10 +1,10 @@
 import * as angular from 'angular'
-
-import LoDashStatic = _.LoDashStatic
+import * as _ from 'lodash'
 import {CommonSettingsService} from '../../../../../../services/common-settings/common-settings.service'
 import apiModule from 'profitelo-api-ng/api.module'
 import {AccountApi} from 'profitelo-api-ng/api/api'
 import commonSettingsModule from '../../../../../../services/common-settings/common-settings'
+
 export interface ISecurityPinNumberSettingsControllerScope extends ng.IScope {
 }
 
@@ -37,7 +37,7 @@ export class SecurityPinNumberSettingsController implements ng.IController {
 
   /* @ngInject */
   constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, private AccountApi: AccountApi,
-              private lodash: LoDashStatic, private CommonSettingsService: CommonSettingsService) {
+              private CommonSettingsService: CommonSettingsService) {
     AccountApi.getMobileProtectedViewsRoute().then(res => {
       res.protectedViews.forEach((view) => {
         this.protectedViewsStatus[view] = true
@@ -55,7 +55,7 @@ export class SecurityPinNumberSettingsController implements ng.IController {
   public changeViewsAndPin = (): void => {
     let protectedViews: Array<string> = []
     this.isPasswordIncorrect = false
-    this.lodash.each(this.protectedViewsStatus, (val: boolean, key: string) => {
+    _.each(this.protectedViewsStatus, (val: boolean, key: string) => {
       if (val) {
         protectedViews.push(key)
       }
@@ -80,7 +80,7 @@ export class SecurityPinNumberSettingsController implements ng.IController {
 
 angular.module('profitelo.components.dashboard.settings.security.modals.pin-number', [
   'ui.bootstrap',
-  'ngLodash',
+
   commonSettingsModule,
   apiModule,
   'profitelo.directives.interface.focus-next',

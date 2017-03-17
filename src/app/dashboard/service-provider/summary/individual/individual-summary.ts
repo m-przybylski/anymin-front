@@ -17,6 +17,7 @@ import 'common/directives/service-provider/pro-service-provider-summary-step/pro
 import 'common/resolvers/service-provider-image/service-provider-image.service'
 import 'common/directives/interface/pro-alert/pro-alert'
 import 'angular-mocks'
+import * as _ from 'lodash'
 
 /* @ngInject */
 function IndividualSummaryController($log: ng.ILogService, $state: ng.ui.IStateService, $scope: ng.IScope,
@@ -150,8 +151,7 @@ angular.module('profitelo.controller.dashboard.service-provider.summary.individu
       resolve: {
         /* istanbul ignore next */
         savedProfile: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: ProfileApi,
-                       lodash: _.LoDashStatic, userService: UserService, ServiceApi: ServiceApi,
-                       topAlertService: TopAlertService) => {
+                       userService: UserService, ServiceApi: ServiceApi, topAlertService: TopAlertService) => {
           /* istanbul ignore next */
           let _deferred = $q.defer<GetProfileWithServices | null>()
           /* istanbul ignore next */
@@ -159,12 +159,12 @@ angular.module('profitelo.controller.dashboard.service-provider.summary.individu
             ProfileApi.getProfileWithServicesRoute(user.id).then((profileWithServices) => {
 
               ServiceApi.postServicesTagsRoute({
-                serviceIds: lodash.map(profileWithServices.services, service => service.id)
+                serviceIds: _.map(profileWithServices.services, service => service.id)
               }).then((servicesTags) => {
 
                 profileWithServices.services.forEach((service) => {
-                  (<any>service.details).tags = lodash.head(
-                    lodash.filter(servicesTags, (serviceTags) => service.id === serviceTags.serviceId)).tags
+                  (<any>service.details).tags = _.head(
+                    _.filter(servicesTags, (serviceTags) => service.id === serviceTags.serviceId)).tags
                 })
                 _deferred.resolve(profileWithServices)
               })

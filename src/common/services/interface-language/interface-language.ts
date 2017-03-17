@@ -6,7 +6,7 @@ const interfaceLanguageModule = angular.module('profitelo.services.interface-lan
   'angularMoment',
   'tmh.dynamicLocale',
   'ngCookies',
-  'ngLodash'
+
 ])
   .service('InterfaceLanguageService', InterfaceLanguageService)
   .name

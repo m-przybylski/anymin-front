@@ -39,7 +39,7 @@ describe('profitelo.common.controller.lightbox-model', () => {
       angular.mock.module('profitelo.common.controller.lightbox-model')
 
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $window: IWindowService,
-              _$timeout_: ng.ITimeoutService, urlService: UrlService, _FilesApi_: FilesApi, _lodash_: _.LoDashStatic,
+              _$timeout_: ng.ITimeoutService, urlService: UrlService, _FilesApi_: FilesApi,
               _$httpBackend_: ng.IHttpBackendService, _FilesApiMock_: FilesApiMock) => {
         httpBackend = _$httpBackend_
         scope = $rootScope.$new()
@@ -88,7 +88,6 @@ describe('profitelo.common.controller.lightbox-model', () => {
           '$window': window,
           'urlService': urlService,
           'FilesApi': _FilesApi_,
-          'lodash': _lodash_,
           'imageZoomService': imageZoomService
         })
 

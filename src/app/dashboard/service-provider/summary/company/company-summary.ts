@@ -17,11 +17,12 @@ import 'common/directives/service-provider/pro-service-provider-summary-step/pro
 import 'common/resolvers/service-provider-image/service-provider-image.service'
 import 'common/directives/interface/pro-alert/pro-alert'
 import 'common/directives/service-provider/pro-service-provider-profile/pro-service-provider-profile'
+import * as _ from 'lodash'
 
 /* @ngInject */
 function CompanySummaryController($log: ng.ILogService, $state: ng.ui.IStateService, $scope: ng.IScope,
                                   $filter: IFilterService, savedProfile: GetProfileWithServices, ServiceApi: ServiceApi,
-                                  topAlertService: TopAlertService, profileAvatar: string, lodash: _.LoDashStatic,
+                                  topAlertService: TopAlertService, profileAvatar: string,
                                   companyLogo: string, dialogService: DialogService,
                                   communicatorService: CommunicatorService) {
 
@@ -52,7 +53,7 @@ function CompanySummaryController($log: ng.ILogService, $state: ng.ui.IStateServ
   }
 
   this.verifyProfile = () => {
-    if (!!lodash.find(this.consultations, {'ownerEmployee': true}) && !savedProfile.expertDetails) {
+    if (!!_.find(this.consultations, {'ownerEmployee': true}) && !savedProfile.expertDetails) {
       $state.go('app.dashboard.service-provider.individual-path')
     } else {
       ServiceApi.postServicesVerifyRoute().then((_res) => {
@@ -168,8 +169,8 @@ angular.module('profitelo.controller.dashboard.service-provider.summary.company'
       resolve: {
         /* istanbul ignore next */
         savedProfile: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: ProfileApi,
-                       lodash: _.LoDashStatic, userService: UserService, ServiceApi: ServiceApi,
-                       topAlertService: TopAlertService) => {
+                       userService: UserService, ServiceApi: ServiceApi, topAlertService: TopAlertService) => {
+
           /* istanbul ignore next */
           let _deferred = $q.defer<GetProfileWithServices>()
           /* istanbul ignore next */
@@ -177,12 +178,12 @@ angular.module('profitelo.controller.dashboard.service-provider.summary.company'
             ProfileApi.getProfileWithServicesRoute(user.id).then((profileWithServices) => {
 
               ServiceApi.postServicesTagsRoute({
-                serviceIds: lodash.map(profileWithServices.services, service => service.id)
+                serviceIds: _.map(profileWithServices.services, service => service.id)
               }).then((servicesTags) => {
 
                 profileWithServices.services.forEach((service) => {
-                  (<any>service.details).tags = lodash.head(
-                    lodash.filter(servicesTags, (serviceTags: any) => service.id === serviceTags.serviceId)).tags
+                  (<any>service.details).tags = _.head(
+                    _.filter(servicesTags, (serviceTags: any) => service.id === serviceTags.serviceId)).tags
                 })
                 _deferred.resolve(profileWithServices)
               })

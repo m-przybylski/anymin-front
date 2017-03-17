@@ -7,7 +7,9 @@ import {DialogService} from '../../../../../common/services/dialog/dialog.servic
 import {ServiceProviderService} from '../../../../../common/services/service-provider/service-provider.service'
 import {UserService} from '../../../../../common/services/user/user.service'
 import userModule from '../../../../../common/services/user/user'
-import {IServiceProviderImageService} from
+import {
+  IServiceProviderImageService
+} from
   '../../../../../common/resolvers/service-provider-image/service-provider-image.service'
 import {ExpertProfile} from '../../../../../common/models/ExpertProfile'
 import topAlertModule from '../../../../../common/services/top-alert/top-alert'
@@ -23,6 +25,7 @@ import 'common/directives/service-provider/pro-service-provider-tags/pro-service
 import 'common/directives/service-provider/pro-service-provider-profile/pro-service-provider-profile'
 import 'common/directives/interface/pro-alert/pro-alert'
 import serviceProviderModule from '../../../../../common/services/service-provider/search-provider'
+import * as _ from 'lodash'
 
 /* @ngInject */
 function IndividualConsultationController($log: ng.ILogService, $scope: ng.IScope, $state: ng.ui.IStateService,
@@ -173,7 +176,7 @@ function IndividualConsultationController($log: ng.ILogService, $scope: ng.IScop
 
 angular.module('profitelo.controller.dashboard.service-provider.consultation-range.individual', [
   'ui.router',
-  'ngLodash',
+
   dialogModule,
   userModule,
   apiModule,
@@ -199,8 +202,7 @@ angular.module('profitelo.controller.dashboard.service-provider.consultation-ran
       resolve: {
         /* istanbul ignore next */
         savedProfile: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: ProfileApi,
-                       lodash: _.LoDashStatic, userService: UserService, ServiceApi: ServiceApi,
-                       topAlertService: TopAlertService) => {
+                       userService: UserService, ServiceApi: ServiceApi, topAlertService: TopAlertService) => {
           /* istanbul ignore next */
           let _deferred = $q.defer<GetProfileWithServices | null>()
           /* istanbul ignore next */
@@ -208,14 +210,14 @@ angular.module('profitelo.controller.dashboard.service-provider.consultation-ran
             ProfileApi.getProfileWithServicesRoute(user.id).then((response) => {
               const profileWithServices: GetProfileWithServices = response
               ServiceApi.postServicesTagsRoute({
-                serviceIds: lodash.map(profileWithServices.services, service => service.id)
+                serviceIds: _.map(profileWithServices.services, service => service.id)
               }).then((servicesTags) => {
 
 
                 profileWithServices.services.forEach((service) => {
                   // FIXME remove any
-                  (<any>service.details).tags = lodash.head(
-                    lodash.filter(servicesTags, (serviceTags) => service.id === serviceTags.serviceId)).tags
+                  (<any>service.details).tags = _.head(
+                    _.filter(servicesTags, (serviceTags) => service.id === serviceTags.serviceId)).tags
                 })
                 _deferred.resolve(profileWithServices)
               })

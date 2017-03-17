@@ -1,4 +1,5 @@
 import * as angular from 'angular'
+import * as _ from 'lodash'
 import {Tag} from 'profitelo-api-ng/model/models'
 import 'angularjs-slider'
 import {IFilterService} from '../../../services/filter/filter.service'
@@ -53,7 +54,7 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
   }
   /* @ngInject */
   constructor(private $filter: IFilterService, private $window: ng.IWindowService,
-              searchService: SearchService, private lodash: _.LoDashStatic,
+              searchService: SearchService,
               private $timeout: ng.ITimeoutService, private $scope: ng.IScope) {
 
     searchService.getAvailableOptions().then((options) => {
@@ -84,13 +85,13 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
 
     searchService.onQueryParamsChange(this.$scope, (params) => {
       this.$timeout(() => {
-        this.searchFilters.sortBy = this.lodash.find(
+        this.searchFilters.sortBy = _.find(
           this.sortList, (sort: {value: string, name: string}) => sort.value === params.sortBy)
-        this.searchFilters.language = this.lodash.find(
+        this.searchFilters.language = _.find(
           this.languagesList, (language: {value: string, name: string}) => language.value === params.language)
-        this.searchFilters.category = this.lodash.find(
+        this.searchFilters.category = _.find(
           this.categoryList, (category: {value: string, name: string}) => category.value === params.category)
-        this.searchFilters.profileType = this.lodash.find(
+        this.searchFilters.profileType = _.find(
           this.profileTypeList, (profileType: {value: string, name: string}) => profileType.value === params.profileType)
 
       })
@@ -175,7 +176,7 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
   }
 
   private setSearchQueryParamsDebounce = (...args: Array<any>) =>
-    this.lodash.debounce(this.setSearchParams, this.searchDebounceTimeout, {
+    _.debounce(this.setSearchParams, this.searchDebounceTimeout, {
       'leading': false,
       'trailing': true
     })(args)
@@ -195,7 +196,7 @@ class SearchFiltersComponent implements ng.IComponentOptions {
 
 angular.module('profitelo.components.search.searchFilters', [
   'rzModule',
-  'ngLodash',
+
   'pascalprecht.translate',
   'profitelo.directives.interface.pro-range-slider',
   'profitelo.directives.pro-tags-slider',

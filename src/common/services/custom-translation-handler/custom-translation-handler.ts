@@ -3,9 +3,9 @@ import {CustomTranslationHandlerService} from './custom-translation-handler.serv
 
 const customTranslationHandlerModule = angular.module('profitelo.services.custom-translation-handler', [
   'pascalprecht.translate',
-  'ngLodash'
+
 ])
-  .service('CustomTranslationHandlerService', ['lodash', CustomTranslationHandlerService.getInstance])
+  .service('CustomTranslationHandlerService', CustomTranslationHandlerService.getInstance)
   .name
 
 export default customTranslationHandlerModule;

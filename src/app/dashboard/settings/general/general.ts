@@ -56,7 +56,7 @@ angular.module('profitelo.controller.dashboard.settings.general', [
   'ui.router',
   'pascalprecht.translate',
   userModule,
-  'ngLodash',
+
   urlModule,
   modalsModule
 ])

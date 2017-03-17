@@ -1,4 +1,5 @@
 import * as angular from 'angular'
+import * as _ from 'lodash'
 import {IExpertProfileStateParams} from './expert-profile'
 import {ViewsApi} from 'profitelo-api-ng/api/api'
 import {GetExpertProfile, GetExpertServiceDetails} from 'profitelo-api-ng/model/models'
@@ -6,7 +7,7 @@ import {GetExpertProfile, GetExpertServiceDetails} from 'profitelo-api-ng/model/
 export class ExpertProfileResolver {
 
   /* @ngInject */
-  constructor(private $q: ng.IQService, private ViewsApi: ViewsApi, private lodash: _.LoDashStatic) {
+  constructor(private $q: ng.IQService, private ViewsApi: ViewsApi) {
   }
 
   public resolve = (stateParams: IExpertProfileStateParams): ng.IPromise<GetExpertProfile> => {
@@ -15,7 +16,7 @@ export class ExpertProfileResolver {
       this.$q.reject(error)
 
     const sortServices = (servicesWithTagsAndEmployees: Array<GetExpertServiceDetails>) => {
-      const primaryConsultation = this.lodash.find(servicesWithTagsAndEmployees, (serviceWithTagsAndEmployees) =>
+      const primaryConsultation = _.find(servicesWithTagsAndEmployees, (serviceWithTagsAndEmployees) =>
       serviceWithTagsAndEmployees.service.id === stateParams.primaryConsultationId)
 
       if (angular.isDefined(stateParams.primaryConsultationId) && !!primaryConsultation
@@ -26,17 +27,17 @@ export class ExpertProfileResolver {
       return servicesWithTagsAndEmployees
     }
 
-    const handleExpertResponse = (response: GetExpertProfile) => {
+    const handleExpertResponse = (response: GetExpertProfile): ng.IPromise<GetExpertProfile> => {
       if (!response.profile.expertDetails) {
         return this.$q.reject('Profile is not expert')
       }
 
-      return {
+      return this.$q.resolve({
         profile: response.profile,
         services: sortServices(response.services),
         isFavourite: response.isFavourite,
         employers: response.employers
-      }
+      })
     }
 
     const resolveCompanyProfile = () =>

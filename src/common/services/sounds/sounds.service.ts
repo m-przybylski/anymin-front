@@ -1,3 +1,5 @@
+import * as _ from 'lodash'
+
 export interface ISoundObject {
   play(): void
   stop(): void
@@ -28,10 +30,10 @@ export class SoundsService {
   private isCallConnecting = false
 
   /* @ngInject */
-  constructor(private $log: ng.ILogService, lodash: _.LoDashStatic) {
+  constructor(private $log: ng.ILogService, ) {
 
-    this.soundPaths = lodash.mapValues(SoundsService.soundFiles, filename => SoundsService.path + filename)
-    this.soundObjects = lodash.mapValues(this.soundPaths, path => new Audio(path))
+    this.soundPaths = _.mapValues(SoundsService.soundFiles, filename => SoundsService.path + filename)
+    this.soundObjects = _.mapValues(this.soundPaths, path => new Audio(path))
 
     this.setAudioLoop(this.soundObjects.callIncoming)
     this.setAudioLoop(this.soundObjects.callConnecting)

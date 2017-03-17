@@ -36,7 +36,7 @@ const companyProfilePageModule = angular.module('profitelo.controller.company-pr
   'profitelo.components.expert-profile.similar-experts-slider',
   'profitelo.components.expert-profile.social-links',
   'commonConfig',
-  'ngLodash',
+
 ])
   .config(($stateProvider: ng.ui.IStateProvider, $qProvider: ng.IQProvider) => {
     $qProvider.errorOnUnhandledRejections(false)
