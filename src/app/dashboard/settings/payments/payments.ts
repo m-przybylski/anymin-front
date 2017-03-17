@@ -8,7 +8,6 @@ import {PaymentsApi, AccountApi} from "profitelo-api-ng/api/api"
 import {MoneyDto, GetCreditCard, AccountDetails} from "profitelo-api-ng/model/models"
 import {UserService} from "../../../../common/services/user/user.service"
 
-
 export class DashboardSettingsPaymentsController implements ng.IController {
   public isAnyPaymentMethod: boolean
   public accountBalance: MoneyDto | null
