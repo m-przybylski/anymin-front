@@ -1,0 +1,95 @@
+.container
+  max-width: 1280px
+  min-width: 320px
+  width: 100%
+  padding: 0 16px
+  margin: 0 auto
+  position: relative
+
+  +smm
+    min-width: 640px
+    padding: 0 32px
+
+  +mdm
+    width: 1024px
+
+  +lgm
+    width: 1180px
+
+  +xlgm
+    width: 1280px
+    padding: 0
+
+  &.expert-slider
+    transform: translateY(200px)
+
+  &.no-padding
+    padding: 0
+
+    +smm
+      padding: 0 32px
+
+    +xlgm
+      padding: 0
+
+.container-small
+  min-width: 320px
+  margin: 0 auto
+  padding: 0 16px
+
+  +smm
+    padding: 0
+    min-width: 420px
+    max-width: 420px
+
+  &.no-padding
+    padding: 0
+
+    +smm
+      padding: 0 32px
+
+    +xlgm
+      padding: 0
+
+.container-medium
+  min-width: 320px
+  margin: 0 auto
+  padding: 0 16px
+
+  +smm
+    min-width: 640px
+    max-width: 640px
+
+  +mdm
+    padding: 0 48px
+
+  +lgm
+    padding: 0
+
+  &.no-padding
+    padding: 0
+
+    +smm
+      padding: 0 32px
+
+    +xlgm
+      padding: 0
+
+.container-big
+  min-width: 320px
+  margin: 0 auto
+  padding: 0 16px
+
+  +smm
+    padding: 0
+    min-width: 850px
+    max-width: 850px
+
+  &.no-padding
+    padding: 0
+
+    +smm
+      padding: 0 32px
+
+    +xlgm
+      padding: 0
