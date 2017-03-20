@@ -82,7 +82,7 @@ describe('Unit testing: profitelo.resolvers.expert-profile', () => {
     })
 
     it('should return sorted services ', inject(($rootScope: ng.IRootScopeService) => {
-      //FIXME type
+      // FIXME type
       ViewsApiMock.getExpertProfileRoute(200, stateParams.profileId, <any>mockResponse)
 
       let profile: GetExpertProfile | null = null
