@@ -1,22 +1,7 @@
 navbar
 .expert-profile
+  profile-header
   .container
-    pro-expert-header(data-profile="vm.profile" data-handle-like="vm.handleLike()")
-
-  collapse-tab(id='consultationScroll' data-ng-if="vm.services && vm.services.length > 0")
-    .container(ng-repeat="service in vm.services")
-      pro-expert-single-consultation(
-      data-service-tags-employees-tuple="service"
-      data-type="vm.profile.type"
-      )
-
-  .container.file-slider
-    pro-expert-slider(data-ng-show="vm.profile.files.length" data-sliders="vm.profile.files")
-
-  .container(data-ng-if="!!vm.profile.links && vm.profile.links.length > 0")
-    social-links(data-links="vm.profile.links")
-
-  .container(data-ng-if="!!vm.similarExperts && vm.similarExperts.length > 0")
-    similar-experts-slider(data-consultations="vm.similarExperts" data-title="HOME_EXPERT_PROFILE.SIMILAR_EXPERTS_SLIDER_MESSAGE")
-
+    profile-single-consultation(data-ng-repeat="consultation in vm.consultations" data-service="consultation.service"
+                                data-tags="consultation.tags")
 pro-footer()
