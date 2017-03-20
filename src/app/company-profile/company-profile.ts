@@ -14,6 +14,7 @@ import 'common/components/expert-profile/company-single-consultation/company-sin
 import 'common/components/expert-profile/similar-experts-slider/similar-experts-slider'
 import 'common/components/expert-profile/social-links/social-links'
 import navbarModule from '../../common/components/navbar/navbar'
+import profileHeaderModule from '../../common/components/profile/profile-header/profile-header'
 
 export interface ICompanyProfileStateParams extends ng.ui.IStateParamsService {
   primaryConsultationId: string
@@ -28,6 +29,7 @@ const companyProfilePageModule = angular.module('profitelo.controller.company-pr
   topAlertModule,
   navbarModule,
   recommendedServicesModule,
+  profileHeaderModule,
   'profitelo.directives.expert-profile.pro-expert-header',
   'profitelo.directives.pro-footer',
   'profitelo.directives.expert-profile.pro-expert-slider',
@@ -35,7 +37,7 @@ const companyProfilePageModule = angular.module('profitelo.controller.company-pr
   'profitelo.components.expert-profile.company-single-consultation',
   'profitelo.components.expert-profile.similar-experts-slider',
   'profitelo.components.expert-profile.social-links',
-  'commonConfig',
+  'commonConfig'
 
 ])
   .config(($stateProvider: ng.ui.IStateProvider, $qProvider: ng.IQProvider) => {

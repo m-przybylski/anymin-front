@@ -1,0 +1,83 @@
+@import "../../../../template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
+@import "../../../../template/profitelo_theme/stylesheets/core/interface/typography/typography"
+
+.profile-header
+  background: $c-background
+  border-bottom: 1px solid $c-lines
+  padding: $s-navbar-height + 48px 0 48px
+
+  +lgm
+    padding: $s-navbar-height 0 0 0
+
+  .profile-header-container
+    text-align: center
+
+    +lgm
+      padding: 48px 0
+      display: flex
+      align-items: flex-start
+      text-align: left
+
+    .entry-title
+      margin: 0 0 24px
+
+      +lgm
+        margin: 0 16px 0 0
+
+    .profile-header-logo
+      margin: 0 0 24px
+
+      +lgm
+        margin: 0 24px 0 0
+
+  .profile-content
+    flex: 1
+
+    .profile-content-header
+      +lgm
+        display: flex
+        align-items: center
+        justify-content: space-between
+        margin: 0 0 24px
+
+
+    .profile-content-description
+      font-size: $f-h5-size
+      color: $c-secondary-txt
+      line-height: $f-h5-size * 1.5
+
+      p
+        +default-font-regular
+        font-size: $f-h5-size
+        color: $c-secondary-txt
+        line-height: $f-h5-size * 1.5
+
+  .social-links
+    margin: 0 0 24px
+
+    +lgm
+      margin: 0
+
+  .profile-content
+    padding: 0
+
+  .share-links
+    margin: 0 0 24px
+    flex: 1
+
+    +lgm
+      margin: 0
+
+    li
+      margin: 0 8px
+
+      +lgm
+        margin: 0 0 0 16px
+
+      &.selected
+        a
+          background: $c-primary
+          span
+            color: $c-white
+            background: $c-primary

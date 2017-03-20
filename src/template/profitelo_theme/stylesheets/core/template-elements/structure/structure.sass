@@ -1,0 +1,107 @@
+@import "grid-elements/grid-elements"
+@import "helpers"
+@import "modules"
+
+html
+  font-smoothing: antialiased
+  osx-font-smoothing: grayscale
+  +default-font-regular
+  line-height: 1.2
+
+body
+  +default-font-light
+  font-family: 'Robo', sans-serif
+  background-color: $c-background
+  overflow-x: hidden
+  overflow-y: scroll
+  width: 100%
+  height: 100%
+  line-height: 1.4
+  color: $c-primary-txt
+  transition: transform 0.4s
+  transform: translateX(0%)
+
+  +smm
+    transform: none
+
+  &.is-mobile-nav-visible
+    overflow: hidden
+    transform: translateX(-50%)
+
+    +smm
+      transform: none
+
+    .navbar
+      transform: translateX(50%)
+
+      +smm
+        transform: none
+
+*
+  +default-font-light
+  font-family: 'Robo', sans-serif
+  font-smoothing: antialiased
+  osx-font-smoothing: grayscale
+  text-rendering: optimizeLegibility
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+
+  box-sizing: border-box
+  line-height: 1
+
+*:before,
+*:after
+  box-sizing: border-box
+
+
+img
+  max-width: 100%
+  position: relative
+
+  &:after
+    content: "\73"
+    font-family: "profitelo_icons"
+    color: rgb(100, 100, 100)
+    position: absolute
+    z-index: 2
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background: $c-white
+    display: flex
+    align-items: center
+    justify-content: center
+
+  &.user-avatar
+    display: block
+    overflow: hidden
+    text-indent: 200%
+    min-width: inherit
+    min-height: inherit
+    border-radius: 50%
+
+    &.is-not-uploaded
+      background: url('/assets/images/no-avatar.jpg') 50% 50% / cover $c-background
+      position: relative
+      overflow: hidden
+      width: 100%
+      height: 100%
+
+    &:after
+      content: ""
+      position: absolute
+      border-radius: 50%
+      z-index: 2
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      display: flex
+      align-items: center
+      justify-content: center
+      background: url('/assets/images/no-avatar.jpg') 50% 50% / cover $c-white
+
+::selection
+  color: $c-white
+  background: $c-primary
