@@ -1,0 +1,27 @@
+.share-links
+  display: flex
+  justify-content: center
+
+  +lgm
+    justify-content: flex-end
+
+  li
+    margin: 0 16px
+
+    a
+      display: inline-flex
+      align-items: center
+
+      span
+        text-transform: uppercase
+        color: $c-secondary-txt
+
+        &:not(.icon)
+          +default-font-medium
+          font-size: $f-label-size
+          margin: 0 0 0 8px
+
+    &.selected
+      a
+        span
+          color: $c-primary
