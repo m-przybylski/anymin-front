@@ -4,6 +4,7 @@ import {CallService} from '../../communicator/call.service'
 import communicatorModule from '../../communicator/communicator'
 import filtersModule from '../../../filters/filters'
 import urlModule from '../../../services/url/url'
+import './single-consultation.sass'
 
 /* @ngInject */
 function singleConsultationController($state: ng.ui.IStateService, urlService: UrlService,

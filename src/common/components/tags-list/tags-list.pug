@@ -1,11 +1,11 @@
-.pro-summary-tag
-  span.title-row {{ $ctrl.title | translate }}
-    span ({{ $ctrl.tags.length }})
-       
+.tags-list
+  span.title-row(data-ng-if="$ctrl.title") {{ $ctrl.title | translate }}
+    span(data-ng-if="$ctrl.tags.length > 0") ({{ $ctrl.tags.length }})
+
   ul.tag-list.slide-page
     li(ng-repeat="tag in $ctrl.tags | limitTo: 7")
       a.slide-btn-tag(data-ui-sref="app.search-result({q: tag.name})") {{ tag.name }}
-  
+
     li.showMoreTagsBtn(data-ng-show="$ctrl.showTags" data-ng-click="$ctrl.showMoreTags()")
       a.slide-btn-tag
         span.pro-tag(data-ng-show="!($ctrl.showTagClass)") ...

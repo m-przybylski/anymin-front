@@ -34,3 +34,28 @@
   line-height: 1
 
 /* inputs end */
+
+/* listing */
+=consultationTitle
+  > *,
+  h3
+    +default-font-light
+    color: $c-primary-txt
+    font-size: $f-h4-size
+
+=priceSection
+  span
+    +default-font-bold
+    color: $c-primary-txt
+    font-size: $f-price-list
+    text-transform: uppercase
+
+    &.currency
+      color: $c-label
+
+=consultationDetailsInfo
+  +default-font-medium
+  font-size: $f-medium
+  color: $c-secondary-txt
+
+/* listing end */

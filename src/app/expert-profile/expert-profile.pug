@@ -1,7 +1,8 @@
 navbar
 .expert-profile
-  profile-header
-  .container
+  profile-header()
+
+  .container.no-padding
     profile-single-consultation(data-ng-repeat="consultation in vm.consultations" data-service="consultation.service"
                                 data-tags="consultation.tags")
 pro-footer()

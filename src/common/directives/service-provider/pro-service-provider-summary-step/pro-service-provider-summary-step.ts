@@ -4,7 +4,7 @@ import filtersModule from '../../../filters/filters'
 import
   'common/controllers/service-provider/pro-service-provider-summary-controller/pro-service-provider-summary-controller'
 import 'common/controllers/service-provider/service-provider-step-controller/service-provider-step-controller'
-import 'common/components/pro-summary-tag/pro-summary-tag'
+import tagsListModule from '../../../components/tags-list/tags-list'
 
 function proServiceProviderSummaryStep() {
 
@@ -42,11 +42,10 @@ function proServiceProviderSummaryStep() {
 }
 
 angular.module('profitelo.directives.service-provider.pro-service-provider-summary-step', [
-
+  tagsListModule,
   'pascalprecht.translate',
   filtersModule,
   'profitelo.common.controller.service-provider.pro-service-provider-summary-controller',
   'profitelo.common.controller.service-provider.service-provider-step-controller',
-  'profitelo.components.pro-summary-tag'
 ])
   .directive('proServiceProviderSummaryStep', proServiceProviderSummaryStep)

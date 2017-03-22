@@ -1,0 +1,18 @@
+.language
+  display: flex
+
+  li
+    color: $c-secondary-txt
+
+    &:last-child
+      &::after
+        content: none
+
+    &::after
+      content: ','
+      margin: 0 4px 0 0
+
+    span
+      +default-font-medium
+      font-size: $f-label-size
+      color: $c-secondary-txt

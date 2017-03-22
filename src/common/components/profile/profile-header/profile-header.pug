@@ -8,22 +8,43 @@
       .profile-content
         .profile-content-header
           .entry-title
-            h3 Name company
+            .profile-name
+              h3 Name company
+
+              .status-list
+                span.status.availability(data-translate="STATUS.AVAILABLE.TITLE")
+
+            ul.language
+              li
+                a
+                  span PL
+              li
+                a
+                  span DE
 
           ul.social-links
             li
               a.btn.btn-circle(href="#" target="_blank")
-                span.icon(pro-social-icon-getter data-url="link")
+                span.icon.icon-facebook-24
+            li
+              a.btn.btn-circle(href="#" target="_blank")
+                span.icon.icon-twitter-24
+            li
+              a.btn.btn-circle(href="#" target="_blank")
+                span.icon.icon-google-plus-24
+            li
+              a.btn.btn-circle(href="#" target="_blank")
+                span.icon.icon-instagram-24
 
           ul.share-links
             li
               a
                 span.icon.icon-share-24
-                span Share
+                span(data-translate="EXPERT_ACCOUNT.BUTTON.SHARE")
             li
               a
                 span.icon.icon-heart-24
-                span addtofav
+                span(data-translate="EXPERT_ACCOUNT.BUTTON.FAVOURITE")
 
         .profile-content-description
           p The 2005 Toll-free Numbers in Television Advertising study, commissioned by 800response, concluded that 35 percent of all television commercials feature phone numbers, and 82 percent of those phone numbers are toll-free. Furthermore, 74 percent of the toll-free numbers in television ads use.

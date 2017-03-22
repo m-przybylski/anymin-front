@@ -1,18 +1,27 @@
-.profile-single-consultation
-  .consultation-wrapper
-    .consultation-content
-      .consultation-details
-        .consultation-price
-          span(data-ng-bind-html="$ctrl.service.details.price | money")
-          span.currency(data-translate='HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE')
+.single-consultation.consultation-list
+  .consultation-section
+    .consultation-details
+      .consultation-price.price-section
+        span 10,00 PLN
+        span.currency(data-translate='HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE')
 
-        div
-          .consultation-title
-            h3
-              span {{ $ctrl.service.details.name }}
+      ul.consultation-details-info
+        li.options-item.recomendation
+          span.icon.icon-satisfaction-16
+          span  {{ $ctrl.serviceTagsEmployeesTuple.service.rating || '0' }}%
+        li.options-item.conversation-count
+          span.icon.icon-call-16
+          span {{ $ctrl.serviceTagsEmployeesTuple.service.usageCounter || '0' }}
 
-          ul.consultation-about
-            li.options-item.recomendation
-              span  {{ $ctrl.service.rating || '0' }} %
-            li.options-item.conversation-count
-              span {{ $ctrl.service.usageCounter || '0' }}
+    .consultation-as-employee
+      span Tekst
+        a.link HP Consulting
+
+    .consultation-title
+      h3
+        span {{ $ctrl.serviceTagsEmployeesTuple.service.details.name }} TITLE KONSULTEJSZYN
+
+    tags-list()
+
+  .consultation-actions
+    a.btn.btn-success(data-ng-click="$ctrl.startCall()" data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CALL")

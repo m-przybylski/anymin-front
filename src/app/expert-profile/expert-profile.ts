@@ -19,8 +19,9 @@ const expertProfilePageModule = angular.module('profitelo.controller.expert-prof
   apiModule,
   sessionModule,
   singleConsultationModule,
-  profileHeaderModule,
   navbarModule,
+  profileHeaderModule,
+  'profitelo.resolvers.service-provider-image',
   'profitelo.directives.pro-footer',
 ])
   .config(($stateProvider: ng.ui.IStateProvider, $qProvider: ng.IQProvider) => {

@@ -14,11 +14,11 @@ block content
               a.btn.btn-noborder(data-ng-click="vm.editConsultation(consultation.id, consultation.details.name, consultation.details.price.amount, consultation.details.tags, consultation.invitations, consultation.ownerEmployee)")
                   span(data-translate='DASHBOARD.SERVICE_PROVIDER.NAME.EDIT')
                   
-          pro-summary-tag(
+          tags-list(
           data-title="DASHBOARD.CREATE_PROFILE.SUMMARY.CONSULTATION_TAGS"
           data-tags="consultation.details.tags")
 
-          pro-summary-tag(
+          tags-list(
           data-title="DASHBOARD.CREATE_PROFILE.SUMMARY.CONSULTATION_EMPLOYEE"
           data-tags="consultation.invitationTags" data-ng-if="consultation.invitationTags")
 
