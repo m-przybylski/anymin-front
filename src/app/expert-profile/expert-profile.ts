@@ -14,12 +14,11 @@ export interface IExpertProfileStateParams extends ng.ui.IStateParamsService {
   profileId: string
 }
 
-const expertProfilePageModule: string = angular.module('profitelo.controller.expert-profile', [
+const expertProfilePageModule = angular.module('profitelo.controller.expert-profile', [
   'ui.router',
   apiModule,
   sessionModule,
   singleConsultationModule,
-  profileHeaderModule,
   navbarModule,
   profileHeaderModule,
   'profitelo.resolvers.service-provider-image',
