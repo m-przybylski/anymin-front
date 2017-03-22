@@ -3,7 +3,7 @@
     .profile-header-container
       .profile-header-logo
         .thumb.x128
-          img.user-avatar(src="https://files.dev.profitelo.pl/files/978e0a4dbf464582935ed14fe16f53c3/download")
+          img.user-avatar(src="#")
 
       .profile-content
         .profile-content-header
@@ -12,7 +12,9 @@
               h3 Name company
 
               .status-list
-                span.status.availability(data-translate="STATUS.AVAILABLE.TITLE")
+                span.status.availability
+                  span.icon.icon-success-12
+                  span.status-title {{"STATUS.AVAILABLE.TITLE" | translate }}
 
             ul.language
               li

@@ -18,6 +18,16 @@
     font-size: $f-h2-size
     color: $c-secondary-txt
 
+
+/* entry-titles */
+=entryTitle
+  > h2, > h3
+    +default-font-light
+    color: $c-secondary-txt
+    font-size: $f-h2-size
+
+/* entry-titles end */
+
 /* inputs */
 =inputLabel
   +default-font-medium
@@ -36,26 +46,52 @@
 /* inputs end */
 
 /* listing */
+=consultationProfileName
+  > *,
+  h3
+    +default-font-light
+    color: $c-secondary-txt
+    font-size: $f-paragraph
+
 =consultationTitle
   > *,
   h3
     +default-font-light
     color: $c-primary-txt
-    font-size: $f-h4-size
+    font-size: $f-h2-size
+    line-height: 29px
 
 =priceSection
   span
-    +default-font-bold
+    +default-font-medium
     color: $c-primary-txt
     font-size: $f-price-list
     text-transform: uppercase
 
     &.currency
       color: $c-label
+      margin: 0 0 0 8px
 
 =consultationDetailsInfo
   +default-font-medium
   font-size: $f-medium
   color: $c-secondary-txt
 
+
+=consultationDescription
+  +default-font-regular
+  font-size: $f-h5-size
+  color: $c-secondary-txt
+  line-height: $f-h5-size * 1.5
+
 /* listing end */
+
+/* tiles list */
+=tilesConsultationTitle
+  > *,
+  h3
+    +default-font-light
+    font-size: $f-h4-size
+    line-height: 24px
+
+/* tiles end*/

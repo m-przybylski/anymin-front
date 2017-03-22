@@ -8,6 +8,8 @@ import navbarModule from '../../common/components/navbar/navbar'
 import './expert-profile.sass'
 import singleConsultationModule from '../../common/components/profile/profile-single-consultation/profile-single-consultation'
 import profileHeaderModule from '../../common/components/profile/profile-header/profile-header'
+import similarConsultationModule from '../../common/components/profile/similar-consultations/similar-consultations'
+
 
 export interface IExpertProfileStateParams extends ng.ui.IStateParamsService {
   primaryConsultationId: string
@@ -21,6 +23,7 @@ const expertProfilePageModule = angular.module('profitelo.controller.expert-prof
   singleConsultationModule,
   navbarModule,
   profileHeaderModule,
+  similarConsultationModule,
   'profitelo.resolvers.service-provider-image',
   'profitelo.directives.pro-footer',
 ])
