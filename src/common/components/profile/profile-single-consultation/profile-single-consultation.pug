@@ -1,0 +1,18 @@
+.profile-single-consultation
+  .consultation-wrapper
+    .consultation-content
+      .consultation-details
+        .consultation-price
+          span(data-ng-bind-html="$ctrl.service.details.price | money")
+          span.currency(data-translate='HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE')
+
+        div
+          .consultation-title
+            h3
+              span {{ $ctrl.service.details.name }}
+
+          ul.consultation-about
+            li.options-item.recomendation
+              span  {{ $ctrl.service.rating || '0' }} %
+            li.options-item.conversation-count
+              span {{ $ctrl.service.usageCounter || '0' }}

@@ -3,19 +3,11 @@ import apiModule from 'profitelo-api-ng/api.module'
 import sessionModule from '../../common/services/session/session'
 import {ExpertProfileResolver} from './expert-profile.resolver'
 import {ExpertProfileController} from './expert-profile.controller'
-import topAlertModule from '../../common/services/top-alert/top-alert'
-import recommendedServicesModule from '../../common/services/recommended-services/recommended-services'
-import smoothScrollingModule from '../../common/services/smooth-scrolling/smooth-scrolling'
-import 'common/resolvers/service-provider-image/service-provider-image.service'
-import 'common/directives/expert-profile/pro-expert-header/pro-expert-header'
-import 'common/directives/expert-profile/pro-expert-slider/pro-expert-slider'
-import 'common/directives/expert-profile/pro-expert-single-consultation/pro-expert-single-consultation'
-import 'common/directives/expert-profile/pro-expert-social-icons/pro-expert-social-icons'
 import 'common/directives/pro-footer/pro-footer'
-import 'common/components/expert-profile/similar-experts-slider/similar-experts-slider'
-import 'common/components/expert-profile/social-links/social-links'
-import 'common/components/interface/collapse-tab/collapse-tab'
 import navbarModule from '../../common/components/navbar/navbar'
+import './expert-profile.sass'
+import singleConsultationModule from '../../common/components/profile/profile-single-consultation/profile-single-consultation'
+import profileHeaderModule from '../../common/components/profile/profile-header/profile-header'
 
 export interface IExpertProfileStateParams extends ng.ui.IStateParamsService {
   primaryConsultationId: string
@@ -25,21 +17,11 @@ export interface IExpertProfileStateParams extends ng.ui.IStateParamsService {
 const expertProfilePageModule = angular.module('profitelo.controller.expert-profile', [
   'ui.router',
   apiModule,
-
   sessionModule,
+  singleConsultationModule,
+  profileHeaderModule,
   navbarModule,
-  smoothScrollingModule,
-  topAlertModule,
-  recommendedServicesModule,
-  'profitelo.resolvers.service-provider-image',
-  'profitelo.directives.expert-profile.pro-expert-header',
   'profitelo.directives.pro-footer',
-  'profitelo.directives.expert-profile.pro-expert-slider',
-  'profitelo.directives.expert-profile.pro-expert-single-consultation',
-  'profitelo.directives.expert-profile.pro-expert-social-icons',
-  'profitelo.components.expert-profile.similar-experts-slider',
-  'profitelo.components.expert-profile.social-links',
-  'profitelo.components.interface.collapse-tab'
 ])
   .config(($stateProvider: ng.ui.IStateProvider, $qProvider: ng.IQProvider) => {
     $qProvider.errorOnUnhandledRejections(false)

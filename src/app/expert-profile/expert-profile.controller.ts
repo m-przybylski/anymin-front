@@ -1,14 +1,10 @@
 import {IExpertProfileStateParams} from './expert-profile'
 import {ProfileApi} from 'profitelo-api-ng/api/api'
 import {GetExpertProfile} from 'profitelo-api-ng/model/models'
-import {RecommendedServicesService} from '../../common/services/recommended-services/recommended-services.service'
-import {SmoothScrollingService} from '../../common/services/smooth-scrolling/smooth-scrolling.service'
 
 /* @ngInject */
 export function ExpertProfileController($stateParams: IExpertProfileStateParams, $log: ng.ILogService,
-                                        $timeout: ng.ITimeoutService, expertProfile: GetExpertProfile,
-                                        recommendedServices: RecommendedServicesService, ProfileApi: ProfileApi,
-                                        smoothScrollingService: SmoothScrollingService) {
+                                        expertProfile: GetExpertProfile, ProfileApi: ProfileApi) {
 
   this.profile = {}
 
@@ -17,18 +13,8 @@ export function ExpertProfileController($stateParams: IExpertProfileStateParams,
   this.profile.type = 'single'
   this.profile.isFavourite = expertProfile.isFavourite
 
-  if (!!$stateParams.primaryConsultationId) {
-    $timeout(() => {
-      smoothScrollingService.simpleScrollTo('#consultationScroll', true)
-    })
-  }
-
   this.profile.colaboratedOrganizations = expertProfile.employers
   this.services = expertProfile.services
-
-  recommendedServices.getRecommendedExperts(this.consultations).then((response) => {
-    this.similarExperts = response
-  })
 
   const onProfileLike = () =>
     this.profile.isFavourite = true
