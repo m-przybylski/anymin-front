@@ -1,15 +1,15 @@
 import * as angular from 'angular'
-import './pro-summary-tag'
+import './tags-list'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-describe('Unit testing: profitelo.components.pro-summary-tag', () => {
-  return describe('for pro-summary-tag component >', () => {
+describe('Unit testing: profitelo.components.tags-list', () => {
+  return describe('for tagsList >', () => {
 
     let scope: any
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let componentController: any
     let component: any
-    let validHTML = '<pro-summary-tag tags="tags" title="title"></pro-summary-tag>'
+    let validHTML = '<tags-list tags="tags" title="title"></tags-list>'
 
     function create(html: string) {
       scope = rootScope.$new()
@@ -21,7 +21,7 @@ describe('Unit testing: profitelo.components.pro-summary-tag', () => {
 
     beforeEach(() => {
 
-      angular.mock.module('profitelo.components.pro-summary-tag')
+      angular.mock.module('profitelo.components.tags-list')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$componentController_: ng.IComponentControllerService) => {
         componentController = _$componentController_
@@ -29,7 +29,7 @@ describe('Unit testing: profitelo.components.pro-summary-tag', () => {
         compile = $compile
       })
 
-      component = componentController('proSummaryTag', {$element: create(validHTML), $scope: scope}, {})
+      component = componentController('tagsList', {$element: create(validHTML), $scope: scope}, {})
 
     })
 

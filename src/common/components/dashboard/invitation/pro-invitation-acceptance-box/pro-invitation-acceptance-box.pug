@@ -22,7 +22,7 @@
         span {{ ::"DASHBOARD.INVITATION.HAD_BEEN_REJECTED" | translate }}
         span.back(data-ng-show="vm.rejectTimeoutSet" data-ng-click="vm.abortRejection()") ( {{ ::"LOGIN.BACK" | translate }} )
 
-  pro-summary-tag(
+  tags-list(
     data-title="DASHBOARD.CREATE_PROFILE.SUMMARY.CONSULTATION_TAGS"
     data-tags="::vm.invitation.details.tagNames"
   )

@@ -2,6 +2,7 @@ import * as angular from 'angular'
 import apiModule from 'profitelo-api-ng/api.module'
 import {EmploymentApi} from 'profitelo-api-ng/api/api'
 import {Tag} from 'profitelo-api-ng/model/models'
+import tagsListModule from '../../../tags-list/tags-list'
 
   function controllerFunction($timeout: ng.ITimeoutService, $scope: ng.IScope, EmploymentApi: EmploymentApi) {
 
@@ -88,7 +89,7 @@ import {Tag} from 'profitelo-api-ng/model/models'
   }
 
   angular.module('profitelo.components.dashboard.invitation.pro-invitation-acceptance-box', [
-    'profitelo.components.pro-summary-tag',
-    apiModule
+    apiModule,
+    tagsListModule
   ])
   .component('proInvitationAcceptanceBox', proInvitationAcceptanceBox)

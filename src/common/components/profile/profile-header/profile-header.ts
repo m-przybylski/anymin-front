@@ -9,4 +9,4 @@ const profileHeaderModule = angular.module('profitelo.components.profile.profile
 .component('profileHeader', new ProfileHeaderComponent())
   .name
 
-export default profileHeaderModule
+export default profileHeaderModule;
