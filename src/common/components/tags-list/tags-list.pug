@@ -5,8 +5,3 @@
   ul.tag-list.slide-page
     li(ng-repeat="tag in $ctrl.tags | limitTo: 7")
       a.slide-btn-tag(data-ui-sref="app.search-result({q: tag.name})") {{ tag.name }}
-
-    li.showMoreTagsBtn(data-ng-show="$ctrl.showTags" data-ng-click="$ctrl.showMoreTags()")
-      a.slide-btn-tag
-        span.pro-tag(data-ng-show="!($ctrl.showTagClass)") ...
-        span.pro-tag.icon.icon-arrow-up-12(data-ng-show="$ctrl.showTagClass")

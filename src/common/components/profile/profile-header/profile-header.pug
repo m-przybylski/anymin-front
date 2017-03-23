@@ -2,14 +2,13 @@
   .container
     .profile-header-container
       .profile-header-logo
-        .thumb.x128
-          img.user-avatar(src="#")
+        user-avatar(data-image-token="$ctrl.profileDetails.avatar")
 
       .profile-content
         .profile-content-header
           .entry-title
             .profile-name
-              h3 Name company
+              h3 {{ $ctrl.profileDetails.name }}
 
               .status-list
                 span.status.availability
@@ -17,36 +16,24 @@
                   span.status-title {{"STATUS.AVAILABLE.TITLE" | translate }}
 
             ul.language
-              li
+              li(data-ng-repeat="language in $ctrl.profileDetails.languages")
                 a
-                  span PL
-              li
-                a
-                  span DE
+                  span {{ language }}
 
           ul.social-links
-            li
-              a.btn.btn-circle(href="#" target="_blank")
-                span.icon.icon-facebook-24
-            li
-              a.btn.btn-circle(href="#" target="_blank")
-                span.icon.icon-twitter-24
-            li
-              a.btn.btn-circle(href="#" target="_blank")
-                span.icon.icon-google-plus-24
-            li
-              a.btn.btn-circle(href="#" target="_blank")
-                span.icon.icon-instagram-24
+            li(data-ng-repeat="link in $ctrl.profileDetails.links")
+              a.btn.btn-circle(href="{{link}}" target="_blank")
+                span.icon(pro-social-icon-getter data-url="link")
 
           ul.share-links
             li
               a
                 span.icon.icon-share-24
                 span(data-translate="EXPERT_ACCOUNT.BUTTON.SHARE")
-            li
-              a
+            li(data-ng-class="{'selected': $ctrl.isFavourite}")
+              a(data-ng-click="$ctrl.onLike()")
                 span.icon.icon-heart-24
                 span(data-translate="EXPERT_ACCOUNT.BUTTON.FAVOURITE")
 
         .profile-content-description
-          p The 2005 Toll-free Numbers in Television Advertising study, commissioned by 800response, concluded that 35 percent of all television commercials feature phone numbers, and 82 percent of those phone numbers are toll-free. Furthermore, 74 percent of the toll-free numbers in television ads use.
+          p {{ $ctrl.profileDetails.description }}
