@@ -5,4 +5,7 @@ navbar
   .container.no-padding
     profile-single-consultation(data-ng-repeat="consultation in vm.consultations" data-service="consultation.service"
                                 data-tags="consultation.tags")
+  .container
+    similar-consultation()
+
 pro-footer()

@@ -31,13 +31,14 @@
           align-items: center
 
         h3
-          margin: 0 0 8px
+          +consultationTitle
+          margin: 0 0 16px
 
           +lgm
             margin: 0
 
         .status-list
-          margin: 0 0 8px
+          margin: 0 0 16px
 
           +lgm
             margin: 0 0 0 8px
@@ -46,6 +47,7 @@
         justify-content: center
 
         +lgm
+          margin: 4px 0 0
           justify-content: flex-start
 
     .profile-header-logo
@@ -66,15 +68,10 @@
 
 
     .profile-content-description
-      font-size: $f-h5-size
-      color: $c-secondary-txt
-      line-height: $f-h5-size * 1.5
+      +consultationDescription
 
       p
-        +default-font-regular
-        font-size: $f-h5-size
-        color: $c-secondary-txt
-        line-height: $f-h5-size * 1.5
+        +consultationDescription
 
   .social-links
     margin: 0 0 24px
@@ -93,7 +90,7 @@
       margin: 0
 
     li
-      margin: 0 8px
+      margin: 0 16px
 
       +lgm
         margin: 0 0 0 16px

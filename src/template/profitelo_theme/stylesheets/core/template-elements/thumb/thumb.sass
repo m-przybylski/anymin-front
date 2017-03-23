@@ -1,13 +1,12 @@
 .thumb
   display: inline-flex
-  overflow: hidden
   position: relative
 
   &.x24
-    width: 32px
-    height: 32px
-    min-width: 32px
-    min-height: 32px
+    width: 24px
+    height: 24px
+    min-width: 24px
+    min-height: 24px
 
   &.x32
     width: 32px
@@ -76,13 +75,14 @@
 
   .status-list
     position: absolute
-    right: 0
-    bottom: 0
+    right: -4px
+    bottom: -4px
     z-index: 100
 
     .status
-      &::before
-        margin: 0
-        border: 2px solid $c-white
-        width: 12px
-        height: 12px
+      border-radius: 50%
+      border: 3px solid $c-white
+
+      span
+        &.icon
+          margin: 0

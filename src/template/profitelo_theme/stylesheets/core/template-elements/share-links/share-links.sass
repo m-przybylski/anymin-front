@@ -8,11 +8,17 @@
   li
     margin: 0 16px
 
+    &:hover
+      a
+        span
+          color: $c-primary
+
     a
       display: inline-flex
       align-items: center
 
       span
+        transition: color 0.3s
         text-transform: uppercase
         color: $c-secondary-txt
 

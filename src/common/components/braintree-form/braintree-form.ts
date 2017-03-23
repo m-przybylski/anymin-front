@@ -55,7 +55,7 @@ export class BraintreeFormComponentController implements ng.IController, IBraint
             'input': {
               'color': '#272727',
               'font-size': '16px',
-              'font-family': 'Robo, helvetica, tahoma, calibri, sans-serif',
+              'font-family': 'Roboto, helvetica, tahoma, calibri, sans-serif',
               'font-weight': '300'
             },
             '::-webkit-input-placeholder': {
