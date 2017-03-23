@@ -6,7 +6,7 @@ export interface IProfileSingleConsultationComponentBindings extends ng.IControl
   tags: Array<Tag>
 }
 
-const ProfileSingleConsultationModule = angular.module('profitelo.components.profile.profile-single-consultation', [
+const ProfileSingleConsultationModule = angular.module('profitelo.components.profile.profile-expert-single-consultation', [
 ])
 .component('profileSingleConsultation', new ProfileSingleConsultationComponent())
   .name

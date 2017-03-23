@@ -6,9 +6,9 @@ import {ExpertProfileController} from './expert-profile.controller'
 import 'common/directives/pro-footer/pro-footer'
 import navbarModule from '../../common/components/navbar/navbar'
 import './expert-profile.sass'
-import singleConsultationModule from '../../common/components/profile/profile-single-consultation/profile-single-consultation'
 import profileHeaderModule from '../../common/components/profile/profile-header/profile-header'
 import similarConsultationModule from '../../common/components/profile/similar-consultations/similar-consultations'
+import ProfileSingleConsultationModule from '../../common/components/profile/profile-expert-single-consultation/profile-single-consultation'
 
 
 export interface IExpertProfileStateParams extends ng.ui.IStateParamsService {
@@ -20,7 +20,7 @@ const expertProfilePageModule = angular.module('profitelo.controller.expert-prof
   'ui.router',
   apiModule,
   sessionModule,
-  singleConsultationModule,
+  ProfileSingleConsultationModule,
   navbarModule,
   profileHeaderModule,
   similarConsultationModule,
