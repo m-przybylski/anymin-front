@@ -1,6 +1,7 @@
 import {IExpertProfileStateParams} from './expert-profile'
 import {ProfileApi} from 'profitelo-api-ng/api/api'
 import {GetExpertProfile, GetExpertDetails, GetExpertServiceDetails} from 'profitelo-api-ng/model/models'
+import {ProfileTypes} from '../../common/components/profile/profile-header/profile-header'
 
 
 
@@ -10,6 +11,7 @@ export class ExpertProfileController {
   public profile: GetExpertDetails | undefined
   public consultations: Array<GetExpertServiceDetails>
   public isFavourite: boolean
+  public profileType: ProfileTypes
 
   constructor(private $stateParams: IExpertProfileStateParams, private $log: ng.ILogService,
               expertProfile: GetExpertProfile, private ProfileApi: ProfileApi) {
@@ -17,6 +19,7 @@ export class ExpertProfileController {
     this.profile = expertProfile.profile.expertDetails
     this.consultations = expertProfile.services
     this.isFavourite = expertProfile.isFavourite
+    this.profileType = ProfileTypes.expert
   }
 
   public onProfileLike = () =>

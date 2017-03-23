@@ -19,6 +19,9 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
         profile: {
           organizationDetails: {},
           expertDetails: {}
+        },
+        profileFavourite: {
+          profileType: 'ORG'
         }
       }
       let compiledElement = compile(elem)(scope)
@@ -31,6 +34,9 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
         profile: {
           organizationDetails: {},
           expertDetails: {}
+        },
+        profileFavourite: {
+          profileType: 'ORG'
         }
       }
     }

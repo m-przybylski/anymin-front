@@ -4,19 +4,21 @@ import {UrlService} from '../../../../../../services/url/url.service'
 /* @ngInject */
 function controller($state: ng.ui.IStateService, urlService: UrlService) {
 
+  const ORGANIZATION_SHORTCUT = 'ORG'
+
   this.consultationOwnerImage = () => {
     const imageToken = this.profile.avatar || this.profile.logo
     return imageToken !== null || imageToken === '' ? urlService.resolveFileUrl(imageToken) : false
   }
 
   this.goToProfile = () => {
-    const stateName = this.favouriteExpert.profile.organizationDetails ?
+    const stateName = this.favouriteExpert.profileFavourite.profileType === ORGANIZATION_SHORTCUT ?
       'app.company-profile' : 'app.expert-profile'
     $state.go(stateName, {profileId: this.favouriteExpert.profile.id})
   }
 
   this.$onInit = () => {
-    this.profile = this.favouriteExpert.profile.organizationDetails ?
+    this.profile = this.favouriteExpert.profileFavourite.profileType === ORGANIZATION_SHORTCUT ?
       this.favouriteExpert.profile.organizationDetails : this.favouriteExpert.profile.expertDetails
   }
 

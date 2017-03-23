@@ -12,6 +12,5 @@ export class ProfileSingleConsultationComponentController implements IProfileSin
 
   public startCall = (consultation: GetService) => {
     this.callService.callServiceId(consultation.id)
-    console.log(this.service, this.tags)
   }
 }

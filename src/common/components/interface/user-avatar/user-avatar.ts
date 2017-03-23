@@ -2,7 +2,6 @@ import * as angular from 'angular'
 import {UserAvatarComponent} from './user-avatar.component'
 import urlModule from '../../../services/url/url'
 
-
 export interface IUserAvatarComponentBindings extends ng.IController {
   imageToken?: string
 }
