@@ -1,0 +1,87 @@
+@import "../../../../../../template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../../../../template/profitelo_theme/stylesheets/core/helpers/rwd"
+@import "../../../../../../template/profitelo_theme/stylesheets/core/helpers/mixins.sass"
+
+.no-results-page
+  &.no-results-expert
+    .no-results-page-content
+      padding: 0
+
+      p
+        margin: 0
+
+      h2
+        margin: 0
+
+    .no-activity-message-container
+      border-bottom: 1px solid $c-lines
+      padding: 0 0 32px
+
+      p
+        +default-font-light
+        font-size: $f-paragraph
+        line-height: 21px
+
+      a
+        color: $c-primary
+
+  .blog-news-container
+    .post-container
+      text-align: left
+      display: flex
+      flex-wrap: wrap
+
+      +smm
+        flex-wrap: nowrap
+
+      +lgm
+        flex: 1 0 33.3%
+        flex-wrap: wrap
+        margin: 0 0 64px
+
+      h2
+        margin: 0 0 24px
+        min-height: 60px
+        line-height: 29px
+
+      p
+        +default-font-light
+        font-size: $f-h5-size
+        min-height: 60px
+        line-height: 19px
+        margin: 0 0 32px
+
+        +lgm
+          margin: 0 0 24px
+
+  .post-thumb-container
+    width: 100%
+    height: 240px
+    margin: 0 0 24px
+
+    +smm
+      padding: 0 16px 0 0
+      flex: 1 0 50%
+      margin: 0
+
+    +lgm
+      width: 100%
+      padding: 0
+      margin: 0 0 24px
+      flex: initial
+
+    .post-thumb
+      border: 1px solid $c-lines
+      background: $c-background
+      width: 100%
+      height: 100%
+
+  .post-description-container
+    +smm
+      padding: 0 0 0 16px
+      flex: 1 0 50%
+
+    +lgm
+      width: 100%
+      padding: 0
+      flex: initial

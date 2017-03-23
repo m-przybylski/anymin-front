@@ -1,20 +1,15 @@
 .dashboard-navigation
   background: $c-primary
-  height: $s-navbar-height
+  min-height: $dashboard-navigation-height
   margin: 0 0 48px
 
-  .dashboard-client-nav
-    margin: 0 0 32px
-
-    +smm
-      margin: 0
-
+  .dashboard-nav
     ul
       display: flex
       align-items: stretch
       overflow-x: scroll
       margin: 0
-      height: $s-navbar-height
+      height: $dashboard-navigation-height
 
       +smm
         overflow: hidden

@@ -1,0 +1,24 @@
+.dashboard-navigation.expert-navigation
+  .container
+    div
+      nav.dashboard-nav
+        ul
+          li
+            a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.ACTIVITIES.TITLE")
+          li
+            a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.MANAGE_PROFILE.TITLE")
+          li.complain-count-container
+            a
+              | {{:: 'DASHBOARD.EXPERT_ACCOUNT.NAVBAR.COMPLAINS.TITLE' | translate }}
+              span.complain-count +9
+          li
+            a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.EMPLOYES.TITLE")
+          li
+            a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.INVOICES.TITLE")
+
+      .nav-payment
+        .amount-balance-container
+          span(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.ACCOUNT_BALANCE.TITLE").account-balance-title
+          span.account-balacnce 8234,00 PLN
+        .payout-btn-container
+          a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.PAYOUT_BUTTON.TITLE").btn.btn-small.btn-primary

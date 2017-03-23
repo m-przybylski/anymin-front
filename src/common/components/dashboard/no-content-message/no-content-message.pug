@@ -1,0 +1,8 @@
+.no-content-message
+  img(data-ng-show="$ctrl.iconSrc" data-ng-src="{{$ctrl.iconSrc}}" alt="icon")
+  h2(data-ng-show="$ctrl.messageTitle") {{$ctrl.messageTitle | translate}}
+  p(data-ng-show="$ctrl.messageDescription") {{$ctrl.messageDescription | translate}}
+  a.btn(data-ng-show="$ctrl.buttonTitle" data-ng-class="{'{{$ctrl.buttonClass}}': $ctrl.buttonClass}")
+    span.icon(data-ng-show="$ctrl.buttonIconLeftClass" data-ng-class="{'{{$ctrl.buttonIconLeftClass}}': $ctrl.buttonIconLeftClass}")
+    | {{$ctrl.buttonTitle | translate}}
+    span.icon(data-ng-show="$ctrl.buttonIconRightClass" data-ng-class="{'{{$ctrl.buttonIconRightClass}}': $ctrl.buttonIconRightClass}")

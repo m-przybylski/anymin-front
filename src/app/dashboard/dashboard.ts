@@ -5,6 +5,7 @@ import './charge-account/charge-account'
 import './payments-thank-you-page/payments-thank-you-page'
 import './invitation/invitation'
 import './client/client'
+import './expert/expert'
 import './settings/settings'
 import './service-provider/service-provider'
 import navbarModule from '../../common/components/navbar/navbar'
@@ -13,6 +14,7 @@ import navbarModule from '../../common/components/navbar/navbar'
 class DashboardController {
 
   constructor() {
+
   }
 }
 
@@ -26,6 +28,7 @@ const dashboardPageModule = angular.module('profitelo.controller.dashboard', [
   'profitelo.controller.dashboard.payments-thank-you-page',
   'profitelo.controller.dashboard.invitation',
   'profitelo.controller.dashboard.client',
+  'profitelo.controller.dashboard.expert',
   'profitelo.controller.dashboard.settings',
   'profitelo.controller.dashboard.service-provider'
 ])
