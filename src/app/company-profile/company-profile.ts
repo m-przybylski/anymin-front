@@ -14,6 +14,10 @@ import 'common/components/expert-profile/company-single-consultation/company-sin
 import 'common/components/expert-profile/similar-experts-slider/similar-experts-slider'
 import 'common/components/expert-profile/social-links/social-links'
 import navbarModule from '../../common/components/navbar/navbar'
+import ProfileCompanyConsultationModule from '../../common/components/profile/profile-company-single-consultation/profile-company-single-consultation'
+import profileHeaderModule from '../../common/components/profile/profile-header/profile-header'
+import similarConsultationModule from '../../common/components/profile/similar-consultations/similar-consultations'
+import './company-profile.sass'
 
 export interface ICompanyProfileStateParams extends ng.ui.IStateParamsService {
   primaryConsultationId: string
@@ -28,6 +32,9 @@ const companyProfilePageModule = angular.module('profitelo.controller.company-pr
   topAlertModule,
   navbarModule,
   recommendedServicesModule,
+  ProfileCompanyConsultationModule,
+  profileHeaderModule,
+  similarConsultationModule,
   'profitelo.directives.expert-profile.pro-expert-header',
   'profitelo.directives.pro-footer',
   'profitelo.directives.expert-profile.pro-expert-slider',
@@ -38,22 +45,22 @@ const companyProfilePageModule = angular.module('profitelo.controller.company-pr
   'commonConfig'
 
 ])
-  .config(($stateProvider: ng.ui.IStateProvider, $qProvider: ng.IQProvider) => {
-    $qProvider.errorOnUnhandledRejections(false)
-    $stateProvider.state('app.company-profile', {
-      controllerAs: 'vm',
-      url: '/company-profile/{profileId}?primaryConsultationId',
-      template: require('./company-profile.pug')(),
-      controller: 'CompanyProfileController',
-      resolve: {
-        /* istanbul ignore next */
-        companyProfile: (CompanyProfileResolver: CompanyProfileResolver, $stateParams: ICompanyProfileStateParams) =>
-          CompanyProfileResolver.resolve($stateParams)
-      }
-    })
+.config(($stateProvider: ng.ui.IStateProvider, $qProvider: ng.IQProvider) => {
+  $qProvider.errorOnUnhandledRejections(false)
+  $stateProvider.state('app.company-profile', {
+    controllerAs: 'vm',
+    url: '/company-profile/{profileId}?primaryConsultationId',
+    template: require('./company-profile.pug')(),
+    controller: 'CompanyProfileController',
+    resolve: {
+      /* istanbul ignore next */
+      companyProfile: (CompanyProfileResolver: CompanyProfileResolver, $stateParams: ICompanyProfileStateParams) =>
+        CompanyProfileResolver.resolve($stateParams)
+    }
   })
-  .service('CompanyProfileResolver', CompanyProfileResolver)
-  .controller('CompanyProfileController', CompanyProfileController)
+})
+.service('CompanyProfileResolver', CompanyProfileResolver)
+.controller('CompanyProfileController', CompanyProfileController)
   .name
 
 export default companyProfilePageModule

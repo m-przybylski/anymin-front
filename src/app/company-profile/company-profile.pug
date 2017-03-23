@@ -1,20 +1,12 @@
 navbar()
+
 .company-profile
+  profile-header()
+
+  .container.no-padding
+    profile-company-single-consultation()
+
   .container
-    pro-expert-header.company-header(data-profile="vm.profile" data-handle-like="vm.handleLike()")
-
-  collapse-tab(id='consultationScroll' data-ng-if="vm.services && vm.services.length > 0")
-    .container.no-padding(ng-repeat="service in vm.services")
-      company-single-consultation(
-      data-service-tags-employees-tuple="service")
-
-  .container.file-slider(data-ng-if="!!vm.profile.files && vm.profile.files.length > 0")
-    pro-expert-slider(data-sliders="vm.profile.files")
-
-  .container(data-ng-if="!!vm.profile.links && vm.profile.links.length > 0")
-    social-links(data-links="vm.profile.links")
-
-  .container(data-ng-if="!!vm.similarCompany && vm.similarCompany.length > 0")
-    similar-experts-slider(data-consultations="vm.similarCompany" data-title="HOME_EXPERT_PROFILE.SIMILAR_EXPERTS_SLIDER_MESSAGE")
+    similar-consultation()
 
 pro-footer()
