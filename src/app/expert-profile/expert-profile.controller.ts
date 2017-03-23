@@ -1,43 +1,45 @@
 import {IExpertProfileStateParams} from './expert-profile'
 import {ProfileApi} from 'profitelo-api-ng/api/api'
-import {GetExpertProfile} from 'profitelo-api-ng/model/models'
+import {GetExpertProfile, GetExpertDetails, GetExpertServiceDetails} from 'profitelo-api-ng/model/models'
+
+
 
 /* @ngInject */
-export function ExpertProfileController($stateParams: IExpertProfileStateParams, $log: ng.ILogService,
-                                        expertProfile: GetExpertProfile, ProfileApi: ProfileApi) {
+export class ExpertProfileController {
 
-  this.profile = {}
+  public profile: GetExpertDetails | undefined
+  public consultations: Array<GetExpertServiceDetails>
+  public isFavourite: boolean
 
-  this.profile = expertProfile.profile.expertDetails
-  this.consultations = expertProfile.services
-  this.profile.type = 'single'
-  this.profile.isFavourite = expertProfile.isFavourite
+  constructor(private $stateParams: IExpertProfileStateParams, private $log: ng.ILogService,
+              expertProfile: GetExpertProfile, private ProfileApi: ProfileApi) {
 
-  this.profile.colaboratedOrganizations = expertProfile.employers
-  this.services = expertProfile.services
+    this.profile = expertProfile.profile.expertDetails
+    this.consultations = expertProfile.services
+    this.isFavourite = expertProfile.isFavourite
+  }
 
-  const onProfileLike = () =>
-    this.profile.isFavourite = true
+  public onProfileLike = () =>
+    this.isFavourite = true
 
-  const onProfileLikeError = (error: any) =>
-    $log.error('Can not like this company because: ' + error)
+  public onProfileLikeError = (error: any) =>
+    this.$log.error('Can not like this company because: ' + error)
 
-  const onProfileDislike = () =>
-    this.profile.isFavourite = false
+  public onProfileDislike = () =>
+    this.isFavourite = false
 
-  const onProfileDislikeError = (error: any) =>
-    $log.error('Can not dislike this company because: ' + error)
+  public onProfileDislikeError = (error: any) =>
+    this.$log.error('Can not dislike this company because: ' + error)
 
 
-  this.handleLike = () => {
-    if (!this.profile.isFavourite) {
-      ProfileApi.postProfileFavouriteExpertRoute($stateParams.profileId)
-        .then(onProfileLike, onProfileLikeError)
+  public handleLike = () => {
+    if (!this.isFavourite) {
+      this.ProfileApi.postProfileFavouriteExpertRoute(this.$stateParams.profileId)
+        .then(this.onProfileLike, this.onProfileLikeError)
     } else {
-      ProfileApi.deleteProfileFavouriteExpertRoute($stateParams.profileId)
-        .then(onProfileDislike, onProfileDislikeError)
+      this.ProfileApi.deleteProfileFavouriteExpertRoute(this.$stateParams.profileId)
+        .then(this.onProfileDislike, this.onProfileDislikeError)
     }
   }
 
-  return this
 }

@@ -1,6 +1,7 @@
 navbar
 .expert-profile
-  profile-header()
+  profile-header(data-profile-details="vm.profile" data-is-favourite="vm.isFavourite"
+  data-on-like="vm.handleLike")
 
   .container.no-padding
     profile-single-consultation(data-ng-repeat="consultation in vm.consultations" data-service="consultation.service"

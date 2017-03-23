@@ -7,7 +7,6 @@ export class TagsListComponent implements ng.IComponentOptions {
   replace: true
   bindings: {[boundProperty: string]: string} = {
     tags: '<',
-    hideMoreTags: '<',
     title: '@'
   }
 }
