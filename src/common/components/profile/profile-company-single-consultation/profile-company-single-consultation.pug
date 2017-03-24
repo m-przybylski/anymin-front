@@ -19,15 +19,16 @@
 
     tags-list(data-tags="$ctrl.tags")
 
-    span.label(data-translate="COMPANY_PROFILE.SINGLE_CONSULTATION.EMPLOYEES.TITLE")
+    .employees
+      span.label(data-translate="COMPANY_PROFILE.SINGLE_CONSULTATION.EMPLOYEES.TITLE")
 
-    ul.employees
-      li.employees-item(data-ng-repeat="employee in $ctrl.employees")
-        a(data-ui-sref="app.expert-profile({ profileId: employee.id })")
-          user-avatar.thumb.x48(data-image-token="employee.img")
-            .status-list
-              span.status.availability
-                span.icon.icon-success-12
+      ul.employees-list
+        li.employees-item(data-ng-repeat="employee in $ctrl.employees")
+          a(data-ui-sref="app.expert-profile({ profileId: employee.id })")
+            user-avatar.thumb.x48(data-image-token="employee.img")
+              .status-list
+                span.status.availability
+                  span.icon.icon-success-12
 
   .consultation-actions
     a.btn.btn-success(data-ng-click="$ctrl.startCall($ctrl.service)"

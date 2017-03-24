@@ -1,0 +1,49 @@
+@import "../../../../../template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
+
+.profile-gallery
+  ul
+    display: flex
+    flex-wrap: wrap
+    justify-content: center
+
+    +xsm
+      justify-content: flex-start
+      flex-wrap: nowrap
+
+    li
+      border: 1px solid $c-lines
+      border-radius: 5px
+      width: 64px
+      height: 64px
+      position: relative
+      overflow: hidden
+      margin: 0 16px 16px 0
+
+      +xsm
+        margin: 0 16px 0 0
+
+      &.show-more
+        a
+          span
+            +default-font-medium
+            display: flex
+            align-items: center
+            justify-content: center
+            color: $c-white
+            font-size: $f-paragraph
+            z-index: $z-index-100
+            position: absolute
+            left: 0
+            top: 0
+            width: 100%
+            height: 100%
+
+          &::after
+            content: ''
+            position: absolute
+            width: 100%
+            height: 100%
+            background: rgba($c-primary-txt, 0.6)
+            left: 0
+            top: 0

@@ -18,6 +18,7 @@ import '../../components/dashboard/settings/modals/security/pin-number/pin-numbe
 import '../../components/dashboard/settings/modals/payments/add-payment-method/add-payment-method'
 import '../../components/dashboard/settings/modals/payments/edit-company-invoice/edit-company-invoice'
 import '../../components/dashboard/settings/modals/payouts/payouts-payPal/payouts-pay-pal'
+import '../../components/profile/profile-header/profile-gallery/modals/preview'
 import '../../directives/interface/scrollable/scrollable'
 import '../../constants/style.constant'
 import '../../components/interface/multiselect/multiselect'
@@ -43,7 +44,8 @@ const modalsModule = angular.module('profitelo.services.modals', [
   'profitelo.components.dashboard.settings.security.modals.pin-number',
   'profitelo.components.dashboard.settings.modals.payments.add-payment-method',
   'profitelo.components.dashboard.settings.modals.payments.edit-company-invoice',
-  'profitelo.components.dashboard.settings.modals.payouts.payouts-pay-pal'
+  'profitelo.components.dashboard.settings.modals.payouts.payouts-pay-pal',
+  'profitelo.components.profile.profile-header.profile-gallery.modals.preview'
 ])
   .service('modalsService', ModalsService)
   .name

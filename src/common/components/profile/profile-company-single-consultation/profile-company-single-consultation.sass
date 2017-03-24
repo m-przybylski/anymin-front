@@ -4,16 +4,19 @@
 
 .company-profile
   .employees
-    display: flex
-    justify-content: space-between
-    flex-wrap: wrap
+    margin: 24px 0 0
 
-    +xsm
-      justify-content: flex-start
+    .employees-list
+      display: flex
+      justify-content: space-between
+      flex-wrap: wrap
 
-    li
-      margin: 0 12px 0 0
+      +xsm
+        justify-content: flex-start
 
-  span
-    &.label
-      margin: 0 0 16px
+      li
+        margin: 0 12px 0 0
+
+    span
+      &.label
+        margin: 0 0 16px
