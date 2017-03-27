@@ -20,7 +20,6 @@ export class CompanyProfileController {
     this.consultations = companyProfile.services
     this.isFavourite = companyProfile.isFavourite
     this.profileType = ProfileTypes.company
-
   }
 
   private onProfileLike = () =>
