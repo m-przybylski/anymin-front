@@ -8,7 +8,7 @@ export class CommonConfig {
 
     private static settings: Settings = {{{json jsonSettings}}}
 
-    consutructor() {}
+    constructor() {}
 
     public getAllData(): Settings {
         return angular.copy(CommonConfig.settings)
