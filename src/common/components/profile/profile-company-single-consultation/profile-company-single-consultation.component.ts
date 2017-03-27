@@ -4,6 +4,7 @@ export class ProfileCompanyConsultationComponent implements ng.IComponentOptions
   template = require('./profile-company-single-consultation.pug')()
   bindings: {[boundProperty: string]: string} = {
     service: '<',
-    tags: '<'
+    tags: '<',
+    employees: '<'
   }
 }

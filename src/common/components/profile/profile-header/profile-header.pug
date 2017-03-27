@@ -2,7 +2,7 @@
   .container
     .profile-header-container
       .profile-header-logo
-        user-avatar(data-image-token="$ctrl.profileDetails.avatar")
+        user-avatar.thumb.x128(data-image-token="$ctrl.profileDetails.avatar || $ctrl.profileDetails.logo")
 
       .profile-content
         .profile-content-header
@@ -10,7 +10,7 @@
             .profile-name
               h3 {{ $ctrl.profileDetails.name }}
 
-              .status-list
+              .status-list(data-ng-if="$ctrl.checkType()")
                 span.status.availability
                   span.icon.icon-success-12
                   span.status-title {{"STATUS.AVAILABLE.TITLE" | translate }}

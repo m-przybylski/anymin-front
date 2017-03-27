@@ -7,7 +7,13 @@ import userAvatarModule from '../../interface/user-avatar/user-avatar'
 export interface IProfileHeaderComponentBindings extends ng.IController {
   profileDetails?: GetExpertDetails,
   isFavourite: boolean,
-  onLike: () => void
+  onLike: () => void,
+  profileType: ProfileTypes
+}
+
+export enum  ProfileTypes {
+  'company',
+  'expert'
 }
 
 const profileHeaderModule = angular.module('profitelo.components.profile.profile-header', [

@@ -1,56 +1,49 @@
 import {ICompanyProfileStateParams} from './company-profile'
-import {SmoothScrollingService} from '../../common/services/smooth-scrolling/smooth-scrolling.service'
 import {ProfileApi} from 'profitelo-api-ng/api/api'
-import {RecommendedServicesService} from '../../common/services/recommended-services/recommended-services.service'
 import {ICompanyProfile} from './company-profile.resolver'
+import {GetOrganizationDetails, GetOrganizationServiceDetails} from 'profitelo-api-ng/model/models'
+import {ProfileTypes} from '../../common/components/profile/profile-header/profile-header'
+
 
 /* @ngInject */
-export function CompanyProfileController($stateParams: ICompanyProfileStateParams, $timeout: ng.ITimeoutService,
-                                         $log: ng.ILogService, smoothScrollingService: SmoothScrollingService,
-                                         ProfileApi: ProfileApi, recommendedServices: RecommendedServicesService,
-                                         companyProfile: ICompanyProfile) {
+export class CompanyProfileController {
 
-  this.profile = {}
+  profile?: GetOrganizationDetails
+  consultations: Array<GetOrganizationServiceDetails>
+  isFavourite: boolean
+  profileType: ProfileTypes
 
-  this.profile = companyProfile.profile.organizationDetails
-  this.consultations = companyProfile.services
-  this.profile.type = 'company'
-  this.profile.isFavourite = companyProfile.isFavourite
+  constructor(private $stateParams: ICompanyProfileStateParams, private $log: ng.ILogService,
+              private ProfileApi: ProfileApi, companyProfile: ICompanyProfile) {
 
-  if (!!$stateParams.primaryConsultationId) {
-    $timeout(() => {
-      smoothScrollingService.simpleScrollTo('#consultationScroll', true)
-    })
+    this.profile = companyProfile.profile.organizationDetails
+    this.consultations = companyProfile.services
+    this.isFavourite = companyProfile.isFavourite
+    this.profileType = ProfileTypes.company
+
   }
 
-  recommendedServices.getRecommendedCompanies(this.consultations).then((response) => {
-    this.similarCompany = response
-  })
+  private onProfileLike = () =>
+    this.isFavourite = true
 
-  this.services = companyProfile.services
+  private onProfileLikeError = (error: any) =>
+    this.$log.error('Can not like this company because: ' + error)
 
-  const onProfileLike = () =>
-    this.profile.isFavourite = true
+  private onProfileDislike = () =>
+    this.isFavourite = false
 
-  const onProfileLikeError = (error: any) =>
-    $log.error('Can not like this company because: ' + error)
+  private onProfileDislikeError = (error: any) =>
+    this.$log.error('Can not dislike this company because: ' + error)
 
-  const onProfileDislike = () =>
-    this.profile.isFavourite = false
-
-  const onProfileDislikeError = (error: any) =>
-    $log.error('Can not dislike this company because: ' + error)
-
-
-  this.handleLike = () => {
-    if (!this.profile.isFavourite) {
-      ProfileApi.postProfileFavouriteOrganizationRoute($stateParams.profileId)
-        .then(onProfileLike, onProfileLikeError)
+  public handleLike = () => {
+    if (!this.isFavourite) {
+      this.ProfileApi.postProfileFavouriteOrganizationRoute(this.$stateParams.profileId)
+      .then(this.onProfileLike, this.onProfileLikeError)
     } else {
-      ProfileApi.deleteProfileFavouriteOrganizationRoute($stateParams.profileId)
-        .then(onProfileDislike, onProfileDislikeError)
+      this.ProfileApi.deleteProfileFavouriteOrganizationRoute(this.$stateParams.profileId)
+      .then(this.onProfileDislike, this.onProfileDislikeError)
     }
   }
 
-  return this
 }
+

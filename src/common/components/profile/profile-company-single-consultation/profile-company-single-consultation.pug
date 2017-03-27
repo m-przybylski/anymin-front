@@ -2,37 +2,33 @@
   .consultation-section
     .consultation-details
       .consultation-price.price-section
-        span 10,00
+        span(data-ng-bind-html="::$ctrl.service.details.price | money")
         span.currency(data-translate='HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE')
 
       ul.consultation-details-info
         li.options-item.recomendation
           span.icon.icon-satisfaction-16
-          span  {{ $ctrl.serviceTagsEmployeesTuple.service.rating || '0' }}%
+          span  {{ $ctrl.service.rating }}%
         li.options-item.conversation-count
           span.icon.icon-call-16
-          span {{ $ctrl.serviceTagsEmployeesTuple.service.usageCounter || '0' }}
-
-    .consultation-as-employee
-      span Tekst
-        a.link HP Consulting
+          span {{ $ctrl.service.usageCounter }}
 
     .consultation-title
       h3
-        span {{ $ctrl.serviceTagsEmployeesTuple.service.details.name }} TITLE KONSULTEJSZYN
+        span {{ $ctrl.service.details.name }}
 
-    tags-list()
+    tags-list(data-tags="$ctrl.tags")
 
     span.label(data-translate="COMPANY_PROFILE.SINGLE_CONSULTATION.EMPLOYEES.TITLE")
 
     ul.employees
-      li.employees-item
-        .thumb.x48
-          img.user-avatar(src="#")
-
-          .status-list
-            span.status.availability
-              span.icon.icon-success-12
+      li.employees-item(data-ng-repeat="employee in $ctrl.employees")
+        a(data-ui-sref="app.expert-profile({ profileId: employee.id })")
+          user-avatar.thumb.x48(data-image-token="employee.img")
+            .status-list
+              span.status.availability
+                span.icon.icon-success-12
 
   .consultation-actions
-    a.btn.btn-success(data-ng-click="$ctrl.startCall()" data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CALL")
+    a.btn.btn-success(data-ng-click="$ctrl.startCall($ctrl.service)"
+    data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CALL")

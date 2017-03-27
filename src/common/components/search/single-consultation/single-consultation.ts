@@ -35,7 +35,6 @@ function singleConsultationController($state: ng.ui.IStateService, urlService: U
   this.goToProfile = () => {
     if (this.isLinkActive) {
       const stateName = this.consultation.owner.type === 'ORG' ? 'app.company-profile' : 'app.expert-profile'
-      console.log(stateName)
       $state.go(stateName, {profileId: this.consultation.owner.id, primaryConsultationId: this.consultation.id})
     }
   }

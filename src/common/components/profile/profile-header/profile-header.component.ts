@@ -5,6 +5,7 @@ export class ProfileHeaderComponent implements ng.IComponentOptions {
   bindings: {[boundProperty: string]: string} = {
     profileDetails: '<',
     isFavourite: '<',
-    onLike: '<'
+    onLike: '<',
+    profileType: '<'
   }
 }

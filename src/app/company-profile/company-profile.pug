@@ -1,10 +1,12 @@
 navbar()
 
 .company-profile
-  profile-header()
+  profile-header(data-profile-details="vm.profile" data-is-favourite="vm.isFavourite"
+  data-on-like="vm.handleLike" profile-type="vm.profileType")
 
   .container.no-padding
-    profile-company-single-consultation()
+    profile-company-single-consultation(data-ng-repeat="consultation in vm.consultations" data-service="consultation.service"
+    data-tags="consultation.tags" data-employees="consultation.employees")
 
   .container
     similar-consultation()
