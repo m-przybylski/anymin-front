@@ -1,0 +1,10 @@
+.profile-gallery.photo-gallery
+  ul
+    li(data-ng-repeat="photo in $ctrl.sliders | limitTo: $ctrl.slidersLimit ")
+      a
+        img(data-ng-src="{{ photo.previews }}" data-ng-click="$ctrl.createGalleryPreviewControllerModal(photo)")
+
+    li.show-more(data-ng-if="$ctrl.slidersCollapsed" data-ng-click="$ctrl.createGalleryPreviewControllerModal($ctrl.slidersLastImage)")
+      a
+        img(data-ng-src="{{ $ctrl.slidersLastImage.previews }}")
+        span {{ $ctrl.slidersCollapsedPhotoLength }}
