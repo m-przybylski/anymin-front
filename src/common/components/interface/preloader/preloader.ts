@@ -15,7 +15,6 @@
     controller: controller
   }
 
-
   angular.module('profitelo.components.interface.preloader', [
     'pascalprecht.translate'
   ])

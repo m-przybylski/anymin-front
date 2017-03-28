@@ -63,7 +63,6 @@ function proServiceProviderWhoProvides($q: ng.IQService, CommonSettingsService: 
 
     scope.tagParam = 'email'
 
-
     if ('required' in attrs) {
       scope.required = true
     }
@@ -78,7 +77,6 @@ function proServiceProviderWhoProvides($q: ng.IQService, CommonSettingsService: 
         _displayErrorMessage()
       })
     }
-
 
   }
 

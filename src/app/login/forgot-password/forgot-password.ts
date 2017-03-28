@@ -56,7 +56,6 @@ function ForgotPasswordController($state: ng.ui.IStateService, account: ILoginFo
 
   }
 
-
   return this
 
 }
@@ -77,7 +76,6 @@ function config($stateProvider: ng.ui.IStateProvider) {
     }
   })
 }
-
 
 angular.module('profitelo.controller.login.forgot-password', [
   'ui.router',

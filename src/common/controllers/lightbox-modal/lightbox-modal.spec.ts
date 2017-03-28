@@ -147,7 +147,6 @@ describe('profitelo.common.controller.lightbox-model', () => {
       expect(imageZoomService.resetImg).toHaveBeenCalled()
     })
 
-
     it('should download file', () => {
       spyOn(window, 'open')
       lightboxModelController.navSettings.downloadFile()

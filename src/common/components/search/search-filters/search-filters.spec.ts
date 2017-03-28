@@ -139,6 +139,5 @@ describe('Unit testing: profitelo.components.search.searchFilters', () => {
       expect(searchService.onQueryParamsChange).toHaveBeenCalled()
     }))
 
-
   })
 })

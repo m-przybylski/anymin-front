@@ -23,5 +23,3 @@ export class CustomTranslationHandlerService {
     return (new CustomTranslationHandlerService()).handler
   }
 }
-
-

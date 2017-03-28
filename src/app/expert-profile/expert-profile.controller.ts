@@ -3,8 +3,6 @@ import {ProfileApi} from 'profitelo-api-ng/api/api'
 import {GetExpertProfile, GetExpertDetails, GetExpertServiceDetails} from 'profitelo-api-ng/model/models'
 import {ProfileTypes} from '../../common/components/profile/profile-header/profile-header'
 
-
-
 /* @ngInject */
 export class ExpertProfileController {
 
@@ -33,7 +31,6 @@ export class ExpertProfileController {
 
   public onProfileDislikeError = (error: any) =>
     this.$log.error('Can not dislike this company because: ' + error)
-
 
   public handleLike = () => {
     if (!this.isFavourite) {

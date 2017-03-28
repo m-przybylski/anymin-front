@@ -69,7 +69,6 @@ let slider = {
   controller: defaultSliderFunction
 }
 
-
 angular.module('profitelo.components.interface.slider', [
   'pascalprecht.translate'
 ])

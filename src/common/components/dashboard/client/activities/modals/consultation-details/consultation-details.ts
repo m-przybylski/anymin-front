@@ -10,7 +10,6 @@ import './complain/complain'
 import './consultation-details-chat/consultation-details-chat'
 import './recommended-tags/recommended-tags'
 
-
 export interface IConsultationDetailsParentScope extends ng.IScope {
   sueId: string
 }
@@ -83,7 +82,6 @@ function controller($log: ng.ILogService, $scope: IConsultationDetailsScope,
 
   ViewsApi.getClientDashboardCallDetailsRoute($scope.$parent.sueId)
     .then((res) => onGetCallDetails(res), onGetCallDetailsError)
-
 
   $scope.onModalClose = () =>
     $uibModalInstance.dismiss('cancel')

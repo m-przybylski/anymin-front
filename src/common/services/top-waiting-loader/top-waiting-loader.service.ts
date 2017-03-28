@@ -14,7 +14,6 @@ export class TopWaitingLoaderService {
     this.immediateInProgress = false
     this.currentProgress = 0
 
-
     $rootScope.$on('$stateChangeSuccess', () => {
       $timeout(this.stopLoadingProcess)
     })

@@ -23,4 +23,3 @@ angular.module('profitelo.components.dashboard.client.favourites.favourite-exper
   'profitelo.components.dashboard.client.favourites.favourite-experts.favourite-expert'
 ])
   .component('clientFavouriteExperts', component)
-

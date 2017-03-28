@@ -74,7 +74,6 @@ describe('Unit tests: search-result>', () => {
           searchUrlService: searchUrlService
         })
 
-
       })
     })
 

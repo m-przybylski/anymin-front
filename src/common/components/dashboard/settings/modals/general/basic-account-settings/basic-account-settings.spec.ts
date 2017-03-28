@@ -24,7 +24,6 @@ describe('Testing Controller: basicAccountSettingsController', () => {
   const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
     jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss'])
 
-
   const uploaderFactory = {
     getInstance: () => {
     },

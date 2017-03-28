@@ -35,7 +35,6 @@ namespace profitelo.components.interface.multiselect {
           compile = $compile
         })
 
-
         component = componentController('multiselect', {$element: create(validHTML), $scope: scope}, bindings)
 
       })
@@ -61,7 +60,6 @@ namespace profitelo.components.interface.multiselect {
         const isChecked = component.isChecked(item)
         expect(isChecked).toBe(false)
       })
-
 
     })
   })

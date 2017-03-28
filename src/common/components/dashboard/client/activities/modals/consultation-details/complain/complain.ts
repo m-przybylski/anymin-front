@@ -33,4 +33,3 @@ import './complain-status/complain-status'
   ])
     .component('clientComplain', component)
 }())
-

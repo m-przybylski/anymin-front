@@ -54,7 +54,6 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
       isoScope.model.name = ''
       triggerKeyDown(el, 13)
 
-
     })
 
   })

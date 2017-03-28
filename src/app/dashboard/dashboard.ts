@@ -16,7 +16,6 @@ class DashboardController {
   }
 }
 
-
 const dashboardPageModule = angular.module('profitelo.controller.dashboard', [
   'ui.router',
   'permission',

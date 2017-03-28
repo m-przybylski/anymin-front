@@ -54,7 +54,6 @@ describe('Unit testing: profitelo.resolvers.login-confirm-email', () => {
       expect(AppLoginConfirmEmailResolverService.resolve).toBeDefined()
     })
 
-
     it('should handle empty token', () => {
 
       spyOn(mockState, 'go')
@@ -115,7 +114,6 @@ describe('Unit testing: profitelo.resolvers.login-confirm-email', () => {
       expect(spy.spy).toHaveBeenCalled()
 
     })
-
 
   })
 })

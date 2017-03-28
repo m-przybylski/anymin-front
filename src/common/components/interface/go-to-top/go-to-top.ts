@@ -30,7 +30,6 @@ let goToTop = {
   controller: controller
 }
 
-
 angular.module('profitelo.components.interface.go-to-top', [
   smoothScrollingModule
 ])

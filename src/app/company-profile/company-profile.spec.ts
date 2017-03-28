@@ -6,7 +6,6 @@ import {ICompanyProfileStateParams, default as companyProfilePageModule} from '.
 import {ProfileTypes} from '../../common/components/profile/profile-header/profile-header'
 import IScope = angular.IScope
 
-
 describe('Unit tests: CompanyProfileController >', () => {
   describe('Testing Controller: CompanyProfileController', () => {
 

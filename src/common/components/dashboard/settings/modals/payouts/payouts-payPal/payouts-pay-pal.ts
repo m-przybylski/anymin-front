@@ -45,7 +45,6 @@ export class PayoutsPayPalController implements ng.IController {
     throw new Error('Can not add new payouts method - paypal account: ' + error)
   }
 
-
   public choosePayoutPaypalMethod = () => {
     this.isPayoutPaypalMethod = true
     this.isPayoutBankMethod = false

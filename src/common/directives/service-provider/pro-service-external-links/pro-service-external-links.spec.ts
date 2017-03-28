@@ -23,7 +23,6 @@ namespace profitelo.directives.serviceProvider.proServiceExternalLinks {
         })
       })
 
-
       function create(html: string) {
         let elem = angular.element(html)
         scope.proModel = {
@@ -82,7 +81,6 @@ namespace profitelo.directives.serviceProvider.proServiceExternalLinks {
 
         expect(isoScope.model.links.indexOf('http://' + validUrl)).toEqual(0)
 
-
       })
 
       it('should remove added link on removeLink', () => {
@@ -99,7 +97,6 @@ namespace profitelo.directives.serviceProvider.proServiceExternalLinks {
         isoScope.removeLink(validUrl)
 
         expect(isoScope.model.links.indexOf(validUrl)).toEqual(-1)
-
 
       })
 
@@ -118,7 +115,6 @@ namespace profitelo.directives.serviceProvider.proServiceExternalLinks {
         expect(isoScope.proModel.links.indexOf(validUrl)).toEqual(0)
 
       })
-
 
     })
   })

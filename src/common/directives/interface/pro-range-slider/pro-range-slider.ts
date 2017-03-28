@@ -1,7 +1,6 @@
 import * as angular from 'angular'
 import 'angular-ui-router'
 
-
 function proRangeSlider($timeout: ng.ITimeoutService) {
 
   function linkFunction(scope: any, _elem: ng.IRootElementService, _attrs: ng.IAttributes) {

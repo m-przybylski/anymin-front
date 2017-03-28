@@ -10,7 +10,6 @@ import profileHeaderModule from '../../common/components/profile/profile-header/
 import similarConsultationModule from '../../common/components/profile/similar-consultations/similar-consultations'
 import ProfileSingleConsultationModule from '../../common/components/profile/profile-expert-single-consultation/profile-single-consultation'
 
-
 export interface IExpertProfileStateParams extends ng.ui.IStateParamsService {
   primaryConsultationId: string
   profileId: string

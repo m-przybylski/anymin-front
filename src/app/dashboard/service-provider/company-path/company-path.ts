@@ -87,10 +87,8 @@ function CompanyPathController($scope: ng.IScope, $state: ng.ui.IStateService, P
     })
   }
 
-
   return this
 }
-
 
 angular.module('profitelo.controller.dashboard.service-provider.company-path', [
   'ui.router',

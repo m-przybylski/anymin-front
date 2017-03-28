@@ -3,7 +3,6 @@ import sessionModule from '../../services/session/session'
 
 export class InvoiceCompanyFormComponentController implements ng.IController {
 
-
   /* @ngInject */
   constructor() {
   }
@@ -21,4 +20,3 @@ angular.module('profitelo.components.dashboard.invoice', [
   sessionModule
 ])
   .component('invoiceCompany', new PayPalPaymentFormComponent())
-

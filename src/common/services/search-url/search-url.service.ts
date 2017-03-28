@@ -1,7 +1,6 @@
 import * as angular from 'angular'
 import {ISearchQueryParams, SearchService} from '../search/search.service'
 
-
 export class SearchUrlService {
 
   private defaultQueryParams: ISearchQueryParams
@@ -26,6 +25,3 @@ export class SearchUrlService {
     return result
   }
 }
-
-
-

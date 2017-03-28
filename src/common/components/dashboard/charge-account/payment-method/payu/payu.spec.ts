@@ -39,7 +39,6 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
       $provide.value('userService', userService)
     }))
 
-
     beforeEach(() => {
 
       angular.mock.module(apiModule)
@@ -95,7 +94,6 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
-
 
     // FIXME after company info optional fields fix
     // it('should redirect to app.dashboard.client.activities on form error', inject(() => {

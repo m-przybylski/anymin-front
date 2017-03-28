@@ -4,8 +4,7 @@ import {GetProfileWithServicesEmployments} from 'profitelo-api-ng/model/models'
 import {UserService} from '../../../common/services/user/user.service'
 import {TopAlertService} from '../../../common/services/top-alert/top-alert.service'
 import userModule from '../../../common/services/user/user'
-import {IServiceProviderImageService}
-from '../../../common/resolvers/service-provider-image/service-provider-image.service'
+import {IServiceProviderImageService} from '../../../common/resolvers/service-provider-image/service-provider-image.service'
 import 'common/components/invitations/company-profile'
 import 'common/components/dashboard/invitation/pro-invitation-acceptance-box/pro-invitation-acceptance-box'
 import 'common/resolvers/service-provider-image/service-provider-image.service'
@@ -80,7 +79,6 @@ function config($stateProvider: ng.ui.IStateProvider) {
     }
   })
 }
-
 
 angular.module('profitelo.controller.dashboard.invitation', [
   userModule,

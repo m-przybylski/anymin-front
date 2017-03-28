@@ -105,5 +105,3 @@ export class SoundsService {
   public playCallEnded = () =>
     this.soundObjects.callEnded.play()
 }
-
-

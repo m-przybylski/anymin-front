@@ -5,7 +5,6 @@ import './individual/individual-consultation'
 (function() {
   function ConsultationRangeController() {
 
-
     return this
 
   }

@@ -4,7 +4,6 @@ import {ICompanyProfile} from './company-profile.resolver'
 import {GetOrganizationDetails, GetOrganizationServiceDetails} from 'profitelo-api-ng/model/models'
 import {ProfileTypes} from '../../common/components/profile/profile-header/profile-header'
 
-
 /* @ngInject */
 export class CompanyProfileController {
 
@@ -45,4 +44,3 @@ export class CompanyProfileController {
   }
 
 }
-

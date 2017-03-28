@@ -56,7 +56,6 @@ describe('Unit testing: profitelo.directives.page-title', () => {
 
     })
 
-
     it('should handle bad input', () => {
 
       create()

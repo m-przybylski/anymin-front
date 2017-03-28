@@ -10,11 +10,9 @@ describe('Unit testing: profitelo.services.service-provider-service >', function
       angular.mock.module('profitelo.services.service-provider')
     })
 
-
     beforeEach(inject(function ($injector: ng.auto.IInjectorService) {
       serviceProviderService = $injector.get<ServiceProviderService>('serviceProviderService')
     }))
-
 
     it('should have a dummy test', inject(function () {
       expect(true).toBeTruthy()

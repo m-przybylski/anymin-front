@@ -9,7 +9,6 @@ function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interv
                      $filter: ng.IFilterService, $q: ng.IQService, FilesApi: FilesApi, Upload: any,
                      CommonConfig: any, topAlertService: TopAlertService) {
 
-
   function linkFunction(scope: any, _element: ng.IRootElementService, attr: any) {
 
     let _file = 0
@@ -133,7 +132,6 @@ function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interv
         scope.errorValidateMessage = true
       }
     }
-
 
     scope.uploadFiles = ($files: any) => {
       if (isProcess) {

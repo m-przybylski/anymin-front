@@ -1,6 +1,5 @@
 namespace profitelo.filters.message {
 
-
   function messageFilter($log: ng.ILogService, ) {
 
     const hasImageUrl = (text: string) => {

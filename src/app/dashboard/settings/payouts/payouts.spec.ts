@@ -5,7 +5,6 @@ import * as angular from 'angular'
 
       let dashboardSettingsPayoutsController: DashboardSettingsPayoutsController
 
-
       beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
         $provide.value('apiUrl', 'awesomeUrl')
       }))

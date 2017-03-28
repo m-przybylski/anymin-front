@@ -14,7 +14,6 @@ import {IWindowService} from '../../../../../services/window/window.service'
 import {PayuAnimation} from './payu.animation'
 import * as _ from 'lodash'
 
-
 /* @ngInject */
 function payuPaymentFormController($log: ng.ILogService, $window: IWindowService, $state: ng.ui.IStateService,
                                    PaymentsApi: PaymentsApi, userService: UserService, topAlertService: TopAlertService,

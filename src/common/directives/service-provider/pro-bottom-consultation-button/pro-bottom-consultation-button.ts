@@ -22,7 +22,6 @@ namespace profitelo.directives.serviceProvider.proBottomConsultationButton {
     }
   }
 
-
   angular.module('profitelo.directives.service-provider.pro-bottom-consultation-button', [
 
     'pascalprecht.translate',

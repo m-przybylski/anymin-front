@@ -33,7 +33,6 @@ describe('Unit testing: profitelo.resolvers.service-provider-image', () => {
       })
     })
 
-
     it('should have resolve function', () => {
       expect(AppServiceProviderImageResolver.resolve).toBeDefined()
     })

@@ -30,7 +30,6 @@ describe('Unit tests: profitelo.controller.login.set-new-password >', () => {
       sessionId: '123fsdf'
     }
 
-
     let $state = {
       go: () => {
 

@@ -17,7 +17,6 @@
     controllerAs: '$ctrl'
   }
 
-
   angular.module('profitelo.components.expert-profile.social-links', [
   ])
     .component('socialLinks', socialLinks)

@@ -34,7 +34,6 @@ describe('Unit tests: profitelo.controller.login.register>', () => {
       sessionId: '123fsdf'
     }
 
-
     let sessionService = {
       setApiKey: () => {
       },

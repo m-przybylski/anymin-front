@@ -97,7 +97,6 @@ function SearchResultController($scope: ng.IScope, $location: ng.ILocationServic
     }
   })
 
-
   return this
 }
 

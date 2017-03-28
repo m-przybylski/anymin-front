@@ -53,7 +53,6 @@ function AccountFormController($log: ng.ILogService, $rootScope: IRootScopeServi
     this.current = 1
   }
 
-
   let _determinePhoneNumberStatus = (status: any) => {
     switch (status) {
       case 'REGISTERED':

@@ -7,7 +7,6 @@ namespace profitelo.directives.passwordStrengthBar {
       let scope: any = null
       let validHTML = '<password-strength-bar data-current-class="currentClass"></password-strength-bar>'
 
-
       beforeEach(() => {
 
         angular.mock.module('profitelo.directives.password-strength-bar')
@@ -40,7 +39,6 @@ namespace profitelo.directives.passwordStrengthBar {
         let el = create(validHTML)
         let isoScope = el.isolateScope()
 
-
         isoScope.currentClass = -1
         scope.$apply()
         expect($(el.html()).find('.start').length).toEqual(1)
@@ -68,7 +66,6 @@ namespace profitelo.directives.passwordStrengthBar {
         isoScope.currentClass = 5
         scope.$apply()
         expect($(el.html()).find('.very-strong').length).toEqual(1)
-
 
       })
 

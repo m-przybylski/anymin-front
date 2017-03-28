@@ -35,7 +35,6 @@ export function AppRunFunction($rootScope: IRootScopeService, $log: ng.ILogServi
     $state.go('app.home')
   })
 
-
   sessionService.getSession().then(() => {
 
     $urlRouter.listen()

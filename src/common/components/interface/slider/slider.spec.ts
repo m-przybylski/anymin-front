@@ -3,7 +3,6 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
   describe('Unit testing: profitelo.components.interface.slider', () => {
   return describe('for slider component >', () => {
 
-
     let scope: any
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService

@@ -15,11 +15,9 @@ describe('Unit testing: profitelo.services.timer >', () => {
       timerFactory = $injector.get<TimerFactory>('timerFactory')
     }))
 
-
     it('should have a dummy test', () => {
       expect(true).toBeTruthy()
     })
-
 
     it('should use timer factory', inject(($interval: ng.IIntervalService) => {
       const callbacks = {

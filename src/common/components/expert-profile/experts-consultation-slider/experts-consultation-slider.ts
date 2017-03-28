@@ -43,7 +43,6 @@ const expertsConsultationSlider = {
   controllerAs: '$ctrl'
 }
 
-
 angular.module('profitelo.components.expert-profile.experts-consultation-slider', [
   'profitelo.components.interface.slider',
   urlModule,

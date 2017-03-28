@@ -21,7 +21,6 @@ export class PinVerificationComponentController implements ng.IController, IPinV
 
   }
 
-
   public sendPinAgain = () => {
     this.isButtonDisable = true
     this.blockSendButtonForTime(30)

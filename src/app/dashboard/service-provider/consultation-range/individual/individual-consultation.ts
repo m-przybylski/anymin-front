@@ -7,14 +7,10 @@ import {DialogService} from '../../../../../common/services/dialog/dialog.servic
 import {ServiceProviderService} from '../../../../../common/services/service-provider/service-provider.service'
 import {UserService} from '../../../../../common/services/user/user.service'
 import userModule from '../../../../../common/services/user/user'
-import {
-  IServiceProviderImageService
-} from
-  '../../../../../common/resolvers/service-provider-image/service-provider-image.service'
+import { IServiceProviderImageService } from '../../../../../common/resolvers/service-provider-image/service-provider-image.service'
 import {ExpertProfile} from '../../../../../common/models/ExpertProfile'
 import topAlertModule from '../../../../../common/services/top-alert/top-alert'
 import dialogModule from '../../../../../common/services/dialog/dialog'
-
 import 'common/controllers/accept-reject-dialog-controller/accept-reject-dialog-controller'
 import 'common/resolvers/service-provider-image/service-provider-image.service'
 import 'common/directives/service-provider/pro-bottom-summary-row/pro-bottom-summary-row'
@@ -92,7 +88,6 @@ function IndividualConsultationController($log: ng.ILogService, $scope: ng.IScop
   this.backToFirstStep = () => {
     serviceProviderService.backToFirstStep(savedProfile.expertDetails, savedProfile.organizationDetails)
   }
-
 
   this.saveConsultationObject = () => {
     let _redirectCallBack = () => {
@@ -173,7 +168,6 @@ function IndividualConsultationController($log: ng.ILogService, $scope: ng.IScop
   return this
 }
 
-
 angular.module('profitelo.controller.dashboard.service-provider.consultation-range.individual', [
   'ui.router',
 
@@ -212,7 +206,6 @@ angular.module('profitelo.controller.dashboard.service-provider.consultation-ran
               ServiceApi.postServicesTagsRoute({
                 serviceIds: _.map(profileWithServices.services, service => service.id)
               }).then((servicesTags) => {
-
 
                 profileWithServices.services.forEach((service) => {
                   // FIXME remove any

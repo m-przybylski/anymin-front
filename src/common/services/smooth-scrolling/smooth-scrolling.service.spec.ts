@@ -6,16 +6,13 @@ describe('Unit testing: profitelo.directives.services.smooth-scrolling >', funct
 
     let smoothScrollingService: SmoothScrollingService
 
-
     beforeEach(function () {
       angular.mock.module('profitelo.services.smooth-scrolling')
     })
 
-
     beforeEach(inject(($injector: ng.auto.IInjectorService) => {
       smoothScrollingService = $injector.get<SmoothScrollingService>('smoothScrollingService')
     }))
-
 
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()

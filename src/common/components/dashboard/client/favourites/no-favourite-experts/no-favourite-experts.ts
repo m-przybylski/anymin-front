@@ -16,5 +16,3 @@
   ])
     .component('clientNoFavouriteExperts', component)
 }())
-
-

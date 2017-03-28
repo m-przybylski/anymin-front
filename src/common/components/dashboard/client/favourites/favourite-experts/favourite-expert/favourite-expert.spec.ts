@@ -11,7 +11,6 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
     let validHTML = '<client-favourite-expert favourite-expert="favouriteExpert"></client-favourite-expert>'
     let state: ng.ui.IStateService
 
-
     function create(html: string) {
       scope = rootScope.$new()
       let elem = angular.element(html)

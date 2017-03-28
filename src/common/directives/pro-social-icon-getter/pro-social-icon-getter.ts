@@ -26,4 +26,3 @@ angular.module('profitelo.directives.pro-social-icon-getter', [
   'profitelo.services.url'
 ])
   .directive('proSocialIconGetter', proSocialIconGetter)
-

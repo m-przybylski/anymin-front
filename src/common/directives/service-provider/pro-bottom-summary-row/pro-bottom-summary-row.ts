@@ -26,7 +26,6 @@ function proBottomSummaryRow() {
   }
 }
 
-
 angular.module('profitelo.directives.service-provider.pro-bottom-summary-row', [
 
   'pascalprecht.translate',

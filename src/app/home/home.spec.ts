@@ -19,7 +19,6 @@ describe('Unit tests: Home section >', () => {
       })
     })
 
-
     it('should exists', () => {
       return expect(!!HomeController).toBe(true)
     })

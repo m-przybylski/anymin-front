@@ -302,7 +302,6 @@ function proSearchDropdownController($q: ng.IQService, $scope: ng.IScope, $state
 
   $element.find('.dropdown-container').perfectScrollbar()
 
-
   return this
 }
 
@@ -334,4 +333,3 @@ angular.module('profitelo.components.pro-search-dropdown', [
   'profitelo.components.pro-search-dropdown.expert-suggestions'
 ])
   .component('proSearchDropdown', proSearchDropdown)
-

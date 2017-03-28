@@ -79,7 +79,6 @@ function proTagsSlider($window: IWindowService, $location: ng.ILocationService, 
     }
   }
 
-
   return {
     template: require('./pro-tags-slider.pug')(),
     restrict: 'E',

@@ -24,7 +24,6 @@ describe('Unit tests: CompanyPathController >', () => {
       })
     }
 
-
     beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', url)
     }))
@@ -98,7 +97,6 @@ describe('Unit tests: CompanyPathController >', () => {
       expect(_topAlertService.error).toHaveBeenCalledWith({message: 'error', timeout: 4})
 
     })
-
 
     it('should enter inEditMode when savedProfile had been initialized', () => {
       CompanyPathController = createController(<Profile>{

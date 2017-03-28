@@ -37,6 +37,5 @@ const component = {
   }
 }
 
-
 angular.module('profitelo.components.interface.top-modal-navbar', [])
   .component('topModalNavbar', component)

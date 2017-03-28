@@ -20,7 +20,6 @@ describe('Unit testing: profitelo.directives.interface.pro-uploader', () => {
 
     let url = 'awesomeUrl'
 
-
     let fileId = '123'
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
@@ -43,7 +42,6 @@ describe('Unit testing: profitelo.directives.interface.pro-uploader', () => {
         _commonConfigData = _CommonConfig.getAllData()
       })
     })
-
 
     function create(html: string) {
       scope = rootScope.$new()

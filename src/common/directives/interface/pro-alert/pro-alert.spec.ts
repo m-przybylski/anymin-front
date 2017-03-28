@@ -3,7 +3,6 @@ import * as _ from 'lodash'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {TopAlertService} from '../../../services/top-alert/top-alert.service'
 
-
 describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
   return describe('for interface.pro-alert directive >', () => {
 
@@ -13,7 +12,6 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
     let _proTopAlertsService: TopAlertService
     let validHTML = '<pro-alert></pro-alert>'
     let $timeout: ng.ITimeoutService
-
 
     interface Params {
       timeout: Number,
@@ -49,7 +47,6 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
       expect(el.html()).toBeDefined(true)
     })
 
-
     it('should destroy alert', () => {
       let el = create(validHTML)
       let isoScope = el.isolateScope()
@@ -63,7 +60,6 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
       scope.$digest()
       expect(isoScope.destroyAlert).toHaveBeenCalledWith(1)
     })
-
 
     it('should create success alert', () => {
       let el = create(validHTML)

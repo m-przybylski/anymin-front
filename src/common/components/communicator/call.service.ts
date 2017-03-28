@@ -11,7 +11,6 @@ import {ModalsService} from '../../services/modals/modals.service'
 import {TimerFactory} from '../../services/timer/timer.factory'
 import {UserService} from '../../services/user/user.service'
 
-
 export class CallService {
 
   private call: any = null

@@ -7,8 +7,7 @@ import {TopAlertService} from '../../../../../common/services/top-alert/top-aler
 import {ServiceProviderService} from '../../../../../common/services/service-provider/service-provider.service'
 import {UserService} from '../../../../../common/services/user/user.service'
 import userModule from '../../../../../common/services/user/user'
-import {IServiceProviderImageService} from
-  '../../../../../common/resolvers/service-provider-image/service-provider-image.service'
+import {IServiceProviderImageService} from '../../../../../common/resolvers/service-provider-image/service-provider-image.service'
 import topAlertModule from '../../../../../common/services/top-alert/top-alert'
 import dialogModule from '../../../../../common/services/dialog/dialog'
 import * as _ from 'lodash'
@@ -81,11 +80,9 @@ function CompanyConsultationController($log: ng.ILogService, $scope: ng.IScope, 
     return this.queue.completedSteps
   }, _calculateProgressPercentage)
 
-
   this.backToFirstStep = () => {
     serviceProviderService.backToFirstStep(savedProfile.expertDetails, savedProfile.organizationDetails)
   }
-
 
   this.saveConsultationObject = () => {
     let _redirectByOwnerEmployeeStatus = () => {
@@ -178,7 +175,6 @@ function CompanyConsultationController($log: ng.ILogService, $scope: ng.IScope, 
   this.addAnotherConsultation = () => {
     _postConsultationMethod($state.reload)
   }
-
 
   return this
 }

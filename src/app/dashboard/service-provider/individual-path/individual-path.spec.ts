@@ -44,7 +44,6 @@ describe('Unit tests: IndividualPathController >', () => {
         _timeout = $injector.get('$timeout')
         _smoothScrollingService = $injector.get<SmoothScrollingService>('smoothScrollingService')
 
-
         IndividualPathController = createController(null)
       })
     })
@@ -70,7 +69,6 @@ describe('Unit tests: IndividualPathController >', () => {
       expect(_state.go).toHaveBeenCalledWith('app.dashboard.service-provider.consultation-range.individual')
 
     })
-
 
     it('should be able to save account object and redirect to provider summary', () => {
 
@@ -100,7 +98,6 @@ describe('Unit tests: IndividualPathController >', () => {
 
     })
 
-
     it('should enter inEditMode when savedProfile had been initialized', () => {
       IndividualPathController = createController(<Profile>{
         expertDetails: {}
@@ -108,7 +105,6 @@ describe('Unit tests: IndividualPathController >', () => {
       expect(IndividualPathController.inEditMode).toBeTruthy()
 
     })*/
-
 
   })
 })

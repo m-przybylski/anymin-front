@@ -63,7 +63,6 @@ describe('Unit testing: profitelo.components.pro-search-dropdown.service-suggest
       expect(el.html()).toBeDefined(true)
     })
 
-
     it('should goToProfile', () => {
       const indexOfService = 0
 

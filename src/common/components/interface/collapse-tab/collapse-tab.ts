@@ -57,7 +57,6 @@ function controller($element: ng.IRootElementService, smoothScrollingService: Sm
     return getFirstCollapseElementHeight() === getCollapseWrapperHeight()
   }
 
-
   return this
 }
 
@@ -67,7 +66,6 @@ const collapseTab = {
   transclude: true,
   controller: controller
 }
-
 
 angular.module('profitelo.components.interface.collapse-tab', [
   smoothScrollingModule

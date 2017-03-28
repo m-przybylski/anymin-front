@@ -1,7 +1,6 @@
 (function () {
   function proExpertSeeMore() {
 
-
     return {
       template: require('./pro-expert-see-more.pug')(),
       restrict: 'E',

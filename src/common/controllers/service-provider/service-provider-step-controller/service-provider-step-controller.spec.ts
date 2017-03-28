@@ -39,7 +39,6 @@ describe('Unit tests: ServiceProviderStepController >', () => {
         _scope = $rootScope.$new()
         _scope.queue = _queue
 
-
         ServiceProviderStepController = $controller('ServiceProviderStepController', {
           $scope: _scope,
           smoothScrollingService: _smoothScrollingService
@@ -61,7 +60,6 @@ describe('Unit tests: ServiceProviderStepController >', () => {
     })
 
     it('should change current step on onClick function', () => {
-
 
       _scope.queue.currentStep = 3
       _scope.order = 3
