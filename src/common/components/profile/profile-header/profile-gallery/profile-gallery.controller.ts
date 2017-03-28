@@ -39,7 +39,7 @@ export class ProfileGalleryComponentController implements IProfileGalleryCompone
         downloadUrl: 'https://images.gutefrage.net/media/fragen/bilder/wie-heissen-die-suessen-wale-auf-instagram/0_original.jpg',
         token: 'TOKEN-3',
         previews: 'https://images.gutefrage.net/media/fragen/bilder/wie-heissen-die-suessen-wale-auf-instagram/0_original.jpg'
-      },{
+      }, {
         id: '4',
         'content-type': 'image/jpeg',
         downloadUrl: 'https://images.gutefrage.net/media/fragen/bilder/wie-heissen-die-suessen-wale-auf-instagram/0_original.jpg',
