@@ -21,4 +21,3 @@ namespace profitelo.components.settings.navigation {
   ])
     .component('settingsNavigation', component)
 }
-

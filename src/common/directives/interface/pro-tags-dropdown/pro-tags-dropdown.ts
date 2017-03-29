@@ -104,9 +104,7 @@ function proTagsDropdown($timeout: ng.ITimeoutService) {
     }
   }
 
-
 }
-
 
 angular.module('profitelo.directives.interface.pro-tags-dropdown', [
   'ui.bootstrap',
@@ -114,5 +112,3 @@ angular.module('profitelo.directives.interface.pro-tags-dropdown', [
   commonSettingsModule,
   'ngSanitize'])
   .directive('proTagsDropdown', proTagsDropdown)
-
-

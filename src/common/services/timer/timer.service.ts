@@ -26,7 +26,3 @@ export class TimerService {
     this.$interval.cancel(this.timer)
   }
 }
-
-
-
-

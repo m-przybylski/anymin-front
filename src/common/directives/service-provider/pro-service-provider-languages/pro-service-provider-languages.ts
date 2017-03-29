@@ -1,6 +1,5 @@
 namespace profitelo.directives.serviceProvider.proServiceProviderLanguages {
 
-
   function proServiceProviderLanguages($q: ng.IQService) {
 
     function linkFunction(scope: any, _element: ng.IRootElementService, attrs: ng.IAttributes) {
@@ -36,7 +35,6 @@ namespace profitelo.directives.serviceProvider.proServiceProviderLanguages {
         scope.model.languages = scope.proModel.languages
       }
 
-
       scope.saveSection = () => {
         _isValid().then(() => {
           scope.error.badLanguages = false
@@ -48,7 +46,6 @@ namespace profitelo.directives.serviceProvider.proServiceProviderLanguages {
       }
 
     }
-
 
     return {
       replace: true,

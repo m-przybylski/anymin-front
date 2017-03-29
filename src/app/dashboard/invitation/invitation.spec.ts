@@ -7,12 +7,10 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
     let scope: any,
       InvitationController: any
 
-
     beforeEach(() => {
     angular.mock.module('profitelo.controller.dashboard.invitation')
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
         scope = $rootScope.$new()
-
 
         InvitationController = $controller('InvitationController', {
           $rootScope: $rootScope,
@@ -27,7 +25,6 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 
       })
     })
-
 
     it('should have a dummy test', () => {
       expect(true).toBeTruthy()

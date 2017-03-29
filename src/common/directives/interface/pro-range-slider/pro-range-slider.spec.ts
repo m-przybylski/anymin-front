@@ -3,7 +3,6 @@ namespace profitelo.directives.interface.proRangeSlider {
   describe('Unit testing: profitelo.directives.interface.pro-range-slider', () => {
     return describe('for interface.pro-range-slider directive >', () => {
 
-
       let scope: any = null
       let rootScope: ng.IRootScopeService
       let compile: any = null

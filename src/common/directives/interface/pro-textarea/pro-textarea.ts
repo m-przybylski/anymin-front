@@ -9,7 +9,6 @@
       let placeholder = scope.placeholder
       let _inputGroup = $(element)
 
-
       if ('required' in attr.$attr) {
         scope.required = true
       }

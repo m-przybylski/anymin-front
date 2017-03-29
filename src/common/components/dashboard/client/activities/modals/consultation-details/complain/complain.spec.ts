@@ -9,7 +9,6 @@ namespace profitelo.components.dashboard.client.activities.modals.consultationDe
       let component: any
       let parentComponent
 
-
       beforeEach(() => {
 
         angular.mock.module('profitelo.components.dashboard.client.activities.modals.consultation-details.complain.complain-status')

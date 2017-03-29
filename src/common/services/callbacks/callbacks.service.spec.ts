@@ -15,7 +15,6 @@ describe('Unit testing: profitelo.services.callbacks >', () => {
       callbacksFactory = $injector.get<CallbacksFactory>('callbacksFactory')
     }))
 
-
     it('should have a dummy test', () => {
       expect(true).toBeTruthy()
     })

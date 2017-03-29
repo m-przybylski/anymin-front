@@ -60,7 +60,6 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
       expect(el.html()).toBeDefined(true)
     })
 
-
     it('should not save invalid section', () => {
       let el = create(validHTML, {})
       let isoScope = el.isolateScope()
@@ -139,7 +138,6 @@ describe('Unit testing: profitelo.directives.service-provider.pro-service-provid
 
       _httpBackend.flush()
       expect(isoScope.model.files[0].file.token).toEqual(file.token)
-
 
     })
 

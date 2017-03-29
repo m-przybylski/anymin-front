@@ -89,13 +89,11 @@ describe('Unit tests: profitelo.controller.post-register.set-password>', () => {
       SetPasswordController.onPasswordChange(';12;3gjsa08ian1ejfns,np')
       strongPassword = SetPasswordController.passwordStrength
 
-
       expect(badPassword).toEqual(1)
       expect(weakPassword).toEqual(2)
       expect(mediumPassword).toEqual(3)
       expect(strongPassword).toEqual(4)
     })
-
 
     it('should set new password on completeRegistration', () => {
       spyOn(_topAlertService, 'success')

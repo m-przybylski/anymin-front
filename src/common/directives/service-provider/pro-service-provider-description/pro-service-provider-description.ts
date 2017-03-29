@@ -42,7 +42,6 @@ namespace profitelo.directives.serviceProvider.proServiceProviderDescription {
 
     }
 
-
     return {
       replace: true,
       restrict: 'E',

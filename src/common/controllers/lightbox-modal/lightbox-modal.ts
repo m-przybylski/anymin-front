@@ -136,6 +136,5 @@ angular.module('profitelo.common.controller.lightbox-model', [
   printModule,
   imageZoomModule,
 
-
 ])
   .controller('lightboxModelController', lightboxModelController)

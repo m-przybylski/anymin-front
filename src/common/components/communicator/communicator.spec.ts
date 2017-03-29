@@ -48,8 +48,6 @@ import messengerModule from './messenger/messenger'
 
       beforeEach(() => {
 
-
-
         inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
                 $componentController: ng.IComponentControllerService) => {
 

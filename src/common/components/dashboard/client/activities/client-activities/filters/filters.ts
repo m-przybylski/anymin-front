@@ -21,7 +21,6 @@ interface IServiceExpertTuple {
 function controller($scope: ng.IScope, $filter: IFilterService,
                     clientActivitiesService: ClientActivitiesService) {
 
-
   const getServicesDropdownList = () => createDropdownServiceList(this.filters.expertServiceTuples)
 
   const watchGroup = ['dateFrom', 'dateTo']
@@ -31,7 +30,6 @@ function controller($scope: ng.IScope, $filter: IFilterService,
   this.showFilters = () => {
     this.showMobileFilters = !this.showMobileFilters
   }
-
 
   const createDropdownServiceList = (list: Array<IServiceExpertTuple>) => {
     const mappedList = _.uniqBy(_.map(list, (listItem) =>

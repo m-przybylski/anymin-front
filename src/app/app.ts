@@ -32,12 +32,12 @@ import 'angular-masonry'
 import 'ng-masonry'
 
 import 'reset.css/reset.css'
-import  'angular-toastr/dist/angular-toastr.css'
-import  'angular-ui-bootstrap/dist/ui-bootstrap-csp.css'
-import  'ui-select/dist/select.css'
-import  'perfect-scrollbar/dist/css/perfect-scrollbar.css'
-import  'angularjs-slider/dist/rzslider.css'
-import  'croppie/croppie.css'
+import 'angular-toastr/dist/angular-toastr.css'
+import 'angular-ui-bootstrap/dist/ui-bootstrap-csp.css'
+import 'ui-select/dist/select.css'
+import 'perfect-scrollbar/dist/css/perfect-scrollbar.css'
+import 'angularjs-slider/dist/rzslider.css'
+import 'croppie/croppie.css'
 import './../template/profitelo_theme/stylesheets/main.sass'
 import {CommonConfig, default as commonConfigModule} from '../../generated_modules/common-config/common-config'
 
@@ -56,7 +56,6 @@ try {
   }
 } catch (e) {
 }
-
 
 angular.module('profitelo', [
   'pascalprecht.translate',

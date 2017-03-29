@@ -18,7 +18,6 @@ describe('Unit tests: Field section >', () => {
       })
     })
 
-
     it('should exists', () => {
       return expect(!!ConsultationsFieldController).toBe(true)
     })

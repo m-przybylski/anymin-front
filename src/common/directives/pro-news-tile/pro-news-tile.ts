@@ -1,7 +1,6 @@
 (function() {
   function proNewsTile() {
 
-
     return {
       template:  require('./pro-news-tile.pug')(),
       restrict:     'E',

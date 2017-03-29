@@ -58,7 +58,6 @@ function proServiceExternalLinks($q: ng.IQService, CommonSettingsService: Common
       required = true
     }
 
-
     const _isValid = () => {
       const _isValidDeferredEmpty = $q.defer()
 

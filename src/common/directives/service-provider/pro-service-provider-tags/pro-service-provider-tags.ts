@@ -97,7 +97,6 @@ function proServiceProviderTags($q: ng.IQService, TagApi: TagApi, ) {
     }
   }
 
-
   return {
     replace: true,
     restrict: 'E',

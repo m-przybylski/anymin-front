@@ -20,4 +20,3 @@
   ])
     .component('clientNavigation', component)
 }())
-

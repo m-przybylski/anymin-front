@@ -8,8 +8,7 @@ import filtersModule from '../../../../common/filters/filters'
 import 'common/components/dashboard/client/favourites/no-favourite-experts/no-favourite-experts'
 import 'common/components/dashboard/client/favourites/favourite-experts/favourite-experts'
 import 'common/components/expert-profile/similar-experts-slider/similar-experts-slider'
-import
-  'common/components/dashboard/client/favourites/favourite-experts/last-consultation-slider/last-consultation-slider'
+import 'common/components/dashboard/client/favourites/favourite-experts/last-consultation-slider/last-consultation-slider'
 
 angular.module('profitelo.controller.dashboard.client.favourites', [
   'ui.router',
@@ -38,4 +37,3 @@ angular.module('profitelo.controller.dashboard.client.favourites', [
   })
   .service('ClientFavouritesResolver', ClientFavouritesResolver)
   .controller('DashboardClientFavouritesController', DashboardClientFavouritesController)
-

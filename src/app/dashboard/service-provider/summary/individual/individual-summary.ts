@@ -7,8 +7,7 @@ import {TopAlertService} from '../../../../../common/services/top-alert/top-aler
 import {DialogService} from '../../../../../common/services/dialog/dialog.service'
 import {CommunicatorService} from '../../../../../common/components/communicator/communicator.service'
 import {UserService} from '../../../../../common/services/user/user.service'
-import {IServiceProviderImageService} from
-  '../../../../../common/resolvers/service-provider-image/service-provider-image.service'
+import {IServiceProviderImageService} from '../../../../../common/resolvers/service-provider-image/service-provider-image.service'
 import dialogModule from '../../../../../common/services/dialog/dialog'
 import communicatorModule from '../../../../../common/components/communicator/communicator'
 import sessionModule from '../../../../../common/services/session/session'
@@ -49,7 +48,6 @@ function IndividualSummaryController($log: ng.ILogService, $state: ng.ui.IStateS
       $state.go('app.dashboard.service-provider.company-path')
     }
   }
-
 
   this.verifyProfile = () => {
     ServiceApi.postServicesVerifyRoute().then((_res) => {
@@ -129,7 +127,6 @@ function IndividualSummaryController($log: ng.ILogService, $state: ng.ui.IStateS
 
   return this
 }
-
 
 angular.module('profitelo.controller.dashboard.service-provider.summary.individual', [
   'ui.router',

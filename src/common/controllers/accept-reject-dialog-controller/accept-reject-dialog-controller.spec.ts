@@ -54,7 +54,6 @@ namespace profitelo.controllers.acceptRejectDialogController {
       expect(uibModalInstance.close).toHaveBeenCalledWith('cancel')
     })
 
-
     it('should have call modalCallback if exists', () => {
 
       scope.$parent = {
@@ -71,9 +70,7 @@ namespace profitelo.controllers.acceptRejectDialogController {
 
       expect(scope.$parent.vm.modalCallback).toHaveBeenCalled()
 
-
     })
-
 
   })
 }

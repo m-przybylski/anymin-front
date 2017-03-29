@@ -53,8 +53,6 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
     })
 
 
-
-
   })
 })
 }

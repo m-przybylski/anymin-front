@@ -1,7 +1,6 @@
 (function() {
   function proAdviceTile() {
 
-
     return {
       template:  require('./pro-advice-tile.pug')(),
       restrict:     'E',

@@ -45,7 +45,6 @@ describe('Unit testing: profitelo.components.interface.collapse-tab', () => {
         title: 'test'
       }
 
-
       smoothScrollingService = <SmoothScrollingService>{
         simpleScrollTo: (_x: any) => {
         }

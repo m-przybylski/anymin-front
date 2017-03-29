@@ -40,7 +40,6 @@ import {UrlService} from '../../../../../../services/url/url.service'
     controllerAs: '$ctrl'
   }
 
-
   angular.module('profitelo.components.dashboard.client.favourites.favourite-experts.last-consultation-slider', [
     'profitelo.components.interface.slider',
     'profitelo.services.url',

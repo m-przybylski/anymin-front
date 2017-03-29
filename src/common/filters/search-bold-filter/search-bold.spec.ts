@@ -1,7 +1,6 @@
 import {IFilterService} from '../../services/filter/filter.service'
 import * as angular from 'angular'
 
-
 describe('Unit testing: profitelo.filters.search-bold-filter >', () => {
   describe('for profitelo.filters.search-bold-filter >', () => {
 

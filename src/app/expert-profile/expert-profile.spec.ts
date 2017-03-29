@@ -2,13 +2,20 @@ import * as angular from 'angular'
 import {ProfileApi} from 'profitelo-api-ng/api/api'
 import './expert-profile'
 import expertProfilePageModule from './expert-profile'
-import recommendedServicesModule from '../../common/services/recommended-services/recommended-services'
+import {ProfileApiMock} from 'profitelo-api-ng/api/api'
+import {IExpertProfileStateParams} from './expert-profile'
+import {ProfileTypes} from '../../common/components/profile/profile-header/profile-header'
+import IScope = angular.IScope
 
 describe('Unit tests: ExpertProfileController >', () => {
   describe('Testing Controller: ExpertProfileController', () => {
 
     let ExpertProfileController: any
-    let _scope: any
+    let scope: IScope
+    let httpBackend: ng.IHttpBackendService
+    let ProfileApiMock: ProfileApiMock
+    let stateParams: IExpertProfileStateParams
+    let log: ng.ILogService
 
     beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', 'awesomeURL/')
@@ -16,24 +23,65 @@ describe('Unit tests: ExpertProfileController >', () => {
 
     beforeEach(() => {
       angular.mock.module(expertProfilePageModule)
-      angular.mock.module(recommendedServicesModule)
 
       inject(( $controller: ng.IControllerService, $timeout: ng.ITimeoutService,
-               $stateParams: ng.ui.IStateParamsService, ProfileApi: ProfileApi) => {
+               $stateParams: IExpertProfileStateParams, ProfileApi: ProfileApi,
+               $httpBackend: ng.IHttpBackendService, _ProfileApiMock_: ProfileApiMock,
+               $log: ng.ILogService) => {
 
+        httpBackend = $httpBackend
+        ProfileApiMock = _ProfileApiMock_
+        stateParams = $stateParams
+        log = $log
+        stateParams.profileId = ':profileId'
         ExpertProfileController = $controller('ExpertProfileController', {
-          $scope: _scope,
-          $stateParams: $stateParams,
+          $scope: scope,
+          $stateParams: stateParams,
           $$timeout: $timeout,
           expertOrganizations: [],
-          expertProfile: {type: '', profile: {expertDetails: {}}},
+          expertProfile: {isFavourite: false, profile: {expertDetails: {}}},
           ProfileApi: ProfileApi,
+          $log: log,
+          ProfileTypes:  ProfileTypes
         })
       })
     })
 
     it('should exists', () => {
       expect(!!ExpertProfileController).toBe(true)
+    })
+
+    it('should like the profile', () => {
+
+      ProfileApiMock.postProfileFavouriteExpertRoute(200, ':profileId', {profileId: ':profileId'})
+      ExpertProfileController.handleLike()
+      httpBackend.flush()
+      expect(ExpertProfileController.isFavourite).toBe(true)
+    })
+
+    it('should dislike the profile', () => {
+      ExpertProfileController.isFavourite = true
+      ProfileApiMock.deleteProfileFavouriteExpertRoute(200, ':profileId', {profileId: ':profileId'})
+      ExpertProfileController.handleLike()
+      httpBackend.flush()
+      expect(ExpertProfileController.isFavourite).toBe(false)
+    })
+
+    it('should call the log error on like', () => {
+      spyOn(log, 'error')
+      ProfileApiMock.postProfileFavouriteExpertRoute(500, ':profileId', {profileId: ':profileId'})
+      ExpertProfileController.handleLike()
+      httpBackend.flush()
+      expect(log.error).toHaveBeenCalled()
+    })
+
+    it('should call the log error on dislike', () => {
+      spyOn(log, 'error')
+      ExpertProfileController.isFavourite = true
+      ProfileApiMock.deleteProfileFavouriteExpertRoute(500, ':profileId', {profileId: ':profileId'})
+      ExpertProfileController.handleLike()
+      httpBackend.flush()
+      expect(log.error).toHaveBeenCalled()
     })
 
   })

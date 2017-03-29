@@ -5,7 +5,6 @@ import dialogModule from '../dialog/dialog'
 import {DialogService} from '../dialog/dialog.service'
 import {GetService} from 'profitelo-api-ng/model/models'
 
-
 describe('Unit testing: profitelo.services.modals >', () => {
   describe('for profitelo.services.modals >', () => {
 

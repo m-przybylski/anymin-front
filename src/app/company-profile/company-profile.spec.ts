@@ -1,50 +1,86 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {RecommendedServicesService} from '../../common/services/recommended-services/recommended-services.service'
-import {SmoothScrollingService} from '../../common/services/smooth-scrolling/smooth-scrolling.service'
+import {ProfileApiMock, ProfileApi} from 'profitelo-api-ng/api/api'
 import './company-profile'
+import {ICompanyProfileStateParams, default as companyProfilePageModule} from './company-profile'
+import {ProfileTypes} from '../../common/components/profile/profile-header/profile-header'
+import IScope = angular.IScope
 
 describe('Unit tests: CompanyProfileController >', () => {
   describe('Testing Controller: CompanyProfileController', () => {
 
     let CompanyProfileController: any
-    let _scope
-
-    const companyProfile = {
-      profile: {
-        organizationDetails: {}
-      }
-    }
+    let scope: IScope
+    let httpBackend: ng.IHttpBackendService
+    let ProfileApiMock: ProfileApiMock
+    let stateParams: ICompanyProfileStateParams
+    let log: ng.ILogService
 
     beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', 'awesomeURL')
     }))
 
     beforeEach(() => {
-      angular.mock.module('profitelo.controller.company-profile')
-      angular.mock.module('profitelo.services.recommended-services')
-      inject(($rootScope: IRootScopeService, $stateParams: ng.ui.IStateParamsService, $timeout: ng.ITimeoutService,
-              $controller: ng.IControllerService, $q: ng.IQService,
-              _smoothScrollingService_: SmoothScrollingService, _recommendedServices_: RecommendedServicesService) => {
+      angular.mock.module(companyProfilePageModule)
 
-        spyOn(_recommendedServices_, 'getRecommendedCompanies').and.callFake(() =>
-          $q.resolve([]))
+      inject(($rootScope: IRootScopeService, $stateParams: ICompanyProfileStateParams,
+              $controller: ng.IControllerService, ProfileApi: ProfileApi,
+              $httpBackend: ng.IHttpBackendService, _ProfileApiMock_: ProfileApiMock,
+              $log: ng.ILogService) => {
 
-        _scope = $rootScope.$new()
-
+        scope = $rootScope.$new()
+        httpBackend = $httpBackend
+        ProfileApiMock = _ProfileApiMock_
+        stateParams = $stateParams
+        log = $log
+        stateParams.profileId = ':profileId'
         CompanyProfileController = $controller('CompanyProfileController', {
-          $scope: _scope,
-          $stateParams: $stateParams,
-          $$timeout: $timeout,
-          companyProfile: companyProfile,
-          smoothScrollingService: _smoothScrollingService_,
-          recommendedServices: _recommendedServices_
+          $scope: scope,
+          $stateParams: stateParams,
+          expertOrganizations: [],
+          companyProfile: {isFavourite: false, profile: {companyDetails: {}}},
+          ProfileApi: ProfileApi,
+          $log: log,
+          ProfileTypes:  ProfileTypes
         })
       })
     })
 
     it('should exists', () => {
       expect(!!CompanyProfileController).toBe(true)
+    })
+
+    it('should like the profile', () => {
+
+      ProfileApiMock.postProfileFavouriteOrganizationRoute(200, ':profileId', {profileId: ':profileId'})
+      CompanyProfileController.handleLike()
+      httpBackend.flush()
+      expect(CompanyProfileController.isFavourite).toBe(true)
+    })
+
+    it('should dislike the profile', () => {
+      CompanyProfileController.isFavourite = true
+      ProfileApiMock.deleteProfileFavouriteOrganizationRoute(200, ':profileId', {profileId: ':profileId'})
+      CompanyProfileController.handleLike()
+      httpBackend.flush()
+      expect(CompanyProfileController.isFavourite).toBe(false)
+    })
+
+    it('should call the log error on like', () => {
+      spyOn(log, 'error')
+      ProfileApiMock.postProfileFavouriteOrganizationRoute(500, ':profileId', {profileId: ':profileId'})
+      CompanyProfileController.handleLike()
+      httpBackend.flush()
+      expect(log.error).toHaveBeenCalled()
+    })
+
+    it('should call the log error on dislike', () => {
+      spyOn(log, 'error')
+      CompanyProfileController.isFavourite = true
+      ProfileApiMock.deleteProfileFavouriteOrganizationRoute(500, ':profileId', {profileId: ':profileId'})
+      CompanyProfileController.handleLike()
+      httpBackend.flush()
+      expect(log.error).toHaveBeenCalled()
     })
   })
 })

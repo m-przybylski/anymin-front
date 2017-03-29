@@ -18,10 +18,7 @@
     }
   }
 
-
   angular.module('profitelo.directives.ng-enter', [
   ])
   .directive('ngEnter', ngEnter)
 }())
-
-

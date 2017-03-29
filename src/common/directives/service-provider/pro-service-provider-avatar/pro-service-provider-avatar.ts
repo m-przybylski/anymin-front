@@ -83,9 +83,7 @@ function proServiceProviderAvatar($log: ng.ILogService, $q: ng.IQService, topAle
       })
     }
 
-
   }
-
 
   return {
     replace: true,

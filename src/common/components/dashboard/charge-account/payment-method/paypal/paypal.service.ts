@@ -3,4 +3,3 @@ import {IWindowService} from '../../../../../services/window/window.service'
 export function PaypalFactory($window: IWindowService) {
   return $window.paypal
 }
-

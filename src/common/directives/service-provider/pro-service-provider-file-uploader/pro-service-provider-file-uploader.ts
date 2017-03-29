@@ -71,7 +71,6 @@ function proServiceProviderFileUploader($log: ng.ILogService, $q: ng.IQService, 
     }
   }
 
-
   return {
     replace: true,
     restrict: 'E',
@@ -88,7 +87,6 @@ function proServiceProviderFileUploader($log: ng.ILogService, $q: ng.IQService, 
     controllerAs: 'vm'
   }
 }
-
 
 angular.module('profitelo.directives.service-provider.pro-service-provider-file-uploader', [
   'pascalprecht.translate',

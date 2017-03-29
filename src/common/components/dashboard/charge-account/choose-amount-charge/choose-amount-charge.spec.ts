@@ -67,7 +67,6 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-amo
       })
     })
 
-
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))

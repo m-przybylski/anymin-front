@@ -53,7 +53,6 @@ function ServiceProviderStepController($scope: any, $timeout: ng.ITimeoutService
     }
   }
 
-
   $scope.skip = () => {
 
     $scope.queue.skippedSteps[$scope.order] = true
@@ -95,7 +94,6 @@ function ServiceProviderStepController($scope: any, $timeout: ng.ITimeoutService
   })
   return this
 }
-
 
 angular.module('profitelo.common.controller.service-provider.service-provider-step-controller', [
   'profitelo.services.smooth-scrolling',

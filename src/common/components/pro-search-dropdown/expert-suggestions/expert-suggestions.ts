@@ -1,7 +1,6 @@
 import * as angular from 'angular'
 import {CommonSettingsService} from '../../../services/common-settings/common-settings.service'
 
-
 /* @ngInject */
 function expertSuggestionsController(CommonSettingsService: CommonSettingsService) {
 

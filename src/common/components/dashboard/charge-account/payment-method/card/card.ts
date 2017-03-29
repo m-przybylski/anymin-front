@@ -37,7 +37,6 @@ export class CardPaymentFormComponentController implements ng.IController, ICard
     this.onBraintreeFormLoad = false
   }
 
-
   public onLoad = (): void => {
     this.onBraintreeFormLoad = true
   }

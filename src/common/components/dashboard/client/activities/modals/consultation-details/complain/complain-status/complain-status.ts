@@ -23,4 +23,3 @@ import '../../../../../../../../components/complaints/status/status'
   ])
     .component('clientComplainStatus', component)
 }())
-

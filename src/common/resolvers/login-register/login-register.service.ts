@@ -7,7 +7,6 @@ import {RegistrationApi} from 'profitelo-api-ng/api/api'
 import loginStateModule from '../../services/login-state/login-state'
 import topAlertModule from '../../services/top-alert/top-alert'
 
-
 export interface ILoginRegister {
   sessionId: string
   accountObject: any

@@ -35,7 +35,6 @@ describe('Unit testing: profitelo.resolvers.login-set-new-password', () => {
       })
     })
 
-
     it('should have resolve function', () => {
       expect(AppLoginSetNewPasswordResolver.resolve).toBeDefined()
     })
@@ -57,9 +56,7 @@ describe('Unit testing: profitelo.resolvers.login-set-new-password', () => {
       _timeout.flush()
       expect(spy.spy).toHaveBeenCalled()
 
-
     })
-
 
   })
 })

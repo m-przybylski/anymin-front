@@ -12,7 +12,6 @@ import 'common/directives/interface/pro-alert/pro-alert'
     return this
   }
 
-
   angular.module('profitelo.controller.dashboard.service-provider.summary', [
     'ui.router',
     'profitelo.directives.service-provider.pro-service-provider-summary-step',

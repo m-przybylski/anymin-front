@@ -48,7 +48,6 @@ describe('Unit tests: profitelo.controller.dashboard.service-provider.consultati
         _ServiceApi = _ServiceApi_
         _controller = $controller
 
-
         createController(_controller, <any>{
           expertDetails: {
             id: 1
@@ -135,7 +134,6 @@ describe('Unit tests: profitelo.controller.dashboard.service-provider.consultati
       IndividualConsultationController.consultations = []
 
       IndividualConsultationController.deleteConsultation(':serviceId', 1)
-
 
     })
 

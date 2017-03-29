@@ -51,7 +51,6 @@ describe('Unit testing: profitelo.resolvers.expert-profile', () => {
 
     beforeEach(() => {
 
-
       stateParams = {
         profileId: '1234567654321',
         primaryConsultationId: primaryConsultationId

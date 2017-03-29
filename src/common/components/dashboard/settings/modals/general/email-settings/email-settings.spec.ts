@@ -25,7 +25,6 @@ describe('Testing Controller: generalEmailSettingsController', () => {
     $provide.value('userService', userService)
   }))
 
-
   beforeEach(() => {
     angular.mock.module('ui.bootstrap')
     angular.mock.module('profitelo.components.dashboard.settings.modals.general.email-settings')

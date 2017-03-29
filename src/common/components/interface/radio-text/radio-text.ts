@@ -21,11 +21,7 @@
     controller: controller
   }
 
-
   angular.module('profitelo.components.interface.radio-text', [])
     .component('radioBtnText', component)
 
 }())
-
-
-

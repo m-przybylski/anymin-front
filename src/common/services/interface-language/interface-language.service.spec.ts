@@ -11,11 +11,9 @@ describe('Unit testing: profitelo.services.interface-language >', function () {
       angular.mock.module('profitelo.services.interface-language')
     })
 
-
     beforeEach(inject(function ($injector: ng.auto.IInjectorService) {
       InterfaceLanguageService = $injector.get<InterfaceLanguageService>('InterfaceLanguageService')
     }))
-
 
     it('should have a dummy test', inject(function () {
       expect(true).toBeTruthy()
@@ -59,7 +57,6 @@ describe('Unit testing: profitelo.services.interface-language >', function () {
       expect(typeof InterfaceLanguageService.setLanguage).toBe('function')
     })
 
-
     describe('unifyToIetfCode method >', function () {
       it('should be defined', function () {
         expect(InterfaceLanguageService.unifyToIetfCode).toBeDefined()
@@ -78,7 +75,6 @@ describe('Unit testing: profitelo.services.interface-language >', function () {
     })
   })
 })
-
 
 // letiable lang from URL
 describe('Unit testing: profitelo.services.interface-language >', function () {
@@ -114,7 +110,6 @@ describe('Unit testing: profitelo.services.interface-language >', function () {
   })
 })
 
-
 // found right language into cookie
 describe('Unit testing: profitelo.services.interface-language >', function () {
   describe('for InterfaceLanguageService service >', function () {
@@ -146,7 +141,6 @@ describe('Unit testing: profitelo.services.interface-language >', function () {
       })
     })
   })
-
 
   // language into cookie was not found into `_interfaceLanguages` so we set default
   describe('for InterfaceLanguageService service >', function () {
@@ -181,7 +175,6 @@ describe('Unit testing: profitelo.services.interface-language >', function () {
   })
 })
 
-
 // Tests with specyfic mocked services
 describe('Unit testing: profitelo.services.interface-language >', function () {
 
@@ -203,7 +196,6 @@ describe('Unit testing: profitelo.services.interface-language >', function () {
     it('this accually just inject $translate object before evaluate next test', function () {
     })
   })
-
 
   // found language
   describe('for InterfaceLanguageService service >', function () {
@@ -233,7 +225,6 @@ describe('Unit testing: profitelo.services.interface-language >', function () {
     })
   })
 
-
   // not found a language
   describe('for InterfaceLanguageService service >', function () {
     describe('getStartupLanguage method with mocked services >', function () {
@@ -259,7 +250,6 @@ describe('Unit testing: profitelo.services.interface-language >', function () {
         InterfaceLanguageService = null
       })
 
-
       it('should set default translation language if any parameter, URL or cookie has not been provided and not exists into `_interfaceLanguages` array', function () {
         expect(InterfaceLanguageService.getStartupLanguage()).toEqual('pl-pl')
       })
@@ -267,7 +257,6 @@ describe('Unit testing: profitelo.services.interface-language >', function () {
     })
   })
 })
-
 
 // letiable lang from URL
 describe('Unit testing: profitelo.services.interface-language >', function () {

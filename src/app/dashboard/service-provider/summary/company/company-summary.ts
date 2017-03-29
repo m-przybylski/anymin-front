@@ -8,8 +8,7 @@ import {DialogService} from '../../../../../common/services/dialog/dialog.servic
 import {CommunicatorService} from '../../../../../common/components/communicator/communicator.service'
 import userModule from '../../../../../common/services/user/user'
 import {UserService} from '../../../../../common/services/user/user.service'
-import {IServiceProviderImageService}
-from '../../../../../common/resolvers/service-provider-image/service-provider-image.service'
+import {IServiceProviderImageService} from '../../../../../common/resolvers/service-provider-image/service-provider-image.service'
 import dialogModule from '../../../../../common/services/dialog/dialog'
 import communicatorModule from '../../../../../common/components/communicator/communicator'
 import 'common/controllers/accept-reject-dialog-controller/accept-reject-dialog-controller'
@@ -146,7 +145,6 @@ function CompanySummaryController($log: ng.ILogService, $state: ng.ui.IStateServ
 
   return this
 }
-
 
 angular.module('profitelo.controller.dashboard.service-provider.summary.company', [
   'ui.router',

@@ -20,7 +20,6 @@ describe('Unit tests: SummaryController >', () => {
 
         _scope = $rootScope.$new()
 
-
         SummaryController = $controller('SummaryController', {
           $scope: _scope,
           ServiceApi: _ServiceApi_,

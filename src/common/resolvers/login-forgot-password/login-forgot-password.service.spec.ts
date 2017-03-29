@@ -34,7 +34,6 @@ describe('Unit testing: profitelo.resolvers.login-forgot-password', () => {
       expect(AppLoginForgotPasswordResolverService.resolve).toBeDefined()
     })
 
-
     it('should handle empty phone number', () => {
 
       spyOn(mockState, 'go')
@@ -62,7 +61,6 @@ describe('Unit testing: profitelo.resolvers.login-forgot-password', () => {
       expect(mockState.go).toHaveBeenCalledWith('app.login.account')
 
     })
-
 
   })
 })

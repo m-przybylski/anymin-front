@@ -46,7 +46,6 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
       expect(el.html()).toBeDefined(true)
     })
 
-
   })
 })
 }

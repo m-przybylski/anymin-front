@@ -20,7 +20,6 @@ describe('Unit testing: profitelo.resolvers.login-register', () => {
         }
       }
 
-
       angular.mock.module('profitelo.resolvers.login-register', function ($provide: ng.auto.IProvideService) {
         $provide.value('$state', mockState)
       })
@@ -30,7 +29,6 @@ describe('Unit testing: profitelo.resolvers.login-register', () => {
         _timeout = $injector.get('$timeout')
       })
     })
-
 
     it('should have resolve function', () => {
       expect(AppLoginRegisterResolver.resolve).toBeDefined()

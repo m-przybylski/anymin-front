@@ -35,7 +35,6 @@ describe('Unit testing: profitelo.components.interface.show-more-text', () => {
         compile = $compile
         window = _$window_
 
-
         const injectors = {
           $element: create(validHTML),
           $scope: rootScope,

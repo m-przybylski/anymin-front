@@ -18,13 +18,9 @@
     controller: controller
   }
 
-
   angular.module('profitelo.components.interface.radio', [
     'pascalprecht.translate'
   ])
     .component('radioBtn', component)
 
 }())
-
-
-

@@ -16,7 +16,6 @@ namespace profitelo.directives.ngEnter {
         })
       })
 
-
       function create() {
         let elem = angular.element(validHTML)
         scope.mockFunction = () => {

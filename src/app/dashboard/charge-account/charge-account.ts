@@ -69,7 +69,6 @@ class ChargeAccountController {
               paymentsOptions: GetPaymentOptions, paymentsLinks: Array<PaymentLink>,
               financeBalance: MoneyDto, private smoothScrollingService: SmoothScrollingService) {
 
-
     this.paymentCountryId = paymentsOptions.id
     this.amounts = {
       paymentOptions: paymentsOptions.paymentOptions,
@@ -107,7 +106,6 @@ class ChargeAccountController {
     }
   }
 
-
   public onLoad = () => {
     this.isBraintreeFormLoaded = true
   }
@@ -126,14 +124,15 @@ class ChargeAccountController {
     this.$state.go('app.dashboard.client.activities')
   }
 
-
   public onClose = () =>
     this.$state.go('app.dashboard.client.favourites')
 
-
   public validAction = () => {
-    if ((!angular.isDefined(this.amountModel.amount) || this.amountModel.amount === null) && this.amountModel.cashAmount &&
-      this.amountModel.cashAmount.amount < this.amounts.minimalAmounts.amount) {
+    if (
+      (!angular.isDefined(this.amountModel.amount) || this.amountModel.amount === null) &&
+      this.amountModel.cashAmount &&
+      this.amountModel.cashAmount.amount < this.amounts.minimalAmounts.amount
+    ) {
       this.smoothScrollingService.simpleScrollTo('#cash-valid', true)
       return false
     } else {
@@ -152,7 +151,6 @@ class ChargeAccountController {
     }
   }
 }
-
 
 function config($stateProvider: ng.ui.IStateProvider) {
   $stateProvider.state('app.dashboard.charge-account', {

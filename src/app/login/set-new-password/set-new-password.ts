@@ -79,7 +79,6 @@ function SetNewPasswordController($state: ng.ui.IStateService, $filter: IFilterS
       .then(_passwordChangeSuccess, _passwordChangeError)
   }
 
-
   this.onPasswordChange = (password: string) => {
     this.passwordStrength = passwordStrengthService.getStrength(password)
   }
@@ -116,7 +115,6 @@ function config($stateProvider: ng.ui.IStateProvider) {
     }
   })
 }
-
 
 angular.module('profitelo.controller.login.set-new-password', [
   'ui.router',

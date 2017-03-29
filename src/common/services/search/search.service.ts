@@ -36,7 +36,6 @@ export interface ISearchQueryParams {
   categorySlug?: string
 }
 
-
 export class SearchService {
 
   private static languageOptions = ['pl']
@@ -287,7 +286,6 @@ export class SearchService {
 
     const onlyAvailableString: string = (query.onlyAvailable) ? query.onlyAvailable.toString() : 'false'
 
-
     return this.SearchApi.searchRoute(
       query.q, undefined, undefined, undefined, query.tagId, query.category, query.profileType, onlyAvailableString,
       query.sortBy, query.language, (query.minPrice) ? query.minPrice * 100 : query.minPrice, _maxPriceParser(query.maxPrice),
@@ -425,4 +423,3 @@ export class SearchService {
     })
   }
 }
-

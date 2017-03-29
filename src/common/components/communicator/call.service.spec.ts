@@ -5,7 +5,6 @@ import {CallService} from './call.service'
 import userModule from '../../services/user/user'
 import communicatorModule from '../communicator/communicator'
 
-
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {NavigatorService} from '../../services/navigator/navigator.service'
 import {CommunicatorService} from './communicator.service'
