@@ -16,7 +16,10 @@ describe('Testing Controller: galleryPreview', () => {
 
       galleryPreview = $controller<GalleryPreviewController>('galleryPreview', {
         $scope: scope,
-        $uibModalInstance: $uibModalInstance
+        $uibModalInstance: $uibModalInstance,
+        urlService: {
+          resolveFileUrl: () => {}
+        }
       })
     })
   })

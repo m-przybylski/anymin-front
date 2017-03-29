@@ -2,7 +2,7 @@ import * as angular from 'angular'
 import 'ng-file-upload'
 import apiModule from 'profitelo-api-ng/api.module'
 import {FilesApi} from 'profitelo-api-ng/api/api'
-import {FileInfo} from 'profitelo-api-ng/model/models'
+
 import {TopAlertService} from '../../../services/top-alert/top-alert.service'
 
 function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interval: ng.IIntervalService,
@@ -64,71 +64,73 @@ function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interv
     }
 
     let _uploadProcess = (files: Array<any>) => {
-      let tokenPromisses: Array<ng.IPromise<FileInfo>> = []
+      let tokenPromisses: Array<ng.IPromise<string>> = []
       if (files && files.length) {
         // scope.animate()
         _file = 0
         isProcess = true
         for (let i = 0; i < files.length; i++) {
           if (!files[i].$error) {
-            tokenPromisses.push(FilesApi.fileInfoPath(
-              'AVATAR' // TODO send proper collectionType
-            ))
-            scope.errorValidateMessage = false
-          }
-        }
-        let k = 0
-        $q.all(tokenPromisses).then((tokenPromissesResponse) => {
-          angular.forEach(files, (file) => {
-            _files = files.length
-            _setFilesStatus(_file, _files)
-            Upload.upload({
-              url: _commonConfig.urls.files +
-              _commonConfig.urls['file-upload'].replace('%s', tokenPromissesResponse[k++].id),
-              data: {
-                file: file
-              }
-            }).then(
-              (res: any) => {
-                scope.filesUploaded.push({
-                  file: file,
-                  response: res.data
-                })
-                _file++
+            FilesApi.createFileTokenPath(
+              'documents', {}
+            ).then((res: any) => {
+              tokenPromisses.push(res.fileId)
+              let k = 0
+              $q.all(tokenPromisses).then((tokenPromissesResponse) => {
+                angular.forEach(files, (file) => {
+                  _files = files.length
+                  _setFilesStatus(_file, _files)
+                  Upload.upload({
+                    url: _commonConfig.urls.files +
+                    _commonConfig.urls['file-upload'].replace('%s', tokenPromissesResponse[k++]),
+                    data: {
+                      file: file
+                    }
+                  }).then(
+                    (res: any) => {
+                      scope.filesUploaded.push({
+                        file: file,
+                        response: res.data
+                      })
+                      _file++
 
-                if (_file === _files) {
-                  scope.progress = 0
-                  if (filesQueue.length > 0) {
-                    _uploadProcess(filesQueue)
-                    filesQueue = []
-                  } else {
-                    isProcess = false
-                  }
-                }
-              },
-              (err: any) => {
-                $log.error(err)
+                      if (_file === _files) {
+                        scope.progress = 0
+                        if (filesQueue.length > 0) {
+                          _uploadProcess(filesQueue)
+                          filesQueue = []
+                        } else {
+                          isProcess = false
+                        }
+                      }
+                    },
+                    (err: any) => {
+                      $log.error(err)
+                      topAlertService.error({
+                        message: $filter('translate')('INTERFACE.API_ERROR'),
+                        timeout: 4
+                      })
+                      isProcess = false
+                    },
+                    (res: any) => {
+                      (<any>uploadMap)[res.total] = res.loaded
+                      calculateTotalPercentage(uploadMap, files.length)
+                      _setFilesStatus(_file, _files)
+                    }
+                  )
+                })
+              }, (tokenPromissesError) => {
+                $log.error(tokenPromissesError)
                 topAlertService.error({
                   message: $filter('translate')('INTERFACE.API_ERROR'),
                   timeout: 4
                 })
                 isProcess = false
-              },
-              (res: any) => {
-                (<any>uploadMap)[res.total] = res.loaded
-                calculateTotalPercentage(uploadMap, files.length)
-                _setFilesStatus(_file, _files)
-              }
-            )
-          })
-        }, (tokenPromissesError) => {
-          $log.error(tokenPromissesError)
-          topAlertService.error({
-            message: $filter('translate')('INTERFACE.API_ERROR'),
-            timeout: 4
-          })
-          isProcess = false
-        })
+              })
+            })
+            scope.errorValidateMessage = false
+          }
+        }
       } else {
         scope.errorValidateMessage = true
       }

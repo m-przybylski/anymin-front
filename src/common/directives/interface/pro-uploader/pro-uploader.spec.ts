@@ -80,7 +80,7 @@ describe('Unit testing: profitelo.directives.interface.pro-uploader', () => {
 
       _httpBackend.when('POST', _commonConfigData.urls['files'] + '/files/' + fileId + '/upload').respond(200)
 
-      _FilesApiMock.createFileTokenPath(200, 'AVATAR', {
+      _FilesApiMock.createFileTokenPath(200, 'documents', {
         fileId: fileId
       })
 

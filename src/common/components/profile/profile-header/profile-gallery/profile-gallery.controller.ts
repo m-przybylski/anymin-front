@@ -1,74 +1,41 @@
 import {IProfileGalleryComponentBindings} from './profile-gallery'
 import {ModalsService} from '../../../../services/modals/modals.service'
+import {ProfileDocument} from 'profitelo-api-ng/model/models'
+import {UrlService} from '../../../../services/url/url.service'
 
 export class ProfileGalleryComponentController implements IProfileGalleryComponentBindings {
 
-  sliders: Array<any>
-  slidersLimit: number
-  slidersCollapsed: boolean
-  slidersCollapsedPhotoLength: number
-  slidersLastImage: any
+  documents: Array<ProfileDocument>
+  idDocumentsContainerCollapsed: boolean
+  documentsCollapsedLength: number
+  lastDocument: ProfileDocument
+  readonly documentsLimit: number = 5
 
   /* @ngInject */
-  constructor(private modalsService: ModalsService) {
-    this.slidersLimit = 5
-    this.slidersCollapsed = false
+  constructor(private modalsService: ModalsService, private urlService: UrlService) {
+    this.idDocumentsContainerCollapsed = false
+  }
 
-    this.sliders = [
-      {
-        id: '0',
-        'content-type': 'image/jpeg',
-        downloadUrl: 'https://images.gutefrage.net/media/fragen/bilder/wie-heissen-die-suessen-wale-auf-instagram/0_original.jpg',
-        token: 'TOKEN-0',
-        previews: 'https://images.gutefrage.net/media/fragen/bilder/wie-heissen-die-suessen-wale-auf-instagram/0_original.jpg'
-      }, {
-        id: '1',
-        'content-type': 'image/jpeg',
-        downloadUrl: 'https://images.gutefrage.net/media/fragen/bilder/wie-heissen-die-suessen-wale-auf-instagram/0_original.jpg',
-        token: 'TOKEN-1',
-        previews: 'https://images.gutefrage.net/media/fragen/bilder/wie-heissen-die-suessen-wale-auf-instagram/0_original.jpg'
-      }, {
-        id: '2',
-        'content-type': 'image/jpeg',
-        downloadUrl: 'https://images.gutefrage.net/media/fragen/bilder/wie-heissen-die-suessen-wale-auf-instagram/0_original.jpg',
-        token: 'TOKEN-2',
-        previews: 'https://images.gutefrage.net/media/fragen/bilder/wie-heissen-die-suessen-wale-auf-instagram/0_original.jpg'
-      }, {
-        id: '3',
-        'content-type': 'image/jpeg',
-        downloadUrl: 'https://images.gutefrage.net/media/fragen/bilder/wie-heissen-die-suessen-wale-auf-instagram/0_original.jpg',
-        token: 'TOKEN-3',
-        previews: 'https://images.gutefrage.net/media/fragen/bilder/wie-heissen-die-suessen-wale-auf-instagram/0_original.jpg'
-      }, {
-        id: '4',
-        'content-type': 'image/jpeg',
-        downloadUrl: 'https://images.gutefrage.net/media/fragen/bilder/wie-heissen-die-suessen-wale-auf-instagram/0_original.jpg',
-        token: 'TOKEN-4',
-        previews: 'https://images.gutefrage.net/media/fragen/bilder/wie-heissen-die-suessen-wale-auf-instagram/0_original.jpg'
-      }, {
-        id: '5',
-        'content-type': 'image/jpeg',
-        downloadUrl: 'https://static.goldenline.pl/user_photo/100/user_1438564_8bc6e0_huge.jpg',
-        token: 'TOKEN-5',
-        previews: 'https://static.goldenline.pl/user_photo/100/user_1438564_8bc6e0_huge.jpg'
-      }, {
-        id: '6',
-        'content-type': 'image/jpeg',
-        downloadUrl: 'https://static.goldenline.pl/user_photo/100/user_1438564_8bc6e0_huge.jpg',
-        token: 'TOKEN-6',
-        previews: 'https://static.goldenline.pl/user_photo/100/user_1438564_8bc6e0_huge.jpg'
+  $onInit = () => {
+    if (this.documents) {
+      this.documentsCollapsedLength = this.documents.length - this.documentsLimit - 1
+
+      if (this.documents.length > this.documentsLimit) {
+        this.idDocumentsContainerCollapsed = true
+        this.lastDocument = this.documents[this.documentsLimit]
       }
-    ]
-
-    this.slidersCollapsedPhotoLength = this.sliders.length - this.slidersLimit - 1
-
-    if (this.sliders.length > this.slidersLimit) {
-      this.slidersCollapsed = true
-      this.slidersLastImage = this.sliders[this.slidersLimit]
     }
   }
 
-  public createGalleryPreviewControllerModal = (slide: any): void => {
-    this.modalsService.createGalleryPreviewControllerModal(slide.previews)
+  public createUrl = (imageToken: string) => {
+    if (imageToken) {
+      return this.urlService.resolveFileUrl(imageToken)
+    } else {
+      return 'no-image'
+    }
+  }
+
+  public createGalleryPreviewControllerModal = (token: string): void => {
+    this.modalsService.createGalleryPreviewControllerModal(token)
   }
 }
