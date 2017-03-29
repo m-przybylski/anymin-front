@@ -3,7 +3,7 @@
     .consultation-details
       .consultation-price.price-section
         span(data-ng-bind-html="::$ctrl.service.details.price | money")
-        span.currency(data-translate='HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE')
+        span.time(data-translate='HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE')
 
       ul.consultation-details-info
         li.options-item.recomendation
@@ -14,7 +14,7 @@
           span {{ ::$ctrl.service.usageCounter }}
 
     .consultation-as-employee(data-ng-if="$ctrl.ownerCompany")
-      span {{ 'EXPERT_PROFILE.CONSULTING_AS_EMPLOYEE' | translate }}
+      span {{ 'EXPERT_PROFILE.CONSULTING_AS_EMPLOYEE.TITLE' | translate }}
         a.link(data-ui-sref="app.company-profile({profileId: $ctrl.ownerCompany.id})") {{ $ctrl.ownerCompany.organizationDetails.name }}
 
     .consultation-title

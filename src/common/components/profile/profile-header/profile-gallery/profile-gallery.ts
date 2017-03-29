@@ -1,6 +1,7 @@
 import * as angular from 'angular'
 import {ProfileGalleryComponent} from './profile-gallery.component'
 import './profile-gallery.sass'
+import profileGalleryPreviewModule from './modals/preview'
 import {ProfileDocument} from 'profitelo-api-ng/model/models'
 
 export interface IProfileGalleryComponentBindings extends ng.IController {
@@ -9,7 +10,7 @@ export interface IProfileGalleryComponentBindings extends ng.IController {
 
 const profileGalleryModule = angular.module('profitelo.components.profile.profile-gallery', [
   'ui.bootstrap',
-  'profitelo.components.profile.profile-header.profile-gallery.modals.preview'
+  profileGalleryPreviewModule
 ])
   .component('profileGallery', new ProfileGalleryComponent())
     .name

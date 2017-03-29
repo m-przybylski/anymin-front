@@ -1,5 +1,6 @@
 import * as angular from 'angular'
-import {GalleryPreviewController, IGalleryPreviewControllerScope} from './preview'
+import {GalleryPreviewController, IGalleryPreviewControllerScope} from './preview.controller'
+
 describe('Testing Controller: galleryPreview', () => {
 
   let galleryPreview: GalleryPreviewController

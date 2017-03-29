@@ -1,21 +1,47 @@
 import * as angular from 'angular'
 import {INavbarComponentBindings} from './navbar'
 import {UserService} from '../../services/user/user.service'
+import IStyleConstant = profitelo.constants.style.IStyleConstant
 
 export class NavbarComponentController implements INavbarComponentBindings {
-  isWindowScrolling: boolean = false
+  isWindowScrollBottom: boolean = false
+  isCollapsed: boolean = false
   isSearchVisible: boolean = false
   elementOffsetHeight: number = 0
   isNavigationCollapsed: boolean = false
   isLoggedIn: boolean
   searchModel: string
   bodyHtmlElement = angular.element(document).find('body')
+  navbarStyle: {
+    transform: string
+  }
 
   /* @ngInject */
   constructor(private $scope: ng.IScope, private $window: ng.IWindowService, private $element: any,
-              private userService: UserService, private $document: ng.IDocumentService) {
+              private userService: UserService, private $document: ng.IDocumentService,
+              private styleConstant: IStyleConstant) {
+
     angular.element(this.$window).bind('scroll', () => {
-      this.isWindowScrolling = (this.$window.pageYOffset > this.elementOffsetHeight)
+      if (this.$window.pageYOffset <= this.styleConstant.NAVBAR_HEIGHT) {
+        this.isCollapsed = false
+        this.navbarStyle = {
+          'transform': 'translateY(' + (-this.$window.pageYOffset) + 'px)'
+        }
+        this.isWindowScrollBottom = (this.$window.pageYOffset > this.elementOffsetHeight)
+      } else {
+        this.isCollapsed = true
+        this.navbarStyle = {
+          'transform': ''
+        }
+      }
+
+      if (!this.isWindowScrollBottom) {
+        this.navbarStyle = {
+          'transform': 'translateY(0)'
+        }
+      }
+
+      this.isWindowScrollBottom = (this.$window.pageYOffset > this.elementOffsetHeight)
       this.$scope.$apply()
       this.elementOffsetHeight = this.$window.pageYOffset
     })
@@ -36,8 +62,8 @@ export class NavbarComponentController implements INavbarComponentBindings {
   }
 
   public onMobileMenuCollapsed = () => {
-      this.isNavigationCollapsed = !this.isNavigationCollapsed
-      this.bodyHtmlElement.toggleClass('is-mobile-nav-visible')
+    this.isNavigationCollapsed = !this.isNavigationCollapsed
+    this.bodyHtmlElement.toggleClass('is-mobile-nav-visible')
   }
 
   public onSearchCollapsed = () => {

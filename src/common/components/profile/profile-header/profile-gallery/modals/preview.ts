@@ -1,26 +1,10 @@
 import * as angular from 'angular'
-import {UrlService} from '../../../../../services/url/url.service'
+import {GalleryPreviewController} from './preview.controller'
 
-export interface IGalleryPreviewControllerScope extends ng.IScope {
-  token: string
-}
-
-export class GalleryPreviewController implements ng.IController {
-
-  /* @ngInject */
-  constructor(private urlService: UrlService) {
-  }
-
-  public createUrl = (imageToken: string) => {
-    if (imageToken) {
-      return this.urlService.resolveFileUrl(imageToken)
-    } else {
-      return 'no-image'
-    }
-  }
-}
-
-angular.module('profitelo.components.profile.profile-header.profile-gallery.modals.preview', [
+const profileGalleryPreviewModule = angular.module('profitelo.components.profile.profile-header.profile-gallery.modals.preview', [
   'ui.bootstrap'
 ])
-.controller('galleryPreview', GalleryPreviewController)
+  .controller('galleryPreview', GalleryPreviewController)
+    .name
+
+export default profileGalleryPreviewModule

@@ -68,9 +68,13 @@
     font-size: $f-price-list
     text-transform: uppercase
 
+    &.time
+      color: $c-label
+      margin: 0
+
     &.currency
       color: $c-label
-      margin: 0 0 0 8px
+      margin: 0 0 0 4px
 
 =consultationDetailsInfo
   +default-font-medium
@@ -83,6 +87,16 @@
   font-size: $f-h5-size
   color: $c-secondary-txt
   line-height: $f-h5-size * 1.5
+
+=singleConsultationAnimation
+  display: block
+  opacity: 0
+  animation: fadeInX 0.3s ease-out
+  animation-fill-mode: forwards
+
+  @for $i from 1 to 4
+    &:nth-child(#{$i})
+      animation-delay: $i * 0.15s
 
 /* listing end */
 

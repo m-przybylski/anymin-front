@@ -16,9 +16,11 @@
       top: 0
       height: 100%
       width: 100%
+
   li
     margin: 0 8px 8px 0
     border-radius: 0
+    transition: transform 0.3s
 
     a
       +default-font-regular
@@ -43,3 +45,5 @@
         span
           color: $c-primary
 
+    &:hover
+      transform: translateY(-4px)
