@@ -1,5 +1,6 @@
 import {IProfileHeaderComponentBindings, ProfileTypes} from './profile-header'
 import {GetExpertDetails, ProfileDocument} from 'profitelo-api-ng/model/models'
+import {UserService} from '../../../services/user/user.service'
 
 export class ProfileHeaderComponentController implements IProfileHeaderComponentBindings {
 
@@ -8,10 +9,13 @@ export class ProfileHeaderComponentController implements IProfileHeaderComponent
   onLike: () => void
   profileType: ProfileTypes
   documents: Array<ProfileDocument>
+  isSession: boolean = false
 
   /* @ngInject */
-  constructor() {
-
+  constructor(userService: UserService) {
+    userService.getUser().then(() => {
+      this.isSession = true
+    })
   }
 
   $onInit = () => {

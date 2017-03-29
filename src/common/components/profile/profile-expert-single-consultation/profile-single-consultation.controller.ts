@@ -1,10 +1,11 @@
 import {IProfileSingleConsultationComponentBindings} from './profile-single-consultation'
-import {Tag, GetExpertServiceDetails, GetService} from 'profitelo-api-ng/model/models'
+import {Tag, GetExpertServiceDetails, GetService, GetProfile} from 'profitelo-api-ng/model/models'
 import {CallService} from '../../communicator/call.service'
 export class ProfileSingleConsultationComponentController implements IProfileSingleConsultationComponentBindings {
 
   service: GetExpertServiceDetails
   tags: Array<Tag>
+  ownerCompany: GetProfile
 
   /* @ngInject */
   constructor(private callService: CallService) {

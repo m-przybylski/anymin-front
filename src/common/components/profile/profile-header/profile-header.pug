@@ -30,7 +30,7 @@
               a
                 span.icon.icon-share-24
                 span(data-translate="EXPERT_ACCOUNT.BUTTON.SHARE")
-            li(data-ng-class="{'is-selected': $ctrl.isFavourite}")
+            li(data-ng-class="{'is-selected': $ctrl.isFavourite}" data-ng-if="$ctrl.isSession")
               a(data-ng-click="$ctrl.onLike()")
                 span.icon.icon-heart-24
                 span(data-translate="EXPERT_ACCOUNT.BUTTON.FAVOURITE")

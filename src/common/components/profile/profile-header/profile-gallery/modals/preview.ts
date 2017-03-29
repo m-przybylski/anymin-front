@@ -24,4 +24,3 @@ angular.module('profitelo.components.profile.profile-header.profile-gallery.moda
   'ui.bootstrap'
 ])
 .controller('galleryPreview', GalleryPreviewController)
-
