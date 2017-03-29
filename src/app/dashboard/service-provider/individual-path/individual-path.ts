@@ -89,7 +89,7 @@ function IndividualPathController($scope: ng.IScope, $state: ng.ui.IStateService
         avatar: this.individualPathModel.avatar,
         languages: this.individualPathModel.languages,
         files: this.individualPathModel.files.map((file: any) => {
-          return {token: file.token, previews: file.previews}
+          return file.token
         }),
         links: this.individualPathModel.links
       }

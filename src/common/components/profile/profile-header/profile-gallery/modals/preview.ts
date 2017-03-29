@@ -1,31 +1,22 @@
 import * as angular from 'angular'
+import {UrlService} from '../../../../../services/url/url.service'
 
 export interface IGalleryPreviewControllerScope extends ng.IScope {
-  reject: () => void
-  accept: () => void
-  sliders: string
+  token: string
 }
 
 export class GalleryPreviewController implements ng.IController {
-  preview: string
-  reject: () => void
-  accept: () => void
 
   /* @ngInject */
-  constructor($scope: IGalleryPreviewControllerScope,
-              $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
+  constructor(private urlService: UrlService) {
+  }
 
-    this.reject = () => {
-      $uibModalInstance.dismiss('cancel')
-      $scope.$parent.reject()
+  public createUrl = (imageToken: string) => {
+    if (imageToken) {
+      return this.urlService.resolveFileUrl(imageToken)
+    } else {
+      return 'no-image'
     }
-
-    this.accept = () => {
-      $uibModalInstance.dismiss('cancel')
-      $scope.$parent.accept()
-    }
-
-    this.preview = $scope.sliders
   }
 }
 

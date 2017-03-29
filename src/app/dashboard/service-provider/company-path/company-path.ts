@@ -73,7 +73,7 @@ function CompanyPathController($scope: ng.IScope, $state: ng.ui.IStateService, P
         logo: this.companyPathModel.logo,
         description: this.companyPathModel.description,
         files: this.companyPathModel.files.map((file: any) => {
-          return {token: file.token, previews: file.previews}
+          return file.token
         }),
         links: this.companyPathModel.links
       }
