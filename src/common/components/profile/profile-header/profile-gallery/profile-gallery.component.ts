@@ -7,5 +7,3 @@ export class ProfileGalleryComponent implements ng.IComponentOptions {
     documents: '<'
   }
 }
-
-

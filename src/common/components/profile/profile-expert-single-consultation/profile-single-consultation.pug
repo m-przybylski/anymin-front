@@ -13,9 +13,9 @@
           span.icon.icon-call-16
           span {{ ::$ctrl.service.usageCounter }}
 
-    .consultation-as-employee
+    .consultation-as-employee(data-ng-if="$ctrl.ownerCompany")
       span {{ 'EXPERT_PROFILE.CONSULTING_AS_EMPLOYEE' | translate }}
-        a.link HP Consulting
+        a.link(data-ui-sref="app.company-profile({profileId: $ctrl.ownerCompany.id})") {{ $ctrl.ownerCompany.organizationDetails.name }}
 
     .consultation-title
       h3
