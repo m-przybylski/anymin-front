@@ -1,4 +1,5 @@
-.navbar(data-ng-class="{'is-hidden':  $ctrl.isWindowScrolling, 'is-menu-collapsed': $ctrl.isNavigationCollapsed}")
+.navbar(data-ng-style="$ctrl.navbarStyle"
+  data-ng-class="{'is-hidden': $ctrl.isWindowScrollBottom, 'is-scroll-top': !$ctrl.isWindowScrollBottom, 'is-not-collapsed': !$ctrl.isCollapsed, 'is-menu-collapsed': $ctrl.isNavigationCollapsed}")
   .navbar-logo(data-ui-sref="app.home")
     a
       img.logo( src="/assets/images/profitelo-logo-small.png" alt="Profitelo-logo")

@@ -16,7 +16,10 @@ import {ISecurityPinNumberSettingsControllerScope} from '../../components/dashbo
 import {IEditCompanyInvoiceControllerScope} from '../../components/dashboard/settings/modals/payments/edit-company-invoice/edit-company-invoice'
 import {IPayoutsPayPalControllerScope} from '../../components/dashboard/settings/modals/payouts/payouts-payPal/payouts-pay-pal'
 import {IAddPaymentMethodControllerScope} from '../../components/dashboard/settings/modals/payments/add-payment-method/add-payment-method'
-import {IGalleryPreviewControllerScope} from '../../components/profile/profile-header/profile-gallery/modals/preview'
+import {
+  IGalleryPreviewControllerScope,
+  GalleryPreviewController
+} from '../../components/profile/profile-header/profile-gallery/modals/preview.controller'
 
 // TODO add types for dialogScope Scopes
 export class ModalsService {
@@ -264,7 +267,7 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controllerAs: 'vm',
-      controller: 'galleryPreview',
+      controller: GalleryPreviewController,
       template: require('common/components/profile/profile-header/profile-gallery/modals/preview.pug')(),
       scope: dialogScope
     })

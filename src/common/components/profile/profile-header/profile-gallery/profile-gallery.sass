@@ -19,9 +19,20 @@
       position: relative
       overflow: hidden
       margin: 0 16px 16px 0
+      display: inline-flex
+      align-items: stretch
+      transition: border 0.3s
 
       +xsm
         margin: 0 16px 0 0
+
+      &:hover
+        border-color: $c-primary
+      a
+        display: inline-flex
+        align-items: center
+        justify-content: center
+
 
       &.show-more
         a
