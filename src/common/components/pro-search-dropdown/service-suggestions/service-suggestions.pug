@@ -8,8 +8,8 @@
         .expert-profile
           .thumb.x48
             img.expert-avatar.user-avatar(data-ng-src="{{ vm.profileImage($index) }}" data-ng-class="{'isNotUploaded': !vm.profileImage($index)}")
-            .status-list
-              span.status.availability
+            //TODO add status
+
           .expert-data
             span.expert-name {{ service.owner.name }}
 
