@@ -20,7 +20,7 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
 
   private setIsExpert = () => {
     this.userService.getUser().then((response) => {
-      this.isExpert = response.status.wizardComplete
+      this.isExpert = response.isExpert
     }, () => {
       this.isExpert = false
     })
