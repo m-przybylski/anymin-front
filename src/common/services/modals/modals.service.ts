@@ -259,11 +259,11 @@ export class ModalsService {
     })
   }
 
-  public createGalleryPreviewControllerModal = (token: string) => {
+  public createGalleryPreviewControllerModal = (preview: string) => {
     const dialogScope: IGalleryPreviewControllerScope =
       <IGalleryPreviewControllerScope>this.$rootScope.$new(true)
 
-    dialogScope.token = token
+    dialogScope.preview = preview
 
     return this.dialogService.openDialog({
       controllerAs: 'vm',

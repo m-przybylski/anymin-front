@@ -1,7 +1,6 @@
 import {IProfileGalleryComponentBindings} from './profile-gallery'
 import {ModalsService} from '../../../../services/modals/modals.service'
 import {ProfileDocument} from 'profitelo-api-ng/model/models'
-import {UrlService} from '../../../../services/url/url.service'
 
 export class ProfileGalleryComponentController implements IProfileGalleryComponentBindings {
 
@@ -12,7 +11,7 @@ export class ProfileGalleryComponentController implements IProfileGalleryCompone
   readonly documentsLimit: number = 5
 
   /* @ngInject */
-  constructor(private modalsService: ModalsService, private urlService: UrlService) {
+  constructor(private modalsService: ModalsService) {
     this.idDocumentsContainerCollapsed = false
   }
 
@@ -27,15 +26,7 @@ export class ProfileGalleryComponentController implements IProfileGalleryCompone
     }
   }
 
-  public createUrl = (imageToken: string) => {
-    if (imageToken) {
-      return this.urlService.resolveFileUrl(imageToken)
-    } else {
-      return 'no-image'
-    }
-  }
-
-  public createGalleryPreviewControllerModal = (token: string): void => {
-    this.modalsService.createGalleryPreviewControllerModal(token)
+  public createGalleryPreviewControllerModal = (preview: string): void => {
+    this.modalsService.createGalleryPreviewControllerModal(preview)
   }
 }
