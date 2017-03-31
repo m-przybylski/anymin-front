@@ -31,7 +31,8 @@
                 span(data-translate="EXPERT_ACCOUNT.BUTTON.SHARE")
             li(data-ng-class="{'is-selected': $ctrl.isFavourite}" data-ng-if="$ctrl.isSession")
               a(data-ng-click="$ctrl.onLike()")
-                span.icon.icon-heart-24
+                span.icon.icon-heart-24(data-ng-show="!$ctrl.isFavourite")
+                span.icon.icon-heart(data-ng-show="$ctrl.isFavourite")
                 span(data-translate="EXPERT_ACCOUNT.BUTTON.FAVOURITE")
 
         .profile-content-description
