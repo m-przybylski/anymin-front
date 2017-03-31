@@ -1,11 +1,11 @@
 .profile-gallery.photo-gallery
   ul
     li(data-ng-repeat="document in $ctrl.documents | limitTo: $ctrl.documentsLimit ")
-      a(data-ng-click="$ctrl.createGalleryPreviewControllerModal(document.token)")
-        img(data-ng-src="{{ $ctrl.createUrl(document.token) }}")
+      a(data-ng-click="$ctrl.createGalleryPreviewControllerModal(document.previews[0])")
+        img(data-ng-src="{{ document.previews[0] }}")
 
     li.show-more(data-ng-if="$ctrl.idDocumentsContainerCollapsed"
-    data-ng-click="$ctrl.createGalleryPreviewControllerModal($ctrl.lastDocument.token)")
+    data-ng-click="$ctrl.createGalleryPreviewControllerModal($ctrl.lastDocument.previews[0])")
       a
-        img(data-ng-src="{{ $ctrl.createUrl($ctrl.lastDocument.token) }}")
+        img(data-ng-src="{{ $ctrl.lastDocument.previews[0] }}")
         span {{ $ctrl.documentsCollapsedLength }}
