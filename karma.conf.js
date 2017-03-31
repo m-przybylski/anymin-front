@@ -120,9 +120,9 @@ module.exports = function (config) {
       includeAllSources: true,
       check: {
         global: {
-          statements: 77,
+          statements: 78,
           branches: 52,
-          functions: 63,
+          functions: 64,
           lines: 78
         }
       },
