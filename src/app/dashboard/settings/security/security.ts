@@ -1,16 +1,16 @@
 import * as _ from 'lodash'
 import apiModule from 'profitelo-api-ng/api.module'
 import {SessionApi} from 'profitelo-api-ng/api/api'
-import {AccountDetails, GetSession} from 'profitelo-api-ng/model/models'
+import {GetSession} from 'profitelo-api-ng/model/models'
 import {ModalsService} from '../../../../common/services/modals/modals.service'
 import * as angular from 'angular'
 import ITimeConstant = profitelo.constants.time.ITimeConstant
 import userModule from '../../../../common/services/user/user'
 import modalsModule from '../../../../common/services/modals/modals'
-import {UserService} from '../../../../common/services/user/user.service'
 import {ISecuritySettingsService} from '../../../../common/resolvers/security-settings/security-settings.service'
 import 'common/resolvers/security-settings/security-settings.service'
 import 'common/components/dashboard/settings/manage-devices/manage-devices'
+import {SessionService} from '../../../../common/services/session/session.service'
 
 interface ISession {
   device: string
@@ -24,15 +24,28 @@ export class DashboardSettingsSecurityController implements ng.IController {
   public hasMobilePin: boolean
   public sessions: Array<ISession>
 
-  constructor(private modalsService: ModalsService, user: AccountDetails, sessionsData: Array<GetSession>,
+  constructor(private modalsService: ModalsService, private currentSession: GetSession, sessionsData: Array<GetSession>,
               timeConstant: ITimeConstant, private SessionApi: SessionApi, private $window: ng.IWindowService) {
-    this.hasMobilePin = user.hasMobilePin
+
+    if (currentSession.account) {
+      this.hasMobilePin = currentSession.account.hasMobilePin
+    }
+
     this.sessions = sessionsData.map((session) => {
       const minuteAgo = Date.now() - timeConstant.USER_ACTIVITY_LAST_MINUTE
       const deviceType = () => {
-        if (session.userAgent && (session.userAgent.includes('Mac') || session.userAgent.includes('Win') )) {
+        if (
+          session.userAgent && (
+          session.userAgent.includes('Win') ||
+          session.userAgent.includes('Linux'))
+        ) {
           return 'desktop'
-        } else if (session.userAgent && (session.userAgent.includes('Android'))) {
+        } else if (
+          session.userAgent && (session.userAgent.includes('Android') ||
+          session.userAgent.includes('Mobile') ||
+          session.userAgent.includes('iOS') ||
+          session.userAgent.includes('Windows Phone'))
+        ) {
           return 'mobile'
         } else {
           return 'unknown'
@@ -52,12 +65,17 @@ export class DashboardSettingsSecurityController implements ng.IController {
   public removeSession = (apiKey: string) => {
     this.SessionApi.logoutRoute(apiKey).then(() => {
       _.remove(this.sessions, session => session.apiKey === apiKey)
-      if (this.sessions.length === 0) {
+      if (this.currentSession.apiKey === apiKey) {
+        // TODO LOGOUT-EVENT
         this.$window.location.reload()
       }
     }, (error) => {
       throw new Error('Can not delete this session ' + error)
     })
+  }
+
+  public checkIsCurrentSession = (apiKey: string) => {
+    return apiKey === this.currentSession.apiKey
   }
 
   public openSecurityChangePasswordSettingsModal = () => {
@@ -86,8 +104,8 @@ angular.module('profitelo.controller.dashboard.settings.security', [
       controller: 'dashboardSettingsSecurityController',
       controllerAs: 'vm',
       resolve: {
-        user: (userService: UserService) => {
-          return userService.getUser(true)
+        currentSession: (sessionService: SessionService) => {
+          return sessionService.getSession(true)
         },
         sessionsData: (securitySettingsResolver: ISecuritySettingsService) => {
           return securitySettingsResolver.resolve()

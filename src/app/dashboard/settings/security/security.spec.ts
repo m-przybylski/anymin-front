@@ -22,7 +22,7 @@ import * as angular from 'angular'
             $scope: $rootScope.$new(),
             sessionsData: [],
             timeConstant: timeConstant,
-            user: {
+            currentSession: {
             }
           })
         })
