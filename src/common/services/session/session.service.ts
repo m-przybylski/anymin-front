@@ -7,7 +7,7 @@ export class SessionService {
   private apiKeyKey: string = 'X-Api-Key'
 
   /* @ngInject */
-  constructor(private SessionApi: SessionApi, private $cookies: ng.cookies.ICookiesService,
+  constructor(private SessionApi: SessionApi,
               private $http: ng.IHttpService) {
   }
 
@@ -40,10 +40,6 @@ export class SessionService {
     }
   }
 
-  public setApiKey = (key: string): void => {
-    this.setApiKey(key)
-  }
-
   private onSuccessLogin = (session: GetSession): GetSession => {
     this.setApiKeyHeader(session.apiKey)
 
@@ -52,16 +48,14 @@ export class SessionService {
 
   private onSuccessLogout = () => {
     this.sessionCache = undefined
-    this.$cookies.remove(this.apiKeyKey)
     delete this.$http.defaults.headers!.common[this.apiKeyKey]
   }
 
   private setApiKeyHeader = (apiKey: string) => {
-    this.$cookies.put(this.apiKeyKey, apiKey)
     this.$http.defaults.headers!.common[this.apiKeyKey] = apiKey
   }
 
-  public static $get(SessionApi: SessionApi, $cookies: ng.cookies.ICookiesService, $http: ng.IHttpService) {
-    return new SessionService(SessionApi, $cookies, $http)
+  public static $get(SessionApi: SessionApi, $http: ng.IHttpService) {
+    return new SessionService(SessionApi, $http)
   }
 }
