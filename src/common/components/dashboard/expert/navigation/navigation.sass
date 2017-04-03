@@ -1,0 +1,102 @@
+@import "../../../../../template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../../../template/profitelo_theme/stylesheets/core/helpers/rwd"
+@import "../../../../../template/profitelo_theme/stylesheets/core/helpers/mixins.sass"
+@import "../../../../../template/profitelo_theme/stylesheets/common/components/dashboard/settings/navigation/navigation"
+
+.dashboard-navigation
+  &.expert-navigation
+    margin: 0 0 32px
+
+    .container
+      > div
+        display: flex
+        flex-wrap: wrap
+        justify-content: space-between
+
+    .dashboard-nav
+      order: 2
+      overflow-x: scroll
+
+      +smm
+        overflow-x: hidden
+
+      +lgm
+        order: 1
+        flex-wrap: nowrap
+
+      li
+        flex: 1 0 auto
+
+        &:first-child
+          padding: 0 12px 0 0
+          margin: 0 12px 0 0
+
+        &:hover
+          .complain-count
+            background: $c-white
+
+  .complain-count
+    +default-font-heavy
+    display: flex
+    justify-content: center
+    align-items: center
+    background: rgba($c-white, 0.3)
+    color: $c-primary
+    width: 20px
+    height: 20px
+    border-radius: 50%
+    font-size: $f-navbar
+    margin: 0 0 0 8px
+    transition: background-color 0.3s
+
+  .nav-payment
+    margin: 0
+    display: flex
+    justify-content: space-between
+    align-items: center
+    overflow: visible
+    width: 100%
+    order: 1
+    padding: 32px 0 0
+
+    +smm
+      justify-content: flex-start
+
+    +lgm
+      width: auto
+      justify-content: flex-end
+      order: 2
+      padding: 0
+
+    .payout-btn-container
+      +xsm
+        margin: 0 0 0 32px
+
+      +smm
+        margin: 0 0 0 24px
+
+    span
+      +default-font-medium
+      display: block
+      text-align: left
+
+      +lgm
+        text-align: right
+
+    .account-balance-title
+      opacity: 0.5
+      font-size: $f-navbar
+      color: $c-white
+      text-transform: uppercase
+
+    .account-balacnce
+      font-size: $f-h2-size
+      color: $c-white
+
+    a
+      color: $c-white
+      background: none
+      border: 1px solid rgba($c-white, 0.3)
+
+      &:hover
+        border: 1px solid $c-white
