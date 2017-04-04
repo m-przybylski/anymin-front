@@ -9,6 +9,7 @@ import './expert/expert'
 import './settings/settings'
 import './service-provider/service-provider'
 import navbarModule from '../../common/components/navbar/navbar'
+import expertDashboardModule from './expert/expert'
 
 /* @ngInject */
 class DashboardController {
@@ -28,7 +29,7 @@ const dashboardPageModule = angular.module('profitelo.controller.dashboard', [
   'profitelo.controller.dashboard.payments-thank-you-page',
   'profitelo.controller.dashboard.invitation',
   'profitelo.controller.dashboard.client',
-  'profitelo.controller.dashboard.expert',
+  expertDashboardModule,
   'profitelo.controller.dashboard.settings',
   'profitelo.controller.dashboard.service-provider'
 ])

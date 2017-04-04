@@ -1,6 +1,9 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {DashboardExpertActivitiesController} from './activities'
+import {DashboardExpertActivitiesController} from './activities.controller'
+import dashboardExpertActivitiesModule from './activities'
+
+
 
 describe('Unit tests: DashboardExpertActivitiesController >', () => {
   describe('Testing Controller: DashboardExpertActivitiesController', () => {
@@ -12,7 +15,7 @@ describe('Unit tests: DashboardExpertActivitiesController >', () => {
     }
 
     beforeEach(() => {
-      angular.mock.module('profitelo.controller.dashboard.expert.activities')
+      angular.mock.module(dashboardExpertActivitiesModule)
 
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _$state_: ng.ui.IStateService) => {
         DashboardExpertActivitiesController =
