@@ -1,16 +1,7 @@
 import * as angular from 'angular'
 import expertNavigationModule from '../../../../common/components/dashboard/expert/navigation/navigation';
 import expertNoActivitiesModule from '../../../../common/components/dashboard/expert/activities/no-activities/no-activities';
-
-export class DashboardExpertActivitiesController {
-
-  public areActivities: boolean
-  /* @ngInject */
-  constructor() {
-    this.areActivities = false
-  }
-
-}
+import {DashboardExpertActivitiesController} from './activities.controller'
 
 const  dashboardExpertActivitiesModule = angular.module('profitelo.controller.dashboard.expert.activities', [
   'ui.router',

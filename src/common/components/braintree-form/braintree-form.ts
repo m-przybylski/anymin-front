@@ -12,6 +12,7 @@ import commonSettingsModule from '../../services/common-settings/common-settings
 import '../../directives/interface/pro-checkbox/pro-checkbox'
 import '../../directives/interface/pro-input/pro-input'
 import '../../components/dashboard/charge-account/summary-charge-account/summary-charge-account'
+import * as braintree from 'braintree-web'
 
 export interface IBraintreeFormComponentBindings {
   onBraintreeFormLoad: () => void,
