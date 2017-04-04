@@ -35,8 +35,7 @@ export class ExpertProfileResolver {
       return this.$q.resolve({
         profile: response.profile,
         services: sortServices(response.services),
-        isFavourite: response.isFavourite,
-        employers: response.employers
+        isFavourite: response.isFavourite
       })
     }
 

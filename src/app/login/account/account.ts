@@ -9,7 +9,7 @@ import {TopAlertService} from '../../../common/services/top-alert/top-alert.serv
 import {SessionService} from '../../../common/services/session/session.service'
 import {TopWaitingLoaderService} from '../../../common/services/top-waiting-loader/top-waiting-loader.service'
 import apiModule from 'profitelo-api-ng/api.module'
-import {AccountApi} from 'profitelo-api-ng/api/api'
+import {RegistrationApi} from 'profitelo-api-ng/api/api'
 import sessionModule from '../../../common/services/session/session'
 import loginStateModule from '../../../common/services/login-state/login-state'
 import commonSettingsModule from '../../../common/services/common-settings/common-settings'
@@ -23,7 +23,7 @@ import 'common/directives/interface/pro-input/pro-input'
 import 'common/components/interface/dropdown-primary/dropdown-primary'
 
 function AccountFormController($log: ng.ILogService, $rootScope: IRootScopeService, $state: ng.ui.IStateService,
-                               $filter: IFilterService, AccountApi: AccountApi,
+                               $filter: IFilterService, RegistrationApi: RegistrationApi,
                                topWaitingLoaderService: TopWaitingLoaderService, sessionService: SessionService,
                                topAlertService: TopAlertService, loginStateService: LoginStateService,
                                CommonSettingsService: CommonSettingsService, communicatorService: CommunicatorService) {
@@ -76,7 +76,7 @@ function AccountFormController($log: ng.ILogService, $rootScope: IRootScopeServi
       this.isPending = true
       topWaitingLoaderService.immediate()
       loginStateService.setAccountObject(this.account)
-      AccountApi.getRegistrationStatusByMsisdnRoute(
+      RegistrationApi.checkRegistrationStatusRoute(
         this.account.phoneNumber.prefix + this.account.phoneNumber.number
       ).then((response) => {
         this.isPending = false

@@ -1,6 +1,6 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {SessionApiMock, ServiceApiMock, RatelApiMock, AccountApi, AccountApiMock} from 'profitelo-api-ng/api/api'
+import {SessionApiMock, ServiceApiMock, RatelApiMock, RegistrationApi, RegistrationApiMock} from 'profitelo-api-ng/api/api'
 import {TopAlertService} from '../../../common/services/top-alert/top-alert.service'
 import {LoginStateService} from '../../../common/services/login-state/login-state.service'
 import {TopWaitingLoaderService} from '../../../common/services/top-waiting-loader/top-waiting-loader.service'
@@ -13,13 +13,13 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
 
     let scope: any,
       AccountFormController: any,
-      AccountApi: AccountApi,
+      RegistrationApi: RegistrationApi,
       $httpBackend: ng.IHttpBackendService,
       url = 'awesomeURL',
       _mockParams: any = null,
       _mockState: any = null,
       _RatelApiMock: RatelApiMock,
-      _AccountApiMock: AccountApiMock,
+      _RegistrationApiMock: RegistrationApiMock,
       _ServiceApiMock: ServiceApiMock,
       _SessionApiMock: SessionApiMock,
       $state: ng.ui.IStateService,
@@ -52,13 +52,13 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
       angular.mock.module(communicatorModule)
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $injector: ng.auto.IInjectorService,
               _topWaitingLoaderService_: TopWaitingLoaderService, _topAlertService_: TopAlertService,
-              _loginStateService_: LoginStateService, _$httpBackend_: ng.IHttpBackendService, AccountApiMock: AccountApiMock,
-              RatelApiMock: RatelApiMock, ServiceApiMock: ServiceApiMock,
+              _loginStateService_: LoginStateService, _$httpBackend_: ng.IHttpBackendService,
+              RegistrationApiMock: RegistrationApiMock, RatelApiMock: RatelApiMock, ServiceApiMock: ServiceApiMock,
               SessionApiMock: SessionApiMock, $q: ng.IQService) => {
 
         spyOn(sessionService, 'getSession').and.returnValue($q.resolve())
 
-        _AccountApiMock = AccountApiMock
+        _RegistrationApiMock = RegistrationApiMock
         _RatelApiMock = RatelApiMock
         _ServiceApiMock = ServiceApiMock
         _SessionApiMock = SessionApiMock
@@ -84,12 +84,12 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
         $state = _mockState
         scope.passwordForm = scope.phoneNumberForm
         topAlertService = _topAlertService_
-        AccountApi = $injector.get<AccountApi>('AccountApi')
+        RegistrationApi = $injector.get<RegistrationApi>('RegistrationApi')
         AccountFormController = $controller('AccountFormController', {
           $rootScope: $rootScope,
           $scope: scope,
           $state: $state,
-          AccountApi: AccountApi,
+          RegistrationApi: RegistrationApi,
           topWaitingLoaderService: _topWaitingLoaderService_,
           sessionService: sessionService,
           topAlertService: _topAlertService_,
@@ -121,7 +121,7 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
     })
 
     it('should go to password view', () => {
-      _AccountApiMock.getRegistrationStatusByMsisdnRoute(200, '321321642', <any>{status: 'REGISTERED'})
+      _RegistrationApiMock.checkRegistrationStatusRoute(200, '321321642', <any>{status: 'REGISTERED'})
 
       AccountFormController.getPhoneNumberStatus()
       $httpBackend.flush()
@@ -130,7 +130,7 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
 
     it('should redirect to register ', () => {
       spyOn($state, 'go')
-      _AccountApiMock.getRegistrationStatusByMsisdnRoute(200, '321321642', <any>{status: 'UNREGISTERED'})
+      _RegistrationApiMock.checkRegistrationStatusRoute(200, '321321642', <any>{status: 'UNREGISTERED'})
       AccountFormController.getPhoneNumberStatus()
       $httpBackend.flush()
       expect($state.go).toHaveBeenCalledWith('app.login.register')
@@ -138,7 +138,7 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
 
     it('should get error response', () => {
       spyOn(topAlertService, 'error')
-      _AccountApiMock.getRegistrationStatusByMsisdnRoute(400, '321321642', <any>{status: 'UNREGISTERED'})
+      _RegistrationApiMock.checkRegistrationStatusRoute(400, '321321642', <any>{status: 'UNREGISTERED'})
       AccountFormController.getPhoneNumberStatus()
       $httpBackend.flush()
       expect(topAlertService.error).toHaveBeenCalled()
@@ -146,7 +146,7 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
 
     it('should redirect to forgot-password', () => {
       spyOn($state, 'go')
-      _AccountApiMock.getRegistrationStatusByMsisdnRoute(200, '321321642', <any>{status: 'NO_PASSWORD'})
+      _RegistrationApiMock.checkRegistrationStatusRoute(200, '321321642', <any>{status: 'NO_PASSWORD'})
       AccountFormController.getPhoneNumberStatus()
       $httpBackend.flush()
       expect($state.go).toHaveBeenCalledWith('app.login.forgot-password')
