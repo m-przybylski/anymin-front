@@ -5,6 +5,7 @@ export class ProfileSingleConsultationComponent implements ng.IComponentOptions 
   bindings: {[boundProperty: string]: string} = {
     service: '<',
     tags: '<',
-    ownerCompany: '<'
+    ownerCompany: '<',
+    profileId: '<'
   }
 }

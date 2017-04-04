@@ -10,6 +10,7 @@ export class ExpertProfileController {
   public consultations: Array<GetExpertServiceDetails>
   public isFavourite: boolean
   public profileType: ProfileTypes
+  public profileId: string
 
   constructor(private $stateParams: IExpertProfileStateParams, private $log: ng.ILogService,
               expertProfile: GetExpertProfile, private ProfileApi: ProfileApi) {
@@ -18,6 +19,7 @@ export class ExpertProfileController {
     this.consultations = expertProfile.services
     this.isFavourite = expertProfile.isFavourite
     this.profileType = ProfileTypes.expert
+    this.profileId = expertProfile.profile.id
   }
 
   public onProfileLike = () =>
