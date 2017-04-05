@@ -1,6 +1,6 @@
 import * as angular from 'angular'
 import {ViewsApi} from 'profitelo-api-ng/api/api'
-import {GetActivities} from 'profitelo-api-ng/model/models'
+import {GetClientActivities} from 'profitelo-api-ng/model/models'
 
 export interface IClientActivitiesQueryParams {
   offset?: string
@@ -29,7 +29,7 @@ export class ClientActivitiesService {
     this._defineQueryProperties(this._queryParams)
   }
 
-  private _handleClientActivitiesResponse = (response: GetActivities): GetActivities => {
+  private _handleClientActivitiesResponse = (response: GetClientActivities): GetClientActivities => {
     return {
       activities: response.activities,
       activityTypes: response.activityTypes,
@@ -41,7 +41,7 @@ export class ClientActivitiesService {
   private _handleClientActivitiesResponseError = (error: any) =>
     this.$q.reject(error)
 
-  private _searchClientActivities = (params: IClientActivitiesQueryParams): ng.IPromise<GetActivities> =>
+  private _searchClientActivities = (params: IClientActivitiesQueryParams): ng.IPromise<GetClientActivities> =>
     this.ViewsApi.getDashboardClientActivitiesRoute(params.activityType, params.profileId, params.serviceId,
       params.dateFrom, params.dateTo, params.limit, params.offset)
 
@@ -90,7 +90,7 @@ export class ClientActivitiesService {
   }
 
   private _notifyOnActivitiesResults =
-    (err: any, results: GetActivities | null, queryParams: IClientActivitiesQueryParams) => {
+    (err: any, results: GetClientActivities | null, queryParams: IClientActivitiesQueryParams) => {
     this.$rootScope.$emit(ClientActivitiesService.activitiesResultsEvent, err, results, queryParams)
   }
 

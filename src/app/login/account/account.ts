@@ -1,12 +1,9 @@
 import * as angular from 'angular'
 const phonenumbers = require('libphonenumber-js')
-import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {IFilterService} from '../../../common/services/filter/filter.service'
-import {CommunicatorService} from '../../../common/components/communicator/communicator.service'
 import {CommonSettingsService} from '../../../common/services/common-settings/common-settings.service'
 import {LoginStateService} from '../../../common/services/login-state/login-state.service'
 import {TopAlertService} from '../../../common/services/top-alert/top-alert.service'
-import {SessionService} from '../../../common/services/session/session.service'
 import {TopWaitingLoaderService} from '../../../common/services/top-waiting-loader/top-waiting-loader.service'
 import apiModule from 'profitelo-api-ng/api.module'
 import {RegistrationApi} from 'profitelo-api-ng/api/api'
@@ -21,12 +18,13 @@ import 'common/directives/interface/pro-alert/pro-alert'
 import 'common/directives/interface/pro-input-password/pro-input-password'
 import 'common/directives/interface/pro-input/pro-input'
 import 'common/components/interface/dropdown-primary/dropdown-primary'
+import {UserService} from '../../../common/services/user/user.service'
 
-function AccountFormController($log: ng.ILogService, $rootScope: IRootScopeService, $state: ng.ui.IStateService,
-                               $filter: IFilterService, RegistrationApi: RegistrationApi,
-                               topWaitingLoaderService: TopWaitingLoaderService, sessionService: SessionService,
+function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService,
+                               $filter: IFilterService, RegistrationApi: RegistrationApi, userService: UserService,
+                               topWaitingLoaderService: TopWaitingLoaderService,
                                topAlertService: TopAlertService, loginStateService: LoginStateService,
-                               CommonSettingsService: CommonSettingsService, communicatorService: CommunicatorService) {
+                               CommonSettingsService: CommonSettingsService) {
 
   this.isPending = false
   this.current = 1
@@ -99,29 +97,26 @@ function AccountFormController($log: ng.ILogService, $rootScope: IRootScopeServi
     if (!this.isPending) {
       this.isPending = true
       topWaitingLoaderService.immediate()
-      sessionService.login({
+      userService.login({
         msisdn: this.account.phoneNumber.prefix + '' + this.account.phoneNumber.number,
         password: this.account.password
+      }).then(() => {
+        this.isPending = false
+        topWaitingLoaderService.stopLoader()
+        $state.go('app.dashboard.client.favourites')
+        loginStateService.clearServiceObject()
+        topAlertService.success({
+          message: $filter('translate')('LOGIN.SUCCESSFUL_LOGIN'),
+          timeout: 2
+        })
+      }, (error) => {
+        topWaitingLoaderService.stopLoader()
+        this.serverError = true
+        this.isPending = false
+        if (error.status === '500' || error.status === '404') {
+          throw new Error('User can not login: ' + error)
+        }
       })
-        .then((_response) => sessionService.getSession(true))
-        .then(() => {
-          communicatorService.authenticate()
-          $rootScope.loggedIn = true
-          this.isPending = false
-          topWaitingLoaderService.stopLoader()
-          $state.go('app.dashboard.client.favourites')
-          loginStateService.clearServiceObject()
-          topAlertService.success({
-            message: $filter('translate')('LOGIN.SUCCESSFUL_LOGIN'),
-            timeout: 2
-          })
-        })
-        .catch((error) => {
-          $log.error(error)
-          this.isPending = false
-          this.serverError = true
-          topWaitingLoaderService.stopLoader()
-        })
     }
   }
 

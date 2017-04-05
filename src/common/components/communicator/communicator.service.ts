@@ -6,6 +6,7 @@ import {CallbacksService} from '../../services/callbacks/callbacks.service'
 import {CallbacksFactory} from '../../services/callbacks/callbacks.factory'
 import {UserService} from '../../services/user/user.service'
 import {CommonConfig} from '../../../../generated_modules/common-config/common-config'
+import {EventsService} from '../../services/events/events.service'
 
 export interface IConsultationInvitation {
   invitation: any
@@ -27,12 +28,17 @@ export class CommunicatorService {
   /* @ngInject */
   constructor(private $log: ng.ILogService, private $q: ng.IQService, callbacksFactory: CallbacksFactory,
               private userService: UserService, private RatelApi: RatelApi, private ProfileApi: ProfileApi,
-               CommonConfig: CommonConfig,  private ratelSdk: any) {
+               CommonConfig: CommonConfig,  private ratelSdk: any, eventsService: EventsService) {
 
     this.commonConfig = CommonConfig.getAllData()
     this.ratelSessions = new SessionStorage()
     this.callbacks = callbacksFactory.getInstance(Object.keys(CommunicatorService.events))
     this.setChatConfig()
+
+    userService.getUser().then(this.authenticate)
+    eventsService.on('login', () => {
+      this.authenticate()
+    })
   }
 
   private setChatConfig = () => {

@@ -1,20 +1,25 @@
 import {INavbarLoggedInMenuComponentBindings} from './navbar-logged-in-menu'
-import {SessionService} from '../../../services/session/session.service'
 import {UserService} from '../../../services/user/user.service'
+import {TopAlertService} from '../../../services/top-alert/top-alert.service'
+import {IStateService} from 'angular-ui-router'
 
 export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMenuComponentBindings {
 
   isExpert: boolean
 
   /* @ngInject */
-  constructor(private sessionService: SessionService, private userService: UserService,
-              private $state: ng.ui.IStateService) {
+  constructor(private userService: UserService, private $filter: ng.IFilterService,
+              private topAlertService: TopAlertService, private $state: IStateService) {
     this.setIsExpert()
   }
 
   public logout = () => {
-    this.sessionService.logout().then(() => {
+    this.userService.logout().then(() => {
       this.$state.reload()
+      this.topAlertService.success({
+        message: this.$filter('translate')('LOGIN.SUCCESSFUL_LOGOUT'),
+        timeout: 2
+      })
     })
   }
 

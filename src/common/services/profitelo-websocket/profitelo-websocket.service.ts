@@ -1,8 +1,9 @@
-import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {CallbacksFactory} from '../callbacks/callbacks.factory'
 import {CallbacksService} from '../callbacks/callbacks.service'
 import {CallSummary} from '../../models/CallSummary'
 import {CommonConfig} from '../../../../generated_modules/common-config/common-config'
+import {UserService} from '../user/user.service'
+import {EventsService} from '../events/events.service'
 
 export class ProfiteloWebsocketService {
 
@@ -16,13 +17,18 @@ export class ProfiteloWebsocketService {
     onInit: 'onInit'
   }
 
-  constructor(private $log: ng.ILogService, private $rootScope: IRootScopeService,
+  /* @ngInject */
+  constructor(private $log: ng.ILogService, private userService: UserService, private eventsService: EventsService,
               private $timeout: ng.ITimeoutService, callbacksFactory: CallbacksFactory,
               CommonConfig: CommonConfig) {
-
     this.callbacks = callbacksFactory.getInstance(Object.keys(ProfiteloWebsocketService.events))
     this.wsEndpoint = CommonConfig.getAllData().urls.ws + '/ws/register'
-    this.connectWebsocket()
+    this.eventsService.on('login', this.connectWebsocket)
+    this.eventsService.on('logout', this.disconnectWebsocket)
+  }
+
+  public initializeWebsocket = () => {
+    this.userService.getUser().then(this.connectWebsocket)
   }
 
   public sendMessage = (msg: string, type: string) => {
@@ -81,15 +87,18 @@ export class ProfiteloWebsocketService {
 
   private onSocketClose = (event: any) => {
     this.$log.info('Profitelo websocket closed', event)
-    this.$timeout(this.connectWebsocket, ProfiteloWebsocketService.reconnectTimeout)
+    this.userService.getUser().then(() => {
+      this.$timeout(this.connectWebsocket, ProfiteloWebsocketService.reconnectTimeout)
+    })
+  }
+
+  public disconnectWebsocket = () => {
+    if (this.websocket) {
+      this.websocket.close()
+    }
   }
 
   private connectWebsocket = () => {
-    if (!this.$rootScope.loggedIn) {
-      this.$timeout(this.connectWebsocket, ProfiteloWebsocketService.reconnectTimeout)
-      return
-    }
-
     this.websocket = new WebSocket(this.wsEndpoint)
     this.websocket.onopen = this.onSocketOpen
     this.websocket.onmessage = this.onSocketMessage

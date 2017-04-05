@@ -25,7 +25,11 @@ describe('Testing Controller: consultationSummaryClientController', () => {
 
       const injectors = {
         $scope: scope,
-        $uibModalInstance: $uibModalInstance
+        $uibModalInstance: $uibModalInstance,
+        callSummaryService: {
+          onCallSummary: (attr: string) => attr,
+          takeCallSummary: (serviceId: string) => serviceId
+        }
       }
 
       consultationSummaryController = $controller<ConsultationSummaryClientController>(

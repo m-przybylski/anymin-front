@@ -6,6 +6,7 @@ import {Tag, ServiceRecommendation, GetService} from 'profitelo-api-ng/model/mod
 import {CallSummaryService} from '../../../../services/call-summary/call-summary.service'
 import {UrlService} from '../../../../services/url/url.service'
 import {CallSummary} from '../../../../models/CallSummary'
+import callSummaryModule from '../../../../services/call-summary/call-summary'
 
 export interface IConsultationSummaryClientParentControllerScope extends ng.IScope {
   serviceId: string
@@ -115,7 +116,7 @@ export class ConsultationSummaryClientController {
 
 angular.module('profitelo.components.communicator.modals.consultation-summary-client', [
   'profitelo.components.interface.multiselect',
-  'profitelo.services.call-summary',
+  callSummaryModule,
   'profitelo.services.url',
   apiModule,
   'ui.bootstrap',

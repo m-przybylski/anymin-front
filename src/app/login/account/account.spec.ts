@@ -5,8 +5,9 @@ import {TopAlertService} from '../../../common/services/top-alert/top-alert.serv
 import {LoginStateService} from '../../../common/services/login-state/login-state.service'
 import {TopWaitingLoaderService} from '../../../common/services/top-waiting-loader/top-waiting-loader.service'
 import './account'
-import sessionModule from '../../../common/services/session/session'
 import communicatorModule from '../../../common/components/communicator/communicator'
+import userModule from '../../../common/services/user/user'
+import {UserService} from '../../../common/services/user/user.service'
 
 describe('Unit tests: profitelo.controller.login.account>', () => {
   describe('Testing Controller: AccountFormController', () => {
@@ -25,26 +26,21 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
       $state: ng.ui.IStateService,
       topAlertService: TopAlertService
 
-    const sessionService = {
+    const userService = {
       login: () => {
       },
-      getSession: () => {
-      }
-    }
-    const communicatorService = {
-      authenticate: () => {
+      logout: () => {
       }
     }
 
     beforeEach(() => {
-      angular.mock.module(sessionModule)
+      angular.mock.module(userModule)
       angular.mock.module(communicatorModule)
     })
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', url)
-      $provide.value('sessionService', sessionService)
-      $provide.value('communicatorService', communicatorService)
+      $provide.value('userService', UserService)
     }))
 
     beforeEach(() => {
@@ -54,9 +50,7 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
               _topWaitingLoaderService_: TopWaitingLoaderService, _topAlertService_: TopAlertService,
               _loginStateService_: LoginStateService, _$httpBackend_: ng.IHttpBackendService,
               RegistrationApiMock: RegistrationApiMock, RatelApiMock: RatelApiMock, ServiceApiMock: ServiceApiMock,
-              SessionApiMock: SessionApiMock, $q: ng.IQService) => {
-
-        spyOn(sessionService, 'getSession').and.returnValue($q.resolve())
+              SessionApiMock: SessionApiMock) => {
 
         _RegistrationApiMock = RegistrationApiMock
         _RatelApiMock = RatelApiMock
@@ -91,7 +85,7 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
           $state: $state,
           RegistrationApi: RegistrationApi,
           topWaitingLoaderService: _topWaitingLoaderService_,
-          sessionService: sessionService,
+          userService: userService,
           topAlertService: _topAlertService_,
           loginStateService: _loginStateService_
         })
@@ -153,20 +147,18 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
     })
 
     it('should login user', inject(($q: ng.IQService) => {
-      spyOn(sessionService, 'login').and.returnValue($q.resolve())
+      spyOn(userService, 'login').and.returnValue($q.resolve())
       spyOn($state, 'go')
 
-      spyOn(communicatorService, 'authenticate')
       AccountFormController.current = 2
       AccountFormController.login()
       scope.$digest()
 
-      expect(communicatorService.authenticate).toHaveBeenCalled()
       expect($state.go).toHaveBeenCalledWith('app.dashboard.client.favourites')
     }))
 
     it('should display error', inject(($q: ng.IQService) => {
-      spyOn(sessionService, 'login').and.returnValue($q.reject())
+      spyOn(userService, 'login').and.returnValue($q.reject())
 
       AccountFormController.current = 2
       AccountFormController.login()

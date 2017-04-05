@@ -1,7 +1,7 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {DashboardClientActivitiesController} from './activities'
-import {GetActivities} from 'profitelo-api-ng/model/models'
+import {GetClientActivities} from 'profitelo-api-ng/model/models'
 
 describe('Unit tests: DashboardClientActivitiesController >', () => {
   describe('Testing Controller: DashboardClientActivitiesController', () => {
@@ -29,7 +29,7 @@ describe('Unit tests: DashboardClientActivitiesController >', () => {
         return <ng.IPromise<any>>{}
       },
       resolve: () => {
-        return <ng.IPromise<GetActivities>>{}
+        return <ng.IPromise<GetClientActivities>>{}
       }
     }
 
