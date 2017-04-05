@@ -5,6 +5,7 @@ export interface IProfileSingleConsultationComponentBindings extends ng.IControl
   service: GetExpertServiceDetails
   tags: Array<Tag>
   ownerCompany: GetProfile
+  profileId: string
 }
 
 const ProfileSingleConsultationModule = angular.module('profitelo.components.profile.profile-expert-single-consultation', [

@@ -6,12 +6,13 @@ export class ProfileSingleConsultationComponentController implements IProfileSin
   service: GetExpertServiceDetails
   tags: Array<Tag>
   ownerCompany: GetProfile
+  profileId: string
 
   /* @ngInject */
   constructor(private callService: CallService) {
   }
 
   public startCall = (consultation: GetService) => {
-    this.callService.callServiceId(consultation.id)
+    this.callService.callServiceId(consultation.id, this.profileId)
   }
 }

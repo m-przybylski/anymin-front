@@ -417,7 +417,7 @@ export class CallService {
     return this.$q.reject(err)
   }
 
-  public callServiceId = (_serviceId: string) => {
+  public callServiceId = (_serviceId: string, agentId?: string) => {
     if (!angular.isDefined(_serviceId) || !_serviceId) {
       return this.$q.reject('serviceId must be defined')
     }
@@ -432,7 +432,9 @@ export class CallService {
 
     this.isConnecting = true
 
-    return this.ServiceApi.addServiceUsageRequestRoute(_serviceId, {})
+    return this.ServiceApi.addServiceUsageRequestRoute(_serviceId, {
+      agentId: agentId
+    })
       .then(this.onAddSUR, this.onAddSURError)
 
   }
