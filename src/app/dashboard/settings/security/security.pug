@@ -28,6 +28,7 @@
     data-ng-repeat="session in vm.sessions"
     data-device="{{ session.device }}"
     data-api-key="session.apiKey"
+    data-ng-class="{'current-session': vm.checkIsCurrentSession(session.apiKey) }"
     data-device-in-use-status="session.status"
     data-device-localization="{{ session.city }}"
     data-device-system="{{ session.system }}")
