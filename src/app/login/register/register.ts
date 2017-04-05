@@ -80,7 +80,6 @@ function RegisterController($log: ng.ILogService, $filter: IFilterService, $stat
           permissionService.initializeAll()
           this.isPending = false
           topWaitingLoaderService.stopLoader()
-          sessionService.setApiKey(session.apiKey)
           // FIXME Login Event
           userid = session.accountId
 

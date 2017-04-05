@@ -36,8 +36,7 @@ class LoginConfirmEmailResolver implements ILoginConfirmEmailService {
       })
     }
 
-    const handleGoodToken = (apiKey: string) => {
-      this.sessionService.setApiKey(apiKey)
+    const handleGoodToken = () => {
 
       this.sessionService.getSession(true).then((_response) => {
 
@@ -59,8 +58,8 @@ class LoginConfirmEmailResolver implements ILoginConfirmEmailService {
 
     const verifyEmailToken = (token: string) => {
 
-      this.AccountApi.postAccountVerifyEmailRoute(token).then(response => {
-        handleGoodToken(response.apiKey)
+      this.AccountApi.postAccountVerifyEmailRoute(token).then(_response => {
+        handleGoodToken()
       }, handleBadToken)
 
     }
