@@ -1,0 +1,66 @@
+.consultation-details-modal
+  .container-medium
+    padding: 0
+
+    +smm
+      padding: 0 16px
+
+  .client-conversation-details-modal
+    .profile-preview
+      text-align: center
+      margin: 0 0 16px
+
+      +smm
+        margin: 0 0 48px
+
+    .details-tab
+      margin: 0 0 16px
+
+      +smm
+        margin: 0 0 32px
+
+      +mdm
+        margin: 0 0 64px
+
+      .details-tab-content
+        display: inline-flex
+
+        .currency
+          padding-left: 4px
+
+    .recommended-tab
+      text-align: center
+      margin: 0
+
+      +xsm
+        text-align: left
+        margin: 0 0 48px
+
+      .recommended-tab-header
+        +xsm
+          display: flex
+          justify-content: space-between
+          align-items: center
+
+        span
+          color: $c-secondary-txt
+          font-size: $f-subheader
+          display: block
+          margin: 0 0 24px
+
+          +xsm
+            margin: 0
+
+        .btn
+          white-space: pre
+
+  .collapse-btn
+    +smm
+      margin: 0 0 16px
+
+  .chat-history
+    .collapse-btn-content
+      max-height: 456px
+      overflow: scroll
+      background: $c-background
+      padding: 16px 0 32px

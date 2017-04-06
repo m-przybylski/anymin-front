@@ -13,7 +13,7 @@
   top: 0
   width: 100%
   transition: transform 0.3s
-  transform: translateY(0)
+  box-shadow: 0 1px 3px 0 rgba($c-black, 0.15)
 
   &::after
     content: ''
@@ -307,7 +307,7 @@
 
           &:not(.btn)
             +default-font-medium
-            font-size: $f-navbar
+            font-size: $f-btn-small
             color: $c-secondary-txt
             display: flex
             align-items: center

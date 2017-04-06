@@ -1,10 +1,15 @@
-
 .profile-preview
   display: flex
   align-items: center
 
-  +smm
+  &.vertical-preview
     display: block
+
+    .thumb
+      margin: 0 0 16px
+
+    .profile-name
+      display: block
 
   .thumb
     margin: 0 16px 0 0
@@ -15,48 +20,20 @@
           justify-content: flex-end
 
   .profile-name
-    span
-      +modalPreviewProfileName
-
-  &.vertical-preview
-    display: block
-    text-align: left
-
-    +smm
-      text-align: center
-
-    .profile-handler
-      display: flex
-      align-items: center
-      margin: 0 0 24px
-
-      +smm
-        display: block
-        margin: 0 0 16px
-
-      .thumb
-        +smm
-          margin: 0 0 16px
-
-.title-label
-  margin: 16px 0 24px
-  display: block
-  font-size: $f-paragraph
-  color: $c-secondary-txt
-
-  +smm
-    margin: 16px 8px 24px
+    +consultationProfileName
+    display: flex
+    align-items: center
 
 .title-row
   +default-font-regular
-  font-size: $f-h5-size
-  color: $c-label
+  font-size: $f-paragraph-title
+  color: $c-tertiary-txt
   margin: 0 0 12px
   display: block
 
   span
-    font-size: $f-h5-size
-    color: $c-label
+    font-size: $f-paragraph-title
+    color: $c-tertiary-txt
     margin: 0 0 12px 4px
 
 .circle

@@ -34,7 +34,7 @@
           display: flex
           align-items: center
           justify-content: center
-          background: $c-label
+          background: $c-tertiary-txt
           border-radius: 50%
           color: $c-white
           width: 16px
@@ -59,8 +59,8 @@
         display: flex
 
       span
-        font-size: $f-h6-size
-        color: $c-label
+        font-size: $f-input-small
+        color: $c-tertiary-txt
 
       +mdm
         cursor: inherit
@@ -81,7 +81,7 @@
 
   .search-bar-shadow
     position: absolute
-    color: $c-input
+    color: $c-secondary-txt
     background: $c-white  url('/assets/images/search.svg') no-repeat left 20px top 50% / 22px 22px
 
   .search-bar
@@ -102,7 +102,7 @@
       +default-font-regular
       text-transform: none
       padding: 24px 16px 0
-      color: $c-label
+      color: $c-tertiary-txt
 
       +smm
         padding: 24px 32px 0
@@ -134,18 +134,18 @@
           background: rgba($c-lines, 0.6)
 
           span
-            color: $c-primary-hover
+            color: $c-primary-dark
 
 
         span
           color: $c-primary-txt
           line-height: 1
-          font-size: $f-nav-size
+          font-size: $f-paragraph
 
     .term-suggestions
       span
         &.search-hint
-          color: $c-label
+          color: $c-tertiary-txt
           padding: 0 0 0 4px
 
     .experts-box
@@ -168,7 +168,7 @@
           &.active
             .expert-data
               .expert-name
-                color: $c-primary-hover
+                color: $c-primary-dark
           +smm
             flex: 0 0 50%
             align-items: center
@@ -184,11 +184,11 @@
 
           .expert-data
             flex: 1
-            font-size: $f-base
+            font-size: $f-paragraph-small
             margin: 0 0 0 16px
 
             span
-              font-size: $f-base
+              font-size: $f-paragraph-small
               display: block
 
               &.expert-name
