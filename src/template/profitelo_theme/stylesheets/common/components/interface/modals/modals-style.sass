@@ -73,6 +73,9 @@
       +xsm
         flex: 1
 
+
+
+
 .modal-settings
   text-align: center
 
@@ -82,27 +85,47 @@
     +smm
       margin: 0 0 64px
 
+
 .modal-form
+  padding: 0
+
   +smm
     border: 1px solid $c-lines
 
-  &.container-medium
-    padding: 0
-
-  .entry-title
-    text-align: left
-    padding: 0 16px
-
-    +smm
-      padding: 0 104px
-      margin: 32px 0
+  .modal-header
+    padding: 48px 16px
+    background: $c-background
+    border: 0
+    text-align: center
 
     +smm
-      margin: 64px 0
+      padding: 48px 80px
 
-  .form
-    > *:not(.summary-charge-account)
-      padding: 0 16px
+  .modal-container
+    padding:  24px 16px
 
-      +smm
-        padding: 64px 104px
+    +smm
+      padding: 48px 80px
+
+  .modal-footer
+    padding: 48px 16px
+
+    +smm
+      padding: 48px 80px
+
+
+.modal-fullscreen
+  background: $c-white
+
+  &.is-scrollable
+    padding: $s-navbar-height 0 0 0
+
+  &.fullscreen-navbar
+    padding: $s-navbar-height 0 0
+
+    .scrollable-container
+      height: calc(100vh - #{$s-navbar-height})
+
+      .scrollable-center
+        padding: 0
+        display: block

@@ -2,11 +2,11 @@ import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {UrlService} from '../../../../../../services/url/url.service'
 import {ViewsApi} from 'profitelo-api-ng/api/api'
-import {IClientConsultationDetailsScope} from './consultation-details.controller'
-describe('Testing Controller: clientConsultationDetails', () => {
+import {IExpertConsultationDetailsScope} from './consultation-details.controller'
+describe('Testing Controller: expertConsultationDetails', () => {
 
-  let clientConsultationDetails: any
-  let scope: IClientConsultationDetailsScope
+  let expertConsultationDetails: any
+  let scope: IExpertConsultationDetailsScope
   const uibModalInstance = {
     dismiss: () => {
 
@@ -21,14 +21,14 @@ describe('Testing Controller: clientConsultationDetails', () => {
   }))
 
   beforeEach(() => {
-    angular.mock.module('profitelo.components.dashboard.client.activities.modals.consultation-details')
+    angular.mock.module('profitelo.components.dashboard.expert.activities.modals.consultation-details')
     inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _$httpBackend_: ng.IHttpBackendService,
             _urlService_: UrlService, _ViewsApi_: ViewsApi) => {
 
-      scope = <IClientConsultationDetailsScope>$rootScope.$new()
+      scope = <IExpertConsultationDetailsScope>$rootScope.$new()
       scope.$parent.sueId = '123'
 
-      clientConsultationDetails = $controller('clientConsultationDetails', {
+      expertConsultationDetails = $controller('expertConsultationDetails', {
         '$scope': scope,
         '$uibModalInstance': uibModalInstance,
         'httpBackend': _$httpBackend_,
@@ -39,12 +39,12 @@ describe('Testing Controller: clientConsultationDetails', () => {
   })
 
   it('should exists', () => {
-    return expect(!!clientConsultationDetails).toBe(true)
+    return expect(!!expertConsultationDetails).toBe(true)
   })
 
   it('should uibModalInstance', () => {
     spyOn(uibModalInstance, 'dismiss')
-    clientConsultationDetails.onModalClose()
+    expertConsultationDetails.onModalClose()
     expect(uibModalInstance.dismiss).toHaveBeenCalledWith('cancel')
   })
 

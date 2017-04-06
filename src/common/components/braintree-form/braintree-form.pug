@@ -1,7 +1,7 @@
 .braintree-form
   .panel-heading
     form.panel-body.form
-      .braintree-content-form.charge-container
+      .modal-container.braintree-content-form.charge-container
         .hosted-field
           label.control-label {{ 'BRAINTREE.LABEL.CARD_NUMBER' | translate }}
           .form-group
@@ -39,7 +39,7 @@
 
         .input-error-messages(data-ng-show="$ctrl.isInvalid")
           .error.left(data-translate="BRAINTREE.INVALID")
-            
+
       summary-charge-account.summary-charge-account( data-amount="$ctrl.transaction.amount || $ctrl.transaction.paymentOption"
         data-btn-title="{{ $ctrl.submitButtonTranslate }}")
 

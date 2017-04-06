@@ -6,7 +6,7 @@
       margin: 0 16px 24px
 
 .btn
-  +default-font-bold
+  +default-font-medium
   display: inline-flex
   align-items: center
   justify-content: center
@@ -142,26 +142,25 @@
   width: 100%
   color: $c-primary-txt
   padding: 0
-  min-height: 56px
-  border-radius: 3px
-
-  +smm
-    border: 1px solid $c-lines
+  min-height: 72px
+  border-radius: 0
 
   .collapse-btn-header
     +default-font-regular
+    +modalTitleHeader
+    text-transform: none
     flex: 1 0 100%
-    color: $c-secondary-txt
     display: flex
     align-items: center
     justify-content: space-between
     width: 100%
-    padding: 16px
+    height: auto
     cursor: pointer
-    font-size: $f-small
+    padding: 24px 0
 
     .icon
       margin: 0 16px 0 0
+      color: $c-secondary-txt
 
     div
       display: flex

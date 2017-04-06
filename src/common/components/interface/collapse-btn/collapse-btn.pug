@@ -1,11 +1,13 @@
 .collapse-btn.btn.btn-collapse(data-ng-style="$ctrl.stylesObject")
-    .collapse-btn-wrapper
-        .btn.collapse-btn-header(data-ng-click="$ctrl.collapseToggle()")
-            div
-                span.icon(data-ng-class="'{{$ctrl.collapseIcon}}'")
-                span {{ $ctrl.title | translate }}
-            span(data-translate="DASHBOARD.INTERFACE.COLLAPSE-BTN.SHOW_MORE_BUTTON" data-ng-show="$ctrl.isCollapsed")
-            span(data-translate="DASHBOARD.INTERFACE.COLLAPSE-BTN.HIDE_BUTTON" data-ng-show="!$ctrl.isCollapsed")
+  .collapse-btn-wrapper
+    .btn.collapse-btn-header(data-ng-click="$ctrl.collapseToggle()")
+      div
+        span.icon(data-ng-class="'{{$ctrl.collapseIcon}}'")
+        span {{ $ctrl.title | translate }}
+      a.btn.btn-primary.btn-small(data-ng-show="$ctrl.isCollapsed")
+        span(data-translate="DASHBOARD.INTERFACE.COLLAPSE-BTN.SHOW_MORE_BUTTON")
+      a.btn.btn-primary.btn-small(data-ng-show="!$ctrl.isCollapsed")
+        span(data-translate="DASHBOARD.INTERFACE.COLLAPSE-BTN.HIDE_BUTTON")
 
-        .collapse-btn-content
-            ng-transclude
+    .collapse-btn-content
+      ng-transclude

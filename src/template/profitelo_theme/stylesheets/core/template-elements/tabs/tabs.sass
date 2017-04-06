@@ -1,7 +1,7 @@
 .details-tab
   .details-tab-row
     margin: 0 0 8px
-    padding: 0 16px
+    padding: 8px 0
     text-align: left
 
     +xsm
@@ -9,35 +9,42 @@
       display: flex
       justify-content: space-between
 
-    &.header-row
-      border-bottom: 1px solid $c-lines
-      padding: 0 16px 8px
+      +smm
+        padding: 16px 8px
 
-      +xsm
-        padding: 0 16px
-        margin: 0 0 16px
-
-      .client-price
-        display: flex
-
-        span
-          padding: 0 0 0 8px
-
-      span
-        +default-font-bold
+    &:not(.header-row)
+      &:nth-child(2n)
+        +smm
+          background: $c-background
 
   span
     font-size: $f-paragraph
     color: $c-primary-txt
-    padding: 0
-    display: block
-
-    +xsm
-      padding: 8px 0
 
   .details-tab-label
+    margin: 0 0 8px
+
+    +smm
+      margin: 0
+
     span
       color: $c-secondary-txt
+
+  .details-header-row
+    border-bottom: 1px solid $c-lines
+    padding: 0 16px 8px
+    margin: 0 0 24px
+
+    +xsm
+      padding: 0 0 24px 0
+
+    span
+      +modalTitleHeader
+
+    &.details-header-handler
+      display: flex
+      align-content: center
+      justify-content: space-between
 
 
 .info-tab

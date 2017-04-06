@@ -6,7 +6,6 @@ import {DialogService} from '../dialog/dialog.service'
 import {IClientCallParentControllerScope} from '../../components/communicator/modals/client-call/client-call'
 import {IConsultationSummaryClientParentControllerScope} from '../../components/communicator/modals/consultation-summary-client/consultation-summary-client'
 import {IConsultationSummaryExpertParentControllerScope} from '../../components/communicator/modals/consultation-summary-expert/consultation-summary-expert'
-import {IConsultationDetailsParentScope} from '../../components/dashboard/client/activities/modals/consultation-details/consultation-details'
 import {IBasicAccountSettingsControllerParentScope} from '../../components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings'
 import {IGeneralPhoneSettingsControllerScope} from '../../components/dashboard/settings/modals/general/phone-settings/phone-settings'
 import {IGeneralEmailSettingsControllerScope} from '../../components/dashboard/settings/modals/general/email-settings/email-settings'
@@ -20,6 +19,15 @@ import {
   IGalleryPreviewControllerScope,
   GalleryPreviewController
 } from '../../components/profile/profile-header/profile-gallery/modals/preview.controller'
+
+import {
+  ClientConsultationDetailsController,
+  IClientConsultationDetailsScope
+} from '../../components/dashboard/client/activities/modals/consultation-details/consultation-details.controller'
+import {
+  IExpertConsultationDetailsScope,
+  ExpertConsultationDetailsController
+} from '../../components/dashboard/expert/activities/modals/consultation-details/consultation-details.controller'
 
 // TODO add types for dialogScope Scopes
 export class ModalsService {
@@ -109,11 +117,11 @@ export class ModalsService {
       throw new Error('Expected sueId, got ' + sueId)
     }
 
-    const dialogScope: IConsultationDetailsParentScope = <IConsultationDetailsParentScope>this.$rootScope.$new(true)
+    const dialogScope: IClientConsultationDetailsScope = <IClientConsultationDetailsScope>this.$rootScope.$new(true)
 
     dialogScope.sueId = sueId
     return this.dialogService.openDialog({
-      controller: 'clientConsultationDetails',
+      controller: ClientConsultationDetailsController,
       template: require('common/components/dashboard/client/activities/modals/consultation-details/consultation-details.pug')(),
       scope: dialogScope
     })
@@ -272,4 +280,20 @@ export class ModalsService {
       scope: dialogScope
     })
   }
+
+  public createExpertSUEActivityDetailsModal = (sueId: string) => {
+    if (!sueId) {
+      throw new Error('Expected sueId, got ' + sueId)
+    }
+
+    const dialogScope: IExpertConsultationDetailsScope = <IExpertConsultationDetailsScope>this.$rootScope.$new(true)
+
+    dialogScope.sueId = sueId
+    return this.dialogService.openDialog({
+      controller: ExpertConsultationDetailsController,
+      template: require('common/components/dashboard/expert/activities/modals/consultation-details/consultation-details.pug')(),
+      scope: dialogScope
+    })
+  }
+
 }
