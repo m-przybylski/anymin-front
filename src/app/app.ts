@@ -40,6 +40,7 @@ import 'angularjs-slider/dist/rzslider.css'
 import 'croppie/croppie.css'
 import './../template/profitelo_theme/stylesheets/main.sass'
 import {CommonConfig, default as commonConfigModule} from '../../generated_modules/common-config/common-config'
+import profiteloWebsocketModule from '../common/services/profitelo-websocket/profitelo.websocket'
 
 declare const Raven: any
 
@@ -74,6 +75,7 @@ angular.module('profitelo', [
   interfaceLanguageModule,
   customTranslationHandlerModule,
   sessionModule,
+  profiteloWebsocketModule,
   permissionModule,
 
   // controllers

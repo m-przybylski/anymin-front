@@ -1,5 +1,5 @@
 import * as angular from 'angular'
-import {MoneyDto, GetActivity, GetExpertServiceTuple, GetActivities} from 'profitelo-api-ng/model/models'
+import {MoneyDto, GetActivity, GetExpertServiceTuple, GetClientActivities} from 'profitelo-api-ng/model/models'
 import {ClientActivitiesService} from '../../../../common/services/client-activities/client-activities.service'
 import filtersModule from '../../../../common/filters/filters'
 import 'common/components/dashboard/client/activities/client-activities/client-activity/client-activity'
@@ -26,7 +26,7 @@ export class DashboardClientActivitiesController {
 
   /* @ngInject */
   constructor($scope: ng.IScope, $timeout: ng.ITimeoutService,
-              clientActivities: GetActivities, private clientActivitiesService: ClientActivitiesService) {
+              clientActivities: GetClientActivities, private clientActivitiesService: ClientActivitiesService) {
 
     this.activities = clientActivities.activities
     this.balance = clientActivities.balance

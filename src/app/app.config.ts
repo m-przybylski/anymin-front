@@ -10,8 +10,6 @@ export function AppConfigFunction($urlRouterProvider: ng.ui.IUrlRouterProvider, 
   $urlRouterProvider.deferIntercept()
 
   $urlRouterProvider
-    .when('', '/')
-    .when('/', '/home')
     .otherwise('/home')
 
   $httpProvider.defaults.withCredentials = true
@@ -23,7 +21,7 @@ export function AppConfigFunction($urlRouterProvider: ng.ui.IUrlRouterProvider, 
     abstract: true,
     controller: AppComponentController,
     controllerAs: 'appController',
-    template: require('../common/templates/app.pug')(),
+    template: require('./app.pug')(),
     data: {
       pageTitle: 'PAGE_TITLE.BASE'
     },

@@ -11,6 +11,11 @@ import {ISecuritySettingsService} from '../../../../common/resolvers/security-se
 import 'common/resolvers/security-settings/security-settings.service'
 import 'common/components/dashboard/settings/manage-devices/manage-devices'
 import {SessionService} from '../../../../common/services/session/session.service'
+import {UserService} from '../../../../common/services/user/user.service'
+import {IStateService} from 'angular-ui-router'
+import {TopAlertService} from '../../../../common/services/top-alert/top-alert.service'
+import topAlertModule from '../../../../common/services/top-alert/top-alert'
+import {IFilterService} from '../../../../common/services/filter/filter.service'
 
 interface ISession {
   device: string
@@ -25,7 +30,9 @@ export class DashboardSettingsSecurityController implements ng.IController {
   public sessions: Array<ISession>
 
   constructor(private modalsService: ModalsService, private currentSession: GetSession, sessionsData: Array<GetSession>,
-              timeConstant: ITimeConstant, private SessionApi: SessionApi, private $window: ng.IWindowService) {
+              timeConstant: ITimeConstant, private SessionApi: SessionApi, private userService: UserService,
+              private $state: IStateService, private topAlertService: TopAlertService,
+              private $filter: IFilterService) {
 
     if (currentSession.account) {
       this.hasMobilePin = currentSession.account.hasMobilePin
@@ -63,15 +70,21 @@ export class DashboardSettingsSecurityController implements ng.IController {
   }
 
   public removeSession = (apiKey: string) => {
-    this.SessionApi.logoutRoute(apiKey).then(() => {
-      _.remove(this.sessions, session => session.apiKey === apiKey)
-      if (this.currentSession.apiKey === apiKey) {
-        // TODO LOGOUT-EVENT
-        this.$window.location.reload()
-      }
-    }, (error) => {
-      throw new Error('Can not delete this session ' + error)
-    })
+    if (this.currentSession.apiKey !== apiKey) {
+      this.SessionApi.logoutRoute(apiKey).then(() => {
+        _.remove(this.sessions, session => session.apiKey === apiKey)
+      }, (error) => {
+        throw new Error('Can not delete this session ' + error)
+      })
+    } else {
+      this.userService.logout().then(() => {
+        this.$state.reload()
+        this.topAlertService.success({
+          message: this.$filter('translate')('LOGIN.SUCCESSFUL_LOGOUT'),
+          timeout: 2
+        })
+      })
+    }
   }
 
   public checkIsCurrentSession = (apiKey: string) => {
@@ -91,26 +104,26 @@ angular.module('profitelo.controller.dashboard.settings.security', [
   'ui.router',
   userModule,
   apiModule,
-
+  topAlertModule,
   'profitelo.constants.time',
   'profitelo.resolvers.security-settings',
   'profitelo.components.dashboard.settings.manage-devices',
   modalsModule
 ])
-  .config(($stateProvider: ng.ui.IStateProvider) => {
-    $stateProvider.state('app.dashboard.settings.security', {
-      url: '/security',
-      template: require('./security.pug')(),
-      controller: 'dashboardSettingsSecurityController',
-      controllerAs: 'vm',
-      resolve: {
-        currentSession: (sessionService: SessionService) => {
-          return sessionService.getSession(true)
-        },
-        sessionsData: (securitySettingsResolver: ISecuritySettingsService) => {
-          return securitySettingsResolver.resolve()
-        }
+.config(($stateProvider: ng.ui.IStateProvider) => {
+  $stateProvider.state('app.dashboard.settings.security', {
+    url: '/security',
+    template: require('./security.pug')(),
+    controller: 'dashboardSettingsSecurityController',
+    controllerAs: 'vm',
+    resolve: {
+      currentSession: (sessionService: SessionService) => {
+        return sessionService.getSession(true)
+      },
+      sessionsData: (securitySettingsResolver: ISecuritySettingsService) => {
+        return securitySettingsResolver.resolve()
       }
-    })
+    }
   })
-  .controller('dashboardSettingsSecurityController', DashboardSettingsSecurityController)
+})
+.controller('dashboardSettingsSecurityController', DashboardSettingsSecurityController)

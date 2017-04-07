@@ -1,5 +1,4 @@
 import * as angular from 'angular'
-import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {IFilterService} from '../../../common/services/filter/filter.service'
 import {TopWaitingLoaderService} from '../../../common/services/top-waiting-loader/top-waiting-loader.service'
 import {TopAlertService} from '../../../common/services/top-alert/top-alert.service'
@@ -9,7 +8,6 @@ import {AccountApi, RegistrationApi} from 'profitelo-api-ng/api/api'
 import {PatchAccount, Account} from 'profitelo-api-ng/model/models'
 import {LoginStateService} from '../../../common/services/login-state/login-state.service'
 import {SessionService} from '../../../common/services/session/session.service'
-import {CommunicatorService} from '../../../common/components/communicator/communicator.service'
 import {ILoginRegister, ILoginRegisterService} from '../../../common/resolvers/login-register/login-register.service'
 import sessionModule from '../../../common/services/session/session'
 import loginStateModule from '../../../common/services/login-state/login-state'
@@ -22,15 +20,15 @@ import 'common/directives/interface/pro-input/pro-input'
 import 'common/directives/interface/pro-alert/pro-alert'
 import 'common/directives/interface/pro-checkbox/pro-checkbox'
 import permissionModule from '../../../common/services/permission/permission'
-import {PermissionService} from '../../../common/services/permission/permission.service'
+import {EventsService} from '../../../common/services/events/events.service'
+import eventsModule from '../../../common/services/events/events'
 
 function RegisterController($log: ng.ILogService, $filter: IFilterService, $state: ng.ui.IStateService,
-                            $rootScope: IRootScopeService, topWaitingLoaderService: TopWaitingLoaderService,
+                            topWaitingLoaderService: TopWaitingLoaderService, eventsService: EventsService,
                             sessionService: SessionService, topAlertService: TopAlertService,
                             smsSessionId: ILoginRegister, CommonSettingsService: CommonSettingsService,
                             RegistrationApi: RegistrationApi, AccountApi: AccountApi,
-                            loginStateService: LoginStateService, communicatorService: CommunicatorService,
-                            permissionService: PermissionService) {
+                            loginStateService: LoginStateService) {
   this.passwordStrength = 0
   this.isPending = false
   this.rulesAccepted = false
@@ -54,7 +52,6 @@ function RegisterController($log: ng.ILogService, $filter: IFilterService, $stat
         sessionId: this.registrationSteps.sessionId,
         token: String(this.registrationSteps.smsCode)
       }).then(() => {
-        communicatorService.authenticate()
         this.correctCode = true
       }, (err: any) => {
         $log.error(err)
@@ -77,14 +74,12 @@ function RegisterController($log: ng.ILogService, $filter: IFilterService, $stat
         token: String(this.registrationSteps.smsCode)
       }).then((_response) => {
         sessionService.getSession(true).then((session) => {
-          permissionService.initializeAll()
           this.isPending = false
           topWaitingLoaderService.stopLoader()
-          // FIXME Login Event
+          eventsService.emit('login')
           userid = session.accountId
 
           loginStateService.clearServiceObject()
-          $rootScope.loggedIn = true
           $state.go('app.post-register.set-password')
         })
       }, (error: any) => {
@@ -157,6 +152,7 @@ angular.module('profitelo.controller.login.register', [
   commonSettingsModule,
   topAlertModule,
   permissionModule,
+  eventsModule,
   'profitelo.services.pro-top-waiting-loader-service',
   'profitelo.directives.interface.pro-checkbox',
   'profitelo.directives.interface.pro-alert',

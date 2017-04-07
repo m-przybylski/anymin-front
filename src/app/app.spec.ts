@@ -70,32 +70,5 @@ describe('Unit tests: app>', () => {
       return expect(!!AppController).toBe(true)
     })
 
-    it('should start logout action if not pending', inject(($q: ng.IQService) => {
-
-      _RatelApiMock.getRatelAuthConfigRoute(200)
-      _SessionApiMock.checkRoute(200, <any>{
-        user: {
-          apiKey: '123'
-        }
-      })
-
-      spyOn(_state, 'go')
-      spyOn(sessionService, 'logout').and.returnValue($q.resolve())
-
-      AppController.logout()
-      $scope.$digest()
-
-      expect(_state.go).toHaveBeenCalledWith('app.home')
-      expect(sessionService.logout).toHaveBeenCalled()
-    }))
-
-    it('should not start logout action if pending', () => {
-
-      AppController.isPending = true
-      spyOn(_state, 'go')
-      AppController.logout()
-      expect(_state.go).not.toHaveBeenCalledWith('app.login.account')
-    })
-
   })
 })

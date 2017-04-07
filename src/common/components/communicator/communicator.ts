@@ -16,6 +16,7 @@ import './navigation/navigation'
 import './messenger/messenger'
 import ratelSdkModule from '../ratel-sdk/ratel-sdk'
 import {CallService} from './call.service'
+import eventsModule from '../../services/events/events'
 
 const communicatorModule = angular.module('profitelo.components.communicator', [
   'pascalprecht.translate',
@@ -28,10 +29,10 @@ const communicatorModule = angular.module('profitelo.components.communicator', [
   userModule,
   callbacksModule,
   modalsModule,
+  eventsModule,
   soundsModule,
   'ngSanitize',
   'commonConfig',
-
   callbacksModule,
   filtersModule,
   ratelSdkModule,

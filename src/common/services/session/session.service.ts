@@ -7,8 +7,7 @@ export class SessionService {
   private apiKeyKey: string = 'X-Api-Key'
 
   /* @ngInject */
-  constructor(private SessionApi: SessionApi,
-              private $http: ng.IHttpService) {
+  constructor(private SessionApi: SessionApi, private $http: ng.IHttpService, private $q: ng.IQService) {
   }
 
   public logout = (): ng.IPromise<void> => {
@@ -16,7 +15,6 @@ export class SessionService {
   }
 
   public login = (loginDetails: AccountLogin): ng.IPromise<GetSession> => {
-
     return this.SessionApi.login(loginDetails).then(this.onSuccessLogin)
   }
 
@@ -41,6 +39,7 @@ export class SessionService {
   }
 
   private onSuccessLogin = (session: GetSession): GetSession => {
+    this.sessionCache = this.$q.resolve(session)
     this.setApiKeyHeader(session.apiKey)
 
     return session
@@ -55,7 +54,7 @@ export class SessionService {
     this.$http.defaults.headers!.common[this.apiKeyKey] = apiKey
   }
 
-  public static $get(SessionApi: SessionApi, $http: ng.IHttpService) {
-    return new SessionService(SessionApi, $http)
+  public static $get(SessionApi: SessionApi, $http: ng.IHttpService, $q: ng.IQService) {
+    return new SessionService(SessionApi, $http, $q)
   }
 }
