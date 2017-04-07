@@ -1,6 +1,6 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import expertNavigationModule from "./navigation";
+import expertNavigationModule from './navigation';
 import IScope = angular.IScope;
 
   describe('Unit testing: profitelo.components.dashboard.expert.navigation', () => {

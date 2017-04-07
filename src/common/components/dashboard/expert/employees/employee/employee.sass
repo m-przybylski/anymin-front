@@ -1,0 +1,51 @@
+@import "../../../../../../template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
+
+.expert-employees
+  .list-row
+    padding: 16px 0
+
+    +lgm
+      padding: 16px
+
+    &:hover
+      background: $c-background
+
+      .employee-buttons-container
+        +lgm
+          display: flex
+
+    .employee-informations
+      display: flex
+      align-items: center
+
+      .pro-checkbox
+        margin: 0 24px 0 0
+
+    .employee-name-container
+      min-width: 184px
+      margin: 0 24px 0 0
+
+      span
+        +paragraphTitle
+
+    .employee-avatar-container
+      margin: 0 24px 0 0
+
+    .employee-consultation-count-container
+      span
+        +paragraphSmall
+        color: $c-primary-txt
+
+    .employee-details
+      display: flex
+      flex-wrap: wrap
+
+    .employee-buttons-container
+      display: none
+
+      a:first-child
+        margin: 0 24px 0 0
+
+  .pro-checkbox
+    align-items: center
