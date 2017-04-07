@@ -1,8 +1,8 @@
 import * as angular from 'angular'
-  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {ModalsService} from '../../../../../../services/modals/modals.service'
 import modalsModule from '../../../../../../services/modals/modals'
-  describe('Unit testing: profitelo.components.dashboard.client.activities.client-activity', () => {
+describe('Unit testing: profitelo.components.dashboard.client.activities.client-activity', () => {
   return describe('for clientLastActivitiesList >', () => {
 
     let scope: any
