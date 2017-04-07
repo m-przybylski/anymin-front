@@ -1,11 +1,14 @@
 .top-modal-navbar
   transition: top 0.3s
-  position: fixed
+  position: absolute
   top: 0
   left: 0
-  background: $c-white
   width: 100%
-  z-index: $z-index-900
+  z-index: $z-index-100
+  padding: 32px
+
+  +mdm
+    position: fixed
 
   &.isHided
     top: -#{$top-modal-navbar + 1px}
@@ -27,10 +30,9 @@
       align-items: center
       justify-content: center
       width: $top-modal-navbar
-
-      &:hover
-        span
-          color: $c-primary-txt
+      height: $top-modal-navbar
+      border-radius: 50%
+      border: 1px solid $c-lines
 
     .icon
       color: $c-secondary-txt

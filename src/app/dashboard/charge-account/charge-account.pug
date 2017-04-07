@@ -51,7 +51,7 @@
 
         .braintree(data-ng-show="vm.isPaymentCardMethod")
           .modal-settings
-            .container-medium.no-padding.modal-form
+            .modal-form.container-medium.no-padding
               preloader.animation.fadeInOut(data-ng-show="vm.isPaymentCardMethod" data-is-loading="!vm.isBraintreeFormLoaded")
                 braintree-form(data-on-braintree-form-load="vm.onLoad"
                 data-submit-button-translate="DASHBOARD.CHARGE_ACCOUNT.ADD_PAYMENT_CARD.CHANGE.BUTTON"

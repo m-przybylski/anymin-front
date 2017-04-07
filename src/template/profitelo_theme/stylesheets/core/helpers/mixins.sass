@@ -13,11 +13,19 @@
       margin: 0 0 0 32px
 
   h3
-    +default-font-light
+    +modalTitleHeader
     margin: 0 0 24px
-    font-size: $f-h2-size
-    color: $c-secondary-txt
 
+
+=modalTitleHeader
+  +default-font-light
+  font-size: $f-h2-size
+  color: $c-secondary-txt
+
+=modalPreviewProfileName
+  +default-font-light
+  font-size: $f-paragraph
+  color: $c-secondary-txt
 
 /* entry-titles */
 =entryTitle
@@ -94,7 +102,17 @@
   animation: fadeInX 0.3s ease-out
   animation-fill-mode: forwards
 
-  @for $i from 1 to 4
+  @for $i from 1 to 6
+    &:nth-child(#{$i})
+      animation-delay: $i * 0.15s
+
+=asd
+  display: block
+  opacity: 0
+  animation: fadeInY 0.3s ease-out
+  animation-fill-mode: forwards
+
+  @for $i from 1 to 6
     &:nth-child(#{$i})
       animation-delay: $i * 0.15s
 

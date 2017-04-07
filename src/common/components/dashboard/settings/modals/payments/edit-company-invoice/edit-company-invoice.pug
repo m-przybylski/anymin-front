@@ -1,10 +1,10 @@
 scrollable.edit-payment-method(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
   top-modal-navbar(data-on-close="vm.onModalClose")
-  .modal-settings
+  .modal-form.container-medium
     preloader()
-      .container-medium.no-padding.modal-form
+      .modal-container
         .invoice-form
-          form.form(name="editInvoiceForm" data-ng-submit="editInvoiceForm.$valid && vm.editInvoice()")
+          form(name="editInvoiceForm" data-ng-submit="editInvoiceForm.$valid && vm.editInvoice()")
             .invoice-form-company-info
               .title
                 h3(data-translate="DASHBOARD.CHARGE_ACCOUNT.INVOICE.TITLE")
