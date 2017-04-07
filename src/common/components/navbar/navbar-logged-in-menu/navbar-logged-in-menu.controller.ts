@@ -5,7 +5,7 @@ import {IStateService} from 'angular-ui-router'
 
 export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMenuComponentBindings {
 
-  isExpert: boolean
+  isExpertOrOrganization: boolean
 
   /* @ngInject */
   constructor(private userService: UserService, private $filter: ng.IFilterService,
@@ -25,9 +25,9 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
 
   private setIsExpert = () => {
     this.userService.getUser().then((response) => {
-      this.isExpert = response.isExpert
+      this.isExpertOrOrganization = response.isExpert || response.isCompany
     }, () => {
-      this.isExpert = false
+      this.isExpertOrOrganization = false
     })
   }
 

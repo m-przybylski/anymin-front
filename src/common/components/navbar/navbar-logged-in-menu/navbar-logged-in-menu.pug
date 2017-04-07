@@ -1,12 +1,12 @@
 ul.expert-state
   li
     ul
-      li(data-ng-hide="$ctrl.isExpert")
+      li(data-ng-hide="$ctrl.isExpertOrOrganization")
         a.btn.btn-primary.btn-small(data-translate="NAVIGATION.MENU_ITEMS.START_EARNING"
         data-ui-sref="app.dashboard.service-provider.choose-path")
 
-      li(data-ng-if="$ctrl.isExpert")
-        a
+      li(data-ng-if="$ctrl.isExpertOrOrganization")
+        a(data-ui-sref="app.dashboard.expert.activities")
           span.mobile-only.icon.icon-suitcase-24-1
           span(data-translate="NAVIGATION.MENU_ITEMS.EXPERT")
       li

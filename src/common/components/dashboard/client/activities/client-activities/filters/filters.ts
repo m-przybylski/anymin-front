@@ -171,4 +171,4 @@ angular.module('profitelo.components.dashboard.client.activities.client-activiti
   'profitelo.components.interface.dropdown',
   'profitelo.components.interface.dropdown-primary'
 ])
-  .component('clientActivitiesFilters', component)
+.component('clientActivitiesFilters', component)
