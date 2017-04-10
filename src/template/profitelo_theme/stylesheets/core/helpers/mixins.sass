@@ -1,3 +1,88 @@
+/* SIZETEXT */
+=headerBig
+  +default-font-thin
+  color: $c-primary-txt
+  font-size: $f-header-big
+  line-height: 54px
+
+=header
+  +default-font-light
+  color: $c-secondary-txt
+  font-size: $f-header
+  line-height: 32px
+
+=subHeader
+  +default-font-regular
+  font-size: $f-subheader
+  line-height: 24px
+
+=paragraph
+  +default-font-light
+  color: $c-secondary-txt
+  font-size: $f-paragraph
+  line-height: 24px
+
+=paragraphTitle
+  +default-font-medium
+  color: $c-secondary-txt
+  font-size: $f-paragraph-title
+  line-height: 21px
+
+=paragraphSmall
+  +default-font-regular
+  color: $c-secondary-txt
+  font-size: $f-paragraph-small
+  line-height: 18px
+
+=inputLabel
+  +default-font-medium
+  color: $c-secondary-txt
+  font-size: $f-input-label
+  line-height: 20px
+
+=inputText
+  +default-font-regular
+  color: $c-primary
+  font-size: $f-input-txt
+  line-height: 21px
+
+=inputTextPlaceholder
+  +default-font-regular
+  color: $c-tertiary-txt
+  font-size: $f-input-txt
+  line-height: 21px
+
+=inputSmall
+  +default-font-medium
+  font-size: $f-paragraph-small
+  line-height: 16px
+
+=inputDropDownItem
+  +default-font-regular
+  color: $c-secondary-txt
+  font-size: $f-input-txt
+  line-height: 18px
+
+=inputError
+  +default-font-medium
+  color: $c-error
+  font-size: $f-input-small
+  line-height: 16px
+  text-transform: uppercase
+
+=buttonPrimaryText
+  +default-font-medium
+  font-size: $f-btn-size
+  line-height: 21px
+
+=buttonSmall
+  +default-font-medium
+  font-size: $f-btn-small
+  line-height: 18px
+
+
+/* end SIZETEXT */
+
 =modalTitle
   text-align: left
 
@@ -13,14 +98,8 @@
       margin: 0 0 0 32px
 
   h3
-    +modalTitleHeader
+    +header
     margin: 0 0 24px
-
-
-=modalTitleHeader
-  +default-font-light
-  font-size: $f-h2-size
-  color: $c-secondary-txt
 
 =modalPreviewProfileName
   +default-font-light
@@ -32,69 +111,50 @@
   > h2, > h3
     +default-font-light
     color: $c-secondary-txt
-    font-size: $f-h2-size
+    font-size: $f-header
 
 /* entry-titles end */
-
-/* inputs */
-=inputLabel
-  +default-font-medium
-  color: $c-label
-  font-size: $f-label-size
-  text-transform: uppercase
-  line-height: 1
-  text-align: left
-
-=inputText
-  +default-font-light
-  color: $c-primary-txt
-  font-size: $f-nav-size
-  line-height: 1
-
-/* inputs end */
 
 /* listing */
 =consultationProfileName
   > *,
   h3
-    +default-font-light
-    color: $c-secondary-txt
-    font-size: $f-paragraph
+    +paragraph
 
 =consultationTitle
   > *,
   h3
     +default-font-light
     color: $c-primary-txt
-    font-size: $f-h2-size
+    font-size: $f-header
     line-height: 29px
 
 =priceSection
   span
     +default-font-medium
     color: $c-primary-txt
-    font-size: $f-price-list
+    font-size: $f-paragraph
     text-transform: uppercase
 
     &.time
-      color: $c-label
+      color: $c-tertiary-txt
       margin: 0
 
     &.currency
-      color: $c-label
+      color: $c-tertiary-txt
       margin: 0 0 0 4px
 
 =consultationDetailsInfo
   +default-font-medium
-  font-size: $f-medium
+  font-size: $f-paragraph-title
   color: $c-secondary-txt
 
 
 =consultationDescription
   +default-font-regular
-  font-size: $f-h5-size
+  font-size: $f-paragraph-title
   color: $c-secondary-txt
-  line-height: $f-h5-size * 1.5
+  line-height: $f-paragraph-title * 1.5
 
 =singleConsultationAnimation
   display: block
@@ -123,7 +183,7 @@
   > *,
   h3
     +default-font-light
-    font-size: $f-h4-size
+    font-size: $f-subheader
     line-height: 24px
 
 /* tiles end*/
@@ -134,8 +194,8 @@
   +default-font-medium
   display: block
   text-transform: uppercase
-  color: $c-label
-  font-size: $f-label-size
+  color: $c-tertiary-txt
+  font-size: $f-btn-small
 
 /* label-header end */
 

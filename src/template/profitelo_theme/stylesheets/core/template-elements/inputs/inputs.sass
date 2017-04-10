@@ -2,13 +2,12 @@ input, textarea
   +inputText
   outline: 0
   border: 0
-  line-height: 1
 
 input
   &[type="number"]
     border: 1px solid $c-lines
-    width: 48px
-    height: 64px
+    width: $f-input-height
+    height: $f-input-height
     text-align: center
 
     &:focus
@@ -21,16 +20,18 @@ input
     margin: 0 0 32px
 
   input
-    border: 1px solid $c-lines
-    width: 48px
-    height: 64px
+    +default-font-regular
+    border-bottom: 1px solid $c-lines
+    width: $f-input-height
+    height: $f-input-height
     text-align: center
     margin: 0 8px 0
+    font-size: $f-header
 
     +smm
       margin: 0 8px 0
 
-  &:focus
+    &:focus
       border-color: $c-primary
 
 label
@@ -61,21 +62,38 @@ label
       width: 308px
 
 .input-group
+  height: $f-input-height
+
+  &.is-label
+    padding: 22px 0 0
+
+    input
+      padding: 4px 0 16px
+
+  label
+    +inputLabel
+    position: absolute
+    top: 0
+    left: 0
+
+  &.invalid
+    input
+      color: $c-error
+
   input, textarea
     width: 100%
-    padding: 0 16px
+    padding: 0
 
   .input-group-addon
-    color: $c-input
+    color: $c-secondary-txt
 
     &:hover
       color: $c-primary
 
     .icon
       cursor: pointer
-      min-width: 44px
       position: absolute
-      padding: 16px
+      padding: 16px 0
       right: 0
       top: 0
       bottom: 0
@@ -85,7 +103,6 @@ label
         display: none
 
       &.icon-class
-        font-size: $f-base
         z-index: $z-index-100
 
   &.ng-not-empty
@@ -95,15 +112,13 @@ label
           display: flex
 
 .input-error-messages
-  +default-font-bold
+  +inputError
   width: 100%
   min-height: 32px
   padding: 16px 8px
-  color: $c-error
-  font-size: $f-h6-size
 
   .errors
-    color: $c-input-error
+    +inputError
 
     &.right
       text-align: right
@@ -113,7 +128,7 @@ label
 
 .input-group-addon
   .icon
-    font-size: $f-icon-12
+    font-size: $f-icon-size
 
 /* dropdown */
 .ui-select-container
@@ -122,7 +137,7 @@ label
   display: flex
   background: none
   border: 1px solid $c-lines
-  height: 56px
+  height: $f-input-height
   position: relative
   align-items: stretch
 
@@ -133,7 +148,7 @@ label
     border-color: $c-primary
 
   &.ui-select-multiple
-    min-height: 56px
+    min-height: $f-input-height
     padding: 16px
     background: $c-white
 
@@ -170,7 +185,7 @@ label
       span
         +default-font-regular
         color: $c-secondary-txt
-        font-size: $f-nav-size
+        font-size: $f-paragraph
         line-height: 1
         text-transform: none
 
@@ -187,7 +202,6 @@ label
     max-width: inherit
     transition: all 0.3s
 
-
   &.open
     border-color: $c-primary
 
@@ -198,7 +212,7 @@ label
         .ui-select-choices-row
           span
             +default-font-regular
-            font-size: $f-nav-size
+            font-size: $f-paragraph
             padding: 8px
             color: $c-secondary-txt
 
@@ -271,17 +285,14 @@ input[type="range"]::-ms-fill-lower
 input[type="range"]::-ms-fill-upper
   background: $c-primary
 
+\::-webkit-input-placeholder
+  +inputTextPlaceholder
 
+\::-moz-placeholder
+  +inputTextPlaceholder
 
+\:-ms-input-placeholder
+  +inputTextPlaceholder
 
-::-webkit-input-placeholder
-  color: $c-label
-
-::-moz-placeholder
-  color: $c-label
-
-  :-ms-input-placeholder
-    color: $c-label
-
-  :-moz-placeholder
-    color: $c-label
+\:-moz-placeholder
+  +inputTextPlaceholder

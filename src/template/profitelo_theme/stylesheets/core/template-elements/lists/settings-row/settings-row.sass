@@ -19,7 +19,7 @@
 
   &.is-inactive
     span
-      color: $c-label
+      color: $c-tertiary-txt
 
   .settings-icon
     display: inline-flex
@@ -32,15 +32,9 @@
     flex: 1
 
     .label
-      +default-font-bold
-      color: $c-label
-      font-size: $f-label-size
-      text-transform: uppercase
+      +inputLabel
       display: block
+      text-transform: none
 
     .name
-      color: $c-primary-txt
-      font-size: $f-h5-size
-
-      +smm
-        font-size: $f-h4-size
+      +paragraph

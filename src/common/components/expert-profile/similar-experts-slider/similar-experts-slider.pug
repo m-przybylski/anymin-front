@@ -16,13 +16,14 @@
           .slider-item(data-ng-click=" $ctrl.goToProfile($ctrl.consultations[$index])")
 
             .slider-item-consultation
-              .profile-preview
+              .profile-preview.vertical-preview
                 .thumb.x48
                   img.user-avatar( data-ng-class="{'is-not-uploaded': !$ctrl.consultationOwnerImage(consultation.owner.img)}"
                   data-ng-src=" {{ $ctrl.consultationOwnerImage(consultation.owner.img) }}")
 
                   .status-list
                     span.status.availability
+                      span.icon.icon-success-12
 
                 .profile-name
                   span {{ consultation.owner.name }}

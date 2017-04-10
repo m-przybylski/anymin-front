@@ -1,45 +1,45 @@
-.pro-expert-slider.similar-experts-slider
+.similar-experts-slider
   .slider-container
     a.btn.btn-arrow.arrow-left(data-ng-click="$ctrl.prevSlide()" data-ng-show="$ctrl.areControllsVisible")
       span.icon.icon-arrow-left-16
 
     .slider-slides(data-ng-style="leftOffset" data-ng-swipe-left="$ctrl.nextSlide()")
-      slider.slider-list(data-ng-transclude data-controlls="controlls" data-move-slides="-1")
-        .slides(data-ng-repeat="consultation in $ctrl.consultations | orderBy:consultation.serviceUsageEvent.createdAt:true"
+      slider.slider-list.tiles-row(data-ng-transclude data-controlls="controlls" data-move-slides="-1")
+        .tiles-item(data-ng-repeat="consultation in $ctrl.consultations | orderBy:consultation.serviceUsageEvent.createdAt:true"
         data-ng-swipe-right="$ctrl.prevSlide()")
-          .slider-item(data-ng-click="$ctrl.goToProfile(consultation)")
 
-            .slider-item-consultation
-              .profile-preview
-                .thumb.x48
-                  img.user-avatar(
-                  data-ng-class="{'is-not-uploaded': !$ctrl.consultationOwnerImage(consultation.profile.expertDetails.avatar)}"
-                  data-ng-src="{{:: $ctrl.consultationOwnerImage(consultation.profile.expertDetails.avatar) }}")
+          .slides.tiles-content(data-ng-click="$ctrl.goToProfile(consultation)")
+            .profile-preview.vertical-preview
+              .thumb.x48
+                img.user-avatar(
+                data-ng-class="{'is-not-uploaded': !$ctrl.consultationOwnerImage(consultation.profile.expertDetails.avatar)}"
+                data-ng-src="{{:: $ctrl.consultationOwnerImage(consultation.profile.expertDetails.avatar) }}")
 
-                  .status-list
-                    span.status.availability
+                .status-list
+                  span.status.availability
+                    span.icon.icon-success-12
 
-                .profile-name
-                  span {{:: consultation.profile.expertDetails.name }}
+              .profile-name
+                span {{:: consultation.profile.expertDetails.name }}
 
-              div
-                .consultation-price
-                  span(data-ng-bind-html="consultation.service.details.price | money")
-                  span.currency {{:: "HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE" | translate}}
+            .consultation-price
+              span(data-ng-bind-html="consultation.service.details.price | money")
+                span.currency {{:: "HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE" | translate}}
 
-                .consultation-title
-                  h3
-                    span {{:: consultation.service.details.name }}
+            .consultation-title
+              h3
+                span {{:: consultation.service.details.name }}
 
-              ul.consultation-about
-                li.options-item.recomendation
-                  span.icon.icon-satisfaction-16
-                  span {{:: consultation.service.rating }}
-                  span(data-translate="DASHBOARD.EXPERT_ACCOUNT.RECOMMENDATION")
-                li.options-item.conversation-count
-                  span.icon.icon-calls-16
-                  span {{:: consultation.service.usageCounter }}
-                  span(data-translate="DASHBOARD.EXPERT_ACCOUNT.CONVERSATIONS")
+            .consultation-actions
+              a.btn.btn-success(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CALL")
+
+            ul.consultation-details-info
+              li.options-item.recomendation
+                span.icon.icon-satisfaction-16
+                span  {{:: consultation.service.rating }}
+              li.options-item.conversation-count
+                span.icon.icon-call-16
+                span {{:: consultation.service.usageCounter }}
 
     a.btn.btn-arrow.arrow-right(data-ng-click="$ctrl.nextSlide()" data-ng-show="$ctrl.consultations.length > 3")
       span.icon.icon-arrow-right-16

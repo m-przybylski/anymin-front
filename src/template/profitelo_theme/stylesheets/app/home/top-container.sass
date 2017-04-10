@@ -59,7 +59,7 @@
       .search-bar-shadow
         height: 64px
         padding: 0 64px
-        font-size: $f-h4-size
+        font-size: $f-subheader
 
       .search-bar
         color: $c-primary
@@ -70,7 +70,7 @@
       .slides
         .description
           +default-font-regular
-          font-size: $f-h4-size
+          font-size: $f-subheader
           color: $c-secondary-txt
           text-align: center
           margin: 0 0 32px
@@ -83,7 +83,7 @@
   h1
     +default-font-thin
     text-align: center
-    font-size: $f-main-header
+    font-size: $f-header-big * 1.5
     padding: 100px 0 40px
     color: $c-white
     max-width: 364px
@@ -93,9 +93,12 @@
   h2
     +default-font-light
     max-width: 420px
-    font-size: $f-main-subheader
+    font-size: $f-header
     text-align: center
     margin: 0 auto 40px
+    color: $c-white
+
+  .icon.icon-play-64
     color: $c-white
 
 .play-ico

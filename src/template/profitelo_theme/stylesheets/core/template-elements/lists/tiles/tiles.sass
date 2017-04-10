@@ -2,12 +2,20 @@
   +xsm
     display: flex
     flex-wrap: wrap
-    margin: 0 -16px
+    margin: 0 -8px
     flex: 0 0 50%
     height: 100%
 
-  +mdm
-    flex: 0 0 25%
+  +smm
+    margin: 0 -16px
 
   .tiles-item
-    padding: 0 16px 32px
+    padding: 0 0 16px
+
+    +xsm
+      padding: 0 8px 16px
+      flex: 0 0 50%
+
+    +smm
+      padding: 0 16px 32px
+      flex: 0 0 25%

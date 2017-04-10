@@ -1,7 +1,6 @@
 .pro-input-password,
 .pro-input
   background: $c-white
-  height: 56px
   position: relative
   display: flex
   padding: 0
@@ -36,29 +35,13 @@
       animation: inputBorderLineAnimation 0.3s
       animation-fill-mode: forwards
 
-  &.is-label
-    padding: 22px 16px 0
-
-    input
-      padding: 4px 0 16px
-
-  label
-    +inputLabel
-    transition: top 0.3s, opacity 0.3s
-    line-height: 1
-    position: absolute
-    top: 4px
-    left: 16px
 
   &.invalid
-    label
-      color: $c-input-error
-
     &::after
       animation: inputBorderLineAnimationError 0.3s
       animation-fill-mode: forwards
 
     span
       &.cross-addon
-        color: $c-input-error
+        color: $c-error
 
