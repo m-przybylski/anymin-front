@@ -1,8 +1,9 @@
 import * as angular from 'angular'
-import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+
 import {SearchService} from './search.service'
 import {CategoryApiMock, SearchApiMock} from 'profitelo-api-ng/api/api'
 import {CategoryService} from '../category/category.service'
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 
 describe('Unit testing: profitelo.services.search >', () => {
   describe('for searchService service >', () => {
