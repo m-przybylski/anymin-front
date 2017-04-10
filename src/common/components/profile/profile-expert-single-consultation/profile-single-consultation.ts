@@ -8,9 +8,9 @@ export interface IProfileSingleConsultationComponentBindings extends ng.IControl
   profileId: string
 }
 
-const ProfileSingleConsultationModule = angular.module('profitelo.components.profile.profile-expert-single-consultation', [
+const profileSingleConsultationModule = angular.module('profitelo.components.profile.profile-expert-single-consultation', [
 ])
 .component('profileSingleConsultation', new ProfileSingleConsultationComponent())
   .name
 
-export default ProfileSingleConsultationModule
+export default profileSingleConsultationModule

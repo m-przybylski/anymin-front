@@ -2,7 +2,7 @@
   .container
     .dashboard-content.no-results-page-content
       .no-activity-message-container
-        p(data-translate="DASHBOARD.EXPERT_ACCOUNT.NO_ACTIVITIES.DSC")
+        p(data-translate="{{ $ctrl.activeAccountTranslation | translate: $ctrl.translationPayoutsHref }}")
       no-content-message(data-icon-src="assets/images/profitelo_icons/icon_expert_no_activities.png"
         data-message-title="DASHBOARD.EXPERT_ACCOUNT.NO_ACTIVITIES.TITLE")
       .blog-news-container.tiles-row

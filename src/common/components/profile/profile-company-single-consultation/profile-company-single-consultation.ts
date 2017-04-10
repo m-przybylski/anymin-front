@@ -9,9 +9,9 @@ export interface IProfileCompanyConsultationComponentBindings extends ng.IContro
   employees: Array<GetProfileDetails>
 }
 
-const ProfileCompanyConsultationModule = angular.module('profitelo.components.profile.profile-company-single-consultation', [
+const profileCompanyConsultationModule = angular.module('profitelo.components.profile.profile-company-single-consultation', [
 ])
 .component('profileCompanySingleConsultation', new ProfileCompanyConsultationComponent())
   .name
 
-export default ProfileCompanyConsultationModule
+export default profileCompanyConsultationModule

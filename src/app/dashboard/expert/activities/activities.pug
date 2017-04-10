@@ -1,8 +1,14 @@
 .activities
-  expert-no-activities(data-ng-if="!vm.areActivities")
-  expert-filters()
-  expert-activity()
-
-  .load-more-results-container
-    span Pokazuję od 1 do 7 z 28 aktywności
-    a.btn.btn-link(data-translate="DASHBOARD.EXPERT.ACTIVITIES.SHOW_MORE_RESULTS")
+  preloader-container(data-is-loading="vm.isSearchLoading" data-ng-show="vm.isSearchLoading || vm.isError"
+  data-is-error="vm.isError" data-error-message="DASHBOARD_CLIENT.ERROR_MESSAGE"
+  data-error-fn="vm.sendRequestAgain")
+  expert-no-activities(data-ng-if="!vm.areActivities && !vm.isSearchLoading")
+  div(data-ng-if="vm.areActivities && !vm.isSearchLoading")
+    dashboard-filters(data-filters="vm.filters" data-on-set-search-params="vm.onSetFiltersParams"
+    data-account-type="vm.accountType")
+    expert-activity(data-ng-repeat="activity in vm.activities" data-activity="activity")
+    .container(data-ng-show="!vm.isMoreResults")
+      .load-more-results-container(data-ng-if="vm.isMoreResults")
+        span(data-translate="{{ 'DASHBOARD.EXPERT.ACTIVITIES.RESULTS_COUNTER' | translate: vm.translationCounter }}")
+        a.btn.btn-link(data-translate="DASHBOARD.EXPERT.ACTIVITIES.SHOW_MORE_RESULTS"
+        data-ng-click="vm.loadMoreActivities()")

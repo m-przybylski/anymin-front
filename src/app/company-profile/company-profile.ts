@@ -14,10 +14,10 @@ import 'common/components/expert-profile/company-single-consultation/company-sin
 import 'common/components/expert-profile/similar-experts-slider/similar-experts-slider'
 import 'common/components/expert-profile/social-links/social-links'
 import navbarModule from '../../common/components/navbar/navbar'
-import ProfileCompanyConsultationModule from '../../common/components/profile/profile-company-single-consultation/profile-company-single-consultation'
 import profileHeaderModule from '../../common/components/profile/profile-header/profile-header'
 import similarConsultationModule from '../../common/components/profile/similar-consultations/similar-consultations'
 import './company-profile.sass'
+import profileCompanyConsultationModule from '../../common/components/profile/profile-company-single-consultation/profile-company-single-consultation'
 
 export interface ICompanyProfileStateParams extends ng.ui.IStateParamsService {
   primaryConsultationId: string
@@ -32,7 +32,7 @@ const companyProfilePageModule = angular.module('profitelo.controller.company-pr
   topAlertModule,
   navbarModule,
   recommendedServicesModule,
-  ProfileCompanyConsultationModule,
+  profileCompanyConsultationModule,
   profileHeaderModule,
   similarConsultationModule,
   'profitelo.directives.expert-profile.pro-expert-header',

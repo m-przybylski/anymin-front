@@ -3,22 +3,22 @@
     div
       nav.dashboard-nav
         ul
-          li(data-ui-sref-active="is-active")
-            a(data-ui-sref="app.dashboard.expert.activities" data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.ACTIVITIES.TITLE")
-          li(data-ui-sref-active="is-active")
-            a(data-ui-sref="app.dashboard.expert.manage-profile" data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.MANAGE_PROFILE.TITLE")
-          li.complain-count-container(data-ui-sref-active="is-active")
-            a(data-ui-sref="app.dashboard.expert.complains") {{:: 'DASHBOARD.EXPERT_ACCOUNT.NAVBAR.COMPLAINS.TITLE' | translate }}
+          li(data-ui-sref-active="is-active" data-ui-sref="app.dashboard.expert.activities")
+            a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.ACTIVITIES.TITLE")
+          li
+            a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.MANAGE_PROFILE.TITLE")
+          li.complain-count-container(data-ui-sref-active="is-active" data-ui-sref="app.dashboard.expert.complains")
+            a
+              | {{:: 'DASHBOARD.EXPERT_ACCOUNT.NAVBAR.COMPLAINS.TITLE' | translate }}
               span.complain-count +9
-          li(data-ui-sref-active="is-active")
+          li
             a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.EMPLOYES.TITLE")
-          li(data-ui-sref-active="is-active")
+          li
             a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.INVOICES.TITLE")
 
       .nav-payment
         .amount-balance-container
-          span.account-balance-title(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.ACCOUNT_BALANCE.TITLE")
-          span.account-balacnce 8234,00
-            span.currency PLN
+          span(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.ACCOUNT_BALANCE.TITLE").account-balance-title
+          span.account-balacnce(data-ng-bind-html="$ctrl.clientBalance | money ")
         .payout-btn-container
-          a.btn.btn-small.btn-default(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.PAYOUT_BUTTON.TITLE")
+          a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.PAYOUT_BUTTON.TITLE").btn.btn-small.btn-primary

@@ -8,19 +8,20 @@ describe('Unit tests: dashboardExpertActivities >', () => {
 
     let DashboardExpertActivitiesController: DashboardExpertActivitiesController
 
-    const expertActivities = {
-      activities: []
-    }
+    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
+      $provide.value('apiUrl', 'awesomeURL')
+    }))
 
     beforeEach(() => {
       angular.mock.module(dashboardExpertActivitiesModule)
 
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _$state_: ng.ui.IStateService) => {
         DashboardExpertActivitiesController =
-          $controller<DashboardExpertActivitiesController>('dashboardExpertActivities', {
+          $controller<DashboardExpertActivitiesController>('dashboardExpertActivitiesController', {
             $state: _$state_,
             $scope: $rootScope.$new(),
-            expertActivities: expertActivities,
+            topAlertService: {},
+            filtersData: {}
           })
       })
     })
