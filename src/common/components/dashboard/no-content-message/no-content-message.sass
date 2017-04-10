@@ -1,12 +1,15 @@
 @import "../../../../template/profitelo_theme/stylesheets/core/helpers/rwd"
 @import "../../../../template/profitelo_theme/stylesheets/core/helpers/mixins.sass"
+@import "../../../../template/profitelo_theme/stylesheets/variables/colors"
 
 .no-content-message
   +noContentMessage
-  padding: 32px 0 48px
+  +default-font-light
+  text-align: center
+  color: $c-secondary-txt
 
   +smm
-    padding: 64px 0
+    padding: 32px 0
 
   +lgm
-    padding: 96px 0
+    padding: 64px 0
