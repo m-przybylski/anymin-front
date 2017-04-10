@@ -3,8 +3,6 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {DashboardExpertActivitiesController} from './activities.controller'
 import dashboardExpertActivitiesModule from './activities'
 
-
-
 describe('Unit tests: DashboardExpertActivitiesController >', () => {
   describe('Testing Controller: DashboardExpertActivitiesController', () => {
 

@@ -1,17 +1,10 @@
-import modalsModule from '../../../../../../services/modals/modals'
 import * as angular from 'angular'
-import {GetActivity} from 'profitelo-api-ng/model/models'
 import {ModalsService} from '../../../../../../services/modals/modals.service'
 import {UrlService} from '../../../../../../services/url/url.service'
-import urlModule from '../../../../../../services/url/url'
-import filtersModule from '../../../../../../filters/filters'
-import 'common/components/complaints/status/status'
+import {GetActivity} from 'profitelo-api-ng/model/models'
+import {IClientActivityComponentBindings} from './activity'
 
-interface IClientActivityComponentBindings {
-  activity: GetActivity
-}
-
-class ClientActivityComponentController implements ng.IController, IClientActivityComponentBindings {
+export class ClientActivityComponentController implements ng.IController, IClientActivityComponentBindings {
 
   public activity: GetActivity
   public isCallActivity: boolean
@@ -49,21 +42,3 @@ class ClientActivityComponentController implements ng.IController, IClientActivi
 
   }
 }
-
-class ClientActivityComponent implements ng.IComponentOptions {
-  template = require('./client-activity.pug')()
-  controller: ng.Injectable<ng.IControllerConstructor> = ClientActivityComponentController
-  controllerAs: string = '$ctrl'
-  bindings: {[boundProperty: string]: string} = {
-    activity: '<'
-  }
-}
-
-angular.module('profitelo.components.dashboard.client.activities.client-activity', [
-  'pascalprecht.translate',
-  urlModule,
-  filtersModule,
-  modalsModule,
-  'profitelo.components.complaints.status'
-])
-  .component('clientActivity', new ClientActivityComponent())

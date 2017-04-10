@@ -1,0 +1,42 @@
+.last-activities
+  .last-activities-container(data-ng-click=":: $ctrl.openActivityDescription()")
+    .call-activity(data-ng-if="$ctrl.isCallActivity")
+      .last-activity-details
+        .last-activity-icon
+          span.icon.icon-outgoing-call-24
+
+        .last-activity-about
+          .last-activity-date
+            span  {{:: $ctrl.activity.sueProfileServiceTuple.serviceUsageEvent.startedAt | date : 'EEE d.MM.y'}}
+          status(data-complaint=":: $ctrl.activity.complaint" data-ng-show="::$ctrl.activity.complaint")
+
+      .last-activity-description
+        h3 {{:: $ctrl.activity.sueProfileServiceTuple.service.details.name }}
+
+      .last-activity-profile
+        .profile-preview
+          .thumb.x32
+            img.user-avatar(src data-ng-src="{{ ::$ctrl.imageUrl }}")
+
+          .profile-name
+            span {{:: $ctrl.activity.sueProfileServiceTuple.profile.expertDetails.name }}
+
+        .price-small
+          span(data-ng-bind-html=":: $ctrl.activity.financialOperation.operation | money")
+
+    .money-activity(data-ng-if="!$ctrl.isCallActivity")
+      .last-activity-details
+        .last-activity-icon
+          span.icon.icon-money
+
+        .last-activity-about
+          .last-activity-date
+            span {{ ::$ctrl.activity.financialOperation.createdAt | date : "EEE d.MM.y" }}
+
+      .money-activity-informations-container
+        .last-activity-description
+          h3 {{ 'DASHBOARD_CLIENT.CHARGE_ACCOUNT_ACTIVITY_HEADER' | translate}}
+
+        .price-small
+          span +
+          span(data-ng-bind-html="::$ctrl.activity.financialOperation.operation | money")

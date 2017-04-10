@@ -1,0 +1,43 @@
+.last-activities
+  .container
+    .last-activities-container(data-ng-click="")
+      .call-activity(data-ng-if="$ctrl.isCallActivity")
+        .last-activity-details
+          .last-activity-icon
+            span.icon.icon-outgoing-call-24
+
+          .last-activity-about
+            .last-activity-date
+              span  22.12.17r
+
+        .last-activity-description
+          h3 Consumer psychology in the industrial and manufacturing equipment marketplace.
+
+        .last-activity-profile
+          .profile-preview
+            .thumb.x32
+              img.user-avatar(src data-ng-src="#")
+
+            .profile-name
+              span Tomek Bolek
+
+          .price-small
+            span +
+            span 123.22zl
+
+      .money-activity(data-ng-if="!$ctrl.isCallActivity")
+        .last-activity-details
+          .last-activity-icon
+            span.icon.icon-money
+
+          .last-activity-about
+            .last-activity-date
+              span nowa data 12.12
+
+        .money-activity-informations-container
+          .last-activity-description
+            h3 Payout
+
+          .price-small
+            span +
+            span() 31231

@@ -1,0 +1,34 @@
+.expert-filters
+  .container
+    .dashboard-filters-collapse.is-collapsed(data-ng-class="{'is-collapsed': $ctrl.showMobileFilters}")
+      .dashboard-filters
+        .pro-dropdown
+          dropdown-primary(data-label="{{ 'DASHBOARD.EXPERT_ACCOUNT.ACTIVITIES.FILTER.ACTIVITIES' | translate }}"
+          data-main-list="$ctrl.activityList"
+          data-placeholder="{{ ::'DASHBOARD.EXPERT_ACCOUNT.ACTIVITIES.FILTER.PLACEHOLDER.ALL_ACTIVITIES' | translate }}")
+
+        .pro-dropdown
+          dropdown-primary(data-label="{{ 'DASHBOARD.EXPERT_ACCOUNT.ACTIVITIES.FILTER.EXPERT' | translate }}"
+          data-main-list="$ctrl.activityList"
+          data-placeholder="{{ ::'DASHBOARD.EXPERT_ACCOUNT.ACTIVITIES.FILTER.PLACEHOLDER.ALL_EXPERTS' | translate }}")
+
+        .pro-dropdown
+          dropdown-primary(data-label="{{ 'DASHBOARD.EXPERT_ACCOUNT.ACTIVITIES.FILTER.CONSULTATION' | translate }}"
+          data-main-list="$ctrl.activityList"
+          data-placeholder="{{ ::'DASHBOARD.EXPERT_ACCOUNT.ACTIVITIES.FILTER.PLACEHOLDER.ALL_CONSULTATIONS' | translate }}")
+
+        div.filter-download
+          .calendar
+            pro-calendar(data-ng-model="$ctrl.filterModel.dateFrom"  data-defaultValue="true"
+            data-label="{{ ::'DASHBOARD.EXPERT_ACCOUNT.ACTIVITIES.FILTER.FROM' | translate }}")
+            pro-calendar(data-ng-model="$ctrl.filterModel.dateTo" data-defaultValue="true"
+            data-label="{{ ::'DASHBOARD.EXPERT_ACCOUNT.ACTIVITIES.FILTER.TO' | translate }}")
+
+          a.btn.btn-primary
+            span.icon.icon-download-report-24
+
+    .collapse-btn-filter(data-ng-click="$ctrl.showFilters()")
+      .btn.btn-noborder
+        span.icon.icon-filter-24.icon-24
+        span(data-ng-show="$ctrl.showMobileFilters") {{:: 'SEARCH.MOBILE_FILTER_BUTTON.OPEN' | translate }}
+        span(data-ng-show="!$ctrl.showMobileFilters") {{:: 'SEARCH.MOBILE_FILTER_BUTTON.CLOSE' | translate }}
