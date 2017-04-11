@@ -1,18 +1,12 @@
 .invoice-form
-  .invoice-form-company-info
-    margin: 0 0 48px 0
-
-    .title
-      +modalTitle
-
-  .invoice-form-address
-    +modalTitle
+  [class*="invoice-form"]
+    margin: 0 0 $s-input-section-margin 0
 
   .dropdown-input
-    margin: 0 0 16px
+    margin: 0 0 $s-input-margin
 
   .vat-input-handler
-    margin: 0 0 16px
+    margin: 0 0 $s-input-margin
 
     p
       color: $c-secondary-txt
@@ -29,18 +23,18 @@
       font-size: $f-paragraph-title
 
   .pro-input
-    margin: 0 0 16px
+    margin: 0 0 $s-input-margin
 
   .invoice-address-nr
     display: flex
-    margin: 0 0 16px
+    margin: 0 0 $s-input-margin
 
     .pro-input
       margin: 0 24px 0 0
       max-width: 128px
 
   .invoice-tax
-    margin: 0 0 16px
+    margin: 0 0 $s-input-margin
     text-align: right
 
     p

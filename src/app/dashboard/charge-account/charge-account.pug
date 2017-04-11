@@ -1,12 +1,11 @@
 .charge-account
+  top-modal-navbar(data-title="DASHBOARD.CHARGE_ACCOUNT.YOUR_CURRENT_BALANCE" data-on-close="vm.onClose")
   scrollable(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
     div
       .top-charge-account
-        top-modal-navbar(data-title="DASHBOARD.CHARGE_ACCOUNT.YOUR_CURRENT_BALANCE" data-on-close="vm.onClose")
-
         .charge-account-title(data-ng-if="!vm.lastPayment")
-          .title
-            h3(data-translate="DASHBOARD.CHARGE_ACCOUNT.TITLE")
+          header.entry-title
+            span(data-translate="DASHBOARD.CHARGE_ACCOUNT.TITLE")
 
           .btn-handler
             a.btn.btn-select(data-ng-click="vm.chargeAccountProfiteloPaymentsMethod()"
@@ -19,39 +18,39 @@
               | {{:: 'DASHBOARD.CHARGE_ACCOUNT.ADD_PAYMENT_CARD.BUTTON' | translate }}
               span.icon.icon-success-12
 
-        div.charge-payments(data-ng-show="vm.lastPayment || vm.isChargeProfiteloAccount")
+        .modal-form.container-big(data-ng-show="vm.lastPayment || vm.isChargeProfiteloAccount")
+          .charge-payments
+            .animation.fadeInOut(data-ng-show="vm.isChargeProfiteloAccount")
+              choose-amount-charge.choose-amount-charge.modal-container(
+                data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_AMMOUNT_CHARGE"
+                data-amounts="vm.amounts"
+                data-amount-model="vm.amountModel"
+                id="1"
+                data-scroll-handler="vm.scrollHandler"
+                data-current-section="vm.currentSection")
 
-          .container-big.animation.fadeInOut(data-ng-show="vm.isChargeProfiteloAccount")
-            choose-amount-charge(
-              data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_AMMOUNT_CHARGE"
-              data-amounts="vm.amounts"
-              data-amount-model="vm.amountModel"
-              id="1"
-              data-scroll-handler="vm.scrollHandler"
-              data-current-section="vm.currentSection")
+              payment-method.modal-container.animation.fadeInOut(
+              data-ng-show="vm.amountModel.amount.amount > 0 ||   vm.amountModel.cashAmount.amount > 0 || vm.amountModel.cashAmount.amount !== undefined" id="2"
+              data-title="DASHBOARD.CHARGE_ACCOUNT.PAYMENT_METHOD_TITLE"
+              data-payment-systems = "vm.paymentSystems"
+              data-payment-system-model = "vm.amountMethodModal.paymentSystemModel"
+              data-scroll-handler="vm.scrollHandler")
 
-            payment-method.animation.fadeInOut(
-            data-ng-show="vm.amountModel.amount.amount > 0 ||   vm.amountModel.cashAmount.amount > 0 || vm.amountModel.cashAmount.amount !== undefined" id="2"
-            data-title="DASHBOARD.CHARGE_ACCOUNT.PAYMENT_METHOD_TITLE"
-            data-payment-systems = "vm.paymentSystems"
-            data-payment-system-model = "vm.amountMethodModal.paymentSystemModel"
-            data-scroll-handler="vm.scrollHandler")
+              .animation.fadeInOute(data-ng-show="!!vm.amountMethodModal.paymentSystemModel && !!vm.amountMethodModal.paymentSystemModel.id" id="3")
+                payu-payment-form.payu-payment-form.animation.fadeInOut(data-payments-links="vm.paymentsLinks" data-amount-method-modal="vm.amountMethodModal"
+                data-payment-country-id="vm.paymentCountryId"
+                data-ng-show="vm.amountMethodModal.paymentSystemModel.slug == 'payu_pl'" data-scroll-handler="vm.scrollHandler" data-valid-action="vm.validAction")
 
-            div.animation.fadeInOute(data-ng-show="!!vm.amountMethodModal.paymentSystemModel && !!vm.amountMethodModal.paymentSystemModel.id" id="3")
-              payu-payment-form.payu-payment-form.animation.fadeInOut(data-payments-links="vm.paymentsLinks" data-amount-method-modal="vm.amountMethodModal"
-              data-payment-country-id="vm.paymentCountryId"
-              data-ng-show="vm.amountMethodModal.paymentSystemModel.slug == 'payu_pl'" data-scroll-handler="vm.scrollHandler" data-valid-action="vm.validAction")
+              paypal-payment-form.paypal-payment-form.modal-container.animation.fadeInOut(data-payments-links="vm.paymentsLinks" data-amount-method-modal="vm.amountMethodModal"
+              data-payment-country-id="vm.paymentCountryId" data-ng-if="vm.amountMethodModal.paymentSystemModel.slug == 'paypal'" )
 
-            paypal-payment-form.animation.fadeInOut(data-payments-links="vm.paymentsLinks" data-amount-method-modal="vm.amountMethodModal"
-            data-payment-country-id="vm.paymentCountryId" data-ng-if="vm.amountMethodModal.paymentSystemModel.slug == 'paypal'" )
-
-            card-payment-form.card-payment.animation.fadeInOut(data-ng-if="vm.amountMethodModal.paymentSystemModel.slug == 'credit_card'" data-payments-links = "vm.paymentsLinks" data-amount-method-modal="vm.amountMethodModal"
-              data-payment-country-id="vm.paymentCountryId"
-            )
+              card-payment-form.card-payment.animation.fadeInOut(data-ng-if="vm.amountMethodModal.paymentSystemModel.slug == 'credit_card'" data-payments-links = "vm.paymentsLinks" data-amount-method-modal="vm.amountMethodModal"
+                data-payment-country-id="vm.paymentCountryId"
+              )
 
         .braintree(data-ng-show="vm.isPaymentCardMethod")
           .modal-settings
-            .modal-form.container-medium.no-padding
+            .modal-form.container-medium
               preloader.animation.fadeInOut(data-ng-show="vm.isPaymentCardMethod" data-is-loading="!vm.isBraintreeFormLoaded")
                 braintree-form(data-on-braintree-form-load="vm.onLoad"
                 data-submit-button-translate="DASHBOARD.CHARGE_ACCOUNT.ADD_PAYMENT_CARD.CHANGE.BUTTON"

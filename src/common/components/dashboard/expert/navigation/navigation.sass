@@ -4,48 +4,43 @@
 @import "../../../../../template/profitelo_theme/stylesheets/common/components/dashboard/settings/navigation/navigation"
 
 .dashboard-navigation
-  &.expert-navigation
-    margin: 0 0 32px
+  .container
+    > div
+      display: flex
+      flex-wrap: wrap
+      justify-content: space-between
 
-    .container
-      > div
-        display: flex
-        flex-wrap: wrap
-        justify-content: space-between
+  .dashboard-nav
+    order: 2
+    overflow-x: scroll
 
-    .dashboard-nav
-      order: 2
-      overflow-x: scroll
+    +smm
+      overflow-x: hidden
 
-      +smm
-        overflow-x: hidden
+    +lgm
+      order: 1
+      flex-wrap: nowrap
 
-      +lgm
-        order: 1
-        flex-wrap: nowrap
+    li
+      &:first-child
+        padding: 0 12px 0 0
+        margin: 0 12px 0 0
 
-      li
-        flex: 1 0 auto
-
-        &:first-child
-          padding: 0 12px 0 0
-          margin: 0 12px 0 0
-
-        &:hover
-          .complain-count
-            background: $c-white
+      &:hover
+        .complain-count
+          background: $c-white
 
   .complain-count
-    +default-font-heavy
+    +default-font-medium
     display: flex
     justify-content: center
     align-items: center
-    background: rgba($c-white, 0.3)
-    color: $c-primary
+    background: $c-secondary-txt
+    font-size: $f-btn-small
+    color: $c-primary-txt
     width: 20px
     height: 20px
     border-radius: 50%
-    font-size: $f-btn-small
     margin: 0 0 0 8px
     transition: background-color 0.3s
 
@@ -84,19 +79,16 @@
         text-align: right
 
     .account-balance-title
-      opacity: 0.5
-      font-size: $f-btn-small
-      color: $c-white
-      text-transform: uppercase
+      +paragraphSmall
+      +default-font-medium
+      color: $c-tertiary-txt
 
     .account-balacnce
+      display: flex
+      align-items: flex-end
       font-size: $f-header
       color: $c-white
 
-    a
-      color: $c-white
-      background: none
-      border: 1px solid rgba($c-white, 0.3)
-
-      &:hover
-        border: 1px solid $c-white
+      .currency
+        margin: 0 0 0 8px
+        font-size: $f-paragraph

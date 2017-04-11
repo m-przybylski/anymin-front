@@ -1,75 +1,40 @@
-.pro-alert
+.alert
   position: fixed
-  top: 0
-  left: 0
-  width: 100%
-  z-index: 9999
+  bottom: 16px
+  left: 32px
+  z-index: $z-index-900
 
-  .alert
-    position: relative
+  .alert-container
+    background: $c-lines
+    display: flex
+    align-items: center
+    justify-content: space-between
     height: 48px
+    padding: 0 16px
+    box-shadow: 0 1px 3px rgba($c-black, 0.15)
+    animation: fadeInY 0.6s ease-in-out, fadeOutY 0.6s 5.4s
     width: 100%
-    padding-top: 12px
-    background-color: $c-lines
-    overflow: hidden
-    z-index: 1000
+    margin: 0 0 16px
 
-    .content-wrapper
-      width: 100%
+    +smm
+      width: auto
+      min-width: 360px
+
+    .alert-content
       display: flex
-      position: relative
-      padding: 0 24px
-      flex-direction: row
-      justify-content: space-around
+      align-items: center
 
-      div
-        width: 100%
-        display: inline-flex
+    a
+      +inputLabel
+      color: $c-primary
+      text-transform: uppercase
 
-        .status-icon
-          padding-right: 16px
-          padding-top: 3px
+    p
+      +paragraphSmall
+      margin: 0 0 0 16px
 
-        .alert-header
-          padding-right: 16px
-          text-transform: uppercase
+    span
+      color: $c-secondary-txt
 
-      .cross-icon
-        font-size: 12px
-        margin-top: 6px
-
-        &:hover
-          cursor: pointer
-          text-decoration: underline
-
-    &.success
-      background-color: $c-success
-      color: $c-white
-      border-bottom: 1px solid $c-success
-
-      h6
-        color: $c-white
-
-    &.error
-      background-color: $c-error
-      color: $c-white
-      border-bottom: 1px solid $c-error
-
-      h6
-        color: $c-white
-
-    &.warning
-      background-color: $c-warning
-      color: $c-white
-      border-bottom: 1px solid $c-warning
-
-      h6
-        color: $c-white
-
-    &.info
-      background-color: $c-info
-      color: $c-white
-      border-bottom: 1px solid $c-info
-
-      h6
-        color: $c-white
+      &:not(.icon)
+        margin: 0 0 0 16px

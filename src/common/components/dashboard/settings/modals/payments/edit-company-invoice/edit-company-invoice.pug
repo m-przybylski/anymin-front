@@ -6,41 +6,42 @@ scrollable.edit-payment-method(data-is-fullscreen="vm.isFullscreen" data-is-navb
         .invoice-form
           form(name="editInvoiceForm" data-ng-submit="editInvoiceForm.$valid && vm.editInvoice()")
             .invoice-form-company-info
-              .title
-                h3(data-translate="DASHBOARD.CHARGE_ACCOUNT.INVOICE.TITLE")
-                dropdown-primary(
-                data-label="{{ ::'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COUNTRY.LABEL' | translate }}"
-                data-main-list="vm.countryList"
-                data-on-select-main="vm.onSelectCountry"
-                data-selected-item="vm.selectedCountry"
-                data-input-placeholder="{{ ::'SEARCH.ALL' | translate }}"
-                )
+              header.entry-title
+                span(data-translate="DASHBOARD.CHARGE_ACCOUNT.INVOICE.TITLE")
 
-                .vat-input-handler
-                  div
-                    pro-input(placeholder="{{:: 'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.TAX_NUMBER.PLACEHOLDER' | translate }}"
-                    data-label="{{:: 'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.TAX_NUMBER.LABEL' | translate }}"
-                    data-ng-model="vm.vatNumber"
-                    data-ng-class="{'invalid': paymentForm.$submitted && !vm.vatNumber || paymentForm.vatNumber.$dirty && !vm.vatNumber}"
-                    addon-action="onEnter"
-                    required)
-                    a.btn.btn-primary(data-translate="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COUNTRY.BUTTON")
+              dropdown-primary(
+              data-label="{{ ::'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COUNTRY.LABEL' | translate }}"
+              data-main-list="vm.countryList"
+              data-on-select-main="vm.onSelectCountry"
+              data-selected-item="vm.selectedCountry"
+              data-input-placeholder="{{ ::'SEARCH.ALL' | translate }}"
+              )
 
-                  .input-error-messages(data-ng-show="paymentForm.$submitted && !vm.emailModel || paymentForm.email.$dirty && vm.mailValidation()")
-                    span {{ "DASHBOARD.CHARGE_ACCOUNT.EMAIL_ERROR" | translate }}
-                  // TODO on GUS API IMPLEMENT
-                  //p(data-translate="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COMPANY_NAME.NO_VAT.DESCRIPTION")
+              .vat-input-handler
+                div
+                  pro-input(placeholder="{{:: 'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.TAX_NUMBER.PLACEHOLDER' | translate }}"
+                  data-label="{{:: 'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.TAX_NUMBER.LABEL' | translate }}"
+                  data-ng-model="vm.vatNumber"
+                  data-ng-class="{'invalid': paymentForm.$submitted && !vm.vatNumber || paymentForm.vatNumber.$dirty && !vm.vatNumber}"
+                  addon-action="onEnter"
+                  required)
+                  a.btn.btn-primary(data-translate="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COUNTRY.BUTTON")
 
-                pro-input(placeholder="{{:: 'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COMPANY_NAME.PLACEHOLDER' | translate }}"
-                data-label="{{::'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COMPANY_NAME.LABEL' | translate }}"
-                data-ng-model="vm.companyName"
-                data-ng-class="{'invalid': paymentForm.$submitted && !vm.companyName || paymentForm.companyName.$dirty && !vm.companyName }"
-                addon-action="onEnter"
-                required)
+                .input-error-messages(data-ng-show="paymentForm.$submitted && !vm.emailModel || paymentForm.email.$dirty && vm.mailValidation()")
+                  span {{ "DASHBOARD.CHARGE_ACCOUNT.EMAIL_ERROR" | translate }}
+                // TODO on GUS API IMPLEMENT
+                //p(data-translate="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COMPANY_NAME.NO_VAT.DESCRIPTION")
+
+              pro-input(placeholder="{{:: 'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COMPANY_NAME.PLACEHOLDER' | translate }}"
+              data-label="{{::'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COMPANY_NAME.LABEL' | translate }}"
+              data-ng-model="vm.companyName"
+              data-ng-class="{'invalid': paymentForm.$submitted && !vm.companyName || paymentForm.companyName.$dirty && !vm.companyName }"
+              addon-action="onEnter"
+              required)
 
             .invoice-form-address
-              .title
-                h3(data-translate="DASHBOARD.CHARGE_ACCOUNT.INVOICE.TITLE")
+              header.entry-title
+                span(data-translate="DASHBOARD.CHARGE_ACCOUNT.INVOICE.TITLE")
 
               pro-input(placeholder="{{ 'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.STREET.PLACEHOLDER' | translate }}"
               data-label="{{:: 'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.STREET.LABEL' | translate }}"

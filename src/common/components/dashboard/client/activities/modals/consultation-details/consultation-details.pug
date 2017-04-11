@@ -3,23 +3,32 @@ scrollable(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
   .modal-form.container-medium.client-consultation-details-modal
     preloader(data-is-loading="vm.isLoading")
       .modal-header
-        .profile-preview.vertical-preview
-          .thumb.x48
-            img.user-avatar(src ng-src="{{ vm.expertAvatar }}")
+        .profile-preview
+          .thumb.x64
+            user-avatar(data-image-token="vm.expertAvatar")
 
-          .profile-name
-            a
-              span {{ vm.expertName }}
+            .status-list
+              span.status.availability
+                span.icon.icon-success-12
 
-          .consultation-title
-            h3 {{ vm.serviceName }}
+          div
+            .profile-name
+              a
+                span {{ vm.expertName }}
+
+            .profile-consultation-title
+              p {{ vm.serviceName }}
 
       .modal-container
+        header.entry-title
+          span.icon.icon-consultation-details-24
+          span Details consultaiton
+
         .details-tab
-          .details-header-row.details-header-handler
+          .details-tab-row.details-header-row
             .details-tab-label
               span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COST")
-            .details-tab-price.price-section(data-ng-bind-html="vm.callCost | money")
+            .details-tab-content.details-tab-price.price-section(data-ng-bind-html="vm.callCost | money")
 
           .details-tab-row
             .details-tab-label
@@ -48,7 +57,7 @@ scrollable(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
         data-tags="vm.serviceTags")
 
         collapse-btn.chat-history(data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.CHAT.BUTTON"
-        data-collapse-icon="icon-chat-24")
+        data-collapse-icon="icon-consultation-chat-24")
           client-consultation-details-chat()
 
         collapse-btn(data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.BUTTON"

@@ -7,6 +7,7 @@ import './complain/complain'
 import './consultation-details-chat/consultation-details-chat'
 import './recommended-tags/recommended-tags'
 import {ClientConsultationDetailsController} from './consultation-details.controller'
+import userAvatarModule from '../../../../../interface/user-avatar/user-avatar'
 import './consultation-details.sass'
 
 const clientConsultationDetailsModalModule = angular.module('profitelo.components.dashboard.client.activities.modals.consultation-details', [
@@ -19,7 +20,8 @@ const clientConsultationDetailsModalModule = angular.module('profitelo.component
   'profitelo.components.dashboard.client.activities.modals.consultation-details.complain',
   'profitelo.components.dashboard.client.activities.modals.consultation-details.consultation-details-chat',
   'profitelo.components.dashboard.client.activities.modals.consultation-details.recommended-tags',
-  urlModule
+  urlModule,
+  userAvatarModule
 ])
 .controller('clientConsultationDetails', ClientConsultationDetailsController)
 

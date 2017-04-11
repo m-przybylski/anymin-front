@@ -8,13 +8,19 @@
         display: flex
 
         span
-          +default-font-bold
+          +default-font-medium
+          color: $c-primary-txt
+
+  .modal-container
+    > *:not(:last-child):not(header)
+      display: block
+      margin: 0 0 $s-input-section-margin
 
   .collapse-btn
     text-align: left
 
     +smm
-      margin: 0 0 16px
+      margin: 0 0 32px
 
   .chat-history
     .collapse-btn-content

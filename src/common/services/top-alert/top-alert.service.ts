@@ -39,7 +39,7 @@ export class TopAlertService {
 
   private timeoutDestroy = (timeout: number, id: number) => {
     if (typeof timeout !== 'undefined' && timeout !== null) {
-      let realTimeout = timeout * 1000
+      let realTimeout = timeout * 3000
       this.$timeout(() => {
         this.destroyAlert(id)
       }, realTimeout)

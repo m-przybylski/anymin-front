@@ -1,0 +1,19 @@
+header.entry-title
+  span(data-translate="{{$ctrl.headerTitle | translate}}")
+
+.complain-list
+  .complain-item.list-row
+    .list-icon
+      span.icon.icon-questionmark-24(data-ng-class="{'is-success': $ctrl.isSuccess}" data-ng-if="$ctrl.isSuccess")
+      span.icon.icon-questionmark-24(data-ng-class="{'is-error': $ctrl.isError}" data-ng-if="$ctrl.isError")
+      span.icon.icon-questionmark-24(data-ng-class="{'is-warning': $ctrl.isInProgress}" data-ng-if="$ctrl.isInProgress")
+
+    .list-data
+      .expert-complains-date
+        span 20/12/2017
+
+      .expert-complains-reason
+        span(data-translate="SETTINGS.GENERAL.FULL-NAME.LABEL")
+
+    .expert-complains-price
+      span + 224,50 PLN

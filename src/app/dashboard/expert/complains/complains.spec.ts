@@ -1,33 +1,25 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {DashboardExpertComplainsController} from './complains.controller'
 import dashboardExpertComplainsModule from './complains'
 
-describe('Unit tests: DashboardExpertComplainsController >', () => {
-  describe('Testing Controller: DashboardExpertComplainsController', () => {
+describe('Unit tests: dashboardExpertComplains >', () => {
+  describe('Testing Controller: dashboardExpertComplains', () => {
 
-    let DashboardExpertComplainsController: DashboardExpertComplainsController
-
-    const expertComplains = {
-      complains: []
-    }
+    let ExpertController: any
 
     beforeEach(() => {
       angular.mock.module(dashboardExpertComplainsModule)
-
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _$state_: ng.ui.IStateService) => {
-        DashboardExpertComplainsController =
-          $controller<DashboardExpertComplainsController>('DashboardExpertComplainsController', {
-            $state: _$state_,
-            $scope: $rootScope.$new(),
-            expertComplains: expertComplains,
-          })
+        ExpertController = $controller('dashboardExpertComplains', {
+          $state: _$state_,
+          $scope: $rootScope.$new()
+        })
       })
     })
 
     it('should exists', () => {
-      expect(!!DashboardExpertComplainsController).toBe(true)
+      expect(!!ExpertController).toBe(true)
     })
-
   })
 })
+

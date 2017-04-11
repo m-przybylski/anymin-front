@@ -1,56 +1,57 @@
 .general-options
-  h2(data-translate="SETTINGS.GENERAL.TITLE")
+  header.entry-title
+    span(data-translate="SETTINGS.GENERAL.TITLE")
 
-.settings-row
-  .settings-icon
+.list-row
+  .list-icon
     .thumb.x24
       img.user-avatar(src data-ng-src="{{ vm.avatarImageSource }}")
 
-  .settings-data
+  .list-data
     span.label(data-translate="SETTINGS.GENERAL.FULL-NAME.LABEL")
     span.name {{ vm.nickname }}
 
-  a.btn.btn-small.btn-default-border(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
+  a.btn.btn-small.btn-link(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
   data-ng-click=":: vm.openBasicAccountSettingsModal()")
 
-.settings-row
-  .settings-icon
+.list-row
+  .list-icon
     span.icon.icon-smartphone-24
 
-  .settings-data
+  .list-data
     span.label(data-translate="SETTINGS.GENERAL.PHONE_NUMBER.LABEL")
     span.name {{ vm.phoneNumber }}
 
-  a.btn.btn-small.btn-default-border(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
+  a.btn.btn-small.btn-link(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
   data-ng-click=":: vm.openGeneralPhoneSettingsModal()")
 
-.settings-row-double
-  .settings-row.is-active
-    .settings-icon
+.list-row-double
+  .list-row.is-active
+    .list-icon
       span.icon.icon-success-24
 
-    .settings-data
+    .list-data
       span.label(data-translate="SETTINGS.GENERAL.EMAIL.LABEL")
       span.name {{ vm.email }}
 
-    a.btn.btn-small.btn-default-border(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
+    a.btn.btn-small.btn-link(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
     data-ng-click=":: vm.openGeneralEmailSettingsModal()")
 
-  .settings-row.is-inactive(data-ng-show="vm.showUnverifiedEmail")
-    .settings-icon
+  .list-row.is-inactive(data-ng-show="vm.showUnverifiedEmail")
+    .list-icon
       span.icon.icon-failure-24
 
-    .settings-data
+    .list-data
       span.label(data-translate="SETTINGS.GENERAL.EMAIL.WAITING_FOR_VERIFICATION.LABEL")
       span.new-mail {{ vm.unverifiedEmail }}
 
-.settings-row
-  .settings-icon
+.list-row
+  .list-icon
     span.icon.icon-planet-24
 
-  .settings-data
+  .list-data
     span.label(data-translate="SETTINGS.GENERAL.COUNTRY.LABEL")
     span.name(data-translate="{{ :: ('COUNTRIES.' + vm.country) }}")
 
-  a.btn.btn-small.btn-default-border(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
+  a.btn.btn-small.btn-link(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
   data-ng-click=":: vm.openGeneralCountrySettingsModal()")

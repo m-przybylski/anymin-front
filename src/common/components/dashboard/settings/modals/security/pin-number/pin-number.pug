@@ -3,7 +3,9 @@ scrollable.security-pin-number(data-is-fullscreen="vm.isFullscreen" data-is-navb
   .modal-settings
     form.container-small(novalidate name="pinForm" data-ng-submit="pinForm.$valid && vm.sendPin()"
     data-ng-hide="vm.isNewPinTyped")
-      h2(data-translate="{{:: 'SETTINGS.SECURITY.PIN_NUMBER.TITLE' | translate}}")
+      header.entry-title
+        span(data-translate="{{:: 'SETTINGS.SECURITY.PIN_NUMBER.TITLE' | translate}}")
+
       .security-pin-number
         .input-handler.pin-inputs
           input.input-number(type="text" maxlength="1" focus-next data-ng-repeat="input in vm.pinInput track by $index"

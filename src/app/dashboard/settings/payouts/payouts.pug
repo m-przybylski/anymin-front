@@ -9,8 +9,8 @@
           span.icon.icon-arrow-right-16
 
   .payments-method(data-ng-show="vm.isAnyPayoutMethod")
-    .entry-title
-      h2(data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.TITLE")
+    header.entry-title
+      span(data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.TITLE")
       a.btn.btn-primary.btn-small(data-translate="SETTINGS.PAYMENTS.BUTTON.ADD" data-ng-click="vm.addPayoutsMethod()")
 
     .radio-list.payments-method-list

@@ -1,6 +1,7 @@
 .tags-list
-  span.title-label(data-ng-if="$ctrl.title") {{ $ctrl.title | translate }}
-    span(data-ng-if="$ctrl.tags.length > 0") ({{ $ctrl.tags.length }})
+  header.entry-title(data-ng-if="$ctrl.title")
+    span.icon.icon-recomended-tags-24
+    span {{ $ctrl.title | translate }}
 
   ul.tag-list.slide-page
     li(ng-repeat="tag in $ctrl.tags | limitTo: 7")

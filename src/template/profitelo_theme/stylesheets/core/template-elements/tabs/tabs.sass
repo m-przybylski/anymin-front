@@ -10,48 +10,28 @@
       justify-content: space-between
 
       +smm
-        padding: 16px 8px
+        padding: 8px 0
 
-    &:not(.header-row)
-      &:nth-child(2n)
-        +smm
-          background: $c-background
+    .details-tab-label
+      span
+        +paragraph
+        +default-font-regular
+        color: $c-tertiary-txt
 
-  span
-    font-size: $f-paragraph
-    color: $c-primary-txt
+    .details-tab-content
+      +xsm
+        text-align: right
 
-  .details-tab-label
-    margin: 0 0 8px
-
-    +smm
-      margin: 0
-
-    span
-      color: $c-secondary-txt
-
-  .details-header-row
-    border-bottom: 1px solid $c-lines
-    padding: 0 16px 8px
-    margin: 0 0 24px
-
-    +xsm
-      padding: 0 0 24px 0
-
-    span
-      +modalTitle
-
-    &.details-header-handler
-      display: flex
-      align-content: center
-      justify-content: space-between
+      span
+        +paragraph
+        +default-font-regular
 
 
 .info-tab
   padding: 24px 0
 
   +smm
-    padding: 24px
+    padding: 24px 16px
 
   .info-tab-row
     margin: 0 0 12px
@@ -61,35 +41,10 @@
       margin: 0
 
   span
-    font-size: $f-paragraph
-    color: $c-primary-txt
+    +paragraph
 
   .info-tab-label
     display: block
 
     span
-      +default-font-medium
-      font-size: $f-paragraph-title
-      text-transform: uppercase
-      color: $c-tertiary-txt
-
-
-.grey-tab
-  background: $c-background
-  border: 1px solid $c-lines
-  padding: 32px
-
-.settings-row-double
-  border-bottom: 1px solid $c-lines
-  padding: 20px 0
-
-  .settings-row
-    border: 0
-    min-height: 48px
-
-    +xsm
-      padding: 0 16px
-
-    +smm
-      padding: 0 24px
-
+      +paragraphTitle

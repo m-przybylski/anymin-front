@@ -1,7 +1,9 @@
-.pro-alert
-  .alert(ng-class="alert.type" data-ng-repeat="alert in alerts | filter:{visible: true} track by $index")
-    .content-wrapper
-      div
-        i.status-icon.icon.icon-16(ng-class="alert.icon")
-        h6.alert-info(data-ng-bind="alert.message")
-      i.cross-icon.icon-close-16(ng-click="destroyAlert(alert.id)")
+.alert
+  .alert-container(data-ng-class="alert.type" data-ng-repeat="alert in alerts | filter:{visible: true} track by $index")
+    .alert-content
+      span.icon(data-ng-class="alert.icon")
+      p.alert-info(data-ng-bind="alert.message")
+
+    .alert-action
+      a Click
+      span.icon-close-16.btn-close-icon(ng-click="destroyAlert(alert.id)")

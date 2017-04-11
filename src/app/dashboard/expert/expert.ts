@@ -1,8 +1,8 @@
 import * as angular from 'angular'
 import './expert.sass'
-import dashboardExpertActivitiesModule from './activities/activities';
-import {ExpertController} from './expert.controller';
-import dashboardExpertComplainsModule from './complains/complains';
+import dashboardExpertActivitiesModule from './activities/activities'
+import {ExpertController} from './expert.controller'
+import dashboardExpertComplainsModule from './complains/complains'
 
 const expertDashboardModule = angular.module('profitelo.controller.dashboard.expert', [
   'ui.router',
@@ -16,13 +16,13 @@ const expertDashboardModule = angular.module('profitelo.controller.dashboard.exp
     url: '/expert',
     abstract: true,
     template: require('./expert.pug')(),
-    controller: 'ExpertController',
+    controller: 'expertDashboard',
     data: {
       pageTitle: 'PAGE_TITLE.EXPERT_DASHBOARD',
     }
   })
 })
-.controller('ExpertController', ExpertController)
+.controller('expertDashboard', ExpertController)
   .name
 
 export default expertDashboardModule

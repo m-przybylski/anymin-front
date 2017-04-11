@@ -1,13 +1,5 @@
 .choose-options
-  +xsm
-    display: flex
-    flex-wrap: wrap
-    margin: 0 -8px
-
   .choose-options-item
-    +xsm
-      padding: 0 8px
-
     p
       +default-font-light
       display: block
@@ -28,7 +20,6 @@
     .option
       background: $c-white
       border-radius: 3px
-      margin: 0 0 16px
       border: 1px solid $c-lines
       display: flex
       align-content: space-between
@@ -86,14 +77,3 @@
         &::after
           animation: radio-focus 0.3s
           background: $c-primary
-
-.show-more-results
-  padding: 32px 16px
-  text-align: center
-
-  +smm
-    padding: 48px 0
-
-  +lgm
-    padding: 64px 0
-

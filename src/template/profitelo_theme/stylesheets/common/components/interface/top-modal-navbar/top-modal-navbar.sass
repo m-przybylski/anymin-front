@@ -1,39 +1,12 @@
 .top-modal-navbar
-  transition: top 0.3s
-  position: absolute
+  position: fixed
   top: 0
   left: 0
   width: 100%
-  z-index: $z-index-100
-  padding: 32px
+  display: flex
+  justify-content: flex-end
+  padding: 16px
+  z-index: $z-index-300
 
   +mdm
-    position: fixed
-
-  &.isHided
-    top: -#{$top-modal-navbar + 1px}
-
-  .top-modal-navbar-wrapper
-    +default-font-regular
-    padding: 0
-    height: $s-navbar-height
-    display: flex
-    justify-content: flex-end
-    align-items: stretch
-
-  .close-modal
-    display: flex
-    align-items: stretch
-
-    a
-      display: flex
-      align-items: center
-      justify-content: center
-      width: $top-modal-navbar
-      height: $top-modal-navbar
-      border-radius: 50%
-      border: 1px solid $c-lines
-
-    .icon
-      color: $c-secondary-txt
-      font-size: $f-icon-16
+    padding: 32px

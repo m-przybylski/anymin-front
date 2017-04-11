@@ -5,5 +5,4 @@ export class DashboardExpertComplainsController {
   constructor() {
     this.areComplains = false
   }
-
 }

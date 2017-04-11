@@ -3,23 +3,30 @@ scrollable(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
   .modal-form.container-medium.expert-consultation-details-modal
     preloader(data-is-loading="vm.isLoading")
       .modal-header
-        .profile-preview.vertical-preview
-          .profile-handler
-            .thumb.x64
-              img.user-avatar(src ng-src="{{ vm.expertAvatar }}")
+        .profile-preview
+          .thumb.x64
+            user-avatar(data-image-token="vm.expertAvatar")
 
+            .status-list
+              span.status.availability
+                span.icon.icon-success-12
+
+          div
             .profile-name
               a
                 span {{ vm.expertName }}
 
-          .consultation-title
-            h3 {{ vm.serviceName }}
+            .profile-consultation-title
+              p {{ vm.serviceName }}
 
       .modal-container
+        header.entry-title
+          span.icon.icon-consultation-details-24
+          span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TITLE")
+
         .details-tab
-          .details-header-row.details-header-handler
+          .details-row.details-header-row
             .details-tab-label
-              span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TITLE")
 
           .details-tab-row
             .details-tab-label
