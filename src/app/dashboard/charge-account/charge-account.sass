@@ -4,14 +4,9 @@
 
 .charge-account
   background: none
-  min-width: 100%
-  min-height: 100vh
   display: flex
   align-items: center
   justify-content: center
-
-  .title
-    +modalTitle
 
   .scrollable
     &.fullscreen-modals
@@ -19,29 +14,6 @@
         .scrollable-container
           .scrollable-center
             padding: 0
-
-  .container-big
-    padding: 0
-
-    +smm
-      padding: 64px 0 0
-      margin: 0 auto 32px
-      border: 1px solid $c-lines
-
-    .charge-container
-      padding: 0 16px
-
-      +smm
-        padding: 0 104px
-
-
-  .charge-payments
-    .summary-charge-account
-      margin: 32px 0 0
-
-      +smm
-        margin: 64px 0 0
-
 
   .fullscreen-modals
     animation: none
@@ -53,24 +25,24 @@
       text-align: left
 
   .charge-account-title
-    padding: 0 16px
-    text-align: center
-    margin: 0 0 32px
+    header.entry-title
+      justify-content: center
 
-    .title
-      +modalTitle
+    .btn-handler
+      padding: 0 16px
       text-align: center
 
+      .btn
+        width: 100%
 
-    .btn
-      +xsm
-        min-width: 250px
+        +xsm
+          width: auto
+          min-width: 250px
 
-  .choose-amount-charge
-    margin: 0 0 48px
-
-  .payment-method
-    margin: 0 0 32px
+  .top-charge-account
+    > div:not(.charge-account-title)
+      +smm
+        margin: $s-input-section-margin 0 0
 
   .braintree
     position: relative
@@ -79,8 +51,34 @@
     .balls-loader
       position: absolute
 
-
-
   .card-payment
     .braintree
       padding: 0
+
+      .braintree-content-form
+        +smm
+          margin: 0 0 $s-input-section-margin
+
+  .charge-payments
+    padding: 32px 0 0 0
+
+    .modal-container
+      &:not(.paypal-payment-form):not(.summary-charge-container)
+        padding:  24px 0
+
+        +smm
+          padding: 16px 48px 0
+
+  .paypal-payment-form
+    +smm
+      background: $c-background
+
+    .paypal-button
+      display: flex
+      justify-content: center
+
+      +smm
+        display: block
+
+  .invoice-form-company-info
+    margin: $s-input-section-margin 0 0 0

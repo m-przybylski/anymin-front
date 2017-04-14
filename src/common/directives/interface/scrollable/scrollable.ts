@@ -61,7 +61,7 @@ namespace profitelo.directives.scrollable {
 
       if (this.scrollableContent.outerHeight() + ((this.isNavbarVisible()) ? this.navbarHeight : 0) > this.element.height()) {
         this.element.addClass('is-scrollable')
-        this.scrollableContent.css('top', (this.isNavbarVisible()) ? 32 : 0)
+        this.scrollableContent.css('top', 0)
       } else {
         this.element.removeClass('is-scrollable')
         this.scrollableContent.css('top', (this.directiveHeight - ((this.isNavbarVisible()) ? this.navbarHeight : 0) - this.scrollableContent.height()) / 2)

@@ -1,4 +1,4 @@
-.settings-row
+.list-row
   border-bottom: 1px solid $c-lines
   padding: 20px 0
   display: flex
@@ -10,7 +10,7 @@
     padding: 20px 12px
 
   +smm
-    padding: 20px 24px
+    padding: 20px 16px
 
   &.is-active
     span
@@ -21,18 +21,18 @@
     span
       color: $c-tertiary-txt
 
-  .settings-icon
+  .list-icon
     display: inline-flex
     padding: 0 16px 0 0
 
     +smm
       padding: 0 24px 0 0
 
-  .settings-data
+  .list-data
     flex: 1
 
     .label
-      +inputLabel
+      +paragraphTitle
       display: block
       text-transform: none
 

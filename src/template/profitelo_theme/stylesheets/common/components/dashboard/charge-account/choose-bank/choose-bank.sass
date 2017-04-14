@@ -1,15 +1,24 @@
 .choose-bank
-  margin: 0 0 32px
+  .tiles-row
+    display: flex
+    flex-wrap: wrap
+    margin: 0 -8px
 
-  .choose-options
-    .option
-      height: 128px
+    +smm
+      margin: 0 -16px
 
-    .choose-options-item
-      flex: 1 0 50%
-      max-width: 50%
+  .tiles-item
+    padding: 0 8px 16px
+    flex: 1 0 50%
+    max-width: 50%
 
-      +xsm
-        flex: 1 0 33.3333%
-        margin: 0
-        max-width: 33.3333%
+    +xsm
+      flex: 1 0 33.3333%
+      max-width: 33.3333%
+
+    +smm
+      padding: 0 16px 32px
+
+  .option
+    height: 128px
+

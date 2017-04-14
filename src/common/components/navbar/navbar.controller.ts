@@ -11,7 +11,6 @@ export class NavbarComponentController implements INavbarComponentBindings {
   isNavigationCollapsed: boolean = false
   isLoggedIn: boolean
   searchModel: string
-  bodyHtmlElement = angular.element(document).find('body')
   navbarStyle: {
     transform: string
   }
@@ -54,7 +53,6 @@ export class NavbarComponentController implements INavbarComponentBindings {
 
       if (!ifTargetClicked) {
         this.isNavigationCollapsed = false
-        this.bodyHtmlElement.removeClass('is-mobile-nav-visible')
       }
 
       this.$scope.$apply()
@@ -63,14 +61,12 @@ export class NavbarComponentController implements INavbarComponentBindings {
 
   public onMobileMenuCollapsed = () => {
     this.isNavigationCollapsed = !this.isNavigationCollapsed
-    this.bodyHtmlElement.toggleClass('is-mobile-nav-visible')
   }
 
   public onSearchCollapsed = () => {
     /* this.isSearchVisible is overwrite in CSS when resolution is bigger than 768px */
     this.isSearchVisible = !this.isSearchVisible
     this.isNavigationCollapsed = false
-    this.bodyHtmlElement.removeClass('is-mobile-nav-visible')
   }
 
   private setNavbarStatus = (): void => {

@@ -1,37 +1,35 @@
 scrollable(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
   top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="onModalClose")
-
-  .report-modal.charge-details-modal
+  .modal-default.charge-details-modal
     div
       .container-medium
         img(data-ng-src="/assets/images/profitelo_icons/icon2.png")
 
         .modal-description
           .details-tab
-            .details-tab-row.header-row
+            .details-tab-row
               .details-tab-label
                 span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CHARGE_DETAILS.AMOUNT")
-              .detais-tab-content.money(data-ng-bind-html="financeActivityDetails.operation | money")
-
+              .details-tab-content.price-section(data-ng-bind-html="financeActivityDetails.operation | money")
             .details-tab-row
               .details-tab-label
                 span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CHARGE_DETAILS.TRANSACTION_ID")
-              .detais-tab-content
+              .details-tab-content
                 span {{ financeActivityDetails.id }}
             .details-tab-row
               .details-tab-label
                 span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CHARGE_DETAILS.DATE")
-              .detais-tab-content
+              .details-tab-content
                 span {{ financeActivityDetails.createdAt | date:'yyyy-MM-dd' }}
             .details-tab-row
               .details-tab-label
                 span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CHARGE_DETAILS.TIME")
-              .detais-tab-content
+              .details-tab-content
                 span {{ financeActivityDetails.createdAt | date:'HH:mm'}}
             .details-tab-row
               .details-tab-label
                 span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CHARGE_DETAILS.WAY_OF_RECHARGING")
-              .detais-tab-content
+              .details-tab-content
                 span PayU
 
           p

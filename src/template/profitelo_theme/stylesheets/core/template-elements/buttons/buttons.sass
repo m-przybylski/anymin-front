@@ -1,8 +1,10 @@
 .btn-handler
   .btn
     margin: 0 0 24px
+    width: 100%
 
     +xsm
+      width: auto
       margin: 0 16px 24px
 
 .btn
@@ -14,7 +16,7 @@
   font-size: $f-btn-size
   height: 48px
   border-radius: 48px
-  padding: 0 24px
+  padding: 0 32px
   text-transform: uppercase
   position: relative
   z-index: 1
@@ -29,11 +31,12 @@
   &.btn-small
     border-radius: 32px
     height: 32px
+    padding: 0 24px
     width: auto
     font-size: $f-btn-small
 
   [class*="icon"]
-    font-size: $f-icon-22
+    font-size: $f-icon-16
     margin: 0 16px
 
   &.icon-right
@@ -49,12 +52,12 @@
       margin: 0 8px 0 0
 
 .btn-default
-  &:not(.ui-select-toggle)
-    transition: all 0.3s
-    background-image: linear-gradient(256deg, $c-primary-dark, $c-primary-dark)
+  background: $c-primary
+  border-color: $c-primary
 
-    &:hover
-      background: linear-gradient(256deg, $c-primary-dark, $c-primary-dark)
+  span
+    &.icon
+      color: $c-white
 
 .btn-default-border
   background: none
@@ -92,10 +95,6 @@
     color: $c-primary
     font-size: $f-icon-size
 
-.btn-success
-  background: $c-success
-  +btn-hover($c-success)
-
 .btn-primary
   background: $c-white
   border: 1px solid $c-lines
@@ -105,21 +104,48 @@
   &:hover
     border-color: $c-primary
 
+  span
+    color: $c-primary
+
+.btn-success
+  background: $c-success
+  +btn-hover($c-success)
+
+  .icon
+    color: $c-white
+
 .btn-error
   background: $c-error
   +btn-hover($c-error)
 
+  .icon
+    color: $c-white
+
 .btn-warning
-  background: $c-warning
   +btn-hover($c-warning)
+  background: $c-warning
 
 .btn-noborder
   padding: 0
   color: $c-primary
 
 .btn-close
-  width: auto
+  width: 48px
+  height: 48px
+  padding: 0
+  border: 1px solid $c-lines
+  color: $c-primary
+  transition: border-color 0.3s
+
+  span
+    color: $c-primary
+
+  &:hover
+    border-color: $c-primary
+
+.btn-close-icon
   color: $c-secondary-txt
+  font-size: $f-icon-size
 
 .btn-arrow
   background: $c-white
@@ -138,29 +164,27 @@
 .btn-collapse
   transition: min-height 0.3s
   display: block
-  border-bottom: 1px solid $c-lines
   width: 100%
-  color: $c-primary-txt
   padding: 0
-  min-height: 56px
-  border-radius: 3px
-
-  +smm
-    border: 1px solid $c-lines
+  border-radius: 0
+  overflow: hidden
+  min-height: 32px
 
   .collapse-btn-header
-    +default-font-regular
+    +header
+    height: 32px
     flex: 1 0 100%
-    color: $c-secondary-txt
     display: flex
     align-items: center
     justify-content: space-between
     width: 100%
-    padding: 16px
+    padding: 0
     cursor: pointer
-    font-size: $f-input-small
+    text-transform: none
 
     .icon
+      color: $c-secondary-txt
+      font-size: $f-icon-22
       margin: 0 16px 0 0
 
     div
@@ -169,7 +193,8 @@
 
   .collapse-btn-content
     +default-font-regular
-    padding: 16px 32px 32px
+    margin: 16px 0 0
+    padding: 16px 0
     flex: 1 0 100%
     text-transform: none
 
@@ -216,6 +241,9 @@
   color: $c-primary
   padding: 0
   letter-spacing: initial
+
+  &.btn-small
+    padding: 0
 
 /* circle buttons */
 .btn-circle

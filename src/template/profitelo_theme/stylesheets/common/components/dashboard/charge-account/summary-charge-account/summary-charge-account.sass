@@ -1,21 +1,26 @@
 .summary-charge-account
-  background: $c-background
+  +smm
+    background: $c-background
 
   .summary-charge-container
     text-align: center
-    padding: 56px 16px 104px
 
     +smm
       display: flex
       align-items: center
       justify-content: space-between
-      padding: 48px 104px
+
+    &.modal-container
+      +smm
+        display: flex
+        align-items: center
+        justify-content: space-between
 
     &.no-ammount
       justify-content: center
 
     .amount-details
-      margin: 0 0 64px
+      margin: 0 0 32px
 
       +smm
         margin: 0

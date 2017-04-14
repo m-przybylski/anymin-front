@@ -18,23 +18,6 @@ body
   overflow-y: scroll
   width: 100%
   height: 100%
-  transition: transform 0.4s
-
-  +smm
-    transform: none
-
-  &.is-mobile-nav-visible
-    overflow: hidden
-    transform: translateX(-50%)
-
-    +smm
-      transform: none
-
-    .navbar
-      transform: translateX(50%)
-
-      +smm
-        transform: none
 
 *
   +paragraph

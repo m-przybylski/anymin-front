@@ -1,4 +1,4 @@
-.recommended-tab.grey-tab
+.recommended-tab
   .recommended-tab-header(data-ng-hide="$ctrl.isRecommended")
     span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.HOW_YOU_RATE_CONSULTATION")
     a.btn.btn-default(data-ng-click="$ctrl.recommendConsultation()"
@@ -6,9 +6,9 @@
 
   .recommended-tab-content(data-ng-show="$ctrl.isRecommended")
     .conversation-rate
-      .entry-title
-        h4(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.RECOMMENDED_TAGS.TITLE")
-        span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.RECOMMENDED_TAGS.DESCRIPTION"
+      header.entry-title
+        span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.RECOMMENDED_TAGS.TITLE")
+        p(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.RECOMMENDED_TAGS.DESCRIPTION"
         data-ng-if="$ctrl.isRecommended && !$ctrl.areTagsRecommended")
 
       multiselect(data-items="$ctrl.tags" data-on-select-change="$ctrl.onSelectChange" data-field="name"

@@ -1,7 +1,4 @@
 .braintree-form
-  .title
-    +modalTitle
-
   .charge-container
     display: flex
     flex-wrap: wrap
@@ -18,8 +15,8 @@
     padding: 0
     width: 100%
     overflow: hidden
-    margin: 0 0 16px
-    flex: 1 0 50%
+    margin: 0 0 $s-input-margin
+    flex: 0 0 128px
 
     &:first-child
       flex: 1 0 100%
@@ -104,8 +101,6 @@
     margin: 0 0 16px
 
   .checkbox
-    margin: 32px 0 0
-    color: $c-secondary-txt
     text-align: left
 
     p
@@ -116,7 +111,15 @@
     max-width: 160px
 
     .pro-input
-      margin: 32px 0 0
+      margin: $s-input-margin 0 0
+
+  .modal-container
+    display: block
+    text-align: center
+
+    +smm
+      display: flex
+      flex-wrap: wrap
 
   .modal-footer
     padding: 0

@@ -1,10 +1,10 @@
 .choose-bank
-  .title
-    h3(data-translate="{{ $ctrl.title }}")
+  header.entry-title
+    span(data-translate="{{ $ctrl.title }}")
     ng-transclude
 
-  .choose-options
-    .choose-options-item(data-ng-repeat="bank in $ctrl.paymentsLinks")
+  .choose-options.tiles-row
+    .choose-options-item.tiles-item(data-ng-repeat="bank in $ctrl.paymentsLinks")
       .option(data-ng-class="{'selected': $ctrl.activeOption == $index}" data-ng-click="$ctrl.selectBank($index)")
         p {{ bank.name }}
         .option-thumb

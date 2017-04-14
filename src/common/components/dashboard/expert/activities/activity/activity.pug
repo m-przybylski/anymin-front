@@ -1,6 +1,6 @@
 .last-activities
   .container
-    .last-activities-container(data-ng-click="")
+    .last-activities-container(data-ng-click=":: $ctrl.openActivityDescriptions()")
       .call-activity(data-ng-if="$ctrl.isCallActivity")
         .last-activity-details
           .last-activity-icon

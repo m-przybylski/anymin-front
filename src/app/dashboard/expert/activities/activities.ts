@@ -17,11 +17,11 @@ const dashboardExpertActivitiesModule = angular.module('profitelo.controller.das
   $stateProvider.state('app.dashboard.expert.activities', {
     url: '/activities',
     template: require('./activities.pug')(),
-    controller: 'DashboardExpertActivitiesController',
+    controller: 'dashboardExpertActivities',
     controllerAs: 'vm'
   })
 })
-.controller('DashboardExpertActivitiesController', DashboardExpertActivitiesController)
+.controller('dashboardExpertActivities', DashboardExpertActivitiesController)
   .name
 
 export default dashboardExpertActivitiesModule

@@ -6,7 +6,7 @@
 
       .profile-content
         .profile-content-header
-          .entry-title
+          header.entry-title
             .profile-name
               h3 {{ $ctrl.profileDetails.name }}
 
@@ -19,7 +19,7 @@
               li(data-ng-repeat="language in $ctrl.profileDetails.languages")
                 span {{ language }}
 
-          ul.social-links
+          ul.social-links(data-ng-if="$ctrl.profileDetails.links")
             li(data-ng-repeat="link in $ctrl.profileDetails.links")
               a.btn.btn-circle(href="{{link}}" target="_blank")
                 span.icon(pro-social-icon-getter data-url="link")

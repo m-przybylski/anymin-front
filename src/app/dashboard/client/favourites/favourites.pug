@@ -9,14 +9,14 @@
 
     div(data-ng-if="vm.lastConsultations && vm.lastConsultations.length > 0 || vm.favouriteProfiles && vm.favouriteProfiles.length > 0")
       .container(data-ng-if="vm.lastConsultations && vm.lastConsultations.length > 0")
-        .entry-title
-          h3(data-translate="DASHBOARD.CLIENT.FAVOURITE_EXPERTS.RECENTLY_CONSULTED.TITLE")
-          last-consultation-slider(consultations="vm.lastConsultations")
+        header.entry-title
+          span(data-translate="DASHBOARD.CLIENT.FAVOURITE_EXPERTS.RECENTLY_CONSULTED.TITLE")
+        last-consultation-slider(consultations="vm.lastConsultations")
 
       .container(data-ng-if="vm.favouriteProfiles && vm.favouriteProfiles.length > 0")
         client-favourite-experts(data-favourite-experts="vm.favouriteProfiles")
 
       .container(data-ng-if="vm.similarExperts && vm.similarExperts.length > 0")
-        .entry-title
-          h3(data-translate="DASHBOARD.CLIENT.FAVOURITE_EXPERTS.RECOMENDED_CONSULTATION.TITLE")
-          similar-experts-slider(consultations="vm.similarExperts")
+        header.entry-title
+          span(data-translate="DASHBOARD.CLIENT.FAVOURITE_EXPERTS.RECOMENDED_CONSULTATION.TITLE")
+        similar-experts-slider(consultations="vm.similarExperts")

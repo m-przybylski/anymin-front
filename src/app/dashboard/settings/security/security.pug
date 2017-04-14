@@ -1,21 +1,22 @@
 .security-options.security
-  h2(data-translate="SETTINGS.SECURITY.TITLE")
+  header.entry-title
+    span(data-translate="SETTINGS.SECURITY.TITLE")
 
-  .settings-row
-    .settings-icon
+  .list-row
+    .list-icon
       span.icon.icon-lock-24
 
-    .settings-data
+    .list-data
       span.name(data-translate="SETTINGS.SECURITY.PASSWORD.LABEL")
 
-    a.btn.btn-small.btn-default-border(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
+    a.btn.btn-small.btn-link(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
     data-ng-click=":: vm.openSecurityChangePasswordSettingsModal()")
 
-  .settings-row(data-ng-if="vm.hasMobilePin")
-    .settings-icon
+  .list-row(data-ng-if="vm.hasMobilePin")
+    .list-icon
       span.icon.icon-pin-number-24
 
-    .settings-data
+    .list-data
         span.name(data-translate="SETTINGS.SECURITY.PIN_NUMBER.LABEL")
 
     a.btn.btn-small.btn-default-border(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"

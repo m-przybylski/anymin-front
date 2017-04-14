@@ -1,0 +1,25 @@
+@import "../../../../template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
+
+.expert-complains
+  .list-row
+    .list-data
+      +smm
+        display: flex
+
+      .expert-complains-date
+        +smm
+          min-width: 160px
+          padding: 0 16px 0 0
+
+        span
+          +paragraphSmall
+
+      .expert-complains-reason
+        span
+          +paragraphSmall
+          color: $c-primary-txt
+
+    .expert-complains-price
+      span
+        +settingsRowPrice

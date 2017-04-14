@@ -3,6 +3,7 @@
   justify-content: space-between
   align-items: flex-start
   position: relative
+  min-height: 32px
 
   +xsm
     align-items: center
@@ -10,16 +11,20 @@
   + p
     margin: 8px 0 0
 
+  &:hover
+    label
+      &.checker
+        border-color: $c-primary
+        box-shadow: inset 0 0 0 1px $c-primary
+
   label
+    +paragraphTitle
     display: flex
     align-items: center
-    color: $c-primary-txt
     cursor: pointer
-    font-size: $f-paragraph-title
 
     &.text
       padding: 0 0 0 16px
-      color: $c-primary-txt
       width: 100%
       text-align: left
 
@@ -78,10 +83,9 @@
   min-height: 16px
 
   > label
+    +paragraphTitle
     padding: 0 0 0 32px
     cursor: pointer
-    font-size: $f-paragraph-title
-    color: $c-primary-txt
 
   > div:not(.radio-description)
     @extend .pro-checkbox

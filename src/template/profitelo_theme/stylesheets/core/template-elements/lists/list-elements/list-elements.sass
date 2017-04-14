@@ -3,3 +3,42 @@
 
 [class~="consultation-title"]
   +consultationTitle
+
+[class~="profile-name"]
+  +consultationProfileName
+
+
+.profile-preview
+  display: flex
+  align-items: center
+
+  &.vertical-preview
+    display: block
+
+    .thumb
+      margin: 0 0 24px
+
+    .profile-name
+      display: block
+
+      span
+        +paragraph
+
+  .thumb
+    margin: 0 24px 0 0
+
+    .status-list
+      .status
+        +mdm
+          justify-content: flex-end
+
+  .profile-name
+    display: flex
+    align-items: center
+
+    span
+      +paragraphTitle
+
+  p
+    +paragraphSmall
+    color: $c-primary-txt

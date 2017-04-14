@@ -3,8 +3,8 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {DashboardExpertActivitiesController} from './activities.controller'
 import dashboardExpertActivitiesModule from './activities'
 
-describe('Unit tests: DashboardExpertActivitiesController >', () => {
-  describe('Testing Controller: DashboardExpertActivitiesController', () => {
+describe('Unit tests: dashboardExpertActivities >', () => {
+  describe('Testing Controller: dashboardExpertActivities', () => {
 
     let DashboardExpertActivitiesController: DashboardExpertActivitiesController
 
@@ -17,7 +17,7 @@ describe('Unit tests: DashboardExpertActivitiesController >', () => {
 
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _$state_: ng.ui.IStateService) => {
         DashboardExpertActivitiesController =
-          $controller<DashboardExpertActivitiesController>('DashboardExpertActivitiesController', {
+          $controller<DashboardExpertActivitiesController>('dashboardExpertActivities', {
             $state: _$state_,
             $scope: $rootScope.$new(),
             expertActivities: expertActivities,

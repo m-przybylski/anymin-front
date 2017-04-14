@@ -9,6 +9,7 @@ import '../../components/communicator/modals/consultation-summary-expert/consult
 import '../../components/dashboard/client/activities/modals/complain-report/complain-report'
 import '../../components/dashboard/client/activities/modals/charge-details/charge-details'
 import '../../components/dashboard/client/activities/modals/consultation-details/consultation-details'
+import '../../components/dashboard/expert/activities/modals/consultation-details/consultation-details'
 import '../../components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings'
 import '../../components/dashboard/settings/modals/general/phone-settings/phone-settings'
 import '../../components/dashboard/settings/modals/general/email-settings/email-settings'

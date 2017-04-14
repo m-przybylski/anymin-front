@@ -8,12 +8,13 @@
         span.icon.icon-arrow-right-16
 
   .payments-method(data-ng-show="vm.isAnyPaymentMethod")
-    .entry-title
-      h2(data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.TITLE")
+    header.entry-title
+      span(data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.TITLE")
       a.btn.btn-primary.btn-small(data-translate="SETTINGS.PAYMENTS.BUTTON.ADD" data-ng-click="vm.addNewPaymentMethod()")
-    .radio-list.payments-method-list
+
+    .payments-method-list
       form
-        .radio-list-item.profitelo-account(data-ng-show="vm.accountBalance")
+        .list-row.profitelo-account(data-ng-show="vm.accountBalance")
           .radio-text.radio
             .radio-input
               input(id="profitelo-payments-method" type="radio" name="payments-method"
@@ -29,8 +30,10 @@
           .radio-action
             a.btn.btn-default.btn-small.recharge-account( data-ui-sref="app.dashboard.charge-account"
               data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.RECHARGE_ACCOUNT.BUTTON")
+
+
         preloader-container(data-is-loading="vm.isPaymentsMethodLoading")
-          .radio-list-item.profitelo-account(data-ng-repeat="paymentMethod in vm.paymentMethods")
+          .list-row.profitelo-account(data-ng-repeat="paymentMethod in vm.paymentMethods")
             .radio-text.radio
               .radio-input
                 input(id="{{ paymentMethod.token }}" type="radio" name="payments-method"
@@ -47,22 +50,25 @@
               a.btn.btn-primary.btn-small.edit-payments(data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.RECHARGE_ACCOUNT.EDIT.BUTTON")
 
   .invoice-information(data-ng-show="vm.isAnyPaymentMethod && vm.companyName")
-    .entry-title
-      h2(data-translate="SETTINGS.PAYMENTS.INVOICE.TITLE")
+    header.entry-title
+      span(data-translate="SETTINGS.PAYMENTS.INVOICE.TITLE")
       a.btn.btn-primary.btn-small(data-translate="SETTINGS.PAYMENTS.BUTTON.EDIT" data-ng-click="vm.editInvoiceDetails()")
 
     .info-tab
       .info-tab-row
         .info-tab-label
           span(data-translate="SETTINGS.PAYMENTS.INVOICE.COMPANY_NAME")
-        .info-tab-content {{ vm.companyName }}
+        .info-tab-content
+          span {{ vm.companyName }}
 
       .info-tab-row(data-ng-show="vm.vatNumber")
         .info-tab-label
           span(data-translate="SETTINGS.PAYMENTS.INVOICE.VAT_NUMBER")
-        .info-tab-content {{ vm.vatNumber }}
+        .info-tab-content
+          span {{ vm.vatNumber }}
 
       .info-tab-row(data-ng-show="vm.address.length > 5")
         .info-tab-label
           span(data-translate="SETTINGS.PAYMENTS.INVOICE.ADDRESS")
-        .info-tab-content {{ vm.address }}
+        .info-tab-content
+          span {{ vm.address }}

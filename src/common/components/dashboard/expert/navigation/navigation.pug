@@ -3,22 +3,22 @@
     div
       nav.dashboard-nav
         ul
-          li
-            a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.ACTIVITIES.TITLE")
-          li
+          li(data-ui-sref-active="is-active")
+            a(data-ui-sref="app.dashboard.expert.activities" data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.ACTIVITIES.TITLE")
+          li(data-ui-sref-active="is-active")
             a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.MANAGE_PROFILE.TITLE")
-          li.complain-count-container
-            a
-              | {{:: 'DASHBOARD.EXPERT_ACCOUNT.NAVBAR.COMPLAINS.TITLE' | translate }}
+          li.complain-count-container(data-ui-sref-active="is-active")
+            a(data-ui-sref="app.dashboard.expert.complains") {{:: 'DASHBOARD.EXPERT_ACCOUNT.NAVBAR.COMPLAINS.TITLE' | translate }}
               span.complain-count +9
-          li
+          li(data-ui-sref-active="is-active")
             a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.EMPLOYES.TITLE")
-          li
+          li(data-ui-sref-active="is-active")
             a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.INVOICES.TITLE")
 
       .nav-payment
         .amount-balance-container
-          span(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.ACCOUNT_BALANCE.TITLE").account-balance-title
-          span.account-balacnce 8234,00 PLN
+          span.account-balance-title(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.ACCOUNT_BALANCE.TITLE")
+          span.account-balacnce 8234,00
+            span.currency PLN
         .payout-btn-container
-          a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.PAYOUT_BUTTON.TITLE").btn.btn-small.btn-primary
+          a.btn.btn-small.btn-default(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.PAYOUT_BUTTON.TITLE")

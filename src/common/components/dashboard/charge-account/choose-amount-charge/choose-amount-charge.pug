@@ -1,14 +1,15 @@
 .choose-amount-charge.select-choice
-  .charge-container
-    .title
-      h3(data-translate="{{ $ctrl.title }}")
+  header.entry-title
+    span(data-translate="{{ $ctrl.title }}")
 
-    .choose-options
-      .choose-options-item(data-ng-repeat = "amount in $ctrl.amounts.paymentOptions")
+  .choose-options.tiles-row
+    .tiles-item(data-ng-repeat = "amount in $ctrl.amounts.paymentOptions")
+      .choose-options-item
         .option(data-ng-class="{'selected': $ctrl.activeOption == $index}" data-ng-click="$ctrl.selectAmountOption($index)")
           span.charge-price {{ amount.amount / 100 }}
           span.icon.icon-dot(data-ng-class="{'is-active': $ctrl.activeOption == $index}")
 
+    .tiles-item
       .choose-options-item(id="cash-valid")
         .option.option-own-amount(data-ng-class="{'selected': $ctrl.activeOption == 3}" data-ng-click="$ctrl.selectAmountOption(3)")
           pro-input(placeholder="{{:: 'DASHBOARD.CHARGE_ACCOUNT.YOUR_AMOUNT.TITLE' | translate }}"
@@ -24,5 +25,5 @@
             only-digits)
           span.icon.icon-dot(data-ng-class="{'is-active': $ctrl.activeOption == 3}")
 
-    .input-error-messages(data-ng-show = "$ctrl.minimalAmountValidation()")
-        span {{ 'DASHBOARD.CHARGE_ACCOUNT.INVALID_MINIMAL_PAYMENT' | translate }}
+  .input-error-messages(data-ng-show = "$ctrl.minimalAmountValidation()")
+      span {{ 'DASHBOARD.CHARGE_ACCOUNT.INVALID_MINIMAL_PAYMENT' | translate }}

@@ -1,12 +1,13 @@
 scrollable.basic-account-settings(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
+  top-modal-navbar(data-title="SETTINGS.GENERAL.BASIC_ACCOUNT.HEADER" data-on-close="onModalClose")
   preloader(data-is-loading= "isUploadInProgress")
-    top-modal-navbar(data-title="SETTINGS.GENERAL.BASIC_ACCOUNT.HEADER" data-on-close="onModalClose")
     .modal-settings
       .container-small(data-ng-class="{'is-bigger': isUserUploadImage}")
-        h2(data-translate="SETTINGS.GENERAL.BASIC_ACCOUNT.HEADER" data-ng-hide="isUserUploadImage")
+        header.entry-title
+          span(data-translate="SETTINGS.GENERAL.BASIC_ACCOUNT.HEADER" data-ng-hide="isUserUploadImage")
+
         form.pro-input-form(name="basicAccountForm" data-ng-submit="submitBasicSettings()" novalidate)
           .form-step(data-ng-hide="isUserUploadImage")
-
             .user-avatar
               .thumb.x192
                 img.user-avatar.fullScreen(data-ng-src="{{ avatarPreview }}" src)
