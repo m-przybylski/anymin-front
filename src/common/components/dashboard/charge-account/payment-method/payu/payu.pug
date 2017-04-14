@@ -75,31 +75,31 @@
 
         .invoice-form.collapse-animation(data-ng-if="$ctrl.showInvoiceForm")
           .invoice-form-company-info
-            .title
-              h3(data-translate="DASHBOARD.CHARGE_ACCOUNT.INVOICE.TITLE")
+            header.entry-title
+              span(data-translate="DASHBOARD.CHARGE_ACCOUNT.INVOICE.TITLE")
 
-              dropdown-primary(
-              data-label="{{ ::'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COUNTRY.LABEL' | translate }}"
-              data-main-list="$ctrl.countryList"
-              data-on-select-main="$ctrl.onSelectCountry"
-              data-selected-item="$ctrl.selectedCountry"
-              data-input-placeholder="{{ ::'SEARCH.ALL' | translate }}"
-              )
+            dropdown-primary(
+            data-label="{{ ::'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COUNTRY.LABEL' | translate }}"
+            data-main-list="$ctrl.countryList"
+            data-on-select-main="$ctrl.onSelectCountry"
+            data-selected-item="$ctrl.selectedCountry"
+            data-input-placeholder="{{ ::'SEARCH.ALL' | translate }}"
+            )
 
-              .vat-input-handler
-                div
-                  pro-input(placeholder="{{:: 'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.TAX_NUMBER.PLACEHOLDER' | translate }}"
-                  data-label="{{:: 'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.TAX_NUMBER.LABEL' | translate }}"
-                  data-ng-model="$ctrl.vatNumber"
-                  data-ng-class="{'invalid': paymentForm.$submitted && !$ctrl.vatNumber || paymentForm.vatNumber.$dirty && !$ctrl.vatNumberx}"
-                  addon-action="onEnter"
-                  required)
-                  a.btn.btn-primary(data-translate="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COUNTRY.BUTTON")
+            .vat-input-handler
+              div
+                pro-input(placeholder="{{:: 'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.TAX_NUMBER.PLACEHOLDER' | translate }}"
+                data-label="{{:: 'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.TAX_NUMBER.LABEL' | translate }}"
+                data-ng-model="$ctrl.vatNumber"
+                data-ng-class="{'invalid': paymentForm.$submitted && !$ctrl.vatNumber || paymentForm.vatNumber.$dirty && !$ctrl.vatNumberx}"
+                addon-action="onEnter"
+                required)
+                a.btn.btn-primary(data-translate="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COUNTRY.BUTTON")
 
-                .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.emailModel || paymentForm.email.$dirty && $ctrl.mailValidation()")
-                  span {{ "DASHBOARD.CHARGE_ACCOUNT.EMAIL_ERROR" | translate }}
-                // TODO on GUS API IMPLEMENT
-                //p(data-translate="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COMPANY_NAME.NO_VAT.DESCRIPTION")
+              .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.emailModel || paymentForm.email.$dirty && $ctrl.mailValidation()")
+                span {{ "DASHBOARD.CHARGE_ACCOUNT.EMAIL_ERROR" | translate }}
+              // TODO on GUS API IMPLEMENT
+              //p(data-translate="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COMPANY_NAME.NO_VAT.DESCRIPTION")
 
               pro-input(placeholder="{{:: 'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COMPANY_NAME.PLACEHOLDER' | translate }}"
               data-label="{{::'DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COMPANY_NAME.LABEL' | translate }}"

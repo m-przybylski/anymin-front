@@ -40,6 +40,8 @@
 
 
 .modal-settings
+  animation: fadeInY 0.3s
+  animation-fill-mode: forwards
   text-align: center
 
   .entry-title
@@ -49,6 +51,8 @@
 
 
 .modal-form
+  animation: fadeInY 0.3s
+  animation-fill-mode: forwards
   padding: 0
 
   +smm
@@ -66,6 +70,10 @@
 
     +smm
       padding: 48px 48px
+
+    > *:not(:last-child):not(header)
+      display: block
+      margin: 0 0 $s-input-section-margin
 
   .modal-footer
     padding: 48px 16px
@@ -94,7 +102,8 @@
 
   > div
     > *
-      animation: animation-opacity 0.8s 0.4s, communicator-dialog-fade 0.4s 0.4s
+      animation: fadeInY 0.3s
+      animation-fill-mode: forwards
       animation-fill-mode: forwards
       position: relative
       top: -20px

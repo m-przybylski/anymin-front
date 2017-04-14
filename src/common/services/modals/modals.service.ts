@@ -28,6 +28,14 @@ import {
   IExpertConsultationDetailsScope,
   ExpertConsultationDetailsController
 } from '../../components/dashboard/expert/activities/modals/consultation-details/consultation-details.controller'
+import {
+  ExpertPayoutCivilModalConttroller,
+  IExpertPayoutCivilModalScope
+} from '../../components/dashboard/expert/activities/modals/payout-civil/payout-civil.controller'
+import {
+  ExpertPayoutCompanyModalController,
+  IExpertPayoutCompanyModalScope
+} from '../../components/dashboard/expert/activities/modals/payout-company/payout-company.controller'
 
 // TODO add types for dialogScope Scopes
 export class ModalsService {
@@ -292,6 +300,36 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controller: ExpertConsultationDetailsController,
       template: require('common/components/dashboard/expert/activities/modals/consultation-details/consultation-details.pug')(),
+      scope: dialogScope
+    })
+  }
+
+  public createExpertPayoutCivilModal = (sueId: string) => {
+    if (!sueId) {
+      throw new Error('Expected sueId, got ' + sueId)
+    }
+
+    const dialogScope: IExpertPayoutCivilModalScope = <IExpertPayoutCivilModalScope>this.$rootScope.$new(true)
+
+    dialogScope.sueId = sueId
+    return this.dialogService.openDialog({
+      controller: ExpertPayoutCivilModalConttroller,
+      template: require('common/components/dashboard/expert/activities/modals/payout-civil/payout-civil.pug')(),
+      scope: dialogScope
+    })
+  }
+
+  public createExpertPayoutCompanyModal = (sueId: string) => {
+    if (!sueId) {
+      throw new Error('Expected sueId, got ' + sueId)
+    }
+
+    const dialogScope: IExpertPayoutCompanyModalScope = <IExpertPayoutCompanyModalScope>this.$rootScope.$new(true)
+
+    dialogScope.sueId = sueId
+    return this.dialogService.openDialog({
+      controller: ExpertPayoutCompanyModalController,
+      template: require('common/components/dashboard/expert/activities/modals/payout-company/payout-company.pug')(),
       scope: dialogScope
     })
   }

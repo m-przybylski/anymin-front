@@ -44,6 +44,7 @@ export class DashboardSettingsSecurityController implements ng.IController {
         if (
           session.userAgent && (
           session.userAgent.includes('Win') ||
+          session.userAgent.includes('Mac') ||
           session.userAgent.includes('Linux'))
         ) {
           return 'desktop'
