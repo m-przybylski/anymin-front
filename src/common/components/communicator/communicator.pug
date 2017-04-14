@@ -11,7 +11,7 @@
               h6
                 a {{ $ctrl.expert.expertDetails.name }}
             .communicator-conversation-title
-              p {{ $ctrl.service.details.name }}
+              p {{ $ctrl.service.name }}
             .communicator-counter
               span {{ $ctrl.callLengthInSeconds | secondsToDateTime | date:'HH:mm:ss'}}
               span(data-ng-bind-html="$ctrl.callCost | money")
@@ -32,7 +32,7 @@
 
       .communicator-conversation-details(data-ng-hide="$ctrl.isConnecting")
         .communicator-conversation-title
-          p {{ $ctrl.service.details.name }}
+          p {{ $ctrl.service.name }}
 
         .communicator-counter
           span {{ $ctrl.callLengthInSeconds | secondsToDateTime | date:'HH:mm:ss' }}

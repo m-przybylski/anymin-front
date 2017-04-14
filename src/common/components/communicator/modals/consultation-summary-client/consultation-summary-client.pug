@@ -16,13 +16,13 @@ scrollable(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
                 span.status.availability Dostepny
 
         .consultation-price
-          span(data-ng-bind-html="callSummary.service.details.price | money ")
+          span(data-ng-bind-html="callSummary.service.price | money ")
 
         .consultation-range
           .consultation-info
             .consultation-title
               h3
-                span {{ callSummary.service.details.name }}
+                span {{ callSummary.service.name }}
 
             ul.consultation-about
               li.options-item.recomendation

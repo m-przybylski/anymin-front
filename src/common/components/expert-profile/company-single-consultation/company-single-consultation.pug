@@ -3,13 +3,13 @@
     .consultation-content(data-ng-class="{'is-company': !!serviceTagsEmployeesTuple.service.organizationDetails}")
       .consultation-details
         .consultation-price
-          span(data-ng-bind-html="$ctrl.serviceTagsEmployeesTuple.service.details.price | money")
+          span(data-ng-bind-html="$ctrl.serviceTagsEmployeesTuple.service.price | money")
           span.currency(data-translate='HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE')
 
         div
           .consultation-title
             h3
-              span {{ $ctrl.serviceTagsEmployeesTuple.service.details.name }}
+              span {{ $ctrl.serviceTagsEmployeesTuple.service.name }}
 
           ul.consultation-about
             li.options-item.recomendation
