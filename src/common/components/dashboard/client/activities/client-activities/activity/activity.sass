@@ -2,12 +2,9 @@
 @import "../../../../../../../template/profitelo_theme/stylesheets/variables/variables"
 
 .last-activities
-  .last-activities-container
-    margin: 0 0 24px
-
-    .call-activity, .money-activity
-      padding: 28px 0
-      border-bottom: 1px solid $c-lines
+  .list-row
+    &.call-activity,
+    &.money-activity
       display: block
       cursor: pointer
 
@@ -20,35 +17,26 @@
         align-items: center
         flex-wrap: wrap
 
-        +smm
-          padding: 0 0 0 16px
-
         +lgm
           flex: initial
           min-width: 210px
 
         .last-activity-icon
-          margin: 0 16px 0 0
+          margin: 0 24px 0 0
 
           span
             color: $c-secondary-txt
 
       .last-activity-description
-        padding: 16px 0
         flex: 1
-
-        +smm
-          padding: 8px 16px 8px 56px
+        padding: 8px 0
 
         +lgm
-          padding: 0 0 0 16px
+          padding: 0 16px
 
         h3
-          +default-font-light
-          flex: 1 0 100%
+          +paragraphSmall
           color: $c-primary-txt
-          font-size: $f-paragraph
-          line-height: 24px
 
       .last-activity-profile
         display: flex
@@ -56,20 +44,19 @@
         justify-content: space-between
         flex: 1 0 50%
 
-        +smm
-          padding: 0 16px 0 56px
-
         +lgm
           flex: 0 0 30%
-          padding: 0 16px
+
+      .profile-name
+        span
+          +paragraphSmall
 
       .price-small
-        +default-font-bold
         min-width: 100px
         text-align: right
 
         span
-          color: $c-primary-txt
+          +listRowPrice
 
           &.sign
             padding: 0 4px 0 0
@@ -80,34 +67,29 @@
         align-items: center
         width: 100%
 
-        +smm
-          padding: 0 16px 0 0
+  .last-activity-about
+    display: flex
 
-        .last-activity-description
-          margin: 0
+    .component-complain-status
+      margin: 0 0 0 16px
 
-    .last-activity-about
+    .last-activity-date
+      +paragraphSmall
       display: flex
+      align-items: center
 
-      .component-complain-status
-        margin: 0 0 0 16px
-
-      .last-activity-date
-        display: flex
-        align-items: center
-        font-size: $f-paragraph-title
-        color: $c-secondary-txt
 
   .load-more-results-container
     display: flex
     justify-content: space-between
+    padding: 24px 0
 
-    +smm
-      padding: 0 16px
+    +lgm
+      padding: 24px 16px
 
     span
-      +default-font-medium
-      color: $c-secondary-txt
-      font-style: $f-input-label
-      font-size: $f-input-label
-      text-transform: uppercase
+      +inputLabel
+      color: $c-tertiary-txt
+
+    a
+      text-align: right

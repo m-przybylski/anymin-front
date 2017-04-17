@@ -1,6 +1,7 @@
 import * as angular from 'angular'
 import 'angular-translate'
 import {ExpertFiltersComponent} from './filters.component'
+import './filters.sass'
 
 export interface IExpertFiltersComponentBindings extends ng.IController {
 }

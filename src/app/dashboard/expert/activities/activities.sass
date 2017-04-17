@@ -1,10 +1,13 @@
-@import "../../../../template/profitelo_theme/stylesheets/variables/variables"
 @import "../../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
+@import "../../../../template/profitelo_theme/stylesheets/variables/variables"
 
 .load-more-results-container
   display: flex
   justify-content: space-between
-  padding: 24px 16px
+  padding: 24px 0
+
+  +lgm
+    padding: 24px 16px
 
   span
     +inputLabel
@@ -12,4 +15,3 @@
 
   a
     text-align: right
-
