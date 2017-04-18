@@ -4,7 +4,6 @@ import urlModule from '../../../../../../services/url/url'
 import filtersModule from '../../../../../../filters/filters'
 import '../../../../../../components/interface/collapse-btn/collapse-btn'
 import {ExpertConsultationDetailsController} from './consultation-details.controller'
-import './consultation-details.sass'
 import tagsListModule from '../../../../../tags-list/tags-list'
 
 const expertConsultationDetailsModalModule = angular.module('profitelo.components.dashboard.expert.activities.modals.consultation-details', [

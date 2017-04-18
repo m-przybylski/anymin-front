@@ -19,7 +19,8 @@ namespace profitelo.components.dashboard.settings.manageDevices {
     checkDevice = {
       desktop: 'icon-computer-24',
       tablet: 'icon-tablet-24',
-      mobile: 'icon-smartphone-24'
+      mobile: 'icon-smartphone-24',
+      unknown: 'icon-questionmark-24'
     }
     currentDevice: string
 

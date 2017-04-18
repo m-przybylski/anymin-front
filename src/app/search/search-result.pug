@@ -1,4 +1,4 @@
-.search-result
+section.search-result
   navbar(data-search-model="vm.searchModel")
   preloader(data-is-loading= "vm.isSearchLoading && vm.isSearchError")
     search-filters(data-search-results="vm.searchResults" data-set-search-params="vm.setSearchParams")
@@ -8,3 +8,4 @@
     preloader-container(data-is-loading="vm.isLoadMoreLoading" data-is-error="vm.isLoadMoreError"
     data-error-fn="vm.loadMoreOnClick" data-error-message="SEARCH.PRELOADER_CONTAINER.ERROR_MESSAGE")
 go-to-top()
+pro-footer

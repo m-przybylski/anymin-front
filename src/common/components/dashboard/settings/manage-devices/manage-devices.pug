@@ -1,13 +1,15 @@
 .manage-devices
   .list-row
     .list-icon
-      span.icon(data-ng-class="{'icon-computer-24': $ctrl.currentDevice === 'icon-computer-24', 'icon-tablet-24': $ctrl.currentDevice === 'icon-tablet-24', 'icon-smartphone-24': $ctrl.currentDevice === 'icon-smartphone-24'}")
+      span.icon(data-ng-class="{'icon-computer-24': $ctrl.currentDevice === 'icon-computer-24', 'icon-tablet-24': $ctrl.currentDevice === 'icon-tablet-24', " +
+      "'icon-smartphone-24': $ctrl.currentDevice === 'icon-smartphone-24', 'icon-questionmark-24': $ctrl.currentDevice === 'icon-questionmark-24'}")
 
     .list-data
       span.label(data-ng-class="{'is-active': $ctrl.deviceInUseStatus}")
         span(data-ng-show="{{$ctrl.currentDevice === 'icon-computer-24'}}"  data-translate="{{:: 'SETTINGS.SECURITY.MANAGE_DEVICES.IN_USE.COMPUTER' | translate}}")
         span(data-ng-show="{{$ctrl.currentDevice === 'icon-tablet-24'}}" data-translate="{{:: 'SETTINGS.SECURITY.MANAGE_DEVICES.IN_USE.TABLET' | translate}}")
         span(data-ng-show="{{$ctrl.currentDevice === 'icon-smartphone-24'}}" data-translate="{{:: 'SETTINGS.SECURITY.MANAGE_DEVICES.IN_USE.SMARTPHONE' | translate}}")
+        span(data-ng-show="{{$ctrl.currentDevice === 'icon-questionmark-24'}}" data-translate="{{ 'SETTINGS.SECURITY.MANAGE_DEVICES.IN_USE.UNKNOWN' | translate}}")
         span.in-use(data-translate="{{:: 'SETTINGS.SECURITY.MANAGE_DEVICES.IN_USE.LABEL' | translate}}")
       span.name {{$ctrl.deviceSystem}}
 

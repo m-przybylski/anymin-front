@@ -1,0 +1,120 @@
+scrollable(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
+  top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="vm.onModalClose")
+  .modal-form.payout-civil
+    .container-medium
+      .modal-container
+        header.entry-title
+          span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.PAYOUTS.TRANSACTION_DETAILS.TITLE")
+
+        .details-tab
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.PAYOUTS.TRANSACTION_DETAILS.PAYOUT_FROM_PROFITELO")
+            .details-tab-content.price-section(data-ng-bind-html="financeActivityDetails.operation | money")
+
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.PAYOUTS.TRANSACTION_DETAILS.TRANSFER_AMOUNT")
+            .details-tab-content.price-section
+              span 123,00 PLN
+
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.PAYOUTS.TRANSACTION_DETAILS.ID")
+            .details-tab-content
+              span 2PF-575-35W-W88-022-3R
+
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.PAYOUTS.TRANSACTION_DETAILS.DATE")
+            .details-tab-content
+              span 01/29/2017
+
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.PAYOUTS.TRANSACTION_DETAILS.TIME")
+            .details-tab-content
+              span 16:20
+
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.PAYOUTS.TRANSACTION_DETAILS.PAYOUT_METHOD")
+            .details-tab-content
+              span Bank account **** 2456
+
+
+        header.entry-title
+          span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.PAYOUTS.TAXES_INSURANCE.TITLE")
+
+        .details-tab
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.PAYOUTS.TAXES_INSURANCE.AMOUNT_REQUESTED")
+            .details-tab-content.price-section
+              span 1230,00 PLN
+
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.PAYOUTS.PENSION_INSURANCE")
+            .details-tab-content.price-section
+              span - 97,60 PLN
+
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.PAYOUTS.DISABILITY_INSURANCE")
+            .details-tab-content.price-section
+              span - 97,60 PLN
+
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.PAYOUTS.HEALTH_INSURANCE")
+            .details-tab-content.price-section
+              span - 97,60 PLN
+
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.PAYOUTS.TAX_DEDUCTIBLE_EXPENSES")
+            .details-tab-content.price-section
+              span - 97,60 PLN
+
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.PAYOUTS.PIT")
+            .details-tab-content.price-section
+              span - 97,60 PLN
+
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.PAYOUTS.OTHER_COST")
+            .details-tab-content.price-section
+              span - 97,60 PLN
+
+
+        header.entry-title
+          span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.PAYOUTS.COMPANY_INVOICES.TITLE")
+
+        .details-tab
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.PAYOUTS.NAME")
+            .details-tab-content
+              span Joanna Kowalska
+
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.PAYOUTS.PESEL")
+            .details-tab-content
+              span 91011101234
+
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.PAYOUTS.ADDRESS")
+            .details-tab-content
+              span ul. Koleowa, Kraków 12
+
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.PAYOUTS.REVENUE_AGENCY")
+            .details-tab-content
+              span Pierwszy Urząd Skarbowy w Krakowie
+

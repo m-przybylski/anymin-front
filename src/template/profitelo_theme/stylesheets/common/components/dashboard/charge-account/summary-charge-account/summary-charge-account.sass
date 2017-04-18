@@ -28,13 +28,25 @@
         align-items: center
         justify-content: space-between
 
-    .amount-price
-      p
-        color: $c-secondary-txt
-        font-size: $f-header
+      .amount-price
+        p
+          color: $c-secondary-txt
+          font-size: $f-header
 
-        span
-          +default-font-medium
-          margin: 0 0 0 8px
-          color: $c-primary-txt
-          text-transform: uppercase
+          span
+            +default-font-medium
+            margin: 0 0 0 8px
+            color: $c-primary-txt
+            text-transform: uppercase
+
+    &.modal-container
+      .amount-price
+        p
+          color: $c-secondary-txt
+          font-size: $f-header
+
+          span
+            +default-font-medium
+            margin: 0 0 0 8px
+            color: $c-primary-txt
+            text-transform: uppercase
