@@ -1,0 +1,48 @@
+.manage-profile
+  .profile-section
+    header.entry-title
+      span(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.TITLE")
+
+    .manage-profile-list
+      .list-row.manage-row(data-ng-class="{'is-inactive': !vm.isActive}")
+        .profile-preview
+          user-avatar.thumb.x48(data-image-token="vm.expertAvatar")
+
+          .profile-name
+            span hp computers
+
+        .manage-action
+          a.btn.btn-link(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.BUTTON.RECOVER")
+
+      .list-row.manage-row
+        .profile-preview
+          user-avatar.thumb.x48(data-image-token="vm.expertAvatar")
+
+          .profile-name
+            span hp computers
+
+        .manage-action.btn-handler
+          a.btn.btn-link(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.BUTTON.SUSPEND_ACTIVITY")
+          a.btn.btn-link(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.BUTTON.EDIT")
+
+  .consultation-section
+    header.entry-title
+      span(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATIONS.TITLE")
+      a.btn.btn-small.btn-primary(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.BUTTON.ADD_NEW")
+
+    .manage-consultation-list
+      .list-row.consultation-row
+        .consulation-title
+          span hp computers
+
+        .consultation-action
+          .consultation-company-profile
+            .profile-preview
+              user-avatar.thumb.x48(data-image-token="vm.expertAvatar")
+              div
+                span Consulting as employee
+                span.company-link LG Electronics
+
+          .btn-handler
+            a.btn.btn-link(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.BUTTON.DELETE")
+            a.btn.btn-link(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.BUTTON.EDIT")
