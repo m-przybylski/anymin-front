@@ -4,7 +4,10 @@
 .load-more-results-container
   display: flex
   justify-content: space-between
-  padding: 24px 16px
+  padding: 24px 0
+
+  +lgm
+    padding: 24px 16px
 
   span
     +inputLabel
@@ -12,4 +15,3 @@
 
   a
     text-align: right
-

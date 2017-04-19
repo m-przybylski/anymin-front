@@ -1,13 +1,17 @@
 import * as angular from 'angular'
 import './expert.sass'
-import dashboardExpertActivitiesModule from './activities/activities'
-import {ExpertController} from './expert.controller'
-import dashboardExpertComplainsModule from './complains/complains'
+import {ExpertController} from './expert.controller';
+import dashboardExpertActivitiesModule from './activities/activities';
+import dashboardExpertEmployeesModule from './employees/employees';
+import dashboardExpertComplainsModule from './complains/complains';
+import expertNavigationModule from '../../../common/components/dashboard/expert/navigation/navigation';
 
 const expertDashboardModule = angular.module('profitelo.controller.dashboard.expert', [
   'ui.router',
   'ngTouch',
+  expertNavigationModule,
   dashboardExpertActivitiesModule,
+  dashboardExpertEmployeesModule,
   dashboardExpertComplainsModule
 ])
 .config(($stateProvider: ng.ui.IStateProvider) => {

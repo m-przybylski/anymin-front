@@ -1,0 +1,20 @@
+.expert-employees
+  .employees-list-container
+    .list-row
+      .employee-informations
+        pro-checkbox(
+          id="idEmployee"
+          data-ng-model="$ctrl.isChecked"
+        )
+        .profile-preview
+          .thumb.x48
+            user-avatar(data-ng-src="#")
+        .employee-details
+          .employee-name-container
+            span Tomek Bolek
+          .employee-consultation-count-container
+            span 1 kosultacja
+
+      .employee-buttons-container
+        a.btn.btn-link(data-translate="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.DELETE_BUTTON")
+        a.bnt.btn-link(data-translate="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEES.INVITATION_BUTTON")
