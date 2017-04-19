@@ -1,0 +1,132 @@
+.notifications
+  .email-settings-container
+    header.entry-title
+      span(data-translate="DASHBOARD.SETTINGS.NOTIFICATIONS.EMAIL_SETTINGS.HEADER")
+
+    .settings-section
+      header.sub-header
+        span(data-translate="DASHBOARD.SETTINGS.NOTIFICATIONS.COMPLAINS_SETTINGS.HEADER")
+        span(data-translate="DASHBOARD.SETTINGS.NOTIFICATIONS.CLIENT_SETTINGS.HEADER")
+
+      .options-container
+        radio-btn(
+          data-id="email-complains-option-one"
+          data-name="email-complains-option-one"
+          data-value="email-complains-option-one"
+          data-label="{{ 'DASHBOARD.SETTINGS.NOTIFICATIONS.COMPLAINS_SETTINGS.OPTION_ONE' | translate }}"
+        )
+        radio-btn(
+          data-id="email-complains-option-two"
+          data-name="email-complains-option-two"
+          data-value="email-complains-option-two"
+          data-label="{{ 'DASHBOARD.SETTINGS.NOTIFICATIONS.COMPLAINS_SETTINGS.OPTION_TWO' | translate }}")
+
+    .settings-section
+      header.sub-header
+        span(data-translate="DASHBOARD.SETTINGS.NOTIFICATIONS.PAYOUTS_SETTINGS.HEADER")
+        span(data-translate="DASHBOARD.SETTINGS.NOTIFICATIONS.EXPERT_AND_COMPANY_SETTINGS.HEADER")
+
+      .options-container
+        pro-checkbox(
+          data-id="email-payouts-option-one"
+          data-name="email-payouts-option-one"
+          data-label="{{ 'DASHBOARD.SETTINGS.NOTIFICATIONS.PAYOUTS_SETTINGS.OPTION_ONE' | translate }}"
+          data-ng-model="vm.ngModel")
+        pro-checkbox(
+          data-id="email-payouts-option-two"
+          data-name="email-payouts-option-two"
+          data-label="{{ 'DASHBOARD.SETTINGS.NOTIFICATIONS.PAYOUTS_SETTINGS.OPTION_TWO' | translate }}"
+          data-ng-model="vm.ngModel")
+
+    .settings-section
+      header.sub-header
+        span(data-translate="DASHBOARD.SETTINGS.NOTIFICATIONS.ACCESIBILITY_SETTINGS.HEADER")
+        span(data-translate="DASHBOARD.SETTINGS.NOTIFICATIONS.EXPERT_SETTINGS.HEADER")
+
+      .options-container
+        pro-checkbox(
+          data-id="email-accesibility-option-one"
+          data-name="email-accesibility-option-one"
+          data-label="{{ 'DASHBOARD.SETTINGS.NOTIFICATIONS.ACCESIBILITY_SETTINGS.OPTION_ONE' | translate }}"
+          data-ng-model="vm.ngModel")
+        pro-checkbox(
+          data-id="email-accesibility-option-two"
+          data-name="email-accesibility-option-two"
+          data-label="{{ 'DASHBOARD.SETTINGS.NOTIFICATIONS.ACCESIBILITY_SETTINGS.OPTION_TWO' | translate }}"
+          data-ng-model="vm.ngModel")
+        pro-checkbox(
+          data-id="email-accesibility-option-three"
+          data-name="email-accesibility-option-three"
+          data-label="{{ 'DASHBOARD.SETTINGS.NOTIFICATIONS.ACCESIBILITY_SETTINGS.OPTION_THREE' | translate }}"
+          data-ng-model="vm.ngModel")
+
+    .settings-section
+      header.sub-header
+        span(data-translate="DASHBOARD.SETTINGS.NOTIFICATIONS.EMPLOYEES_SETTINGS.HEADER")
+        span(data-translate="DASHBOARD.SETTINGS.NOTIFICATIONS.COMPANY_SETTINGS.HEADER")
+
+      .options-container
+        pro-checkbox(
+          data-id="email-emplpoyees-option-one"
+          data-name="email-emplpoyees-option-one"
+          data-label="{{ 'DASHBOARD.SETTINGS.NOTIFICATIONS.EMPLOYEES_SETTINGS.OPTION_ONE' | translate }}"
+          data-ng-model="vm.ngModel")
+
+  .web-settings-container
+    header.entry-title
+      span(data-translate="DASHBOARD.SETTINGS.NOTIFICATIONS.WEB_SETTINGS.HEADER")
+
+    .settings-section
+      header.sub-header
+        span(data-translate="DASHBOARD.SETTINGS.NOTIFICATIONS.PAYOUTS_SETTINGS.HEADER")
+
+      .options-container
+        pro-checkbox(
+          data-id="web-payouts-option-one"
+          data-name="web-payouts-option-one"
+          data-label="{{ 'DASHBOARD.SETTINGS.NOTIFICATIONS.COMPLAINS_SETTINGS.OPTION_ONE' | translate }}"
+          data-ng-model="vm.ngModel")
+        pro-checkbox(
+          data-id="web-payouts-option-two"
+          data-name="web-payouts-option-two"
+          data-label="{{ 'DASHBOARD.SETTINGS.NOTIFICATIONS.COMPLAINS_SETTINGS.OPTION_TWO' | translate }}"
+          data-ng-model="vm.ngModel")
+
+    .settings-section
+      header.sub-header
+        span(data-translate="DASHBOARD.SETTINGS.NOTIFICATIONS.ACCESIBILITY_SETTINGS.HEADER")
+        span(data-translate="")
+
+      .options-container
+        pro-checkbox(
+          data-id="web-accesibility-option-one"
+          data-name="web-accesibility-option-one"
+          data-label="{{ 'DASHBOARD.SETTINGS.NOTIFICATIONS.ACCESIBILITY_SETTINGS.OPTION_FOUR' | translate }}"
+          data-ng-model="vm.ngModel")
+        pro-checkbox(
+          data-id="web-accesibility-option-two"
+          data-name="web-accesibility-option-two"
+          data-label="{{ 'DASHBOARD.SETTINGS.NOTIFICATIONS.ACCESIBILITY_SETTINGS.OPTION_FIVE' | translate }}"
+          data-ng-model="vm.ngModel")
+        pro-checkbox(
+          data-id="web-accesibility-option-three"
+          data-name="web-accesibility-option-three"
+          data-label="{{ 'DASHBOARD.SETTINGS.NOTIFICATIONS.ACCESIBILITY_SETTINGS.OPTION_SIX' | translate }}"
+          data-ng-model="vm.ngModel")
+        pro-checkbox(
+          data-id="web-accesibility-option-four"
+          data-name="web-accesibility-option-four"
+          data-label="{{ 'DASHBOARD.SETTINGS.NOTIFICATIONS.ACCESIBILITY_SETTINGS.OPTION_SEVEN' | translate }}"
+          data-ng-model="vm.ngModel")
+
+    .settings-section
+      header.sub-header
+        span(data-translate="DASHBOARD.SETTINGS.NOTIFICATIONS.EMPLOYEES_SETTINGS.HEADER")
+        span(data-translate="DASHBOARD.SETTINGS.NOTIFICATIONS.COMPANY_SETTINGS.HEADER")
+
+      .options-container
+        pro-checkbox(
+          data-id="web-employees-option-one"
+          data-ng-name="web-employees-option-one"
+          data-label="{{ 'DASHBOARD.SETTINGS.NOTIFICATIONS.EMPLOYEES_SETTINGS.OPTION_TWO' | translate }}"
+          data-ng-model="vm.ngModel")
