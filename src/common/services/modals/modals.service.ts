@@ -36,6 +36,7 @@ import {
   ExpertPayoutCompanyModalController,
   IExpertPayoutCompanyModalScope
 } from '../../components/dashboard/expert/activities/modals/payout-company/payout-company.controller'
+import {IExpertInviteEmployeesControllerScope} from '../../components/dashboard/expert/activities/modals/invite-employees/invite-employees.controller'
 
 // TODO add types for dialogScope Scopes
 export class ModalsService {
@@ -333,5 +334,18 @@ export class ModalsService {
       scope: dialogScope
     })
   }
+
+  public createExpertInviteEmployeesModal = () => {
+    const dialogScope: IExpertInviteEmployeesControllerScope =
+      <IExpertInviteEmployeesControllerScope>this.$rootScope.$new(true)
+
+    return this.dialogService.openDialog({
+      controllerAs: 'vm',
+      controller: 'expertInviteEmployees',
+      template: require('common/components/dashboard/expert/activities/modals/invite-employees/invite-employees.pug')(),
+      scope: dialogScope
+    })
+  }
+
 
 }

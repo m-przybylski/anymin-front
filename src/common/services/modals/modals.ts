@@ -26,6 +26,7 @@ import '../../components/interface/multiselect/multiselect'
 import callSummaryModule from '../call-summary/call-summary'
 import '../../components/interface/preloader/preloader'
 import '../../components/dashboard/expert/activities/modals/consultation-details/consultation-details'
+import expertInviteEmployeesModule from '../../components/dashboard/expert/activities/modals/invite-employees/invite-employees'
 
 const modalsModule = angular.module('profitelo.services.modals', [
   dialogModule,
@@ -48,7 +49,8 @@ const modalsModule = angular.module('profitelo.services.modals', [
   'profitelo.components.dashboard.settings.modals.payments.edit-company-invoice',
   'profitelo.components.dashboard.settings.modals.payouts.payouts-pay-pal',
   'profitelo.components.profile.profile-header.profile-gallery.modals.preview',
-  'profitelo.components.dashboard.expert.activities.modals.consultation-details'
+  'profitelo.components.dashboard.expert.activities.modals.consultation-details',
+  expertInviteEmployeesModule
 ])
 .service('modalsService', ModalsService)
   .name
