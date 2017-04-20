@@ -2,7 +2,7 @@
   .consultation-section
     .consultation-details
       .consultation-price.price-section
-        span(data-ng-bind-html="::$ctrl.service.details.price | money")
+        span(data-ng-bind-html="::$ctrl.service.price | money")
         span.time(data-translate='HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE')
 
       ul.consultation-details-info
@@ -19,7 +19,7 @@
 
     .consultation-title
       h3
-        span {{ $ctrl.service.details.name }}
+        span {{ $ctrl.service.name }}
 
     tags-list(data-tags="$ctrl.tags")
 
