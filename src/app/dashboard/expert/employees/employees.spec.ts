@@ -6,7 +6,7 @@ import {DashboardExpertEmployeesController} from './employees.controller';
 describe('Unit tests: dashboardExpertEmployeesController >', () => {
   describe('Testing Controller: dashboardExpertEmployeesController', () => {
 
-    let DashboardExpertEmployeesController: DashboardExpertEmployeesController
+    let dashboardExpertEmployeesController: DashboardExpertEmployeesController
 
     const expertEmployees = {
       employees: []
@@ -16,8 +16,8 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
       angular.mock.module(dashboardExpertEmployeesModule)
 
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _$state_: ng.ui.IStateService) => {
-        DashboardExpertEmployeesController =
-          $controller<DashboardExpertEmployeesController>('dashboardExpertEmployeesController', {
+        dashboardExpertEmployeesController =
+          $controller(DashboardExpertEmployeesController, {
             $state: _$state_,
             $scope: $rootScope.$new(),
             expertEmployees: expertEmployees
@@ -26,7 +26,7 @@ describe('Unit tests: dashboardExpertEmployeesController >', () => {
     })
 
     it('should exists', () => {
-      expect(!!DashboardExpertEmployeesController).toBe(true)
+      expect(!!dashboardExpertEmployeesController).toBe(true)
     })
 
   })

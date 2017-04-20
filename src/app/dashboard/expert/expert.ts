@@ -5,6 +5,7 @@ import dashboardExpertActivitiesModule from './activities/activities'
 import dashboardExpertEmployeesModule from './employees/employees'
 import dashboardExpertComplainsModule from './complains/complains'
 import expertNavigationModule from '../../../common/components/dashboard/expert/navigation/navigation'
+import dashboardExpertInvoicesModule from './invoices/invoices'
 import dashboardExpertManageProfileModule from './manage-profile/manage-profile'
 
 const expertDashboardModule = angular.module('profitelo.controller.dashboard.expert', [
@@ -14,6 +15,7 @@ const expertDashboardModule = angular.module('profitelo.controller.dashboard.exp
   dashboardExpertActivitiesModule,
   dashboardExpertEmployeesModule,
   dashboardExpertComplainsModule,
+  dashboardExpertInvoicesModule,
   dashboardExpertManageProfileModule
 ])
 .config(($stateProvider: ng.ui.IStateProvider) => {

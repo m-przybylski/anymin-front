@@ -1,0 +1,23 @@
+.invoices
+  header.entry-title
+    span(data-translate="DASHBOARD.EXPERT_ACCOUNT.INVOICES.COMPANY_SECTION.HEADER")
+    a.btn.btn-primary.btn-small(data-translate="DASHBOARD.EXPERT_ACCOUNT.INVOICES.CHANGE_BUTTON")
+
+  .list-row.company-details
+    p The Great Company
+    p 123-45-56-566
+    p ul. Kolejowa 10, 60-716 Poznań, Polska
+
+  header.entry-title(data-ng-if="vm.areInvoices")
+    span(data-translate="DASHBOARD.EXPERT_ACCOUNT.INVOICES.INVOICES_SECTION.HEADER")
+
+  expert-invoice(data-ng-if="vm.areInvoices")
+
+  no-content-message(
+    data-ng-if="!vm.areInvoices"
+    data-icon-src="assets/images/profitelo_icons/icon_expert_no_invoices.png"
+    data-message-title="DASHBOARD.EXPERT_ACCOUNT.INVOICES.NO_INVOICES.HEADER")
+
+  .load-more-results-container(data-ng-if="vm.areInvoices")
+    span Pokazuję od 1 do 8 z 28 aktywności
+    a.btn.btn-link(data-translate="DASHBOARD.EXPERT.ACTIVITIES.SHOW_MORE_RESULTS")
