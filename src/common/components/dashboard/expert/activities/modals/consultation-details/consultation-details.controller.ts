@@ -66,12 +66,12 @@ export class ExpertConsultationDetailsController implements ng.IController {
     this.expertAvatar = expertAvatarFileId ? this.urlService.resolveFileUrl(expertAvatarFileId) : undefined
     this.expertName = this.callDetails.expertProfile.expertDetails!.name
     this.recommendedTags = this.callDetails.recommendedTags
-    this.serviceName = this.callDetails.service.details!.name
+    this.serviceName = this.callDetails.service.name
     this.serviceId = this.callDetails.service.id
     this.callCost = this.callDetails.serviceUsageDetails.callCost
     this.startedAt = this.callDetails.serviceUsageDetails.startedAt
     this.callDuration = this.callDetails.serviceUsageDetails.callDuration
-    this.callCostPerMinute = this.callDetails.service.details!.price
+    this.callCostPerMinute = this.callDetails.service.price
     this.isRecommended = this.callDetails.isRecommended
     this.isRecommendable = this.callDetails.isRecommendable
     this.serviceTags = serviceTags

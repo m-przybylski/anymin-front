@@ -36,7 +36,7 @@ function controller($scope: ng.IScope, $filter: IFilterService,
       listItem.service), item => item.id)
 
     return mappedList.map(service => ({
-      name: service.details.name,
+      name: service.name,
       value: service.id
     }))
   }

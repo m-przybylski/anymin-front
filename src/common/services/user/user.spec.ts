@@ -4,34 +4,16 @@ import userModule from './user'
 import eventsModule from '../events/events'
 import sessionModule from '../session/session'
 import {AccountDetails, AccountLogin} from 'profitelo-api-ng/model/models'
+import IPromise = angular.IPromise
 describe('Unit testing: profitelo.services.userService >', () => {
   describe('for profitelo.services.userService >', () => {
 
     let userService: UserService
     let rootScope: ng.IRootScopeService
     let q: ng.IQService
-    let resolverParam: any
+    let resolverParam: IPromise<{account: AccountDetails}>
     const accountDetails: AccountDetails = {
-      hasMobilePin: true,
-      permissions: [],
-      countryISO: 'PLN',
-      msisdn: '+48987654321',
-      registeredAt: 12121996,
-      id: 'dgklng;kggerklt54545',
-      isClientCompany: true,
-      currency: 'PLN',
-      isCompany: true,
-      isExpert: true,
-      hasPassword: true,
-      doesMsisdnMatchCountry: true,
-      isBlocked: false,
-      protectedViews: [],
-      settings: {
-        isAnonymous: true,
-        nickname: 'Janek Dzbanek'
-      },
-
-    }
+    } as AccountDetails
 
     const eventsService = {
       emit: (param: string) => {
@@ -87,7 +69,7 @@ describe('Unit testing: profitelo.services.userService >', () => {
 
     it('should throw error', () => {
       resolverParam = q.resolve({})
-      expect(function() {
+      expect(() => {
         userService.getUser(false)
         rootScope.$digest()
       }).toThrowError()

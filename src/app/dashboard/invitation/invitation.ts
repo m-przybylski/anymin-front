@@ -46,7 +46,7 @@ function config($stateProvider: ng.ui.IStateProvider) {
               profileInvitations.forEach((profile) => {
                 profile.services.forEach((service) => {
                   // FIXME
-                  (<any>service.details).tags = _.head(
+                  (<any>service).tags = _.head(
                     _.filter(servicesTags, (serviceTags) => service.id === serviceTags.serviceId)).tags
                 })
               })

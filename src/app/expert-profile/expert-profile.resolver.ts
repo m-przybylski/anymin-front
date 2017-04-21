@@ -40,7 +40,7 @@ export class ExpertProfileResolver {
     }
 
     const resolveCompanyProfile = () =>
-      this.ViewsApi.getExpertProfileRoute(stateParams.profileId)
+      this.ViewsApi.getWebExpertProfileRoute(stateParams.profileId)
         .then((res) => handleExpertResponse(res))
         .catch(handleExpertResponseError)
 

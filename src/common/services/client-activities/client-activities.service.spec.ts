@@ -27,14 +27,14 @@ describe('Unit testing: profitelo.services.client-activities-service >', () => {
 
     it('should authenticate', inject(($q: ng.IQService, $rootScope: IRootScopeService, ViewsApi: ViewsApi) => {
 
-      ViewsApi.getDashboardClientActivitiesRoute = () => {
+      ViewsApi.getDashboardActivitiesRoute = () => {
         return $q.resolve({})
       }
 
-      spyOn(ViewsApi, 'getDashboardClientActivitiesRoute').and.callThrough()
+      spyOn(ViewsApi, 'getDashboardActivitiesRoute').and.callThrough()
       clientActivitiesService.resolve()
       $rootScope.$digest()
-      expect(ViewsApi.getDashboardClientActivitiesRoute).toHaveBeenCalled()
+      expect(ViewsApi.getDashboardActivitiesRoute).toHaveBeenCalled()
     }))
 
     it('setClientActivitiesParam', () => {

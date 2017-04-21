@@ -274,7 +274,7 @@ export class CallService {
     })
     this.call.onLeft(this.onExpertCallEnd)
 
-    this.createTimer(serviceInvitationTuple.service.details!.price, this.serviceFreeMinutesCount)
+    this.createTimer(serviceInvitationTuple.service.price, this.serviceFreeMinutesCount)
     this.startTimer()
 
     this.hangupFunction = this.expertHangupCall
@@ -391,7 +391,7 @@ export class CallService {
     const agentId = serviceUsageRequest.agentId
 
     this.serviceId = _service.id
-    this.createTimer(_service.details!.price, this.serviceFreeMinutesCount)
+    this.createTimer(_service.price, this.serviceFreeMinutesCount)
 
     this.callbacks.notify(CallService.events.onClientCallPending, {
       expert: serviceUsageRequest.expert,

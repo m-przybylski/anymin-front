@@ -1,4 +1,3 @@
-import * as angular from 'angular'
 import {ModalsService} from '../../../../../../services/modals/modals.service'
 import {UrlService} from '../../../../../../services/url/url.service'
 import {GetActivity} from 'profitelo-api-ng/model/models'
@@ -15,12 +14,10 @@ export class ClientActivityComponentController implements ng.IController, IClien
   }
 
   $onInit() {
-    this.isCallActivity = !!this.activity.sueProfileServiceTuple
+    this.isCallActivity = !!this.activity
 
-    if (angular.isDefined(this.activity) && this.activity.sueProfileServiceTuple &&
-      this.activity.sueProfileServiceTuple.profile.expertDetails &&
-      this.activity.sueProfileServiceTuple.profile.expertDetails.avatar) {
-      this.imageUrl = this.urlService.resolveFileUrl(this.activity.sueProfileServiceTuple.profile.expertDetails.avatar)
+    if (this.activity.serviceUsageDetails && this.activity.serviceUsageDetails.expertAvatar) {
+      this.imageUrl = this.urlService.resolveFileUrl(this.activity.serviceUsageDetails.expertAvatar)
     } else {
       this.imageUrl = null
     }
@@ -29,7 +26,7 @@ export class ClientActivityComponentController implements ng.IController, IClien
   public openActivityDescription = () => {
 
     if (this.isCallActivity) {
-      const sueId = this.activity.sueProfileServiceTuple!.serviceUsageEvent.id
+      const sueId = this.activity.serviceUsageDetails!.serviceUsageEventId
       if (sueId) {
         this.modalsService.createClientSUEActivityDetailsModal(sueId)
       }
