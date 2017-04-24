@@ -1,4 +1,4 @@
-import {ServiceDetails, ServiceInvitation} from 'profitelo-api-ng/model/models'
+import {MoneyDto, ServiceInvitation} from 'profitelo-api-ng/model/models'
 
 export interface Service {
   id: string
@@ -9,6 +9,7 @@ export interface Service {
   rating: number
   usageCounter: number
   usageDurationInSeconds: number
-  details: ServiceDetails
   createdAt: Date
+  name: string
+  price: MoneyDto
 }

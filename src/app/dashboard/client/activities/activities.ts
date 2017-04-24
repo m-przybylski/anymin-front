@@ -1,5 +1,5 @@
 import * as angular from 'angular'
-import {MoneyDto, GetActivity, GetExpertServiceTuple, GetClientActivities} from 'profitelo-api-ng/model/models'
+import {MoneyDto, GetActivity} from 'profitelo-api-ng/model/models'
 import {ClientActivitiesService} from '../../../../common/services/client-activities/client-activities.service'
 import filtersModule from '../../../../common/filters/filters'
 import 'common/components/dashboard/client/activities/client-activities/activity/activity'
@@ -13,28 +13,20 @@ export class DashboardClientActivitiesController {
 
   public balance: MoneyDto
   public activities: Array<GetActivity>
-  public expertServiceTuples: Array<GetExpertServiceTuple>
   public isSearchLoading: boolean = false
   public isParamChange: boolean = false
   public isMoreResults: boolean = false
   public isError: boolean = false
   public filters: {
     activityTypes: Array<string>
-    expertServiceTuples: Array<GetExpertServiceTuple>
   }
   public queryParams = {}
 
   /* @ngInject */
   constructor($scope: ng.IScope, $timeout: ng.ITimeoutService,
-              clientActivities: GetClientActivities, private clientActivitiesService: ClientActivitiesService) {
+              clientActivities: GetActivity[], private clientActivitiesService: ClientActivitiesService) {
 
-    this.activities = clientActivities.activities
-    this.balance = clientActivities.balance
-    this.expertServiceTuples = clientActivities.expertServiceTuples
-    this.filters = {
-      activityTypes: clientActivities.activityTypes,
-      expertServiceTuples: clientActivities.expertServiceTuples
-    }
+    this.activities = clientActivities
 
     $scope.$on('$destroy', () => {
       clientActivitiesService.clearQueryParam()
@@ -63,19 +55,12 @@ export class DashboardClientActivitiesController {
       }
     })
 
-    this.isMoreResults = this.isMoreResultsAvailable(clientActivities.activities, 10)
+    this.isMoreResults = this.isMoreResultsAvailable(clientActivities, 10)
     if (this.isMoreResults) {
-      clientActivities.activities.pop()
+      clientActivities.pop()
     }
 
-    this.activities = clientActivities.activities
-
-    this.balance = clientActivities.balance
-    this.expertServiceTuples = clientActivities.expertServiceTuples
-    this.filters = {
-      activityTypes: clientActivities.activityTypes,
-      expertServiceTuples: clientActivities.expertServiceTuples
-    }
+    this.activities = clientActivities
 
   }
 

@@ -220,7 +220,7 @@ angular.module('profitelo.controller.dashboard.service-provider.consultation-ran
               }).then((servicesTags) => {
                 profileWithServices.services.forEach((service) => {
                   // FIXME remove any
-                  (<any>service.details).tags = _.head(
+                  (<any>service).tags = _.head(
                     _.filter(servicesTags, (serviceTags) => service.id === serviceTags.serviceId)).tags
                 })
                 _deferred.resolve(profileWithServices)

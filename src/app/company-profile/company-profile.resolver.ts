@@ -50,7 +50,7 @@ export class CompanyProfileResolver {
     }
 
     const resolveCompanyProfile = () =>
-      this.ViewsApi.getOrganizationProfileRoute(stateParams.profileId)
+      this.ViewsApi.getWebOrganizationProfileRoute(stateParams.profileId)
         .then((res) => handleCompanyResponse(res))
         .catch(handleCompanyResponseError)
 

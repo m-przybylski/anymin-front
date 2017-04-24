@@ -73,7 +73,7 @@ describe('Unit testing: profitelo.resolvers.expert-profile', () => {
     })
 
     it('should _handle experts response error', () => {
-      ViewsApiMock.getExpertProfileRoute(500, stateParams.profileId)
+      ViewsApiMock.getWebExpertProfileRoute(500, stateParams.profileId)
 
       const resolver: any = AppExpertProfileResolver.resolve(stateParams)
       $httpBackend.flush()
@@ -82,7 +82,7 @@ describe('Unit testing: profitelo.resolvers.expert-profile', () => {
 
     it('should return sorted services ', inject(($rootScope: ng.IRootScopeService) => {
       // FIXME type
-      ViewsApiMock.getExpertProfileRoute(200, stateParams.profileId, <any>mockResponse)
+      ViewsApiMock.getWebExpertProfileRoute(200, stateParams.profileId, <any>mockResponse)
 
       let profile: GetExpertProfile | null = null
 

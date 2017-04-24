@@ -70,7 +70,7 @@ describe('Unit testing: profitelo.resolvers.company-profile', () => {
     })
 
     it('should _handle company response error', () => {
-      ViewsApiMock.getOrganizationProfileRoute(500, stateParams.profileId)
+      ViewsApiMock.getWebOrganizationProfileRoute(500, stateParams.profileId)
 
       const resolver: any = AppCompanyProfileResolver.resolve(stateParams)
       $httpBackend.flush()
@@ -78,7 +78,7 @@ describe('Unit testing: profitelo.resolvers.company-profile', () => {
     })
 
     it('should return sorted services ', () => {
-      ViewsApiMock.getOrganizationProfileRoute(200, stateParams.profileId, mockResponse)
+      ViewsApiMock.getWebOrganizationProfileRoute(200, stateParams.profileId, mockResponse)
 
       const resolver: any = AppCompanyProfileResolver.resolve(stateParams)
       $httpBackend.flush()

@@ -41,13 +41,12 @@ describe('Unit testing: profitelo.services.call >', () => {
         ownerEmployee: false,
         rating: 0,
         status: GetService.StatusEnum.VERIFIED,
-        details: {
-          name: '',
-          price: {
-            amount: 100,
-            currency: 'PLN'
-          }
+        name: '',
+        price: {
+          amount: 100,
+          currency: 'PLN'
         }
+
       },
       tags: [],
       expert: {
@@ -174,27 +173,27 @@ describe('Unit testing: profitelo.services.call >', () => {
 
     it('should startCall with error and show service unavailable', inject(
       ($q: ng.IQService, $rootScope: IRootScopeService, communicatorService: CommunicatorService, ServiceApi: ServiceApi) => {
-      const serviceId = '1'
-      const err = 'error'
+        const serviceId = '1'
+        const err = 'error'
 
-      communicatorService.getClientSession = () => {
-        return {}
-      }
+        communicatorService.getClientSession = () => {
+          return {}
+        }
 
-      ServiceApi.addServiceUsageRequestRoute = (_x: any) => {
-        return $q.reject(err)
-      }
+        ServiceApi.addServiceUsageRequestRoute = (_x: any) => {
+          return $q.reject(err)
+        }
 
-      spyOn(modalsService, 'createServiceUnavailableModal')
+        spyOn(modalsService, 'createServiceUnavailableModal')
 
-      callService.callServiceId(serviceId).then((res) => {
-        expect(res).toEqual(<any>err)
-      })
+        callService.callServiceId(serviceId).then((res) => {
+          expect(res).toEqual(<any>err)
+        })
 
-      $rootScope.$digest()
+        $rootScope.$digest()
 
-      expect(modalsService.createServiceUnavailableModal).toHaveBeenCalled()
-    }))
+        expect(modalsService.createServiceUnavailableModal).toHaveBeenCalled()
+      }))
 
     it('should create direct call with error and log it', inject(
       ($q: ng.IQService, $log: ng.ILogService, $rootScope: IRootScopeService,

@@ -4,7 +4,7 @@ import {ExpertPayoutCompanyModalController, IExpertPayoutCompanyModalScope} from
 import expertPayoutCompanyModalModule from './payout-company'
 describe('Testing Controller: expertPayoutCompanyController', () => {
 
-  let expertPayoutCivilController: any
+  let expertPayoutCivilController: ExpertPayoutCompanyModalController
   let scope: IExpertPayoutCompanyModalScope
   const uibModalInstance = {
     dismiss: () => {

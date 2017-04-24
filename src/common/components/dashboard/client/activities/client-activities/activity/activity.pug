@@ -7,11 +7,11 @@
 
         .last-activity-about
           .last-activity-date
-            span  {{:: $ctrl.activity.sueProfileServiceTuple.serviceUsageEvent.startedAt | date : 'EEE d.MM.y'}}
+            span  {{:: $ctrl.activity.serviceUsageDetails.createdAt | date : 'EEE d.MM.y'}}
           status(data-complaint=":: $ctrl.activity.complaint" data-ng-show="::$ctrl.activity.complaint")
 
       .last-activity-description
-        h3 {{:: $ctrl.activity.sueProfileServiceTuple.service.name }}
+        h3 {{:: $ctrl.activity.serviceName }}
 
       .last-activity-profile
         .profile-preview
@@ -19,7 +19,7 @@
             img.user-avatar(src data-ng-src="{{ ::$ctrl.imageUrl }}")
 
           .profile-name
-            span {{:: $ctrl.activity.sueProfileServiceTuple.profile.expertDetails.name }}
+            span {{:: $ctrl.activity.serviceUsageDetails.expertName }}
 
         .price-small.price-section
           span(data-ng-bind-html=":: $ctrl.activity.financialOperation.operation | money")
@@ -31,7 +31,7 @@
 
         .last-activity-about
           .last-activity-date
-            span {{ ::$ctrl.activity.financialOperation.createdAt | date : "EEE d.MM.y" }}
+            span {{ ::$ctrl.activity.createdAt | date : "EEE d.MM.y" }}
 
       .money-activity-informations-container
         .last-activity-description

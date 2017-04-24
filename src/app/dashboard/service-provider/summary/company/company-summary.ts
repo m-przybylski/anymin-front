@@ -180,7 +180,7 @@ angular.module('profitelo.controller.dashboard.service-provider.summary.company'
               }).then((servicesTags) => {
 
                 profileWithServices.services.forEach((service) => {
-                  (<any>service.details).tags = _.head(
+                  (<any>service).tags = _.head(
                     _.filter(servicesTags, (serviceTags: any) => service.id === serviceTags.serviceId)).tags
                 })
                 _deferred.resolve(profileWithServices)
