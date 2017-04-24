@@ -1,0 +1,54 @@
+@import "../../../../../../../template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../../../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
+
+.expert-employee-details-modal
+  .modal-section
+    margin: 0 0 48px
+
+  .profile-preview
+    display: flex
+    flex-wrap: wrap
+
+    .profile-container
+      display: block
+
+      .profile-name
+        > span
+          +subHeader
+          color: $c-primary-txt
+
+        .status-title
+          +inputText
+          color: $c-success
+
+      .status-list
+        display: flex
+        align-items: center
+        margin: 0 0 0 8px
+
+    .languages-container
+      +paragraphTitle
+      display: flex
+      margin: 4px 0 0
+
+      span
+        margin: 0 4px 0 0
+
+  .entry-title
+    span
+      margin: 0 24px 0 0
+
+  .consultation-section
+    margin: 0 0 24px
+
+  .buttons-container
+    display: flex
+    justify-content: space-between
+
+    +xsm
+      justify-content: flex-end
+
+    a
+      &:first-child
+        margin: 0 24px 0 0
+
