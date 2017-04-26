@@ -37,6 +37,10 @@ import {
   IExpertPayoutCompanyModalScope
 } from '../../components/dashboard/expert/activities/modals/payout-company/payout-company.controller'
 import {
+  IEditExpertProfileScope,
+  EditExpertProfileController
+} from '../../components/dashboard/expert/manage-profile/modals/edit-expert-profile/edit-expert-profile.controller'
+import {
   ExpertEmployeeDetailsModalController,
   IExpertEmployeeDetailsModalScope
 } from '../../components/dashboard/expert/employees/modals/employee-details/employee-details.controller'
@@ -368,6 +372,18 @@ export class ModalsService {
       controllerAs: 'vm',
       controller: 'expertInviteEmployees',
       template: require('common/components/dashboard/expert/activities/modals/invite-employees/invite-employees.pug')(),
+      scope: dialogScope
+    })
+  }
+
+  public createManageProfileEditProfileModal = () => {
+    const dialogScope: IEditExpertProfileScope =
+      <IEditExpertProfileScope>this.$rootScope.$new(true)
+
+    return this.dialogService.openDialog({
+      controllerAs: 'vm',
+      controller: EditExpertProfileController,
+      template: require('common/components/dashboard/expert/manage-profile/modals/edit-expert-profile/edit-expert-profile.pug')(),
       scope: dialogScope
     })
   }

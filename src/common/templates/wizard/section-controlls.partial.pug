@@ -1,7 +1,7 @@
 .step(data-ng-show="queue.completedSteps >= order - 1"
 data-ng-class="{'step-done': queue.completedSteps >= order - 1 && queue.currentStep !== order, 'step-active': queue.currentStep === order}"
 id="{{order}}")
-  .container-medium
+  .container-big
     .div(data-ng-class="{'focus-layer': queue.completedSteps >= order - 1 && queue.currentStep !== order}" data-ng-click="hideDiv=true; onClick(order)")
 
     .title-step

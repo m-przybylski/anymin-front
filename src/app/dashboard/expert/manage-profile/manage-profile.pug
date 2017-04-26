@@ -23,7 +23,10 @@
 
         .manage-action.btn-handler
           a.btn.btn-link(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.BUTTON.SUSPEND_ACTIVITY")
-          a.btn.btn-link(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.BUTTON.EDIT")
+          a.btn.btn-link(
+            data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.BUTTON.EDIT"
+            data-ng-click=":: vm.openEditProfileModal()"
+          )
 
   .consultation-section
     header.entry-title

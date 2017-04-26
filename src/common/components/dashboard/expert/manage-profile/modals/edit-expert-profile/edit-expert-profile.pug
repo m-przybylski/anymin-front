@@ -1,0 +1,78 @@
+scrollable(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
+  top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="vm.onModalClose")
+  .modal-primary.container-big.edit-expert-profile
+    preloader(data-is-loading="vm.isLoading")
+      form(name="editProfileForm" novalidate)
+        .profile-avatar
+          user-avatar.thumb.x128
+            a.thumb-options.add-photo(data-ng-click="removePhoto()")
+              .icon.icon-plus-12
+
+            a.thumb-options.remove-photo(data-ng-if="vm.isAvatarUploaded" data-ng-click="removePhoto()")
+              .icon.icon-close-16
+
+        div
+          pro-input(
+            data-type="text"
+            data-label="{{:: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_NAME.TITLE' | translate}}"
+            data-placeholder="{{:: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_NAME.TITLE' | translate}}"
+            data-ng-model="vm.inputText"
+            data-ng-maxlength="{{vm.inputMaxLength}}"
+          )
+
+          .input-sign-counter
+            span.label(data-ng-show="vm.inputText.length === 0") {{ vm.inputText }}
+            span.label {{ vm.inputText.length }}
+            span.label  / {{ vm.inputMaxLength }} characters
+
+        div
+          pro-textarea(
+            data-label="{{:: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_DESCRIPTION.TITLE' | translate}}"
+            data-ng-maxlength="{{vm.inputMaxLength}}"
+            data-placeholder="{{:: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_DESCRIPTION.TITLE' | translate}}"
+            data-ng-model="vm.textareaDescription"
+          )
+
+          .input-sign-counter
+            span.label(data-ng-show="vm.description.length === 0") {{ vm.textareaDescription }}
+            span.label {{ vm.textareaDescription.length }}
+            span.label  / {{vm.inputMaxLength}} characters
+
+        div
+          input-dropdown-tag(
+            data-label="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.LANGUAGE.LABEL"
+            data-dictionary="vm.tagsMocks"
+            data-hint-label="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.LANGUAGE.HINT"
+            data-placeholder="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.LANGUAGE.PLACEHOLDER"
+          )
+
+        div
+          pro-service-external-links(
+            data-label="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.LINKS.LABEL"
+            data-hint="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.LINKS.HINT"
+            data-placeholder="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.LINKS.PLACEHOLDER"
+            data-order="6"
+            data-pro-model="vm.companyPathModel"
+          )
+
+        div
+          .files-uploaded-list
+            .file-item(data-ng-repeat="file in model.files track by $index" disable)
+              .file-preview
+                .thumb.x64
+                  img(src="{{file.file.name}}")
+
+              .file-info
+                span.file-name {{ file.file.name }}
+                span.file-size {{:: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.UPLOAD.FILE_SIZE' | translate }} 765mb
+
+              .file-action
+                span.icon.icon-trash-24(data-ng-click="removeFile(file)")
+
+            .file-item
+              pro-uploader(type="application/pdf,image/jpeg,image/png" files-uploaded="model.files" data-multiple data-ngf-pattern=".pdf,.jpg,.jpeg,.png" data-is-pending="isPending")
+
+
+  .modal-action
+    a.btn.btn-default(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_NAME.BUTTON.SAVE")
+
