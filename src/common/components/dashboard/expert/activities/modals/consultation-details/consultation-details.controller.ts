@@ -1,6 +1,6 @@
 import {UrlService} from '../../../../../../services/url/url.service'
 import {ViewsApi, ServiceApi} from 'profitelo-api-ng/api/api'
-import {MoneyDto, Tag, GetCallDetails} from 'profitelo-api-ng/model/models'
+import {MoneyDto, Tag, GetCallDetails, GetServiceTags} from 'profitelo-api-ng/model/models'
 
 export interface IExpertConsultationDetailsScope extends ng.IScope {
 }
@@ -18,13 +18,9 @@ export class ExpertConsultationDetailsController implements ng.IController {
   public callCost: MoneyDto
   public startedAt: Date
   public callDuration: number
-  public callCostPerMinute?: MoneyDto
   public isRecommended: boolean
-
-  public recommendedTag = [
-    {name: 'tagtest'},
-    {name: 'tagtetst2'}
-  ]
+  public sueId: string
+  public recommendedTag: Array<Tag>
   public isRecommendable: boolean
   private callDetails: GetCallDetails
 
@@ -32,7 +28,7 @@ export class ExpertConsultationDetailsController implements ng.IController {
     this.$uibModalInstance.dismiss('cancel')
 
   /* @ngInject */
-  constructor(private $log: ng.ILogService, $scope: IExpertConsultationDetailsScope,
+  constructor(private $log: ng.ILogService, private $scope: IExpertConsultationDetailsScope,
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, private ServiceApi: ServiceApi,
               private urlService: UrlService, ViewsApi: ViewsApi) {
 
@@ -57,7 +53,7 @@ export class ExpertConsultationDetailsController implements ng.IController {
     this.$log.error(err)
   }
 
-  private onServiceTags = (res: any) => {
+  private onServiceTags = (res: GetServiceTags[]) => {
     this.openExpertActivityModal(res[0] ? res[0].tags : [])
   }
 
@@ -65,13 +61,13 @@ export class ExpertConsultationDetailsController implements ng.IController {
     const expertAvatarFileId = this.callDetails.expertProfile.expertDetails!.avatar
     this.expertAvatar = expertAvatarFileId ? this.urlService.resolveFileUrl(expertAvatarFileId) : undefined
     this.expertName = this.callDetails.expertProfile.expertDetails!.name
+    this.sueId = this.$scope.$parent.sueId
     this.recommendedTags = this.callDetails.recommendedTags
     this.serviceName = this.callDetails.service.name
     this.serviceId = this.callDetails.service.id
     this.callCost = this.callDetails.serviceUsageDetails.callCost
     this.startedAt = this.callDetails.serviceUsageDetails.startedAt
     this.callDuration = this.callDetails.serviceUsageDetails.callDuration
-    this.callCostPerMinute = this.callDetails.service.price
     this.isRecommended = this.callDetails.isRecommended
     this.isRecommendable = this.callDetails.isRecommendable
     this.serviceTags = serviceTags

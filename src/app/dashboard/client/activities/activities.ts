@@ -1,106 +1,114 @@
 import * as angular from 'angular'
-import {MoneyDto, GetActivity} from 'profitelo-api-ng/model/models'
-import {ClientActivitiesService} from '../../../../common/services/client-activities/client-activities.service'
-import filtersModule from '../../../../common/filters/filters'
+import {MoneyDto, GetActivity, FinancialOperation, GetActivityFilters} from 'profitelo-api-ng/model/models'
 import 'common/components/dashboard/client/activities/client-activities/activity/activity'
 import 'common/components/interface/preloader-container/preloader-container'
 import 'common/components/dashboard/client/activities/no-activities/no-activities'
 import 'common/components/complaints/status/status'
-import 'common/components/dashboard/client/activities/client-activities/filters/filters'
-import clientActivitesModule from '../../../../common/services/client-activities/client-activities'
+import dashboardFiltersModule from '../../../../common/components/dashboard/shared/filters/filters'
+import {
+  DashboardActivitiesService
+} from '../../../../common/services/dashboard-activites/dashboard-activities.service'
+import dashboardActivitiesModule from '../../../../common/services/dashboard-activites/dashboard-activites'
+import {ActivitiesQueryParams} from '../../../../common/services/dashboard-activites/activities-query-params'
+import {TopAlertService} from '../../../../common/services/top-alert/top-alert.service'
 
 export class DashboardClientActivitiesController {
 
   public balance: MoneyDto
   public activities: Array<GetActivity>
-  public isSearchLoading: boolean = false
-  public isParamChange: boolean = false
+  public isSearchLoading: boolean = true
+  public isActivitiesHistory: boolean = false
   public isMoreResults: boolean = false
   public isError: boolean = false
-  public filters: {
-    activityTypes: Array<string>
-  }
-  public queryParams = {}
+  public filters: GetActivityFilters
+  public accountType = FinancialOperation.AccountTypeEnum.CLIENT
+
+  private activitiesQueryParam: ActivitiesQueryParams
+  private static queryLimit = 11
 
   /* @ngInject */
-  constructor($scope: ng.IScope, $timeout: ng.ITimeoutService,
-              clientActivities: GetActivity[], private clientActivitiesService: ClientActivitiesService) {
+  constructor(filtersData: GetActivityFilters, private topAlertService: TopAlertService, private $filter: ng.IFilterService,
+              private dashboardActivitiesService: DashboardActivitiesService, $timeout: ng.ITimeoutService) {
 
-    this.activities = clientActivities
-
-    $scope.$on('$destroy', () => {
-      clientActivitiesService.clearQueryParam()
-    })
-
-    clientActivitiesService.onActivitiesResults($scope, (error, results, queryParams) => {
+    this.activitiesQueryParam = new ActivitiesQueryParams
+    this.setBasicQueryParam(this.activitiesQueryParam)
+    this.getDashboardActivities(this.activitiesQueryParam)
+    .then((activities) => {
+      this.isActivitiesHistory = activities.length > 0
+      this.activities = activities
       $timeout(() => {
-        this.isSearchLoading = !results
-        this.isError = !!error
+        this.isSearchLoading = false
+        this.isError = false
       }, 400)
-
-      this.queryParams = queryParams
-      this.isParamChange = true
-
-      if (angular.isDefined(results)) {
-        this.isMoreResults = this.isMoreResultsAvailable(results.activities, queryParams.limit - 1)
-        if (this.isMoreResults) {
-          results.activities.pop()
-        }
-
-        if (queryParams.offset === 0) {
-          this.activities = results.activities
-        } else {
-          this.activities = this.activities.concat(results.activities)
-        }
-      }
     })
-
-    this.isMoreResults = this.isMoreResultsAvailable(clientActivities, 10)
-    if (this.isMoreResults) {
-      clientActivities.pop()
-    }
-
-    this.activities = clientActivities
-
+    this.filters = filtersData
   }
 
-  private isMoreResultsAvailable = (results: any, limit: number) => {
-    return results.length > limit
-  }
-
-  public sendRequestAgain = () => {
-    this.clientActivitiesService.setClientActivitiesParam(this.queryParams)
+  public sendRequestAgain = (activitiesQueryParams: ActivitiesQueryParams) => {
     this.isSearchLoading = true
+    this.getDashboardActivities(activitiesQueryParams).then((activities) => {
+      this.activities = activities
+      this.isSearchLoading = false
+      this.isError = false
+    })
   }
 
   public loadMoreActivities = () => {
-    this.clientActivitiesService.getMoreResults(this.activities.length)
+    this.dashboardActivitiesService.getDashboardActivities(this.activitiesQueryParam).then((activities) => {
+      this.activities.concat(activities)
+    })
+  }
+
+  public onSetFiltersParams = (activitiesQueryParams: ActivitiesQueryParams) => {
+    this.setBasicQueryParam(activitiesQueryParams)
+    this.getDashboardActivities(activitiesQueryParams)
+    .then((activities) => {
+      this.activitiesQueryParam = activitiesQueryParams
+      this.activities = activities
+    })
+  }
+
+  private getDashboardActivities = (activitiesQueryParams: ActivitiesQueryParams) => {
+    return this.dashboardActivitiesService.getDashboardActivities(activitiesQueryParams)
+    .catch((error) => {
+      this.isSearchLoading = false
+      this.isError = true
+      this.topAlertService.error({
+        message: this.$filter('translate')('INTERFACE.API_ERROR'),
+        timeout: 4
+      })
+      throw new Error('Can not get Client Activity List ' + error)
+    })
+  }
+
+  private setBasicQueryParam = (activitiesQueryParams: ActivitiesQueryParams) => {
+    activitiesQueryParams.setLimit(DashboardClientActivitiesController.queryLimit)
+    activitiesQueryParams.setOffset(0)
+    activitiesQueryParams.setAccountType(this.accountType)
   }
 
 }
 
 angular.module('profitelo.controller.dashboard.client.activities', [
   'ui.router',
-
-  filtersModule,
+  dashboardFiltersModule,
+  dashboardActivitiesModule,
   'profitelo.components.dashboard.client.activities.client-activity',
   'profitelo.components.interface.preloader-container',
   'profitelo.components.dashboard.client.activities.no-activities',
-  'profitelo.components.complaints.status',
-  'profitelo.components.dashboard.client.activities.client-activities.filters',
-  clientActivitesModule
+  'profitelo.components.complaints.status'
 ])
-  .config(function ($stateProvider: ng.ui.IStateProvider) {
-    $stateProvider.state('app.dashboard.client.activities', {
-      url: '/activities',
-      template: require('./activities.pug')(),
-      controller: 'DashboardClientActivitiesController',
-      controllerAs: 'vm',
-      resolve: {
-        /* istanbul ignore next */
-        clientActivities: (clientActivitiesService: ClientActivitiesService) =>
-          clientActivitiesService.resolve()
-      }
-    })
+.config(function ($stateProvider: ng.ui.IStateProvider) {
+  $stateProvider.state('app.dashboard.client.activities', {
+    url: '/activities',
+    template: require('./activities.pug')(),
+    controller: 'dashboardClientActivitiesController',
+    controllerAs: 'vm',
+    resolve: {
+      /* istanbul ignore next */
+      filtersData: (dashboardActivitiesService: DashboardActivitiesService) =>
+        dashboardActivitiesService.resolveFilters(FinancialOperation.AccountTypeEnum.CLIENT)
+    }
   })
-  .controller('DashboardClientActivitiesController', DashboardClientActivitiesController)
+})
+.controller('dashboardClientActivitiesController', DashboardClientActivitiesController)

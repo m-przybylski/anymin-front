@@ -1,7 +1,7 @@
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import IUnavailableServiceControllerParentScope = profitelo.components.communicator.modals.serviceUnavailable.IUnavailableServiceControllerParentScope
 import INoCreditsControllerParentScope = profitelo.components.communicator.modals.noCredits.INoCreditsControllerParentScope
-import {GetService, GetActivity} from 'profitelo-api-ng/model/models'
+import {GetService, SimpleFinancialOperation} from 'profitelo-api-ng/model/models'
 import {DialogService} from '../dialog/dialog.service'
 import {IClientCallParentControllerScope} from '../../components/communicator/modals/client-call/client-call'
 import {IConsultationSummaryClientParentControllerScope} from '../../components/communicator/modals/consultation-summary-client/consultation-summary-client'
@@ -146,7 +146,7 @@ export class ModalsService {
     })
   }
 
-  public createClientChargeDetailsModal = (financeActivityDetails: GetActivity) => {
+  public createClientChargeDetailsModal = (financeActivityDetails?: SimpleFinancialOperation) => {
     if (!financeActivityDetails) {
       throw new Error('Expected financeActivityDetails, got ' + financeActivityDetails)
     }

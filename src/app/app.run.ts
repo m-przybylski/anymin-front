@@ -20,7 +20,6 @@ export function AppRunFunction($rootScope: IRootScopeService, $log: ng.ILogServi
   $rootScope.$on('$locationChangeSuccess', () => {
     $anchorScroll()
   })
-
   $rootScope.$on('$stateChangeError', (event, _toState, _toParams, _fromState, _fromParams, error) => {
     $log.error(error)
     event.preventDefault()

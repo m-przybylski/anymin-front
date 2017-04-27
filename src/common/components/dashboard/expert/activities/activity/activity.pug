@@ -1,42 +1,42 @@
 .last-activities
-  .last-activities-container(data-ng-click=":: $ctrl.openActivityDescriptions()")
-    .list-row.call-activity(data-ng-if="$ctrl.isCallActivity")
-      .last-activity-details
-        .last-activity-icon
-          span.icon.icon-incoming-call-24
+  .container
+    .last-activities-container(data-ng-click=":: $ctrl.openActivityDescription()")
+      .list-row.call-activity(data-ng-if="$ctrl.isCallActivity")
+        .last-activity-details
+          .last-activity-icon
+            span.icon.icon-incoming-call-24
 
-        .last-activity-about
-          .last-activity-date
-            span 22.12.17r
+          .last-activity-about
+            .last-activity-date
+              span  {{:: $ctrl.activity.serviceUsageDetails.createdAt| date : 'EEE d.MM.y'}}
 
-      .last-activity-description
-        span Consumer psychology in the industrial and manufacturing equipment marketplace.
+        .last-activity-description
+          span {{:: $ctrl.activity.serviceName }}
 
-      .last-activity-profile
-        .profile-preview
-          .thumb.x48
-            user-avatar(src data-ng-src="#")
+        .last-activity-profile
+          .profile-preview(data-ng-if="$ctrl.isCompany")
+            .thumb.x32
+              user-avatar(data-image-token=":: $ctrl.activity.serviceUsageDetails.expertAvatar")
 
-          .profile-name
-            span Tomek Bolek
+            .profile-name
+              span {{:: $ctrl.activity.sueProfileServiceTuple.profile.expertDetails.name }}
 
-        .price-small.price-section
-          span.amount +12.55
-          span.currency PLN
+          .price-small
+            span(data-ng-bind-html=":: $ctrl.activity.financialOperation.operation | money")
 
     .list-row.money-activity(data-ng-if="!$ctrl.isCallActivity")
       .last-activity-details
         .last-activity-icon
           span.icon.icon-payout-24
 
-        .last-activity-about
-          .last-activity-date
-            span 12.12.17r
+          .last-activity-about
+            .last-activity-date
+              span {{ ::$ctrl.activity.createdAt | date : "EEE d.MM.y" }}
 
-      .money-activity-informations-container
-        .last-activity-description
-          span Payout
+        .money-activity-informations-container
+          .last-activity-description
+            span {{ ::'DASHBOARD_CLIENT.CHARGE_ACCOUNT_ACTIVITY_HEADER' | translate}}
 
-        .price-small.price-section
-          span.amount +322.11
-          span.currency PLN
+          .price-small
+            span +
+            span(data-ng-bind-html="::$ctrl.activity.financialOperation.operation | money")

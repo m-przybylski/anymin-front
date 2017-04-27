@@ -32,7 +32,7 @@ scrollable(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
             .details-tab-label
               span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.INCOME")
             .details-tab-content
-              .price-section(data-ng-bind-html="vm.callCostPerMinute | money")
+              .price-section(data-ng-bind-html="vm.callCost | money")
 
           .details-tab-row
             .details-tab-label
@@ -59,7 +59,8 @@ scrollable(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
               span {{ vm.callDuration | millisecondsToDatetime | date: 'HH:mm:ss' }}
 
 
-        tags-list(data-title="DASHBOARD.EXPERT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.RECOMMENDED_TAGS.TITLE" data-tags="vm.recommendedTag")
+        tags-list(data-title="DASHBOARD.EXPERT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.RECOMMENDED_TAGS.TITLE"
+        data-tags="vm.recommendedTag" data-ng-if='vm.isRecommended')
 
         collapse-btn.chat-history(data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.CHAT.BUTTON"
                 data-collapse-icon="icon-chat-24")

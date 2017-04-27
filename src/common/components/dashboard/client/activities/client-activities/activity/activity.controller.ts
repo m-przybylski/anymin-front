@@ -14,8 +14,7 @@ export class ClientActivityComponentController implements ng.IController, IClien
   }
 
   $onInit() {
-    this.isCallActivity = !!this.activity
-
+    this.isCallActivity = this.activity.activityType !== GetActivity.ActivityTypeEnum.FINANCIALTRANSACTION
     if (this.activity.serviceUsageDetails && this.activity.serviceUsageDetails.expertAvatar) {
       this.imageUrl = this.urlService.resolveFileUrl(this.activity.serviceUsageDetails.expertAvatar)
     } else {

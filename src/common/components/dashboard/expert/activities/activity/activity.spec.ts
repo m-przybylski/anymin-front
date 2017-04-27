@@ -3,7 +3,7 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService;
 import IScope = angular.IScope;
 import expertActivityModule from './activity'
 
-describe('Unit testing: profitelo.components.dashboard.client.activities.activity', () => {
+describe('Unit testing: profitelo.components.dashboard.expert.activities.activity', () => {
   return describe('for exertLastActivitiesList >', () => {
 
     let scope: IScope
@@ -11,7 +11,7 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.activit
     let compile: ng.ICompileService
     let componentController: ng.IComponentControllerService
     let component: any
-    let validHTML = '<expert-activity></expert-activity>'
+    let validHTML = '<expert-activity activity="{}"></expert-activity>'
 
     function create(html: string) {
       scope = rootScope.$new()
@@ -20,6 +20,10 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.activit
       scope.$digest()
       return compiledElement
     }
+
+    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
+      $provide.value('apiUrl', 'awesomeUrl/')
+    }))
 
     beforeEach(() => {
 

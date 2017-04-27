@@ -20,7 +20,21 @@ import * as angular from 'angular'
           dashboardSettingsSecurityController = $controller<DashboardSettingsSecurityController>('dashboardSettingsSecurityController', {
             $state: _$state_,
             $scope: $rootScope.$new(),
-            sessionsData: [],
+            sessionsData: [{
+              lastActivityAt: new Date(),
+              system: 'Windows',
+              apiKey: 'kkkkklllaaaa'
+            },
+              {
+                lastActivityAt: new Date(),
+                system: 'Windows',
+                apiKey: 'kkkkklllaaaa'
+              },
+              {
+                lastActivityAt: new Date(),
+                system: 'Windows',
+                apiKey: 'kkkkklllaaaa'
+              }],
             timeConstant: timeConstant,
             currentSession: {
             }
@@ -31,5 +45,6 @@ import * as angular from 'angular'
       it('should exists', () => {
         expect(!!dashboardSettingsSecurityController).toBe(true)
       })
+
     })
   })

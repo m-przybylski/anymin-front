@@ -5,10 +5,9 @@ import modalsModule from '../../../../common/services/modals/modals'
 import {UserService} from '../../../../common/services/user/user.service'
 import {AccountDetails} from 'profitelo-api-ng/model/models'
 import {ModalsService} from '../../../../common/services/modals/modals.service'
-import {UrlService} from '../../../../common/services/url/url.service'
 export class DashboardSettingsGeneralController implements ng.IController {
 
-  public avatarImageSource: string
+  public avatarImageSource?: string
   public nickname: string
   public phoneNumber: string
   public email?: string
@@ -16,10 +15,9 @@ export class DashboardSettingsGeneralController implements ng.IController {
   public unverifiedEmail?: string
   public showUnverifiedEmail: boolean
 
-  constructor(private modalsService: ModalsService, user: AccountDetails, private $state: ng.ui.IStateService,
-              private urlService: UrlService) {
+  constructor(private modalsService: ModalsService, user: AccountDetails, private $state: ng.ui.IStateService) {
     this.nickname = user.settings.nickname
-    this.avatarImageSource = this.urlService.resolveFileUrl(user.settings.avatar || '')
+    this.avatarImageSource = user.settings.avatar
     this.phoneNumber = user.msisdn
     this.email = user.email
     this.country = user.countryISO

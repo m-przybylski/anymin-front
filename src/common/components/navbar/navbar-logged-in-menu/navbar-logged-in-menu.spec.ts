@@ -1,18 +1,18 @@
 import * as angular from 'angular'
-import {NavbarComponentController} from './navbar.controller'
-import navbarModule from './navbar'
-import {INavbarComponentBindings} from './navbar'
+import {NavbarLoggedInMenuComponentController} from './navbar-logged-in-menu.controller'
+import {INavbarLoggedInMenuComponentBindings, default as navbarLoggedInMenuModule} from './navbar-logged-in-menu'
 
-describe('Unit testing: navbar', () => {
-  return describe('for navbar component >', () => {
+
+describe('Unit testing: navbar-logged-in-menu', () => {
+  return describe('for navbar-logged-in-menu component >', () => {
 
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
-    let component: NavbarComponentController
+    let component: NavbarLoggedInMenuComponentController
     let q: ng.IQService
-    let bindings: INavbarComponentBindings
+    let bindings: INavbarLoggedInMenuComponentBindings
     const validHTML =
-      '<navbar></navbar>'
+      '<navbar-logged-in-menu</navbar-logged-in-menu>'
 
     const userService = {
       getUser: () => {
@@ -20,17 +20,7 @@ describe('Unit testing: navbar', () => {
       }
     }
 
-    const window = {
-      pageYOffset: 20,
-    }
-
-    const document = {
-      bind: (_name: string, callback: (event: any) => void) => {
-        callback({target: 'asdasd'})
-      }
-    }
-
-    function create(html: string,  bindings: INavbarComponentBindings) {
+    function create(html: string,  bindings: INavbarLoggedInMenuComponentBindings) {
       const parentScope = rootScope.$new()
       const parentBoundScope = angular.extend(parentScope, bindings)
       const elem = angular.element(html)
@@ -41,14 +31,12 @@ describe('Unit testing: navbar', () => {
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('userService', userService)
-      $provide.value('styleConstant', {})
       $provide.value('topAlertService', {})
-      $provide.value('$window', window)
     }))
 
     beforeEach(() => {
 
-      angular.mock.module(navbarModule)
+      angular.mock.module(navbarLoggedInMenuModule)
 
       inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
               $componentController: ng.IComponentControllerService, $q: ng.IQService) => {
@@ -58,17 +46,14 @@ describe('Unit testing: navbar', () => {
         q = $q
 
         bindings = {
-          searchModel: 'sdfsdf'
         }
         const injectors = {
           userService: userService,
-          $element: create(validHTML, bindings),
-          $document: document,
-          $window: window
+          $element: create(validHTML, bindings)
         }
 
-        component = $componentController<NavbarComponentController, INavbarComponentBindings>(
-          'navbar', injectors, bindings)
+        component = $componentController<NavbarLoggedInMenuComponentController, INavbarLoggedInMenuComponentBindings>(
+          'navbarLoggedInMenu', injectors, bindings)
       })
     })
 
@@ -81,15 +66,6 @@ describe('Unit testing: navbar', () => {
       expect(el.html()).toBeDefined(true)
     })
 
-    it('should collapsed search', inject(() => {
-      component.onSearchCollapsed()
-      expect(component.isNavigationCollapsed).toBe(false)
-    }))
-
-    it('should collapsed search on mobile', inject(() => {
-      component.onMobileMenuCollapsed()
-      expect(component.isNavigationCollapsed).toBe(true)
-    }))
 
   })
 })

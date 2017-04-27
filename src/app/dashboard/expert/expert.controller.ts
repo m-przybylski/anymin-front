@@ -1,6 +1,8 @@
 export class ExpertController {
 
   /* @ngInject */
-  constructor() {}
+  constructor() {
+
+  }
 
 }

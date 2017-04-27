@@ -2,10 +2,10 @@ import * as angular from 'angular'
 import './expert.sass'
 import {ExpertController} from './expert.controller'
 import dashboardExpertActivitiesModule from './activities/activities'
-import dashboardExpertEmployeesModule from './employees/employees';
-import dashboardExpertComplainsModule from './complains/complains';
-import expertNavigationModule from '../../../common/components/dashboard/expert/navigation/navigation';
-import dashboardExpertManageProfileModule from './manage-profile/manage-profile';
+import dashboardExpertEmployeesModule from './employees/employees'
+import dashboardExpertComplainsModule from './complains/complains'
+import expertNavigationModule from '../../../common/components/dashboard/expert/navigation/navigation'
+import dashboardExpertManageProfileModule from './manage-profile/manage-profile'
 
 const expertDashboardModule = angular.module('profitelo.controller.dashboard.expert', [
   'ui.router',
@@ -13,7 +13,8 @@ const expertDashboardModule = angular.module('profitelo.controller.dashboard.exp
   expertNavigationModule,
   dashboardExpertActivitiesModule,
   dashboardExpertEmployeesModule,
-  dashboardExpertComplainsModule
+  dashboardExpertComplainsModule,
+  dashboardExpertManageProfileModule
 ])
 .config(($stateProvider: ng.ui.IStateProvider) => {
   $stateProvider.state('app.dashboard.expert', {
