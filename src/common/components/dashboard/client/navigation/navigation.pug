@@ -1,8 +1,16 @@
 .dashboard-navigation
   .container
-    nav.dashboard-nav
-      ul
-        li(data-ng-class="{'is-active': $ctrl.stateNames.favourites}")
-          a(data-translate="DASHBOARD.CLIENT.NAVIGATION.FAVOURITE_EXPERTS" data-ui-sref="app.dashboard.client.favourites")
-        li(data-ng-class="{'is-active': $ctrl.stateNames.activities}")
-          a(data-translate="DASHBOARD.CLIENT.NAVIGATION.ACTIVITIES" data-ui-sref="app.dashboard.client.activities")
+    div
+      nav.dashboard-nav
+        ul
+          li(data-ng-class="{'is-active': $ctrl.stateNames.favourites}")
+            a(data-translate="DASHBOARD.CLIENT.NAVIGATION.FAVOURITE_EXPERTS" data-ui-sref="app.dashboard.client.favourites")
+          li(data-ng-class="{'is-active': $ctrl.stateNames.activities}")
+            a(data-translate="DASHBOARD.CLIENT.NAVIGATION.ACTIVITIES" data-ui-sref="app.dashboard.client.activities")
+
+      .nav-payment
+        .amount-balance-container
+          span(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.ACCOUNT_BALANCE.TITLE").account-balance-title
+          span.account-balacnce(data-ng-bind-html="$ctrl.clientBalance | money ")
+        .payout-btn-container(data-ui-sref="app.dashboard.settings.payouts")
+          a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.PAYOUT_BUTTON.TITLE").btn.btn-small.btn-primary

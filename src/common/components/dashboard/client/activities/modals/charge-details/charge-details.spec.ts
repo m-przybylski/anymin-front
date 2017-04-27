@@ -21,9 +21,13 @@ namespace profitelo.components.dashboard.client.activities.modals.chargeDetails 
         scope.disconnectCall = () => {
         }
 
+
         clientChargeDetailsController = $controller('clientChargeDetailsController', {
           '$scope': scope,
-          '$uibModalInstance': uibModalInstance
+          '$uibModalInstance': uibModalInstance,
+          '$state': {
+
+          }
         })
       })
     })
