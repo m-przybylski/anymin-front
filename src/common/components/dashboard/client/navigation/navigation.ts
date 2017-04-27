@@ -1,3 +1,5 @@
+import * as angular from 'angular'
+import filtersModule from '../../../../filters/filters'
 (function() {
   /* @ngInject */
   function controller() {
@@ -10,13 +12,14 @@
     controller: controller,
     controllerAs: '$ctrl',
     bindings: {
-      stateNames: '<'
+      clientBalance: '<'
     }
   }
 
   angular.module('profitelo.components.dashboard.client.navigation', [
     'pascalprecht.translate',
-    'ui.router'
+    'ui.router',
+    filtersModule
   ])
     .component('clientNavigation', component)
 }())

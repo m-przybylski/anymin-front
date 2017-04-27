@@ -5,12 +5,15 @@ namespace profitelo.app.dashboard.client {
 
       let clientController: any
 
+      beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
+        $provide.value('apiUrl', 'awesomeUrl')
+      }))
+
       beforeEach(() => {
         angular.mock.module('profitelo.controller.dashboard.client')
         angular.mock.module('ui.router')
-        inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _$state_: ng.ui.IStateService) => {
+        inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
           clientController = $controller('clientController', {
-            $state: _$state_,
             $scope: $rootScope.$new()
           })
         })

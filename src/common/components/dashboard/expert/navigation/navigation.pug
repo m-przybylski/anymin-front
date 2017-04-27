@@ -6,12 +6,13 @@
           li(data-ui-sref-active="is-active" data-ui-sref="app.dashboard.expert.activities")
             a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.ACTIVITIES.TITLE")
           li
-            a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.MANAGE_PROFILE.TITLE")
+            a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.MANAGE_PROFILE.TITLE"
+            data-ui-sref="app.dashboard.expert.manage-profile")
           li.complain-count-container(data-ui-sref-active="is-active" data-ui-sref="app.dashboard.expert.complains")
             a
               | {{:: 'DASHBOARD.EXPERT_ACCOUNT.NAVBAR.COMPLAINS.TITLE' | translate }}
               span.complain-count +9
-          li
+          li(data-ui-sref-active="is-active"  data-ui-sref="app.dashboard.expert.employees")
             a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.EMPLOYES.TITLE")
           li
             a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.INVOICES.TITLE")
@@ -20,5 +21,5 @@
         .amount-balance-container
           span(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.ACCOUNT_BALANCE.TITLE").account-balance-title
           span.account-balacnce(data-ng-bind-html="$ctrl.clientBalance | money ")
-        .payout-btn-container
+        .payout-btn-container(data-ui-sref="app.dashboard.settings.payouts")
           a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.PAYOUT_BUTTON.TITLE").btn.btn-small.btn-primary
