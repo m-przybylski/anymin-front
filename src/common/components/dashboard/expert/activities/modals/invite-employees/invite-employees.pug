@@ -1,0 +1,40 @@
+scrollable(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
+  top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="vm.onModalClose")
+  .modal-primary.container-big.invite-employees
+    preloader(data-is-loading="vm.isLoading")
+      .modal-section
+        header.entry-title
+          span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.INVITE_EMPLOYESS.ADD_EMPLOYEE.TITLE")
+
+        pro-tags-dropdown(
+          data-pro-items="tags"
+          data-tag-label=""
+          data-pro-model="model.tags"
+          data-ng-click="onClick()"
+          data-tag-name-param="tagNameParam"
+          data-on-search="onSearch(search)"
+        )
+
+      .modal-section
+        header.entry-title
+          span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.INVITE_EMPLOYESS.CONSULTATIONS.TITLE")
+
+
+        .select-list
+          .select-list-item
+            .select-list-radio
+              pro-checkbox()
+
+            .select-list-content
+              .price-section
+                span 6,00 PLN/MIN
+
+              .consultation-title
+                span Tytul konsultacji dlugi ii jeszcze duzszy ja
+
+              tags-list(
+              data-tags="::vm.recommendedTag"
+              )
+
+        .invite-employees-action
+          a.btn.btn-default(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.INVITE_EMPLOYESS.BUTTON.SEND_INVITATIONS")

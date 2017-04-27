@@ -13,12 +13,25 @@
 
     .ui-select-container
       background: $c-white
-      padding: 12px 0
+      padding: 0
       min-height: inherit
-      border-radius: 3px
       background: none
-      border: 1px solid $c-lines
       position: relative
+      border: 0
+
+      > div
+        display: flex
+        flex-wrap: wrap
+
+        .ui-select-match
+          order: 1
+          flex: 1 0 100%
+
+        input
+          order: 0
+          flex: 1 0 100%
+          border-bottom: 1px solid $c-lines
+
 
       .ui-select-choices
         top: 100% !important
@@ -65,7 +78,6 @@
 
       .ui-select-match-item
         background: $c-background-2
-        border: 1px solid $c-lines
         padding: 0 16px
         display: inline-flex
         align-items: center

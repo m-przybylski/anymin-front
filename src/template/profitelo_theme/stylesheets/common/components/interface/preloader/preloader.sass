@@ -3,17 +3,26 @@
     opacity: 1
     transition: opacity 0.3s
     &.loader
-     opacity: 0
-     transition: none
+      opacity: 0
+      transition: none
 
   .balls-loader
     display: block
     position: fixed
+    display: flex
+    align-items: center
+    justify-content: center
     width: 100%
     top: 0
     left: 0
     margin: auto 0
     height: 100%
     content: ""
-    border-radius: 20px
-    background: transparent url('/assets/gifs/preloader.gif') no-repeat center center
+
+    span
+      width: 80px
+      height: 80px
+      border: 1px solid $c-lines
+      border-top-color: $c-primary
+      border-radius: 50%
+      animation: loader-rotate 1s linear infinite
