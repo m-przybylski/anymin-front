@@ -1,0 +1,30 @@
+@import "../../../../template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
+
+.invoices
+  header
+    span
+      margin: 0 32px 0 0
+
+  .company-details
+    display: block
+    margin: 0 0 48px
+
+    p
+      +paragraph
+      +default-font-regular
+
+.load-more-results-container
+  display: flex
+  justify-content: space-between
+  padding: 24px 0
+
+  +lgm
+    padding: 24px 16px
+
+  span
+    +inputLabel
+    color: $c-tertiary-txt
+
+  a
+    text-align: right
