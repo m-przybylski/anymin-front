@@ -1,0 +1,42 @@
+scrollable(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
+  top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="vm.onModalClose")
+  .modal-primary.container-big.expert-employee-details-modal
+    preloader(data-is-loading="vm.isLoading")
+      .modal-section
+        .profile-preview
+          .thumb.x96
+            user-avatar(data-image-token="")
+
+          .profile-container
+            .profile-name
+              span Tomek Bolek
+
+              .status-list
+                span.status.availability
+                  span.icon.icon-success-12
+                  span.status-title avaible
+
+            .languages-container
+              span(data-translate="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEE.DETAILS.LANGUAGES")
+              ul.language
+                li
+                  span polski
+                li
+                  span angielski
+
+      .modal-section
+        .consultation-section
+          header.entry-title
+            span(data-translate="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEE.DETAILS.CONSULTATIONS")
+            a.btn.btn-primary.btn-small(data-translate="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEE.DETAILS.BUTTON.EDIT")
+
+          p Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui, non felis. Maecenas malesuada elit lectus felis, malesuada ultricies.
+
+        consultation-list-item(data-consultation-title="tytul konsultacji"
+          data-consultation-price="vm.cosultationPrice"
+          data-consultation-tags="vm.tags"
+          data-consultation-invite-time="vm.invitePendingTime")
+
+    .buttons-container
+      a.btn.btn-primary(data-translate="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEE.DETAILS.BUTTON.CANCEL")
+      a.btn.btn-default(data-translate="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEE.DETAILS.BUTTON.SAVE")

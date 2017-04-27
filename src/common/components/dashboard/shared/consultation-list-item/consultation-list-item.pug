@@ -1,0 +1,16 @@
+.consultation-list-item.list-row
+  .consultation-list-checkbox
+    pro-checkbox(data-id="$ctrl.consultationCheckboxId"
+      data-ng-model="$ctrl.consultationCheckboxNgModel")
+
+  .consultation-list-content
+    .price-section
+      span {{$ctrl.consultationPrice | translate}}
+      div
+        span.pending-invite(data-translate="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEE.DETAILS.INVITE.PENDING")
+        span.pending-invite-time {{$ctrl.consultationInviteTime}}
+
+    .consultation-title
+      span {{$ctrl.consultationTitle | translate}}
+
+    tags-list(data-tags="$ctrl.consultationTags")
