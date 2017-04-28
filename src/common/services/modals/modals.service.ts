@@ -1,7 +1,7 @@
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import IUnavailableServiceControllerParentScope = profitelo.components.communicator.modals.serviceUnavailable.IUnavailableServiceControllerParentScope
 import INoCreditsControllerParentScope = profitelo.components.communicator.modals.noCredits.INoCreditsControllerParentScope
-import {GetService, SimpleFinancialOperation} from 'profitelo-api-ng/model/models'
+import {GetService, GetActivity} from 'profitelo-api-ng/model/models'
 import {DialogService} from '../dialog/dialog.service'
 import {IClientCallParentControllerScope} from '../../components/communicator/modals/client-call/client-call'
 import {IConsultationSummaryClientParentControllerScope} from '../../components/communicator/modals/consultation-summary-client/consultation-summary-client'
@@ -42,6 +42,9 @@ import {
 } from '../../components/dashboard/expert/employees/modals/employee-details/employee-details.controller'
 
 import {IExpertInviteEmployeesControllerScope} from '../../components/dashboard/expert/activities/modals/invite-employees/invite-employees.controller'
+import {
+  ClientChargeDetailsParentControllerScope
+} from "../../components/dashboard/client/activities/modals/charge-details/charge-details"
 
 // TODO add types for dialogScope Scopes
 export class ModalsService {
@@ -151,12 +154,14 @@ export class ModalsService {
     })
   }
 
-  public createClientChargeDetailsModal = (financeActivityDetails?: SimpleFinancialOperation) => {
+  public createClientChargeDetailsModal = (financeActivityDetails: GetActivity) => {
     if (!financeActivityDetails) {
       throw new Error('Expected financeActivityDetails, got ' + financeActivityDetails)
     }
 
-    const dialogScope: any = this.$rootScope.$new(true)
+    const dialogScope: ClientChargeDetailsParentControllerScope =
+      <ClientChargeDetailsParentControllerScope>this.$rootScope.$new(true)
+
     dialogScope.financeActivityDetails = financeActivityDetails
 
     return this.dialogService.openDialog({

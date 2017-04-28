@@ -33,7 +33,7 @@ export class ClientActivityComponentController implements ng.IController, IClien
         this.$log.error('Activity SUE is undefined')
       }
     } else {
-      this.modalsService.createClientChargeDetailsModal(<any>this.activity.financialOperation)
+      this.modalsService.createClientChargeDetailsModal(this.activity)
     }
 
   }
