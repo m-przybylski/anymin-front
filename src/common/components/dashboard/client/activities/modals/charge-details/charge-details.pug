@@ -10,13 +10,13 @@ scrollable(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
             .details-tab-row.header-row
               .details-tab-label
                 span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CHARGE_DETAILS.AMOUNT")
-              .details-tab-content.price-section(data-ng-bind-html="financeActivityDetails.operation | money")
+              .details-tab-content.price-section(data-ng-bind-html="financeActivityDetails.financialOperation.operation | money")
 
             .details-tab-row
               .details-tab-label
                 span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CHARGE_DETAILS.TRANSACTION_ID")
               .details-tab-content
-                span {{ financeActivityDetails.id }}
+                span {{ financeActivityDetails.financialOperation.id }}
             .details-tab-row
               .details-tab-label
                 span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CHARGE_DETAILS.DATE")
