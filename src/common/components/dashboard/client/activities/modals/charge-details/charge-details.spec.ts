@@ -20,6 +20,11 @@ namespace profitelo.components.dashboard.client.activities.modals.chargeDetails 
         scope = $rootScope.$new()
         scope.disconnectCall = () => {
         }
+        scope.$parent.financeActivityDetails = {
+          financialOperation: {
+
+          }
+        }
 
 
         clientChargeDetailsController = $controller('clientChargeDetailsController', {

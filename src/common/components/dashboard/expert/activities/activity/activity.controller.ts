@@ -34,7 +34,7 @@ export class ExpertActivityComponentController implements ng.IController, IExper
         this.$log.error('Activity SUE is undefined')
       }
     } else {
-      this.modalsService.createClientChargeDetailsModal(this.activity.financialOperation)
+      this.modalsService.createClientChargeDetailsModal(this.activity)
     }
 
   }
