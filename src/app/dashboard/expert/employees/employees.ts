@@ -4,12 +4,12 @@ import expertEmployeeModule from '../../../../common/components/dashboard/expert
 import expertEmployeesFiltersModule from '../../../../common/components/dashboard/expert/employees/filters/filters';
 import './employees.sass'
 
-const  dashboardExpertEmployeesModule = angular.module('profitelo.controller.dashboard.expert.filters', [
+const  dashboardExpertEmployeesModule = angular.module('profitelo.controller.dashboard.expert.employees', [
   'ui.router',
   expertEmployeesFiltersModule,
   expertEmployeeModule
 ])
-  .config(function ($stateProvider: ng.ui.IStateProvider) {
+  .config(($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider.state('app.dashboard.expert.employees', {
       url: '/employees',
       template: require('./employees.pug')(),
