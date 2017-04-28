@@ -3,14 +3,14 @@
     div
       nav.dashboard-nav
         ul
-          li(data-ng-class="{'is-active': $ctrl.stateNames.favourites}")
+          li(data-ng-class="{'is-active': $ctrl.stateNames.favourites}" data-ui-sref-active="is-active")
             a(data-translate="DASHBOARD.CLIENT.NAVIGATION.FAVOURITE_EXPERTS" data-ui-sref="app.dashboard.client.favourites")
-          li(data-ng-class="{'is-active': $ctrl.stateNames.activities}")
+          li(data-ng-class="{'is-active': $ctrl.stateNames.activities}" data-ui-sref-active="is-active")
             a(data-translate="DASHBOARD.CLIENT.NAVIGATION.ACTIVITIES" data-ui-sref="app.dashboard.client.activities")
 
       .nav-payment
         .amount-balance-container
-          span(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.ACCOUNT_BALANCE.TITLE").account-balance-title
+          span.account-balance-title(data-translate="DASHBOARD.CLIENT.NAVIGATION.ACCOUNT_BALANCE")
           span.account-balacnce(data-ng-bind-html="$ctrl.clientBalance | money ")
-        .payout-btn-container(data-ui-sref="app.dashboard.settings.payouts")
-          a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.PAYOUT_BUTTON.TITLE").btn.btn-small.btn-primary
+        .payout-btn-container(data-ui-sref="app.dashboard.charge-account")
+          a.btn.btn-small.btn-default(data-translate="DASHBOARD.CLIENT.RECHARGE")
