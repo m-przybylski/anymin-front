@@ -5,7 +5,4 @@ export class ExpertNavigationComponent implements ng.IComponentOptions {
   controller: ng.Injectable<ng.IControllerConstructor> = ExpertNavigationComponentController
   template = require('./navigation.pug')()
   replace: true
-  bindings: {
-    stateNames: '<'
-  }
 }

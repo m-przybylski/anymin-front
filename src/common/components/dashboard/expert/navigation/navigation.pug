@@ -3,18 +3,22 @@
     div
       nav.dashboard-nav
         ul
-          li(data-ui-sref-active="is-active" data-ui-sref="app.dashboard.expert.activities")
-            a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.ACTIVITIES.TITLE")
-          li(data-ui-sref-active="is-active" data-ui-sref="app.dashboard.expert.manage-profile")
-            a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.MANAGE_PROFILE.TITLE")
-          li.complain-count-container(data-ui-sref-active="is-active" data-ui-sref="app.dashboard.expert.complains")
-            a
+          li(data-ui-sref-active="is-active")
+            a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.ACTIVITIES.TITLE"
+              data-ui-sref="app.dashboard.expert.activities")
+          li(data-ui-sref-active="is-active")
+            a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.MANAGE_PROFILE.TITLE"
+              data-ui-sref="app.dashboard.expert.manage-profile")
+          li.complain-count-container(data-ui-sref-active="is-active")
+            a(data-ui-sref="app.dashboard.expert.complains")
               | {{:: 'DASHBOARD.EXPERT_ACCOUNT.NAVBAR.COMPLAINS.TITLE' | translate }}
               span.complain-count +9
-          li(data-ui-sref-active="is-active"  data-ui-sref="app.dashboard.expert.employees")
-            a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.EMPLOYES.TITLE")
-          li(data-ui-sref-active="is-active"  data-ui-sref="app.dashboard.expert.invoices")
-            a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.INVOICES.TITLE")
+          li(data-ui-sref-active="is-active")
+            a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.EMPLOYES.TITLE"
+              data-ui-sref="app.dashboard.expert.employees")
+          li(data-ui-sref-active="is-active")
+            a(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.INVOICES.TITLE"
+              data-ui-sref="app.dashboard.expert.invoices")
 
       .nav-payment
         .amount-balance-container
