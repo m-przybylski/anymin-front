@@ -1,8 +1,8 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import consultationListItemModule from './consultation-list-item';
-import IScope = angular.IScope;
-import {ConsultationListItemComponentController} from './consultation-list-item.controller';
+import consultationListItemModule from './consultation-list-item'
+import IScope = angular.IScope
+import {ConsultationListItemComponentController} from './consultation-list-item.controller'
 
 describe('Unit testing: profitelo.components.dashboard.shared.consultation-list-item', () => {
   return describe('for consultationListItem', () => {
@@ -40,7 +40,7 @@ describe('Unit testing: profitelo.components.dashboard.shared.consultation-list-
       expect(true).toBeTruthy()
     }))
     it('should compile the directive', () => {
-      let el = create(validHTML)
+      const el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
   })

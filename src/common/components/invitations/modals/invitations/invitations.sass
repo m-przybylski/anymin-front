@@ -1,0 +1,32 @@
+@import "../../../../../template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
+
+.invitations-modal
+  &.modal-primary
+    .modal-section
+      margin: 0 0 48px
+
+    .profile-preview
+      flex-wrap: wrap
+
+      .profile-container
+        display: block
+
+        .profile-name
+          > span
+            +subHeader
+            color: $c-primary-txt
+
+    .entry-title
+      span
+        margin: 0 24px 0 0
+
+    .consultation-section
+      margin: 0 0 24px
+
+    .buttons-container
+      display: flex
+      justify-content: space-between
+
+      +xsm
+        justify-content: flex-end

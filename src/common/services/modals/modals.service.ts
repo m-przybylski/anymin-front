@@ -49,6 +49,7 @@ import {IExpertInviteEmployeesControllerScope} from '../../components/dashboard/
 import {
   IClientChargeDetailsParentControllerScope
 } from '../../components/dashboard/client/activities/modals/charge-details/charge-details'
+import {InvitationsModalController} from '../../components/invitations/modals/invitations/invitations.controller'
 import {NoInvitationsModalController} from '../../components/invitations/modals/no-invitations/no-invitations.controller'
 
 // TODO add types for dialogScope Scopes
@@ -373,6 +374,18 @@ export class ModalsService {
       controllerAs: 'vm',
       controller: 'expertInviteEmployees',
       template: require('common/components/dashboard/expert/activities/modals/invite-employees/invite-employees.pug')(),
+      scope: dialogScope
+    })
+  }
+
+  public createInvitationsModal = () => {
+    const dialogScope: IExpertInviteEmployeesControllerScope =
+      <IExpertInviteEmployeesControllerScope>this.$rootScope.$new(true)
+
+    return this.dialogService.openDialog({
+      controllerAs: 'vm',
+      controller: InvitationsModalController,
+      template: require('common/components/invitations/modals/invitations/invitations.pug')(),
       scope: dialogScope
     })
   }

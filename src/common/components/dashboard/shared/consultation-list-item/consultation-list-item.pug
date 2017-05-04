@@ -5,8 +5,9 @@
 
   .consultation-list-content
     .price-section
-      span {{$ctrl.consultationPrice | translate}}
-      div
+      span(data-ng-bind-html="$ctrl.consultationPrice | money")
+      span(data-translate="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEE.DETAILS.PER_MINUTE")
+      div(data-ng-show="$ctrl.consultationInviteTime")
         span.pending-invite(data-translate="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEE.DETAILS.INVITE.PENDING")
         span.pending-invite-time {{$ctrl.consultationInviteTime}}
 
