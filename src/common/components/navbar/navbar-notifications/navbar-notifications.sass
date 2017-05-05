@@ -1,0 +1,151 @@
+@import "../../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
+@import "../../../../template/profitelo_theme/stylesheets/variables/variables"
+
+#notifications-menu
+  background: $c-white
+  width: 100%
+  height: 100vh
+  box-shadow: 0 1px 2px 0 rgba($c-black, 0.15)
+  overflow: scroll
+
+  +smm
+    height: 440px
+    width: 320px
+
+  +lgm
+    height: 560px
+
+  .notifications-menu-container
+    overflow: hidden
+
+  .notifications-menu-header
+    background: $c-background-2
+    border-top: 1px solid $c-background
+
+    .notifications-menu-mobile-header
+      justify-content: flex-start
+      padding: 0 16px
+
+      +lgm
+        display: none
+
+      .icon
+        color: $c-primary
+        font-size: $f-btn-icon
+
+      a
+        color: $c-primary
+        margin: 0 0 0 8px
+
+    li
+      +paragraphSmall
+      +default-font-medium
+      display: flex
+      align-items: center
+      justify-content: center
+      min-height: 52px
+      text-transform: uppercase
+      cursor: pointer
+      position: relative
+
+      &:hover
+        a,
+        .invitations-count
+          color: $c-primary
+
+      &::after,
+      &::before
+        content: ''
+        position: absolute
+        top: 52px
+        right: 0
+        height: 1px
+        width: 0
+        background: $c-primary
+        transition: width 0.3s
+
+      &::before
+        background: $c-lines
+
+      &.is-animation
+        &::after
+          width: 100%
+
+    .invitations-tab
+      &::after,
+      &::before
+        left: 0
+
+    .notifications-menu-desktop-header
+      display: none
+
+      +lgm
+        display: flex
+
+      li
+        min-width: 160px
+
+        a
+          flex: inherit
+
+    .invitations-count
+      margin: 0 0 0 4px
+
+  .notifications-lists-container
+    display: flex
+
+    ul
+      width: 100%
+      min-width: 320px
+
+  .notifications-menu-row
+    padding: 16px
+    border-bottom: 1px solid $c-lines
+    cursor: pointer
+
+    > div
+      display: flex
+
+    .icon
+      margin: 0 16px 0 0
+      align-items: flex-start
+
+    .notification-description
+      +paragraphSmall
+      display: block
+      margin: 0 0 8px
+
+    .notification-time
+      +paragraphSmall
+      color: $c-tertiary-txt
+      display: block
+
+    .profile-preview
+      .thumb
+        margin: 0 16px 0 0
+
+    &.no-invitations
+      justify-content: center
+      border: none
+
+      img
+        width: 96px
+        height: 96px
+
+      h2
+        +paragraph
+        +default-font-regular
+
+  .notifications-animation
+    &.ng-hide-remove-active
+      animation: slide-notifications-menu-right 0.3s
+
+    &.ng-hide-add-active
+      animation: slide-notifications-menu-left 0.3s forwards
+
+  .invitations-animation
+    &.ng-hide-remove-active
+      animation: slide-notifications-menu-left 0.3s forwards
+
+    &.ng-hide-add-active
+      animation: slide-notifications-menu-right 0.3s

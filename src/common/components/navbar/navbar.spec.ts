@@ -39,6 +39,10 @@ describe('Unit testing: navbar', () => {
       return compiledElement
     }
 
+    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
+      $provide.value('apiUrl', 'awesomeUrl/')
+    }))
+
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('userService', userService)
       $provide.value('styleConstant', {})
@@ -77,7 +81,7 @@ describe('Unit testing: navbar', () => {
     }))
 
     it('should compile the component', () => {
-      let el = create(validHTML, bindings)
+      const el = create(validHTML, bindings)
       expect(el.html()).toBeDefined(true)
     })
 

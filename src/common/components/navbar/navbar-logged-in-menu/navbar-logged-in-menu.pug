@@ -1,9 +1,10 @@
-ul.expert-state
+ul.expert-state.navbar-list(data-ng-class="$ctrl.isNotificationsMenuShow ? 'mobile-menu-slide-left' : 'mobile-menu-slide-right' ")
   li
-    ul
+    ul.menu-list.navbar-list
       li(data-ng-hide="$ctrl.isExpertOrOrganization")
-        a.btn.btn-primary.btn-small(data-translate="NAVIGATION.MENU_ITEMS.START_EARNING"
-        data-ui-sref="app.dashboard.service-provider.choose-path")
+        a.btn.btn-primary.btn-small(data-ui-sref="app.dashboard.service-provider.choose-path")
+          span.mobile-only.icon.icon-start-earning-24
+          span(data-translate="NAVIGATION.MENU_ITEMS.START_EARNING")
 
       li(data-ng-if="$ctrl.isExpertOrOrganization" data-ui-sref-active="{'is-active' : 'app.dashboard.expert'}")
         a(data-ui-sref="app.dashboard.expert.activities")
@@ -23,7 +24,7 @@ ul.expert-state
           span(data-translate="NAVIGATION.MENU_ITEMS.LOGOUT")
 
   li.navbar-notifications
-    ul
+    ul.menu-list.navbar-list
       li.navbar-parent
         a
           span.navbar-item-handler
@@ -38,9 +39,22 @@ ul.expert-state
             span.mobile-onlys(data-translate="NAVIGATION.MENU_ITEMS.AVAILABILITY")
           span.mobile-only.icon.icon-next-24
 
-      li.navbar-parent
-        a
+      li.navbar-parent.notifications-tab-link(data-ng-class="{'show-arrow' : $ctrl.isNotificationsMenuShow}")
+        a(data-ng-click="$ctrl.toggleNotificationsMenuShow()")
+          span.navbar-item-handler
+            span.icon.icon-bell-24(data-ng-class="{'active-icon' : $ctrl.isNotificationsMenuShow}")
+            span.notifications-count(data-ng-hide="$ctrl.areNotificationsDisplayed") +9
+            span.mobile-onlys(data-translate="NAVIGATION.MENU_ITEMS.NOTIFICATION")
+          span.mobile-only.icon.icon-next-24
+
+        .navbar-notifications-menu.notifications-menu-animation.animation(data-ng-if="$ctrl.isNotificationsMenuShow")
+          navbar-notifications(data-is-notifications-tab="$ctrl.isNotificationsTab"
+            data-is-invitations-tab="$ctrl.isInvitationsTab")
+
+      li.navbar-parent.invitations-tab-link
+        a(data-ng-click="$ctrl.toggleInvitationsMenuShow()")
           span.navbar-item-handler
             span.icon.icon-bell-24
-            span.mobile-onlys(data-translate="NAVIGATION.MENU_ITEMS.NOTIFICATION")
+            span.notifications-count(data-ng-hide="$ctrl.areInvitationsDisplayed") 2
+            span.mobile-onlys(data-translate="NAVIGATION.MENU_ITEMS.INVITATIONS")
           span.mobile-only.icon.icon-next-24
