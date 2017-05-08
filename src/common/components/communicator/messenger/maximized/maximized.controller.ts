@@ -1,8 +1,8 @@
 import * as angular from 'angular'
 import * as _ from 'lodash'
 import {IMessengerMaximizedComponentBindings} from './maximized'
-import {MoneyDto} from 'profitelo-api-ng/model/models'
-import {UploaderService, IPostProcessOptions} from '../../../../services/uploader/uploader.service'
+import {MoneyDto, PostProcessOption} from 'profitelo-api-ng/model/models'
+import {UploaderService} from '../../../../services/uploader/uploader.service'
 import {MessengerService} from '../messenger.service'
 import {UrlService} from '../../../../services/url/url.service'
 import {UploaderFactory} from '../../../../services/uploader/uploader.factory'
@@ -142,8 +142,8 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
   private onUploadProgess = (res: any) =>
     this.$log.debug(res)
 
-  private postProcessOptions: IPostProcessOptions = {
-    croppingDetails: {}
+  private postProcessOptions: PostProcessOption = {
+    croppingDetails: undefined
   }
 
   private onFileUpload = (res: any) => {

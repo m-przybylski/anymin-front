@@ -43,8 +43,8 @@ import {
 
 import {IExpertInviteEmployeesControllerScope} from '../../components/dashboard/expert/activities/modals/invite-employees/invite-employees.controller'
 import {
-  ClientChargeDetailsParentControllerScope
-} from "../../components/dashboard/client/activities/modals/charge-details/charge-details"
+  IClientChargeDetailsParentControllerScope
+} from '../../components/dashboard/client/activities/modals/charge-details/charge-details'
 
 // TODO add types for dialogScope Scopes
 export class ModalsService {
@@ -159,8 +159,8 @@ export class ModalsService {
       throw new Error('Expected financeActivityDetails, got ' + financeActivityDetails)
     }
 
-    const dialogScope: ClientChargeDetailsParentControllerScope =
-      <ClientChargeDetailsParentControllerScope>this.$rootScope.$new(true)
+    const dialogScope: IClientChargeDetailsParentControllerScope =
+      <IClientChargeDetailsParentControllerScope>this.$rootScope.$new(true)
 
     dialogScope.financeActivityDetails = financeActivityDetails
 

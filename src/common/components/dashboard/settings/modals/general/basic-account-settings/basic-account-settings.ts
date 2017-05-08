@@ -1,9 +1,9 @@
 import * as angular from 'angular'
 import userModule from '../../../../../../services/user/user'
-import {IPostProcessOptions, UploaderService} from '../../../../../../services/uploader/uploader.service'
+import {UploaderService} from '../../../../../../services/uploader/uploader.service'
 import apiModule from 'profitelo-api-ng/api.module'
 import {AccountApi} from 'profitelo-api-ng/api/api'
-import {PutGeneralSettings} from 'profitelo-api-ng/model/models'
+import {PutGeneralSettings, PostProcessOption} from 'profitelo-api-ng/model/models'
 import {UserService} from '../../../../../../services/user/user.service'
 import {UploaderFactory} from '../../../../../../services/uploader/uploader.factory'
 import {UrlService} from '../../../../../../services/url/url.service'
@@ -97,7 +97,7 @@ import '../../../../../../directives/interface/scrollable/scrollable'
 
       $scope.saveCrop = (data: any) => {
         const squareSideLength: number = data.points[2] - data.points[0] - 1
-        const postProcessOptions: IPostProcessOptions = {
+        const postProcessOptions: PostProcessOption = {
           croppingDetails: {
             x: Number(data.points[0]),
             y: Number(data.points[1]),

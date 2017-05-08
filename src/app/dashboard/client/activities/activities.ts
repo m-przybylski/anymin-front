@@ -33,9 +33,9 @@ export class DashboardClientActivitiesController {
     this.activitiesQueryParam = new ActivitiesQueryParams
     this.setBasicQueryParam(this.activitiesQueryParam)
     this.getDashboardActivities(this.activitiesQueryParam)
-    .then((activities) => {
-      this.isActivitiesHistory = activities.length > 0
-      this.activities = activities
+    .then((getActivities) => {
+      this.isActivitiesHistory = getActivities.activities.length > 0
+      this.activities = getActivities.activities
       $timeout(() => {
         this.isSearchLoading = false
         this.isError = false
@@ -46,25 +46,25 @@ export class DashboardClientActivitiesController {
 
   public sendRequestAgain = (activitiesQueryParams: ActivitiesQueryParams) => {
     this.isSearchLoading = true
-    this.getDashboardActivities(activitiesQueryParams).then((activities) => {
-      this.activities = activities
+    this.getDashboardActivities(activitiesQueryParams).then((getActivities) => {
+      this.activities = getActivities.activities
       this.isSearchLoading = false
       this.isError = false
     })
   }
 
   public loadMoreActivities = () => {
-    this.dashboardActivitiesService.getDashboardActivities(this.activitiesQueryParam).then((activities) => {
-      this.activities.concat(activities)
+    this.dashboardActivitiesService.getDashboardActivities(this.activitiesQueryParam).then((getActivities) => {
+      this.activities.concat(getActivities.activities)
     })
   }
 
   public onSetFiltersParams = (activitiesQueryParams: ActivitiesQueryParams) => {
     this.setBasicQueryParam(activitiesQueryParams)
     this.getDashboardActivities(activitiesQueryParams)
-    .then((activities) => {
+    .then((getActivities) => {
       this.activitiesQueryParam = activitiesQueryParams
-      this.activities = activities
+      this.activities = getActivities.activities
     })
   }
 

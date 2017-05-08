@@ -1,21 +1,20 @@
 import * as angular from 'angular'
 import {GetActivity,  MoneyDto} from 'profitelo-api-ng/model/models'
 
-export interface ClientChargeDetailsParentControllerScope extends ng.IScope {
+export interface IClientChargeDetailsParentControllerScope extends ng.IScope {
   financeActivityDetails: GetActivity
 }
 
-
-export interface ClientChargeDetailsControllerScope extends ng.IScope {
+export interface IClientChargeDetailsControllerScope extends ng.IScope {
   isNavbar: boolean
   isFullscreen: boolean
   operation: MoneyDto
   financialOperationId: string
   createdAt: Date
-  $parent: ClientChargeDetailsParentControllerScope
+  $parent: IClientChargeDetailsParentControllerScope
 }
 
-function controller($scope: ClientChargeDetailsControllerScope, $state: ng.ui.IStateService,
+function controller($scope: IClientChargeDetailsControllerScope, $state: ng.ui.IStateService,
                     $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
   $scope.isNavbar = true
   $scope.isFullscreen = true

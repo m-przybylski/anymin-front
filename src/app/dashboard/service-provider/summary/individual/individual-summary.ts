@@ -96,7 +96,7 @@ function IndividualSummaryController($log: ng.ILogService, $state: ng.ui.IStateS
     }
   }
 
-  this.deleteConsultation = (id: string, index: number) => {
+  this.deleteConsultation = (id: number, index: number) => {
 
     ((serviceId, localIndex) => {
       let _id = serviceId
