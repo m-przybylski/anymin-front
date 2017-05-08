@@ -1,40 +1,45 @@
 import * as angular from 'angular'
-import {IInvoiceData, InvoiceDataResolver} from '../../../../common/resolvers/invoice-data/invoice-data.resolver'
+import {InvoiceDataResolver} from '../../../../common/resolvers/invoice-data/invoice-data.resolver'
 import {ModalsService} from '../../../../common/services/modals/modals.service'
 import filtersModule from '../../../../common/filters/filters'
 import 'common/resolvers/invoice-data/invoice-data.resolver'
 import apiModule from 'profitelo-api-ng/api.module'
-import {PaymentsApi, AccountApi} from 'profitelo-api-ng/api/api'
-import {MoneyDto, GetCreditCard, AccountDetails} from 'profitelo-api-ng/model/models'
+import {PaymentsApi, AccountApi, FinancesApi} from 'profitelo-api-ng/api/api'
+import {MoneyDto, CompanyInfo, GetCreditCard, AccountDetails} from 'profitelo-api-ng/model/models'
 import {UserService} from '../../../../common/services/user/user.service'
 
 export class DashboardSettingsPaymentsController implements ng.IController {
   public isAnyPaymentMethod: boolean
-  public accountBalance: MoneyDto | null
+  public accountBalance?: MoneyDto
   public companyName: string
   public vatNumber: string
   public address: string
   public paymentMethods: Array<GetCreditCard>
   public isPaymentsMethodLoading: boolean = true
   public checkedPaymentMethod?: string
+  public isLongAddress?: boolean
 
-  constructor(getInvoiceData: IInvoiceData, PaymentsApi: PaymentsApi, private AccountApi: AccountApi,
-              private modalsService: ModalsService, private $state: ng.ui.IStateService, user: AccountDetails) {
+  constructor(getInvoiceData: CompanyInfo, PaymentsApi: PaymentsApi, private AccountApi: AccountApi,
+              private modalsService: ModalsService, FinancesApi: FinancesApi,
+              private $state: ng.ui.IStateService, user: AccountDetails) {
 
-    if (getInvoiceData.companyInfo === null) {
+    if (!getInvoiceData) {
       this.isAnyPaymentMethod = false
     } else {
       this.isAnyPaymentMethod = true
-      this.companyName = getInvoiceData.companyInfo.companyName
-      this.vatNumber = getInvoiceData.companyInfo.vatNumber
-      this.address = getInvoiceData.companyInfo.address.street + ', ' + getInvoiceData.companyInfo.address.number +
-        ', ' + getInvoiceData.companyInfo.address.zipCode + ', ' + getInvoiceData.companyInfo.address.city + ', ' +
-        getInvoiceData.companyInfo.address.countryISO
+      this.companyName = getInvoiceData.companyName
+      this.vatNumber = getInvoiceData.vatNumber
+      this.address = getInvoiceData.address.street + ', ' + getInvoiceData.address.number +
+        ', ' + getInvoiceData.address.zipCode + ', ' + getInvoiceData.address.city + ', ' +
+        getInvoiceData.address.countryISO
+      this.isLongAddress = this.address.length > 10
     }
 
-    if (getInvoiceData.clientBalance) {
-      this.accountBalance = getInvoiceData.clientBalance
-    }
+    FinancesApi.getClientBalanceRoute().then((clientBalance: MoneyDto) => {
+      this.accountBalance = clientBalance
+    }, (error) => {
+      throw new Error('Can not get user balance: ' + error)
+    })
 
     this.checkedPaymentMethod = user.defaultCreditCard
 
@@ -93,7 +98,7 @@ angular.module('profitelo.controller.dashboard.settings.payments', [
       controllerAs: 'vm',
       resolve: {
         getInvoiceData: (invoiceDataResolver: InvoiceDataResolver) => {
-          return invoiceDataResolver.resolve()
+          return invoiceDataResolver.resolveCompanyInfo()
         },
         user: (userService: UserService) => {
           return userService.getUser(true)

@@ -1,78 +1,28 @@
 import * as angular from 'angular'
 import IPromise = angular.IPromise
 import ILogService = angular.ILogService
-import {CompanyInfo, MoneyDto} from 'profitelo-api-ng/model/models'
-import {AccountApi, FinancesApi, PaymentsApi} from 'profitelo-api-ng/api/api'
+import {CompanyInfo} from 'profitelo-api-ng/model/models'
+import {AccountApi} from 'profitelo-api-ng/api/api'
 
-export interface IInvoiceData {
-  companyInfo: CompanyInfo | null,
-  clientBalance: MoneyDto | null
-}
 export interface IInvoiceDataResolver {
-  resolve: () =>  IPromise<IInvoiceData>
+  resolveCompanyInfo: () =>  IPromise<CompanyInfo>
 }
+
 export class InvoiceDataResolver implements IInvoiceDataResolver {
-  constructor(private AccountApi: AccountApi, private FinancesApi: FinancesApi,
-              private PaymentsApi: PaymentsApi, private $log: ILogService) {
+  constructor(private AccountApi: AccountApi, private $log: ILogService) {
   }
 
-  public resolve = (): IPromise<IInvoiceData> => {
+  public resolveCompanyInfo = (): IPromise<CompanyInfo> => {
     return this.AccountApi.getCompanyInfoRoute().then(this.onGetCompanyInfoRoute, this.onGetCompanyInfoRouteError)
   }
+
   private onGetCompanyInfoRoute = (companyInfo: CompanyInfo) => {
-    return this.FinancesApi.getClientBalanceRoute().then((clientBalance: MoneyDto) => {
-      return {
-        companyInfo: companyInfo,
-        clientBalance: clientBalance
-      }
-    }, (error: any) => {
-      this.$log.error('Can not get user balance: ' + error)
-      return {
-        companyInfo: companyInfo,
-        clientBalance: null,
-      }
-    })
+    return companyInfo
   }
   private onGetCompanyInfoRouteError = (error: any) => {
     if (error.status !== 404) {
       this.$log.error('Can not get company info: ' + error)
     }
-    return this.FinancesApi.getClientBalanceRoute().then((clientBalance: MoneyDto) => {
-      return this.PaymentsApi.getCreditCardsRoute().then((paymentMethods) => {
-        return {
-          companyInfo: null,
-          clientBalance: clientBalance,
-          paymentMethods: paymentMethods
-        }
-      }, (error) => {
-        this.$log.error('Can not get user payment methods: ' + error)
-        return {
-          companyInfo: null,
-          clientBalance: clientBalance,
-          paymentMethods: null
-        }
-      })
-    }, (error: any) => {
-      if (error.status !== 404) {
-        this.$log.error('Can not get user balance: ' + error)
-      }
-      return this.PaymentsApi.getCreditCardsRoute().then((paymentMethods) => {
-        return {
-          companyInfo: null,
-          clientBalance: null,
-          paymentMethods: paymentMethods
-        }
-      }, (error) => {
-        if (error.status !== 404) {
-          this.$log.error('Can not get user payment methods: ' + error)
-        }
-        return {
-          companyInfo: null,
-          clientBalance: null,
-          paymentMethods: null
-        }
-      })
-    })
   }
 }
 
