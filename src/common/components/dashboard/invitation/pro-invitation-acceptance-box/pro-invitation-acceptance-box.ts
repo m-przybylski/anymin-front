@@ -25,7 +25,7 @@ import tagsListModule from '../../../tags-list/tags-list'
       }
     }
 
-    this.reject = (employmentId: string) => {
+    this.reject = (employmentId: number) => {
       this.isRejected = true
 
       let _reject = () => {

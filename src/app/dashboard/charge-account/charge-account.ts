@@ -57,7 +57,7 @@ class ChargeAccountController {
       cashAmount: null | MoneyDto,
       amount: null | MoneyDto
     },
-    paymentSystemModel: PaymentSystem | null,
+    paymentSystemModel: string | null,
     minimalAmount: MoneyDto,
     firstName?: string,
     lastName?: string,
@@ -69,7 +69,7 @@ class ChargeAccountController {
               paymentsOptions: GetPaymentOptions, paymentsLinks: Array<PaymentLink>,
               financeBalance: MoneyDto, private smoothScrollingService: SmoothScrollingService) {
 
-    this.paymentCountryId = paymentsOptions.id
+    this.paymentCountryId = paymentsOptions.paymentCountryId
     this.amounts = {
       paymentOptions: paymentsOptions.paymentOptions,
       minimalAmounts: paymentsOptions.minimalPayment

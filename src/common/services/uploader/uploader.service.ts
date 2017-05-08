@@ -1,5 +1,5 @@
 import * as angular from 'angular'
-import {FileIdDto} from 'profitelo-api-ng/model/models'
+import {FileIdDto, PostProcessOption} from 'profitelo-api-ng/model/models'
 import {FilesApi} from 'profitelo-api-ng/api/api'
 import {CommonConfig} from '../../../../generated_modules/common-config/common-config'
 
@@ -10,14 +10,10 @@ export interface ICroppingDetails {
   height?: number
 }
 
-export interface IPostProcessOptions {
-  croppingDetails?: ICroppingDetails
-}
-
 interface IFileObject {
   file: File
   deferred: ng.IDeferred<any>
-  postProcessOptions: IPostProcessOptions
+  postProcessOptions: PostProcessOption
   callback: (data: any) => void
 }
 
@@ -106,7 +102,7 @@ export class UploaderService {
     }
   }
 
-  private addFileToQueue = (file: File, postProcessOptions: IPostProcessOptions, callback: (res: any) => void) => {
+  private addFileToQueue = (file: File, postProcessOptions: PostProcessOption, callback: (res: any) => void) => {
     const deferred = this.$q.defer()
     this.fileObjectsToUpload.push({
       file: file,
@@ -117,7 +113,7 @@ export class UploaderService {
     return deferred
   }
 
-  public uploadFile = (file: File, postProcessOptions: IPostProcessOptions, callback: (data: any) => void) => {
+  public uploadFile = (file: File, postProcessOptions: PostProcessOption, callback: (data: any) => void) => {
     if (!file || !(file instanceof File)) {
       return this.$q.reject('Expected File, got ' + typeof file)
     }

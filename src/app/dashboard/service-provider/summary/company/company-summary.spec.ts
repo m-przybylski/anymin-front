@@ -18,7 +18,8 @@ describe('Unit tests: CompanySummaryController >', () => {
     let _ServiceApi: ServiceApi
     let _controller: any
 
-    let url = 'awesomeUrl/'
+    const url = 'awesomeUrl/'
+    const mockServiceId = 1
 
     function createController(controller: any, savedProfile: Profile, profileAvatar: string, companyLogo: string) {
       CompanySummaryController = controller('CompanySummaryController', {
@@ -84,21 +85,21 @@ describe('Unit tests: CompanySummaryController >', () => {
         organizationDetails: undefined
       }, '', '')
 
-      _ServiceApiMock.deleteServiceRoute(200, '1')
+      _ServiceApiMock.deleteServiceRoute(200, mockServiceId)
 
       CompanySummaryController.consultations = [{name: '121'}]
 
-      CompanySummaryController.deleteConsultation(':serviceId', 1)
+      CompanySummaryController.deleteConsultation(':serviceId', mockServiceId)
 
     })
 
     it('should fail on delete requested consultation error', () => {
 
-      _ServiceApiMock.deleteServiceRoute(500, '1')
+      _ServiceApiMock.deleteServiceRoute(500, mockServiceId)
 
       CompanySummaryController.consultations = []
 
-      CompanySummaryController.deleteConsultation(':serviceId', 1)
+      CompanySummaryController.deleteConsultation(':serviceId', mockServiceId)
 
     })
 

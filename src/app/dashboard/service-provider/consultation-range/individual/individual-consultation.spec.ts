@@ -11,7 +11,6 @@ describe('Unit tests: profitelo.controller.dashboard.service-provider.consultati
 
     let IndividualConsultationController: any
     let _scope: any
-    let url = 'awesomeUrl'
     let _state: ng.ui.IStateService
     let _ServiceApiMock: ServiceApiMock
     let _httpBackend: ng.IHttpBackendService
@@ -19,6 +18,8 @@ describe('Unit tests: profitelo.controller.dashboard.service-provider.consultati
     let _ServiceApi: ServiceApi
     let _controller: any
 
+    const url = 'awesomeUrl'
+    const mockServiceId = 1
     function createController(controller: any, savedProfile: Profile | null, profileImage: string) {
       IndividualConsultationController = controller('IndividualConsultationController', {
         $scope: _scope,
@@ -117,23 +118,23 @@ describe('Unit tests: profitelo.controller.dashboard.service-provider.consultati
 
     it('should delete requested consultation', () => {
 
-      _ServiceApiMock.deleteServiceRoute(200, '1')
+      _ServiceApiMock.deleteServiceRoute(200, mockServiceId)
 
       IndividualConsultationController.consultations = []
 
-      IndividualConsultationController.deleteConsultation(':serviceId', 1)
+      IndividualConsultationController.deleteConsultation(':serviceId', mockServiceId)
 
     })
 
     it('should fail on delete requested consultation error', () => {
 
-      _ServiceApiMock.deleteServiceRoute(500, '1')
+      _ServiceApiMock.deleteServiceRoute(500, mockServiceId)
 
       spyOn(_topAlertService, 'error')
 
       IndividualConsultationController.consultations = []
 
-      IndividualConsultationController.deleteConsultation(':serviceId', 1)
+      IndividualConsultationController.deleteConsultation(':serviceId', mockServiceId)
 
     })
 

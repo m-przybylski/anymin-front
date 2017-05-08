@@ -20,6 +20,8 @@ describe('Unit tests: app.dashboard.service-provider.consultation-range.company 
     let _dialogService: DialogService
     let _controller: any
 
+    const mockServiceId = 1
+
     function createController(controller: any, savedProfile: any, profileImage: any) {
       CompanyConsultationController = controller('CompanyConsultationController', {
         $scope: _scope,
@@ -121,23 +123,23 @@ describe('Unit tests: app.dashboard.service-provider.consultation-range.company 
 
     it('should delete requested consultation', () => {
 
-      _ServiceApiMock.deleteServiceRoute(200, ':serviceId')
+      _ServiceApiMock.deleteServiceRoute(200, mockServiceId)
 
       CompanyConsultationController.consultations = []
 
-      CompanyConsultationController.deleteConsultation(':serviceId', 1)
+      CompanyConsultationController.deleteConsultation(':serviceId', mockServiceId)
 
     })
 
     it('should fail on delete requested consultation error', () => {
 
-      _ServiceApiMock.deleteServiceRoute(500, ':serviceId')
+      _ServiceApiMock.deleteServiceRoute(500, mockServiceId)
 
       spyOn(_dialogService, 'openDialog')
 
       CompanyConsultationController.consultations = []
 
-      CompanyConsultationController.deleteConsultation(':serviceId', 1)
+      CompanyConsultationController.deleteConsultation(':serviceId', mockServiceId)
 
     })
 

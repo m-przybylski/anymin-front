@@ -18,8 +18,8 @@ describe('Unit tests: IndividualSummaryController >', () => {
     let _ServiceApi: ServiceApi
     let _controller: any
 
-    let url = 'awesomeUrl/'
-
+    const url = 'awesomeUrl/'
+    const mockServiceId = 1
     function createController(controller: any, savedProfile: Profile, profileImage: string) {
       IndividualSummaryController = controller('IndividualSummaryController', {
         $scope: _scope,
@@ -75,21 +75,21 @@ describe('Unit tests: IndividualSummaryController >', () => {
     })
 
     it('should delete requested consultation', () => {
-      _ServiceApiMock.deleteServiceRoute(200, '1')
+      _ServiceApiMock.deleteServiceRoute(200, mockServiceId)
 
       IndividualSummaryController.consultations = [{name: '123'}]
 
-      IndividualSummaryController.deleteConsultation(':serviceId', 1)
+      IndividualSummaryController.deleteConsultation(':serviceId', mockServiceId)
 
     })
 
     it('should fail on delete requested consultation error', () => {
 
-      _ServiceApiMock.deleteServiceRoute(500, '1')
+      _ServiceApiMock.deleteServiceRoute(500, mockServiceId)
 
       IndividualSummaryController.consultations = []
 
-      IndividualSummaryController.deleteConsultation(':serviceId', 1)
+      IndividualSummaryController.deleteConsultation(':serviceId', mockServiceId)
 
     })
 

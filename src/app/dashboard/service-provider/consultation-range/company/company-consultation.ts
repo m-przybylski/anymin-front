@@ -146,7 +146,7 @@ function CompanyConsultationController($log: ng.ILogService, $scope: ng.IScope, 
       })
     }
   }
-  this.deleteConsultation = (id: string, index: number) => {
+  this.deleteConsultation = (id: number, index: number) => {
 
     ((serviceId, localIndex) => {
       let _id = serviceId

@@ -6,14 +6,14 @@ import paypalModule from './paypal/paypal'
 interface IPaymentMethodComponentBindings {
   title: string
   paymentSystems: Array<PaymentSystem>
-  paymentSystemModel: PaymentSystem | null
+  paymentSystemModel: PaymentSystem
   scrollHandler: (_arg?: number) => void
 }
 
 class PaymentMethodComponentController implements IPaymentMethodComponentBindings, ng.IController {
   title: string
   paymentSystems: Array<PaymentSystem>
-  paymentSystemModel: PaymentSystem | null
+  paymentSystemModel: PaymentSystem
   scrollHandler: (arg?: number) => void
   activeOption: number | null = null
   firstSelect = false
@@ -24,7 +24,7 @@ class PaymentMethodComponentController implements IPaymentMethodComponentBinding
 
   $onInit = () => {
     if (this.paymentSystemModel !== null) {
-      this.activeOption = _.findIndex(this.paymentSystems, (paymentSystem) => paymentSystem.id === this.paymentSystemModel)
+      this.activeOption = _.findIndex(this.paymentSystems, (paymentSystem) => paymentSystem === this.paymentSystemModel)
       this.paymentSystemModel = this.paymentSystems[this.activeOption]
     }
   }

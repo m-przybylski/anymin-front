@@ -113,7 +113,7 @@ function CompanySummaryController($log: ng.ILogService, $state: ng.ui.IStateServ
     }
   }
 
-  this.deleteConsultation = (id: string, index: number) => {
+  this.deleteConsultation = (id: number, index: number) => {
 
     ((serviceId, localIndex) => {
       let _id = serviceId
