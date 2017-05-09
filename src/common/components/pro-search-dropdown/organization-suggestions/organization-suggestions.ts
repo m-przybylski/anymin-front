@@ -1,12 +1,8 @@
 import * as angular from 'angular'
-import {CommonSettingsService} from '../../../services/common-settings/common-settings.service'
+import userAvatarModule from '../../interface/user-avatar/user-avatar'
 
 /* @ngInject */
-function organizationSuggestionsController(CommonSettingsService: CommonSettingsService) {
-
-  this.profileImage = (index: number) => {
-    return !!this.organizations.results[index].img ? CommonSettingsService.links.imageUrl.replace('%s', this.organizations.results[index].img) : false
-  }
+function organizationSuggestionsController() {
 
   return this
 }
@@ -23,7 +19,7 @@ let organizationSuggestions = {
 }
 
 angular.module('profitelo.components.pro-search-dropdown.organization-suggestions', [
-  'profitelo.services.commonSettings',
+  userAvatarModule,
   'profitelo.filters.search-bold-filter'
 ])
   .component('organizationSuggestions', organizationSuggestions)
