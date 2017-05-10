@@ -43,9 +43,13 @@ export class ClientConsultationDetailsController implements ng.IController {
 
   private onGetCallDetails = (response: GetCallDetails) => {
     this.callDetails = response
-    this.ServiceApi.postServicesTagsRoute({
-      serviceIds: [response.service.id]
-    }).then(this.onServiceTags, this.onServiceTagsError)
+    if (response.isRecommendable) {
+      this.ServiceApi.postServicesTagsRoute({
+        serviceIds: [response.service.id]
+      }).then(this.onServiceTags, this.onServiceTagsError)
+    } else {
+      this.openClientActivityModal()
+    }
   }
 
   private onServiceTagsError = (err: any) => {
@@ -53,7 +57,7 @@ export class ClientConsultationDetailsController implements ng.IController {
   }
 
   private onServiceTags = (res: any) => {
-    this.openClientActivityModal(res[0] ? res[0].tags : [])
+    this.openClientActivityModal(res[0]!.tags)
   }
 
   private openClientActivityModal = (serviceTags: Array<Tag> = []) => {

@@ -44,9 +44,13 @@ export class ExpertConsultationDetailsController implements ng.IController {
 
   private onGetCallDetails = (response: GetCallDetails) => {
     this.callDetails = response
-    this.ServiceApi.postServicesTagsRoute({
-      serviceIds: [response.service.id]
-    }).then(this.onServiceTags, this.onServiceTagsError)
+    if (response.isRecommendable) {
+      this.ServiceApi.postServicesTagsRoute({
+        serviceIds: [response.service.id]
+      }).then(this.onServiceTags, this.onServiceTagsError)
+    } else {
+      this.openExpertActivityModal()
+    }
   }
 
   private onServiceTagsError = (err: any) => {
@@ -54,7 +58,7 @@ export class ExpertConsultationDetailsController implements ng.IController {
   }
 
   private onServiceTags = (res: GetServiceTags[]) => {
-    this.openExpertActivityModal(res[0] ? res[0].tags : [])
+    this.openExpertActivityModal(res[0]!.tags)
   }
 
   private openExpertActivityModal = (serviceTags: Array<Tag> = []) => {
