@@ -11,20 +11,50 @@ namespace profitelo.directives.interface.focusNext {
     }
 
     public link = (scope: ILocalAvatarUploaderDirectiveScope, element: any, _attr: ng.IAttributes) => {
-      const digitsCodes: Array<number>  = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57]
-      element.bind('keypress', (e: any) => {
+      const digitsCodes: Array<number> = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57]
+
+      element.bind('keydown', (e: KeyboardEvent) => {
         if (digitsCodes.indexOf(e.which) > -1) {
-          element[0].value = String(e.key)
+          e.preventDefault()
+        }
+      })
+
+      element.bind('keyup', (e: KeyboardEvent) => {
+        const goToNextElement = () => {
           if (!!element.next()[0]) {
             element.next()[0].focus()
           }
+        }
+
+        const goToPrevElement = () => {
+          if (!!element.prev()[0]) {
+            element.prev()[0].focus()
+          }
+        }
+
+        if (digitsCodes.indexOf(e.which) > -1) {
+          element[0].value = String(e.key)
+          goToNextElement()
         } else {
-          element[0].value = ''
+          switch (e.which) {
+            case 8:
+              goToPrevElement()
+              break
+            case 39:
+              goToNextElement()
+              break
+            case 37:
+              goToPrevElement()
+              break
+            default:
+              break
+          }
         }
       })
 
       scope.$on('$destroy', () => {
-        element.unbind('keypress')
+        element.unbind('keyup')
+        element.unbind('keydown')
       })
 
     }
@@ -35,7 +65,6 @@ namespace profitelo.directives.interface.focusNext {
       instance.$inject = []
       return instance
     }
-
   }
 
   angular.module('profitelo.directives.interface.focus-next', [])
