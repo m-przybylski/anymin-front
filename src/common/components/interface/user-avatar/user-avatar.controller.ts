@@ -16,6 +16,5 @@ export class UserAvatarComponentController implements IUserAvatarComponentBindin
 
   /* @ngInject */
   constructor(private urlService: UrlService) {
-
   }
 }

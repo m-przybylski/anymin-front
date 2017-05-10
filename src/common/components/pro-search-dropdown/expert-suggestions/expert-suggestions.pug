@@ -3,10 +3,10 @@
     h5.title-row  {{'SEARCH.EXPERTS' | translate}}
 
     .experts-box.dropdown-category-list
-      a.profile-preview.dropdown-list-item(data-ng-repeat="expert in vm.experts.results track by $index"
+      a.profile-preview.dropdown-list-item(data-ng-repeat="expert in vm.experts.results"
       data-ui-sref="app.expert-profile({ profileId: expert.id })")
-        .thumb.x48
-          user-avatar(data-image-token="expert.img")
+        .profile-preview
+          user-avatar.thumb.x48(data-image-token="expert.img")
 
         span.expert-data
           span.expert-name(ng-bind-html="expert.name | searchBoldFilter:vm.searchModel") {{expert.name}}
