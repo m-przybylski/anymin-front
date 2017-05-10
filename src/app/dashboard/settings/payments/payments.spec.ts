@@ -23,15 +23,14 @@ import * as angular from 'angular'
             $state: _$state_,
             $scope: $rootScope.$new(),
             user: {},
+            modalsService: {},
             getInvoiceData: {
-              companyInfo: {
-                companyName: 'asasas',
-                address: {
-                  street: 'sdasd'
-                }
-              }},
-            modalsService: {}
-          })
+              companyName: 'asasas',
+              address: {
+                street: 'sdasd'
+              }
+            }
+          },)
           AccountApiMock = _AccountApiMock_
           httpBackend = $httpBackend
         })

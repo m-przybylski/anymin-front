@@ -67,7 +67,7 @@
         .info-tab-content
           span {{ vm.vatNumber }}
 
-      .info-tab-row(data-ng-show="vm.address.length > 5")
+      .info-tab-row(data-ng-show="vm.isLongAddress")
         .info-tab-label
           span(data-translate="SETTINGS.PAYMENTS.INVOICE.ADDRESS")
         .info-tab-content
