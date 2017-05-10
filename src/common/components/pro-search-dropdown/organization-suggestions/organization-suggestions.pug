@@ -6,7 +6,7 @@
       a.profile-preview.dropdown-list-item(data-ng-repeat="organization in vm.organizations.results track by $index"
       data-ui-sref="app.company-profile({ profileId: organization.id })")
         .thumb.x48
-          img.expert-avatar.user-avatar.circle(data-ng-src="{{ vm.profileImage($index) }}" data-ng-class="{'isNotUploaded': !vm.profileImage($index)}")
+          user-avatar(data-image-token="organization.img")
 
         span.expert-data
           span.expert-name(ng-bind-html="organization.name | searchBoldFilter:vm.searchModel") {{ organization.name }}
