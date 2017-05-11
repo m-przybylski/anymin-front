@@ -6,14 +6,17 @@ import {DashboardActivitiesService} from '../../../../services/dashboard-activit
 import dashboardFiltersModule from './filters'
 import dashboardActivitiesModule from '../../../../services/dashboard-activites/dashboard-activites'
 
-describe('Unit testing: profitelo.components.dashboard.expert.activities.filters', () => {
-  return describe('for expertFilters >', () => {
+describe('Unit testing: profitelo.components.dashboard.activities.filters', () => {
+  return describe('for dashboardFilters >', () => {
 
     let scope: IScope
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let componentController: ng.IComponentControllerService
     let component: any
+    const userService = {
+      getUser: () => true
+    }
     let dashboardActivitiesService: DashboardActivitiesService
     let validHTML = '<dashboard-filters filters="filters" account-type="accountType" ' +
       'on-set-search-params="onSetSearchParams"></dashboard-filters>'
@@ -35,26 +38,35 @@ describe('Unit testing: profitelo.components.dashboard.expert.activities.filters
       scope.$digest()
       return compiledElement
     }
+    beforeEach(() => {
+      angular.mock.module(dashboardFiltersModule)
+      angular.mock.module(userService)
+      angular.mock.module(dashboardActivitiesModule)
+    })
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
+      $provide.value('userService', userService)
       $provide.value('apiUrl', 'awesomeUrl/')
     }))
 
-    beforeEach(() => {
+    beforeEach(inject(($q: ng.IQService) => {
+      spyOn(userService, 'getUser').and.callFake(() => $q.resolve({}))
+    }))
 
-      angular.mock.module(dashboardFiltersModule)
-      angular.mock.module(dashboardActivitiesModule)
+    beforeEach(() => {
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
               _$componentController_: ng.IComponentControllerService,
               _dashboardActivitiesService_: DashboardActivitiesService) => {
+
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
         dashboardActivitiesService = _dashboardActivitiesService_
       })
-
+      
       injectors = {
         $element: create(validHTML),
+        userService: userService,
         dashboardActivitiesService: dashboardActivitiesService
       }
       const bindings = {

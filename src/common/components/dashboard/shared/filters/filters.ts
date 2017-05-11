@@ -8,6 +8,7 @@ import {GetActivityFilters, FinancialOperation} from 'profitelo-api-ng/model/mod
 import {DashboardFiltersComponent} from './filters.component'
 import dashboardActivitiesModule from '../../../../services/dashboard-activites/dashboard-activites'
 import {ActivitiesQueryParams} from '../../../../services/dashboard-activites/activities-query-params'
+import userModule from '../../../../services/user/user'
 
 export interface IDashboardFiltersComponentBindings extends ng.IController {
   onSetSearchParams: (queryParams: ActivitiesQueryParams) => void
@@ -21,6 +22,7 @@ const dashboardFiltersModule = angular.module('profitelo.components.dashboard.ex
   'profitelo.filters.normalize-translation-key-filter',
   'profitelo.directives.interface.pro-calendar',
   dashboardActivitiesModule,
+  userModule,
   apiModule
 ])
   .component('dashboardFilters', new DashboardFiltersComponent())

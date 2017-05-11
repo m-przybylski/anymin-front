@@ -5,6 +5,7 @@ import {IDashboardFiltersComponentBindings} from './filters'
 import {IFilterService} from '../../../../services/filter/filter.service'
 import {IPrimaryDropdownListElement} from '../../../interface/dropdown-primary/dropdown-primary'
 import {ActivitiesQueryParams} from '../../../../services/dashboard-activites/activities-query-params'
+import {UserService} from '../../../../services/user/user.service'
 export class DashboardFiltersComponentController implements IDashboardFiltersComponentBindings {
 
   public onSetSearchParams: (queryParams: ActivitiesQueryParams) => void
@@ -22,7 +23,7 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
   public selectedExpert?: IPrimaryDropdownListElement
   public secondaryServicesDropdownList: Array<IPrimaryDropdownListElement>
   public accountType: FinancialOperation.AccountTypeEnum
-
+  public isCompany: boolean = false
   public watchGroup: Array<string> = ['dateFrom', 'dateTo']
 
   $onInit = () => {
@@ -49,13 +50,17 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
   }
 
   /* @ngInject */
-  constructor(private $filter: IFilterService, $scope: ng.IScope) {
+  constructor(private $filter: IFilterService, $scope: ng.IScope, userService: UserService) {
 
     this.showMobileFilters = true
 
     this.toggleFilters = () => {
       this.showMobileFilters = !this.showMobileFilters
     }
+
+    userService.getUser().then((session) => {
+      this.isCompany = session.isCompany
+    })
 
     $scope.$watchGroup(this.watchGroup.map((v) => {
       return '$ctrl.filterModel.' + v
