@@ -32,7 +32,7 @@ function proServiceProviderAvatar($log: ng.ILogService, $q: ng.IQService, topAle
     scope.model = {}
     scope.model[scope.imageField] = []
 
-    let _getImageIfExist = (model: any) => {
+    const _getImageIfExist = (model: any) => {
       FilesApi.fileInfoPath(model).then((res) => {
         scope.model[scope.imageField].push({file: null, response: res})
         scope.isPending = false
@@ -48,8 +48,8 @@ function proServiceProviderAvatar($log: ng.ILogService, $q: ng.IQService, topAle
     !!scope.proModel[scope.imageField] ? _getImageIfExist(scope.proModel[scope.imageField])
       : scope.model[scope.imageField] = []
 
-    let _isValid = () => {
-      let _isValidDeferred = $q.defer()
+    const _isValid = () => {
+      const _isValidDeferred = $q.defer()
       if (angular.isDefined(scope.model[scope.imageField])
         && scope.model[scope.imageField].length > 0 && !scope.isPending) {
         _isValidDeferred.resolve(scope.model[scope.imageField][0].response.token)
@@ -60,7 +60,7 @@ function proServiceProviderAvatar($log: ng.ILogService, $q: ng.IQService, topAle
       return _isValidDeferred.promise
     }
 
-    let _displayErrorMessage = () => {
+    const _displayErrorMessage = () => {
       scope.error.noFile = true
     }
 

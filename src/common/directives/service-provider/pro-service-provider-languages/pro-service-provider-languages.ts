@@ -13,7 +13,7 @@ namespace profitelo.directives.serviceProvider.proServiceProviderLanguages {
       }
 
       const _isValid = () => {
-        let _isValidDeferred = $q.defer()
+        const _isValidDeferred = $q.defer()
         if (angular.isDefined(scope.model.languages) && scope.model.languages.length > 0) {
           _isValidDeferred.resolve()
         } else {

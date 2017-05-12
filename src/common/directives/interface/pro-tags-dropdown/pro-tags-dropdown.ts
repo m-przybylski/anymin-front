@@ -36,7 +36,7 @@ function proTagsDropdown($timeout: ng.ITimeoutService) {
     scope.tagTransform = (item: any) => {
       item = item.trim()
       if (!angular.isDefined(scope.validPattern) || item.match(scope.validPattern)) {
-        let newItem: any = {}
+        const newItem: any = {}
         newItem[scope.tagNameParam] = item
         scope.valid = false
         return newItem

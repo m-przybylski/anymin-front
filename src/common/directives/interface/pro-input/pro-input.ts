@@ -7,8 +7,8 @@
       scope.required = false
       scope.focus = false
       scope.onClick = false
-      let placeholder = scope.placeholder
-      let _inputGroup = $(element)
+      const placeholder = scope.placeholder
+      const _inputGroup = $(element)
       const _excludedKeyCodesForPhone = digitsCodes.concat([13, 8])
       const _excludedKeyCodesForCurrency = digitsCodes.concat([8, 13, 46, 44])
 
@@ -26,7 +26,7 @@
 
       if ('onlyDigits' in attr.$attr) {
         element.bind('keypress', function(e) {
-          let code = e.keyCode || e.which
+          const code = e.keyCode || e.which
           if (_excludedKeyCodesForPhone.indexOf(code) < 0) {
             e.preventDefault()
           }
@@ -35,7 +35,7 @@
 
       if ('noDigits' in attr.$attr) {
         element.bind('keypress', function(e) {
-          let code = e.keyCode || e.which
+          const code = e.keyCode || e.which
           if (_excludedKeyCodesForPhone.indexOf(code) > 0) {
             e.preventDefault()
           }
@@ -44,14 +44,14 @@
 
       if ('currency' in attr.$attr) {
         element.bind('keypress', function(e) {
-          let code = e.keyCode || e.which
+          const code = e.keyCode || e.which
           if (_excludedKeyCodesForCurrency.indexOf(code) < 0) {
             e.preventDefault()
           }
         })
       }
 
-      let _setAddon = (value: boolean) => {
+      const _setAddon = (value: boolean) => {
         scope.addon = value
       }
 

@@ -194,7 +194,7 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
   return this
 }
 
-let payuPaymentForm = {
+const payuPaymentForm = {
   template: require('./payu.pug')(),
   replace: true,
   transclude: true,

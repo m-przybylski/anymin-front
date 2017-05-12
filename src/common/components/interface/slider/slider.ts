@@ -58,7 +58,7 @@ function defaultSliderFunction($window: IWindowService, $timeout: ng.ITimeoutSer
   return this
 }
 
-let slider = {
+const slider = {
   transclude: true,
   bindings: {
     items: '<',

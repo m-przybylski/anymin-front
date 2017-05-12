@@ -6,7 +6,7 @@ function proAlert(topAlertService: TopAlertService) {
 
   function linkFunction(scope: any, _element: ng.IRootElementService, _attr: ng.IAttributes) {
     scope.alerts = []
-    let addAlert = (alerts: Array<any>) => {
+    const addAlert = (alerts: Array<any>) => {
       scope.alerts = alerts
     }
 

@@ -24,7 +24,7 @@ function controller($window: IWindowService, $scope: ng.IScope, smoothScrollingS
   return this
 }
 
-let goToTop = {
+const goToTop = {
   template: require('./go-to-top.pug')(),
   controllerAs: '$ctrl',
   controller: controller

@@ -27,16 +27,16 @@ class LoginRegisterResolver implements ILoginRegisterService {
 
   public resolve = () => {
 
-    let _deferred = this.$q.defer()
+    const _deferred = this.$q.defer()
 
-    let handleError = () => {
+    const handleError = () => {
       _deferred.reject()
       this.$timeout(() => {
         this.$state.go('app.login.account')
       })
     }
 
-    let _account = this.loginStateService.getAccountObject()
+    const _account = this.loginStateService.getAccountObject()
 
     if (_account.phoneNumber.number === null) {
       this.topAlertService.warning({

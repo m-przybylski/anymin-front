@@ -14,7 +14,7 @@ function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interv
     let _file = 0
     let _files = 0
     let immediateInterval: ng.IPromise<any>
-    let _commonConfig = CommonConfig.getAllData()
+    const _commonConfig = CommonConfig.getAllData()
     let uploadMap = {}
     let filesQueue: Array<any> = []
     let isProcess = false
@@ -41,17 +41,17 @@ function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interv
       scope.required = true
     }
 
-    let _setFilesStatus = (currentFile: any, allFiles: any) => {
+    const _setFilesStatus = (currentFile: any, allFiles: any) => {
       scope.translationInfo = {
         file: currentFile,
         files: allFiles
       }
     }
 
-    let calculateTotalPercentage = (map: any, filesLength: number) => {
+    const calculateTotalPercentage = (map: any, filesLength: number) => {
       let tmpPercentage = 0
 
-      for (let a in map) {
+      for (const a in map) {
         if (a) {
           tmpPercentage += map[a] / parseInt(a) * 100
         }
@@ -62,8 +62,8 @@ function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interv
 
     }
 
-    let _uploadProcess = (files: Array<any>) => {
-      let tokenPromisses: Array<ng.IPromise<string>> = []
+    const _uploadProcess = (files: Array<any>) => {
+      const tokenPromisses: Array<ng.IPromise<string>> = []
       if (files && files.length) {
         // scope.animate()
         _file = 0
@@ -145,7 +145,7 @@ function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interv
       }
     }
     /* istanbul ignore next */
-    let _endImmediateLoading = () => {
+    const _endImmediateLoading = () => {
       scope.progress = 0
       uploadMap = {}
       scope.fadeText = true
@@ -160,7 +160,7 @@ function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interv
       scope.isPending = false
     }
     /* istanbul ignore next */
-    let _startImmediateLoading = () => {
+    const _startImmediateLoading = () => {
       immediateInterval = $interval(() => {
         if (scope.progress >= 100) {
           _endImmediateLoading()

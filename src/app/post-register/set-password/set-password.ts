@@ -42,7 +42,7 @@ function _controller($log: ng.ILogService, $filter: ng.IFilterService, $state: n
     this.passwordStrength = passwordStrengthService.getStrength(password)
   }
 
-  let _updateNewUserObject = (patchObject: any, successCallback: (res: Account) => void) => {
+  const _updateNewUserObject = (patchObject: any, successCallback: (res: Account) => void) => {
     /* istanbul ignore next if */
     if (!this.isPending) {
       this.isPending = true

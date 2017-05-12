@@ -11,14 +11,14 @@ namespace profitelo.directives.serviceProvider.proServiceProviderDescription {
         scope.required = true
       }
 
-      let _displayErrorMessage = () => {
+      const _displayErrorMessage = () => {
         scope.error.noDescription = true
       }
 
       scope.model.description = scope.proModel.description
 
-      let _isValid = () => {
-        let _isValidDeferred = $q.defer()
+      const _isValid = () => {
+        const _isValidDeferred = $q.defer()
 
         if (angular.isDefined(scope.model.description) && scope.model.description.length > 0) {
           _isValidDeferred.resolve()

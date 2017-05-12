@@ -32,7 +32,7 @@ namespace profitelo.filters.message {
         return '<a href="' + messageObject.fileUrl + '" target="_blank" class="file"><i class="icon-file-24"></i>' + messageObject.body + '</a>'
 
       } else if (messageUrls && messageUrls.length > 0) {
-        for (let url in messageUrls) {
+        for (const url in messageUrls) {
           if (messageUrls.hasOwnProperty(url)) {
             const currentUrl = messageUrls[url]
             const urlRegexp = createRegexpFromUrl(currentUrl)

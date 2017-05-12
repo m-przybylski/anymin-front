@@ -28,7 +28,7 @@ import tagsListModule from '../../../tags-list/tags-list'
     this.reject = (employmentId: number) => {
       this.isRejected = true
 
-      let _reject = () => {
+      const _reject = () => {
         if (!_isPending) {
           _isPending = true
           EmploymentApi.postEmploymentsRejectRoute(employmentId).then((response) => {
@@ -76,7 +76,7 @@ import tagsListModule from '../../../tags-list/tags-list'
     return this
   }
 
-  let proInvitationAcceptanceBox = {
+  const proInvitationAcceptanceBox = {
     template: require('./pro-invitation-acceptance-box.pug')(),
     restrict: 'E',
     replace: true,

@@ -1,6 +1,6 @@
 (function() {
 
-  let proLightboxContent = {
+  const proLightboxContent = {
     transclude: true,
     template: require('./pro-lightbox-content.pug')(),
     bindings: {

@@ -23,7 +23,7 @@ function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.u
   this.email = ''
   this.emailExist = false
 
-  let _updateNewUserObject = (patchObject: PatchAccount, successCallback: (res: Account) => void) => {
+  const _updateNewUserObject = (patchObject: PatchAccount, successCallback: (res: Account) => void) => {
     /* istanbul ignore next if */
     if (!this.isPending) {
       this.isPending = true
@@ -44,7 +44,7 @@ function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.u
     }
   }
 
-  let _isEmailExists = (email: string): ng.IHttpPromise<{}> => {
+  const _isEmailExists = (email: string): ng.IHttpPromise<{}> => {
     return AccountApi.getAccountEmailExistsRoute(email)
   }
 

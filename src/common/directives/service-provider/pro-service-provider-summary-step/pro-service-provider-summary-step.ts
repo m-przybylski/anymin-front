@@ -9,7 +9,7 @@ function proServiceProviderSummaryStep() {
 
   /* istanbul ignore next function -  We'll need to load babel-polyfill to test it*/
   function preCompileFunction(scope: any) {
-    for (let consultation of scope.consultations) {
+    for (const consultation of scope.consultations) {
       if (consultation.invitations.length > 0) {
         consultation.invitationTags = consultation.invitations.map((invitation: any) => {
           return invitation.email

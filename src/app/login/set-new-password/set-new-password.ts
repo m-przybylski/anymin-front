@@ -33,7 +33,7 @@ function SetNewPasswordController($state: ng.ui.IStateService, $filter: IFilterS
   this.newPassword = ''
   this.patternPassword = CommonSettingsService.localSettings.passwordPattern
 
-  let _passwordChangeError = () => {
+  const _passwordChangeError = () => {
     $state.go('app.login.account')
     topAlertService.error({
       message: $filter('translate')('INTERFACE.API_ERROR'),
@@ -41,7 +41,7 @@ function SetNewPasswordController($state: ng.ui.IStateService, $filter: IFilterS
     })
   }
 
-  let _passwordChangeSuccess = () => {
+  const _passwordChangeSuccess = () => {
     $state.go('app.login.account')
     topAlertService.success({
       message: $filter('translate')('LOGIN.PASSWORD_RECOVERY.PASSWORD_HAD_BEEN_CHANGED'),
@@ -49,7 +49,7 @@ function SetNewPasswordController($state: ng.ui.IStateService, $filter: IFilterS
     })
   }
 
-  let _submitPasswordChangeBySms = () => {
+  const _submitPasswordChangeBySms = () => {
     (<any>tokenStatus.payload).password = this.newPassword
 
     if (tokenStatus.payload.msisdn) {
@@ -67,7 +67,7 @@ function SetNewPasswordController($state: ng.ui.IStateService, $filter: IFilterS
     }
   }
 
-  let _submitPasswordChangeByEmail = () => {
+  const _submitPasswordChangeByEmail = () => {
     (<any>tokenStatus).payload.password = this.newPassword
 
     const putRecoverPassword = {

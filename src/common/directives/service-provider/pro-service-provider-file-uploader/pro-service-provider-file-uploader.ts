@@ -40,12 +40,12 @@ function proServiceProviderFileUploader($log: ng.ILogService, $q: ng.IQService, 
     }
 
     scope.removeFile = (fileToDelete: any) => {
-      let _index = scope.model.files.indexOf(fileToDelete)
+      const _index = scope.model.files.indexOf(fileToDelete)
       scope.model.files.splice(_index, 1)
     }
 
-    let _isValid = () => {
-      let _isValidDeferred = $q.defer()
+    const _isValid = () => {
+      const _isValidDeferred = $q.defer()
 
       if (angular.isDefined(scope.model.files) && scope.model.files.length > 0 && !scope.isPending) {
         _isValidDeferred.resolve()
@@ -56,7 +56,7 @@ function proServiceProviderFileUploader($log: ng.ILogService, $q: ng.IQService, 
       return _isValidDeferred.promise
     }
 
-    let _displayErrorMessage = () => {
+    const _displayErrorMessage = () => {
       scope.error.badFiles = true
     }
 

@@ -1,6 +1,6 @@
 (function() {
 
-  let proLightboxNav = {
+  const proLightboxNav = {
     transclude: true,
     template: require('./pro-lightbox-nav.pug')(),
     bindings: {

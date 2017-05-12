@@ -33,7 +33,7 @@ function config($stateProvider: ng.ui.IStateProvider) {
       pendingInvitations: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: ProfileApi,
                            userService: UserService, ServiceApi: ServiceApi, topAlertService: TopAlertService) => {
         /* istanbul ignore next */
-        let _deferred = $q.defer<Array<GetProfileWithServicesEmployments>>()
+        const _deferred = $q.defer<Array<GetProfileWithServicesEmployments>>()
         /* istanbul ignore next */
         userService.getUser().then(() => {
           ProfileApi.getProfilesInvitationsRoute().then((profileInvitations) => {

@@ -24,7 +24,7 @@ export class SmoothScrollingService {
     }
 
     const elmYPosition = (id: string) => {
-      let elm = document.getElementById(id)
+      const elm = document.getElementById(id)
 
       if (!elm) {
         throw new Error(`Elem ${id} not found`)
@@ -39,20 +39,20 @@ export class SmoothScrollingService {
       return y
     }
 
-    let startY = currentYPosition()
-    let stopY = elmYPosition(eID)
-    let distance = stopY > startY ? stopY - startY : startY - stopY
+    const startY = currentYPosition()
+    const stopY = elmYPosition(eID)
+    const distance = stopY > startY ? stopY - startY : startY - stopY
     if (distance < 100) {
       scrollTo(0, stopY)
       return null
     }
-    let speed = 3
+    const speed = 3
 
-    let step = Math.round(distance / 25)
+    const step = Math.round(distance / 25)
     let leapY = stopY > startY ? startY + step : startY - step
     let timer = 0
 
-    let scrollFunction = () => {
+    const scrollFunction = () => {
 
       if (stopY > leapY) {
         window.scrollTo(0, leapY)

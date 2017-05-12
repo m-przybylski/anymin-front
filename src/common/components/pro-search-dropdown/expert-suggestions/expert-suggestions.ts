@@ -7,7 +7,7 @@ function expertSuggestionsController() {
   return this
 }
 
-let expertSuggestions = {
+const expertSuggestions = {
   transclude: true,
   template: require('./expert-suggestions.pug')(),
   bindings: {

@@ -91,7 +91,7 @@ function RegisterController($log: ng.ILogService, $filter: IFilterService, $stat
     }
   }
 
-  let _updateNewUserObject = (patchObject: PatchAccount, successCallback: (res: Account) => void) => {
+  const _updateNewUserObject = (patchObject: PatchAccount, successCallback: (res: Account) => void) => {
     /* istanbul ignore next if */
     if (!this.isPending) {
       this.isPending = true

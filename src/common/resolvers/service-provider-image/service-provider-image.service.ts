@@ -14,7 +14,7 @@ class ServiceProviderImageResolver implements IServiceProviderImageService {
   }
 
   public resolve = (token: string): ng.IPromise<string> => {
-    let _deferred = this.$q.defer()
+    const _deferred = this.$q.defer()
     if (token !== null) {
       this.FilesApi.fileInfoPath(token).then((response) => {
         if (angular.isDefined(response) && angular.isDefined(response.previews)) {

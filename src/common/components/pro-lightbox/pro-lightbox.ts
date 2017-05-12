@@ -4,7 +4,7 @@ import 'common/components/pro-lightbox/pro-lightbox-nav/pro-lightbox-nav'
 
 (function() {
 
-  let proLightbox = {
+  const proLightbox = {
     transclude: true,
     template: require('./pro-lightbox.pug')(),
     bindings: {

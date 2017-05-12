@@ -4,7 +4,7 @@ export class PasswordStrengthService {
   }
 
   public getStrength = (password: string): number => {
-    let strength = this._getStrength(password)
+    const strength = this._getStrength(password)
 
     if (!password) {
       return 0
@@ -22,7 +22,8 @@ export class PasswordStrengthService {
   private stringReverse = function (str: string | undefined) {
     let out
     if (typeof str === 'string') {
-      for (let i = str.length - 1, out = ''; i >= 0; out += str[i--]) {
+      out = ''
+      for (let i = str.length - 1; i >= 0; out += str[i--]) {
         i
       }
     }
@@ -31,7 +32,7 @@ export class PasswordStrengthService {
 
   private _getStrength = (p: string) => {
 
-    let matches: any = {
+    const matches: any = {
       pos: {
         lower: {length: 0},
         upper: {length: 0},
@@ -49,7 +50,7 @@ export class PasswordStrengthService {
       }
     }
 
-    let counts = {
+    const counts = {
       pos: {
         lower: 0,
         upper: 0,
@@ -73,9 +74,9 @@ export class PasswordStrengthService {
 
     let tmp
     let strength = 0
-    let letters = 'abcdefghijklmnopqrstuvwxyz'
-    let numbers = '01234567890'
-    let symbols = '\\!@#$%&/()=?¿'
+    const letters = 'abcdefghijklmnopqrstuvwxyz'
+    const numbers = '01234567890'
+    const symbols = '\\!@#$%&/()=?¿'
     let back
     let forth
     let i
@@ -118,7 +119,7 @@ export class PasswordStrengthService {
 
       // sequential letters (back and forth)
       for (i = 0; i < letters.length - 2; i++) {
-        let p2 = p.toLowerCase()
+        const p2 = p.toLowerCase()
         forth = letters.substring(i, i + 3)
         back = this.stringReverse(forth)
         if (p2.indexOf(forth) !== -1 || back &&  p2.indexOf(back) !== -1) {

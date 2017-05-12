@@ -53,7 +53,7 @@ import * as angular from 'angular'
                 private $element: ng.IRootElementService) {
 
       this.$document.bind('click', (event) => {
-        let ifTargetClicked = this.$element.find(event.target).length > 0
+        const ifTargetClicked = this.$element.find(event.target).length > 0
         if (!ifTargetClicked) {
           this.isOpen = false
         }

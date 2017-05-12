@@ -14,7 +14,7 @@ export class UrlService {
     const _socialNetworks = this.CommonSettingsService.localSettings.socialNetworks
 
     for (let i = 0; i < _socialNetworks.length; i++) {
-      let social = _socialNetworks[i]
+      const social = _socialNetworks[i]
       if (remoteUrl.match(social.pattern)) {
         return social
       }

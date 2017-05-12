@@ -1,5 +1,5 @@
 (function() {
-  let tagSuggestions = {
+  const tagSuggestions = {
     transclude: true,
     template: require('./tag-suggestions.pug')(),
     bindings: {

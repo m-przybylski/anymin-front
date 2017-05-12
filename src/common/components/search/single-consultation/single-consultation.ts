@@ -46,7 +46,7 @@ function singleConsultationController($state: ng.ui.IStateService, urlService: U
   return this
 }
 
-let singleConsultation = {
+const singleConsultation = {
   template: require('./single-consultation.pug')(),
   bindings: {
     consultation: '<'

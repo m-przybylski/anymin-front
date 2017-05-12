@@ -6,8 +6,8 @@
       scope.required = false
       scope.focus = false
       scope.onClick = false
-      let placeholder = scope.placeholder
-      let _inputGroup = $(element)
+      const placeholder = scope.placeholder
+      const _inputGroup = $(element)
 
       if ('required' in attr.$attr) {
         scope.required = true

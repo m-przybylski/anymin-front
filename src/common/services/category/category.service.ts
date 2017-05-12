@@ -44,7 +44,7 @@ export class CategoryService {
   }
 
   private resolveCategories = () => {
-    let _deferred = this.$q.defer()
+    const _deferred = this.$q.defer()
 
     if (this.fetched) {
       _deferred.resolve()

@@ -7,7 +7,7 @@ function organizationSuggestionsController() {
   return this
 }
 
-let organizationSuggestions = {
+const organizationSuggestions = {
   transclude: true,
   template: require('./organization-suggestions.pug')(),
   bindings: {

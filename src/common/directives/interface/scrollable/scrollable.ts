@@ -52,7 +52,7 @@ namespace profitelo.directives.scrollable {
     }
 
     private isNavbarVisible = (): boolean => {
-      let isNavbar = this.element.find('.top-modal-navbar')
+      const isNavbar = this.element.find('.top-modal-navbar')
       return isNavbar.length > 0
     }
 
@@ -78,7 +78,7 @@ namespace profitelo.directives.scrollable {
 
     private centerContent = () => {
       this.directiveHeight = this.element.height()
-      let positionTop = (this.directiveHeight - ((this.isNavbarVisible()) ? this.navbarHeight : 0) - this.scrollableContent.height()) / 2
+      const positionTop = (this.directiveHeight - ((this.isNavbarVisible()) ? this.navbarHeight : 0) - this.scrollableContent.height()) / 2
 
       this.scrollableContent.css({
         'top': positionTop,

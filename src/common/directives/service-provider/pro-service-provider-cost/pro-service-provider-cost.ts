@@ -21,7 +21,7 @@ function proServiceProviderCost($q: ng.IQService, $filter: IFilterService) {
     scope.model.cost = parseFloat(scope.proModel.cost.amount)
 
     const _isValid = () => {
-      let _isValidDeferred = $q.defer()
+      const _isValidDeferred = $q.defer()
       if (angular.isDefined(scope.model.cost) && scope.model.cost > 0) {
         _isValidDeferred.resolve()
       } else {

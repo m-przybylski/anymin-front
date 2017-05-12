@@ -7,8 +7,8 @@
       scope.focus = false
       scope.onClick = false
       scope.inputType = 'password'
-      let placeholder = scope.placeholder
-      let _input = $(element).find('input')
+      const placeholder = scope.placeholder
+      const _input = $(element).find('input')
 
       if ('required' in attr.$attr) {
         scope.required = true

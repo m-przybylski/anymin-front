@@ -26,9 +26,9 @@ class LoginForgotPasswordResolver implements ILoginForgotPasswordService {
   }
 
   public resolve = (stateParams: IForgotPasswordStateParams) => {
-    let _deferred = this.$q.defer()
+    const _deferred = this.$q.defer()
 
-    let account = this.loginStateService.getAccountObject()
+    const account = this.loginStateService.getAccountObject()
 
     const handleError = () => {
       _deferred.reject()

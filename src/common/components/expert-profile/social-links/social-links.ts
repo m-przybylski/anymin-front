@@ -6,7 +6,7 @@
     return this
   }
 
-  let socialLinks = {
+  const socialLinks = {
     template: require('./social-links.pug')(),
     restrict: 'E',
     replace: true,

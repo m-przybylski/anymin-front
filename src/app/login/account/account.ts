@@ -51,7 +51,7 @@ function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService
     this.current = 1
   }
 
-  let _determinePhoneNumberStatus = (status: any) => {
+  const _determinePhoneNumberStatus = (status: any) => {
     switch (status) {
       case 'REGISTERED':
         this.current = 2

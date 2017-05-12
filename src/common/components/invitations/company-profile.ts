@@ -1,6 +1,6 @@
 (function () {
 
-  let companyProfile = {
+  const companyProfile = {
     transclude: true,
     template: require('./company-profile.pug')(),
     bindings: {

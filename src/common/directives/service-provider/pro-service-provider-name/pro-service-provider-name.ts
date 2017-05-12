@@ -23,8 +23,8 @@ import 'common/controllers/service-provider/service-provider-step-controller/ser
 
       scope.model.name = scope.proModel.name
 
-      let _isValid = () => {
-        let _isValidDeferred = $q.defer()
+      const _isValid = () => {
+        const _isValidDeferred = $q.defer()
 
         if (angular.isDefined(scope.model.name) && scope.model.name.length > 0) {
           _isValidDeferred.resolve()
@@ -35,7 +35,7 @@ import 'common/controllers/service-provider/service-provider-step-controller/ser
         return _isValidDeferred.promise
       }
 
-      let _displayErrorMessage = () => {
+      const _displayErrorMessage = () => {
         scope.error.badName = true
       }
 

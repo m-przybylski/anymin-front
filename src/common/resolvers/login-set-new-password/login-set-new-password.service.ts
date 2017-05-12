@@ -31,7 +31,7 @@ class LoginSetNewPasswordResolver implements ILoginSetNewPasswordService {
 
   public resolve = (stateParams: ISetNewPasswordStateParams) => {
 
-    let _deferred = this.$q.defer()
+    const _deferred = this.$q.defer()
 
     const smsTokenPath = () => {
       _deferred.resolve({

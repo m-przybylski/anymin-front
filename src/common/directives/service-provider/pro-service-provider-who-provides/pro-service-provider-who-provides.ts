@@ -45,8 +45,8 @@ function proServiceProviderWhoProvides($q: ng.IQService, CommonSettingsService: 
       }
     })
 
-    let _isValid = () => {
-      let _isValidDeferred = $q.defer()
+    const _isValid = () => {
+      const _isValidDeferred = $q.defer()
 
       if (angular.isDefined(scope.model.invitations) && scope.model.invitations.length > 0) {
         _isValidDeferred.resolve()
@@ -57,7 +57,7 @@ function proServiceProviderWhoProvides($q: ng.IQService, CommonSettingsService: 
       return _isValidDeferred.promise
     }
 
-    let _displayErrorMessage = () => {
+    const _displayErrorMessage = () => {
       scope.error.badEmployee = true
     }
 

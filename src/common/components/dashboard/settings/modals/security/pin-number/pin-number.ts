@@ -53,7 +53,7 @@ export class SecurityPinNumberSettingsController implements ng.IController {
   }
 
   public changeViewsAndPin = (): void => {
-    let protectedViews: Array<string> = []
+    const protectedViews: Array<string> = []
     this.isPasswordIncorrect = false
     _.each(this.protectedViewsStatus, (val: boolean, key: string) => {
       if (val) {

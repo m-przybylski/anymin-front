@@ -50,7 +50,7 @@
     dropdownScroll.perfectScrollbar()
 
     $document.bind('click', (event) => {
-      let ifTargetClicked = $element.find(event.target).length > 0
+      const ifTargetClicked = $element.find(event.target).length > 0
       if (!ifTargetClicked) {
         this.isOpen = false
       }

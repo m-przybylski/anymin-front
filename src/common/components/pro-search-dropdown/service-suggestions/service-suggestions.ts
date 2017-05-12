@@ -17,7 +17,7 @@ function serviceSuggestionsController($state: ng.ui.IStateService, CommonSetting
   return this
 }
 
-let serviceSuggestions = {
+const serviceSuggestions = {
   transclude: true,
   template: require('./service-suggestions.pug')(),
   bindings: {

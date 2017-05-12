@@ -21,12 +21,12 @@ function proServiceExternalLinks($q: ng.IQService, CommonSettingsService: Common
     const _urlPattern = CommonSettingsService.localSettings.urlPattern
 
     scope.removeLink = (linkToDelete: string) => {
-      let _index = scope.model.links.indexOf(linkToDelete)
+      const _index = scope.model.links.indexOf(linkToDelete)
       scope.model.links.splice(_index, 1)
     }
     let httpAdded = false
 
-    let _checkLinkExist = (link: string) => {
+    const _checkLinkExist = (link: string) => {
       return scope.model.links.indexOf(link) !== -1
     }
 

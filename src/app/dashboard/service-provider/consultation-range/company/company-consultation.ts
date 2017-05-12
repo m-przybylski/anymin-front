@@ -45,7 +45,7 @@ function CompanyConsultationController($log: ng.ILogService, $scope: ng.IScope, 
   this.consultations = savedProfile.services
   this.profileImage = profileImage
 
-  let _postConsultationMethod = (callback: () => void) => {
+  const _postConsultationMethod = (callback: () => void) => {
     ServiceApi.postServiceRoute({
       details: {
         name: this.costModel.name,
@@ -71,7 +71,7 @@ function CompanyConsultationController($log: ng.ILogService, $scope: ng.IScope, 
     })
   }
 
-  let _calculateProgressPercentage = () => {
+  const _calculateProgressPercentage = () => {
     this.progressBarWidth = Math.ceil(this.queue.completedSteps / this.queue.amountOfSteps * 100)
   }
   _calculateProgressPercentage()
@@ -85,7 +85,7 @@ function CompanyConsultationController($log: ng.ILogService, $scope: ng.IScope, 
   }
 
   this.saveConsultationObject = () => {
-    let _redirectByOwnerEmployeeStatus = () => {
+    const _redirectByOwnerEmployeeStatus = () => {
       if ((!!_.find(this.consultations, {'ownerEmployee': true}) || !!this.ownerEmployee)
         && !savedProfile.expertDetails) {
         $state.go('app.dashboard.service-provider.individual-path')
@@ -149,8 +149,8 @@ function CompanyConsultationController($log: ng.ILogService, $scope: ng.IScope, 
   this.deleteConsultation = (id: number, index: number) => {
 
     ((serviceId, localIndex) => {
-      let _id = serviceId
-      let _index = localIndex
+      const _id = serviceId
+      const _index = localIndex
 
       this.modalCallback = () => {
         ServiceApi.deleteServiceRoute(_id).then((_res) => {
@@ -210,7 +210,7 @@ angular.module('profitelo.controller.dashboard.service-provider.consultation-ran
         savedProfile: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: ProfileApi,
                        userService: UserService, ServiceApi: ServiceApi, topAlertService: TopAlertService) => {
           /* istanbul ignore next */
-          let _deferred = $q.defer<GetProfileWithServices | null>()
+          const _deferred = $q.defer<GetProfileWithServices | null>()
           /* istanbul ignore next */
           userService.getUser().then((user) => {
             ProfileApi.getProfileWithServicesRoute(user.id).then((profileWithServices) => {

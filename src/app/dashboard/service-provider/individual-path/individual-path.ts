@@ -42,7 +42,7 @@ function IndividualPathController($scope: ng.IScope, $state: ng.ui.IStateService
 
   this.hasProfile = false
 
-  let _calculateProgressPercentage = () => {
+  const _calculateProgressPercentage = () => {
     this.progressBarWidth = Math.ceil(this.queue.completedSteps / this.queue.amountOfSteps * 100)
   }
 
@@ -139,7 +139,7 @@ angular.module('profitelo.controller.dashboard.service-provider.individual-path'
         savedProfile: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: ProfileApi,
                        userService: UserService, topAlertService: TopAlertService) => {
           /* istanbul ignore next */
-          let _deferred = $q.defer<GetProfile | null>()
+          const _deferred = $q.defer<GetProfile | null>()
           /* istanbul ignore next */
           userService.getUser().then((user) => {
             ProfileApi.getProfileRoute(user.id).then((response) => {

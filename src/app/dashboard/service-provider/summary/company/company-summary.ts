@@ -116,8 +116,8 @@ function CompanySummaryController($log: ng.ILogService, $state: ng.ui.IStateServ
   this.deleteConsultation = (id: number, index: number) => {
 
     ((serviceId, localIndex) => {
-      let _id = serviceId
-      let _index = localIndex
+      const _id = serviceId
+      const _index = localIndex
 
       this.modalCallback = () => {
         ServiceApi.deleteServiceRoute(_id).then((_res) => {
@@ -170,7 +170,7 @@ angular.module('profitelo.controller.dashboard.service-provider.summary.company'
                        userService: UserService, ServiceApi: ServiceApi, topAlertService: TopAlertService) => {
 
           /* istanbul ignore next */
-          let _deferred = $q.defer<GetProfileWithServices>()
+          const _deferred = $q.defer<GetProfileWithServices>()
           /* istanbul ignore next */
           userService.getUser().then((user) => {
             ProfileApi.getProfileWithServicesRoute(user.id).then((profileWithServices) => {

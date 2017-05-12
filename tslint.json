@@ -21,7 +21,7 @@
     "max-file-line-count": [true, 450],
     //"max-line-length": [true, 120],
     "interface-name": true,
-    // "prefer-const": true,
+    "prefer-const": true,
     "triple-equals": [true, "allow-null-check"],
     "typedef-whitespace": [true, {
       "call-signature": "nospace",

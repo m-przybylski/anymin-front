@@ -45,8 +45,8 @@ function ServiceProviderStepController($scope: any, $timeout: ng.ITimeoutService
     }
   }
 
-  let _clearErrors = () => {
-    for (let property in $scope.error) {
+  const _clearErrors = () => {
+    for (const property in $scope.error) {
       if ($scope.error.hasOwnProperty(property)) {
         $scope.error[property] = false
       }

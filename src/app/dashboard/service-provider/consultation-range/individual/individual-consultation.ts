@@ -52,7 +52,7 @@ function IndividualConsultationController($log: ng.ILogService, $scope: ng.IScop
     $state.go('app.dashboard.service-provider.consultation-range.company')
   }
 
-  let _postConsultationMethod = (callback: () => void) => {
+  const _postConsultationMethod = (callback: () => void) => {
     ServiceApi.postServiceRoute({
       details: {
         name: this.costModel.name,
@@ -77,7 +77,7 @@ function IndividualConsultationController($log: ng.ILogService, $scope: ng.IScop
     })
   }
 
-  let _calculateProgressPercentage = () => {
+  const _calculateProgressPercentage = () => {
     this.progressBarWidth = Math.ceil(this.queue.completedSteps / this.queue.amountOfSteps * 100)
   }
   _calculateProgressPercentage()
@@ -90,7 +90,7 @@ function IndividualConsultationController($log: ng.ILogService, $scope: ng.IScop
   }
 
   this.saveConsultationObject = () => {
-    let _redirectCallBack = () => {
+    const _redirectCallBack = () => {
       $state.go('app.dashboard.service-provider.summary.individual')
     }
     if (this.queue.completedSteps === this.queue.amountOfSteps) {
@@ -137,8 +137,8 @@ function IndividualConsultationController($log: ng.ILogService, $scope: ng.IScop
   this.deleteConsultation = (id: number, index: number) => {
 
     ((serviceId, localIndex) => {
-      let _id = serviceId
-      let _index = localIndex
+      const _id = serviceId
+      const _index = localIndex
 
       this.modalCallback = () => {
         ServiceApi.deleteServiceRoute(_id).then((_res) => {
@@ -198,7 +198,7 @@ angular.module('profitelo.controller.dashboard.service-provider.consultation-ran
         savedProfile: ($log: ng.ILogService, $q: ng.IQService, $state: ng.ui.IStateService, ProfileApi: ProfileApi,
                        userService: UserService, ServiceApi: ServiceApi, topAlertService: TopAlertService) => {
           /* istanbul ignore next */
-          let _deferred = $q.defer<GetProfileWithServices | null>()
+          const _deferred = $q.defer<GetProfileWithServices | null>()
           /* istanbul ignore next */
           userService.getUser().then((user) => {
             ProfileApi.getProfileWithServicesRoute(user.id).then((response) => {

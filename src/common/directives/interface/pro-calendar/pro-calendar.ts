@@ -13,13 +13,13 @@ function proCalendar() {
     }
 
     function getDayClass(data: any) {
-      let date = data.date,
+      const date = data.date,
         mode = data.mode
       if (mode === 'day') {
-        let dayToCheck = new Date(date).setHours(0, 0, 0, 0)
+        const dayToCheck = new Date(date).setHours(0, 0, 0, 0)
 
         for (let i = 0; i < scope.events.length; i++) {
-          let currentDay = new Date(scope.events[i].date).setHours(0, 0, 0, 0)
+          const currentDay = new Date(scope.events[i].date).setHours(0, 0, 0, 0)
 
           if (dayToCheck === currentDay) {
             return scope.events[i].status
@@ -74,9 +74,9 @@ function proCalendar() {
       opened: false
     }
 
-    let tomorrow = new Date()
+    const tomorrow = new Date()
     tomorrow.setDate(tomorrow.getDate() + 1)
-    let afterTomorrow = new Date()
+    const afterTomorrow = new Date()
     afterTomorrow.setDate(tomorrow.getDate() + 1)
     scope.events = [
       {

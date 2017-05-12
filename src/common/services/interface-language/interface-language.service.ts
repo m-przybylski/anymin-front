@@ -62,12 +62,12 @@ export class InterfaceLanguageService {
       ietfCode = ''
     }
 
-    let _queryLang = this.$location.search().lang
-    let _cookie = this.$cookies.get(InterfaceLanguageService.selectedInterfaceLanguageCookie)
+    const _queryLang = this.$location.search().lang
+    const _cookie = this.$cookies.get(InterfaceLanguageService.selectedInterfaceLanguageCookie)
 
-    let _logDefaultTranslation = () => {
-      let previousLanguage = this.unifyToIetfCode(this.$translate.use())
-      let msg = 'Your language `' + previousLanguage + '`' +
+    const _logDefaultTranslation = () => {
+      const previousLanguage = this.unifyToIetfCode(this.$translate.use())
+      const msg = 'Your language `' + previousLanguage + '`' +
         ' was not found, so used our default language `' + InterfaceLanguageService.defaultTranslation + '`, ' +
         _.find(InterfaceLanguageService.interfaceLanguages,
           {ietfCode: InterfaceLanguageService.defaultTranslation})!['nativeName'] + '.'
@@ -108,8 +108,8 @@ export class InterfaceLanguageService {
   // @param        {String}   langCode    some string with language key; like `pl-PL`
   // @description  Set user language for the website.
   public setLanguage = (ietfCode: string) => {
-    let _code = this.unifyToIetfCode(ietfCode)
-    let _countryCode = _code.split('-')[0]
+    const _code = this.unifyToIetfCode(ietfCode)
+    const _countryCode = _code.split('-')[0]
     this.$cookies.put(InterfaceLanguageService.selectedInterfaceLanguageCookie, _code)
     if (this.$http.defaults.headers) {
       this.$http.defaults.headers.common['X-LANG'] = _code

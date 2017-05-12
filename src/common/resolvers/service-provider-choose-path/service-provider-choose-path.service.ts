@@ -22,7 +22,7 @@ export class ServiceProviderChoosePathResolver implements IServiceProviderChoose
   }
 
   public resolve = () => {
-    let _deferred = this.$q.defer<GetProfile | null>()
+    const _deferred = this.$q.defer<GetProfile | null>()
 
     this.userService.getUser().then((user) => {
       this.ProfileApi.getProfileRoute(user.id).then((response) => {

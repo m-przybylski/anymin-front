@@ -6,8 +6,8 @@ const handleAmount = (_amount: number) => {
   const amount = parseInt(<any>_amount, 10)
   const major = (amount) ? amount / 100 | 0 : 0
   const minor = (amount) ? amount % 100 : 0
-  let minorFirst = (minor) ? minor % 10 : 0
-  let minorSecond = (minor) ? minor / 10 | 0 : 0
+  const minorFirst = (minor) ? minor % 10 : 0
+  const minorSecond = (minor) ? minor / 10 | 0 : 0
 
   if (_amount < 0) {
     sign = '-'

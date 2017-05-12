@@ -22,8 +22,8 @@ export class TopAlertService {
   }
 
   private setId = (): number => {
-    let d = new Date()
-    let n = d.getMilliseconds() + Math.floor(Math.random() * 1000)
+    const d = new Date()
+    const n = d.getMilliseconds() + Math.floor(Math.random() * 1000)
     return n
   }
 
@@ -39,7 +39,7 @@ export class TopAlertService {
 
   private timeoutDestroy = (timeout: number, id: number) => {
     if (typeof timeout !== 'undefined' && timeout !== null) {
-      let realTimeout = timeout * 3000
+      const realTimeout = timeout * 3000
       this.$timeout(() => {
         this.destroyAlert(id)
       }, realTimeout)
