@@ -1,56 +1,28 @@
 import * as angular from 'angular'
-import {PayoutsApi} from 'profitelo-api-ng/api/api'
-import {PayPalAccountDto, PayoutMethodsDto} from 'profitelo-api-ng/model/models'
-import {ModalsService} from '../../../../common/services/modals/modals.service'
-import {IPayoutsSettingsService} from '../../../../common/resolvers/payouts-resolver/payouts-resolver.service'
-import 'common/resolvers/payouts-resolver/payouts-resolver.service'
+import apiModule from 'profitelo-api-ng/api.module'
+import {DashboardSettingsPayoutsController} from './payouts.controller'
+import {PayoutsSettingsResolver} from './payouts.resolver'
 
-export class DashboardSettingsPayoutsController implements ng.IController {
-  public isAnyPayoutMethod: boolean = false
-  public payPalAccount?: PayPalAccountDto
 
-  constructor(private modalsService: ModalsService, private $state: ng.ui.IStateService,
-              payoutsMethods: PayoutMethodsDto, private PayoutsApi: PayoutsApi) {
-
-    if (payoutsMethods && payoutsMethods.payPalAccount) {
-      this.isAnyPayoutMethod = true
-      this.payPalAccount = payoutsMethods.payPalAccount
-    }
-  }
-
-  public deletePaymentMethod = () => {
-    this.PayoutsApi.deletePayPalAccountPayoutMethodRoute().then(() => {
-      this.$state.reload()
-    }, (error) => {
-      throw new Error('Can Not delete payout methods: ' + error)
-    })
-  }
-
-  public addPayoutsMethod = (): void => {
-    this.modalsService.createPayoutsMethodControllerModal(this.onModalClose)
-  }
-
-  private onModalClose = (): void => {
-    this.$state.reload()
-  }
-}
-
-angular.module('profitelo.controller.dashboard.settings.payouts', [
+const dashboardSettingsPayoutsModule = angular.module('profitelo.controller.dashboard.settings.payouts', [
   'ui.router',
-  'profitelo.resolvers.payouts-settings'
+  apiModule
 ])
-  .config(($stateProvider: ng.ui.IStateProvider) => {
-    $stateProvider.state('app.dashboard.settings.payouts', {
-      url: '/payouts',
-      template: require('./payouts.pug')(),
-      controller: 'dashboardSettingsPayoutsController',
-      controllerAs: 'vm',
-      resolve: {
-        payoutsMethods: (payoutsSettingsResolver: IPayoutsSettingsService) => {
-          return payoutsSettingsResolver.resolve()
-        }
-      },
-      data: {}
-    })
+.config(($stateProvider: ng.ui.IStateProvider) => {
+  $stateProvider.state('app.dashboard.settings.payouts', {
+    url: '/payouts',
+    template: require('./payouts.pug')(),
+    controller: 'dashboardSettingsPayoutsController',
+    controllerAs: 'vm',
+    resolve: {
+      payoutsMethods: (payoutsSettingsResolver: PayoutsSettingsResolver) => {
+        return payoutsSettingsResolver.resolve()
+      }
+    }
   })
-  .controller('dashboardSettingsPayoutsController', DashboardSettingsPayoutsController)
+})
+.controller('dashboardSettingsPayoutsController', DashboardSettingsPayoutsController)
+.service('payoutsSettingsResolver', PayoutsSettingsResolver)
+  .name
+
+export default dashboardSettingsPayoutsModule

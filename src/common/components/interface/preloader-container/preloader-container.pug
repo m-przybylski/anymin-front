@@ -1,5 +1,6 @@
 .preloader-container(data-ng-show="$ctrl.isLoading || $ctrl.isError")
   .content-loader(data-ng-hide="$ctrl.isError")
+    span
   .error-wrapper(data-ng-show="$ctrl.isError")
     a.btn.btn-warning.icon-left(data-ng-click="$ctrl.errorFunction()")
       .icon.icon-upload-progress-24

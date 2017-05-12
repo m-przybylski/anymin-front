@@ -17,6 +17,18 @@ describe('Unit testing: profitelo.components.dashboard.activities.filters', () =
     const userService = {
       getUser: () => true
     }
+    const filtersMock = {
+      activityTypes: ['asas', 'asdasd', 'asdasd'],
+      services: [{
+        name: 'asdasd',
+        id: 'asdasd',
+        expertId: '23dd33f'
+      }],
+      experts: [{
+        name: 'Halina',
+        id: '23dd33f'
+      }]
+    }
     let dashboardActivitiesService: DashboardActivitiesService
     let validHTML = '<dashboard-filters filters="filters" account-type="accountType" ' +
       'on-set-search-params="onSetSearchParams"></dashboard-filters>'
@@ -63,22 +75,15 @@ describe('Unit testing: profitelo.components.dashboard.activities.filters', () =
         compile = $compile
         dashboardActivitiesService = _dashboardActivitiesService_
       })
-      
+
       injectors = {
         $element: create(validHTML),
         userService: userService,
         dashboardActivitiesService: dashboardActivitiesService
       }
       const bindings = {
-        filters: {
-          activityTypes: ['asas', 'asdasd', 'asdasd'],
-          services: [{
-            name: 'asdasd',
-            id: 'asdasdasdasd'
-          }],
-          experts: []
-        },
-        onSetSearchParam: () => {},
+        filters: filtersMock,
+        onSetSearchParams: () => true,
         accountType: FinancialOperation.AccountTypeEnum.PROFILE
       }
 
@@ -89,6 +94,41 @@ describe('Unit testing: profitelo.components.dashboard.activities.filters', () =
       expect(true).toBeTruthy()
     }))
 
+    it('should update activity type param', inject(() => {
+      spyOn(component, 'setupServicesList')
+      component.updateActivityTypeParam({
+        name: filtersMock.activityTypes[0],
+        value: filtersMock.activityTypes[0]
+      })
+      expect(component.setupServicesList).toHaveBeenCalled()
+    }))
+
+    it('should update profile param by undefined', inject(() => {
+      spyOn(component, 'setupServicesList')
+      component.updateProfileParam({
+        name: filtersMock.experts[0].name,
+        value: void 0
+      })
+      expect(component.setupServicesList).toHaveBeenCalled()
+    }))
+
+    it('should update service param by main list', inject(() => {
+      spyOn(component, 'onSetSearchParams')
+      component.mainUpdateServiceParam({
+        name: filtersMock.services[0].name,
+        value: filtersMock.services[0].id
+      })
+      expect(component.onSetSearchParams).toHaveBeenCalled()
+    }))
+
+    it('should update service param by second list', inject(() => {
+      spyOn(component, 'setupServicesList')
+      component.secondUpdateServiceParam({
+        name: filtersMock.services[0].name,
+        value: filtersMock.services[0].id
+      })
+      expect(component.setupServicesList).toHaveBeenCalled()
+    }))
 
   })
 })

@@ -86,7 +86,6 @@ export class EditCompanyInvoiceController implements ng.IController {
 
 angular.module('profitelo.components.dashboard.settings.modals.payments.edit-company-invoice', [
   'ui.bootstrap',
-
   apiModule,
   'profitelo.components.dashboard.invoice',
   'profitelo.components.interface.preloader',

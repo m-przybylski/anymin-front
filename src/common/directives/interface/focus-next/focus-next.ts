@@ -12,9 +12,9 @@ namespace profitelo.directives.interface.focusNext {
 
     public link = (scope: ILocalAvatarUploaderDirectiveScope, element: any, _attr: ng.IAttributes) => {
       const digitsCodes: Array<number> = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57]
-
+      const validCodes: Array<number> = [8, 39, 37]
       element.bind('keydown', (e: KeyboardEvent) => {
-        if (digitsCodes.indexOf(e.which) > -1) {
+        if (digitsCodes.indexOf(e.which) < 0 && validCodes.indexOf(e.which) < 0) {
           e.preventDefault()
         }
       })

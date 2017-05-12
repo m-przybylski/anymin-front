@@ -3,6 +3,7 @@ import IPromise = angular.IPromise
 import ILogService = angular.ILogService
 import {CompanyInfo} from 'profitelo-api-ng/model/models'
 import {AccountApi} from 'profitelo-api-ng/api/api'
+import apiModule from 'profitelo-api-ng/api.module'
 
 export interface IInvoiceDataResolver {
   resolveCompanyInfo: () =>  IPromise<CompanyInfo>
@@ -23,10 +24,13 @@ export class InvoiceDataResolver implements IInvoiceDataResolver {
     if (error.status !== 404) {
       this.$log.error('Can not get company info: ' + error)
     }
+    return {}
   }
 }
 
-angular.module('profitelo.resolvers.invoice-data', [])
+angular.module('profitelo.resolvers.invoice-data', [
+  apiModule
+])
 .config(($qProvider: ng.IQProvider) => {
   $qProvider.errorOnUnhandledRejections(false)
 })
