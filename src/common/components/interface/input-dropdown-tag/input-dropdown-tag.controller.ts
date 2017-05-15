@@ -52,7 +52,7 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
     this.dropdownScroll = this.$element.find('.dropdown-content')
 
     this.$document.bind('click', (event) => {
-      let ifTargetClicked = this.$element.find(event.target).length > 0
+      const ifTargetClicked = this.$element.find(event.target).length > 0
       if (!ifTargetClicked) {
         this.isOpen = false
       }

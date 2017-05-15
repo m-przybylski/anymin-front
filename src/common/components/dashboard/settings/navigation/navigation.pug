@@ -10,7 +10,7 @@
 
         li(data-ng-class="{'is-active': $ctrl.stateNames.payments}")
           a(data-translate="payments" data-ui-sref="app.dashboard.settings.payments")
-        li(data-ng-class="{'is-active': $ctrl.stateNames.payouts}")
+        li(data-ng-class="{'is-active': $ctrl.stateNames.payouts}" data-ng-if="$ctrl.isWizardComplete")
           a(data-translate="payouts" data-ui-sref="app.dashboard.settings.payouts")
         li(data-ng-class="{'is-active': $ctrl.stateNames.notifications}")
           a(data-translate="notifications" data-ui-sref="app.dashboard.settings.notifications")

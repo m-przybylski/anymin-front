@@ -1,16 +1,9 @@
 import * as angular from 'angular'
-import {FinancesApi} from 'profitelo-api-ng/api/api'
 import 'common/components/dashboard/client/navigation/navigation'
 import './activities/activities'
 import './favourites/favourites'
 
-function clientController(FinancesApi: FinancesApi) {
-
-  FinancesApi.getClientBalanceRoute().then((clientBalance) => {
-    this.clientBalance = clientBalance
-  }, (error) => {
-    throw new Error('Can not get client balance: ' + error)
-  })
+function clientController() {
 
   return this
 }
