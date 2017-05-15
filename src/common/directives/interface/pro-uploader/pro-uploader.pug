@@ -1,23 +1,30 @@
 .pro-uploader
-  .upload-field(ngf-drop="uploadFiles($files)" ngf-select="uploadFiles($files)" ng-model="uploadedFiles" class="drop-box"
-  ngf-multiple="{{multiple}}" ngf-allow-dir="false"
-  ngf-select-disabled="{{ isPending }}"
-  ngf-pattern="'{{ngfPattern}}'"
-  ngf-drop-disabled="{{ isPending }}"
-  accept="{{ngfPattern}}"
-  items="{{filesUploaded}}"
-  ngf-resize="{{imageSize}}"
-  data-ng-required="required"
-  ngf-validate="{{ngfValidate}}"
-  ngf-drag-over-class="{pattern: '{{ ngfPattern }}', accept:'acceptClass', reject:'rejectClass', delay:100}")
+  .file-preview
+    .upload-field.thumb.x64(
+      class="drop-box"
+      ngf-drop="uploadFiles($files)"
+      ng-model="uploadedFiles"
+      ngf-select="uploadFiles($files)"
+      ngf-multiple="{{multiple}}" ngf-allow-dir="false"
+      ngf-select-disabled="{{ isPending }}"
+      ngf-pattern="'{{ngfPattern}}'"
+      ngf-drop-disabled="{{ isPending }}"
+      accept="{{ngfPattern}}"
+      items="{{filesUploaded}}"
+      ngf-resize="{{imageSize}}"
+      data-ng-required="required"
+      ngf-validate="{{ngfValidate}}"
+      ngf-drag-over-class="{pattern: '{{ ngfPattern }}', accept:'acceptClass', reject:'rejectClass', delay:100}"
+    )
+      span.icon.icon-plus-12
+
+  .file-info
     .upload-files
-      .upload-icons(data-ng-hide="uploadImg")
-        span.icon.icon-download-24-1
-        span.icon.icon-upload-progress-24.icon-overlay-load.fa-spin.icon-24(data-ng-show="upload" ng-class="{'hide-loader' : hideLoader}")
       .upload-description(ng-class="{'fade-effect': fadeText}" data-ng-hide="uploadImg")
-        h3 {{header | translate}}
-          span(data-ng-hide="!upload")  {{progress}}%        
+        span.add-file {{ header | translate }}
+          span(data-ng-hide="!upload")  {{progress}}%
+
       .upload-field-fill(style="height: {{ progress }}%")
 
-  .input-error-messages.uploader-error-massages
-    .error(data-translate="{{errorMessage}}" data-ng-show="!!errorValidateMessage")
+    .input-error-messages.uploader-error-massages(data-ng-show="!!errorValidateMessage")
+      .error(data-translate="{{errorMessage}}")

@@ -56,7 +56,8 @@
         defaultValue: '@',
         name: '@',
         maxlength: '@',
-        ngPattern: '=?'
+        ngPattern: '=?',
+        label: '@'
       }
 
     }

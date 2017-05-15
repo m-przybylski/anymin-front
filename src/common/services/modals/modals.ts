@@ -28,6 +28,7 @@ import '../../components/interface/preloader/preloader'
 import '../../components/dashboard/expert/activities/modals/consultation-details/consultation-details'
 import expertEmployeeDetailsModalModule from '../../components/dashboard/expert/employees/modals/employee-details/employee-details'
 import expertInviteEmployeesModule from '../../components/dashboard/expert/activities/modals/invite-employees/invite-employees'
+import manageProfileEditProfileModule from '../../components/dashboard/expert/manage-profile/modals/edit-expert-profile/edit-expert-profile'
 
 const modalsModule = angular.module('profitelo.services.modals', [
   dialogModule,
@@ -52,7 +53,8 @@ const modalsModule = angular.module('profitelo.services.modals', [
   'profitelo.components.profile.profile-header.profile-gallery.modals.preview',
   'profitelo.components.dashboard.expert.activities.modals.consultation-details',
   expertEmployeeDetailsModalModule,
-  expertInviteEmployeesModule
+  expertInviteEmployeesModule,
+  manageProfileEditProfileModule
 ])
 .service('modalsService', ModalsService)
   .name

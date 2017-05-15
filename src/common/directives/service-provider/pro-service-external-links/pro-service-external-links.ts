@@ -1,7 +1,6 @@
 import * as angular from 'angular'
 import {CommonSettingsService} from '../../../services/common-settings/common-settings.service'
 import commonSettingsModule from '../../../services/common-settings/common-settings'
-import 'common/directives/ng-enter/ng-enter'
 import 'common/directives/pro-social-icon-getter/pro-social-icon-getter'
 import 'common/controllers/service-provider/service-provider-step-controller/service-provider-step-controller'
 
@@ -96,7 +95,10 @@ function proServiceExternalLinks($q: ng.IQService, CommonSettingsService: Common
       order: '=?',
       proModel: '=',
       trTitle: '@',
-      trDesc: '@'
+      trDesc: '@',
+      label: '@',
+      hintLabel: '@',
+      placeholder: '@'
     },
     link: linkFunction,
     controller: 'ServiceProviderStepController',
@@ -107,7 +109,6 @@ function proServiceExternalLinks($q: ng.IQService, CommonSettingsService: Common
 angular.module('profitelo.directives.service-provider.pro-service-external-links', [
   'pascalprecht.translate',
   commonSettingsModule,
-  'profitelo.directives.ng-enter',
   'profitelo.directives.pro-social-icon-getter',
   'profitelo.common.controller.service-provider.service-provider-step-controller'
 ])

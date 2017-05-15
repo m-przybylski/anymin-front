@@ -159,8 +159,7 @@
       margin: 0
 
       li
-        transition: background 0.2s
-
+        &.is-focused,
         &:hover
           background: $c-primary
 
@@ -175,6 +174,14 @@
           &:hover
             a
               color: $c-white
+
+        &.no-results
+          &:hover
+            background: none
+
+            a
+              color: inherit
+              cursor: auto
 
         a
           +inputDropDownItem
