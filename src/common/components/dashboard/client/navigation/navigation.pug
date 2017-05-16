@@ -7,6 +7,8 @@
             a(data-translate="DASHBOARD.CLIENT.NAVIGATION.FAVOURITE_EXPERTS" data-ui-sref="app.dashboard.client.favourites")
           li(data-ui-sref-active="is-active")
             a(data-translate="DASHBOARD.CLIENT.NAVIGATION.ACTIVITIES" data-ui-sref="app.dashboard.client.activities")
+          li(data-ui-sref-active="is-active")
+            a(data-ui-sref="app.dashboard.client.invoices") Faktury
 
       .nav-payment(data-ng-if="!$ctrl.isCard")
         .amount-balance-container(data-ng-hide="$ctrl.clientBalance.amount === 0")

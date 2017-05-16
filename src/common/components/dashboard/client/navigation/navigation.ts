@@ -30,7 +30,6 @@ import {FinancesApi} from 'profitelo-api-ng/api/api'
 
   angular.module('profitelo.components.dashboard.client.navigation', [
     'pascalprecht.translate',
-    'ui.router',
     filtersModule
   ])
     .component('clientNavigation', component)

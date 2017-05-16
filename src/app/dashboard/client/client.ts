@@ -2,6 +2,7 @@ import * as angular from 'angular'
 import 'common/components/dashboard/client/navigation/navigation'
 import './activities/activities'
 import './favourites/favourites'
+import DashboardClientInvoicesModule from './invoices/invoices'
 
 function clientController() {
 
@@ -28,6 +29,7 @@ angular.module('profitelo.controller.dashboard.client', [
   'profitelo.components.dashboard.client.navigation',
   'profitelo.controller.dashboard.client.activities',
   'profitelo.controller.dashboard.client.favourites',
+  DashboardClientInvoicesModule
 ])
   .config(config)
   .controller('clientController', clientController)

@@ -9,12 +9,12 @@ scrollable.basic-account-settings(data-is-fullscreen="isFullscreen" data-is-navb
         form.pro-input-form(name="basicAccountForm" data-ng-submit="submitBasicSettings()" novalidate)
           .form-step(data-ng-hide="isUserUploadImage")
             .user-avatar
-              .thumb.x192
+              .thumb.x128
                 img.user-avatar.fullScreen(data-ng-src="{{ avatarPreview }}" src)
 
-                a.thumb-options(data-ng-show="!!generalSettingsObject.avatar && generalSettingsObject.avatar.length > 0"
+                a.thumb-options.remove-photo(data-ng-hide="!!generalSettingsObject.avatar && generalSettingsObject.avatar.length > 0"
                 data-ng-click="removePhoto()")
-                  .icon.icon-trash-24-1
+                  .icon.icon-close-16
 
             local-avatar-uploader.local-avatar-uploader(on-file-upload='addPhoto')
 
