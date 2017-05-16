@@ -32,6 +32,10 @@ describe('Unit testing:profitelo.components.search.single-consultation', () => {
       }
     }
 
+    const userService = {
+      getUser: () => true
+    }
+
     const callService = {
       callServiceId: () => {
       }
@@ -44,6 +48,8 @@ describe('Unit testing:profitelo.components.search.single-consultation', () => {
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', 'awesomeURL')
       $provide.value('callService', callService)
+      $provide.value('userService', userService)
+
     }))
 
     beforeEach(() => {
@@ -54,22 +60,25 @@ describe('Unit testing:profitelo.components.search.single-consultation', () => {
 
     beforeEach(() => {
 
-      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$componentController_: ng.IComponentControllerService) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
+              _$componentController_: ng.IComponentControllerService, $q: ng.IQService) => {
         componentController = _$componentController_
         rootScope = $rootScope
         compile = $compile
         _callService = callService
-
         state = <ng.ui.IStateService>{
           go: (_x: any) => {
             return {}
           }
         }
 
+        spyOn(userService, 'getUser').and.callFake(() => $q.resolve({id: 'asdasdasd'}))
+
         component = componentController('singleConsultation', {
           $element: validHTML, $scope: scope,
           callService: _callService,
-          $state: state
+          $state: state,
+          userService: userService
         }, bindings)
       })
     })
@@ -102,12 +111,6 @@ describe('Unit testing:profitelo.components.search.single-consultation', () => {
       spyOn(state, 'go')
       component.goToProfile()
       expect(state.go).toHaveBeenCalled()
-    })
-
-    it('should call state go', () => {
-      spyOn(_callService, 'callServiceId')
-      component.startCall()
-      expect(_callService.callServiceId).toHaveBeenCalled()
     })
 
     it('should set profile image as null', () => {

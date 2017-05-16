@@ -5,12 +5,19 @@ import filtersModule from '../../../filters/filters'
 import communicatorModule from '../../communicator/communicator'
 import 'common/components/interface/slider/slider'
 import 'common/components/expert-profile/experts-consultation-slider/experts-consultation-slider'
+import {UserService} from '../../../services/user/user.service'
 
 /* @ngInject */
-function controller(callService: CallService) {
+function controller(callService: CallService, userService: UserService, $state: ng.ui.IStateService) {
 
   this.startCall = () => {
-    callService.callServiceId(this.serviceTagsEmployeesTuple.service.id)
+    userService.getUser().then((accountDetails) => {
+      if (accountDetails) {
+        callService.callServiceId(this.serviceTagsEmployeesTuple.service.id)
+      }
+    }).catch(() => {
+      $state.go('app.login.account')
+    })
   }
 
   this.$onInit = () => {
@@ -40,4 +47,4 @@ angular.module('profitelo.components.expert-profile.company-single-consultation'
   communicatorModule,
   'pascalprecht.translate'
 ])
-  .component('companySingleConsultation', companySingleConsultation)
+.component('companySingleConsultation', companySingleConsultation)

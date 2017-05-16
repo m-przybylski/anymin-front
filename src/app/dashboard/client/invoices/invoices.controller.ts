@@ -8,7 +8,6 @@ export class DashboardClientInvoicesController {
   /* @ngInject */
   constructor(getInvoiceData: CompanyInfo) {
 
-    console.log(getInvoiceData)
     if (getInvoiceData) {
       this.invoiceInfo = getInvoiceData
       this.isAnyPaymentMethod = true

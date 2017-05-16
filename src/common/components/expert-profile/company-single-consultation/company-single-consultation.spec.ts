@@ -18,12 +18,14 @@ describe('Unit testing: profitelo.components.expert-profile.company-single-consu
     let component: any
     let urlService: UrlService
     let audioOriginal: any
+    const state: any = {
+      go: () => {
+      }
+    }
     const validHTML = '<company-single-consultation data-service-tags-employees-tuple="{details: {tags: [] }}" data-title="asd"></company-single-consultation>'
     const bindings = {
       serviceTagsEmployeesTuple: {
-        details: {
-          tags: []
-        }
+        tags: []
       },
       title: 'title'
     }
@@ -66,6 +68,7 @@ describe('Unit testing: profitelo.components.expert-profile.company-single-consu
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', 'awesomeUrl/')
       $provide.value('callService', callService)
+      $provide.value('$state', state)
     }))
 
     beforeEach(() => {
@@ -73,16 +76,17 @@ describe('Unit testing: profitelo.components.expert-profile.company-single-consu
       angular.mock.module('profitelo.components.expert-profile.company-single-consultation')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
-              _$componentController_: ng.IComponentControllerService, _urlService_: UrlService) => {
+              $componentController: ng.IComponentControllerService, _urlService_: UrlService) => {
         rootScope = $rootScope.$new()
         compile = $compile
         urlService = _urlService_
 
         const injectors = {
-          callService: callService
+          callService: callService,
+          $state: state
         }
 
-        component = _$componentController_('companySingleConsultation', injectors, bindings)
+        component = $componentController('companySingleConsultation', injectors, bindings)
         component.$onInit()
       })
     })

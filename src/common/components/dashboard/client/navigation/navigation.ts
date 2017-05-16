@@ -2,6 +2,8 @@ import * as angular from 'angular'
 import filtersModule from '../../../../filters/filters'
 import {UserService} from '../../../../services/user/user.service'
 import {FinancesApi} from 'profitelo-api-ng/api/api'
+import apiModule from 'profitelo-api-ng/api.module'
+import userModule from '../../../../services/user/user'
 (function() {
   /* @ngInject */
   function controller(userService: UserService, FinancesApi: FinancesApi) {
@@ -30,6 +32,8 @@ import {FinancesApi} from 'profitelo-api-ng/api/api'
 
   angular.module('profitelo.components.dashboard.client.navigation', [
     'pascalprecht.translate',
+    userModule,
+    apiModule,
     filtersModule
   ])
     .component('clientNavigation', component)

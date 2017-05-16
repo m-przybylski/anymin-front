@@ -5,10 +5,11 @@ import communicatorModule from '../../communicator/communicator'
 import filtersModule from '../../../filters/filters'
 import urlModule from '../../../services/url/url'
 import './single-consultation.sass'
+import {UserService} from '../../../services/user/user.service'
 
 /* @ngInject */
 function singleConsultationController($state: ng.ui.IStateService, urlService: UrlService,
-                                      callService: CallService) {
+                                      callService: CallService, userService: UserService) {
   this.isLinkActive = true
 
   this.$onInit = () => {
@@ -40,7 +41,9 @@ function singleConsultationController($state: ng.ui.IStateService, urlService: U
   }
 
   this.startCall = () => {
-    callService.callServiceId(this.consultation.id)
+    userService.getUser()
+    .then(() => callService.callServiceId(this.consultation.id))
+    .catch(() => $state.go('app.login.account'))
   }
 
   return this
@@ -61,4 +64,4 @@ angular.module('profitelo.components.search.single-consultation', [
   filtersModule,
   urlModule
 ])
-  .component('singleConsultation', singleConsultation)
+.component('singleConsultation', singleConsultation)

@@ -1,5 +1,6 @@
 import {UserService} from '../../../../services/user/user.service'
 import * as angular from 'angular'
+import userModule from '../../../../services/user/user'
 
   /* @ngInject */
   function controller(userService: UserService) {
@@ -15,13 +16,14 @@ import * as angular from 'angular'
     controller: controller,
     controllerAs: '$ctrl',
     bindings: {
-      stateNames: '<',
+      stateNames: '<'
     }
   }
 
   const settingsNavigation = angular.module('profitelo.components.settings.navigation', [
     'pascalprecht.translate',
-    'ui.router'
+    'ui.router',
+    userModule
   ])
     .component('settingsNavigation', component)
     .name

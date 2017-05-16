@@ -5,15 +5,15 @@ ul.expert-state
         a.btn.btn-primary.btn-small(data-translate="NAVIGATION.MENU_ITEMS.START_EARNING"
         data-ui-sref="app.dashboard.service-provider.choose-path")
 
-      li(data-ng-if="$ctrl.isExpertOrOrganization" data-ui-sref-active="is-active")
+      li(data-ng-if="$ctrl.isExpertOrOrganization" data-ui-sref-active="{'is-active' : 'app.dashboard.expert'}")
         a(data-ui-sref="app.dashboard.expert.activities")
           span.mobile-only.icon.icon-suitcase-24-1
           span(data-translate="NAVIGATION.MENU_ITEMS.EXPERT")
-      li(data-ui-sref-active="is-active")
+      li(data-ui-sref-active="{'is-active' : 'app.dashboard.client'}")
         a(data-ui-sref="app.dashboard.client.favourites")
           span.mobile-only.icon.icon-client-24
           span(data-translate="NAVIGATION.MENU_ITEMS.CLIENT")
-      li(data-ui-sref-active="is-active")
+      li(data-ui-sref-active="{'is-active' : 'app.dashboard.settings'}")
         a(data-ui-sref="app.dashboard.settings.general")
           span.mobile-only.icon.icon-settings-24
           span(data-translate="NAVIGATION.MENU_ITEMS.SETTINGS")

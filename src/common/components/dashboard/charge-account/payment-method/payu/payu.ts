@@ -13,15 +13,17 @@ import smoothScrollingModule from '../../../../../services/smooth-scrolling/smoo
 import {IWindowService} from '../../../../../services/window/window.service'
 import {PayuAnimation} from './payu.animation'
 import * as _ from 'lodash'
+import {CommonConfig} from '../../../../../../../generated_modules/common-config/common-config'
 
 /* @ngInject */
 function payuPaymentFormController($log: ng.ILogService, $window: IWindowService, $state: ng.ui.IStateService,
                                    PaymentsApi: PaymentsApi, userService: UserService, topAlertService: TopAlertService,
                                    smoothScrollingService: SmoothScrollingService, AccountApi: AccountApi,
-                                   CommonSettingsService: CommonSettingsService, $scope: ng.IScope) {
+                                   CommonSettingsService: CommonSettingsService, $scope: ng.IScope,
+                                   CommonConfig: CommonConfig) {
   let isPending = false
   this.isGetCompanyInfo = false
-  this.rulesAccepted = true
+  this.rulesAccepted = false
   this.showInvoiceForm = false
   this.personalDataSectionId = 'personal-section'
   this.bankModel = {}
@@ -77,6 +79,7 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
 
       this.sendPaymentObject = {
         email: this.emailModel,
+        continueUrl: CommonConfig.getAllData().urls.frontend + '/dashboard/client/activities',
         payment: {
           amount: this.amountMethodModal.amountModel.cashAmount,
           paymentCountryId: this.paymentCountryId,

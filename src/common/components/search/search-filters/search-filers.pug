@@ -35,16 +35,6 @@
         data-input-placeholder="{{ ::'SEARCH.ALL' | translate }}"
         )
 
-      .pro-dropdown
-        dropdown-primary(
-        data-label="{{ ::'SEARCH.DOMAINS' | translate }}"
-        data-main-list="$ctrl.categoryList"
-        data-on-select-main="$ctrl.updateCategoryTypeParam"
-        data-placeholder="{{ ::'SEARCH.SATISFIED_PERCENT' | translate }}"
-        data-selected-item="$ctrl.searchFilters.category"
-        data-input-placeholder="{{ ::'SEARCH.ALL' | translate }}"
-        )
-
       pro-range-slider(data-min-value='$ctrl.searchFilters.minPrice' data-callback="$ctrl.onPriceRangeBarUpdate"
       data-max-value='$ctrl.searchFilters.maxPrice'
       data-label="{{::'SEARCH.PRICE_RANGE' | translate}}")

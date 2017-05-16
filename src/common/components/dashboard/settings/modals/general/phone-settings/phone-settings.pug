@@ -9,7 +9,7 @@ scrollable.phone-settings(data-is-fullscreen="vm.isFullscreen" data-is-navbar="v
         .input-content
           .input-handler
             dropdown-primary.prefix-phone(
-            data-label="prefix"
+            data-label="{{ ::'SETTINGS.GENERAL.PHONE_SETTINGS.PREFIX' | translate }}"
             data-main-list="vm.prefixList"
             data-on-select-main="vm.updatePrefix"
             data-placeholder=" {{ vm.prefix }}"
