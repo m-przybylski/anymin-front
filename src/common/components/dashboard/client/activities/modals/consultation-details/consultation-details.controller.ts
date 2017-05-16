@@ -9,8 +9,8 @@ export class ClientConsultationDetailsController implements ng.IController {
   public isLoading: boolean = true
   public isFullscreen: boolean = true
   public isNavbar: boolean = true
-  public recommendedTags: Array<any> = []
-  public serviceTags: Array<any> = []
+  public recommendedTags: any[] = []
+  public serviceTags: any[] = []
   public expertAvatar?: string
   public expertName?: string
   public serviceName: string

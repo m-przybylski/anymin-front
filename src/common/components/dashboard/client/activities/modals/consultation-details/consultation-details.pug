@@ -52,7 +52,7 @@ scrollable(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
               .price-section(data-ng-bind-html="vm.callCostPerMinute | money")
 
         client-recommended-tags(data-ng-if="vm.isRecommendable"
-        data-selected-tags="recommendedTags" data-is-recommended="vm.isRecommended"
+        data-selected-tags="vm.recommendedTags" data-is-recommended="vm.isRecommended"
         data-service-usage-event-id="vm.sueId"
         data-tags="vm.serviceTags")
 
