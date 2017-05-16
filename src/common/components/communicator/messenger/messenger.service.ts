@@ -4,10 +4,11 @@ import {CallService} from '../call.service'
 import {CommunicatorService} from '../communicator.service'
 import {SoundsService} from '../../../services/sounds/sounds.service'
 import {GetService, GetProfile} from 'profitelo-api-ng/model/models'
+import * as RatelSdk from 'ratel-sdk-js'
 
 export class MessengerService {
 
-  private room: any
+  private room?: RatelSdk.DirectRoom
 
   private callbacks: CallbacksService
 
@@ -42,7 +43,7 @@ export class MessengerService {
   public onClientMark = (cb: () => void): void =>
     this.callbacks.methods.onClientMark(cb)
 
-  public onClientMessage = (cb: (msg: any) => void): void =>
+  public onClientMessage = (cb: (msg: RatelSdk.protocol.Message) => void): void =>
     this.callbacks.methods.onClientMessage(cb)
 
   public onExpertTyping = (cb: () => void): void =>
@@ -51,7 +52,7 @@ export class MessengerService {
   public onExpertMark = (cb: () => void): void =>
     this.callbacks.methods.onExpertMark(cb)
 
-  public onExpertMessage = (cb: (msg: any) => void): void =>
+  public onExpertMessage = (cb: (msg: RatelSdk.protocol.Message) => void): void =>
     this.callbacks.methods.onExpertMessage(cb)
 
   public onChatLeft = (cb: () => void): void =>
@@ -71,48 +72,48 @@ export class MessengerService {
     }
   }
 
-  public getUsers = (): ng.IPromise<Array<any>> => {
+  public getUsers = (): Promise<Array<RatelSdk.protocol.ID>> => {
     if (this.room) {
       return this.room.getUsers()
     } else {
-      return this.$q.reject('No room')
+      return Promise.reject('No room')
     }
   }
 
-  public getMark = (): ng.IPromise<any> => {
+  public getMark = (): Promise<number> => {
     if (this.room) {
       return this.room.getMark()
     } else {
-      return this.$q.reject('No room')
+      return Promise.reject('No room')
     }
   }
 
-  public indicateTyping = (): ng.IPromise<any> => {
+  public indicateTyping = (): void => {
     if (this.room) {
       return this.room.indicateTyping()
     } else {
-      return this.$q.reject('No room')
+      this.$log.error('No room')
     }
   }
 
-  public sendMessage = (msg: any): ng.IPromise<any> => {
+  public sendMessage = (msg: string): Promise<RatelSdk.protocol.Message> => {
     if (this.room) {
       return this.room.send(msg)
     } else {
-      return this.$q.reject('No room')
+      return Promise.reject('No room')
     }
   }
 
-  public mark = (timestamp: Date): ng.IPromise<any> => {
+  public mark = (timestamp: RatelSdk.protocol.Timestamp): void => {
     if (this.room) {
-      return this.room.mark(timestamp)
+      return this.room.setMark(timestamp)
     } else {
-      return this.$q.reject('No room')
+      this.$log.error('No room')
     }
   }
 
   private leaveRoom = () => {
-    this.room = null
+    this.room = undefined
     this.callbacks.notify(MessengerService.events.onChatLeft, null)
   }
 
@@ -127,7 +128,7 @@ export class MessengerService {
     this.callbacks.notify(MessengerService.events.onExpertMessage, message)
   }
 
-  private onExpertCreateDirectRoom = (room: any) => {
+  private onExpertCreateDirectRoom = (room: RatelSdk.DirectRoom) => {
     if (room) {
       this.room = room
       this.room.onMessage(this._onExpertMessage)
@@ -163,12 +164,12 @@ export class MessengerService {
   private _onClientMark = () =>
     this.callbacks.notify(MessengerService.events.onClientMark, null)
 
-  private _onClientMessage = (message: any) => {
+  private _onClientMessage = (message: RatelSdk.protocol.Message) => {
     this.soundsService.playMessageNew()
     this.callbacks.notify(MessengerService.events.onClientMessage, message)
   }
 
-  private onClientCreateDirectRoom = (_room: any) => {
+  private onClientCreateDirectRoom = (_room: RatelSdk.DirectRoom) => {
     if (_room) {
       this.room = _room
       this.room.onTyping(this._onClientTyping)

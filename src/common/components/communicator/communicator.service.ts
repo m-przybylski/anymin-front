@@ -4,19 +4,20 @@ import {SignedAgent, GetService, GetProfileWithServices} from 'profitelo-api-ng/
 import {SessionStorage} from './session-storage'
 import {CallbacksService} from '../../services/callbacks/callbacks.service'
 import {CallbacksFactory} from '../../services/callbacks/callbacks.factory'
+import * as RatelSdk from 'ratel-sdk-js'
 import {UserService} from '../../services/user/user.service'
 import {CommonConfig} from '../../../../generated_modules/common-config/common-config'
 import {EventsService} from '../../services/events/events.service'
 
-export interface IConsultationInvitation {
-  invitation: any
+export interface IConsultationInvitation<T> {
+  invitation: T
   service: GetService
 }
 
 export class CommunicatorService {
 
   private commonConfig: any
-  private chatConfig: any
+  private chatConfig: RatelSdk.Config
   private callbacks: CallbacksService
   private ratelSessions: SessionStorage
 
@@ -28,7 +29,7 @@ export class CommunicatorService {
   /* @ngInject */
   constructor(private $log: ng.ILogService, private $q: ng.IQService, callbacksFactory: CallbacksFactory,
               private userService: UserService, private RatelApi: RatelApi, private ProfileApi: ProfileApi,
-               CommonConfig: CommonConfig,  private ratelSdk: any, eventsService: EventsService) {
+               CommonConfig: CommonConfig, private ratelSdk: typeof RatelSdk, eventsService: EventsService) {
 
     this.commonConfig = CommonConfig.getAllData()
     this.ratelSessions = new SessionStorage()
@@ -41,7 +42,7 @@ export class CommunicatorService {
     })
   }
 
-  private setChatConfig = () => {
+  private setChatConfig = (): void => {
     const ratelUrl = new URL(this.commonConfig.urls.communicator.ratel)
     const chatUrl = new URL(this.commonConfig.urls.communicator.chat)
     const resourceUrl = new URL(this.commonConfig.urls.communicator.resource)
@@ -59,7 +60,7 @@ export class CommunicatorService {
         rtc: {
           iceTransportPolicy: 'relay',
           iceServers: [{
-            urls: ['stun:turn.ratel.im:5349', 'turn:turn.ratel.im:5349'],
+            urls: ['stun:turn.ratel.im:3478', 'turn:turn.ratel.im:3478'],
             username: 'test123',
             credential: 'test456'
           }]
@@ -73,44 +74,44 @@ export class CommunicatorService {
     }
   }
 
-  private createRatelConnection = (session: any, _service: GetService | null) => {
+  private createRatelConnection = (session: RatelSdk.Session, _service: GetService | null) => {
 
     const chat = session.chat
 
-    chat.onBotUpdate((res: any) =>
+    chat.onBotUpdate((res: RatelSdk.protocol.BotUpdated) =>
       this.$log.debug('Artichoke: onBotUpdate', res))
 
-    chat.onCall((callInvitation: any) =>
+    chat.onCall((callInvitation: RatelSdk.protocol.CallInvitation) =>
       this.callbacks.notify(CommunicatorService.events.onCall, {invitation: callInvitation, service: _service}))
 
-    chat.onConnect((hello: any) =>
+    chat.onConnect((hello: RatelSdk.protocol.Hello) =>
       this.$log.debug('Artichoke: onConnect', session.id, hello))
 
-    chat.onDisconnect((res: any) =>
+    chat.onDisconnect((res: RatelSdk.protocol.Disconnect) =>
       this.$log.debug('Artichoke: onDisconnect', res))
 
-    chat.onError((res: any) =>
+    chat.onError((res: RatelSdk.protocol.Error) =>
       this.$log.error('Artichoke: onError', res))
 
-    chat.onHeartbeat((res: any) =>
+    chat.onHeartbeat((res: RatelSdk.protocol.Heartbeat) =>
       this.$log.debug('Artichoke: onHeartBeat', res))
 
-    chat.onStatusUpdate((presence: any) =>
+    chat.onStatusUpdate((presence: RatelSdk.protocol.PresenceUpdate) =>
       this.$log.debug('Artichoke: onStatusUpdate', presence))
 
-    chat.onRoom((roomInvitation: any) =>
+    chat.onRoom((roomInvitation: RatelSdk.protocol.RoomInvitation) =>
       this.callbacks.notify(CommunicatorService.events.onRoom, {invitation: roomInvitation, service: _service}))
 
     chat.connect()
   }
 
-  private onCreateClientSession = (session: any) => {
+  private onCreateClientSession = (session: RatelSdk.Session) => {
     this.ratelSessions.setClientSession(session)
     this.createRatelConnection(session, null)
     this.$log.debug('Client session created', session)
   }
 
-  private onCreateExpertSession = (session: any, service: GetService) => {
+  private onCreateExpertSession = (session: RatelSdk.Session, service: GetService) => {
     this.ratelSessions.addExpertSession(service.id, session)
     this.createRatelConnection(session, service)
     this.$log.debug('Expert session created', session)
@@ -126,7 +127,7 @@ export class CommunicatorService {
   }
 
   private onGetRatelClientAuthConfig = (clientConfig: SignedAgent) => {
-    return this.ratelSdk.withSignedAuth(clientConfig, this.chatConfig)
+    return this.ratelSdk.withSignedAuth(clientConfig as RatelSdk.SessionData, this.chatConfig)
       .then(this.onCreateClientSession)
   }
 
@@ -136,7 +137,7 @@ export class CommunicatorService {
   }
 
   private onGetRatelExpertAuthConfig = (expertConfig: SignedAgent, service: GetService) => {
-    return this.ratelSdk.withSignedAuth(expertConfig, this.chatConfig)
+    return this.ratelSdk.withSignedAuth(expertConfig as RatelSdk.SessionData, this.chatConfig)
       .then((session: any) => this.onCreateExpertSession(session, service))
   }
 
@@ -170,11 +171,11 @@ export class CommunicatorService {
     return this.ratelSessions.findExpertSession(serviceId)
   }
 
-  public onCall = (callback: (callInvitation: IConsultationInvitation) => void) => {
+  public onCall = (callback: (callInvitation: IConsultationInvitation<RatelSdk.protocol.CallInvitation>) => void) => {
     this.callbacks.methods.onCall(callback)
   }
 
-  public onRoom = (callback: (callInvitation: IConsultationInvitation) => void) => {
+  public onRoom = (callback: (callInvitation: IConsultationInvitation<RatelSdk.protocol.RoomInvitation>) => void) => {
     this.callbacks.methods.onRoom(callback)
   }
 }

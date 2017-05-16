@@ -13,6 +13,7 @@ export class CallSummaryService {
     onCallSummary: 'onCallSummary'
   }
 
+  /* @ngInject */
   constructor(callbacksFactory: CallbacksFactory, profiteloWebsocket: ProfiteloWebsocketService) {
 
     this.callSummaries = []

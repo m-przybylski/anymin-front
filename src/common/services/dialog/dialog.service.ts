@@ -15,7 +15,7 @@ export class DialogService {
    *
    * @returns {Object} uibModal
    */
-  public openDialog = (options: ng.ui.bootstrap.IModalSettings = {}) => {
+  public openDialog = (options: ng.ui.bootstrap.IModalSettings = {}): ng.ui.bootstrap.IModalInstanceService => {
 
     let _options: ng.ui.bootstrap.IModalSettings = {
       backdrop: 'static',

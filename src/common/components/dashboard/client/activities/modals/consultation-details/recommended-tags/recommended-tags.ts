@@ -8,7 +8,9 @@ import {Tag} from 'profitelo-api-ng/model/models'
 function controller($log: ng.ILogService, ServiceApi: ServiceApi) {
 
   const updateBindings = () => {
-    this.areTagsRecommended = this.selectedTags.length > 0
+    if (this.selectedTags) {
+      this.areTagsRecommended = this.selectedTags.length > 0
+    }
   }
 
   this.$onInit = () => {

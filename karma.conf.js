@@ -17,6 +17,7 @@ module.exports = function (config) {
     files: [
       // Polyfill phantomjs unsupported things, Audio, Object.assign etc.
       './lib/karma/polyfill.js',
+      'node_modules/babel-polyfill/dist/polyfill.js',
       {pattern: 'spec.bundle.js', watched: false}
     ],
 

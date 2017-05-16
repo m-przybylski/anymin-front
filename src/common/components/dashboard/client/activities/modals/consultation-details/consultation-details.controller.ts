@@ -22,6 +22,7 @@ export class ClientConsultationDetailsController implements ng.IController {
   public isRecommended: boolean
   public isRecommendable: boolean
   private callDetails: GetCallDetails
+  public sueId: string
 
   public onModalClose = () =>
     this.$uibModalInstance.dismiss('cancel')
@@ -31,9 +32,10 @@ export class ClientConsultationDetailsController implements ng.IController {
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, private ServiceApi: ServiceApi,
               private urlService: UrlService, ViewsApi: ViewsApi) {
 
+    this.sueId = $scope.$parent.sueId
+
     ViewsApi.getClientDashboardCallDetailsRoute($scope.$parent.sueId)
     .then((res) => this.onGetCallDetails(res), this.onGetCallDetailsError)
-
   }
 
   private onGetCallDetailsError = (err: any) => {

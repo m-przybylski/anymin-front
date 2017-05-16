@@ -90,7 +90,7 @@ describe('Unit testing: profitelo.services.messenger >', () => {
       communicatorService.getClientSession = () => getTestSession($q)
 
       onClientCallStarted(ratelId)
-      messengerService.getUsers().then((res: any) => {
+      messengerService.getUsers().then((res) => {
         expect(res).toEqual('test')
       })
       $rootScope.$digest()
@@ -103,7 +103,7 @@ describe('Unit testing: profitelo.services.messenger >', () => {
 
       onExpertCallAnswered(serviceInvitationTuple)
       messengerService.getMark().then(res => {
-        expect(res).toEqual('test')
+        expect(res).toEqual(123)
       })
       $rootScope.$digest()
     }))
@@ -114,8 +114,8 @@ describe('Unit testing: profitelo.services.messenger >', () => {
       communicatorService.getClientSession = () => getTestSession($q)
 
       onClientCallStarted(ratelId)
-      messengerService.getMark().then((res: any) => {
-        expect(res).toEqual('test')
+      messengerService.getMark().then((res) => {
+        expect(res).toEqual(123)
       })
       $rootScope.$digest()
     }))
@@ -126,9 +126,7 @@ describe('Unit testing: profitelo.services.messenger >', () => {
       communicatorService.findExpertSession = () => getTestSession($q)
 
       onExpertCallAnswered(serviceInvitationTuple)
-      messengerService.mark(new Date).then((res: any) => {
-        expect(res).toEqual('test')
-      })
+      messengerService.mark(123)
       $rootScope.$digest()
     }))
 
@@ -138,9 +136,7 @@ describe('Unit testing: profitelo.services.messenger >', () => {
       communicatorService.getClientSession = () => getTestSession($q)
 
       onClientCallStarted(ratelId)
-      messengerService.mark(new Date).then((res: any) => {
-        expect(res).toEqual('test')
-      })
+      messengerService.mark(123)
       $rootScope.$digest()
     }))
 
@@ -150,9 +146,7 @@ describe('Unit testing: profitelo.services.messenger >', () => {
       communicatorService.findExpertSession = () => getTestSession($q)
 
       onExpertCallAnswered(serviceInvitationTuple)
-      messengerService.indicateTyping().then(res => {
-        expect(res).toEqual('test')
-      })
+      messengerService.indicateTyping()
       $rootScope.$digest()
     }))
 
@@ -162,9 +156,7 @@ describe('Unit testing: profitelo.services.messenger >', () => {
       communicatorService.getClientSession = () => getTestSession($q)
 
       onClientCallStarted(ratelId)
-      messengerService.indicateTyping().then((res: any) => {
-        expect(res).toEqual('test')
-      })
+      messengerService.indicateTyping()
       $rootScope.$digest()
     }))
 
