@@ -121,10 +121,10 @@ module.exports = function (config) {
       includeAllSources: true,
       check: {
         global: {
-          statements: 78,
+          statements: 79,
           branches: 52,
-          functions: 64,
-          lines: 78
+          functions: 65,
+          lines: 79
         }
       },
       reporters: [
