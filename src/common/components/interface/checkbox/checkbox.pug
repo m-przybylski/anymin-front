@@ -1,0 +1,12 @@
+.checkbox(data-ng-click="$ctrl.onClick()")
+  input(
+    type='checkbox'
+    name="{{ $ctrl.name }}"
+    data-ng-model="$ctrl.ngModel"
+    data-ng-disabled="{{ $ctrl.isDisabled }}"
+    data-ng-change="$ctrl.callBackFunction()"
+    data-ng-required="$ctrl.isRequired"
+  )
+
+  label.label-text {{ $ctrl.inputText }}
+  p.label-additional-text(data-ng-if="$ctrl.additionalText") {{ $ctrl.additionalText }}

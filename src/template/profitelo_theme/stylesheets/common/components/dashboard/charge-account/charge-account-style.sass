@@ -1,0 +1,79 @@
+.choose-options
+  .choose-options-item
+    p
+      +default-font-light
+      display: block
+      width: 100%
+      font-size: $f-paragraph-small
+      color: $c-secondary-txt
+      text-align: center
+
+    .option-thumb
+      display: block
+      text-align: center
+      width: 100%
+      height: 24px
+
+      img
+        max-height: 24px
+
+    .option
+      background: $c-white
+      border-radius: 3px
+      border: 1px solid $c-lines
+      display: flex
+      align-content: space-between
+      justify-content: center
+      flex-wrap: wrap
+      padding: 16px 12px
+      cursor: pointer
+      position: relative
+      height: 112px
+
+      &:hover
+        border-color: $c-primary
+        box-shadow: inset 0 0 0 1px $c-primary
+
+      &.option-own-amount
+        input
+          text-align: center
+
+        .input-group-addon
+          .icon
+            padding: 0
+
+      .charge-price
+        +default-font-medium
+        font-size: $f-subheader
+        flex: 1 0 100%
+        text-align: center
+
+    .icon.icon-dot
+      border: 1px solid $c-lines
+      background: $c-white
+      border-radius: 50%
+      width: 16px
+      height: 16px
+      color: $c-primary
+      font-size: $f-input-small
+      padding: 0
+      margin: 0
+      display: flex
+      align-items: center
+      justify-content: center
+
+      &::after
+        content: ""
+        width: 8px
+        height: 8px
+        background: none
+        border-radius: 50%
+        position: relative
+
+      &.is-active
+        border: 1px solid $c-primary
+        box-shadow: inset 0 0 0 1px $c-primary
+
+        &::after
+          animation: radio-focus 0.3s
+          background: $c-primary
