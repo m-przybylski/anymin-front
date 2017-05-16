@@ -10,11 +10,12 @@ import {SoundsService} from '../../services/sounds/sounds.service'
 import {ModalsService} from '../../services/modals/modals.service'
 import {TimerFactory} from '../../services/timer/timer.factory'
 import {UserService} from '../../services/user/user.service'
+import * as RatelSdk from 'ratel-sdk-js'
 
 export class CallService {
 
-  private call: any = null
-  private timer: TimerService | null = null
+  private call?: RatelSdk.DirectCall
+  private timer?: TimerService
 
   private isConnecting: boolean = false
 
@@ -28,7 +29,7 @@ export class CallService {
   private callingModal: any
 
   private callbacks: CallbacksService
-  private hangupFunction: () => ng.IPromise<any>
+  private hangupFunction: () => Promise<void>
 
   private static callingTimeout: number = 30
   private static moneyChangeNotificationInterval: number = 1000
@@ -43,7 +44,9 @@ export class CallService {
     onVideoStop: 'onVideoStop'
   }
 
-  private static reasons = {
+  private static reasons: {
+    [key: string]: string
+  } = {
     reject: 'reject',
     hangup: 'hangup'
   }
@@ -54,7 +57,7 @@ export class CallService {
               private modalsService: ModalsService, private soundsService: SoundsService, private userService: UserService,
               private timerFactory: TimerFactory, private RatelApi: RatelApi, private ServiceApi: ServiceApi) {
 
-    this.hangupFunction = () => $q.reject('NO CALL')
+    this.hangupFunction = () => Promise.reject('NO CALL')
     this.callbacks = callbacksFactory.getInstance(Object.keys(CallService.events))
     communicatorService.onCall(this.onExpertCallIncoming)
   }
@@ -109,7 +112,7 @@ export class CallService {
   public onClientCallStarted = (cb: (inviterId: string) => void) =>
     this.callbacks.methods.onClientCallStarted(cb)
 
-  public onExpertCallAnswered = (cb: (data: {invitation: any, service: GetService}) => void) =>
+  public onExpertCallAnswered = (cb: (data: {invitation: RatelSdk.protocol.CallInvitation, service: GetService}) => void) =>
     this.callbacks.methods.onExpertCallAnswered(cb)
 
   public onTimeCostChange = (cb: (data: {time: number, money: MoneyDto}) => void) =>
@@ -148,7 +151,7 @@ export class CallService {
 
   private startHookMock = (expertId: string) => {
     this.userService.getUser().then(user => {
-      if (this.serviceId) {
+      if (this.serviceId && this.call) {
         this.RatelApi.ratelCallStartedHookRoute({
           callId: this.call.id,
           clientId: user.id,
@@ -189,27 +192,28 @@ export class CallService {
   }
 
   private cleanCallVariables = () => {
-    this.call = null
+    this.call = undefined
     this.isConnecting = false
     this.serviceId = null
     this.serviceFreeMinutesCount = 0
     this.localStream = null
     if (this.timer) {
       this.timer.stop()
-      this.timer = null
+      this.timer = undefined
     }
   }
 
-  private onClientCallEnd = () => {
+  private onClientCallEnd = (): void => {
     this.stopHookMock()
     this.callbacks.notify(CallService.events.onCallEnd, null)
+
     if (!this.isConnecting && this.serviceId) {
       this.modalsService.createClientConsultationSummaryModal(this.serviceId)
     }
     this.cleanupService()
   }
 
-  private onExpertCallEnd = () => {
+  private onExpertCallEnd = (): void => {
     this.callbacks.notify(CallService.events.onCallEnd, null)
     if (this.serviceId) {
       this.modalsService.createExpertConsultationSummaryModal(this.serviceId)
@@ -217,28 +221,28 @@ export class CallService {
     this.cleanupService()
   }
 
-  private clientHangupCall = () => {
+  private clientHangupCall = (): Promise<void> => {
     if (this.call) {
       return this.call.leave(CallService.reasons.hangup).then(this.onClientCallEnd)
     }
-    return this.$q.reject('There is no room')
+    return Promise.reject('There is no room')
   }
 
-  private expertHangupCall = () => {
+  private expertHangupCall = (): Promise<void> => {
     if (this.call) {
       return this.call.leave(CallService.reasons.hangup).then(this.onExpertCallEnd)
     }
-    return this.$q.reject('There is no room')
+    return Promise.reject('There is no room')
   }
 
-  private setCallVideoEvents = (_call: any, participantId: any) => {
-    _call.onStreamPaused((callAction: any) => {
+  private setCallVideoEvents = (_call: RatelSdk.DirectCall, participantId: string) => {
+    _call.onStreamPaused((callAction: RatelSdk.protocol.CallAction) => {
         if (callAction.user === participantId) {
           this.callbacks.notify(CallService.events.onVideoStop, null)
         }
       }
     )
-    _call.onStreamUnpaused((callAction: any) => {
+    _call.onStreamUnpaused((callAction: RatelSdk.protocol.CallAction) => {
       if (callAction.user === participantId) {
         this.callbacks.notify(CallService.events.onVideoStart, null)
       }
@@ -256,12 +260,12 @@ export class CallService {
   private onTimeMoneyChange = (timeMoneyTuple: {time: number, money: MoneyDto}) =>
     this.callbacks.notify(CallService.events.onTimeCostChange, timeMoneyTuple)
 
-  private onExpertCallAnsweredEvent = (serviceInvitationTuple: {service: GetService, invitation: any}) => {
+  private onExpertCallAnsweredEvent = (serviceInvitationTuple: {service: GetService, invitation: RatelSdk.protocol.CallInvitation}) => {
     this.soundsService.callIncomingSound().stop()
     this.serviceId = serviceInvitationTuple.service.id
 
     this.callbacks.notify(CallService.events.onExpertCallAnswered, serviceInvitationTuple)
-    this.call = serviceInvitationTuple.invitation.call
+    this.call = serviceInvitationTuple.invitation.call as RatelSdk.DirectCall
     this.call.pause()
     this.call.onEnd(this.onCallEndEvent)
     this.call.onRemoteStream((_agentId: string, stream: MediaStream) => {
@@ -313,10 +317,11 @@ export class CallService {
     this.callbacks.notify(CallService.events.onCallEnd, null)
   }
 
-  private onExpertCallIncoming = (serviceInvitationTuple: {service: GetService, invitation: any}) => {
+  private onExpertCallIncoming = (serviceInvitationTuple: {service: GetService, invitation: RatelSdk.protocol.CallInvitation}) => {
     this.soundsService.callIncomingSound().play()
 
-    serviceInvitationTuple.invitation.call.onEnd(this.onExpertCallDisappearBeforeAnswering)
+    const invCall: RatelSdk.DirectCall = serviceInvitationTuple.invitation.call as RatelSdk.DirectCall
+    invCall.onEnd(this.onExpertCallDisappearBeforeAnswering)
 
     this.callingModal = this.modalsService.createIncomingCallModal(
       serviceInvitationTuple.service,
@@ -327,8 +332,7 @@ export class CallService {
 
   // FIXME
   /*private onNoFunds = () => {
-   this.modalsService.createNoFundsModal(() => _, () => _)
-   }*/
+   this.modalsService.createNoFundsModal(() => _, () => _) }*/
 
   private onConsultationUnavailable = () => {
     this.cleanupService()
@@ -352,7 +356,12 @@ export class CallService {
     this.startHookMock(expertId)
     this.startTimer()
     this.soundsService.callConnectingSound().stop()
-    this.call.pause()
+    if (this.call) {
+      this.call.pause()
+    }
+    else {
+      this.$log.error('There is no call')
+    }
     this.callbacks.notify(CallService.events.onClientCallStarted, inviterId)
   }
 
@@ -361,7 +370,7 @@ export class CallService {
     this.onConsultationUnavailable()
   }
 
-  private onCreateDirectCall = (newCall: any, participantId: string, expertId: string) => {
+  private onCreateDirectCall = (newCall: RatelSdk.DirectCall, participantId: string, expertId: string) => {
     this.call = newCall
 
     this.call.onRemoteStream((_agentId: string, stream: MediaStream) => {
@@ -436,6 +445,5 @@ export class CallService {
       agentId: agentId
     })
       .then(this.onAddSUR, this.onAddSURError)
-
   }
 }

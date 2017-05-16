@@ -2,7 +2,7 @@ export class NavigatorService {
 
   private navigator: any
 
-  private static videoConstraints = {
+  private static videoConstraints: MediaStreamConstraints = {
     video: {
       width: 320,
       height: 200,
@@ -10,9 +10,9 @@ export class NavigatorService {
     }
   }
 
-  private static audioConstraints = {
+  private static audioConstraints: MediaStreamConstraints = {
     audio: {
-      echoCancellation: true
+      echoCancelation: true
     }
   }
 
@@ -49,7 +49,7 @@ export class NavigatorService {
     return deferred.promise
   }
 
-  private static getAllConstraints = () => {
+  private static getAllConstraints = (): MediaStreamConstraints => {
     return Object.assign(NavigatorService.audioConstraints, NavigatorService.videoConstraints)
   }
 }

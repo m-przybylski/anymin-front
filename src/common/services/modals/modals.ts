@@ -4,7 +4,6 @@ import dialogModule from '../dialog/dialog'
 import '../../components/communicator/modals/client-call/client-call'
 import '../../components/communicator/modals/service-unavailable/service-unavailable'
 import '../../components/communicator/modals/no-credits/no-credits'
-import '../../components/communicator/modals/consultation-summary-client/consultation-summary-client'
 import '../../components/communicator/modals/consultation-summary-expert/consultation-summary-expert'
 import '../../components/dashboard/client/activities/modals/complain-report/complain-report'
 import '../../components/dashboard/client/activities/modals/charge-details/charge-details'
@@ -29,6 +28,7 @@ import '../../components/dashboard/expert/activities/modals/consultation-details
 import expertEmployeeDetailsModalModule from '../../components/dashboard/expert/employees/modals/employee-details/employee-details'
 import expertInviteEmployeesModule from '../../components/dashboard/expert/activities/modals/invite-employees/invite-employees'
 import manageProfileEditProfileModule from '../../components/dashboard/expert/manage-profile/modals/edit-expert-profile/edit-expert-profile'
+import { consultationSummaryClientModule } from '../../components/communicator/modals/consultation-summary-client/consultation-summary-client'
 
 const modalsModule = angular.module('profitelo.services.modals', [
   dialogModule,
@@ -52,6 +52,7 @@ const modalsModule = angular.module('profitelo.services.modals', [
   'profitelo.components.dashboard.settings.modals.payouts.payouts-pay-pal',
   'profitelo.components.profile.profile-header.profile-gallery.modals.preview',
   'profitelo.components.dashboard.expert.activities.modals.consultation-details',
+  consultationSummaryClientModule,
   expertEmployeeDetailsModalModule,
   expertInviteEmployeesModule,
   manageProfileEditProfileModule
