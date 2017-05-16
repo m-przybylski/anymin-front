@@ -7,7 +7,8 @@
   .recommended-tab-content(data-ng-show="$ctrl.isRecommended")
     .conversation-rate
       header.entry-title
-        span(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.RECOMMENDED_TAGS.TITLE")
+        span(data-ng-if="$ctrl.areTagsRecommended"
+        data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.RECOMMENDED_TAGS.TITLE")
         p(data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.RECOMMENDED_TAGS.DESCRIPTION"
         data-ng-if="$ctrl.isRecommended && !$ctrl.areTagsRecommended")
 

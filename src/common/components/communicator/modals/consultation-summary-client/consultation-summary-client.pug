@@ -42,15 +42,15 @@ scrollable(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
             li(data-ng-bind-html="callSummary.cost | money ")
 
         multiselect(data-title="COMMUNICATOR.MODALS.SUMMARY_HELPER_RANGE" data-items="callSummary.tags.tags"
-          data-field="name" data-ng-show="chooseExpertsTag" data-on-select-change="onTagsSelectChange")
+          data-field="name" data-ng-show="isRecommended" data-on-select-change="onTagsSelectChange")
 
-        .modal-action
+        .modal-action(ng-show="callSummary.isRecommendable")
           span(data-translate="COMMUNICATOR.MODALS.IS_CONVERSATION_GOOD")
 
-          div.action-recommend(data-ng-show="!chooseExpertsTag")
+          div.action-recommend(data-ng-show="!isRecommended")
             a.btn.btn-primary(data-ng-click="closeModal()" data-translate="COMMUNICATOR.MODALS.SKIP")
             a.btn.btn-default(data-ng-click="recommendService()" data-translate="COMMUNICATOR.MODALS.RECOMMEND")
 
-          div.action-next(data-ng-show="chooseExpertsTag")
+          div.action-next(data-ng-show="isRecommended")
             a.btn.btn-primary(data-ng-click="closeModal()" data-translate="COMMUNICATOR.MODALS.CANCEL")
             a.btn.btn-default(data-ng-click="recommendServiceTags()" data-translate="COMMUNICATOR.MODALS.SAVE")

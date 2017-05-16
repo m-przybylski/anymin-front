@@ -16,8 +16,8 @@ export interface IConsultationSummaryClientParentControllerScope extends ng.ISco
 export interface IConsultationSummaryClientControllerScope extends ng.IScope {
   expertAvatarUrl: string
   rating: number
-  callSummary: CallSummary | null
-  chooseExpertsTag: boolean
+  callSummary?: CallSummary
+  isRecommended: boolean
   recommendServiceTags: () => void
   closeModal: () => void
   onModalClose: () => void
@@ -40,6 +40,7 @@ export class ConsultationSummaryClientController {
 
     $scope.isFullscreen = true
     $scope.isNavbar = true
+    $scope.isRecommended = false
 
     callSummaryService.onCallSummary(this.onCallSummary)
     this.loadFromExistingCallSummaries()
@@ -47,7 +48,7 @@ export class ConsultationSummaryClientController {
   }
 
   private initScope = () => {
-    this.$scope.callSummary = null
+    this.$scope.callSummary = undefined
     this.$scope.expertAvatarUrl = ''
     this.$scope.chooseExpertsTag = false
 
@@ -102,16 +103,16 @@ export class ConsultationSummaryClientController {
     }
   }
 
-  private onRecommendServiceError = (err: any) =>
+  private onRecommendServiceError = (err?: any) =>
     this.$log.error(err)
 
   private onRecommendService = (_res: ServiceRecommendation) =>
-    this.$scope.chooseExpertsTag = true
+    this.$scope.isRecommended = true
 
   private onRecommendServiceTags = (res: GetService) =>
     this.$log.debug(res)
 
-  private onRecommendServiceTagsError = (err: any) =>
+  private onRecommendServiceTagsError = (err?: any) =>
     this.$log.error(err)
 }
 
