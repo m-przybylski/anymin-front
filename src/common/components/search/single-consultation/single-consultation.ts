@@ -42,8 +42,8 @@ function singleConsultationController($state: ng.ui.IStateService, urlService: U
 
   this.startCall = () => {
     userService.getUser()
-    .then(() => callService.callServiceId(this.consultation.id))
-    .catch(() => $state.go('app.login.account'))
+    .then(() => callService.callServiceId(this.consultation.id),
+      () => $state.go('app.login.account'))
   }
 
   return this

@@ -16,7 +16,7 @@ export class ProfileSingleConsultationComponentController implements IProfileSin
 
   public startCall = (consultation: GetService) => {
     this.userService.getUser()
-    .then(() => this.callService.callServiceId(consultation.id, this.profileId))
-    .catch(() => this.$state.go('app.login.account'))
+    .then(() => this.callService.callServiceId(consultation.id, this.profileId),
+      () => this.$state.go('app.login.account'))
   }
 }
