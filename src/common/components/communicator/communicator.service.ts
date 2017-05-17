@@ -60,7 +60,7 @@ export class CommunicatorService {
         rtc: {
           iceTransportPolicy: 'relay',
           iceServers: [{
-            urls: ['stun:turn.ratel.im:3478', 'turn:turn.ratel.im:3478'],
+            urls: ['stun:turn.ratel.im:443', 'turn:turn.ratel.im:443'],
             username: 'test123',
             credential: 'test456'
           }]
