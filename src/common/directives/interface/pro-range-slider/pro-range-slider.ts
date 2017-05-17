@@ -13,7 +13,7 @@ function proRangeSlider($timeout: ng.ITimeoutService) {
 
     scope.options = {
       floor: 0,
-      ceil: 100,
+      ceil: 20,
       onEnd: (_sliderId: string, modelValue: string, highValue: string, pointerType: string) => {
         scope.callback(modelValue, highValue, pointerType)
       }

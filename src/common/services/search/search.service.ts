@@ -257,7 +257,7 @@ export class SearchService {
       _maxPrice: {
         enumerable: false,
         writable: true,
-        value: 100
+        value: 20
       },
       maxPrice: {
         enumerable: true,
@@ -265,7 +265,7 @@ export class SearchService {
           return this._maxPrice
         },
         set: function (v) {
-          v = Math.max(0, Math.min(100, parseInt(v, 10) || 100))
+          v = Math.max(0, Math.min(100, parseInt(v, 10) || 20))
           if (v !== this._maxPrice) {
             this.areDirty = true
             this._maxPrice = v
@@ -277,7 +277,7 @@ export class SearchService {
 
   public search = (query: ISearchQueryParams): ng.IPromise<SearchResult> => {
     function _maxPriceParser(maxPrice?: number) {
-      if (maxPrice === 100) {
+      if (maxPrice === 20) {
         return undefined
       } else {
         return (maxPrice) ? maxPrice * 100 : undefined

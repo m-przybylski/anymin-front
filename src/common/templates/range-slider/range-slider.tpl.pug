@@ -24,4 +24,4 @@
         li.rz-tick(ng-repeat='t in ticks track by $index', ng-class="{'rz-selected': t.selected}", ng-style='t.style', ng-attr-uib-tooltip='{{ t.tooltip }}', ng-attr-tooltip-placement='{{t.tooltipPlacement}}', ng-attr-tooltip-append-to-body='{{ t.tooltip ? true : undefined}}')
             span.rz-tick-value(ng-if='t.value != null', ng-attr-uib-tooltip='{{ t.valueTooltip }}', ng-attr-tooltip-placement='{{t.valueTooltipPlacement}}') {{ t.value }}
             span.rz-tick-legend(ng-if='t.legend != null') {{ t.legend }}
-    p.currency(data-translate="HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE")
+    p.currency(data-translate="INTERFACE.RANGE_SLIDER.CURRENCY_PER_MINUTE")
