@@ -14,7 +14,7 @@ function singleConsultationController($state: ng.ui.IStateService, urlService: U
 
   this.$onInit = () => {
     this.consultation.price = {
-      amount: this.consultation.price,
+      amount: this.consultation.price * 1.23, // FIXME after ux tests
       currency: 'PLN'
     }
 
