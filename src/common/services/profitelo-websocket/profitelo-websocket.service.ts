@@ -62,7 +62,7 @@ export class ProfiteloWebsocketService {
     const value = data.value
 
     switch (type) {
-      case 'CallSummaryEvent':
+      case 'CALL_SUMMARY':
         this.callbacks.notify(ProfiteloWebsocketService.events.onCallSummary, value)
         break
 
