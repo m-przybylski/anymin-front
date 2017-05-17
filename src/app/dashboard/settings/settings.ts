@@ -8,6 +8,7 @@ import 'common/components/dashboard/settings/navigation/navigation'
 import 'common/constants/time.constatnt'
 import 'angular-touch'
 import dashboardSettingsNotificationsModule from './notifications/notifications';
+import settingsNavigation from '../../../common/components/dashboard/settings/navigation/navigation'
 
 export class SettingsController implements ng.IController {
 
@@ -69,7 +70,7 @@ angular.module('profitelo.controller.dashboard.settings', [
   'ui.router',
   'ngTouch',
 
-  'profitelo.components.settings.navigation',
+  settingsNavigation,
   'profitelo.controller.dashboard.settings.general',
   'profitelo.controller.dashboard.settings.security',
   'profitelo.controller.dashboard.settings.payments',

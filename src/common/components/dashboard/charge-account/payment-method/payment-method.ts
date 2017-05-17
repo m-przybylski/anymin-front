@@ -1,5 +1,5 @@
 import * as angular from 'angular'
-import {PaymentSystem} from 'profitelo-api-ng/model/models'
+import {PaymentSystem, GetLastPayment} from 'profitelo-api-ng/model/models'
 import * as _ from 'lodash'
 import paypalModule from './paypal/paypal'
 
@@ -17,14 +17,15 @@ class PaymentMethodComponentController implements IPaymentMethodComponentBinding
   scrollHandler: (arg?: number) => void
   activeOption: number | null = null
   firstSelect = false
-
+  lastPayment: GetLastPayment
   /* @ngInject */
   constructor() {
   }
 
   $onInit = () => {
-    if (this.paymentSystemModel !== null) {
-      this.activeOption = _.findIndex(this.paymentSystems, (paymentSystem) => paymentSystem === this.paymentSystemModel)
+    if (this.lastPayment && this.paymentSystemModel !== null) {
+      this.activeOption = _.findIndex(this.paymentSystems, (paymentSystem) =>
+                                        paymentSystem.id === this.lastPayment.paymentSystemId)
       this.paymentSystemModel = this.paymentSystems[this.activeOption]
     }
   }
@@ -49,7 +50,8 @@ class PaymentMethodComponent implements ng.IComponentOptions {
     title: '@',
     paymentSystems: '<',
     paymentSystemModel: '=?',
-    scrollHandler: '<'
+    scrollHandler: '<',
+    lastPayment: '<'
   }
   controller = PaymentMethodComponentController
 }

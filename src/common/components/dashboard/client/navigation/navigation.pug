@@ -7,10 +7,16 @@
             a(data-translate="DASHBOARD.CLIENT.NAVIGATION.FAVOURITE_EXPERTS" data-ui-sref="app.dashboard.client.favourites")
           li(data-ui-sref-active="is-active")
             a(data-translate="DASHBOARD.CLIENT.NAVIGATION.ACTIVITIES" data-ui-sref="app.dashboard.client.activities")
+          li(data-ui-sref-active="is-active")
+            a(data-ui-sref="app.dashboard.client.invoices") Faktury
 
-      .nav-payment
-        .amount-balance-container
+      .nav-payment(data-ng-if="!$ctrl.isCard")
+        .amount-balance-container(data-ng-hide="$ctrl.clientBalance.amount === 0")
           span.account-balance-title(data-translate="DASHBOARD.CLIENT.NAVIGATION.ACCOUNT_BALANCE")
           span.account-balacnce(data-ng-bind-html="$ctrl.clientBalance | money ")
-        .payout-btn-container(data-ui-sref="app.dashboard.charge-account")
+        .payout-btn-container(data-ui-sref="app.dashboard.charge-account"
+        data-ng-hide="$ctrl.clientBalance.amount === 0")
           a.btn.btn-small.btn-default(data-translate="DASHBOARD.CLIENT.RECHARGE")
+        .payout-btn-container(data-ui-sref="app.dashboard.charge-account"
+        data-ng-show="$ctrl.clientBalance.amount === 0")
+          a.btn.btn-small.btn-default(data-translate="DASHBOARD.CLIENT.SELECT_PAYMENT_FORM")

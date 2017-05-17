@@ -41,3 +41,18 @@
 
     .name
       +paragraph
+
+.list-row-double
+  .list-row
+    &:first-child
+      border-bottom: 0
+      padding: 20px 12px 0
+
+      +smm
+        padding: 20px 16px 0
+
+    &:last-child
+      padding: 0 12px 20px
+
+      +smm
+        padding: 0 16px 20px

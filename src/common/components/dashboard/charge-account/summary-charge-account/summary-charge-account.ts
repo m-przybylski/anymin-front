@@ -10,10 +10,11 @@ import filtersModule from '../../../../filters/filters'
   export class SummaryChargeAccountComponentController implements ng.IController, ISummaryChargeAccountComponentBindings {
 
     public amount: MoneyDto
-
     /* @ngInject */
     constructor() {
+
     }
+
   }
 
   class SummaryChargeAccountComponent implements ng.IComponentOptions {

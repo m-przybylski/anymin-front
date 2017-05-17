@@ -1,43 +1,61 @@
-namespace profitelo.components.dashboard.client.navigation {
-  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-  describe('Unit testing: profitelo.components.dashboard.client.navigation', () => {
-    return describe('for clientNavigation >', () => {
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import userModule from '../../../../services/user/user'
+import * as angular from 'angular'
+describe('Unit testing: profitelo.components.dashboard.client.navigation', () => {
+  return describe('for clientNavigation >', () => {
 
-      let scope: any
-      let rootScope: ng.IRootScopeService
-      let compile: ng.ICompileService
-      let componentController: any
-      let component: any
-      let validHTML = '<client-navigation></client-navigation>'
+    let scope: any
+    let rootScope: ng.IRootScopeService
+    let compile: ng.ICompileService
+    let componentController: any
+    let component: any
+    let validHTML = '<client-navigation></client-navigation>'
+    const userService = {
+      getUser: () => {
 
-      function create(html: string) {
-        scope = rootScope.$new()
-        let elem = angular.element(html)
-        let compiledElement = compile(elem)(scope)
-        scope.$digest()
-        return compiledElement
       }
+    }
 
-      beforeEach(() => {
+    function create(html: string) {
+      scope = rootScope.$new()
+      let elem = angular.element(html)
+      let compiledElement = compile(elem)(scope)
+      scope.$digest()
+      return compiledElement
+    }
 
-        angular.mock.module('profitelo.components.dashboard.client.navigation')
+    beforeEach(() => {
+      angular.mock.module(userModule)
+    })
 
-        inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, _$componentController_: ng.IComponentControllerService) => {
-          componentController = _$componentController_
-          rootScope = $rootScope.$new()
-          compile = $compile
+    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
+      $provide.value('apiUrl', 'awesomeUrl/')
+      $provide.value('userService', userService)
+    }))
+
+    beforeEach(() => {
+
+      angular.mock.module('profitelo.components.dashboard.client.navigation')
+
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
+              $q: ng.IQService, _$componentController_: ng.IComponentControllerService) => {
+        componentController = _$componentController_
+        rootScope = $rootScope.$new()
+        compile = $compile
+
+        spyOn(userService, 'getUser').and.returnValue($q.resolve({defaultCreditCard: 'dsdsdsd'}))
+
+        component = componentController('clientNavigation', {}, {
+          userService: userService,
+          $element: create(validHTML)
         })
-
-        component = componentController('clientNavigation', {})
-      })
-
-      it('should have a dummy test', inject(() => {
-        expect(true).toBeTruthy()
-      }))
-      it('should compile the directive', () => {
-        let el = create(validHTML)
-        expect(el.html()).toBeDefined(true)
       })
     })
+
+    it('should have a dummy test', inject(() => {
+      expect(true).toBeTruthy()
+    }))
+
   })
-}
+})
+

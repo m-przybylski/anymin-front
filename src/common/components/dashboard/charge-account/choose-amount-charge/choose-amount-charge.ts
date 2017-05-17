@@ -2,6 +2,7 @@ import * as angular from 'angular'
 import * as _ from 'lodash'
 import {IAmounts, IAmountModel} from '../../../../../app/dashboard/charge-account/charge-account'
 import {CommonSettingsService} from '../../../../services/common-settings/common-settings.service'
+import filtersModule from '../../../../filters/filters'
 
 export interface IChooseAmountChargeComponentBindings {
   title: string
@@ -112,6 +113,8 @@ class ChooseAmountChargeComponent implements ng.IComponentOptions {
 }
 
 angular.module('profitelo.components.dashboard.charge-account.choose-amount-charge', [
-  'profitelo.services.commonSettings'
+  'profitelo.services.commonSettings',
+  'ngSanitize',
+  filtersModule
 ])
   .component('chooseAmountCharge', new ChooseAmountChargeComponent())

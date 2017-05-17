@@ -6,7 +6,7 @@
     .tiles-item(data-ng-repeat = "amount in $ctrl.amounts.paymentOptions")
       .choose-options-item
         .option(data-ng-class="{'selected': $ctrl.activeOption == $index}" data-ng-click="$ctrl.selectAmountOption($index)")
-          span.charge-price {{ amount.amount / 100 }}
+          span.charge-price(data-ng-bind-html="amount | money")
           span.icon.icon-dot(data-ng-class="{'is-active': $ctrl.activeOption == $index}")
 
     .tiles-item

@@ -6,7 +6,7 @@
     .choose-options.tiles-row
       .choose-options-item.tiles-item(data-ng-repeat="paymentSystem in $ctrl.paymentSystems")
         .option(data-ng-class="{'selected': $ctrl.activeOption == $index}" data-ng-click="$ctrl.selectPaymentMethod($index)")
-          p.payment-title(data-translate="DASHBOARD.CHARGE_ACCOUNT.BANKWIRE")
+          p.payment-title(data-translate="DASHBOARD.CHARGE_ACCOUNT.{{paymentSystem.slug}}")
           .option-thumb
             img(data-ng-src="{{ $ctrl.setImage(paymentSystem.slug) }}")
           span.icon.icon-dot(data-ng-class="{'is-active': $ctrl.activeOption == $index}")

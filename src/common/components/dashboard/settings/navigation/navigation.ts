@@ -1,8 +1,13 @@
-namespace profitelo.components.settings.navigation {
+import {UserService} from '../../../../services/user/user.service'
+import * as angular from 'angular'
+import userModule from '../../../../services/user/user'
 
   /* @ngInject */
-  function controller() {
+  function controller(userService: UserService) {
 
+    userService.getUser().then((accountDetails) => {
+      this.isWizardComplete = accountDetails.isCompany || accountDetails.isExpert
+    })
     return this
   }
 
@@ -15,9 +20,12 @@ namespace profitelo.components.settings.navigation {
     }
   }
 
-  angular.module('profitelo.components.settings.navigation', [
+  const settingsNavigation = angular.module('profitelo.components.settings.navigation', [
     'pascalprecht.translate',
-    'ui.router'
+    'ui.router',
+    userModule
   ])
     .component('settingsNavigation', component)
-}
+    .name
+
+export default settingsNavigation
