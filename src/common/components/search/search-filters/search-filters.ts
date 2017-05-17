@@ -169,7 +169,7 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
 
   private maxPriceValue = (maxPrice: number) => {
     if (angular.isUndefined(maxPrice) || maxPrice === null) {
-      return 100
+      return 20
     } else {
       return maxPrice
     }

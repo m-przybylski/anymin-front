@@ -60,7 +60,7 @@ describe('Unit testing: profitelo.services.search >', () => {
         offset: 0,
         limit: 20,
         minPrice: 0,
-        maxPrice: 100
+        maxPrice: 20
       })
     })
 
@@ -191,7 +191,7 @@ describe('Unit testing: profitelo.services.search >', () => {
         offset: 0,
         limit: 20,
         minPrice: 0,
-        maxPrice: 100
+        maxPrice: 20
       })
     }))
 
