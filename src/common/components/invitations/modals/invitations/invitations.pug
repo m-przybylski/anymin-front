@@ -1,34 +1,39 @@
 scrollable(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
   top-modal-navbar(data-on-close="vm.onModalClose")
-  .modal-primary.container-big.invitations-modal
+  .modal-primary.container-big
     preloader(data-is-loading="vm.isLoading")
-      .modal-section
-        .profile-preview
-          .thumb.x96
-            user-avatar(data-image-token="")
+      .invitations-modal(data-ng-if="vm.areInvitations")
+        .modal-section
+          .profile-preview
+            .thumb.x96
+              user-avatar(data-image-token="")
 
-          .profile-container
-            .profile-name
-              span HP Computers
+            .profile-container
+              .profile-name
+                span HP Computers
 
-      .modal-section
-        .consultation-section
-          header.entry-title
-            span(data-translate="DASHBOARD.EXPERT_ACCOUNT.INVITATION.DETAILS.CONSULTATIONS")
-          p Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui, non felis. Maecenas malesuada elit lectus felis, malesuada ultricies.
+        .modal-section
+          .consultation-section
+            header.entry-title
+              span(data-translate="DASHBOARD.EXPERT_ACCOUNT.INVITATION.DETAILS.CONSULTATIONS")
+            p Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui, non felis. Maecenas malesuada elit lectus felis, malesuada ultricies.
 
-      .modal-section
-        consultation-list-item(data-consultation-title="Consumer psychology in the industrial and manufacturing equipment marketplace."
-          data-consultation-price="vm.cosultationPrice"
-          data-consultation-tags="vm.tags")
+        .modal-section
+          consultation-list-item(data-consultation-title="Consumer psychology in the industrial and manufacturing equipment marketplace."
+            data-consultation-price="vm.cosultationPrice"
+            data-consultation-tags="vm.tags")
 
-        consultation-list-item(data-consultation-title="Two questions to ask about bird flu vaccines."
-          data-consultation-price="vm.cosultationPrice"
-          data-consultation-tags="vm.tags")
+          consultation-list-item(data-consultation-title="Two questions to ask about bird flu vaccines."
+            data-consultation-price="vm.cosultationPrice"
+            data-consultation-tags="vm.tags")
 
-        consultation-list-item(data-consultation-title="The universe through a child`s eyes."
-          data-consultation-price="vm.cosultationPrice"
-          data-consultation-tags="vm.tags")
+          consultation-list-item(data-consultation-title="The universe through a child`s eyes."
+            data-consultation-price="vm.cosultationPrice"
+            data-consultation-tags="vm.tags")
 
-    .buttons-container
-      a.btn.btn-default(data-translate="DASHBOARD.EXPERT_ACCOUNT.INVITATION.DETAILS.BUTTON.ACCEPT")
+        .buttons-container
+          a.btn.btn-default(data-translate="DASHBOARD.EXPERT_ACCOUNT.INVITATION.DETAILS.BUTTON.ACCEPT")
+
+      .no-invitations-modal(data-ng-if="!vm.areInvitations")
+        no-content-message(data-icon-src="assets/images/profitelo_icons/icon_no_invite.png"
+          data-message-title="DASHBOARD.EXPERT_ACCOUNT.INVITATIONS.NO_INVITATIONS.TITLE")

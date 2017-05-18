@@ -6,6 +6,7 @@ export interface IInvitationsModalScope extends ng.IScope {}
 export class InvitationsModalController implements ng.IController {
   public isFullscreen: boolean = true
   public isNavbar: boolean = true
+  public areInvitations: boolean = false
 
   public onModalClose = () => {
     this.$uibModalInstance.dismiss('cancel')
