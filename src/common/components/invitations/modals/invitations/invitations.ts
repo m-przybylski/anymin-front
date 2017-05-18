@@ -3,13 +3,15 @@ import {InvitationsModalController} from './invitations.controller'
 import userAvatarModule from '../../../interface/user-avatar/user-avatar'
 import './invitations.sass'
 import consultationListItemModule from '../../../dashboard/shared/consultation-list-item/consultation-list-item'
+import noContentMessageModule from '../../../dashboard/no-content-message/no-content-message'
 
 const invitationsModalModule = angular.module('profitelo.components.invitations.modals.invitations', [
   'ui.bootstrap',
   'profitelo.components.interface.preloader',
   'profitelo.directives.interface.scrollable',
   userAvatarModule,
-  consultationListItemModule
+  consultationListItemModule,
+  noContentMessageModule
 ])
 .controller('invitationsModal', InvitationsModalController)
   .name
