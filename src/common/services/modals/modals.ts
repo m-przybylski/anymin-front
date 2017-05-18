@@ -28,6 +28,7 @@ import '../../components/dashboard/expert/activities/modals/consultation-details
 import expertEmployeeDetailsModalModule from '../../components/dashboard/expert/employees/modals/employee-details/employee-details'
 import expertInviteEmployeesModule from '../../components/dashboard/expert/activities/modals/invite-employees/invite-employees'
 import manageProfileEditProfileModule from '../../components/dashboard/expert/manage-profile/modals/edit-expert-profile/edit-expert-profile'
+import noInvitationsModalModule from '../../components/invitations/modals/no-invitations/no-invitations'
 import { consultationSummaryClientModule } from '../../components/communicator/modals/consultation-summary-client/consultation-summary-client'
 
 const modalsModule = angular.module('profitelo.services.modals', [
@@ -55,7 +56,8 @@ const modalsModule = angular.module('profitelo.services.modals', [
   consultationSummaryClientModule,
   expertEmployeeDetailsModalModule,
   expertInviteEmployeesModule,
-  manageProfileEditProfileModule
+  manageProfileEditProfileModule,
+  noInvitationsModalModule
 ])
 .service('modalsService', ModalsService)
   .name
