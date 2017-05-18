@@ -12,6 +12,20 @@
   .summary-tag-multiselect
     margin: 0 0 32px
 
+  .consultation-details-info
+    +consultationDetailsInfo
+    display: flex
+    justify-content: flex-start
+
+    +xsm
+      width: 100%
+
+    li
+      margin: 0 16px 0 0
+
+  .consultation-title
+    margin: 0 auto 32px
+
   .consultation-time-details
     ul
       margin: 0 0 16px
@@ -26,7 +40,7 @@
           font-size: $f-paragraph
 
           +smm
-            min-width: 40%
+            min-width: 50%
 
       &.conversation-cost
         li

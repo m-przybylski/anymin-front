@@ -1,30 +1,29 @@
 scrollable(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
   top-modal-navbar(data-title="COMMUNICATOR.MODALS.RATE_CONVERATION" data-on-close="onModalClose")
   preloader(data-is-loading="!callSummary")
-    .container
+    .container-medium
       .summary-conversation
         .consultation-profile
           .profile-preview
-            .thumb.x96
-              img.user-avatar(src data-ng-src="{{expertAvatarUrl}}" alt="{{ callSummary.companyExpertProfile.expertDetails.name }}")
+            user-avatar.thumb.x96(data-image-token="expertAvatarUrl")
+              .status-list
+                span.status.availability
+                  span.icon.icon-success-12
 
             div
               .profile-name
                 span {{ callSummary.companyExpertProfile.expertDetails.name }}
 
-              .status-list
-                span.status.availability Dostepny
 
-        .consultation-price
+        .consultation-price.price-section
           span(data-ng-bind-html="callSummary.service.price | money ")
 
         .consultation-range
           .consultation-info
             .consultation-title
-              h3
-                span {{ callSummary.service.name }}
+              span {{ callSummary.service.name }}
 
-            ul.consultation-about
+            ul.consultation-details-info
               li.options-item.recomendation
                 span  {{ rating || '0' }}% {{"SEARCH.RECOMMENDATION" | translate }}
               li.options-item.conversation-count
@@ -42,7 +41,7 @@ scrollable(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
             li(data-ng-bind-html="callSummary.cost | money ")
 
         multiselect(data-title="COMMUNICATOR.MODALS.SUMMARY_HELPER_RANGE" data-items="callSummary.tags.tags"
-          data-field="name" data-ng-show="isRecommended" data-on-select-change="onTagsSelectChange")
+        data-field="name" data-ng-show="isRecommended" data-on-select-change="onTagsSelectChange")
 
         .modal-action(ng-show="callSummary.isRecommendable")
           span(data-translate="COMMUNICATOR.MODALS.IS_CONVERSATION_GOOD")
