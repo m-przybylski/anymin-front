@@ -1,7 +1,8 @@
 scrollable(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
   top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="vm.onModalClose")
-  .modal-primary.container-big.expert-employee-details-modal
+  .modal-primary.container-big
     preloader(data-is-loading="vm.isLoading")
+    .expert-employee-details-modal
       .modal-section
         .profile-preview
           .thumb.x96
@@ -37,6 +38,6 @@ scrollable(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
           data-consultation-tags="vm.tags"
           data-consultation-invite-time="vm.invitePendingTime")
 
-    .buttons-container
-      a.btn.btn-primary(data-translate="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEE.DETAILS.BUTTON.CANCEL")
-      a.btn.btn-default(data-translate="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEE.DETAILS.BUTTON.SAVE")
+      .buttons-container
+        a.btn.btn-primary(data-translate="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEE.DETAILS.BUTTON.CANCEL")
+        a.btn.btn-default(data-translate="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEE.DETAILS.BUTTON.SAVE")
