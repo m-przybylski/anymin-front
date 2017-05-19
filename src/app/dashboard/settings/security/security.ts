@@ -4,7 +4,6 @@ import {SessionApi} from 'profitelo-api-ng/api/api'
 import {GetSession} from 'profitelo-api-ng/model/models'
 import {ModalsService} from '../../../../common/services/modals/modals.service'
 import * as angular from 'angular'
-import ITimeConstant = profitelo.constants.time.ITimeConstant
 import userModule from '../../../../common/services/user/user'
 import modalsModule from '../../../../common/services/modals/modals'
 import {ISecuritySettingsService} from '../../../../common/resolvers/security-settings/security-settings.service'
@@ -30,7 +29,7 @@ export class DashboardSettingsSecurityController implements ng.IController {
   public sessions: Array<ISession>
 
   constructor(private modalsService: ModalsService, private currentSession: GetSession, sessionsData: Array<GetSession>,
-              timeConstant: ITimeConstant, private SessionApi: SessionApi, private userService: UserService,
+              private SessionApi: SessionApi, private userService: UserService,
               private $state: IStateService, private topAlertService: TopAlertService,
               private $filter: IFilterService) {
 
@@ -39,7 +38,6 @@ export class DashboardSettingsSecurityController implements ng.IController {
     }
 
     this.sessions = sessionsData.map((session) => {
-      const minuteAgo = Date.now() - timeConstant.USER_ACTIVITY_LAST_MINUTE
       const deviceType = () => {
         if (
           session.userAgent && (
@@ -62,7 +60,7 @@ export class DashboardSettingsSecurityController implements ng.IController {
 
       return {
         device: deviceType(),
-        status: Date.parse(String(session.lastActivityAt)) > minuteAgo,
+        status: currentSession.apiKey === session.apiKey,
         city: session.city,
         system: String(session.userAgent),
         apiKey: session.apiKey
