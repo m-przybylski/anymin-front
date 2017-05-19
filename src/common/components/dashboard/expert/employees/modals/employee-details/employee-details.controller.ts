@@ -1,3 +1,6 @@
+import { Tag } from 'profitelo-api-ng/model/models'
+import {MoneyDto} from 'profitelo-api-ng/model/models'
+
 export interface IExpertEmployeeDetailsModalScope extends ng.IScope {}
 
 export class ExpertEmployeeDetailsModalController implements ng.IController {
@@ -8,12 +11,25 @@ export class ExpertEmployeeDetailsModalController implements ng.IController {
     this.$uibModalInstance.dismiss('cancel')
   }
 
-  public tags: Array<any> = [
-    {name: 'tag-1'},
-    {name: 'tag-2'}
+  public tags: Array<Tag> = [
+    {
+      id: 'mockId',
+      name: 'tag-1',
+      status: Tag.StatusEnum.NEW,
+      persisted: false
+    },
+    {
+      id: 'mockId2',
+      name: 'tag-2',
+      status: Tag.StatusEnum.NEW,
+      persisted: false
+    }
   ]
 
-  public cosultationPrice: string = '7,49 PLN/MIN'
+  public cosultationPrice: MoneyDto = {
+    amount: 705,
+    currency: 'PLN'
+  }
 
   public invitePendingTime: string = '4 days ago'
 
