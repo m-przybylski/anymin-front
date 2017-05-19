@@ -15,16 +15,6 @@
   transition: transform 0.3s
   box-shadow: 0 1px 3px 0 rgba($c-black, 0.15)
 
-  &::after
-    content: ''
-    position: absolute
-    bottom: 0
-    left: 0
-    width: 100%
-    height: 1px
-    z-index: $z-index-100
-    box-shadow: 0 1px 2px 0 rgba($c-black, 0.15)
-
   &.is-not-collapsed
     transition: none
 
@@ -171,16 +161,18 @@
 
     .navbar-navigation
       position: absolute
-      right: 0
+      right: -100%
       top: 100%
       width: 100%
       height: 100vh
       background: $c-white
       z-index: $z-index-100
+      overflow: hidden
 
       +smm
         width: 320px
         height: auto
+        right: -320px
         box-shadow: 0 1px 2px 0 rgba($c-black, 0.15)
 
       +lgm
@@ -199,6 +191,10 @@
 
         +lgm
           display: flex
+
+      .expert-state,
+      .nologin-state
+        background: $c-white
 
       .navbar-parent
         margin: 0 16px
@@ -220,6 +216,26 @@
           .navbar-item-handler
             display: inline-flex
             align-items: center
+            position: relative
+
+            .notifications-count
+              +default-font-medium
+              font-size: $f-btn-small
+              display: flex
+              justify-content: center
+              align-items: center
+              background: $c-primary
+              color: $c-white
+              width: 27px
+              height: 27px
+              border: 3px solid $c-white
+              border-radius: 50%
+              position: absolute
+              top: -12px
+              left: 12px
+
+            .fade-out-animation
+              animation: fade-out 3s forwards
 
       [class*="state"]
         +mdm
@@ -245,7 +261,16 @@
             border: 0
             margin: 0 24px 0 4px
 
-        ul
+            a
+              &:hover
+                span
+                  color: $c-primary
+
+                .notifications-count
+                  background-color: $c-primary
+                  color: $c-white
+
+        .menu-list
           padding: 12px 0
 
           +lgm
@@ -284,12 +309,16 @@
         > li
           margin: 0
 
-    ul
+    .navbar-list
       display: flex
       flex-direction: column
 
       +lgm
         flex-direction: row
+
+      .invitations-tab-link
+        +lgm
+          display: none
 
       li
         display: flex
@@ -303,6 +332,7 @@
             border: 0
             color: $c-secondary-txt
             height: auto
+            z-index: initial
 
             +lgm
               padding: 0 24px
@@ -336,7 +366,6 @@
     +lgm
       animation: none
 
-    //entry
     &.ng-hide-remove-active
       animation: mobile-menu-animation-in 0.4s ease
       animation-fill-mode: forwards
@@ -344,7 +373,6 @@
       +lgm
         animation: none
 
-    //exit
     &.ng-hide-add-active
       animation: mobile-menu-animation-out 0.4s
 
@@ -359,7 +387,6 @@
       +lgm
         animation: none
 
-    //entry
     &.ng-hide-remove-active
       animation: mobile-search-animation-in 0.3s
       animation-fill-mode: forwards
@@ -367,10 +394,76 @@
       +smm
         animation: none
 
-    //exit
     &.ng-hide-add-active
       animation: mobile-search-animation-out 0.3s
       animation-fill-mode: forwards
 
       +smm
         animation: none
+
+  .active-icon
+    color: $c-primary
+
+  .navbar-notifications-menu
+    position: fixed
+    height: auto
+    width: 100%
+    top: 0
+    right: -100%
+
+    +mdm
+      top: -8px
+
+    +lgm
+      width: auto
+      right: 24px
+      top: 64px
+      z-index: -1
+
+  .notifications-menu-animation
+    &.ng-enter
+      animation: mobile-menu-animation-in 0.4s
+      animation-fill-mode: forwards
+
+    &.ng-leave
+      animation: mobile-menu-animation-out 0.4s
+      animation-fill-mode: forwards
+
+  +lgm
+    .notifications-menu-animation
+      &.ng-enter
+        animation: notifications-menu-slide-down 0.4s
+
+      &.ng-leave
+        animation: notifications-menu-slide-up 0.4s
+
+  .mobile-menu-slide-left
+    animation: mobile-menu-slide-left 0.4s forwards
+
+    +lgm
+      animation: none
+
+  .mobile-menu-slide-right
+    animation: mobile-menu-slide-right 0.4s forwards
+
+    +lgm
+      animation: none
+
+  .show-arrow
+    &::before,
+    &::after
+      content: ""
+      width: 0
+      height: 0
+      position: absolute
+      right: 34px
+      border-right: 10px solid transparent
+      border-left: 10px solid transparent
+
+    &::before
+      bottom: 0
+      border-bottom: 10px solid $c-background
+
+    &::after
+      bottom: -3px
+      border-bottom: 10px solid $c-background-2
