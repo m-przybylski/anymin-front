@@ -15,6 +15,7 @@ import '../../../../../../directives/interface/pro-checkbox/pro-checkbox'
 import '../../../../../../directives/interface/pro-input/pro-input'
 import '../../../../../../directives/interface/local-avatar-uploader/local-avatar-uploader'
 import '../../../../../../directives/interface/scrollable/scrollable'
+import checkboxModule from '../../../../../interface/checkbox/checkbox'
 
   export interface IBasicAccountSettingsControllerParentScope extends ng.IScope {
     callback: (cb: () => void) => void
@@ -143,9 +144,9 @@ import '../../../../../../directives/interface/scrollable/scrollable'
     apiModule,
     'profitelo.components.interface.preloader',
     'profitelo.components.interface.image-crop',
-    'profitelo.directives.interface.pro-checkbox',
     'profitelo.directives.interface.pro-input',
     'profitelo.directives.interface.local-avatar-uploader',
-    'profitelo.directives.interface.scrollable'
+    'profitelo.directives.interface.scrollable',
+    checkboxModule
   ])
   .controller('basicAccountSettingsController', BasicAccountSettingsController)

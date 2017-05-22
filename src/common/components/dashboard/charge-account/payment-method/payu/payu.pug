@@ -57,21 +57,22 @@
             span {{ "DASHBOARD.CHARGE_ACCOUNT.EMAIL_ERROR" | translate }}
 
       .your-personal-data-footer
-        pro-checkbox(
-        id="acceptRules"
-        data-ng-model="$ctrl.rulesAccepted"
-        data-label="{{ ::'DASHBOARD.CHARGE_ACCOUNT.ACCEPT_RULES' | translate }}"
-        data-name="acceptRules"
-        data-ng-class="{'invalid': !$ctrl.rulesAccepted && paymentForm.$submitted}"
-        required)
-        .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.rulesAccepted")
-          span {{:: 'DASHBOARD.CHARGE_ACCOUNT.RULES_ERROR' | translate }}
+        checkbox(
+          id="acceptRules"
+          data-input-text='DASHBOARD.CHARGE_ACCOUNT.ACCEPT_RULES'
+          data-ng-model='$ctrl.rulesAccepted'
+          data-name='acceptRules'
+          data-validation='!$ctrl.rulesAccepted && paymentForm.$submitted'
+          data-ng-required="!$ctrl.rulesAccepted"
+          data-alert-text="DASHBOARD.CHARGE_ACCOUNT.RULES_ERROR"
+        )
 
-        pro-checkbox(
-        id="needInvoice"
-        data-ng-model="$ctrl.showInvoiceForm"
-        data-label="{{:: 'DASHBOARD.CHARGE_ACCOUNT.CHECKBOX.COMPANY_INVOICE' | translate }}"
-        data-name="showInvoiceForm")
+        checkbox(
+          id="needInvoice"
+          data-input-text='DASHBOARD.CHARGE_ACCOUNT.CHECKBOX.COMPANY_INVOICE'
+          data-ng-model='$ctrl.showInvoiceForm'
+          data-name='showInvoiceForm'
+        )
 
         .invoice-form.collapse-animation(data-ng-if="$ctrl.showInvoiceForm")
           .invoice-form-company-info

@@ -4,6 +4,7 @@ import {CommonSettingsService} from '../../../../../../services/common-settings/
 import apiModule from 'profitelo-api-ng/api.module'
 import {AccountApi} from 'profitelo-api-ng/api/api'
 import commonSettingsModule from '../../../../../../services/common-settings/common-settings'
+import checkboxModule from '../../../../../interface/checkbox/checkbox'
 
 export interface ISecurityPinNumberSettingsControllerScope extends ng.IScope {
 }
@@ -85,6 +86,6 @@ angular.module('profitelo.components.dashboard.settings.security.modals.pin-numb
   apiModule,
   'profitelo.directives.interface.focus-next',
   'profitelo.directives.interface.scrollable',
-  'profitelo.directives.interface.pro-checkbox'
+  checkboxModule
 ])
   .controller('securityPinNumberSettingsController', SecurityPinNumberSettingsController)

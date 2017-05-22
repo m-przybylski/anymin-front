@@ -23,11 +23,13 @@
             #cvv.form-control
 
         .checkbox(data-ng-if="!$ctrl.transaction")
-          pro-checkbox(
-          data-ng-model="$ctrl.showCardLimitForm"
-          data-label="{{ ::'BRAINTREE.CARD_LIMIT.DESCRIPTION.CHECKBOX' | translate }}")
-
-          p(data-translate="BRAINTREE.CARD_LIMIT.DESCRIPTION.LABEL")
+          checkbox(
+            id="transaction"
+            data-input-text='BRAINTREE.CARD_LIMIT.DESCRIPTION.CHECKBOX'
+            data-ng-model='$ctrl.showCardLimitForm'
+            data-name='transaction'
+            data-additional-text='BRAINTREE.CARD_LIMIT.DESCRIPTION.LABEL'
+          )
 
         .card-limit.collapse-animation.animation-speed-fast(data-ng-if="$ctrl.showCardLimitForm")
           pro-input(data-label="{{:: 'BRAINTREE.CARD_LIMIT.LABEL' | translate }}"
@@ -37,8 +39,8 @@
           data-type="tel"
           only-digits)
 
-        .input-error-messages(data-ng-show="$ctrl.isInvalid")
-          .error.left(data-translate="BRAINTREE.INVALID")
+          .input-error-messages(data-ng-show="$ctrl.isInvalid")
+            .error.left(data-translate="BRAINTREE.INVALID")
 
       summary-charge-account.summary-charge-account( data-amount="$ctrl.transaction.amount || $ctrl.transaction.paymentOption"
         data-btn-title="{{ $ctrl.submitButtonTranslate }}")

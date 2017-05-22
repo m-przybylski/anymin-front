@@ -5,17 +5,18 @@ import './employee.sass'
 import 'common/directives/interface/pro-checkbox/pro-checkbox'
 import userAvatarModule from '../../../../interface/user-avatar/user-avatar';
 import modalsModule from '../../../../../services/modals/modals';
+import checkboxModule from '../../../../interface/checkbox/checkbox'
 
 export interface IExpertEmployeeComponentBindings extends ng.IController {
 }
 
-const expertEmployeeModule = angular.module('profitelo.components.dashboard.expert.employees.employee', [
+const expertEmployeeModule: string = angular.module('profitelo.components.dashboard.expert.employees.employee', [
   'pascalprecht.translate',
-  'profitelo.directives.interface.pro-checkbox',
   userAvatarModule,
-  modalsModule
+  modalsModule,
+  checkboxModule
 ])
-  .component('expertEmployee', new ExpertEmployeeComponent())
+.component('expertEmployee', new ExpertEmployeeComponent())
   .name
 
 export default expertEmployeeModule

@@ -6,13 +6,20 @@ checkbox
   display: block
 
 .checkbox
+  .input-handler
+    display: flex
+    align-items: center
+    justify-content: flex-start
+    position: relative
+
   input
     display: none
 
     & + label
       display: flex
-      align-items: center
+      align-items: flex-start
       cursor: pointer
+      text-align: left
 
       &:hover
         color: $c-primary
@@ -29,11 +36,13 @@ checkbox
         align-items: center
         justify-content: center
         width: 16px
+        min-width: 16px
         height: 16px
+        min-height: 16px
         border: 1px solid $c-lines
         border-radius: $s-border-radius
         color: $c-white
-        margin: 0 16px 0 0
+        margin: 2px 16px 0 0
         padding: 1px 0 0
         transition: background 0.3s, border-color 0.3s, box-shadow 0.3s
 
@@ -58,9 +67,60 @@ checkbox
         &::before
           box-shadow: none
 
-  .label-text
-    +paragraphTitle
+  &.is-invalid
+    input
+      & + label
+        &::before
+          border-color: $c-error
 
-  p
-    &.label-additional-text
+        &:hover
+          &::before
+            box-shadow: none
+
+      &:checked + label
+        &::before
+          border-color: $c-primary
+
+    span
+      &.is-required
+        color: $c-error
+
+  label
+    &.label-text
+      +paragraphTitle
+
+  span
+    &.is-required
+      margin: 0 4px 0 0
+
+  .additional-text
+    p
       padding: 0 0 0 32px
+
+  .alert-cloud
+    background: $c-error
+    box-shadow: 1px 1px 2px rgba($c-black, 0.3)
+    border-radius: $s-border-radius
+    padding: 8px
+    position: absolute
+    left: 0
+    top: calc(100% + 4px)
+    z-index: $z-index-100
+    animation: dropdown-collapsing 0.3s
+
+    &::before
+      content: ''
+      position: absolute
+      top: -4px
+      left: 4px
+      width: 0
+      height: 0
+      border-bottom: 4px solid $c-error
+      border-right: 4px solid transparent
+      border-left: 4px solid transparent
+
+    .alert-text
+      +default-font-medium
+      padding: 0
+      color: $c-white
+      font-size: $f-btn-small

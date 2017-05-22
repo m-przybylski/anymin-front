@@ -1,11 +1,11 @@
 .expert-filters
   .employees-options-container.dashboard-filters-collapse.is-collapsed(data-ng-class="{'is-collapsed': $ctrl.showMobileFilters}")
     .employees-checkbox-container(data-ng-show="$ctrl.areEmployees")
-      pro-checkbox(
-        data-id="checkAllEmployees"
-        data-ng-model="$ctrl.checkAllEmployees"
-        data-name="checkAllEmployees"
-        )
+      checkbox(
+        id="checkAllEmployees"
+        name="checkAllEmployees"
+        data-ng-model='$ctrl.checkAllEmployees'
+      )
     .employees-filters-container
       .pro-dropdown
         dropdown-primary(

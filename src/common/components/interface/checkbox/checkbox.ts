@@ -5,9 +5,12 @@ import './checkbox.sass'
 export interface CheckboxComponentBindings extends ng.IController {
   inputText: string
   additionalText: string
+  name: string
+  alertText: string
+  validation: boolean
   ngModel: boolean
   isDisabled: boolean
-  isRequired: boolean
+  ngRequired: boolean
   onChange?: ()=> void
 }
 

@@ -12,20 +12,27 @@ scrollable.security-pin-number(data-is-fullscreen="vm.isFullscreen" data-is-navb
           required data-ng-model="vm.pinInput[$index]")
 
         .checkbox-handler
-          pro-checkbox(
+          checkbox(
+            id="protected-views-status-callview"
+            data-input-text="SETTINGS.SECURITY.PIN_NUMBER.CHECKBOX_CALL_VIEW"
             data-ng-model="vm.protectedViewsStatus.CALL_VIEW"
-            data-label="{{:: 'SETTINGS.SECURITY.PIN_NUMBER.CHECKBOX_CALL_VIEW' | translate }}"
+            data-name="protected-views-status-callview"
           )
 
-          pro-checkbox(
+          checkbox(
+            id="protected-views-status-payout"
+            data-input-text="SETTINGS.SECURITY.PIN_NUMBER.PAY_OUT_VIEW"
             data-ng-model="vm.protectedViewsStatus.PAY_OUT_VIEW"
-            data-label="{{:: 'SETTINGS.SECURITY.PIN_NUMBER.PAY_OUT_VIEW' | translate }}"
+            data-name="protected-views-status-payout"
           )
 
-          pro-checkbox(
+          checkbox(
+            id="protected-views-status-make-deposit-view"
+            data-input-text="SETTINGS.SECURITY.PIN_NUMBER.MAKE_DEPOSIT_VIEW"
             data-ng-model="vm.protectedViewsStatus.MAKE_DEPOSIT_VIEW"
-            data-label="{{:: 'SETTINGS.SECURITY.PIN_NUMBER.MAKE_DEPOSIT_VIEW' | translate }}"
+            data-name="protected-views-status-make-deposit-view"
           )
+
         button.btn.btn-default(data-translate="{{:: 'SETTINGS.SECURITY.PIN_NUMBER.BUTTON' | translate}}"
         type="submit")
 

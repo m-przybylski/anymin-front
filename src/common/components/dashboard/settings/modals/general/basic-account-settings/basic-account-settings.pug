@@ -28,9 +28,13 @@ scrollable.basic-account-settings(data-is-fullscreen="isFullscreen" data-is-navb
               .error.left(data-ng-show="phoneNumberForm.$submitted && !vm.isValidPhoneNumber(vm.account.phoneNumber.prefix, vm.account.phoneNumber.number) || phoneNumberForm.$submitted &&  vm.account.phoneNumber.prefix === null "
               data-translate="LOGIN.PHONE_NUMBER_REQUIRED")
 
-            pro-checkbox(data-ng-model="generalSettingsObject.isAnonymous"
-            data-label="{{:: 'SETTINGS.GENERAL.BASIC_ACCOUNT.NAME_CHECKBOX_LABEL' | translate }}"
-            data-ng-class="{'invalid': !$ctrl.rulesAccepted && paymentForm.$submitted}")
+            checkbox(
+              id="general-settings"
+              data-name='general-settings'
+              data-input-text='SETTINGS.GENERAL.BASIC_ACCOUNT.NAME_CHECKBOX_LABEL'
+              data-ng-model='generalSettingsObject.isAnonymous'
+              data-validaion='!$ctrl.rulesAccepted && paymentForm.$submitted'
+            )
 
             button.btn.btn-default(data-translate="SETTINGS.GENERAL.BASIC_ACCOUNT_SAVE_CHANGES" type="submit")
 

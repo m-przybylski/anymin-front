@@ -3,14 +3,16 @@ import {CheckboxComponentBindings} from './checkbox'
 export class CheckboxComponentController implements CheckboxComponentBindings {
   public inputText: string = ''
   public additionalText: string = ''
+  public name: string = ''
+  public alertText: string = ''
+  public validation: boolean = false
   public ngModel: boolean = false
   public isDisabled: boolean = false
-  public isRequired: boolean = false
+  public ngRequired: boolean = false
   public onChange?: ()=> void
 
   /* @ngInject */
-  constructor() {
-  }
+  constructor() {}
 
   public onClick = () => {
     if (!this.isDisabled) {
@@ -20,5 +22,6 @@ export class CheckboxComponentController implements CheckboxComponentBindings {
     if (this.onChange) {
       this.onChange()
     }
+
   }
 }
