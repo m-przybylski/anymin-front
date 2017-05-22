@@ -26,6 +26,7 @@ function _controller($log: ng.ILogService, $filter: ng.IFilterService, $state: n
   this.passwordStrength = 0
   this.password = ''
   this.isPending = false
+  this.isRequired = true
   this.rulesAccepted = false
   this.serverError = false
   this.alreadyCheck = false

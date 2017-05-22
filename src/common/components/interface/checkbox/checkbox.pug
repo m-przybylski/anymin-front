@@ -15,5 +15,5 @@
     .alert-cloud(data-ng-if="$ctrl.validation && !$ctrl.ngModel")
       span.alert-text {{:: $ctrl.alertText | translate }}
 
-  .additional-text
-    p.label-additional-text(data-ng-if="$ctrl.additionalText") {{:: $ctrl.additionalText | translate }}
+  .additional-text(data-ng-if="$ctrl.additionalText")
+    p.label-additional-text {{:: $ctrl.additionalText | translate }}

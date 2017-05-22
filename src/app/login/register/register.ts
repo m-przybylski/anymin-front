@@ -18,7 +18,6 @@ import 'common/resolvers/login-register/login-register.service'
 import 'common/directives/pro-top-waiting-loader/pro-top-waiting-loader'
 import 'common/directives/interface/pro-input/pro-input'
 import 'common/directives/interface/pro-alert/pro-alert'
-import 'common/directives/interface/pro-checkbox/pro-checkbox'
 import permissionModule from '../../../common/services/permission/permission'
 import {EventsService} from '../../../common/services/events/events.service'
 import eventsModule from '../../../common/services/events/events'
@@ -154,7 +153,6 @@ angular.module('profitelo.controller.login.register', [
   permissionModule,
   eventsModule,
   'profitelo.services.pro-top-waiting-loader-service',
-  'profitelo.directives.interface.pro-checkbox',
   'profitelo.directives.interface.pro-alert',
   'profitelo.directives.interface.pro-input'
 ])

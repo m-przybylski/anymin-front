@@ -5,11 +5,11 @@
     span.placeholder(data-ng-if="!$ctrl.selectedItem") {{$ctrl.mainPlaceholder.name}}
 
     .dropdown-icons
-      span.icon
+      span.icon.icon-drowdown-arrow-12
 
   .dropdown-content
     .dropdown-input
-      input(type="text" placeholder="{{ $ctrl.inputPlaceholder }}" data-ng-model="$ctrl.filterBy.name")
+      input(type="text" placeholder="{{ $ctrl.inputPlaceholder | translate }}" data-ng-model="$ctrl.filterBy.name")
       span.icon.icon-search-24
 
     .scroll-list

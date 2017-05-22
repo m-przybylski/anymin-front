@@ -63,7 +63,7 @@
           data-ng-model='$ctrl.rulesAccepted'
           data-name='acceptRules'
           data-validation='!$ctrl.rulesAccepted && paymentForm.$submitted'
-          data-ng-required="!$ctrl.rulesAccepted"
+          data-ng-required="$ctrl.isRequired"
           data-alert-text="DASHBOARD.CHARGE_ACCOUNT.RULES_ERROR"
         )
 

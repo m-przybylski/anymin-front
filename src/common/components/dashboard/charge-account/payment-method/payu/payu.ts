@@ -25,6 +25,7 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
   let isPending = false
   this.isGetCompanyInfo = false
   this.rulesAccepted = false
+  this.isRequired = true
   this.showInvoiceForm = false
   this.personalDataSectionId = 'personal-section'
   this.bankModel = {}

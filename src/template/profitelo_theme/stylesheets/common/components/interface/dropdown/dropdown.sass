@@ -70,21 +70,16 @@
     width: 100%
     position: relative
 
-    span
-      &.icon
-        &::after
-          content: ''
-          position: absolute
-          right: 0
-          top: 0
-          bottom: 0
-          margin: auto
-          width: 0
-          height: 0
-          border-top: 6px solid $c-primary
-          border-left: 6px solid transparent
-          border-right: 6px solid transparent
-          transition: transform 0.3s
+    .dropdown-icons
+      position: absolute
+      right: 0
+      top: 0
+      height: 100%
+      display: flex
+
+      .icon
+        font-size: $f-icon-size
+        color: $c-primary
 
   .dropdown-content
     position: absolute
@@ -103,11 +98,9 @@
 
     .scroll-list
       .title-list
-        +default-font-regular
-        text-transform: uppercase
+        +inputDropDownItem
         color: $c-tertiary-txt
-        font-size: $f-input-small
-        padding: 16px 16px 8px
+        padding: 24px 16px 8px
         display: block
         cursor: auto
 
@@ -117,6 +110,9 @@
 
         &:hover
           background: $c-primary
+
+          span
+            color: $c-white
 
         &.is-active
           color: $c-primary

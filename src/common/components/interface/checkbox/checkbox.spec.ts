@@ -2,7 +2,7 @@ import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import CheckboxModule from './checkbox'
 import {CheckboxComponentController} from './checkbox.controller'
-import {CheckboxComponentBindings} from './checkbox'
+import {ICheckboxComponentBindings} from './checkbox'
 
 describe('Unit testing: profitelo.components.interface.checkbox', () => {
   return describe('for checkbox component >', () => {
@@ -12,7 +12,7 @@ describe('Unit testing: profitelo.components.interface.checkbox', () => {
     let compile: ng.ICompileService
     let componentController: ng.IComponentControllerService
     let component: CheckboxComponentController
-    let bindings: CheckboxComponentBindings
+    let bindings: ICheckboxComponentBindings
     let document: ng.IDocumentService
     let validHTML = '<checkbox data-input-text="inputtext" data-additional-text="additinal"' +
       'data-is-disabled="false"></checkbox>'
@@ -30,6 +30,7 @@ describe('Unit testing: profitelo.components.interface.checkbox', () => {
     })
 
     beforeEach(() => {
+      angular.mock.module('pascalprecht.translate')
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
               _$componentController_: ng.IComponentControllerService) => {
         componentController = _$componentController_
@@ -40,9 +41,12 @@ describe('Unit testing: profitelo.components.interface.checkbox', () => {
       bindings = {
         inputText: 'input text',
         additionalText: 'additional text',
+        name: 'name',
+        alertText: 'alert',
         isDisabled: false,
-        isRequired: false,
+        ngRequired: false,
         ngModel: false,
+        validation: true,
         onChange: () => {
         }
       }

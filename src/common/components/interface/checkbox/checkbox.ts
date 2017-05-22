@@ -2,20 +2,20 @@ import * as angular from 'angular'
 import {CheckboxComponent} from './checkbox.component'
 import './checkbox.sass'
 
-export interface CheckboxComponentBindings extends ng.IController {
+export interface ICheckboxComponentBindings extends ng.IController {
   inputText: string
-  additionalText: string
+  additionalText?: string
   name: string
-  alertText: string
-  validation: boolean
+  alertText?: string
+  validation?: boolean
   ngModel: boolean
-  isDisabled: boolean
-  ngRequired: boolean
-  onChange?: ()=> void
+  isDisabled?: boolean
+  ngRequired?: boolean
+  onChange?: () => void
 }
 
 const checkboxModule = angular.module('profitelo.components.interface.checkbox', [
-
+  'pascalprecht.translate'
 ])
 .component('checkbox', new CheckboxComponent)
   .name
