@@ -70,20 +70,25 @@ describe('Unit testing: navbar-logged-in-menu', () => {
       expect(el.html()).toBeDefined(true)
     })
 
-    it('should notifications menu show', () => {
-      component.toggleNotificationsMenuShow()
+    it('should show notifications tab', () => {
+      component.toggleNotificationsTabShow()
       expect(component.isNotificationsMenuShow).toBe(true)
       expect(component.areNotificationsDisplayed).toBe(true)
       expect(component.isNotificationsTab).toBe(true)
       expect(component.isInvitationsTab).toBe(false)
     })
 
-    it('should invitations menu show', () => {
-      component.toggleInvitationsMenuShow()
+    it('should show invitations tab', () => {
+      component.toggleInvitationsTabShow()
       expect(component.isNotificationsMenuShow).toBe(true)
       expect(component.areInvitationsDisplayed).toBe(true)
       expect(component.isNotificationsTab).toBe(false)
       expect(component.isInvitationsTab).toBe(true)
+    })
+
+    it('should show notifications menu', () => {
+      component.toggleNotificationsMenuShow()
+      expect(component.isNotificationsMenuShow).toBe(true)
     })
 
   })

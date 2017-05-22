@@ -40,7 +40,7 @@ ul.expert-state.navbar-list(data-ng-class="$ctrl.isNotificationsMenuShow ? 'mobi
           span.mobile-only.icon.icon-next-24
 
       li.navbar-parent.notifications-tab-link(data-ng-class="{'show-arrow' : $ctrl.isNotificationsMenuShow}")
-        a(data-ng-click="$ctrl.toggleNotificationsMenuShow()")
+        a(data-ng-click="$ctrl.toggleNotificationsTabShow()")
           span.navbar-item-handler
             span.icon.icon-bell-24(data-ng-class="{'active-icon' : $ctrl.isNotificationsMenuShow}")
             span.notifications-count(data-ng-hide="$ctrl.areNotificationsDisplayed") +9
@@ -49,10 +49,11 @@ ul.expert-state.navbar-list(data-ng-class="$ctrl.isNotificationsMenuShow ? 'mobi
 
         .navbar-notifications-menu.notifications-menu-animation.animation(data-ng-if="$ctrl.isNotificationsMenuShow")
           navbar-notifications(data-is-notifications-tab="$ctrl.isNotificationsTab"
-            data-is-invitations-tab="$ctrl.isInvitationsTab")
+            data-is-invitations-tab="$ctrl.isInvitationsTab"
+            data-on-click="$ctrl.toggleNotificationsMenuShow")
 
       li.navbar-parent.invitations-tab-link
-        a(data-ng-click="$ctrl.toggleInvitationsMenuShow()")
+        a(data-ng-click="$ctrl.toggleInvitationsTabShow()")
           span.navbar-item-handler
             span.icon.icon-bell-24
             span.notifications-count(data-ng-hide="$ctrl.areInvitationsDisplayed") 2

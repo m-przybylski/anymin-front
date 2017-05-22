@@ -8,6 +8,7 @@ import modalsModule from '../../../services/modals/modals'
 export interface INavbarNotificationsComponentBindings extends ng.IController {
   isNotificationsTab: boolean
   isInvitationsTab: boolean
+  onClick: () => void
 }
 
 const navbarNotificationsModule = angular.module('profitelo.components.navbar.navbar-notifications', [
