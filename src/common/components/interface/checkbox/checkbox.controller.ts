@@ -12,13 +12,13 @@ export class CheckboxComponentController implements ICheckboxComponentBindings {
   public onChange?: () => void
 
   /* @ngInject */
-  constructor() {
-  }
+  constructor() {}
 
   public onClick = () => {
     if (!this.isDisabled) {
       this.ngModel = !this.ngModel
     }
+
     if (this.onChange) {
       this.onChange()
     }
