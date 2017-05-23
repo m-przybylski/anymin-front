@@ -86,12 +86,16 @@ describe('Unit testing: navbarNotifications', () => {
       expect(component.areInvitationsDisplayed).toBe(true)
     }))
 
-    it('should have a dummy test', inject((modalsService: ModalsService) => {
+    it('should open modal', inject((modalsService: ModalsService) => {
       spyOn(modalsService, 'createInvitationsModal')
       component.openNotificationDescriptions()
-
       expect(modalsService.createInvitationsModal).toHaveBeenCalled()
+    }))
 
+    it('should call onClick function', inject(() => {
+      spyOn(component, 'onClick')
+      component.buttonCallback()
+      expect(component.onClick).toHaveBeenCalled()
     }))
 
   })

@@ -89,6 +89,14 @@ describe('Unit testing: navbar-logged-in-menu', () => {
     it('should show notifications menu', () => {
       component.toggleNotificationsMenuShow()
       expect(component.isNotificationsMenuShow).toBe(true)
+      expect(component.isAnyMenuShow).toBe(true)
+    })
+
+    it('should show help menu', () => {
+      component.toggleHelpMenuShow()
+      expect(component.isHelpMenuShow).toBe(true)
+      expect(component.isNotificationsMenuShow).toBe(false)
+      expect(component.isAnyMenuShow).toBe(true)
     })
 
   })

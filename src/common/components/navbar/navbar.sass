@@ -24,8 +24,12 @@
   .navbar-logo
     display: inline-flex
     align-items: center
+    justify-content: center
+    border-bottom: 1px solid $c-lines
+    width: 100%
 
     +smm
+      width: auto
       padding: 0 24px
       border-right: 1px solid $c-lines
 
@@ -37,6 +41,7 @@
     align-items: center
     padding: 0 16px
     order: -1
+    border-bottom: 1px solid $c-lines
 
     +smm
       flex: 1
@@ -106,6 +111,7 @@
     .mobile-nav
       display: inline-flex
       align-items: center
+      border-bottom: 1px solid $c-lines
 
       +smm
         border-left: 1px solid $c-lines
@@ -171,12 +177,12 @@
 
       +smm
         width: 320px
-        height: auto
         box-shadow: 0 1px 2px 0 rgba($c-black, 0.15)
 
       +lgm
         animation: none
         width: auto
+        height: auto
         display: flex !important
         position: static
         box-shadow: none
@@ -194,15 +200,20 @@
       .expert-state,
       .nologin-state
         background: $c-white
+        border-bottom: 1px solid $c-lines
 
       .navbar-parent
         margin: 0 16px
+        position: relative
 
         +smm
           margin: 0 24px
 
         +lgm
           margin: 0 8px
+
+        .icon-next-24
+          font-size: $f-btn-icon
 
         a
           padding: 12px 0
@@ -237,11 +248,6 @@
               animation: fade-out 3s forwards
 
       [class*="state"]
-        +mdm
-          margin: 8px 0
-
-        +lgm
-          margin: 0
 
         > li
           margin: 0
@@ -252,8 +258,8 @@
             align-items: stretch
 
         .navbar-notifications
-          border-bottom: 1px solid $c-lines
           order: -1
+          border-bottom: 1px solid $c-lines
 
           +lgm
             order: 0
@@ -304,6 +310,23 @@
               +lgm
                 padding: 0
 
+          .navbar-menu
+            background: $c-white
+            width: 100%
+            height: 100vh
+            overflow: scroll
+
+            +smm
+              width: 320px
+
+            +lgm
+              height: 560px
+              box-shadow: 0 1px 2px 0 rgba($c-black, 0.15)
+
+            .navbar-menu-header
+              min-height: 56px
+              background: $c-background-2
+
       > ul
         > li
           margin: 0
@@ -325,7 +348,7 @@
         margin: 0 16px
 
         a
-          &.btn
+          &.navbar-btn
             +default-font-medium
             padding: 0
             border: 0
@@ -403,23 +426,40 @@
   .active-icon
     color: $c-primary
 
-  .navbar-notifications-menu
+  .navbar-menu-container
     position: fixed
     height: auto
     width: 100%
     top: 0
     right: -100%
 
-    +mdm
-      top: -8px
-
     +lgm
-      width: auto
+      width: 320px
       right: 24px
       top: 64px
-      z-index: -1
+      z-index: $z-index-minus-100
 
-  .notifications-menu-animation
+  .show-arrow
+    +lgm
+      &::before,
+      &::after
+        content: ""
+        width: 0
+        height: 0
+        position: absolute
+        right: 3px
+        border-right: 10px solid transparent
+        border-left: 10px solid transparent
+
+      &::before
+        bottom: 0
+        border-bottom: 10px solid $c-background
+
+      &::after
+        bottom: -2px
+        border-bottom: 10px solid $c-background-2
+
+  .navbar-menu-animation
     &.ng-enter
       animation: mobile-menu-animation-in 0.4s
       animation-fill-mode: forwards
@@ -429,40 +469,35 @@
       animation-fill-mode: forwards
 
   +lgm
-    .notifications-menu-animation
+    .navbar-menu-animation
       &.ng-enter
-        animation: notifications-menu-slide-down 0.4s
+        animation: navbar-menu-slide-down 0.4s
 
       &.ng-leave
-        animation: notifications-menu-slide-up 0.4s
+        animation: navbar-menu-slide-up 0.4s
 
   .mobile-menu-slide-left
-    animation: mobile-menu-slide-left 0.4s forwards
+    animation: navbar-menu-slide-left 0.4s forwards
 
     +lgm
       animation: none
 
   .mobile-menu-slide-right
-    animation: mobile-menu-slide-right 0.4s forwards
+    animation: navbar-menu-slide-right 0.4s forwards
 
     +lgm
       animation: none
 
-  .show-arrow
-    &::before,
-    &::after
-      content: ""
-      width: 0
-      height: 0
-      position: absolute
-      right: 34px
-      border-right: 10px solid transparent
-      border-left: 10px solid transparent
+  .left-tab-animation
+    &.ng-hide-remove-active
+      animation: navbar-menu-slide-right 0.3s
 
-    &::before
-      bottom: 0
-      border-bottom: 10px solid $c-background
+    &.ng-hide-add-active
+      animation: navbar-menu-slide-left 0.3s forwards
 
-    &::after
-      bottom: -3px
-      border-bottom: 10px solid $c-background-2
+  .right-tab-animation
+    &.ng-hide-remove-active
+      animation: navbar-menu-slide-left 0.3s forwards
+
+    &.ng-hide-add-active
+      animation: navbar-menu-slide-right 0.3s

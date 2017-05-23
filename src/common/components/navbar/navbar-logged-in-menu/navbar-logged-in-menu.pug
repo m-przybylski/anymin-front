@@ -1,8 +1,8 @@
-ul.expert-state.navbar-list(data-ng-class="$ctrl.isNotificationsMenuShow ? 'mobile-menu-slide-left' : 'mobile-menu-slide-right' ")
+ul.expert-state.navbar-list(data-ng-class="$ctrl.isAnyMenuShow ? 'mobile-menu-slide-left' : 'mobile-menu-slide-right' ")
   li
     ul.menu-list.navbar-list
       li(data-ng-hide="$ctrl.isExpertOrOrganization")
-        a.btn.btn-primary.btn-small(data-ui-sref="app.wizard.create-profile")
+        a.btn.btn-primary.btn-small.navbar-btn(data-ui-sref="app.wizard.create-profile")
           span.mobile-only.icon.icon-start-earning-24
           span(data-translate="NAVIGATION.MENU_ITEMS.START_EARNING")
 
@@ -25,12 +25,15 @@ ul.expert-state.navbar-list(data-ng-class="$ctrl.isNotificationsMenuShow ? 'mobi
 
   li.navbar-notifications
     ul.menu-list.navbar-list
-      li.navbar-parent
-        a
+      li.navbar-parent.help-tab-link(data-ng-class="{'show-arrow' : $ctrl.isHelpMenuShow}")
+        a(data-ng-click="$ctrl.toggleHelpMenuShow()")
           span.navbar-item-handler
-            span.icon.icon-questionmark-24
+            span.icon.icon-questionmark-24(data-ng-class="{'active-icon' : $ctrl.isHelpMenuShow}")
             span.mobile-onlys(data-translate="NAVIGATION.MENU_ITEMS.HELP")
           span.mobile-only.icon.icon-next-24
+
+        .navbar-menu-container.navbar-menu-animation.animation(data-ng-if="$ctrl.isHelpMenuShow")
+          navbar-help(data-on-click="$ctrl.toggleHelpMenuShow")
 
       li.navbar-parent(data-ng-if="$ctrl.isExpert")
         a
@@ -47,7 +50,7 @@ ul.expert-state.navbar-list(data-ng-class="$ctrl.isNotificationsMenuShow ? 'mobi
             span.mobile-onlys(data-translate="NAVIGATION.MENU_ITEMS.NOTIFICATION")
           span.mobile-only.icon.icon-next-24
 
-        .navbar-notifications-menu.notifications-menu-animation.animation(data-ng-if="$ctrl.isNotificationsMenuShow")
+        .navbar-menu-container.navbar-menu-animation.animation(data-ng-if="$ctrl.isNotificationsMenuShow")
           navbar-notifications(data-is-notifications-tab="$ctrl.isNotificationsTab"
             data-is-invitations-tab="$ctrl.isInvitationsTab"
             data-on-click="$ctrl.toggleNotificationsMenuShow")

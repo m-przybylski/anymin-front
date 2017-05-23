@@ -18,7 +18,7 @@ export class NavbarNotificationsComponentController implements INavbarNotificati
 
     this.buttonCallback = () => {
      if (this.onClick && !angular.isFunction(this.onClick)) {
-       throw new Error('buttonOnClick is not a function')
+       throw new Error('onClick is not a function')
      }
       this.onClick()
     }

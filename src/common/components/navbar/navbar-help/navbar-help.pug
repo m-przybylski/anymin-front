@@ -1,0 +1,54 @@
+#help-menu.navbar-menu
+  .help-menu-container
+    .help-search-tab.left-tab-animation.ng-hide(data-ng-show="!$ctrl.isArticleTab")
+      .navbar-menu-header.help-menu-header
+        a.go-back-link(data-ng-click="$ctrl.buttonCallback()")
+          span.icon.icon-back-24
+        span.icon.icon-search-24
+        input.help-search(type="text" name="search" placeholder="{{'NAVIGATION.HELP_MENU.SEARCH_PLACEHOLDER' | translate}}"
+          ng-model="helpSearchQuery" autofocus)
+
+      .help-content
+        .help-title
+          span(data-translate="NAVIGATION.HELP_MENU.SUGGESTIONS")
+        ul.help-link-list
+          li(ng-repeat="result in $ctrl.searchResults | filter : helpSearchQuery | limitTo : $ctrl.resultCount"
+            data-ng-click="$ctrl.changeTab()")
+            a {{ result }}
+
+      .help-menu-footer
+        a.btn.btn-link(data-translate="NAVIGATION.HELP_MENU.HELP_CENTER")
+
+    .help-article-tab.right-tab-animation.ng-hide(data-ng-show="$ctrl.isArticleTab")
+      .navbar-menu-header.help-menu-header(data-ng-click="$ctrl.changeTab()")
+        a
+          span.icon.icon-back-24
+          span(data-translate="NAVIGATION.HELP_MENU.BACK")
+
+      .help-content
+        .help-title
+          span Lorem ipsum dolor sit amet?
+        p.help-article Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor
+          | sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus
+          | et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate,
+          | felis tellus mollis orci, sed rhoncus sapien nunc eget.
+
+        .help-title
+          span(data-translate="NAVIGATION.HELP_MENU.ARTICLE_HELPFUL")
+
+        .buttons-container
+          a.btn.btn-small.btn-primary(data-translate="NAVIGATION.HELP_MENU.BUTTON_NO")
+          a.btn.btn-small.btn-default(data-translate="NAVIGATION.HELP_MENU.BUTTON_YES")
+
+        .help-title
+          span(data-translate="NAVIGATION.HELP_MENU.RECOMMENDED")
+        ul.help-link-list
+          li
+            a How to find an expert?
+          li
+            a How to call an expert?
+          li
+            a How to add an expert to favourites?
+
+      .help-menu-footer
+        a.btn.btn-link help center (FAQ)

@@ -13,6 +13,8 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
   areInvitationsDisplayed: boolean = false
   isNotificationsTab: boolean = true
   isInvitationsTab: boolean = false
+  isHelpMenuShow: boolean = false
+  isAnyMenuShow: boolean = false
 
   /* @ngInject */
   constructor(private userService: UserService, private $filter: ng.IFilterService,
@@ -28,6 +30,8 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
       const ifTargetClicked = this.$element.find(event.target).length > 0
       if (!ifTargetClicked) {
         this.isNotificationsMenuShow = false
+        this.isHelpMenuShow = false
+        this.isAnyMenuShow = false
       }
       this.$scope.$apply()
     })
@@ -36,6 +40,7 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
       if (this.$window.pageYOffset >= this.styleConstant.NAVBAR_HEIGHT
         && this.$window.innerWidth >= this.styleConstant.DESKTOP_WINDOW_WIDTH) {
         this.isNotificationsMenuShow = false
+        this.isHelpMenuShow = false
       }
       this.$scope.$apply()
     })
@@ -59,8 +64,10 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
       this.isExpertOrOrganization = false
     })
   }
+
   public toggleNotificationsMenuShow = () => {
     this.isNotificationsMenuShow = !this.isNotificationsMenuShow
+    this.isAnyMenuShow = !this.isAnyMenuShow
   }
 
   public toggleNotificationsTabShow = () => {
@@ -68,6 +75,7 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
     this.areNotificationsDisplayed = true
     this.isNotificationsTab = true
     this.isInvitationsTab = false
+    this.isHelpMenuShow = false
   }
 
   public toggleInvitationsTabShow = () => {
@@ -75,6 +83,12 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
     this.areInvitationsDisplayed = true
     this.isNotificationsTab = false
     this.isInvitationsTab = true
+  }
+
+  public toggleHelpMenuShow = () => {
+    this.isHelpMenuShow = !this.isHelpMenuShow
+    this.isNotificationsMenuShow = false
+    this.isAnyMenuShow = !this.isAnyMenuShow
   }
 
 }

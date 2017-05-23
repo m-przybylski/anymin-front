@@ -14,7 +14,6 @@ export class NavbarComponentController implements INavbarComponentBindings {
   navbarStyle: {
     transform: string
   }
-  isNotificationsMenuShow: boolean
 
   /* @ngInject */
   constructor(private $scope: ng.IScope, private $window: ng.IWindowService, private $element: any,
@@ -60,8 +59,10 @@ export class NavbarComponentController implements INavbarComponentBindings {
       const ifNotificationsMenuClicked = notificationsMenuLink.find(event.target).length > 0
       const invitationsMenuLink = this.$element.find('.invitations-tab-link')
       const ifInvitationsMenuClicked = invitationsMenuLink.find(event.target).length > 0
+      const helpMenuLink = this.$element.find('.help-tab-link')
+      const ifHelpMenuClicked = helpMenuLink.find(event.target).length > 0
 
-      if (ifNotificationsMenuClicked || ifInvitationsMenuClicked) {
+      if (ifNotificationsMenuClicked || ifInvitationsMenuClicked || ifHelpMenuClicked) {
         this.isNavigationCollapsed = true
       }
 

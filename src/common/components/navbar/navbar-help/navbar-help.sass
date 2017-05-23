@@ -1,0 +1,99 @@
+@import "../../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
+@import "../../../../template/profitelo_theme/stylesheets/variables/variables"
+
+#help-menu
+  .help-menu-header
+    display: flex
+    padding: 0 16px
+    border-bottom: 1px solid $c-lines
+
+    .go-back-link
+      flex: initial
+
+      +lgm
+        display: none
+
+    .icon-back-24
+      font-size: $f-btn-icon
+
+    .icon-search-24
+      display: none
+
+      +lgm
+        margin: 0 16px 0 0
+        display: flex
+
+    .help-search
+      flex: 1
+      min-height: 56px
+      background: $c-background-2
+
+  .help-menu-container
+    display: flex
+    width: 100%
+
+    .help-search-tab,
+    .help-article-tab
+      min-width: 100%
+
+    .help-article-tab
+      .help-menu-header
+        a
+          justify-content: flex-start
+
+        span
+          color: $c-primary
+
+        .icon
+          font-size: $f-btn-icon
+          margin: 0 8px 0 0
+
+    .help-content
+      padding: 24px 16px
+
+      +lgm
+        min-height: 471px
+
+    .help-title
+      +paragraphTitle
+      margin: 0 0 16px
+
+    .help-article
+      margin: 0 0 16px
+
+    .help-link-list
+      li
+        padding: 0
+        margin: 0 0 8px
+
+      a
+        +default-font-regular
+        color: $c-primary
+        font-size: $f-paragraph-small
+        line-height: 21px
+        text-transform: initial
+        padding: 0
+
+    .buttons-container
+      margin: 0 0 16px
+
+      .btn
+        padding: 0 24px
+
+        &:first-child
+          margin: 0 16px 0 0
+
+        &:last-child
+          color: $c-white
+
+  .help-menu-footer
+    display: flex
+    min-height: 32px
+    background: $c-background-2
+    border-top: 1px solid $c-lines
+    border-bottom: 1px solid $c-lines
+
+    a
+      justify-content: center
+      border: none
+      padding: 0
