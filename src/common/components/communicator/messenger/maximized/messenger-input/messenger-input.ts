@@ -1,3 +1,5 @@
+import './messenger-input.sass'
+
 namespace profitelo.components.communicator.messenger.maximized.input {
 
   export interface IMessengerInputBindings {

@@ -1,5 +1,7 @@
 import * as angular from 'angular'
 import {CallService} from '../call.service'
+import './navigation.sass'
+
 
 export interface INavigationComponentBindings {
   isVideo: boolean

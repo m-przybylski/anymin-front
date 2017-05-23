@@ -6,6 +6,7 @@ import uploaderModule from '../../../../services/uploader/uploader'
 import filtersModule from '../../../../filters/filters'
 import './grouped-messages/grouped-messages'
 import './messenger-input/messenger-input'
+import './maximized.sass'
 
 export interface IMessengerMaximizedComponentBindings {
   callCost: MoneyDto
