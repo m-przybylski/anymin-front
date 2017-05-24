@@ -1,5 +1,6 @@
 import * as angular from 'angular'
 import filtersModule from '../../../../../filters/filters'
+import './grouped-messages.sass'
 
 export interface IGroupedMessagesComponentBindings {
   messages: Array<any>

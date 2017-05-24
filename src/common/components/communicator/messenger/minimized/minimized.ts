@@ -1,5 +1,6 @@
 import * as angular from 'angular'
 import {MessengerMinimizedComponent} from './minimized.component'
+import './minimized.sass'
 
 export interface IMessengerMinimizedComponentBindings {
   onMessageClick: (msg: any) => void
