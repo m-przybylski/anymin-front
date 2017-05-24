@@ -7,6 +7,7 @@ import expertProfilePageModule from './expert-profile/expert-profile'
 import companyProfilePageModule from './company-profile/company-profile'
 import postRegisterPageModule from './post-register/post-register'
 import dashboardPageModule from './dashboard/dashboard'
+import wizardPageModule from './wizard/wizard'
 
 const pagesModule = angular.module('profitelo.pages', [
   dashboardPageModule,
@@ -16,7 +17,8 @@ const pagesModule = angular.module('profitelo.pages', [
   expertProfilePageModule,
   companyProfilePageModule,
   postRegisterPageModule,
-  errorPageModule
+  errorPageModule,
+  wizardPageModule
 ])
   .name;
 
