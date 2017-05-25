@@ -2,7 +2,6 @@ import * as angular from 'angular'
 import {CallService} from '../call.service'
 import './navigation.sass'
 
-
 export interface INavigationComponentBindings {
   isVideo: boolean
   isMessenger: boolean
@@ -73,7 +72,7 @@ export class NavigationComponentController implements ng.IController, INavigatio
 class NavigationComponent implements ng.IComponentOptions {
   controller: ng.Injectable<ng.IControllerConstructor> = NavigationComponentController
   template = require('./navigation.pug')()
-  bindings: {[boundProperty: string]: string} = {
+  bindings: { [boundProperty: string]: string } = {
     isVideo: '=',
     isMessenger: '='
   }
@@ -82,4 +81,4 @@ class NavigationComponent implements ng.IComponentOptions {
 angular.module('profitelo.components.communicator.navigation', [
   'pascalprecht.translate'
 ])
-  .component('communicatorNav', new NavigationComponent)
+.component('communicatorNav', new NavigationComponent)
