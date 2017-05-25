@@ -1,0 +1,25 @@
+@import "../../../template/profitelo_theme/stylesheets/variables/variables"
+
+.create-profile-directory
+	display: flex
+
+	[class*="directory"]
+		border: 1px solid $c-lines
+		margin: 0 8px
+		width: 200px
+		height: 296px
+		display: flex
+		align-items: center
+		justify-content: center
+
+		&:hover
+			border-color: $c-primary
+
+			span
+				color: $c-primary
+
+		&.is-active
+			border-color: $c-primary
+
+			span
+				color: $c-primary

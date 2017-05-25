@@ -2,6 +2,7 @@ import * as angular from 'angular'
 import 'angular-touch'
 import 'angular-permission'
 import {ExpertController} from './expert.controller'
+import './expert.sass'
 
 const expertWizardModule = angular.module('profitelo.controller.wizard.create-profile.expert', [
   'ui.router',

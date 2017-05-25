@@ -21,8 +21,8 @@ scrollable(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
           )
 
           .input-sign-counter
-            span.label(data-ng-show="vm.inputText.length === 0") {{ vm.inputText }}
-            span.label {{ vm.inputText.length }}
+            span.label(data-ng-show="!vm.inputText") {{ vm.inputText }}
+            span.label {{ vm.inputText.length || 0 }}
             span.label  / {{ vm.inputMaxLength }} characters
 
         div
@@ -34,8 +34,8 @@ scrollable(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
           )
 
           .input-sign-counter
-            span.label(data-ng-show="vm.description.length === 0") {{ vm.textareaDescription }}
-            span.label {{ vm.textareaDescription.length }}
+            span.label(data-ng-show="vm.description") {{ vm.textareaDescription }}
+            span.label {{ vm.textareaDescription.length || 0 }}
             span.label  / {{vm.inputMaxLength}} characters
 
         div

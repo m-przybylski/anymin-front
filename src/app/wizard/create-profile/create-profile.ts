@@ -4,6 +4,8 @@ import 'angular-permission'
 import {CreateProfileController} from './create-profile.controller'
 import expertWizardModule from './expert/expert'
 import companyWizardModule from './company/company'
+import wizardStepModule from '../../../common/components/wizard/wizard-step/wizard-step'
+import './create-profile.sass'
 
 const createProfilePageModule = angular.module('profitelo.controller.wizard.create-profile', [
   'ui.router',
@@ -11,7 +13,9 @@ const createProfilePageModule = angular.module('profitelo.controller.wizard.crea
   'permission.ui',
   expertWizardModule,
   companyWizardModule,
-  'ngTouch'
+  'ngTouch',
+  wizardStepModule,
+  'profitelo.directives.interface.pro-input'
 ])
 .config(($stateProvider: ng.ui.IStateProvider) => {
   $stateProvider.state('app.wizard.create-profile', {

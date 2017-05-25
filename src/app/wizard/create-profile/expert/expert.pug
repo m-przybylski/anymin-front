@@ -1,1 +1,20 @@
-h1 EXPERT
+.wizard-expert
+  wizard-step.step(
+  data-title="We recommend to type a real name*"
+  )
+
+    pro-input(
+      data-ng-model="vm.inputText"
+      required
+      auto-focus
+    )
+
+    .input-sign-counter
+      span.label(data-ng-show="!vm.inputText") {{ vm.inputText }}
+      span.label {{ vm.inputText.length || 0 }}
+      span.label  / {{ vm.inputMaxLength }} characters
+
+  wizard-step.step(
+  data-title="We recommend to type a real name*"
+  )
+    p Some text

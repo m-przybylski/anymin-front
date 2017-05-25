@@ -1,0 +1,10 @@
+.wizard-step
+  header.entry-title
+    span {{ $ctrl.title }}
+
+  .wizard-content
+    ng-transclude
+
+  .wizard-step-action
+    a.btn.btn-primary(data-translate="WIZARD.STEP.BUTTON.BACK" data-ng-click="$ctrl.onClickPreview()")
+    a.btn.btn-default(data-translate="WIZARD.STEP.BUTTON.NEXT" data-ng-click="$ctrl.onClickNext()")
