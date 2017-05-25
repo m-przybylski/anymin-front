@@ -24,6 +24,6 @@
           span
           span
 
-    .navbar-navigation.animation(data-ng-class="$ctrl.isNavigationCollapsed ? 'mobile-menu-slide-left' : 'mobile-menu-slide-right'")
+    .navbar-navigation.animation.mobile-menu-animation.ng-hide(data-ng-show="$ctrl.isNavigationCollapsed")
       navbar-logged-in-menu(data-ng-show="$ctrl.isLoggedIn")
       navbar-logged-out-menu(data-ng-hide="$ctrl.isLoggedIn")

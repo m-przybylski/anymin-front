@@ -48,18 +48,18 @@ export class NavbarComponentController implements INavbarComponentBindings {
 
     this.setNavbarStatus()
 
-    this.$document.bind('click', (event: any) => {
-      const navigation = angular.element(this.$element).find('.mobile-nav')
-      const ifTargetClicked = angular.element(navigation).find(event.target).length > 0
+    this.$document.bind('click', (event: Event) => {
+      const navigation = this.$element.find('.mobile-nav')
+      const ifTargetClicked = navigation.find(event.target).length > 0
 
       if (!ifTargetClicked) {
         this.isNavigationCollapsed = false
       }
 
-      const notificationsMenuLink = angular.element(this.$element).find('.notifications-tab-link')
-      const ifNotificationsMenuClicked = angular.element(notificationsMenuLink).find(event.target).length > 0
-      const invitationsMenuLink = angular.element(this.$element).find('.invitations-tab-link')
-      const ifInvitationsMenuClicked = angular.element(invitationsMenuLink).find(event.target).length > 0
+      const notificationsMenuLink = this.$element.find('.notifications-tab-link')
+      const ifNotificationsMenuClicked = notificationsMenuLink.find(event.target).length > 0
+      const invitationsMenuLink = this.$element.find('.invitations-tab-link')
+      const ifInvitationsMenuClicked = invitationsMenuLink.find(event.target).length > 0
 
       if (ifNotificationsMenuClicked || ifInvitationsMenuClicked) {
         this.isNavigationCollapsed = true

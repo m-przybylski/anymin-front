@@ -5,6 +5,7 @@ export class NavbarNotificationsComponent implements ng.IComponentOptions {
   template: string = require('./navbar-notifications.pug')()
   bindings: {[boundProperty: string]: string} = {
     isNotificationsTab: '<',
-    isInvitationsTab: '<'
+    isInvitationsTab: '<',
+    onClick: '<'
   }
 }
