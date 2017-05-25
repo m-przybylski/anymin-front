@@ -5,8 +5,8 @@ import urlModule from '../../../../services/url/url'
 import uploaderModule from '../../../../services/uploader/uploader'
 import filtersModule from '../../../../filters/filters'
 import './grouped-messages/grouped-messages'
-import './messenger-input/messenger-input'
 import './maximized.sass'
+import messengerInputModule from './messenger-input/messenger-input'
 
 export interface IMessengerMaximizedComponentBindings {
   callCost: MoneyDto
@@ -21,7 +21,7 @@ const messengerMaximizedModule = angular.module('profitelo.components.communicat
 
   filtersModule,
   'profitelo.components.communicator.messenger.maximized.grouped-messages',
-  'profitelo.components.communicator.messenger.maximized.messenger-input'
+  messengerInputModule
 ])
   .component('messengerMaximized', new MessengerMaximizedComponent)
   .name
