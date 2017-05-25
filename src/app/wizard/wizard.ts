@@ -4,6 +4,9 @@ import 'angular-permission'
 import modalsModule from '../../common/services/modals/modals'
 import {WizardController} from './wizard.controller'
 import createProfilePageModule from './create-profile/create-profile'
+import consultaionWizardModule from './consultation/consultation'
+import summaryWizardModule from './summary/summary'
+import {WizardService} from './wizard.service'
 
 const wizardPageModule = angular.module('profitelo.controller.wizard', [
   'ui.router',
@@ -11,7 +14,9 @@ const wizardPageModule = angular.module('profitelo.controller.wizard', [
   'permission.ui',
   'ngTouch',
   createProfilePageModule,
-  modalsModule
+  modalsModule,
+  summaryWizardModule,
+  consultaionWizardModule
 ])
 .config(($stateProvider: ng.ui.IStateProvider) => {
   $stateProvider.state('app.wizard', {
@@ -35,6 +40,7 @@ const wizardPageModule = angular.module('profitelo.controller.wizard', [
   })
 })
 .controller('wizardController', WizardController)
+  .service('wizardService', WizardService)
   .name
 
 export default wizardPageModule

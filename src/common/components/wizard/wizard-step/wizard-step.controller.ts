@@ -2,18 +2,10 @@ import {IWizardStepModuleComponentBindings} from './wizard-step'
 
 export class WizardStepModuleComponentController implements IWizardStepModuleComponentBindings {
   public title: string
-  public onChangeNext: () => void
-  public onChangePreview: () => void
+  public onClickNext: () => void
+  public onClickBack: () => void
 
   /* @ngInject */
   constructor() {}
-
-  public onClickNext = () => {
-    this.onChangeNext()
-  }
-
-  public onClickPreview = () => {
-    this.onChangePreview()
-  }
 
 }

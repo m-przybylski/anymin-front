@@ -1,11 +1,13 @@
 section.create-profile
   .create-profile-directory
-    .expert-directory(data-ui-sref-active="{'is-active': 'app.wizard.create-profile.expert'}")
-      a(data-ng-click="vm.selectExpertPath()")
+    .expert-directory(data-ui-sref-active="{'is-active': 'app.wizard.create-profile.expert'}"
+    data-ng-click="vm.selectExpertPath()")
+      a
         span.icon.icon-person-128
 
-    .company-directory(data-ui-sref-active="{'is-active': 'app.wizard.create-profile.company'}")
-      a(data-ng-click="vm.selectCompanyPath()")
+    .company-directory(data-ui-sref-active="{'is-active': 'app.wizard.create-profile.company'}"
+    data-ng-click="vm.selectCompanyPath()")
+      a
         span.icon.icon-multiperson-128
 
   .create-profile-content(data-ui-view="")

@@ -6,7 +6,7 @@ export class WizardStepModuleComponent implements ng.IComponentOptions {
   template = require('./wizard-step.pug')()
   bindings: {[boundProperty: string]: string} = {
     title: '@',
-    onChangeNext: '=',
-    onChangePreview: '='
+    onClickNext: '<',
+    onClickBack: '<'
   }
 }
