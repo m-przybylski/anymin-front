@@ -1,0 +1,6 @@
+.tooltip.animation(data-ng-class="{'is-hover': $ctrl.isHover, 'is-longtext': $ctrl.isBigText }")
+  a.btn.btn-circle(data-ng-mouseover="$ctrl.onEnter()" data-ng-mouseleave="$ctrl.onLeave()") ?
+
+  .tooltip-content.animation(data-ng-style="$ctrl.tooltipStyles")
+    p {{ $ctrl.tooltipText }}
+

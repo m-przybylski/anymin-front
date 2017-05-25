@@ -1,0 +1,43 @@
+@import "../../../../template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
+
+.tooltip
+  display: inline-flex
+  position: relative
+
+  &.is-hover
+    .btn
+      z-index: $z-index-300
+
+    .tooltip-content
+      animation: tooltipFadeInY 0.3s
+      animation-fill-mode: forwards
+
+  &.is-longtext
+    .tooltip-content
+      min-width: 280px
+      white-space: normal
+
+  .btn
+    border: 1px solid $c-primary
+    width: 24px
+    height: 24px
+    color: $c-primary
+
+  .tooltip-content
+    animation: tooltipFadeOutY 0.3s
+    opacity: 0
+    background: $c-background
+    box-shadow: 0 1px 3px rgba($c-black, 0.15)
+    position: absolute
+    left: 0
+    margin-left: 12px
+    bottom: calc(100% + 12px)
+    padding: 4px
+    max-width: 280px
+    text-align: center
+    white-space: nowrap
+    z-index: $z-index-100
+
+    p
+      +paragraphSmall
