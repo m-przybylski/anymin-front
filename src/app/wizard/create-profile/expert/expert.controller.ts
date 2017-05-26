@@ -8,16 +8,20 @@ export class ExpertController implements ng.IController {
   public currentStep: HTMLElement
   private stepsList: JQuery
 
+  // Models:
+  public nameModel: string
+
   /* @ngInject */
   constructor(private $state: ng.ui.IStateService, private $element: ng.IRootElementService,
-              private smoothScrollingService: SmoothScrollingService) {
+              private smoothScrollingService: SmoothScrollingService, private $window: ng.IWindowService) {
   }
 
   $onInit = () => {
     this.currentStep = this.$element.find('wizard-step')[0]
     this.stepsList = this.$element.find('wizard-step')
 
-    this.smoothScrollingService.simpleScrollTo(this.currentStep)
+    this.smoothScrollingService.wizardScrollTo(this.currentStep, this.$element.find('wizard-step')[0].clientHeight,
+    this.$window.innerHeight)
   }
 
   // Buttons Methods:
@@ -27,21 +31,35 @@ export class ExpertController implements ng.IController {
     }
   }
 
-  public goBackOnName = () => {
-    this.$state.go('app.wizard.create-profile')
+  public goBack = () => {
+    if (this.currentStep === this.$element.find('wizard-step')[0]) {
+      this.$state.go('app.wizard.create-profile')
+    } else {
+      this.goToPreviousWizardStep()
+    }
   }
 
   // Validations Methods:
   private nameInputIsValid = () => {
-    return true
+    return this.nameModel.length > 2
   }
 
   // Wizards Flow Methods:
   private goToNextWizardStep = () => {
     const indexOfCurrentStep = _.findIndex(this.stepsList, (step) => this.currentStep === step)
-    this.currentStep = this.stepsList[indexOfCurrentStep + 1]
-    console.log(this.currentStep, indexOfCurrentStep)
-    this.smoothScrollingService.simpleScrollTo(this.currentStep)
+    if (indexOfCurrentStep + 1 < this.stepsList.length) {
+      this.currentStep = this.stepsList[indexOfCurrentStep + 1]
+      this.smoothScrollingService.wizardScrollTo(this.currentStep, this.$element.find('wizard-step')[0].clientHeight,
+        this.$window.innerHeight)
+    } else {
+      this.$state.go('app.wizard.summary')
+    }
   }
 
+  private goToPreviousWizardStep = () => {
+    const indexOfCurrentStep = _.findIndex(this.stepsList, (step) => this.currentStep === step)
+    this.currentStep = this.stepsList[indexOfCurrentStep - 1]
+    this.smoothScrollingService.wizardScrollTo(this.currentStep, this.$element.find('wizard-step')[0].clientHeight,
+      this.$window.innerHeight)
+  }
 }

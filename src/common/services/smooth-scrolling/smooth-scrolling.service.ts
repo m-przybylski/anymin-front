@@ -88,8 +88,14 @@ export class SmoothScrollingService {
     })
   }
 
-  public wizardScrollTo = (element: Element) => {
-
+  public wizardScrollTo = (element: Element, wrapperHeight: number, windowHeight: number) => {
+    const scrollTop = ( $(element).offset().top - windowHeight / 2 + wrapperHeight / 2 )
+    $('html, body').animate({
+      scrollTop: scrollTop
+    }, 1000)
+    $(window).on('wheel', () => {
+      $('html, body').stop(true, false)
+    })
   }
 
 }

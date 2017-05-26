@@ -2,7 +2,7 @@
   wizard-step.step(
   data-title="We recommend to type a real name*"
   data-on-click-next="vm.goNextOnName"
-  data-on-click-back="vm.goBackOnName"
+  data-on-click-back="vm.goBack"
   )
 
     pro-input(
@@ -16,37 +16,4 @@
       span.label {{ vm.inputText.length || 0 }}
       span.label  / {{ vm.inputMaxLength }} characters
       
-  wizard-step.step(
-  data-title="We recommend to type a real name*"
-  data-on-click-next="vm.goNextOnName"
-  data-on-click-back="vm.goBackOnName"
-  )
 
-    pro-input(
-    data-ng-model="vm.nameModel"
-    required
-    auto-focus
-    )
-
-    .input-sign-counter
-      span.label(data-ng-show="!vm.inputText") {{ vm.inputText }}
-      span.label {{ vm.inputText.length || 0 }}
-      span.label  / {{ vm.inputMaxLength }} characters
-
-
-  wizard-step.step(
-  data-title="We recommend to type a real name*"
-  data-on-click-next="vm.goNextOnName"
-  data-on-click-back="vm.goBackOnName"
-  )
-
-    pro-input(
-    data-ng-model="vm.nameModel"
-    required
-    auto-focus
-    )
-
-    .input-sign-counter
-      span.label(data-ng-show="!vm.inputText") {{ vm.inputText }}
-      span.label {{ vm.inputText.length || 0 }}
-      span.label  / {{ vm.inputMaxLength }} characters

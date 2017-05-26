@@ -31,7 +31,7 @@ import tagsListModule from '../../../tags-list/tags-list'
       const _reject = () => {
         if (!_isPending) {
           _isPending = true
-          EmploymentApi.postEmploymentsRejectRoute(employmentId).then((response) => {
+          EmploymentApi.postEmploymentsRejectRoute(String(employmentId)).then((response) => {
             this.employment = response
             _isPending = false
             this.rejectTimeoutSet = false

@@ -2,6 +2,9 @@ import * as angular from 'angular'
 import {EditExpertProfileController} from './edit-expert-profile.controller'
 import userAvatarModule from '../../../../../interface/user-avatar/user-avatar'
 import './edit-expert-profile.sass'
+import '../../../../../../directives/service-provider/pro-service-external-links/pro-service-external-links'
+import '../../../../../../directives/interface/pro-uploader/pro-uploader'
+import '../../../../../../directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts'
 import inputDropdownTagModule from '../../../../../interface/input-dropdown-tag/input-dropdown-tag'
 
 const manageProfileEditProfileModule = angular.module('profitelo.components.dashboard.expert.manage-profile.modals.edit-expert-profile', [
