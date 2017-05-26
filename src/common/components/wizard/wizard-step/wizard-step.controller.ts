@@ -3,6 +3,8 @@ import {WizardHandlerComponentController} from '../wizard-handler/wizard-handler
 
 export class WizardStepComponentController implements IWizardStepModuleComponentBindings {
   public title: string
+  public additionalText: string
+  public tooltipText: string
   public wizardHandler: WizardHandlerComponentController
   public checkIsStepValid: () => void
   public isActive: boolean = false

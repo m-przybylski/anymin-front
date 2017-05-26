@@ -14,9 +14,15 @@ export class ExpertController implements ng.IController {
   public languagesModel: Array<string> = []
   public filesModel: Array<string> = []
   public linksModel: Array<string> = []
+  public dictionary: any
 
   /* @ngInject */
   constructor(private WizardApi: WizardApi) {
+    this.dictionary = {
+      pl: 'Polska',
+      en: 'Angielski',
+      ru: 'Ruski'
+    }
   }
 
   $onInit = () => {

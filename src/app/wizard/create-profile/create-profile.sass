@@ -1,25 +1,37 @@
 @import "../../../template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../template/profitelo_theme/stylesheets/core/core"
 
-.create-profile-directory
-	display: flex
+.create-profile
+	min-height: 100vh
+	padding: 32px 0
+	text-align: left
 
-	[class*="directory"]
-		border: 1px solid $c-lines
-		margin: 0 8px
-		width: 200px
-		height: 296px
+	+smm
+		padding: 64px 0
+
+	.create-profile-directory
 		display: flex
-		align-items: center
-		justify-content: center
 
-		&:hover
-			border-color: $c-primary
+		[class*="directory"]
+			border: 1px solid $c-lines
+			margin: 0 8px
+			width: 200px
+			height: 296px
+			display: flex
+			align-items: center
+			justify-content: center
 
-			span
-				color: $c-primary
+			&:hover
+				border-color: $c-primary
 
-		&.is-active
-			border-color: $c-primary
+				span
+					color: $c-primary
 
-			span
-				color: $c-primary
+			&.is-active
+				border-color: $c-primary
+
+				span
+					color: $c-primary
+
+	.create-profile-content
+		animation: fadeIn 0.3s

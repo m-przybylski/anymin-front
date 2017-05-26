@@ -1,3 +1,15 @@
+@import "../../../../template/profitelo_theme/stylesheets/variables/variables"
+
 .step
 	display: block
 	padding: 45px 0
+
+	.input
+		&::after, &::before
+			content: none
+
+		input
+			font-size: $f-input-big
+
+			&::placeholder
+				//font-size: $f-input-big

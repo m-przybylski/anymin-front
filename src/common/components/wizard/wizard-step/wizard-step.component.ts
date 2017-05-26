@@ -9,6 +9,9 @@ export class WizardStepModuleComponent implements ng.IComponentOptions {
   }
   bindings: {[boundProperty: string]: string} = {
     title: '@',
-    checkIsStepValid: '<'
+    checkIsStepValid: '<',
+    additionalText: '@',
+    tooltipText: '@'
+
   }
 }
