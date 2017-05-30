@@ -1,4 +1,5 @@
-form.wizard-step
+form.wizard-step(data-ng-class="{'is-active': $ctrl.isActive}")
+  h1 {{$ctrl.isActive| json }}
   header.entry-title
     span {{ $ctrl.title }}
 

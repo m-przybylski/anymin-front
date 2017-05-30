@@ -1,65 +1,51 @@
-import {SmoothScrollingService} from '../../../../common/services/smooth-scrolling/smooth-scrolling.service'
-import * as _ from 'lodash'
+import {WizardApi} from 'profitelo-api-ng/api/api'
+import {PutWizardProfile} from 'profitelo-api-ng/model/models'
+import * as angular from 'angular'
 
 export class ExpertController implements ng.IController {
   public inputText: string = ''
   public inputMaxLength: number = 150
 
-  public currentStep: HTMLElement
-  private stepsList: JQuery
-
+  public currentWizardState: PutWizardProfile
   // Models:
-  public nameModel: string
+  public nameModel: string = ''
 
   /* @ngInject */
-  constructor(private $state: ng.ui.IStateService, private $element: ng.IRootElementService,
-              private smoothScrollingService: SmoothScrollingService, private $window: ng.IWindowService) {
+  constructor(private WizardApi: WizardApi) {
   }
 
   $onInit = () => {
-    this.currentStep = this.$element.find('wizard-step')[0]
-    this.stepsList = this.$element.find('wizard-step')
-
-    this.smoothScrollingService.wizardScrollTo(this.currentStep, this.$element.find('wizard-step')[0].clientHeight,
-    this.$window.innerHeight)
+    this.WizardApi.getWizardProfileRoute().then((wizardProfile) => {
+      this.currentWizardState = angular.copy(wizardProfile)
+      this.currentWizardState.isExpert = true
+      this.currentWizardState.isCompany = false
+      this.WizardApi.putWizardProfileRoute(this.currentWizardState).then((_response) => {
+      }, (error) => {
+        throw new Error('Can not save ' + error)
+      })
+    }, () => {
+      this.currentWizardState = {
+        isExpert: true,
+        isCompany: false
+      }
+      this.WizardApi.putWizardProfileRoute(this.currentWizardState).then((_response) => {
+      }, (error) => {
+        throw new Error('Can not save ' + error)
+      })
+    })
   }
 
-  // Buttons Methods:
-  public goNextOnName = () => {
-    if (this.nameInputIsValid()) {
-      this.goToNextWizardStep()
-    }
-  }
-
-  public goBack = () => {
-    if (this.currentStep === this.$element.find('wizard-step')[0]) {
-      this.$state.go('app.wizard.create-profile')
-    } else {
-      this.goToPreviousWizardStep()
-    }
+  public saveSteps = () => {
+    this.WizardApi.putWizardProfileRoute(this.currentWizardState).then((_response) => {
+    }, (error) => {
+      throw new Error('Can not save profile steps' + error)
+    })
   }
 
   // Validations Methods:
-  private nameInputIsValid = () => {
-    return this.nameModel.length > 2
+  public checkNameInput = () => {
+    return this.currentWizardState.expertDetailsOption && this.currentWizardState.expertDetailsOption.name &&
+      this.currentWizardState.expertDetailsOption.name.length > 2
   }
 
-  // Wizards Flow Methods:
-  private goToNextWizardStep = () => {
-    const indexOfCurrentStep = _.findIndex(this.stepsList, (step) => this.currentStep === step)
-    if (indexOfCurrentStep + 1 < this.stepsList.length) {
-      this.currentStep = this.stepsList[indexOfCurrentStep + 1]
-      this.smoothScrollingService.wizardScrollTo(this.currentStep, this.$element.find('wizard-step')[0].clientHeight,
-        this.$window.innerHeight)
-    } else {
-      this.$state.go('app.wizard.summary')
-    }
-  }
-
-  private goToPreviousWizardStep = () => {
-    const indexOfCurrentStep = _.findIndex(this.stepsList, (step) => this.currentStep === step)
-    this.currentStep = this.stepsList[indexOfCurrentStep - 1]
-    this.smoothScrollingService.wizardScrollTo(this.currentStep, this.$element.find('wizard-step')[0].clientHeight,
-      this.$window.innerHeight)
-  }
 }

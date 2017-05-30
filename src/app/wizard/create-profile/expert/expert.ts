@@ -3,12 +3,18 @@ import 'angular-touch'
 import 'angular-permission'
 import {ExpertController} from './expert.controller'
 import './expert.sass'
+import wizardHandlerModule from '../../../../common/components/wizard/wizard-handler/wizard-handler'
+import wizardStepModule from '../../../../common/components/wizard/wizard-step/wizard-step'
+import apiModule from 'profitelo-api-ng/api.module'
 
 const expertWizardModule = angular.module('profitelo.controller.wizard.create-profile.expert', [
   'ui.router',
   'permission',
   'permission.ui',
-  'ngTouch'
+  'ngTouch',
+  apiModule,
+  wizardHandlerModule,
+  wizardStepModule
 ])
 .config(($stateProvider: ng.ui.IStateProvider) => {
   $stateProvider.state('app.wizard.create-profile.expert', {

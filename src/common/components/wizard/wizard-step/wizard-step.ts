@@ -1,11 +1,12 @@
 import * as angular from 'angular'
 import {WizardStepModuleComponent} from './wizard-step.component'
 import './wizard-step.sass'
+import {WizardHandlerComponentController} from '../wizard-handler/wizard-handler.controller'
 
 export interface IWizardStepModuleComponentBindings extends ng.IController {
-  onClickNext: () => void,
-  onClickBack: () => void,
-  title: string
+  wizardHandler: WizardHandlerComponentController,
+  title: string,
+  checkIsStepValid: () => void
 }
 
 const wizardStepModule = angular.module('profitelo.components.wizard.wizard-step', [

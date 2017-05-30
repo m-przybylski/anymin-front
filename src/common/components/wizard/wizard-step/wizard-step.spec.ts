@@ -2,7 +2,7 @@ import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {IWindowService} from '../../../services/window/window.service'
 import wizardStepModule from './wizard-step'
-import {WizardStepModuleComponentController} from './wizard-step.controller'
+import {WizardStepComponentController} from './wizard-step.controller'
 
 describe('Unit testing: profitelo.components.wizard.wizard-step', () => {
   return describe('for wizardStep component >', () => {
@@ -11,7 +11,7 @@ describe('Unit testing: profitelo.components.wizard.wizard-step', () => {
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let componentController: any
-    let component: WizardStepModuleComponentController
+    let component: WizardStepComponentController
     let window: IWindowService
     let bindings: any
     let document: ng.IDocumentService
