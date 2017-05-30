@@ -14,6 +14,7 @@ import {IWindowService} from '../../../../../services/window/window.service'
 import {PayuAnimation} from './payu.animation'
 import * as _ from 'lodash'
 import {CommonConfig} from '../../../../../../../generated_modules/common-config/common-config'
+import checkboxModule from '../../../../interface/checkbox/checkbox'
 
 /* @ngInject */
 function payuPaymentFormController($log: ng.ILogService, $window: IWindowService, $state: ng.ui.IStateService,
@@ -24,6 +25,7 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
   let isPending = false
   this.isGetCompanyInfo = false
   this.rulesAccepted = false
+  this.isRequired = true
   this.showInvoiceForm = false
   this.personalDataSectionId = 'personal-section'
   this.bankModel = {}
@@ -217,12 +219,12 @@ angular.module('profitelo.components.dashboard.charge-account.payment-method.pay
   topAlertModule,
   commonSettingsModule,
   'profitelo.directives.interface.pro-input',
-  'profitelo.directives.interface.pro-checkbox',
   smoothScrollingModule,
 
   userModule,
   'profitelo.components.dashboard.charge-account.choose-bank',
   'profitelo.components.dashboard.charge-account.summary-charge-account',
+  checkboxModule
 ])
 .animation('.collapse-animation', PayuAnimation)
 .component('payuPaymentForm', payuPaymentForm)

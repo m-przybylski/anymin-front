@@ -1,5 +1,6 @@
 import * as angular from 'angular'
 import {CommonSettingsService} from '../../../services/common-settings/common-settings.service'
+import checkboxModule from '../../../components/interface/checkbox/checkbox'
 
 interface IProServiceProviderWhoProvides extends ng.IScope {
   required: boolean
@@ -105,6 +106,7 @@ angular.module('profitelo.directives.service-provider.pro-service-provider-who-p
 
   'profitelo.services.commonSettings',
   'pascalprecht.translate',
-  'profitelo.common.controller.service-provider.service-provider-step-controller'
+  'profitelo.common.controller.service-provider.service-provider-step-controller',
+  checkboxModule
 ])
   .directive('proServiceProviderWhoProvides', proServiceProviderWhoProvides)

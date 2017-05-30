@@ -2,9 +2,9 @@
   .employees-list-container(data-ng-click=":: $ctrl.openEmployeeDescriptions()")
     .list-row
       .employee-informations
-        pro-checkbox(
+        checkbox(
           id="idEmployee"
-          data-ng-model="$ctrl.isChecked"
+          data-ng-model='$ctrl.isChecked'
         )
         .profile-preview
           .thumb.x48

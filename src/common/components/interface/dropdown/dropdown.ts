@@ -86,7 +86,9 @@
 
   }
 
-  angular.module('profitelo.components.interface.dropdown', [])
+  angular.module('profitelo.components.interface.dropdown', [
+    'pascalprecht.translate'
+  ])
   .component('dropdownInput', component)
 
 }())

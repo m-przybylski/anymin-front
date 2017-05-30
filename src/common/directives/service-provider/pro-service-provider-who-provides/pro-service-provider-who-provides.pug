@@ -4,7 +4,10 @@ block content
   .pro-service-provider-who-provides
     .step-content-column(data-ng-click="onClick()")
       .who-provides-checkbox
-        pro-checkbox(data-ng-model="ownerEmployee" label="{{label | translate}}")
+        checkbox(
+          data-input-text="{{label}}"
+          data-ng-model="ownerEmployee"
+        )
       .who-provides-inputs
         pro-tags-dropdown(data-pro-items="emails"
         data-placeholder="{{'DASHBOARD.CONSULTATION.EMPLOYEES_PLACEHOLDER' | translate}}" data-tag-label=""

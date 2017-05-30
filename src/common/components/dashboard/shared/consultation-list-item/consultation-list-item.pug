@@ -1,7 +1,10 @@
 .consultation-list-item.list-row
   .consultation-list-checkbox
-    pro-checkbox(data-id="$ctrl.consultationCheckboxId"
-      data-ng-model="$ctrl.consultationCheckboxNgModel")
+    checkbox(
+      id="consultationCheckbox"
+      data-name="consultationCheckbox"
+      data-ng-model='$ctrl.consultationCheckboxNgModel'
+    )
 
   .consultation-list-content
     .price-section

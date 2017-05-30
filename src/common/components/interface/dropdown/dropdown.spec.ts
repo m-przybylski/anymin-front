@@ -23,6 +23,7 @@ namespace profitelo.components.interface.dropdown {
       beforeEach(() => {
 
         angular.mock.module('profitelo.components.interface.dropdown')
+        angular.mock.module('pascalprecht.translate')
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
                 _$componentController_: ng.IComponentControllerService, _$document_: ng.IDocumentService) => {
@@ -37,6 +38,7 @@ namespace profitelo.components.interface.dropdown {
           icon: 'icon',
           mainList: [],
           secondaryList: [],
+          inputPlaceholder: 'placeholder',
           onSelectMain: () => {
           },
           onSelectSecond: () => {

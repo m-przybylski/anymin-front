@@ -97,7 +97,6 @@ angular.module('profitelo.controller.post-register.set-email', [
   commonSettingsModule,
   topAlertModule,
   'profitelo.services.pro-top-waiting-loader-service',
-  'profitelo.directives.interface.pro-checkbox',
   'profitelo.directives.interface.pro-alert',
   'profitelo.directives.interface.pro-input',
   'profitelo.controller.post-register.set-password'

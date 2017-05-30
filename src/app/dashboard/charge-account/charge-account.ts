@@ -8,7 +8,6 @@ import commonSettingsModule from '../../../common/services/common-settings/commo
 import sessionModule from '../../../common/services/session/session'
 import smoothScrollingModule from '../../../common/services/smooth-scrolling/smooth-scrolling'
 import 'common/directives/interface/pro-input/pro-input'
-import 'common/directives/interface/pro-checkbox/pro-checkbox'
 import 'common/directives/interface/scrollable/scrollable'
 import 'common/components/interface/preloader/preloader'
 import 'common/components/braintree-form/braintree-form'
@@ -180,7 +179,6 @@ angular.module('profitelo.controller.dashboard.charge-account', [
   smoothScrollingModule,
   paypalModule,
   'profitelo.directives.interface.pro-input',
-  'profitelo.directives.interface.pro-checkbox',
   'profitelo.directives.interface.scrollable',
   'profitelo.components.dashboard.charge-account.payment-method.payu',
   'profitelo.components.dashboard.charge-account.choose-amount-charge',

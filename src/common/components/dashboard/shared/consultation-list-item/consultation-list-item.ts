@@ -3,10 +3,10 @@ import 'angular-translate'
 import {ConsultationListItemComponent} from './consultation-list-item.component'
 import './consultation-list-item.sass'
 import tagsListModule from '../../../tags-list/tags-list'
-import 'common/directives/interface/pro-checkbox/pro-checkbox'
 import { Tag } from 'profitelo-api-ng/model/models'
 import {MoneyDto} from 'profitelo-api-ng/model/models'
 import filtersModule from '../../../../filters/filters'
+import checkboxModule from '../../../interface/checkbox/checkbox'
 
 export interface IConsultationListItemComponentBindings extends ng.IController {
   consultationTitle: string
@@ -17,9 +17,9 @@ export interface IConsultationListItemComponentBindings extends ng.IController {
 
 const consultationListItemModule = angular.module('profitelo.components.dashboard.shared.consultation-list-item', [
   'pascalprecht.translate',
-  'profitelo.directives.interface.pro-checkbox',
   tagsListModule,
-  filtersModule
+  filtersModule,
+  checkboxModule
 ])
   .component('consultationListItem', new ConsultationListItemComponent())
   .name

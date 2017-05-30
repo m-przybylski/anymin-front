@@ -9,10 +9,10 @@ import {ITransaction} from '../dashboard/charge-account/payment-method/card/card
 import 'angular-sanitize'
 import filtersModule from '../../filters/filters'
 import commonSettingsModule from '../../services/common-settings/common-settings'
-import '../../directives/interface/pro-checkbox/pro-checkbox'
 import '../../directives/interface/pro-input/pro-input'
 import '../../components/dashboard/charge-account/summary-charge-account/summary-charge-account'
 import * as braintree from 'braintree-web'
+import checkboxModule from '../interface/checkbox/checkbox'
 
 export interface IBraintreeFormComponentBindings {
   onBraintreeFormLoad: () => void,
@@ -207,8 +207,8 @@ angular.module('profitelo.components.braintree-form', [
   commonSettingsModule,
   userModule,
   apiModule,
-  'profitelo.directives.interface.pro-checkbox',
   'profitelo.directives.interface.pro-input',
-  'profitelo.components.dashboard.charge-account.summary-charge-account'
+  'profitelo.components.dashboard.charge-account.summary-charge-account',
+  checkboxModule
 ])
   .component('braintreeForm', new BraintreeFormComponent())
