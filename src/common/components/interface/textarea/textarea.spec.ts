@@ -42,7 +42,6 @@ describe('Unit testing: profitelo.components.interface.input', () => {
         name: 'name',
         inputText: 'tekst',
         placeholder: 'placeholder',
-        maxLength: '20',
         alertText: 'tekst',
         validation: true,
         ngRequired: false,

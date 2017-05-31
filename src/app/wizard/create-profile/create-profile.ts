@@ -14,8 +14,7 @@ const createProfilePageModule = angular.module('profitelo.controller.wizard.crea
   expertWizardModule,
   companyWizardModule,
   'ngTouch',
-  wizardStepModule,
-  'profitelo.directives.interface.pro-input'
+  wizardStepModule
 ])
 .config(($stateProvider: ng.ui.IStateProvider) => {
   $stateProvider.state('app.wizard.create-profile', {

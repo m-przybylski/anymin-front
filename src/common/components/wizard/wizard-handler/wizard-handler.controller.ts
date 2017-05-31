@@ -1,11 +1,18 @@
 import {IWizardHandlerComponentBindings} from './wizard-handler'
 import {SmoothScrollingService} from '../../../services/smooth-scrolling/smooth-scrolling.service'
 import * as _ from 'lodash'
+
+export interface IProgresStyle {
+  width: string
+}
+
 export class WizardHandlerComponentController implements IWizardHandlerComponentBindings, ng.IController {
 
   public currentStep: HTMLElement
   public onStepChange: () => void
   private stepList: JQuery
+  public progressStyle: IProgresStyle
+  public progressWidth: number
 
   /* @ngInject */
   constructor(private $state: ng.ui.IStateService, private $element: ng.IRootElementService,
@@ -21,6 +28,11 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
       this.smoothScrollingService.wizardScrollTo(this.currentStep, this.$element.find('wizard-step')[0].clientHeight,
         this.$window.innerHeight)
 
+      this.progressWidth = (100 / this.stepList.length)
+      this.progressStyle = {
+        width: this.progressWidth + '%'
+      }
+
       this.$document.bind('scroll', (event: Event) => {
         event.preventDefault()
         const currentScrollPosition = this.$window.pageYOffset
@@ -33,7 +45,11 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
               this.onStepChange()
             }
             this.currentStep = this.stepList[indexOfCurrentStep + 1]
+            this.progressStyle = {
+              width: this.progressWidth * (indexOfCurrentStep + 1) + this.progressWidth + '%'
+            }
           }
+
         } else {
           if (indexOfCurrentStep - 1 > -1
             && currentScrollPosition + 450 >= this.stepList[indexOfCurrentStep - 1].offsetTop
@@ -42,7 +58,11 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
               this.onStepChange()
             }
             this.currentStep = this.stepList[indexOfCurrentStep - 1]
+            this.progressStyle = {
+              width: this.progressWidth * (indexOfCurrentStep - 1) + this.progressWidth + '%'
+            }
           }
+
         }
         scrollPosition = currentScrollPosition
       })
@@ -55,6 +75,9 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
 
   public goToNextWizardStep = () => {
     const indexOfCurrentStep = _.findIndex(this.stepList, (step) => this.currentStep === step)
+    this.progressStyle = {
+      width: this.progressWidth * (indexOfCurrentStep + 1) + this.progressWidth + '%'
+    }
     if (indexOfCurrentStep + 1 < this.stepList.length) {
       this.currentStep = this.stepList[indexOfCurrentStep + 1]
       this.smoothScrollingService.wizardScrollTo(this.currentStep, this.$element.find('wizard-step')[0].clientHeight,
@@ -68,8 +91,12 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
   }
 
   public goToPreviousWizardStep = () => {
+    const indexOfCurrentStep = _.findIndex(this.stepList, (step) => this.currentStep === step)
+    this.progressStyle = {
+      width: this.progressWidth * (indexOfCurrentStep - 1) + this.progressWidth + '%'
+    }
+
     if (this.currentStep !== this.$element.find('wizard-step')[0]) {
-      const indexOfCurrentStep = _.findIndex(this.stepList, (step) => this.currentStep === step)
       this.currentStep = this.stepList[indexOfCurrentStep - 1]
       this.smoothScrollingService.wizardScrollTo(this.currentStep, this.$element.find('wizard-step')[0].clientHeight,
         this.$window.innerHeight)

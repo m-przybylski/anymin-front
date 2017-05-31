@@ -1,5 +1,4 @@
-form.wizard-step(data-ng-class="{'is-active': $ctrl.isActive}")
-  h1 {{$ctrl.isActive| json }}
+form.wizard-step(data-ng-class="{'is-active': $ctrl.isActive, 'is-showed': $ctrl.isShowed}")
   header.entry-title
     span {{ $ctrl.title | translate }}
     tooltip(data-tooltip-text="{{$ctrl.tooltipText}}")
@@ -10,5 +9,5 @@ form.wizard-step(data-ng-class="{'is-active': $ctrl.isActive}")
     ng-transclude
 
   .wizard-step-action
-    a.btn.btn-primary(data-translate="WIZARD.STEP.BUTTON.BACK" data-ng-click="$ctrl.onClickBack()")
-    a.btn.btn-disabled(data-translate="WIZARD.STEP.BUTTON.NEXT" data-ng-click="$ctrl.onClickNext()")
+    button.btn.btn-primary(data-translate="WIZARD.STEP.BUTTON.BACK" data-ng-click="$ctrl.onClickBack()")
+    button.btn.btn-default(data-translate="WIZARD.STEP.BUTTON.NEXT" data-ng-click="$ctrl.onClickNext()")

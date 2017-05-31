@@ -47,7 +47,7 @@ export class ExpertController implements ng.IController {
     })
   }
 
-  public saveStep = () => {
+  public saveSteps = () => {
     const wizardExpertModel: PartialExpertDetails = {
       name: this.nameModel,
       avatar: this.avatarModel,
@@ -56,7 +56,7 @@ export class ExpertController implements ng.IController {
       files: this.filesModel,
       links: this.linksModel
     }
-    if (this.currentWizardState.expertDetailsOption!.name !== this.nameModel) {
+    if (this.currentWizardState.expertDetailsOption && this.currentWizardState.expertDetailsOption!.name !== this.nameModel) {
       this.currentWizardState.expertDetailsOption = wizardExpertModel
       this.WizardApi.putWizardProfileRoute(this.currentWizardState).then((response) => {
         console.log(response)

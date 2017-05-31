@@ -4,7 +4,6 @@ import 'angular-permission'
 import {ExpertController} from './expert.controller'
 import './expert.sass'
 import wizardHandlerModule from '../../../../common/components/wizard/wizard-handler/wizard-handler'
-import wizardStepModule from '../../../../common/components/wizard/wizard-step/wizard-step'
 import apiModule from 'profitelo-api-ng/api.module'
 import inputDropdownTagModule from '../../../../common/components/interface/input-dropdown-tag/input-dropdown-tag'
 import inputModule from '../../../../common/components/interface/input/input'
@@ -18,8 +17,7 @@ const expertWizardModule = angular.module('profitelo.controller.wizard.create-pr
   inputDropdownTagModule,
   inputModule,
   apiModule,
-  wizardHandlerModule,
-  wizardStepModule
+  wizardHandlerModule
 ])
 .config(($stateProvider: ng.ui.IStateProvider) => {
   $stateProvider.state('app.wizard.create-profile.expert', {
