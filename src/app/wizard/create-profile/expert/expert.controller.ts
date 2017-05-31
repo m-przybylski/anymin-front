@@ -1,14 +1,19 @@
 import {WizardApi} from 'profitelo-api-ng/api/api'
-import {PutWizardProfile} from 'profitelo-api-ng/model/models'
+import {PutWizardProfile, PartialExpertDetails} from 'profitelo-api-ng/model/models'
 import * as angular from 'angular'
 
 export class ExpertController implements ng.IController {
   public inputText: string = ''
   public inputMaxLength: number = 150
-
   public currentWizardState: PutWizardProfile
+
   // Models:
   public nameModel: string = ''
+  public avatarModel: string
+  public descriptionModel: string = ''
+  public languagesModel: Array<string> = []
+  public filesModel: Array<string> = []
+  public linksModel: Array<string> = []
 
   /* @ngInject */
   constructor(private WizardApi: WizardApi) {
@@ -29,17 +34,30 @@ export class ExpertController implements ng.IController {
         isCompany: false
       }
       this.WizardApi.putWizardProfileRoute(this.currentWizardState).then((_response) => {
+
       }, (error) => {
         throw new Error('Can not save ' + error)
       })
     })
   }
 
-  public saveSteps = () => {
-    this.WizardApi.putWizardProfileRoute(this.currentWizardState).then((_response) => {
-    }, (error) => {
-      throw new Error('Can not save profile steps' + error)
-    })
+  public saveStep = () => {
+    const wizardExpertModel: PartialExpertDetails = {
+      name: this.nameModel,
+      avatar: this.avatarModel,
+      description: this.descriptionModel,
+      languages: this.languagesModel,
+      files: this.filesModel,
+      links: this.linksModel
+    }
+    if (this.currentWizardState.expertDetailsOption!.name !== this.nameModel) {
+      this.currentWizardState.expertDetailsOption = wizardExpertModel
+      this.WizardApi.putWizardProfileRoute(this.currentWizardState).then((response) => {
+        console.log(response)
+      }, (error) => {
+        throw new Error('Can not save profile steps' + error)
+      })
+    }
   }
 
   // Validations Methods:

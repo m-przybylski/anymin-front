@@ -23,7 +23,7 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
 
       this.$document.bind('scroll', (event: Event) => {
         event.preventDefault()
-        let currentScrollPosition = this.$window.pageYOffset
+        const currentScrollPosition = this.$window.pageYOffset
         const indexOfCurrentStep = _.findIndex(this.stepList, (step) => this.currentStep === step)
         if (currentScrollPosition > scrollPosition) {
           if (indexOfCurrentStep + 1 < this.stepList.length
@@ -52,7 +52,6 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
   $onDestroy() {
     this.$document.unbind('scroll')
   }
-
 
   public goToNextWizardStep = () => {
     const indexOfCurrentStep = _.findIndex(this.stepList, (step) => this.currentStep === step)

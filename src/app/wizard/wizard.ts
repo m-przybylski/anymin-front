@@ -6,7 +6,6 @@ import {WizardController} from './wizard.controller'
 import createProfilePageModule from './create-profile/create-profile'
 import consultaionWizardModule from './consultation/consultation'
 import summaryWizardModule from './summary/summary'
-import {WizardService} from './wizard.service'
 
 const wizardPageModule = angular.module('profitelo.controller.wizard', [
   'ui.router',
@@ -40,7 +39,6 @@ const wizardPageModule = angular.module('profitelo.controller.wizard', [
   })
 })
 .controller('wizardController', WizardController)
-  .service('wizardService', WizardService)
   .name
 
 export default wizardPageModule
