@@ -20,7 +20,8 @@ export class ExpertController implements ng.IController {
   }
 
   /* @ngInject */
-  constructor(private WizardApi: WizardApi, private wizardProfile?: GetWizardProfile) {
+  constructor(private WizardApi: WizardApi, private $state: ng.ui.IStateService,
+              private wizardProfile?: GetWizardProfile) {
 
     this.languagesList = {
       pl: 'Polski',
@@ -67,6 +68,16 @@ export class ExpertController implements ng.IController {
       }, (error) => {
         throw new Error('Can not save profile steps' + error)
       })
+    }
+  }
+
+  public goToSummary = () => {
+    if (this.currentWizardState.expertDetailsOption
+      && this.currentWizardState.expertDetailsOption.name
+      && this.currentWizardState.expertDetailsOption.avatar
+      && this.currentWizardState.expertDetailsOption.description
+      && this.currentWizardState.expertDetailsOption.languages) {
+      this.$state.go('app.wizard.summary')
     }
   }
 

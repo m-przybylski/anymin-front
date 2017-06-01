@@ -16,8 +16,6 @@
     wizard-step.step(
     data-title="WIZARD.STEP.EXPERT.PHOTO.TITLE"
     data-tooltip-text="Tooltip komponent bardzo dlugi tekst na dwie linie albo trzy"
-    data-on-click-next="vm.goNextOnName"
-    data-on-click-back="vm.goBackOnName"
     )
       wizard-avatar(data-avatar-token="vm.logoModel")
 
@@ -25,8 +23,6 @@
     wizard-step.step(
     data-title="WIZARD.STEP.EXPERT.DESCRIPTION.TITLE"
     data-tooltip-text="DESCRIPTION"
-    data-on-click-next="vm.goNextOnName"
-    data-on-click-back="vm.goBackOnName"
     )
       textarea-primary(
       data-ng-model="vm.descriptionModel"
@@ -37,16 +33,13 @@
     wizard-step.step(
     data-title="WIZARD.STEP.EXPERT.FILES.TITLE"
     data-tooltip-text="FILES"
-    data-on-click-next="vm.goNextOnName"
-    data-on-click-back="vm.goBackOnName"
     )
       wizard-uploader(data-token-list="vm.filesModel")
 
     wizard-step.step(
     data-title="WIZARD.STEP.EXPERT.LINKS.TITLE"
     data-tooltip-text="LINKS"
-    data-on-click-next="vm.goNextOnName"
-    data-on-click-back="vm.goBackOnName"
+    data-on-go-to-next="vm.goToSummary"
     )
 
       wizard-links(data-selected-links="vm.linksModel")

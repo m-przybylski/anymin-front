@@ -7,7 +7,8 @@ export interface IWizardStepModuleComponentBindings extends ng.IController {
   title: string,
   checkIsStepValid: () => void,
   additionalText: string,
-  tooltipText: string
+  tooltipText: string,
+  onGoToNext?: () => void
 }
 
 const wizardStepModule = angular.module('profitelo.components.wizard.wizard-step', [

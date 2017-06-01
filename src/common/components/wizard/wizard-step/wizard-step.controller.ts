@@ -9,6 +9,7 @@ export class WizardStepComponentController implements IWizardStepModuleComponent
   public checkIsStepValid: () => void
   public isActive: boolean = false
   public isShowed: boolean = false
+  public onGoToNext: () => void
 
   /* @ngInject */
   constructor(private $element: JQuery, private $timeout: ng.ITimeoutService) {
@@ -17,6 +18,9 @@ export class WizardStepComponentController implements IWizardStepModuleComponent
   public onClickNext = () => {
     if (typeof this.checkIsStepValid === 'undefined' || this.checkIsStepValid()) {
       this.wizardHandler.goToNextWizardStep()
+    }
+    if (this.onGoToNext && typeof this.onGoToNext === 'function') {
+      this.onGoToNext()
     }
   }
 

@@ -17,7 +17,7 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
   private readonly wizardOffset = 460
 
   /* @ngInject */
-  constructor(private $state: ng.ui.IStateService, private $element: ng.IRootElementService,
+  constructor(private $element: ng.IRootElementService,
               private smoothScrollingService: SmoothScrollingService, private $window: ng.IWindowService,
               private $timeout: ng.ITimeoutService, private $document: ng.IDocumentService) {
   }
@@ -86,8 +86,6 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
       this.currentStep = this.stepList[indexOfCurrentStep + 1]
       this.smoothScrollingService.wizardScrollTo(this.currentStep, this.$element.find('wizard-step')[0].clientHeight,
         this.$window.innerHeight)
-    } else {
-      this.$state.go('app.wizard.summary')
     }
     if (this.onStepChange) {
       this.onStepChange()
@@ -104,8 +102,6 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
       this.currentStep = this.stepList[indexOfCurrentStep - 1]
       this.smoothScrollingService.wizardScrollTo(this.currentStep, this.$element.find('wizard-step')[0].clientHeight,
         this.$window.innerHeight)
-    } else {
-      this.$state.go('app.wizard.create-profile')
     }
     if (this.onStepChange) {
       this.onStepChange()
