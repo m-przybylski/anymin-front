@@ -3,7 +3,6 @@ import apiModule from 'profitelo-api-ng/api.module'
 import sessionModule from '../../../../common/services/session/session'
 import {ClientFavouritesResolver} from './favourites.resolver'
 import {DashboardClientFavouritesController} from './favourites.controller'
-import recommendedServicesModule from '../../../../common/services/recommended-services/recommended-services'
 import filtersModule from '../../../../common/filters/filters'
 import 'common/components/dashboard/client/favourites/no-favourite-experts/no-favourite-experts'
 import 'common/components/dashboard/client/favourites/favourite-experts/favourite-experts'
@@ -16,7 +15,6 @@ angular.module('profitelo.controller.dashboard.client.favourites', [
   apiModule,
   sessionModule,
   filtersModule,
-  recommendedServicesModule,
   'profitelo.components.dashboard.client.favourites.no-favourite-experts',
   'profitelo.components.dashboard.client.favourites.favourite-experts',
   'profitelo.components.expert-profile.similar-experts-slider',

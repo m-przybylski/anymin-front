@@ -1,5 +1,4 @@
 import * as angular from 'angular'
-import recommendedServicesModule from '../../common/services/recommended-services/recommended-services'
 import topAlertModule from '../../common/services/top-alert/top-alert'
 import apiModule from 'profitelo-api-ng/api.module'
 import sessionModule from '../../common/services/session/session'
@@ -31,7 +30,6 @@ const companyProfilePageModule = angular.module('profitelo.controller.company-pr
   smoothScrollingModule,
   topAlertModule,
   navbarModule,
-  recommendedServicesModule,
   profileCompanyConsultationModule,
   profileHeaderModule,
   similarConsultationModule,
