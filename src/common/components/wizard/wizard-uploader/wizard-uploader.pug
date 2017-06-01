@@ -1,16 +1,58 @@
 .wizard-uploader
-  .pro-uploader
-    .file-preview
-      .upload-field.thumb.x64.upload-area(class="drop-box"
+  .uploader
+    .file-drag-and-drop
+      .upload-field(class="drop-box"
       ngf-drop="$ctrl.uploadFiles($files)"
       ngf-multiple="true"
       ngf-select="$ctrl.uploadFiles($files)")
+        .upload-title
+          span.icon.icon-upload-24
+          div
+            p Drag & Drop
+            p or clik to add documents
+
   .files-uploaded-list
-    .file(data-ng-repeat="file in $ctrl.uploadedFiles")
-      img(data-ng-src="{{ file.previews[0] }}")
-      span.upload-progress()
-      span.icon
-      .description
-        span {{ file.name }}
-        span file-size: {{ file.size }}
-      a.icon-arrow-down-12(data-ng-click="$ctrl.removeFile(file)")
+    .file-item(data-ng-repeat="file in $ctrl.uploadedFiles")
+      .file-preview
+        img.thumb.x64(data-ng-src="{{ file.previews[0] }}")
+        span.upload-progress()
+
+      .file-info
+        span.file-name {{ file.name }}
+        span.file-size file-size: {{ file.size }}
+
+      .file-action
+        a(data-ng-click="$ctrl.removeFile(file)")
+          span.icon.icon-trash-24
+//
+//
+//.pro-uploader
+//  .file-preview
+//    .upload-field.thumb.x64(
+//    class="drop-box"
+//    ngf-drop="uploadFiles($files)"
+//    ng-model="uploadedFiles"
+//    ngf-select="uploadFiles($files)"
+//    ngf-multiple="{{multiple}}" ngf-allow-dir="false"
+//    ngf-select-disabled="{{ isPending }}"
+//    ngf-pattern="'{{ngfPattern}}'"
+//    ngf-drop-disabled="{{ isPending }}"
+//    accept="{{ngfPattern}}"
+//    items="{{filesUploaded}}"
+//    ngf-resize="{{imageSize}}"
+//    data-ng-required="required"
+//    ngf-validate="{{ngfValidate}}"
+//    ngf-drag-over-class="{pattern: '{{ ngfPattern }}', accept:'acceptClass', reject:'rejectClass', delay:100}"
+//    )
+//      span.icon.icon-plus-12
+//
+//  .file-info
+//    .upload-files
+//      .upload-description(ng-class="{'fade-effect': fadeText}" data-ng-hide="uploadImg")
+//        span.add-file {{ header | translate }}
+//          span(data-ng-hide="!upload")  {{progress}}%
+//
+//      .upload-field-fill(style="height: {{ progress }}%")
+//
+//    .input-error-messages.uploader-error-massages(data-ng-show="!!errorValidateMessage")
+//      .error(data-translate="{{errorMessage}}")
