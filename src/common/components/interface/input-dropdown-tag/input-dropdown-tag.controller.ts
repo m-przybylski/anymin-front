@@ -55,7 +55,6 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
       })
     })
 
-
   }
 
   /* @ngInject */
@@ -75,8 +74,6 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
       return this.filterInputText
     }, () => {
       this.filterItems()
-
-      this.isOpen = this.filterInputText !== ''
       this.dropdownScroll.scrollTop(0)
     })
 
@@ -135,6 +132,7 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
 
   public onMainItemSelect = (item: IDropdownItem, index: number): void => {
     this.selectedItems.push(item)
+    this.isOpen = false
     this.selectedItemsValue.push(item.value)
     this.dropdownList.splice(index, 1)
 

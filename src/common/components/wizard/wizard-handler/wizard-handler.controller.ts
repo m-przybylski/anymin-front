@@ -14,6 +14,8 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
   public progressStyle: IProgresStyle
   public progressWidth: number
 
+  private readonly wizardOffset = 460
+
   /* @ngInject */
   constructor(private $state: ng.ui.IStateService, private $element: ng.IRootElementService,
               private smoothScrollingService: SmoothScrollingService, private $window: ng.IWindowService,
@@ -39,8 +41,9 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
         const indexOfCurrentStep = _.findIndex(this.stepList, (step) => this.currentStep === step)
         if (currentScrollPosition > scrollPosition) {
           if (indexOfCurrentStep + 1 < this.stepList.length
-            && currentScrollPosition + 450 >= this.stepList[indexOfCurrentStep + 1].offsetTop
-            && currentScrollPosition + 450 <= this.stepList[indexOfCurrentStep + 1].offsetTop + 400) {
+            && currentScrollPosition + this.wizardOffset >= this.stepList[indexOfCurrentStep + 1].offsetTop
+            && currentScrollPosition + this.wizardOffset <= this.stepList[indexOfCurrentStep + 1].offsetTop
+            + this.wizardOffset) {
             if (this.onStepChange) {
               this.onStepChange()
             }
@@ -52,8 +55,9 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
 
         } else {
           if (indexOfCurrentStep - 1 > -1
-            && currentScrollPosition + 450 >= this.stepList[indexOfCurrentStep - 1].offsetTop
-            && currentScrollPosition + 450 <= this.stepList[indexOfCurrentStep - 1].offsetTop + 400) {
+            && currentScrollPosition + this.wizardOffset >= this.stepList[indexOfCurrentStep - 1].offsetTop
+            && currentScrollPosition + this.wizardOffset <= this.stepList[indexOfCurrentStep - 1].offsetTop
+            + this.wizardOffset) {
             if (this.onStepChange) {
               this.onStepChange()
             }

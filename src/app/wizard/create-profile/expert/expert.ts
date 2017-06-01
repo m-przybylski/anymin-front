@@ -10,6 +10,7 @@ import inputDropdownTagModule from '../../../../common/components/interface/inpu
 import inputModule from '../../../../common/components/interface/input/input'
 import wizardUploaderModule from '../../../../common/components/wizard/wizard-uploader/wizard-uploader'
 import textareaModule from '../../../../common/components/interface/textarea/textarea'
+import wizardLinksModule from '../../../../common/components/wizard/wizard-links/wizard-links'
 
 const expertWizardModule = angular.module('profitelo.controller.wizard.create-profile.expert', [
   'ui.router',
@@ -22,6 +23,7 @@ const expertWizardModule = angular.module('profitelo.controller.wizard.create-pr
   apiModule,
   textareaModule,
   wizardUploaderModule,
+  wizardLinksModule,
   wizardHandlerModule
 ])
 .config(($stateProvider: ng.ui.IStateProvider) => {

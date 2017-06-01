@@ -1,0 +1,28 @@
+.pro-service-external-links
+  .step-content-column
+    .links-submit
+      input-primary(
+      placeholder="e.g. http://facebook.com"
+      data-ng-model="$ctrl.linkModel"
+      data-ng-enter="$ctrl.onEnter()"
+      data-ng-class="{'invalid': $ctrl.badUrl}"
+      )
+
+      .input-error-messages(data-ng-show="$ctrl.error.badUrl || $ctrl.error.urlExist")
+        .error(data-translate="DASHBOARD.CREATE_PROFILE.ERROR_EXTERNAL_LINKS" data-ng-show="$ctrl.badUrl")
+        .error(data-translate="DASHBOARD.CREATE_PROFILE.LINK_ALREADY_EXIST_ERROR" data-ng-show="$ctrl.urlExist")
+
+      p.hint {{ $ctrl.hintLabel | translate }}
+
+    .tags-list(data-ng-show="$ctrl.selectedLinks.length > 0")
+      ul.tag-list.dropdown-tag-list
+        li(data-ng-repeat="link in $ctrl.selectedLinks track by $index")
+          a
+            span.left-icon.url-logo(pro-social-icon-getter data-url="link")
+            span.link {{ link }}
+            span.icon.icon-failure-24(data-ng-click="$ctrl.removeLink(link)")
+
+
+    .input-error-messages
+      .error(data-translate="DASHBOARD.CREATE_PROFILE.NO_LINKS_ERROR"
+      data-ng-show="error.noUrl && $ctrl.selectedLinks.length < 1")
