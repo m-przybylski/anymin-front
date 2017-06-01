@@ -1,0 +1,71 @@
+@import "../../../../template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
+
+.wizard-uploader
+	max-width: 440px
+	padding: 32px 0 0 0
+
+	.uploader
+		margin: 0 0 32px
+
+		.upload-field
+			border: 1px dashed $c-lines
+			height: 192px
+			width: 100%
+			display: flex
+			align-items: center
+			justify-content: center
+			flex-wrap: wrap
+			cursorr: pointer
+			text-align: center
+
+			.icon
+				font-size: $f-header-big
+				color: $c-primary
+
+			p
+				+inputSmall
+				color: $c-primary
+				font-size: $f-btn-small
+				text-transform: uppercase
+
+		.file-drag-and-drop
+			cursor: pointer
+
+	.files-uploaded-list
+		.file-item
+			display: flex
+			align-items: center
+			justify-content: space-between
+			flex: 1 0 50%
+			margin: 0 0 16px
+
+			.file-preview
+				overflow: hidden
+				padding: 0 16px 0 0
+				border-radius: $s-border-radius
+
+
+			.file-info
+				flex: 1
+
+				.file-name
+					+paragraphTitle
+					word-break: break-all
+					display: block
+
+				.file-size
+					+paragraphSmall
+					word-break: break-all
+
+			.file-action
+				padding: 0 0 0 16px
+
+				+mdm
+					padding: 0 0 0 32px
+
+				span
+					cursor: pointer
+
+					&.icon
+						color: $c-primary
