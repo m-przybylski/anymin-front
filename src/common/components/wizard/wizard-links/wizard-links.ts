@@ -1,5 +1,6 @@
 import * as angular from 'angular'
 import {WizardLinksComponent} from './wizard-links.component'
+import '../../../directives/pro-social-icon-getter/pro-social-icon-getter'
 
 export interface IWizardLinksComponentBindings extends ng.IController {
   selectedLinks: Array<string>
@@ -8,6 +9,7 @@ export interface IWizardLinksComponentBindings extends ng.IController {
 const wizardLinksModule = angular.module('profitelo.components.wizard.wizard-links', [
   'pascalprecht.translate',
   'profitelo.directives.pro-social-icon-getter'
+
 ])
 .component('wizardLinks', new WizardLinksComponent)
   .name
