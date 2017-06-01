@@ -1,0 +1,14 @@
+.wizard-avatar
+  .user-avatar(data-ng-hide="$ctrl.isUserUploadImage")
+    .thumb.x128
+      img.user-avatar.fullScreen(data-ng-src="{{ $ctrl.avatarPreview }}" src="#")
+      a.thumb-options.remove-photo(data-ng-hide="$ctrl.avatarModel && $ctrl.avatarModel.length > 0"
+      data-ng-click="$ctrl.removePhoto()")
+        .icon.icon-close-16
+
+  local-avatar-uploader.local-avatar-uploader(on-file-upload='$ctrl.addPhoto')
+  .crop-avatar-step(data-ng-show="$ctrl.isUserUploadImage")
+    h2(data-translate="SETTINGS.GENERAL.BASIC_ACCOUNT.CROP_AVATAR_HEADER")
+
+    .cropp-image
+      image-crop-component(data-image-src="$ctrl.imageSource" data-save-crop-avatar='$ctrl.saveCrop')

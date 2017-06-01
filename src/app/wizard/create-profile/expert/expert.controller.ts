@@ -1,5 +1,6 @@
 import {WizardApi} from 'profitelo-api-ng/api/api'
 import {PutWizardProfile, PartialExpertDetails} from 'profitelo-api-ng/model/models'
+import * as _ from 'lodash'
 import * as angular from 'angular'
 
 export class ExpertController implements ng.IController {
@@ -8,7 +9,7 @@ export class ExpertController implements ng.IController {
   public currentWizardState: PutWizardProfile
 
   // Models:
-  public nameModel: string = ''
+  public nameModel?: string = ''
   public avatarModel: string
   public descriptionModel: string = ''
   public languagesModel: Array<string> = []
@@ -17,7 +18,8 @@ export class ExpertController implements ng.IController {
   public dictionary: any
 
   /* @ngInject */
-  constructor(private WizardApi: WizardApi) {
+  constructor(private WizardApi: WizardApi, private wizardProfile: PutWizardProfile) {
+
     this.dictionary = {
       pl: 'Polska',
       en: 'Angielski',
@@ -26,25 +28,25 @@ export class ExpertController implements ng.IController {
   }
 
   $onInit = () => {
-    this.WizardApi.getWizardProfileRoute().then((wizardProfile) => {
-      this.currentWizardState = angular.copy(wizardProfile)
+    if (this.wizardProfile) {
+      this.currentWizardState = angular.copy(this.wizardProfile)
       this.currentWizardState.isExpert = true
       this.currentWizardState.isCompany = false
-      this.WizardApi.putWizardProfileRoute(this.currentWizardState).then((_response) => {
-      }, (error) => {
-        throw new Error('Can not save ' + error)
-      })
-    }, () => {
+
+      this.nameModel = this.wizardProfile.expertDetailsOption!.name
+      this.avatarModel = this.wizardProfile.expertDetailsOption!.avatar
+    } else {
       this.currentWizardState = {
         isExpert: true,
         isCompany: false
       }
-      this.WizardApi.putWizardProfileRoute(this.currentWizardState).then((_response) => {
+    }
 
-      }, (error) => {
-        throw new Error('Can not save ' + error)
-      })
+    this.WizardApi.putWizardProfileRoute(this.currentWizardState).then((_response) => {
+    }, (error) => {
+      throw new Error('Can not save ' + error)
     })
+
   }
 
   public saveSteps = () => {
@@ -56,10 +58,10 @@ export class ExpertController implements ng.IController {
       files: this.filesModel,
       links: this.linksModel
     }
-    if (this.currentWizardState.expertDetailsOption && this.currentWizardState.expertDetailsOption!.name !== this.nameModel) {
+
+    if (!this.currentWizardState.expertDetailsOption || !(_.isEqual(this.currentWizardState.expertDetailsOption, wizardExpertModel))) {
       this.currentWizardState.expertDetailsOption = wizardExpertModel
-      this.WizardApi.putWizardProfileRoute(this.currentWizardState).then((response) => {
-        console.log(response)
+      this.WizardApi.putWizardProfileRoute(this.currentWizardState).then((_response) => {
       }, (error) => {
         throw new Error('Can not save profile steps' + error)
       })

@@ -13,21 +13,13 @@
       data-max-length="150"
       )
 
-
     wizard-step.step(
     data-title="WIZARD.STEP.EXPERT.PHOTO.TITLE"
     data-tooltip-text="Tooltip komponent bardzo dlugi tekst na dwie linie albo trzy"
     data-on-click-next="vm.goNextOnName"
     data-on-click-back="vm.goBackOnName"
     )
-      .user-avatar
-        .thumb.x128
-          img.user-avatar.fullScreen(data-ng-src="{{ avatarPreview }}" src="#")
-          a.thumb-options.remove-photo(data-ng-hide="!!generalSettingsObject.avatar && generalSettingsObject.avatar.length > 0"
-          data-ng-click="removePhoto()")
-            .icon.icon-close-16
-
-      local-avatar-uploader.local-avatar-uploader(on-file-upload='addPhoto')
+      wizard-avatar(data-avatar-token="vm.avatarModel")
 
     wizard-step.step(
     data-title="WIZARD.STEP.EXPERT.LANGUAGE.TITLE"
