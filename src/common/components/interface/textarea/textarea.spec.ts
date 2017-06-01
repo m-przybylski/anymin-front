@@ -53,7 +53,7 @@ describe('Unit testing: profitelo.components.interface.textarea', () => {
         $document: document
       }
 
-      component = componentController<TextareaComponentController, {}>('inputPrimary', injectors, bindings)
+      component = componentController<TextareaComponentController, {}>('textareaPrimary', injectors, bindings)
     })
 
     it('should have a dummy test', inject(() => {
