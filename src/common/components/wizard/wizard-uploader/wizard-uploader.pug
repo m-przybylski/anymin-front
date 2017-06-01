@@ -1,0 +1,16 @@
+.wizard-uploader
+  .pro-uploader
+    .file-preview
+      .upload-field.thumb.x64.upload-area(class="drop-box"
+      ngf-drop="$ctrl.uploadFiles($files)"
+      ngf-multiple="true"
+      ngf-select="$ctrl.uploadFiles($files)")
+  .files-uploaded-list
+    .file(data-ng-repeat="file in $ctrl.uploadedFiles")
+      img(data-ng-src="{{ file.previews[0] }}")
+      span.upload-progress()
+      span.icon
+      .description
+        span {{ file.name }}
+        span file-size: {{ file.size }}
+      a.icon-arrow-down-12(data-ng-click="$ctrl.removeFile(file)")

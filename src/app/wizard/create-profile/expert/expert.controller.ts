@@ -10,10 +10,10 @@ export class ExpertController implements ng.IController {
 
   // Models:
   public nameModel?: string = ''
-  public avatarModel: string
+  public avatarModel?: string
   public descriptionModel: string = ''
   public languagesModel: Array<string> = []
-  public filesModel: Array<string> = []
+  public filesModel?: Array<string> = []
   public linksModel: Array<string> = []
   public dictionary: any
 
@@ -35,10 +35,12 @@ export class ExpertController implements ng.IController {
 
       this.nameModel = this.wizardProfile.expertDetailsOption!.name
       this.avatarModel = this.wizardProfile.expertDetailsOption!.avatar
+      this.filesModel = this.wizardProfile.expertDetailsOption!.files
     } else {
       this.currentWizardState = {
         isExpert: true,
-        isCompany: false
+        isCompany: false,
+        isSummary: false
       }
     }
 

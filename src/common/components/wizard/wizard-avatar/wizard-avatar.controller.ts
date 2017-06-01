@@ -13,7 +13,7 @@ export class WizardAvatarComponentController implements IWizardAvatarComponentBi
   private clearFormAfterCropping: () => void
   private imageSource: string
 
-  public avatarToken: string
+  public avatarToken?: string
 
   /* @ngInject */
   constructor( uploaderFactory: UploaderFactory, private urlService: UrlService, private $scope: ng.IScope) {
@@ -24,7 +24,7 @@ export class WizardAvatarComponentController implements IWizardAvatarComponentBi
     this.avatarPreview = this.urlService.resolveFileUrl(this.avatarToken || '')
   }
 
-  public addPhoto = (imagePath, file, callback) => {
+  public addPhoto = (imagePath: string, file: File, callback: () => void) => {
     if (imagePath.length > 0) {
       this.imageSource = imagePath
       this.isUserUploadImage = true

@@ -52,14 +52,7 @@
     data-on-click-next="vm.goNextOnName"
     data-on-click-back="vm.goBackOnName"
     )
-      input-primary(
-        data-input-text="Placeholder"
-        data-ng-model="$ctrl.firstNameModel"
-        data-ng-pattern="$ctrl.patternName"
-        data-id="firstName"
-        data-validation=""
-        data-max-length="150"
-      )
+      wizard-uploader(data-token-list="vm.filesModel")
 
     wizard-step.step(
     data-title="WIZARD.STEP.EXPERT.LINKS.TITLE"
