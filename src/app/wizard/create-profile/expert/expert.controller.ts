@@ -4,8 +4,6 @@ import * as _ from 'lodash'
 import * as angular from 'angular'
 
 export class ExpertController implements ng.IController {
-  public inputText: string = ''
-  public inputMaxLength: number = 150
   public currentWizardState: PutWizardProfile
 
   // Models:
