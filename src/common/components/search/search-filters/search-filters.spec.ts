@@ -43,14 +43,12 @@ describe('Unit testing: profitelo.components.search.searchFilters', () => {
         }
 
         spyOn(searchService, 'getAvailableOptions').and.callFake(() => {
-          let deferred = $q.defer()
-          deferred.resolve({
+          return {
             language: [{name: 'asas', value: 'asas'}],
             sortBy: ['jhjhj'],
             category: [{name: 'asas', value: 'asas'}],
             profileType: [{name: 'asas', value: 'asas'}]
-          })
-          return deferred.promise
+          }
         })
 
         spyOn(searchService, 'onQueryParamsChange').and.callFake(() => {
@@ -80,17 +78,15 @@ describe('Unit testing: profitelo.components.search.searchFilters', () => {
       expect(true).toBeTruthy()
     }))
 
-    it('should compile the component', inject((searchService: SearchService, $q: ng.IQService) => {
+    it('should compile the component', inject((searchService: SearchService) => {
 
       spyOn(searchService, 'getAvailableOptions').and.callFake(() => {
-        let deferred = $q.defer()
-        deferred.resolve({
+        return {
           language: [{name: 'asas', value: 'asas'}],
           sortBy: ['jhjhj'],
           category: [{name: 'asas', value: 'asas'}],
           profileType: [{name: 'asas', value: 'asas'}]
-        })
-        return deferred.promise
+        }
       })
 
       spyOn(searchService, 'onQueryParamsChange').and.callFake((_scope: ng.IScope, callback: (results: any) => void) => {
