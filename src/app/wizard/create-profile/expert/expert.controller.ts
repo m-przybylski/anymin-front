@@ -11,11 +11,13 @@ export class ExpertController implements ng.IController {
   // Models:
   public nameModel?: string = ''
   public avatarModel?: string
-  public descriptionModel: string = ''
-  public languagesModel: Array<string> = []
+  public descriptionModel?: string = ''
+  public languagesModel?: Array<string> = []
   public filesModel?: Array<string> = []
   public linksModel: Array<string> = []
-  public dictionary: any
+  public dictionary: {
+    [key:string]: string
+  }
 
   /* @ngInject */
   constructor(private WizardApi: WizardApi, private wizardProfile: PutWizardProfile) {
@@ -23,7 +25,7 @@ export class ExpertController implements ng.IController {
     this.dictionary = {
       pl: 'Polska',
       en: 'Angielski',
-      ru: 'Ruski'
+      ru: 'Rosyjski'
     }
   }
 
@@ -36,6 +38,8 @@ export class ExpertController implements ng.IController {
       this.nameModel = this.wizardProfile.expertDetailsOption!.name
       this.avatarModel = this.wizardProfile.expertDetailsOption!.avatar
       this.filesModel = this.wizardProfile.expertDetailsOption!.files
+      this.languagesModel = this.wizardProfile.expertDetailsOption!.languages
+      this.descriptionModel = this.wizardProfile.expertDetailsOption!.description
     } else {
       this.currentWizardState = {
         isExpert: true,

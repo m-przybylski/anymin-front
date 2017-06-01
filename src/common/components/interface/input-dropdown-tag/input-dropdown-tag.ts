@@ -9,6 +9,7 @@ export interface InputDropdownTagComponentBindings extends ng.IController {
   placeholder: string
   dictionary: IDropdownInputDictionary
   hintLabel: string
+  selectedItemsValue: Array<string>
 }
 
 const inputDropdownTagModule = angular.module('profitelo.components.interface.input-dropdown-tag', [

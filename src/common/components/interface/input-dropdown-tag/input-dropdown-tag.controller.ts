@@ -20,6 +20,7 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
   public dropdownList: Array<IDropdownItem> = []
   public hintLabel: string = ''
   public selectedItems: Array<IDropdownItem> = []
+  public selectedItemsValue: Array<string> = []
   public filteredItems: Array<IDropdownItem> = []
   public selectedItemNumber: number = 0
   public dropdownScroll: JQuery
@@ -43,6 +44,18 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
         })
       }
     }
+
+    this.selectedItemsValue.forEach((selectItemValue) => {
+      _.remove(this.dropdownList, (object) => {
+        return object.value === selectItemValue
+      })
+      this.selectedItems.push({
+        name: this.dictionary[selectItemValue],
+        value: selectItemValue
+      })
+    })
+
+
   }
 
   /* @ngInject */
@@ -115,12 +128,14 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
 
   public deleteSelectedItem = (item: IDropdownItem, index: number): void => {
     this.selectedItems.splice(index, 1)
+    this.selectedItemsValue.splice(index, 1)
     this.dropdownList.push(item)
     this.filterItems()
   }
 
   public onMainItemSelect = (item: IDropdownItem, index: number): void => {
     this.selectedItems.push(item)
+    this.selectedItemsValue.push(item.value)
     this.dropdownList.splice(index, 1)
 
     this.clearInput()
@@ -137,6 +152,7 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
   public onClickEnter = (): void => {
     if (this.filteredItems && this.filteredItems.length > 0 && this.selectedItemNumber !== 0) {
       this.selectedItems.push(this.onArrowItemSelect())
+      this.selectedItemsValue.push(this.onArrowItemSelect().value)
 
       _.remove(this.dropdownList, (object) => {
         return object === this.onArrowItemSelect()

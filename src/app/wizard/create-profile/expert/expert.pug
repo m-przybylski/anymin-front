@@ -30,6 +30,7 @@
     )
       input-dropdown-tag(
         data-dictionary="vm.dictionary"
+        data-selected-items-value="vm.languagesModel"
       )
 
     wizard-step.step(
@@ -39,7 +40,7 @@
       data-on-click-back="vm.goBackOnName"
     )
       textarea-primary(
-        data-ng-model="$ctrl.textareaModel"
+        data-ng-model="vm.descriptionModel"
         data-id="desctName"
         data-max-length="600"
       )
