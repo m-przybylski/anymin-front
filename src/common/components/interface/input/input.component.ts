@@ -1,8 +1,8 @@
-import {InputComponentController} from './input.controller'
+import {TextareaComponentController} from './textarea.controller'
 
 export class InputComponent implements ng.IComponentOptions {
-  controller: ng.Injectable<ng.IControllerConstructor> = InputComponentController
-  template = require('./input.pug')()
+  controller: ng.Injectable<ng.IControllerConstructor> = TextareaComponentController
+  template = require('./textarea.pug')()
   bindings: {[boundProperty: string]: string} = {
     id: '@',
     name: '@',

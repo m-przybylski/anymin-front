@@ -1,18 +1,18 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import inputModule from './input'
-import {InputComponentController} from './input.controller'
-import {IInputComponentBindings} from './input'
+import {TextareaComponentController} from './textarea.controller'
+import {ITextareaComponentBindings} from './textarea'
+import textareaModule from './textarea'
 
-describe('Unit testing: profitelo.components.interface.input', () => {
-  return describe('for inputPrimary component >', () => {
+describe('Unit testing: profitelo.components.interface.textarea', () => {
+  return describe('for textareaPrimary component >', () => {
 
     let scope: ng.IScope
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let componentController: ng.IComponentControllerService
-    let component: InputComponentController
-    let bindings: IInputComponentBindings
+    let component: TextareaComponentController
+    let bindings: ITextareaComponentBindings
     let document: ng.IDocumentService
     let validHTML = '<input-primary>'
 
@@ -25,7 +25,7 @@ describe('Unit testing: profitelo.components.interface.input', () => {
     }
 
     beforeEach(() => {
-      angular.mock.module(inputModule)
+      angular.mock.module(textareaModule)
     })
 
     beforeEach(() => {
@@ -56,7 +56,7 @@ describe('Unit testing: profitelo.components.interface.input', () => {
         $document: document
       }
 
-      component = componentController<InputComponentController, {}>('inputPrimary', injectors, bindings)
+      component = componentController<TextareaComponentController, {}>('inputPrimary', injectors, bindings)
     })
 
     it('should have a dummy test', inject(() => {
