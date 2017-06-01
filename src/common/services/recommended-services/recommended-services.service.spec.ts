@@ -57,7 +57,7 @@ describe('Unit testing: profitelo.services.recommended-profiles-service', () => 
       }
 
       //FIXME type mapping
-      SearchApiMock.searchRoute(200, undefined, undefined, undefined, undefined, '12312', undefined, 'EXP', undefined,
+      SearchApiMock.searchRoute(200, undefined, undefined, undefined, undefined, '12312', 'EXP', undefined,
         undefined, undefined, undefined, undefined, undefined, 10, <SearchResult>searchRespond)
 
       const similarExperts = recommendedServices.getRecommendedExperts(services)
@@ -67,7 +67,7 @@ describe('Unit testing: profitelo.services.recommended-profiles-service', () => 
 
     it('should return empty array on similar experts', () => {
       //FIXME type mapping
-      SearchApiMock.searchRoute(200, undefined, undefined, undefined, undefined, '12312', undefined, 'EXP', undefined,
+      SearchApiMock.searchRoute(200, undefined, undefined, undefined, undefined, '12312', 'EXP', undefined,
         undefined, undefined, undefined, undefined, undefined, 10)
 
       const similarExperts = recommendedServices.getRecommendedExperts(services)
@@ -83,7 +83,7 @@ describe('Unit testing: profitelo.services.recommended-profiles-service', () => 
       }
 
       //FIXME type mapping
-      SearchApiMock.searchRoute(200, undefined, undefined, undefined, undefined, '12312', undefined, 'ORG', undefined,
+      SearchApiMock.searchRoute(200, undefined, undefined, undefined, undefined, '12312', 'ORG', undefined,
         undefined, undefined, undefined, undefined, undefined, 10, <SearchResult>searchRespond)
 
       const similarCompanies = recommendedServices.getRecommendedCompanies(services)
@@ -93,7 +93,7 @@ describe('Unit testing: profitelo.services.recommended-profiles-service', () => 
 
     it('should return empty array on similar companies ', () => {
 
-      SearchApiMock.searchRoute(500, undefined, undefined, undefined, undefined, '12312', undefined, 'ORG', undefined,
+      SearchApiMock.searchRoute(500, undefined, undefined, undefined, undefined, '12312', 'ORG', undefined,
         undefined, undefined, undefined, undefined, undefined, 10)
 
       const similarCompanies = recommendedServices.getRecommendedCompanies(services)

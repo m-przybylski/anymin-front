@@ -1,12 +1,11 @@
 import * as angular from 'angular'
 import * as _ from 'lodash'
 import {IMessengerMaximizedComponentBindings} from './maximized'
-import {MoneyDto, PostProcessOption} from 'profitelo-api-ng/model/models'
+import {MoneyDto, PostProcessOption, GetProfile} from 'profitelo-api-ng/model/models'
 import {UploaderService} from '../../../../services/uploader/uploader.service'
 import {MessengerService} from '../messenger.service'
 import {UrlService} from '../../../../services/url/url.service'
 import {UploaderFactory} from '../../../../services/uploader/uploader.factory'
-import {ExpertProfile} from '../../../../models/ExpertProfile'
 
 export class MessengerMaximizedComponentController implements ng.IController, IMessengerMaximizedComponentBindings {
 
@@ -77,8 +76,10 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
     this.sendMessage(this.serializeMessageBody(messageBody))
   }
 
-  private clientInit = (expert: ExpertProfile) => {
-    this.participantAvatar = this.urlService.resolveFileUrl(expert.expertDetails.avatar || '')
+  private clientInit = (expert: GetProfile) => {
+    if (expert.expertDetails && expert.expertDetails.avatar) {
+      this.participantAvatar = this.urlService.resolveFileUrl(expert.expertDetails.avatar)
+    }
   }
 
   private expertInit = () => {

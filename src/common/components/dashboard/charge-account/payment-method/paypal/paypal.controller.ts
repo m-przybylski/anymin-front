@@ -38,7 +38,7 @@ export class PayPalPaymentFormComponentController implements ng.IController, IPa
 
       payment: (resolve: any) => {
 
-        this.PaymentsApi.createPaymentPathRoute({
+        this.PaymentsApi.createPaymentRoute({
           description: '',
           cancelUrl: 'http://localhost:4242/dashboard/charge-account',
           returnUrl: 'http://localhost:4242/dashboard/client/activities',
@@ -56,7 +56,7 @@ export class PayPalPaymentFormComponentController implements ng.IController, IPa
       },
 
       onAuthorize: (data: any, _actions: any) => {
-        this.PaymentsApi.executePaymentPathRoute({
+        this.PaymentsApi.executePaymentRoute({
           paymentId: data.paymentID,
           payerId: data.payerID
         }).then((_response: any) => {

@@ -1,5 +1,5 @@
 import * as angular from 'angular'
-import {GetServiceUsageRequest, GetService} from 'profitelo-api-ng/model/models'
+import {GetServiceUsageRequest} from 'profitelo-api-ng/model/models'
 import {RatelApi, ServiceApi} from 'profitelo-api-ng/api/api'
 import {CallService} from './call.service'
 import userModule from '../../services/user/user'
@@ -36,11 +36,9 @@ describe('Unit testing: profitelo.services.call >', () => {
         usageCounter: 0,
         ownerId: '',
         usageDurationInSeconds: 0,
-        invitations: [],
         createdAt: 0,
-        ownerEmployee: false,
         rating: 0,
-        status: GetService.StatusEnum.VERIFIED,
+        isSuspended: false,
         name: '',
         price: {
           amount: 100,

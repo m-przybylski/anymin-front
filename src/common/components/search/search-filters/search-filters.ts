@@ -5,7 +5,6 @@ import 'angularjs-slider'
 import {IFilterService} from '../../../services/filter/filter.service'
 import {SearchService} from '../../../services/search/search.service'
 import filtersModule from '../../../filters/filters'
-import categoryModule from '../../../services/category/category'
 import searchModule from '../../../services/search/search'
 import 'common/directives/interface/pro-range-slider/pro-range-slider'
 import 'common/directives/pro-tags-slider/pro-tags-slider'
@@ -57,7 +56,7 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
               searchService: SearchService,
               private $timeout: ng.ITimeoutService, private $scope: ng.IScope) {
 
-    searchService.getAvailableOptions().then((options) => {
+    const options = searchService.getAvailableOptions()
       this.languagesList = options.language.map((lng) =>
         ({
           name: (this.$filter('translate')(this.$filter('normalizeTranslationKey')(('SEARCH.LANGUAGE.' + lng.name)))),
@@ -81,7 +80,6 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
           value: type.value
         }
       })
-    })
 
     searchService.onQueryParamsChange(this.$scope, (params) => {
       this.$timeout(() => {
@@ -196,13 +194,11 @@ class SearchFiltersComponent implements ng.IComponentOptions {
 
 angular.module('profitelo.components.search.searchFilters', [
   'rzModule',
-
   'pascalprecht.translate',
   'profitelo.directives.interface.pro-range-slider',
   'profitelo.directives.pro-tags-slider',
   'profitelo.directives.interface.pro-switcher',
   searchModule,
-  categoryModule,
   filtersModule
 ])
   .component('searchFilters', new SearchFiltersComponent())

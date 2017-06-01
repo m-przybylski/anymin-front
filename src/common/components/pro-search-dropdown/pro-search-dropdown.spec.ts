@@ -1,7 +1,7 @@
 import * as angular from 'angular'
 
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {CategoryApiMock, SearchApiMock} from 'profitelo-api-ng/api/api'
+import {SearchApiMock} from 'profitelo-api-ng/api/api'
 
 describe('Unit testing:profitelo.components.pro-search-dropdown', () => {
   return describe('for pro-search-dropdown >', () => {
@@ -15,7 +15,6 @@ describe('Unit testing:profitelo.components.pro-search-dropdown', () => {
     let validHTML = '<pro-search-dropdown data-mask-search="vm.interfaceController.hideSearchMask"></pro-search-dropdown>'
     let httpBackend: ng.IHttpBackendService
     let SearchApiMock: SearchApiMock
-    let CategoryApiMock: CategoryApiMock
 
     function create(html: string) {
       rootScope = rootScope.$new()
@@ -43,7 +42,6 @@ describe('Unit testing:profitelo.components.pro-search-dropdown', () => {
         compile = $compile
         state = $injector.get('$state')
         SearchApiMock = $injector.get<SearchApiMock>('SearchApiMock')
-        CategoryApiMock = $injector.get<CategoryApiMock>('CategoryApiMock')
         httpBackend = $injector.get('$httpBackend')
       })
 
@@ -62,7 +60,6 @@ describe('Unit testing:profitelo.components.pro-search-dropdown', () => {
     it('should watch query', () => {
       //FIXME type
       SearchApiMock.searchSuggestionsRoute(200, undefined, undefined, <any>{})
-      CategoryApiMock.listCategoriesRoute(200, [])
       component.ngModel = 'foo'
       rootScope.$digest()
 
