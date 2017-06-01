@@ -1,5 +1,6 @@
 import * as angular from 'angular'
 import {WizardAvatarComponent} from './wizard-avatar.component'
+import './wizard-avatar.sass'
 
 export interface IWizardAvatarComponentBindings extends ng.IController {
   avatarToken?: string

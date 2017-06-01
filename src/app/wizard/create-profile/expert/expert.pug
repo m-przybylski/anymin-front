@@ -31,19 +31,17 @@
       input-dropdown-tag(
         data-dictionary="vm.dictionary"
       )
+
     wizard-step.step(
       data-title="WIZARD.STEP.EXPERT.DESCRIPTION.TITLE"
       data-tooltip-text="DESCRIPTION"
       data-on-click-next="vm.goNextOnName"
       data-on-click-back="vm.goBackOnName"
     )
-      input-primary(
-        data-input-text="Placeholder"
-        data-ng-model="$ctrl.firstNameModel"
-        data-ng-pattern="$ctrl.patternName"
-        data-id="firstName"
-        data-validation=""
-        data-max-length="150"
+      textarea-primary(
+        data-ng-model="$ctrl.textareaModel"
+        data-id="desctName"
+        data-max-length="600"
       )
 
     wizard-step.step(

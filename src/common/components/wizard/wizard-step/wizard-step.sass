@@ -13,9 +13,11 @@
 		height: 100%
 		background: rgba($c-white, 0.8)
 		z-index: $z-index-900
+		transition: opacity 0s, z-index 0.3s
+		opacity: 1
 
 	.entry-title
-		padding: 0
+		padding: 0 0 8px
 
 		span
 			color: $c-primary-txt
@@ -50,7 +52,9 @@
 
 	&.is-active
 		&::after
-			content: none
+			transition: opacity 0.3s, z-index 0.3s 0.3s
+			opacity: 0
+			z-index: -$z-index-100
 
 		.wizard-content
 			visibility: visible

@@ -1,6 +1,6 @@
-import {ITextareaComponentBindings} from './textarea'
+import {IInputComponentBindings} from './input'
 
-export class TextareaComponentController implements ITextareaComponentBindings {
+export class InputComponentController implements IInputComponentBindings {
   public id: string
   public name: string
   public inputText: string = ''

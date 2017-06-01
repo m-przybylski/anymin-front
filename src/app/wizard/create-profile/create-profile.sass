@@ -3,7 +3,7 @@
 
 .create-profile
 	min-height: 100vh
-	padding: 32px 0
+	padding: calc(50vh - 148px) 0 50vh 0
 	text-align: left
 
 	+smm
@@ -21,17 +21,27 @@
 			align-items: center
 			justify-content: center
 
+			p
+				+paragraphTitle
+				text-transform: uppercase
+				text-align: center
+				margin: 16px 0 0
+
 			&:hover
 				border-color: $c-primary
 
-				span
+				span, p
 					color: $c-primary
 
 			&.is-active
 				border-color: $c-primary
 
-				span
+				span, p
 					color: $c-primary
 
 	.create-profile-content
 		animation: fadeIn 0.3s
+
+	//TODO delete after added state
+	header.entry-title
+		padding: 0

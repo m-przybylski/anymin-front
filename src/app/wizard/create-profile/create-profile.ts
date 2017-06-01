@@ -6,6 +6,7 @@ import expertWizardModule from './expert/expert'
 import companyWizardModule from './company/company'
 import wizardStepModule from '../../../common/components/wizard/wizard-step/wizard-step'
 import './create-profile.sass'
+import tooltipModule from '../../../common/components/interface/tooltip/tooltip'
 
 const createProfilePageModule = angular.module('profitelo.controller.wizard.create-profile', [
   'ui.router',
@@ -14,7 +15,8 @@ const createProfilePageModule = angular.module('profitelo.controller.wizard.crea
   expertWizardModule,
   companyWizardModule,
   'ngTouch',
-  wizardStepModule
+  wizardStepModule,
+  tooltipModule
 ])
 .config(($stateProvider: ng.ui.IStateProvider) => {
   $stateProvider.state('app.wizard.create-profile', {

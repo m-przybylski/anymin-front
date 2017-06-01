@@ -1,6 +1,11 @@
 section.create-profile
   .container-big
-    .create-profile-directory
+
+    header.entry-title
+      span {{:: 'WIZARD.STEP.TITLE' | translate }}
+      tooltip(data-tooltip-text="Tooltip wybierz krok")
+
+    .create-profile-directory.step
       .expert-directory(data-ui-sref-active="{'is-active': 'app.wizard.create-profile.expert'}"
       data-ng-click="vm.selectExpertPath()")
         a

@@ -1,8 +1,8 @@
 import * as angular from 'angular'
-import {InputComponent} from './textarea.component'
-import './textarea.sass'
+import {InputComponent} from './input.component'
+import './input.sass'
 
-export interface ITextareaComponentBindings extends ng.IController {
+export interface IInputComponentBindings extends ng.IController {
   id: string
   name: string
   inputText: string
@@ -15,10 +15,10 @@ export interface ITextareaComponentBindings extends ng.IController {
   ngPattern: string
 }
 
-const textareaModule = angular.module('profitelo.components.interface.textarea', [
+const inputModule = angular.module('profitelo.components.interface.input', [
   'pascalprecht.translate'
 ])
-.component('textareaPrimary', new InputComponent)
+.component('inputPrimary', new InputComponent)
   .name
 
-export default textareaModule
+export default inputModule

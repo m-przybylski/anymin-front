@@ -3,7 +3,7 @@ form.wizard-step(data-ng-class="{'is-active': $ctrl.isActive, 'is-showed': $ctrl
     span {{ $ctrl.title | translate }}
     tooltip(data-tooltip-text="{{$ctrl.tooltipText}}")
 
-  p {{ $ctrl.additionalText | translate }}
+  p(data-ng-if="$ctrl.additionalText") {{ $ctrl.additionalText | translate }}
 
   .wizard-content
     ng-transclude

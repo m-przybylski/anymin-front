@@ -5,22 +5,28 @@
 	.wizard-progress-bar
 		position: fixed
 		background: $c-background
-		height: 32px
+		height: 8px
 		width: 100%
 		bottom: 0
 		left: 0
 		z-index: $z-index-900
 
+		+lgm
+			height: 32px
+
 		span
 			&.progress-text
-				+default-font-medium
-				display: flex
-				align-items: center
-				color: $c-white
-				font-size: $f-input-small
-				height: 100%
-				text-transform: uppercase
-				padding: 0 16px
+				display: none
+
+				+lgm
+					+default-font-medium
+					display: flex
+					align-items: center
+					color: $c-white
+					font-size: $f-input-small
+					height: 100%
+					text-transform: uppercase
+					padding: 0 16px
 
 
 			&.progress

@@ -10,6 +10,16 @@
 
 		input
 			font-size: $f-input-big
+			height: 48px
 
-			&::placeholder
-				//font-size: $f-input-big
+	.textarea
+		&::after, &::before
+			content: none
+
+		textarea
+			border-left: 	1px dashed #BFBFBF
+			padding: 8px 16px
+			height: 72px
+			font-size: $f-subheader
+
+
