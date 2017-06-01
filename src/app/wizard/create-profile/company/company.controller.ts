@@ -1,11 +1,15 @@
-import {PutWizardProfile, PartialOrganizationDetails} from 'profitelo-api-ng/model/models'
+import {PutWizardProfile, PartialOrganizationDetails, GetWizardProfile} from 'profitelo-api-ng/model/models'
 import {WizardApi} from 'profitelo-api-ng/api/api'
 
 import * as _ from 'lodash'
 import * as angular from 'angular'
 
 export class CompanyController implements ng.IController {
-  public currentWizardState: PutWizardProfile
+  public currentWizardState: PutWizardProfile = {
+    isExpert: false,
+    isCompany: false,
+    isSummary: false
+  }
 
   public nameModel?: string = ''
   public logoModel?: string
@@ -16,15 +20,12 @@ export class CompanyController implements ng.IController {
     [key: string]: string
   }
   /* @ngInject */
-  constructor(private WizardApi: WizardApi, private wizardProfile: PutWizardProfile) {
+  constructor(private WizardApi: WizardApi, private wizardProfile?: GetWizardProfile) {
   }
 
   $onInit = () => {
     if (this.wizardProfile) {
       this.currentWizardState = angular.copy(this.wizardProfile)
-      this.currentWizardState.isExpert = false
-      this.currentWizardState.isCompany = true
-
       if (this.wizardProfile.organizationDetailsOption) {
         this.nameModel = this.wizardProfile.organizationDetailsOption.name
         this.logoModel = this.wizardProfile.organizationDetailsOption.logo
@@ -32,14 +33,9 @@ export class CompanyController implements ng.IController {
         this.descriptionModel = this.wizardProfile.organizationDetailsOption.description
         this.linksModel = this.wizardProfile.organizationDetailsOption.links
       }
-    } else {
-      this.currentWizardState = {
-        isExpert: false,
-        isCompany: true,
-        isSummary: false
-      }
     }
-
+    this.currentWizardState.isExpert = false
+    this.currentWizardState.isCompany = true
     this.WizardApi.putWizardProfileRoute(this.currentWizardState).then((_response) => {
     }, (error) => {
       throw new Error('Can not save ' + error)

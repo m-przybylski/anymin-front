@@ -24,7 +24,7 @@ export class WizardAvatarComponentController implements IWizardAvatarComponentBi
     this.avatarPreview = this.urlService.resolveFileUrl(this.avatarToken || '')
   }
 
-  public addPhoto = (imagePath: string, file: File, callback: () => void) => {
+  public addPhoto = (imagePath: string, file: File, callback: () => void): void => {
     if (imagePath.length > 0) {
       this.imageSource = imagePath
       this.isUserUploadImage = true
@@ -34,12 +34,12 @@ export class WizardAvatarComponentController implements IWizardAvatarComponentBi
     }
   }
 
-  public removePhoto = () => {
+  public removePhoto = (): void => {
     this.avatarToken = void 0
     this.avatarPreview = this.urlService.resolveFileUrl(this.avatarToken || '')
   }
 
-  public saveCrop = (data: any) => {
+  public saveCrop = (data: any): void => {
     const squareSideLength: number = data.points[2] - data.points[0] - 1
     const postProcessOptions: PostProcessOption = {
       croppingDetails: {
@@ -55,10 +55,10 @@ export class WizardAvatarComponentController implements IWizardAvatarComponentBi
 
     this.isUserUploadImage = false
   }
-  private onUploadProgess = () => {
+  private onUploadProgess = (): void => {
   }
 
-  private onFileUpload = (res: any) => {
+  private onFileUpload = (res: any): void => {
     this.avatarPreview = res.previews[0]
     this.avatarToken = res.token
     this.isUploadInProgress = false
@@ -66,7 +66,7 @@ export class WizardAvatarComponentController implements IWizardAvatarComponentBi
     this.clearFormAfterCropping()
   }
 
-  private onFileUploadError = (err: any) => {
+  private onFileUploadError = (err: any): void => {
     this.isUploadInProgress = false
     throw new Error('Can not upload file: ' + err)
   }

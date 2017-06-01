@@ -3,6 +3,7 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {IWindowService} from '../../../services/window/window.service'
 import inputDropdownTagModule from './input-dropdown-tag'
 import {IDropdownItem, InputDropdownTagComponentController} from './input-dropdown-tag.controller'
+import {InputDropdownTagComponentBindings} from './input-dropdown-tag'
 
 describe('Unit testing: profitelo.components.interface.input-dropdown-tag', () => {
   return describe('for inputDropdownTag component >', () => {
@@ -13,14 +14,15 @@ describe('Unit testing: profitelo.components.interface.input-dropdown-tag', () =
     let componentController: any
     let component: InputDropdownTagComponentController
     let window: IWindowService
-    let bindings: any
+    let bindings: InputDropdownTagComponentBindings
     let document: ng.IDocumentService
-    let validHTML = '<input-dropdown-tag></input-dropdown-tag>'
+    let validHTML = '<input-dropdown-tag data-selected-items-value="selectedItemsValue"></input-dropdown-tag>'
     let filteredItems: Array<IDropdownItem>
 
 
     function create(html: string) {
       scope = rootScope.$new()
+      scope.selectedItemsValue = []
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
       scope.$digest()
@@ -43,12 +45,13 @@ describe('Unit testing: profitelo.components.interface.input-dropdown-tag', () =
       })
 
       bindings = {
-        inputPlaceholder: 'test',
-        name: 'name',
         placeholder: 'test',
-        dictionary: [        {name: 'name'},
-          {name: 'name2'}],
-        hint: 'hint'
+        label: 'asas',
+        hintLabel: 'sdsd',
+        dictionary: {
+          A: 'AA'
+        },
+        selectedItemsValue: ['asd']
       }
 
       filteredItems = [{
@@ -63,7 +66,7 @@ describe('Unit testing: profitelo.components.interface.input-dropdown-tag', () =
       }
 
       component = componentController('inputDropdownTag', injectors, bindings)
-      component.$onInit()
+
     })
 
     it('should have a dummy test', inject(() => {

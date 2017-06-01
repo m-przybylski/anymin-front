@@ -7,7 +7,7 @@ import * as angular from 'angular'
     constructor() {
     }
 
-    public link = (scope: ng.IScope, elem: ng.IRootElementService, attrs: any) => {
+    public link = (scope: ng.IScope, elem: ng.IRootElementService, attrs: ng.IAttributes) => {
       elem.bind('keydown keypress', function(event) {
         if (event.which === 13) {
           scope.$apply(function() {

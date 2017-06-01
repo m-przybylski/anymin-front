@@ -11,6 +11,8 @@ import inputModule from '../../../../common/components/interface/input/input'
 import wizardUploaderModule from '../../../../common/components/wizard/wizard-uploader/wizard-uploader'
 import textareaModule from '../../../../common/components/interface/textarea/textarea'
 import wizardLinksModule from '../../../../common/components/wizard/wizard-links/wizard-links'
+import commonSettingsModule from '../../../../common/services/common-settings/common-settings'
+import {GetWizardProfile} from 'profitelo-api-ng/model/models'
 
 const expertWizardModule = angular.module('profitelo.controller.wizard.create-profile.expert', [
   'ui.router',
@@ -24,7 +26,8 @@ const expertWizardModule = angular.module('profitelo.controller.wizard.create-pr
   textareaModule,
   wizardUploaderModule,
   wizardLinksModule,
-  wizardHandlerModule
+  wizardHandlerModule,
+  commonSettingsModule
 ])
 .config(($stateProvider: ng.ui.IStateProvider) => {
   $stateProvider.state('app.wizard.create-profile.expert', {
@@ -34,7 +37,7 @@ const expertWizardModule = angular.module('profitelo.controller.wizard.create-pr
     template: require('./expert.pug')(),
     resolve: {
       /* istanbul ignore next */
-      wizardProfile: (WizardApi: WizardApi) => {
+      wizardProfile: (WizardApi: WizardApi): ng.IPromise<GetWizardProfile> => {
         return WizardApi.getWizardProfileRoute().then((wizardProfile) => {
           return wizardProfile
         }, (error) => {

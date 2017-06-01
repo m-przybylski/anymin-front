@@ -1,38 +1,38 @@
 import {WizardApi} from 'profitelo-api-ng/api/api'
-import {PutWizardProfile, PartialExpertDetails} from 'profitelo-api-ng/model/models'
+import {PutWizardProfile, PartialExpertDetails, GetWizardProfile} from 'profitelo-api-ng/model/models'
 import * as _ from 'lodash'
 import * as angular from 'angular'
 
 export class ExpertController implements ng.IController {
-  public currentWizardState: PutWizardProfile
-
-  // Models:
+  public currentWizardState: PutWizardProfile = {
+    isExpert: false,
+    isCompany: false,
+    isSummary: false
+  }
   public nameModel?: string = ''
   public avatarModel?: string
   public descriptionModel?: string = ''
   public languagesModel?: Array<string> = []
   public filesModel?: Array<string> = []
   public linksModel?: Array<string> = []
-  public dictionary: {
+  public languagesList: {
     [key: string]: string
   }
 
   /* @ngInject */
-  constructor(private WizardApi: WizardApi, private wizardProfile: PutWizardProfile) {
+  constructor(private WizardApi: WizardApi, private wizardProfile?: GetWizardProfile) {
 
-    this.dictionary = {
-      pl: 'Polska',
+    this.languagesList = {
+      pl: 'Polski',
       en: 'Angielski',
       ru: 'Rosyjski'
     }
   }
 
   $onInit = () => {
+
     if (this.wizardProfile) {
       this.currentWizardState = angular.copy(this.wizardProfile)
-      this.currentWizardState.isExpert = true
-      this.currentWizardState.isCompany = false
-
       if (this.wizardProfile.expertDetailsOption) {
         this.nameModel = this.wizardProfile.expertDetailsOption!.name
         this.avatarModel = this.wizardProfile.expertDetailsOption!.avatar
@@ -41,17 +41,12 @@ export class ExpertController implements ng.IController {
         this.descriptionModel = this.wizardProfile.expertDetailsOption!.description
         this.linksModel = this.wizardProfile.expertDetailsOption!.links
       }
-    } else {
-      this.currentWizardState = {
-        isExpert: true,
-        isCompany: false,
-        isSummary: false
-      }
     }
-
+    this.currentWizardState.isExpert = true
+    this.currentWizardState.isCompany = false
     this.WizardApi.putWizardProfileRoute(this.currentWizardState).then((_response) => {
     }, (error) => {
-      throw new Error('Can not save ' + error)
+      throw new Error('Can not save' +  error)
     })
 
   }

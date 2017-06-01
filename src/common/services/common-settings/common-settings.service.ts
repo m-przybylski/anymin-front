@@ -7,12 +7,17 @@ export class CommonSettingsService {
   private urls: any
   public links: any
   public localSettings: any
+  public languages: Array<{
+    name: string,
+    shortCut: string
+  }>
 
   /* @ngInject */
   constructor(CommonConfig: CommonConfig) {
     this.commonConfigData = CommonConfig.getAllData()
     this.urls = this.commonConfigData.urls
     this.validation = this.commonConfigData.validation
+    this.languages = this.commonConfigData.config['supported-languages']
     this.setLinks()
     this.setLocalSettings()
   }

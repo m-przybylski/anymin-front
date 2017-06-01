@@ -25,7 +25,7 @@ const wizardPageModule = angular.module('profitelo.controller.wizard', [
     controller: WizardController,
     template: require('./wizard.pug')(),
     resolve: {
-      previousState: ($state: ng.ui.IStateService) => {
+      previousState: ($state: ng.ui.IStateService): string | undefined => {
         return $state.current.name
       }
     },

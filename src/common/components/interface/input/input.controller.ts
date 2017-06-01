@@ -18,7 +18,7 @@ export class InputComponentController implements IInputComponentBindings {
     const element = $element.find('input')[0]
 
     if (element.hasAttribute('no-digits')) {
-      $element.find('input').bind('keypress', function (e: KeyboardEvent) {
+      $element.find('input').bind('keypress', (e: KeyboardEvent) => {
         const code = e.keyCode || e.which
 
         if (digitsCodes.indexOf(code) >= 0) {

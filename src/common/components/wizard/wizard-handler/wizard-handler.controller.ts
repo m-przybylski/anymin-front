@@ -77,7 +77,7 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
     this.$document.unbind('scroll')
   }
 
-  public goToNextWizardStep = () => {
+  public goToNextWizardStep = (): void => {
     const indexOfCurrentStep = _.findIndex(this.stepList, (step) => this.currentStep === step)
     this.progressStyle = {
       width: this.progressWidth * (indexOfCurrentStep + 1) + this.progressWidth + '%'
@@ -94,7 +94,7 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
     }
   }
 
-  public goToPreviousWizardStep = () => {
+  public goToPreviousWizardStep = (): void => {
     const indexOfCurrentStep = _.findIndex(this.stepList, (step) => this.currentStep === step)
     this.progressStyle = {
       width: this.progressWidth * (indexOfCurrentStep - 1) + this.progressWidth + '%'

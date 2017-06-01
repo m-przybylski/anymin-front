@@ -3,6 +3,7 @@ import 'angular-touch'
 import 'angular-permission'
 import {CompanyController} from './company.controller'
 import {WizardApi} from 'profitelo-api-ng/api/api'
+import {GetWizardProfile} from 'profitelo-api-ng/model/models'
 
 const companyWizardModule = angular.module('profitelo.controller.wizard.create-profile.company', [
   'ui.router',
@@ -18,7 +19,7 @@ const companyWizardModule = angular.module('profitelo.controller.wizard.create-p
     template: require('./company.pug')(),
     resolve: {
       /* istanbul ignore next */
-      wizardProfile: (WizardApi: WizardApi) => {
+      wizardProfile: (WizardApi: WizardApi): ng.IPromise<GetWizardProfile> => {
         return WizardApi.getWizardProfileRoute().then((wizardProfile) => {
           return wizardProfile
         }, (error) => {
