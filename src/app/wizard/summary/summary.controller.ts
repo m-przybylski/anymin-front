@@ -26,7 +26,7 @@ export class SummaryController implements ng.IController {
         this.links = wizardProfile.organizationDetailsOption!.links
       }
     } else {
-      //$state.go('app.wizard.create-profile')
+      $state.go('app.wizard.create-profile')
     }
   }
 }
