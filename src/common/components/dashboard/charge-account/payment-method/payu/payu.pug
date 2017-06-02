@@ -1,7 +1,7 @@
 .payu-payment-form
   form(name="paymentForm" data-ng-submit="paymentForm.$valid && $ctrl.sendPayment()" novalidate)
     choose-bank.modal-container(data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_YOUR_BANK", data-payments-links="$ctrl.paymentsLinks",
-      data-bank-model = "$ctrl.bankModel", data-scroll-section-id="$ctrl.personalDataSectionId" id="bankValid")
+    data-bank-model = "$ctrl.bankModel", data-scroll-section-id="$ctrl.personalDataSectionId" id="bankValid")
       .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.bankModel.value")
         span {{ "DASHBOARD.CHARGE_ACCOUNT.EMPTY_BANK_ERROR" | translate }}
 
@@ -58,20 +58,20 @@
 
       .your-personal-data-footer
         checkbox(
-          id="acceptRules"
-          data-input-text='DASHBOARD.CHARGE_ACCOUNT.ACCEPT_RULES'
-          data-ng-model='$ctrl.rulesAccepted'
-          data-name='acceptRules'
-          data-validation='!$ctrl.rulesAccepted && paymentForm.$submitted'
-          data-ng-required="$ctrl.isRequired"
-          data-alert-text="DASHBOARD.CHARGE_ACCOUNT.RULES_ERROR"
+        id="acceptRules"
+        data-input-text='DASHBOARD.CHARGE_ACCOUNT.ACCEPT_RULES'
+        data-ng-model='$ctrl.rulesAccepted'
+        data-name='acceptRules'
+        data-validation='!$ctrl.rulesAccepted && paymentForm.$submitted'
+        data-ng-required="$ctrl.isRequired"
+        data-alert-text="DASHBOARD.CHARGE_ACCOUNT.RULES_ERROR"
         )
 
         checkbox(
-          id="needInvoice"
-          data-input-text='DASHBOARD.CHARGE_ACCOUNT.CHECKBOX.COMPANY_INVOICE'
-          data-ng-model='$ctrl.showInvoiceForm'
-          data-name='showInvoiceForm'
+        id="needInvoice"
+        data-input-text='DASHBOARD.CHARGE_ACCOUNT.CHECKBOX.COMPANY_INVOICE'
+        data-ng-model='$ctrl.showInvoiceForm'
+        data-name='showInvoiceForm'
         )
 
         .invoice-form.collapse-animation(data-ng-if="$ctrl.showInvoiceForm")
@@ -146,4 +146,4 @@
           //  p VAT23
 
     summary-charge-account(data-amount="$ctrl.amountMethodModal.amountModel.amount || " +
-    "$ctrl.amountMethodModal.amountModel.cashAmount" data-btn-title="DASHBOARD.CHARGE_ACCOUNT.CHARGE_ACCOUNT_BUTTON_TEXT")
+		"$ctrl.amountMethodModal.amountModel.cashAmount" data-btn-title="DASHBOARD.CHARGE_ACCOUNT.CHARGE_ACCOUNT_BUTTON_TEXT")

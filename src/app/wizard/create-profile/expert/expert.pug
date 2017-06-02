@@ -1,0 +1,53 @@
+.wizard-expert
+  wizard-handler(data-on-step-change="vm.saveSteps")
+    wizard-step.step(
+    data-title="WIZARD.STEP.EXPERT.NAME.TITLE"
+    data-tooltip-text="WIZARD.STEP.EXPERT.NAME.TOOLTIP"
+    data-check-is-step-valid="vm.checkNameInput"
+    )
+      input-primary(
+      data-ng-model="vm.nameModel"
+      data-ng-pattern="vm.patternName"
+      data-id="firstName"
+      data-max-length="150"
+      )
+
+    wizard-step.step(
+    data-title="WIZARD.STEP.EXPERT.PHOTO.TITLE"
+    data-tooltip-text="WIZARD.STEP.EXPERT.PHOTO.TOOLTIP"
+    )
+      wizard-avatar(data-avatar-token="vm.avatarModel")
+
+    wizard-step.step(
+    data-title="WIZARD.STEP.EXPERT.LANGUAGE.TITLE"
+    data-additional-text="To add new language press ENTER when you are in the active field."
+    data-tooltip-text="WIZARD.STEP.EXPERT.LANGUAGE.TOOLTIP"
+    )
+      input-dropdown-tag(
+        data-dictionary="vm.languagesList"
+        data-selected-items-value="vm.languagesModel"
+      )
+
+    wizard-step.step(
+      data-title="WIZARD.STEP.EXPERT.DESCRIPTION.TITLE"
+      data-tooltip-text="WIZARD.STEP.EXPERT.DESCRIPTION.TOOLTIP"
+    )
+      textarea-primary(
+        data-ng-model="vm.descriptionModel"
+        data-id="desctName"
+        data-max-length="600"
+      )
+
+    wizard-step.step(
+    data-title="WIZARD.STEP.EXPERT.FILES.TITLE"
+    data-tooltip-text="WIZARD.STEP.EXPERT.FILES.TOOLTIP"
+    )
+      wizard-uploader(data-token-list="vm.filesModel")
+
+    wizard-step.step(
+    data-title="WIZARD.STEP.EXPERT.LINKS.TITLE"
+    data-tooltip-text="WIZARD.STEP.EXPERT.LINKS.TOOLTIP"
+    data-on-go-to-next="vm.goToSummary"
+    )
+
+      wizard-links(data-selected-links="vm.linksModel")

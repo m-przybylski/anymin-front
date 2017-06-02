@@ -1,8 +1,0 @@
-extends ../../../templates/wizard/section-controlls.partial.pug
-
-block content
-  .pro-service-provider-description
-    .step-content(data-ng-click="onClick()")
-      pro-textarea(data-ng-model='model.description' data-maxLength="1500")
-    .input-error-messages
-      .error(data-translate="DASHBOARD.CREATE_PROFILE.NO_DESCRIPTION_ERROR" data-ng-show="error.noDescription && model.description.length < 1")

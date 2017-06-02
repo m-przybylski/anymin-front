@@ -75,7 +75,6 @@ export class SmoothScrollingService {
 
   public simpleScrollTo = (element: Element | string, isNavbar?: boolean, time = 1000) => {
     let scrollTop = $(element).offset().top
-
     if (isNavbar) {
       scrollTop -= 80 + 32
     }
@@ -87,6 +86,16 @@ export class SmoothScrollingService {
     $(window).on('wheel', () => {
       $('html, body').stop(true, false)
     })
-
   }
+
+  public wizardScrollTo = (element: Element, wrapperHeight: number, windowHeight: number) => {
+    const scrollTop = ( $(element).offset().top - windowHeight / 2 + wrapperHeight / 2 )
+    $('html, body').animate({
+      scrollTop: scrollTop
+    }, 1000)
+    $(window).on('wheel', () => {
+      $('html, body').stop(true, false)
+    })
+  }
+
 }

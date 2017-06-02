@@ -7,6 +7,7 @@ export class InputDropdownTagComponent implements ng.IComponentOptions {
     label: '@',
     placeholder: '@',
     dictionary: '<',
+    selectedItemsValue: '<',
     hintLabel: '@'
   }
 }

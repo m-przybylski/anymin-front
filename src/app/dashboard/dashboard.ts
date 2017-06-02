@@ -3,11 +3,9 @@ import 'angular-touch'
 import 'angular-permission'
 import './charge-account/charge-account'
 import './payments-thank-you-page/payments-thank-you-page'
-import './invitation/invitation'
 import './client/client'
 import './expert/expert'
 import './settings/settings'
-import './service-provider/service-provider'
 import navbarModule from '../../common/components/navbar/navbar'
 import expertDashboardModule from './expert/expert'
 
@@ -31,11 +29,9 @@ const dashboardPageModule = angular.module('profitelo.controller.dashboard', [
   navbarModule,
   'profitelo.controller.dashboard.charge-account',
   'profitelo.controller.dashboard.payments-thank-you-page',
-  'profitelo.controller.dashboard.invitation',
   'profitelo.controller.dashboard.client',
   expertDashboardModule,
-  'profitelo.controller.dashboard.settings',
-  'profitelo.controller.dashboard.service-provider'
+  'profitelo.controller.dashboard.settings'
 ])
 .config(($stateProvider: ng.ui.IStateProvider) => {
   $stateProvider.state('app.dashboard', {

@@ -1,0 +1,31 @@
+.summary
+  .profile-header
+    .container
+      .profile-header-container
+        .profile-header-logo
+          user-avatar.thumb.x128(data-image-token="vm.avatar")
+
+        .profile-content
+          .profile-content-header
+            header.entry-title
+              .profile-name
+                h3 {{ vm.name }}
+
+                .status-list(data-ng-if="$ctrl.checkType()")
+                  span.status.availability
+                    span.icon.icon-success-12
+                    span.status-title {{"STATUS.AVAILABLE.TITLE" | translate }}
+
+              ul.language
+                li(data-ng-repeat="language in vm.languages")
+                  span {{ language }}
+
+            ul.social-links(data-ng-if="vm.links")
+              li(data-ng-repeat="link in vm.links")
+                a.btn.btn-circle(href="{{link}}" target="_blank")
+                  span.icon(pro-social-icon-getter data-url="link")
+
+          .profile-content-description
+            p {{ vm.description }}
+
+          profile-gallery(data-documents="vm.documents")

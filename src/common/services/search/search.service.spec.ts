@@ -1,8 +1,7 @@
 import * as angular from 'angular'
 
 import {SearchService} from './search.service'
-import {CategoryApiMock, SearchApiMock} from 'profitelo-api-ng/api/api'
-import {CategoryService} from '../category/category.service'
+import {SearchApiMock} from 'profitelo-api-ng/api/api'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 
 describe('Unit testing: profitelo.services.search >', () => {
@@ -11,7 +10,6 @@ describe('Unit testing: profitelo.services.search >', () => {
     let searchService: SearchService
     let httpBackend: any
     let SearchApiMock: SearchApiMock
-    let CategoryApiMock: CategoryApiMock
     let $rootScope: IRootScopeService
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
@@ -20,12 +18,10 @@ describe('Unit testing: profitelo.services.search >', () => {
 
     beforeEach(() => {
       angular.mock.module('profitelo.services.search')
-      angular.mock.module('profitelo.services.categories')
 
       inject(($injector: ng.auto.IInjectorService) => {
         searchService = $injector.get<SearchService>('searchService')
         httpBackend = $injector.get<ng.IHttpBackendService>('$httpBackend')
-        CategoryApiMock = $injector.get<CategoryApiMock>('CategoryApiMock')
         SearchApiMock = $injector.get<SearchApiMock>('SearchApiMock')
         $rootScope = $injector.get<IRootScopeService>('$rootScope')
       })
@@ -160,9 +156,7 @@ describe('Unit testing: profitelo.services.search >', () => {
       })
     })
 
-    it('should set implicit search parameters', inject((categoryService: CategoryService, $q: ng.IQService) => {
-
-      spyOn(categoryService, 'getCategoryBySlug').and.returnValue($q.resolve({id: '123'}))
+    it('should set implicit search parameters', inject(() => {
 
       let observer = {
         callback: (_: any) => {

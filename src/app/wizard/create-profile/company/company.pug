@@ -1,0 +1,45 @@
+.wizard-expert
+  wizard-handler(data-on-step-change="vm.saveSteps")
+    wizard-step.step(
+    data-title="WIZARD.STEP.EXPERT.NAME.TITLE"
+    data-tooltip-text="Tooltip tekst krotki"
+    data-check-is-step-valid="vm.checkNameInput"
+    )
+      input-primary(
+      data-ng-model="vm.nameModel"
+      data-ng-pattern="vm.patternName"
+      data-id="firstName"
+      data-validation=""
+      data-max-length="150"
+      )
+
+    wizard-step.step(
+    data-title="WIZARD.STEP.EXPERT.PHOTO.TITLE"
+    data-tooltip-text="Tooltip komponent bardzo dlugi tekst na dwie linie albo trzy"
+    )
+      wizard-avatar(data-avatar-token="vm.logoModel")
+
+
+    wizard-step.step(
+    data-title="WIZARD.STEP.EXPERT.DESCRIPTION.TITLE"
+    data-tooltip-text="DESCRIPTION"
+    )
+      textarea-primary(
+      data-ng-model="vm.descriptionModel"
+      data-id="desctName"
+      data-max-length="600"
+      )
+
+    wizard-step.step(
+    data-title="WIZARD.STEP.EXPERT.FILES.TITLE"
+    data-tooltip-text="FILES"
+    )
+      wizard-uploader(data-token-list="vm.filesModel")
+
+    wizard-step.step(
+    data-title="WIZARD.STEP.EXPERT.LINKS.TITLE"
+    data-tooltip-text="LINKS"
+    data-on-go-to-next="vm.goToSummary"
+    )
+
+      wizard-links(data-selected-links="vm.linksModel")

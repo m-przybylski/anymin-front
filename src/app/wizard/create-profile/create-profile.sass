@@ -1,0 +1,51 @@
+@import "../../../template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../template/profitelo_theme/stylesheets/core/core"
+
+.create-profile
+	min-height: 100vh
+	padding: calc(50vh - 148px) 0 50vh 0
+	text-align: left
+
+	+smm
+		padding: calc(50vh - 148px) 0 50vh 0
+
+	.create-profile-directory
+		display: flex
+
+		[class*="directory"]
+			border: 1px solid $c-lines
+			margin: 0 8px
+			width: 200px
+			height: 296px
+			display: flex
+			align-items: center
+			justify-content: center
+
+			p
+				+paragraphTitle
+				text-transform: uppercase
+				text-align: center
+				margin: 16px 0 0
+
+			&:hover
+				border-color: $c-primary
+
+				span, p
+					color: $c-primary
+
+			&.is-active
+				border-color: $c-primary
+
+				span, p
+					color: $c-primary
+
+	.create-profile-content
+		animation: fadeIn 0.3s
+
+	//TODO delete after added state
+	header.entry-title
+		padding: 0
+
+		span
+			color: $c-primary-txt
+			margin: 0 8px 0 0

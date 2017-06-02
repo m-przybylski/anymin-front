@@ -14,9 +14,7 @@ describe('Unit testing: profitelo.services.service-provider-service >', function
       serviceProviderService = $injector.get<ServiceProviderService>('serviceProviderService')
     }))
 
-    it('should have a dummy test', inject(function () {
-      expect(true).toBeTruthy()
-    }))
+
 
   })
 })

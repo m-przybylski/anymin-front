@@ -1,0 +1,62 @@
+@import "../../../../template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../../template/profitelo_theme/stylesheets/core/helpers/mixins"
+@import "../../../../template/profitelo_theme/stylesheets/core/interface/icons/icons"
+
+checkbox
+  display: block
+
+.input
+  display: flex
+  align-content: space-between
+  flex-wrap: wrap
+  background: $c-white
+  position: relative
+  padding: 0
+  width: 100%
+  height: $f-input-height
+
+  input
+    padding: 0
+    width: 100%
+    height: $s-input-height
+    align-self: flex-end
+
+  &::before
+    content: ''
+    position: absolute
+    bottom: 0
+    left: 0
+    right: 0
+    margin: auto
+    height: 1px
+    width: 100%
+    background: $c-lines
+
+  &::after
+    transition: width 0.3s ease-out
+    content: ''
+    position: absolute
+    bottom: 0
+    left: 0
+    right: 0
+    margin: auto
+    height: 1px
+    width: 100%
+    animation: inputBorderLineAnimationOut 0.3s
+
+  &.is-focused
+    &::after
+      animation: inputBorderLineAnimation 0.3s
+      animation-fill-mode: forwards
+
+  &.is-invalid
+    &::after
+      animation: inputBorderLineAnimationError 0.3s
+      animation-fill-mode: forwards
+
+    input
+      color: $c-error
+
+.input-sign-counter
+  text-align: left
+  margin: 8px 0 0

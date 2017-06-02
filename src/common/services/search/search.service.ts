@@ -2,7 +2,6 @@ import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {SearchResult} from 'profitelo-api-ng/model/models'
 import {SearchApi} from 'profitelo-api-ng/api/api'
-import {CategoryService} from '../category/category.service'
 
 export interface INameValue {
   name: string
@@ -51,7 +50,7 @@ export class SearchService {
 
   /* @ngInject */
   constructor(private $rootScope: IRootScopeService, private $q: ng.IQService,
-              private categoryService: CategoryService, private SearchApi: SearchApi) {
+              private SearchApi: SearchApi) {
 
     this.defineQueryProperties(this._queryParams)
   }
@@ -287,7 +286,7 @@ export class SearchService {
     const onlyAvailableString: string = (query.onlyAvailable) ? query.onlyAvailable.toString() : 'false'
 
     return this.SearchApi.searchRoute(
-      query.q, undefined, undefined, undefined, query.tagId, query.category, query.profileType, onlyAvailableString,
+      query.q, undefined, undefined, undefined, query.tagId, query.profileType, onlyAvailableString,
       query.sortBy, query.language, (query.minPrice) ? query.minPrice * 100 : query.minPrice, _maxPriceParser(query.maxPrice),
       query.offset, SearchService._queryLimit,
     )
@@ -325,18 +324,10 @@ export class SearchService {
     this._notifyOnQueryParams(this._queryParams)
   }
 
-  private _resolveCategoryId = (params: ISearchQueryParams) => {
+  private _resolveCategoryId = (_params: ISearchQueryParams) => {
     const _deferred = this.$q.defer()
 
-    if (angular.isDefined(params.categorySlug) && params.categorySlug) {
-      this.categoryService.getCategoryBySlug(params.categorySlug).then((category) => {
-        delete params['categorySlug']
-        params['category'] = category!.id
-        _deferred.resolve()
-      })
-    } else {
-      _deferred.resolve()
-    }
+    _deferred.resolve()
 
     return _deferred.promise
   }
@@ -403,7 +394,7 @@ export class SearchService {
     return parsedQueryParams
   }
 
-  public getAvailableOptions = (): ng.IPromise<ISearchSettings> => {
+  public getAvailableOptions = (): ISearchSettings => {
 
     const options: ISearchSettings = {
       language: [<INameValue>{name: 'all', value: null}].concat(
@@ -412,14 +403,7 @@ export class SearchService {
       category: [{name: 'all', value: null}],
       profileType: [{name: 'ALL', value: null}, {name: 'ORGANIZATION', value: 'ORG'}, {name: 'EXPERT', value: 'EXP'}]
     }
-    return this.categoryService.listTopLevelCategories().then((categories) => {
-      options.category = options.category.concat(categories.map((category) => {
-        return {
-          name: category.slug,
-          value: category.id
-        }
-      }))
-      return options
-    })
+
+    return options
   }
 }

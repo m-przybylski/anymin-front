@@ -1,4 +1,5 @@
 import * as angular from 'angular'
+import '../../../../../../directives/interface/pro-tags-dropdown/pro-tags-dropdown.ts'
 import {ExpertInviteEmployeesController} from './invite-employees.controller'
 import './invite-employees.sass'
 import checkboxModule from '../../../../../interface/checkbox/checkbox'

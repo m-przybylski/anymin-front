@@ -1,8 +1,13 @@
-(function() {
+import * as angular from 'angular'
 
-  function ngEnter() {
+  class NgEnter implements ng.IDirective {
+    public restrict: string = 'A'
 
-    function linkFunction(scope: ng.IScope, elem: ng.IRootElementService, attrs: any) {
+    /* @ngInject */
+    constructor() {
+    }
+
+    public link = (scope: ng.IScope, elem: ng.IRootElementService, attrs: ng.IAttributes) => {
       elem.bind('keydown keypress', function(event) {
         if (event.which === 13) {
           scope.$apply(function() {
@@ -13,12 +18,16 @@
       })
     }
 
-    return {
-      link: linkFunction
+    public static getInstance = () => {
+      const instance = () =>
+        new NgEnter()
+      instance.$inject = []
+      return instance
     }
   }
 
-  angular.module('profitelo.directives.ng-enter', [
-  ])
-  .directive('ngEnter', ngEnter)
-}())
+const ngEnter =  angular.module('profitelo.directives.ng-enter', [])
+  .directive('ngEnter', NgEnter.getInstance())
+  .name
+
+  export default ngEnter

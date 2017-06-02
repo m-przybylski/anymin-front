@@ -6,7 +6,9 @@ export interface ITooltipComponentBindings extends ng.IController {
   tooltipText: string
 }
 
-const tooltipModule = angular.module('profitelo.components.interface.tooltip', [])
+const tooltipModule = angular.module('profitelo.components.interface.tooltip', [
+  'pascalprecht.translate'
+])
 .component('tooltip', new TooltipComponent())
   .name
 

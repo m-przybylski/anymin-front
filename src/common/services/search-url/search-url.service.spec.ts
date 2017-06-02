@@ -13,7 +13,6 @@ describe('Unit testing: profitelo.services.search-url >', () => {
     beforeEach(() => {
       angular.mock.module('profitelo.services.search')
       angular.mock.module('profitelo.services.search-url')
-      angular.mock.module('profitelo.services.categories')
 
       inject(($injector: ng.auto.IInjectorService) => {
         searchUrlService = $injector.get<SearchUrlService>('searchUrlService')

@@ -9,7 +9,7 @@ import checkboxModule from '../../../../interface/checkbox/checkbox'
 export interface IExpertEmployeeComponentBindings extends ng.IController {
 }
 
-const expertEmployeeModule = angular.module('profitelo.components.dashboard.expert.employees.employee', [
+const expertEmployeeModule: string = angular.module('profitelo.components.dashboard.expert.employees.employee', [
   'pascalprecht.translate',
   userAvatarModule,
   modalsModule,

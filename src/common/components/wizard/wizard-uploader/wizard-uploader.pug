@@ -1,0 +1,27 @@
+.wizard-uploader
+  .uploader
+    .file-drag-and-drop
+      .upload-field(class="drop-box"
+      ngf-drop="$ctrl.uploadFiles($files)"
+      ngf-multiple="true"
+      ngf-select="$ctrl.uploadFiles($files)")
+        .upload-title
+          span.icon.icon-upload-24
+          div
+            p Drag & Drop
+            p or clik to add documents
+
+  .files-uploaded-list
+    .file-item(data-ng-repeat="file in $ctrl.uploadedFiles")
+      .file-preview
+        img.thumb.x64(data-ng-src="{{ file.previews[0] }}")
+        span.upload-progress()
+
+      .file-info
+        span.file-name {{ file.name }}
+        span.file-size file-size: {{ file.size }}
+
+      .file-action
+        a(data-ng-click="$ctrl.removeFile(file)")
+          span.icon.icon-trash-24
+

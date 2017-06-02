@@ -2,7 +2,6 @@ import * as angular from 'angular'
 import * as _ from 'lodash'
 import {Tag} from 'profitelo-api-ng/model/models'
 import {SearchService} from '../../services/search/search.service'
-import {CategoryService} from '../../services/category/category.service'
 import './term-suggestions/term-suggestions'
 import './organization-suggestions/organization-suggestions'
 import './tag-suggestions/tag-suggestions'
@@ -18,9 +17,9 @@ interface ISuggestions {
 }
 
 /* @ngInject */
-function proSearchDropdownController($q: ng.IQService, $scope: ng.IScope, $state: ng.ui.IStateService,
+function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateService,
                                      $element: ng.IRootElementService,
-                                     searchService: SearchService, categoryService: CategoryService) {
+                                     searchService: SearchService) {
 
   this.isCollapsed = true
   this.isFocused = false
@@ -117,13 +116,10 @@ function proSearchDropdownController($q: ng.IQService, $scope: ng.IScope, $state
   const _updateSuggestions = (searchWord: string) => {
     if (angular.isDefined(searchWord) && searchWord !== null && searchWord.toString().length >= 3) {
       this.loadingSuggestion = true
-      $q.all([
-        searchService.suggest(this.ngModel),
-        categoryService.getCategorySlugs()
-      ]).then((data) => {
-        this.suggestions = _deserializeSuggestions(data[0])
+      searchService.suggest(this.ngModel).then((data) => {
+        this.suggestions = _deserializeSuggestions(data)
         this.suggestionsLength = _countSuggestions(this.suggestions)
-        this.categorySlugs = data[1]
+        this.categorySlugs = []
         this.lastSearchWord = searchWord
         this.loadingSuggestion = false
       }, () => {
@@ -321,9 +317,7 @@ const proSearchDropdown = {
 angular.module('profitelo.components.pro-search-dropdown', [
   'commonConfig',
   'profitelo.services.search',
-  'profitelo.services.categories',
   'ui.router',
-
   'profitelo.components.interface.preloader',
   'profitelo.filters.normalize-translation-key-filter',
   'profitelo.components.pro-search-dropdown.term-suggestions',

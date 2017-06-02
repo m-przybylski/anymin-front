@@ -1,12 +1,12 @@
 .checkbox(data-ng-click="$ctrl.onClick()" data-ng-class="{'is-invalid': $ctrl.validation}")
   .input-handler
     input(
-      type='checkbox'
-      name="{{ $ctrl.name | translate }}"
-      data-ng-model="$ctrl.ngModel"
-      data-ng-disabled="{{ $ctrl.isDisabled }}"
-      data-ng-change="$ctrl.callBackFunction()"
-      data-ng-required="{{$ctrl.ngRequired}}"
+    type='checkbox'
+    name="{{ $ctrl.name | translate }}"
+    data-ng-model="$ctrl.ngModel"
+    data-ng-disabled="{{ $ctrl.isDisabled }}"
+    data-ng-change="$ctrl.callBackFunction()"
+    data-ng-required="{{$ctrl.ngRequired}}"
     )
 
     label.label-text {{:: $ctrl.inputText | translate }}

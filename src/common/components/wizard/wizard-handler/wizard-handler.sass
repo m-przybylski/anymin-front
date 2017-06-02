@@ -1,0 +1,42 @@
+@import "../../../../template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
+
+.wizard-handler
+	.wizard-progress-bar
+		position: fixed
+		background: $c-background
+		height: 8px
+		width: 100%
+		bottom: 0
+		left: 0
+		z-index: $z-index-900
+
+		+lgm
+			height: 32px
+
+		span
+			&.progress-text
+				display: none
+
+				+lgm
+					+default-font-medium
+					display: flex
+					align-items: center
+					color: $c-white
+					font-size: $f-input-small
+					height: 100%
+					text-transform: uppercase
+					padding: 0 16px
+
+
+			&.progress
+				min-width: 16.6667%
+				transition: width 0.6s
+				transition-timing-function: ease-in-out
+				position: absolute
+				left: 0
+				bottom: 0
+				background: $c-primary
+				height: 100%
+				width: 400px
+				z-index: -$z-index-100

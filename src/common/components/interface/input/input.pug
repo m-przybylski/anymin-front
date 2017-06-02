@@ -1,0 +1,22 @@
+.input(data-ng-click="$ctrl.onClick()" data-ng-class="{'is-invalid': $ctrl.validation, 'is-focused': $ctrl.isFocus}")
+  label.label-text(data-ng-if="$ctrl.inputText") {{:: $ctrl.inputText | translate }}
+  span.is-required(data-ng-if="$ctrl.ngRequired") *
+
+  input(
+  type="text"
+  id="{{$ctrl.id}}"
+  name="{{$ctrl.id}}"
+  maxlength="{{$ctrl.maxLength}}"
+  placeholder="{{ $ctrl.placeholder | translate }}"
+  data-ng-model="$ctrl.ngModel"
+  data-ng-pattern="$ctrl.ngPattern"
+  data-ng-required="$ctrl.ngRequired"
+  )
+
+  .alert-cloud(data-ng-if="$ctrl.validation")
+    span.alert-text {{:: $ctrl.alertText | translate }}
+
+
+.input-sign-counter(data-ng-show="$ctrl.maxLength")
+  span.label {{ $ctrl.ngModel.length || 0 }}
+  span.label  / {{ $ctrl.maxLength }} {{:: 'INPUT.CHARACTERS.TITLE'	 | translate }}
