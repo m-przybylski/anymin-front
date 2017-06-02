@@ -1,0 +1,112 @@
+@import "../../../template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../template/profitelo_theme/stylesheets/core/core"
+
+.summary
+	background: red
+
+	.profile-header
+		background: $c-background
+		border-bottom: 1px solid $c-lines
+		padding: $s-navbar-height + 48px 0 48px
+
+		+lgm
+			padding: $s-navbar-height 0 0 0
+
+		.entry-title
+			display: block
+
+		.profile-header-container
+			text-align: center
+
+			+lgm
+				padding: 48px 0
+				display: flex
+				align-items: flex-start
+				text-align: left
+
+			.entry-title
+				margin: 0 0 24px
+				padding: 0
+
+				+lgm
+					margin: 0 16px 0 0
+
+				.profile-name
+					+lgm
+						display: flex
+						align-items: center
+
+					h3
+						+consultationTitle
+						margin: 0 0 16px
+
+						+lgm
+							margin: 0
+
+					.status-list
+						margin: 0 0 16px
+
+						+lgm
+							margin: 0 0 0 8px
+
+				.language
+					justify-content: center
+
+					+lgm
+						margin: 4px 0 0
+						justify-content: flex-start
+
+			.profile-header-logo
+				margin: 0 0 24px
+
+				+lgm
+					margin: 0 24px 0 0
+
+		.profile-content
+			flex: 1
+
+			.profile-content-header
+				+lgm
+					display: flex
+					align-items: flex-start
+					justify-content: space-between
+					margin: 0 0 24px
+
+				.status-list
+					.status
+						&::before
+							animation: status-available 3s infinite
+
+			.profile-content-description
+				+consultationDescription
+				margin: 0 0 24px
+
+				p
+					+consultationDescription
+
+		.social-links
+			margin: 0 0 24px
+
+			+lgm
+				margin: 0
+
+		.profile-content
+			padding: 0
+
+		.share-links
+			margin: 0 0 24px
+			flex: 1
+
+			+lgm
+				margin: 0
+
+			li
+				margin: 0 16px
+
+				+lgm
+					margin: 0 0 0 16px
+
+				&.is-selected
+					a
+						span
+							color: $c-primary
