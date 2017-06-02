@@ -72,19 +72,18 @@ export class ExpertController implements ng.IController {
   }
 
   public goToSummary = () => {
-    if (this.currentWizardState.expertDetailsOption
-      && this.currentWizardState.expertDetailsOption.name
-      && this.currentWizardState.expertDetailsOption.avatar
-      && this.currentWizardState.expertDetailsOption.description
-      && this.currentWizardState.expertDetailsOption.languages) {
-      this.$state.go('app.wizard.summary')
-    }
+  if (this.currentWizardState.expertDetailsOption
+    && this.currentWizardState.expertDetailsOption.name
+    && this.currentWizardState.expertDetailsOption.description
+    && this.currentWizardState.expertDetailsOption.languages
+    && this.currentWizardState.expertDetailsOption.languages.length > 0) {
+    this.$state.go('app.wizard.summary')
   }
+}
 
   // Validations Methods:
   public checkNameInput = () => {
-    return this.currentWizardState.expertDetailsOption && this.currentWizardState.expertDetailsOption.name &&
-      this.currentWizardState.expertDetailsOption.name.length > 2
+    return this.nameModel && this.nameModel.length > 2
   }
 
 }

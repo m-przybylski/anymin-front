@@ -2,7 +2,7 @@
   wizard-handler(data-on-step-change="vm.saveSteps")
     wizard-step.step(
     data-title="WIZARD.STEP.EXPERT.NAME.TITLE"
-    data-tooltip-text="Tooltip tekst krotki"
+    data-tooltip-text="WIZARD.STEP.EXPERT.NAME.TOOLTIP"
     data-check-is-step-valid="vm.checkNameInput"
     )
       input-primary(
@@ -14,14 +14,14 @@
 
     wizard-step.step(
     data-title="WIZARD.STEP.EXPERT.PHOTO.TITLE"
-    data-tooltip-text="Tooltip komponent bardzo dlugi tekst na dwie linie albo trzy"
+    data-tooltip-text="WIZARD.STEP.EXPERT.PHOTO.TOOLTIP"
     )
       wizard-avatar(data-avatar-token="vm.avatarModel")
 
     wizard-step.step(
     data-title="WIZARD.STEP.EXPERT.LANGUAGE.TITLE"
     data-additional-text="To add new language press ENTER when you are in the active field."
-    data-tooltip-text="Kopytko"
+    data-tooltip-text="WIZARD.STEP.EXPERT.LANGUAGE.TOOLTIP"
     )
       input-dropdown-tag(
         data-dictionary="vm.languagesList"
@@ -30,7 +30,7 @@
 
     wizard-step.step(
       data-title="WIZARD.STEP.EXPERT.DESCRIPTION.TITLE"
-      data-tooltip-text="DESCRIPTION"
+      data-tooltip-text="WIZARD.STEP.EXPERT.DESCRIPTION.TOOLTIP"
     )
       textarea-primary(
         data-ng-model="vm.descriptionModel"
@@ -40,13 +40,13 @@
 
     wizard-step.step(
     data-title="WIZARD.STEP.EXPERT.FILES.TITLE"
-    data-tooltip-text="FILES"
+    data-tooltip-text="WIZARD.STEP.EXPERT.FILES.TOOLTIP"
     )
       wizard-uploader(data-token-list="vm.filesModel")
 
     wizard-step.step(
     data-title="WIZARD.STEP.EXPERT.LINKS.TITLE"
-    data-tooltip-text="LINKS"
+    data-tooltip-text="WIZARD.STEP.EXPERT.LINKS.TOOLTIP"
     data-on-go-to-next="vm.goToSummary"
     )
 

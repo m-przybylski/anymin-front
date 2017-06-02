@@ -64,11 +64,10 @@ export class CompanyController implements ng.IController {
   }
 
   public goToSummary = () => {
-    if (this.currentWizardState.expertDetailsOption
-      && this.currentWizardState.expertDetailsOption.name
-      && this.currentWizardState.expertDetailsOption.avatar
-      && this.currentWizardState.expertDetailsOption.description
-      && this.currentWizardState.expertDetailsOption.languages) {
+    if (this.currentWizardState.organizationDetailsOption
+      && this.currentWizardState.organizationDetailsOption.name
+      && this.currentWizardState.organizationDetailsOption.logo
+      && this.currentWizardState.organizationDetailsOption.description) {
       this.$state.go('app.wizard.summary')
     }
   }

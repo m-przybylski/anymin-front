@@ -12,7 +12,7 @@ export class WizardStepComponentController implements IWizardStepModuleComponent
   public onGoToNext: () => void
 
   /* @ngInject */
-  constructor(private $element: JQuery, private $timeout: ng.ITimeoutService) {
+  constructor(private $element: ng.IRootElementService, private $timeout: ng.ITimeoutService) {
   }
 
   public onClickNext = () => {

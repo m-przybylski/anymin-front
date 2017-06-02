@@ -10,7 +10,6 @@ import {IWizardHandlerComponentBindings, default as wizardHandlerModule} from '.
 describe('Unit testing: profitelo.components.wizard.wizard-step', () => {
   return describe('for wizardStep component >', () => {
 
-    let scope: ng.IScope
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let componentController: ng.IComponentControllerService
@@ -18,16 +17,6 @@ describe('Unit testing: profitelo.components.wizard.wizard-step', () => {
     let window: IWindowService
     let bindings: IWizardStepModuleComponentBindings
     let document: ng.IDocumentService
-    let validHTML = '<wizard-step></wizard-step>'
-    let parentComponent: WizardHandlerComponentController
-
-    function create(html: string) {
-      scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
-      scope.$digest()
-      return compiledElement
-    }
 
     beforeEach(() => {
       angular.mock.module(wizardHandlerModule)
@@ -52,23 +41,15 @@ describe('Unit testing: profitelo.components.wizard.wizard-step', () => {
         tooltipText: 'Tooltip'
       }
 
-
-
       const injectors = {
-        $element: create(validHTML),
         $scope: rootScope,
         $document: document
       }
-       parentComponent = componentController<WizardHandlerComponentController, IWizardHandlerComponentBindings>
-        ('wizardHandler', {$element: {
-      }})
       component = componentController<WizardStepComponentController, IWizardStepModuleComponentBindings>
       ('wizardStep', injectors, bindings)
-      component.wizardHandler = parentComponent
+      component.wizardHandler = componentController<WizardHandlerComponentController, IWizardHandlerComponentBindings>
+      ('wizardHandler', {$element: {}})
     })
 
-    it('should have a dummy test', inject(() => {
-      expect(true).toBeTruthy()
-    }))
   })
 })
