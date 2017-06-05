@@ -23,11 +23,12 @@
 			color: $c-primary-txt
 
 	.wizard-content
-		visibility: hidden
+		opacity: 0
 		margin: 0 0 32px
+		transition: opacity 0.3s
 
 	.wizard-step-action
-		visibility: hidden
+		opacity: 0
 
 		.btn
 			margin: 0 16px 0 0
@@ -45,10 +46,11 @@
 
 	&.is-showed
 		.wizard-content
-			visibility: visible
+			opacity: 1
+			animation: none
 
 		.wizard-step-action
-			visibility: hidden
+			opacity: 0
 
 	&.is-active
 		&::after
@@ -57,7 +59,8 @@
 			z-index: -$z-index-100
 
 		.wizard-content
-			visibility: visible
+			opacity: 1
 
 		.wizard-step-action
-			visibility: visible
+			opacity: 1
+			animation: fadeInX 0.3s

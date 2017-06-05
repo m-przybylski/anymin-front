@@ -3,7 +3,7 @@ import {ProfileHeaderComponent} from './profile-header.component'
 import './profile-header.sass'
 import {GetExpertDetails} from 'profitelo-api-ng/model/models'
 import userAvatarModule from '../../interface/user-avatar/user-avatar'
-import profileGalleryModule from './profile-gallery/profile-gallery'
+import profileGalleryModule from '../../interface/profile-gallery/profile-gallery'
 
 export interface IProfileHeaderComponentBindings extends ng.IController {
   profileDetails?: GetExpertDetails,
