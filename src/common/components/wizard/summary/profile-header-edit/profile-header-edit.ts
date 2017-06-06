@@ -15,7 +15,7 @@ export enum  ProfileTypes {
   'expert'
 }
 
-const profileHeaderEditModule = angular.module('profitelo.components.profile.profile-header-edit', [
+const profileHeaderEditModule = angular.module('profitelo.components.wizard.profile-header-edit', [
   'profitelo.directives.pro-social-icon-getter',
   userAvatarModule,
   profileGalleryModule

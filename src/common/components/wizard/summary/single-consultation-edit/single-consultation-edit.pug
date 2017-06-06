@@ -1,0 +1,23 @@
+.single-consultation-edit
+  .consultation-wrapper
+    .consultation-section
+      .consultation-details
+        .consultation-price
+          span(data-ng-bind-html="::$ctrl.consultation.price | money")
+          span.currency(data-translate='HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE')
+
+        div
+          .consultation-title
+            h3
+              span {{ ::$ctrl.consultation.name }} Nazwa kosnutacji
+
+      tags-list(data-tags="$ctrl.tagsList")
+
+      .employee-list
+        p(data-translate="WIZARD.SUMMARY.EMPLOYEES.LABEL")
+        tags-list(data-tags="$ctrl.employeeList")
+
+    .consultation-actions
+      span.icon.icon-trash-24
+      span.icon.icon-edit-16
+

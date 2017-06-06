@@ -25,6 +25,9 @@
                 span.icon(pro-social-icon-getter data-url="link")
 
           .edit-profile
+            a(data-ui-sref="{{$ctrl.deleteLink}}")
+              span.icon.icon-trash-24
+
             a(data-ui-sref="{{$ctrl.editLink}}")
               span.icon.icon-edit-16
 
