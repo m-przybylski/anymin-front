@@ -1,0 +1,48 @@
+section.consultation
+  .container-big
+    wizard-handler()
+      wizard-step.step(
+        data-title="WIZARD.SUMMARY.CONSULTATION.NAME.TITLE"
+        data-tooltip-text="WIZARD.SUMMARY.CONSULTATION.NAME.TOOLTIP"
+      )
+        input-primary(
+          data-ng-model="vm.nameModel"
+          data-ng-pattern="vm.patternName"
+          data-id="firstName"
+          data-max-length="150"
+        )
+
+      wizard-step.step(
+        data-title="WIZARD.SUMMARY.CONSULTATION.TAGS.TITLE"
+        data-additional-text="WIZARD.SUMMARY.CONSULTATION.TAGS.ADDITIONAL_TEXT.TITLE"
+        data-tooltip-text="WIZARD.SUMMARY.CONSULTATION.TAGS.TOOLTIP"
+      )
+        consultation-tag-input(
+          data-dictionary="vm.consultationsMock"
+        )
+
+      wizard-step.step(
+        data-title="WIZARD.SUMMARY.CONSULTATION.RATE.TITLE"
+      )
+        .hint
+          p(data-translate="WIZARD.CONSULTATION.PRICE.SUGGESTED") 5,00 PLN.
+          tooltip(data-tooltip-text="WIZARD.CONSULTATION.PRICE.TOOLTIP")
+
+        .input-price
+          .price-mock
+            p.price-placeholder {{ vm.priceModel }}
+              span.currency {{ vm.currency }}
+
+          input-primary(
+            data-ng-model="vm.priceModel"
+            data-id="priceModel"
+          )
+
+      wizard-step.step(
+        data-title="WIZARD.SUMMARY.CONSULTATION.EMPLOYEES.TITLE"
+        data-additional-text="WIZARD.SUMMARY.CONSULTATION.EMPLOYEES.ADDITIONAL_TEXT.TITLE"
+        data-tooltip-text="WIZARD.SUMMARY.CONSULTATION.EMPLOYEES.TOOLTIP"
+      )
+        consultation-employee-input()
+
+

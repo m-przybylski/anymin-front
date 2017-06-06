@@ -37,6 +37,9 @@ export class CommonSettingsService {
       passwordPattern: this.validation.password.regex,
       pinPattern: this.validation.pin.regex,
       smsCodePattern: this.validation.pin.regex,
+      mailPattern: /([a-zA-Z0-9!#$%&'*+/=?^_`{|}~.-]+)@([a-zA-Z0-9-]+)\.([a-zA-Z.]+)/,
+      phonePattern: /^\+?\d+(\s\d+)*$/,
+      numberPattern: /^\+?\d+(\s\d+)*$/,
       urlPattern: /^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.\&\?\=\+\#-]*)*\/?$/,
       socialNetworks: [
         {

@@ -6,6 +6,7 @@ import expertWizardModule from './expert/expert'
 import companyWizardModule from './company/company'
 import wizardStepModule from '../../../common/components/wizard/wizard-step/wizard-step'
 import './create-profile.sass'
+import apiModule from 'profitelo-api-ng/api.module'
 import tooltipModule from '../../../common/components/interface/tooltip/tooltip'
 
 const createProfilePageModule = angular.module('profitelo.controller.wizard.create-profile', [
@@ -15,6 +16,7 @@ const createProfilePageModule = angular.module('profitelo.controller.wizard.crea
   expertWizardModule,
   companyWizardModule,
   'ngTouch',
+  apiModule,
   wizardStepModule,
   tooltipModule
 ])
