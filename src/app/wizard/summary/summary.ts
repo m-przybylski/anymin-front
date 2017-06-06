@@ -7,6 +7,7 @@ import {GetWizardProfile} from 'profitelo-api-ng/model/models'
 import userAvatarModule from '../../../common/components/interface/user-avatar/user-avatar'
 import './summary.sass'
 import profileHeaderEditModule from '../../../common/components/wizard/summary/profile-header-edit/profile-header-edit'
+import singleConsultationEditModule from '../../../common/components/wizard/summary/single-consultation-edit/single-consultation-edit'
 
 const summaryWizardModule = angular.module('profitelo.controller.wizard.summary', [
   'ui.router',
@@ -14,7 +15,8 @@ const summaryWizardModule = angular.module('profitelo.controller.wizard.summary'
   'permission.ui',
   'ngTouch',
   userAvatarModule,
-  profileHeaderEditModule
+  profileHeaderEditModule,
+  singleConsultationEditModule
 ])
 .config(($stateProvider: ng.ui.IStateProvider) => {
   $stateProvider.state('app.wizard.summary', {

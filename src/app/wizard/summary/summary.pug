@@ -4,8 +4,17 @@
     data-profile-type="vm.isExpert"
     data-documents="vm.files"
   )
+  .container(data-ng-if="$ctrl.isConsultation")
+    single-consultation-edit()
 
   .container
-    .add-new-consultation
+    .add-new-consultation(data-ng-show="!vm.isConsultation")
       p(data-translate="WIZARD.SUMMARY.ADD.TITLE")
       a.btn.btn-default(data-translate="WIZARD.SUMMARY.ADD.BUTTON")
+
+    .add-another-consultation(data-ng-show="vm.isConsultation")
+      p(data-translate="WIZARD.SUMMARY.ADD.ANOTHER.TITLE")
+
+      .btn-handler
+        a.btn.btn-primary(data-translate="WIZARD.SUMMARY.ADD.ANOTHER.BUTTON")
+        a.btn.btn-default(data-translate="WIZARD.SUMMARY.ADD.ANOTHER.BUTTON.SAVE")

@@ -3,7 +3,6 @@ import apiModule from 'profitelo-api-ng/api.module'
 import {DashboardSettingsPayoutsController} from './payouts.controller'
 import {PayoutsSettingsResolver} from './payouts.resolver'
 
-
 const dashboardSettingsPayoutsModule = angular.module('profitelo.controller.dashboard.settings.payouts', [
   'ui.router',
   apiModule

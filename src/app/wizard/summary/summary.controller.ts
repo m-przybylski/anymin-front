@@ -9,6 +9,7 @@ export class SummaryController implements ng.IController {
   public links?: Array<string> = []
   public isExpert: boolean
   public wizardProfileData?: PartialExpertDetails
+  public isConsultation: boolean = false
 
   /* @ngInject */
   constructor($state: ng.ui.IStateService, wizardProfile?: GetWizardProfile) {
