@@ -89,7 +89,13 @@ export class SmoothScrollingService {
   }
 
   public wizardScrollTo = (element: Element, wrapperHeight: number, windowHeight: number) => {
-    const scrollTop = ( $(element).offset().top - windowHeight / 2 + wrapperHeight / 2 )
+    let scrollTop: number
+    if (wrapperHeight < windowHeight) {
+      scrollTop = ( $(element).offset().top - windowHeight / 2 + wrapperHeight / 2)
+    } else {
+      scrollTop = ( $(element).offset().top )
+    }
+
     $('html, body').animate({
       scrollTop: scrollTop
     }, 1000)

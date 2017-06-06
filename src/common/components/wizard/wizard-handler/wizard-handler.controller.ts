@@ -44,6 +44,7 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
             && currentScrollPosition + this.wizardOffset >= this.stepList[indexOfCurrentStep + 1].offsetTop
             && currentScrollPosition + this.wizardOffset <= this.stepList[indexOfCurrentStep + 1].offsetTop
             + this.wizardOffset) {
+
             if (this.onStepChange) {
               this.onStepChange()
             }
@@ -83,12 +84,9 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
       width: this.progressWidth * (indexOfCurrentStep + 1) + this.progressWidth + '%'
     }
     if (indexOfCurrentStep + 1 < this.stepList.length) {
-      this.currentStep = this.stepList[indexOfCurrentStep + 1]
-      this.smoothScrollingService.wizardScrollTo(this.currentStep, this.$element.find('wizard-step')[0].clientHeight,
+      const nextStep =  this.stepList[indexOfCurrentStep + 1]
+      this.smoothScrollingService.wizardScrollTo(nextStep, this.$element.find('wizard-step')[indexOfCurrentStep + 1].clientHeight,
         this.$window.innerHeight)
-    }
-    if (this.onStepChange) {
-      this.onStepChange()
     }
   }
 
@@ -99,12 +97,9 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
     }
 
     if (this.currentStep !== this.$element.find('wizard-step')[0]) {
-      this.currentStep = this.stepList[indexOfCurrentStep - 1]
-      this.smoothScrollingService.wizardScrollTo(this.currentStep, this.$element.find('wizard-step')[0].clientHeight,
+      const previousStep = this.stepList[indexOfCurrentStep - 1]
+      this.smoothScrollingService.wizardScrollTo(previousStep, this.$element.find('wizard-step')[indexOfCurrentStep - 1].clientHeight,
         this.$window.innerHeight)
-    }
-    if (this.onStepChange) {
-      this.onStepChange()
     }
   }
 
