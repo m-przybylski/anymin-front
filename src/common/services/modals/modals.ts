@@ -18,7 +18,6 @@ import '../../components/dashboard/settings/modals/security/pin-number/pin-numbe
 import '../../components/dashboard/settings/modals/payments/add-payment-method/add-payment-method'
 import '../../components/dashboard/settings/modals/payments/edit-company-invoice/edit-company-invoice'
 import '../../components/dashboard/settings/modals/payouts/payouts-payPal/payouts-pay-pal'
-import '../../components/profile/profile-header/profile-gallery/modals/preview'
 import '../../directives/interface/scrollable/scrollable'
 import '../../constants/style.constant'
 import '../../components/interface/multiselect/multiselect'
@@ -30,6 +29,7 @@ import expertInviteEmployeesModule from '../../components/dashboard/expert/activ
 import manageProfileEditProfileModule from '../../components/dashboard/expert/manage-profile/modals/edit-expert-profile/edit-expert-profile'
 import invitationsModalModule from '../../components/invitations/modals/invitations/invitations'
 import { consultationSummaryClientModule } from '../../components/communicator/modals/consultation-summary-client/consultation-summary-client'
+import profileGalleryPreviewModule from '../../components/interface/profile-gallery/modals/preview'
 
 const modalsModule = angular.module('profitelo.services.modals', [
   dialogModule,
@@ -57,7 +57,8 @@ const modalsModule = angular.module('profitelo.services.modals', [
   expertEmployeeDetailsModalModule,
   expertInviteEmployeesModule,
   manageProfileEditProfileModule,
-  invitationsModalModule
+  invitationsModalModule,
+  profileGalleryPreviewModule
 ])
 .service('modalsService', ModalsService)
   .name

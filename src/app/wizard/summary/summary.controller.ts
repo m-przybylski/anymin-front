@@ -1,4 +1,4 @@
-import {GetWizardProfile} from 'profitelo-api-ng/model/models'
+import {GetWizardProfile, PartialExpertDetails} from 'profitelo-api-ng/model/models'
 export class SummaryController implements ng.IController {
 
   public name?: string = ''
@@ -7,9 +7,14 @@ export class SummaryController implements ng.IController {
   public languages?: Array<string> = []
   public files?: Array<string> = []
   public links?: Array<string> = []
+  public isExpert: boolean
+  public wizardProfileData?: PartialExpertDetails
 
   /* @ngInject */
   constructor($state: ng.ui.IStateService, wizardProfile?: GetWizardProfile) {
+    this.isExpert = wizardProfile!.isExpert
+    this.wizardProfileData = wizardProfile!.expertDetailsOption
+
     if (wizardProfile) {
       if (wizardProfile.expertDetailsOption && wizardProfile.isExpert) {
         this.name = wizardProfile.expertDetailsOption!.name

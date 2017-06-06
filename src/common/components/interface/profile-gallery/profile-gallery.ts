@@ -2,13 +2,12 @@ import * as angular from 'angular'
 import {ProfileGalleryComponent} from './profile-gallery.component'
 import './profile-gallery.sass'
 import profileGalleryPreviewModule from './modals/preview'
-import {ProfileDocument} from 'profitelo-api-ng/model/models'
 
 export interface IProfileGalleryComponentBindings extends ng.IController {
-  documents: Array<ProfileDocument>
+  documents: Array<string>
 }
 
-const profileGalleryModule = angular.module('profitelo.components.profile.profile-gallery', [
+const profileGalleryModule = angular.module('profitelo.components.interface.profile-gallery', [
   'ui.bootstrap',
   profileGalleryPreviewModule
 ])
