@@ -55,7 +55,7 @@ export class CompanyController implements ng.IController {
 
     if (!this.currentWizardState.organizationDetailsOption
       || !(_.isEqual(this.currentWizardState.organizationDetailsOption, wizardOrganizationModel))) {
-      this.currentWizardState.organizationDetailsOption = wizardOrganizationModel
+      this.currentWizardState.organizationDetailsOption = angular.copy(wizardOrganizationModel)
       this.WizardApi.putWizardProfileRoute(this.currentWizardState).then((_response) => {
       }, (error) => {
         throw new Error('Can not save profile steps' + error)

@@ -53,6 +53,7 @@ export class ExpertController implements ng.IController {
   }
 
   public saveSteps = () => {
+
     const wizardExpertModel: PartialExpertDetails = {
       name: this.nameModel,
       avatar: this.avatarModel,
@@ -62,8 +63,9 @@ export class ExpertController implements ng.IController {
       links: this.linksModel
     }
 
-    if (!this.currentWizardState.expertDetailsOption || !(_.isEqual(this.currentWizardState.expertDetailsOption, wizardExpertModel))) {
-      this.currentWizardState.expertDetailsOption = wizardExpertModel
+    if (!this.currentWizardState.expertDetailsOption
+      || !(_.isEqual(this.currentWizardState.expertDetailsOption, wizardExpertModel))) {
+      this.currentWizardState.expertDetailsOption = angular.copy(wizardExpertModel)
       this.WizardApi.putWizardProfileRoute(this.currentWizardState).then((_response) => {
       }, (error) => {
         throw new Error('Can not save profile steps' + error)
