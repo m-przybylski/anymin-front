@@ -4,12 +4,14 @@ import 'angular-permission'
 import {CompanyController} from './company.controller'
 import {WizardApi} from 'profitelo-api-ng/api/api'
 import {GetWizardProfile} from 'profitelo-api-ng/model/models'
+import apiModule from 'profitelo-api-ng/api.module'
 
 const companyWizardModule = angular.module('profitelo.controller.wizard.create-profile.company', [
   'ui.router',
   'permission',
   'permission.ui',
-  'ngTouch'
+  'ngTouch',
+  apiModule
 ])
 .config(($stateProvider: ng.ui.IStateProvider) => {
   $stateProvider.state('app.wizard.create-profile.company', {

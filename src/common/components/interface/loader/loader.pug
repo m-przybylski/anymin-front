@@ -1,0 +1,8 @@
+.loader
+  svg#svg(width='64px', height='64px', viewport='0 0 0 0', version='1.1', shape-rendering="geometric-precision" xmlns='http://www.w3.org/2000/svg')
+    circle#radial-progress-background(r="" cx="32px" cy="32px" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0em" data-ng-style="$ctrl.circleStyle")
+    circle#bar(r="" cx="32px" cy="32px" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0em",
+    data-ng-style="$ctrl.circleProgressStyle")
+    circle#radial-progress-background-white(r="" cx="32px" cy="32px" fill="transparent" stroke-dasharray="0em" stroke-dashoffset="0em"
+    data-ng-style="$ctrl.circleStyleBackground")
+  span.loading-couter {{$ctrl.loadingProgress}} %

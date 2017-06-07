@@ -1,11 +1,14 @@
 .top-modal-navbar
-  position: fixed
+  position: absolute
   top: 0
   right: 0
   display: flex
   justify-content: flex-end
   padding: 16px
-  z-index: $z-index-300
+
+  +smm
+    position: fixed
+    z-index: $z-index-700
 
   +mdm
     padding: 32px

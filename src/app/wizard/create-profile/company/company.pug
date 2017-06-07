@@ -1,8 +1,8 @@
 .wizard-expert
   wizard-handler(data-on-step-change="vm.saveSteps")
     wizard-step.step(
-    data-title="WIZARD.STEP.EXPERT.NAME.TITLE"
-    data-tooltip-text="Tooltip tekst krotki"
+    data-title="WIZARD.STEP.COMPANY.NAME.TITLE"
+    data-tooltip-text="WIZARD.STEP.COMPANY.NAME.TOOLTIP"
     data-check-is-step-valid="vm.checkIsNameInputValid"
     data-on-go-back="vm.onGoBack"
     )
@@ -18,8 +18,8 @@
       )
 
     wizard-step.step(
-    data-title="WIZARD.STEP.EXPERT.PHOTO.TITLE"
-    data-tooltip-text="Tooltip komponent bardzo dlugi tekst na dwie linie albo trzy"
+    data-title="WIZARD.STEP.COMPANY.PHOTO.TITLE"
+    data-tooltip-text="WIZARD.STEP.COMPANY.PHOTO.TOOLTIP"
     data-check-is-step-valid="vm.checkIsLogoValid"
     )
       wizard-avatar(
@@ -28,10 +28,9 @@
       data-validation-text="WIZARD.COMPANY.AVATAR_INPUT_VALIDATION"
       data-is-submitted="vm.isSubmitted")
 
-
     wizard-step.step(
     data-title="WIZARD.STEP.COMPANY.DESCRIPTION.TITLE"
-    data-tooltip-text="DESCRIPTION"
+    data-tooltip-text="WIZARD.STEP.COMPANY.DESCRIPTION.TOOLTIP"
     data-check-is-step-valid="vm.checkIsProfileDescriptionValid"
     )
       textarea-primary(
@@ -44,14 +43,14 @@
       )
 
     wizard-step.step(
-    data-title="WIZARD.STEP.EXPERT.FILES.TITLE"
-    data-tooltip-text="FILES"
+    data-title="WIZARD.STEP.COMPANY.FILES.TITLE"
+    data-tooltip-text="WIZARD.STEP.COMPANY.FILES.TOOLTIP"
     )
       wizard-uploader(data-token-list="vm.filesModel")
 
     wizard-step.step(
-    data-title="WIZARD.STEP.EXPERT.LINKS.TITLE"
-    data-tooltip-text="LINKS"
+    data-title="WIZARD.STEP.COMPANY.LINKS.TITLE"
+    data-tooltip-text="WIZARD.STEP.COMPANY.LINKS.TOOLTIP"
     data-on-go-to-next="vm.goToSummary"
     )
 

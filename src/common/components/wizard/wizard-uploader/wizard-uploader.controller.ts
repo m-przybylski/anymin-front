@@ -72,7 +72,5 @@ export class WizardUploaderComponentController implements IWizardUploaderModuleC
         return void 0
       }
     })
-
   }
-
 }
