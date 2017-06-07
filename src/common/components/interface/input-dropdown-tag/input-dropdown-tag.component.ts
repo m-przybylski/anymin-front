@@ -8,6 +8,9 @@ export class InputDropdownTagComponent implements ng.IComponentOptions {
     placeholder: '@',
     dictionary: '<',
     selectedItemsValue: '<',
-    hintLabel: '@'
+    hintLabel: '@',
+    isValid: '<',
+    isSubmitted: '<',
+    validationText: '@'
   }
 }

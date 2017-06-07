@@ -7,7 +7,9 @@ export interface ITextareaComponentBindings extends ng.IController {
   name: string
   inputText: string
   placeholder: string
-  alertText: string
+  validationText: string
+  isValid: boolean
+  isSubmitted?: boolean
   maxLength: string
   ngModel: boolean
 }

@@ -9,33 +9,49 @@
       data-ng-model="vm.nameModel"
       data-ng-pattern="vm.patternName"
       data-id="firstName"
+      data-is-valid="vm.checkNameInput()"
+      data-validation-text="WIZARD.EXPERT.NAME_INPUT_VALIDATION"
       data-max-length="150"
+      data-is-submitted="vm.isSubmitted"
       )
 
     wizard-step.step(
     data-title="WIZARD.STEP.EXPERT.PHOTO.TITLE"
     data-tooltip-text="WIZARD.STEP.EXPERT.PHOTO.TOOLTIP"
+    data-check-is-step-valid="vm.checkAvatar"
     )
-      wizard-avatar(data-avatar-token="vm.avatarModel")
+      wizard-avatar(
+      data-avatar-token="vm.avatarModel"
+      data-is-valid="vm.checkAvatar()"
+      data-validation-text="WIZARD.EXPERT.AVATAR_INPUT_VALIDATION"
+      data-is-submitted="vm.isSubmitted")
 
     wizard-step.step(
     data-title="WIZARD.STEP.EXPERT.LANGUAGE.TITLE"
     data-additional-text="To add new language press ENTER when you are in the active field."
     data-tooltip-text="WIZARD.STEP.EXPERT.LANGUAGE.TOOLTIP"
+    data-check-is-step-valid="vm.checkLanguages"
     )
       input-dropdown-tag(
         data-dictionary="vm.languagesList"
         data-selected-items-value="vm.languagesModel"
+        data-is-valid="vm.checkLanguages()"
+        data-is-submitted="vm.isSubmitted"
+        data-validation-text="WIZARD.EXPERT.LANGUAGES_INPUT_VALIDATION"
       )
 
     wizard-step.step(
       data-title="WIZARD.STEP.EXPERT.DESCRIPTION.TITLE"
       data-tooltip-text="WIZARD.STEP.EXPERT.DESCRIPTION.TOOLTIP"
+      data-check-is-step-valid="vm.checkProfileDescription"
     )
       textarea-primary(
         data-ng-model="vm.descriptionModel"
         data-id="desctName"
+        data-is-valid="vm.checkProfileDescription()"
+        data-validation-text="WIZARD.EXPERT.TEXTAREA_INPUT_VALIDATION"
         data-max-length="600"
+        data-is-submitted="vm.isSubmitted"
       )
 
     wizard-step.step(
@@ -51,3 +67,5 @@
     )
 
       wizard-links(data-selected-links="vm.linksModel")
+
+    p(data-ng-show='!vm.isFormValid() && vm.isSubmitted') {{ 'WIZARD.EXPERT.VALIDATE_FORM' | translate }}

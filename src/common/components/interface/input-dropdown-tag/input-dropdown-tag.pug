@@ -6,6 +6,8 @@
       data-ng-model="$ctrl.filterInputText"
       data-ng-click="$ctrl.inputClick()"
       data-ng-enter="$ctrl.onClickEnter()"
+      data-ng-focus="$ctrl.onFocus()"
+      data-ng-blur="$ctrl.onBlur()"
     )
     label {{ $ctrl.label | translate}}
 
@@ -21,6 +23,10 @@
             a(data-translate="INTERFACE.DROPDOWN_PRIMARY.NO_RESULTS")
 
   p.hint {{ $ctrl.hintLabel | translate }}
+  .alert-cloud(data-ng-show="!$ctrl.isValid && $ctrl.validationText " +
+  "&& $ctrl.validationText.length > 0 && !$ctrl.isFocus && $ctrl.isDirty || $ctrl.isSubmitted && !$ctrl.isValid && " +
+  "$ctrl.validationText && $ctrl.validationText.length > 0")
+    span.alert-text {{:: $ctrl.validationText | translate }}
 
   ul.tag-list
     li(data-ng-repeat="item in $ctrl.selectedItems")

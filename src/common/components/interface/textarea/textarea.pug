@@ -8,10 +8,14 @@
     placeholder="{{ $ctrl.placeholder | translate }}"
     maxlength="{{$ctrl.maxLength}}"
     data-ng-model="$ctrl.ngModel"
+    data-ng-focus="$ctrl.onFocus()"
+    data-ng-blur="$ctrl.onBlur()"
   )
 
-  .alert-cloud(data-ng-if="$ctrl.validation")
-    span.alert-text {{:: $ctrl.alertText | translate }}
+  .alert-cloud(data-ng-show="!$ctrl.isValid && $ctrl.validationText " +
+  "&& $ctrl.validationText.length > 0 && !$ctrl.isFocus && $ctrl.isDirty || $ctrl.isSubmitted && !$ctrl.isValid && " +
+  "$ctrl.validationText && $ctrl.validationText.length > 0")
+    span.alert-text {{:: $ctrl.validationText | translate }}
 
 
 .input-sign-counter(data-ng-show="$ctrl.maxLength")

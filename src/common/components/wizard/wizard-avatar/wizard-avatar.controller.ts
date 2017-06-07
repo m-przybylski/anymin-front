@@ -14,6 +14,8 @@ export class WizardAvatarComponentController implements IWizardAvatarComponentBi
   private imageSource: string
 
   public avatarToken?: string
+  public isValid?: boolean
+  public isSubmitted?: boolean
 
   /* @ngInject */
   constructor( uploaderFactory: UploaderFactory, private urlService: UrlService, private $scope: ng.IScope) {

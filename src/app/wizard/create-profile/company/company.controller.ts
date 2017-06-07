@@ -19,6 +19,8 @@ export class CompanyController implements ng.IController {
   public dictionary: {
     [key: string]: string
   }
+
+  public isSubmitted: boolean = false
   /* @ngInject */
   constructor(private WizardApi: WizardApi, private $state: ng.ui.IStateService,
               private wizardProfile?: GetWizardProfile) {
@@ -64,12 +66,29 @@ export class CompanyController implements ng.IController {
   }
 
   public goToSummary = () => {
-    if (this.currentWizardState.organizationDetailsOption
-      && this.currentWizardState.organizationDetailsOption.name
-      && this.currentWizardState.organizationDetailsOption.logo
-      && this.currentWizardState.organizationDetailsOption.description) {
+    if (this.checkIsFormValid()) {
       this.$state.go('app.wizard.summary')
+    } else {
+      this.isSubmitted = true
     }
   }
 
+  public checkNameInput = () => {
+    return this.nameModel && this.nameModel.length > 2
+  }
+
+  public checkLogo = () => {
+    return this.logoModel && this.logoModel.length > 0
+  }
+
+  public checkProfileDescription = () => {
+    return this.descriptionModel && this.descriptionModel.length > 49
+  }
+
+  public checkIsFormValid = (): boolean => {
+    return !!(this.currentWizardState.expertDetailsOption
+    && this.checkNameInput()
+    && this.checkLogo()
+    && this.checkProfileDescription())
+  }
 }

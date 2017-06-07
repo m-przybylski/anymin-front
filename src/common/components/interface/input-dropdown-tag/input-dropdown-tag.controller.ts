@@ -26,6 +26,8 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
   public dropdownScroll: JQuery
 
   public filterInputText: string
+  public isFocus: boolean = false
+  public isDirty: boolean = false
 
   private keyCodes = {
     arrowDown: 40,
@@ -128,6 +130,7 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
     this.selectedItemsValue.splice(index, 1)
     this.dropdownList.push(item)
     this.filterItems()
+    this.isDirty = true
   }
 
   public onMainItemSelect = (item: IDropdownItem, index: number): void => {
@@ -137,6 +140,15 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
     this.dropdownList.splice(index, 1)
 
     this.clearInput()
+  }
+
+  public onFocus = () => {
+    this.isFocus = true
+    this.isDirty = true
+  }
+
+  public onBlur = () => {
+    this.isFocus = false
   }
 
   public onArrowItemSelect = () => {

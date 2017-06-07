@@ -19,6 +19,8 @@ export class ExpertController implements ng.IController {
     [key: string]: string
   }
 
+  public isSubmitted: boolean = false
+
   /* @ngInject */
   constructor(private WizardApi: WizardApi, private $state: ng.ui.IStateService,
               private wizardProfile?: GetWizardProfile) {
@@ -47,7 +49,7 @@ export class ExpertController implements ng.IController {
     this.currentWizardState.isCompany = false
     this.WizardApi.putWizardProfileRoute(this.currentWizardState).then((_response) => {
     }, (error) => {
-      throw new Error('Can not save' +  error)
+      throw new Error('Can not save' + error)
     })
 
   }
@@ -74,18 +76,35 @@ export class ExpertController implements ng.IController {
   }
 
   public goToSummary = () => {
-  if (this.currentWizardState.expertDetailsOption
-    && this.currentWizardState.expertDetailsOption.name
-    && this.currentWizardState.expertDetailsOption.description
-    && this.currentWizardState.expertDetailsOption.languages
-    && this.currentWizardState.expertDetailsOption.languages.length > 0) {
-    this.$state.go('app.wizard.summary')
+    if (this.checkIsFormValid()) {
+      this.$state.go('app.wizard.summary')
+    } else {
+      this.isSubmitted = true
+    }
   }
-}
 
-  // Validations Methods:
-  public checkNameInput = () => {
-    return this.nameModel && this.nameModel.length > 2
+  public checkNameInput = (): boolean => {
+    return !!(this.nameModel && this.nameModel.length > 2)
+  }
+
+  public checkAvatar = (): boolean => {
+    return !!(this.avatarModel && this.avatarModel.length > 0)
+  }
+
+  public checkLanguages = (): boolean => {
+    return !!(this.languagesModel && this.languagesModel.length > 0)
+  }
+
+  public checkProfileDescription = (): boolean => {
+    return !!(this.descriptionModel && this.descriptionModel.length >= 50)
+  }
+
+  public checkIsFormValid = (): boolean => {
+    return !!(this.currentWizardState.expertDetailsOption
+      && this.checkNameInput()
+      && this.checkAvatar()
+      && this.checkLanguages()
+      && this.checkProfileDescription())
   }
 
 }

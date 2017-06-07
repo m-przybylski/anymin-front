@@ -10,24 +10,36 @@
       data-ng-pattern="vm.patternName"
       data-id="firstName"
       data-validation=""
+      data-is-valid="vm.checkNameInput()"
+      data-validation-text="WIZARD.COMPANY.NAME_INPUT_VALIDATION"
       data-max-length="150"
+      data-is-submitted="vm.isSubmitted"
       )
 
     wizard-step.step(
     data-title="WIZARD.STEP.EXPERT.PHOTO.TITLE"
     data-tooltip-text="Tooltip komponent bardzo dlugi tekst na dwie linie albo trzy"
+    data-check-is-step-valid="vm.checkLogo"
     )
-      wizard-avatar(data-avatar-token="vm.logoModel")
+      wizard-avatar(
+      data-avatar-token="vm.logoModel"
+      data-is-valid="vm.checkLogo()"
+      data-validation-text="WIZARD.COMPANY.AVATAR_INPUT_VALIDATION"
+      data-is-submitted="vm.isSubmitted")
 
 
     wizard-step.step(
-    data-title="WIZARD.STEP.EXPERT.DESCRIPTION.TITLE"
+    data-title="WIZARD.STEP.COMPANY.DESCRIPTION.TITLE"
     data-tooltip-text="DESCRIPTION"
+    data-check-is-step-valid="vm.checkProfileDescription"
     )
       textarea-primary(
       data-ng-model="vm.descriptionModel"
       data-id="desctName"
       data-max-length="600"
+      data-is-valid="vm.checkProfileDescription()"
+      data-validation-text="WIZARD.COMPANY.TEXTAREA_INPUT_VALIDATION"
+      data-is-submitted="vm.isSubmitted"
       )
 
     wizard-step.step(
@@ -43,3 +55,5 @@
     )
 
       wizard-links(data-selected-links="vm.linksModel")
+
+    p(data-ng-show='!vm.isFormValid() && vm.isSubmitted') {{ 'WIZARD.COMPANY.VALIDATE_FORM' | translate }}

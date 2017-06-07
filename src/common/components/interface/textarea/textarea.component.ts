@@ -8,8 +8,10 @@ export class InputComponent implements ng.IComponentOptions {
     name: '@',
     inputText: '@',
     placeholder: '@',
-    alertText: '@',
+    validationText: '@',
     maxLength: '@',
-    ngModel: '='
+    isValid: '<',
+    ngModel: '=',
+    isSubmitted: '<'
   }
 }

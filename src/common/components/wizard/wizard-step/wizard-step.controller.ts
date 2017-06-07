@@ -28,6 +28,10 @@ export class WizardStepComponentController implements IWizardStepModuleComponent
     this.wizardHandler.goToPreviousWizardStep()
   }
 
+  public checkIsDisabled = () => {
+    return typeof this.checkIsStepValid === 'undefined' || this.checkIsStepValid()
+  }
+
   $onInit = () => {
     this.$timeout(() => {
       this.isActive = this.wizardHandler.currentStep === this.$element[0]
