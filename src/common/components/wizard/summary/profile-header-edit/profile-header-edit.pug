@@ -25,7 +25,7 @@
                 span.icon(pro-social-icon-getter data-url="link")
 
           .edit-profile
-            a(data-ui-sref="{{$ctrl.deleteLink}}")
+            a(data-ng-click="$ctrl.deleteProfile()")
               span.icon.icon-trash-24
 
             a(data-ui-sref="{{$ctrl.editLink}}")

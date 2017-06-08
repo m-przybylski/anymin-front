@@ -47,15 +47,18 @@ export class ExpertController implements ng.IController {
     }
     this.currentWizardState.isExpert = true
     this.currentWizardState.isCompany = false
-    this.WizardApi.putWizardProfileRoute(this.currentWizardState).then((_response) => {
-    }, (error) => {
-      throw new Error('Can not save' + error)
-    })
+    this.saveWizardState(this.currentWizardState)
+  }
 
+  public onGoBack = () => {
+    this.currentWizardState.isExpert = false
+    this.currentWizardState.isCompany = false
+    this.saveWizardState(this.currentWizardState).then(() => {
+      this.$state.go('app.wizard.create-profile')
+    })
   }
 
   public saveSteps = () => {
-
     const wizardExpertModel: PartialExpertDetails = {
       name: this.nameModel,
       avatar: this.avatarModel,
@@ -65,46 +68,59 @@ export class ExpertController implements ng.IController {
       links: this.linksModel
     }
 
-    if (!this.currentWizardState.expertDetailsOption
-      || !(_.isEqual(this.currentWizardState.expertDetailsOption, wizardExpertModel))) {
+    if (this.checkIsAnyStepModelChange(wizardExpertModel)) {
       this.currentWizardState.expertDetailsOption = angular.copy(wizardExpertModel)
-      this.WizardApi.putWizardProfileRoute(this.currentWizardState).then((_response) => {
-      }, (error) => {
-        throw new Error('Can not save profile steps' + error)
-      })
+      this.saveWizardState(this.currentWizardState)
     }
+
   }
 
   public goToSummary = () => {
     if (this.checkIsFormValid()) {
-      this.$state.go('app.wizard.summary')
+      this.currentWizardState.expertDetailsOption!.links = this.linksModel
+      this.currentWizardState.isSummary = true
+      this.saveWizardState(this.currentWizardState).then(() => {
+        this.$state.go('app.wizard.summary')
+      })
     } else {
       this.isSubmitted = true
     }
   }
 
-  public checkNameInput = (): boolean => {
+  public checkIsNameInputValid = (): boolean => {
     return !!(this.nameModel && this.nameModel.length > 2)
   }
 
-  public checkAvatar = (): boolean => {
+  public checkIsAvatarValid = (): boolean => {
     return !!(this.avatarModel && this.avatarModel.length > 0)
   }
 
-  public checkLanguages = (): boolean => {
+  public checkIsLanguagesValid = (): boolean => {
     return !!(this.languagesModel && this.languagesModel.length > 0)
   }
 
-  public checkProfileDescription = (): boolean => {
+  public checkIsProfileDescriptionValid = (): boolean => {
     return !!(this.descriptionModel && this.descriptionModel.length >= 50)
   }
 
   public checkIsFormValid = (): boolean => {
     return !!(this.currentWizardState.expertDetailsOption
-      && this.checkNameInput()
-      && this.checkAvatar()
-      && this.checkLanguages()
-      && this.checkProfileDescription())
+    && this.checkIsNameInputValid()
+    && this.checkIsAvatarValid()
+    && this.checkIsLanguagesValid()
+    && this.checkIsProfileDescriptionValid())
+  }
+
+  private saveWizardState = (wizardState: PutWizardProfile) => {
+    return this.WizardApi.putWizardProfileRoute(wizardState)
+    .catch((error) => {
+      throw new Error('Can not save profile steps' + error)
+    })
+  }
+
+  private checkIsAnyStepModelChange = (currentFormModel: PartialExpertDetails) => {
+    return !this.currentWizardState.expertDetailsOption
+      || !(_.isEqual(this.currentWizardState.expertDetailsOption, currentFormModel))
   }
 
 }

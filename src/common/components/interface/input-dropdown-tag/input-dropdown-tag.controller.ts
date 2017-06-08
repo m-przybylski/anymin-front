@@ -56,7 +56,6 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
         value: selectItemValue
       })
     })
-
   }
 
   /* @ngInject */

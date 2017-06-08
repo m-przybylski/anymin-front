@@ -123,8 +123,8 @@ module.exports = function (config) {
         global: {
           statements: 78,
           branches: 47,
-          functions: 65,
-          lines: 79
+          functions: 64,
+          lines: 78
         }
       },
       reporters: [

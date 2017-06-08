@@ -7,7 +7,8 @@ import profileGalleryModule from '../../../interface/profile-gallery/profile-gal
 
 export interface IProfileHeaderEditComponentBindings extends ng.IController {
   profileDetails?: GetExpertDetails,
-  profileType: ProfileTypes
+  profileType: ProfileTypes,
+  onDelete?: () => void
 }
 
 export enum  ProfileTypes {

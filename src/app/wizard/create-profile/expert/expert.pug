@@ -3,13 +3,14 @@
     wizard-step.step(
     data-title="WIZARD.STEP.EXPERT.NAME.TITLE"
     data-tooltip-text="WIZARD.STEP.EXPERT.NAME.TOOLTIP"
-    data-check-is-step-valid="vm.checkNameInput"
+    data-check-is-step-valid="vm.checkIsNameInputValid"
+    data-on-go-back="vm.onGoBack"
     )
       input-primary(
       data-ng-model="vm.nameModel"
       data-ng-pattern="vm.patternName"
       data-id="firstName"
-      data-is-valid="vm.checkNameInput()"
+      data-is-valid="vm.checkIsNameInputValid()"
       data-validation-text="WIZARD.EXPERT.NAME_INPUT_VALIDATION"
       data-max-length="150"
       data-is-submitted="vm.isSubmitted"
@@ -18,11 +19,11 @@
     wizard-step.step(
     data-title="WIZARD.STEP.EXPERT.PHOTO.TITLE"
     data-tooltip-text="WIZARD.STEP.EXPERT.PHOTO.TOOLTIP"
-    data-check-is-step-valid="vm.checkAvatar"
+    data-check-is-step-valid="vm.checkIsAvatarValid"
     )
       wizard-avatar(
       data-avatar-token="vm.avatarModel"
-      data-is-valid="vm.checkAvatar()"
+      data-is-valid="vm.checkIsAvatarValid()"
       data-validation-text="WIZARD.EXPERT.AVATAR_INPUT_VALIDATION"
       data-is-submitted="vm.isSubmitted")
 
@@ -30,12 +31,12 @@
     data-title="WIZARD.STEP.EXPERT.LANGUAGE.TITLE"
     data-additional-text="To add new language press ENTER when you are in the active field."
     data-tooltip-text="WIZARD.STEP.EXPERT.LANGUAGE.TOOLTIP"
-    data-check-is-step-valid="vm.checkLanguages"
+    data-check-is-step-valid="vm.checkIsLanguagesValid"
     )
       input-dropdown-tag(
         data-dictionary="vm.languagesList"
         data-selected-items-value="vm.languagesModel"
-        data-is-valid="vm.checkLanguages()"
+        data-is-valid="vm.checkIsLanguagesValid()"
         data-is-submitted="vm.isSubmitted"
         data-validation-text="WIZARD.EXPERT.LANGUAGES_INPUT_VALIDATION"
       )
@@ -43,12 +44,12 @@
     wizard-step.step(
       data-title="WIZARD.STEP.EXPERT.DESCRIPTION.TITLE"
       data-tooltip-text="WIZARD.STEP.EXPERT.DESCRIPTION.TOOLTIP"
-      data-check-is-step-valid="vm.checkProfileDescription"
+      data-check-is-step-valid="vm.checkIsProfileDescriptionValid"
     )
       textarea-primary(
         data-ng-model="vm.descriptionModel"
         data-id="desctName"
-        data-is-valid="vm.checkProfileDescription()"
+        data-is-valid="vm.checkIsProfileDescriptionValid()"
         data-validation-text="WIZARD.EXPERT.TEXTAREA_INPUT_VALIDATION"
         data-max-length="600"
         data-is-submitted="vm.isSubmitted"

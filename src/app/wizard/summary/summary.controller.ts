@@ -1,4 +1,5 @@
 import {GetWizardProfile, PartialExpertDetails} from 'profitelo-api-ng/model/models'
+import {WizardApi} from 'profitelo-api-ng/api/api'
 export class SummaryController implements ng.IController {
 
   public name?: string = ''
@@ -12,27 +13,33 @@ export class SummaryController implements ng.IController {
   public isConsultation: boolean = false
 
   /* @ngInject */
-  constructor($state: ng.ui.IStateService, wizardProfile?: GetWizardProfile) {
-    this.isExpert = wizardProfile!.isExpert
-    this.wizardProfileData = wizardProfile!.expertDetailsOption
+  constructor(private $state: ng.ui.IStateService, private WizardApi: WizardApi, wizardProfile?: GetWizardProfile) {
 
     if (wizardProfile) {
       if (wizardProfile.expertDetailsOption && wizardProfile.isExpert) {
-        this.name = wizardProfile.expertDetailsOption!.name
-        this.avatar = wizardProfile.expertDetailsOption!.avatar
-        this.files = wizardProfile.expertDetailsOption!.files
-        this.languages = wizardProfile.expertDetailsOption!.languages
-        this.description = wizardProfile.expertDetailsOption!.description
-        this.links = wizardProfile.expertDetailsOption!.links
+        this.isExpert = wizardProfile.isExpert
+        this.wizardProfileData = wizardProfile.expertDetailsOption
+
       } else if (wizardProfile.organizationDetailsOption && wizardProfile.isCompany) {
-        this.name = wizardProfile.organizationDetailsOption!.name
-        this.avatar = wizardProfile.organizationDetailsOption!.logo
-        this.files = wizardProfile.organizationDetailsOption!.files
-        this.description = wizardProfile.organizationDetailsOption!.description
-        this.links = wizardProfile.organizationDetailsOption!.links
+        this.isExpert = wizardProfile.isExpert
+        this.wizardProfileData = wizardProfile.organizationDetailsOption
       }
     } else {
       $state.go('app.wizard.create-profile')
     }
+
   }
+
+  public onMainProfileDelete = () => {
+    this.WizardApi.putWizardProfileRoute({
+      isSummary: false,
+      isCompany: false,
+      isExpert: false
+    }).then(() => {
+      this.$state.go('app.wizard.create-profile')
+    }, (error) => {
+      throw new Error(error)
+    })
+  }
+
 }

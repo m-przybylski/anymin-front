@@ -1,21 +1,21 @@
 section.create-profile
   .container-big
+    preloader(data-is-loading="vm.isLoading")
+      header.entry-title(data-ng-if="!vm.isSummary")
+        span {{:: 'WIZARD.STEP.TITLE' | translate }}
+        tooltip(data-tooltip-text="Wybierz krok")
 
-    header.entry-title
-      span {{:: 'WIZARD.STEP.TITLE' | translate }}
-      tooltip(data-tooltip-text="Wybierz krok")
+      .create-profile-directory.step(data-ng-if="!vm.isSummary")
+        .expert-directory(data-ui-sref-active="{'is-active': 'app.wizard.create-profile.expert'}"
+        data-ng-click="vm.selectExpertPath()")
+          a
+            span.icon.icon-person-128
+            p Zostań ekspertem
 
-    .create-profile-directory.step
-      .expert-directory(data-ui-sref-active="{'is-active': 'app.wizard.create-profile.expert'}"
-      data-ng-click="vm.selectExpertPath()")
-        a
-          span.icon.icon-person-128
-          p Zostań ekspertem
+        .company-directory(data-ui-sref-active="{'is-active': 'app.wizard.create-profile.company'}"
+        data-ng-click="vm.selectCompanyPath()")
+          a
+            span.icon.icon-multiperson-128
+            p Zostań firmą
 
-      .company-directory(data-ui-sref-active="{'is-active': 'app.wizard.create-profile.company'}"
-      data-ng-click="vm.selectCompanyPath()")
-        a
-          span.icon.icon-multiperson-128
-          p Zostań firmą
-
-    .create-profile-content(data-ui-view="")
+      .create-profile-content(data-ui-view="")
