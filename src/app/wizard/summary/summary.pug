@@ -3,6 +3,7 @@
     data-profile-details="vm.wizardProfileData"
     data-profile-type="vm.isExpert"
     data-documents="vm.files"
+    data-on-delete="vm.onMainProfileDelete"
   )
   .container(data-ng-if="$ctrl.isConsultation")
     single-consultation-edit()
@@ -10,7 +11,7 @@
   .container
     .add-new-consultation(data-ng-show="!vm.isConsultation")
       p(data-translate="WIZARD.SUMMARY.ADD.TITLE")
-      a.btn.btn-default(data-translate="WIZARD.SUMMARY.ADD.BUTTON")
+      a.btn.btn-default(data-translate="WIZARD.SUMMARY.ADD.BUTTON" data-ui-sref="app.wizard.consultation")
 
     .add-another-consultation(data-ng-show="vm.isConsultation")
       p(data-translate="WIZARD.SUMMARY.ADD.ANOTHER.TITLE")

@@ -4,7 +4,10 @@
       .upload-field(class="drop-box"
       ngf-drop="$ctrl.uploadFiles($files)"
       ngf-multiple="true"
-      ngf-select="$ctrl.uploadFiles($files)")
+      ngf-select="$ctrl.uploadFiles($files)"
+      ngf-allow-dir="false"
+      ngf-pattern="'.pdf,.jpg,.jpeg,.png"
+      accept="'image/*'")
         .upload-title
           span.icon.icon-upload-24
           div

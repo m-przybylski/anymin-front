@@ -7,23 +7,25 @@ export class ProfileHeaderEditComponentController implements IProfileHeaderEditC
   profileType: ProfileTypes
   documents: Array<ProfileDocument>
   editLink: string = ''
+  onDelete: () => void
 
   /* @ngInject */
-  constructor() {}
+  constructor() {
+    this.editLink = 'app.wizard.create-profile.expert'
+  }
 
   $onInit = () => {
     if (this.profileDetails) {
       this.documents = this.profileDetails.files
     }
-
-    if (this.profileType) {
-      this.editLink = 'app.wizard.create-profile.expert'
-    } else {
-      this.editLink = 'app.wizard.create-profile.company'
-    }
   }
 
   public checkType = (): boolean =>
     this.profileType === ProfileTypes.expert
+
+  public deleteProfile = () => {
+    if (this.onDelete && typeof this.onDelete === 'function')
+    this.onDelete()
+  }
 
 }

@@ -4,6 +4,9 @@ export class WizardAvatarComponent implements ng.IComponentOptions {
   controller: ng.Injectable<ng.IControllerConstructor> = WizardAvatarComponentController
   template = require('./wizard-avatar.pug')()
   bindings: {[boundProperty: string]: string} = {
-    avatarToken: '=?'
+    avatarToken: '=?',
+    isValid: '<',
+    isSubmitted: '<',
+    validationText: '@'
   }
 }

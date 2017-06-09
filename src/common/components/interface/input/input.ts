@@ -7,12 +7,13 @@ export interface IInputComponentBindings extends ng.IController {
   name: string
   inputText: string
   placeholder: string
-  alertText: string
+  validationText: string
   maxLength: string
-  validation: boolean
+  isValid: boolean
   ngRequired: boolean
   ngModel: boolean
   ngPattern: string
+  isSubmitted?: boolean
 }
 
 const inputModule = angular.module('profitelo.components.interface.input', [

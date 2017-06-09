@@ -19,6 +19,8 @@ export class ExpertController implements ng.IController {
     [key: string]: string
   }
 
+  public isSubmitted: boolean = false
+
   /* @ngInject */
   constructor(private WizardApi: WizardApi, private $state: ng.ui.IStateService,
               private wizardProfile?: GetWizardProfile) {
@@ -45,11 +47,15 @@ export class ExpertController implements ng.IController {
     }
     this.currentWizardState.isExpert = true
     this.currentWizardState.isCompany = false
-    this.WizardApi.putWizardProfileRoute(this.currentWizardState).then((_response) => {
-    }, (error) => {
-      throw new Error('Can not save' +  error)
-    })
+    this.saveWizardState(this.currentWizardState)
+  }
 
+  public onGoBack = () => {
+    this.currentWizardState.isExpert = false
+    this.currentWizardState.isCompany = false
+    this.saveWizardState(this.currentWizardState).then(() => {
+      this.$state.go('app.wizard.create-profile')
+    })
   }
 
   public saveSteps = () => {
@@ -62,28 +68,59 @@ export class ExpertController implements ng.IController {
       links: this.linksModel
     }
 
-    if (!this.currentWizardState.expertDetailsOption || !(_.isEqual(this.currentWizardState.expertDetailsOption, wizardExpertModel))) {
-      this.currentWizardState.expertDetailsOption = wizardExpertModel
-      this.WizardApi.putWizardProfileRoute(this.currentWizardState).then((_response) => {
-      }, (error) => {
-        throw new Error('Can not save profile steps' + error)
-      })
+    if (this.checkIsAnyStepModelChange(wizardExpertModel)) {
+      this.currentWizardState.expertDetailsOption = angular.copy(wizardExpertModel)
+      this.saveWizardState(this.currentWizardState)
     }
+
   }
 
   public goToSummary = () => {
-  if (this.currentWizardState.expertDetailsOption
-    && this.currentWizardState.expertDetailsOption.name
-    && this.currentWizardState.expertDetailsOption.description
-    && this.currentWizardState.expertDetailsOption.languages
-    && this.currentWizardState.expertDetailsOption.languages.length > 0) {
-    this.$state.go('app.wizard.summary')
+    if (this.checkIsFormValid()) {
+      this.currentWizardState.expertDetailsOption!.links = this.linksModel
+      this.currentWizardState.isSummary = true
+      this.saveWizardState(this.currentWizardState).then(() => {
+        this.$state.go('app.wizard.summary')
+      })
+    } else {
+      this.isSubmitted = true
+    }
   }
-}
 
-  // Validations Methods:
-  public checkNameInput = () => {
-    return this.nameModel && this.nameModel.length > 2
+  public checkIsNameInputValid = (): boolean => {
+    return !!(this.nameModel && this.nameModel.length > 2)
+  }
+
+  public checkIsAvatarValid = (): boolean => {
+    return !!(this.avatarModel && this.avatarModel.length > 0)
+  }
+
+  public checkIsLanguagesValid = (): boolean => {
+    return !!(this.languagesModel && this.languagesModel.length > 0)
+  }
+
+  public checkIsProfileDescriptionValid = (): boolean => {
+    return !!(this.descriptionModel && this.descriptionModel.length >= 50)
+  }
+
+  public checkIsFormValid = (): boolean => {
+    return !!(this.currentWizardState.expertDetailsOption
+    && this.checkIsNameInputValid()
+    && this.checkIsAvatarValid()
+    && this.checkIsLanguagesValid()
+    && this.checkIsProfileDescriptionValid())
+  }
+
+  private saveWizardState = (wizardState: PutWizardProfile) => {
+    return this.WizardApi.putWizardProfileRoute(wizardState)
+    .catch((error) => {
+      throw new Error('Can not save profile steps' + error)
+    })
+  }
+
+  private checkIsAnyStepModelChange = (currentFormModel: PartialExpertDetails) => {
+    return !this.currentWizardState.expertDetailsOption
+      || !(_.isEqual(this.currentWizardState.expertDetailsOption, currentFormModel))
   }
 
 }

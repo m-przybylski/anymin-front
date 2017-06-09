@@ -43,8 +43,8 @@ describe('Unit testing: profitelo.components.interface.input', () => {
         inputText: 'tekst',
         placeholder: 'placeholder',
         maxLength: '20',
-        alertText: 'tekst',
-        validation: true,
+        validationText: 's',
+        isValid: true,
         ngRequired: false,
         ngModel: true,
         ngPattern: 'regex'

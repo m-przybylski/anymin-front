@@ -5,12 +5,14 @@ export class InputComponentController implements IInputComponentBindings {
   public name: string
   public inputText: string = ''
   public placeholder: string
-  public alertText: string
+  public validationText: string
   public maxLength: string = ''
-  public validation: boolean = false
+  public isValid: boolean
   public ngRequired: boolean = false
   public ngModel: boolean = false
   public ngPattern: string
+  public isFocus: boolean = false
+  public isDirty: boolean = false
 
   /* @ngInject */
   constructor($element: any) {
@@ -26,5 +28,14 @@ export class InputComponentController implements IInputComponentBindings {
         }
       })
     }
+  }
+
+  public onFocus = () => {
+    this.isFocus = true
+    this.isDirty = true
+  }
+
+  public onBlur = () => {
+    this.isFocus = false
   }
 }

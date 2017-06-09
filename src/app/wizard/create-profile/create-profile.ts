@@ -24,6 +24,11 @@ const createProfilePageModule = angular.module('profitelo.controller.wizard.crea
     controllerAs: 'vm',
     controller: CreateProfileController,
     template: require('./create-profile.pug')(),
+    resolve: {
+      previousState: ($state: ng.ui.IStateService): string | undefined => {
+        return $state.current.name
+      }
+    },
     data: {
       permissions: {
         only: ['user'],

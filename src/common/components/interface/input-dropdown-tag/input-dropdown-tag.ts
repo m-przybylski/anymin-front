@@ -9,6 +9,9 @@ export interface InputDropdownTagComponentBindings extends ng.IController {
   placeholder: string
   dictionary: IDropdownInputDictionary
   hintLabel: string
+  isValid?: boolean
+  validationText?: string
+  isSubmitted?: boolean
   selectedItemsValue: Array<string>
 }
 

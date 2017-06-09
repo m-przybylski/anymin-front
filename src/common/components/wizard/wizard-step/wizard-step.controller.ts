@@ -10,6 +10,7 @@ export class WizardStepComponentController implements IWizardStepModuleComponent
   public isActive: boolean = false
   public isShowed: boolean = false
   public onGoToNext: () => void
+  public onGoBack: () => void
 
   /* @ngInject */
   constructor(private $element: ng.IRootElementService, private $timeout: ng.ITimeoutService) {
@@ -26,6 +27,13 @@ export class WizardStepComponentController implements IWizardStepModuleComponent
 
   public onClickBack = () => {
     this.wizardHandler.goToPreviousWizardStep()
+    if (this.onGoBack && typeof this.onGoBack === 'function') {
+      this.onGoBack()
+    }
+  }
+
+  public checkIsDisabled = () => {
+    return typeof this.checkIsStepValid === 'undefined' || this.checkIsStepValid()
   }
 
   $onInit = () => {

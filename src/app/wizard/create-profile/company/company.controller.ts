@@ -19,9 +19,19 @@ export class CompanyController implements ng.IController {
   public dictionary: {
     [key: string]: string
   }
+
+  public isSubmitted: boolean = false
   /* @ngInject */
   constructor(private WizardApi: WizardApi, private $state: ng.ui.IStateService,
               private wizardProfile?: GetWizardProfile) {
+  }
+
+  public onGoBack = () => {
+    this.currentWizardState.isExpert = false
+    this.currentWizardState.isCompany = false
+    this.saveWizardState(this.currentWizardState).then(() => {
+      this.$state.go('app.wizard.create-profile')
+    })
   }
 
   $onInit = () => {
@@ -37,11 +47,7 @@ export class CompanyController implements ng.IController {
     }
     this.currentWizardState.isExpert = false
     this.currentWizardState.isCompany = true
-    this.WizardApi.putWizardProfileRoute(this.currentWizardState).then((_response) => {
-    }, (error) => {
-      throw new Error('Can not save ' + error)
-    })
-
+    this.saveWizardState(this.currentWizardState)
   }
 
   public saveSteps = () => {
@@ -53,23 +59,53 @@ export class CompanyController implements ng.IController {
       links: this.linksModel
     }
 
-    if (!this.currentWizardState.organizationDetailsOption
-      || !(_.isEqual(this.currentWizardState.organizationDetailsOption, wizardOrganizationModel))) {
-      this.currentWizardState.organizationDetailsOption = wizardOrganizationModel
-      this.WizardApi.putWizardProfileRoute(this.currentWizardState).then((_response) => {
-      }, (error) => {
-        throw new Error('Can not save profile steps' + error)
-      })
+    if (this.checkIsAnyStepModelChange(wizardOrganizationModel)) {
+      this.currentWizardState.organizationDetailsOption = angular.copy(wizardOrganizationModel)
+      this.saveWizardState(this.currentWizardState)
     }
   }
 
   public goToSummary = () => {
-    if (this.currentWizardState.organizationDetailsOption
-      && this.currentWizardState.organizationDetailsOption.name
-      && this.currentWizardState.organizationDetailsOption.logo
-      && this.currentWizardState.organizationDetailsOption.description) {
-      this.$state.go('app.wizard.summary')
+    if (this.checkIsFormValid()) {
+      this.currentWizardState.organizationDetailsOption!.links = this.linksModel
+      this.currentWizardState.isSummary = true
+      this.saveWizardState(this.currentWizardState).then(() => {
+        this.$state.go('app.wizard.summary')
+      })
+    } else {
+      this.isSubmitted = true
     }
+  }
+
+  public checkIsNameInputValid = () => {
+    return this.nameModel && this.nameModel.length > 2
+  }
+
+  public checkIsLogoValid = () => {
+    return this.logoModel && this.logoModel.length > 0
+  }
+
+  public checkIsProfileDescriptionValid = () => {
+    return this.descriptionModel && this.descriptionModel.length > 49
+  }
+
+  public checkIsFormValid = (): boolean => {
+    return !!(this.currentWizardState.expertDetailsOption
+    && this.checkIsNameInputValid()
+    && this.checkIsLogoValid()
+    && this.checkIsProfileDescriptionValid())
+  }
+
+  private saveWizardState = (wizardState: PutWizardProfile) => {
+    return this.WizardApi.putWizardProfileRoute(wizardState)
+    .catch((error) => {
+      throw new Error('Can not save profile steps' + error)
+    })
+  }
+
+  private checkIsAnyStepModelChange = (currentFormModel: PartialOrganizationDetails) => {
+    return !this.currentWizardState.organizationDetailsOption
+      || !(_.isEqual(this.currentWizardState.organizationDetailsOption, currentFormModel))
   }
 
 }

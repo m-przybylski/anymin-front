@@ -8,7 +8,7 @@
       data-ng-class="{'invalid': $ctrl.badUrl}"
       )
 
-      .input-error-messages(data-ng-show="$ctrl.error.badUrl || $ctrl.error.urlExist")
+      .input-error-messages(data-ng-show="$ctrl.badUrl || $ctrl.urlExist")
         .error(data-translate="DASHBOARD.CREATE_PROFILE.ERROR_EXTERNAL_LINKS" data-ng-show="$ctrl.badUrl")
         .error(data-translate="DASHBOARD.CREATE_PROFILE.LINK_ALREADY_EXIST_ERROR" data-ng-show="$ctrl.urlExist")
 

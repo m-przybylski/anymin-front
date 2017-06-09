@@ -3,31 +3,44 @@
     wizard-step.step(
     data-title="WIZARD.STEP.EXPERT.NAME.TITLE"
     data-tooltip-text="Tooltip tekst krotki"
-    data-check-is-step-valid="vm.checkNameInput"
+    data-check-is-step-valid="vm.checkIsNameInputValid"
+    data-on-go-back="vm.onGoBack"
     )
       input-primary(
       data-ng-model="vm.nameModel"
       data-ng-pattern="vm.patternName"
       data-id="firstName"
       data-validation=""
+      data-is-valid="vm.checkIsNameInputValid()"
+      data-validation-text="WIZARD.COMPANY.NAME_INPUT_VALIDATION"
       data-max-length="150"
+      data-is-submitted="vm.isSubmitted"
       )
 
     wizard-step.step(
     data-title="WIZARD.STEP.EXPERT.PHOTO.TITLE"
     data-tooltip-text="Tooltip komponent bardzo dlugi tekst na dwie linie albo trzy"
+    data-check-is-step-valid="vm.checkIsLogoValid"
     )
-      wizard-avatar(data-avatar-token="vm.logoModel")
+      wizard-avatar(
+      data-avatar-token="vm.logoModel"
+      data-is-valid="vm.checkIsLogoValid()"
+      data-validation-text="WIZARD.COMPANY.AVATAR_INPUT_VALIDATION"
+      data-is-submitted="vm.isSubmitted")
 
 
     wizard-step.step(
-    data-title="WIZARD.STEP.EXPERT.DESCRIPTION.TITLE"
+    data-title="WIZARD.STEP.COMPANY.DESCRIPTION.TITLE"
     data-tooltip-text="DESCRIPTION"
+    data-check-is-step-valid="vm.checkIsProfileDescriptionValid"
     )
       textarea-primary(
       data-ng-model="vm.descriptionModel"
       data-id="desctName"
       data-max-length="600"
+      data-is-valid="vm.checkIsProfileDescriptionValid()"
+      data-validation-text="WIZARD.COMPANY.TEXTAREA_INPUT_VALIDATION"
+      data-is-submitted="vm.isSubmitted"
       )
 
     wizard-step.step(
@@ -43,3 +56,5 @@
     )
 
       wizard-links(data-selected-links="vm.linksModel")
+
+    p(data-ng-show='!vm.isFormValid() && vm.isSubmitted') {{ 'WIZARD.COMPANY.VALIDATE_FORM' | translate }}

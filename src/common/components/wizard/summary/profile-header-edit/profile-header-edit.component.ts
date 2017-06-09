@@ -5,6 +5,7 @@ export class ProfileHeaderEditComponent implements ng.IComponentOptions {
   template = require('./profile-header-edit.pug')()
   bindings: {[boundProperty: string]: string} = {
     profileDetails: '<',
-    profileType: '<'
+    profileType: '<',
+    onDelete: '<'
   }
 }
