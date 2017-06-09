@@ -23,16 +23,16 @@ export class DashboardSettingsPaymentsController implements ng.IController {
               private modalsService: ModalsService, FinancesApi: FinancesApi,
               private $state: ng.ui.IStateService, user: AccountDetails) {
 
-    if (!getInvoiceData) {
-      this.isAnyPaymentMethod = false
-    } else {
+    if (getInvoiceData) {
       this.isAnyPaymentMethod = true
       this.companyName = getInvoiceData.companyName
       this.vatNumber = getInvoiceData.vatNumber
-      this.address = getInvoiceData.address.street + ', ' + getInvoiceData.address.number +
-        ', ' + getInvoiceData.address.zipCode + ', ' + getInvoiceData.address.city + ', ' +
-        getInvoiceData.address.countryISO
-      this.isLongAddress = this.address.length > 10
+      if (getInvoiceData.address) {
+        this.address = getInvoiceData.address.street + ', ' + getInvoiceData.address.number +
+          ', ' + getInvoiceData.address.zipCode + ', ' + getInvoiceData.address.city + ', ' +
+          getInvoiceData.address.countryISO
+        this.isLongAddress = this.address.length > 10
+      }
     }
 
     FinancesApi.getClientBalanceRoute().then((clientBalance: MoneyDto) => {

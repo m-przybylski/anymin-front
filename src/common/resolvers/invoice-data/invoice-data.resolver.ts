@@ -24,7 +24,7 @@ export class InvoiceDataResolver implements IInvoiceDataResolver {
     if (error.status !== 404) {
       this.$log.error('Can not get company info: ' + error)
     }
-    return {}
+    return void 0
   }
 }
 
