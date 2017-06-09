@@ -1,9 +1,10 @@
-#notifications-menu
+#notifications-menu.navbar-menu
   .notifications-menu-container
-    ul.notifications-menu-header
+    ul.navbar-menu-header
       li.notifications-menu-mobile-header(data-ng-click="$ctrl.buttonCallback()")
-        span.icon.icon-back-24
-        a(data-translate="DASHBOARD.MENU.NOTIFICATIONS.HEADER.BACK")
+        a
+          span.icon.icon-back-24
+          span(data-translate="DASHBOARD.MENU.NOTIFICATIONS.HEADER.BACK")
       ul.notifications-menu-desktop-header
         li.notifications-tab(data-ng-click="$ctrl.showNotifications()"
           data-ng-class="{'is-animation' : $ctrl.isNotificationsTab}")
@@ -14,7 +15,7 @@
             span.invitations-count(data-ng-hide="$ctrl.areInvitationsDisplayed") (2)
 
     .notifications-lists-container
-      ul.notifications-animation.ng-hide(data-ng-show="$ctrl.isNotificationsTab")
+      ul.left-tab-animation.ng-hide(data-ng-show="$ctrl.isNotificationsTab")
         li.notifications-menu-row(data-ng-click="$ctrl.markAsRead($event)")
           div
             span.icon.icon-warning-24
@@ -43,7 +44,7 @@
               span.notification-description You're account is active now and you can start to pick up calls from your clients! If you don't want to talk right now. Set your availability.
               span.notification-time 2 days ago
 
-      ul.invitations-animation.ng-hide(data-ng-show="$ctrl.isInvitationsTab"
+      ul.right-tab-animation.ng-hide(data-ng-show="$ctrl.isInvitationsTab"
         data-ng-if="$ctrl.areInvitations")
         li.notifications-menu-row(data-ng-click="$ctrl.onNotificationClick($event)")
           div

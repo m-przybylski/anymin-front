@@ -1,4 +1,4 @@
-ul.nologin-state.navbar-list
+ul.nologin-state.navbar-list(data-ng-class="$ctrl.isHelpMenuShow ? 'mobile-menu-slide-left' : 'mobile-menu-slide-right' ")
   li.navbar-nav
     ul.menu-list.navbar-list
       li(data-ui-sref-active="is-active")
@@ -14,15 +14,18 @@ ul.nologin-state.navbar-list
           span.mobile-only.icon.icon-for-experts-24
           span(data-translate="NAVIGATION.MENU_ITEMS.FOR_EXPERTS")
       li
-        a.btn.btn-primary.btn-small.sign-in(data-ui-sref="app.login.account")
+        a.btn.btn-primary.btn-small.sign-in.navbar-btn(data-ui-sref="app.login.account")
           span.mobile-only.icon.icon-sign-in-24
           span(data-translate="NAVIGATION.MENU_ITEMS.JOIN_OR_LOGIN")
 
   li.navbar-notifications
     ul.menu-list.navbar-list
-      li.navbar-parent
-        a
+      li.navbar-parent.help-tab-link(data-ng-class="{'show-arrow' : $ctrl.isHelpMenuShow}")
+        a(data-ng-click="$ctrl.toggleHelpMenuShow()")
           span.navbar-item-handler
-            span.icon.icon-questionmark-24
+            span.icon.icon-questionmark-24(data-ng-class="{'active-icon' : $ctrl.isHelpMenuShow}")
             span.mobile-title(data-translate="NAVIGATION.MENU_ITEMS.HELP")
           span.mobile-only.icon.icon-next-24
+
+        .navbar-menu-container.navbar-menu-animation.animation(data-ng-if="$ctrl.isHelpMenuShow")
+          navbar-help(data-on-click="$ctrl.toggleHelpMenuShow")
