@@ -16,16 +16,16 @@
 
   .files-uploaded-list
     .file-item(data-ng-repeat="file in $ctrl.documentFiles")
+
       .file-preview
+        loader.file-loader(data-file-upload-info="file.fileUploadInfo" data-ng-hide="file.fileInfo")
         img.thumb.x64(data-ng-src="{{ ::file.fileInfo.previews[0] }}" data-ng-show="file.fileInfo")
-        span.upload-progress(data-ng-hide="file.fileInfo") {{ file.fileUploadInfo.loaded }}
 
       .file-info
         span.file-name {{ file.fileInfo.name || file.file.name  }}
         span.file-size {{ 'WIZARD.UPLOADER.FILE_SIZE_TEXT' | translate }}
-        | {{ file.fileInfo.size || 'WIZARD.UPLOADER.UPLOADING_TEXT' | translate }}
+        span.file-size.in-progress {{ file.fileInfo.size || 'WIZARD.UPLOADER.UPLOADING_TEXT' | translate }}
 
       .file-action
         a(data-ng-click="$ctrl.removeFile(file)")
           span.icon.icon-trash-24
-

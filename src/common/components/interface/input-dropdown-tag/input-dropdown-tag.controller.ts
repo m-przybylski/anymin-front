@@ -69,6 +69,7 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
       if (!ifTargetClicked) {
         this.isOpen = false
       }
+      $scope.$digest()
     })
 
     this.$scope.$watch(() => {
@@ -88,12 +89,13 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
           event.preventDefault()
           this.filterItems()
 
-          if (this.filteredItems && this.selectedItemNumber < this.filteredItems.length)
+          if (this.filteredItems && this.selectedItemNumber < this.filteredItems.length && this.isOpen)
             this.selectedItemNumber++
 
-          this.onArrowItemSelect()
-          this.isOpen = true
-          this.dropdownScroll.scrollTop(this.dropdownSelectedItem[0].offsetTop - (this.dropdown.height() / 2 - this.dropdownSelectedItem[0].clientHeight))
+          if (this.isOpen) {
+            this.onArrowItemSelect()
+            this.dropdownScroll.scrollTop(this.dropdownSelectedItem[0].offsetTop - (this.dropdown.height() / 2 - this.dropdownSelectedItem[0].clientHeight))
+          }
 
           break
 
@@ -101,12 +103,13 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
           event.preventDefault()
           this.filterItems()
 
-          if (this.selectedItemNumber > 1)
+          if (this.selectedItemNumber > 1 && this.isOpen)
             this.selectedItemNumber--
 
-          this.onArrowItemSelect()
-          this.isOpen = true
-          this.dropdownScroll.scrollTop(this.dropdownSelectedItem[0].offsetTop - (this.dropdown.height() / 2 - this.dropdownSelectedItem[0].clientHeight))
+          if (this.isOpen) {
+            this.onArrowItemSelect()
+            this.dropdownScroll.scrollTop(this.dropdownSelectedItem[0].offsetTop - (this.dropdown.height() / 2 - this.dropdownSelectedItem[0].clientHeight))
+          }
 
           break
 
