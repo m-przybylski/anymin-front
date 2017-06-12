@@ -1,0 +1,20 @@
+.consultation-tag-input
+
+  input-primary(
+    data-ng-model="$ctrl.tagModel"
+    data-ng-enter="$ctrl.onEnter()"
+  )
+
+  .checked-list
+    ul.tag-list
+      li(data-ng-repeat="tag in $ctrl.selectedTags")
+        a(data-ng-click="$ctrl.deleteSelectedItem($index)") {{tag}}
+          span.icon.icon-failure-24
+
+  .recommended-lst
+    p.label(data-translate="WIZARD.CONSULTATION.TAG.RECOMMENDED.TITLE")
+
+    ul.tag-list.recomended-tags
+      li(data-ng-repeat="item in $ctrl.dictionary")
+        a(data-ng-click="$ctrl.addSelectedItem(item, $index)")
+          span {{ item }}

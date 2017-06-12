@@ -3,10 +3,11 @@ import IScope = angular.IScope
 import companyWizardModule from './company'
 import {GetWizardProfile} from 'profitelo-api-ng/model/models'
 import {WizardApi} from 'profitelo-api-ng/api/api'
+import {CompanyController} from './company.controller'
 
 describe('Testing Controller: CompanyController', () => {
 
-  let CompanyController: any
+  let CompanyController: CompanyController
   let scope: IScope
   let httpBackend: ng.IHttpBackendService
 
@@ -14,12 +15,10 @@ describe('Testing Controller: CompanyController', () => {
     isExpert: false,
     isCompany: false,
     isSummary: false
-
   }
 
   beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
     $provide.value('apiUrl', 'awesomeURL/')
-
   }))
 
   beforeEach(() => {
@@ -27,7 +26,7 @@ describe('Testing Controller: CompanyController', () => {
 
     inject(($controller: ng.IControllerService, $httpBackend: ng.IHttpBackendService, WizardApi: WizardApi) => {
       httpBackend = $httpBackend
-      CompanyController = $controller('companyController', {
+      CompanyController = $controller<CompanyController>('companyController', {
         $scope: scope,
         wizardProfile: wizardProfile,
         WizardApi: WizardApi

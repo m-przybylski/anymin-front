@@ -1,0 +1,19 @@
+.consultation-employee-input
+
+  .input-handler
+    input-primary(
+      data-ng-model="$ctrl.inputModel"
+      data-ng-enter="$ctrl.onEnter()"
+    )
+    a.btn.btn-small.btn-primary(data-translate="WIZARD.CONSULTATION.EMPLOYEE.BUTTON.UPLOAD")
+
+  .invited-list
+    ul.tag-list
+      li(data-ng-repeat="tag in $ctrl.addedItemsList")
+        a(data-ng-click="$ctrl.deleteSelectedItem($index)") {{tag}}
+          span.icon.icon-failure-24
+
+  checkbox(
+    data-input-text="WIZARD.CONSULTATION.EMPLOYEE.MYSELF.TITLE"
+    data-ng-model="ngModel"
+  )
