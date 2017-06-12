@@ -48,7 +48,6 @@ describe('Testing Controller: ConsultationController', () => {
     })
   }
 
-
   beforeEach(angular.mock.module( ($provide: ng.auto.IProvideService) => {
     $provide.value('apiUrl', 'awesomeURL/')
   }))
@@ -164,12 +163,12 @@ describe('Testing Controller: ConsultationController', () => {
     expect(state.go).toHaveBeenCalledWith('app.wizard.summary')
   })
 
-
   it('should save consultation without state-params with service', () => {
     spyOn(state, 'go')
     spyOn(UserService, 'getUser').and.returnValue(q.resolve({currency: 'PLN'}))
     wizardProfile.services = [serviceMock]
     const consultationController = createController(stateParams, wizardProfile)
+    spyOn(consultationController, 'checkIsFormValid').and.returnValue(true)
     consultationController.$onInit()
     wizardApiMock.putWizardProfileRoute(200, {})
     consultationController.saveConsultation()
@@ -198,7 +197,32 @@ describe('Testing Controller: ConsultationController', () => {
     expect(state.go).toHaveBeenCalledWith('app.wizard.summary')
   })
 
+  it('should name input valid', () => {
+    consultationController.nameInputValue = 'ThisIsName'
+    expect(consultationController.checkIsNameInputValid()).toEqual(true)
+  })
 
+  it('should tags input valid', () => {
+    consultationController.tagsInputValue = ['tag-1']
+    expect(consultationController.checkIsTagsInputValid()).toEqual(true)
+  })
 
+  it('should price amount input valid', () => {
+    consultationController.priceAmountInputValue = 1234
+    expect(consultationController.checkIsPriceInputValid()).toEqual(true)
+  })
+
+  it('should employees input valid', () => {
+    consultationController.invitationsInputValue = ['invitation']
+    expect(consultationController.checkIsEmployeesInputValid()).toEqual(true)
+  })
+
+  it('should form valid', () => {
+    consultationController.nameInputValue = 'ThisIsName'
+    consultationController.tagsInputValue = ['tag-1']
+    consultationController.priceAmountInputValue = 1234
+    consultationController.invitationsInputValue = ['invitation']
+    expect(consultationController.checkIsFormValid()).toEqual(true)
+  })
 
 })

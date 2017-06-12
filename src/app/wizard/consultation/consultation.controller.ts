@@ -146,8 +146,9 @@ export class ConsultationController implements ng.IController {
   }
 
   public checkIsFormValid = (): boolean => {
-    return !!(this.checkIsNameInputValid && this.checkIsTagsInputValid
-    && this.checkIsPriceInputValid && this.checkIsEmployeesInputValid)
+    return this.checkIsNameInputValid() && this.checkIsTagsInputValid()
+      && this.checkIsPriceInputValid() && this.checkIsEmployeesInputValid()
   }
 
 }
+

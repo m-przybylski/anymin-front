@@ -21,7 +21,7 @@ describe('Testing Controller: CreateProfileController', () => {
     angular.mock.module(createProfilePageModule)
 
     inject(($controller: ng.IControllerService, $httpBackend: ng.IHttpBackendService, WizardApi: WizardApi,
-            WizardApiMock: WizardApiMock, $q: ng.IQService)=> {
+            WizardApiMock: WizardApiMock, $q: ng.IQService) => {
 
       $state = <any>{
         go: (_to: string) => $q.resolve({})
@@ -54,7 +54,7 @@ describe('Testing Controller: CreateProfileController', () => {
     expect($state.go).toHaveBeenCalledWith('app.wizard.create-profile.expert')
   })
 
-  it('should selectExpertPath', () => {
+  it('should selectCompanyPath', () => {
     spyOn($state, 'go')
     CreateProfileController.selectCompanyPath()
     expect($state.go).toHaveBeenCalledWith('app.wizard.create-profile.company')
