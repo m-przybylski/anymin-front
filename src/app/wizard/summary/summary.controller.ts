@@ -1,4 +1,4 @@
-import {GetWizardProfile, PartialExpertDetails} from 'profitelo-api-ng/model/models'
+import {GetWizardProfile, PartialExpertDetails, WizardService} from 'profitelo-api-ng/model/models'
 import {WizardApi} from 'profitelo-api-ng/api/api'
 export class SummaryController implements ng.IController {
 
@@ -11,9 +11,10 @@ export class SummaryController implements ng.IController {
   public isExpert: boolean
   public wizardProfileData?: PartialExpertDetails
   public isConsultation: boolean = false
+  public services?: WizardService[]
 
   /* @ngInject */
-  constructor(private $state: ng.ui.IStateService, private WizardApi: WizardApi, wizardProfile?: GetWizardProfile) {
+  constructor(private $state: ng.ui.IStateService, private WizardApi: WizardApi, private wizardProfile?: GetWizardProfile) {
 
     if (wizardProfile) {
       if (wizardProfile.expertDetailsOption && wizardProfile.isExpert) {
@@ -30,6 +31,14 @@ export class SummaryController implements ng.IController {
 
   }
 
+  $onInit() {
+    if (this.wizardProfile) {
+      this.isConsultation = !!(this.wizardProfile.services
+      && this.wizardProfile.services.length > 0)
+      this.services = this.wizardProfile.services
+    }
+  }
+
   public onMainProfileDelete = () => {
     this.WizardApi.putWizardProfileRoute({
       isSummary: false,
@@ -40,6 +49,10 @@ export class SummaryController implements ng.IController {
     }, (error) => {
       throw new Error(error)
     })
+  }
+
+  public saveWizard = () => {
+
   }
 
 }

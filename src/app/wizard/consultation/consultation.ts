@@ -9,6 +9,8 @@ import inputModule from '../../../common/components/interface/input/input'
 import tooltipModule from '../../../common/components/interface/tooltip/tooltip'
 import consultationEmployeeInputModule from '../../../common/components/wizard/consultation-employee-input/consultation-employee-input'
 import consultationTagInputModule from '../../../common/components/wizard/cosnultaiton-tag-input/cosnultaiton-tag-input'
+import {WizardApi} from 'profitelo-api-ng/api/api'
+import {GetWizardProfile} from 'profitelo-api-ng/model/models'
 
 const consultaionWizardModule = angular.module('profitelo.controller.wizard.consultation', [
   'ui.router',
@@ -28,6 +30,20 @@ const consultaionWizardModule = angular.module('profitelo.controller.wizard.cons
     controllerAs: 'vm',
     controller: ConsultationController,
     template: require('./consultation.pug')(),
+    resolve: {
+      /* istanbul ignore next */
+      wizardProfile: (WizardApi: WizardApi): ng.IPromise<GetWizardProfile> => {
+        return WizardApi.getWizardProfileRoute().then((wizardProfile) => {
+          return wizardProfile
+        }, (error) => {
+          if (error.status === 404) {
+            return void 0
+          } else {
+            throw new Error('Can not get wizard profile ' + error)
+          }
+        })
+      }
+    },
     data: {
       permissions: {
         only: ['user'],

@@ -5,6 +5,7 @@ import inputModule from '../../interface/input/input'
 
 export interface IConsultationTagInputBindings extends ng.IController {
   dictionary: string[]
+  selectedTags: string[]
 }
 
 const consultationTagInputModule = angular.module('profitelo.components.wizard.consultation-tag-input', [
