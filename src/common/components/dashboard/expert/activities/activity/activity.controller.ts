@@ -23,20 +23,17 @@ export class ExpertActivityComponentController implements ng.IController, IExper
     this.isCallActivity = this.activity.activityType !== GetActivity.ActivityTypeEnum.FINANCIALTRANSACTION
   }
 
-  public openActivityDescription = () => {
-
+  public openActivityDescription = (): void => {
     if (this.isCallActivity && this.activity.serviceUsageDetails) {
-      const sueId = this.activity.serviceUsageDetails.serviceUsageEventId
+      const sueId: string = this.activity.serviceUsageDetails.serviceUsageEventId
       if (sueId) {
         this.modalsService.createExpertSUEActivityDetailsModal(sueId)
-      }
-      else {
+      } else {
         this.$log.error('Activity SUE is undefined')
       }
     } else {
       this.modalsService.createClientChargeDetailsModal(this.activity)
     }
-
   }
 
 }

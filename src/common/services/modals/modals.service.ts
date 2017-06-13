@@ -60,7 +60,7 @@ export class ModalsService {
   constructor(private $rootScope: IRootScopeService, private dialogService: DialogService) {
   }
 
-  public createIncomingCallModal = (service: GetService, answerCallback: () => void, rejectCallback: () => void) => {
+  public createIncomingCallModal = (service: GetService, answerCallback: () => void, rejectCallback: () => void): ng.ui.bootstrap.IModalInstanceService => {
     const dialogScope: IClientCallParentControllerScope = <IClientCallParentControllerScope>this.$rootScope.$new(true)
 
     dialogScope.service = service

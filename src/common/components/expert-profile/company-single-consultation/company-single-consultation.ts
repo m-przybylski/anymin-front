@@ -1,19 +1,19 @@
 import * as angular from 'angular'
-import {CallService} from '../../communicator/call.service'
 import urlModule from '../../../services/url/url'
 import filtersModule from '../../../filters/filters'
 import communicatorModule from '../../communicator/communicator'
 import 'common/components/interface/slider/slider'
 import 'common/components/expert-profile/experts-consultation-slider/experts-consultation-slider'
 import {UserService} from '../../../services/user/user.service'
+import {ClientCallService} from '../../communicator/call-services/client-call.service';
 
 /* @ngInject */
-function controller(callService: CallService, userService: UserService, $state: ng.ui.IStateService) {
+function controller(clientCallService: ClientCallService, userService: UserService, $state: ng.ui.IStateService) {
 
-  this.startCall = () => {
+  this.startCall = (): void => {
     userService.getUser().then((accountDetails) => {
       if (accountDetails) {
-        callService.callServiceId(this.serviceTagsEmployeesTuple.service.id)
+        clientCallService.callServiceId(this.serviceTagsEmployeesTuple.service.id)
       }
     }).catch(() => {
       $state.go('app.login.account')

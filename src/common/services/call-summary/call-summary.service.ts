@@ -9,7 +9,7 @@ export class CallSummaryService {
   private callSummaries: Array<CallSummary>
   private callbacks: CallbacksService
 
-  private static events = {
+  private static readonly events = {
     onCallSummary: 'onCallSummary'
   }
 

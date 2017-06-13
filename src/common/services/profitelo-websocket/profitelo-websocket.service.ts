@@ -12,7 +12,7 @@ export class ProfiteloWebsocketService {
   private wsEndpoint: string
 
   private static reconnectTimeout = 1000
-  private static events = {
+  private static readonly events = {
     onCallSummary: 'onCallSummary',
     onInit: 'onInit'
   }

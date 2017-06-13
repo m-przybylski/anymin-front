@@ -12,7 +12,7 @@ export class ExpertEmployeeComponentController implements IExpertEmployeeCompone
 
   }
 
-  public openEmployeeDescriptions = () => {
+  public openEmployeeDescriptions = (): void => {
     const sueId = 'sueMock'
     this.modalsService.createExpertEmployeeDetailsModal(sueId)
   }

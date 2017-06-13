@@ -2,6 +2,11 @@ import * as angular from 'angular'
 import {IMessengerMinimizedComponentBindings} from './minimized'
 import {MessengerMinimizedComponentController} from './minimized.controller'
 import communicatorModule from '../../communicator'
+import {ClientCallService} from "../../call-services/client-call.service";
+import {ExpertCallService} from "../../call-services/expert-call.service";
+import {CurrentClientCall} from "../../models/current-client-call";
+import {CurrentExpertCall} from "../../models/current-expert-call";
+
 describe('Unit testing: profitelo.components.communicator.messenger.minimized', () => {
   return describe('for messengerMinimized component >', () => {
 
@@ -16,14 +21,15 @@ describe('Unit testing: profitelo.components.communicator.messenger.minimized', 
       }
     }
 
-    const messengerService = {
-      onClientMessage: () => {
-      },
-      onExpertMessage: () => {
-      },
-      onChatLeft: () => {
+    const clientCallService: ClientCallService = {
+      onNewCall: (_cb: (call: CurrentClientCall) => void) => {
       }
-    }
+    } as ClientCallService
+
+    const expertCallService: ExpertCallService = {
+      onNewCall: (_cb: (call: CurrentExpertCall) => void) => {
+      }
+    } as ExpertCallService
 
     beforeEach(() => {
       angular.mock.module(communicatorModule)
@@ -31,7 +37,8 @@ describe('Unit testing: profitelo.components.communicator.messenger.minimized', 
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', 'awesomeURL')
-      $provide.value('messengerService', messengerService)
+      $provide.value('clientCallService', clientCallService)
+      $provide.value('expertCallService', expertCallService)
     }))
 
     function create(html: string, bindings: IMessengerMinimizedComponentBindings): JQuery {
@@ -55,7 +62,8 @@ describe('Unit testing: profitelo.components.communicator.messenger.minimized', 
 
         const injectors = {
           $$timeout: $timeout,
-          messengerService: messengerService
+          expertCallService: expertCallService,
+          clientCallService: clientCallService
         }
 
         component = $componentController<MessengerMinimizedComponentController, IMessengerMinimizedComponentBindings>(
@@ -68,7 +76,7 @@ describe('Unit testing: profitelo.components.communicator.messenger.minimized', 
     }))
 
     it('should compile the component', () => {
-      let el = create(validHTML, bindings)
+      const el = create(validHTML, bindings)
       expect(el.html()).toBeDefined(true)
     })
 
