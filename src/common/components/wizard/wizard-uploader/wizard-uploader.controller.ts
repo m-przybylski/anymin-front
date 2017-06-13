@@ -19,7 +19,7 @@ export class WizardUploaderComponentController implements IWizardUploaderModuleC
 
   /* @ngInject */
   constructor(private $log: ng.ILogService, uploaderFactory: UploaderFactory, private FilesApi: FilesApi) {
-    this.uploader = uploaderFactory.getInstance(1, uploaderFactory.collectionTypes.avatar)
+    this.uploader = uploaderFactory.getInstance(2, uploaderFactory.collectionTypes.avatar)
   }
 
   $onInit() {

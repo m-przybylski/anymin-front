@@ -140,7 +140,7 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
     this.isOpen = false
     this.selectedItemsValue.push(item.value)
     this.dropdownList.splice(index, 1)
-
+    this.isFocus = false
     this.clearInput()
   }
 
@@ -149,15 +149,11 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
     this.isDirty = true
   }
 
-  public onBlur = () => {
-    this.isFocus = false
-  }
-
   public onArrowItemSelect = () => {
     this.dropdown.find('li').removeClass('is-focused')
     this.dropdownSelectedItem = this.dropdown.find('li:nth-child(' + (this.selectedItemNumber) + ')')
     this.dropdownSelectedItem.addClass('is-focused')
-
+    this.isFocus = false
     return this.filteredItems[this.selectedItemNumber - 1]
   }
 
