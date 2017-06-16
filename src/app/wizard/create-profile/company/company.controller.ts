@@ -21,6 +21,8 @@ export class CompanyController implements ng.IController {
   }
 
   public isSubmitted: boolean = false
+  public isStepRequired: boolean = true
+
   /* @ngInject */
   constructor(private WizardApi: WizardApi, private $state: ng.ui.IStateService,
               private wizardProfile?: GetWizardProfile) {

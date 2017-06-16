@@ -12,7 +12,9 @@ export class WizardStepModuleComponent implements ng.IComponentOptions {
     checkIsStepValid: '<',
     additionalText: '@',
     tooltipText: '@',
+    buttonTitle: '@',
     onGoToNext: '<?',
-    onGoBack: '<?'
+    onGoBack: '<?',
+    required: '<'
   }
 }

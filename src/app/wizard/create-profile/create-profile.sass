@@ -3,11 +3,8 @@
 
 .create-profile
 	min-height: 100vh
-	padding: calc(50vh - 148px) 0 50vh 0
+	padding: calc(50vh - 148px) 0
 	text-align: left
-
-	+smm
-		padding: calc(50vh - 148px) 0 50vh 0
 
 	.create-profile-directory
 		display: flex
@@ -28,8 +25,6 @@
 				margin: 16px 0 0
 
 			&:hover
-				border-color: $c-primary
-
 				span, p
 					color: $c-primary
 
@@ -43,9 +38,13 @@
 		animation: fadeIn 0.3s
 
 	//TODO delete after added state
+
+	.tooltip
+		margin: 0 0 0 8px
+
 	header.entry-title
 		padding: 0
 
 		span
+			margin: 0
 			color: $c-primary-txt
-			margin: 0 8px 0 0

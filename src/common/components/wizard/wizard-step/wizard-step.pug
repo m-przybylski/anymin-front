@@ -1,6 +1,7 @@
 form.wizard-step(data-ng-class="{'is-active': $ctrl.isActive, 'is-showed': $ctrl.isShowed}")
   header.entry-title
     span {{ $ctrl.title | translate }}
+    span.is-required(data-ng-if="$ctrl.required") *
     tooltip(data-ng-if="$ctrl.tooltipText" data-tooltip-text="{{$ctrl.tooltipText}}")
 
   p.additional-text(data-ng-if="$ctrl.additionalText") {{ $ctrl.additionalText | translate }}
@@ -9,8 +10,9 @@ form.wizard-step(data-ng-class="{'is-active': $ctrl.isActive, 'is-showed': $ctrl
     ng-transclude
 
   .wizard-step-action
-    button.btn.btn-primary(data-translate="WIZARD.STEP.BUTTON.BACK" data-ng-click="$ctrl.onClickBack()")
     button.btn.btn-default(
-    data-translate="WIZARD.STEP.BUTTON.NEXT"
+    data-translate="{{$ctrl.buttonTitle}}"
     data-ng-click="$ctrl.onClickNext()"
     data-ng-disabled="!$ctrl.checkIsDisabled()")
+
+    button.btn.btn-primary(data-translate="WIZARD.STEP.BUTTON.BACK" data-ng-click="$ctrl.onClickBack()")

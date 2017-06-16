@@ -38,7 +38,11 @@ describe('Unit testing: profitelo.components.wizard.wizard-step', () => {
         title: 'aaa',
         checkIsStepValid: () => true,
         additionalText: 'AddText',
-        tooltipText: 'Tooltip'
+        tooltipText: 'Tooltip',
+        buttonTitle: 'button',
+        required: true,
+        onGoToNext: () => true,
+        onGoBack: () => true
       }
 
       const injectors = {

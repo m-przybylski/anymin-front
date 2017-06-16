@@ -12,11 +12,10 @@
     data-ng-blur="$ctrl.onBlur()"
   )
 
-  .alert-cloud(data-ng-show="!$ctrl.isValid && $ctrl.validationText " +
-  "&& $ctrl.validationText.length > 0 && !$ctrl.isFocus && $ctrl.isDirty || $ctrl.isSubmitted && !$ctrl.isValid && " +
-  "$ctrl.validationText && $ctrl.validationText.length > 0")
-    span.alert-text {{:: $ctrl.validationText | translate }}
-
+  validation-alert(
+    data-alert-text="{{$ctrl.validationText}}"
+    data-is-visible="!$ctrl.isValid && $ctrl.validationText && $ctrl.validationText.length > 0 && !$ctrl.isFocus && $ctrl.isDirty || $ctrl.isSubmitted && !$ctrl.isValid && $ctrl.validationText && $ctrl.validationText.length > 0"
+  )
 
 .input-sign-counter(data-ng-show="$ctrl.maxLength")
   span.label {{ $ctrl.ngModel.length || 0 }}

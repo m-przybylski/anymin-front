@@ -13,6 +13,10 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
   private stepList: JQuery
   public progressStyle: IProgressStyle
   public progressWidth: number
+  public indexOfCurrentStep: number
+
+  private findInput: HTMLElement
+  private findTextarea: HTMLElement
 
   private readonly wizardOffset = 460
 
@@ -27,6 +31,7 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
     this.$timeout(() => {
       this.currentStep = this.$element.find('wizard-step')[0]
       this.stepList = this.$element.find('wizard-step')
+
       this.smoothScrollingService.wizardScrollTo(this.currentStep, this.$element.find('wizard-step')[0].clientHeight,
         this.$window.innerHeight)
 
@@ -35,35 +40,61 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
         width: this.progressWidth + '%'
       }
 
+      this.findInput = this.currentStep.children[0].querySelectorAll('input')[0]
+      this.findInput.focus()
+
       this.$document.bind('scroll', (_event: Event) => {
+        event.preventDefault()
+
         const currentScrollPosition = this.$window.pageYOffset
-        const indexOfCurrentStep = _.findIndex(this.stepList, (step) => this.currentStep === step)
+        this.indexOfCurrentStep = _.findIndex(this.stepList, (step) => this.currentStep === step)
         if (currentScrollPosition > scrollPosition) {
-          if (indexOfCurrentStep + 1 < this.stepList.length
-            && currentScrollPosition + this.wizardOffset >= this.stepList[indexOfCurrentStep + 1].offsetTop
-            && currentScrollPosition + this.wizardOffset <= this.stepList[indexOfCurrentStep + 1].offsetTop
+          if (this.indexOfCurrentStep + 1 < this.stepList.length
+            && currentScrollPosition + this.wizardOffset >= this.stepList[this.indexOfCurrentStep + 1].offsetTop
+            && currentScrollPosition + this.wizardOffset <= this.stepList[this.indexOfCurrentStep + 1].offsetTop
             + this.wizardOffset) {
 
             if (this.onStepChange) {
               this.onStepChange()
             }
-            this.currentStep = this.stepList[indexOfCurrentStep + 1]
+
+            this.currentStep = this.stepList[this.indexOfCurrentStep + 1]
+            this.findInput = this.currentStep.children[0].querySelectorAll('input')[0]
+            this.findTextarea = this.currentStep.children[0].querySelectorAll('textarea')[0]
+
+            if (this.findInput) {
+              this.findInput.focus()
+            } else if (this.findTextarea) {
+              this.findTextarea.focus()
+            }
+
             this.progressStyle = {
-              width: this.progressWidth * (indexOfCurrentStep + 1) + this.progressWidth + '%'
+              width: this.progressWidth * (this.indexOfCurrentStep + 1) + this.progressWidth + '%'
             }
           }
 
         } else {
-          if (indexOfCurrentStep - 1 > -1
-            && currentScrollPosition + this.wizardOffset >= this.stepList[indexOfCurrentStep - 1].offsetTop
-            && currentScrollPosition + this.wizardOffset <= this.stepList[indexOfCurrentStep - 1].offsetTop
+          if (this.indexOfCurrentStep - 1 > -1
+            && currentScrollPosition + this.wizardOffset >= this.stepList[this.indexOfCurrentStep - 1].offsetTop
+            && currentScrollPosition + this.wizardOffset <= this.stepList[this.indexOfCurrentStep - 1].offsetTop
             + this.wizardOffset) {
+
             if (this.onStepChange) {
               this.onStepChange()
             }
-            this.currentStep = this.stepList[indexOfCurrentStep - 1]
+            this.currentStep = this.stepList[this.indexOfCurrentStep - 1]
+
+            this.findInput = this.currentStep.children[0].querySelectorAll('input')[0]
+            this.findTextarea = this.currentStep.children[0].querySelectorAll('textarea')[0]
+
+            if (this.findInput) {
+              this.findInput.focus()
+            } else if (this.findTextarea) {
+              this.findTextarea.focus()
+            }
+
             this.progressStyle = {
-              width: this.progressWidth * (indexOfCurrentStep - 1) + this.progressWidth + '%'
+              width: this.progressWidth * (this.indexOfCurrentStep - 1) + this.progressWidth + '%'
             }
           }
 
@@ -78,21 +109,21 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
   }
 
   public goToNextWizardStep = (): void => {
-    const indexOfCurrentStep = _.findIndex(this.stepList, (step) => this.currentStep === step)
+    this.indexOfCurrentStep = _.findIndex(this.stepList, (step) => this.currentStep === step)
     this.progressStyle = {
-      width: this.progressWidth * (indexOfCurrentStep + 1) + this.progressWidth + '%'
+      width: this.progressWidth * (this.indexOfCurrentStep + 1) + this.progressWidth + '%'
     }
-    if (indexOfCurrentStep + 1 < this.stepList.length) {
-      const nextStep =  this.stepList[indexOfCurrentStep + 1]
-      this.smoothScrollingService.wizardScrollTo(nextStep, this.$element.find('wizard-step')[indexOfCurrentStep + 1].clientHeight,
+    if (this.indexOfCurrentStep + 1 < this.stepList.length) {
+      const nextStep =  this.stepList[this.indexOfCurrentStep + 1]
+      this.smoothScrollingService.wizardScrollTo(nextStep, this.$element.find('wizard-step')[this.indexOfCurrentStep + 1].clientHeight,
         this.$window.innerHeight)
     }
   }
 
   public goToPreviousWizardStep = (): void => {
-    const indexOfCurrentStep = _.findIndex(this.stepList, (step) => this.currentStep === step)
+    this.indexOfCurrentStep = _.findIndex(this.stepList, (step) => this.currentStep === step)
     this.progressStyle = {
-      width: this.progressWidth * (indexOfCurrentStep - 1) + this.progressWidth + '%'
+      width: this.progressWidth * (this.indexOfCurrentStep - 1) + this.progressWidth + '%'
     }
 
     if (this.currentStep !== this.$element.find('wizard-step')[0]) {

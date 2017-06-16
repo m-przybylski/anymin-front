@@ -18,3 +18,8 @@
       li(data-ng-repeat="item in $ctrl.dictionary")
         a(data-ng-click="$ctrl.addSelectedItem(item, $index)")
           span {{ item }}
+
+  validation-alert(
+    data-alert-text="WIZARD.CONSULTATION.TAG.RECOMMENDED.ALERT"
+    data-is-visible="$ctrl.selectedTags.length < 1"
+  )

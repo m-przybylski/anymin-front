@@ -1,6 +1,7 @@
 import * as angular from 'angular'
 import {InputComponent} from './input.component'
 import './input.sass'
+import ValidationAlertModule from '../alert/validation-alert/validation-alert'
 
 export interface IInputComponentBindings extends ng.IController {
   id: string
@@ -17,7 +18,8 @@ export interface IInputComponentBindings extends ng.IController {
 }
 
 const inputModule = angular.module('profitelo.components.interface.input', [
-  'pascalprecht.translate'
+  'pascalprecht.translate',
+  ValidationAlertModule
 ])
 .component('inputPrimary', new InputComponent)
   .name

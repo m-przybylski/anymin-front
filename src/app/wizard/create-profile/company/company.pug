@@ -5,6 +5,7 @@
     data-tooltip-text="WIZARD.STEP.COMPANY.NAME.TOOLTIP"
     data-check-is-step-valid="vm.checkIsNameInputValid"
     data-on-go-back="vm.onGoBack"
+    data-required="vm.isStepRequired"
     )
       input-primary(
       data-ng-model="vm.nameModel"
@@ -20,6 +21,7 @@
     data-title="WIZARD.STEP.COMPANY.PHOTO.TITLE"
     data-tooltip-text="WIZARD.STEP.COMPANY.PHOTO.TOOLTIP"
     data-check-is-step-valid="vm.checkIsLogoValid"
+    data-required="vm.isStepRequired"
     )
       wizard-avatar(
       data-avatar-token="vm.logoModel"
@@ -31,6 +33,7 @@
     data-title="WIZARD.STEP.COMPANY.DESCRIPTION.TITLE"
     data-tooltip-text="WIZARD.STEP.COMPANY.DESCRIPTION.TOOLTIP"
     data-check-is-step-valid="vm.checkIsProfileDescriptionValid"
+    data-required="vm.isStepRequired"
     )
       textarea-primary(
       data-ng-model="vm.descriptionModel"

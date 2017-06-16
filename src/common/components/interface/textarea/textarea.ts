@@ -1,6 +1,7 @@
 import * as angular from 'angular'
 import {InputComponent} from './textarea.component'
 import './textarea.sass'
+import ValidationAlertModule from '../alert/validation-alert/validation-alert'
 
 export interface ITextareaComponentBindings extends ng.IController {
   id: string
@@ -15,7 +16,8 @@ export interface ITextareaComponentBindings extends ng.IController {
 }
 
 const textareaModule = angular.module('profitelo.components.interface.textarea', [
-  'pascalprecht.translate'
+  'pascalprecht.translate',
+  ValidationAlertModule
 ])
 .component('textareaPrimary', new InputComponent)
   .name
