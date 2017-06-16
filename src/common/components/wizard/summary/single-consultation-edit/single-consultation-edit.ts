@@ -6,6 +6,8 @@ import './single-consultation-edit.sass'
 
 export interface ISingleConsultationEditComponentBindings extends ng.IController {
   service: WizardService
+  onEdit: (service: WizardService) => void
+  onRemove: (service: WizardService) => void
 }
 
 const singleConsultationEditModule = angular.module('profitelo.component.wizard.summary.single-consultation-edit', [

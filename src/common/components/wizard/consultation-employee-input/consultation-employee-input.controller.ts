@@ -6,6 +6,7 @@ export class ConsultationEmployeeInputComponentController implements IConsultati
   public inputModel: string
   private mailRegexp: RegExp
   private numberRegexp: RegExp
+  public isOwnerEmployee: boolean
 
   /* @ngInject */
   constructor(CommonSettingsService: CommonSettingsService) {

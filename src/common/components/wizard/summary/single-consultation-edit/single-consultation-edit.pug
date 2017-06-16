@@ -12,12 +12,14 @@
               span {{ ::$ctrl.name }}
 
       tags-list(data-tags="$ctrl.tagsList")
-
       .employee-list(data-ng-if="$ctrl.isEmployee")
         p(data-translate="WIZARD.SUMMARY.EMPLOYEES.LABEL")
-        tags-list(data-tags="$ctrl.employeeList")
+        .tags-list
+          ul.tag-list.slide-page
+            li(ng-repeat="employee in $ctrl.employeeList | limitTo: 7")
+              a.slide-btn-tag {{ employee }}
 
     .consultation-actions
-      span.icon.icon-trash-24
-      span.icon.icon-edit-16
+      span.icon.icon-trash-24(data-ng-click="$ctrl.removeConsultation()")
+      span.icon.icon-edit-16(data-ng-click="$ctrl.editConsultation()")
 

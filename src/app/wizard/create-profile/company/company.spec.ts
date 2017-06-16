@@ -19,6 +19,7 @@ describe('Testing Controller: CompanyController', () => {
 
   beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
     $provide.value('apiUrl', 'awesomeURL/')
+    $provide.value('WizardApi', WizardApi)
   }))
 
   beforeEach(() => {

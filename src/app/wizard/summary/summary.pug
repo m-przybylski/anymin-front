@@ -6,7 +6,11 @@
     data-on-delete="vm.onMainProfileDelete"
   )
   .container(data-ng-if="vm.isConsultation")
-    single-consultation-edit(data-ng-repeat="service in vm.services" data-service="service")
+    single-consultation-edit(
+    data-ng-repeat="service in vm.services"
+    data-service="service"
+    data-on-remove="vm.removeConsultation"
+    data-on-edit="vm.editConsultation")
 
   .container
     .add-new-consultation(data-ng-show="!vm.isConsultation")

@@ -27,6 +27,9 @@ const consultaionWizardModule = angular.module('profitelo.controller.wizard.cons
 .config(($stateProvider: ng.ui.IStateProvider) => {
   $stateProvider.state('app.wizard.consultation', {
     url: '/consultation',
+    params: {
+      service: void 0
+    },
     controllerAs: 'vm',
     controller: ConsultationController,
     template: require('./consultation.pug')(),
@@ -36,11 +39,7 @@ const consultaionWizardModule = angular.module('profitelo.controller.wizard.cons
         return WizardApi.getWizardProfileRoute().then((wizardProfile) => {
           return wizardProfile
         }, (error) => {
-          if (error.status === 404) {
-            return void 0
-          } else {
             throw new Error('Can not get wizard profile ' + error)
-          }
         })
       }
     },

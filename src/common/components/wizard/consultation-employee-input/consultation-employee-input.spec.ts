@@ -40,7 +40,10 @@ describe('Unit testing: profitelo.components.wizard.consultation-employee-input'
         }
 
         component = $componentController<ConsultationEmployeeInputComponentController, IConsultationEmployeeInputBindings>(
-          'consultationEmployeeInput', injectors, {}
+          'consultationEmployeeInput', injectors, {
+            isOwnerEmployee: false,
+            addedItemsList: []
+          }
         )
 
       })

@@ -8,7 +8,7 @@ section.consultation
         data-check-is-step-valid="vm.checkIsNameInputValid"
       )
         input-primary(
-          data-ng-model="vm.nameModel"
+          data-ng-model="vm.nameInputValue"
           data-ng-pattern="vm.patternName"
           data-max-length="150"
           data-validation-text="WIZARD.CONSULTATION.NAME_INPUT_VALIDATION"
@@ -24,7 +24,7 @@ section.consultation
       )
         consultation-tag-input(
           data-dictionary="vm.consultationsMock"
-          data-selected-tags="vm.tagsModel"
+          data-selected-tags="vm.tagsInputValue"
         )
 
       wizard-step.step(
@@ -38,11 +38,11 @@ section.consultation
 
         .input-price
           .price-mock
-            p.price-placeholder {{ vm.priceAmountModel }}
+            p.price-placeholder {{ vm.priceAmountInputValue }}
               span.currency {{ vm.currency }}
 
           input-primary(
-            data-ng-model="vm.priceAmountModel"
+            data-ng-model="vm.priceAmountInputValue"
             data-id="priceModel"
             data-validation-text="WIZARD.CONSULTATION.PRICE_INPUT_VALIDATION"
             data-is-submitted="vm.isSubmitted"
@@ -56,6 +56,9 @@ section.consultation
         data-tooltip-text="WIZARD.SUMMARY.CONSULTATION.EMPLOYEES.TOOLTIP"
         data-on-go-to-next="vm.saveConsultation"
       )
-        consultation-employee-input()
+        consultation-employee-input(
+        data-added-items-list = "vm.invitationsInputValue"
+        data-is-owner-employee = "vm.isOwnerEmployee"
+        )
 
 
