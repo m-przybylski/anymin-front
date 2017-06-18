@@ -11,6 +11,8 @@ import consultationEmployeeInputModule from '../../../common/components/wizard/c
 import consultationTagInputModule from '../../../common/components/wizard/cosnultaiton-tag-input/cosnultaiton-tag-input'
 import {WizardApi} from 'profitelo-api-ng/api/api'
 import {GetWizardProfile} from 'profitelo-api-ng/model/models'
+import userModule from '../../../common/services/user/user'
+import apiModule from 'profitelo-api-ng/api.module'
 
 const consultaionWizardModule = angular.module('profitelo.controller.wizard.consultation', [
   'ui.router',
@@ -20,8 +22,10 @@ const consultaionWizardModule = angular.module('profitelo.controller.wizard.cons
   wizardHandlerModule,
   wizardStepModule,
   inputModule,
+  apiModule,
   consultationTagInputModule,
   tooltipModule,
+  userModule,
   consultationEmployeeInputModule
 ])
 .config(($stateProvider: ng.ui.IStateProvider) => {

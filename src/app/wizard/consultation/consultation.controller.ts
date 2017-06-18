@@ -5,7 +5,7 @@ import {UserService} from '../../../common/services/user/user.service'
 import {ServiceInvitation} from '../../../common/models/ServiceInvitation'
 import * as _ from 'lodash'
 
-interface IConsultationStateParams extends ng.ui.IStateParamsService {
+export interface IConsultationStateParams extends ng.ui.IStateParamsService {
   service: WizardService
 }
 
@@ -75,7 +75,7 @@ export class ConsultationController implements ng.IController {
   }
 
   public saveStepsOnExpertPath = () => {
-    if (this.isExpert) {
+    if (this.isExpert && !this.isCompany) {
       this.saveConsultation()
     }
   }
