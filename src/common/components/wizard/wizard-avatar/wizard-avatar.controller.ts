@@ -17,6 +17,7 @@ export class WizardAvatarComponentController implements IWizardAvatarComponentBi
   public avatarToken?: string
   public isValid?: boolean
   public isSubmitted?: boolean
+  public isFocus: boolean
 
   /* @ngInject */
   constructor( uploaderFactory: UploaderFactory, private urlService: UrlService, private $scope: ng.IScope) {
@@ -35,6 +36,13 @@ export class WizardAvatarComponentController implements IWizardAvatarComponentBi
       this.clearFormAfterCropping = callback
       this.$scope.$digest()
     }
+  }
+
+  public onFocus = () => {
+    this.isFocus = true
+  }
+  public onBlur = () => {
+    this.isFocus = false
   }
 
   public removePhoto = (): void => {
@@ -70,6 +78,7 @@ export class WizardAvatarComponentController implements IWizardAvatarComponentBi
     this.isUploadInProgress = false
     this.imageSource = ''
     this.clearFormAfterCropping()
+    this.isFocus = true
   }
 
   private onFileUploadError = (err: any): void => {

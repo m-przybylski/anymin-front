@@ -1,6 +1,8 @@
 .pro-service-external-links
   .step-content-column
     .links-submit
+      pre {{$ctrl.isFocus}}
+
       input-primary(
         placeholder="WIZARD.STEP.EXPERT.LINKS.PLACEHOLDER"
         data-ng-model="$ctrl.linkModel"
@@ -10,12 +12,12 @@
 
       validation-alert(
         data-alert-text="DASHBOARD.CREATE_PROFILE.ERROR_EXTERNAL_LINKS"
-        data-is-visible="$ctrl.badUrl"
+        data-is-visible="$ctrl.badUrl && !$ctrl.isFocus"
       )
 
       validation-alert(
         data-alert-text="DASHBOARD.CREATE_PROFILE.LINK_ALREADY_EXIST_ERROR"
-        data-is-visible="$ctrl.urlExist"
+        data-is-visible="$ctrl.urlExist && !$ctrl.isFocus"
       )
 
 

@@ -2,7 +2,7 @@ import {WizardApi} from 'profitelo-api-ng/api/api'
 import {PutWizardProfile, PartialExpertDetails, GetWizardProfile} from 'profitelo-api-ng/model/models'
 import * as _ from 'lodash'
 import * as angular from 'angular'
-import {IProgresStyle} from '../../../../common/components/wizard/wizard-handler/wizard-handler.controller'
+import {IProgressStyle} from '../../../../common/components/wizard/wizard-handler/wizard-handler.controller'
 
 export class ExpertController implements ng.IController {
   public currentWizardState: PutWizardProfile = {
@@ -20,7 +20,7 @@ export class ExpertController implements ng.IController {
     [key: string]: string
   }
 
-  public progressStyle: IProgresStyle
+  public progressStyle: IProgressStyle
 
   public isSubmitted: boolean = false
   public isStepRequired: boolean = true
@@ -37,7 +37,6 @@ export class ExpertController implements ng.IController {
   }
 
   $onInit = () => {
-
     if (this.wizardProfile) {
       this.currentWizardState = angular.copy(this.wizardProfile)
       if (this.wizardProfile.expertDetailsOption) {
@@ -92,7 +91,6 @@ export class ExpertController implements ng.IController {
 
   public checkIsNameInputValid = (): boolean => {
     return !!(this.nameModel && this.nameModel.length > 2)
-
   }
 
   public checkIsAvatarValid = (): boolean => {

@@ -17,7 +17,7 @@
         ul.dropdown-list
           li(data-ng-repeat="item in $ctrl.dropdownList | filter: $ctrl.filterInputText"
             data-ng-click="$ctrl.onMainItemSelect(item, $index, $event)")
-            a {{ item.name}}
+            a {{ item.name }}
 
           li.no-results(data-ng-if="$ctrl.filteredItems.length === 0 || $ctrl.mainList.length < 1")
             a(data-translate="INTERFACE.DROPDOWN_PRIMARY.NO_RESULTS")
@@ -26,9 +26,8 @@
 
   validation-alert(
     data-alert-text="{{$ctrl.validationText}}"
-    data-is-visible="!$ctrl.isValid && $ctrl.validationText " +
-		"&& $ctrl.validationText.length > 0 && !$ctrl.isFocus && $ctrl.isDirty || $ctrl.isSubmitted && !$ctrl.isValid && " +
-		"$ctrl.validationText && $ctrl.validationText.length > 0 && !$ctrl.isFocus"
+    data-is-visible="!$ctrl.isValid && $ctrl.validationText && $ctrl.validationText.length > 0 && " +
+    "!$ctrl.isFocus && $ctrl.isDirty || $ctrl.isSubmitted && !$ctrl.isValid && $ctrl.validationText && $ctrl.validationText.length > 0"
   )
 
   ul.tag-list

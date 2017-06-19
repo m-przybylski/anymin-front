@@ -153,6 +153,10 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
     this.isFocus = true
     this.isDirty = true
   }
+  public onBlur = () => {
+    this.isFocus = false
+    this.isDirty = true
+  }
 
   public onArrowItemSelect = () => {
     this.dropdown.find('li').removeClass('is-focused')
