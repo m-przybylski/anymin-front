@@ -44,7 +44,7 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
       this.findInput.focus()
 
       this.$document.bind('scroll', (_event: Event) => {
-        event.preventDefault()
+        _event.preventDefault()
 
         const currentScrollPosition = this.$window.pageYOffset
         this.indexOfCurrentStep = _.findIndex(this.stepList, (step) => this.currentStep === step)
@@ -127,8 +127,8 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
     }
 
     if (this.currentStep !== this.$element.find('wizard-step')[0]) {
-      const previousStep = this.stepList[indexOfCurrentStep - 1]
-      this.smoothScrollingService.wizardScrollTo(previousStep, this.$element.find('wizard-step')[indexOfCurrentStep - 1].clientHeight,
+      const previousStep = this.stepList[this.indexOfCurrentStep - 1]
+      this.smoothScrollingService.wizardScrollTo(previousStep, this.$element.find('wizard-step')[this.indexOfCurrentStep - 1].clientHeight,
         this.$window.innerHeight)
     }
   }
