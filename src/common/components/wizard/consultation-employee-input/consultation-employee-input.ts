@@ -4,6 +4,7 @@ import './consultation-employee-input.sass'
 import inputModule from '../../interface/input/input'
 import checkboxModule from '../../interface/checkbox/checkbox'
 import commonSettingsModule from '../../../services/common-settings/common-settings'
+import ValidationAlertModule from '../../interface/alert/validation-alert/validation-alert'
 
 export interface IConsultationEmployeeInputBindings extends ng.IController {
   isOwnerEmployee: boolean
@@ -14,7 +15,8 @@ const consultationEmployeeInputModule = angular.module('profitelo.components.wiz
   'pascalprecht.translate',
   inputModule,
   checkboxModule,
-  commonSettingsModule
+  commonSettingsModule,
+  ValidationAlertModule
 ])
 .component('consultationEmployeeInput', new ConsultationEmployeeInputComponent)
   .name

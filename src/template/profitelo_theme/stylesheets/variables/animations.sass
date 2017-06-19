@@ -270,6 +270,15 @@
     opacity: 1
     transform: translateY(0)
 
+@keyframes fadeInYInverse
+  0%
+    opacity: 0
+    transform: translateY(-32px)
+
+  100%
+    opacity: 1
+    transform: translateY(0)
+
 @keyframes fadeOutY
   0%
     opacity: 1
@@ -279,6 +288,16 @@
   100%
     opacity: 0
     transform: translateY(32px)
+
+@keyframes fadeOutYInverse
+  0%
+    opacity: 1
+    transform: translateY(0)
+    overflow: hidden
+
+  100%
+    opacity: 0
+    transform: translateY(-32px)
 
 @keyframes tooltipFadeInY
   0%

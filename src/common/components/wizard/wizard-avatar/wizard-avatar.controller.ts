@@ -8,14 +8,16 @@ export class WizardAvatarComponentController implements IWizardAvatarComponentBi
   private isUploadInProgress: boolean = false
   private uploadedFile: File
   private uploader: UploaderService
-  private isUserUploadImage: boolean
+  private isUserUploadImage: boolean = false
   public avatarPreview: string
   private clearFormAfterCropping: () => void
   private imageSource: string
+  public isLoading: boolean = false
 
   public avatarToken?: string
   public isValid?: boolean
   public isSubmitted?: boolean
+  public isFocus: boolean
 
   /* @ngInject */
   constructor( uploaderFactory: UploaderFactory, private urlService: UrlService, private $scope: ng.IScope) {
@@ -36,6 +38,13 @@ export class WizardAvatarComponentController implements IWizardAvatarComponentBi
     }
   }
 
+  public onFocus = () => {
+    this.isFocus = true
+  }
+  public onBlur = () => {
+    this.isFocus = false
+  }
+
   public removePhoto = (): void => {
     this.avatarToken = void 0
     this.avatarPreview = this.urlService.resolveFileUrl(this.avatarToken || '')
@@ -51,21 +60,25 @@ export class WizardAvatarComponentController implements IWizardAvatarComponentBi
         height: squareSideLength
       }
     }
+    this.isLoading = true
     this.isUploadInProgress = true
     this.uploader.uploadFile(this.uploadedFile, postProcessOptions, this.onUploadProgess)
-    .then(this.onFileUpload, this.onFileUploadError)
+      .then(this.onFileUpload, this.onFileUploadError)
 
     this.isUserUploadImage = false
   }
   private onUploadProgess = (): void => {
+    this.isLoading = true
   }
 
   private onFileUpload = (res: any): void => {
+    this.isLoading = false
     this.avatarPreview = res.previews[0]
     this.avatarToken = res.token
     this.isUploadInProgress = false
     this.imageSource = ''
     this.clearFormAfterCropping()
+    this.isFocus = true
   }
 
   private onFileUploadError = (err: any): void => {

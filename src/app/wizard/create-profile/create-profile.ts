@@ -18,7 +18,8 @@ const createProfilePageModule = angular.module('profitelo.controller.wizard.crea
   'ngTouch',
   apiModule,
   wizardStepModule,
-  tooltipModule
+  tooltipModule,
+  'profitelo.components.interface.preloader'
 ])
 .config(($stateProvider: ng.ui.IStateProvider) => {
   $stateProvider.state('app.wizard.create-profile', {

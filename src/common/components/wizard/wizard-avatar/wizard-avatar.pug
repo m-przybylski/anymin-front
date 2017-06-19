@@ -1,17 +1,28 @@
 .wizard-avatar
+  input.invisible-input(
+    type="text"
+    data-ng-focus="$ctrl.onFocus()"
+    data-ng-blur="$ctrl.onBlur()"
+  )
+
   .user-avatar(data-ng-hide="$ctrl.isUserUploadImage")
     .thumb.x192
-      img.user-avatar.fullScreen(data-ng-src="{{ $ctrl.avatarPreview }}" src="#")
+      preloader(data-is-loading="$ctrl.isLoading")
+        img.user-avatar.fullScreen(data-ng-src="{{ $ctrl.avatarPreview }}" src="#")
       a.thumb-options.remove-photo(data-ng-show="$ctrl.avatarToken && $ctrl.avatarToken.length > 0"
       data-ng-click="$ctrl.removePhoto()")
         .icon.icon-close-16
 
-      local-avatar-uploader.local-avatar-uploader(on-file-upload='$ctrl.addPhoto' data-ng-hide="$ctrl.avatarToken && $ctrl.avatarToken.length > 0")
+      local-avatar-uploader.local-avatar-uploader(on-file-upload='$ctrl.addPhoto' data-ng-hide="$ctrl.avatarToken && " +
+      "$ctrl.avatarToken.length > 0"
+        data-ng-click="$ctrl.onClick()"
+      )
 
   .crop-avatar-step(data-ng-show="$ctrl.isUserUploadImage")
     .cropp-image
       image-crop-component(data-image-src="$ctrl.imageSource" data-save-crop-avatar='$ctrl.saveCrop')
 
-  .alert-cloud(data-ng-show="$ctrl.isSubmitted && !$ctrl.isValid && " +
-  "$ctrl.validationText && $ctrl.validationText.length > 0")
-    span.alert-text {{:: $ctrl.validationText | translate }}
+validation-alert(
+  data-alert-text="{{$ctrl.validationText}}"
+  data-is-visible="$ctrl.isSubmitted && !$ctrl.avatarToken.length > 0"
+)

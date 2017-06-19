@@ -297,33 +297,3 @@ input[type="range"]::-ms-fill-upper
 \:-moz-placeholder
   +inputTextPlaceholder
 
-
-
-
-.alert-cloud
-  background: $c-error
-  box-shadow: 1px 1px 2px rgba($c-black, 0.3)
-  border-radius: $s-border-radius
-  padding: 8px
-  position: absolute
-  left: 0
-  top: calc(100% + 4px)
-  z-index: $z-index-100
-  animation: dropdown-collapsing 0.3s
-
-  &::before
-    content: ''
-    position: absolute
-    top: -4px
-    left: 4px
-    width: 0
-    height: 0
-    border-bottom: 4px solid $c-error
-    border-right: 4px solid transparent
-    border-left: 4px solid transparent
-
-  .alert-text
-    +default-font-medium
-    padding: 0
-    color: $c-white
-    font-size: $f-btn-small

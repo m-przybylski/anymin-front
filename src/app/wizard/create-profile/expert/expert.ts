@@ -13,6 +13,7 @@ import textareaModule from '../../../../common/components/interface/textarea/tex
 import wizardLinksModule from '../../../../common/components/wizard/wizard-links/wizard-links'
 import commonSettingsModule from '../../../../common/services/common-settings/common-settings'
 import {GetWizardProfile} from 'profitelo-api-ng/model/models'
+import ValidationAlertModule from '../../../../common/components/interface/alert/validation-alert/validation-alert'
 
 const expertWizardModule = angular.module('profitelo.controller.wizard.create-profile.expert', [
   'ui.router',
@@ -27,7 +28,9 @@ const expertWizardModule = angular.module('profitelo.controller.wizard.create-pr
   wizardUploaderModule,
   wizardLinksModule,
   wizardHandlerModule,
-  commonSettingsModule
+  commonSettingsModule,
+  'profitelo.directives.interface.pro-alert',
+  ValidationAlertModule
 ])
 .config(($stateProvider: ng.ui.IStateProvider) => {
   $stateProvider.state('app.wizard.create-profile.expert', {

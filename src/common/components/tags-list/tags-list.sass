@@ -7,6 +7,7 @@
   display: flex
   flex-wrap: wrap
   position: relative
+  z-index: $z-index-100
 
   &.disable
     &::after
@@ -21,6 +22,10 @@
     margin: 0 8px 8px 0
     border-radius: 0
     transition: transform 0.3s
+    animation: fadeInY 0.3s
+
+    &.ng-leave-active
+      animation: none
 
     a
       +default-font-regular

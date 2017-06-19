@@ -25,7 +25,7 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
   public selectedItemNumber: number = 0
   public dropdownScroll: JQuery
 
-  public filterInputText: string
+  public filterInputText: string = ''
   public isFocus: boolean = false
   public isDirty: boolean = false
 
@@ -75,6 +75,11 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
     this.$scope.$watch(() => {
       return this.filterInputText
     }, () => {
+      if (this.filterInputText.length > 0) {
+        this.isOpen = true
+      } else {
+        this.isOpen = false
+      }
       this.filterItems()
       this.dropdownScroll.scrollTop(0)
     })
@@ -123,7 +128,7 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
   angular.isDefined(this.dropdownList) && this.dropdownList.length > 0
 
   public inputClick = () => {
-    this.isOpen = true
+    this.isOpen = false
     this.dropdownScroll.scrollTop(0)
   }
 
@@ -146,6 +151,10 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
 
   public onFocus = () => {
     this.isFocus = true
+    this.isDirty = true
+  }
+  public onBlur = () => {
+    this.isFocus = false
     this.isDirty = true
   }
 

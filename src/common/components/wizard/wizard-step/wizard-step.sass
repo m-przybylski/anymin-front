@@ -3,6 +3,7 @@
 
 .wizard-step
 	position: relative
+	margin: 0
 
 	&::after
 		content: ""
@@ -31,10 +32,15 @@
 		transition: opacity 0.3s
 
 	.wizard-step-action
+		display: flex
 		opacity: 0
 
 		.btn
+			order: 0
 			margin: 0 16px 0 0
+
+			&.btn.btn-default
+				order: 1
 
 	.input-group
 		&::before, &::after
@@ -66,4 +72,9 @@
 
 		.wizard-step-action
 			opacity: 1
-			animation: fadeInX 0.3s
+
+	\::placeholder
+		+default-font-light
+		font-size: $f-input-big
+		line-height: 56px
+		color: $c-lines

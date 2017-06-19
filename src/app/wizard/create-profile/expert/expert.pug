@@ -5,21 +5,23 @@
     data-tooltip-text="WIZARD.STEP.EXPERT.NAME.TOOLTIP"
     data-check-is-step-valid="vm.checkIsNameInputValid"
     data-on-go-back="vm.onGoBack"
+    data-required="vm.isStepRequired"
     )
       input-primary(
-      data-ng-model="vm.nameModel"
-      data-ng-pattern="vm.patternName"
-      data-id="firstName"
-      data-is-valid="vm.checkIsNameInputValid()"
-      data-validation-text="WIZARD.EXPERT.NAME_INPUT_VALIDATION"
-      data-max-length="150"
-      data-is-submitted="vm.isSubmitted"
+        data-ng-model="vm.nameModel"
+        data-ng-pattern="vm.patternName"
+        data-id="firstName"
+        data-is-valid="vm.checkIsNameInputValid()"
+        data-validation-text="WIZARD.EXPERT.NAME_INPUT_VALIDATION"
+        data-max-length="150"
+        data-is-submitted="vm.isSubmitted"
       )
 
     wizard-step.step(
     data-title="WIZARD.STEP.EXPERT.PHOTO.TITLE"
     data-tooltip-text="WIZARD.STEP.EXPERT.PHOTO.TOOLTIP"
     data-check-is-step-valid="vm.checkIsAvatarValid"
+    data-required="vm.isStepRequired"
     )
       wizard-avatar(
       data-avatar-token="vm.avatarModel"
@@ -32,9 +34,11 @@
     data-additional-text="WIZARD.STEP.EXPERT.LANGUAGE.HINT"
     data-tooltip-text="WIZARD.STEP.EXPERT.LANGUAGE.TOOLTIP"
     data-check-is-step-valid="vm.checkIsLanguagesValid"
+    data-required="vm.isStepRequired"
     )
       input-dropdown-tag(
         data-dictionary="vm.languagesList"
+        data-placeholder="WIZARD.CONSULTATION.LANGUAGE.PLACEHOLDER"
         data-selected-items-value="vm.languagesModel"
         data-is-valid="vm.checkIsLanguagesValid()"
         data-is-submitted="vm.isSubmitted"
@@ -45,6 +49,7 @@
       data-title="WIZARD.STEP.EXPERT.DESCRIPTION.TITLE"
       data-tooltip-text="WIZARD.STEP.EXPERT.DESCRIPTION.TOOLTIP"
       data-check-is-step-valid="vm.checkIsProfileDescriptionValid"
+      data-required="vm.isStepRequired"
     )
       textarea-primary(
         data-ng-model="vm.descriptionModel"
@@ -61,12 +66,16 @@
     )
       wizard-uploader(data-token-list="vm.filesModel")
 
-    wizard-step.step(
-    data-title="WIZARD.STEP.EXPERT.LINKS.TITLE"
-    data-tooltip-text="WIZARD.STEP.EXPERT.LINKS.TOOLTIP"
-    data-on-go-to-next="vm.goToSummary"
+    wizard-step.step.last-step(
+      data-title="WIZARD.STEP.EXPERT.LINKS.TITLE"
+      data-tooltip-text="WIZARD.STEP.EXPERT.LINKS.TOOLTIP"
+      data-on-go-to-next="vm.goToSummary"
+      data-button-title="WIZARD.STEP.EXPERT.GOTO.SUMMARY.BUTTON"
     )
 
       wizard-links(data-selected-links="vm.linksModel")
 
-    p(data-ng-show='!vm.isFormValid() && vm.isSubmitted') {{ 'WIZARD.EXPERT.VALIDATE_FORM' | translate }}
+  validation-alert(
+    data-alert-text="WIZARD.EXPERT.VALIDATE_FORM"
+    data-is-visible="!vm.isFormValid() && vm.isSubmitted"
+  )

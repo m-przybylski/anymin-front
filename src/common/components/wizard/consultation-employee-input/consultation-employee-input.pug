@@ -17,3 +17,8 @@
     data-input-text="WIZARD.CONSULTATION.EMPLOYEE.MYSELF.TITLE"
     data-ng-model="$ctrl.isOwnerEmployee"
   )
+
+  validation-alert(
+    data-alert-text="{{$ctrl.validationText}}"
+    data-is-visible="ngModel && $ctrl.addedItemsList === 0"
+  )

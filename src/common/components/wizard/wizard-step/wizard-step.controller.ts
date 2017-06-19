@@ -5,12 +5,14 @@ export class WizardStepComponentController implements IWizardStepModuleComponent
   public title: string
   public additionalText: string
   public tooltipText: string
+  public buttonTitle: string
   public wizardHandler: WizardHandlerComponentController
   public checkIsStepValid: () => void
   public isActive: boolean = false
   public isShowed: boolean = false
   public onGoToNext: () => void
   public onGoBack: () => void
+  public required: boolean
 
   /* @ngInject */
   constructor(private $element: ng.IRootElementService, private $timeout: ng.ITimeoutService) {
@@ -40,12 +42,16 @@ export class WizardStepComponentController implements IWizardStepModuleComponent
     this.$timeout(() => {
       this.isActive = this.wizardHandler.currentStep === this.$element[0]
     })
+    if (!this.buttonTitle) {
+      this.buttonTitle = 'WIZARD.STEP.BUTTON.NEXT'
+    }
   }
 
   $doCheck = () => {
     this.isActive = this.wizardHandler.currentStep === this.$element[0]
+
     if (this.isActive) {
-      this.isShowed =  this.isActive
+      this.isShowed = this.isActive
     }
   }
 }
