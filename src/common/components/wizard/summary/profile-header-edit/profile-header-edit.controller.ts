@@ -7,8 +7,8 @@ export class ProfileHeaderEditComponentController implements IProfileHeaderEditC
   profileType: ProfileTypes
   documents: Array<ProfileDocument>
   editLink: string = ''
-  onDelete: () => void
-  onEdit: () => void
+  onDelete?: () => void
+  onEdit?: () => void
 
   /* @ngInject */
   constructor() {

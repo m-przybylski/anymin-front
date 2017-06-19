@@ -1,10 +1,16 @@
-import {GetWizardProfile, PartialExpertDetails, WizardService, PartialOrganizationDetails} from 'profitelo-api-ng/model/models'
+import {
+  GetWizardProfile,
+  PartialExpertDetails,
+  WizardService,
+  PartialOrganizationDetails
+} from 'profitelo-api-ng/model/models'
 import {WizardApi} from 'profitelo-api-ng/api/api'
 import * as _ from 'lodash'
+import {ErrorHandlerService} from '../../../common/services/error-handler/error-handler.service'
 
 export class SummaryController implements ng.IController {
 
-  public wizardProfileType: boolean
+  public isExpertWizardPath: boolean
   public wizardProfileData?: PartialExpertDetails | PartialOrganizationDetails
   public isConsultation: boolean = false
   public services?: WizardService[]
@@ -13,18 +19,19 @@ export class SummaryController implements ng.IController {
   public wizardExpertProfileData?: PartialExpertDetails
 
   /* @ngInject */
-  constructor(private $state: ng.ui.IStateService, private WizardApi: WizardApi, private wizardProfile?: GetWizardProfile) {
+  constructor(private $state: ng.ui.IStateService, private errorHandler: ErrorHandlerService,
+              private WizardApi: WizardApi, private wizardProfile?: GetWizardProfile) {
 
     if (wizardProfile) {
       if (wizardProfile.expertDetailsOption && wizardProfile.isExpert && !wizardProfile.isCompany) {
-        this.wizardProfileType = wizardProfile.isExpert
+        this.isExpertWizardPath = wizardProfile.isExpert
         this.wizardProfileData = wizardProfile.expertDetailsOption
       } else if (wizardProfile.organizationDetailsOption && wizardProfile.isCompany) {
-        this.wizardProfileType = false
+        this.isExpertWizardPath = false
         this.wizardProfileData = wizardProfile.organizationDetailsOption
         this.wizardExpertProfileData = wizardProfile.expertDetailsOption
         if (wizardProfile.services) {
-          this.isUserShouldCreateExpert = this.checkIsUserShoudlCreateExpertProfile()
+          this.isUserShouldCreateExpert = this.checkIfUserCanCreateExpertProfile()
           this.isCompanyWithExpert = wizardProfile.isCompany && wizardProfile.isExpert
         }
       }
@@ -50,7 +57,7 @@ export class SummaryController implements ng.IController {
     }).then(() => {
       this.$state.go('app.wizard.create-profile')
     }, (error) => {
-      throw new Error(error)
+      this.errorHandler.handleServerError(error)
     })
   }
 
@@ -58,12 +65,12 @@ export class SummaryController implements ng.IController {
     if (this.wizardProfile) {
       this.wizardProfile.expertDetailsOption = void 0
       this.wizardProfile.isExpert = false
-      this.WizardApi.putWizardProfileRoute(this.wizardProfile).then((response: any) => {
+      this.WizardApi.putWizardProfileRoute(this.wizardProfile).then((response) => {
         this.isUserShouldCreateExpert = true
         this.isCompanyWithExpert = response.isCompany && response.isExpert
         this.wizardExpertProfileData = response.expertDetailsOption
       }, (error) => {
-        throw new Error(error)
+        this.errorHandler.handleServerError(error)
       })
     }
   }
@@ -85,9 +92,9 @@ export class SummaryController implements ng.IController {
       _.remove(this.services, (service) => serviceToDelete === service)
       this.wizardProfile.services = this.services
 
-      this.WizardApi.putWizardProfileRoute(this.wizardProfile).then((response: any) => {
-        this.isConsultation = response.services && response.services.length > 0
-        this.isUserShouldCreateExpert = this.checkIsUserShoudlCreateExpertProfile()
+      this.WizardApi.putWizardProfileRoute(this.wizardProfile).then((response) => {
+        this.isConsultation = !!(response.services && response.services.length > 0)
+        this.isUserShouldCreateExpert = this.checkIfUserCanCreateExpertProfile()
       })
     }
   }
@@ -102,14 +109,14 @@ export class SummaryController implements ng.IController {
     this.WizardApi.postWizardCompleteRoute().then((_response) => {
       this.$state.go('app.dashboard.expert.activities')
     }, (error) => {
-      throw new Error(error)
+      this.errorHandler.handleServerError(error)
     })
   }
 
-  private checkIsUserShoudlCreateExpertProfile = () => {
+  private checkIfUserCanCreateExpertProfile = () => {
     if (this.wizardProfile && this.wizardProfile.services) {
       return !!(_.find(this.wizardProfile.services, (service) => {
-        return !!service.isOwnerEmployee
+        return service.isOwnerEmployee
       }) && !this.wizardProfile.isExpert)
     }
     return false

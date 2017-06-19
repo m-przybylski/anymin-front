@@ -9,6 +9,7 @@ import './summary.sass'
 import profileHeaderEditModule from '../../../common/components/wizard/summary/profile-header-edit/profile-header-edit'
 import singleConsultationEditModule from '../../../common/components/wizard/summary/single-consultation-edit/single-consultation-edit'
 import apiModule from 'profitelo-api-ng/api.module'
+import errorHandlerModule from '../../../common/services/error-handler/error-handler'
 
 const summaryWizardModule = angular.module('profitelo.controller.wizard.summary', [
   'ui.router',
@@ -18,7 +19,8 @@ const summaryWizardModule = angular.module('profitelo.controller.wizard.summary'
   userAvatarModule,
   profileHeaderEditModule,
   singleConsultationEditModule,
-  apiModule
+  apiModule,
+  errorHandlerModule
 ])
 .config(($stateProvider: ng.ui.IStateProvider) => {
   $stateProvider.state('app.wizard.summary', {

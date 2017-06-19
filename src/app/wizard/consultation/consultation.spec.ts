@@ -5,6 +5,7 @@ import {ConsultationController, IConsultationStateParams} from './consultation.c
 import consultaionWizardModule from './consultation'
 import {UserService} from '../../../common/services/user/user.service'
 import apiModule from 'profitelo-api-ng/api.module'
+import {CommonConfig} from '../../../../generated_modules/common-config/common-config'
 
 describe('Testing Controller: ConsultationController', () => {
 
@@ -22,7 +23,15 @@ describe('Testing Controller: ConsultationController', () => {
     isCompany: true,
     isSummary: true
   }
-
+  const commonConfig = <CommonConfig>{
+    getAllData: () => {
+      return {
+        config: {
+          moneyDivider: 100
+        }
+      }
+    }
+  }
   const serviceMock: WizardService = {
     name: 'Edit Consultation',
     price: {
@@ -38,18 +47,29 @@ describe('Testing Controller: ConsultationController', () => {
     isOwnerEmployee: true
   }
 
+  const responseGetWizardProfile: GetWizardProfile = {
+    isExpert: false,
+    isCompany: true,
+    isSummary: true,
+    organizationDetailsOption: {
+      logo: 'sdsdsdsd'
+    }
+  }
+
   const createController = (stateParams: IConsultationStateParams, wizardProfile: GetWizardProfile) => {
     return controller<ConsultationController>('consultationController', {
       $state: state,
       userService: UserService,
       $stateParams: stateParams,
       wizardProfile: wizardProfile,
-      WizardApi: wizardApi
+      WizardApi: wizardApi,
+      CommonConfig: commonConfig
     })
   }
 
   beforeEach(angular.mock.module( ($provide: ng.auto.IProvideService) => {
     $provide.value('apiUrl', 'awesomeURL/')
+
   }))
 
   beforeEach(() => {
@@ -128,7 +148,7 @@ describe('Testing Controller: ConsultationController', () => {
     }
     const consultationController = createController(stateParams, wizardProfile)
     consultationController.$onInit()
-    wizardApiMock.putWizardProfileRoute(200, {})
+    wizardApiMock.putWizardProfileRoute(200, responseGetWizardProfile)
     consultationController.saveConsultation()
     httpBackend.flush()
     expect(state.go).toHaveBeenCalledWith('app.wizard.summary')
@@ -157,7 +177,7 @@ describe('Testing Controller: ConsultationController', () => {
     }
     const consultationController = createController(stateParams, wizardProfile)
     consultationController.$onInit()
-    wizardApiMock.putWizardProfileRoute(200, {})
+    wizardApiMock.putWizardProfileRoute(200, responseGetWizardProfile)
     consultationController.saveStepsOnExpertPath()
     httpBackend.flush()
     expect(state.go).toHaveBeenCalledWith('app.wizard.summary')
@@ -167,10 +187,17 @@ describe('Testing Controller: ConsultationController', () => {
     spyOn(state, 'go')
     spyOn(UserService, 'getUser').and.returnValue(q.resolve({currency: 'PLN'}))
     wizardProfile.services = [serviceMock]
+
     const consultationController = createController(stateParams, wizardProfile)
     spyOn(consultationController, 'checkIsFormValid').and.returnValue(true)
     consultationController.$onInit()
-    wizardApiMock.putWizardProfileRoute(200, {})
+    wizardApiMock.putWizardProfileRoute(200, responseGetWizardProfile)
+
+    consultationController.isOwnerEmployee = true
+    consultationController.nameInputValue = 'Service name'
+    consultationController.priceAmountInputValue = 23
+    consultationController.tagsInputValue = ['Tag-234']
+
     consultationController.saveConsultation()
     httpBackend.flush()
     expect(state.go).toHaveBeenCalledWith('app.wizard.summary')
@@ -185,7 +212,7 @@ describe('Testing Controller: ConsultationController', () => {
     wizardProfile.services = [serviceMock]
     const consultationController = createController(stateParams, wizardProfile)
     consultationController.$onInit()
-    wizardApiMock.putWizardProfileRoute(200, {})
+    wizardApiMock.putWizardProfileRoute(200, responseGetWizardProfile)
     consultationController.saveConsultation()
     httpBackend.flush()
     expect(state.go).toHaveBeenCalledWith('app.wizard.summary')

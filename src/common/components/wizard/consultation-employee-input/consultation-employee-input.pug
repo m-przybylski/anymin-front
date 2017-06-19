@@ -20,5 +20,5 @@
 
   validation-alert(
     data-alert-text="{{$ctrl.validationText}}"
-    data-is-visible="ngModel && $ctrl.addedItemsList === 0"
+    data-is-visible="!$ctrl.isValid"
   )

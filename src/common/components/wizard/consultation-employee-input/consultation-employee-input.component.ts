@@ -5,6 +5,9 @@ export class ConsultationEmployeeInputComponent implements ng.IComponentOptions 
   template = require('./consultation-employee-input.pug')()
   bindings: {[boundProperty: string]: string} = {
     addedItemsList: '=?',
-    isOwnerEmployee: '=?'
+    isOwnerEmployee: '=?',
+    isValid: '<',
+    isSubmitted: '<',
+    validationText: '@'
   }
 }
