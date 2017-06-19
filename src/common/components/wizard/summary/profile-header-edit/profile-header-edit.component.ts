@@ -6,6 +6,7 @@ export class ProfileHeaderEditComponent implements ng.IComponentOptions {
   bindings: {[boundProperty: string]: string} = {
     profileDetails: '<',
     profileType: '<',
-    onDelete: '<'
+    onDelete: '<',
+    onEdit: '<'
   }
 }

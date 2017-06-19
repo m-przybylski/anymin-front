@@ -47,8 +47,10 @@ export class CompanyController implements ng.IController {
         this.linksModel = this.wizardProfile.organizationDetailsOption.links
       }
     }
-    this.currentWizardState.isExpert = false
     this.currentWizardState.isCompany = true
+    if (!this.wizardProfile || this.wizardProfile.isExpert && !this.wizardProfile.isSummary) {
+      this.currentWizardState.isExpert = false
+    }
     this.saveWizardState(this.currentWizardState)
   }
 

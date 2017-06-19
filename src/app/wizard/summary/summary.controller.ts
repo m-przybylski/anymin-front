@@ -4,28 +4,29 @@ import * as _ from 'lodash'
 
 export class SummaryController implements ng.IController {
 
-  public name?: string = ''
-  public avatar?: string
-  public description?: string = ''
-  public languages?: Array<string> = []
-  public files?: Array<string> = []
-  public links?: Array<string> = []
-  public isExpert: boolean
+  public wizardProfileType: boolean
   public wizardProfileData?: PartialExpertDetails | PartialOrganizationDetails
   public isConsultation: boolean = false
   public services?: WizardService[]
+  public isUserShouldCreateExpert: boolean = false
+  public isCompanyWithExpert: boolean = false
+  public wizardExpertProfileData?: PartialExpertDetails
 
   /* @ngInject */
   constructor(private $state: ng.ui.IStateService, private WizardApi: WizardApi, private wizardProfile?: GetWizardProfile) {
 
     if (wizardProfile) {
-      if (wizardProfile.expertDetailsOption && wizardProfile.isExpert) {
-        this.isExpert = wizardProfile.isExpert
+      if (wizardProfile.expertDetailsOption && wizardProfile.isExpert && !wizardProfile.isCompany) {
+        this.wizardProfileType = wizardProfile.isExpert
         this.wizardProfileData = wizardProfile.expertDetailsOption
-
       } else if (wizardProfile.organizationDetailsOption && wizardProfile.isCompany) {
-        this.isExpert = wizardProfile.isExpert
+        this.wizardProfileType = false
         this.wizardProfileData = wizardProfile.organizationDetailsOption
+        this.wizardExpertProfileData = wizardProfile.expertDetailsOption
+        if (wizardProfile.services) {
+          this.isUserShouldCreateExpert = this.checkIsUserShoudlCreateExpertProfile()
+          this.isCompanyWithExpert = wizardProfile.isCompany && wizardProfile.isExpert
+        }
       }
     } else {
       $state.go('app.wizard.create-profile')
@@ -53,6 +54,32 @@ export class SummaryController implements ng.IController {
     })
   }
 
+  public onSecondProfileDelete = () => {
+    if (this.wizardProfile) {
+      this.wizardProfile.expertDetailsOption = void 0
+      this.wizardProfile.isExpert = false
+      this.WizardApi.putWizardProfileRoute(this.wizardProfile).then((response: any) => {
+        this.isUserShouldCreateExpert = true
+        this.isCompanyWithExpert = response.isCompany && response.isExpert
+        this.wizardExpertProfileData = response.expertDetailsOption
+      }, (error) => {
+        throw new Error(error)
+      })
+    }
+  }
+
+  public onMainProfileEdit = () => {
+    if (this.wizardProfile && this.wizardProfile.isExpert && !this.wizardProfile.isCompany) {
+      this.$state.go('app.wizard.create-profile.expert')
+    } else {
+      this.$state.go('app.wizard.create-profile.company')
+    }
+  }
+
+  public onSecondProfileEdit = () => {
+    this.$state.go('app.wizard.create-profile.expert')
+  }
+
   public removeConsultation = (serviceToDelete: WizardService) => {
     if (this.wizardProfile && this.services) {
       _.remove(this.services, (service) => serviceToDelete === service)
@@ -60,6 +87,7 @@ export class SummaryController implements ng.IController {
 
       this.WizardApi.putWizardProfileRoute(this.wizardProfile).then((response: any) => {
         this.isConsultation = response.services && response.services.length > 0
+        this.isUserShouldCreateExpert = this.checkIsUserShoudlCreateExpertProfile()
       })
     }
   }
@@ -76,6 +104,15 @@ export class SummaryController implements ng.IController {
     }, (error) => {
       throw new Error(error)
     })
+  }
+
+  private checkIsUserShoudlCreateExpertProfile = () => {
+    if (this.wizardProfile && this.wizardProfile.services) {
+      return !!(_.find(this.wizardProfile.services, (service) => {
+        return !!service.isOwnerEmployee
+      }) && !this.wizardProfile.isExpert)
+    }
+    return false
   }
 
 }

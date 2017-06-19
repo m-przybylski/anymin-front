@@ -49,7 +49,9 @@ export class ExpertController implements ng.IController {
       }
     }
     this.currentWizardState.isExpert = true
-    this.currentWizardState.isCompany = false
+    if (!this.wizardProfile || this.wizardProfile.isCompany && !this.wizardProfile.isSummary) {
+      this.currentWizardState.isCompany = false
+    }
     this.saveWizardState(this.currentWizardState)
   }
 

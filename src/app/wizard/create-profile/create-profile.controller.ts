@@ -12,10 +12,6 @@ export class CreateProfileController implements ng.IController {
       this.isLoading = false
       if (wizardProfile.isSummary && previousState !== 'app.wizard.summary') {
         this.$state.go('app.wizard.summary')
-      } else if (wizardProfile.isExpert) {
-        this.$state.go('app.wizard.create-profile.expert')
-      } else if (wizardProfile.isCompany) {
-        this.$state.go('app.wizard.create-profile.company')
       }
     }, (error) => {
       if (error.status === 404) {
