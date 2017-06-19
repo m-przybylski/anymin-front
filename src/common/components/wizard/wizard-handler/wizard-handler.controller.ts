@@ -2,7 +2,7 @@ import {IWizardHandlerComponentBindings} from './wizard-handler'
 import {SmoothScrollingService} from '../../../services/smooth-scrolling/smooth-scrolling.service'
 import * as _ from 'lodash'
 
-export interface IProgresStyle {
+export interface IProgressStyle {
   width: string
 }
 
@@ -11,7 +11,7 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
   public currentStep: HTMLElement
   public onStepChange: () => void
   private stepList: JQuery
-  public progressStyle: IProgresStyle
+  public progressStyle: IProgressStyle
   public progressWidth: number
 
   private readonly wizardOffset = 460
@@ -35,8 +35,7 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
         width: this.progressWidth + '%'
       }
 
-      this.$document.bind('scroll', (event: Event) => {
-        event.preventDefault()
+      this.$document.bind('scroll', (_event: Event) => {
         const currentScrollPosition = this.$window.pageYOffset
         const indexOfCurrentStep = _.findIndex(this.stepList, (step) => this.currentStep === step)
         if (currentScrollPosition > scrollPosition) {

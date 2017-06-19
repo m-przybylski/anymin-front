@@ -1,5 +1,7 @@
-import {GetWizardProfile, PartialExpertDetails} from 'profitelo-api-ng/model/models'
+import {GetWizardProfile, PartialExpertDetails, WizardService, PartialOrganizationDetails} from 'profitelo-api-ng/model/models'
 import {WizardApi} from 'profitelo-api-ng/api/api'
+import * as _ from 'lodash'
+
 export class SummaryController implements ng.IController {
 
   public name?: string = ''
@@ -9,11 +11,12 @@ export class SummaryController implements ng.IController {
   public files?: Array<string> = []
   public links?: Array<string> = []
   public isExpert: boolean
-  public wizardProfileData?: PartialExpertDetails
+  public wizardProfileData?: PartialExpertDetails | PartialOrganizationDetails
   public isConsultation: boolean = false
+  public services?: WizardService[]
 
   /* @ngInject */
-  constructor(private $state: ng.ui.IStateService, private WizardApi: WizardApi, wizardProfile?: GetWizardProfile) {
+  constructor(private $state: ng.ui.IStateService, private WizardApi: WizardApi, private wizardProfile?: GetWizardProfile) {
 
     if (wizardProfile) {
       if (wizardProfile.expertDetailsOption && wizardProfile.isExpert) {
@@ -30,6 +33,14 @@ export class SummaryController implements ng.IController {
 
   }
 
+  $onInit() {
+    if (this.wizardProfile) {
+      this.isConsultation = !!(this.wizardProfile.services
+      && this.wizardProfile.services.length > 0)
+      this.services = this.wizardProfile.services
+    }
+  }
+
   public onMainProfileDelete = () => {
     this.WizardApi.putWizardProfileRoute({
       isSummary: false,
@@ -37,6 +48,31 @@ export class SummaryController implements ng.IController {
       isExpert: false
     }).then(() => {
       this.$state.go('app.wizard.create-profile')
+    }, (error) => {
+      throw new Error(error)
+    })
+  }
+
+  public removeConsultation = (serviceToDelete: WizardService) => {
+    if (this.wizardProfile && this.services) {
+      _.remove(this.services, (service) => serviceToDelete === service)
+      this.wizardProfile.services = this.services
+
+      this.WizardApi.putWizardProfileRoute(this.wizardProfile).then((response: any) => {
+        this.isConsultation = response.services && response.services.length > 0
+      })
+    }
+  }
+
+  public editConsultation = (service: WizardService) => {
+    this.$state.go('app.wizard.consultation', {
+      service: service
+    })
+  }
+
+  public saveWizard = () => {
+    this.WizardApi.postWizardCompleteRoute().then((_response) => {
+      this.$state.go('app.dashboard.expert.activities')
     }, (error) => {
       throw new Error(error)
     })

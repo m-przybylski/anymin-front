@@ -90,7 +90,7 @@ export class CompanyController implements ng.IController {
   }
 
   public checkIsFormValid = (): boolean => {
-    return !!(this.currentWizardState.expertDetailsOption
+    return !!(this.currentWizardState.organizationDetailsOption
     && this.checkIsNameInputValid()
     && this.checkIsLogoValid()
     && this.checkIsProfileDescriptionValid())

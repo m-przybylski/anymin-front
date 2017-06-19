@@ -25,7 +25,7 @@
   p.hint {{ $ctrl.hintLabel | translate }}
   .alert-cloud(data-ng-show="!$ctrl.isValid && $ctrl.validationText " +
   "&& $ctrl.validationText.length > 0 && !$ctrl.isFocus && $ctrl.isDirty || $ctrl.isSubmitted && !$ctrl.isValid && " +
-  "$ctrl.validationText && $ctrl.validationText.length > 0")
+  "$ctrl.validationText && $ctrl.validationText.length > 0 && !$ctrl.isFocus")
     span.alert-text {{:: $ctrl.validationText | translate }}
 
   ul.tag-list

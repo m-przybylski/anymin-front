@@ -6,6 +6,8 @@ import checkboxModule from '../../interface/checkbox/checkbox'
 import commonSettingsModule from '../../../services/common-settings/common-settings'
 
 export interface IConsultationEmployeeInputBindings extends ng.IController {
+  isOwnerEmployee: boolean
+  addedItemsList: string[]
 }
 
 const consultationEmployeeInputModule = angular.module('profitelo.components.wizard.consultation-employee-input', [

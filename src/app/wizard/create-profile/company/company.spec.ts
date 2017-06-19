@@ -1,5 +1,4 @@
 import * as angular from 'angular'
-import IScope = angular.IScope
 import companyWizardModule from './company'
 import {GetWizardProfile} from 'profitelo-api-ng/model/models'
 import {WizardApi} from 'profitelo-api-ng/api/api'
@@ -8,7 +7,6 @@ import {CompanyController} from './company.controller'
 describe('Testing Controller: CompanyController', () => {
 
   let CompanyController: CompanyController
-  let scope: IScope
   let httpBackend: ng.IHttpBackendService
 
   const wizardProfile: GetWizardProfile = {
@@ -27,7 +25,6 @@ describe('Testing Controller: CompanyController', () => {
     inject(($controller: ng.IControllerService, $httpBackend: ng.IHttpBackendService, WizardApi: WizardApi) => {
       httpBackend = $httpBackend
       CompanyController = $controller<CompanyController>('companyController', {
-        $scope: scope,
         wizardProfile: wizardProfile,
         WizardApi: WizardApi
       })
