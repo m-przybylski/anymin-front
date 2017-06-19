@@ -32,8 +32,10 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
       this.currentStep = this.$element.find('wizard-step')[0]
       this.stepList = this.$element.find('wizard-step')
 
-      this.smoothScrollingService.wizardScrollTo(this.currentStep, this.$element.find('wizard-step')[0].clientHeight,
-        this.$window.innerHeight)
+      this.$timeout(() => {
+        this.smoothScrollingService.wizardScrollTo(this.currentStep, (this.currentStep.clientHeight - 50),
+          this.$window.innerHeight)
+      })
 
       this.progressWidth = (100 / this.stepList.length)
       this.progressStyle = {
@@ -48,6 +50,7 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
 
         const currentScrollPosition = this.$window.pageYOffset
         this.indexOfCurrentStep = _.findIndex(this.stepList, (step) => this.currentStep === step)
+
         if (currentScrollPosition > scrollPosition) {
           if (this.indexOfCurrentStep + 1 < this.stepList.length
             && currentScrollPosition + this.wizardOffset >= this.stepList[this.indexOfCurrentStep + 1].offsetTop
@@ -132,5 +135,4 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
         this.$window.innerHeight)
     }
   }
-
 }
