@@ -4,6 +4,7 @@ import {GetWizardProfile, MoneyDto, WizardService, WizardTag} from 'profitelo-ap
 import {UserService} from '../../../common/services/user/user.service'
 import {ServiceInvitation} from '../../../common/models/ServiceInvitation'
 import * as _ from 'lodash'
+import {CommonConfig} from '../../../../generated_modules/common-config/common-config'
 
 export interface IConsultationStateParams extends ng.ui.IStateParamsService {
   service: WizardService
@@ -20,17 +21,20 @@ export class ConsultationController implements ng.IController {
   public isOwnerEmployee: boolean = false
 
   public isCompany: boolean
+  public isSubmitted: boolean = false
   private isExpert: boolean
   private currentEditServiceIndex: number = -1
-  private readonly moneyDivider: number = 100
+  private moneyDivider: number
 
   /* @ngInject */
   constructor(CommonSettingsService: CommonSettingsService, private $state: ng.ui.IStateService,
               private $stateParams: IConsultationStateParams, private WizardApi: WizardApi,
-              private userService: UserService, private wizardProfile?: GetWizardProfile) {
+              private userService: UserService, CommonConfig: CommonConfig,
+              private wizardProfile?: GetWizardProfile) {
+
+    this.moneyDivider = CommonConfig.getAllData().config.moneyDivider
 
     if (wizardProfile) {
-
       this.isCompany = wizardProfile.isCompany
       this.isExpert = wizardProfile.isExpert
       if (this.isExpert) {
@@ -122,6 +126,8 @@ export class ConsultationController implements ng.IController {
       this.WizardApi.putWizardProfileRoute(this.wizardProfile).then(() => {
         this.$state.go('app.wizard.summary')
       })
+    } else {
+      this.isSubmitted = true
     }
   }
 
@@ -150,5 +156,8 @@ export class ConsultationController implements ng.IController {
       && this.checkIsPriceInputValid() && this.checkIsEmployeesInputValid()
   }
 
-}
+  public checkIsPriceButtonDisabled = () => {
+    return !this.isCompany || this.checkIsPriceInputValid()
+  }
 
+}

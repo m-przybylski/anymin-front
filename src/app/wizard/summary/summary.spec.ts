@@ -3,19 +3,22 @@ import {GetWizardProfile, WizardService, WizardCompleteResult} from 'profitelo-a
 import {WizardApi, WizardApiMock} from 'profitelo-api-ng/api/api'
 import {SummaryController} from './summary.controller'
 import summaryWizardModule from './summary'
+import {ErrorHandlerService} from '../../../common/services/error-handler/error-handler.service'
 
 describe('Testing Controller: SummaryController', () => {
 
   let SummaryController: SummaryController,
-      httpBackend: ng.IHttpBackendService,
-      $state: ng.ui.IStateService,
-      _WizardApiMock: WizardApiMock
-
+    httpBackend: ng.IHttpBackendService,
+    $state: ng.ui.IStateService,
+    _WizardApiMock: WizardApiMock,
+    errorHandler: ErrorHandlerService
   const wizardProfile: GetWizardProfile = {
     isExpert: false,
     isCompany: false,
     isSummary: false
   }
+
+
 
   beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
     $provide.value('apiUrl', 'awesomeURL/')
@@ -27,7 +30,7 @@ describe('Testing Controller: SummaryController', () => {
     angular.mock.module(summaryWizardModule)
 
     inject(($controller: ng.IControllerService, $httpBackend: ng.IHttpBackendService, WizardApi: WizardApi,
-            WizardApiMock: WizardApiMock, $q: ng.IQService) => {
+            WizardApiMock: WizardApiMock, $q: ng.IQService, _errorHandler_: ErrorHandlerService) => {
 
       $state = <ng.ui.IStateService>{
         go: (_to: string) => $q.resolve({})
@@ -35,11 +38,12 @@ describe('Testing Controller: SummaryController', () => {
 
       httpBackend = $httpBackend
       _WizardApiMock = WizardApiMock
-
+      errorHandler = _errorHandler_
       SummaryController = $controller<SummaryController>('summaryController', {
         wizardProfile: wizardProfile,
         WizardApi: WizardApi,
-        $state: $state
+        $state: $state,
+        errorHandler: errorHandler
       })
     })
   })
@@ -58,10 +62,10 @@ describe('Testing Controller: SummaryController', () => {
 
   it('should throw error when can not delete profile', () => {
     _WizardApiMock.putWizardProfileRoute(500, wizardProfile)
-    expect(() => {
-      SummaryController.onMainProfileDelete()
-      httpBackend.flush()
-    }).toThrowError()
+    spyOn(errorHandler, 'handleServerError')
+    SummaryController.onMainProfileDelete()
+    httpBackend.flush()
+    expect(errorHandler.handleServerError).toHaveBeenCalled()
   })
 
   it('should redirect to consultation', () => {
@@ -110,11 +114,11 @@ describe('Testing Controller: SummaryController', () => {
   })
 
   it('should throw error when can not save wizard', () => {
+    spyOn(errorHandler, 'handleServerError')
     _WizardApiMock.postWizardCompleteRoute(500)
-    expect(() => {
-      SummaryController.saveWizard()
-      httpBackend.flush()
-    }).toThrowError()
+    SummaryController.saveWizard()
+    httpBackend.flush()
+    expect(errorHandler.handleServerError).toHaveBeenCalled()
   })
 
 })

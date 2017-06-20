@@ -9,6 +9,9 @@ import ValidationAlertModule from '../../interface/alert/validation-alert/valida
 export interface IConsultationEmployeeInputBindings extends ng.IController {
   isOwnerEmployee: boolean
   addedItemsList: string[]
+  isValid?: boolean
+  isSubmitted?: boolean
+  validationText?: string
 }
 
 const consultationEmployeeInputModule = angular.module('profitelo.components.wizard.consultation-employee-input', [

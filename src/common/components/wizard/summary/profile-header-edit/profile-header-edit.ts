@@ -9,6 +9,7 @@ export interface IProfileHeaderEditComponentBindings extends ng.IController {
   profileDetails?: GetExpertDetails,
   profileType: ProfileTypes,
   onDelete?: () => void
+  onEdit?: () => void
 }
 
 export enum  ProfileTypes {
