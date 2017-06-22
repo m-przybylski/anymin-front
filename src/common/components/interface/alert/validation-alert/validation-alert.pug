@@ -1,3 +1,4 @@
 .validation-alert.collapse-height.animation(data-ng-if="$ctrl.isVisible")
   .alert-cloud
     span.alert-text(data-translate="{{$ctrl.alertText}}")
+    span.alert-text(data-ng-if="$ctrl.additionalText") {{ $ctrl.additionalText }}

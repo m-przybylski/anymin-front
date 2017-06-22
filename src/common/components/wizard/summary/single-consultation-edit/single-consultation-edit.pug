@@ -16,7 +16,9 @@
         p(data-translate="WIZARD.SUMMARY.EMPLOYEES.LABEL")
         .tags-list
           ul.tag-list.slide-page
-            li(ng-repeat="employee in $ctrl.employeeList | limitTo: 7")
+            li(data-ng-if="$ctrl.isOwnerEmployee")
+              a.slide-btn-tag {{ 'WIZARD.SUMMARY.SINGLE_CONSULTATION.OWNER_EMPLOYEE_TAG' | translate }}
+            li(data-ng-repeat="employee in $ctrl.employeeList | limitTo: 7")
               a.slide-btn-tag {{ employee }}
 
     .consultation-actions

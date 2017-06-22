@@ -12,7 +12,7 @@ export class SingleConsultationEditComponentController implements ISingleConsult
   public isEmployee: boolean
   public onRemove: (service: WizardService) => void
   public onEdit: (service: WizardService) => void
-
+  public isOwnerEmployee: boolean = false
   /* @ngInject */
   constructor() {
   }
@@ -32,6 +32,7 @@ export class SingleConsultationEditComponentController implements ISingleConsult
     }
     this.name = this.service.name
     this.price = this.service.price
+    this.isOwnerEmployee = this.service.isOwnerEmployee
   }
 
   public removeConsultation = () => {

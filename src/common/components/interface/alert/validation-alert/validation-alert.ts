@@ -5,6 +5,7 @@ import {ValidationAlertAnimation} from './validation-alert.animation'
 
 export interface IValidationAlertBindings extends ng.IController {
   alertText: string
+  additionalText?: string
   isVisible: boolean
 }
 
