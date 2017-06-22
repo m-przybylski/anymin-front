@@ -52,5 +52,14 @@ describe('Unit testing: profitelo.components.wizard.consultation-employee-input'
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
+
+    it('should delete selected item', () => {
+      component.addedItemsList = [
+        'asd'
+      ]
+      component.deleteSelectedItem(0)
+      expect(component.addedItemsList.length).toBe(0)
+    })
+
   })
 })
