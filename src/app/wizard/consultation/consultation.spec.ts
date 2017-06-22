@@ -252,4 +252,9 @@ describe('Testing Controller: ConsultationController', () => {
     expect(consultationController.checkIsFormValid()).toEqual(true)
   })
 
+  it('should price button disabled', () => {
+    consultationController.isCompany = false
+    expect(consultationController.checkIsPriceButtonDisabled()).toEqual(true)
+  })
+
 })

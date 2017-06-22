@@ -1,6 +1,6 @@
 import * as angular from 'angular'
 import companyWizardModule from './company'
-import {GetWizardProfile} from 'profitelo-api-ng/model/models'
+import {GetWizardProfile, PartialOrganizationDetails} from 'profitelo-api-ng/model/models'
 import {WizardApi, WizardApiMock} from 'profitelo-api-ng/api/api'
 import {CompanyController} from './company.controller'
 
@@ -54,6 +54,22 @@ describe('Testing Controller: CompanyController', () => {
     expect($state.go).toHaveBeenCalledWith('app.wizard.create-profile')
   })
 
+  it('should redirect to summary', () => {
+    CompanyController.currentWizardState.organizationDetailsOption = {
+      logo: 'avatar'
+    }
+    CompanyController.nameModel = 'name'
+    CompanyController.logoModel = 'logo'
+    CompanyController.descriptionModel = 'Lorem ipsum dolor sit amet, consectetuer adipiscing'
+
+    spyOn($state, 'go')
+    WizardApiMock.putWizardProfileRoute(200, CompanyController.currentWizardState)
+    CompanyController.goToSummary()
+    expect(CompanyController.currentWizardState.isSummary).toBe(true)
+    httpBackend.flush()
+    expect($state.go).toHaveBeenCalledWith('app.wizard.summary')
+  })
+
   it('should submit form', () => {
     CompanyController.goToSummary()
     expect(CompanyController.isSubmitted).toBe(true)
@@ -75,11 +91,45 @@ describe('Testing Controller: CompanyController', () => {
   })
 
   it('should form valid', () => {
-    CompanyController.currentWizardState.organizationDetailsOption = true
-    spyOn(CompanyController, 'checkIsNameInputValid').and.returnValue(true)
-    spyOn(CompanyController, 'checkIsLogoValid').and.returnValue(true)
-    spyOn(CompanyController, 'checkIsProfileDescriptionValid').and.returnValue(true)
+    CompanyController.currentWizardState.organizationDetailsOption = {
+      name: 'name'
+    }
+    CompanyController.nameModel = 'SomeName'
+    CompanyController.logoModel = 'logo'
+    CompanyController.descriptionModel = 'Lorem ipsum dolor sit amet, consectetuer adipiscing'
     expect(CompanyController.checkIsFormValid()).toEqual(true)
+  })
+
+  it('should not have wizard profile', () => {
+    CompanyController.$onInit()
+    expect(CompanyController.currentWizardState.isExpert).toBe(false)
+  })
+
+  it('should have profile with organization details', inject(($controller: ng.IControllerService) => {
+    CompanyController = $controller<CompanyController>('companyController', {
+      wizardProfile: {
+        isExpert: false,
+        isCompany: false,
+        isSummary: false,
+        organizationDetailsOption: {
+          name: 'name-1'
+        }
+      }
+    })
+    CompanyController.$onInit()
+    expect(CompanyController.nameModel).toEqual('name-1')
+  }))
+
+  it('should checkIsAnyStepModelChange', () => {
+    const wizardOrganizationModel: PartialOrganizationDetails = {
+      name: '',
+      logo: undefined,
+      description: '',
+      files: [],
+      links: []
+    }
+    CompanyController.saveSteps()
+    expect(CompanyController.currentWizardState.organizationDetailsOption).toEqual(wizardOrganizationModel)
   })
 
 })

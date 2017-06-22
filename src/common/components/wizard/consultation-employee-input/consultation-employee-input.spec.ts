@@ -61,5 +61,26 @@ describe('Unit testing: profitelo.components.wizard.consultation-employee-input'
       expect(component.addedItemsList.length).toBe(0)
     })
 
+    it('should works onBlur', () => {
+      component.onBlur()
+      expect(component.isDirty).toBe(true)
+      expect(component.isInputValueInvalid).toBe(false)
+    })
+
+    it('should input value invalid', () => {
+      component.inputValue = ''
+      component.onEnter()
+      expect(component.isInputValueInvalid).toBe(true)
+    })
+
+    it('should input value valid', () => {
+      component.inputValue = 'input@value.com'
+      component.addedItemsList = ['ex@op.com']
+      component.onEnter()
+      expect(component.isInputValueInvalid).toBe(false)
+      expect(component.addedItemsList.length).toBe(2)
+      expect(component.inputValue).toBe('')
+    })
+
   })
 })

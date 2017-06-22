@@ -45,7 +45,11 @@ describe('Unit testing:profitelo.components.pro-search-dropdown', () => {
         httpBackend = $injector.get('$httpBackend')
       })
 
-      component = componentController('proSearchDropdown', {$element: create(validHTML), $scope: scope}, {})
+      component = componentController('proSearchDropdown', {$element: create(validHTML), $scope: scope}, {
+        maskSearch: false,
+        ngModel: 'ngModel',
+        searchCount: 1
+      })
     })
 
     it('should have a dummy test', inject(() => {
@@ -64,6 +68,47 @@ describe('Unit testing:profitelo.components.pro-search-dropdown', () => {
       rootScope.$digest()
 
       expect(component.primarySuggestion).toEqual('')
+    })
+
+    it('should be focused', () => {
+      component.onFocus()
+      expect(component.isFocused).toBe(true)
+      expect(component.isCollapsed).toBe(false)
+    })
+
+    it('should focused out', () => {
+      component.isMouseOverDropdown = false
+      component.onFocusOut()
+      expect(component.isFocused).toBe(false)
+      expect(component.isCollapsed).toBe(true)
+      expect(component.maskSearch).toBe(true)
+    })
+
+    it('should mouse leave', () => {
+      component.onDropdownMouseLeave()
+      expect(component.isMouseOverDropdown).toBe(false)
+    })
+
+    it('should mouse leave', () => {
+      component.onDropdownMouseEnter()
+      expect(component.isMouseOverDropdown).toBe(true)
+    })
+
+    it('should clear model', () => {
+      component.clearModel()
+      expect(component.ngModel).toBeNull()
+      expect(component.currentTagId).toBeNull()
+    })
+
+    it('should redirect to app.search-result', () => {
+      spyOn(state, 'go')
+      component.search()
+      expect(state.go).toHaveBeenCalledWith('app.search-result', {q: 'ngModel', tagId: null})
+    })
+
+    it('should show results counter', () => {
+      component.isCollapsed = true
+      expect(component.showResultsCounter()).toEqual(true)
     })
 
   })

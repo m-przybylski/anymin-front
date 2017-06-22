@@ -1,5 +1,5 @@
 import * as angular from 'angular'
-import {GetWizardProfile} from 'profitelo-api-ng/model/models'
+import {GetWizardProfile, PartialExpertDetails} from 'profitelo-api-ng/model/models'
 import {WizardApi, WizardApiMock} from 'profitelo-api-ng/api/api'
 import expertWizardModule from './expert'
 import {ExpertController} from './expert.controller'
@@ -7,9 +7,9 @@ import {ExpertController} from './expert.controller'
 describe('Testing Controller: ExpertController', () => {
 
   let ExpertController: ExpertController,
-      httpBackend: ng.IHttpBackendService,
-      $state: ng.ui.IStateService,
-      WizardApiMock: WizardApiMock
+    httpBackend: ng.IHttpBackendService,
+    $state: ng.ui.IStateService,
+    WizardApiMock: WizardApiMock
 
   const wizardProfile: GetWizardProfile = {
     isExpert: false,
@@ -49,7 +49,7 @@ describe('Testing Controller: ExpertController', () => {
 
   it('should redirect to summary', () => {
     ExpertController.currentWizardState.expertDetailsOption = {
-     avatar: 'avatar'
+      avatar: 'avatar'
     }
     ExpertController.nameModel = 'name'
     ExpertController.avatarModel = 'avatar'
@@ -100,12 +100,47 @@ describe('Testing Controller: ExpertController', () => {
   })
 
   it('should form valid', () => {
-    ExpertController.currentWizardState.expertDetailsOption = true
-    spyOn(ExpertController, 'checkIsNameInputValid').and.returnValue(true)
-    spyOn(ExpertController, 'checkIsAvatarValid').and.returnValue(true)
-    spyOn(ExpertController, 'checkIsLanguagesValid').and.returnValue(true)
-    spyOn(ExpertController, 'checkIsProfileDescriptionValid').and.returnValue(true)
+    ExpertController.currentWizardState.expertDetailsOption = {
+      name: 'name'
+    }
+    ExpertController.nameModel = 'SomeName'
+    ExpertController.avatarModel = 'SomeAvatar'
+    ExpertController.languagesModel = ['pl']
+    ExpertController.descriptionModel = 'Lorem ipsum dolor sit amet, consectetuer adipiscing'
     expect(ExpertController.checkIsFormValid()).toEqual(true)
+  })
+
+  it('should have profile with expert details', inject(($controller: ng.IControllerService) => {
+    ExpertController = $controller<ExpertController>('expertController', {
+      wizardProfile: {
+        isExpert: false,
+        isCompany: false,
+        isSummary: false,
+        expertDetailsOption: {
+          name: 'name-1'
+        }
+      }
+    })
+    ExpertController.$onInit()
+    expect(ExpertController.nameModel).toEqual('name-1')
+  }))
+
+  it('should not have wizard profile', () => {
+    ExpertController.$onInit()
+    expect(ExpertController.currentWizardState.isCompany).toBe(false)
+  })
+
+  it('should checkIsAnyStepModelChange', () => {
+    const wizardExpertModel: PartialExpertDetails = {
+      name: '',
+      avatar: undefined,
+      languages: [],
+      description: '',
+      files: [],
+      links: []
+    }
+    ExpertController.saveSteps()
+    expect(ExpertController.currentWizardState.expertDetailsOption).toEqual(wizardExpertModel)
   })
 
 })
