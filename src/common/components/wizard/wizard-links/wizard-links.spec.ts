@@ -59,5 +59,36 @@ describe('Unit testing: WizardLinksController', () => {
       expect(component.selectedLinks.length > 0)
     }))
 
+    it('should link invalid', () => {
+      component.linkModel = 'profitelopl'
+      component.onEnter()
+      expect(component.badUrl).toBe(true)
+    })
+
+    it('should add http', () => {
+      component.linkModel = 'profitelo.pl'
+      component.onEnter()
+      expect(component.linkModel).toBe('http://profitelo.pl')
+    })
+
+    it('should link valid and exist', () => {
+      component.linkModel = 'http://profitelo.pl'
+      component.selectedLinks = ['http://profitelo.pl']
+      component.onEnter()
+      expect(component.badUrl).toBe(false)
+      expect(component.urlExist).toBe(true)
+    })
+
+    it('should delete link', () => {
+      component.selectedLinks = ['link-1']
+      component.removeLink('link-1')
+      expect(component.selectedLinks.length).toBe(0)
+    })
+
+    it('should check is link exist', () => {
+      component.selectedLinks = ['link-1']
+      expect(component.checkLinkExist('link-1')).toEqual(true)
+    })
+
   })
 })

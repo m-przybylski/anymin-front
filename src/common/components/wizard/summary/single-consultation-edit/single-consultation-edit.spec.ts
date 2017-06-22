@@ -25,7 +25,6 @@ describe('Unit testing: profitelo.components.wizard.single-consultation-edit', (
         rootScope = $rootScope.$new()
         compile = $compile
 
-
         component = $componentController<SingleConsultationEditComponentController, {}>('singleConsultationEdit', {}, {
         })
 
@@ -34,6 +33,42 @@ describe('Unit testing: profitelo.components.wizard.single-consultation-edit', (
 
     it('should have a dummy test', () => {
       expect(true).toBeTruthy()
+    })
+
+    it('should remove consultation', () => {
+      component.service = {
+        name: 'name',
+        price: {
+          amount: 123,
+          currency: 'PLN'
+        },
+        tags: [{
+          name: 'tag-1'
+        }],
+        isOwnerEmployee: false
+      }
+      component.onRemove = () => {}
+      spyOn(component, 'onRemove')
+      component.removeConsultation()
+      expect(component.onRemove).toHaveBeenCalledWith(component.service)
+    })
+
+    it('should edit consultation', () => {
+      component.service = {
+        name: 'name',
+        price: {
+          amount: 123,
+          currency: 'PLN'
+        },
+        tags: [{
+          name: 'tag-1'
+        }],
+        isOwnerEmployee: false
+      }
+      component.onEdit = () => {}
+      spyOn(component, 'onEdit')
+      component.editConsultation()
+      expect(component.onEdit).toHaveBeenCalledWith(component.service)
     })
 
   })

@@ -38,5 +38,12 @@ describe('Unit testing: profitelo.components.profile.profile-header-edit', () =>
       expect(true).toBeTruthy()
     })
 
+    it('should delete profile', () => {
+      component.onDelete = () => {}
+      spyOn(component, 'onDelete')
+      component.deleteProfile()
+      expect(component.onDelete).toHaveBeenCalled()
+    })
+
   })
 })
