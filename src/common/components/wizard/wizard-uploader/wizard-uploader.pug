@@ -1,6 +1,5 @@
 .wizard-uploader
   input.invisible-input(type="text")
-
   .uploader
     .file-drag-and-drop
       .upload-field(class="drop-box"
@@ -10,7 +9,7 @@
       ngf-allow-dir="false"
       ngf-accept="'image/*, application/pdf'")
         .upload-title
-          span.icon.icon-upload-24
+          span.icon.icon-upload-48
           div
             p {{ 'WIZARD.UPLOADER.DRAG_DROP' | translate }}
             p {{ 'WIZARD.UPLOADER.UPLODER_ADDITIONAL_TEXT' | translate }}
@@ -28,5 +27,8 @@
         span.file-size.in-progress {{ file.fileInfo.size || 'WIZARD.UPLOADER.UPLOADING_TEXT' | translate }}
 
       .file-action
+        a(data-ng-show="!file.fileInfo" data-ng-click="$ctrl.reUploadFile(file)")
+          span.icon.icon-upload-progress-24
+
         a(data-ng-click="$ctrl.removeFile(file)")
           span.icon.icon-trash-24

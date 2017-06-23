@@ -6,6 +6,7 @@ import loaderModule from '../../interface/loader/loader'
 
 export interface IWizardUploaderModuleComponentBindings extends ng.IController {
   tokenList: Array<string>
+  isValidCallback: (status: boolean) => {}
 }
 
 const wizardUploaderModule = angular.module('profitelo.components.wizard.wizard-uploader', [
