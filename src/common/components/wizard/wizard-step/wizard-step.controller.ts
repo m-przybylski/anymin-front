@@ -49,7 +49,6 @@ export class WizardStepComponentController implements IWizardStepModuleComponent
 
   $doCheck = () => {
     this.isActive = this.wizardHandler.currentStep === this.$element[0]
-
     if (this.isActive) {
       this.isShowed = this.isActive
     }

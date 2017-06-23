@@ -24,6 +24,7 @@ export class ExpertController implements ng.IController {
 
   public isSubmitted: boolean = false
   public isStepRequired: boolean = true
+  private isUploading: boolean = true
 
   /* @ngInject */
   constructor(private WizardApi: WizardApi, private $state: ng.ui.IStateService,
@@ -48,6 +49,7 @@ export class ExpertController implements ng.IController {
         this.linksModel = this.wizardProfile.expertDetailsOption!.links
       }
     }
+
     this.currentWizardState.isExpert = true
     if (!this.wizardProfile || this.wizardProfile.isCompany && !this.wizardProfile.isSummary) {
       this.currentWizardState.isCompany = false
@@ -107,12 +109,22 @@ export class ExpertController implements ng.IController {
     return !!(this.descriptionModel && this.descriptionModel.length >= 50)
   }
 
+  public checkIsFileUploadValid = (): boolean => {
+    return this.isUploading
+  }
+
+  public onUploadingFile = (status: boolean) => {
+    this.isUploading = status
+  }
+
   public checkIsFormValid = (): boolean => {
     return !!(this.currentWizardState.expertDetailsOption
-    && this.checkIsNameInputValid()
-    && this.checkIsAvatarValid()
-    && this.checkIsLanguagesValid()
-    && this.checkIsProfileDescriptionValid())
+      && this.checkIsNameInputValid()
+      && this.checkIsAvatarValid()
+      && this.checkIsLanguagesValid()
+      && this.checkIsProfileDescriptionValid()
+      && this.checkIsFileUploadValid()
+    )
   }
 
   private saveWizardState = (wizardState: PutWizardProfile) => {

@@ -16,10 +16,16 @@ export class WizardUploaderComponentController implements IWizardUploaderModuleC
   private uploader: UploaderService
   public documentFiles: IDocumentFile[] = []
   public tokenList: string[]
+  private countChoosedFiles: number = 0
+  public isValidCallback: (status: boolean) => {}
 
   /* @ngInject */
   constructor(private $log: ng.ILogService, uploaderFactory: UploaderFactory, private FilesApi: FilesApi) {
     this.uploader = uploaderFactory.getInstance(1, uploaderFactory.collectionTypes.avatar)
+  }
+
+  public onUploadEnd = (uploadingStatus: boolean) => {
+    this.isValidCallback(uploadingStatus)
   }
 
   $onInit() {
@@ -43,19 +49,36 @@ export class WizardUploaderComponentController implements IWizardUploaderModuleC
     this.$log.error(err)
   }
 
+  public reuploadFile = (file: IDocumentFile) => {
+    _.remove(this.documentFiles, (currentFile) => {
+      return currentFile === file
+    })
+
+    this.onUploadEnd(true)
+
+    // TODO REFRESH UPLOAD SINGLE FILE
+  }
+
   public uploadFiles = (files: File[]) => {
     files.forEach((file) => {
       const currentFile: IDocumentFile = {
         file: file
       }
+      this.countChoosedFiles += files.forEach.length
+
       this.documentFiles.push(currentFile)
+      this.onUploadEnd(false)
+
       this.uploader.uploadFile(file, this.postProcessOptions, (res: any) => {
         currentFile.fileUploadInfo = res
-      })
-      .then((res: any) => {
-        currentFile.fileInfo = res
-        this.tokenList.push(res.token)
-      }, this.onFileUploadError)
+      }).then((res: any) => {
+          currentFile.fileInfo = res
+          this.tokenList.push(res.token)
+          this.countChoosedFiles -= 1
+
+          this.onUploadEnd(this.countChoosedFiles === 0)
+
+        }, this.onFileUploadError)
     })
   }
 
