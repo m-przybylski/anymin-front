@@ -43,7 +43,8 @@ describe('Unit testing: profitelo.components.wizard.wizard-handler', () => {
         smoothScrollingService = _smoothScrollingService_
 
         bindings = {
-          onStepChange: () => {}
+          onStepChange: () => {},
+          progressBarText: 'sdsa'
         }
 
         const injectors = {

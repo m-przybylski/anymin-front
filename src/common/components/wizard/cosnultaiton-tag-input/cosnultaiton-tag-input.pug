@@ -1,8 +1,15 @@
 .consultation-tag-input
 
-  input-primary(
+  input(
     data-ng-model="$ctrl.tagModel"
     data-ng-enter="$ctrl.onEnter()"
+    data-ng-blur="$ctrl.onBlur()"
+    data-ng-focus="$ctrl.onFocus()"
+  )
+
+  validation-alert(
+  data-alert-text="WIZARD.CONSULTATION.INVALID_TAG"
+  data-is-visible="$ctrl.isInputValueInvalid"
   )
 
   .checked-list
@@ -11,7 +18,7 @@
         a(data-ng-click="$ctrl.deleteSelectedItem($index)") {{tag}}
           span.icon.icon-failure-24
 
-  .recommended-lst
+  .recommended-lst(data-ng-if="$ctrl.dictionary && $ctrl.dictionary.length > 0")
     p.label(data-translate="WIZARD.CONSULTATION.TAG.RECOMMENDED.TITLE")
 
     ul.tag-list.recomended-tags
@@ -20,6 +27,6 @@
           span {{ item }}
 
   validation-alert(
-    data-alert-text="WIZARD.CONSULTATION.TAG.RECOMMENDED.ALERT"
-    data-is-visible="$ctrl.selectedTags.length < 1"
+    data-alert-text="{{ $ctrl.validationText }}"
+    data-is-visible="!$ctrl.isValid && $ctrl.isDirty && !$ctrl.isFocus || $ctrl.isSubmitted && !$ctrl.isValid"
   )

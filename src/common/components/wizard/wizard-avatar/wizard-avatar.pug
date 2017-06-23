@@ -13,6 +13,7 @@
       data-ng-click="$ctrl.removePhoto()")
         .icon.icon-close-16
 
+
       local-avatar-uploader.local-avatar-uploader(on-file-upload='$ctrl.addPhoto' data-ng-hide="$ctrl.avatarToken && " +
       "$ctrl.avatarToken.length > 0"
       )
@@ -22,6 +23,11 @@
       image-crop-component(data-image-src="$ctrl.imageSource" data-save-crop-avatar='$ctrl.saveCrop')
 
 validation-alert(
-  data-alert-text="{{$ctrl.validationText}}"
-  data-is-visible="$ctrl.isSubmitted && !$ctrl.avatarToken.length > 0"
+data-alert-text="{{$ctrl.validationText}}"
+data-is-visible="$ctrl.isSubmitted && !$ctrl.avatarToken.length > 0"
+)
+
+validation-alert(
+  data-alert-text="WIZARD.CREATE_PROFILE.UPLOAD_FAILED"
+  data-is-visible="$ctrl.isFileUploadError"
 )

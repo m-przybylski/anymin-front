@@ -21,7 +21,7 @@ export class ExpertController implements ng.IController {
   }
 
   public progressStyle: IProgressStyle
-
+  public progressBarTittle: string = 'WIZARD.STEP.EXPERT.PROGRESSBAR.TITLE'
   public isSubmitted: boolean = false
   public isStepRequired: boolean = true
   private isUploading: boolean = true
@@ -54,15 +54,21 @@ export class ExpertController implements ng.IController {
     if (!this.wizardProfile || this.wizardProfile.isCompany && !this.wizardProfile.isSummary) {
       this.currentWizardState.isCompany = false
     }
+    this.progressBarTittle = this.currentWizardState.isCompany ?
+      'WIZARD.STEP.EXPERT_AS_COMPANY.PROGRESSBAR.TITLE' : 'WIZARD.STEP.EXPERT.PROGRESSBAR.TITLE'
     this.saveWizardState(this.currentWizardState)
   }
 
   public onGoBack = () => {
-    this.currentWizardState.isExpert = false
-    this.currentWizardState.isCompany = false
-    this.saveWizardState(this.currentWizardState).then(() => {
-      this.$state.go('app.wizard.create-profile')
-    })
+    if (this.wizardProfile && !this.wizardProfile.isSummary) {
+      this.currentWizardState.isExpert = false
+      this.currentWizardState.isCompany = false
+      this.saveWizardState(this.currentWizardState).then(() => {
+        this.$state.go('app.wizard.create-profile')
+      })
+    } else {
+      this.goToSummary()
+    }
   }
 
   public saveSteps = () => {

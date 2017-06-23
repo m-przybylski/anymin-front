@@ -8,7 +8,8 @@ import * as _ from 'lodash'
 export interface IDocumentFile {
   file?: File,
   fileInfo?: FileInfo,
-  fileUploadInfo?: any
+  fileUploadInfo?: any,
+  isUploadFailed: boolean
 }
 
 export class WizardUploaderComponentController implements IWizardUploaderModuleComponentBindings {
@@ -32,7 +33,8 @@ export class WizardUploaderComponentController implements IWizardUploaderModuleC
     this.tokenList.forEach((token) => {
       this.FilesApi.fileInfoPath(token).then((response) => {
         const documentObject = {
-          fileInfo: response
+          fileInfo: response,
+          isUploadFailed: false
         }
         this.documentFiles.push(documentObject)
       }, (error) => {
@@ -45,40 +47,34 @@ export class WizardUploaderComponentController implements IWizardUploaderModuleC
     croppingDetails: undefined
   }
 
-  private onFileUploadError = (err: any) => {
-    this.$log.error(err)
+  private onFileUploadError = (error: any, currentFile: IDocumentFile) => {
+    currentFile.isUploadFailed = true
+    this.$log.error(error)
   }
 
   public reuploadFile = (file: IDocumentFile) => {
-    _.remove(this.documentFiles, (currentFile) => {
-      return currentFile === file
+    const reuploadedFile: IDocumentFile | undefined = _.find(this.documentFiles, (documentFile) => {
+      return file === documentFile
     })
+    if (reuploadedFile && reuploadedFile.file) {
+      this.onUploadEnd(false)
+      reuploadedFile.isUploadFailed = false
+      this.countChoosedFiles += 1
+      this.uploadFile(reuploadedFile.file, reuploadedFile)
+    }
 
-    this.onUploadEnd(true)
-
-    // TODO REFRESH UPLOAD SINGLE FILE
   }
 
   public uploadFiles = (files: File[]) => {
     files.forEach((file) => {
       const currentFile: IDocumentFile = {
-        file: file
+        file: file,
+        isUploadFailed: false
       }
       this.countChoosedFiles += files.forEach.length
-
       this.documentFiles.push(currentFile)
       this.onUploadEnd(false)
-
-      this.uploader.uploadFile(file, this.postProcessOptions, (res: any) => {
-        currentFile.fileUploadInfo = res
-      }).then((res: any) => {
-          currentFile.fileInfo = res
-          this.tokenList.push(res.token)
-          this.countChoosedFiles -= 1
-
-          this.onUploadEnd(this.countChoosedFiles === 0)
-
-        }, this.onFileUploadError)
+      this.uploadFile(file, currentFile)
     })
   }
 
@@ -94,6 +90,19 @@ export class WizardUploaderComponentController implements IWizardUploaderModuleC
         this.$log.error('Can not find file')
         return void 0
       }
+    })
+  }
+
+  private uploadFile = (file: File, currenFile: IDocumentFile) => {
+    this.uploader.uploadFile(file, this.postProcessOptions, (res: any) => {
+      currenFile.fileUploadInfo = res
+    }).then((res: any) => {
+      currenFile.fileInfo = res
+      this.tokenList.push(res.token)
+      this.countChoosedFiles -= 1
+      this.onUploadEnd(this.countChoosedFiles === 0)
+    }, (error) => {
+      this.onFileUploadError(error, currenFile)
     })
   }
 }

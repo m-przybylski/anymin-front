@@ -5,6 +5,9 @@ export class ConsultationTagInputComponent implements ng.IComponentOptions {
   template = require('./cosnultaiton-tag-input.pug')()
   bindings: {[boundProperty: string]: string} = {
     dictionary: '<',
-    selectedTags: '=?'
+    selectedTags: '=?',
+    isValid: '<',
+    validationText: '@',
+    isSubmitted: '<'
   }
 }

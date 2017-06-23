@@ -4,6 +4,7 @@ import './wizard-handler.sass'
 
 export interface IWizardHandlerComponentBindings extends ng.IController {
   onStepChange: () => void
+  progressBarText: string
 }
 
 const wizardHandlerModule = angular.module('profitelo.components.wizard.wizard-handler', [

@@ -1,6 +1,6 @@
 section.consultation
   .container-big
-    wizard-handler()
+    wizard-handler(data-progress-bar-text="WIZARD.STEP.CONSULTATION.PROGRESSBAR.TITLE")
       wizard-step.step(
         data-title="WIZARD.SUMMARY.CONSULTATION.NAME.TITLE"
         data-tooltip-text="WIZARD.SUMMARY.CONSULTATION.NAME.TOOLTIP"
@@ -25,6 +25,9 @@ section.consultation
         consultation-tag-input(
           data-dictionary="vm.consultationsMock"
           data-selected-tags="vm.tagsInputValue"
+          data-validation-text="WIZARD.CONSULTATION.TAG.RECOMMENDED.ALERT"
+          data-is-submitted="vm.isSubmitted"
+          data-is-valid="vm.checkIsTagsInputValid()"
         )
 
       wizard-step.step(

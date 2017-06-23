@@ -10,7 +10,8 @@
     data-ng-repeat="service in vm.services"
     data-service="service"
     data-on-remove="vm.removeConsultation"
-    data-on-edit="vm.editConsultation")
+    data-on-edit="vm.editConsultation"
+    data-is-company="!vm.isExpertWizardPath")
 
   .container
     a.btn.btn-primary(data-translate="WIZARD.SUMMARY.ADD.ANOTHER.BUTTON"
