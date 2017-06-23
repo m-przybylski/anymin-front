@@ -18,6 +18,7 @@ export class WizardAvatarComponentController implements IWizardAvatarComponentBi
   public isValid?: boolean
   public isSubmitted?: boolean
   public isFocus: boolean = true
+  public isFileUploadError: boolean = false
 
   /* @ngInject */
   constructor(uploaderFactory: UploaderFactory, private urlService: UrlService, private $scope: ng.IScope) {
@@ -80,10 +81,12 @@ export class WizardAvatarComponentController implements IWizardAvatarComponentBi
     this.imageSource = ''
     this.clearFormAfterCropping()
     this.isFocus = true
+    this.isFileUploadError = false
   }
 
   private onFileUploadError = (err: any): void => {
-    this.isUploadInProgress = false
+    this.isLoading = false
+    this.isFileUploadError = true
     throw new Error('Can not upload file: ' + err)
   }
 

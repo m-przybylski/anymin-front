@@ -1,5 +1,5 @@
 .wizard-expert
-  wizard-handler(data-on-step-change="vm.saveSteps")
+  wizard-handler(data-on-step-change="vm.saveSteps" data-progress-bar-text=" {{ vm.progressBarTittle }}")
     wizard-step.step(
     data-title="WIZARD.STEP.EXPERT.NAME.TITLE"
     data-tooltip-text="WIZARD.STEP.EXPERT.NAME.TOOLTIP"

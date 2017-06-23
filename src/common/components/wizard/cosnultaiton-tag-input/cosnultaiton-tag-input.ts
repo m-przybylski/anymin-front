@@ -7,6 +7,9 @@ import ValidationAlertModule from '../../interface/alert/validation-alert/valida
 export interface IConsultationTagInputBindings extends ng.IController {
   dictionary: string[]
   selectedTags: string[]
+  isValid?: boolean
+  validationText?: string
+  isSubmitted?: boolean
 }
 
 const consultationTagInputModule = angular.module('profitelo.components.wizard.consultation-tag-input', [

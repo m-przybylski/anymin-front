@@ -29,11 +29,15 @@ export class CompanyController implements ng.IController {
   }
 
   public onGoBack = () => {
-    this.currentWizardState.isExpert = false
-    this.currentWizardState.isCompany = false
-    this.saveWizardState(this.currentWizardState).then(() => {
-      this.$state.go('app.wizard.create-profile')
-    })
+    if (this.wizardProfile && !this.wizardProfile.isSummary) {
+      this.currentWizardState.isExpert = false
+      this.currentWizardState.isCompany = false
+      this.saveWizardState(this.currentWizardState).then(() => {
+        this.$state.go('app.wizard.create-profile')
+      })
+    } else {
+      this.goToSummary()
+    }
   }
 
   $onInit = () => {

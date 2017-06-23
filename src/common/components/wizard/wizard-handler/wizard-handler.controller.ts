@@ -14,6 +14,7 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
   public progressStyle: IProgressStyle
   public progressWidth: number
   public indexOfCurrentStep: number
+  public progressBarText: string
 
   private findInput: HTMLElement
   private findTextarea: HTMLElement

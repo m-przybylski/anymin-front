@@ -47,7 +47,8 @@ describe('Unit testing: profitelo.components.wizard.wizard-uploader', () => {
         compile = $compile
 
         bindings = {
-          tokenList: ['file-token-1']
+          tokenList: ['file-token-1'],
+          isValidCallback: () => true
         }
 
         const injectors = {

@@ -9,16 +9,15 @@ export class SingleConsultationEditComponentController implements ISingleConsult
   public employeeList: ServiceInvitation[]
   public name: string
   public price: MoneyDto
-  public isEmployee: boolean
   public onRemove: (service: WizardService) => void
   public onEdit: (service: WizardService) => void
   public isOwnerEmployee: boolean = false
+  public isCompany: boolean
   /* @ngInject */
   constructor() {
   }
 
   $onInit() {
-    this.isEmployee = !!(this.service.invitations && this.service.invitations.length > 0)
     this.tagsList = this.service.tags
     this.employeeList = []
     if (this.service.invitations) {
@@ -33,6 +32,7 @@ export class SingleConsultationEditComponentController implements ISingleConsult
     this.name = this.service.name
     this.price = this.service.price
     this.isOwnerEmployee = this.service.isOwnerEmployee
+
   }
 
   public removeConsultation = () => {

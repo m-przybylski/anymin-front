@@ -3,4 +3,4 @@
 
   .wizard-progress-bar
     span.progress(data-ng-style="$ctrl.progressStyle")
-    span.progress-text {{:: 'WIZARD.STEP.EXPERT.PROGRESSBAR.TITLE' | translate }}
+    span.progress-text(data-translate="{{ $ctrl.progressBarText }}")

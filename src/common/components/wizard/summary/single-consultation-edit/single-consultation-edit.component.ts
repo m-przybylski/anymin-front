@@ -6,6 +6,7 @@ export class SingleConsultationEditComponent implements ng.IComponentOptions {
   bindings: {[boundProperty: string]: string} = {
     service: '<',
     onRemove: '<',
-    onEdit: '<'
+    onEdit: '<',
+    isCompany: '<'
   }
 }

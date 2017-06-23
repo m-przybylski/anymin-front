@@ -4,6 +4,7 @@ export class WizardHandlerComponent implements ng.IComponentOptions {
   controller: ng.Injectable<ng.IControllerConstructor> = WizardHandlerComponentController
   template = require('./wizard-handler.pug')()
   bindings: {[boundProperty: string]: string} = {
-    onStepChange: '<'
+    onStepChange: '<',
+    progressBarText: '@'
   }
 }
