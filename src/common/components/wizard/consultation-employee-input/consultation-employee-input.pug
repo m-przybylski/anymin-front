@@ -1,11 +1,30 @@
 .consultation-employee-input
-
   .input-handler
-    input-primary(
-      data-ng-model="$ctrl.inputModel"
+    input(
+      data-ng-model="$ctrl.inputValue"
       data-ng-enter="$ctrl.onEnter()"
+      data-ng-blur="$ctrl.onBlur()"
+
     )
-    a.btn.btn-small.btn-primary(data-translate="WIZARD.CONSULTATION.EMPLOYEE.BUTTON.UPLOAD")
+    button.btn.btn-small.btn-primary(data-translate="WIZARD.CONSULTATION.EMPLOYEE.BUTTON.UPLOAD"
+    ngf-select="$ctrl.uploadCSVFile($files)"
+    ngf-accept="'.csv'")
+
+  validation-alert(
+  data-alert-text="WIZARD.CONSULTATION.UPLOAD_FILE_IS_INVALID"
+  data-is-visible="$ctrl.isUploadFileIsInvalid"
+  )
+
+  validation-alert(
+  data-alert-text="WIZARD.CONSULTATION.SOME_FILES_ARE_INVALID"
+  data-is-visible="$ctrl.areUploadedFilesInvalid"
+  data-additional-text="{{ $ctrl.wrongValuesCounter }}"
+  )
+
+  validation-alert(
+  data-alert-text="WIZARD.CONSULTATION.EMPLOYEE_INPUT_VALUE_INVALID"
+  data-is-visible="$ctrl.isInputValueInvalid"
+  )
 
   .invited-list
     ul.tag-list
@@ -20,5 +39,5 @@
 
   validation-alert(
     data-alert-text="{{$ctrl.validationText}}"
-    data-is-visible="!$ctrl.isValid"
+    data-is-visible="!$ctrl.isValid && $ctrl.isDirty"
   )

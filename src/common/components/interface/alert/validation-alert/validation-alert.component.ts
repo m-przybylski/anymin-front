@@ -5,6 +5,7 @@ export class ValidationAlertComponent implements ng.IComponentOptions {
   template = require('./validation-alert.pug')()
   bindings: {[boundProperty: string]: string} = {
     alertText: '@',
-    isVisible: '<'
+    isVisible: '<',
+    additionalText: '@'
   }
 }
