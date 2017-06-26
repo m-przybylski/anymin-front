@@ -4,14 +4,18 @@ import {MoneyDto} from 'profitelo-api-ng/model/models'
 
 export class ConsultationListItemComponentController implements IConsultationListItemComponentBindings {
 
-  consultationTitle: string
-  consultationPrice: MoneyDto
-  consultationTags: Array<Tag>
-  consultationInviteTime: string
+  public consultationTitle: string
+  public consultationPrice: MoneyDto
+  public consultationTags: Array<Tag>
+  public consultationInviteTime: string
   public consultationCheckboxId: string = 'mockId'
   public consultationCheckboxNgModel: boolean = false
 
   /* @ngInject */
   constructor() {}
+
+  public changeConsultationStatus = (): void => {
+    this.onChange()
+  }
 
 }

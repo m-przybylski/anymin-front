@@ -6,30 +6,23 @@ scrollable(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
         .modal-section
           .profile-preview
             .thumb.x96
-              user-avatar(data-image-token="")
+              user-avatar(data-image-token="vm.logo")
 
             .profile-container
               .profile-name
-                span HP Computers
+                span {{ vm.companyName }}
 
         .modal-section
           .consultation-section
             header.entry-title
               span(data-translate="DASHBOARD.EXPERT_ACCOUNT.INVITATION.DETAILS.CONSULTATIONS")
-            p Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui, non felis. Maecenas malesuada elit lectus felis, malesuada ultricies.
+            p {{ vm.description }}
 
         .modal-section
-          consultation-list-item(data-consultation-title="Consumer psychology in the industrial and manufacturing equipment marketplace."
-            data-consultation-price="vm.cosultationPrice"
-            data-consultation-tags="vm.tags")
-
-          consultation-list-item(data-consultation-title="Two questions to ask about bird flu vaccines."
-            data-consultation-price="vm.cosultationPrice"
-            data-consultation-tags="vm.tags")
-
-          consultation-list-item(data-consultation-title="The universe through a child`s eyes."
-            data-consultation-price="vm.cosultationPrice"
-            data-consultation-tags="vm.tags")
+          consultation-list-item(data-ng-repeat="service in vm.services"
+            data-consultation-title="{{ service.name }}"
+            data-consultation-price="service.price"
+            data-consultation-tags="service.tags")
 
         .buttons-container
           a.btn.btn-default(data-translate="DASHBOARD.EXPERT_ACCOUNT.INVITATION.DETAILS.BUTTON.ACCEPT")

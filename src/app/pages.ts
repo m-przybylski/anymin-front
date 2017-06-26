@@ -8,6 +8,7 @@ import companyProfilePageModule from './company-profile/company-profile'
 import postRegisterPageModule from './post-register/post-register'
 import dashboardPageModule from './dashboard/dashboard'
 import wizardPageModule from './wizard/wizard'
+import invitationsPageModule from './invitations/invitations'
 
 const pagesModule = angular.module('profitelo.pages', [
   dashboardPageModule,
@@ -18,6 +19,7 @@ const pagesModule = angular.module('profitelo.pages', [
   companyProfilePageModule,
   postRegisterPageModule,
   errorPageModule,
+  invitationsPageModule,
   wizardPageModule
 ])
   .name;
