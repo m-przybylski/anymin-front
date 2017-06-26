@@ -13,7 +13,7 @@ export class InputComponent implements ng.IComponentOptions {
     isValid: '<',
     ngRequired: '<',
     ngModel: '=',
-    ngPattern: '=?',
+    ngPattern: '<',
     isSubmitted: '<'
   }
 }

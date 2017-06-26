@@ -47,7 +47,7 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
 
   }
 
-  public logout = () => {
+  public logout = (): void => {
     this.userService.logout().then(() => {
       this.$state.reload()
       this.topAlertService.success({
@@ -57,7 +57,7 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
     })
   }
 
-  private setIsExpert = () => {
+  private setIsExpert = (): void => {
     this.userService.getUser().then((response) => {
       this.isExpertOrOrganization = response.isExpert || response.isCompany
     }, () => {
@@ -65,12 +65,12 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
     })
   }
 
-  public toggleNotificationsMenuShow = () => {
+  public toggleNotificationsMenuShow = (): void => {
     this.isNotificationsMenuShow = !this.isNotificationsMenuShow
     this.isAnyMenuShow = !this.isAnyMenuShow
   }
 
-  public toggleNotificationsTabShow = () => {
+  public toggleNotificationsTabShow = (): void => {
     this.toggleNotificationsMenuShow()
     this.areNotificationsDisplayed = true
     this.isNotificationsTab = true
@@ -78,14 +78,14 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
     this.isHelpMenuShow = false
   }
 
-  public toggleInvitationsTabShow = () => {
+  public toggleInvitationsTabShow = (): void => {
     this.toggleNotificationsMenuShow()
     this.areInvitationsDisplayed = true
     this.isNotificationsTab = false
     this.isInvitationsTab = true
   }
 
-  public toggleHelpMenuShow = () => {
+  public toggleHelpMenuShow = (): void => {
     this.isHelpMenuShow = !this.isHelpMenuShow
     this.isNotificationsMenuShow = false
     this.isAnyMenuShow = !this.isAnyMenuShow

@@ -10,6 +10,7 @@ import profileHeaderEditModule from '../../../common/components/wizard/summary/p
 import singleConsultationEditModule from '../../../common/components/wizard/summary/single-consultation-edit/single-consultation-edit'
 import apiModule from 'profitelo-api-ng/api.module'
 import errorHandlerModule from '../../../common/services/error-handler/error-handler'
+import userModule from '../../../common/services/user/user'
 
 const summaryWizardModule = angular.module('profitelo.controller.wizard.summary', [
   'ui.router',
@@ -20,7 +21,8 @@ const summaryWizardModule = angular.module('profitelo.controller.wizard.summary'
   profileHeaderEditModule,
   singleConsultationEditModule,
   apiModule,
-  errorHandlerModule
+  errorHandlerModule,
+  userModule
 ])
 .config(($stateProvider: ng.ui.IStateProvider) => {
   $stateProvider.state('app.wizard.summary', {
@@ -30,15 +32,11 @@ const summaryWizardModule = angular.module('profitelo.controller.wizard.summary'
     template: require('./summary.pug')(),
     resolve: {
       /* istanbul ignore next */
-      wizardProfile: (WizardApi: WizardApi): ng.IPromise<GetWizardProfile> => {
+      wizardProfile: (WizardApi: WizardApi, $state: ng.ui.IStateService): ng.IPromise<GetWizardProfile> => {
         return WizardApi.getWizardProfileRoute().then((wizardProfile) => {
           return wizardProfile
-        }, (error) => {
-          if (error.status === 404) {
-            return void 0
-          } else {
-            throw new Error('Can not get wizard profile ' + error)
-          }
+        }, (_error) => {
+          $state.go('app.wizard.create-profile')
         })
       }
     },

@@ -40,3 +40,8 @@
         data-ng-if="!vm.isUserShouldCreateExpert")
         a.btn.btn-default(data-translate="WIZARD.SUMMARY.CREATE_EXPERT.BUTTON"
         data-ui-sref="app.wizard.create-profile.expert" data-ng-if="vm.isUserShouldCreateExpert")
+
+        validation-alert(
+        data-alert-text="WIZARD.SUMMARY.VALIDATE_FORM"
+        data-is-visible="vm.isWizardInvalid"
+        )
