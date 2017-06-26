@@ -7,6 +7,7 @@ import {
 import {WizardApi} from 'profitelo-api-ng/api/api'
 import * as _ from 'lodash'
 import {ErrorHandlerService} from '../../../common/services/error-handler/error-handler.service'
+import {UserService} from '../../../common/services/user/user.service'
 
 export class SummaryController implements ng.IController {
 
@@ -17,10 +18,12 @@ export class SummaryController implements ng.IController {
   public isUserShouldCreateExpert: boolean = false
   public isCompanyWithExpert: boolean = false
   public wizardExpertProfileData?: PartialExpertDetails
+  public isWizardInvalid: boolean = false
 
   /* @ngInject */
   constructor(private $state: ng.ui.IStateService, private errorHandler: ErrorHandlerService,
-              private WizardApi: WizardApi, private wizardProfile?: GetWizardProfile) {
+              private WizardApi: WizardApi, private wizardProfile: GetWizardProfile,
+              private userService: UserService) {
 
     if (wizardProfile) {
       if (wizardProfile.expertDetailsOption && wizardProfile.isExpert && !wizardProfile.isCompany) {
@@ -91,7 +94,6 @@ export class SummaryController implements ng.IController {
     if (this.wizardProfile && this.services) {
       _.remove(this.services, (service) => serviceToDelete === service)
       this.wizardProfile.services = this.services
-
       this.WizardApi.putWizardProfileRoute(this.wizardProfile).then((response) => {
         this.isConsultation = !!(response.services && response.services.length > 0)
         this.isUserShouldCreateExpert = this.checkIfUserCanCreateExpertProfile()
@@ -106,11 +108,49 @@ export class SummaryController implements ng.IController {
   }
 
   public saveWizard = () => {
-    this.WizardApi.postWizardCompleteRoute().then((_response) => {
-      this.$state.go('app.dashboard.expert.activities')
-    }, (error) => {
-      this.errorHandler.handleServerError(error)
-    })
+    if (this.checkIsWizardValid()) {
+      this.WizardApi.postWizardCompleteRoute().then((_response) => {
+        this.userService.getUser(true).then(() => {
+          this.$state.go('app.dashboard.expert.activities')
+        })
+      }, (error) => {
+        this.errorHandler.handleServerError(error)
+      })
+    } else {
+      this.isWizardInvalid = true
+    }
+  }
+
+  private checkIsWizardValid = (): boolean => {
+    if (this.wizardProfile.isSummary && this.checkIsWizardHasService()) {
+      if (!this.wizardProfile.isCompany && this.checkIsExpertProfileValid()) {
+        return true
+      } else if (!this.wizardProfile.isExpert && this.checkIsCompanyProfileValid()) {
+        return true
+      } else if (this.wizardProfile.isCompany && this.wizardProfile.isExpert && this.checkIsExpertProfileValid() &&
+        this.checkIsCompanyProfileValid()) {
+        return true
+      }
+      return false
+    }
+
+    return false
+  }
+
+  private checkIsExpertProfileValid = () => {
+    return this.wizardProfile.isExpert && this.wizardProfile.expertDetailsOption
+      && this.wizardProfile.expertDetailsOption.avatar && this.wizardProfile.expertDetailsOption.description
+      && this.wizardProfile.expertDetailsOption.languages && this.wizardProfile.expertDetailsOption.name
+  }
+
+  private checkIsWizardHasService = () => {
+    return this.wizardProfile.services && this.wizardProfile.services.length > 0
+  }
+
+  private checkIsCompanyProfileValid = () => {
+    return this.wizardProfile.isCompany && this.wizardProfile.organizationDetailsOption
+      && this.wizardProfile.organizationDetailsOption.name && this.wizardProfile.organizationDetailsOption.logo
+      && this.wizardProfile.organizationDetailsOption.description
   }
 
   private checkIfUserCanCreateExpertProfile = () => {
