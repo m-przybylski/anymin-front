@@ -13,6 +13,11 @@
     data-on-edit="vm.editConsultation"
     data-is-company="!vm.isExpertWizardPath")
 
+  .container
+    .add-new-consultation(data-ng-show="!vm.isConsultation")
+      p(data-translate="WIZARD.SUMMARY.ADD.TITLE")
+      a.btn.btn-default(data-translate="WIZARD.SUMMARY.ADD.BUTTON" data-ui-sref="app.wizard.consultation")
+
   .company-with-expert(data-ng-if="vm.isCompanyWithExpert")
     .add-new-consultation.container
       a.btn.btn-primary(data-translate="WIZARD.SUMMARY.ADD.ANOTHER.BUTTON"
@@ -26,9 +31,6 @@
     )
 
     .container
-      .add-new-consultation(data-ng-show="!vm.isConsultation")
-        p(data-translate="WIZARD.SUMMARY.ADD.TITLE")
-        a.btn.btn-default(data-translate="WIZARD.SUMMARY.ADD.BUTTON" data-ui-sref="app.wizard.consultation")
 
       .add-another-consultation(data-ng-show="vm.isConsultation")
         p(data-translate="WIZARD.SUMMARY.ADD.ANOTHER.TITLE")

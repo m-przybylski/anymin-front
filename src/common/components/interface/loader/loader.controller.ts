@@ -18,6 +18,7 @@ export class LoaderComponentController implements ng.IController, ILoaderCompone
   public circleStyle: ICircleBackgroundStyle
   public circleStyleBackground: ICircleBackgroundStyle
   public circleProgressStyle: ICircleStyle
+  public fileUploadError: boolean = false
 
   /* @ngInject */
   constructor() {

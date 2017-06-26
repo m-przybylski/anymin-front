@@ -19,7 +19,8 @@
 
       .file-preview
         loader.file-loader(data-file-upload-info="file.fileUploadInfo"
-        data-ng-hide="file.fileInfo || file.isUploadFailed")
+        data-file-upload-error="file.isUploadFailed"
+        data-ng-hide="file.fileInfo")
         span(data-ng-show="file.isUploadFailed") Error
         img.thumb.x64(data-ng-src="{{ ::file.fileInfo.previews[0] }}" data-ng-show="file.fileInfo")
 
