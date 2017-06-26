@@ -13,33 +13,33 @@
     data-on-edit="vm.editConsultation"
     data-is-company="!vm.isExpertWizardPath")
 
-  .container
-    a.btn.btn-primary(data-translate="WIZARD.SUMMARY.ADD.ANOTHER.BUTTON"
-    data-ng-if="vm.isCompanyWithExpert && vm.isConsultation" data-ui-sref="app.wizard.consultation")
+  .company-with-expert(data-ng-if="vm.isCompanyWithExpert")
+    .add-new-consultation.container
+      a.btn.btn-primary(data-translate="WIZARD.SUMMARY.ADD.ANOTHER.BUTTON"
+      data-ng-if="vm.isCompanyWithExpert && vm.isConsultation" data-ui-sref="app.wizard.consultation")
 
-  profile-header-edit(
-  data-ng-if="vm.isCompanyWithExpert"
-  data-profile-details="vm.wizardExpertProfileData"
-  data-profile-type="true"
-  data-on-delete="vm.onSecondProfileDelete"
-  data-on-edit="vm.onSecondProfileEdit"
-  )
+    profile-header-edit(
+      data-profile-details="vm.wizardExpertProfileData"
+      data-profile-type="true"
+      data-on-delete="vm.onSecondProfileDelete"
+      data-on-edit="vm.onSecondProfileEdit"
+    )
 
-  .container
-    .add-new-consultation(data-ng-show="!vm.isConsultation")
-      p(data-translate="WIZARD.SUMMARY.ADD.TITLE")
-      a.btn.btn-default(data-translate="WIZARD.SUMMARY.ADD.BUTTON" data-ui-sref="app.wizard.consultation")
+    .container
+      .add-new-consultation(data-ng-show="!vm.isConsultation")
+        p(data-translate="WIZARD.SUMMARY.ADD.TITLE")
+        a.btn.btn-default(data-translate="WIZARD.SUMMARY.ADD.BUTTON" data-ui-sref="app.wizard.consultation")
 
-    .add-another-consultation(data-ng-show="vm.isConsultation")
-      p(data-translate="WIZARD.SUMMARY.ADD.ANOTHER.TITLE")
+      .add-another-consultation(data-ng-show="vm.isConsultation")
+        p(data-translate="WIZARD.SUMMARY.ADD.ANOTHER.TITLE")
 
-      .btn-handler
-        a.btn.btn-primary(data-translate="WIZARD.SUMMARY.ADD.ANOTHER.BUTTON"  data-ng-if="!vm.isCompanyWithExpert"
-        data-ui-sref="app.wizard.consultation")
-        a.btn.btn-default(data-translate="WIZARD.SUMMARY.ADD.ANOTHER.BUTTON.SAVE" data-ng-click="vm.saveWizard()"
-        data-ng-if="!vm.isUserShouldCreateExpert")
-        a.btn.btn-default(data-translate="WIZARD.SUMMARY.CREATE_EXPERT.BUTTON"
-        data-ui-sref="app.wizard.create-profile.expert" data-ng-if="vm.isUserShouldCreateExpert")
+        .btn-handler
+          a.btn.btn-primary(data-translate="WIZARD.SUMMARY.ADD.ANOTHER.BUTTON"  data-ng-if="!vm.isCompanyWithExpert"
+          data-ui-sref="app.wizard.consultation")
+          a.btn.btn-default(data-translate="WIZARD.SUMMARY.ADD.ANOTHER.BUTTON.SAVE" data-ng-click="vm.saveWizard()"
+          data-ng-if="!vm.isUserShouldCreateExpert")
+          a.btn.btn-default(data-translate="WIZARD.SUMMARY.CREATE_EXPERT.BUTTON"
+          data-ui-sref="app.wizard.create-profile.expert" data-ng-if="vm.isUserShouldCreateExpert")
 
         validation-alert(
         data-alert-text="WIZARD.SUMMARY.VALIDATE_FORM"

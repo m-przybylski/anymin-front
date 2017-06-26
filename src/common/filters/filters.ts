@@ -8,6 +8,7 @@ import './ms-to-date/msToDate'
 import './money/money-filter'
 import './message/message-filter'
 import './input-filter/semicolon-to-comma-input-filter'
+import './new-line-filter/new-line.filter'
 
 const filtersModule  = angular.module('profitelo.filters', [
   'profitelo.filters.seconds-to-datetime',
@@ -18,7 +19,8 @@ const filtersModule  = angular.module('profitelo.filters', [
   'profitelo.filters.milliseconds-to-datetime',
   'profitelo.filters.money',
   'profitelo.filters.message-filter',
-  'profitelo.filters.input-filter.semicolon-to-comma-input-filter'
+  'profitelo.filters.input-filter.semicolon-to-comma-input-filter',
+  'profitelo.filters.new-line'
 ])
 .name
 

@@ -4,6 +4,7 @@ import './profile-header.sass'
 import {GetExpertDetails} from 'profitelo-api-ng/model/models'
 import userAvatarModule from '../../interface/user-avatar/user-avatar'
 import profileGalleryModule from '../../interface/profile-gallery/profile-gallery'
+import filtersModule from '../../../filters/filters'
 
 export interface IProfileHeaderComponentBindings extends ng.IController {
   profileDetails?: GetExpertDetails,
@@ -20,7 +21,8 @@ export enum  ProfileTypes {
 const profileHeaderModule = angular.module('profitelo.components.profile.profile-header', [
   'profitelo.directives.pro-social-icon-getter',
   userAvatarModule,
-  profileGalleryModule
+  profileGalleryModule,
+  filtersModule
 ])
 .component('profileHeader', new ProfileHeaderComponent())
   .name
