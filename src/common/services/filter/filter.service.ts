@@ -25,5 +25,8 @@ export interface IFilterService extends ng.IFilterService {
   (name: 'message'): {
     (translationId: string, interpolateParams?: any, interpolation?: string): string
   }
+  (name: 'newLineFilter'): {
+    ($sce: ng.ISCEService): string
+  }
 }
 

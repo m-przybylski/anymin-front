@@ -32,8 +32,9 @@
               span.icon.icon-edit-24
 
         .profile-content-description
-          p {{ $ctrl.profileDetails.description }}
+          p(data-ng-bind-html="$ctrl.profileDetails.description | newLineFilter")
 
         profile-gallery(data-documents="$ctrl.documents")
+
 
 

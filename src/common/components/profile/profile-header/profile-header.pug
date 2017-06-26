@@ -36,7 +36,7 @@
                 span(data-translate="EXPERT_ACCOUNT.BUTTON.FAVOURITE")
 
         .profile-content-description
-          p {{ $ctrl.profileDetails.description }}
+          p(data-ng-bind="$ctrl.profileDetails.description | newLineFilter")
 
         profile-gallery(data-documents="$ctrl.documents")
 
