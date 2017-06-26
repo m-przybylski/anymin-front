@@ -60,11 +60,11 @@
         data-is-submitted="vm.isSubmitted"
       )
 
-    wizard-step.step(
-    data-title="WIZARD.STEP.EXPERT.FILES.TITLE"
-    data-tooltip-text="WIZARD.STEP.EXPERT.FILES.TOOLTIP"
-    data-check-is-step-valid="vm.checkIsFileUploadValid"
-    )
+      wizard-step.step(
+        data-title="WIZARD.STEP.EXPERT.FILES.TITLE"
+        data-tooltip-text="WIZARD.STEP.EXPERT.FILES.TOOLTIP"
+        data-check-is-step-valid="vm.checkIsFileUploadValid"
+      )
       wizard-uploader(
         data-token-list="vm.filesModel"
         data-is-valid-callback="vm.onUploadingFile"

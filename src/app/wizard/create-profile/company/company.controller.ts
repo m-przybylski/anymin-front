@@ -22,6 +22,7 @@ export class CompanyController implements ng.IController {
 
   public isSubmitted: boolean = false
   public isStepRequired: boolean = true
+  private isUploading: boolean = true
 
   /* @ngInject */
   constructor(private WizardApi: WizardApi, private $state: ng.ui.IStateService,
@@ -97,11 +98,21 @@ export class CompanyController implements ng.IController {
     return this.descriptionModel && this.descriptionModel.length > 49
   }
 
+  public checkIsFileUploadValid = (): boolean => {
+    return this.isUploading
+  }
+
+  public onUploadingFile = (status: boolean) => {
+    this.isUploading = status
+  }
+
   public checkIsFormValid = (): boolean => {
     return !!(this.currentWizardState.organizationDetailsOption
     && this.checkIsNameInputValid()
     && this.checkIsLogoValid()
-    && this.checkIsProfileDescriptionValid())
+    && this.checkIsProfileDescriptionValid()
+    && this.checkIsFileUploadValid()
+    )
   }
 
   private saveWizardState = (wizardState: PutWizardProfile) => {
