@@ -4,6 +4,7 @@ import './loader.sass'
 
 export interface ILoaderComponentBindings  extends ng.IController {
   fileUploadInfo: any
+  fileUploadError: boolean
 }
 
 const loaderModule = angular.module('profitelo.components.interface.loader', [
