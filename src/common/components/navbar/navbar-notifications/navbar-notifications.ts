@@ -4,6 +4,7 @@ import './navbar-notifications.sass'
 import userAvatarModule from '../../interface/user-avatar/user-avatar'
 import noContentMessageModule from '../../dashboard/no-content-message/no-content-message'
 import modalsModule from '../../../services/modals/modals'
+import apiModule from 'profitelo-api-ng/api.module'
 
 export interface INavbarNotificationsComponentBindings extends ng.IController {
   isNotificationsTab: boolean
@@ -14,8 +15,10 @@ export interface INavbarNotificationsComponentBindings extends ng.IController {
 const navbarNotificationsModule = angular.module('profitelo.components.navbar.navbar-notifications', [
   'pascalprecht.translate',
   userAvatarModule,
+  'ui.router',
   noContentMessageModule,
-  modalsModule
+  modalsModule,
+  apiModule
 ])
 .component('navbarNotifications', new NavbarNotificationsComponent)
   .name

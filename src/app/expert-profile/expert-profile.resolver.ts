@@ -39,7 +39,7 @@ export class ExpertProfileResolver {
       })
     }
 
-    const resolveExpertProfile = () =>
+    const resolveExpertProfile = (): ng.IPromise<GetExpertProfile> =>
       this.ViewsApi.getWebExpertProfileRoute(stateParams.profileId)
         .then((res) => handleExpertResponse(res))
         .catch(handleExpertResponseError)

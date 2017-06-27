@@ -19,13 +19,12 @@ scrollable(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
             p {{ vm.description }}
 
         .modal-section
-          consultation-list-item(data-ng-repeat="service in vm.services"
-            data-consultation-title="{{ service.name }}"
-            data-consultation-price="service.price"
-            data-consultation-tags="service.tags")
+          consultation-list-item(data-ng-repeat="service in vm.services" data-service="service"
+          data-on-change="vm.onSelectConsultation")
 
         .buttons-container
-          a.btn.btn-default(data-translate="DASHBOARD.EXPERT_ACCOUNT.INVITATION.DETAILS.BUTTON.ACCEPT")
+          a.btn.btn-default(data-translate="DASHBOARD.EXPERT_ACCOUNT.INVITATION.DETAILS.BUTTON.ACCEPT"
+          data-ng-click="vm.acceptInvitations()")
 
       .no-invitations-modal(data-ng-if="!vm.areInvitations")
         no-content-message(data-icon-src="assets/images/profitelo_icons/icon_no_invite.png"

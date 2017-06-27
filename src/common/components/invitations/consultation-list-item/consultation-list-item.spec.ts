@@ -12,10 +12,14 @@ describe('Unit testing: profitelo.components.dashboard.shared.consultation-list-
     let compile: ng.ICompileService
     let componentController: ng.IComponentControllerService
     let component: ConsultationListItemComponentController
-    let validHTML = '<consultation-list-item></consultation-list-item>'
+    let validHTML = '<consultation-list-item data-service="service"></consultation-list-item>'
 
     function create(html: string) {
       scope = rootScope.$new()
+      scope.service = {
+        name: 'name',
+        price: 12.12
+      }
       let elem = angular.element(html)
       let compiledElement = compile(elem)(scope)
       scope.$digest()

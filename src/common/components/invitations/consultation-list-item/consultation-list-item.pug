@@ -1,0 +1,22 @@
+.consultation-list-item.list-row
+  .consultation-list-checkbox
+    checkbox(
+      id="{{ $ctrl.checkboxId }}"
+      data-name="{{ $ctrl.checkboxId }}"
+      data-ng-model="$ctrl.isChecked"
+      data-on-change="$ctrl.changeConsultationStatus"
+    )
+
+  .consultation-list-content
+    .price-section
+      span.consultation-price
+        span(data-ng-bind-html="$ctrl.price | money")
+        span(data-translate="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEE.DETAILS.PER_MINUTE")
+      div(data-ng-show="$ctrl.inviteTime")
+        span.pending-invite(data-translate="DASHBOARD.EXPERT_ACCOUNT.EMPLOYEE.DETAILS.INVITE.PENDING")
+        span.pending-invite-time {{$ctrl.inviteTime}}
+
+    .consultation-title
+      span {{$ctrl.title}}
+
+    tags-list(data-tags="$ctrl.tags")

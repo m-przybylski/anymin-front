@@ -41,7 +41,6 @@ import {
   IExpertEmployeeDetailsModalScope
 } from '../../components/dashboard/expert/employees/modals/employee-details/employee-details.controller'
 
-
 import {
   IClientChargeDetailsParentControllerScope
 } from '../../components/dashboard/client/activities/modals/charge-details/charge-details'

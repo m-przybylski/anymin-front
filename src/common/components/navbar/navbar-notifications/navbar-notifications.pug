@@ -1,71 +1,62 @@
 #notifications-menu.navbar-menu
-  .notifications-menu-container
-    ul.navbar-menu-header
-      li.notifications-menu-mobile-header(data-ng-click="$ctrl.buttonCallback()")
-        a
-          span.icon.icon-back-24
-          span(data-translate="DASHBOARD.MENU.NOTIFICATIONS.HEADER.BACK")
-      ul.notifications-menu-desktop-header
-        li.notifications-tab(data-ng-click="$ctrl.showNotifications()"
-          data-ng-class="{'is-animation' : $ctrl.isNotificationsTab}")
-          a(data-translate="DASHBOARD.MENU.NOTIFICATIONS.HEADER.NOTIFICATIONS")
-        li.invitations-tab(data-ng-click="$ctrl.showInvitations()"
-          data-ng-class="{'is-animation' : $ctrl.isInvitationsTab}")
-          a {{:: 'DASHBOARD.MENU.NOTIFICATIONS.HEADER.INVITATIONS' | translate}}
-            span.invitations-count(data-ng-hide="$ctrl.areInvitationsDisplayed") (2)
+  preloader(data-is-loading="$ctrl.isLoading")
+    .notifications-menu-container
+      ul.navbar-menu-header
+        li.notifications-menu-mobile-header(data-ng-click="$ctrl.buttonCallback()")
+          a
+            span.icon.icon-back-24
+            span(data-translate="DASHBOARD.MENU.NOTIFICATIONS.HEADER.BACK")
+        ul.notifications-menu-desktop-header
+          li.notifications-tab(data-ng-click="$ctrl.showNotifications()"
+            data-ng-class="{'is-animation' : $ctrl.isNotificationsTab}")
+            a(data-translate="DASHBOARD.MENU.NOTIFICATIONS.HEADER.NOTIFICATIONS")
+          li.invitations-tab(data-ng-click="$ctrl.showInvitations()"
+            data-ng-class="{'is-animation' : $ctrl.isInvitationsTab}")
+            a {{:: 'DASHBOARD.MENU.NOTIFICATIONS.HEADER.INVITATIONS' | translate}}
+              span.invitations-count(data-ng-hide="$ctrl.areInvitationsDisplayed") (2)
 
-    .notifications-lists-container
-      ul.left-tab-animation.ng-hide(data-ng-show="$ctrl.isNotificationsTab")
-        li.notifications-menu-row(data-ng-click="$ctrl.markAsRead($event)")
-          div
-            span.icon.icon-warning-24
+      .notifications-lists-container
+        ul.left-tab-animation.ng-hide(data-ng-show="$ctrl.isNotificationsTab")
+          li.notifications-menu-row(data-ng-click="$ctrl.markAsRead($event)")
             div
-              span.notification-description A complaint concerning "Witarianizm - układanie diety" has been filed. We blocked 65,70 PLN on your Profitelo account.
-              span.notification-time 2 days ago
+              span.icon.icon-warning-24
+              div
+                span.notification-description A complaint concerning "Witarianizm - układanie diety" has been filed. We blocked 65,70 PLN on your Profitelo account.
+                span.notification-time 2 days ago
 
-        li.notifications-menu-row(data-ng-click="$ctrl.markAsRead($event)")
-          div
-            span.icon.icon-clock-24
+          li.notifications-menu-row(data-ng-click="$ctrl.markAsRead($event)")
             div
-              span.notification-description Available in 15 minutes! Click to change.
-              span.notification-time 2 days ago
+              span.icon.icon-clock-24
+              div
+                span.notification-description Available in 15 minutes! Click to change.
+                span.notification-time 2 days ago
 
-        li.notifications-menu-row(data-ng-click="$ctrl.markAsRead($event)")
-          div
-            span.icon.icon-incoming-call-24
+          li.notifications-menu-row(data-ng-click="$ctrl.markAsRead($event)")
             div
-              span.notification-description You have one missed call. Would you like to set unavailable?
-              span.notification-time 2 days ago
+              span.icon.icon-incoming-call-24
+              div
+                span.notification-description You have one missed call. Would you like to set unavailable?
+                span.notification-time 2 days ago
 
-        li.notifications-menu-row(data-ng-click="$ctrl.markAsRead($event)")
-          div
-            span.icon.icon-user-available-24
+          li.notifications-menu-row(data-ng-click="$ctrl.markAsRead($event)")
             div
-              span.notification-description You're account is active now and you can start to pick up calls from your clients! If you don't want to talk right now. Set your availability.
-              span.notification-time 2 days ago
+              span.icon.icon-user-available-24
+              div
+                span.notification-description You're account is active now and you can start to pick up calls from your clients! If you don't want to talk right now. Set your availability.
+                span.notification-time 2 days ago
 
-      ul.right-tab-animation.ng-hide(data-ng-show="$ctrl.isInvitationsTab"
-        data-ng-if="$ctrl.areInvitations")
-        li.notifications-menu-row(data-ng-click="$ctrl.onNotificationClick($event)")
-          div
-            .profile-preview
-              .thumb.x48
-                user-avatar
+        ul.right-tab-animation.ng-hide(data-ng-show="$ctrl.isInvitationsTab && $ctrl.areInvitations")
+          li.notifications-menu-row(data-ng-click="$ctrl.onInvitationClick(invitation, $event)"
+          data-ng-repeat="invitation in $ctrl.invitations | orderBy:'-'")
             div
-              span.notification-description Dell Computers invites you to How to become famous? Practical advices for everyone!
-              span.notification-time 2 days ago
+              .profile-preview
+                .thumb.x48
+                  user-avatar(data-image-token="invitation.organizationDetails.logo")
+              div
+                span.notification-description {{ invitation.organizationDetails.description }}
+                span.notification-time 2 days ago
 
-        li.notifications-menu-row(data-ng-click="$ctrl.markAsRead($event)")
-          div
-            .profile-preview
-              .thumb.x48
-                user-avatar
-            div
-              span.notification-description Pinterest invites you to Angular for beginners and Angular for advance.
-              span.notification-time 2 days ago
-
-      ul.invitations-animation.ng-hide(data-ng-show="$ctrl.isInvitationsTab"
-        data-ng-if="!$ctrl.areInvitations")
-        li.notifications-menu-row.no-invitations
-          no-content-message(data-icon-src="assets/images/profitelo_icons/icon_no_invite.png"
-            data-message-title="DASHBOARD.MENU.NOTIFICATIONS.NO_INVITATIONS")
+        ul.invitations-animation.ng-hide(data-ng-show="$ctrl.isInvitationsTab && !$ctrl.areInvitations")
+          li.notifications-menu-row.no-invitations
+            no-content-message(data-icon-src="assets/images/profitelo_icons/icon_no_invite.png"
+              data-message-title="DASHBOARD.MENU.NOTIFICATIONS.NO_INVITATIONS")

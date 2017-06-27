@@ -1,5 +1,7 @@
 import {INavbarNotificationsComponentBindings} from './navbar-notifications'
 import {ModalsService} from '../../../services/modals/modals.service'
+import {ProfileApi} from 'profitelo-api-ng/api/api'
+import {GetProfileWithServicesEmployments} from 'profitelo-api-ng/model/models'
 import * as angular from 'angular'
 
 export class NavbarNotificationsComponentController implements INavbarNotificationsComponentBindings {
@@ -8,12 +10,13 @@ export class NavbarNotificationsComponentController implements INavbarNotificati
   isInvitationsTab: boolean = false
   areInvitationsDisplayed: boolean = false
   areInvitations: boolean = true
+  isLoading: boolean = true
   onClick: () => void
   buttonCallback: () => void
-
+  invitations: GetProfileWithServicesEmployments[] = []
   /* @ngInject */
 
-  constructor(private modalsService: ModalsService,
+  constructor(private modalsService: ModalsService, private ProfileApi: ProfileApi, private $state: ng.ui.IStateService,
               private $element: ng.IRootElementService) {
 
     this.buttonCallback = () => {
@@ -22,7 +25,17 @@ export class NavbarNotificationsComponentController implements INavbarNotificati
      }
       this.onClick()
     }
+  }
 
+  $onInit() {
+    this.ProfileApi.getProfilesInvitationsRoute().then((response) => {
+      this.invitations = response
+      this.areInvitations = this.invitations.length > 0
+      this.isLoading = false
+    }, (_error) => {
+      this.isLoading = false
+      this.areInvitations = false
+    })
   }
 
   public showNotifications = () => {
@@ -48,8 +61,8 @@ export class NavbarNotificationsComponentController implements INavbarNotificati
     this.$element.find(event.currentTarget)[0].classList.add('is-read')
   }
 
-  public onNotificationClick = (event: Event) => {
-    this.openNotificationDescriptions()
+  public onInvitationClick = (invitation: GetProfileWithServicesEmployments, event: Event) => {
+    this.$state.go('app.invitations', {companyId: invitation.id})
     this.markAsRead(event)
   }
 
