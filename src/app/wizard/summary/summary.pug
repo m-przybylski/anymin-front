@@ -18,12 +18,14 @@
       p(data-translate="WIZARD.SUMMARY.ADD.TITLE")
       a.btn.btn-default(data-translate="WIZARD.SUMMARY.ADD.BUTTON" data-ui-sref="app.wizard.consultation")
 
-  .company-with-expert(data-ng-if="vm.isCompanyWithExpert")
-    .add-new-consultation.container
-      a.btn.btn-primary(data-translate="WIZARD.SUMMARY.ADD.ANOTHER.BUTTON"
-      data-ng-if="vm.isCompanyWithExpert && vm.isConsultation" data-ui-sref="app.wizard.consultation")
+  .company-with-expert
+    .container(data-ng-if="vm.isCompanyWithExpert")
+      .add-new-consultation
+        a.btn.btn-primary(data-translate="WIZARD.SUMMARY.ADD.ANOTHER.BUTTON"
+        data-ng-if="vm.isCompanyWithExpert && vm.isConsultation" data-ui-sref="app.wizard.consultation")
 
     profile-header-edit(
+      data-ng-if="vm.isCompanyWithExpert"
       data-profile-details="vm.wizardExpertProfileData"
       data-profile-type="true"
       data-on-delete="vm.onSecondProfileDelete"
@@ -31,7 +33,6 @@
     )
 
     .container
-
       .add-another-consultation(data-ng-show="vm.isConsultation")
         p(data-translate="WIZARD.SUMMARY.ADD.ANOTHER.TITLE")
 

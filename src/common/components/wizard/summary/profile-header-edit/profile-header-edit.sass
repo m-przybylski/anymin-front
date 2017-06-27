@@ -95,17 +95,22 @@
   .edit-profile
     display: flex
     align-items: center
-    justify-content: flex-end
+    justify-content: center
     margin: 0 0 24px
     text-align: right
     flex: 1
     align-self: center
 
     +lgm
+      justify-content: flex-end
       margin: 0
 
     a
-      margin: 0 0 0 16px
+      margin: 0 8px
+
+      +smm
+        margin: 0 0 0 16px
+
 
       span
         color: $c-primary

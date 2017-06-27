@@ -1,4 +1,4 @@
-form.wizard-step(data-ng-class="{'is-active': $ctrl.isActive, 'is-showed': $ctrl.isShowed}")
+form.wizard-step(data-ng-class="{'is-active': $ctrl.isActive, 'is-showed': $ctrl.isShowed}" autocomplete="off")
   header.entry-title
     span {{ $ctrl.title | translate }}
     span.is-required(data-ng-if="$ctrl.required") *
