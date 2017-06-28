@@ -34,6 +34,8 @@ section.consultation
         data-title="WIZARD.SUMMARY.CONSULTATION.RATE.TITLE"
         data-on-go-to-next="vm.saveStepsOnExpertPath"
         data-check-is-step-valid="vm.checkIsPriceButtonDisabled"
+        data-button-title="WIZARD.STEP.EXPERT.CONSULTATION.SUMMARY.BUTTON"
+        data-is-company="vm.isCompany"
       )
         .hint
           p(data-translate="WIZARD.CONSULTATION.PRICE.SUGGESTED")
@@ -58,6 +60,7 @@ section.consultation
         data-additional-text="WIZARD.SUMMARY.CONSULTATION.EMPLOYEES.ADDITIONAL_TEXT.TITLE"
         data-tooltip-text="WIZARD.SUMMARY.CONSULTATION.EMPLOYEES.TOOLTIP"
         data-on-go-to-next="vm.saveConsultation"
+        data-button-title="WIZARD.STEP.EXPERT.CONSULTATION.SUMMARY.BUTTON"
       )
         consultation-employee-input(
         data-added-items-list = "vm.invitationsInputValue"

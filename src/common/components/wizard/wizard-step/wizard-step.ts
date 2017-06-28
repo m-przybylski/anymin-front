@@ -12,6 +12,7 @@ export interface IWizardStepModuleComponentBindings extends ng.IController {
   required: boolean
   onGoToNext?: () => void
   onGoBack?: () => void
+  isCompany?: boolean
 }
 
 const wizardStepModule = angular.module('profitelo.components.wizard.wizard-step', [

@@ -58,8 +58,11 @@
     data-title="WIZARD.STEP.COMPANY.LINKS.TITLE"
     data-tooltip-text="WIZARD.STEP.COMPANY.LINKS.TOOLTIP"
     data-on-go-to-next="vm.goToSummary"
+    data-button-title="WIZARD.STEP.COMPANY.GOTO.SUMMARY.BUTTON"
     )
-
       wizard-links(data-selected-links="vm.linksModel")
 
-    p(data-ng-show='!vm.isFormValid() && vm.isSubmitted') {{ 'WIZARD.COMPANY.VALIDATE_FORM' | translate }}
+    validation-alert(
+    data-alert-text="WIZARD.COMPANY.VALIDATE_FORM"
+    data-is-visible="!vm.isFormValid() && vm.isSubmitted"
+    )
