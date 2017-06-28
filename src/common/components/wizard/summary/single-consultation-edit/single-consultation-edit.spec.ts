@@ -71,5 +71,68 @@ describe('Unit testing: profitelo.components.wizard.single-consultation-edit', (
       expect(component.onEdit).toHaveBeenCalledWith(component.service)
     })
 
+    it('should add employee email', inject(($componentController: ng.IComponentControllerService)  => {
+      component.employeeList = []
+      component = $componentController<SingleConsultationEditComponentController, {}>('singleConsultationEdit', {}, {
+        service: {
+          name: 'name',
+          price: {
+            amount: 123,
+            currency: 'PLN'
+          },
+          tags: [{
+            name: 'tag-1'
+          }],
+          isOwnerEmployee: false,
+          invitations: [{
+            email: 'some@email.com'
+          }]
+        }
+      })
+      component.$onInit()
+      expect(component.employeeList.length).toBe(1)
+    }))
+
+    it('should add employee msisdn', inject(($componentController: ng.IComponentControllerService)  => {
+      component.employeeList = []
+      component = $componentController<SingleConsultationEditComponentController, {}>('singleConsultationEdit', {}, {
+        service: {
+          name: 'name',
+          price: {
+            amount: 123,
+            currency: 'PLN'
+          },
+          tags: [{
+            name: 'tag-1'
+          }],
+          isOwnerEmployee: false,
+          invitations: [{
+            msisdn: 'some@email.com'
+          }]
+        }
+      })
+      component.$onInit()
+      expect(component.employeeList.length).toBe(1)
+    }))
+
+    it('should not add employee', inject(($componentController: ng.IComponentControllerService)  => {
+      component.employeeList = []
+      component = $componentController<SingleConsultationEditComponentController, {}>('singleConsultationEdit', {}, {
+        service: {
+          name: 'name',
+          price: {
+            amount: 123,
+            currency: 'PLN'
+          },
+          tags: [{
+            name: 'tag-1'
+          }],
+          isOwnerEmployee: false
+        }
+      })
+      component.$onInit()
+      expect(component.employeeList.length).toBe(0)
+    }))
+
   })
 })

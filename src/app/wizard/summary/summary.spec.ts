@@ -8,13 +8,16 @@ import {UserService} from '../../../common/services/user/user.service'
 
 describe('Testing Controller: SummaryController', () => {
 
-  let SummaryController: SummaryController,
+  let summaryController: SummaryController,
     httpBackend: ng.IHttpBackendService,
     $state: ng.ui.IStateService,
     _WizardApiMock: WizardApiMock,
     errorHandler: ErrorHandlerService,
+    controller: ng.IControllerService,
+    wizardApi: WizardApi,
     q: ng.IQService,
     userService: UserService
+
   const wizardProfile: GetWizardProfile = {
     isExpert: true,
     isCompany: false,
@@ -40,6 +43,15 @@ describe('Testing Controller: SummaryController', () => {
     }
   }
 
+  const createController = (wizardProfile: GetWizardProfile) => {
+    return controller<SummaryController>('summaryController', {
+      $state: $state,
+      wizardProfile: wizardProfile,
+      WizardApi: wizardApi,
+      errorHandler: errorHandler
+    })
+  }
+
   beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
     $provide.value('apiUrl', 'awesomeURL/')
     $provide.value('WizardApi', WizardApi)
@@ -56,37 +68,35 @@ describe('Testing Controller: SummaryController', () => {
       $state = <ng.ui.IStateService>{
         go: (_to: string) => $q.resolve({})
       }
+
       q = $q
+      controller = $controller
       httpBackend = $httpBackend
       _WizardApiMock = WizardApiMock
       errorHandler = _errorHandler_
+      wizardApi = WizardApi
       userService = _userService_
-      SummaryController = $controller<SummaryController>('summaryController', {
-        wizardProfile: wizardProfile,
-        WizardApi: WizardApi,
-        $state: $state,
-        userService: userService,
-        errorHandler: errorHandler
-      })
+
+      summaryController = createController(wizardProfile)
     })
   })
 
   it('should exists', () => {
-    expect(!!SummaryController).toBe(true)
+    expect(!!summaryController).toBe(true)
   })
 
-  it('should delete profile', () => {
+  it('should delete profile onMainProfileDelete', () => {
     spyOn($state, 'go')
     _WizardApiMock.putWizardProfileRoute(200, wizardProfile)
-    SummaryController.onMainProfileDelete()
+    summaryController.onMainProfileDelete()
     httpBackend.flush()
     expect($state.go).toHaveBeenCalledWith('app.wizard.create-profile')
   })
 
-  it('should throw error when can not delete profile', () => {
+  it('should throw error when can not delete profile onMainProfileDelete', () => {
     _WizardApiMock.putWizardProfileRoute(500, wizardProfile)
     spyOn(errorHandler, 'handleServerError')
-    SummaryController.onMainProfileDelete()
+    summaryController.onMainProfileDelete()
     httpBackend.flush()
     expect(errorHandler.handleServerError).toHaveBeenCalled()
   })
@@ -104,7 +114,7 @@ describe('Testing Controller: SummaryController', () => {
       isOwnerEmployee: false
     }
     spyOn($state, 'go')
-    SummaryController.editConsultation(service)
+    summaryController.editConsultation(service)
     expect($state.go).toHaveBeenCalledWith('app.wizard.consultation', {service})
   })
 
@@ -132,19 +142,120 @@ describe('Testing Controller: SummaryController', () => {
     spyOn(userService, 'getUser').and.callFake(() => q.resolve({}))
     spyOn($state, 'go')
     _WizardApiMock.postWizardCompleteRoute(200, response)
-    SummaryController.saveWizard()
+    summaryController.saveWizard()
     httpBackend.flush()
     expect($state.go).toHaveBeenCalledWith('app.dashboard.expert.activities')
   })
 
   it('should throw error when can not save wizard', () => {
     spyOn(errorHandler, 'handleServerError')
-
     _WizardApiMock.postWizardCompleteRoute(500)
-    SummaryController.saveWizard()
+    summaryController.saveWizard()
     httpBackend.flush()
     expect(errorHandler.handleServerError).toHaveBeenCalled()
   })
 
-})
+  it('should redirect to app.wizard.create-profile.company', () => {
+    const wizardProfile: GetWizardProfile = {
+      isExpert: false,
+      isCompany: false,
+      isSummary: false
+    }
+    spyOn($state, 'go')
+    summaryController = createController(wizardProfile)
+    summaryController.$onInit()
+    summaryController.onMainProfileEdit()
+    expect($state.go).toHaveBeenCalledWith('app.wizard.create-profile.company')
+  })
 
+  it('should redirect to app.wizard.create-profile.expert', () => {
+    const wizardProfile: GetWizardProfile = {
+      isExpert: true,
+      isCompany: false,
+      isSummary: false
+    }
+    spyOn($state, 'go')
+    summaryController = createController(wizardProfile)
+    summaryController.$onInit()
+    summaryController.onMainProfileEdit()
+    expect($state.go).toHaveBeenCalledWith('app.wizard.create-profile.expert')
+  })
+
+  it('should redirect to app.wizard.create-profile.expert', () => {
+    spyOn($state, 'go')
+    summaryController.onSecondProfileEdit()
+    expect($state.go).toHaveBeenCalledWith('app.wizard.create-profile.expert')
+  })
+
+  it('should have wizard profile with service', () => {
+    const wizardProfile: GetWizardProfile = {
+      isExpert: true,
+      isCompany: false,
+      isSummary: false,
+      services: [{
+        name: 'name',
+        price: {
+          amount: 123,
+          currency: 'PLN'
+        },
+        tags: [{
+          name: 'tag-1'
+        }],
+        isOwnerEmployee: false
+      }]
+    }
+    summaryController = createController(wizardProfile)
+    summaryController.$onInit()
+    expect(summaryController.services).toEqual(wizardProfile.services)
+    expect(summaryController.isConsultation).toEqual(true)
+  })
+
+  it('should delete profile onSecondProfileDelete', () => {
+    const wizardProfile: GetWizardProfile = {
+      isExpert: true,
+      isCompany: false,
+      isSummary: false
+    }
+    const summaryController = createController(wizardProfile)
+    summaryController.$onInit()
+    _WizardApiMock.putWizardProfileRoute(200, wizardProfile)
+    summaryController.onSecondProfileDelete()
+    httpBackend.flush()
+    expect(wizardProfile.isExpert).toBe(false)
+    expect(summaryController.isUserShouldCreateExpert).toBe(true)
+  })
+
+  it('should throw error when can not delete profile onSecondProfileDelete', () => {
+    _WizardApiMock.putWizardProfileRoute(500, wizardProfile)
+    spyOn(errorHandler, 'handleServerError')
+    summaryController.onSecondProfileDelete()
+    httpBackend.flush()
+    expect(errorHandler.handleServerError).toHaveBeenCalled()
+  })
+
+  it('should be company and expert', () => {
+    const wizardProfile: GetWizardProfile = {
+      isExpert: true,
+      isCompany: true,
+      isSummary: false,
+      organizationDetailsOption: {
+        name: 'name'
+      },
+      services: [{
+        name: 'name',
+        price: {
+          amount: 123,
+          currency: 'PLN'
+        },
+        tags: [{
+          name: 'tag-1'
+        }],
+        isOwnerEmployee: false
+      }]
+    }
+    summaryController = createController(wizardProfile)
+    summaryController.$onInit()
+    expect(summaryController.isCompanyWithExpert).toEqual(true)
+  })
+
+})

@@ -28,8 +28,7 @@ describe('Unit testing: profitelo.components.profile.profile-header-edit', () =>
 
         injectors = {}
 
-        component = $componentController<ProfileHeaderEditComponentController, {}>('profileHeaderEdit', injectors, {
-        })
+        component = $componentController<ProfileHeaderEditComponentController, {}>('profileHeaderEdit', injectors, {})
 
       })
     })
@@ -44,6 +43,41 @@ describe('Unit testing: profitelo.components.profile.profile-header-edit', () =>
       component.deleteProfile()
       expect(component.onDelete).toHaveBeenCalled()
     })
+
+    it('should edit profile', () => {
+      component.onEdit = () => {}
+      spyOn(component, 'onEdit')
+      component.editProfile()
+      expect(component.onEdit).toHaveBeenCalled()
+    })
+
+    it('should onDelete to be undefined', () => {
+      component.deleteProfile()
+      expect(component.onDelete).toBeUndefined()
+    })
+
+    it('should onEdit to be undefined', () => {
+      component.editProfile()
+      expect(component.onEdit).toBeUndefined()
+    })
+
+    it('should not add employee', inject(($componentController: ng.IComponentControllerService) => {
+      component = $componentController<ProfileHeaderEditComponentController, {}>('profileHeaderEdit', injectors, {
+        profileDetails: {
+          name: 'name',
+          avatar: 'avatar',
+          description: 'description',
+          languages: ['pl'],
+          files: [{
+            token: 'token',
+            previews: ['prev']
+          }],
+          links: ['link-1']
+        }
+      })
+      component.$onInit()
+      expect(component.documents).toEqual(component.profileDetails!.files)
+    }))
 
   })
 })

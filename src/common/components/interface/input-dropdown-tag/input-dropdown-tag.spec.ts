@@ -19,7 +19,6 @@ describe('Unit testing: profitelo.components.interface.input-dropdown-tag', () =
     let validHTML = '<input-dropdown-tag data-selected-items-value="selectedItemsValue"></input-dropdown-tag>'
     let filteredItems: Array<IDropdownItem>
 
-
     function create(html: string) {
       scope = rootScope.$new()
       scope.selectedItemsValue = []
@@ -72,5 +71,69 @@ describe('Unit testing: profitelo.components.interface.input-dropdown-tag', () =
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
+
+    it('should mainList exists', () => {
+      component.dropdownList = [{
+        name: 'name',
+        value: 'value'
+      }]
+      expect(component.mainListExist()).toEqual(true)
+    })
+
+    it('should inputClick', () => {
+      component.inputClick()
+      expect(component.isOpen).toBe(false)
+    })
+
+    it('should delete selected item', () => {
+      const item: IDropdownItem = {
+        name: 'name',
+        value: 'value'
+      }
+      component.selectedItems = [{
+        name: 'name2',
+        value: 'value2'
+      }]
+      component.filterInputText = 'value'
+      component.selectedItemNumber = 2
+      component.deleteSelectedItem(item, 0)
+      expect(component.selectedItems.length).toBe(0)
+      expect(component.selectedItemsValue.length).toBe(0)
+      expect(component.dropdownList.length).toBe(1)
+      expect(component.selectedItemNumber).toBe(1)
+      expect(component.isDirty).toBe(true)
+    })
+
+    it('should add selected item', () => {
+      const item: IDropdownItem = {
+        name: 'name',
+        value: 'value'
+      }
+      component.dropdownList = [{
+        name: 'name2',
+        value: 'value2'
+      }]
+      component.filterInputText = 'filterInputText'
+      component.onMainItemSelect(item, 0)
+      expect(component.selectedItems.length).toBe(1)
+      expect(component.isOpen).toBe(false)
+      expect(component.selectedItemsValue.length).toBe(2)
+      expect(component.dropdownList.length).toBe(0)
+      expect(component.isFocus).toBe(false)
+      expect(component.filterInputText).toBe('')
+    })
+
+    it('should onFocus', () => {
+      component.onFocus()
+      expect(component.isFocus).toBe(true)
+      expect(component.isDirty).toBe(true)
+    })
+
+    it('should onBlur', () => {
+      component.onBlur()
+      expect(component.isFocus).toBe(false)
+      expect(component.isDirty).toBe(true)
+    })
+
   })
 })
