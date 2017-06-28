@@ -19,6 +19,10 @@
 
 	.entry-title
 		padding: 0
+		align-items: flex-start
+
+		.tooltip
+			margin: 4px 0 0 8px
 
 		span
 			color: $c-primary-txt
@@ -33,11 +37,20 @@
 
 	.wizard-step-action
 		display: flex
+		flex-wrap: wrap
 		opacity: 0
+
+		+xsm
+			flex-wrap: nowrap
 
 		.btn
 			order: 0
-			margin: 0 16px 0 0
+			margin: 0 0 24px 0
+			flex: 1 0 100%
+
+			+xsm
+				flex: inherit
+				margin: 0 16px 0 0
 
 			&.btn.btn-default
 				order: 1

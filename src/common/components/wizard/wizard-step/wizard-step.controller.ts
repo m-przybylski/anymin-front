@@ -13,6 +13,7 @@ export class WizardStepComponentController implements IWizardStepModuleComponent
   public onGoToNext: () => void
   public onGoBack: () => void
   public required: boolean
+  public isCompany: boolean = true
 
   /* @ngInject */
   constructor(private $element: ng.IRootElementService, private $timeout: ng.ITimeoutService) {
@@ -42,12 +43,13 @@ export class WizardStepComponentController implements IWizardStepModuleComponent
     this.$timeout(() => {
       this.isActive = this.wizardHandler.currentStep === this.$element[0]
     })
-    if (!this.buttonTitle) {
-      this.buttonTitle = 'WIZARD.STEP.BUTTON.NEXT'
-    }
   }
 
   $doCheck = () => {
+    if (!this.buttonTitle || this.isCompany) {
+      this.buttonTitle = 'WIZARD.STEP.BUTTON.NEXT'
+    }
+
     this.isActive = this.wizardHandler.currentStep === this.$element[0]
     if (this.isActive) {
       this.isShowed = this.isActive

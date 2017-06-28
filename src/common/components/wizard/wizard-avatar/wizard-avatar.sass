@@ -16,7 +16,7 @@
 				border-radius: 50%
 
 	.cropp-image
-		box-shadow: 0 100px 0 0 $c-white
+		box-shadow: 0 130px 0 0 $c-white
 		position: relative
 		z-index: $z-index-100
 
@@ -43,6 +43,18 @@
 	.preloader
 		height: 196px
 		width: 196px
+		display: flex
+		align-items: center
+		justify-content: center
+
+		> div
+			width: 100%
+
+			&.loader
+				position: absolute
+
+			img
+				width: 100%
 
 		.balls-loader
 			position: relative
