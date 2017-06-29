@@ -21,9 +21,10 @@ checkbox
       cursor: pointer
       text-align: left
 
-      &:hover
+      a
         color: $c-primary
 
+      &:hover
         &::before
           border-color: $c-primary
           box-shadow: inset 0 0 0 1px $c-primary
@@ -86,12 +87,14 @@ checkbox
         color: $c-error
 
   label
+    cursor: pointer
+
     &.label-text
       +paragraphTitle
 
   span
     &.is-required
-      margin: 0 4px 0 0
+      margin: 0 4px 0 4px
 
   .additional-text
     p
