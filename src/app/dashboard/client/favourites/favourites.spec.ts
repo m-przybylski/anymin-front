@@ -6,6 +6,7 @@ describe('Unit tests: DashboardClientFavouritesController >', () => {
 
     let $scope: any
     let DashboardClientFavouritesController: any
+    let $state: ng.ui.IStateService
 
     const clientFavouritesConsultations = {
       balance: {},
@@ -19,17 +20,28 @@ describe('Unit tests: DashboardClientFavouritesController >', () => {
 
     beforeEach(() => {
       angular.mock.module('profitelo.controller.dashboard.client.favourites')
-      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $q: ng.IQService) => {
         $scope = $rootScope.$new()
 
+        $state = <ng.ui.IStateService>{
+          go: (_to: string) => $q.resolve({})
+        }
+
         DashboardClientFavouritesController = $controller('DashboardClientFavouritesController', {
-          clientFavouritesConsultations: clientFavouritesConsultations
+          clientFavouritesConsultations: clientFavouritesConsultations,
+          $state: $state
         })
       })
     })
 
     it('should exists', () => {
       expect(!!DashboardClientFavouritesController).toBe(true)
+    })
+
+    it('should redirect to app.search-result', () => {
+      spyOn($state, 'go')
+      DashboardClientFavouritesController.searchForExpert()
+      expect($state.go).toHaveBeenCalledWith('app.search-result')
     })
 
   })

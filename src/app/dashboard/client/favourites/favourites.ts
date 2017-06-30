@@ -4,10 +4,10 @@ import sessionModule from '../../../../common/services/session/session'
 import {ClientFavouritesResolver} from './favourites.resolver'
 import {DashboardClientFavouritesController} from './favourites.controller'
 import filtersModule from '../../../../common/filters/filters'
-import 'common/components/dashboard/client/favourites/no-favourite-experts/no-favourite-experts'
 import 'common/components/dashboard/client/favourites/favourite-experts/favourite-experts'
 import 'common/components/expert-profile/similar-experts-slider/similar-experts-slider'
 import 'common/components/dashboard/client/favourites/favourite-experts/last-consultation-slider/last-consultation-slider'
+import noResultsInformationModule from '../../../../common/components/dashboard/no-results-information/no-results-information'
 
 angular.module('profitelo.controller.dashboard.client.favourites', [
   'ui.router',
@@ -15,10 +15,10 @@ angular.module('profitelo.controller.dashboard.client.favourites', [
   apiModule,
   sessionModule,
   filtersModule,
-  'profitelo.components.dashboard.client.favourites.no-favourite-experts',
   'profitelo.components.dashboard.client.favourites.favourite-experts',
   'profitelo.components.expert-profile.similar-experts-slider',
-  'profitelo.components.dashboard.client.favourites.favourite-experts.last-consultation-slider'
+  'profitelo.components.dashboard.client.favourites.favourite-experts.last-consultation-slider',
+  noResultsInformationModule
 ])
   .config(($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider.state('app.dashboard.client.favourites', {

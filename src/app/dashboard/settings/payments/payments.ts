@@ -7,6 +7,7 @@ import apiModule from 'profitelo-api-ng/api.module'
 import {PaymentsApi, AccountApi, FinancesApi} from 'profitelo-api-ng/api/api'
 import {MoneyDto, CompanyInfo, GetCreditCard, AccountDetails} from 'profitelo-api-ng/model/models'
 import {UserService} from '../../../../common/services/user/user.service'
+import noResultsInformationModule from '../../../../common/components/dashboard/no-results-information/no-results-information'
 
 export class DashboardSettingsPaymentsController implements ng.IController {
   public isAnyPaymentMethod: boolean
@@ -75,6 +76,10 @@ export class DashboardSettingsPaymentsController implements ng.IController {
     this.modalsService.createAddPaymentMethodControllerModal(this.onModalClose)
   }
 
+  public addFirstTimePaymentMethod = (): void => {
+    this.$state.go('app.dashboard.charge-account')
+  }
+
   private onModalClose = (): void => {
     this.$state.reload()
   }
@@ -88,7 +93,8 @@ angular.module('profitelo.controller.dashboard.settings.payments', [
   'profitelo.filters.money',
   'profitelo.components.interface.preloader-container',
   filtersModule,
-  'profitelo.resolvers.invoice-data'
+  'profitelo.resolvers.invoice-data',
+  noResultsInformationModule
 ])
   .config(($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider.state('app.dashboard.settings.payments', {

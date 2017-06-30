@@ -56,7 +56,7 @@
                 span.notification-description {{ invitation.organizationDetails.description }}
                 span.notification-time 2 days ago
 
-        ul.invitations-animation.ng-hide(data-ng-show="$ctrl.isInvitationsTab && !$ctrl.areInvitations")
+        ul.right-tab-animation.ng-hide(data-ng-show="$ctrl.isInvitationsTab && !$ctrl.areInvitations")
           li.notifications-menu-row.no-invitations
-            no-content-message(data-icon-src="assets/images/profitelo_icons/icon_no_invite.png"
-              data-message-title="DASHBOARD.MENU.NOTIFICATIONS.NO_INVITATIONS")
+            no-results-information(data-icon-src="assets/images/profitelo_icons/icon_no_invite.png"
+              data-information-title="DASHBOARD.MENU.NOTIFICATIONS.NO_INVITATIONS")

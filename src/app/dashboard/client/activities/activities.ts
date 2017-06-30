@@ -2,7 +2,6 @@ import * as angular from 'angular'
 import {MoneyDto, GetActivity, FinancialOperation, GetActivityFilters} from 'profitelo-api-ng/model/models'
 import 'common/components/dashboard/client/activities/client-activities/activity/activity'
 import 'common/components/interface/preloader-container/preloader-container'
-import 'common/components/dashboard/client/activities/no-activities/no-activities'
 import 'common/components/complaints/status/status'
 import dashboardFiltersModule from '../../../../common/components/dashboard/shared/filters/filters'
 import {
@@ -11,6 +10,7 @@ import {
 import dashboardActivitiesModule from '../../../../common/services/dashboard-activites/dashboard-activites'
 import {ActivitiesQueryParams} from '../../../../common/services/dashboard-activites/activities-query-params'
 import {TopAlertService} from '../../../../common/services/top-alert/top-alert.service'
+import noResultsInformationModule from '../../../../common/components/dashboard/no-results-information/no-results-information'
 
 export class DashboardClientActivitiesController {
 
@@ -28,7 +28,8 @@ export class DashboardClientActivitiesController {
 
   /* @ngInject */
   constructor(filtersData: GetActivityFilters, private topAlertService: TopAlertService, private $filter: ng.IFilterService,
-              private dashboardActivitiesService: DashboardActivitiesService, $timeout: ng.ITimeoutService) {
+              private dashboardActivitiesService: DashboardActivitiesService, $timeout: ng.ITimeoutService,
+              private $state: ng.ui.IStateService)  {
 
     this.activitiesQueryParam = new ActivitiesQueryParams
     this.setBasicQueryParam(this.activitiesQueryParam)
@@ -68,6 +69,10 @@ export class DashboardClientActivitiesController {
     })
   }
 
+  public searchForExpert = () => {
+    this.$state.go('app.search-result')
+  }
+
   private getDashboardActivities = (activitiesQueryParams: ActivitiesQueryParams) => {
     return this.dashboardActivitiesService.getDashboardActivities(activitiesQueryParams)
     .catch((error) => {
@@ -95,8 +100,8 @@ angular.module('profitelo.controller.dashboard.client.activities', [
   dashboardActivitiesModule,
   'profitelo.components.dashboard.client.activities.client-activity',
   'profitelo.components.interface.preloader-container',
-  'profitelo.components.dashboard.client.activities.no-activities',
-  'profitelo.components.complaints.status'
+  'profitelo.components.complaints.status',
+  noResultsInformationModule
 ])
 .config(function ($stateProvider: ng.ui.IStateProvider) {
   $stateProvider.state('app.dashboard.client.activities', {
