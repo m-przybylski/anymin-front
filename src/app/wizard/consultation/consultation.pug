@@ -41,18 +41,14 @@ section.consultation
           p(data-translate="WIZARD.CONSULTATION.PRICE.SUGGESTED")
           tooltip(data-tooltip-text="WIZARD.CONSULTATION.PRICE.TOOLTIP")
 
-        .input-price
-          .price-mock
-            p.price-placeholder {{ vm.priceAmountInputValue }}
-              span.currency {{ vm.currency }}
-
-          input-primary(
-            data-ng-model="vm.priceAmountInputValue"
-            data-id="priceModel"
-            data-validation-text="WIZARD.CONSULTATION.PRICE_INPUT_VALIDATION"
-            data-is-submitted="vm.isSubmitted"
-            data-is-valid="vm.checkIsPriceInputValid()"
-          )
+        input-price(
+          data-ng-model="vm.priceAmountInputValue"
+          data-id="priceModel"
+          data-validation-text="WIZARD.CONSULTATION.PRICE_INPUT_VALIDATION"
+          data-is-submitted="vm.isSubmitted"
+          data-is-valid="vm.checkIsPriceInputValid()"
+          data-placeholder="DASHBOARD.CONSULTATION.PRICE.PLACEHOLDER"
+        )
 
       wizard-step.step(
         data-ng-if="vm.isCompany"

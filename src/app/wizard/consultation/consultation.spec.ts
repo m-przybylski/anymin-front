@@ -103,7 +103,7 @@ describe('Testing Controller: ConsultationController', () => {
     const consultationController = createController(stateParams, wizardProfile)
     consultationController.$onInit()
     expect(consultationController.nameInputValue).toEqual(stateParams.service.name)
-    expect(consultationController.priceAmountInputValue).toEqual(stateParams.service.price.amount / 100)
+    expect(consultationController.priceAmountInputValue).toEqual((stateParams.service.price.amount / 100).toString())
     expect(consultationController.tagsInputValue[0]).toEqual(stateParams.service.tags[0].name)
     expect(consultationController.isOwnerEmployee).toEqual(stateParams.service.isOwnerEmployee)
   })
@@ -125,7 +125,7 @@ describe('Testing Controller: ConsultationController', () => {
     const consultationController = createController(stateParams, wizardProfile)
     consultationController.$onInit()
     expect(consultationController.nameInputValue).toEqual(stateParams.service.name)
-    expect(consultationController.priceAmountInputValue).toEqual(stateParams.service.price.amount / 100)
+    expect(consultationController.priceAmountInputValue).toEqual((stateParams.service.price.amount / 100).toString())
     expect(consultationController.tagsInputValue[0]).toEqual(stateParams.service.tags[0].name)
     expect(consultationController.isOwnerEmployee).toEqual(stateParams.service.isOwnerEmployee)
   })
@@ -195,7 +195,7 @@ describe('Testing Controller: ConsultationController', () => {
 
     consultationController.isOwnerEmployee = true
     consultationController.nameInputValue = 'Service name'
-    consultationController.priceAmountInputValue = 23
+    consultationController.priceAmountInputValue = '23'
     consultationController.tagsInputValue = ['Tag-234']
 
     consultationController.saveConsultation()
@@ -235,7 +235,7 @@ describe('Testing Controller: ConsultationController', () => {
   })
 
   it('should price amount input valid', () => {
-    consultationController.priceAmountInputValue = 1234
+    consultationController.priceAmountInputValue = '1234'
     expect(consultationController.checkIsPriceInputValid()).toEqual(true)
   })
 
@@ -247,7 +247,7 @@ describe('Testing Controller: ConsultationController', () => {
   it('should form valid', () => {
     consultationController.nameInputValue = 'ThisIsName'
     consultationController.tagsInputValue = ['tag-1']
-    consultationController.priceAmountInputValue = 1234
+    consultationController.priceAmountInputValue = '1234'
     consultationController.invitationsInputValue = ['invitation']
     expect(consultationController.checkIsFormValid()).toEqual(true)
   })
