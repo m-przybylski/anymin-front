@@ -27,9 +27,10 @@ import '../../components/dashboard/expert/activities/modals/consultation-details
 import expertEmployeeDetailsModalModule from '../../components/dashboard/expert/employees/modals/employee-details/employee-details'
 import expertInviteEmployeesModule from '../../components/dashboard/expert/activities/modals/invite-employees/invite-employees'
 import manageProfileEditProfileModule from '../../components/dashboard/expert/manage-profile/modals/edit-expert-profile/edit-expert-profile'
-import invitationsModalModule from '../../components/invitations/modals/invitations/invitations'
+
 import { consultationSummaryClientModule } from '../../components/communicator/modals/consultation-summary-client/consultation-summary-client'
 import profileGalleryPreviewModule from '../../components/interface/profile-gallery/modals/preview'
+import invitationsModalModule from '../../../app/invitations/modal/invitations'
 
 const modalsModule = angular.module('profitelo.services.modals', [
   dialogModule,

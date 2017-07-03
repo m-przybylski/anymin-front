@@ -1,7 +1,7 @@
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import IUnavailableServiceControllerParentScope = profitelo.components.communicator.modals.serviceUnavailable.IUnavailableServiceControllerParentScope
 import INoCreditsControllerParentScope = profitelo.components.communicator.modals.noCredits.INoCreditsControllerParentScope
-import {GetService, GetActivity} from 'profitelo-api-ng/model/models'
+import {GetService, GetActivity, GetProfileWithServicesEmployments} from 'profitelo-api-ng/model/models'
 import {DialogService} from '../dialog/dialog.service'
 import {IClientCallParentControllerScope} from '../../components/communicator/modals/client-call/client-call'
 import {IConsultationSummaryClientParentControllerScope} from '../../components/communicator/modals/consultation-summary-client/consultation-summary-client'
@@ -41,15 +41,17 @@ import {
   IExpertEmployeeDetailsModalScope
 } from '../../components/dashboard/expert/employees/modals/employee-details/employee-details.controller'
 
-import {IExpertInviteEmployeesControllerScope} from '../../components/dashboard/expert/activities/modals/invite-employees/invite-employees.controller'
 import {
   IClientChargeDetailsParentControllerScope
 } from '../../components/dashboard/client/activities/modals/charge-details/charge-details'
-import {InvitationsModalController} from '../../components/invitations/modals/invitations/invitations.controller'
+
 import {
   GalleryPreviewController,
   IGalleryPreviewControllerScope
 } from '../../components/interface/profile-gallery/modals/preview.controller'
+
+import {IExpertInviteEmployeesControllerScope} from '../../components/dashboard/expert/activities/modals/invite-employees/invite-employees.controller'
+import {InvitationsModalController, IInvitationsModalScope} from '../../../app/invitations/modal/invitations.controller'
 
 // TODO add types for dialogScope Scopes
 export class ModalsService {
@@ -377,14 +379,14 @@ export class ModalsService {
     })
   }
 
-  public createInvitationsModal = () => {
-    const dialogScope: IExpertInviteEmployeesControllerScope =
-      <IExpertInviteEmployeesControllerScope>this.$rootScope.$new(true)
-
+  public createInvitationsModal = (profileWithServiceEmployments?: GetProfileWithServicesEmployments) => {
+    const dialogScope: IInvitationsModalScope =
+      <IInvitationsModalScope>this.$rootScope.$new(true)
+    dialogScope.profileWithServiceEmployments = profileWithServiceEmployments
     return this.dialogService.openDialog({
       controllerAs: 'vm',
       controller: InvitationsModalController,
-      template: require('common/components/invitations/modals/invitations/invitations.pug')(),
+      template: require('app/invitations/modal/invitations.pug')(),
       scope: dialogScope
     })
   }
