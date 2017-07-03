@@ -12,7 +12,7 @@ describe('Unit testing: profitelo.components.wizard.wizard-handler', () => {
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let component: WizardHandlerComponentController
-    let validHTML = '<wizard-handler></wizard-handler>'
+    let validHTML = '<wizard-handler><wizard-step><input></wizard-step></wizard-handler>'
     let bindings: IWizardHandlerComponentBindings
     let smoothScrollingService: SmoothScrollingService
 
