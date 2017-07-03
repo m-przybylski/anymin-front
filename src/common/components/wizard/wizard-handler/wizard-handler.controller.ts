@@ -19,91 +19,59 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
   private findInput: HTMLElement
   private findTextarea: HTMLElement
 
-  private readonly wizardOffset = 460
-
   /* @ngInject */
   constructor(private $element: ng.IRootElementService,
               private smoothScrollingService: SmoothScrollingService, private $window: ng.IWindowService,
-              private $timeout: ng.ITimeoutService, private $document: ng.IDocumentService) {
+              private $document: ng.IDocumentService) {
   }
 
-  $onInit() {
-    let scrollPosition = 0
-    this.$timeout(() => {
-      this.currentStep = this.$element.find('wizard-step')[0]
-      this.stepList = this.$element.find('wizard-step')
+  $postLink() {
+    this.currentStep = this.$element.find('wizard-step')[0]
+    this.stepList = this.$element.find('wizard-step')
 
-      this.$timeout(() => {
-        this.smoothScrollingService.wizardScrollTo(this.currentStep, (this.currentStep.clientHeight - 50),
-          this.$window.innerHeight)
-      })
+    this.smoothScrollingService.wizardScrollTo(this.currentStep, (this.currentStep.clientHeight - 50),
+      this.$window.innerHeight)
 
-      this.progressWidth = (100 / this.stepList.length)
-      this.progressStyle = {
-        width: this.progressWidth + '%'
-      }
+    this.progressWidth = (100 / this.stepList.length)
+    this.progressStyle = {
+      width: this.progressWidth + '%'
+    }
+    this.findInput = this.currentStep.children[0].querySelectorAll('input')[0]
 
-      this.findInput = this.currentStep.children[0].querySelectorAll('input')[0]
+    if (this.findInput) {
       this.findInput.focus()
+    }
+    this.$document.bind('scroll', (event: Event) => {
+      event.preventDefault()
+      const currentScrollPosition = this.$window.pageYOffset
 
-      this.$document.bind('scroll', (_event: Event) => {
-        _event.preventDefault()
-
-        const currentScrollPosition = this.$window.pageYOffset
-        this.indexOfCurrentStep = _.findIndex(this.stepList, (step) => this.currentStep === step)
-
-        if (currentScrollPosition > scrollPosition) {
-          if (this.indexOfCurrentStep + 1 < this.stepList.length
-            && currentScrollPosition + this.wizardOffset >= this.stepList[this.indexOfCurrentStep + 1].offsetTop
-            && currentScrollPosition + this.wizardOffset <= this.stepList[this.indexOfCurrentStep + 1].offsetTop
-            + this.wizardOffset) {
-
-            if (this.onStepChange) {
-              this.onStepChange()
-            }
-
-            this.currentStep = this.stepList[this.indexOfCurrentStep + 1]
-            this.findInput = this.currentStep.children[0].querySelectorAll('input')[0]
-            this.findTextarea = this.currentStep.children[0].querySelectorAll('textarea')[0]
-
-            if (this.findInput) {
-              this.findInput.focus()
-            } else if (this.findTextarea) {
-              this.findTextarea.focus()
-            }
-
-            this.progressStyle = {
-              width: this.progressWidth * (this.indexOfCurrentStep + 1) + this.progressWidth + '%'
-            }
+      this.stepList.each((index, _element): boolean => {
+        if (currentScrollPosition + this.$window.innerHeight / 2
+          < this.stepList[index].offsetTop + this.stepList[index].clientHeight) {
+          if (this.onStepChange) {
+            this.onStepChange()
           }
 
-        } else {
-          if (this.indexOfCurrentStep - 1 > -1
-            && currentScrollPosition + this.wizardOffset >= this.stepList[this.indexOfCurrentStep - 1].offsetTop
-            && currentScrollPosition + this.wizardOffset <= this.stepList[this.indexOfCurrentStep - 1].offsetTop
-            + this.wizardOffset) {
-
-            if (this.onStepChange) {
-              this.onStepChange()
-            }
-            this.currentStep = this.stepList[this.indexOfCurrentStep - 1]
-
-            this.findInput = this.currentStep.children[0].querySelectorAll('input')[0]
-            this.findTextarea = this.currentStep.children[0].querySelectorAll('textarea')[0]
-
-            if (this.findInput) {
-              this.findInput.focus()
-            } else if (this.findTextarea) {
-              this.findTextarea.focus()
-            }
-
-            this.progressStyle = {
-              width: this.progressWidth * (this.indexOfCurrentStep - 1) + this.progressWidth + '%'
-            }
+          if (this.findInput) {
+            this.findInput.blur()
           }
 
+          this.currentStep = this.stepList[index]
+          this.findInput = this.currentStep.children[0].querySelectorAll('input')[0]
+          this.findTextarea = this.currentStep.children[0].querySelectorAll('textarea')[0]
+
+          if (this.findInput) {
+            this.findInput.focus()
+          } else if (this.findTextarea) {
+            this.findTextarea.focus()
+          }
+
+          this.progressStyle = {
+            width: this.progressWidth * index + this.progressWidth + '%'
+          }
+          return false
         }
-        scrollPosition = currentScrollPosition
+        return true
       })
     })
   }
@@ -114,25 +82,20 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
 
   public goToNextWizardStep = (): void => {
     this.indexOfCurrentStep = _.findIndex(this.stepList, (step) => this.currentStep === step)
-    this.progressStyle = {
-      width: this.progressWidth * (this.indexOfCurrentStep + 1) + this.progressWidth + '%'
-    }
     if (this.indexOfCurrentStep + 1 < this.stepList.length) {
-      const nextStep =  this.stepList[this.indexOfCurrentStep + 1]
-      this.smoothScrollingService.wizardScrollTo(nextStep, this.$element.find('wizard-step')[this.indexOfCurrentStep + 1].clientHeight,
+      this.smoothScrollingService.wizardScrollTo(
+        this.stepList[this.indexOfCurrentStep + 1],
+        this.$element.find('wizard-step')[this.indexOfCurrentStep + 1].clientHeight,
         this.$window.innerHeight)
     }
   }
 
   public goToPreviousWizardStep = (): void => {
     this.indexOfCurrentStep = _.findIndex(this.stepList, (step) => this.currentStep === step)
-    this.progressStyle = {
-      width: this.progressWidth * (this.indexOfCurrentStep - 1) + this.progressWidth + '%'
-    }
-
     if (this.currentStep !== this.$element.find('wizard-step')[0]) {
-      const previousStep = this.stepList[this.indexOfCurrentStep - 1]
-      this.smoothScrollingService.wizardScrollTo(previousStep, this.$element.find('wizard-step')[this.indexOfCurrentStep - 1].clientHeight,
+      this.smoothScrollingService.wizardScrollTo(
+        this.stepList[this.indexOfCurrentStep - 1],
+        this.$element.find('wizard-step')[this.indexOfCurrentStep - 1].clientHeight,
         this.$window.innerHeight)
     }
   }
