@@ -9,9 +9,16 @@ describe('Testing Controller: securityPinNumberSettingsController', () => {
   let scope: ISecurityPinNumberSettingsControllerScope
   let httpBackend: ng.IHttpBackendService
 
-  const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
-    jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss']);
   const User = {}
+
+  const uibModalInstance = {
+    dismiss: () => {
+
+    },
+    close: () => {
+
+    }
+  }
 
   beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
     $provide.value('apiUrl', 'awesomeUrl')
@@ -27,7 +34,7 @@ describe('Testing Controller: securityPinNumberSettingsController', () => {
       httpBackend = $httpBackend
       const injectors = {
         $scope: scope,
-        $uibModalInstance: $uibModalInstance,
+        $uibModalInstance: uibModalInstance,
         AccountApi: AccountApi,
         User: User
       }
@@ -41,4 +48,16 @@ describe('Testing Controller: securityPinNumberSettingsController', () => {
   it('should exists', () => {
     return expect(!!controller).toBe(true)
   })
+
+  it('should uibModalInstance', () => {
+    spyOn(uibModalInstance, 'dismiss')
+    controller.onModalClose()
+    expect(uibModalInstance.dismiss).toHaveBeenCalledWith('cancel')
+  })
+
+  it('should be new pin typed', () => {
+    controller.sendPin()
+    expect(controller.isNewPinTyped).toBe(true)
+  })
+
 })

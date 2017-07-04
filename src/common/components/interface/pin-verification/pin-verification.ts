@@ -13,7 +13,7 @@ export class PinVerificationComponentController implements ng.IController, IPinV
   public onCompletePinInputs: (token: string, callback: () => void) => void
   public isButtonDisable = false
   public counter: number = 0
-  public pinInputModels = []
+  public pinInputModels: Array<string> = []
   public isPinInCorrect = false
 
   /* @ngInject */

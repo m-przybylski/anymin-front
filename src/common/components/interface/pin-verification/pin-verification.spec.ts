@@ -54,7 +54,25 @@ describe('Unit testing: profitelo.components.interface.pinVerification', () => {
     })
 
     it('should sendPinAgain', () => {
-
+      spyOn(component, 'onSendPinAgain')
+      component.sendPinAgain()
+      expect(component.isButtonDisable).toBe(true)
+      expect(component.onSendPinAgain).toHaveBeenCalled()
     })
+
+    it('should pin be correct', () => {
+      component.pinInputModels = ['1', '2', '3', '4']
+      spyOn(component, 'onCompletePinInputs')
+      component.onInputChange()
+      expect(component.isPinInCorrect).toBe(false)
+      expect(component.onCompletePinInputs).toHaveBeenCalled()
+    })
+
+    it('should pin be incorrect', () => {
+      component.pinInputModels = ['', '', '3', '4']
+      component.onInputChange()
+      expect(component.isPinInCorrect).toBe(true)
+    })
+
   })
 })

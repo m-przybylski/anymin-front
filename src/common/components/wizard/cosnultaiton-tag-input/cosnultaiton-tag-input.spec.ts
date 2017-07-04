@@ -45,5 +45,50 @@ describe('Unit testing: profitelo.components.interface.consultation-tag-input', 
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
+
+    it('should add tagModel', () => {
+      component.tagModel = 'tagModel'
+      component.selectedTags = []
+      component.onEnter()
+      expect(component.selectedTags.length).toBe(1)
+      expect(component.isInputValueInvalid).toBe(false)
+      expect(component.tagModel).toBe('')
+    })
+
+    it('should tagModel invalid', () => {
+      component.tagModel = ''
+      component.onEnter()
+      expect(component.isInputValueInvalid).toBe(true)
+    })
+
+    it('should add selected number', () => {
+      const item: string = 'item'
+      const index: number = 1
+      component.dictionary = ['asd', 'dsa']
+      component.addSelectedItem(item, index)
+      expect(component.selectedTags.length).toBe(1)
+      expect(component.isInputValueInvalid).toBe(false)
+      expect(component.dictionary.length).toBe(1)
+    })
+
+    it('should onBlur', () => {
+      component.onBlur()
+      expect(component.isDirty).toBe(true)
+      expect(component.isFocus).toBe(false)
+      expect(component.isInputValueInvalid).toBe(false)
+    })
+
+    it('should onFocus', () => {
+      component.onFocus()
+      expect(component.isFocus).toBe(true)
+    })
+
+    it('should delete selected item', () => {
+      const index: number = 0
+      component.selectedTags = ['selectedTag']
+      component.deleteSelectedItem(index)
+      expect(component.selectedTags.length).toBe(0)
+    })
+
   })
 })
