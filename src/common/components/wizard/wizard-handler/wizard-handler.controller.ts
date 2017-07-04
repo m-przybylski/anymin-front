@@ -22,56 +22,58 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
   /* @ngInject */
   constructor(private $element: ng.IRootElementService,
               private smoothScrollingService: SmoothScrollingService, private $window: ng.IWindowService,
-              private $document: ng.IDocumentService) {
+              private $document: ng.IDocumentService, private $timeout: ng.ITimeoutService) {
   }
 
   $postLink() {
-    this.currentStep = this.$element.find('wizard-step')[0]
-    this.stepList = this.$element.find('wizard-step')
+    this.$timeout(() => {
+      this.currentStep = this.$element.find('wizard-step')[0]
+      this.stepList = this.$element.find('wizard-step')
 
-    this.smoothScrollingService.wizardScrollTo(this.currentStep, (this.currentStep.clientHeight - 50),
-      this.$window.innerHeight)
+      this.smoothScrollingService.wizardScrollTo(this.currentStep, (this.currentStep.clientHeight - 50),
+        this.$window.innerHeight)
 
-    this.progressWidth = (100 / this.stepList.length)
-    this.progressStyle = {
-      width: this.progressWidth + '%'
-    }
-    this.findInput = this.currentStep.children[0].querySelectorAll('input')[0]
+      this.progressWidth = (100 / this.stepList.length)
+      this.progressStyle = {
+        width: this.progressWidth + '%'
+      }
+      this.findInput = this.currentStep.children[0].querySelectorAll('input')[0]
 
-    if (this.findInput) {
-      this.findInput.focus()
-    }
-    this.$document.bind('scroll', (event: Event) => {
-      event.preventDefault()
-      const currentScrollPosition = this.$window.pageYOffset
+      if (this.findInput) {
+        this.findInput.focus()
+      }
+      this.$document.bind('scroll', (event: Event) => {
+        event.preventDefault()
+        const currentScrollPosition = this.$window.pageYOffset
 
-      this.stepList.each((index, _element): boolean => {
-        if (currentScrollPosition + this.$window.innerHeight / 2
-          < this.stepList[index].offsetTop + this.stepList[index].clientHeight) {
-          if (this.onStepChange) {
-            this.onStepChange()
+        this.stepList.each((index, _element): boolean => {
+          if (currentScrollPosition + this.$window.innerHeight / 2
+            < this.stepList[index].offsetTop + this.stepList[index].clientHeight) {
+            if (this.onStepChange) {
+              this.onStepChange()
+            }
+
+            if (this.findInput) {
+              this.findInput.blur()
+            }
+
+            this.currentStep = this.stepList[index]
+            this.findInput = this.currentStep.children[0].querySelectorAll('input')[0]
+            this.findTextarea = this.currentStep.children[0].querySelectorAll('textarea')[0]
+
+            if (this.findInput) {
+              this.findInput.focus()
+            } else if (this.findTextarea) {
+              this.findTextarea.focus()
+            }
+
+            this.progressStyle = {
+              width: this.progressWidth * index + this.progressWidth + '%'
+            }
+            return false
           }
-
-          if (this.findInput) {
-            this.findInput.blur()
-          }
-
-          this.currentStep = this.stepList[index]
-          this.findInput = this.currentStep.children[0].querySelectorAll('input')[0]
-          this.findTextarea = this.currentStep.children[0].querySelectorAll('textarea')[0]
-
-          if (this.findInput) {
-            this.findInput.focus()
-          } else if (this.findTextarea) {
-            this.findTextarea.focus()
-          }
-
-          this.progressStyle = {
-            width: this.progressWidth * index + this.progressWidth + '%'
-          }
-          return false
-        }
-        return true
+          return true
+        })
       })
     })
   }
