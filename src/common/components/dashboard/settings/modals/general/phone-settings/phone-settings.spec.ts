@@ -8,11 +8,18 @@ describe('Testing Controller: generalPhoneSettingsController', () => {
 
   let controller: GeneralPhoneSettingsController
   let scope: IGeneralPhoneSettingsControllerScope
-  const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
-    jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss'])
 
   const userService = {
     getUser: () => {
+    }
+  }
+
+  const uibModalInstance = {
+    dismiss: () => {
+
+    },
+    close: () => {
+
     }
   }
 
@@ -35,10 +42,9 @@ describe('Testing Controller: generalPhoneSettingsController', () => {
 
       const injectors = {
         $scope: scope,
-        $uibModalInstance: $uibModalInstance,
         AccountApi: AccountApi,
         $log: $log,
-        userService: userService
+        $uibModalInstance: uibModalInstance
       }
 
       controller = $controller<GeneralPhoneSettingsController>('generalPhoneSettingsController', injectors)
@@ -47,6 +53,32 @@ describe('Testing Controller: generalPhoneSettingsController', () => {
 
   it('should exists', () => {
     return expect(!!controller).toBe(true)
+  })
+
+  it('should phone number valid', () => {
+    controller.prefixList = [{
+      value: '+48',
+      name: 'pl'
+    }]
+    controller.number = '555555555'
+    controller.setNewNumber()
+    expect(controller.isPhoneNumberInvalid).toBe(false)
+  })
+
+  it('should phone number invalid', () => {
+    controller.prefixList = [{
+      value: '+48',
+      name: 'pl'
+    }]
+    controller.number = '123'
+    controller.setNewNumber()
+    expect(controller.isPhoneNumberInvalid).toBe(true)
+  })
+
+  it('should uibModalInstance', () => {
+    spyOn(uibModalInstance, 'dismiss')
+    controller.onModalClose()
+    expect(uibModalInstance.dismiss).toHaveBeenCalledWith('cancel')
   })
 
 })
