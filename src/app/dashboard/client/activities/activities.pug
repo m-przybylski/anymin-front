@@ -4,8 +4,13 @@
   data-error-fn="vm.sendRequestAgain")
   .container(data-ng-if="!vm.isActivitiesHistory")
     .client-last-activities-content(data-ng-hide="vm.isSearchLoading")
-      .container
-        client-no-activities
+      no-results-information(
+        data-icon-src="/assets/images/profitelo_icons/icon_history.png"
+        data-information-title="DASHBOARD.CLIENT.ACTIVITIES.NO_ACCOUNT_HISTORY"
+        data-button-title="DASHBOARD.CLIENT.ACTIVITIES.SEARCH_EXPERT"
+        data-button-class="btn-default"
+        data-button-on-click="vm.searchForExpert"
+      )
 
   .container(data-ng-if="vm.isActivitiesHistory")
     .client-activities-page(data-ng-hide="vm.isSearchLoading")

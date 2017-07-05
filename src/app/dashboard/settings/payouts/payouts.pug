@@ -1,12 +1,13 @@
 .payouts.payouts-options
-  .no-results-page(data-ng-hide="vm.isAnyPayoutMethod")
-    .container
-      .no-results-page-content
-        img(data-ng-src="/assets/images/profitelo_icons/icon_payments.png")
-        h2(data-translate="SETTINGS.PAYMENTS.NO_RESULTS.TITLE")
-        a.btn.btn-default.icon-right(data-ng-click="vm.addPayoutsMethod()")
-          | {{:: 'SETTINGS.PAYMENTS.NO_RESULTS.BUTTON' | translate}}
-          span.icon.icon-arrow-right-16
+  no-results-information(
+    data-ng-hide="vm.isAnyPayoutMethod"
+    data-icon-src="/assets/images/profitelo_icons/icon_payments.png"
+    data-information-title="SETTINGS.PAYMENTS.NO_RESULTS.TITLE"
+    data-button-title="SETTINGS.PAYMENTS.NO_RESULTS.BUTTON"
+    data-button-class="btn-default icon-right"
+    data-button-icon-right-class="icon-arrow-right-16"
+    data-button-on-click="vm.addPayoutsMethod"
+  )
 
   .payments-method(data-ng-show="vm.isAnyPayoutMethod")
     header.entry-title

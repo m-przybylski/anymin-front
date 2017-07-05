@@ -1,7 +1,14 @@
 .client-favourites-page
   .client-favourite-content
     .container(data-ng-if="(!vm.lastConsultations || vm.lastConsultations.length < 1) && (!vm.favouriteProfiles || vm.favouriteProfiles.length < 1)")
-      client-no-favourite-experts()
+      no-results-information(
+        data-icon-src="/assets/images/profitelo_icons/icon_favourite.png"
+        data-information-title="DASHBOARD.CLIENT.FAVOURITE_EXPERTS.NO_FAVOURITE_EXPERTS.TITLE"
+        data-information-description="DASHBOARD.CLIENT.FAVOURITE_EXPERTS.NO_FAVOURITE_EXPERTS.DESCRIPTION"
+        data-button-title="DASHBOARD.CLIENT.FAVOURITE_EXPERTS.SEARCH_EXPERT"
+        data-button-class="btn-primary"
+        data-button-on-click="vm.searchForExpert"
+      )
 
     div(data-ng-if="vm.lastConsultations && vm.lastConsultations.length > 0 || vm.favouriteProfiles && vm.favouriteProfiles.length > 0")
       .container(data-ng-if="vm.lastConsultations && vm.lastConsultations.length > 0")

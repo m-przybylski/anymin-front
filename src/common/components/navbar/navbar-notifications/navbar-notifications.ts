@@ -2,7 +2,7 @@ import * as angular from 'angular'
 import {NavbarNotificationsComponent} from './navbar-notifications.component'
 import './navbar-notifications.sass'
 import userAvatarModule from '../../interface/user-avatar/user-avatar'
-import noContentMessageModule from '../../dashboard/no-content-message/no-content-message'
+import noResultsInformationModule from '../../dashboard/no-results-information/no-results-information'
 import modalsModule from '../../../services/modals/modals'
 import apiModule from 'profitelo-api-ng/api.module'
 
@@ -16,7 +16,7 @@ const navbarNotificationsModule = angular.module('profitelo.components.navbar.na
   'pascalprecht.translate',
   userAvatarModule,
   'ui.router',
-  noContentMessageModule,
+  noResultsInformationModule,
   modalsModule,
   apiModule
 ])
