@@ -2,9 +2,11 @@
   > div
     opacity: 1
     transition: opacity 0.3s
+
     &.loader
       opacity: 0
       transition: none
+      min-height: 120px
 
   .balls-loader
     position: fixed
@@ -19,8 +21,8 @@
     content: ""
 
     span
-      width: 80px
-      height: 80px
+      width: 64px
+      height: 64px
       border: 1px solid $c-lines
       border-top-color: $c-primary
       border-radius: 50%

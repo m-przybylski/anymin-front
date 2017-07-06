@@ -69,10 +69,10 @@ import {IWindowService} from '../../../services/window/window.service'
     })
 
     it('should collapseToggle', () => {
-      component.stylesObject.minHeight = 12
+      component.stylesObject.height = 12
       component.collapseToggle()
       component.collapseToggle()
-      expect(component.stylesObject.minHeight).toEqual(0)
+      expect(component.stylesObject.height).toEqual(0)
     })
   })
 })

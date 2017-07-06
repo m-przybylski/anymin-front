@@ -1,0 +1,67 @@
+@import "../../../../template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../../template/profitelo_theme/stylesheets/core/helpers/mixins"
+
+.collapse-btn
+	transition: height 0.6s ease-in-out
+	overflow: hidden
+	border-bottom: 1px solid $c-lines
+
+	.btn-collapse.btn
+		transition: min-height 0.3s
+		display: block
+		width: 100%
+		padding: 0
+		border-radius: 0
+		overflow: hidden
+		min-height: 48px
+		height: auto
+
+		.collapse-btn-header
+			+header
+			background: $c-background
+			height: 48px
+			flex: 1 0 100%
+			display: flex
+			align-items: center
+			justify-content: center
+			width: 100%
+			padding: 0
+			cursor: pointer
+			text-transform: none
+			border-radius: 0
+
+			.icon
+				color: $c-secondary-txt
+				font-size: $f-icon-22
+				margin: 0 16px 0 0
+
+			div
+				display: flex
+				align-items: center
+
+			span
+				+buttonSmall
+				color: $c-primary
+				text-transform: uppercase
+
+		.collapse-btn-content
+			+default-font-regular
+			background: $c-white
+			margin: 0
+			flex: 1 0 100%
+			text-transform: none
+			animation: fadeInY 0.3s
+
+			&.ng-enter-active
+				animation: fadeInY 0.3s
+
+			&.ng-leave-active
+				animation: fadeOutY 0.3s
+
+
+			> div
+				padding: 32px
+
+				textarea
+					resize: none
+

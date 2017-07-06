@@ -5,6 +5,9 @@ import filtersModule from '../../../../../../filters/filters'
 import '../../../../../../components/interface/collapse-btn/collapse-btn'
 import {ExpertConsultationDetailsController} from './consultation-details.controller'
 import tagsListModule from '../../../../../tags-list/tags-list'
+import '../../../../../../components/interface/radio-text/radio-text'
+import './consultation-details.sass'
+import textareaModule from '../../../../../interface/textarea/textarea'
 
 const expertConsultationDetailsModalModule = angular.module('profitelo.components.dashboard.expert.activities.modals.consultation-details', [
   'ui.bootstrap',
@@ -14,7 +17,9 @@ const expertConsultationDetailsModalModule = angular.module('profitelo.component
   filtersModule,
   'profitelo.components.interface.collapse-btn',
   urlModule,
-  tagsListModule
+  tagsListModule,
+  'profitelo.components.interface.radio-text',
+  textareaModule
 ])
 .controller('expertConsultationDetails', ExpertConsultationDetailsController)
 

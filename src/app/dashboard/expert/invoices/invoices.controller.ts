@@ -4,9 +4,7 @@ export class DashboardExpertInvoicesController {
 
   /* @ngInject */
   constructor() {
-
     this.areInvoices = true
-
   }
 
 }

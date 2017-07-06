@@ -1,16 +1,22 @@
-.radio-text.radio
-  div
-    input(
-      type="radio"
-      id="{{ $ctrl.id }}"
-      name="$ctrl.name"
-      value="{{ $ctrl.value }}"
-      ng-model="$ctrl.ngModel"
+.radio-text
+  .radio(data-ng-click="$ctrl.onClick()")
+    div
+      input(
+        type="radio"
+        id="{{ $ctrl.id }}"
+        name="$ctrl.name"
+        value="{{ $ctrl.value }}"
+        data-ng-model="$ctrl.ngModel"
+      )
+      label.label
+    label.text(for="{{ $ctrl.id }}" data-ng-click="$ctrl.onClick()") {{ $ctrl.label | translate }}
+
+  .radio-description(data-ng-show="$ctrl.isCollapsed && $ctrl.ngModel")
+    p.label-description(data-ng-if="$ctrl.labelDescription") {{ $ctrl.labelDescription | translate }}
+
+    textarea-primary(
+      data-ng-if="$ctrl.isDescriptive"
+      data-ng-model="$ctrl.name"
+      data-id="{{$ctrl.id}}"
+      data-max-length="600"
     )
-    label.label
-
-  label.text(for="{{ $ctrl.id }}") {{ $ctrl.label | translate }}
-
-.radio-description
-  p.label-description {{ $ctrl.labelDescription | translate }}
-  textarea.message
