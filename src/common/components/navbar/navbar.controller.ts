@@ -10,13 +10,13 @@ export class NavbarComponentController implements INavbarComponentBindings {
   elementOffsetHeight: number = 0
   isNavigationCollapsed: boolean = false
   isLoggedIn: boolean
-  searchModel: string
+  searchInputQueryValue: string
   navbarStyle: {
     transform: string
   }
 
   /* @ngInject */
-  constructor(private $scope: ng.IScope, private $window: ng.IWindowService, private $element: any,
+  constructor(private $scope: ng.IScope, private $window: ng.IWindowService, private $element: ng.IRootElementService,
               private userService: UserService, private $document: ng.IDocumentService,
               private styleConstant: IStyleConstant) {
 

@@ -1,7 +1,6 @@
 import * as angular from 'angular'
 import {SearchFiltersComponentController, ISearchFiltersComponentBindings} from './search-filters'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {SearchService} from '../../../services/search/search.service'
 
 describe('Unit testing: profitelo.components.search.searchFilters', () => {
   return describe('for Search Filters component >', () => {
@@ -11,16 +10,20 @@ describe('Unit testing: profitelo.components.search.searchFilters', () => {
     let component: SearchFiltersComponentController
     let timeout: ng.ITimeoutService
     const searchService = {
-      getAvailableOptions: {},
-      onQueryParamsChange: (): void => {
-      }
     }
-    const validHTML: string = '<search-filters search-results="searchResults" set-search-params="setSearchParams"></search-filters>'
-
     const bindings: ISearchFiltersComponentBindings = {
-      searchResults: [{}],
-      setSearchParams: (): void => {
-      }
+      tags: ['tag-1']
+    }
+    const validHTML: string =
+      '<search-filters></search-filters>'
+
+    const commonConfig = {
+      getAllData: () => ({
+        config: {
+          moneyDivider: 100,
+          'supported-languages': ['polski, czeski, niemiecki']
+        }
+      })
     }
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
@@ -30,42 +33,30 @@ describe('Unit testing: profitelo.components.search.searchFilters', () => {
     beforeEach(() => {
 
       angular.mock.module('profitelo.components.search.searchFilters')
+      angular.mock.module('profitelo.directives.interface.pro-range-slider')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
-              $componentController: ng.IComponentControllerService, $q: ng.IQService,
+              $componentController: ng.IComponentControllerService,
               $timeout: ng.ITimeoutService, $httpBackend: ng.IHttpBackendService) => {
 
         rootScope = $rootScope.$new()
         compile = $compile
         timeout = $timeout
         const injectors = {
-          searchService: searchService
+          searchService: searchService,
+          CommonConfig: commonConfig,
+          $element: create(validHTML, {})
         }
-
-        spyOn(searchService, 'getAvailableOptions').and.callFake(() => {
-          return {
-            language: [{name: 'asas', value: 'asas'}],
-            sortBy: ['jhjhj'],
-            category: [{name: 'asas', value: 'asas'}],
-            profileType: [{name: 'asas', value: 'asas'}]
-          }
-        })
-
-        spyOn(searchService, 'onQueryParamsChange').and.callFake(() => {
-          const deferred = $q.defer()
-          deferred.resolve({})
-          return deferred.promise
-        })
 
         component = $componentController<SearchFiltersComponentController, ISearchFiltersComponentBindings>(
           'searchFilters', injectors, bindings
         )
 
-        $httpBackend.when('GET', require('../../../templates/range-slider/range-slider.tpl.pug')).respond(200, '')
+        $httpBackend.when('GET', require("../../../templates/range-slider/range-slider.tpl.pug")).respond(200, {})
       })
     })
 
-    function create(html: string, bindings: ISearchFiltersComponentBindings): JQuery {
+    function create(html: string, bindings: {}): JQuery {
       const parentScope: ng.IScope = rootScope.$new()
       const parentBoundScope = angular.extend(parentScope, bindings)
       const elem: JQuery = angular.element(html)
@@ -73,67 +64,6 @@ describe('Unit testing: profitelo.components.search.searchFilters', () => {
       parentBoundScope.$digest()
       return compiledElement
     }
-
-    it('should have a dummy test', inject(() => {
-      expect(true).toBeTruthy()
-    }))
-
-    it('should compile the component', inject((searchService: SearchService) => {
-
-      spyOn(searchService, 'getAvailableOptions').and.callFake(() => {
-        return {
-          language: [{name: 'asas', value: 'asas'}],
-          sortBy: ['jhjhj'],
-          category: [{name: 'asas', value: 'asas'}],
-          profileType: [{name: 'asas', value: 'asas'}]
-        }
-      })
-
-      spyOn(searchService, 'onQueryParamsChange').and.callFake((_scope: ng.IScope, callback: (results: any) => void) => {
-        return callback({
-          language: [{name: 'asas', value: 'asas'}],
-          sortBy: ['jhjhj'],
-          category: [{name: 'asas', value: 'asas'}],
-          onlyAvailable: true,
-          maxPrice: '100',
-          profileType: [{name: 'asas', value: 'asas'}]
-        })
-      })
-
-      const el: JQuery = create(validHTML, bindings)
-      expect(el.html()).toBeDefined(true)
-      timeout.flush()
-    }))
-
-    it('should change activity status', inject(() => {
-      component.onActivityStatusChange(true)
-      expect(searchService.onQueryParamsChange).toHaveBeenCalled()
-    }))
-
-    it('should change price range', inject(() => {
-      component.onPriceRangeBarUpdate(20, 40, 'as')
-      expect(searchService.onQueryParamsChange).toHaveBeenCalled()
-    }))
-
-    it('should update sort type', inject(() => {
-      component.updateSortTypeParam('asdasd')
-      expect(searchService.onQueryParamsChange).toHaveBeenCalled()
-    }))
-
-    it('should update language type', inject(() => {
-      component.updateLanguageTypeParam('asdasd')
-      expect(searchService.onQueryParamsChange).toHaveBeenCalled()
-    }))
-
-    it('should update list type', inject(() => {
-      component.updateTypeListTypeParam('asdasd')
-      expect(searchService.onQueryParamsChange).toHaveBeenCalled()
-    }))
-
-    it('should update category type', inject(() => {
-      component.updateCategoryTypeParam('asdasd')
-      expect(searchService.onQueryParamsChange).toHaveBeenCalled()
-    }))
 
   })
 })

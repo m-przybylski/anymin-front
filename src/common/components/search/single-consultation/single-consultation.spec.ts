@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import './single-consultation'
-
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import communicatorModule from '../../communicator/communicator'
 describe('Unit testing:profitelo.components.search.single-consultation', () => {
@@ -12,11 +11,28 @@ describe('Unit testing:profitelo.components.search.single-consultation', () => {
     let componentController: any
     let component: any
     let _callService: any
-    let validHTML = '<single-consultation data-consultation="{id: 1, owner: {img: 1212, type: ORG}}"></single-consultation>'
+    let validHTML =
+      '<single-consultation data-consultation="consultation"></single-consultation>'
     let state: ng.ui.IStateService
+
+    const consultation = {
+      id: 1,
+      service: {
+        id: '123123'
+      },
+      ownerProfile: {
+        expertDetails: {
+          avatar: 'asdasdasd'
+        },
+        organizationDetails: {
+          logo: '232323'
+        }
+      }
+    }
 
     function create(html: string): JQuery {
       scope = rootScope.$new()
+      scope.consultation = consultation
       const elem = angular.element(html)
       const compiledElement = compile(elem)(scope)
       scope.$digest()
@@ -24,12 +40,7 @@ describe('Unit testing:profitelo.components.search.single-consultation', () => {
     }
 
     const bindings = {
-      consultation: {
-        id: 1,
-        owner: {
-          type: 'ORG'
-        }
-      }
+      consultation: consultation
     }
 
     const userService = {
@@ -92,32 +103,25 @@ describe('Unit testing:profitelo.components.search.single-consultation', () => {
       expect(el.html()).toBeDefined(true)
     })
 
+    it('should set isLinkActive to true', () => {
+      const el = create(validHTML)
+      const isoScope: ng.IScope = el.isolateScope()
+      el.find('.btn.btn-success').triggerHandler('mouseover')
+      expect(isoScope.$ctrl.isLinkActive).toBe(true)
+    })
+
     it('should set isLinkActive to false', () => {
       const el = create(validHTML)
       const isoScope: any = el.isolateScope()
       el.find('.btn.btn-success').triggerHandler('mouseover')
-      expect(isoScope.$ctrl.isLinkActive).toBe(false)
-    })
-
-    it('should set isLinkActive to true', () => {
-      const el = create(validHTML)
-      const isoScope: any = el.isolateScope()
-      el.find('.btn.btn-success').triggerHandler('mouseover')
       el.find('.btn.btn-success').triggerHandler('mouseout')
-      expect(isoScope.$ctrl.isLinkActive).toBe(true)
+      expect(isoScope.$ctrl.isLinkActive).toBe(false)
     })
 
     it('should call state go', () => {
       spyOn(state, 'go')
       component.goToProfile()
       expect(state.go).toHaveBeenCalled()
-    })
-
-    it('should set profile image as null', () => {
-      validHTML = '<single-consultation data-consultation="{id: 1, owner: {type: ORG}}"></single-consultation>'
-      const el = create(validHTML)
-      const isoScope: any = el.isolateScope()
-      expect(isoScope.$ctrl.profileImage).toEqual(null)
     })
 
   })

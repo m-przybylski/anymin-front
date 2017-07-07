@@ -6,7 +6,6 @@ import 'common/directives/expert-profile/pro-expert-see-more/pro-expert-see-more
 import 'common/directives/pro-advice-tile/pro-advice-tile'
 import 'common/directives/pro-news-tile/pro-news-tile'
 import 'common/components/expert-profile/similar-experts-slider/similar-experts-slider'
-import 'common/components/pro-search-dropdown/pro-search-dropdown'
 import 'common/components/interface/slider/slider'
 import navbarModule from '../../common/components/navbar/navbar'
 
@@ -185,7 +184,6 @@ const homePageModule = angular.module('profitelo.controller.home', [
   'profitelo.directives.pro-advice-tile',
   'profitelo.directives.pro-news-tile',
   'profitelo.components.expert-profile.similar-experts-slider',
-  'profitelo.components.pro-search-dropdown',
   'profitelo.components.interface.slider'
 ])
   .config(($stateProvider: ng.ui.IStateProvider) => {

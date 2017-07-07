@@ -2,6 +2,7 @@ import * as angular from 'angular'
 import {NavbarComponentController} from './navbar.controller'
 import navbarModule from './navbar'
 import {INavbarComponentBindings} from './navbar'
+import {UserService} from '../../services/user/user.service'
 
 describe('Unit testing: navbar', () => {
   return describe('for navbar component >', () => {
@@ -11,14 +12,14 @@ describe('Unit testing: navbar', () => {
     let component: NavbarComponentController
     let q: ng.IQService
     let bindings: INavbarComponentBindings
-    const validHTML =
-      '<navbar></navbar>'
+    const validHTML: string =
+      '<navbar data-search-value="assa"></navbar>'
 
-    const userService = {
-      getUser: (): ng.IPromise<{}> => {
-        return q.resolve({})
-      }
-    }
+    const searchInputQueryValue = 'searchInputQueryValue'
+
+   const userService: UserService  = <UserService>{
+      getUser: {}
+   }
 
     const window = {
       pageYOffset: 20,
@@ -30,24 +31,16 @@ describe('Unit testing: navbar', () => {
       }
     }
 
-    function create(html: string,  bindings: INavbarComponentBindings): JQuery {
-      const parentScope = rootScope.$new()
-      const parentBoundScope = angular.extend(parentScope, bindings)
+    function create(html: string) {
+      const parentScope: ng.IScope = rootScope.$new()
       const elem = angular.element(html)
-      const compiledElement = compile(elem)(parentBoundScope)
-      parentBoundScope.$digest()
+      const compiledElement = compile(elem)(parentScope)
+      parentScope.$digest()
       return compiledElement
     }
 
-    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService): void {
+    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService): void => {
       $provide.value('apiUrl', 'awesomeUrl/')
-    }))
-
-    beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
-      $provide.value('userService', userService)
-      $provide.value('styleConstant', {})
-      $provide.value('topAlertService', {})
-      $provide.value('$window', window)
     }))
 
     beforeEach(() => {
@@ -61,12 +54,13 @@ describe('Unit testing: navbar', () => {
         compile = $compile
         q = $q
 
+        spyOn(userService, 'getUser').and.returnValue($q.resolve({}))
         bindings = {
-          searchModel: 'sdfsdf'
+          searchInputQueryValue: searchInputQueryValue
         }
         const injectors = {
           userService: userService,
-          $element: create(validHTML, bindings),
+          $element: create(validHTML),
           $document: document,
           $window: window
         }
@@ -81,7 +75,7 @@ describe('Unit testing: navbar', () => {
     }))
 
     it('should compile the component', () => {
-      const el = create(validHTML, bindings)
+      const el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
 

@@ -1,8 +1,8 @@
 .search-filter
-  div.search-filter-slider(data-ng-if="$ctrl.searchFilters.tags.length > 3")
+  div.search-filter-slider(data-ng-if="$ctrl.tags && $ctrl.tags.length > 2")
     h4 {{::'SEARCH.SEARCH_RECENT' | translate}}
     .container
-      pro-tags-slider(data-tags="$ctrl.searchFilters.tags")
+      pro-tags-slider(data-tags="$ctrl.tags")
 
   .container(data-ng-class="{'hide-filters' : $ctrl.handleMobileFiltersDisplay()}")
     .advanced-search-bar-wrap
@@ -12,7 +12,7 @@
         data-main-list="$ctrl.sortList"
         data-on-select-main="$ctrl.updateSortTypeParam"
         data-placeholder="{{ ::'SEARCH.SATISFIED_PERCENT' | translate }}"
-        data-selected-item="$ctrl.searchFilters.sortBy"
+        data-selected-item="$ctrl.sortBy"
         data-input-placeholder="{{ ::'SEARCH.ALL' | translate }}"
         )
       .pro-dropdown
@@ -21,9 +21,8 @@
         data-main-list="$ctrl.languagesList"
         data-on-select-main="$ctrl.updateLanguageTypeParam"
         data-placeholder="{{ ::'SEARCH.ALL_LANGUAGES' | translate }}"
-        data-selected-item="$ctrl.searchFilters.language"
+        data-selected-item="$ctrl.language"
         data-input-placeholder="{{ ::'SEARCH.ALL' | translate }}"
-
         )
       .pro-dropdown
         dropdown-primary(
@@ -31,15 +30,15 @@
         data-main-list="$ctrl.profileTypeList"
         data-on-select-main="$ctrl.updateTypeListTypeParam"
         data-placeholder="{{ ::'SEARCH.ALL' | translate }}"
-        data-selected-item="$ctrl.searchFilters.profileType"
+        data-selected-item="$ctrl.profileType"
         data-input-placeholder="{{ ::'SEARCH.ALL' | translate }}"
         )
 
-      pro-range-slider(data-min-value='$ctrl.searchFilters.minPrice' data-callback="$ctrl.onPriceRangeBarUpdate"
-      data-max-value='$ctrl.searchFilters.maxPrice'
+      pro-range-slider(data-min-value='$ctrl.minPrice' data-callback="$ctrl.onPriceRangeBarUpdate"
+      data-max-value='$ctrl.maxPrice'
       data-label="{{::'SEARCH.PRICE_RANGE' | translate}}")
 
-      pro-switcher(id="switcher" data-ng-model="$ctrl.searchFilters.onlyAvailable"
+      pro-switcher(id="switcher" data-ng-model="$ctrl.onlyAvailable"
       data-callback="$ctrl.onActivityStatusChange" data-label="SEARCH.EXPERTS_CURRENTLY_AVAILABLE")
 
   .mobile-filter-button(data-ng-if="$ctrl.showMobileFilterButton()" data-ng-click="$ctrl.showFilters()")

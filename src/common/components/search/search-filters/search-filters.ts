@@ -1,112 +1,117 @@
 import * as angular from 'angular'
-import * as _ from 'lodash'
-import {Tag} from 'profitelo-api-ng/model/models'
 import 'angularjs-slider'
 import {IFilterService} from '../../../services/filter/filter.service'
-import {SearchService} from '../../../services/search/search.service'
 import filtersModule from '../../../filters/filters'
 import searchModule from '../../../services/search/search'
 import 'common/directives/interface/pro-range-slider/pro-range-slider'
 import 'common/directives/pro-tags-slider/pro-tags-slider'
 import 'common/directives/interface/pro-switcher/pro-switcher'
+import {CommonConfig, default as commonConfigModule} from '../../../../../generated_modules/common-config/common-config'
+import {IPrimaryDropdownListElement} from '../../interface/dropdown-primary/dropdown-primary'
 
 export interface ISearchFiltersComponentBindings {
-  searchResults: {}[]
-  setSearchParams: any
-}
-
-interface ISearchFilters {
-  sortBy?: {}
-  language?: {}
-  category?: {}
-  onlyAvailable?: boolean
-  minPrice?: number
-  maxPrice?: number
-  profileType?: {}
-  tags?: Tag[]
-  offset?: number
+  tags: string[]
 }
 
 export class SearchFiltersComponentController implements ng.IController, ISearchFiltersComponentBindings {
 
-  public searchFilters: ISearchFilters = {
-    onlyAvailable: false,
-    tags: []
-  }
   public languagesList: {}[]
   public sortList: {}[]
-  public categoryList: {}[]
   public showMobileFilters: boolean
   public profileTypeList: {}[]
-  public searchResults: {}[]
-  public setSearchParams: any
+  public onlyAvailable: boolean = false
 
-  private static readonly maxMobileWindowWidth: number = 768
-  private static readonly defaultMaxPrice: number = 20
+  public tags: string[]
+
+  public sortBy: IPrimaryDropdownListElement
+  public language: IPrimaryDropdownListElement
+  public profileType: IPrimaryDropdownListElement
+  public minPrice: number = 0
+
+  public maxPrice: number = 20
+  private moneyDivider: number
+  private static readonly mobileWidth: number = 768
 
   $onInit = (): void => {
-
-  }
-
-  $onChanges = (onChangesObject: any): void => {
-    if (onChangesObject.searchResults.currentValue !== onChangesObject.searchResults.previousValue
-      && angular.isDefined(this.searchFilters)) {
-      this.searchFilters.tags = onChangesObject.searchResults.currentValue.relatedTags
+    this.sortBy = {
+      name: (this.$filter('translate')
+      (this.$filter('normalizeTranslationKey')(('SEARCH.SORT_BY.' + this.$state.params.sortBy)))),
+      value: this.$state.params.sortBy
     }
+    this.language = {
+      name: (this.$filter('translate')
+      (this.$filter('normalizeTranslationKey')(('SEARCH.LANGUAGE.' + this.$state.params.language)))),
+      value: this.$state.params.language
+    }
+    this.profileType = {
+      name: this.$filter('translate')
+      (this.$filter('normalizeTranslationKey')(('SEARCH.PROFILE_TYPE.' + this.$state.params.serviceType))),
+      value: this.$state.params.serviceType
+    }
+
+    this.minPrice = this.$state.params.minPrice ? this.$state.params.minPrice / this.moneyDivider : this.minPrice
+    this.maxPrice = this.$state.params.maxPrice ? this.$state.params.maxPrice / this.moneyDivider : this.maxPrice
   }
+
   /* @ngInject */
-  constructor(private $filter: IFilterService, private $window: ng.IWindowService,
-              searchService: SearchService,
-              private $timeout: ng.ITimeoutService, private $scope: ng.IScope) {
+  constructor(private $filter: IFilterService,
+              private $window: ng.IWindowService,
+              private $state: ng.ui.IStateService,
+              CommonConfig: CommonConfig) {
 
-    const options = searchService.getAvailableOptions()
-      this.languagesList = options.language.map((lng) =>
-        ({
-          name: (this.$filter('translate')(this.$filter('normalizeTranslationKey')(('SEARCH.LANGUAGE.' + lng.name)))),
-          value: lng.value
-        }))
-      this.sortList = options.sortBy.map((val) =>
-        ({
-          name: this.$filter('translate')(this.$filter('normalizeTranslationKey')(('SEARCH.SORT_BY.' + val))),
-          value: val
-        })
-      )
-      this.categoryList = options.category.map((cat) =>
-        ({
-          name: this.$filter('translate')(this.$filter('normalizeTranslationKey')(('CATEGORY.' + cat.name))),
-          value: cat.value
-        }))
-      this.profileTypeList = options.profileType.map((type) =>
-        ({
-          name: this.$filter('translate')(this.$filter('normalizeTranslationKey')
-                (('SEARCH.PROFILE_TYPE.' + type.name))),
-          value: type.value
-        })
-      )
+    this.moneyDivider = CommonConfig.getAllData().config.moneyDivider
 
-    searchService.onQueryParamsChange(this.$scope, (params) => {
-      this.$timeout(() => {
-        this.searchFilters.sortBy = _.find(
-          this.sortList, (sort: {value: string, name: string}) => sort.value === params.sortBy)
-        this.searchFilters.language = _.find(
-          this.languagesList, (language: {value: string, name: string}) => language.value === params.language)
-        this.searchFilters.category = _.find(
-          this.categoryList, (category: {value: string, name: string}) => category.value === params.category)
-        this.searchFilters.profileType = _.find(
-          this.profileTypeList,
-          (profileType: {value: string, name: string}) => profileType.value === params.profileType)
+    const languages: {
+      shortcut: string,
+      name: string,
+      'native-name': string
+    }[] = CommonConfig.getAllData().config['supported-languages']
 
-      })
-      this.searchFilters.onlyAvailable = params.onlyAvailable
-      this.searchFilters.minPrice = params.minPrice
-      this.searchFilters.maxPrice = (params.maxPrice) ? this.maxPriceValue(params.maxPrice) : undefined
-    })
+    this.languagesList = languages.map((lng) =>
+      ({
+        name: (this.$filter('translate')(this.$filter('normalizeTranslationKey')(('SEARCH.LANGUAGE.' + lng.name)))),
+        value: lng.shortcut
+      }))
 
+    this.sortList = [
+      {
+        name: this.$filter('translate')(this.$filter('normalizeTranslationKey')(('SEARCH.SORT_BY.TOP'))),
+        value: 'TOP'
+      },
+      {
+        name: this.$filter('translate')(this.$filter('normalizeTranslationKey')(('SEARCH.SORT_BY.NEW'))),
+        value: 'NEW'
+      },
+      {
+        name: this.$filter('translate')(this.$filter('normalizeTranslationKey')(('SEARCH.SORT_BY.PRICE'))),
+        value: 'PRICE'
+      },
+      {
+        name: this.$filter('translate')(this.$filter('normalizeTranslationKey')(('SEARCH.SORT_BY._PRICE'))),
+        value: '_PRICE'
+      },
+    ]
+
+    this.profileTypeList = [
+      {
+        name: this.$filter('translate')(this.$filter('normalizeTranslationKey')(('SEARCH.PROFILE_TYPE.' + 'ALL'))),
+        value: undefined
+      },
+      {
+        name: this.$filter('translate')(this.$filter('normalizeTranslationKey')(('SEARCH.PROFILE_TYPE.' + 'EXPERT'))),
+        value: 'EXP'
+      },
+      {
+        name: this.$filter('translate')
+        (this.$filter('normalizeTranslationKey')(('SEARCH.PROFILE_TYPE.' + 'ORGANIZATION'))),
+        value: 'ORG'
+      }
+    ]
   }
 
   public handleMobileFiltersDisplay = (): boolean => {
     const windowSize = this.$window.innerWidth
-    return windowSize <= SearchFiltersComponentController.maxMobileWindowWidth && !this.showMobileFilters
+    return windowSize < SearchFiltersComponentController.mobileWidth && !this.showMobileFilters
   }
 
   public showFilters = (): void => {
@@ -115,75 +120,37 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
 
   public showMobileFilterButton = (): boolean => {
     const windowSize = this.$window.innerWidth
-    return windowSize <= SearchFiltersComponentController.maxMobileWindowWidth
+    return windowSize < SearchFiltersComponentController.mobileWidth
   }
 
-  public onActivityStatusChange = (searchFilters: any): void => {
-    const searchQueryParams: ISearchFilters = {}
-    searchQueryParams.onlyAvailable = searchFilters
-    searchQueryParams.offset = 0
-    this.setSearchQueryParamsDebounce(searchQueryParams)
+  // TODO Add filter Status Change: https://git.contactis.pl/itelo/profitelo/issues/897
+  public onActivityStatusChange = (): void => {
   }
 
   public onPriceRangeBarUpdate = (minPrice: number, maxPrice: number, _pointerType: any): void => {
-    const searchQueryParams: ISearchFilters = {}
-    searchQueryParams.maxPrice = maxPrice
-    searchQueryParams.minPrice = minPrice
-    searchQueryParams.offset = 0
-    this.setSearchQueryParamsDebounce(searchQueryParams)
+    this.$state.go('app.search-result', {
+      minPrice: minPrice * this.moneyDivider,
+      maxPrice: maxPrice * this.moneyDivider
+    })
   }
 
   public updateSortTypeParam = (item: any): void => {
-    const searchQueryParams: ISearchFilters = {}
-    if (angular.isDefined(item)) {
-      searchQueryParams.sortBy = item.value
-    }
-    searchQueryParams.offset = 0
-    this.setSearchQueryParamsDebounce(searchQueryParams)
+    this.$state.go('app.search-result', {
+      sortBy: item.value
+    })
   }
 
   public updateLanguageTypeParam = (item: any): void => {
-    const searchQueryParams: ISearchFilters = {}
-    if (angular.isDefined(item)) {
-      searchQueryParams.language = item.value
-    }
-    searchQueryParams.offset = 0
-    this.setSearchQueryParamsDebounce(searchQueryParams)
+    this.$state.go('app.search-result', {
+      languages: [item.value]
+    })
   }
 
   public updateTypeListTypeParam = (item: any): void => {
-    const searchQueryParams: ISearchFilters = {}
-    if (angular.isDefined(item)) {
-      searchQueryParams.profileType = item.value
-    }
-    searchQueryParams.offset = 0
-    this.setSearchQueryParamsDebounce(searchQueryParams)
+    this.$state.go('app.search-result', {
+      serviceType: item.value
+    })
   }
-
-  public updateCategoryTypeParam = (item: any): void => {
-    const searchQueryParams: ISearchFilters = {}
-    if (angular.isDefined(item)) {
-      searchQueryParams.category = item.value
-    }
-    searchQueryParams.offset = 0
-    this.setSearchQueryParamsDebounce(searchQueryParams)
-  }
-
-  private maxPriceValue = (maxPrice: number): number => {
-    if (angular.isUndefined(maxPrice) || maxPrice === null) {
-      return SearchFiltersComponentController.defaultMaxPrice
-    } else {
-      return maxPrice
-    }
-  }
-
-  private setSearchQueryParamsDebounce = (...args: any[]): void =>
-    _.debounce(this.setSearchParams, this.searchDebounceTimeout, {
-      leading: false,
-      trailing: true
-    })(args)
-
-  private readonly searchDebounceTimeout = 500
 
 }
 
@@ -191,18 +158,19 @@ class SearchFiltersComponent implements ng.IComponentOptions {
   controller: ng.Injectable<ng.IControllerConstructor> = SearchFiltersComponentController
   template = require('./search-filers.pug')()
   bindings: {[boundProperty: string]: string} = {
-    searchResults: '<',
-    setSearchParams: '<'
+    tags: '<'
   }
 }
 
 angular.module('profitelo.components.search.searchFilters', [
   'rzModule',
+  'ui.router',
   'pascalprecht.translate',
   'profitelo.directives.interface.pro-range-slider',
   'profitelo.directives.pro-tags-slider',
   'profitelo.directives.interface.pro-switcher',
   searchModule,
+  commonConfigModule,
   filtersModule
 ])
-  .component('searchFilters', new SearchFiltersComponent())
+.component('searchFilters', new SearchFiltersComponent())

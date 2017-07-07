@@ -3,7 +3,6 @@ import 'angular-permission'
 import 'angular-ui-router'
 const ngInfiniteScroll = require('ng-infinite-scroll')
 import searchModule from '../../common/services/search/search'
-import searchUrlModule from '../../common/services/search-url/search-url'
 import 'common/components/interface/go-to-top/go-to-top'
 import 'common/components/search/single-consultation/single-consultation'
 import 'common/components/search/no-consultations/no-consultations'
@@ -30,14 +29,21 @@ const searchResultPageModule = angular.module('profitelo.controller.search-resul
   'profitelo.components.interface.preloader',
   'profitelo.components.interface.preloader-container',
   searchModule,
-  searchUrlModule
 ])
 .config(($stateProvider: ng.ui.IStateProvider) => {
   $stateProvider.state('app.search-result', {
-    url: '/search-result?q&tagId&category&categorySlug&profileType&onlyAvailable&sortBy&language',
+    url: '/search-result?q&tags&serviceType&onlyAvailable&sortBy&languages&minPrice&maxPrice',
     template: require('./search-result.pug')(),
     controller: 'searchResultController',
     controllerAs: 'vm',
+    params: {
+      tags: {
+        array: true
+      },
+      languages: {
+        array: true
+      }
+    },
     data: {
       pageTitle: 'PAGE_TITLE.SEARCH_RESULT'
     }

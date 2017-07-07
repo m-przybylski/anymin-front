@@ -1,11 +1,15 @@
 section.search-result
-  navbar(data-search-model="vm.searchModel")
-  preloader(data-is-loading= "vm.isSearchLoading && vm.isSearchError")
-    search-filters(data-search-results="vm.searchResults" data-set-search-params="vm.setSearchParams")
-    no-consultations(data-query="vm.searchParams.q" data-ng-if="vm.searchResults.results.length === 0 && !vm.isSearchLoading")
-    div(infinite-scroll="vm.loadMoreOnScroll()"  infinite-scroll-distance="2")
-      single-consultation(data-ng-repeat="result in vm.searchResults.results track by $index" data-consultation="result")
-    preloader-container(data-is-loading="vm.isLoadMoreLoading" data-is-error="vm.isLoadMoreError"
-    data-error-fn="vm.loadMoreOnClick" data-error-message="SEARCH.PRELOADER_CONTAINER.ERROR_MESSAGE")
-go-to-top()
-pro-footer
+  navbar(data-search-input-query-value="vm.hrefParams.q")
+  preloader(data-is-loading= "vm.isSearchLoading")
+
+    search-filters(data-tags="vm.tags")
+    no-consultations(data-query="vm.hrefParams.q"
+    data-ng-if="!vm.isSearchLoading && (!vm.searchResults || vm.searchResults.length === 0)")
+    div(infinite-scroll="vm.loadMoreResults()"
+    infinite-scroll-distance="6"
+    infinite-scroll-disabled="vm.isLoadMoreError")
+
+      single-consultation(data-ng-repeat="result in vm.searchResults track by $index" data-consultation="result")
+      preloader-container(data-is-loading="vm.isMoreResultsLoading" data-is-error="vm.isLoadMoreError"
+      data-error-fn="vm.onLoadMoreError" data-error-message="SEARCH.PRELOADER_CONTAINER.ERROR_MESSAGE")
+    pro-footer

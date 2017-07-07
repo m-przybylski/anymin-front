@@ -52,6 +52,10 @@ export class InputComponentController implements IInputComponentBindings {
     })
   }
 
+  $onDestroy = (): void => {
+    this.$element.find('input').unbind('keypress')
+  }
+
   public onFocus = (): void => {
     this.isFocus = true
     this.isDirty = true
