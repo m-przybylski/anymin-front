@@ -1,26 +1,31 @@
 import * as angular from 'angular'
 import {IWindowService} from '../../../services/window/window.service'
+import './collapse-btn.sass'
 
 /* @ngInject */
 function controller($log: ng.ILogService, $element: ng.IRootElementService, $window: IWindowService) {
   this.stylesObject = {
-    minHeight: null
+    height: null
   }
 
   this.isCollapsed = true
 
   const updateStylesObject = () => {
     if (!this.isCollapsed) {
-      this.stylesObject.minHeight = getCollapseBtnContentHeight()
+      this.stylesObject.height = getCollapseBtnContentHeight()
     }
     else {
-      this.stylesObject.minHeight = getCollapseBtnHeight()
+      this.stylesObject.height = getCollapseBtnHeight()
     }
   }
 
   this.collapseToggle = () => {
     this.isCollapsed = !this.isCollapsed
     updateStylesObject()
+  }
+
+  this.$doCheck = () => {
+    this.onWindowResize()
   }
 
   const getCollapseBtnHeight = () => {
@@ -46,10 +51,10 @@ function controller($log: ng.ILogService, $element: ng.IRootElementService, $win
   /* istanbul ignore next */
   this.onWindowResize = () => {
     if (!this.isCollapsed) {
-      this.stylesObject.minHeight = getCollapseBtnContentHeight()
+      this.stylesObject.height = getCollapseBtnContentHeight()
     }
     else {
-      this.stylesObject.minHeight = getCollapseBtnHeight()
+      this.stylesObject.height = getCollapseBtnHeight()
     }
   }
 
@@ -73,4 +78,4 @@ const component = {
 angular.module('profitelo.components.interface.collapse-btn', [
   'pascalprecht.translate'
 ])
-  .component('collapseBtn', component)
+.component('collapseBtn', component)

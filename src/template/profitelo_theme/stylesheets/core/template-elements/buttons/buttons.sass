@@ -183,42 +183,6 @@ button
     transition: color 0.3s
     color: $c-lines
 
-.btn-collapse
-  transition: min-height 0.3s
-  display: block
-  width: 100%
-  padding: 0
-  border-radius: 0
-  overflow: hidden
-  min-height: 32px
-
-  .collapse-btn-header
-    +header
-    height: 32px
-    flex: 1 0 100%
-    display: flex
-    align-items: center
-    justify-content: space-between
-    width: 100%
-    padding: 0
-    cursor: pointer
-    text-transform: none
-
-    .icon
-      color: $c-secondary-txt
-      font-size: $f-icon-22
-      margin: 0 16px 0 0
-
-    div
-      display: flex
-      align-items: center
-
-  .collapse-btn-content
-    +default-font-regular
-    margin: 16px 0 0
-    padding: 16px 0
-    flex: 1 0 100%
-    text-transform: none
 
 .btn-show-more
   +default-font-regular
@@ -249,10 +213,10 @@ button
 
   > .btn
     &:first-child
-      margin: 0 16px 0 0
+      margin: 0 8px 0 0
 
     &:last-child
-      margin: 0 0 0 16px
+      margin: 0 0 0 8px
 
 .btn-link
   +default-font-medium

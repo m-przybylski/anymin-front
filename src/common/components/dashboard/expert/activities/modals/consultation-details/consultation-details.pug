@@ -1,29 +1,21 @@
-scrollable(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
-  top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="vm.onModalClose")
-  .modal-form.container-medium.expert-consultation-details-modal
+.modal-summary
+  .modal-main.container-medium
+    top-modal-navbar(data-on-close="vm.onModalClose")
     preloader(data-is-loading="vm.isLoading")
       .modal-header
-        .profile-preview
-          .thumb.x64
+        .profile-preview.vertical-preview
+          .thumb.x96
             user-avatar(data-image-token="vm.expertAvatar")
 
-            .status-list
-              span.status.availability
-                span.icon.icon-success-12
+          .profile-name
+            a
+              span {{ vm.expertName }}
 
-          div
-            .profile-name
-              a
-                span {{ vm.expertName }}
-
-            .profile-consultation-title
-              p {{ vm.serviceName }}
+          .consultation-title.profile-consultation-title
+            h3
+              span {{ vm.serviceName }}
 
       .modal-container
-        header.entry-title
-          span.icon.icon-consultation-details-24
-          span(data-translate="DASHBOARD.EXPERT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TITLE")
-
         .details-tab
           .details-row.details-header-row
             .details-tab-label
@@ -62,6 +54,41 @@ scrollable(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
         tags-list(data-title="DASHBOARD.EXPERT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.RECOMMENDED_TAGS.TITLE"
         data-tags="vm.recommendedTag" data-ng-if='vm.isRecommended')
 
-        collapse-btn.chat-history(data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.CHAT.BUTTON"
-                data-collapse-icon="icon-chat-24")
-                  client-consultation-details-chat()
+      collapse-btn.technical-problems(
+        data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.BUTTON"
+      )
+        form(novalidate)
+          radio-btn-text(
+            data-ng-repeat="reason in vm.complaintReasons"
+            data-ng-model="vm.model.value"
+            value="{{ reason.id }} "
+            data-id="{{ reason.id }}"
+            data-label="{{ reason.name }}"
+            data-is-descriptive="reason.isDescriptive"
+            data-ng-class="{'is-active': vm.isSelected(reason)}"
+          )
+
+          .btn-group
+            button.btn.btn-primary(
+            data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.CANCEL")
+
+            button.btn.btn-default(
+            data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.SEND")
+
+
+      collapse-btn.report-client(
+        data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.REPORT_CLIENT.BUTTON"
+      )
+        textarea-primary(
+          data-ng-model="vm.clientReportModel"
+          data-id="client_report"
+          data-input-text="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.REPORT_CLIENT.TEXTAREA.LABEL"
+          data-max-length="600"
+        )
+
+        .btn-group
+          button.btn.btn-primary(
+          data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.CANCEL")
+
+          button.btn.btn-default(
+          data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.SEND")

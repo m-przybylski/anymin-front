@@ -7,8 +7,6 @@ export interface IExpertConsultationDetailsScope extends ng.IScope {
 
 export class ExpertConsultationDetailsController implements ng.IController {
   public isLoading: boolean = true
-  public isFullscreen: boolean = true
-  public isNavbar: boolean = true
   public recommendedTags: Array<any> = []
   public serviceTags: Array<any> = []
   public expertAvatar?: string
@@ -24,6 +22,8 @@ export class ExpertConsultationDetailsController implements ng.IController {
   public isRecommendable: boolean
   private callDetails: GetCallDetails
 
+  public complaintReasons: any
+
   public onModalClose = () =>
     this.$uibModalInstance.dismiss('cancel')
 
@@ -35,6 +35,28 @@ export class ExpertConsultationDetailsController implements ng.IController {
     ViewsApi.getClientDashboardCallDetailsRoute($scope.$parent.sueId)
     .then((res) => this.onGetCallDetails(res), this.onGetCallDetailsError)
 
+    this.complaintReasons = [
+      {
+        id: 'id2value',
+        isDescriptive: false,
+        name: 'DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.REPORT_COMPLAINS.REASON_INCOPENTENT_EXPERT',
+      },
+      {
+        id: 'id3value',
+        isDescriptive: false,
+        name: 'DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.REPORT_COMPLAINS.REASON_RUDE_EXPERT',
+      },
+      {
+        id: 'id4value',
+        isDescriptive: false,
+        name: 'DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.REPORT_COMPLAINS.REASON_TECHNICAL_PROBLEMS',
+      },
+      {
+        id: 'id5value',
+        isDescriptive: true,
+        name: 'DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.REPORT_COMPLAINS.REASON_OTHER',
+      }
+    ]
   }
 
   private onGetCallDetailsError = (err: any) => {

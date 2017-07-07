@@ -36,7 +36,8 @@ describe('Unit testing: profitelo.components.interface.loader', () => {
       })
 
       bindings = {
-        fileUploadInfo: []
+        fileUploadInfo: [],
+        fileUploadError: true
       }
 
       const injectors = {
