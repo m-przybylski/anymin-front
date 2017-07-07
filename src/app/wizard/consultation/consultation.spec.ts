@@ -235,7 +235,7 @@ describe('Testing Controller: ConsultationController', () => {
   })
 
   it('should price amount input valid', () => {
-    consultationController.priceAmountInputValue = '1234'
+    consultationController.priceAmountInputValue = '123'
     expect(consultationController.checkIsPriceInputValid()).toEqual(true)
   })
 
@@ -247,7 +247,7 @@ describe('Testing Controller: ConsultationController', () => {
   it('should form valid', () => {
     consultationController.nameInputValue = 'ThisIsName'
     consultationController.tagsInputValue = ['tag-1']
-    consultationController.priceAmountInputValue = '1234'
+    consultationController.priceAmountInputValue = '123'
     consultationController.invitationsInputValue = ['invitation']
     expect(consultationController.checkIsFormValid()).toEqual(true)
   })

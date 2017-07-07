@@ -3,6 +3,7 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import inputPriceModule from './input-price'
 import {InputPriceComponentController} from './input-price.controller'
 import {IInputPriceComponentBindings} from './input-price'
+import {CommonSettingsService} from '../../../services/common-settings/common-settings.service'
 
 describe('Unit testing: profitelo.components.interface.input-price', () => {
   return describe('for inputPrice component >', () => {
@@ -15,6 +16,7 @@ describe('Unit testing: profitelo.components.interface.input-price', () => {
     let bindings: IInputPriceComponentBindings
     let document: ng.IDocumentService
     let validHTML = '<input-price>'
+    let CommonSettingsService: CommonSettingsService
 
     function create(html: string) {
       scope = rootScope.$new()
@@ -31,10 +33,11 @@ describe('Unit testing: profitelo.components.interface.input-price', () => {
     beforeEach(() => {
       angular.mock.module('pascalprecht.translate')
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
-              _$componentController_: ng.IComponentControllerService) => {
+              _$componentController_: ng.IComponentControllerService, _CommonSettingsService_: CommonSettingsService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
+        CommonSettingsService = _CommonSettingsService_
       })
 
       bindings = {

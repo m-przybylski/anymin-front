@@ -16,7 +16,7 @@ export class ConsultationController implements ng.IController {
   public currency: string
   public nameInputValue: string
   public tagsInputValue: string[] = []
-  public priceAmountInputValue: string = '0.00'
+  public priceAmountInputValue: string
   public invitationsInputValue: string[] = []
   public isOwnerEmployee: boolean = false
 
@@ -145,7 +145,7 @@ export class ConsultationController implements ng.IController {
 
   public checkIsPriceInputValid = (): boolean => {
     return !!(this.priceAmountInputValue && this.priceAmountInputValue.length > 0 &&
-    Number(this.priceAmountInputValue.replace(',', '.')) > 0)
+    Number(this.priceAmountInputValue.replace(',', '.')) > 0 && ((/^\d{1,3}([\.,](\d{1,2})?)?$/).test(this.priceAmountInputValue)) )
   }
 
   public checkIsEmployeesInputValid = (): boolean => {
