@@ -15,20 +15,20 @@ import {PayuAnimation} from './payu.animation'
 import * as _ from 'lodash'
 import {CommonConfig} from '../../../../../../../generated_modules/common-config/common-config'
 import checkboxModule from '../../../../interface/checkbox/checkbox'
+import chooseBankModule from '../../choose-bank/choose-bank'
 
 /* @ngInject */
 function payuPaymentFormController($log: ng.ILogService, $window: IWindowService, $state: ng.ui.IStateService,
                                    PaymentsApi: PaymentsApi, userService: UserService, topAlertService: TopAlertService,
                                    smoothScrollingService: SmoothScrollingService, AccountApi: AccountApi,
                                    CommonSettingsService: CommonSettingsService, $scope: ng.IScope,
-                                   CommonConfig: CommonConfig) {
+                                   CommonConfig: CommonConfig, $element: JQuery) {
   let isPending = false
   this.isGetCompanyInfo = false
   this.rulesAccepted = false
   this.isRequired = true
   this.showInvoiceForm = false
-  this.personalDataSectionId = 'personal-section'
-  this.bankModel = {}
+  this.bankModel = void 0
   this.countryList = [{
     name: 'Poland',
     value: 'PL'
@@ -46,6 +46,11 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
 
   this.onSelectCountry = (selectedCountry: IPrimaryDropdownListElement) => {
     this.countryISO = selectedCountry.value
+  }
+
+  this.scrollOnBankSelect = (): void => {
+    const personalDataElement: Element = $element.find('#personal-data')[0]
+    smoothScrollingService.simpleScrollTo(personalDataElement)
   }
 
   // FIXME on new checkbox component
@@ -90,7 +95,7 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
         },
         lastName: this.lastNameModel,
         firstName: this.firstNameModel,
-        payMethodValue: this.bankModel.value,
+        payMethodValue: this.bankModel,
       }
 
       isPending = true
@@ -141,7 +146,7 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
 
   const isValid = () => {
     const _isModelBankExist = () => {
-      if (angular.isDefined(this.bankModel.value)) {
+      if (angular.isDefined(this.bankModel)) {
         return true
       } else {
         smoothScrollingService.simpleScrollTo('#bankValid')
@@ -173,6 +178,9 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
   this.patternName = CommonSettingsService.localSettings.alphabetPattern
 
   this.$onInit = () => {
+    if (angular.isDefined(this.amountMethodModal.payMethodValue)) {
+      this.bankModel = this.amountMethodModal.payMethodValue
+    }
     userService.getUser().then(user => {
       if (angular.isDefined(this.amountMethodModal.firstName)) {
         this.firstNameModel = this.amountMethodModal.firstName
@@ -189,10 +197,6 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
       } else if (angular.isDefined(user.unverifiedEmail) && user.unverifiedEmail !== null) {
         this.emailModel = user.unverifiedEmail
       }
-
-      if (angular.isDefined(this.amountMethodModal.payMethodValue)) {
-        this.bankModel.value = this.amountMethodModal.payMethodValue
-      }
     })
   }
 
@@ -201,7 +205,6 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
 
 const payuPaymentForm = {
   template: require('./payu.pug')(),
-  replace: true,
   transclude: true,
   bindings: {
     paymentsLinks: '=?',
@@ -220,9 +223,8 @@ angular.module('profitelo.components.dashboard.charge-account.payment-method.pay
   commonSettingsModule,
   'profitelo.directives.interface.pro-input',
   smoothScrollingModule,
-
   userModule,
-  'profitelo.components.dashboard.charge-account.choose-bank',
+  chooseBankModule,
   'profitelo.components.dashboard.charge-account.summary-charge-account',
   checkboxModule
 ])

@@ -4,9 +4,9 @@ export class SmoothScrollingService {
   constructor(private $timeout: ng.ITimeoutService) {
   }
 
-  public scrollTo = (eID: string) => {
+  public scrollTo = (eID: string): void => {
 
-    const currentYPosition = () => {
+    const currentYPosition = (): number => {
       // Firefox, Chrome, Opera, Safari
       if (self.pageYOffset) {
         return self.pageYOffset
@@ -23,15 +23,15 @@ export class SmoothScrollingService {
       return 0
     }
 
-    const elmYPosition = (id: string) => {
-      const elm = document.getElementById(id)
+    const elmYPosition = (id: string): number => {
+      const elm: HTMLElement | null = document.getElementById(id)
 
       if (!elm) {
         throw new Error(`Elem ${id} not found`)
       }
 
-      let y = elm.offsetTop
-      let node = elm
+      let y: number = elm.offsetTop
+      let node: HTMLElement = elm
       while (node.offsetParent && node.offsetParent !== document.body) {
         node = <HTMLElement>node.offsetParent
         y += node.offsetTop
@@ -39,20 +39,29 @@ export class SmoothScrollingService {
       return y
     }
 
-    const startY = currentYPosition()
-    const stopY = elmYPosition(eID)
-    const distance = stopY > startY ? stopY - startY : startY - stopY
+    const startY: number = currentYPosition()
+    const stopY: number = elmYPosition(eID)
+    const distance: number = stopY > startY ? stopY - startY : startY - stopY
     if (distance < 100) {
       scrollTo(0, stopY)
-      return null
+      return
     }
-    const speed = 3
+    const speed: number = 3
 
-    const step = Math.round(distance / 25)
-    let leapY = stopY > startY ? startY + step : startY - step
-    let timer = 0
+    const step: number = Math.round(distance / 25)
+    let leapY: number = stopY > startY ? startY + step : startY - step
+    let timer: number = 0
 
-    const scrollFunction = () => {
+    const increaseTimer = (): void => {
+      if (timer * speed < 30) {
+        timer += 1
+      }
+      this.$timeout(() => {
+        scrollFunction()
+      }, speed * timer)
+    }
+
+    const scrollFunction = (): void => {
 
       if (stopY > leapY) {
         window.scrollTo(0, leapY)
@@ -60,21 +69,25 @@ export class SmoothScrollingService {
         if (leapY > stopY) {
           leapY = stopY
         }
-        if (timer * speed < 30) {
-          timer += 1
+        increaseTimer()
+        return
+      } else if (stopY < leapY) {
+        window.scrollTo(0, leapY)
+        leapY -= step
+        if (leapY < stopY) {
+          leapY = stopY
         }
-        this.$timeout(() => {
-          scrollFunction()
-        }, speed * timer)
+        increaseTimer()
+        return
       }
 
     }
     scrollFunction()
-    return true
+    return
   }
 
-  public simpleScrollTo = (element: Element | string, isNavbar?: boolean, time = 1000) => {
-    let scrollTop = $(element).offset().top
+  public simpleScrollTo = (element: Element | string, isNavbar?: boolean, time = 1000): void => {
+    let scrollTop: number = $(element).offset().top
     if (isNavbar) {
       scrollTop -= 80 + 32
     }
@@ -88,7 +101,7 @@ export class SmoothScrollingService {
     })
   }
 
-  public wizardScrollTo = (element: Element, wrapperHeight: number, windowHeight: number) => {
+  public wizardScrollTo = (element: Element, wrapperHeight: number, windowHeight: number): void => {
     let scrollTop: number
     if (wrapperHeight < windowHeight) {
       scrollTop = ( $(element).offset().top - windowHeight / 2 + wrapperHeight / 2)

@@ -1,6 +1,7 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {SmoothScrollingService} from '../../../../services/smooth-scrolling/smooth-scrolling.service'
+import chooseBankModule from './choose-bank'
 describe('Unit testing: profitelo.components.dashboard.charge-account.choose-bank', () => {
   return describe('for chooseBank component >', () => {
 
@@ -29,25 +30,20 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-ban
     }))
 
     beforeEach(() => {
-      // angular.mock.module('templates-module')
-      angular.mock.module('profitelo.components.dashboard.charge-account.choose-bank')
+      angular.mock.module(chooseBankModule)
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
-              _$componentController_: ng.IComponentControllerService, _smoothScrollingService_: SmoothScrollingService) => {
+              _$componentController_: ng.IComponentControllerService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
-        smoothScrollingService = _smoothScrollingService_
       })
 
       bindings = {
-        bankModel: {
-          value: 1
-        },
+        bankModel: 'asas',
         paymentsLinks: [
           {value: 1}
-        ],
-        scrollSectionId: 1
+        ]
       }
       el = create(validHTML)
       component = componentController('chooseBank', {$element: el, $scope: scope}, bindings)
@@ -59,12 +55,6 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-ban
 
     it('should compile the component', () => {
       expect(el.html()).toBeDefined(true)
-    })
-
-    it('should call scroll method and select bank', () => {
-      spyOn(smoothScrollingService, 'scrollTo')
-      el.find('.option:first-child').trigger('click')
-      expect(smoothScrollingService.scrollTo).toHaveBeenCalled()
     })
 
   })
