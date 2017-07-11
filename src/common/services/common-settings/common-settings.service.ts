@@ -40,6 +40,7 @@ export class CommonSettingsService {
       mailPattern: /([a-zA-Z0-9!#$%&'*+/=?^_`{|}~.-]+)@([a-zA-Z0-9-]+)\.([a-zA-Z.]+)/,
       phonePattern: /^\+?\d+(\s\d+)*$/,
       numberPattern: /^\+?\d+(\s\d+)*$/,
+      pricePattern: /^\d{1,3}([\.,](\d{1,2})?)?$/,
       urlPattern: /^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.\&\?\=\+\#-]*)*\/?$/,
       socialNetworks: [
         {

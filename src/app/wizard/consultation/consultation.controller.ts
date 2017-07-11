@@ -16,7 +16,7 @@ export class ConsultationController implements ng.IController {
   public currency: string
   public nameInputValue: string
   public tagsInputValue: string[] = []
-  public priceAmountInputValue: number
+  public priceAmountInputValue: string
   public invitationsInputValue: string[] = []
   public isOwnerEmployee: boolean = false
 
@@ -58,7 +58,7 @@ export class ConsultationController implements ng.IController {
     if (this.$stateParams.service) {
       this.nameInputValue = this.$stateParams.service.name
       this.isOwnerEmployee = this.$stateParams.service.isOwnerEmployee
-      this.priceAmountInputValue = this.$stateParams.service.price.amount / this.moneyDivider
+      this.priceAmountInputValue = (this.$stateParams.service.price.amount / this.moneyDivider).toString()
       this.$stateParams.service.tags.forEach((tag) => {
         this.tagsInputValue.push(tag.name)
       })
@@ -87,7 +87,7 @@ export class ConsultationController implements ng.IController {
   public saveConsultation = () => {
     if (this.checkIsFormValid() && this.wizardProfile) {
       const priceModel: MoneyDto = {
-        amount: Number(this.priceAmountInputValue) * this.moneyDivider,
+        amount: Number(this.priceAmountInputValue.replace(',', '.')) * this.moneyDivider,
         currency: this.currency
       }
       const tags: WizardTag[] = []
@@ -144,7 +144,8 @@ export class ConsultationController implements ng.IController {
   }
 
   public checkIsPriceInputValid = (): boolean => {
-    return !!(this.priceAmountInputValue && this.priceAmountInputValue > 0)
+    return !!(this.priceAmountInputValue && this.priceAmountInputValue.length > 0 &&
+    Number(this.priceAmountInputValue.replace(',', '.')) > 0 && ((/^\d{1,3}([\.,](\d{1,2})?)?$/).test(this.priceAmountInputValue)) )
   }
 
   public checkIsEmployeesInputValid = (): boolean => {
@@ -159,5 +160,4 @@ export class ConsultationController implements ng.IController {
   public checkIsPriceButtonDisabled = () => {
     return !this.isCompany || this.checkIsPriceInputValid()
   }
-
 }

@@ -1,0 +1,24 @@
+.input-price(data-ng-click="$ctrl.onClick()" data-ng-class="{'is-invalid': !$ctrl.isValid " +
+"&& !$ctrl.isFocus && $ctrl.validationText && $ctrl.isDirty," +
+" 'is-focused': $ctrl.isFocus}")
+
+  .price-mock
+    p.price-placeholder {{ vm.priceAmountInputValue }}
+      span.currency {{ vm.currency }}
+
+  input(
+    type="text"
+    id="{{$ctrl.id}}"
+    name="{{$ctrl.id}}"
+    placeholder="{{ $ctrl.placeholder | translate }}"
+    data-ng-model="$ctrl.ngModel"
+    data-ng-change="$ctrl.onChange()"
+    data-ng-focus="$ctrl.onFocus()"
+    data-ng-blur="$ctrl.onBlur()"
+  )
+
+validation-alert(
+  data-alert-text="{{$ctrl.validationText}}"
+  data-is-visible="!$ctrl.isPatternValid || !$ctrl.isValid && $ctrl.validationText && $ctrl.validationText.length > 0 && !$ctrl.isFocus && $ctrl.isDirty || " +
+  "$ctrl.isSubmitted && !$ctrl.isValid && $ctrl.validationText && $ctrl.validationText.length > 0"
+)
