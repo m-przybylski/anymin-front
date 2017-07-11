@@ -1,20 +1,70 @@
-scrollable(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
-  top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="onModalClose")
-  preloader(data-is-loading="!callSummary")
-    .container
-      .summary-conversation.expert-view
-        img(data-ng-src="/assets/images/search-image.png")
+.modal-summary
+  .modal-main.container-medium
+    top-modal-navbar(data-on-close="onModalClose")
+    preloader(data-is-loading="isLoading")
+      .modal-header
+        .profile-preview.vertical-preview
+          .thumb.x96
+            user-avatar(data-image-token="expertAvatar")
 
-        .consultation-range
-          .consultation-title.container-medium
+          .profile-name
+            a
+              span {{ callSummary.companyExpertProfile.expertDetails.name }}
+
+          .consultation-title.profile-consultation-title
             h3
               span {{ callSummary.service.name }}
 
-        .consultation-time-details.container-medium
-          ul.conversation-time
-            li.label(data-translate="COMMUNICATOR.MODALS.CONVERSATION_TIME")
-            li {{ callSummary.callDuration | secondsToDateTime | date:'HH:mm:ss' }}
+      .modal-container
+        .details-tab
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="COMMUNICATOR.MODALS.CONVERSATION_TIME")
+            .details-tab-content
+              span {{ callSummary.callDuration | secondsToDateTime | date:'HH:mm:ss' }}
 
-          ul.conversation-cost.income
-            li.label(data-translate="COMMUNICATOR.MODALS.INCOME")
-            li(data-ng-bind-html="callSummary.cost | money")
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="COMMUNICATOR.MODALS.INCOME")
+            .details-tab-content
+              span(data-ng-bind-html="callSummary.cost | money")
+
+      collapse-btn.technical-problems(
+      data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.BUTTON"
+      )
+        form(novalidate)
+          radio-btn-text(
+          data-ng-repeat="reason in vm.complaintReasons"
+          data-ng-model="vm.model.value"
+          value="{{ reason.id }} "
+          data-id="{{ reason.id }}"
+          data-label="{{ reason.name }}"
+          data-is-descriptive="reason.isDescriptive"
+          data-ng-class="{'is-active': vm.isSelected(reason)}"
+          )
+
+          .btn-group
+            button.btn.btn-primary(
+            data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.CANCEL")
+
+            button.btn.btn-default(
+            data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.SEND")
+
+
+      collapse-btn.report-client(
+      data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.REPORT_CLIENT.BUTTON"
+      )
+        textarea-primary(
+        data-ng-model="vm.clientReportModel"
+        data-id="client_report"
+        data-input-text="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.REPORT_CLIENT.TEXTAREA.LABEL"
+        data-max-length="600"
+        )
+
+        .btn-group
+          button.btn.btn-primary(
+          data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.CANCEL")
+
+          button.btn.btn-default(
+          data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.SEND")
+
