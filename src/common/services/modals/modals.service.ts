@@ -5,7 +5,6 @@ import {GetService, GetActivity, GetProfileWithServicesEmployments} from 'profit
 import {DialogService} from '../dialog/dialog.service'
 import {IClientCallParentControllerScope} from '../../components/communicator/modals/client-call/client-call'
 import {IConsultationSummaryClientParentControllerScope} from '../../components/communicator/modals/consultation-summary-client/consultation-summary-client'
-import {IConsultationSummaryExpertParentControllerScope} from '../../components/communicator/modals/consultation-summary-expert/consultation-summary-expert'
 import {IBasicAccountSettingsControllerParentScope} from '../../components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings'
 import {IGeneralPhoneSettingsControllerScope} from '../../components/dashboard/settings/modals/general/phone-settings/phone-settings'
 import {IGeneralEmailSettingsControllerScope} from '../../components/dashboard/settings/modals/general/email-settings/email-settings'
@@ -52,6 +51,10 @@ import {
 
 import {IExpertInviteEmployeesControllerScope} from '../../components/dashboard/expert/activities/modals/invite-employees/invite-employees.controller'
 import {InvitationsModalController, IInvitationsModalScope} from '../../../app/invitations/modal/invitations.controller'
+import {
+  ConsultationSummaryExpertController,
+  IConsultationSummaryExpertParentControllerScope
+} from '../../components/communicator/modals/consultation-summary-expert/consultation-summary-expert.controller'
 
 // TODO add types for dialogScope Scopes
 export class ModalsService {
@@ -130,7 +133,7 @@ export class ModalsService {
     dialogScope.serviceId = serviceId
 
     return this.dialogService.openDialog({
-      controller: 'consultationSummaryExpertController',
+      controller: ConsultationSummaryExpertController,
       template: require('common/components/communicator/modals/consultation-summary-expert/consultation-summary-expert.pug')(),
       scope: dialogScope
     })

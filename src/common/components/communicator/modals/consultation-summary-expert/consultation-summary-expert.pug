@@ -1,19 +1,19 @@
 .modal-summary
   .modal-main.container-medium
-    top-modal-navbar(data-on-close="onModalClose")
-    preloader(data-is-loading="isLoading")
+    top-modal-navbar(data-on-close="vm.onModalClose")
+    preloader(data-is-loading="vm.isLoading")
       .modal-header
         .profile-preview.vertical-preview
           .thumb.x96
-            user-avatar(data-image-token="expertAvatar")
+            user-avatar(data-image-token="vm.expertAvatar")
 
           .profile-name
             a
-              span {{ callSummary.companyExpertProfile.expertDetails.name }}
+              span {{ vm.callSummary.companyExpertProfile.expertDetails.name }}
 
           .consultation-title.profile-consultation-title
             h3
-              span {{ callSummary.service.name }}
+              span {{ vm.callSummary.service.name }}
 
       .modal-container
         .details-tab
@@ -21,13 +21,13 @@
             .details-tab-label
               span(data-translate="COMMUNICATOR.MODALS.CONVERSATION_TIME")
             .details-tab-content
-              span {{ callSummary.callDuration | secondsToDateTime | date:'HH:mm:ss' }}
+              span {{ vm.callSummary.callDuration | secondsToDateTime | date:'HH:mm:ss' }}
 
           .details-tab-row
             .details-tab-label
               span(data-translate="COMMUNICATOR.MODALS.INCOME")
             .details-tab-content
-              span(data-ng-bind-html="callSummary.cost | money")
+              span(data-ng-bind-html="vm.callSummary.profit.amount | money")
 
       collapse-btn.technical-problems(
       data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.BUTTON"
@@ -49,7 +49,6 @@
 
             button.btn.btn-default(
             data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.SEND")
-
 
       collapse-btn.report-client(
       data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.REPORT_CLIENT.BUTTON"
