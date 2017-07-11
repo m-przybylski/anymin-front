@@ -1,0 +1,37 @@
+@import "../../../../../template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
+
+.rtc-detector
+	.rtc-detector-content
+		padding: 0 16px
+
+		+smm
+			position: fixed
+			padding: 0
+			left: 360px
+			top: 136px
+			display: flex
+			align-items: flex-end
+
+		&.is-ie
+			left: auto
+			right: 360px
+
+		.rtc-image
+			flex: 1
+			margin: 0 16px 0 0
+
+		.rtc-header
+			max-width: 400px
+
+			h2
+				+header
+				+default-font-medium
+				color: $c-white
+				margin: 0 0 8px
+
+			span
+				+paragraph
+				+default-font-regular
+				color: $c-white
+

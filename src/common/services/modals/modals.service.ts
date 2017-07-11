@@ -75,6 +75,10 @@ import {
 } from '../../components/dashboard/expert/activities/modals/invite-employees/invite-employees.controller'
 import {InvitationsModalController, IInvitationsModalScope} from '../../../app/invitations/modal/invitations.controller'
 import {
+  IRtcDetectorModalControllerScope,
+  RtcDetectorModalController
+} from '../../components/communicator/modals/rtc-detector/rtc-detector.controller'
+import {
   ConsultationSummaryExpertController,
   IConsultationSummaryExpertParentControllerScope
 } from '../../components/communicator/modals/consultation-summary-expert/consultation-summary-expert.controller';
@@ -87,6 +91,10 @@ import {
   ExpertIncomingCallController,
   IExpertIncomingCallParentControllerScope
 } from '../../components/communicator/modals/expert-incoming-call/expert-incoming-call.controller'
+import {
+  IRtcDetectorBlockedModalControllerScope,
+  RtcDetectorBlockedModalController
+} from '../../components/communicator/modals/rtc-detector/rtc-detector-blocked/rtc-detector-blocked.controller'
 
 // TODO add types for dialogScope Scopes
 export class ModalsService {
@@ -480,6 +488,31 @@ export class ModalsService {
       template: require(
         'common/components/dashboard/expert/manage-profile/modals/edit-expert-profile/edit-expert-profile.pug'
       )(),
+      scope: dialogScope
+    })
+  }
+
+  public createRtcDetectorModal = (browserDetector: any): IModalInstanceService => {
+    const dialogScope: IRtcDetectorModalControllerScope =
+      <IRtcDetectorModalControllerScope>this.$rootScope.$new(true)
+
+    dialogScope.browserDetector = browserDetector
+    return this.dialogService.openDialog({
+      controllerAs: 'vm',
+      controller: RtcDetectorModalController,
+      template: require('common/components/communicator/modals/rtc-detector/rtc-detector.pug')(),
+      scope: dialogScope
+    })
+  }
+
+  public createRtcDetectorBlockedModal = (): IModalInstanceService => {
+    const dialogScope: IRtcDetectorBlockedModalControllerScope =
+      <IRtcDetectorBlockedModalControllerScope>this.$rootScope.$new(true)
+
+    return this.dialogService.openDialog({
+      controllerAs: 'vm',
+      controller: RtcDetectorBlockedModalController,
+      template: require('common/components/communicator/modals/rtc-detector/rtc-detector-blocked/rtc-detector-blocked.pug')(),
       scope: dialogScope
     })
   }
