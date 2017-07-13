@@ -6,11 +6,13 @@ export class InputPriceComponent implements ng.IComponentOptions {
   bindings: {[boundProperty: string]: string} = {
     id: '@',
     name: '@',
+    inputText: '@',
     placeholder: '@',
     validationText: '@',
     isValid: '<',
     isSubmitted: '<',
     ngModel: '=',
-    currency: '@'
+    currency: '@',
+    ngPattern: '<'
   }
 }

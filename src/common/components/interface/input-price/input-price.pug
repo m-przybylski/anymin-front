@@ -1,6 +1,7 @@
 .input-price(data-ng-click="$ctrl.onClick()" data-ng-class="{'is-invalid': !$ctrl.isValid " +
 "&& !$ctrl.isFocus && $ctrl.validationText && $ctrl.isDirty," +
 " 'is-focused': $ctrl.isFocus}")
+  label.label-text(data-ng-if="$ctrl.inputText") {{:: $ctrl.inputText | translate }}
 
   .price-mock
     p.price-placeholder {{ vm.priceAmountInputValue }}

@@ -3,7 +3,6 @@ import * as angular from 'angular'
 import {GetActivityFilters, ServiceFilter, ExpertFilter, FinancialOperation} from 'profitelo-api-ng/model/models'
 import {IDashboardFiltersComponentBindings} from './filters'
 import {IFilterService} from '../../../../services/filter/filter.service'
-import {IPrimaryDropdownListElement} from '../../../interface/dropdown-primary/dropdown-primary'
 import {ActivitiesQueryParams} from '../../../../services/dashboard-activites/activities-query-params'
 import {UserService} from '../../../../services/user/user.service'
 
@@ -114,7 +113,7 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
     this.setSelectedFilters(queryParams)
   }
 
-  public updateProfileParam = (item: IPrimaryDropdownListElement): void => {
+  public updateProfileParam = (item: IPrimaryDropdownListElement) => {
     const queryParams = new ActivitiesQueryParams
     queryParams.setAccountType(this.accountType)
     queryParams.setProfileId(item.value)
@@ -137,7 +136,7 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
     this.setSelectedFilters(queryParams)
   }
 
-  public mainUpdateServiceParam = (item: IPrimaryDropdownListElement): void => {
+  public mainUpdateServiceParam = (item: IPrimaryDropdownListElement) => {
     const queryParams = new ActivitiesQueryParams
     queryParams.setAccountType(this.accountType)
     queryParams.setServiceId(item.value)
@@ -148,7 +147,7 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
     this.setSelectedFilters(queryParams)
   }
 
-  public secondUpdateServiceParam = (item: IPrimaryDropdownListElement): void => {
+  public secondUpdateServiceParam = (item: IPrimaryDropdownListElement) => {
     const queryParams = new ActivitiesQueryParams
     queryParams.setAccountType(this.accountType)
     queryParams.setServiceId(item.value)

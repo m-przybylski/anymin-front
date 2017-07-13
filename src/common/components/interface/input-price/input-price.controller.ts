@@ -7,6 +7,7 @@ export class InputPriceComponentController implements IInputPriceComponentBindin
   public name: string
   public ngModel: number = 0
   public validationText: string
+  public inputText: string
   public placeholder: string = '0.00'
   public isUsignPunctuationMarks: boolean = false
   public digitsCodesBlocked: number[] = []
@@ -16,6 +17,7 @@ export class InputPriceComponentController implements IInputPriceComponentBindin
   public currency: string
   public isPatternValid: boolean
   private priceRegexp: RegExp
+  public ngPattern: RegExp
 
   /* @ngInject */
   constructor($element: ng.IRootElementService, CommonSettingsService: CommonSettingsService) {
@@ -44,6 +46,9 @@ export class InputPriceComponentController implements IInputPriceComponentBindin
 
   $onInit(): void {
     this.isPatternValid = true
+
+    if (this.ngPattern)
+      this.priceRegexp = this.ngPattern
   }
 
   public onChange = (): void => {

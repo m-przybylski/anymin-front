@@ -1,0 +1,82 @@
+.modal-summary.postpaid
+  .modal-main.container-medium
+    top-modal-navbar(data-on-close="vm.onModalClose")
+    preloader(data-is-loading="vm.isLoading")
+      .modal-header
+        .profile-preview.vertical-preview
+          .thumb.x96
+            user-avatar(data-image-token="vm.expertAvatar")
+
+            .status-list
+              span.status.availability
+                span.icon.icon-success-12
+
+          .profile-name
+            a
+              span {{ vm.expertName }} Expert name
+
+          .consultation-title.profile-consultation-title
+            h3
+              span {{ vm.serviceName }} Nazwa kosnutlacji
+
+          .consultation-price
+            span Cost per minute:
+            span 2,76 PLN
+
+      .modal-container
+        .precall-input-handler.input-handler
+          .icon-section
+            .icon.icon-payment-card
+
+          dropdown-primary(
+            data-label="Payment method:"
+            data-main-list="vm.paymentMethods"
+            data-selected-item="vm.onSelectMain"
+            callback="vm.selectedItemDropdown"
+          )
+
+          a.btn.btn-link(data-ng-if="!vm.showPrepaidLink" data-ng-click="vm.addNewPaymentMethod()"
+            data-translate="COMMUNICATOR.MODALS.PRECALL.PAYMENTS.ADD_CARD.BUTTON"
+          )
+          a.btn.btn-link(data-ng-if="vm.showPrepaidLink" data-ui-sref="app.dashboard.charge-account"
+            data-translate="COMMUNICATOR.MODALS.PRECALL.PAYMENTS.RECHARGE.BUTTON"
+          )
+
+        .precall-input-handler.input-handler
+          .icon-section
+            .icon.icon-hourglass-24
+
+          .payments-handler
+            input-price(
+              data-ng-model="vm.callLimitModel"
+              data-id="callLimitModel"
+              data-validation-text="COMMUNICATOR.MODALS.PRECALL.PRICE.VALIDATION.ERROR"
+              data-is-submitted="vm.isSubmitted"
+              data-is-valid="vm.checkIsPriceInputValid()"
+              data-placeholder="{{ 'COMMUNICATOR.MODALS.PRECALL.PRICE' | translate }}"
+              data-input-text="COMMUNICATOR.MODALS.PRECALL.INPUT_PRICE.LABEL"
+              data-ng-pattern="vm.priceRegexp"
+            )
+
+            output-primary(
+              data-id="outputPrice"
+              data-for-id="phoneNumber"
+              data-label-text="COMMUNICATOR.MODALS.PRECALL.OUTPUT.LABEL"
+              data-value="vm.callLimitModel"
+              data-consultation-cost="vm.consultationPrice"
+              data-callback="vm.isPrepaidTimeConsultationCorrect"
+            )
+
+        .precall-input-handler.input-handler
+          .icon-section
+            .icon.icon-mic-on-24
+
+          .microphone-output
+            label.label-text {{ 'COMMUNICATOR.MODALS.PRECALL.MICROPHONE.LABEL' | translate }}
+            span.progress-bar
+              span.progress
+
+        .modal-action
+          a.btn.btn-success.icon-left(data-ng-class="{'btn-disabled': !vm.checkIsPriceInputValid()}")
+            span.icon.icon-call-24
+            | {{ 'COMMUNICATOR.MODALS.PRECALL.BUTTON.CALL' | translate }}

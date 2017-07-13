@@ -73,6 +73,10 @@ import {
 } from '../../components/dashboard/expert/activities/modals/invite-employees/invite-employees.controller'
 import {InvitationsModalController, IInvitationsModalScope} from '../../../app/invitations/modal/invitations.controller'
 import {
+  IPreallcallModalControllerScope,
+  PreallcallModalController
+} from '../../components/communicator/modals/precall/precall.controller'
+import {
   IRtcDetectorModalControllerScope,
   RtcDetectorModalController
 } from '../../components/communicator/modals/rtc-detector/rtc-detector.controller'
@@ -495,6 +499,18 @@ export class ModalsService {
       template: require(
         'common/components/dashboard/expert/manage-profile/modals/edit-expert-profile/edit-expert-profile.pug'
       )(),
+      scope: dialogScope
+    })
+  }
+
+  public createPrecallModal = () => {
+    const dialogScope: IPreallcallModalControllerScope =
+      <IPreallcallModalControllerScope>this.$rootScope.$new(true)
+
+    return this.dialogService.openDialog({
+      controllerAs: 'vm',
+      controller: PreallcallModalController,
+      template: require('common/components/communicator/modals/precall/precall.pug')(),
       scope: dialogScope
     })
   }

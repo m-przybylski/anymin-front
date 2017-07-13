@@ -4,7 +4,7 @@ import ValidationAlertModule from '../alert/validation-alert/validation-alert'
 
 interface IDropdownItem {
   name: string
-  value: {} | null
+  value: any | null
 }
 
 interface IDropdownPrimaryComponentBindings {
@@ -40,6 +40,8 @@ class DropdownPrimaryComponentController implements ng.IController, IDropdownPri
   public onSelectMain: (item: IDropdownItem) => void
   public selectedItem: IDropdownItem
   public mainPlaceholder: IDropdownItem
+  public callback?: (item: IDropdownItem) => {}
+  public isValid?: boolean
   public filterBy: IFilterBy = {
     name: ''
   }
@@ -135,7 +137,7 @@ class DropdownPrimaryComponentController implements ng.IController, IDropdownPri
   }
 
   public isSelected = (item: IDropdownItem): boolean =>
-  this.activeItem === item
+  this.selectedItem === item
 
   public onMainItemSelect = (item: IDropdownItem): void => {
     this.activeItem = item
@@ -146,10 +148,15 @@ class DropdownPrimaryComponentController implements ng.IController, IDropdownPri
     }
   }
 
+  public onSelectItemCallback = (item: IDropdownItem): void => {
+    this.callback ? this.callback(item) : undefined
+  }
+
   private onItemChecked = (item: IDropdownItem): void => {
     this.isOpen = !this.isOpen
     this.isActive = !!item.value
     this.selectedItem = item
+    this.onSelectItemCallback(item)
   }
 }
 
@@ -163,9 +170,10 @@ class DropdownPrimaryComponent implements ng.IComponentOptions {
     placeholder: '@',
     mainList: '<',
     onSelectMain: '<',
-    selectedItem: '=?',
+    selectedItem: '<',
     isValid: '<',
-    validationText: '@'
+    validationText: '@',
+    callback: '<'
   }
 }
 

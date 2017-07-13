@@ -1,6 +1,6 @@
 import * as angular from 'angular'
 import * as _ from 'lodash'
-import {IPrimaryDropdownListElement} from '../../../../../interface/dropdown-primary/dropdown-primary'
+import {IDropdownItem} from '../../../../../interface/dropdown-primary/dropdown-primary'
 import apiModule from 'profitelo-api-ng/api.module'
 import {AccountApi} from 'profitelo-api-ng/api/api'
 import {CompanyInfo} from 'profitelo-api-ng/model/models'
@@ -22,9 +22,9 @@ export class EditCompanyInvoiceController implements ng.IController {
   postalCode: string
   vatNumber: string
   city: string
-  selectedCountry?: IPrimaryDropdownListElement
+  selectedCountry?: IDropdownItem
   countryISO: string
-  countryList: IPrimaryDropdownListElement[] = [{
+  countryList: Array<IDropdownItem> = [{
     name: 'Poland',
     value: 'PL'
   }]

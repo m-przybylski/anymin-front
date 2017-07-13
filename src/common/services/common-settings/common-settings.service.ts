@@ -87,6 +87,7 @@ export class CommonSettingsService {
       emailPattern: /([a-zA-Z0-9!#$%&'*+/=?^_`{|}~.-]+)@([a-zA-Z0-9-]+)\.([a-zA-Z.]+)/,
       numberPattern: /^\+?\d+(\s\d+)*$/,
       pricePattern: /^\d{1,3}([\.,](\d{1,2})?)?$/,
+      pricePrecallPattern: /^\d+([\.,](\d{1,2})?)?$/,
       urlPattern: /^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.\&\?\=\+\#-]*)*\/?$/,
       socialNetworks: [
         {
