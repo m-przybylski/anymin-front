@@ -3,16 +3,12 @@ import {CallSummaryService} from '../../../../services/call-summary/call-summary
 import {ExpertCallSummary} from '../../../../models/ExpertCallSummary'
 import {MoneyDto} from 'profitelo-api-ng/model/models'
 
-export interface IConsultationSummaryExpertParentControllerScope extends ng.IScope {
-  serviceId: string
-}
-
 export interface IConsultationSummaryExpertControllerScope extends ng.IScope {
   callSummary?: CallSummary
   onModalClose: () => void
   isFullscreen: boolean
   isNavbar: boolean
-  $parent: IConsultationSummaryExpertParentControllerScope
+  serviceId: string
 }
 
 interface IComplaintReason {
