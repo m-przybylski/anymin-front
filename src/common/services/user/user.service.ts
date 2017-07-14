@@ -14,8 +14,7 @@ export class UserService {
     .then((session) => {
       if (session.account) {
         return angular.copy(session.account)
-      }
-      else {
+      } else {
         throw new Error('AccountDetails in session was not defined')
       }
     })

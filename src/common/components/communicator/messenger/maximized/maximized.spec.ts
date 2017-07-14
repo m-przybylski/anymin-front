@@ -1,10 +1,16 @@
 import * as angular from 'angular'
 import {IMessengerMaximizedComponentBindings} from './maximized'
-import {MoneyDto} from 'profitelo-api-ng/model/models'
-import {MessengerService} from '../messenger.service'
 import {UrlService} from '../../../../services/url/url.service'
 import {MessengerMaximizedComponentController} from './maximized.controller'
 import communicatorModule from '../../communicator'
+import {ClientCallService} from '../../call-services/client-call.service';
+import {ExpertCallService} from '../../call-services/expert-call.service';
+import {CurrentClientCall} from '../../models/current-client-call';
+import {CurrentExpertCall} from '../../models/current-expert-call';
+import {UploaderFactory} from '../../../../services/uploader/uploader.factory';
+import messengerMaximizedModule from './maximized';
+import filtersModule from "../../../../filters/filters";
+import urlModule from "../../../../services/url/url";
 
 describe('Unit testing: profitelo.components.communicator.messenger.maximized', () => {
   return describe('for messengerMaximized component >', () => {
@@ -16,37 +22,23 @@ describe('Unit testing: profitelo.components.communicator.messenger.maximized', 
       '<maximized call-length="callLength" call-cost="callCost" minimize-messenger="minimizeMessenger"></maximized>'
 
     const bindings: IMessengerMaximizedComponentBindings = {
-      callCost: <MoneyDto>{amount: 0, currency: 'PLN'},
-      callLength: 0,
       isMessenger: true,
       minimizeMessenger: () => {
       }
     }
 
-    const messengerService = {
-      onExpertCreatedRoom: () => {
-      },
-      onClientCreatingRoom: () => {
-      },
-      onClientTyping: () => {
-      },
-      onExpertTyping: () => {
-      },
-      onClientMessage: () => {
-      },
-      onExpertMessage: () => {
-      },
-      onChatLeft: () => {
-      },
-      indicateTyping: () => {
-      }
-    }
+    const clientCallService: ClientCallService = {
+      onNewCall: (_cb: (call: CurrentClientCall) => void) => {}
+    } as ClientCallService
 
-    const uploaderFactory = {
+    const expertCallService: ExpertCallService = {
+      onNewCall: (_cb: (call: CurrentExpertCall) => void) => {}
+    } as ExpertCallService
+
+    const uploaderFactory: UploaderFactory = {
       collectionTypes: {avatar: 'avatar'},
-      getInstance: () => {
-      }
-    }
+      getInstance: () => {}
+    } as UploaderFactory
 
     function create(html: string, bindings: IMessengerMaximizedComponentBindings): JQuery {
       const parentScope: ng.IScope = rootScope.$new()
@@ -63,7 +55,8 @@ describe('Unit testing: profitelo.components.communicator.messenger.maximized', 
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', 'awesomeURL')
-      $provide.value('messengerService', messengerService)
+      $provide.value('clientCallService', clientCallService)
+      $provide.value('expertCallService', expertCallService)
     }))
 
     beforeEach(() => {
@@ -75,21 +68,19 @@ describe('Unit testing: profitelo.components.communicator.messenger.maximized', 
     }))
 
     beforeEach(() => {
-      angular.mock.module('profitelo.services.url')
-      angular.mock.module('profitelo.filters.seconds-to-datetime')
-      angular.mock.module('profitelo.filters.money')
-
-      angular.mock.module('profitelo.components.communicator.messenger.maximized')
+      angular.mock.module(urlModule)
+      angular.mock.module(filtersModule)
+      angular.mock.module(messengerMaximizedModule)
 
       inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
-              $componentController: ng.IComponentControllerService, _urlService_: UrlService,
-              _messengerService_: MessengerService) => {
+              $componentController: ng.IComponentControllerService, _urlService_: UrlService) => {
 
         rootScope = $rootScope.$new()
         compile = $compile
 
         const injectors = {
-          messengerService: _messengerService_,
+          expertCallService: expertCallService,
+          clientCallService: clientCallService,
           $element: create(validHTML, bindings),
           urlService: _urlService_
         }

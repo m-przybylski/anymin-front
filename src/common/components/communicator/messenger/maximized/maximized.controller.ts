@@ -1,11 +1,16 @@
 import * as angular from 'angular'
 import * as _ from 'lodash'
 import {IMessengerMaximizedComponentBindings} from './maximized'
-import {MoneyDto, PostProcessOption, GetProfile} from 'profitelo-api-ng/model/models'
+import {PostProcessOption, MoneyDto} from 'profitelo-api-ng/model/models'
 import {UploaderService} from '../../../../services/uploader/uploader.service'
-import {MessengerService} from '../messenger.service'
 import {UrlService} from '../../../../services/url/url.service'
 import {UploaderFactory} from '../../../../services/uploader/uploader.factory'
+import {MessageRoom} from '../../models/message-room';
+import {ClientCallService} from '../../call-services/client-call.service';
+import {ExpertCallService} from '../../call-services/expert-call.service';
+import {CurrentCall} from '../../models/current-call';
+import {CurrentClientCall} from '../../models/current-client-call';
+import {CurrentExpertCall} from '../../models/current-expert-call';
 
 export class MessengerMaximizedComponentController implements ng.IController, IMessengerMaximizedComponentBindings {
 
@@ -25,26 +30,40 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
 
   private messagesScroll = angular.element('.messenger-scroll')
   private indicateTypingDebounceTimeout = 1000
+  public indicateTypingDebounce = () => {}
   private typingTimeout = 2000
   private fileUploadErrorMessageTimeout = 15000
   private uploader: UploaderService
 
+  private messageRoom: MessageRoom
+
   /* @ngInject */
   constructor(private $log: ng.ILogService, private $timeout: ng.ITimeoutService,
-              private $element: ng.IRootElementService, private messengerService: MessengerService,
-               private urlService: UrlService,
+              private $element: ng.IRootElementService,
+              private urlService: UrlService,
+              private clientCallService: ClientCallService,
+              private expertCallService: ExpertCallService,
               uploaderFactory: UploaderFactory) {
 
     this.uploader = uploaderFactory.getInstance(1, uploaderFactory.collectionTypes.avatar)
     this.messagesScroll.perfectScrollbar()
 
-    messengerService.onExpertMessage(this.addMessage)
-    messengerService.onClientMessage(this.addMessage)
-    messengerService.onExpertTyping(this.onTyping)
-    messengerService.onClientTyping(this.onTyping)
-    messengerService.onClientCreatingRoom(this.clientInit)
-    messengerService.onExpertCreatedRoom(this.expertInit)
-    messengerService.onChatLeft(this.destroy)
+    this.clientCallService.onNewCall(this.clientInit)
+    this.expertCallService.onNewCall(this.expertInit)
+  }
+
+  private onNewCall = (currentCall: CurrentCall): void => {
+    this.messageRoom = currentCall.getMessageRoom()
+    this.messageRoom.onMessage(this.addMessage)
+    this.messageRoom.onTyping(this.onTyping)
+    currentCall.onTimeCostChange((data) => {
+      this.callLength = data.time
+      this.callCost = data.money
+    })
+    this.indicateTypingDebounce = _.throttle(this.messageRoom.indicateTyping, this.indicateTypingDebounceTimeout, {
+      'leading': true,
+      'trailing': false
+    })
   }
 
   $onChanges = () => {
@@ -66,24 +85,22 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
     this.onUploadFiles((this.uploadedFile.file) ? [this.uploadedFile.file] : [])
   }
 
-  public indicateTypingDebounce =
-    _.throttle(this.messengerService.indicateTyping, this.indicateTypingDebounceTimeout, {
-      'leading': true,
-      'trailing': false
-    })
-
-  public onSendMessage = (messageBody: any) => {
+  public onSendMessage = (messageBody: string) =>
     this.sendMessage(this.serializeMessageBody(messageBody))
-  }
 
-  private clientInit = (expert: GetProfile) => {
+  private clientInit = (currentClientCall: CurrentClientCall) => {
+    this.destroy()
+    const expert = currentClientCall.getExpert()
     if (expert.expertDetails && expert.expertDetails.avatar) {
       this.participantAvatar = this.urlService.resolveFileUrl(expert.expertDetails.avatar)
     }
+    this.onNewCall(currentClientCall)
   }
 
-  private expertInit = () => {
+  private expertInit = (currentExpertCall: CurrentExpertCall) => {
+    this.destroy()
     this.participantAvatar = ''
+    this.onNewCall(currentExpertCall)
   }
 
   private scrollMessagesBottom = () => {
@@ -136,8 +153,8 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
   private serializeMessageBody = (text: string) =>
     JSON.stringify({body: text})
 
-  private sendMessage = (messageObject: any) =>
-    this.messengerService.sendMessage(messageObject)
+  private sendMessage = (messageObject: string) =>
+    this.messageRoom.sendMessage(messageObject)
       .then(this.onMessageSendSuccess, this.onMessageSendError)
 
   private onUploadProgess = (res: any) =>

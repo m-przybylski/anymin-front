@@ -13,8 +13,7 @@ function controller($log: ng.ILogService, $element: ng.IRootElementService, $win
   const updateStylesObject = () => {
     if (!this.isCollapsed) {
       this.stylesObject.height = getCollapseBtnContentHeight()
-    }
-    else {
+    } else {
       this.stylesObject.height = getCollapseBtnHeight()
     }
   }

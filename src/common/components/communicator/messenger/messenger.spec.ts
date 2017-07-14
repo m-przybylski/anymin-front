@@ -1,8 +1,9 @@
 import * as angular from 'angular'
-import {MoneyDto} from 'profitelo-api-ng/model/models'
 import {IMessengerComponentBindings, default as messengerModule} from './messenger'
 import soundsModule from '../../../services/sounds/sounds'
 import {MessengerComponentController} from './messenger.controller'
+import {CurrentExpertCall} from "../models/current-expert-call";
+import {CurrentClientCall} from "../models/current-client-call";
 
 describe('Unit testing: profitelo.components.communicator.messenger', () => {
   return describe('for messenger component >', () => {
@@ -11,21 +12,18 @@ describe('Unit testing: profitelo.components.communicator.messenger', () => {
     let compile: ng.ICompileService
     let component: MessengerComponentController
 
-    const callService = {
-      onClientCallStarted: (_cb: any) => {},
-      onExpertCallAnswered: (_cb: any) => {},
-      onExpertCallReject: (_cb: any) => {},
-      onClientCallRejected: (_cb: any) => {},
-      onClientCallPending: (_cb: any) => {},
-      onCallEnd: (_cb: any) => {}
+    const clientCallService = {
+      onNewCall: (_cb: CurrentClientCall) => {}
+    }
+
+    const expertCallService = {
+      onNewCall: (_cb: CurrentExpertCall) => {}
     }
 
     const validHTML =
       '<messenger call-length="callLength" call-cost="callCost" is-messenger="isMessenger"></messenger>'
 
     const bindings: IMessengerComponentBindings = {
-      callLength: 0,
-      callCost: <MoneyDto>{amount: 0, currency: 'PLN'},
       isMessenger: false
     }
 
@@ -47,7 +45,8 @@ describe('Unit testing: profitelo.components.communicator.messenger', () => {
       $provide.value('soundsService', {})
       $provide.value('apiUrl', 'awesomeUrl/')
       $provide.value('communicatorService', {})
-      $provide.value('callService', callService)
+      $provide.value('clientCallService', clientCallService)
+      $provide.value('expertCallService', expertCallService)
     }))
 
     beforeEach(() => {

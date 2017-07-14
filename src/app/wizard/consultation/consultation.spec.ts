@@ -23,7 +23,7 @@ describe('Testing Controller: ConsultationController', () => {
     isCompany: true,
     isSummary: true
   }
-  const commonConfig = <CommonConfig>{
+  const commonConfig: CommonConfig = <CommonConfig>{
     getAllData: () => {
       return {
         config: {

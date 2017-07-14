@@ -1,6 +1,7 @@
-messenger-minimized(data-ng-hide="$ctrl.isMessenger" data-on-new-message="$ctrl.maximizeMessenger"
-    data-on-message-click="$ctrl.maximizeMessenger")
+messenger-minimized(data-ng-hide="$ctrl.isMessenger", data-on-message-click="$ctrl.maximizeMessenger",
+    data-message-room="$ctrl.messageRoom")
 
 messenger-maximized(data-ng-show="$ctrl.isMessenger" data-ng-class="{'is-active': $ctrl.isMessenger}"
     data-call-cost="$ctrl.callCost" data-call-length="$ctrl.callLength"
-    data-minimize-messenger="$ctrl.minimizeMessenger" data-is-messenger="$ctrl.isMessenger")
+    data-minimize-messenger="$ctrl.minimizeMessenger" data-is-messenger="$ctrl.isMessenger"
+    data-message-room="$ctrl.messageRoom")

@@ -1,107 +1,136 @@
-import * as angular from 'angular'
-import {GetService, GetProfile, MoneyDto} from 'profitelo-api-ng/model/models'
-import {CallService} from './call.service'
-import {UrlService} from '../../services/url/url.service'
+import {GetService, GetProfile, MoneyDto} from 'profitelo-api-ng/model/models';
+import {ClientCallService} from './call-services/client-call.service';
+import {ExpertCallService} from './call-services/expert-call.service';
+import {CurrentClientCall} from './models/current-client-call';
+import {CurrentExpertCall} from './models/current-expert-call';
+import {CurrentCall} from './models/current-call';
+import {MessageRoom} from './models/message-room';
 
 export class CommunicatorComponentController implements ng.IController {
+
+  private static readonly disconnectedAnimationTimeout = 500
+
+  public currentCall?: CurrentCall
 
   public isClosed: boolean = true
   public isDisconnectedAnimation: boolean = false
   public isConnecting: boolean = false
-  public service: GetService | null = null
-  public expert: GetProfile | null = null
-  public expertAvatar: string
+  public service?: GetService
+  public expert?: GetProfile
+  public expertAvatar?: string
 
   public isRemoteVideo: boolean = false
   public isLocalVideo: boolean = false
   public isMessenger: boolean = false
   public callLengthInSeconds: number = 0
-  public callCost: MoneyDto | null = null
+  public callCost?: MoneyDto
+
+  public localStreamElement: ng.IAugmentedJQuery
+  public remoteStreamElement: ng.IAugmentedJQuery
+
+  public messageRoom: MessageRoom
 
   /* @ngInject */
-  constructor(private $timeout: ng.ITimeoutService, private $element: ng.IRootElementService,
-              private callService: CallService, private urlService: UrlService) {
+  constructor(clientCallService: ClientCallService,
+              expertCallService: ExpertCallService,
+              private $element: ng.IRootElementService,
+              private $timeout: ng.ITimeoutService,
+              private $window: ng.IWindowService) {
 
-    const localStreamElement = this.$element.find('.video-player-local video')
-    const remoteStreamElement = this.$element.find('.video-player-remote video')
-
-    this.callService.setLocalStreamElement(localStreamElement)
-    this.callService.setRemoteStreamElement(remoteStreamElement)
-
-    this.registerEvents()
+    clientCallService.onNewCall(this.registerClientCall)
+    expertCallService.onNewCall(this.registerExpertCall)
   }
 
-  private registerEvents = () => {
-    /* Starting events */
-    this.callService.onClientCallPending(expertServiceTuple => {
-      this.cleanupComponent()
-      this.service = expertServiceTuple.service
-      this.expert = expertServiceTuple.expert
-      this.expertAvatar = this.urlService.resolveFileUrl(this.expert.expertDetails!.avatar || '')
-      this.isConnecting = true
-      this.isClosed = false
-    })
+  $onInit = (): void => {
+    this.remoteStreamElement = this.$element.find('.video-player-remote video')
+    this.localStreamElement = this.$element.find('.video-player-local video')
 
-    /* Call started events */
-    this.callService.onExpertCallAnswered(serviceInvitationTuple => {
-      this.cleanupComponent()
-      this.service = serviceInvitationTuple.service
-      this.isConnecting = false
-      this.isClosed = false
-    })
-
-    this.callService.onClientCallStarted(_ => {
-      this.isConnecting = false
-    })
-
-    /* Call ended events */
-    this.callService.onCallEnd(this.onCallEnd)
-
-    this.callService.onVideoStart(this.onVideoStart)
-
-    this.callService.onVideoStop(this.onVideoStop)
-
-    this.callService.onTimeCostChange(timeMoneyTuple => {
-      this.callLengthInSeconds = timeMoneyTuple.time
-      this.callCost = timeMoneyTuple.money
-    })
-
-    // FIXME
-    angular.element('.communicator').on('dragover', (e) => {
-      e.preventDefault()
-    })
-
-    angular.element('.communicator').on('drop', (e) => {
-      e.preventDefault()
-    })
+    const communicatorElement: ng.IAugmentedJQuery = this.$element.find('.communicator')
+    if (communicatorElement) {
+      communicatorElement.on('dragover', (e) => e.preventDefault())
+      communicatorElement.on('drop', (e) => e.preventDefault())
+    }
   }
 
-  private cleanupComponent = () => {
+  private registerClientCall = (call: CurrentClientCall): void => {
+    this.cleanupComponent()
+    this.currentCall = call
+    this.service = call.getService()
+    this.expert = call.getExpert()
+    this.expertAvatar = this.expert.expertDetails ? this.expert.expertDetails.avatar : undefined
+    this.isConnecting = true
+    this.isClosed = false
+    call.onAnswered(() => {this.isConnecting = false})
+
+    this.registerCommonCallEvents(call);
+  }
+
+  private registerExpertCall = (call: CurrentExpertCall): void => {
+    this.cleanupComponent()
+    this.currentCall = call
+    this.service = call.getService();
+    this.isConnecting = false
+    this.isClosed = false
+    this.registerCommonCallEvents(call);
+  }
+
+  private registerCommonCallEvents = (call: CurrentCall): void => {
+    const remoteStream = call.getRemoteStream();
+    if (remoteStream) this.onRemoteStream(remoteStream);
+
+    const localStream = call.getLocalStream();
+    if (localStream) this.onLocalStream(localStream);
+
+    this.messageRoom = call.getMessageRoom();
+
+    call.onLocalStream(this.onLocalStream)
+    call.onRemoteStream(this.onRemoteStream)
+    call.onEnd(this.onCallEnd)
+    call.onVideoStart(this.onVideoStart)
+    call.onVideoStop(this.onVideoStop)
+    call.onTimeCostChange(this.onTimeCostChange)
+  }
+
+  private onTimeCostChange = (timeMoneyTuple: { time: number, money: MoneyDto }): void => {
+    this.callLengthInSeconds = timeMoneyTuple.time
+    this.callCost = timeMoneyTuple.money
+  }
+
+  private onRemoteStream = (stream: MediaStream): void => {
+    this.remoteStreamElement.attr('src', this.$window.URL.createObjectURL(stream))
+  }
+
+  private onLocalStream = (stream: MediaStream): void => {
+    this.localStreamElement.attr('src', this.$window.URL.createObjectURL(stream))
+  }
+
+  private cleanupComponent = (): void => {
+    this.currentCall = undefined
     this.isDisconnectedAnimation = false
     this.isConnecting = false
-    this.service = null
-    this.expert = null
+    this.service = undefined
+    this.expert = undefined
     this.isRemoteVideo = false
     this.isLocalVideo = false
     this.isMessenger = false
     this.callLengthInSeconds = 0
-    this.callCost = null
+    this.callCost = undefined
   }
 
-  private onCallEnd = () => {
+  private onCallEnd = (): void => {
     this.isDisconnectedAnimation = true
     this.$timeout(() => {
       this.isClosed = true
       this.cleanupComponent()
-    }, 500)
+    }, CommunicatorComponentController.disconnectedAnimationTimeout)
   }
 
   /* Other events */
-  private onVideoStart = () => {
+  private onVideoStart = (): void => {
     this.isRemoteVideo = true
   }
 
-  private onVideoStop = () => {
+  private onVideoStop = (): void => {
     this.isRemoteVideo = false
   }
 }

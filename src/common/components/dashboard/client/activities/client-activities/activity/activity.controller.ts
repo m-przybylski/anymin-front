@@ -22,19 +22,16 @@ export class ClientActivityComponentController implements ng.IController, IClien
     }
   }
 
-  public openActivityDescription = () => {
-
+  public openActivityDescription = (): void => {
     if (this.isCallActivity) {
-      const sueId = this.activity.serviceUsageDetails!.serviceUsageEventId
+      const sueId: string = this.activity.serviceUsageDetails!.serviceUsageEventId
       if (sueId) {
         this.modalsService.createClientSUEActivityDetailsModal(sueId)
-      }
-      else {
+      } else {
         this.$log.error('Activity SUE is undefined')
       }
     } else {
       this.modalsService.createClientChargeDetailsModal(this.activity)
     }
-
   }
 }

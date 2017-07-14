@@ -28,7 +28,8 @@
           span.circle
 
         .communicator-user.thumb.x128
-          img.user-avatar.communicator-avatar(src data-ng-src="{{ $ctrl.expertAvatar }}")
+          .user-avatar.communicator-avatar
+            userAvatar(data-image-token="$ctrl.expertAvatar")
 
       .communicator-conversation-details(data-ng-hide="$ctrl.isConnecting")
         .communicator-conversation-title
@@ -44,8 +45,8 @@
     .video-player-remote(data-ng-show="$ctrl.isRemoteVideo")
       video(autoplay="true")
 
-    communicator-nav(data-is-video="$ctrl.isLocalVideo"
-    data-hangup-call="$ctrl.hangupCall" data-is-messenger="$ctrl.isMessenger")
+    communicator-nav(data-is-video="$ctrl.isLocalVideo" data-is-messenger="$ctrl.isMessenger"
+    data-current-call="$ctrl.currentCall")
 
     messenger(data-is-messenger="$ctrl.isMessenger" data-call-cost="$ctrl.callCost"
-    data-call-length="$ctrl.callLengthInSeconds")
+    data-call-length="$ctrl.callLengthInSeconds" data-message-room="$ctrl.messageRoom")

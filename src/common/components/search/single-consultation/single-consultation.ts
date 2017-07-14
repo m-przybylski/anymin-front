@@ -1,15 +1,15 @@
 import * as angular from 'angular'
 import {UrlService} from '../../../services/url/url.service'
-import {CallService} from '../../communicator/call.service'
 import communicatorModule from '../../communicator/communicator'
 import filtersModule from '../../../filters/filters'
 import urlModule from '../../../services/url/url'
 import './single-consultation.sass'
 import {UserService} from '../../../services/user/user.service'
+import {ClientCallService} from '../../communicator/call-services/client-call.service';
 
 /* @ngInject */
 function singleConsultationController($state: ng.ui.IStateService, urlService: UrlService,
-                                      callService: CallService, userService: UserService) {
+                                      clientCallService: ClientCallService, userService: UserService) {
   this.isLinkActive = true
 
   this.$onInit = () => {
@@ -40,9 +40,9 @@ function singleConsultationController($state: ng.ui.IStateService, urlService: U
     }
   }
 
-  this.startCall = () => {
+  this.startCall = (): void => {
     userService.getUser()
-    .then(() => callService.callServiceId(this.consultation.id),
+    .then(() => clientCallService.callServiceId(this.consultation.id),
       () => $state.go('app.login.account'))
   }
 

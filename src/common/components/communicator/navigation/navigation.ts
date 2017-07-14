@@ -1,14 +1,15 @@
 import * as angular from 'angular'
-import {CallService} from '../call.service'
 import './navigation.sass'
+import {RatelCallDetails} from 'profitelo-api-ng/model/models'
+import {CurrentCall} from '../models/current-call';
 
 export interface INavigationComponentBindings {
   isVideo: boolean
   isMessenger: boolean
+  currentCall: CurrentCall
 }
 
 interface INavigationComponentController extends INavigationComponentBindings {
-  hangupCall: () => void
   areOptions: boolean
   isAudio: boolean
 }
@@ -19,14 +20,16 @@ export class NavigationComponentController implements ng.IController, INavigatio
   isAudio = true
   isVideo: boolean
   isMessenger: boolean
-  hangupCall: () => void
+  currentCall: CurrentCall
 
   /* @ngInject */
-  constructor(private callService: CallService) {
-    this.hangupCall = callService.hangupCall
+  constructor() {
   }
 
-  public animateButtons = (elem: any) => {
+  public hangupCall = (): ng.IPromise<RatelCallDetails> =>
+    this.currentCall.hangup();
+
+  public animateButtons = (elem: any): void => {
     if (elem.currentTarget.classList.contains('is-active')) {
       elem.currentTarget.classList.add('is-inactive')
       elem.currentTarget.classList.remove('is-active')
@@ -36,33 +39,37 @@ export class NavigationComponentController implements ng.IController, INavigatio
     }
   }
 
-  public startAudio = () => {
-    this.callService.startAudio()
+  public startAudio = (): void => {
     this.isAudio = true
+    this.currentCall.startAudio().then().catch(() => {
+      this.isAudio = false
+    })
   }
 
-  public stopAudio = () => {
-    this.callService.stopAudio()
+  public stopAudio = (): void => {
     this.isAudio = false
+    this.currentCall.stopAudio()
   }
 
-  public stopVideo = () => {
-    this.callService.stopVideo()
+  public stopVideo = (): void => {
     this.isVideo = false
+    this.currentCall.stopVideo()
   }
 
-  public startVideo = (elem: Element) => {
-    this.callService.startVideo()
+  public startVideo = (elem: Element): void => {
     this.isVideo = true
+    this.currentCall.startVideo().catch(() => {
+      this.isVideo = false
+    })
     this.animateButtons(elem)
   }
 
-  public toggleOptions = (elem: Element) => {
+  public toggleOptions = (elem: Element): void => {
     this.animateButtons(elem)
     this.areOptions = !this.areOptions
   }
 
-  public toggleMessenger = (elem: Element) => {
+  public toggleMessenger = (elem: Element): void => {
     this.animateButtons(elem)
     this.isMessenger = !this.isMessenger
   }
@@ -74,7 +81,8 @@ class NavigationComponent implements ng.IComponentOptions {
   template = require('./navigation.pug')()
   bindings: { [boundProperty: string]: string } = {
     isVideo: '=',
-    isMessenger: '='
+    isMessenger: '=',
+    currentCall: '<'
   }
 }
 

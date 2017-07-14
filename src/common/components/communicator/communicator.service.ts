@@ -1,7 +1,5 @@
-import * as _ from 'lodash'
-import {RatelApi, ProfileApi} from 'profitelo-api-ng/api/api'
-import {SignedAgent, GetService, GetProfileWithServices} from 'profitelo-api-ng/model/models'
-import {SessionStorage} from './session-storage'
+import {RatelApi} from 'profitelo-api-ng/api/api'
+import {SignedAgent} from 'profitelo-api-ng/model/models'
 import {CallbacksService} from '../../services/callbacks/callbacks.service'
 import {CallbacksFactory} from '../../services/callbacks/callbacks.factory'
 import * as RatelSdk from 'ratel-sdk-js'
@@ -9,30 +7,30 @@ import {UserService} from '../../services/user/user.service'
 import {CommonConfig} from '../../../../generated_modules/common-config/common-config'
 import {EventsService} from '../../services/events/events.service'
 
-export interface IConsultationInvitation<T> {
-  invitation: T
-  service: GetService
-}
-
 export class CommunicatorService {
 
   private commonConfig: any
   private chatConfig: RatelSdk.Config
   private callbacks: CallbacksService
-  private ratelSessions: SessionStorage
+  private ratelSession?: RatelSdk.Session
+  private ratelDeviceId?: string
 
-  private static events = {
-    onCall: 'onCall',
-    onRoom: 'onRoom'
+  private static readonly events = {
+    onCallInvitation: 'onCallInvitation',
+    onCallCreated: 'onCallCreated',
+    onRoomInvitation: 'onRoomInvitation',
+    onRoomCreated: 'onRoomCreated'
   }
 
   /* @ngInject */
-  constructor(private $log: ng.ILogService, private $q: ng.IQService, callbacksFactory: CallbacksFactory,
-              private userService: UserService, private RatelApi: RatelApi, private ProfileApi: ProfileApi,
-               CommonConfig: CommonConfig, private ratelSdk: typeof RatelSdk, eventsService: EventsService) {
+  constructor(private $log: ng.ILogService,
+              private RatelApi: RatelApi,
+              userService: UserService,
+              CommonConfig: CommonConfig,
+              callbacksFactory: CallbacksFactory,
+              eventsService: EventsService) {
 
     this.commonConfig = CommonConfig.getAllData()
-    this.ratelSessions = new SessionStorage()
     this.callbacks = callbacksFactory.getInstance(Object.keys(CommunicatorService.events))
     this.setChatConfig()
 
@@ -45,7 +43,6 @@ export class CommunicatorService {
   private setChatConfig = (): void => {
     const ratelUrl = new URL(this.commonConfig.urls.communicator.ratel)
     const chatUrl = new URL(this.commonConfig.urls.communicator.chat)
-    const resourceUrl = new URL(this.commonConfig.urls.communicator.resource)
     this.chatConfig = {
       debug: true,
       ratel: {
@@ -58,6 +55,8 @@ export class CommunicatorService {
         hostname: chatUrl.hostname,
         port: chatUrl.port,
         rtc: {
+          rtcpMuxPolicy: 'negotiate',
+          bundlePolicy: 'balanced',
           iceTransportPolicy: 'relay',
           iceServers: [{
             urls: ['stun:turn.ratel.im:443', 'turn:turn.ratel.im:443'],
@@ -65,117 +64,79 @@ export class CommunicatorService {
             credential: 'test456'
           }]
         }
-      },
-      resource: {
-        protocol: resourceUrl.protocol,
-        hostname: resourceUrl.hostname,
-        port: resourceUrl.port
       }
     }
   }
 
-  private createRatelConnection = (session: RatelSdk.Session, _service: GetService | null) => {
+  private createRatelConnection = (session: RatelSdk.Session): void => {
 
     const chat = session.chat
 
-    chat.onBotUpdate((res: RatelSdk.protocol.BotUpdated) =>
-      this.$log.debug('Artichoke: onBotUpdate', res))
+    chat.onCallInvitation((callInvitation: RatelSdk.events.CallInvitation) =>
+      this.callbacks.notify(CommunicatorService.events.onCallInvitation, callInvitation))
 
-    chat.onCall((callInvitation: RatelSdk.protocol.CallInvitation) =>
-      this.callbacks.notify(CommunicatorService.events.onCall, {invitation: callInvitation, service: _service}))
+    chat.onCallCreated((callCreated: RatelSdk.events.CallCreated) =>
+      this.callbacks.notify(CommunicatorService.events.onCallCreated, callCreated))
 
-    chat.onConnect((hello: RatelSdk.protocol.Hello) =>
-      this.$log.debug('Artichoke: onConnect', session.id, hello))
+    chat.onConnect((hello: RatelSdk.events.Hello) => {
+      this.ratelDeviceId = hello.deviceId;
+      this.$log.debug('Artichoke: onConnect', session.id, hello)
+    })
 
-    chat.onDisconnect((res: RatelSdk.protocol.Disconnect) =>
+    chat.onDisconnect((res: RatelSdk.events.Disconnect) =>
       this.$log.debug('Artichoke: onDisconnect', res))
 
-    chat.onError((res: RatelSdk.protocol.Error) =>
+    chat.onError((res: RatelSdk.events.Error) =>
       this.$log.error('Artichoke: onError', res))
 
-    chat.onHeartbeat((res: RatelSdk.protocol.Heartbeat) =>
+    chat.onHeartbeat((res: RatelSdk.events.Heartbeat) =>
       this.$log.debug('Artichoke: onHeartBeat', res))
 
-    chat.onStatusUpdate((presence: RatelSdk.protocol.PresenceUpdate) =>
+    chat.onStatusUpdate((presence: RatelSdk.events.PresenceUpdate) =>
       this.$log.debug('Artichoke: onStatusUpdate', presence))
 
-    chat.onRoom((roomInvitation: RatelSdk.protocol.RoomInvitation) =>
-      this.callbacks.notify(CommunicatorService.events.onRoom, {invitation: roomInvitation, service: _service}))
+    chat.onRoomCreated((roomCreated: RatelSdk.events.RoomCreated) =>
+      this.callbacks.notify(CommunicatorService.events.onRoomCreated, roomCreated))
+
+    chat.onRoomInvitation((roomInvitation: RatelSdk.events.RoomInvitation) =>
+      this.callbacks.notify(CommunicatorService.events.onRoomInvitation, roomInvitation))
 
     chat.connect()
   }
 
-  private onCreateClientSession = (session: RatelSdk.Session) => {
-    this.ratelSessions.setClientSession(session)
-    this.createRatelConnection(session, null)
+  private onCreateClientSession = (session: RatelSdk.Session): void => {
+    this.ratelSession = session;
+    this.createRatelConnection(session)
+    this.RatelApi.postBriefcaseUserConfigRoute({id: session.id})
     this.$log.debug('Client session created', session)
   }
 
-  private onCreateExpertSession = (session: RatelSdk.Session, service: GetService) => {
-    this.ratelSessions.addExpertSession(service.id, session)
-    this.createRatelConnection(session, service)
-    this.$log.debug('Expert session created', session)
-  }
-
-  private onGetEmployersProfilesWithServices = (profilesWithServices: Array<GetProfileWithServices>) => {
-    return _.flatten(_.map(profilesWithServices, profile => profile.services))
-  }
-
-  private getServices = (profileId: string) => {
-    return this.ProfileApi.getEmployersProfilesWithServicesRoute(profileId)
-      .then((response) => this.onGetEmployersProfilesWithServices(response))
-  }
-
-  private onGetRatelClientAuthConfig = (clientConfig: SignedAgent) => {
-    return this.ratelSdk.withSignedAuth(clientConfig as RatelSdk.SessionData, this.chatConfig)
+  private onGetRatelClientAuthConfig = (clientConfig: SignedAgent): Promise<void> =>
+    RatelSdk.withSignedAuth(clientConfig as RatelSdk.SessionData, this.chatConfig)
       .then(this.onCreateClientSession)
-  }
 
-  private authenticateClient = () => {
-    return this.RatelApi.getRatelAuthConfigRoute()
-      .then(this.onGetRatelClientAuthConfig)
-  }
-
-  private onGetRatelExpertAuthConfig = (expertConfig: SignedAgent, service: GetService) => {
-    return this.ratelSdk.withSignedAuth(expertConfig as RatelSdk.SessionData, this.chatConfig)
-      .then((session: any) => this.onCreateExpertSession(session, service))
-  }
-
-  private authenticateExpert = () => {
-    this.userService.getUser().then(user => {
-      return this.getServices(user.id)
-        .then((services) =>
-          this.$q.all(_.map(services, service =>
-            this.RatelApi.getRatelAuthConfigRoute(service.id).then(
-              (expertConfig) => this.onGetRatelExpertAuthConfig(expertConfig, service)))))
-    })
-  }
+  private authenticateClient = (): ng.IPromise<void> =>
+    this.RatelApi.getRatelAuthConfigRoute().then(this.onGetRatelClientAuthConfig)
 
   private onAuthenticateError = (err: any) => {
     this.$log.error(err)
   }
 
-  public authenticate = (): ng.IPromise<any> => {
-    return this.$q.all([
-      this.authenticateClient(),
-      this.authenticateExpert()
-    ])
-      .catch(this.onAuthenticateError)
+  public authenticate = (): ng.IPromise<void> => {
+    return this.authenticateClient().catch(this.onAuthenticateError);
   }
 
-  public getClientSession = () => {
-    return this.ratelSessions.getClientSession()
+  public getClientSession = (): RatelSdk.Session | undefined =>
+    this.ratelSession;
+
+  public getClientDeviceId = (): string | undefined =>
+    this.ratelDeviceId;
+
+  public onCallInvitation = (callback: (callInvitation: RatelSdk.events.CallInvitation) => void): void => {
+    this.callbacks.methods.onCallInvitation(callback)
   }
 
-  public findExpertSession = (serviceId: string) => {
-    return this.ratelSessions.findExpertSession(serviceId)
-  }
-
-  public onCall = (callback: (callInvitation: IConsultationInvitation<RatelSdk.protocol.CallInvitation>) => void) => {
-    this.callbacks.methods.onCall(callback)
-  }
-
-  public onRoom = (callback: (callInvitation: IConsultationInvitation<RatelSdk.protocol.RoomInvitation>) => void) => {
-    this.callbacks.methods.onRoom(callback)
+  public onRoomInvitation = (callback: (roomInvitation: RatelSdk.events.RoomInvitation) => void): void => {
+    this.callbacks.methods.onRoomInvitation(callback)
   }
 }

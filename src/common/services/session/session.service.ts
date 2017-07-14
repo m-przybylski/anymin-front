@@ -27,12 +27,10 @@ export class SessionService {
     if (force) {
       this.sessionCache = this.getSessionFromBackend()
       return this.sessionCache
-    }
-    else {
+    } else {
       if (typeof this.sessionCache !== 'undefined') {
         return this.sessionCache
-      }
-      else {
+      } else {
         return this.getSessionFromBackend()
       }
     }

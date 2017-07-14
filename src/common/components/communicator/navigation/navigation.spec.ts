@@ -1,9 +1,11 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {NavigationComponentController, INavigationComponentBindings} from './navigation'
-import {CallService} from '../call.service'
 import './navigation'
 import communicatorModule from '../communicator'
+import {CurrentCall} from '../models/current-call';
+import {ClientCallService} from '../call-services/client-call.service';
+import {ExpertCallService} from '../call-services/expert-call.service';
 
 describe('Unit testing: profitelo.components.communicator.navigation', () => {
   return describe('for communicatorNav component >', () => {
@@ -14,21 +16,24 @@ describe('Unit testing: profitelo.components.communicator.navigation', () => {
 
     const validHTML: string = '<communicator-nav is-video="isVideo" is-messenger="isMessenger"></communicator-nav>'
 
+    const currentCall: CurrentCall = {
+      stopAudio: () => {},
+      startAudio: () => {},
+      startVideo: () => {},
+      stopVideo: () => {}
+    } as CurrentCall
+
     const bindings: INavigationComponentBindings = {
       isVideo: false,
+      currentCall: currentCall,
       isMessenger: false
     }
 
-    const callService = {
-      startAudio: () => {
-      },
-      stopAudio: () => {
-      },
-      startVideo: () => {
-      },
-      stopVideo: () => {
-      },
-    }
+    const clientCallService: ClientCallService = {
+    } as ClientCallService
+
+    const expertCallService: ExpertCallService = {
+    } as ExpertCallService
 
     beforeEach(() => {
       angular.mock.module(communicatorModule)
@@ -36,7 +41,8 @@ describe('Unit testing: profitelo.components.communicator.navigation', () => {
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', 'awesomeUrl/')
-      $provide.value('callService', callService)
+      $provide.value('clientCallService', clientCallService)
+      $provide.value('expertCallService', expertCallService)
     }))
 
     beforeEach(() => {
@@ -50,7 +56,8 @@ describe('Unit testing: profitelo.components.communicator.navigation', () => {
         compile = $compile
 
         const injectors = {
-          callService: callService
+          expertCallService: expertCallService,
+          clientCallService: clientCallService
         }
 
         component = $componentController<NavigationComponentController, INavigationComponentBindings>(
@@ -119,39 +126,41 @@ describe('Unit testing: profitelo.components.communicator.navigation', () => {
       expect(event.currentTarget.classList.remove).toHaveBeenCalled()
     })
 
-    it('should startAudio', inject((callService: CallService) => {
-      spyOn(callService, 'startAudio')
+    it('should startAudio', inject(($q: ng.IQService) => {
+      spyOn(currentCall, 'startAudio').and.returnValue($q.resolve())
       component.startAudio()
-      expect(callService.startAudio).toHaveBeenCalled()
+      expect(currentCall.startAudio).toHaveBeenCalled()
     }))
 
-    it('should stopAudio', inject((callService: CallService) => {
-      spyOn(callService, 'stopAudio')
+    it('should stopAudio', inject(() => {
+      spyOn(currentCall, 'stopAudio')
       component.stopAudio()
-      expect(callService.stopAudio).toHaveBeenCalled()
+      expect(currentCall.stopAudio).toHaveBeenCalled()
     }))
 
-    it('should startVideo', () => {
+    it('should startVideo', inject(($q: ng.IQService) => {
+      spyOn(currentCall, 'startVideo').and.returnValue($q.resolve())
       spyOn(component, 'animateButtons')
-      component.startVideo(<any>{})
+      component.startVideo({} as Element)
       expect(component.animateButtons).toHaveBeenCalled()
-    })
+      expect(currentCall.startVideo).toHaveBeenCalled()
+    }))
 
-    it('should stopVideo', inject((callService: CallService) => {
-      spyOn(callService, 'stopVideo')
+    it('should stopVideo', inject(($q: ng.IQService) => {
+      spyOn(currentCall, 'stopVideo').and.returnValue($q.resolve())
       component.stopVideo()
-      expect(callService.stopVideo).toHaveBeenCalled()
+      expect(currentCall.stopVideo).toHaveBeenCalled()
     }))
 
     it('should toggleOptions', () => {
       spyOn(component, 'animateButtons')
-      component.toggleOptions(<any>{})
+      component.toggleOptions({} as Element)
       expect(component.animateButtons).toHaveBeenCalled()
     })
 
     it('should toggleMessenger', () => {
       spyOn(component, 'animateButtons')
-      component.toggleMessenger(<any>{})
+      component.toggleMessenger({} as Element)
       expect(component.animateButtons).toHaveBeenCalled()
     })
   })

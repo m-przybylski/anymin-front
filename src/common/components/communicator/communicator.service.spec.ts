@@ -1,4 +1,5 @@
 import * as angular from 'angular'
+import * as RatelSdk from 'ratel-sdk-js'
 import {CommunicatorService} from './communicator.service'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {RatelApi, ProfileApi} from 'profitelo-api-ng/api/api'
@@ -10,43 +11,14 @@ describe('Unit testing: profitelo.services.communicator >', () => {
   describe('for profitelo.services.communicator >', () => {
 
     let communicatorService: CommunicatorService
-    const session = {
-      chat: {
-        onError: () => {
-        },
-        onConnect: () => {
-        },
-        onStatusUpdate: () => {
-        },
-        onDisconnect: () => {
-        },
-        onCall: () => {
-        },
-        onRoom: () => {
-        },
-        onBotUpdate: () => {
-        },
-        onHeartbeat: () => {
-        },
-        connect: () => {
-        }
-      }
-    }
+    const session = {} as RatelSdk.Session
     const config = {}
     const profilesWithServices = [{
-      services: [
-        {
-          id: '1'
-        },
-        {
-          id: '2'
-        }
-      ]
+      services: [{id: '1'}, {id: '2'}]
     }]
 
     const userService = {
-      getUser: () => {
-      }
+      getUser: () => {}
     }
 
     beforeEach(() => {
@@ -85,14 +57,12 @@ describe('Unit testing: profitelo.services.communicator >', () => {
       ratelSdk.withSignedAuth = () => $q.resolve(session)
 
       spyOn(RatelApi, 'getRatelAuthConfigRoute').and.callThrough()
-      spyOn(ProfileApi, 'getEmployersProfilesWithServicesRoute').and.callThrough()
       spyOn(ratelSdk, 'withSignedAuth').and.callThrough()
 
       communicatorService.authenticate()
       $rootScope.$digest()
 
       expect(RatelApi.getRatelAuthConfigRoute).toHaveBeenCalled()
-      expect(ProfileApi.getEmployersProfilesWithServicesRoute).toHaveBeenCalled()
       expect(ratelSdk.withSignedAuth).toHaveBeenCalled()
 
       expect(communicatorService.getClientSession()).toEqual(session)

@@ -63,8 +63,8 @@
     "normalize.css": "^3.0.3",
     "perfect-scrollbar": "^0.6.14",
     "phonenumber": "^7.7.1",
-    "profitelo-api-ng": "0.1.12",
-    "ratel-sdk-js": "0.3.6",
+    "profitelo-api-ng": "0.1.18",
+    "ratel-sdk-js": "0.4.3",
     "raven-js": "^3.10.0",
     "reset.css": "^2.0.2",
     "ui-select": "^0.19.6"
