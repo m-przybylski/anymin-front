@@ -104,11 +104,11 @@ export class CommunicatorService {
     chat.connect()
   }
 
-  private onCreateClientSession = (session: RatelSdk.Session): void => {
+  private onCreateClientSession = (session: RatelSdk.Session): ng.IPromise<void> => {
     this.ratelSession = session;
     this.createRatelConnection(session)
-    this.RatelApi.postBriefcaseUserConfigRoute({id: session.id})
-    this.$log.debug('Client session created', session)
+    return this.RatelApi.postBriefcaseUserConfigRoute({id: session.id})
+      .then(() => this.$log.debug('Client session created', session))
   }
 
   private onGetRatelClientAuthConfig = (clientConfig: SignedAgent): Promise<void> =>
@@ -120,6 +120,7 @@ export class CommunicatorService {
 
   private onAuthenticateError = (err: any) => {
     this.$log.error(err)
+    throw new Error(err)
   }
 
   public authenticate = (): ng.IPromise<void> => {
