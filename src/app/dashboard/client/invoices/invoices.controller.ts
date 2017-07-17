@@ -16,7 +16,5 @@ export class DashboardClientInvoicesController {
     }
 
     this.areInvoices = true
-
   }
-
 }

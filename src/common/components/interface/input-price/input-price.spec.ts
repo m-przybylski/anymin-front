@@ -43,11 +43,13 @@ describe('Unit testing: profitelo.components.interface.input-price', () => {
         inputText: 'labeltext',
         placeholder: 'placeholder',
         validationText: 's',
-        isValid: true,
+        isValid: false,
         isSubmitted: false,
         ngModel: 0,
         currency: 'PLN',
-        ngPattern: new RegExp(/^\d{1,3}([\.,](\d{1,2})?)?$/)
+        ngPattern: new RegExp(/^\d{1,3}([\.,](\d{1,2})?)?$/),
+        callback: () => true,
+        isDisabled: false
       }
 
       const injectors = {

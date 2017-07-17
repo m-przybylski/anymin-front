@@ -1,8 +1,9 @@
 import * as angular from 'angular'
 import {ProfileSingleConsultationComponent} from './profile-single-consultation.component'
-import {Tag, GetExpertServiceDetails, GetProfile} from 'profitelo-api-ng/model/models'
+import {Tag, GetService, GetProfile} from 'profitelo-api-ng/model/models'
+
 export interface IProfileSingleConsultationComponentBindings extends ng.IController {
-  service: GetExpertServiceDetails
+  service: GetService
   tags: Tag[]
   ownerCompany: GetProfile
   profileId: string

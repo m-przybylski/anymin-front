@@ -1,11 +1,11 @@
 import {IProfileSingleConsultationComponentBindings} from './profile-single-consultation'
-import {Tag, GetExpertServiceDetails, GetService, GetProfile} from 'profitelo-api-ng/model/models'
+import {Tag, GetService, GetProfile} from 'profitelo-api-ng/model/models'
 import {UserService} from '../../../services/user/user.service'
 import {ClientCallService} from '../../communicator/call-services/client-call.service';
 
 export class ProfileSingleConsultationComponentController implements IProfileSingleConsultationComponentBindings {
 
-  service: GetExpertServiceDetails
+  service: GetService
   tags: Tag[]
   ownerCompany: GetProfile
   profileId: string
@@ -15,9 +15,9 @@ export class ProfileSingleConsultationComponentController implements IProfileSin
               private $state: ng.ui.IStateService) {
   }
 
-  public startCall = (consultation: GetService): void => {
+  public startCall = (): void => {
     this.userService.getUser()
-    .then(() => this.clientCallService.callServiceId(consultation.id, this.profileId),
+    .then(() => this.clientCallService.openPrecallModal(this.service, this.ownerCompany),
       () => this.$state.go('app.login.account'))
   }
 }

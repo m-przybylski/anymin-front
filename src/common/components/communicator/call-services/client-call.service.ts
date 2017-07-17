@@ -1,5 +1,5 @@
 import {ServiceApi, RatelApi} from 'profitelo-api-ng/api/api';
-import {GetSUERatelCall} from 'profitelo-api-ng/model/models';
+import {GetSUERatelCall, GetService, GetProfile} from 'profitelo-api-ng/model/models';
 import {CommunicatorService} from '../communicator.service';
 import {CallbacksService} from '../../../services/callbacks/callbacks.service';
 import {CallbacksFactory} from '../../../services/callbacks/callbacks.factory';
@@ -11,6 +11,7 @@ import {ModalsService} from '../../../services/modals/modals.service';
 import {TimerFactory} from '../../../services/timer/timer.factory';
 import {MediaStreamConstraintsWrapper} from '../../../classes/media-stream-constraints-wrapper';
 import {RtcDetectorService} from '../../../services/rtc-detector/rtc-detector.service'
+import {IModalInstanceService} from '@types/angular-ui-bootstrap';
 
 export class ClientCallService {
 
@@ -42,21 +43,26 @@ export class ClientCallService {
     this.callbacks.methods.onNewCall(cb);
   }
 
-  public callServiceId = (serviceId: string, expertId?: string): ng.IPromise<CurrentClientCall> =>
-    this.rtcDetectorService.getAllMediaPermissions().then( () => {
-      if (this.call) return this.$q.reject('There is a call already');
+  public openPrecallModal = (serviceDetails: GetService, expertDetails: GetProfile):
+    ng.IPromise<IModalInstanceService> =>
+    this.rtcDetectorService.getAllMediaPermissions().then( () =>
+      this.modalsService.createPrecallModal(serviceDetails, expertDetails)
+    )
 
-      if (!serviceId) return this.$q.reject('serviceId must be defined');
+  public callServiceId = (serviceId: string,  expertId?: string): ng.IPromise<CurrentClientCall> => {
+    if (this.call) return this.$q.reject('There is a call already');
 
-      if (!this.communicatorService.getClientSession()) return this.$q.reject('There is no client session');
+    if (!serviceId) return this.$q.reject('serviceId must be defined');
 
-      this.call = this.createCall(serviceId, expertId)
-        .then(this.onCreateCallSuccess)
-        .then(this.startCall)
-        .catch(this.onStartCallError)
+    if (!this.communicatorService.getClientSession()) return this.$q.reject('There is no client session');
 
-      return this.call;
-    })
+    this.call = this.createCall(serviceId, expertId)
+    .then(this.onCreateCallSuccess)
+    .then(this.startCall)
+    .catch(this.onStartCallError)
+
+    return this.call;
+  }
 
   private onStartCallError = (err: any): void => {
     this.call = undefined;

@@ -2,9 +2,9 @@
 @import "../../../../../template/profitelo_theme/stylesheets/variables/variables"
 
 .modal-summary
-	&.postpaid
+	&.precall
 		.alert-cloud
-			max-width: 200px
+			max-width: 160px
 
 		.modal-header
 			.consultation-title
@@ -20,6 +20,7 @@
 
 					&:last-child
 						+default-font-medium
+						opacity: 1
 
 			.thumb
 				.status-list
@@ -35,6 +36,7 @@
 				.payments-handler
 					display: flex
 					align-items: flex-start
+					width: 160px
 
 				> *
 					margin: 0 0 24px
@@ -52,10 +54,17 @@
 		input-price
 			flex: 1 0 100%
 			max-width: 160px
+			width: 160px
 
 		.output
-			max-width: 160px
 			margin: 0 0 0 32px
+
+			+smm
+				width: 160px
+
+			output
+				height: $s-input-height
+				line-height: $s-input-height
 
 		.modal-action
 			justify-content: flex-end
@@ -66,11 +75,13 @@
 			.btn
 				margin: 0
 
-		.microphone-output
-			.progress-bar
-				margin: 4px 0 0 0
-				border-radius: 8px
-				height: 8px
-				width: 160px
+		.output
+			output
 				display: block
-				background: $c-background
+
+		.microphone-output
+			canvas
+				max-width: 160px
+				display: block
+				margin: 8px 0 0 0
+

@@ -1,15 +1,16 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import preallcallPostpaidModalModule from './precall'
 import {ViewsApi} from 'profitelo-api-ng/api/api'
-import {IPreallcallModalControllerScope, PreallcallModalController} from './precall.controller'
 import modalsModule from '../../../../services/modals/modals'
 import {ModalsService} from '../../../../services/modals/modals.service'
+import {IPrecallModalControllerScope, PrecallModalController} from './precall.controller'
+import precallModalModule from './precall'
+import {ClientCallService} from '../../call-services/client-call.service'
 
-describe('Testing Controller: precallPostpaidController', () => {
+describe('Testing Controller: precallModalController', () => {
 
-  let expertConsultationDetails: PreallcallModalController
-  let scope: IPreallcallModalControllerScope
+  let expertConsultationDetails: PrecallModalController
+  let scope: IPrecallModalControllerScope
   const uibModalInstance = {
     dismiss: () => {
 
@@ -19,12 +20,16 @@ describe('Testing Controller: precallPostpaidController', () => {
     }
   }
 
+  const clientCallService: ClientCallService = {
+  } as ClientCallService
+
   beforeEach(() => {
-    angular.mock.module(preallcallPostpaidModalModule)
+    angular.mock.module(precallModalModule)
   })
 
   beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
     $provide.value('apiUrl', 'awesomeURL')
+    $provide.value('clientCallService', clientCallService)
   }))
 
   beforeEach(() => {
@@ -33,14 +38,15 @@ describe('Testing Controller: precallPostpaidController', () => {
     inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _$httpBackend_: ng.IHttpBackendService,
             _ViewsApi_: ViewsApi, _modalsService_: ModalsService) => {
 
-      scope = <IPreallcallModalControllerScope>$rootScope.$new()
+      scope = <IPrecallModalControllerScope>$rootScope.$new()
 
-      expertConsultationDetails = $controller<PreallcallModalController>('precallPostpaidController', {
+      expertConsultationDetails = $controller<PrecallModalController>('precallModalController', {
         $scope: scope,
         $uibModalInstance: uibModalInstance,
         httpBackend: _$httpBackend_,
         ViewsApi: _ViewsApi_,
-        ModalsService: _modalsService_
+        ModalsService: _modalsService_,
+        clientCallService: clientCallService
       })
     })
   })

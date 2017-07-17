@@ -13,6 +13,8 @@ export class InputPriceComponent implements ng.IComponentOptions {
     isSubmitted: '<',
     ngModel: '=',
     currency: '@',
-    ngPattern: '<'
+    ngPattern: '<',
+    callback: '=',
+    isDisabled: '<'
   }
 }

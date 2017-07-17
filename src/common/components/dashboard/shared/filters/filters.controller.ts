@@ -3,6 +3,7 @@ import * as angular from 'angular'
 import {GetActivityFilters, ServiceFilter, ExpertFilter, FinancialOperation} from 'profitelo-api-ng/model/models'
 import {IDashboardFiltersComponentBindings} from './filters'
 import {IFilterService} from '../../../../services/filter/filter.service'
+import {IPrimaryDropdownListElement} from '../../../interface/dropdown-primary/dropdown-primary'
 import {ActivitiesQueryParams} from '../../../../services/dashboard-activites/activities-query-params'
 import {UserService} from '../../../../services/user/user.service'
 
@@ -73,7 +74,9 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
       this.isCompany = session.isCompany
     })
 
-    $scope.$watchGroup(this.watchGroup.map((v) => '$ctrl.filterModel.' + v), (newValues, oldValues) => {
+    $scope.$watchGroup(this.watchGroup.map((v) => {
+      return '$ctrl.filterModel.' + v
+    }), (newValues, oldValues) => {
       if (!angular.equals(newValues, oldValues)) {
         angular.forEach(newValues, (value, idx) => {
           if (angular.isDefined(value)) {
@@ -113,7 +116,7 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
     this.setSelectedFilters(queryParams)
   }
 
-  public updateProfileParam = (item: IPrimaryDropdownListElement) => {
+  public updateProfileParam = (item: IPrimaryDropdownListElement): void => {
     const queryParams = new ActivitiesQueryParams
     queryParams.setAccountType(this.accountType)
     queryParams.setProfileId(item.value)
@@ -136,7 +139,7 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
     this.setSelectedFilters(queryParams)
   }
 
-  public mainUpdateServiceParam = (item: IPrimaryDropdownListElement) => {
+  public mainUpdateServiceParam = (item: IPrimaryDropdownListElement): void => {
     const queryParams = new ActivitiesQueryParams
     queryParams.setAccountType(this.accountType)
     queryParams.setServiceId(item.value)
@@ -147,7 +150,7 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
     this.setSelectedFilters(queryParams)
   }
 
-  public secondUpdateServiceParam = (item: IPrimaryDropdownListElement) => {
+  public secondUpdateServiceParam = (item: IPrimaryDropdownListElement): void => {
     const queryParams = new ActivitiesQueryParams
     queryParams.setAccountType(this.accountType)
     queryParams.setServiceId(item.value)
@@ -169,17 +172,21 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
       (expert: {value: string, name: string}) => expert.value === queryParams.getProfileId())
   }
 
-  private createDropdownServiceList = (list: ServiceFilter[]): IDropdownList[] => list.map(service => (
-    {
+  private createDropdownServiceList = (list: ServiceFilter[]): IDropdownList[] => {
+    return list.map(service => ({
       name: service.name,
       value: service.id
     }))
+  }
 
-  private createDropdownExpertsList = (list: ExpertFilter[]): IDropdownList[] => list.map((expert) => (
-      {
+  private createDropdownExpertsList = (list: ExpertFilter[]) => {
+    return list.map((expert) => {
+      return {
         name: expert.name,
         value: expert.id
       }
-    ))
+    })
+
+  }
 
 }

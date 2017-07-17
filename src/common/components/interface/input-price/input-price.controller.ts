@@ -18,6 +18,9 @@ export class InputPriceComponentController implements IInputPriceComponentBindin
   public isPatternValid: boolean
   private priceRegexp: RegExp
   public ngPattern: RegExp
+  public callback: (num: number) => boolean
+  public isValidate: boolean
+  public isDisabled: boolean = false
 
   /* @ngInject */
   constructor($element: ng.IRootElementService, CommonSettingsService: CommonSettingsService) {
@@ -57,10 +60,14 @@ export class InputPriceComponentController implements IInputPriceComponentBindin
     this.isPatternValid = ((this.priceRegexp).test(this.ngModel.toString()))
 
     if (this.isUsignPunctuationMarks) {
-      this.digitsCodesBlocked = [keyboardCodes.dot,
-        keyboardCodes.comma]
+      this.digitsCodesBlocked = [keyboardCodes.dot, keyboardCodes.comma]
     } else {
       this.digitsCodesBlocked = []
+    }
+
+    if (this.callback) {
+      this.callback(this.ngModel)
+
     }
   }
 

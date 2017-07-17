@@ -15,6 +15,8 @@ export interface IInputPriceComponentBindings extends ng.IController {
   ngModel: number
   currency: string
   ngPattern: RegExp
+  callback: (num: number) => boolean
+  isDisabled: boolean
 }
 
 const inputPriceModule = angular.module('profitelo.components.interface.input-price', [
