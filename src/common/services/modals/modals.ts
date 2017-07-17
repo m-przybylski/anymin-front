@@ -4,7 +4,6 @@ import dialogModule from '../dialog/dialog'
 import '../../components/communicator/modals/client-call/client-call'
 import '../../components/communicator/modals/service-unavailable/service-unavailable'
 import '../../components/communicator/modals/no-credits/no-credits'
-import '../../components/communicator/modals/consultation-summary-expert/consultation-summary-expert'
 import '../../components/dashboard/client/activities/modals/complain-report/complain-report'
 import '../../components/dashboard/client/activities/modals/charge-details/charge-details'
 import '../../components/dashboard/client/activities/modals/consultation-details/consultation-details'
@@ -31,6 +30,7 @@ import manageProfileEditProfileModule from '../../components/dashboard/expert/ma
 import { consultationSummaryClientModule } from '../../components/communicator/modals/consultation-summary-client/consultation-summary-client'
 import profileGalleryPreviewModule from '../../components/interface/profile-gallery/modals/preview'
 import invitationsModalModule from '../../../app/invitations/modal/invitations'
+import consultationSummaryExpertControllerModule from '../../components/communicator/modals/consultation-summary-expert/consultation-summary-expert'
 
 const modalsModule = angular.module('profitelo.services.modals', [
   dialogModule,
@@ -39,7 +39,6 @@ const modalsModule = angular.module('profitelo.services.modals', [
   'profitelo.components.communicator.modals.service-unavailable',
   'profitelo.components.communicator.modals.no-credits',
   'profitelo.components.communicator.modals.consultation-summary-client',
-  'profitelo.components.communicator.modals.consultation-summary-expert',
   'profitelo.components.dashboard.client.activities.modals.consultation-details',
   'profitelo.components.dashboard.client.activities.modals.complain-report',
   'profitelo.components.dashboard.client.activities.modals.charge-details',
@@ -59,7 +58,8 @@ const modalsModule = angular.module('profitelo.services.modals', [
   expertInviteEmployeesModule,
   manageProfileEditProfileModule,
   invitationsModalModule,
-  profileGalleryPreviewModule
+  profileGalleryPreviewModule,
+  consultationSummaryExpertControllerModule
 ])
 .service('modalsService', ModalsService)
   .name

@@ -1,9 +1,8 @@
-import {ExpertProfile} from './ExpertProfile'
-import {Service} from './Service'
+import {
+  ExpertCallSummary
+} from './ExpertCallSummary'
 
 export interface CallSummary {
+  callSummary: ExpertCallSummary,
   accountId: string
-  serviceUsageEventId: string
-  companyExpertProfile: ExpertProfile
-  service: Service
 }

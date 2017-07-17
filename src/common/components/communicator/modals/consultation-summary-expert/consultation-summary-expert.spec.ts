@@ -1,41 +1,51 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import {ViewsApi} from 'profitelo-api-ng/api/api'
 import {
   ConsultationSummaryExpertController,
-  IConsultationSummaryExpertControllerScope, IConsultationSummaryExpertParentControllerScope
-} from './consultation-summary-expert'
+  IConsultationSummaryExpertControllerScope
+} from './consultation-summary-expert.controller'
+import consultationSummaryExpertModule from './consultation-summary-expert'
 
 describe('Testing Controller: consultationSummaryExpertController', () => {
 
-  let consultationSummaryExpertController: ConsultationSummaryExpertController
+  let expertConsultationDetails: ConsultationSummaryExpertController
   let scope: IConsultationSummaryExpertControllerScope
-
   const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
     jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss'])
 
   beforeEach(() => {
-    angular.mock.module('profitelo.components.communicator.modals.consultation-summary-expert')
-    inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
+    angular.mock.module(consultationSummaryExpertModule)
+  })
+
+  beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
+    $provide.value('apiUrl', 'awesomeURL')
+  }))
+
+  beforeEach(() => {
+    inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _$httpBackend_: ng.IHttpBackendService,
+            _ViewsApi_: ViewsApi) => {
 
       scope = <IConsultationSummaryExpertControllerScope>$rootScope.$new()
-      scope.$parent = <IConsultationSummaryExpertParentControllerScope>$rootScope.$new()
+      scope.$parent.sueId = '123'
 
-      const injectors = {
+
+      expertConsultationDetails = $controller<ConsultationSummaryExpertController>('consultationSummaryExpertController', {
         $scope: scope,
         $uibModalInstance: $uibModalInstance,
-        callSummaryService: {
-          onCallSummary: (string: string) => string,
-          takeCallSummary: (serviceId: string) => serviceId
-        }
-      }
-
-      consultationSummaryExpertController = $controller<ConsultationSummaryExpertController>(
-        'consultationSummaryExpertController', injectors)
+        httpBackend: _$httpBackend_,
+        ViewsApi: _ViewsApi_
+      })
     })
   })
 
   it('should exists', () => {
-    return expect(!!consultationSummaryExpertController).toBe(true)
+    return expect(!!expertConsultationDetails).toBe(true)
+  })
+
+  it('should uibModalInstance', () => {
+    expertConsultationDetails.onModalClose()
+    expect($uibModalInstance.dismiss).toHaveBeenCalled()
   })
 
 })

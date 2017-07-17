@@ -4,19 +4,18 @@ import apiModule from 'profitelo-api-ng/api.module'
 import {ServiceApi} from 'profitelo-api-ng/api/api'
 import {Tag, ServiceRecommendation, GetService} from 'profitelo-api-ng/model/models'
 import {CallSummaryService} from '../../../../services/call-summary/call-summary.service'
-import {UrlService} from '../../../../services/url/url.service'
-import {CallSummary} from '../../../../models/CallSummary'
 import callSummaryModule from '../../../../services/call-summary/call-summary'
 import urlModule from '../../../../services/url/url'
+import {ClientCallSummary} from '../../../../models/ClientCallSummary'
 
 export interface IConsultationSummaryClientParentControllerScope extends ng.IScope {
   serviceId: string
 }
 
 export interface IConsultationSummaryClientControllerScope extends ng.IScope {
-  expertAvatarUrl: string
+  expertAvatarToken?: string
   rating: number
-  callSummary?: CallSummary
+  callSummary?: ClientCallSummary
   isRecommended: boolean
   recommendServiceTags: () => void
   closeModal: () => void
@@ -35,7 +34,7 @@ export class ConsultationSummaryClientController {
   /* @ngInject */
   constructor(private $log: ng.ILogService, private $scope: IConsultationSummaryClientControllerScope,
                private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
-              private callSummaryService: CallSummaryService, private urlService: UrlService,
+              private callSummaryService: CallSummaryService,
               private ServiceApi: ServiceApi) {
 
     $scope.isFullscreen = true
@@ -81,11 +80,13 @@ export class ConsultationSummaryClientController {
     }
   }
 
-  private setCallSummary = (_callSummary: CallSummary) => {
-    this.$scope.callSummary = _callSummary
-    const avatar = _callSummary.companyExpertProfile.expertDetails.avatar
-    this.$scope.expertAvatarUrl = (avatar) ? this.urlService.resolveFileUrl(avatar) : ''
-    this.$scope.rating = _callSummary.service.rating
+  private setCallSummary = (callSummary: ClientCallSummary) => {
+    this.$scope.callSummary = callSummary
+
+    if (callSummary.companyExpertProfile.expertDetails) {
+      this.$scope.expertAvatarToken = callSummary.companyExpertProfile.expertDetails.avatar
+    }
+    this.$scope.rating = callSummary.service.rating
   }
 
   private onCallSummary = (data: any) => {
