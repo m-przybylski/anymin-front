@@ -29,6 +29,7 @@ export class CurrentClientCall extends CurrentCall {
       this.setState(CallState.REJECTED)
     });
     call.onAnswered(() => {
+      this.startTimer()
       this.callbacks.notify(CurrentCall.events.onAnswered)
       this.setState(CallState.PENDING)
     });
