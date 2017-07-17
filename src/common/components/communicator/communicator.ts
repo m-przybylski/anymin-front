@@ -19,6 +19,7 @@ import './communicator.sass'
 import {ClientCallService} from './call-services/client-call.service';
 import {ExpertCallService} from './call-services/expert-call.service';
 import userAvatarModule from '../interface/user-avatar/user-avatar';
+import navigationModule from './navigation/navigation';
 
 const communicatorModule = angular.module('profitelo.components.communicator', [
   'pascalprecht.translate',
@@ -33,6 +34,7 @@ const communicatorModule = angular.module('profitelo.components.communicator', [
   eventsModule,
   soundsModule,
   userAvatarModule,
+  navigationModule,
   'ngSanitize',
   'commonConfig',
   callbacksModule,

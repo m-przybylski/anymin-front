@@ -1,11 +1,12 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {NavigationComponentController, INavigationComponentBindings} from './navigation'
 import './navigation'
 import communicatorModule from '../communicator'
 import {CurrentCall} from '../models/current-call';
 import {ClientCallService} from '../call-services/client-call.service';
 import {ExpertCallService} from '../call-services/expert-call.service';
+import navigationModule from './navigation';
+import {INavigationComponentBindings, NavigationComponentController} from './navigation.controller';
 
 describe('Unit testing: profitelo.components.communicator.navigation', () => {
   return describe('for communicatorNav component >', () => {
@@ -47,7 +48,7 @@ describe('Unit testing: profitelo.components.communicator.navigation', () => {
 
     beforeEach(() => {
 
-      angular.mock.module('profitelo.components.communicator.navigation')
+      angular.mock.module(navigationModule)
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
               $componentController: ng.IComponentControllerService) => {

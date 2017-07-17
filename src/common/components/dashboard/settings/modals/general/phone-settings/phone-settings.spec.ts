@@ -1,8 +1,9 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {GeneralPhoneSettingsController, IGeneralPhoneSettingsControllerScope} from './phone-settings'
 import {AccountApi} from 'profitelo-api-ng/api/api'
 import userModule from '../../../../../../services/user/user'
+import phoneSettingsModule from './phone-settings';
+import {GeneralPhoneSettingsController, IGeneralPhoneSettingsControllerScope} from './phone-settings.controller';
 
 describe('Testing Controller: generalPhoneSettingsController', () => {
 
@@ -34,7 +35,7 @@ describe('Testing Controller: generalPhoneSettingsController', () => {
 
   beforeEach(() => {
     angular.mock.module('ui.bootstrap')
-    angular.mock.module('profitelo.components.dashboard.settings.modals.general.phone-settings')
+    angular.mock.module(phoneSettingsModule)
     inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, AccountApi: AccountApi,
             $log: ng.ILogService) => {
 

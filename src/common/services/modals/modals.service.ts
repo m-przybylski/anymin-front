@@ -6,7 +6,6 @@ import {DialogService} from '../dialog/dialog.service'
 import {IClientCallParentControllerScope} from '../../components/communicator/modals/client-call/client-call'
 import {IConsultationSummaryClientParentControllerScope} from '../../components/communicator/modals/consultation-summary-client/consultation-summary-client'
 import {IBasicAccountSettingsControllerParentScope} from '../../components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings'
-import {IGeneralPhoneSettingsControllerScope} from '../../components/dashboard/settings/modals/general/phone-settings/phone-settings'
 import {IGeneralEmailSettingsControllerScope} from '../../components/dashboard/settings/modals/general/email-settings/email-settings'
 import {IGeneralCountrySettingsControllerScope} from '../../components/dashboard/settings/modals/general/country-settings/country-settings'
 import {ISecurityChangePasswordSettingsControllerScope} from '../../components/dashboard/settings/modals/security/change-password/change-password'
@@ -54,7 +53,9 @@ import {InvitationsModalController, IInvitationsModalScope} from '../../../app/i
 import {
   ConsultationSummaryExpertController,
   IConsultationSummaryExpertParentControllerScope
-} from '../../components/communicator/modals/consultation-summary-expert/consultation-summary-expert.controller'
+} from '../../components/communicator/modals/consultation-summary-expert/consultation-summary-expert.controller';
+import {IGeneralPhoneSettingsControllerScope} from '../../components/dashboard/settings/modals/general/phone-settings/phone-settings.controller';
+
 
 // TODO add types for dialogScope Scopes
 export class ModalsService {

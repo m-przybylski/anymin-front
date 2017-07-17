@@ -1,49 +1,49 @@
-namespace profitelo.components.dashboard.settings.manageDevices {
+import * as angular from 'angular'
+import {ManageDevicesComponentController} from './manage-devices.controller';
+import manageDevicesModule from './manage-devices';
 
-  describe('Unit testing: profitelo.components.dashboard.settings.manageDevices', () => {
-    return describe('for manageDevices component >', () => {
+describe('Unit testing: profitelo.components.dashboard.settings.manageDevices', () => {
+  return describe('for manageDevices component >', () => {
 
-      let rootScope: ng.IRootScopeService
-      let compile: ng.ICompileService
-      let component: ManageDevicesComponentController
+    let rootScope: ng.IRootScopeService
+    let compile: ng.ICompileService
+    let component: ManageDevicesComponentController
 
-      const validHTML: string = '<manage-devices></manage-devices>'
+    const validHTML: string = '<manage-devices></manage-devices>'
 
-      function create(html: string) {
-        const parentScope: ng.IScope = rootScope.$new()
-        const elem = angular.element(html)
-        const compiledElement = compile(elem)(parentScope)
-        parentScope.$digest()
-        return compiledElement
-      }
+    function create(html: string) {
+      const parentScope: ng.IScope = rootScope.$new()
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(parentScope)
+      parentScope.$digest()
+      return compiledElement
+    }
 
-      beforeEach(() => {
+    beforeEach(() => {
 
-        angular.mock.module('profitelo.components.dashboard.settings.manage-devices')
+      angular.mock.module(manageDevicesModule)
 
-        inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
-                $componentController: ng.IComponentControllerService) => {
+      inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
+              $componentController: ng.IComponentControllerService) => {
 
-          rootScope = $rootScope.$new()
-          compile = $compile
+        rootScope = $rootScope.$new()
+        compile = $compile
 
-          const injectors = {
-            $element: create(validHTML)
-          }
+        const injectors = {
+          $element: create(validHTML)
+        }
 
-          component = $componentController<ManageDevicesComponentController, {}>('manageDevices', injectors, {})
-        })
-      })
-
-      it('should have a dummy test', inject(() => {
-        expect(true).toBeTruthy()
-      }))
-
-      it('should compile the component', () => {
-        const element: JQuery = create(validHTML)
-        expect(element.html()).toBeDefined(true)
+        component = $componentController<ManageDevicesComponentController, {}>('manageDevices', injectors, {})
       })
     })
-  })
 
-}
+    it('should have a dummy test', inject(() => {
+      expect(true).toBeTruthy()
+    }))
+
+    it('should compile the component', () => {
+      const element: JQuery = create(validHTML)
+      expect(element.html()).toBeDefined(true)
+    })
+  })
+})
