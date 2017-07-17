@@ -17,7 +17,7 @@
     "no-debugger": true,
     "import-spacing": true,
     "no-consecutive-blank-lines": true,
-    // "max-classes-per-file": [true, 1],
+    "max-classes-per-file": [true, 1],
     "max-file-line-count": [true, 450],
     //"max-line-length": [true, 120],
     "interface-name": true,

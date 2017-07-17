@@ -1,8 +1,10 @@
 import * as angular from 'angular'
-import {CardPaymentFormComponentController, ICardPaymentFormComponentBindings} from './card'
 import userModule from '../../../../../services/user/user'
 import apiModule from 'profitelo-api-ng/api.module'
 import {PaymentsApiMock} from 'profitelo-api-ng/api/api'
+import cardModule from './card';
+import {CardPaymentFormComponentController} from './card.controller';
+import {ICardPaymentFormComponentBindings} from './card.component';
 
 describe('Unit testing:profitelo.components.dashboard.charge-account.payment-method.card', () => {
   return describe('for cardPaymentForm component >', () => {
@@ -58,7 +60,7 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
       // angular.mock.module('templates-module')
       angular.mock.module(apiModule)
       angular.mock.module('profitelo.components.braintree-form')
-      angular.mock.module('profitelo.components.dashboard.charge-account.payment-method.card')
+      angular.mock.module(cardModule)
 
       inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
               $componentController: ng.IComponentControllerService,
@@ -82,7 +84,7 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
     }))
 
     it('should compile the component', () => {
-      let el = create(validHTML, bindings)
+      const el = create(validHTML, bindings)
       expect(el.html()).toBeDefined(true)
     })
   })

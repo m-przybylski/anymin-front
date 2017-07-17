@@ -1,6 +1,7 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {InvoiceCompanyFormComponentController} from './invoice-company'
+import invoiceCompanyFormComponentModule from './invoice-company';
+import {InvoiceCompanyFormComponentController} from './invoice-company.controller';
 
 describe('Unit testing: profitelo.components.dashboard.invoice', () => {
   return describe('for InvoiceCompanyFormComponentController component >', () => {
@@ -12,7 +13,7 @@ describe('Unit testing: profitelo.components.dashboard.invoice', () => {
 
     beforeEach(() => {
 
-      angular.mock.module('profitelo.components.dashboard.invoice')
+      angular.mock.module(invoiceCompanyFormComponentModule)
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
               _$componentController_: ng.IComponentControllerService) => {

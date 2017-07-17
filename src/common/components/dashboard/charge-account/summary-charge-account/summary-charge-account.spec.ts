@@ -1,5 +1,7 @@
 import * as angular from 'angular'
-import {SummaryChargeAccountComponentController} from './summary-charge-account'
+import summaryChargeAccountModule from './summary-charge-account';
+import {SummaryChargeAccountComponentController} from './summary-charge-account.controller';
+
 describe('Unit testing: profitelo.components.dashboard.charge-account.summary-charge-account', () => {
   return describe('for SummaryChargeAccountComponentController component >', () => {
 
@@ -19,7 +21,7 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.summary-ch
 
     beforeEach(() => {
 
-      angular.mock.module('profitelo.components.dashboard.charge-account.summary-charge-account')
+      angular.mock.module(summaryChargeAccountModule)
 
       inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
               $componentController: ng.IComponentControllerService) => {

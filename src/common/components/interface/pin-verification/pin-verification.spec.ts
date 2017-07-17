@@ -1,5 +1,7 @@
 import * as angular from 'angular'
-import {PinVerificationComponentController, IPinVerificationComponentBindings} from './pin-verification'
+import {IPinVerificationComponentBindings} from './pin-verification'
+import {PinVerificationComponentController} from './pin-verification.controller';
+import pinVerificationModule from './pin-verification';
 
 describe('Unit testing: profitelo.components.interface.pinVerification', () => {
   return describe('for pinVerification component >', () => {
@@ -29,7 +31,7 @@ describe('Unit testing: profitelo.components.interface.pinVerification', () => {
 
     beforeEach(() => {
 
-      angular.mock.module('profitelo.components.interface.pin-verification')
+      angular.mock.module(pinVerificationModule)
 
       inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
               $componentController: ng.IComponentControllerService) => {

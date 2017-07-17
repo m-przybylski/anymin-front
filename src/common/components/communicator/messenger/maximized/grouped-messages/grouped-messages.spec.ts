@@ -1,5 +1,7 @@
 import * as angular from 'angular'
-import {GroupedMessagesComponentController, IGroupedMessagesComponentBindings} from './grouped-messages'
+import {IGroupedMessagesComponentBindings} from './grouped-messages'
+import groupedMessagesModule from './grouped-messages';
+import {GroupedMessagesComponentController} from './grouped-messages.controller';
 
 describe('Unit testing: profitelo.components.communicator.messenger.maximized.grouped-messages', () => {
   return describe('for groupedMessages component >', () => {
@@ -19,14 +21,14 @@ describe('Unit testing: profitelo.components.communicator.messenger.maximized.gr
     function create(html: string, bindings: IGroupedMessagesComponentBindings): JQuery {
       const parentScope = rootScope.$new()
       const parentBoundScope = angular.extend(parentScope, bindings)
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(parentBoundScope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(parentBoundScope)
       parentBoundScope.$digest()
       return compiledElement
     }
 
     beforeEach(() => {
-      angular.mock.module('profitelo.components.communicator.messenger.maximized.grouped-messages')
+      angular.mock.module(groupedMessagesModule)
 
       inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
               $componentController: ng.IComponentControllerService) => {
@@ -46,7 +48,7 @@ describe('Unit testing: profitelo.components.communicator.messenger.maximized.gr
     }))
 
     it('should compile the component', () => {
-      let el = create(validHTML, bindings)
+      const el = create(validHTML, bindings)
       expect(el.html()).toBeDefined(true)
     })
 

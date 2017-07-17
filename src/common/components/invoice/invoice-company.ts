@@ -1,22 +1,11 @@
 import * as angular from 'angular'
 import sessionModule from '../../services/session/session'
+import {InvoiceCompanyFormComponent} from './invoice-company.component';
 
-export class InvoiceCompanyFormComponentController implements ng.IController {
-
-  /* @ngInject */
-  constructor() {
-  }
-
-}
-
-class PayPalPaymentFormComponent implements ng.IComponentOptions {
-  controllerAs: '$ctrl'
-  controller: ng.Injectable<ng.IControllerConstructor> = InvoiceCompanyFormComponentController
-  template = require('./invoice-company.pug')()
-  replace: true
-}
-
-angular.module('profitelo.components.dashboard.invoice', [
+const invoiceCompanyFormComponentModule: string = angular.module('profitelo.components.dashboard.invoice', [
   sessionModule
 ])
-  .component('invoiceCompany', new PayPalPaymentFormComponent())
+  .component('invoiceCompany', new InvoiceCompanyFormComponent())
+  .name
+
+export default invoiceCompanyFormComponentModule
