@@ -1,6 +1,7 @@
 import {CallSummary} from '../../../../models/CallSummary'
 import {CallSummaryService} from '../../../../services/call-summary/call-summary.service'
 import {ExpertCallSummary} from '../../../../models/ExpertCallSummary'
+import {MoneyDto} from 'profitelo-api-ng/model/models'
 
 export interface IConsultationSummaryExpertParentControllerScope extends ng.IScope {
   serviceId: string
@@ -26,6 +27,14 @@ export class ConsultationSummaryExpertController implements ng.IController {
   public isNavbar: boolean = true
   public callSummary?: CallSummary
   public isLoading: boolean
+
+  public expertName: string = 'Jan Kowalski'
+  public serviceName: string = 'Gotowanie meksykańskiego jedzenia'
+  public callDuration: string = '12424234222'
+  public profit: MoneyDto = {
+    amount: 1000,
+    currency: 'PLN'
+  }
 
   public onModalClose = () =>
     this.$uibModalInstance.dismiss('cancel')
