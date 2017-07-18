@@ -1,5 +1,4 @@
 import {CompanyInfo} from 'profitelo-api-ng/model/models'
-import {ModalsService} from '../../../../common/services/modals/modals.service'
 
 export class DashboardClientInvoicesController {
   public invoiceInfo: CompanyInfo
@@ -7,7 +6,7 @@ export class DashboardClientInvoicesController {
   public areInvoices: boolean
 
   /* @ngInject */
-  constructor(getInvoiceData: CompanyInfo, private modalsService: ModalsService) {
+  constructor(getInvoiceData: CompanyInfo) {
 
     if (getInvoiceData) {
       this.invoiceInfo = getInvoiceData
@@ -18,10 +17,6 @@ export class DashboardClientInvoicesController {
 
     this.areInvoices = true
 
-  }
-
-  public openModal = (): void => {
-    this.modalsService.createExpertConsultationSummaryModal('mockServiceId')
   }
 
 }
