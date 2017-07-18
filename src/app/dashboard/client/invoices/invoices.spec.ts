@@ -16,6 +16,7 @@ describe('Unit tests: dashboardClientInvoicesController >', () => {
           $controller(DashboardClientInvoicesController, {
             $state: _$state_,
             $scope: $rootScope.$new(),
+            modalsService: {},
             getInvoiceData: {
               companyName: 'asasas',
               address: {
