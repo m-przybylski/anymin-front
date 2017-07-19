@@ -316,9 +316,14 @@ input[type="range"]::-ms-fill-upper
   > div
     margin: 2px 16px 0 0
     cursor: auto
+    position: relative
 
     input
-      display: none
+      position: absolute
+      opacity: 0
+      width: 16px
+      height: 16px
+      cursor: pointer
 
     input + label
       width: 16px

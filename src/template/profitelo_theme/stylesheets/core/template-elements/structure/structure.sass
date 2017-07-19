@@ -37,21 +37,6 @@ body
 img
   max-width: 100%
 
-  &:after
-    content: "\73"
-    font-family: "profitelo_icons"
-    color: rgb(100, 100, 100)
-    position: absolute
-    z-index: 2
-    top: 0
-    left: 0
-    width: 100%
-    height: 100%
-    background: $c-white
-    display: flex
-    align-items: center
-    justify-content: center
-
   &.user-avatar
     display: block
     overflow: hidden
@@ -59,27 +44,6 @@ img
     min-width: inherit
     min-height: inherit
     border-radius: 50%
-
-    &.is-not-uploaded
-      background: url('/assets/images/no-avatar.jpg') 50% 50% / cover $c-background
-      position: relative
-      overflow: hidden
-      width: 100%
-      height: 100%
-
-    &:after
-      content: ""
-      position: absolute
-      border-radius: 50%
-      z-index: 2
-      top: 0
-      left: 0
-      width: 100%
-      height: 100%
-      display: flex
-      align-items: center
-      justify-content: center
-      background: url('/assets/images/no-avatar.jpg') 50% 50% / cover $c-white
 
 ::selection
   color: $c-white

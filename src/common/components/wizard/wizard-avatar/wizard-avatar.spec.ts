@@ -88,10 +88,8 @@ describe('Unit testing: profitelo.components.wizard.wizard-avatar', () => {
     })
 
     it('should remove photo', () => {
-      spyOn(urlService, 'resolveFileUrl')
       component.removePhoto()
       expect(component.avatarToken).toBeUndefined()
-      expect(urlService.resolveFileUrl).toHaveBeenCalledWith('')
     })
 
     it('should save crop', () => {
