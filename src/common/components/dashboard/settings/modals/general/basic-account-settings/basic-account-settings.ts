@@ -3,7 +3,7 @@ import userModule from '../../../../../../services/user/user'
 import {UploaderService} from '../../../../../../services/uploader/uploader.service'
 import apiModule from 'profitelo-api-ng/api.module'
 import {AccountApi} from 'profitelo-api-ng/api/api'
-import {PutGeneralSettings, PostProcessOption} from 'profitelo-api-ng/model/models'
+import {PostProcessOption} from 'profitelo-api-ng/model/models'
 import {UserService} from '../../../../../../services/user/user.service'
 import {UploaderFactory} from '../../../../../../services/uploader/uploader.factory'
 import {UrlService} from '../../../../../../services/url/url.service'
@@ -34,7 +34,11 @@ import checkboxModule from '../../../../../interface/checkbox/checkbox'
     userName: string
     removePhoto: () => void
     $parent: IBasicAccountSettingsControllerParentScope
-    generalSettingsObject: PutGeneralSettings
+    generalSettingsObject: {
+      isNotAnonymous: boolean,
+      nickname?: string,
+      avatar?: string
+    }
     avatarPreview: string
     isUploadInProgress: boolean
   }
@@ -63,7 +67,7 @@ import checkboxModule from '../../../../../interface/checkbox/checkbox'
         const userBasicSettings = user.settings
 
         this.$scope.generalSettingsObject = {
-          isAnonymous: userBasicSettings.isAnonymous,
+          isNotAnonymous: !userBasicSettings.isAnonymous,
           nickname: userBasicSettings.nickname,
           avatar: userBasicSettings.avatar
         }
@@ -71,8 +75,13 @@ import checkboxModule from '../../../../../interface/checkbox/checkbox'
         $scope.avatarPreview = urlService.resolveFileUrl(userBasicSettings.avatar || '')
       })
 
-      this.$scope.submitBasicSettings = () => {
-        this.AccountApi.putGeneralSettingsRoute(this.$scope.generalSettingsObject).then(_res => {
+      this.$scope.submitBasicSettings = (): void => {
+
+        this.AccountApi.putGeneralSettingsRoute({
+          isAnonymous: !$scope.generalSettingsObject.isNotAnonymous,
+          nickname: $scope.generalSettingsObject.nickname,
+          avatar: $scope.generalSettingsObject.avatar
+        }).then(_res => {
           // FIXME
           $scope.$parent.callback(() => {})
           $uibModalInstance.dismiss('cancel')
