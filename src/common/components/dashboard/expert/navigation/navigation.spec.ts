@@ -39,7 +39,9 @@ import {FinancesApi, FinancesApiMock} from 'profitelo-api-ng/api/api'
           rootScope = $rootScope.$new()
           compile = $compile
           injectors = {
-            FinancesApi: FinancesApi
+            FinancesApi: FinancesApi,
+            promiseService: {},
+            errorHandler: {}
           }
         })
         FinancesApiMock.getClientBalanceRoute(500)

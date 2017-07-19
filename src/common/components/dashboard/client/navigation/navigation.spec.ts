@@ -47,6 +47,7 @@ describe('Unit testing: profitelo.components.dashboard.client.navigation', () =>
 
         component = componentController('clientNavigation', {}, {
           userService: userService,
+          promiseServic: {},
           $element: create(validHTML)
         })
       })
