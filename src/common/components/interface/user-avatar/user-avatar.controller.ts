@@ -10,7 +10,15 @@ export class UserAvatarComponentController implements IUserAvatarComponentBindin
     if (this.imageToken) {
       this.profileImageUrl = this.urlService.resolveFileUrl(this.imageToken)
     } else {
-      this.profileImageUrl = 'no-image'
+      this.profileImageUrl = '/assets/images/no-avatar.jpg'
+    }
+  }
+
+  $onChanges = () => {
+    if (this.imageToken) {
+      this.profileImageUrl = this.urlService.resolveFileUrl(this.imageToken)
+    } else {
+      this.profileImageUrl = '/assets/images/no-avatar.jpg'
     }
   }
 

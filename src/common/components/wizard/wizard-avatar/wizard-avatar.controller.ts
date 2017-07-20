@@ -2,14 +2,12 @@ import {IWizardAvatarComponentBindings} from './wizard-avatar'
 import {UploaderFactory} from '../../../services/uploader/uploader.factory'
 import {UploaderService} from '../../../services/uploader/uploader.service'
 import {PostProcessOption} from 'profitelo-api-ng/model/models'
-import {UrlService} from '../../../services/url/url.service'
 export class WizardAvatarComponentController implements IWizardAvatarComponentBindings, ng.IController {
 
   private isUploadInProgress: boolean = false
   private uploadedFile: File
   private uploader: UploaderService
   private isUserUploadImage: boolean = false
-  public avatarPreview: string
   private clearFormAfterCropping: () => void
   private imageSource: string
   public isLoading: boolean = false
@@ -21,12 +19,8 @@ export class WizardAvatarComponentController implements IWizardAvatarComponentBi
   public isFileUploadError: boolean = false
 
   /* @ngInject */
-  constructor(uploaderFactory: UploaderFactory, private urlService: UrlService, private $scope: ng.IScope) {
+  constructor(uploaderFactory: UploaderFactory, private $scope: ng.IScope) {
     this.uploader = uploaderFactory.getInstance(1, uploaderFactory.collectionTypes.avatar)
-  }
-
-  $onInit() {
-    this.avatarPreview = this.urlService.resolveFileUrl(this.avatarToken || '')
   }
 
   public addPhoto = (imagePath: string, file: File, callback: () => void): void => {
@@ -49,7 +43,6 @@ export class WizardAvatarComponentController implements IWizardAvatarComponentBi
 
   public removePhoto = (): void => {
     this.avatarToken = void 0
-    this.avatarPreview = this.urlService.resolveFileUrl(this.avatarToken || '')
   }
 
   public saveCrop = (data: any): void => {
@@ -75,7 +68,6 @@ export class WizardAvatarComponentController implements IWizardAvatarComponentBi
 
   private onFileUpload = (res: any): void => {
     this.isLoading = false
-    this.avatarPreview = res.previews[0]
     this.avatarToken = res.token
     this.isUploadInProgress = false
     this.imageSource = ''

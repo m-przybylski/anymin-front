@@ -48,7 +48,7 @@ describe('Unit testing: profitelo.components.interface.user-avatar', () => {
         imageToken: ''
       })
       component.$onInit()
-      expect(component.profileImageUrl).toBe('no-image')
+      expect(component.profileImageUrl).toBe('/assets/images/no-avatar.jpg')
     }))
 
   })

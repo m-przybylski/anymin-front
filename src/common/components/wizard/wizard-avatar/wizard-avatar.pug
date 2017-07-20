@@ -5,10 +5,8 @@
     data-ng-blur="$ctrl.onBlur()"
   )
 
-  .user-avatar(data-ng-hide="$ctrl.isUserUploadImage")
-    .thumb.x192
-      preloader(data-is-loading="$ctrl.isLoading")
-        img.user-avatar.fullScreen(data-ng-src="{{ $ctrl.avatarPreview }}" src="#")
+  user-avatar.thumb.x192(data-image-token="$ctrl.avatarToken" data-ng-hide="$ctrl.isUserUploadImage")
+    preloader(data-is-loading="$ctrl.isLoading")
       a.thumb-options.remove-photo(data-ng-show="$ctrl.avatarToken && $ctrl.avatarToken.length > 0"
       data-ng-click="$ctrl.removePhoto()")
         .icon.icon-close-16

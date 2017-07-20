@@ -45,7 +45,7 @@ export class DashboardSettingsGeneralController implements ng.IController {
   }
 
   private onModalClose = (cb: () => void) => {
-    this.$state.reload().then(cb)
+    this.$state.reload().finally(cb)
   }
 
 }

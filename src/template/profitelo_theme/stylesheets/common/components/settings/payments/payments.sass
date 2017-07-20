@@ -53,6 +53,8 @@
         justify-content: center
 
     .payment-thumb
+      display: flex
+      align-items: center
       max-width: 54px
       margin: 0 8px 0 0
 
@@ -88,3 +90,14 @@
     .preloader-container
       @extend .list-row
       height: 82px
+
+    .payments-method-list
+      .radio-text
+        .radio-input
+          position: absolute
+          top: 0
+          bottom: 0
+          margin: auto
+          display: flex
+          align-items: center
+
