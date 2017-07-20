@@ -3,9 +3,10 @@ import {FinancesApi} from 'profitelo-api-ng/api/api'
 import {MoneyDto} from 'profitelo-api-ng/model/models'
 import {ErrorHandlerService} from '../../../../services/error-handler/error-handler.service'
 import {PromiseService} from '../../../../services/promise/promise.service'
+
 export class ExpertNavigationComponentController implements IExpertNavigationComponentBindings {
 
-  public static readonly loaderDelay: number = 500
+  private static readonly loaderDelay: number = 500
   public clientBalance: MoneyDto
   public isLoading: boolean = true
 

@@ -5,6 +5,7 @@ import './navigation.sass'
 import apiModule from 'profitelo-api-ng/api.module'
 import filtersModule from '../../../../filters/filters'
 import promiseModule from '../../../../services/promise/promise'
+import errorHandlerModule from '../../../../services/error-handler/error-handler';
 
 export interface IExpertNavigationComponentBindings extends ng.IController {
 }
@@ -12,6 +13,7 @@ export interface IExpertNavigationComponentBindings extends ng.IController {
 const expertNavigationModule = angular.module('profitelo.components.dashboard.expert.navigation', [
   'pascalprecht.translate',
   filtersModule,
+  errorHandlerModule,
   apiModule,
   promiseModule
 ])

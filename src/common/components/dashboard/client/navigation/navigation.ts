@@ -8,6 +8,7 @@ import {ErrorHandlerService} from '../../../../services/error-handler/error-hand
 import errorHandlerModule from '../../../../services/error-handler/error-handler'
 import {PromiseService} from '../../../../services/promise/promise.service'
 import promiseModule from '../../../../services/promise/promise'
+
 (function() {
   /* @ngInject */
   function controller(userService: UserService,

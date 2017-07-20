@@ -124,7 +124,7 @@ module.exports = function (config) {
           statements: 79,
           branches: 51,
           functions: 65,
-          lines: 79
+          lines: 80
         }
       },
       reporters: [
