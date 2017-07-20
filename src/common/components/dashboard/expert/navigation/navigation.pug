@@ -21,8 +21,10 @@
               data-ui-sref="app.dashboard.expert.invoices")
 
       .nav-payment
-        .amount-balance-container
-          span.account-balance-title(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.ACCOUNT_BALANCE.TITLE")
-          span.account-balacnce(data-ng-bind-html="$ctrl.clientBalance | money ")
-        .payout-btn-container(data-ui-sref="app.dashboard.settings.payouts")
-          a.btn.btn-small.btn-default(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.PAYOUT_BUTTON.TITLE")
+        preloader-container(data-is-loading="$ctrl.isLoading")
+          .payment-container
+            .amount-balance-container(data-ng-hide="!$ctrl.clientBalance ")
+              span.account-balance-title(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.ACCOUNT_BALANCE.TITLE")
+              span.account-balacnce(data-ng-bind-html="$ctrl.clientBalance | money ")
+            .payout-btn-container(data-ui-sref="app.dashboard.settings.payouts")
+              a.btn.btn-small.btn-default(data-translate="DASHBOARD.EXPERT_ACCOUNT.NAVBAR.PAYOUT_BUTTON.TITLE")

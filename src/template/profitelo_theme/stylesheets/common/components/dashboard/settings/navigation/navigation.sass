@@ -114,6 +114,7 @@
 
   .nav-payment
     margin: 0
+    position: relative
     display: flex
     justify-content: space-between
     align-items: center
@@ -131,35 +132,46 @@
       order: 2
       padding: 0
 
-    .payout-btn-container
-      +xsm
-        margin: 0 0 0 32px
+    .preloader-container
+      height: auto
 
-      +smm
-        margin: 0 0 0 24px
+      .content-loader
+        span
+          height: 32px
+          width: 32px
 
-    span
-      +default-font-medium
-      display: block
-      text-align: left
-
-      +lgm
-        text-align: right
-
-    .account-balance-title
-      +paragraphSmall
-      +default-font-medium
-      color: $c-tertiary-txt
-
-    .account-balacnce
+    .payment-container
       display: flex
-      align-items: flex-end
-      font-size: $f-header
 
-      .amount
-        color: $c-white
+      span
+        +default-font-medium
+        display: block
+        text-align: left
 
-      .currency
-        margin: 0 0 0 8px
-        font-size: $f-paragraph
+        +lgm
+          text-align: right
+
+      .account-balance-title
+        +paragraphSmall
+        +default-font-medium
         color: $c-tertiary-txt
+
+      .payout-btn-container
+        +xsm
+          margin: 0 0 0 32px
+
+        +smm
+          margin: 0 0 0 24px
+
+      .account-balacnce
+        display: flex
+        align-items: flex-end
+        font-size: $f-header
+
+        .amount
+          color: $c-white
+
+        .currency
+          margin: 0 0 0 8px
+          font-size: $f-paragraph
+          color: $c-tertiary-txt

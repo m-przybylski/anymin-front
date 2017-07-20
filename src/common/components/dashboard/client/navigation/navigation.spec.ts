@@ -1,6 +1,7 @@
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import userModule from '../../../../services/user/user'
 import * as angular from 'angular'
+import {PromiseService} from '../../../../services/promise/promise.service';
 describe('Unit testing: profitelo.components.dashboard.client.navigation', () => {
   return describe('for clientNavigation >', () => {
 
@@ -38,7 +39,8 @@ describe('Unit testing: profitelo.components.dashboard.client.navigation', () =>
       angular.mock.module('profitelo.components.dashboard.client.navigation')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
-              $q: ng.IQService, _$componentController_: ng.IComponentControllerService) => {
+              $q: ng.IQService, _$componentController_: ng.IComponentControllerService,
+              promiseService: PromiseService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
@@ -47,6 +49,7 @@ describe('Unit testing: profitelo.components.dashboard.client.navigation', () =>
 
         component = componentController('clientNavigation', {}, {
           userService: userService,
+          promiseService: promiseService,
           $element: create(validHTML)
         })
       })

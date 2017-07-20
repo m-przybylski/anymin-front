@@ -4,18 +4,35 @@ import {UserService} from '../../../../services/user/user.service'
 import {FinancesApi} from 'profitelo-api-ng/api/api'
 import apiModule from 'profitelo-api-ng/api.module'
 import userModule from '../../../../services/user/user'
+import {ErrorHandlerService} from '../../../../services/error-handler/error-handler.service'
+import errorHandlerModule from '../../../../services/error-handler/error-handler'
+import {PromiseService} from '../../../../services/promise/promise.service'
+import promiseModule from '../../../../services/promise/promise'
+
 (function() {
   /* @ngInject */
-  function controller(userService: UserService, FinancesApi: FinancesApi) {
+  function controller(userService: UserService,
+                      FinancesApi: FinancesApi,
+                      errorHandler: ErrorHandlerService,
+                      promiseService: PromiseService
+                      ) {
+
+    const loaderDelay = 500
+    this.isCard = false
+    this.isLoading = true
 
     userService.getUser().then( (accountDetails) => {
       if (accountDetails.defaultCreditCard) {
         this.isCard = true
+        this.isLoading = false
       } else {
-        FinancesApi.getClientBalanceRoute().then((clientBalance) => {
-          this.clientBalance = clientBalance
-        }, (error) => {
-          throw new Error('Can not get client balance: ' + error)
+        promiseService.setMinimalDelay(FinancesApi.getClientBalanceRoute(), loaderDelay
+        ).then((value) => {
+          this.clientBalance = value
+          this.isLoading = false
+        }).catch((error) => {
+          errorHandler.handleServerError(error)
+          this.isLoading = false
         })
       }
     })
@@ -34,7 +51,9 @@ import userModule from '../../../../services/user/user'
     'pascalprecht.translate',
     userModule,
     apiModule,
-    filtersModule
+    filtersModule,
+    promiseModule,
+    errorHandlerModule
   ])
     .component('clientNavigation', component)
 }())
