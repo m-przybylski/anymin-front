@@ -1,35 +1,42 @@
-scrollable.phone-settings(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
-  top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="vm.onModalClose")
-  .modal-settings
-    .container-small
-      header.entry-title
-        span(data-translate="SETTINGS.GENERAL.PHONE_SETTINGS.TITLE")
+top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="vm.onModalClose")
+.modal-settings.phone-settings
+  .container-small
+    header.entry-title
+      span(data-translate="SETTINGS.GENERAL.PHONE_SETTINGS.TITLE")
 
-      form.pro-input-form(name="phoneNumberForm" novalidate ng-submit="vm.setNewNumber()")
-        .input-content
-          .input-handler
-            dropdown-primary.prefix-phone(
-            data-label="{{ ::'SETTINGS.GENERAL.PHONE_SETTINGS.PREFIX' | translate }}"
-            data-main-list="vm.prefixList"
-            data-on-select-main="vm.updatePrefix"
-            data-placeholder=" {{ vm.prefix }}"
-            data-input-placeholder="{{ ::'SEARCH.ALL' | translate }}")
+    form.input-form(name="phoneNumberForm" novalidate ng-submit="vm.setNewNumber()")
+      .input-content
+        .input-handler
+          dropdown-primary.prefix-phone(
+          data-label="{{ ::'SETTINGS.GENERAL.PHONE_SETTINGS.PREFIX' | translate }}"
+          data-main-list="vm.prefixList"
+          data-on-select-main="vm.updatePrefix"
+          data-placeholder=" {{ vm.prefix }}"
+          data-input-placeholder="{{ ::'SEARCH.ALL' | translate }}")
 
-            pro-input.phone.label(data-label="{{:: 'SETTINGS.GENERAL.PHONE_NUMBER.INPUT.LABEL' | translate}}"
+          div
+            input-primary(
             data-type="tel"
             data-id="phoneNumber"
-            data-placeholder="{{:: 'LOGIN.ENTER_NUMBER_PLACEHOLDER' | translate }}"
+            data-placeholder="LOGIN.ENTER_NUMBER_PLACEHOLDER"
             data-ng-model="vm.number"
-            data-ng-class="{'invalid': (vm.isPhoneNumberInvalid || vm.isNumberExist) && phoneNumberForm.$submitted}"
-            auto-focus only-digits)
+            data-input-text="SETTINGS.GENERAL.PHONE_NUMBER.INPUT.LABEL"
+            data-ng-pattern="vm.numberPattern"
+            data-is-valid="vm.number && vm.checkIsDisabled() || phoneNumberForm.$submitted && !vm.checkIsNumberExist()"
+            data-validation-text="SETTINGS.GENERAL.PHONE_SETTINGS.INVALID_NUMBER"
+            )
 
-          .input-error-messages(data-ng-show="phoneNumberForm.$submitted && vm.isNumberExist")
-            .error.left(data-translate="SETTINGS.GENERAL.PHONE_SETTINGS.NUMBER_EXIST_VALIDATION")
-          .input-error-messages(data-ng-show="phoneNumberForm.$submitted && vm.isPhoneNumberInvalid")
-            .error.left(data-translate="SETTINGS.GENERAL.PHONE_SETTINGS.INVALID_NUMBER")
+            validation-alert(
+            data-alert-text="SETTINGS.GENERAL.PHONE_SETTINGS.NUMBER_EXIST_VALIDATION"
+            data-is-visible="phoneNumberForm.$submitted && vm.isNumberExist && !vm.checkIsNumberExist()"
+            )
 
-        button.btn.btn-default(data-translate="SETTINGS.GENERAL.PHONE_NUMBER.BUTTON" type="submit"
-        data-ng-hide="vm.isNewPhoneNumberCreate")
+      button.btn.btn-default(
+      data-translate="SETTINGS.GENERAL.PHONE_NUMBER.BUTTON" type="submit"
+      data-ng-hide="vm.isNewPhoneNumberCreate"
+      data-ng-disabled="!vm.checkIsDisabled()"
+      data-ng-click="vm.onSubmit()"
+      )
 
-    pin-verification(data-ng-show="vm.isNewPhoneNumberCreate" data-on-send-pin-again='vm.setNewNumber'
-    data-on-complete-pin-inputs="vm.sendVerificationPin")
+  pin-verification(data-ng-show="vm.isNewPhoneNumberCreate" data-on-send-pin-again='vm.setNewNumber'
+  data-on-complete-pin-inputs="!vm.sendVerificationPin")

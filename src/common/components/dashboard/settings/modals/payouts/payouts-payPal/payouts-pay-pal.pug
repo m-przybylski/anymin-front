@@ -20,13 +20,18 @@ scrollable.payout-method(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm
         .modal-container
           .paypal-method
             form.form(data-ng-submit="payPalForm.$valid && vm.addPayPalAccount()" name="payPalForm")
-              pro-input(data-label="{{ 'DASHBOARD.SETTINGS.PAYOUTS_METHOD.PAYPAL.LABEL' | translate }}"
-              placeholder="{{ 'DASHBOARD.SETTINGS.PAYOUTS_METHOD.PAYPAL.PLACEHOLDER' | translate }}"
-              data-type="text"
-              data-ng-model="vm.payPalEmail"
-              data-id="payPalEmail"
-              data-ng-class="{'invalid': payPalForm.$submitted && !vm.payPalForm || paymentForm.payPalForm.$dirty && !vm.payPalForm}"
-              data-ng-pattern="vm.emailPattern"
-              required)
+              input-primary(
+                data-id="payPalEmails"
+                data-placeholder="DASHBOARD.SETTINGS.PAYOUTS_METHOD.PAYPAL.PLACEHOLDER"
+                data-ng-model="vm.payPalEmail"
+                data-input-text="DASHBOARD.SETTINGS.PAYOUTS_METHOD.PAYPAL.LABEL"
+                data-ng-pattern="vm.emailPattern"
+                data-is-valid="vm.payPalEmail && vm.checkIsDisabled()"
+                data-validation-text="DASHBOARD.CHARGE_ACCOUNT.EMAIL_ERROR"
+              )
 
-              button.btn.btn-default(data-translate="DASHBOARD.SETTINGS.PAYOUTS_METHOD.ADD.BUTTON" type="submit")
+              button.btn.btn-default(
+                data-translate="DASHBOARD.SETTINGS.PAYOUTS_METHOD.ADD.BUTTON"
+                type="submit"
+                data-ng-disabled="!vm.checkIsDisabled()"
+              )

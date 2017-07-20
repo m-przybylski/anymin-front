@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import '../../../directives/interface/focus-next/focus-next'
-import '../../../directives/interface/pro-input/pro-input'
 import {PinVerificationComponent} from './pin-verification.component';
 
 export interface IPinVerificationComponentBindings {
@@ -10,8 +9,7 @@ export interface IPinVerificationComponentBindings {
 
 const pinVerificationModule: string = angular.module('profitelo.components.interface.pin-verification', [
   'pascalprecht.translate',
-  'profitelo.directives.interface.focus-next',
-  'profitelo.directives.interface.pro-input'
+  'profitelo.directives.interface.focus-next'
 ])
   .component('pinVerification', new PinVerificationComponent())
   .name

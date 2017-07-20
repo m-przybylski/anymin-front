@@ -16,11 +16,11 @@ import commonSettingsModule from '../../../common/services/common-settings/commo
 import topAlertModule from '../../../common/services/top-alert/top-alert'
 import 'common/resolvers/login-register/login-register.service'
 import 'common/directives/pro-top-waiting-loader/pro-top-waiting-loader'
-import 'common/directives/interface/pro-input/pro-input'
 import 'common/directives/interface/pro-alert/pro-alert'
 import permissionModule from '../../../common/services/permission/permission'
 import {EventsService} from '../../../common/services/events/events.service'
 import eventsModule from '../../../common/services/events/events'
+import inputModule from '../../../common/components/interface/input/input'
 
 function RegisterController($log: ng.ILogService, $filter: IFilterService, $state: ng.ui.IStateService,
                             topWaitingLoaderService: TopWaitingLoaderService, eventsService: EventsService,
@@ -120,6 +120,15 @@ function RegisterController($log: ng.ILogService, $filter: IFilterService, $stat
     })
   }
 
+  this.onSubmit = (): void => {
+    this.isNewCurrentPasswordChange = this.registrationSteps.smsCode
+  }
+
+  this.checkIsCodeCorrect = (): boolean => {
+    return this.isNewCurrentPasswordChange !== this.registrationSteps.smsCode &&
+      this.smsCodePattern.test(this.registrationSteps.smsCode)
+  }
+
   return this
 }
 
@@ -155,7 +164,7 @@ angular.module('profitelo.controller.login.register', [
   eventsModule,
   'profitelo.services.pro-top-waiting-loader-service',
   'profitelo.directives.interface.pro-alert',
-  'profitelo.directives.interface.pro-input'
+  inputModule
 ])
   .config(config)
   .controller('RegisterController', RegisterController)

@@ -1,15 +1,25 @@
-form.pro-input-form.set-email(name="emailForm" data-ng-submit="emailForm.$valid && vm.setNewEmail()" novalidate)
+form.input-form.set-email(name="emailForm" data-ng-submit="emailForm.$valid && vm.setNewEmail()" novalidate)
 
-  pro-input(data-label="{{ 'REGISTER.SERVICE_EMAIL' | translate }}"
-  placeholder="{{ 'REGISTER.SERVICE_EMAIL_PLACEHOLDER' | translate }}"
-  data-ng-model="vm.email"
+  input-primary(
+  data-type="text"
   data-id="email"
-  data-type="email"
+  data-placeholder="REGISTER.SERVICE_EMAIL_PLACEHOLDER"
+  data-ng-model="vm.email"
+  data-input-text="REGISTER.SERVICE_EMAIL"
+  data-ng-required="true"
   data-ng-pattern="vm.patternEmail"
-  data-ng-class="{'invalid':(emailForm.email.$invalid || !!vm.emailExist) && (emailForm.email.$dirty || emailForm.$submitted) }"
-  required auto-focus)
-  .input-error-messages
-    .error.left(data-ng-show="emailForm.$submitted && emailForm.$invalid" data-translate="REGISTER.EMAIL_REQUIRED")
-    .error.left(data-ng-show="!!vm.emailExist && (emailForm.email.$dirty || emailForm.$submitted)" data-translate="REGISTER.EMAIL_EXIST")
-  button.btn.btn-default(data-translate="REGISTER.DONE" type="submit")
+  data-is-valid="vm.newEmail && vm.checkIsDisabled()"
+  data-validation-text="REGISTER.CODE_REQUIRED"
+  )
+
+  validation-alert(
+  data-alert-text="REGISTER.EMAIL_EXIST"
+  data-is-visible="vm.emailExist && emailForm.$submitted && !vm.checkIsEmailExist()"
+  )
+
+  button.btn.btn-default(
+    data-ng-disabled="!vm.checkIsDisabled()"
+    data-ng-click="vm.onSubmit()"
+    data-translate="REGISTER.DONE"
+    type="submit")
 

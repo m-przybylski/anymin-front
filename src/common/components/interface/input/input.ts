@@ -6,14 +6,15 @@ import ValidationAlertModule from '../alert/validation-alert/validation-alert'
 export interface IInputComponentBindings extends ng.IController {
   id: string
   name: string
+  type: string
   inputText: string
   placeholder: string
   validationText: string
   maxLength: string
   isValid: boolean
   ngRequired: boolean
-  ngModel: boolean
-  ngPattern: string
+  ngModel: string
+  ngPattern: RegExp
   isSubmitted?: boolean
 }
 

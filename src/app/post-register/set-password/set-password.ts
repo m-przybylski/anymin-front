@@ -13,10 +13,10 @@ import passwordStrengthModule from '../../../common/services/password-strength/p
 import commonSettingsModule from '../../../common/services/common-settings/common-settings'
 import 'common/directives/pro-top-waiting-loader/pro-top-waiting-loader'
 import 'common/directives/interface/pro-alert/pro-alert'
-import 'common/directives/interface/pro-input/pro-input'
-import 'common/directives/interface/pro-input-password/pro-input-password'
 import 'common/directives/password-strength-bar/password-strength-bar'
 import checkboxModule from '../../../common/components/interface/checkbox/checkbox'
+import inputPasswordModule from '../../../common/components/interface/input-password/input-password'
+import autoFocus from '../../../common/directives/auto-focus/auto-focus'
 
 function _controller($log: ng.ILogService, $filter: ng.IFilterService,
                      $state: ng.ui.IStateService,
@@ -34,6 +34,8 @@ function _controller($log: ng.ILogService, $filter: ng.IFilterService,
   this.rulesAccepted = false
   this.serverError = false
   this.alreadyCheck = false
+  this.serverError = false
+
   this.msisdn = {
     number: user.msisdn
   }
@@ -41,7 +43,7 @@ function _controller($log: ng.ILogService, $filter: ng.IFilterService,
     hrefUrl: 'http://miroslawkwiatek.republika.pl/pdf_y/grawitacja_kwantowa.pdf'
   }
 
-  this.patternPassword = CommonSettingsService.localSettings.passwordPattern
+  this.patternPassword = CommonSettingsService.localSettings.passPattern
 
   this.onPasswordChange = (password: string): void => {
     this.passwordStrength = passwordStrengthService.getStrength(password)
@@ -51,12 +53,14 @@ function _controller($log: ng.ILogService, $filter: ng.IFilterService,
     /* istanbul ignore next if */
     if (!this.isPending) {
       this.isPending = true
+      this.serverError = false
       topWaitingLoaderService.immediate()
 
       const accountId = user.id
 
       AccountApi.partialUpdateAccountRoute(accountId, patchObject).then(successCallback, (error) => {
         this.isPending = false
+        this.serverError = true
         topWaitingLoaderService.stopLoader()
         $log.error(error)
         topAlertService.error({
@@ -77,6 +81,14 @@ function _controller($log: ng.ILogService, $filter: ng.IFilterService,
       topWaitingLoaderService.stopLoader()
       $state.go('app.post-register.set-email')
     })
+  }
+
+  this.onSubmit = (): void => {
+    this.isNewCurrentPasswordChange = this.password
+  }
+
+  this.checkIsPasswordCorrected = (): boolean => {
+    return this.isNewCurrentPasswordChange !== this.password && this.patternPassword.test(this.password)
   }
 
   return this
@@ -108,10 +120,10 @@ angular.module('profitelo.controller.post-register.set-password', [
   topAlertModule,
   'profitelo.services.pro-top-waiting-loader-service',
   'profitelo.directives.interface.pro-alert',
-  'profitelo.directives.interface.pro-input-password',
-  'profitelo.directives.interface.pro-input',
   'profitelo.directives.password-strength-bar',
-  checkboxModule
+  checkboxModule,
+  inputPasswordModule,
+  autoFocus
 ])
   .config(config)
   .controller('SetPasswordController', _controller)

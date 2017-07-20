@@ -14,9 +14,9 @@ interface IPrefixListElement {
 }
 
 export class GeneralPhoneSettingsController implements ng.IController {
-
+  public numberPattern = this.CommonSettingsService.localSettings.numberPattern
   public isNewPhoneNumberCreate: boolean = false
-  public number: string
+  public number: string = ''
   public isNumberExist: boolean = false
   public isNavbar: boolean = true
   public isFullscreen: boolean = true
@@ -27,6 +27,7 @@ export class GeneralPhoneSettingsController implements ng.IController {
       name: countryCode
     }))
 
+  private isNewNumberChange: string
   public prefix = this.prefixList[0].value
   public updatePrefix = (prefix: IPrefixListElement): void => {
     this.prefix = prefix.value
@@ -89,4 +90,16 @@ export class GeneralPhoneSettingsController implements ng.IController {
     }
   }
 
+  public onSubmit = (): void => {
+    this.isNewNumberChange = this.number
+    this.isNumberExist = false
+  }
+
+  public checkIsNumberExist = (): boolean => {
+    return this.isNewNumberChange !== this.number
+  }
+
+  public checkIsDisabled = (): boolean => {
+    return this.numberPattern.test(this.number)
+  }
 }

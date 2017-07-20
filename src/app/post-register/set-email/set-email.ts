@@ -10,6 +10,8 @@ import userModule from '../../../common/services/user/user'
 import commonSettingsModule from '../../../common/services/common-settings/common-settings'
 import topAlertModule from '../../../common/services/top-alert/top-alert'
 import loginStateModule from '../../../common/services/login-state/login-state'
+import ValidationAlertModule from '../../../common/components/interface/alert/validation-alert/validation-alert'
+import inputModule from '../../../common/components/interface/input/input'
 
 function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.ui.IStateService,
                      topWaitingLoaderService: TopWaitingLoaderService, user: AccountDetails,
@@ -67,6 +69,18 @@ function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.u
     })
   }
 
+  this.onSubmit = (): void => {
+    this.onNewEmailChange = this.newEmail
+  }
+
+  this.checkIsEmailExist = (): boolean => {
+    return this.onNewEmailChange !== this.newEmail
+  }
+
+  this.checkIsDisabled = (): boolean => {
+    return this.mailPattern.test(this.newEmail)
+  }
+
   return this
 }
 
@@ -98,8 +112,9 @@ angular.module('profitelo.controller.post-register.set-email', [
   topAlertModule,
   'profitelo.services.pro-top-waiting-loader-service',
   'profitelo.directives.interface.pro-alert',
-  'profitelo.directives.interface.pro-input',
-  'profitelo.controller.post-register.set-password'
+  'profitelo.controller.post-register.set-password',
+  inputModule,
+  ValidationAlertModule
 ])
   .config(config)
   .controller('SetEmailController', _controller)

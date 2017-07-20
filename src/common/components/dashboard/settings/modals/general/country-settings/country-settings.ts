@@ -98,7 +98,6 @@ angular.module('profitelo.components.dashboard.settings.modals.general.country-s
 
   apiModule,
   userModule,
-  'profitelo.directives.interface.pro-input',
   'profitelo.directives.interface.scrollable'
 ])
   .controller('generalCountrySettingsController', GeneralCountrySettingsController)

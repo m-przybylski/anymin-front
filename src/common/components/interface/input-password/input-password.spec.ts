@@ -1,8 +1,8 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import inputModule from './input'
-import {InputComponentController} from './input.controller'
-import {IInputComponentBindings} from './input'
+import inputPasswordModule from './input-password'
+import {InputPasswordComponentController} from './input-password.controller'
+import {IInputPasswordComponentBindings} from './input-password'
 
 describe('Unit testing: profitelo.components.interface.input', () => {
   return describe('for inputPrimary component >', () => {
@@ -11,21 +11,21 @@ describe('Unit testing: profitelo.components.interface.input', () => {
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let componentController: ng.IComponentControllerService
-    let component: InputComponentController
-    let bindings: IInputComponentBindings
+    let component: InputPasswordComponentController
+    let bindings: IInputPasswordComponentBindings
     let document: ng.IDocumentService
     let validHTML = '<input-primary>'
 
-    function create(html: string): JQuery {
+    function create(html: string) {
       scope = rootScope.$new()
-      const elem = angular.element(html)
-      const compiledElement = compile(elem)(scope)
+      let elem = angular.element(html)
+      let compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
 
     beforeEach(() => {
-      angular.mock.module(inputModule)
+      angular.mock.module(inputPasswordModule)
     })
 
     beforeEach(() => {
@@ -43,13 +43,13 @@ describe('Unit testing: profitelo.components.interface.input', () => {
         type: 'text',
         inputText: 'tekst',
         placeholder: 'placeholder',
-        maxLength: '20',
         validationText: 's',
         isValid: true,
         ngRequired: false,
         ngModel: 'string',
-        ngPattern: new RegExp(/^(d+)$/),
-        isSubmitted: true
+        ngPattern: '(/^{1,3}$/)',
+        isSubmitted: true,
+        onChange: 'name2'
       }
 
       const injectors = {
@@ -58,7 +58,7 @@ describe('Unit testing: profitelo.components.interface.input', () => {
         $document: document
       }
 
-      component = componentController<InputComponentController, {}>('inputPrimary', injectors, bindings)
+      component = componentController<InputPasswordComponentController, {}>('inputPassword', injectors, bindings)
     })
 
     it('should have a dummy test', inject(() => {

@@ -1,4 +1,4 @@
-import {IInputComponentBindings} from './input'
+import {IInputPasswordComponentBindings} from './input-password'
 
 interface IInputTypes {
   text: string,
@@ -6,7 +6,7 @@ interface IInputTypes {
   number: string
 }
 
-export class InputComponentController implements IInputComponentBindings {
+export class InputPasswordComponentController implements IInputPasswordComponentBindings {
   private inputTypes: IInputTypes = {
     text: 'text',
     tel: 'tel',
@@ -23,9 +23,10 @@ export class InputComponentController implements IInputComponentBindings {
   public isValid: boolean
   public ngRequired: boolean = false
   public ngModel: string
-  public ngPattern: RegExp
+  public ngPattern: string
   public isFocus: boolean = false
   public isDirty: boolean = false
+  public onChange: string = ''
 
   /* @ngInject */
   constructor(private $element: JQuery) {}

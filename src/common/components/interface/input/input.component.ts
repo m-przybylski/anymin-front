@@ -6,6 +6,7 @@ export class InputComponent implements ng.IComponentOptions {
   bindings: {[boundProperty: string]: string} = {
     id: '@',
     name: '@',
+    type: '@',
     inputText: '@',
     placeholder: '@',
     validationText: '@',
@@ -13,7 +14,7 @@ export class InputComponent implements ng.IComponentOptions {
     isValid: '<',
     ngRequired: '<',
     ngModel: '=',
-    ngPattern: '<',
+    ngPattern: '=',
     isSubmitted: '<'
   }
 }

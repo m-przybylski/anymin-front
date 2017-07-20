@@ -17,8 +17,9 @@ import passwordStrengthModule from '../../../common/services/password-strength/p
 import 'common/directives/pro-top-waiting-loader/pro-top-waiting-loader'
 import 'common/resolvers/login-set-new-password/login-set-new-password.service'
 import 'common/directives/interface/pro-alert/pro-alert'
-import 'common/directives/interface/pro-input-password/pro-input-password'
 import 'common/directives/password-strength-bar/password-strength-bar'
+import inputPasswordModule from '../../../common/components/interface/input-password/input-password'
+import autoFocus from '../../../common/directives/auto-focus/auto-focus'
 
 export interface ISetNewPasswordStateParams {
   token: string
@@ -31,7 +32,8 @@ function SetNewPasswordController($state: ng.ui.IStateService, $filter: IFilterS
                                   CommonSettingsService: CommonSettingsService, $log: ng.ILogService): void {
 
   this.newPassword = ''
-  this.patternPassword = CommonSettingsService.localSettings.passwordPattern
+  this.isNewCurrentPasswordChange = ''
+  this.patternPassword = CommonSettingsService.localSettings.passPattern
 
   const _passwordChangeError = (): void => {
     $state.go('app.login.account')
@@ -90,7 +92,14 @@ function SetNewPasswordController($state: ng.ui.IStateService, $filter: IFilterS
     } else {
       _submitPasswordChangeByEmail()
     }
+  }
 
+  this.onSubmit = (): void => {
+    this.isNewCurrentPasswordChange = this.newPassword
+  }
+
+  this.checkIsPasswordCorrected = (): boolean => {
+    return this.isNewCurrentPasswordChange !== this.newPassword && this.patternPassword.test(this.newPassword)
   }
 
   return this
@@ -126,9 +135,10 @@ angular.module('profitelo.controller.login.set-new-password', [
   commonSettingsModule,
   apiModule,
   'profitelo.directives.interface.pro-alert',
-  'profitelo.directives.interface.pro-input-password',
   'profitelo.directives.password-strength-bar',
-  sessionModule
+  sessionModule,
+  inputPasswordModule,
+  autoFocus
 ])
   .config(config)
   .controller('SetNewPasswordController', SetNewPasswordController)

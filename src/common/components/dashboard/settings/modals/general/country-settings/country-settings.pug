@@ -5,7 +5,7 @@ scrollable.country-settings(data-is-fullscreen="vm.isFullscreen" data-is-navbar=
       header.entry-title
         span(data-translate="SETTINGS.GENERAL.CONUTRY_SETTINGS.TITLE")
 
-      form.pro-input-form(name="countryForm" ng-submit="vm.setNewCountry()" novalidate)
+      form.input-form(name="countryForm" ng-submit="vm.setNewCountry()" novalidate)
         dropdown-primary.country(
           data-label="{{:: 'SETTINGS.GENERAL.CONUTRY_SETTINGS.LABEL' | translate }}"
           data-main-list="vm.countryList"

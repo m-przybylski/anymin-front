@@ -11,7 +11,7 @@ import commonSettingsModule from '../../../common/services/common-settings/commo
 import sessionModule from '../../../common/services/session/session'
 import 'common/resolvers/login-forgot-password/login-forgot-password.service'
 import 'common/directives/pro-top-waiting-loader/pro-top-waiting-loader'
-import 'common/directives/interface/pro-input/pro-input'
+import inputModule from '../../../common/components/interface/input/input'
 
 type method = 'sms' | 'email'
 
@@ -24,6 +24,7 @@ function ForgotPasswordController($state: ng.ui.IStateService, account: ILoginFo
                                   topWaitingLoaderService: TopWaitingLoaderService,
                                   CommonSettingsService: CommonSettingsService): void {
 
+  this.isNewCurrentPasswordChange = ''
   this.isPending = false
   this.account = account
   this.smsCodePattern = CommonSettingsService.localSettings.smsCodePattern
@@ -56,6 +57,14 @@ function ForgotPasswordController($state: ng.ui.IStateService, account: ILoginFo
 
   }
 
+  this.onSubmit = (): void => {
+    this.isNewCurrentPasswordChange = this.smsCode
+  }
+
+  this.checkIsPasswordCorrected = (): boolean => {
+    return this.isNewCurrentPasswordChange !== this.smsCode
+  }
+
   return this
 
 }
@@ -86,8 +95,8 @@ angular.module('profitelo.controller.login.forgot-password', [
   apiModule,
   'profitelo.services.pro-top-waiting-loader-service',
   commonSettingsModule,
-  'profitelo.directives.interface.pro-input',
-  sessionModule
+  sessionModule,
+  inputModule
 ])
   .config(config)
   .controller('ForgotPasswordController', ForgotPasswordController)

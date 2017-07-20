@@ -1,5 +1,4 @@
 import * as angular from 'angular'
-import '../../common/directives/interface/pro-input/pro-input'
 import 'common/directives/interface/scrollable/scrollable'
 import 'common/components/interface/preloader/preloader'
 import 'common/components/braintree-form/braintree-form'
