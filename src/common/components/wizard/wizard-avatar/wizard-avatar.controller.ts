@@ -2,6 +2,8 @@ import {IWizardAvatarComponentBindings} from './wizard-avatar'
 import {UploaderFactory} from '../../../services/uploader/uploader.factory'
 import {UploaderService} from '../../../services/uploader/uploader.service'
 import {PostProcessOption} from 'profitelo-api-ng/model/models'
+import {FileTypeChecker, FileCategoryEnum} from '../../../classes/file-type-checker'
+
 export class WizardAvatarComponentController implements IWizardAvatarComponentBindings, ng.IController {
 
   private isUploadInProgress: boolean = false
@@ -18,26 +20,31 @@ export class WizardAvatarComponentController implements IWizardAvatarComponentBi
   public isFocus: boolean = true
   public isFileUploadError: boolean = false
 
+  private isFileFormatValidError: boolean = false
+
   /* @ngInject */
   constructor(uploaderFactory: UploaderFactory, private $scope: ng.IScope) {
     this.uploader = uploaderFactory.getInstance(1, uploaderFactory.collectionTypes.avatar)
   }
 
   public addPhoto = (imagePath: string, file: File, callback: () => void): void => {
-    if (imagePath.length > 0) {
+    if (imagePath.length > 0 && FileTypeChecker.isFileFormatValid(file, FileCategoryEnum.AVATAR)) {
       this.imageSource = imagePath
       this.isUserUploadImage = true
       this.uploadedFile = file
       this.clearFormAfterCropping = callback
-      this.$scope.$digest()
+      this.isFileFormatValidError = false
+    } else {
+      this.isFileFormatValidError = true
     }
+    this.$scope.$apply()
   }
 
-  public onFocus = () => {
+  public onFocus = (): void => {
     this.isFocus = true
   }
 
-  public onBlur = () => {
+  public onBlur = (): void => {
     this.isFocus = false
   }
 

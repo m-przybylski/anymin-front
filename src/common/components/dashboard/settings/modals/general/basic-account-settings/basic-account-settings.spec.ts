@@ -3,6 +3,7 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {BasicAccountSettingsController, IBasicAccountSettingsControllerScope} from './basic-account-settings'
 import userModule from '../../../../../../services/user/user'
 import {AccountApi} from 'profitelo-api-ng/api/api'
+import {FileTypeChecker} from '../../../../../../classes/file-type-checker'
 
 class File {
   constructor() {
@@ -90,11 +91,12 @@ describe('Testing Controller: basicAccountSettingsController', () => {
     expect($uibModalInstance.dismiss).toHaveBeenCalled()
   })
 
-  it('should verifyCode', () => {
+  it('should add photo', () => {
     const imagePath = 'string'
     const file: any = new File()
     const cb = () => {
     }
+    spyOn(FileTypeChecker, 'isFileFormatValid').and.returnValue(true)
     scope.addPhoto(imagePath, file, cb)
 
     expect(scope.isUserUploadImage).toBeTruthy()

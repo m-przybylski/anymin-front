@@ -17,6 +17,7 @@ import '../../../../../../directives/interface/scrollable/scrollable'
 import checkboxModule from '../../../../../interface/checkbox/checkbox'
 import {ErrorHandlerService} from '../../../../../../services/error-handler/error-handler.service'
 import errorHandlerModule from '../../../../../../services/error-handler/error-handler'
+import {FileCategoryEnum, FileTypeChecker} from '../../../../../../classes/file-type-checker'
 
 export interface IBasicAccountSettingsControllerParentScope extends ng.IScope {
   callback: (cb: () => void) => void
@@ -55,6 +56,7 @@ export class BasicAccountSettingsController implements ng.IController {
   private uploadedFile: File
   private uploader: UploaderService
   private clearFormAfterCropping: () => void
+  private isFileFormatValidError: boolean = false
 
   /* @ngInject */
   constructor(private $scope: IBasicAccountSettingsControllerScope,
@@ -101,11 +103,14 @@ export class BasicAccountSettingsController implements ng.IController {
     }
 
     $scope.addPhoto = (imagePath: string, file: File, callback: () => void): void => {
-      if (imagePath.length > 0) {
+      if (imagePath.length > 0 && FileTypeChecker.isFileFormatValid(file, FileCategoryEnum.AVATAR)) {
         $scope.imageSource = imagePath
         $scope.isUserUploadImage = true
         this.uploadedFile = file
         this.clearFormAfterCropping = callback
+        this.isFileFormatValidError = false
+      } else {
+        this.isFileFormatValidError = true
       }
     }
 
