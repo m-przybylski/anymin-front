@@ -2,6 +2,7 @@ import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {SmoothScrollingService} from '../../../common/services/smooth-scrolling/smooth-scrolling.service'
 import {IWindowService} from '../../../common/services/window/window.service'
+import {GetCreditCard} from 'profitelo-api-ng/model/models'
 import './charge-account'
 describe('Unit tests: profitelo.controller.dashboard.charge-account >', () => {
   describe('Testing Controller: chargeAccountController', () => {
@@ -15,13 +16,15 @@ describe('Unit tests: profitelo.controller.dashboard.charge-account >', () => {
     let _httpBackend: ng.IHttpBackendService
     let _controller: any
 
-    function createController(controller: any, paymentsOptions: any, paymentsLinks: any, financeBalance: any) {
+    function createController(controller: any, paymentsOptions: any, paymentsLinks: any, financeBalance: any,
+                              creditCards: GetCreditCard[]) {
 
       chargeAccountController = controller('chargeAccountController', {
         $scope: _scope,
         paymentsOptions: paymentsOptions,
         paymentsLinks: paymentsLinks,
         financeBalance: financeBalance,
+        creditCards: creditCards,
         $timeout: _timeout,
         smoothScrollingService: _smoothScrollingService
       })
@@ -50,7 +53,7 @@ describe('Unit tests: profitelo.controller.dashboard.charge-account >', () => {
             amount: {amount: '123'},
             payload: {firstName: 'asas', lastName: 'asasas', email: 'asasas'}
           }, minimalPayment: {amount: 1000}
-        }, {}, {})
+        }, {}, {}, [])
 
       })
     })
