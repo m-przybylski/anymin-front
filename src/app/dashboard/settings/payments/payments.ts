@@ -16,9 +16,9 @@ export class DashboardSettingsPaymentsController implements ng.IController {
   public vatNumber: string
   public address: string
   public paymentMethods: Array<GetCreditCard>
-  public isPaymentsMethodLoading: boolean = true
   public checkedPaymentMethod?: string
   public isLongAddress?: boolean
+  public responseCounter: number = 0
 
   constructor(getInvoiceData: CompanyInfo, PaymentsApi: PaymentsApi, private AccountApi: AccountApi,
               private modalsService: ModalsService, FinancesApi: FinancesApi,
@@ -40,21 +40,23 @@ export class DashboardSettingsPaymentsController implements ng.IController {
       this.accountBalance = clientBalance
     }, (error) => {
       throw new Error('Can not get user balance: ' + error)
+    }).finally(()=> {
+      this.responseCounter += 1
     })
 
     this.checkedPaymentMethod = user.defaultCreditCard
 
     PaymentsApi.getCreditCardsRoute().then((paymentMethods) => {
       this.paymentMethods = paymentMethods
-      this.isPaymentsMethodLoading = false
       if (this.paymentMethods.length > 0) {
         this.isAnyPaymentMethod = true
       }
     }, (error) => {
-      this.isPaymentsMethodLoading = false
       if (error.status !== 404) {
         throw new error('Can not get user payment methods: ' + error)
       }
+    }).finally(() => {
+      this.responseCounter += 1
     })
   }
 
