@@ -37,6 +37,7 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
     beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
       $provide.value('apiUrl', url)
       $provide.value('userService', userService)
+      $provide.value('$element', {})
     }))
 
     beforeEach(() => {
@@ -68,7 +69,8 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
 
         injectors = {
           PaymentsApi: PaymentsApi,
-          AccountApi: AccountApi
+          AccountApi: AccountApi,
+          $element: {}
         }
       })
 
