@@ -1,5 +1,5 @@
 .payments.payments-options
-  preloader-container(data-is-loading="vm.responseCounter !== 2")
+  preloader-container(data-is-loading="!vm.isClientBalanceLoaded || !vm.isCreditCardsLoaded")
     no-results-information(
       data-ng-hide="vm.isAnyPaymentMethod"
       data-icon-src="/assets/images/profitelo_icons/icon_payments.png"
