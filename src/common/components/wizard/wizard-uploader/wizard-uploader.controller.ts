@@ -4,6 +4,7 @@ import {UploaderService} from '../../../services/uploader/uploader.service'
 import {FilesApi} from 'profitelo-api-ng/api/api'
 import {PostProcessOption, FileInfo} from 'profitelo-api-ng/model/models'
 import * as _ from 'lodash'
+import {FileCategoryEnum, FileTypeChecker} from '../../../classes/file-type-checker'
 
 export interface IDocumentFile {
   file?: File,
@@ -71,10 +72,12 @@ export class WizardUploaderComponentController implements IWizardUploaderModuleC
         file: file,
         isUploadFailed: false
       }
-      this.countChoosedFiles += files.forEach.length
       this.documentFiles.push(currentFile)
-      this.onUploadEnd(false)
-      this.uploadFile(file, currentFile)
+      if (FileTypeChecker.isFileFormatValid(file, FileCategoryEnum.EXPERT_FILE)) {
+        this.countChoosedFiles += 1
+        this.onUploadEnd(false)
+        this.uploadFile(file, currentFile)
+      }
     })
   }
 
