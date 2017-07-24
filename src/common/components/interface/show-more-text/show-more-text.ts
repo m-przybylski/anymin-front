@@ -4,12 +4,12 @@ import {IWindowService} from '../../../services/window/window.service'
 
 /* @ngInject */
 function showMoreTextController($filter: IFilterService, $log: ng.ILogService, $timeout: ng.ITimeoutService,
-                                $window: IWindowService, $scope: ng.IScope) {
+                                $window: IWindowService, $scope: ng.IScope): void {
 
   const collapsibleLength = 300
   this.isCollapsed = false
 
-  this.$onInit = () => {
+  this.$onInit = (): void => {
     this.isCollapsible = (this.text.length > collapsibleLength)
     this.textShort = $filter('limitTo')(this.text, collapsibleLength, 0)
     this.textLong = $filter('limitTo')(this.text, this.text.length, collapsibleLength)
@@ -19,7 +19,7 @@ function showMoreTextController($filter: IFilterService, $log: ng.ILogService, $
     height: null
   }
 
-  const getTextShortElementHeight = () => {
+  const getTextShortElementHeight = (): number => {
     const _element = angular.element('.short-text')[0]
     if (!!_element) {
       return _element.offsetHeight
@@ -29,7 +29,7 @@ function showMoreTextController($filter: IFilterService, $log: ng.ILogService, $
     }
   }
 
-  const getTextLongElementHeight = () => {
+  const getTextLongElementHeight = (): number => {
     const _element = angular.element('.description > p')[0]
     if (!!_element) {
       return _element.offsetHeight
@@ -39,7 +39,7 @@ function showMoreTextController($filter: IFilterService, $log: ng.ILogService, $
     }
   }
 
-  const updateHeight = () => {
+  const updateHeight = (): void => {
     if (this.isCollapsed === true) {
       this.descriptionStyles.height = getTextLongElementHeight()
     } else {
@@ -47,7 +47,7 @@ function showMoreTextController($filter: IFilterService, $log: ng.ILogService, $
     }
   }
 
-  this.showMoreText = () => {
+  this.showMoreText = (): void => {
     this.isCollapsed = !this.isCollapsed
     updateHeight()
   }

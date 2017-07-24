@@ -6,7 +6,7 @@ export class UserAvatarComponentController implements IUserAvatarComponentBindin
   public imageToken?: string
   public profileImageUrl: string
 
-  $onInit = () => {
+  $onInit = (): void => {
     if (this.imageToken) {
       this.profileImageUrl = this.urlService.resolveFileUrl(this.imageToken)
     } else {
@@ -14,7 +14,7 @@ export class UserAvatarComponentController implements IUserAvatarComponentBindin
     }
   }
 
-  $onChanges = () => {
+  $onChanges = (): void => {
     if (this.imageToken) {
       this.profileImageUrl = this.urlService.resolveFileUrl(this.imageToken)
     } else {

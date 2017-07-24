@@ -3,12 +3,12 @@ import 'angular-permission'
 import './set-email/set-email'
 import './set-password/set-password'
 
-function controller() {
+function controller(): void {
 
   return this
 }
 
-function config($stateProvider: ng.ui.IStateProvider) {
+function config($stateProvider: ng.ui.IStateProvider): void {
   $stateProvider.state('app.post-register', {
     url: '/post-register',
     controllerAs: 'vm',

@@ -16,24 +16,24 @@ describe('Unit testing: profitelo.services.userService >', () => {
     } as AccountDetails
 
     const eventsService = {
-      emit: (param: string) => {
+      emit: (param: string): string => {
         return param
       }
     }
 
     const sessionService = {
-      getSession: () => {
+      getSession: (): IPromise<{account: AccountDetails}> => {
         return resolverParam
       },
-      logout: () => {
+      logout: (): IPromise<void> => {
         return q.resolve()
       },
-      login: (_loginDetails: AccountLogin) => {
+      login: (_loginDetails: AccountLogin): IPromise<void> => {
         return q.resolve()
       }
     }
 
-    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
+    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService): void {
       $provide.value('apiUrl', 'awesome')
     }))
 

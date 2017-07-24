@@ -11,15 +11,15 @@ describe('Testing Controller: generalPhoneSettingsController', () => {
   let scope: IGeneralPhoneSettingsControllerScope
 
   const userService = {
-    getUser: () => {
+    getUser: (): void => {
     }
   }
 
   const uibModalInstance = {
-    dismiss: () => {
+    dismiss: (): void => {
 
     },
-    close: () => {
+    close: (): void => {
 
     }
   }

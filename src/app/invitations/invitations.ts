@@ -20,7 +20,7 @@ const invitationsPageModule = angular.module('profitelo.controller.invitations',
     url: '/invitations/{companyId}',
     resolve: {
       /* istanbul ignore next */
-      invitations: (invitationsResolver: InvitationsResolver,  $stateParams: IInvitationsStateParams) =>
+      invitations: (invitationsResolver: InvitationsResolver,  $stateParams: IInvitationsStateParams): void =>
         invitationsResolver.resolve($stateParams)
     },
     data: {

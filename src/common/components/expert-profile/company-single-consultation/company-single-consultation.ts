@@ -8,7 +8,7 @@ import {UserService} from '../../../services/user/user.service'
 import {ClientCallService} from '../../communicator/call-services/client-call.service';
 
 /* @ngInject */
-function controller(clientCallService: ClientCallService, userService: UserService, $state: ng.ui.IStateService) {
+function controller(clientCallService: ClientCallService, userService: UserService, $state: ng.ui.IStateService): void {
 
   this.startCall = (): void => {
     userService.getUser().then((accountDetails) => {
@@ -20,7 +20,7 @@ function controller(clientCallService: ClientCallService, userService: UserServi
     })
   }
 
-  this.$onInit = () => {
+  this.$onInit = (): void => {
     this.tags = this.serviceTagsEmployeesTuple.tags
     this.experts = this.serviceTagsEmployeesTuple.employees
   }

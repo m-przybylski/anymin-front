@@ -13,7 +13,7 @@ export class ConsultationTagInputComponentController implements IConsultationTag
   /* @ngInject */
   constructor() {}
 
-  public onEnter = () => {
+  public onEnter = (): void => {
     if (this.tagModel.length > 0 && !(this.selectedTags.indexOf(this.tagModel) !== -1)) {
       this.selectedTags.push(this.tagModel)
       this.isInputValueInvalid = false
@@ -23,7 +23,7 @@ export class ConsultationTagInputComponentController implements IConsultationTag
     }
   }
 
-  public addSelectedItem = (item: string, index: number) => {
+  public addSelectedItem = (item: string, index: number): void => {
     this.selectedTags.push(item)
     this.isInputValueInvalid = false
     this.dictionary.splice(index, 1)
@@ -39,7 +39,7 @@ export class ConsultationTagInputComponentController implements IConsultationTag
     this.isFocus = true
   }
 
-  public deleteSelectedItem = (index: number) => {
+  public deleteSelectedItem = (index: number): void => {
     this.selectedTags.splice(index, 1)
   }
 }

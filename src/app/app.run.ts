@@ -8,7 +8,7 @@ import {ProfiteloWebsocketService} from '../common/services/profitelo-websocket/
 export function AppRunFunction($rootScope: IRootScopeService, $log: ng.ILogService, permissionService: PermissionService,
                                $anchorScroll: ng.IAnchorScrollService, sessionService: SessionService,
                                $urlRouter: ng.ui.IUrlRouterService, $state: ng.ui.IStateService,
-                               topAlertService: TopAlertService, profiteloWebsocket: ProfiteloWebsocketService) {
+                               topAlertService: TopAlertService, profiteloWebsocket: ProfiteloWebsocketService): void {
 
   // initialize all views permissions
   permissionService.initializeAll()

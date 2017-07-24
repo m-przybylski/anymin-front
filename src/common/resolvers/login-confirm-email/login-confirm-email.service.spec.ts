@@ -8,21 +8,21 @@ describe('Unit testing: profitelo.resolvers.login-confirm-email', () => {
   describe('for LoginConfirmEmailResolver service >', () => {
 
     let AppLoginConfirmEmailResolverService: ILoginConfirmEmailService
-    let url = 'awesomeURL'
+    const url = 'awesomeURL'
     let _timeout: ng.ITimeoutService
     const mockState = {
-      go: () => {
+      go: (): void => {
       }
     }
     let _AccountApiMock: AccountApiMock
     let _SessionApiMock: SessionApiMock
     let httpBackend: ng.IHttpBackendService
-    let emailToken = ':token'
+    const emailToken = ':token'
 
     const sessionService = {
-      setApiKey: () => {
+      setApiKey: (): void => {
       },
-      getSession: () => {
+      getSession: (): void => {
       }
     }
 
@@ -30,13 +30,13 @@ describe('Unit testing: profitelo.resolvers.login-confirm-email', () => {
       angular.mock.module(sessionModule)
     })
 
-    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
+    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService): void {
       $provide.value('apiUrl', url)
       $provide.value('sessionService', sessionService)
     }))
 
     beforeEach(() => {
-      angular.mock.module('profitelo.resolvers.login-confirm-email', function ($provide: ng.auto.IProvideService) {
+      angular.mock.module('profitelo.resolvers.login-confirm-email', function ($provide: ng.auto.IProvideService): void {
         $provide.value('$state', mockState)
       })
 
@@ -58,14 +58,14 @@ describe('Unit testing: profitelo.resolvers.login-confirm-email', () => {
 
       spyOn(mockState, 'go')
 
-      let spy = {
-        spy: () => {
+      const spy = {
+        spy: (): void => {
         }
       }
 
       spyOn(spy, 'spy')
 
-      let stateParams = {
+      const stateParams = {
         token: ''
       }
 
@@ -84,21 +84,21 @@ describe('Unit testing: profitelo.resolvers.login-confirm-email', () => {
 
     it('should handle good token', () => {
 
-      //FIXME type
+      // FIXME type
       _AccountApiMock.postAccountVerifyEmailRoute(200, emailToken, <any>{apiKey: '123'})
 
       _SessionApiMock.checkRoute(200, <GetSession>{})
 
       spyOn(mockState, 'go')
 
-      let spy = {
-        spy: () => {
+      const spy = {
+        spy: (): void => {
         }
       }
 
       spyOn(spy, 'spy')
 
-      let stateParams = {
+      const stateParams = {
         token: emailToken
       }
 

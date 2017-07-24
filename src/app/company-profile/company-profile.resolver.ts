@@ -7,10 +7,17 @@ import {
   GetOrganizationServiceDetails,
   GetOrganizationProfile
 } from 'profitelo-api-ng/model/models'
+import {IPromise} from 'angular'
 
 export interface ICompanyProfile {
   profile: GetProfileWithDocuments
-  services: Array<GetOrganizationServiceDetails>
+  services: GetOrganizationServiceDetails[]
+  isFavourite: boolean
+}
+
+interface ICompanyResponse {
+  profile: GetProfileWithDocuments,
+  services: GetOrganizationServiceDetails[],
   isFavourite: boolean
 }
 
@@ -22,10 +29,10 @@ export class CompanyProfileResolver {
 
   public resolve = (stateParams: ICompanyProfileStateParams): ng.IPromise<ICompanyProfile> => {
 
-    const handleCompanyResponseError = (error: any) =>
+    const handleCompanyResponseError = (error: any): IPromise<void> =>
       this.$q.reject(error)
 
-    const sortServices = (servicesWithTagsAndEmployees: Array<GetOrganizationServiceDetails>) => {
+    const sortServices = (servicesWithTagsAndEmployees: Array<GetOrganizationServiceDetails>): GetOrganizationServiceDetails[] => {
       const primaryConsultation = _.find(servicesWithTagsAndEmployees, (serviceWithTagsAndEmployees) =>
       serviceWithTagsAndEmployees.service.id === stateParams.primaryConsultationId)
 
@@ -37,7 +44,7 @@ export class CompanyProfileResolver {
       return servicesWithTagsAndEmployees
     }
 
-    const handleCompanyResponse = (response: GetOrganizationProfile) => {
+    const handleCompanyResponse = (response: GetOrganizationProfile): IPromise<void> | ICompanyResponse => {
       if (!response.profile.organizationDetails) {
         return this.$q.reject('Profile is not organization')
       }
@@ -49,7 +56,7 @@ export class CompanyProfileResolver {
       }
     }
 
-    const resolveCompanyProfile = () =>
+    const resolveCompanyProfile = (): IPromise<GetOrganizationProfile>  =>
       this.ViewsApi.getWebOrganizationProfileRoute(stateParams.profileId)
         .then((res) => handleCompanyResponse(res))
         .catch(handleCompanyResponseError)

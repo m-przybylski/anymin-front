@@ -11,7 +11,7 @@ export class CustomTranslationHandlerService {
   constructor() {
   }
 
-  public handler = (translationId: string, _uses: string) => {
+  public handler = (translationId: string, _uses: string): void => {
     if (translationId !== void 0 && !_.includes(CustomTranslationHandlerService._exceptionsStrings, translationId)) {
       // const str = 'Missing [' + uses + '] translations for: ' + translationId
       // TODO: move error reporting to sentry
@@ -19,7 +19,7 @@ export class CustomTranslationHandlerService {
     }
   }
 
-  public static getInstance() {
+  public static getInstance(): (translationId: string, _uses: string) => void {
     return (new CustomTranslationHandlerService()).handler
   }
 }

@@ -15,10 +15,10 @@ describe('Unit testing: profitelo.components.interface.alert.validation-alert', 
     let document: ng.IDocumentService
     let validHTML = '<validation-alert></validation-alert>'
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }

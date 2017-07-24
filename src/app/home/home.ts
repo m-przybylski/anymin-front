@@ -10,16 +10,16 @@ import 'common/components/pro-search-dropdown/pro-search-dropdown'
 import 'common/components/interface/slider/slider'
 import navbarModule from '../../common/components/navbar/navbar'
 
-function HomeController() {
+function HomeController(): void {
 
   this.interfaceController = {}
 
   this.interfaceController.hideSearchMask = true
-  this.nextSlide = () => {
+  this.nextSlide = (): void => {
     this.controlls.nextSlide()
   }
 
-  this.prevSlide = () => {
+  this.prevSlide = (): void => {
     this.controlls.prevSlide()
   }
 

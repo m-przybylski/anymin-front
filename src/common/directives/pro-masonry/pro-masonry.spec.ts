@@ -29,10 +29,10 @@ describe('Unit testing: profitelo.directives.pro-masonry', () => {
       })
     })
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       timeout.flush()
       return compiledElement
@@ -43,7 +43,7 @@ describe('Unit testing: profitelo.directives.pro-masonry', () => {
     }))
 
     it('should compile the directive', () => {
-      let el = create(validHTML)
+      const el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
 

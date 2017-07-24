@@ -12,12 +12,12 @@ import {IWindowService} from '../../../services/window/window.service'
     let component: any
     let window
     let stylesObject
-    let validHTML = '<collapse-btn data-title="title" data-icon="icon"></collapse-btn>'
+    const validHTML = '<collapse-btn data-title="title" data-icon="icon"></collapse-btn>'
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }

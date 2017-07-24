@@ -24,7 +24,7 @@ export class ClientConsultationDetailsController implements ng.IController {
   private callDetails: GetCallDetails
   public sueId: string
 
-  public onModalClose = () =>
+  public onModalClose = (): void =>
     this.$uibModalInstance.dismiss('cancel')
 
   /* @ngInject */
@@ -38,12 +38,12 @@ export class ClientConsultationDetailsController implements ng.IController {
     .then((res) => this.onGetCallDetails(res), this.onGetCallDetailsError)
   }
 
-  private onGetCallDetailsError = (err: any) => {
+  private onGetCallDetailsError = (err: any): void => {
     this.isLoading = false
     this.$log.error(err)
   }
 
-  private onGetCallDetails = (response: GetCallDetails) => {
+  private onGetCallDetails = (response: GetCallDetails): void => {
     this.callDetails = response
     if (response.isRecommendable) {
       this.ServiceApi.postServicesTagsRoute({
@@ -54,15 +54,15 @@ export class ClientConsultationDetailsController implements ng.IController {
     }
   }
 
-  private onServiceTagsError = (err: any) => {
+  private onServiceTagsError = (err: any): void => {
     this.$log.error(err)
   }
 
-  private onServiceTags = (res: any) => {
+  private onServiceTags = (res: any): void => {
     this.openClientActivityModal(res[0]!.tags)
   }
 
-  private openClientActivityModal = (serviceTags: Array<Tag> = []) => {
+  private openClientActivityModal = (serviceTags: Array<Tag> = []): void => {
     const expertAvatarFileId = this.callDetails.expertProfile.expertDetails!.avatar
     this.expertAvatar = expertAvatarFileId ? this.urlService.resolveFileUrl(expertAvatarFileId) : undefined
     this.expertName = this.callDetails.expertProfile.expertDetails!.name

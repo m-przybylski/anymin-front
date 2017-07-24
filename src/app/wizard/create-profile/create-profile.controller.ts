@@ -20,11 +20,11 @@ export class CreateProfileController implements ng.IController {
     })
   }
 
-  public selectExpertPath = () => {
+  public selectExpertPath = (): void => {
     this.$state.go('app.wizard.create-profile.expert')
   }
 
-  public selectCompanyPath = () => {
+  public selectCompanyPath = (): void => {
     this.$state.go('app.wizard.create-profile.company')
   }
 

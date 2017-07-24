@@ -3,7 +3,7 @@ import * as angular from 'angular'
 import userModule from '../../../../services/user/user'
 
   /* @ngInject */
-  function controller(userService: UserService) {
+  function controller(userService: UserService): void {
 
     userService.getUser().then((accountDetails) => {
       this.isWizardComplete = accountDetails.isCompany || accountDetails.isExpert

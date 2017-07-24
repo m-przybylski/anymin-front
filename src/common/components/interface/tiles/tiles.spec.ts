@@ -12,7 +12,7 @@ describe('Unit testing: profitelo.components.interface.tiles', () => {
 
     const validHTML: string = '<tiles></tiles>'
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       const parentScope: ng.IScope = rootScope.$new()
       const elem = angular.element(html)
       const compiledElement = compile(elem)(parentScope)

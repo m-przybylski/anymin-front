@@ -1,7 +1,7 @@
-(function() {
+(function(): void {
 
   /* @ngInject */
-  function controller() {
+  function controller(): void {
 
     return this
   }

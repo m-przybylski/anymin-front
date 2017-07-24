@@ -6,7 +6,7 @@ namespace profitelo.directives.expertProfile.proExpertCard {
       let scope: any = null
       let rootScope: ng.IScope
       let compile: any = null
-      let validHTML = '<pro-expert-card></pro-expert-card>'
+      const validHTML = '<pro-expert-card></pro-expert-card>'
 
       beforeEach(() => {
 
@@ -18,10 +18,10 @@ namespace profitelo.directives.expertProfile.proExpertCard {
         })
       })
 
-      function create(html: string) {
+      function create(html: string): JQuery {
         scope = rootScope.$new()
-        let elem = angular.element(html)
-        let compiledElement = compile(elem)(scope)
+        const elem = angular.element(html)
+        const compiledElement = compile(elem)(scope)
         scope.$digest()
         return compiledElement
       }
@@ -31,7 +31,7 @@ namespace profitelo.directives.expertProfile.proExpertCard {
       }))
 
       it('should compile the directive', () => {
-        let el = create(validHTML)
+        const el = create(validHTML)
         expect(el.html()).toBeDefined(true)
       })
     })

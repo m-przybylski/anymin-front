@@ -20,7 +20,7 @@ export interface IConsultationSummaryClientControllerScope extends ng.IScope {
   recommendServiceTags: () => void
   closeModal: () => void
   onModalClose: () => void
-  onTagsSelectChange: (tags: Array<Tag>) => void
+  onTagsSelectChange: (tags: Tag[]) => void
   recommendService: () => void
   isFullscreen: boolean
   isNavbar: boolean
@@ -29,7 +29,7 @@ export interface IConsultationSummaryClientControllerScope extends ng.IScope {
 
 export class ConsultationSummaryClientController {
 
-  private tags: Array<Tag> = []
+  private tags: Tag[] = []
 
   /* @ngInject */
   constructor(private $log: ng.ILogService, private $scope: IConsultationSummaryClientControllerScope,
@@ -46,12 +46,12 @@ export class ConsultationSummaryClientController {
     this.initScope()
   }
 
-  private initScope = () => {
+  private initScope = (): void => {
     this.$scope.callSummary = undefined
     this.$scope.expertAvatarUrl = ''
     this.$scope.chooseExpertsTag = false
 
-    this.$scope.recommendServiceTags = () => {
+    this.$scope.recommendServiceTags = (): void => {
       if (this.$scope.callSummary) {
         this.ServiceApi.putServiceRecommendationsRoute(
           this.$scope.callSummary.serviceUsageEventId,
@@ -61,18 +61,18 @@ export class ConsultationSummaryClientController {
       }
     }
 
-    this.$scope.onTagsSelectChange = (tags: Array<Tag>) =>
+    this.$scope.onTagsSelectChange = (tags: Tag[]): Tag[] =>
       this.tags = tags
 
-    this.$scope.closeModal = () => {
+    this.$scope.closeModal = (): void => {
       this.$uibModalInstance.dismiss('cancel')
     }
 
-    this.$scope.onModalClose = () => {
+    this.$scope.onModalClose = (): void => {
       this.$scope.closeModal()
     }
 
-    this.$scope.recommendService = () => {
+    this.$scope.recommendService = (): void => {
       if (this.$scope.callSummary) {
         this.ServiceApi.postServiceRecommendationRoute(this.$scope.callSummary.serviceUsageEventId)
           .then(this.onRecommendService, this.onRecommendServiceError)
@@ -80,7 +80,7 @@ export class ConsultationSummaryClientController {
     }
   }
 
-  private setCallSummary = (callSummary: ClientCallSummary) => {
+  private setCallSummary = (callSummary: ClientCallSummary): void => {
     this.$scope.callSummary = callSummary
 
     if (callSummary.companyExpertProfile.expertDetails) {
@@ -89,7 +89,7 @@ export class ConsultationSummaryClientController {
     this.$scope.rating = callSummary.service.rating
   }
 
-  private onCallSummary = (data: any) => {
+  private onCallSummary = (data: any): void => {
     this.$log.debug(data)
     const callSummary = data.callSummary
     if (callSummary.service.id === this.$scope.$parent.serviceId) {
@@ -97,23 +97,23 @@ export class ConsultationSummaryClientController {
     }
   }
 
-  private loadFromExistingCallSummaries = () => {
+  private loadFromExistingCallSummaries = (): void => {
     const obj = this.callSummaryService.takeCallSummary(this.$scope.$parent.serviceId)
     if (obj) {
       this.onCallSummary(obj)
     }
   }
 
-  private onRecommendServiceError = (err?: any) =>
+  private onRecommendServiceError = (err?: any): void =>
     this.$log.error(err)
 
-  private onRecommendService = (_res: ServiceRecommendation) =>
+  private onRecommendService = (_res: ServiceRecommendation): boolean =>
     this.$scope.isRecommended = true
 
-  private onRecommendServiceTags = (res: GetService) =>
+  private onRecommendServiceTags = (res: GetService): void =>
     this.$log.debug(res)
 
-  private onRecommendServiceTagsError = (err?: any) =>
+  private onRecommendServiceTagsError = (err?: any): void =>
     this.$log.error(err)
 }
 

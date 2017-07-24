@@ -5,7 +5,7 @@ export function AppConfigFunction($urlRouterProvider: ng.ui.IUrlRouterProvider, 
                         $stateProvider: ng.ui.IStateProvider,
                         $translateProvider: ng.translate.ITranslateProvider, $locationProvider: ng.ILocationProvider,
                         $animateProvider: ng.animate.IAnimateProvider,
-                        tmhDynamicLocaleProvider: ng.dynamicLocale.tmhDynamicLocaleProvider) {
+                        tmhDynamicLocaleProvider: ng.dynamicLocale.tmhDynamicLocaleProvider): void {
 
   $urlRouterProvider.deferIntercept()
 
@@ -26,7 +26,7 @@ export function AppConfigFunction($urlRouterProvider: ng.ui.IUrlRouterProvider, 
       pageTitle: 'PAGE_TITLE.BASE'
     },
     resolve: {
-      browserType: () => {
+      browserType: (): boolean => {
         if (navigator.userAgent.indexOf('MSIE') !== -1) {
           document.querySelector('body')!.classList.add('is-ie')
         }

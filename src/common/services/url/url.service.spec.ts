@@ -25,9 +25,9 @@ describe('Unit testing: profitelo.services.helper >', () => {
 
     it('should match social networks classes', () => {
 
-      const generic = urlService.resolveSocialUrl('https://wykop.pl').iconClass
-      const facebook = urlService.resolveSocialUrl('facebook.com/costam').iconClass
-      const linkedIn = urlService.resolveSocialUrl('https://linkedin.com/ktostam').iconClass
+      const generic = urlService.resolveSocialUrl('https://wykop.pl')!.iconClass
+      const facebook = urlService.resolveSocialUrl('facebook.com/costam')!.iconClass
+      const linkedIn = urlService.resolveSocialUrl('https://linkedin.com/ktostam')!.iconClass
 
       expect(facebook).toEqual('icon-facebook-24')
       expect(linkedIn).toEqual('icon-linkedin-24')

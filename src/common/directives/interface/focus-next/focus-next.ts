@@ -10,7 +10,7 @@ namespace profitelo.directives.interface.focusNext {
     constructor() {
     }
 
-    public link = (scope: ILocalAvatarUploaderDirectiveScope, element: any, _attr: ng.IAttributes) => {
+    public link = (scope: ILocalAvatarUploaderDirectiveScope, element: any, _attr: ng.IAttributes): void => {
       const digitsCodes: Array<number> = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57]
       const validCodes: Array<number> = [8, 39, 37]
       element.bind('keydown', (e: KeyboardEvent) => {
@@ -20,13 +20,13 @@ namespace profitelo.directives.interface.focusNext {
       })
 
       element.bind('keyup', (e: KeyboardEvent) => {
-        const goToNextElement = () => {
+        const goToNextElement = (): void => {
           if (!!element.next()[0]) {
             element.next()[0].focus()
           }
         }
 
-        const goToPrevElement = () => {
+        const goToPrevElement = (): void => {
           if (!!element.prev()[0]) {
             element.prev()[0].focus()
           }
@@ -59,8 +59,8 @@ namespace profitelo.directives.interface.focusNext {
 
     }
 
-    public static getInstance = () => {
-      const instance = () =>
+    public static getInstance = (): () => LocalAvatarUploaderDirective => {
+      const instance = (): LocalAvatarUploaderDirective =>
         new LocalAvatarUploaderDirective()
       instance.$inject = []
       return instance

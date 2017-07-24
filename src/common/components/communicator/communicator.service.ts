@@ -118,7 +118,7 @@ export class CommunicatorService {
   private authenticateClient = (): ng.IPromise<void> =>
     this.RatelApi.getRatelAuthConfigRoute().then(this.onGetRatelClientAuthConfig)
 
-  private onAuthenticateError = (err: any) => {
+  private onAuthenticateError = (err: any): void => {
     this.$log.error(err)
     throw new Error(err)
   }

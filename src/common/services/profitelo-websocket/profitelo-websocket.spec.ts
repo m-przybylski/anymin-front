@@ -6,6 +6,7 @@ import IQService = angular.IQService
 import userModule from '../user/user'
 import eventsModule from '../events/events'
 import callbacksModule from '../callbacks/callbacks'
+import {IPromise} from 'angular'
 
 describe('Unit testing: profitelo.services.profiteloWebsocket >', () => {
   describe('for profitelo.services.profiteloWebsocket >', () => {
@@ -14,19 +15,19 @@ describe('Unit testing: profitelo.services.profiteloWebsocket >', () => {
     let q: IQService
 
     const eventsService: any = {
-      on: (_param: string, callback: () => void) => {
+      on: (_param: string, callback: () => void): void => {
         callback()
       }
     }
 
     const userService: any = {
-      getUser: () => {
+      getUser: (): IPromise<{}> => {
         return q.resolve({})
       }
     }
 
     const callbacksFactory: any = {
-      getInstance: (keys: Array<string>) => {
+      getInstance: (keys: Array<string>): CallbacksService => {
         return new CallbacksService(this.$timeout, keys)
       }
     }

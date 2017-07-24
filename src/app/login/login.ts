@@ -6,12 +6,12 @@ import './forgot-password/forgot-password'
 import './set-new-password/set-new-password'
 import './confirm-email/confirm-email'
 
-function LoginController() {
+function LoginController(): void {
 
   return this
 }
 
-function config($stateProvider: ng.ui.IStateProvider) {
+function config($stateProvider: ng.ui.IStateProvider): void {
   $stateProvider.state('app.login', {
     abstract: true,
     url: '/login',

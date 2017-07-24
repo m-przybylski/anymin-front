@@ -10,16 +10,16 @@ describe('Unit testing: profitelo.components.search.searchFilters', () => {
     let compile: ng.ICompileService
     let component: SearchFiltersComponentController
     let timeout: ng.ITimeoutService
-    let searchService = {
+    const searchService = {
       getAvailableOptions: {},
-      onQueryParamsChange: () => {
+      onQueryParamsChange: (): void => {
       }
     }
     const validHTML: string = '<search-filters search-results="searchResults" set-search-params="setSearchParams"></search-filters>'
 
     const bindings: ISearchFiltersComponentBindings = {
       searchResults: [{}],
-      setSearchParams: () => {
+      setSearchParams: (): void => {
       }
     }
 
@@ -52,7 +52,7 @@ describe('Unit testing: profitelo.components.search.searchFilters', () => {
         })
 
         spyOn(searchService, 'onQueryParamsChange').and.callFake(() => {
-          let deferred = $q.defer()
+          const deferred = $q.defer()
           deferred.resolve({})
           return deferred.promise
         })
@@ -61,7 +61,7 @@ describe('Unit testing: profitelo.components.search.searchFilters', () => {
           'searchFilters', injectors, bindings
         )
 
-        $httpBackend.when('GET', require("../../../templates/range-slider/range-slider.tpl.pug")).respond(200, "")
+        $httpBackend.when('GET', require('../../../templates/range-slider/range-slider.tpl.pug')).respond(200, '')
       })
     })
 

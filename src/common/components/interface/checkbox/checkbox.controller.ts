@@ -14,7 +14,7 @@ export class CheckboxComponentController implements ICheckboxComponentBindings {
   /* @ngInject */
   constructor() {}
 
-  public onClick = () => {
+  public onClick = (): void => {
     if (!this.isDisabled) {
       this.ngModel = !this.ngModel
     }

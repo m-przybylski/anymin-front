@@ -49,7 +49,7 @@ export class SecurityPinNumberSettingsController implements ng.IController {
     })
   }
 
-  public sendPin = () => {
+  public sendPin = (): void => {
     this.isNewPinTyped = true
   }
 

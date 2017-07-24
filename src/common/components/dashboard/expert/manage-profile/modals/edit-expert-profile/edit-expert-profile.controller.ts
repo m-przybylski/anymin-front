@@ -15,7 +15,7 @@ export class EditExpertProfileController implements ng.IController {
   }
   public isAvatarUploaded: boolean = false
 
-  public onModalClose = () =>
+  public onModalClose = (): void =>
     this.$uibModalInstance.dismiss('cancel')
 
   /* @ngInject */

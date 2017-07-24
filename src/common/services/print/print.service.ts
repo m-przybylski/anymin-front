@@ -6,7 +6,7 @@ export class PrintService {
   constructor() {
   }
 
-  private htmlPrintTemplate = (imgSrc: string) => {
+  private htmlPrintTemplate = (imgSrc: string): string => {
 
     return '<html><head>' +
       '</head>' +
@@ -15,11 +15,11 @@ export class PrintService {
       '</body>'
   }
 
-  private closePrint = () => {
+  private closePrint = (): void => {
     document.body.removeChild(this.__container__)
   }
 
-  private setPrint = () => {
+  private setPrint = (): void => {
     this.contentWindow.__container__ = this
     this.contentWindow.onbeforeunload = this.closePrint
     this.contentWindow.onafterprint = this.closePrint
@@ -27,7 +27,7 @@ export class PrintService {
     this.contentWindow.print()
   }
 
-  public print = (imgSrc: string) => {
+  public print = (imgSrc: string): void => {
     const oHiddFrame = document.createElement('iframe')
     oHiddFrame.onload = this.setPrint
     oHiddFrame.style.visibility = 'hidden'

@@ -15,10 +15,10 @@ describe('Unit testing:profitelo.components.search.single-consultation', () => {
     let validHTML = '<single-consultation data-consultation="{id: 1, owner: {img: 1212, type: ORG}}"></single-consultation>'
     let state: ng.ui.IStateService
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
@@ -33,11 +33,11 @@ describe('Unit testing:profitelo.components.search.single-consultation', () => {
     }
 
     const userService = {
-      getUser: () => true
+      getUser: (): boolean => true
     }
 
     const callService = {
-      callServiceId: () => {
+      callServiceId: (): void => {
       }
     }
 
@@ -67,7 +67,7 @@ describe('Unit testing:profitelo.components.search.single-consultation', () => {
         compile = $compile
         _callService = callService
         state = <ng.ui.IStateService>{
-          go: (_x: any) => {
+          go: (_x: any): {} => {
             return {}
           }
         }

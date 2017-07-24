@@ -1,5 +1,6 @@
 {
   "rules": {
+    "typedef": [true, "call-signature", "arrow-call-signature"],
     "class-name": true,
     "comment-format": [true, "check-space"],
     "indent": [true, "spaces"],

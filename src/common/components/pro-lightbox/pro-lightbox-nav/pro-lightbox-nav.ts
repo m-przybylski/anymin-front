@@ -1,4 +1,4 @@
-(function() {
+(function(): void {
 
   const proLightboxNav = {
     transclude: true,

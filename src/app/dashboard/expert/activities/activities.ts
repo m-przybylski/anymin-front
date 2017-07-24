@@ -5,8 +5,9 @@ import expertActivityModule from '../../../../common/components/dashboard/expert
 import './activities.sass'
 import {DashboardActivitiesService} from '../../../../common/services/dashboard-activites/dashboard-activities.service'
 import expertActivitiesModule from '../../../../common/services/dashboard-activites/dashboard-activites'
-import {FinancialOperation} from 'profitelo-api-ng/model/models'
+import {FinancialOperation, GetActivityFilters} from 'profitelo-api-ng/model/models'
 import dashboardFiltersModule from '../../../../common/components/dashboard/shared/filters/filters'
+import {IPromise} from 'angular'
 
 const dashboardExpertActivitiesModule = angular.module('profitelo.controller.dashboard.expert.activities', [
   'ui.router',
@@ -16,7 +17,7 @@ const dashboardExpertActivitiesModule = angular.module('profitelo.controller.das
   expertActivitiesModule,
   expertActivityModule
 ])
-.config(function ($stateProvider: ng.ui.IStateProvider) {
+.config(function ($stateProvider: ng.ui.IStateProvider): void {
   $stateProvider.state('app.dashboard.expert.activities', {
     url: '/activities',
     template: require('./activities.pug')(),
@@ -24,7 +25,7 @@ const dashboardExpertActivitiesModule = angular.module('profitelo.controller.das
     controllerAs: 'vm',
     resolve: {
       /* istanbul ignore next */
-      filtersData: (dashboardActivitiesService: DashboardActivitiesService) =>
+      filtersData: (dashboardActivitiesService: DashboardActivitiesService): IPromise<GetActivityFilters> =>
         dashboardActivitiesService.resolveFilters(FinancialOperation.AccountTypeEnum.PROFILE)
     }
   })

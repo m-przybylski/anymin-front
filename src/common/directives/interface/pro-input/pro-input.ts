@@ -1,7 +1,10 @@
-(function() {
-  function proInput() {
+import * as angular from 'angular'
+import {IDirective} from 'angular'
 
-    function linkFunction(scope: any, element: ng.IRootElementService, attr: any) {
+(function(): void {
+  function proInput(): IDirective {
+
+    function linkFunction(scope: any, element: ng.IRootElementService, attr: any): void {
 
       const digitsCodes = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57]
       scope.required = false
@@ -25,7 +28,7 @@
       }
 
       if ('onlyDigits' in attr.$attr) {
-        element.bind('keypress', function(e) {
+        element.bind('keypress', function(e): void {
           const code = e.keyCode || e.which
           if (_excludedKeyCodesForPhone.indexOf(code) < 0) {
             e.preventDefault()
@@ -34,7 +37,7 @@
       }
 
       if ('noDigits' in attr.$attr) {
-        element.bind('keypress', function(e) {
+        element.bind('keypress', function(e): void {
           const code = e.keyCode || e.which
           if (_excludedKeyCodesForPhone.indexOf(code) > 0) {
             e.preventDefault()
@@ -43,7 +46,7 @@
       }
 
       if ('currency' in attr.$attr) {
-        element.bind('keypress', function(e) {
+        element.bind('keypress', function(e): void {
           const code = e.keyCode || e.which
           if (_excludedKeyCodesForCurrency.indexOf(code) < 0) {
             e.preventDefault()
@@ -51,28 +54,28 @@
         })
       }
 
-      const _setAddon = (value: boolean) => {
+      const _setAddon = (value: boolean): void => {
         scope.addon = value
       }
 
-      scope.addonCall = () => {
+      scope.addonCall = (): void => {
         if (typeof scope.addonAction === 'function') {
           scope.addonAction()
         }
       }
 
-      scope.focusInput = () => {
+      scope.focusInput = (): void => {
         _inputGroup.find('input').focus()
       }
 
       $(element).on('click', scope.focusInput)
 
-      scope.onFocus = () => {
+      scope.onFocus = (): void => {
         scope.focus = true
         scope.onClick = true
         scope.placeholder = ''
       }
-      scope.onFocusOut = () => {
+      scope.onFocusOut = (): void => {
         scope.focus = false
         scope.onClick = false
         scope.placeholder = placeholder
@@ -82,13 +85,13 @@
       } else {
         _setAddon(false)
       }
-      scope.hideCross = () => {
+      scope.hideCross = (): boolean => {
         return ('noDelete' in attr)
       }
-      scope.onMouseover = () => {
+      scope.onMouseover = (): void => {
         scope.focus = true
       }
-      scope.onMouseout = () => {
+      scope.onMouseout = (): void => {
         if (!scope.onClick) {
           scope.focus = false
         }

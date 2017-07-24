@@ -21,13 +21,14 @@ import 'common/directives/interface/pro-alert/pro-alert'
 import permissionModule from '../../../common/services/permission/permission'
 import {EventsService} from '../../../common/services/events/events.service'
 import eventsModule from '../../../common/services/events/events'
+import {IPromise} from 'angular'
 
 function RegisterController($log: ng.ILogService, $filter: IFilterService, $state: ng.ui.IStateService,
                             topWaitingLoaderService: TopWaitingLoaderService, eventsService: EventsService,
                             sessionService: SessionService, topAlertService: TopAlertService,
                             smsSessionId: ILoginRegister, CommonSettingsService: CommonSettingsService,
                             RegistrationApi: RegistrationApi, AccountApi: AccountApi,
-                            loginStateService: LoginStateService) {
+                            loginStateService: LoginStateService): void {
   this.passwordStrength = 0
   this.isPending = false
   this.rulesAccepted = false
@@ -44,7 +45,7 @@ function RegisterController($log: ng.ILogService, $filter: IFilterService, $stat
 
   this.smsCodePattern = CommonSettingsService.localSettings.smsCodePattern
 
-  this.verifyCode = () => {
+  this.verifyCode = (): void => {
     if (angular.isDefined(this.registrationSteps.smsCode) && this.registrationSteps.smsCode !== null && !this.alreadyCheck) {
       this.alreadyCheck = true
       RegistrationApi.verifyVerificationRoute({
@@ -63,7 +64,7 @@ function RegisterController($log: ng.ILogService, $filter: IFilterService, $stat
     }
   }
 
-  this.getSmsCodeStatus = () => {
+  this.getSmsCodeStatus = (): void => {
     /* istanbul ignore next if */
     if (!this.isPending) {
       this.isPending = true
@@ -90,7 +91,7 @@ function RegisterController($log: ng.ILogService, $filter: IFilterService, $stat
     }
   }
 
-  const _updateNewUserObject = (patchObject: PatchAccount, successCallback: (res: Account) => void) => {
+  const _updateNewUserObject = (patchObject: PatchAccount, successCallback: (res: Account) => void): void => {
     /* istanbul ignore next if */
     if (!this.isPending) {
       this.isPending = true
@@ -109,7 +110,7 @@ function RegisterController($log: ng.ILogService, $filter: IFilterService, $stat
     }
   }
 
-  this.completeRegistration = () => {
+  this.completeRegistration = (): void => {
     _updateNewUserObject({
       password: this.registrationSteps.password
     }, () => {
@@ -122,7 +123,7 @@ function RegisterController($log: ng.ILogService, $filter: IFilterService, $stat
   return this
 }
 
-function config($stateProvider: ng.ui.IStateProvider) {
+function config($stateProvider: ng.ui.IStateProvider): void {
   $stateProvider.state('app.login.register', {
     url: '/register',
     controllerAs: 'vm',
@@ -130,7 +131,7 @@ function config($stateProvider: ng.ui.IStateProvider) {
     template: require('./register.pug')(),
     resolve: {
       /* istanbul ignore next */
-      smsSessionId: (LoginRegisterResolver: ILoginRegisterService) => {
+      smsSessionId: (LoginRegisterResolver: ILoginRegisterService): IPromise<ILoginRegister> => {
         /* istanbul ignore next */
         return LoginRegisterResolver.resolve()
       }

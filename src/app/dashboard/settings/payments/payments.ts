@@ -8,6 +8,7 @@ import {PaymentsApi, AccountApi, FinancesApi} from 'profitelo-api-ng/api/api'
 import {MoneyDto, CompanyInfo, GetCreditCard, AccountDetails} from 'profitelo-api-ng/model/models'
 import {UserService} from '../../../../common/services/user/user.service'
 import noResultsInformationModule from '../../../../common/components/dashboard/no-results-information/no-results-information'
+import {IPromise} from 'angular'
 
 export class DashboardSettingsPaymentsController implements ng.IController {
   public isAnyPaymentMethod: boolean
@@ -41,7 +42,7 @@ export class DashboardSettingsPaymentsController implements ng.IController {
       this.accountBalance = clientBalance
     }, (error) => {
       throw new Error('Can not get user balance: ' + error)
-    }).finally(()=> {
+    }).finally(() => {
       this.isClientBalanceLoaded = true
     })
 
@@ -106,10 +107,10 @@ angular.module('profitelo.controller.dashboard.settings.payments', [
       controller: 'dashboardSettingsPaymentsController',
       controllerAs: 'vm',
       resolve: {
-        getInvoiceData: (invoiceDataResolver: InvoiceDataResolver) => {
+        getInvoiceData: (invoiceDataResolver: InvoiceDataResolver): IPromise<CompanyInfo> => {
           return invoiceDataResolver.resolveCompanyInfo()
         },
-        user: (userService: UserService) => {
+        user: (userService: UserService): IPromise<AccountDetails> => {
           return userService.getUser(true)
         }
       }

@@ -11,7 +11,7 @@ describe('Unit testing: profitelo.services.expertActivitiesService >', () => {
     let ViewsApiMock: ViewsApiMock
     let httpBackend: ng.IHttpBackendService
 
-    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
+    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService): void {
       $provide.value('apiUrl', 'awesome')
     }))
 

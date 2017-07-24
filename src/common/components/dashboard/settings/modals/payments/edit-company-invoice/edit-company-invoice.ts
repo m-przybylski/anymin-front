@@ -24,7 +24,7 @@ export class EditCompanyInvoiceController implements ng.IController {
   city: string
   selectedCountry?: IPrimaryDropdownListElement
   countryISO: string
-  countryList: Array<IPrimaryDropdownListElement> = [{
+  countryList: IPrimaryDropdownListElement[] = [{
     name: 'Poland',
     value: 'PL'
   }]
@@ -32,11 +32,11 @@ export class EditCompanyInvoiceController implements ng.IController {
     this.$uibModalInstance.dismiss('cancel')
   }
 
-  public onFormSucceed = () => {
+  public onFormSucceed = (): void => {
     this.$uibModalInstance.dismiss('cancel')
   }
 
-  public editInvoice = () => {
+  public editInvoice = (): void => {
     this.AccountApi.postCompanyInfoRoute({
       vatNumber: this.vatNumber,
       companyName: this.companyName,

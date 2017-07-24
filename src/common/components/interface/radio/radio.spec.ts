@@ -9,12 +9,12 @@ namespace profitelo.components.interface.radio {
       let component: any
       let bindings: any
       let scope: any
-      let validHTML = '<radio-btn data-label="label" data-name="name" data-id="id" data-value="value"></radio-btn>'
+      const validHTML = '<radio-btn data-label="label" data-name="name" data-id="id" data-value="value"></radio-btn>'
 
-      function create(html: string) {
+      function create(html: string): JQuery {
         scope = rootScope.$new()
-        let elem = angular.element(html)
-        let compiledElement = compile(elem)(scope)
+        const elem = angular.element(html)
+        const compiledElement = compile(elem)(scope)
         scope.$digest()
         return compiledElement
       }

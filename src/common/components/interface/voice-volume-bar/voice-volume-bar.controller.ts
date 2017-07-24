@@ -19,7 +19,7 @@ export class VoiceVolumeBarComponentController implements IVoiceVolumeBarCompone
               private $element: JQuery) {
   }
 
-  $onInit = () => {
+  $onInit = (): void => {
     if (this.$element.find('#meter')) {
       const canvasElement: HTMLCanvasElement = <HTMLCanvasElement>this.$element.find('#meter')[0]
       this.canvasContext = canvasElement.getContext('2d')
@@ -40,7 +40,7 @@ export class VoiceVolumeBarComponentController implements IVoiceVolumeBarCompone
     this.drawLoop()
   }
 
-  private drawLoop = () => {
+  private drawLoop = (): void => {
     if (this.canvasContext) {
       this.canvasContext.clearRect(0, 0, VoiceVolumeBarComponentController.width,
         VoiceVolumeBarComponentController.height)

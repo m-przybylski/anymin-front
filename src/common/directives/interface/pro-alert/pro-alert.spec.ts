@@ -10,11 +10,11 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
     let rootScope: ng.IRootScopeService
     let compile: any = null
     let _proTopAlertsService: TopAlertService
-    let validHTML = '<pro-alert></pro-alert>'
+    const validHTML = '<pro-alert></pro-alert>'
     let $timeout: ng.ITimeoutService
 
     interface Params {
-      timeout: Number,
+      timeout: number,
       message: string
     }
 
@@ -30,10 +30,10 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
       })
     })
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
@@ -43,13 +43,13 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
     }))
 
     it('should compile the directive', () => {
-      let el = create(validHTML)
+      const el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
 
     it('should destroy alert', () => {
-      let el = create(validHTML)
-      let isoScope = el.isolateScope()
+      const el = create(validHTML)
+      const isoScope = el.isolateScope()
       spyOn(isoScope, 'destroyAlert').and.callThrough()
       isoScope.alerts.push({
         id: 1,
@@ -62,74 +62,74 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
     })
 
     it('should create success alert', () => {
-      let el = create(validHTML)
-      let isoScope = el.isolateScope()
+      const el = create(validHTML)
+      const isoScope = el.isolateScope()
       _proTopAlertsService.success({})
       expect(isoScope.alerts.length > 0).toBe(true)
     })
 
     it('should create success alert with params', () => {
-      let params = {
+      const params = {
         message: 'RANDOM_MESSAGE',
         timeout: 2
       }
-      let el = create(validHTML)
-      let isoScope = el.isolateScope()
+      const el = create(validHTML)
+      const isoScope = el.isolateScope()
       _proTopAlertsService.success(params)
       const found = _.find(isoScope.alerts, (o: Params) => o.message === 'RANDOM_MESSAGE' && o.timeout === 2)
       expect(found !== undefined).toBe(true)
     })
 
     it('should create error alert', () => {
-      let el = create(validHTML)
-      let isoScope = el.isolateScope()
+      const el = create(validHTML)
+      const isoScope = el.isolateScope()
       _proTopAlertsService.error({})
       expect(isoScope.alerts.length > 0).toBe(true)
     })
 
     it('should create error alert with params', () => {
-      let params = {
+      const params = {
         message: 'RANDOM_MESSAGE',
         timeout: 2
       }
-      let el = create(validHTML)
-      let isoScope = el.isolateScope()
+      const el = create(validHTML)
+      const isoScope = el.isolateScope()
       _proTopAlertsService.error(params)
       const found = _.find(isoScope.alerts, (o: Params) => o.message === 'RANDOM_MESSAGE' && o.timeout === 2)
       expect(found !== undefined).toBe(true)
     })
     it('should create warning alert', () => {
-      let el = create(validHTML)
-      let isoScope = el.isolateScope()
+      const el = create(validHTML)
+      const isoScope = el.isolateScope()
       _proTopAlertsService.warning({})
       expect(isoScope.alerts.length > 0).toBe(true)
     })
 
     it('should create warning alert with params', () => {
-      let params = {
+      const params = {
         message: 'RANDOM_MESSAGE',
         timeout: 2
       }
-      let el = create(validHTML)
-      let isoScope = el.isolateScope()
+      const el = create(validHTML)
+      const isoScope = el.isolateScope()
       _proTopAlertsService.warning(params)
       const found = _.find(isoScope.alerts, (o: Params) => o.message === 'RANDOM_MESSAGE' && o.timeout === 2)
       expect(found !== undefined).toBe(true)
     })
     it('should create info alert', () => {
-      let el = create(validHTML)
-      let isoScope = el.isolateScope()
+      const el = create(validHTML)
+      const isoScope = el.isolateScope()
       _proTopAlertsService.info({})
       expect(isoScope.alerts.length > 0).toBe(true)
     })
 
     it('should create info alert with params and destroy it after timeout', () => {
-      let params = {
+      const params = {
         message: 'RANDOM_MESSAGE',
         timeout: 2
       }
-      let el = create(validHTML)
-      let isoScope = el.isolateScope()
+      const el = create(validHTML)
+      const isoScope = el.isolateScope()
       _proTopAlertsService.info(params)
       const found = _.find(isoScope.alerts, (o: Params) => o.message === 'RANDOM_MESSAGE' && o.timeout === 2)
       expect(found !== undefined).toBe(true)
@@ -138,15 +138,15 @@ describe('Unit testing: profitelo.directives.interface.pro-alert', () => {
     })
 
     it('should create 3 alerts with params and show third after destroy by timeout first and second', () => {
-      let params = {
+      const params = {
         message: 'RANDOM_MESSAGE',
         timeout: 2
       }
-      let lastParams = {
+      const lastParams = {
         message: 'RANDOM_MESSAGE'
       }
-      let el = create(validHTML)
-      let isoScope = el.isolateScope()
+      const el = create(validHTML)
+      const isoScope = el.isolateScope()
       _proTopAlertsService.info(params)
       _proTopAlertsService.error(params)
       _proTopAlertsService.info(lastParams)

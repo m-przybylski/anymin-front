@@ -6,7 +6,7 @@ namespace profitelo.directives.interface.proSwitcher {
       let scope: any = null
       let rootScope: ng.IRootScopeService
       let compile: any = null
-      let validHTML = '<pro-switcher ng-model="isChecked" data-label="LABEL" id data-name="NAME" ></pro-switcher>'
+      const validHTML = '<pro-switcher ng-model="isChecked" data-label="LABEL" id data-name="NAME" ></pro-switcher>'
 
       beforeEach(() => {
 
@@ -18,13 +18,13 @@ namespace profitelo.directives.interface.proSwitcher {
         })
       })
 
-      function create(html: string, isChecked: boolean) {
+      function create(html: string, isChecked: boolean): JQuery {
         scope = rootScope.$new()
 
         scope.isChecked = isChecked
 
-        let elem = angular.element(html)
-        let compiledElement = compile(elem)(scope)
+        const elem = angular.element(html)
+        const compiledElement = compile(elem)(scope)
         scope.$digest()
         return compiledElement
       }
@@ -34,13 +34,13 @@ namespace profitelo.directives.interface.proSwitcher {
       }))
 
       it('should compile the directive', () => {
-        let el = create(validHTML, true)
+        const el = create(validHTML, true)
         expect(el.html()).toBeDefined(true)
       })
 
       it('should be isChecked after click in checkbox', () => {
-        let el = create(validHTML, false)
-        let isoScope = el.isolateScope()
+        const el = create(validHTML, false)
+        const isoScope = el.isolateScope()
         $(el).find('.checkbox-switcher').triggerHandler('click')
         expect(isoScope.ngModel).toEqual(true)
       })

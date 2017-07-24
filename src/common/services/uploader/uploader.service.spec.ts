@@ -23,7 +23,7 @@ describe('Unit testing: profitelo.services.uploader >', () => {
     let originalFile: File
 
     const UploadMock: any = {
-      upload: (_: any) => _
+      upload: (_: any): void => _
     }
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
@@ -137,7 +137,7 @@ describe('Unit testing: profitelo.services.uploader >', () => {
       spyOn(FilesApi, 'createFileTokenPath').and.returnValue($q.resolve({fileId: 1}))
 
       const obj = {
-        callback: () => {
+        callback: (): void => {
         }
       }
 

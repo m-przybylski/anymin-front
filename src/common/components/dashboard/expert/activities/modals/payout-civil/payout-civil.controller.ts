@@ -9,7 +9,7 @@ export class ExpertPayoutCivilModalConttroller implements ng.IController {
     {name: 'tagtetst2'}
   ]
 
-  public onModalClose = () => {
+  public onModalClose = (): void => {
     this.$uibModalInstance.dismiss('cancel')
   }
 

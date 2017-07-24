@@ -10,13 +10,13 @@ describe('Unit testing: profitelo.components.dashboard.client.favourites.favouri
     let componentController: any
     let component: any
     let urlService: UrlService
-    let validHTML = '<last-consultation-slider data-title="title" data-consultations="[{}]"></last-consultation-slider>'
+    const validHTML = '<last-consultation-slider data-title="title" data-consultations="[{}]"></last-consultation-slider>'
     let state: ng.ui.IStateService
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
@@ -66,13 +66,13 @@ describe('Unit testing: profitelo.components.dashboard.client.favourites.favouri
     }))
 
     it('should compile the directive', () => {
-      let el = create(validHTML)
+      const el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
 
     it('should go to nextslide', () => {
       rootScope.controlls = {
-        nextSlide: () => {
+        nextSlide: (): void => {
         }
       }
 
@@ -83,7 +83,7 @@ describe('Unit testing: profitelo.components.dashboard.client.favourites.favouri
 
     it('should go to prevSlide', () => {
       rootScope.controlls = {
-        prevSlide: () => {
+        prevSlide: (): void => {
         }
       }
 

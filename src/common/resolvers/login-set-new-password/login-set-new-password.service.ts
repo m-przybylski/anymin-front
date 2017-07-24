@@ -7,6 +7,7 @@ import {RecoverPasswordApi} from 'profitelo-api-ng/api/api'
 import {LoginStateService} from '../../services/login-state/login-state.service'
 import topAlertModule from '../../services/top-alert/top-alert'
 import loginStateModule from '../../services/login-state/login-state'
+import {IPromise} from 'angular'
 
 export interface ILoginSetNewPassword {
   method: string
@@ -29,11 +30,11 @@ class LoginSetNewPasswordResolver implements ILoginSetNewPasswordService {
 
   }
 
-  public resolve = (stateParams: ISetNewPasswordStateParams) => {
+  public resolve = (stateParams: ISetNewPasswordStateParams): IPromise<{}> => {
 
     const _deferred = this.$q.defer()
 
-    const smsTokenPath = () => {
+    const smsTokenPath = (): void => {
       _deferred.resolve({
         method: 'SMS',
         payload: {
@@ -43,7 +44,7 @@ class LoginSetNewPasswordResolver implements ILoginSetNewPasswordService {
       })
     }
 
-    const emailTokenPath = () => {
+    const emailTokenPath = (): void => {
 
       this.RecoverPasswordApi.postRecoverPasswordVerifyEmailRoute({
         token: stateParams.token

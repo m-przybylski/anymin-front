@@ -16,7 +16,7 @@ export class CardPaymentFormComponentController implements ng.IController, ICard
   paymentsLinks: Array<PaymentLink>
   amountMethodModal: any
 
-  $onInit = () => {
+  $onInit = (): void => {
     this.transaction = {
       amount: this.amountMethodModal.amountModel.cashAmount,
       paymentCountryId: this.paymentCountryId,

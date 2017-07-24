@@ -1,7 +1,7 @@
 namespace profitelo.filters.normalizeTranslationKey {
 
-  function normalizeTranslationKeyFilter() {
-    return function(input: string) {
+  function normalizeTranslationKeyFilter(): (input: string) => string {
+    return function(input: string): string {
       return String(input).toUpperCase().split('-').join('_')
     }
   }

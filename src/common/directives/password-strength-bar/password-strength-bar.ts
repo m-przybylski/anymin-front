@@ -1,7 +1,10 @@
-(function() {
-  function passwordStrengthBar() {
+import * as angular from 'angular'
+import {IDirective} from 'angular'
 
-    function linkFunction(scope: any, _element: ng.IRootElementService, _attr: ng.IAttributes) {
+(function(): void {
+  function passwordStrengthBar(): IDirective {
+
+    function linkFunction(scope: any, _element: ng.IRootElementService, _attr: ng.IAttributes): void {
       scope.classes = [
         'start',
         'very-weak',

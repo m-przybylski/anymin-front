@@ -39,23 +39,23 @@ export class SoundsService {
     this.setAudioLoop(this.soundObjects.callConnecting)
   }
 
-  private setAudioLoop = (audio: HTMLAudioElement) => {
+  private setAudioLoop = (audio: HTMLAudioElement): void => {
     audio.addEventListener('ended', () => {
       audio.currentTime = 0
       audio.play()
     }, false)
   }
 
-  public callIncomingSound = () => {
+  public callIncomingSound = (): ISoundObject => {
 
-    const play = () => {
+    const play = (): void => {
       if (this.callIncomingSoundCount === 0) {
         this.soundObjects.callIncoming.play()
       }
       ++this.callIncomingSoundCount
     }
 
-    const stop = () => {
+    const stop = (): void => {
       if (this.callIncomingSoundCount === 1) {
         this.callIncomingSoundCount = 0
         this.soundObjects.callIncoming.pause()
@@ -73,16 +73,16 @@ export class SoundsService {
     }
   }
 
-  public callConnectingSound = () => {
+  public callConnectingSound = (): ISoundObject => {
 
-    const play = () => {
+    const play = (): void => {
       if (!this.isCallConnecting) {
         this.isCallConnecting = true
         this.soundObjects.callConnecting.play()
       }
     }
 
-    const stop = () => {
+    const stop = (): void => {
       if (this.isCallConnecting) {
         this.isCallConnecting = false
         this.soundObjects.callConnecting.pause()
@@ -96,12 +96,12 @@ export class SoundsService {
     }
   }
 
-  public playMessageNew = () =>
+  public playMessageNew = (): void =>
     this.soundObjects.messageNew.play()
 
-  public playCallRejected = () =>
+  public playCallRejected = (): void =>
     this.soundObjects.callRejected.play()
 
-  public playCallEnded = () =>
+  public playCallEnded = (): void =>
     this.soundObjects.callEnded.play()
 }

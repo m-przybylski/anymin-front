@@ -13,9 +13,9 @@ describe('Unit tests: profitelo.controller.login.set-new-password >', () => {
     let httpBackend: ng.IHttpBackendService
     let RecoverPasswordApiMock: RecoverPasswordApiMock
     let topAlertService: TopAlertService
-    let _url = 'awesomeUrl'
+    const _url = 'awesomeUrl'
 
-    let tokenStatus = {
+    const tokenStatus = {
       method: 'EMAIL',
       accountObject: {
         phoneNumber: {
@@ -30,13 +30,13 @@ describe('Unit tests: profitelo.controller.login.set-new-password >', () => {
       sessionId: '123fsdf'
     }
 
-    let $state = {
-      go: () => {
+    const $state = {
+      go: (): void => {
 
       }
     }
 
-    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
+    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService): void {
       $provide.value('apiUrl', _url)
     }))
 
@@ -66,7 +66,7 @@ describe('Unit tests: profitelo.controller.login.set-new-password >', () => {
     })
 
     it('should check password strength', () => {
-      let password = 'asas'
+      const password = 'asas'
       SetNewPasswordController.onPasswordChange(password)
       expect(SetNewPasswordController.passwordStrength).toEqual(passwordStrengthService.getStrength(password))
     })

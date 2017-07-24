@@ -27,7 +27,7 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
     let smoothScrollingService: SmoothScrollingService
 
     const userService = {
-      getUser: () => {
+      getUser: (): void => {
       }
     }
 
@@ -35,7 +35,7 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
       angular.mock.module(userModule)
     })
 
-    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
+    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService): void {
       $provide.value('apiUrl', url)
       $provide.value('userService', userService)
       $provide.value('$element', {})
@@ -160,7 +160,7 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
       spyOn(smoothScrollingService, 'simpleScrollTo')
       bindings.amountMethodModal.payMethodValue = undefined
       component = componentController('payuPaymentForm', {}, bindings)
-      //FIXME
+      // FIXME
       PaymentApiMock.postPayUOrderRoute(200, <any>{})
       component.sendPayment()
       expect(smoothScrollingService.simpleScrollTo).toHaveBeenCalled()

@@ -1,6 +1,9 @@
-(function() {
-  function proExpertCard() {
-    function linkFunction() {
+import * as angular from 'angular'
+import {IDirective} from 'angular'
+
+(function(): void {
+  function proExpertCard(): IDirective {
+    function linkFunction(): void {
       this.translations = {
         'available': 'HOME.EXPERT_CARD_AVAILABLE',
         'not-available': 'HOME.EXPERT_CARD_NOT_AVAILABLE',

@@ -5,7 +5,7 @@ namespace profitelo.directives.passwordStrengthBar {
 
       let compile: any = null
       let scope: any = null
-      let validHTML = '<password-strength-bar data-current-class="currentClass"></password-strength-bar>'
+      const validHTML = '<password-strength-bar data-current-class="currentClass"></password-strength-bar>'
 
       beforeEach(() => {
 
@@ -19,9 +19,9 @@ namespace profitelo.directives.passwordStrengthBar {
 
       })
 
-      function create(html: string) {
-        let elem = angular.element(html)
-        let compiledElement = compile(elem)(scope)
+      function create(html: string): JQuery {
+        const elem = angular.element(html)
+        const compiledElement = compile(elem)(scope)
         scope.$digest()
         return compiledElement
       }
@@ -31,13 +31,13 @@ namespace profitelo.directives.passwordStrengthBar {
       }))
 
       it('should compile the directive', () => {
-        let el = create(validHTML)
+        const el = create(validHTML)
         expect(el.html()).toBeDefined(true)
       })
 
       it('should change progressBar class', () => {
-        let el = create(validHTML)
-        let isoScope = el.isolateScope()
+        const el = create(validHTML)
+        const isoScope = el.isolateScope()
 
         isoScope.currentClass = -1
         scope.$apply()

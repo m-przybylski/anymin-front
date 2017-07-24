@@ -14,13 +14,13 @@ describe('Unit testing: profitelo.components.interface.pinVerification', () => {
       '<pin-verification data-on-send-pin-again="asd" data-on-complete-pin-inputs="callback"></pin-verification>'
 
     const bindings: IPinVerificationComponentBindings = {
-      onSendPinAgain: () => {
+      onSendPinAgain: (): void => {
       },
-      onCompletePinInputs: () => {
+      onCompletePinInputs: (): void => {
       }
     }
 
-    function create(html: string, bindings: IPinVerificationComponentBindings) {
+    function create(html: string, bindings: IPinVerificationComponentBindings): JQuery {
       const parentScope = rootScope.$new()
       const parentBoundScope = angular.extend(parentScope, bindings)
       const elem = angular.element(html)
@@ -51,7 +51,7 @@ describe('Unit testing: profitelo.components.interface.pinVerification', () => {
     }))
 
     it('should compile the component', () => {
-      let el = create(validHTML, bindings)
+      const el = create(validHTML, bindings)
       expect(el.html()).toBeDefined(true)
     })
 

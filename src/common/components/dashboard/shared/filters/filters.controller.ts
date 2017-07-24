@@ -6,6 +6,12 @@ import {IFilterService} from '../../../../services/filter/filter.service'
 import {IPrimaryDropdownListElement} from '../../../interface/dropdown-primary/dropdown-primary'
 import {ActivitiesQueryParams} from '../../../../services/dashboard-activites/activities-query-params'
 import {UserService} from '../../../../services/user/user.service'
+
+interface IDropdownList {
+  name: string,
+  value: string
+}
+
 export class DashboardFiltersComponentController implements IDashboardFiltersComponentBindings {
 
   public onSetSearchParams: (queryParams: ActivitiesQueryParams) => void
@@ -14,19 +20,19 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
   public toggleFilters: () => void
   public isClientDashboard: boolean
 
-  public activityTypesList: Array<IPrimaryDropdownListElement>
-  public servicesDropdownList: Array<IPrimaryDropdownListElement>
-  public expertsDropdownList: Array<IPrimaryDropdownListElement>
+  public activityTypesList: IPrimaryDropdownListElement[]
+  public servicesDropdownList: IPrimaryDropdownListElement[]
+  public expertsDropdownList: IPrimaryDropdownListElement[]
 
   public selectedType?: IPrimaryDropdownListElement
   public selectedService?: IPrimaryDropdownListElement
   public selectedExpert?: IPrimaryDropdownListElement
-  public secondaryServicesDropdownList: Array<IPrimaryDropdownListElement>
+  public secondaryServicesDropdownList: IPrimaryDropdownListElement[]
   public accountType: FinancialOperation.AccountTypeEnum
   public isCompany: boolean = false
-  public watchGroup: Array<string> = ['dateFrom', 'dateTo']
+  public watchGroup: string[] = ['dateFrom', 'dateTo']
 
-  $onInit = () => {
+  $onInit = (): void => {
     this.activityTypesList = this.filters.activityTypes.map((type: string) =>
       ({
         name: this.$filter('translate')(this.$filter('normalizeTranslationKey')(('DASHBOARD.FILTERS.' + type))),
@@ -54,7 +60,7 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
 
     this.showMobileFilters = true
 
-    this.toggleFilters = () => {
+    this.toggleFilters = (): void => {
       this.showMobileFilters = !this.showMobileFilters
     }
 
@@ -85,14 +91,14 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
     })
   }
 
-  public setupServicesList = () => {
+  public setupServicesList = (): void => {
     if (this.filters.services) {
       this.servicesDropdownList = this.createDropdownServiceList(this.filters.services)
     }
     this.secondaryServicesDropdownList = []
   }
 
-  public updateActivityTypeParam = (item: IPrimaryDropdownListElement) => {
+  public updateActivityTypeParam = (item: IPrimaryDropdownListElement): void => {
     const queryParams = new ActivitiesQueryParams
     queryParams.setAccountType(this.accountType)
     queryParams.setActivityType(item.value)
@@ -104,7 +110,7 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
     this.setSelectedFilters(queryParams)
   }
 
-  public updateProfileParam = (item: IPrimaryDropdownListElement) => {
+  public updateProfileParam = (item: IPrimaryDropdownListElement): void => {
     const queryParams = new ActivitiesQueryParams
     queryParams.setAccountType(this.accountType)
     queryParams.setProfileId(item.value)
@@ -127,7 +133,7 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
     this.setSelectedFilters(queryParams)
   }
 
-  public mainUpdateServiceParam = (item: IPrimaryDropdownListElement) => {
+  public mainUpdateServiceParam = (item: IPrimaryDropdownListElement): void => {
     const queryParams = new ActivitiesQueryParams
     queryParams.setAccountType(this.accountType)
     queryParams.setServiceId(item.value)
@@ -138,7 +144,7 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
     this.setSelectedFilters(queryParams)
   }
 
-  public secondUpdateServiceParam = (item: IPrimaryDropdownListElement) => {
+  public secondUpdateServiceParam = (item: IPrimaryDropdownListElement): void => {
     const queryParams = new ActivitiesQueryParams
     queryParams.setAccountType(this.accountType)
     queryParams.setServiceId(item.value)
@@ -148,7 +154,7 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
     this.setSelectedFilters(queryParams)
   }
 
-  private setSelectedFilters = (queryParams: ActivitiesQueryParams) => {
+  private setSelectedFilters = (queryParams: ActivitiesQueryParams): void => {
     this.selectedType = _.find(
       this.activityTypesList, (type: {value: string, name: string}) => type.value === String(queryParams.getActivityType()))
     this.selectedService = _.find(
@@ -157,14 +163,14 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
       this.expertsDropdownList, (expert: {value: string, name: string}) => expert.value === queryParams.getProfileId())
   }
 
-  private createDropdownServiceList = (list: Array<ServiceFilter>) => {
+  private createDropdownServiceList = (list: ServiceFilter[]): IDropdownList[] => {
     return list.map(service => ({
       name: service.name,
       value: service.id
     }))
   }
 
-  private createDropdownExpertsList = (list: Array<ExpertFilter>) => {
+  private createDropdownExpertsList = (list: ExpertFilter[]): IDropdownList[] => {
     return list.map((expert) => {
       return {
         name: expert.name,

@@ -13,5 +13,3 @@ const expertPayoutCompanyModalModule = angular.module('profitelo.components.dash
 .controller('expertPayoutCompanyController', ExpertPayoutCompanyModalController)
 
 export default expertPayoutCompanyModalModule
-
-

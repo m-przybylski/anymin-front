@@ -1,16 +1,17 @@
 import * as angular from 'angular'
 import {TopAlertService} from '../../../services/top-alert/top-alert.service'
 import topAlertModule from '../../../services/top-alert/top-alert'
+import {IDirective} from 'angular'
 
-function proAlert(topAlertService: TopAlertService) {
+function proAlert(topAlertService: TopAlertService): IDirective {
 
-  function linkFunction(scope: any, _element: ng.IRootElementService, _attr: ng.IAttributes) {
+  function linkFunction(scope: any, _element: ng.IRootElementService, _attr: ng.IAttributes): void {
     scope.alerts = []
-    const addAlert = (alerts: Array<any>) => {
+    const addAlert = (alerts: Array<any>): void => {
       scope.alerts = alerts
     }
 
-    scope.destroyAlert = (alertId: number) => {
+    scope.destroyAlert = (alertId: number): void => {
       topAlertService.destroyAlert(alertId)
     }
 

@@ -24,7 +24,7 @@ describe('Testing Controller: ConsultationController', () => {
     isSummary: true
   }
   const commonConfig: CommonConfig = <CommonConfig>{
-    getAllData: () => {
+    getAllData: (): object => {
       return {
         config: {
           moneyDivider: 100
@@ -56,7 +56,7 @@ describe('Testing Controller: ConsultationController', () => {
     }
   }
 
-  const createController = (stateParams: IConsultationStateParams, wizardProfile: GetWizardProfile) => {
+  const createController = (stateParams: IConsultationStateParams, wizardProfile: GetWizardProfile): ConsultationController => {
     return controller<ConsultationController>('consultationController', {
       $state: state,
       userService: UserService,

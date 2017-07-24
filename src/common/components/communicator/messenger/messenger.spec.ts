@@ -2,8 +2,8 @@ import * as angular from 'angular'
 import {IMessengerComponentBindings, default as messengerModule} from './messenger'
 import soundsModule from '../../../services/sounds/sounds'
 import {MessengerComponentController} from './messenger.controller'
-import {CurrentExpertCall} from "../models/current-expert-call";
-import {CurrentClientCall} from "../models/current-client-call";
+import {CurrentExpertCall} from '../models/current-expert-call'
+import {CurrentClientCall} from '../models/current-client-call'
 
 describe('Unit testing: profitelo.components.communicator.messenger', () => {
   return describe('for messenger component >', () => {
@@ -13,11 +13,11 @@ describe('Unit testing: profitelo.components.communicator.messenger', () => {
     let component: MessengerComponentController
 
     const clientCallService = {
-      onNewCall: (_cb: CurrentClientCall) => {}
+      onNewCall: (_cb: CurrentClientCall): void => {}
     }
 
     const expertCallService = {
-      onNewCall: (_cb: CurrentExpertCall) => {}
+      onNewCall: (_cb: CurrentExpertCall): void => {}
     }
 
     const validHTML =
@@ -27,7 +27,7 @@ describe('Unit testing: profitelo.components.communicator.messenger', () => {
       isMessenger: false
     }
 
-    function create(html: string, bindings: IMessengerComponentBindings) {
+    function create(html: string, bindings: IMessengerComponentBindings): JQuery {
       const parentScope = rootScope.$new()
       const parentBoundScope = angular.extend(parentScope, bindings)
       const elem = angular.element(html)
@@ -71,7 +71,7 @@ describe('Unit testing: profitelo.components.communicator.messenger', () => {
     }))
 
     it('should compile the component', () => {
-      let el = create(validHTML, bindings)
+      const el = create(validHTML, bindings)
       expect(el.html()).toBeDefined(true)
     })
 

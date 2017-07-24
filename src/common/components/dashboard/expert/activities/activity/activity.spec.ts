@@ -13,13 +13,13 @@ describe('Unit testing: profitelo.components.dashboard.expert.activities.activit
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let component: ExpertActivityComponentController
-    let validHTML = '<expert-activity activity="{}"></expert-activity>'
+    const validHTML = '<expert-activity activity="{}"></expert-activity>'
     let $log: ng.ILogService
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
@@ -49,7 +49,7 @@ describe('Unit testing: profitelo.components.dashboard.expert.activities.activit
     }))
 
     it('should compile the directive', () => {
-      let el = create(validHTML)
+      const el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
 

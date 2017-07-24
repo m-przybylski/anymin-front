@@ -27,13 +27,13 @@ export class VolumeMeterService {
     processor.clipLevel = clipLevel || VolumeMeterService.defaultClipLevel
     processor.averaging = averaging || VolumeMeterService.defaultAveraging
     processor.clipLag = clipLag || VolumeMeterService.defaultClipLag
-    processor.onaudioprocess = (event: AudioProcessingEvent) => this.volumeAudioProcess(processor, event)
+    processor.onaudioprocess = (event: AudioProcessingEvent): void => this.volumeAudioProcess(processor, event)
     processor.connect(audioContext.destination)
 
     return processor
   }
 
-  private volumeAudioProcess = (processor: IProcessor, event: AudioProcessingEvent) => {
+  private volumeAudioProcess = (processor: IProcessor, event: AudioProcessingEvent): void => {
     const buffer: Float32Array = event.inputBuffer.getChannelData(0)
     const bufferLength: number = buffer.length
     let sum: number = 0

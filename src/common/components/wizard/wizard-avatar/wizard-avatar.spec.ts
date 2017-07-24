@@ -12,20 +12,20 @@ describe('Unit testing: profitelo.components.wizard.wizard-avatar', () => {
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let component: WizardAvatarComponentController
-    let validHTML = '<wizard-avatar></wizard-avatar>'
+    const validHTML = '<wizard-avatar></wizard-avatar>'
     let bindings: IWizardAvatarComponentBindings
     let urlService: UrlService
     const uploaderFactory = {
       collectionTypes: {avatar: 'avatar'},
-      getInstance: () => {
+      getInstance: (): void => {
       }
     }
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
       scope.selectedItemsValue = []
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
@@ -73,7 +73,7 @@ describe('Unit testing: profitelo.components.wizard.wizard-avatar', () => {
     }))
 
     it('should compile the directive', () => {
-      let el = create(validHTML)
+      const el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
 

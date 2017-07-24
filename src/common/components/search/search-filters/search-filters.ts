@@ -11,7 +11,7 @@ import 'common/directives/pro-tags-slider/pro-tags-slider'
 import 'common/directives/interface/pro-switcher/pro-switcher'
 
 export interface ISearchFiltersComponentBindings {
-  searchResults: Array<{}>
+  searchResults: {}[]
   setSearchParams: any
 }
 
@@ -23,7 +23,7 @@ interface ISearchFilters {
   minPrice?: number
   maxPrice?: number
   profileType?: {}
-  tags?: Array<Tag>
+  tags?: Tag[]
   offset?: number
 }
 
@@ -41,11 +41,11 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
   public searchResults: Array<{}>
   public setSearchParams: any
 
-  $onInit = () => {
+  $onInit = (): void => {
 
   }
 
-  $onChanges = (onChangesObject: any) => {
+  $onChanges = (onChangesObject: any): void => {
     if (onChangesObject.searchResults.currentValue !== onChangesObject.searchResults.previousValue
       && angular.isDefined(this.searchFilters)) {
       this.searchFilters.tags = onChangesObject.searchResults.currentValue.relatedTags
@@ -100,28 +100,28 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
 
   }
 
-  public handleMobileFiltersDisplay = () => {
+  public handleMobileFiltersDisplay = (): boolean => {
     const windowSize = this.$window.innerWidth
     return windowSize < 768 && !this.showMobileFilters
   }
 
-  public showFilters = () => {
+  public showFilters = (): void => {
     this.showMobileFilters = !this.showMobileFilters
   }
 
-  public showMobileFilterButton = () => {
+  public showMobileFilterButton = (): boolean => {
     const windowSize = this.$window.innerWidth
     return windowSize < 768
   }
 
-  public onActivityStatusChange = (searchFilters: any) => {
+  public onActivityStatusChange = (searchFilters: any): void => {
     const searchQueryParams: ISearchFilters = {}
     searchQueryParams.onlyAvailable = searchFilters
     searchQueryParams.offset = 0
     this.setSearchQueryParamsDebounce(searchQueryParams)
   }
 
-  public onPriceRangeBarUpdate = (minPrice: number, maxPrice: number, _pointerType: any) => {
+  public onPriceRangeBarUpdate = (minPrice: number, maxPrice: number, _pointerType: any): void => {
     const searchQueryParams: ISearchFilters = {}
     searchQueryParams.maxPrice = maxPrice
     searchQueryParams.minPrice = minPrice
@@ -129,7 +129,7 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
     this.setSearchQueryParamsDebounce(searchQueryParams)
   }
 
-  public updateSortTypeParam = (item: any) => {
+  public updateSortTypeParam = (item: any): void => {
     const searchQueryParams: ISearchFilters = {}
     if (angular.isDefined(item)) {
       searchQueryParams.sortBy = item.value
@@ -138,7 +138,7 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
     this.setSearchQueryParamsDebounce(searchQueryParams)
   }
 
-  public updateLanguageTypeParam = (item: any) => {
+  public updateLanguageTypeParam = (item: any): void => {
     const searchQueryParams: ISearchFilters = {}
     if (angular.isDefined(item)) {
       searchQueryParams.language = item.value
@@ -147,7 +147,7 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
     this.setSearchQueryParamsDebounce(searchQueryParams)
   }
 
-  public updateTypeListTypeParam = (item: any) => {
+  public updateTypeListTypeParam = (item: any): void => {
     const searchQueryParams: ISearchFilters = {}
     if (angular.isDefined(item)) {
       searchQueryParams.profileType = item.value
@@ -156,7 +156,7 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
     this.setSearchQueryParamsDebounce(searchQueryParams)
   }
 
-  public updateCategoryTypeParam = (item: any) => {
+  public updateCategoryTypeParam = (item: any): void => {
     const searchQueryParams: ISearchFilters = {}
     if (angular.isDefined(item)) {
       searchQueryParams.category = item.value
@@ -165,7 +165,7 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
     this.setSearchQueryParamsDebounce(searchQueryParams)
   }
 
-  private maxPriceValue = (maxPrice: number) => {
+  private maxPriceValue = (maxPrice: number): number => {
     if (angular.isUndefined(maxPrice) || maxPrice === null) {
       return 20
     } else {
@@ -173,7 +173,7 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
     }
   }
 
-  private setSearchQueryParamsDebounce = (...args: Array<any>) =>
+  private setSearchQueryParamsDebounce = (...args: Array<any>): void =>
     _.debounce(this.setSearchParams, this.searchDebounceTimeout, {
       'leading': false,
       'trailing': true

@@ -10,13 +10,13 @@ describe('Unit testing: profitelo.components.pro-search-dropdown.service-suggest
     let componentController: any
     let component: any
     let CommonSettingsService: CommonSettingsService
-    let validHTML = '<service-suggestions></service-suggestions>'
+    const validHTML = '<service-suggestions></service-suggestions>'
     let state: ng.ui.IStateService
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
@@ -59,7 +59,7 @@ describe('Unit testing: profitelo.components.pro-search-dropdown.service-suggest
     }))
 
     it('should compile the directive', () => {
-      let el = create(validHTML)
+      const el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
 

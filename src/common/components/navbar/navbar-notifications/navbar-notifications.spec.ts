@@ -4,6 +4,7 @@ import navbarNotificationsModule from './navbar-notifications'
 import {ProfileApiMock} from 'profitelo-api-ng/api/api'
 import {INavbarNotificationsComponentBindings} from './navbar-notifications'
 import {ModalsService} from '../../../services/modals/modals.service'
+import {IPromise} from 'angular'
 
 describe('Unit testing: navbarNotifications', () => {
   return describe('for navbarNotifications component >', () => {
@@ -19,16 +20,16 @@ describe('Unit testing: navbarNotifications', () => {
       '<navbar-notifications></navbar-notifications>'
 
     const userService = {
-      getUser: () => {
+      getUser: (): IPromise<{}> => {
         return q.resolve({})
       }
     }
 
     const state = <ng.ui.IStateService>{
-      go: (_to: string) => q.resolve({})
+      go: (_to: string): IPromise<{}> => q.resolve({})
     }
 
-    function create(html: string,  bindings: INavbarNotificationsComponentBindings) {
+    function create(html: string,  bindings: INavbarNotificationsComponentBindings): JQuery {
       const parentScope = rootScope.$new()
       const parentBoundScope = angular.extend(parentScope, bindings)
       const elem = angular.element(html)
@@ -49,7 +50,6 @@ describe('Unit testing: navbarNotifications', () => {
 
       angular.mock.module(navbarNotificationsModule)
 
-
       inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
               $componentController: ng.IComponentControllerService, $q: ng.IQService,
               $httpBackend: ng.IHttpBackendService, _modalsService_: ModalsService,
@@ -63,7 +63,7 @@ describe('Unit testing: navbarNotifications', () => {
         bindings = {
           isNotificationsTab: true,
           isInvitationsTab: false,
-          onClick: () => {}
+          onClick: (): void => {}
         }
 
         const injectors = {

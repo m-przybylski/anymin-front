@@ -5,22 +5,22 @@ describe('Unit testing: profitelo.resolvers.login-forgot-password', () => {
   describe('for LoginForgotPasswordResolver service >', () => {
 
     let AppLoginForgotPasswordResolverService: ILoginForgotPasswordService
-    let url = 'awesomeURL'
+    const url = 'awesomeURL'
     let _timeout: ng.ITimeoutService
     let mockState: any
 
-    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
+    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService): void {
       $provide.value('apiUrl', url)
     }))
 
     beforeEach(() => {
 
       mockState = {
-        go: () => {
+        go: (): void => {
         }
       }
 
-      angular.mock.module('profitelo.resolvers.login-forgot-password', function ($provide: ng.auto.IProvideService) {
+      angular.mock.module('profitelo.resolvers.login-forgot-password', function ($provide: ng.auto.IProvideService): void {
         $provide.value('$state', mockState)
       })
 
@@ -38,8 +38,8 @@ describe('Unit testing: profitelo.resolvers.login-forgot-password', () => {
 
       spyOn(mockState, 'go')
 
-      let spy = {
-        spy: () => {
+      const spy = {
+        spy: (): void => {
         }
       }
 

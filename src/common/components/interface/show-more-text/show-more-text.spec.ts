@@ -10,15 +10,15 @@ describe('Unit testing: profitelo.components.interface.show-more-text', () => {
     let componentController: any
     let component: any
     let window: IWindowService
-    let validHTML = '<show-more-text data-text="text"></show-more-text>'
+    const validHTML = '<show-more-text data-text="text"></show-more-text>'
     const bindings = {
       text: 'Sample text'
     }
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }

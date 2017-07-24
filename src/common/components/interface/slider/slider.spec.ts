@@ -9,12 +9,12 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
     let componentController: any
     let component: any
     let timeout: ng.ITimeoutService
-    let validHTML = '<slider data-ng-transclude data-controlls="controlls" data-move-slides="-2"></slider>'
+    const validHTML = '<slider data-ng-transclude data-controlls="controlls" data-move-slides="-2"></slider>'
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
@@ -42,7 +42,7 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
     }))
 
     it('should compile the component', () => {
-      let el = create(validHTML)
+      const el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
 

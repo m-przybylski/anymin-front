@@ -14,7 +14,7 @@ export class PaymentMethodComponentController implements IPaymentMethodComponent
   constructor() {
   }
 
-  $onInit = () => {
+  $onInit = (): void => {
     if (this.lastPayment && this.paymentSystemModel !== null) {
       this.activeOption = _.findIndex(this.paymentSystems, (paymentSystem) =>
                                         paymentSystem.id === this.lastPayment.paymentSystemId)
@@ -22,12 +22,12 @@ export class PaymentMethodComponentController implements IPaymentMethodComponent
     }
   }
 
-  public setImage = (slug: string) => {
+  public setImage = (slug: string): string => {
     const imagePath = '/assets/images/%s-logo.png'
     return imagePath.replace('%s', slug)
   }
 
-  public selectPaymentMethod = (index: number) => {
+  public selectPaymentMethod = (index: number): void => {
     this.scrollHandler()
     this.firstSelect = true
 

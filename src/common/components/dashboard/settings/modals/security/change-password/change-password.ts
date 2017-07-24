@@ -23,7 +23,7 @@ export class SecurityChangePasswordSettingsController implements ng.IController 
   public isCurrentPasswordCorrect: boolean = true
   public arePasswordsDifferent: boolean = true
 
-  public setNewPassword = () => {
+  public setNewPassword = (): void => {
 
     this.isCurrentPasswordCorrect = true
     this.arePasswordsDifferent = true
@@ -51,11 +51,11 @@ export class SecurityChangePasswordSettingsController implements ng.IController 
               private AccountApi: AccountApi, private passwordStrengthService: PasswordStrengthService) {
   }
 
-  public onPasswordChange = (password: string) => {
+  public onPasswordChange = (password: string): void => {
     this.passwordStrength = this.passwordStrengthService.getStrength(password)
   }
 
-  public onModalClose = () => {
+  public onModalClose = (): void => {
     this.$uibModalInstance.dismiss('cancel')
   }
 }

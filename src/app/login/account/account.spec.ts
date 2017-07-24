@@ -16,7 +16,6 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
       AccountFormController: any,
       RegistrationApi: RegistrationApi,
       $httpBackend: ng.IHttpBackendService,
-      url = 'awesomeURL',
       _mockParams: any = null,
       _mockState: any = null,
       _RatelApiMock: RatelApiMock,
@@ -27,13 +26,14 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
       topAlertService: TopAlertService
 
     const userService = {
-      login: () => {
+      login: (): void => {
       },
-      logout: () => {
+      logout: (): void => {
       }
-    }
+    },
+      url = 'awesomeURL'
 
-    beforeEach(() => {
+      beforeEach(() => {
       angular.mock.module(userModule)
       angular.mock.module(communicatorModule)
     })
@@ -67,11 +67,11 @@ describe('Unit tests: profitelo.controller.login.account>', () => {
           password: 'RANDOM_PASSWORD'
         }
         scope.phoneNumberForm = {
-          '$setPristine': () => {
+          '$setPristine': (): void => {
           }
         }
         _mockState = {
-          go: (_param: any, _obj: any) => {
+          go: (_param: any, _obj: any): boolean => {
             return true
           }
         }

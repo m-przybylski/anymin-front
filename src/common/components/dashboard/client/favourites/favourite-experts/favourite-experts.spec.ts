@@ -8,12 +8,12 @@ namespace profitelo.components.dashboard.client.favourites.favouriteExperts {
       let compile: ng.ICompileService
       let componentController: any
       let component: any
-      let validHTML = '<client-favourite-experts></client-favourite-experts>'
+      const validHTML = '<client-favourite-experts></client-favourite-experts>'
 
-      function create(html: string) {
+      function create(html: string): JQuery {
         scope = rootScope.$new()
-        let elem = angular.element(html)
-        let compiledElement = compile(elem)(scope)
+        const elem = angular.element(html)
+        const compiledElement = compile(elem)(scope)
         scope.$digest()
         return compiledElement
       }
@@ -35,7 +35,7 @@ namespace profitelo.components.dashboard.client.favourites.favouriteExperts {
         expect(true).toBeTruthy()
       }))
       it('should compile the directive', () => {
-        let el = create(validHTML)
+        const el = create(validHTML)
         expect(el.html()).toBeDefined(true)
       })
     })

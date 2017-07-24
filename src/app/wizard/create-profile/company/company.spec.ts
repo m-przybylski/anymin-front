@@ -3,6 +3,7 @@ import companyWizardModule from './company'
 import {GetWizardProfile, PartialOrganizationDetails} from 'profitelo-api-ng/model/models'
 import {WizardApi, WizardApiMock} from 'profitelo-api-ng/api/api'
 import {CompanyController} from './company.controller'
+import {IPromise} from 'angular'
 
 describe('Testing Controller: CompanyController', () => {
 
@@ -17,7 +18,7 @@ describe('Testing Controller: CompanyController', () => {
     isSummary: false
   }
 
-  beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
+  beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService): void {
     $provide.value('apiUrl', 'awesomeURL/')
   }))
 
@@ -28,7 +29,7 @@ describe('Testing Controller: CompanyController', () => {
             _WizardApiMock_: WizardApiMock, $q: ng.IQService) => {
 
       $state = <ng.ui.IStateService>{
-        go: (_to: string) => $q.resolve({})
+        go: (_to: string): IPromise<{}> => $q.resolve({})
       }
       httpBackend = $httpBackend
       WizardApiMock = _WizardApiMock_

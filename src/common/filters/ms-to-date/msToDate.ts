@@ -1,7 +1,7 @@
 namespace profitelo.filters.msToDate {
 
-  function filter() {
-    return function(milliseconds: number) {
+  function filter(): (milliseconds: number) => Date {
+    return function(milliseconds: number): Date {
       const date = new Date(0, 0, 0, 0, 0, 0, 0)
       date.setMilliseconds(milliseconds)
       return date

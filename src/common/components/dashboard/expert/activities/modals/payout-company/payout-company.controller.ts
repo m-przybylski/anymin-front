@@ -13,7 +13,7 @@ export class ExpertPayoutCompanyModalController implements ng.IController {
     $scope.isFullscreen = true
   }
 
-  public onModalClose = () =>
+  public onModalClose = (): void =>
     this.$uibModalInstance.dismiss('cancel')
 
 }

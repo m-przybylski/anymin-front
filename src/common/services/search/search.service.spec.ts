@@ -33,8 +33,8 @@ describe('Unit testing: profitelo.services.search >', () => {
     })
 
     it('should return default search parameter', () => {
-      let observer = {
-        callback: (_: any) => {
+      const observer = {
+        callback: (_: any): void => {
         }
       }
       spyOn(observer, 'callback')
@@ -76,11 +76,11 @@ describe('Unit testing: profitelo.services.search >', () => {
         maxPrice: 10
       }
 
-      //FIXME replace with SearchMock when queryparams will work
+      // FIXME replace with SearchMock when queryparams will work
       httpBackend.whenRoute('GET', 'awesomeURL/search?').respond(200, {})
 
-      let observer = {
-        callback: (_: any) => {
+      const observer = {
+        callback: (_: any): void => {
         }
       }
       spyOn(observer, 'callback')
@@ -123,11 +123,11 @@ describe('Unit testing: profitelo.services.search >', () => {
         minPrice: 5.99,
         maxPrice: -210
       }
-      //FIXME replace with SearchMock when queryparams will work
+      // FIXME replace with SearchMock when queryparams will work
       httpBackend.whenRoute('GET', 'awesomeURL/search?').respond(200, {})
 
       const observer = {
-        callback: (_: any) => {
+        callback: (_: any): void => {
         }
       }
       spyOn(observer, 'callback')
@@ -158,8 +158,8 @@ describe('Unit testing: profitelo.services.search >', () => {
 
     it('should set implicit search parameters', inject(() => {
 
-      let observer = {
-        callback: (_: any) => {
+      const observer = {
+        callback: (_: any): void => {
         }
       }
       spyOn(observer, 'callback')

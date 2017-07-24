@@ -18,7 +18,7 @@ import {ErrorHandlerService} from '../../../../services/error-handler/error-hand
       const validHTML = '<expert-navigation></expert-navigation>'
       let FinancesApiMock: FinancesApiMock
       let injectors = {}
-      function create(html: string) {
+      function create(html: string): JQuery {
         scope = rootScope.$new()
         const elem = angular.element(html)
         const compiledElement = compile(elem)(scope)

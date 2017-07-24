@@ -17,11 +17,12 @@ import 'common/directives/interface/pro-input/pro-input'
 import 'common/directives/interface/pro-input-password/pro-input-password'
 import 'common/directives/password-strength-bar/password-strength-bar'
 import checkboxModule from '../../../common/components/interface/checkbox/checkbox'
+import {IPromise} from 'angular'
 
 function _controller($log: ng.ILogService, $filter: ng.IFilterService, $state: ng.ui.IStateService,
                      topWaitingLoaderService: TopWaitingLoaderService, passwordStrengthService: PasswordStrengthService,
                      user: AccountDetails, topAlertService: TopAlertService, CommonSettingsService: CommonSettingsService,
-                     AccountApi: AccountApi) {
+                     AccountApi: AccountApi): void {
 
   this.passwordStrength = 0
   this.password = ''
@@ -39,11 +40,11 @@ function _controller($log: ng.ILogService, $filter: ng.IFilterService, $state: n
 
   this.patternPassword = CommonSettingsService.localSettings.passwordPattern
 
-  this.onPasswordChange = (password: string) => {
+  this.onPasswordChange = (password: string): void => {
     this.passwordStrength = passwordStrengthService.getStrength(password)
   }
 
-  const _updateNewUserObject = (patchObject: any, successCallback: (res: Account) => void) => {
+  const _updateNewUserObject = (patchObject: any, successCallback: (res: Account) => void): void => {
     /* istanbul ignore next if */
     if (!this.isPending) {
       this.isPending = true
@@ -63,7 +64,7 @@ function _controller($log: ng.ILogService, $filter: ng.IFilterService, $state: n
     }
   }
 
-  this.completeRegistration = () => {
+  this.completeRegistration = (): void => {
     _updateNewUserObject({
       password: this.password
     }, () => {
@@ -78,14 +79,14 @@ function _controller($log: ng.ILogService, $filter: ng.IFilterService, $state: n
   return this
 }
 
-function config($stateProvider: ng.ui.IStateProvider) {
+function config($stateProvider: ng.ui.IStateProvider): void {
   $stateProvider.state('app.post-register.set-password', {
     url: '/set-password',
     controllerAs: 'vm',
     controller: 'SetPasswordController',
     template: require('./set-password.pug')(),
     resolve: {
-      user: (userService: UserService) => {
+      user: (userService: UserService): IPromise<AccountDetails> => {
         return userService.getUser()
       }
     },

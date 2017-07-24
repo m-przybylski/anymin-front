@@ -1,6 +1,8 @@
 import {ViewsApi} from 'profitelo-api-ng/api/api'
 import {FinancialOperation} from 'profitelo-api-ng/model/models'
 import {ActivitiesQueryParams} from './activities-query-params'
+import {IPromise} from 'angular'
+import {GetActivities, GetActivityFilters} from 'profitelo-api-ng/model/models'
 
 export class DashboardActivitiesService {
 
@@ -11,22 +13,22 @@ export class DashboardActivitiesService {
     this.queryParams = new ActivitiesQueryParams
   }
 
-  private handleActivitiesResponseError = (error: any) => {
+  private handleActivitiesResponseError = (error: any): IPromise<void> => {
     this.$q.reject(error)
     throw new Error('Can not get activities: ' + error)
   }
 
-  private handleFilterResponseError = (error: any) => {
+  private handleFilterResponseError = (error: any): IPromise<void> => {
     this.$q.reject(error)
     throw new Error('Can not get filters data: ' + error)
   }
 
-  public resolveFilters = (accountType: FinancialOperation.AccountTypeEnum) => {
+  public resolveFilters = (accountType: FinancialOperation.AccountTypeEnum): IPromise<GetActivityFilters> => {
     return this.ViewsApi.getDashboardActivityFiltersRoute(String(accountType))
     .catch(this.handleFilterResponseError)
   }
 
-  public getDashboardActivities = (queryParams: ActivitiesQueryParams) => {
+  public getDashboardActivities = (queryParams: ActivitiesQueryParams): IPromise<GetActivities> => {
     const activityType = !!(queryParams.getActivityType()) ? String(queryParams.getActivityType()) : undefined
     return this.ViewsApi.getDashboardActivitiesRoute(activityType, queryParams.getProfileId(),
       queryParams.getServiceId(), String(queryParams.getAccountType()), queryParams.getDateFrom(),

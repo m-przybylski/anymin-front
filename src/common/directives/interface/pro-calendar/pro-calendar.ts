@@ -1,18 +1,19 @@
 import * as angular from 'angular'
+import {IDirective} from 'angular'
 
-function proCalendar() {
+function proCalendar(): IDirective {
 
-  function linkFunction(scope: any, _element: ng.IRootElementService, _attr: ng.IAttributes) {
-    scope.today = function () {
+  function linkFunction(scope: any, _element: ng.IRootElementService, _attr: ng.IAttributes): void {
+    scope.today = function (): void {
       scope.dt = new Date()
     }
     scope.today()
 
-    scope.clear = function () {
+    scope.clear = function (): void {
       scope.dt = null
     }
 
-    function getDayClass(data: any) {
+    function getDayClass(data: any): string {
       const date = data.date,
         mode = data.mode
       if (mode === 'day') {
@@ -43,22 +44,22 @@ function proCalendar() {
       showWeeks: false
     }
 
-    scope.toggleMin = function () {
+    scope.toggleMin = function (): void {
       scope.inlineOptions.minDate = scope.inlineOptions.minDate ? null : new Date()
       scope.dateOptions.minDate = scope.inlineOptions.minDate
     }
 
     scope.toggleMin()
 
-    scope.open1 = function () {
+    scope.open1 = function (): void {
       scope.popup1.opened = true
     }
 
-    scope.open2 = function () {
+    scope.open2 = function (): void {
       scope.popup2.opened = true
     }
 
-    scope.setDate = function (year: number, month: number, day: number) {
+    scope.setDate = function (year: number, month: number, day: number): void {
       scope.dt = new Date(year, month, day)
     }
 

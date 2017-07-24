@@ -13,7 +13,7 @@ export interface ITopAlertSettings {
 
 export class TopAlertService {
 
-  private alertArray: Array<ITopAlertSettings> = []
+  private alertArray: ITopAlertSettings[] = []
   private defaultOptions = {}
   private alertsLimit = 2
 
@@ -27,7 +27,7 @@ export class TopAlertService {
     return n
   }
 
-  public destroyAlert = (alertId: number) => {
+  public destroyAlert = (alertId: number): void => {
     if (this.alertsLimit < this.alertArray.length) {
       this.alertArray[this.alertsLimit].visible = true
       this.timeoutDestroy(<any>this.alertArray[this.alertsLimit].timeout, <any>this.alertArray[this.alertsLimit].id)
@@ -37,7 +37,7 @@ export class TopAlertService {
     })
   }
 
-  private timeoutDestroy = (timeout: number, id: number) => {
+  private timeoutDestroy = (timeout: number, id: number): void => {
     if (typeof timeout !== 'undefined' && timeout !== null) {
       const realTimeout = timeout * 3000
       this.$timeout(() => {
@@ -46,7 +46,7 @@ export class TopAlertService {
     }
   }
 
-  private pushAlert = (options: ITopAlertSettings) => {
+  private pushAlert = (options: ITopAlertSettings): void => {
     if (this.alertArray.length < this.alertsLimit) {
       options.visible = true
       this.timeoutDestroy(options.timeout || 0, options.id || 0)
@@ -54,11 +54,11 @@ export class TopAlertService {
     this.alertArray.push(options)
   }
 
-  public bindAlert = (alerts: any) => {
+  public bindAlert = (alerts: any): void => {
     alerts(this.alertArray)
   }
 
-  public success = (options: ITopAlertSettings) => {
+  public success = (options: ITopAlertSettings): void => {
     options = options === undefined ? {} : options
     this.defaultOptions = {
       id: this.setId(),
@@ -71,7 +71,7 @@ export class TopAlertService {
     this.pushAlert(angular.extend(this.defaultOptions, options))
   }
 
-  public warning = (options: ITopAlertSettings) => {
+  public warning = (options: ITopAlertSettings): void => {
     options = options === undefined ? {} : options
     this.defaultOptions = {
       id: this.setId(),
@@ -84,7 +84,7 @@ export class TopAlertService {
     this.pushAlert(angular.extend(this.defaultOptions, options))
   }
 
-  public error = (options: ITopAlertSettings) => {
+  public error = (options: ITopAlertSettings): void => {
     options = options === undefined ? {} : options
     this.defaultOptions = {
       id: this.setId(),
@@ -97,7 +97,7 @@ export class TopAlertService {
     this.pushAlert(angular.extend(this.defaultOptions, options))
   }
 
-  public info = (options: ITopAlertSettings) => {
+  public info = (options: ITopAlertSettings): void => {
     options = options === undefined ? {} : options
     this.defaultOptions = {
       id: this.setId(),

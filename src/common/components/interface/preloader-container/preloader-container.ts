@@ -2,9 +2,9 @@ import * as angular from 'angular'
 import 'common/components/interface/preloader/preloader'
 
 /* @ngInject */
-function preloaderContainerController() {
+function preloaderContainerController(): void {
 
-  this.errorFunction = () => {
+  this.errorFunction = (): void => {
     this.errorFn()
   }
 

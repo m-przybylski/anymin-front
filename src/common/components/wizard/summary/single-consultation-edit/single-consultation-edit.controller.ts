@@ -17,7 +17,7 @@ export class SingleConsultationEditComponentController implements ISingleConsult
   constructor() {
   }
 
-  $onInit() {
+  $onInit(): void {
     this.tagsList = this.service.tags
     this.employeeList = []
     if (this.service.invitations) {
@@ -35,13 +35,13 @@ export class SingleConsultationEditComponentController implements ISingleConsult
 
   }
 
-  public removeConsultation = () => {
+  public removeConsultation = (): void => {
     if (this.onRemove && typeof this.onRemove === 'function') {
       this.onRemove(this.service)
     }
   }
 
-  public editConsultation = () => {
+  public editConsultation = (): void => {
     if (this.onEdit && typeof this.onEdit === 'function') {
       this.onEdit(this.service)
     }

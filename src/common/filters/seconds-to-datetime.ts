@@ -1,7 +1,7 @@
 namespace profitelo.filters.secondsToDatetime {
 
-  function filter() {
-    return function(seconds: number) {
+  function filter(): (seconds: number) => Date {
+    return function(seconds: number): Date {
       const date = new Date(0, 0, 0, 0, 0, 0, 0)
       date.setSeconds(seconds)
       return date

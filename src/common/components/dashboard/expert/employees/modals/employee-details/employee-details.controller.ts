@@ -7,11 +7,11 @@ export class ExpertEmployeeDetailsModalController implements ng.IController {
   public isFullscreen: boolean = true
   public isNavbar: boolean = true
 
-  public onModalClose = () => {
+  public onModalClose = (): void => {
     this.$uibModalInstance.dismiss('cancel')
   }
 
-  public tags: Array<Tag> = [
+  public tags: Tag[] = [
     {
       id: 'mockId',
       name: 'tag-1',

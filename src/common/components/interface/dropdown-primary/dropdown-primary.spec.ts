@@ -13,13 +13,13 @@ describe('Unit testing: profitelo.components.interface.dropdown-primary', () => 
     let bindings: any
     let timeout: ng.ITimeoutService
     let document: ng.IDocumentService
-    let validHTML = '<dropdown-primary data-label="asd" data-icon="icon"></dropdown-primary>'
+    const validHTML = '<dropdown-primary data-label="asd" data-icon="icon"></dropdown-primary>'
     let smoothScrolling
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
@@ -45,7 +45,7 @@ describe('Unit testing: profitelo.components.interface.dropdown-primary', () => 
       }
 
       smoothScrolling = {
-        simpleScrollTo: () => {
+        simpleScrollTo: (): null => {
           return null
         }
       }

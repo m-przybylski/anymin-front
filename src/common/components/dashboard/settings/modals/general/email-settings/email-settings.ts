@@ -42,7 +42,7 @@ export class GeneralEmailSettingsController implements ng.IController {
     this.isEmailExist = true
   }
 
-  public onModalClose = () =>
+  public onModalClose = (): void =>
     this.$uibModalInstance.dismiss('cancel')
 }
 

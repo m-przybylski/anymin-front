@@ -3,14 +3,14 @@ import {IMessengerMaximizedComponentBindings} from './maximized'
 import {UrlService} from '../../../../services/url/url.service'
 import {MessengerMaximizedComponentController} from './maximized.controller'
 import communicatorModule from '../../communicator'
-import {ClientCallService} from '../../call-services/client-call.service';
-import {ExpertCallService} from '../../call-services/expert-call.service';
-import {CurrentClientCall} from '../../models/current-client-call';
-import {CurrentExpertCall} from '../../models/current-expert-call';
-import {UploaderFactory} from '../../../../services/uploader/uploader.factory';
-import messengerMaximizedModule from './maximized';
-import filtersModule from "../../../../filters/filters";
-import urlModule from "../../../../services/url/url";
+import {ClientCallService} from '../../call-services/client-call.service'
+import {ExpertCallService} from '../../call-services/expert-call.service'
+import {CurrentClientCall} from '../../models/current-client-call'
+import {CurrentExpertCall} from '../../models/current-expert-call'
+import {UploaderFactory} from '../../../../services/uploader/uploader.factory'
+import messengerMaximizedModule from './maximized'
+import filtersModule from '../../../../filters/filters'
+import urlModule from '../../../../services/url/url'
 
 describe('Unit testing: profitelo.components.communicator.messenger.maximized', () => {
   return describe('for messengerMaximized component >', () => {
@@ -18,33 +18,33 @@ describe('Unit testing: profitelo.components.communicator.messenger.maximized', 
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let component: MessengerMaximizedComponentController
-    let validHTML =
+    const validHTML =
       '<maximized call-length="callLength" call-cost="callCost" minimize-messenger="minimizeMessenger"></maximized>'
 
     const bindings: IMessengerMaximizedComponentBindings = {
       isMessenger: true,
-      minimizeMessenger: () => {
+      minimizeMessenger: (): void => {
       }
     }
 
     const clientCallService: ClientCallService = {
-      onNewCall: (_cb: (call: CurrentClientCall) => void) => {}
+      onNewCall: (_cb: (call: CurrentClientCall) => void): void => {}
     } as ClientCallService
 
     const expertCallService: ExpertCallService = {
-      onNewCall: (_cb: (call: CurrentExpertCall) => void) => {}
+      onNewCall: (_cb: (call: CurrentExpertCall) => void): void => {}
     } as ExpertCallService
 
     const uploaderFactory: UploaderFactory = {
       collectionTypes: {avatar: 'avatar'},
-      getInstance: () => {}
+      getInstance: (): void => {}
     } as UploaderFactory
 
     function create(html: string, bindings: IMessengerMaximizedComponentBindings): JQuery {
       const parentScope: ng.IScope = rootScope.$new()
       const parentBoundScope = angular.extend(parentScope, bindings)
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(parentBoundScope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(parentBoundScope)
       parentBoundScope.$digest()
       return compiledElement
     }
@@ -95,7 +95,7 @@ describe('Unit testing: profitelo.components.communicator.messenger.maximized', 
     }))
 
     it('should compile the component', () => {
-      let el = create(validHTML, bindings)
+      const el = create(validHTML, bindings)
       expect(el.html()).toBeDefined(true)
     })
   })

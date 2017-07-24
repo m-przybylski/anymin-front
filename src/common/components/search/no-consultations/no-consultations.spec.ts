@@ -10,12 +10,12 @@ describe('Unit testing: profitelo.components.search.no-consultations', () => {
     let component: any
     let bindings: any
     let scope: any
-    let validHTML = '<no-consultations></no-cosultaitons>'
+    const validHTML = '<no-consultations></no-cosultaitons>'
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }

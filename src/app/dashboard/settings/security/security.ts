@@ -15,6 +15,7 @@ import {IStateService} from 'angular-ui-router'
 import {TopAlertService} from '../../../../common/services/top-alert/top-alert.service'
 import topAlertModule from '../../../../common/services/top-alert/top-alert'
 import {IFilterService} from '../../../../common/services/filter/filter.service'
+import {IPromise} from 'angular'
 
 interface ISession {
   device: string
@@ -26,7 +27,7 @@ interface ISession {
 
 export class DashboardSettingsSecurityController implements ng.IController {
   public hasMobilePin: boolean
-  public sessions: Array<ISession>
+  public sessions: ISession[]
 
   constructor(private modalsService: ModalsService, private currentSession: GetSession, sessionsData: Array<GetSession>,
               private SessionApi: SessionApi, private userService: UserService,
@@ -38,7 +39,7 @@ export class DashboardSettingsSecurityController implements ng.IController {
     }
 
     this.sessions = sessionsData.map((session) => {
-      const deviceType = () => {
+      const deviceType = (): string => {
         if (
           session.userAgent && (
           session.userAgent.includes('Win') ||
@@ -68,7 +69,7 @@ export class DashboardSettingsSecurityController implements ng.IController {
     })
   }
 
-  public removeSession = (apiKey: string) => {
+  public removeSession = (apiKey: string): void => {
     if (this.currentSession.apiKey !== apiKey) {
       this.SessionApi.logoutRoute(apiKey).then(() => {
         _.remove(this.sessions, session => session.apiKey === apiKey)
@@ -86,15 +87,15 @@ export class DashboardSettingsSecurityController implements ng.IController {
     }
   }
 
-  public checkIsCurrentSession = (apiKey: string) => {
+  public checkIsCurrentSession = (apiKey: string): boolean => {
     return apiKey === this.currentSession.apiKey
   }
 
-  public openSecurityChangePasswordSettingsModal = () => {
+  public openSecurityChangePasswordSettingsModal = (): void => {
     this.modalsService.createSecurityChangePasswordSettingsModal()
   }
 
-  public openSecurityPinSecuritySettingsModal = () => {
+  public openSecurityPinSecuritySettingsModal = (): void => {
     this.modalsService.createSecurityPinSecuritySettingsModal()
   }
 }
@@ -116,10 +117,10 @@ angular.module('profitelo.controller.dashboard.settings.security', [
     controller: 'dashboardSettingsSecurityController',
     controllerAs: 'vm',
     resolve: {
-      currentSession: (sessionService: SessionService) => {
+      currentSession: (sessionService: SessionService): IPromise<GetSession> => {
         return sessionService.getSession(true)
       },
-      sessionsData: (securitySettingsResolver: ISecuritySettingsService) => {
+      sessionsData: (securitySettingsResolver: ISecuritySettingsService): IPromise<GetSession[]> => {
         return securitySettingsResolver.resolve()
       }
     }

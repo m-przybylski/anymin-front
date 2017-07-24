@@ -30,7 +30,7 @@ export class NavbarLoggedOutMenuComponentController implements INavbarLoggedOutM
 
   }
 
-  public toggleHelpMenuShow = () => {
+  public toggleHelpMenuShow = (): void => {
     this.isHelpMenuShow = !this.isHelpMenuShow
   }
 

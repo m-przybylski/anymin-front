@@ -1,17 +1,20 @@
-(function() {
-  function proSwitcher() {
+import * as angular from 'angular'
+import {IDirective} from 'angular'
 
-    function linkFunction(scope: any, element: ng.IRootElementService, attr: ng.IAttributes) {
+(function(): void {
+  function proSwitcher(): IDirective {
+
+    function linkFunction(scope: any, element: ng.IRootElementService, attr: ng.IAttributes): void {
 
       if (typeof scope.ngModel !== 'boolean') {
         throw new Error('ngModel must be of boolean type')
       }
 
-      const changeCheckedState = (state: string) => {
+      const changeCheckedState = (state: string): void => {
         element.find('input').prop('checked', state)
       }
 
-      scope.onClickCallback = () => {
+      scope.onClickCallback = (): void => {
         scope.ngModel = !scope.ngModel
         changeCheckedState(scope.ngModel)
         if (angular.isFunction(scope.callback)) {

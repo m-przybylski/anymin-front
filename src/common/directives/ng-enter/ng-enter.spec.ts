@@ -5,7 +5,7 @@ namespace profitelo.directives.ngEnter {
 
       let compile: any = null
       let scope: any = null
-      let validHTML = '<input type="text" data-ng-enter="mockFunction()" />'
+      const validHTML = '<input type="text" data-ng-enter="mockFunction()" />'
 
       beforeEach(() => {
         angular.mock.module('profitelo.directives.ng-enter')
@@ -16,11 +16,11 @@ namespace profitelo.directives.ngEnter {
         })
       })
 
-      function create() {
-        let elem = angular.element(validHTML)
-        scope.mockFunction = () => {
+      function create(): JQuery {
+        const elem = angular.element(validHTML)
+        scope.mockFunction = (): void => {
         }
-        let compiledElement = compile(elem)(scope)
+        const compiledElement = compile(elem)(scope)
         scope.$digest()
         return compiledElement
       }
@@ -30,15 +30,15 @@ namespace profitelo.directives.ngEnter {
       }))
 
       it('should compile the directive', () => {
-        let el = create()
+        const el = create()
         expect(el.html()).toBeDefined(true)
       })
 
       it('should call the mock function on pressing enter', () => {
 
-        let el = create()
+        const el = create()
         spyOn(scope, 'mockFunction').and.callThrough()
-        let e = jQuery.Event('keypress')
+        const e = jQuery.Event('keypress')
         e.which = 13
         e.keyCode = 13
         el.trigger(e)

@@ -8,12 +8,12 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
     let compile: ng.ICompileService
     let componentController: any
     let component: any
-    let validHTML = '<client-favourite-expert favourite-expert="favouriteExpert"></client-favourite-expert>'
+    const validHTML = '<client-favourite-expert favourite-expert="favouriteExpert"></client-favourite-expert>'
     let state: ng.ui.IStateService
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
+      const elem = angular.element(html)
       scope.favouriteExpert = {
         profile: {
           organizationDetails: {},
@@ -23,7 +23,7 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
           profileType: 'ORG'
         }
       }
-      let compiledElement = compile(elem)(scope)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
@@ -63,7 +63,7 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
       expect(true).toBeTruthy()
     }))
     it('should compile the directive', () => {
-      let el = create(validHTML)
+      const el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
   })

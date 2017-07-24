@@ -22,19 +22,19 @@ export class ExpertProfileController {
     this.profileId = expertProfile.profile.id
   }
 
-  public onProfileLike = () =>
+  public onProfileLike = (): boolean =>
     this.isFavourite = true
 
-  public onProfileLikeError = (error: any) =>
+  public onProfileLikeError = (error: any): void =>
     this.$log.error('Can not like this company because: ' + error)
 
-  public onProfileDislike = () =>
+  public onProfileDislike = (): boolean =>
     this.isFavourite = false
 
-  public onProfileDislikeError = (error: any) =>
+  public onProfileDislikeError = (error: any): void =>
     this.$log.error('Can not dislike this company because: ' + error)
 
-  public handleLike = () => {
+  public handleLike = (): void => {
     if (!this.isFavourite) {
       this.ProfileApi.postProfileFavouriteExpertRoute(this.$stateParams.profileId)
         .then(this.onProfileLike, this.onProfileLikeError)

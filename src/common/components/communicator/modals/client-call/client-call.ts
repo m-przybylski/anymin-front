@@ -17,12 +17,12 @@ import {GetService} from 'profitelo-api-ng/model/models'
 
     /* @ngInject */
     constructor($scope: IClientCallControllerScope, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
-      $scope.rejectCall = () => {
+      $scope.rejectCall = (): void => {
         $uibModalInstance.dismiss('reject')
         $scope.$parent.rejectCall()
       }
 
-      $scope.answerCall = () => {
+      $scope.answerCall = (): void => {
         $uibModalInstance.close('answer')
         $scope.$parent.answerCall()
       }

@@ -12,15 +12,15 @@ describe('Unit testing: profitelo.components.wizard.wizard-handler', () => {
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let component: WizardHandlerComponentController
-    let validHTML = '<wizard-handler><wizard-step><input></wizard-step></wizard-handler>'
+    const validHTML = '<wizard-handler><wizard-step><input></wizard-step></wizard-handler>'
     let bindings: IWizardHandlerComponentBindings
     let smoothScrollingService: SmoothScrollingService
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
       scope.selectedItemsValue = []
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
@@ -43,7 +43,7 @@ describe('Unit testing: profitelo.components.wizard.wizard-handler', () => {
         smoothScrollingService = _smoothScrollingService_
 
         bindings = {
-          onStepChange: () => {},
+          onStepChange: (): void => {},
           progressBarText: 'sdsa'
         }
 
@@ -64,7 +64,7 @@ describe('Unit testing: profitelo.components.wizard.wizard-handler', () => {
     }))
 
     it('should compile the directive', () => {
-      let el = create(validHTML)
+      const el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
 

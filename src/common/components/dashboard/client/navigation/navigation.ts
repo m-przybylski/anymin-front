@@ -9,13 +9,13 @@ import errorHandlerModule from '../../../../services/error-handler/error-handler
 import {PromiseService} from '../../../../services/promise/promise.service'
 import promiseModule from '../../../../services/promise/promise'
 
-(function() {
+(function(): void {
   /* @ngInject */
   function controller(userService: UserService,
                       FinancesApi: FinancesApi,
                       errorHandler: ErrorHandlerService,
                       promiseService: PromiseService
-                      ) {
+                      ): void {
 
     const loaderDelay = 500
     this.isCard = false

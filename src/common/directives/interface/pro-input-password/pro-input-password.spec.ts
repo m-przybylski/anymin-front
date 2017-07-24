@@ -3,12 +3,12 @@ namespace profitelo.directives.interface.proInputPassword {
   describe('Unit testing: profitelo.directives.interface.pro-input-password', () => {
     return describe('for interface.pro-input-password directive >', () => {
 
-      let _placeholder = 'PLACEHOLDER'
+      const _placeholder = 'PLACEHOLDER'
 
       let scope: any = null
       let rootScope: ng.IRootScopeService
       let compile: any = null
-      let validHTML = '<pro-input-password data-label="LABEL" data-placeholder="' + _placeholder + '"  required auto-focus></pro-input-password>'
+      const validHTML = '<pro-input-password data-label="LABEL" data-placeholder="' + _placeholder + '"  required auto-focus></pro-input-password>'
 
       beforeEach(() => {
 
@@ -20,10 +20,10 @@ namespace profitelo.directives.interface.proInputPassword {
         })
       })
 
-      function create(html: string) {
+      function create(html: string): JQuery {
         scope = rootScope.$new()
-        let elem = angular.element(html)
-        let compiledElement = compile(elem)(scope)
+        const elem = angular.element(html)
+        const compiledElement = compile(elem)(scope)
         scope.$digest()
         return compiledElement
       }
@@ -33,13 +33,13 @@ namespace profitelo.directives.interface.proInputPassword {
       }))
 
       it('should compile the directive', () => {
-        let el = create(validHTML)
+        const el = create(validHTML)
         expect(el.html()).toBeDefined(true)
       })
 
       it('should create element with text', () => {
-        let addonInput = '<pro-input-password data-addon-text="RANDOM-TEXT"></pro-input-password>'
-        let el = create(addonInput)
+        const addonInput = '<pro-input-password data-addon-text="RANDOM-TEXT"></pro-input-password>'
+        const el = create(addonInput)
         expect(el.html()).toBeDefined(true)
       })
 
@@ -52,22 +52,22 @@ namespace profitelo.directives.interface.proInputPassword {
       // })
 
       it('should change focus param on mouseover', () => {
-        let el = create(validHTML)
-        let isoScope = el.isolateScope()
+        const el = create(validHTML)
+        const isoScope = el.isolateScope()
         $(el).trigger('mouseover')
         expect(isoScope.focus).toBeTruthy()
       })
 
       it('should change focus param on mouseout', () => {
-        let el = create(validHTML)
-        let isoScope = el.isolateScope()
+        const el = create(validHTML)
+        const isoScope = el.isolateScope()
         $(el).trigger('mouseout')
         expect(isoScope.focus).toBeFalsy()
       })
 
       it('should toggle flags on input focus', () => {
-        let el = create(validHTML)
-        let isoScope = el.isolateScope()
+        const el = create(validHTML)
+        const isoScope = el.isolateScope()
         el.find('input').triggerHandler('focus')
 
         expect(isoScope.focus).toBeTruthy()
@@ -77,8 +77,8 @@ namespace profitelo.directives.interface.proInputPassword {
       })
 
       it('should toggle flags on input blur', () => {
-        let el = create(validHTML)
-        let isoScope = el.isolateScope()
+        const el = create(validHTML)
+        const isoScope = el.isolateScope()
         el.find('input').triggerHandler('focus')
         el.find('input').blur()
 
@@ -89,8 +89,8 @@ namespace profitelo.directives.interface.proInputPassword {
       })
 
       it('should change input type to text if visibility toggle clicked', () => {
-        let el = create(validHTML)
-        let isoScope = el.isolateScope()
+        const el = create(validHTML)
+        const isoScope = el.isolateScope()
         el.find('.input-group-addon.active-addon').click()
 
         expect(isoScope.inputType).toEqual('text')
@@ -98,8 +98,8 @@ namespace profitelo.directives.interface.proInputPassword {
       })
 
       it('should change back to input password to text if visibility toggle clicked twice', () => {
-        let el = create(validHTML)
-        let isoScope = el.isolateScope()
+        const el = create(validHTML)
+        const isoScope = el.isolateScope()
         el.find('.input-group-addon.active-addon').click()
 
         expect(isoScope.inputType).toEqual('text')

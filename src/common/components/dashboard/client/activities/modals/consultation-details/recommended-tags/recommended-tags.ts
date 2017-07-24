@@ -5,46 +5,46 @@ import {ServiceApi} from 'profitelo-api-ng/api/api'
 import {Tag} from 'profitelo-api-ng/model/models'
 
 /* @ngInject */
-function controller($log: ng.ILogService, ServiceApi: ServiceApi) {
+function controller($log: ng.ILogService, ServiceApi: ServiceApi): void {
 
-  const updateBindings = () => {
+  const updateBindings = (): void => {
     if (this.selectedTags) {
       this.areTagsRecommended = this.selectedTags.length > 0
     }
   }
 
-  this.$onInit = () => {
+  this.$onInit = (): void => {
     updateBindings()
   }
 
-  this.$onChanges = () => {
+  this.$onChanges = (): void => {
     updateBindings()
   }
 
-  const onRecommendService = (_res: any) => {
+  const onRecommendService = (_res: any): void => {
     this.isRecommended = true
   }
 
-  const onRecommendServiceError = (err: any) =>
+  const onRecommendServiceError = (err: any): void =>
     $log.error(err)
 
-  this.recommendConsultation = () => {
+  this.recommendConsultation = (): void => {
     ServiceApi.postServiceRecommendationRoute(this.serviceUsageEventId)
       .then(onRecommendService, onRecommendServiceError)
   }
 
-  this.onSelectChange = (tagsArray: Array<Tag>) => {
+  this.onSelectChange = (tagsArray: Tag[]): void => {
     this.selectedTags = tagsArray
   }
 
-  const onRecommendServiceTags = (_res: any) => {
+  const onRecommendServiceTags = (_res: any): void => {
     this.areTagsRecommended = true
   }
 
-  const onRecommendServiceTagsError = (err: any) =>
+  const onRecommendServiceTagsError = (err: any): void =>
     $log.error(err)
 
-  this.saveRecommendedTags = () => {
+  this.saveRecommendedTags = (): void => {
     ServiceApi.putServiceRecommendationsRoute(
       this.serviceUsageEventId,
       {tags: _.map(this.selectedTags, (tag: any) => tag.id)}

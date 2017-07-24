@@ -17,11 +17,11 @@ namespace profitelo.directives.interface.localAvatarUploader {
     constructor() {
     }
 
-    public link = (scope: ILocalAvatarUploaderDirectiveScope, element: any, _attr: ng.IAttributes) => {
+    public link = (scope: ILocalAvatarUploaderDirectiveScope, element: any, _attr: ng.IAttributes): void => {
 
       element.find('input').on('change', (changeEventObject: any) => {
         const reader = new FileReader()
-        reader.onload = (noLoadEventObject: any) => {
+        reader.onload = (noLoadEventObject: any): void => {
           scope.onFileUpload(noLoadEventObject.target.result, changeEventObject.target.files[0], () => {
             element.find('input')[0].value = ''
           })
@@ -31,8 +31,8 @@ namespace profitelo.directives.interface.localAvatarUploader {
 
     }
 
-    public static getInstance = () => {
-      const instance = () =>
+    public static getInstance = (): () => LocalAvatarUploaderDirective => {
+      const instance = (): LocalAvatarUploaderDirective =>
         new LocalAvatarUploaderDirective()
       instance.$inject = []
       return instance

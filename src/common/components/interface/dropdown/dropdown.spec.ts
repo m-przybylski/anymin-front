@@ -10,12 +10,12 @@ namespace profitelo.components.interface.dropdown {
       let bindings: any
       let scope: any
       let document: ng.IDocumentService
-      let validHTML = '<dropdown-input data-label="asd" data-icon="icon"></dropdown-input>'
+      const validHTML = '<dropdown-input data-label="asd" data-icon="icon"></dropdown-input>'
 
-      function create(html: string) {
+      function create(html: string): JQuery {
         scope = rootScope.$new()
-        let elem = angular.element(html)
-        let compiledElement = compile(elem)(scope)
+        const elem = angular.element(html)
+        const compiledElement = compile(elem)(scope)
         scope.$digest()
         return compiledElement
       }
@@ -39,9 +39,9 @@ namespace profitelo.components.interface.dropdown {
           mainList: [],
           secondaryList: [],
           inputPlaceholder: 'placeholder',
-          onSelectMain: () => {
+          onSelectMain: (): void => {
           },
-          onSelectSecond: () => {
+          onSelectSecond: (): void => {
           },
           selectedItem: {}
         }

@@ -28,7 +28,7 @@ export class GeneralPhoneSettingsController implements ng.IController {
     }))
 
   public prefix = this.prefixList[0].value
-  public updatePrefix = (prefix: IPrefixListElement) => {
+  public updatePrefix = (prefix: IPrefixListElement): void => {
     this.prefix = prefix.value
   }
 
@@ -51,7 +51,7 @@ export class GeneralPhoneSettingsController implements ng.IController {
     }
   }
 
-  public sendVerificationPin = (token: string, onError: () => void) => {
+  public sendVerificationPin = (token: string, onError: () => void): void => {
     this.userService.getUser().then(user => {
       this.AccountApi.confirmMsisdnVerificationRoute({
         accountId: user.id,

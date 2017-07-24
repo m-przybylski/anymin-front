@@ -18,7 +18,7 @@ export class InvitationsModalController implements ng.IController {
   public description?: string
   public services: GetServiceWithEmployments[] = []
 
-  public onModalClose = () => {
+  public onModalClose = (): void => {
     this.$uibModalInstance.dismiss('cancel')
     this.$state.go('app.home')
 
@@ -41,7 +41,7 @@ export class InvitationsModalController implements ng.IController {
     this.areInvitations = !!($scope.profileWithServiceEmployments && this.services.length > 0)
   }
 
-  public onSelectConsultation = (service: GetServiceWithEmployments, isUnchecked: boolean) => {
+  public onSelectConsultation = (service: GetServiceWithEmployments, isUnchecked: boolean): void => {
     if (!isUnchecked) {
       this.acceptedServices.push(service)
     } else {
@@ -49,7 +49,7 @@ export class InvitationsModalController implements ng.IController {
     }
   }
 
-  public acceptInvitations = () => {
+  public acceptInvitations = (): void => {
     this.services.forEach((service) => {
       if (_.some(this.acceptedServices, service)) {
         this.EmploymentApi.postEmploymentsAcceptRoute(service.employments[0].id)
@@ -61,7 +61,7 @@ export class InvitationsModalController implements ng.IController {
     })
   }
 
-  private onEmploymentUpdateDone = (service: GetServiceWithEmployments) => {
+  private onEmploymentUpdateDone = (service: GetServiceWithEmployments): void => {
     if (_.last(this.services) === service) {
       this.onModalClose()
     }

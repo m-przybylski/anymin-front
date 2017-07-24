@@ -2,6 +2,8 @@ import * as RatelSdk from 'ratel-sdk-js';
 import {CallbacksFactory} from '../../../services/callbacks/callbacks.factory';
 import {CallbacksService} from '../../../services/callbacks/callbacks.service';
 import {SoundsService} from '../../../services/sounds/sounds.service';
+import {IPromise} from 'angular'
+import {RoomArchivable} from 'ratel-sdk-js'
 
 export class MessageRoom {
 
@@ -21,7 +23,7 @@ export class MessageRoom {
     this.callbacks = callbacksFactory.getInstance(Object.keys(MessageRoom.events))
   }
 
-  public getHistory = () => {
+  public getHistory = (): Promise<RoomArchivable[]> | IPromise<never> => {
     if (this.room) {
       return this.room.getHistory()
     } else {

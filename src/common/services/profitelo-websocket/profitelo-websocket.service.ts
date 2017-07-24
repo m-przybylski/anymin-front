@@ -27,11 +27,11 @@ export class ProfiteloWebsocketService {
     this.eventsService.on('logout', this.disconnectWebsocket)
   }
 
-  public initializeWebsocket = () => {
+  public initializeWebsocket = (): void => {
     this.userService.getUser().then(this.connectWebsocket)
   }
 
-  public sendMessage = (msg: string, type: string) => {
+  public sendMessage = (msg: string, type: string): boolean => {
     if (this.websocket.readyState === WebSocket.OPEN) {
       const serialized = {
         messageType: type,
@@ -45,19 +45,19 @@ export class ProfiteloWebsocketService {
     }
   }
 
-  public onInit = (callback: () => void) => {
+  public onInit = (callback: () => void): void => {
     this.callbacks.methods.onInit(callback)
   }
 
-  public onCallSummary = (callback: (data: CallSummary) => void) => {
+  public onCallSummary = (callback: (data: CallSummary) => void): void => {
     this.callbacks.methods.onCallSummary(callback)
   }
 
-  private onSocketOpen = () => {
+  private onSocketOpen = (): void => {
     this.callbacks.notify(ProfiteloWebsocketService.events.onInit, null)
   }
 
-  private handleMessageType = (data: any) => {
+  private handleMessageType = (data: any): void => {
     const type = data.messageType
     const value = data.value
 
@@ -72,7 +72,7 @@ export class ProfiteloWebsocketService {
     }
   }
 
-  private onSocketMessage = (event: any) => {
+  private onSocketMessage = (event: any): void => {
     try {
       const data = JSON.parse(event.data)
       this.handleMessageType(data)
@@ -82,23 +82,23 @@ export class ProfiteloWebsocketService {
     this.$log.debug(event)
   }
 
-  private onSocketError = (err: any) =>
+  private onSocketError = (err: any): void =>
     this.$log.error(err)
 
-  private onSocketClose = (event: any) => {
+  private onSocketClose = (event: any): void => {
     this.$log.info('Profitelo websocket closed', event)
     this.userService.getUser().then(() => {
       this.$timeout(this.connectWebsocket, ProfiteloWebsocketService.reconnectTimeout)
     })
   }
 
-  public disconnectWebsocket = () => {
+  public disconnectWebsocket = (): void => {
     if (this.websocket) {
       this.websocket.close()
     }
   }
 
-  private connectWebsocket = () => {
+  private connectWebsocket = (): void => {
     this.websocket = new WebSocket(this.wsEndpoint)
     this.websocket.onopen = this.onSocketOpen
     this.websocket.onmessage = this.onSocketMessage

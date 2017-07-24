@@ -1,5 +1,8 @@
-(function() {
-  function proNewsTile() {
+import * as angular from 'angular'
+import {IDirective} from 'angular'
+
+(function(): void {
+  function proNewsTile(): IDirective {
 
     return {
       template:  require('./pro-news-tile.pug')(),

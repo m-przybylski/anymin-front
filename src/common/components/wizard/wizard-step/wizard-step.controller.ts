@@ -19,7 +19,7 @@ export class WizardStepComponentController implements IWizardStepModuleComponent
   constructor(private $element: ng.IRootElementService, private $timeout: ng.ITimeoutService) {
   }
 
-  public onClickNext = () => {
+  public onClickNext = (): void => {
     if (typeof this.checkIsStepValid === 'undefined' || this.checkIsStepValid()) {
       this.wizardHandler.goToNextWizardStep()
     }
@@ -28,24 +28,24 @@ export class WizardStepComponentController implements IWizardStepModuleComponent
     }
   }
 
-  public onClickBack = () => {
+  public onClickBack = (): void => {
     this.wizardHandler.goToPreviousWizardStep()
     if (this.onGoBack && typeof this.onGoBack === 'function') {
       this.onGoBack()
     }
   }
 
-  public checkIsDisabled = () => {
+  public checkIsDisabled = (): boolean | void => {
     return typeof this.checkIsStepValid === 'undefined' || this.checkIsStepValid()
   }
 
-  $onInit = () => {
+  $onInit = (): void => {
     this.$timeout(() => {
       this.isActive = this.wizardHandler.currentStep === this.$element[0]
     })
   }
 
-  $doCheck = () => {
+  $doCheck = (): void => {
     if (!this.buttonTitle || this.isCompany) {
       this.buttonTitle = 'WIZARD.STEP.BUTTON.NEXT'
     }

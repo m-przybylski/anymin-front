@@ -9,12 +9,12 @@ describe('Unit testing: profitelo.components.tags-list', () => {
     let compile: ng.ICompileService
     let componentController: any
     let component: any
-    let validHTML = '<tags-list tags="tags" title="title"></tags-list>'
+    const validHTML = '<tags-list tags="tags" title="title"></tags-list>'
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }

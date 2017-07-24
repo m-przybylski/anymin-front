@@ -17,7 +17,7 @@ export class TooltioComponentController implements ITooltipComponentBindings {
   constructor(private $element: IRootElementService, private $timeout: ng.ITimeoutService) {
   }
 
-  $onInit = () => {
+  $onInit = (): void => {
     this.$timeout(() => {
       this.tooltipContentWidth = this.$element.find('.tooltip-content')[0].clientWidth
       this.tooltipStyles = {
@@ -30,11 +30,11 @@ export class TooltioComponentController implements ITooltipComponentBindings {
     })
   }
 
-  public onEnter = () => {
+  public onEnter = (): void => {
     this.isHover = true
   }
 
-  public onLeave = () => {
+  public onLeave = (): void => {
     this.isHover = false
   }
 }

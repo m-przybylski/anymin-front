@@ -2,6 +2,7 @@ import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {DashboardClientActivitiesController} from './activities'
 import {DashboardActivitiesService} from '../../../../common/services/dashboard-activites/dashboard-activities.service'
+import {IPromise} from 'angular'
 
 describe('Unit tests: DashboardClientActivitiesController >', () => {
   describe('Testing Controller: DashboardClientActivitiesController', () => {
@@ -23,7 +24,7 @@ describe('Unit tests: DashboardClientActivitiesController >', () => {
               $q: ng.IQService) => {
 
         $state = <ng.ui.IStateService>{
-          go: (_to: string) => $q.resolve({})
+          go: (_to: string): IPromise<{}> => $q.resolve({})
         }
 
         dashboardClientActivitiesController =

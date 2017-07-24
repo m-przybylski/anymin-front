@@ -1,11 +1,11 @@
 import * as angular from 'angular'
 
-describe('Unit testing: profitelo.services.login-state >', function () {
-  describe('for loginStateService service >', function () {
+describe('Unit testing: profitelo.services.login-state >', function (): void {
+  describe('for loginStateService service >', function (): void {
 
     let loginStateService: any = null
 
-    beforeEach(function () {
+    beforeEach(function (): void {
       angular.mock.module('profitelo.services.login-state')
 
       inject(($injector: ng.auto.IInjectorService) => {
@@ -14,13 +14,13 @@ describe('Unit testing: profitelo.services.login-state >', function () {
 
     })
 
-    it('should have a dummy test', function () {
+    it('should have a dummy test', function (): void {
       expect(true).toBeTruthy()
     })
 
-    it('should contain empty account object', function () {
+    it('should contain empty account object', function (): void {
 
-      let _account = {
+      const _account = {
         phoneNumber: {
           prefix: null,
           number: null
@@ -32,9 +32,9 @@ describe('Unit testing: profitelo.services.login-state >', function () {
 
     })
 
-    it('should contain change default account object', function () {
+    it('should contain change default account object', function (): void {
 
-      let _account = {
+      const _account = {
         phoneNumber: {
           prefix: '+45',
           number: '2345676543'

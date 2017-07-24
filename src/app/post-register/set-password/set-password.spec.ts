@@ -19,14 +19,14 @@ describe('Unit tests: profitelo.controller.post-register.set-password>', () => {
     let _$httpBackend: ng.IHttpBackendService
     let _AccountApiMock_: AccountApiMock
 
-    let _url = 'awesomeUrl'
+    const _url = 'awesomeUrl'
 
-    let user = {
+    const user = {
       id: '123'
     }
 
-    let $state = {
-      go: () => {
+    const $state = {
+      go: (): void => {
       }
     }
 

@@ -17,11 +17,11 @@ export class AddPaymentMethodController implements ng.IController {
     this.$uibModalInstance.dismiss('cancel')
   }
 
-  public onLoad = () => {
+  public onLoad = (): void => {
     this.onBraintreeFormLoad = true
   }
 
-  public onFormSucceed = () => {
+  public onFormSucceed = (): void => {
     this.$scope.callback()
     this.$uibModalInstance.dismiss('cancel')
   }

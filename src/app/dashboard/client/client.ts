@@ -4,12 +4,12 @@ import './activities/activities'
 import './favourites/favourites'
 import DashboardClientInvoicesModule from './invoices/invoices'
 
-function clientController() {
+function clientController(): void {
 
   return this
 }
 
-function config($stateProvider: ng.ui.IStateProvider) {
+function config($stateProvider: ng.ui.IStateProvider): void {
   $stateProvider.state('app.dashboard.client', {
     abstract: true,
     url: '/client',

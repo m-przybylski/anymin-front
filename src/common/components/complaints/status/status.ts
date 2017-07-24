@@ -1,6 +1,6 @@
-(function() {
+(function(): void {
   /* @ngInject */
-  function controller() {
+  function controller(): void {
     this.isStatusAccepted = true
     this.isStatusInProgress = false
     this.isStatusReported = false

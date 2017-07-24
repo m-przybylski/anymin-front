@@ -7,7 +7,7 @@ describe('Unit testing: profitelo.directives.page-title', () => {
 
     let compile: any = null
     let scope: any = null
-    let validHTML = '<title data-page-title></title>'
+    const validHTML = '<title data-page-title></title>'
 
     beforeEach(() => {
       angular.mock.module('profitelo.directives.page-title')
@@ -18,9 +18,9 @@ describe('Unit testing: profitelo.directives.page-title', () => {
       })
     })
 
-    function create() {
-      let elem = angular.element(validHTML)
-      let compiledElement = compile(elem)(scope)
+    function create(): JQuery {
+      const elem = angular.element(validHTML)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
@@ -30,15 +30,15 @@ describe('Unit testing: profitelo.directives.page-title', () => {
     }))
 
     it('should compile the directive', () => {
-      let el = create()
+      const el = create()
       expect(el.html()).toBeDefined(true)
     })
 
     it('should change title when state changes', () => {
 
-      let el = create()
+      const el = create()
 
-      let sampleState: any = {}
+      const sampleState: any = {}
 
       sampleState.data = {
         pageTitle: 'page 1'
@@ -60,7 +60,7 @@ describe('Unit testing: profitelo.directives.page-title', () => {
 
       create()
 
-      let sampleState = {
+      const sampleState = {
         pageTitle: 'page 1'
       }
 

@@ -7,9 +7,9 @@ export class MessengerComponentController implements ng.IController, IMessengerC
   constructor() {
   }
 
-  public minimizeMessenger = () =>
+  public minimizeMessenger = (): boolean =>
     this.isMessenger = false
 
-  public maximizeMessenger = () =>
+  public maximizeMessenger = (): boolean =>
     this.isMessenger = true
 }

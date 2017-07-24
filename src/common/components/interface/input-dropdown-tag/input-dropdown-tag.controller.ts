@@ -17,11 +17,11 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
   public label: string
   public placeholder: string
   public dictionary: IDropdownInputDictionary
-  public dropdownList: Array<IDropdownItem> = []
+  public dropdownList: IDropdownItem[] = []
   public hintLabel: string = ''
-  public selectedItems: Array<IDropdownItem> = []
-  public selectedItemsValue: Array<string> = []
-  public filteredItems: Array<IDropdownItem> = []
+  public selectedItems: IDropdownItem[] = []
+  public selectedItemsValue: string[] = []
+  public filteredItems: IDropdownItem[] = []
   public selectedItemNumber: number = 0
   public dropdownScroll: JQuery
 
@@ -37,7 +37,7 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
   private dropdownSelectedItem: JQuery
   private dropdown: JQuery = this.$element.find('.dropdown-list')
 
-  $onInit = () => {
+  $onInit = (): void => {
     for (const key in this.dictionary) {
       if (this.dictionary.hasOwnProperty(key)) {
         this.dropdownList.push({
@@ -127,7 +127,7 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
   public mainListExist = (): boolean =>
   angular.isDefined(this.dropdownList) && this.dropdownList.length > 0
 
-  public inputClick = () => {
+  public inputClick = (): void => {
     this.isOpen = false
     this.dropdownScroll.scrollTop(0)
   }
@@ -149,16 +149,16 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
     this.clearInput()
   }
 
-  public onFocus = () => {
+  public onFocus = (): void => {
     this.isFocus = true
     this.isDirty = true
   }
-  public onBlur = () => {
+  public onBlur = (): void => {
     this.isFocus = false
     this.isDirty = true
   }
 
-  public onArrowItemSelect = () => {
+  public onArrowItemSelect = (): IDropdownItem => {
     this.dropdown.find('li').removeClass('is-focused')
     this.dropdownSelectedItem = this.dropdown.find('li:nth-child(' + (this.selectedItemNumber) + ')')
     this.dropdownSelectedItem.addClass('is-focused')
@@ -184,7 +184,7 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
     this.selectedItemNumber = 0
   }
 
-  private clearInput = () => {
+  private clearInput = (): void => {
     this.filterInputText = ''
   }
 

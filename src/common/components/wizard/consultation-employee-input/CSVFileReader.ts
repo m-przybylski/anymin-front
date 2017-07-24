@@ -30,15 +30,15 @@ export class CSVFileReader {
   public read = (file: File, onResult: (stringArray: string[]) => void, onError: () => void): void => {
     const reader = new FileReader()
     reader.readAsText(file)
-    reader.onload = (event: any) => this.parseLoadedFile(event, onResult, onError)
-    reader.onerror = (_event: any) => this.handleLoadedError(onError)
+    reader.onload = (event: any): void => this.parseLoadedFile(event, onResult, onError)
+    reader.onerror = (_event: any): void => this.handleLoadedError(onError)
   }
 
-  private parseLoadedFile = (event: any, onResult: (stringArray: string[]) => void, onError: () => void) => {
+  private parseLoadedFile = (event: any, onResult: (stringArray: string[]) => void, onError: () => void): void => {
     onResult(this.csvToArray(event.target.result, onError))
   }
 
-  private handleLoadedError = (onError: () => void) => {
+  private handleLoadedError = (onError: () => void): void => {
     onError()
   }
 }

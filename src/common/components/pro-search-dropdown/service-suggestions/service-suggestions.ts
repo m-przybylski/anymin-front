@@ -2,13 +2,13 @@ import * as angular from 'angular'
 import {CommonSettingsService} from '../../../services/common-settings/common-settings.service'
 
 /* @ngInject */
-function serviceSuggestionsController($state: ng.ui.IStateService, CommonSettingsService: CommonSettingsService) {
+function serviceSuggestionsController($state: ng.ui.IStateService, CommonSettingsService: CommonSettingsService): void {
 
-  this.profileImage = (index: number) => {
+  this.profileImage = (index: number): void => {
     return !!this.services.results[index].owner.img ? CommonSettingsService.links.imageUrl.replace('%s', this.services.results[index].owner.img) : false
   }
 
-  this.goToProfile = (indexOfService: number) => {
+  this.goToProfile = (indexOfService: number): void => {
     const service = this.services.results[indexOfService]
     const stateName = service.owner.type === 'ORG' ? 'app.company-profile' : 'app.expert-profile'
     $state.go(stateName, {profileId: service.owner.id, primaryConsultationId: service.id})

@@ -1,4 +1,4 @@
-//TODO change after resolve issue: https://git.contactis.pl/itelo/profitelo/issues/919
+// TODO change after resolve issue: https://git.contactis.pl/itelo/profitelo/issues/919
 export enum FileCategoryEnum {
   AVATAR,
   EXPERT_FILE

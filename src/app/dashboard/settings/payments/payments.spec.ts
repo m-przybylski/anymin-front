@@ -30,7 +30,7 @@ import * as angular from 'angular'
                 street: 'sdasd'
               }
             }
-          },)
+          }, )
           AccountApiMock = _AccountApiMock_
           httpBackend = $httpBackend
         })

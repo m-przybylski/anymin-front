@@ -15,7 +15,7 @@ export class ProfileCompanyConsultationComponentController implements IProfileCo
 
   }
 
-  public startCall = (consultation: GetService) => {
+  public startCall = (consultation: GetService): void => {
     this.userService.getUser()
     .then(() => this.clientCallService.callServiceId(consultation.id), () => this.$state.go('app.login.account'))
   }

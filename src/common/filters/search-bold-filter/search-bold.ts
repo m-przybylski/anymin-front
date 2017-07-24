@@ -1,7 +1,7 @@
 namespace profitelo.filters.searchBold {
 
-  function searchBoldFilter() {
-    return (element: any, query: string) => {
+  function searchBoldFilter(): (element: any, query: string) => string {
+    return (element: any, query: string): string => {
 
       return element.replace(new RegExp('(' + query + ')', 'gi'), '<strong>$1</strong>')
     }

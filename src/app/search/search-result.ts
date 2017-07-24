@@ -19,7 +19,7 @@ import navbarModule from '../../common/components/navbar/navbar'
 /* @ngInject */
 function SearchResultController($scope: ng.IScope, $location: ng.ILocationService,
                                 searchService: SearchService, $state: ng.ui.IStateService,
-                                searchUrlService: SearchUrlService) {
+                                searchUrlService: SearchUrlService): void {
 
   this.searchParams = $location.search()
   this.searchResults = {
@@ -55,7 +55,7 @@ function SearchResultController($scope: ng.IScope, $location: ng.ILocationServic
 
   searchService.setSearchQueryParams(this.searchParams)
 
-  const _loadMore = () => {
+  const _loadMore = (): void => {
     if (this.searchResults && angular.isDefined(this.searchResults.results) && !this.isLoadMoreLoading) {
       const countMax = this.searchResults.count
       const count = this.searchResults.results.length
@@ -67,18 +67,18 @@ function SearchResultController($scope: ng.IScope, $location: ng.ILocationServic
     }
   }
 
-  this.loadMoreOnScroll = () => {
+  this.loadMoreOnScroll = (): void => {
     if (!this.isLoadMoreError) {
       _loadMore()
     }
   }
 
-  this.loadMoreOnClick = () => {
+  this.loadMoreOnClick = (): void => {
     this.isLoadMoreError = false
     _loadMore()
   }
 
-  this.setSearchParams = (params: any) => {
+  this.setSearchParams = (params: any): void => {
     this.isSearchLoading = true
     searchService.setSearchQueryParams(angular.extend($location.search(), params[0]))
   }

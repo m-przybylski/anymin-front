@@ -10,17 +10,17 @@ namespace profitelo.components.interface.preloaderContainer {
       let compile: ng.ICompileService
       let componentController: any
       let component: any
-      let validHTML = '<preloader-container data-is-loading="vm.isLoadMoreLoading" data-is-error="vm.isLoadMoreError"' +
+      const validHTML = '<preloader-container data-is-loading="vm.isLoadMoreLoading" data-is-error="vm.isLoadMoreError"' +
         'data-error-fn="vm.loadMoreOnClick" data-error-message="SEARCH.PRELOADER_CONTAINER.ERROR_MESSAGE"></preloader-container>'
 
-      beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
+      beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService): void {
         $provide.value('apiUrl', url)
       }))
 
-      function create(html: string) {
+      function create(html: string): JQuery {
         scope = rootScope.$new()
-        let elem = angular.element(html)
-        let compiledElement = compile(elem)(scope)
+        const elem = angular.element(html)
+        const compiledElement = compile(elem)(scope)
         scope.$digest()
         return compiledElement
       }
@@ -44,7 +44,7 @@ namespace profitelo.components.interface.preloaderContainer {
       }))
 
       it('should compile the component', () => {
-        let el = create(validHTML)
+        const el = create(validHTML)
         expect(el.html()).toBeDefined(true)
       })
     })

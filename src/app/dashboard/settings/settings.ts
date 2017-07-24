@@ -35,7 +35,7 @@ export class SettingsController implements ng.IController {
     })
   }
 
-  private handleStateChange = (stateName: string) => {
+  private handleStateChange = (stateName: string): void => {
 
     const realStateName = this.getRealStateName(stateName)
 
@@ -47,13 +47,13 @@ export class SettingsController implements ng.IController {
     (<any>this.stateNames)[realStateName] = true
   }
 
-  private getRealStateName = (stateName: string) => {
+  private getRealStateName = (stateName: string): string => {
     const stringsArray = stateName.split('.')
     return stringsArray[3]
   }
 }
 
-function config($stateProvider: ng.ui.IStateProvider) {
+function config($stateProvider: ng.ui.IStateProvider): void {
   $stateProvider.state('app.dashboard.settings', {
     abstract: true,
     url: '/settings',

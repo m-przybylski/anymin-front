@@ -4,7 +4,7 @@ import {IWindowService} from '../../../services/window/window.service'
 import smoothScrollingModule from '../../../services/smooth-scrolling/smooth-scrolling'
 
 /* @ngInject */
-function controller($window: IWindowService, $scope: ng.IScope, smoothScrollingService: SmoothScrollingService) {
+function controller($window: IWindowService, $scope: ng.IScope, smoothScrollingService: SmoothScrollingService): void {
 
   this.flagController = {
     isShow: false,
@@ -17,7 +17,7 @@ function controller($window: IWindowService, $scope: ng.IScope, smoothScrollingS
     this.flagController.checkScrollWay = $window.pageYOffset
   })
 
-  this.goToTop = () => {
+  this.goToTop = (): void => {
     smoothScrollingService.simpleScrollTo('body')
   }
 

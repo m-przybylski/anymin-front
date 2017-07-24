@@ -4,7 +4,7 @@ import apiModule from 'profitelo-api-ng/api.module'
 import sessionModule from '../../common/services/session/session'
 import smoothScrollingModule from '../../common/services/smooth-scrolling/smooth-scrolling'
 import {CompanyProfileController} from './company-profile.controller'
-import {CompanyProfileResolver} from './company-profile.resolver'
+import {CompanyProfileResolver, ICompanyProfile} from './company-profile.resolver'
 import 'common/directives/expert-profile/pro-expert-header/pro-expert-header'
 import 'common/directives/pro-footer/pro-footer'
 import 'common/directives/expert-profile/pro-expert-slider/pro-expert-slider'
@@ -17,6 +17,7 @@ import profileHeaderModule from '../../common/components/profile/profile-header/
 import similarConsultationModule from '../../common/components/profile/similar-consultations/similar-consultations'
 import './company-profile.sass'
 import profileCompanyConsultationModule from '../../common/components/profile/profile-company-single-consultation/profile-company-single-consultation'
+import {IPromise} from 'angular'
 
 export interface ICompanyProfileStateParams extends ng.ui.IStateParamsService {
   primaryConsultationId: string
@@ -52,7 +53,7 @@ const companyProfilePageModule = angular.module('profitelo.controller.company-pr
     controller: 'CompanyProfileController',
     resolve: {
       /* istanbul ignore next */
-      companyProfile: (CompanyProfileResolver: CompanyProfileResolver, $stateParams: ICompanyProfileStateParams) =>
+      companyProfile: (CompanyProfileResolver: CompanyProfileResolver, $stateParams: ICompanyProfileStateParams): IPromise<ICompanyProfile> =>
         CompanyProfileResolver.resolve($stateParams)
     }
   })

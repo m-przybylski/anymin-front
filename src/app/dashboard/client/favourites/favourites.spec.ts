@@ -1,5 +1,6 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import {IPromise} from 'angular'
 
 describe('Unit tests: DashboardClientFavouritesController >', () => {
   describe('Testing Controller: DashboardClientFavouritesController', () => {
@@ -24,7 +25,7 @@ describe('Unit tests: DashboardClientFavouritesController >', () => {
         $scope = $rootScope.$new()
 
         $state = <ng.ui.IStateService>{
-          go: (_to: string) => $q.resolve({})
+          go: (_to: string): IPromise<{}> => $q.resolve({})
         }
 
         DashboardClientFavouritesController = $controller('DashboardClientFavouritesController', {

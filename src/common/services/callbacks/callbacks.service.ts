@@ -10,7 +10,7 @@ export class CallbacksService {
 
     angular.forEach(events, event => {
       this.handlers[event] = []
-      this.methods[event] = (handler: any) => {
+      this.methods[event] = (handler: any): void => {
         if (angular.isFunction(handler)) {
           this.handlers[event].push((...args: Array<any>) => this.$timeout(() => handler.apply(null, args)))
         }
@@ -18,7 +18,7 @@ export class CallbacksService {
     })
   }
 
-  public notify = (event: string, ...args: Array<any>) => {
+  public notify = (event: string, ...args: Array<any>): void => {
     if (this.handlers.hasOwnProperty(event)) {
       angular.forEach(this.handlers[event], handler => {
         if (angular.isFunction(handler)) {

@@ -10,13 +10,13 @@ namespace profitelo.components.expertProfile.similarExpertsSlider {
       let component: any
       let $state: ng.ui.IStateService
       let bindings: any
-      let validHTML = '<similar-experts-slider consultations="[{name: null}]"></similar-experts-slider>'
+      const validHTML = '<similar-experts-slider consultations="[{name: null}]"></similar-experts-slider>'
       let el: any
 
-      function create(html: string) {
+      function create(html: string): JQuery {
         scope = rootScope.$new()
-        let elem = angular.element(html)
-        let compiledElement = compile(elem)(scope)
+        const elem = angular.element(html)
+        const compiledElement = compile(elem)(scope)
         scope.$apply()
         return compiledElement
       }
@@ -65,7 +65,7 @@ namespace profitelo.components.expertProfile.similarExpertsSlider {
       it('should go to next-slide', () => {
         const $scope: any = rootScope
         $scope.controlls = {
-          nextSlide: () => {
+          nextSlide: (): number => {
             return 1011
           }
         }
@@ -78,7 +78,7 @@ namespace profitelo.components.expertProfile.similarExpertsSlider {
       it('should go to prev-slide', () => {
         const $scope: any = rootScope
         $scope.controlls = {
-          prevSlide: () => {
+          prevSlide: (): number => {
             return 1011
           }
         }

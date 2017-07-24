@@ -6,6 +6,7 @@ import apiModule from 'profitelo-api-ng/api.module'
 import {RegistrationApi} from 'profitelo-api-ng/api/api'
 import loginStateModule from '../../services/login-state/login-state'
 import topAlertModule from '../../services/top-alert/top-alert'
+import {IPromise} from 'angular'
 
 export interface ILoginRegister {
   sessionId: string
@@ -25,11 +26,11 @@ class LoginRegisterResolver implements ILoginRegisterService {
 
   }
 
-  public resolve = () => {
+  public resolve = (): IPromise<{}> => {
 
     const _deferred = this.$q.defer()
 
-    const handleError = () => {
+    const handleError = (): void => {
       _deferred.reject()
       this.$timeout(() => {
         this.$state.go('app.login.account')

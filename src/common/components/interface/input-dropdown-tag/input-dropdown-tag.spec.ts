@@ -16,14 +16,14 @@ describe('Unit testing: profitelo.components.interface.input-dropdown-tag', () =
     let window: IWindowService
     let bindings: InputDropdownTagComponentBindings
     let document: ng.IDocumentService
-    let validHTML = '<input-dropdown-tag data-selected-items-value="selectedItemsValue"></input-dropdown-tag>'
-    let filteredItems: Array<IDropdownItem>
+    const validHTML = '<input-dropdown-tag data-selected-items-value="selectedItemsValue"></input-dropdown-tag>'
+    let filteredItems: IDropdownItem[]
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
       scope.selectedItemsValue = []
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }

@@ -9,10 +9,10 @@ import {ClientCallService} from '../../communicator/call-services/client-call.se
 
 /* @ngInject */
 function singleConsultationController($state: ng.ui.IStateService, urlService: UrlService,
-                                      clientCallService: ClientCallService, userService: UserService) {
+                                      clientCallService: ClientCallService, userService: UserService): void {
   this.isLinkActive = true
 
-  this.$onInit = () => {
+  this.$onInit = (): void => {
     this.consultation.price = {
       amount: this.consultation.price * 1.23, // FIXME after ux tests
       currency: 'PLN'
@@ -25,15 +25,15 @@ function singleConsultationController($state: ng.ui.IStateService, urlService: U
     }
   }
 
-  this.onMouseOver = () => {
+  this.onMouseOver = (): void => {
     this.isLinkActive = false
   }
 
-  this.onMouseLeave = () => {
+  this.onMouseLeave = (): void => {
     this.isLinkActive = true
   }
 
-  this.goToProfile = () => {
+  this.goToProfile = (): void => {
     if (this.isLinkActive) {
       const stateName = this.consultation.owner.type === 'ORG' ? 'app.company-profile' : 'app.expert-profile'
       $state.go(stateName, {profileId: this.consultation.owner.id, primaryConsultationId: this.consultation.id})

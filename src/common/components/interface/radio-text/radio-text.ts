@@ -1,12 +1,12 @@
 import * as angular from 'angular'
 import textareaModule from '../textarea/textarea'
 
-(function () {
+(function (): void {
   /* @ngInject */
-  function controller() {
+  function controller(): void {
     this.isCollapsed = false
 
-    this.onClick = () => {
+    this.onClick = (): void => {
       if (this.ngModel) {
         this.isCollapsed = true
       } else {

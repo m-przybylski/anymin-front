@@ -3,6 +3,7 @@ import IScope = angular.IScope
 import {WizardApi, WizardApiMock} from 'profitelo-api-ng/api/api'
 import createProfilePageModule from './create-profile'
 import {CreateProfileController} from './create-profile.controller'
+import {IPromise} from 'angular'
 
 describe('Testing Controller: CreateProfileController', () => {
 
@@ -24,7 +25,7 @@ describe('Testing Controller: CreateProfileController', () => {
             WizardApiMock: WizardApiMock, $q: ng.IQService) => {
 
       $state = <any>{
-        go: (_to: string) => $q.resolve({})
+        go: (_to: string): IPromise<{}> => $q.resolve({})
       }
 
       httpBackend = $httpBackend

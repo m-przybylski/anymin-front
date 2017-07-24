@@ -1,11 +1,12 @@
 import * as angular from 'angular'
 import {UrlService} from '../../services/url/url.service'
+import {IDirective} from 'angular'
 
-function proSocialIconGetter(urlService: UrlService) {
+function proSocialIconGetter(urlService: UrlService): IDirective {
 
-  function proSocialIconGetterLink(scope: any) {
+  function proSocialIconGetterLink(scope: any): void {
 
-    scope.$watch('url', function (newVal: string, _oldVal: string) {
+    scope.$watch('url', function (newVal: string, _oldVal: string): void {
       scope.social = urlService.resolveSocialUrl(newVal)
     })
   }

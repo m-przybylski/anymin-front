@@ -3,6 +3,7 @@ import {PutWizardProfile, PartialExpertDetails, GetWizardProfile} from 'profitel
 import * as _ from 'lodash'
 import * as angular from 'angular'
 import {IProgressStyle} from '../../../../common/components/wizard/wizard-handler/wizard-handler.controller'
+import {IPromise} from 'angular'
 
 export class ExpertController implements ng.IController {
   public currentWizardState: PutWizardProfile = {
@@ -13,9 +14,9 @@ export class ExpertController implements ng.IController {
   public nameModel?: string = ''
   public avatarModel?: string
   public descriptionModel?: string = ''
-  public languagesModel?: Array<string> = []
-  public filesModel?: Array<string> = []
-  public linksModel?: Array<string> = []
+  public languagesModel?: string[] = []
+  public filesModel?: string[] = []
+  public linksModel?: string[] = []
   public languagesList: {
     [key: string]: string
   }
@@ -37,7 +38,7 @@ export class ExpertController implements ng.IController {
     }
   }
 
-  $onInit = () => {
+  $onInit = (): void => {
     if (this.wizardProfile) {
       this.currentWizardState = angular.copy(this.wizardProfile)
       if (this.wizardProfile.expertDetailsOption) {
@@ -59,7 +60,7 @@ export class ExpertController implements ng.IController {
     this.saveWizardState(this.currentWizardState)
   }
 
-  public onGoBack = () => {
+  public onGoBack = (): void => {
     if (this.wizardProfile && !this.wizardProfile.isSummary) {
       this.currentWizardState.isExpert = false
       this.currentWizardState.isCompany = false
@@ -71,7 +72,7 @@ export class ExpertController implements ng.IController {
     }
   }
 
-  public saveSteps = () => {
+  public saveSteps = (): void => {
     const wizardExpertModel: PartialExpertDetails = {
       name: this.nameModel,
       avatar: this.avatarModel,
@@ -87,7 +88,7 @@ export class ExpertController implements ng.IController {
     }
   }
 
-  public goToSummary = () => {
+  public goToSummary = (): void => {
     if (this.checkIsFormValid()) {
       this.currentWizardState.expertDetailsOption!.links = this.linksModel
       this.currentWizardState.isSummary = true
@@ -119,7 +120,7 @@ export class ExpertController implements ng.IController {
     return this.isUploading
   }
 
-  public onUploadingFile = (status: boolean) => {
+  public onUploadingFile = (status: boolean): void => {
     this.isUploading = status
   }
 
@@ -133,14 +134,14 @@ export class ExpertController implements ng.IController {
     )
   }
 
-  private saveWizardState = (wizardState: PutWizardProfile) => {
+  private saveWizardState = (wizardState: PutWizardProfile): IPromise<GetWizardProfile> => {
     return this.WizardApi.putWizardProfileRoute(wizardState)
     .catch((error) => {
       throw new Error('Can not save profile steps' + error)
     })
   }
 
-  private checkIsAnyStepModelChange = (currentFormModel: PartialExpertDetails) => {
+  private checkIsAnyStepModelChange = (currentFormModel: PartialExpertDetails): boolean => {
     return !this.currentWizardState.expertDetailsOption
       || !(_.isEqual(this.currentWizardState.expertDetailsOption, currentFormModel))
   }

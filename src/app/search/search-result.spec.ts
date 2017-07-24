@@ -27,7 +27,7 @@ describe('Unit tests: search-result>', () => {
               searchService: SearchService) => {
         $scope = $rootScope.$new()
         location = <ng.ILocationService>{
-          search: () => {
+          search: (): object => {
             return {}
           }
         }
@@ -36,30 +36,30 @@ describe('Unit tests: search-result>', () => {
           current: {
             name: 'app.search-result'
           },
-          go: (_x: any) => {
+          go: (_x: any): object => {
             return {}
           },
-          transitionTo: (_a: any, _b: any) =>{
+          transitionTo: (_a: any, _b: any): object => {
             return {}
           }
         }
 
         searchService = <SearchService>{
-          onSearchResults: (_$scope, cb: () => void) => {
+          onSearchResults: (_$scope, cb: () => void): void => {
             cb()
           },
 
-          setSearchQueryParams: (_params) => {
+          setSearchQueryParams: (_params): void => {
 
           },
 
-          onQueryParamsChange: (_scope, cb) => {
+          onQueryParamsChange: (_scope, cb): void => {
             cb(angular.extend(location.search(), {q: 'prawo'}))
           }
         }
 
         searchUrlService = <any> {
-          parseParamsForUrl: () => {
+          parseParamsForUrl: (): object => {
             return {}
           }
         }

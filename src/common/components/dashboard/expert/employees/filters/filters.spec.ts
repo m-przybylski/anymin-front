@@ -12,12 +12,12 @@ describe('Unit testing: profitelo.components.dashboard.expert.employees.filters.
     let compile: ng.ICompileService
     let componentController: ng.IComponentControllerService
     let component: ExpertEmployeesFiltersComponentController
-    let validHTML = '<expert-employees-filters></expert-employees-filters>'
+    const validHTML = '<expert-employees-filters></expert-employees-filters>'
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
@@ -40,7 +40,7 @@ describe('Unit testing: profitelo.components.dashboard.expert.employees.filters.
       expect(true).toBeTruthy()
     }))
     it('should compile the directive', () => {
-      let el = create(validHTML)
+      const el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
   })

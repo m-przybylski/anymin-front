@@ -11,7 +11,7 @@ export class GroupedMessagesComponentController implements ng.IController, IGrou
   constructor() {
   }
 
-  $onInit = () => {
+  $onInit = (): void => {
     const message = this.messages[0]
     this.isMine = (angular.isDefined(message) && angular.isDefined(message.isMine) && message.isMine)
   }

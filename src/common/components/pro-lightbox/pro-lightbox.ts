@@ -2,7 +2,7 @@ import * as angular from 'angular'
 import 'common/components/pro-lightbox/pro-lightbox-content/pro-lightbox-content'
 import 'common/components/pro-lightbox/pro-lightbox-nav/pro-lightbox-nav'
 
-(function() {
+(function(): void {
 
   const proLightbox = {
     transclude: true,

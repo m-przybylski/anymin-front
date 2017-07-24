@@ -38,7 +38,7 @@ export class ServiceProviderService {
     }
   }
 
-  public backToFirstStep = (expertDetails?: ExpertDetails, organizationDetails?: OrganizationDetails) => {
+  public backToFirstStep = (expertDetails?: ExpertDetails, organizationDetails?: OrganizationDetails): void => {
     if (expertDetails && !organizationDetails) {
       this.$state.go('app.dashboard.service-provider.individual-path')
     } else {

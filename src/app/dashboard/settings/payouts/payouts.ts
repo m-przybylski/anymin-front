@@ -2,6 +2,8 @@ import * as angular from 'angular'
 import apiModule from 'profitelo-api-ng/api.module'
 import {DashboardSettingsPayoutsController} from './payouts.controller'
 import {PayoutsSettingsResolver} from './payouts.resolver'
+import {IPromise} from 'angular'
+import {PayoutMethodsDto} from 'profitelo-api-ng/model/models'
 
 const dashboardSettingsPayoutsModule = angular.module('profitelo.controller.dashboard.settings.payouts', [
   'ui.router',
@@ -14,7 +16,7 @@ const dashboardSettingsPayoutsModule = angular.module('profitelo.controller.dash
     controller: 'dashboardSettingsPayoutsController',
     controllerAs: 'vm',
     resolve: {
-      payoutsMethods: (payoutsSettingsResolver: PayoutsSettingsResolver) => {
+      payoutsMethods: (payoutsSettingsResolver: PayoutsSettingsResolver): IPromise<PayoutMethodsDto> => {
         return payoutsSettingsResolver.resolve()
       }
     }

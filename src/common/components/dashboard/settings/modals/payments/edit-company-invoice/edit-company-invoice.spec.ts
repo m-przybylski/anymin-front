@@ -29,7 +29,7 @@ describe('Testing Controller: EditCompanyInvoiceController', () => {
       AccountApiMock = _AccountApiMock_
       controllerService = $controller
       scope = <IEditCompanyInvoiceControllerScope>$rootScope.$new()
-      scope.callback = () => true
+      scope.callback = (): boolean => true
       const injectors = {
         $scope: scope,
         $uibModalInstance: $uibModalInstance

@@ -55,7 +55,7 @@ import {
   IConsultationSummaryExpertParentControllerScope
 } from '../../components/communicator/modals/consultation-summary-expert/consultation-summary-expert.controller';
 import {IGeneralPhoneSettingsControllerScope} from '../../components/dashboard/settings/modals/general/phone-settings/phone-settings.controller';
-
+import {IModalInstanceService} from 'angular-ui-bootstrap'
 
 // TODO add types for dialogScope Scopes
 export class ModalsService {
@@ -78,7 +78,7 @@ export class ModalsService {
     })
   }
 
-  public createNoFundsModal = (acceptCallback: () => void, rejectCallback: () => void) => {
+  public createNoFundsModal = (acceptCallback: () => void, rejectCallback: () => void): IModalInstanceService => {
     const dialogScope: INoCreditsControllerParentScope =
       <INoCreditsControllerParentScope>this.$rootScope.$new(true)
 
@@ -92,7 +92,7 @@ export class ModalsService {
     })
   }
 
-  public createServiceUnavailableModal = (acceptCallback: () => void, rejectCallback: () => void) => {
+  public createServiceUnavailableModal = (acceptCallback: () => void, rejectCallback: () => void): IModalInstanceService => {
     const dialogScope: IUnavailableServiceControllerParentScope =
       <IUnavailableServiceControllerParentScope>this.$rootScope.$new(true)
 
@@ -106,7 +106,7 @@ export class ModalsService {
     })
   }
 
-  public createClientConsultationSummaryModal = (serviceId: string) => {
+  public createClientConsultationSummaryModal = (serviceId: string): IModalInstanceService => {
     if (!serviceId) {
       throw new Error('Expected serviceId, got ' + serviceId)
     }
@@ -123,7 +123,7 @@ export class ModalsService {
     })
   }
 
-  public createExpertConsultationSummaryModal = (serviceId: string) => {
+  public createExpertConsultationSummaryModal = (serviceId: string): IModalInstanceService => {
     if (!serviceId) {
       throw new Error('Expected serviceId, got ' + serviceId)
     }
@@ -140,7 +140,7 @@ export class ModalsService {
     })
   }
 
-  public createClientSUEActivityDetailsModal = (sueId: string) => {
+  public createClientSUEActivityDetailsModal = (sueId: string): IModalInstanceService => {
     if (!sueId) {
       throw new Error('Expected sueId, got ' + sueId)
     }
@@ -155,7 +155,7 @@ export class ModalsService {
     })
   }
 
-  public createClientComplainReportModal = () => {
+  public createClientComplainReportModal = (): IModalInstanceService => {
     const dialogScope: ng.IScope = this.$rootScope.$new(true)
 
     return this.dialogService.openDialog({
@@ -165,7 +165,7 @@ export class ModalsService {
     })
   }
 
-  public createClientChargeDetailsModal = (financeActivityDetails: GetActivity) => {
+  public createClientChargeDetailsModal = (financeActivityDetails: GetActivity): IModalInstanceService => {
     if (!financeActivityDetails) {
       throw new Error('Expected financeActivityDetails, got ' + financeActivityDetails)
     }
@@ -182,7 +182,7 @@ export class ModalsService {
     })
   }
 
-  public createBasicAccountSettingsModal = (onModalClose: (cb: () => void) => void) => {
+  public createBasicAccountSettingsModal = (onModalClose: (cb: () => void) => void): IModalInstanceService => {
     const dialogScope: IBasicAccountSettingsControllerParentScope =
       <IBasicAccountSettingsControllerParentScope>this.$rootScope.$new(true)
     dialogScope.callback = onModalClose
@@ -194,7 +194,7 @@ export class ModalsService {
     })
   }
 
-  public createGeneralPhoneSettingsModal = (onModalClose: (cb: () => void) => void) => {
+  public createGeneralPhoneSettingsModal = (onModalClose: (cb: () => void) => void): IModalInstanceService => {
     const dialogScope: IGeneralPhoneSettingsControllerScope =
       <IGeneralPhoneSettingsControllerScope>this.$rootScope.$new(true)
     dialogScope.callback = onModalClose
@@ -207,7 +207,7 @@ export class ModalsService {
     })
   }
 
-  public createGeneralEmailSettingsModal = (onModalClose: (cb: () => void) => void) => {
+  public createGeneralEmailSettingsModal = (onModalClose: (cb: () => void) => void): IModalInstanceService => {
     const dialogScope: IGeneralEmailSettingsControllerScope =
       <IGeneralEmailSettingsControllerScope>this.$rootScope.$new(true)
     dialogScope.callback = onModalClose
@@ -220,7 +220,7 @@ export class ModalsService {
     })
   }
 
-  public createGeneralCountrySettingsModal = (onModalClose: (cb: () => void) => void) => {
+  public createGeneralCountrySettingsModal = (onModalClose: (cb: () => void) => void): IModalInstanceService => {
     const dialogScope: IGeneralCountrySettingsControllerScope =
       <IGeneralCountrySettingsControllerScope>this.$rootScope.$new(true)
 
@@ -233,7 +233,7 @@ export class ModalsService {
     })
   }
 
-  public createSecurityChangePasswordSettingsModal = () => {
+  public createSecurityChangePasswordSettingsModal = (): IModalInstanceService => {
     const dialogScope: ISecurityChangePasswordSettingsControllerScope =
       <ISecurityChangePasswordSettingsControllerScope>this.$rootScope.$new(true)
 
@@ -245,7 +245,7 @@ export class ModalsService {
     })
   }
 
-  public createSecurityPinSecuritySettingsModal = () => {
+  public createSecurityPinSecuritySettingsModal = (): IModalInstanceService => {
     const dialogScope: ISecurityPinNumberSettingsControllerScope =
       <ISecurityPinNumberSettingsControllerScope>this.$rootScope.$new(true)
 
@@ -257,7 +257,7 @@ export class ModalsService {
     })
   }
 
-  public createAddPaymentMethodControllerModal = (onModalClose: () => void) => {
+  public createAddPaymentMethodControllerModal = (onModalClose: () => void): IModalInstanceService => {
     const dialogScope: IAddPaymentMethodControllerScope =
       <IAddPaymentMethodControllerScope>this.$rootScope.$new(true)
 
@@ -270,7 +270,7 @@ export class ModalsService {
     })
   }
 
-  public createEditCompanyInvoiceControllerModal = (onModalClose: () => void) => {
+  public createEditCompanyInvoiceControllerModal = (onModalClose: () => void): IModalInstanceService => {
     const dialogScope: IEditCompanyInvoiceControllerScope =
       <IEditCompanyInvoiceControllerScope>this.$rootScope.$new(true)
 
@@ -283,7 +283,7 @@ export class ModalsService {
     })
   }
 
-  public createPayoutsMethodControllerModal = (onModalClose: () => void) => {
+  public createPayoutsMethodControllerModal = (onModalClose: () => void): IModalInstanceService => {
     const dialogScope: IPayoutsPayPalControllerScope =
       <IPayoutsPayPalControllerScope>this.$rootScope.$new(true)
 
@@ -297,7 +297,7 @@ export class ModalsService {
     })
   }
 
-  public createGalleryPreviewControllerModal = (preview: string) => {
+  public createGalleryPreviewControllerModal = (preview: string): IModalInstanceService => {
     const dialogScope: IGalleryPreviewControllerScope =
       <IGalleryPreviewControllerScope>this.$rootScope.$new(true)
 
@@ -311,7 +311,7 @@ export class ModalsService {
     })
   }
 
-  public createExpertSUEActivityDetailsModal = (sueId: string) => {
+  public createExpertSUEActivityDetailsModal = (sueId: string): IModalInstanceService => {
     if (!sueId) {
       throw new Error('Expected sueId, got ' + sueId)
     }
@@ -326,7 +326,7 @@ export class ModalsService {
     })
   }
 
-  public createExpertPayoutCivilModal = (sueId: string) => {
+  public createExpertPayoutCivilModal = (sueId: string): IModalInstanceService => {
     if (!sueId) {
       throw new Error('Expected sueId, got ' + sueId)
     }
@@ -341,7 +341,7 @@ export class ModalsService {
     })
   }
 
-  public createExpertPayoutCompanyModal = (sueId: string) => {
+  public createExpertPayoutCompanyModal = (sueId: string): IModalInstanceService => {
     if (!sueId) {
       throw new Error('Expected sueId, got ' + sueId)
     }
@@ -356,7 +356,7 @@ export class ModalsService {
     })
   }
 
-  public createExpertEmployeeDetailsModal = (sueId: string) => {
+  public createExpertEmployeeDetailsModal = (sueId: string): IModalInstanceService => {
     if (!sueId) {
       throw new Error('Expected sueId, got ' + sueId)
     }
@@ -371,7 +371,7 @@ export class ModalsService {
     })
   }
 
-  public createExpertInviteEmployeesModal = () => {
+  public createExpertInviteEmployeesModal = (): IModalInstanceService => {
     const dialogScope: IExpertInviteEmployeesControllerScope =
       <IExpertInviteEmployeesControllerScope>this.$rootScope.$new(true)
 
@@ -383,7 +383,7 @@ export class ModalsService {
     })
   }
 
-  public createInvitationsModal = (profileWithServiceEmployments?: GetProfileWithServicesEmployments) => {
+  public createInvitationsModal = (profileWithServiceEmployments?: GetProfileWithServicesEmployments): IModalInstanceService => {
     const dialogScope: IInvitationsModalScope =
       <IInvitationsModalScope>this.$rootScope.$new(true)
     dialogScope.profileWithServiceEmployments = profileWithServiceEmployments
@@ -395,7 +395,7 @@ export class ModalsService {
     })
   }
 
-  public createManageProfileEditProfileModal = () => {
+  public createManageProfileEditProfileModal = (): IModalInstanceService => {
     const dialogScope: IEditExpertProfileScope =
       <IEditExpertProfileScope>this.$rootScope.$new(true)
 

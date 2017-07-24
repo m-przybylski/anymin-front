@@ -17,7 +17,7 @@ export class ConsultationListItemComponentController implements IConsultationLis
   constructor() {
   }
 
-  $onInit() {
+  $onInit(): void {
     this.title = this.service.name
     this.price = this.service.price
     this.tags = []

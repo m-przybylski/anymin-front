@@ -14,11 +14,11 @@ describe('Unit testing: profitelo.components.communicator.messenger.maximized.me
       'on-typing="onTyping" is-file-uploading="isFileUploading"></messenger-input>'
 
     const bindings: IMessengerInputBindings = {
-      onSendMessage: () => {
+      onSendMessage: (): void => {
       },
-      onUploadFiles: () => {
+      onUploadFiles: (): void => {
       },
-      onTyping: () => {
+      onTyping: (): void => {
       },
       isFileUploading: false
     }
@@ -26,8 +26,8 @@ describe('Unit testing: profitelo.components.communicator.messenger.maximized.me
     function create(html: string, bindings: IMessengerInputBindings): JQuery {
       const parentScope: ng.IScope = rootScope.$new()
       const parentBoundScope = angular.extend(parentScope, bindings)
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(parentBoundScope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(parentBoundScope)
       parentBoundScope.$digest()
       return compiledElement
     }
@@ -56,7 +56,7 @@ describe('Unit testing: profitelo.components.communicator.messenger.maximized.me
     }))
 
     it('should compile the component', () => {
-      let el = create(validHTML, bindings)
+      const el = create(validHTML, bindings)
       expect(el.html()).toBeDefined(true)
     })
 

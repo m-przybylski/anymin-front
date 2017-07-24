@@ -26,7 +26,7 @@ export class NavbarHelpComponentController implements INavbarHelpComponentBindin
       'How to recommend an expert or consultation?'
     ]
 
-    this.buttonCallback = () => {
+    this.buttonCallback = (): void => {
       if (this.onClick && angular.isFunction(this.onClick)) {
         this.onClick()
       } else {
@@ -36,7 +36,7 @@ export class NavbarHelpComponentController implements INavbarHelpComponentBindin
 
   }
 
-  public changeTab = () => {
+  public changeTab = (): void => {
     this.isArticleTab = !this.isArticleTab
   }
 

@@ -14,7 +14,7 @@ describe('Testing Controller: generalCountrySettingsController', () => {
     jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss'])
 
   const userService = {
-    getUser: () => {
+    getUser: (): void => {
     }
   }
 

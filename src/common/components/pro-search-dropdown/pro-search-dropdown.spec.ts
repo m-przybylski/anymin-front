@@ -12,14 +12,14 @@ describe('Unit testing:profitelo.components.pro-search-dropdown', () => {
     let state: any
     let componentController: any
     let component: any
-    let validHTML = '<pro-search-dropdown data-mask-search="vm.interfaceController.hideSearchMask"></pro-search-dropdown>'
+    const validHTML = '<pro-search-dropdown data-mask-search="vm.interfaceController.hideSearchMask"></pro-search-dropdown>'
     let httpBackend: ng.IHttpBackendService
     let SearchApiMock: SearchApiMock
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       rootScope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(rootScope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(rootScope)
       rootScope.$digest()
       return compiledElement
     }
@@ -57,12 +57,12 @@ describe('Unit testing:profitelo.components.pro-search-dropdown', () => {
     }))
 
     it('should compile the component', () => {
-      let el = create(validHTML)
+      const el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
 
     it('should watch query', () => {
-      //FIXME type
+      // FIXME type
       SearchApiMock.searchSuggestionsRoute(200, undefined, undefined, <any>{})
       component.ngModel = 'foo'
       rootScope.$digest()

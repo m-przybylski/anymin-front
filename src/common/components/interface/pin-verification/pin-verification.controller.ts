@@ -7,7 +7,7 @@ export class PinVerificationComponentController implements ng.IController, IPinV
   public onCompletePinInputs: (token: string, callback: () => void) => void
   public isButtonDisable = false
   public counter: number = 0
-  public pinInputModels: Array<string> = []
+  public pinInputModels: string[] = []
   public isPinInCorrect = false
 
   /* @ngInject */
@@ -15,13 +15,13 @@ export class PinVerificationComponentController implements ng.IController, IPinV
 
   }
 
-  public sendPinAgain = () => {
+  public sendPinAgain = (): void => {
     this.isButtonDisable = true
     this.blockSendButtonForTime(30)
     this.onSendPinAgain()
   }
 
-  public onInputChange = () => {
+  public onInputChange = (): void => {
     if (this.checkAreInputsFilled(this.pinInputModels)) {
       this.isPinInCorrect = false
       this.onCompletePinInputs(this.pinInputModels.join(''), this.onWrongPrefix)
@@ -42,7 +42,7 @@ export class PinVerificationComponentController implements ng.IController, IPinV
     }, 1000, seconds)
   }
 
-  private onWrongPrefix = () => {
+  private onWrongPrefix = (): void => {
     this.isPinInCorrect = true
   }
 

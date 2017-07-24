@@ -13,7 +13,7 @@ export class ImageCropComponentController implements IImageCropComponentBindings
     this.element = $('.cropper-container')
   }
 
-  $onChanges = () => {
+  $onChanges = (): void => {
     if (angular.isDefined(this.imageSrc) && this.imageSrc) {
       this.element.croppie({
         url: this.imageSrc,
@@ -26,7 +26,7 @@ export class ImageCropComponentController implements IImageCropComponentBindings
     }
   }
 
-  public cropImage = () => {
+  public cropImage = (): void => {
     this.saveCropAvatar(this.element.croppie('get'))
     this.element.croppie('destroy')
   }

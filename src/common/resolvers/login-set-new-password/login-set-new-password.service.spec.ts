@@ -5,12 +5,12 @@ describe('Unit testing: profitelo.resolvers.login-set-new-password', () => {
   describe('for LoginSetNewPasswordResolver service >', () => {
 
     let AppLoginSetNewPasswordResolver: ILoginSetNewPasswordService
-    let url = 'awesomeURL'
+    const url = 'awesomeURL'
     let _timeout: ng.ITimeoutService
     let stateParams: any
     let mockState: any
 
-    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
+    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService): void {
       $provide.value('apiUrl', url)
     }))
 
@@ -21,11 +21,11 @@ describe('Unit testing: profitelo.resolvers.login-set-new-password', () => {
       }
 
       mockState = {
-        go: () => {
+        go: (): void => {
         }
       }
 
-      angular.mock.module('profitelo.resolvers.login-set-new-password', function ($provide: ng.auto.IProvideService) {
+      angular.mock.module('profitelo.resolvers.login-set-new-password', function ($provide: ng.auto.IProvideService): void {
         $provide.value('$state', mockState)
       })
 
@@ -41,8 +41,8 @@ describe('Unit testing: profitelo.resolvers.login-set-new-password', () => {
 
     it('should handle empty token', () => {
 
-      let spy = {
-        spy: () => {
+      const spy = {
+        spy: (): void => {
         }
       }
 

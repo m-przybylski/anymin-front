@@ -11,14 +11,14 @@ describe('Unit testing: profitelo.components.wizard.consultation-employee-input'
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let component: ConsultationEmployeeInputComponentController
-    let validHTML = '<consultation-employee-input></consultation-employee-input>'
+    const validHTML = '<consultation-employee-input></consultation-employee-input>'
     let CommonSettingsService: CommonSettingsService
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
       scope.selectedItemsValue = []
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }

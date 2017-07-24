@@ -9,7 +9,7 @@ const dashboardSettingsNotificationsModule = angular.module('profitelo.controlle
   'pascalprecht.translate',
   'profitelo.components.interface.radio'
 ])
-.config(function ($stateProvider: ng.ui.IStateProvider) {
+.config(function ($stateProvider: ng.ui.IStateProvider): void {
   $stateProvider.state('app.dashboard.settings.notifications', {
     url: '/notifications',
     template: require('./notifications.pug')(),

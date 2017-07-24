@@ -1,12 +1,12 @@
 import * as angular from 'angular'
 import {PasswordStrengthService} from './password-strength.service'
 
-describe('Unit testing: profitelo.directives.password-strength-service >', function () {
-  describe('for passwordStrengthService service >', function () {
+describe('Unit testing: profitelo.directives.password-strength-service >', function (): void {
+  describe('for passwordStrengthService service >', function (): void {
 
     let passwordStrengthService: PasswordStrengthService
 
-    beforeEach(function () {
+    beforeEach(function (): void {
       angular.mock.module('profitelo.services.password-strength')
 
       inject(($injector: ng.auto.IInjectorService) => {
@@ -14,7 +14,7 @@ describe('Unit testing: profitelo.directives.password-strength-service >', funct
       })
     })
 
-    it('should exist', function () {
+    it('should exist', function (): void {
       expect(true).toBeTruthy()
     })
 

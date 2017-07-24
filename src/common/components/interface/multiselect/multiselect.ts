@@ -1,9 +1,9 @@
-(function () {
+(function (): void {
   /* @ngInject */
-  function controller() {
+  function controller(): void {
     const checkedItems: Array<any> = []
 
-    const refreshBindings = () => {
+    const refreshBindings = (): void => {
       if (!angular.isDefined(this.isDisabled)) {
         this.isDisabled = false
       }
@@ -24,15 +24,15 @@
       })
     }
 
-    this.$onInit = () => {
+    this.$onInit = (): void => {
       refreshBindings()
     }
 
-    this.$onChanges = () => {
+    this.$onChanges = (): void => {
       refreshBindings()
     }
 
-    this.toggleItem = (item: any) => {
+    this.toggleItem = (item: any): void => {
       if (!this.isDisabled) {
         if (checkedItems.indexOf(item) === -1) {
           checkedItems.push(item)
@@ -43,7 +43,7 @@
       }
     }
 
-    this.isChecked = (item: any) => {
+    this.isChecked = (item: any): boolean => {
       return (checkedItems.indexOf(item) > -1)
     }
 

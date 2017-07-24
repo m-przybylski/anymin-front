@@ -11,7 +11,7 @@ export class ChooseBankComponentController implements ng.IController {
   constructor() {
   }
 
-  $onInit = () => {
+  $onInit = (): void => {
     if (!!this.bankModel && this.bankModel.length > 0) {
       this.activeOptionIndex = _.findIndex(this.paymentsLinks, (link) => {
         return link.value === this.bankModel

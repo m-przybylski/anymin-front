@@ -17,10 +17,10 @@ export class InvoiceDataResolver implements IInvoiceDataResolver {
     return this.AccountApi.getCompanyInfoRoute().then(this.onGetCompanyInfoRoute, this.onGetCompanyInfoRouteError)
   }
 
-  private onGetCompanyInfoRoute = (companyInfo: CompanyInfo) => {
+  private onGetCompanyInfoRoute = (companyInfo: CompanyInfo): CompanyInfo => {
     return companyInfo
   }
-  private onGetCompanyInfoRouteError = (error: any) => {
+  private onGetCompanyInfoRouteError = (error: any): void => {
     if (error.status !== 404) {
       this.$log.error('Can not get company info: ' + error)
     }

@@ -3,7 +3,7 @@ import {UrlService} from '../../../services/url/url.service'
 import urlModule from '../../../services/url/url'
 
 /* @ngInject */
-function controller($scope: any, urlService: UrlService) {
+function controller($scope: any, urlService: UrlService): void {
   this.areControllsVisible = false
 
   this.expertsArray = []
@@ -15,15 +15,15 @@ function controller($scope: any, urlService: UrlService) {
 
   this.controlls = {}
 
-  this.nextSlide = () => {
+  this.nextSlide = (): void => {
     $scope.controlls.nextSlide()
   }
 
-  this.prevSlide = () => {
+  this.prevSlide = (): void => {
     $scope.controlls.prevSlide()
   }
 
-  this.expertImage = (token: string) => {
+  this.expertImage = (token: string): string => {
     if (!!token && token !== null) {
       return urlService.resolveFileUrl(token)
     }

@@ -26,7 +26,7 @@ describe('Testing Controller: basicAccountSettingsController', () => {
     jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss'])
 
   const uploaderFactory = {
-    getInstance: () => {
+    getInstance: (): void => {
     },
     collectionTypes: {
       avatar: {}
@@ -43,7 +43,7 @@ describe('Testing Controller: basicAccountSettingsController', () => {
   })
 
   const userService = {
-    getUser: () => {
+    getUser: (): void => {
     }
   }
 
@@ -94,7 +94,7 @@ describe('Testing Controller: basicAccountSettingsController', () => {
   it('should add photo', () => {
     const imagePath = 'string'
     const file: any = new File()
-    const cb = () => {
+    const cb = (): void => {
     }
     spyOn(FileTypeChecker, 'isFileFormatValid').and.returnValue(true)
     scope.addPhoto(imagePath, file, cb)

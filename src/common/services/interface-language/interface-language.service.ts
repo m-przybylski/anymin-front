@@ -35,7 +35,7 @@ export class InterfaceLanguageService {
   // @description    Unify languages code notation from different browser to one
   //                 like 'xx-yy' or 'xx' (ex: 'en-us', 'en'); For
   // @returns        { String }
-  public unifyToIetfCode = (inputCode: string) => {
+  public unifyToIetfCode = (inputCode: string): string => {
     if (angular.isUndefined(inputCode) || !inputCode) {
       // throw new Error('inputCode must be provided')
       inputCode = ''
@@ -48,7 +48,7 @@ export class InterfaceLanguageService {
   // @description  Get all frontend available interface languages from
   //               the database
   // @returns      {Array}
-  public getInterfaceLanguages = () => {
+  public getInterfaceLanguages = (): IInterfaceLanguage[] => {
     return InterfaceLanguageService.interfaceLanguages
   }
 
@@ -57,7 +57,7 @@ export class InterfaceLanguageService {
   // @param        {String}    [ietfCode]   string with a language code; ex: en, en-us, pl-pl
   // @description  Determinate user startup language
   // @returns      { String }
-  public getStartupLanguage = (ietfCode?: string) => {
+  public getStartupLanguage = (ietfCode?: string): string => {
     if (typeof ietfCode === 'undefined' || !ietfCode) {
       ietfCode = ''
     }
@@ -65,7 +65,7 @@ export class InterfaceLanguageService {
     const _queryLang = this.$location.search().lang
     const _cookie = this.$cookies.get(InterfaceLanguageService.selectedInterfaceLanguageCookie)
 
-    const _logDefaultTranslation = () => {
+    const _logDefaultTranslation = (): string => {
       const previousLanguage = this.unifyToIetfCode(this.$translate.use())
       const msg = 'Your language `' + previousLanguage + '`' +
         ' was not found, so used our default language `' + InterfaceLanguageService.defaultTranslation + '`, ' +
@@ -107,7 +107,7 @@ export class InterfaceLanguageService {
   // @setter
   // @param        {String}   langCode    some string with language key; like `pl-PL`
   // @description  Set user language for the website.
-  public setLanguage = (ietfCode: string) => {
+  public setLanguage = (ietfCode: string): void => {
     const _code = this.unifyToIetfCode(ietfCode)
     const _countryCode = _code.split('-')[0]
     this.$cookies.put(InterfaceLanguageService.selectedInterfaceLanguageCookie, _code)

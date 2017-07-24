@@ -77,7 +77,7 @@ export class CurrentCall {
   public getId = (): RatelSdk.protocol.ID =>
     this.call.id
 
-  protected setLocalStream = (localStream: MediaStream) => {
+  protected setLocalStream = (localStream: MediaStream): void => {
     this.localStream = localStream;
     this.streamManager = new StreamManager(this.localStream, new MediaStreamConstraintsWrapper());
   }

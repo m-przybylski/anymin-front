@@ -12,7 +12,7 @@ describe('Unit testing: profitelo.common.dashboard.expert.complains.complains-li
     const validHTML = '<complains-list data-header-title="title"></complains-list>'
 
     const bindings = {
-      headerTitle: "title"
+      headerTitle: 'title'
     }
 
     beforeEach(() => {
@@ -26,8 +26,8 @@ describe('Unit testing: profitelo.common.dashboard.expert.complains.complains-li
     function create(html: string, bindings: IDashboardExpertComplainsListBindings): JQuery {
       const parentScope: ng.IScope = rootScope.$new()
       const parentBoundScope = angular.extend(parentScope, bindings)
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(parentBoundScope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(parentBoundScope)
       parentBoundScope.$digest()
       return compiledElement
     }
@@ -54,7 +54,7 @@ describe('Unit testing: profitelo.common.dashboard.expert.complains.complains-li
     }))
 
     it('should compile the component', () => {
-      let el = create(validHTML, bindings)
+      const el = create(validHTML, bindings)
       expect(el.html()).toBeDefined(true)
     })
 

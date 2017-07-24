@@ -8,7 +8,7 @@ describe('Unit testing: profitelo.directives.pro-top-waiting-loader', () => {
     let rootScope: ng.IRootScopeService
     let compile: any = null
     let topWaitingLoaderService: TopWaitingLoaderService
-    let validHTML = '<pro-top-waiting-loader></pro-top-waiting-loader>'
+    const validHTML = '<pro-top-waiting-loader></pro-top-waiting-loader>'
 
     beforeEach(() => {
       angular.mock.module('profitelo.services.pro-top-waiting-loader-service')
@@ -23,10 +23,10 @@ describe('Unit testing: profitelo.directives.pro-top-waiting-loader', () => {
       })
     })
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
@@ -36,7 +36,7 @@ describe('Unit testing: profitelo.directives.pro-top-waiting-loader', () => {
     }))
 
     it('should compile the directive', () => {
-      let el = create(validHTML)
+      const el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
 

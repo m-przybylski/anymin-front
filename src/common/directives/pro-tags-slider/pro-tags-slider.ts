@@ -1,12 +1,13 @@
 import * as angular from 'angular'
 import {Tag} from 'profitelo-api-ng/model/models'
 import {IWindowService} from '../../services/window/window.service'
+import {IDirective} from 'angular'
 
-function proTagsSlider($window: IWindowService, $location: ng.ILocationService, $timeout: ng.ITimeoutService) {
-  function linkFunction(scope: any, element: ng.IRootElementService) {
+function proTagsSlider($window: IWindowService, $location: ng.ILocationService, $timeout: ng.ITimeoutService): IDirective {
+  function linkFunction(scope: any, element: ng.IRootElementService): void {
 
     let tagsContainerWidth = element.find('.slider-tag')[0].clientWidth
-    let elementsMap: Array<number> = []
+    let elementsMap: number[] = []
     let currentElement = 0
 
     scope.slidesContainerOffsetWidth = 0
@@ -17,14 +18,14 @@ function proTagsSlider($window: IWindowService, $location: ng.ILocationService, 
       scope.slidesContainerOffsetWidth = element.find('.slide-page')[0].clientWidth
     })
 
-    const _clearSlider = () => {
+    const _clearSlider = (): void => {
       scope.leftOffset = {left: 0}
       currentElement = 0
       tagsContainerWidth = element.find('.slider-tag')[0].clientWidth
       scope.slidesContainerOffsetWidth = element.find('.slide-page')[0].clientWidth
     }
 
-    const _calculateOffset = (elem: number) => {
+    const _calculateOffset = (elem: number): number => {
       let offset = 0
       for (let i = 0; i < elem; i++) {
         offset = offset + elementsMap[i] + 8
@@ -39,7 +40,7 @@ function proTagsSlider($window: IWindowService, $location: ng.ILocationService, 
 
     scope.$watch(() => {
       return scope.tags
-    }, (newValue: Array<Tag>, _oldValue: Array<Tag>) => {
+    }, (newValue: Tag[], _oldValue: Tag[]) => {
       if (newValue) {
         elementsMap = $.map($(element).find('.slide-page li'), (li) => {
           return li.clientWidth
@@ -47,14 +48,14 @@ function proTagsSlider($window: IWindowService, $location: ng.ILocationService, 
       }
     })
 
-    scope.tagAction = (tag: Tag) => {
+    scope.tagAction = (tag: Tag): void => {
       if (tag.id !== $location.search().tagId) {
         scope.onTagClickAction(tag)
         _clearSlider()
       }
     }
 
-    scope.prevSlide = (next = 1) => {
+    scope.prevSlide = (next = 1): void => {
       if (currentElement > 0) {
         currentElement = currentElement - next
         scope.leftOffset = {left: _calculateOffset(currentElement) * -1}
@@ -62,7 +63,7 @@ function proTagsSlider($window: IWindowService, $location: ng.ILocationService, 
       }
     }
 
-    scope.nextSlide = (next = 1) => {
+    scope.nextSlide = (next = 1): void => {
       if (currentElement < elementsMap.length - next && tagsContainerWidth < scope.slidesContainerOffsetWidth) {
         currentElement = currentElement + next
         scope.leftOffset = {left: _calculateOffset(currentElement) * -1}
@@ -70,11 +71,11 @@ function proTagsSlider($window: IWindowService, $location: ng.ILocationService, 
       }
     }
 
-    scope.leftArrowActive = () => {
+    scope.leftArrowActive = (): boolean => {
       return currentElement > 0
     }
 
-    scope.rightArrowActive = () => {
+    scope.rightArrowActive = (): boolean => {
       return tagsContainerWidth < scope.slidesContainerOffsetWidth
     }
   }

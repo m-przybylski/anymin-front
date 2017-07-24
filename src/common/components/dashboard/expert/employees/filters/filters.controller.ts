@@ -15,7 +15,7 @@ export class ExpertEmployeesFiltersComponentController implements IExpertEmploye
 
     this.showMobileFilters = true
 
-    this.showFilters = () => {
+    this.showFilters = (): void => {
       this.showMobileFilters = !this.showMobileFilters
     }
 

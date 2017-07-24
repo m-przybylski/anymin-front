@@ -8,7 +8,7 @@ describe('Unit testing: profitelo.resolvers.expert-profile', () => {
   describe('for ExpertProfileResolver service >', () => {
 
     let AppExpertProfileResolver: ExpertProfileResolver
-    let url = 'awesomeURL'
+    const url = 'awesomeURL'
     let _timeout: ng.ITimeoutService
     let ViewsApiMock: ViewsApiMock
     let $httpBackend: ng.IHttpBackendService
@@ -41,7 +41,7 @@ describe('Unit testing: profitelo.resolvers.expert-profile', () => {
     }
 
     const mockState = {
-      go: () => {
+      go: (): void => {
       }
     }
 
@@ -56,7 +56,7 @@ describe('Unit testing: profitelo.resolvers.expert-profile', () => {
         primaryConsultationId: primaryConsultationId
       }
 
-      angular.mock.module(expertProfilePageModule, function ($provide: ng.auto.IProvideService) {
+      angular.mock.module(expertProfilePageModule, function ($provide: ng.auto.IProvideService): void {
         $provide.value('$state', mockState)
       })
 

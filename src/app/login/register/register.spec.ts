@@ -7,6 +7,7 @@ import {TopWaitingLoaderService} from '../../../common/services/top-waiting-load
 import {LoginStateService} from '../../../common/services/login-state/login-state.service'
 import {IFilterService} from '../../../common/services/filter/filter.service'
 import sessionModule from '../../../common/services/session/session'
+import {IPromise} from 'angular'
 
 describe('Unit tests: profitelo.controller.login.register>', () => {
   describe('Testing Controller: RegisterController', () => {
@@ -21,9 +22,9 @@ describe('Unit tests: profitelo.controller.login.register>', () => {
     let _RegistrationApiMock: RegistrationApiMock
     let q: ng.IQService
 
-    let _url = 'awesomeUrl'
+    const _url = 'awesomeUrl'
 
-    let smsSessionId = {
+    const smsSessionId = {
       accountObject: {
         phoneNumber: {
           prefix: '+45',
@@ -34,14 +35,14 @@ describe('Unit tests: profitelo.controller.login.register>', () => {
       sessionId: '123fsdf'
     }
 
-    let sessionService = {
-      setApiKey: () => {
+    const sessionService = {
+      setApiKey: (): void => {
       },
-      getSession: () => q.resolve()
+      getSession: (): IPromise<void> => q.resolve()
     }
 
-    let $state = {
-      go: () => {
+    const $state = {
+      go: (): void => {
 
       }
     }
@@ -101,7 +102,7 @@ describe('Unit tests: profitelo.controller.login.register>', () => {
 
       spyOn(sessionService, 'getSession')
 
-      //FIXME
+      // FIXME
       _RegistrationApiMock.confirmVerificationRoute(200, <GetSession>{})
       RegisterController.getSmsCodeStatus()
       _$httpBackend.flush()

@@ -6,6 +6,8 @@ import {RatelApi, ProfileApi} from 'profitelo-api-ng/api/api'
 import userModule from '../../services/user/user'
 import communicatorModule from './communicator'
 import './communicator.service'
+import {IPromise} from 'angular'
+import {Session} from 'ratel-sdk-js'
 
 describe('Unit testing: profitelo.services.communicator >', () => {
   describe('for profitelo.services.communicator >', () => {
@@ -18,7 +20,7 @@ describe('Unit testing: profitelo.services.communicator >', () => {
     }]
 
     const userService = {
-      getUser: () => {}
+      getUser: (): void => {}
     }
 
     beforeEach(() => {
@@ -47,14 +49,14 @@ describe('Unit testing: profitelo.services.communicator >', () => {
     it('should authenticate', inject(($q: ng.IQService, $rootScope: IRootScopeService, RatelApi: RatelApi,
                                       ProfileApi: ProfileApi, ratelSdk: any) => {
 
-      RatelApi.getRatelAuthConfigRoute = (_x: string) => {
+      RatelApi.getRatelAuthConfigRoute = (_x: string): IPromise<{}> => {
         return $q.resolve(config)
       }
 
-      ProfileApi.getEmployersProfilesWithServicesRoute = () => {
+      ProfileApi.getEmployersProfilesWithServicesRoute = (): IPromise<{}> => {
         return $q.resolve(profilesWithServices)
       }
-      ratelSdk.withSignedAuth = () => $q.resolve(session)
+      ratelSdk.withSignedAuth = (): IPromise<Session> => $q.resolve(session)
 
       spyOn(RatelApi, 'getRatelAuthConfigRoute').and.callThrough()
       spyOn(ratelSdk, 'withSignedAuth').and.callThrough()

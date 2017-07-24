@@ -12,7 +12,7 @@ describe('Unit testing: navbar-logged-out-menu', () => {
     const validHTML =
       '<navbar-logged-out-menu</navbar-logged-out-menu>'
 
-    function create(html: string,  bindings: INavbarLoggedOutMenuComponentBindings) {
+    function create(html: string,  bindings: INavbarLoggedOutMenuComponentBindings): JQuery {
       const parentScope = rootScope.$new()
       const parentBoundScope = angular.extend(parentScope, bindings)
       const elem = angular.element(html)
