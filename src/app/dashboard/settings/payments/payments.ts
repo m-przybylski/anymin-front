@@ -18,7 +18,8 @@ export class DashboardSettingsPaymentsController implements ng.IController {
   public paymentMethods: Array<GetCreditCard>
   public checkedPaymentMethod?: string
   public isLongAddress?: boolean
-  public responseCounter: number = 0
+  public isClientBalanceLoaded: boolean = false
+  public isCreditCardsLoaded: boolean = false
 
   constructor(getInvoiceData: CompanyInfo, PaymentsApi: PaymentsApi, private AccountApi: AccountApi,
               private modalsService: ModalsService, FinancesApi: FinancesApi,
@@ -41,7 +42,7 @@ export class DashboardSettingsPaymentsController implements ng.IController {
     }, (error) => {
       throw new Error('Can not get user balance: ' + error)
     }).finally(()=> {
-      this.responseCounter += 1
+      this.isClientBalanceLoaded = true
     })
 
     this.checkedPaymentMethod = user.defaultCreditCard
@@ -56,7 +57,7 @@ export class DashboardSettingsPaymentsController implements ng.IController {
         throw new error('Can not get user payment methods: ' + error)
       }
     }).finally(() => {
-      this.responseCounter += 1
+      this.isCreditCardsLoaded = true
     })
   }
 
