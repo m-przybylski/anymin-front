@@ -1,40 +1,40 @@
 .payments.payments-options
-  no-results-information(
-    data-ng-hide="vm.isAnyPaymentMethod"
-    data-icon-src="/assets/images/profitelo_icons/icon_payments.png"
-    data-information-title="SETTINGS.PAYMENTS.NO_RESULTS.TITLE"
-    data-button-title="SETTINGS.PAYMENTS.NO_RESULTS.BUTTON"
-    data-button-class="btn-default icon-right"
-    data-button-icon-right-class="icon-arrow-right-16"
-    data-button-on-click="vm.addFirstTimePaymentMethod"
-  )
+  preloader-container(data-is-loading="vm.responseCounter !== 2")
+    no-results-information(
+      data-ng-hide="vm.isAnyPaymentMethod"
+      data-icon-src="/assets/images/profitelo_icons/icon_payments.png"
+      data-information-title="SETTINGS.PAYMENTS.NO_RESULTS.TITLE"
+      data-button-title="SETTINGS.PAYMENTS.NO_RESULTS.BUTTON"
+      data-button-class="btn-default icon-right"
+      data-button-icon-right-class="icon-arrow-right-16"
+      data-button-on-click="vm.addFirstTimePaymentMethod"
+    )
 
-  .payments-method(data-ng-show="vm.isAnyPaymentMethod")
-    header.entry-title
-      span(data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.TITLE")
-      a.btn.btn-primary.btn-small(data-translate="SETTINGS.PAYMENTS.BUTTON.ADD" data-ng-click="vm.addNewPaymentMethod()")
+    .payments-method(data-ng-show="vm.isAnyPaymentMethod")
+      header.entry-title
+        span(data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.TITLE")
+        a.btn.btn-primary.btn-small(data-translate="SETTINGS.PAYMENTS.BUTTON.ADD" data-ng-click="vm.addNewPaymentMethod()")
 
-    .payments-method-list
-      form
-        .list-row.profitelo-account(data-ng-show="vm.accountBalance")
-          .radio-text.radio
-            .radio-input
-              input(id="profitelo-payments-method" type="radio" name="payments-method"
-              data-ng-model="vm.checkedPaymentMethod" data-ng-value="" data-ng-change="vm.changeDefaultPaymentMethod()")
-              label.label
+      .payments-method-list
+        form
+          .list-row.profitelo-account(data-ng-show="vm.accountBalance")
+            .radio-text.radio
+              .radio-input
+                input(id="profitelo-payments-method" type="radio" name="payments-method"
+                data-ng-model="vm.checkedPaymentMethod" data-ng-value="" data-ng-change="vm.changeDefaultPaymentMethod()")
+                label.label
 
-            label.text(for="profitelo-payments-method")
-              .payment-thumb
-                img(data-ng-src="/assets/images/payments/profitelo-account.png")
-              span.title {{:: 'SETTINGS.PAYMENTS.PAYMENTS_METHOD.RADIO.PROFITELO_ACCOUNT' | translate }}
-              span(data-ng-bind-html="vm.accountBalance | money ")
+              label.text(for="profitelo-payments-method")
+                .payment-thumb
+                  img(data-ng-src="/assets/images/payments/profitelo-account.png")
+                span.title {{:: 'SETTINGS.PAYMENTS.PAYMENTS_METHOD.RADIO.PROFITELO_ACCOUNT' | translate }}
+                span(data-ng-bind-html="vm.accountBalance | money ")
 
-          .radio-action
-            a.btn.btn-default.btn-small.recharge-account( data-ui-sref="app.dashboard.charge-account"
-              data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.RECHARGE_ACCOUNT.BUTTON")
+            .radio-action
+              a.btn.btn-default.btn-small.recharge-account( data-ui-sref="app.dashboard.charge-account"
+                data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.RECHARGE_ACCOUNT.BUTTON")
 
 
-        preloader-container(data-is-loading="vm.isPaymentsMethodLoading")
           .list-row.profitelo-account(data-ng-repeat="paymentMethod in vm.paymentMethods")
             .radio-text.radio
               .radio-input
@@ -51,26 +51,26 @@
             .radio-action
               a.btn.btn-primary.btn-small.edit-payments(data-translate="SETTINGS.PAYMENTS.PAYMENTS_METHOD.RECHARGE_ACCOUNT.EDIT.BUTTON")
 
-  .invoice-information(data-ng-show="vm.isAnyPaymentMethod && vm.companyName")
-    header.entry-title
-      span(data-translate="SETTINGS.PAYMENTS.INVOICE.TITLE")
-      a.btn.btn-primary.btn-small(data-translate="SETTINGS.PAYMENTS.BUTTON.EDIT" data-ng-click="vm.editInvoiceDetails()")
+    .invoice-information(data-ng-show="vm.isAnyPaymentMethod && vm.companyName")
+      header.entry-title
+        span(data-translate="SETTINGS.PAYMENTS.INVOICE.TITLE")
+        a.btn.btn-primary.btn-small(data-translate="SETTINGS.PAYMENTS.BUTTON.EDIT" data-ng-click="vm.editInvoiceDetails()")
 
-    .info-tab
-      .info-tab-row
-        .info-tab-label
-          span(data-translate="SETTINGS.PAYMENTS.INVOICE.COMPANY_NAME")
-        .info-tab-content
-          span {{ vm.companyName }}
+      .info-tab
+        .info-tab-row
+          .info-tab-label
+            span(data-translate="SETTINGS.PAYMENTS.INVOICE.COMPANY_NAME")
+          .info-tab-content
+            span {{ vm.companyName }}
 
-      .info-tab-row(data-ng-show="vm.vatNumber")
-        .info-tab-label
-          span(data-translate="SETTINGS.PAYMENTS.INVOICE.VAT_NUMBER")
-        .info-tab-content
-          span {{ vm.vatNumber }}
+        .info-tab-row(data-ng-show="vm.vatNumber")
+          .info-tab-label
+            span(data-translate="SETTINGS.PAYMENTS.INVOICE.VAT_NUMBER")
+          .info-tab-content
+            span {{ vm.vatNumber }}
 
-      .info-tab-row(data-ng-show="vm.isLongAddress")
-        .info-tab-label
-          span(data-translate="SETTINGS.PAYMENTS.INVOICE.ADDRESS")
-        .info-tab-content
-          span {{ vm.address }}
+        .info-tab-row(data-ng-show="vm.isLongAddress")
+          .info-tab-label
+            span(data-translate="SETTINGS.PAYMENTS.INVOICE.ADDRESS")
+          .info-tab-content
+            span {{ vm.address }}
