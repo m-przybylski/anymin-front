@@ -1,7 +1,7 @@
 import * as angular from 'angular'
 import apiModule from 'profitelo-api-ng/api.module'
 import {FinancesApi, PaymentsApi} from 'profitelo-api-ng/api/api'
-import {MoneyDto, GetPaymentOptions, PaymentLink, PaymentSystem, GetLastPayment} from 'profitelo-api-ng/model/models'
+import {MoneyDto, GetCreditCard, GetPaymentOptions, PaymentLink, PaymentSystem, GetLastPayment} from 'profitelo-api-ng/model/models'
 import {SmoothScrollingService} from '../../../common/services/smooth-scrolling/smooth-scrolling.service'
 import topAlertModule from '../../../common/services/top-alert/top-alert'
 import commonSettingsModule from '../../../common/services/common-settings/common-settings'
@@ -35,6 +35,7 @@ class ChargeAccountController {
 
   isNavbar = true
   isFullscreen = true
+  isCreditCard = false
   isChargeProfiteloAccount = false
   isPaymentCardMethod = false
   isBraintreeFormLoaded = false
@@ -65,7 +66,8 @@ class ChargeAccountController {
 
   constructor(private $state: ng.ui.IStateService, private $timeout: ng.ITimeoutService,
               paymentsOptions: GetPaymentOptions, paymentsLinks: Array<PaymentLink>,
-              financeBalance: MoneyDto, private smoothScrollingService: SmoothScrollingService) {
+              creditCards: GetCreditCard[], financeBalance: MoneyDto,
+              private smoothScrollingService: SmoothScrollingService) {
 
     this.paymentCountryId = paymentsOptions.paymentCountryId
     this.amounts = {
@@ -74,6 +76,7 @@ class ChargeAccountController {
     }
     this.currentSection = 1
     this.clientBalance = financeBalance
+    this.isCreditCard = creditCards.length > 0
 
     this.lastPayment = paymentsOptions.lastPayment
     this.paymentSystems = paymentsOptions.paymentSystems
@@ -158,6 +161,7 @@ function config($stateProvider: ng.ui.IStateProvider) {
     template: require('./charge-account.pug')(),
     resolve: {
       paymentsOptions: (PaymentsApi: PaymentsApi) => PaymentsApi.getPaymentOptionsRoute(),
+      creditCards: (PaymentsApi: PaymentsApi) => PaymentsApi.getCreditCardsRoute(),
       paymentsLinks: (PaymentsApi: PaymentsApi) => PaymentsApi.getPayUPaymentLinksRoute(),
       financeBalance: (FinancesApi: FinancesApi) => FinancesApi.getClientBalanceRoute()
     },

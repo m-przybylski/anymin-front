@@ -26,5 +26,13 @@ describe('Unit testing: profitelo.directives.services.smooth-scrolling >', funct
       expect($.fn.stop).toHaveBeenCalled()
     }))
 
+    it('should scroll to ', inject(() => {
+      spyOn($.fn, "stop")
+      smoothScrollingService.wizardScrollTo(document.createElement('div'), 450, 300)
+      $('html, body').stop()
+      expect($.fn.stop).toHaveBeenCalled()
+    }))
+
+
   })
 })

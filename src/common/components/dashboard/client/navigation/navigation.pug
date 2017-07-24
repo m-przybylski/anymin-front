@@ -12,7 +12,6 @@
 
       .nav-payment(data-ng-if="!$ctrl.isCard")
         preloader-container(data-is-loading="$ctrl.isLoading")
-          pre {{ $ctrl.clientBalance }}
           .payment-container
             .amount-balance-container(data-ng-hide="!$ctrl.clientBalance || $ctrl.clientBalance.amount === 0")
               span.account-balance-title(data-translate="DASHBOARD.CLIENT.NAVIGATION.ACCOUNT_BALANCE")

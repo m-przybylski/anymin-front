@@ -6,6 +6,7 @@ import {PaymentsApiMock, AccountApiMock, AccountApi, PaymentsApi} from 'profitel
 import userModule from '../../../../../services/user/user'
 import {TopAlertService} from '../../../../../services/top-alert/top-alert.service'
 import {IWindowService} from '../../../../../services/window/window.service'
+import {CompanyInfo} from 'profitelo-api-ng/model/models'
 
 describe('Unit testing:profitelo.components.dashboard.charge-account.payment-method.payu', () => {
   return describe('for payuPaymentFormController component >', () => {
@@ -97,21 +98,22 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
       expect(true).toBeTruthy()
     }))
 
-    // FIXME after company info optional fields fix
-    // it('should redirect to app.dashboard.client.activities on form error', inject(() => {
-    //   bindings.validAction =  () => {
-    //     return true
-    //   }
-    //   component = componentController('payuPaymentForm', {}, bindings)
-    //   component.$onInit()
-    //
-    //   spyOn(state, 'go')
-    //   // FIXME
-    //   PaymentApiMock.postPayUOrderRoute(400, <any>{})
-    //   component.sendPayment()
-    //   httpBackend.flush()
-    //   expect(state.go).toHaveBeenCalled()
-    // }))
+    it('should redirect to app.dashboard.client.activities on form error', inject(() => {
+      bindings.validAction =  () => {
+        return true
+      }
+      component = componentController('payuPaymentForm', {}, bindings)
+      component.$onInit()
+      AccountApiMock.postCompanyInfoRoute(200, <CompanyInfo>{
+
+      })
+      spyOn(state, 'go')
+      PaymentApiMock.postPayUOrderRoute(400)
+      component.sendPayment()
+      httpBackend.flush()
+      expect(state.go).toHaveBeenCalled()
+    }))
+    
     //
     // it('should redirect to payu', inject(() => {
     //   bindings.amountMethodModal.email = 'testacc@profitelo.pl'

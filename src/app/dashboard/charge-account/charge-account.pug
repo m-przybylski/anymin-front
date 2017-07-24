@@ -4,7 +4,7 @@
     top-modal-navbar(data-title="DASHBOARD.CHARGE_ACCOUNT.YOUR_CURRENT_BALANCE" data-on-close="vm.onClose")
     div
       .top-charge-account
-        .charge-account-title(data-ng-if="!vm.lastPayment")
+        .charge-account-title(data-ng-if="!vm.lastPayment && !vm.isCreditCard")
           header.entry-title
             span(data-translate="DASHBOARD.CHARGE_ACCOUNT.TITLE")
 
@@ -19,9 +19,9 @@
               | {{:: 'DASHBOARD.CHARGE_ACCOUNT.ADD_PAYMENT_CARD.BUTTON' | translate }}
               span.icon.icon-success-12
 
-        .modal-form.container-big(data-ng-show="vm.lastPayment || vm.isChargeProfiteloAccount")
+        .modal-form.container-big(data-ng-show="vm.lastPayment || vm.isChargeProfiteloAccount || vm.isCreditCard")
           .charge-payments
-            .animation.fadeInOut(data-ng-show="vm.isChargeProfiteloAccount")
+            .animation.fadeInOut(data-ng-show="vm.isChargeProfiteloAccount || vm.isCreditCard")
               choose-amount-charge.choose-amount-charge.modal-container(
                 data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_AMMOUNT_CHARGE"
                 data-amounts="vm.amounts"
