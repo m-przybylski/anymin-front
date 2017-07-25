@@ -41,7 +41,8 @@ export class DashboardSettingsGeneralController implements ng.IController {
   }
 
   public openGeneralCountrySettingsModal = () => {
-    this.modalsService.createGeneralCountrySettingsModal(this.onModalClose)
+    // TODO Uncomment If we allow user change Country
+    // this.modalsService.createGeneralCountrySettingsModal(this.onModalClose)
   }
 
   private onModalClose = (cb: () => void) => {

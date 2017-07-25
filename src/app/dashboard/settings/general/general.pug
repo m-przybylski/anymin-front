@@ -53,5 +53,5 @@
       span.label(data-translate="SETTINGS.GENERAL.COUNTRY.LABEL")
       span.name(data-translate="{{ :: ('COUNTRIES.' + vm.country) }}")
 
-    a.btn.btn-link(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
-    data-ng-click=":: vm.openGeneralCountrySettingsModal()")
+    button.btn.btn-link(data-translate="SETTINGS.GENERAL.FULL-NAME.BUTTON.EDIT"
+    data-ng-click=":: vm.openGeneralCountrySettingsModal()" data-ng-disabled="true")
