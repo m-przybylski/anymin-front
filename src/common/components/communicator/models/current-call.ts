@@ -55,7 +55,6 @@ export class CurrentCall {
   }
 
   constructor(callbacksFactory: CallbacksFactory,
-              $q: ng.IQService,
               soundsService: SoundsService,
               protected call: RatelSdk.BusinessCall,
               private timerFactory: TimerFactory,
@@ -65,7 +64,7 @@ export class CurrentCall {
     this.callbacks = callbacksFactory.getInstance(Object.keys(CurrentCall.events))
     this.registerCallbacks();
     this.createTimer(service.price, this.serviceFreeMinutesCount)
-    this.messageRoom = new MessageRoom(callbacksFactory, $q, soundsService);
+    this.messageRoom = new MessageRoom(callbacksFactory, soundsService);
   }
 
   public getMessageRoom = (): MessageRoom =>

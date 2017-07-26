@@ -7,7 +7,7 @@ export class WizardStepComponentController implements IWizardStepModuleComponent
   public tooltipText: string
   public buttonTitle: string
   public wizardHandler: WizardHandlerComponentController
-  public checkIsStepValid: () => void
+  public checkIsStepValid: () => boolean
   public isActive: boolean = false
   public isShowed: boolean = false
   public onGoToNext: () => void
@@ -35,7 +35,7 @@ export class WizardStepComponentController implements IWizardStepModuleComponent
     }
   }
 
-  public checkIsDisabled = (): boolean | void => {
+  public checkIsDisabled = (): boolean => {
     return typeof this.checkIsStepValid === 'undefined' || this.checkIsStepValid()
   }
 

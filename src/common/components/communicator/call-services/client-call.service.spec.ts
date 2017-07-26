@@ -7,7 +7,7 @@ import communicatorModule from '../communicator'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {CommunicatorService} from '../communicator.service'
 import {ClientCallService} from './client-call.service'
-import {IPromise} from 'angular'
+
 import {Session} from 'ratel-sdk-js'
 
 interface ICallSound {
@@ -158,7 +158,7 @@ describe('Unit testing: profitelo.services.call >', () => {
           return {} as RatelSdk.Session
         }
 
-        RatelApi.postStartCallRoute = (_x: any): IPromise<never> => {
+        RatelApi.postStartCallRoute = (_x: any): ng.IPromise<never> => {
           return $q.reject(err)
         }
 
@@ -185,7 +185,7 @@ describe('Unit testing: profitelo.services.call >', () => {
         communicatorService.getClientSession = (): Session => session
         communicatorService.getClientDeviceId = (): undefined => undefined
 
-        ServiceApi.addServiceUsageRequestRoute = (): IPromise<never> => {
+        ServiceApi.addServiceUsageRequestRoute = (): ng.IPromise<never> => {
           return $q.reject(testSUR)
         }
 
@@ -211,7 +211,7 @@ describe('Unit testing: profitelo.services.call >', () => {
         return session
       }
 
-      ServiceApi.addServiceUsageRequestRoute = (): IPromise<GetServiceUsageRequest> => {
+      ServiceApi.addServiceUsageRequestRoute = (): ng.IPromise<GetServiceUsageRequest> => {
         return <ng.IPromise<GetServiceUsageRequest>>$q.resolve(testSUR)
       }
 

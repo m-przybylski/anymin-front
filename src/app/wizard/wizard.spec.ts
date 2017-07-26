@@ -1,7 +1,7 @@
 import * as angular from 'angular'
 import {WizardController} from './wizard.controller'
 import wizardWizardModule from './wizard'
-import {IPromise} from 'angular'
+
 
 describe('Testing Controller: WizardController', () => {
 
@@ -21,7 +21,7 @@ describe('Testing Controller: WizardController', () => {
     inject(($controller: ng.IControllerService, $q: ng.IQService) => {
 
       $state = <ng.ui.IStateService>{
-        go: (_to: string): IPromise<{}> => $q.resolve({})
+        go: (_to: string): ng.IPromise<{}> => $q.resolve({})
       }
 
       WizardController = $controller<WizardController>('wizardController', {

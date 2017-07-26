@@ -7,7 +7,6 @@ import {RecoverPasswordApi} from 'profitelo-api-ng/api/api'
 import {LoginStateService} from '../../services/login-state/login-state.service'
 import topAlertModule from '../../services/top-alert/top-alert'
 import loginStateModule from '../../services/login-state/login-state'
-import {IPromise} from 'angular'
 
 export interface ILoginSetNewPassword {
   method: string
@@ -30,7 +29,7 @@ class LoginSetNewPasswordResolver implements ILoginSetNewPasswordService {
 
   }
 
-  public resolve = (stateParams: ISetNewPasswordStateParams): IPromise<{}> => {
+  public resolve = (stateParams: ISetNewPasswordStateParams): ng.IPromise<{}> => {
 
     const _deferred = this.$q.defer()
 

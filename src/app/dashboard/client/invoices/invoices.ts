@@ -4,7 +4,7 @@ import './invoices.sass'
 import expertInvoiceModule from '../../../../common/components/dashboard/expert/invoices/invoice/invoice';
 import {UserService} from '../../../../common/services/user/user.service'
 import {InvoiceDataResolver} from '../../../../common/resolvers/invoice-data/invoice-data.resolver'
-import {IPromise} from 'angular'
+
 import {CompanyInfo, AccountDetails} from 'profitelo-api-ng/model/models'
 
 const  DashboardClientInvoicesModule = angular.module('profitelo.controller.dashboard.client.filters', [
@@ -18,10 +18,10 @@ const  DashboardClientInvoicesModule = angular.module('profitelo.controller.dash
       controller: 'dashboardClientInvoicesController',
       controllerAs: 'vm',
       resolve: {
-        getInvoiceData: (invoiceDataResolver: InvoiceDataResolver): IPromise<CompanyInfo> => {
+        getInvoiceData: (invoiceDataResolver: InvoiceDataResolver): ng.IPromise<CompanyInfo> => {
           return invoiceDataResolver.resolveCompanyInfo()
         },
-        user: (userService: UserService): IPromise<AccountDetails> => {
+        user: (userService: UserService): ng.IPromise<AccountDetails> => {
           return userService.getUser(true)
         }
       }

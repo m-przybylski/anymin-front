@@ -7,7 +7,6 @@ import {TopWaitingLoaderService} from '../../../common/services/top-waiting-load
 import {LoginStateService} from '../../../common/services/login-state/login-state.service'
 import {IFilterService} from '../../../common/services/filter/filter.service'
 import sessionModule from '../../../common/services/session/session'
-import {IPromise} from 'angular'
 
 describe('Unit tests: profitelo.controller.login.register>', () => {
   describe('Testing Controller: RegisterController', () => {
@@ -38,7 +37,7 @@ describe('Unit tests: profitelo.controller.login.register>', () => {
     const sessionService = {
       setApiKey: (): void => {
       },
-      getSession: (): IPromise<void> => q.resolve()
+      getSession: (): ng.IPromise<void> => q.resolve()
     }
 
     const $state = {

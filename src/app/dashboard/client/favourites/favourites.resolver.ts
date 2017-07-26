@@ -1,6 +1,5 @@
 import {ViewsApi} from 'profitelo-api-ng/api/api'
 import {GetDashboardClientExperts, MoneyDto, GetFavouriteProfile, GetLastConsultation} from 'profitelo-api-ng/model/models'
-import {IPromise} from 'angular'
 
 interface IAppClientFavouritesResolverResponse {
   balance: MoneyDto,
@@ -14,12 +13,12 @@ export class ClientFavouritesResolver {
   constructor(private $q: ng.IQService, private ViewsApi: ViewsApi) {
   }
 
-  public resolve = (): IPromise<GetDashboardClientExperts> =>
+  public resolve = (): ng.IPromise<GetDashboardClientExperts> =>
     this.ViewsApi.getDashboardClientExpertsRoute()
       .then((res) =>
         this.handleAppClientFavouritesResolverResponse(res), this.handleAppClientFavouritesResolverResponseError)
 
-  private handleAppClientFavouritesResolverResponseError = (error: any): IPromise<void> =>
+  private handleAppClientFavouritesResolverResponseError = (error: any): ng.IPromise<void> =>
     this.$q.reject(error)
 
   private handleAppClientFavouritesResolverResponse = (response: GetDashboardClientExperts): IAppClientFavouritesResolverResponse =>

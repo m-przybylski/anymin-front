@@ -1,7 +1,7 @@
 import * as angular from 'angular'
 import {NavbarLoggedInMenuComponentController} from './navbar-logged-in-menu.controller'
 import {INavbarLoggedInMenuComponentBindings, default as navbarLoggedInMenuModule} from './navbar-logged-in-menu'
-import {IPromise} from 'angular'
+
 
 describe('Unit testing: navbar-logged-in-menu', () => {
   return describe('for navbar-logged-in-menu component >', () => {
@@ -16,7 +16,7 @@ describe('Unit testing: navbar-logged-in-menu', () => {
       '<navbar-logged-in-menu</navbar-logged-in-menu>'
 
     const userService = {
-      getUser: (): IPromise<{}> => {
+      getUser: (): ng.IPromise<{}> => {
         return q.resolve({})
       }
     }

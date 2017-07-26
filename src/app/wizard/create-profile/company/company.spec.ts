@@ -3,7 +3,7 @@ import companyWizardModule from './company'
 import {GetWizardProfile, PartialOrganizationDetails} from 'profitelo-api-ng/model/models'
 import {WizardApi, WizardApiMock} from 'profitelo-api-ng/api/api'
 import {CompanyController} from './company.controller'
-import {IPromise} from 'angular'
+
 
 describe('Testing Controller: CompanyController', () => {
 
@@ -29,7 +29,7 @@ describe('Testing Controller: CompanyController', () => {
             _WizardApiMock_: WizardApiMock, $q: ng.IQService) => {
 
       $state = <ng.ui.IStateService>{
-        go: (_to: string): IPromise<{}> => $q.resolve({})
+        go: (_to: string): ng.IPromise<{}> => $q.resolve({})
       }
       httpBackend = $httpBackend
       WizardApiMock = _WizardApiMock_

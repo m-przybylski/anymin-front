@@ -1,11 +1,10 @@
 import * as angular from 'angular'
 import 'common/components/dashboard/thank-you-page/thank-you-page'
 import 'common/components/interface/top-modal-navbar/top-modal-navbar'
-import {IPromise} from 'angular'
 
 function paymentsThankYouPageController($state: ng.ui.IStateService): void {
 
-  this.onClose = (): IPromise<void> =>
+  this.onClose = (): ng.IPromise<void> =>
     $state.go('app.dashboard.client.activities')
 
   return this

@@ -15,7 +15,6 @@ import {IStateService} from 'angular-ui-router'
 import {TopAlertService} from '../../../../common/services/top-alert/top-alert.service'
 import topAlertModule from '../../../../common/services/top-alert/top-alert'
 import {IFilterService} from '../../../../common/services/filter/filter.service'
-import {IPromise} from 'angular'
 
 interface ISession {
   device: string
@@ -117,10 +116,10 @@ angular.module('profitelo.controller.dashboard.settings.security', [
     controller: 'dashboardSettingsSecurityController',
     controllerAs: 'vm',
     resolve: {
-      currentSession: (sessionService: SessionService): IPromise<GetSession> => {
+      currentSession: (sessionService: SessionService): ng.IPromise<GetSession> => {
         return sessionService.getSession(true)
       },
-      sessionsData: (securitySettingsResolver: ISecuritySettingsService): IPromise<GetSession[]> => {
+      sessionsData: (securitySettingsResolver: ISecuritySettingsService): ng.IPromise<GetSession[]> => {
         return securitySettingsResolver.resolve()
       }
     }

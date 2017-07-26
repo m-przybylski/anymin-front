@@ -8,7 +8,6 @@ import {PaymentsApi, AccountApi, FinancesApi} from 'profitelo-api-ng/api/api'
 import {MoneyDto, CompanyInfo, GetCreditCard, AccountDetails} from 'profitelo-api-ng/model/models'
 import {UserService} from '../../../../common/services/user/user.service'
 import noResultsInformationModule from '../../../../common/components/dashboard/no-results-information/no-results-information'
-import {IPromise} from 'angular'
 
 export class DashboardSettingsPaymentsController implements ng.IController {
   public isAnyPaymentMethod: boolean
@@ -107,10 +106,10 @@ angular.module('profitelo.controller.dashboard.settings.payments', [
       controller: 'dashboardSettingsPaymentsController',
       controllerAs: 'vm',
       resolve: {
-        getInvoiceData: (invoiceDataResolver: InvoiceDataResolver): IPromise<CompanyInfo> => {
+        getInvoiceData: (invoiceDataResolver: InvoiceDataResolver): ng.IPromise<CompanyInfo> => {
           return invoiceDataResolver.resolveCompanyInfo()
         },
-        user: (userService: UserService): IPromise<AccountDetails> => {
+        user: (userService: UserService): ng.IPromise<AccountDetails> => {
           return userService.getUser(true)
         }
       }

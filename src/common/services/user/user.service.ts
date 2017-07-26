@@ -2,7 +2,6 @@ import * as angular from 'angular'
 import {AccountDetails, AccountLogin} from 'profitelo-api-ng/model/models'
 import {SessionService} from '../session/session.service'
 import {EventsService} from '../events/events.service'
-import {IPromise} from 'angular'
 import {GetSession} from 'profitelo-api-ng/model/GetSession';
 
 export class UserService {
@@ -22,13 +21,13 @@ export class UserService {
     })
   }
 
-  public logout = (): IPromise<void> => {
+  public logout = (): ng.IPromise<void> => {
     return this.sessionService.logout().then(() => {
       this.eventsService.emit('logout')
     })
   }
 
-  public login = (loginDetails: AccountLogin): IPromise<GetSession> => {
+  public login = (loginDetails: AccountLogin): ng.IPromise<GetSession> => {
     return this.sessionService.login(loginDetails).then((session) => {
       this.eventsService.emit('login')
       return session

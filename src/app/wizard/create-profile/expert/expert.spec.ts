@@ -3,7 +3,7 @@ import {GetWizardProfile, PartialExpertDetails} from 'profitelo-api-ng/model/mod
 import {WizardApi, WizardApiMock} from 'profitelo-api-ng/api/api'
 import expertWizardModule from './expert'
 import {ExpertController} from './expert.controller'
-import {IPromise} from 'angular'
+
 
 describe('Testing Controller: ExpertController', () => {
 
@@ -29,7 +29,7 @@ describe('Testing Controller: ExpertController', () => {
             _WizardApiMock_: WizardApiMock, $q: ng.IQService) => {
 
       $state = <ng.ui.IStateService>{
-        go: (_to: string): IPromise<{}> => $q.resolve({})
+        go: (_to: string): ng.IPromise<{}> => $q.resolve({})
       }
 
       httpBackend = $httpBackend

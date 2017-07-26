@@ -8,7 +8,7 @@ import 'common/components/dashboard/client/favourites/favourite-experts/favourit
 import 'common/components/expert-profile/similar-experts-slider/similar-experts-slider'
 import 'common/components/dashboard/client/favourites/favourite-experts/last-consultation-slider/last-consultation-slider'
 import noResultsInformationModule from '../../../../common/components/dashboard/no-results-information/no-results-information'
-import {IPromise} from 'angular'
+
 import {GetDashboardClientExperts} from 'profitelo-api-ng/model/models'
 
 angular.module('profitelo.controller.dashboard.client.favourites', [
@@ -30,7 +30,7 @@ angular.module('profitelo.controller.dashboard.client.favourites', [
       controllerAs: 'vm',
       resolve: {
         /* istanbul ignore next */
-        clientFavouritesConsultations: (ClientFavouritesResolver: ClientFavouritesResolver): IPromise<GetDashboardClientExperts> =>
+        clientFavouritesConsultations: (ClientFavouritesResolver: ClientFavouritesResolver): ng.IPromise<GetDashboardClientExperts> =>
           ClientFavouritesResolver.resolve()
       }
     })

@@ -1,7 +1,6 @@
 import * as angular from 'angular'
 import {ILoginConfirmEmailService} from '../../../common/resolvers/login-confirm-email/login-confirm-email.service'
 import 'common/resolvers/login-confirm-email/login-confirm-email.service'
-import {IPromise} from 'angular'
 
 export interface IConfirmEmailStateParams extends ng.ui.IStateParamsService {
   token: string
@@ -13,7 +12,7 @@ function config($stateProvider: ng.ui.IStateProvider): void {
     /* istanbul ignore next */
     resolve: {
       /* istanbul ignore next */
-      account: (LoginConfirmEmailResolver: ILoginConfirmEmailService, $stateParams: IConfirmEmailStateParams): IPromise<undefined> => {
+      account: (LoginConfirmEmailResolver: ILoginConfirmEmailService, $stateParams: IConfirmEmailStateParams): ng.IPromise<undefined> => {
         return LoginConfirmEmailResolver.resolve($stateParams)
       }
     },

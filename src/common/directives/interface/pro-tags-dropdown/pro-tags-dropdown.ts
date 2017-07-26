@@ -34,7 +34,7 @@ function proTagsDropdown($timeout: ng.ITimeoutService): IDirective {
 
     scope.disableTagging = !!('disableTagging' in attr)
 
-    scope.tagTransform = (item: any): void | null => {
+    scope.tagTransform = (item: any): any | null => {
       item = item.trim()
       if (!angular.isDefined(scope.validPattern) || item.match(scope.validPattern)) {
         const newItem: any = {}

@@ -21,7 +21,6 @@ import 'common/directives/interface/pro-alert/pro-alert'
 import permissionModule from '../../../common/services/permission/permission'
 import {EventsService} from '../../../common/services/events/events.service'
 import eventsModule from '../../../common/services/events/events'
-import {IPromise} from 'angular'
 
 function RegisterController($log: ng.ILogService, $filter: IFilterService, $state: ng.ui.IStateService,
                             topWaitingLoaderService: TopWaitingLoaderService, eventsService: EventsService,
@@ -131,7 +130,7 @@ function config($stateProvider: ng.ui.IStateProvider): void {
     template: require('./register.pug')(),
     resolve: {
       /* istanbul ignore next */
-      smsSessionId: (LoginRegisterResolver: ILoginRegisterService): IPromise<ILoginRegister> => {
+      smsSessionId: (LoginRegisterResolver: ILoginRegisterService): ng.IPromise<ILoginRegister> => {
         /* istanbul ignore next */
         return LoginRegisterResolver.resolve()
       }

@@ -1,6 +1,5 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {SmoothScrollingService} from '../../../../services/smooth-scrolling/smooth-scrolling.service'
 import chooseBankModule from './choose-bank'
 describe('Unit testing: profitelo.components.dashboard.charge-account.choose-bank', () => {
   return describe('for chooseBank component >', () => {
@@ -14,7 +13,6 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-ban
     let component: any
     let bindings: any
     let el: any
-    let smoothScrollingService: SmoothScrollingService
     const validHTML = '<choose-bank bank-model="{value: 1}" payments-links="[{value: 1}, {value: 2}]" scroll-section-id="1"></choose-bank>'
 
     function create(html: string): JQuery {

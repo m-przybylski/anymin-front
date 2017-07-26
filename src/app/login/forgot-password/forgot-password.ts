@@ -12,7 +12,6 @@ import sessionModule from '../../../common/services/session/session'
 import 'common/resolvers/login-forgot-password/login-forgot-password.service'
 import 'common/directives/pro-top-waiting-loader/pro-top-waiting-loader'
 import 'common/directives/interface/pro-input/pro-input'
-import {IPromise} from 'angular'
 
 type method = 'sms' | 'email'
 
@@ -68,7 +67,7 @@ function config($stateProvider: ng.ui.IStateProvider): void {
     controller: 'ForgotPasswordController',
     template: require('./forgot-password.pug')(),
     resolve: {
-      account: (LoginForgotPasswordResolver: ILoginForgotPasswordService, $stateParams: IForgotPasswordStateParams): IPromise<ILoginForgotPassword> => {
+      account: (LoginForgotPasswordResolver: ILoginForgotPasswordService, $stateParams: IForgotPasswordStateParams): ng.IPromise<ILoginForgotPassword> => {
         return LoginForgotPasswordResolver.resolve($stateParams)
       }
     },

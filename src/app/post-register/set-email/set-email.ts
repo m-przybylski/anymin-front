@@ -10,7 +10,6 @@ import userModule from '../../../common/services/user/user'
 import commonSettingsModule from '../../../common/services/common-settings/common-settings'
 import topAlertModule from '../../../common/services/top-alert/top-alert'
 import loginStateModule from '../../../common/services/login-state/login-state'
-import {IPromise} from 'angular'
 
 function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.ui.IStateService,
                      topWaitingLoaderService: TopWaitingLoaderService, user: AccountDetails,
@@ -79,7 +78,7 @@ function config($stateProvider: ng.ui.IStateProvider): void {
     template: require('./set-email.pug')(),
     resolve: {
       /* istanbul ignore next */
-      user: (userService: UserService): IPromise<AccountDetails> => {
+      user: (userService: UserService): ng.IPromise<AccountDetails> => {
         return userService.getUser()
       }
     },

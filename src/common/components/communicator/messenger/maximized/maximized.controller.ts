@@ -11,7 +11,6 @@ import {ExpertCallService} from '../../call-services/expert-call.service';
 import {CurrentCall} from '../../models/current-call';
 import {CurrentClientCall} from '../../models/current-client-call';
 import {CurrentExpertCall} from '../../models/current-expert-call';
-import {IPromise} from 'angular'
 
 export class MessengerMaximizedComponentController implements ng.IController, IMessengerMaximizedComponentBindings {
 
@@ -183,7 +182,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
     }, this.fileUploadErrorMessageTimeout)
   }
 
-  private uploadFile = (file: File): IPromise<never> =>
+  private uploadFile = (file: File): ng.IPromise<never> =>
     this.uploader.uploadFile(file, this.postProcessOptions, this.onUploadProgess)
       .then(this.onFileUpload, this.onFileUploadError)
 

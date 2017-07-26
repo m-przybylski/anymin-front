@@ -2,7 +2,6 @@ import * as angular from 'angular'
 import {NavbarComponentController} from './navbar.controller'
 import navbarModule from './navbar'
 import {INavbarComponentBindings} from './navbar'
-import {IPromise} from 'angular'
 
 describe('Unit testing: navbar', () => {
   return describe('for navbar component >', () => {
@@ -16,7 +15,7 @@ describe('Unit testing: navbar', () => {
       '<navbar></navbar>'
 
     const userService = {
-      getUser: (): IPromise<{}> => {
+      getUser: (): ng.IPromise<{}> => {
         return q.resolve({})
       }
     }

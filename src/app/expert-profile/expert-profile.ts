@@ -10,7 +10,7 @@ import './expert-profile.sass'
 import profileHeaderModule from '../../common/components/profile/profile-header/profile-header'
 import similarConsultationModule from '../../common/components/profile/similar-consultations/similar-consultations'
 import profileSingleConsultationModule from '../../common/components/profile/profile-expert-single-consultation/profile-single-consultation'
-import {IPromise} from 'angular'
+
 import {GetExpertProfile} from 'profitelo-api-ng/model/models'
 
 export interface IExpertProfileStateParams extends ng.ui.IStateParamsService {
@@ -37,7 +37,7 @@ const expertProfilePageModule = angular.module('profitelo.controller.expert-prof
       controller: 'ExpertProfileController',
       resolve: {
         /* istanbul ignore next */
-        expertProfile: (ExpertProfileResolver: ExpertProfileResolver, $stateParams: IExpertProfileStateParams): IPromise<GetExpertProfile> =>
+        expertProfile: (ExpertProfileResolver: ExpertProfileResolver, $stateParams: IExpertProfileStateParams): ng.IPromise<GetExpertProfile> =>
           ExpertProfileResolver.resolve($stateParams)
       }
     })

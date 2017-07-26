@@ -2,7 +2,7 @@ import * as angular from 'angular'
 import {FileIdDto, PostProcessOption} from 'profitelo-api-ng/model/models'
 import {FilesApi} from 'profitelo-api-ng/api/api'
 import {CommonConfig} from '../../../../generated_modules/common-config/common-config'
-import {IDeferred, IPromise} from 'angular'
+import {IDeferred} from 'angular'
 
 export interface ICroppingDetails {
   x?: number
@@ -36,7 +36,7 @@ export class UploaderService {
     return this.urls.files + this.urls['file-upload'].replace('%s', fileId)
   }
 
-  private scheduleUpload = (): IPromise<void> =>
+  private scheduleUpload = (): ng.IPromise<void> =>
     this.$timeout(this.processUpload)
 
   private onFileUploadEnd = (): void => {
@@ -83,7 +83,7 @@ export class UploaderService {
     this.onFileUploadEnd()
   }
 
-  private getFileToken = (fileObj: IFileObject): IPromise<FileIdDto> => {
+  private getFileToken = (fileObj: IFileObject): ng.IPromise<FileIdDto> => {
     return this.FilesApi.createFileTokenPath(this.collectionType, fileObj.postProcessOptions)
   }
   private processUpload = (): void => {
@@ -114,7 +114,7 @@ export class UploaderService {
     return deferred
   }
 
-  public uploadFile = (file: File, postProcessOptions: PostProcessOption, callback: (data: any) => void): IPromise<{}> => {
+  public uploadFile = (file: File, postProcessOptions: PostProcessOption, callback: (data: any) => void): ng.IPromise<{}> => {
     if (!file || !(file instanceof File)) {
       return this.$q.reject('Expected File, got ' + typeof file)
     }

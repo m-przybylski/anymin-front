@@ -3,7 +3,6 @@ import * as _ from 'lodash'
 import {IExpertProfileStateParams} from './expert-profile'
 import {ViewsApi} from 'profitelo-api-ng/api/api'
 import {GetExpertProfile, GetExpertServiceDetails} from 'profitelo-api-ng/model/models'
-import {IPromise} from 'angular'
 
 export class ExpertProfileResolver {
 
@@ -13,7 +12,7 @@ export class ExpertProfileResolver {
 
   public resolve = (stateParams: IExpertProfileStateParams): ng.IPromise<GetExpertProfile> => {
 
-    const handleExpertResponseError = (error: any): IPromise<void> =>
+    const handleExpertResponseError = (error: any): ng.IPromise<void> =>
       this.$q.reject(error)
 
     const sortServices = (servicesWithTagsAndEmployees: GetExpertServiceDetails[]): GetExpertServiceDetails[] => {

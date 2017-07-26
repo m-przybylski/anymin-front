@@ -4,7 +4,7 @@ DashboardActivitiesService
 } from '../../../../common/services/dashboard-activites/dashboard-activities.service'
 import {ActivitiesQueryParams} from '../../../../common/services/dashboard-activites/activities-query-params'
 import {TopAlertService} from '../../../../common/services/top-alert/top-alert.service'
-import {IPromise} from 'angular'
+
 import {GetActivities} from 'profitelo-api-ng/model/models'
 
 export class DashboardExpertActivitiesController {
@@ -71,7 +71,7 @@ export class DashboardExpertActivitiesController {
     })
   }
 
-  private getDashboardActivities = (activitiesQueryParams: ActivitiesQueryParams): IPromise<GetActivities> => {
+  private getDashboardActivities = (activitiesQueryParams: ActivitiesQueryParams): ng.IPromise<GetActivities> => {
     return this.dashboardActivitiesService.getDashboardActivities(activitiesQueryParams)
     .catch((error) => {
       this.isSearchLoading = false

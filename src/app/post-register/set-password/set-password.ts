@@ -17,7 +17,6 @@ import 'common/directives/interface/pro-input/pro-input'
 import 'common/directives/interface/pro-input-password/pro-input-password'
 import 'common/directives/password-strength-bar/password-strength-bar'
 import checkboxModule from '../../../common/components/interface/checkbox/checkbox'
-import {IPromise} from 'angular'
 
 function _controller($log: ng.ILogService, $filter: ng.IFilterService, $state: ng.ui.IStateService,
                      topWaitingLoaderService: TopWaitingLoaderService, passwordStrengthService: PasswordStrengthService,
@@ -86,7 +85,7 @@ function config($stateProvider: ng.ui.IStateProvider): void {
     controller: 'SetPasswordController',
     template: require('./set-password.pug')(),
     resolve: {
-      user: (userService: UserService): IPromise<AccountDetails> => {
+      user: (userService: UserService): ng.IPromise<AccountDetails> => {
         return userService.getUser()
       }
     },

@@ -3,7 +3,6 @@ import {WizardApi} from 'profitelo-api-ng/api/api'
 
 import * as _ from 'lodash'
 import * as angular from 'angular'
-import {IPromise} from 'angular'
 
 export class CompanyController implements ng.IController {
   public currentWizardState: PutWizardProfile = {
@@ -87,17 +86,14 @@ export class CompanyController implements ng.IController {
     }
   }
 
-  public checkIsNameInputValid = (): boolean | '' | undefined => {
-    return this.nameModel && this.nameModel.length > 2
-  }
+  public checkIsNameInputValid = (): boolean =>
+    (this.nameModel) ? this.nameModel.length > 2 : false
 
-  public checkIsLogoValid = (): boolean | '' | undefined => {
-    return this.logoModel && this.logoModel.length > 0
-  }
+  public checkIsLogoValid = (): boolean =>
+    (this.logoModel) ? this.logoModel.length > 0 : false
 
-  public checkIsProfileDescriptionValid = (): boolean| '' | undefined => {
-    return this.descriptionModel && this.descriptionModel.length > 49
-  }
+  public checkIsProfileDescriptionValid = (): boolean =>
+    (this.descriptionModel) ? this.descriptionModel.length > 49 : false
 
   public checkIsFileUploadValid = (): boolean => {
     return this.isUploading
@@ -116,7 +112,7 @@ export class CompanyController implements ng.IController {
     )
   }
 
-  private saveWizardState = (wizardState: PutWizardProfile): IPromise<GetWizardProfile> => {
+  private saveWizardState = (wizardState: PutWizardProfile): ng.IPromise<GetWizardProfile> => {
     return this.WizardApi.putWizardProfileRoute(wizardState)
     .catch((error) => {
       throw new Error('Can not save profile steps' + error)

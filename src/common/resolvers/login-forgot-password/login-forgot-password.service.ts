@@ -7,7 +7,6 @@ import apiModule from 'profitelo-api-ng/api.module'
 import {RecoverPasswordApi} from 'profitelo-api-ng/api/api'
 import loginStateModule from '../../services/login-state/login-state'
 import topAlertModule from '../../services/top-alert/top-alert'
-import {IPromise} from 'angular'
 
 export interface ILoginForgotPassword {
   recoveryMethod: string
@@ -26,7 +25,7 @@ class LoginForgotPasswordResolver implements ILoginForgotPasswordService {
 
   }
 
-  public resolve = (stateParams: IForgotPasswordStateParams): IPromise<{}> => {
+  public resolve = (stateParams: IForgotPasswordStateParams): ng.IPromise<{}> => {
     const _deferred = this.$q.defer()
 
     const account = this.loginStateService.getAccountObject()

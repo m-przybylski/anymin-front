@@ -1,19 +1,18 @@
 import * as angular from 'angular'
-import IPromise = angular.IPromise
 import ILogService = angular.ILogService
 import {CompanyInfo} from 'profitelo-api-ng/model/models'
 import {AccountApi} from 'profitelo-api-ng/api/api'
 import apiModule from 'profitelo-api-ng/api.module'
 
 export interface IInvoiceDataResolver {
-  resolveCompanyInfo: () =>  IPromise<CompanyInfo>
+  resolveCompanyInfo: () => ng.IPromise<CompanyInfo>
 }
 
 export class InvoiceDataResolver implements IInvoiceDataResolver {
   constructor(private AccountApi: AccountApi, private $log: ILogService) {
   }
 
-  public resolveCompanyInfo = (): IPromise<CompanyInfo> => {
+  public resolveCompanyInfo = (): ng.IPromise<CompanyInfo> => {
     return this.AccountApi.getCompanyInfoRoute().then(this.onGetCompanyInfoRoute, this.onGetCompanyInfoRouteError)
   }
 

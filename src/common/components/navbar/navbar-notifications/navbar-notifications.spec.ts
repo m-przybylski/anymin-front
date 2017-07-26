@@ -4,7 +4,6 @@ import navbarNotificationsModule from './navbar-notifications'
 import {ProfileApiMock} from 'profitelo-api-ng/api/api'
 import {INavbarNotificationsComponentBindings} from './navbar-notifications'
 import {ModalsService} from '../../../services/modals/modals.service'
-import {IPromise} from 'angular'
 
 describe('Unit testing: navbarNotifications', () => {
   return describe('for navbarNotifications component >', () => {
@@ -20,13 +19,13 @@ describe('Unit testing: navbarNotifications', () => {
       '<navbar-notifications></navbar-notifications>'
 
     const userService = {
-      getUser: (): IPromise<{}> => {
+      getUser: (): ng.IPromise<{}> => {
         return q.resolve({})
       }
     }
 
     const state = <ng.ui.IStateService>{
-      go: (_to: string): IPromise<{}> => q.resolve({})
+      go: (_to: string): ng.IPromise<{}> => q.resolve({})
     }
 
     function create(html: string,  bindings: INavbarNotificationsComponentBindings): JQuery {

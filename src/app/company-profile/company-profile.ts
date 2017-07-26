@@ -17,7 +17,6 @@ import profileHeaderModule from '../../common/components/profile/profile-header/
 import similarConsultationModule from '../../common/components/profile/similar-consultations/similar-consultations'
 import './company-profile.sass'
 import profileCompanyConsultationModule from '../../common/components/profile/profile-company-single-consultation/profile-company-single-consultation'
-import {IPromise} from 'angular'
 
 export interface ICompanyProfileStateParams extends ng.ui.IStateParamsService {
   primaryConsultationId: string
@@ -53,7 +52,7 @@ const companyProfilePageModule = angular.module('profitelo.controller.company-pr
     controller: 'CompanyProfileController',
     resolve: {
       /* istanbul ignore next */
-      companyProfile: (CompanyProfileResolver: CompanyProfileResolver, $stateParams: ICompanyProfileStateParams): IPromise<ICompanyProfile> =>
+      companyProfile: (CompanyProfileResolver: CompanyProfileResolver, $stateParams: ICompanyProfileStateParams): ng.IPromise<ICompanyProfile> =>
         CompanyProfileResolver.resolve($stateParams)
     }
   })

@@ -5,7 +5,7 @@ import {SummaryController} from './summary.controller'
 import summaryWizardModule from './summary'
 import {ErrorHandlerService} from '../../../common/services/error-handler/error-handler.service'
 import {UserService} from '../../../common/services/user/user.service'
-import {IPromise} from 'angular'
+
 
 describe('Testing Controller: SummaryController', () => {
 
@@ -67,7 +67,7 @@ describe('Testing Controller: SummaryController', () => {
             _userService_: UserService) => {
 
       $state = <ng.ui.IStateService>{
-        go: (_to: string): IPromise<{}> => $q.resolve({})
+        go: (_to: string): ng.IPromise<{}> => $q.resolve({})
       }
 
       q = $q

@@ -12,11 +12,10 @@ export class CurrentExpertCall extends CurrentCall {
               callbacksFactory: CallbacksFactory,
               callInvitation: RatelSdk.events.CallInvitation,
               incomingCallDetails: GetIncomingCallDetails,
-              $q: ng.IQService,
               soundsService: SoundsService,
               RatelApi: RatelApi) {
 
-    super(callbacksFactory, $q, soundsService, callInvitation.call as RatelSdk.BusinessCall, timerFactory,
+    super(callbacksFactory, soundsService, callInvitation.call as RatelSdk.BusinessCall, timerFactory,
       incomingCallDetails.service, RatelApi);
     this.setState(CallState.INCOMING);
   }

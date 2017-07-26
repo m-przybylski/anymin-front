@@ -93,7 +93,7 @@ export class ClientCallService {
           .then((stream) =>
             this.userService.getUser().then(user =>
               this.createRatelCall(user.id, sur.expert.id, sur.service.id).then((call) =>
-                new CurrentClientCall(this.$q, this.timerFactory, this.callbacksFactory, call, stream,
+                new CurrentClientCall(this.timerFactory, this.callbacksFactory, call, stream,
                   sur.service, this.soundsService, this.RatelApi, sur.expert))
             )
           )

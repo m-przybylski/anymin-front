@@ -93,8 +93,8 @@ export class ChooseAmountChargeComponentController implements IChooseAmountCharg
     }
   }
 
-  public minimalAmountValidation = (): boolean | 0 | null => {
-    return (this.activeOption === 3 && this.cashAmountModel && this.cashAmountModel <
+  public minimalAmountValidation = (): boolean => {
+    return !!(this.activeOption === 3 && this.cashAmountModel && this.cashAmountModel <
     this.amounts.minimalAmounts.amount / this.amountModifier
     && !angular.element('.option-own-amount').find('input:focus')[0])
   }

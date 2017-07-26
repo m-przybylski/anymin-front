@@ -2,7 +2,6 @@ import * as RatelSdk from 'ratel-sdk-js';
 import {CallbacksFactory} from '../../../services/callbacks/callbacks.factory';
 import {CallbacksService} from '../../../services/callbacks/callbacks.service';
 import {SoundsService} from '../../../services/sounds/sounds.service';
-import {IPromise} from 'angular'
 import {RoomArchivable} from 'ratel-sdk-js'
 
 export class MessageRoom {
@@ -18,16 +17,15 @@ export class MessageRoom {
   }
 
   constructor(callbacksFactory: CallbacksFactory,
-              private $q: ng.IQService,
               private soundsService: SoundsService) {
     this.callbacks = callbacksFactory.getInstance(Object.keys(MessageRoom.events))
   }
 
-  public getHistory = (): Promise<RoomArchivable[]> | IPromise<never> => {
+  public getHistory = (): Promise<RoomArchivable[]> => {
     if (this.room) {
       return this.room.getHistory()
     } else {
-      return this.$q.reject('No room')
+      return Promise.reject('No room')
     }
   }
 

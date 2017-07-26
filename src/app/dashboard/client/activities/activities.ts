@@ -11,7 +11,6 @@ import dashboardActivitiesModule from '../../../../common/services/dashboard-act
 import {ActivitiesQueryParams} from '../../../../common/services/dashboard-activites/activities-query-params'
 import {TopAlertService} from '../../../../common/services/top-alert/top-alert.service'
 import noResultsInformationModule from '../../../../common/components/dashboard/no-results-information/no-results-information'
-import {IPromise} from 'angular'
 
 export class DashboardClientActivitiesController {
 
@@ -74,7 +73,7 @@ export class DashboardClientActivitiesController {
     this.$state.go('app.search-result')
   }
 
-  private getDashboardActivities = (activitiesQueryParams: ActivitiesQueryParams): IPromise<GetActivities> => {
+  private getDashboardActivities = (activitiesQueryParams: ActivitiesQueryParams): ng.IPromise<GetActivities> => {
     return this.dashboardActivitiesService.getDashboardActivities(activitiesQueryParams)
     .catch((error) => {
       this.isSearchLoading = false
@@ -112,7 +111,7 @@ angular.module('profitelo.controller.dashboard.client.activities', [
     controllerAs: 'vm',
     resolve: {
       /* istanbul ignore next */
-      filtersData: (dashboardActivitiesService: DashboardActivitiesService): IPromise<GetActivityFilters> =>
+      filtersData: (dashboardActivitiesService: DashboardActivitiesService): ng.IPromise<GetActivityFilters> =>
         dashboardActivitiesService.resolveFilters(FinancialOperation.AccountTypeEnum.CLIENT)
     }
   })

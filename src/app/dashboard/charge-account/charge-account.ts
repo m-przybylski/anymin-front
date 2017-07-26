@@ -19,7 +19,6 @@ import 'common/components/dashboard/charge-account/payment-method/payment-method
 import paypalModule from '../../../common/components/dashboard/charge-account/payment-method/paypal/paypal'
 import * as _ from 'lodash'
 import './charge-account.sass'
-import {IPromise} from 'angular'
 
 export interface IAmounts {
   paymentOptions: Array<MoneyDto>
@@ -126,7 +125,7 @@ class ChargeAccountController {
     this.$state.go('app.dashboard.client.activities')
   }
 
-  public onClose = (): IPromise<void> =>
+  public onClose = (): ng.IPromise<void> =>
     this.$state.go('app.dashboard.client.favourites')
 
   public validAction = (): boolean => {
@@ -161,10 +160,10 @@ function config($stateProvider: ng.ui.IStateProvider): void {
     controller: 'chargeAccountController',
     template: require('./charge-account.pug')(),
     resolve: {
-      paymentsOptions: (PaymentsApi: PaymentsApi): IPromise<GetPaymentOptions> => PaymentsApi.getPaymentOptionsRoute(),
-      creditCards: (PaymentsApi: PaymentsApi): IPromise<GetCreditCard[]> => PaymentsApi.getCreditCardsRoute(),
-      paymentsLinks: (PaymentsApi: PaymentsApi): IPromise<PaymentLink[]> => PaymentsApi.getPayUPaymentLinksRoute(),
-      financeBalance: (FinancesApi: FinancesApi): IPromise<MoneyDto> => FinancesApi.getClientBalanceRoute()
+      paymentsOptions: (PaymentsApi: PaymentsApi): ng.IPromise<GetPaymentOptions> => PaymentsApi.getPaymentOptionsRoute(),
+      creditCards: (PaymentsApi: PaymentsApi): ng.IPromise<GetCreditCard[]> => PaymentsApi.getCreditCardsRoute(),
+      paymentsLinks: (PaymentsApi: PaymentsApi): ng.IPromise<PaymentLink[]> => PaymentsApi.getPayUPaymentLinksRoute(),
+      financeBalance: (FinancesApi: FinancesApi): ng.IPromise<MoneyDto> => FinancesApi.getClientBalanceRoute()
     },
     data: {
       pageTitle: 'PAGE_TITLE.CHARGE_ACCOUNT',

@@ -3,7 +3,6 @@ import {PutWizardProfile, PartialExpertDetails, GetWizardProfile} from 'profitel
 import * as _ from 'lodash'
 import * as angular from 'angular'
 import {IProgressStyle} from '../../../../common/components/wizard/wizard-handler/wizard-handler.controller'
-import {IPromise} from 'angular'
 
 export class ExpertController implements ng.IController {
   public currentWizardState: PutWizardProfile = {
@@ -134,7 +133,7 @@ export class ExpertController implements ng.IController {
     )
   }
 
-  private saveWizardState = (wizardState: PutWizardProfile): IPromise<GetWizardProfile> => {
+  private saveWizardState = (wizardState: PutWizardProfile): ng.IPromise<GetWizardProfile> => {
     return this.WizardApi.putWizardProfileRoute(wizardState)
     .catch((error) => {
       throw new Error('Can not save profile steps' + error)

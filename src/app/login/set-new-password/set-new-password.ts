@@ -19,7 +19,6 @@ import 'common/resolvers/login-set-new-password/login-set-new-password.service'
 import 'common/directives/interface/pro-alert/pro-alert'
 import 'common/directives/interface/pro-input-password/pro-input-password'
 import 'common/directives/password-strength-bar/password-strength-bar'
-import {IPromise} from 'angular'
 
 export interface ISetNewPasswordStateParams {
   token: string
@@ -105,7 +104,7 @@ function config($stateProvider: ng.ui.IStateProvider): void {
     controller: 'SetNewPasswordController',
     template: require('./set-new-password.pug')(),
     resolve: {
-      tokenStatus: ($stateParams: ISetNewPasswordStateParams, LoginSetNewPasswordResolver: ILoginSetNewPasswordService): IPromise<ILoginSetNewPassword> => {
+      tokenStatus: ($stateParams: ISetNewPasswordStateParams, LoginSetNewPasswordResolver: ILoginSetNewPasswordService): ng.IPromise<ILoginSetNewPassword> => {
         /* istanbul ignore next */
         return LoginSetNewPasswordResolver.resolve($stateParams)
       }

@@ -4,14 +4,14 @@ import userModule from './user'
 import eventsModule from '../events/events'
 import sessionModule from '../session/session'
 import {AccountDetails, AccountLogin} from 'profitelo-api-ng/model/models'
-import IPromise = angular.IPromise
+
 describe('Unit testing: profitelo.services.userService >', () => {
   describe('for profitelo.services.userService >', () => {
 
     let userService: UserService
     let rootScope: ng.IRootScopeService
     let q: ng.IQService
-    let resolverParam: IPromise<{account: AccountDetails}>
+    let resolverParam: ng.IPromise<{account: AccountDetails}>
     const accountDetails: AccountDetails = {
     } as AccountDetails
 
@@ -22,13 +22,13 @@ describe('Unit testing: profitelo.services.userService >', () => {
     }
 
     const sessionService = {
-      getSession: (): IPromise<{account: AccountDetails}> => {
+      getSession: (): ng.IPromise<{account: AccountDetails}> => {
         return resolverParam
       },
-      logout: (): IPromise<void> => {
+      logout: (): ng.IPromise<void> => {
         return q.resolve()
       },
-      login: (_loginDetails: AccountLogin): IPromise<void> => {
+      login: (_loginDetails: AccountLogin): ng.IPromise<void> => {
         return q.resolve()
       }
     }
