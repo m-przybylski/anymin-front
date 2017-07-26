@@ -2,8 +2,9 @@
   form(name="paymentForm" data-ng-submit="paymentForm.$valid && $ctrl.sendPayment()" novalidate)
     choose-bank.modal-container(data-title="DASHBOARD.CHARGE_ACCOUNT.CHOOSE_YOUR_BANK", data-payments-links="$ctrl.paymentsLinks",
     data-bank-model = "$ctrl.bankModel", id="bankValid" data-on-bank-select="$ctrl.scrollOnBankSelect")
-      .input-error-messages(data-ng-show="paymentForm.$submitted && !$ctrl.bankModel")
-        span {{ "DASHBOARD.CHARGE_ACCOUNT.EMPTY_BANK_ERROR" | translate }}
+      validation-alert(data-alert-text="DASHBOARD.CHARGE_ACCOUNT.EMPTY_BANK_ERROR"
+      data-is-visible="paymentForm.$submitted && !$ctrl.bankModel")
+
 
     .payment-personal-data.modal-container
       header.entry-title

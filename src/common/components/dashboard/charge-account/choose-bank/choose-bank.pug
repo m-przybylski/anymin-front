@@ -1,7 +1,8 @@
 .choose-bank
   header.entry-title
     span(data-translate="{{ $ctrl.title }}")
-    ng-transclude
+    div
+      ng-transclude
 
   .choose-options.tiles-row
     .choose-options-item.tiles-item(data-ng-repeat="bank in $ctrl.paymentsLinks")
