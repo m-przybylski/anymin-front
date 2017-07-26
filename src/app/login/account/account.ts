@@ -24,7 +24,7 @@ function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService
                                $filter: IFilterService, RegistrationApi: RegistrationApi, userService: UserService,
                                topWaitingLoaderService: TopWaitingLoaderService,
                                topAlertService: TopAlertService, loginStateService: LoginStateService,
-                               CommonSettingsService: CommonSettingsService) {
+                               CommonSettingsService: CommonSettingsService): void {
 
   this.isPending = false
   this.current = 1
@@ -36,7 +36,7 @@ function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService
     }
   })
 
-  this.isValidPhoneNumber = (prefix: string, phoneNumber: string) => {
+  this.isValidPhoneNumber = (prefix: string, phoneNumber: string): boolean => {
     if (angular.isDefined(prefix) && angular.isDefined(phoneNumber) && prefix && phoneNumber && phoneNumber.length > 1) {
       const fullPhoneNumber = phonenumbers.parse(prefix.toString() + phoneNumber.toString())
       return phonenumbers.isValidNumber(fullPhoneNumber)
@@ -46,12 +46,12 @@ function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService
 
   this.account.phoneNumber.prefix = this.prefixes[0].value
   this.patternPassword = CommonSettingsService.localSettings.passwordPattern
-  this.backToPhoneNumber = () => {
+  this.backToPhoneNumber = (): void => {
     this.account.password = null
     this.current = 1
   }
 
-  const _determinePhoneNumberStatus = (status: any) => {
+  const _determinePhoneNumberStatus = (status: any): void => {
     switch (status) {
       case 'REGISTERED':
         this.current = 2
@@ -65,11 +65,11 @@ function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService
     }
   }
 
-  this.updateSortTypeParam = (item: any) => {
+  this.updateSortTypeParam = (item: any): void => {
     this.account.phoneNumber.prefix = item.value
   }
 
-  this.getPhoneNumberStatus = () => {
+  this.getPhoneNumberStatus = (): void => {
     if (!this.isPending) {
       this.isPending = true
       topWaitingLoaderService.immediate()
@@ -92,7 +92,7 @@ function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService
     }
   }
 
-  this.login = () => {
+  this.login = (): void => {
     this.serverError = false
     if (!this.isPending) {
       this.isPending = true
@@ -123,7 +123,7 @@ function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService
   return this
 }
 
-function config($stateProvider: ng.ui.IStateProvider) {
+function config($stateProvider: ng.ui.IStateProvider): void {
   $stateProvider.state('app.login.account', {
     url: '/account',
     controllerAs: 'vm',

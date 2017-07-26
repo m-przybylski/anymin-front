@@ -19,7 +19,7 @@ describe('Testing Controller: galleryPreview', () => {
         $scope: scope,
         $uibModalInstance: $uibModalInstance,
         urlService: {
-          resolveFileUrl: () => {}
+          resolveFileUrl: (): void => {}
         }
       })
     })

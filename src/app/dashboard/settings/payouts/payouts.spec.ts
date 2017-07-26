@@ -34,7 +34,7 @@ import dashboardSettingsPayoutsModule from './payouts'
               }
             }],
             modalsService: {
-              createPayoutsMethodControllerModal: () => {
+              createPayoutsMethodControllerModal: (): boolean => {
                 return true
               }
             }
@@ -57,12 +57,10 @@ import dashboardSettingsPayoutsModule from './payouts'
 
       it('should throw error on delete payment method', () => {
         PayoutsApiMock.deletePayPalAccountPayoutMethodRoute(500)
-        expect(()=>{
+        expect(() => {
           dashboardSettingsPayoutsController.deletePaymentMethod()
           httpBackend.flush()
           rootScope.$digest()}).toThrowError()
       })
-
-
     })
   })

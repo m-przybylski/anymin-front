@@ -9,7 +9,7 @@ describe('Unit testing: profitelo.directives.interface.pro-uploader', () => {
     let scope: any = null
     let rootScope: ng.IRootScopeService
     let compile: any = null
-    let validHTML = '<pro-uploader type="image/*" files-uploaded="avatar" data-required data-multiple data-ngf-pattern=".jpg,.jpeg,.png"></pro-uploader>'
+    const validHTML = '<pro-uploader type="image/*" files-uploaded="avatar" data-required data-multiple data-ngf-pattern=".jpg,.jpeg,.png"></pro-uploader>'
 
     let _httpBackend: ng.IHttpBackendService
     let _FilesApiMock: FilesApiMock
@@ -18,9 +18,9 @@ describe('Unit testing: profitelo.directives.interface.pro-uploader', () => {
     let _interval: ng.IIntervalService
     let _commonConfigData: any
 
-    let url = 'awesomeUrl'
+    const url = 'awesomeUrl'
 
-    let fileId = '123'
+    const fileId = '123'
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', url)
@@ -43,13 +43,13 @@ describe('Unit testing: profitelo.directives.interface.pro-uploader', () => {
       })
     })
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
 
       scope.avatar = []
 
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
@@ -59,13 +59,13 @@ describe('Unit testing: profitelo.directives.interface.pro-uploader', () => {
     })
 
     it('should compile the directive', () => {
-      let el = create(validHTML)
+      const el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
 
     it('should remove image on function call', () => {
-      let el = create(validHTML)
-      let isoScope = el.isolateScope()
+      const el = create(validHTML)
+      const isoScope = el.isolateScope()
 
       isoScope.deleteImage()
 
@@ -73,8 +73,8 @@ describe('Unit testing: profitelo.directives.interface.pro-uploader', () => {
     })
 
     it('should upload files', () => {
-      let el = create(validHTML)
-      let isoScope = el.isolateScope()
+      const el = create(validHTML)
+      const isoScope = el.isolateScope()
 
       _httpBackend.when('POST', _commonConfigData.urls['files'] + '/files/' + fileId + '/upload').respond(200)
 
@@ -92,8 +92,8 @@ describe('Unit testing: profitelo.directives.interface.pro-uploader', () => {
     })
 
     it('should animate', () => {
-      let el = create(validHTML)
-      let isoScope = el.isolateScope()
+      const el = create(validHTML)
+      const isoScope = el.isolateScope()
 
       isoScope.animate()
       _timeout.flush()

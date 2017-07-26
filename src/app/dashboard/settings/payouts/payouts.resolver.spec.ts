@@ -13,7 +13,7 @@ describe('Unit testing: profitelo.resolvers.payouts', () => {
     let PayoutsApiMock: PayoutsApiMock
     let q: ng.IQService
 
-    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
+    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService): void {
       $provide.value('apiUrl', 'awesomeUrl')
       $provide.value('PayoutsApiMock', PayoutsApiMock)
       $provide.value('PayoutsApi', PayoutsApi)

@@ -15,13 +15,13 @@ describe('Unit testing: profitelo.components.interface.collapse-tab', () => {
     let bindings: any
     let timeout: ng.ITimeoutService
     let log: ng.ILogService
-    let validHTML = '<collapse-tab></collapse-tab>'
+    const validHTML = '<collapse-tab></collapse-tab>'
     let smoothScrollingService: SmoothScrollingService
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
@@ -46,7 +46,7 @@ describe('Unit testing: profitelo.components.interface.collapse-tab', () => {
       }
 
       smoothScrollingService = <SmoothScrollingService>{
-        simpleScrollTo: (_x: any) => {
+        simpleScrollTo: (_x: any): void => {
         }
       }
 

@@ -5,10 +5,10 @@ import '../../../../../../../../components/interface/radio/radio'
 import '../../../../../../../../services/modals/modals'
 
 /* @ngInject */
-function controller(modalsService: ModalsService) {
+function controller(modalsService: ModalsService): void {
   this.isRadioActive = false
 
-  this.showComplainReasonModal = () => {
+  this.showComplainReasonModal = (): void => {
     if (angular.isFunction(this.onComplainOpen)) {
       this.onComplainOpen()
     }
@@ -42,11 +42,11 @@ function controller(modalsService: ModalsService) {
     }
   ]
 
-  this.isSelected = (item: any) => {
+  this.isSelected = (item: any): boolean => {
     return this.isRadioActive === item
   }
 
-  this.isRadioSelected = (item: any) => {
+  this.isRadioSelected = (item: any): void => {
     this.onReasonChange()
     this.isRadioActive = item
   }

@@ -12,10 +12,10 @@ export class ExpertProfileResolver {
 
   public resolve = (stateParams: IExpertProfileStateParams): ng.IPromise<GetExpertProfile> => {
 
-    const handleExpertResponseError = (error: any) =>
+    const handleExpertResponseError = (error: any): ng.IPromise<void> =>
       this.$q.reject(error)
 
-    const sortServices = (servicesWithTagsAndEmployees: Array<GetExpertServiceDetails>) => {
+    const sortServices = (servicesWithTagsAndEmployees: GetExpertServiceDetails[]): GetExpertServiceDetails[] => {
       const primaryConsultation = _.find(servicesWithTagsAndEmployees, (serviceWithTagsAndEmployees) =>
       serviceWithTagsAndEmployees.service.id === stateParams.primaryConsultationId)
 

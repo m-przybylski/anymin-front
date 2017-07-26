@@ -12,14 +12,14 @@ describe('Unit testing: WizardLinksController', () => {
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let component: WizardLinksComponentController
-    let validHTML = '<wizard-links></wizard-links>'
+    const validHTML = '<wizard-links></wizard-links>'
     let CommonSettingsService: CommonSettingsService
-    let selectedLinks: string[] = []
-    function create(html: string) {
+    const selectedLinks: string[] = []
+    function create(html: string): JQuery {
       scope = rootScope.$new()
       scope.selectedItemsValue = []
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }

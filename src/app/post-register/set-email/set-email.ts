@@ -13,7 +13,7 @@ import loginStateModule from '../../../common/services/login-state/login-state'
 
 function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.ui.IStateService,
                      topWaitingLoaderService: TopWaitingLoaderService, user: AccountDetails,
-                     topAlertService: TopAlertService, AccountApi: AccountApi) {
+                     topAlertService: TopAlertService, AccountApi: AccountApi): void {
 
   this.isPending = false
   this.rulesAccepted = false
@@ -23,7 +23,7 @@ function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.u
   this.email = ''
   this.emailExist = false
 
-  const _updateNewUserObject = (patchObject: PatchAccount, successCallback: (res: Account) => void) => {
+  const _updateNewUserObject = (patchObject: PatchAccount, successCallback: (res: Account) => void): void => {
     /* istanbul ignore next if */
     if (!this.isPending) {
       this.isPending = true
@@ -48,7 +48,7 @@ function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.u
     return AccountApi.getAccountEmailExistsRoute(email)
   }
 
-  this.setNewEmail = () => {
+  this.setNewEmail = (): void => {
     _isEmailExists(this.email).then((_response: any) => {
       this.emailExist = true
     }, () => {
@@ -70,7 +70,7 @@ function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.u
   return this
 }
 
-function config($stateProvider: ng.ui.IStateProvider) {
+function config($stateProvider: ng.ui.IStateProvider): void {
   $stateProvider.state('app.post-register.set-email', {
     url: '/set-email',
     controllerAs: 'vm',
@@ -78,7 +78,7 @@ function config($stateProvider: ng.ui.IStateProvider) {
     template: require('./set-email.pug')(),
     resolve: {
       /* istanbul ignore next */
-      user: (userService: UserService) => {
+      user: (userService: UserService): ng.IPromise<AccountDetails> => {
         return userService.getUser()
       }
     },

@@ -8,7 +8,7 @@ export class TimerService {
               private interval: number) {
   }
 
-  public start = (cb: (obj: {time: number, money: MoneyDto}) => void) => {
+  public start = (cb: (obj: {time: number, money: MoneyDto}) => void): void => {
     const start = Date.now()
     this.timer = this.$interval(() => {
       const _time = (Date.now() - start) / 1000
@@ -22,7 +22,7 @@ export class TimerService {
     }, this.interval)
   }
 
-  public stop = () => {
+  public stop = (): void => {
     this.$interval.cancel(this.timer)
   }
 }

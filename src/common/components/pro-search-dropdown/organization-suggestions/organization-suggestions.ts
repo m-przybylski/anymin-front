@@ -2,7 +2,7 @@ import * as angular from 'angular'
 import userAvatarModule from '../../interface/user-avatar/user-avatar'
 
 /* @ngInject */
-function organizationSuggestionsController() {
+function organizationSuggestionsController(): void {
 
   return this
 }

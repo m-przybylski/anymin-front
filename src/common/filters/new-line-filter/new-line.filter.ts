@@ -1,7 +1,7 @@
 import * as angular from 'angular'
 
-function filter($sce: ng.ISCEService) {
-  return (content: string) => {
+function filter($sce: ng.ISCEService): (content: string) => string {
+  return (content: string): string => {
     content = content || ''
     const text = content.replace(/(?:\r\n|\r|\n)/g, '<br>')
 

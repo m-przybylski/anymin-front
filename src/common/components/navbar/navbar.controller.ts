@@ -70,11 +70,11 @@ export class NavbarComponentController implements INavbarComponentBindings {
     })
   }
 
-  public onMobileMenuCollapsed = () => {
+  public onMobileMenuCollapsed = (): void => {
     this.isNavigationCollapsed = !this.isNavigationCollapsed
   }
 
-  public onSearchCollapsed = () => {
+  public onSearchCollapsed = (): void => {
     /* this.isSearchVisible is overwrite in CSS when resolution is bigger than 768px */
     this.isSearchVisible = !this.isSearchVisible
     this.isNavigationCollapsed = false

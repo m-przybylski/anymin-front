@@ -6,13 +6,13 @@ export interface IConfirmEmailStateParams extends ng.ui.IStateParamsService {
   token: string
 }
 
-function config($stateProvider: ng.ui.IStateProvider) {
+function config($stateProvider: ng.ui.IStateProvider): void {
   $stateProvider.state('app.login.confirm-email', {
     url: '/confirm-email/token/:token',
     /* istanbul ignore next */
     resolve: {
       /* istanbul ignore next */
-      account: (LoginConfirmEmailResolver: ILoginConfirmEmailService, $stateParams: IConfirmEmailStateParams) => {
+      account: (LoginConfirmEmailResolver: ILoginConfirmEmailService, $stateParams: IConfirmEmailStateParams): ng.IPromise<undefined> => {
         return LoginConfirmEmailResolver.resolve($stateParams)
       }
     },

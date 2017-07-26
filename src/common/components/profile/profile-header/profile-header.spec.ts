@@ -11,7 +11,7 @@ describe('Unit testing: profitelo.components.profile.profile-header', () => {
     let component: ProfileHeaderComponentController
 
     const userService = {
-      getUser: () => {
+      getUser: (): void => {
       }
     }
 

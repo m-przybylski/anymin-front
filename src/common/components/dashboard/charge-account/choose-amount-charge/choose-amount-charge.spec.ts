@@ -10,7 +10,7 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-amo
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let component: ChooseAmountChargeComponentController
-    let validHTML = '<choose-amount-charge title="title" amounts="amounts" amount-model="amountModel"' +
+    const validHTML = '<choose-amount-charge title="title" amounts="amounts" amount-model="amountModel"' +
       'scroll-handler="scrollHandler"></choose-amount-charge>'
 
     const bindings: IChooseAmountChargeComponentBindings = {
@@ -35,16 +35,16 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-amo
       scrollHandler: jasmine.createSpy('scrollHandler')
     }
 
-    function create(html: string, bindings: IChooseAmountChargeComponentBindings) {
+    function create(html: string, bindings: IChooseAmountChargeComponentBindings): JQuery {
       scope = rootScope.$new()
       const bindedScope = angular.extend(scope, bindings)
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(bindedScope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(bindedScope)
       bindedScope.$digest()
       return compiledElement
     }
 
-    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
+    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService): void {
       $provide.value('apiUrl', url)
     }))
 

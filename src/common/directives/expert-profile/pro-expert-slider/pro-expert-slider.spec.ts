@@ -10,7 +10,7 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-slider', 
     let compile: any = null
     let timeout: ng.ITimeoutService
     let dialogService: DialogService
-    let validHTML = '<pro-expert-slider data-sliders="sliders"></pro-expert-slider>'
+    const validHTML = '<pro-expert-slider data-sliders="sliders"></pro-expert-slider>'
 
     beforeEach(() => {
 
@@ -26,18 +26,18 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-slider', 
       })
     })
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
+      const elem = angular.element(html)
       scope.controlls = {
-        nextSlide: () => {
+        nextSlide: (): void => {
         },
-        prevSlide: () => {
+        prevSlide: (): void => {
         }
       }
       scope.sliders = [{previews: 'asd'}, {previews: 'asd'}, {previews: 'asd'}]
 
-      let compiledElement = compile(elem)(scope)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       timeout.flush()
       return compiledElement
@@ -48,30 +48,30 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-slider', 
     }))
 
     it('should compile the directive', () => {
-      let el = create(validHTML)
+      const el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
 
     it('should nextSlide', () => {
-      let el = create(validHTML)
-      let isoScope = el.isolateScope()
+      const el = create(validHTML)
+      const isoScope = el.isolateScope()
       spyOn(isoScope.controlls, 'nextSlide')
       isoScope.nextSlide()
       expect(isoScope.controlls.nextSlide).toHaveBeenCalled()
     })
 
     it('should prevSlide', () => {
-      let el = create(validHTML)
-      let isoScope = el.isolateScope()
+      const el = create(validHTML)
+      const isoScope = el.isolateScope()
       spyOn(isoScope.controlls, 'prevSlide')
       isoScope.prevSlide()
       expect(isoScope.controlls.prevSlide).toHaveBeenCalled()
     })
 
     it('should openDialog', () => {
-      let el = create(validHTML)
-      let isoScope = el.isolateScope()
-      let slide = {
+      const el = create(validHTML)
+      const isoScope = el.isolateScope()
+      const slide = {
         previews: 'slide'
       }
       spyOn(dialogService, 'openDialog')

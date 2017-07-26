@@ -17,11 +17,11 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payment-me
     const validHTML = '<payment-method payment-systems = "[{id: 1, imgSrc: dsadad}, {id: 1, imgSrc: dsadad}, ' +
       '{id: 1, imgSrc: dsadad}]" scroll-handler="ctrl.scrollHandler"></payment-method>'
 
-    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
+    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService): void {
       $provide.value('apiUrl', url)
     }))
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
       const elem = angular.element(html)
       const compiledElement = compile(elem)(scope)

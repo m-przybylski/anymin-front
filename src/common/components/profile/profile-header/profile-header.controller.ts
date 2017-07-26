@@ -18,7 +18,7 @@ export class ProfileHeaderComponentController implements IProfileHeaderComponent
     })
   }
 
-  $onInit = () => {
+  $onInit = (): void => {
     if (this.profileDetails) {
       this.documents = this.profileDetails.files
     }

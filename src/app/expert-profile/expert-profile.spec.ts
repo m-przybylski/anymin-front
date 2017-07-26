@@ -17,7 +17,7 @@ describe('Unit tests: ExpertProfileController >', () => {
     let stateParams: IExpertProfileStateParams
     let log: ng.ILogService
 
-    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
+    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService): void {
       $provide.value('apiUrl', 'awesomeURL/')
     }))
 

@@ -10,13 +10,13 @@ describe('Unit testing: profitelo.components.interface.consultation-tag-input', 
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let component: ConsultationTagInputComponentController
-    let validHTML = '<consultation-tag-input></consultation-tag-input>'
+    const validHTML = '<consultation-tag-input></consultation-tag-input>'
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
       scope.selectedItemsValue = []
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }

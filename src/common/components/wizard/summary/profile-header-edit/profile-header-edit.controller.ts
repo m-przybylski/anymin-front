@@ -5,7 +5,7 @@ export class ProfileHeaderEditComponentController implements IProfileHeaderEditC
 
   profileDetails?: GetExpertDetails
   profileType: ProfileTypes
-  documents: Array<ProfileDocument>
+  documents: ProfileDocument[]
   editLink: string = ''
   onDelete?: () => void
   onEdit?: () => void
@@ -15,7 +15,7 @@ export class ProfileHeaderEditComponentController implements IProfileHeaderEditC
     this.editLink = 'app.wizard.create-profile.expert'
   }
 
-  $onInit = () => {
+  $onInit = (): void => {
     if (this.profileDetails) {
       this.documents = this.profileDetails.files
     }
@@ -24,13 +24,13 @@ export class ProfileHeaderEditComponentController implements IProfileHeaderEditC
   public checkType = (): boolean =>
     this.profileType === ProfileTypes.expert
 
-  public deleteProfile = () => {
+  public deleteProfile = (): void => {
     if (this.onDelete && typeof this.onDelete === 'function') {
       this.onDelete()
     }
   }
 
-  public editProfile = () => {
+  public editProfile = (): void => {
     if (this.onEdit && typeof this.onEdit === 'function') {
       this.onEdit()
     }

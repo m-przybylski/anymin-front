@@ -25,7 +25,7 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
               private $document: ng.IDocumentService, private $timeout: ng.ITimeoutService) {
   }
 
-  $postLink() {
+  $postLink(): void {
     this.$timeout(() => {
       this.currentStep = this.$element.find('wizard-step')[0]
       this.stepList = this.$element.find('wizard-step')
@@ -78,7 +78,7 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
     })
   }
 
-  $onDestroy() {
+  $onDestroy(): void {
     this.$document.unbind('scroll')
   }
 

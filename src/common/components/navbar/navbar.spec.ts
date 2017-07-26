@@ -15,7 +15,7 @@ describe('Unit testing: navbar', () => {
       '<navbar></navbar>'
 
     const userService = {
-      getUser: () => {
+      getUser: (): ng.IPromise<{}> => {
         return q.resolve({})
       }
     }
@@ -25,12 +25,12 @@ describe('Unit testing: navbar', () => {
     }
 
     const document = {
-      bind: (_name: string, callback: (event: any) => void) => {
+      bind: (_name: string, callback: (event: any) => void): void => {
         callback({target: 'asdasd'})
       }
     }
 
-    function create(html: string,  bindings: INavbarComponentBindings) {
+    function create(html: string,  bindings: INavbarComponentBindings): JQuery {
       const parentScope = rootScope.$new()
       const parentBoundScope = angular.extend(parentScope, bindings)
       const elem = angular.element(html)
@@ -39,7 +39,7 @@ describe('Unit testing: navbar', () => {
       return compiledElement
     }
 
-    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
+    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService): void {
       $provide.value('apiUrl', 'awesomeUrl/')
     }))
 

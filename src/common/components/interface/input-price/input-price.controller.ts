@@ -30,11 +30,11 @@ export class InputPriceComponentController implements IInputPriceComponentBindin
     })
   }
 
-  $onInit() {
+  $onInit(): void {
     this.isPatternValid = true
   }
 
-  public onChange = () => {
+  public onChange = (): void => {
     this.isUsignPunctuationMarks = this.ngModel.toString().indexOf('.') !== -1 || this.ngModel.toString().indexOf(',') !== -1
     this.isPatternValid = ((this.priceRegexp).test(this.ngModel.toString()))
 
@@ -45,12 +45,12 @@ export class InputPriceComponentController implements IInputPriceComponentBindin
     }
   }
 
-  public onFocus = () => {
+  public onFocus = (): void => {
     this.isFocus = true
     this.isDirty = true
   }
 
-  public onBlur = () => {
+  public onBlur = (): void => {
     this.isFocus = false
   }
 }

@@ -19,7 +19,7 @@ export class PasswordStrengthService {
     }
   }
 
-  private stringReverse = function (str: string | undefined) {
+  private stringReverse = function (str: string | undefined): string | undefined {
     let out
     if (typeof str === 'string') {
       out = ''
@@ -30,7 +30,7 @@ export class PasswordStrengthService {
     return out
   }
 
-  private _getStrength = (p: string) => {
+  private _getStrength = (p: string): number => {
 
     const matches: any = {
       pos: {
@@ -95,7 +95,7 @@ export class PasswordStrengthService {
       counts.pos.numbers = matches.pos.numbers ? matches.pos.numbers.length : 0
       counts.pos.symbols = matches.pos.symbols ? matches.pos.symbols.length : 0
 
-      tmp = Object.keys(counts.pos).reduce(function (previous, key) {
+      tmp = Object.keys(counts.pos).reduce(function (previous, key): number {
         return previous + Math.min(1, (<any>counts.pos)[key])
       }, 0)
 

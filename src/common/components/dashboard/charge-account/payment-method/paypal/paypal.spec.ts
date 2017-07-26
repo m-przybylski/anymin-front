@@ -11,7 +11,7 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payment-me
 
     const validHTML: string = '<payment-formpal-pay></payment-formpal-pay>'
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       const parentScope: ng.IScope = rootScope.$new()
       const elem = angular.element(html)
       const compiledElement = compile(elem)(parentScope)
@@ -26,7 +26,7 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.payment-me
       beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
         $provide.value('apiUrl', 'awesomeUrl')
         $provide.value('paypalFactory', {Button: {
-          render: () => {}
+          render: (): void => {}
         }})
       }))
 

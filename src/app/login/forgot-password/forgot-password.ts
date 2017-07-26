@@ -22,17 +22,17 @@ export interface IForgotPasswordStateParams {
 function ForgotPasswordController($state: ng.ui.IStateService, account: ILoginForgotPassword,
                                   RecoverPasswordApi: RecoverPasswordApi,
                                   topWaitingLoaderService: TopWaitingLoaderService,
-                                  CommonSettingsService: CommonSettingsService) {
+                                  CommonSettingsService: CommonSettingsService): void {
 
   this.isPending = false
   this.account = account
   this.smsCodePattern = CommonSettingsService.localSettings.smsCodePattern
 
-  this.forceSmsRecovery = () => {
+  this.forceSmsRecovery = (): void => {
     $state.go('app.login.forgot-password', {method: 'sms'}, {reload: true})
   }
 
-  this.submitSmsVerificationCode = () => {
+  this.submitSmsVerificationCode = (): void => {
     this.serverError = false
     if (!this.isPending) {
       this.isPending = true
@@ -60,14 +60,14 @@ function ForgotPasswordController($state: ng.ui.IStateService, account: ILoginFo
 
 }
 
-function config($stateProvider: ng.ui.IStateProvider) {
+function config($stateProvider: ng.ui.IStateProvider): void {
   $stateProvider.state('app.login.forgot-password', {
     url: '/forgot-password/{method:|sms}',
     controllerAs: 'vm',
     controller: 'ForgotPasswordController',
     template: require('./forgot-password.pug')(),
     resolve: {
-      account: (LoginForgotPasswordResolver: ILoginForgotPasswordService, $stateParams: IForgotPasswordStateParams) => {
+      account: (LoginForgotPasswordResolver: ILoginForgotPasswordService, $stateParams: IForgotPasswordStateParams): ng.IPromise<ILoginForgotPassword> => {
         return LoginForgotPasswordResolver.resolve($stateParams)
       }
     },

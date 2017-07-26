@@ -10,10 +10,10 @@ namespace profitelo.components.expertProfile.socialLinks {
       let component: any
       const validHTML = '<social-links data-links="test"></social-links>'
 
-      function create(html: string) {
+      function create(html: string): JQuery {
         scope = rootScope.$new()
-        let elem = angular.element(html)
-        let compiledElement = compile(elem)(scope)
+        const elem = angular.element(html)
+        const compiledElement = compile(elem)(scope)
         scope.$digest()
         return compiledElement
       }

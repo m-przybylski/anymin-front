@@ -6,6 +6,7 @@ import summaryWizardModule from './summary'
 import {ErrorHandlerService} from '../../../common/services/error-handler/error-handler.service'
 import {UserService} from '../../../common/services/user/user.service'
 
+
 describe('Testing Controller: SummaryController', () => {
 
   let summaryController: SummaryController,
@@ -43,7 +44,7 @@ describe('Testing Controller: SummaryController', () => {
     }
   }
 
-  const createController = (wizardProfile: GetWizardProfile) => {
+  const createController = (wizardProfile: GetWizardProfile): SummaryController => {
     return controller<SummaryController>('summaryController', {
       $state: $state,
       wizardProfile: wizardProfile,
@@ -52,7 +53,7 @@ describe('Testing Controller: SummaryController', () => {
     })
   }
 
-  beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
+  beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService): void {
     $provide.value('apiUrl', 'awesomeURL/')
     $provide.value('WizardApi', WizardApi)
     $provide.value('WizardApiMock', WizardApiMock)
@@ -66,7 +67,7 @@ describe('Testing Controller: SummaryController', () => {
             _userService_: UserService) => {
 
       $state = <ng.ui.IStateService>{
-        go: (_to: string) => $q.resolve({})
+        go: (_to: string): ng.IPromise<{}> => $q.resolve({})
       }
 
       q = $q

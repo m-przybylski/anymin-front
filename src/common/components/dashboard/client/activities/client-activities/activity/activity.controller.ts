@@ -13,7 +13,7 @@ export class ClientActivityComponentController implements ng.IController, IClien
   constructor(private urlService: UrlService, private modalsService: ModalsService, private $log: ng.ILogService) {
   }
 
-  $onInit() {
+  $onInit(): void {
     this.isCallActivity = this.activity.activityType !== GetActivity.ActivityTypeEnum.FINANCIALTRANSACTION
     if (this.activity.serviceUsageDetails && this.activity.serviceUsageDetails.expertAvatar) {
       this.imageUrl = this.urlService.resolveFileUrl(this.activity.serviceUsageDetails.expertAvatar)

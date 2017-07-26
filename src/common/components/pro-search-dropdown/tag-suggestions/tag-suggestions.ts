@@ -1,4 +1,4 @@
-(function() {
+(function(): void {
   const tagSuggestions = {
     transclude: true,
     template: require('./tag-suggestions.pug')(),

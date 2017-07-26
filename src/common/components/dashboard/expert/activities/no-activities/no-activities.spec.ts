@@ -11,12 +11,12 @@ describe('Unit testing: profitelo.components.dashboard.expert.activities.no-acti
     let compile: ng.ICompileService
     let componentController: ng.IComponentControllerService
     let component: any
-    let validHTML = '<expert-no-activities></expert-no-activities>'
+    const validHTML = '<expert-no-activities></expert-no-activities>'
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
@@ -39,7 +39,7 @@ describe('Unit testing: profitelo.components.dashboard.expert.activities.no-acti
       expect(true).toBeTruthy()
     }))
     it('should compile the directive', () => {
-      let el = create(validHTML)
+      const el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
   })

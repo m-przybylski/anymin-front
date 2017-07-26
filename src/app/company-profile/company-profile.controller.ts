@@ -21,19 +21,19 @@ export class CompanyProfileController {
     this.profileType = ProfileTypes.company
   }
 
-  private onProfileLike = () =>
+  private onProfileLike = (): boolean =>
     this.isFavourite = true
 
-  private onProfileLikeError = (error: any) =>
+  private onProfileLikeError = (error: any): void =>
     this.$log.error('Can not like this company because: ' + error)
 
-  private onProfileDislike = () =>
+  private onProfileDislike = (): boolean =>
     this.isFavourite = false
 
-  private onProfileDislikeError = (error: any) =>
+  private onProfileDislikeError = (error: any): void =>
     this.$log.error('Can not dislike this company because: ' + error)
 
-  public handleLike = () => {
+  public handleLike = (): void => {
     if (!this.isFavourite) {
       this.ProfileApi.postProfileFavouriteOrganizationRoute(this.$stateParams.profileId)
       .then(this.onProfileLike, this.onProfileLikeError)

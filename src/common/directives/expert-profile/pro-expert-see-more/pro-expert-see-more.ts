@@ -1,5 +1,8 @@
-(function () {
-  function proExpertSeeMore() {
+import * as angular from 'angular'
+import {IDirective} from 'angular'
+
+(function (): void {
+  function proExpertSeeMore(): IDirective {
 
     return {
       template: require('./pro-expert-see-more.pug')(),

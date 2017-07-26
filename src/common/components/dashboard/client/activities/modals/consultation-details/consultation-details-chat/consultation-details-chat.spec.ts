@@ -8,12 +8,12 @@ namespace profitelo.components.dashboard.client.activities.modals.consultationDe
       let compile: ng.ICompileService
       let componentController: any
       let component: any
-      let validHTML = '<client-consultation-details-chat></client-consultation-details-chat>'
+      const validHTML = '<client-consultation-details-chat></client-consultation-details-chat>'
 
-      function create(html: string) {
+      function create(html: string): JQuery {
         scope = rootScope.$new()
-        let elem = angular.element(html)
-        let compiledElement = compile(elem)(scope)
+        const elem = angular.element(html)
+        const compiledElement = compile(elem)(scope)
         scope.$digest()
         return compiledElement
       }
@@ -37,7 +37,7 @@ namespace profitelo.components.dashboard.client.activities.modals.consultationDe
       }))
 
       it('should compile the directive', () => {
-        let el = create(validHTML)
+        const el = create(validHTML)
         expect(el.html()).toBeDefined(true)
       })
 

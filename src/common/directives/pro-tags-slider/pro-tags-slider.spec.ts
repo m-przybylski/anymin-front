@@ -7,7 +7,7 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
     let rootScope: ng.IRootScopeService
     let compile: any = null
     let _timeout: ng.ITimeoutService
-    let validHTML = '<pro-tags-slider data-tags="[{name: \'sdsd\', id:999}, {name: \'sdsd\', id:999}, {name: \'sdsd\', ' +
+    const validHTML = '<pro-tags-slider data-tags="[{name: \'sdsd\', id:999}, {name: \'sdsd\', id:999}, {name: \'sdsd\', ' +
       'id:999}, {name: elo, id:999}, {name: elo, id:999}]" data-on-tag-click-action="tagsAction"></pro-tags-slider>'
 
     beforeEach(() => {
@@ -22,10 +22,10 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
       })
     })
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       _timeout.flush()
       return compiledElement
@@ -36,13 +36,13 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
     }))
 
     it('should compile the directive', () => {
-      let el = create(validHTML)
+      const el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
 
     it('should call next slide', () => {
-      let el = create(validHTML)
-      let isoScope = el.isolateScope()
+      const el = create(validHTML)
+      const isoScope = el.isolateScope()
       const tag = '{name: \'sdsd\', id:999}'
       isoScope.tagAction(tag)
     })

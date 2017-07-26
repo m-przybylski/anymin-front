@@ -17,7 +17,7 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
     const validHTML: string = '<card-payment-form amount-method-modal="amountMethodModal"' +
       'payments-links="paymentsLinks" payment-country-id="paymentCountryId"></card-payment-form>'
 
-    function create(html: string, bindings: ICardPaymentFormComponentBindings) {
+    function create(html: string, bindings: ICardPaymentFormComponentBindings): JQuery {
       const parentScope = rootScope.$new()
       const parentBoundScope = angular.extend(parentScope, bindings)
       const elem = angular.element(html)
@@ -43,7 +43,7 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
     }
 
     const userService = {
-      getUser: () => {
+      getUser: (): void => {
       }
     }
 

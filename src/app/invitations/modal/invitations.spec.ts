@@ -4,19 +4,20 @@ import {IInvitationsModalScope, InvitationsModalController} from './invitations.
 import invitationsModalModule from './invitations'
 import {EmploymentApi} from 'profitelo-api-ng/api/api'
 import IQService = angular.IQService
+
 describe('Testing Controller: InvitationsModal', () => {
 
   let controller: InvitationsModalController
   let scope: IInvitationsModalScope
   let $q: ng.IQService
-  let state = <ng.ui.IStateService>{
-    go: (_to: string) => $q.resolve({})
+  const state = <ng.ui.IStateService>{
+    go: (_to: string): ng.IPromise<{}> => $q.resolve({})
   }
   const uibModalInstance = {
-    dismiss: () => {
+    dismiss: (): void => {
 
     },
-    close: () => {
+    close: (): void => {
 
     }
   }

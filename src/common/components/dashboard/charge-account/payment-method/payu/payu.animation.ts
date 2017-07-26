@@ -1,8 +1,14 @@
 /* @ngInject */
-export function PayuAnimation($animateCss: ng.animate.IAnimateCssService) {
+
+interface IPayuAnimation {
+  enter: (element: JQuery) => ng.animate.IAnimateCssRunner,
+  leave: (element: JQuery) => ng.animate.IAnimateCssRunner
+}
+
+export function PayuAnimation($animateCss: ng.animate.IAnimateCssService): IPayuAnimation {
 
   return {
-    enter: (element: JQuery) => {
+    enter: (element: JQuery): ng.animate.IAnimateCssRunner => {
       const height = element[0].offsetHeight
 
       return $animateCss(element, {
@@ -11,7 +17,7 @@ export function PayuAnimation($animateCss: ng.animate.IAnimateCssService) {
         to: {height: height + 'px'},
       })
     },
-    leave: (element: JQuery) => {
+    leave: (element: JQuery): ng.animate.IAnimateCssRunner => {
       const height = element[0].offsetHeight
 
       return $animateCss(element, {

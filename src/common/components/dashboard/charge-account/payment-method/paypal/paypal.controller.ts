@@ -8,7 +8,7 @@ export class PayPalPaymentFormComponentController implements ng.IController, IPa
   amountMethodModal: any
   postPayment: PostPayment
 
-  $onInit = () => {
+  $onInit = (): void => {
     this.postPayment = {
       amount: this.amountMethodModal.amountModel.cashAmount,
       paymentCountryId: this.paymentCountryId,
@@ -36,7 +36,7 @@ export class PayPalPaymentFormComponentController implements ng.IController, IPa
         shape: 'pill'
       },
 
-      payment: (resolve: any) => {
+      payment: (resolve: any): void => {
 
         this.PaymentsApi.createPaymentRoute({
           description: '',
@@ -55,7 +55,7 @@ export class PayPalPaymentFormComponentController implements ng.IController, IPa
         })
       },
 
-      onAuthorize: (data: any, _actions: any) => {
+      onAuthorize: (data: any, _actions: any): void => {
         this.PaymentsApi.executePaymentRoute({
           paymentId: data.paymentID,
           payerId: data.payerID

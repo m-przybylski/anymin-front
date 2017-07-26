@@ -107,28 +107,28 @@ class ChargeAccountController {
     }
   }
 
-  public onLoad = () => {
+  public onLoad = (): void => {
     this.isBraintreeFormLoaded = true
   }
 
-  public chargeAccountProfiteloPaymentsMethod = () => {
+  public chargeAccountProfiteloPaymentsMethod = (): void => {
     this.isChargeProfiteloAccount = true
     this.isPaymentCardMethod = false
   }
 
-  public addPaymentCardMethod = () => {
+  public addPaymentCardMethod = (): void => {
     this.isPaymentCardMethod = true
     this.isChargeProfiteloAccount = false
   }
 
-  public onFormSucceed = () => {
+  public onFormSucceed = (): void => {
     this.$state.go('app.dashboard.client.activities')
   }
 
-  public onClose = () =>
+  public onClose = (): ng.IPromise<void> =>
     this.$state.go('app.dashboard.client.favourites')
 
-  public validAction = () => {
+  public validAction = (): boolean => {
     if (
       (!angular.isDefined(this.amountModel.amount) || this.amountModel.amount === null) &&
       this.amountModel.cashAmount &&
@@ -141,7 +141,7 @@ class ChargeAccountController {
     }
   }
 
-  public scrollHandler = (slideTo?: number) => {
+  public scrollHandler = (slideTo?: number): void => {
     if (slideTo && angular.isDefined(slideTo)) {
       this.smoothScrollingService.scrollTo(String(slideTo))
       // TODO refactor this 3
@@ -153,17 +153,17 @@ class ChargeAccountController {
   }
 }
 
-function config($stateProvider: ng.ui.IStateProvider) {
+function config($stateProvider: ng.ui.IStateProvider): void {
   $stateProvider.state('app.dashboard.charge-account', {
     url: '/charge-account',
     controllerAs: 'vm',
     controller: 'chargeAccountController',
     template: require('./charge-account.pug')(),
     resolve: {
-      paymentsOptions: (PaymentsApi: PaymentsApi) => PaymentsApi.getPaymentOptionsRoute(),
-      creditCards: (PaymentsApi: PaymentsApi) => PaymentsApi.getCreditCardsRoute(),
-      paymentsLinks: (PaymentsApi: PaymentsApi) => PaymentsApi.getPayUPaymentLinksRoute(),
-      financeBalance: (FinancesApi: FinancesApi) => FinancesApi.getClientBalanceRoute()
+      paymentsOptions: (PaymentsApi: PaymentsApi): ng.IPromise<GetPaymentOptions> => PaymentsApi.getPaymentOptionsRoute(),
+      creditCards: (PaymentsApi: PaymentsApi): ng.IPromise<GetCreditCard[]> => PaymentsApi.getCreditCardsRoute(),
+      paymentsLinks: (PaymentsApi: PaymentsApi): ng.IPromise<PaymentLink[]> => PaymentsApi.getPayUPaymentLinksRoute(),
+      financeBalance: (FinancesApi: FinancesApi): ng.IPromise<MoneyDto> => FinancesApi.getClientBalanceRoute()
     },
     data: {
       pageTitle: 'PAGE_TITLE.CHARGE_ACCOUNT',

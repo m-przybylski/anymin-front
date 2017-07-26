@@ -25,11 +25,11 @@ class LoginRegisterResolver implements ILoginRegisterService {
 
   }
 
-  public resolve = () => {
+  public resolve = (): ng.IPromise<{}> => {
 
     const _deferred = this.$q.defer()
 
-    const handleError = () => {
+    const handleError = (): void => {
       _deferred.reject()
       this.$timeout(() => {
         this.$state.go('app.login.account')

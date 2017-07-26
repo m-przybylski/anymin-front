@@ -23,29 +23,29 @@ export class PayoutsPayPalController implements ng.IController {
 
   }
 
-  public choosePayoutBankMethod = () => {
+  public choosePayoutBankMethod = (): void => {
     this.isPayoutBankMethod = true
     this.isPayoutPaypalMethod = false
   }
 
-  public addPayPalAccount = () => {
+  public addPayPalAccount = (): void => {
     this.PayoutsApi.postPayPalAccountPayoutMethodRoute({
       email: this.payPalEmail,
       isDefault: true
     }).then(this.onPostPayPalAccountSucceed, this.onPostPayPalAccountError)
   }
 
-  private onPostPayPalAccountSucceed = (_response: ng.IPromise<JValue>) => {
+  private onPostPayPalAccountSucceed = (_response: ng.IPromise<JValue>): void => {
     this.$scope.callback()
     this.$uibModalInstance.dismiss('cancel')
   }
 
-  private onPostPayPalAccountError = (error: any) => {
+  private onPostPayPalAccountError = (error: any): void => {
     this.$uibModalInstance.dismiss('cancel')
     throw new Error('Can not add new payouts method - paypal account: ' + error)
   }
 
-  public choosePayoutPaypalMethod = () => {
+  public choosePayoutPaypalMethod = (): void => {
     this.isPayoutPaypalMethod = true
     this.isPayoutBankMethod = false
   }

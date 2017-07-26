@@ -7,10 +7,10 @@ describe('Testing Controller: expertPayoutCompanyController', () => {
   let expertPayoutCivilController: ExpertPayoutCompanyModalController
   let scope: IExpertPayoutCompanyModalScope
   const uibModalInstance = {
-    dismiss: () => {
+    dismiss: (): void => {
 
     },
-    close: () => {
+    close: (): void => {
 
     }
   }

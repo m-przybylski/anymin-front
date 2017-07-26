@@ -19,7 +19,7 @@ export class NavbarNotificationsComponentController implements INavbarNotificati
   constructor(private modalsService: ModalsService, private ProfileApi: ProfileApi, private $state: ng.ui.IStateService,
               private $element: ng.IRootElementService) {
 
-    this.buttonCallback = () => {
+    this.buttonCallback = (): void => {
      if (this.onClick && !angular.isFunction(this.onClick)) {
        throw new Error('onClick is not a function')
      }
@@ -27,7 +27,7 @@ export class NavbarNotificationsComponentController implements INavbarNotificati
     }
   }
 
-  $onInit() {
+  $onInit(): void {
     this.ProfileApi.getProfilesInvitationsRoute().then((response) => {
       this.invitations = response
       this.areInvitations = this.invitations.length > 0
@@ -38,22 +38,22 @@ export class NavbarNotificationsComponentController implements INavbarNotificati
     })
   }
 
-  public showNotifications = () => {
+  public showNotifications = (): void => {
     this.isNotificationsTab = true
     this.isInvitationsTab = false
   }
 
-  public showInvitations = () => {
+  public showInvitations = (): void => {
     this.isNotificationsTab = false
     this.isInvitationsTab = true
     this.areInvitationsDisplayed = true
   }
 
-  public openNotificationDescriptions = () => {
+  public openNotificationDescriptions = (): void => {
     this.modalsService.createInvitationsModal()
   }
 
-  public markAsRead = (event: Event) => {
+  public markAsRead = (event: Event): void => {
     if (!event) {
       throw new Error('Event not found')
     }
@@ -61,7 +61,7 @@ export class NavbarNotificationsComponentController implements INavbarNotificati
     this.$element.find(event.currentTarget)[0].classList.add('is-read')
   }
 
-  public onInvitationClick = (invitation: GetProfileWithServicesEmployments, event: Event) => {
+  public onInvitationClick = (invitation: GetProfileWithServicesEmployments, event: Event): void => {
     this.$state.go('app.invitations', {companyId: invitation.id})
     this.markAsRead(event)
   }

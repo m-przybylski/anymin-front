@@ -6,7 +6,7 @@ namespace profitelo.directives.proAdviceTile {
       let scope: any = null
       let rootScope: ng.IRootScopeService
       let compile: any = null
-      let validHTML = '<pro-advice-tile></pro-advice-tile>'
+      const validHTML = '<pro-advice-tile></pro-advice-tile>'
 
       beforeEach(() => {
 
@@ -18,10 +18,10 @@ namespace profitelo.directives.proAdviceTile {
         })
       })
 
-      function create(html: string) {
+      function create(html: string): JQuery {
         scope = rootScope.$new()
-        let elem = angular.element(html)
-        let compiledElement = compile(elem)(scope)
+        const elem = angular.element(html)
+        const compiledElement = compile(elem)(scope)
         scope.$digest()
         return compiledElement
       }
@@ -31,7 +31,7 @@ namespace profitelo.directives.proAdviceTile {
       }))
 
       it('should compile the directive', () => {
-        let el = create(validHTML)
+        const el = create(validHTML)
         expect(el.html()).toBeDefined(true)
       })
     })

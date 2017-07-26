@@ -22,7 +22,7 @@ describe('Unit testing: profitelo.components.interface.user-avatar', () => {
 
         injectors = {
           urlService: {
-            resolveFileUrl: (token: string) => {
+            resolveFileUrl: (token: string): string => {
               return 'http://profiteloIsThebest.profitelo.pl' + token
             }
           }

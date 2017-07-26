@@ -4,6 +4,7 @@ import {WizardApi, WizardApiMock} from 'profitelo-api-ng/api/api'
 import expertWizardModule from './expert'
 import {ExpertController} from './expert.controller'
 
+
 describe('Testing Controller: ExpertController', () => {
 
   let ExpertController: ExpertController,
@@ -17,7 +18,7 @@ describe('Testing Controller: ExpertController', () => {
     isSummary: false
   }
 
-  beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
+  beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService): void {
     $provide.value('apiUrl', 'awesomeURL/')
   }))
 
@@ -28,7 +29,7 @@ describe('Testing Controller: ExpertController', () => {
             _WizardApiMock_: WizardApiMock, $q: ng.IQService) => {
 
       $state = <ng.ui.IStateService>{
-        go: (_to: string) => $q.resolve({})
+        go: (_to: string): ng.IPromise<{}> => $q.resolve({})
       }
 
       httpBackend = $httpBackend

@@ -1,5 +1,8 @@
-(function() {
-  function proFooter() {
+import * as angular from 'angular'
+import {IDirective} from 'angular'
+
+(function(): void {
+  function proFooter(): IDirective {
 
     return {
       template: require('./pro-footer.pug')(),

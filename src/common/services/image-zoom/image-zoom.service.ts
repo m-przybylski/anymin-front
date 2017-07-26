@@ -40,35 +40,35 @@ export class ImageZoomService {
     this.resizeZoom = 1 + this.settings.zoomScale
   }
 
-  public resetImg = () => {
+  public resetImg = (): void => {
     this.updateWidthAndHeight(this.image, this.primaryImageSize)
     this.imageSize.width = this.primaryImageSize.width
     this.imageSize.height = this.primaryImageSize.height
   }
 
-  public destroy = () => {
+  public destroy = (): void => {
     this.image.removeEventListener('wheel', this.onWheel)
     this.updateWidthAndHeight(this.image, this.primaryImageSize)
   }
 
-  public decreaseImg = () => {
+  public decreaseImg = (): void => {
     this.imageSize.width /= this.resizeZoom
     this.imageSize.height /= this.resizeZoom
     this.updateWidthAndHeight(this.image, this.imageSize)
   }
 
-  public increaseImg = () => {
+  public increaseImg = (): void => {
     this.imageSize.width *= this.resizeZoom
     this.imageSize.height *= this.resizeZoom
     this.updateWidthAndHeight(this.image, this.imageSize)
   }
 
-  private updateWidthAndHeight = (image: any, sizeObject: any) => {
+  private updateWidthAndHeight = (image: any, sizeObject: any): void => {
     image.width = String(sizeObject.width)
     image.height = String(sizeObject.height)
   }
 
-  private onWheel = (event: any) => {
+  private onWheel = (event: any): void => {
     let deltaY = 0
 
     event.preventDefault()
@@ -98,7 +98,7 @@ export class ImageZoomService {
 
     this.image = img
 
-    const onLoad = () => {
+    const onLoad = (): void => {
       this.imageSize.width = this.image.width
       this.imageSize.height = this.image.height
       angular.copy(this.imageSize, this.primaryImageSize)

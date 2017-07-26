@@ -9,12 +9,12 @@ describe('Unit testing: profitelo.components.complaints.status', () => {
     let compile: ng.ICompileService
     let componentController: any
     let component: any
-    let validHTML = '<status></status>'
+    const validHTML = '<status></status>'
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
@@ -36,7 +36,7 @@ describe('Unit testing: profitelo.components.complaints.status', () => {
       expect(true).toBeTruthy()
     }))
     it('should compile the directive', () => {
-      let el = create(validHTML)
+      const el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
   })

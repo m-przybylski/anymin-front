@@ -6,7 +6,7 @@ namespace profitelo.directives.interface.proRangeSlider {
       let scope: any = null
       let rootScope: ng.IRootScopeService
       let compile: any = null
-      let validHTML = '<pro-range-slider max-value="max" min-value="min"></pro-range-slider>'
+      const validHTML = '<pro-range-slider max-value="max" min-value="min"></pro-range-slider>'
 
       beforeEach(() => {
 
@@ -16,16 +16,16 @@ namespace profitelo.directives.interface.proRangeSlider {
           rootScope = $rootScope.$new()
           compile = $compile
 
-          $httpBackend.when('GET', require("../../../templates/range-slider/range-slider.tpl.pug")).respond(200, "")
+          $httpBackend.when('GET', require('../../../templates/range-slider/range-slider.tpl.pug')).respond(200, '')
         })
       })
 
-      function create(html: string, min: number, max: number) {
+      function create(html: string, min: number, max: number): JQuery {
         scope = rootScope.$new()
         scope.min = min
         scope.max = max
-        let elem = angular.element(html)
-        let compiledElement = compile(elem)(scope)
+        const elem = angular.element(html)
+        const compiledElement = compile(elem)(scope)
         scope.$digest()
         return compiledElement
       }
@@ -35,7 +35,7 @@ namespace profitelo.directives.interface.proRangeSlider {
       }))
 
       it('should compile the directive', () => {
-        let el = create(validHTML, 0, 100)
+        const el = create(validHTML, 0, 100)
         expect(el.html()).toBeDefined(true)
       })
 

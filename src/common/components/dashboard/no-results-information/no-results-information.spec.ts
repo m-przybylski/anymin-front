@@ -13,7 +13,7 @@ describe('Unit testing: profitelo.components.dashboard.no-results-information-me
     let component: any
     const validHTML = '<no-results-information></no-results-information>'
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
       const elem = angular.element(html)
       const compiledElement = compile(elem)(scope)

@@ -2,12 +2,12 @@ import * as angular from 'angular'
 import './complain-reason/complain-reason'
 import './complain-status/complain-status'
 
-(function() {
+(function(): void {
   /* @ngInject */
-  function controller() {
+  function controller(): void {
     this.isComplaint = false
 
-    this.$onInit = () => {
+    this.$onInit = (): void => {
       this.onReasonChange = this.collapseBtn.onWindowResize
     }
 

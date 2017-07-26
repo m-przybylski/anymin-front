@@ -1,7 +1,7 @@
 namespace profitelo.filters.rankSearch {
 
-  function filter() {
-    return function(array: Array<any>, searchKey: string, props: Array<string>) {
+  function filter(): (array: any[], searchKey: string, props: string[]) => any[] {
+    return function(array: any[], searchKey: string, props: string[]): any[] {
       if (!array || !searchKey || !props) {
         return array
       }

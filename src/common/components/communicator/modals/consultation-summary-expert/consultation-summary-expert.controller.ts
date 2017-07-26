@@ -36,7 +36,7 @@ export class ConsultationSummaryExpertController implements ng.IController {
     currency: 'PLN'
   }
 
-  public onModalClose = () =>
+  public onModalClose = (): void =>
     this.$uibModalInstance.dismiss('cancel')
 
   /* @ngInject */

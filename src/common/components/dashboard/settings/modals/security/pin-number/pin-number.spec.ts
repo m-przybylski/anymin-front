@@ -12,10 +12,10 @@ describe('Testing Controller: securityPinNumberSettingsController', () => {
   const User = {}
 
   const uibModalInstance = {
-    dismiss: () => {
+    dismiss: (): void => {
 
     },
-    close: () => {
+    close: (): void => {
 
     }
   }

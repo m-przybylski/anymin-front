@@ -1,6 +1,6 @@
 import * as angular from 'angular'
 
-function ErrorController() {
+function ErrorController(): void {
 
   return this
 }
@@ -15,7 +15,7 @@ const errorPageModule = angular.module('profitelo.controller.error', [
       controllerAs: 'vm',
       data: {},
       resolve: {
-        errorObj: [function () {
+        errorObj: [function (): void {
           return this.self.error
         }]
       }

@@ -43,16 +43,16 @@ export class SessionService {
     return session
   }
 
-  private onSuccessLogout = () => {
+  private onSuccessLogout = (): void => {
     this.sessionCache = undefined
     delete this.$http.defaults.headers!.common[this.apiKeyKey]
   }
 
-  private setApiKeyHeader = (apiKey: string) => {
+  private setApiKeyHeader = (apiKey: string): void => {
     this.$http.defaults.headers!.common[this.apiKeyKey] = apiKey
   }
 
-  public static $get(SessionApi: SessionApi, $http: ng.IHttpService, $q: ng.IQService) {
+  public static $get(SessionApi: SessionApi, $http: ng.IHttpService, $q: ng.IQService): SessionService {
     return new SessionService(SessionApi, $http, $q)
   }
 }

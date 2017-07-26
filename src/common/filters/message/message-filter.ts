@@ -1,18 +1,18 @@
 namespace profitelo.filters.message {
 
-  function messageFilter($log: ng.ILogService, ) {
+  function messageFilter($log: ng.ILogService, ): (message: string) => string {
 
-    const hasImageUrl = (text: string) => {
+    const hasImageUrl = (text: string): RegExpMatchArray | null => {
       const imageRegexp = /([/|.|\w|\s])*\.(?:jpg|gif|png)/
       return text.match(imageRegexp)
     }
 
-    const getUrls = (text: string) => {
+    const getUrls = (text: string): RegExpMatchArray | null => {
       const urlRegexp = /(((https?|ftp):\/\/)|(www\.))[^\s$.?#].[^\s]*\.[^\s$.?#].[^\s]*/g
       return _.uniq(text.match(urlRegexp) || [])
     }
 
-    const getCorrectUrl = (url: string) => {
+    const getCorrectUrl = (url: string): string => {
       const correctUrlRegexp = /^(https?|ftp):\/\/[^\s$.?#].[^\s]*$/
       if (!url.match(correctUrlRegexp)) {
         url = 'http://' + url
@@ -20,11 +20,11 @@ namespace profitelo.filters.message {
       return url
     }
 
-    const createRegexpFromUrl = (url: string) => {
+    const createRegexpFromUrl = (url: string): RegExp => {
       return new RegExp(url.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g, '\\$&'), 'g')
     }
 
-    const handleMessage = (message: string) => {
+    const handleMessage = (message: string): string => {
       const messageObject = angular.fromJson(angular.fromJson(message))
       const messageUrls = getUrls(messageObject.body)
 
@@ -50,7 +50,7 @@ namespace profitelo.filters.message {
       return messageObject.body
     }
 
-    return function(message: string) {
+    return function(message: string): string {
       if (message && typeof message === 'string') {
         return handleMessage(message)
       } else {

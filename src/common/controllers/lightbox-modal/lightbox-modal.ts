@@ -10,13 +10,13 @@ import imageZoomModule from '../../services/image-zoom/image-zoom'
 
 function lightboxModelController($scope: any, $window: IWindowService,
                                  $timeout: ng.ITimeoutService, FilesApi: FilesApi, imageZoomService: ImageZoomService,
-                                 $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
+                                 $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance): void {
 
   this.slideList = $scope.sliders
   this.isPending = false
   let i = 1
 
-  _.forEach(this.slideList, function (value) {
+  _.forEach(this.slideList, function (value): void {
     value.id = i++
   })
 
@@ -32,7 +32,7 @@ function lightboxModelController($scope: any, $window: IWindowService,
     }
   })
 
-  const _scrollToTop = () => {
+  const _scrollToTop = (): void => {
     $timeout(() => {
       const elem = angular.element('.modal-dialog')
       elem.scrollTop(0)
@@ -40,7 +40,7 @@ function lightboxModelController($scope: any, $window: IWindowService,
     })
   }
 
-  const fileInfoRequest = (slide: any) => {
+  const fileInfoRequest = (slide: any): void => {
     this.isPending = true
     FilesApi.fileInfoPath(slide.token).then((response) => {
         this.currentSlide = slide
@@ -88,26 +88,26 @@ function lightboxModelController($scope: any, $window: IWindowService,
   fileInfoRequest(this.currentSlide)
 
   this.sliderActions = {
-    nextSlide: () => {
+    nextSlide: (): void => {
       if (currentSlideIndex < this.slideList.length - 1 && !this.isPending) {
         const nextSlide = this.slideList[++currentSlideIndex]
         fileInfoRequest(nextSlide)
       }
 
     },
-    prevSlide: () => {
+    prevSlide: (): void => {
       if (currentSlideIndex > 0 && !this.isPending) {
         const prevSlide = this.slideList[--currentSlideIndex]
         fileInfoRequest(prevSlide)
       }
     },
-    decreaseImg: () => {
+    decreaseImg: (): void => {
       imageZoomService.decreaseImg()
     },
-    increaseImg: () => {
+    increaseImg: (): void => {
       imageZoomService.increaseImg()
     },
-    imageZoomReset: () => {
+    imageZoomReset: (): void => {
       imageZoomService.resetImg()
     }
   }
@@ -117,11 +117,11 @@ function lightboxModelController($scope: any, $window: IWindowService,
     //   const imgSrc = this.currentSlide.previews[0]
     //   printService.print(imgSrc)
     // },
-    downloadFile: () => {
+    downloadFile: (): void => {
       $window.open(this.currentSlide.downloadUrl)
 
     },
-    closeLightbox: () => {
+    closeLightbox: (): void => {
       $uibModalInstance.close()
     }
   }

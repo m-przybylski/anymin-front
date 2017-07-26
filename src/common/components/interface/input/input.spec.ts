@@ -16,10 +16,10 @@ describe('Unit testing: profitelo.components.interface.input', () => {
     let document: ng.IDocumentService
     let validHTML = '<input-primary>'
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }

@@ -2,8 +2,13 @@ import * as angular from 'angular'
 import * as RatelSdk from 'ratel-sdk-js'
 import userModule from '../../../services/user/user'
 import communicatorModule from '../communicator'
-import {ExpertCallService} from "./expert-call.service";
+import {ExpertCallService} from './expert-call.service'
 import {ServiceApi} from 'profitelo-api-ng/api/api'
+
+interface ICallSound {
+  play: () => void,
+  stop: () => void
+}
 
 describe('Unit testing: profitelo.services.call >', () => {
   describe('for profitelo.services.call >', () => {
@@ -11,52 +16,52 @@ describe('Unit testing: profitelo.services.call >', () => {
     let expertCallService: ExpertCallService
     let onCallInvitation: (callInvitation: RatelSdk.events.CallInvitation) => void
     const modalsService = {
-      createClientConsultationSummaryModal: () => {
+      createClientConsultationSummaryModal: (): void => {
       },
-      createExpertConsultationSummaryModal: () => {
+      createExpertConsultationSummaryModal: (): void => {
       },
-      createIncomingCallModal: () => {
+      createIncomingCallModal: (): void => {
       },
-      createServiceUnavailableModal: () => {
+      createServiceUnavailableModal: (): void => {
       }
     }
 
     const communicatorServiceMock = {
-      onCallInvitation: (cb: any) => onCallInvitation = cb
+      onCallInvitation: (cb: any): void => onCallInvitation = cb
     }
 
     const soundsService = {
-      playMessageNew: () => {
+      playMessageNew: (): void => {
       },
-      callConnectingSound: () => {
+      callConnectingSound: (): ICallSound => {
         return {
-          play: () => {
+          play: (): void => {
           },
-          stop: () => {
+          stop: (): void => {
           }
         }
       },
-      callIncomingSound: () => {
+      callIncomingSound: (): ICallSound => {
         return {
-          play: () => {
+          play: (): void => {
           },
-          stop: () => {
+          stop: (): void => {
           }
         }
       },
-      playCallRejected: () => {
+      playCallRejected: (): void => {
       },
-      playCallEnded: () => {
+      playCallEnded: (): void => {
       }
     }
 
     const navigatorService = {
-      getUserMediaStream: () => {
+      getUserMediaStream: (): void => {
       }
     }
 
     const userService = {
-      getUser: () => {
+      getUser: (): void => {
       }
     }
 

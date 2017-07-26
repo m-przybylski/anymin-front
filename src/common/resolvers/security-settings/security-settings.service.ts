@@ -4,7 +4,7 @@ import {SessionApi} from 'profitelo-api-ng/api/api'
 import {GetSession} from 'profitelo-api-ng/model/models'
 
 export interface ISecuritySettingsService {
-  resolve(): ng.IPromise<Array<GetSession>>
+  resolve(): ng.IPromise<GetSession[]>
 }
 
 export class SecuritySettingsResolver implements ISecuritySettingsService {
@@ -13,7 +13,7 @@ export class SecuritySettingsResolver implements ISecuritySettingsService {
 
   }
 
-  public resolve = () => {
+  public resolve = (): ng.IPromise<GetSession[]> => {
     return this.SessionApi.getSessionsRoute().then((sessionList) => {
       return sessionList
     }, (error: any) => {

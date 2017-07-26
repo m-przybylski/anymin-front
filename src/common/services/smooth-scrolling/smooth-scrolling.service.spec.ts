@@ -1,12 +1,12 @@
 import * as angular from 'angular'
 import {SmoothScrollingService} from './smooth-scrolling.service'
 
-describe('Unit testing: profitelo.directives.services.smooth-scrolling >', function () {
-  describe('for profitelo.directives.services.smooth-scrolling >', function () {
+describe('Unit testing: profitelo.directives.services.smooth-scrolling >', function (): void {
+  describe('for profitelo.directives.services.smooth-scrolling >', function (): void {
 
     let smoothScrollingService: SmoothScrollingService
 
-    beforeEach(function () {
+    beforeEach(function (): void {
       angular.mock.module('profitelo.services.smooth-scrolling')
     })
 
@@ -19,7 +19,7 @@ describe('Unit testing: profitelo.directives.services.smooth-scrolling >', funct
     }))
 
     it('should simple scroll to', inject(() => {
-      spyOn($.fn, "stop")
+      spyOn($.fn, 'stop')
       smoothScrollingService.simpleScrollTo('<div class="dumb-class"></div>', true)
       $(window).triggerHandler('wheel')
       $('html, body').stop()

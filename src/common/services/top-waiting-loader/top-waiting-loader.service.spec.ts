@@ -22,7 +22,7 @@ describe('Unit testing: profitelo.services.pro-top-waiting-loader-service >', ()
                                                              $interval: ng.IIntervalService) => {
 
       const cbs = {
-        progressCallback: () => {
+        progressCallback: (): void => {
         }
       }
 

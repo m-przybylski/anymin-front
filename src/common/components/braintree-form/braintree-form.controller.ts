@@ -23,7 +23,7 @@ export class BraintreeFormComponentController implements ng.IController, IBraint
     this.PaymentsApi.getClientTokenRoute().then(this.createBrainTree, this.onGetTokenError)
   }
 
-  private onGetTokenError = (err: any) => {
+  private onGetTokenError = (err: any): void => {
     throw new Error('Can not get token: ' + err)
   }
 
@@ -157,19 +157,19 @@ export class BraintreeFormComponentController implements ng.IController, IBraint
 
   }
 
-  private onAddPaymentMethod = (res: ng.IPromise<JValue>) => {
+  private onAddPaymentMethod = (res: ng.IPromise<JValue>): void => {
     this.onFormSucceed(res)
   }
 
-  private onAddPaymentMethodError = (err: any) => {
+  private onAddPaymentMethodError = (err: any): void => {
     throw new Error('Can not send nonce: ' + err)
   }
 
-  private onCreateTransaction = (res: ng.IPromise<JValue>) => {
+  private onCreateTransaction = (res: ng.IPromise<JValue>): void => {
     this.onFormSucceed(res)
   }
 
-  private onCreateTransactionError = (err: any) => {
+  private onCreateTransactionError = (err: any): void => {
     throw new Error('Can not send nonce: ' + err)
   }
 }

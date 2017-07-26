@@ -6,7 +6,7 @@ export class WizardController implements ng.IController {
   constructor(private $state: ng.ui.IStateService, private previousState: string) {
   }
 
-  public onModalClose = () => {
+  public onModalClose = (): void => {
     if (this.previousState) {
       this.$state.go(this.previousState)
     } else {

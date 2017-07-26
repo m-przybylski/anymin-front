@@ -6,7 +6,7 @@ import {ProfiteloWebsocketService} from '../profitelo-websocket/profitelo-websoc
 
 export class CallSummaryService {
 
-  private callSummaries: Array<CallSummary>
+  private callSummaries: CallSummary[]
   private callbacks: CallbacksService
 
   private static readonly events = {
@@ -21,7 +21,7 @@ export class CallSummaryService {
     profiteloWebsocket.onCallSummary(this.onNewCallSummary)
   }
 
-  public onCallSummary = (callback: (callSummary: CallSummary) => void) => {
+  public onCallSummary = (callback: (callSummary: CallSummary) => void): void => {
     this.callbacks.methods.onCallSummary(callback)
   }
 
@@ -35,7 +35,7 @@ export class CallSummaryService {
     return callSummary
   }
 
-  private onNewCallSummary = (_callSummary: CallSummary) => {
+  private onNewCallSummary = (_callSummary: CallSummary): void => {
     this.callSummaries.push(_callSummary)
     this.callbacks.notify(CallSummaryService.events.onCallSummary, _callSummary)
   }

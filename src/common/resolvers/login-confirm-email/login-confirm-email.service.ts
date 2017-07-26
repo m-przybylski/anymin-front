@@ -25,7 +25,7 @@ class LoginConfirmEmailResolver implements ILoginConfirmEmailService {
   public resolve = (stateParams: IConfirmEmailStateParams): ng.IPromise<undefined> => {
     const _deferred = this.$q.defer<undefined>()
 
-    const handleBadToken = () => {
+    const handleBadToken = (): void => {
       _deferred.reject()
       this.topAlertService.error({
         message: this.$filter('translate')('LOGIN.EMAIL_CONFIRMATION_FAIL'),
@@ -36,7 +36,7 @@ class LoginConfirmEmailResolver implements ILoginConfirmEmailService {
       })
     }
 
-    const handleGoodToken = () => {
+    const handleGoodToken = (): void => {
 
       this.sessionService.getSession(true).then((_response) => {
 
@@ -56,7 +56,7 @@ class LoginConfirmEmailResolver implements ILoginConfirmEmailService {
 
     }
 
-    const verifyEmailToken = (token: string) => {
+    const verifyEmailToken = (token: string): void => {
 
       this.AccountApi.postAccountVerifyEmailRoute(token).then(_response => {
         handleGoodToken()

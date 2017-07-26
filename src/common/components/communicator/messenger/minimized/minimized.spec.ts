@@ -2,10 +2,10 @@ import * as angular from 'angular'
 import {IMessengerMinimizedComponentBindings} from './minimized'
 import {MessengerMinimizedComponentController} from './minimized.controller'
 import communicatorModule from '../../communicator'
-import {ClientCallService} from "../../call-services/client-call.service";
-import {ExpertCallService} from "../../call-services/expert-call.service";
-import {CurrentClientCall} from "../../models/current-client-call";
-import {CurrentExpertCall} from "../../models/current-expert-call";
+import {ClientCallService} from '../../call-services/client-call.service'
+import {ExpertCallService} from '../../call-services/expert-call.service'
+import {CurrentClientCall} from '../../models/current-client-call'
+import {CurrentExpertCall} from '../../models/current-expert-call'
 
 describe('Unit testing: profitelo.components.communicator.messenger.minimized', () => {
   return describe('for messengerMinimized component >', () => {
@@ -17,17 +17,17 @@ describe('Unit testing: profitelo.components.communicator.messenger.minimized', 
     const validHTML = '<minimized></minimized>'
 
     const bindings: IMessengerMinimizedComponentBindings = {
-      onMessageClick: () => {
+      onMessageClick: (): void => {
       }
     }
 
     const clientCallService: ClientCallService = {
-      onNewCall: (_cb: (call: CurrentClientCall) => void) => {
+      onNewCall: (_cb: (call: CurrentClientCall) => void): void => {
       }
     } as ClientCallService
 
     const expertCallService: ExpertCallService = {
-      onNewCall: (_cb: (call: CurrentExpertCall) => void) => {
+      onNewCall: (_cb: (call: CurrentExpertCall) => void): void => {
       }
     } as ExpertCallService
 
@@ -44,8 +44,8 @@ describe('Unit testing: profitelo.components.communicator.messenger.minimized', 
     function create(html: string, bindings: IMessengerMinimizedComponentBindings): JQuery {
       const parentScope: ng.IScope = rootScope.$new()
       const parentBoundScope = angular.extend(parentScope, bindings)
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(parentBoundScope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(parentBoundScope)
       parentBoundScope.$digest()
       return compiledElement
     }

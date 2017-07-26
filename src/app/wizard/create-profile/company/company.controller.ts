@@ -14,8 +14,8 @@ export class CompanyController implements ng.IController {
   public nameModel?: string = ''
   public logoModel?: string
   public descriptionModel?: string = ''
-  public filesModel?: Array<string> = []
-  public linksModel?: Array<string> = []
+  public filesModel?: string[] = []
+  public linksModel?: string[] = []
   public dictionary: {
     [key: string]: string
   }
@@ -29,7 +29,7 @@ export class CompanyController implements ng.IController {
               private wizardProfile?: GetWizardProfile) {
   }
 
-  public onGoBack = () => {
+  public onGoBack = (): void => {
     if (this.wizardProfile && !this.wizardProfile.isSummary) {
       this.currentWizardState.isExpert = false
       this.currentWizardState.isCompany = false
@@ -41,7 +41,7 @@ export class CompanyController implements ng.IController {
     }
   }
 
-  $onInit = () => {
+  $onInit = (): void => {
     if (this.wizardProfile) {
       this.currentWizardState = angular.copy(this.wizardProfile)
       if (this.wizardProfile.organizationDetailsOption) {
@@ -59,7 +59,7 @@ export class CompanyController implements ng.IController {
     this.saveWizardState(this.currentWizardState)
   }
 
-  public saveSteps = () => {
+  public saveSteps = (): void => {
     const wizardOrganizationModel: PartialOrganizationDetails = {
       name: this.nameModel,
       logo: this.logoModel,
@@ -74,7 +74,7 @@ export class CompanyController implements ng.IController {
     }
   }
 
-  public goToSummary = () => {
+  public goToSummary = (): void => {
     if (this.checkIsFormValid()) {
       this.currentWizardState.organizationDetailsOption!.links = this.linksModel
       this.currentWizardState.isSummary = true
@@ -86,23 +86,20 @@ export class CompanyController implements ng.IController {
     }
   }
 
-  public checkIsNameInputValid = () => {
-    return this.nameModel && this.nameModel.length > 2
-  }
+  public checkIsNameInputValid = (): boolean =>
+    (this.nameModel) ? this.nameModel.length > 2 : false
 
-  public checkIsLogoValid = () => {
-    return this.logoModel && this.logoModel.length > 0
-  }
+  public checkIsLogoValid = (): boolean =>
+    (this.logoModel) ? this.logoModel.length > 0 : false
 
-  public checkIsProfileDescriptionValid = () => {
-    return this.descriptionModel && this.descriptionModel.length > 49
-  }
+  public checkIsProfileDescriptionValid = (): boolean =>
+    (this.descriptionModel) ? this.descriptionModel.length > 49 : false
 
   public checkIsFileUploadValid = (): boolean => {
     return this.isUploading
   }
 
-  public onUploadingFile = (status: boolean) => {
+  public onUploadingFile = (status: boolean): void => {
     this.isUploading = status
   }
 
@@ -115,14 +112,14 @@ export class CompanyController implements ng.IController {
     )
   }
 
-  private saveWizardState = (wizardState: PutWizardProfile) => {
+  private saveWizardState = (wizardState: PutWizardProfile): ng.IPromise<GetWizardProfile> => {
     return this.WizardApi.putWizardProfileRoute(wizardState)
     .catch((error) => {
       throw new Error('Can not save profile steps' + error)
     })
   }
 
-  private checkIsAnyStepModelChange = (currentFormModel: PartialOrganizationDetails) => {
+  private checkIsAnyStepModelChange = (currentFormModel: PartialOrganizationDetails): boolean => {
     return !this.currentWizardState.organizationDetailsOption
       || !(_.isEqual(this.currentWizardState.organizationDetailsOption, currentFormModel))
   }

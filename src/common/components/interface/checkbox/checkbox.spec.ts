@@ -17,10 +17,10 @@ describe('Unit testing: profitelo.components.interface.checkbox', () => {
     let validHTML = '<checkbox data-input-text="inputtext" data-additional-text="additinal"' +
       'data-is-disabled="false"></checkbox>'
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
@@ -47,7 +47,7 @@ describe('Unit testing: profitelo.components.interface.checkbox', () => {
         ngRequired: false,
         ngModel: false,
         validation: true,
-        onChange: () => {
+        onChange: (): void => {
         }
       }
 

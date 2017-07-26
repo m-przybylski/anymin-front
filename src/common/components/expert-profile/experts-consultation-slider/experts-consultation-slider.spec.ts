@@ -11,7 +11,7 @@ describe('Unit testing: profitelo.components.expert-profile.experts-consultation
     let componentController: any
     let component: any
     let urlService: UrlService
-    let validHTML = '<experts-consultation-slider data-title="title" data-experts="[]"></experts-consultation-slider>'
+    const validHTML = '<experts-consultation-slider data-title="title" data-experts="[]"></experts-consultation-slider>'
     const bindings = {
       experts: [],
       title: 'title'
@@ -33,10 +33,10 @@ describe('Unit testing: profitelo.components.expert-profile.experts-consultation
 
     })
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
@@ -46,13 +46,13 @@ describe('Unit testing: profitelo.components.expert-profile.experts-consultation
     }))
 
     it('should compile the component', () => {
-      let el = create(validHTML)
+      const el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
 
     it('should go to nextSlide', () => {
       rootScope.controlls = {
-        nextSlide: () => {
+        nextSlide: (): void => {
         }
       }
       spyOn(rootScope.controlls, 'nextSlide')
@@ -62,7 +62,7 @@ describe('Unit testing: profitelo.components.expert-profile.experts-consultation
 
     it('should go to prevSlide', () => {
       rootScope.controlls = {
-        prevSlide: () => {
+        prevSlide: (): void => {
         }
       }
       spyOn(rootScope.controlls, 'prevSlide')

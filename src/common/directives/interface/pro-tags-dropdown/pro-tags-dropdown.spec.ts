@@ -6,7 +6,7 @@ namespace profitelo.directives.interface.proTagsDropdown {
       let scope: any = null
       let rootScope: ng.IRootScopeService
       let compile: any = null
-      let validHTML = '<pro-tags-dropdown pro-model="RANDOM" disable-tagging no-search></pro-tags-dropdown>'
+      const validHTML = '<pro-tags-dropdown pro-model="RANDOM" disable-tagging no-search></pro-tags-dropdown>'
       let timeout: ng.ITimeoutService
 
       beforeEach(() => {
@@ -21,10 +21,10 @@ namespace profitelo.directives.interface.proTagsDropdown {
 
       })
 
-      function create(html: string) {
+      function create(html: string): JQuery {
         scope = rootScope.$new()
-        let elem = angular.element(html)
-        let compiledElement = compile(elem)(scope)
+        const elem = angular.element(html)
+        const compiledElement = compile(elem)(scope)
         scope.$digest()
         return compiledElement
       }
@@ -34,28 +34,28 @@ namespace profitelo.directives.interface.proTagsDropdown {
       }))
 
       it('should compile the directive', () => {
-        let el = create(validHTML)
+        const el = create(validHTML)
         expect(el.html()).toBeDefined(true)
       })
 
       it('should transform tag', () => {
-        let el = create(validHTML)
-        let isoScope = el.isolateScope()
+        const el = create(validHTML)
+        const isoScope = el.isolateScope()
         isoScope.tagTransform('123123')
         expect(isoScope.valid).toEqual(false)
       })
 
       it('should  not transform tag', () => {
-        let el = create(validHTML)
-        let isoScope = el.isolateScope()
+        const el = create(validHTML)
+        const isoScope = el.isolateScope()
         isoScope.validPattern = '12313'
         isoScope.tagTransform('123123')
         expect(isoScope.valid).toEqual(true)
       })
 
       it('should select tag', () => {
-        let el = create(validHTML)
-        let isoScope = el.isolateScope()
+        const el = create(validHTML)
+        const isoScope = el.isolateScope()
         isoScope.proModel = []
         isoScope.select()
         isoScope.searchEnable()
@@ -64,8 +64,8 @@ namespace profitelo.directives.interface.proTagsDropdown {
       })
 
       it('should remove tag and update perfect scroll-bar', () => {
-        let el = create(validHTML)
-        let isoScope = el.isolateScope()
+        const el = create(validHTML)
+        const isoScope = el.isolateScope()
         isoScope.proModel = ['a']
         isoScope.remove('a')
         isoScope.update()
@@ -74,8 +74,8 @@ namespace profitelo.directives.interface.proTagsDropdown {
       })
 
       it('should focus input', () => {
-        let el = create(validHTML)
-        let isoScope = el.isolateScope()
+        const el = create(validHTML)
+        const isoScope = el.isolateScope()
         el.find('.ui-select-container').triggerHandler('click')
         isoScope.onFocus()
         expect(isoScope.focus).toBe(true)
@@ -83,16 +83,16 @@ namespace profitelo.directives.interface.proTagsDropdown {
       })
 
       it('should block enter key', () => {
-        let el = create(validHTML)
-        let isoScope = el.isolateScope()
+        const el = create(validHTML)
+        const isoScope = el.isolateScope()
         const event = {
           keyCode: 38,
-          preventDefault: () => {
+          preventDefault: (): void => {
 
           }
         }
         const select = {
-          search: () => {
+          search: (): void => {
 
           }
         }
@@ -103,11 +103,11 @@ namespace profitelo.directives.interface.proTagsDropdown {
       })
 
       it('should block enter key', () => {
-        let el = create('<pro-tags-dropdown pro-model="RANDOM" disable-tagging disable-typing  no-search></pro-tags-dropdown>')
-        let isoScope = el.isolateScope()
+        const el = create('<pro-tags-dropdown pro-model="RANDOM" disable-tagging disable-typing  no-search></pro-tags-dropdown>')
+        const isoScope = el.isolateScope()
         const event = {
           keyCode: 38,
-          preventDefault: () => {
+          preventDefault: (): void => {
 
           }
         }

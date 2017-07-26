@@ -8,8 +8,7 @@ import {SoundsService} from '../../../services/sounds/sounds.service';
 
 export class CurrentClientCall extends CurrentCall {
 
-  constructor($q: ng.IQService,
-              timerFactory: TimerFactory,
+  constructor(timerFactory: TimerFactory,
               callbacksFactory: CallbacksFactory,
               call: RatelSdk.BusinessCall,
               localStream: MediaStream,
@@ -18,7 +17,7 @@ export class CurrentClientCall extends CurrentCall {
               RatelApi: RatelApi,
               private expert: GetProfile) {
 
-    super(callbacksFactory, $q, soundsService, call, timerFactory, service, RatelApi);
+    super(callbacksFactory, soundsService, call, timerFactory, service, RatelApi);
     this.setLocalStream(localStream);
     this.call.addStream(localStream);
 

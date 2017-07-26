@@ -9,15 +9,15 @@ describe('Unit testing: profitelo.components.dashboard.settings.navigation', () 
     let compile: ng.ICompileService
     let componentController: any
     let component: any
-    let validHTML = '<settings-navigation></settings-navigation>'
-    let userService = {
-      getUser: () => true
+    const validHTML = '<settings-navigation></settings-navigation>'
+    const userService = {
+      getUser: (): boolean => true
     }
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }

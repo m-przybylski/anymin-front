@@ -29,7 +29,6 @@ describe('Testing Controller: consultationSummaryExpertController', () => {
       scope = <IConsultationSummaryExpertControllerScope>$rootScope.$new()
       scope.$parent.sueId = '123'
 
-
       expertConsultationDetails = $controller<ConsultationSummaryExpertController>('consultationSummaryExpertController', {
         $scope: scope,
         $uibModalInstance: $uibModalInstance,

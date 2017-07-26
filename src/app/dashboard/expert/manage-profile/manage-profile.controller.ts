@@ -8,7 +8,7 @@ export class DashboardExpertManageProfileController {
 
   }
 
-  public openEditProfileModal = () => {
+  public openEditProfileModal = (): void => {
     this.modalsService.createManageProfileEditProfileModal()
   }
 }

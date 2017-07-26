@@ -1,9 +1,9 @@
 import * as angular from 'angular'
 import '../../../../../../../../components/complaints/status/status'
 
-(function() {
+(function(): void {
   /* @ngInject */
-  function controller() {
+  function controller(): void {
 
     return this
   }

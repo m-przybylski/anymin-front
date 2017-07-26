@@ -15,7 +15,7 @@ export class ProfileSingleConsultationComponentController implements IProfileSin
               private $state: ng.ui.IStateService) {
   }
 
-  public startCall = (consultation: GetService) => {
+  public startCall = (consultation: GetService): void => {
     this.userService.getUser()
     .then(() => this.clientCallService.callServiceId(consultation.id, this.profileId),
       () => this.$state.go('app.login.account'))

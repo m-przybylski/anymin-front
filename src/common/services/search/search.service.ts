@@ -1,3 +1,4 @@
+/* tslint:disable:  typedef */
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {SearchResult} from 'profitelo-api-ng/model/models'

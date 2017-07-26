@@ -1,5 +1,5 @@
 import * as angular from 'angular'
-import {MoneyDto, GetActivity, FinancialOperation, GetActivityFilters} from 'profitelo-api-ng/model/models'
+import {MoneyDto, GetActivity, FinancialOperation, GetActivityFilters, GetActivities} from 'profitelo-api-ng/model/models'
 import 'common/components/dashboard/client/activities/client-activities/activity/activity'
 import 'common/components/interface/preloader-container/preloader-container'
 import 'common/components/complaints/status/status'
@@ -15,7 +15,7 @@ import noResultsInformationModule from '../../../../common/components/dashboard/
 export class DashboardClientActivitiesController {
 
   public balance: MoneyDto
-  public activities: Array<GetActivity>
+  public activities: GetActivity[]
   public isSearchLoading: boolean = true
   public isActivitiesHistory: boolean = false
   public isMoreResults: boolean = false
@@ -45,7 +45,7 @@ export class DashboardClientActivitiesController {
     this.filters = filtersData
   }
 
-  public sendRequestAgain = (activitiesQueryParams: ActivitiesQueryParams) => {
+  public sendRequestAgain = (activitiesQueryParams: ActivitiesQueryParams): void => {
     this.isSearchLoading = true
     this.getDashboardActivities(activitiesQueryParams).then((getActivities) => {
       this.activities = getActivities.activities
@@ -54,13 +54,13 @@ export class DashboardClientActivitiesController {
     })
   }
 
-  public loadMoreActivities = () => {
+  public loadMoreActivities = (): void => {
     this.dashboardActivitiesService.getDashboardActivities(this.activitiesQueryParam).then((getActivities) => {
       this.activities.concat(getActivities.activities)
     })
   }
 
-  public onSetFiltersParams = (activitiesQueryParams: ActivitiesQueryParams) => {
+  public onSetFiltersParams = (activitiesQueryParams: ActivitiesQueryParams): void => {
     this.setBasicQueryParam(activitiesQueryParams)
     this.getDashboardActivities(activitiesQueryParams)
     .then((getActivities) => {
@@ -69,11 +69,11 @@ export class DashboardClientActivitiesController {
     })
   }
 
-  public searchForExpert = () => {
+  public searchForExpert = (): void => {
     this.$state.go('app.search-result')
   }
 
-  private getDashboardActivities = (activitiesQueryParams: ActivitiesQueryParams) => {
+  private getDashboardActivities = (activitiesQueryParams: ActivitiesQueryParams): ng.IPromise<GetActivities> => {
     return this.dashboardActivitiesService.getDashboardActivities(activitiesQueryParams)
     .catch((error) => {
       this.isSearchLoading = false
@@ -86,7 +86,7 @@ export class DashboardClientActivitiesController {
     })
   }
 
-  private setBasicQueryParam = (activitiesQueryParams: ActivitiesQueryParams) => {
+  private setBasicQueryParam = (activitiesQueryParams: ActivitiesQueryParams): void => {
     activitiesQueryParams.setLimit(DashboardClientActivitiesController.queryLimit)
     activitiesQueryParams.setOffset(0)
     activitiesQueryParams.setAccountType(this.accountType)
@@ -103,7 +103,7 @@ angular.module('profitelo.controller.dashboard.client.activities', [
   'profitelo.components.complaints.status',
   noResultsInformationModule
 ])
-.config(function ($stateProvider: ng.ui.IStateProvider) {
+.config(function ($stateProvider: ng.ui.IStateProvider): void {
   $stateProvider.state('app.dashboard.client.activities', {
     url: '/activities',
     template: require('./activities.pug')(),
@@ -111,7 +111,7 @@ angular.module('profitelo.controller.dashboard.client.activities', [
     controllerAs: 'vm',
     resolve: {
       /* istanbul ignore next */
-      filtersData: (dashboardActivitiesService: DashboardActivitiesService) =>
+      filtersData: (dashboardActivitiesService: DashboardActivitiesService): ng.IPromise<GetActivityFilters> =>
         dashboardActivitiesService.resolveFilters(FinancialOperation.AccountTypeEnum.CLIENT)
     }
   })

@@ -1,7 +1,7 @@
-(function () {
+(function (): void {
 
   /* @ngInject */
-  function thankYouPageController($location: ng.ILocationService) {
+  function thankYouPageController($location: ng.ILocationService): void {
 
     this.showRecharge = false
     this.price = null

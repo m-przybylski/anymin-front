@@ -41,7 +41,7 @@ export class DashboardSettingsPaymentsController implements ng.IController {
       this.accountBalance = clientBalance
     }, (error) => {
       throw new Error('Can not get user balance: ' + error)
-    }).finally(()=> {
+    }).finally(() => {
       this.isClientBalanceLoaded = true
     })
 
@@ -106,10 +106,10 @@ angular.module('profitelo.controller.dashboard.settings.payments', [
       controller: 'dashboardSettingsPaymentsController',
       controllerAs: 'vm',
       resolve: {
-        getInvoiceData: (invoiceDataResolver: InvoiceDataResolver) => {
+        getInvoiceData: (invoiceDataResolver: InvoiceDataResolver): ng.IPromise<CompanyInfo> => {
           return invoiceDataResolver.resolveCompanyInfo()
         },
-        user: (userService: UserService) => {
+        user: (userService: UserService): ng.IPromise<AccountDetails> => {
           return userService.getUser(true)
         }
       }

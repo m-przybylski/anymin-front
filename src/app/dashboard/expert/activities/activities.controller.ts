@@ -5,6 +5,8 @@ DashboardActivitiesService
 import {ActivitiesQueryParams} from '../../../../common/services/dashboard-activites/activities-query-params'
 import {TopAlertService} from '../../../../common/services/top-alert/top-alert.service'
 
+import {GetActivities} from 'profitelo-api-ng/model/models'
+
 export class DashboardExpertActivitiesController {
 
   public areActivities: boolean
@@ -45,7 +47,7 @@ export class DashboardExpertActivitiesController {
 
     this.filters = filtersData
   }
-  public sendRequestAgain = (activitiesQueryParams: ActivitiesQueryParams) => {
+  public sendRequestAgain = (activitiesQueryParams: ActivitiesQueryParams): void => {
     this.isSearchLoading = true
     this.getDashboardActivities(activitiesQueryParams).then((getActivities) => {
       this.activities = getActivities.activities
@@ -54,13 +56,13 @@ export class DashboardExpertActivitiesController {
     })
   }
 
-  public loadMoreActivities = () => {
+  public loadMoreActivities = (): void => {
     this.dashboardActivitiesService.getDashboardActivities(this.activitiesQueryParam).then((getActivities) => {
       this.activities.concat(getActivities.activities)
     })
   }
 
-  public onSetFiltersParams = (activitiesQueryParams: ActivitiesQueryParams) => {
+  public onSetFiltersParams = (activitiesQueryParams: ActivitiesQueryParams): void => {
     this.setBasicQueryParam(activitiesQueryParams)
     this.getDashboardActivities(activitiesQueryParams)
     .then((getActivities) => {
@@ -69,7 +71,7 @@ export class DashboardExpertActivitiesController {
     })
   }
 
-  private getDashboardActivities = (activitiesQueryParams: ActivitiesQueryParams) => {
+  private getDashboardActivities = (activitiesQueryParams: ActivitiesQueryParams): ng.IPromise<GetActivities> => {
     return this.dashboardActivitiesService.getDashboardActivities(activitiesQueryParams)
     .catch((error) => {
       this.isSearchLoading = false
@@ -82,7 +84,7 @@ export class DashboardExpertActivitiesController {
     })
   }
 
-  private setBasicQueryParam = (activitiesQueryParams: ActivitiesQueryParams) => {
+  private setBasicQueryParam = (activitiesQueryParams: ActivitiesQueryParams): void => {
     activitiesQueryParams.setLimit(DashboardExpertActivitiesController.queryLimit)
     activitiesQueryParams.setOffset(0)
     activitiesQueryParams.setAccountType(this.accountType)

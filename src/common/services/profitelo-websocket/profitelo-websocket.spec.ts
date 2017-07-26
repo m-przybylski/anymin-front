@@ -14,19 +14,19 @@ describe('Unit testing: profitelo.services.profiteloWebsocket >', () => {
     let q: IQService
 
     const eventsService: any = {
-      on: (_param: string, callback: () => void) => {
+      on: (_param: string, callback: () => void): void => {
         callback()
       }
     }
 
     const userService: any = {
-      getUser: () => {
+      getUser: (): ng.IPromise<{}> => {
         return q.resolve({})
       }
     }
 
     const callbacksFactory: any = {
-      getInstance: (keys: Array<string>) => {
+      getInstance: (keys: Array<string>): CallbacksService => {
         return new CallbacksService(this.$timeout, keys)
       }
     }

@@ -7,10 +7,10 @@ import * as angular from 'angular'
     constructor() {
     }
 
-    public link = (scope: ng.IScope, elem: ng.IRootElementService, attrs: ng.IAttributes) => {
-      elem.bind('keydown keypress', function(event) {
+    public link = (scope: ng.IScope, elem: ng.IRootElementService, attrs: ng.IAttributes): void => {
+      elem.bind('keydown keypress', function(event): void {
         if (event.which === 13) {
-          scope.$apply(function() {
+          scope.$apply(function(): void {
             scope.$eval(attrs.ngEnter)
           })
           event.preventDefault()
@@ -18,8 +18,8 @@ import * as angular from 'angular'
       })
     }
 
-    public static getInstance = () => {
-      const instance = () =>
+    public static getInstance = (): () => NgEnter => {
+      const instance = (): NgEnter =>
         new NgEnter()
       instance.$inject = []
       return instance

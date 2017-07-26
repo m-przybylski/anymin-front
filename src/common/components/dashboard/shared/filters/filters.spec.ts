@@ -15,7 +15,7 @@ describe('Unit testing: profitelo.components.dashboard.activities.filters', () =
     let componentController: ng.IComponentControllerService
     let component: any
     const userService = {
-      getUser: () => true
+      getUser: (): boolean => true
     }
     const filtersMock = {
       activityTypes: ['asas', 'asdasd', 'asdasd'],
@@ -30,10 +30,10 @@ describe('Unit testing: profitelo.components.dashboard.activities.filters', () =
       }]
     }
     let dashboardActivitiesService: DashboardActivitiesService
-    let validHTML = '<dashboard-filters filters="filters" account-type="accountType" ' +
+    const validHTML = '<dashboard-filters filters="filters" account-type="accountType" ' +
       'on-set-search-params="onSetSearchParams"></dashboard-filters>'
     let injectors = {}
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
       scope.filters = {
         activityTypes: ['asd'],
@@ -44,9 +44,9 @@ describe('Unit testing: profitelo.components.dashboard.activities.filters', () =
         experts: []
       }
       scope.accountType = FinancialOperation.AccountTypeEnum.PROFILE
-      scope.onSetSearchParams = () => {}
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      scope.onSetSearchParams = (): void => {}
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
@@ -83,7 +83,7 @@ describe('Unit testing: profitelo.components.dashboard.activities.filters', () =
       }
       const bindings = {
         filters: filtersMock,
-        onSetSearchParams: () => true,
+        onSetSearchParams: (): boolean => true,
         accountType: FinancialOperation.AccountTypeEnum.PROFILE
       }
 

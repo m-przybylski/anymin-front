@@ -28,12 +28,12 @@ export interface ISetNewPasswordStateParams {
 function SetNewPasswordController($state: ng.ui.IStateService, $filter: IFilterService,
                                   tokenStatus: ILoginSetNewPassword, passwordStrengthService: PasswordStrengthService,
                                   topAlertService: TopAlertService, RecoverPasswordApi: RecoverPasswordApi,
-                                  CommonSettingsService: CommonSettingsService, $log: ng.ILogService) {
+                                  CommonSettingsService: CommonSettingsService, $log: ng.ILogService): void {
 
   this.newPassword = ''
   this.patternPassword = CommonSettingsService.localSettings.passwordPattern
 
-  const _passwordChangeError = () => {
+  const _passwordChangeError = (): void => {
     $state.go('app.login.account')
     topAlertService.error({
       message: $filter('translate')('INTERFACE.API_ERROR'),
@@ -41,7 +41,7 @@ function SetNewPasswordController($state: ng.ui.IStateService, $filter: IFilterS
     })
   }
 
-  const _passwordChangeSuccess = () => {
+  const _passwordChangeSuccess = (): void => {
     $state.go('app.login.account')
     topAlertService.success({
       message: $filter('translate')('LOGIN.PASSWORD_RECOVERY.PASSWORD_HAD_BEEN_CHANGED'),
@@ -49,7 +49,7 @@ function SetNewPasswordController($state: ng.ui.IStateService, $filter: IFilterS
     })
   }
 
-  const _submitPasswordChangeBySms = () => {
+  const _submitPasswordChangeBySms = (): void => {
     (<any>tokenStatus.payload).password = this.newPassword
 
     if (tokenStatus.payload.msisdn) {
@@ -67,7 +67,7 @@ function SetNewPasswordController($state: ng.ui.IStateService, $filter: IFilterS
     }
   }
 
-  const _submitPasswordChangeByEmail = () => {
+  const _submitPasswordChangeByEmail = (): void => {
     (<any>tokenStatus).payload.password = this.newPassword
 
     const putRecoverPassword = {
@@ -79,11 +79,11 @@ function SetNewPasswordController($state: ng.ui.IStateService, $filter: IFilterS
       .then(_passwordChangeSuccess, _passwordChangeError)
   }
 
-  this.onPasswordChange = (password: string) => {
+  this.onPasswordChange = (password: string): void => {
     this.passwordStrength = passwordStrengthService.getStrength(password)
   }
 
-  this.submitPasswordChange = () => {
+  this.submitPasswordChange = (): void => {
 
     if (tokenStatus.method === 'SMS') {
       _submitPasswordChangeBySms()
@@ -97,15 +97,14 @@ function SetNewPasswordController($state: ng.ui.IStateService, $filter: IFilterS
 
 }
 
-function config($stateProvider: ng.ui.IStateProvider) {
+function config($stateProvider: ng.ui.IStateProvider): void {
   $stateProvider.state('app.login.set-new-password', {
     url: '/set-new-password/token/:token/{method:|sms}',
     controllerAs: 'vm',
     controller: 'SetNewPasswordController',
     template: require('./set-new-password.pug')(),
     resolve: {
-
-      tokenStatus: ($stateParams: ISetNewPasswordStateParams, LoginSetNewPasswordResolver: ILoginSetNewPasswordService) => {
+      tokenStatus: ($stateParams: ISetNewPasswordStateParams, LoginSetNewPasswordResolver: ILoginSetNewPasswordService): ng.IPromise<ILoginSetNewPassword> => {
         /* istanbul ignore next */
         return LoginSetNewPasswordResolver.resolve($stateParams)
       }

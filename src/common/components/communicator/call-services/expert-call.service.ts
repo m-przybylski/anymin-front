@@ -30,7 +30,6 @@ export class ExpertCallService {
               private modalsService: ModalsService,
               private soundsService: SoundsService,
               private $log: ng.ILogService,
-              private $q: ng.IQService,
               private callbacksFactory: CallbacksFactory,
               private RatelApi: RatelApi,
               private communicatorService: CommunicatorService) {
@@ -48,7 +47,7 @@ export class ExpertCallService {
       this.ServiceApi.getIncomingCallDetailsRoute(callInvitation.call.id).then((incomingCallDetails) => {
 
         const currentExpertCall = new CurrentExpertCall(this.timerFactory, this.callbacksFactory, callInvitation,
-          incomingCallDetails, this.$q, this.soundsService, this.RatelApi);
+          incomingCallDetails, this.soundsService, this.RatelApi);
 
         this.currentExpertCall = currentExpertCall;
 

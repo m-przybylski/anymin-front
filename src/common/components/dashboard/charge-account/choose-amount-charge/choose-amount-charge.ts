@@ -33,7 +33,7 @@ export class ChooseAmountChargeComponentController implements IChooseAmountCharg
     this.firstSelect = this.activeOption !== null
   }
 
-  $onInit = () => {
+  $onInit = (): void => {
     this.minimalPaymentAmount = this.amounts.minimalAmounts.amount / this.amountModifier
 
     if (angular.isDefined(this.amountModel.amount) && this.amountModel.amount !== null) {
@@ -66,7 +66,7 @@ export class ChooseAmountChargeComponentController implements IChooseAmountCharg
     })
   }
 
-  public onEnter = () => {
+  public onEnter = (): void => {
     if (this.amounts && this.amounts.minimalAmounts && this.cashAmountModel &&
       this.cashAmountModel > this.amounts.minimalAmounts.amount / this.amountModifier) {
       this.scrollHandler(2)
@@ -74,7 +74,7 @@ export class ChooseAmountChargeComponentController implements IChooseAmountCharg
     angular.element('.option-own-amount').find('input').blur()
   }
 
-  public selectAmountOption = (index: number) => {
+  public selectAmountOption = (index: number): void => {
     this.activeOption = index
     if (index !== 3) {
       this.cashAmountModel = null
@@ -93,8 +93,8 @@ export class ChooseAmountChargeComponentController implements IChooseAmountCharg
     }
   }
 
-  public minimalAmountValidation = () => {
-    return (this.activeOption === 3 && this.cashAmountModel && this.cashAmountModel <
+  public minimalAmountValidation = (): boolean => {
+    return !!(this.activeOption === 3 && this.cashAmountModel && this.cashAmountModel <
     this.amounts.minimalAmounts.amount / this.amountModifier
     && !angular.element('.option-own-amount').find('input:focus')[0])
   }

@@ -13,7 +13,7 @@ describe('Unit tests: profitelo.controller.login.forgot-password >', () => {
     let RecoverPasswordApiMock: RecoverPasswordApiMock
     const _url = 'awesomeUrl'
 
-    let account = {
+    const account = {
       accountObject: {
         phoneNumber: {
           prefix: '+45',
@@ -25,7 +25,7 @@ describe('Unit tests: profitelo.controller.login.forgot-password >', () => {
     }
 
     const $state = {
-      go: () => {
+      go: (): void => {
       }
     }
 

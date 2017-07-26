@@ -4,18 +4,22 @@ import soundsModule from './sounds'
 interface Window {
   Audio: any;
 }
-
+interface IAudioMock {
+  addEventListener: () => void,
+  play: () => void,
+  pause: () => void
+}
 declare const window: Window;
 
 describe('Unit testing: profitelo.services.sounds >', () => {
   describe('for profitelo.services.sounds >', () => {
 
     const audioMock = {
-      addEventListener: () => {
+      addEventListener: (): void => {
       },
-      play: () => {
+      play: (): void => {
       },
-      pause: () => {
+      pause: (): void => {
       }
     }
     let soundsService: any
@@ -28,7 +32,7 @@ describe('Unit testing: profitelo.services.sounds >', () => {
 
     beforeEach(() => {
       audioOriginal = window.Audio
-      window.Audio = () => audioMock
+      window.Audio = (): IAudioMock => audioMock
     })
 
     afterEach(() => {

@@ -12,7 +12,7 @@ describe('Testing Controller: generalEmailSettingsController', () => {
     jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss'])
 
   const userService = {
-    getUser: () => {
+    getUser: (): void => {
     }
   }
 

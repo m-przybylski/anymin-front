@@ -16,7 +16,7 @@ export class NoResultsInformationController implements INoResultsInformationComp
   /* @ngInject */
   constructor() {
 
-    this.buttonCallback = () => {
+    this.buttonCallback = (): void => {
       if (this.buttonOnClick && angular.isFunction(this.buttonOnClick)) {
         this.buttonOnClick()
       }

@@ -1,7 +1,7 @@
 namespace profitelo.filters.semicolonToCommaInput {
 
-  function semicolonToCommaInputFilter() {
-    return function(input: string) {
+  function semicolonToCommaInputFilter(): (input: string) => string {
+    return function(input: string): string {
 
       return input.replace(',', '.')
     }

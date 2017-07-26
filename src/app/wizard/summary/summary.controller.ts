@@ -40,13 +40,13 @@ export class SummaryController implements ng.IController {
 
   }
 
-  $onInit() {
+  $onInit(): void {
       this.isConsultation = !!(this.wizardProfile.services
       && this.wizardProfile.services.length > 0)
       this.services = this.wizardProfile.services
   }
 
-  public onMainProfileDelete = () => {
+  public onMainProfileDelete = (): void => {
     this.WizardApi.putWizardProfileRoute({
       isSummary: false,
       isCompany: false,
@@ -58,7 +58,7 @@ export class SummaryController implements ng.IController {
     })
   }
 
-  public onSecondProfileDelete = () => {
+  public onSecondProfileDelete = (): void => {
     if (this.wizardProfile) {
       this.wizardProfile.expertDetailsOption = void 0
       this.wizardProfile.isExpert = false
@@ -72,7 +72,7 @@ export class SummaryController implements ng.IController {
     }
   }
 
-  public onMainProfileEdit = () => {
+  public onMainProfileEdit = (): void => {
     if (this.wizardProfile && this.wizardProfile.isExpert && !this.wizardProfile.isCompany) {
       this.$state.go('app.wizard.create-profile.expert')
     } else {
@@ -80,11 +80,11 @@ export class SummaryController implements ng.IController {
     }
   }
 
-  public onSecondProfileEdit = () => {
+  public onSecondProfileEdit = (): void => {
     this.$state.go('app.wizard.create-profile.expert')
   }
 
-  public removeConsultation = (serviceToDelete: WizardService) => {
+  public removeConsultation = (serviceToDelete: WizardService): void => {
     if (this.wizardProfile && this.services) {
       _.remove(this.services, (service) => serviceToDelete === service)
       this.wizardProfile.services = this.services
@@ -95,13 +95,13 @@ export class SummaryController implements ng.IController {
     }
   }
 
-  public editConsultation = (service: WizardService) => {
+  public editConsultation = (service: WizardService): void => {
     this.$state.go('app.wizard.consultation', {
       service: service
     })
   }
 
-  public saveWizard = () => {
+  public saveWizard = (): void => {
     if (this.checkIsWizardValid()) {
       this.WizardApi.postWizardCompleteRoute().then((_response) => {
         this.userService.getUser(true).then(() => {
@@ -131,23 +131,23 @@ export class SummaryController implements ng.IController {
     return false
   }
 
-  private checkIsExpertProfileValid = () => {
+  private checkIsExpertProfileValid = (): string | boolean | undefined => {
     return this.wizardProfile.isExpert && this.wizardProfile.expertDetailsOption
       && this.wizardProfile.expertDetailsOption.avatar && this.wizardProfile.expertDetailsOption.description
       && this.wizardProfile.expertDetailsOption.languages && this.wizardProfile.expertDetailsOption.name
   }
 
-  private checkIsWizardHasService = () => {
+  private checkIsWizardHasService = (): boolean | undefined => {
     return this.wizardProfile.services && this.wizardProfile.services.length > 0
   }
 
-  private checkIsCompanyProfileValid = () => {
+  private checkIsCompanyProfileValid = (): string | boolean | undefined => {
     return this.wizardProfile.isCompany && this.wizardProfile.organizationDetailsOption
       && this.wizardProfile.organizationDetailsOption.name && this.wizardProfile.organizationDetailsOption.logo
       && this.wizardProfile.organizationDetailsOption.description
   }
 
-  private checkIfUserCanCreateExpertProfile = () => {
+  private checkIfUserCanCreateExpertProfile = (): boolean => {
     if (this.wizardProfile && this.wizardProfile.services) {
       return !!(_.find(this.wizardProfile.services, (service) => {
         return service.isOwnerEmployee

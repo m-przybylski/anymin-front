@@ -4,11 +4,11 @@ namespace profitelo.components.dashboard.client.activities.modals.complainReport
 
     let clientComplainReportController: any
     let scope: any
-    let uibModalInstance = {
-      dismiss: () => {
+    const uibModalInstance = {
+      dismiss: (): void => {
 
       },
-      close: () => {
+      close: (): void => {
 
       }
     }
@@ -18,7 +18,7 @@ namespace profitelo.components.dashboard.client.activities.modals.complainReport
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
 
         scope = $rootScope.$new()
-        scope.disconnectCall = () => {
+        scope.disconnectCall = (): void => {
         }
 
         clientComplainReportController = $controller('clientComplainReportController', {

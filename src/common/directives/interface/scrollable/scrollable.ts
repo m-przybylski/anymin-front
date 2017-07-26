@@ -29,7 +29,7 @@ namespace profitelo.directives.scrollable {
                 private styleConstant: IStyleConstant) {
     }
 
-    public link = (scope: IScrollableDirectiveScope, element: ng.IRootElementService, _attr: ng.IAttributes) => {
+    public link = (scope: IScrollableDirectiveScope, element: ng.IRootElementService, _attr: ng.IAttributes): void => {
       this.element = element
       this.directiveHeight = element.height()
       this.scrollableContent = element.find('.scrollable-center')
@@ -56,7 +56,7 @@ namespace profitelo.directives.scrollable {
       return isNavbar.length > 0
     }
 
-    private setScrollableContainerPosition = () => {
+    private setScrollableContainerPosition = (): void => {
       this.scrollableContent.css('min-height', this.previousScrollableContentHeight)
 
       if (this.scrollableContent.outerHeight() + ((this.isNavbarVisible()) ? this.navbarHeight : 0) > this.element.height()) {
@@ -68,7 +68,7 @@ namespace profitelo.directives.scrollable {
       }
     }
 
-    private setNewContainerHeight = () => {
+    private setNewContainerHeight = (): void => {
       const actualScrollableContentHeight = this.element.find('.scrollable-default-height').height()
       if (this.previousScrollableContentHeight !== actualScrollableContentHeight) {
         this.previousScrollableContentHeight = actualScrollableContentHeight
@@ -76,7 +76,7 @@ namespace profitelo.directives.scrollable {
       }
     }
 
-    private centerContent = () => {
+    private centerContent = (): void => {
       this.directiveHeight = this.element.height()
       const positionTop = (this.directiveHeight - ((this.isNavbarVisible()) ? this.navbarHeight : 0) - this.scrollableContent.height()) / 2
 
@@ -86,13 +86,13 @@ namespace profitelo.directives.scrollable {
       })
     }
 
-    private onWindowResize = () => {
+    private onWindowResize = (): void => {
       this.centerContent()
       this.setScrollableContainerPosition()
     }
 
-    public static getInstance = () => {
-      const instance = ($timeout: ng.ITimeoutService, $interval: ng.IIntervalService, styleConstant: IStyleConstant) =>
+    public static getInstance = (): ($timeout: ng.ITimeoutService, $interval: ng.IIntervalService, styleConstant: IStyleConstant) => ScrollableDirective => {
+      const instance = ($timeout: ng.ITimeoutService, $interval: ng.IIntervalService, styleConstant: IStyleConstant): ScrollableDirective =>
         new ScrollableDirective($timeout, $interval, styleConstant)
       instance.$inject = ['$timeout', '$interval', 'styleConstant']
       return instance

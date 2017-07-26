@@ -9,7 +9,7 @@ describe('Unit tests: profitelo.controller.dashboard.charge-account >', () => {
 
     let chargeAccountController: any
     let _scope: any
-    let url = 'awesomeUrl'
+    const url = 'awesomeUrl'
     let _timeout: ng.ITimeoutService
     let _window: IWindowService
     let _smoothScrollingService: SmoothScrollingService

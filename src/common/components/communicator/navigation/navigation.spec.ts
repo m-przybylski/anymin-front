@@ -18,10 +18,10 @@ describe('Unit testing: profitelo.components.communicator.navigation', () => {
     const validHTML: string = '<communicator-nav is-video="isVideo" is-messenger="isMessenger"></communicator-nav>'
 
     const currentCall: CurrentCall = {
-      stopAudio: () => {},
-      startAudio: () => {},
-      startVideo: () => {},
-      stopVideo: () => {}
+      stopAudio: (): void => {},
+      startAudio: (): void => {},
+      startVideo: (): void => {},
+      stopVideo: (): void => {}
     } as CurrentCall
 
     const bindings: INavigationComponentBindings = {
@@ -89,10 +89,10 @@ describe('Unit testing: profitelo.components.communicator.navigation', () => {
       const event = {
         currentTarget: {
           classList: {
-            contains: () => true,
-            add: () => {
+            contains: (): boolean => true,
+            add: (): void => {
             },
-            remove: () => {
+            remove: (): void => {
             }
           }
         }
@@ -110,10 +110,10 @@ describe('Unit testing: profitelo.components.communicator.navigation', () => {
       const event = {
         currentTarget: {
           classList: {
-            contains: () => false,
-            add: () => {
+            contains: (): boolean => false,
+            add: (): void => {
             },
-            remove: () => {
+            remove: (): void => {
             }
           }
         }

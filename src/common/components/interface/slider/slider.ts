@@ -2,13 +2,13 @@ import * as angular from 'angular'
 import {IWindowService} from '../../../services/window/window.service'
 
 /* @ngInject */
-function defaultSliderFunction($window: IWindowService, $timeout: ng.ITimeoutService, $element: ng.IRootElementService) {
-  let elementsMap: Array<number> = []
+function defaultSliderFunction($window: IWindowService, $timeout: ng.ITimeoutService, $element: ng.IRootElementService): void {
+  let elementsMap: number[] = []
   let currentElement = 0
   let parentWidth = $element[0].offsetWidth
   let visibleItem: number = 0
 
-  function _elementsWidth() {
+  function _elementsWidth(): void {
     elementsMap = $.map($($element).find('>div'), (div) => {
       return div.offsetWidth
     })
@@ -28,7 +28,7 @@ function defaultSliderFunction($window: IWindowService, $timeout: ng.ITimeoutSer
     _elementsWidth()
   })
 
-  const _calculateOffset = (elem: number) => {
+  const _calculateOffset = (elem: number): number => {
     let offset = 0
     for (let i = 0; i < elem; i++) {
       offset += elementsMap[i]
@@ -36,14 +36,14 @@ function defaultSliderFunction($window: IWindowService, $timeout: ng.ITimeoutSer
     return offset
   }
 
-  this.prevSlide = (next = 1) => {
+  this.prevSlide = (next = 1): void => {
     if (currentElement > 0) {
       currentElement -= next
       $element.css('left', _calculateOffset(currentElement) * -1)
     }
   }
 
-  this.nextSlide = (next = 1) => {
+  this.nextSlide = (next = 1): void => {
     visibleItem = Math.floor(parentWidth / elementsMap[1])
 
     if (currentElement < elementsMap.length - visibleItem) {

@@ -2,11 +2,11 @@ import * as angular from 'angular'
 import {IWindowService} from '../../../services/window/window.service'
 
 /* @ngInject */
-function controller($window: IWindowService, $scope: ng.IScope, $state: ng.ui.IStateService) {
+function controller($window: IWindowService, $scope: ng.IScope, $state: ng.ui.IStateService): void {
   this.isHidden = false
   let checkScrollWay: number = 0
 
-  const onClose = () => {
+  const onClose = (): void => {
     if (angular.isFunction(this.onClose)) {
       this.onClose()
     } else {
@@ -14,7 +14,7 @@ function controller($window: IWindowService, $scope: ng.IScope, $state: ng.ui.IS
     }
   }
 
-  this.onCloseClick = () => {
+  this.onCloseClick = (): void => {
     onClose()
   }
 

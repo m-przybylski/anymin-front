@@ -3,14 +3,14 @@ import {IWindowService} from '../../../services/window/window.service'
 import './collapse-btn.sass'
 
 /* @ngInject */
-function controller($log: ng.ILogService, $element: ng.IRootElementService, $window: IWindowService) {
+function controller($log: ng.ILogService, $element: ng.IRootElementService, $window: IWindowService): void {
   this.stylesObject = {
     height: null
   }
 
   this.isCollapsed = true
 
-  const updateStylesObject = () => {
+  const updateStylesObject = (): void => {
     if (!this.isCollapsed) {
       this.stylesObject.height = getCollapseBtnContentHeight()
     } else {
@@ -18,16 +18,16 @@ function controller($log: ng.ILogService, $element: ng.IRootElementService, $win
     }
   }
 
-  this.collapseToggle = () => {
+  this.collapseToggle = (): void => {
     this.isCollapsed = !this.isCollapsed
     updateStylesObject()
   }
 
-  this.$doCheck = () => {
+  this.$doCheck = (): void => {
     this.onWindowResize()
   }
 
-  const getCollapseBtnHeight = () => {
+  const getCollapseBtnHeight = (): number => {
     const _element = $element.find('.collapse-btn-header')[0]
     if (!!_element) {
       return _element.clientHeight
@@ -37,7 +37,7 @@ function controller($log: ng.ILogService, $element: ng.IRootElementService, $win
     }
   }
 
-  const getCollapseBtnContentHeight = () => {
+  const getCollapseBtnContentHeight = (): number => {
     const _element = $element.find('.collapse-btn-wrapper')[0]
     if (!!_element) {
       return _element.clientHeight
@@ -48,7 +48,7 @@ function controller($log: ng.ILogService, $element: ng.IRootElementService, $win
   }
 
   /* istanbul ignore next */
-  this.onWindowResize = () => {
+  this.onWindowResize = (): void => {
     if (!this.isCollapsed) {
       this.stylesObject.height = getCollapseBtnContentHeight()
     }

@@ -22,7 +22,7 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
                                    PaymentsApi: PaymentsApi, userService: UserService, topAlertService: TopAlertService,
                                    smoothScrollingService: SmoothScrollingService, AccountApi: AccountApi,
                                    CommonSettingsService: CommonSettingsService, $scope: ng.IScope,
-                                   CommonConfig: CommonConfig, $element: JQuery) {
+                                   CommonConfig: CommonConfig, $element: JQuery): void {
   let isPending = false
   this.isGetCompanyInfo = false
   this.rulesAccepted = false
@@ -33,18 +33,18 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
     name: 'Poland',
     value: 'PL'
   }]
-  this.onEnter = (option: number) => {
+  this.onEnter = (option: number): void => {
     if (option < 3) {
       $('[data-index="' + (option + 1).toString() + '"] input').focus()
     }
   }
   this.countryISO = ''
 
-  this.mailValidation = () => {
+  this.mailValidation = (): boolean => {
     return !angular.element('[data-index="3"]').find('input:focus')[0] && !this.emailModel
   }
 
-  this.onSelectCountry = (selectedCountry: IPrimaryDropdownListElement) => {
+  this.onSelectCountry = (selectedCountry: IPrimaryDropdownListElement): void => {
     this.countryISO = selectedCountry.value
   }
 
@@ -81,7 +81,7 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
     }
   })
 
-  this.sendPayment = () => {
+  this.sendPayment = (): void => {
     if (isValid() && !isPending) {
 
       this.sendPaymentObject = {
@@ -144,8 +144,8 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
     }
   }
 
-  const isValid = () => {
-    const _isModelBankExist = () => {
+  const isValid = (): boolean => {
+    const _isModelBankExist = (): boolean => {
       if (angular.isDefined(this.bankModel)) {
         return true
       } else {
@@ -160,7 +160,7 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
     }
   }
 
-  const sendPayuOrder = () => {
+  const sendPayuOrder = (): void => {
     PaymentsApi.postPayUOrderRoute(this.sendPaymentObject).then((response) => {
       isPending = false
       $window.open(response.redirectUrl, '_self', undefined, true)
@@ -177,7 +177,7 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
   this.patternEmail = CommonSettingsService.localSettings.emailPattern
   this.patternName = CommonSettingsService.localSettings.alphabetPattern
 
-  this.$onInit = () => {
+  this.$onInit = (): void => {
     if (angular.isDefined(this.amountMethodModal.payMethodValue)) {
       this.bankModel = this.amountMethodModal.payMethodValue
     }

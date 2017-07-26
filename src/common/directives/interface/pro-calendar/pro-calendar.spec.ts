@@ -6,7 +6,7 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
     let scope: any     = null
     let rootScope: ng.IRootScopeService
     let compile: any   = null
-    let validHTML = '<pro-calendar></pro-calendar>'
+    const validHTML = '<pro-calendar></pro-calendar>'
 
     beforeEach(() => {
 
@@ -18,10 +18,10 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
       })
     })
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
@@ -31,7 +31,7 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
     }))
 
     it('should compile the directive', () => {
-      let el = create(validHTML)
+      const el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
   })

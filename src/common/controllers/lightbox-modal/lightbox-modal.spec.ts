@@ -15,21 +15,21 @@ describe('profitelo.common.controller.lightbox-model', () => {
     let window: IWindowService
     let FilesApiMock: FilesApiMock
     let imageZoomService: ImageZoomService
-    let uibModalInstance = {
-      dismiss: () => {
+    const uibModalInstance = {
+      dismiss: (): void => {
 
       },
-      close: () => {
+      close: (): void => {
 
       }
     }
-    let triggerKeyPress = (element: JQuery, keyCode: number) => {
-      let e = $.Event('keypress')
+    const triggerKeyPress = (element: JQuery, keyCode: number): void => {
+      const e = $.Event('keypress')
       e.which = keyCode
       element.trigger(e)
     }
 
-    let url = 'awesomeUrl/'
+    const url = 'awesomeUrl/'
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', url)
@@ -47,20 +47,20 @@ describe('profitelo.common.controller.lightbox-model', () => {
         FilesApiMock = _FilesApiMock_
         window = $window
         imageZoomService = <any>{
-          createZoomInstance: () => {
+          createZoomInstance: (): boolean => {
             return true
           },
           settings: {},
-          destroy: () => {
+          destroy: (): boolean => {
             return true
           },
-          decreaseImg: () => {
+          decreaseImg: (): void => {
 
           },
-          increaseImg: () => {
+          increaseImg: (): void => {
 
           },
-          resetImg: () => {
+          resetImg: (): void => {
 
           }
         }
@@ -91,7 +91,7 @@ describe('profitelo.common.controller.lightbox-model', () => {
           'imageZoomService': imageZoomService
         })
 
-        //FIXME
+        // FIXME
         FilesApiMock.fileInfoPath(200, 'TOKEN-1', <any>{})
         $timeout.flush()
         httpBackend.flush()
@@ -106,7 +106,7 @@ describe('profitelo.common.controller.lightbox-model', () => {
     it('should go to nextSlide and then back prevSlide', () => {
       const startingSlide = lightboxModelController.currentSlide
 
-      //FIXME
+      // FIXME
       FilesApiMock.fileInfoPath(200, 'TOKEN-2', <any>{contentType: 'application/pdf'})
       FilesApiMock.fileInfoPath(200, 'TOKEN-1', <any>{})
 

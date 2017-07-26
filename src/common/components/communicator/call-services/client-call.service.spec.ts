@@ -6,7 +6,14 @@ import userModule from '../../../services/user/user'
 import communicatorModule from '../communicator'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {CommunicatorService} from '../communicator.service'
-import {ClientCallService} from "./client-call.service";
+import {ClientCallService} from './client-call.service'
+
+import {Session} from 'ratel-sdk-js'
+
+interface ICallSound {
+  play: () => void,
+  stop: () => void
+}
 
 describe('Unit testing: profitelo.services.call >', () => {
   describe('for profitelo.services.call >', () => {
@@ -14,18 +21,18 @@ describe('Unit testing: profitelo.services.call >', () => {
     let clientCallService: ClientCallService
     let onCall: any
     const modalsService = {
-      createClientConsultationSummaryModal: () => {
+      createClientConsultationSummaryModal: (): void => {
       },
-      createExpertConsultationSummaryModal: () => {
+      createExpertConsultationSummaryModal: (): void => {
       },
-      createIncomingCallModal: () => {
+      createIncomingCallModal: (): void => {
       },
-      createServiceUnavailableModal: () => {
+      createServiceUnavailableModal: (): void => {
       }
     }
 
     const communicatorServiceMock = {
-      onCall: (cb: any) => onCall = cb
+      onCall: (cb: any): void => onCall = cb
     }
 
     const testSUR: GetServiceUsageRequest = {
@@ -57,37 +64,37 @@ describe('Unit testing: profitelo.services.call >', () => {
     }
 
     const soundsService = {
-      playMessageNew: () => {
+      playMessageNew: (): void => {
       },
-      callConnectingSound: () => {
+      callConnectingSound: (): ICallSound => {
         return {
-          play: () => {
+          play: (): void => {
           },
-          stop: () => {
+          stop: (): void => {
           }
         }
       },
-      callIncomingSound: () => {
+      callIncomingSound: (): ICallSound => {
         return {
-          play: () => {
+          play: (): void => {
           },
-          stop: () => {
+          stop: (): void => {
           }
         }
       },
-      playCallRejected: () => {
+      playCallRejected: (): void => {
       },
-      playCallEnded: () => {
+      playCallEnded: (): void => {
       }
     }
 
     const navigatorService = {
-      getUserMediaStream: () => {
+      getUserMediaStream: (): void => {
       }
     }
 
     const userService = {
-      getUser: () => {
+      getUser: (): void => {
       }
     }
 
@@ -118,7 +125,7 @@ describe('Unit testing: profitelo.services.call >', () => {
       ($rootScope: IRootScopeService, communicatorService: CommunicatorService) => {
         const serviceId = '1'
 
-        communicatorService.getClientSession = () => undefined
+        communicatorService.getClientSession = (): undefined => undefined
 
         clientCallService.callServiceId(serviceId).then((res) => {
           expect(res).toEqual(<any>null)
@@ -131,7 +138,7 @@ describe('Unit testing: profitelo.services.call >', () => {
       ($rootScope: IRootScopeService, communicatorService: CommunicatorService) => {
         const serviceId = null
 
-        communicatorService.getClientSession = () => {
+        communicatorService.getClientSession = (): Session => {
           return {} as RatelSdk.Session
         }
 
@@ -147,11 +154,11 @@ describe('Unit testing: profitelo.services.call >', () => {
         const serviceId = '1'
         const err = 'error'
 
-        communicatorService.getClientSession = () => {
+        communicatorService.getClientSession = (): Session => {
           return {} as RatelSdk.Session
         }
 
-        RatelApi.postStartCallRoute = (_x: any) => {
+        RatelApi.postStartCallRoute = (_x: any): ng.IPromise<never> => {
           return $q.reject(err)
         }
 
@@ -175,10 +182,10 @@ describe('Unit testing: profitelo.services.call >', () => {
           }
         } as RatelSdk.Session
 
-        communicatorService.getClientSession = () => session
-        communicatorService.getClientDeviceId = () => undefined
+        communicatorService.getClientSession = (): Session => session
+        communicatorService.getClientDeviceId = (): undefined => undefined
 
-        ServiceApi.addServiceUsageRequestRoute = () => {
+        ServiceApi.addServiceUsageRequestRoute = (): ng.IPromise<never> => {
           return $q.reject(testSUR)
         }
 
@@ -200,11 +207,11 @@ describe('Unit testing: profitelo.services.call >', () => {
         }
       } as RatelSdk.Session
 
-      communicatorService.getClientSession = () => {
+      communicatorService.getClientSession = (): Session => {
         return session
       }
 
-      ServiceApi.addServiceUsageRequestRoute = () => {
+      ServiceApi.addServiceUsageRequestRoute = (): ng.IPromise<GetServiceUsageRequest> => {
         return <ng.IPromise<GetServiceUsageRequest>>$q.resolve(testSUR)
       }
 

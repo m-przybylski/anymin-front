@@ -1,5 +1,8 @@
-(function() {
-  function proAdviceTile() {
+import * as angular from 'angular'
+import {IDirective} from 'angular'
+
+(function(): void {
+  function proAdviceTile(): IDirective {
 
     return {
       template:  require('./pro-advice-tile.pug')(),

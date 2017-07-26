@@ -22,9 +22,9 @@ describe('Unit tests: app>', () => {
     let _ServiceApiMock: ServiceApiMock
 
     const sessionService = {
-      logout: () => {
+      logout: (): void => {
       },
-      getSession: () => {
+      getSession: (): void => {
       }
     }
 

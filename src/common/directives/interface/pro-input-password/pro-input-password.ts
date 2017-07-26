@@ -1,7 +1,10 @@
-(function() {
-  function proInputPassword() {
+import * as angular from 'angular'
+import {IDirective} from 'angular'
 
-    function linkFunction(scope: any, element: ng.IRootElementService, attr: any) {
+(function(): void {
+  function proInputPassword(): IDirective {
+
+    function linkFunction(scope: any, element: ng.IRootElementService, attr: any): void {
 
       scope.required = false
       scope.focus = false
@@ -14,23 +17,23 @@
         scope.required = true
       }
 
-      scope.focusInput = function() {
+      scope.focusInput = function(): void {
         _input.focus()
       }
 
       $(element).on('click', scope.focusInput)
 
-      scope.onFocus = function() {
+      scope.onFocus = function(): void {
         scope.focus = true
         scope.onClick = true
         scope.placeholder = ''
       }
-      scope.onFocusOut = function() {
+      scope.onFocusOut = function(): void {
         scope.focus = false
         scope.onClick = false
         scope.placeholder = placeholder
       }
-      scope.passwordHandler = function() {
+      scope.passwordHandler = function(): void {
         if (scope.inputType === 'password') {
           scope.inputType = 'text'
         } else {
@@ -42,10 +45,10 @@
         _input.focus()
       }
 
-      scope.onMouseover = () => {
+      scope.onMouseover = (): void => {
         scope.focus = true
       }
-      scope.onMouseout = () => {
+      scope.onMouseout = (): void => {
         if (!scope.onClick) {
           scope.focus = false
         }

@@ -11,11 +11,11 @@ export class EventsService {
     this.eventScope = $rootScope.$new()
   }
 
-  public emit = (eventName: EventName) => {
+  public emit = (eventName: EventName): void => {
     this.eventScope.$emit(eventName)
   }
 
-  public on = (eventName: EventName, callback: () => void, scope?: ng.IScope) => {
+  public on = (eventName: EventName, callback: () => void, scope?: ng.IScope): void => {
     const eventHandler = this.eventScope.$on(eventName, callback)
     if (scope) {
       scope.$on('$destroy', eventHandler)

@@ -11,6 +11,8 @@ import profileHeaderModule from '../../common/components/profile/profile-header/
 import similarConsultationModule from '../../common/components/profile/similar-consultations/similar-consultations'
 import profileSingleConsultationModule from '../../common/components/profile/profile-expert-single-consultation/profile-single-consultation'
 
+import {GetExpertProfile} from 'profitelo-api-ng/model/models'
+
 export interface IExpertProfileStateParams extends ng.ui.IStateParamsService {
   primaryConsultationId: string
   profileId: string
@@ -35,7 +37,7 @@ const expertProfilePageModule = angular.module('profitelo.controller.expert-prof
       controller: 'ExpertProfileController',
       resolve: {
         /* istanbul ignore next */
-        expertProfile: (ExpertProfileResolver: ExpertProfileResolver, $stateParams: IExpertProfileStateParams) =>
+        expertProfile: (ExpertProfileResolver: ExpertProfileResolver, $stateParams: IExpertProfileStateParams): ng.IPromise<GetExpertProfile> =>
           ExpertProfileResolver.resolve($stateParams)
       }
     })

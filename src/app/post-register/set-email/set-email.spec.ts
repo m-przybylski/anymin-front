@@ -24,11 +24,11 @@ describe('Unit tests: profitelo.controller.post-register.set-email>', () => {
     }
 
     const $state = {
-      go: () => {
+      go: (): void => {
       }
     }
 
-    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
+    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService): void {
       $provide.value('apiUrl', _url)
     }))
 
@@ -63,7 +63,7 @@ describe('Unit tests: profitelo.controller.post-register.set-email>', () => {
 
     it('should set new email', () => {
       spyOn($state, 'go')
-      //FIXME
+      // FIXME
       _AccountApiMock.partialUpdateAccountRoute(200, user.id, <any>{})
       _AccountApiMock.getAccountEmailExistsRoute(400, 'email')
       SetEmailController.setNewEmail()

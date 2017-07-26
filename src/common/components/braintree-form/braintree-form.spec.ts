@@ -18,16 +18,16 @@ describe('Unit testing: profitelo.components.braintreeForm', () => {
       'submit-button-translate="submitButtonTranslate"></braintree-form>'
 
     const bindings: IBraintreeFormComponentBindings = {
-      onBraintreeFormLoad: () => {
+      onBraintreeFormLoad: (): void => {
 
       },
-      onFormSucceed: () => {
+      onFormSucceed: (): void => {
 
       },
       submitButtonTranslate: 'asdasd'
     }
 
-    function create(html: string, bindings: IBraintreeFormComponentBindings) {
+    function create(html: string, bindings: IBraintreeFormComponentBindings): JQuery {
       const parentScope = rootScope.$new()
       const parentBoundScope = angular.extend(parentScope, bindings)
       const elem = angular.element(html)
@@ -37,7 +37,7 @@ describe('Unit testing: profitelo.components.braintreeForm', () => {
     }
 
     const userService = {
-      getUser: () => {
+      getUser: (): void => {
       }
     }
 

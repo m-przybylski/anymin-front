@@ -49,7 +49,7 @@ class DropdownPrimaryComponentController implements ng.IController, IDropdownPri
     enter: 13
   }
 
-  $onInit = () => {
+  $onInit = (): void => {
     this.mainPlaceholder = {
       name: this.placeholder,
       value: null

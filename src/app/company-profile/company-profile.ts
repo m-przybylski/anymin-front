@@ -4,7 +4,7 @@ import apiModule from 'profitelo-api-ng/api.module'
 import sessionModule from '../../common/services/session/session'
 import smoothScrollingModule from '../../common/services/smooth-scrolling/smooth-scrolling'
 import {CompanyProfileController} from './company-profile.controller'
-import {CompanyProfileResolver} from './company-profile.resolver'
+import {CompanyProfileResolver, ICompanyProfile} from './company-profile.resolver'
 import 'common/directives/expert-profile/pro-expert-header/pro-expert-header'
 import 'common/directives/pro-footer/pro-footer'
 import 'common/directives/expert-profile/pro-expert-slider/pro-expert-slider'
@@ -52,7 +52,7 @@ const companyProfilePageModule = angular.module('profitelo.controller.company-pr
     controller: 'CompanyProfileController',
     resolve: {
       /* istanbul ignore next */
-      companyProfile: (CompanyProfileResolver: CompanyProfileResolver, $stateParams: ICompanyProfileStateParams) =>
+      companyProfile: (CompanyProfileResolver: CompanyProfileResolver, $stateParams: ICompanyProfileStateParams): ng.IPromise<ICompanyProfile> =>
         CompanyProfileResolver.resolve($stateParams)
     }
   })

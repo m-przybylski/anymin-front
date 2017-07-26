@@ -19,11 +19,11 @@ describe('Unit testing: profitelo.components.wizard.wizard-uploader', () => {
 
     const uploaderFactory = {
       collectionTypes: {avatar: 'avatar'},
-      getInstance: () => {
+      getInstance: (): void => {
       }
     }
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
       scope.selectedItemsValue = []
       scope.tokenList = ['file-token-1']
@@ -53,7 +53,7 @@ describe('Unit testing: profitelo.components.wizard.wizard-uploader', () => {
 
         bindings = {
           tokenList: ['file-token-1'],
-          isValidCallback: () => true
+          isValidCallback: (): boolean => true
         }
 
         const injectors = {

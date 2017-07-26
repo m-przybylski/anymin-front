@@ -19,7 +19,7 @@ export class ExpertActivityComponentController implements ng.IController, IExper
     })
   }
 
-  $onInit() {
+  $onInit(): void {
     this.isCallActivity = this.activity.activityType !== GetActivity.ActivityTypeEnum.FINANCIALTRANSACTION
   }
 

@@ -13,12 +13,12 @@ export class TextareaComponentController implements ITextareaComponentBindings {
   public isValid: boolean
   public validationText: string
 
-  public onFocus = () => {
+  public onFocus = (): void => {
     this.isFocus = true
     this.isDirty = true
   }
 
-  public onBlur = () => {
+  public onBlur = (): void => {
     this.isFocus = false
   }
 

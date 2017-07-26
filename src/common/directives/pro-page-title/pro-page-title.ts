@@ -1,14 +1,15 @@
 import * as angular from 'angular'
 import {IFilterService} from '../../services/filter/filter.service'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import {IDirective} from 'angular'
 
-function pageTitleDirective($rootScope: IRootScopeService, $filter: IFilterService) {
+function pageTitleDirective($rootScope: IRootScopeService, $filter: IFilterService): IDirective {
 
-  function linkFunction(_scope: ng.IScope, element: ng.IRootElementService, _attrs: ng.IAttributes) {
+  function linkFunction(_scope: ng.IScope, element: ng.IRootElementService, _attrs: ng.IAttributes): void {
 
     let pageTitle = ''
 
-    function changePageTitle(text: string) {
+    function changePageTitle(text: string): void {
       element.text(text)
     }
 
@@ -18,7 +19,7 @@ function pageTitleDirective($rootScope: IRootScopeService, $filter: IFilterServi
 
     })
 
-    function traverseDownStates(data: any) {
+    function traverseDownStates(data: any): void {
 
       pageTitle = ''
       let currentLevel = data
@@ -40,8 +41,8 @@ function pageTitleDirective($rootScope: IRootScopeService, $filter: IFilterServi
       changePageTitle(pageTitle)
     }
 
-    $rootScope.$on('$stateChangeStart', (_event: ng.IAngularEvent, toState: ng.ui.IState, _toParams: Object,
-                                         _fromState: ng.ui.IState, _fromParams: Object, _error: any) => {
+    $rootScope.$on('$stateChangeStart', (_event: ng.IAngularEvent, toState: ng.ui.IState, _toParams: {},
+                                         _fromState: ng.ui.IState, _fromParams: {}, _error: any) => {
       traverseDownStates(toState.data)
     })
 

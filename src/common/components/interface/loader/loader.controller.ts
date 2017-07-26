@@ -24,7 +24,7 @@ export class LoaderComponentController implements ng.IController, ILoaderCompone
   constructor() {
   }
 
-  public onLoadCounter = () => {
+  public onLoadCounter = (): void => {
     const radius = 28
     const circumference = 2 * radius * Math.PI
     const maxScale = 100
@@ -48,7 +48,7 @@ export class LoaderComponentController implements ng.IController, ILoaderCompone
     }
   }
 
-  $onChanges = () => {
+  $onChanges = (): void => {
     if (this.fileUploadInfo) {
       this.loadingProgress = Math.floor((this.fileUploadInfo.loaded / this.fileUploadInfo.total) * 100)
     }

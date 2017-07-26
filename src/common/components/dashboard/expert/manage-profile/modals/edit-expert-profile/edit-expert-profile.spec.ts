@@ -7,10 +7,10 @@ describe('Testing Controller: editExpertProfileController', () => {
   let editExpertProfileController: EditExpertProfileController
   let scope: IEditExpertProfileScope
   const uibModalInstance = {
-    dismiss: () => {
+    dismiss: (): void => {
 
     },
-    close: () => {
+    close: (): void => {
 
     }
   }

@@ -16,7 +16,7 @@ export interface IClientChargeDetailsControllerScope extends ng.IScope {
 }
 
 function controller($scope: IClientChargeDetailsControllerScope, $state: ng.ui.IStateService,
-                    $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
+                    $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance): void {
   $scope.isNavbar = true
   $scope.isFullscreen = true
 
@@ -30,12 +30,12 @@ function controller($scope: IClientChargeDetailsControllerScope, $state: ng.ui.I
     throw Error('Wrong financeActivityDetails, financialOperation is missing.')
   }
 
-  $scope.goToSettings = () => {
+  $scope.goToSettings = (): void => {
     $state.go('app.dashboard.settings.payments')
     $scope.onModalClose()
   }
 
-  $scope.onModalClose = () =>
+  $scope.onModalClose = (): void =>
     $uibModalInstance.dismiss('cancel')
   return this
 }

@@ -50,7 +50,7 @@ export class ConsultationController implements ng.IController {
     ]
   }
 
-  $onInit() {
+  $onInit(): void {
     this.userService.getUser().then((response) => {
       this.currency = response.currency
     })
@@ -78,13 +78,13 @@ export class ConsultationController implements ng.IController {
     }
   }
 
-  public saveStepsOnExpertPath = () => {
+  public saveStepsOnExpertPath = (): void => {
     if (this.isExpert && !this.isCompany) {
       this.saveConsultation()
     }
   }
 
-  public saveConsultation = () => {
+  public saveConsultation = (): void => {
     if (this.checkIsFormValid() && this.wizardProfile) {
       const priceModel: MoneyDto = {
         amount: Number(this.priceAmountInputValue.replace(',', '.')) * this.moneyDivider,
@@ -157,7 +157,7 @@ export class ConsultationController implements ng.IController {
       && this.checkIsPriceInputValid() && this.checkIsEmployeesInputValid()
   }
 
-  public checkIsPriceButtonDisabled = () => {
+  public checkIsPriceButtonDisabled = (): boolean => {
     return !this.isCompany || this.checkIsPriceInputValid()
   }
 }

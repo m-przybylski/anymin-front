@@ -9,12 +9,12 @@ namespace profitelo.components.dashboard.thankYouPage {
       let componentController: any
       let component: any
       let location: ng.ILocationService
-      let validHTML = '<thank-you-page></thank-you-page>'
+      const validHTML = '<thank-you-page></thank-you-page>'
 
-      function create(html: string) {
+      function create(html: string): JQuery {
         scope = rootScope.$new()
-        let elem = angular.element(html)
-        let compiledElement = compile(elem)(scope)
+        const elem = angular.element(html)
+        const compiledElement = compile(elem)(scope)
         scope.$digest()
         return compiledElement
       }

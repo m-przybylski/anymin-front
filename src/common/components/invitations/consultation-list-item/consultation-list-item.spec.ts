@@ -12,16 +12,16 @@ describe('Unit testing: profitelo.components.dashboard.shared.consultation-list-
     let compile: ng.ICompileService
     let componentController: ng.IComponentControllerService
     let component: ConsultationListItemComponentController
-    let validHTML = '<consultation-list-item data-service="service"></consultation-list-item>'
+    const validHTML = '<consultation-list-item data-service="service"></consultation-list-item>'
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
       scope.service = {
         name: 'name',
         price: 12.12
       }
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }

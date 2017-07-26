@@ -20,11 +20,11 @@ export class ManageDevicesComponentController implements ng.IController, IManage
     this.deviceInUseStatus = false
   }
 
-  $onInit = () => {
+  $onInit = (): void => {
     this.currentDevice = (<any>this.checkDevice)[this.device]
   }
 
-  public onLogout = () => {
+  public onLogout = (): void => {
     this.onDeviceRemove(this.apiKey)
   }
 

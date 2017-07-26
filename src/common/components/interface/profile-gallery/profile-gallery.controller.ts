@@ -4,8 +4,8 @@ import {FilesApi} from 'profitelo-api-ng/api/api'
 import {ModalsService} from '../../../services/modals/modals.service'
 
 export class ProfileGalleryComponentController implements IProfileGalleryComponentBindings {
-  documents: Array<string>
-  uploadedFiles: Array<FileInfo> = []
+  documents: string[]
+  uploadedFiles: FileInfo[] = []
   idDocumentsContainerCollapsed: boolean
   documentsCollapsedLength: number
   lastDocument: string
@@ -16,7 +16,7 @@ export class ProfileGalleryComponentController implements IProfileGalleryCompone
     this.idDocumentsContainerCollapsed = false
   }
 
-  $onInit = () => {
+  $onInit = (): void => {
     this.documents.forEach((token) => {
       this.FilesApi.fileInfoPath(token).then((response) => {
         this.uploadedFiles.push(response)

@@ -10,7 +10,13 @@ import {
 
 export interface ICompanyProfile {
   profile: GetProfileWithDocuments
-  services: Array<GetOrganizationServiceDetails>
+  services: GetOrganizationServiceDetails[]
+  isFavourite: boolean
+}
+
+interface ICompanyResponse {
+  profile: GetProfileWithDocuments,
+  services: GetOrganizationServiceDetails[],
   isFavourite: boolean
 }
 
@@ -22,10 +28,10 @@ export class CompanyProfileResolver {
 
   public resolve = (stateParams: ICompanyProfileStateParams): ng.IPromise<ICompanyProfile> => {
 
-    const handleCompanyResponseError = (error: any) =>
+    const handleCompanyResponseError = (error: any): ng.IPromise<void> =>
       this.$q.reject(error)
 
-    const sortServices = (servicesWithTagsAndEmployees: Array<GetOrganizationServiceDetails>) => {
+    const sortServices = (servicesWithTagsAndEmployees: Array<GetOrganizationServiceDetails>): GetOrganizationServiceDetails[] => {
       const primaryConsultation = _.find(servicesWithTagsAndEmployees, (serviceWithTagsAndEmployees) =>
       serviceWithTagsAndEmployees.service.id === stateParams.primaryConsultationId)
 
@@ -37,7 +43,7 @@ export class CompanyProfileResolver {
       return servicesWithTagsAndEmployees
     }
 
-    const handleCompanyResponse = (response: GetOrganizationProfile) => {
+    const handleCompanyResponse = (response: GetOrganizationProfile): ng.IPromise<void> | ICompanyResponse => {
       if (!response.profile.organizationDetails) {
         return this.$q.reject('Profile is not organization')
       }
@@ -49,7 +55,7 @@ export class CompanyProfileResolver {
       }
     }
 
-    const resolveCompanyProfile = () =>
+    const resolveCompanyProfile = (): ng.IPromise<GetOrganizationProfile>  =>
       this.ViewsApi.getWebOrganizationProfileRoute(stateParams.profileId)
         .then((res) => handleCompanyResponse(res))
         .catch(handleCompanyResponseError)

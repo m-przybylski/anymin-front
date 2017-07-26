@@ -12,14 +12,14 @@ interface ISuggestions {
   services: any
   experts: any
   organizations: any
-  terms: Array<any>
-  tags: Array<Tag>
+  terms: any[]
+  tags: Tag[]
 }
 
 /* @ngInject */
 function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateService,
                                      $element: ng.IRootElementService,
-                                     searchService: SearchService) {
+                                     searchService: SearchService): void {
 
   this.isCollapsed = true
   this.isFocused = false
@@ -41,19 +41,19 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
   let listOfSuggestions = $element.find('.dropdown-container a')
 
   /* istanbul ignore next */
-  const _onUpDownKeysPress = (callback: () => void) => {
+  const _onUpDownKeysPress = (callback: () => void): void => {
     listOfSuggestions = $element.find('.dropdown-container a')
     if (!!this.ngModel && this.ngModel.length > 2 && angular.isFunction(callback)) {
       callback()
     }
   }
 
-  this.$onInit = () => {
+  this.$onInit = (): void => {
     Object.defineProperty(this, 'open', {
-      get: function () {
+      get: function (): void {
         return this.open
       },
-      set: function (flag) {
+      set: function (flag): void {
         if (angular.isDefined(flag) && flag) {
           _focus()
         } else {
@@ -72,7 +72,7 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
     escape: 27
   }
 
-  const _deserializeSuggestions = (rawData: any) => {
+  const _deserializeSuggestions = (rawData: any): ISuggestions => {
     const result = {
       terms: [],
       tags: [],
@@ -106,14 +106,14 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
     lastElement: -1
   }
 
-  const _countSuggestions = (suggestions: ISuggestions) => {
+  const _countSuggestions = (suggestions: ISuggestions): number => {
     const servicesCount = angular.isDefined(suggestions.services.count) ? suggestions.services.count : 0
     const expertsCount = angular.isDefined(suggestions.experts.count) ? suggestions.experts.count : 0
     const organizationsCount = angular.isDefined(suggestions.organizations.count) ? suggestions.organizations.count : 0
     return suggestions.terms.length + suggestions.tags.length + servicesCount + expertsCount + organizationsCount
   }
 
-  const _updateSuggestions = (searchWord: string) => {
+  const _updateSuggestions = (searchWord: string): void => {
     if (angular.isDefined(searchWord) && searchWord !== null && searchWord.toString().length >= 3) {
       this.loadingSuggestion = true
       searchService.suggest(this.ngModel).then((data) => {
@@ -128,7 +128,7 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
     }
   }
 
-  const _searchAction = () => {
+  const _searchAction = (): void => {
     if (this.ngModel && this.ngModel.length >= 3 && this.isFocused) {
       this.isCollapsed = false
       _updateSuggestions(this.ngModel)
@@ -138,7 +138,7 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
     }
   }
 
-  const _focusOut = () => {
+  const _focusOut = (): void => {
     this.isFocused = false
     this.isCollapsed = true
 
@@ -152,7 +152,7 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
     'trailing': true
   })
 
-  const _focus = () => {
+  const _focus = (): void => {
     this.isFocused = true
     this.isCollapsed = false
 
@@ -161,7 +161,7 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
     }
   }
 
-  const _handleArrowsOnSuggestions = (list: any, elementObject: any) => {
+  const _handleArrowsOnSuggestions = (list: any, elementObject: any): void => {
     const currentElement = list[elementObject.currentPosition]
 
     if (elementObject.lastElement >= 0) {
@@ -174,14 +174,14 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
     selectedElement.lastElement = elementObject.currentPosition
   }
 
-  const _clearSelectedElement = (list: any) => {
+  const _clearSelectedElement = (list: any): void => {
     $(list[selectedElement.currentPosition]).removeClass('active')
     $element.find('.dropdown-container').scrollTop(0)
     selectedElement.currentPosition = -1
     selectedElement.lastElement = -1
   }
 
-  this.search = () => {
+  this.search = (): void => {
     _focusOut()
     if (angular.isDefined(this.ngModel) && this.ngModel !== null && this.ngModel.length > 0) {
       if (selectedElement.currentPosition > -1) {
@@ -192,34 +192,34 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
     }
   }
 
-  this.onFocus = () => {
+  this.onFocus = (): void => {
     _focus()
   }
 
-  this.onFocusOut = () => {
+  this.onFocusOut = (): void => {
     if (!this.isMouseOverDropdown) {
       _focusOut()
     }
   }
 
-  this.onDropdownMouseLeave = () => {
+  this.onDropdownMouseLeave = (): void => {
     this.isMouseOverDropdown = false
   }
 
-  this.onDropdownMouseEnter = () => {
+  this.onDropdownMouseEnter = (): void => {
     this.isMouseOverDropdown = true
   }
 
-  this.clearModel = () => {
+  this.clearModel = (): void => {
     this.ngModel = null
     this.currentTagId = null
   }
 
-  this.showResultsCounter = () => {
+  this.showResultsCounter = (): boolean => {
     return !!this.searchCount && this.searchCount > 0 && this.isCollapsed
   }
 
-  const _setPrimarySuggestion = (search: string) => {
+  const _setPrimarySuggestion = (search: string): void => {
     this.primarySuggestion = null
     if (angular.isDefined(search) && search && !this.isCollapsed && search.length > 2 && !!this.suggestions.tags && this.suggestions.tags.length > 0) {
 
@@ -234,7 +234,7 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
     }
   }
 
-  const _onSearchModelChange = (search: any) => {
+  const _onSearchModelChange = (search: any): void => {
     _setPrimarySuggestion(search)
     _searchActionDebounce()
     _clearSelectedElement($element.find('.dropdown-container a'))

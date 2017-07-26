@@ -10,17 +10,17 @@ describe('Unit testing: profitelo.components.dashboard.client.navigation', () =>
     let compile: ng.ICompileService
     let componentController: any
     let component: any
-    let validHTML = '<client-navigation></client-navigation>'
+    const validHTML = '<client-navigation></client-navigation>'
     const userService = {
-      getUser: () => {
+      getUser: (): void => {
 
       }
     }
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }

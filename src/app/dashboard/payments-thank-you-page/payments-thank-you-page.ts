@@ -2,15 +2,15 @@ import * as angular from 'angular'
 import 'common/components/dashboard/thank-you-page/thank-you-page'
 import 'common/components/interface/top-modal-navbar/top-modal-navbar'
 
-function paymentsThankYouPageController($state: ng.ui.IStateService) {
+function paymentsThankYouPageController($state: ng.ui.IStateService): void {
 
-  this.onClose = () =>
+  this.onClose = (): ng.IPromise<void> =>
     $state.go('app.dashboard.client.activities')
 
   return this
 }
 
-function config($stateProvider: ng.ui.IStateProvider) {
+function config($stateProvider: ng.ui.IStateProvider): void {
   $stateProvider.state('app.dashboard.payments-thank-you-page', {
     url: '/payments-thank-you-page',
     controllerAs: 'vm',

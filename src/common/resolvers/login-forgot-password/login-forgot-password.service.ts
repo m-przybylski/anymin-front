@@ -25,12 +25,12 @@ class LoginForgotPasswordResolver implements ILoginForgotPasswordService {
 
   }
 
-  public resolve = (stateParams: IForgotPasswordStateParams) => {
+  public resolve = (stateParams: IForgotPasswordStateParams): ng.IPromise<{}> => {
     const _deferred = this.$q.defer()
 
     const account = this.loginStateService.getAccountObject()
 
-    const handleError = () => {
+    const handleError = (): void => {
       _deferred.reject()
       this.topAlertService.error({
         message: this.$filter('translate')('LOGIN.PASSWORD_RECOVERY.ERROR')
@@ -47,7 +47,7 @@ class LoginForgotPasswordResolver implements ILoginForgotPasswordService {
       })
     }
 
-    const noEmailRecoveryPath = () => {
+    const noEmailRecoveryPath = (): void => {
       requestPasswordRecovery('SMS').then(() => {
         _deferred.resolve({
           accountObject: account,

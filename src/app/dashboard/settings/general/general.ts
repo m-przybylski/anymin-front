@@ -5,6 +5,7 @@ import modalsModule from '../../../../common/services/modals/modals'
 import {UserService} from '../../../../common/services/user/user.service'
 import {AccountDetails} from 'profitelo-api-ng/model/models'
 import {ModalsService} from '../../../../common/services/modals/modals.service'
+
 export class DashboardSettingsGeneralController implements ng.IController {
 
   public avatarImageSource?: string
@@ -25,27 +26,27 @@ export class DashboardSettingsGeneralController implements ng.IController {
     this.showUnverifiedEmail = (typeof(this.unverifiedEmail) !== 'undefined' && this.unverifiedEmail !== '')
   }
 
-  $onInit = () => {
+  $onInit = (): void => {
   }
 
-  public openBasicAccountSettingsModal = () => {
+  public openBasicAccountSettingsModal = (): void => {
     this.modalsService.createBasicAccountSettingsModal(this.onModalClose)
   }
 
-  public openGeneralPhoneSettingsModal = () => {
+  public openGeneralPhoneSettingsModal = (): void => {
     this.modalsService.createGeneralPhoneSettingsModal(this.onModalClose)
   }
 
-  public openGeneralEmailSettingsModal = () => {
+  public openGeneralEmailSettingsModal = (): void => {
     this.modalsService.createGeneralEmailSettingsModal(this.onModalClose)
   }
 
-  public openGeneralCountrySettingsModal = () => {
+  public openGeneralCountrySettingsModal = (): void => {
     // TODO Uncomment If we allow user change Country
     // this.modalsService.createGeneralCountrySettingsModal(this.onModalClose)
   }
 
-  private onModalClose = (cb: () => void) => {
+  private onModalClose = (cb: () => void): void => {
     this.$state.reload().finally(cb)
   }
 
@@ -66,7 +67,7 @@ angular.module('profitelo.controller.dashboard.settings.general', [
       controller: 'dashboardSettingsGeneralController',
       controllerAs: 'vm',
       resolve: {
-        user: (userService: UserService) => {
+        user: (userService: UserService): ng.IPromise<AccountDetails> => {
           return userService.getUser(true)
         }
       },

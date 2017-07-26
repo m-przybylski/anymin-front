@@ -17,9 +17,9 @@ describe('Testing Controller: clientCallController', () => {
 
       scope = <IClientCallControllerScope>$rootScope.$new()
       scope.$parent = <IClientCallParentControllerScope>$rootScope.$new()
-      scope.$parent.rejectCall = () => {
+      scope.$parent.rejectCall = (): void => {
       }
-      scope.$parent.answerCall = () => {
+      scope.$parent.answerCall = (): void => {
       }
 
       const injectors = {

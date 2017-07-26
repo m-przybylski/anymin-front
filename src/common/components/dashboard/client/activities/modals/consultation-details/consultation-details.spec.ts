@@ -8,10 +8,10 @@ describe('Testing Controller: clientConsultationDetails', () => {
   let clientConsultationDetails: any
   let scope: IClientConsultationDetailsScope
   const uibModalInstance = {
-    dismiss: () => {
+    dismiss: (): void => {
 
     },
-    close: () => {
+    close: (): void => {
 
     }
   }

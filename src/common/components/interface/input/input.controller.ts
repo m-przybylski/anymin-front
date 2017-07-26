@@ -30,12 +30,12 @@ export class InputComponentController implements IInputComponentBindings {
     }
   }
 
-  public onFocus = () => {
+  public onFocus = (): void => {
     this.isFocus = true
     this.isDirty = true
   }
 
-  public onBlur = () => {
+  public onBlur = (): void => {
     this.isFocus = false
   }
 }

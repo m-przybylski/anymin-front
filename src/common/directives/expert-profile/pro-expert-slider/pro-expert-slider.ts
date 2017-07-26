@@ -4,10 +4,11 @@ import dialogModule from '../../../services/dialog/dialog'
 import 'common/components/interface/slider/slider'
 import 'common/controllers/lightbox-modal/lightbox-modal'
 import 'common/components/pro-lightbox/pro-lightbox'
+import {IDirective} from 'angular'
 
-function proExpertSlider(dialogService: DialogService, $timeout: ng.ITimeoutService) {
+function proExpertSlider(dialogService: DialogService, $timeout: ng.ITimeoutService): IDirective {
 
-  function linkFunction(scope: any) {
+  function linkFunction(scope: any): void {
 
     scope.areControllsVisible = true
 
@@ -17,21 +18,21 @@ function proExpertSlider(dialogService: DialogService, $timeout: ng.ITimeoutServ
       }
     })
 
-    scope.imageUrl = (slide: any) => {
+    scope.imageUrl = (slide: any): string => {
       return slide.previews[0]
     }
 
     scope.controlls = {}
 
-    scope.nextSlide = function () {
+    scope.nextSlide = function (): void {
       scope.controlls.nextSlide()
     }
 
-    scope.prevSlide = function () {
+    scope.prevSlide = function (): void {
       scope.controlls.prevSlide()
     }
 
-    scope.openDialog = (slide: any) => {
+    scope.openDialog = (slide: any): void => {
       scope.fullSizeUrl = slide.previews[0]
       scope.slide = slide
       dialogService.openDialog({

@@ -14,12 +14,12 @@ describe('Unit testing: profitelo.components.interface.go-to-top', () => {
     let component: any
     let window
     let bindings: any
-    let validHTML = '<go-to-top></go-to-top>'
+    const validHTML = '<go-to-top></go-to-top>'
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
@@ -51,12 +51,12 @@ describe('Unit testing: profitelo.components.interface.go-to-top', () => {
     }))
 
     it('should compile the component', () => {
-      let el = create(validHTML)
+      const el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
 
     it('should call smoothScrollingService', () => {
-      let el = create(validHTML)
+      const el = create(validHTML)
       spyOn(smoothScrollingService, 'simpleScrollTo')
       el.find('.go-to-top').triggerHandler('click')
       expect(smoothScrollingService.simpleScrollTo).toHaveBeenCalledWith('body')

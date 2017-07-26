@@ -7,7 +7,7 @@ describe('Unit testing: profitelo.resolvers.company-profile', () => {
   describe('for company-profile service >', () => {
 
     let AppCompanyProfileResolver: CompanyProfileResolver
-    let url = 'awesomeURL'
+    const url = 'awesomeURL'
     let _timeout: ng.ITimeoutService
     let mockState: any
     let ViewsApiMock: ViewsApiMock
@@ -18,14 +18,14 @@ describe('Unit testing: profitelo.resolvers.company-profile', () => {
 
     const primaryConsultationId = '111'
 
-    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService) {
+    beforeEach(angular.mock.module(function ($provide: ng.auto.IProvideService): void {
       $provide.value('apiUrl', url)
     }))
 
     beforeEach(() => {
 
       mockState = {
-        go: () => {
+        go: (): void => {
         }
       }
 
@@ -51,7 +51,7 @@ describe('Unit testing: profitelo.resolvers.company-profile', () => {
         }]
       }
 
-      angular.mock.module(companyProfilePageModule, function ($provide: ng.auto.IProvideService) {
+      angular.mock.module(companyProfilePageModule, function ($provide: ng.auto.IProvideService): void {
         $provide.value('$state', mockState)
       })
 

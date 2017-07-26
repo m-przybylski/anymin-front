@@ -26,11 +26,11 @@ export class WizardUploaderComponentController implements IWizardUploaderModuleC
     this.uploader = uploaderFactory.getInstance(1, uploaderFactory.collectionTypes.avatar)
   }
 
-  public onUploadEnd = (uploadingStatus: boolean) => {
+  public onUploadEnd = (uploadingStatus: boolean): void => {
     this.isValidCallback(uploadingStatus)
   }
 
-  $onInit() {
+  $onInit(): void {
     this.tokenList.forEach((token) => {
       this.FilesApi.fileInfoPath(token).then((response) => {
         const documentObject = {
@@ -48,12 +48,12 @@ export class WizardUploaderComponentController implements IWizardUploaderModuleC
     croppingDetails: undefined
   }
 
-  private onFileUploadError = (error: any, currentFile: IDocumentFile) => {
+  private onFileUploadError = (error: any, currentFile: IDocumentFile): void => {
     currentFile.isUploadFailed = true
     this.$log.error(error)
   }
 
-  public reuploadFile = (file: IDocumentFile) => {
+  public reuploadFile = (file: IDocumentFile): void => {
     const reuploadedFile: IDocumentFile | undefined = _.find(this.documentFiles, (documentFile) => {
       return file === documentFile
     })
@@ -66,7 +66,7 @@ export class WizardUploaderComponentController implements IWizardUploaderModuleC
 
   }
 
-  public uploadFiles = (files: File[]) => {
+  public uploadFiles = (files: File[]): void => {
     files.forEach((file) => {
       const currentFile: IDocumentFile = {
         file: file,
@@ -81,7 +81,7 @@ export class WizardUploaderComponentController implements IWizardUploaderModuleC
     })
   }
 
-  public removeFile = (file: IDocumentFile) => {
+  public removeFile = (file: IDocumentFile): void => {
     _.remove(this.documentFiles, (currentFile) => {
       return currentFile === file
     })
@@ -96,7 +96,7 @@ export class WizardUploaderComponentController implements IWizardUploaderModuleC
     })
   }
 
-  private uploadFile = (file: File, currenFile: IDocumentFile) => {
+  private uploadFile = (file: File, currenFile: IDocumentFile): void => {
     this.uploader.uploadFile(file, this.postProcessOptions, (res: any) => {
       currenFile.fileUploadInfo = res
     }).then((res: any) => {

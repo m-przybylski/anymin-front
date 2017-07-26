@@ -16,19 +16,19 @@ export class WizardLinksComponentController implements IWizardLinksComponentBind
     this.urlPattern = CommonSettingsService.localSettings.urlPattern
   }
 
-  $onInit() {
+  $onInit(): void {
 
   }
 
-  public removeLink = (linkToDelete: string) => {
+  public removeLink = (linkToDelete: string): void => {
     const index = this.selectedLinks.indexOf(linkToDelete)
     this.selectedLinks.splice(index, 1)
   }
 
-  public checkLinkExist = (link: string) => {
+  public checkLinkExist = (link: string): boolean => {
     return this.selectedLinks.indexOf(link) !== -1
   }
-  public onEnter = () => {
+  public onEnter = (): void => {
     this.urlExist = false
     if (!this.linkModel.match(this.urlPattern) && this.httpAdded === false) {
       this.linkModel = 'http://' + this.linkModel

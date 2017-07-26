@@ -5,7 +5,7 @@ import tooltipModule from '../../interface/tooltip/tooltip'
 
 export interface IWizardStepModuleComponentBindings extends ng.IController {
   title: string
-  checkIsStepValid: () => void
+  checkIsStepValid: () => boolean
   additionalText: string
   tooltipText: string
   buttonTitle: string

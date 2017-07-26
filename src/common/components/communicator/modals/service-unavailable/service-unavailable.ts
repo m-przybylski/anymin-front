@@ -17,12 +17,12 @@ namespace profitelo.components.communicator.modals.serviceUnavailable {
     constructor($scope: IUnavailableServiceControllerScope,
                 $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
 
-      $scope.reject = () => {
+      $scope.reject = (): void => {
         $uibModalInstance.dismiss('cancel')
         $scope.$parent.reject()
       }
 
-      $scope.accept = () => {
+      $scope.accept = (): void => {
         $uibModalInstance.dismiss('cancel')
         $scope.$parent.accept()
       }

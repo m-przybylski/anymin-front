@@ -10,17 +10,17 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.modals.
     let compile: ng.ICompileService
     let componentController: any
     let component: any
-    let validHTML = '<client-complain-reason></client-complain-reason>'
+    const validHTML = '<client-complain-reason></client-complain-reason>'
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
 
-    let bindings: any = {}
+    const bindings: any = {}
 
     beforeEach(() => {
 
@@ -48,7 +48,7 @@ describe('Unit testing: profitelo.components.dashboard.client.activities.modals.
     }))
 
     it('should compile the directive', () => {
-      let el = create(validHTML)
+      const el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
 

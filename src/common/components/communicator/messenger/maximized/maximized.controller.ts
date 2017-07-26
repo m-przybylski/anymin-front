@@ -30,7 +30,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
 
   private messagesScroll = angular.element('.messenger-scroll')
   private indicateTypingDebounceTimeout = 1000
-  public indicateTypingDebounce = () => {}
+  public indicateTypingDebounce = (): void => {}
   private typingTimeout = 2000
   private fileUploadErrorMessageTimeout = 15000
   private uploader: UploaderService
@@ -66,13 +66,13 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
     })
   }
 
-  $onChanges = () => {
+  $onChanges = (): void => {
     if (this.isMessenger) {
       angular.element(this.$element).find('.messenger-input input').focus()
     }
   }
 
-  public onUploadFiles = (files: Array<File>) => {
+  public onUploadFiles = (files: File[]): void => {
     this.isFileUploadError = false
     angular.forEach(files, (file) => {
       this.uploadedFile.file = file
@@ -81,14 +81,14 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
     })
   }
 
-  public uploadAgain = () => {
+  public uploadAgain = (): void => {
     this.onUploadFiles((this.uploadedFile.file) ? [this.uploadedFile.file] : [])
   }
 
-  public onSendMessage = (messageBody: string) =>
+  public onSendMessage = (messageBody: string): Promise<void> =>
     this.sendMessage(this.serializeMessageBody(messageBody))
 
-  private clientInit = (currentClientCall: CurrentClientCall) => {
+  private clientInit = (currentClientCall: CurrentClientCall): void => {
     this.destroy()
     const expert = currentClientCall.getExpert()
     if (expert.expertDetails && expert.expertDetails.avatar) {
@@ -97,13 +97,13 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
     this.onNewCall(currentClientCall)
   }
 
-  private expertInit = (currentExpertCall: CurrentExpertCall) => {
+  private expertInit = (currentExpertCall: CurrentExpertCall): void => {
     this.destroy()
     this.participantAvatar = ''
     this.onNewCall(currentExpertCall)
   }
 
-  private scrollMessagesBottom = () => {
+  private scrollMessagesBottom = (): void => {
     this.messagesScroll.perfectScrollbar('update')
     this.$timeout(() => {
       if (angular.element('grouped-messages .message:last-child img')) {
@@ -116,7 +116,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
     })
   }
 
-  private addGroupedMessage = (message: any) => {
+  private addGroupedMessage = (message: any): void => {
     if (this.groupedMessages.length === 0) {
       this.groupedMessages.push([message])
     } else {
@@ -130,41 +130,41 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
     }
   }
 
-  private onTypingEnd = () => {
+  private onTypingEnd = (): void => {
     this.isTyping = false
     this.$timeout(this.scrollMessagesBottom)
   }
 
-  private addMessage = (msg: any) => {
+  private addMessage = (msg: any): void => {
     this.addGroupedMessage(msg)
     msg.isNew = true
     this.$timeout(() => msg.isNew = false, 500)
     this.onTypingEnd()
   }
 
-  private onMessageSendSuccess = (message: any) => {
+  private onMessageSendSuccess = (message: any): void => {
     message.isMine = true
     this.addMessage(message)
   }
 
-  private onMessageSendError = (err: any) =>
+  private onMessageSendError = (err: any): void =>
     this.$log.error('msg send err:', JSON.stringify(err))
 
-  private serializeMessageBody = (text: string) =>
+  private serializeMessageBody = (text: string): string =>
     JSON.stringify({body: text})
 
-  private sendMessage = (messageObject: string) =>
+  private sendMessage = (messageObject: string): Promise<void> =>
     this.messageRoom.sendMessage(messageObject)
       .then(this.onMessageSendSuccess, this.onMessageSendError)
 
-  private onUploadProgess = (res: any) =>
+  private onUploadProgess = (res: any): void =>
     this.$log.debug(res)
 
   private postProcessOptions: PostProcessOption = {
     croppingDetails: undefined
   }
 
-  private onFileUpload = (res: any) => {
+  private onFileUpload = (res: any): void => {
     const fileMessage = {
       body: res.name,
       fileUrl: this.urlService.resolveFileUrl(res.token)
@@ -173,7 +173,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
     this.sendMessage(JSON.stringify(fileMessage))
   }
 
-  private onFileUploadError = (err: any) => {
+  private onFileUploadError = (err: any): void => {
     this.$log.error(err)
     this.uploadedFile.progress = false
     this.isFileUploadError = true
@@ -182,17 +182,17 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
     }, this.fileUploadErrorMessageTimeout)
   }
 
-  private uploadFile = (file: File) =>
+  private uploadFile = (file: File): ng.IPromise<never> =>
     this.uploader.uploadFile(file, this.postProcessOptions, this.onUploadProgess)
       .then(this.onFileUpload, this.onFileUploadError)
 
-  private onTyping = () => {
+  private onTyping = (): void => {
     this.isTyping = true
     this.scrollMessagesBottom()
     this.$timeout(this.onTypingEnd, this.typingTimeout)
   }
 
-  private destroy = () => {
+  private destroy = (): void => {
     this.participantAvatar = ''
     this.isTyping = false
     this.groupedMessages = []

@@ -4,11 +4,11 @@ namespace profitelo.components.dashboard.client.activities.modals.chargeDetails 
 
     let clientChargeDetailsController: any
     let scope: any
-    let uibModalInstance = {
-      dismiss: () => {
+    const uibModalInstance = {
+      dismiss: (): void => {
 
       },
-      close: () => {
+      close: (): void => {
 
       }
     }
@@ -18,14 +18,13 @@ namespace profitelo.components.dashboard.client.activities.modals.chargeDetails 
       inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
 
         scope = $rootScope.$new()
-        scope.disconnectCall = () => {
+        scope.disconnectCall = (): void => {
         }
         scope.$parent.financeActivityDetails = {
           financialOperation: {
 
           }
         }
-
 
         clientChargeDetailsController = $controller('clientChargeDetailsController', {
           '$scope': scope,

@@ -13,7 +13,7 @@ describe('Unit testing: navbarHelp', () => {
     const validHTML =
       '<navbar-help></navbar-help>'
 
-    function create(html: string,  bindings: INavbarHelpComponentBindings) {
+    function create(html: string,  bindings: INavbarHelpComponentBindings): JQuery {
       const parentScope = rootScope.$new()
       const parentBoundScope = angular.extend(parentScope, bindings)
       const elem = angular.element(html)
@@ -33,7 +33,7 @@ describe('Unit testing: navbarHelp', () => {
         compile = $compile
 
         bindings = {
-          onClick: () => {}
+          onClick: (): void => {}
         }
 
         const injectors = {}

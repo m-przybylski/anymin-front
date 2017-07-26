@@ -1,7 +1,7 @@
-(function() {
+(function(): void {
 
   /* @ngInject */
-  function noConsultationsController() {
+  function noConsultationsController(): void {
 
     return this
   }

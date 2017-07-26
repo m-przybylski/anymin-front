@@ -47,7 +47,7 @@ describe('Unit testing: profitelo.components.wizard.single-consultation-edit', (
         }],
         isOwnerEmployee: false
       }
-      component.onRemove = () => {}
+      component.onRemove = (): void => {}
       spyOn(component, 'onRemove')
       component.removeConsultation()
       expect(component.onRemove).toHaveBeenCalledWith(component.service)
@@ -65,7 +65,7 @@ describe('Unit testing: profitelo.components.wizard.single-consultation-edit', (
         }],
         isOwnerEmployee: false
       }
-      component.onEdit = () => {}
+      component.onEdit = (): void => {}
       spyOn(component, 'onEdit')
       component.editConsultation()
       expect(component.onEdit).toHaveBeenCalledWith(component.service)

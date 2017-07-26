@@ -11,7 +11,7 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.summary-ch
 
     const validHTML: string = '<summary-charge-account></summary-charge-account>'
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       const parentScope: ng.IScope = rootScope.$new()
       const elem = angular.element(html)
       const compiledElement = compile(elem)(parentScope)

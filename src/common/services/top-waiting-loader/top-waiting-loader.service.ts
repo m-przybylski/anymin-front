@@ -19,21 +19,21 @@ export class TopWaitingLoaderService {
     })
   }
 
-  public bindProgress = (progress: (progress: number) => void) => {
+  public bindProgress = (progress: (progress: number) => void): void => {
     this.currentProgress = 0
     this.bindedProgress = progress
     this.bindedProgress(this.currentProgress)
   }
 
-  public stopLoader = () => {
+  public stopLoader = (): void => {
     this.$timeout(this.stopLoadingProcess)
   }
 
-  public immediate = () => {
+  public immediate = (): void => {
     this.$timeout(this.startImmediateLoading)
   }
 
-  private stopLoadingProcess = () => {
+  private stopLoadingProcess = (): void => {
     this.$interval.cancel(this.immediateInterval)
     this.immediateInProgress = false
     this.currentProgress = 100
@@ -42,7 +42,7 @@ export class TopWaitingLoaderService {
     this.bindedProgress(this.currentProgress)
   }
 
-  private startImmediateLoading = () => {
+  private startImmediateLoading = (): void => {
     if (!this.immediateInProgress) {
       this.immediateInProgress = true
       this.immediateInterval = this.$interval(() => {

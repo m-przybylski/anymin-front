@@ -5,14 +5,14 @@ import smoothScrollingModule from '../../../services/smooth-scrolling/smooth-scr
 
 /* @ngInject */
 function controller($element: ng.IRootElementService, smoothScrollingService: SmoothScrollingService,
-                    $window: IWindowService, $log: ng.ILogService, $scope: ng.IScope, $timeout: ng.ITimeoutService) {
+                    $window: IWindowService, $log: ng.ILogService, $scope: ng.IScope, $timeout: ng.ITimeoutService): void {
   this.stylesObject = {
     height: null
   }
 
   this.isCollapsed = false
 
-  const getFirstCollapseElementHeight = () => {
+  const getFirstCollapseElementHeight = (): number => {
     const firstCollapseElement = $element.find('ng-transclude > div:first-child')
     if (firstCollapseElement) {
       return firstCollapseElement.height()
@@ -22,12 +22,12 @@ function controller($element: ng.IRootElementService, smoothScrollingService: Sm
     }
   }
 
-  const getCollapseWrapperHeight = () => {
+  const getCollapseWrapperHeight = (): number => {
     return $element.find('.collapse-content').height()
   }
 
   /* istanbul ignore next */
-  const onWindowResize = () => {
+  const onWindowResize = (): void => {
     if (this.isCollapsed) {
       this.stylesObject.height = getCollapseWrapperHeight()
     } else {
@@ -43,7 +43,7 @@ function controller($element: ng.IRootElementService, smoothScrollingService: Sm
   /* istanbul ignore next */
   angular.element($window).on('resize', onWindowResize)
 
-  this.toggleCollapse = () => {
+  this.toggleCollapse = (): void => {
     this.stylesObject.height = this.stylesObject.height !== getCollapseWrapperHeight() ?
       getCollapseWrapperHeight() : getFirstCollapseElementHeight()
 
@@ -53,7 +53,7 @@ function controller($element: ng.IRootElementService, smoothScrollingService: Sm
     }
   }
 
-  this.checkedHeight = () => {
+  this.checkedHeight = (): boolean => {
     return getFirstCollapseElementHeight() === getCollapseWrapperHeight()
   }
 

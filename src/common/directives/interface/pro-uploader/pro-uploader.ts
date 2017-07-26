@@ -4,12 +4,13 @@ import apiModule from 'profitelo-api-ng/api.module'
 import {FilesApi} from 'profitelo-api-ng/api/api'
 
 import {TopAlertService} from '../../../services/top-alert/top-alert.service'
+import {IDirective} from 'angular'
 
 function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interval: ng.IIntervalService,
                      $filter: ng.IFilterService, $q: ng.IQService, FilesApi: FilesApi, Upload: any,
-                     CommonConfig: any, topAlertService: TopAlertService) {
+                     CommonConfig: any, topAlertService: TopAlertService): IDirective {
 
-  function linkFunction(scope: any, _element: ng.IRootElementService, attr: any) {
+  function linkFunction(scope: any, _element: ng.IRootElementService, attr: any): void {
 
     let _file = 0
     let _files = 0
@@ -41,14 +42,14 @@ function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interv
       scope.required = true
     }
 
-    const _setFilesStatus = (currentFile: any, allFiles: any) => {
+    const _setFilesStatus = (currentFile: any, allFiles: any): void => {
       scope.translationInfo = {
         file: currentFile,
         files: allFiles
       }
     }
 
-    const calculateTotalPercentage = (map: any, filesLength: number) => {
+    const calculateTotalPercentage = (map: any, filesLength: number): void => {
       let tmpPercentage = 0
 
       for (const a in map) {
@@ -62,7 +63,7 @@ function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interv
 
     }
 
-    const _uploadProcess = (files: Array<any>) => {
+    const _uploadProcess = (files: Array<any>): void => {
       const tokenPromisses: Array<ng.IPromise<string>> = []
       if (files && files.length) {
         // scope.animate()
@@ -135,7 +136,7 @@ function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interv
       }
     }
 
-    scope.uploadFiles = ($files: any) => {
+    scope.uploadFiles = ($files: any): void => {
       if (isProcess) {
         if ($files !== null) {
           filesQueue = filesQueue.concat($files)
@@ -145,7 +146,7 @@ function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interv
       }
     }
     /* istanbul ignore next */
-    const _endImmediateLoading = () => {
+    const _endImmediateLoading = (): void => {
       scope.progress = 0
       uploadMap = {}
       scope.fadeText = true
@@ -160,7 +161,7 @@ function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interv
       scope.isPending = false
     }
     /* istanbul ignore next */
-    const _startImmediateLoading = () => {
+    const _startImmediateLoading = (): void => {
       immediateInterval = $interval(() => {
         if (scope.progress >= 100) {
           _endImmediateLoading()
@@ -171,13 +172,13 @@ function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interv
       }, 100)
     }
 
-    scope.deleteImage = () => {
+    scope.deleteImage = (): void => {
       scope.uploadImg = false
       scope.filesUploaded = []
     }
 
     /* istanbul ignore next */
-    scope.animate = function () {
+    scope.animate = function (): void {
       scope.showArrow = false
       scope.hideArrow = true
       scope.hideLoader = false

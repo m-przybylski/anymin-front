@@ -21,8 +21,8 @@ describe('Unit testing: profitelo.services.callbacks >', () => {
 
     it('should use callback service', inject(($timeout: ng.ITimeoutService) => {
       const cbs = {
-        callback1: () => {},
-        callback2: () => {}
+        callback1: (): void => {},
+        callback2: (): void => {}
       }
 
       spyOn(cbs, 'callback1')

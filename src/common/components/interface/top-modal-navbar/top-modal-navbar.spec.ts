@@ -12,10 +12,10 @@ import {IWindowService} from '../../../services/window/window.service'
     let component: any
     const validHTML = '<top-modal-navbar data-title="test" data-on-close="asd"></top-modal-navbar>'
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       scope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(scope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }

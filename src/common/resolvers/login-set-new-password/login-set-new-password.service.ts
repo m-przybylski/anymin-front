@@ -29,11 +29,11 @@ class LoginSetNewPasswordResolver implements ILoginSetNewPasswordService {
 
   }
 
-  public resolve = (stateParams: ISetNewPasswordStateParams) => {
+  public resolve = (stateParams: ISetNewPasswordStateParams): ng.IPromise<{}> => {
 
     const _deferred = this.$q.defer()
 
-    const smsTokenPath = () => {
+    const smsTokenPath = (): void => {
       _deferred.resolve({
         method: 'SMS',
         payload: {
@@ -43,7 +43,7 @@ class LoginSetNewPasswordResolver implements ILoginSetNewPasswordService {
       })
     }
 
-    const emailTokenPath = () => {
+    const emailTokenPath = (): void => {
 
       this.RecoverPasswordApi.postRecoverPasswordVerifyEmailRoute({
         token: stateParams.token
