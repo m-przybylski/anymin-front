@@ -104,6 +104,11 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
       }
       component = componentController('payuPaymentForm', {}, bindings)
       component.$onInit()
+      component.bankModel = 't'
+      component.firstNameModel = 'dumbName'
+      component.lastNameModel = 'dumbLastName'
+      component.emailModel = 'dumb@email.com'
+      component.rulesAccepted = true
       AccountApiMock.postCompanyInfoRoute(200, <CompanyInfo>{
 
       })
@@ -113,7 +118,7 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
       httpBackend.flush()
       expect(state.go).toHaveBeenCalled()
     }))
-    
+
     //
     // it('should redirect to payu', inject(() => {
     //   bindings.amountMethodModal.email = 'testacc@profitelo.pl'
