@@ -7,7 +7,7 @@ export interface ISecuritySettingsService {
   resolve(): ng.IPromise<Array<GetSession>>
 }
 
-class SecuritySettingsResolver implements ISecuritySettingsService {
+export class SecuritySettingsResolver implements ISecuritySettingsService {
 
   constructor(private SessionApi: SessionApi, private $log: ng.ILogService) {
 
