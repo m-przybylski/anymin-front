@@ -1,4 +1,4 @@
-import * as angular from 'angular'
+\import * as angular from 'angular'
 import apiModule from 'profitelo-api-ng/api.module'
 import {FinancesApi, PaymentsApi} from 'profitelo-api-ng/api/api'
 import {MoneyDto, GetCreditCard, GetPaymentOptions, PaymentLink, PaymentSystem, GetLastPayment} from 'profitelo-api-ng/model/models'

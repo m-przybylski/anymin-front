@@ -145,12 +145,24 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
   }
 
   const isValid = (): boolean => {
-    const _isModelBankExist = (): boolean => {
-      if (angular.isDefined(this.bankModel)) {
-        return true
-      } else {
-        smoothScrollingService.simpleScrollTo('#bankValid')
+    const _isModelBankExist = () => {
+      if (!this.bankModel) {
+          smoothScrollingService.simpleScrollTo('#bankValid')
+          return false
+      } else if (!this.firstNameModel || !this.lastNameModel || !this.emailModel || !this.rulesAccepted) {
+          smoothScrollingService.simpleScrollTo('#personal-data')
+          return false
+      } else if (this.showInvoiceForm
+        && (!this.selectedCountry
+        || !this.vatNumber
+        || !this.companyName
+        || !this.street
+        || !this.apartmentNumber
+        || !this.postalCode
+        || !this.city)) {
         return false
+      } else {
+        return true
       }
     }
     if (angular.isDefined(this.validAction)) {
