@@ -3,7 +3,8 @@ import IUnavailableServiceControllerParentScope =
   profitelo.components.communicator.modals.serviceUnavailable.IUnavailableServiceControllerParentScope
 import INoCreditsControllerParentScope =
   profitelo.components.communicator.modals.noCredits.INoCreditsControllerParentScope
-import {GetService, GetActivity, GetProfileWithServicesEmployments} from 'profitelo-api-ng/model/models'
+import {GetService, GetActivity, GetProfileWithServicesEmployments, MoneyDto, GetCreditCard, GetPaymentOptions,
+  PaymentLink} from 'profitelo-api-ng/model/models'
 import {DialogService} from '../dialog/dialog.service'
 import {IClientCallParentControllerScope} from '../../components/communicator/modals/client-call/client-call'
 import {
@@ -80,6 +81,7 @@ import {
   IGeneralPhoneSettingsControllerScope
 } from '../../components/dashboard/settings/modals/general/phone-settings/phone-settings.controller';
 import {IModalInstanceService} from 'angular-ui-bootstrap'
+import {IChargeAccountScope, ChargeAccountController} from '../../../app/charge-account/modal/charge-account.controller'
 
 // TODO add types for dialogScope Scopes
 export class ModalsService {
@@ -438,6 +440,25 @@ export class ModalsService {
       controllerAs: 'vm',
       controller: InvitationsModalController,
       template: require('app/invitations/modal/invitations.pug')(),
+      scope: dialogScope
+    })
+  }
+
+  public createChargeAccountModal = (currentStateName?: string, paymentsOptions?: GetPaymentOptions,
+                                     creditCards?: GetCreditCard[], paymentsLinks?: PaymentLink[],
+                                     financeBalance?: MoneyDto): IModalInstanceService => {
+    const dialogScope: IChargeAccountScope =
+      <IChargeAccountScope>this.$rootScope.$new(true)
+    dialogScope.currentState = currentStateName
+    dialogScope.paymentsOptions = paymentsOptions
+    dialogScope.creditCards = creditCards
+    dialogScope.paymentsLinks = paymentsLinks
+    dialogScope.financeBalance = financeBalance
+
+    return this.dialogService.openDialog({
+      controllerAs: 'vm',
+      controller: ChargeAccountController,
+      template: require('app/charge-account/modal/charge-account.pug')(),
       scope: dialogScope
     })
   }

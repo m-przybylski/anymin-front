@@ -7,6 +7,7 @@ export class PayPalPaymentFormComponentController implements ng.IController, IPa
   paymentsLinks: Array<PaymentLink>
   amountMethodModal: any
   postPayment: PostPayment
+  onAuthorize: () => void
 
   $onInit = (): void => {
     this.postPayment = {
@@ -60,7 +61,7 @@ export class PayPalPaymentFormComponentController implements ng.IController, IPa
           paymentId: data.paymentID,
           payerId: data.payerID
         }).then((_response: any) => {
-          $state.go('app.dashboard.client.activities')
+          typeof this.onAuthorize === 'function' ? this.onAuthorize() : $state.go('app.dashboard.client.activities')
         }, (error: any) => {
           throw new Error(error)
         })

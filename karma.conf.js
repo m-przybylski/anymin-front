@@ -77,6 +77,15 @@ module.exports = function (config) {
               {loader: 'css-loader'}
             ]
           },
+          // TODO Add linter to tests: https://git.contactis.pl/itelo/profitelo/issues/930
+          // {
+          //   test: /\.ts$/, exclude: /node_modules|generated_modules/,
+          //   enforce: 'post',
+          //   loader: 'tslint-loader',
+          //   options: {
+          //     rulesDirectory: 'tslint.json'
+          //   }
+          // },
           /**
            * Instruments source files for subsequent code coverage.
            * See https://github.com/deepsweet/istanbul-instrumenter-loader

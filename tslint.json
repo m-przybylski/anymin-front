@@ -19,7 +19,7 @@
     "import-spacing": false,
     "no-consecutive-blank-lines": true,
     "max-classes-per-file": [true, 1],
-    "max-file-line-count": [true, 470],
+    "max-file-line-count": [true, 500],
     "restrict-plus-operands": true,
      "max-line-length": [true, 120],
     // "no-magic-numbers": true,

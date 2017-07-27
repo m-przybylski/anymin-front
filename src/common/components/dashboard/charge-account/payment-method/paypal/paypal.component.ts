@@ -8,6 +8,7 @@ export class PayPalPaymentFormComponent implements ng.IComponentOptions {
   bindings: {[boundProperty: string]: string} = {
     paymentsLinks: '<',
     amountMethodModal: '<',
-    paymentCountryId: '<'
+    paymentCountryId: '<',
+    onAuthorize: '<'
   }
 }

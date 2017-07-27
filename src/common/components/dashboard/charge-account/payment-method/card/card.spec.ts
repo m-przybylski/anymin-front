@@ -39,7 +39,8 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
         }
       },
       paymentsLinks: [],
-      paymentCountryId: 'asd2232323'
+      paymentCountryId: 'asd2232323',
+      onCardPayment: () => {}
     }
 
     const userService = {

@@ -2,6 +2,7 @@ import {IProfileGalleryComponentBindings} from './profile-gallery'
 import {FileInfo} from 'profitelo-api-ng/model/models'
 import {FilesApi} from 'profitelo-api-ng/api/api'
 import {ModalsService} from '../../../services/modals/modals.service'
+import {ErrorHandlerService} from '../../../services/error-handler/error-handler.service'
 
 export class ProfileGalleryComponentController implements IProfileGalleryComponentBindings {
   documents: string[]
@@ -12,7 +13,9 @@ export class ProfileGalleryComponentController implements IProfileGalleryCompone
   readonly documentsLimit: number = 5
 
   /* @ngInject */
-  constructor(private modalsService: ModalsService, private FilesApi: FilesApi) {
+  constructor(private modalsService: ModalsService,
+              private FilesApi: FilesApi,
+              private errorHandler: ErrorHandlerService) {
     this.idDocumentsContainerCollapsed = false
   }
 
@@ -20,9 +23,7 @@ export class ProfileGalleryComponentController implements IProfileGalleryCompone
     this.documents.forEach((token) => {
       this.FilesApi.fileInfoPath(token).then((response) => {
         this.uploadedFiles.push(response)
-      }, (error: any) => {
-        throw new Error('Can not get File Info: ' + error)
-      })
+      }, (error: any) => this.errorHandler.handleServerError(error))
     })
 
     if (this.documents) {

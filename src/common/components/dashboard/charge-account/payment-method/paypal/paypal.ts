@@ -9,6 +9,7 @@ export interface IPayPalPaymentFormComponentBindings {
   paymentsLinks: Array<PaymentLink>
   amountMethodModal: any
   paymentCountryId: string
+  onAuthorize: () => void
 }
 
 const paypalModule = angular.module('profitelo.components.dashboard.charge-account.payment-method.paypal', [

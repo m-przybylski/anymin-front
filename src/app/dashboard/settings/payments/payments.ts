@@ -81,7 +81,7 @@ export class DashboardSettingsPaymentsController implements ng.IController {
   }
 
   public addFirstTimePaymentMethod = (): void => {
-    this.$state.go('app.dashboard.charge-account')
+    this.$state.go('app.charge-account')
   }
 
   private onModalClose = (): void => {

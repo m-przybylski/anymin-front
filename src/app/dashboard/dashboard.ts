@@ -1,7 +1,6 @@
 import * as angular from 'angular'
 import 'angular-touch'
 import 'angular-permission'
-import './charge-account/charge-account'
 import './payments-thank-you-page/payments-thank-you-page'
 import './client/client'
 import './expert/expert'
@@ -27,7 +26,6 @@ const dashboardPageModule = angular.module('profitelo.controller.dashboard', [
   'permission.ui',
   'ngTouch',
   navbarModule,
-  'profitelo.controller.dashboard.charge-account',
   'profitelo.controller.dashboard.payments-thank-you-page',
   'profitelo.controller.dashboard.client',
   expertDashboardModule,
