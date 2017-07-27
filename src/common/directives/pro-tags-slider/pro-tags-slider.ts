@@ -3,7 +3,9 @@ import {Tag} from 'profitelo-api-ng/model/models'
 import {IWindowService} from '../../services/window/window.service'
 import {IDirective} from 'angular'
 
-function proTagsSlider($window: IWindowService, $location: ng.ILocationService, $timeout: ng.ITimeoutService): IDirective {
+function proTagsSlider($window: IWindowService,
+                       $location: ng.ILocationService,
+                       $timeout: ng.ITimeoutService): IDirective {
   function linkFunction(scope: any, element: ng.IRootElementService): void {
 
     let tagsContainerWidth = element.find('.slider-tag')[0].clientWidth

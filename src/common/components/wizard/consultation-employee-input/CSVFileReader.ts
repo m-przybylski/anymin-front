@@ -5,8 +5,10 @@ export class CSVFileReader {
 
   private csvToArray = (fileContent: string, showErrorOnLoaded?: () => void): string[] => {
     const validationRegexp: RegExp =
+      // tslint:disable-next-line: max-line-length
       /^\s*(?:'[^'\\]*(?:\\[\S\s][^'\\]*)*'|"[^"\\]*(?:\\[\S\s][^"\\]*)*"|[^,'"\s\\]*(?:\s+[^,'"\s\\]+)*)\s*(?:,\s*(?:'[^'\\]*(?:\\[\S\s][^'\\]*)*'|"[^"\\]*(?:\\[\S\s][^"\\]*)*"|[^,'"\s\\]*(?:\s+[^,'"\s\\]+)*)\s*)*$/
     const valueRegexp: RegExp =
+      // tslint:disable-next-line: max-line-length
       /(?!\s*$)\s*(?:'([^'\\]*(?:\\[\S\s][^'\\]*)*)'|"([^"\\]*(?:\\[\S\s][^"\\]*)*)"|([^,'"\s\\]*(?:\s+[^,'"\s\\]+)*))\s*(?:,|$)/g
     if (validationRegexp.test(fileContent)) {
       const valuesList: string[] = []

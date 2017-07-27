@@ -1,5 +1,6 @@
 import * as angular from 'angular'
-import expertNoActivitiesModule from '../../../../common/components/dashboard/expert/activities/no-activities/no-activities';
+import expertNoActivitiesModule
+  from '../../../../common/components/dashboard/expert/activities/no-activities/no-activities';
 import {DashboardExpertActivitiesController} from './activities.controller'
 import expertActivityModule from '../../../../common/components/dashboard/expert/activities/activity/activity';
 import './activities.sass'

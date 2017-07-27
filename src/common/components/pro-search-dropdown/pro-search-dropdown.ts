@@ -170,7 +170,8 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
 
     angular.element(currentElement).addClass('active')
     const dropdownOffset = 300
-    $element.find('.dropdown-container').scrollTop(currentElement.offsetTop - angular.element(('.dropdown-container')).height() + dropdownOffset)
+    $element.find('.dropdown-container')
+      .scrollTop(currentElement.offsetTop - angular.element(('.dropdown-container')).height() + dropdownOffset)
     selectedElement.lastElement = elementObject.currentPosition
   }
 
@@ -221,7 +222,8 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
 
   const _setPrimarySuggestion = (search: string): void => {
     this.primarySuggestion = null
-    if (angular.isDefined(search) && search && !this.isCollapsed && search.length > 2 && !!this.suggestions.tags && this.suggestions.tags.length > 0) {
+    if (angular.isDefined(search) && search && !this.isCollapsed && search.length > 2 &&
+      !!this.suggestions.tags && this.suggestions.tags.length > 0) {
 
       this.suggestions.tags.map((tag: Tag) => tag.name.toLowerCase()).reverse().forEach((name: string) => {
         if (name.includes(this.ngModel.toLowerCase())) {

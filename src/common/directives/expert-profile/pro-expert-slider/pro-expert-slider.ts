@@ -37,7 +37,8 @@ function proExpertSlider(dialogService: DialogService, $timeout: ng.ITimeoutServ
       scope.slide = slide
       dialogService.openDialog({
         scope: scope,
-        template: '<pro-lightbox current-slide="$ctrl.currentSlide" actions-settings="$ctrl.navSettings" slider-actions="$ctrl.sliderActions" slides-list="$ctrl.slideList"></pro-lightbox>',
+        template: '<pro-lightbox current-slide="$ctrl.currentSlide" actions-settings="$ctrl.navSettings" ' +
+                  'slider-actions="$ctrl.sliderActions" slides-list="$ctrl.slideList"></pro-lightbox>',
         controllerAs: '$ctrl',
         controller: 'lightboxModelController',
         windowTemplateUrl: require('../../../controllers/lightbox-modal/lightbox-modal.tpl.pug')
@@ -62,4 +63,5 @@ angular.module('profitelo.directives.expert-profile.pro-expert-slider', [
   'profitelo.common.controller.lightbox-model',
   'profitelo.components.pro-lightbox'
 ])
-  .directive('proExpertSlider', proExpertSlider)
+  .directive(
+    'proExpertSlider', proExpertSlider)

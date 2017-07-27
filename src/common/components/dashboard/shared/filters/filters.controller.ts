@@ -156,11 +156,14 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
 
   private setSelectedFilters = (queryParams: ActivitiesQueryParams): void => {
     this.selectedType = _.find(
-      this.activityTypesList, (type: {value: string, name: string}) => type.value === String(queryParams.getActivityType()))
+      this.activityTypesList,
+      (type: {value: string, name: string}) => type.value === String(queryParams.getActivityType()))
     this.selectedService = _.find(
-      this.servicesDropdownList, (service: {value: string, name: string}) => service.value === queryParams.getServiceId())
+      this.servicesDropdownList,
+      (service: {value: string, name: string}) => service.value === queryParams.getServiceId())
     this.selectedExpert = _.find(
-      this.expertsDropdownList, (expert: {value: string, name: string}) => expert.value === queryParams.getProfileId())
+      this.expertsDropdownList,
+      (expert: {value: string, name: string}) => expert.value === queryParams.getProfileId())
   }
 
   private createDropdownServiceList = (list: ServiceFilter[]): IDropdownList[] => {

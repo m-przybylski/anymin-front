@@ -8,7 +8,8 @@ export class ExpertPayoutCompanyModalController implements ng.IController {
   ]
 
   /* @ngInject */
-  constructor($scope: IExpertPayoutCompanyModalScope, private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance ) {
+  constructor($scope: IExpertPayoutCompanyModalScope,
+              private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance ) {
     $scope.isNavbar = true
     $scope.isFullscreen = true
   }

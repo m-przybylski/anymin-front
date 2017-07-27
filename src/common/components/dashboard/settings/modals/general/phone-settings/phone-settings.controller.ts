@@ -21,8 +21,8 @@ export class GeneralPhoneSettingsController implements ng.IController {
   public isNavbar: boolean = true
   public isFullscreen: boolean = true
   public isPhoneNumberInvalid: boolean = false
-  public prefixList: Array<IPrefixListElement> = this.CommonSettingsService.localSettings.countryCodes.map((countryCode: string) =>
-    ({
+  public prefixList: IPrefixListElement[] = this.CommonSettingsService.localSettings.countryCodes
+    .map((countryCode: string) => ({
       value: countryCode,
       name: countryCode
     }))
@@ -80,7 +80,8 @@ export class GeneralPhoneSettingsController implements ng.IController {
   }
 
   private checkIsFormValid = (prefix: string, phoneNumber: string): boolean => {
-    if (angular.isDefined(prefix) && angular.isDefined(phoneNumber) && prefix && phoneNumber && phoneNumber.length > 1) {
+    if (angular.isDefined(prefix) && angular.isDefined(phoneNumber) &&
+        prefix && phoneNumber && phoneNumber.length > 1) {
       const fullPhoneNumber = phonenumbers.parse(prefix.toString() + phoneNumber.toString())
       return phonenumbers.isValidNumber(fullPhoneNumber)
     } else {

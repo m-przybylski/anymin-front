@@ -7,7 +7,8 @@ import apiModule from 'profitelo-api-ng/api.module'
 import {PaymentsApi, AccountApi, FinancesApi} from 'profitelo-api-ng/api/api'
 import {MoneyDto, CompanyInfo, GetCreditCard, AccountDetails} from 'profitelo-api-ng/model/models'
 import {UserService} from '../../../../common/services/user/user.service'
-import noResultsInformationModule from '../../../../common/components/dashboard/no-results-information/no-results-information'
+import noResultsInformationModule
+  from '../../../../common/components/dashboard/no-results-information/no-results-information'
 
 export class DashboardSettingsPaymentsController implements ng.IController {
   public isAnyPaymentMethod: boolean

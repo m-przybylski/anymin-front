@@ -59,12 +59,14 @@ namespace profitelo.directives.scrollable {
     private setScrollableContainerPosition = (): void => {
       this.scrollableContent.css('min-height', this.previousScrollableContentHeight)
 
-      if (this.scrollableContent.outerHeight() + ((this.isNavbarVisible()) ? this.navbarHeight : 0) > this.element.height()) {
+      if (this.scrollableContent.outerHeight() +
+        ((this.isNavbarVisible()) ? this.navbarHeight : 0) > this.element.height()) {
         this.element.addClass('is-scrollable')
         this.scrollableContent.css('top', 0)
       } else {
         this.element.removeClass('is-scrollable')
-        this.scrollableContent.css('top', (this.directiveHeight - ((this.isNavbarVisible()) ? this.navbarHeight : 0) - this.scrollableContent.height()) / 2)
+        this.scrollableContent.css('top', (this.directiveHeight -
+          ((this.isNavbarVisible()) ? this.navbarHeight : 0) - this.scrollableContent.height()) / 2)
       }
     }
 
@@ -78,7 +80,8 @@ namespace profitelo.directives.scrollable {
 
     private centerContent = (): void => {
       this.directiveHeight = this.element.height()
-      const positionTop = (this.directiveHeight - ((this.isNavbarVisible()) ? this.navbarHeight : 0) - this.scrollableContent.height()) / 2
+      const positionTop = (this.directiveHeight - ((this.isNavbarVisible()) ?
+                           this.navbarHeight : 0) - this.scrollableContent.height()) / 2
 
       this.scrollableContent.css({
         'top': positionTop,
@@ -91,8 +94,12 @@ namespace profitelo.directives.scrollable {
       this.setScrollableContainerPosition()
     }
 
-    public static getInstance = (): ($timeout: ng.ITimeoutService, $interval: ng.IIntervalService, styleConstant: IStyleConstant) => ScrollableDirective => {
-      const instance = ($timeout: ng.ITimeoutService, $interval: ng.IIntervalService, styleConstant: IStyleConstant): ScrollableDirective =>
+    public static getInstance = (): ($timeout: ng.ITimeoutService,
+                                     $interval: ng.IIntervalService,
+                                     styleConstant: IStyleConstant) => ScrollableDirective => {
+      const instance = ($timeout: ng.ITimeoutService,
+                        $interval: ng.IIntervalService,
+                        styleConstant: IStyleConstant): ScrollableDirective =>
         new ScrollableDirective($timeout, $interval, styleConstant)
       instance.$inject = ['$timeout', '$interval', 'styleConstant']
       return instance

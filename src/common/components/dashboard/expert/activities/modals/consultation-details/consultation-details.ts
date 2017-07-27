@@ -9,7 +9,8 @@ import '../../../../../../components/interface/radio-text/radio-text'
 import './consultation-details.sass'
 import textareaModule from '../../../../../interface/textarea/textarea'
 
-const expertConsultationDetailsModalModule = angular.module('profitelo.components.dashboard.expert.activities.modals.consultation-details', [
+const expertConsultationDetailsModalModule = angular.module(
+  'profitelo.components.dashboard.expert.activities.modals.consultation-details', [
   'ui.bootstrap',
   apiModule,
   'profitelo.components.interface.preloader',

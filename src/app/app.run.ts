@@ -5,10 +5,14 @@ import {TopAlertService} from '../common/services/top-alert/top-alert.service'
 import {ProfiteloWebsocketService} from '../common/services/profitelo-websocket/profitelo-websocket.service'
 
 /* @ngInject */
-export function AppRunFunction($rootScope: IRootScopeService, $log: ng.ILogService, permissionService: PermissionService,
-                               $anchorScroll: ng.IAnchorScrollService, sessionService: SessionService,
-                               $urlRouter: ng.ui.IUrlRouterService, $state: ng.ui.IStateService,
-                               topAlertService: TopAlertService, profiteloWebsocket: ProfiteloWebsocketService): void {
+export function AppRunFunction($rootScope: IRootScopeService, $log: ng.ILogService,
+                               permissionService: PermissionService,
+                               $anchorScroll: ng.IAnchorScrollService,
+                               sessionService: SessionService,
+                               $urlRouter: ng.ui.IUrlRouterService,
+                               $state: ng.ui.IStateService,
+                               topAlertService: TopAlertService,
+                               profiteloWebsocket: ProfiteloWebsocketService): void {
 
   // initialize all views permissions
   permissionService.initializeAll()

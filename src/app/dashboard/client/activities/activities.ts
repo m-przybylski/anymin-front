@@ -1,5 +1,7 @@
 import * as angular from 'angular'
-import {MoneyDto, GetActivity, FinancialOperation, GetActivityFilters, GetActivities} from 'profitelo-api-ng/model/models'
+import {
+  MoneyDto, GetActivity, FinancialOperation, GetActivityFilters, GetActivities
+} from 'profitelo-api-ng/model/models'
 import 'common/components/dashboard/client/activities/client-activities/activity/activity'
 import 'common/components/interface/preloader-container/preloader-container'
 import 'common/components/complaints/status/status'
@@ -10,7 +12,8 @@ import {
 import dashboardActivitiesModule from '../../../../common/services/dashboard-activites/dashboard-activites'
 import {ActivitiesQueryParams} from '../../../../common/services/dashboard-activites/activities-query-params'
 import {TopAlertService} from '../../../../common/services/top-alert/top-alert.service'
-import noResultsInformationModule from '../../../../common/components/dashboard/no-results-information/no-results-information'
+import noResultsInformationModule
+  from '../../../../common/components/dashboard/no-results-information/no-results-information'
 
 export class DashboardClientActivitiesController {
 
@@ -27,8 +30,11 @@ export class DashboardClientActivitiesController {
   private static queryLimit = 11
 
   /* @ngInject */
-  constructor(filtersData: GetActivityFilters, private topAlertService: TopAlertService, private $filter: ng.IFilterService,
-              private dashboardActivitiesService: DashboardActivitiesService, $timeout: ng.ITimeoutService,
+  constructor(filtersData: GetActivityFilters,
+              private topAlertService: TopAlertService,
+              private $filter: ng.IFilterService,
+              private dashboardActivitiesService: DashboardActivitiesService,
+              $timeout: ng.ITimeoutService,
               private $state: ng.ui.IStateService)  {
 
     this.activitiesQueryParam = new ActivitiesQueryParams

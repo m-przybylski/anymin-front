@@ -10,7 +10,8 @@ import {ClientConsultationDetailsController} from './consultation-details.contro
 import userAvatarModule from '../../../../../interface/user-avatar/user-avatar'
 import './consultation-details.sass'
 
-const clientConsultationDetailsModalModule = angular.module('profitelo.components.dashboard.client.activities.modals.consultation-details', [
+const clientConsultationDetailsModalModule = angular.module(
+  'profitelo.components.dashboard.client.activities.modals.consultation-details', [
   'ui.bootstrap',
   apiModule,
   'profitelo.components.interface.preloader',

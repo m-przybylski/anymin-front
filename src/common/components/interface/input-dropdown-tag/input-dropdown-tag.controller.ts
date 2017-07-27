@@ -99,7 +99,8 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
 
           if (this.isOpen) {
             this.onArrowItemSelect()
-            this.dropdownScroll.scrollTop(this.dropdownSelectedItem[0].offsetTop - (this.dropdown.height() / 2 - this.dropdownSelectedItem[0].clientHeight))
+            this.dropdownScroll.scrollTop(this.dropdownSelectedItem[0]
+                .offsetTop - (this.dropdown.height() / 2 - this.dropdownSelectedItem[0].clientHeight))
           }
 
           break
@@ -113,7 +114,8 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
 
           if (this.isOpen) {
             this.onArrowItemSelect()
-            this.dropdownScroll.scrollTop(this.dropdownSelectedItem[0].offsetTop - (this.dropdown.height() / 2 - this.dropdownSelectedItem[0].clientHeight))
+            this.dropdownScroll.scrollTop(this.dropdownSelectedItem[0]
+                .offsetTop - (this.dropdown.height() / 2 - this.dropdownSelectedItem[0].clientHeight))
           }
 
           break

@@ -19,7 +19,8 @@ function controller(modalsService: ModalsService): void {
     {
       id: 'id2value',
       isDescriptive: true,
-      name: 'DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.REPORT_COMPLAINS.REASON_INCOPENTENT_EXPERT',
+      name: 'DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.' +
+      'REPORT_COMPLAINS.REASON_INCOPENTENT_EXPERT',
       description: 'descripiondescripiondescripiondescripion'
     },
     {
@@ -31,7 +32,8 @@ function controller(modalsService: ModalsService): void {
     {
       id: 'id4value',
       isDescriptive: true,
-      name: 'DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.REPORT_COMPLAINS.REASON_TECHNICAL_PROBLEMS',
+      name: 'DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.' +
+      'REPORT_COMPLAINS.REASON_TECHNICAL_PROBLEMS',
       description: 'Technical descripion'
     },
     {
@@ -64,7 +66,8 @@ const component = {
   }
 }
 
-angular.module('profitelo.components.dashboard.client.activities.modals.consultation-details.complain.complain-reason', [
+angular.module(
+  'profitelo.components.dashboard.client.activities.modals.consultation-details.complain.complain-reason', [
   'pascalprecht.translate',
   'profitelo.services.modals',
   'profitelo.components.interface.radio-text',

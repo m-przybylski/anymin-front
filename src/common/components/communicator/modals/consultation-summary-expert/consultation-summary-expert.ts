@@ -3,7 +3,8 @@ import tagsListModule from '../../../tags-list/tags-list'
 import textareaModule from '../../../interface/textarea/textarea'
 import {ConsultationSummaryExpertController} from './consultation-summary-expert.controller'
 
-const consultationSummaryExpertControllerModule = angular.module('profitelo.components.communicator.modals.consultation-summary-expert', [
+const consultationSummaryExpertControllerModule = angular.module(
+  'profitelo.components.communicator.modals.consultation-summary-expert', [
   'ui.bootstrap',
   'profitelo.services.call-summary',
   'profitelo.components.interface.preloader',

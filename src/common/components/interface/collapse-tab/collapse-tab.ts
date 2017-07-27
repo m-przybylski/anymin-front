@@ -4,8 +4,12 @@ import {IWindowService} from '../../../services/window/window.service'
 import smoothScrollingModule from '../../../services/smooth-scrolling/smooth-scrolling'
 
 /* @ngInject */
-function controller($element: ng.IRootElementService, smoothScrollingService: SmoothScrollingService,
-                    $window: IWindowService, $log: ng.ILogService, $scope: ng.IScope, $timeout: ng.ITimeoutService): void {
+function controller($element: ng.IRootElementService,
+                    smoothScrollingService: SmoothScrollingService,
+                    $window: IWindowService,
+                    $log: ng.ILogService,
+                    $scope: ng.IScope,
+                    $timeout: ng.ITimeoutService): void {
   this.stylesObject = {
     height: null
   }

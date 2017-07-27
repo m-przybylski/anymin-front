@@ -45,7 +45,8 @@ function RegisterController($log: ng.ILogService, $filter: IFilterService, $stat
   this.smsCodePattern = CommonSettingsService.localSettings.smsCodePattern
 
   this.verifyCode = (): void => {
-    if (angular.isDefined(this.registrationSteps.smsCode) && this.registrationSteps.smsCode !== null && !this.alreadyCheck) {
+    if (angular.isDefined(this.registrationSteps.smsCode) &&
+        this.registrationSteps.smsCode !== null && !this.alreadyCheck) {
       this.alreadyCheck = true
       RegistrationApi.verifyVerificationRoute({
         sessionId: this.registrationSteps.sessionId,

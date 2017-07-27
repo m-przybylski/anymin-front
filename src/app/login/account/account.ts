@@ -37,7 +37,8 @@ function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService
   })
 
   this.isValidPhoneNumber = (prefix: string, phoneNumber: string): boolean => {
-    if (angular.isDefined(prefix) && angular.isDefined(phoneNumber) && prefix && phoneNumber && phoneNumber.length > 1) {
+    if (angular.isDefined(prefix) && angular.isDefined(phoneNumber) && prefix &&
+        phoneNumber && phoneNumber.length > 1) {
       const fullPhoneNumber = phonenumbers.parse(prefix.toString() + phoneNumber.toString())
       return phonenumbers.isValidNumber(fullPhoneNumber)
     }

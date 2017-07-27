@@ -21,7 +21,8 @@ export class ExpertProfileResolver {
 
       if (angular.isDefined(stateParams.primaryConsultationId) && !!primaryConsultation
         && servicesWithTagsAndEmployees.length > 1) {
-        const currentElement = servicesWithTagsAndEmployees.splice(servicesWithTagsAndEmployees.indexOf(primaryConsultation), 1)
+        const currentElement = servicesWithTagsAndEmployees.splice(servicesWithTagsAndEmployees
+          .indexOf(primaryConsultation), 1)
         servicesWithTagsAndEmployees.unshift(currentElement[0])
       }
       return servicesWithTagsAndEmployees

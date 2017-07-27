@@ -2,7 +2,9 @@ import * as angular from 'angular'
 import {IWindowService} from '../../../services/window/window.service'
 
 /* @ngInject */
-function defaultSliderFunction($window: IWindowService, $timeout: ng.ITimeoutService, $element: ng.IRootElementService): void {
+function defaultSliderFunction($window: IWindowService,
+                               $timeout: ng.ITimeoutService,
+                               $element: ng.IRootElementService): void {
   let elementsMap: number[] = []
   let currentElement = 0
   let parentWidth = $element[0].offsetWidth
