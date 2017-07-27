@@ -29,7 +29,8 @@ namespace profitelo.filters.message {
       const messageUrls = getUrls(messageObject.body)
 
       if (messageObject.fileUrl) {
-        return '<a href="' + messageObject.fileUrl + '" target="_blank" class="file"><i class="icon-file-24"></i>' + messageObject.body + '</a>'
+        return '<a href="' + messageObject.fileUrl + '" target="_blank" class="file"><i class="icon-file-24"></i>' +
+          messageObject.body + '</a>'
 
       } else if (messageUrls && messageUrls.length > 0) {
         for (const url in messageUrls) {
@@ -38,10 +39,11 @@ namespace profitelo.filters.message {
             const urlRegexp = createRegexpFromUrl(currentUrl)
 
             if (hasImageUrl(currentUrl)) {
-              return messageObject.body.replace(urlRegexp, '<a href="' + getCorrectUrl(currentUrl) + '" target="_blank" >' +
-                '<img src="' + getCorrectUrl(currentUrl) + '"/></a>')
+              return messageObject.body.replace(urlRegexp, '<a href="' + getCorrectUrl(currentUrl) +
+                '" target="_blank" >' + '<img src="' + getCorrectUrl(currentUrl) + '"/></a>')
             } else {
-              return messageObject.body.replace(urlRegexp, '<a href="' + getCorrectUrl(currentUrl) + '" target="_blank">' + currentUrl + '</a>')
+              return messageObject.body.replace(urlRegexp, '<a href="' + getCorrectUrl(currentUrl) +
+                '" target="_blank">' + currentUrl + '</a>')
             }
           }
         }

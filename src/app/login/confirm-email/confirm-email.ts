@@ -12,7 +12,10 @@ function config($stateProvider: ng.ui.IStateProvider): void {
     /* istanbul ignore next */
     resolve: {
       /* istanbul ignore next */
-      account: (LoginConfirmEmailResolver: ILoginConfirmEmailService, $stateParams: IConfirmEmailStateParams): ng.IPromise<undefined> => {
+      account: (
+        LoginConfirmEmailResolver: ILoginConfirmEmailService,
+        $stateParams: IConfirmEmailStateParams
+      ): ng.IPromise<undefined> => {
         return LoginConfirmEmailResolver.resolve($stateParams)
       }
     },

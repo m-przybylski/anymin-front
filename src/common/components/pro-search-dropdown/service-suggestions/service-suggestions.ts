@@ -5,7 +5,8 @@ import {CommonSettingsService} from '../../../services/common-settings/common-se
 function serviceSuggestionsController($state: ng.ui.IStateService, CommonSettingsService: CommonSettingsService): void {
 
   this.profileImage = (index: number): void => {
-    return !!this.services.results[index].owner.img ? CommonSettingsService.links.imageUrl.replace('%s', this.services.results[index].owner.img) : false
+    return !!this.services.results[index].owner.img ?
+            CommonSettingsService.links.imageUrl.replace('%s', this.services.results[index].owner.img) : false
   }
 
   this.goToProfile = (indexOfService: number): void => {

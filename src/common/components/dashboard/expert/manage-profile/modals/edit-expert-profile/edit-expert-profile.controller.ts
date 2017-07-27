@@ -21,7 +21,8 @@ export class EditExpertProfileController implements ng.IController {
   /* @ngInject */
   constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
     this.inputText = 'Jan Kowalski'
-    this.textareaDescription = 'Lorem Ipsum is simply. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout'
+    this.textareaDescription = 'Lorem Ipsum is simply. It is a long established fact that a reader will be ' +
+      'distracted by the readable content of a page when looking at its layout'
     this.inputMaxLength = 150
 
     this.tagsMocks = {

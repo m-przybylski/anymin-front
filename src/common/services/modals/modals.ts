@@ -23,14 +23,20 @@ import '../../components/interface/multiselect/multiselect'
 import callSummaryModule from '../call-summary/call-summary'
 import '../../components/interface/preloader/preloader'
 import '../../components/dashboard/expert/activities/modals/consultation-details/consultation-details'
-import expertEmployeeDetailsModalModule from '../../components/dashboard/expert/employees/modals/employee-details/employee-details'
-import expertInviteEmployeesModule from '../../components/dashboard/expert/activities/modals/invite-employees/invite-employees'
-import manageProfileEditProfileModule from '../../components/dashboard/expert/manage-profile/modals/edit-expert-profile/edit-expert-profile'
+import expertEmployeeDetailsModalModule
+  from '../../components/dashboard/expert/employees/modals/employee-details/employee-details'
+import expertInviteEmployeesModule
+  from '../../components/dashboard/expert/activities/modals/invite-employees/invite-employees'
+import manageProfileEditProfileModule
+  from '../../components/dashboard/expert/manage-profile/modals/edit-expert-profile/edit-expert-profile'
 
-import { consultationSummaryClientModule } from '../../components/communicator/modals/consultation-summary-client/consultation-summary-client'
+import {
+  consultationSummaryClientModule
+} from '../../components/communicator/modals/consultation-summary-client/consultation-summary-client'
 import profileGalleryPreviewModule from '../../components/interface/profile-gallery/modals/preview'
 import invitationsModalModule from '../../../app/invitations/modal/invitations'
-import consultationSummaryExpertControllerModule from '../../components/communicator/modals/consultation-summary-expert/consultation-summary-expert'
+import consultationSummaryExpertControllerModule
+  from '../../components/communicator/modals/consultation-summary-expert/consultation-summary-expert'
 
 const modalsModule = angular.module('profitelo.services.modals', [
   dialogModule,

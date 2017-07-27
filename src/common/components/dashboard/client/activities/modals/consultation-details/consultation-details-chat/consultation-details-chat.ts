@@ -14,7 +14,8 @@ import '../../../../../../../components/communicator/messenger/maximized/grouped
     controllerAs: '$ctrl'
   }
 
-  angular.module('profitelo.components.dashboard.client.activities.modals.consultation-details.consultation-details-chat', [
+  angular.module(
+    'profitelo.components.dashboard.client.activities.modals.consultation-details.consultation-details-chat', [
     'pascalprecht.translate',
     'profitelo.components.communicator.messenger.maximized.grouped-messages'
   ])

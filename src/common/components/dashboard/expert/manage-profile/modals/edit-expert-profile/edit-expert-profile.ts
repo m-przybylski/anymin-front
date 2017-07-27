@@ -7,7 +7,8 @@ import '../../../../../../directives/interface/pro-tags-dropdown/pro-tags-dropdo
 import inputDropdownTagModule from '../../../../../interface/input-dropdown-tag/input-dropdown-tag'
 import wizardLinksModule from '../../../../../wizard/wizard-links/wizard-links'
 
-const manageProfileEditProfileModule = angular.module('profitelo.components.dashboard.expert.manage-profile.modals.edit-expert-profile', [
+const manageProfileEditProfileModule = angular.module(
+  'profitelo.components.dashboard.expert.manage-profile.modals.edit-expert-profile', [
   'ui.bootstrap',
   'profitelo.components.interface.preloader',
   'profitelo.directives.interface.scrollable',

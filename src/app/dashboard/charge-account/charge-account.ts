@@ -1,7 +1,9 @@
 import * as angular from 'angular'
 import apiModule from 'profitelo-api-ng/api.module'
 import {FinancesApi, PaymentsApi} from 'profitelo-api-ng/api/api'
-import {MoneyDto, GetCreditCard, GetPaymentOptions, PaymentLink, PaymentSystem, GetLastPayment} from 'profitelo-api-ng/model/models'
+import {
+  MoneyDto, GetCreditCard, GetPaymentOptions, PaymentLink, PaymentSystem, GetLastPayment
+} from 'profitelo-api-ng/model/models'
 import {SmoothScrollingService} from '../../../common/services/smooth-scrolling/smooth-scrolling.service'
 import topAlertModule from '../../../common/services/top-alert/top-alert'
 import commonSettingsModule from '../../../common/services/common-settings/common-settings'
@@ -160,7 +162,8 @@ function config($stateProvider: ng.ui.IStateProvider): void {
     controller: 'chargeAccountController',
     template: require('./charge-account.pug')(),
     resolve: {
-      paymentsOptions: (PaymentsApi: PaymentsApi): ng.IPromise<GetPaymentOptions> => PaymentsApi.getPaymentOptionsRoute(),
+      paymentsOptions: (PaymentsApi: PaymentsApi): ng.IPromise<GetPaymentOptions> =>
+        PaymentsApi.getPaymentOptionsRoute(),
       creditCards: (PaymentsApi: PaymentsApi): ng.IPromise<GetCreditCard[]> => PaymentsApi.getCreditCardsRoute(),
       paymentsLinks: (PaymentsApi: PaymentsApi): ng.IPromise<PaymentLink[]> => PaymentsApi.getPayUPaymentLinksRoute(),
       financeBalance: (FinancesApi: FinancesApi): ng.IPromise<MoneyDto> => FinancesApi.getClientBalanceRoute()

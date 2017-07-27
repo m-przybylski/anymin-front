@@ -5,11 +5,12 @@ import './profile-company-single-consultation.sass'
 
 export interface IProfileCompanyConsultationComponentBindings extends ng.IController {
   service: GetOrganizationServiceDetails
-  tags: Array<Tag>
-  employees: Array<GetProfileDetails>
+  tags: Tag[]
+  employees: GetProfileDetails[]
 }
 
-const profileCompanyConsultationModule = angular.module('profitelo.components.profile.profile-company-single-consultation', [
+const profileCompanyConsultationModule = angular.module(
+  'profitelo.components.profile.profile-company-single-consultation', [
 ])
 .component('profileCompanySingleConsultation', new ProfileCompanyConsultationComponent())
   .name

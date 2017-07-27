@@ -145,7 +145,7 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
   }
 
   const isValid = (): boolean => {
-    const _isModelBankExist = () => {
+    const _isModelBankExist = (): boolean => {
       if (!this.bankModel) {
           smoothScrollingService.simpleScrollTo('#bankValid')
           return false

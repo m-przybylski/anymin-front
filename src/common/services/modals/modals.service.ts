@@ -1,18 +1,38 @@
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import IUnavailableServiceControllerParentScope = profitelo.components.communicator.modals.serviceUnavailable.IUnavailableServiceControllerParentScope
-import INoCreditsControllerParentScope = profitelo.components.communicator.modals.noCredits.INoCreditsControllerParentScope
+import IUnavailableServiceControllerParentScope =
+  profitelo.components.communicator.modals.serviceUnavailable.IUnavailableServiceControllerParentScope
+import INoCreditsControllerParentScope =
+  profitelo.components.communicator.modals.noCredits.INoCreditsControllerParentScope
 import {GetService, GetActivity, GetProfileWithServicesEmployments} from 'profitelo-api-ng/model/models'
 import {DialogService} from '../dialog/dialog.service'
 import {IClientCallParentControllerScope} from '../../components/communicator/modals/client-call/client-call'
-import {IConsultationSummaryClientParentControllerScope} from '../../components/communicator/modals/consultation-summary-client/consultation-summary-client'
-import {IBasicAccountSettingsControllerParentScope} from '../../components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings'
-import {IGeneralEmailSettingsControllerScope} from '../../components/dashboard/settings/modals/general/email-settings/email-settings'
-import {IGeneralCountrySettingsControllerScope} from '../../components/dashboard/settings/modals/general/country-settings/country-settings'
-import {ISecurityChangePasswordSettingsControllerScope} from '../../components/dashboard/settings/modals/security/change-password/change-password'
-import {ISecurityPinNumberSettingsControllerScope} from '../../components/dashboard/settings/modals/security/pin-number/pin-number'
-import {IEditCompanyInvoiceControllerScope} from '../../components/dashboard/settings/modals/payments/edit-company-invoice/edit-company-invoice'
-import {IPayoutsPayPalControllerScope} from '../../components/dashboard/settings/modals/payouts/payouts-payPal/payouts-pay-pal'
-import {IAddPaymentMethodControllerScope} from '../../components/dashboard/settings/modals/payments/add-payment-method/add-payment-method'
+import {
+  IConsultationSummaryClientParentControllerScope
+} from '../../components/communicator/modals/consultation-summary-client/consultation-summary-client'
+import {
+  IBasicAccountSettingsControllerParentScope
+} from '../../components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings'
+import {
+  IGeneralEmailSettingsControllerScope
+} from '../../components/dashboard/settings/modals/general/email-settings/email-settings'
+import {
+  IGeneralCountrySettingsControllerScope
+} from '../../components/dashboard/settings/modals/general/country-settings/country-settings'
+import {
+  ISecurityChangePasswordSettingsControllerScope
+} from '../../components/dashboard/settings/modals/security/change-password/change-password'
+import {
+  ISecurityPinNumberSettingsControllerScope
+} from '../../components/dashboard/settings/modals/security/pin-number/pin-number'
+import {
+  IEditCompanyInvoiceControllerScope
+} from '../../components/dashboard/settings/modals/payments/edit-company-invoice/edit-company-invoice'
+import {
+  IPayoutsPayPalControllerScope
+} from '../../components/dashboard/settings/modals/payouts/payouts-payPal/payouts-pay-pal'
+import {
+  IAddPaymentMethodControllerScope
+} from '../../components/dashboard/settings/modals/payments/add-payment-method/add-payment-method'
 
 import {
   ClientConsultationDetailsController,
@@ -48,13 +68,17 @@ import {
   IGalleryPreviewControllerScope
 } from '../../components/interface/profile-gallery/modals/preview.controller'
 
-import {IExpertInviteEmployeesControllerScope} from '../../components/dashboard/expert/activities/modals/invite-employees/invite-employees.controller'
+import {
+  IExpertInviteEmployeesControllerScope
+} from '../../components/dashboard/expert/activities/modals/invite-employees/invite-employees.controller'
 import {InvitationsModalController, IInvitationsModalScope} from '../../../app/invitations/modal/invitations.controller'
 import {
   ConsultationSummaryExpertController,
   IConsultationSummaryExpertParentControllerScope
 } from '../../components/communicator/modals/consultation-summary-expert/consultation-summary-expert.controller';
-import {IGeneralPhoneSettingsControllerScope} from '../../components/dashboard/settings/modals/general/phone-settings/phone-settings.controller';
+import {
+  IGeneralPhoneSettingsControllerScope
+} from '../../components/dashboard/settings/modals/general/phone-settings/phone-settings.controller';
 import {IModalInstanceService} from 'angular-ui-bootstrap'
 
 // TODO add types for dialogScope Scopes
@@ -64,7 +88,11 @@ export class ModalsService {
   constructor(private $rootScope: IRootScopeService, private dialogService: DialogService) {
   }
 
-  public createIncomingCallModal = (service: GetService, answerCallback: () => void, rejectCallback: () => void): ng.ui.bootstrap.IModalInstanceService => {
+  public createIncomingCallModal = (
+    service: GetService,
+    answerCallback: () => void,
+    rejectCallback: () => void
+  ): ng.ui.bootstrap.IModalInstanceService => {
     const dialogScope: IClientCallParentControllerScope = <IClientCallParentControllerScope>this.$rootScope.$new(true)
 
     dialogScope.service = service
@@ -92,7 +120,10 @@ export class ModalsService {
     })
   }
 
-  public createServiceUnavailableModal = (acceptCallback: () => void, rejectCallback: () => void): IModalInstanceService => {
+  public createServiceUnavailableModal = (
+    acceptCallback: () => void,
+    rejectCallback: () => void
+  ): IModalInstanceService => {
     const dialogScope: IUnavailableServiceControllerParentScope =
       <IUnavailableServiceControllerParentScope>this.$rootScope.$new(true)
 
@@ -118,7 +149,9 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controller: 'consultationSummaryClientController',
-      template: require('common/components/communicator/modals/consultation-summary-client/consultation-summary-client.pug')(),
+      template: require(
+        'common/components/communicator/modals/consultation-summary-client/consultation-summary-client.pug'
+      )(),
       scope: dialogScope
     })
   }
@@ -135,7 +168,9 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controller: ConsultationSummaryExpertController,
-      template: require('common/components/communicator/modals/consultation-summary-expert/consultation-summary-expert.pug')(),
+      template: require(
+        'common/components/communicator/modals/consultation-summary-expert/consultation-summary-expert.pug'
+      )(),
       scope: dialogScope
     })
   }
@@ -150,7 +185,9 @@ export class ModalsService {
     dialogScope.sueId = sueId
     return this.dialogService.openDialog({
       controller: ClientConsultationDetailsController,
-      template: require('common/components/dashboard/client/activities/modals/consultation-details/consultation-details.pug')(),
+      template: require(
+        'common/components/dashboard/client/activities/modals/consultation-details/consultation-details.pug'
+      )(),
       scope: dialogScope
     })
   }
@@ -189,7 +226,9 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controller: 'basicAccountSettingsController',
-      template: require('common/components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings.pug')(),
+      template: require(
+        'common/components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings.pug'
+      )(),
       scope: dialogScope
     })
   }
@@ -265,7 +304,9 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controllerAs: 'vm',
       controller: 'addPaymentMethodController',
-      template: require('common/components/dashboard/settings/modals/payments/add-payment-method/add-payment-method.pug')(),
+      template: require(
+        'common/components/dashboard/settings/modals/payments/add-payment-method/add-payment-method.pug'
+      )(),
       scope: dialogScope
     })
   }
@@ -278,7 +319,9 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controllerAs: 'vm',
       controller: 'editCompanyInvoiceController',
-      template: require('common/components/dashboard/settings/modals/payments/edit-company-invoice/edit-company-invoice.pug')(),
+      template: require(
+        'common/components/dashboard/settings/modals/payments/edit-company-invoice/edit-company-invoice.pug'
+      )(),
       scope: dialogScope
     })
   }
@@ -321,7 +364,9 @@ export class ModalsService {
     dialogScope.sueId = sueId
     return this.dialogService.openDialog({
       controller: ExpertConsultationDetailsController,
-      template: require('common/components/dashboard/expert/activities/modals/consultation-details/consultation-details.pug')(),
+      template: require(
+        'common/components/dashboard/expert/activities/modals/consultation-details/consultation-details.pug'
+      )(),
       scope: dialogScope
     })
   }
@@ -383,7 +428,9 @@ export class ModalsService {
     })
   }
 
-  public createInvitationsModal = (profileWithServiceEmployments?: GetProfileWithServicesEmployments): IModalInstanceService => {
+  public createInvitationsModal = (
+    profileWithServiceEmployments?: GetProfileWithServicesEmployments
+  ): IModalInstanceService => {
     const dialogScope: IInvitationsModalScope =
       <IInvitationsModalScope>this.$rootScope.$new(true)
     dialogScope.profileWithServiceEmployments = profileWithServiceEmployments
@@ -402,7 +449,9 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controllerAs: 'vm',
       controller: EditExpertProfileController,
-      template: require('common/components/dashboard/expert/manage-profile/modals/edit-expert-profile/edit-expert-profile.pug')(),
+      template: require(
+        'common/components/dashboard/expert/manage-profile/modals/edit-expert-profile/edit-expert-profile.pug'
+      )(),
       scope: dialogScope
     })
   }

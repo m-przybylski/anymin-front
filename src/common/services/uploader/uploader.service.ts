@@ -103,7 +103,9 @@ export class UploaderService {
     }
   }
 
-  private addFileToQueue = (file: File, postProcessOptions: PostProcessOption, callback: (res: any) => void): IDeferred<{}> => {
+  private addFileToQueue = (file: File,
+                            postProcessOptions: PostProcessOption,
+                            callback: (res: any) => void): IDeferred<{}> => {
     const deferred = this.$q.defer()
     this.fileObjectsToUpload.push({
       file: file,
@@ -114,7 +116,9 @@ export class UploaderService {
     return deferred
   }
 
-  public uploadFile = (file: File, postProcessOptions: PostProcessOption, callback: (data: any) => void): ng.IPromise<{}> => {
+  public uploadFile = (file: File,
+                       postProcessOptions: PostProcessOption,
+                       callback: (data: any) => void): ng.IPromise<{}> => {
     if (!file || !(file instanceof File)) {
       return this.$q.reject('Expected File, got ' + typeof file)
     }

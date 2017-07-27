@@ -18,9 +18,13 @@ import 'common/directives/interface/pro-input-password/pro-input-password'
 import 'common/directives/password-strength-bar/password-strength-bar'
 import checkboxModule from '../../../common/components/interface/checkbox/checkbox'
 
-function _controller($log: ng.ILogService, $filter: ng.IFilterService, $state: ng.ui.IStateService,
-                     topWaitingLoaderService: TopWaitingLoaderService, passwordStrengthService: PasswordStrengthService,
-                     user: AccountDetails, topAlertService: TopAlertService, CommonSettingsService: CommonSettingsService,
+function _controller($log: ng.ILogService, $filter: ng.IFilterService,
+                     $state: ng.ui.IStateService,
+                     topWaitingLoaderService: TopWaitingLoaderService,
+                     passwordStrengthService: PasswordStrengthService,
+                     user: AccountDetails,
+                     topAlertService: TopAlertService,
+                     CommonSettingsService: CommonSettingsService,
                      AccountApi: AccountApi): void {
 
   this.passwordStrength = 0

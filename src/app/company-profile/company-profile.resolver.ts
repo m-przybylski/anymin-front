@@ -31,13 +31,17 @@ export class CompanyProfileResolver {
     const handleCompanyResponseError = (error: any): ng.IPromise<void> =>
       this.$q.reject(error)
 
-    const sortServices = (servicesWithTagsAndEmployees: Array<GetOrganizationServiceDetails>): GetOrganizationServiceDetails[] => {
+    const sortServices = (
+      servicesWithTagsAndEmployees: Array<GetOrganizationServiceDetails>
+    ): GetOrganizationServiceDetails[] => {
       const primaryConsultation = _.find(servicesWithTagsAndEmployees, (serviceWithTagsAndEmployees) =>
       serviceWithTagsAndEmployees.service.id === stateParams.primaryConsultationId)
 
       if (angular.isDefined(stateParams.primaryConsultationId) && !!primaryConsultation
         && servicesWithTagsAndEmployees.length > 1) {
-        const currentElement = servicesWithTagsAndEmployees.splice(servicesWithTagsAndEmployees.indexOf(primaryConsultation), 1)
+        const currentElement = servicesWithTagsAndEmployees.splice(
+          servicesWithTagsAndEmployees.indexOf(primaryConsultation
+          ), 1)
         servicesWithTagsAndEmployees.unshift(currentElement[0])
       }
       return servicesWithTagsAndEmployees

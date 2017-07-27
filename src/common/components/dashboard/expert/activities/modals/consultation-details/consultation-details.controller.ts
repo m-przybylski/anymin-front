@@ -39,7 +39,8 @@ export class ExpertConsultationDetailsController implements ng.IController {
       {
         id: 'id2value',
         isDescriptive: false,
-        name: 'DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.REPORT_COMPLAINS.REASON_INCOPENTENT_EXPERT',
+        name: 'DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.REPORT_COMPLAINS.' +
+        'REASON_INCOPENTENT_EXPERT',
       },
       {
         id: 'id3value',
@@ -49,7 +50,8 @@ export class ExpertConsultationDetailsController implements ng.IController {
       {
         id: 'id4value',
         isDescriptive: false,
-        name: 'DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.REPORT_COMPLAINS.REASON_TECHNICAL_PROBLEMS',
+        name: 'DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.REPORT_COMPLAINS.' +
+        'REASON_TECHNICAL_PROBLEMS',
       },
       {
         id: 'id5value',

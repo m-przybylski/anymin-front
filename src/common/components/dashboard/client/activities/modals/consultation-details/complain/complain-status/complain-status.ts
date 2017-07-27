@@ -17,7 +17,8 @@ import '../../../../../../../../components/complaints/status/status'
     }
   }
 
-  angular.module('profitelo.components.dashboard.client.activities.modals.consultation-details.complain.complain-status', [
+  angular.module(
+    'profitelo.components.dashboard.client.activities.modals.consultation-details.complain.complain-status', [
     'pascalprecht.translate',
     'profitelo.components.complaints.status'
   ])

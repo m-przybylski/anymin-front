@@ -10,10 +10,10 @@ export interface INameValue {
 }
 
 export interface ISearchSettings {
-  language: Array<INameValue>
-  sortBy: Array<string>
-  category: Array<INameValue>
-  profileType: Array<INameValue>
+  language: INameValue[]
+  sortBy: string[]
+  category: INameValue[]
+  profileType: INameValue[]
 }
 
 export interface ISearchResultRow { // TODO define type properties
@@ -288,7 +288,8 @@ export class SearchService {
 
     return this.SearchApi.searchRoute(
       query.q, undefined, undefined, undefined, query.tagId, query.profileType, onlyAvailableString,
-      query.sortBy, query.language, (query.minPrice) ? query.minPrice * 100 : query.minPrice, _maxPriceParser(query.maxPrice),
+      query.sortBy, query.language, (query.minPrice) ? query.minPrice * 100 :
+                                                       query.minPrice, _maxPriceParser(query.maxPrice),
       query.offset, SearchService._queryLimit,
     )
   }

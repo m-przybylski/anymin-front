@@ -76,7 +76,8 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
       })
       this.profileTypeList = options.profileType.map((type) => {
         return {
-          name: this.$filter('translate')(this.$filter('normalizeTranslationKey')(('SEARCH.PROFILE_TYPE.' + type.name))),
+          name: this.$filter('translate')(this.$filter('normalizeTranslationKey')
+                (('SEARCH.PROFILE_TYPE.' + type.name))),
           value: type.value
         }
       })
@@ -90,7 +91,8 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
         this.searchFilters.category = _.find(
           this.categoryList, (category: {value: string, name: string}) => category.value === params.category)
         this.searchFilters.profileType = _.find(
-          this.profileTypeList, (profileType: {value: string, name: string}) => profileType.value === params.profileType)
+          this.profileTypeList,
+          (profileType: {value: string, name: string}) => profileType.value === params.profileType)
 
       })
       this.searchFilters.onlyAvailable = params.onlyAvailable

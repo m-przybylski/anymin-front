@@ -145,7 +145,8 @@ export class ConsultationController implements ng.IController {
 
   public checkIsPriceInputValid = (): boolean => {
     return !!(this.priceAmountInputValue && this.priceAmountInputValue.length > 0 &&
-    Number(this.priceAmountInputValue.replace(',', '.')) > 0 && ((/^\d{1,3}([\.,](\d{1,2})?)?$/).test(this.priceAmountInputValue)) )
+    Number(this.priceAmountInputValue.replace(',', '.')) > 0 && ((/^\d{1,3}([\.,](\d{1,2})?)?$/)
+      .test(this.priceAmountInputValue)) )
   }
 
   public checkIsEmployeesInputValid = (): boolean => {

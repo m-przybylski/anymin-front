@@ -7,8 +7,10 @@ import wizardStepModule from '../../../common/components/wizard/wizard-step/wiza
 import wizardHandlerModule from '../../../common/components/wizard/wizard-handler/wizard-handler'
 import inputModule from '../../../common/components/interface/input/input'
 import tooltipModule from '../../../common/components/interface/tooltip/tooltip'
-import consultationEmployeeInputModule from '../../../common/components/wizard/consultation-employee-input/consultation-employee-input'
-import consultationTagInputModule from '../../../common/components/wizard/cosnultaiton-tag-input/cosnultaiton-tag-input'
+import consultationEmployeeInputModule
+  from '../../../common/components/wizard/consultation-employee-input/consultation-employee-input'
+import consultationTagInputModule
+  from '../../../common/components/wizard/cosnultaiton-tag-input/cosnultaiton-tag-input'
 import {WizardApi} from 'profitelo-api-ng/api/api'
 import {GetWizardProfile} from 'profitelo-api-ng/model/models'
 import userModule from '../../../common/services/user/user'
