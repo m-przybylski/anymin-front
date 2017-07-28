@@ -1,10 +1,9 @@
-/* @ngInject */
-
 interface IPayuAnimation {
   enter: (element: JQuery) => ng.animate.IAnimateCssRunner,
   leave: (element: JQuery) => ng.animate.IAnimateCssRunner
 }
 
+/* @ngInject */
 export function PayuAnimation($animateCss: ng.animate.IAnimateCssService): IPayuAnimation {
 
   return {

@@ -6,6 +6,7 @@ export interface ICardPaymentFormComponentBindings {
   paymentsLinks: Array<PaymentLink>
   amountMethodModal: any
   paymentCountryId: string
+  onCardPayment: () => void
 }
 
 export class CardPaymentFormComponent implements ng.IComponentOptions {
@@ -16,6 +17,7 @@ export class CardPaymentFormComponent implements ng.IComponentOptions {
   bindings: {[boundProperty: string]: string} = {
     paymentsLinks: '<',
     amountMethodModal: '<',
-    paymentCountryId: '<'
+    paymentCountryId: '<',
+    onCardPayment: '<'
   }
 }

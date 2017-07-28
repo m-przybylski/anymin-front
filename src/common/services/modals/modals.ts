@@ -35,6 +35,7 @@ import {
 } from '../../components/communicator/modals/consultation-summary-client/consultation-summary-client'
 import profileGalleryPreviewModule from '../../components/interface/profile-gallery/modals/preview'
 import invitationsModalModule from '../../../app/invitations/modal/invitations'
+import chargeAccountModalModule from '../../../app/charge-account/modal/charge-account'
 import consultationSummaryExpertControllerModule
   from '../../components/communicator/modals/consultation-summary-expert/consultation-summary-expert'
 
@@ -60,6 +61,7 @@ const modalsModule = angular.module('profitelo.services.modals', [
   'profitelo.components.profile.profile-header.profile-gallery.modals.preview',
   'profitelo.components.dashboard.expert.activities.modals.consultation-details',
   consultationSummaryClientModule,
+  chargeAccountModalModule,
   expertEmployeeDetailsModalModule,
   expertInviteEmployeesModule,
   manageProfileEditProfileModule,

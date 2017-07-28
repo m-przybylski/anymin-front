@@ -15,6 +15,7 @@ export class CardPaymentFormComponentController implements ng.IController, ICard
   transaction: ITransaction
   paymentsLinks: Array<PaymentLink>
   amountMethodModal: any
+  onCardPayment: () => void
 
   $onInit = (): void => {
     this.transaction = {
@@ -35,6 +36,6 @@ export class CardPaymentFormComponentController implements ng.IController, ICard
   }
 
   public onSucceed = (): void => {
-    this.$state.go('app.dashboard.client.activities')
+    typeof this.onCardPayment === 'function' ? this.onCardPayment() : this.$state.go('app.dashboard.client.activities')
   }
 }

@@ -147,11 +147,11 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
   const isValid = (): boolean => {
     const _isModelBankExist = (): boolean => {
       if (!this.bankModel) {
-          smoothScrollingService.simpleScrollTo('#bankValid')
-          return false
+        smoothScrollingService.simpleScrollTo('#bankValid')
+        return false
       } else if (!this.firstNameModel || !this.lastNameModel || !this.emailModel || !this.rulesAccepted) {
-          smoothScrollingService.simpleScrollTo('#personal-data')
-          return false
+        smoothScrollingService.simpleScrollTo('#personal-data')
+        return false
       } else if (this.showInvoiceForm
         && (!this.selectedCountry
         || !this.vatNumber
@@ -182,7 +182,7 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
         message: 'error',
         timeout: 4
       })
-      $state.go('app.dashboard.client.activities')
+      typeof this.onPayuOrder === 'function' ? this.onPayuOrder() : $state.go('app.dashboard.client.activities')
     })
   }
 

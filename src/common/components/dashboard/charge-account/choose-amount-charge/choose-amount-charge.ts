@@ -1,8 +1,8 @@
 import * as angular from 'angular'
 import * as _ from 'lodash'
-import {IAmounts, IAmountModel} from '../../../../../app/dashboard/charge-account/charge-account'
 import {CommonSettingsService} from '../../../../services/common-settings/common-settings.service'
 import filtersModule from '../../../../filters/filters'
+import {IAmounts, IAmountModel} from '../../../../../app/charge-account/modal/charge-account.controller'
 
 export interface IChooseAmountChargeComponentBindings {
   title: string

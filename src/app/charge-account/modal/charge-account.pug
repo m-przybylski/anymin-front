@@ -1,7 +1,6 @@
-.modal-summary.postpaid
-  .modal-main.container-medium
-  .charge-account
-    top-modal-navbar(data-title="DASHBOARD.CHARGE_ACCOUNT.YOUR_CURRENT_BALANCE" data-on-close="vm.onClose")
+.charge-account
+  top-modal-navbar(data-title="DASHBOARD.CHARGE_ACCOUNT.YOUR_CURRENT_BALANCE" data-on-close="vm.onModalClose")
+  scrollable(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
     div
       .top-charge-account
         .charge-account-title(data-ng-if="!vm.lastPayment && !vm.isCreditCard")
@@ -39,14 +38,15 @@
               data-scroll-handler="vm.scrollHandler")
 
               payu-payment-form.payu-payment-form.animation.fadeInOut(data-payments-links="vm.paymentsLinks" data-amount-method-modal="vm.amountMethodModal"
-              data-payment-country-id="vm.paymentCountryId" id="3"
+              data-payment-country-id="vm.paymentCountryId" id="3" data-on-payu-order="vm.onModalClose"
               data-ng-show="vm.amountMethodModal.paymentSystemModel.slug == 'payu_pl'" data-scroll-handler="vm.scrollHandler" data-valid-action="vm.validAction")
 
               paypal-payment-form.paypal-payment-form.modal-container.animation.fadeInOut(data-payments-links="vm.paymentsLinks" data-amount-method-modal="vm.amountMethodModal"
-              data-payment-country-id="vm.paymentCountryId" data-ng-if="vm.amountMethodModal.paymentSystemModel.slug == 'paypal'" )
+              data-payment-country-id="vm.paymentCountryId" data-on-authorize="vm.onModalClose"
+              data-ng-if="vm.amountMethodModal.paymentSystemModel.slug == 'paypal'" )
 
               card-payment-form.card-payment.animation.fadeInOut(data-ng-if="vm.amountMethodModal.paymentSystemModel.slug == 'credit_card'" data-payments-links = "vm.paymentsLinks" data-amount-method-modal="vm.amountMethodModal"
-                data-payment-country-id="vm.paymentCountryId"
+                data-payment-country-id="vm.paymentCountryId" data-on-card-payment="vm.onModalClose"
               )
 
         .braintree(data-ng-show="vm.isPaymentCardMethod")
