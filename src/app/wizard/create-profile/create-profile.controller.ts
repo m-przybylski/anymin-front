@@ -1,4 +1,5 @@
 import {WizardApi} from 'profitelo-api-ng/api/api'
+import {CommonSettingsService} from '../../../common/services/common-settings/common-settings.service'
 
 export class CreateProfileController implements ng.IController {
 
@@ -6,7 +7,8 @@ export class CreateProfileController implements ng.IController {
   public isSummary: boolean = false
 
   /* @ngInject */
-  constructor(private $state: ng.ui.IStateService, WizardApi: WizardApi, previousState: string) {
+  constructor(private $state: ng.ui.IStateService, WizardApi: WizardApi, previousState: string,
+              private CommonSettingsService: CommonSettingsService ) {
     WizardApi.getWizardProfileRoute().then((wizardProfile) => {
       this.isSummary = wizardProfile.isSummary
       this.isLoading = false
@@ -14,7 +16,7 @@ export class CreateProfileController implements ng.IController {
         this.$state.go('app.wizard.summary')
       }
     }, (error) => {
-      if (error.status === 404) {
+      if (error.status === this.CommonSettingsService.errorStatusCodes.fileNotFound) {
         this.isLoading = false
       }
     })

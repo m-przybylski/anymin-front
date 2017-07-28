@@ -17,7 +17,7 @@ function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interv
     let immediateInterval: ng.IPromise<any>
     const _commonConfig = CommonConfig.getAllData()
     let uploadMap = {}
-    let filesQueue: Array<any> = []
+    let filesQueue: any[] = []
     let isProcess = false
 
     scope.progress = 0
@@ -51,20 +51,22 @@ function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interv
 
     const calculateTotalPercentage = (map: any, filesLength: number): void => {
       let tmpPercentage = 0
+      const numeralSystem: number = 10
+      const percentMultipiler: number = 100
 
       for (const a in map) {
         if (a) {
-          tmpPercentage += map[a] / parseInt(a) * 100
+          tmpPercentage += map[a] / parseInt(a) * percentMultipiler
         }
       }
       if (tmpPercentage > scope.progress) {
-        scope.progress = tmpPercentage / parseInt(<any>filesLength, 10)
+        scope.progress = tmpPercentage / parseInt(<any>filesLength, numeralSystem)
       }
 
     }
 
-    const _uploadProcess = (files: Array<any>): void => {
-      const tokenPromisses: Array<ng.IPromise<string>> = []
+    const _uploadProcess = (files: any[]): void => {
+      const tokenPromisses: ng.IPromise<string>[] = []
       if (files && files.length) {
         // scope.animate()
         _file = 0
@@ -147,13 +149,14 @@ function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interv
     }
     /* istanbul ignore next */
     const _endImmediateLoading = (): void => {
+      const setCopyTextTimeout: number = 200
       scope.progress = 0
       uploadMap = {}
       scope.fadeText = true
       $timeout(() => {
         scope.header = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.HEADER'
         scope.info = 'COMMON.DIRECTIVES.INTERFACE.UPLOADER.INFO'
-      }, 200)
+      }, setCopyTextTimeout)
       scope.hideLoader = true
       scope.upload = false
       scope.hideArrow = false
@@ -162,14 +165,16 @@ function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interv
     }
     /* istanbul ignore next */
     const _startImmediateLoading = (): void => {
+      const intervalDelay: number = 100
+      const maxProgessValue: number = 100
       immediateInterval = $interval(() => {
-        if (scope.progress >= 100) {
+        if (scope.progress >= maxProgessValue) {
           _endImmediateLoading()
           $timeout(() => {
             $interval.cancel(immediateInterval)
           })
         }
-      }, 100)
+      }, intervalDelay)
     }
 
     scope.deleteImage = (): void => {
@@ -179,6 +184,7 @@ function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interv
 
     /* istanbul ignore next */
     scope.animate = function (): void {
+      const changeTextTimeout: number = 200
       scope.showArrow = false
       scope.hideArrow = true
       scope.hideLoader = false
@@ -196,9 +202,9 @@ function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interv
           }
           $timeout(() => {
             scope.fadeText = false
-          }, 200)
-        }, 200)
-      }, 200)
+          }, changeTextTimeout)
+        }, changeTextTimeout)
+      }, changeTextTimeout)
 
     }
   }

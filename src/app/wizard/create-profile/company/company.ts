@@ -6,6 +6,7 @@ import {WizardApi} from 'profitelo-api-ng/api/api'
 import {GetWizardProfile} from 'profitelo-api-ng/model/models'
 import apiModule from 'profitelo-api-ng/api.module'
 import ValidationAlertModule from '../../../../common/components/interface/alert/validation-alert/validation-alert'
+import {CommonSettingsService} from '../../../../common/services/common-settings/common-settings.service'
 
 const companyWizardModule = angular.module('profitelo.controller.wizard.create-profile.company', [
   'ui.router',
@@ -23,11 +24,12 @@ const companyWizardModule = angular.module('profitelo.controller.wizard.create-p
     template: require('./company.pug')(),
     resolve: {
       /* istanbul ignore next */
-      wizardProfile: (WizardApi: WizardApi): ng.IPromise<GetWizardProfile> => {
+      wizardProfile: (WizardApi: WizardApi,
+                      CommonSettingsService: CommonSettingsService): ng.IPromise<GetWizardProfile> => {
         return WizardApi.getWizardProfileRoute().then((wizardProfile) => {
           return wizardProfile
         }, (error) => {
-          if (error.status === 404) {
+          if (error.status === CommonSettingsService.errorStatusCodes.fileNotFound) {
             return void 0
           } else {
             throw new Error('Can not get wizard profile ' + error)

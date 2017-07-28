@@ -25,6 +25,8 @@ export class ExpertController implements ng.IController {
   public isSubmitted: boolean = false
   public isStepRequired: boolean = true
   private isUploading: boolean = true
+  private static readonly minValidNameLength: number = 3
+  private static readonly minValidDescriptionLength: number = 50
 
   /* @ngInject */
   constructor(private WizardApi: WizardApi, private $state: ng.ui.IStateService,
@@ -99,39 +101,29 @@ export class ExpertController implements ng.IController {
     }
   }
 
-  public checkIsNameInputValid = (): boolean => {
-    return !!(this.nameModel && this.nameModel.length > 2)
-  }
+  public checkIsNameInputValid = (): boolean =>
+    !!(this.nameModel && this.nameModel.length >= ExpertController.minValidNameLength)
 
-  public checkIsAvatarValid = (): boolean => {
-    return !!(this.avatarModel && this.avatarModel.length > 0)
-  }
+  public checkIsAvatarValid = (): boolean => !!(this.avatarModel && this.avatarModel.length > 0)
 
-  public checkIsLanguagesValid = (): boolean => {
-    return !!(this.languagesModel && this.languagesModel.length > 0)
-  }
+  public checkIsLanguagesValid = (): boolean => !!(this.languagesModel && this.languagesModel.length > 0)
 
-  public checkIsProfileDescriptionValid = (): boolean => {
-    return !!(this.descriptionModel && this.descriptionModel.length >= 50)
-  }
+  public checkIsProfileDescriptionValid = (): boolean =>
+    !!(this.descriptionModel && this.descriptionModel.length >= ExpertController.minValidDescriptionLength)
 
-  public checkIsFileUploadValid = (): boolean => {
-    return this.isUploading
-  }
+  public checkIsFileUploadValid = (): boolean => this.isUploading
 
   public onUploadingFile = (status: boolean): void => {
     this.isUploading = status
   }
 
-  public checkIsFormValid = (): boolean => {
-    return !!(this.currentWizardState.expertDetailsOption
+  public checkIsFormValid = (): boolean =>
+    !!(this.currentWizardState.expertDetailsOption
       && this.checkIsNameInputValid()
       && this.checkIsAvatarValid()
       && this.checkIsLanguagesValid()
       && this.checkIsProfileDescriptionValid()
-      && this.checkIsFileUploadValid()
-    )
-  }
+      && this.checkIsFileUploadValid())
 
   private saveWizardState = (wizardState: PutWizardProfile): ng.IPromise<GetWizardProfile> => {
     return this.WizardApi.putWizardProfileRoute(wizardState)
@@ -140,9 +132,8 @@ export class ExpertController implements ng.IController {
     })
   }
 
-  private checkIsAnyStepModelChange = (currentFormModel: PartialExpertDetails): boolean => {
-    return !this.currentWizardState.expertDetailsOption
+  private checkIsAnyStepModelChange = (currentFormModel: PartialExpertDetails): boolean =>
+    !this.currentWizardState.expertDetailsOption
       || !(_.isEqual(this.currentWizardState.expertDetailsOption, currentFormModel))
-  }
 
 }

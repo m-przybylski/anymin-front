@@ -1,4 +1,5 @@
 import * as angular from 'angular'
+import {CommonSettingsService} from '../../../services/common-settings/common-settings.service'
 interface IDropdownItem {
   name: string
   value: {} | null
@@ -9,7 +10,7 @@ interface IDropdownPrimaryComponentBindings {
   inputPlaceholder: string
   name: string
   placeholder: string
-  mainList: Array<{}>
+  mainList: {}[]
   onSelectMain: (item: IDropdownItem) => void
   selectedItem: IDropdownItem
 }
@@ -32,7 +33,7 @@ class DropdownPrimaryComponentController implements ng.IController, IDropdownPri
   public inputPlaceholder: string
   public name: string
   public placeholder: string
-  public mainList: Array<IPrimaryDropdownListElement>
+  public mainList: IPrimaryDropdownListElement[]
   public onSelectMain: (item: IDropdownItem) => void
   public selectedItem: IDropdownItem
   public mainPlaceholder: IDropdownItem
@@ -43,11 +44,8 @@ class DropdownPrimaryComponentController implements ng.IController, IDropdownPri
   private dropdownSelectedItem: JQuery
   public selectedItemNumber: number = 0
   private dropdownScrollContainerElement: JQuery
-  private keyCodes = {
-    arrowDown: 40,
-    arrowUp: 38,
-    enter: 13
-  }
+  private CommonSettingsService: CommonSettingsService
+  private static readonly dividerOnHalf: number = 2
 
   $onInit = (): void => {
     this.mainPlaceholder = {
@@ -70,21 +68,21 @@ class DropdownPrimaryComponentController implements ng.IController, IDropdownPri
     this.$element.bind('keydown keypress', (event) => {
       const keyCode = event.which || event.keyCode
       switch (keyCode) {
-        case this.keyCodes.arrowDown:
+        case this.CommonSettingsService.keyboardKeyCodes.arrowDown:
           if (this.isOpen && this.selectedItemNumber < this.mainList.length) {
             event.preventDefault()
             this.onArrowItemSelect(++this.selectedItemNumber)
           }
           break
 
-        case this.keyCodes.arrowUp:
+        case this.CommonSettingsService.keyboardKeyCodes.arrowUp:
           if (this.isOpen && this.selectedItemNumber > 1) {
             event.preventDefault()
             this.onArrowItemSelect(--this.selectedItemNumber)
           }
           break
 
-        case this.keyCodes.enter:
+        case this.CommonSettingsService.keyboardKeyCodes.enter:
           this.onMainItemSelect(this.mainList[this.selectedItemNumber - 1])
           event.preventDefault()
           break
@@ -111,8 +109,8 @@ class DropdownPrimaryComponentController implements ng.IController, IDropdownPri
     this.dropdownSelectedItem.addClass('is-focused')
     if (this.dropdownSelectedItem[0]) {
       this.dropdownScrollContainerElement
-      .scrollTop(this.dropdownSelectedItem[0].offsetTop
-        - (this.dropdown.height() / 2 - this.dropdownSelectedItem[0].clientHeight))
+      .scrollTop(this.dropdownSelectedItem[0].offsetTop - (this.dropdown.height() /
+        DropdownPrimaryComponentController.dividerOnHalf - this.dropdownSelectedItem[0].clientHeight))
     }
   }
 

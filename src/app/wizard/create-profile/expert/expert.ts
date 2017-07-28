@@ -33,6 +33,7 @@ const expertWizardModule = angular.module('profitelo.controller.wizard.create-pr
   ValidationAlertModule
 ])
 .config(($stateProvider: ng.ui.IStateProvider) => {
+  const fileNotFoundErrorStaus: number = 404
   $stateProvider.state('app.wizard.create-profile.expert', {
     url: '/expert',
     controllerAs: 'vm',
@@ -44,7 +45,7 @@ const expertWizardModule = angular.module('profitelo.controller.wizard.create-pr
         return WizardApi.getWizardProfileRoute().then((wizardProfile) => {
           return wizardProfile
         }, (error) => {
-          if (error.status === 404) {
+          if (error.status === fileNotFoundErrorStaus) {
             return void 0
           } else {
             throw new Error('Can not get wizard profile ' + error)

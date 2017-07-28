@@ -2,6 +2,7 @@ import * as angular from 'angular'
 import {InputComponent} from './input.component'
 import './input.sass'
 import ValidationAlertModule from '../alert/validation-alert/validation-alert'
+import commonSettingsModule from '../../../services/common-settings/common-settings'
 
 export interface IInputComponentBindings extends ng.IController {
   id: string
@@ -20,6 +21,7 @@ export interface IInputComponentBindings extends ng.IController {
 
 const inputModule = angular.module('profitelo.components.interface.input', [
   'pascalprecht.translate',
+  commonSettingsModule,
   ValidationAlertModule
 ])
 .component('inputPrimary', new InputComponent)

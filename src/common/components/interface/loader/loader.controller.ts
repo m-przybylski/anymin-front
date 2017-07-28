@@ -20,13 +20,16 @@ export class LoaderComponentController implements ng.IController, ILoaderCompone
   public circleProgressStyle: ICircleStyle
   public fileUploadError: boolean = false
 
+  private static readonly multiplierByTwo: number = 2
+  private static readonly loadingProgressMultiplier: number = 100
+
   /* @ngInject */
   constructor() {
   }
 
   public onLoadCounter = (): void => {
     const radius = 28
-    const circumference = 2 * radius * Math.PI
+    const circumference = LoaderComponentController.multiplierByTwo * radius * Math.PI
     const maxScale = 100
 
     const currentCount = this.loadingProgress
@@ -50,7 +53,8 @@ export class LoaderComponentController implements ng.IController, ILoaderCompone
 
   $onChanges = (): void => {
     if (this.fileUploadInfo) {
-      this.loadingProgress = Math.floor((this.fileUploadInfo.loaded / this.fileUploadInfo.total) * 100)
+      this.loadingProgress = Math.floor(
+        (this.fileUploadInfo.loaded / this.fileUploadInfo.total) * LoaderComponentController.loadingProgressMultiplier)
     }
     this.onLoadCounter()
   }

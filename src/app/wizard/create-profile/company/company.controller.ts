@@ -23,6 +23,8 @@ export class CompanyController implements ng.IController {
   public isSubmitted: boolean = false
   public isStepRequired: boolean = true
   private isUploading: boolean = true
+  private static readonly minValidNameLength: number = 3
+  private static readonly minValidProfileDescriptionLength: number = 50
 
   /* @ngInject */
   constructor(private WizardApi: WizardApi, private $state: ng.ui.IStateService,
@@ -87,30 +89,27 @@ export class CompanyController implements ng.IController {
   }
 
   public checkIsNameInputValid = (): boolean =>
-    (this.nameModel) ? this.nameModel.length > 2 : false
+    (this.nameModel) ? this.nameModel.length >= CompanyController.minValidNameLength : false
 
   public checkIsLogoValid = (): boolean =>
     (this.logoModel) ? this.logoModel.length > 0 : false
 
   public checkIsProfileDescriptionValid = (): boolean =>
-    (this.descriptionModel) ? this.descriptionModel.length > 49 : false
+    (this.descriptionModel) ? this.descriptionModel.length >= CompanyController.minValidProfileDescriptionLength : false
 
-  public checkIsFileUploadValid = (): boolean => {
-    return this.isUploading
-  }
+  public checkIsFileUploadValid = (): boolean => this.isUploading
 
   public onUploadingFile = (status: boolean): void => {
     this.isUploading = status
   }
 
-  public checkIsFormValid = (): boolean => {
-    return !!(this.currentWizardState.organizationDetailsOption
+  public checkIsFormValid = (): boolean =>
+    !!(this.currentWizardState.organizationDetailsOption
     && this.checkIsNameInputValid()
     && this.checkIsLogoValid()
     && this.checkIsProfileDescriptionValid()
     && this.checkIsFileUploadValid()
     )
-  }
 
   private saveWizardState = (wizardState: PutWizardProfile): ng.IPromise<GetWizardProfile> => {
     return this.WizardApi.putWizardProfileRoute(wizardState)
@@ -119,9 +118,8 @@ export class CompanyController implements ng.IController {
     })
   }
 
-  private checkIsAnyStepModelChange = (currentFormModel: PartialOrganizationDetails): boolean => {
-    return !this.currentWizardState.organizationDetailsOption
+  private checkIsAnyStepModelChange = (currentFormModel: PartialOrganizationDetails): boolean =>
+    !this.currentWizardState.organizationDetailsOption
       || !(_.isEqual(this.currentWizardState.organizationDetailsOption, currentFormModel))
-  }
 
 }

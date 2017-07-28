@@ -136,9 +136,10 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
   }
 
   private addMessage = (msg: any): void => {
+    const changeMessageStatusDelay: number = 500
     this.addGroupedMessage(msg)
     msg.isNew = true
-    this.$timeout(() => msg.isNew = false, 500)
+    this.$timeout(() => msg.isNew = false, changeMessageStatusDelay)
     this.onTypingEnd()
   }
 

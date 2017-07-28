@@ -11,10 +11,11 @@ import {ClientCallService} from '../../communicator/call-services/client-call.se
 function singleConsultationController($state: ng.ui.IStateService, urlService: UrlService,
                                       clientCallService: ClientCallService, userService: UserService): void {
   this.isLinkActive = true
+  const polishVATtax: number = 1.23
 
   this.$onInit = (): void => {
     this.consultation.price = {
-      amount: this.consultation.price * 1.23, // FIXME after ux tests
+      amount: this.consultation.price * polishVATtax, // FIXME after ux tests
       currency: 'PLN'
     }
 

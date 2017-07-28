@@ -48,12 +48,13 @@ function controller($element: ng.IRootElementService,
   angular.element($window).on('resize', onWindowResize)
 
   this.toggleCollapse = (): void => {
+    const scrollAnimationTime: number = 1000
     this.stylesObject.height = this.stylesObject.height !== getCollapseWrapperHeight() ?
       getCollapseWrapperHeight() : getFirstCollapseElementHeight()
 
     this.isCollapsed = !this.isCollapsed
     if (this.stylesObject.height !== getCollapseWrapperHeight()) {
-      smoothScrollingService.simpleScrollTo('#collapseWrap', true, 1000)
+      smoothScrollingService.simpleScrollTo('#collapseWrap', true, scrollAnimationTime)
     }
   }
 

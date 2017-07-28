@@ -55,9 +55,10 @@ function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService
   }
 
   const _determinePhoneNumberStatus = (status: any): void => {
+    const registerStep: number = 2
     switch (status) {
       case 'REGISTERED':
-        this.current = 2
+        this.current = registerStep
         break
       case 'NO_PASSWORD':
         $state.go('app.login.forgot-password')

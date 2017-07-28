@@ -15,16 +15,28 @@ export class InputPriceComponentController implements IInputPriceComponentBindin
   public currency: string
   public isPatternValid: boolean
   private priceRegexp: RegExp
+  private CommonSettingsService: CommonSettingsService
 
   /* @ngInject */
   constructor($element: ng.IRootElementService, CommonSettingsService: CommonSettingsService) {
     this.priceRegexp = CommonSettingsService.localSettings.pricePattern
-    const digitsCodes = [13, 8, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57]
-    const digitsCodesCharacters = [44, 46]
+    const validKeyCodes = [CommonSettingsService.keyboardKeyCodes.enter,
+      CommonSettingsService.keyboardKeyCodes.backspace,
+      CommonSettingsService.keyboardKeyCodes.zero,
+      CommonSettingsService.keyboardKeyCodes.one,
+      CommonSettingsService.keyboardKeyCodes.two,
+      CommonSettingsService.keyboardKeyCodes.three,
+      CommonSettingsService.keyboardKeyCodes.four,
+      CommonSettingsService.keyboardKeyCodes.five,
+      CommonSettingsService.keyboardKeyCodes.six,
+      CommonSettingsService.keyboardKeyCodes.seven,
+      CommonSettingsService.keyboardKeyCodes.eight,
+      CommonSettingsService.keyboardKeyCodes.nine,
+      CommonSettingsService.keyboardKeyCodes.comma,
+      CommonSettingsService.keyboardKeyCodes.dot]
 
     $element.bind('keypress', (e) => {
-      if ((digitsCodes.indexOf(e.keyCode) === -1 && digitsCodesCharacters.indexOf(e.keyCode) === -1) ||
-        this.digitsCodesBlocked.indexOf(e.keyCode) >= 0) {
+      if (validKeyCodes.indexOf(e.keyCode) === -1 || this.digitsCodesBlocked.indexOf(e.keyCode) >= 0) {
         e.preventDefault()
       }
     })
@@ -40,7 +52,8 @@ export class InputPriceComponentController implements IInputPriceComponentBindin
     this.isPatternValid = ((this.priceRegexp).test(this.ngModel.toString()))
 
     if (this.isUsignPunctuationMarks) {
-      this.digitsCodesBlocked = [44, 46]
+      this.digitsCodesBlocked = [this.CommonSettingsService.keyboardKeyCodes.dot,
+        this.CommonSettingsService.keyboardKeyCodes.comma]
     } else {
       this.digitsCodesBlocked = []
     }

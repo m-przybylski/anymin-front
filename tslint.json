@@ -22,7 +22,7 @@
     "max-file-line-count": [true, 500],
     "restrict-plus-operands": true,
      "max-line-length": [true, 120],
-    // "no-magic-numbers": true,
+     "no-magic-numbers": true,
     // "array-type": true,
     // "object-literal-shorthand": true,
     // "object-shorthand-properties-first": true,

@@ -1,6 +1,7 @@
 import * as angular from 'angular'
 import {InputDropdownTagComponentBindings} from './input-dropdown-tag'
 import * as _ from 'lodash'
+import {CommonSettingsService} from '../../../services/common-settings/common-settings.service'
 
 export interface IDropdownItem {
   name: string
@@ -29,13 +30,9 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
   public isFocus: boolean = false
   public isDirty: boolean = false
 
-  private keyCodes = {
-    arrowDown: 40,
-    arrowUp: 38
-  }
-
   private dropdownSelectedItem: JQuery
   private dropdown: JQuery = this.$element.find('.dropdown-list')
+  private static readonly dividerOnHalf: number = 2
 
   $onInit = (): void => {
     for (const key in this.dictionary) {
@@ -60,7 +57,8 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
 
   /* @ngInject */
   constructor(private $document: ng.IDocumentService, private  $scope: ng.IScope,
-              private $element: ng.IRootElementService, private $filter: ng.IFilterService) {
+              private $element: ng.IRootElementService, private $filter: ng.IFilterService,
+              CommonSettingsService: CommonSettingsService) {
 
     this.dropdownScroll = this.$element.find('.dropdown-content')
 
@@ -90,7 +88,7 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
       const keyCode = event.which || event.keyCode
 
       switch (keyCode) {
-        case this.keyCodes.arrowDown:
+        case CommonSettingsService.keyboardKeyCodes.arrowDown:
           event.preventDefault()
           this.filterItems()
 
@@ -100,12 +98,13 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
           if (this.isOpen) {
             this.onArrowItemSelect()
             this.dropdownScroll.scrollTop(this.dropdownSelectedItem[0]
-                .offsetTop - (this.dropdown.height() / 2 - this.dropdownSelectedItem[0].clientHeight))
+                .offsetTop - (this.dropdown.height() / InputDropdownTagComponentController.dividerOnHalf -
+                  this.dropdownSelectedItem[0].clientHeight))
           }
 
           break
 
-        case this.keyCodes.arrowUp:
+        case CommonSettingsService.keyboardKeyCodes.arrowUp:
           event.preventDefault()
           this.filterItems()
 
@@ -115,7 +114,8 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
           if (this.isOpen) {
             this.onArrowItemSelect()
             this.dropdownScroll.scrollTop(this.dropdownSelectedItem[0]
-                .offsetTop - (this.dropdown.height() / 2 - this.dropdownSelectedItem[0].clientHeight))
+                .offsetTop - (this.dropdown.height() / InputDropdownTagComponentController.dividerOnHalf -
+                  this.dropdownSelectedItem[0].clientHeight))
           }
 
           break

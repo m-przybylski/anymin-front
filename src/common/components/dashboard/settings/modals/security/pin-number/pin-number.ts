@@ -59,7 +59,7 @@ export class SecurityPinNumberSettingsController implements ng.IController {
   }
 
   public changeViewsAndPin = (): void => {
-    const protectedViews: Array<string> = []
+    const protectedViews: string[] = []
     this.isPasswordIncorrect = false
     _.each(this.protectedViewsStatus, (val: boolean, key: string) => {
       if (val) {
@@ -75,7 +75,7 @@ export class SecurityPinNumberSettingsController implements ng.IController {
       this.$uibModalInstance.dismiss('cancel')
     }, (err) => {
       this.isError = true
-      if (err.status === 401) {
+      if (err.status === this.CommonSettingsService.errorStatusCodes.unauthorizedAccess) {
         this.isPasswordIncorrect = true
       } else {
         this.$uibModalInstance.dismiss('cancel')

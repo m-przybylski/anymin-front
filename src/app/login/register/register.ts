@@ -114,11 +114,12 @@ function RegisterController($log: ng.ILogService, $filter: IFilterService, $stat
   }
 
   this.completeRegistration = (): void => {
+    const lastRegistrationStep: number = 3
     _updateNewUserObject({
       password: this.registrationSteps.password
     }, () => {
       this.isPending = false
-      this.current = 3
+      this.current = lastRegistrationStep
       topWaitingLoaderService.stopLoader()
     })
   }

@@ -7,10 +7,12 @@ import {IWindowService} from '../../services/window/window.service'
 import urlModule from '../../services/url/url'
 import printModule from '../../services/print/print'
 import imageZoomModule from '../../services/image-zoom/image-zoom'
+import {CommonSettingsService} from '../../services/common-settings/common-settings.service'
 
 function lightboxModelController($scope: any, $window: IWindowService,
                                  $timeout: ng.ITimeoutService, FilesApi: FilesApi, imageZoomService: ImageZoomService,
-                                 $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance): void {
+                                 $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
+                                 CommonSettingsService: CommonSettingsService): void {
 
   this.slideList = $scope.sliders
   this.isPending = false
@@ -63,20 +65,15 @@ function lightboxModelController($scope: any, $window: IWindowService,
     )
   }
 
-  const keyCodes = {
-    arrowRight: 39,
-    arrowLeft: 37
-  }
-
   angular.element($window).on('keydown keypress', (event) => {
     const keyCode = event.which || event.keyCode
     switch (keyCode) {
 
-      case keyCodes.arrowLeft:
+      case CommonSettingsService.keyboardKeyCodes.arrowLeft:
         this.sliderActions.prevSlide()
         break
 
-      case keyCodes.arrowRight:
+      case CommonSettingsService.keyboardKeyCodes.arrowRight:
         this.sliderActions.nextSlide()
         break
 

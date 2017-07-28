@@ -27,7 +27,8 @@ export class DashboardClientActivitiesController {
   public accountType = FinancialOperation.AccountTypeEnum.CLIENT
 
   private activitiesQueryParam: ActivitiesQueryParams
-  private static queryLimit = 11
+  private static readonly queryLimit: number = 11
+  private static readonly timeoutDelay: number = 400
 
   /* @ngInject */
   constructor(filtersData: GetActivityFilters,
@@ -46,7 +47,7 @@ export class DashboardClientActivitiesController {
       $timeout(() => {
         this.isSearchLoading = false
         this.isError = false
-      }, 400)
+      }, DashboardClientActivitiesController.timeoutDelay)
     })
     this.filters = filtersData
   }

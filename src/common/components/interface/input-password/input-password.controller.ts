@@ -1,5 +1,6 @@
 import {IInputPasswordComponentBindings} from './input-password'
 import {IInputTypes} from '../input/input.controller'
+import {CommonSettingsService} from '../../../services/common-settings/common-settings.service'
 
 export class InputPasswordComponentController implements IInputPasswordComponentBindings {
   private inputType: IInputTypes = {
@@ -22,7 +23,7 @@ export class InputPasswordComponentController implements IInputPasswordComponent
   public onChange: string = ''
 
   /* @ngInject */
-  constructor(private $element: JQuery) {}
+  constructor(private $element: JQuery, private CommonSettingsService: CommonSettingsService) {}
 
   $onInit(): void {
     if (this.type === this.inputType.tel) {
@@ -31,7 +32,18 @@ export class InputPasswordComponentController implements IInputPasswordComponent
   }
 
   public blockInvalidPhonenumberDigits = (): void => {
-    const digitsCodes = [13, 8, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57]
+    const digitsCodes = [this.CommonSettingsService.keyboardKeyCodes.enter,
+      this.CommonSettingsService.keyboardKeyCodes.backspace,
+      this.CommonSettingsService.keyboardKeyCodes.one,
+      this.CommonSettingsService.keyboardKeyCodes.two,
+      this.CommonSettingsService.keyboardKeyCodes.three,
+      this.CommonSettingsService.keyboardKeyCodes.four,
+      this.CommonSettingsService.keyboardKeyCodes.five,
+      this.CommonSettingsService.keyboardKeyCodes.six,
+      this.CommonSettingsService.keyboardKeyCodes.seven,
+      this.CommonSettingsService.keyboardKeyCodes.eight,
+      this.CommonSettingsService.keyboardKeyCodes.nine,
+      this.CommonSettingsService.keyboardKeyCodes.zero]
     this.$element.find('input').bind('keypress', (event) => {
       const code = event.keyCode || event.which
       if (!(digitsCodes.indexOf(code) !== -1)) {

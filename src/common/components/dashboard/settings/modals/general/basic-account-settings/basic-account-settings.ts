@@ -120,7 +120,8 @@ export class BasicAccountSettingsController implements ng.IController {
     }
 
     $scope.saveCrop = (data: ISaveCrop): void => {
-      const squareSideLength: number = data.points[2] - data.points[0] - 1
+      const indexOfSecondXpoint: number = 2
+      const squareSideLength: number = data.points[indexOfSecondXpoint] - data.points[0] - 1
       const postProcessOptions: PostProcessOption = {
         croppingDetails: {
           x: Number(data.points[0]),

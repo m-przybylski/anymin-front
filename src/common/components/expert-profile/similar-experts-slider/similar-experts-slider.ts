@@ -6,7 +6,8 @@ import urlModule from '../../../services/url/url'
 function controller($scope: any, $state: ng.ui.IStateService, urlService: UrlService): void {
 
   this.$onInit = (): void => {
-    this.areControllsVisible = this.consultations.length > 3
+    const minConsultationsLength: number = 4
+    this.areControllsVisible = this.consultations.length >= minConsultationsLength
   }
 
   this.nextSlide = (): void => {

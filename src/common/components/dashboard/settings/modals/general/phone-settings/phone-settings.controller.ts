@@ -43,7 +43,7 @@ export class GeneralPhoneSettingsController implements ng.IController {
         this.isNewPhoneNumberCreate = true
         this.isNumberExist = false
       }, (err: any) => {
-        if (err.status === 409) {
+        if (err.status === this.CommonSettingsService.errorStatusCodes.requestConflict) {
           this.isNumberExist = true
         } else {
           this.$log.error('Can not send new phone number: ' + err)

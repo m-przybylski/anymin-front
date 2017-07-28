@@ -40,9 +40,9 @@ export class SecurityChangePasswordSettingsController implements ng.IController 
         this.$uibModalInstance.dismiss('cancel')
       }, (err: any) => {
         this.isError = true
-        if (err.status === 400) {
+        if (err.status === this.CommonSettingsService.errorStatusCodes.badRequest) {
           this.arePasswordsDifferent = false
-        } else if (err.status === 401) {
+        } else if (err.status === this.CommonSettingsService.errorStatusCodes.unauthorizedAccess) {
           this.isCurrentPasswordCorrect = false
         } else {
           throw new Error('Can not change password: ' + err)

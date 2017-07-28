@@ -4,6 +4,7 @@ import {IWindowService} from '../../../services/window/window.service'
 import inputDropdownTagModule from './input-dropdown-tag'
 import {IDropdownItem, InputDropdownTagComponentController} from './input-dropdown-tag.controller'
 import {InputDropdownTagComponentBindings} from './input-dropdown-tag'
+import {CommonSettingsService} from '../../../services/common-settings/common-settings.service'
 
 describe('Unit testing: profitelo.components.interface.input-dropdown-tag', () => {
   return describe('for inputDropdownTag component >', () => {
@@ -18,6 +19,7 @@ describe('Unit testing: profitelo.components.interface.input-dropdown-tag', () =
     let document: ng.IDocumentService
     const validHTML = '<input-dropdown-tag data-selected-items-value="selectedItemsValue"></input-dropdown-tag>'
     let filteredItems: IDropdownItem[]
+    let CommonSettingsService: CommonSettingsService
 
     function create(html: string): JQuery {
       scope = rootScope.$new()
@@ -35,12 +37,13 @@ describe('Unit testing: profitelo.components.interface.input-dropdown-tag', () =
     beforeEach(() => {
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
               _$componentController_: ng.IComponentControllerService, _$window_: IWindowService,
-              _$document_: ng.IDocumentService) => {
+              _$document_: ng.IDocumentService, _CommonSettingsService_: CommonSettingsService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
         window = _$window_
         document = _$document_
+        CommonSettingsService = _CommonSettingsService_
       })
 
       bindings = {

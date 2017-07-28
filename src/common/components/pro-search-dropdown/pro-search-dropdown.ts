@@ -7,6 +7,7 @@ import './organization-suggestions/organization-suggestions'
 import './tag-suggestions/tag-suggestions'
 import './service-suggestions/service-suggestions'
 import './expert-suggestions/expert-suggestions'
+import {CommonSettingsService} from '../../services/common-settings/common-settings.service'
 
 interface ISuggestions {
   services: any
@@ -19,7 +20,8 @@ interface ISuggestions {
 /* @ngInject */
 function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateService,
                                      $element: ng.IRootElementService,
-                                     searchService: SearchService): void {
+                                     searchService: SearchService,
+                                     CommonSettingsService: CommonSettingsService): void {
 
   this.isCollapsed = true
   this.isFocused = false
@@ -39,11 +41,13 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
   this.loadingSuggestion = false
   this.lastSearchWord = ''
   let listOfSuggestions = $element.find('.dropdown-container a')
+  const searchActionDelay: number = 200
+  const minValidNgModelLength: number = 3
 
   /* istanbul ignore next */
   const _onUpDownKeysPress = (callback: () => void): void => {
     listOfSuggestions = $element.find('.dropdown-container a')
-    if (!!this.ngModel && this.ngModel.length > 2 && angular.isFunction(callback)) {
+    if (!!this.ngModel && this.ngModel.length >= minValidNgModelLength && angular.isFunction(callback)) {
       callback()
     }
   }
@@ -62,14 +66,6 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
       }
 
     })
-  }
-
-  const keyCodes = {
-    arrowRight: 39,
-    arrowDown: 40,
-    arrowUp: 38,
-    backspace: 8,
-    escape: 27
   }
 
   const _deserializeSuggestions = (rawData: any): ISuggestions => {
@@ -114,7 +110,7 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
   }
 
   const _updateSuggestions = (searchWord: string): void => {
-    if (angular.isDefined(searchWord) && searchWord !== null && searchWord.toString().length >= 3) {
+    if (angular.isDefined(searchWord) && searchWord !== null && searchWord.toString().length >= minValidNgModelLength) {
       this.loadingSuggestion = true
       searchService.suggest(this.ngModel).then((data) => {
         this.suggestions = _deserializeSuggestions(data)
@@ -129,7 +125,7 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
   }
 
   const _searchAction = (): void => {
-    if (this.ngModel && this.ngModel.length >= 3 && this.isFocused) {
+    if (this.ngModel && this.ngModel.length >= minValidNgModelLength && this.isFocused) {
       this.isCollapsed = false
       _updateSuggestions(this.ngModel)
 
@@ -147,7 +143,7 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
     }
   }
 
-  const _searchActionDebounce = _.debounce(_searchAction, 200, {
+  const _searchActionDebounce = _.debounce(_searchAction, searchActionDelay, {
     'leading': false,
     'trailing': true
   })
@@ -221,8 +217,9 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
   }
 
   const _setPrimarySuggestion = (search: string): void => {
+    const validSearchLength = 3
     this.primarySuggestion = null
-    if (angular.isDefined(search) && search && !this.isCollapsed && search.length > 2 &&
+    if (angular.isDefined(search) && search && !this.isCollapsed && search.length >= validSearchLength &&
       !!this.suggestions.tags && this.suggestions.tags.length > 0) {
 
       this.suggestions.tags.map((tag: Tag) => tag.name.toLowerCase()).reverse().forEach((name: string) => {
@@ -251,8 +248,9 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
   /* istanbul ignore next */
   $element.bind('keydown keypress', (event) => {
     const keyCode = event.which || event.keyCode
+    const removeSugestionsCount: number = 2
     switch (keyCode) {
-      case keyCodes.arrowRight:
+      case CommonSettingsService.keyboardKeyCodes.arrowRight:
         if (this.primarySuggestion !== null) {
           this.ngModel = this.primarySuggestion
           this.currentTagId = this.suggestions.tags[0].id
@@ -260,21 +258,21 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
         }
         break
 
-      case keyCodes.backspace:
+      case CommonSettingsService.keyboardKeyCodes.backspace:
         this.currentTagId = null
         break
 
-      case keyCodes.arrowDown:
+      case CommonSettingsService.keyboardKeyCodes.arrowDown:
         event.preventDefault()
         _onUpDownKeysPress(() => {
-          if (selectedElement.currentPosition <= listOfSuggestions.length - 2) {
+          if (selectedElement.currentPosition <= listOfSuggestions.length - removeSugestionsCount) {
             ++selectedElement.currentPosition
             _handleArrowsOnSuggestions(listOfSuggestions, selectedElement)
           }
         })
         break
 
-      case keyCodes.arrowUp:
+      case CommonSettingsService.keyboardKeyCodes.arrowUp:
         event.preventDefault()
         _onUpDownKeysPress(() => {
           if (selectedElement.currentPosition > 0) {
@@ -286,7 +284,7 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
         })
         break
 
-      case keyCodes.escape:
+      case CommonSettingsService.keyboardKeyCodes.escape:
         event.preventDefault()
         $element.find('.main-input').blur()
         _focusOut()

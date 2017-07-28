@@ -1,3 +1,5 @@
+/* tslint:disable:  no-magic-numbers */
+
 namespace profitelo.filters.rankSearch {
 
   function filter(): (array: any[], searchKey: string, props: string[]) => any[] {

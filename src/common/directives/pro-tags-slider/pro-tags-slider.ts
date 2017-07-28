@@ -29,8 +29,9 @@ function proTagsSlider($window: IWindowService,
 
     const _calculateOffset = (elem: number): number => {
       let offset = 0
+      const margin: number = 8
       for (let i = 0; i < elem; i++) {
-        offset = offset + elementsMap[i] + 8
+        offset = offset + elementsMap[i] + margin
       }
       return offset
     }

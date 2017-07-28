@@ -24,6 +24,7 @@ export class DashboardExpertActivitiesController {
 
   private activitiesQueryParam: ActivitiesQueryParams
   private static queryLimit = 11
+  private timeoutDelay: number = 400
 
   /* @ngInject */
   constructor(filtersData: GetActivityFilters, private topAlertService: TopAlertService, $timeout: ng.ITimeoutService,
@@ -38,7 +39,7 @@ export class DashboardExpertActivitiesController {
       $timeout(() => {
         this.isSearchLoading = false
         this.isError = false
-      }, 400)
+      }, this.timeoutDelay)
       this.translationCounter = {
         currentResults: String(this.activities.length),
         allResults: '20'
