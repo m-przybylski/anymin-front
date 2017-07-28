@@ -67,7 +67,7 @@ class DropdownPrimaryComponentController implements ng.IController, IDropdownPri
     })
     this.dropdownScrollContainerElement.perfectScrollbar()
 
-    this.$document.bind('keydown keypress', (event) => {
+    this.$element.bind('keydown keypress', (event) => {
       const keyCode = event.which || event.keyCode
       switch (keyCode) {
         case this.keyCodes.arrowDown:
@@ -93,6 +93,10 @@ class DropdownPrimaryComponentController implements ng.IController, IDropdownPri
           break
       }
     })
+  }
+
+  $onDestroy = (): void => {
+    this.$element.unbind('keydown keypress')
   }
 
   /* @ngInject */
