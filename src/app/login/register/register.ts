@@ -32,6 +32,7 @@ function RegisterController($log: ng.ILogService, $filter: IFilterService, $stat
   this.isPending = false
   this.rulesAccepted = false
   this.serverError = false
+  this.newCurrentSmsCode = ''
   this.alreadyCheck = false
   this.correctCode = false
   let userid = ''
@@ -46,7 +47,7 @@ function RegisterController($log: ng.ILogService, $filter: IFilterService, $stat
 
   this.verifyCode = (): void => {
     if (angular.isDefined(this.registrationSteps.smsCode) &&
-        this.registrationSteps.smsCode !== null && !this.alreadyCheck) {
+      this.registrationSteps.smsCode !== null && !this.alreadyCheck) {
       this.alreadyCheck = true
       RegistrationApi.verifyVerificationRoute({
         sessionId: this.registrationSteps.sessionId,
@@ -65,6 +66,8 @@ function RegisterController($log: ng.ILogService, $filter: IFilterService, $stat
   }
 
   this.getSmsCodeStatus = (): void => {
+    this.newCurrentSmsCode = this.registrationSteps.smsCode
+    this.serverError = false
     /* istanbul ignore next if */
     if (!this.isPending) {
       this.isPending = true
@@ -120,14 +123,8 @@ function RegisterController($log: ng.ILogService, $filter: IFilterService, $stat
     })
   }
 
-  this.onSubmit = (): void => {
-    this.isNewCurrentPasswordChange = this.registrationSteps.smsCode
-  }
-
-  this.checkIsCodeCorrect = (): boolean => {
-    return this.isNewCurrentPasswordChange !== this.registrationSteps.smsCode &&
-      this.smsCodePattern.test(this.registrationSteps.smsCode)
-  }
+  this.checkIsCodeCorrect = (): boolean =>
+    this.newCurrentSmsCode !== this.registrationSteps.smsCode
 
   return this
 }
@@ -166,5 +163,5 @@ angular.module('profitelo.controller.login.register', [
   'profitelo.directives.interface.pro-alert',
   inputModule
 ])
-  .config(config)
-  .controller('RegisterController', RegisterController)
+.config(config)
+.controller('RegisterController', RegisterController)

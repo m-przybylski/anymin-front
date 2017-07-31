@@ -461,6 +461,7 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controllerAs: 'vm',
+      openedClass: 'modal-open full-screen',
       controller: ChargeAccountController,
       template: require('app/charge-account/modal/charge-account.pug')(),
       scope: dialogScope

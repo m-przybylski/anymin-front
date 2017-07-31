@@ -25,8 +25,9 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
                                    CommonConfig: CommonConfig, $element: JQuery): void {
   let isPending = false
   this.isGetCompanyInfo = false
-  this.lastNameModel = ' '
+  this.lastNameModel = ''
   this.rulesAccepted = false
+  this.isRequired = true
   this.showInvoiceForm = false
   this.bankModel = void 0
   this.countryList = [{
@@ -182,7 +183,7 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
     })
   }
 
-  this.patternEmail = CommonSettingsService.localSettings.mailPattern
+  this.patternEmail = CommonSettingsService.localSettings.emailPattern
   this.patternName = CommonSettingsService.localSettings.alphabetPattern
 
   this.$onInit = (): void => {
@@ -210,13 +211,8 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
     })
   }
 
-  this.checkIsEmailValid = (): boolean => {
-    return this.patternEmail.test(this.emailModel)
-  }
-
-  this.checkIsDisabled = (): boolean => {
-    return this.checkIsDisabled()
-  }
+  this.checkIsEmailValid = (): boolean =>
+    this.patternEmail.test(this.emailModel)
 
   return this
 }

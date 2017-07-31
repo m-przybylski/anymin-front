@@ -27,13 +27,13 @@ export class SecurityPinNumberSettingsController implements ng.IController {
   public isNewPinTyped: boolean = false
   public confirmPassword: string = ''
   public pinInput: Array<string> = new Array(this.pinLength)
-  public patternPassword: RegExp = this.CommonSettingsService.localSettings.passPattern
+  public patternPassword: RegExp = this.CommonSettingsService.localSettings.passwordPattern
   public protectedViewsStatus: IProtectedViewsStatus = {
     CALL_VIEW: false,
     PAY_OUT_VIEW: false,
     MAKE_DEPOSIT_VIEW: false
   }
-  private isNewCurrentPasswordChange: string = ''
+  private newEnteredCurrentPassword: string = ''
   public isError: boolean = false
 
   public onModalClose = (): void => {
@@ -54,6 +54,7 @@ export class SecurityPinNumberSettingsController implements ng.IController {
   }
 
   public sendPin = (): void => {
+    this.newEnteredCurrentPassword = this.confirmPassword
     this.isNewPinTyped = true
   }
 
@@ -83,16 +84,11 @@ export class SecurityPinNumberSettingsController implements ng.IController {
     })
   }
 
-  public onSubmit = (): void => {
-    this.isNewCurrentPasswordChange = this.confirmPassword
-  }
+  public checkIsButtonDisabled = (): boolean =>
+    this.patternPassword.test(this.confirmPassword)
 
-  public checkIsDisabled = (): boolean => {
-    return this.patternPassword.test(this.confirmPassword)
-  }
-  public checkIsPasswordCorrected = (): boolean => {
-    return this.isNewCurrentPasswordChange !== this.confirmPassword && this.patternPassword.test(this.confirmPassword)
-  }
+  public checkIsNewEnteredPasswordCorrected = (): boolean =>
+    this.newEnteredCurrentPassword !== this.confirmPassword && this.patternPassword.test(this.confirmPassword)
 }
 
 angular.module('profitelo.components.dashboard.settings.security.modals.pin-number', [

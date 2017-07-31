@@ -13,7 +13,6 @@ export interface IInputPasswordComponentBindings extends ng.IController {
   isValid: boolean
   ngRequired: boolean
   ngModel: string
-  ngPattern: string
   isSubmitted?: boolean
   onChange?: string
 }

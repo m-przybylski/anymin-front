@@ -5,7 +5,7 @@ import {
   PaymentSystem,
   GetLastPayment
 } from 'profitelo-api-ng/model/models'
-import 'common/directives/interface/scrollable/scrollable'
+
 import 'common/components/interface/preloader/preloader'
 import 'common/components/braintree-form/braintree-form'
 import 'common/components/dashboard/charge-account/payment-method/payu/payu'

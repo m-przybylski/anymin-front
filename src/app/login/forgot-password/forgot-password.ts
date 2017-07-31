@@ -34,6 +34,7 @@ function ForgotPasswordController($state: ng.ui.IStateService, account: ILoginFo
   }
 
   this.submitSmsVerificationCode = (): void => {
+    this.isNewCurrentPasswordChange = this.smsCode
     this.serverError = false
     if (!this.isPending) {
       this.isPending = true
@@ -57,13 +58,8 @@ function ForgotPasswordController($state: ng.ui.IStateService, account: ILoginFo
 
   }
 
-  this.onSubmit = (): void => {
-    this.isNewCurrentPasswordChange = this.smsCode
-  }
-
-  this.checkIsPasswordCorrected = (): boolean => {
-    return this.isNewCurrentPasswordChange !== this.smsCode
-  }
+  this.checkIsPasswordCorrected = (): boolean =>
+    this.isNewCurrentPasswordChange !== this.smsCode
 
   return this
 

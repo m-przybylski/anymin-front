@@ -33,7 +33,7 @@
           data-placeholder="DASHBOARD.CHARGE_ACCOUNT.LASTNAME_PLACEHOLDER"
           data-ng-model="$ctrl.lastNameModel"
           data-input-text="DASHBOARD.CHARGE_ACCOUNT.LASTNAME_PLACEHOLDER"
-          data-is-valid="paymentForm.$submitted && $ctrl.lastNameModel || $ctrl.lastNameModel && $ctrl.checkIsSecondNameValid()"
+          data-is-valid="paymentForm.$submitted && $ctrl.lastNameModel || $ctrl.lastNameModel"
           data-is-submitted="paymentForm.$submitted"
           data-validation-text="DASHBOARD.CHARGE_ACCOUNT.LAST_NAME_INPUT_ERROR"
           data-ng-required="true"
@@ -74,7 +74,7 @@
         data-name='showInvoiceForm'
         )
 
-        .invoice-form.collapse-animation(data-ng-show="$ctrl.showInvoiceForm")
+        .invoice-form(data-ng-show="$ctrl.showInvoiceForm")
           .invoice-form-company-info
             header.entry-title
               span(data-translate="DASHBOARD.CHARGE_ACCOUNT.INVOICE.TITLE")
@@ -97,8 +97,8 @@
                 data-ng-model="$ctrl.vatNumber"
                 data-input-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.TAX_NUMBER.LABEL"
                 data-is-valid="paymentForm.$submitted && $ctrl.vatNumber || $ctrl.vatNumber"
-                data-validation-text="DASHBOARD.CHARGE_ACCOUNT.EMAIL_ERROR"
-                data-ng-required="true"
+                data-validation-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.VAT.VALIDATION"
+                data-ng-required="$ctrl.showInvoiceForm"
                 )
 
                 a.btn.btn-primary(data-translate="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COUNTRY.BUTTON")
@@ -113,8 +113,8 @@
               data-ng-model="$ctrl.companyName"
               data-input-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COMPANY_NAME.LABEL"
               data-is-valid="paymentForm.$submitted && $ctrl.companyName || $ctrl.companyName"
-              data-validation-text="Jakis error"
-              data-ng-required="true"
+              data-validation-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.COMPANY_NAME.VALIDATION"
+              data-ng-required="$ctrl.showInvoiceForm"
               )
 
           .invoice-form-address
@@ -129,8 +129,8 @@
             data-ng-model="$ctrl.street"
             data-input-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.STREET.LABEL"
             data-is-valid="paymentForm.$submitted && $ctrl.street || $ctrl.street"
-            data-validation-text="Jakis error"
-            data-ng-required="true"
+            data-validation-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.STREET.VALIDATION"
+            data-ng-required="$ctrl.showInvoiceForm"
             )
 
             .invoice-address-nr
@@ -142,8 +142,8 @@
               data-ng-model="$ctrl.apartmentNumber"
               data-input-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.NUMBER.LABEL"
               data-is-valid="paymentForm.$submitted && $ctrl.apartmentNumber || $ctrl.apartmentNumber"
-              data-validation-text="Jakis error"
-              data-ng-required="true"
+              data-validation-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.APARTMENT_NUMBER.VALIDATION"
+              data-ng-required="$ctrl.showInvoiceForm"
               )
 
               input-primary(
@@ -154,8 +154,8 @@
               data-ng-model="$ctrl.postalCode"
               data-input-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.ZIP_CODE.LABEL"
               data-is-valid="paymentForm.$submitted && $ctrl.postalCode || $ctrl.postalCode"
-              data-validation-text="Jakis error"
-              data-ng-required="true"
+              data-validation-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.POSTAL_CODE.VALIDATION"
+              data-ng-required="$ctrl.showInvoiceForm"
               )
 
             input-primary(
@@ -166,8 +166,8 @@
             data-ng-model="$ctrl.city"
             data-input-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.CITY.LABEL"
             data-is-valid="paymentForm.$submitted && $ctrl.city || $ctrl.city"
-            data-validation-text="Jakis error"
-            data-ng-required="true"
+            data-validation-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.CITY.VALIDATION"
+            data-ng-required="$ctrl.showInvoiceForm"
             )
 
           // TODO on GUS API IMPLEMENT

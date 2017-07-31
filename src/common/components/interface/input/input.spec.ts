@@ -48,7 +48,6 @@ describe('Unit testing: profitelo.components.interface.input', () => {
         isValid: true,
         ngRequired: false,
         ngModel: 'string',
-        ngPattern: new RegExp(/^(d+)$/),
         isSubmitted: true
       }
 

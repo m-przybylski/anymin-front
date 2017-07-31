@@ -12,12 +12,12 @@ export interface IGeneralEmailSettingsControllerScope extends ng.IScope {
 }
 
 export class GeneralEmailSettingsController implements ng.IController {
-  public mailPattern = this.CommonSettingsService.localSettings.mailPattern
+  public mailPattern = this.CommonSettingsService.localSettings.emailPattern
   public isNavbar: boolean = true
   public isFullscreen: boolean = true
   public isEmailExist: boolean = false
   public newEmail: string
-  private onNewEmailChange: string
+  private newEnteredEmailChange: string
 
   /* @ngInject */
   constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
@@ -30,6 +30,7 @@ export class GeneralEmailSettingsController implements ng.IController {
   }
 
   public setNewEmail = (): void => {
+    this.newEnteredEmailChange = this.newEmail
     this.userService.getUser().then(user => {
       this.isEmailExist = false
       this.AccountApi.partialUpdateAccountRoute(user.id, {
@@ -52,17 +53,11 @@ export class GeneralEmailSettingsController implements ng.IController {
   public onModalClose = (): void =>
     this.$uibModalInstance.dismiss('cancel')
 
-  public onSubmit = (): void => {
-    this.onNewEmailChange = this.newEmail
-  }
+  public checkIfNewEnteredEmailExist = (): boolean =>
+    this.newEnteredEmailChange !== this.newEmail
 
-  public checkIsEmailExist = (): boolean => {
-    return this.onNewEmailChange !== this.newEmail
-  }
-
-  public checkIsDisabled = (): boolean => {
-    return this.mailPattern.test(this.newEmail)
-  }
+  public checkIsButtonDisabled = (): boolean =>
+    this.mailPattern.test(this.newEmail)
 }
 
 angular.module('profitelo.components.dashboard.settings.modals.general.email-settings', [

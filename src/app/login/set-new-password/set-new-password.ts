@@ -32,8 +32,8 @@ function SetNewPasswordController($state: ng.ui.IStateService, $filter: IFilterS
                                   CommonSettingsService: CommonSettingsService, $log: ng.ILogService): void {
 
   this.newPassword = ''
-  this.isNewCurrentPasswordChange = ''
-  this.patternPassword = CommonSettingsService.localSettings.passPattern
+  this.enteredCurrentPassword = ''
+  this.patternPassword = CommonSettingsService.localSettings.passwordPattern
 
   const _passwordChangeError = (): void => {
     $state.go('app.login.account')
@@ -86,7 +86,6 @@ function SetNewPasswordController($state: ng.ui.IStateService, $filter: IFilterS
   }
 
   this.submitPasswordChange = (): void => {
-
     if (tokenStatus.method === 'SMS') {
       _submitPasswordChangeBySms()
     } else {
@@ -94,13 +93,8 @@ function SetNewPasswordController($state: ng.ui.IStateService, $filter: IFilterS
     }
   }
 
-  this.onSubmit = (): void => {
-    this.isNewCurrentPasswordChange = this.newPassword
-  }
-
-  this.checkIsPasswordCorrected = (): boolean => {
-    return this.isNewCurrentPasswordChange !== this.newPassword && this.patternPassword.test(this.newPassword)
-  }
+  this.checkIsPasswordCorrect = (): boolean =>
+    this.patternPassword.test(this.newPassword)
 
   return this
 

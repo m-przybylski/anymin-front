@@ -12,9 +12,11 @@ import topAlertModule from '../../../common/services/top-alert/top-alert'
 import loginStateModule from '../../../common/services/login-state/login-state'
 import ValidationAlertModule from '../../../common/components/interface/alert/validation-alert/validation-alert'
 import inputModule from '../../../common/components/interface/input/input'
+import {CommonSettingsService} from '../../../common/services/common-settings/common-settings.service'
 
 function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.ui.IStateService,
                      topWaitingLoaderService: TopWaitingLoaderService, user: AccountDetails,
+                     CommonSettingsService: CommonSettingsService,
                      topAlertService: TopAlertService, AccountApi: AccountApi): void {
 
   this.isPending = false
@@ -24,6 +26,7 @@ function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.u
   this.correctCode = false
   this.email = ''
   this.emailExist = false
+  this.mailPattern = CommonSettingsService.localSettings.emailPattern
 
   const _updateNewUserObject = (patchObject: PatchAccount, successCallback: (res: Account) => void): void => {
     /* istanbul ignore next if */
@@ -42,7 +45,6 @@ function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.u
           timeout: 4
         })
       })
-
     }
   }
 
@@ -51,6 +53,7 @@ function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.u
   }
 
   this.setNewEmail = (): void => {
+    this.onNewEmailChange = this.newEmail
     _isEmailExists(this.email).then((_response: any) => {
       this.emailExist = true
     }, () => {
@@ -69,15 +72,11 @@ function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.u
     })
   }
 
-  this.onSubmit = (): void => {
-    this.onNewEmailChange = this.newEmail
-  }
-
   this.checkIsEmailExist = (): boolean => {
     return this.onNewEmailChange !== this.newEmail
   }
 
-  this.checkIsDisabled = (): boolean => {
+  this.checkIsButtonDisabled = (): boolean => {
     return this.mailPattern.test(this.newEmail)
   }
 

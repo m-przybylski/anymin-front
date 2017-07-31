@@ -29,12 +29,12 @@ function _controller($log: ng.ILogService, $filter: ng.IFilterService,
 
   this.passwordStrength = 0
   this.password = ''
+  this.enteredCurrentPassword = ''
   this.isPending = false
   this.isRequired = true
   this.rulesAccepted = false
-  this.serverError = false
   this.alreadyCheck = false
-  this.serverError = false
+  this.isServerError = false
 
   this.msisdn = {
     number: user.msisdn
@@ -43,7 +43,7 @@ function _controller($log: ng.ILogService, $filter: ng.IFilterService,
     hrefUrl: 'http://miroslawkwiatek.republika.pl/pdf_y/grawitacja_kwantowa.pdf'
   }
 
-  this.patternPassword = CommonSettingsService.localSettings.passPattern
+  this.patternPassword = CommonSettingsService.localSettings.passwordPattern
 
   this.onPasswordChange = (password: string): void => {
     this.passwordStrength = passwordStrengthService.getStrength(password)
@@ -53,14 +53,14 @@ function _controller($log: ng.ILogService, $filter: ng.IFilterService,
     /* istanbul ignore next if */
     if (!this.isPending) {
       this.isPending = true
-      this.serverError = false
+      this.isServerError = false
       topWaitingLoaderService.immediate()
 
       const accountId = user.id
 
       AccountApi.partialUpdateAccountRoute(accountId, patchObject).then(successCallback, (error) => {
         this.isPending = false
-        this.serverError = true
+        this.isServerError = true
         topWaitingLoaderService.stopLoader()
         $log.error(error)
         topAlertService.error({
@@ -72,6 +72,7 @@ function _controller($log: ng.ILogService, $filter: ng.IFilterService,
   }
 
   this.completeRegistration = (): void => {
+    this.enteredCurrentPassword = this.password
     _updateNewUserObject({
       password: this.password
     }, () => {
@@ -83,13 +84,8 @@ function _controller($log: ng.ILogService, $filter: ng.IFilterService,
     })
   }
 
-  this.onSubmit = (): void => {
-    this.isNewCurrentPasswordChange = this.password
-  }
-
-  this.checkIsPasswordCorrected = (): boolean => {
-    return this.isNewCurrentPasswordChange !== this.password && this.patternPassword.test(this.password)
-  }
+  this.checkIsPasswordCorrected = (): boolean =>
+    this.enteredCurrentPassword !== this.password && this.patternPassword.test(this.password)
 
   return this
 }

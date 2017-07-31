@@ -1,6 +1,6 @@
 import {IInputComponentBindings} from './input'
 
-interface IInputTypes {
+export interface IInputTypes {
   text: string,
   tel: string,
   number: string
@@ -23,9 +23,9 @@ export class InputComponentController implements IInputComponentBindings {
   public isValid: boolean
   public ngRequired: boolean = false
   public ngModel: string
-  public ngPattern: RegExp
   public isFocus: boolean = false
   public isDirty: boolean = false
+  public onChange: string = ''
 
   /* @ngInject */
   constructor(private $element: JQuery) {}

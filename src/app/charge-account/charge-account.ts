@@ -20,7 +20,7 @@ const chargeAccountModule = angular.module('profitelo.controller.charge-account'
   .config(($stateProvider: ng.ui.IStateProvider) => {
   $stateProvider.state('app.charge-account', {
     url: '/charge-account',
-    onEnter: (chargeAccountResolver: ChargeAccountResolver,  $state: ng.ui.IStateService) => {
+    onEnter: (chargeAccountResolver: ChargeAccountResolver,  $state: ng.ui.IStateService): void => {
       chargeAccountResolver.resolve($state.current.name)
     },
     data: {

@@ -11,12 +11,12 @@ export interface IPayoutsPayPalControllerScope extends ng.IScope {
 }
 
 export class PayoutsPayPalController implements ng.IController {
-  isNavbar: boolean = true
-  isFullscreen: boolean = true
-  isPayoutBankMethod: boolean = false
-  isPayoutPaypalMethod: boolean = false
-  payPalEmail: string = ''
-  emailPattern = this.CommonSettingsService.localSettings.mailPattern
+  public isNavbar: boolean = true
+  public isFullscreen: boolean = true
+  public isPayoutBankMethod: boolean = false
+  public isPayoutPaypalMethod: boolean = false
+  public payPalEmail: string = ''
+  public emailPattern = this.CommonSettingsService.localSettings.emailPattern
 
   /* @ngInject */
   constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
@@ -25,9 +25,8 @@ export class PayoutsPayPalController implements ng.IController {
               private CommonSettingsService: CommonSettingsService) {
   }
 
-  public checkIsDisabled = (): boolean => {
-    return this.emailPattern.test(this.payPalEmail)
-  }
+  public checkIsButtonDisabled = (): boolean =>
+    this.emailPattern.test(this.payPalEmail)
 
   public choosePayoutBankMethod = (): void => {
     this.isPayoutBankMethod = true

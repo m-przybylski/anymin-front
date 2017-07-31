@@ -19,24 +19,22 @@ top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-c
             data-type="tel"
             data-id="phoneNumber"
             data-placeholder="LOGIN.ENTER_NUMBER_PLACEHOLDER"
-            data-ng-model="vm.number"
+            data-ng-model="vm.numberModel"
             data-input-text="SETTINGS.GENERAL.PHONE_NUMBER.INPUT.LABEL"
-            data-ng-pattern="vm.numberPattern"
-            data-is-valid="vm.number && vm.checkIsDisabled() || phoneNumberForm.$submitted && !vm.checkIsNumberExist()"
+            data-is-valid="vm.number && vm.checkIsButtonDisabled() || phoneNumberForm.$submitted && !vm.checkIfNewEnteredNumberExists()"
             data-validation-text="SETTINGS.GENERAL.PHONE_SETTINGS.INVALID_NUMBER"
             )
 
             validation-alert(
             data-alert-text="SETTINGS.GENERAL.PHONE_SETTINGS.NUMBER_EXIST_VALIDATION"
-            data-is-visible="phoneNumberForm.$submitted && vm.isNumberExist && !vm.checkIsNumberExist()"
+            data-is-visible="phoneNumberForm.$submitted && vm.isNumberExist && !vm.checkIfNewEnteredNumberExists()"
             )
 
       button.btn.btn-default(
       data-translate="SETTINGS.GENERAL.PHONE_NUMBER.BUTTON" type="submit"
       data-ng-hide="vm.isNewPhoneNumberCreate"
-      data-ng-disabled="!vm.checkIsDisabled()"
-      data-ng-click="vm.onSubmit()"
+      data-ng-disabled="!vm.checkIsButtonDisabled()"
       )
 
-  pin-verification(data-ng-show="vm.isNewPhoneNumberCreate" data-on-send-pin-again='vm.setNewNumber'
+  pin-verification(data-ng-show="vm.isNewPhoneNumberCreate" data-on-send-pin-again="vm.setNewNumber"
   data-on-complete-pin-inputs="!vm.sendVerificationPin")

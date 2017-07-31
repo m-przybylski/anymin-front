@@ -15,20 +15,20 @@ export interface ISecurityChangePasswordSettingsControllerScope extends ng.IScop
 
 export class SecurityChangePasswordSettingsController implements ng.IController {
 
-  public isNavbar: boolean = true
-  public isFullscreen: boolean = true
-  public patternPassword = this.CommonSettingsService.localSettings.passPattern
+  public patternPassword = this.CommonSettingsService.localSettings.passwordPattern
   public newPassword: string = ''
   public currentPassword: string = ''
   public passwordStrength: number
   public isCurrentPasswordCorrect: boolean = true
   public arePasswordsDifferent: boolean = true
-  private isNewPasswordChange: string = ''
-  private isNewCurrentPasswordChange: string = ''
+  private enteredPassword: string = ''
+  private enteredCurrentPassword: string = ''
   public isError = false
 
   public setNewPassword = (): void => {
     this.isError = false
+    this.enteredCurrentPassword = this.currentPassword
+    this.enteredPassword = this.currentPassword
     this.isCurrentPasswordCorrect = true
     this.arePasswordsDifferent = true
 
@@ -39,11 +39,10 @@ export class SecurityChangePasswordSettingsController implements ng.IController 
       .then(_res => {
         this.$uibModalInstance.dismiss('cancel')
       }, (err: any) => {
+        this.isError = true
         if (err.status === 400) {
-          this.isError = true
           this.arePasswordsDifferent = false
         } else if (err.status === 401) {
-          this.isError = true
           this.isCurrentPasswordCorrect = false
         } else {
           throw new Error('Can not change password: ' + err)
@@ -51,22 +50,15 @@ export class SecurityChangePasswordSettingsController implements ng.IController 
       })
   }
 
-  public checkIsDisabled = (): boolean => {
-    return this.newPassword.length > 0 && this.currentPassword.length > 0 && this.newPassword !== this.currentPassword
-  }
+  public checkIsButtonDisabled = (): boolean =>
+    this.newPassword.length > 0 && this.currentPassword.length > 0 && this.newPassword !== this.currentPassword &&
+      this.patternPassword.test(this.newPassword)
 
-  public onSubmit = (): void => {
-    this.isNewCurrentPasswordChange = this.currentPassword
-    this.isNewPasswordChange = this.currentPassword
-  }
+  public checkIsEnteredPasswordIncorrected = (): boolean =>
+    this.enteredCurrentPassword !== this.currentPassword
 
-  public checkIsPasswordIncorrected = (): boolean => {
-    return this.isNewCurrentPasswordChange !== this.currentPassword
-  }
-
-  public checkIsNewPasswordCorrected = (): boolean => {
-    return this.isNewPasswordChange !== this.newPassword && this.patternPassword.test(this.newPassword)
-  }
+  public checkIsNewEnteredPasswordCorrected = (): boolean =>
+    this.enteredPassword !== this.newPassword && this.patternPassword.test(this.newPassword)
 
   /* @ngInject */
   constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,

@@ -21,7 +21,7 @@
             data-ng-model="$ctrl.numberVAT"
             data-input-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.TAX_NUMBER.LABEL"
             data-is-valid="paymentForm.$submitted && !$ctrl.numberVAT || paymentForm.numberVAT.$dirty && !$ctrl.numberVAT"
-            data-validation-text="Jakis alert"
+            data-validation-text="DASHBOARD.SETTINGS.PAYMENTS.INVOICE.VAT.VALIDATION"
             data-ng-required="true"
             )
 
@@ -40,7 +40,7 @@
         data-ng-pattern="$ctrl.patternEmail"
         data-input-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COMPANY_NAME.LABEL"
         data-is-valid="paymentForm.$submitted && !$ctrl.emailModel || paymentForm.email.$dirty &&  $ctrl.mailValidation()"
-        data-validation-text="DASHBOARD.CHARGE_ACCOUNT.EMAIL_ERROR"
+        data-validation-text="DASHBOARD.SETTINGS.PAYMENTS.INVOICE.COMPANY_NAME.VALIDATION"
         data-ng-required="true"
         )
 
@@ -58,7 +58,7 @@
       data-ng-model="$ctrl.street"
       data-input-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.STREET.LABEL"
       data-is-valid="paymentForm.$submitted && !$ctrl.emailModel || paymentForm.email.$dirty &&  $ctrl.mailValidation()"
-      data-validation-text="DASHBOARD.CHARGE_ACCOUNT.EMAIL_ERROR"
+      data-validation-text="DASHBOARD.SETTINGS.PAYMENTS.INVOICE.STREET.VALIDATION"
       data-ng-pattern="$ctrl.patternEmail"
       data-ng-required="true"
       )
@@ -71,7 +71,7 @@
         data-ng-model="$ctrl.apartmentNumber"
         data-input-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.NUMBER.LABEL"
         data-is-valid="paymentForm.$submitted && !$ctrl.emailModel || paymentForm.email.$dirty &&  $ctrl.mailValidation()"
-        data-validation-text="DASHBOARD.CHARGE_ACCOUNT.EMAIL_ERROR"
+        data-validation-text="DASHBOARD.SETTINGS.PAYMENTS.INVOICE.APARTMENT_NUMBER.VALIDATION"
         data-ng-pattern="$ctrl.patternEmail"
         data-ng-required="true"
         )
@@ -83,7 +83,7 @@
         data-ng-model="$ctrl.postalCode"
         data-input-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.ZIP_CODE.LABEL"
         data-is-valid="paymentForm.$submitted && !$ctrl.emailModel || paymentForm.email.$dirty &&  $ctrl.mailValidation()"
-        data-validation-text="DASHBOARD.CHARGE_ACCOUNT.EMAIL_ERROR"
+        data-validation-text="DASHBOARD.SETTINGS.PAYMENTS.INVOICE.POSTAL_CODE.VALIDATION"
         data-ng-required="true"
         )
 
@@ -94,7 +94,7 @@
       data-ng-model="$ctrl.city"
       data-input-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.CITY.LABEL"
       data-is-valid="paymentForm.$submitted && !$ctrl.emailModel || paymentForm.email.$dirty &&  $ctrl.mailValidation()"
-      data-validation-text="DASHBOARD.CHARGE_ACCOUNT.EMAIL_ERROR"
+      data-validation-text="DASHBOARD.SETTINGS.PAYMENTS.INVOICE.CITY.VALIDATION"
       data-ng-required="true"
       )
 

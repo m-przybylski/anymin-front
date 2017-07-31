@@ -14,7 +14,7 @@ describe('Unit testing: profitelo.components.interface.input', () => {
     let component: InputPasswordComponentController
     let bindings: IInputPasswordComponentBindings
     let document: ng.IDocumentService
-    let validHTML = '<input-primary>'
+    const validHTML = '<input-primary></input-primary>'
 
     function create(html: string) {
       scope = rootScope.$new()

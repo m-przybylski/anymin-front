@@ -1,39 +1,39 @@
-namespace profitelo.directives.autoFocus {
-  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-  describe('Unit testing: profitelo.directives.auto-focus', () => {
-    return describe('for auto-focus directive >', () => {
+import * as angular from 'angular'
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import autoFocus from './auto-focus'
 
-      let compile: any = null
-      let scope: any = null
-      let validHTML = '<form><input type="text" name="first" auto-focus/>' +
-        '<input type="text" name="second"/></form>'
+describe('Unit testing: profitelo.directives.auto-focus', () => {
+  return describe('for auto-focus directive >', () => {
 
-      beforeEach(() => {
-        angular.mock.module('profitelo.directives.auto-focus')
+    let compile: ng.ICompileService
+    let scope: ng.IScope
+    let validHTML = '<form auto-focus><input type="text" name="first"></form>'
 
-        inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {
-          scope = $rootScope.$new()
-          compile = $compile
-        })
-      })
+    beforeEach(() => {
+      angular.mock.module(autoFocus)
 
-      function create() {
-        let elem = angular.element(validHTML)
-        scope.mockFunction = () => {
-        }
-        let compiledElement = compile(elem)(scope)
-        scope.$digest()
-        return compiledElement
-      }
-
-      it('should have a dummy test', inject(() => {
-        expect(true).toBeTruthy()
-      }))
-
-      it('should compile the directive', () => {
-        let el = create()
-        expect(el.html()).toBeDefined(true)
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {
+        scope = $rootScope.$new()
+        compile = $compile
       })
     })
+
+    function create() {
+      let elem = angular.element(validHTML)
+      scope.mockFunction = () => {
+      }
+      let compiledElement = compile(elem)(scope)
+      scope.$digest()
+      return compiledElement
+    }
+
+    it('should have a dummy test', inject(() => {
+      expect(true).toBeTruthy()
+    }))
+
+    it('should compile the directive', () => {
+      let el = create()
+      expect(el.html()).toBeDefined(true)
+    })
   })
-}
+})

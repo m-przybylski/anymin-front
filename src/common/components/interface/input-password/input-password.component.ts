@@ -13,8 +13,7 @@ export class InputPasswordComponent implements ng.IComponentOptions {
     isValid: '<',
     ngRequired: '<',
     ngModel: '=',
-    ngPattern: '=',
     isSubmitted: '<',
-    onChange: '=?'
+    onChange: '<'
   }
 }

@@ -35,6 +35,10 @@
 		margin: 0 0 32px
 		transition: opacity 0.3s
 
+		.dropdown-input
+			&::before, &::after
+				content: none
+
 	.wizard-step-action
 		display: flex
 		flex-wrap: wrap
@@ -62,6 +66,8 @@
 		input
 			font-size: $f-input-big
 			line-height: 54px
+			position: relative
+			z-index: $z-index-100
 
 	.tooltip
 		margin: 0 0 0 8px

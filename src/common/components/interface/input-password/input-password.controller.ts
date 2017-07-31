@@ -1,13 +1,8 @@
 import {IInputPasswordComponentBindings} from './input-password'
-
-interface IInputTypes {
-  text: string,
-  tel: string,
-  number: string
-}
+import {IInputTypes} from '../input/input.controller'
 
 export class InputPasswordComponentController implements IInputPasswordComponentBindings {
-  private inputTypes: IInputTypes = {
+  private inputType: IInputTypes = {
     text: 'text',
     tel: 'tel',
     number: 'number'
@@ -15,15 +10,13 @@ export class InputPasswordComponentController implements IInputPasswordComponent
 
   public id: string
   public name: string
-  public type: string = this.inputTypes.text
+  public type: string = this.inputType.text
   public inputText: string = ''
   public placeholder: string
   public validationText: string
-  public maxLength: string = ''
   public isValid: boolean
   public ngRequired: boolean = false
   public ngModel: string
-  public ngPattern: string
   public isFocus: boolean = false
   public isDirty: boolean = false
   public onChange: string = ''
@@ -32,7 +25,7 @@ export class InputPasswordComponentController implements IInputPasswordComponent
   constructor(private $element: JQuery) {}
 
   $onInit(): void {
-    if (this.type === this.inputTypes.tel) {
+    if (this.type === this.inputType.tel) {
       this.blockInvalidPhonenumberDigits()
     }
   }

@@ -4,6 +4,7 @@ import {CommonSettingsService} from '../../../../services/common-settings/common
 import filtersModule from '../../../../filters/filters'
 import inputModule from '../../../interface/input/input'
 import {IAmounts, IAmountModel} from '../../../../../app/charge-account/modal/charge-account.controller'
+import ValidationAlertModule from '../../../interface/alert/validation-alert/validation-alert'
 
 export interface IChooseAmountChargeComponentBindings {
   title: string
@@ -117,6 +118,7 @@ angular.module('profitelo.components.dashboard.charge-account.choose-amount-char
   'profitelo.services.commonSettings',
   'ngSanitize',
   filtersModule,
+  ValidationAlertModule,
   inputModule
 ])
   .component('chooseAmountCharge', new ChooseAmountChargeComponent())

@@ -27,7 +27,7 @@ function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService
                                topAlertService: TopAlertService, loginStateService: LoginStateService,
                                CommonSettingsService: CommonSettingsService): void {
 
-  this.isNewPasswordChange = ''
+  this.enteredPassword = ''
   this.isPending = false
   this.current = 1
   this.account = loginStateService.getAccountObject()
@@ -96,6 +96,7 @@ function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService
   }
 
   this.login = (): void => {
+    this.enteredPassword = this.account.password
     this.serverError = false
     if (!this.isPending) {
       this.isPending = true
@@ -123,12 +124,8 @@ function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService
     }
   }
 
-  this.onSubmit = (): void => {
-    this.isNewPasswordChange = this.account.password
-  }
-
   this.checkIsPasswordIncorrected = (): boolean => {
-    return this.isNewPasswordChange !== this.account.password
+    return this.enteredPassword !== this.account.password
   }
 
   return this

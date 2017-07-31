@@ -45,7 +45,7 @@ scrollable.security-pin-number(data-is-fullscreen="vm.isFullscreen" data-is-navb
         data-ng-model="vm.confirmPassword"
         data-input-text="SETTINGS.SECURITY.PIN_NUMBER.PASSWORD_LABEL"
         data-placeholder="SETTINGS.SECURITY.PIN_NUMBER.PASSWORD_PLACEHOLDER"
-        data-is-valid="vm.checkIsPasswordCorrected() || !vm.isPasswordIncorrect && !vm.isError"
+        data-is-valid="vm.checkIsNewEnteredPasswordCorrected() || !vm.isPasswordIncorrect && !vm.isError"
         data-validation-text="SETTINGS.SECURITY.PIN_NUMBER.VALID_PASSWORD"
         data-is-submitted="confirmPasswordForm.$submitted"
         auto-focus
@@ -53,6 +53,5 @@ scrollable.security-pin-number(data-is-fullscreen="vm.isFullscreen" data-is-navb
 
         button.btn.btn-default(
         data-translate="{{:: 'SETTINGS.SECURITY.PIN_NUMBER.BUTTON_CONFIRM' | translate}}"
-        data-ng-disabled="!vm.checkIsDisabled()"
-        data-ng-click="vm.onSubmit()"
+        data-ng-disabled="!vm.checkIsButtonDisabled()"
         type="submit")

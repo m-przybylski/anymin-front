@@ -13,7 +13,9 @@ scrollable.country-settings(data-is-fullscreen="vm.isFullscreen" data-is-navbar=
           data-on-select-main="vm.updateCountry"
           data-input-placeholder="Poland")
 
-        .input-error-messages(data-ng-show="phoneNumberForm.$submitted && vm.isNumberExist")
-          .error.left(data-translate="SETTINGS.GENERAL.PHONE_SETTINGS.NUMBER_EXIST_VALIDATION")
+        validation-alert(
+        data-alert-text="SETTINGS.GENERAL.PHONE_SETTINGS.NUMBER_EXIST_VALIDATION"
+        data-is-visible="phoneNumberForm.$submitted && !vm.isNumberExist"
+        )
 
         button.btn.btn-default(data-translate="SETTINGS.GENERAL.CONUTRY_SETTINGS.BUTTON" type="submit")

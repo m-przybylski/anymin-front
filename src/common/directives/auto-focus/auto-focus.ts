@@ -7,11 +7,17 @@ import * as angular from 'angular'
     constructor() {
     }
 
-    public link = (_scope: ng.IScope, element: ng.IRootElementService, attr: ng.IAttributes): void => {
-      const input = element.find('input')[0]
+    public link = (_scope: ng.IScope, element: ng.IRootElementService, attr: ng.IAttributes,
+                   $log: ng.ILogService): void => {
 
-      if ('autoFocus' in attr.$attr) {
-        input.focus()
+      const input = element.find('input')
+
+      if (input !== undefined) {
+        if ('autoFocus' in attr.$attr) {
+          input[0].focus()
+        }
+      } else {
+        $log.error('Input is undefined')
       }
     }
 
