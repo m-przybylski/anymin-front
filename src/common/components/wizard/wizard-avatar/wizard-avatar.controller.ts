@@ -64,13 +64,10 @@ export class WizardAvatarComponentController implements IWizardAvatarComponentBi
     }
     this.isLoading = true
     this.isUploadInProgress = true
-    this.uploader.uploadFile(this.uploadedFile, postProcessOptions, this.onUploadProgess)
+    this.uploader.uploadFile(this.uploadedFile, postProcessOptions, () => {})
     .then(this.onFileUpload, this.onFileUploadError)
 
     this.isUserUploadImage = false
-  }
-  private onUploadProgess = (): void => {
-    this.isLoading = true
   }
 
   private onFileUpload = (res: any): void => {
