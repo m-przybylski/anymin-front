@@ -40,6 +40,7 @@ export class DashboardSettingsPaymentsController implements ng.IController {
 
     FinancesApi.getClientBalanceRoute().then((clientBalance: MoneyDto) => {
       this.accountBalance = clientBalance
+      if (clientBalance.amount !== 0) this.isAnyPaymentMethod = true
     }, (error) => {
       throw new Error('Can not get user balance: ' + error)
     }).finally(() => {
