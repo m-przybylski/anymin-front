@@ -40,19 +40,18 @@ scrollable.security-pin-number(data-is-fullscreen="vm.isFullscreen" data-is-navb
     data-ng-submit="confirmPasswordForm.$valid && vm.changeViewsAndPin()" data-ng-show="vm.isNewPinTyped")
       h2(data-translate="{{:: 'SETTINGS.SECURITY.PIN_NUMBER.CONFIRM_TITLE' | translate}}")
       .security-confirm-pin
-
-        pro-input-password(data-label="{{ 'SETTINGS.SECURITY.PIN_NUMBER.PASSWORD_LABEL' | translate }}"
-        data-placeholder="{{ 'SETTINGS.SECURITY.PIN_NUMBER.PASSWORD_PLACEHOLDER' | translate }}"
-        data-ng-model="vm.confirmPassword"
+        input-password(
         data-id="password"
-        data-on-change="vm.onPasswordChange"
-        data-ng-pattern="vm.patternPassword"
-        data-ng-class="{'invalid':confirmPasswordForm.password.$invalid && " +
-        "(confirmPasswordForm.password.$dirty || confirmPasswordForm.$submitted)}"
-        required)
+        data-ng-model="vm.confirmPassword"
+        data-input-text="SETTINGS.SECURITY.PIN_NUMBER.PASSWORD_LABEL"
+        data-placeholder="SETTINGS.SECURITY.PIN_NUMBER.PASSWORD_PLACEHOLDER"
+        data-is-valid="vm.checkIsNewEnteredPasswordCorrected() || !vm.isPasswordIncorrect && !vm.isError"
+        data-validation-text="SETTINGS.SECURITY.PIN_NUMBER.VALID_PASSWORD"
+        data-is-submitted="confirmPasswordForm.$submitted"
+        auto-focus
+        )
 
-        .input-error-messages(data-ng-show="(confirmPasswordForm.$invalid || vm.isPasswordIncorrect) && confirmPasswordForm.$submitted")
-          .error.left(data-translate="SETTINGS.SECURITY.PIN_NUMBER.VALID_PASSWORD")
-
-        button.btn.btn-default(data-translate="{{:: 'SETTINGS.SECURITY.PIN_NUMBER.BUTTON_CONFIRM' | translate}}"
+        button.btn.btn-default(
+        data-translate="{{:: 'SETTINGS.SECURITY.PIN_NUMBER.BUTTON_CONFIRM' | translate}}"
+        data-ng-disabled="!vm.checkIsButtonDisabled()"
         type="submit")

@@ -20,7 +20,7 @@ export class ConsultationEmployeeInputComponentController implements IConsultati
 
   /* @ngInject */
   constructor(CommonSettingsService: CommonSettingsService, private $timeout: ng.ITimeoutService) {
-    this.mailRegexp = CommonSettingsService.localSettings.mailPattern
+    this.mailRegexp = CommonSettingsService.localSettings.emailPattern
     this.CSVFileReader = new CSVFileReader
   }
 

@@ -4,24 +4,29 @@ import {PayoutsApi} from 'profitelo-api-ng/api/api'
 import {JValue} from 'profitelo-api-ng/model/models'
 import {CommonSettingsService} from '../../../../../../services/common-settings/common-settings.service'
 import commonSettingsModule from '../../../../../../services/common-settings/common-settings'
+import inputModule from '../../../../../interface/input/input'
 
 export interface IPayoutsPayPalControllerScope extends ng.IScope {
   callback: () => void
 }
 
 export class PayoutsPayPalController implements ng.IController {
-  isNavbar: boolean = true
-  isFullscreen: boolean = true
-  isPayoutBankMethod: boolean = false
-  isPayoutPaypalMethod: boolean = false
-  payPalEmail: string
-  emailPattern = this.CommonSettingsService.localSettings.emailPattern
+  public isNavbar: boolean = true
+  public isFullscreen: boolean = true
+  public isPayoutBankMethod: boolean = false
+  public isPayoutPaypalMethod: boolean = false
+  public payPalEmail: string = ''
+  public emailPattern = this.CommonSettingsService.localSettings.emailPattern
+
   /* @ngInject */
   constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
-              private $scope: IPayoutsPayPalControllerScope, private PayoutsApi: PayoutsApi,
+              private $scope: IPayoutsPayPalControllerScope,
+              private PayoutsApi: PayoutsApi,
               private CommonSettingsService: CommonSettingsService) {
-
   }
+
+  public checkIsButtonDisabled = (): boolean =>
+    this.emailPattern.test(this.payPalEmail)
 
   public choosePayoutBankMethod = (): void => {
     this.isPayoutBankMethod = true
@@ -62,6 +67,6 @@ angular.module('profitelo.components.dashboard.settings.modals.payouts.payouts-p
   commonSettingsModule,
   'profitelo.components.interface.preloader',
   'profitelo.directives.interface.scrollable',
-  'profitelo.directives.interface.pro-input'
+  inputModule
 ])
   .controller('payoutsPayPalController', PayoutsPayPalController)

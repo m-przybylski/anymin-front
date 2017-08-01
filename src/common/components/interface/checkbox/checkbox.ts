@@ -1,6 +1,7 @@
 import * as angular from 'angular'
 import {CheckboxComponent} from './checkbox.component'
 import './checkbox.sass'
+import ValidationAlertModule from '../alert/validation-alert/validation-alert'
 
 export interface ICheckboxComponentBindings extends ng.IController {
   inputText: string
@@ -15,7 +16,8 @@ export interface ICheckboxComponentBindings extends ng.IController {
 }
 
 const checkboxModule = angular.module('profitelo.components.interface.checkbox', [
-  'pascalprecht.translate'
+  'pascalprecht.translate',
+  ValidationAlertModule
 ])
 .component('checkbox', new CheckboxComponent)
   .name

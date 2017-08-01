@@ -10,9 +10,13 @@ import userModule from '../../../common/services/user/user'
 import commonSettingsModule from '../../../common/services/common-settings/common-settings'
 import topAlertModule from '../../../common/services/top-alert/top-alert'
 import loginStateModule from '../../../common/services/login-state/login-state'
+import ValidationAlertModule from '../../../common/components/interface/alert/validation-alert/validation-alert'
+import inputModule from '../../../common/components/interface/input/input'
+import {CommonSettingsService} from '../../../common/services/common-settings/common-settings.service'
 
 function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.ui.IStateService,
                      topWaitingLoaderService: TopWaitingLoaderService, user: AccountDetails,
+                     CommonSettingsService: CommonSettingsService,
                      topAlertService: TopAlertService, AccountApi: AccountApi): void {
 
   this.isPending = false
@@ -22,6 +26,7 @@ function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.u
   this.correctCode = false
   this.email = ''
   this.emailExist = false
+  this.mailPattern = CommonSettingsService.localSettings.emailPattern
 
   const _updateNewUserObject = (patchObject: PatchAccount, successCallback: (res: Account) => void): void => {
     /* istanbul ignore next if */
@@ -40,7 +45,6 @@ function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.u
           timeout: 4
         })
       })
-
     }
   }
 
@@ -49,6 +53,7 @@ function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.u
   }
 
   this.setNewEmail = (): void => {
+    this.onNewEmailChange = this.newEmail
     _isEmailExists(this.email).then((_response: any) => {
       this.emailExist = true
     }, () => {
@@ -65,6 +70,14 @@ function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.u
         $state.go('app.dashboard.client.favourites')
       })
     })
+  }
+
+  this.checkIsEmailExist = (): boolean => {
+    return this.onNewEmailChange !== this.newEmail
+  }
+
+  this.checkIsButtonDisabled = (): boolean => {
+    return this.mailPattern.test(this.newEmail)
   }
 
   return this
@@ -98,8 +111,9 @@ angular.module('profitelo.controller.post-register.set-email', [
   topAlertModule,
   'profitelo.services.pro-top-waiting-loader-service',
   'profitelo.directives.interface.pro-alert',
-  'profitelo.directives.interface.pro-input',
-  'profitelo.controller.post-register.set-password'
+  'profitelo.controller.post-register.set-password',
+  inputModule,
+  ValidationAlertModule
 ])
   .config(config)
   .controller('SetEmailController', _controller)

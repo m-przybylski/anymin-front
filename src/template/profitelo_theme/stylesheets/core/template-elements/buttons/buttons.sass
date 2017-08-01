@@ -3,6 +3,11 @@ button
     @extend .btn-disabled
     cursor: not-allowed
 
+  &.btn-link
+    &[disabled]
+      background: none
+      color: $c-secondary-txt
+
 .btn-handler
   +xsm
     margin: 0 -16px

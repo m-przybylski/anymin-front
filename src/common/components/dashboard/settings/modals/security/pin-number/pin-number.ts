@@ -5,6 +5,8 @@ import apiModule from 'profitelo-api-ng/api.module'
 import {AccountApi} from 'profitelo-api-ng/api/api'
 import commonSettingsModule from '../../../../../../services/common-settings/common-settings'
 import checkboxModule from '../../../../../interface/checkbox/checkbox'
+import inputPasswordModule from '../../../../../interface/input-password/input-password'
+import autoFocus from '../../../../../../directives/auto-focus/auto-focus'
 
 export interface ISecurityPinNumberSettingsControllerScope extends ng.IScope {
 }
@@ -23,14 +25,16 @@ export class SecurityPinNumberSettingsController implements ng.IController {
   public isNavbar: boolean = true
   public isFullscreen: boolean = true
   public isNewPinTyped: boolean = false
-  public confirmPassword: string
+  public confirmPassword: string = ''
   public pinInput: Array<string> = new Array(this.pinLength)
-  public patternPassword: string = this.CommonSettingsService.localSettings.passwordPattern
+  public patternPassword: RegExp = this.CommonSettingsService.localSettings.passwordPattern
   public protectedViewsStatus: IProtectedViewsStatus = {
     CALL_VIEW: false,
     PAY_OUT_VIEW: false,
     MAKE_DEPOSIT_VIEW: false
   }
+  private newEnteredCurrentPassword: string = ''
+  public isError: boolean = false
 
   public onModalClose = (): void => {
     this.$uibModalInstance.dismiss('cancel')
@@ -50,6 +54,7 @@ export class SecurityPinNumberSettingsController implements ng.IController {
   }
 
   public sendPin = (): void => {
+    this.newEnteredCurrentPassword = this.confirmPassword
     this.isNewPinTyped = true
   }
 
@@ -61,7 +66,7 @@ export class SecurityPinNumberSettingsController implements ng.IController {
         protectedViews.push(key)
       }
     })
-
+    this.isError = false
     this.AccountApi.patchMobileViewsPermissionsRoute({
       password: this.confirmPassword,
       mobilePin: this.pinInput.join(''),
@@ -69,6 +74,7 @@ export class SecurityPinNumberSettingsController implements ng.IController {
     }).then(_res => {
       this.$uibModalInstance.dismiss('cancel')
     }, (err) => {
+      this.isError = true
       if (err.status === 401) {
         this.isPasswordIncorrect = true
       } else {
@@ -77,6 +83,12 @@ export class SecurityPinNumberSettingsController implements ng.IController {
       }
     })
   }
+
+  public checkIsButtonDisabled = (): boolean =>
+    this.patternPassword.test(this.confirmPassword)
+
+  public checkIsNewEnteredPasswordCorrected = (): boolean =>
+    this.newEnteredCurrentPassword !== this.confirmPassword && this.patternPassword.test(this.confirmPassword)
 }
 
 angular.module('profitelo.components.dashboard.settings.security.modals.pin-number', [
@@ -86,6 +98,8 @@ angular.module('profitelo.components.dashboard.settings.security.modals.pin-numb
   apiModule,
   'profitelo.directives.interface.focus-next',
   'profitelo.directives.interface.scrollable',
-  checkboxModule
+  checkboxModule,
+  inputPasswordModule,
+  autoFocus
 ])
   .controller('securityPinNumberSettingsController', SecurityPinNumberSettingsController)

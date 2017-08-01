@@ -1,5 +1,4 @@
 import * as angular from 'angular'
-import '../../common/directives/interface/pro-input/pro-input'
 import 'common/directives/interface/scrollable/scrollable'
 import 'common/components/interface/preloader/preloader'
 import 'common/components/braintree-form/braintree-form'
@@ -21,7 +20,7 @@ const chargeAccountModule = angular.module('profitelo.controller.charge-account'
   .config(($stateProvider: ng.ui.IStateProvider) => {
   $stateProvider.state('app.charge-account', {
     url: '/charge-account',
-    onEnter: (chargeAccountResolver: ChargeAccountResolver,  $state: ng.ui.IStateService) => {
+    onEnter: (chargeAccountResolver: ChargeAccountResolver,  $state: ng.ui.IStateService): void => {
       chargeAccountResolver.resolve($state.current.name)
     },
     data: {

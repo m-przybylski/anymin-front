@@ -40,14 +40,15 @@ describe('Unit testing: profitelo.components.interface.input', () => {
       bindings = {
         id: 'name',
         name: 'name',
+        type: 'text',
         inputText: 'tekst',
         placeholder: 'placeholder',
         maxLength: '20',
         validationText: 's',
         isValid: true,
         ngRequired: false,
-        ngModel: true,
-        ngPattern: 'regex'
+        ngModel: 'string',
+        isSubmitted: true
       }
 
       const injectors = {

@@ -5,16 +5,16 @@
   span.is-required(data-ng-if="$ctrl.ngRequired") *
 
   input(
-  type="text"
-  id="{{$ctrl.id}}"
-  name="{{$ctrl.id}}"
-  maxlength="{{$ctrl.maxLength}}"
-  placeholder="{{ $ctrl.placeholder | translate }}"
-  data-ng-model="$ctrl.ngModel"
-  data-ng-pattern="$ctrl.ngPattern"
-  data-ng-required="$ctrl.ngRequired"
-  data-ng-focus="$ctrl.onFocus()"
-  data-ng-blur="$ctrl.onBlur()"
+    type="{{$ctrl.type}}"
+    id="{{$ctrl.id}}"
+    name="{{$ctrl.id}}"
+    maxlength="{{$ctrl.maxLength}}"
+    placeholder="{{ $ctrl.placeholder | translate }}"
+    data-ng-model="$ctrl.ngModel"
+    data-ng-required="$ctrl.ngRequired"
+    data-ng-focus="$ctrl.onFocus()"
+    data-ng-blur="$ctrl.onBlur()"
+    data-ng-change="$ctrl.onChange()"
   )
 
 .input-sign-counter(data-ng-show="$ctrl.maxLength")
@@ -23,5 +23,7 @@
 
 validation-alert(
   data-alert-text="{{$ctrl.validationText}}"
-  data-is-visible="!$ctrl.isValid && $ctrl.validationText && $ctrl.validationText.length > 0 && !$ctrl.isFocus && $ctrl.isDirty || $ctrl.isSubmitted && !$ctrl.isValid && $ctrl.validationText && $ctrl.validationText.length > 0"
+  data-is-visible="!$ctrl.isValid && $ctrl.validationText && $ctrl.validationText.length > 0 && " +
+  "!$ctrl.isFocus && $ctrl.isDirty || $ctrl.isSubmitted && !$ctrl.isValid && $ctrl.validationText && " +
+  "$ctrl.validationText.length > 0"
 )

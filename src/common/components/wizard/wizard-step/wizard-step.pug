@@ -13,6 +13,6 @@ form.wizard-step(data-ng-class="{'is-active': $ctrl.isActive, 'is-showed': $ctrl
     button.btn.btn-default(
     data-translate="{{$ctrl.buttonTitle}}"
     data-ng-click="$ctrl.onClickNext()"
-    data-ng-disabled="!$ctrl.checkIsDisabled()")
+    data-ng-disabled="!$ctrl.checkIsButtonDisabled()")
 
     button.btn.btn-primary(data-translate="WIZARD.STEP.BUTTON.BACK" data-ng-click="$ctrl.onClickBack()")

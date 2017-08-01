@@ -6,7 +6,7 @@ import {AccountApi} from 'profitelo-api-ng/api/api'
 import {CompanyInfo} from 'profitelo-api-ng/model/models'
 import 'common/components/invoice/invoice-company'
 import 'common/components/interface/preloader/preloader'
-import 'common/directives/interface/scrollable/scrollable'
+import inputModule from '../../../../../interface/input/input'
 
 export interface IEditCompanyInvoiceControllerScope extends ng.IScope {
   callback: () => void
@@ -89,6 +89,6 @@ angular.module('profitelo.components.dashboard.settings.modals.payments.edit-com
   apiModule,
   'profitelo.components.dashboard.invoice',
   'profitelo.components.interface.preloader',
-  'profitelo.directives.interface.scrollable'
+  inputModule
 ])
   .controller('editCompanyInvoiceController', EditCompanyInvoiceController)

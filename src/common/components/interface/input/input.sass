@@ -2,7 +2,7 @@
 @import "../../../../template/profitelo_theme/stylesheets/core/helpers/mixins"
 @import "../../../../template/profitelo_theme/stylesheets/core/interface/icons/icons"
 
-checkbox
+input-primary
   display: block
 
 .input
@@ -56,6 +56,23 @@ checkbox
 
     input
       color: $c-error
+
+  \::-webkit-input-placeholder
+    +inputTextPlaceholder
+    line-height: $f-input-line-height
+
+  \::-moz-placeholder
+    +inputTextPlaceholder
+    line-height: $f-input-line-height
+
+  \:-ms-input-placeholder
+    +inputTextPlaceholder
+    line-height: $f-input-line-height
+
+  \:-moz-placeholder
+    +inputTextPlaceholder
+    line-height: $f-input-line-height
+
 
 .input-sign-counter
   text-align: left

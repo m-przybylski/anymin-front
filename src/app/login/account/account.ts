@@ -15,10 +15,11 @@ import topAlertModule from '../../../common/services/top-alert/top-alert'
 import 'common/directives/pro-top-waiting-loader/pro-top-waiting-loader'
 import topWaitingLoader from '../../../common/services/top-waiting-loader/top-waiting-loader'
 import 'common/directives/interface/pro-alert/pro-alert'
-import 'common/directives/interface/pro-input-password/pro-input-password'
-import 'common/directives/interface/pro-input/pro-input'
 import 'common/components/interface/dropdown-primary/dropdown-primary'
 import {UserService} from '../../../common/services/user/user.service'
+import inputModule from '../../../common/components/interface/input/input'
+import inputPasswordModule from '../../../common/components/interface/input-password/input-password'
+import autoFocus from '../../../common/directives/auto-focus/auto-focus'
 
 function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService,
                                $filter: IFilterService, RegistrationApi: RegistrationApi, userService: UserService,
@@ -26,6 +27,7 @@ function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService
                                topAlertService: TopAlertService, loginStateService: LoginStateService,
                                CommonSettingsService: CommonSettingsService): void {
 
+  this.enteredPassword = ''
   this.isPending = false
   this.current = 1
   this.account = loginStateService.getAccountObject()
@@ -94,6 +96,7 @@ function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService
   }
 
   this.login = (): void => {
+    this.enteredPassword = this.account.password
     this.serverError = false
     if (!this.isPending) {
       this.isPending = true
@@ -121,6 +124,10 @@ function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService
     }
   }
 
+  this.checkIsPasswordIncorrected = (): boolean => {
+    return this.enteredPassword !== this.account.password
+  }
+
   return this
 }
 
@@ -146,9 +153,10 @@ angular.module('profitelo.controller.login.account', [
   topWaitingLoader,
   topAlertModule,
   'profitelo.directives.interface.pro-alert',
-  'profitelo.directives.interface.pro-input-password',
-  'profitelo.directives.interface.pro-input',
-  'profitelo.components.interface.dropdown-primary'
+  'profitelo.components.interface.dropdown-primary',
+  inputModule,
+  inputPasswordModule,
+  autoFocus
 ])
   .config(config)
   .controller('AccountFormController', AccountFormController)

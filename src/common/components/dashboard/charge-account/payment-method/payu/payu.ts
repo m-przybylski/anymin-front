@@ -11,10 +11,10 @@ import topAlertModule from '../../../../../services/top-alert/top-alert'
 import commonSettingsModule from '../../../../../services/common-settings/common-settings'
 import smoothScrollingModule from '../../../../../services/smooth-scrolling/smooth-scrolling'
 import {IWindowService} from '../../../../../services/window/window.service'
-import {PayuAnimation} from './payu.animation'
 import * as _ from 'lodash'
 import {CommonConfig} from '../../../../../../../generated_modules/common-config/common-config'
 import checkboxModule from '../../../../interface/checkbox/checkbox'
+import inputModule from '../../../../interface/input/input'
 import chooseBankModule from '../../choose-bank/choose-bank'
 
 /* @ngInject */
@@ -25,6 +25,7 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
                                    CommonConfig: CommonConfig, $element: JQuery): void {
   let isPending = false
   this.isGetCompanyInfo = false
+  this.lastNameModel = ''
   this.rulesAccepted = false
   this.isRequired = true
   this.showInvoiceForm = false
@@ -39,10 +40,6 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
     }
   }
   this.countryISO = ''
-
-  this.mailValidation = (): boolean => {
-    return !angular.element('[data-index="3"]').find('input:focus')[0] && !this.emailModel
-  }
 
   this.onSelectCountry = (selectedCountry: IPrimaryDropdownListElement): void => {
     this.countryISO = selectedCountry.value
@@ -190,6 +187,8 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
   this.patternName = CommonSettingsService.localSettings.alphabetPattern
 
   this.$onInit = (): void => {
+    this.lastNameModel = ''
+
     if (angular.isDefined(this.amountMethodModal.payMethodValue)) {
       this.bankModel = this.amountMethodModal.payMethodValue
     }
@@ -212,6 +211,9 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
     })
   }
 
+  this.checkIsEmailValid = (): boolean =>
+    this.patternEmail.test(this.emailModel)
+
   return this
 }
 
@@ -233,12 +235,11 @@ angular.module('profitelo.components.dashboard.charge-account.payment-method.pay
   apiModule,
   topAlertModule,
   commonSettingsModule,
-  'profitelo.directives.interface.pro-input',
   smoothScrollingModule,
   userModule,
   chooseBankModule,
   'profitelo.components.dashboard.charge-account.summary-charge-account',
-  checkboxModule
+  checkboxModule,
+  inputModule
 ])
-.animation('.collapse-animation', PayuAnimation)
 .component('payuPaymentForm', payuPaymentForm)

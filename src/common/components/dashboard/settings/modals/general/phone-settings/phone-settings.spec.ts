@@ -61,17 +61,17 @@ describe('Testing Controller: generalPhoneSettingsController', () => {
       value: '+48',
       name: 'pl'
     }]
-    controller.number = '555555555'
+    controller.numberModel = '555555555'
     controller.setNewNumber()
     expect(controller.isPhoneNumberInvalid).toBe(false)
   })
 
-  it('should phone number invalid', () => {
+  it('should phone numberModel invalid', () => {
     controller.prefixList = [{
       value: '+48',
       name: 'pl'
     }]
-    controller.number = '123'
+    controller.numberModel = '123'
     controller.setNewNumber()
     expect(controller.isPhoneNumberInvalid).toBe(true)
   })

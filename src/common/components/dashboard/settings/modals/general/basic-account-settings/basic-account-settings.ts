@@ -11,12 +11,12 @@ import urlModule from '../../../../../../services/url/url'
 import uploaderModule from '../../../../../../services/uploader/uploader'
 import '../../../../../../components/interface/preloader/preloader'
 import '../../../../../../components/interface/image-crop/image-crop'
-import '../../../../../../directives/interface/pro-input/pro-input'
 import '../../../../../../directives/interface/local-avatar-uploader/local-avatar-uploader'
 import '../../../../../../directives/interface/scrollable/scrollable'
 import checkboxModule from '../../../../../interface/checkbox/checkbox'
 import {ErrorHandlerService} from '../../../../../../services/error-handler/error-handler.service'
 import errorHandlerModule from '../../../../../../services/error-handler/error-handler'
+import inputModule from '../../../../../interface/input/input'
 import {FileCategoryEnum, FileTypeChecker} from '../../../../../../classes/file-type-checker'
 
 export interface IBasicAccountSettingsControllerParentScope extends ng.IScope {
@@ -155,7 +155,6 @@ export class BasicAccountSettingsController implements ng.IController {
     this.$scope.isUploadInProgress = false
     throw new Error('Can not upload file: ' + err)
   }
-
 }
 
 angular.module('profitelo.components.dashboard.settings.modals.general.basic-account-settings', [
@@ -166,10 +165,10 @@ angular.module('profitelo.components.dashboard.settings.modals.general.basic-acc
   apiModule,
   'profitelo.components.interface.preloader',
   'profitelo.components.interface.image-crop',
-  'profitelo.directives.interface.pro-input',
   'profitelo.directives.interface.local-avatar-uploader',
   'profitelo.directives.interface.scrollable',
   checkboxModule,
-  errorHandlerModule
+  errorHandlerModule,
+  inputModule
 ])
 .controller('basicAccountSettingsController', BasicAccountSettingsController)

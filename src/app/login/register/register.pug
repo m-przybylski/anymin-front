@@ -1,20 +1,18 @@
 .sms-code
-  form.pro-input-form(name="smsCodeForm" data-ng-submit="smsCodeForm.$valid && vm.getSmsCodeStatus()" novalidate)
-    pro-input(data-label="{{ 'REGISTER.SERVICE_CODE' | translate }}"
-    placeholder="{{ 'REGISTER.SERVICE_CODE_PLACEHOLDER' | translate }}"
-    data-ng-model="vm.registrationSteps.smsCode"
-    data-maxlength="4"
+  form.input-form(name="smsCodeForm" data-ng-submit="smsCodeForm.$valid && vm.getSmsCodeStatus()" novalidate)
+    input-primary(
     data-type="tel"
     data-id="smsCode"
-    data-ng-pattern="vm.smsCodePattern"
-    data-ng-change="vm.verifyCode()"
-    data-ng-class="{'invalid':smsCodeForm.smsCode.$invalid && (smsCodeForm.smsCode.$dirty || smsCodeForm.$submitted) || vm.serverError, 'valid': vm.correctCode}"
-    required auto-focus only-digits)
-    .input-error-messages
-      .error.left(data-ng-show="smsCodeForm.$submitted && smsCodeForm.smsCode.$invalid || vm.serverError" data-translate="REGISTER.CODE_REQUIRED")
+    data-placeholder="REGISTER.SERVICE_CODE_PLACEHOLDER"
+    data-ng-model="vm.registrationSteps.smsCode"
+    data-input-text="REGISTER.SERVICE_CODE"
+    data-ng-required="true"
+    data-max-length="4"
+    data-is-valid="vm.checkIsCodeCorrect() || !vm.serverError"
+    data-validation-text="REGISTER.CODE_REQUIRED"
+    data-is-submitted="smsCodeForm.$submitted"
+    )
+
     .btn-handle.btn-handler.flex-row.login-handler
       button.btn.btn-default(type="submit" data-translate="LOGIN.NEXT")
       button.btn.btn-primary(data-ui-sref="app.login.account" data-translate="LOGIN.BACK")
-
-
-

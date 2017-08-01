@@ -7,24 +7,28 @@ import passwordStrengthModule from '../../../../../../services/password-strength
 import commonSettingsModule from '../../../../../../services/common-settings/common-settings'
 import '../../../../../../directives/password-strength-bar/password-strength-bar'
 import '../../../../../../directives/interface/scrollable/scrollable'
-import '../../../../../../directives/interface/pro-input/pro-input'
+import autoFocus from '../../../../../../directives/auto-focus/auto-focus'
+import inputModule from '../../../../../interface/input/input'
 
 export interface ISecurityChangePasswordSettingsControllerScope extends ng.IScope {
 }
 
 export class SecurityChangePasswordSettingsController implements ng.IController {
 
-  public isNavbar: boolean = true
-  public isFullscreen: boolean = true
   public patternPassword = this.CommonSettingsService.localSettings.passwordPattern
-  public newPassword: string
-  public currentPassword: string
+  public newPassword: string = ''
+  public currentPassword: string = ''
   public passwordStrength: number
   public isCurrentPasswordCorrect: boolean = true
   public arePasswordsDifferent: boolean = true
+  private enteredPassword: string = ''
+  private enteredCurrentPassword: string = ''
+  public isError = false
 
   public setNewPassword = (): void => {
-
+    this.isError = false
+    this.enteredCurrentPassword = this.currentPassword
+    this.enteredPassword = this.currentPassword
     this.isCurrentPasswordCorrect = true
     this.arePasswordsDifferent = true
 
@@ -35,6 +39,7 @@ export class SecurityChangePasswordSettingsController implements ng.IController 
       .then(_res => {
         this.$uibModalInstance.dismiss('cancel')
       }, (err: any) => {
+        this.isError = true
         if (err.status === 400) {
           this.arePasswordsDifferent = false
         } else if (err.status === 401) {
@@ -44,6 +49,16 @@ export class SecurityChangePasswordSettingsController implements ng.IController 
         }
       })
   }
+
+  public checkIsButtonDisabled = (): boolean =>
+    this.newPassword.length > 0 && this.currentPassword.length > 0 && this.newPassword !== this.currentPassword &&
+      this.patternPassword.test(this.newPassword)
+
+  public checkIsEnteredPasswordIncorrected = (): boolean =>
+    this.enteredCurrentPassword !== this.currentPassword
+
+  public checkIsNewEnteredPasswordCorrected = (): boolean =>
+    this.enteredPassword !== this.newPassword && this.patternPassword.test(this.newPassword)
 
   /* @ngInject */
   constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
@@ -62,11 +77,12 @@ export class SecurityChangePasswordSettingsController implements ng.IController 
 
 angular.module('profitelo.components.dashboard.settings.modals.security.change-password', [
   'ui.bootstrap',
-  'profitelo.directives.interface.pro-input',
   apiModule,
   passwordStrengthModule,
   'profitelo.directives.password-strength-bar',
   commonSettingsModule,
   'profitelo.directives.interface.scrollable',
+  autoFocus,
+  inputModule
 ])
   .controller('securityChangePasswordSettingsController', SecurityChangePasswordSettingsController)

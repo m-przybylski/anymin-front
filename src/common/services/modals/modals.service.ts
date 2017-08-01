@@ -242,6 +242,7 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controllerAs: 'vm',
+      openedClass: 'modal-open full-screen',
       controller: 'generalPhoneSettingsController',
       template: require('common/components/dashboard/settings/modals/general/phone-settings/phone-settings.pug')(),
       scope: dialogScope
@@ -255,6 +256,7 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controllerAs: 'vm',
+      openedClass: 'modal-open full-screen',
       controller: 'generalEmailSettingsController',
       template: require('common/components/dashboard/settings/modals/general/email-settings/email-settings.pug')(),
       scope: dialogScope
@@ -280,6 +282,7 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controllerAs: 'vm',
+      openedClass: 'modal-open full-screen',
       controller: 'securityChangePasswordSettingsController',
       template: require('common/components/dashboard/settings/modals/security/change-password/change-password.pug')(),
       scope: dialogScope
@@ -320,6 +323,7 @@ export class ModalsService {
     dialogScope.callback = onModalClose
     return this.dialogService.openDialog({
       controllerAs: 'vm',
+      openedClass: 'modal-open full-screen',
       controller: 'editCompanyInvoiceController',
       template: require(
         'common/components/dashboard/settings/modals/payments/edit-company-invoice/edit-company-invoice.pug'
@@ -457,6 +461,7 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controllerAs: 'vm',
+      openedClass: 'modal-open full-screen',
       controller: ChargeAccountController,
       template: require('app/charge-account/modal/charge-account.pug')(),
       scope: dialogScope

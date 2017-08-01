@@ -2,7 +2,9 @@ import * as angular from 'angular'
 import * as _ from 'lodash'
 import {CommonSettingsService} from '../../../../services/common-settings/common-settings.service'
 import filtersModule from '../../../../filters/filters'
+import inputModule from '../../../interface/input/input'
 import {IAmounts, IAmountModel} from '../../../../../app/charge-account/modal/charge-account.controller'
+import ValidationAlertModule from '../../../interface/alert/validation-alert/validation-alert'
 
 export interface IChooseAmountChargeComponentBindings {
   title: string
@@ -115,6 +117,8 @@ class ChooseAmountChargeComponent implements ng.IComponentOptions {
 angular.module('profitelo.components.dashboard.charge-account.choose-amount-charge', [
   'profitelo.services.commonSettings',
   'ngSanitize',
-  filtersModule
+  filtersModule,
+  ValidationAlertModule,
+  inputModule
 ])
   .component('chooseAmountCharge', new ChooseAmountChargeComponent())

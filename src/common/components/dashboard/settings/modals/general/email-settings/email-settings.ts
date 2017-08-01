@@ -3,26 +3,34 @@ import userModule from '../../../../../../services/user/user'
 import {UserService} from '../../../../../../services/user/user.service'
 import apiModule from 'profitelo-api-ng/api.module'
 import {AccountApi} from 'profitelo-api-ng/api/api'
+import inputModule from '../../../../../interface/input/input'
+import {CommonSettingsService} from '../../../../../../services/common-settings/common-settings.service'
+import commonSettingsModule from '../../../../../../services/common-settings/common-settings'
 
 export interface IGeneralEmailSettingsControllerScope extends ng.IScope {
   callback: (cb: () => void) => void
 }
 
 export class GeneralEmailSettingsController implements ng.IController {
-
+  public mailPattern = this.CommonSettingsService.localSettings.emailPattern
   public isNavbar: boolean = true
   public isFullscreen: boolean = true
   public isEmailExist: boolean = false
   public newEmail: string
+  private newEnteredEmailChange: string
 
   /* @ngInject */
   constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
-              private AccountApi: AccountApi, private $log: ng.ILogService,
-              private userService: UserService, private $scope: IGeneralEmailSettingsControllerScope) {
+              private AccountApi: AccountApi,
+              private $log: ng.ILogService,
+              private userService: UserService,
+              private CommonSettingsService: CommonSettingsService,
+              private $scope: IGeneralEmailSettingsControllerScope) {
 
   }
 
   public setNewEmail = (): void => {
+    this.newEnteredEmailChange = this.newEmail
     this.userService.getUser().then(user => {
       this.isEmailExist = false
       this.AccountApi.partialUpdateAccountRoute(user.id, {
@@ -44,13 +52,19 @@ export class GeneralEmailSettingsController implements ng.IController {
 
   public onModalClose = (): void =>
     this.$uibModalInstance.dismiss('cancel')
+
+  public checkIfNewEnteredEmailExist = (): boolean =>
+    this.newEnteredEmailChange !== this.newEmail
+
+  public checkIsButtonDisabled = (): boolean =>
+    this.mailPattern.test(this.newEmail)
 }
 
 angular.module('profitelo.components.dashboard.settings.modals.general.email-settings', [
   'ui.bootstrap',
   apiModule,
   userModule,
-  'profitelo.directives.interface.pro-input',
-  'profitelo.directives.interface.scrollable'
+  commonSettingsModule,
+  inputModule
 ])
   .controller('generalEmailSettingsController', GeneralEmailSettingsController)

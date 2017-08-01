@@ -79,12 +79,11 @@ export class CommonSettingsService {
       'uFB1D\\uFB1F-\\uFB28\\uFB2A-\\uFB36\\uFB38-\\uFB3C\\uFB3E\\uFB40\\uFB41\\uFB43\\uFB44\\uFB46-\\uFBB1\\' +
       'uFBD3-\\uFD3D\\uFD50-\\uFD8F\\uFD92-\\uFDC7\\uFDF0-\\uFDFB\\uFE70-\\uFE74\\uFE76-\\uFEFC\\uFF21-\\uFF3A\\' +
       'uFF41-\\uFF5A\\uFF66-\\uFFBE\\uFFC2-\\uFFC7\\uFFCA-\\uFFCF\\uFFD2-\\uFFD7\\uFFDA-\\uFFDC- ]+$',
-      emailPattern: this.validation.email.regex,
+      emailPattern: new RegExp(this.validation.email.regex),
       countryCodes: this.commonConfigData.config['country-codes'],
-      passwordPattern: this.validation.password.regex,
-      pinPattern: this.validation.pin.regex,
-      smsCodePattern: this.validation.pin.regex,
-      mailPattern: /([a-zA-Z0-9!#$%&'*+/=?^_`{|}~.-]+)@([a-zA-Z0-9-]+)\.([a-zA-Z.]+)/,
+      passwordPattern: new RegExp(this.validation.password.regex),
+      pinPattern: new RegExp(this.validation.pin.regex),
+      smsCodePattern: /^[0-9]{4}$/,
       phonePattern: /^\+?\d+(\s\d+)*$/,
       numberPattern: /^\+?\d+(\s\d+)*$/,
       pricePattern: /^\d{1,3}([\.,](\d{1,2})?)?$/,

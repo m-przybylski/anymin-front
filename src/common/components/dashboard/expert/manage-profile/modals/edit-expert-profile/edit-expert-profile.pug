@@ -1,4 +1,4 @@
-scrollable(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
+div
   top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="vm.onModalClose")
   .modal-primary.container-big.edit-expert-profile
     preloader(data-is-loading="vm.isLoading")
@@ -12,31 +12,24 @@ scrollable(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
               .icon.icon-close-16
 
         div
-          pro-input(
-            data-type="text"
-            data-label="{{:: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_NAME.TITLE' | translate}}"
-            data-placeholder="{{:: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_NAME.TITLE' | translate}}"
-            data-ng-model="vm.inputText"
-            data-ng-maxlength="{{vm.inputMaxLength}}"
+          input-primary(
+          data-type="text"
+          data-id="inputText"
+          data-placeholder="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_NAME.TITLE"
+          data-ng-model="vm.inputText"
+          data-input-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_NAME.TITLE"
+          data-ng-required="true"
+          data-max-length="{{vm.inputMaxLength}}"
           )
-
-          .input-sign-counter
-            span.label(data-ng-show="!vm.inputText") {{ vm.inputText }}
-            span.label {{ vm.inputText.length || 0 }}
-            span.label  / {{ vm.inputMaxLength }} characters
 
         div
-          pro-textarea(
-            data-label="{{:: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_DESCRIPTION.TITLE' | translate}}"
-            data-ng-maxlength="{{vm.inputMaxLength}}"
-            data-placeholder="{{:: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_DESCRIPTION.TITLE' | translate}}"
-            data-ng-model="vm.textareaDescription"
+          textarea-primary(
+          data-input-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_DESCRIPTION.TITLE"
+          data-placeholder="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_DESCRIPTION.TITLE"
+          data-ng-model="vm.textareaDescription"
+          data-id="edit_expert_area"
+          data-max-length="{{vm.inputMaxLength}}"
           )
-
-          .input-sign-counter
-            span.label(data-ng-show="vm.description") {{ vm.textareaDescription }}
-            span.label {{ vm.textareaDescription.length || 0 }}
-            span.label  / {{vm.inputMaxLength}} characters
 
         div
           input-dropdown-tag(

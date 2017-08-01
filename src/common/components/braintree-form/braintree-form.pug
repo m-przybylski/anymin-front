@@ -32,15 +32,16 @@
           )
 
         .card-limit.collapse-animation.animation-speed-fast(data-ng-if="$ctrl.showCardLimitForm")
-          pro-input(data-label="{{:: 'BRAINTREE.CARD_LIMIT.LABEL' | translate }}"
+          input-primary(
+          data-type="number"
+          data-id="braintree"
+          data-placeholder="BRAINTREE.CARD_LIMIT.PLACEHOLDER"
           data-ng-model="$ctrl.defaultCardLimit"
-          placeholder="{{:: 'BRAINTREE.CARD_LIMIT.PLACEHOLDER' | translate }}"
-          data-maxlength="4"
-          data-type="tel"
-          only-digits)
-
-          .input-error-messages(data-ng-show="$ctrl.isInvalid")
-            .error.left(data-translate="BRAINTREE.INVALID")
+          data-input-text="BRAINTREE.CARD_LIMIT.LABEL"
+          data-ng-required="$ctrl.showCardLimitForm"
+          data-is-valid="!$ctrl.isInvalid"
+          data-validation-text="BRAINTREE.INVALID"
+          )
 
       summary-charge-account.summary-charge-account( data-amount="$ctrl.transaction.amount || $ctrl.transaction.paymentOption"
         data-btn-title="{{ $ctrl.submitButtonTranslate }}")

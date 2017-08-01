@@ -16,8 +16,6 @@ const chargeAccountModalModule = angular.module('profitelo.app.charge-account.mo
   commonSettingsModule,
   smoothScrollingModule,
   paypalModule,
-  'profitelo.directives.interface.pro-input',
-  'profitelo.directives.interface.scrollable',
   'profitelo.components.dashboard.charge-account.payment-method.payu',
   'profitelo.components.dashboard.charge-account.choose-amount-charge',
   'profitelo.components.dashboard.charge-account.payment-method',
