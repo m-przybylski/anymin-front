@@ -91,7 +91,7 @@ export class DashboardSettingsPaymentsController implements ng.IController {
 
 }
 
-angular.module('profitelo.controller.dashboard.settings.payments', [
+const paymentsSettingsModule = angular.module('profitelo.controller.dashboard.settings.payments', [
   'ui.router',
   apiModule,
   'profitelo.services.user',
@@ -118,3 +118,6 @@ angular.module('profitelo.controller.dashboard.settings.payments', [
     })
   })
   .controller('dashboardSettingsPaymentsController', DashboardSettingsPaymentsController)
+  .name
+
+export default paymentsSettingsModule
