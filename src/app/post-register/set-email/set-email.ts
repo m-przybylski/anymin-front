@@ -21,9 +21,9 @@ function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.u
 
   this.isPending = false
   this.rulesAccepted = false
+  this.newEnteredEmail = ''
   this.serverError = false
   this.alreadyCheck = false
-  this.correctCode = false
   this.email = ''
   this.emailExist = false
   this.mailPattern = CommonSettingsService.localSettings.emailPattern
@@ -53,7 +53,7 @@ function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.u
   }
 
   this.setNewEmail = (): void => {
-    this.onNewEmailChange = this.newEmail
+    this.newEnteredEmail = this.email
     _isEmailExists(this.email).then((_response: any) => {
       this.emailExist = true
     }, () => {
@@ -72,13 +72,11 @@ function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.u
     })
   }
 
-  this.checkIsEmailExist = (): boolean => {
-    return this.onNewEmailChange !== this.newEmail
-  }
+  this.checkIfNewEnteredEmailExist = (): boolean =>
+    this.newEnteredEmail !== this.email
 
-  this.checkIsButtonDisabled = (): boolean => {
-    return this.mailPattern.test(this.newEmail)
-  }
+  this.checkIsButtonDisabled = (): boolean =>
+    this.mailPattern.test(this.email)
 
   return this
 }

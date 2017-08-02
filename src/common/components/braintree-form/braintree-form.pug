@@ -36,10 +36,10 @@
           data-type="number"
           data-id="braintree"
           data-placeholder="BRAINTREE.CARD_LIMIT.PLACEHOLDER"
-          data-ng-model="$ctrl.defaultCardLimit"
           data-input-text="BRAINTREE.CARD_LIMIT.LABEL"
-          data-ng-required="$ctrl.showCardLimitForm"
-          data-is-valid="!$ctrl.isInvalid"
+          data-ng-model="$ctrl.defaultCardLimit"
+          data-is-valid="$ctrl.checkIsValueCorrect()"
+          data-is-submitted="$ctrl.isSubmitted"
           data-validation-text="BRAINTREE.INVALID"
           )
 

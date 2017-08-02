@@ -32,7 +32,7 @@ export class InputComponentController implements IInputComponentBindings {
   constructor(private $element: JQuery) {}
 
   $onInit(): void {
-    if (this.type === this.inputTypes.tel) {
+    if (this.type === this.inputTypes.tel || this.type === this.inputTypes.number) {
       this.blockInvalidPhonenumberDigits()
     }
   }

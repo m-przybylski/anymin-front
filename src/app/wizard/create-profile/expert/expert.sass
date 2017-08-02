@@ -11,12 +11,18 @@
 
 		input
 			font-size: $f-input-big
-			height: 48px
+			height: $s-input-height
 			width: 100%
+
+			&::placeholder
+				line-height: $f-input-line-height
 
 	input
 		font-size: $f-input-big
-		height: 48px
+		height: $s-input-height
+
+		&::placeholder
+			line-height: $f-input-line-height
 
 	.textarea
 		margin: 16px 0 0

@@ -4,7 +4,7 @@ top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-c
     header.entry-title
       span(data-translate="SETTINGS.GENERAL.PHONE_SETTINGS.TITLE")
 
-    form.input-form(name="phoneNumberForm" novalidate ng-submit="vm.setNewNumber()")
+    form.input-form.edit-phone-settings(name="phoneNumberForm" novalidate ng-submit="vm.setNewNumber()")
       .input-content
         .input-handler
           dropdown-primary.prefix-phone(
@@ -21,7 +21,7 @@ top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-c
             data-placeholder="LOGIN.ENTER_NUMBER_PLACEHOLDER"
             data-ng-model="vm.numberModel"
             data-input-text="SETTINGS.GENERAL.PHONE_NUMBER.INPUT.LABEL"
-            data-is-valid="vm.number && vm.checkIsButtonDisabled() || phoneNumberForm.$submitted && !vm.checkIfNewEnteredNumberExists()"
+            data-is-valid="vm.numberModel && vm.checkIsButtonDisabled() || phoneNumberForm.$submitted && !vm.checkIfNewEnteredNumberExists()"
             data-validation-text="SETTINGS.GENERAL.PHONE_SETTINGS.INVALID_NUMBER"
             )
 

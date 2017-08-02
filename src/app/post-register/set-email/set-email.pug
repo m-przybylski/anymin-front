@@ -1,5 +1,4 @@
 form.input-form.set-email(name="emailForm" data-ng-submit="emailForm.$valid && vm.setNewEmail()" novalidate)
-
   input-primary(
   data-type="text"
   data-id="email"
@@ -7,13 +6,13 @@ form.input-form.set-email(name="emailForm" data-ng-submit="emailForm.$valid && v
   data-ng-model="vm.email"
   data-input-text="REGISTER.SERVICE_EMAIL"
   data-ng-required="true"
-  data-is-valid="vm.newEmail && vm.checkIsButtonDisabled()"
+  data-is-valid="vm.email && vm.checkIsButtonDisabled()"
   data-validation-text="REGISTER.CODE_REQUIRED"
   )
 
   validation-alert(
   data-alert-text="REGISTER.EMAIL_EXIST"
-  data-is-visible="vm.emailExist && emailForm.$submitted && !vm.checkIsEmailExist()"
+  data-is-visible="vm.emailExist && emailForm.$submitted && !vm.checkIfNewEnteredEmailExist()"
   )
 
   button.btn.btn-default(

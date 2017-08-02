@@ -16,6 +16,7 @@ export class BraintreeFormComponentController implements ng.IController, IBraint
   public showCardLimitForm: boolean = false
   public defaultCardLimit: string = ''
   public transaction: ITransaction
+  public isSubmitted: boolean = false
 
   /* @ngInject */
   constructor(private PaymentsApi: PaymentsApi, private userService: UserService,
@@ -125,6 +126,7 @@ export class BraintreeFormComponentController implements ng.IController, IBraint
           })
 
           angular.element('.panel-body').submit((event) => {
+            this.isSubmitted = true
             event.preventDefault()
             hostedFieldsInstance.tokenize((err: any, payload: any) => {
               if (err) {
@@ -154,7 +156,6 @@ export class BraintreeFormComponentController implements ng.IController, IBraint
         })
       })
     }
-
   }
 
   private onAddPaymentMethod = (res: ng.IPromise<JValue>): void => {
@@ -172,4 +173,7 @@ export class BraintreeFormComponentController implements ng.IController, IBraint
   private onCreateTransactionError = (err: any): void => {
     throw new Error('Can not send nonce: ' + err)
   }
+
+  public checkIsValueCorrect = (): boolean =>
+    !!this.defaultCardLimit && this.showCardLimitForm
 }

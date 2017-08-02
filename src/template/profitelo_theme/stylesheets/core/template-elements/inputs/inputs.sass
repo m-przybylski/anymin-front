@@ -3,19 +3,30 @@ input, textarea
   outline: 0
   border: 0
 
+  &:invalid,
   &:focus
-    box-shadow: 0
+    box-shadow: none
     outline: 0
     border: 0
 
   &::-ms-clear
-    width : 0
+    width: 0
     height: 0
 
   &::-ms-reveal
-    width : 0
+    width: 0
     height: 0
 
+input
+  &[type="number"]
+    appearance: textfield
+    -moz-appearance: textfield
+    -webkit-appearance: textfield
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button
+      -webkit-appearance: none
+      margin: 0
 
 textarea
   color: $c-primary-txt
