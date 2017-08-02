@@ -59,5 +59,23 @@ describe('Unit testing: profitelo.components.interface.input-price', () => {
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
+
+    it('should set digitsCodesBlocked to empty array', inject(() => {
+      component.onChange()
+      expect(component.digitsCodesBlocked).toEqual([])
+    }))
+
+    it('should block digitsCodesBlocked', inject(() => {
+      component.ngModel = 45.45
+      component.onChange()
+      expect(component.digitsCodesBlocked).toEqual([46, 44])
+    }))
+
+    it('trigger keypress digitsCodesBlocked', inject(() => {
+      const element = create(validHTML)
+      element.trigger('keypress', {keyCode: 46})
+      expect(component.digitsCodesBlocked).toEqual([])
+    }))
+
   })
 })

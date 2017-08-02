@@ -4,16 +4,16 @@ import {
   SecurityChangePasswordSettingsController,
   ISecurityChangePasswordSettingsControllerScope
 } from './change-password'
-import {AccountApi} from 'profitelo-api-ng/api/api'
+import {AccountApi, AccountApiMock} from 'profitelo-api-ng/api/api'
 
 describe('Testing Controller: securityChangePasswordSettingsController', () => {
 
   let controller: SecurityChangePasswordSettingsController
   let scope: ISecurityChangePasswordSettingsControllerScope
-
+  let httpBackend: ng.IHttpBackendService
+  let AccountApiMock: AccountApiMock
   const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
     jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss']);
-  const User = {}
 
   beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
     $provide.value('apiUrl', 'awesomeUrl')
@@ -22,15 +22,16 @@ describe('Testing Controller: securityChangePasswordSettingsController', () => {
   beforeEach(() => {
     angular.mock.module('ui.bootstrap')
     angular.mock.module('profitelo.components.dashboard.settings.modals.security.change-password')
-    inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, AccountApi: AccountApi) => {
+    inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $httpBackend: ng.IHttpBackendService,
+            AccountApi: AccountApi, _AccountApiMock_: AccountApiMock) => {
 
       scope = <ISecurityChangePasswordSettingsControllerScope>$rootScope.$new()
-
+      httpBackend = $httpBackend
+      AccountApiMock = _AccountApiMock_
       const injectors = {
         $scope: scope,
         AccountApi: AccountApi,
         $uibModalInstance: $uibModalInstance,
-        User: User
       }
 
       controller = $controller<SecurityChangePasswordSettingsController>(
@@ -41,4 +42,47 @@ describe('Testing Controller: securityChangePasswordSettingsController', () => {
   it('should exists', () => {
     return expect(!!controller).toBe(true)
   })
+
+  it('should check is button disabled', () => {
+    expect(controller.checkIsButtonDisabled()).toBe(false)
+  })
+
+  it('should check is entered password correct', () => {
+    expect(controller.checkIsEnteredPasswordIncorrected()).toBe(false)
+  })
+
+  it('should check is new entered password correct', () => {
+    expect(controller.checkIsNewEnteredPasswordCorrected()).toBe(false)
+  })
+
+  it('should handle same passwords', () => {
+    AccountApiMock.changePasswordRoute(400)
+    controller.setNewPassword()
+    httpBackend.flush()
+    expect(controller.isError).toBe(true)
+    expect(controller.arePasswordsDifferent).toBe(false)
+  })
+
+  it('should handle incorrect current password', () => {
+    AccountApiMock.changePasswordRoute(401)
+    controller.setNewPassword()
+    httpBackend.flush()
+    expect(controller.isCurrentPasswordCorrect).toBe(false)
+  })
+
+  it('should throw error', () => {
+    AccountApiMock.changePasswordRoute(500)
+    expect(() => {
+      controller.setNewPassword()
+      httpBackend.flush()
+    }).toThrow()
+  })
+
+  it('should cancel modal', () => {
+    AccountApiMock.changePasswordRoute(200, {})
+    controller.setNewPassword()
+    httpBackend.flush()
+    expect($uibModalInstance.dismiss).toHaveBeenCalledWith('cancel')
+  })
+
 })

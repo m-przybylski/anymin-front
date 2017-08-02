@@ -14,7 +14,7 @@ describe('Unit testing: profitelo.components.interface.input', () => {
     let component: InputPasswordComponentController
     let bindings: IInputPasswordComponentBindings
     let document: ng.IDocumentService
-    const validHTML = '<input-primary></input-primary>'
+    const validHTML = '<input-primary type="tel"></input-primary>'
 
     function create(html: string) {
       scope = rootScope.$new()
@@ -40,7 +40,7 @@ describe('Unit testing: profitelo.components.interface.input', () => {
       bindings = {
         id: 'name',
         name: 'name',
-        type: 'text',
+        type: 'tel',
         inputText: 'tekst',
         placeholder: 'placeholder',
         validationText: 's',
@@ -64,5 +64,12 @@ describe('Unit testing: profitelo.components.interface.input', () => {
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
+
+    it('should call blockInvalidPhonenumberDigits on component init', inject(() => {
+      spyOn(component, 'blockInvalidPhonenumberDigits')
+      component.$onInit()
+      expect(component.blockInvalidPhonenumberDigits).toHaveBeenCalled()
+    }))
+
   })
 })

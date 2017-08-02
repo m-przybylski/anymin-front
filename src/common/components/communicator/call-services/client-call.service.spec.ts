@@ -185,7 +185,7 @@ describe('Unit testing: profitelo.services.call >', () => {
         communicatorService.getClientSession = (): Session => session
         communicatorService.getClientDeviceId = (): undefined => undefined
 
-        ServiceApi.addServiceUsageRequestRoute = (): ng.IPromise<never> => {
+        ServiceApi.postServiceUsageRequestRoute = (): ng.IPromise<never> => {
           return $q.reject(testSUR)
         }
 
@@ -211,7 +211,7 @@ describe('Unit testing: profitelo.services.call >', () => {
         return session
       }
 
-      ServiceApi.addServiceUsageRequestRoute = (): ng.IPromise<GetServiceUsageRequest> => {
+      ServiceApi.postServiceUsageRequestRoute = (): ng.IPromise<GetServiceUsageRequest> => {
         return <ng.IPromise<GetServiceUsageRequest>>$q.resolve(testSUR)
       }
 

@@ -1,8 +1,7 @@
 import * as angular from 'angular'
 import apiModule from 'profitelo-api-ng/api.module'
-import {JValue} from 'profitelo-api-ng/model/models'
+import {JValue, PostPayment} from 'profitelo-api-ng/model/models'
 import userModule from '../../services/user/user'
-import {ITransaction} from '../dashboard/charge-account/payment-method/card/card.controller'
 import 'angular-sanitize'
 import filtersModule from '../../filters/filters'
 import commonSettingsModule from '../../services/common-settings/common-settings'
@@ -15,7 +14,7 @@ export interface IBraintreeFormComponentBindings {
   onBraintreeFormLoad: () => void,
   submitButtonTranslate: string,
   onFormSucceed: (response: ng.IPromise<JValue>) => void,
-  transaction?: ITransaction
+  transaction?: PostPayment
 }
 
 const braintreeFormModule = angular.module('profitelo.components.braintree-form', [

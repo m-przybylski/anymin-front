@@ -4,7 +4,7 @@ import {ModalsService} from '../../../../common/services/modals/modals.service'
 import filtersModule from '../../../../common/filters/filters'
 import 'common/resolvers/invoice-data/invoice-data.resolver'
 import apiModule from 'profitelo-api-ng/api.module'
-import {PaymentsApi, AccountApi, FinancesApi} from 'profitelo-api-ng/api/api'
+import {PaymentsApi, FinancesApi} from 'profitelo-api-ng/api/api'
 import {MoneyDto, CompanyInfo, GetCreditCard, AccountDetails} from 'profitelo-api-ng/model/models'
 import {UserService} from '../../../../common/services/user/user.service'
 import noResultsInformationModule
@@ -22,12 +22,14 @@ export class DashboardSettingsPaymentsController implements ng.IController {
   public isLongAddress?: boolean
   public isClientBalanceLoaded: boolean = false
   public isCreditCardsLoaded: boolean = false
-
   private static readonly maxShortAddressLength: number = 10
 
-  constructor(getInvoiceData: CompanyInfo, PaymentsApi: PaymentsApi, private AccountApi: AccountApi,
-              private modalsService: ModalsService, FinancesApi: FinancesApi,
-              private $state: ng.ui.IStateService, user: AccountDetails) {
+  constructor(getInvoiceData: CompanyInfo,
+              FinancesApi: FinancesApi,
+              $log: ng.ILogService,
+              private PaymentsApi: PaymentsApi,
+              private modalsService: ModalsService,
+              private $state: ng.ui.IStateService) {
 
     if (getInvoiceData) {
       this.isAnyPaymentMethod = true
@@ -50,13 +52,16 @@ export class DashboardSettingsPaymentsController implements ng.IController {
       this.isClientBalanceLoaded = true
     })
 
-    this.checkedPaymentMethod = user.defaultCreditCard
-
     PaymentsApi.getCreditCardsRoute().then((paymentMethods) => {
       this.paymentMethods = paymentMethods
       if (this.paymentMethods.length > 0) {
         this.isAnyPaymentMethod = true
       }
+      PaymentsApi.getDefaultPaymentMethodRoute().then((response) => {
+        this.checkedPaymentMethod = response.token
+      }, (error) => {
+        $log.error(error)
+      })
     }, (error) => {
       if (error.status !== httpCodes.notFound) {
         throw new error('Can not get user payment methods: ' + error)
@@ -67,10 +72,7 @@ export class DashboardSettingsPaymentsController implements ng.IController {
   }
 
   public changeDefaultPaymentMethod = (token?: string): void => {
-    this.AccountApi.changeDefaultPaymentMethodRoute({
-      token
-    }).then(() => {
-
+    this.PaymentsApi.putDefaultPaymentMethodRoute({token}).then(() => {
     }, (error) => {
       throw new Error('Can not change default payment method ' + error)
     })

@@ -63,7 +63,7 @@ describe('Unit testing:profitelo.components.pro-search-dropdown', () => {
 
     it('should watch query', () => {
       // FIXME type
-      SearchApiMock.searchSuggestionsRoute(200, undefined, undefined, <any>{})
+      SearchApiMock.postQueriesSuggestionsRoute(200, {queries: ['data']}, <any>{})
       component.ngModel = 'foo'
       rootScope.$digest()
 
