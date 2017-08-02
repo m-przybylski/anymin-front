@@ -1,6 +1,6 @@
 import * as RatelSdk from 'ratel-sdk-js';
 import {RatelApi} from 'profitelo-api-ng/api/api';
-import {GetService, GetProfile} from 'profitelo-api-ng/model/models';
+import {ServiceUsageEvent, GetProfile, GetService} from 'profitelo-api-ng/model/models';
 import {CallbacksFactory} from '../../../services/callbacks/callbacks.factory';
 import {CallState, CurrentCall} from './current-call';
 import {TimerFactory} from '../../../services/timer/timer.factory';
@@ -13,13 +13,14 @@ export class CurrentClientCall extends CurrentCall {
               call: RatelSdk.BusinessCall,
               localStream: MediaStream,
               service: GetService,
+              sue: ServiceUsageEvent,
               soundsService: SoundsService,
               RatelApi: RatelApi,
               private expert: GetProfile) {
 
-    super(callbacksFactory, soundsService, call, timerFactory, service, RatelApi);
+    super(callbacksFactory, soundsService, call, timerFactory, service, sue, RatelApi);
     this.setLocalStream(localStream);
-    this.call.addStream(localStream);
+    this.ratelCall.addStream(localStream);
 
     this.setState(CallState.NEW);
 

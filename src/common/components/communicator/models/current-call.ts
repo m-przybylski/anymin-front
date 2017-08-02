@@ -1,6 +1,6 @@
 import {TimerService} from '../../../services/timer/timer.service';
 import {RatelApi} from 'profitelo-api-ng/api/api';
-import {GetService, MoneyDto, RatelCallDetails} from 'profitelo-api-ng/model/models';
+import {GetService, MoneyDto, RatelCallDetails, ServiceUsageEvent} from 'profitelo-api-ng/model/models';
 import * as RatelSdk from 'ratel-sdk-js';
 import {CallbacksService} from '../../../services/callbacks/callbacks.service';
 import {CallbacksFactory} from '../../../services/callbacks/callbacks.factory';
@@ -56,9 +56,10 @@ export class CurrentCall {
 
   constructor(callbacksFactory: CallbacksFactory,
               soundsService: SoundsService,
-              protected call: RatelSdk.BusinessCall,
+              protected ratelCall: RatelSdk.BusinessCall,
               private timerFactory: TimerFactory,
               private service: GetService,
+              private sue: ServiceUsageEvent,
               private RatelApi: RatelApi
               ) {
     this.callbacks = callbacksFactory.getInstance(Object.keys(CurrentCall.events))
@@ -73,8 +74,11 @@ export class CurrentCall {
   public setBusinessRoom = (room: RatelSdk.BusinessRoom): Promise<void> =>
     this.messageRoom.setRoom(room)
 
-  public getId = (): RatelSdk.protocol.ID =>
-    this.call.id
+  public getRatelCallId = (): RatelSdk.protocol.ID =>
+    this.ratelCall.id
+
+  public getSueId = (): string =>
+    this.sue.id
 
   protected setLocalStream = (localStream: MediaStream): void => {
     this.localStream = localStream;
@@ -88,7 +92,7 @@ export class CurrentCall {
     this.service;
 
   public hangup = (): ng.IPromise<RatelCallDetails> =>
-    this.RatelApi.postRatelStopCallRoute(this.call.id)
+    this.RatelApi.postRatelStopCallRoute(this.sue.id)
 
   public startAudio = (): Promise<void> => {
     if (this.streamManager) {
@@ -147,10 +151,10 @@ export class CurrentCall {
 
   private updateLocalStream = (mediaStream: MediaStream): void => {
     if (this.localStream) {
-      this.call.removeStream(this.localStream);
+      this.ratelCall.removeStream(this.localStream);
     }
     this.localStream = mediaStream;
-    this.call.addStream(mediaStream);
+    this.ratelCall.addStream(mediaStream);
     this.callbacks.notify(CurrentCall.events.onLocalStream, mediaStream)
   }
 
@@ -167,21 +171,21 @@ export class CurrentCall {
   }
 
   private registerCallbacks = (): void => {
-    this.call.onAnswered(() => this.callbacks.notify(CurrentCall.events.onAnswered, null))
-    this.call.onRejected(() => this.callbacks.notify(CurrentCall.events.onRejected, null))
-    this.call.onEnd(() => {
+    this.ratelCall.onAnswered(() => this.callbacks.notify(CurrentCall.events.onAnswered, null))
+    this.ratelCall.onRejected(() => this.callbacks.notify(CurrentCall.events.onRejected, null))
+    this.ratelCall.onEnd(() => {
       this.stopLocalStream();
       this.setState(CallState.ENDED)
       this.callbacks.notify(CurrentCall.events.onEnd, null);
     })
-    this.call.onActiveDevice(() => this.callbacks.notify(CurrentCall.events.onActiveDevice, null))
-    this.call.onInvited(() => this.callbacks.notify(CurrentCall.events.onInvited, null))
-    this.call.onJoined(() => this.callbacks.notify(CurrentCall.events.onJoined, null))
-    this.call.onLeft(() => {
+    this.ratelCall.onActiveDevice(() => this.callbacks.notify(CurrentCall.events.onActiveDevice, null))
+    this.ratelCall.onInvited(() => this.callbacks.notify(CurrentCall.events.onInvited, null))
+    this.ratelCall.onJoined(() => this.callbacks.notify(CurrentCall.events.onJoined, null))
+    this.ratelCall.onLeft(() => {
         this.callbacks.notify(CurrentCall.events.onLeft, null)
       }
     )
-    this.call.onRemoteStream((_id, stream) => {
+    this.ratelCall.onRemoteStream((_id, stream) => {
       this.remoteStream = stream;
       this.callbacks.notify(CurrentCall.events.onRemoteStream, stream);
 
