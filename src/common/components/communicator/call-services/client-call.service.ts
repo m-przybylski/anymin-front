@@ -1,4 +1,5 @@
 import {ServiceApi, RatelApi} from 'profitelo-api-ng/api/api';
+import {GetSUERatelCall} from 'profitelo-api-ng/model/models';
 import {CommunicatorService} from '../communicator.service';
 import {CallbacksService} from '../../../services/callbacks/callbacks.service';
 import {CallbacksFactory} from '../../../services/callbacks/callbacks.factory';
@@ -67,7 +68,7 @@ export class ClientCallService {
   private startCall = (call: CurrentClientCall): ng.IPromise<CurrentClientCall> => {
     const deviceId = this.communicatorService.getClientDeviceId();
     if (!deviceId) throw new Error('There is no ratel deviceId');
-    return this.RatelApi.postStartCallRoute(call.getId(), deviceId).then(() => call);
+    return this.RatelApi.postStartCallRoute(call.getSueId(), deviceId).then(() => call);
   }
 
   private onCreateCallSuccess = (call: CurrentClientCall): CurrentClientCall => {
@@ -77,7 +78,7 @@ export class ClientCallService {
     call.onEnd(() => this.onCallEnd(call.getService().id));
     call.onAnswered(this.onCallAnswered);
     this.communicatorService.onRoomInvitation((roomInvitation) => {
-      if (roomInvitation.room.name === call.getId()) {
+      if (roomInvitation.room.name === call.getRatelCallId()) {
         call.setBusinessRoom(roomInvitation.room as RatelSdk.BusinessRoom).catch(this.$log.error)
       } else {
         this.$log.error('Received roomInvitation name does not match current callId');
@@ -92,18 +93,16 @@ export class ClientCallService {
         this.navigatorWrapper.getUserMediaStream(MediaStreamConstraintsWrapper.getDefault())
           .then((stream) =>
             this.userService.getUser().then(user =>
-              this.createRatelCall(user.id, sur.expert.id, sur.service.id).then((call) =>
-                new CurrentClientCall(this.timerFactory, this.callbacksFactory, call, stream,
-                  sur.service, this.soundsService, this.RatelApi, sur.expert))
+              this.createRatelCall(user.id, sur.expert.id, sur.service.id).then((sueRatelCall) =>
+                this.getRatelCallById(sueRatelCall.callDetails.id).then(ratelCall =>
+                  new CurrentClientCall(this.timerFactory, this.callbacksFactory, ratelCall, stream,
+                    sur.service, sueRatelCall.sue, this.soundsService, this.RatelApi, sur.expert)))
             )
           )
       )
 
   private createRatelCall = (userId: string, expertId: string,
-                             serviceId: string): ng.IPromise<RatelSdk.BusinessCall> => {
-
-    const session = this.communicatorService.getClientSession();
-    if (!session) throw new Error('There is no ratel session');
+                             serviceId: string): ng.IPromise<GetSUERatelCall> => {
 
     const deviceId = this.communicatorService.getClientDeviceId();
     if (!deviceId) throw new Error('There is no ratel deviceId');
@@ -112,7 +111,13 @@ export class ClientCallService {
       clientId: userId,
       expertId: expertId,
       serviceId: serviceId
-    }, deviceId).then((call) => session.chat.getCall(call.callDetails.id))
+    }, deviceId)
+  }
+
+  private getRatelCallById = (ratelCallId: string): Promise<RatelSdk.BusinessCall> => {
+    const session = this.communicatorService.getClientSession();
+    if (!session) throw new Error('There is no ratel session');
+    return session.chat.getCall(ratelCallId).then(call => <RatelSdk.BusinessCall>call)
   }
 
   private onConsultationUnavailable = (): void => {

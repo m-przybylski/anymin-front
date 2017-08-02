@@ -16,17 +16,17 @@ export class CurrentExpertCall extends CurrentCall {
               RatelApi: RatelApi) {
 
     super(callbacksFactory, soundsService, callInvitation.call as RatelSdk.BusinessCall, timerFactory,
-      incomingCallDetails.service, RatelApi);
+      incomingCallDetails.service, incomingCallDetails.sue, RatelApi);
     this.setState(CallState.INCOMING);
   }
 
   public answer = (localStream: MediaStream): Promise<void> => {
     this.setLocalStream(localStream);
-    return this.call.answer(localStream).then(this.onAnswer);
+    return this.ratelCall.answer(localStream).then(this.onAnswer);
   }
 
   public reject = (): Promise<void> => {
-    return this.call.reject('REJECT').then(this.onReject);
+    return this.ratelCall.reject('REJECT').then(this.onReject);
   }
 
   private onAnswer = (): void => {

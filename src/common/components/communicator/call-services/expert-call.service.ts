@@ -88,7 +88,7 @@ export class ExpertCallService {
     this.callbacks.notify(ExpertCallService.events.onNewCall, currentExpertCall);
     this.soundsService.callIncomingSound().stop();
     currentExpertCall.onEnd(() => this.onExpertCallEnd(currentExpertCall));
-    return this.RatelApi.postRatelCreateRoomRoute(currentExpertCall.getId()).then((room) => {
+    return this.RatelApi.postRatelCreateRoomRoute(currentExpertCall.getSueId()).then((room) => {
       const session = this.communicatorService.getClientSession()
       if (!session) throw new Error('Session not available');
       session.chat.getRoom(room.id).then((businessRoom) =>
