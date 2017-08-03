@@ -97,7 +97,7 @@ export class SummaryController implements ng.IController {
 
   public editConsultation = (service: WizardService): void => {
     this.$state.go('app.wizard.consultation', {
-      service: service
+      service
     })
   }
 

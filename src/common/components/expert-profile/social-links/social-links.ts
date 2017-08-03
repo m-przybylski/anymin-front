@@ -13,7 +13,7 @@
     bindings: {
       links: '<'
     },
-    controller: controller,
+    controller,
     controllerAs: '$ctrl'
   }
 

@@ -108,10 +108,10 @@ export class UploaderService {
                             callback: (res: any) => void): IDeferred<{}> => {
     const deferred = this.$q.defer()
     this.fileObjectsToUpload.push({
-      file: file,
-      deferred: deferred,
-      postProcessOptions: postProcessOptions,
-      callback: callback
+      file,
+      deferred,
+      postProcessOptions,
+      callback
     })
     return deferred
   }

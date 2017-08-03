@@ -68,7 +68,7 @@ export class DashboardSettingsPaymentsController implements ng.IController {
 
   public changeDefaultPaymentMethod = (token?: string): void => {
     this.AccountApi.changeDefaultPaymentMethodRoute({
-      token: token
+      token
     }).then(() => {
 
     }, (error) => {

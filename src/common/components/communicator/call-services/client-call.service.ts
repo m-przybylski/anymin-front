@@ -88,7 +88,7 @@ export class ClientCallService {
   }
 
   private createCall = (serviceId: string, expertId?: string): ng.IPromise<CurrentClientCall> =>
-    this.ServiceApi.addServiceUsageRequestRoute(serviceId, {expertId: expertId})
+    this.ServiceApi.addServiceUsageRequestRoute(serviceId, {expertId})
       .then((sur) =>
         this.navigatorWrapper.getUserMediaStream(MediaStreamConstraintsWrapper.getDefault())
           .then((stream) =>
@@ -108,9 +108,9 @@ export class ClientCallService {
     if (!deviceId) throw new Error('There is no ratel deviceId');
 
     return this.RatelApi.postCreateCallRoute({
-      clientId: userId,
-      expertId: expertId,
-      serviceId: serviceId
+      expertId,
+      serviceId,
+      clientId: userId
     }, deviceId)
   }
 

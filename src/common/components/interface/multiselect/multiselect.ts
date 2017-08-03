@@ -60,7 +60,7 @@
       field: '@',
       title: '@'
     },
-    controller: controller,
+    controller,
     controllerAs: '$ctrl'
   }
 

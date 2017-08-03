@@ -56,7 +56,7 @@ function controller($log: ng.ILogService, ServiceApi: ServiceApi): void {
 
 const component = {
   template: require('./recommended-tags.pug')(),
-  controller: controller,
+  controller,
   controllerAs: '$ctrl',
   bindings: {
     selectedTags: '<',

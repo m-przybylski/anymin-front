@@ -111,11 +111,11 @@ export class ConsultationController implements ng.IController {
         }
       })
       const serviceModel: WizardService = {
+        tags,
+        invitations,
         name: this.nameInputValue,
         price: priceModel,
-        tags: tags,
-        isOwnerEmployee: this.isOwnerEmployee,
-        invitations: invitations
+        isOwnerEmployee: this.isOwnerEmployee
       }
       if (this.wizardProfile.services && !this.$stateParams.service) {
         this.wizardProfile.services.push(serviceModel)

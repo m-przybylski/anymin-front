@@ -59,8 +59,8 @@ export class GeneralPhoneSettingsController implements ng.IController {
   public sendVerificationPin = (token: string, onError: () => void): void => {
     this.userService.getUser().then(user => {
       this.AccountApi.confirmMsisdnVerificationRoute({
-        accountId: user.id,
-        token: token
+        token,
+        accountId: user.id
       }).then(() => {
         // FIXME
         this.$scope.callback(() => {})

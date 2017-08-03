@@ -27,7 +27,7 @@ function controller($state: ng.ui.IStateService, urlService: UrlService): void {
 
 const component = {
   template: require('./favourite-expert.pug')(),
-  controller: controller,
+  controller,
   controllerAs: '$ctrl',
   bindings: {
     favouriteExpert: '<'

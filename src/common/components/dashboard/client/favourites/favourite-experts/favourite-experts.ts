@@ -9,7 +9,7 @@ function controller(): void {
 
 const component = {
   template: require('./favourite-experts.pug')(),
-  controller: controller,
+  controller,
   controllerAs: '$ctrl',
   bindings: {
     favouriteExperts: '<'

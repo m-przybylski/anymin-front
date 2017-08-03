@@ -30,7 +30,7 @@ import textareaModule from '../textarea/textarea'
     },
     template: require('./radio-text.pug')(),
     controllerAs: '$ctrl',
-    controller: controller
+    controller
   }
 
   angular.module('profitelo.components.interface.radio-text', [

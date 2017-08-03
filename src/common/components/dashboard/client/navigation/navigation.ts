@@ -41,7 +41,7 @@ import promiseModule from '../../../../services/promise/promise'
 
   const component = {
     template: require('./navigation.pug')(),
-    controller: controller,
+    controller,
     controllerAs: '$ctrl',
     bindings: {
     }

@@ -36,7 +36,7 @@ const similarExpertsSlider = {
     consultations: '<',
     title: '@'
   },
-  controller: controller,
+  controller,
   controllerAs: '$ctrl'
 }
 

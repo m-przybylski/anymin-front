@@ -69,7 +69,7 @@ const collapseTab = {
   template: require('./collapse-tab.pug')(),
   controllerAs: '$ctrl',
   transclude: true,
-  controller: controller
+  controller
 }
 
 angular.module('profitelo.components.interface.collapse-tab', [

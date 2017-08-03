@@ -13,7 +13,7 @@ import userModule from '../../../../services/user/user'
 
   const component = {
     template: require('./navigation.pug')(),
-    controller: controller,
+    controller,
     controllerAs: '$ctrl',
     bindings: {
       stateNames: '<'

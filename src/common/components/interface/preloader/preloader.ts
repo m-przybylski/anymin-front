@@ -12,7 +12,7 @@
     },
     template: require('./preloader.pug')(),
     controllerAs: '$ctrl',
-    controller: controller
+    controller
   }
 
   angular.module('profitelo.components.interface.preloader', [

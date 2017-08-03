@@ -68,8 +68,8 @@ export class SoundsService {
     }
 
     return {
-      play: play,
-      stop: stop
+      play,
+      stop
     }
   }
 
@@ -91,8 +91,8 @@ export class SoundsService {
     }
 
     return {
-      play: play,
-      stop: stop
+      play,
+      stop
     }
   }
 
