@@ -9,8 +9,7 @@ import {MoneyDto, CompanyInfo, GetCreditCard, AccountDetails} from 'profitelo-ap
 import {UserService} from '../../../../common/services/user/user.service'
 import noResultsInformationModule
   from '../../../../common/components/dashboard/no-results-information/no-results-information'
-import {CommonSettingsService} from '../../../../common/services/common-settings/common-settings.service'
-import commonSettingsModule from '../../../../common/services/common-settings/common-settings'
+import {HttpCodes} from '../../../../common/classes/http-codes'
 
 export class DashboardSettingsPaymentsController implements ng.IController {
   public isAnyPaymentMethod: boolean
@@ -28,8 +27,7 @@ export class DashboardSettingsPaymentsController implements ng.IController {
 
   constructor(getInvoiceData: CompanyInfo, PaymentsApi: PaymentsApi, private AccountApi: AccountApi,
               private modalsService: ModalsService, FinancesApi: FinancesApi,
-              private $state: ng.ui.IStateService, user: AccountDetails,
-              private CommonSettingsService: CommonSettingsService) {
+              private $state: ng.ui.IStateService, user: AccountDetails) {
 
     if (getInvoiceData) {
       this.isAnyPaymentMethod = true
@@ -60,7 +58,7 @@ export class DashboardSettingsPaymentsController implements ng.IController {
         this.isAnyPaymentMethod = true
       }
     }, (error) => {
-      if (error.status !== this.CommonSettingsService.errorStatusCodes.fileNotFound) {
+      if (error.status !== HttpCodes.httpCodes.fileNotFound) {
         throw new error('Can not get user payment methods: ' + error)
       }
     }).finally(() => {
@@ -104,8 +102,7 @@ angular.module('profitelo.controller.dashboard.settings.payments', [
   'profitelo.components.interface.preloader-container',
   filtersModule,
   'profitelo.resolvers.invoice-data',
-  noResultsInformationModule,
-  commonSettingsModule
+  noResultsInformationModule
 ])
   .config(($stateProvider: ng.ui.IStateProvider) => {
     $stateProvider.state('app.dashboard.settings.payments', {

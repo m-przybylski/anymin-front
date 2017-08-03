@@ -4,10 +4,10 @@ import 'ui-select'
 import 'angular-sanitize'
 import commonSettingsModule from '../../../services/common-settings/common-settings'
 import {IDirective} from 'angular'
-import {CommonSettingsService} from '../../../services/common-settings/common-settings.service'
+import {KeyboardKeyCodes} from '../../../classes/keyboard-key-codes'
 
 /* @ngInject */
-function proTagsDropdown($timeout: ng.ITimeoutService, CommonSettingsService: CommonSettingsService): IDirective {
+function proTagsDropdown($timeout: ng.ITimeoutService): IDirective {
 
   function linkFunction(scope: any, element: ng.IRootElementService, attr: ng.IAttributes): void {
     let myScrollbarChoices: JQuery
@@ -60,7 +60,7 @@ function proTagsDropdown($timeout: ng.ITimeoutService, CommonSettingsService: Co
     }
 
     scope.onKeypress = (event: any, select: any): void => {
-      if (event.keyCode === CommonSettingsService.keyboardKeyCodes.arrowUp) {
+      if (event.keyCode === KeyboardKeyCodes.keyCodes.arrowUp) {
         event.preventDefault()
       }
       if ('disableTyping' in attr && event) {

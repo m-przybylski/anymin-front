@@ -7,6 +7,7 @@ import commonSettingsModule from '../../../../../../services/common-settings/com
 import checkboxModule from '../../../../../interface/checkbox/checkbox'
 import inputPasswordModule from '../../../../../interface/input-password/input-password'
 import autoFocus from '../../../../../../directives/auto-focus/auto-focus'
+import {HttpCodes} from '../../../../../../classes/http-codes'
 
 export interface ISecurityPinNumberSettingsControllerScope extends ng.IScope {
 }
@@ -75,7 +76,7 @@ export class SecurityPinNumberSettingsController implements ng.IController {
       this.$uibModalInstance.dismiss('cancel')
     }, (err) => {
       this.isError = true
-      if (err.status === this.CommonSettingsService.errorStatusCodes.unauthorizedAccess) {
+      if (err.status === HttpCodes.httpCodes.unauthorizedAccess) {
         this.isPasswordIncorrect = true
       } else {
         this.$uibModalInstance.dismiss('cancel')

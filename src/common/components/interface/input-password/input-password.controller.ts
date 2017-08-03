@@ -1,6 +1,6 @@
 import {IInputPasswordComponentBindings} from './input-password'
 import {IInputTypes} from '../input/input.controller'
-import {CommonSettingsService} from '../../../services/common-settings/common-settings.service'
+import {KeyboardKeyCodes} from '../../../classes/keyboard-key-codes'
 
 export class InputPasswordComponentController implements IInputPasswordComponentBindings {
   private inputType: IInputTypes = {
@@ -23,7 +23,7 @@ export class InputPasswordComponentController implements IInputPasswordComponent
   public onChange: string = ''
 
   /* @ngInject */
-  constructor(private $element: JQuery, private CommonSettingsService: CommonSettingsService) {}
+  constructor(private $element: JQuery) {}
 
   $onInit(): void {
     if (this.type === this.inputType.tel) {
@@ -32,18 +32,18 @@ export class InputPasswordComponentController implements IInputPasswordComponent
   }
 
   public blockInvalidPhonenumberDigits = (): void => {
-    const digitsCodes = [this.CommonSettingsService.keyboardKeyCodes.enter,
-      this.CommonSettingsService.keyboardKeyCodes.backspace,
-      this.CommonSettingsService.keyboardKeyCodes.one,
-      this.CommonSettingsService.keyboardKeyCodes.two,
-      this.CommonSettingsService.keyboardKeyCodes.three,
-      this.CommonSettingsService.keyboardKeyCodes.four,
-      this.CommonSettingsService.keyboardKeyCodes.five,
-      this.CommonSettingsService.keyboardKeyCodes.six,
-      this.CommonSettingsService.keyboardKeyCodes.seven,
-      this.CommonSettingsService.keyboardKeyCodes.eight,
-      this.CommonSettingsService.keyboardKeyCodes.nine,
-      this.CommonSettingsService.keyboardKeyCodes.zero]
+    const digitsCodes = [KeyboardKeyCodes.keyCodes.enter,
+      KeyboardKeyCodes.keyCodes.backspace,
+      KeyboardKeyCodes.keyCodes.one,
+      KeyboardKeyCodes.keyCodes.two,
+      KeyboardKeyCodes.keyCodes.three,
+      KeyboardKeyCodes.keyCodes.four,
+      KeyboardKeyCodes.keyCodes.five,
+      KeyboardKeyCodes.keyCodes.six,
+      KeyboardKeyCodes.keyCodes.seven,
+      KeyboardKeyCodes.keyCodes.eight,
+      KeyboardKeyCodes.keyCodes.nine,
+      KeyboardKeyCodes.keyCodes.zero]
     this.$element.find('input').bind('keypress', (event) => {
       const code = event.keyCode || event.which
       if (!(digitsCodes.indexOf(code) !== -1)) {

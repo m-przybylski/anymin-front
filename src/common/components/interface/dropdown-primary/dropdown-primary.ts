@@ -1,5 +1,5 @@
 import * as angular from 'angular'
-import {CommonSettingsService} from '../../../services/common-settings/common-settings.service'
+import {KeyboardKeyCodes} from '../../../classes/keyboard-key-codes'
 interface IDropdownItem {
   name: string
   value: {} | null
@@ -44,7 +44,6 @@ class DropdownPrimaryComponentController implements ng.IController, IDropdownPri
   private dropdownSelectedItem: JQuery
   public selectedItemNumber: number = 0
   private dropdownScrollContainerElement: JQuery
-  private CommonSettingsService: CommonSettingsService
   private static readonly dividerOnHalf: number = 2
 
   $onInit = (): void => {
@@ -68,21 +67,21 @@ class DropdownPrimaryComponentController implements ng.IController, IDropdownPri
     this.$element.bind('keydown keypress', (event) => {
       const keyCode = event.which || event.keyCode
       switch (keyCode) {
-        case this.CommonSettingsService.keyboardKeyCodes.arrowDown:
+        case KeyboardKeyCodes.keyCodes.arrowDown:
           if (this.isOpen && this.selectedItemNumber < this.mainList.length) {
             event.preventDefault()
             this.onArrowItemSelect(++this.selectedItemNumber)
           }
           break
 
-        case this.CommonSettingsService.keyboardKeyCodes.arrowUp:
+        case KeyboardKeyCodes.keyCodes.arrowUp:
           if (this.isOpen && this.selectedItemNumber > 1) {
             event.preventDefault()
             this.onArrowItemSelect(--this.selectedItemNumber)
           }
           break
 
-        case this.CommonSettingsService.keyboardKeyCodes.enter:
+        case KeyboardKeyCodes.keyCodes.enter:
           this.onMainItemSelect(this.mainList[this.selectedItemNumber - 1])
           event.preventDefault()
           break

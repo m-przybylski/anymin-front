@@ -4,12 +4,10 @@ import {DashboardSettingsPayoutsController} from './payouts.controller'
 import {PayoutsSettingsResolver} from './payouts.resolver'
 
 import {PayoutMethodsDto} from 'profitelo-api-ng/model/models'
-import commonSettingsModule from '../../../../common/services/common-settings/common-settings'
 
 const dashboardSettingsPayoutsModule = angular.module('profitelo.controller.dashboard.settings.payouts', [
   'ui.router',
-  apiModule,
-  commonSettingsModule
+  apiModule
 ])
 .config(($stateProvider: ng.ui.IStateProvider) => {
   $stateProvider.state('app.dashboard.settings.payouts', {

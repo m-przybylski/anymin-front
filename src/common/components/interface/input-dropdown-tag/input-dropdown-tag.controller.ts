@@ -1,7 +1,7 @@
 import * as angular from 'angular'
 import {InputDropdownTagComponentBindings} from './input-dropdown-tag'
 import * as _ from 'lodash'
-import {CommonSettingsService} from '../../../services/common-settings/common-settings.service'
+import {KeyboardKeyCodes} from '../../../classes/keyboard-key-codes'
 
 export interface IDropdownItem {
   name: string
@@ -57,8 +57,7 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
 
   /* @ngInject */
   constructor(private $document: ng.IDocumentService, private  $scope: ng.IScope,
-              private $element: ng.IRootElementService, private $filter: ng.IFilterService,
-              CommonSettingsService: CommonSettingsService) {
+              private $element: ng.IRootElementService, private $filter: ng.IFilterService) {
 
     this.dropdownScroll = this.$element.find('.dropdown-content')
 
@@ -88,7 +87,7 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
       const keyCode = event.which || event.keyCode
 
       switch (keyCode) {
-        case CommonSettingsService.keyboardKeyCodes.arrowDown:
+        case KeyboardKeyCodes.keyCodes.arrowDown:
           event.preventDefault()
           this.filterItems()
 
@@ -104,7 +103,7 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
 
           break
 
-        case CommonSettingsService.keyboardKeyCodes.arrowUp:
+        case KeyboardKeyCodes.keyCodes.arrowUp:
           event.preventDefault()
           this.filterItems()
 

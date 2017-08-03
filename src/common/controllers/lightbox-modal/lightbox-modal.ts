@@ -7,12 +7,11 @@ import {IWindowService} from '../../services/window/window.service'
 import urlModule from '../../services/url/url'
 import printModule from '../../services/print/print'
 import imageZoomModule from '../../services/image-zoom/image-zoom'
-import {CommonSettingsService} from '../../services/common-settings/common-settings.service'
+import {KeyboardKeyCodes} from '../../classes/keyboard-key-codes'
 
 function lightboxModelController($scope: any, $window: IWindowService,
                                  $timeout: ng.ITimeoutService, FilesApi: FilesApi, imageZoomService: ImageZoomService,
-                                 $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
-                                 CommonSettingsService: CommonSettingsService): void {
+                                 $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance): void {
 
   this.slideList = $scope.sliders
   this.isPending = false
@@ -69,11 +68,11 @@ function lightboxModelController($scope: any, $window: IWindowService,
     const keyCode = event.which || event.keyCode
     switch (keyCode) {
 
-      case CommonSettingsService.keyboardKeyCodes.arrowLeft:
+      case KeyboardKeyCodes.keyCodes.arrowLeft:
         this.sliderActions.prevSlide()
         break
 
-      case CommonSettingsService.keyboardKeyCodes.arrowRight:
+      case KeyboardKeyCodes.keyCodes.arrowRight:
         this.sliderActions.nextSlide()
         break
 

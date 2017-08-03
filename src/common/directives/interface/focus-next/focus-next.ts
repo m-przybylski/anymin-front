@@ -1,5 +1,5 @@
 import * as angular from 'angular'
-import {CommonSettingsService} from '../../../services/common-settings/common-settings.service'
+import {KeyboardKeyCodes} from '../../../classes/keyboard-key-codes'
 
 interface ILocalAvatarUploaderDirectiveScope extends ng.IScope {
 }
@@ -8,23 +8,23 @@ class LocalAvatarUploaderDirective implements ng.IDirective {
   public restrict: string = 'A'
 
   /* @ngInject */
-  constructor(private CommonSettingsService: CommonSettingsService) {
+  constructor() {
   }
 
   public link = (scope: ILocalAvatarUploaderDirectiveScope, element: any, _attr: ng.IAttributes): void => {
-    const digitsCodes: number[] = [this.CommonSettingsService.keyboardKeyCodes.zero,
-      this.CommonSettingsService.keyboardKeyCodes.one,
-      this.CommonSettingsService.keyboardKeyCodes.two,
-      this.CommonSettingsService.keyboardKeyCodes.three,
-      this.CommonSettingsService.keyboardKeyCodes.four,
-      this.CommonSettingsService.keyboardKeyCodes.five,
-      this.CommonSettingsService.keyboardKeyCodes.six,
-      this.CommonSettingsService.keyboardKeyCodes.seven,
-      this.CommonSettingsService.keyboardKeyCodes.eight,
-      this.CommonSettingsService.keyboardKeyCodes.nine]
-    const validCodes: number[] = [this.CommonSettingsService.keyboardKeyCodes.backspace,
-      this.CommonSettingsService.keyboardKeyCodes.arrowRight,
-      this.CommonSettingsService.keyboardKeyCodes.arrowLeft]
+    const digitsCodes: number[] = [KeyboardKeyCodes.keyCodes.zero,
+      KeyboardKeyCodes.keyCodes.one,
+      KeyboardKeyCodes.keyCodes.two,
+      KeyboardKeyCodes.keyCodes.three,
+      KeyboardKeyCodes.keyCodes.four,
+      KeyboardKeyCodes.keyCodes.five,
+      KeyboardKeyCodes.keyCodes.six,
+      KeyboardKeyCodes.keyCodes.seven,
+      KeyboardKeyCodes.keyCodes.eight,
+      KeyboardKeyCodes.keyCodes.nine]
+    const validCodes: number[] = [KeyboardKeyCodes.keyCodes.backspace,
+      KeyboardKeyCodes.keyCodes.arrowRight,
+      KeyboardKeyCodes.keyCodes.arrowLeft]
 
     element.bind('keydown', (e: KeyboardEvent) => {
       if (digitsCodes.indexOf(e.which) < 0 && validCodes.indexOf(e.which) < 0) {
@@ -50,13 +50,13 @@ class LocalAvatarUploaderDirective implements ng.IDirective {
         goToNextElement()
       } else {
         switch (e.which) {
-          case this.CommonSettingsService.keyboardKeyCodes.escape:
+          case KeyboardKeyCodes.keyCodes.escape:
             goToPrevElement()
             break
-          case this.CommonSettingsService.keyboardKeyCodes.arrowRight:
+          case KeyboardKeyCodes.keyCodes.arrowRight:
             goToNextElement()
             break
-          case this.CommonSettingsService.keyboardKeyCodes.arrowLeft:
+          case KeyboardKeyCodes.keyCodes.arrowLeft:
             goToPrevElement()
             break
           default:
@@ -72,10 +72,10 @@ class LocalAvatarUploaderDirective implements ng.IDirective {
 
   }
 
-  public static getInstance = (): (CommonSettingsService: CommonSettingsService) => LocalAvatarUploaderDirective => {
-    const instance = (CommonSettingsService: CommonSettingsService): LocalAvatarUploaderDirective =>
-      new LocalAvatarUploaderDirective(CommonSettingsService)
-    instance.$inject = ['CommonSettingsService']
+  public static getInstance = (): () => LocalAvatarUploaderDirective => {
+    const instance = (): LocalAvatarUploaderDirective =>
+      new LocalAvatarUploaderDirective()
+    instance.$inject = []
     return instance
   }
 }

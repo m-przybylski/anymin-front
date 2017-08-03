@@ -1,16 +1,16 @@
 import * as angular from 'angular'
-import {CommonSettingsService} from '../../services/common-settings/common-settings.service'
 import commonSettingsModule from '../../services/common-settings/common-settings'
+import {KeyboardKeyCodes} from '../../classes/keyboard-key-codes'
 
   class NgEnter implements ng.IDirective {
     public restrict: string = 'A'
 
     /* @ngInject */
-    constructor(private CommonSettingsService: CommonSettingsService) {
+    constructor() {
     }
 
     public link = (scope: ng.IScope, elem: ng.IRootElementService, attrs: ng.IAttributes): void => {
-      const enterKeyCode: number = this.CommonSettingsService.keyboardKeyCodes.enter
+      const enterKeyCode: number = KeyboardKeyCodes.keyCodes.enter
       elem.bind('keydown keypress', function(event): void {
         if (event.which === enterKeyCode) {
           scope.$apply(function(): void {
@@ -21,10 +21,10 @@ import commonSettingsModule from '../../services/common-settings/common-settings
       })
     }
 
-    public static getInstance = (): (CommonSettingsService: CommonSettingsService) => NgEnter => {
-      const instance = (CommonSettingsService: CommonSettingsService): NgEnter =>
-        new NgEnter(CommonSettingsService)
-      instance.$inject = ['CommonSettingsService']
+    public static getInstance = (): () => NgEnter => {
+      const instance = (): NgEnter =>
+        new NgEnter()
+      instance.$inject = []
       return instance
     }
   }

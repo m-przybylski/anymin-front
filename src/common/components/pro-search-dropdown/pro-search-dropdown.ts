@@ -7,7 +7,7 @@ import './organization-suggestions/organization-suggestions'
 import './tag-suggestions/tag-suggestions'
 import './service-suggestions/service-suggestions'
 import './expert-suggestions/expert-suggestions'
-import {CommonSettingsService} from '../../services/common-settings/common-settings.service'
+import {KeyboardKeyCodes} from '../../classes/keyboard-key-codes'
 
 interface ISuggestions {
   services: any
@@ -20,8 +20,7 @@ interface ISuggestions {
 /* @ngInject */
 function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateService,
                                      $element: ng.IRootElementService,
-                                     searchService: SearchService,
-                                     CommonSettingsService: CommonSettingsService): void {
+                                     searchService: SearchService): void {
 
   this.isCollapsed = true
   this.isFocused = false
@@ -250,7 +249,7 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
     const keyCode = event.which || event.keyCode
     const removeSugestionsCount: number = 2
     switch (keyCode) {
-      case CommonSettingsService.keyboardKeyCodes.arrowRight:
+      case KeyboardKeyCodes.keyCodes.arrowRight:
         if (this.primarySuggestion !== null) {
           this.ngModel = this.primarySuggestion
           this.currentTagId = this.suggestions.tags[0].id
@@ -258,11 +257,11 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
         }
         break
 
-      case CommonSettingsService.keyboardKeyCodes.backspace:
+      case KeyboardKeyCodes.keyCodes.backspace:
         this.currentTagId = null
         break
 
-      case CommonSettingsService.keyboardKeyCodes.arrowDown:
+      case KeyboardKeyCodes.keyCodes.arrowDown:
         event.preventDefault()
         _onUpDownKeysPress(() => {
           if (selectedElement.currentPosition <= listOfSuggestions.length - removeSugestionsCount) {
@@ -272,7 +271,7 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
         })
         break
 
-      case CommonSettingsService.keyboardKeyCodes.arrowUp:
+      case KeyboardKeyCodes.keyCodes.arrowUp:
         event.preventDefault()
         _onUpDownKeysPress(() => {
           if (selectedElement.currentPosition > 0) {
@@ -284,7 +283,7 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
         })
         break
 
-      case CommonSettingsService.keyboardKeyCodes.escape:
+      case KeyboardKeyCodes.keyCodes.escape:
         event.preventDefault()
         $element.find('.main-input').blur()
         _focusOut()
