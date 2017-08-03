@@ -143,8 +143,8 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
   }
 
   const _searchActionDebounce = _.debounce(_searchAction, searchActionDelay, {
-    'leading': false,
-    'trailing': true
+    leading: false,
+    trailing: true
   })
 
   const _focus = (): void => {

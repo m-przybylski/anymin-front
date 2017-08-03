@@ -25,7 +25,7 @@
      "no-magic-numbers": true,
     // "array-type": true,
      "object-literal-shorthand": true,
-    // "object-literal-key-quotes": [true, "as-needed"],
+    "object-literal-key-quotes": [true, "as-needed"],
     "arrow-return-shorthand": true,
     "interface-name": true,
     "prefer-const": true,

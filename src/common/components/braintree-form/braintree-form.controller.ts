@@ -40,39 +40,39 @@ export class BraintreeFormComponentController implements ng.IController, IBraint
         braintree.hostedFields.create({
           client: clientInstance,
           styles: {
-            'input': {
-              'color': '#272727',
+            input: {
+              color: '#272727',
               'font-size': '16px',
               'font-family': 'Roboto, helvetica, tahoma, calibri, sans-serif',
               'font-weight': '300'
             },
             '::-webkit-input-placeholder': {
-              'color': '#bfbfbf',
-              'opacity': '1'
+              color: '#bfbfbf',
+              opacity: '1'
             },
             ':-moz-placeholder': {
-              'color': '#bfbfbf',
-              'opacity': '1'
+              color: '#bfbfbf',
+              opacity: '1'
             },
             '::-moz-placeholder': {
-              'color': '#bfbfbf',
-              'opacity': '1'
+              color: '#bfbfbf',
+              opacity: '1'
             },
             ':-ms-input-placeholder': {
-              'color': '#bfbfbf',
-              'opacity': '1'
+              color: '#bfbfbf',
+              opacity: '1'
             },
             ':focus': {
-              'color': '#272727'
+              color: '#272727'
             },
             '.valid': {
-              'color': '#8bdda8'
+              color: '#8bdda8'
             },
             '.invalid': {
-              'color': '#f35752'
+              color: '#f35752'
             },
-            'label': {
-              'background': '#68bf7b'
+            label: {
+              background: '#68bf7b'
             }
           },
           fields: {

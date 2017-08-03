@@ -41,7 +41,7 @@ export class ChooseAmountChargeComponentController implements IChooseAmountCharg
 
     if (angular.isDefined(this.amountModel.amount) && this.amountModel.amount !== null) {
 
-      const paymentOption = _.find(this.amounts.paymentOptions, {'amount': this.amountModel.amount.amount})
+      const paymentOption = _.find(this.amounts.paymentOptions, {amount: this.amountModel.amount.amount})
       if (paymentOption) {
         this.activeOption = this.amounts.paymentOptions.indexOf(paymentOption)
       }

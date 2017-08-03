@@ -85,7 +85,7 @@ namespace profitelo.directives.scrollable {
                            this.navbarHeight : 0) - this.scrollableContent.height()) / ScrollableDirective.dividerOnHalf
 
       this.scrollableContent.css({
-        'top': positionTop,
+        top: positionTop,
         'min-height': this.scrollableContent.height()
       })
     }
