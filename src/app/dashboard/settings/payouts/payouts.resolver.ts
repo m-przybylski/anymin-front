@@ -1,6 +1,6 @@
 import {PayoutsApi} from 'profitelo-api-ng/api/api'
 import {PayoutMethodsDto} from 'profitelo-api-ng/model/models'
-import {HttpCodes} from '../../../../common/classes/http-codes'
+import {httpCodes} from '../../../../common/classes/http-codes'
 
 export class PayoutsSettingsResolver {
   /* @ngInject */
@@ -10,7 +10,7 @@ export class PayoutsSettingsResolver {
     return this.PayoutsApi.getPayoutMethodsRoute().then((payoutsMethod) => {
       return payoutsMethod
     }).catch((error) => {
-      if (error.status !== HttpCodes.httpCodes.fileNotFound) {
+      if (error.status !== httpCodes.notFound) {
         this.$log.error('Can not get list of payouts methods: ' + error)
       }
       return {}

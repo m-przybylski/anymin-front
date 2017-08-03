@@ -1,7 +1,7 @@
 import * as angular from 'angular'
 import {InputDropdownTagComponentBindings} from './input-dropdown-tag'
 import * as _ from 'lodash'
-import {KeyboardKeyCodes} from '../../../classes/keyboard-key-codes'
+import {keyboardCodes} from '../../../classes/keyboard'
 
 export interface IDropdownItem {
   name: string
@@ -87,7 +87,7 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
       const keyCode = event.which || event.keyCode
 
       switch (keyCode) {
-        case KeyboardKeyCodes.keyCodes.arrowDown:
+        case keyboardCodes.arrowDown:
           event.preventDefault()
           this.filterItems()
 
@@ -103,7 +103,7 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
 
           break
 
-        case KeyboardKeyCodes.keyCodes.arrowUp:
+        case keyboardCodes.arrowUp:
           event.preventDefault()
           this.filterItems()
 

@@ -1,5 +1,5 @@
 import {IInputComponentBindings} from './input'
-import {KeyboardKeyCodes} from '../../../classes/keyboard-key-codes'
+import {keyboardCodes} from '../../../classes/keyboard'
 
 export interface IInputTypes {
   text: string,
@@ -38,18 +38,18 @@ export class InputComponentController implements IInputComponentBindings {
   }
 
   public blockInvalidPhonenumberDigits = (): void => {
-    const digitsCodes = [KeyboardKeyCodes.keyCodes.enter,
-      KeyboardKeyCodes.keyCodes.backspace,
-      KeyboardKeyCodes.keyCodes.one,
-      KeyboardKeyCodes.keyCodes.two,
-      KeyboardKeyCodes.keyCodes.three,
-      KeyboardKeyCodes.keyCodes.four,
-      KeyboardKeyCodes.keyCodes.five,
-      KeyboardKeyCodes.keyCodes.six,
-      KeyboardKeyCodes.keyCodes.seven,
-      KeyboardKeyCodes.keyCodes.eight,
-      KeyboardKeyCodes.keyCodes.nine,
-      KeyboardKeyCodes.keyCodes.zero]
+    const digitsCodes = [keyboardCodes.enter,
+      keyboardCodes.backspace,
+      keyboardCodes.one,
+      keyboardCodes.two,
+      keyboardCodes.three,
+      keyboardCodes.four,
+      keyboardCodes.five,
+      keyboardCodes.six,
+      keyboardCodes.seven,
+      keyboardCodes.eight,
+      keyboardCodes.nine,
+      keyboardCodes.zero]
     this.$element.find('input').bind('keypress', (event) => {
       const code = event.keyCode || event.which
       if (!(digitsCodes.indexOf(code) !== -1)) {

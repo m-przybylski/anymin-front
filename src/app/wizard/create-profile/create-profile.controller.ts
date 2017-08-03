@@ -1,5 +1,5 @@
 import {WizardApi} from 'profitelo-api-ng/api/api'
-import {HttpCodes} from '../../../common/classes/http-codes'
+import {httpCodes} from '../../../common/classes/http-codes'
 
 export class CreateProfileController implements ng.IController {
 
@@ -15,7 +15,7 @@ export class CreateProfileController implements ng.IController {
         this.$state.go('app.wizard.summary')
       }
     }, (error) => {
-      if (error.status === HttpCodes.httpCodes.fileNotFound) {
+      if (error.status === httpCodes.notFound) {
         this.isLoading = false
       }
     })

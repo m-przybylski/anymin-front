@@ -3,7 +3,7 @@ const phonenumbers = require('libphonenumber-js')
 import {UserService} from '../../../../../../services/user/user.service'
 import {AccountApi} from 'profitelo-api-ng/api/api'
 import {CommonSettingsService} from '../../../../../../services/common-settings/common-settings.service'
-import {HttpCodes} from '../../../../../../classes/http-codes'
+import {httpCodes} from '../../../../../../classes/http-codes'
 
 export interface IGeneralPhoneSettingsControllerScope extends ng.IScope {
   callback: (cb: () => void) => void
@@ -44,7 +44,7 @@ export class GeneralPhoneSettingsController implements ng.IController {
         this.isNewPhoneNumberCreate = true
         this.isNumberExist = false
       }, (err: any) => {
-        if (err.status === HttpCodes.httpCodes.requestConflict) {
+        if (err.status === httpCodes.conflict) {
           this.isNumberExist = true
         } else {
           this.$log.error('Can not send new phone number: ' + err)

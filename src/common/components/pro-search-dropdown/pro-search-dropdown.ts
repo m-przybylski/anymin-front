@@ -7,7 +7,7 @@ import './organization-suggestions/organization-suggestions'
 import './tag-suggestions/tag-suggestions'
 import './service-suggestions/service-suggestions'
 import './expert-suggestions/expert-suggestions'
-import {KeyboardKeyCodes} from '../../classes/keyboard-key-codes'
+import {keyboardCodes} from '../../classes/keyboard'
 
 interface ISuggestions {
   services: any
@@ -249,7 +249,7 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
     const keyCode = event.which || event.keyCode
     const removeSugestionsCount: number = 2
     switch (keyCode) {
-      case KeyboardKeyCodes.keyCodes.arrowRight:
+      case keyboardCodes.arrowRight:
         if (this.primarySuggestion !== null) {
           this.ngModel = this.primarySuggestion
           this.currentTagId = this.suggestions.tags[0].id
@@ -257,11 +257,11 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
         }
         break
 
-      case KeyboardKeyCodes.keyCodes.backspace:
+      case keyboardCodes.backspace:
         this.currentTagId = null
         break
 
-      case KeyboardKeyCodes.keyCodes.arrowDown:
+      case keyboardCodes.arrowDown:
         event.preventDefault()
         _onUpDownKeysPress(() => {
           if (selectedElement.currentPosition <= listOfSuggestions.length - removeSugestionsCount) {
@@ -271,7 +271,7 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
         })
         break
 
-      case KeyboardKeyCodes.keyCodes.arrowUp:
+      case keyboardCodes.arrowUp:
         event.preventDefault()
         _onUpDownKeysPress(() => {
           if (selectedElement.currentPosition > 0) {
@@ -283,7 +283,7 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
         })
         break
 
-      case KeyboardKeyCodes.keyCodes.escape:
+      case keyboardCodes.escape:
         event.preventDefault()
         $element.find('.main-input').blur()
         _focusOut()

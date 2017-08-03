@@ -1,5 +1,5 @@
 import * as angular from 'angular'
-import {KeyboardKeyCodes} from '../../../classes/keyboard-key-codes'
+import {keyboardCodes} from '../../../classes/keyboard'
 interface IDropdownItem {
   name: string
   value: {} | null
@@ -67,21 +67,21 @@ class DropdownPrimaryComponentController implements ng.IController, IDropdownPri
     this.$element.bind('keydown keypress', (event) => {
       const keyCode = event.which || event.keyCode
       switch (keyCode) {
-        case KeyboardKeyCodes.keyCodes.arrowDown:
+        case keyboardCodes.arrowDown:
           if (this.isOpen && this.selectedItemNumber < this.mainList.length) {
             event.preventDefault()
             this.onArrowItemSelect(++this.selectedItemNumber)
           }
           break
 
-        case KeyboardKeyCodes.keyCodes.arrowUp:
+        case keyboardCodes.arrowUp:
           if (this.isOpen && this.selectedItemNumber > 1) {
             event.preventDefault()
             this.onArrowItemSelect(--this.selectedItemNumber)
           }
           break
 
-        case KeyboardKeyCodes.keyCodes.enter:
+        case keyboardCodes.enter:
           this.onMainItemSelect(this.mainList[this.selectedItemNumber - 1])
           event.preventDefault()
           break

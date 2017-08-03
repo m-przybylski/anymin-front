@@ -1,5 +1,5 @@
 import * as angular from 'angular'
-import {KeyboardKeyCodes} from '../../../classes/keyboard-key-codes'
+import {keyboardCodes} from '../../../classes/keyboard'
 
 interface ILocalAvatarUploaderDirectiveScope extends ng.IScope {
 }
@@ -12,19 +12,19 @@ class LocalAvatarUploaderDirective implements ng.IDirective {
   }
 
   public link = (scope: ILocalAvatarUploaderDirectiveScope, element: any, _attr: ng.IAttributes): void => {
-    const digitsCodes: number[] = [KeyboardKeyCodes.keyCodes.zero,
-      KeyboardKeyCodes.keyCodes.one,
-      KeyboardKeyCodes.keyCodes.two,
-      KeyboardKeyCodes.keyCodes.three,
-      KeyboardKeyCodes.keyCodes.four,
-      KeyboardKeyCodes.keyCodes.five,
-      KeyboardKeyCodes.keyCodes.six,
-      KeyboardKeyCodes.keyCodes.seven,
-      KeyboardKeyCodes.keyCodes.eight,
-      KeyboardKeyCodes.keyCodes.nine]
-    const validCodes: number[] = [KeyboardKeyCodes.keyCodes.backspace,
-      KeyboardKeyCodes.keyCodes.arrowRight,
-      KeyboardKeyCodes.keyCodes.arrowLeft]
+    const digitsCodes: number[] = [keyboardCodes.zero,
+      keyboardCodes.one,
+      keyboardCodes.two,
+      keyboardCodes.three,
+      keyboardCodes.four,
+      keyboardCodes.five,
+      keyboardCodes.six,
+      keyboardCodes.seven,
+      keyboardCodes.eight,
+      keyboardCodes.nine]
+    const validCodes: number[] = [keyboardCodes.backspace,
+      keyboardCodes.arrowRight,
+      keyboardCodes.arrowLeft]
 
     element.bind('keydown', (e: KeyboardEvent) => {
       if (digitsCodes.indexOf(e.which) < 0 && validCodes.indexOf(e.which) < 0) {
@@ -50,13 +50,13 @@ class LocalAvatarUploaderDirective implements ng.IDirective {
         goToNextElement()
       } else {
         switch (e.which) {
-          case KeyboardKeyCodes.keyCodes.escape:
+          case keyboardCodes.escape:
             goToPrevElement()
             break
-          case KeyboardKeyCodes.keyCodes.arrowRight:
+          case keyboardCodes.arrowRight:
             goToNextElement()
             break
-          case KeyboardKeyCodes.keyCodes.arrowLeft:
+          case keyboardCodes.arrowLeft:
             goToPrevElement()
             break
           default:

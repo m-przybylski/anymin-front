@@ -9,7 +9,7 @@ import {MoneyDto, CompanyInfo, GetCreditCard, AccountDetails} from 'profitelo-ap
 import {UserService} from '../../../../common/services/user/user.service'
 import noResultsInformationModule
   from '../../../../common/components/dashboard/no-results-information/no-results-information'
-import {HttpCodes} from '../../../../common/classes/http-codes'
+import {httpCodes} from '../../../../common/classes/http-codes'
 
 export class DashboardSettingsPaymentsController implements ng.IController {
   public isAnyPaymentMethod: boolean
@@ -58,7 +58,7 @@ export class DashboardSettingsPaymentsController implements ng.IController {
         this.isAnyPaymentMethod = true
       }
     }, (error) => {
-      if (error.status !== HttpCodes.httpCodes.fileNotFound) {
+      if (error.status !== httpCodes.notFound) {
         throw new error('Can not get user payment methods: ' + error)
       }
     }).finally(() => {

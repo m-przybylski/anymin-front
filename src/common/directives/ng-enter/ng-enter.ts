@@ -1,6 +1,6 @@
 import * as angular from 'angular'
 import commonSettingsModule from '../../services/common-settings/common-settings'
-import {KeyboardKeyCodes} from '../../classes/keyboard-key-codes'
+import {keyboardCodes} from '../../classes/keyboard'
 
   class NgEnter implements ng.IDirective {
     public restrict: string = 'A'
@@ -10,7 +10,7 @@ import {KeyboardKeyCodes} from '../../classes/keyboard-key-codes'
     }
 
     public link = (scope: ng.IScope, elem: ng.IRootElementService, attrs: ng.IAttributes): void => {
-      const enterKeyCode: number = KeyboardKeyCodes.keyCodes.enter
+      const enterKeyCode: number = keyboardCodes.enter
       elem.bind('keydown keypress', function(event): void {
         if (event.which === enterKeyCode) {
           scope.$apply(function(): void {
