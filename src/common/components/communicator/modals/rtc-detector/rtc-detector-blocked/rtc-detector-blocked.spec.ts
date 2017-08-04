@@ -1,22 +1,25 @@
 import * as angular from 'angular'
-import {RtcDetectorModalController, IRtcDetectorModalControllerScope} from './rtc-detector-blocked.controller'
-import rtcDetectorModal from './rtc-detector-blocked'
+import rtcDetectorBlockedModal from './rtc-detector-blocked'
+import {
+  IRtcDetectorBlockedModalControllerScope,
+  RtcDetectorBlockedModalController
+} from './rtc-detector-blocked.controller'
 
-describe('Testing Controller: rtcDetectorModal', () => {
+describe('Testing Controller: rtcDetectorBlockedModal', () => {
 
-  let galleryPreview: RtcDetectorModalController
-  let scope: IRtcDetectorModalControllerScope
+  let modalController: RtcDetectorBlockedModalController
+  let scope: IRtcDetectorBlockedModalControllerScope
 
   const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
     jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss'])
 
   beforeEach(() => {
-    angular.mock.module(rtcDetectorModal)
+    angular.mock.module(rtcDetectorBlockedModal)
     inject(($rootScope: ng.IRootScopeService, $controller: ng.IControllerService) => {
 
-      scope = <IRtcDetectorModalControllerScope>$rootScope.$new()
+      scope = <IRtcDetectorBlockedModalControllerScope>$rootScope.$new()
 
-      galleryPreview = $controller<RtcDetectorModalController>('rtcDetectorModal', {
+      modalController = $controller<RtcDetectorBlockedModalController>('rtcDetectorBlockedModal', {
         $scope: scope,
         $uibModalInstance: $uibModalInstance,
         urlService: {
@@ -27,7 +30,7 @@ describe('Testing Controller: rtcDetectorModal', () => {
   })
 
   it('should exists', () => {
-    return expect(!!galleryPreview).toBe(true)
+    return expect(!!modalController).toBe(true)
   })
 })
 

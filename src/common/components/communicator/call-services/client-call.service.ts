@@ -32,7 +32,7 @@ export class ClientCallService {
               private soundsService: SoundsService,
               private modalsService: ModalsService,
               private callbacksFactory: CallbacksFactory,
-              private rtcDetector: RtcDetectorService,
+              private rtcDetectorService: RtcDetectorService,
               private $q: ng.IQService) {
 
     this.callbacks = callbacksFactory.getInstance(Object.keys(ClientCallService.events))
@@ -43,7 +43,7 @@ export class ClientCallService {
   }
 
   public callServiceId = (serviceId: string, expertId?: string): ng.IPromise<CurrentClientCall> => {
-    return this.rtcDetector.isUserAbleToCall().then( () => {
+    return this.rtcDetectorService.isUserAbleToCall().then( () => {
       if (this.call) return this.$q.reject('There is a call already');
 
       if (!serviceId) return this.$q.reject('serviceId must be defined');

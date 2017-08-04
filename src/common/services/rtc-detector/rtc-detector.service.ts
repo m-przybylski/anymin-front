@@ -1,4 +1,4 @@
-import {NavigatorService} from '../navigator/navigator.service'
+import {NavigatorWrapper} from '../../classes/navigator-wrapper'
 const DetectRTC = require('detectrtc')
 import {ModalsService} from '../modals/modals.service'
 
@@ -27,12 +27,15 @@ export class RtcDetectorService {
     })
   }
 
-  public isUserAbleToCall = (): ng.IPromise<boolean> => {
-    return this.$q((resolve, reject) => {
+  public isUserAbleToCall = (): ng.IPromise<void> => {
+    return this.$q<void>((resolve, reject) => {
       this.isMediaPermissionGiven().then(() => {
         resolve()
       }, () => {
-        this.getUserMedia(resolve, reject)
+        if (DetectRTC.browser.isIe || DetectRTC.browser.isEdge)
+          this.modalsService.createBrowserDoesNotSupportRtcModal()
+        else
+          this.getUserMedia(resolve, reject)
       })
     })
   }
@@ -44,20 +47,20 @@ export class RtcDetectorService {
 
     window.setTimeout(this.displayMediaPopup(mediaDisplayObject), 100)
 
-    navigator.getUserMedia(NavigatorService.getAllConstraints(), () => {
-      console.log(DetectRTC.browser, DetectRTC.browser.isChrome)
+    navigator.getUserMedia(NavigatorWrapper.getAllConstraints(), () => {
       this.instanceModal.close('cancel')
       resolve();
     }, () => {
-      this.instanceModal.close('cancel')
       this.modalsService.createRtcDetectorBlockedModal()
       mediaDisplayObject.shouldDisplayMedia = false;
+      this.instanceModal.close('cancel')
+
       reject();
     });
   }
 
   private displayMediaPopup = (mediaDisplayObject: {shouldDisplayMedia: boolean}): () => void =>
-    () => {mediaDisplayObject.shouldDisplayMedia && (this.instanceModal = this.modalsService.createRtcDetectorModal(DetectRTC.browser))}
+    () => {mediaDisplayObject.shouldDisplayMedia && (this.instanceModal = this.modalsService.createRtcDetectorModal())}
 
 
   // gives us certainty that webrtc tools are loaded

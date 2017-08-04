@@ -95,6 +95,10 @@ import {
   IRtcDetectorBlockedModalControllerScope,
   RtcDetectorBlockedModalController
 } from '../../components/communicator/modals/rtc-detector/rtc-detector-blocked/rtc-detector-blocked.controller'
+import {
+  IRtcDetectorNoBrowserSupportModalControllerScope,
+  RtcDetectorNoBrowserSupportModalController
+} from '../../components/communicator/modals/rtc-detector/rtc-detector-no-browser-support/rtc-detector-no-browser-support.controller'
 
 // TODO add types for dialogScope Scopes
 export class ModalsService {
@@ -492,11 +496,10 @@ export class ModalsService {
     })
   }
 
-  public createRtcDetectorModal = (browserDetector: any): IModalInstanceService => {
+  public createRtcDetectorModal = (): IModalInstanceService => {
     const dialogScope: IRtcDetectorModalControllerScope =
       <IRtcDetectorModalControllerScope>this.$rootScope.$new(true)
 
-    dialogScope.browserDetector = browserDetector
     return this.dialogService.openDialog({
       controllerAs: 'vm',
       controller: RtcDetectorModalController,
@@ -513,6 +516,19 @@ export class ModalsService {
       controllerAs: 'vm',
       controller: RtcDetectorBlockedModalController,
       template: require('common/components/communicator/modals/rtc-detector/rtc-detector-blocked/rtc-detector-blocked.pug')(),
+      scope: dialogScope
+    })
+  }
+
+  public createBrowserDoesNotSupportRtcModal = (): IModalInstanceService => {
+    const dialogScope: IRtcDetectorNoBrowserSupportModalControllerScope =
+      <IRtcDetectorNoBrowserSupportModalControllerScope>this.$rootScope.$new(true)
+
+    return this.dialogService.openDialog({
+      controllerAs: 'vm',
+      openedClass: 'modal-open full-screen',
+      controller: RtcDetectorNoBrowserSupportModalController,
+      template: require('common/components/communicator/modals/rtc-detector/rtc-detector-no-browser-support/rtc-detector-no-browser-support.pug')(),
       scope: dialogScope
     })
   }

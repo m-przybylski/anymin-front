@@ -18,8 +18,16 @@
 			right: 360px
 
 		.rtc-image
+			position: relative
 			flex: 1
 			margin: 0 16px 0 0
+			padding: 40px 0 0 80px
+
+			img
+				&.arrow
+					position: absolute
+					left: 0
+					top: 0
 
 		.rtc-header
 			max-width: 400px
@@ -35,3 +43,23 @@
 				+default-font-regular
 				color: $c-white
 
+	.rtc-unsupported
+		text-align: center
+
+		.browser-list
+			display: flex
+			justify-content: space-around
+
+			.browser-item
+				text-align: center
+
+				img
+					max-width: 48px
+					margin: 0 0 24px
+
+				span
+					+paragraphTitle
+					color: $c-primary
+
+				> *
+					display: block

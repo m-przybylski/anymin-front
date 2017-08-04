@@ -1,16 +1,10 @@
 .rtc-detector
   .container-small
-    .rtc-detector-content(data-ng-if="!vm.isSupportedRTC")
+    .rtc-detector-content
       .rtc-image
+        img.arrow(data-ng-src="/assets/images/profitelo_icons/arrow.png")
         img(data-ng-src="/assets/images/profitelo_icons/camera-allow.png")
 
       .rtc-header
-        h2 {{ 'COMMUNICATOR.MODALS.RTC.TITLE' | translate }}
-        span {{ 'COMMUNICATOR.MODALS.RTC.DESCRIPTION' | translate }}
-
-
-    .rtc-unsupported(data-ng-if="vm.isSupportedRTC")
-      header.entry-title
-        span Nie obsluguje
-
-      p If u want
+        h2 {{:: 'COMMUNICATOR.MODALS.RTC.TITLE' | translate }}
+        span {{:: 'COMMUNICATOR.MODALS.RTC.DESCRIPTION' | translate }}

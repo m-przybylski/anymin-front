@@ -6,7 +6,7 @@ interface ITranslateHref {
 }
 
 export class RtcDetectorBlockedModalController implements ng.IController {
-  public rtcBlockedTranslation: string = ''
+  public rtcBlockedTranslation: string = 'COMMUNICATOR.MODALS.RTC.BLOCKED.DESCRIPTION'
   public rtcBlockedTranslationHref: ITranslateHref
 
   /* @ngInject */
@@ -14,7 +14,6 @@ export class RtcDetectorBlockedModalController implements ng.IController {
     this.rtcBlockedTranslationHref = {
       hrefUrl: '/dashboard/settings/payouts'
     }
-    this.rtcBlockedTranslation = 'COMMUNICATOR.MODALS.RTC.BLOCKED.DESCRIPTION'
   }
 
   public onModalClose = (): void =>

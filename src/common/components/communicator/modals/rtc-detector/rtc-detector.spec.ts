@@ -4,7 +4,7 @@ import rtcDetectorModal from './rtc-detector'
 
 describe('Testing Controller: rtcDetectorModal', () => {
 
-  let galleryPreview: RtcDetectorModalController
+  let modalController: RtcDetectorModalController
   let scope: IRtcDetectorModalControllerScope
 
   const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
@@ -16,7 +16,7 @@ describe('Testing Controller: rtcDetectorModal', () => {
 
       scope = <IRtcDetectorModalControllerScope>$rootScope.$new()
 
-      galleryPreview = $controller<RtcDetectorModalController>('rtcDetectorModal', {
+      modalController = $controller<RtcDetectorModalController>('rtcDetectorModal', {
         $scope: scope,
         $uibModalInstance: $uibModalInstance,
         urlService: {
@@ -27,7 +27,7 @@ describe('Testing Controller: rtcDetectorModal', () => {
   })
 
   it('should exists', () => {
-    return expect(!!galleryPreview).toBe(true)
+    return expect(!!modalController).toBe(true)
   })
 })
 

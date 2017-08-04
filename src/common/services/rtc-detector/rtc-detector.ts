@@ -6,7 +6,7 @@ const RtcDetectorModule = angular.module('profitelo.services.rtc-detector', [
   'ui.bootstrap',
   modalsModule
 ])
-.service('rtcDetector', RtcDetectorService)
+.service('rtcDetectorService', RtcDetectorService)
   .name
 
 export default RtcDetectorModule
