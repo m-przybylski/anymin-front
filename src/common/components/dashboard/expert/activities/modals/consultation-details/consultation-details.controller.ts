@@ -7,8 +7,8 @@ export interface IExpertConsultationDetailsScope extends ng.IScope {
 
 export class ExpertConsultationDetailsController implements ng.IController {
   public isLoading: boolean = true
-  public recommendedTags: Array<any> = []
-  public serviceTags: Array<any> = []
+  public recommendedTags: any[] = []
+  public serviceTags: any[] = []
   public expertAvatar?: string
   public expertName?: string
   public serviceName: string
@@ -18,7 +18,7 @@ export class ExpertConsultationDetailsController implements ng.IController {
   public callDuration: number
   public isRecommended: boolean
   public sueId: string
-  public recommendedTag: Array<Tag>
+  public recommendedTag: Tag[]
   public isRecommendable: boolean
   private callDetails: GetCallDetails
 

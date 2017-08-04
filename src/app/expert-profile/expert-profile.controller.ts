@@ -7,7 +7,7 @@ import {ProfileTypes} from '../../common/components/profile/profile-header/profi
 export class ExpertProfileController {
 
   public profile: GetExpertDetails | undefined
-  public consultations: Array<GetExpertServiceDetails>
+  public consultations: GetExpertServiceDetails[]
   public isFavourite: boolean
   public profileType: ProfileTypes
   public profileId: string

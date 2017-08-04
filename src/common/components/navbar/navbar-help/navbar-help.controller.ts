@@ -3,7 +3,7 @@ import * as angular from 'angular'
 
 export class NavbarHelpComponentController implements INavbarHelpComponentBindings {
 
-  searchResults: Array<string>
+  searchResults: string[]
   helpSearchQuery: string
   isArticleTab: boolean = false
   onClick: () => void

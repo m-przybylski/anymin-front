@@ -4,7 +4,7 @@ import {MessengerInputComponent} from './messenger-input.component'
 
 export interface IMessengerInputBindings {
   onSendMessage: (text: string) => void
-  onUploadFiles: (files: Array<File>) => void
+  onUploadFiles: (files: File[]) => void
   onTyping: () => void
   isFileUploading: boolean
 }

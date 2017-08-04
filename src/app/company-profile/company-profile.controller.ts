@@ -8,7 +8,7 @@ import {ProfileTypes} from '../../common/components/profile/profile-header/profi
 export class CompanyProfileController {
 
   profile?: GetOrganizationDetails
-  consultations: Array<GetOrganizationServiceDetails>
+  consultations: GetOrganizationServiceDetails[]
   isFavourite: boolean
   profileType: ProfileTypes
 

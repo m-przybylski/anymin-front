@@ -32,7 +32,7 @@ export class CompanyProfileResolver {
       this.$q.reject(error)
 
     const sortServices = (
-      servicesWithTagsAndEmployees: Array<GetOrganizationServiceDetails>
+      servicesWithTagsAndEmployees: GetOrganizationServiceDetails[]
     ): GetOrganizationServiceDetails[] => {
       const primaryConsultation = _.find(servicesWithTagsAndEmployees, (serviceWithTagsAndEmployees) =>
       serviceWithTagsAndEmployees.service.id === stateParams.primaryConsultationId)

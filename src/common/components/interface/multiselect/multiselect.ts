@@ -1,7 +1,7 @@
 (function (): void {
   /* @ngInject */
   function controller(): void {
-    const checkedItems: Array<any> = []
+    const checkedItems: any[] = []
 
     const refreshBindings = (): void => {
       if (!angular.isDefined(this.isDisabled)) {

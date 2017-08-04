@@ -2,7 +2,7 @@ import {Tag, ExpertDetails, OrganizationDetails} from 'profitelo-api-ng/model/mo
 
 export interface IServiceProviderDefaultModel {
   name: string
-  tags: Array<Tag>
+  tags: Tag[]
   cost: number
 }
 

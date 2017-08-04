@@ -6,8 +6,8 @@ import {ClientCallService} from '../../communicator/call-services/client-call.se
 export class ProfileCompanyConsultationComponentController implements IProfileCompanyConsultationComponentBindings {
 
   service: GetOrganizationServiceDetails
-  tags: Array<Tag>
-  employees: Array<GetProfileDetails>
+  tags: Tag[]
+  employees: GetProfileDetails[]
 
   /* @ngInject */
   constructor(private clientCallService: ClientCallService, private userService: UserService,

@@ -28,7 +28,7 @@ export class DashboardSettingsSecurityController implements ng.IController {
   public hasMobilePin: boolean
   public sessions: ISession[]
 
-  constructor(private modalsService: ModalsService, private currentSession: GetSession, sessionsData: Array<GetSession>,
+  constructor(private modalsService: ModalsService, private currentSession: GetSession, sessionsData: GetSession[],
               private SessionApi: SessionApi, private userService: UserService,
               private $state: IStateService, private topAlertService: TopAlertService,
               private $filter: IFilterService) {

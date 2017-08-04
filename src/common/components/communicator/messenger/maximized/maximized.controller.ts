@@ -21,7 +21,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
 
   public participantAvatar = ''
   public isTyping = false
-  public groupedMessages: Array<Array<any>> = []
+  public groupedMessages: any[][] = []
   public uploadedFile: {
     progress?: boolean,
     file?: File

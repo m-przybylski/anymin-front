@@ -4,7 +4,7 @@ import './grouped-messages.sass'
 import {GroupedMessagesComponent} from './grouped-messages.component';
 
 export interface IGroupedMessagesComponentBindings {
-  messages: Array<any>
+  messages: any[]
   participantAvatar: string
 }
 

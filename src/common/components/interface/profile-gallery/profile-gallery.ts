@@ -6,7 +6,7 @@ import apiModule from 'profitelo-api-ng/api.module'
 import errorHandlerModule from '../../../services/error-handler/error-handler'
 
 export interface IProfileGalleryComponentBindings extends ng.IController {
-  documents: Array<string>
+  documents: string[]
 }
 
 const profileGalleryModule = angular.module('profitelo.components.interface.profile-gallery', [

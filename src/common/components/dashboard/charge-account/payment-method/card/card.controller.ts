@@ -13,7 +13,7 @@ export class CardPaymentFormComponentController implements ng.IController, ICard
   onBraintreeFormLoad: boolean
   paymentCountryId: string
   transaction: ITransaction
-  paymentsLinks: Array<PaymentLink>
+  paymentsLinks: PaymentLink[]
   amountMethodModal: any
   onCardPayment: () => void
 

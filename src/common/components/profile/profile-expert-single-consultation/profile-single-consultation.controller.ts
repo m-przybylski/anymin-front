@@ -6,7 +6,7 @@ import {ClientCallService} from '../../communicator/call-services/client-call.se
 export class ProfileSingleConsultationComponentController implements IProfileSingleConsultationComponentBindings {
 
   service: GetExpertServiceDetails
-  tags: Array<Tag>
+  tags: Tag[]
   ownerCompany: GetProfile
   profileId: string
 

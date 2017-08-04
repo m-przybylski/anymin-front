@@ -6,7 +6,7 @@ import {PayPalPaymentFormComponent} from './paypal.component'
 import {PaypalFactory} from './paypal.service'
 
 export interface IPayPalPaymentFormComponentBindings {
-  paymentsLinks: Array<PaymentLink>
+  paymentsLinks: PaymentLink[]
   amountMethodModal: any
   paymentCountryId: string
   onAuthorize: () => void

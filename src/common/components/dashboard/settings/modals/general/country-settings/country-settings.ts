@@ -26,7 +26,7 @@ export class GeneralCountrySettingsController implements ng.IController {
   public isNavbar = true
   public selectedCountry: ICountryElementObject | undefined
   public isFullscreen = true
-  public countryList: Array<ICountryElementObject> = []
+  public countryList: ICountryElementObject[] = []
 
   constructor(private $scope: IGeneralCountrySettingsControllerScope, private $filter: IFilterService,
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,

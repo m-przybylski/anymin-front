@@ -10,7 +10,7 @@ import {GetActivities} from 'profitelo-api-ng/model/models'
 export class DashboardExpertActivitiesController {
 
   public areActivities: boolean
-  public activities: Array<GetActivity>
+  public activities: GetActivity[]
 
   public isSearchLoading: boolean = true
   public isError: boolean = false

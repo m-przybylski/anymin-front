@@ -3,7 +3,7 @@ import {PaymentSystem} from 'profitelo-api-ng/model/models'
 
 export interface IPaymentMethodComponentBindings {
   title: string
-  paymentSystems: Array<PaymentSystem>
+  paymentSystems: PaymentSystem[]
   paymentSystemModel: PaymentSystem
   scrollHandler: (_arg?: number) => void
 }

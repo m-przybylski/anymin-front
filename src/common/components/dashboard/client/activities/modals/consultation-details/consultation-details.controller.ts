@@ -62,7 +62,7 @@ export class ClientConsultationDetailsController implements ng.IController {
     this.openClientActivityModal(res[0]!.tags)
   }
 
-  private openClientActivityModal = (serviceTags: Array<Tag> = []): void => {
+  private openClientActivityModal = (serviceTags: Tag[] = []): void => {
     const expertAvatarFileId = this.callDetails.expertProfile.expertDetails!.avatar
     this.expertAvatar = expertAvatarFileId ? this.urlService.resolveFileUrl(expertAvatarFileId) : undefined
     this.expertName = this.callDetails.expertProfile.expertDetails!.name
