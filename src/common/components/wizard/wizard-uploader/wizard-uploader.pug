@@ -13,6 +13,11 @@
             p {{ 'WIZARD.UPLOADER.DRAG_DROP' | translate }}
             p {{ 'WIZARD.UPLOADER.UPLODER_ADDITIONAL_TEXT' | translate }}
 
+    validation-alert(
+      data-alert-text="{{ $ctrl.fileValidationErrorMessage }}"
+      data-is-visible="$ctrl.isFileTypeError"
+    )
+
   .files-uploaded-list
     .file-item(data-ng-repeat="file in $ctrl.documentFiles")
 
