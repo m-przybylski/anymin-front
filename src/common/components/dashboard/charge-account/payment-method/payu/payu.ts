@@ -35,7 +35,8 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
     value: 'PL'
   }]
   this.onEnter = (option: number): void => {
-    if (option < 3) {
+    const lastOption: number = 3
+    if (option < lastOption) {
       $('[data-index="' + (option + 1).toString() + '"] input').focus()
     }
   }

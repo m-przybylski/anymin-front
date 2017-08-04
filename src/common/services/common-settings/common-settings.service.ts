@@ -7,10 +7,10 @@ export class CommonSettingsService {
   private urls: any
   public links: any
   public localSettings: any
-  public languages: Array<{
+  public languages: {
     name: string,
     shortCut: string
-  }>
+  }[]
 
   /* @ngInject */
   constructor(CommonConfig: CommonConfig) {

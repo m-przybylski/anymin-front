@@ -3,6 +3,7 @@
   /* @ngInject */
   function thankYouPageController($location: ng.ILocationService): void {
 
+    const validCurrencyLength: number = 3
     this.showRecharge = false
     this.price = null
 
@@ -11,7 +12,7 @@
       amount: parseInt($location.search().amount, 0)
     }
 
-    if (this.paymentsValues.currency.length === 3 && this.paymentsValues.amount > 0) {
+    if (this.paymentsValues.currency.length === validCurrencyLength && this.paymentsValues.amount > 0) {
       this.price = this.paymentsValues.amount + ' ' + this.paymentsValues.currency
       this.showRecharge = true
     }

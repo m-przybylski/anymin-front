@@ -10,6 +10,9 @@ export class PinVerificationComponentController implements ng.IController, IPinV
   public pinInputModels: string[] = []
   public isPinInCorrect = false
 
+  private static readonly disableSendButtonInSeconds: number = 30
+  private static readonly validPinLength: number = 4
+
   /* @ngInject */
   constructor(private $interval: ng.IIntervalService) {
 
@@ -17,7 +20,7 @@ export class PinVerificationComponentController implements ng.IController, IPinV
 
   public sendPinAgain = (): void => {
     this.isButtonDisable = true
-    this.blockSendButtonForTime(30)
+    this.blockSendButtonForTime(PinVerificationComponentController.disableSendButtonInSeconds)
     this.onSendPinAgain()
   }
 
@@ -26,28 +29,28 @@ export class PinVerificationComponentController implements ng.IController, IPinV
       this.isPinInCorrect = false
       this.onCompletePinInputs(this.pinInputModels.join(''), this.onWrongPrefix)
     } else {
-      if (this.pinInputModels.length === 4) {
+      if (this.pinInputModels.length === PinVerificationComponentController.validPinLength) {
         this.isPinInCorrect = true
       }
     }
   }
 
   private blockSendButtonForTime = (seconds: number): void => {
+    const intervalTime = 1000
     this.counter = seconds
     this.$interval(() => {
       this.counter--
       if (this.counter === 0) {
         this.isButtonDisable = false
       }
-    }, 1000, seconds)
+    }, intervalTime, seconds)
   }
 
   private onWrongPrefix = (): void => {
     this.isPinInCorrect = true
   }
 
-  private checkAreInputsFilled = (arrayOfInputs: Array<string>): boolean =>
-    (arrayOfInputs.every((input: string, _index: number, array: Array<string>) => {
-      return array.length === 4 && angular.isDefined(input) && !!input
-    }))
+  private checkAreInputsFilled = (arrayOfInputs: string[]): boolean =>
+    (arrayOfInputs.every((input: string, _index: number, array: string[]) =>
+      array.length === PinVerificationComponentController.validPinLength && angular.isDefined(input) && !!input))
 }

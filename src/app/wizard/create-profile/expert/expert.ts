@@ -14,6 +14,7 @@ import wizardLinksModule from '../../../../common/components/wizard/wizard-links
 import commonSettingsModule from '../../../../common/services/common-settings/common-settings'
 import {GetWizardProfile} from 'profitelo-api-ng/model/models'
 import ValidationAlertModule from '../../../../common/components/interface/alert/validation-alert/validation-alert'
+import {httpCodes} from '../../../../common/classes/http-codes'
 
 const expertWizardModule = angular.module('profitelo.controller.wizard.create-profile.expert', [
   'ui.router',
@@ -44,7 +45,7 @@ const expertWizardModule = angular.module('profitelo.controller.wizard.create-pr
         return WizardApi.getWizardProfileRoute().then((wizardProfile) => {
           return wizardProfile
         }, (error) => {
-          if (error.status === 404) {
+          if (error.status === httpCodes.notFound) {
             return void 0
           } else {
             throw new Error('Can not get wizard profile ' + error)

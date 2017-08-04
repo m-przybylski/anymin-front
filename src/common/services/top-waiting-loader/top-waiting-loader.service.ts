@@ -6,6 +6,7 @@ export class TopWaitingLoaderService {
   private immediateInProgress: boolean
   private currentProgress: number
   private immediateInterval: ng.IPromise<any>
+  private maxProgressValue: number = 100
 
   /* @ngInject */
   constructor($rootScope: IRootScopeService, private $timeout: ng.ITimeoutService,
@@ -36,24 +37,26 @@ export class TopWaitingLoaderService {
   private stopLoadingProcess = (): void => {
     this.$interval.cancel(this.immediateInterval)
     this.immediateInProgress = false
-    this.currentProgress = 100
+    this.currentProgress = this.maxProgressValue
     this.bindedProgress(this.currentProgress)
     this.currentProgress = 0
     this.bindedProgress(this.currentProgress)
   }
 
   private startImmediateLoading = (): void => {
+    const intervalDelay: number = 500
+    const minRandomValue: number = 20
     if (!this.immediateInProgress) {
       this.immediateInProgress = true
       this.immediateInterval = this.$interval(() => {
-        if (this.currentProgress > 100) {
+        if (this.currentProgress > this.maxProgressValue) {
           this.$interval.cancel(this.immediateInterval)
           this.stopLoadingProcess()
         } else {
-          this.currentProgress = this.currentProgress + Math.floor((Math.random() * 20) + 20)
+          this.currentProgress = this.currentProgress + Math.floor((Math.random() * minRandomValue) + minRandomValue)
           this.bindedProgress(this.currentProgress)
         }
-      }, 500)
+      }, intervalDelay)
     }
   }
 }

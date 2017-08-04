@@ -4,12 +4,12 @@ import urlModule from '../../../services/url/url'
 
 /* @ngInject */
 function controller($scope: any, urlService: UrlService): void {
+  const minExpertsCount: number = 5
   this.areControllsVisible = false
-
   this.expertsArray = []
   this.expertsArray = this.expertsArray.concat(this.experts)
 
-  if (this.expertsArray.length > 4) {
+  if (this.expertsArray.length >= minExpertsCount) {
     this.areControllsVisible = true
   }
 

@@ -3,6 +3,7 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import inputModule from './input'
 import {InputComponentController} from './input.controller'
 import {IInputComponentBindings} from './input'
+import {CommonSettingsService} from '../../../services/common-settings/common-settings.service'
 
 describe('Unit testing: profitelo.components.interface.input', () => {
   return describe('for inputPrimary component >', () => {
@@ -15,6 +16,7 @@ describe('Unit testing: profitelo.components.interface.input', () => {
     let bindings: IInputComponentBindings
     let document: ng.IDocumentService
     let validHTML = '<input-primary>'
+    let CommonSettingsService: CommonSettingsService
 
     function create(html: string): JQuery {
       scope = rootScope.$new()
@@ -31,10 +33,12 @@ describe('Unit testing: profitelo.components.interface.input', () => {
     beforeEach(() => {
       angular.mock.module('pascalprecht.translate')
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
-              _$componentController_: ng.IComponentControllerService) => {
+              _$componentController_: ng.IComponentControllerService,
+              _CommonSettingsService_: CommonSettingsService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
+        CommonSettingsService = _CommonSettingsService_
       })
 
       bindings = {

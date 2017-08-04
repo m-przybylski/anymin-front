@@ -13,7 +13,7 @@ export interface InputDropdownTagComponentBindings extends ng.IController {
   isValid?: boolean
   validationText?: string
   isSubmitted?: boolean
-  selectedItemsValue: Array<string>
+  selectedItemsValue: string[]
 }
 
 const inputDropdownTagModule = angular.module('profitelo.components.interface.input-dropdown-tag', [

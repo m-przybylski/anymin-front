@@ -25,6 +25,7 @@ export class ConsultationController implements ng.IController {
   private isExpert: boolean
   private currentEditServiceIndex: number = -1
   private moneyDivider: number
+  private static readonly minValidNameLength: number = 5
 
   /* @ngInject */
   constructor(CommonSettingsService: CommonSettingsService, private $state: ng.ui.IStateService,
@@ -135,9 +136,8 @@ export class ConsultationController implements ng.IController {
     this.$state.go('app.wizard.summary')
   }
 
-  public checkIsNameInputValid = (): boolean => {
-    return !!(this.nameInputValue && this.nameInputValue.length > 4)
-  }
+  public checkIsNameInputValid = (): boolean =>
+    !!(this.nameInputValue && this.nameInputValue.length >= ConsultationController.minValidNameLength)
 
   public checkIsTagsInputValid = (): boolean => {
     return this.tagsInputValue && this.tagsInputValue.length > 0

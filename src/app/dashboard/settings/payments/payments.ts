@@ -9,6 +9,7 @@ import {MoneyDto, CompanyInfo, GetCreditCard, AccountDetails} from 'profitelo-ap
 import {UserService} from '../../../../common/services/user/user.service'
 import noResultsInformationModule
   from '../../../../common/components/dashboard/no-results-information/no-results-information'
+import {httpCodes} from '../../../../common/classes/http-codes'
 
 export class DashboardSettingsPaymentsController implements ng.IController {
   public isAnyPaymentMethod: boolean
@@ -16,11 +17,13 @@ export class DashboardSettingsPaymentsController implements ng.IController {
   public companyName: string
   public vatNumber: string
   public address: string
-  public paymentMethods: Array<GetCreditCard>
+  public paymentMethods: GetCreditCard[]
   public checkedPaymentMethod?: string
   public isLongAddress?: boolean
   public isClientBalanceLoaded: boolean = false
   public isCreditCardsLoaded: boolean = false
+
+  private static readonly maxShortAddressLength: number = 10
 
   constructor(getInvoiceData: CompanyInfo, PaymentsApi: PaymentsApi, private AccountApi: AccountApi,
               private modalsService: ModalsService, FinancesApi: FinancesApi,
@@ -34,7 +37,7 @@ export class DashboardSettingsPaymentsController implements ng.IController {
         this.address = getInvoiceData.address.street + ', ' + getInvoiceData.address.number +
           ', ' + getInvoiceData.address.zipCode + ', ' + getInvoiceData.address.city + ', ' +
           getInvoiceData.address.countryISO
-        this.isLongAddress = this.address.length > 10
+        this.isLongAddress = this.address.length > DashboardSettingsPaymentsController.maxShortAddressLength
       }
     }
 
@@ -55,7 +58,7 @@ export class DashboardSettingsPaymentsController implements ng.IController {
         this.isAnyPaymentMethod = true
       }
     }, (error) => {
-      if (error.status !== 404) {
+      if (error.status !== httpCodes.notFound) {
         throw new error('Can not get user payment methods: ' + error)
       }
     }).finally(() => {

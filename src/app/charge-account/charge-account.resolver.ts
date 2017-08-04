@@ -11,13 +11,18 @@ export class ChargeAccountResolver {
   }
 
   public resolve = (currentStateName?: string): void => {
+    const indexOfPaymentOptions = 0
+    const indexOfCreditCards = 1
+    const indexOfPayUPaymentLinks = 2
+    const indexOfClientBalance = 3
     this.$q.all([
       this.PaymentsApi.getPaymentOptionsRoute(),
       this.PaymentsApi.getCreditCardsRoute(),
       this.PaymentsApi.getPayUPaymentLinksRoute(),
       this.FinancesApi.getClientBalanceRoute()
     ]).then((values) => {
-      this.modalsService.createChargeAccountModal(currentStateName, values[0], values[1], values[2], values[3])
+      this.modalsService.createChargeAccountModal(currentStateName, values[indexOfPaymentOptions],
+        values[indexOfCreditCards], values[indexOfPayUPaymentLinks], values[indexOfClientBalance])
     })
   }
 

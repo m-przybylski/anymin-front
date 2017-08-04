@@ -7,6 +7,7 @@ import {IWindowService} from '../../services/window/window.service'
 import urlModule from '../../services/url/url'
 import printModule from '../../services/print/print'
 import imageZoomModule from '../../services/image-zoom/image-zoom'
+import {keyboardCodes} from '../../classes/keyboard'
 
 function lightboxModelController($scope: any, $window: IWindowService,
                                  $timeout: ng.ITimeoutService, FilesApi: FilesApi, imageZoomService: ImageZoomService,
@@ -63,20 +64,15 @@ function lightboxModelController($scope: any, $window: IWindowService,
     )
   }
 
-  const keyCodes = {
-    arrowRight: 39,
-    arrowLeft: 37
-  }
-
   angular.element($window).on('keydown keypress', (event) => {
     const keyCode = event.which || event.keyCode
     switch (keyCode) {
 
-      case keyCodes.arrowLeft:
+      case keyboardCodes.arrowLeft:
         this.sliderActions.prevSlide()
         break
 
-      case keyCodes.arrowRight:
+      case keyboardCodes.arrowRight:
         this.sliderActions.nextSlide()
         break
 

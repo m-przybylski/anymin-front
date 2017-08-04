@@ -56,10 +56,14 @@ export class ActivitiesQueryParams {
   }
 
   public setDateTo = (value?: string): void => {
+    const hour: number = 23
+    const minutes: number = 59
+    const seconds: number = 59
+    const miliseconds: number = 999
     if (value !== this.dateTo) {
       if (value) {
         // TODO It will not working with time zones
-        this.dateTo = String(new Date(value).setHours(23, 59, 59, 999))
+        this.dateTo = String(new Date(value).setHours(hour, minutes, seconds, miliseconds))
       } else {
         this.dateTo = value
       }

@@ -17,7 +17,7 @@ import * as _ from 'lodash'
 import {SmoothScrollingService} from '../../../common/services/smooth-scrolling/smooth-scrolling.service'
 
 export interface IAmounts {
-  paymentOptions: Array<MoneyDto>
+  paymentOptions: MoneyDto[]
   minimalAmounts: MoneyDto
 }
 
@@ -48,8 +48,8 @@ export class ChargeAccountController implements ng.IController {
   currentSection: number
   clientBalance: MoneyDto
   lastPayment?: GetLastPayment
-  paymentSystems: Array<PaymentSystem>
-  paymentsLinks: Array<PaymentLink>
+  paymentSystems: PaymentSystem[]
+  paymentsLinks: PaymentLink[]
   amountMethodModal: {
     amountModel: {
       cashAmount: null | MoneyDto,
@@ -62,6 +62,7 @@ export class ChargeAccountController implements ng.IController {
     email?: string,
     payMethodValue?: string
   }
+  lastChargeAccountSectionID: number = 3
 
   currentState?: string
   $onInit(): void {
@@ -93,7 +94,7 @@ export class ChargeAccountController implements ng.IController {
 
       if (this.lastPayment !== null && (typeof this.lastPayment !== 'undefined')) {
         this.isChargeProfiteloAccount = true
-        this.currentSection = 3
+        this.currentSection = this.lastChargeAccountSectionID
         if (_.find(this.amounts.paymentOptions, {'amount': this.lastPayment.amount.amount})) {
           this.amountModel.amount = this.lastPayment.amount
         } else {
@@ -156,7 +157,7 @@ export class ChargeAccountController implements ng.IController {
     if (slideTo && angular.isDefined(slideTo)) {
       this.smoothScrollingService.scrollTo(String(slideTo))
       // TODO refactor this 3
-    } else if (this.currentSection < 3) {
+    } else if (this.currentSection < this.lastChargeAccountSectionID) {
       this.$timeout(() => {
         this.smoothScrollingService.scrollTo(String(++this.currentSection))
       })

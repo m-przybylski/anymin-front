@@ -8,7 +8,7 @@ export class EditExpertProfileController implements ng.IController {
   public isNavbar: boolean = true
   public inputText: string
   public textareaDescription: string
-  readonly inputMaxLength: number
+  public readonly inputMaxLength: number = 150
   public tagsMocks: IDropdownInputDictionary
   public companyPathModel = {
     links: ''
@@ -23,7 +23,6 @@ export class EditExpertProfileController implements ng.IController {
     this.inputText = 'Jan Kowalski'
     this.textareaDescription = 'Lorem Ipsum is simply. It is a long established fact that a reader will be ' +
       'distracted by the readable content of a page when looking at its layout'
-    this.inputMaxLength = 150
 
     this.tagsMocks = {
       pl: 'Polish',

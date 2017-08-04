@@ -25,6 +25,7 @@ export class ChooseAmountChargeComponentController implements IChooseAmountCharg
   cashAmountModel: number | null
   minimalPaymentAmount: number
   amountModifier: number = 1
+  userAmountOption: number = 3
 
   /* @ngInject */
   constructor(private $scope: ng.IScope, CommonSettingsService: CommonSettingsService) {
@@ -45,7 +46,7 @@ export class ChooseAmountChargeComponentController implements IChooseAmountCharg
         this.activeOption = this.amounts.paymentOptions.indexOf(paymentOption)
       }
     } else if (this.amountModel.cashAmount !== null) {
-      this.activeOption = 3
+      this.activeOption = this.userAmountOption
       this.cashAmountModel = this.amountModel.cashAmount.amount / this.amountModifier
     }
 
@@ -69,16 +70,17 @@ export class ChooseAmountChargeComponentController implements IChooseAmountCharg
   }
 
   public onEnter = (): void => {
+    const sectionToScroll: number = 2
     if (this.amounts && this.amounts.minimalAmounts && this.cashAmountModel &&
       this.cashAmountModel > this.amounts.minimalAmounts.amount / this.amountModifier) {
-      this.scrollHandler(2)
+      this.scrollHandler(sectionToScroll)
     }
     angular.element('.option-own-amount').find('input').blur()
   }
 
   public selectAmountOption = (index: number): void => {
     this.activeOption = index
-    if (index !== 3) {
+    if (index !== this.userAmountOption) {
       this.cashAmountModel = null
       if (!this.firstSelect) {
         this.scrollHandler()
@@ -96,7 +98,7 @@ export class ChooseAmountChargeComponentController implements IChooseAmountCharg
   }
 
   public minimalAmountValidation = (): boolean => {
-    return !!(this.activeOption === 3 && this.cashAmountModel && this.cashAmountModel <
+    return !!(this.activeOption === this.userAmountOption && this.cashAmountModel && this.cashAmountModel <
     this.amounts.minimalAmounts.amount / this.amountModifier
     && !angular.element('.option-own-amount').find('input:focus')[0])
   }

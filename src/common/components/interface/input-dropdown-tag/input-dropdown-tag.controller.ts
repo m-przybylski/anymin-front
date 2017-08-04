@@ -1,6 +1,7 @@
 import * as angular from 'angular'
 import {InputDropdownTagComponentBindings} from './input-dropdown-tag'
 import * as _ from 'lodash'
+import {keyboardCodes} from '../../../classes/keyboard'
 
 export interface IDropdownItem {
   name: string
@@ -29,13 +30,9 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
   public isFocus: boolean = false
   public isDirty: boolean = false
 
-  private keyCodes = {
-    arrowDown: 40,
-    arrowUp: 38
-  }
-
   private dropdownSelectedItem: JQuery
   private dropdown: JQuery = this.$element.find('.dropdown-list')
+  private static readonly dividerOnHalf: number = 2
 
   $onInit = (): void => {
     for (const key in this.dictionary) {
@@ -90,7 +87,7 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
       const keyCode = event.which || event.keyCode
 
       switch (keyCode) {
-        case this.keyCodes.arrowDown:
+        case keyboardCodes.arrowDown:
           event.preventDefault()
           this.filterItems()
 
@@ -100,12 +97,13 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
           if (this.isOpen) {
             this.onArrowItemSelect()
             this.dropdownScroll.scrollTop(this.dropdownSelectedItem[0]
-                .offsetTop - (this.dropdown.height() / 2 - this.dropdownSelectedItem[0].clientHeight))
+                .offsetTop - (this.dropdown.height() / InputDropdownTagComponentController.dividerOnHalf -
+                  this.dropdownSelectedItem[0].clientHeight))
           }
 
           break
 
-        case this.keyCodes.arrowUp:
+        case keyboardCodes.arrowUp:
           event.preventDefault()
           this.filterItems()
 
@@ -115,7 +113,8 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
           if (this.isOpen) {
             this.onArrowItemSelect()
             this.dropdownScroll.scrollTop(this.dropdownSelectedItem[0]
-                .offsetTop - (this.dropdown.height() / 2 - this.dropdownSelectedItem[0].clientHeight))
+                .offsetTop - (this.dropdown.height() / InputDropdownTagComponentController.dividerOnHalf -
+                  this.dropdownSelectedItem[0].clientHeight))
           }
 
           break

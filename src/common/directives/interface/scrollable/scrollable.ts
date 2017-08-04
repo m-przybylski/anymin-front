@@ -23,6 +23,7 @@ namespace profitelo.directives.scrollable {
     private previousScrollableContentHeight: number
     private navbarHeight: number
     private intervalDelay: number = 30
+    private static readonly dividerOnHalf: number = 2
 
     /* @ngInject */
     constructor(private $timeout: ng.ITimeoutService, private $interval: ng.IIntervalService,
@@ -65,8 +66,8 @@ namespace profitelo.directives.scrollable {
         this.scrollableContent.css('top', 0)
       } else {
         this.element.removeClass('is-scrollable')
-        this.scrollableContent.css('top', (this.directiveHeight -
-          ((this.isNavbarVisible()) ? this.navbarHeight : 0) - this.scrollableContent.height()) / 2)
+        this.scrollableContent.css('top', (this.directiveHeight - ((this.isNavbarVisible()) ?
+            this.navbarHeight : 0) - this.scrollableContent.height()) / ScrollableDirective.dividerOnHalf)
       }
     }
 
@@ -81,7 +82,7 @@ namespace profitelo.directives.scrollable {
     private centerContent = (): void => {
       this.directiveHeight = this.element.height()
       const positionTop = (this.directiveHeight - ((this.isNavbarVisible()) ?
-                           this.navbarHeight : 0) - this.scrollableContent.height()) / 2
+                           this.navbarHeight : 0) - this.scrollableContent.height()) / ScrollableDirective.dividerOnHalf
 
       this.scrollableContent.css({
         'top': positionTop,

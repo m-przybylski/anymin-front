@@ -1,4 +1,6 @@
 import * as angular from 'angular'
+import commonSettingsModule from '../../services/common-settings/common-settings'
+import {keyboardCodes} from '../../classes/keyboard'
 
   class NgEnter implements ng.IDirective {
     public restrict: string = 'A'
@@ -8,8 +10,9 @@ import * as angular from 'angular'
     }
 
     public link = (scope: ng.IScope, elem: ng.IRootElementService, attrs: ng.IAttributes): void => {
+      const enterKeyCode: number = keyboardCodes.enter
       elem.bind('keydown keypress', function(event): void {
-        if (event.which === 13) {
+        if (event.which === enterKeyCode) {
           scope.$apply(function(): void {
             scope.$eval(attrs.ngEnter)
           })
@@ -26,7 +29,9 @@ import * as angular from 'angular'
     }
   }
 
-const ngEnter =  angular.module('profitelo.directives.ng-enter', [])
+const ngEnter =  angular.module('profitelo.directives.ng-enter', [
+  commonSettingsModule
+])
   .directive('ngEnter', NgEnter.getInstance())
   .name
 

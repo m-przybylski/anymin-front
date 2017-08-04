@@ -1,4 +1,6 @@
 /* tslint:disable:  typedef */
+/* tslint:disable:  no-magic-numbers */
+
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {SearchResult} from 'profitelo-api-ng/model/models'

@@ -3,6 +3,11 @@ import {IDirective} from 'angular'
 
 function proCalendar(): IDirective {
 
+  const maxDateYear: number = new Date().getFullYear() + 1
+  const maxDateMonth: number = 5
+  const maxDateDay: number = 22
+  const dateFormatIndex: number = 2
+
   function linkFunction(scope: any, _element: ng.IRootElementService, _attr: ng.IAttributes): void {
     scope.today = function (): void {
       scope.dt = new Date()
@@ -39,7 +44,7 @@ function proCalendar(): IDirective {
 
     scope.dateOptions = {
       formatYear: 'yy',
-      maxDate: new Date(2020, 5, 22),
+      maxDate: new Date(maxDateYear, maxDateMonth, maxDateDay),
       startingDay: 1,
       showWeeks: false
     }
@@ -64,7 +69,7 @@ function proCalendar(): IDirective {
     }
 
     scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate']
-    scope.format = scope.formats[2]
+    scope.format = scope.formats[dateFormatIndex]
     scope.altInputFormats = ['M!/d!/yyyy']
 
     scope.popup1 = {

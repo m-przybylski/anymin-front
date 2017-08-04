@@ -49,7 +49,8 @@ export class SettingsController implements ng.IController {
 
   private getRealStateName = (stateName: string): string => {
     const stringsArray = stateName.split('.')
-    return stringsArray[3]
+    const stateNameIndex: number = 3
+    return stringsArray[stateNameIndex]
   }
 }
 

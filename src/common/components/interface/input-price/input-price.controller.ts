@@ -1,5 +1,6 @@
 import {IInputPriceComponentBindings} from './input-price'
 import {CommonSettingsService} from '../../../services/common-settings/common-settings.service'
+import {keyboardCodes} from '../../../classes/keyboard'
 
 export class InputPriceComponentController implements IInputPriceComponentBindings {
   public id: string
@@ -19,12 +20,23 @@ export class InputPriceComponentController implements IInputPriceComponentBindin
   /* @ngInject */
   constructor($element: ng.IRootElementService, CommonSettingsService: CommonSettingsService) {
     this.priceRegexp = CommonSettingsService.localSettings.pricePattern
-    const digitsCodes = [13, 8, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57]
-    const digitsCodesCharacters = [44, 46]
+    const validKeyCodes = [keyboardCodes.enter,
+      keyboardCodes.backspace,
+      keyboardCodes.zero,
+      keyboardCodes.one,
+      keyboardCodes.two,
+      keyboardCodes.three,
+      keyboardCodes.four,
+      keyboardCodes.five,
+      keyboardCodes.six,
+      keyboardCodes.seven,
+      keyboardCodes.eight,
+      keyboardCodes.nine,
+      keyboardCodes.comma,
+      keyboardCodes.dot]
 
     $element.bind('keypress', (e) => {
-      if ((digitsCodes.indexOf(e.keyCode) === -1 && digitsCodesCharacters.indexOf(e.keyCode) === -1) ||
-        this.digitsCodesBlocked.indexOf(e.keyCode) >= 0) {
+      if (validKeyCodes.indexOf(e.keyCode) === -1 || this.digitsCodesBlocked.indexOf(e.keyCode) >= 0) {
         e.preventDefault()
       }
     })
@@ -40,7 +52,8 @@ export class InputPriceComponentController implements IInputPriceComponentBindin
     this.isPatternValid = ((this.priceRegexp).test(this.ngModel.toString()))
 
     if (this.isUsignPunctuationMarks) {
-      this.digitsCodesBlocked = [44, 46]
+      this.digitsCodesBlocked = [keyboardCodes.dot,
+        keyboardCodes.comma]
     } else {
       this.digitsCodesBlocked = []
     }

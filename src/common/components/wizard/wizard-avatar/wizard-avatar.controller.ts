@@ -53,7 +53,8 @@ export class WizardAvatarComponentController implements IWizardAvatarComponentBi
   }
 
   public saveCrop = (data: any): void => {
-    const squareSideLength: number = data.points[2] - data.points[0] - 1
+    const indexOfSecondXPoint: number = 2
+    const squareSideLength: number = data.points[indexOfSecondXPoint] - data.points[0] - 1
     const postProcessOptions: PostProcessOption = {
       croppingDetails: {
         x: Number(data.points[0]),

@@ -1,5 +1,7 @@
 export class SmoothScrollingService {
 
+  private static readonly dividerOnHalf: number = 2
+
   /* @ngInject */
   constructor(private $timeout: ng.ITimeoutService) {
   }
@@ -42,18 +44,20 @@ export class SmoothScrollingService {
     const startY: number = currentYPosition()
     const stopY: number = elmYPosition(eID)
     const distance: number = stopY > startY ? stopY - startY : startY - stopY
-    if (distance < 100) {
+    const minimumDistanceToScroll: number = 100
+    if (distance < minimumDistanceToScroll) {
       scrollTo(0, stopY)
       return
     }
     const speed: number = 3
-
-    const step: number = Math.round(distance / 25)
+    const distanceDivider: number = 25
+    const step: number = Math.round(distance / distanceDivider)
     let leapY: number = stopY > startY ? startY + step : startY - step
     let timer: number = 0
 
     const increaseTimer = (): void => {
-      if (timer * speed < 30) {
+      const maxSpeed: number = 30
+      if (timer * speed < maxSpeed) {
         timer += 1
       }
       this.$timeout(() => {
@@ -87,9 +91,11 @@ export class SmoothScrollingService {
   }
 
   public simpleScrollTo = (element: Element | string, isNavbar?: boolean, time = 1000): void => {
+    const navbarHeight: number = 80
+    const topPaddingHeight: number = 32
     let scrollTop: number = $(element).offset().top
     if (isNavbar) {
-      scrollTop -= 80 + 32
+      scrollTop -= navbarHeight + topPaddingHeight
     }
 
     $('html, body').animate({
@@ -102,16 +108,18 @@ export class SmoothScrollingService {
   }
 
   public wizardScrollTo = (element: Element, wrapperHeight: number, windowHeight: number): void => {
+    const scrollAnimationTime: number = 1000
     let scrollTop: number
     if (wrapperHeight < windowHeight) {
-      scrollTop = ( $(element).offset().top - windowHeight / 2 + wrapperHeight / 2)
+      scrollTop = ( $(element).offset().top - windowHeight / SmoothScrollingService.dividerOnHalf +
+        wrapperHeight / SmoothScrollingService.dividerOnHalf)
     } else {
       scrollTop = ( $(element).offset().top )
     }
 
     $('html, body').animate({
       scrollTop: scrollTop
-    }, 1000)
+    }, scrollAnimationTime)
     $(window).on('wheel', () => {
       $('html, body').stop(true, false)
     })

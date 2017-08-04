@@ -12,6 +12,7 @@ export class TooltioComponentController implements ITooltipComponentBindings {
   public isBigText: boolean = false
   private tooltipContentWidth: number
   private maxTooltipWidth: number = 280
+  private static readonly dividerOnHalf: number = 2
 
   /* @ngInject */
   constructor(private $element: IRootElementService, private $timeout: ng.ITimeoutService) {
@@ -21,7 +22,7 @@ export class TooltioComponentController implements ITooltipComponentBindings {
     this.$timeout(() => {
       this.tooltipContentWidth = this.$element.find('.tooltip-content')[0].clientWidth
       this.tooltipStyles = {
-        left: -(this.tooltipContentWidth / 2)
+        left: -(this.tooltipContentWidth / TooltioComponentController.dividerOnHalf)
       }
 
       if (this.tooltipContentWidth >= this.maxTooltipWidth) {

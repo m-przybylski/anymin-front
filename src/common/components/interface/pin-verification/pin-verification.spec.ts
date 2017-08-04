@@ -2,6 +2,7 @@ import * as angular from 'angular'
 import {IPinVerificationComponentBindings} from './pin-verification'
 import {PinVerificationComponentController} from './pin-verification.controller';
 import pinVerificationModule from './pin-verification';
+import {CommonSettingsService} from '../../../services/common-settings/common-settings.service'
 
 describe('Unit testing: profitelo.components.interface.pinVerification', () => {
   return describe('for pinVerification component >', () => {
@@ -9,6 +10,7 @@ describe('Unit testing: profitelo.components.interface.pinVerification', () => {
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let component: PinVerificationComponentController
+    let CommonSettingsService: CommonSettingsService
 
     const validHTML =
       '<pin-verification data-on-send-pin-again="asd" data-on-complete-pin-inputs="callback"></pin-verification>'
@@ -34,10 +36,12 @@ describe('Unit testing: profitelo.components.interface.pinVerification', () => {
       angular.mock.module(pinVerificationModule)
 
       inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
-              $componentController: ng.IComponentControllerService) => {
+              $componentController: ng.IComponentControllerService,
+              _CommonSettingsService_: CommonSettingsService) => {
 
         rootScope = $rootScope
         compile = $compile
+        CommonSettingsService = _CommonSettingsService_
 
         const injectors = {}
 

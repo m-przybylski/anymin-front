@@ -9,6 +9,7 @@ import '../../../../../../directives/password-strength-bar/password-strength-bar
 import '../../../../../../directives/interface/scrollable/scrollable'
 import autoFocus from '../../../../../../directives/auto-focus/auto-focus'
 import inputModule from '../../../../../interface/input/input'
+import {httpCodes} from '../../../../../../classes/http-codes'
 
 export interface ISecurityChangePasswordSettingsControllerScope extends ng.IScope {
 }
@@ -40,9 +41,9 @@ export class SecurityChangePasswordSettingsController implements ng.IController 
         this.$uibModalInstance.dismiss('cancel')
       }, (err: any) => {
         this.isError = true
-        if (err.status === 400) {
+        if (err.status === httpCodes.badRequest) {
           this.arePasswordsDifferent = false
-        } else if (err.status === 401) {
+        } else if (err.status === httpCodes.unauthorized) {
           this.isCurrentPasswordCorrect = false
         } else {
           throw new Error('Can not change password: ' + err)

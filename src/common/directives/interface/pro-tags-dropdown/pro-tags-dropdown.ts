@@ -4,6 +4,7 @@ import 'ui-select'
 import 'angular-sanitize'
 import commonSettingsModule from '../../../services/common-settings/common-settings'
 import {IDirective} from 'angular'
+import {keyboardCodes} from '../../../classes/keyboard'
 
 /* @ngInject */
 function proTagsDropdown($timeout: ng.ITimeoutService): IDirective {
@@ -59,7 +60,7 @@ function proTagsDropdown($timeout: ng.ITimeoutService): IDirective {
     }
 
     scope.onKeypress = (event: any, select: any): void => {
-      if (event.keyCode === 38) {
+      if (event.keyCode === keyboardCodes.arrowUp) {
         event.preventDefault()
       }
       if ('disableTyping' in attr && event) {

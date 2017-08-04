@@ -33,13 +33,16 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
     onlyAvailable: false,
     tags: []
   }
-  public languagesList: Array<{}>
-  public sortList: Array<{}>
-  public categoryList: Array<{}>
+  public languagesList: {}[]
+  public sortList: {}[]
+  public categoryList: {}[]
   public showMobileFilters: boolean
-  public profileTypeList: Array<{}>
-  public searchResults: Array<{}>
+  public profileTypeList: {}[]
+  public searchResults: {}[]
   public setSearchParams: any
+
+  private static readonly maxMobileWindowWidth: number = 768
+  private static readonly defaultMaxPrice: number = 20
 
   $onInit = (): void => {
 
@@ -104,7 +107,7 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
 
   public handleMobileFiltersDisplay = (): boolean => {
     const windowSize = this.$window.innerWidth
-    return windowSize < 768 && !this.showMobileFilters
+    return windowSize <= SearchFiltersComponentController.maxMobileWindowWidth && !this.showMobileFilters
   }
 
   public showFilters = (): void => {
@@ -113,7 +116,7 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
 
   public showMobileFilterButton = (): boolean => {
     const windowSize = this.$window.innerWidth
-    return windowSize < 768
+    return windowSize <= SearchFiltersComponentController.maxMobileWindowWidth
   }
 
   public onActivityStatusChange = (searchFilters: any): void => {
@@ -169,7 +172,7 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
 
   private maxPriceValue = (maxPrice: number): number => {
     if (angular.isUndefined(maxPrice) || maxPrice === null) {
-      return 20
+      return SearchFiltersComponentController.defaultMaxPrice
     } else {
       return maxPrice
     }

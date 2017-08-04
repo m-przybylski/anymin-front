@@ -18,6 +18,9 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
 
   private findInput: HTMLElement
   private findTextarea: HTMLElement
+  private progressWidthMax: number = 100
+  private static readonly dividerOnHalf: number = 2
+  private wizardStepPadding: number = 50
 
   /* @ngInject */
   constructor(private $element: ng.IRootElementService,
@@ -30,10 +33,10 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
       this.currentStep = this.$element.find('wizard-step')[0]
       this.stepList = this.$element.find('wizard-step')
 
-      this.smoothScrollingService.wizardScrollTo(this.currentStep, (this.currentStep.clientHeight - 50),
-        this.$window.innerHeight)
+      this.smoothScrollingService.wizardScrollTo(this.currentStep,
+        (this.currentStep.clientHeight - this.wizardStepPadding), this.$window.innerHeight)
 
-      this.progressWidth = (100 / this.stepList.length)
+      this.progressWidth = (this.progressWidthMax / this.stepList.length)
       this.progressStyle = {
         width: this.progressWidth + '%'
       }
@@ -47,7 +50,7 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
         const currentScrollPosition = this.$window.pageYOffset
 
         this.stepList.each((index, _element): boolean => {
-          if (currentScrollPosition + this.$window.innerHeight / 2
+          if (currentScrollPosition + this.$window.innerHeight / WizardHandlerComponentController.dividerOnHalf
             < this.stepList[index].offsetTop + this.stepList[index].clientHeight) {
             if (this.onStepChange) {
               this.onStepChange()

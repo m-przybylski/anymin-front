@@ -3,11 +3,14 @@ import {MoneyDto} from 'profitelo-api-ng/model/models'
 
 const handleAmount = (_amount: number): string => {
   let sign = ''
-  const amount = parseInt(<any>_amount, 10)
-  const major = (amount) ? amount / 100 | 0 : 0
-  const minor = (amount) ? amount % 100 : 0
-  const minorFirst = (minor) ? minor % 10 : 0
-  const minorSecond = (minor) ? minor / 10 | 0 : 0
+  const numeralSystem: number = 10
+  const dividerByHundred: number = 100
+  const dividerByTen: number = 10
+  const amount = parseInt(<any>_amount, numeralSystem)
+  const major = (amount) ? amount / dividerByHundred | 0 : 0
+  const minor = (amount) ? amount % dividerByHundred : 0
+  const minorFirst = (minor) ? minor % dividerByTen : 0
+  const minorSecond = (minor) ? minor / dividerByTen | 0 : 0
 
   if (_amount < 0) {
     sign = '-'
