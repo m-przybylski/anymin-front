@@ -20,9 +20,8 @@ namespace profitelo.filters.message {
       return url
     }
 
-    const createRegexpFromUrl = (url: string): RegExp => {
-      return new RegExp(url.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g, '\\$&'), 'g')
-    }
+    const createRegexpFromUrl = (url: string): RegExp =>
+      new RegExp(url.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g, '\\$&'), 'g')
 
     const handleMessage = (message: string): string => {
       const messageObject = angular.fromJson(angular.fromJson(message))

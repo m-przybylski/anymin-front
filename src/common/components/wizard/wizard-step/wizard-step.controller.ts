@@ -35,9 +35,7 @@ export class WizardStepComponentController implements IWizardStepModuleComponent
     }
   }
 
-  public checkIsButtonDisabled = (): boolean => {
-    return typeof this.checkIsStepValid === 'undefined' || this.checkIsStepValid()
-  }
+  public checkIsButtonDisabled = (): boolean => typeof this.checkIsStepValid === 'undefined' || this.checkIsStepValid()
 
   $onInit = (): void => {
     this.$timeout(() => {

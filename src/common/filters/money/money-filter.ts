@@ -19,10 +19,9 @@ const handleAmount = (_amount: number): string => {
   return sign + Math.abs(major) + '.' + Math.abs(minorSecond) + Math.abs(minorFirst)
 }
 
-const handleMoney = (_money: MoneyDto): string => {
-  return '<span class="amount">' + handleAmount(_money.amount) + '</span>' +
+const handleMoney = (_money: MoneyDto): string =>
+  '<span class="amount">' + handleAmount(_money.amount) + '</span>' +
     '<span class="currency">' + _money.currency + '</span>'
-}
 
 function filter(): (money: MoneyDto) => string {
   return function (money: MoneyDto): string {

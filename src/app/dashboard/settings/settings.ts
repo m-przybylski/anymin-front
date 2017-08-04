@@ -26,9 +26,7 @@ export class SettingsController implements ng.IController {
   /* @ngInject */
   constructor($state: ng.ui.IStateService, $scope: ng.IScope) {
 
-    $scope.$watch(() => {
-      return $state.current.name
-    }, (newVal, _oldVal) => {
+    $scope.$watch(() => $state.current.name, (newVal, _oldVal) => {
       if (newVal) {
         this.handleStateChange(newVal)
       }

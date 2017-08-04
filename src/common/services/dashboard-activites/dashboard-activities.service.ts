@@ -22,10 +22,9 @@ export class DashboardActivitiesService {
     throw new Error('Can not get filters data: ' + error)
   }
 
-  public resolveFilters = (accountType: FinancialOperation.AccountTypeEnum): ng.IPromise<GetActivityFilters> => {
-    return this.ViewsApi.getDashboardActivityFiltersRoute(String(accountType))
-    .catch(this.handleFilterResponseError)
-  }
+  public resolveFilters = (accountType: FinancialOperation.AccountTypeEnum): ng.IPromise<GetActivityFilters> =>
+    this.ViewsApi.getDashboardActivityFiltersRoute(String(accountType))
+      .catch(this.handleFilterResponseError)
 
   public getDashboardActivities = (queryParams: ActivitiesQueryParams): ng.IPromise<GetActivities> => {
     const activityType = !!(queryParams.getActivityType()) ? String(queryParams.getActivityType()) : undefined

@@ -43,9 +43,7 @@
       }
     }
 
-    this.isChecked = (item: any): boolean => {
-      return (checkedItems.indexOf(item) > -1)
-    }
+    this.isChecked = (item: any): boolean => (checkedItems.indexOf(item) > -1)
 
     return this
   }

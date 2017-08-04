@@ -16,9 +16,8 @@ const dashboardSettingsPayoutsModule = angular.module('profitelo.controller.dash
     controller: 'dashboardSettingsPayoutsController',
     controllerAs: 'vm',
     resolve: {
-      payoutsMethods: (payoutsSettingsResolver: PayoutsSettingsResolver): ng.IPromise<PayoutMethodsDto> => {
-        return payoutsSettingsResolver.resolve()
-      }
+      payoutsMethods: (payoutsSettingsResolver: PayoutsSettingsResolver): ng.IPromise<PayoutMethodsDto> =>
+        payoutsSettingsResolver.resolve()
     }
   })
 })

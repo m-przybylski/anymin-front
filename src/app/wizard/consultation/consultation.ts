@@ -45,13 +45,10 @@ const consultaionWizardModule = angular.module('profitelo.controller.wizard.cons
     template: require('./consultation.pug')(),
     resolve: {
       /* istanbul ignore next */
-      wizardProfile: (WizardApi: WizardApi): ng.IPromise<GetWizardProfile> => {
-        return WizardApi.getWizardProfileRoute().then((wizardProfile) => {
-          return wizardProfile
-        }, (error) => {
+      wizardProfile: (WizardApi: WizardApi): ng.IPromise<GetWizardProfile> =>
+        WizardApi.getWizardProfileRoute().then((wizardProfile) => wizardProfile, (error) => {
             throw new Error('Can not get wizard profile ' + error)
         })
-      }
     },
     data: {
       permissions: {

@@ -125,12 +125,11 @@ export class ExpertController implements ng.IController {
       && this.checkIsProfileDescriptionValid()
       && this.checkIsFileUploadValid())
 
-  private saveWizardState = (wizardState: PutWizardProfile): ng.IPromise<GetWizardProfile> => {
-    return this.WizardApi.putWizardProfileRoute(wizardState)
+  private saveWizardState = (wizardState: PutWizardProfile): ng.IPromise<GetWizardProfile> =>
+    this.WizardApi.putWizardProfileRoute(wizardState)
     .catch((error) => {
       throw new Error('Can not save profile steps' + error)
     })
-  }
 
   private checkIsAnyStepModelChange = (currentFormModel: PartialExpertDetails): boolean =>
     !this.currentWizardState.expertDetailsOption

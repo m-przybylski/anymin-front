@@ -14,9 +14,8 @@ import {UrlService} from '../../../../../../services/url/url.service'
       $scope.controlls.prevSlide()
     }
 
-    this.consultationOwnerImage = (imgToken: string): string | boolean => {
-      return imgToken !== null || imgToken === '' ? urlService.resolveFileUrl(imgToken) : false
-    }
+    this.consultationOwnerImage = (imgToken: string): string | boolean =>
+      imgToken !== null || imgToken === '' ? urlService.resolveFileUrl(imgToken) : false
 
     this.goToProfile = (consultation: any): void => {
       $state.go('app.expert-profile', {

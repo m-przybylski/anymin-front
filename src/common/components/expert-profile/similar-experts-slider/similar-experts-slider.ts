@@ -18,9 +18,8 @@ function controller($scope: any, $state: ng.ui.IStateService, urlService: UrlSer
     $scope.controlls.prevSlide()
   }
 
-  this.consultationOwnerImage = (imgToken: string): string | boolean => {
-    return imgToken !== null || imgToken === '' ? urlService.resolveFileUrl(imgToken) : false
-  }
+  this.consultationOwnerImage = (imgToken: string): string | boolean =>
+    imgToken !== null || imgToken === '' ? urlService.resolveFileUrl(imgToken) : false
 
   this.goToProfile = (consultation: any): void => {
     const stateName = consultation.owner.type === 'ORG' ? 'app.company-profile' : 'app.expert-profile'

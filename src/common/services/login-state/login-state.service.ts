@@ -31,13 +31,10 @@ export class LoginStateService {
     this.account = account
   }
 
-  public getAccountObject = (): IAccount => {
-    return angular.copy(this.account)
-  }
+  public getAccountObject = (): IAccount => angular.copy(this.account)
 
-  public getFullPhoneNumber = (): string => {
-    return String(this.account.phoneNumber.prefix) + String(this.account.phoneNumber.number)
-  }
+  public getFullPhoneNumber = (): string =>
+    String(this.account.phoneNumber.prefix) + String(this.account.phoneNumber.number)
 
   public clearServiceObject = (): void => {
     this.account = angular.copy(this.emptyAccount)

@@ -26,9 +26,7 @@ function controller($element: ng.IRootElementService,
     }
   }
 
-  const getCollapseWrapperHeight = (): number => {
-    return $element.find('.collapse-content').height()
-  }
+  const getCollapseWrapperHeight = (): number => $element.find('.collapse-content').height()
 
   /* istanbul ignore next */
   const onWindowResize = (): void => {
@@ -58,9 +56,7 @@ function controller($element: ng.IRootElementService,
     }
   }
 
-  this.checkedHeight = (): boolean => {
-    return getFirstCollapseElementHeight() === getCollapseWrapperHeight()
-  }
+  this.checkedHeight = (): boolean => getFirstCollapseElementHeight() === getCollapseWrapperHeight()
 
   return this
 }

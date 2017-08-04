@@ -13,14 +13,11 @@ export class SecuritySettingsResolver implements ISecuritySettingsService {
 
   }
 
-  public resolve = (): ng.IPromise<GetSession[]> => {
-    return this.SessionApi.getSessionsRoute().then((sessionList) => {
-      return sessionList
-    }, (error: any) => {
+  public resolve = (): ng.IPromise<GetSession[]> =>
+    this.SessionApi.getSessionsRoute().then((sessionList) => sessionList, (error: any) => {
       this.$log.error('Can not get sessions list: ' + error)
       return []
     })
-  }
 
 }
 

@@ -44,9 +44,7 @@ function controller(modalsService: ModalsService): void {
     }
   ]
 
-  this.isSelected = (item: any): boolean => {
-    return this.isRadioActive === item
-  }
+  this.isSelected = (item: any): boolean => this.isRadioActive === item
 
   this.isRadioSelected = (item: any): void => {
     this.onReasonChange()

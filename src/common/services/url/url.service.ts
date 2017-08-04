@@ -31,7 +31,6 @@ export class UrlService {
     })
   }
 
-  public resolveFileUrl = (fileId: string): string => {
-    return this.commonConfig.urls.files + this.commonConfig.urls['file-download'].replace('%s', fileId)
-  }
+  public resolveFileUrl = (fileId: string): string =>
+    this.commonConfig.urls.files + this.commonConfig.urls['file-download'].replace('%s', fileId)
 }

@@ -211,9 +211,7 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
     this.currentTagId = null
   }
 
-  this.showResultsCounter = (): boolean => {
-    return !!this.searchCount && this.searchCount > 0 && this.isCollapsed
-  }
+  this.showResultsCounter = (): boolean => !!this.searchCount && this.searchCount > 0 && this.isCollapsed
 
   const _setPrimarySuggestion = (search: string): void => {
     const validSearchLength = 3
@@ -238,9 +236,7 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
     _clearSelectedElement($element.find('.dropdown-container a'))
   }
 
-  $scope.$watch(() => {
-    return this.ngModel
-  }, (newValue) => {
+  $scope.$watch(() => this.ngModel, (newValue) => {
     _onSearchModelChange(newValue)
   })
 

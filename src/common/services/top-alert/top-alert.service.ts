@@ -33,9 +33,7 @@ export class TopAlertService {
       this.alertArray[this.alertsLimit].visible = true
       this.timeoutDestroy(<any>this.alertArray[this.alertsLimit].timeout, <any>this.alertArray[this.alertsLimit].id)
     }
-    _.remove(this.alertArray, (alert) => {
-      return alert.id === alertId
-    })
+    _.remove(this.alertArray, (alert) => alert.id === alertId)
   }
 
   private timeoutDestroy = (timeout: number, id: number): void => {

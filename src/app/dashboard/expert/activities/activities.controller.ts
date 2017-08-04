@@ -72,8 +72,8 @@ export class DashboardExpertActivitiesController {
     })
   }
 
-  private getDashboardActivities = (activitiesQueryParams: ActivitiesQueryParams): ng.IPromise<GetActivities> => {
-    return this.dashboardActivitiesService.getDashboardActivities(activitiesQueryParams)
+  private getDashboardActivities = (activitiesQueryParams: ActivitiesQueryParams): ng.IPromise<GetActivities> =>
+    this.dashboardActivitiesService.getDashboardActivities(activitiesQueryParams)
     .catch((error) => {
       this.isSearchLoading = false
       this.isError = true
@@ -83,7 +83,6 @@ export class DashboardExpertActivitiesController {
       })
       throw new Error('Can not get expert activity list ' + error)
     })
-  }
 
   private setBasicQueryParam = (activitiesQueryParams: ActivitiesQueryParams): void => {
     activitiesQueryParams.setLimit(DashboardExpertActivitiesController.queryLimit)

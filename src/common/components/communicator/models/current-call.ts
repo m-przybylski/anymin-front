@@ -158,13 +158,9 @@ export class CurrentCall {
     this.callbacks.notify(CurrentCall.events.onLocalStream, mediaStream)
   }
 
-  public getRemoteStream = (): MediaStream | undefined => {
-    return this.remoteStream;
-  }
+  public getRemoteStream = (): MediaStream | undefined => this.remoteStream
 
-  public getLocalStream = (): MediaStream | undefined => {
-    return this.localStream;
-  }
+  public getLocalStream = (): MediaStream | undefined => this.localStream
 
   public onLocalStream = (cb: (stream: MediaStream) => void): void => {
     this.callbacks.methods.onLocalStream(cb);

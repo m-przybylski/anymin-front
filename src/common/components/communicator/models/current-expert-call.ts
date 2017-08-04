@@ -25,9 +25,7 @@ export class CurrentExpertCall extends CurrentCall {
     return this.ratelCall.answer(localStream).then(this.onAnswer);
   }
 
-  public reject = (): Promise<void> => {
-    return this.ratelCall.reject('REJECT').then(this.onReject);
-  }
+  public reject = (): Promise<void> => this.ratelCall.reject('REJECT').then(this.onReject);
 
   private onAnswer = (): void => {
     this.setState(CallState.PENDING);

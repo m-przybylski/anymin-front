@@ -50,9 +50,7 @@ export class ChooseAmountChargeComponentController implements IChooseAmountCharg
       this.cashAmountModel = this.amountModel.cashAmount.amount / this.amountModifier
     }
 
-    this.$scope.$watch(() => {
-      return this.cashAmountModel
-    }, (newValue) => {
+    this.$scope.$watch(() => this.cashAmountModel, (newValue) => {
       if (newValue) {
         this.amountModel.cashAmount = {
           amount: Number(newValue * this.amountModifier),
@@ -97,11 +95,10 @@ export class ChooseAmountChargeComponentController implements IChooseAmountCharg
     }
   }
 
-  public minimalAmountValidation = (): boolean => {
-    return !!(this.activeOption === this.userAmountOption && this.cashAmountModel && this.cashAmountModel <
-    this.amounts.minimalAmounts.amount / this.amountModifier
-    && !angular.element('.option-own-amount').find('input:focus')[0])
-  }
+  public minimalAmountValidation = (): boolean =>
+    !!(this.activeOption === this.userAmountOption && this.cashAmountModel &&
+    this.cashAmountModel < this.amounts.minimalAmounts.amount / this.amountModifier &&
+    !angular.element('.option-own-amount').find('input:focus')[0])
 }
 
 class ChooseAmountChargeComponent implements ng.IComponentOptions {

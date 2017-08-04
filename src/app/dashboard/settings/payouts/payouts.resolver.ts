@@ -6,14 +6,11 @@ export class PayoutsSettingsResolver {
   /* @ngInject */
   constructor(private PayoutsApi: PayoutsApi, private $log: ng.ILogService) {}
 
-  public resolve = (): ng.IPromise<PayoutMethodsDto> => {
-    return this.PayoutsApi.getPayoutMethodsRoute().then((payoutsMethod) => {
-      return payoutsMethod
-    }).catch((error) => {
+  public resolve = (): ng.IPromise<PayoutMethodsDto> =>
+    this.PayoutsApi.getPayoutMethodsRoute().then((payoutsMethod) => payoutsMethod).catch((error) => {
       if (error.status !== httpCodes.notFound) {
         this.$log.error('Can not get list of payouts methods: ' + error)
       }
       return {}
     })
-  }
 }

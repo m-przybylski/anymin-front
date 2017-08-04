@@ -73,9 +73,8 @@ export class ConsultationController implements ng.IController {
         })
       }
       if (this.wizardProfile && this.wizardProfile.services)
-        this.currentEditServiceIndex = _.findIndex(this.wizardProfile.services, (service) => {
-          return service.name === this.$stateParams.service.name
-        })
+        this.currentEditServiceIndex = _.findIndex(this.wizardProfile.services, (service) =>
+          service.name === this.$stateParams.service.name)
     }
   }
 
@@ -139,26 +138,20 @@ export class ConsultationController implements ng.IController {
   public checkIsNameInputValid = (): boolean =>
     !!(this.nameInputValue && this.nameInputValue.length >= ConsultationController.minValidNameLength)
 
-  public checkIsTagsInputValid = (): boolean => {
-    return this.tagsInputValue && this.tagsInputValue.length > 0
-  }
+  public checkIsTagsInputValid = (): boolean => this.tagsInputValue && this.tagsInputValue.length > 0
 
-  public checkIsPriceInputValid = (): boolean => {
-    return !!(this.priceAmountInputValue && this.priceAmountInputValue.length > 0 &&
-    Number(this.priceAmountInputValue.replace(',', '.')) > 0 && ((/^\d{1,3}([\.,](\d{1,2})?)?$/)
-      .test(this.priceAmountInputValue)) )
-  }
+  public checkIsPriceInputValid = (): boolean =>
+    !!(this.priceAmountInputValue && this.priceAmountInputValue.length > 0 &&
+      Number(this.priceAmountInputValue.replace(',', '.')) > 0 && ((/^\d{1,3}([\.,](\d{1,2})?)?$/)
+        .test(this.priceAmountInputValue)) )
 
-  public checkIsEmployeesInputValid = (): boolean => {
-    return this.invitationsInputValue && this.invitationsInputValue.length > 0 || this.isOwnerEmployee
-  }
+  public checkIsEmployeesInputValid = (): boolean =>
+    this.invitationsInputValue && this.invitationsInputValue.length > 0 || this.isOwnerEmployee
 
-  public checkIsFormValid = (): boolean => {
-    return this.checkIsNameInputValid() && this.checkIsTagsInputValid()
+  public checkIsFormValid = (): boolean =>
+    this.checkIsNameInputValid() && this.checkIsTagsInputValid()
       && this.checkIsPriceInputValid() && this.checkIsEmployeesInputValid()
-  }
 
-  public checkIsPriceButtonDisabled = (): boolean => {
-    return !this.isCompany || this.checkIsPriceInputValid()
-  }
+  public checkIsPriceButtonDisabled = (): boolean => !this.isCompany || this.checkIsPriceInputValid()
+
 }

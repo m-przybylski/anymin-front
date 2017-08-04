@@ -8,14 +8,12 @@ function proExpertHeader(urlService: UrlService): IDirective {
 
   function linkFunction(scope: any, _element: ng.IRootElementService): void {
 
-    scope.handleUserImage = (imgToken: string): string => {
-      return imgToken !== null || imgToken === '' ? urlService.resolveFileUrl(imgToken) : ''
-    }
+    scope.handleUserImage = (imgToken: string): string =>
+      imgToken !== null || imgToken === '' ? urlService.resolveFileUrl(imgToken) : ''
 
-    scope.checkCollaboratedExperts = (): boolean => {
-      return scope.profile.type === 'company' || !scope.profile.colaboratedOrganizations
+    scope.checkCollaboratedExperts = (): boolean =>
+      scope.profile.type === 'company' || !scope.profile.colaboratedOrganizations
         || scope.profile.colaboratedOrganizations.length < 1
-    }
 
   }
 
