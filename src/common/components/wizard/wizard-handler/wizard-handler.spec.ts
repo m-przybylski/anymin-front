@@ -19,7 +19,6 @@ describe('Unit testing: profitelo.components.wizard.wizard-handler', () => {
 
     function create(html: string): JQuery {
       scope = rootScope.$new()
-      scope.selectedItemsValue = []
       const elem = angular.element(html)
       const compiledElement = compile(elem)(scope)
       scope.$digest()

@@ -3,10 +3,17 @@
 import * as angular from 'angular'
 import {IDirective} from 'angular'
 
+export interface IPasswordStrengthScope extends ng.IScope {
+  currentClass: number,
+  classes: string[]
+}
+
 (function(): void {
   function passwordStrengthBar(): IDirective {
 
-    function linkFunction(scope: any, _element: ng.IRootElementService, _attr: ng.IAttributes): void {
+    function linkFunction(scope: IPasswordStrengthScope,
+                          _element: ng.IRootElementService,
+                          _attr: ng.IAttributes): void {
       scope.classes = [
         'start',
         'very-weak',

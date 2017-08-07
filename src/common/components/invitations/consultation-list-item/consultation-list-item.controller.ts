@@ -2,6 +2,13 @@ import {IConsultationListItemComponentBindings} from './consultation-list-item'
 import { GetServiceWithEmployments, Tag } from 'profitelo-api-ng/model/models'
 import {MoneyDto} from 'profitelo-api-ng/model/models'
 
+export interface IConsultationListItemComponentScope extends ng.IScope {
+  service: {
+    name: string,
+    price: number
+  }
+}
+
 export class ConsultationListItemComponentController implements IConsultationListItemComponentBindings {
 
   public service: GetServiceWithEmployments

@@ -6,11 +6,36 @@ import {FilesApi} from 'profitelo-api-ng/api/api'
 import {TopAlertService} from '../../../services/top-alert/top-alert.service'
 import {IDirective} from 'angular'
 
+export interface IProUploaderScope extends ng.IScope {
+  deleteImage: () => void,
+  uploadImg: boolean,
+  uploadFiles: (files: any) => void,
+  animate: () => void,
+  avatar: any[],
+  progress: number,
+  fadeText: boolean,
+  header: string,
+  info: string,
+  upload: boolean,
+  hideArrow: boolean,
+  imageSize: {},
+  errorValidateMessage: boolean,
+  ngfPattern: string,
+  accept: string,
+  multiple: boolean,
+  required: boolean,
+  translationInfo: {},
+  filesUploaded: {}[],
+  hideLoader: boolean,
+  showArrow: boolean,
+  isPending: boolean
+}
+
 function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interval: ng.IIntervalService,
                      $filter: ng.IFilterService, $q: ng.IQService, FilesApi: FilesApi, Upload: any,
                      CommonConfig: any, topAlertService: TopAlertService): IDirective {
 
-  function linkFunction(scope: any, _element: ng.IRootElementService, attr: any): void {
+  function linkFunction(scope: IProUploaderScope, _element: ng.IRootElementService, attr: any): void {
 
     let _file = 0
     let _files = 0

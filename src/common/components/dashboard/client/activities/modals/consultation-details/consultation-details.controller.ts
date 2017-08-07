@@ -2,7 +2,13 @@ import {UrlService} from '../../../../../../services/url/url.service'
 import {ViewsApi, ServiceApi} from 'profitelo-api-ng/api/api'
 import {MoneyDto, Tag, GetCallDetails} from 'profitelo-api-ng/model/models'
 
+export interface IClientConsultationDetailsParentScope extends ng.IScope {
+  sueId: string
+}
+
 export interface IClientConsultationDetailsScope extends ng.IScope {
+  $parent: IClientConsultationDetailsParentScope
+  sueId: string
 }
 
 export class ClientConsultationDetailsController implements ng.IController {

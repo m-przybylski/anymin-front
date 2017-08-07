@@ -6,10 +6,30 @@ import commonSettingsModule from '../../../services/common-settings/common-setti
 import {IDirective} from 'angular'
 import {keyboardCodes} from '../../../classes/keyboard'
 
+export interface IProTagsDropdownScope extends ng.IScope {
+  valid: boolean,
+  tagTransform: (item: any) => any | null,
+  validPattern: string,
+  proModel: any[],
+  select: (item: any, _model: any, _select: any) => void,
+  searchEnable: () => boolean,
+  remove: (item: any, model: any) => void,
+  update: () => void,
+  onFocus: () => void,
+  focus: boolean,
+  onClick: boolean,
+  onKeypress: (event: any, select?: any) => void,
+  openBar: () => void,
+  disableTagging: boolean,
+  tagNameParam: string,
+  onSearch: (item: {}) => void,
+  groupFind: (item: any) => void
+}
+
 /* @ngInject */
 function proTagsDropdown($timeout: ng.ITimeoutService): IDirective {
 
-  function linkFunction(scope: any, element: ng.IRootElementService, attr: ng.IAttributes): void {
+  function linkFunction(scope: IProTagsDropdownScope, element: ng.IRootElementService, attr: ng.IAttributes): void {
     let myScrollbarChoices: JQuery
 
     function _getScrollbarChoices(): JQuery {

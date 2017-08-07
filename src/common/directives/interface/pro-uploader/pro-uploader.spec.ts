@@ -2,11 +2,12 @@ import * as angular from 'angular'
 import {FilesApiMock} from 'profitelo-api-ng/api/api'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {CommonConfig} from '../../../../../generated_modules/common-config/common-config'
+import {IProUploaderScope} from './pro-uploader'
 
 describe('Unit testing: profitelo.directives.interface.pro-uploader', () => {
   return describe('for pro-uploader directive >', () => {
 
-    let scope: any = null
+    let scope: IProUploaderScope
     let rootScope: ng.IRootScopeService
     let compile: any = null
     const validHTML = '<pro-uploader type="image/*" files-uploaded="avatar" data-required data-multiple data-ngf-pattern=".jpg,.jpeg,.png"></pro-uploader>'
@@ -44,7 +45,7 @@ describe('Unit testing: profitelo.directives.interface.pro-uploader', () => {
     })
 
     function create(html: string): JQuery {
-      scope = rootScope.$new()
+      scope = <IProUploaderScope>rootScope.$new()
 
       scope.avatar = []
 
@@ -65,17 +66,14 @@ describe('Unit testing: profitelo.directives.interface.pro-uploader', () => {
 
     it('should remove image on function call', () => {
       const el = create(validHTML)
-      const isoScope = el.isolateScope()
-
+      const isoScope = el.isolateScope<IProUploaderScope>()
       isoScope.deleteImage()
-
       expect(isoScope.uploadImg).toBeFalsy()
     })
 
     it('should upload files', () => {
       const el = create(validHTML)
-      const isoScope = el.isolateScope()
-
+      const isoScope = el.isolateScope<IProUploaderScope>()
       _httpBackend.when('POST', _commonConfigData.urls['files'] + '/files/' + fileId + '/upload').respond(200)
 
       _FilesApiMock.createFileTokenPath(200, 'documents', {
@@ -93,13 +91,11 @@ describe('Unit testing: profitelo.directives.interface.pro-uploader', () => {
 
     it('should animate', () => {
       const el = create(validHTML)
-      const isoScope = el.isolateScope()
-
+      const isoScope = el.isolateScope<IProUploaderScope>()
       isoScope.animate()
       _timeout.flush()
       _interval.flush()
       rootScope.$digest()
-
     })
 
   })

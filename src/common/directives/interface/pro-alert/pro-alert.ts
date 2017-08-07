@@ -3,9 +3,14 @@ import {TopAlertService} from '../../../services/top-alert/top-alert.service'
 import topAlertModule from '../../../services/top-alert/top-alert'
 import {IDirective} from 'angular'
 
+export interface IProAlertScope extends ng.IScope {
+  alerts: any[],
+  destroyAlert: (id: number) => void
+}
+
 function proAlert(topAlertService: TopAlertService): IDirective {
 
-  function linkFunction(scope: any, _element: ng.IRootElementService, _attr: ng.IAttributes): void {
+  function linkFunction(scope: IProAlertScope, _element: ng.IRootElementService, _attr: ng.IAttributes): void {
     scope.alerts = []
     const addAlert = (alerts: any[]): void => {
       scope.alerts = alerts

@@ -1,7 +1,9 @@
 import { Tag } from 'profitelo-api-ng/model/models'
 import {MoneyDto} from 'profitelo-api-ng/model/models'
 
-export interface IExpertEmployeeDetailsModalScope extends ng.IScope {}
+export interface IExpertEmployeeDetailsModalScope extends ng.IScope {
+  sueId: string
+}
 
 export class ExpertEmployeeDetailsModalController implements ng.IController {
   public isFullscreen: boolean = true

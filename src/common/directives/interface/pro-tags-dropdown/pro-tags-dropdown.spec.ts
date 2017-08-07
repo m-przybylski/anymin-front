@@ -1,9 +1,11 @@
-namespace profitelo.directives.interface.proTagsDropdown {
-  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import * as angular from 'angular'
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import {IProTagsDropdownScope} from './pro-tags-dropdown'
+
   describe('Unit testing: profitelo.directives.interface.pro-tags-dropdown', () => {
     return describe('for interface.pro-tags-dropdown directive >', () => {
 
-      let scope: any = null
+      let scope: IProTagsDropdownScope
       let rootScope: ng.IRootScopeService
       let compile: any = null
       const validHTML = '<pro-tags-dropdown pro-model="RANDOM" disable-tagging no-search></pro-tags-dropdown>'
@@ -22,7 +24,7 @@ namespace profitelo.directives.interface.proTagsDropdown {
       })
 
       function create(html: string): JQuery {
-        scope = rootScope.$new()
+        scope = <IProTagsDropdownScope>rootScope.$new()
         const elem = angular.element(html)
         const compiledElement = compile(elem)(scope)
         scope.$digest()
@@ -40,14 +42,14 @@ namespace profitelo.directives.interface.proTagsDropdown {
 
       it('should transform tag', () => {
         const el = create(validHTML)
-        const isoScope = el.isolateScope()
+        const isoScope = el.isolateScope<IProTagsDropdownScope>()
         isoScope.tagTransform('123123')
         expect(isoScope.valid).toEqual(false)
       })
 
       it('should  not transform tag', () => {
         const el = create(validHTML)
-        const isoScope = el.isolateScope()
+        const isoScope = el.isolateScope<IProTagsDropdownScope>()
         isoScope.validPattern = '12313'
         isoScope.tagTransform('123123')
         expect(isoScope.valid).toEqual(true)
@@ -55,7 +57,7 @@ namespace profitelo.directives.interface.proTagsDropdown {
 
       it('should select tag', () => {
         const el = create(validHTML)
-        const isoScope = el.isolateScope()
+        const isoScope = el.isolateScope<IProTagsDropdownScope>()
         isoScope.proModel = []
         isoScope.select()
         isoScope.searchEnable()
@@ -65,7 +67,7 @@ namespace profitelo.directives.interface.proTagsDropdown {
 
       it('should remove tag and update perfect scroll-bar', () => {
         const el = create(validHTML)
-        const isoScope = el.isolateScope()
+        const isoScope = el.isolateScope<IProTagsDropdownScope>()
         isoScope.proModel = ['a']
         isoScope.remove('a')
         isoScope.update()
@@ -75,7 +77,7 @@ namespace profitelo.directives.interface.proTagsDropdown {
 
       it('should focus input', () => {
         const el = create(validHTML)
-        const isoScope = el.isolateScope()
+        const isoScope = el.isolateScope<IProTagsDropdownScope>()
         el.find('.ui-select-container').triggerHandler('click')
         isoScope.onFocus()
         expect(isoScope.focus).toBe(true)
@@ -84,7 +86,7 @@ namespace profitelo.directives.interface.proTagsDropdown {
 
       it('should block enter key', () => {
         const el = create(validHTML)
-        const isoScope = el.isolateScope()
+        const isoScope = el.isolateScope<IProTagsDropdownScope>()
         const event = {
           keyCode: 38,
           preventDefault: (): void => {
@@ -104,7 +106,7 @@ namespace profitelo.directives.interface.proTagsDropdown {
 
       it('should block enter key', () => {
         const el = create('<pro-tags-dropdown pro-model="RANDOM" disable-tagging disable-typing  no-search></pro-tags-dropdown>')
-        const isoScope = el.isolateScope()
+        const isoScope = el.isolateScope<IProTagsDropdownScope>()
         const event = {
           keyCode: 38,
           preventDefault: (): void => {
@@ -118,4 +120,4 @@ namespace profitelo.directives.interface.proTagsDropdown {
 
     })
   })
-}
+

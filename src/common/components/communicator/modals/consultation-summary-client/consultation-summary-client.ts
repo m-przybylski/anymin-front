@@ -25,6 +25,8 @@ export interface IConsultationSummaryClientControllerScope extends ng.IScope {
   isFullscreen: boolean
   isNavbar: boolean
   $parent: IConsultationSummaryClientParentControllerScope
+  expertAvatarUrl: string
+  chooseExpertsTag: boolean
 }
 
 export class ConsultationSummaryClientController {

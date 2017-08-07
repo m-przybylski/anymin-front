@@ -13,6 +13,8 @@ export interface IClientChargeDetailsControllerScope extends ng.IScope {
   paymentSystemName?: string
   createdAt: Date
   $parent: IClientChargeDetailsParentControllerScope
+  goToSettings: () => void
+  onModalClose: () => void
 }
 
 function controller($scope: IClientChargeDetailsControllerScope, $state: ng.ui.IStateService,

@@ -1,8 +1,8 @@
-import {ConsultationTagInputComponentController} from './cosnultaiton-tag-input.controller'
+import {ConsultationTagInputComponentController} from './consultaiton-tag-input.controller'
 
 export class ConsultationTagInputComponent implements ng.IComponentOptions {
   controller: ng.Injectable<ng.IControllerConstructor> = ConsultationTagInputComponentController
-  template = require('./cosnultaiton-tag-input.pug')()
+  template = require('./consultaiton-tag-input.pug')()
   bindings: {[boundProperty: string]: string} = {
     dictionary: '<',
     selectedTags: '=?',

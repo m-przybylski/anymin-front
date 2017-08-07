@@ -6,23 +6,24 @@ import {ModalsService} from '../../../services/modals/modals.service'
 import {FilesApiMock, FilesApi} from 'profitelo-api-ng/api/api'
 import {ErrorHandlerService} from '../../../services/error-handler/error-handler.service'
 import errorHandlerModule from '../../../services/error-handler/error-handler'
+import {IProfileGalleryComponentScope} from './profile-gallery.controller'
 
 describe('Unit testing: profitelo.components.interface.profile-gallery', (): void => {
   return describe('for profile-gallery componeent >', (): void => {
 
-    let scope: ng.IScope
+    let scope: IProfileGalleryComponentScope
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let componentController: ng.IComponentControllerService
     let component: ProfileGalleryComponent
     let bindings: IProfileGalleryComponentBindings
-    let validHTML = '<profile-gallery documents="documents"></profile-gallery>'
+    const validHTML = '<profile-gallery documents="documents"></profile-gallery>'
     let modalsService: ModalsService
     let FilesApiMock: FilesApiMock
     let httpBackend: ng.IHttpBackendService
 
     function create(html: string): JQuery {
-      scope = rootScope.$new()
+      scope = <IProfileGalleryComponentScope>rootScope.$new()
       scope.documents = ['doc-1']
       const elem = angular.element(html)
       const compiledElement = compile(elem)(scope)
@@ -60,9 +61,9 @@ describe('Unit testing: profitelo.components.interface.profile-gallery', (): voi
         const injectors = {
           $element: create(validHTML),
           $scope: rootScope,
-          modalsService: modalsService,
+          modalsService,
           FilesApi: _FilesApi_,
-          errorHandler: errorHandler
+          errorHandler
         }
 
         component = componentController<ProfileGalleryComponent, {}>('profileGallery', injectors, bindings)

@@ -7,7 +7,7 @@ describe('Unit testing: profitelo.directives.auto-focus', () => {
 
     let compile: ng.ICompileService
     let scope: ng.IScope
-    let validHTML = '<form auto-focus><input type="text" name="first"></form>'
+    const validHTML = '<form auto-focus><input type="text" name="first"></form>'
 
     beforeEach(() => {
       angular.mock.module(autoFocus)
@@ -18,11 +18,9 @@ describe('Unit testing: profitelo.directives.auto-focus', () => {
       })
     })
 
-    function create() {
-      let elem = angular.element(validHTML)
-      scope.mockFunction = () => {
-      }
-      let compiledElement = compile(elem)(scope)
+    function create(): JQuery {
+      const elem = angular.element(validHTML)
+      const compiledElement = compile(elem)(scope)
       scope.$digest()
       return compiledElement
     }
@@ -32,7 +30,7 @@ describe('Unit testing: profitelo.directives.auto-focus', () => {
     }))
 
     it('should compile the directive', () => {
-      let el = create()
+      const el = create()
       expect(el.html()).toBeDefined(true)
     })
   })

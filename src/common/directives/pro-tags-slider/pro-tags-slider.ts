@@ -5,11 +5,23 @@ import {Tag} from 'profitelo-api-ng/model/models'
 import {IWindowService} from '../../services/window/window.service'
 import {IDirective} from 'angular'
 
+export interface IProTagsSliderScope extends ng.IScope {
+  tagAction: (tag: Tag) => void,
+  onTagClickAction: (tag: Tag) => void,
+  slidesContainerOffsetWidth: number,
+  leftOffset: {},
+  prevSlide: (next: number) => void,
+  nextSlide: (next: number) => void,
+  leftArrowActive: () => boolean,
+  rightArrowActive: () => boolean,
+  tags: Tag[]
+}
+
 function proTagsSlider($window: IWindowService,
                        $state: ng.ui.IStateService,
                        $location: ng.ILocationService,
                        $timeout: ng.ITimeoutService): IDirective {
-  function linkFunction(scope: any, element: ng.IRootElementService): void {
+  function linkFunction(scope: IProTagsSliderScope, element: ng.IRootElementService): void {
 
     let tagsContainerWidth = element.find('.slider-tag')[0].clientWidth
     let elementsMap: number[] = []
@@ -51,7 +63,8 @@ function proTagsSlider($window: IWindowService,
 
     scope.tagAction = (tag: Tag): void => {
       if (tag.id !== $location.search().tagId) {
-        scope.onTagClickAction(tag)
+        if (typeof scope.onTagClickAction === 'function')
+          scope.onTagClickAction(tag)
         _clearSlider()
       }
     }

@@ -25,8 +25,6 @@ describe('Unit testing: profitelo.components.wizard.wizard-uploader', () => {
 
     function create(html: string): JQuery {
       scope = rootScope.$new()
-      scope.selectedItemsValue = []
-      scope.tokenList = ['file-token-1']
       const elem = angular.element(html)
       const compiledElement = compile(elem)(scope)
       scope.$digest()

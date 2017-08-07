@@ -1,4 +1,6 @@
-export interface IExpertPayoutCivilModalScope extends ng.IScope {}
+export interface IExpertPayoutCivilModalScope extends ng.IScope {
+  sueId: string
+}
 
 export class ExpertPayoutCivilModalConttroller implements ng.IController {
   public isFullscreen: boolean = true

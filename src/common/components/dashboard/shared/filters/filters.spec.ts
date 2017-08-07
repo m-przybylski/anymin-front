@@ -1,15 +1,15 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import IScope = angular.IScope
 import {FinancialOperation} from 'profitelo-api-ng/model/models'
 import {DashboardActivitiesService} from '../../../../services/dashboard-activites/dashboard-activities.service'
 import dashboardFiltersModule from './filters'
 import dashboardActivitiesModule from '../../../../services/dashboard-activites/dashboard-activites'
+import {IDashboardFiltersComponentScope} from './filters.controller'
 
 describe('Unit testing: profitelo.components.dashboard.activities.filters', () => {
   return describe('for dashboardFilters >', () => {
 
-    let scope: IScope
+    let scope: IDashboardFiltersComponentScope
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let componentController: ng.IComponentControllerService
@@ -34,7 +34,7 @@ describe('Unit testing: profitelo.components.dashboard.activities.filters', () =
       'on-set-search-params="onSetSearchParams"></dashboard-filters>'
     let injectors = {}
     function create(html: string): JQuery {
-      scope = rootScope.$new()
+      scope = <IDashboardFiltersComponentScope>rootScope.$new()
       scope.filters = {
         activityTypes: ['asd'],
         services: [{

@@ -12,6 +12,12 @@ interface IDropdownList {
   value: string
 }
 
+export interface IDashboardFiltersComponentScope extends ng.IScope {
+  filters: {},
+  accountType: FinancialOperation.AccountTypeEnum,
+  onSetSearchParams: () => void
+}
+
 export class DashboardFiltersComponentController implements IDashboardFiltersComponentBindings {
 
   public onSetSearchParams: (queryParams: ActivitiesQueryParams) => void
@@ -56,7 +62,7 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
   }
 
   /* @ngInject */
-  constructor(private $filter: IFilterService, $scope: ng.IScope, userService: UserService) {
+  constructor(private $filter: IFilterService, $scope: IDashboardFiltersComponentScope, userService: UserService) {
 
     this.showMobileFilters = true
 
