@@ -33,23 +33,17 @@ export class InputComponentController implements IInputComponentBindings {
 
   $onInit(): void {
     if (this.type === this.inputTypes.tel) {
-      this.blockInvalidPhonenumberDigits()
+      this.blockInvalidDigits([keyboardCodes.backspace, keyboardCodes.enter, keyboardCodes.zero, keyboardCodes.one,
+        keyboardCodes.two, keyboardCodes.three, keyboardCodes.four, keyboardCodes.five, keyboardCodes.six,
+        keyboardCodes.seven, keyboardCodes.eight, keyboardCodes.nine])
+    } else if (this.type === this.inputTypes.number) {
+      this.blockInvalidDigits([keyboardCodes.dot, keyboardCodes.comma, keyboardCodes.backspace, keyboardCodes.enter,
+        keyboardCodes.zero, keyboardCodes.one, keyboardCodes.two, keyboardCodes.three, keyboardCodes.four,
+        keyboardCodes.five, keyboardCodes.six, keyboardCodes.seven, keyboardCodes.eight, keyboardCodes.nine])
     }
   }
 
-  public blockInvalidPhonenumberDigits = (): void => {
-    const digitsCodes = [keyboardCodes.enter,
-      keyboardCodes.backspace,
-      keyboardCodes.one,
-      keyboardCodes.two,
-      keyboardCodes.three,
-      keyboardCodes.four,
-      keyboardCodes.five,
-      keyboardCodes.six,
-      keyboardCodes.seven,
-      keyboardCodes.eight,
-      keyboardCodes.nine,
-      keyboardCodes.zero]
+  public blockInvalidDigits = (digitsCodes: number[]): void => {
     this.$element.find('input').bind('keypress', (event) => {
       const code = event.keyCode || event.which
       if (!(digitsCodes.indexOf(code) !== -1)) {

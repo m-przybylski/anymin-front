@@ -27,6 +27,7 @@ function ForgotPasswordController($state: ng.ui.IStateService, account: ILoginFo
   this.isNewCurrentPasswordChange = ''
   this.isPending = false
   this.account = account
+  this.smsCode = ''
   this.smsCodePattern = CommonSettingsService.localSettings.smsCodePattern
 
   this.forceSmsRecovery = (): void => {
@@ -60,6 +61,9 @@ function ForgotPasswordController($state: ng.ui.IStateService, account: ILoginFo
 
   this.checkIsPasswordCorrected = (): boolean =>
     this.isNewCurrentPasswordChange !== this.smsCode
+
+  this.checkIsButtonDisabled = (): boolean =>
+    this.smsCode.length < 4
 
   return this
 

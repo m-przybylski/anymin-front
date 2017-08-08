@@ -60,7 +60,7 @@ describe('Unit tests: profitelo.controller.login.forgot-password >', () => {
       ForgotPasswordController.submitSmsVerificationCode()
       httpBackend.flush()
       expect($state.go).toHaveBeenCalledWith('app.login.set-new-password', Object({
-        token: 'undefined',
+        token: '',
         method: 'sms'
       }))
     })

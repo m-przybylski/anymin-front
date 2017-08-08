@@ -3,8 +3,8 @@
   z-index: $z-index-200
 
   > *:first-child:not(.charge-account)
-    min-height: 75vh
-    padding: $s-navbar-height 0
+    min-height: calc(100vh - #{$s-footer-height})
+    padding: $s-navbar-height 0 0
 
     +smm
       padding: $s-navbar-height 0

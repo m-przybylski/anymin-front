@@ -17,7 +17,7 @@ export class GeneralEmailSettingsController implements ng.IController {
   public isFullscreen: boolean = true
   public isEmailExist: boolean = false
   public newEmail: string
-  private newEnteredEmailChange: string
+  private newEnteredEmail: string
 
   /* @ngInject */
   constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
@@ -30,7 +30,7 @@ export class GeneralEmailSettingsController implements ng.IController {
   }
 
   public setNewEmail = (): void => {
-    this.newEnteredEmailChange = this.newEmail
+    this.newEnteredEmail = this.newEmail
     this.userService.getUser().then(user => {
       this.isEmailExist = false
       this.AccountApi.partialUpdateAccountRoute(user.id, {
@@ -54,7 +54,7 @@ export class GeneralEmailSettingsController implements ng.IController {
     this.$uibModalInstance.dismiss('cancel')
 
   public checkIfNewEnteredEmailExist = (): boolean =>
-    this.newEnteredEmailChange !== this.newEmail
+    this.newEnteredEmail !== this.newEmail
 
   public checkIsButtonDisabled = (): boolean =>
     this.mailPattern.test(this.newEmail)

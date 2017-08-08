@@ -84,7 +84,7 @@ function _controller($log: ng.ILogService, $filter: ng.IFilterService,
     })
   }
 
-  this.checkIsPasswordCorrected = (): boolean =>
+  this.checkIsPasswordCorrect = (): boolean =>
     this.enteredCurrentPassword !== this.password && this.patternPassword.test(this.password)
 
   return this
