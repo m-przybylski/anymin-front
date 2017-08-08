@@ -35,7 +35,7 @@ const companySingleConsultation = {
     serviceTagsEmployeesTuple: '<',
     title: '@'
   },
-  controller: controller,
+  controller,
   controllerAs: '$ctrl'
 }
 

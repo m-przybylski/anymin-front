@@ -99,7 +99,7 @@ export class SmoothScrollingService {
     }
 
     $('html, body').animate({
-      scrollTop: scrollTop
+      scrollTop
     }, time)
 
     $(window).on('wheel', () => {
@@ -118,7 +118,7 @@ export class SmoothScrollingService {
     }
 
     $('html, body').animate({
-      scrollTop: scrollTop
+      scrollTop
     }, scrollAnimationTime)
     $(window).on('wheel', () => {
       $('html, body').stop(true, false)

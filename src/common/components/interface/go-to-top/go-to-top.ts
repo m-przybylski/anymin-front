@@ -28,7 +28,7 @@ function controller($window: IWindowService, $scope: ng.IScope, smoothScrollingS
 const goToTop = {
   template: require('./go-to-top.pug')(),
   controllerAs: '$ctrl',
-  controller: controller
+  controller
 }
 
 angular.module('profitelo.components.interface.go-to-top', [

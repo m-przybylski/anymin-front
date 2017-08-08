@@ -39,7 +39,7 @@ const expertsConsultationSlider = {
     experts: '<',
     title: '@'
   },
-  controller: controller,
+  controller,
   controllerAs: '$ctrl'
 }
 

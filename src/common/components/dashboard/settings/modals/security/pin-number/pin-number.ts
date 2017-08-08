@@ -69,9 +69,9 @@ export class SecurityPinNumberSettingsController implements ng.IController {
     })
     this.isError = false
     this.AccountApi.patchMobileViewsPermissionsRoute({
+      protectedViews,
       password: this.confirmPassword,
-      mobilePin: this.pinInput.join(''),
-      protectedViews: protectedViews
+      mobilePin: this.pinInput.join('')
     }).then(_res => {
       this.$uibModalInstance.dismiss('cancel')
     }, (err) => {

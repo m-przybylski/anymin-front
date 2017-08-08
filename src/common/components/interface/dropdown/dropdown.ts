@@ -69,7 +69,7 @@
     template: require('./dropdown.pug')(),
     controllerAs: '$ctrl',
     transclude: true,
-    controller: controller,
+    controller,
     bindings: {
       label: '@',
       inputPlaceholder: '@',

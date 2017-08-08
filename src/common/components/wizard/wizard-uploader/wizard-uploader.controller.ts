@@ -69,7 +69,7 @@ export class WizardUploaderComponentController implements IWizardUploaderModuleC
   public uploadFiles = (files: File[]): void => {
     files.forEach((file) => {
       const currentFile: IDocumentFile = {
-        file: file,
+        file,
         isUploadFailed: false
       }
       this.documentFiles.push(currentFile)

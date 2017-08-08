@@ -37,7 +37,7 @@ function proExpertSlider(dialogService: DialogService, $timeout: ng.ITimeoutServ
       scope.fullSizeUrl = slide.previews[0]
       scope.slide = slide
       dialogService.openDialog({
-        scope: scope,
+        scope,
         template: '<pro-lightbox current-slide="$ctrl.currentSlide" actions-settings="$ctrl.navSettings" ' +
                   'slider-actions="$ctrl.sliderActions" slides-list="$ctrl.slideList"></pro-lightbox>',
         controllerAs: '$ctrl',

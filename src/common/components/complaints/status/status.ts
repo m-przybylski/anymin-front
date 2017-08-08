@@ -11,7 +11,7 @@
 
   const component = {
     template: require('./status.pug')(),
-    controller: controller,
+    controller,
     controllerAs: '$ctrl'
   }
 

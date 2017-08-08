@@ -36,7 +36,7 @@ import {UrlService} from '../../../../../../services/url/url.service'
       consultations: '<',
       title: '@'
     },
-    controller: controller,
+    controller,
     controllerAs: '$ctrl'
   }
 

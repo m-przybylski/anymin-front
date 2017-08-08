@@ -10,7 +10,7 @@ import '../../../../../../../../components/complaints/status/status'
 
   const component = {
     template: require('./complain-status.pug')(),
-    controller: controller,
+    controller,
     controllerAs: '$ctrl',
     bindings: {
       complainMessage: '@'

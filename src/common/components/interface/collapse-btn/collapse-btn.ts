@@ -67,7 +67,7 @@ const component = {
   template: require('./collapse-btn.pug')(),
   controllerAs: '$ctrl',
   transclude: true,
-  controller: controller,
+  controller,
   bindings: {
     title: '@',
     collapseIcon: '@'

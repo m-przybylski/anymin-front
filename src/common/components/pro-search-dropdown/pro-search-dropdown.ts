@@ -53,10 +53,10 @@ function proSearchDropdownController($scope: ng.IScope, $state: ng.ui.IStateServ
 
   this.$onInit = (): void => {
     Object.defineProperty(this, 'open', {
-      get: function (): void {
+      get (): void {
         return this.open
       },
-      set: function (flag): void {
+      set (flag): void {
         if (angular.isDefined(flag) && flag) {
           _focus()
         } else {

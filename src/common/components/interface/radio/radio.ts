@@ -15,7 +15,7 @@
     },
     template: require('./radio.pug')(),
     controllerAs: '$ctrl',
-    controller: controller
+    controller
   }
 
   angular.module('profitelo.components.interface.radio', [

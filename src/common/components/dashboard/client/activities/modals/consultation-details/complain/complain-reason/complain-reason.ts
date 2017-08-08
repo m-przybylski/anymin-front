@@ -58,7 +58,7 @@ function controller(modalsService: ModalsService): void {
 
 const component = {
   template: require('./complain-reason.pug')(),
-  controller: controller,
+  controller,
   controllerAs: '$ctrl',
   bindings: {
     onReasonChange: '<',

@@ -42,7 +42,7 @@ class LoginForgotPasswordResolver implements ILoginForgotPasswordService {
 
     const requestPasswordRecovery = (method: any): ng.IPromise<{}> => {
       return this.RecoverPasswordApi.postRecoverPasswordRoute({
-        method: method,
+        method,
         msisdn: account.phoneNumber.prefix + '' + account.phoneNumber.number
       })
     }

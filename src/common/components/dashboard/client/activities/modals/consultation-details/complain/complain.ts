@@ -16,7 +16,7 @@ import './complain-status/complain-status'
 
   const component = {
     template: require('./complain.pug')(),
-    controller: controller,
+    controller,
     controllerAs: '$ctrl',
     bindings: {
       onComplainOpen: '<'

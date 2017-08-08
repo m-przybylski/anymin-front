@@ -86,12 +86,12 @@ function proUploader($log: ng.ILogService, $timeout: ng.ITimeoutService, $interv
                     url: _commonConfig.urls.files +
                     _commonConfig.urls['file-upload'].replace('%s', tokenPromissesResponse[k++]),
                     data: {
-                      file: file
+                      file
                     }
                   }).then(
                     (res: any) => {
                       scope.filesUploaded.push({
-                        file: file,
+                        file,
                         response: res.data
                       })
                       _file++
