@@ -2,10 +2,9 @@ import * as angular from 'angular'
 import {UserService} from '../../services/user/user.service'
 import {CommonSettingsService} from '../../services/common-settings/common-settings.service'
 import {PaymentsApi} from 'profitelo-api-ng/api/api'
-import {JValue, ClientToken} from 'profitelo-api-ng/model/models'
+import {JValue, ClientToken, PostPayment} from 'profitelo-api-ng/model/models'
 import * as braintree from 'braintree-web'
 import {IBraintreeFormComponentBindings} from './braintree-form';
-import {ITransaction} from '../dashboard/charge-account/payment-method/card/card.controller';
 
 export class BraintreeFormComponentController implements ng.IController, IBraintreeFormComponentBindings {
 
@@ -15,7 +14,7 @@ export class BraintreeFormComponentController implements ng.IController, IBraint
   public onFormSucceed: (response: ng.IPromise<JValue>) => void
   public showCardLimitForm: boolean = false
   public defaultCardLimit: string = ''
-  public transaction: ITransaction
+  public transaction: PostPayment
   public isSubmitted: boolean = false
 
   /* @ngInject */

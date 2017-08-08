@@ -12,9 +12,10 @@ describe('Unit testing: profitelo.components.wizard.wizard-handler', () => {
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let component: WizardHandlerComponentController
-    const validHTML = '<wizard-handler><wizard-step><input></wizard-step></wizard-handler>'
+    const validHTML = '<wizard-handler><wizard-step><input type="text" value="aaa"></wizard-step><wizard-step><input></wizard-step></wizard-handler>'
     let bindings: IWizardHandlerComponentBindings
     let smoothScrollingService: SmoothScrollingService
+    let timeout: ng.ITimeoutService
 
     function create(html: string): JQuery {
       scope = rootScope.$new()
@@ -36,10 +37,12 @@ describe('Unit testing: profitelo.components.wizard.wizard-handler', () => {
     beforeEach(() => {
       angular.mock.module('profitelo.services.smooth-scrolling')
 
-      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
-              $componentController: ng.IComponentControllerService, _smoothScrollingService_: SmoothScrollingService) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, $timeout: ng.ITimeoutService,
+              $componentController: ng.IComponentControllerService,
+              _smoothScrollingService_: SmoothScrollingService) => {
         rootScope = $rootScope.$new()
         compile = $compile
+        timeout = $timeout
         smoothScrollingService = _smoothScrollingService_
 
         bindings = {
@@ -55,7 +58,6 @@ describe('Unit testing: profitelo.components.wizard.wizard-handler', () => {
         component = $componentController<WizardHandlerComponentController, IWizardHandlerComponentBindings>(
           'wizardHandler', injectors, bindings
         )
-
       })
     })
 
@@ -66,6 +68,14 @@ describe('Unit testing: profitelo.components.wizard.wizard-handler', () => {
     it('should compile the directive', () => {
       const el = create(validHTML)
       expect(el.html()).toBeDefined(true)
+    })
+
+    it('should change progessWisth on scroll', () => {
+      const el = create(validHTML)
+      const controller = el.controller('wizard-handler')
+      $(window).triggerHandler('scroll')
+      timeout.flush()
+      expect(controller.progressWidth).toEqual(50)
     })
 
   })

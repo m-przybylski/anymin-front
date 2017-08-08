@@ -70,5 +70,10 @@ describe('Unit testing: profitelo.components.interface.dropdown-primary', () => 
       const el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
+
+    it('should compile the component', () => {
+      component.$onInit()
+
+    })
   })
 })

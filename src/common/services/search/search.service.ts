@@ -298,7 +298,7 @@ export class SearchService {
   }
 
   public suggest = (q: string) => {
-    return this.SearchApi.searchSuggestionsRoute(q)
+    return this.SearchApi.postQueriesSuggestionsRoute({query: q})
   }
 
   private _notifyOnSearchResults = (err: any, results: SearchResult | null, prevResults: SearchResult | null) => {

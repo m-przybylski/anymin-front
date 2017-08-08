@@ -1,6 +1,7 @@
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import userModule from '../../../../services/user/user'
 import * as angular from 'angular'
+import {PaymentsApiMock} from 'profitelo-api-ng/api/api'
+import {GetCreditCard} from 'profitelo-api-ng/model/models'
 import {PromiseService} from '../../../../services/promise/promise.service';
 describe('Unit testing: profitelo.components.dashboard.client.navigation', () => {
   return describe('for clientNavigation >', () => {
@@ -11,11 +12,7 @@ describe('Unit testing: profitelo.components.dashboard.client.navigation', () =>
     let componentController: any
     let component: any
     const validHTML = '<client-navigation></client-navigation>'
-    const userService = {
-      getUser: (): void => {
-
-      }
-    }
+    let httpBackend: ng.IHttpBackendService
 
     function create(html: string): JQuery {
       scope = rootScope.$new()
@@ -25,33 +22,28 @@ describe('Unit testing: profitelo.components.dashboard.client.navigation', () =>
       return compiledElement
     }
 
-    beforeEach(() => {
-      angular.mock.module(userModule)
-    })
-
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', 'awesomeUrl/')
-      $provide.value('userService', userService)
     }))
 
     beforeEach(() => {
 
       angular.mock.module('profitelo.components.dashboard.client.navigation')
 
-      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
-              $q: ng.IQService, _$componentController_: ng.IComponentControllerService,
-              promiseService: PromiseService) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, $httpBackend: ng.IHttpBackendService,
+              _$componentController_: ng.IComponentControllerService,
+              PaymentsApiMock: PaymentsApiMock, promiseService: PromiseService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
         compile = $compile
+        httpBackend = $httpBackend
 
-        spyOn(userService, 'getUser').and.returnValue($q.resolve({defaultCreditCard: 'dsdsdsd'}))
-
+        PaymentsApiMock.getCreditCardsRoute(200, [<GetCreditCard>{}])
         component = componentController('clientNavigation', {}, {
-          userService: userService,
           promiseService: promiseService,
           $element: create(validHTML)
         })
+        httpBackend.flush()
       })
     })
 

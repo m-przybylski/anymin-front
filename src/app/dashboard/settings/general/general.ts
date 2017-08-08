@@ -9,7 +9,7 @@ import {ModalsService} from '../../../../common/services/modals/modals.service'
 export class DashboardSettingsGeneralController implements ng.IController {
 
   public avatarImageSource?: string
-  public nickname: string
+  public nickname?: string
   public phoneNumber: string
   public email?: string
   public country: string

@@ -4,6 +4,7 @@ import inputModule from './input'
 import {InputComponentController} from './input.controller'
 import {IInputComponentBindings} from './input'
 import {CommonSettingsService} from '../../../services/common-settings/common-settings.service'
+import IScope = angular.IScope
 
 describe('Unit testing: profitelo.components.interface.input', () => {
   return describe('for inputPrimary component >', () => {
@@ -15,9 +16,9 @@ describe('Unit testing: profitelo.components.interface.input', () => {
     let component: InputComponentController
     let bindings: IInputComponentBindings
     let document: ng.IDocumentService
-    let validHTML = '<input-primary>'
+    let validHTML = '<input-primary></input-primary>'
     let CommonSettingsService: CommonSettingsService
-
+    let injectors: { $scope?: IScope, [key: string]: any }
     function create(html: string): JQuery {
       scope = rootScope.$new()
       const elem = angular.element(html)
@@ -44,7 +45,7 @@ describe('Unit testing: profitelo.components.interface.input', () => {
       bindings = {
         id: 'name',
         name: 'name',
-        type: 'text',
+        type: 'tel',
         inputText: 'tekst',
         placeholder: 'placeholder',
         maxLength: '20',
@@ -55,7 +56,7 @@ describe('Unit testing: profitelo.components.interface.input', () => {
         isSubmitted: true
       }
 
-      const injectors = {
+      injectors = {
         $element: create(validHTML),
         $scope: rootScope,
         $document: document
@@ -66,6 +67,20 @@ describe('Unit testing: profitelo.components.interface.input', () => {
 
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
+    }))
+
+    it('should call blockInvalidPhonenumberDigits on component init', inject(() => {
+      spyOn(component, 'blockInvalidDigits')
+      component.$onInit()
+      expect(component.blockInvalidDigits).toHaveBeenCalled()
+    }))
+
+    it('should call blockInvalidPhonenumberDigits on component init', inject(() => {
+      bindings.type = 'number'
+      component = componentController<InputComponentController, {}>('inputPrimary', injectors, bindings)
+      spyOn(component, 'blockInvalidDigits')
+      component.$onInit()
+      expect(component.blockInvalidDigits).toHaveBeenCalled()
     }))
   })
 })

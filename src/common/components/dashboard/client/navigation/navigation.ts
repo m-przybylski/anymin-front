@@ -1,7 +1,6 @@
 import * as angular from 'angular'
 import filtersModule from '../../../../filters/filters'
-import {UserService} from '../../../../services/user/user.service'
-import {FinancesApi} from 'profitelo-api-ng/api/api'
+import {FinancesApi, PaymentsApi} from 'profitelo-api-ng/api/api'
 import apiModule from 'profitelo-api-ng/api.module'
 import userModule from '../../../../services/user/user'
 import {ErrorHandlerService} from '../../../../services/error-handler/error-handler.service'
@@ -11,7 +10,7 @@ import promiseModule from '../../../../services/promise/promise'
 
 (function(): void {
   /* @ngInject */
-  function controller(userService: UserService,
+  function controller(PaymentsApi: PaymentsApi,
                       FinancesApi: FinancesApi,
                       errorHandler: ErrorHandlerService,
                       promiseService: PromiseService
@@ -21,8 +20,8 @@ import promiseModule from '../../../../services/promise/promise'
     this.isCard = false
     this.isLoading = true
 
-    userService.getUser().then( (accountDetails) => {
-      if (accountDetails.defaultCreditCard) {
+    PaymentsApi.getCreditCardsRoute().then((response) => {
+      if (response && response.length > 0) {
         this.isCard = true
         this.isLoading = false
       } else {

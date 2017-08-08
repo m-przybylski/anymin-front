@@ -6,7 +6,6 @@ import {CallbacksFactory} from '../../../services/callbacks/callbacks.factory';
 import * as RatelSdk from 'ratel-sdk-js';
 import {CurrentClientCall} from '../models/current-client-call';
 import {SoundsService} from '../../../services/sounds/sounds.service';
-import {UserService} from '../../../services/user/user.service';
 import {NavigatorWrapper} from '../../../classes/navigator-wrapper';
 import {ModalsService} from '../../../services/modals/modals.service';
 import {TimerFactory} from '../../../services/timer/timer.factory';
@@ -30,7 +29,6 @@ export class ClientCallService {
               private ServiceApi: ServiceApi,
               private RatelApi: RatelApi,
               private soundsService: SoundsService,
-              private userService: UserService,
               private modalsService: ModalsService,
               private callbacksFactory: CallbacksFactory,
               private $q: ng.IQService) {
@@ -88,20 +86,18 @@ export class ClientCallService {
   }
 
   private createCall = (serviceId: string, expertId?: string): ng.IPromise<CurrentClientCall> =>
-    this.ServiceApi.addServiceUsageRequestRoute(serviceId, {expertId})
+    this.ServiceApi.postServiceUsageRequestRoute(serviceId, {expertId})
       .then((sur) =>
         this.navigatorWrapper.getUserMediaStream(MediaStreamConstraintsWrapper.getDefault())
-          .then((stream) =>
-            this.userService.getUser().then(user =>
-              this.createRatelCall(user.id, sur.expert.id, sur.service.id).then((sueRatelCall) =>
-                this.getRatelCallById(sueRatelCall.callDetails.id).then(ratelCall =>
-                  new CurrentClientCall(this.timerFactory, this.callbacksFactory, ratelCall, stream,
-                    sur.service, sueRatelCall.sue, this.soundsService, this.RatelApi, sur.expert)))
-            )
-          )
+        .then((stream) =>
+          this.createRatelCall(sur.expert.id, sur.service.id).then((sueRatelCall) =>
+            this.getRatelCallById(sueRatelCall.callDetails.id).then(ratelCall =>
+              new CurrentClientCall(this.timerFactory, this.callbacksFactory, ratelCall, stream,
+                sur.service, sueRatelCall.sue, this.soundsService, this.RatelApi, sur.expert)))
+        )
       )
 
-  private createRatelCall = (userId: string, expertId: string,
+  private createRatelCall = (expertId: string,
                              serviceId: string): ng.IPromise<GetSUERatelCall> => {
 
     const deviceId = this.communicatorService.getClientDeviceId();
@@ -109,8 +105,7 @@ export class ClientCallService {
 
     return this.RatelApi.postCreateCallRoute({
       expertId,
-      serviceId,
-      clientId: userId
+      serviceId
     }, deviceId)
   }
 

@@ -24,6 +24,7 @@ function ForgotPasswordController($state: ng.ui.IStateService, account: ILoginFo
                                   topWaitingLoaderService: TopWaitingLoaderService,
                                   CommonSettingsService: CommonSettingsService): void {
 
+  const maxSmsCodeLength: number = 4
   this.isNewCurrentPasswordChange = ''
   this.isPending = false
   this.account = account
@@ -63,7 +64,7 @@ function ForgotPasswordController($state: ng.ui.IStateService, account: ILoginFo
     this.isNewCurrentPasswordChange !== this.smsCode
 
   this.checkIsButtonDisabled = (): boolean =>
-    this.smsCode.length < 4
+    this.smsCode.length < maxSmsCodeLength
 
   return this
 
