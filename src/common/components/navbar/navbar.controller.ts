@@ -24,19 +24,19 @@ export class NavbarComponentController implements INavbarComponentBindings {
       if (this.$window.pageYOffset <= this.styleConstant.NAVBAR_HEIGHT) {
         this.isCollapsed = false
         this.navbarStyle = {
-          'transform': 'translateY(' + (-this.$window.pageYOffset) + 'px)'
+          transform: 'translateY(' + (-this.$window.pageYOffset) + 'px)'
         }
         this.isWindowScrollBottom = (this.$window.pageYOffset > this.elementOffsetHeight)
       } else {
         this.isCollapsed = true
         this.navbarStyle = {
-          'transform': ''
+          transform: ''
         }
       }
 
       if (!this.isWindowScrollBottom) {
         this.navbarStyle = {
-          'transform': 'translateY(0)'
+          transform: 'translateY(0)'
         }
       }
 

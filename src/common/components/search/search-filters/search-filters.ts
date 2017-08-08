@@ -180,8 +180,8 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
 
   private setSearchQueryParamsDebounce = (...args: Array<any>): void =>
     _.debounce(this.setSearchParams, this.searchDebounceTimeout, {
-      'leading': false,
-      'trailing': true
+      leading: false,
+      trailing: true
     })(args)
 
   private readonly searchDebounceTimeout = 500

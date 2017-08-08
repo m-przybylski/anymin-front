@@ -95,7 +95,7 @@ export class ChargeAccountController implements ng.IController {
       if (this.lastPayment !== null && (typeof this.lastPayment !== 'undefined')) {
         this.isChargeProfiteloAccount = true
         this.currentSection = this.lastChargeAccountSectionID
-        if (_.find(this.amounts.paymentOptions, {'amount': this.lastPayment.amount.amount})) {
+        if (_.find(this.amounts.paymentOptions, {amount: this.lastPayment.amount.amount})) {
           this.amountModel.amount = this.lastPayment.amount
         } else {
           this.amountModel.cashAmount = this.lastPayment.amount

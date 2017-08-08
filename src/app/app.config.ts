@@ -59,9 +59,9 @@ export function AppConfigFunction($urlRouterProvider: ng.ui.IUrlRouterProvider, 
     'pl-pl'
   ], {
     'en-en': 'en-us',
-    'en': 'en-us', // NOTE: change/remove if international version will be added
-    'pl_PL': 'pl-pl',
-    'pl': 'pl-pl'
+    en: 'en-us', // NOTE: change/remove if international version will be added
+    pl_PL: 'pl-pl',
+    pl: 'pl-pl'
   }).determinePreferredLanguage()
 
   $translateProvider.useSanitizeValueStrategy('')

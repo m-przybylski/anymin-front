@@ -5,9 +5,9 @@ import {IDirective} from 'angular'
   function proExpertCard(): IDirective {
     function linkFunction(): void {
       this.translations = {
-        'available': 'HOME.EXPERT_CARD_AVAILABLE',
+        available: 'HOME.EXPERT_CARD_AVAILABLE',
         'not-available': 'HOME.EXPERT_CARD_NOT_AVAILABLE',
-        'busy': 'HOME.EXPERT_CARD_BUSY'
+        busy: 'HOME.EXPERT_CARD_BUSY'
       }
 
       return this
