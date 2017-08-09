@@ -1,25 +1,24 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {
-  ClientCallController, IClientCallControllerScope,
-  IClientCallParentControllerScope
-} from './client-call.controller'
+  ExpertIncomingCallController, IExpertIncomingCallControllerScope, IExpertIncomingCallParentControllerScope
+} from './expert-incoming-call.controller'
 
-describe('Testing Controller: clientCallController', () => {
+describe('Testing Controller: expertIncomingCall', () => {
 
-  let controller: ClientCallController
-  let scope: IClientCallControllerScope
+  let controller: ExpertIncomingCallController
+  let scope: IExpertIncomingCallControllerScope
 
   const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
     jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss']);
 
   beforeEach(() => {
     angular.mock.module('ui.bootstrap')
-    angular.mock.module('profitelo.components.communicator.modals.client-call')
+    angular.mock.module('profitelo.components.communicator.modals.expert-incoming-call')
     inject(($rootScope: IRootScopeService, $controller: ng.IControllerService) => {
 
-      scope = <IClientCallControllerScope>$rootScope.$new()
-      scope.$parent = <IClientCallParentControllerScope>$rootScope.$new()
+      scope = <IExpertIncomingCallControllerScope>$rootScope.$new()
+      scope.$parent = <IExpertIncomingCallParentControllerScope>$rootScope.$new()
       scope.$parent.rejectCall = (): void => {
       }
       scope.$parent.answerCall = (): void => {
@@ -30,7 +29,7 @@ describe('Testing Controller: clientCallController', () => {
         $uibModalInstance: $uibModalInstance
       }
 
-      controller = $controller<ClientCallController>('clientCallController', injectors)
+      controller = $controller<ExpertIncomingCallController>('expertIncomingCall', injectors)
     })
   })
 

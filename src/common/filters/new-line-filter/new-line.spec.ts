@@ -18,7 +18,7 @@ describe('Unit testing: profitelo.filters.new-line', () => {
 
     it('should getTrustedHtml', () => {
       const content = 'Ala ma kota \n nie tylko'
-      const text: ng.ISCEService = $sce.trustAsHtml(content.replace(/(?:\r\n|\r|\n)/g, '<br>'))
+      const text = $filter('newLineFilter')(content)
       expect($sce.getTrustedHtml(text)).toEqual('Ala ma kota <br> nie tylko')
     })
   })

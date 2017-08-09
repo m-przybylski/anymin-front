@@ -84,9 +84,9 @@ import {
 import {IModalInstanceService} from 'angular-ui-bootstrap'
 import {IChargeAccountScope, ChargeAccountController} from '../../../app/charge-account/modal/charge-account.controller'
 import {
-  ClientCallController,
-  IClientCallParentControllerScope
-} from '../../components/communicator/modals/client-call/client-call.controller'
+  ExpertIncomingCallController,
+  IExpertIncomingCallParentControllerScope
+} from '../../components/communicator/modals/expert-incoming-call/expert-incoming-call.controller'
 
 // TODO add types for dialogScope Scopes
 export class ModalsService {
@@ -97,8 +97,8 @@ export class ModalsService {
 
   public createIncomingCallModal = (service: GetService, answerCallback: () => void, rejectCallback: () =>
     void): IModalInstanceService => {
-    const dialogScope: IClientCallParentControllerScope =
-      <IClientCallParentControllerScope>this.$rootScope.$new(true)
+    const dialogScope: IExpertIncomingCallParentControllerScope =
+      <IExpertIncomingCallParentControllerScope>this.$rootScope.$new(true)
 
     dialogScope.service = service
     dialogScope.answerCall = answerCallback
@@ -106,9 +106,9 @@ export class ModalsService {
 
     return this.dialogService.openDialog({
       controllerAs: 'vm',
-      controller: ClientCallController,
+      controller: ExpertIncomingCallController,
       openedClass: 'modal-open full-screen modal-dark',
-      template: require('common/components/communicator/modals/client-call/client-call.pug')(),
+      template: require('common/components/communicator/modals/expert-incoming-call/expert-incoming-call.pug')(),
       scope: dialogScope
     })
   }

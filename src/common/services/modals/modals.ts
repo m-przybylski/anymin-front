@@ -37,7 +37,7 @@ import invitationsModalModule from '../../../app/invitations/modal/invitations'
 import chargeAccountModalModule from '../../../app/charge-account/modal/charge-account'
 import consultationSummaryExpertControllerModule
   from '../../components/communicator/modals/consultation-summary-expert/consultation-summary-expert'
-import clientCallControllerModule from '../../components/communicator/modals/client-call/client-call'
+import expertIncomingCallModule from '../../components/communicator/modals/expert-incoming-call/expert-incoming-call'
 
 const modalsModule = angular.module('profitelo.services.modals', [
   dialogModule,
@@ -67,7 +67,7 @@ const modalsModule = angular.module('profitelo.services.modals', [
   invitationsModalModule,
   profileGalleryPreviewModule,
   consultationSummaryExpertControllerModule,
-  clientCallControllerModule
+  expertIncomingCallModule
 ])
 .service('modalsService', ModalsService)
   .name

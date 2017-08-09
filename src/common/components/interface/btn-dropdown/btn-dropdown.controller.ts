@@ -1,21 +1,28 @@
 import {IBtnDropdownComponentBindings} from './btn-dropdown'
 
-export class BtnDropdownComponentController implements IBtnDropdownComponentBindings {
+export class BtnDropdownComponentController implements ng.IController, IBtnDropdownComponentBindings {
   public callback: () => void
   public isOpen: boolean = false
   public buttonText: string = ''
   public buttonClass: string
 
   /* @ngInject */
-  constructor($scope: ng.IScope, $document: ng.IDocumentService, $element: ng.IRootElementService) {
+  constructor(private $scope: ng.IScope,
+              private $document: ng.IDocumentService,
+              private $element: ng.IRootElementService) {}
 
-    $document.bind('click', (event: Event) => {
-      const ifTargetClicked = $element.find(event.target).length > 0
+  $onInit = (): void => {
+    this.$document.bind('click', (event: Event) => {
+      const ifTargetClicked = this.$element.find(event.target).length > 0
       if (!ifTargetClicked) {
         this.isOpen = false
       }
-      $scope.$apply()
+      this.$scope.$apply()
     })
+  }
+
+  $onDestroy = (): void => {
+    this.$document.unbind('click')
   }
 
   public toggleButton = (): boolean =>

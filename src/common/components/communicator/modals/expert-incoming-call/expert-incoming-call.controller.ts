@@ -1,24 +1,24 @@
 import {GetService} from 'profitelo-api-ng/model/models'
 
-export interface IClientCallParentControllerScope extends ng.IScope {
+export interface IExpertIncomingCallParentControllerScope extends ng.IScope {
   rejectCall: () => void
   answerCall: () => void
   service: GetService
 }
 
-export interface IClientCallControllerScope extends ng.IScope {
+export interface IExpertIncomingCallControllerScope extends ng.IScope {
   rejectCall: () => void
   answerCall: () => void
-  $parent: IClientCallParentControllerScope
+  $parent: IExpertIncomingCallParentControllerScope
 }
 
-export class ClientCallController implements ng.IController {
+export class ExpertIncomingCallController implements ng.IController {
 
   public onModalClose = (): void =>
     this.$uibModalInstance.dismiss('cancel')
 
   /* @ngInject */
-  constructor($scope: IClientCallControllerScope,
+  constructor($scope: IExpertIncomingCallControllerScope,
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
 
     $scope.rejectCall = (): void => {

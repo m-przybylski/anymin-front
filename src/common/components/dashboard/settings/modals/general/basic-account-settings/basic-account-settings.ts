@@ -17,7 +17,7 @@ import checkboxModule from '../../../../../interface/checkbox/checkbox'
 import {ErrorHandlerService} from '../../../../../../services/error-handler/error-handler.service'
 import errorHandlerModule from '../../../../../../services/error-handler/error-handler'
 import inputModule from '../../../../../interface/input/input'
-import {FileCategoryEnum, FileTypeChecker} from '../../../../../../classes/file-type-checker'
+import {FileCategoryEnum, FileTypeChecker} from '../../../../../../classes/file-type-checker/file-type-checker'
 
 export interface IBasicAccountSettingsControllerParentScope extends ng.IScope {
   callback: (cb: () => void) => void
