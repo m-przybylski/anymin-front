@@ -5,7 +5,7 @@ import 'angular-translate'
 import { Tag } from 'profitelo-api-ng/model/models'
 
 export interface ITagsListBindings extends ng.IController {
-  tags: Array<Tag>
+  tags: Tag[]
 }
 
 const tagsListModule = angular.module('profitelo.components.tags-list', [

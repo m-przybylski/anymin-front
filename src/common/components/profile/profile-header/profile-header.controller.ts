@@ -8,7 +8,7 @@ export class ProfileHeaderComponentController implements IProfileHeaderComponent
   isFavourite: boolean
   onLike: () => void
   profileType: ProfileTypes
-  documents: Array<ProfileDocument>
+  documents: ProfileDocument[]
   isSession: boolean = false
 
   /* @ngInject */

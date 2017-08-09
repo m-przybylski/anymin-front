@@ -4,7 +4,7 @@ import {IPaymentMethodComponentBindings} from './payment-method.component';
 
 export class PaymentMethodComponentController implements IPaymentMethodComponentBindings, ng.IController {
   title: string
-  paymentSystems: Array<PaymentSystem>
+  paymentSystems: PaymentSystem[]
   paymentSystemModel: PaymentSystem
   scrollHandler: (arg?: number) => void
   activeOption: number | null = null

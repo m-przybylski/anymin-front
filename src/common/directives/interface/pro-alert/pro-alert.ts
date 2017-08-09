@@ -7,7 +7,7 @@ function proAlert(topAlertService: TopAlertService): IDirective {
 
   function linkFunction(scope: any, _element: ng.IRootElementService, _attr: ng.IAttributes): void {
     scope.alerts = []
-    const addAlert = (alerts: Array<any>): void => {
+    const addAlert = (alerts: any[]): void => {
       scope.alerts = alerts
     }
 

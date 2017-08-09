@@ -5,7 +5,7 @@ import uploaderModule from '../../../services/uploader/uploader'
 import loaderModule from '../../interface/loader/loader'
 
 export interface IWizardUploaderModuleComponentBindings extends ng.IController {
-  tokenList: Array<string>
+  tokenList: string[]
   isValidCallback: (status: boolean) => {}
 }
 

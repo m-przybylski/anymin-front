@@ -27,7 +27,7 @@ export class SecurityPinNumberSettingsController implements ng.IController {
   public isFullscreen: boolean = true
   public isNewPinTyped: boolean = false
   public confirmPassword: string = ''
-  public pinInput: Array<string> = new Array(this.pinLength)
+  public pinInput: string[] = new Array(this.pinLength)
   public patternPassword: RegExp = this.CommonSettingsService.localSettings.passwordPattern
   public protectedViewsStatus: IProtectedViewsStatus = {
     CALL_VIEW: false,

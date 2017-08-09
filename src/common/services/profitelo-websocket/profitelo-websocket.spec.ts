@@ -26,7 +26,7 @@ describe('Unit testing: profitelo.services.profiteloWebsocket >', () => {
     }
 
     const callbacksFactory: any = {
-      getInstance: (keys: Array<string>): CallbacksService => {
+      getInstance: (keys: string[]): CallbacksService => {
         return new CallbacksService(this.$timeout, keys)
       }
     }

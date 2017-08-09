@@ -4,7 +4,7 @@ import '../../../directives/pro-social-icon-getter/pro-social-icon-getter'
 import ValidationAlertModule from '../../interface/alert/validation-alert/validation-alert'
 
 export interface IWizardLinksComponentBindings extends ng.IController {
-  selectedLinks: Array<string>
+  selectedLinks: string[]
 }
 
 const wizardLinksModule = angular.module('profitelo.components.wizard.wizard-links', [

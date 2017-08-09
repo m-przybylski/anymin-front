@@ -3,7 +3,7 @@ import {IGroupedMessagesComponentBindings} from './grouped-messages';
 
 export class GroupedMessagesComponentController implements ng.IController, IGroupedMessagesComponentBindings {
 
-  public messages: Array<any> = []
+  public messages: any[] = []
   public participantAvatar: string = ''
   public isMine: boolean = false
 

@@ -16,7 +16,7 @@ export class InterfaceLanguageService {
 
   // Array with supported interface languages by this project
   // Add new one to support them
-  private static readonly interfaceLanguages: Array<IInterfaceLanguage> = [
+  private static readonly interfaceLanguages: IInterfaceLanguage[] = [
     {nativeName: 'English (U.S.)', ietfCode: 'en-us'},
     {nativeName: 'Polski (Polska)', ietfCode: 'pl-pl'}
     // { nativeName: 'Deutsch (Deutchland)', ietfCode: 'de-de' }

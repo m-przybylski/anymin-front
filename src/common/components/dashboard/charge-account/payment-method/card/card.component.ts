@@ -3,7 +3,7 @@ import {PaymentLink} from 'profitelo-api-ng/model/models'
 
 // TODO TO BE FIXED after charge-account typing fix.
 export interface ICardPaymentFormComponentBindings {
-  paymentsLinks: Array<PaymentLink>
+  paymentsLinks: PaymentLink[]
   amountMethodModal: any
   paymentCountryId: string
   onCardPayment: () => void

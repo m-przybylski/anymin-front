@@ -3,7 +3,7 @@ import {CommonSettingsService} from '../../../services/common-settings/common-se
 
 export class WizardLinksComponentController implements IWizardLinksComponentBindings, ng.IController {
 
-  public selectedLinks: Array<string> = []
+  public selectedLinks: string[] = []
   public linkModel: string
   public urlPattern: any
   public badUrl: boolean = false

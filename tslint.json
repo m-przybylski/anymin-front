@@ -23,7 +23,7 @@
     "restrict-plus-operands": true,
      "max-line-length": [true, 120],
      "no-magic-numbers": true,
-    // "array-type": true,
+    "array-type": [true, "array"],
      "object-literal-shorthand": true,
     "object-literal-key-quotes": [true, "as-needed"],
     "arrow-return-shorthand": [true, "multiline"],

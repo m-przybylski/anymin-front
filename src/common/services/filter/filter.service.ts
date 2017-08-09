@@ -14,7 +14,7 @@ export interface IFilterService extends ng.IFilterService {
     (translationId: string, interpolateParams?: any, interpolation?: string): string
   }
   (name: 'rankSearch'): {
-    (translationId: Array<any>, interpolateParams?: any, interpolation?: Array<string>): string
+    (translationId: any[], interpolateParams?: any, interpolation?: string[]): string
   }
   (name: 'millisecondsToDatetime'): {
     (translationId: number, interpolateParams?: any, interpolation?: string): string

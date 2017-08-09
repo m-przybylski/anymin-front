@@ -21,7 +21,7 @@ interface IFileObject {
 export class UploaderService {
 
   private uploadingCount = 0
-  private fileObjectsToUpload: Array<IFileObject> = []
+  private fileObjectsToUpload: IFileObject[] = []
   private urls: any
 
   /* @ngInject */

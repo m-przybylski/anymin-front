@@ -8,7 +8,7 @@ export class ConsultationListItemComponentController implements IConsultationLis
   public onChange: (service: GetServiceWithEmployments, isChecked: boolean) => void
   public title: string
   public price: MoneyDto
-  public tags: Array<Tag>
+  public tags: Tag[]
   public inviteTime: string
   public checkboxId: string
   public isChecked: boolean = false

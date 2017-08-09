@@ -4,7 +4,7 @@ import {PostPayment, PaymentLink} from 'profitelo-api-ng/model/models'
 export class PayPalPaymentFormComponentController implements ng.IController, IPayPalPaymentFormComponentBindings {
 
   paymentCountryId: string
-  paymentsLinks: Array<PaymentLink>
+  paymentsLinks: PaymentLink[]
   amountMethodModal: any
   postPayment: PostPayment
   onAuthorize: () => void
