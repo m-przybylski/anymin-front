@@ -18,12 +18,9 @@ const  DashboardClientInvoicesModule = angular.module('profitelo.controller.dash
       controller: 'dashboardClientInvoicesController',
       controllerAs: 'vm',
       resolve: {
-        getInvoiceData: (invoiceDataResolver: InvoiceDataResolver): ng.IPromise<CompanyInfo> => {
-          return invoiceDataResolver.resolveCompanyInfo()
-        },
-        user: (userService: UserService): ng.IPromise<AccountDetails> => {
-          return userService.getUser(true)
-        }
+        getInvoiceData: (invoiceDataResolver: InvoiceDataResolver): ng.IPromise<CompanyInfo> =>
+          invoiceDataResolver.resolveCompanyInfo(),
+        user: (userService: UserService): ng.IPromise<AccountDetails> => userService.getUser(true)
       }
     })
   })

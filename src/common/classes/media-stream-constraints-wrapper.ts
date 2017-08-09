@@ -41,7 +41,5 @@ export class MediaStreamConstraintsWrapper {
       delete this.actualConstraints.video;
   }
 
-  public getConstraints = (): MediaStreamConstraints => {
-    return this.actualConstraints;
-  }
+  public getConstraints = (): MediaStreamConstraints => this.actualConstraints
 }

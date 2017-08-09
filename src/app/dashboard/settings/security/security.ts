@@ -86,9 +86,7 @@ export class DashboardSettingsSecurityController implements ng.IController {
     }
   }
 
-  public checkIsCurrentSession = (apiKey: string): boolean => {
-    return apiKey === this.currentSession.apiKey
-  }
+  public checkIsCurrentSession = (apiKey: string): boolean => apiKey === this.currentSession.apiKey
 
   public openSecurityChangePasswordSettingsModal = (): void => {
     this.modalsService.createSecurityChangePasswordSettingsModal()
@@ -116,12 +114,9 @@ angular.module('profitelo.controller.dashboard.settings.security', [
     controller: 'dashboardSettingsSecurityController',
     controllerAs: 'vm',
     resolve: {
-      currentSession: (sessionService: SessionService): ng.IPromise<GetSession> => {
-        return sessionService.getSession(true)
-      },
-      sessionsData: (securitySettingsResolver: ISecuritySettingsService): ng.IPromise<GetSession[]> => {
-        return securitySettingsResolver.resolve()
-      }
+      currentSession: (sessionService: SessionService): ng.IPromise<GetSession> => sessionService.getSession(true),
+      sessionsData: (securitySettingsResolver: ISecuritySettingsService): ng.IPromise<GetSession[]> =>
+        securitySettingsResolver.resolve()
     }
   })
 })

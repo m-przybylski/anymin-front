@@ -67,9 +67,7 @@ angular.module('profitelo.controller.dashboard.settings.general', [
       controller: 'dashboardSettingsGeneralController',
       controllerAs: 'vm',
       resolve: {
-        user: (userService: UserService): ng.IPromise<AccountDetails> => {
-          return userService.getUser(true)
-        }
+        user: (userService: UserService): ng.IPromise<AccountDetails> => userService.getUser(true)
       },
       data: {}
     })

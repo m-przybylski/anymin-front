@@ -33,9 +33,8 @@ angular.module('profitelo.controller.dashboard.client.favourites', [
       resolve: {
         /* istanbul ignore next */
         clientFavouritesConsultations:
-          (ClientFavouritesResolver: ClientFavouritesResolver): ng.IPromise<GetDashboardClientExperts> => {
-            return ClientFavouritesResolver.resolve()
-        }
+          (ClientFavouritesResolver: ClientFavouritesResolver): ng.IPromise<GetDashboardClientExperts> =>
+            ClientFavouritesResolver.resolve()
       }
     })
   })

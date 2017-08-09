@@ -35,9 +35,7 @@ export class CurrentClientCall extends CurrentCall {
     });
   }
 
-  public getExpert = (): GetProfile => {
-    return this.expert;
-  }
+  public getExpert = (): GetProfile => this.expert
 
   public onAnswered = (cb: () => void): void => {
     this.callbacks.methods.onAnswered(cb);

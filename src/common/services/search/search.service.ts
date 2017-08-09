@@ -1,6 +1,7 @@
 /* tslint:disable:  typedef */
 /* tslint:disable:  no-magic-numbers */
 /* tslint:disable:  object-literal-shorthand */
+/* tslint:disable:  arrow-return-shorthand */
 
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService

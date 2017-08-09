@@ -11,9 +11,7 @@ function defaultSliderFunction($window: IWindowService,
   let visibleItem: number = 0
 
   function _elementsWidth(): void {
-    elementsMap = $.map($($element).find('>div'), (div) => {
-      return div.offsetWidth
-    })
+    elementsMap = $.map($($element).find('>div'), (div) => div.offsetWidth)
   }
 
   angular.element($window).on('resize', () => {

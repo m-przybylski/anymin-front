@@ -97,9 +97,7 @@ function config($stateProvider: ng.ui.IStateProvider): void {
     controller: 'SetPasswordController',
     template: require('./set-password.pug')(),
     resolve: {
-      user: (userService: UserService): ng.IPromise<AccountDetails> => {
-        return userService.getUser()
-      }
+      user: (userService: UserService): ng.IPromise<AccountDetails> => userService.getUser()
     },
     data: {
       pageTitle: 'PAGE_TITLE.POST_REGISTER.SET_PASSWORD'

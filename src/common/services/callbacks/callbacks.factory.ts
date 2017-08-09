@@ -6,7 +6,5 @@ export class CallbacksFactory {
   constructor(private $timeout: ng.ITimeoutService) {
   }
 
-  public getInstance = (events: string[]): CallbacksService => {
-    return new CallbacksService(this.$timeout, events)
-  }
+  public getInstance = (events: string[]): CallbacksService => new CallbacksService(this.$timeout, events)
 }

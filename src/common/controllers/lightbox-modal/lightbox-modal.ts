@@ -21,9 +21,7 @@ function lightboxModelController($scope: any, $window: IWindowService,
     value.id = i++
   })
 
-  let currentSlideIndex = _.findIndex(this.slideList, (slide: {token: string}) => {
-    return slide.token === $scope.slide.token
-  })
+  let currentSlideIndex = _.findIndex(this.slideList, (slide: {token: string}) => slide.token === $scope.slide.token)
 
   this.currentSlide = this.slideList[currentSlideIndex]
 

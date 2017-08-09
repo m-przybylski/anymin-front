@@ -113,12 +113,9 @@ const paymentsSettingsModule = angular.module('profitelo.controller.dashboard.se
       controller: 'dashboardSettingsPaymentsController',
       controllerAs: 'vm',
       resolve: {
-        getInvoiceData: (invoiceDataResolver: InvoiceDataResolver): ng.IPromise<CompanyInfo> => {
-          return invoiceDataResolver.resolveCompanyInfo()
-        },
-        user: (userService: UserService): ng.IPromise<AccountDetails> => {
-          return userService.getUser(true)
-        }
+        getInvoiceData: (invoiceDataResolver: InvoiceDataResolver): ng.IPromise<CompanyInfo> =>
+          invoiceDataResolver.resolveCompanyInfo(),
+          user: (userService: UserService): ng.IPromise<AccountDetails> => userService.getUser(true)
       }
     })
   })

@@ -65,25 +65,24 @@ export class SearchFiltersComponentController implements ng.IController, ISearch
           name: (this.$filter('translate')(this.$filter('normalizeTranslationKey')(('SEARCH.LANGUAGE.' + lng.name)))),
           value: lng.value
         }))
-      this.sortList = options.sortBy.map((val) => {
-        return {
+      this.sortList = options.sortBy.map((val) =>
+        ({
           name: this.$filter('translate')(this.$filter('normalizeTranslationKey')(('SEARCH.SORT_BY.' + val))),
           value: val
-        }
-      })
-      this.categoryList = options.category.map((cat) => {
-        return {
+        })
+      )
+      this.categoryList = options.category.map((cat) =>
+        ({
           name: this.$filter('translate')(this.$filter('normalizeTranslationKey')(('CATEGORY.' + cat.name))),
           value: cat.value
-        }
-      })
-      this.profileTypeList = options.profileType.map((type) => {
-        return {
+        }))
+      this.profileTypeList = options.profileType.map((type) =>
+        ({
           name: this.$filter('translate')(this.$filter('normalizeTranslationKey')
                 (('SEARCH.PROFILE_TYPE.' + type.name))),
           value: type.value
-        }
-      })
+        })
+      )
 
     searchService.onQueryParamsChange(this.$scope, (params) => {
       this.$timeout(() => {

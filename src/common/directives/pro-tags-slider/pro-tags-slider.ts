@@ -41,13 +41,9 @@ function proTagsSlider($window: IWindowService,
       _clearSlider()
     })
 
-    scope.$watch(() => {
-      return scope.tags
-    }, (newValue: Tag[], _oldValue: Tag[]) => {
+    scope.$watch(() => scope.tags, (newValue: Tag[], _oldValue: Tag[]) => {
       if (newValue) {
-        elementsMap = $.map($(element).find('.slide-page li'), (li) => {
-          return li.clientWidth
-        })
+        elementsMap = $.map($(element).find('.slide-page li'), (li) => li.clientWidth)
       }
     })
 
@@ -74,13 +70,9 @@ function proTagsSlider($window: IWindowService,
       }
     }
 
-    scope.leftArrowActive = (): boolean => {
-      return currentElement > 0
-    }
+    scope.leftArrowActive = (): boolean => currentElement > 0
 
-    scope.rightArrowActive = (): boolean => {
-      return tagsContainerWidth < scope.slidesContainerOffsetWidth
-    }
+    scope.rightArrowActive = (): boolean => tagsContainerWidth < scope.slidesContainerOffsetWidth
   }
 
   return {

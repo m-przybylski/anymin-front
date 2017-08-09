@@ -68,9 +68,7 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
       this.isCompany = session.isCompany
     })
 
-    $scope.$watchGroup(this.watchGroup.map((v) => {
-      return '$ctrl.filterModel.' + v
-    }), (newValues, oldValues) => {
+    $scope.$watchGroup(this.watchGroup.map((v) => '$ctrl.filterModel.' + v), (newValues, oldValues) => {
       if (!angular.equals(newValues, oldValues)) {
         angular.forEach(newValues, (value, idx) => {
           if (angular.isDefined(value)) {
@@ -166,21 +164,17 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
       (expert: {value: string, name: string}) => expert.value === queryParams.getProfileId())
   }
 
-  private createDropdownServiceList = (list: ServiceFilter[]): IDropdownList[] => {
-    return list.map(service => ({
+  private createDropdownServiceList = (list: ServiceFilter[]): IDropdownList[] => list.map(service => (
+    {
       name: service.name,
       value: service.id
     }))
-  }
 
-  private createDropdownExpertsList = (list: ExpertFilter[]): IDropdownList[] => {
-    return list.map((expert) => {
-      return {
+  private createDropdownExpertsList = (list: ExpertFilter[]): IDropdownList[] => list.map((expert) => (
+      {
         name: expert.name,
         value: expert.id
       }
-    })
-
-  }
+    ))
 
 }

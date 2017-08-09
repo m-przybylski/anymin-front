@@ -54,9 +54,8 @@ export class WizardUploaderComponentController implements IWizardUploaderModuleC
   }
 
   public reuploadFile = (file: IDocumentFile): void => {
-    const reuploadedFile: IDocumentFile | undefined = _.find(this.documentFiles, (documentFile) => {
-      return file === documentFile
-    })
+    const reuploadedFile: IDocumentFile | undefined = _.find(this.documentFiles, (documentFile) =>
+      file === documentFile)
     if (reuploadedFile && reuploadedFile.file) {
       this.onUploadEnd(false)
       reuploadedFile.isUploadFailed = false
@@ -82,9 +81,7 @@ export class WizardUploaderComponentController implements IWizardUploaderModuleC
   }
 
   public removeFile = (file: IDocumentFile): void => {
-    _.remove(this.documentFiles, (currentFile) => {
-      return currentFile === file
-    })
+    _.remove(this.documentFiles, (currentFile) => currentFile === file)
 
     _.remove(this.tokenList, (token) => {
       if (file.fileInfo) {

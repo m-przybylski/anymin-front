@@ -80,9 +80,7 @@ function config($stateProvider: ng.ui.IStateProvider): void {
       account: (
         LoginForgotPasswordResolver: ILoginForgotPasswordService,
         $stateParams: IForgotPasswordStateParams
-      ): ng.IPromise<ILoginForgotPassword> => {
-        return LoginForgotPasswordResolver.resolve($stateParams)
-      }
+      ): ng.IPromise<ILoginForgotPassword> => LoginForgotPasswordResolver.resolve($stateParams)
     },
     data: {
       pageTitle: 'PAGE_TITLE.LOGIN.FORGOT_PASSWORD'

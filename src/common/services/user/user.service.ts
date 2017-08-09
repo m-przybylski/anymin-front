@@ -10,27 +10,23 @@ export class UserService {
   constructor(private sessionService: SessionService, private eventsService: EventsService) {
   }
 
-  public getUser = (purgeCache = false): ng.IPromise<AccountDetails> => {
-    return this.sessionService.getSession(purgeCache)
-    .then((session) => {
-      if (session.account) {
-        return angular.copy(session.account)
-      } else {
-        throw new Error('AccountDetails in session was not defined')
-      }
-    })
-  }
+  public getUser = (purgeCache = false): ng.IPromise<AccountDetails> =>
+    this.sessionService.getSession(purgeCache)
+      .then((session) => {
+        if (session.account) {
+          return angular.copy(session.account)
+        } else {
+          throw new Error('AccountDetails in session was not defined')
+        }
+      })
 
-  public logout = (): ng.IPromise<void> => {
-    return this.sessionService.logout().then(() => {
+  public logout = (): ng.IPromise<void> => this.sessionService.logout().then(() => {
       this.eventsService.emit('logout')
     })
-  }
 
-  public login = (loginDetails: AccountLogin): ng.IPromise<GetSession> => {
-    return this.sessionService.login(loginDetails).then((session) => {
+  public login = (loginDetails: AccountLogin): ng.IPromise<GetSession> =>
+    this.sessionService.login(loginDetails).then((session) => {
       this.eventsService.emit('login')
       return session
     })
-  }
 }

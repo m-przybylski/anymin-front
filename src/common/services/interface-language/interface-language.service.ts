@@ -48,9 +48,7 @@ export class InterfaceLanguageService {
   // @description  Get all frontend available interface languages from
   //               the database
   // @returns      {Array}
-  public getInterfaceLanguages = (): IInterfaceLanguage[] => {
-    return InterfaceLanguageService.interfaceLanguages
-  }
+  public getInterfaceLanguages = (): IInterfaceLanguage[] => InterfaceLanguageService.interfaceLanguages
 
   // @method       _getStartupLanguage
   // @setter

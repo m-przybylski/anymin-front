@@ -123,9 +123,7 @@ export class CommunicatorService {
     throw new Error(err)
   }
 
-  public authenticate = (): ng.IPromise<void> => {
-    return this.authenticateClient().catch(this.onAuthenticateError);
-  }
+  public authenticate = (): ng.IPromise<void> => this.authenticateClient().catch(this.onAuthenticateError)
 
   public getClientSession = (): RatelSdk.Session | undefined =>
     this.ratelSession;

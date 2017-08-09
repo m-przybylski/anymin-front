@@ -131,27 +131,23 @@ export class SummaryController implements ng.IController {
     return false
   }
 
-  private checkIsExpertProfileValid = (): string | boolean | undefined => {
-    return this.wizardProfile.isExpert && this.wizardProfile.expertDetailsOption
+  private checkIsExpertProfileValid = (): string | boolean | undefined =>
+    this.wizardProfile.isExpert && this.wizardProfile.expertDetailsOption
       && this.wizardProfile.expertDetailsOption.avatar && this.wizardProfile.expertDetailsOption.description
       && this.wizardProfile.expertDetailsOption.languages && this.wizardProfile.expertDetailsOption.name
-  }
 
-  private checkIsWizardHasService = (): boolean | undefined => {
-    return this.wizardProfile.services && this.wizardProfile.services.length > 0
-  }
+  private checkIsWizardHasService = (): boolean | undefined =>
+    this.wizardProfile.services && this.wizardProfile.services.length > 0
 
-  private checkIsCompanyProfileValid = (): string | boolean | undefined => {
-    return this.wizardProfile.isCompany && this.wizardProfile.organizationDetailsOption
+  private checkIsCompanyProfileValid = (): string | boolean | undefined =>
+    this.wizardProfile.isCompany && this.wizardProfile.organizationDetailsOption
       && this.wizardProfile.organizationDetailsOption.name && this.wizardProfile.organizationDetailsOption.logo
       && this.wizardProfile.organizationDetailsOption.description
-  }
 
   private checkIfUserCanCreateExpertProfile = (): boolean => {
     if (this.wizardProfile && this.wizardProfile.services) {
-      return !!(_.find(this.wizardProfile.services, (service) => {
-        return service.isOwnerEmployee
-      }) && !this.wizardProfile.isExpert)
+      return !!(_.find(this.wizardProfile.services, (service) =>
+        service.isOwnerEmployee) && !this.wizardProfile.isExpert)
     }
     return false
   }

@@ -79,9 +79,7 @@ function proTagsDropdown($timeout: ng.ITimeoutService): IDirective {
         _getScrollbarChoices().perfectScrollbar()
       })
     }
-    scope.searchEnable = (): boolean => {
-      return !('noSearch' in attr)
-    }
+    scope.searchEnable = (): boolean => !('noSearch' in attr)
 
   }
 

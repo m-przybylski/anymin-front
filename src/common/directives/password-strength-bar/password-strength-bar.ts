@@ -16,10 +16,7 @@ import {IDirective} from 'angular'
       ]
       scope.currentClass = 0
 
-      scope.$watch(() => {
-        return scope.currentClass
-      }, (newValue: number, _oldValue: number) => {
-
+      scope.$watch(() => scope.currentClass, (newValue: number, _oldValue: number) => {
         scope.currentClass = Math.floor(scope.currentClass)
 
         if (newValue > 4) {

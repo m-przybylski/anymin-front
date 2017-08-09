@@ -15,9 +15,7 @@ function config($stateProvider: ng.ui.IStateProvider): void {
       account: (
         LoginConfirmEmailResolver: ILoginConfirmEmailService,
         $stateParams: IConfirmEmailStateParams
-      ): ng.IPromise<undefined> => {
-        return LoginConfirmEmailResolver.resolve($stateParams)
-      }
+      ): ng.IPromise<undefined> => LoginConfirmEmailResolver.resolve($stateParams)
     },
     data: {
       pageTitle: 'PAGE_TITLE.LOGIN.CONFIRM_EMAIL'

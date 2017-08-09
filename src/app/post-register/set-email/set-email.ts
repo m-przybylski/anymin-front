@@ -48,9 +48,7 @@ function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.u
     }
   }
 
-  const _isEmailExists = (email: string): ng.IHttpPromise<{}> => {
-    return AccountApi.getAccountEmailExistsRoute(email)
-  }
+  const _isEmailExists = (email: string): ng.IHttpPromise<{}> => AccountApi.getAccountEmailExistsRoute(email)
 
   this.setNewEmail = (): void => {
     this.newEnteredEmail = this.email
@@ -89,9 +87,7 @@ function config($stateProvider: ng.ui.IStateProvider): void {
     template: require('./set-email.pug')(),
     resolve: {
       /* istanbul ignore next */
-      user: (userService: UserService): ng.IPromise<AccountDetails> => {
-        return userService.getUser()
-      }
+      user: (userService: UserService): ng.IPromise<AccountDetails> => userService.getUser()
     },
     data: {
       pageTitle: 'PAGE_TITLE.LOGIN.REGISTER'

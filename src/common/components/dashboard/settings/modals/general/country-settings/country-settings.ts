@@ -35,9 +35,7 @@ export class GeneralCountrySettingsController implements ng.IController {
     this.getCountriesList(() => {
       userService.getUser().then(user => {
         this.selectedCountry = _.find(
-          this.countryList, (country: ICountryElementObject) => {
-            return country.value.countryISO === user.countryISO
-          })
+          this.countryList, (country: ICountryElementObject) => country.value.countryISO === user.countryISO)
       })
     })
   }
@@ -74,15 +72,13 @@ export class GeneralCountrySettingsController implements ng.IController {
 
   private getCountriesList = (callback: () => void): void => {
     this.AccountApi.getSupportedCountriesRoute().then(res => {
-      this.countryList = res.map((country) => {
-        return <ICountryElementObject>({
-          name: (this.$filter('translate')(this.$filter('normalizeTranslationKey')(('COUNTRIES.' + country.iso)))),
-          value: {
-            countryISO: country.iso,
-            currency: country.currency
-          }
-        })
-      })
+      this.countryList = res.map((country) => <ICountryElementObject>({
+        name: (this.$filter('translate')(this.$filter('normalizeTranslationKey')(('COUNTRIES.' + country.iso)))),
+        value: {
+          countryISO: country.iso,
+          currency: country.currency
+        }
+      }))
       callback()
     }, (err: any) => {
       this.$uibModalInstance.dismiss('cancel')

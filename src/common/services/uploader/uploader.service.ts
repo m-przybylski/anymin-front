@@ -32,9 +32,7 @@ export class UploaderService {
     this.urls = CommonConfig.getAllData().urls
   }
 
-  private getUploadUrl = (fileId: string): string => {
-    return this.urls.files + this.urls['file-upload'].replace('%s', fileId)
-  }
+  private getUploadUrl = (fileId: string): string => this.urls.files + this.urls['file-upload'].replace('%s', fileId)
 
   private scheduleUpload = (): ng.IPromise<void> =>
     this.$timeout(this.processUpload)
@@ -83,9 +81,9 @@ export class UploaderService {
     this.onFileUploadEnd()
   }
 
-  private getFileToken = (fileObj: IFileObject): ng.IPromise<FileIdDto> => {
-    return this.FilesApi.createFileTokenPath(this.collectionType, fileObj.postProcessOptions)
-  }
+  private getFileToken = (fileObj: IFileObject): ng.IPromise<FileIdDto> =>
+    this.FilesApi.createFileTokenPath(this.collectionType, fileObj.postProcessOptions)
+
   private processUpload = (): void => {
     if ((this.uploadingCount < this.simultaneousUploadCount || this.simultaneousUploadCount === 0) &&
       this.fileObjectsToUpload.length > 0) {

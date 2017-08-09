@@ -31,12 +31,12 @@ function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService
   this.isPending = false
   this.current = 1
   this.account = loginStateService.getAccountObject()
-  this.prefixes = CommonSettingsService.localSettings.countryCodes.map((item: any) => {
-    return {
+  this.prefixes = CommonSettingsService.localSettings.countryCodes.map((item: any) => (
+    {
       value: item,
       name: item
     }
-  })
+  ))
 
   this.isValidPhoneNumber = (prefix: string, phoneNumber: string): boolean => {
     if (angular.isDefined(prefix) && angular.isDefined(phoneNumber) && prefix &&
@@ -125,9 +125,7 @@ function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService
     }
   }
 
-  this.checkIsPasswordIncorrected = (): boolean => {
-    return this.enteredPassword !== this.account.password
-  }
+  this.checkIsPasswordIncorrected = (): boolean => this.enteredPassword !== this.account.password
 
   return this
 }

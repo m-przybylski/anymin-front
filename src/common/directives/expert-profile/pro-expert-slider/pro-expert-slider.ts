@@ -19,9 +19,7 @@ function proExpertSlider(dialogService: DialogService, $timeout: ng.ITimeoutServ
       }
     })
 
-    scope.imageUrl = (slide: any): string => {
-      return slide.previews[0]
-    }
+    scope.imageUrl = (slide: any): string => slide.previews[0]
 
     scope.controlls = {}
 

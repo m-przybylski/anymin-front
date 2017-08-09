@@ -94,6 +94,4 @@ angular.module('profitelo', [
   .run(AppRunFunction)
   .config(AppConfigFunction)
   .controller('AppComponentController', AppComponentController)
-  .factory('apiUrl', (CommonConfig: CommonConfig) => {
-    return CommonConfig.getAllData().urls.backend
-  })
+  .factory('apiUrl', (CommonConfig: CommonConfig) => CommonConfig.getAllData().urls.backend)

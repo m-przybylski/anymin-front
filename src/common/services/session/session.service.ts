@@ -10,13 +10,10 @@ export class SessionService {
   constructor(private SessionApi: SessionApi, private $http: ng.IHttpService, private $q: ng.IQService) {
   }
 
-  public logout = (): ng.IPromise<void> => {
-    return this.SessionApi.logoutCurrentRoute().then(this.onSuccessLogout)
-  }
+  public logout = (): ng.IPromise<void> => this.SessionApi.logoutCurrentRoute().then(this.onSuccessLogout)
 
-  public login = (loginDetails: AccountLogin): ng.IPromise<GetSession> => {
-    return this.SessionApi.login(loginDetails).then(this.onSuccessLogin)
-  }
+  public login = (loginDetails: AccountLogin): ng.IPromise<GetSession> =>
+    this.SessionApi.login(loginDetails).then(this.onSuccessLogin)
 
   private getSessionFromBackend = (): ng.IPromise<GetSession> => {
     this.sessionCache = this.SessionApi.checkRoute().then(this.onSuccessLogin)

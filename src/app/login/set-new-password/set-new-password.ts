@@ -108,10 +108,9 @@ function config($stateProvider: ng.ui.IStateProvider): void {
     template: require('./set-new-password.pug')(),
     resolve: {
       tokenStatus: ($stateParams: ISetNewPasswordStateParams,
-                    LoginSetNewPasswordResolver: ILoginSetNewPasswordService): ng.IPromise<ILoginSetNewPassword> => {
+                    LoginSetNewPasswordResolver: ILoginSetNewPasswordService): ng.IPromise<ILoginSetNewPassword> =>
         /* istanbul ignore next */
-        return LoginSetNewPasswordResolver.resolve($stateParams)
-      }
+         LoginSetNewPasswordResolver.resolve($stateParams)
     },
     data: {
       pageTitle: 'PAGE_TITLE.LOGIN.SET_NEW_PASSWORD'

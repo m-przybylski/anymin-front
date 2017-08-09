@@ -14,9 +14,7 @@ export class UploaderFactory {
   }
 
   public getInstance = (simultaneousUploadCount: number = 1,
-                        collectionType: string = this.collectionTypes.avatar): UploaderService => {
-
-    return new UploaderService(this.$q, this.$timeout, this.CommonConfig, this.FilesApi, this.Upload,
+                        collectionType: string = this.collectionTypes.avatar): UploaderService =>
+    new UploaderService(this.$q, this.$timeout, this.CommonConfig, this.FilesApi, this.Upload,
       simultaneousUploadCount, collectionType)
-  }
 }

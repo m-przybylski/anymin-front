@@ -52,9 +52,7 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
   }
 
   // FIXME on new checkbox component
-  $scope.$watch(() => {
-    return this.showInvoiceForm
-  }, (newValue: boolean) => {
+  $scope.$watch(() => this.showInvoiceForm, (newValue: boolean) => {
     if (newValue && !this.isGetCompanyInfo) {
       AccountApi.getCompanyInfoRoute().then((response) => {
         this.vatNumber = response.vatNumber

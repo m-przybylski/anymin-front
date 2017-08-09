@@ -31,9 +31,7 @@
       this.selectedItem = item
     }
 
-    this.isSelected = (item: any): boolean => {
-      return this.activeItem === item
-    }
+    this.isSelected = (item: any): boolean => this.activeItem === item
 
     this.onMainItemSelect = (item: any): void => {
       this.activeItem = item

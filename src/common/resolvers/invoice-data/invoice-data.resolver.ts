@@ -13,13 +13,11 @@ export class InvoiceDataResolver implements IInvoiceDataResolver {
   constructor(private AccountApi: AccountApi, private $log: ILogService) {
   }
 
-  public resolveCompanyInfo = (): ng.IPromise<CompanyInfo> => {
-    return this.AccountApi.getCompanyInfoRoute().then(this.onGetCompanyInfoRoute, this.onGetCompanyInfoRouteError)
-  }
+  public resolveCompanyInfo = (): ng.IPromise<CompanyInfo> =>
+    this.AccountApi.getCompanyInfoRoute().then(this.onGetCompanyInfoRoute, this.onGetCompanyInfoRouteError)
 
-  private onGetCompanyInfoRoute = (companyInfo: CompanyInfo): CompanyInfo => {
-    return companyInfo
-  }
+  private onGetCompanyInfoRoute = (companyInfo: CompanyInfo): CompanyInfo => companyInfo
+
   private onGetCompanyInfoRouteError = (error: any): void => {
     if (error.status !== httpCodes.notFound) {
       this.$log.error('Can not get company info: ' + error)

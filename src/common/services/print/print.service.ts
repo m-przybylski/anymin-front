@@ -6,14 +6,12 @@ export class PrintService {
   constructor() {
   }
 
-  private htmlPrintTemplate = (imgSrc: string): string => {
-
-    return '<html><head>' +
+  private htmlPrintTemplate = (imgSrc: string): string =>
+    '<html><head>' +
       '</head>' +
       '<body>' +
       '<img style="display: block; margin-left: auto; margin-right: auto" src=""' + imgSrc + '""/>' +
       '</body>'
-  }
 
   private closePrint = (): void => {
     document.body.removeChild(this.__container__)

@@ -45,9 +45,7 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
     }
 
     this.selectedItemsValue.forEach((selectItemValue) => {
-      _.remove(this.dropdownList, (object) => {
-        return object.value === selectItemValue
-      })
+      _.remove(this.dropdownList, (object) => object.value === selectItemValue)
       this.selectedItems.push({
         name: this.dictionary[selectItemValue],
         value: selectItemValue
@@ -69,9 +67,7 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
       $scope.$digest()
     })
 
-    this.$scope.$watch(() => {
-      return this.filterInputText
-    }, () => {
+    this.$scope.$watch(() => this.filterInputText, () => {
       if (this.filterInputText.length > 0) {
         this.isOpen = true
       } else {
@@ -172,9 +168,7 @@ export class InputDropdownTagComponentController implements InputDropdownTagComp
       this.selectedItems.push(this.onArrowItemSelect())
       this.selectedItemsValue.push(this.onArrowItemSelect().value)
 
-      _.remove(this.dropdownList, (object) => {
-        return object === this.onArrowItemSelect()
-      })
+      _.remove(this.dropdownList, (object) => object === this.onArrowItemSelect())
 
       this.filterItems()
       this.onArrowItemSelect()
