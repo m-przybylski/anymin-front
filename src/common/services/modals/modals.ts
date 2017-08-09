@@ -1,7 +1,6 @@
 import * as angular from 'angular'
 import {ModalsService} from './modals.service'
 import dialogModule from '../dialog/dialog'
-import '../../components/communicator/modals/client-call/client-call'
 import '../../components/communicator/modals/service-unavailable/service-unavailable'
 import '../../components/communicator/modals/no-credits/no-credits'
 import '../../components/dashboard/client/activities/modals/complain-report/complain-report'
@@ -38,11 +37,11 @@ import invitationsModalModule from '../../../app/invitations/modal/invitations'
 import chargeAccountModalModule from '../../../app/charge-account/modal/charge-account'
 import consultationSummaryExpertControllerModule
   from '../../components/communicator/modals/consultation-summary-expert/consultation-summary-expert'
+import clientCallControllerModule from '../../components/communicator/modals/client-call/client-call'
 
 const modalsModule = angular.module('profitelo.services.modals', [
   dialogModule,
   callSummaryModule,
-  'profitelo.components.communicator.modals.client-call',
   'profitelo.components.communicator.modals.service-unavailable',
   'profitelo.components.communicator.modals.no-credits',
   'profitelo.components.communicator.modals.consultation-summary-client',
@@ -67,7 +66,8 @@ const modalsModule = angular.module('profitelo.services.modals', [
   manageProfileEditProfileModule,
   invitationsModalModule,
   profileGalleryPreviewModule,
-  consultationSummaryExpertControllerModule
+  consultationSummaryExpertControllerModule,
+  clientCallControllerModule
 ])
 .service('modalsService', ModalsService)
   .name

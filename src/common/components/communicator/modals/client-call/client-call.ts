@@ -1,36 +1,14 @@
 import * as angular from 'angular'
-import {GetService} from 'profitelo-api-ng/model/models'
+import {ClientCallController} from './client-call.controller'
+import './client-call.sass'
+import btnDropdownModule from '../../../interface/btn-dropdown/btn-dropdown'
 
-  export interface IClientCallParentControllerScope extends ng.IScope {
-    rejectCall: () => void
-    answerCall: () => void
-    service: GetService
-  }
-
-  export interface IClientCallControllerScope extends ng.IScope {
-    rejectCall: () => void
-    answerCall: () => void
-    $parent: IClientCallParentControllerScope
-  }
-
-  export class ClientCallController implements ng.IController {
-
-    /* @ngInject */
-    constructor($scope: IClientCallControllerScope, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
-      $scope.rejectCall = (): void => {
-        $uibModalInstance.dismiss('reject')
-        $scope.$parent.rejectCall()
-      }
-
-      $scope.answerCall = (): void => {
-        $uibModalInstance.close('answer')
-        $scope.$parent.answerCall()
-      }
-    }
-  }
-
-  angular.module('profitelo.components.communicator.modals.client-call', [
+const clientCallControllerModule = angular.module(
+  'profitelo.components.communicator.modals.client-call', [
     'ui.bootstrap',
-    'profitelo.directives.interface.scrollable'
+    btnDropdownModule
   ])
-  .controller('clientCallController', ClientCallController)
+.controller('clientCallController', ClientCallController)
+  .name
+
+export default clientCallControllerModule

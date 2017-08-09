@@ -1,6 +1,9 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {IClientCallControllerScope, ClientCallController, IClientCallParentControllerScope} from './client-call'
+import {
+  ClientCallController, IClientCallControllerScope,
+  IClientCallParentControllerScope
+} from './client-call.controller'
 
 describe('Testing Controller: clientCallController', () => {
 

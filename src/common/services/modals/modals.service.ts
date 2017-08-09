@@ -3,10 +3,11 @@ import IUnavailableServiceControllerParentScope =
   profitelo.components.communicator.modals.serviceUnavailable.IUnavailableServiceControllerParentScope
 import INoCreditsControllerParentScope =
   profitelo.components.communicator.modals.noCredits.INoCreditsControllerParentScope
-import {GetService, GetActivity, GetProfileWithServicesEmployments, MoneyDto, GetCreditCard, GetPaymentOptions,
-  PaymentLink} from 'profitelo-api-ng/model/models'
+import {
+  GetService, GetActivity, GetProfileWithServicesEmployments, MoneyDto, GetCreditCard, GetPaymentOptions,
+  PaymentLink
+} from 'profitelo-api-ng/model/models'
 import {DialogService} from '../dialog/dialog.service'
-import {IClientCallParentControllerScope} from '../../components/communicator/modals/client-call/client-call'
 import {
   IConsultationSummaryClientParentControllerScope
 } from '../../components/communicator/modals/consultation-summary-client/consultation-summary-client'
@@ -82,6 +83,10 @@ import {
 } from '../../components/dashboard/settings/modals/general/phone-settings/phone-settings.controller';
 import {IModalInstanceService} from 'angular-ui-bootstrap'
 import {IChargeAccountScope, ChargeAccountController} from '../../../app/charge-account/modal/charge-account.controller'
+import {
+  ClientCallController,
+  IClientCallParentControllerScope
+} from '../../components/communicator/modals/client-call/client-call.controller'
 
 // TODO add types for dialogScope Scopes
 export class ModalsService {
@@ -90,19 +95,19 @@ export class ModalsService {
   constructor(private $rootScope: IRootScopeService, private dialogService: DialogService) {
   }
 
-  public createIncomingCallModal = (
-    service: GetService,
-    answerCallback: () => void,
-    rejectCallback: () => void
-  ): ng.ui.bootstrap.IModalInstanceService => {
-    const dialogScope: IClientCallParentControllerScope = <IClientCallParentControllerScope>this.$rootScope.$new(true)
+  public createIncomingCallModal = (service: GetService, answerCallback: () => void, rejectCallback: () =>
+    void): IModalInstanceService => {
+    const dialogScope: IClientCallParentControllerScope =
+      <IClientCallParentControllerScope>this.$rootScope.$new(true)
 
     dialogScope.service = service
     dialogScope.answerCall = answerCallback
     dialogScope.rejectCall = rejectCallback
 
     return this.dialogService.openDialog({
-      controller: 'clientCallController',
+      controllerAs: 'vm',
+      controller: ClientCallController,
+      openedClass: 'modal-open full-screen modal-dark',
       template: require('common/components/communicator/modals/client-call/client-call.pug')(),
       scope: dialogScope
     })
@@ -122,10 +127,8 @@ export class ModalsService {
     })
   }
 
-  public createServiceUnavailableModal = (
-    acceptCallback: () => void,
-    rejectCallback: () => void
-  ): IModalInstanceService => {
+  public createServiceUnavailableModal = (acceptCallback: () => void,
+                                          rejectCallback: () => void): IModalInstanceService => {
     const dialogScope: IUnavailableServiceControllerParentScope =
       <IUnavailableServiceControllerParentScope>this.$rootScope.$new(true)
 
@@ -434,9 +437,8 @@ export class ModalsService {
     })
   }
 
-  public createInvitationsModal = (
-    profileWithServiceEmployments?: GetProfileWithServicesEmployments
-  ): IModalInstanceService => {
+  public createInvitationsModal = (profileWithServiceEmployments?: GetProfileWithServicesEmployments):
+    IModalInstanceService => {
     const dialogScope: IInvitationsModalScope =
       <IInvitationsModalScope>this.$rootScope.$new(true)
     dialogScope.profileWithServiceEmployments = profileWithServiceEmployments

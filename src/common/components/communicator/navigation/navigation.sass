@@ -34,6 +34,9 @@
     +smm
       display: flex
 
+    .icon
+      transform: rotate(90deg)
+
     a:first-child
       &.is-active
         span
@@ -46,40 +49,36 @@
         &::before
           background: rgba($c-primary-txt, 0.8)
 
-
-
-  .communicator-conversation-details
-    color: #fff
-
-    .communicator-conversation-title
-      p
-        line-height: 1
-        color: $c-white
-        font-size: $f-paragraph
-
-    .communicator-counter
-      span
-        +default-font-bold
-        color: $c-white
-        font-size: $f-paragraph-title
-        margin: 0 16px 0 0
-        line-height: 1
-
   .communicator-lower-nav
     flex: 1 0 100%
     display: flex
     justify-content: center
+    margin: 0 0 24px
 
     +smm
       position: relative
 
   .btn-circle
     margin: 0 12px
+    overflow: visible
 
     span
       align-self: stretch
       margin: 0
       width: 100%
+
+    &.black
+      span
+        &.icon-title
+          +paragraphSmall
+          font-size: $f-btn-small
+          color: $c-white
+          position: absolute
+          left: 0
+          right: 0
+          bottom: -24px
+          margin: auto
+          text-transform: none
 
     &.cancel-conversation
       background: none
@@ -95,6 +94,17 @@
       span
         font-size: $f-icon-22
         color: $c-white
+
+        &.icon-title
+          +paragraphSmall
+          font-size: $f-btn-small
+          color: $c-white
+          position: absolute
+          left: 0
+          right: 0
+          bottom: -24px
+          margin: auto
+          text-transform: none
 
       &.is-active
         &::before
@@ -114,7 +124,7 @@
         animation-fill-mode: forwards
 
       span
-        color: $c-primary-txt
+        color: $c-primary
 
     &.is-inactive
       animation: messenger-btn-animation-seconds-inactive 0.3s 0.15s linear
@@ -124,7 +134,8 @@
 
     &:hover:not(.cancel-conversation):not(.connect-conversation)
       span
-        color: $c-primary-txt
+        &:not(.icon-title)
+          color: $c-primary
 
     &.chat-switcher
       align-self: flex-end
@@ -134,13 +145,3 @@
         margin: 0
         right: 32px
         top: 0
-
-      &.is-active
-        .icon
-          font-size: $f-icon-16
-          position: relative
-
-          &.icon-close-16
-            animation: rotate 0.3s ease-out
-
-

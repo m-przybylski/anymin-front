@@ -1,17 +1,26 @@
-scrollable()
-  .modal-default.container-medium
-    .communicator-modal.client-call
-        img(data-ng-src="/assets/images/search-image.png")
+.client-call-modal
+  .container-small
+    .current-profile
+      .communicator-equalizer
+        span.circle
+        span.circle
+        span.circle
 
-        p(data-translate="COMMUNICATOR.MODALS.CUSTOMER_ASK_FOR_ADVICE_ON")
-        header.entry-title
-          span {{ :: service.name }}
+      .communicator-user.thumb.x192
+        img(data-ng-src="/assets/images/no-avatar.jpg")
 
-        .modal-action
-          a.btn.btn-error.icon-left(data-ng-click="rejectCall()")
-            span.icon.icon-reject-24
-            | {{"COMMUNICATOR.MODALS.REJECT" | translate}}
+    .communicator-modal
+      p.entry-info(data-translate="COMMUNICATOR.MODALS.CLIENT_CALL.TITLE")
+      header.entry-title
+        span {{ :: service.name }} name info service
 
-          a.btn.btn-success.icon-left(data-ng-click="answerCall()")
-            span.icon.icon-call-24
-            | {{"COMMUNICATOR.MODALS.ANSWER" | translate}}
+      .modal-action
+        btn-dropdown(
+          data-callback="rejectCall"
+          button-text="COMMUNICATOR.MODALS.CLIENT_CALL.BUTTON.TITLE"
+          button-class="btn-error icon-left"
+        )
+
+        a.btn.btn-success.icon-left(data-ng-click="answerCall()")
+          span.icon.icon-call-24
+          | {{"COMMUNICATOR.MODALS.ANSWER" | translate}}
