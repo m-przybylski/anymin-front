@@ -40,7 +40,6 @@ export class NavigatorWrapper {
       )
     })
 
-  public static getAllConstraints = (): MediaStreamConstraints => {
-    return Object.assign(NavigatorWrapper.audioConstraints, NavigatorWrapper.videoConstraints)
-  }
+  public static getAllConstraints = (): MediaStreamConstraints =>
+    Object.assign(NavigatorWrapper.audioConstraints, NavigatorWrapper.videoConstraints)
 }

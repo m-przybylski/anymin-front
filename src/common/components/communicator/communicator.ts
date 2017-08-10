@@ -16,10 +16,10 @@ import './messenger/messenger'
 import ratelSdkModule from '../ratel-sdk/ratel-sdk'
 import eventsModule from '../../services/events/events'
 import './communicator.sass'
-import {ClientCallService} from './call-services/client-call.service';
-import {ExpertCallService} from './call-services/expert-call.service';
-import userAvatarModule from '../interface/user-avatar/user-avatar';
-import navigationModule from './navigation/navigation';
+import {ClientCallService} from './call-services/client-call.service'
+import {ExpertCallService} from './call-services/expert-call.service'
+import userAvatarModule from '../interface/user-avatar/user-avatar'
+import navigationModule from './navigation/navigation'
 import RtcDetectorModule from '../../services/rtc-detector/rtc-detector'
 
 const communicatorModule = angular.module('profitelo.components.communicator', [

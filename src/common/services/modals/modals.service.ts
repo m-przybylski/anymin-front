@@ -1,3 +1,4 @@
+// tslint:disable: max-file-line-count
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import IUnavailableServiceControllerParentScope =
   profitelo.components.communicator.modals.serviceUnavailable.IUnavailableServiceControllerParentScope
@@ -98,6 +99,7 @@ import {
 import {
   IRtcDetectorNoBrowserSupportModalControllerScope,
   RtcDetectorNoBrowserSupportModalController
+// tslint:disable-next-line: max-line-length
 } from '../../components/communicator/modals/rtc-detector/rtc-detector-no-browser-support/rtc-detector-no-browser-support.controller'
 
 // TODO add types for dialogScope Scopes
@@ -515,7 +517,8 @@ export class ModalsService {
     return this.dialogService.openDialog({
       controllerAs: 'vm',
       controller: RtcDetectorBlockedModalController,
-      template: require('common/components/communicator/modals/rtc-detector/rtc-detector-blocked/rtc-detector-blocked.pug')(),
+      template: require('common/components/communicator/modals/rtc-detector/rtc-detector-blocked/' +
+        'rtc-detector-blocked.pug')(),
       scope: dialogScope
     })
   }
@@ -528,9 +531,9 @@ export class ModalsService {
       controllerAs: 'vm',
       openedClass: 'modal-open full-screen',
       controller: RtcDetectorNoBrowserSupportModalController,
-      template: require('common/components/communicator/modals/rtc-detector/rtc-detector-no-browser-support/rtc-detector-no-browser-support.pug')(),
+      template: require('common/components/communicator/modals/rtc-detector/rtc-detector-no-browser-support/' +
+        'rtc-detector-no-browser-support.pug')(),
       scope: dialogScope
     })
   }
-
 }

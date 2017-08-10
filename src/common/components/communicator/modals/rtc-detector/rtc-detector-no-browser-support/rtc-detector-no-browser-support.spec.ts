@@ -30,7 +30,7 @@ describe('Testing Controller: rtcDetectorNoBrowserSupportModal', () => {
   })
 
   it('should exists', () => {
-    return expect(!!modalController).toBe(true)
+    return expect(modalController).toBeTruthy()
   })
 })
 

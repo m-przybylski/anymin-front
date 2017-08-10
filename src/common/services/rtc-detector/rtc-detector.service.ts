@@ -8,27 +8,26 @@ export class RtcDetectorService {
 
   /* @ngInject */
   constructor(private modalsService: ModalsService,
-              private $q: ng.IQService) {
+              private $q: ng.IQService,
+              private $timeout: ng.ITimeoutService) {
 
     this.navigator = window['navigator']
     this.navigator.getUserMedia =
       this.navigator.getUserMedia || this.navigator.mozGetUserMedia || this.navigator.webkitGetUserMedia
   }
 
-  public isBrowserSupported(): ng.IPromise<boolean> {
-    return this.webRtcLoadWrapper(() => {
-      return DetectRTC.isWebRTCSupported
-    })
-  }
+  public isBrowserSupported = (): ng.IPromise<boolean> =>
+    this.webRtcLoadWrapper(() =>
+      DetectRTC.isWebRTCSupported
+    )
 
-  public isMediaPermissionGiven(): ng.IPromise<boolean> {
-    return this.webRtcLoadWrapper(() => {
-      return DetectRTC.isWebsiteHasWebcamPermissions && DetectRTC.isWebsiteHasMicrophonePermissions
-    })
-  }
+  public isMediaPermissionGiven = (): ng.IPromise<boolean> =>
+    this.webRtcLoadWrapper(() =>
+      DetectRTC.isWebsiteHasWebcamPermissions && DetectRTC.isWebsiteHasMicrophonePermissions
+    )
 
-  public isUserAbleToCall = (): ng.IPromise<void> => {
-    return this.$q<void>((resolve, reject) => {
+  public getAllMediaPermissions = (): ng.IPromise<void> =>
+    this.$q<void>((resolve, reject) => {
       this.isMediaPermissionGiven().then(() => {
         resolve()
       }, () => {
@@ -38,14 +37,14 @@ export class RtcDetectorService {
           this.getUserMedia(resolve, reject)
       })
     })
-  }
 
-  private getUserMedia = (resolve: () => void, reject: () => void) => {
+  private getUserMedia = (resolve: () => void, reject: () => void): void => {
     const mediaDisplayObject = {
       shouldDisplayMedia: true
     };
+    const timeOutDisplayPopupDelay = 100;
 
-    window.setTimeout(this.displayMediaPopup(mediaDisplayObject), 100)
+    this.$timeout(this.displayMediaPopup(mediaDisplayObject), timeOutDisplayPopupDelay)
 
     navigator.getUserMedia(NavigatorWrapper.getAllConstraints(), () => {
       this.instanceModal.close('cancel')
@@ -60,16 +59,14 @@ export class RtcDetectorService {
   }
 
   private displayMediaPopup = (mediaDisplayObject: {shouldDisplayMedia: boolean}): () => void =>
-    () => {mediaDisplayObject.shouldDisplayMedia && (this.instanceModal = this.modalsService.createRtcDetectorModal())}
-
+    (): void => {mediaDisplayObject.shouldDisplayMedia &&
+      (this.instanceModal = this.modalsService.createRtcDetectorModal())}
 
   // gives us certainty that webrtc tools are loaded
-  private webRtcLoadWrapper(fn: () => boolean): ng.IPromise<boolean> {
-    return this.$q((resolve, reject) => {
+  private webRtcLoadWrapper = (fn: () => boolean): ng.IPromise<boolean> =>
+    this.$q((resolve, reject) =>
       DetectRTC.load(() => {
         fn() ? resolve() : reject()
       })
-    })
-  }
-
+    )
 }

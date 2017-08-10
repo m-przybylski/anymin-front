@@ -39,8 +39,10 @@ import consultationSummaryExpertControllerModule
   from '../../components/communicator/modals/consultation-summary-expert/consultation-summary-expert'
 import expertIncomingCallModule from '../../components/communicator/modals/expert-incoming-call/expert-incoming-call'
 import rtcDetectorModal from '../../components/communicator/modals/rtc-detector/rtc-detector'
-import rtcDetectorBlockedModal from '../../components/communicator/modals/rtc-detector/rtc-detector-blocked/rtc-detector-blocked'
-import rtcDetectorNoBrowserSupportModal from '../../components/communicator/modals/rtc-detector/rtc-detector-no-browser-support/rtc-detector-no-browser-support'
+import rtcDetectorBlockedModal
+  from '../../components/communicator/modals/rtc-detector/rtc-detector-blocked/rtc-detector-blocked'
+import rtcDetectorNoBrowserSupportModal
+from '../../components/communicator/modals/rtc-detector/rtc-detector-no-browser-support/rtc-detector-no-browser-support'
 
 const modalsModule = angular.module('profitelo.services.modals', [
   dialogModule,

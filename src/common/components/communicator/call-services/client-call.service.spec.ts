@@ -126,7 +126,7 @@ describe('Unit testing: profitelo.services.call >', () => {
 
     it('should not start call if there is no clientSession', inject(
       ($rootScope: IRootScopeService, communicatorService: CommunicatorService) => {
-        const serviceId = '1'
+        const serviceId: string = '1'
 
         communicatorService.getClientSession = (): undefined => undefined
 
@@ -164,13 +164,11 @@ describe('Unit testing: profitelo.services.call >', () => {
           return {} as RatelSdk.Session
         }
 
-        RatelApi.postStartCallRoute = (_x: any): ng.IPromise<never> => {
-          return $q.reject(err)
-        }
+        RatelApi.postStartCallRoute = (_x: any): ng.IPromise<never> =>
+          $q.reject(err)
 
-        rtcDetectorService.isUserAbleToCall = (): ng.IPromise<void> => {
-          return $q.resolve()
-        }
+        rtcDetectorService.getAllMediaPermissions = (): ng.IPromise<void> =>
+          $q.resolve()
 
         clientCallService.callServiceId(serviceId).then((res) => {
             expect(res).toEqual(<any>err)
@@ -197,7 +195,7 @@ describe('Unit testing: profitelo.services.call >', () => {
           return $q.reject(testSUR)
         }
 
-        rtcDetectorService.isUserAbleToCall = (): ng.IPromise<void> => {
+        rtcDetectorService.getAllMediaPermissions = (): ng.IPromise<void> => {
           return $q.resolve()
         }
 

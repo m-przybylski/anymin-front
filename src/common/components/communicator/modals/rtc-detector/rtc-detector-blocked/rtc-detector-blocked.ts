@@ -2,7 +2,8 @@ import * as angular from 'angular'
 import {RtcDetectorBlockedModalController} from './rtc-detector-blocked.controller'
 import './rtc-detector-blocked.sass'
 
-const rtcDetectorBlockedModal = angular.module('profitelo.components.communicator.modals.rtc-detector.rtc-detector-blocked', [
+const rtcDetectorBlockedModal =
+  angular.module('profitelo.components.communicator.modals.rtc-detector.rtc-detector-blocked', [
   'ui.bootstrap'
 ])
   .controller('rtcDetectorBlockedModal', RtcDetectorBlockedModalController)

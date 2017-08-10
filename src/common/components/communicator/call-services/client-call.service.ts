@@ -42,8 +42,8 @@ export class ClientCallService {
     this.callbacks.methods.onNewCall(cb);
   }
 
-  public callServiceId = (serviceId: string, expertId?: string): ng.IPromise<CurrentClientCall> => {
-    return this.rtcDetectorService.isUserAbleToCall().then( () => {
+  public callServiceId = (serviceId: string, expertId?: string): ng.IPromise<CurrentClientCall> =>
+    this.rtcDetectorService.getAllMediaPermissions().then( () => {
       if (this.call) return this.$q.reject('There is a call already');
 
       if (!serviceId) return this.$q.reject('serviceId must be defined');
@@ -57,7 +57,6 @@ export class ClientCallService {
 
       return this.call;
     })
-  }
 
   private onStartCallError = (err: any): void => {
     this.call = undefined;

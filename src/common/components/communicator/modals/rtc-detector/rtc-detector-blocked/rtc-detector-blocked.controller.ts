@@ -18,5 +18,4 @@ export class RtcDetectorBlockedModalController implements ng.IController {
 
   public onModalClose = (): void =>
     this.$uibModalInstance.dismiss('cancel')
-
 }
