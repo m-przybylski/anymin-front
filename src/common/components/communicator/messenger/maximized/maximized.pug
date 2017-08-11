@@ -1,8 +1,12 @@
 .messenger-maximized
-  .messenger-header
-    span(data-translate="COMMUNICATOR.MESSENGER.HEADER.TITLE")
-      | {{ $ctrl.expert.expertDetails.name }}
+  .messenger-header(data-ng-if="$ctrl.expertName")
+    span {{:: 'COMMUNICATOR.MESSENGER.HEADER.TITLE' | translate }}
+      span.expert-name {{ $ctrl.expertName }}
+    span.icon.icon-close-12(data-ng-click="$ctrl.minimizeMessenger()")
 
+  .messenger-header(data-ng-if="!$ctrl.expertName")
+    span {{:: 'COMMUNICATOR.MESSENGER.HEADER.EXPERT.TITLE' | translate }}
+      | {{ $ctrl.expertName }}
     span.icon.icon-close-12(data-ng-click="$ctrl.minimizeMessenger()")
 
   .messenger-messages(ngf-drop="$ctrl.onUploadFiles($files)"

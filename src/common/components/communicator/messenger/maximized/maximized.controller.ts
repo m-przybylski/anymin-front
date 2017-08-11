@@ -36,6 +36,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
   private uploader: UploaderService
 
   private messageRoom: MessageRoom
+  public expertName: string = ''
 
   /* @ngInject */
   constructor(private $log: ng.ILogService, private $timeout: ng.ITimeoutService,
@@ -91,9 +92,15 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
   private clientInit = (currentClientCall: CurrentClientCall): void => {
     this.destroy()
     const expert = currentClientCall.getExpert()
+
     if (expert.expertDetails && expert.expertDetails.avatar) {
       this.participantAvatar = this.urlService.resolveFileUrl(expert.expertDetails.avatar)
     }
+
+    if (expert.expertDetails && expert.expertDetails.name) {
+      this.expertName = expert.expertDetails.name
+    }
+
     this.onNewCall(currentClientCall)
   }
 

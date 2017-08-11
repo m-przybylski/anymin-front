@@ -9,11 +9,18 @@ describe('Testing Controller: generalEmailSettingsController', () => {
 
   let controller: GeneralEmailSettingsController
   let scope: IGeneralEmailSettingsControllerScope
-  const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
-    jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss'])
 
   const userService = {
     getUser: (): void => {
+    }
+  }
+
+  const uibModalInstance = {
+    dismiss: (): void => {
+
+    },
+    close: (): void => {
+
     }
   }
 
@@ -37,7 +44,7 @@ describe('Testing Controller: generalEmailSettingsController', () => {
       scope = <IGeneralEmailSettingsControllerScope>$rootScope.$new()
 
       const injectors = {
-        $uibModalInstance: $uibModalInstance,
+        $uibModalInstance: uibModalInstance,
         $scope: scope,
         AccountApi: AccountApi,
         userService: userService,
@@ -51,6 +58,17 @@ describe('Testing Controller: generalEmailSettingsController', () => {
 
   it('should exists', () => {
     return expect(!!controller).toBe(true)
+  })
+
+  it('should checkIfNewEnteredEmailExist', () => {
+    controller.checkIsButtonDisabled()
+    expect('anymind@gmail.com').toMatch(/([a-zA-Z0-9!#$%&'*+/=?^_`{|}~.-]+)@([a-zA-Z0-9-]+)\.([a-zA-Z.]+)/)
+  })
+
+  it('should uibModalInstance', () => {
+    spyOn(uibModalInstance, 'dismiss')
+    controller.onModalClose()
+    expect(uibModalInstance.dismiss).toHaveBeenCalledWith('cancel')
   })
 
 })
