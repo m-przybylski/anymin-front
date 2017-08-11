@@ -1,0 +1,118 @@
+@import "../../../../../template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
+
+.client-call-modal
+	width: 100%
+
+	.entry-info
+		+header
+		+default-font-regular
+		text-align: center
+		margin: 0 0 16px
+
+	header
+		&.entry-title
+			+header
+			+default-font-regular
+			justify-content: center
+			padding: 0
+
+			span
+				color: $c-white
+
+	.current-profile
+		display: flex
+		align-items: center
+		justify-content: center
+		width: 160px
+		height: 160px
+		margin: 32px auto
+		position: relative
+
+		+xsm-portrait
+			margin: 32px auto 32px
+			width: 216px
+			height: 216px
+
+		+xsm-landscape
+			width: 124px
+			height: 124px
+			margin: 16px auto 32px
+
+		+smm
+			margin: 32px auto 64px
+			width: 216px
+			height: 216px
+
+		+smm-landscape
+			margin: 0 auto 64px
+
+		+mdm
+			margin: 32px auto 64px
+
+		.thumb
+			width: 128px
+			height: 128px
+
+			+smm
+				width: 192px
+				height: 192px
+
+		.communicator-equalizer
+			position: absolute
+			left: 0
+			top: 0
+			width: 100%
+			height: 100%
+
+			&.is-active
+				span
+					animation: none
+					display: none
+
+			span
+				position: absolute
+				background: rgba($c-white, 0.05)
+				left: 0
+				right: 0
+				top: 0
+				bottom: 0
+				margin: auto
+				animation: communicator-bounce 1.8s infinite ease-in-out
+
+				&:nth-child(1)
+					width: 100%
+					height: 100%
+
+				&:nth-child(2)
+					width: calc(100% - 16px)
+					height: calc(100% - 16px)
+
+				&:nth-child(3)
+					width: calc(100% - 32px)
+					height: calc(100% - 32px)
+
+				@for $i from 1 through 3
+					&:nth-child(#{$i})
+						animation-delay: $i * 0.2s
+
+	.modal-action
+		position: relative
+		justify-content: space-between
+
+		> *
+			width: 100%
+			margin: 0 0 16px
+
+			+smm
+				width: calc(50% - 16px)
+
+			&:first-child
+				margin-left: 0
+
+			&:last-child
+				margin-right: 0
+
+		.btn-dropdown
+			+smm
+				position: static

@@ -1,0 +1,26 @@
+.client-call-modal
+  .container-small
+    .current-profile
+      .communicator-equalizer
+        span.circle
+        span.circle
+        span.circle
+
+      .communicator-user.thumb.x192
+        img(data-ng-src="/assets/images/no-avatar.jpg")
+
+    .communicator-modal
+      p.entry-info(data-translate="COMMUNICATOR.MODALS.CLIENT_CALL.TITLE")
+      header.entry-title
+        span {{ :: service.name }}
+
+      .modal-action
+        btn-dropdown(
+          data-callback="rejectCall"
+          button-text="COMMUNICATOR.MODALS.CLIENT_CALL.BUTTON.TITLE"
+          button-class="btn-error icon-left"
+        )
+
+        a.btn.btn-success.icon-left(data-ng-click="answerCall()")
+          span.icon.icon-call-24
+          | {{"COMMUNICATOR.MODALS.ANSWER" | translate}}

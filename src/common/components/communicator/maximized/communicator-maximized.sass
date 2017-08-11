@@ -9,7 +9,7 @@
   bottom: 0
   right: 0
   z-index: $z-index-900
-  background: linear-gradient(135deg,  #332267 0%,#601826 100%)
+  background: $c-primary-txt
 
   &::before
     content: ""
@@ -56,51 +56,53 @@
     video
       width: 100%
       height: 100%
+      object-fit: cover
 
   .communicator-content
     text-align: center
-
-    p
-      +default-font-bold
-      font-size: $f-btn-small
-      color: $c-white
-      margin: 0 0 8px
-      text-transform: uppercase
 
     .communicator-conversation-client
       +default-font-regular
       font-size: $f-commmunicator-header
       color: $c-white
 
-    .communicator-current-profile
+    .current-profile
       display: flex
       align-items: center
       justify-content: center
-      width: 124px
-      height: 124px
+      width: 160px
+      height: 160px
       margin: 32px auto
       position: relative
 
       +xsm-portrait
-        margin: 32px auto 0
-        width: 248px
-        height: 248px
+        margin: 32px auto 32px
+        width: 216px
+        height: 216px
 
       +xsm-landscape
         width: 124px
         height: 124px
-        margin: 16px auto 16px
+        margin: 16px auto 32px
 
       +smm
-        margin: 32px auto
-        width: 248px
-        height: 248px
+        margin: 32px auto 64px
+        width: 216px
+        height: 216px
 
       +smm-landscape
-        margin: 0 auto
+        margin: 0 auto 64px
 
       +mdm
-        margin: 32px auto
+        margin: 32px auto 64px
+
+      .thumb
+        width: 128px
+        height: 128px
+
+        +smm
+          width: 192px
+          height: 192px
 
       .communicator-equalizer
         position: absolute
@@ -108,6 +110,11 @@
         top: 0
         width: 100%
         height: 100%
+
+        &.is-active
+          span
+            animation: none
+            display: none
 
         span
           position: absolute
@@ -117,27 +124,23 @@
           top: 0
           bottom: 0
           margin: auto
-          animation: communicator-bounce 1s infinite
+          animation: communicator-bounce 1.8s infinite ease-in-out
 
           &:nth-child(1)
             width: 100%
             height: 100%
 
           &:nth-child(2)
-            width: calc(100% - 40px)
-            height: calc(100% - 40px)
+            width: calc(100% - 16px)
+            height: calc(100% - 16px)
 
           &:nth-child(3)
-            width: calc(100% - 80px)
-            height: calc(100% - 80px)
+            width: calc(100% - 32px)
+            height: calc(100% - 32px)
 
           @for $i from 1 through 3
             &:nth-child(#{$i})
-              animation-delay: $i * 0.15s
-
-    .communicator-user
-      min-width: 64px
-      min-height: 64px
+              animation-delay: $i * 0.2s
 
       +xsm-portrait
         min-width: 128px
@@ -150,16 +153,10 @@
     .communicator-conversation-title
       margin: 0 0 24px
 
-      p
-        +default-font-regular
-        color: $c-tertiary-txt
-        font-size: $f-paragraph
-        text-transform: none
-        margin: 0
-
     .communicator-counter
       > span
-        +default-font-bold
+        +header
+        +default-font-regular
         margin: 0 12px
         font-size: $f-subheader
         color: $c-white
@@ -188,25 +185,21 @@
           text-align: left
 
       .communicator-conversation-title
-        color: $c-white
-        margin: 0 0 2px
-
-      .thumb
-        min-width: 56px
-        min-height: 56px
+        p
+          +subHeader
+          color: $c-white
 
       .author
         padding: 0
         flex: inherit
 
-        h6
-          a
-            line-height: 1
-            color: $c-tertiary-txt
-            font-size: $f-paragraph
+        span
+          +subHeader
+          color: $c-white
 
       .communicator-counter
         span
-          +default-font-bold
+          +header
+          +default-font-regular
           color: $c-white
           margin: 0 16px 0 0

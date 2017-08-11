@@ -1,11 +1,9 @@
 .messenger-maximized
   .messenger-header
-    .communicator-counter
-      span {{ $ctrl.callLength | secondsToDateTime | date:'HH:mm:ss'}}
-      span(data-ng-bind-html="$ctrl.callCost | money")
+    span(data-translate="COMMUNICATOR.MESSENGER.HEADER.TITLE")
+      | {{ $ctrl.expert.expertDetails.name }}
 
-    a(data-ng-click="$ctrl.minimizeMessenger()")
-      span.icon.icon-close-16
+    span.icon.icon-close-12(data-ng-click="$ctrl.minimizeMessenger()")
 
   .messenger-messages(ngf-drop="$ctrl.onUploadFiles($files)"
   ngf-drag-over-class="'dragover'" ngf-multiple="false")

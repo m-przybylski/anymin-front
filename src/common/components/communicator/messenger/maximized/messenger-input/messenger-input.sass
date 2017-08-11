@@ -7,6 +7,7 @@
   padding: 0 16px
   position: relative
   border-radius: 0 0 3px 3px
+  border-top: 1px solid $c-lines
 
   &::after
     content: ""
@@ -20,9 +21,14 @@
     border-left: 10px solid transparent
 
   input
-    height: 56px
+    height: 48px
     flex: 1
-    font-size: $f-paragraph-title
+    color: $c-secondary-txt
+    font-size: $f-paragraph-small
+
+    &::placeholder
+      font-size: $f-paragraph-small
+      color: $c-secondary-txt
 
   .messenger-input-action
     display: flex
@@ -31,11 +37,11 @@
     a
       display: inline-flex
       align-items: center
-      margin: 0 0 0 16px
+      margin: 0 0 0 24px
 
       &.disable
         span
           color: $c-tertiary-txt
 
       span
-        color: $c-secondary-txt
+        color: $c-primary

@@ -2,7 +2,7 @@ import {IWizardAvatarComponentBindings} from './wizard-avatar'
 import {UploaderFactory} from '../../../services/uploader/uploader.factory'
 import {UploaderService} from '../../../services/uploader/uploader.service'
 import {PostProcessOption} from 'profitelo-api-ng/model/models'
-import {FileTypeChecker, FileCategoryEnum} from '../../../classes/file-type-checker'
+import {FileTypeChecker, FileCategoryEnum} from '../../../classes/file-type-checker/file-type-checker'
 
 export class WizardAvatarComponentController implements IWizardAvatarComponentBindings, ng.IController {
 

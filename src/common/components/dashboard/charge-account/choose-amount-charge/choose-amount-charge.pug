@@ -16,10 +16,9 @@
           data-type="number"
           data-id="ownAmount"
           data-placeholder="DASHBOARD.CHARGE_ACCOUNT.YOUR_AMOUNT.TITLE"
-          data-ng-model="vm.cashAmountModel"
+          data-ng-model="$ctrl.cashAmountModel"
           data-is-valid="!$ctrl.minimalAmountValidation()"
           data-validation-text="REGISTER.CODE_REQUIRED"
-
           data-ng-enter="$ctrl.onEnter()"
           data-ng-click="$ctrl.selectAmountOption(3)"
           data-focus='$ctrl.focusInput'
