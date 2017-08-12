@@ -1,9 +1,12 @@
+// TODO should be refactor to component: https://git.contactis.pl/itelo/profitelo/issues/1000
 import * as angular from 'angular'
+import 'angular-ui-router'
 import {Tag} from 'profitelo-api-ng/model/models'
 import {IWindowService} from '../../services/window/window.service'
 import {IDirective} from 'angular'
 
 function proTagsSlider($window: IWindowService,
+                       $state: ng.ui.IStateService,
                        $location: ng.ILocationService,
                        $timeout: ng.ITimeoutService): IDirective {
   function linkFunction(scope: any, element: ng.IRootElementService): void {
@@ -13,7 +16,6 @@ function proTagsSlider($window: IWindowService,
     let currentElement = 0
 
     scope.slidesContainerOffsetWidth = 0
-
     scope.leftOffset = {left: 0}
 
     $timeout(() => {
@@ -54,6 +56,12 @@ function proTagsSlider($window: IWindowService,
       }
     }
 
+    scope.addTagToQueryAndSearch = (tag: string): void => {
+      const tags: string[] = $state.params.tags ? $state.params.tags : []
+      tags.push(tag)
+      $state.go('app.search-result', {tags}, {reload: true})
+    }
+
     scope.prevSlide = (next = 1): void => {
       if (currentElement > 0) {
         currentElement = currentElement - next
@@ -86,5 +94,7 @@ function proTagsSlider($window: IWindowService,
   }
 }
 
-angular.module('profitelo.directives.pro-tags-slider', [])
-  .directive('proTagsSlider', proTagsSlider)
+angular.module('profitelo.directives.pro-tags-slider', [
+  'ui.router'
+])
+.directive('proTagsSlider', proTagsSlider)

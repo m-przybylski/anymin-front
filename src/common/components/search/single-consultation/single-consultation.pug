@@ -3,32 +3,32 @@
     .consultation-wrapper(data-ng-click="$ctrl.goToProfile()")
       .consultation-details
         .consultation-price
-          span(data-ng-bind-html="::$ctrl.consultation.price | money")
+          span(data-ng-bind-html="::$ctrl.price | money")
           span.currency(data-translate='HOME.TOP_CONTAINER.EXPERT_PROFILE.CURRENCY_PER_MINUTE')
 
         div
           .consultation-title
             h3
-              span {{ ::$ctrl.consultation.name }}
+              span {{ ::$ctrl.service.name }}
 
           ul.consultation-about
             li.options-item.recomendation
-              span  {{ ::$ctrl.consultation.rating || '0' }}% {{"SEARCH.RECOMMENDATION" | translate }}
+              span  {{ ::$ctrl.rating || '0' }}% {{"SEARCH.RECOMMENDATION" | translate }}
             li.options-item.conversation-count
-              span {{ ::$ctrl.consultation.usageCounter || '0' }} rozmowy
-            //li.options-item.balance
-              span Stan Twojego konta pozwala na ok. 1 min rozmowy
+              span {{ ::$ctrl.usageCounter || '0' }} {{"SEARCH.CALLS_NUMBER" | translate }}
 
       .consultation-actions
         .profile-preview
-          .thumb.x48
-            img.user-avatar(data-ng-src="{{ ::$ctrl.profileImage }}" alt="{{ ::$ctrl.consultation.owner.name }}")
-            //TODO add status
+          user-avatar.thumb.x48(data-image-token="$ctrl.imageToken")
 
           .profile-name
-            span {{ ::$ctrl.consultation.owner.name }}
+            span {{ ::$ctrl.ownerName }}
 
-        a.btn.btn-success.icon-left(data-ng-click="$ctrl.startCall()" data-ng-mouseover="$ctrl.onMouseOver()" data-ng-mouseleave="$ctrl.onMouseLeave()")
+        a.btn.btn-success.icon-left(
+        data-ng-click="$ctrl.startCall()"
+        data-ng-mouseover="$ctrl.onMouseOver()"
+        data-ng-mouseleave="$ctrl.onMouseLeave()"
+        )
           span.icon.icon-call-16
           | {{ ::'HOME.TOP_CONTAINER.EXPERT_PROFILE.CALL' | translate }}
 

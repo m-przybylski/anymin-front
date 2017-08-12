@@ -3,12 +3,11 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
   describe('Unit testing: profitelo.directives.pro-tags-slider', () => {
   return describe('for pro-tags-slider directive >', () => {
 
-    let scope: any = null
+    let scope: ng.IScope
     let rootScope: ng.IRootScopeService
-    let compile: any = null
+    let compile: ng.ICompileService
     let _timeout: ng.ITimeoutService
-    const validHTML = '<pro-tags-slider data-tags="[{name: \'sdsd\', id:999}, {name: \'sdsd\', id:999}, {name: \'sdsd\', ' +
-      'id:999}, {name: elo, id:999}, {name: elo, id:999}]" data-on-tag-click-action="tagsAction"></pro-tags-slider>'
+    const validHTML = '<pro-tags-slider data-tags="[asds]"></pro-tags-slider>'
 
     beforeEach(() => {
 
@@ -18,7 +17,6 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
         rootScope = $rootScope.$new()
         compile = $compile
         _timeout = $timeout
-
       })
     })
 

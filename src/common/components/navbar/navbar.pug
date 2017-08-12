@@ -10,9 +10,7 @@
 
     .search-expandable.animation.mobile-search-animation.ng-hide(
       data-ng-show="$ctrl.isSearchVisible" data-ng-class="{'is-collapsed': !$ctrl.isSearchVisible }")
-      pro-search-dropdown(data-ng-enter="searchAction(searchModel)" data-ng-model="$ctrl.searchModel"
-        data-search-count="searchCount" data-open="showSearch")
-
+      search-dropdown(data-search-value="$ctrl.searchInputQueryValue")
       a.btn.btn-link.btn-close(data-ng-click="$ctrl.onSearchCollapsed()")
         span(data-translate="NAVIGATION.CANCEL.BUTTON")
 

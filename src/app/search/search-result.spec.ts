@@ -2,76 +2,52 @@ import * as angular from 'angular'
 import 'angular-mocks'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {SearchService} from '../../common/services/search/search.service'
-import {SearchUrlService} from '../../common/services/search-url/search-url.service'
 import './search-result'
 import 'common/services/search/search'
+import searchResultPageModule from './search-result'
+import searchModule from '../../common/services/search/search'
+import {PromiseService} from '../../common/services/promise/promise.service'
+import {SearchResultController} from './search-result.controller'
 
 describe('Unit tests: search-result>', () => {
   describe('Testing Controller: SearchResultController', () => {
 
-    let $scope: any
-    let SearchResultController: any
-    let location: ng.ILocationService
-    let searchUrlService: SearchUrlService
+    let $scope: ng.IScope
+    let SearchResultController: SearchResultController
     let state: ng.ui.IStateService
+
+    let promiseService: PromiseService = <PromiseService>{
+      setMinimalDelay: {}
+    }
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', '')
+      $provide.value('promiseService', promiseService)
     }))
 
     beforeEach(() => {
-      angular.mock.module('profitelo.controller.search-result')
-      angular.mock.module('profitelo.services.search')
+      angular.mock.module(searchResultPageModule)
+      angular.mock.module(searchModule)
 
-      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, $timeout: ng.ITimeoutService,
+      inject(($rootScope: IRootScopeService, $controller: ng.IControllerService,
               searchService: SearchService) => {
         $scope = $rootScope.$new()
-        location = <ng.ILocationService>{
-          search: (): object => {
-            return {}
-          }
-        }
 
         state = <ng.ui.IStateService>{
+          params: {},
           current: {
             name: 'app.search-result'
           },
-          go: (_x: any): object => {
-            return {}
-          },
-          transitionTo: (_a: any, _b: any): object => {
-            return {}
-          }
+          go: (_x: string) => {},
+          transitionTo: (_a: string, _b: string) => {}
         }
 
-        searchService = <SearchService>{
-          onSearchResults: (_$scope, cb: () => void): void => {
-            cb()
-          },
-
-          setSearchQueryParams: (_params): void => {
-
-          },
-
-          onQueryParamsChange: (_scope, cb): void => {
-            cb(angular.extend(location.search(), {q: 'prawo'}))
-          }
-        }
-
-        searchUrlService = <any> {
-          parseParamsForUrl: (): object => {
-            return {}
-          }
-        }
-
-        SearchResultController = $controller('SearchResultController', {
+        SearchResultController = $controller<SearchResultController>('searchResultController', {
           $scope: $scope,
           $rootScope: $rootScope,
           $state: state,
-          $$timeout: $timeout,
+          promiseService: promiseService,
           searchService: searchService,
-          $location: location,
-          searchUrlService: searchUrlService
         })
 
       })
@@ -81,30 +57,21 @@ describe('Unit tests: search-result>', () => {
       expect(!!SearchResultController).toBe(true)
     })
 
-    it('should loade more on click', () => {
-      SearchResultController.searchResults = {
-        count: 10,
-        results: [
-          {},
-          {}
-        ]
-      }
-      SearchResultController.loadMoreOnClick()
-      expect(SearchResultController.isLoadMoreLoading).toBe(true)
-      expect(SearchResultController.isLoadMoreError).toBe(false)
+    it('should call load more results', () => {
+      spyOn(SearchResultController, 'loadMoreResults')
+      SearchResultController.onLoadMoreError()
+      expect(SearchResultController.loadMoreResults).toHaveBeenCalled()
     })
 
-    it('should loade more on scroll', () => {
-      SearchResultController.searchResults = {
-        count: 10,
-        results: [
-          {},
-          {}
-        ]
-      }
-      SearchResultController.loadMoreOnScroll()
-      expect(SearchResultController.isLoadMoreLoading).toBe(true)
-      expect(SearchResultController.isLoadMoreError).toBe(false)
+    it('should stop isSearchLoading after calling onInit', () => {
+      SearchResultController.$onInit()
+      expect(SearchResultController.isSearchLoading).toBe(false)
     })
+
+    it('should stop isMoreResultsLoading after calling loadMoreResults', () => {
+      SearchResultController.loadMoreResults()
+      expect(SearchResultController.isMoreResultsLoading).toBe(false)
+    })
+
   })
 })

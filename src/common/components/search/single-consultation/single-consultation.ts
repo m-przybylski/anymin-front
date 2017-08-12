@@ -1,5 +1,4 @@
 import * as angular from 'angular'
-import {UrlService} from '../../../services/url/url.service'
 import communicatorModule from '../../communicator/communicator'
 import filtersModule from '../../../filters/filters'
 import urlModule from '../../../services/url/url'
@@ -8,43 +7,53 @@ import {UserService} from '../../../services/user/user.service'
 import {ClientCallService} from '../../communicator/call-services/client-call.service';
 
 /* @ngInject */
-function singleConsultationController($state: ng.ui.IStateService, urlService: UrlService,
-                                      clientCallService: ClientCallService, userService: UserService): void {
-  this.isLinkActive = true
-  const polishVATtax: number = 1.23
+function singleConsultationController($state: ng.ui.IStateService, clientCallService: ClientCallService,
+                                      userService: UserService): void {
+
+  this.isLinkActive = false
+
+  const percentage: number  = 100
+  const usageCounter: number = 500
+
+  // TODO Replace mocks by correct values: https://git.contactis.pl/itelo/profitelo/issues/996
+  this.rating = percentage
+  this.usageCounter = usageCounter
 
   this.$onInit = (): void => {
-    this.consultation.price = {
-      amount: this.consultation.price * polishVATtax, // FIXME after ux tests
-      currency: 'PLN'
-    }
+    this.serviceName = this.consultation.service.name
+    this.ownerName =
+      this.consultation.ownerProfile.organizationDetails ? this.consultation.ownerProfile.organizationDetails.name :
+        this.consultation.ownerProfile.expertDetails.name
+    this.price = this.consultation.service.price
+    this.imageToken =
+      this.consultation.ownerProfile.organizationDetails  ? this.consultation.ownerProfile.organizationDetails.logo
+        : this.consultation.ownerProfile.expertDetails.avatar
+  }
 
-    if (!!this.consultation.owner.img && this.consultation.owner.img !== null) {
-      this.profileImage = urlService.resolveFileUrl(this.consultation.owner.img)
-    } else {
-      this.profileImage = null
+  this.goToProfile = (): void => {
+    if (!this.isLinkActive) {
+      const stateName = this.consultation.ownerProfile.organizationDetails
+        ? 'app.company-profile' : 'app.expert-profile'
+
+      $state.go(stateName, {profileId: this.consultation.ownerProfile.id,
+        primaryConsultationId: this.consultation.service.id})
     }
   }
 
   this.onMouseOver = (): void => {
-    this.isLinkActive = false
-  }
-
-  this.onMouseLeave = (): void => {
     this.isLinkActive = true
   }
 
-  this.goToProfile = (): void => {
-    if (this.isLinkActive) {
-      const stateName = this.consultation.owner.type === 'ORG' ? 'app.company-profile' : 'app.expert-profile'
-      $state.go(stateName, {profileId: this.consultation.owner.id, primaryConsultationId: this.consultation.id})
-    }
+  this.onMouseLeave = (): void => {
+    this.isLinkActive = false
   }
 
   this.startCall = (): void => {
-    userService.getUser()
-    .then(() => clientCallService.callServiceId(this.consultation.id),
-      () => $state.go('app.login.account'))
+    if (this.isLinkActive) {
+      userService.getUser()
+      .then(() => clientCallService.callServiceId(this.consultation.service.id),
+        () => $state.go('app.login.account'))
+    }
   }
 
   return this

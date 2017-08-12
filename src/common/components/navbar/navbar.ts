@@ -5,15 +5,17 @@ import navbarLoggedInMenuModule from './navbar-logged-in-menu/navbar-logged-in-m
 import navbarLoggedOutMenuModule from './navbar-logged-out-menu/navbar-logged-out-menu'
 import './navbar.sass'
 import userModule from '../../services/user/user'
+import searchDropdownModule from '../search-dropdown/search-dropdown'
 
 export interface INavbarComponentBindings extends ng.IController {
-  searchModel: string
+  searchInputQueryValue: string
 }
 
 const navbarModule = angular.module('profitelo.components.navbar', [
   'pascalprecht.translate',
   'ui.router',
   userModule,
+  searchDropdownModule,
   navbarLoggedInMenuModule,
   navbarLoggedOutMenuModule
 ])
