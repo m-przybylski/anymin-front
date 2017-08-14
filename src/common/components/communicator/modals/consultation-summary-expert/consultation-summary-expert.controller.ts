@@ -25,16 +25,14 @@ export class ConsultationSummaryExpertController implements ng.IController {
   public complaintReasons: IComplaintReason[]
   public isFullscreen: boolean = true
   public isNavbar: boolean = true
-  public callSummary?: CallSummary
+  public callSummary?: ExpertCallSummary
   public isLoading: boolean
 
-  public expertName: string = 'Jan Kowalski'
-  public serviceName: string = 'Gotowanie meksykańskiego jedzenia'
-  public callDuration: string = '12424234222'
-  public profit: MoneyDto = {
-    amount: 1000,
-    currency: 'PLN'
-  }
+  public clientName: string
+  public serviceName: string
+  public callDuration: number
+  public profit: MoneyDto
+  public clientAvatar: string
 
   public onModalClose = (): void =>
     this.$uibModalInstance.dismiss('cancel')
@@ -50,25 +48,25 @@ export class ConsultationSummaryExpertController implements ng.IController {
       {
         id: 'id2value',
         isDescriptive: false,
-        name: 'DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.REPORT_COMPLAINS.' +
-        'REASON_INCOPENTENT_EXPERT',
+        name: 'DASHBOARD.EXPERT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.REPORT_COMPLAINS.' +
+        'REASON_INCOPENTENT_CLIENT',
       },
       {
         id: 'id3value',
         isDescriptive: false,
-        name: 'DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.REPORT_COMPLAINS.' +
-        'REASON_RUDE_EXPERT',
+        name: 'DASHBOARD.EXPERT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.REPORT_COMPLAINS.' +
+        'REASON_RUDE_CLIENT',
       },
       {
         id: 'id4value',
         isDescriptive: false,
-        name: 'DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.REPORT_COMPLAINS.' +
+        name: 'DASHBOARD.EXPERT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.REPORT_COMPLAINS.' +
         'REASON_TECHNICAL_PROBLEMS',
       },
       {
         id: 'id5value',
         isDescriptive: true,
-        name: 'DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.REPORT_COMPLAINS.REASON_OTHER',
+        name: 'DASHBOARD.EXPERT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.REPORT_COMPLAINS.REASON_OTHER',
       }
     ]
 
@@ -78,14 +76,21 @@ export class ConsultationSummaryExpertController implements ng.IController {
 
   private onCallSummary = (data: CallSummary): void => {
     const callSummary: ExpertCallSummary = data.callSummary
-    if (callSummary.service.id === this.$scope.$parent.serviceId) {
+    if (callSummary.service.id === this.$scope.serviceId) {
       this.callSummary = callSummary
       this.isLoading = false
+      if (this.callSummary.clientAccountSettings) {
+        this.clientName = this.callSummary.clientAccountSettings.nickname
+        this.clientAvatar = this.callSummary.clientAccountSettings.avatar
+      }
+      this.serviceName = this.callSummary.service.name
+      this.profit = this.callSummary.profit
+      this.callDuration = this.callSummary.callDuration
     }
   }
 
   private loadFromExistingCallSummaries = (): void => {
-    const callSummary = this.callSummaryService.takeCallSummary(this.$scope.$parent.serviceId)
+    const callSummary = this.callSummaryService.takeCallSummary(this.$scope.serviceId)
     callSummary ? this.onCallSummary(callSummary) : undefined
   }
 }

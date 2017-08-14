@@ -1,46 +1,63 @@
 .modal-summary
   .modal-main.container-medium
-    //top-modal-navbar(data-on-close="vm.onModalClose")
-    //preloader(data-is-loading="vm.isLoading")
-    .modal-header
-      .profile-preview.vertical-preview
-        .thumb.x96
-          user-avatar(data-image-token="vm.expertAvatar")
+    top-modal-navbar(data-on-close="vm.onModalClose")
+    preloader(data-is-loading="vm.isLoading")
+      .modal-header
+        .profile-preview.vertical-preview
+          .thumb.x96
+            user-avatar(data-image-token="vm.clientAvatar")
 
-        .profile-name
-          a
-            span {{ vm.expertName }}
+          .profile-name
+            a
+              span {{ vm.clientName }}
 
-        .consultation-title.profile-consultation-title
-          h3
-            span {{ vm.serviceName }}
+          .consultation-title.profile-consultation-title
+            h3
+              span {{ vm.serviceName }}
 
-    .modal-container
-      .details-tab
-        .details-tab-row
-          .details-tab-label
-            span(data-translate="COMMUNICATOR.MODALS.CONVERSATION_TIME")
-          .details-tab-content
-            span {{ vm.callDuration | secondsToDateTime | date:'HH:mm:ss' }}
+      .modal-container
+        .details-tab
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="COMMUNICATOR.MODALS.CONVERSATION_TIME")
+            .details-tab-content
+              span {{ vm.callDuration | secondsToDateTime | date:'HH:mm:ss' }}
 
-        .details-tab-row
-          .details-tab-label
-            span(data-translate="COMMUNICATOR.MODALS.INCOME")
-          .details-tab-content
-            span(data-ng-bind-html="vm.profit | money")
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="COMMUNICATOR.MODALS.INCOME")
+            .details-tab-content
+              span(data-ng-bind-html="vm.profit | money")
 
-    collapse-btn.technical-problems(
-    data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.BUTTON"
-    )
-      form(novalidate)
-        radio-btn-text(
-        data-ng-repeat="reason in vm.complaintReasons"
-        data-ng-model="vm.model.value"
-        value="{{ reason.id }} "
-        data-id="{{ reason.id }}"
-        data-label="{{ reason.name }}"
-        data-is-descriptive="reason.isDescriptive"
-        data-ng-class="{'is-active': vm.isSelected(reason)}"
+      collapse-btn.technical-problems(
+      data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.BUTTON"
+      )
+        form(novalidate)
+          radio-btn-text(
+          data-ng-repeat="reason in vm.complaintReasons"
+          data-ng-model="vm.model.value"
+          value="{{ reason.id }} "
+          data-id="{{ reason.id }}"
+          data-label="{{ reason.name }}"
+          data-is-descriptive="reason.isDescriptive"
+          data-ng-class="{'is-active': vm.isSelected(reason)}"
+          )
+
+          .btn-group
+            button.btn.btn-primary(
+            data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.CANCEL")
+
+            button.btn.btn-default(
+            data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.SEND")
+
+      collapse-btn.report-client(
+      data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.REPORT_CLIENT.BUTTON"
+      )
+        textarea-primary(
+        data-ng-model="vm.clientReportModel"
+        data-id="client_report"
+        data-input-text="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.REPORT_CLIENT.TEXTAREA.LABEL"
+        data-max-length="600"
         )
 
         .btn-group
@@ -49,21 +66,4 @@
 
           button.btn.btn-default(
           data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.SEND")
-
-    collapse-btn.report-client(
-    data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.REPORT_CLIENT.BUTTON"
-    )
-      textarea-primary(
-      data-ng-model="vm.clientReportModel"
-      data-id="client_report"
-      data-input-text="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.REPORT_CLIENT.TEXTAREA.LABEL"
-      data-max-length="600"
-      )
-
-      .btn-group
-        button.btn.btn-primary(
-        data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.CANCEL")
-
-        button.btn.btn-default(
-        data-translate="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.TECHNICAL_PROBLEMS.SEND")
 
