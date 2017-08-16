@@ -1,0 +1,10 @@
+.rtc-detector-blocked
+  top-modal-navbar(data-on-close="vm.onModalClose")
+  .container-small
+    .rtc-detector-content
+      .rtc-image
+        img(data-ng-src="/assets/images/profitelo_icons/camera-blocked.png")
+
+      .rtc-header
+        h2 {{:: 'COMMUNICATOR.MODALS.RTC.BLOCKED.TITLE' | translate }}
+        span(data-translate="{{ vm.rtcBlockedTranslation | translate: vm.rtcBlockedTranslationHref }}")

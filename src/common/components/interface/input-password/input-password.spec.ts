@@ -71,5 +71,16 @@ describe('Unit testing: profitelo.components.interface.input', () => {
       expect(component.blockInvalidPhonenumberDigits).toHaveBeenCalled()
     }))
 
+    it('should onFocus', () => {
+      component.onFocus()
+      expect(component.isFocus).toBe(true)
+      expect(component.isDirty).toBe(true)
+    })
+
+    it('should onBlur', () => {
+      component.onBlur()
+      expect(component.isFocus).toBe(false)
+    })
+
   })
 })

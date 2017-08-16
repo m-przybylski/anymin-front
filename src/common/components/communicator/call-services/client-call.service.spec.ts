@@ -9,6 +9,8 @@ import {CommunicatorService} from '../communicator.service'
 import {ClientCallService} from './client-call.service'
 
 import {Session} from 'ratel-sdk-js'
+import RtcDetectorModule from '../../../services/rtc-detector/rtc-detector'
+import {RtcDetectorService} from '../../../services/rtc-detector/rtc-detector.service'
 
 interface ICallSound {
   play: () => void,
@@ -100,6 +102,7 @@ describe('Unit testing: profitelo.services.call >', () => {
 
     beforeEach(() => {
       angular.mock.module(userModule)
+      angular.mock.module(RtcDetectorModule)
       angular.mock.module(communicatorModule)
     })
 
@@ -123,7 +126,7 @@ describe('Unit testing: profitelo.services.call >', () => {
 
     it('should not start call if there is no clientSession', inject(
       ($rootScope: IRootScopeService, communicatorService: CommunicatorService) => {
-        const serviceId = '1'
+        const serviceId: string = '1'
 
         communicatorService.getClientSession = (): undefined => undefined
 
@@ -150,22 +153,25 @@ describe('Unit testing: profitelo.services.call >', () => {
       }))
 
     it('should startCall with error and show service unavailable', inject(
-      ($q: ng.IQService, $rootScope: IRootScopeService, communicatorService: CommunicatorService, RatelApi: RatelApi) => {
+      ($q: ng.IQService, $rootScope: IRootScopeService, communicatorService: CommunicatorService, RatelApi: RatelApi,
+        rtcDetectorService: RtcDetectorService) => {
         const serviceId = '1'
         const err = 'error'
+
+        spyOn(modalsService, 'createServiceUnavailableModal')
 
         communicatorService.getClientSession = (): Session => {
           return {} as RatelSdk.Session
         }
 
-        RatelApi.postStartCallRoute = (_x: any): ng.IPromise<never> => {
-          return $q.reject(err)
-        }
+        RatelApi.postStartCallRoute = (_x: any): ng.IPromise<never> =>
+          $q.reject(err)
 
-        spyOn(modalsService, 'createServiceUnavailableModal')
+        rtcDetectorService.getAllMediaPermissions = (): ng.IPromise<void> =>
+          $q.resolve()
 
         clientCallService.callServiceId(serviceId).then((res) => {
-          expect(res).toEqual(<any>err)
+            expect(res).toEqual(<any>err)
         })
 
         $rootScope.$digest()
@@ -175,7 +181,7 @@ describe('Unit testing: profitelo.services.call >', () => {
 
     it('should create direct call with error and log it', inject(
       ($q: ng.IQService, $log: ng.ILogService, $rootScope: IRootScopeService,
-       communicatorService: CommunicatorService, ServiceApi: ServiceApi) => {
+       communicatorService: CommunicatorService, ServiceApi: ServiceApi, rtcDetectorService: RtcDetectorService) => {
         const serviceId = '1'
         const session = {
           chat: {
@@ -187,6 +193,10 @@ describe('Unit testing: profitelo.services.call >', () => {
 
         ServiceApi.postServiceUsageRequestRoute = (): ng.IPromise<never> => {
           return $q.reject(testSUR)
+        }
+
+        rtcDetectorService.getAllMediaPermissions = (): ng.IPromise<void> => {
+          return $q.resolve()
         }
 
         spyOn($log, 'error')

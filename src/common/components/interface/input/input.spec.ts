@@ -82,5 +82,13 @@ describe('Unit testing: profitelo.components.interface.input', () => {
       component.$onInit()
       expect(component.blockInvalidDigits).toHaveBeenCalled()
     }))
+
+    it('should call blockInvalidPhonenumberDigits on component init', inject(() => {
+      bindings.type = 'tel'
+      component = componentController<InputComponentController, {}>('inputPrimary', injectors, bindings)
+      spyOn(component, 'blockInvalidDigits')
+      component.$onInit()
+      expect(component.blockInvalidDigits).toHaveBeenCalled()
+    }))
   })
 })

@@ -2,6 +2,20 @@ export class NavigatorWrapper {
 
   private navigator: any
 
+  private static videoConstraints: MediaStreamConstraints = {
+    video: {
+      width: 320,
+      height: 200,
+      frameRate: 15
+    }
+  }
+
+  private static audioConstraints: MediaStreamConstraints = {
+    audio: {
+      echoCancelation: true
+    }
+  }
+
   constructor() {
     this.navigator = window['navigator']
     this.navigator.getUserMedia =
@@ -25,4 +39,7 @@ export class NavigatorWrapper {
         (err: any) => reject(err)
       )
     })
+
+  public static getAllConstraints = (): MediaStreamConstraints =>
+    Object.assign(NavigatorWrapper.audioConstraints, NavigatorWrapper.videoConstraints)
 }
