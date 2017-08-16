@@ -5,8 +5,7 @@
         .consultation-profile
           div
             .author
-              span
-                a {{ $ctrl.expert.expertDetails.name }}
+              span {{ $ctrl.expert.expertDetails.name }}
             .communicator-conversation-title
               p {{ $ctrl.service.name }}
             .communicator-counter
@@ -20,9 +19,9 @@
           span.circle
           span.circle
 
-        .communicator-user.thumb.x192
+        .communicator-user
           .user-avatar.communicator-avatar
-            user-avatar(data-image-token="$ctrl.expertAvatar")
+            user-avatar.thumb.x192(data-image-token="$ctrl.expertAvatar")
 
       p.call.connecting-with(data-translate="COMMUNICATOR.CONNECTING_WITH" data-ng-show="$ctrl.isConnecting")
 
