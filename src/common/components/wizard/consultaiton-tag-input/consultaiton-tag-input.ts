@@ -1,6 +1,6 @@
 import * as angular from 'angular'
-import {ConsultationTagInputComponent} from './cosnultaiton-tag-input.component'
-import './cosnultaiton-tag-input.sass'
+import {ConsultationTagInputComponent} from './consultaiton-tag-input.component'
+import './consultaiton-tag-input.sass'
 import inputModule from '../../interface/input/input'
 import ValidationAlertModule from '../../interface/alert/validation-alert/validation-alert'
 

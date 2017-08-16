@@ -1,7 +1,7 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import consultationTagInputModule, {IConsultationTagInputBindings} from './cosnultaiton-tag-input'
-import {ConsultationTagInputComponentController} from './cosnultaiton-tag-input.controller'
+import consultationTagInputModule, {IConsultationTagInputBindings} from './consultaiton-tag-input'
+import {ConsultationTagInputComponentController} from './consultaiton-tag-input.controller'
 
 describe('Unit testing: profitelo.components.interface.consultation-tag-input', () => {
   return describe('for consultationTagInput component >', () => {
@@ -14,7 +14,6 @@ describe('Unit testing: profitelo.components.interface.consultation-tag-input', 
 
     function create(html: string): JQuery {
       scope = rootScope.$new()
-      scope.selectedItemsValue = []
       const elem = angular.element(html)
       const compiledElement = compile(elem)(scope)
       scope.$digest()

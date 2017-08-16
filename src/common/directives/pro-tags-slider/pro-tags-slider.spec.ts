@@ -1,9 +1,12 @@
-namespace profitelo.directives.proTagsSlider {
+import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-  describe('Unit testing: profitelo.directives.pro-tags-slider', () => {
+import {Tag} from 'profitelo-api-ng/model/models'
+import {IProTagsSliderScope} from './pro-tags-slider'
+
+describe('Unit testing: profitelo.directives.pro-tags-slider', () => {
   return describe('for pro-tags-slider directive >', () => {
 
-    let scope: ng.IScope
+    let scope: IProTagsSliderScope
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let _timeout: ng.ITimeoutService
@@ -21,7 +24,7 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
     })
 
     function create(html: string): JQuery {
-      scope = rootScope.$new()
+      scope = <IProTagsSliderScope>rootScope.$new()
       const elem = angular.element(html)
       const compiledElement = compile(elem)(scope)
       scope.$digest()
@@ -40,9 +43,9 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 
     it('should call next slide', () => {
       const el = create(validHTML)
-      const isoScope = el.isolateScope()
-      const tag = '{name: \'sdsd\', id:999}'
+      const isoScope = el.isolateScope<IProTagsSliderScope>()
+      const tag = {name: 'sdsd', id: '999', status: Tag.StatusEnum.NEW, persisted: false}
       isoScope.tagAction(tag)
     })
   })
-})}
+})

@@ -17,7 +17,6 @@ describe('Unit testing: profitelo.components.interface.image-crop', () => {
 
     function create(html: string): JQuery {
       scope = rootScope.$new()
-      scope.selectedItemsValue = []
       const elem = angular.element(html)
       const compiledElement = compile(elem)(scope)
       scope.$digest()

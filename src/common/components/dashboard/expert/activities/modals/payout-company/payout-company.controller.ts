@@ -1,4 +1,8 @@
-export interface IExpertPayoutCompanyModalScope extends ng.IScope {}
+export interface IExpertPayoutCompanyModalScope extends ng.IScope {
+  isNavbar: boolean
+  isFullscreen: boolean
+  sueId: string
+}
 
 export class ExpertPayoutCompanyModalController implements ng.IController {
 

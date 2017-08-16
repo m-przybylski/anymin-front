@@ -1,11 +1,12 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {DialogService} from '../../../services/dialog/dialog.service'
+import {IProExpertSlideScope} from './pro-expert-slider'
 
 describe('Unit testing: profitelo.directives.expert-profile.pro-expert-slider', () => {
   return describe('for expert-profile.pro-expert-slider directive >', () => {
 
-    let scope: any = null
+    let scope: IProExpertSlideScope
     let rootScope: ng.IRootScopeService
     let compile: any = null
     let timeout: ng.ITimeoutService
@@ -27,7 +28,7 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-slider', 
     })
 
     function create(html: string): JQuery {
-      scope = rootScope.$new()
+      scope = <IProExpertSlideScope>rootScope.$new()
       const elem = angular.element(html)
       scope.controlls = {
         nextSlide: (): void => {
@@ -54,7 +55,7 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-slider', 
 
     it('should nextSlide', () => {
       const el = create(validHTML)
-      const isoScope = el.isolateScope()
+      const isoScope = el.isolateScope<IProExpertSlideScope>()
       spyOn(isoScope.controlls, 'nextSlide')
       isoScope.nextSlide()
       expect(isoScope.controlls.nextSlide).toHaveBeenCalled()
@@ -62,7 +63,7 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-slider', 
 
     it('should prevSlide', () => {
       const el = create(validHTML)
-      const isoScope = el.isolateScope()
+      const isoScope = el.isolateScope<IProExpertSlideScope>()
       spyOn(isoScope.controlls, 'prevSlide')
       isoScope.prevSlide()
       expect(isoScope.controlls.prevSlide).toHaveBeenCalled()
@@ -70,7 +71,7 @@ describe('Unit testing: profitelo.directives.expert-profile.pro-expert-slider', 
 
     it('should openDialog', () => {
       const el = create(validHTML)
-      const isoScope = el.isolateScope()
+      const isoScope = el.isolateScope<IProExpertSlideScope>()
       const slide = {
         previews: 'slide'
       }

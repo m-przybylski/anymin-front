@@ -3,6 +3,7 @@ import {ViewsApi, ServiceApi} from 'profitelo-api-ng/api/api'
 import {MoneyDto, Tag, GetCallDetails} from 'profitelo-api-ng/model/models'
 
 export interface IClientConsultationDetailsScope extends ng.IScope {
+  sueId: string
 }
 
 export class ClientConsultationDetailsController implements ng.IController {
@@ -32,9 +33,9 @@ export class ClientConsultationDetailsController implements ng.IController {
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, private ServiceApi: ServiceApi,
               private urlService: UrlService, ViewsApi: ViewsApi) {
 
-    this.sueId = $scope.$parent.sueId
+    this.sueId = $scope.sueId
 
-    ViewsApi.getClientDashboardCallDetailsRoute($scope.$parent.sueId)
+    ViewsApi.getClientDashboardCallDetailsRoute(this.sueId)
     .then((res) => this.onGetCallDetails(res), this.onGetCallDetailsError)
   }
 

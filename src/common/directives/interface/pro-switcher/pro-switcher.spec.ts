@@ -1,9 +1,11 @@
-namespace profitelo.directives.interface.proSwitcher {
-  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import * as angular from 'angular'
+import {IProSwitcherScope} from './pro-switcher'
+import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+
   describe('Unit testing: profitelo.directives.interface.pro-input-switcher', () => {
     return describe('for interface.pro-input-switcher directive >', () => {
 
-      let scope: any = null
+      let scope: IProSwitcherScope
       let rootScope: ng.IRootScopeService
       let compile: any = null
       const validHTML = '<pro-switcher ng-model="isChecked" data-label="LABEL" id data-name="NAME" ></pro-switcher>'
@@ -19,7 +21,7 @@ namespace profitelo.directives.interface.proSwitcher {
       })
 
       function create(html: string, isChecked: boolean): JQuery {
-        scope = rootScope.$new()
+        scope = <IProSwitcherScope>rootScope.$new()
 
         scope.isChecked = isChecked
 
@@ -40,7 +42,7 @@ namespace profitelo.directives.interface.proSwitcher {
 
       it('should be isChecked after click in checkbox', () => {
         const el = create(validHTML, false)
-        const isoScope = el.isolateScope()
+        const isoScope = el.isolateScope<IProSwitcherScope>()
         $(el).find('.checkbox-switcher').triggerHandler('click')
         expect(isoScope.ngModel).toEqual(true)
       })
@@ -52,4 +54,4 @@ namespace profitelo.directives.interface.proSwitcher {
       }))
     })
   })
-}
+

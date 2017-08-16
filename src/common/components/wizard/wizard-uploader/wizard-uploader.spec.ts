@@ -1,6 +1,6 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {IDocumentFile, WizardUploaderComponentController} from './wizard-uploader.controller'
+import {IDocumentFile, WizardUploaderComponentController, IWizardUploaderComponentScope} from './wizard-uploader.controller'
 import {IWizardUploaderModuleComponentBindings} from './wizard-uploader'
 import wizardUploaderModule from './wizard-uploader'
 import {FilesApi} from 'profitelo-api-ng/api/api'
@@ -8,11 +8,11 @@ import {FilesApi} from 'profitelo-api-ng/api/api'
 describe('Unit testing: profitelo.components.wizard.wizard-uploader', () => {
   return describe('for WizardUploader component >', () => {
 
-    let scope: ng.IScope
+    let scope: IWizardUploaderComponentScope
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let component: WizardUploaderComponentController
-    const validHTML = '<wizard-uploader token-list="[]"></wizard-uploader>'
+    const validHTML = '<wizard-uploader token-list="tokenList"></wizard-uploader>'
     let bindings: IWizardUploaderModuleComponentBindings
     let $log: ng.ILogService
     let httpBackend: ng.IHttpBackendService
@@ -24,8 +24,7 @@ describe('Unit testing: profitelo.components.wizard.wizard-uploader', () => {
     }
 
     function create(html: string): JQuery {
-      scope = rootScope.$new()
-      scope.selectedItemsValue = []
+      scope = <IWizardUploaderComponentScope>rootScope.$new()
       scope.tokenList = ['file-token-1']
       const elem = angular.element(html)
       const compiledElement = compile(elem)(scope)

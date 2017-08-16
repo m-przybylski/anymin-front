@@ -10,7 +10,7 @@ import tooltipModule from '../../../common/components/interface/tooltip/tooltip'
 import consultationEmployeeInputModule
   from '../../../common/components/wizard/consultation-employee-input/consultation-employee-input'
 import consultationTagInputModule
-  from '../../../common/components/wizard/cosnultaiton-tag-input/cosnultaiton-tag-input'
+  from '../../../common/components/wizard/consultaiton-tag-input/consultaiton-tag-input'
 import {WizardApi} from 'profitelo-api-ng/api/api'
 import {GetWizardProfile} from 'profitelo-api-ng/model/models'
 import userModule from '../../../common/services/user/user'

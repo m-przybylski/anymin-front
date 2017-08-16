@@ -3,7 +3,9 @@ import {
   MoneyDto,
   PaymentLink,
   PaymentSystem,
-  GetLastPayment
+  GetLastPayment,
+  GetCreditCard,
+  GetPaymentOptions
 } from 'profitelo-api-ng/model/models'
 
 import 'common/components/interface/preloader/preloader'
@@ -27,7 +29,11 @@ export interface IAmountModel {
 }
 
 export interface IChargeAccountScope extends ng.IScope {
-  currentState?: string
+  currentState?: string,
+  paymentsOptions?: GetPaymentOptions
+  creditCards?: GetCreditCard[],
+  paymentsLinks?: PaymentLink[],
+  financeBalance?: MoneyDto
 }
 
 export class ChargeAccountController implements ng.IController {
@@ -46,10 +52,10 @@ export class ChargeAccountController implements ng.IController {
   paymentCountryId: string
   amounts: IAmounts
   currentSection: number
-  clientBalance: MoneyDto
+  clientBalance?: MoneyDto
   lastPayment?: GetLastPayment
   paymentSystems: PaymentSystem[]
-  paymentsLinks: PaymentLink[]
+  paymentsLinks?: PaymentLink[]
   amountMethodModal: {
     amountModel: {
       cashAmount: null | MoneyDto,
@@ -73,17 +79,19 @@ export class ChargeAccountController implements ng.IController {
       const paymentsLinks = this.$scope.paymentsLinks
       const financeBalance = this.$scope.financeBalance
 
-      this.paymentCountryId = paymentsOptions.paymentCountryId
-      this.amounts = {
-        paymentOptions: paymentsOptions.paymentOptions,
-        minimalAmounts: paymentsOptions.minimalPayment
+      if (paymentsOptions) {
+        this.paymentCountryId = paymentsOptions.paymentCountryId
+        this.amounts = {
+          paymentOptions: paymentsOptions.paymentOptions,
+          minimalAmounts: paymentsOptions.minimalPayment
+        }
+        this.lastPayment = paymentsOptions.lastPayment
+        this.paymentSystems = paymentsOptions.paymentSystems
       }
+
       this.currentSection = 1
       this.clientBalance = financeBalance
-      this.isCreditCard = creditCards.length > 0
-
-      this.lastPayment = paymentsOptions.lastPayment
-      this.paymentSystems = paymentsOptions.paymentSystems
+      this.isCreditCard = typeof creditCards !== 'undefined' && creditCards.length > 0
       this.paymentsLinks = paymentsLinks
 
       this.amountMethodModal = {

@@ -1,6 +1,11 @@
 import * as angular from 'angular'
 import {IDirective} from 'angular'
 
+export interface IProSwitcherScope extends ng.IScope {
+  ngModel: boolean
+  isChecked: boolean
+}
+
 (function(): void {
   function proSwitcher(): IDirective {
 

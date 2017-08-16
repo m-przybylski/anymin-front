@@ -2,10 +2,13 @@ import * as angular from 'angular'
 import './single-consultation'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import communicatorModule from '../../communicator/communicator'
+import {ISingleConsultationScope} from './single-consultation'
+import {Tag} from 'profitelo-api-ng/model/models';
+
 describe('Unit testing:profitelo.components.search.single-consultation', () => {
   return describe('for single-consultation component >', () => {
 
-    let scope: any
+    let scope: ISingleConsultationScope
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let componentController: any
@@ -18,20 +21,46 @@ describe('Unit testing:profitelo.components.search.single-consultation', () => {
     const consultation = {
       id: 1,
       service: {
-        id: '123123'
+        id: 'id',
+        ownerId: 'ownerId',
+        name: 'name',
+        price: {
+          amount: 123,
+          currency: 'PLN'
+        },
+        rating: 123,
+        usageCounter: 123,
+        usageDurationInSeconds: 123,
+        isSuspended: false,
+        createdAt: 123
       },
       ownerProfile: {
+        id: 'id',
+        isActive: false,
         expertDetails: {
-          avatar: 'asdasdasd'
-        },
-        organizationDetails: {
-          logo: '232323'
+          name: 'name',
+          avatar: 'avatar',
+          description: 'desc',
+          languages: ['pl'],
+          files: ['file'],
+          links: ['link']
         }
-      }
+      },
+      employees: [{
+        id: 'id',
+        name: 'name',
+        img: 'img'
+      }],
+      tags: [{
+        id: 'id',
+        name: 'name',
+        status: Tag.StatusEnum.NEW,
+        persisted: false
+      }]
     }
 
     function create(html: string): JQuery {
-      scope = rootScope.$new()
+      scope = <ISingleConsultationScope>rootScope.$new()
       scope.consultation = consultation
       const elem = angular.element(html)
       const compiledElement = compile(elem)(scope)
@@ -105,17 +134,17 @@ describe('Unit testing:profitelo.components.search.single-consultation', () => {
 
     it('should set isLinkActive to true', () => {
       const el = create(validHTML)
-      const isoScope: ng.IScope = el.isolateScope()
+      const controller = el.controller('single-consultation')
       el.find('.btn.btn-success').triggerHandler('mouseover')
-      expect(isoScope.$ctrl.isLinkActive).toBe(true)
+      expect(controller.isLinkActive).toBe(true)
     })
 
     it('should set isLinkActive to false', () => {
       const el = create(validHTML)
-      const isoScope: any = el.isolateScope()
+      const controller = el.controller('single-consultation')
       el.find('.btn.btn-success').triggerHandler('mouseover')
       el.find('.btn.btn-success').triggerHandler('mouseout')
-      expect(isoScope.$ctrl.isLinkActive).toBe(false)
+      expect(controller.isLinkActive).toBe(false)
     })
 
     it('should call state go', () => {

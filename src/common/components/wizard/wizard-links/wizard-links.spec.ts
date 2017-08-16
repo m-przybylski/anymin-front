@@ -17,7 +17,6 @@ describe('Unit testing: WizardLinksController', () => {
     const selectedLinks: string[] = []
     function create(html: string): JQuery {
       scope = rootScope.$new()
-      scope.selectedItemsValue = []
       const elem = angular.element(html)
       const compiledElement = compile(elem)(scope)
       scope.$digest()

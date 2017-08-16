@@ -1,5 +1,6 @@
-namespace profitelo.directives.passwordStrengthBar {
-  import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import * as angular from 'angular'
+import {IPasswordStrengthScope} from './password-strength-bar'
+
   describe('Unit testing: profitelo.directives.password-strength-bar', () => {
     return describe('for password-strength-bar directive >', () => {
 
@@ -11,7 +12,7 @@ namespace profitelo.directives.passwordStrengthBar {
 
         angular.mock.module('profitelo.directives.password-strength-bar')
 
-        inject(($rootScope: IRootScopeService, $compile: ng.ICompileService) => {
+        inject(($rootScope: IPasswordStrengthScope, $compile: ng.ICompileService) => {
           scope = $rootScope.$new()
           compile = $compile
           scope.currentClass = 0
@@ -37,7 +38,7 @@ namespace profitelo.directives.passwordStrengthBar {
 
       it('should change progressBar class', () => {
         const el = create(validHTML)
-        const isoScope = el.isolateScope()
+        const isoScope = scope
 
         isoScope.currentClass = -1
         scope.$apply()
@@ -71,4 +72,3 @@ namespace profitelo.directives.passwordStrengthBar {
 
     })
   })
-}

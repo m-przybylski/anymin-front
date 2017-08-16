@@ -32,7 +32,7 @@ describe('Unit tests: profitelo.controller.dashboard.charge-account >', (): void
       chargeAccountController = <ChargeAccountController>controller('chargeAccountModal', {
         $scope: scope,
         $timeout: timeout,
-        smoothScrollingService: smoothScrollingService,
+        smoothScrollingService,
         $uibModalInstance: uibModalInstance
       })
     }
@@ -74,7 +74,23 @@ describe('Unit tests: profitelo.controller.dashboard.charge-account >', (): void
       scope.paymentsOptions = {
         paymentCountryId: 'lp',
         countryISO: 'pl',
-        minimalPayment: 2340
+        minimalPayment: {
+          amount: 2340,
+          currency: 'PLN'
+        },
+        paymentOptions: [
+          {
+            amount: 2340,
+            currency: 'PLN'
+          }
+        ],
+        paymentSystems: [{
+          id: 'id',
+          slug: 'slug',
+          desc: 'desc',
+          updatedAt: new Date(),
+          createdAt: new Date()
+        }]
       }
       scope.creditCards = []
 

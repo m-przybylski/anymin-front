@@ -6,9 +6,26 @@ import 'common/controllers/lightbox-modal/lightbox-modal'
 import 'common/components/pro-lightbox/pro-lightbox'
 import {IDirective} from 'angular'
 
+interface IControlls {
+  nextSlide: () => void,
+  prevSlide: () => void
+}
+
+export interface IProExpertSlideScope extends ng.IScope {
+  controlls: IControlls
+  sliders: {}[]
+  prevSlide: () => void
+  nextSlide: () => void
+  openDialog: (slide: any) => void,
+  areControllsVisible: boolean,
+  imageUrl: (slide: any) => string,
+  fullSizeUrl: string,
+  slide: any
+}
+
 function proExpertSlider(dialogService: DialogService, $timeout: ng.ITimeoutService): IDirective {
 
-  function linkFunction(scope: any): void {
+  function linkFunction(scope: IProExpertSlideScope): void {
 
     scope.areControllsVisible = true
     const maxSlidersWithoutConstrollers: number = 3
@@ -20,8 +37,6 @@ function proExpertSlider(dialogService: DialogService, $timeout: ng.ITimeoutServ
     })
 
     scope.imageUrl = (slide: any): string => slide.previews[0]
-
-    scope.controlls = {}
 
     scope.nextSlide = function (): void {
       scope.controlls.nextSlide()

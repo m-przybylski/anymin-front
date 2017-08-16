@@ -1,13 +1,16 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import consultationListItemModule from './consultation-list-item'
-import IScope = angular.IScope
-import {ConsultationListItemComponentController} from './consultation-list-item.controller'
+import {
+  ConsultationListItemComponentController,
+  IConsultationListItemComponentScope
+} from './consultation-list-item.controller'
+import {GetEmployment} from 'profitelo-api-ng/model/models'
 
 describe('Unit testing: profitelo.components.dashboard.shared.consultation-list-item', () => {
   return describe('for consultationListItem', () => {
 
-    let scope: IScope
+    let scope: IConsultationListItemComponentScope
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let componentController: ng.IComponentControllerService
@@ -15,10 +18,24 @@ describe('Unit testing: profitelo.components.dashboard.shared.consultation-list-
     const validHTML = '<consultation-list-item data-service="service"></consultation-list-item>'
 
     function create(html: string): JQuery {
-      scope = rootScope.$new()
+      scope = <IConsultationListItemComponentScope>rootScope.$new()
       scope.service = {
+        id: 'id',
+        ownerId: 'ownerId',
         name: 'name',
-        price: 12.12
+        price: {
+          amount: 123,
+          currency: 'PLN'
+        },
+        employments: [{
+          id: 'id',
+          serviceId: 'serviceId',
+          status: GetEmployment.StatusEnum.NEW,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        }],
+        isSuspended: false,
+        createdAt: new Date()
       }
       const elem = angular.element(html)
       const compiledElement = compile(elem)(scope)

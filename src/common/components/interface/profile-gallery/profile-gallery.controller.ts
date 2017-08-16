@@ -4,6 +4,10 @@ import {FilesApi} from 'profitelo-api-ng/api/api'
 import {ModalsService} from '../../../services/modals/modals.service'
 import {ErrorHandlerService} from '../../../services/error-handler/error-handler.service'
 
+export interface IProfileGalleryComponentScope extends ng.IScope {
+  documents: string[]
+}
+
 export class ProfileGalleryComponentController implements IProfileGalleryComponentBindings {
   documents: string[]
   uploadedFiles: FileInfo[] = []

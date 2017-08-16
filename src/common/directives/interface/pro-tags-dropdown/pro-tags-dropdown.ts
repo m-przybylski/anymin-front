@@ -6,10 +6,30 @@ import commonSettingsModule from '../../../services/common-settings/common-setti
 import {IDirective} from 'angular'
 import {keyboardCodes} from '../../../classes/keyboard'
 
+export interface IProTagsDropdownScope extends ng.IScope {
+  valid: boolean,
+  tagTransform: (item: string) => {[key: string]: string} | undefined,
+  validPattern: string,
+  proModel: string[],
+  select: (item: string) => void,
+  searchEnable: () => boolean,
+  remove: (item: any) => void,
+  update: () => void,
+  onFocus: () => void,
+  focus: boolean,
+  onClick: boolean,
+  onKeypress: (event: KeyboardEvent, select?: any) => void,
+  openBar: () => void,
+  disableTagging: boolean,
+  tagNameParam: string,
+  onSearch: (item: {}) => void,
+  groupFind: (item: string) => string
+}
+
 /* @ngInject */
 function proTagsDropdown($timeout: ng.ITimeoutService): IDirective {
 
-  function linkFunction(scope: any, element: ng.IRootElementService, attr: ng.IAttributes): void {
+  function linkFunction(scope: IProTagsDropdownScope, element: ng.IRootElementService, attr: ng.IAttributes): void {
     let myScrollbarChoices: JQuery
 
     function _getScrollbarChoices(): JQuery {
@@ -35,31 +55,31 @@ function proTagsDropdown($timeout: ng.ITimeoutService): IDirective {
 
     scope.disableTagging = !!('disableTagging' in attr)
 
-    scope.tagTransform = (item: any): any | null => {
+    scope.tagTransform = (item: string): {[key: string]: string} | undefined => {
       item = item.trim()
       if (!angular.isDefined(scope.validPattern) || item.match(scope.validPattern)) {
-        const newItem: any = {}
+        const newItem: {[key: string]: string} = {}
         newItem[scope.tagNameParam] = item
         scope.valid = false
         return newItem
       } else {
         scope.valid = true
-        return null
+        return undefined
       }
     }
 
-    scope.select = (item: any, _model: any, _select: any): void => {
+    scope.select = (item: string): void => {
       scope.valid = false
       scope.proModel.push(item)
       _onFocusOut()
       _getScrollbarChoices().perfectScrollbar()
     }
 
-    scope.remove = ($item: any, _$model: any): void => {
+    scope.remove = ($item: any): void => {
       scope.proModel.splice(scope.proModel.indexOf($item), 1)
     }
 
-    scope.onKeypress = (event: any, select: any): void => {
+    scope.onKeypress = (event: KeyboardEvent, select: any): void => {
       if (event.keyCode === keyboardCodes.arrowUp) {
         event.preventDefault()
       }
@@ -71,7 +91,7 @@ function proTagsDropdown($timeout: ng.ITimeoutService): IDirective {
       }
     }
 
-    scope.groupFind = (item: any): void => item
+    scope.groupFind = (item: string): string => item
 
     scope.update = (): void => {
       _getScrollbarChoices().perfectScrollbar('destroy')
