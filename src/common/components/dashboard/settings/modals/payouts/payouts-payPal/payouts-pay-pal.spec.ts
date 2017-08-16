@@ -31,6 +31,19 @@ describe('Testing Controller: PayoutsPayPalController', () => {
   })
 
   it('should exists', () => {
-    return expect(!!controller).toBe(true)
+    expect(!!controller).toBe(true)
   })
+
+  it('should set isPayoutBankMethod to true', () => {
+    controller.choosePayoutBankMethod()
+    expect(controller.isPayoutBankMethod).toBe(true)
+    expect(controller.isPayoutPaypalMethod).toBe(false)
+  })
+
+  it('should set isPayoutPaypalMethod to true', () => {
+    controller.choosePayoutPaypalMethod()
+    expect(controller.isPayoutPaypalMethod).toBe(true)
+    expect(controller.isPayoutBankMethod).toBe(false)
+  })
+
 })
