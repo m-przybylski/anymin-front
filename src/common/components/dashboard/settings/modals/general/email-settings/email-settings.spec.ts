@@ -57,12 +57,12 @@ describe('Testing Controller: generalEmailSettingsController', () => {
   })
 
   it('should exists', () => {
-    return expect(!!controller).toBe(true)
+    expect(!!controller).toBe(true)
   })
 
   it('should checkIfNewEnteredEmailExist', () => {
-    controller.checkIsButtonDisabled()
-    expect('anymind@gmail.com').toMatch(/([a-zA-Z0-9!#$%&'*+/=?^_`{|}~.-]+)@([a-zA-Z0-9-]+)\.([a-zA-Z.]+)/)
+    controller.newEmail ='testowy@profitel.pl'
+    expect(controller.checkIsButtonDisabled()).toBe(true)
   })
 
   it('should uibModalInstance', () => {
