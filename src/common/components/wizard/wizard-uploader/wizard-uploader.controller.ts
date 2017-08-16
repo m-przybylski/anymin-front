@@ -6,6 +6,10 @@ import {PostProcessOption, FileInfo} from 'profitelo-api-ng/model/models'
 import * as _ from 'lodash'
 import {FileCategoryEnum, FileTypeChecker} from '../../../classes/file-type-checker/file-type-checker'
 
+export interface IWizardUploaderComponentScope extends ng.IScope {
+  tokenList: string[]
+}
+
 export interface IDocumentFile {
   file?: File,
   fileInfo?: FileInfo,

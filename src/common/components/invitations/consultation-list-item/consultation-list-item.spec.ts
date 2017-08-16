@@ -5,6 +5,7 @@ import {
   ConsultationListItemComponentController,
   IConsultationListItemComponentScope
 } from './consultation-list-item.controller'
+import {GetEmployment} from 'profitelo-api-ng/model/models'
 
 describe('Unit testing: profitelo.components.dashboard.shared.consultation-list-item', () => {
   return describe('for consultationListItem', () => {
@@ -19,8 +20,22 @@ describe('Unit testing: profitelo.components.dashboard.shared.consultation-list-
     function create(html: string): JQuery {
       scope = <IConsultationListItemComponentScope>rootScope.$new()
       scope.service = {
+        id: 'id',
+        ownerId: 'ownerId',
         name: 'name',
-        price: 12.12
+        price: {
+          amount: 123,
+          currency: 'PLN'
+        },
+        employments: [{
+          id: 'id',
+          serviceId: 'serviceId',
+          status: GetEmployment.StatusEnum.NEW,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        }],
+        isSuspended: false,
+        createdAt: new Date()
       }
       const elem = angular.element(html)
       const compiledElement = compile(elem)(scope)

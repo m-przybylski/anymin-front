@@ -91,7 +91,7 @@ export class ChargeAccountController implements ng.IController {
 
       this.currentSection = 1
       this.clientBalance = financeBalance
-      this.isCreditCard = !!(creditCards && creditCards.length > 0)
+      this.isCreditCard = typeof creditCards !== 'undefined' && creditCards.length > 0
       this.paymentsLinks = paymentsLinks
 
       this.amountMethodModal = {

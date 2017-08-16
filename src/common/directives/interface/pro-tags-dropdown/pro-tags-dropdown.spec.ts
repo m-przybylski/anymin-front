@@ -59,7 +59,7 @@ import {IProTagsDropdownScope} from './pro-tags-dropdown'
         const el = create(validHTML)
         const isoScope = el.isolateScope<IProTagsDropdownScope>()
         isoScope.proModel = []
-        isoScope.select()
+        isoScope.select('asd')
         isoScope.searchEnable()
         expect(isoScope.valid).toEqual(false)
         expect(isoScope.proModel.length === 1).toBe(true)
@@ -87,7 +87,7 @@ import {IProTagsDropdownScope} from './pro-tags-dropdown'
       it('should block enter key', () => {
         const el = create(validHTML)
         const isoScope = el.isolateScope<IProTagsDropdownScope>()
-        const event = {
+        const event = <KeyboardEvent>{
           keyCode: 38,
           preventDefault: (): void => {
 
@@ -107,7 +107,7 @@ import {IProTagsDropdownScope} from './pro-tags-dropdown'
       it('should block enter key', () => {
         const el = create('<pro-tags-dropdown pro-model="RANDOM" disable-tagging disable-typing  no-search></pro-tags-dropdown>')
         const isoScope = el.isolateScope<IProTagsDropdownScope>()
-        const event = {
+        const event = <KeyboardEvent>{
           keyCode: 38,
           preventDefault: (): void => {
 

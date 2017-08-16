@@ -5,6 +5,12 @@ import urlModule from '../../../services/url/url'
 import './single-consultation.sass'
 import {UserService} from '../../../services/user/user.service'
 import {ClientCallService} from '../../communicator/call-services/client-call.service';
+import {GetServiceDetails} from 'profitelo-api-ng/model/models';
+
+export interface ISingleConsultationScope extends ng.IScope {
+  isLinkActive: boolean
+  consultation: GetServiceDetails
+}
 
 /* @ngInject */
 function singleConsultationController($state: ng.ui.IStateService, clientCallService: ClientCallService,

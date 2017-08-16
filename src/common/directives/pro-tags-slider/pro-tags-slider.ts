@@ -5,16 +5,21 @@ import {Tag} from 'profitelo-api-ng/model/models'
 import {IWindowService} from '../../services/window/window.service'
 import {IDirective} from 'angular'
 
+interface ILeftOffset {
+  left: number
+}
+
 export interface IProTagsSliderScope extends ng.IScope {
   tagAction: (tag: Tag) => void,
   onTagClickAction: (tag: Tag) => void,
   slidesContainerOffsetWidth: number,
-  leftOffset: {},
+  leftOffset: ILeftOffset,
   prevSlide: (next: number) => void,
   nextSlide: (next: number) => void,
   leftArrowActive: () => boolean,
   rightArrowActive: () => boolean,
-  tags: Tag[]
+  tags: Tag[],
+  addTagToQueryAndSearch: (tag: string) => void
 }
 
 function proTagsSlider($window: IWindowService,
