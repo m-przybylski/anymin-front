@@ -1,9 +1,9 @@
 section.search-result
-  navbar(data-search-input-query-value="vm.hrefParams.q")
+  navbar(data-search-input-query-value="vm.stateParams.q")
   preloader(data-is-loading= "vm.isSearchLoading")
 
     search-filters(data-tags="vm.tags")
-    no-consultations(data-query="vm.hrefParams.q"
+    no-consultations(data-query="vm.stateParams.q"
     data-ng-if="!vm.isSearchLoading && (!vm.searchResults || vm.searchResults.length === 0)")
     div(infinite-scroll="vm.loadMoreResults()"
     infinite-scroll-distance="6"
