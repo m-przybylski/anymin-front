@@ -12,15 +12,15 @@
                 span.icon.icon-success-12
 
           .profile-name
-            span {{ vm.serviceOwner.organizationDetails.name }}
+            span {{ vm.serviceOwnerName }}
 
           .consultation-title.profile-consultation-title
             h3
-              span {{ vm.service.name }}
+              span {{ vm.serviceName }}
 
           .consultation-price
             span(data-translate="COMMUNICATOR.MODALS.PRECALL.COST_PER_MIN")
-            span(data-ng-bind-html="vm.service.price | money")
+            span(data-ng-bind-html="vm.servicePrice | money")
 
       .modal-container
         .precall-input-handler.input-handler

@@ -1,6 +1,6 @@
 import * as angular from 'angular'
 import {PaymentsApi, FinancesApi} from 'profitelo-api-ng/api/api'
-import {GetProfile, GetService} from 'profitelo-api-ng/model/models'
+import {GetProfile, GetService, MoneyDto} from 'profitelo-api-ng/model/models'
 import {IPrimaryDropdownListElement} from '../../../interface/dropdown-primary/dropdown-primary'
 import {CommonSettingsService} from '../../../../services/common-settings/common-settings.service'
 import {CommonConfig} from '../../../../../../generated_modules/common-config/common-config'
@@ -36,6 +36,7 @@ export class PrecallModalController implements ng.IController {
   public isPriceInputIsValid: boolean = true
   public isMaxPriceInputReachedIsValid: boolean = true
   public serviceName: string = ''
+  public servicePrice: MoneyDto
   public serviceOwnerName: string = ''
 
   public onModalClose = (): void =>
@@ -71,6 +72,7 @@ export class PrecallModalController implements ng.IController {
     if (this.service) {
       this.consultationPrice = this.service.price.amount / this.moneyDivider
       this.serviceName = this.service.name
+      this.servicePrice = this.service.price
     }
 
     if (this.serviceOwner && this.serviceOwner.organizationDetails) {
@@ -99,7 +101,6 @@ export class PrecallModalController implements ng.IController {
     })
 
     this.FinancesApi.getClientBalanceRoute().then((clientBalance) => {
-      clientBalance.amount = 9999
       this.prepaidCallLimitModel = clientBalance.amount
       this.clientBalance = {
         name: this.prepaidTranslation + ' ' + (clientBalance.amount / this.moneyDivider).toFixed(this.decimal) + ' '
