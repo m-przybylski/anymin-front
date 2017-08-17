@@ -1,7 +1,5 @@
-import {ServiceApi} from 'profitelo-api-ng/api/api'
-import {Tag, GetService} from 'profitelo-api-ng/model/models'
+import {Tag} from 'profitelo-api-ng/model/models'
 import {CallSummaryService} from '../../../../services/call-summary/call-summary.service'
-import * as _ from 'lodash'
 import {IAngularEvent} from 'angular'
 import {ClientCallSummary} from '../../../../models/ClientCallSummary'
 import {IFilterService} from '../../../../services/filter/filter.service'
@@ -40,20 +38,24 @@ export class ConsultationSummaryClientController implements ng.IController {
     height: this.currentSize
   }
   public clientReportModel: string = ''
-  private currentTabId: string = 'tab-0'
+  public currentTab: string = ConsultationSummaryClientController.tabId.askTab
+  private static readonly tabId = {
+    askTab: 'ask',
+    tagsTab: 'tag',
+    commentTab: 'comment'
+  }
   private isSendButtonClicked: boolean = false
+  private isTechnicalProblemsTab: boolean = true
 
   /* @ngInject */
   constructor(private $log: ng.ILogService,
               private $scope: IConsultationSummaryClientControllerScope,
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private callSummaryService: CallSummaryService,
-              private ServiceApi: ServiceApi,
               private $filter: IFilterService) {
 
     this.callSummaryService.onCallSummary(this.onCallSummary)
     this.loadFromExistingCallSummaries()
-    this.initScope()
 
     this.technicalProblems = [
       {
@@ -81,16 +83,13 @@ export class ConsultationSummaryClientController implements ng.IController {
   }
 
   public showTagsTab = (): void => {
-    const minimalCallDurationTime = 30
-    if (this.$scope.callSummary &&  this.$scope.callSummary.callDuration >= minimalCallDurationTime) {
-      this.currentTabId = 'tab-1'
-    } else {
-      this.showCommentTab()
-    }
+    this.currentTab = ConsultationSummaryClientController.tabId.tagsTab
+    this.isTechnicalProblemsTab = false
   }
 
   public showCommentTab = (): void => {
-    this.currentTabId = 'tab-2'
+    this.currentTab = ConsultationSummaryClientController.tabId.commentTab
+    this.isTechnicalProblemsTab = false
     this.addCloseModalListener()
   }
 
@@ -101,6 +100,10 @@ export class ConsultationSummaryClientController implements ng.IController {
   public sendComment = (): void => {
     this.isSendButtonClicked = true
     this.closeModal()
+  }
+
+  public onTagsSelectChange = (tags: Tag[]): void => {
+    this.tags = tags
   }
 
   private addCloseModalListener = (): void => {
@@ -119,42 +122,11 @@ export class ConsultationSummaryClientController implements ng.IController {
     this.$uibModalInstance.dismiss('cancel')
   }
 
-  private initScope = (): void => {
-    this.$scope.callSummary = undefined
-    this.$scope.expertAvatar = ''
-    this.$scope.chooseExpertsTag = false
-
-    this.$scope.recommendServiceTags = (): void => {
-      if (this.$scope.callSummary) {
-        this.ServiceApi.putServiceRecommendationsRoute(
-          this.$scope.callSummary.serviceUsageEventId,
-          {tags: _.map(this.tags, tag => tag.id)}
-        ).then(this.onRecommendServiceTags, this.onRecommendServiceTagsError)
-        this.$scope.closeModal()
-      }
-    }
-
-    this.$scope.onTagsSelectChange = (tags: Tag[]): Tag[] =>
-      this.tags = tags
-
-    this.$scope.closeModal = (): void => {
-      this.$uibModalInstance.dismiss('cancel')
-    }
-
-    this.$scope.recommendService = (): void => {
-      if (this.$scope.callSummary) {
-        this.ServiceApi.postServiceRecommendationRoute(this.$scope.callSummary.serviceUsageEventId)
-          .then(this.onRecommendService, this.onRecommendServiceError)
-      }
-    }
-
-  }
-
-  private setCallSummary = (_callSummary: ClientCallSummary): void => {
-    this.$scope.callSummary = _callSummary
-    if (_callSummary.companyExpertProfile.expertDetails) {
-      this.$scope.expertAvatar = _callSummary.companyExpertProfile.expertDetails.avatar
-      this.$scope.rating = _callSummary.service.rating
+  private setCallSummary = (callSummary: ClientCallSummary): void => {
+    this.$scope.callSummary = callSummary
+    if (callSummary.companyExpertProfile.expertDetails) {
+      this.$scope.expertAvatar = callSummary.companyExpertProfile.expertDetails.avatar
+      this.$scope.rating = callSummary.service.rating
     }
   }
 
@@ -167,23 +139,11 @@ export class ConsultationSummaryClientController implements ng.IController {
   }
 
   private loadFromExistingCallSummaries = (): void => {
-    const obj = this.callSummaryService.takeCallSummary(this.$scope.serviceId)
-    if (obj) {
-      this.onCallSummary(obj)
+    const callSummary = this.callSummaryService.takeCallSummary(this.$scope.serviceId)
+    if (callSummary) {
+      this.onCallSummary(callSummary)
     }
   }
-
-  private onRecommendServiceError = (err: Error): void =>
-    this.$log.error(err)
-
-  private onRecommendService = (): boolean =>
-    this.$scope.isRecommended = true
-
-  private onRecommendServiceTags = (res: GetService): void =>
-    this.$log.debug(res)
-
-  private onRecommendServiceTagsError = (err: Error): void =>
-    this.$log.error(err)
 
   private isCommentExist = (): boolean => this.clientReportModel.length > 0
 

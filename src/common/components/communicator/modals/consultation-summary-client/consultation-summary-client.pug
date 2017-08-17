@@ -1,5 +1,5 @@
 .client-summary-modal.modal-summary
-  .modal-main.container-medium
+  .modal-main.container-small
     top-modal-navbar(data-on-close="vm.closeModal")
     preloader(data-is-loading="!callSummary")
       .modal-header
@@ -32,8 +32,8 @@
             .details-tab-content
               span {{ callSummary.callDuration | secondsToDateTime | date:'HH:mm:ss' }}
 
-        .tabs-container(data-ng-style="vm.tabsContainerStyles")
-          .ask-tab(data-ng-if="'tab-0' === vm.currentTabId" id="tab-0" data-get-height="vm.setTabsContainerSize")
+        .tabs-container(data-ng-switch="vm.currentTab" data-ng-style="vm.tabsContainerStyles")
+          .ask-tab(data-ng-switch-when="ask" id="ask" data-get-height="vm.setTabsContainerSize")
             h3.tab-header(data-translate="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.ASK_TAB.IS_HELPFUL")
             .buttons-container
               a.btn.btn-primary(data-ng-click="vm.showCommentTab()")
@@ -43,14 +43,14 @@
                 span.icon.icon-smile-24
                 span(data-translate="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.ASK_TAB.YES_BUTTON")
 
-          .tags-tab.animation(data-ng-if="'tab-1' === vm.currentTabId" id="tab-1" data-get-height="vm.setTabsContainerSize")
+          .tags-tab.animation(data-ng-switch-when="tag" id="tag" data-get-height="vm.setTabsContainerSize")
             h3.tab-header(data-translate="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.TAGS_TAB.TITLE")
-            multiselect(data-items="callSummary.tags.tags" data-field="name" data-on-select-change="onTagsSelectChange")
+            multiselect(data-items="callSummary.tags.tags" data-field="name" data-on-select-change="vm.onTagsSelectChange")
             .button-container
               a.btn.btn-default(data-translate="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.TAGS_TAB.SEND_BUTTON"
               data-ng-click="vm.showCommentTab()")
 
-          .comment-tab.animation(data-ng-if="'tab-2' === vm.currentTabId" id="tab-2" data-get-height="vm.setTabsContainerSize")
+          .comment-tab.animation(data-ng-switch-when="comment" id="comment" data-get-height="vm.setTabsContainerSize")
             h3.tab-header(data-translate="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.COMMENT_TAB.TITLE")
             p.comment-hint(data-translate="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.COMMENT_TAB.HINT")
             textarea-primary(
@@ -62,7 +62,7 @@
               a.btn.btn-default(data-translate="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.COMMENT_TAB.SEND_BUTTON"
               data-ng-click="vm.sendComment()")
 
-      .technical-problems-tab
+      .technical-problems-tab(data-ng-if="vm.isTechnicalProblemsTab")
         collapse-btn(
         data-is-collapsed="vm.isTechnicalProblemsCollapsed"
         data-title="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.TECHNICAL_PROBLEMS_TAB.BUTTON")
