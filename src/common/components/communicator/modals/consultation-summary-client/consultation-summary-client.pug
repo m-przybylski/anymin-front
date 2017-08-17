@@ -1,55 +1,85 @@
-scrollable(data-is-fullscreen="isFullscreen" data-is-navbar="isNavbar")
-  top-modal-navbar(data-title="COMMUNICATOR.MODALS.RATE_CONVERATION" data-on-close="onModalClose")
-  preloader(data-is-loading="!callSummary")
-    .container-medium
-      .summary-conversation
-        .consultation-profile
-          .profile-preview
-            user-avatar.thumb.x96(data-image-token="expertAvatarUrl")
-              .status-list
-                span.status.availability
-                  span.icon.icon-success-12
+.client-summary-modal.modal-summary
+  .modal-main.container-small
+    top-modal-navbar(data-on-close="vm.closeModal")
+    preloader(data-is-loading="!callSummary")
+      .modal-header
+        .profile-preview.vertical-preview
+          .thumb.x96
+            user-avatar(data-image-token="expertAvatar")
 
-            div
-              .profile-name
-                span {{ callSummary.companyExpertProfile.expertDetails.name }}
+          .profile-name
+            a
+              span {{ callSummary.companyExpertProfile.expertDetails.name }}
 
-
-        .consultation-price.price-section
-          span(data-ng-bind-html="callSummary.service.price | money ")
-
-        .consultation-range
-          .consultation-info
-            .consultation-title
+          .consultation-title.profile-consultation-title
+            h3
               span {{ callSummary.service.name }}
 
-            ul.consultation-details-info
-              li.options-item.recomendation
-                span  {{ rating || '0' }}% {{"SEARCH.RECOMMENDATION" | translate }}
-              li.options-item.conversation-count
-                span {{ callSummary.service.usageCounter || '0' }}
-              //li.options-item.balance
-                span {{ 'NONE' }} min.
+      .modal-container
+        .details-tab
+          .details-row.details-header-row
+            .details-tab-label
 
-        .consultation-time-details
-          ul.conversation-time
-            li.label(data-translate="COMMUNICATOR.MODALS.CONVERSATION_TIME")
-            li {{ callSummary.callDuration | secondsToDateTime | date:'HH:mm:ss' }}
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.COST")
+            .details-tab-content
+              .price-section(data-ng-bind-html="callSummary.cost | money")
 
-          ul.conversation-cost
-            li.label(data-translate="COMMUNICATOR.MODALS.CONVERSATION_COST")
-            li(data-ng-bind-html="callSummary.cost | money ")
+          .details-tab-row
+            .details-tab-label
+              span(data-translate="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.TIME_CONVERSATION")
+            .details-tab-content
+              span {{ callSummary.callDuration | secondsToDateTime | date:'HH:mm:ss' }}
 
-        multiselect(data-title="COMMUNICATOR.MODALS.SUMMARY_HELPER_RANGE" data-items="callSummary.tags.tags"
-        data-field="name" data-ng-show="isRecommended" data-on-select-change="onTagsSelectChange")
+        .tabs-container(data-ng-switch="vm.currentTab" data-ng-style="vm.tabsContainerStyles")
+          .ask-tab(data-ng-switch-when="ask" id="ask" data-get-height="vm.setTabsContainerSize")
+            h3.tab-header(data-translate="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.ASK_TAB.IS_HELPFUL")
+            .buttons-container
+              a.btn.btn-primary(data-ng-click="vm.showCommentTab()")
+                span.icon.icon-sad-24
+                span(data-translate="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.ASK_TAB.NO_BUTTON")
+              a.btn.btn-primary(data-ng-click="vm.showTagsTab()")
+                span.icon.icon-smile-24
+                span(data-translate="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.ASK_TAB.YES_BUTTON")
 
-        .modal-action(ng-show="callSummary.isRecommendable")
-          span(data-translate="COMMUNICATOR.MODALS.IS_CONVERSATION_GOOD")
+          .tags-tab.animation(data-ng-switch-when="tag" id="tag" data-get-height="vm.setTabsContainerSize")
+            h3.tab-header(data-translate="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.TAGS_TAB.TITLE")
+            multiselect(data-items="callSummary.tags.tags" data-field="name" data-on-select-change="vm.onTagsSelectChange")
+            .button-container
+              a.btn.btn-default(data-translate="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.TAGS_TAB.SEND_BUTTON"
+              data-ng-click="vm.showCommentTab()")
 
-          div.action-recommend(data-ng-show="!isRecommended")
-            a.btn.btn-primary(data-ng-click="closeModal()" data-translate="COMMUNICATOR.MODALS.SKIP")
-            a.btn.btn-default(data-ng-click="recommendService()" data-translate="COMMUNICATOR.MODALS.RECOMMEND")
+          .comment-tab.animation(data-ng-switch-when="comment" id="comment" data-get-height="vm.setTabsContainerSize")
+            h3.tab-header(data-translate="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.COMMENT_TAB.TITLE")
+            p.comment-hint(data-translate="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.COMMENT_TAB.HINT")
+            textarea-primary(
+            data-ng-model="vm.clientReportModel"
+            data-id="client_report"
+            data-input-text="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.COMMENT_TAB.TEXTAREA_LABEL"
+            data-max-length="600")
+            .button-container
+              a.btn.btn-default(data-translate="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.COMMENT_TAB.SEND_BUTTON"
+              data-ng-click="vm.sendComment()")
 
-          div.action-next(data-ng-show="isRecommended")
-            a.btn.btn-primary(data-ng-click="closeModal()" data-translate="COMMUNICATOR.MODALS.CANCEL")
-            a.btn.btn-default(data-ng-click="recommendServiceTags()" data-translate="COMMUNICATOR.MODALS.SAVE")
+      .technical-problems-tab(data-ng-if="vm.isTechnicalProblemsTab")
+        collapse-btn(
+        data-is-collapsed="vm.isTechnicalProblemsCollapsed"
+        data-title="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.TECHNICAL_PROBLEMS_TAB.BUTTON")
+
+          form(novalidate)
+            radio-btn-text(
+            data-ng-repeat="problem in vm.technicalProblems"
+            data-ng-model="vm.model.value"
+            value="{{ problem.id }} "
+            data-id="{{ problem.id }}"
+            data-label="{{ problem.name }}"
+            data-is-descriptive="problem.isDescriptive"
+            data-ng-class="{'is-active': vm.isSelected(problem)}"
+            )
+
+            .btn-group
+              button.btn.btn-primary(
+              data-translate="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.TECHNICAL_PROBLEMS_TAB.CANCEL_BUTTON")
+              button.btn.btn-default(
+              data-translate="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.TECHNICAL_PROBLEMS_TAB.SEND_BUTTON")

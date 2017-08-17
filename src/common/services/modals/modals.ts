@@ -29,9 +29,6 @@ import expertInviteEmployeesModule
 import manageProfileEditProfileModule
   from '../../components/dashboard/expert/manage-profile/modals/edit-expert-profile/edit-expert-profile'
 
-import {
-  consultationSummaryClientModule
-} from '../../components/communicator/modals/consultation-summary-client/consultation-summary-client'
 import profileGalleryPreviewModule from '../../components/interface/profile-gallery/modals/preview'
 import invitationsModalModule from '../../../app/invitations/modal/invitations'
 import chargeAccountModalModule from '../../../app/charge-account/modal/charge-account'
@@ -43,13 +40,14 @@ import rtcDetectorBlockedModal
   from '../../components/communicator/modals/rtc-detector/rtc-detector-blocked/rtc-detector-blocked'
 import rtcDetectorNoBrowserSupportModal
 from '../../components/communicator/modals/rtc-detector/rtc-detector-no-browser-support/rtc-detector-no-browser-support'
+import consultationSummaryClientModule
+  from '../../components/communicator/modals/consultation-summary-client/consultation-summary-client'
 
 const modalsModule = angular.module('profitelo.services.modals', [
   dialogModule,
   callSummaryModule,
   'profitelo.components.communicator.modals.service-unavailable',
   'profitelo.components.communicator.modals.no-credits',
-  'profitelo.components.communicator.modals.consultation-summary-client',
   'profitelo.components.dashboard.client.activities.modals.consultation-details',
   'profitelo.components.dashboard.client.activities.modals.complain-report',
   'profitelo.components.dashboard.client.activities.modals.charge-details',
@@ -64,7 +62,6 @@ const modalsModule = angular.module('profitelo.services.modals', [
   'profitelo.components.dashboard.settings.modals.payouts.payouts-pay-pal',
   'profitelo.components.profile.profile-header.profile-gallery.modals.preview',
   'profitelo.components.dashboard.expert.activities.modals.consultation-details',
-  consultationSummaryClientModule,
   chargeAccountModalModule,
   expertEmployeeDetailsModalModule,
   expertInviteEmployeesModule,
@@ -75,7 +72,8 @@ const modalsModule = angular.module('profitelo.services.modals', [
   rtcDetectorModal,
   rtcDetectorBlockedModal,
   rtcDetectorNoBrowserSupportModal,
-  expertIncomingCallModule
+  expertIncomingCallModule,
+  consultationSummaryClientModule
 ])
 .service('modalsService', ModalsService)
   .name

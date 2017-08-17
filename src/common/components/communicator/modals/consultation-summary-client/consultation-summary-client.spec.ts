@@ -1,8 +1,9 @@
 import * as angular from 'angular'
 import {
   ConsultationSummaryClientController,
-  IConsultationSummaryClientControllerScope, IConsultationSummaryClientParentControllerScope
-} from './consultation-summary-client'
+  IConsultationSummaryClientControllerScope
+} from './consultation-summary-client.controller'
+import consultationSummaryClientModule from './consultation-summary-client'
 
 describe('Testing Controller: consultationSummaryClientController', () => {
 
@@ -12,16 +13,18 @@ describe('Testing Controller: consultationSummaryClientController', () => {
   const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
     jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss'])
 
+  beforeEach(() => {
+    angular.mock.module(consultationSummaryClientModule)
+  })
+
   beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
     $provide.value('apiUrl', 'awesomeURL')
   }))
 
   beforeEach(() => {
-    angular.mock.module('profitelo.components.communicator.modals.consultation-summary-client')
     inject(($rootScope: ng.IRootScopeService, $controller: ng.IControllerService) => {
 
       scope = <IConsultationSummaryClientControllerScope>$rootScope.$new()
-      scope.$parent = <IConsultationSummaryClientParentControllerScope>$rootScope.$new()
 
       const injectors = {
         $scope: scope,

@@ -27,7 +27,7 @@ describe('Testing Controller: consultationSummaryExpertController', () => {
             _ViewsApi_: ViewsApi) => {
 
       scope = <IConsultationSummaryExpertControllerScope>$rootScope.$new()
-      scope.$parent.serviceId = '123'
+      scope.serviceId = '123'
 
       expertConsultationDetails = $controller<ConsultationSummaryExpertController>('consultationSummaryExpertController', {
         $scope: scope,

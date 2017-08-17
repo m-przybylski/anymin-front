@@ -7,9 +7,7 @@ describe('Unit tests: dashboardSettingsSecurityController >', () => {
   describe('Testing Controller: dashboardSettingsSecurityController', () => {
 
     let dashboardSettingsSecurityController: DashboardSettingsSecurityController
-    const modalsService: ModalsService = <ModalsService>{
-      createSecurityChangePasswordSettingsModal: () => {}
-    }
+
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', 'awesomeURL')
     }))
@@ -21,7 +19,6 @@ describe('Unit tests: dashboardSettingsSecurityController >', () => {
       inject(($rootScope: ng.IRootScopeService, $controller: ng.IControllerService, _$state_: ng.ui.IStateService,
               timeConstant: ITimeConstant) => {
         dashboardSettingsSecurityController = $controller<DashboardSettingsSecurityController>('dashboardSettingsSecurityController', {
-          modalsService: modalsService,
           $state: _$state_,
           $scope: $rootScope.$new(),
           sessionsData: [{
@@ -39,8 +36,10 @@ describe('Unit tests: dashboardSettingsSecurityController >', () => {
               system: 'Windows',
               apiKey: 'kkkkklllaaaa'
             }],
-          timeConstant: timeConstant,
-          currentSession: {}
+          timeConstant,
+          currentSession: {
+            apiKey: 'someApiKey'
+          }
         })
       })
     })
@@ -49,10 +48,21 @@ describe('Unit tests: dashboardSettingsSecurityController >', () => {
       expect(!!dashboardSettingsSecurityController).toBe(true)
     })
 
-    it('should exists', () => {
+    it('should open createSecurityChangePasswordSettingsModal', inject((modalsService: ModalsService) => {
       spyOn(modalsService, 'createSecurityChangePasswordSettingsModal')
       dashboardSettingsSecurityController.openSecurityChangePasswordSettingsModal()
       expect(modalsService.createSecurityChangePasswordSettingsModal).toHaveBeenCalled()
+    }))
+
+    it('should open createSecurityPinSecuritySettingsModal', inject((modalsService: ModalsService) => {
+      spyOn(modalsService, 'createSecurityPinSecuritySettingsModal')
+      dashboardSettingsSecurityController.openSecurityPinSecuritySettingsModal()
+      expect(modalsService.createSecurityPinSecuritySettingsModal).toHaveBeenCalled()
+    }))
+
+    it('should apiKey be same as currentSession.apiKey', () => {
+      expect(dashboardSettingsSecurityController.checkIsCurrentSession('someApiKey')).toBe(true)
     })
+
   })
 })

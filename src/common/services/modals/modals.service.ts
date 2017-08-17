@@ -10,9 +10,6 @@ import {
 } from 'profitelo-api-ng/model/models'
 import {DialogService} from '../dialog/dialog.service'
 import {
-  IConsultationSummaryClientParentControllerScope
-} from '../../components/communicator/modals/consultation-summary-client/consultation-summary-client'
-import {
   IBasicAccountSettingsControllerParentScope
 } from '../../components/dashboard/settings/modals/general/basic-account-settings/basic-account-settings'
 import {
@@ -81,7 +78,7 @@ import {
 } from '../../components/communicator/modals/rtc-detector/rtc-detector.controller'
 import {
   ConsultationSummaryExpertController,
-  IConsultationSummaryExpertParentControllerScope
+  IConsultationSummaryExpertControllerScope
 } from '../../components/communicator/modals/consultation-summary-expert/consultation-summary-expert.controller';
 import {
   IGeneralPhoneSettingsControllerScope
@@ -101,6 +98,10 @@ import {
   RtcDetectorNoBrowserSupportModalController
 // tslint:disable-next-line: max-line-length
 } from '../../components/communicator/modals/rtc-detector/rtc-detector-no-browser-support/rtc-detector-no-browser-support.controller'
+import {
+  ConsultationSummaryClientController,
+  IConsultationSummaryClientControllerScope
+} from '../../components/communicator/modals/consultation-summary-client/consultation-summary-client.controller'
 
 // TODO add types for dialogScope Scopes
 export class ModalsService {
@@ -161,13 +162,13 @@ export class ModalsService {
       throw new Error('Expected serviceId, got ' + serviceId)
     }
 
-    const dialogScope: IConsultationSummaryClientParentControllerScope =
-      <IConsultationSummaryClientParentControllerScope>this.$rootScope.$new(true)
+    const dialogScope: IConsultationSummaryClientControllerScope =
+      <IConsultationSummaryClientControllerScope>this.$rootScope.$new(true)
 
     dialogScope.serviceId = serviceId
 
     return this.dialogService.openDialog({
-      controller: 'consultationSummaryClientController',
+      controller: ConsultationSummaryClientController,
       template: require(
         'common/components/communicator/modals/consultation-summary-client/consultation-summary-client.pug'
       )(),
@@ -180,8 +181,8 @@ export class ModalsService {
       throw new Error('Expected serviceId, got ' + serviceId)
     }
 
-    const dialogScope: IConsultationSummaryExpertParentControllerScope =
-      <IConsultationSummaryExpertParentControllerScope>this.$rootScope.$new(true)
+    const dialogScope: IConsultationSummaryExpertControllerScope =
+      <IConsultationSummaryExpertControllerScope>this.$rootScope.$new(true)
 
     dialogScope.serviceId = serviceId
 
