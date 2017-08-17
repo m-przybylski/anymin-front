@@ -4,6 +4,7 @@ import {IDocumentFile, WizardUploaderComponentController, IWizardUploaderCompone
 import {IWizardUploaderModuleComponentBindings} from './wizard-uploader'
 import wizardUploaderModule from './wizard-uploader'
 import {FilesApi} from 'profitelo-api-ng/api/api'
+import {FileTypeChecker} from '../../../classes/file-type-checker/file-type-checker'
 
 describe('Unit testing: profitelo.components.wizard.wizard-uploader', () => {
   return describe('for WizardUploader component >', () => {
@@ -77,6 +78,7 @@ describe('Unit testing: profitelo.components.wizard.wizard-uploader', () => {
     })
 
     it('should add file', () => {
+      spyOn(FileTypeChecker, 'isFileFormatValid').and.returnValue(true)
       component.documentFiles = []
       const file: File = new File([], '0')
       const files: File[] = [file]
@@ -113,6 +115,14 @@ describe('Unit testing: profitelo.components.wizard.wizard-uploader', () => {
       component.$onInit()
       expect(FilesApi.fileInfoPath).toHaveBeenCalled()
     }))
+
+    it('should show file type error', () => {
+      spyOn(FileTypeChecker, 'isFileFormatValid').and.returnValue(false)
+      const file: File = new File([], 'someFile')
+      const someFiles: File[] = [file]
+      component.uploadFiles(someFiles)
+      expect(component.isFileTypeError).toBe(true)
+    })
 
   })
 })

@@ -5,6 +5,7 @@ import {FilesApi} from 'profitelo-api-ng/api/api'
 import {PostProcessOption, FileInfo} from 'profitelo-api-ng/model/models'
 import * as _ from 'lodash'
 import {FileCategoryEnum, FileTypeChecker} from '../../../classes/file-type-checker/file-type-checker'
+import {IFilterService} from '../../../services/filter/filter.service'
 
 export interface IWizardUploaderComponentScope extends ng.IScope {
   tokenList: string[]
@@ -21,12 +22,19 @@ export class WizardUploaderComponentController implements IWizardUploaderModuleC
 
   private uploader: UploaderService
   public documentFiles: IDocumentFile[] = []
+  private invalidTypeFilesNames: string[] = []
   public tokenList: string[]
   private countChoosedFiles: number = 0
   public isValidCallback: (status: boolean) => {}
+  public isFileTypeError: boolean = false
+  private filesNames: string = ''
+  public fileValidationErrorMessage: string = ''
 
   /* @ngInject */
-  constructor(private $log: ng.ILogService, uploaderFactory: UploaderFactory, private FilesApi: FilesApi) {
+  constructor(private $log: ng.ILogService,
+              private FilesApi: FilesApi,
+              private $filter: IFilterService,
+              uploaderFactory: UploaderFactory) {
     this.uploader = uploaderFactory.getInstance(1, uploaderFactory.collectionTypes.avatar)
   }
 
@@ -66,22 +74,28 @@ export class WizardUploaderComponentController implements IWizardUploaderModuleC
       this.countChoosedFiles += 1
       this.uploadFile(reuploadedFile.file, reuploadedFile)
     }
-
   }
 
   public uploadFiles = (files: File[]): void => {
+    this.invalidTypeFilesNames = []
+    this.isFileTypeError = false
     files.forEach((file) => {
       const currentFile: IDocumentFile = {
         file,
         isUploadFailed: false
       }
-      this.documentFiles.push(currentFile)
       if (FileTypeChecker.isFileFormatValid(file, FileCategoryEnum.EXPERT_FILE)) {
+        this.documentFiles.push(currentFile)
         this.countChoosedFiles += 1
         this.onUploadEnd(false)
         this.uploadFile(file, currentFile)
+      } else {
+        if (currentFile.file) {
+          this.invalidTypeFilesNames.push(currentFile.file.name)
+        }
       }
     })
+    this.showFileTypeError()
   }
 
   public removeFile = (file: IDocumentFile): void => {
@@ -95,6 +109,15 @@ export class WizardUploaderComponentController implements IWizardUploaderModuleC
         return void 0
       }
     })
+  }
+
+  private showFileTypeError = (): void => {
+    if (this.invalidTypeFilesNames.length > 0) {
+      this.isFileTypeError = true
+      this.filesNames = this.invalidTypeFilesNames.join(', ')
+    }
+    this.fileValidationErrorMessage = this.$filter('translate')('WIZARD.UPLOADER.FILE_VALIDATION_ERROR.FILE') + ' ' +
+      this.filesNames + ' ' + this.$filter('translate')('WIZARD.UPLOADER.FILE_VALIDATION_ERROR.MESSAGE')
   }
 
   private uploadFile = (file: File, currenFile: IDocumentFile): void => {
