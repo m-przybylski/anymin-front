@@ -41,6 +41,7 @@ import 'croppie/croppie.css'
 import './../template/profitelo_theme/stylesheets/main.sass'
 import {CommonConfig, default as commonConfigModule} from '../../generated_modules/common-config/common-config'
 import profiteloWebsocketModule from '../common/services/profitelo-websocket/profitelo-websocket'
+import pagePreloaderModule from '../common/components/interface/page-preloader/page-preloader'
 
 declare const Raven: any
 
@@ -81,6 +82,9 @@ angular.module('profitelo', [
   // controllers
   pagesModule,
   communicatorModule,
+
+  // components
+  pagePreloaderModule,
 
   // directives
   'profitelo.components.interface.preloader-container',
