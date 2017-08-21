@@ -2,10 +2,26 @@ section.consultation
   .container-big
     wizard-handler(data-progress-bar-text="WIZARD.STEP.CONSULTATION.PROGRESSBAR.TITLE")
       wizard-step.step(
+      data-title="WIZARD.CONSULTATION.LANGUAGE.TITLE"
+      data-tooltip-text="WIZARD.CONSULTATION.LANGUAGE.TOOLTIP"
+      data-on-go-back="vm.onGoBack"
+      data-check-is-step-valid="vm.checkIsLanguageInputValid"
+      data-required="vm.isStepRequired"
+      )
+        dropdown-primary(
+        data-main-list="vm.languagesList"
+        data-on-select-main="vm.updatePrefix"
+        data-placeholder="{{ 'WIZARD.CONSULTATION.LANGUAGE.PLACEHOLDER' | translate }}"
+        data-validation-text="WIZARD.CONSULTATION.LANGUAGE.VALIDATION_TEXT"
+        data-is-valid="vm.checkIsLanguageInputValid()"
+        data-selected-item="vm.languageInputValue"
+        )
+
+      wizard-step.step(
         data-title="WIZARD.SUMMARY.CONSULTATION.NAME.TITLE"
         data-tooltip-text="WIZARD.SUMMARY.CONSULTATION.NAME.TOOLTIP"
-        data-on-go-back="vm.onGoBack"
         data-check-is-step-valid="vm.checkIsNameInputValid"
+        data-required="vm.isStepRequired"
       )
         input-primary(
           data-ng-model="vm.nameInputValue"
@@ -21,6 +37,7 @@ section.consultation
         data-additional-text="WIZARD.SUMMARY.CONSULTATION.TAGS.ADDITIONAL_TEXT.TITLE"
         data-tooltip-text="WIZARD.SUMMARY.CONSULTATION.TAGS.TOOLTIP"
         data-check-is-step-valid="vm.checkIsTagsInputValid"
+        data-required="vm.isStepRequired"
       )
         consultation-tag-input(
           data-dictionary="vm.consultationsMock"
@@ -31,11 +48,26 @@ section.consultation
         )
 
       wizard-step.step(
+      data-title="WIZARD.CONSULTATION.DESCRIPTION.TITLE"
+      data-tooltip-text="WIZARD.CONSULTATION.DESCRIPTION.TOOLTIP"
+      data-check-is-step-valid="vm.checkIsDescriptionInputValid"
+      data-required="vm.isStepRequired"
+      )
+        textarea-primary(
+        data-ng-model="vm.descriptionInputValue"
+        data-id="consultationDescription"
+        data-is-valid="vm.checkIsDescriptionInputValid()"
+        data-validation-text="WIZARD.CONSULTATION.DESCRIPTION.VALIDATION_TEXT"
+        data-max-length="600"
+        )
+
+      wizard-step.step(
         data-title="WIZARD.SUMMARY.CONSULTATION.RATE.TITLE"
         data-on-go-to-next="vm.saveStepsOnExpertPath"
         data-check-is-step-valid="vm.checkIsPriceButtonDisabled"
         data-button-title="WIZARD.STEP.EXPERT.CONSULTATION.SUMMARY.BUTTON"
         data-is-company="vm.isCompany"
+        data-required="vm.isStepRequired"
       )
         .hint
           p(data-translate="WIZARD.CONSULTATION.PRICE.SUGGESTED")

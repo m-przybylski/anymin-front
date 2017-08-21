@@ -24,11 +24,5 @@ export class EditExpertProfileController implements ng.IController {
     this.textareaDescription = 'Lorem Ipsum is simply. It is a long established fact that a reader will be ' +
       'distracted by the readable content of a page when looking at its layout'
 
-    this.tagsMocks = {
-      pl: 'Polish',
-      en: 'English',
-      ro: 'Romanian'
-    }
-
   }
 }

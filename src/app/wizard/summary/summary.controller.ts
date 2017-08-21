@@ -134,7 +134,7 @@ export class SummaryController implements ng.IController {
   private checkIsExpertProfileValid = (): string | boolean | undefined =>
     this.wizardProfile.isExpert && this.wizardProfile.expertDetailsOption
       && this.wizardProfile.expertDetailsOption.avatar && this.wizardProfile.expertDetailsOption.description
-      && this.wizardProfile.expertDetailsOption.languages && this.wizardProfile.expertDetailsOption.name
+      && this.wizardProfile.expertDetailsOption.name
 
   private checkIsWizardHasService = (): boolean | undefined =>
     this.wizardProfile.services && this.wizardProfile.services.length > 0

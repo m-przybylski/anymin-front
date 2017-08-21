@@ -4,7 +4,6 @@ import {WizardApi, WizardApiMock} from 'profitelo-api-ng/api/api'
 import expertWizardModule from './expert'
 import {ExpertController} from './expert.controller'
 
-
 describe('Testing Controller: ExpertController', () => {
 
   let ExpertController: ExpertController,
@@ -54,7 +53,6 @@ describe('Testing Controller: ExpertController', () => {
     }
     ExpertController.nameModel = 'name'
     ExpertController.avatarModel = 'avatar'
-    ExpertController.languagesModel = ['pl']
     ExpertController.descriptionModel = 'Lorem ipsum dolor sit amet, consectetuer adipiscing'
 
     spyOn($state, 'go')
@@ -90,11 +88,6 @@ describe('Testing Controller: ExpertController', () => {
     expect(ExpertController.checkIsAvatarValid()).toEqual(true)
   })
 
-  it('should languages valid', () => {
-    ExpertController.languagesModel = ['pl']
-    expect(ExpertController.checkIsLanguagesValid()).toEqual(true)
-  })
-
   it('should profile description valid', () => {
     ExpertController.descriptionModel = 'Lorem ipsum dolor sit amet, consectetuer adipiscing'
     expect(ExpertController.checkIsProfileDescriptionValid()).toEqual(true)
@@ -106,7 +99,6 @@ describe('Testing Controller: ExpertController', () => {
     }
     ExpertController.nameModel = 'SomeName'
     ExpertController.avatarModel = 'SomeAvatar'
-    ExpertController.languagesModel = ['pl']
     ExpertController.descriptionModel = 'Lorem ipsum dolor sit amet, consectetuer adipiscing'
     expect(ExpertController.checkIsFormValid()).toEqual(true)
   })
@@ -135,7 +127,6 @@ describe('Testing Controller: ExpertController', () => {
     const wizardExpertModel: PartialExpertDetails = {
       name: '',
       avatar: undefined,
-      languages: [],
       description: '',
       files: [],
       links: []

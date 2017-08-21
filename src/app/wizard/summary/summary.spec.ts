@@ -33,14 +33,15 @@ describe('Testing Controller: SummaryController', () => {
         tags: [{
           name: 'Tag-1'
         }],
-        isOwnerEmployee: true
+        isOwnerEmployee: true,
+        description: 'asd',
+        language: 'pl'
       }
     ],
     expertDetailsOption:  {
       name: 'Czesław',
       avatar: 'logo.png',
-      description: 'Expert',
-      languages: ['Polish']
+      description: 'Expert'
     }
   }
 
@@ -112,7 +113,9 @@ describe('Testing Controller: SummaryController', () => {
       tags: [{
         name: 'Tag-1'
       }],
-      isOwnerEmployee: false
+      isOwnerEmployee: false,
+      description: 'asd',
+      language: 'pl'
     }
     spyOn($state, 'go')
     summaryController.editConsultation(service)
@@ -129,6 +132,8 @@ describe('Testing Controller: SummaryController', () => {
         id: 'id',
         ownerId: 'ownerId',
         name: 'name',
+        description: 'asd',
+        language: 'pl',
         price: {
           amount: 2423,
           currency: 'PLN'
@@ -202,7 +207,9 @@ describe('Testing Controller: SummaryController', () => {
         tags: [{
           name: 'tag-1'
         }],
-        isOwnerEmployee: false
+        isOwnerEmployee: false,
+        description: 'asd',
+        language: 'pl'
       }]
     }
     summaryController = createController(wizardProfile)
@@ -251,7 +258,9 @@ describe('Testing Controller: SummaryController', () => {
         tags: [{
           name: 'tag-1'
         }],
-        isOwnerEmployee: false
+        isOwnerEmployee: false,
+        description: 'asd',
+        language: 'pl'
       }]
     }
     summaryController = createController(wizardProfile)

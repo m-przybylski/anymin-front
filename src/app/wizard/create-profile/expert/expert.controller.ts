@@ -13,13 +13,8 @@ export class ExpertController implements ng.IController {
   public nameModel?: string = ''
   public avatarModel?: string
   public descriptionModel?: string = ''
-  public languagesModel?: string[] = []
   public filesModel?: string[] = []
   public linksModel?: string[] = []
-  public languagesList: {
-    [key: string]: string
-  }
-
   public progressStyle: IProgressStyle
   public progressBarTittle: string = 'WIZARD.STEP.EXPERT.PROGRESSBAR.TITLE'
   public isSubmitted: boolean = false
@@ -30,14 +25,7 @@ export class ExpertController implements ng.IController {
 
   /* @ngInject */
   constructor(private WizardApi: WizardApi, private $state: ng.ui.IStateService,
-              private wizardProfile?: GetWizardProfile) {
-
-    this.languagesList = {
-      pl: 'Polski',
-      en: 'Angielski',
-      ru: 'Rosyjski'
-    }
-  }
+              private wizardProfile?: GetWizardProfile) {}
 
   $onInit = (): void => {
     if (this.wizardProfile) {
@@ -46,7 +34,6 @@ export class ExpertController implements ng.IController {
         this.nameModel = this.wizardProfile.expertDetailsOption!.name
         this.avatarModel = this.wizardProfile.expertDetailsOption!.avatar
         this.filesModel = this.wizardProfile.expertDetailsOption!.files
-        this.languagesModel = this.wizardProfile.expertDetailsOption!.languages
         this.descriptionModel = this.wizardProfile.expertDetailsOption!.description
         this.linksModel = this.wizardProfile.expertDetailsOption!.links
       }
@@ -78,7 +65,6 @@ export class ExpertController implements ng.IController {
       name: this.nameModel,
       avatar: this.avatarModel,
       description: this.descriptionModel,
-      languages: this.languagesModel,
       files: this.filesModel,
       links: this.linksModel
     }
@@ -106,8 +92,6 @@ export class ExpertController implements ng.IController {
 
   public checkIsAvatarValid = (): boolean => !!(this.avatarModel && this.avatarModel.length > 0)
 
-  public checkIsLanguagesValid = (): boolean => !!(this.languagesModel && this.languagesModel.length > 0)
-
   public checkIsProfileDescriptionValid = (): boolean =>
     !!(this.descriptionModel && this.descriptionModel.length >= ExpertController.minValidDescriptionLength)
 
@@ -121,7 +105,6 @@ export class ExpertController implements ng.IController {
     !!(this.currentWizardState.expertDetailsOption
       && this.checkIsNameInputValid()
       && this.checkIsAvatarValid()
-      && this.checkIsLanguagesValid()
       && this.checkIsProfileDescriptionValid()
       && this.checkIsFileUploadValid())
 

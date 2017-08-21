@@ -12,6 +12,15 @@
               span {{ ::$ctrl.name }}
 
       tags-list(data-tags="$ctrl.tagsList")
+
+      .consultation-language
+        h5(data-translate="WIZARD.SUMMARY.SINGLE_CONSULTATION.LANGUAGE_TITLE")
+        p {{ $ctrl.language }}
+
+      .consultation-description
+        h5(data-translate="WIZARD.SUMMARY.SINGLE_CONSULTATION.DESCRIPTION_TITLE")
+        p {{ $ctrl.description }}
+
       .employee-list(data-ng-if="$ctrl.isCompany")
         p(data-translate="WIZARD.SUMMARY.EMPLOYEES.LABEL")
         .tags-list
