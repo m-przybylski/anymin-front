@@ -4,12 +4,12 @@ import {CallbacksService} from '../../services/callbacks/callbacks.service'
 import {CallbacksFactory} from '../../services/callbacks/callbacks.factory'
 import * as RatelSdk from 'ratel-sdk-js'
 import {UserService} from '../../services/user/user.service'
-import {CommonConfig} from '../../../../generated_modules/common-config/common-config'
+import {CommonConfig, Settings} from '../../../../generated_modules/common-config/common-config'
 import {EventsService} from '../../services/events/events.service'
 
 export class CommunicatorService {
 
-  private commonConfig: any
+  private commonConfig: Settings
   private chatConfig: RatelSdk.Config
   private callbacks: CallbacksService
   private ratelSession?: RatelSdk.Session
@@ -41,8 +41,8 @@ export class CommunicatorService {
   }
 
   private setChatConfig = (): void => {
-    const ratelUrl = new URL(this.commonConfig.urls.communicator.ratel)
-    const chatUrl = new URL(this.commonConfig.urls.communicator.chat)
+    const ratelUrl = new URL(this.commonConfig.urls.communicator.briefcase)
+    const chatUrl = new URL(this.commonConfig.urls.communicator.artichoke)
     this.chatConfig = {
       debug: true,
       ratel: {
