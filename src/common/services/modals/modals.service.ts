@@ -106,6 +106,10 @@ import {
   ConsultationSummaryClientController,
   IConsultationSummaryClientControllerScope
 } from '../../components/communicator/modals/consultation-summary-client/consultation-summary-client.controller'
+import {
+  ConsultationModalController,
+  IConsultationModalControllerScope
+} from '../../components/search/modals/consultation/consultation.controller'
 
 // TODO add types for dialogScope Scopes
 export class ModalsService {
@@ -556,4 +560,19 @@ export class ModalsService {
       scope: dialogScope
     })
   }
+
+  public createConsultationModal = (): IModalInstanceService => {
+
+    const dialogScope: IConsultationModalControllerScope =
+      <IConsultationModalControllerScope>this.$rootScope.$new(true)
+
+    return this.dialogService.openDialog({
+      controller: ConsultationModalController,
+      template: require(
+        'common/components/search/modals/consultation/consultation.pug'
+      )(),
+      scope: dialogScope
+    })
+  }
+
 }

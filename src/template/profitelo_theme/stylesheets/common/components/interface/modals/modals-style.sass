@@ -135,7 +135,7 @@
 
 
 
-// Summary modal with purple background
+// Summary modal with white background
 .modal-summary
   animation: fadeInY 0.6s
   box-shadow: 0 1px 2px 0 rgba($c-black, 0.15)
@@ -150,7 +150,7 @@
       border: 0
 
       span
-        color: $c-white
+        color: $c-tertiary-txt
         font-size: $f-icon-22
 
   .modal-main
@@ -160,13 +160,12 @@
     padding: 0
 
     .modal-header
-      background: $c-primary
       padding: 32px
       text-align: center
+      border: none
 
       *
         +default-font-regular
-        color: $c-white
 
       .profile-preview
         &.vertical-preview
@@ -174,12 +173,12 @@
             margin: 0 0 16px
 
           .profile-name
+            color: $c-black
             margin: 0 0 24px
 
             span
-              +default-font-medium
-              color: $c-white
               font-size: $f-paragraph-title
+              color: $c-black
 
 
     .modal-container
