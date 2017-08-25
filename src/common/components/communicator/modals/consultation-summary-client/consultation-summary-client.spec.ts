@@ -4,11 +4,13 @@ import {
   IConsultationSummaryClientControllerScope
 } from './consultation-summary-client.controller'
 import consultationSummaryClientModule from './consultation-summary-client'
+import {ErrorHandlerService} from '../../../../services/error-handler/error-handler.service'
 
 describe('Testing Controller: consultationSummaryClientController', () => {
 
   let consultationSummaryController: ConsultationSummaryClientController
   let scope: IConsultationSummaryClientControllerScope
+  let errorHandler: ErrorHandlerService
 
   const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
     jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss'])
@@ -27,6 +29,7 @@ describe('Testing Controller: consultationSummaryClientController', () => {
       scope = <IConsultationSummaryClientControllerScope>$rootScope.$new()
 
       const injectors = {
+        errorHandler,
         $scope: scope,
         $uibModalInstance: $uibModalInstance,
         callSummaryService: {
@@ -43,4 +46,20 @@ describe('Testing Controller: consultationSummaryClientController', () => {
   it('should exists', () => {
     return expect(!!consultationSummaryController).toBe(true)
   })
+
+  it('should show tags tab', () => {
+    consultationSummaryController.showTagsTab()
+    expect(consultationSummaryController.currentTab).toBe('tag')
+  })
+
+  it('should show comment tab', () => {
+    consultationSummaryController.showCommentTab()
+    expect(consultationSummaryController.currentTab).toBe('comment')
+  })
+
+  it('should comment valid', () => {
+    consultationSummaryController.clientCommentInputValue = 'some comment'
+    expect(consultationSummaryController.isCommentValid()).toEqual(true)
+  })
+
 })

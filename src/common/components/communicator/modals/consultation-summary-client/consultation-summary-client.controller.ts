@@ -3,6 +3,8 @@ import {CallSummaryService} from '../../../../services/call-summary/call-summary
 import {IAngularEvent} from 'angular'
 import {ClientCallSummary} from '../../../../models/ClientCallSummary'
 import {IFilterService} from '../../../../services/filter/filter.service'
+import {ServiceApi} from 'profitelo-api-ng/api/api'
+import {ErrorHandlerService} from '../../../../services/error-handler/error-handler.service'
 
 export interface IConsultationSummaryClientControllerScope extends ng.IScope {
   expertAvatar: string
@@ -37,8 +39,9 @@ export class ConsultationSummaryClientController implements ng.IController {
   public tabsContainerStyles = {
     height: this.currentSize
   }
-  public clientReportModel: string = ''
+  public clientCommentInputValue: string = ''
   public currentTab: string = ConsultationSummaryClientController.tabId.askTab
+  private static readonly minValidCommentLength = 3
   private static readonly tabId = {
     askTab: 'ask',
     tagsTab: 'tag',
@@ -52,7 +55,9 @@ export class ConsultationSummaryClientController implements ng.IController {
               private $scope: IConsultationSummaryClientControllerScope,
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private callSummaryService: CallSummaryService,
-              private $filter: IFilterService) {
+              private $filter: IFilterService,
+              private ServiceApi: ServiceApi,
+              private errorHandler: ErrorHandlerService) {
 
     this.callSummaryService.onCallSummary(this.onCallSummary)
     this.loadFromExistingCallSummaries()
@@ -99,16 +104,27 @@ export class ConsultationSummaryClientController implements ng.IController {
 
   public sendComment = (): void => {
     this.isSendButtonClicked = true
-    this.closeModal()
+    if (this.isCommentValid() && this.$scope.callSummary) {
+      this.ServiceApi.postCommentRoute(this.$scope.callSummary.serviceUsageEventId, {
+        content: this.clientCommentInputValue
+      }).then(this.closeModal, this.onReject)
+    }
   }
 
   public onTagsSelectChange = (tags: Tag[]): void => {
     this.tags = tags
   }
 
+  public isCommentValid = (): boolean => typeof this.clientCommentInputValue === 'string'
+    && this.clientCommentInputValue.length >= ConsultationSummaryClientController.minValidCommentLength
+
+  private onReject = (error: any): void => {
+    this.errorHandler.handleServerError(error, 'Can not save service comment')
+  }
+
   private addCloseModalListener = (): void => {
     this.$scope.$on('modal.closing', (event: IAngularEvent) => {
-      if (this.isCommentExist() && !this.isSendButtonClicked) {
+      if (this.isCommentValid() && !this.isSendButtonClicked) {
        const confirmWindowMessage: string =
          this.$filter('translate')('COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.CONFIRM_WINDOW_MESSAGE')
         if (!confirm(confirmWindowMessage)) {
@@ -144,7 +160,5 @@ export class ConsultationSummaryClientController implements ng.IController {
       this.onCallSummary(callSummary)
     }
   }
-
-  private isCommentExist = (): boolean => this.clientReportModel.length > 0
 
 }

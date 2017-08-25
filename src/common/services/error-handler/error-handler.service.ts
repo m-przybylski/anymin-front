@@ -7,9 +7,11 @@ export class ErrorHandlerService {
               private $filter: ng.IFilterService) {
   }
 
-  public handleServerError = (error: any, logMessage?: string): void => {
+  public handleServerError = (error: any,
+                              logMessage?: string,
+                              errorMessageTranslationKey: string = 'INTERFACE.API_ERROR'): void => {
     this.topAlertService.error({
-      message: this.$filter('translate')('INTERFACE.API_ERROR'),
+      message: this.$filter('translate')(errorMessageTranslationKey),
       timeout: 2
     })
     this.$log.error(logMessage, error)

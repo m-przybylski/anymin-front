@@ -54,13 +54,14 @@
             h3.tab-header(data-translate="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.COMMENT_TAB.TITLE")
             p.comment-hint(data-translate="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.COMMENT_TAB.HINT")
             textarea-primary(
-            data-ng-model="vm.clientReportModel"
+            data-ng-model="vm.clientCommentInputValue"
             data-id="client_report"
             data-input-text="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.COMMENT_TAB.TEXTAREA_LABEL"
             data-max-length="600")
             .button-container
-              a.btn.btn-default(data-translate="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.COMMENT_TAB.SEND_BUTTON"
-              data-ng-click="vm.sendComment()")
+              button.btn.btn-default(data-translate="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.COMMENT_TAB.SEND_BUTTON"
+              data-ng-click="vm.sendComment()"
+              data-ng-disabled="!vm.isCommentValid()")
 
       .technical-problems-tab(data-ng-if="vm.isTechnicalProblemsTab")
         collapse-btn(
