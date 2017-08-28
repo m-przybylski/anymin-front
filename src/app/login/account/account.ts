@@ -20,6 +20,7 @@ import {UserService} from '../../../common/services/user/user.service'
 import inputModule from '../../../common/components/interface/input/input'
 import inputPasswordModule from '../../../common/components/interface/input-password/input-password'
 import autoFocus from '../../../common/directives/auto-focus/auto-focus'
+import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper/localStorageWrapper'
 
 function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService,
                                $filter: IFilterService, RegistrationApi: RegistrationApi, userService: UserService,
@@ -108,7 +109,13 @@ function AccountFormController($log: ng.ILogService, $state: ng.ui.IStateService
       }).then(() => {
         this.isPending = false
         topWaitingLoaderService.stopLoader()
-        $state.go('app.dashboard.client.favourites')
+        const invitationCompanyId = LocalStorageWrapper.getItem('invitation')
+        if (invitationCompanyId) {
+          $state.go('app.invitations', {companyId: invitationCompanyId})
+          LocalStorageWrapper.removeItem('invitation')
+        } else {
+          $state.go('app.dashboard.client.favourites')
+        }
         loginStateService.clearServiceObject()
         topAlertService.success({
           message: $filter('translate')('LOGIN.SUCCESSFUL_LOGIN'),

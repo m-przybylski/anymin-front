@@ -13,6 +13,7 @@ import loginStateModule from '../../../common/services/login-state/login-state'
 import ValidationAlertModule from '../../../common/components/interface/alert/validation-alert/validation-alert'
 import inputModule from '../../../common/components/interface/input/input'
 import {CommonSettingsService} from '../../../common/services/common-settings/common-settings.service'
+import {LocalStorageWrapper} from '../../../common/classes/local-storage-wrapper/localStorageWrapper'
 
 function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.ui.IStateService,
                      topWaitingLoaderService: TopWaitingLoaderService, user: AccountDetails,
@@ -63,9 +64,14 @@ function _controller($log: ng.ILogService, $filter: IFilterService, $state: ng.u
           message: $filter('translate')('REGISTER.REGISTRATION_SUCCESS'),
           timeout: 3
         })
-
         // TODO update session service User.setData({unverifiedEmail: this.email})
-        $state.go('app.dashboard.client.favourites')
+        const invitationCompanyId = LocalStorageWrapper.getItem('invitation')
+        if (invitationCompanyId) {
+          $state.go('app.invitations', {companyId: invitationCompanyId})
+          LocalStorageWrapper.removeItem('invitation')
+        } else {
+          $state.go('app.dashboard.client.favourites')
+        }
       })
     })
   }
