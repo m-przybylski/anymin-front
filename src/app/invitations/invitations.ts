@@ -24,10 +24,6 @@ const invitationsPageModule = angular.module('profitelo.controller.invitations',
         invitationsResolver.resolve($stateParams)
     },
     data: {
-      permissions: {
-        only: ['user'],
-        redirectTo: 'app.login'
-      },
       pageTitle: 'PAGE_TITLE.INVITATIONS'
     }
   })

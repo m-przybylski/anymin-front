@@ -2,7 +2,8 @@ import {TopAlertService} from '../top-alert/top-alert.service'
 export class ErrorHandlerService {
 
   /* @ngInject */
-  constructor(private topAlertService: TopAlertService, private $log: ng.ILogService,
+  constructor(private topAlertService: TopAlertService,
+              private $log: ng.ILogService,
               private $filter: ng.IFilterService) {
   }
 
