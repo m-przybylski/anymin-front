@@ -1,7 +1,8 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import noResultsInformationModule from './no-results-information'
+import noResultsInformationModule, {INoResultsInformationComponentBindings} from './no-results-information'
 import IScope = angular.IScope;
+import {NoResultsInformationController} from './no-results-information.controller'
 
 describe('Unit testing: profitelo.components.dashboard.no-results-information-message', () => {
   return describe('for noResultsInformation >', () => {
@@ -32,7 +33,24 @@ describe('Unit testing: profitelo.components.dashboard.no-results-information-me
         compile = $compile
       })
 
-      component = componentController('noResultsInformation', {})
+      const injectors = {
+        $element: create(validHTML),
+        $scope: rootScope,
+        $document: document
+      }
+
+      const bindings: INoResultsInformationComponentBindings = {
+        iconSrc: 'img',
+        informationTitle: 'title',
+        informationDescription: 'title description',
+        buttonTitle: 'btn title',
+        buttonClass: 'class',
+        buttonIconLeftClass: 'let icon',
+        buttonIconRightClass: 'righticon',
+        buttonOnClick: (): void => {}
+      }
+
+      component = componentController<NoResultsInformationController, {}>('noResultsInformation', injectors, bindings)
     })
 
     it('should have a dummy test', inject(() => {
@@ -44,5 +62,10 @@ describe('Unit testing: profitelo.components.dashboard.no-results-information-me
       expect(el.html()).toBeDefined(true)
     })
 
+    it('should call buttonCallback', () => {
+      spyOn(component, 'buttonOnClick')
+      component.buttonCallback()
+      expect(component.buttonOnClick).toHaveBeenCalled()
+    })
   })
 })

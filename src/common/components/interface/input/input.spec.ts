@@ -75,7 +75,7 @@ describe('Unit testing: profitelo.components.interface.input', () => {
       expect(component.blockInvalidDigits).toHaveBeenCalled()
     }))
 
-    it('should call blockInvalidPhonenumberDigits on component init', inject(() => {
+    it('should call blockInvalidPhonenumberDigits number', inject(() => {
       bindings.type = 'number'
       component = componentController<InputComponentController, {}>('inputPrimary', injectors, bindings)
       spyOn(component, 'blockInvalidDigits')
@@ -83,12 +83,19 @@ describe('Unit testing: profitelo.components.interface.input', () => {
       expect(component.blockInvalidDigits).toHaveBeenCalled()
     }))
 
-    it('should call blockInvalidPhonenumberDigits on component init', inject(() => {
-      bindings.type = 'tel'
+    it('should call blockInvalidPhonenumberDigits tel', inject(() => {
+      bindings.type = component.inputTypes.tel
       component = componentController<InputComponentController, {}>('inputPrimary', injectors, bindings)
       spyOn(component, 'blockInvalidDigits')
       component.$onInit()
       expect(component.blockInvalidDigits).toHaveBeenCalled()
+    }))
+
+    it('should not call blockInvalidPhonenumberDigits', inject(() => {
+      bindings.type = ''
+      component = componentController<InputComponentController, {}>('inputPrimary', injectors, bindings)
+      spyOn(component, 'blockInvalidDigits')
+      expect(component.blockInvalidDigits).not.toHaveBeenCalled()
     }))
   })
 })

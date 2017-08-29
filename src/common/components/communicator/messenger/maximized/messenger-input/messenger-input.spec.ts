@@ -60,7 +60,7 @@ describe('Unit testing: profitelo.components.communicator.messenger.maximized.me
       expect(el.html()).toBeDefined(true)
     })
 
-    it('should sendMessage', () => {
+    it('should sendMessage when text is defined', () => {
       const text = 'sample'
       spyOn(component, 'onSendMessage')
       component.sendMessage(text)
@@ -68,15 +68,30 @@ describe('Unit testing: profitelo.components.communicator.messenger.maximized.me
       expect(component.inputModel).toBe('')
     })
 
-    it('should uploadFiles', () => {
+    it('should sendMessage when text is empty', () => {
+      const text = ''
+      spyOn(component, 'onSendMessage')
+      component.sendMessage(text)
+      expect(component.inputModel).toBe('')
+      expect(component.onSendMessage).not.toHaveBeenCalled()
+    })
+
+    it('should uploadFiles if file uploading', () => {
       const files: any = ['']
       spyOn(component, 'onUploadFiles')
       component.uploadFiles(files)
-
       expect(component.onUploadFiles).toHaveBeenCalledWith(files)
     })
 
-    it('should uploadFiles', () => {
+    it('should uploadFiles if file doesnt uploading', () => {
+      component.isFileUploading = true
+      const files: File[] = []
+      spyOn(component, 'onUploadFiles')
+      component.uploadFiles(files)
+      expect(component.onUploadFiles).not.toHaveBeenCalledWith(files)
+    })
+
+    it('should call onKeyup', () => {
       const event = 'event'
       spyOn(component, 'onTyping')
       component.onKeyup(event)

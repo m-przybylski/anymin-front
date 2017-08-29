@@ -8,7 +8,7 @@ export interface IInputTypes {
 }
 
 export class InputComponentController implements IInputComponentBindings {
-  private inputTypes: IInputTypes = {
+  public inputTypes: IInputTypes = {
     text: 'text',
     tel: 'tel',
     number: 'number'

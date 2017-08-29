@@ -6,25 +6,25 @@ import {ModalsService} from '../../../../services/modals/modals.service'
 import {IPrecallModalControllerScope, PrecallModalController} from './precall.controller'
 import precallModalModule from './precall'
 import {ClientCallService} from '../../call-services/client-call.service'
+import {PaymentsApiMock, FinancesApiMock} from 'profitelo-api-ng/api/api'
 
 describe('Testing Controller: precallModalController', () => {
 
-  let expertConsultationDetails: PrecallModalController
+  let precallModalController: PrecallModalController
   let scope: IPrecallModalControllerScope
-  const uibModalInstance = {
-    dismiss: () => {
+  let PaymentsApiMock: PaymentsApiMock
+  let FinancesApiMock: FinancesApiMock
+  let $state: ng.ui.IStateService
 
-    },
-    close: () => {
-
-    }
-  }
+  const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
+    jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss']);
 
   const clientCallService: ClientCallService = {
   } as ClientCallService
 
   beforeEach(() => {
     angular.mock.module(precallModalModule)
+    angular.mock.module(modalsModule)
   })
 
   beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
@@ -35,29 +35,63 @@ describe('Testing Controller: precallModalController', () => {
   beforeEach(() => {
     angular.mock.module(modalsModule)
 
-    inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _$httpBackend_: ng.IHttpBackendService,
-            _ViewsApi_: ViewsApi, _modalsService_: ModalsService) => {
+    inject(($rootScope: IRootScopeService,
+            $controller: ng.IControllerService,
+            _$httpBackend_: ng.IHttpBackendService,
+            _ViewsApi_: ViewsApi,
+            _modalsService_: ModalsService,
+            $q: ng.IQService,
+            _FinancesApiMock_: FinancesApiMock,
+            _PaymentsApiMock_: PaymentsApiMock
+            ) => {
 
       scope = <IPrecallModalControllerScope>$rootScope.$new()
+      PaymentsApiMock = _PaymentsApiMock_
+      FinancesApiMock = _FinancesApiMock_
+      $state = <ng.ui.IStateService>{
+        go: (_to: string): ng.IPromise<{}> => $q.resolve({})
+      }
 
-      expertConsultationDetails = $controller<PrecallModalController>('precallModalController', {
+      precallModalController = $controller<PrecallModalController>('precallModalController', {
         $scope: scope,
-        $uibModalInstance: uibModalInstance,
+        $uibModalInstance: $uibModalInstance,
         httpBackend: _$httpBackend_,
         ViewsApi: _ViewsApi_,
-        ModalsService: _modalsService_,
-        clientCallService: clientCallService
+        modalsService: _modalsService_,
+        clientCallService: clientCallService,
+        $state: $state
       })
+    })
+
+    PaymentsApiMock.getCreditCardsRoute(500)
+    FinancesApiMock.getClientBalanceRoute(200, {
+      amount: 2000,
+      currency: 'PLN'
     })
   })
 
   it('should exists', () => {
-    return expect(!!expertConsultationDetails).toBe(true)
+    expect(!!precallModalController).toBe(true)
   })
 
   it('should uibModalInstance', () => {
-    spyOn(uibModalInstance, 'dismiss')
-    expertConsultationDetails.onModalClose()
-    expect(uibModalInstance.dismiss).toHaveBeenCalledWith('cancel')
+    precallModalController.onModalClose()
+    expect($uibModalInstance.dismiss).toHaveBeenCalledWith('cancel')
+  })
+
+  it('should addNewPaymentMethod', inject((modalsService: ModalsService) => {
+    spyOn(modalsService, 'createAddPaymentMethodControllerModal')
+    precallModalController.addNewPaymentMethod()
+
+    expect($uibModalInstance.dismiss).toHaveBeenCalledWith('cancel')
+    expect(modalsService.createAddPaymentMethodControllerModal)
+    .toHaveBeenCalledWith(precallModalController.onModalClose)
+  }))
+
+  it('should showChargeAccountModal', () => {
+    spyOn($state, 'go')
+    precallModalController.showChargeAccountModal()
+    expect($uibModalInstance.dismiss).toHaveBeenCalledWith('cancel')
+    expect($state.go).toHaveBeenCalledWith('app.charge-account')
   })
 })

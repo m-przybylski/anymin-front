@@ -34,7 +34,8 @@ describe('Unit testing:profitelo.components.search-dropdown', () => {
 
       angular.mock.module(searchDropdownModule)
 
-      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, $injector: ng.auto.IInjectorService, _$componentController_: ng.IComponentControllerService) => {
+      inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, $injector: ng.auto.IInjectorService,
+              _$componentController_: ng.IComponentControllerService) => {
         rootScope = $rootScope
         componentController = _$componentController_
         scope = $rootScope.$new()
@@ -55,6 +56,16 @@ describe('Unit testing:profitelo.components.search-dropdown', () => {
     it('should compile the component', () => {
       let el = create(validHTML)
       expect(el.html()).toBeDefined(true)
+    })
+
+    it('should onFocus', () => {
+      component.onFocus()
+      expect(component.isFocus).toBe(true)
+    })
+
+    it('should onBlur', () => {
+      component.onBlur()
+      expect(component.isFocus).toBe(false)
     })
 
   })

@@ -8,7 +8,7 @@ describe('Testing Controller: WizardController', () => {
   let WizardController: WizardController,
       $state: ng.ui.IStateService
 
-  const previousState: string = 'previousState'
+  let previousState: string
 
   beforeEach(angular.mock.module( ($provide: ng.auto.IProvideService) => {
     $provide.value('apiUrl', 'awesomeURL/')
@@ -25,7 +25,8 @@ describe('Testing Controller: WizardController', () => {
       }
 
       WizardController = $controller<WizardController>('wizardController', {
-        $state: $state
+        $state: $state,
+        previousState: previousState
       })
     })
   })
@@ -34,10 +35,22 @@ describe('Testing Controller: WizardController', () => {
     expect(!!WizardController).toBe(true)
   })
 
-  it('should onModalClose redirect to previousState', () => {
+  it('should onModalClose redirect to home', () => {
+    spyOn($state, 'go')
+    WizardController.onModalClose()
+    expect($state.go).toHaveBeenCalledWith('app.home')
+  })
+
+  it('should onModalClose redirect to previousState', inject(($controller: ng.IControllerService) => {
+    previousState = 'previousState'
+
+    WizardController = $controller<WizardController>('wizardController', {
+      $state: $state,
+      previousState: previousState
+    })
+
     spyOn($state, 'go')
     WizardController.onModalClose()
     expect($state.go).toHaveBeenCalledWith(previousState)
-  })
-
+  }))
 })

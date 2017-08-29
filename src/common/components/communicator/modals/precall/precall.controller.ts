@@ -14,6 +14,8 @@ interface IPartOfStringTime {
 }
 
 export interface IPrecallModalControllerScope extends ng.IScope {
+  service: GetService,
+  owner: GetProfile
 }
 
 export class PrecallModalController implements ng.IController {
@@ -53,8 +55,7 @@ export class PrecallModalController implements ng.IController {
   private readonly minTimePrepaid: number = 2
 
   /* @ngInject */
-  constructor($scope: ng.IScope,
-              private $log: ng.ILogService,
+  constructor(private $log: ng.ILogService,
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
               private FinancesApi: FinancesApi,
               private PaymentsApi: PaymentsApi,
@@ -64,7 +65,8 @@ export class PrecallModalController implements ng.IController {
               private $filter: ng.IFilterService,
               private $state: ng.ui.IStateService,
               private modalsService: ModalsService,
-              private clientCallService: ClientCallService) {
+              private clientCallService: ClientCallService,
+              $scope: IPrecallModalControllerScope) {
 
     this.service = $scope.service
     this.serviceOwner = $scope.owner

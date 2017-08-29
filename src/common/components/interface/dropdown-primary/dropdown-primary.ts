@@ -2,6 +2,8 @@ import * as angular from 'angular'
 import {keyboardCodes} from '../../../classes/keyboard'
 import ValidationAlertModule from '../alert/validation-alert/validation-alert'
 
+// TODO Refactor: https://git.contactis.pl/itelo/profitelo/issues/1052
+
 interface IDropdownItem {
   name: string
   value: any | null

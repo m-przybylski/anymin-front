@@ -3,7 +3,7 @@ import {IInputTypes} from '../input/input.controller'
 import {keyboardCodes} from '../../../classes/keyboard'
 
 export class InputPasswordComponentController implements IInputPasswordComponentBindings {
-  private inputType: IInputTypes = {
+  public inputType: IInputTypes = {
     text: 'text',
     tel: 'tel',
     number: 'number'

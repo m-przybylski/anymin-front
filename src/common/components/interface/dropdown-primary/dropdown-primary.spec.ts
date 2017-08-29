@@ -4,7 +4,7 @@ import {IWindowService} from '../../../services/window/window.service'
 describe('Unit testing: profitelo.components.interface.dropdown-primary', () => {
   return describe('for dropdownPrimary component >', () => {
 
-    let scope: any
+    let scope: ng.IScope
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
     let componentController: any
@@ -14,7 +14,6 @@ describe('Unit testing: profitelo.components.interface.dropdown-primary', () => 
     let timeout: ng.ITimeoutService
     let document: ng.IDocumentService
     const validHTML = '<dropdown-primary data-label="asd" data-icon="icon"></dropdown-primary>'
-    let smoothScrolling
 
     function create(html: string): JQuery {
       scope = rootScope.$new()
@@ -40,26 +39,25 @@ describe('Unit testing: profitelo.components.interface.dropdown-primary', () => 
       })
 
       bindings = {
-        label: 'test',
-        icon: 'icon'
-      }
+        label: '@',
+        inputPlaceholder: '@',
+        name: '@',
+        placeholder: '@',
+        mainList: {},
+        onSelectMain: {},
+        selectedItem: {},
+        callback: ()=>{}
 
-      smoothScrolling = {
-        simpleScrollTo: (): null => {
-          return null
-        }
       }
 
       const injectors = {
         $element: create(validHTML),
         $scope: rootScope,
         $window: window,
-        smoothScrolling: smoothScrolling,
         $document: document
       }
 
       component = componentController('dropdownPrimary', injectors, bindings)
-      timeout.flush()
     })
 
     it('should have a dummy test', inject(() => {
@@ -71,9 +69,51 @@ describe('Unit testing: profitelo.components.interface.dropdown-primary', () => 
       expect(el.html()).toBeDefined(true)
     })
 
-    it('should compile the component', () => {
-      component.$onInit()
+    it('should $document.bind', () => {
+      component.filterBy = {
+        name: 'asd'
+      }
+      document.trigger('click')
+      document.bind(event)
+      expect(component.isOpen).toBeFalsy()
+      scope.$digest()
+    })
 
+    it('should call toggleDropdown', () => {
+      spyOn(component, 'clearDropdown')
+      component.toggleDropdown()
+      expect(component.isOpen).toBe(true)
+      expect(component.clearDropdown).toHaveBeenCalled()
+    })
+
+    it('should call toggleDropdown if isOpen false', () => {
+      component.toggleDropdown()
+      component.toggleDropdown()
+      expect(component.isOpen).toBe(false)
+    })
+
+    it('should onMainItemSelect', () => {
+      const item = {
+        name: 'name',
+        value: 0
+      }
+      spyOn(component, 'onItemChecked')
+      spyOn(component, 'onSelectMain')
+      component.onMainItemSelect(item)
+      expect(component.activeItem).toEqual(item)
+      expect(component.onSelectMain).toHaveBeenCalledWith(item)
+      expect(component.onItemChecked).toHaveBeenCalledWith(item)
+    })
+
+    it('should onMainItemSelect else', () => {
+      const item = {
+        name: 'name',
+        value: 0
+      }
+      component.onSelectMain = undefined
+      spyOn(component, 'onItemChecked')
+      component.onMainItemSelect(item)
+      expect(component.onSelectMain !== 'function').toBe(true)
     })
   })
 })
