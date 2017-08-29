@@ -6,6 +6,7 @@ import consultaionWizardModule from './consultation'
 import {UserService} from '../../../common/services/user/user.service'
 import apiModule from 'profitelo-api-ng/api.module'
 import {CommonConfig} from '../../../../generated_modules/common-config/common-config'
+import {IFilterService} from '../../../common/services/filter/filter.service'
 
 describe('Testing Controller: ConsultationController', () => {
 
@@ -18,6 +19,7 @@ describe('Testing Controller: ConsultationController', () => {
   let controller: ng.IControllerService
   let q: ng.IQService
   let consultationController: ConsultationController
+  let filter: IFilterService
   const wizardProfile: GetWizardProfile = {
     isExpert: false,
     isCompany: true,
@@ -27,7 +29,10 @@ describe('Testing Controller: ConsultationController', () => {
     getAllData: (): object => {
       return {
         config: {
-          moneyDivider: 100
+          moneyDivider: 100,
+          'supported-languages': [{
+            shortcut: 'pl', name: 'Polish'
+          }]
         }
       }
     }
@@ -44,7 +49,9 @@ describe('Testing Controller: ConsultationController', () => {
     invitations: [{
       email: 'testowy@profitelo.pl'
     }],
-    isOwnerEmployee: true
+    isOwnerEmployee: true,
+    description: 'aksdfn ajsdlfj lkjasdflj a lakjsdfl ja dslkfj aldf d',
+    language: 'pl'
   }
 
   const responseGetWizardProfile: GetWizardProfile = {
@@ -63,13 +70,14 @@ describe('Testing Controller: ConsultationController', () => {
       $stateParams: stateParams,
       wizardProfile: wizardProfile,
       WizardApi: wizardApi,
-      CommonConfig: commonConfig
+      CommonConfig: commonConfig,
+      $filter: filter,
     })
   }
 
   beforeEach(angular.mock.module( ($provide: ng.auto.IProvideService) => {
     $provide.value('apiUrl', 'awesomeURL/')
-
+    $provide.value('normalizeTranslationKeyFilter', (x: string) => x)
   }))
 
   beforeEach(() => {
@@ -78,7 +86,7 @@ describe('Testing Controller: ConsultationController', () => {
 
     inject(($controller: ng.IControllerService, $httpBackend: ng.IHttpBackendService, userService: UserService,
             WizardApi: WizardApi, WizardApiMock: WizardApiMock, $stateParams: IConsultationStateParams,
-            $state: ng.ui.IStateService, $q: ng.IQService) => {
+            $state: ng.ui.IStateService, $q: ng.IQService, $filter: IFilterService) => {
       q = $q
       controller = $controller
       wizardApi = WizardApi
@@ -87,6 +95,7 @@ describe('Testing Controller: ConsultationController', () => {
       UserService = userService
       state = $state
       stateParams = $stateParams
+      filter = $filter,
       consultationController = createController(stateParams, wizardProfile)
     })
   })
@@ -119,7 +128,9 @@ describe('Testing Controller: ConsultationController', () => {
         tags: [{
           name: 'Tag-1'
         }],
-        isOwnerEmployee: true
+        isOwnerEmployee: true,
+        description: 'salaksddf lkaslkdf asdfkj kjasdfj ljkahsd kjhasjdh jh jahsd kjsd',
+        language: 'pl'
       }
     }
     const consultationController = createController(stateParams, wizardProfile)
@@ -143,7 +154,9 @@ describe('Testing Controller: ConsultationController', () => {
         tags: [{
           name: 'Tag-1'
         }],
-        isOwnerEmployee: true
+        isOwnerEmployee: true,
+        description: 'saksjdf kjhsakfjdh ahfjh ajkhgsf kjasjf gjkag fasdjhf jasd',
+        language: 'pl'
       }
     }
     const consultationController = createController(stateParams, wizardProfile)
@@ -167,7 +180,9 @@ describe('Testing Controller: ConsultationController', () => {
         tags: [{
           name: 'Tag-1'
         }],
-        isOwnerEmployee: true
+        isOwnerEmployee: true,
+        description: 'saksjdf kjhsakfjdh ahfjh ajkhgsf kjasjf gjkag fasdjhf jasd',
+        language: 'pl'
       }
     }
     const wizardProfile = {
@@ -197,6 +212,7 @@ describe('Testing Controller: ConsultationController', () => {
     consultationController.nameInputValue = 'Service name'
     consultationController.priceAmountInputValue = '23'
     consultationController.tagsInputValue = ['Tag-234']
+    consultationController.languageInputValue = {name: 'polski', value: 'pl'}
 
     consultationController.saveConsultation()
     httpBackend.flush()
@@ -244,11 +260,23 @@ describe('Testing Controller: ConsultationController', () => {
     expect(consultationController.checkIsEmployeesInputValid()).toEqual(true)
   })
 
+  it('should language input valid', () => {
+    consultationController.languageInputValue = {name: 'polski', value: 'pl'}
+    expect(consultationController.checkIsLanguageInputValid()).toEqual(true)
+  })
+
+  it('should description input invalid', () => {
+    consultationController.descriptionInputValue = 'invalid description mock'
+    expect(consultationController.checkIsDescriptionInputValid()).toEqual(false)
+  })
+
   it('should form valid', () => {
     consultationController.nameInputValue = 'ThisIsName'
     consultationController.tagsInputValue = ['tag-1']
     consultationController.priceAmountInputValue = '123'
     consultationController.invitationsInputValue = ['invitation']
+    consultationController.languageInputValue = {name: 'polski', value: 'pl'}
+    consultationController.descriptionInputValue = 'aksdfn ajsdlfj lkjasdflj a lakjsdfl ja dslkfj aldf d'
     expect(consultationController.checkIsFormValid()).toEqual(true)
   })
 

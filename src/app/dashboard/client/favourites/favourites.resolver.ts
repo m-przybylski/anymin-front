@@ -1,10 +1,9 @@
 import {ViewsApi} from 'profitelo-api-ng/api/api'
 import {
-  GetDashboardClientExperts, MoneyDto, GetFavouriteProfile, GetLastConsultation
+  GetDashboardClientExperts, GetFavouriteProfile, GetLastConsultation
 } from 'profitelo-api-ng/model/models'
 
 interface IAppClientFavouritesResolverResponse {
-  balance: MoneyDto,
   favouriteProfiles: GetFavouriteProfile[],
   lastConsultations: GetLastConsultation[]
 }
@@ -25,7 +24,6 @@ export class ClientFavouritesResolver {
 
   private handleAppClientFavouritesResolverResponse =
     (response: GetDashboardClientExperts): IAppClientFavouritesResolverResponse => ({
-      balance: response.balance,
       favouriteProfiles: response.favouriteProfiles,
       lastConsultations: response.lastConsultations
     })

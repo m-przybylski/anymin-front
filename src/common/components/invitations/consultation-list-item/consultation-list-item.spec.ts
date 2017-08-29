@@ -23,6 +23,7 @@ describe('Unit testing: profitelo.components.dashboard.shared.consultation-list-
         id: 'id',
         ownerId: 'ownerId',
         name: 'name',
+        description: 'asd',
         price: {
           amount: 123,
           currency: 'PLN'

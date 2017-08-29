@@ -48,6 +48,8 @@ describe('Unit testing: profitelo.services.call >', () => {
         rating: 0,
         isSuspended: false,
         name: '',
+        description: 'asd',
+        language: 'pl',
         price: {
           amount: 100,
           currency: 'PLN'

@@ -1,5 +1,7 @@
 import * as angular from 'angular'
 import {keyboardCodes} from '../../../classes/keyboard'
+import ValidationAlertModule from '../alert/validation-alert/validation-alert'
+
 interface IDropdownItem {
   name: string
   value: {} | null
@@ -10,7 +12,7 @@ interface IDropdownPrimaryComponentBindings {
   inputPlaceholder: string
   name: string
   placeholder: string
-  mainList: {}[]
+  mainList: IPrimaryDropdownListElement[]
   onSelectMain: (item: IDropdownItem) => void
   selectedItem: IDropdownItem
 }
@@ -27,6 +29,7 @@ interface IFilterBy {
 class DropdownPrimaryComponentController implements ng.IController, IDropdownPrimaryComponentBindings {
 
   public isOpen: boolean = false
+  public isClosed: boolean = false
   public isActive: boolean = false
   public activeItem: IDropdownItem
   public label: string
@@ -54,10 +57,11 @@ class DropdownPrimaryComponentController implements ng.IController, IDropdownPri
 
     this.dropdown = this.$element.find('.dropdown-list')
     this.dropdownScrollContainerElement = this.$element.find('.dropdown-content')
-    this.$document.bind('click', (event) => {
+    this.$document.bind('click scroll', (event) => {
       const ifTargetClicked = this.$element.find(event.target).length > 0
       if (!ifTargetClicked) {
         this.isOpen = false
+        this.isClosed = true
       }
       this.filterBy.name = ''
       this.$scope.$apply()
@@ -125,6 +129,8 @@ class DropdownPrimaryComponentController implements ng.IController, IDropdownPri
     this.isOpen = !this.isOpen
     if (this.isOpen) {
       this.clearDropdown()
+    } else {
+      this.isClosed = true
     }
   }
 
@@ -157,11 +163,14 @@ class DropdownPrimaryComponent implements ng.IComponentOptions {
     placeholder: '@',
     mainList: '<',
     onSelectMain: '<',
-    selectedItem: '<'
+    selectedItem: '=?',
+    isValid: '<',
+    validationText: '@'
   }
 }
 
 angular.module('profitelo.components.interface.dropdown-primary', [
-  'pascalprecht.translate'
+  'pascalprecht.translate',
+  ValidationAlertModule
 ])
 .component('dropdownPrimary', new DropdownPrimaryComponent)

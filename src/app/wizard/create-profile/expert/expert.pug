@@ -30,22 +30,6 @@
       data-is-submitted="vm.isSubmitted")
 
     wizard-step.step(
-    data-title="WIZARD.STEP.EXPERT.LANGUAGE.TITLE"
-    data-additional-text="WIZARD.STEP.EXPERT.LANGUAGE.HINT"
-    data-tooltip-text="WIZARD.STEP.EXPERT.LANGUAGE.TOOLTIP"
-    data-check-is-step-valid="vm.checkIsLanguagesValid"
-    data-required="vm.isStepRequired"
-    )
-      input-dropdown-tag(
-        data-dictionary="vm.languagesList"
-        data-placeholder="WIZARD.CONSULTATION.LANGUAGE.PLACEHOLDER"
-        data-selected-items-value="vm.languagesModel"
-        data-is-valid="vm.checkIsLanguagesValid()"
-        data-is-submitted="vm.isSubmitted"
-        data-validation-text="WIZARD.EXPERT.LANGUAGES_INPUT_VALIDATION"
-      )
-
-    wizard-step.step(
       data-title="WIZARD.STEP.EXPERT.DESCRIPTION.TITLE"
       data-tooltip-text="WIZARD.STEP.EXPERT.DESCRIPTION.TOOLTIP"
       data-check-is-step-valid="vm.checkIsProfileDescriptionValid"

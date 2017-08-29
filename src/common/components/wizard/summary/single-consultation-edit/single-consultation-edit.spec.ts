@@ -15,6 +15,7 @@ describe('Unit testing: profitelo.components.wizard.single-consultation-edit', (
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('apiUrl', 'awesomeUrl/')
+      $provide.value('normalizeTranslationKeyFilter', (x: string) => x)
     }))
 
     beforeEach(() => {
@@ -45,7 +46,9 @@ describe('Unit testing: profitelo.components.wizard.single-consultation-edit', (
         tags: [{
           name: 'tag-1'
         }],
-        isOwnerEmployee: false
+        isOwnerEmployee: false,
+        description: 'asd',
+        language: 'pl'
       }
       component.onRemove = (): void => {}
       spyOn(component, 'onRemove')
@@ -63,7 +66,9 @@ describe('Unit testing: profitelo.components.wizard.single-consultation-edit', (
         tags: [{
           name: 'tag-1'
         }],
-        isOwnerEmployee: false
+        isOwnerEmployee: false,
+        description: 'asd',
+        language: 'pl'
       }
       component.onEdit = (): void => {}
       spyOn(component, 'onEdit')
@@ -86,7 +91,8 @@ describe('Unit testing: profitelo.components.wizard.single-consultation-edit', (
           isOwnerEmployee: false,
           invitations: [{
             email: 'some@email.com'
-          }]
+          }],
+          language: 'pl'
         }
       })
       component.$onInit()
@@ -108,7 +114,8 @@ describe('Unit testing: profitelo.components.wizard.single-consultation-edit', (
           isOwnerEmployee: false,
           invitations: [{
             msisdn: 'some@email.com'
-          }]
+          }],
+          language: 'pl'
         }
       })
       component.$onInit()
@@ -127,7 +134,8 @@ describe('Unit testing: profitelo.components.wizard.single-consultation-edit', (
           tags: [{
             name: 'tag-1'
           }],
-          isOwnerEmployee: false
+          isOwnerEmployee: false,
+          language: 'pl'
         }
       })
       component.$onInit()

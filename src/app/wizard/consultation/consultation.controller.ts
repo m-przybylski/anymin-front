@@ -5,12 +5,19 @@ import {UserService} from '../../../common/services/user/user.service'
 import {ServiceInvitation} from '../../../common/models/ServiceInvitation'
 import * as _ from 'lodash'
 import {CommonConfig} from '../../../../generated_modules/common-config/common-config'
+import {IFilterService} from '../../../common/services/filter/filter.service'
 
 export interface IConsultationStateParams extends ng.ui.IStateParamsService {
   service: WizardService
 }
 
+interface ILanguagesList {
+  name: string,
+  value: string
+}
+
 export class ConsultationController implements ng.IController {
+  public isStepRequired: boolean = true
   public consultationsMock: string[]
   public numberRegexp: RegExp
   public currency: string
@@ -19,6 +26,9 @@ export class ConsultationController implements ng.IController {
   public priceAmountInputValue: string
   public invitationsInputValue: string[] = []
   public isOwnerEmployee: boolean = false
+  public languagesList: ILanguagesList[]
+  public languageInputValue: ILanguagesList
+  public descriptionInputValue: string
 
   public isCompany: boolean
   public isSubmitted: boolean = false
@@ -26,14 +36,31 @@ export class ConsultationController implements ng.IController {
   private currentEditServiceIndex: number = -1
   private moneyDivider: number
   private static readonly minValidNameLength: number = 5
+  private static readonly minValidDescriptionLength: number = 50
 
   /* @ngInject */
-  constructor(CommonSettingsService: CommonSettingsService, private $state: ng.ui.IStateService,
-              private $stateParams: IConsultationStateParams, private WizardApi: WizardApi,
-              private userService: UserService, CommonConfig: CommonConfig,
-              private wizardProfile?: GetWizardProfile) {
+  constructor(private $filter: IFilterService,
+              private $state: ng.ui.IStateService,
+              private $stateParams: IConsultationStateParams,
+              private WizardApi: WizardApi,
+              private userService: UserService,
+              private CommonConfig: CommonConfig,
+              private wizardProfile: GetWizardProfile,
+              CommonSettingsService: CommonSettingsService) {
 
-    this.moneyDivider = CommonConfig.getAllData().config.moneyDivider
+    const languages: {
+      shortcut: string,
+      name: string,
+      'native-name': string
+    }[] = CommonConfig.getAllData().config['supported-languages']
+
+    this.languagesList = languages.map((lng) =>
+      ({
+        name: (this.$filter('translate')(this.$filter('normalizeTranslationKey')(('LANGUAGE.' + lng.shortcut)))),
+        value: lng.shortcut
+      }))
+
+    this.moneyDivider = this.CommonConfig.getAllData().config.moneyDivider
 
     if (wizardProfile) {
       this.isCompany = wizardProfile.isCompany
@@ -63,6 +90,12 @@ export class ConsultationController implements ng.IController {
       this.$stateParams.service.tags.forEach((tag) => {
         this.tagsInputValue.push(tag.name)
       })
+      this.languageInputValue = {
+        name: (this.$filter('translate')
+        (this.$filter('normalizeTranslationKey')(('LANGUAGE.' + this.$stateParams.service.language)))),
+        value: this.$stateParams.service.language
+      }
+      this.descriptionInputValue = this.$stateParams.service.description
       if (this.$stateParams.service.invitations) {
         this.$stateParams.service.invitations.forEach((employee) => {
           if (employee.email) {
@@ -112,6 +145,8 @@ export class ConsultationController implements ng.IController {
       const serviceModel: WizardService = {
         tags,
         invitations,
+        language: this.languageInputValue.value,
+        description: this.descriptionInputValue,
         name: this.nameInputValue,
         price: priceModel,
         isOwnerEmployee: this.isOwnerEmployee
@@ -140,6 +175,11 @@ export class ConsultationController implements ng.IController {
 
   public checkIsTagsInputValid = (): boolean => this.tagsInputValue && this.tagsInputValue.length > 0
 
+  public checkIsLanguageInputValid = (): boolean => this.languageInputValue && this.languageInputValue.name.length > 0
+
+  public checkIsDescriptionInputValid = (): boolean => typeof this.descriptionInputValue === 'string'
+    && this.descriptionInputValue.length >= ConsultationController.minValidDescriptionLength
+
   public checkIsPriceInputValid = (): boolean =>
     !!(this.priceAmountInputValue && this.priceAmountInputValue.length > 0 &&
       Number(this.priceAmountInputValue.replace(',', '.')) > 0 && ((/^\d{1,3}([\.,](\d{1,2})?)?$/)
@@ -149,8 +189,8 @@ export class ConsultationController implements ng.IController {
     this.invitationsInputValue && this.invitationsInputValue.length > 0 || this.isOwnerEmployee
 
   public checkIsFormValid = (): boolean =>
-    this.checkIsNameInputValid() && this.checkIsTagsInputValid()
-      && this.checkIsPriceInputValid() && this.checkIsEmployeesInputValid()
+    this.checkIsNameInputValid() && this.checkIsTagsInputValid() && this.checkIsPriceInputValid()
+    && this.checkIsEmployeesInputValid() && this.checkIsLanguageInputValid() && this.checkIsDescriptionInputValid()
 
   public checkIsPriceButtonDisabled = (): boolean => !this.isCompany || this.checkIsPriceInputValid()
 
