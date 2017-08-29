@@ -1,9 +1,4 @@
 .wizard-avatar
-  input.invisible-input(
-    type="text"
-    data-ng-focus="$ctrl.onFocus()"
-    data-ng-blur="$ctrl.onBlur()"
-  )
 
   user-avatar.thumb.x192(data-image-token="$ctrl.avatarToken" data-ng-hide="$ctrl.isUserUploadImage")
     preloader(data-is-loading="$ctrl.isLoading")
