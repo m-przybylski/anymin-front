@@ -10,22 +10,24 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
 
   public currentStep: HTMLElement
   public onStepChange: () => void
-  private stepList: JQuery
   public progressStyle: IProgressStyle
   public progressWidth: number
   public indexOfCurrentStep: number
   public progressBarText: string
 
-  private findInput: HTMLElement
+  private static readonly dividerOnHalf: number = 2
+  private findInput: HTMLInputElement
   private findTextarea: HTMLElement
   private progressWidthMax: number = 100
-  private static readonly dividerOnHalf: number = 2
   private wizardStepPadding: number = 50
+  private stepList: JQuery
 
   /* @ngInject */
   constructor(private $element: ng.IRootElementService,
-              private smoothScrollingService: SmoothScrollingService, private $window: ng.IWindowService,
-              private $document: ng.IDocumentService, private $timeout: ng.ITimeoutService) {
+              private smoothScrollingService: SmoothScrollingService,
+              private $window: ng.IWindowService,
+              private $document: ng.IDocumentService,
+              private $timeout: ng.ITimeoutService) {
   }
 
   $postLink(): void {
@@ -58,6 +60,8 @@ export class WizardHandlerComponentController implements IWizardHandlerComponent
 
             if (this.findInput) {
               this.findInput.blur()
+            } else if (this.findTextarea) {
+              this.findTextarea.blur()
             }
 
             this.currentStep = this.stepList[index]
