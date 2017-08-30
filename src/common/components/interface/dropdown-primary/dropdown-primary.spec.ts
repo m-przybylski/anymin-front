@@ -1,16 +1,17 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {IWindowService} from '../../../services/window/window.service'
+import {DropdownPrimaryComponentController, IDropdownPrimaryComponentBindings} from './dropdown-primary'
 describe('Unit testing: profitelo.components.interface.dropdown-primary', () => {
   return describe('for dropdownPrimary component >', () => {
 
     let scope: ng.IScope
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
-    let componentController: any
-    let component: any
+    let componentController: ng.IComponentControllerService
+    let component: DropdownPrimaryComponentController
     let window: IWindowService
-    let bindings: any
+    let bindings: IDropdownPrimaryComponentBindings
     let timeout: ng.ITimeoutService
     let document: ng.IDocumentService
     const validHTML = '<dropdown-primary data-label="asd" data-icon="icon"></dropdown-primary>'
@@ -43,11 +44,13 @@ describe('Unit testing: profitelo.components.interface.dropdown-primary', () => 
         inputPlaceholder: '@',
         name: '@',
         placeholder: '@',
-        mainList: {},
-        onSelectMain: {},
-        selectedItem: {},
-        callback: ()=>{}
-
+        mainList: [],
+        onSelectMain: () => {},
+        selectedItem: {
+          name: 'name',
+          value:'value'
+        },
+        callback: () => {}
       }
 
       const injectors = {
@@ -56,8 +59,7 @@ describe('Unit testing: profitelo.components.interface.dropdown-primary', () => 
         $window: window,
         $document: document
       }
-
-      component = componentController('dropdownPrimary', injectors, bindings)
+      component = componentController<DropdownPrimaryComponentController, {}>('dropdownPrimary', injectors, bindings)
     })
 
     it('should have a dummy test', inject(() => {
@@ -69,51 +71,47 @@ describe('Unit testing: profitelo.components.interface.dropdown-primary', () => 
       expect(el.html()).toBeDefined(true)
     })
 
-    it('should $document.bind', () => {
+    it('should click on document and close dropdown', () => {
       component.filterBy = {
         name: 'asd'
       }
       document.trigger('click')
       document.bind(event)
-      expect(component.isOpen).toBeFalsy()
       scope.$digest()
+      expect(component.isOpen).toBeFalsy()
     })
 
-    it('should call toggleDropdown', () => {
-      spyOn(component, 'clearDropdown')
+    it('should open dropdown and call clearDropdown method', () => {
       component.toggleDropdown()
       expect(component.isOpen).toBe(true)
-      expect(component.clearDropdown).toHaveBeenCalled()
     })
 
-    it('should call toggleDropdown if isOpen false', () => {
+    it('should open and close dropdown', () => {
       component.toggleDropdown()
       component.toggleDropdown()
       expect(component.isOpen).toBe(false)
     })
 
-    it('should onMainItemSelect', () => {
+    it('should add selected item to list and change current item', () => {
       const item = {
         name: 'name',
         value: 0
       }
-      spyOn(component, 'onItemChecked')
       spyOn(component, 'onSelectMain')
       component.onMainItemSelect(item)
       expect(component.activeItem).toEqual(item)
       expect(component.onSelectMain).toHaveBeenCalledWith(item)
-      expect(component.onItemChecked).toHaveBeenCalledWith(item)
     })
 
-    it('should onMainItemSelect else', () => {
+    it('should check if onSelectMain is a function', () => {
       const item = {
         name: 'name',
         value: 0
       }
-      component.onSelectMain = undefined
-      spyOn(component, 'onItemChecked')
+      spyOn(component, 'onSelectMain')
       component.onMainItemSelect(item)
-      expect(component.onSelectMain !== 'function').toBe(true)
+      expect(typeof component.onSelectMain === 'function').toBe(true)
+      expect(component.onSelectMain).toHaveBeenCalled()
     })
   })
 })

@@ -68,18 +68,21 @@ describe('Testing Controller: precallModalController', () => {
       amount: 2000,
       currency: 'PLN'
     })
+    precallModalController.$onInit()
   })
 
   it('should exists', () => {
     expect(!!precallModalController).toBe(true)
   })
 
-  it('should uibModalInstance', () => {
+  it('should close Precall modal', () => {
     precallModalController.onModalClose()
     expect($uibModalInstance.dismiss).toHaveBeenCalledWith('cancel')
   })
 
-  it('should addNewPaymentMethod', inject((modalsService: ModalsService) => {
+  it('should open Add-payment-method modal and close Precall modal',
+    inject((modalsService: ModalsService) => {
+
     spyOn(modalsService, 'createAddPaymentMethodControllerModal')
     precallModalController.addNewPaymentMethod()
 
@@ -88,7 +91,7 @@ describe('Testing Controller: precallModalController', () => {
     .toHaveBeenCalledWith(precallModalController.onModalClose)
   }))
 
-  it('should showChargeAccountModal', () => {
+  it('should redirect to app.charge-account state and close Precall modal', () => {
     spyOn($state, 'go')
     precallModalController.showChargeAccountModal()
     expect($uibModalInstance.dismiss).toHaveBeenCalledWith('cancel')

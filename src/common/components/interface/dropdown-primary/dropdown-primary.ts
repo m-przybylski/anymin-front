@@ -9,7 +9,7 @@ interface IDropdownItem {
   value: any | null
 }
 
-interface IDropdownPrimaryComponentBindings {
+export interface IDropdownPrimaryComponentBindings {
   label: string
   inputPlaceholder: string
   name: string
@@ -17,6 +17,7 @@ interface IDropdownPrimaryComponentBindings {
   mainList: IPrimaryDropdownListElement[]
   onSelectMain: (item: IDropdownItem) => void
   selectedItem: IDropdownItem
+  callback?: (item: IDropdownItem) => void
 }
 
 export interface IPrimaryDropdownListElement {
@@ -28,7 +29,7 @@ interface IFilterBy {
   name: string
 }
 
-class DropdownPrimaryComponentController implements ng.IController, IDropdownPrimaryComponentBindings {
+export class DropdownPrimaryComponentController implements ng.IController, IDropdownPrimaryComponentBindings {
 
   public isOpen: boolean = false
   public isClosed: boolean = false
@@ -162,7 +163,7 @@ class DropdownPrimaryComponentController implements ng.IController, IDropdownPri
   }
 }
 
-class DropdownPrimaryComponent implements ng.IComponentOptions {
+export class DropdownPrimaryComponent implements ng.IComponentOptions {
   controller: ng.Injectable<ng.IControllerConstructor> = DropdownPrimaryComponentController
   template = require('./dropdown-primary.pug')()
   bindings: {[boundProperty: string]: string} = {

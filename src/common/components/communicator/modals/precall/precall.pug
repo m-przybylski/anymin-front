@@ -65,7 +65,7 @@
 
               validation-alert(
                 data-alert-text="COMMUNICATOR.MODALS.PRECALL.LIMIT.ERROR"
-                data-is-visible="!vm.isPriceInputIsValid"
+                data-is-visible="!vm.checkIsPriceInputValid"
               )
 
               validation-alert(
@@ -75,7 +75,7 @@
 
               validation-alert(
                 data-alert-text="COMMUNICATOR.MODALS.PRECALL.LIMIT.MAX_VALUE"
-                data-is-visible="!vm.isMaxPriceInputReachedIsValid"
+                data-is-visible="!vm.isInputValueGreaterThanAccountBalance"
               )
 
             .output
@@ -83,7 +83,7 @@
 
               output(
               id="output"
-              ) {{ vm.timeCounter | translate }}
+              ) {{ vm.dateTimeLimit }}
 
         .precall-input-handler.input-handler
           .icon-section
@@ -94,8 +94,9 @@
             voice-volume-bar()
 
         .modal-action
-          a.btn.btn-success.icon-left(data-ng-class="{'btn-disabled': !vm.isPriceInputIsValid || " +
-            "!vm.isMinTimeConsultationBeenReached || !vm.isMaxPriceInputReachedIsValid }"
+          a.btn.btn-success.icon-left(data-ng-class="{'btn-disabled': !vm.checkIsPriceInputValid || " +
+            "!vm.isMinTimeConsultationBeenReached || !vm.isInputValueGreaterThanAccountBalance ||" +
+            "vm.prepaidCallLimitModel === 0 && vm.isPrepaid }"
             data-ng-click="vm.startCall()")
             span.icon.icon-call-24
             | {{ 'COMMUNICATOR.MODALS.PRECALL.BUTTON.CALL' | translate }}

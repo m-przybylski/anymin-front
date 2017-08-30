@@ -1,5 +1,5 @@
 import {ServiceApi, RatelApi} from 'profitelo-api-ng/api/api';
-import {GetSUERatelCall, GetService, GetProfile} from 'profitelo-api-ng/model/models';
+import {GetSUERatelCall} from 'profitelo-api-ng/model/models';
 import {CommunicatorService} from '../communicator.service';
 import {CallbacksService} from '../../../services/callbacks/callbacks.service';
 import {CallbacksFactory} from '../../../services/callbacks/callbacks.factory';
@@ -10,8 +10,6 @@ import {NavigatorWrapper} from '../../../classes/navigator-wrapper';
 import {ModalsService} from '../../../services/modals/modals.service';
 import {TimerFactory} from '../../../services/timer/timer.factory';
 import {MediaStreamConstraintsWrapper} from '../../../classes/media-stream-constraints-wrapper';
-import {RtcDetectorService} from '../../../services/rtc-detector/rtc-detector.service'
-import {IModalInstanceService} from '@types/angular-ui-bootstrap';
 
 export class ClientCallService {
 
@@ -33,7 +31,6 @@ export class ClientCallService {
               private soundsService: SoundsService,
               private modalsService: ModalsService,
               private callbacksFactory: CallbacksFactory,
-              private rtcDetectorService: RtcDetectorService,
               private $q: ng.IQService) {
 
     this.callbacks = callbacksFactory.getInstance(Object.keys(ClientCallService.events))
@@ -43,13 +40,7 @@ export class ClientCallService {
     this.callbacks.methods.onNewCall(cb);
   }
 
-  public openPrecallModal = (serviceDetails: GetService, expertDetails: GetProfile):
-    ng.IPromise<IModalInstanceService> =>
-    this.rtcDetectorService.getAllMediaPermissions().then( () =>
-      this.modalsService.createPrecallModal(serviceDetails, expertDetails)
-    )
-
-  public callServiceId = (serviceId: string,  expertId?: string): ng.IPromise<CurrentClientCall> => {
+  public callServiceId = (serviceId: string, expertId?: string): ng.IPromise<CurrentClientCall> => {
     if (this.call) return this.$q.reject('There is a call already');
 
     if (!serviceId) return this.$q.reject('serviceId must be defined');

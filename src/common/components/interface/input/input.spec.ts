@@ -69,33 +69,27 @@ describe('Unit testing: profitelo.components.interface.input', () => {
       expect(true).toBeTruthy()
     }))
 
-    it('should call blockInvalidPhonenumberDigits on component init', inject(() => {
-      spyOn(component, 'blockInvalidDigits')
-      component.$onInit()
-      expect(component.blockInvalidDigits).toHaveBeenCalled()
-    }))
-
-    it('should call blockInvalidPhonenumberDigits number', inject(() => {
+    it('should call blockInvalidDigits with type number', () => {
       bindings.type = 'number'
-      component = componentController<InputComponentController, {}>('inputPrimary', injectors, bindings)
+      const component = componentController<InputComponentController, {}>('inputPrimary', injectors, bindings)
       spyOn(component, 'blockInvalidDigits')
       component.$onInit()
       expect(component.blockInvalidDigits).toHaveBeenCalled()
-    }))
+    })
 
-    it('should call blockInvalidPhonenumberDigits tel', inject(() => {
-      bindings.type = component.inputTypes.tel
-      component = componentController<InputComponentController, {}>('inputPrimary', injectors, bindings)
+    it('should call blockInvalidDigits with type tel', () => {
+      bindings.type = 'tel'
+      const component = componentController<InputComponentController, {}>('inputPrimary', injectors, bindings)
       spyOn(component, 'blockInvalidDigits')
       component.$onInit()
       expect(component.blockInvalidDigits).toHaveBeenCalled()
-    }))
+    })
 
-    it('should not call blockInvalidPhonenumberDigits', inject(() => {
+    it('should not call blockInvalidDigits when type undefined', () => {
       bindings.type = ''
-      component = componentController<InputComponentController, {}>('inputPrimary', injectors, bindings)
+      const component = componentController<InputComponentController, {}>('inputPrimary', injectors, bindings)
       spyOn(component, 'blockInvalidDigits')
       expect(component.blockInvalidDigits).not.toHaveBeenCalled()
-    }))
+    })
   })
 })

@@ -62,14 +62,14 @@ describe('Unit testing: profitelo.components.interface.btn-dropdown', () => {
       expect(true).toBeTruthy()
     }))
 
-    it('should $document.bind', () => {
+    it('should click on document and close btn-dropdown', () => {
       document.trigger('click')
       document.bind(event)
       expect(component.isOpen).toBe(false)
       scope.$digest()
     })
 
-    it('should call toggleButton', () => {
+    it('should open btn-collapse', () => {
       component.toggleButton()
       expect(component.isOpen).toBe(true)
     })

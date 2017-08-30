@@ -68,7 +68,7 @@ describe('Unit testing: profitelo.components.communicator.messenger.maximized.me
       expect(component.inputModel).toBe('')
     })
 
-    it('should sendMessage when text is empty', () => {
+    it('should not send message when text is empty', () => {
       const text = ''
       spyOn(component, 'onSendMessage')
       component.sendMessage(text)
@@ -76,14 +76,14 @@ describe('Unit testing: profitelo.components.communicator.messenger.maximized.me
       expect(component.onSendMessage).not.toHaveBeenCalled()
     })
 
-    it('should uploadFiles if file uploading', () => {
+    it('should uploading files', () => {
       const files: any = ['']
       spyOn(component, 'onUploadFiles')
       component.uploadFiles(files)
       expect(component.onUploadFiles).toHaveBeenCalledWith(files)
     })
 
-    it('should uploadFiles if file doesnt uploading', () => {
+    it('should not call onUploadFiles when files uploading', () => {
       component.isFileUploading = true
       const files: File[] = []
       spyOn(component, 'onUploadFiles')

@@ -8,11 +8,6 @@ import {TopAlertService} from '../../../../services/top-alert/top-alert.service'
 import {ModalsService} from '../../../../services/modals/modals.service'
 import {ClientCallService} from '../../call-services/client-call.service'
 
-interface IPartOfStringTime {
-  start: number,
-  length: number
-}
-
 export interface IPrecallModalControllerScope extends ng.IScope {
   service: GetService,
   owner: GetProfile
@@ -29,14 +24,13 @@ export class PrecallModalController implements ng.IController {
   private prepaidCallLimitModel: number
   public expertAvatar: string
   public priceRegexp: RegExp = this.CommonSettingsService.localSettings.pricePattern
-  private minTimeCall: boolean = true
   private moneyDivider: number = this.CommonConfig.getAllData().config.moneyDivider
-  readonly prepaidValue: string = this.$filter('translate')('COMMUNICATOR.MODALS.PRECALL.PREPAID.READONLY.VALUE')
-  public prepaidTranslation: string = this.$filter('translate')('COMMUNICATOR.MODALS.PRECALL.PREPAID.LABEL')
-  public timeCounter: string = 'COMMUNICATOR.MODALS.PRECALL.LIMIT.NONE'
+  private prepaidValue: string
+  public prepaidTranslation: string
+  public dateTimeLimit: string
   public isMinTimeConsultationBeenReached: boolean = true
-  public isPriceInputIsValid: boolean = true
-  public isMaxPriceInputReachedIsValid: boolean = true
+  public checkIsPriceInputValid: boolean = true
+  public isInputValueGreaterThanAccountBalance: boolean = true
   public serviceName: string = ''
   public servicePrice: MoneyDto
   public serviceOwnerName: string = ''
@@ -46,13 +40,11 @@ export class PrecallModalController implements ng.IController {
 
   private service: GetService
   private serviceOwner: GetProfile
-  private readonly decimal: number = 2
+  private readonly moneyNumberOfDecimalPlaces: number = 2
   private readonly secondPerMinute: number = 60
-  private readonly partOfStringTime: IPartOfStringTime = {
-    start: 11,
-    length: 8
-  }
-  private readonly minTimePrepaid: number = 2
+  private partOfStringTimeStart: number = 11
+  private partOfStringTimeLength: number = 8
+  private readonly minPrepaidMinutesTimeLimitToCall: number = 2
 
   /* @ngInject */
   constructor(private $log: ng.ILogService,
@@ -66,10 +58,16 @@ export class PrecallModalController implements ng.IController {
               private $state: ng.ui.IStateService,
               private modalsService: ModalsService,
               private clientCallService: ClientCallService,
-              $scope: IPrecallModalControllerScope) {
+              private $scope: IPrecallModalControllerScope) {
+  }
 
-    this.service = $scope.service
-    this.serviceOwner = $scope.owner
+  $onInit = (): void => {
+    this.prepaidValue = this.$filter('translate')('COMMUNICATOR.MODALS.PRECALL.PREPAID.READONLY.VALUE')
+    this.prepaidTranslation= this.$filter('translate')('COMMUNICATOR.MODALS.PRECALL.PREPAID.LABEL')
+    this.dateTimeLimit = this.$filter('translate')('COMMUNICATOR.MODALS.PRECALL.LIMIT.NONE')
+
+    this.service = this.$scope.service
+    this.serviceOwner = this.$scope.owner
 
     if (this.service) {
       this.consultationPrice = this.service.price.amount / this.moneyDivider
@@ -86,6 +84,11 @@ export class PrecallModalController implements ng.IController {
       this.expertAvatar = this.serviceOwner.expertDetails.avatar
     }
 
+    this.PaymentsGetCreditCardsRoute()
+    this.FinanceGetClientBalanceRoute()
+  }
+
+  private PaymentsGetCreditCardsRoute = () => {
     this.PaymentsApi.getCreditCardsRoute().then((paymentMethods) => {
       this.isLoading = false
       this.paymentMethods = paymentMethods.map((el) => ({
@@ -95,24 +98,27 @@ export class PrecallModalController implements ng.IController {
       this.paymentMethods.push(this.clientBalance)
     }, (error) => {
       this.$log.error(error)
-      this.topAlertService.success({
+      this.topAlertService.error({
         message: this.$filter('translate')('COMMUNICATOR.MODALS.PRECALL.ERROR.NO_RESPONSE'),
         timeout: 2
       })
       this.$uibModalInstance.dismiss('cancel')
     })
+  }
 
+  private FinanceGetClientBalanceRoute = () => {
     this.FinancesApi.getClientBalanceRoute().then((clientBalance) => {
       this.prepaidCallLimitModel = clientBalance.amount
       this.clientBalance = {
-        name: this.prepaidTranslation + ' ' + (clientBalance.amount / this.moneyDivider).toFixed(this.decimal) + ' '
+        name: this.prepaidTranslation + ' '
+        + (clientBalance.amount / this.moneyDivider).toFixed(this.moneyNumberOfDecimalPlaces) + ' '
         + clientBalance.currency,
         value: this.prepaidValue
       }
       this.onSelectMain = this.clientBalance
     }, (error) => {
       this.$log.error(error)
-      this.topAlertService.success({
+      this.topAlertService.error({
         message: this.$filter('translate')('COMMUNICATOR.MODALS.PRECALL.ERROR.NO_RESPONSE'),
         timeout: 2
       })
@@ -136,39 +142,48 @@ export class PrecallModalController implements ng.IController {
   }
 
   public onPriceChange = (consultationCostModel: string): void => {
-    const consultationCost = Number(consultationCostModel.toString().replace(',', '.'))
-    this.moneyConverterPerCallTime(consultationCost)
-    this.isMinTimeConsultationBeenReached = this.checkIfMinTimeConsultationBeenReached(consultationCost)
-    this.isPriceInputIsValid = this.checkIfPriceInputIsValid(consultationCost)
-    this.isMaxPriceInputReachedIsValid = this.checkIfMaxPriceInputReachedIsValid(consultationCost)
+    const amount = Number(consultationCostModel.toString().replace(',', '.'))
+    this.changeAmountPerTimeCall(amount)
+    this.isMinTimeConsultationBeenReached = this.checkIfMinPrepaidMinutesTimeLimitToCallRechared(amount)
+    this.checkIsPriceInputValid = this.checkIfPriceInputIsValid(amount)
+    this.isInputValueGreaterThanAccountBalance = this.checkIfInputValueIsGratherThanAccountBalance(amount)
   }
 
-  private moneyConverterPerCallTime = (model: number): void => {
+  private changeAmountPerTimeCall = (inputValue: number): void => {
     const date: Date = new Date(0)
-    date.setSeconds(model / this.consultationPrice * this.secondPerMinute)
+    date.setSeconds(inputValue / this.consultationPrice * this.secondPerMinute)
 
-    if (model !== 0)
-      this.timeCounter = date.toISOString().substr(this.partOfStringTime.start, this.partOfStringTime.length)
+    if (inputValue !== 0)
+      this.dateTimeLimit = date.toISOString().substr(this.partOfStringTimeStart, this.partOfStringTimeLength)
     else
-      this.timeCounter = 'COMMUNICATOR.MODALS.PRECALL.LIMIT.NONE'
+      this.dateTimeLimit = this.$filter('translate')('COMMUNICATOR.MODALS.PRECALL.LIMIT.NONE')
   }
 
   public onSelectItemDropdown = (data: IPrimaryDropdownListElement): void => {
     this.callLimitModel = 0
-    this.timeCounter = 'COMMUNICATOR.MODALS.PRECALL.LIMIT.NONE'
+    this.dateTimeLimit = this.$filter('translate')('COMMUNICATOR.MODALS.PRECALL.LIMIT.NONE')
 
     // TODO Wait for: https://git.contactis.pl/itelo/profitelo/issues/1015
     const input = angular.element('input-price input')[0]
     this.isPrepaid = data.value === this.prepaidValue
-    input.focus()
+
+    if (input) {
+      input.focus()
+    } else {
+      this.topAlertService.error({
+        message: this.$filter('translate')('COMMUNICATOR.MODALS.PRECALL.ERROR.INPUT'),
+        timeout: 2
+      })
+      this.$uibModalInstance.dismiss('cancel')
+    }
   }
 
-  private checkIfMaxPriceInputReachedIsValid = (model: number): boolean =>
+  private checkIfInputValueIsGratherThanAccountBalance = (model: number): boolean =>
     this.isPrepaid ? ((model <= this.prepaidCallLimitModel / this.moneyDivider)) || model === 0 : model >= 0
 
   private checkIfPriceInputIsValid = (model: number): boolean =>
     (model && this.priceRegexp.test(model.toString())) || model === 0
 
-  private checkIfMinTimeConsultationBeenReached = (model: number): boolean =>
-    this.minTimeCall = this.isPrepaid ? (model / this.consultationPrice) >= this.minTimePrepaid || model === 0 : true
+  private checkIfMinPrepaidMinutesTimeLimitToCallRechared = (model: number): boolean =>
+    this.isPrepaid ? (model / this.consultationPrice) >= this.minPrepaidMinutesTimeLimitToCall || model === 0 : true
 }

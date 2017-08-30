@@ -1,14 +1,14 @@
 import {IInputComponentBindings} from './input'
 import {keyboardCodes} from '../../../classes/keyboard'
 
-export interface IInputTypes {
-  text: string,
-  tel: string,
-  number: string
+type InputTypes = {
+  text: 'text'
+  tel: 'tel'
+  number: 'number'
 }
 
 export class InputComponentController implements IInputComponentBindings {
-  public inputTypes: IInputTypes = {
+  public inputTypes: InputTypes = {
     text: 'text',
     tel: 'tel',
     number: 'number'

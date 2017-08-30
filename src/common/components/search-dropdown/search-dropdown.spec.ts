@@ -58,12 +58,12 @@ describe('Unit testing:profitelo.components.search-dropdown', () => {
       expect(el.html()).toBeDefined(true)
     })
 
-    it('should onFocus', () => {
+    it('should focus input', () => {
       component.onFocus()
       expect(component.isFocus).toBe(true)
     })
 
-    it('should onBlur', () => {
+    it('should unfocus input', () => {
       component.onBlur()
       expect(component.isFocus).toBe(false)
     })

@@ -67,7 +67,6 @@ export class InputPriceComponentController implements IInputPriceComponentBindin
 
     if (this.callback) {
       this.callback(this.ngModel)
-
     }
   }
 
