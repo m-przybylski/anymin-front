@@ -19,7 +19,7 @@
 
       .consultation-description
         h5(data-translate="WIZARD.SUMMARY.SINGLE_CONSULTATION.DESCRIPTION_TITLE")
-        p {{ $ctrl.description }}
+        p(data-ng-bind-html="$ctrl.description | newLineFilter")
 
       .employee-list(data-ng-if="$ctrl.isCompany")
         p(data-translate="WIZARD.SUMMARY.EMPLOYEES.LABEL")
