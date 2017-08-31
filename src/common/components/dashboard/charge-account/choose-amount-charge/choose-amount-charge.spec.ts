@@ -83,5 +83,15 @@ describe('Unit testing: profitelo.components.dashboard.charge-account.choose-amo
       expect(bindings.scrollHandler).toHaveBeenCalled()
     })
 
+    it('should set activeOption as userAmountOption', () => {
+      component.amountModel = {
+          cashAmount: {amount: 123, currency: 'PLN'},
+          amount: null
+      }
+      scope.$digest()
+      component.$onInit()
+      expect(component.activeOption).toEqual(3)
+    })
+
   })
 })

@@ -22,8 +22,8 @@ export class PagePreloaderComponentController implements ng.IController {
 
   $onInit = (): void => {
     this.stateChangeStart =
-      this.$rootScope.$on('$stateChangeStart', (_event, toState, _toParams, _fromState, _fromParams) => {
-        if (toState.resolve) {
+      this.$rootScope.$on('$stateChangeStart', (_event, toState, _toParams, fromState, _fromParams) => {
+        if (this.doesResolverExist(toState) && !this.areStatesNamesEqual(toState, fromState)) {
           this.isStateLoaded = false
           this.setIsLoading()
           this.isError = false
@@ -31,16 +31,16 @@ export class PagePreloaderComponentController implements ng.IController {
       })
 
     this.stateChangeSuccess =
-      this.$rootScope.$on('$stateChangeSuccess', (_event, toState, _toParams, _fromState, _fromParams) => {
-        if (toState.resolve) {
+      this.$rootScope.$on('$stateChangeSuccess', (_event, toState, _toParams, fromState, _fromParams) => {
+        if (this.doesResolverExist(toState) && !this.areStatesNamesEqual(toState, fromState)) {
           this.isStateLoaded = true
           this.isLoading = false
         }
       })
 
     this.stateChangeError =
-      this.$rootScope.$on('$stateChangeError', (_event, toState, toParams, _fromState, _fromParams, error) => {
-        if (toState.resolve) {
+      this.$rootScope.$on('$stateChangeError', (_event, toState, toParams, fromState, _fromParams, error) => {
+      if (this.doesResolverExist(toState) && !this.areStatesNamesEqual(toState, fromState)) {
           this.toStateName = toState.name
           this.toStateParams = toParams
 
@@ -70,5 +70,10 @@ export class PagePreloaderComponentController implements ng.IController {
       }, PagePreloaderComponentController.minimalTimeToStartPreloading),
       PagePreloaderComponentController.minimalPreloadingTime)
   }
+
+  private doesResolverExist = (toState: ng.ui.IState): boolean => typeof toState.resolve !== 'undefined'
+
+  private areStatesNamesEqual = (toState: ng.ui.IState, fromState: ng.ui.IState): boolean =>
+    toState.name === fromState.name
 
 }

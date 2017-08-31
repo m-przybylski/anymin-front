@@ -138,5 +138,22 @@ describe('Unit testing: profitelo.components.interface.input-dropdown-tag', () =
       expect(component.isDirty).toBe(true)
     })
 
+    it('should select item onClickEnter', () => {
+      component.selectedItemNumber = 1
+      component.filteredItems = [{
+        name: 'newName',
+        value: 'newValue'
+      }]
+      component.selectedItems = []
+      component.selectedItemsValue = []
+      component.filterInputText = 'qwe'
+      component.onClickEnter()
+      expect(component.selectedItems.length).toBe(1)
+      expect(component.selectedItemsValue.length).toBe(1)
+      expect(component.isOpen).toBe(false)
+      expect(component.filterInputText).toBe('')
+      expect(component.selectedItemNumber).toBe(0)
+    })
+
   })
 })
