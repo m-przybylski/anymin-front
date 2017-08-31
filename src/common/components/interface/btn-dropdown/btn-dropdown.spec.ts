@@ -66,7 +66,6 @@ describe('Unit testing: profitelo.components.interface.btn-dropdown', () => {
       document.trigger('click')
       document.bind(event)
       expect(component.isOpen).toBe(false)
-      scope.$digest()
     })
 
     it('should open btn-collapse', () => {
@@ -74,7 +73,7 @@ describe('Unit testing: profitelo.components.interface.btn-dropdown', () => {
       expect(component.isOpen).toBe(true)
     })
 
-    it('should call onSelectItem', () => {
+    it('should closing btn and call callback', () => {
       spyOn(component, 'callback')
       component.onSelectItem()
       expect(component.isOpen).toBe(false)

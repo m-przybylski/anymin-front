@@ -68,7 +68,7 @@ describe('Unit testing: profitelo.components.interface.input-password', () => {
     }))
 
     it('should call blockInvalidPhonenumberDigits on component init', () => {
-      component.type = component.inputType.tel
+      component.type = 'tel'
       spyOn(component, 'blockInvalidPhonenumberDigits')
       component.$onInit()
       expect(component.blockInvalidPhonenumberDigits).toHaveBeenCalled()

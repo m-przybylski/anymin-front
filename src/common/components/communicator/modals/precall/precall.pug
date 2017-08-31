@@ -65,12 +65,12 @@
 
               validation-alert(
                 data-alert-text="COMMUNICATOR.MODALS.PRECALL.LIMIT.ERROR"
-                data-is-visible="!vm.checkIsPriceInputValid"
+                data-is-visible="!vm.isRegExpPriceInputValid"
               )
 
               validation-alert(
                 data-alert-text="COMMUNICATOR.MODALS.PRECALL.LIMIT.MIN_TIME_RECHARGE"
-                data-is-visible="!vm.isMinTimeConsultationBeenReached"
+                data-is-visible="!vm.isPriceInputValid"
               )
 
               validation-alert(
@@ -81,9 +81,9 @@
             .output
               label.label-text {{:: 'COMMUNICATOR.MODALS.PRECALL.OUTPUT.LABEL' | translate }}
 
-              output(
-              id="output"
-              ) {{ vm.dateTimeLimit }}
+              output(id="output")
+                span(data-ng-hide="vm.isUnlimitedPrepaid") {{ vm.dateTimeLimit | millisecondsToDatetime | date: 'HH:mm:ss' }}
+                span(data-ng-show="vm.isUnlimitedPrepaid") {{:: 'COMMUNICATOR.MODALS.PRECALL.LIMIT.NONE' | translate }}
 
         .precall-input-handler.input-handler
           .icon-section
@@ -94,9 +94,13 @@
             voice-volume-bar()
 
         .modal-action
-          a.btn.btn-success.icon-left(data-ng-class="{'btn-disabled': !vm.checkIsPriceInputValid || " +
-            "!vm.isMinTimeConsultationBeenReached || !vm.isInputValueGreaterThanAccountBalance ||" +
-            "vm.prepaidCallLimitModel === 0 && vm.isPrepaid }"
+          a.btn.btn-progress.btn-success.icon-left(data-ng-class="{'btn-disabled': !vm.isRegExpPriceInputValid || " +
+            "!vm.isPriceInputValid || !vm.isInputValueGreaterThanAccountBalance ||" +
+            "vm.prepaidCallLimitModel === 0 && vm.isPrepaid}"
             data-ng-click="vm.startCall()")
-            span.icon.icon-call-24
-            | {{ 'COMMUNICATOR.MODALS.PRECALL.BUTTON.CALL' | translate }}
+
+            span.btn-title
+              span.icon.icon-call-24
+              | {{ 'COMMUNICATOR.MODALS.PRECALL.BUTTON.CALL' | translate }}
+
+            span

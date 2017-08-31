@@ -28,12 +28,13 @@ export class PrecallModalController implements ng.IController {
   private prepaidValue: string
   public prepaidTranslation: string
   public dateTimeLimit: string
-  public isMinTimeConsultationBeenReached: boolean = true
-  public checkIsPriceInputValid: boolean = true
+  public isRegExpPriceInputValid: boolean = true
+  public isPriceInputValid: boolean = true
   public isInputValueGreaterThanAccountBalance: boolean = true
   public serviceName: string = ''
   public servicePrice: MoneyDto
   public serviceOwnerName: string = ''
+  public isUnlimitedPrepaid = true
 
   public onModalClose = (): void =>
     this.$uibModalInstance.dismiss('cancel')
@@ -42,8 +43,6 @@ export class PrecallModalController implements ng.IController {
   private serviceOwner: GetProfile
   private readonly moneyNumberOfDecimalPlaces: number = 2
   private readonly secondPerMinute: number = 60
-  private partOfStringTimeStart: number = 11
-  private partOfStringTimeLength: number = 8
   private readonly minPrepaidMinutesTimeLimitToCall: number = 2
 
   /* @ngInject */
@@ -63,7 +62,7 @@ export class PrecallModalController implements ng.IController {
 
   $onInit = (): void => {
     this.prepaidValue = this.$filter('translate')('COMMUNICATOR.MODALS.PRECALL.PREPAID.READONLY.VALUE')
-    this.prepaidTranslation= this.$filter('translate')('COMMUNICATOR.MODALS.PRECALL.PREPAID.LABEL')
+    this.prepaidTranslation = this.$filter('translate')('COMMUNICATOR.MODALS.PRECALL.PREPAID.LABEL')
     this.dateTimeLimit = this.$filter('translate')('COMMUNICATOR.MODALS.PRECALL.LIMIT.NONE')
 
     this.service = this.$scope.service
@@ -88,7 +87,7 @@ export class PrecallModalController implements ng.IController {
     this.FinanceGetClientBalanceRoute()
   }
 
-  private PaymentsGetCreditCardsRoute = () => {
+  private PaymentsGetCreditCardsRoute = (): void => {
     this.PaymentsApi.getCreditCardsRoute().then((paymentMethods) => {
       this.isLoading = false
       this.paymentMethods = paymentMethods.map((el) => ({
@@ -106,7 +105,7 @@ export class PrecallModalController implements ng.IController {
     })
   }
 
-  private FinanceGetClientBalanceRoute = () => {
+  private FinanceGetClientBalanceRoute = (): void => {
     this.FinancesApi.getClientBalanceRoute().then((clientBalance) => {
       this.prepaidCallLimitModel = clientBalance.amount
       this.clientBalance = {
@@ -144,19 +143,23 @@ export class PrecallModalController implements ng.IController {
   public onPriceChange = (consultationCostModel: string): void => {
     const amount = Number(consultationCostModel.toString().replace(',', '.'))
     this.changeAmountPerTimeCall(amount)
-    this.isMinTimeConsultationBeenReached = this.checkIfMinPrepaidMinutesTimeLimitToCallRechared(amount)
-    this.checkIsPriceInputValid = this.checkIfPriceInputIsValid(amount)
-    this.isInputValueGreaterThanAccountBalance = this.checkIfInputValueIsGratherThanAccountBalance(amount)
+    this.isInputValueGreaterThanAccountBalance = this.isValueGreaterThanAccountBalanceValid(amount)
+    this.isRegExpPriceInputValid = this.isRegExpPriceValid(amount)
+    this.isPriceInputValid = this.isPriceValid(amount)
   }
 
   private changeAmountPerTimeCall = (inputValue: number): void => {
     const date: Date = new Date(0)
-    date.setSeconds(inputValue / this.consultationPrice * this.secondPerMinute)
+    const miliSeconds = Math.round(date.setSeconds(inputValue / this.consultationPrice * this.secondPerMinute))
 
-    if (inputValue !== 0)
-      this.dateTimeLimit = date.toISOString().substr(this.partOfStringTimeStart, this.partOfStringTimeLength)
-    else
+    if (inputValue !== 0) {
+      this.isUnlimitedPrepaid = false
+      this.dateTimeLimit = miliSeconds.toString()
+    }
+    else {
+      this.isUnlimitedPrepaid = true
       this.dateTimeLimit = this.$filter('translate')('COMMUNICATOR.MODALS.PRECALL.LIMIT.NONE')
+    }
   }
 
   public onSelectItemDropdown = (data: IPrimaryDropdownListElement): void => {
@@ -178,12 +181,19 @@ export class PrecallModalController implements ng.IController {
     }
   }
 
-  private checkIfInputValueIsGratherThanAccountBalance = (model: number): boolean =>
-    this.isPrepaid ? ((model <= this.prepaidCallLimitModel / this.moneyDivider)) || model === 0 : model >= 0
+  private isValueGreaterThanAccountBalanceValid = (model: number): boolean =>
+    this.isPrepaid ? this.isValueGraterThanAccountBalance(model) : model >= 0
 
-  private checkIfPriceInputIsValid = (model: number): boolean =>
-    (model && this.priceRegexp.test(model.toString())) || model === 0
+  private isRegExpPriceValid = (model: number): boolean =>
+  (model && this.priceRegexp.test(model.toString())) || model === 0
 
-  private checkIfMinPrepaidMinutesTimeLimitToCallRechared = (model: number): boolean =>
-    this.isPrepaid ? (model / this.consultationPrice) >= this.minPrepaidMinutesTimeLimitToCall || model === 0 : true
+  private isPriceValid = (model: number): boolean =>
+    this.isPrepaid ? this.isPriceEnoughtForMinimalCallTime(model) || model === 0 : true
+
+  private isPriceEnoughtForMinimalCallTime = (model: number): boolean =>
+  (model / this.consultationPrice) >= this.minPrepaidMinutesTimeLimitToCall || model === 0
+
+  private isValueGraterThanAccountBalance = (model: number): boolean =>
+  ((model <= this.prepaidCallLimitModel / this.moneyDivider)) || model === 0
+
 }
