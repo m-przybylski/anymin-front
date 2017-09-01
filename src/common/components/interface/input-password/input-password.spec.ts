@@ -3,9 +3,10 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import inputPasswordModule from './input-password'
 import {InputPasswordComponentController} from './input-password.controller'
 import {IInputPasswordComponentBindings} from './input-password'
+import {IScope} from 'angular'
 
-describe('Unit testing: profitelo.components.interface.input', () => {
-  return describe('for inputPrimary component >', () => {
+describe('Unit testing: profitelo.components.interface.input-password', () => {
+  return describe('for inputPassword component >', () => {
 
     let scope: ng.IScope
     let rootScope: ng.IRootScopeService
@@ -14,7 +15,8 @@ describe('Unit testing: profitelo.components.interface.input', () => {
     let component: InputPasswordComponentController
     let bindings: IInputPasswordComponentBindings
     let document: ng.IDocumentService
-    const validHTML = '<input-primary type="tel"></input-primary>'
+    const validHTML = '<input-password type="tel"></input-password>'
+    let injectors: { $scope?: IScope, [key: string]: any }
 
     function create(html: string) {
       scope = rootScope.$new()
@@ -52,7 +54,7 @@ describe('Unit testing: profitelo.components.interface.input', () => {
         onChange: 'name2'
       }
 
-      const injectors = {
+      injectors = {
         $element: create(validHTML),
         $scope: rootScope,
         $document: document
@@ -65,11 +67,20 @@ describe('Unit testing: profitelo.components.interface.input', () => {
       expect(true).toBeTruthy()
     }))
 
-    it('should call blockInvalidPhonenumberDigits on component init', inject(() => {
+    it('should call blockInvalidPhonenumberDigits on component init', () => {
+      component.type = 'tel'
       spyOn(component, 'blockInvalidPhonenumberDigits')
       component.$onInit()
       expect(component.blockInvalidPhonenumberDigits).toHaveBeenCalled()
-    }))
+    })
+
+    it('should not call blockInvalidPhonenumberDigits', () => {
+      const component = componentController<InputPasswordComponentController, {}>('inputPassword', injectors, bindings)
+      component.type = ''
+      spyOn(component, 'blockInvalidPhonenumberDigits')
+      component.$onInit()
+      expect(component.blockInvalidPhonenumberDigits).not.toHaveBeenCalled()
+    })
 
     it('should onFocus', () => {
       component.onFocus()
@@ -81,6 +92,5 @@ describe('Unit testing: profitelo.components.interface.input', () => {
       component.onBlur()
       expect(component.isFocus).toBe(false)
     })
-
   })
 })

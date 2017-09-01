@@ -10,7 +10,6 @@ import {NavigatorWrapper} from '../../../classes/navigator-wrapper';
 import {ModalsService} from '../../../services/modals/modals.service';
 import {TimerFactory} from '../../../services/timer/timer.factory';
 import {MediaStreamConstraintsWrapper} from '../../../classes/media-stream-constraints-wrapper';
-import {RtcDetectorService} from '../../../services/rtc-detector/rtc-detector.service'
 
 export class ClientCallService {
 
@@ -32,7 +31,6 @@ export class ClientCallService {
               private soundsService: SoundsService,
               private modalsService: ModalsService,
               private callbacksFactory: CallbacksFactory,
-              private rtcDetectorService: RtcDetectorService,
               private $q: ng.IQService) {
 
     this.callbacks = callbacksFactory.getInstance(Object.keys(ClientCallService.events))
@@ -42,21 +40,20 @@ export class ClientCallService {
     this.callbacks.methods.onNewCall(cb);
   }
 
-  public callServiceId = (serviceId: string, expertId?: string): ng.IPromise<CurrentClientCall> =>
-    this.rtcDetectorService.getAllMediaPermissions().then( () => {
-      if (this.call) return this.$q.reject('There is a call already');
+  public callServiceId = (serviceId: string, expertId?: string): ng.IPromise<CurrentClientCall> => {
+    if (this.call) return this.$q.reject('There is a call already');
 
-      if (!serviceId) return this.$q.reject('serviceId must be defined');
+    if (!serviceId) return this.$q.reject('serviceId must be defined');
 
-      if (!this.communicatorService.getClientSession()) return this.$q.reject('There is no client session');
+    if (!this.communicatorService.getClientSession()) return this.$q.reject('There is no client session');
 
-      this.call = this.createCall(serviceId, expertId)
-        .then(this.onCreateCallSuccess)
-        .then(this.startCall)
-        .catch(this.onStartCallError)
+    this.call = this.createCall(serviceId, expertId)
+    .then(this.onCreateCallSuccess)
+    .then(this.startCall)
+    .catch(this.onStartCallError)
 
-      return this.call;
-    })
+    return this.call;
+  }
 
   private onStartCallError = (err: any): void => {
     this.call = undefined;

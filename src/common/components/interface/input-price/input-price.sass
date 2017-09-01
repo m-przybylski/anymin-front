@@ -2,7 +2,7 @@
 @import "../../../../template/profitelo_theme/stylesheets/core/helpers/mixins"
 @import "../../../../template/profitelo_theme/stylesheets/core/interface/icons/icons"
 
-checkbox
+input-price
   display: block
 
 .input-price
@@ -21,9 +21,37 @@ checkbox
     height: $s-input-height
     align-self: flex-end
 
+  &.is-disabled
+    input
+      color: $c-secondary-txt
+      cursor: not-allowed
+
   &.is-invalid
     input
       color: $c-error
+
+  &::before
+    content: ''
+    position: absolute
+    bottom: 0
+    left: 0
+    right: 0
+    margin: auto
+    height: 1px
+    width: 100%
+    background: $c-lines
+
+  &::after
+    transition: width 0.3s ease-out
+    content: ''
+    position: absolute
+    bottom: 0
+    left: 0
+    right: 0
+    margin: auto
+    height: 1px
+    width: 100%
+    animation: inputBorderLineAnimationOut 0.3s
 
 .input-sign-counter
   text-align: left

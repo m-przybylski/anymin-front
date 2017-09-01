@@ -177,10 +177,10 @@ export class DashboardFiltersComponentController implements IDashboardFiltersCom
     }))
 
   private createDropdownExpertsList = (list: ExpertFilter[]): IDropdownList[] => list.map((expert) => (
-      {
-        name: expert.name,
-        value: expert.id
-      }
-    ))
+    {
+      name: expert.name,
+      value: expert.id
+    }
+  ))
 
 }

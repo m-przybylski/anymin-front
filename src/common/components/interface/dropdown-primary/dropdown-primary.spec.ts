@@ -1,20 +1,20 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {IWindowService} from '../../../services/window/window.service'
+import {DropdownPrimaryComponentController, IDropdownPrimaryComponentBindings} from './dropdown-primary'
 describe('Unit testing: profitelo.components.interface.dropdown-primary', () => {
   return describe('for dropdownPrimary component >', () => {
 
-    let scope: any
+    let scope: ng.IScope
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
-    let componentController: any
-    let component: any
+    let componentController: ng.IComponentControllerService
+    let component: DropdownPrimaryComponentController
     let window: IWindowService
-    let bindings: any
+    let bindings: IDropdownPrimaryComponentBindings
     let timeout: ng.ITimeoutService
     let document: ng.IDocumentService
     const validHTML = '<dropdown-primary data-label="asd" data-icon="icon"></dropdown-primary>'
-    let smoothScrolling
 
     function create(html: string): JQuery {
       scope = rootScope.$new()
@@ -40,26 +40,26 @@ describe('Unit testing: profitelo.components.interface.dropdown-primary', () => 
       })
 
       bindings = {
-        label: 'test',
-        icon: 'icon'
-      }
-
-      smoothScrolling = {
-        simpleScrollTo: (): null => {
-          return null
-        }
+        label: '@',
+        inputPlaceholder: '@',
+        name: '@',
+        placeholder: '@',
+        mainList: [],
+        onSelectMain: () => {},
+        selectedItem: {
+          name: 'name',
+          value:'value'
+        },
+        callback: () => {}
       }
 
       const injectors = {
         $element: create(validHTML),
         $scope: rootScope,
         $window: window,
-        smoothScrolling: smoothScrolling,
         $document: document
       }
-
-      component = componentController('dropdownPrimary', injectors, bindings)
-      timeout.flush()
+      component = componentController<DropdownPrimaryComponentController, {}>('dropdownPrimary', injectors, bindings)
     })
 
     it('should have a dummy test', inject(() => {
@@ -71,9 +71,48 @@ describe('Unit testing: profitelo.components.interface.dropdown-primary', () => 
       expect(el.html()).toBeDefined(true)
     })
 
-    it('should compile the component', () => {
-      component.$onInit()
+    it('should click on document and close dropdown', () => {
+      component.filterBy = {
+        name: 'asd'
+      }
+      document.trigger('click')
+      document.bind(event)
+      scope.$digest()
+      expect(component.isOpen).toBeFalsy()
+    })
 
+    it('should open dropdown and call clearDropdown method', () => {
+      component.toggleDropdown()
+      expect(component.isOpen).toBe(true)
+    })
+
+    it('should open and close dropdown', () => {
+      component.toggleDropdown()
+      component.toggleDropdown()
+      expect(component.isOpen).toBe(false)
+      expect(component.isClosed).toBe(true)
+    })
+
+    it('should add selected item to list and change current item', () => {
+      const item = {
+        name: 'name',
+        value: 0
+      }
+      spyOn(component, 'onSelectMain')
+      component.onMainItemSelect(item)
+      expect(component.activeItem).toEqual(item)
+      expect(component.onSelectMain).toHaveBeenCalledWith(item)
+    })
+
+    it('should check if onSelectMain is a function', () => {
+      const item = {
+        name: 'name',
+        value: 0
+      }
+      spyOn(component, 'onSelectMain')
+      component.onMainItemSelect(item)
+      expect(typeof component.onSelectMain === 'function').toBe(true)
+      expect(component.onSelectMain).toHaveBeenCalled()
     })
   })
 })

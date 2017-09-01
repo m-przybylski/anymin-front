@@ -5,8 +5,9 @@ section.company-profile
   data-on-like="vm.handleLike" profile-type="vm.profileType")
 
   .container.no-padding
-    profile-company-single-consultation(data-ng-repeat="consultation in vm.consultations" data-service="consultation.service"
-    data-tags="consultation.tags" data-employees="consultation.employees")
+    profile-company-single-consultation(data-ng-repeat="consultation in vm.consultations" data-service="consultation"
+    data-tags="consultation.tags" data-employees="consultation.employees"
+    data-owner-profile="consultation.profile.organizationDetails")
 
   .container
     similar-consultation()

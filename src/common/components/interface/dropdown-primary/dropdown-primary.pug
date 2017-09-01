@@ -1,11 +1,11 @@
-.dropdown-input(data-ng-class="{'is-open': $ctrl.isOpen, 'is-active': $ctrl.isActive}")
+.dropdown.dropdown-input(data-ng-class="{'is-open': $ctrl.isOpen, 'is-active': $ctrl.isActive}")
   .dropdown-header(data-ng-click="$ctrl.toggleDropdown()")
-    label {{ $ctrl.label }}
+    label {{ $ctrl.label | translate }}
     span(data-ng-if="$ctrl.selectedItem") {{ $ctrl.selectedItem.name }}
     span.placeholder(data-ng-if="!$ctrl.selectedItem") {{ $ctrl.mainPlaceholder.name }}
 
     .dropdown-icons
-      span.icon
+      span.icon.icon-down-12
 
   .dropdown-content
     .scroll-list

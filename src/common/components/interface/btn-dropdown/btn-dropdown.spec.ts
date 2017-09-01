@@ -5,7 +5,7 @@ import {IBtnDropdownComponentBindings} from './btn-dropdown'
 import btnDropdownModule from './btn-dropdown'
 
 describe('Unit testing: profitelo.components.interface.btn-dropdown', () => {
-  return describe('for checkbox component >', () => {
+  return describe('for btn-dropdown component >', () => {
 
     let scope: ng.IScope
     let rootScope: ng.IRootScopeService
@@ -23,6 +23,8 @@ describe('Unit testing: profitelo.components.interface.btn-dropdown', () => {
       scope.$digest()
       return compiledElement
     }
+
+    let element: ng.IRootElementService
 
     beforeEach(() => {
       angular.mock.module(btnDropdownModule)
@@ -51,11 +53,32 @@ describe('Unit testing: profitelo.components.interface.btn-dropdown', () => {
         $document: document
       }
 
+      element = compile(validHTML)(rootScope)
+
       component = componentController<BtnDropdownComponentController, {}>('btnDropdown', injectors, bindings)
     })
 
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
+
+    it('should click on document and close btn-dropdown', () => {
+      document.trigger('click')
+      document.bind(event)
+      expect(component.isOpen).toBe(false)
+    })
+
+    it('should open btn-collapse', () => {
+      component.toggleButton()
+      expect(component.isOpen).toBe(true)
+    })
+
+    it('should closing btn and call callback', () => {
+      spyOn(component, 'callback')
+      component.onSelectItem()
+      expect(component.isOpen).toBe(false)
+      expect(component.callback).toHaveBeenCalled()
+    })
   })
 })
+

@@ -50,6 +50,9 @@ button
     padding: 0 32px
     width: auto
 
+  &.btn-disabled
+    @extend .btn-disabled
+
   &.btn-small
     border-radius: 32px
     height: 32px
@@ -131,24 +134,22 @@ button
 
 .btn-success
   background: $c-success
-  +btn-hover($c-success)
 
   .icon
     color: $c-white
 
 .btn-error
   background: $c-error
-  +btn-hover($c-error)
 
   .icon
     color: $c-white
 
 .btn-warning
-  +btn-hover($c-warning)
   background: $c-warning
 
 .btn-disabled
   background: $c-lines
+  border-color: $c-lines
 
 .btn-noborder
   padding: 0
@@ -343,3 +344,160 @@ button
 /* hovers end */
 
 
+.btn-progress
+  padding: 0
+  border-width: 2px
+  transition: all 0.3s
+  width: 200px
+  position: relative
+
+  &.btn-success
+    border: 2px solid $c-success
+    background: $c-success
+
+    span
+      &.btn-title
+        color: $c-white
+
+  span
+    &.btn-title
+      position: absolute
+      top: 0
+      left: 0
+      bottom: 0
+      right: 0
+      display: flex
+      align-items: center
+      justify-content: center
+
+  &.to-circle
+    animation: to-circle 0.6s 0.3s ease-in-out, border-loader-animation 0.6s 0.9s, loader-rotates 1s 1.5s linear infinite
+    animation-fill-mode: forwards
+    background: none
+    border-color: $c-lines
+
+    span
+      opacity: 0
+      animation: title-fade-out 0.3s
+      animation-fill-mode: forwards
+
+  &.to-success
+    animation: border-success 0.6s, loader-rotates 1s 1.5s linear infinite
+    animation-fill-mode: forwards
+    width: 48px
+    background: none
+
+    span
+      opacity: 0
+
+  /*to success*/
+  &.to-success-end
+    animation: to-button 0.6s 0.3s
+    animation-fill-mode: forwards
+    width: 48px
+    border-color: $c-success
+    background: $c-success
+
+    span
+      opacity: 0
+      animation: title-fade-in 0.3s 0.6s
+      animation-fill-mode: forwards
+      color: $c-white
+
+  /*to error*/
+  &.to-error
+    animation: border-error 0.3s, loader-rotates 1s 1.5s linear infinite
+    animation-fill-mode: forwards
+    width: 48px
+    background: none
+
+    span
+      opacity: 0
+
+  &.to-error-end
+    animation: to-button 0.6s 0.3s
+    animation-fill-mode: forwards
+    width: 48px
+    border-color: $c-error
+    background: $c-error
+
+    span
+      opacity: 0
+      animation: title-fade-in 0.3s 0.6s
+      animation-fill-mode: forwards
+      color: $c-white
+
+@keyframes border-success
+  0%
+    border-top-color: $c-primary
+    border-top-width: 2px
+
+  100%
+    border-top-color: $c-success
+
+@keyframes title-fade-out
+  0%
+    opacity: 1
+
+  100%
+    opacity: 0
+
+@keyframes title-fade-in
+  0%
+    position: absolute
+    opacity: 0
+
+  100%
+    opacity: 1
+
+@keyframes border-error
+  0%
+    border-top-color: $c-primary
+    border-top-width: 2px
+
+  100%
+    border-top-color: $c-error
+
+@keyframes border-loader-animation
+  0%
+    border-width: 2px
+
+  100%
+    border-top: 2px solid $c-primary
+
+@keyframes loader-rotates
+  0%
+    transform: rotate(0)
+
+  100%
+    transform: rotate(360deg)
+
+@keyframes to-success
+  0%
+    width: 48px
+
+  100%
+    background-color: $c-success
+    width: 300px
+
+@keyframes to-error
+  0%
+    width: 48px
+
+  100%
+    background-color: $c-error
+    width: 300px
+
+@keyframes to-circle
+  0%
+    width: 200px
+
+  100%
+    width: 48px
+
+@keyframes to-button
+  0%
+    width: 48px
+
+  100%
+    width: 128px

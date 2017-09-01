@@ -1,12 +1,14 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {UrlService} from '../../../../../../services/url/url.service'
-import {ViewsApi} from 'profitelo-api-ng/api/api'
+import {ViewsApiMock} from 'profitelo-api-ng/api/api'
 import {IClientConsultationDetailsScope} from './consultation-details.controller'
 describe('Testing Controller: clientConsultationDetails', () => {
 
   let clientConsultationDetails: any
   let scope: IClientConsultationDetailsScope
+  let ViewsApiMock: ViewsApiMock
+
   const uibModalInstance = {
     dismiss: (): void => {
 
@@ -22,18 +24,21 @@ describe('Testing Controller: clientConsultationDetails', () => {
 
   beforeEach(() => {
     angular.mock.module('profitelo.components.dashboard.client.activities.modals.consultation-details')
-    inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _$httpBackend_: ng.IHttpBackendService,
-            _urlService_: UrlService, _ViewsApi_: ViewsApi) => {
+    inject((
+            $rootScope: IRootScopeService, $controller: ng.IControllerService, _$httpBackend_: ng.IHttpBackendService,
+            _urlService_: UrlService,
+            $injector: ng.auto.IInjectorService
+    ) => {
 
       scope = <IClientConsultationDetailsScope>$rootScope.$new()
       scope.sueId = '123'
+      ViewsApiMock = $injector.get<ViewsApiMock>('ViewsApiMock')
 
       clientConsultationDetails = $controller('clientConsultationDetails', {
         '$scope': scope,
         '$uibModalInstance': uibModalInstance,
         'httpBackend': _$httpBackend_,
-        'urlService': _urlService_,
-        'ViewsApi': _ViewsApi_
+        'urlService': _urlService_
       })
     })
   })
@@ -47,5 +52,4 @@ describe('Testing Controller: clientConsultationDetails', () => {
     clientConsultationDetails.onModalClose()
     expect(uibModalInstance.dismiss).toHaveBeenCalledWith('cancel')
   })
-
 })

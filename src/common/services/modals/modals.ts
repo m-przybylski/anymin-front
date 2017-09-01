@@ -34,6 +34,7 @@ import invitationsModalModule from '../../../app/invitations/modal/invitations'
 import chargeAccountModalModule from '../../../app/charge-account/modal/charge-account'
 import consultationSummaryExpertControllerModule
   from '../../components/communicator/modals/consultation-summary-expert/consultation-summary-expert'
+import preallcallModalModule from '../../components/communicator/modals/precall/precall'
 import expertIncomingCallModule from '../../components/communicator/modals/expert-incoming-call/expert-incoming-call'
 import rtcDetectorModal from '../../components/communicator/modals/rtc-detector/rtc-detector'
 import rtcDetectorBlockedModal
@@ -67,6 +68,8 @@ const modalsModule = angular.module('profitelo.services.modals', [
   expertInviteEmployeesModule,
   manageProfileEditProfileModule,
   invitationsModalModule,
+  profileGalleryPreviewModule,
+  preallcallModalModule,
   profileGalleryPreviewModule,
   consultationSummaryExpertControllerModule,
   rtcDetectorModal,

@@ -6,7 +6,7 @@ import INoCreditsControllerParentScope =
   profitelo.components.communicator.modals.noCredits.INoCreditsControllerParentScope
 import {
   GetService, GetActivity, GetProfileWithServicesEmployments, MoneyDto, GetCreditCard, GetPaymentOptions,
-  PaymentLink
+  PaymentLink, GetProfile
 } from 'profitelo-api-ng/model/models'
 import {DialogService} from '../dialog/dialog.service'
 import {
@@ -72,6 +72,10 @@ import {
   IExpertInviteEmployeesControllerScope
 } from '../../components/dashboard/expert/activities/modals/invite-employees/invite-employees.controller'
 import {InvitationsModalController, IInvitationsModalScope} from '../../../app/invitations/modal/invitations.controller'
+import {
+  IPrecallModalControllerScope,
+  PrecallModalController
+} from '../../components/communicator/modals/precall/precall.controller'
 import {
   IRtcDetectorModalControllerScope,
   RtcDetectorModalController
@@ -495,6 +499,21 @@ export class ModalsService {
       template: require(
         'common/components/dashboard/expert/manage-profile/modals/edit-expert-profile/edit-expert-profile.pug'
       )(),
+      scope: dialogScope
+    })
+  }
+
+  public createPrecallModal = (service: GetService, owner: GetProfile): IModalInstanceService  => {
+    const dialogScope: IPrecallModalControllerScope =
+      <IPrecallModalControllerScope>this.$rootScope.$new(true)
+
+    dialogScope.service = service
+    dialogScope.owner = owner
+
+    return this.dialogService.openDialog({
+      controllerAs: 'vm',
+      controller: PrecallModalController,
+      template: require('common/components/communicator/modals/precall/precall.pug')(),
       scope: dialogScope
     })
   }

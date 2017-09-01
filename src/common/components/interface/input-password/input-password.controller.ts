@@ -1,17 +1,15 @@
 import {IInputPasswordComponentBindings} from './input-password'
-import {IInputTypes} from '../input/input.controller'
 import {keyboardCodes} from '../../../classes/keyboard'
 
+type InputTypes = 'text' | 'tel'
+
 export class InputPasswordComponentController implements IInputPasswordComponentBindings {
-  private inputType: IInputTypes = {
-    text: 'text',
-    tel: 'tel',
-    number: 'number'
-  }
+  private inputTypeText: InputTypes = 'text'
+  private inputTypeTel: InputTypes = 'tel'
 
   public id: string
   public name: string
-  public type: string = this.inputType.text
+  public type: string = this.inputTypeText
   public inputText: string = ''
   public placeholder: string
   public validationText: string
@@ -26,7 +24,7 @@ export class InputPasswordComponentController implements IInputPasswordComponent
   constructor(private $element: JQuery) {}
 
   $onInit(): void {
-    if (this.type === this.inputType.tel) {
+    if (this.type === this.inputTypeTel) {
       this.blockInvalidPhonenumberDigits()
     }
   }

@@ -7,11 +7,11 @@ import {FileTypeChecker, FileCategoryEnum} from '../../../classes/file-type-chec
 export class WizardAvatarComponentController implements IWizardAvatarComponentBindings, ng.IController {
 
   private isUploadInProgress: boolean = false
-  private uploadedFile: File
+  public uploadedFile: File
   private uploader: UploaderService
-  private isUserUploadImage: boolean = false
+  public isUserUploadImage: boolean = false
   private clearFormAfterCropping: () => void
-  private imageSource: string
+  public imageSource: string
   public isLoading: boolean = false
 
   public avatarToken?: string
@@ -20,7 +20,7 @@ export class WizardAvatarComponentController implements IWizardAvatarComponentBi
   public isFocus: boolean = true
   public isFileUploadError: boolean = false
 
-  private isFileFormatValidError: boolean = false
+  public isFileFormatValidError: boolean = false
 
   /* @ngInject */
   constructor(uploaderFactory: UploaderFactory, private $scope: ng.IScope) {

@@ -5,5 +5,4 @@ export class DashboardSettingsNotificationsController {
   constructor() {
     this.ngModel = false
   }
-
 }

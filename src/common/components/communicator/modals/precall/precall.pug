@@ -1,0 +1,106 @@
+.modal-summary.precall
+  .modal-main.container-medium
+    top-modal-navbar(data-on-close="vm.onModalClose")
+    preloader(data-is-loading="vm.isLoading")
+      .modal-header
+        .profile-preview.vertical-preview
+          .thumb.x96
+            user-avatar(data-image-token="vm.expertAvatar")
+
+            .status-list
+              span.status.availability
+                span.icon.icon-success-12
+
+          .profile-name
+            span {{ vm.serviceOwnerName }}
+
+          .consultation-title.profile-consultation-title
+            h3
+              span {{ vm.serviceName }}
+
+          .consultation-price
+            span(data-translate="COMMUNICATOR.MODALS.PRECALL.COST_PER_MIN")
+            span(data-ng-bind-html="vm.servicePrice | money")
+
+      .modal-container
+        .precall-input-handler.input-handler
+          .icon-section
+            .icon.icon-payment-card
+
+          div
+            dropdown-primary(
+              data-label="COMMUNICATOR.MODALS.PRECALL.PAYMENT_METHOD.LABEL"
+              data-main-list="vm.paymentMethods"
+              data-selected-item="vm.onSelectMain"
+              callback="vm.onSelectItemDropdown"
+            )
+
+            validation-alert(
+              data-alert-text="COMMUNICATOR.MODALS.PRECALL.PRICE.VALIDATION.NO_CREDITS"
+              data-is-visible="vm.prepaidCallLimitModel === 0 && vm.isPrepaid"
+            )
+
+          a.btn.btn-link(data-ng-if="!vm.isPrepaid" data-ng-click="vm.addNewPaymentMethod()"
+            data-translate="COMMUNICATOR.MODALS.PRECALL.PAYMENTS.ADD_CARD.BUTTON"
+          )
+          a.btn.btn-link(data-ng-if="vm.isPrepaid" data-ng-click="vm.showChargeAccountModal()"
+            data-translate="COMMUNICATOR.MODALS.PRECALL.PAYMENTS.RECHARGE.BUTTON"
+          )
+
+        .precall-input-handler.input-handler
+          .icon-section
+            .icon.icon-hourglass-24
+
+          .payments-handler
+            div
+              input-price(
+                data-ng-model="vm.callLimitModel"
+                data-id="callLimitModel"
+                data-is-submitted="vm.isSubmitted"
+                data-placeholder="{{ 'COMMUNICATOR.MODALS.PRECALL.PRICE.PLACEHOLDER' | translate }}"
+                data-input-text="COMMUNICATOR.MODALS.PRECALL.INPUT_PRICE.LABEL"
+                data-callback="vm.onPriceChange"
+                data-is-disabled="vm.prepaidCallLimitModel === 0 && vm.isPrepaid"
+              )
+
+              validation-alert(
+                data-alert-text="COMMUNICATOR.MODALS.PRECALL.LIMIT.ERROR"
+                data-is-visible="!vm.isRegExpPriceInputValid"
+              )
+
+              validation-alert(
+                data-alert-text="COMMUNICATOR.MODALS.PRECALL.LIMIT.MIN_TIME_RECHARGE"
+                data-is-visible="!vm.isPriceInputValid"
+              )
+
+              validation-alert(
+                data-alert-text="COMMUNICATOR.MODALS.PRECALL.LIMIT.MAX_VALUE"
+                data-is-visible="!vm.isInputValueGreaterThanAccountBalance"
+              )
+
+            .output
+              label.label-text {{:: 'COMMUNICATOR.MODALS.PRECALL.OUTPUT.LABEL' | translate }}
+
+              output(id="output")
+                span(data-ng-hide="vm.isUnlimitedPrepaid") {{ vm.dateTimeLimit | millisecondsToDatetime | date: 'HH:mm:ss' }}
+                span(data-ng-show="vm.isUnlimitedPrepaid") {{:: 'COMMUNICATOR.MODALS.PRECALL.LIMIT.NONE' | translate }}
+
+        .precall-input-handler.input-handler
+          .icon-section
+            .icon.icon-mic-on-24
+
+          .microphone-output
+            label.label-text {{ 'COMMUNICATOR.MODALS.PRECALL.MICROPHONE.LABEL' | translate }}
+            voice-volume-bar()
+
+        .modal-action
+          a.btn.btn-progress.btn-success.icon-left(data-ng-class="{'btn-disabled': !vm.isRegExpPriceInputValid || " +
+            "!vm.isPriceInputValid || !vm.isInputValueGreaterThanAccountBalance ||" +
+            "vm.prepaidCallLimitModel === 0 && vm.isPrepaid, 'to-circle': vm.isButtonProgress }"
+            data-ng-click="vm.startCall()")
+
+            span.btn-title
+              span.icon.icon-call-24
+              | {{ 'COMMUNICATOR.MODALS.PRECALL.BUTTON.CALL' | translate }}
+
+            span

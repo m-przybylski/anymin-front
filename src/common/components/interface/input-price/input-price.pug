@@ -1,6 +1,7 @@
-.input-price(data-ng-click="$ctrl.onClick()" data-ng-class="{'is-invalid': !$ctrl.isValid " +
+.input-price(data-ng-click="$ctrl.onClick()" data-ng-class="{'is-invalid': !$ctrl.isValidate " +
 "&& !$ctrl.isFocus && $ctrl.validationText && $ctrl.isDirty," +
-" 'is-focused': $ctrl.isFocus}")
+" 'is-focused': $ctrl.isFocus, 'is-disabled': $ctrl.isDisabled}")
+  label.label-text(data-ng-if="$ctrl.inputText") {{:: $ctrl.inputText | translate }}
 
   .price-mock
     p.price-placeholder {{ vm.priceAmountInputValue }}
@@ -15,10 +16,12 @@
     data-ng-change="$ctrl.onChange()"
     data-ng-focus="$ctrl.onFocus()"
     data-ng-blur="$ctrl.onBlur()"
+    data-ng-disabled="$ctrl.isDisabled"
   )
 
 validation-alert(
+  data-ng-show="$ctrl.validationText"
   data-alert-text="{{$ctrl.validationText}}"
-  data-is-visible="!$ctrl.isPatternValid || !$ctrl.isValid && $ctrl.validationText && $ctrl.validationText.length > 0 && !$ctrl.isFocus && $ctrl.isDirty || " +
-  "$ctrl.isSubmitted && !$ctrl.isValid && $ctrl.validationText && $ctrl.validationText.length > 0"
+  data-is-visible="!$ctrl.isPatternValid || !$ctrl.isValidate && $ctrl.validationText && $ctrl.validationText.length > 0 && !$ctrl.isFocus && $ctrl.isDirty || " +
+  "$ctrl.isSubmitted && !$ctrl.isValidate && $ctrl.validationText && $ctrl.validationText.length > 0"
 )

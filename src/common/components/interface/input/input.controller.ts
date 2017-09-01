@@ -1,22 +1,16 @@
 import {IInputComponentBindings} from './input'
 import {keyboardCodes} from '../../../classes/keyboard'
 
-export interface IInputTypes {
-  text: string,
-  tel: string,
-  number: string
-}
+type InputTypes = 'text' | 'tel' |'number'
 
 export class InputComponentController implements IInputComponentBindings {
-  private inputTypes: IInputTypes = {
-    text: 'text',
-    tel: 'tel',
-    number: 'number'
-  }
+  private textType: InputTypes = 'text'
+  private telType: InputTypes = 'tel'
+  private numberType: InputTypes = 'number'
 
   public id: string
   public name: string
-  public type: string = this.inputTypes.text
+  public type: string = this.textType
   public inputText: string = ''
   public placeholder: string
   public validationText: string
@@ -32,11 +26,12 @@ export class InputComponentController implements IInputComponentBindings {
   constructor(private $element: JQuery) {}
 
   $onInit(): void {
-    if (this.type === this.inputTypes.tel) {
+
+    if (this.type === this.telType) {
       this.blockInvalidDigits([keyboardCodes.backspace, keyboardCodes.enter, keyboardCodes.zero, keyboardCodes.one,
         keyboardCodes.two, keyboardCodes.three, keyboardCodes.four, keyboardCodes.five, keyboardCodes.six,
         keyboardCodes.seven, keyboardCodes.eight, keyboardCodes.nine])
-    } else if (this.type === this.inputTypes.number) {
+    } else if (this.type === this.numberType) {
       this.blockInvalidDigits([keyboardCodes.dot, keyboardCodes.comma, keyboardCodes.backspace, keyboardCodes.enter,
         keyboardCodes.zero, keyboardCodes.one, keyboardCodes.two, keyboardCodes.three, keyboardCodes.four,
         keyboardCodes.five, keyboardCodes.six, keyboardCodes.seven, keyboardCodes.eight, keyboardCodes.nine])

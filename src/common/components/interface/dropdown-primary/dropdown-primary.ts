@@ -2,12 +2,14 @@ import * as angular from 'angular'
 import {keyboardCodes} from '../../../classes/keyboard'
 import ValidationAlertModule from '../alert/validation-alert/validation-alert'
 
+// TODO Refactor: https://git.contactis.pl/itelo/profitelo/issues/1052
+
 interface IDropdownItem {
   name: string
-  value: {} | null
+  value: any | null
 }
 
-interface IDropdownPrimaryComponentBindings {
+export interface IDropdownPrimaryComponentBindings {
   label: string
   inputPlaceholder: string
   name: string
@@ -15,6 +17,7 @@ interface IDropdownPrimaryComponentBindings {
   mainList: IPrimaryDropdownListElement[]
   onSelectMain: (item: IDropdownItem) => void
   selectedItem: IDropdownItem
+  callback?: (item: IDropdownItem) => void
 }
 
 export interface IPrimaryDropdownListElement {
@@ -26,7 +29,7 @@ interface IFilterBy {
   name: string
 }
 
-class DropdownPrimaryComponentController implements ng.IController, IDropdownPrimaryComponentBindings {
+export class DropdownPrimaryComponentController implements ng.IController, IDropdownPrimaryComponentBindings {
 
   public isOpen: boolean = false
   public isClosed: boolean = false
@@ -40,6 +43,8 @@ class DropdownPrimaryComponentController implements ng.IController, IDropdownPri
   public onSelectMain: (item: IDropdownItem) => void
   public selectedItem: IDropdownItem
   public mainPlaceholder: IDropdownItem
+  public callback?: (item: IDropdownItem) => {}
+  public isValid?: boolean
   public filterBy: IFilterBy = {
     name: ''
   }
@@ -135,7 +140,7 @@ class DropdownPrimaryComponentController implements ng.IController, IDropdownPri
   }
 
   public isSelected = (item: IDropdownItem): boolean =>
-  this.activeItem === item
+  this.selectedItem === item
 
   public onMainItemSelect = (item: IDropdownItem): void => {
     this.activeItem = item
@@ -146,14 +151,19 @@ class DropdownPrimaryComponentController implements ng.IController, IDropdownPri
     }
   }
 
+  public onSelectItemCallback = (item: IDropdownItem): void => {
+    this.callback ? this.callback(item) : undefined
+  }
+
   private onItemChecked = (item: IDropdownItem): void => {
     this.isOpen = !this.isOpen
     this.isActive = !!item.value
     this.selectedItem = item
+    this.onSelectItemCallback(item)
   }
 }
 
-class DropdownPrimaryComponent implements ng.IComponentOptions {
+export class DropdownPrimaryComponent implements ng.IComponentOptions {
   controller: ng.Injectable<ng.IControllerConstructor> = DropdownPrimaryComponentController
   template = require('./dropdown-primary.pug')()
   bindings: {[boundProperty: string]: string} = {
@@ -163,9 +173,10 @@ class DropdownPrimaryComponent implements ng.IComponentOptions {
     placeholder: '@',
     mainList: '<',
     onSelectMain: '<',
-    selectedItem: '=?',
+    selectedItem: '<',
     isValid: '<',
-    validationText: '@'
+    validationText: '@',
+    callback: '<'
   }
 }
 

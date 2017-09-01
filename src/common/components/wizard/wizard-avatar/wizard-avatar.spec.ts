@@ -4,6 +4,7 @@ import {WizardAvatarComponentController} from './wizard-avatar.controller'
 import {IWizardAvatarComponentBindings} from './wizard-avatar'
 import wizardAvatarModule from './wizard-avatar'
 import {UrlService} from '../../../services/url/url.service'
+import {FileTypeChecker} from '../../../classes/file-type-checker/file-type-checker'
 
 describe('Unit testing: profitelo.components.wizard.wizard-avatar', () => {
   return describe('for WizardAvatar component >', () => {
@@ -97,6 +98,23 @@ describe('Unit testing: profitelo.components.wizard.wizard-avatar', () => {
       }
       component.saveCrop(data)
       expect(component.isLoading).toBe(true)
+    })
+
+    it('should add photo', () => {
+      spyOn(FileTypeChecker, 'isFileFormatValid').and.returnValue(true)
+      const imagePath = '../img/src.jpg'
+      const file: File = new File([], '0')
+      component.addPhoto(imagePath, file, ()=>{})
+      expect(component.imageSource).toEqual(imagePath)
+      expect(component.isFileFormatValidError).toBe(false)
+    })
+
+    it('shouldnt add photo', () => {
+      spyOn(FileTypeChecker, 'isFileFormatValid').and.returnValue(false)
+      const imagePath = '../img/src.jpg'
+      const file: File = new File([], '0')
+      component.addPhoto(imagePath, file, ()=>{})
+      expect(component.isFileFormatValidError).toBe(true)
     })
 
   })
