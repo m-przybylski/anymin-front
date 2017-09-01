@@ -100,13 +100,21 @@ describe('Unit testing: profitelo.components.wizard.wizard-avatar', () => {
       expect(component.isLoading).toBe(true)
     })
 
-    it('should call addPhoto', () => {
+    it('should add photo', () => {
       spyOn(FileTypeChecker, 'isFileFormatValid').and.returnValue(true)
       const imagePath = '../img/src.jpg'
       const file: File = new File([], '0')
       component.addPhoto(imagePath, file, ()=>{})
-      scope.$digest()
       expect(component.imageSource).toEqual(imagePath)
+      expect(component.isFileFormatValidError).toBe(false)
+    })
+
+    it('shouldnt add photo', () => {
+      spyOn(FileTypeChecker, 'isFileFormatValid').and.returnValue(false)
+      const imagePath = '../img/src.jpg'
+      const file: File = new File([], '0')
+      component.addPhoto(imagePath, file, ()=>{})
+      expect(component.isFileFormatValidError).toBe(true)
     })
 
   })

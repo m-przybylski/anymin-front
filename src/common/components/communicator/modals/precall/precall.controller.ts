@@ -35,6 +35,7 @@ export class PrecallModalController implements ng.IController {
   public servicePrice: MoneyDto
   public serviceOwnerName: string = ''
   public isUnlimitedPrepaid = true
+  public isButtonProgress = false
 
   public onModalClose = (): void =>
     this.$uibModalInstance.dismiss('cancel')
@@ -126,8 +127,12 @@ export class PrecallModalController implements ng.IController {
   }
 
   public startCall = (): void => {
-    this.clientCallService.callServiceId(this.service.id)
-    this.$uibModalInstance.dismiss('cancel')
+    if (this.isRegExpPriceInputValid && this.isPriceInputValid && this.isInputValueGreaterThanAccountBalance) {
+      this.isButtonProgress = true
+      this.clientCallService.callServiceId(this.service.id).finally(() => {
+        this.$uibModalInstance.dismiss('cancel')
+      })
+    }
   }
 
   public addNewPaymentMethod = (): void => {

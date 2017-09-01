@@ -96,7 +96,7 @@
         .modal-action
           a.btn.btn-progress.btn-success.icon-left(data-ng-class="{'btn-disabled': !vm.isRegExpPriceInputValid || " +
             "!vm.isPriceInputValid || !vm.isInputValueGreaterThanAccountBalance ||" +
-            "vm.prepaidCallLimitModel === 0 && vm.isPrepaid}"
+            "vm.prepaidCallLimitModel === 0 && vm.isPrepaid, 'to-circle': vm.isButtonProgress }"
             data-ng-click="vm.startCall()")
 
             span.btn-title

@@ -20,7 +20,7 @@ export class WizardAvatarComponentController implements IWizardAvatarComponentBi
   public isFocus: boolean = true
   public isFileUploadError: boolean = false
 
-  private isFileFormatValidError: boolean = false
+  public isFileFormatValidError: boolean = false
 
   /* @ngInject */
   constructor(uploaderFactory: UploaderFactory, private $scope: ng.IScope) {
