@@ -4,11 +4,11 @@ import urlModule from '../../../../../../services/url/url'
 import filtersModule from '../../../../../../filters/filters'
 import '../../../../../../components/interface/collapse-btn/collapse-btn'
 import './complain/complain'
-import './consultation-details-chat/consultation-details-chat'
 import './recommended-tags/recommended-tags'
 import {ClientConsultationDetailsController} from './consultation-details.controller'
 import userAvatarModule from '../../../../../interface/user-avatar/user-avatar'
 import './consultation-details.sass'
+import chatHistoryModule from '../../../../../chat-history/chat-history'
 
 const clientConsultationDetailsModalModule = angular.module(
   'profitelo.components.dashboard.client.activities.modals.consultation-details', [
@@ -19,10 +19,10 @@ const clientConsultationDetailsModalModule = angular.module(
   filtersModule,
   'profitelo.components.interface.collapse-btn',
   'profitelo.components.dashboard.client.activities.modals.consultation-details.complain',
-  'profitelo.components.dashboard.client.activities.modals.consultation-details.consultation-details-chat',
   'profitelo.components.dashboard.client.activities.modals.consultation-details.recommended-tags',
   urlModule,
-  userAvatarModule
+  userAvatarModule,
+  chatHistoryModule
 ])
 .controller('clientConsultationDetails', ClientConsultationDetailsController)
 
