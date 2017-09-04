@@ -1,5 +1,6 @@
 .phone-number(data-ng-if="vm.current == 1")
-  form.input-form(name="phoneNumberForm" data-ng-submit="vm.isValidPhoneNumber(vm.account.phoneNumber.prefix, vm.account.phoneNumber.number) && vm.getPhoneNumberStatus()" novalidate)
+  form.input-form(name="phoneNumberForm" data-ng-submit="vm.isValidPhoneNumber(vm.account.phoneNumber.prefix, vm.account.phoneNumber.number) " +
+  "&& vm.getPhoneNumberStatus()" novalidate autocomplete="off")
     .inputs-handler
       .pro-dropdown
         dropdown-primary(
@@ -25,7 +26,7 @@
     button.btn.btn-default(data-translate="LOGIN.NEXT" type="submit")
 
 .password(data-ng-if="vm.current == 2")
-  form.input-form(name="passwordForm" data-ng-submit="passwordForm.$valid && vm.login()" novalidate)
+  form.input-form(name="passwordForm" data-ng-submit="passwordForm.$valid && vm.login()" novalidate autocomplete="off")
     input-password(
     data-id="password"
     data-ng-model="vm.account.password"
