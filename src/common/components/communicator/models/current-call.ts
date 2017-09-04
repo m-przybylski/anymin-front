@@ -149,6 +149,10 @@ export class CurrentCall {
     if (this.timer) this.timer.start(this.onTimeMoneyChange)
   }
 
+  protected stopTimer = (): void => {
+    if (this.timer) this.timer.stop()
+  }
+
   private updateLocalStream = (mediaStream: MediaStream): void => {
     if (this.localStream) {
       this.ratelCall.removeStream(this.localStream);
@@ -171,6 +175,7 @@ export class CurrentCall {
     this.ratelCall.onRejected(() => this.callbacks.notify(CurrentCall.events.onRejected, null))
     this.ratelCall.onEnd(() => {
       this.stopLocalStream();
+      this.stopTimer()
       this.setState(CallState.ENDED)
       this.callbacks.notify(CurrentCall.events.onEnd, null);
     })

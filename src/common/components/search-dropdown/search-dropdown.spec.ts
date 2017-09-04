@@ -46,7 +46,7 @@ describe('Unit testing:profitelo.components.search-dropdown', () => {
       })
 
       component = componentController<SearchDropdownController, {}>('searchDropdown',
-        {$element: create(validHTML), $scope: scope}, {})
+        {$element: create(validHTML), $scope: scope, $state: state}, {})
     })
 
     it('should have a dummy test', inject(() => {
@@ -66,6 +66,12 @@ describe('Unit testing:profitelo.components.search-dropdown', () => {
     it('should unfocus input', () => {
       component.onBlur()
       expect(component.isFocus).toBe(false)
+    })
+
+    it('should got to search results with query', () => {
+      component.searchValue = 'wyszukaj'
+      component.search()
+      expect(state.go).toHaveBeenCalled()
     })
 
   })
