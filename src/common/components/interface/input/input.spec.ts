@@ -16,14 +16,16 @@ describe('Unit testing: profitelo.components.interface.input', () => {
     let component: InputComponentController
     let bindings: IInputComponentBindings
     let document: ng.IDocumentService
-    let validHTML = '<input-primary></input-primary>'
+    let validHTML = '<input-primary data-type="tel"></input-primary>'
     let CommonSettingsService: CommonSettingsService
     let injectors: { $scope?: IScope, [key: string]: any }
-    function create(html: string): JQuery {
+
+    function create(html: string, bindings: IInputComponentBindings): JQuery {
       scope = rootScope.$new()
+      const parentBoundScope = angular.extend(scope, bindings)
       const elem = angular.element(html)
       const compiledElement = compile(elem)(scope)
-      scope.$digest()
+      parentBoundScope.$digest()
       return compiledElement
     }
 
@@ -57,7 +59,7 @@ describe('Unit testing: profitelo.components.interface.input', () => {
       }
 
       injectors = {
-        $element: create(validHTML),
+        $element: create(validHTML, bindings),
         $scope: rootScope,
         $document: document
       }
@@ -68,6 +70,11 @@ describe('Unit testing: profitelo.components.interface.input', () => {
     it('should have a dummy test', inject(() => {
       expect(true).toBeTruthy()
     }))
+
+    it('should compile the component', () => {
+      const el = create(validHTML, bindings)
+      expect(el.html()).toBeDefined(true)
+    })
 
     it('should call blockInvalidDigits with type number', () => {
       bindings.type = 'number'
@@ -90,6 +97,16 @@ describe('Unit testing: profitelo.components.interface.input', () => {
       const component = componentController<InputComponentController, {}>('inputPrimary', injectors, bindings)
       spyOn(component, 'blockInvalidDigits')
       expect(component.blockInvalidDigits).not.toHaveBeenCalled()
+    })
+
+    it('should check if user typing incorrect value in input', () => {
+      const el = create(validHTML, bindings)
+      const event = jQuery.Event('keypress')
+      spyOn(event, 'preventDefault')
+      event.which = 12
+      event.keyCode = 12
+      el.find('input').trigger(event)
+      expect(event.preventDefault).toHaveBeenCalled()
     })
   })
 })
