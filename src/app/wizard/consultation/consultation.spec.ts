@@ -250,11 +250,6 @@ describe('Testing Controller: ConsultationController', () => {
     expect(consultationController.checkIsTagsInputValid()).toEqual(true)
   })
 
-  it('should price amount input valid', () => {
-    consultationController.priceAmountInputValue = '123'
-    expect(consultationController.checkIsPriceInputValid()).toEqual(true)
-  })
-
   it('should employees input valid', () => {
     consultationController.invitationsInputValue = ['invitation']
     expect(consultationController.checkIsEmployeesInputValid()).toEqual(true)

@@ -8,8 +8,6 @@ export class InputPriceComponent implements ng.IComponentOptions {
     name: '@',
     inputText: '@',
     placeholder: '@',
-    validationText: '@',
-    isValid: '<',
     isSubmitted: '<',
     ngModel: '=',
     currency: '@',
