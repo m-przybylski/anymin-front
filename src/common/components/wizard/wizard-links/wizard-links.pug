@@ -1,12 +1,15 @@
 .pro-service-external-links
   .step-content-column
     .links-submit
-      input-primary(
-        placeholder="WIZARD.STEP.EXPERT.LINKS.PLACEHOLDER"
-        data-ng-model="$ctrl.linkModel"
-        data-ng-enter="$ctrl.onEnter()"
-        data-ng-class="{'invalid': $ctrl.badUrl}"
-      )
+      div.input-handler
+        input-primary(
+          placeholder="WIZARD.STEP.EXPERT.LINKS.PLACEHOLDER"
+          data-ng-model="$ctrl.linkModel"
+          data-ng-enter="$ctrl.onAddLink()"
+          data-ng-class="{'invalid': $ctrl.badUrl}"
+        )
+        a.add-link(data-ng-click="$ctrl.onAddLink()")
+          span.icon.icon-plus-24
 
       validation-alert(
         data-alert-text="DASHBOARD.CREATE_PROFILE.ERROR_EXTERNAL_LINKS"
@@ -17,7 +20,6 @@
         data-alert-text="DASHBOARD.CREATE_PROFILE.LINK_ALREADY_EXIST_ERROR"
         data-is-visible="$ctrl.urlExist && !$ctrl.isFocus"
       )
-
 
       p.hint {{ $ctrl.hintLabel | translate }}
 
