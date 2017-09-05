@@ -1,30 +1,23 @@
 import {INavbarHelpComponentBindings} from './navbar-help'
 import * as angular from 'angular'
-
+import {HelpdeskService} from '../../../services/helpdesk/helpdesk.service'
+import {ISearchArticle} from '../../../services/helpdesk/search-article.interface'
+import * as _ from 'lodash'
 export class NavbarHelpComponentController implements INavbarHelpComponentBindings {
 
-  searchResults: string[]
-  helpSearchQuery: string
-  isArticleTab: boolean = false
-  onClick: () => void
-  buttonCallback: () => void
-  resultCount: number = 4
+  public readonly zendeskUrl: string = 'https://anymind.zendesk.com/hc/pl/'
+  public searchResults: ISearchArticle[] = []
+  public helpSearchQuery: string
+  public onClick: () => void
+  public buttonCallback: () => void
+  public resultCount: number = 4
+  private static readonly minimalQueryLength: number = 3
+  private static readonly searchDebounceDelay: number = 500
+  private debouncedSearch: () => void
 
   /* @ngInject */
-
-  constructor() {
-
-    this.searchResults = [
-      'Lorem ipsum dolor sit amet?',
-      'Aenean euismod bibendum laoreet?',
-      'Proin sodales pulvinar tempor?',
-      'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus?',
-      'How to become an expert?',
-      'How to find an expert?',
-      'How to call an expert?',
-      'How to add an expert to favourites?',
-      'How to recommend an expert or consultation?'
-    ]
+  constructor(private helpdeskService: HelpdeskService,
+  private $log: ng.ILogService) {
 
     this.buttonCallback = (): void => {
       if (this.onClick && angular.isFunction(this.onClick)) {
@@ -33,11 +26,20 @@ export class NavbarHelpComponentController implements INavbarHelpComponentBindin
         throw new Error('onClick is not a function')
       }
     }
-
+    this.debouncedSearch = _.debounce(this.querySearchResults, NavbarHelpComponentController.searchDebounceDelay)
   }
 
-  public changeTab = (): void => {
-    this.isArticleTab = !this.isArticleTab
+  public onHelpSearchInputChange = (): void => {
+    if (this.helpSearchQuery && this.helpSearchQuery.length >= NavbarHelpComponentController.minimalQueryLength)
+      this.debouncedSearch()
+  }
+
+  private querySearchResults = (): void => {
+    this.helpdeskService.searchArticles(this.helpSearchQuery).then((response) => {
+      this.searchResults = response.results
+    }, (error) => {
+      this.$log.error(error)
+    })
   }
 
 }
