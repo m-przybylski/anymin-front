@@ -265,13 +265,17 @@ label
 
 input
   &[type="range"]
-    appearance: none
     background: none
     height: 24px
     margin: 0
 
-    &::-webkit-slider-thumb
-      appearance: none
+    &::-webkit-slider-runnable-track
+      height: 3px
+      background: $c-primary
+      border: none
+      border-radius: 3px
+
+    &::-moz-range-thumb
       background: $c-white
       border: 2px solid $c-primary
       box-shadow: 0 0 0 2px $c-white
@@ -279,11 +283,28 @@ input
       height: 16px
       border-radius: 50%
       position: relative
-      top: -2px
+      top: -1px
 
-    &::-webkit-slider-runnable-track
-      height: 2px
-      background: $c-primary
+    &::-ms-thumb
+      background: $c-white
+      border: 2px solid $c-primary
+      box-shadow: 0 0 0 2px $c-white
+      width: 16px
+      height: 16px
+      border-radius: 50%
+      position: relative
+      top: -1px
+
+    &::-webkit-slider-thumb
+      background: $c-white
+      border: 2px solid $c-primary
+      box-shadow: 0 0 0 2px $c-white
+      width: 16px
+      height: 16px
+      border-radius: 50%
+      position: relative
+      top: -1px
+
 
 // FF
 input[type="range"]
