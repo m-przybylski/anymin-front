@@ -47,9 +47,7 @@ export class InputComponentController implements IInputComponentBindings {
     })
   }
 
-  private isCtrlKeyAllowed = (event: JQueryKeyEventObject): boolean => {
-    return !(event.ctrlKey || event.metaKey)
-  }
+  private isCtrlKeyAllowed = (event: JQueryKeyEventObject): boolean => !(event.ctrlKey || event.metaKey)
 
   private isKeyAllowed = (digitsCodes: number[], event: JQueryKeyEventObject): boolean => {
     const code = event.keyCode || event.which

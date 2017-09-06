@@ -4,8 +4,7 @@ scrollable(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
     preloader(data-is-loading="vm.isLoading")
       .modal-header
         .profile-preview
-          .thumb.x64
-            user-avatar(data-image-token="vm.expertAvatar")
+          user-avatar(data-image-token="vm.expertAvatar").thumb.x64
 
             .status-list
               span.status.availability
@@ -58,7 +57,7 @@ scrollable(data-is-fullscreen="vm.isFullscreen" data-is-navbar="vm.isNavbar")
 
         collapse-btn.chat-history(data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.CHAT.BUTTON"
         data-collapse-icon="icon-consultation-chat-24")
-          client-consultation-details-chat()
+          chat-history(data-room-id="vm.roomId")
 
         collapse-btn(data-title="DASHBOARD.CLIENT.ACTIVITIES.MODALS.CONSULTATION_DETAILS.COMPLAINS.BUTTON"
         data-collapse-icon="icon-complaint-24")
