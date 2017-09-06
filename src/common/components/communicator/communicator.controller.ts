@@ -22,6 +22,7 @@ export class CommunicatorComponentController implements ng.IController {
   public isRemoteVideo: boolean = false
   public isLocalVideo: boolean = false
   public isMessenger: boolean = false
+  public isOneMinuteLeftWarning: boolean = false
   public callLengthInSeconds: number = 0
   public callCost?: MoneyDto
 
@@ -31,13 +32,15 @@ export class CommunicatorComponentController implements ng.IController {
   public messageRoom: MessageRoom
 
   /* @ngInject */
-  constructor(clientCallService: ClientCallService,
-              expertCallService: ExpertCallService,
-              private $element: ng.IRootElementService,
+  constructor(private $element: ng.IRootElementService,
               private $timeout: ng.ITimeoutService,
-              private $window: ng.IWindowService) {
+              private $window: ng.IWindowService,
+              clientCallService: ClientCallService,
+              expertCallService: ExpertCallService) {
 
     clientCallService.onNewCall(this.registerClientCall)
+    clientCallService.onOneMinuteLeftWarning(this.onOneMinuteLeftWarning)
+    clientCallService.onNewFinancialOperation(this.onNewFinancialOperation)
     expertCallService.onNewCall(this.registerExpertCall)
   }
 
@@ -132,5 +135,13 @@ export class CommunicatorComponentController implements ng.IController {
 
   private onVideoStop = (): void => {
     this.isRemoteVideo = false
+  }
+
+  private onOneMinuteLeftWarning = (): void => {
+    this.isOneMinuteLeftWarning = true
+  }
+
+  private onNewFinancialOperation = (data: any): void => {
+    if (this.callCost && this.callCost.amount < data.operation.amount) this.isOneMinuteLeftWarning = false
   }
 }
