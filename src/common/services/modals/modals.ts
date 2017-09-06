@@ -43,6 +43,7 @@ import rtcDetectorNoBrowserSupportModal
 from '../../components/communicator/modals/rtc-detector/rtc-detector-no-browser-support/rtc-detector-no-browser-support'
 import consultationSummaryClientModule
   from '../../components/communicator/modals/consultation-summary-client/consultation-summary-client'
+import consultationModalModule from '../../components/search/modals/consultation/consultation'
 
 const modalsModule = angular.module('profitelo.services.modals', [
   dialogModule,
@@ -76,7 +77,8 @@ const modalsModule = angular.module('profitelo.services.modals', [
   rtcDetectorBlockedModal,
   rtcDetectorNoBrowserSupportModal,
   expertIncomingCallModule,
-  consultationSummaryClientModule
+  consultationSummaryClientModule,
+  consultationModalModule
 ])
 .service('modalsService', ModalsService)
   .name

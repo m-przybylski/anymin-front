@@ -1,0 +1,143 @@
+@import "../../../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
+@import "../../../../../template/profitelo_theme/stylesheets/variables/variables"
+
+.consultation-modal
+  .modal-summary
+    .modal-header
+      .name-container
+        display: flex
+        justify-content: center
+        align-items: center
+        margin: 0 0 24px
+
+        .name
+          span
+            +paragraphTitle
+            +default-font-regular
+            color: $c-primary-txt
+
+    .consultation-title
+      margin: 0 0 16px
+
+    .consultation-cost-container
+      margin: 0 0 24px
+      +header
+
+      .cost-title
+        margin: 0 8px 0 0
+
+      .cost
+        .amount
+          margin: 0 4px 0 0
+          color: $c-black
+
+        .currency
+          color: $c-black
+
+    .call-button
+      span
+        color: $c-white
+
+        &:first-of-type
+          margin: 0 16px 0 0
+
+    .statistics-section
+      display: flex
+      align-items: center
+      justify-content: center
+      flex-wrap: wrap
+      background: $c-background-2
+      height: auto
+
+      +smm
+        flex-wrap: nowrap
+        height: 112px
+        margin: 0 0 24px
+
+      .conversations,
+      .rating,
+      .comments
+        min-width: 100%
+        display: flex
+        align-items: center
+        justify-content: center
+        height: 80px
+
+        +smm
+          min-width: 33%
+          padding: 0 64px
+
+        .value
+          +header
+          color: $c-primary-txt
+          text-align: center
+
+          +smm
+            text-align: left
+
+        .title
+          font-size: $f-input-label
+
+        .icon
+          margin: 0 16px 0 0
+
+      .rating
+        border-bottom: 1px solid $c-lines
+        border-top: 1px solid $c-lines
+
+        +smm
+          border-bottom: none
+          border-top: none
+          border-left: solid 1px $c-lines
+          border-right: solid 1px $c-lines
+
+      .statistic-info-container
+        .value,
+        .title
+          display: block
+
+    .section
+      margin: 0 0 48px
+
+      .title
+        margin: 0 0 24px
+        border-bottom: 1px solid $c-lines
+
+        h5
+          +paragraphSmall
+          +default-font-medium
+          margin: 0 0 16px
+
+      .description
+        +paragraphTitle
+        +default-font-regular
+        color: $c-primary-txt
+        margin: 0 0 24px
+
+    .experts-section
+      .employees-list
+        display: flex
+        flex-wrap: wrap
+
+      .employees-item
+        min-width: 100%
+        padding: 0 16px 0 0
+        margin: 0 0 16px
+
+        +smm
+          min-width: 50%
+
+        +lgm
+          min-width: 25%
+
+        .employee-name
+          +paragraphTitle
+          +default-font-regular
+          color: $c-primary-txt
+
+      user-avatar
+        margin: 0 16px 0 0
+
+      .employee
+        display: flex
+        align-items: center
