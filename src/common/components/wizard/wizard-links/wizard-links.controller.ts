@@ -27,7 +27,7 @@ export class WizardLinksComponentController implements IWizardLinksComponentBind
 
   public checkLinkExist = (link: string): boolean => this.selectedLinks.indexOf(link) !== -1
 
-  public onEnter = (): void => {
+  public onAddLink = (): void => {
     this.urlExist = false
     if (!this.linkModel.match(this.urlPattern) && this.httpAdded === false) {
       this.linkModel = 'http://' + this.linkModel

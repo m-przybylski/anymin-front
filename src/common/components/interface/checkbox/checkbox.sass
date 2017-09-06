@@ -49,9 +49,10 @@ checkbox
 
     &:checked + label
       &::before
-        content: "\6c"
+        content: "\46"
         font-family: "anymind"
         background: $c-primary
+        font-size: $f-icon-22
         border-color: $c-primary
 
     &[disabled] + label
@@ -59,8 +60,9 @@ checkbox
       color: $c-tertiary-txt
 
       &::before
-        content: "\6c"
+        content: "\46"
         font-family: "anymind"
+        font-size: $f-icon-22
         background: $c-tertiary-txt
         border-color: $c-tertiary-txt
 
