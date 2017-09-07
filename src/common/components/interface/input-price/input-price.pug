@@ -18,10 +18,3 @@
     data-ng-blur="$ctrl.onBlur()"
     data-ng-disabled="$ctrl.isDisabled"
   )
-
-validation-alert(
-  data-ng-show="$ctrl.validationText"
-  data-alert-text="{{$ctrl.validationText}}"
-  data-is-visible="!$ctrl.isPatternValid || !$ctrl.isValidate && $ctrl.validationText && $ctrl.validationText.length > 0 && !$ctrl.isFocus && $ctrl.isDirty || " +
-  "$ctrl.isSubmitted && !$ctrl.isValidate && $ctrl.validationText && $ctrl.validationText.length > 0"
-)

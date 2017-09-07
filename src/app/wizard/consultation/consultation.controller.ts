@@ -19,11 +19,11 @@ interface ILanguagesList {
 export class ConsultationController implements ng.IController {
   public isStepRequired: boolean = true
   public consultationsMock: string[]
-  public numberRegexp: RegExp
+  public priceRegexp: RegExp
   public currency: string
   public nameInputValue: string
   public tagsInputValue: string[] = []
-  public priceAmountInputValue: string
+  public priceAmountInputValue: string = '1,00'
   public invitationsInputValue: string[] = []
   public isOwnerEmployee: boolean = false
   public languagesList: ILanguagesList[]
@@ -37,6 +37,7 @@ export class ConsultationController implements ng.IController {
   private moneyDivider: number
   private static readonly minValidNameLength: number = 5
   private static readonly minValidDescriptionLength: number = 50
+  public isRegExpPriceInputValid: boolean = true
 
   /* @ngInject */
   constructor(private $filter: IFilterService,
@@ -46,7 +47,7 @@ export class ConsultationController implements ng.IController {
               private userService: UserService,
               private CommonConfig: CommonConfig,
               private wizardProfile: GetWizardProfile,
-              CommonSettingsService: CommonSettingsService) {
+              private CommonSettingsService: CommonSettingsService) {
 
     const languages: {
       shortcut: string,
@@ -70,7 +71,7 @@ export class ConsultationController implements ng.IController {
       }
     }
 
-    this.numberRegexp = CommonSettingsService.localSettings.numberPattern
+
     this.consultationsMock = [
       'Tag-1',
       'Tag-2',
@@ -79,6 +80,9 @@ export class ConsultationController implements ng.IController {
   }
 
   $onInit(): void {
+    this.checkIsPriceInputValid()
+    this.priceRegexp = this.CommonSettingsService.localSettings.pricePattern
+
     this.userService.getUser().then((response) => {
       this.currency = response.currency
     })
@@ -170,6 +174,14 @@ export class ConsultationController implements ng.IController {
     this.$state.go('app.wizard.summary')
   }
 
+  public onPriceChange = (consultationCostModel: string): void => {
+    const amount = Number(consultationCostModel.replace(',', '.'))
+    this.isRegExpPriceInputValid = this.isRegExpPriceValid(amount)
+  }
+
+  private isRegExpPriceValid = (priceValue: number): boolean =>
+    (priceValue && this.priceRegexp.test(priceValue.toString())) || priceValue > 0
+
   public checkIsNameInputValid = (): boolean =>
     !!(this.nameInputValue && this.nameInputValue.length >= ConsultationController.minValidNameLength)
 
@@ -180,11 +192,6 @@ export class ConsultationController implements ng.IController {
   public checkIsDescriptionInputValid = (): boolean => typeof this.descriptionInputValue === 'string'
     && this.descriptionInputValue.length >= ConsultationController.minValidDescriptionLength
 
-  public checkIsPriceInputValid = (): boolean =>
-    !!(this.priceAmountInputValue && this.priceAmountInputValue.length > 0 &&
-      Number(this.priceAmountInputValue.replace(',', '.')) > 0 && ((/^\d{1,3}([\.,](\d{1,2})?)?$/)
-        .test(this.priceAmountInputValue)) )
-
   public checkIsEmployeesInputValid = (): boolean =>
     this.invitationsInputValue && this.invitationsInputValue.length > 0 || this.isOwnerEmployee
 
@@ -193,5 +200,8 @@ export class ConsultationController implements ng.IController {
     && this.checkIsEmployeesInputValid() && this.checkIsLanguageInputValid() && this.checkIsDescriptionInputValid()
 
   public checkIsPriceButtonDisabled = (): boolean => !this.isCompany || this.checkIsPriceInputValid()
+
+  public checkIsPriceInputValid = (): boolean =>
+    !!(this.priceAmountInputValue && this.priceAmountInputValue.length > 0)
 
 }

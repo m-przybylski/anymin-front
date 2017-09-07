@@ -76,10 +76,14 @@ section.consultation
         input-price(
           data-ng-model="vm.priceAmountInputValue"
           data-id="priceModel"
-          data-validation-text="WIZARD.CONSULTATION.PRICE_INPUT_VALIDATION.ERROR"
           data-is-submitted="vm.isSubmitted"
-          data-is-valid="vm.checkIsPriceInputValid()"
+          data-callback="vm.onPriceChange"
           data-placeholder="DASHBOARD.CONSULTATION.PRICE.PLACEHOLDER"
+        )
+
+        validation-alert(
+        data-alert-text="COMMUNICATOR.MODALS.PRECALL.LIMIT.ERROR"
+        data-is-visible="!vm.isRegExpPriceInputValid"
         )
 
       wizard-step.step(

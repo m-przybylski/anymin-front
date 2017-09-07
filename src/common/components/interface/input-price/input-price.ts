@@ -9,8 +9,6 @@ export interface IInputPriceComponentBindings extends ng.IController {
   name: string
   placeholder: string
   inputText: string
-  validationText?: string
-  isValid: boolean
   isSubmitted?: boolean
   ngModel: number
   currency: string

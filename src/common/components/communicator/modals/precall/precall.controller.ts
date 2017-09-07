@@ -34,8 +34,8 @@ export class PrecallModalController implements ng.IController {
   public serviceName: string = ''
   public servicePrice: MoneyDto
   public serviceOwnerName: string = ''
-  public isUnlimitedPrepaid = true
-  public isButtonProgress = false
+  public isUnlimitedPrepaid: boolean = true
+  public isButtonProgress: boolean = false
 
   public onModalClose = (): void =>
     this.$uibModalInstance.dismiss('cancel')
@@ -127,7 +127,8 @@ export class PrecallModalController implements ng.IController {
   }
 
   public startCall = (): void => {
-    if (this.isRegExpPriceInputValid && this.isPriceInputValid && this.isInputValueGreaterThanAccountBalance) {
+    if (this.isRegExpPriceInputValid && this.isPriceInputValid && this.isInputValueGreaterThanAccountBalance
+      && this.prepaidCallLimitModel !== 0) {
       this.isButtonProgress = true
       this.clientCallService.callServiceId(this.service.id).finally(() => {
         this.$uibModalInstance.dismiss('cancel')
@@ -190,15 +191,14 @@ export class PrecallModalController implements ng.IController {
     this.isPrepaid ? this.isValueGraterThanAccountBalance(model) : model >= 0
 
   private isRegExpPriceValid = (model: number): boolean =>
-  (model && this.priceRegexp.test(model.toString())) || model === 0
+    (model && this.priceRegexp.test(model.toString())) || model === 0
 
   private isPriceValid = (model: number): boolean =>
     this.isPrepaid ? this.isPriceEnoughtForMinimalCallTime(model) || model === 0 : true
 
   private isPriceEnoughtForMinimalCallTime = (model: number): boolean =>
-  (model / this.consultationPrice) >= this.minPrepaidMinutesTimeLimitToCall || model === 0
+    (model / this.consultationPrice) >= this.minPrepaidMinutesTimeLimitToCall || model === 0
 
   private isValueGraterThanAccountBalance = (model: number): boolean =>
-  ((model <= this.prepaidCallLimitModel / this.moneyDivider)) || model === 0
-
+    ((model <= this.prepaidCallLimitModel / this.moneyDivider)) || model === 0
 }

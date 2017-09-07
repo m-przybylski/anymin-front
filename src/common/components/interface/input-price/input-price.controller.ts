@@ -6,12 +6,10 @@ export class InputPriceComponentController implements IInputPriceComponentBindin
   public id: string
   public name: string
   public ngModel: number = 0
-  public validationText: string
   public inputText: string
   public placeholder: string = '0.00'
   public isUsignPunctuationMarks: boolean = false
   public digitsCodesBlocked: number[] = []
-  public isValid: boolean
   public isFocus: boolean = false
   public isDirty: boolean = false
   public currency: string
