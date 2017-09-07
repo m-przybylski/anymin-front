@@ -1,4 +1,6 @@
-.communicator(data-ng-class="{'is-disconnected': $ctrl.isDisconnectedAnimation, 'is-closed': $ctrl.isClosed}" data-ng-hide="$ctrl.isClosed")
+.communicator(
+data-ng-class="{'is-disconnected': $ctrl.isDisconnectedAnimation, 'is-closed': $ctrl.isClosed}"
+data-ng-hide="$ctrl.isClosed")
   .communicator-maximized
     .communicator-conversation-header-details
       .consultation-actions
@@ -11,7 +13,9 @@
             .communicator-counter
               span {{ $ctrl.callLengthInSeconds | secondsToDateTime | date:'HH:mm:ss'}}
               span(data-ng-bind-html="$ctrl.callCost | money")
-
+            validation-alert(
+            data-alert-text="COMMUNICATOR.ONE_MINUTE_LEFT_WARNING"
+            data-is-visible="$ctrl.isOneMinuteLeftWarning")
     .communicator-content
       .current-profile
         .communicator-equalizer(data-ng-class="{'is-active': !$ctrl.isConnecting}")

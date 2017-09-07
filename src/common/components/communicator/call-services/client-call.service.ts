@@ -10,6 +10,7 @@ import {NavigatorWrapper} from '../../../classes/navigator-wrapper';
 import {ModalsService} from '../../../services/modals/modals.service';
 import {TimerFactory} from '../../../services/timer/timer.factory';
 import {MediaStreamConstraintsWrapper} from '../../../classes/media-stream-constraints-wrapper';
+import {ProfiteloWebsocketService} from '../../../services/profitelo-websocket/profitelo-websocket.service'
 
 export class ClientCallService {
 
@@ -31,7 +32,8 @@ export class ClientCallService {
               private soundsService: SoundsService,
               private modalsService: ModalsService,
               private callbacksFactory: CallbacksFactory,
-              private $q: ng.IQService) {
+              private $q: ng.IQService,
+              private profiteloWebsocket: ProfiteloWebsocketService) {
 
     this.callbacks = callbacksFactory.getInstance(Object.keys(ClientCallService.events))
   }
@@ -54,6 +56,12 @@ export class ClientCallService {
 
     return this.call;
   }
+
+  public onOneMinuteLeftWarning = (callback: () => void): void =>
+    this.profiteloWebsocket.onOneMinuteLeftWarning(callback)
+
+  public onNewFinancialOperation = (callback: (data: any) => void): void =>
+    this.profiteloWebsocket.onNewFinancialOperation(callback)
 
   private onStartCallError = (err: any): void => {
     this.call = undefined;

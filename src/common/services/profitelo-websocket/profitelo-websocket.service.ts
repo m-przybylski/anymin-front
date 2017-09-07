@@ -14,12 +14,17 @@ export class ProfiteloWebsocketService {
   private static reconnectTimeout = 1000
   private static readonly events = {
     onCallSummary: 'onCallSummary',
-    onInit: 'onInit'
+    onInit: 'onInit',
+    onOneMinuteLeftWarning: 'onOneMinuteLeftWarning',
+    onNewFinancialOperation: 'onNewFinancialOperation'
   }
 
   /* @ngInject */
-  constructor(private $log: ng.ILogService, private userService: UserService, private eventsService: EventsService,
-              private $timeout: ng.ITimeoutService, callbacksFactory: CallbacksFactory,
+  constructor(private $log: ng.ILogService,
+              private userService: UserService,
+              private eventsService: EventsService,
+              private $timeout: ng.ITimeoutService,
+              callbacksFactory: CallbacksFactory,
               CommonConfig: CommonConfig) {
     this.callbacks = callbacksFactory.getInstance(Object.keys(ProfiteloWebsocketService.events))
     this.wsEndpoint = CommonConfig.getAllData().urls.ws + '/ws/register'
@@ -53,6 +58,14 @@ export class ProfiteloWebsocketService {
     this.callbacks.methods.onCallSummary(callback)
   }
 
+  public onOneMinuteLeftWarning = (callback: () => void): void => {
+    this.callbacks.methods.onOneMinuteLeftWarning(callback)
+  }
+
+  public onNewFinancialOperation = (callback: (data: any) => void): void => {
+    this.callbacks.methods.onNewFinancialOperation(callback)
+  }
+
   private onSocketOpen = (): void => {
     this.callbacks.notify(ProfiteloWebsocketService.events.onInit, null)
   }
@@ -64,6 +77,12 @@ export class ProfiteloWebsocketService {
     switch (type) {
       case 'CALL_SUMMARY':
         this.callbacks.notify(ProfiteloWebsocketService.events.onCallSummary, value)
+        break
+      case 'ONE_MINUTE_LEFT_WARNING':
+        this.callbacks.notify(ProfiteloWebsocketService.events.onOneMinuteLeftWarning, value)
+        break
+      case 'NEW_FINANCIAL_OPERATION':
+        this.callbacks.notify(ProfiteloWebsocketService.events.onNewFinancialOperation, value)
         break
 
       default:
