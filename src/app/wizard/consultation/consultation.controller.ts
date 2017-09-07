@@ -71,7 +71,6 @@ export class ConsultationController implements ng.IController {
       }
     }
 
-
     this.consultationsMock = [
       'Tag-1',
       'Tag-2',
