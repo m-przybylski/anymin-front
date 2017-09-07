@@ -92,9 +92,6 @@ export class CommunicatorService {
     chat.onHeartbeat((res: RatelSdk.events.Heartbeat) =>
       this.$log.debug('Artichoke: onHeartBeat', res))
 
-    chat.onStatusUpdate((presence: RatelSdk.events.PresenceUpdate) =>
-      this.$log.debug('Artichoke: onStatusUpdate', presence))
-
     chat.onRoomCreated((roomCreated: RatelSdk.events.RoomCreated) =>
       this.callbacks.notify(CommunicatorService.events.onRoomCreated, roomCreated))
 
