@@ -14,14 +14,14 @@ describe('Unit testing:profitelo.components.search-dropdown', () => {
     let state: ng.ui.IStateService
     let componentController: ng.IComponentControllerService
     let component: SearchDropdownController
-    let validHTML = '<search-dropdown></search-dropdown>'
+    const validHTML = '<search-dropdown></search-dropdown>'
     let httpBackend: ng.IHttpBackendService
     let SearchApiMock: SearchApiMock
 
-    function create(html: string) {
+    function create(html: string): JQuery {
       rootScope = rootScope.$new()
-      let elem = angular.element(html)
-      let compiledElement = compile(elem)(rootScope)
+      const elem = angular.element(html)
+      const compiledElement = compile(elem)(rootScope)
       rootScope.$digest()
       return compiledElement
     }
@@ -54,21 +54,11 @@ describe('Unit testing:profitelo.components.search-dropdown', () => {
     }))
 
     it('should compile the component', () => {
-      let el = create(validHTML)
+      const el = create(validHTML)
       expect(el.html()).toBeDefined(true)
     })
 
-    it('should focus input', () => {
-      component.onFocus()
-      expect(component.isFocus).toBe(true)
-    })
-
-    it('should unfocus input', () => {
-      component.onBlur()
-      expect(component.isFocus).toBe(false)
-    })
-
-    it('should got to search results with query', () => {
+    it('should go to search results with query', () => {
       component.searchValue = 'wyszukaj'
       component.search()
       expect(state.go).toHaveBeenCalled()

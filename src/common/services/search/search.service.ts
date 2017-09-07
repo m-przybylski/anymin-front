@@ -8,6 +8,7 @@ import {ErrorHandlerService} from '../error-handler/error-handler.service'
 export class SearchService {
 
   private static readonly suggestedTagsCounter: number = 20
+  private static readonly suggestionsCount: number = 5
 
   /* @ngInject */
   constructor(private SearchApi: SearchApi, private errorHandler: ErrorHandlerService) {
@@ -19,7 +20,8 @@ export class SearchService {
 
   public querySuggestions = (queryParam: string): ng.IPromise<GetSuggestedQueries> => {
     const params: PostSuggestQueries = {
-      query: queryParam
+      query: queryParam,
+      count: SearchService.suggestionsCount
     }
     return this.SearchApi.postQueriesSuggestionsRoute(params)
     .catch(this.errorHandler.handleServerError)

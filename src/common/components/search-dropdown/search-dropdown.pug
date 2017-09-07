@@ -1,10 +1,8 @@
 .search-bar-container
   input.search-bar.main-input(type="text" placeholder="{{::'HOME.SEARCH_PLACEHOLDER' | translate}}"
-  data-ng-model="$ctrl.searchValue" data-ng-enter="$ctrl.search()" data-ng-change="$ctrl.onChange()" data-ng-trim="false"
-  data-ng-focus="$ctrl.onFocus()" data-ng-blur="$ctrl.onBlur()" data-ng-keydown="$ctrl.onKeyPress($event)")
-  .dropdown-container(data-ng-show="$ctrl.showSuggestionsDropdown()")
-    ul.suggestion(data-ng-repeat="suggestion in $ctrl.suggestions")
-      li(data-ng-class="{'is-active': $ctrl.isSelected(item)}")
+  data-ng-model="$ctrl.searchValue" data-ng-enter="$ctrl.onEnter()" data-ng-change="$ctrl.onChange()" data-ng-trim="false"
+  data-ng-focus="$ctrl.onFocus()")
+  .dropdown-container(data-ng-show="$ctrl.isSuggestionsDropdown()")
+    ul.suggestion-list
+      li(data-ng-repeat="suggestion in $ctrl.suggestions" data-ng-click="$ctrl.onItemSelect(suggestion)")
         a {{ suggestion }}
-
-

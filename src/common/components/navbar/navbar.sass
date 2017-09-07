@@ -46,14 +46,13 @@
     +smm
       flex: 1
       order: 0
-      padding: 0 0 0 16px
+      padding: 0 0 0 24px
       overflow: hidden
 
     .search-expandable
       position: fixed
       top: 0
       left: 64px
-      padding: 0 16px 0 0
       width: calc(100% - 64px)
       height: $s-navbar-height
       background: $c-white
@@ -61,6 +60,7 @@
       display: flex
       align-items: center
       justify-content: space-between
+      border-bottom: 1px solid $c-lines
 
       +smm
         width: 100%
@@ -72,12 +72,15 @@
 
       .btn-close
         opacity: 0
+        height: 100%
+        background: $c-white
+        border: none
+        padding: 0 16px
 
         +smm
           display: none
 
-      .pro-search-dropdown
-        position: absolute
+      search-dropdown
         width: calc(100% - 72px)
         height: 100%
         top: 0
@@ -94,8 +97,12 @@
           left: 0
           top: 0
           height: 100%
+          width: 100%
           border: 0
           box-shadow: none
+
+          +smm
+            padding: 0 0 0 16px
 
           &::-webkit-input-placeholder
             line-height: $s-navbar-height
