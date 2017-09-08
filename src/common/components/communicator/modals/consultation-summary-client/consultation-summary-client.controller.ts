@@ -16,8 +16,6 @@ export interface IConsultationSummaryClientControllerScope extends ng.IScope {
   onModalClose: () => void
   onTagsSelectChange: (tags: Tag[]) => void
   recommendService: () => void
-  isFullscreen: boolean
-  isNavbar: boolean
   chooseExpertsTag: boolean
   serviceId: string
 }
@@ -30,8 +28,6 @@ interface ItechnicalProblems {
 
 export class ConsultationSummaryClientController implements ng.IController {
 
-  public isFullscreen: boolean = true
-  public isNavbar: boolean = true
   public isRecommended: boolean = false
   public tags: Tag[]
   public technicalProblems: ItechnicalProblems[]
@@ -143,6 +139,7 @@ export class ConsultationSummaryClientController implements ng.IController {
     if (callSummary.companyExpertProfile.expertDetails) {
       this.$scope.expertAvatar = callSummary.companyExpertProfile.expertDetails.avatar
       this.$scope.rating = callSummary.service.rating
+      this.$scope.isRecommended = callSummary.isRecommendable
     }
   }
 

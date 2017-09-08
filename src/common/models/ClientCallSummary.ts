@@ -7,7 +7,7 @@ export interface ClientCallSummary extends CallSummary {
 	service: GetService
 	tags: Tag[]
 	callDuration: number
-	isRecommendable: Boolean
+	isRecommendable: boolean
 	companyExpertProfile: GetProfile
 	serviceOwnerProfile: GetProfile
 }

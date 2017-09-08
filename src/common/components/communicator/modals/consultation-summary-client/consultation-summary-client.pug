@@ -31,7 +31,7 @@
             .details-tab-content
               span {{ callSummary.callDuration | secondsToDateTime | date:'HH:mm:ss' }}
 
-        .tabs-container(data-ng-switch="vm.currentTab" data-ng-style="vm.tabsContainerStyles")
+        .tabs-container(data-ng-if="isRecommended" data-ng-switch="vm.currentTab" data-ng-style="vm.tabsContainerStyles")
           .ask-tab(data-ng-switch-when="ask" id="ask" data-get-height="vm.setTabsContainerSize")
             h3.tab-header(data-translate="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.ASK_TAB.IS_HELPFUL")
             .buttons-container
