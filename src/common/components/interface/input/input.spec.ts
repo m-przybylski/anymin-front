@@ -99,6 +99,17 @@ describe('Unit testing: profitelo.components.interface.input', () => {
       expect(component.blockInvalidDigits).not.toHaveBeenCalled()
     })
 
+    it('should check if user typing correct value in input', () => {
+      const el = create(validHTML, bindings)
+      bindings.type = 'number'
+      const event = jQuery.Event('keypress')
+      spyOn(event, 'preventDefault')
+      event.which = 48
+      event.keyCode = 48
+      el.find('input').trigger(event)
+      expect(event.preventDefault).not.toHaveBeenCalled()
+    })
+
     it('should check if user typing incorrect value in input', () => {
       const el = create(validHTML, bindings)
       const event = jQuery.Event('keypress')

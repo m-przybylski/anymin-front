@@ -5,12 +5,18 @@ import {ClientCallSummary} from '../../../../models/ClientCallSummary'
 import {IFilterService} from '../../../../services/filter/filter.service'
 import {ServiceApi} from 'profitelo-api-ng/api/api'
 import {ErrorHandlerService} from '../../../../services/error-handler/error-handler.service'
+import {MoneyDto} from 'profitelo-api-ng/model/models'
 
 export interface IConsultationSummaryClientControllerScope extends ng.IScope {
   expertAvatar: string
+  expertName: string
+  serviceName: string
+  consultationCost: MoneyDto
+  callDuration: number
   rating: number
+  tagsList: Tag[]
   callSummary?: ClientCallSummary
-  isRecommended: boolean
+  isRecommendable: boolean
   recommendServiceTags: () => void
   closeModal: () => void
   onModalClose: () => void
@@ -20,17 +26,15 @@ export interface IConsultationSummaryClientControllerScope extends ng.IScope {
   serviceId: string
 }
 
-interface ItechnicalProblems {
+interface ITechnicalProblem {
   id: string,
   isDescriptive: boolean,
   name: string
 }
 
 export class ConsultationSummaryClientController implements ng.IController {
-
-  public isRecommended: boolean = false
   public tags: Tag[]
-  public technicalProblems: ItechnicalProblems[]
+  public technicalProblems: ITechnicalProblem[]
   public currentSize: number
   public tabsContainerStyles = {
     height: this.currentSize
@@ -112,7 +116,7 @@ export class ConsultationSummaryClientController implements ng.IController {
   }
 
   public isCommentValid = (): boolean => typeof this.clientCommentInputValue === 'string'
-    && this.clientCommentInputValue.length >= ConsultationSummaryClientController.minValidCommentLength
+  && this.clientCommentInputValue.length >= ConsultationSummaryClientController.minValidCommentLength
 
   private onReject = (error: any): void => {
     this.errorHandler.handleServerError(error, 'Can not save service comment')
@@ -121,8 +125,8 @@ export class ConsultationSummaryClientController implements ng.IController {
   private addCloseModalListener = (): void => {
     this.$scope.$on('modal.closing', (event: IAngularEvent) => {
       if (this.isCommentValid() && !this.isSendButtonClicked) {
-       const confirmWindowMessage: string =
-         this.$filter('translate')('COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.CONFIRM_WINDOW_MESSAGE')
+        const confirmWindowMessage: string =
+          this.$filter('translate')('COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.CONFIRM_WINDOW_MESSAGE')
         if (!confirm(confirmWindowMessage)) {
           event.preventDefault()
         }
@@ -137,9 +141,14 @@ export class ConsultationSummaryClientController implements ng.IController {
   private setCallSummary = (callSummary: ClientCallSummary): void => {
     this.$scope.callSummary = callSummary
     if (callSummary.companyExpertProfile.expertDetails) {
+      this.$scope.expertName = callSummary.companyExpertProfile.expertDetails.name
+      this.$scope.serviceName = callSummary.service.name
+      this.$scope.consultationCost = callSummary.cost
+      this.$scope.tagsList = callSummary.tags.tags
+      this.$scope.callDuration = callSummary.callDuration
       this.$scope.expertAvatar = callSummary.companyExpertProfile.expertDetails.avatar
       this.$scope.rating = callSummary.service.rating
-      this.$scope.isRecommended = callSummary.isRecommendable
+      this.$scope.isRecommendable = callSummary.isRecommendable
     }
   }
 

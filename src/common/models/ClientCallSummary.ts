@@ -5,7 +5,10 @@ export interface ClientCallSummary extends CallSummary {
 	serviceUsageEventId: string
 	cost: MoneyDto
 	service: GetService
-	tags: Tag[]
+	tags: {
+    serviceId: string,
+    tags: Tag[]
+  }
 	callDuration: number
 	isRecommendable: boolean
 	companyExpertProfile: GetProfile

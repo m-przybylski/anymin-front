@@ -8,11 +8,11 @@
 
           .profile-name
             a
-              span {{ callSummary.companyExpertProfile.expertDetails.name }}
+              span {{ expertName }}
 
           .consultation-title.profile-consultation-title
             h3
-              span {{ callSummary.service.name }}
+              span {{ serviceName }}
 
       .modal-container
         .details-tab
@@ -23,15 +23,16 @@
             .details-tab-label
               span(data-translate="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.COST")
             .details-tab-content
-              .price-section(data-ng-bind-html="callSummary.cost | money")
+              .price-section(data-ng-bind-html="consultationCost | money")
 
           .details-tab-row
             .details-tab-label
               span(data-translate="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.TIME_CONVERSATION")
             .details-tab-content
-              span {{ callSummary.callDuration | secondsToDateTime | date:'HH:mm:ss' }}
+              span {{ callDuration | secondsToDateTime | date:'HH:mm:ss' }}
 
-        .tabs-container(data-ng-if="isRecommended" data-ng-switch="vm.currentTab" data-ng-style="vm.tabsContainerStyles")
+
+        .tabs-container(data-ng-if="isRecommendable" data-ng-switch="vm.currentTab" data-ng-style="vm.tabsContainerStyles")
           .ask-tab(data-ng-switch-when="ask" id="ask" data-get-height="vm.setTabsContainerSize")
             h3.tab-header(data-translate="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.ASK_TAB.IS_HELPFUL")
             .buttons-container
@@ -44,7 +45,7 @@
 
           .tags-tab.animation(data-ng-switch-when="tag" id="tag" data-get-height="vm.setTabsContainerSize")
             h3.tab-header(data-translate="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.TAGS_TAB.TITLE")
-            multiselect(data-items="callSummary.tags.tags" data-field="name" data-on-select-change="vm.onTagsSelectChange")
+            multiselect(data-items="tagsList" data-field="name" data-on-select-change="vm.onTagsSelectChange")
             .button-container
               a.btn.btn-default(data-translate="COMMUNICATOR.MODALS.CONSULTATION_SUMMARY_CLIENT.TAGS_TAB.SEND_BUTTON"
               data-ng-click="vm.showCommentTab()")
