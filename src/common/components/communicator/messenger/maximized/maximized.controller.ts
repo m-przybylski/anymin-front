@@ -11,6 +11,8 @@ import {ExpertCallService} from '../../call-services/expert-call.service';
 import {CurrentCall} from '../../models/current-call';
 import {CurrentClientCall} from '../../models/current-client-call';
 import {CurrentExpertCall} from '../../models/current-expert-call';
+import {Message} from 'ratel-sdk-js'
+import * as RatelSdk from 'ratel-sdk-js'
 
 export class MessengerMaximizedComponentController implements ng.IController, IMessengerMaximizedComponentBindings {
 
@@ -87,7 +89,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
   }
 
   public onSendMessage = (messageBody: string): Promise<void> =>
-    this.sendMessage(this.serializeMessageBody(messageBody))
+    this.sendMessage(messageBody)
 
   private clientInit = (currentClientCall: CurrentClientCall): void => {
     this.destroy()
@@ -123,7 +125,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
     })
   }
 
-  private addGroupedMessage = (message: any): void => {
+  private addGroupedMessage = (message: Message): void => {
     if (this.groupedMessages.length === 0) {
       this.groupedMessages.push([message])
     } else {
@@ -143,26 +145,19 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
   }
 
   private addMessage = (msg: any): void => {
-    const changeMessageStatusDelay: number = 500
     this.addGroupedMessage(msg)
-    msg.isNew = true
-    this.$timeout(() => msg.isNew = false, changeMessageStatusDelay)
     this.onTypingEnd()
   }
 
-  private onMessageSendSuccess = (message: any): void => {
-    message.isMine = true
+  private onMessageSendSuccess = (message: Message): void => {
     this.addMessage(message)
   }
 
   private onMessageSendError = (err: any): void =>
-    this.$log.error('msg send err:', JSON.stringify(err))
+    this.$log.error('msg send err:', err)
 
-  private serializeMessageBody = (text: string): string =>
-    JSON.stringify({body: text})
-
-  private sendMessage = (messageObject: string): Promise<void> =>
-    this.messageRoom.sendMessage(messageObject)
+  private sendMessage = (messageObject: string, context?: RatelSdk.protocol.Context): Promise<void> =>
+    this.messageRoom.sendMessage(messageObject, context)
       .then(this.onMessageSendSuccess, this.onMessageSendError)
 
   private onUploadProgess = (res: any): void =>
@@ -173,12 +168,11 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
   }
 
   private onFileUpload = (res: any): void => {
-    const fileMessage = {
-      body: res.name,
-      fileUrl: this.urlService.resolveFileUrl(res.token)
-    }
     this.uploadedFile.progress = false
-    this.sendMessage(JSON.stringify(fileMessage))
+    this.sendMessage(res.name, {
+      type: 'file',
+      payload: res.token
+    })
   }
 
   private onFileUploadError = (err: any): void => {

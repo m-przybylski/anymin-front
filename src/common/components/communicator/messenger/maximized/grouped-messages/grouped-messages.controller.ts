@@ -1,20 +1,23 @@
-import * as angular from 'angular'
 import {IGroupedMessagesComponentBindings} from './grouped-messages';
+import {Message} from 'ratel-sdk-js'
+import {CommunicatorService} from '../../../communicator.service'
 
 export class GroupedMessagesComponentController implements ng.IController, IGroupedMessagesComponentBindings {
 
-  public messages: any[] = []
+  public messages: Message[] = []
   public participantAvatar: string = ''
   public isMine: boolean = false
 
   /* @ngInject */
-  constructor() {
+  constructor(private communicatorService: CommunicatorService) {
   }
 
-  $onChange = (): void => {
+  $onChanges = (): void => {
     if (this.messages) {
       const message = this.messages[0]
-      this.isMine = (angular.isDefined(message) && angular.isDefined(message.isMine) && message.isMine)
+      const clientSession = this.communicatorService.getClientSession()
+      this.isMine = typeof clientSession !== 'undefined' && clientSession.id === message.user
     }
   }
+
 }

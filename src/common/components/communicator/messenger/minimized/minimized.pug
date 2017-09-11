@@ -4,6 +4,7 @@
 
       .grouped-messages
         div
-          .message(data-ng-repeat="message in $ctrl.messages" data-ng-click="$ctrl.onMessageClick(message)" data-ng-class="{'is-active': message.isNew}")
+          .message(data-ng-repeat="message in $ctrl.messages" data-ng-click="$ctrl.onMessageClick(message)"
+          data-ng-class="{'is-active': message.isNew}")
             .content
-              span(data-ng-bind-html="message.body | message")
+              span(data-ng-bind-html="message | message")

@@ -1,10 +1,17 @@
 import * as angular from 'angular'
 import {IFilterService} from '../../services/filter/filter.service'
+import {UrlService} from '../../services/url/url.service'
+import {Message} from 'ratel-sdk-js'
 
 describe('Unit testing: profitelo.filters.message-filter>', () => {
   describe('for message >', () => {
 
     let $filter: IFilterService
+    const urlService: UrlService = <UrlService>{}
+
+    beforeEach(angular.mock.module( ($provide: ng.auto.IProvideService): void => {
+      $provide.value('urlService', urlService)
+    }))
 
     beforeEach(() => {
       angular.mock.module('profitelo.filters.message-filter')
@@ -15,50 +22,54 @@ describe('Unit testing: profitelo.filters.message-filter>', () => {
     }))
 
     it('should return message', () => {
-      const object = {
-        body: 'abcdefghijk'
+      const messageObject: Message  = <Message>{
+        type: 'message',
+        id: 'asdasd',
+        body: 'asdasdasd'
       }
-      const string = JSON.stringify(object)
-      expect($filter('message')(string)).toEqual(object.body)
+      expect($filter('message')(messageObject)).toEqual(messageObject.body)
     })
 
     it('should return html link element', () => {
-      let string = ''
-      const object: {
-        body?: string
-      } = {}
+
+      const messageObject: Message  = <Message>{
+        type: 'message',
+        id: 'asdasd',
+        body: 'asdasdasd'
+      }
       const simpleUrl = 'www.kwejk.pl'
       const complexUrl = 'https://www.kołding.pl/search?q=angular3.0&&aqs=chrome.0.69i59j69i57j0l4.766j0j7&sourceid=chrome&ie=UTF-8'
 
-      object.body = simpleUrl
-      string = JSON.stringify(object)
-      expect($filter('message')(string)).toEqual('<a href="http://' + object.body + '" target="_blank">' + object.body + '</a>')
+      messageObject.body = simpleUrl
+      expect($filter('message')(messageObject)).toEqual('<a href="http://' + messageObject.body + '" target="_blank">'
+        + messageObject.body + '</a>')
 
-      object.body = complexUrl
-      string = JSON.stringify(object)
-      expect($filter('message')(string)).toEqual('<a href="' + object.body + '" target="_blank">' + object.body + '</a>')
+      messageObject.body = complexUrl
+      expect($filter('message')(messageObject)).toEqual('<a href="' + messageObject.body + '" ' +
+        'target="_blank">' + messageObject.body + '</a>')
     })
 
     it('should return html img element', () => {
-      let string = ''
-      const object: {
-        body?: string
-      } = {}
+      const messageObject: Message  = <Message>{
+        type: 'message',
+        id: 'asdasd',
+        body: 'asdasdasd'
+      }
       const jpg = 'www.zabawneobrazki.pl/asdasdasdasd.jpg'
       const png = 'http://www.kołczingdlaopornych.pl/człowieksukcesu.png'
       const gif = 'https://www.kołczingdlaopornych.pl/człowiekporazka.gif'
 
-      object.body = jpg
-      string = JSON.stringify(object)
-      expect($filter('message')(string)).toEqual('<a href="http://' + object.body + '" target="_blank" ><img src="http://' + object.body + '"/></a>')
+      messageObject.body = jpg
+      expect($filter('message')(messageObject)).toEqual('<a href="http://' + messageObject.body
+        + '" target="_blank" ><img src="http://' + messageObject.body + '"/></a>')
 
-      object.body = png
-      string = JSON.stringify(object)
-      expect($filter('message')(string)).toEqual('<a href="' + object.body + '" target="_blank" ><img src="' + object.body + '"/></a>')
+      messageObject.body = png
+      expect($filter('message')(messageObject)).toEqual('<a href="' + messageObject.body
+        + '" target="_blank" ><img src="' + messageObject.body + '"/></a>')
 
-      object.body = gif
-      string = JSON.stringify(object)
-      expect($filter('message')(string)).toEqual('<a href="' + object.body + '" target="_blank" ><img src="' + object.body + '"/></a>')
+      messageObject.body = gif
+      expect($filter('message')(messageObject)).toEqual('<a href="' + messageObject.body
+        + '" target="_blank" ><img src="' + messageObject.body + '"/></a>')
     })
 
   })

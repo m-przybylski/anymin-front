@@ -1,4 +1,5 @@
 import {MoneyDto} from 'profitelo-api-ng/model/models'
+import {Message} from 'ratel-sdk-js'
 
 export interface IFilterService extends ng.IFilterService {
   (name: 'translate'): {
@@ -23,7 +24,7 @@ export interface IFilterService extends ng.IFilterService {
     (translationId: MoneyDto, interpolateParams?: any, interpolation?: string): string
   }
   (name: 'message'): {
-    (translationId: string, interpolateParams?: any, interpolation?: string): string
+    (message: Message, interpolateParams?: any, interpolation?: string): string
   }
   (name: 'newLineFilter'): {
     (content: string): string

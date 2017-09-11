@@ -5,6 +5,7 @@ import {ClientCallService} from '../../call-services/client-call.service';
 import {ExpertCallService} from '../../call-services/expert-call.service';
 import {CurrentCall} from '../../models/current-call';
 import {Message} from 'ratel-sdk-js/dist/protocol/wire-entities'
+import {CommunicatorService} from '../../communicator.service'
 
 export class MessengerMinimizedComponentController implements ng.IController, IMessengerMinimizedComponentBindings {
 
@@ -14,9 +15,11 @@ export class MessengerMinimizedComponentController implements ng.IController, IM
   public messages: RatelSdk.Message[] = []
 
   private static readonly messageShowTimeout = 5000
+  private clientSession: RatelSdk.Session | undefined
 
   /* @ngInject */
   constructor(private $timeout: ng.ITimeoutService,
+              private communicatorService: CommunicatorService,
               clientCallService: ClientCallService,
               expertCallService: ExpertCallService) {
     clientCallService.onNewCall(this.onInit)
@@ -24,6 +27,7 @@ export class MessengerMinimizedComponentController implements ng.IController, IM
   }
 
   private onInit = (currentCall: CurrentCall): void => {
+    this.clientSession = this.communicatorService.getClientSession()
     this.messages = []
     currentCall.getMessageRoom().onMessage(this.showMessage)
   }
@@ -32,7 +36,9 @@ export class MessengerMinimizedComponentController implements ng.IController, IM
     this.messages = this.messages.filter(msg => msg !== message)
 
   private showMessage = (message: RatelSdk.Message): void => {
-    this.messages.push(message)
-    this.$timeout(_ => this.hideMessage(message), MessengerMinimizedComponentController.messageShowTimeout)
+    if (typeof this.clientSession !== 'undefined' && this.clientSession.id !== message.user) {
+      this.messages.push(message)
+      this.$timeout(_ => this.hideMessage(message), MessengerMinimizedComponentController.messageShowTimeout)
+    }
   }
 }

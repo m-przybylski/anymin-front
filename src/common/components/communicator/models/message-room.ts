@@ -53,9 +53,9 @@ export class MessageRoom {
     }
   }
 
-  public sendMessage = (msg: string): Promise<RatelSdk.Message> => {
+  public sendMessage = (msg: string, context?: RatelSdk.protocol.Context): Promise<RatelSdk.Message> => {
     if (this.room) {
-      return this.room.send(msg)
+      return this.room.send(msg, context)
     } else {
       return Promise.reject('No room')
     }
