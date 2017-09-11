@@ -1,6 +1,7 @@
 import * as angular from 'angular'
 import pagePreloaderModule from './page-preloader'
 import {PagePreloaderComponentController} from './page-preloader.controller'
+import {PromiseService} from '../../../services/promise/promise.service'
 
 describe('Unit testing: profitelo.components.interface.page-preloader', () => {
   return describe('for page-preloader component >', () => {
@@ -28,7 +29,8 @@ describe('Unit testing: profitelo.components.interface.page-preloader', () => {
 
     beforeEach(() => {
       inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService, $timeout: ng.ITimeoutService,
-              $componentController: ng.IComponentControllerService, _$state_: ng.ui.IStateService) => {
+              promiseService: PromiseService, $componentController: ng.IComponentControllerService,
+              _$state_: ng.ui.IStateService) => {
 
         rootScope = $rootScope
         compile = $compile
@@ -37,6 +39,8 @@ describe('Unit testing: profitelo.components.interface.page-preloader', () => {
 
         const injectors = {
           $state: state,
+          $rootScope: rootScope,
+          promiseService: promiseService,
           $element: create(validHTML)
         }
 
@@ -52,6 +56,32 @@ describe('Unit testing: profitelo.components.interface.page-preloader', () => {
       spyOn(state, 'go')
       component.onStateReload()
       expect(state.go).toHaveBeenCalled()
+    })
+
+    it('should start loading process when state changes', () => {
+      component.isError = true
+      component.$onInit()
+      const stateObject: ng.ui.IState = {
+        name: 'dashboard',
+        resolve: { getClients: () => true }
+      }
+      rootScope.$broadcast('$stateChangeStart', stateObject, undefined, {name: 'home'})
+      expect(component.isError).toBe(false)
+      expect(component.isLoading).toBe(true)
+    })
+
+    it('should end loading process when state loaded', () => {
+      component.isError = true
+      component.$onInit()
+      const stateObject: ng.ui.IState = {
+        name: 'dashboard',
+        resolve: { getClients: () => true }
+      }
+      rootScope.$broadcast('$stateChangeStart', stateObject, undefined, {name: 'home'})
+      expect(component.isLoading).toBe(true)
+      rootScope.$broadcast('$stateChangeSuccess', stateObject, undefined, {name: 'home'})
+      expect(component.isError).toBe(false)
+      expect(component.isLoading).toBe(false)
     })
 
   })

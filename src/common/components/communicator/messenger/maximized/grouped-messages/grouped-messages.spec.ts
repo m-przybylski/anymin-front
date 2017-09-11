@@ -2,6 +2,7 @@ import * as angular from 'angular'
 import {IGroupedMessagesComponentBindings} from './grouped-messages'
 import groupedMessagesModule from './grouped-messages';
 import {GroupedMessagesComponentController} from './grouped-messages.controller';
+import {CommunicatorService} from '../../../communicator.service'
 
 describe('Unit testing: profitelo.components.communicator.messenger.maximized.grouped-messages', () => {
   return describe('for groupedMessages component >', () => {
@@ -14,8 +15,12 @@ describe('Unit testing: profitelo.components.communicator.messenger.maximized.gr
       '<grouped-messages messages="messages" participant-avatar="participantAvatar"></grouped-messages>'
 
     const bindings: IGroupedMessagesComponentBindings = {
-      messages: [{}],
+      messages: [],
       participantAvatar: 'asd'
+    }
+
+    const communicatorService: CommunicatorService = <CommunicatorService>{
+      getClientSession: () => {}
     }
 
     function create(html: string, bindings: IGroupedMessagesComponentBindings): JQuery {
@@ -27,6 +32,10 @@ describe('Unit testing: profitelo.components.communicator.messenger.maximized.gr
       return compiledElement
     }
 
+    beforeEach(angular.mock.module( ($provide: ng.auto.IProvideService): void => {
+      $provide.value('communicatorService', communicatorService)
+    }))
+
     beforeEach(() => {
       angular.mock.module(groupedMessagesModule)
 
@@ -36,7 +45,9 @@ describe('Unit testing: profitelo.components.communicator.messenger.maximized.gr
         rootScope = $rootScope.$new()
         compile = $compile
 
-        const injectors = {}
+        const injectors = {
+          communicatorService: communicatorService
+        }
 
         component = $componentController<GroupedMessagesComponentController, IGroupedMessagesComponentBindings>(
           'groupedMessages', injectors, bindings)

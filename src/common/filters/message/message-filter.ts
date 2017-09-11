@@ -1,6 +1,9 @@
-namespace profitelo.filters.message {
+import {Message} from 'ratel-sdk-js'
+import * as angular from 'angular'
+import * as _ from 'lodash'
+import {UrlService} from '../../services/url/url.service'
 
-  function messageFilter($log: ng.ILogService, ): (message: string) => string {
+  function messageFilter($log: ng.ILogService, urlService: UrlService): (message: Message) => string {
 
     const hasImageUrl = (text: string): RegExpMatchArray | null => {
       const imageRegexp = /([/|.|\w|\s])*\.(?:jpg|gif|png)/
@@ -23,13 +26,13 @@ namespace profitelo.filters.message {
     const createRegexpFromUrl = (url: string): RegExp =>
       new RegExp(url.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g, '\\$&'), 'g')
 
-    const handleMessage = (message: string): string => {
-      const messageObject = angular.fromJson(angular.fromJson(message))
-      const messageUrls = getUrls(messageObject.body)
-
-      if (messageObject.fileUrl) {
-        return '<a href="' + messageObject.fileUrl + '" target="_blank" class="file"><i class="icon-file-24"></i>' +
-          messageObject.body + '</a>'
+    const handleMessage = (message: Message): string => {
+      const messageContext = message.context
+      const messageUrls = getUrls(message.body)
+      if (messageContext && messageContext.type === 'file') {
+        const fileUrl = urlService.resolveFileUrl(messageContext.payload)
+        return '<a href="' + fileUrl + '" target="_blank" class="file"><i class="icon-file-24"></i>' +
+          message.body + '</a>'
 
       } else if (messageUrls && messageUrls.length > 0) {
         for (const url in messageUrls) {
@@ -38,32 +41,29 @@ namespace profitelo.filters.message {
             const urlRegexp = createRegexpFromUrl(currentUrl)
 
             if (hasImageUrl(currentUrl)) {
-              return messageObject.body.replace(urlRegexp, '<a href="' + getCorrectUrl(currentUrl) +
+              return message.body.replace(urlRegexp, '<a href="' + getCorrectUrl(currentUrl) +
                 '" target="_blank" >' + '<img src="' + getCorrectUrl(currentUrl) + '"/></a>')
             } else {
-              return messageObject.body.replace(urlRegexp, '<a href="' + getCorrectUrl(currentUrl) +
+              return message.body.replace(urlRegexp, '<a href="' + getCorrectUrl(currentUrl) +
                 '" target="_blank">' + currentUrl + '</a>')
             }
           }
         }
       }
 
-      return messageObject.body
+      return message.body
     }
 
-    return function(message: string): string {
-      if (message && typeof message === 'string') {
+    return function(message: Message): string {
+      if (message) {
         return handleMessage(message)
       } else {
-        $log.error('Expected String but got:' + typeof message)
+        $log.error('Expected Message object but got:' + typeof message)
         return ''
       }
 
     }
   }
-
   angular.module('profitelo.filters.message-filter', [
-
   ])
     .filter('message', messageFilter)
-}

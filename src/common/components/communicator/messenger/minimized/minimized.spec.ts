@@ -6,6 +6,7 @@ import {ClientCallService} from '../../call-services/client-call.service'
 import {ExpertCallService} from '../../call-services/expert-call.service'
 import {CurrentClientCall} from '../../models/current-client-call'
 import {CurrentExpertCall} from '../../models/current-expert-call'
+import {Message} from 'ratel-sdk-js'
 
 describe('Unit testing: profitelo.components.communicator.messenger.minimized', () => {
   return describe('for messengerMinimized component >', () => {
@@ -22,7 +23,12 @@ describe('Unit testing: profitelo.components.communicator.messenger.minimized', 
     }
 
     const clientCallService: ClientCallService = {
-      onNewCall: (_cb: (call: CurrentClientCall) => void): void => {
+      onNewCall: (cb: (call: CurrentClientCall) => void): void => {
+        cb(<CurrentClientCall>{
+          getMessageRoom: () => <any> ({onMessage: (cb: (message: Message) => void) => {
+            cb(<Message>{})
+          }})
+        })
       }
     } as ClientCallService
 
@@ -72,7 +78,7 @@ describe('Unit testing: profitelo.components.communicator.messenger.minimized', 
     })
 
     it('should have a dummy test', inject(() => {
-      expect(true).toBeTruthy()
+      expect(component).toBeTruthy()
     }))
 
     it('should compile the component', () => {
