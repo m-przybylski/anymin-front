@@ -50,6 +50,11 @@ button
     padding: 0 32px
     width: auto
 
+  &.is-disabled-link
+    color: $c-secondary-txt
+    pointer-events: none
+    cursor: not-allowed
+
   &.btn-disabled
     @extend .btn-disabled
 
@@ -342,6 +347,26 @@ button
       &.icon
         top: 0
 /* hovers end */
+
+.btn-preloader
+  animation:  loader-rotates 1s linear infinite
+  animation-fill-mode: forwards
+  background: none
+  border: 2px solid $c-lines
+  border-top-color: $c-primary
+  padding: 0
+  width: 24px
+  height: 24px
+  margin: 0 16px
+
+
+  &.ng-enter
+    animation: fadeIn 0.3s
+    animation-fill-mode: forwards
+
+  &.ng-leave
+    animation: fadeOut 0.3s
+    animation-fill-mode: forwards
 
 
 .btn-progress

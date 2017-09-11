@@ -16,7 +16,17 @@
     .client-activities-page(data-ng-hide="vm.isSearchLoading")
       dashboard-filters(data-filters="vm.filters" data-on-set-search-params="vm.onSetFiltersParams"
       data-account-type="vm.accountType")
+
       client-activity(data-ng-repeat="activity in vm.activities" data-activity="activity")
-      .show-more-results
-        a.btn.btn-primary(data-translate="DASHBOARD.CLIENT.ACTIVITIES.SHOW_MORE_RESULTS"
-        data-ng-click="vm.loadMoreActivities()" data-ng-show="vm.isMoreResults")
+
+      .load-more-results-container
+        span(data-translate="{{ 'DASHBOARD.EXPERT.ACTIVITIES.RESULTS_COUNTER' | translate: vm.translationCounter }}")
+
+        .load-more-btn-handler
+          span.btn.btn-preloader.animation(data-ng-if="vm.isActivitiesLoading")
+          a.btn.btn-link(
+            data-ng-class="{'is-disabled-link': vm.isActivitiesLoading}"
+            data-ng-if="vm.isMoreResults"
+            data-translate="DASHBOARD.CLIENT.ACTIVITIES.SHOW_MORE_RESULTS"
+            data-ng-click="vm.loadMoreActivities()"
+          )

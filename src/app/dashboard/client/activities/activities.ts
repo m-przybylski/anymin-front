@@ -11,9 +11,12 @@ import {
 } from '../../../../common/services/dashboard-activites/dashboard-activities.service'
 import dashboardActivitiesModule from '../../../../common/services/dashboard-activites/dashboard-activites'
 import {ActivitiesQueryParams} from '../../../../common/services/dashboard-activites/activities-query-params'
-import {TopAlertService} from '../../../../common/services/top-alert/top-alert.service'
 import noResultsInformationModule
   from '../../../../common/components/dashboard/no-results-information/no-results-information'
+import promiseModule from '../../../../common/services/promise/promise'
+import {PromiseService} from '../../../../common/services/promise/promise.service'
+import errorHandlerModule from '../../../../common/services/error-handler/error-handler'
+import {ErrorHandlerService} from '../../../../common/services/error-handler/error-handler.service'
 
 export class DashboardClientActivitiesController {
 
@@ -21,22 +24,28 @@ export class DashboardClientActivitiesController {
   public activities: GetActivity[]
   public isSearchLoading: boolean = true
   public isActivitiesHistory: boolean = false
-  public isMoreResults: boolean = false
+  public isMoreResults: boolean
   public isError: boolean = false
   public filters: GetActivityFilters
   public accountType = FinancialOperation.AccountTypeEnum.CLIENT
+  public isActivitiesLoading = false
+  public translationCounter: {
+    currentResultsCount: number
+    allResultsCount: number
+  }
 
   private activitiesQueryParam: ActivitiesQueryParams
-  private static readonly queryLimit: number = 11
+  private static readonly queryLimit: number = 10
   private static readonly timeoutDelay: number = 400
+  private static readonly promiseLoaderDelay = 500
 
   /* @ngInject */
-  constructor(filtersData: GetActivityFilters,
-              private topAlertService: TopAlertService,
-              private $filter: ng.IFilterService,
-              private dashboardActivitiesService: DashboardActivitiesService,
-              $timeout: ng.ITimeoutService,
-              private $state: ng.ui.IStateService)  {
+  constructor(private dashboardActivitiesService: DashboardActivitiesService,
+              private promiseService: PromiseService,
+              private $state: ng.ui.IStateService,
+              private errorHandler: ErrorHandlerService,
+              filtersData: GetActivityFilters,
+              $timeout: ng.ITimeoutService) {
 
     this.activitiesQueryParam = new ActivitiesQueryParams
     this.setBasicQueryParam(this.activitiesQueryParam)
@@ -48,6 +57,11 @@ export class DashboardClientActivitiesController {
         this.isSearchLoading = false
         this.isError = false
       }, DashboardClientActivitiesController.timeoutDelay)
+      this.translationCounter = {
+        currentResultsCount: this.activities.length,
+        allResultsCount: getActivities.count
+      }
+      this.isMoreResults = !(getActivities.count === this.activities.length)
     })
     this.filters = filtersData
   }
@@ -62,8 +76,19 @@ export class DashboardClientActivitiesController {
   }
 
   public loadMoreActivities = (): void => {
-    this.dashboardActivitiesService.getDashboardActivities(this.activitiesQueryParam).then((getActivities) => {
-      this.activities.concat(getActivities.activities)
+    this.isActivitiesLoading = true
+    this.activitiesQueryParam.setOffset(this.activities.length)
+
+    this.promiseService.setMinimalDelay(
+      this.dashboardActivitiesService.getDashboardActivities(this.activitiesQueryParam),
+      DashboardClientActivitiesController.promiseLoaderDelay).then((getActivities) => {
+      this.activities = this.activities.concat(getActivities.activities)
+      this.isMoreResults = getActivities.count > DashboardClientActivitiesController.queryLimit
+      this.translationCounter.currentResultsCount = this.activities.length
+    }).catch((error) => {
+      this.errorHandler.handleServerError(error, 'Can not load more activities')
+    }).finally(()=>{
+      this.isActivitiesLoading = false
     })
   }
 
@@ -85,11 +110,7 @@ export class DashboardClientActivitiesController {
     .catch((error) => {
       this.isSearchLoading = false
       this.isError = true
-      this.topAlertService.error({
-        message: this.$filter('translate')('INTERFACE.API_ERROR'),
-        timeout: 4
-      })
-      throw new Error('Can not get Client Activity List ' + error)
+      this.errorHandler.handleServerError(error, 'Can not load activities')
     })
 
   private setBasicQueryParam = (activitiesQueryParams: ActivitiesQueryParams): void => {
@@ -107,7 +128,9 @@ angular.module('profitelo.controller.dashboard.client.activities', [
   'profitelo.components.dashboard.client.activities.client-activity',
   'profitelo.components.interface.preloader-container',
   'profitelo.components.complaints.status',
-  noResultsInformationModule
+  noResultsInformationModule,
+  promiseModule,
+  errorHandlerModule
 ])
 .config(function ($stateProvider: ng.ui.IStateProvider): void {
   $stateProvider.state('app.dashboard.client.activities', {

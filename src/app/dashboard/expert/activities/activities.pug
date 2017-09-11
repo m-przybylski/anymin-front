@@ -7,8 +7,16 @@
     dashboard-filters(data-filters="vm.filters" data-on-set-search-params="vm.onSetFiltersParams"
     data-account-type="vm.accountType")
     expert-activity(data-ng-repeat="activity in vm.activities" data-activity="activity")
-    .container(data-ng-show="!vm.isMoreResults")
-      .load-more-results-container(data-ng-if="vm.isMoreResults")
+
+    .container
+      .load-more-results-container
         span(data-translate="{{ 'DASHBOARD.EXPERT.ACTIVITIES.RESULTS_COUNTER' | translate: vm.translationCounter }}")
-        a.btn.btn-link(data-translate="DASHBOARD.EXPERT.ACTIVITIES.SHOW_MORE_RESULTS"
-        data-ng-click="vm.loadMoreActivities()")
+
+        .load-more-btn-handler
+          span.btn.btn-preloader.animation(data-ng-if="vm.isActivitiesLoading")
+          a.btn.btn-link(
+          data-ng-class="{'is-disabled-link': vm.isActivitiesLoading}"
+          data-ng-if="vm.isMoreResults"
+          data-translate="DASHBOARD.EXPERT.ACTIVITIES.SHOW_MORE_RESULTS"
+          data-ng-click="vm.loadMoreActivities()"
+          )
