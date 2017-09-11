@@ -67,21 +67,6 @@ describe('Unit testing: profitelo.components.interface.input-password', () => {
       expect(true).toBeTruthy()
     }))
 
-    it('should call blockInvalidPhonenumberDigits on component init', () => {
-      component.type = 'tel'
-      spyOn(component, 'blockInvalidPhonenumberDigits')
-      component.$onInit()
-      expect(component.blockInvalidPhonenumberDigits).toHaveBeenCalled()
-    })
-
-    it('should not call blockInvalidPhonenumberDigits', () => {
-      const component = componentController<InputPasswordComponentController, {}>('inputPassword', injectors, bindings)
-      component.type = ''
-      spyOn(component, 'blockInvalidPhonenumberDigits')
-      component.$onInit()
-      expect(component.blockInvalidPhonenumberDigits).not.toHaveBeenCalled()
-    })
-
     it('should onFocus', () => {
       component.onFocus()
       expect(component.isFocus).toBe(true)
