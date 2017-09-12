@@ -18,7 +18,7 @@ data-ng-hide="$ctrl.isClosed")
             data-is-visible="$ctrl.isOneMinuteLeftWarning")
     .communicator-content
       .current-profile
-        .communicator-equalizer(data-ng-class="{'is-active': !$ctrl.isConnecting}")
+        .communicator-equalizer(data-ng-class="{'is-active': !$ctrl.isConnecting, 'is-offline': $ctrl.isOffline}")
           span.circle
           span.circle
           span.circle
@@ -28,6 +28,7 @@ data-ng-hide="$ctrl.isClosed")
             user-avatar.thumb.x192(data-image-token="$ctrl.expertAvatar")
 
       p.call.connecting-with(data-translate="COMMUNICATOR.CONNECTING_WITH" data-ng-show="$ctrl.isConnecting")
+      p.call.connecting-with(data-translate="COMMUNICATOR.RECONNECTING" data-ng-show="$ctrl.isOffline")
 
     .video-player-local(data-ng-show="$ctrl.isLocalVideo")
       video(autoplay="true" muted="true")
