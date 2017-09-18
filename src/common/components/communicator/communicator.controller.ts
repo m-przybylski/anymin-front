@@ -5,6 +5,7 @@ import {CurrentClientCall} from './models/current-client-call';
 import {CurrentExpertCall} from './models/current-expert-call';
 import {CurrentCall} from './models/current-call';
 import {MessageRoom} from './models/message-room';
+import {TopAlertService} from '../../services/top-alert/top-alert.service'
 
 export class CommunicatorComponentController implements ng.IController {
 
@@ -19,6 +20,7 @@ export class CommunicatorComponentController implements ng.IController {
   public expert?: GetProfile
   public expertAvatar?: string
 
+  public isOffline: boolean = false
   public isRemoteVideo: boolean = false
   public isLocalVideo: boolean = false
   public isMessenger: boolean = false
@@ -35,6 +37,7 @@ export class CommunicatorComponentController implements ng.IController {
   constructor(private $element: ng.IRootElementService,
               private $timeout: ng.ITimeoutService,
               private $window: ng.IWindowService,
+              private topAlertService: TopAlertService,
               clientCallService: ClientCallService,
               expertCallService: ExpertCallService) {
 
@@ -53,6 +56,27 @@ export class CommunicatorComponentController implements ng.IController {
       communicatorElement.on('dragover', (e) => e.preventDefault())
       communicatorElement.on('drop', (e) => e.preventDefault())
     }
+
+    this.$window.addEventListener('online', this.onOnline)
+    this.$window.addEventListener('offline', this.onOffline)
+  }
+
+  private onOnline = (): void => {
+    this.isOffline = false
+    if (this.currentCall) this.currentCall.resumeTimer()
+    this.topAlertService.success({
+      message: 'COMMUNICATOR.NETWORK_RECONNECTED',
+      timeout: 2
+    })
+  }
+
+  private onOffline = (): void => {
+    this.isOffline = true
+    if (this.currentCall) this.currentCall.pauseTimer()
+    this.topAlertService.error({
+      message: 'COMMUNICATOR.NETWORK_INTERRUPT',
+      timeout: 5
+    })
   }
 
   private registerClientCall = (call: CurrentClientCall): void => {
@@ -122,6 +146,8 @@ export class CommunicatorComponentController implements ng.IController {
 
   private onCallEnd = (): void => {
     this.isDisconnectedAnimation = true
+    this.$window.removeEventListener('online', this.onOnline)
+    this.$window.removeEventListener('offline', this.onOffline)
     this.$timeout(() => {
       this.isClosed = true
       this.cleanupComponent()

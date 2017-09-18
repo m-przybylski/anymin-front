@@ -76,7 +76,7 @@ export class DashboardExpertActivitiesController {
       this.translationCounter.currentResultsCount = this.activities.length
     }).catch((error) => {
       this.errorHandler.handleServerError(error, 'Can not load more activities')
-    }).finally(()=>{
+    }).finally(() => {
       this.isActivitiesLoading = false
     })
   }

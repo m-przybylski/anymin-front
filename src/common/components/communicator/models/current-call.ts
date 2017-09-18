@@ -60,8 +60,7 @@ export class CurrentCall {
               private timerFactory: TimerFactory,
               private service: GetService,
               private sue: ServiceUsageEvent,
-              private RatelApi: RatelApi
-              ) {
+              private RatelApi: RatelApi) {
     this.callbacks = callbacksFactory.getInstance(Object.keys(CurrentCall.events))
     this.registerCallbacks();
     this.createTimer(service.price, this.serviceFreeMinutesCount)
@@ -153,6 +152,14 @@ export class CurrentCall {
     if (this.timer) this.timer.stop()
   }
 
+  public pauseTimer = (): void => {
+    if (this.timer) this.timer.pause()
+  }
+
+  public resumeTimer = (): void => {
+    if (this.timer) this.timer.resume()
+  }
+
   private updateLocalStream = (mediaStream: MediaStream): void => {
     if (this.localStream) {
       this.ratelCall.removeStream(this.localStream);
@@ -198,6 +205,13 @@ export class CurrentCall {
         this.isRemoteVideo = true;
         this.callbacks.notify(CurrentCall.events.onVideoStart, null);
       }
+    })
+
+    this.ratelCall.onOffline(() => {
+      this.pauseTimer()
+    })
+    this.ratelCall.onOnline(() => {
+      this.resumeTimer()
     })
   }
 
