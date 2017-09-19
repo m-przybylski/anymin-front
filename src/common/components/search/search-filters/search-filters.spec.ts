@@ -1,6 +1,7 @@
 import * as angular from 'angular'
-import {SearchFiltersComponentController, ISearchFiltersComponentBindings} from './search-filters'
+import {ISearchFiltersComponentBindings} from './search-filters'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
+import {SearchFiltersComponentController} from './search-filters.controller'
 
 describe('Unit testing: profitelo.components.search.searchFilters', () => {
   return describe('for Search Filters component >', () => {

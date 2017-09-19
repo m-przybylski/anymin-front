@@ -5,11 +5,11 @@ import urlModule from '../../../services/url/url'
 import './single-consultation.sass'
 import {UserService} from '../../../services/user/user.service'
 import {ClientCallService} from '../../communicator/call-services/client-call.service';
-import {GetServiceDetails} from 'profitelo-api-ng/model/models';
+import {GetSearchRequestResult} from 'profitelo-api-ng/model/models';
 
 export interface ISingleConsultationScope extends ng.IScope {
   isLinkActive: boolean
-  consultation: GetServiceDetails
+  consultation: GetSearchRequestResult
 }
 
 /* @ngInject */
@@ -17,7 +17,6 @@ function singleConsultationController($state: ng.ui.IStateService, clientCallSer
                                       userService: UserService): void {
 
   this.isLinkActive = false
-
   const percentage: number  = 100
   const usageCounter: number = 500
 

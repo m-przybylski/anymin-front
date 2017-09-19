@@ -1,7 +1,7 @@
 import * as angular from 'angular'
 import {SearchService} from './search.service'
 import {
-  GetSearchRequestResult, GetSuggestedQueries
+  GetSearchRequestResult, GetSuggestedQueries, GetSuggestedTags
 } from 'profitelo-api-ng/model/models'
 import {SearchApiMock} from 'profitelo-api-ng/api/api'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
@@ -68,7 +68,7 @@ describe('Unit testing: profitelo.services.search >', () => {
     })
 
     it('should call querySuggestionsTags', () => {
-      SearchApiMock.postTagsSuggestionsRoute(200, <GetSuggestedQueries>{})
+      SearchApiMock.postTagsSuggestionsRoute(200, <GetSuggestedTags>{})
       const querySuggestedTags = searchService.querySuggestedTags('aaa', ['aaa'])
       httpBackend.flush()
       expect(querySuggestedTags).toEqual(q.resolve({}))

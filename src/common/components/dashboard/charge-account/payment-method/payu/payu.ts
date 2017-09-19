@@ -54,11 +54,10 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
   // FIXME on new checkbox component
   $scope.$watch(() => this.showInvoiceForm, (newValue: boolean) => {
     if (newValue && !this.isGetCompanyInfo) {
-      AccountApi.getCompanyInfoRoute().then((response) => {
+      AccountApi.getInvoiceDetailsRoute().then((response) => {
         this.vatNumber = response.vatNumber
         this.companyName = response.companyName
         this.street = response.address.street
-
         this.apartmentNumber = response.address.number
         this.postalCode = response.address.zipCode
         this.city = response.address.city
@@ -97,11 +96,12 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
       isPending = true
 
       if (this.showInvoiceForm) {
-        AccountApi.postCompanyInfoRoute({
+        AccountApi.postInvoiceDetailsRoute({
           vatNumber: this.vatNumber,
           companyName: this.companyName,
           // TODO On GUS API Implement
           vat: 23,
+          email: this.emailModel,
           address: {
             number: this.apartmentNumber,
             city: this.city,
@@ -117,11 +117,12 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
         })
       } else {
         // FIXME after company info optional fields fix
-        AccountApi.postCompanyInfoRoute({
+        AccountApi.postInvoiceDetailsRoute({
           vatNumber: '',
           companyName: this.firstNameModel + ' ' + this.lastNameModel,
           // TODO On GUS API Implement
           vat: 23,
+          email: this.emailModel,
           address: {
             number: '',
             city: '',

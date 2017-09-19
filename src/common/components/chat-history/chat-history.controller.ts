@@ -2,6 +2,7 @@ import {IChatHistoryBindings} from './chat-history'
 import * as RatelSdk from 'ratel-sdk-js';
 import {CommunicatorService} from '../communicator/communicator.service'
 import {RoomArchivable} from 'ratel-sdk-js'
+import {Paginated} from 'ratel-sdk-js/dist/protocol/protocol'
 
 export class ChatHistoryComponentController implements IChatHistoryBindings {
 
@@ -12,10 +13,12 @@ export class ChatHistoryComponentController implements IChatHistoryBindings {
   public isError: boolean = false
   private session?: RatelSdk.Session
   private static readonly typeMessage: string = 'message'
+  private static readonly chatHistoryLimit: number = 200
 
   /* @ngInject */
   constructor(private communicatorService: CommunicatorService,
-              private $log: ng.ILogService) {}
+              private $log: ng.ILogService) {
+  }
 
   $onInit(): void {
     this.session = this.communicatorService.getClientSession()
@@ -26,7 +29,8 @@ export class ChatHistoryComponentController implements IChatHistoryBindings {
     this.isLoading = true
     if (this.session && this.roomId) {
       this.session.chat.getRoom(this.roomId)
-        .then((room) => room.getHistory().then(this.onRoomHistory, this.onReject))
+      .then((room) => room.getMessages(0, ChatHistoryComponentController.chatHistoryLimit)
+      .then(this.onRoomHistory, this.onReject))
     } else {
       this.onReject('Session or roomId not found')
     }
@@ -38,8 +42,8 @@ export class ChatHistoryComponentController implements IChatHistoryBindings {
     this.$log.error(err)
   }
 
-  private onRoomHistory = (roomHistory: RoomArchivable[]): void => {
-    this.chatMessages = roomHistory.filter(history => history.type === ChatHistoryComponentController.typeMessage)
+  private onRoomHistory = (roomHistory: Paginated<RoomArchivable>): void => {
+    this.chatMessages = roomHistory.items.filter(history => history.type === ChatHistoryComponentController.typeMessage)
     this.isChatHistory = this.chatMessages.length > 0
     this.isLoading = false
     this.isError = false

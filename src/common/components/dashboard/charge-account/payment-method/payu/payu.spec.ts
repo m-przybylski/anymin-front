@@ -6,7 +6,7 @@ import {PaymentsApiMock, AccountApiMock, AccountApi, PaymentsApi} from 'profitel
 import userModule from '../../../../../services/user/user'
 import {TopAlertService} from '../../../../../services/top-alert/top-alert.service'
 import {IWindowService} from '../../../../../services/window/window.service'
-import {CompanyInfo} from 'profitelo-api-ng/model/models'
+import {GetInvoiceDetails} from 'profitelo-api-ng/model/models'
 
 describe('Unit testing:profitelo.components.dashboard.charge-account.payment-method.payu', () => {
   return describe('for payuPaymentFormController component >', () => {
@@ -109,7 +109,7 @@ describe('Unit testing:profitelo.components.dashboard.charge-account.payment-met
       component.lastNameModel = 'dumbLastName'
       component.emailModel = 'dumb@email.com'
       component.rulesAccepted = true
-      AccountApiMock.postCompanyInfoRoute(200, <CompanyInfo>{
+      AccountApiMock.postInvoiceDetailsRoute(200, <GetInvoiceDetails>{
 
       })
       spyOn(state, 'go')

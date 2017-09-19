@@ -1,15 +1,15 @@
 import {IConsultationListItemComponentBindings} from './consultation-list-item'
-import { GetServiceWithEmployments, Tag } from 'profitelo-api-ng/model/models'
+import {GetServiceWithInvitations, Tag } from 'profitelo-api-ng/model/models'
 import {MoneyDto} from 'profitelo-api-ng/model/models'
 
 export interface IConsultationListItemComponentScope extends ng.IScope {
-  service: GetServiceWithEmployments
+  service: GetServiceWithInvitations
 }
 
 export class ConsultationListItemComponentController implements IConsultationListItemComponentBindings {
 
-  public service: GetServiceWithEmployments
-  public onChange: (service: GetServiceWithEmployments, isChecked: boolean) => void
+  public service: GetServiceWithInvitations
+  public onChange: (service: GetServiceWithInvitations, isChecked: boolean) => void
   public title: string
   public price: MoneyDto
   public tags: Tag[]

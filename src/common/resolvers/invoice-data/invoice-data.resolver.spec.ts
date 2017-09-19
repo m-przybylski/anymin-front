@@ -1,7 +1,7 @@
 import * as angular from 'angular'
 import {AccountApiMock, AccountApi} from 'profitelo-api-ng/api/api'
 import {InvoiceDataResolver} from './invoice-data.resolver'
-import {CompanyInfo} from 'profitelo-api-ng/model/models'
+import {GetInvoiceDetails} from 'profitelo-api-ng/model/models'
 
 describe('Unit testing: profitelo.resolvers.invoice-data', () => {
   describe('for InvoiceDataResolver service >', () => {
@@ -35,8 +35,8 @@ describe('Unit testing: profitelo.resolvers.invoice-data', () => {
     })
 
     it('should resolve company info', () => {
-      const response =  <CompanyInfo>{}
-      AccountApiMock.getCompanyInfoRoute(200, response)
+      const response =  <GetInvoiceDetails>{}
+      AccountApiMock.getInvoiceDetailsRoute(200, response)
       invoiceDataResolver.resolveCompanyInfo().then(response => {
         expect(response).toEqual(response)
       })
@@ -45,14 +45,14 @@ describe('Unit testing: profitelo.resolvers.invoice-data', () => {
 
     it('should log error', () => {
       spyOn(log, 'error')
-      AccountApiMock.getCompanyInfoRoute(500)
+      AccountApiMock.getInvoiceDetailsRoute(500)
       invoiceDataResolver.resolveCompanyInfo()
       $httpBackend.flush()
       expect(log.error).toHaveBeenCalled()
     })
 
     it('should return empty object on 404', () => {
-      AccountApiMock.getCompanyInfoRoute(404)
+      AccountApiMock.getInvoiceDetailsRoute(404)
       invoiceDataResolver.resolveCompanyInfo().catch(response => {
         expect(response).toEqual({})
       })

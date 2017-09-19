@@ -32,6 +32,7 @@ describe('Unit testing:profitelo.components.search.single-consultation', () => {
         usageCounter: 123,
         usageDurationInSeconds: 123,
         isSuspended: false,
+        languages: [],
         createdAt: 123
       },
       ownerProfile: {
@@ -45,6 +46,11 @@ describe('Unit testing:profitelo.components.search.single-consultation', () => {
           files: ['file'],
           links: ['link']
         }
+      },
+      expertProfile: {
+        id: 'asdasd',
+        name: 'asdasd',
+        avatar: 'asdasdasd'
       },
       employees: [{
         id: 'id',

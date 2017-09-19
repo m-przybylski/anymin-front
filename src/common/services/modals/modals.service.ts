@@ -5,7 +5,7 @@ import IUnavailableServiceControllerParentScope =
 import INoCreditsControllerParentScope =
   profitelo.components.communicator.modals.noCredits.INoCreditsControllerParentScope
 import {
-  GetService, GetActivity, GetProfileWithServicesEmployments, MoneyDto, GetCreditCard, GetPaymentOptions,
+  GetService, GetActivity, GetInvitation, MoneyDto, GetCreditCard, GetPaymentOptions,
   PaymentLink, GetProfile
 } from 'profitelo-api-ng/model/models'
 import {DialogService} from '../dialog/dialog.service'
@@ -460,11 +460,11 @@ export class ModalsService {
     })
   }
 
-  public createInvitationsModal = (profileWithServiceEmployments?: GetProfileWithServicesEmployments):
+  public createInvitationsModal = (invitation?: GetInvitation):
     IModalInstanceService => {
     const dialogScope: IInvitationsModalScope =
       <IInvitationsModalScope>this.$rootScope.$new(true)
-    dialogScope.profileWithServiceEmployments = profileWithServiceEmployments
+    dialogScope.invitation = invitation
     return this.dialogService.openDialog({
       controllerAs: 'vm',
       controller: InvitationsModalController,

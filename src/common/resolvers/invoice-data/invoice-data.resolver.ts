@@ -1,22 +1,22 @@
 import * as angular from 'angular'
 import ILogService = angular.ILogService
-import {CompanyInfo} from 'profitelo-api-ng/model/models'
+import {GetInvoiceDetails} from 'profitelo-api-ng/model/models'
 import {AccountApi} from 'profitelo-api-ng/api/api'
 import apiModule from 'profitelo-api-ng/api.module'
 import {httpCodes} from '../../classes/http-codes'
 
 export interface IInvoiceDataResolver {
-  resolveCompanyInfo: () => ng.IPromise<CompanyInfo>
+  resolveCompanyInfo: () => ng.IPromise<GetInvoiceDetails>
 }
 
 export class InvoiceDataResolver implements IInvoiceDataResolver {
   constructor(private AccountApi: AccountApi, private $log: ILogService) {
   }
 
-  public resolveCompanyInfo = (): ng.IPromise<CompanyInfo> =>
-    this.AccountApi.getCompanyInfoRoute().then(this.onGetCompanyInfoRoute, this.onGetCompanyInfoRouteError)
+  public resolveCompanyInfo = (): ng.IPromise<GetInvoiceDetails> =>
+    this.AccountApi.getInvoiceDetailsRoute().then(this.onGetCompanyInfoRoute, this.onGetCompanyInfoRouteError)
 
-  private onGetCompanyInfoRoute = (companyInfo: CompanyInfo): CompanyInfo => companyInfo
+  private onGetCompanyInfoRoute = (invoiceDetails: GetInvoiceDetails): GetInvoiceDetails => invoiceDetails
 
   private onGetCompanyInfoRouteError = (error: any): void => {
     if (error.status !== httpCodes.notFound) {

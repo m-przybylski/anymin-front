@@ -1,12 +1,12 @@
-import {CompanyInfo} from 'profitelo-api-ng/model/models'
+import {GetInvoiceDetails} from 'profitelo-api-ng/model/models'
 
 export class DashboardClientInvoicesController {
-  public invoiceInfo: CompanyInfo
+  public invoiceInfo: GetInvoiceDetails
   public isAnyPaymentMethod = false
   public areInvoices: boolean
 
   /* @ngInject */
-  constructor(getInvoiceData: CompanyInfo) {
+  constructor(getInvoiceData: GetInvoiceDetails) {
 
     if (getInvoiceData) {
       this.invoiceInfo = getInvoiceData
