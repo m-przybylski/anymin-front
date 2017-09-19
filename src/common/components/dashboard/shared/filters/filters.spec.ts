@@ -130,5 +130,44 @@ describe('Unit testing: profitelo.components.dashboard.activities.filters', () =
       expect(component.setupServicesList).toHaveBeenCalled()
     }))
 
+    it('should create dropdown services list', () => {
+      component.filters.services = [{
+        id: 'id',
+        expertId: 'expertId',
+        name: 'name'
+      }]
+      component.setupServicesList()
+      expect(component.servicesDropdownList.length).toBe(1)
+      expect(component.secondaryServicesDropdownList.length).toBe(0)
+    })
+
+    it('should group services', () => {
+      const item = {
+        name: 'name',
+        value: 'someId'
+      }
+      component.filters.services = [{
+        id: 'id',
+        expertId: 'someId',
+        name: 'name'
+      }]
+      component.updateProfileParam(item)
+      expect(component.servicesDropdownList.length).toBe(1)
+    })
+
+    it('should not group services', () => {
+      const item = {
+        name: 'name',
+        value: 'someId'
+      }
+      component.filters.services = [{
+        id: 'id',
+        expertId: 'expertId',
+        name: 'name'
+      }]
+      component.updateProfileParam(item)
+      expect(component.secondaryServicesDropdownList.length).toBe(1)
+    })
+
   })
 })
