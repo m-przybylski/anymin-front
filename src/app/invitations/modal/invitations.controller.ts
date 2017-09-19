@@ -1,10 +1,9 @@
 import {
-  GetProfileWithServicesEmployments,
-  GetServiceWithEmployments, GetEmployment
+  GetInvitation, GetService
 } from 'profitelo-api-ng/model/models'
-import {EmploymentApi} from 'profitelo-api-ng/api/api'
+import {InvitationApi, ProfileApi} from 'profitelo-api-ng/api/api'
 export interface IInvitationsModalScope extends ng.IScope {
-  profileWithServiceEmployments?: GetProfileWithServicesEmployments
+  invitation?: GetInvitation
 }
 import * as _ from 'lodash'
 
@@ -16,32 +15,34 @@ export class InvitationsModalController implements ng.IController {
   public companyName?: string
   public logo?: string
   public description?: string
-  public services: GetServiceWithEmployments[] = []
+  public services: GetService[] = []
+
+  private invitationId: string
 
   public onModalClose = (): void => {
     this.$uibModalInstance.dismiss('cancel')
     this.$state.go('app.home')
 
   }
-  private acceptedServices: GetServiceWithEmployments[] = []
+  private acceptedServices: GetService[] = []
 
   /* @ngInject */
   constructor(private $state: ng.ui.IStateService, private $uibModalInstance: ng.ui.bootstrap.IModalInstanceService,
-              private EmploymentApi: EmploymentApi, $scope: IInvitationsModalScope) {
-    if ($scope.profileWithServiceEmployments && $scope.profileWithServiceEmployments.organizationDetails) {
-      $scope.profileWithServiceEmployments.services.forEach((service) => {
-        if (service.employments[0].status === GetEmployment.StatusEnum.NEW) {
-          this.services.push(service)
+              private InvitationApi: InvitationApi, $scope: IInvitationsModalScope, ProfileApi: ProfileApi) {
+    if ($scope.invitation) {
+      this.invitationId = $scope.invitation.id
+      ProfileApi.getProfileRoute($scope.invitation.companyId).then((response) => {
+        if (response.organizationDetails) {
+          this.companyName = response.organizationDetails.name
+          this.logo = response.organizationDetails.logo
+          this.description = response.organizationDetails.description
         }
       })
-      this.companyName = $scope.profileWithServiceEmployments.organizationDetails.name
-      this.logo = $scope.profileWithServiceEmployments.organizationDetails.logo
-      this.description = $scope.profileWithServiceEmployments.organizationDetails.description
+      this.areInvitations = true
     }
-    this.areInvitations = !!($scope.profileWithServiceEmployments && this.services.length > 0)
   }
 
-  public onSelectConsultation = (service: GetServiceWithEmployments, isUnchecked: boolean): void => {
+  public onSelectConsultation = (service: GetService, isUnchecked: boolean): void => {
     if (!isUnchecked) {
       this.acceptedServices.push(service)
     } else {
@@ -52,16 +53,16 @@ export class InvitationsModalController implements ng.IController {
   public acceptInvitations = (): void => {
     this.services.forEach((service) => {
       if (_.some(this.acceptedServices, service)) {
-        this.EmploymentApi.postEmploymentsAcceptRoute(service.employments[0].id)
+        this.InvitationApi.postInvitationAcceptRoute(this.invitationId)
         .then((_response) => (this.onEmploymentUpdateDone(service)))
       } else {
-        this.EmploymentApi.postEmploymentsRejectRoute(service.employments[0].id)
+        this.InvitationApi.postInvitationRejectRoute(this.invitationId)
         .then((_response) => (this.onEmploymentUpdateDone(service)))
       }
     })
   }
 
-  private onEmploymentUpdateDone = (service: GetServiceWithEmployments): void => {
+  private onEmploymentUpdateDone = (service: GetService): void => {
     if (_.last(this.services) === service) {
       this.onModalClose()
     }

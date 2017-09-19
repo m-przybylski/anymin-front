@@ -1,6 +1,7 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {ChooseAmountChargeComponentController, IChooseAmountChargeComponentBindings} from './choose-amount-charge'
+import {IChooseAmountChargeComponentBindings} from './choose-amount-charge'
+import {ChooseAmountChargeComponentController} from './choose-amount-charge.controller'
 describe('Unit testing: profitelo.components.dashboard.charge-account.choose-amount-charge', () => {
   return describe('for chooseAmountCharge component >', () => {
 

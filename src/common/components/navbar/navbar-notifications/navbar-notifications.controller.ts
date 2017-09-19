@@ -1,7 +1,7 @@
 import {INavbarNotificationsComponentBindings} from './navbar-notifications'
 import {ModalsService} from '../../../services/modals/modals.service'
 import {ProfileApi} from 'profitelo-api-ng/api/api'
-import {GetProfileWithServicesEmployments} from 'profitelo-api-ng/model/models'
+import {GetProfileWithServicesInvitations} from 'profitelo-api-ng/model/models'
 import * as angular from 'angular'
 
 export class NavbarNotificationsComponentController implements INavbarNotificationsComponentBindings {
@@ -13,7 +13,7 @@ export class NavbarNotificationsComponentController implements INavbarNotificati
   isLoading: boolean = true
   onClick: () => void
   buttonCallback: () => void
-  invitations: GetProfileWithServicesEmployments[] = []
+  invitations: GetProfileWithServicesInvitations[] = []
   /* @ngInject */
 
   constructor(private modalsService: ModalsService, private ProfileApi: ProfileApi, private $state: ng.ui.IStateService,
@@ -61,7 +61,7 @@ export class NavbarNotificationsComponentController implements INavbarNotificati
     this.$element.find(event.currentTarget)[0].classList.add('is-read')
   }
 
-  public onInvitationClick = (invitation: GetProfileWithServicesEmployments, event: Event): void => {
+  public onInvitationClick = (invitation: GetProfileWithServicesInvitations, event: Event): void => {
     this.$state.go('app.invitations', {companyId: invitation.id})
     this.markAsRead(event)
   }

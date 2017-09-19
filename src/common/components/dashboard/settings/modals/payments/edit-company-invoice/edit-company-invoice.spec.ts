@@ -2,7 +2,7 @@ import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {AccountApiMock} from 'profitelo-api-ng/api/api'
 import {EditCompanyInvoiceController, IEditCompanyInvoiceControllerScope} from './edit-company-invoice'
-import {CompanyInfo} from 'profitelo-api-ng/model/models'
+import {GetInvoiceDetails} from 'profitelo-api-ng/model/models'
 
 describe('Testing Controller: EditCompanyInvoiceController', () => {
 
@@ -35,7 +35,7 @@ describe('Testing Controller: EditCompanyInvoiceController', () => {
         $uibModalInstance: $uibModalInstance
       }
 
-      AccountApiMock.getCompanyInfoRoute(200, <CompanyInfo>{
+      AccountApiMock.getInvoiceDetailsRoute(200, <GetInvoiceDetails>{
         address: {
           street: 'Grow Street',
           number: '13',
@@ -54,7 +54,7 @@ describe('Testing Controller: EditCompanyInvoiceController', () => {
   })
 
   it('should throw error on component initialize', () => {
-    AccountApiMock.getCompanyInfoRoute(404, <CompanyInfo>{})
+    AccountApiMock.getInvoiceDetailsRoute(404, <GetInvoiceDetails>{})
     expect(() => {
       controller = controllerService<EditCompanyInvoiceController>('editCompanyInvoiceController', {})
       httpBackend.flush()
@@ -64,14 +64,14 @@ describe('Testing Controller: EditCompanyInvoiceController', () => {
 
   it('should edit invoice', () => {
     spyOn(scope, 'callback')
-    AccountApiMock.postCompanyInfoRoute(200, <CompanyInfo>{})
+    AccountApiMock.postInvoiceDetailsRoute(200, <GetInvoiceDetails>{})
     controller.editInvoice()
     httpBackend.flush()
     expect(scope.callback).toHaveBeenCalled()
   })
 
   it('should throw error - edit invoice', () => {
-    AccountApiMock.postCompanyInfoRoute(404, <CompanyInfo>{})
+    AccountApiMock.postInvoiceDetailsRoute(404, <GetInvoiceDetails>{})
     expect(() => {
       controller.editInvoice()
       scope.$digest()

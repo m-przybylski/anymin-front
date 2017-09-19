@@ -3,9 +3,11 @@ import {CallbacksFactory} from '../../../services/callbacks/callbacks.factory';
 import {CallbacksService} from '../../../services/callbacks/callbacks.service';
 import {SoundsService} from '../../../services/sounds/sounds.service';
 import {RoomArchivable} from 'ratel-sdk-js'
+import {Paginated} from 'ratel-sdk-js/dist/protocol/protocol'
 
 export class MessageRoom {
 
+  private static readonly chatHistoryLimit: number = 200
   private room?: RatelSdk.BusinessRoom
 
   private callbacks: CallbacksService
@@ -21,9 +23,9 @@ export class MessageRoom {
     this.callbacks = callbacksFactory.getInstance(Object.keys(MessageRoom.events))
   }
 
-  public getHistory = (): Promise<RoomArchivable[]> => {
+  public getHistory = (): Promise<Paginated<RoomArchivable>> => {
     if (this.room) {
-      return this.room.getHistory()
+      return this.room.getMessages(0, MessageRoom.chatHistoryLimit)
     } else {
       return Promise.reject('No room')
     }
@@ -55,7 +57,7 @@ export class MessageRoom {
 
   public sendMessage = (msg: string, context?: RatelSdk.protocol.Context): Promise<RatelSdk.Message> => {
     if (this.room) {
-      return this.room.send(msg, context)
+      return this.room.send(msg, undefined, context)
     } else {
       return Promise.reject('No room')
     }

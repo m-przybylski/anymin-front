@@ -1,7 +1,8 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {IWindowService} from '../../../services/window/window.service'
-import {DropdownPrimaryComponentController, IDropdownPrimaryComponentBindings} from './dropdown-primary'
+import {IDropdownPrimaryComponentBindings} from './dropdown-primary'
+import {DropdownPrimaryComponentController} from './dropdown-primary.controller'
 describe('Unit testing: profitelo.components.interface.dropdown-primary', () => {
   return describe('for dropdownPrimary component >', () => {
 

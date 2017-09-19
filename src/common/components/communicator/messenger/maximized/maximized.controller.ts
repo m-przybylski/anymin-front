@@ -144,7 +144,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
     this.$timeout(this.scrollMessagesBottom)
   }
 
-  private addMessage = (msg: any): void => {
+  private addMessage = (msg: Message): void => {
     this.addGroupedMessage(msg)
     this.onTypingEnd()
   }

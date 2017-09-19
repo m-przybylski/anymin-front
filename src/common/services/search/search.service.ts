@@ -1,14 +1,14 @@
 import {SearchQueryParams} from './search-query-params'
 import {
   GetSearchRequestResult, PostSuggestTags, PostSearchRequest,
-  GetSuggestedQueries, PostSuggestQueries
+  GetSuggestedQueries, PostSuggestQueries, GetSuggestedTags
 } from 'profitelo-api-ng/model/models'
 import {SearchApi} from 'profitelo-api-ng/api/api'
 import {ErrorHandlerService} from '../error-handler/error-handler.service'
 export class SearchService {
 
   private static readonly suggestedTagsCounter: number = 20
-  private static readonly suggestionsCount: number = 5
+  private static readonly suggestedQueriesCounter: number = 5
 
   /* @ngInject */
   constructor(private SearchApi: SearchApi, private errorHandler: ErrorHandlerService) {
@@ -21,7 +21,7 @@ export class SearchService {
   public querySuggestions = (queryParam: string): ng.IPromise<GetSuggestedQueries> => {
     const params: PostSuggestQueries = {
       query: queryParam,
-      count: SearchService.suggestionsCount
+      count: SearchService.suggestedQueriesCounter
     }
     return this.SearchApi.postQueriesSuggestionsRoute(params)
     .catch(this.errorHandler.handleServerError)
@@ -30,7 +30,7 @@ export class SearchService {
   public querySuggestedTags = (
     query: string,
     tags: string[] = [],
-    count: number = SearchService.suggestedTagsCounter): ng.IPromise<GetSuggestedQueries> => {
+    count: number = SearchService.suggestedTagsCounter): ng.IPromise<GetSuggestedTags> => {
 
       const params: PostSuggestTags = {
       query,

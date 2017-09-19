@@ -5,7 +5,6 @@ import {
   ConsultationListItemComponentController,
   IConsultationListItemComponentScope
 } from './consultation-list-item.controller'
-import {GetEmployment} from 'profitelo-api-ng/model/models'
 
 describe('Unit testing: profitelo.components.dashboard.shared.consultation-list-item', () => {
   return describe('for consultationListItem', () => {
@@ -24,17 +23,11 @@ describe('Unit testing: profitelo.components.dashboard.shared.consultation-list-
         ownerId: 'ownerId',
         name: 'name',
         description: 'asd',
+        invitations: [],
         price: {
           amount: 123,
           currency: 'PLN'
         },
-        employments: [{
-          id: 'id',
-          serviceId: 'serviceId',
-          status: GetEmployment.StatusEnum.NEW,
-          createdAt: new Date(),
-          updatedAt: new Date()
-        }],
         isSuspended: false,
         createdAt: new Date()
       }

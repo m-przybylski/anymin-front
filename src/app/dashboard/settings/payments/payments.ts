@@ -5,7 +5,7 @@ import filtersModule from '../../../../common/filters/filters'
 import 'common/resolvers/invoice-data/invoice-data.resolver'
 import apiModule from 'profitelo-api-ng/api.module'
 import {PaymentsApi, FinancesApi} from 'profitelo-api-ng/api/api'
-import {MoneyDto, CompanyInfo, GetCreditCard, AccountDetails} from 'profitelo-api-ng/model/models'
+import {MoneyDto, GetInvoiceDetails, GetCreditCard, AccountDetails} from 'profitelo-api-ng/model/models'
 import {UserService} from '../../../../common/services/user/user.service'
 import noResultsInformationModule
   from '../../../../common/components/dashboard/no-results-information/no-results-information'
@@ -24,7 +24,7 @@ export class DashboardSettingsPaymentsController implements ng.IController {
   public isCreditCardsLoaded: boolean = false
   private static readonly maxShortAddressLength: number = 10
 
-  constructor(getInvoiceData: CompanyInfo,
+  constructor(getInvoiceData: GetInvoiceDetails,
               FinancesApi: FinancesApi,
               $log: ng.ILogService,
               private PaymentsApi: PaymentsApi,
@@ -113,7 +113,7 @@ const paymentsSettingsModule = angular.module('profitelo.controller.dashboard.se
       controller: 'dashboardSettingsPaymentsController',
       controllerAs: 'vm',
       resolve: {
-        getInvoiceData: (invoiceDataResolver: InvoiceDataResolver): ng.IPromise<CompanyInfo> =>
+        getInvoiceData: (invoiceDataResolver: InvoiceDataResolver): ng.IPromise<GetInvoiceDetails> =>
           invoiceDataResolver.resolveCompanyInfo(),
           user: (userService: UserService): ng.IPromise<AccountDetails> => userService.getUser(true)
       }

@@ -46,6 +46,17 @@
               data-ng-required="true"
               )
 
+              input-primary(
+              data-type="text"
+              data-id="email"
+              data-placeholder="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COMPANY_EMAIL.PLACEHOLDER"
+              data-ng-model="vm.email"
+              data-input-text="DASHBOARD.CHARGE_ACCOUNT.COMPANY_INVOICE.FORM.COMPANY_EMAIL.LABEL"
+              data-is-valid="paymentForm.$submitted && !vm.email || vm.email"
+              data-validation-text="DASHBOARD.SETTINGS.PAYMENTS.INVOICE.COMPANY_EMAIL.VALIDATION"
+              data-ng-required="true"
+              )
+
             .invoice-form-address
               header.entry-title
                 span(data-translate="SETTINGS.PAYMENTS.INVOICE.ADDRESS.TITLE")

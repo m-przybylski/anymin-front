@@ -2,7 +2,7 @@ import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {IInvitationsModalScope, InvitationsModalController} from './invitations.controller'
 import invitationsModalModule from './invitations'
-import {EmploymentApi} from 'profitelo-api-ng/api/api'
+import {InvitationApi, ProfileApi} from 'profitelo-api-ng/api/api'
 import IQService = angular.IQService
 
 describe('Testing Controller: InvitationsModal', () => {
@@ -24,13 +24,14 @@ describe('Testing Controller: InvitationsModal', () => {
 
   beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
     $provide.value('apiUrl', 'awesomeURL')
-    $provide.value('EmploymentApi', EmploymentApi)
+    $provide.value('InvitationApi', InvitationApi)
+    $provide.value('ProfileApi', ProfileApi)
   }))
 
   beforeEach(() => {
     angular.mock.module(invitationsModalModule)
     inject(($rootScope: IRootScopeService, $controller: ng.IControllerService, _$httpBackend_: ng.IHttpBackendService,
-            EmploymentApi: EmploymentApi, _$q_: IQService) => {
+            InvitationApi: InvitationApi, _$q_: IQService, ProfileApi: ProfileApi) => {
 
       scope = <IInvitationsModalScope>$rootScope.$new()
       $q = _$q_
@@ -39,7 +40,8 @@ describe('Testing Controller: InvitationsModal', () => {
         '$uibModalInstance': uibModalInstance,
         'httpBackend': _$httpBackend_,
         '$state' : state,
-        'EmploymentApi': EmploymentApi
+        'InvitationApi': InvitationApi,
+        'ProfileApi': ProfileApi
       })
     })
   })
