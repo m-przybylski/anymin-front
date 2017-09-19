@@ -9,77 +9,11 @@
     .btn
       margin: 0 0 0 24px
 
-  .list-row
-    display: block
+  .organization-row,
+  .expert-row
+    .btn-handler
+      visibility: hidden
 
-    +xsm
-      display: flex
-
-    .profile-preview
-      margin: 0 0 24px
-
-      +xsm
-        margin: 0
-
-    .consulation-title
-      margin: 0 0 24px
-
-      +smm
-        flex: 1
-
-    &.consultation-row
-      display: block
-
-      +smm
-        display: flex
-
-      .consultation-action
-        display: flex
-        justify-content: space-between
-
-        .profile-preview
-          margin: 0
-
-      .consulation-title
-        +smm
-          margin: 0
-          padding: 0 24px 0 0
-
-  .manage-consultation-list
-    span
-      +paragraphSmall
-      color: $c-primary-txt
-
-    .consultation-action
-      +xsm
-        display: flex
-        align-items: center
-
-      span
-        +paragraphSmall
-
-        &.company-link
-          +default-font-bold
-          color: $c-primary
-          display: block
-
-  .btn-handler
-    display: flex
-    justify-content: space-between
-    margin: 0
-
-    +xsm
-      margin: 0 0 0 24px
-
-    +smm
-      margin: 0 0 0 48px
-
-    +mdm
-      margin: 0 0 0 104px
-
-    .btn
-      width: auto
-      margin: 0
-
-      &:last-child
-        margin: 0 0 0 24px
+    &:hover
+      .btn-handler
+        visibility: visible

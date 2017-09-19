@@ -17,5 +17,10 @@ describe('Unit testing: profitelo.services.helpdeskService >', () => {
     it('should have a dummy test', () => {
       expect(true).toBeTruthy()
     })
+
+    it('should throw an error when query is empty', () => {
+      expect(() => {helpdeskService.searchArticles('')}).toThrowError()
+    })
+
   })
 })

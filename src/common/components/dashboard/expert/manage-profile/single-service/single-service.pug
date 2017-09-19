@@ -1,0 +1,17 @@
+.single-service
+  .list-row.service-row
+    .consulation-title
+      span {{ $ctrl.serviceName }}
+
+    .service-action
+      .service-company-profile(data-ng-show="!$ctrl.isExpertOwnerOfService")
+        .profile-preview
+          user-avatar.thumb.x48(data-image-token="$ctrl.serviceOwnerLogo")
+          .service-owner
+            span(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.CONSULTING_AS_EMPLOYEE")
+            span.company-link {{ $ctrl.serviceOwnerName }}
+
+      .btn-handler
+        a.btn.btn-link(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.BUTTON.DELETE")
+        a.btn.btn-link(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.BUTTON.EDIT"
+        data-ng-show="$ctrl.isExpertOwnerOfService")
