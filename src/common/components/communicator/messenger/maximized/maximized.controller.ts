@@ -23,7 +23,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
 
   public participantAvatar = ''
   public isTyping = false
-  public groupedMessages: any[][] = []
+  public groupedMessages: Message[][] = []
   public uploadedFile: {
     progress?: boolean,
     file?: File
@@ -131,8 +131,8 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
       this.groupedMessages.push([message])
     } else {
       const lastMessageGroup = this.groupedMessages[this.groupedMessages.length - 1]
-
-      if (_.head(lastMessageGroup).user === message.user) {
+      const firstElementOfLastMessageGroup = _.head(lastMessageGroup)
+      if (firstElementOfLastMessageGroup && firstElementOfLastMessageGroup.user === message.user) {
         lastMessageGroup.push(message)
       } else {
         this.groupedMessages.push([message])

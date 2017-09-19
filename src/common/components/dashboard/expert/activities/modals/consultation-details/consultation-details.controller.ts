@@ -1,4 +1,3 @@
-import {UrlService} from '../../../../../../services/url/url.service'
 import {ViewsApi, ServiceApi} from 'profitelo-api-ng/api/api'
 import {MoneyDto, Tag, GetCallDetails, GetServiceTags} from 'profitelo-api-ng/model/models'
 
@@ -12,6 +11,7 @@ export interface IExpertConsultationDetailsScope extends ng.IScope {
 }
 
 export class ExpertConsultationDetailsController implements ng.IController {
+  public roomId?: string
   public isLoading: boolean = true
   public recommendedTags: any[] = []
   public serviceTags: any[] = []
@@ -36,7 +36,7 @@ export class ExpertConsultationDetailsController implements ng.IController {
   /* @ngInject */
   constructor(private $log: ng.ILogService, private $scope: IExpertConsultationDetailsScope,
               private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, private ServiceApi: ServiceApi,
-              private urlService: UrlService, ViewsApi: ViewsApi) {
+              ViewsApi: ViewsApi) {
 
     ViewsApi.getClientDashboardCallDetailsRoute($scope.$parent.sueId)
     .then((res) => this.onGetCallDetails(res), this.onGetCallDetailsError)
@@ -92,8 +92,7 @@ export class ExpertConsultationDetailsController implements ng.IController {
   }
 
   private openExpertActivityModal = (serviceTags: Tag[] = []): void => {
-    const expertAvatarFileId = this.callDetails.expertProfile.expertDetails!.avatar
-    this.expertAvatar = expertAvatarFileId ? this.urlService.resolveFileUrl(expertAvatarFileId) : undefined
+    this.expertAvatar = this.callDetails.expertProfile.expertDetails!.avatar
     this.expertName = this.callDetails.expertProfile.expertDetails!.name
     this.sueId = this.$scope.$parent.sueId
     this.recommendedTags = this.callDetails.recommendedTags
@@ -104,6 +103,7 @@ export class ExpertConsultationDetailsController implements ng.IController {
     this.callDuration = this.callDetails.serviceUsageDetails.callDuration
     this.isRecommended = this.callDetails.isRecommended
     this.isRecommendable = this.callDetails.isRecommendable
+    this.roomId = this.callDetails.serviceUsageDetails.ratelRoomId
     this.serviceTags = serviceTags
     this.isLoading = false
   }

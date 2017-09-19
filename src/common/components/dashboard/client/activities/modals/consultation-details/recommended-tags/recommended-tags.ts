@@ -3,6 +3,7 @@ import * as _ from 'lodash'
 import apiModule from 'profitelo-api-ng/api.module'
 import {ServiceApi} from 'profitelo-api-ng/api/api'
 import {Tag} from 'profitelo-api-ng/model/models'
+import './recommended-tags.sass'
 
 /* @ngInject */
 function controller($log: ng.ILogService, ServiceApi: ServiceApi): void {

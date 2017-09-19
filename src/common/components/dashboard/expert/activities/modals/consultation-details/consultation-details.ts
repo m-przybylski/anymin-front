@@ -8,6 +8,7 @@ import tagsListModule from '../../../../../tags-list/tags-list'
 import '../../../../../../components/interface/radio-text/radio-text'
 import './consultation-details.sass'
 import textareaModule from '../../../../../interface/textarea/textarea'
+import chatHistoryModule from '../../../../../chat-history/chat-history'
 
 const expertConsultationDetailsModalModule = angular.module(
   'profitelo.components.dashboard.expert.activities.modals.consultation-details', [
@@ -20,7 +21,8 @@ const expertConsultationDetailsModalModule = angular.module(
   urlModule,
   tagsListModule,
   'profitelo.components.interface.radio-text',
-  textareaModule
+  textareaModule,
+  chatHistoryModule
 ])
 .controller('expertConsultationDetails', ExpertConsultationDetailsController)
 
