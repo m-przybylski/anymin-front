@@ -11,6 +11,7 @@ import {UploaderFactory} from '../../../../services/uploader/uploader.factory'
 import messengerMaximizedModule from './maximized'
 import filtersModule from '../../../../filters/filters'
 import urlModule from '../../../../services/url/url'
+import {UploaderService} from '../../../../services/uploader/uploader.service'
 
 describe('Unit testing: profitelo.components.communicator.messenger.maximized', () => {
   return describe('for messengerMaximized component >', () => {
@@ -27,6 +28,8 @@ describe('Unit testing: profitelo.components.communicator.messenger.maximized', 
       }
     }
 
+    let uploaderService: UploaderService
+    
     const clientCallService: ClientCallService = {
       onNewCall: (_cb: (call: CurrentClientCall) => void): void => {}
     } as ClientCallService
@@ -37,7 +40,7 @@ describe('Unit testing: profitelo.components.communicator.messenger.maximized', 
 
     const uploaderFactory: UploaderFactory = {
       collectionTypes: {avatar: 'avatar'},
-      getInstance: (): void => {}
+      getInstance: (): UploaderService => uploaderService as UploaderService
     } as UploaderFactory
 
     function create(html: string, bindings: IMessengerMaximizedComponentBindings): JQuery {
@@ -65,6 +68,7 @@ describe('Unit testing: profitelo.components.communicator.messenger.maximized', 
 
     beforeEach(angular.mock.module(($provide: ng.auto.IProvideService) => {
       $provide.value('uploaderFactory', uploaderFactory)
+      $provide.value('uploaderService', UploaderService)
     }))
 
     beforeEach(() => {
@@ -72,19 +76,19 @@ describe('Unit testing: profitelo.components.communicator.messenger.maximized', 
       angular.mock.module(filtersModule)
       angular.mock.module(messengerMaximizedModule)
 
-      inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService,
+      inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService, _uploaderService_: UploaderService,
               $componentController: ng.IComponentControllerService, _urlService_: UrlService) => {
 
         rootScope = $rootScope.$new()
         compile = $compile
-
+        uploaderService = _uploaderService_
         const injectors = {
           expertCallService: expertCallService,
           clientCallService: clientCallService,
           $element: create(validHTML, bindings),
+          uploaderFactory: uploaderFactory,
           urlService: _urlService_
         }
-
         component = $componentController<MessengerMaximizedComponentController, IMessengerMaximizedComponentBindings>(
           'messengerMaximized', injectors, bindings)
       })
@@ -98,5 +102,6 @@ describe('Unit testing: profitelo.components.communicator.messenger.maximized', 
       const el = create(validHTML, bindings)
       expect(el.html()).toBeDefined(true)
     })
+
   })
 })

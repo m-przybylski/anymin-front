@@ -3,6 +3,7 @@ import {FinancesApi} from 'profitelo-api-ng/api/api'
 import {MoneyDto} from 'profitelo-api-ng/model/models'
 import {ErrorHandlerService} from '../../../../services/error-handler/error-handler.service'
 import {PromiseService} from '../../../../services/promise/promise.service'
+import {ProfiteloWebsocketService} from '../../../../services/profitelo-websocket/profitelo-websocket.service'
 
 export class ExpertNavigationComponentController implements IExpertNavigationComponentBindings {
 
@@ -13,7 +14,12 @@ export class ExpertNavigationComponentController implements IExpertNavigationCom
   /* @ngInject */
   constructor(FinancesApi: FinancesApi,
               errorHandler: ErrorHandlerService,
-              promiseService: PromiseService) {
+              promiseService: PromiseService,
+              profiteloWebsocket: ProfiteloWebsocketService) {
+
+    profiteloWebsocket.onNewFinancialOperation((data) => {
+      this.clientBalance = data.balanceAfter
+    })
 
     promiseService.setMinimalDelay(FinancesApi.getClientBalanceRoute(),
       ExpertNavigationComponentController.loaderDelay).then((value) => {

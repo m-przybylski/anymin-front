@@ -3,6 +3,7 @@ import * as angular from 'angular'
 import {PaymentsApiMock} from 'profitelo-api-ng/api/api'
 import {GetCreditCard} from 'profitelo-api-ng/model/models'
 import {PromiseService} from '../../../../services/promise/promise.service';
+import {ProfiteloWebsocketService} from '../../../../services/profitelo-websocket/profitelo-websocket.service'
 describe('Unit testing: profitelo.components.dashboard.client.navigation', () => {
   return describe('for clientNavigation >', () => {
 
@@ -31,7 +32,7 @@ describe('Unit testing: profitelo.components.dashboard.client.navigation', () =>
       angular.mock.module('profitelo.components.dashboard.client.navigation')
 
       inject(($rootScope: IRootScopeService, $compile: ng.ICompileService, $httpBackend: ng.IHttpBackendService,
-              _$componentController_: ng.IComponentControllerService,
+              _$componentController_: ng.IComponentControllerService, profiteloWebsocket: ProfiteloWebsocketService,
               PaymentsApiMock: PaymentsApiMock, promiseService: PromiseService) => {
         componentController = _$componentController_
         rootScope = $rootScope.$new()
@@ -41,6 +42,7 @@ describe('Unit testing: profitelo.components.dashboard.client.navigation', () =>
         PaymentsApiMock.getCreditCardsRoute(200, [<GetCreditCard>{}])
         component = componentController('clientNavigation', {}, {
           promiseService: promiseService,
+          profiteloWebsocket: profiteloWebsocket,
           $element: create(validHTML)
         })
         httpBackend.flush()
