@@ -17,12 +17,19 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
   isAnyMenuShow: boolean = false
 
   /* @ngInject */
-  constructor(private userService: UserService, private $filter: ng.IFilterService,
-              private topAlertService: TopAlertService, private $state: IStateService,
-              private $element: ng.IRootElementService, private $document: ng.IDocumentService,
-              private $window: ng.IWindowService, private styleConstant: IStyleConstant,
+  constructor(private userService: UserService,
+              private $filter: ng.IFilterService,
+              private topAlertService: TopAlertService,
+              private $state: IStateService,
+              private $element: ng.IRootElementService,
+              private $document: ng.IDocumentService,
+              private $window: ng.IWindowService,
+              private styleConstant: IStyleConstant,
               private $scope: ng.IScope) {
 
+  }
+
+  $onInit(): void {
     this.setIsExpert()
 
     this.$document.bind('click', (event: Event) => {
@@ -45,6 +52,11 @@ export class NavbarLoggedInMenuComponentController implements INavbarLoggedInMen
       this.$scope.$apply()
     })
 
+  }
+
+  $onDestroy(): void {
+    this.$document.unbind('click')
+    angular.element(this.$window).unbind('scroll')
   }
 
   public logout = (): void => {

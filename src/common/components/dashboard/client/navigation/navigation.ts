@@ -7,18 +7,25 @@ import {ErrorHandlerService} from '../../../../services/error-handler/error-hand
 import errorHandlerModule from '../../../../services/error-handler/error-handler'
 import {PromiseService} from '../../../../services/promise/promise.service'
 import promiseModule from '../../../../services/promise/promise'
+import {ProfiteloWebsocketService} from '../../../../services/profitelo-websocket/profitelo-websocket.service'
+import profiteloWebsocketModule from '../../../../services/profitelo-websocket/profitelo-websocket'
 
 (function(): void {
   /* @ngInject */
   function controller(PaymentsApi: PaymentsApi,
                       FinancesApi: FinancesApi,
                       errorHandler: ErrorHandlerService,
-                      promiseService: PromiseService
+                      promiseService: PromiseService,
+                      profiteloWebsocket: ProfiteloWebsocketService
                       ): void {
 
     const loaderDelay = 500
     this.isCard = false
     this.isLoading = true
+
+    profiteloWebsocket.onNewFinancialOperation((data) => {
+      this.clientBalance = data.balanceAfter
+    })
 
     PaymentsApi.getCreditCardsRoute().then((response) => {
       if (response && response.length > 0) {
@@ -52,7 +59,8 @@ import promiseModule from '../../../../services/promise/promise'
     apiModule,
     filtersModule,
     promiseModule,
-    errorHandlerModule
+    errorHandlerModule,
+    profiteloWebsocketModule
   ])
     .component('clientNavigation', component)
 }())

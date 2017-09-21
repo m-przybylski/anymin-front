@@ -4,6 +4,7 @@ import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {SearchApiMock} from 'profitelo-api-ng/api/api'
 import searchDropdownModule from './search-dropdown'
 import {SearchDropdownController} from './search-dropdown.controller'
+import {keyboardCodes} from '../../classes/keyboard'
 
 describe('Unit testing:profitelo.components.search-dropdown', () => {
   return describe('for search-dropdown >', () => {
@@ -63,6 +64,43 @@ describe('Unit testing:profitelo.components.search-dropdown', () => {
       component.search()
       expect(state.go).toHaveBeenCalled()
     })
+
+    it('should call search on select', () => {
+      spyOn(component, 'search')
+      component.onItemSelect('prprpr')
+      expect(component.search).toHaveBeenCalled()
+    })
+
+    it('should focus search on enter', () => {
+      spyOn(component, 'search')
+      component.onEnter()
+      expect(component.search).toHaveBeenCalled()
+    })
+
+    it('should check is user press arrow up correctly', () => {
+      const el = create(validHTML)
+      const controller = el.controller('search-dropdown')
+      spyOn(controller, 'isSuggestionsDropdown').and.returnValue(true)
+      controller.$onInit()
+      const e = jQuery.Event('keydown')
+      e.which = keyboardCodes.arrowUp
+      e.keyCode = keyboardCodes.arrowUp
+      el.triggerHandler(e)
+      expect(controller.isSuggestionsDropdown).toHaveBeenCalled()
+    })
+
+    it('should check is user press arrow down correctly', () => {
+      const el = create(validHTML)
+      const controller = el.controller('search-dropdown')
+      spyOn(controller, 'isSuggestionsDropdown').and.returnValue(true)
+      controller.$onInit()
+      const e = jQuery.Event('keydown')
+      e.which = keyboardCodes.arrowDown
+      e.keyCode = keyboardCodes.arrowDown
+      el.triggerHandler(e)
+      expect(controller.isSuggestionsDropdown).toHaveBeenCalled()
+    })
+
 
   })
 })

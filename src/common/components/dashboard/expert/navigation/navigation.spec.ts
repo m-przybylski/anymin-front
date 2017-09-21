@@ -6,6 +6,7 @@ import {FinancesApi, FinancesApiMock} from 'profitelo-api-ng/api/api'
 import {PromiseService} from '../../../../services/promise/promise.service';
 import {ExpertNavigationComponentController} from './navigation.controller';
 import {ErrorHandlerService} from '../../../../services/error-handler/error-handler.service';
+import {ProfiteloWebsocketService} from '../../../../services/profitelo-websocket/profitelo-websocket.service'
 
   describe('Unit testing: profitelo.components.dashboard.expert.navigation', () => {
     return describe('for expertNavigation >', () => {
@@ -35,8 +36,8 @@ import {ErrorHandlerService} from '../../../../services/error-handler/error-hand
         angular.mock.module(expertNavigationModule)
 
         inject(($rootScope: IRootScopeService, $compile: ng.ICompileService,
-                _$componentController_: ng.IComponentControllerService, FinancesApi: FinancesApi,
-                _FinancesApiMock_: FinancesApiMock, promiseService: PromiseService,
+                profiteloWebsocket: ProfiteloWebsocketService, _$componentController_: ng.IComponentControllerService,
+                FinancesApi: FinancesApi, _FinancesApiMock_: FinancesApiMock, promiseService: PromiseService,
                 errorHandler: ErrorHandlerService) => {
           FinancesApiMock = _FinancesApiMock_
           componentController = _$componentController_
@@ -45,7 +46,8 @@ import {ErrorHandlerService} from '../../../../services/error-handler/error-hand
           injectors = {
             FinancesApi: FinancesApi,
             promiseService: promiseService,
-            errorHandler: errorHandler
+            errorHandler: errorHandler,
+            profiteloWebsocket: profiteloWebsocket
           }
         })
         FinancesApiMock.getClientBalanceRoute(500)
