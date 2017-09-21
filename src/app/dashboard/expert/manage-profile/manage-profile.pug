@@ -1,51 +1,40 @@
 .manage-profile
-  .profile-section
-    header.entry-title
-      span(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.TITLE")
+  preloader-container(data-is-loading="vm.isLoading"
+  data-is-error="vm.isError" data-error-message="DASHBOARD_CLIENT.ERROR_MESSAGE")
+    .profile-section
+      header.entry-title
+        span(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.TITLE")
 
-    .manage-profile-list
-      .list-row.manage-row(data-ng-class="{'is-inactive': !vm.isActive}")
-        .profile-preview
-          user-avatar.thumb.x48(data-image-token="vm.expertAvatar")
+      .manage-profile-list
+        .list-row.manage-row.organization-row(data-ng-show="vm.organizationName")
+          .profile-preview
+            user-avatar.thumb.x48(data-image-token="vm.organizationLogo")
 
-          .profile-name
-            span hp computers
+            .profile-name
+              span {{ vm.organizationName }}
 
-        .manage-action
-          a.btn.btn-link(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.BUTTON.RECOVER")
-
-      .list-row.manage-row
-        .profile-preview
-          user-avatar.thumb.x48(data-image-token="vm.expertAvatar")
-
-          .profile-name
-            span Jan Kowalski
-
-        .manage-action.btn-handler
-          a.btn.btn-link(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.BUTTON.SUSPEND_ACTIVITY")
-          a.btn.btn-link(
+          .manage-action.btn-handler
+            a.btn.btn-link(
             data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.BUTTON.EDIT"
-            data-ng-click=":: vm.openEditProfileModal()"
-          )
+            data-ng-click="vm.openEditProfileModal()"
+            )
 
-  .consultation-section
-    header.entry-title
-      span(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATIONS.TITLE")
-      a.btn.btn-small.btn-primary(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.BUTTON.ADD_NEW")
+        .list-row.manage-row.expert-row
+          .profile-preview
+            user-avatar.thumb.x48(data-image-token="vm.expertAvatar")
 
-    .manage-consultation-list
-      .list-row.consultation-row
-        .consulation-title
-          span hp computers
+            .profile-name
+              span {{ vm.expertName }}
 
-        .consultation-action
-          .consultation-company-profile
-            .profile-preview
-              user-avatar.thumb.x48(data-image-token="vm.expertAvatar")
-              div
-                span Consulting as employee
-                span.company-link LG Electronics
+          .manage-action.btn-handler
+            a.btn.btn-link(
+              data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.BUTTON.EDIT"
+              data-ng-click="vm.openEditProfileModal()"
+            )
 
-          .btn-handler
-            a.btn.btn-link(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.BUTTON.DELETE")
-            a.btn.btn-link(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.BUTTON.EDIT")
+    .consultation-section
+      header.entry-title
+        span(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.CONSULTATIONS.TITLE")
+        a.btn.btn-small.btn-primary(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.BUTTON.ADD_NEW")
+
+      single-service(data-ng-repeat="service in vm.services" data-service="service")

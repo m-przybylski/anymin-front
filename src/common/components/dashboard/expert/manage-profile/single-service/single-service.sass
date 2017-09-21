@@ -1,0 +1,66 @@
+@import "../../../../../../template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
+
+.single-service
+  .service-row
+    display: block
+
+    +smm
+      display: flex
+
+    .service-action
+      display: flex
+      justify-content: space-between
+
+      .profile-preview
+        margin: 0
+
+    .consulation-title
+      +smm
+        margin: 0
+        padding: 0 24px 0 0
+
+  span
+    +paragraphSmall
+    color: $c-primary-txt
+
+  .service-action
+    +xsm
+      display: flex
+      align-items: center
+
+    .service-owner
+      span
+        +paragraphSmall
+
+      .company-link
+        +default-font-bold
+        color: $c-primary
+        display: block
+
+  .btn-handler
+    visibility: hidden
+    display: flex
+    justify-content: space-between
+    margin: 0
+
+    +xsm
+      margin: 0 0 0 24px
+
+    +smm
+      margin: 0 0 0 48px
+
+    +mdm
+      margin: 0 0 0 104px
+
+    .btn
+      width: auto
+      margin: 0
+
+      &:last-child
+        margin: 0 0 0 24px
+
+  &:hover
+    .btn-handler
+      visibility: visible
+
