@@ -1,34 +1,39 @@
 div
-  top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="vm.onModalClose")
   .modal-primary.container-big.edit-expert-profile
+    top-modal-navbar(data-title="COMMUNICATOR.MODALS.SUMMARY_CONVERSATION" data-on-close="vm.onModalClose")
     preloader(data-is-loading="vm.isLoading")
       form(name="editProfileForm" novalidate)
         .profile-avatar
-          user-avatar.thumb.x128
-            a.thumb-options.add-photo(data-ng-click="removePhoto()")
-              .icon.icon-plus-12
-
-            a.thumb-options.remove-photo(data-ng-if="vm.isAvatarUploaded" data-ng-click="removePhoto()")
-              .icon.icon-close-16
+          wizard-avatar(
+          data-avatar-token="vm.profileAvatarToken"
+          data-is-valid="vm.isAvatarValid()"
+          data-validation-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_AVATAR.VALIDATION_TEXT"
+          data-is-submitted="vm.isSubmitted")
 
         div
           input-primary(
           data-type="text"
           data-id="inputText"
           data-placeholder="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_NAME.TITLE"
-          data-ng-model="vm.inputText"
+          data-ng-model="vm.profileName"
           data-input-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_NAME.TITLE"
           data-ng-required="true"
-          data-max-length="{{vm.inputMaxLength}}"
+          data-max-length="{{vm.inputNameMaxLength}}"
+          data-is-submitted="vm.isSubmitted"
+          data-validation-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_NAME.VALIDATION_TEXT"
+          data-is-valid="vm.isNameValid()"
           )
 
         div
           textarea-primary(
           data-input-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_DESCRIPTION.TITLE"
           data-placeholder="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_DESCRIPTION.TITLE"
-          data-ng-model="vm.textareaDescription"
+          data-ng-model="vm.profileDescription"
           data-id="edit_expert_area"
-          data-max-length="{{vm.inputMaxLength}}"
+          data-max-length="{{vm.inputDescriptionMaxLength}}"
+          data-is-submitted="vm.isSubmitted"
+          data-validation-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_DESCRIPTION.VALIDATION_TEXT"
+          data-is-valid="vm.isDescriptionValid()"
           )
 
         div
@@ -38,26 +43,17 @@ div
             data-placeholder="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.LINKS.PLACEHOLDER"
             data-order="6"
             data-pro-model="vm.companyPathModel"
+            data-selected-links="vm.profileLinks"
           )
 
         div
-          .files-uploaded-list
-            .file-item(data-ng-repeat="file in model.files track by $index" disable)
-              .file-preview
-                .thumb.x64
-                  img(src="{{file.file.name}}")
+          wizard-uploader(
+          data-token-list="vm.profileFilesTokens"
+          data-is-valid-callback="vm.onUploadingFile")
 
-              .file-info
-                span.file-name {{ file.file.name }}
-                span.file-size {{:: 'DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.UPLOAD.FILE_SIZE' | translate }} 765mb
+        // TODO Create file uploader: https://git.contactis.pl/itelo/profitelo/issues/1014
 
-              .file-action
-                span.icon.icon-trash-24(data-ng-click="removeFile(file)")
-
-            .file-item
-              // TODO Create file uploader: https://git.contactis.pl/itelo/profitelo/issues/1014
-
-
-  .modal-action
-    a.btn.btn-default(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_NAME.BUTTON.SAVE")
+    .modal-action
+      button.btn.btn-default(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_NAME.BUTTON.SAVE"
+      data-ng-click="vm.saveChanges()")
 

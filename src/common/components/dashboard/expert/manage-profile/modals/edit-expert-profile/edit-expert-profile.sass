@@ -1,6 +1,7 @@
+@import "../../../../../../../template/profitelo_theme/stylesheets/variables/variables"
+
 .edit-expert-profile
-  .user-avatar
-    text-align: center
+  position: relative
 
   form
     > *
@@ -11,6 +12,13 @@
     display: block
     text-align: center
 
+    wizard-avatar
+      .image-crop
+        margin: 0 auto
+
+      .validation-alert
+        text-align: center
+
   .input-group
     margin: 0 0 8px
 
@@ -19,3 +27,17 @@
 
   .modal-action
     justify-content: flex-end
+
+  .top-modal-navbar
+    position: absolute
+    padding: 0
+
+    .btn-close
+      border: 0
+
+      span
+        color: $c-tertiary-txt
+        font-size: $f-icon-22
+
+  .wizard-uploader
+    margin: 0 auto
