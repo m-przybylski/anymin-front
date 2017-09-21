@@ -113,6 +113,7 @@ export class CommunicatorComponentController implements ng.IController {
     call.onLocalStream(this.onLocalStream)
     call.onRemoteStream(this.onRemoteStream)
     call.onEnd(this.onCallEnd)
+    call.onRejected(this.onCallEnd)
     call.onVideoStart(this.onVideoStart)
     call.onVideoStop(this.onVideoStop)
     call.onTimeCostChange(this.onTimeCostChange)
