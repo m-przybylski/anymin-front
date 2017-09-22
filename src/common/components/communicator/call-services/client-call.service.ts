@@ -131,6 +131,7 @@ export class ClientCallService {
     }, () => {
       // Add mixpanel event integration
     });
+    this.call = undefined;
   }
 
   private onCallEnd = (serviceId: string): void => {

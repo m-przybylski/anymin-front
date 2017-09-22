@@ -87,6 +87,9 @@ export class CurrentCall {
   public onEnd = (cb: () => void): void =>
     this.callbacks.methods.onEnd(cb);
 
+  public onRejected = (cb: () => void): void =>
+    this.callbacks.methods.onRejected(cb);
+
   public getService = (): GetService =>
     this.service;
 
@@ -181,10 +184,10 @@ export class CurrentCall {
     this.ratelCall.onAnswered(() => this.callbacks.notify(CurrentCall.events.onAnswered, null))
     this.ratelCall.onRejected(() => this.callbacks.notify(CurrentCall.events.onRejected, null))
     this.ratelCall.onEnd(() => {
-      this.stopLocalStream();
+      this.stopLocalStream()
       this.stopTimer()
       this.setState(CallState.ENDED)
-      this.callbacks.notify(CurrentCall.events.onEnd, null);
+      this.callbacks.notify(CurrentCall.events.onEnd, null)
     })
     this.ratelCall.onActiveDevice(() => this.callbacks.notify(CurrentCall.events.onActiveDevice, null))
     this.ratelCall.onInvited(() => this.callbacks.notify(CurrentCall.events.onInvited, null))
