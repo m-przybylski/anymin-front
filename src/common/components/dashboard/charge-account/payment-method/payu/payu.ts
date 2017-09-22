@@ -100,7 +100,6 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
           vatNumber: this.vatNumber,
           companyName: this.companyName,
           // TODO On GUS API Implement
-          vat: 23,
           email: this.emailModel,
           address: {
             number: this.apartmentNumber,
@@ -121,7 +120,6 @@ function payuPaymentFormController($log: ng.ILogService, $window: IWindowService
           vatNumber: '',
           companyName: this.firstNameModel + ' ' + this.lastNameModel,
           // TODO On GUS API Implement
-          vat: 23,
           email: this.emailModel,
           address: {
             number: '',

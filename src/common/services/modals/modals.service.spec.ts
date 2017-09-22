@@ -3,7 +3,7 @@ import {ModalsService} from './modals.service'
 import modalsModule from './modals'
 import dialogModule from '../dialog/dialog'
 import {DialogService} from '../dialog/dialog.service'
-import {GetService} from 'profitelo-api-ng/model/models'
+import {GetService, GetActivity} from 'profitelo-api-ng/model/models'
 
 describe('Unit testing: profitelo.services.modals >', () => {
   describe('for profitelo.services.modals >', () => {
@@ -153,6 +153,46 @@ describe('Unit testing: profitelo.services.modals >', () => {
       spyOn(dialogService, 'openDialog')
 
       modalsService.createEditCompanyInvoiceControllerModal(<any>{})
+
+      expect(dialogService.openDialog).toHaveBeenCalled()
+    }))
+
+    it('should open rtc detector blocked modal', inject((dialogService: DialogService) => {
+      spyOn(dialogService, 'openDialog')
+
+      modalsService.createRtcDetectorBlockedModal()
+
+      expect(dialogService.openDialog).toHaveBeenCalled()
+    }))
+
+    it('should open client charge details modal', inject((dialogService: DialogService) => {
+      spyOn(dialogService, 'openDialog')
+
+      modalsService.createClientChargeDetailsModal(<GetActivity>{})
+
+      expect(dialogService.openDialog).toHaveBeenCalled()
+    }))
+
+    it('should open rtc detector modal', inject((dialogService: DialogService) => {
+      spyOn(dialogService, 'openDialog')
+
+      modalsService.createRtcDetectorModal()
+
+      expect(dialogService.openDialog).toHaveBeenCalled()
+    }))
+
+    it('should open browser does not support rtc modal', inject((dialogService: DialogService) => {
+      spyOn(dialogService, 'openDialog')
+
+      modalsService.createBrowserDoesNotSupportRtcModal()
+
+      expect(dialogService.openDialog).toHaveBeenCalled()
+    }))
+
+    it('should open consultation modal', inject((dialogService: DialogService) => {
+      spyOn(dialogService, 'openDialog')
+
+      modalsService.createConsultationModal()
 
       expect(dialogService.openDialog).toHaveBeenCalled()
     }))

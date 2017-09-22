@@ -43,7 +43,6 @@ export class EditCompanyInvoiceController implements ng.IController {
       companyName: this.companyName,
       email: this.email,
       // TODO On GUS API Implement
-      vat: 23,
       address: {
         number: this.apartmentNumber,
         city: this.city,
