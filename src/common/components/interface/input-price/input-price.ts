@@ -12,7 +12,6 @@ export interface IInputPriceComponentBindings extends ng.IController {
   isSubmitted?: boolean
   ngModel: number
   currency: string
-  ngPattern: RegExp
   callback: (num: number) => boolean
   isDisabled: boolean
 }

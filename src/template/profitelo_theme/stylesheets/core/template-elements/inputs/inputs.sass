@@ -5,7 +5,7 @@ input, textarea
 
 	&:invalid
 		box-shadow: none
-	outline: 0
+		outline: 0
 
 	&:focus
 		box-shadow: none
@@ -331,7 +331,6 @@ input
 			position: relative
 			top: -1px
 
-
 // FF
 input[type="range"]
 	&::-moz-range-progress
@@ -365,17 +364,20 @@ input[type="range"]::-ms-fill-upper
 \:-moz-placeholder
 	+inputTextPlaceholder
 
-
 //radio
 .radio
 	display: flex
 	align-items: flex-start
 	justify-content: flex-start
 	position: relative
+	cursor: auto
 
 	label
 		text-align: left
 		cursor: pointer
+
+		&.text
+			+inputLabel
 
 	> div
 		margin: 2px 16px 0 0
@@ -411,13 +413,19 @@ input[type="range"]::-ms-fill-upper
 				display: block
 				border-radius: 50%
 
+
 radio-btn-text
 	display: block
 	margin: 0 0 8px
 
 .radio-text
 	.radio-description
-		padding: 0 0 0 32px
+		padding: 0 0 16px 32px
+
+		textarea
+			width: 100%
+			border-bottom: 1px solid $c-lines
+			padding: 0 0 4px
 
 		.label-description
 			text-align: left

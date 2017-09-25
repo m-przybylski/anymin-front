@@ -27,16 +27,17 @@ export class InputComponentController implements IInputComponentBindings {
 
   $onInit(): void {
     if (this.type === this.telType) {
-      this.blockInvalidDigits([keyboardCodes.backspace, keyboardCodes.enter, keyboardCodes.zero, keyboardCodes.one,
+      this.blockInvalidDigits([keyboardCodes.dotASCI, keyboardCodes.commaASCI, keyboardCodes.backspace,
+        keyboardCodes.enter, keyboardCodes.zero, keyboardCodes.one,
         keyboardCodes.two, keyboardCodes.three, keyboardCodes.four, keyboardCodes.five, keyboardCodes.six,
         keyboardCodes.seven, keyboardCodes.eight, keyboardCodes.nine, keyboardCodes.arrowRight, keyboardCodes.arrowLeft
       ])
     } else if (this.type === this.numberType) {
-      this.blockInvalidDigits([keyboardCodes.dot, keyboardCodes.comma, keyboardCodes.backspace, keyboardCodes.enter,
+      this.blockInvalidDigits([keyboardCodes.dotASCI, keyboardCodes.commaASCI,
+        keyboardCodes.dot, keyboardCodes.comma, keyboardCodes.backspace, keyboardCodes.enter,
         keyboardCodes.zero, keyboardCodes.one, keyboardCodes.two, keyboardCodes.three, keyboardCodes.four,
         keyboardCodes.five, keyboardCodes.six, keyboardCodes.seven, keyboardCodes.eight, keyboardCodes.nine,
-        keyboardCodes.arrowRight, keyboardCodes.arrowLeft
-      ])
+        keyboardCodes.arrowRight, keyboardCodes.arrowLeft])
     }
   }
 

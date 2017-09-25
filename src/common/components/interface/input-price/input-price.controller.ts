@@ -15,15 +15,17 @@ export class InputPriceComponentController implements IInputPriceComponentBindin
   public currency: string
   public isPatternValid: boolean
   private priceRegexp: RegExp
-  public ngPattern: RegExp
   public callback: (num: number) => boolean
   public isValidate: boolean
   public isDisabled: boolean = false
 
   /* @ngInject */
-  constructor($element: ng.IRootElementService, CommonSettingsService: CommonSettingsService) {
+  constructor(private $element: ng.IRootElementService, CommonSettingsService: CommonSettingsService) {
     this.priceRegexp = CommonSettingsService.localSettings.pricePattern
-    const validKeyCodes = [keyboardCodes.enter,
+  }
+
+  $onInit(): void {
+    const digitsCodes = [keyboardCodes.enter,
       keyboardCodes.backspace,
       keyboardCodes.zero,
       keyboardCodes.one,
@@ -36,20 +38,33 @@ export class InputPriceComponentController implements IInputPriceComponentBindin
       keyboardCodes.eight,
       keyboardCodes.nine,
       keyboardCodes.comma,
-      keyboardCodes.dot]
+      keyboardCodes.dot,
+      keyboardCodes.arrowRight,
+      keyboardCodes.arrowLeft,
+      keyboardCodes.comma,
+      keyboardCodes.commaASCI,
+      keyboardCodes.dot,
+      keyboardCodes.dotASCI
+    ]
 
-    $element.bind('keypress', (e) => {
-      if (validKeyCodes.indexOf(e.keyCode) === -1 || this.digitsCodesBlocked.indexOf(e.keyCode) >= 0) {
-        e.preventDefault()
+    this.blockInvalidDigits(digitsCodes)
+    this.isPatternValid = true
+  }
+
+  public blockInvalidDigits = (digitsCodes: number[]): void => {
+    this.$element.find('input').bind('keypress keydown', (event) => {
+      if (this.isKeyAllowed(digitsCodes, event) && this.isCtrlKeyAllowed(event) ||
+        this.digitsCodesBlocked.indexOf(event.keyCode) >= 0) {
+        event.preventDefault()
       }
     })
   }
 
-  $onInit(): void {
-    this.isPatternValid = true
+  private isCtrlKeyAllowed = (event: JQueryKeyEventObject): boolean => !(event.ctrlKey || event.metaKey)
 
-    if (this.ngPattern)
-      this.priceRegexp = this.ngPattern
+  private isKeyAllowed = (digitsCodes: number[], event: JQueryKeyEventObject): boolean => {
+    const code = event.keyCode || event.which
+    return digitsCodes.indexOf(code) === -1
   }
 
   public onChange = (): void => {
@@ -58,7 +73,7 @@ export class InputPriceComponentController implements IInputPriceComponentBindin
     this.isPatternValid = ((this.priceRegexp).test(this.ngModel.toString()))
 
     if (this.isUsignPunctuationMarks) {
-      this.digitsCodesBlocked = [keyboardCodes.dot, keyboardCodes.comma]
+      this.digitsCodesBlocked = [keyboardCodes.dot, keyboardCodes.comma, keyboardCodes.dotASCI, keyboardCodes.commaASCI]
     } else {
       this.digitsCodesBlocked = []
     }
@@ -75,5 +90,9 @@ export class InputPriceComponentController implements IInputPriceComponentBindin
 
   public onBlur = (): void => {
     this.isFocus = false
+  }
+
+  $onDestroy = (): void => {
+    this.$element.find('input').unbind('keypress keydown')
   }
 }
