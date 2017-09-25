@@ -31,6 +31,7 @@ config.plugins = config.plugins.concat([
   // copy static assets which are not bundled into dist
   new CopyWebpackPlugin([
     {from : './src/assets', to: 'assets'},
+    {from : './node_modules/angular-i18n', to: 'assets/angular-i18n'},
     {from : './src/common/templates/calendar/day.pug', to: 'templates/calendar/day.html', transform: pugTransformer},
     {from : './src/common/templates/calendar/month.pug', to: 'templates/calendar/month.html', transform: pugTransformer},
     {from : './src/common/templates/calendar/year.pug', to: 'templates/calendar/year.html', transform: pugTransformer}
