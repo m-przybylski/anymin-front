@@ -87,7 +87,9 @@ export class CommunicatorComponentController implements ng.IController {
     this.expertAvatar = this.expert.expertDetails ? this.expert.expertDetails.avatar : undefined
     this.isConnecting = true
     this.isClosed = false
-    call.onAnswered(() => {this.isConnecting = false})
+    call.onAnswered(() => {
+      this.isConnecting = false
+    })
 
     this.registerCommonCallEvents(call);
   }

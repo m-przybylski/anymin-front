@@ -1,8 +1,10 @@
+import * as _ from 'lodash'
+
 export class MediaStreamConstraintsWrapper {
 
   private actualConstraints: MediaStreamConstraints
 
-  private static videoConstraints: MediaStreamConstraints = {
+  private static readonly videoConstraints: MediaStreamConstraints = {
     video: {
       width: 320,
       height: 200,
@@ -10,21 +12,21 @@ export class MediaStreamConstraintsWrapper {
     }
   }
 
-  private static audioConstraints: MediaStreamConstraints = {
+  private static readonly audioConstraints: MediaStreamConstraints = {
     audio: {
       echoCancelation: true
     }
   }
 
   constructor() {
-    this.actualConstraints = MediaStreamConstraintsWrapper.getDefault();
+    this.actualConstraints = _.cloneDeep(MediaStreamConstraintsWrapper.getDefault())
   }
 
   public static getDefault = (): MediaStreamConstraints =>
     MediaStreamConstraintsWrapper.audioConstraints;
 
   public addAudio = (): void => {
-    this.actualConstraints = Object.assign(this.actualConstraints, MediaStreamConstraintsWrapper.audioConstraints);
+    this.actualConstraints.audio = MediaStreamConstraintsWrapper.audioConstraints.audio
   }
 
   public removeAudio = (): void => {
@@ -33,8 +35,8 @@ export class MediaStreamConstraintsWrapper {
   }
 
   public addVideo = (): void => {
-    this.actualConstraints = Object.assign(this.actualConstraints, MediaStreamConstraintsWrapper.videoConstraints);
-  }
+    this.actualConstraints.video = MediaStreamConstraintsWrapper.videoConstraints.video
+    }
 
   public removeVideo = (): void => {
     if (this.actualConstraints.video)
