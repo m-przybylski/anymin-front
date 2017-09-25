@@ -106,7 +106,7 @@ button
     overflow: visible
     background: $c-primary
     color: $c-white
-    
+
     .icon
       display: inline-flex
 
@@ -139,6 +139,10 @@ button
 
 .btn-success
   background: $c-success
+  transition: background 0.3s
+
+  &:hover
+    background: $c-success-hover
 
   .icon
     color: $c-white
@@ -155,6 +159,10 @@ button
 .btn-disabled
   background: $c-lines
   border-color: $c-lines
+
+  &:hover
+    background: $c-lines
+      border-color: $c-lines
 
 .btn-noborder
   padding: 0

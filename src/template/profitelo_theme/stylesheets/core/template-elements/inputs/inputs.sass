@@ -1,400 +1,426 @@
 input, textarea
-  +inputText
-  outline: 0
-  border: 0
+	+inputText
+	outline: 0
+	border: 0
 
-  &:invalid,
-  &:focus
-    box-shadow: none
-    outline: 0
-    border: 0
+	&:invalid
+		box-shadow: none
+	outline: 0
 
-  &::-ms-clear
-    width: 0
-    height: 0
+	&:focus
+		box-shadow: none
+		outline: 0
 
-  &::-ms-reveal
-    width: 0
-    height: 0
+	&::-ms-clear
+		width: 0
+		height: 0
+
+	&::-ms-reveal
+		width: 0
+		height: 0
 
 input
-  &[type="number"]
-    appearance: textfield
-    -moz-appearance: textfield
-    -webkit-appearance: textfield
+	&:focus
+		color: $c-primary
 
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button
-      -webkit-appearance: none
-      margin: 0
+		&[type="number"]
+			appearance: textfield
+			-moz-appearance: textfield
+			-webkit-appearance: textfield
+
+			&::-webkit-outer-spin-button,
+			&::-webkit-inner-spin-button
+				-webkit-appearance: none
+				margin: 0
 
 textarea
-  color: $c-primary-txt
+	color: $c-primary-txt
 
 .pin-inputs
-  margin: 0 0 16px
+	margin: 0 0 16px
 
-  +smm
-    margin: 0 0 32px
+	+smm
+		margin: 0 0 32px
 
-  input
-    +default-font-regular
-    border-bottom: 1px solid $c-lines
-    width: $f-input-height
-    height: $f-input-height
-    text-align: center
-    margin: 0 8px 0
-    font-size: $f-header
+	input
+		+default-font-regular
+		border-bottom: 1px solid $c-lines
+		width: $f-input-height
+		height: $f-input-height
+		line-height: $f-input-height
+		text-align: center
+		margin: 0 8px 0
+		font-size: $f-header
 
-    +smm
-      margin: 0 8px 0
+		+smm
+			margin: 0 8px 0
 
-    &:focus
-      border-color: $c-primary
+		&::placeholder
+			font-size: $f-header
+
+		&::-webkit-input-placeholder
+			font-size: $f-header
+			line-height: $f-input-height
+
+		&::-moz-placeholder
+			font-size: $f-header
+			line-height: $f-input-height
+
+		&:-ms-input-placeholder
+			font-size: $f-header
+			line-height: $f-input-height
+
+		&:-moz-placeholder
+			font-size: $f-header
+			line-height: $f-input-height
+
+		&:focus
+			color: $c-primary
+			border-color: $c-primary
 
 label
-  +inputLabel
+	+inputLabel
 
-  &.upload-file
-    input[type="file"]
-      display: none
+	&.upload-file
+		input[type="file"]
+			display: none
 
 .input-handler
-  +xsm
-    display: flex
-    justify-content: center
+	+xsm
+		display: flex
+		justify-content: center
 
-  .pro-dropdown
-    width: 100%
-    text-align: left
-    margin: 0 0 16px
+	.pro-dropdown
+		width: 100%
+		text-align: left
+		margin: 0 0 16px
 
-    +xsm
-      width: 128px
-      margin: 0 16px 0 0
+		+xsm
+			width: 128px
+			margin: 0 16px 0 0
 
-    .input-group
-      .ui-select-container
-        border-radius: 3px 0 0 3px
+		.input-group
+			.ui-select-container
+				border-radius: 3px 0 0 3px
 
 .input-group
-  height: $f-input-height
+	height: $f-input-height
 
-  &.is-label
-    padding: 22px 0 0
+	&.is-label
+		padding: 22px 0 0
 
-    input
-      padding: 0
+		input
+			padding: 0
 
-  label
-    +inputLabel
-    position: absolute
-    top: 0
-    left: 0
+	label
+		+inputLabel
+		position: absolute
+		top: 0
+		left: 0
 
-  &.invalid
-    input
-      color: $c-error
+	&.invalid
+		input
+			color: $c-error
 
-  input, textarea
-    width: 100%
-    padding: 0
+	input, textarea
+		width: 100%
+		padding: 0
 
-  .input-group-addon
-    color: $c-secondary-txt
+	.input-group-addon
+		color: $c-secondary-txt
 
-    &:hover
-      color: $c-primary
+		&:hover
+			color: $c-primary
 
-    .icon
-      cursor: pointer
-      position: absolute
-      padding: 16px 0
-      right: 0
-      top: 0
-      bottom: 0
-      margin: auto
+		.icon
+			cursor: pointer
+			position: absolute
+			padding: 16px 0
+			right: 0
+			top: 0
+			bottom: 0
+			margin: auto
 
-      &.cross-addon
-        display: none
+			&.cross-addon
+				display: none
 
-      &.icon-class
-        z-index: $z-index-100
+			&.icon-class
+				z-index: $z-index-100
 
-  &.ng-not-empty
-    .input-group-addon
-      .icon
-        &.cross-addon
-          display: flex
+	&.ng-not-empty
+		.input-group-addon
+			.icon
+				&.cross-addon
+					display: flex
 
 .input-error-messages
-  +inputError
-  width: 100%
-  min-height: 32px
-  padding: 16px 8px
+	+inputError
+	width: 100%
+	min-height: 32px
+	padding: 16px 8px
 
-  .error,
-  .errors
-    +inputError
+	.error,
+	.errors
+		+inputError
 
-    &.right
-      text-align: right
+		&.right
+			text-align: right
 
-    &.left
-      text-align: left
+		&.left
+			text-align: left
 
 .input-group-addon
-  .icon
-    font-size: $f-icon-size
+	.icon
+		font-size: $f-icon-size
 
 /* dropdown */
 .ui-select-container
-  transition: border-color 0.2s
-  border-radius: 3px
-  display: flex
-  background: none
-  border: 1px solid $c-lines
-  height: $f-input-height
-  position: relative
-  align-items: stretch
+	transition: border-color 0.2s
+	border-radius: 3px
+	display: flex
+	background: none
+	border: 1px solid $c-lines
+	height: $f-input-height
+	position: relative
+	align-items: stretch
 
-  &:hover
-    border-color: $c-primary
+	&:hover
+		border-color: $c-primary
 
-  &.open
-    border-color: $c-primary
+	&.open
+		border-color: $c-primary
 
-  &.ui-select-multiple
-    min-height: $f-input-height
-    padding: 16px
-    background: $c-white
+	&.ui-select-multiple
+		min-height: $f-input-height
+		padding: 16px
+		background: $c-white
 
-  &.open,
-  &:hover
-    border-color: $c-primary
+	&.open,
+	&:hover
+		border-color: $c-primary
 
-  &:not(.ng-pristine)
-    .ui-select-match .ui-select-toggle span
-      color: $c-primary-txt
+	&:not(.ng-pristine)
+		.ui-select-match .ui-select-toggle span
+			color: $c-primary-txt
 
-  .ui-select-match
-    flex: 1 0 100%
-    display: flex
-    align-items: stretch
-    z-index: $z-index-100
+	.ui-select-match
+		flex: 1 0 100%
+		display: flex
+		align-items: stretch
+		z-index: $z-index-100
 
-    &.btn-default-focus
-      box-shadow: none
-      border: 0
-      outline: 0
-      background: none
+		&.btn-default-focus
+			box-shadow: none
+			border: 0
+			outline: 0
+			background: none
 
-    .ui-select-toggle
-      flex: 1 0 100%
-      padding: 12px 16px 9px
-      height: 100%
-      align-items: flex-end
-      justify-content: flex-start
+		.ui-select-toggle
+			flex: 1 0 100%
+			padding: 12px 16px 9px
+			height: 100%
+			align-items: flex-end
+			justify-content: flex-start
 
-      &:hover
-        opacity: 1
+			&:hover
+				opacity: 1
 
-      span
-        +default-font-regular
-        color: $c-secondary-txt
-        font-size: $f-paragraph
-        line-height: 1
-        text-transform: none
+			span
+				+default-font-regular
+				color: $c-secondary-txt
+				font-size: $f-paragraph
+				line-height: 1
+				text-transform: none
 
-  .ui-select-choices
-    opacity: 1 !important
-    text-align: left
-    padding: 0
-    width: calc(100% + 2px)
-    max-height: 10px
-    border-radius: 0 0 3px 3px
-    border-top: 0
-    border-color: $c-primary
-    left: -1px !important
-    max-width: inherit
-    transition: all 0.3s
+	.ui-select-choices
+		opacity: 1 !important
+		text-align: left
+		padding: 0
+		width: calc(100% + 2px)
+		max-height: 10px
+		border-radius: 0 0 3px 3px
+		border-top: 0
+		border-color: $c-primary
+		left: -1px !important
+		max-width: inherit
+		transition: all 0.3s
 
-  &.open
-    border-color: $c-primary
+	&.open
+		border-color: $c-primary
 
-    .ui-select-choices
-      max-height: 216px
+		.ui-select-choices
+			max-height: 216px
 
-      .ui-select-choices-group
-        .ui-select-choices-row
-          span
-            +default-font-regular
-            font-size: $f-paragraph
-            padding: 8px
-            color: $c-secondary-txt
+			.ui-select-choices-group
+				.ui-select-choices-row
+					span
+						+default-font-regular
+						font-size: $f-paragraph
+						padding: 8px
+						color: $c-secondary-txt
 
-          &:hover
-            span
-              background: $c-background
-              color: $c-primary
+					&:hover
+						span
+							background: $c-background
+							color: $c-primary
 
-          &.active
-            > span
-              background: $c-background
-              color: $c-primary-txt
+					&.active
+						> span
+							background: $c-background
+							color: $c-primary-txt
 
 .dropdown-menu
-  max-width: calc(100% + 2px)
-  left: -1px !important
-  border-color: $c-primary
-  border-top: 0
-  position: absolute
-  top: 100% !important
-  z-index: 1000
-  padding: 5px 0 0 0
-  margin: 2px 0 0
-  list-style: none
-  text-align: center
-  background-color: $c-white
-  border: 1px solid $c-lines
-  width: 100%
-  overflow: hidden
-  outline: none
+	max-width: calc(100% + 2px)
+	left: -1px !important
+	border-color: $c-primary
+	border-top: 0
+	position: absolute
+	top: 100% !important
+	z-index: 1000
+	padding: 5px 0 0 0
+	margin: 2px 0 0
+	list-style: none
+	text-align: center
+	background-color: $c-white
+	border: 1px solid $c-lines
+	width: 100%
+	overflow: hidden
+	outline: none
 /* dropdown end*/
 
 
 input
-  &[type="range"]
-    background: none
-    height: 24px
-    margin: 0
+	&[type="range"]
+		background: none
+		height: 24px
+		margin: 0
 
-    &::-webkit-slider-runnable-track
-      height: 3px
-      background: $c-primary
-      border: none
-      border-radius: 3px
+		&::-webkit-slider-runnable-track
+			height: 3px
+			background: $c-primary
+			border: none
+			border-radius: 3px
 
-    &::-moz-range-thumb
-      background: $c-white
-      border: 2px solid $c-primary
-      box-shadow: 0 0 0 2px $c-white
-      width: 16px
-      height: 16px
-      border-radius: 50%
-      position: relative
-      top: -1px
+		&::-moz-range-thumb
+			background: $c-white
+			border: 2px solid $c-primary
+			box-shadow: 0 0 0 2px $c-white
+			width: 16px
+			height: 16px
+			border-radius: 50%
+			position: relative
+			top: -1px
 
-    &::-ms-thumb
-      background: $c-white
-      border: 2px solid $c-primary
-      box-shadow: 0 0 0 2px $c-white
-      width: 16px
-      height: 16px
-      border-radius: 50%
-      position: relative
-      top: -1px
+		&::-ms-thumb
+			background: $c-white
+			border: 2px solid $c-primary
+			box-shadow: 0 0 0 2px $c-white
+			width: 16px
+			height: 16px
+			border-radius: 50%
+			position: relative
+			top: -1px
 
-    &::-webkit-slider-thumb
-      background: $c-white
-      border: 2px solid $c-primary
-      box-shadow: 0 0 0 2px $c-white
-      width: 16px
-      height: 16px
-      border-radius: 50%
-      position: relative
-      top: -1px
+		&::-webkit-slider-thumb
+			background: $c-white
+			border: 2px solid $c-primary
+			box-shadow: 0 0 0 2px $c-white
+			width: 16px
+			height: 16px
+			border-radius: 50%
+			position: relative
+			top: -1px
 
 
 // FF
 input[type="range"]
-  &::-moz-range-progress
-    background: $c-primary
-  &::-moz-range-track
-    background: $c-primary
-  &::-ms-fill-lower
-    background: $c-primary
-  &::-ms-fill-upper
-    background: $c-primary
+	&::-moz-range-progress
+		background: $c-primary
+	&::-moz-range-track
+		background: $c-primary
+	&::-ms-fill-lower
+		background: $c-primary
+	&::-ms-fill-upper
+		background: $c-primary
 
 // IE
 input[type="range"]::-ms-fill-lower
-  background: $c-primary
+	background: $c-primary
 
 input[type="range"]::-ms-fill-upper
-  background: $c-primary
+	background: $c-primary
 
 \::placeholder
-  +inputTextPlaceholder
+	+inputTextPlaceholder
 
 \::-webkit-input-placeholder
-  +inputTextPlaceholder
+	+inputTextPlaceholder
 
 \::-moz-placeholder
-  +inputTextPlaceholder
+	+inputTextPlaceholder
 
 \:-ms-input-placeholder
-  +inputTextPlaceholder
+	+inputTextPlaceholder
 
 \:-moz-placeholder
-  +inputTextPlaceholder
+	+inputTextPlaceholder
 
 
 //radio
 .radio
-  display: flex
-  align-items: flex-start
-  justify-content: flex-start
-  position: relative
+	display: flex
+	align-items: flex-start
+	justify-content: flex-start
+	position: relative
 
-  label
-    text-align: left
-    cursor: pointer
+	label
+		text-align: left
+		cursor: pointer
 
-  > div
-    margin: 2px 16px 0 0
-    cursor: auto
-    position: relative
+	> div
+		margin: 2px 16px 0 0
+		cursor: auto
+		position: relative
 
-    input
-      position: absolute
-      opacity: 0
-      width: 16px
-      height: 16px
-      cursor: pointer
+		input
+			position: absolute
+			opacity: 0
+			width: 16px
+			height: 16px
+			cursor: pointer
 
-    input + label
-      width: 16px
-      height: 16px
-      background: $c-white
-      border: 1px solid $c-lines
-      border-radius: 50%
-      display: flex
-      align-items: center
-      justify-content: center
+		input + label
+			width: 16px
+			height: 16px
+			background: $c-white
+			border: 1px solid $c-lines
+			border-radius: 50%
+			display: flex
+			align-items: center
+			justify-content: center
 
-    input:checked + label
-      border-color: $c-primary
-      box-shadow: inset 0 0 0 1px $c-primary
+		input:checked + label
+			border-color: $c-primary
+			box-shadow: inset 0 0 0 1px $c-primary
 
-      &::before
-        content: ""
-        width: 8px
-        height: 8px
-        background: $c-primary
-        display: block
-        border-radius: 50%
+			&::before
+				content: ""
+				width: 8px
+				height: 8px
+				background: $c-primary
+				display: block
+				border-radius: 50%
 
 radio-btn-text
-  display: block
-  margin: 0 0 8px
+	display: block
+	margin: 0 0 8px
 
 .radio-text
-  .radio-description
-    padding: 0 0 0 32px
+	.radio-description
+		padding: 0 0 0 32px
 
-    .label-description
-      text-align: left
-      color: $c-secondary-txt
-      margin: 12px 0 0
+		.label-description
+			text-align: left
+			color: $c-secondary-txt
+			margin: 12px 0 0
 
