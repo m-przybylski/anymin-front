@@ -84,7 +84,7 @@ describe('Testing Controller: editExpertProfileController', () => {
       }
     }
     const status: boolean = true
-    editExpertProfileController.onUploadingFile(status)
+    editExpertProfileController.onFileUploadEnd(status)
     editExpertProfileController.saveChanges()
     expect(editExpertProfileController.isSubmitted).toBe(false)
     expect(ProfileApi.patchProfileRoute).toHaveBeenCalledWith(updatedProfile)
@@ -115,7 +115,7 @@ describe('Testing Controller: editExpertProfileController', () => {
       }
     }
     const status: boolean = true
-    editExpertProfileController.onUploadingFile(status)
+    editExpertProfileController.onFileUploadEnd(status)
     editExpertProfileController.saveChanges()
     expect(editExpertProfileController.isSubmitted).toBe(false)
     expect(ProfileApi.patchProfileRoute).toHaveBeenCalledWith(updatedProfile)

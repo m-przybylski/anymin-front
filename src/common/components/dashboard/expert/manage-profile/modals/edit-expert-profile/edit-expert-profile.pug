@@ -4,7 +4,7 @@ div
     preloader(data-is-loading="vm.isLoading")
       form(name="editProfileForm" novalidate)
         .profile-avatar
-          wizard-avatar(
+          avatar-uploader(
           data-avatar-token="vm.profileAvatarToken"
           data-is-valid="vm.isAvatarValid()"
           data-validation-text="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.EXPERT_AVATAR.VALIDATION_TEXT"
@@ -37,7 +37,7 @@ div
           )
 
         div
-          wizard-links(
+          input-links(
             data-label="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.LINKS.LABEL"
             data-hint="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.LINKS.HINT"
             data-placeholder="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.LINKS.PLACEHOLDER"
@@ -47,9 +47,9 @@ div
           )
 
         div
-          wizard-uploader(
+          file-uploader(
           data-token-list="vm.profileFilesTokens"
-          data-is-valid-callback="vm.onUploadingFile")
+          data-is-valid-callback="vm.onFileUploadEnd")
 
         // TODO Create file uploader: https://git.contactis.pl/itelo/profitelo/issues/1014
 

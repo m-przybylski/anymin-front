@@ -1,20 +1,20 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {WizardAvatarComponentController} from './wizard-avatar.controller'
-import {IWizardAvatarComponentBindings} from './wizard-avatar'
-import wizardAvatarModule from './wizard-avatar'
-import {UrlService} from '../../../services/url/url.service'
-import {FileTypeChecker} from '../../../classes/file-type-checker/file-type-checker'
+import {AvatarUploaderComponentController} from './avatar-uploader.controller'
+import {IAvatarUploaderComponentBindings} from './avatar-uploader'
+import avatarUploaderModule from './avatar-uploader'
+import {UrlService} from '../../services/url/url.service'
+import {FileTypeChecker} from '../../classes/file-type-checker/file-type-checker'
 
-describe('Unit testing: profitelo.components.wizard.wizard-avatar', () => {
-  return describe('for WizardAvatar component >', () => {
+describe('Unit testing: profitelo.components.avatar-uploader', () => {
+  return describe('for AvatarUploader component >', () => {
 
     let scope: ng.IScope
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
-    let component: WizardAvatarComponentController
-    const validHTML = '<wizard-avatar></wizard-avatar>'
-    let bindings: IWizardAvatarComponentBindings
+    let component: AvatarUploaderComponentController
+    const validHTML = '<avatar-uploader></avatar-uploader>'
+    let bindings: IAvatarUploaderComponentBindings
     let urlService: UrlService
     const uploaderFactory = {
       collectionTypes: {avatar: 'avatar'},
@@ -36,7 +36,7 @@ describe('Unit testing: profitelo.components.wizard.wizard-avatar', () => {
     }))
 
     beforeEach(() => {
-      angular.mock.module(wizardAvatarModule)
+      angular.mock.module(avatarUploaderModule)
     })
 
     beforeEach(() => {
@@ -61,8 +61,8 @@ describe('Unit testing: profitelo.components.wizard.wizard-avatar', () => {
           $scope: rootScope
         }
 
-        component = $componentController<WizardAvatarComponentController, IWizardAvatarComponentBindings>(
-          'wizardAvatar', injectors, bindings
+        component = $componentController<AvatarUploaderComponentController, IAvatarUploaderComponentBindings>(
+          'avatarUploader', injectors, bindings
         )
 
       })
@@ -104,7 +104,7 @@ describe('Unit testing: profitelo.components.wizard.wizard-avatar', () => {
       spyOn(FileTypeChecker, 'isFileFormatValid').and.returnValue(true)
       const imagePath = '../img/src.jpg'
       const file: File = new File([], '0')
-      component.addPhoto(imagePath, file, ()=>{})
+      component.addPhoto(imagePath, file, () => {})
       expect(component.imageSource).toEqual(imagePath)
       expect(component.isFileFormatValidError).toBe(false)
     })
@@ -113,7 +113,7 @@ describe('Unit testing: profitelo.components.wizard.wizard-avatar', () => {
       spyOn(FileTypeChecker, 'isFileFormatValid').and.returnValue(false)
       const imagePath = '../img/src.jpg'
       const file: File = new File([], '0')
-      component.addPhoto(imagePath, file, ()=>{})
+      component.addPhoto(imagePath, file, () => {})
       expect(component.isFileFormatValidError).toBe(true)
     })
 

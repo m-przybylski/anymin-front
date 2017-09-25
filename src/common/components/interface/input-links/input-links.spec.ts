@@ -1,18 +1,18 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
 import {CommonSettingsService} from '../../../services/common-settings/common-settings.service'
-import {WizardLinksComponentController} from './wizard-links.controller'
-import wizardLinksModule from './wizard-links'
-import {IWizardLinksComponentBindings} from './wizard-links'
+import {InputLinksComponentController} from './input-links.controller'
+import inputLinksModule from './input-links'
+import {IInputLinksComponentBindings} from './input-links'
 
-describe('Unit testing: WizardLinksController', () => {
-  return describe('for WizardLinksInput component >', () => {
+describe('Unit testing: InputLinksController', () => {
+  return describe('for InputLinksInput component >', () => {
 
     let scope: ng.IScope
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
-    let component: WizardLinksComponentController
-    const validHTML = '<wizard-links></wizard-links>'
+    let component: InputLinksComponentController
+    const validHTML = '<input-links></input-links>'
     let CommonSettingsService: CommonSettingsService
     const selectedLinks: string[] = []
     function create(html: string): JQuery {
@@ -24,7 +24,7 @@ describe('Unit testing: WizardLinksController', () => {
     }
 
     beforeEach(() => {
-      angular.mock.module(wizardLinksModule)
+      angular.mock.module(inputLinksModule)
     })
 
     beforeEach(() => {
@@ -39,8 +39,8 @@ describe('Unit testing: WizardLinksController', () => {
           $scope: rootScope
         }
 
-        component = $componentController<WizardLinksComponentController, IWizardLinksComponentBindings>(
-          'wizardLinks', injectors, {
+        component = $componentController<InputLinksComponentController, IInputLinksComponentBindings>(
+          'inputLinks', injectors, {
             selectedLinks: selectedLinks
           }
         )

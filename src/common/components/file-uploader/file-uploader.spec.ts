@@ -1,20 +1,20 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import {IDocumentFile, WizardUploaderComponentController, IWizardUploaderComponentScope} from './wizard-uploader.controller'
-import {IWizardUploaderModuleComponentBindings} from './wizard-uploader'
-import wizardUploaderModule from './wizard-uploader'
+import {IDocumentFile, FileUploaderComponentController, IFileUploaderComponentScope} from './file-uploader.controller'
+import {IFileUploaderModuleComponentBindings} from './file-uploader'
+import fileUploaderModule from './file-uploader'
 import {FilesApi} from 'profitelo-api-ng/api/api'
-import {FileTypeChecker} from '../../../classes/file-type-checker/file-type-checker'
+import {FileTypeChecker} from '../../classes/file-type-checker/file-type-checker'
 
-describe('Unit testing: profitelo.components.wizard.wizard-uploader', () => {
-  return describe('for WizardUploader component >', () => {
+describe('Unit testing: profitelo.components.file-uploader', () => {
+  return describe('for FileUploader component >', () => {
 
-    let scope: IWizardUploaderComponentScope
+    let scope: IFileUploaderComponentScope
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
-    let component: WizardUploaderComponentController
-    const validHTML = '<wizard-uploader token-list="tokenList"></wizard-uploader>'
-    let bindings: IWizardUploaderModuleComponentBindings
+    let component: FileUploaderComponentController
+    const validHTML = '<file-uploader token-list="tokenList"></file-uploader>'
+    let bindings: IFileUploaderModuleComponentBindings
     let $log: ng.ILogService
     let httpBackend: ng.IHttpBackendService
 
@@ -25,7 +25,7 @@ describe('Unit testing: profitelo.components.wizard.wizard-uploader', () => {
     }
 
     function create(html: string): JQuery {
-      scope = <IWizardUploaderComponentScope>rootScope.$new()
+      scope = <IFileUploaderComponentScope>rootScope.$new()
       scope.tokenList = ['file-token-1']
       const elem = angular.element(html)
       const compiledElement = compile(elem)(scope)
@@ -39,7 +39,7 @@ describe('Unit testing: profitelo.components.wizard.wizard-uploader', () => {
     }))
 
     beforeEach(() => {
-      angular.mock.module(wizardUploaderModule)
+      angular.mock.module(fileUploaderModule)
     })
 
     beforeEach(() => {
@@ -61,8 +61,8 @@ describe('Unit testing: profitelo.components.wizard.wizard-uploader', () => {
           $scope: rootScope
         }
 
-        component = $componentController<WizardUploaderComponentController, IWizardUploaderModuleComponentBindings>(
-          'wizardUploader', injectors, bindings
+        component = $componentController<FileUploaderComponentController, IFileUploaderModuleComponentBindings>(
+          'fileUploader', injectors, bindings
         )
 
       })

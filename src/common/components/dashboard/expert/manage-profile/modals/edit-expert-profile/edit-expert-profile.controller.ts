@@ -19,12 +19,12 @@ export class EditExpertProfileController implements ng.IController {
   public isFullscreen: boolean = true
   public isNavbar: boolean = true
   public isSubmitted: boolean = false
-  public readonly inputDescriptionMaxLength: number = 600
-  public readonly inputNameMaxLength: number = 150
+  public static readonly inputDescriptionMaxLength: number = 600
+  public static readonly inputNameMaxLength: number = 150
 
   private static readonly minValidExpertNameLength: number = 3
   private static readonly minValidExpertDescriptionLength: number = 50
-  private isUploading: boolean = true
+  private isUploaded: boolean = true
 
   /* @ngInject */
   constructor(private $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
@@ -78,18 +78,18 @@ export class EditExpertProfileController implements ng.IController {
 
   public onModalClose = (): void => this.$uibModalInstance.dismiss('cancel')
 
-  public isAvatarValid = (): boolean => !!(this.profileAvatarToken && this.profileAvatarToken.length > 0)
+  public isAvatarValid = (): boolean => (this.profileAvatarToken) ? this.profileAvatarToken.length > 0 : false
 
-  public isNameValid = (): boolean => !!(this.profileName
-    && this.profileName.length >= EditExpertProfileController.minValidExpertNameLength)
+  public isNameValid = (): boolean => (this.profileName) ?
+    this.profileName.length >= EditExpertProfileController.minValidExpertNameLength : false
 
-  public isDescriptionValid = (): boolean => !!(this.profileDescription
-    && this.profileDescription.length >= EditExpertProfileController.minValidExpertDescriptionLength)
+  public isDescriptionValid = (): boolean => (this.profileDescription) ?
+    this.profileDescription.length >= EditExpertProfileController.minValidExpertDescriptionLength : false
 
-  private isFileUploadValid = (): boolean => this.isUploading
+  private isFileUploadValid = (): boolean => this.isUploaded
 
-  public onUploadingFile = (status: boolean): void => {
-    this.isUploading = status
+  public onFileUploadEnd = (isNotError: boolean): void => {
+    this.isUploaded = isNotError
   }
 
   public isFormValid = (): boolean =>
@@ -98,8 +98,8 @@ export class EditExpertProfileController implements ng.IController {
     && this.isDescriptionValid()
     && this.isFileUploadValid()
 
-  private isGetExpertDetails = (profile: GetOrganizationDetails | GetExpertDetails): profile is GetExpertDetails =>
-    (<GetExpertDetails>profile).avatar !== undefined
+  private isGetExpertDetails = (profileDetails: GetOrganizationDetails | GetExpertDetails):
+    profileDetails is GetExpertDetails => (<GetExpertDetails>profileDetails).avatar !== undefined
 
   private sendUpdatedProfile = (updatedProfile: OrganizationDetailsUpdate | ExpertDetailsUpdate): void => {
     this.ProfileApi.patchProfileRoute(updatedProfile).then((_res) => {
@@ -107,7 +107,7 @@ export class EditExpertProfileController implements ng.IController {
       this.onModalClose()
     }, (err) => {
       this.$log.error(err)
-      this.topAlertService.warning({
+      this.topAlertService.error({
         message: this.$filter('translate')('DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.MODAL.SAVE_ERROR_MESSAGE'),
         timeout: 5
       })

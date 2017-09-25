@@ -21,12 +21,10 @@ export class DashboardExpertManageProfileController {
               private ViewsApi: ViewsApi,
               private errorHandler: ErrorHandlerService,
               private userService: UserService) {
-
     this.getExpertProfile()
-
   }
 
-  public getExpertProfile = (): void => {
+  private getExpertProfile = (): void => {
     this.userService.getUser().then((user) => {
       this.ViewsApi.getWebExpertProfileRoute(user.id).then((expertProfile) => {
         this.expertProfile = expertProfile
