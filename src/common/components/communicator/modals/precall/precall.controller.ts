@@ -15,7 +15,7 @@ export interface IPrecallModalControllerScope extends ng.IScope {
 
 export class PrecallModalController implements ng.IController {
   public isLoading: boolean = true
-  public callLimitModel: number = 0
+  public callLimitModel: string = '0'
   public paymentMethods: IPrimaryDropdownListElement[] = []
   public clientBalance: IPrimaryDropdownListElement
   public onSelectMain: IPrimaryDropdownListElement
@@ -175,7 +175,8 @@ export class PrecallModalController implements ng.IController {
   }
 
   public onSelectItemDropdown = (data: IPrimaryDropdownListElement): void => {
-    this.callLimitModel = 0
+    this.callLimitModel = '0'
+    this.onPriceChange(this.callLimitModel)
     this.dateTimeLimit = this.$filter('translate')('COMMUNICATOR.MODALS.PRECALL.LIMIT.NONE')
 
     // TODO Wait for: https://git.contactis.pl/itelo/profitelo/issues/1015

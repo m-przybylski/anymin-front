@@ -143,7 +143,7 @@ describe('Testing Controller: ConsultationController', () => {
 
   it('should save consultation', () => {
     spyOn(state, 'go')
-    spyOn(UserService, 'getUser').and.returnValue(q.resolve({currency: 'PLN'}))
+    spyOn(UserService, 'getUser').and.returnValue(q.resolve({currency: 'PLN', countryISO: 'PL'}))
     const stateParams: IConsultationStateParams = {
       service: {
         name: 'Edit Consultation',
@@ -169,7 +169,7 @@ describe('Testing Controller: ConsultationController', () => {
 
   it('should save consultation as expert', () => {
     spyOn(state, 'go')
-    spyOn(UserService, 'getUser').and.returnValue(q.resolve({currency: 'PLN'}))
+    spyOn(UserService, 'getUser').and.returnValue(q.resolve({currency: 'PLN', countryISO: 'PL'}))
     const stateParams: IConsultationStateParams = {
       service: {
         name: 'Edit Consultation',
@@ -200,7 +200,7 @@ describe('Testing Controller: ConsultationController', () => {
 
   it('should save consultation without state-params with service', () => {
     spyOn(state, 'go')
-    spyOn(UserService, 'getUser').and.returnValue(q.resolve({currency: 'PLN'}))
+    spyOn(UserService, 'getUser').and.returnValue(q.resolve({currency: 'PLN', countryISO: 'PL'}))
     wizardProfile.services = [serviceMock]
 
     const consultationController = createController(stateParams, wizardProfile)
@@ -221,7 +221,7 @@ describe('Testing Controller: ConsultationController', () => {
 
   it('should save consultation on edit - with state-params', () => {
     spyOn(state, 'go')
-    spyOn(UserService, 'getUser').and.returnValue(q.resolve({currency: 'PLN'}))
+    spyOn(UserService, 'getUser').and.returnValue(q.resolve({currency: 'PLN', countryISO: 'PL'}))
     const stateParams: IConsultationStateParams = {
       service: serviceMock
     }
@@ -253,11 +253,6 @@ describe('Testing Controller: ConsultationController', () => {
   it('should employees input valid', () => {
     consultationController.invitationsInputValue = ['invitation']
     expect(consultationController.checkIsEmployeesInputValid()).toEqual(true)
-  })
-
-  it('should language input valid', () => {
-    consultationController.languageInputValue = {name: 'polski', value: 'pl'}
-    expect(consultationController.checkIsLanguageInputValid()).toEqual(true)
   })
 
   it('should description input invalid', () => {

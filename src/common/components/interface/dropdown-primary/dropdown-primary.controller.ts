@@ -19,7 +19,6 @@ export class DropdownPrimaryComponentController implements ng.IController, IDrop
   public selectedItem: IDropdownItem
   public mainPlaceholder: IDropdownItem
   public callback?: (item: IDropdownItem) => {}
-  public isValid?: boolean
   public filterBy: IFilterBy = {
     name: ''
   }
@@ -37,11 +36,10 @@ export class DropdownPrimaryComponentController implements ng.IController, IDrop
 
     this.dropdown = this.$element.find('.dropdown-list')
     this.dropdownScrollContainerElement = this.$element.find('.dropdown-content')
-    this.$document.bind('click scroll', (event) => {
+    this.$document.bind('click', (event) => {
       const ifTargetClicked = this.$element.find(event.target).length > 0
       if (!ifTargetClicked) {
         this.isOpen = false
-        this.isClosed = true
       }
       this.filterBy.name = ''
       this.$scope.$apply()
@@ -109,8 +107,6 @@ export class DropdownPrimaryComponentController implements ng.IController, IDrop
     this.isOpen = !this.isOpen
     if (this.isOpen) {
       this.clearDropdown()
-    } else {
-      this.isClosed = true
     }
   }
 
@@ -126,14 +122,9 @@ export class DropdownPrimaryComponentController implements ng.IController, IDrop
     }
   }
 
-  public onSelectItemCallback = (item: IDropdownItem): void => {
-    this.callback ? this.callback(item) : undefined
-  }
-
   private onItemChecked = (item: IDropdownItem): void => {
     this.isOpen = !this.isOpen
     this.isActive = !!item.value
     this.selectedItem = item
-    this.onSelectItemCallback(item)
   }
 }

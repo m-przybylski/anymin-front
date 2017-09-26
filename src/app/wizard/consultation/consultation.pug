@@ -10,10 +10,8 @@ section.consultation
       )
         dropdown-primary(
         data-main-list="vm.languagesList"
-        data-on-select-main="vm.updatePrefix"
+        data-on-select-main="vm.onSelectLanguage"
         data-placeholder="{{ 'WIZARD.CONSULTATION.LANGUAGE.PLACEHOLDER' | translate }}"
-        data-validation-text="WIZARD.CONSULTATION.LANGUAGE.VALIDATION_TEXT"
-        data-is-valid="vm.checkIsLanguageInputValid()"
         data-selected-item="vm.languageInputValue"
         )
 

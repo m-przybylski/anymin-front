@@ -17,7 +17,6 @@ export interface IDropdownPrimaryComponentBindings {
   mainList: IPrimaryDropdownListElement[]
   onSelectMain: (item: IDropdownItem) => void
   selectedItem: IDropdownItem
-  callback?: (item: IDropdownItem) => void
 }
 
 export interface IPrimaryDropdownListElement {

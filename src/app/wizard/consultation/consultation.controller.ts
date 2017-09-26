@@ -38,6 +38,7 @@ export class ConsultationController implements ng.IController {
   private static readonly minValidNameLength: number = 5
   private static readonly minValidDescriptionLength: number = 50
   public isRegExpPriceInputValid: boolean = true
+  private defaultLanguageISO: string = ''
 
   /* @ngInject */
   constructor(private $filter: IFilterService,
@@ -84,6 +85,13 @@ export class ConsultationController implements ng.IController {
 
     this.userService.getUser().then((response) => {
       this.currency = response.currency
+      this.defaultLanguageISO = response.countryISO
+
+        const language = _.find(this.languagesList, (languageItem) =>
+          languageItem.value.toLocaleLowerCase() === this.defaultLanguageISO.toLocaleLowerCase())
+
+        if (language)
+          this.languageInputValue = language
     })
 
     if (this.$stateParams.service) {
@@ -186,8 +194,6 @@ export class ConsultationController implements ng.IController {
 
   public checkIsTagsInputValid = (): boolean => this.tagsInputValue && this.tagsInputValue.length > 0
 
-  public checkIsLanguageInputValid = (): boolean => this.languageInputValue && this.languageInputValue.name.length > 0
-
   public checkIsDescriptionInputValid = (): boolean => typeof this.descriptionInputValue === 'string'
     && this.descriptionInputValue.length >= ConsultationController.minValidDescriptionLength
 
@@ -196,7 +202,7 @@ export class ConsultationController implements ng.IController {
 
   public checkIsFormValid = (): boolean =>
     this.checkIsNameInputValid() && this.checkIsTagsInputValid() && this.checkIsPriceInputValid()
-    && this.checkIsEmployeesInputValid() && this.checkIsLanguageInputValid() && this.checkIsDescriptionInputValid()
+    && this.checkIsEmployeesInputValid() && this.checkIsDescriptionInputValid()
 
   public checkIsPriceButtonDisabled = (): boolean => !this.isCompany || this.checkIsPriceInputValid()
 
