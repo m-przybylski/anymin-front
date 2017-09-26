@@ -17,6 +17,7 @@ import 'common/components/dashboard/charge-account/choose-amount-charge/choose-a
 import 'common/components/dashboard/charge-account/payment-method/payment-method'
 import * as _ from 'lodash'
 import {SmoothScrollingService} from '../../../common/services/smooth-scrolling/smooth-scrolling.service'
+import {keyboardCodes} from '../../../common/classes/keyboard'
 
 export interface IAmounts {
   paymentOptions: MoneyDto[]
@@ -123,8 +124,19 @@ export class ChargeAccountController implements ng.IController {
   constructor(private $uibModalInstance: ng.ui.bootstrap.IModalInstanceService,
               private $state: ng.ui.IStateService,
               private $timeout: ng.ITimeoutService,
+              private $window: ng.IWindowService,
               private smoothScrollingService: SmoothScrollingService,
               private $scope: IChargeAccountScope) {
+
+    angular.element(this.$window).keydown((event) => {
+      if (event.keyCode === keyboardCodes.escape) {
+        this.onModalClose()
+      }
+    })
+  }
+
+  $onDestroy = (): void => {
+    angular.element(this.$window).keydown('keydown')
   }
 
   public onLoad = (): void => {
