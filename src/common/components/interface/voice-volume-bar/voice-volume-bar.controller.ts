@@ -1,5 +1,6 @@
 import {IVoiceVolumeBarComponentBindings} from './voice-volume-bar'
 import {VolumeMeterService, IProcessor} from '../../../services/volume-meter/volume-meter.service'
+
 export class VoiceVolumeBarComponentController implements IVoiceVolumeBarComponentBindings {
 
   private static readonly width: number = 1000

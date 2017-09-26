@@ -84,8 +84,12 @@ export class CurrentCall {
     this.streamManager = new StreamManager(this.localStream, new MediaStreamConstraintsWrapper());
   }
 
-  public onEnd = (cb: () => void): void =>
-    this.callbacks.methods.onEnd(cb);
+  public onEnd = (cb: () => void): void => {
+    this.callbacks.methods.onEnd(() => {
+      this.stopLocalStream()
+      cb()
+    });
+  }
 
   public onRejected = (cb: () => void): void =>
     this.callbacks.methods.onRejected(cb);
@@ -98,7 +102,8 @@ export class CurrentCall {
 
   public startAudio = (): Promise<void> => {
     if (this.streamManager) {
-      return this.streamManager.addAudio().then(this.updateLocalStream);
+      return this.streamManager.addAudio().then((mediaStream) =>
+        this.updateLocalStream(mediaStream, this.stopLocalStream));
     }
     else {
       return Promise.reject('No streamManager')
@@ -107,7 +112,8 @@ export class CurrentCall {
 
   public startVideo = (): Promise<void> => {
     if (this.streamManager) {
-      return this.streamManager.addVideo().then(this.updateLocalStream);
+      return this.streamManager.addVideo().then((mediaStream) =>
+        this.updateLocalStream(mediaStream, this.stopLocalStream));
     }
     else {
       return Promise.reject('No streamManager')
@@ -116,7 +122,8 @@ export class CurrentCall {
 
   public stopVideo = (): Promise<void> => {
     if (this.streamManager) {
-      return this.streamManager.removeVideo().then(this.updateLocalStream);
+      return this.streamManager.removeVideo().then((mediaStream) =>
+        this.updateLocalStream(mediaStream, this.stopLocalStream));
     }
     else {
       return Promise.reject('No streamManager')
@@ -163,10 +170,11 @@ export class CurrentCall {
     if (this.timer) this.timer.resume()
   }
 
-  private updateLocalStream = (mediaStream: MediaStream): void => {
+  private updateLocalStream = (mediaStream: MediaStream, stopLocalStream?: () => void): void => {
     if (this.localStream) {
       this.ratelCall.removeStream(this.localStream);
     }
+    if (stopLocalStream) stopLocalStream()
     this.localStream = mediaStream;
     this.ratelCall.addStream(mediaStream);
     this.callbacks.notify(CurrentCall.events.onLocalStream, mediaStream)

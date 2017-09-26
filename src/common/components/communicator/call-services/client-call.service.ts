@@ -20,7 +20,7 @@ export class ClientCallService {
   private callbacks: CallbacksService;
 
   private static readonly events = {
-    onNewCall: 'onNewCall',
+    onNewCall: 'onNewCall'
   };
 
   /* @ngInject */

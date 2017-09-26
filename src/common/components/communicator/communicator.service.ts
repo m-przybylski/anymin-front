@@ -22,6 +22,40 @@ export class CommunicatorService {
     onRoomCreated: 'onRoomCreated'
   }
 
+  private createRatelConnection = (session: RatelSdk.Session): void => {
+
+    const chat = session.chat
+
+    chat.onCallInvitation((callInvitation: RatelSdk.events.CallInvitation) =>
+      this.callbacks.notify(CommunicatorService.events.onCallInvitation, callInvitation))
+
+    chat.onCallCreated((callCreated: RatelSdk.events.CallCreated) =>
+      this.callbacks.notify(CommunicatorService.events.onCallCreated, callCreated))
+
+    chat.onConnect((hello: RatelSdk.events.Hello) => {
+      this.ratelDeviceId = hello.deviceId;
+      this.$log.debug('Artichoke: onConnect', session.id, hello)
+    })
+
+    chat.onDisconnect((res: RatelSdk.events.Disconnect) =>
+      this.$log.debug('Artichoke: onDisconnect', res))
+
+    chat.onError((res: RatelSdk.events.Error) => {
+      this.$log.error('Artichoke: onError', res)
+    })
+
+    chat.onHeartbeat((res: RatelSdk.events.Heartbeat) =>
+      this.$log.debug('Artichoke: onHeartBeat', res))
+
+    chat.onRoomCreated((roomCreated: RatelSdk.events.RoomCreated) =>
+      this.callbacks.notify(CommunicatorService.events.onRoomCreated, roomCreated))
+
+    chat.onRoomInvitation((roomInvitation: RatelSdk.events.RoomInvitation) =>
+      this.callbacks.notify(CommunicatorService.events.onRoomInvitation, roomInvitation))
+
+    chat.connect()
+  }
+
   /* @ngInject */
   constructor(private $log: ng.ILogService,
               private RatelApi: RatelApi,
@@ -37,6 +71,9 @@ export class CommunicatorService {
     userService.getUser().then(this.authenticate)
     eventsService.on('login', () => {
       this.authenticate()
+    })
+    eventsService.on('logout', () => {
+      if (this.ratelSession) this.ratelSession.chat.disconnect()
     })
   }
 
@@ -66,39 +103,6 @@ export class CommunicatorService {
         }
       }
     }
-  }
-
-  private createRatelConnection = (session: RatelSdk.Session): void => {
-
-    const chat = session.chat
-
-    chat.onCallInvitation((callInvitation: RatelSdk.events.CallInvitation) =>
-      this.callbacks.notify(CommunicatorService.events.onCallInvitation, callInvitation))
-
-    chat.onCallCreated((callCreated: RatelSdk.events.CallCreated) =>
-      this.callbacks.notify(CommunicatorService.events.onCallCreated, callCreated))
-
-    chat.onConnect((hello: RatelSdk.events.Hello) => {
-      this.ratelDeviceId = hello.deviceId;
-      this.$log.debug('Artichoke: onConnect', session.id, hello)
-    })
-
-    chat.onDisconnect((res: RatelSdk.events.Disconnect) =>
-      this.$log.debug('Artichoke: onDisconnect', res))
-
-    chat.onError((res: RatelSdk.events.Error) =>
-      this.$log.error('Artichoke: onError', res))
-
-    chat.onHeartbeat((res: RatelSdk.events.Heartbeat) =>
-      this.$log.debug('Artichoke: onHeartBeat', res))
-
-    chat.onRoomCreated((roomCreated: RatelSdk.events.RoomCreated) =>
-      this.callbacks.notify(CommunicatorService.events.onRoomCreated, roomCreated))
-
-    chat.onRoomInvitation((roomInvitation: RatelSdk.events.RoomInvitation) =>
-      this.callbacks.notify(CommunicatorService.events.onRoomInvitation, roomInvitation))
-
-    chat.connect()
   }
 
   private onCreateClientSession = (session: RatelSdk.Session): ng.IPromise<void> => {

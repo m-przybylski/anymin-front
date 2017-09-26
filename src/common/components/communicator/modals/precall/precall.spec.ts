@@ -15,7 +15,6 @@ describe('Testing Controller: precallModalController', () => {
   let PaymentsApiMock: PaymentsApiMock
   let FinancesApiMock: FinancesApiMock
   let $state: ng.ui.IStateService
-
   const $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance =
     jasmine.createSpyObj('$uibModalInstance', ['close', 'dismiss']);
 
@@ -55,7 +54,6 @@ describe('Testing Controller: precallModalController', () => {
       precallModalController = $controller<PrecallModalController>('precallModalController', {
         $scope: scope,
         $uibModalInstance: $uibModalInstance,
-        httpBackend: _$httpBackend_,
         ViewsApi: _ViewsApi_,
         modalsService: _modalsService_,
         clientCallService: clientCallService,
@@ -65,7 +63,7 @@ describe('Testing Controller: precallModalController', () => {
 
     PaymentsApiMock.getCreditCardsRoute(500)
     FinancesApiMock.getClientBalanceRoute(200, {
-      amount: 2000,
+      amount: 6000,
       currency: 'PLN'
     })
     precallModalController.$onInit()
@@ -97,4 +95,18 @@ describe('Testing Controller: precallModalController', () => {
     expect($uibModalInstance.dismiss).toHaveBeenCalledWith('cancel')
     expect($state.go).toHaveBeenCalledWith('app.charge-account')
   })
+
+  it('should redirect to app.charge-account state and close Precall modal', () => {
+    spyOn($state, 'go')
+    precallModalController.showChargeAccountModal()
+    expect($uibModalInstance.dismiss).toHaveBeenCalledWith('cancel')
+    expect($state.go).toHaveBeenCalledWith('app.charge-account')
+  })
+
+  it('should valid price', () => {
+    precallModalController.isPrepaid = true
+    precallModalController.onPriceChange('sda')
+    expect(precallModalController.isPriceInputValid).toBe(false)
+  })
+
 })

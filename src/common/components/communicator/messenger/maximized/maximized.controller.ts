@@ -32,7 +32,8 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
 
   private messagesScroll = angular.element('.messenger-scroll')
   private indicateTypingDebounceTimeout = 1000
-  public indicateTypingDebounce = (): void => {}
+  public indicateTypingDebounce = (): void => {
+  }
   private typingTimeout = 2000
   private fileUploadErrorMessageTimeout = 15000
   private uploader: UploaderService
@@ -149,16 +150,12 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
     this.onTypingEnd()
   }
 
-  private onMessageSendSuccess = (message: Message): void => {
-    this.addMessage(message)
-  }
-
   private onMessageSendError = (err: any): void =>
     this.$log.error('msg send err:', err)
 
   private sendMessage = (messageObject: string, context?: RatelSdk.protocol.Context): Promise<void> =>
     this.messageRoom.sendMessage(messageObject, context)
-      .then(this.onMessageSendSuccess, this.onMessageSendError)
+      .catch(this.onMessageSendError)
 
   private onUploadProgess = (res: any): void =>
     this.$log.debug(res)
