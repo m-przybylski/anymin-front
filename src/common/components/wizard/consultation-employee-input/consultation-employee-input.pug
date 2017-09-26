@@ -4,6 +4,7 @@
       data-ng-model="$ctrl.inputValue"
       data-ng-enter="$ctrl.onEnter()"
       data-ng-blur="$ctrl.onBlur()"
+      data-ng-focus="$ctrl.onFocus()"
 
     )
     button.btn.btn-small.btn-primary(data-translate="WIZARD.CONSULTATION.EMPLOYEE.BUTTON.UPLOAD"
@@ -39,5 +40,5 @@
 
   validation-alert(
     data-alert-text="{{$ctrl.validationText}}"
-    data-is-visible="!$ctrl.isValid && $ctrl.isDirty"
+    data-is-visible="!$ctrl.isValid && $ctrl.isDirty && !$ctrl.isFocus"
   )
