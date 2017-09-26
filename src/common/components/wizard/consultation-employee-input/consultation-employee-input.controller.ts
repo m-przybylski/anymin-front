@@ -14,6 +14,7 @@ export class ConsultationEmployeeInputComponentController implements IConsultati
   public areUploadedFilesInvalid: boolean = false
   public wrongValuesCounter: number
   private mailRegexp: RegExp
+  public isFocus: boolean = false
 
   private readonly validationTime: number = 3000
   private CSVFileReader: CSVFileReader
@@ -39,8 +40,13 @@ export class ConsultationEmployeeInputComponentController implements IConsultati
     this.addedItemsList.splice(index, 1)
   }
 
+  public onFocus = (): void => {
+    this.isFocus = true
+  }
+
   public onBlur = (): void => {
     this.isDirty = true
+    this.isFocus = false
     this.isInputValueInvalid = false
   }
 
@@ -83,5 +89,4 @@ export class ConsultationEmployeeInputComponentController implements IConsultati
     }, this.validationTime)
     this.areUploadedFilesInvalid = true
   }
-
 }
