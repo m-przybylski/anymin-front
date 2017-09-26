@@ -37,7 +37,7 @@
 
             validation-alert(
               data-alert-text="COMMUNICATOR.MODALS.PRECALL.PRICE.VALIDATION.NO_CREDITS"
-              data-is-visible="vm.prepaidCallLimitModel === 0 && vm.isPrepaid"
+              data-is-visible="vm.isPrepaid && !vm.isBalanceEnoughForMinimalCallTime"
             )
 
           a.btn.btn-link(data-ng-if="!vm.isPrepaid" data-ng-click="vm.addNewPaymentMethod()"
@@ -96,7 +96,7 @@
         .modal-action
           a.btn.btn-progress.btn-success.icon-left(data-ng-class="{'btn-disabled': !vm.isRegExpPriceInputValid || " +
             "!vm.isPriceInputValid || !vm.isInputValueGreaterThanAccountBalance ||" +
-            "vm.prepaidCallLimitModel === 0 && vm.isPrepaid, 'to-circle': vm.isButtonProgress }"
+            "vm.isPrepaid && !vm.isBalanceEnoughForMinimalCallTime, 'to-circle': vm.isButtonProgress }"
             data-ng-click="vm.startCall()")
 
             span.btn-title
