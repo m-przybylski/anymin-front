@@ -1,10 +1,10 @@
-import {IConsultationEmployeeInputBindings} from './consultation-employee-input'
+import {IInputConsultationEmployeeBindings} from './input-consultation-employee'
 import {CommonSettingsService} from '../../../services/common-settings/common-settings.service'
 import {CSVFileReader} from './CSVFileReader'
 
 const phoneNumbers = require('libphonenumber-js')
 
-export class ConsultationEmployeeInputComponentController implements IConsultationEmployeeInputBindings {
+export class InputConsultationEmployeeComponentController implements IInputConsultationEmployeeBindings {
   public addedItemsList: string[] = []
   public inputValue: string
   public isOwnerEmployee: boolean
@@ -17,6 +17,8 @@ export class ConsultationEmployeeInputComponentController implements IConsultati
   private phonePattern: RegExp
   public isFocus: boolean = false
   public isValidEmployee: boolean = false
+  public isSubmitted: boolean = false
+  public isCheckboxVisible: boolean = true
 
   private readonly validationTime: number = 3000
   private CSVFileReader: CSVFileReader
@@ -31,11 +33,11 @@ export class ConsultationEmployeeInputComponentController implements IConsultati
   }
 
   private getPrefixPhoneNumber = (phoneNumber: string): string => {
-    if (phoneNumber.indexOf(ConsultationEmployeeInputComponentController.defaultCountryPrefix) !== -1) {
-      return phoneNumber.replace(ConsultationEmployeeInputComponentController.defaultCountryPrefix,
-        ConsultationEmployeeInputComponentController.defaultCountryPrefix + ' ')
+    if (phoneNumber.indexOf(InputConsultationEmployeeComponentController.defaultCountryPrefix) !== -1) {
+      return phoneNumber.replace(InputConsultationEmployeeComponentController.defaultCountryPrefix,
+        InputConsultationEmployeeComponentController.defaultCountryPrefix + ' ')
     } else {
-      return ConsultationEmployeeInputComponentController.defaultCountryPrefix + ' ' + phoneNumber
+      return InputConsultationEmployeeComponentController.defaultCountryPrefix + ' ' + phoneNumber
     }
   }
 

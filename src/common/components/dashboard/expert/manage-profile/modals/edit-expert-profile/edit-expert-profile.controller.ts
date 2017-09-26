@@ -19,8 +19,8 @@ export class EditExpertProfileController implements ng.IController {
   public isFullscreen: boolean = true
   public isNavbar: boolean = true
   public isSubmitted: boolean = false
-  public static readonly inputDescriptionMaxLength: number = 600
-  public static readonly inputNameMaxLength: number = 150
+  public readonly inputDescriptionMaxLength: string = '600'
+  public readonly inputNameMaxLength: string = '150'
 
   private static readonly minValidExpertNameLength: number = 3
   private static readonly minValidExpertDescriptionLength: number = 50

@@ -1,27 +1,28 @@
 import * as angular from 'angular'
-import {ConsultationEmployeeInputComponent} from './consultation-employee-input.component'
-import './consultation-employee-input.sass'
+import {InputConsultationEmployeeComponent} from './input-consultation-employee.component'
+import './input-consultation-employee.sass'
 import inputModule from '../../interface/input/input'
 import checkboxModule from '../../interface/checkbox/checkbox'
 import commonSettingsModule from '../../../services/common-settings/common-settings'
 import ValidationAlertModule from '../../interface/alert/validation-alert/validation-alert'
 
-export interface IConsultationEmployeeInputBindings extends ng.IController {
+export interface IInputConsultationEmployeeBindings extends ng.IController {
   isOwnerEmployee: boolean
   addedItemsList: string[]
   isValid?: boolean
   isSubmitted?: boolean
   validationText?: string
+  isCheckboxVisible?: boolean
 }
 
-const consultationEmployeeInputModule = angular.module('profitelo.components.wizard.consultation-employee-input', [
+const inputConsultationEmployeeModule = angular.module('profitelo.components.interface.input-consultation-employee', [
   'pascalprecht.translate',
   inputModule,
   checkboxModule,
   commonSettingsModule,
   ValidationAlertModule
 ])
-.component('consultationEmployeeInput', new ConsultationEmployeeInputComponent)
+.component('inputConsultationEmployee', new InputConsultationEmployeeComponent)
   .name
 
-export default consultationEmployeeInputModule
+export default inputConsultationEmployeeModule

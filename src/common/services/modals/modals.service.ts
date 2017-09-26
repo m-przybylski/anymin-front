@@ -6,7 +6,8 @@ import INoCreditsControllerParentScope =
   profitelo.components.communicator.modals.noCredits.INoCreditsControllerParentScope
 import {
   GetService, GetActivity, MoneyDto, GetCreditCard, GetPaymentOptions,
-  PaymentLink, GetProfile, GetOrganizationDetails, GetExpertDetails, GetProfileWithServicesInvitations
+  PaymentLink, GetProfile, GetOrganizationDetails, GetExpertDetails, GetProfileWithServicesInvitations,
+  GetExpertServiceDetails
 } from 'profitelo-api-ng/model/models'
 import {DialogService} from '../dialog/dialog.service'
 import {
@@ -110,6 +111,11 @@ import {
   ConsultationModalController,
   IConsultationModalControllerScope
 } from '../../components/search/modals/consultation/consultation.controller'
+import {
+  ConsultationFormModalController,
+  IConsultationFormModalScope
+} from
+  '../../components/dashboard/expert/manage-profile/modals/consultation-form-modal/consultation-form-modal.controller'
 
 // TODO add types for dialogScope Scopes
 export class ModalsService {
@@ -574,6 +580,25 @@ export class ModalsService {
       controller: ConsultationModalController,
       template: require(
         'common/components/search/modals/consultation/consultation.pug'
+      )(),
+      scope: dialogScope
+    })
+  }
+
+  public createConsultationFormModal = (onModalClose: () => void,
+                                        service?: GetExpertServiceDetails): IModalInstanceService => {
+
+    const dialogScope: IConsultationFormModalScope =
+      <IConsultationFormModalScope>this.$rootScope.$new(true)
+    dialogScope.onModalCloseCallback = onModalClose
+    dialogScope.serviceDetails = service
+
+    return this.dialogService.openDialog({
+      controllerAs: 'vm',
+      openedClass: 'modal-open full-screen',
+      controller: ConsultationFormModalController,
+      template: require(
+        'common/components/dashboard/expert/manage-profile/modals/consultation-form-modal/consultation-form-modal.pug'
       )(),
       scope: dialogScope
     })

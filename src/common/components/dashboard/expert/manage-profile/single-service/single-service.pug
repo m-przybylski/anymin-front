@@ -1,10 +1,10 @@
-.single-service
-  .list-row.service-row
-    .consulation-title
+.single-service(data-ng-if="!$ctrl.isEmploymentDeleted")
+  .list-row.service-row(data-ng-class="{'service-deleted': $ctrl.isServiceDeleted}")
+    .consultation-title
       span {{ $ctrl.serviceName }}
 
     .service-action
-      .service-company-profile(data-ng-show="!$ctrl.isExpertOwnerOfService")
+      .service-company-profile(data-ng-show="!$ctrl.isOwnerOfService")
         .profile-preview
           user-avatar.thumb.x48(data-image-token="$ctrl.serviceOwnerLogo")
           .service-owner
@@ -12,6 +12,9 @@
             span.company-link {{ $ctrl.serviceOwnerName }}
 
       .btn-handler
-        a.btn.btn-link(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.BUTTON.DELETE")
+        a.btn.btn-link(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.BUTTON.SUSPEND_ACTIVITY"
+        data-ng-show="!$ctrl.isServiceDeleted"
+        data-ng-click="$ctrl.suspendProvideService()")
         a.btn.btn-link(data-translate="DASHBOARD.EXPERT_ACCOUNT.MANAGE_PROFILE.PROFILE.BUTTON.EDIT"
-        data-ng-show="$ctrl.isExpertOwnerOfService")
+        data-ng-show="$ctrl.isOwnerOfService && !$ctrl.isServiceDeleted"
+        data-ng-click="$ctrl.openConsultationFormModal()")

@@ -14,13 +14,13 @@ describe('Unit testing: profitelo.components.dashboard.expert.manage-profile.sin
     let compile: ng.ICompileService
     let componentController: ng.IComponentControllerService
     let component: SingleServiceComponentController
-    let service: GetExpertServiceDetails
+    let serviceDetails: GetExpertServiceDetails
     const userService: UserService  = <UserService>{
       getUser: {}
     }
     const validHTML = '<single-service data-service="service"></single-service>'
 
-    service = {
+    serviceDetails = {
       service: {
         id: 'id',
         ownerId: 'ownerId',
@@ -58,7 +58,7 @@ describe('Unit testing: profitelo.components.dashboard.expert.manage-profile.sin
 
     function create(html: string): JQuery {
       scope = <ISingleServiceComponentControllerScope>rootScope.$new()
-      scope.service = service
+      scope.serviceDetails = serviceDetails
       const elem = angular.element(html)
       const compiledElement = compile(elem)(scope)
       scope.$digest()
@@ -87,7 +87,8 @@ describe('Unit testing: profitelo.components.dashboard.expert.manage-profile.sin
         }
 
         const bindings: ISingleServiceComponentBindings = {
-          service
+          onModalClose: (): void => {},
+          serviceDetails
         }
 
         component = componentController<SingleServiceComponentController, {}>('singleService', injectors, bindings)

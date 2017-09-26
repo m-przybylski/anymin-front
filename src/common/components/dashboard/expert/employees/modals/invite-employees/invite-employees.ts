@@ -4,7 +4,7 @@ import {ExpertInviteEmployeesController} from './invite-employees.controller'
 import './invite-employees.sass'
 import checkboxModule from '../../../../../interface/checkbox/checkbox'
 import consultationEmployeeInputModule
-  from '../../../../../wizard/consultation-employee-input/consultation-employee-input'
+  from '../../../../../interface/input-consultation-employee/input-consultation-employee'
 import consultationListItemModule from '../../../../../invitations/consultation-list-item/consultation-list-item'
 
 const expertInviteEmployeesModule = angular.module(

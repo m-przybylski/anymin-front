@@ -1,15 +1,14 @@
 @import "../../../../template/profitelo_theme/stylesheets/variables/variables"
 @import "../../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
 
-.consultation-employee-input
+.input-consultation-employee
   position: relative
 
   .input-handler
     margin: 0 0 16px
-    justify-content: space-between
 
-    input-primary
-      flex: 1
+    input
+      width: 100%
 
   .checked-list
     margin: 0 0 32px
@@ -34,3 +33,18 @@
       a
         span
           color: $c-primary
+
+  .options-container
+    width: 100%
+    display: flex
+    flex-wrap: wrap
+
+    +smm
+      flex-wrap: nowrap
+      justify-content: space-between
+
+    checkbox
+      width: 100%
+
+      +smm
+        width: auto

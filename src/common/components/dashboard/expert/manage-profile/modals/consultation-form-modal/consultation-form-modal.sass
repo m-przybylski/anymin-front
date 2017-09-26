@@ -1,0 +1,57 @@
+@import "../../../../../../../template/profitelo_theme/stylesheets/variables/variables"
+@import "../../../../../../../template/profitelo_theme/stylesheets/core/helpers/helpers"
+
+.consultation-form
+  background: white
+  display: flex
+  align-items: center
+  justify-content: center
+  padding: 80px 10px
+
+  +smm
+    padding: 80px 20px
+
+
+  .modal-section
+    margin: 0 0 96px
+
+    .section-title
+      .title
+        +inputSmall
+
+      .additional-text
+        +paragraphTitle
+        color: $c-tertiary-txt
+        font-size: $f-paragraph-small
+
+    input-price
+      margin: 0 0 8px 0
+
+    .hint
+      display: flex
+      align-items: center
+
+      p
+        margin: 0 8px 0 0
+
+    input-consultation-employee,
+    input-consultation-tag
+      input
+        border-bottom: 1px solid $c-lines
+        width: 100%
+
+    input-consultation-tag
+      input
+        margin: 0 0 16px
+
+
+  .modal-action
+    flex-wrap: wrap
+
+    .validation-alert
+      display: flex
+      justify-content: flex-start
+      width: 100%
+
+      +xsm
+        justify-content: center

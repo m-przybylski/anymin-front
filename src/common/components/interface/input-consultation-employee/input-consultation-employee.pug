@@ -1,4 +1,4 @@
-.consultation-employee-input
+.input-consultation-employee
   .input-handler
     input(
       data-ng-model="$ctrl.inputValue"
@@ -7,9 +7,6 @@
       data-ng-focus="$ctrl.onFocus()"
 
     )
-    button.btn.btn-small.btn-primary(data-translate="WIZARD.CONSULTATION.EMPLOYEE.BUTTON.UPLOAD"
-    ngf-select="$ctrl.uploadCSVFile($files)"
-    ngf-accept="'.csv'")
 
   validation-alert(
   data-alert-text="WIZARD.CONSULTATION.UPLOAD_FILE_IS_INVALID"
@@ -38,12 +35,20 @@
         a(data-ng-click="$ctrl.deleteSelectedItem($index)") {{tag}}
           span.icon.icon-failure-24
 
-  checkbox(
-    data-input-text="WIZARD.CONSULTATION.EMPLOYEE.MYSELF.TITLE"
-    data-ng-model="$ctrl.isOwnerEmployee"
-  )
+  .options-container
+    checkbox(
+      data-ng-show="$ctrl.isCheckboxVisible"
+      data-input-text="WIZARD.CONSULTATION.EMPLOYEE.MYSELF.TITLE"
+      data-ng-model="$ctrl.isOwnerEmployee"
+    )
+
+    button.btn.btn-small.btn-primary(data-translate="WIZARD.CONSULTATION.EMPLOYEE.BUTTON.UPLOAD"
+    ngf-select="$ctrl.uploadCSVFile($files)"
+    ngf-accept="'.csv'")
+
 
   validation-alert(
     data-alert-text="{{$ctrl.validationText}}"
-    data-is-visible="!$ctrl.isValid && $ctrl.isDirty && !$ctrl.isFocus"
+    data-is-visible="!$ctrl.isValid && $ctrl.isDirty && !$ctrl.isFocus ||" +
+    "!$ctrl.isValid && $ctrl.isSubmitted && !$ctrl.isFocus"
   )

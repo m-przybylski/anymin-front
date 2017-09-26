@@ -1,16 +1,16 @@
 import * as angular from 'angular'
 import IRootScopeService = profitelo.services.rootScope.IRootScopeService
-import consultationTagInputModule, {IConsultationTagInputBindings} from './consultaiton-tag-input'
-import {ConsultationTagInputComponentController} from './consultaiton-tag-input.controller'
+import inputConsultationTagModule, {IInputConsultationTagBindings} from './input-consultaiton-tag'
+import {InputConsultationTagComponentController} from './input-consultaiton-tag.controller'
 
-describe('Unit testing: profitelo.components.interface.consultation-tag-input', () => {
-  return describe('for consultationTagInput component >', () => {
+describe('Unit testing: profitelo.components.interface.input-consultation-tag', () =>
+  describe('for inputConsultationTag component >', () => {
 
     let scope: ng.IScope
     let rootScope: ng.IRootScopeService
     let compile: ng.ICompileService
-    let component: ConsultationTagInputComponentController
-    const validHTML = '<consultation-tag-input></consultation-tag-input>'
+    let component: InputConsultationTagComponentController
+    const validHTML = '<input-consultation-tag></input-consultation-tag>'
 
     function create(html: string): JQuery {
       scope = rootScope.$new()
@@ -21,7 +21,7 @@ describe('Unit testing: profitelo.components.interface.consultation-tag-input', 
     }
 
     beforeEach(() => {
-      angular.mock.module(consultationTagInputModule)
+      angular.mock.module(inputConsultationTagModule)
     })
 
     beforeEach(() => {
@@ -35,8 +35,8 @@ describe('Unit testing: profitelo.components.interface.consultation-tag-input', 
           $scope: rootScope
         }
 
-        component = $componentController<ConsultationTagInputComponentController, IConsultationTagInputBindings>(
-          'consultationTagInput', injectors
+        component = $componentController<InputConsultationTagComponentController, IInputConsultationTagBindings>(
+          'inputConsultationTag', injectors
         )
       })
     })
@@ -90,4 +90,4 @@ describe('Unit testing: profitelo.components.interface.consultation-tag-input', 
     })
 
   })
-})
+)

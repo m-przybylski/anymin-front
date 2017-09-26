@@ -9,6 +9,9 @@ export class DropdownPrimaryComponent implements ng.IComponentOptions {
     placeholder: '@',
     mainList: '<',
     onSelectMain: '<',
-    selectedItem: '=?'
+    selectedItem: '=?',
+    isSubmitted: '<?',
+    validationText: '@',
+    isValid: '<'
   }
 }
