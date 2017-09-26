@@ -14,27 +14,74 @@ export class ConsultationEmployeeInputComponentController implements IConsultati
   public areUploadedFilesInvalid: boolean = false
   public wrongValuesCounter: number
   private mailRegexp: RegExp
+  private phonePattern: RegExp
   public isFocus: boolean = false
+  public isValidEmployee: boolean = false
 
   private readonly validationTime: number = 3000
   private CSVFileReader: CSVFileReader
 
+  private static readonly defaultCountryPrefix = '+48'
+
   /* @ngInject */
   constructor(CommonSettingsService: CommonSettingsService, private $timeout: ng.ITimeoutService) {
     this.mailRegexp = CommonSettingsService.localSettings.emailPattern
+    this.phonePattern = CommonSettingsService.localSettings.phonePattern
     this.CSVFileReader = new CSVFileReader
   }
 
-  public onEnter = (): void => {
-    if (this.inputValue.length > 0 && !(this.addedItemsList.indexOf(this.inputValue) !== -1) &&
-      (this.mailRegexp.test(this.inputValue) || phoneNumbers.isValidNumber(this.inputValue))) {
-      this.isInputValueInvalid = false
-      this.addedItemsList.push(this.inputValue)
-      this.inputValue = ''
+  private getPrefixPhoneNumber = (phoneNumber: string): string => {
+    if (phoneNumber.indexOf(ConsultationEmployeeInputComponentController.defaultCountryPrefix) !== -1) {
+      return phoneNumber.replace(ConsultationEmployeeInputComponentController.defaultCountryPrefix,
+        ConsultationEmployeeInputComponentController.defaultCountryPrefix + ' ')
     } else {
-      this.isInputValueInvalid = true
+      return ConsultationEmployeeInputComponentController.defaultCountryPrefix + ' ' + phoneNumber
     }
   }
+
+  private deleteIncorrectPhoneSigns = (inputValue: string): string =>
+    inputValue.replace(/ /g, '').replace(/-/g, '')
+
+  private isValidPhoneNumber = (inputValue: string): boolean =>
+  inputValue.length > 0 && this.phonePattern.test(inputValue)
+
+  private isValidEmailAddress = (inputValue: string): boolean =>
+  inputValue.length > 0 && this.mailRegexp.test(inputValue)
+
+  public isEmployeeExist = (inputValue: string): boolean =>
+  this.addedItemsList.indexOf(inputValue) !== -1
+
+  public onEnter = (inputValue: string): void => {
+    this.isValidEmployee = this.isEmployeeExist(inputValue)
+
+    if (phoneNumbers.isValidNumber(inputValue, 'PL')) {
+      const correctValue = this.getFullPhoneNumber(inputValue)
+
+      if (this.isValidPhoneNumber(correctValue))
+        this.addEmployee(correctValue)
+    }
+    else if (this.isValidEmailAddress(inputValue)) {
+      this.addEmployee(inputValue)
+    }
+    else {
+      this.isInputValueInvalid = true
+      this.isValidEmployee = false
+    }
+  }
+
+  private addEmployee = (contactValue: string): void => {
+    if (!this.isEmployeeExist(contactValue)) {
+      this.addedItemsList.push(contactValue)
+      this.inputValue = ''
+      this.isValidEmployee = false
+    } else {
+      this.isValidEmployee = true
+    }
+    this.isInputValueInvalid = false
+  }
+
+  private getFullPhoneNumber = (inputValue: string): string =>
+    this.getPrefixPhoneNumber(this.deleteIncorrectPhoneSigns(inputValue))
 
   public deleteSelectedItem = (index: number): void => {
     this.addedItemsList.splice(index, 1)
@@ -48,6 +95,7 @@ export class ConsultationEmployeeInputComponentController implements IConsultati
     this.isDirty = true
     this.isFocus = false
     this.isInputValueInvalid = false
+    this.isValidEmployee = false
   }
 
   public uploadCSVFile = (files: FileList): void => {

@@ -2,7 +2,7 @@
   .input-handler
     input(
       data-ng-model="$ctrl.inputValue"
-      data-ng-enter="$ctrl.onEnter()"
+      data-ng-enter="$ctrl.onEnter($ctrl.inputValue)"
       data-ng-blur="$ctrl.onBlur()"
       data-ng-focus="$ctrl.onFocus()"
 
@@ -25,6 +25,11 @@
   validation-alert(
   data-alert-text="WIZARD.CONSULTATION.EMPLOYEE_INPUT_VALUE_INVALID"
   data-is-visible="$ctrl.isInputValueInvalid"
+  )
+
+  validation-alert(
+  data-alert-text="WIZARD.CONSULTATION.INVITATIONS_INPUT_VALIDATION.EMPLOYEE_EXIST"
+  data-is-visible="$ctrl.isValidEmployee"
   )
 
   .invited-list

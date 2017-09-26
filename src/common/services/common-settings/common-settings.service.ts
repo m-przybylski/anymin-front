@@ -80,7 +80,7 @@ export class CommonSettingsService {
       pinPattern: new RegExp(this.validation.pin.regex),
       smsCodePattern: /^[0-9]{4}$/,
       phonePattern: /^\+?\d+(\s\d+)*$/,
-      emailPattern: /([a-zA-Z0-9!#$%&'*+/=?^_`{|}~.-]+)@([a-zA-Z0-9-]+)\.([a-zA-Z.]+)/,
+      emailPattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
       numberPattern: /^\+?\d+(\s\d+)*$/,
       pricePattern: /^\d{1,3}([\.,](\d{1,2})?)?$/,
       urlPattern: /^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.\&\?\=\+\#-]*)*\/?$/,

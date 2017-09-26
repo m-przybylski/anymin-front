@@ -68,14 +68,14 @@ describe('Unit testing: profitelo.components.wizard.consultation-employee-input'
 
     it('should input value invalid', () => {
       component.inputValue = ''
-      component.onEnter()
+      component.onEnter(component.inputValue)
       expect(component.isInputValueInvalid).toBe(true)
     })
 
     it('should input value valid', () => {
       component.inputValue = 'input@value.com'
       component.addedItemsList = ['ex@op.com']
-      component.onEnter()
+      component.onEnter(component.inputValue)
       expect(component.isInputValueInvalid).toBe(false)
       expect(component.addedItemsList.length).toBe(2)
       expect(component.inputValue).toBe('')
