@@ -16,16 +16,12 @@ export interface IPrecallModalControllerScope extends ng.IScope {
 export class PrecallModalController implements ng.IController {
   public isLoading: boolean = true
   public callLimitModel: number = 0
-  private consultationPrice: number
   public paymentMethods: IPrimaryDropdownListElement[] = []
   public clientBalance: IPrimaryDropdownListElement
   public onSelectMain: IPrimaryDropdownListElement
   public isPrepaid: boolean = true
-  private prepaidCallLimitModel: number
   public expertAvatar: string
   public priceRegexp: RegExp = this.CommonSettingsService.localSettings.pricePattern
-  private moneyDivider: number = this.CommonConfig.getAllData().config.moneyDivider
-  private prepaidValue: string
   public prepaidTranslation: string
   public dateTimeLimit: string
   public isRegExpPriceInputValid: boolean = true
@@ -36,6 +32,11 @@ export class PrecallModalController implements ng.IController {
   public serviceOwnerName: string = ''
   public isUnlimitedPrepaid: boolean = true
   public isButtonProgress: boolean = false
+  public isBalanceEnoughForMinimalCallTime: boolean = false
+  private prepaidCallLimitModel: number
+  private prepaidValue: string
+  private moneyDivider: number = this.CommonConfig.getAllData().config.moneyDivider
+  private consultationPrice: number
 
   public onModalClose = (): void =>
     this.$uibModalInstance.dismiss('cancel')
@@ -115,7 +116,9 @@ export class PrecallModalController implements ng.IController {
         + clientBalance.currency,
         value: this.prepaidValue
       }
+      this.isBalanceEnoughForMinimalCallTime = this.checkIsBalanceEnoughForMinimalCallTime()
       this.onSelectMain = this.clientBalance
+
     }, (error) => {
       this.$log.error(error)
       this.topAlertService.error({
@@ -127,8 +130,11 @@ export class PrecallModalController implements ng.IController {
   }
 
   public startCall = (): void => {
-    if (this.isRegExpPriceInputValid && this.isPriceInputValid && this.isInputValueGreaterThanAccountBalance
-      && this.prepaidCallLimitModel !== 0) {
+    if (!this.isPrepaid && this.isRegExpPriceInputValid
+      && this.isPriceInputValid
+      && this.isInputValueGreaterThanAccountBalance
+      && this.prepaidCallLimitModel !== 0 || this.isPrepaid
+      && this.isBalanceEnoughForMinimalCallTime) {
       this.isButtonProgress = true
       this.clientCallService.callServiceId(this.service.id).finally(() => {
         this.$uibModalInstance.dismiss('cancel')
@@ -175,7 +181,6 @@ export class PrecallModalController implements ng.IController {
     // TODO Wait for: https://git.contactis.pl/itelo/profitelo/issues/1015
     const input = angular.element('input-price input')[0]
     this.isPrepaid = data.value === this.prepaidValue
-
     if (input) {
       input.focus()
     } else {
@@ -201,4 +206,7 @@ export class PrecallModalController implements ng.IController {
 
   private isValueGraterThanAccountBalance = (model: number): boolean =>
     ((model <= this.prepaidCallLimitModel / this.moneyDivider)) || model === 0
+
+  private checkIsBalanceEnoughForMinimalCallTime = (): boolean =>
+    (this.prepaidCallLimitModel / this.moneyDivider > this.consultationPrice)
 }
