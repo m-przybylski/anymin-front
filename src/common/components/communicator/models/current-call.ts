@@ -51,7 +51,9 @@ export class CurrentCall {
     onLocalStream: 'onLocalStream',
     onTimeCostChange: 'onTimeCostChange',
     onVideoStart: 'onVideoStart',
-    onVideoStop: 'onVideoStop'
+    onVideoStop: 'onVideoStop',
+    onParticipantOnline: 'onParticipantOnline',
+    onParticipantOffline: 'onParticipantOffline'
   }
 
   constructor(callbacksFactory: CallbacksFactory,
@@ -170,6 +172,10 @@ export class CurrentCall {
     if (this.timer) this.timer.resume()
   }
 
+  public onParticipantOnline = (cb: () => void): void => this.callbacks.methods.onParticipantOnline(cb)
+
+  public onParticipantOffline = (cb: () => void): void => this.callbacks.methods.onParticipantOffline(cb)
+
   private updateLocalStream = (mediaStream: MediaStream, stopLocalStream?: () => void): void => {
     if (this.localStream) {
       this.ratelCall.removeStream(this.localStream);
@@ -220,9 +226,12 @@ export class CurrentCall {
 
     this.ratelCall.onOffline(() => {
       this.pauseTimer()
+      this.callbacks.notify(CurrentCall.events.onParticipantOffline, null)
     })
+
     this.ratelCall.onOnline(() => {
       this.resumeTimer()
+      this.callbacks.notify(CurrentCall.events.onParticipantOnline, null)
     })
   }
 

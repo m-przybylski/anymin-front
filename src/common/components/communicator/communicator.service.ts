@@ -62,7 +62,8 @@ export class CommunicatorService {
               userService: UserService,
               CommonConfig: CommonConfig,
               callbacksFactory: CallbacksFactory,
-              eventsService: EventsService) {
+              eventsService: EventsService,
+              $window: ng.IWindowService) {
 
     this.commonConfig = CommonConfig.getAllData()
     this.callbacks = callbacksFactory.getInstance(Object.keys(CommunicatorService.events))
@@ -74,6 +75,11 @@ export class CommunicatorService {
     })
     eventsService.on('logout', () => {
       if (this.ratelSession) this.ratelSession.chat.disconnect()
+    })
+
+    $window.addEventListener('online', () => {
+      if (this.ratelSession)
+        this.ratelSession.chat.connect()
     })
   }
 
@@ -109,12 +115,12 @@ export class CommunicatorService {
     this.ratelSession = session;
     this.createRatelConnection(session)
     return this.RatelApi.postBriefcaseUserConfigRoute({id: session.id})
-      .then(() => this.$log.debug('Client session created', session))
+    .then(() => this.$log.debug('Client session created', session))
   }
 
   private onGetRatelClientAuthConfig = (clientConfig: SignedAgent): Promise<void> =>
     RatelSdk.withSignedAuth(clientConfig as RatelSdk.SessionData, this.chatConfig)
-      .then(this.onCreateClientSession)
+    .then(this.onCreateClientSession)
 
   private authenticateClient = (): ng.IPromise<void> =>
     this.RatelApi.getRatelAuthConfigRoute().then(this.onGetRatelClientAuthConfig)

@@ -21,6 +21,7 @@ export class CommunicatorComponentController implements ng.IController {
   public expertAvatar?: string
 
   public isOffline: boolean = false
+  public isParticipantOffline: boolean = false
   public isRemoteVideo: boolean = false
   public isLocalVideo: boolean = false
   public isMessenger: boolean = false
@@ -37,6 +38,7 @@ export class CommunicatorComponentController implements ng.IController {
   constructor(private $element: ng.IRootElementService,
               private $timeout: ng.ITimeoutService,
               private $window: ng.IWindowService,
+              private $filter: ng.IFilterService,
               private topAlertService: TopAlertService,
               clientCallService: ClientCallService,
               expertCallService: ExpertCallService) {
@@ -64,8 +66,9 @@ export class CommunicatorComponentController implements ng.IController {
   private onOnline = (): void => {
     this.isOffline = false
     if (this.currentCall) this.currentCall.resumeTimer()
+
     this.topAlertService.success({
-      message: 'COMMUNICATOR.NETWORK_RECONNECTED',
+      message: this.$filter('translate')('COMMUNICATOR.NETWORK_RECONNECTED'),
       timeout: 2
     })
   }
@@ -74,7 +77,7 @@ export class CommunicatorComponentController implements ng.IController {
     this.isOffline = true
     if (this.currentCall) this.currentCall.pauseTimer()
     this.topAlertService.error({
-      message: 'COMMUNICATOR.NETWORK_INTERRUPT',
+      message: this.$filter('translate')('COMMUNICATOR.NETWORK_INTERRUPT'),
       timeout: 5
     })
   }
@@ -119,6 +122,8 @@ export class CommunicatorComponentController implements ng.IController {
     call.onVideoStart(this.onVideoStart)
     call.onVideoStop(this.onVideoStop)
     call.onTimeCostChange(this.onTimeCostChange)
+    call.onParticipantOnline(this.onUserBackOnline)
+    call.onParticipantOffline(this.onUserOffline)
   }
 
   private onTimeCostChange = (timeMoneyTuple: { time: number, money: MoneyDto }): void => {
@@ -132,6 +137,18 @@ export class CommunicatorComponentController implements ng.IController {
 
   private onLocalStream = (stream: MediaStream): void => {
     this.localStreamElement.attr('src', this.$window.URL.createObjectURL(stream))
+  }
+
+  private onUserBackOnline = (): void => {
+    this.isParticipantOffline = false
+  }
+
+  private onUserOffline = (): void => {
+    this.isParticipantOffline = true
+    this.topAlertService.error({
+      message: this.$filter('translate')('COMMUNICATOR.INTERLOCUTOR_NETWORK_INTERRUPT'),
+      timeout: 5
+    })
   }
 
   private cleanupComponent = (): void => {

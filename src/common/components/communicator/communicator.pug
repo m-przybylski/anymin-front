@@ -29,6 +29,7 @@ data-ng-hide="$ctrl.isClosed")
 
       p.call.connecting-with(data-translate="COMMUNICATOR.CONNECTING_WITH" data-ng-show="$ctrl.isConnecting")
       p.call.connecting-with(data-translate="COMMUNICATOR.RECONNECTING" data-ng-show="$ctrl.isOffline")
+      p.call.connecting-with(data-translate="COMMUNICATOR.NETWORK_PROBLEM" data-ng-show="$ctrl.isParticipantOffline")
 
     .video-player-local(data-ng-show="$ctrl.isLocalVideo")
       video(autoplay="true" muted="true")
