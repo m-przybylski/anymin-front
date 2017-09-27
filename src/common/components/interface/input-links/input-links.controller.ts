@@ -1,7 +1,7 @@
-import {IWizardLinksComponentBindings} from './wizard-links'
+import {IInputLinksComponentBindings} from './input-links'
 import {CommonSettingsService} from '../../../services/common-settings/common-settings.service'
 
-export class WizardLinksComponentController implements IWizardLinksComponentBindings, ng.IController {
+export class InputLinksComponentController implements IInputLinksComponentBindings, ng.IController {
 
   public selectedLinks: string[] = []
   public linkModel: string

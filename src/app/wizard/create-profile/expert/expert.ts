@@ -8,9 +8,9 @@ import wizardHandlerModule from '../../../../common/components/wizard/wizard-han
 import apiModule from 'profitelo-api-ng/api.module'
 import inputDropdownTagModule from '../../../../common/components/interface/input-dropdown-tag/input-dropdown-tag'
 import inputModule from '../../../../common/components/interface/input/input'
-import wizardUploaderModule from '../../../../common/components/wizard/wizard-uploader/wizard-uploader'
+import fileUploaderModule from '../../../../common/components/file-uploader/file-uploader'
 import textareaModule from '../../../../common/components/interface/textarea/textarea'
-import wizardLinksModule from '../../../../common/components/wizard/wizard-links/wizard-links'
+import inputLinksModule from '../../../../common/components/interface/input-links/input-links'
 import commonSettingsModule from '../../../../common/services/common-settings/common-settings'
 import {GetWizardProfile} from 'profitelo-api-ng/model/models'
 import ValidationAlertModule from '../../../../common/components/interface/alert/validation-alert/validation-alert'
@@ -26,8 +26,8 @@ const expertWizardModule = angular.module('profitelo.controller.wizard.create-pr
   inputModule,
   apiModule,
   textareaModule,
-  wizardUploaderModule,
-  wizardLinksModule,
+  fileUploaderModule,
+  inputLinksModule,
   wizardHandlerModule,
   commonSettingsModule,
   'profitelo.directives.interface.pro-alert',

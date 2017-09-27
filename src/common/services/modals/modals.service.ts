@@ -6,7 +6,7 @@ import INoCreditsControllerParentScope =
   profitelo.components.communicator.modals.noCredits.INoCreditsControllerParentScope
 import {
   GetService, GetActivity, GetInvitation, MoneyDto, GetCreditCard, GetPaymentOptions,
-  PaymentLink, GetProfile
+  PaymentLink, GetProfile, GetOrganizationDetails, GetExpertDetails
 } from 'profitelo-api-ng/model/models'
 import {DialogService} from '../dialog/dialog.service'
 import {
@@ -493,9 +493,12 @@ export class ModalsService {
     })
   }
 
-  public createManageProfileEditProfileModal = (): IModalInstanceService => {
+  public createManageProfileEditProfileModal =
+    (profile: GetOrganizationDetails | GetExpertDetails, onModalClose: () => void): IModalInstanceService => {
     const dialogScope: IEditExpertProfileScope =
       <IEditExpertProfileScope>this.$rootScope.$new(true)
+    dialogScope.profile = profile
+    dialogScope.onModalCloseCallback = onModalClose
 
     return this.dialogService.openDialog({
       controllerAs: 'vm',

@@ -1,13 +1,13 @@
-import {IWizardUploaderModuleComponentBindings} from './wizard-uploader'
-import {UploaderFactory} from '../../../services/uploader/uploader.factory'
-import {UploaderService} from '../../../services/uploader/uploader.service'
+import {IFileUploaderModuleComponentBindings} from './file-uploader'
+import {UploaderFactory} from '../../services/uploader/uploader.factory'
+import {UploaderService} from '../../services/uploader/uploader.service'
 import {FilesApi} from 'profitelo-api-ng/api/api'
 import {PostProcessOption, FileInfo} from 'profitelo-api-ng/model/models'
 import * as _ from 'lodash'
-import {FileCategoryEnum, FileTypeChecker} from '../../../classes/file-type-checker/file-type-checker'
-import {IFilterService} from '../../../services/filter/filter.service'
+import {FileCategoryEnum, FileTypeChecker} from '../../classes/file-type-checker/file-type-checker'
+import {IFilterService} from '../../services/filter/filter.service'
 
-export interface IWizardUploaderComponentScope extends ng.IScope {
+export interface IFileUploaderComponentScope extends ng.IScope {
   tokenList: string[]
 }
 
@@ -18,7 +18,7 @@ export interface IDocumentFile {
   isUploadFailed: boolean
 }
 
-export class WizardUploaderComponentController implements IWizardUploaderModuleComponentBindings {
+export class FileUploaderComponentController implements IFileUploaderModuleComponentBindings {
 
   private uploader: UploaderService
   public documentFiles: IDocumentFile[] = []

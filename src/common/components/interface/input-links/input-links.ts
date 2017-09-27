@@ -1,20 +1,20 @@
 import * as angular from 'angular'
-import {WizardLinksComponent} from './wizard-links.component'
+import {InputLinksComponent} from './input-links.component'
 import '../../../directives/pro-social-icon-getter/pro-social-icon-getter'
 import ValidationAlertModule from '../../interface/alert/validation-alert/validation-alert'
-import './wizard-links.sass'
+import './input-links.sass'
 
-export interface IWizardLinksComponentBindings extends ng.IController {
+export interface IInputLinksComponentBindings extends ng.IController {
   selectedLinks: string[]
 }
 
-const wizardLinksModule = angular.module('profitelo.components.wizard.wizard-links', [
+const inputLinksModule = angular.module('profitelo.components.interface.input-links', [
   'pascalprecht.translate',
   'profitelo.directives.pro-social-icon-getter',
   ValidationAlertModule
 
 ])
-.component('wizardLinks', new WizardLinksComponent)
+.component('inputLinks', new InputLinksComponent)
   .name
 
-export default wizardLinksModule
+export default inputLinksModule

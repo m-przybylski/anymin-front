@@ -23,7 +23,7 @@
     data-check-is-step-valid="vm.checkIsLogoValid"
     data-required="vm.isStepRequired"
     )
-      wizard-avatar(
+      avatar-uploader(
       data-avatar-token="vm.logoModel"
       data-is-valid="vm.checkIsLogoValid()"
       data-validation-text="WIZARD.COMPANY.AVATAR_INPUT_VALIDATION"
@@ -49,7 +49,7 @@
       data-tooltip-text="WIZARD.STEP.COMPANY.FILES.TOOLTIP"
       data-check-is-step-valid="vm.checkIsFileUploadValid"
     )
-      wizard-uploader(
+      file-uploader(
         data-token-list="vm.filesModel"
         data-is-valid-callback="vm.onUploadingFile"
       )
@@ -61,7 +61,7 @@
     data-on-go-to-next="vm.goToSummary"
     data-button-title="WIZARD.STEP.COMPANY.GOTO.SUMMARY.BUTTON"
     )
-      wizard-links(data-selected-links="vm.linksModel")
+      input-links(data-selected-links="vm.linksModel")
 
     validation-alert(
     data-alert-text="WIZARD.COMPANY.VALIDATE_FORM"
