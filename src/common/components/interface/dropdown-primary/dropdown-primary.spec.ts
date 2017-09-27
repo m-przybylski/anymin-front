@@ -50,8 +50,7 @@ describe('Unit testing: profitelo.components.interface.dropdown-primary', () => 
         selectedItem: {
           name: 'name',
           value:'value'
-        },
-        callback: () => {}
+        }
       }
 
       const injectors = {
@@ -91,7 +90,6 @@ describe('Unit testing: profitelo.components.interface.dropdown-primary', () => 
       component.toggleDropdown()
       component.toggleDropdown()
       expect(component.isOpen).toBe(false)
-      expect(component.isClosed).toBe(true)
     })
 
     it('should add selected item to list and change current item', () => {

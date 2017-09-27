@@ -16,8 +16,3 @@
 
         li.no-results(data-ng-show="!$ctrl.mainList || $ctrl.mainList.length < 1")
           a {{ INTERFACE.DROPDOWN_PRIMARY.NO_RESULTS | translate }}
-
-validation-alert(
-data-alert-text="{{$ctrl.validationText}}"
-data-is-visible="!$ctrl.isValid && $ctrl.validationText.length > 0 && $ctrl.isClosed"
-)
