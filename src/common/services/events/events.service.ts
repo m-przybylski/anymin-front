@@ -1,6 +1,6 @@
 import * as ng from 'angular'
 
-type EventName = 'login' | 'logout' |'wizard-complete'
+type EventName = 'login' | 'logout' | 'wizard-complete'
 
 export class EventsService {
 
