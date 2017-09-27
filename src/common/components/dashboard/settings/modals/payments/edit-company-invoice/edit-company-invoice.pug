@@ -4,7 +4,7 @@
     preloader()
       .modal-container
         .invoice-form
-          form(name="editInvoiceForm" data-ng-submit="editInvoiceForm.$valid && vm.editInvoice()")
+          form(name="editInvoiceForm" data-ng-submit="editInvoiceForm.$valid && vm.editInvoice()" novalidate)
             .invoice-form-company-info
               header.entry-title
                 span(data-translate="DASHBOARD.CHARGE_ACCOUNT.INVOICE.TITLE")

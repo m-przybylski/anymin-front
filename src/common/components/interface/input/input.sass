@@ -21,6 +21,25 @@ input-primary
     height: $s-input-height
     align-self: flex-end
 
+    &::placeholder
+      +inputTextPlaceholder
+
+    &::-webkit-input-placeholder
+      +inputTextPlaceholder
+
+    &::-moz-placeholder
+      +inputTextPlaceholder
+      line-height: $f-input-line-height
+
+    &:-ms-input-placeholder
+      +inputTextPlaceholder
+      line-height: $f-input-line-height
+
+    &:-moz-placeholder
+      +inputTextPlaceholder
+      line-height: $f-input-line-height
+
+
   &::before
     content: ''
     position: absolute
@@ -56,23 +75,6 @@ input-primary
 
     input
       color: $c-error
-
-  \::-webkit-input-placeholder
-    +inputTextPlaceholder
-    line-height: $f-input-line-height
-
-  \::-moz-placeholder
-    +inputTextPlaceholder
-    line-height: $f-input-line-height
-
-  \:-ms-input-placeholder
-    +inputTextPlaceholder
-    line-height: $f-input-line-height
-
-  \:-moz-placeholder
-    +inputTextPlaceholder
-    line-height: $f-input-line-height
-
 
 .input-sign-counter
   text-align: left
