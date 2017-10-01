@@ -29,13 +29,14 @@ describe('Unit testing: profitelo.components.communicator.messenger.maximized', 
     }
 
     let uploaderService: UploaderService
-    
+
     const clientCallService: ClientCallService = {
       onNewCall: (_cb: (call: CurrentClientCall) => void): void => {}
     } as ClientCallService
 
     const expertCallService: ExpertCallService = {
-      onNewCall: (_cb: (call: CurrentExpertCall) => void): void => {}
+      onNewCall: (_cb: (call: CurrentExpertCall) => void): void => {},
+      onPullCall: (_cb: (call: CurrentExpertCall) => void): void => {}
     } as ExpertCallService
 
     const uploaderFactory: UploaderFactory = {

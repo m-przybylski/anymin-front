@@ -9,6 +9,7 @@ import {MediaStreamConstraintsWrapper} from '../../../classes/media-stream-const
 import {StreamManager} from '../../../classes/stream-manager';
 import {MessageRoom} from './message-room';
 import {SoundsService} from '../../../services/sounds/sounds.service';
+import {CallActiveDevice} from 'ratel-sdk-js/dist/protocol/wire-events'
 
 export enum CallState {
   NEW,
@@ -74,7 +75,9 @@ export class CurrentCall {
     this.messageRoom
 
   public setBusinessRoom = (room: RatelSdk.BusinessRoom): Promise<void> =>
-    this.messageRoom.setRoom(room)
+    this.messageRoom.joinRoom(room)
+
+  public setRoom = (room: RatelSdk.BusinessRoom): void => this.messageRoom.setRoom(room)
 
   public getRatelCallId = (): RatelSdk.protocol.ID =>
     this.ratelCall.id
@@ -167,12 +170,21 @@ export class CurrentCall {
     if (this.timer) this.timer.stop()
   }
 
+  public setStartTime = (time: number): void => {
+    if (this.timer) this.timer.setStartTime(time)
+  }
+
   public pauseTimer = (): void => {
     if (this.timer) this.timer.pause()
   }
 
   public resumeTimer = (): void => {
     if (this.timer) this.timer.resume()
+  }
+
+  public pullCall = (mediaStream: MediaStream): Promise<void> => {
+    this.stopLocalStream()
+    return this.ratelCall.pull(mediaStream)
   }
 
   public onParticipantOnline = (cb: () => void): void => this.callbacks.methods.onParticipantOnline(cb)
@@ -197,17 +209,23 @@ export class CurrentCall {
     this.callbacks.methods.onLocalStream(cb);
   }
 
+  public onActiveDevice =
+    (cb: (activeDevice: CallActiveDevice) => void): void => this.callbacks.methods.onActiveDevice(cb);
+
   private registerCallbacks = (): void => {
     this.ratelCall.onAnswered(() => this.callbacks.notify(CurrentCall.events.onAnswered, null))
     this.ratelCall.onRejected(() => this.callbacks.notify(CurrentCall.events.onRejected, null))
     this.ratelCall.onEnd(() => {
       this.stopLocalStream()
       this.stopTimer()
-
       this.setState(this.ratelCall.users.length > 1 ? CallState.ENDED : CallState.CANCELLED)
       this.callbacks.notify(CurrentCall.events.onEnd, null)
     })
-    this.ratelCall.onActiveDevice(() => this.callbacks.notify(CurrentCall.events.onActiveDevice, null))
+    this.ratelCall.onActiveDevice((activeDevice) => {
+      this.stopLocalStream()
+      this.stopTimer()
+      this.callbacks.notify(CurrentCall.events.onActiveDevice, activeDevice)
+    })
     this.ratelCall.onInvited(() => this.callbacks.notify(CurrentCall.events.onInvited, null))
     this.ratelCall.onJoined(() => this.callbacks.notify(CurrentCall.events.onJoined, null))
     this.ratelCall.onLeft(() => {

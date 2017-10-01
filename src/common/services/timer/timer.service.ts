@@ -43,4 +43,8 @@ export class TimerService {
     this.isPaused = false
     this.startTime = this.startTime  - (this.pausedTime - Date.now())
   }
+
+  public setStartTime = (time: number): void => {
+    this.startTime = time
+  }
 }

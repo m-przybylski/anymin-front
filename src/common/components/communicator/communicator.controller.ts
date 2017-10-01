@@ -6,6 +6,8 @@ import {CurrentExpertCall} from './models/current-expert-call';
 import {CurrentCall} from './models/current-call';
 import {MessageRoom} from './models/message-room';
 import {TopAlertService} from '../../services/top-alert/top-alert.service'
+import {CommunicatorService} from './communicator.service'
+import {CallActiveDevice} from 'ratel-sdk-js/dist/protocol/wire-events'
 
 export class CommunicatorComponentController implements ng.IController {
 
@@ -34,19 +36,25 @@ export class CommunicatorComponentController implements ng.IController {
 
   public messageRoom: MessageRoom
 
+  public callActive: boolean
+
   /* @ngInject */
   constructor(private $element: ng.IRootElementService,
               private $timeout: ng.ITimeoutService,
               private $window: ng.IWindowService,
               private $filter: ng.IFilterService,
+              private expertCallService: ExpertCallService,
               private topAlertService: TopAlertService,
-              clientCallService: ClientCallService,
-              expertCallService: ExpertCallService) {
+              private communicatorService: CommunicatorService,
+              clientCallService: ClientCallService) {
 
     clientCallService.onNewCall(this.registerClientCall)
     clientCallService.onOneMinuteLeftWarning(this.onOneMinuteLeftWarning)
     clientCallService.onNewFinancialOperation(this.onNewFinancialOperation)
     expertCallService.onNewCall(this.registerExpertCall)
+
+    expertCallService.onPullCall(this.onPullCall)
+    expertCallService.onActiveDevice(this.onActiveDevice)
   }
 
   $onInit = (): void => {
@@ -82,6 +90,10 @@ export class CommunicatorComponentController implements ng.IController {
     })
   }
 
+  public pullCall = (): void => {
+    this.expertCallService.pullCall()
+  }
+
   private registerClientCall = (call: CurrentClientCall): void => {
     this.cleanupComponent()
     this.currentCall = call
@@ -94,6 +106,15 @@ export class CommunicatorComponentController implements ng.IController {
       this.isConnecting = false
     })
 
+    this.registerCommonCallEvents(call);
+  }
+
+  private onPullCall = (call: CurrentExpertCall): void => {
+    this.cleanupComponent()
+    this.currentCall = call
+    this.service = call.getService();
+    this.isConnecting = false
+    this.isClosed = false
     this.registerCommonCallEvents(call);
   }
 
@@ -112,7 +133,6 @@ export class CommunicatorComponentController implements ng.IController {
 
     const localStream = call.getLocalStream();
     if (localStream) this.onLocalStream(localStream);
-
     this.messageRoom = call.getMessageRoom();
 
     call.onLocalStream(this.onLocalStream)
@@ -124,6 +144,17 @@ export class CommunicatorComponentController implements ng.IController {
     call.onTimeCostChange(this.onTimeCostChange)
     call.onParticipantOnline(this.onUserBackOnline)
     call.onParticipantOffline(this.onUserOffline)
+  }
+
+  private onActiveDevice = (activeDevice: CallActiveDevice): void => {
+    if (activeDevice.device !== this.communicatorService.getClientDeviceId()) {
+      this.isDisconnectedAnimation = true
+      this.callActive = true
+      this.$timeout(() => {
+        this.isClosed = true
+        this.cleanupComponent()
+      }, CommunicatorComponentController.disconnectedAnimationTimeout)
+    }
   }
 
   private onTimeCostChange = (timeMoneyTuple: { time: number, money: MoneyDto }): void => {
@@ -166,6 +197,7 @@ export class CommunicatorComponentController implements ng.IController {
 
   private onCallEnd = (): void => {
     this.isDisconnectedAnimation = true
+    this.callActive = false
     this.$window.removeEventListener('online', this.onOnline)
     this.$window.removeEventListener('offline', this.onOffline)
     this.$timeout(() => {

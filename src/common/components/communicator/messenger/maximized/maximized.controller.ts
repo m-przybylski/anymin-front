@@ -52,6 +52,10 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
 
     this.clientCallService.onNewCall(this.clientInit)
     this.expertCallService.onNewCall(this.expertInit)
+    this.expertCallService.onPullCall((currentExpertCall) => {
+      if (!this.messageRoom) this.expertInit(currentExpertCall)
+    })
+
   }
 
   private onNewCall = (currentCall: CurrentCall): void => {
@@ -153,7 +157,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
 
   private sendMessage = (messageObject: string, tag?: string, context?: RatelSdk.protocol.Context): Promise<void> =>
     this.messageRoom.sendMessage(messageObject, tag, context)
-      .catch(this.onMessageSendError)
+    .catch(this.onMessageSendError)
 
   private onUploadProgess = (res: any): void =>
     this.$log.debug(res)
@@ -181,7 +185,7 @@ export class MessengerMaximizedComponentController implements ng.IController, IM
 
   private uploadFile = (file: File): ng.IPromise<never> =>
     this.uploader.uploadFile(file, this.postProcessOptions, this.onUploadProgess)
-      .then(this.onFileUpload, this.onFileUploadError)
+    .then(this.onFileUpload, this.onFileUploadError)
 
   private onTyping = (): void => {
     this.isTyping = true

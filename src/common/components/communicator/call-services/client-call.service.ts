@@ -84,10 +84,10 @@ export class ClientCallService {
     call.onEnd(() => this.onCallEnd(call.getService().id));
     call.onAnswered(this.onCallAnswered);
     this.communicatorService.onRoomInvitation((roomInvitation) => {
-      if (roomInvitation.room.name === call.getRatelCallId()) {
+      if (roomInvitation.room.name === call.getRatelCallId() && !call.getMessageRoom().room) {
         call.setBusinessRoom(roomInvitation.room as RatelSdk.BusinessRoom).catch(this.$log.error)
       } else {
-        this.$log.error('Received roomInvitation name does not match current callId');
+        this.$log.error('Received roomInvitation name does not match current callId or room already exist');
       }
     })
     return call;
