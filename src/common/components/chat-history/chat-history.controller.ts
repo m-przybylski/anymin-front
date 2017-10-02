@@ -1,36 +1,38 @@
 import {IChatHistoryBindings} from './chat-history'
 import * as RatelSdk from 'ratel-sdk-js';
 import {CommunicatorService} from '../communicator/communicator.service'
-import {RoomArchivable} from 'ratel-sdk-js'
 import {Paginated} from 'ratel-sdk-js/dist/protocol/protocol'
+import {Message} from 'ratel-sdk-js'
+import * as _ from 'lodash'
 
 export class ChatHistoryComponentController implements IChatHistoryBindings {
 
-  public chatMessages: RoomArchivable[]
+  public chatMessages: Message[]
   public roomId?: string
   public isLoading: boolean = true
   public isChatHistory: boolean = true
   public isError: boolean = false
+  public groupedMessages: Message[][] = []
   private session?: RatelSdk.Session
-  private static readonly typeMessage: string = 'message'
-  private static readonly chatHistoryLimit: number = 200
+  private static readonly chatHistoryLimit: number = 500
 
   /* @ngInject */
   constructor(private communicatorService: CommunicatorService,
-              private $log: ng.ILogService) {
+              private $log: ng.ILogService,
+              private $scope: ng.IScope) {
   }
 
   $onInit(): void {
     this.session = this.communicatorService.getClientSession()
-    this.getRoomHistory()
+    this.getMessages()
   }
 
-  public getRoomHistory = (): void => {
+  public getMessages = (): void => {
     this.isLoading = true
     if (this.session && this.roomId) {
       this.session.chat.getRoom(this.roomId)
       .then((room) => room.getMessages(0, ChatHistoryComponentController.chatHistoryLimit)
-      .then(this.onRoomHistory, this.onReject))
+      .then(this.onGetMessages, this.onReject))
     } else {
       this.onReject('Session or roomId not found')
     }
@@ -42,11 +44,29 @@ export class ChatHistoryComponentController implements IChatHistoryBindings {
     this.$log.error(err)
   }
 
-  private onRoomHistory = (roomHistory: Paginated<RoomArchivable>): void => {
-    this.chatMessages = roomHistory.items.filter(history => history.type === ChatHistoryComponentController.typeMessage)
+  private onGetMessages = (messages: Paginated<Message>): void => {
+    this.chatMessages = messages.items
     this.isChatHistory = this.chatMessages.length > 0
     this.isLoading = false
     this.isError = false
+    this.chatMessages.forEach((message) => {
+      this.addGroupedMessage(message)
+    })
+    this.$scope.$apply()
+  }
+
+  private addGroupedMessage = (message: Message): void => {
+    if (this.groupedMessages.length === 0) {
+      this.groupedMessages.push([message])
+    } else {
+      const lastMessageGroup = this.groupedMessages[this.groupedMessages.length - 1]
+      const firstElementOfLastMessageGroup = _.head(lastMessageGroup)
+      if (firstElementOfLastMessageGroup && firstElementOfLastMessageGroup.user === message.user) {
+        lastMessageGroup.push(message)
+      } else {
+        this.groupedMessages.push([message])
+      }
+    }
   }
 
 }

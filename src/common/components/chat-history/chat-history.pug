@@ -6,5 +6,6 @@
           data-translate="CHAT_HISTORY.ERROR_BUTTON")
 
         .messenger-messages
-          grouped-messages(data-messages="$ctrl.chatMessages" data-ng-if="$ctrl.isChatHistory")
+          grouped-messages(data-ng-repeat="messages in $ctrl.groupedMessages track by $index" data-messages="messages"
+            data-ng-if="$ctrl.isChatHistory")
           h5.no-chat-history(data-ng-if="!$ctrl.isChatHistory" data-translate="CHAT_HISTORY.NO_CHAT")
